@@ -80,6 +80,37 @@ android {
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
+    externalNativeBuild {
+        cmake {
+            path("src/androidMain/kotlin/org/ooni/libooniprobe-android/CMakeLists.txt")
+        }
+    }
+
+    buildTypes {
+        all {
+            externalNativeBuild {
+                cmake {
+                    targets("libooniprobe.so")
+                    arguments("-DGRADLE_USER_HOME=${project.gradle.gradleUserHomeDir}")
+                }
+            }
+        }
+        release {
+            externalNativeBuild {
+                cmake {
+                    arguments("-DANDROID_PACKAGE_NAME=${namespace}")
+                }
+            }
+        }
+        debug {
+            externalNativeBuild {
+                cmake {
+                    arguments("-DANDROID_PACKAGE_NAME=${namespace}.debug")
+                }
+            }
+        }
+    }
+
     defaultConfig {
         applicationId = "org.ooni.probe"
         minSdk = libs.versions.android.minSdk.get().toInt()

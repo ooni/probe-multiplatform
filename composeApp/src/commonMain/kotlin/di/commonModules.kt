@@ -28,7 +28,8 @@ fun commonModule() = module {
      */
     single<HomeScreenModel> {
         HomeScreenModel(
-            settingsStore = get()
+            settingsStore = get(),
+            ooniProbeClient = get()
         )
     }
     single<OnboardingViewModel> {
