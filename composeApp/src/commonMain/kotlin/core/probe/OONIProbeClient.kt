@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonArray
-import platform.GoOONIProbeClientBridge
 
 val laxJson = Json {ignoreUnknownKeys = true}
 @Serializable

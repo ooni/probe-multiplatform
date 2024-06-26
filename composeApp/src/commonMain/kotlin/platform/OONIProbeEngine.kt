@@ -1,4 +1,6 @@
 package platform
 
-class OONIProbeEngine {
+expect class OONIProbeEngine {
+    fun demoOne() : String
+    fun demoTwo() : String
 }
