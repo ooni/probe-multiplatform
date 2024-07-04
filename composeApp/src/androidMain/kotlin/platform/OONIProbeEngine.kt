@@ -2,7 +2,7 @@ package platform
 
 import jni.OONIProbeEngineJNI
 
-class OONIProbeEngine {
+actual class OONIProbeEngine {
     actual fun demoOne() : String {
         return demoOne()
     }

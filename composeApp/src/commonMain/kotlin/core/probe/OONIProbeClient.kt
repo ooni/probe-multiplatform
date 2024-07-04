@@ -17,10 +17,9 @@ data class HTTPResponse(
     val body: String
 )
 
-class OONIProbeClient(ooniprobeClientBridge: GoOONIProbeClientBridge) {
-    private val ooniprobeClientBridge = ooniprobeClientBridge
-
-    fun doHTTPRequest(url : String, retryCount : Int) : HTTPResponse {
+class OONIProbeClient() {
+    fun doHTTPRequest(url : String, retryCount : Int) {
+        /*
         val args = buildJsonArray {
             add(JsonPrimitive(url))
             add(JsonPrimitive(retryCount))
@@ -33,9 +32,11 @@ class OONIProbeClient(ooniprobeClientBridge: GoOONIProbeClientBridge) {
             throw Error(apiCallValue.error)
         }
         return laxJson.decodeFromString<HTTPResponse>(apiCallValue.return_value)
+         */
     }
 
     fun getPublicIP() : String {
+        /*
         val apiCallValue = laxJson.decodeFromString<ApiCallValue>(
             ooniprobeClientBridge.apiCall("GetPublicIP")
         )
@@ -44,5 +45,7 @@ class OONIProbeClient(ooniprobeClientBridge: GoOONIProbeClientBridge) {
             throw Error(apiCallValue.error)
         }
         return apiCallValue.return_value
+         */
+        return ""
     }
 }

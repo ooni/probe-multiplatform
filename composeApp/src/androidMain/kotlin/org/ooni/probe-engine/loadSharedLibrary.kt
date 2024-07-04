@@ -7,6 +7,8 @@ import java.io.File
 import java.io.FileOutputStream
 import java.util.zip.ZipFile
 
+var TAG = "ooniprobe-libload"
+
 fun extractLibrary(context: Context, libName: String, destination: File): Boolean {
     val apks = HashSet<String>()
     if (context.applicationInfo.sourceDir != null) {
