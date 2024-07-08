@@ -1,5 +1,6 @@
 package di
 
+import core.probe.OONIProbeClient
 import core.settings.SettingsManager
 import core.settings.SettingsStore
 import core.settings.SettingsStoreImpl
@@ -10,16 +11,9 @@ import main.MainViewModel
 import ui.screens.onboarding.OnboardingViewModel
 
 fun commonModule() = module {
-    single<SettingsManager> {
-        SettingsManager(settings = get())
-    }
-
-    /**
-     * Stores or repositories in Android speak
-     */
-    single<SettingsStore> {
-        SettingsStoreImpl(
-            settingsManager = get(),
+    single<OONIProbeClient> {
+        OONIProbeClient(
+            ooniProbeEngine = get()
         )
     }
 
@@ -43,6 +37,5 @@ fun commonModule() = module {
             settingsStore = get()
         )
     }
-
 }
 expect fun platformModule(): Module

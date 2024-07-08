@@ -1,10 +1,7 @@
 package platform
 
-import jni.OONIProbeEngineJNI
-
 actual class OONIProbeEngine {
     actual fun demoCheck() : String {
-        return OONIProbeEngineJNI.demoCheck()
+        return ""
     }
-
 }

@@ -109,8 +109,25 @@ android {
 
 cargo {
     module = "../probe-engine"
-    libname = "probe-engine"
+    libname = "probeengine"
     targets = listOf("arm", "arm64", "x86", "x86_64")
+    exec = { spec, toolchain ->
+        spec.environment("RUST_BACKTRACE", "full")
+        spec.environment("CGO_ENABLED", "1")
+        spec.environment("GOOS", "android")
+        if (toolchain.target == "arm") {
+            spec.environment("GOARCH", "arm")
+        }
+        if (toolchain.target == "arm64") {
+            spec.environment("GOARCH", "arm64")
+        }
+        if (toolchain.target == "x86") {
+            spec.environment("GOARCH", "386")
+        }
+        if (toolchain.target == "x86_64") {
+            spec.environment("GOARCH", "amd64")
+        }
+    }
 }
 
 tasks.whenTaskAdded {

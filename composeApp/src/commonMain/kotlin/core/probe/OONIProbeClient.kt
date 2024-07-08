@@ -1,10 +1,8 @@
 package core.probe
 
-import io.github.aakira.napier.Napier
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.json.buildJsonArray
+import platform.OONIProbeEngine
 
 val laxJson = Json {ignoreUnknownKeys = true}
 @Serializable
@@ -17,7 +15,14 @@ data class HTTPResponse(
     val body: String
 )
 
-class OONIProbeClient() {
+class OONIProbeClient(
+    ooniProbeEngine: OONIProbeEngine
+) {
+    private val ooniProbeEngine = ooniProbeEngine
+    fun doDemoCheck() : String {
+        return ooniProbeEngine.demoCheck()
+    }
+
     fun doHTTPRequest(url : String, retryCount : Int) {
         /*
         val args = buildJsonArray {

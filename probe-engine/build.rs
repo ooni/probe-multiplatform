@@ -7,6 +7,7 @@ use std::{
 
 fn main() {
     rust2go::Builder::new()
+        .with_link(LinkType::Dynamic)
         .with_go_compiler(CrossGoCompiler {})
         .with_go_src("./go")
         .build();

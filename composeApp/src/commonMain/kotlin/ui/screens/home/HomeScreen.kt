@@ -28,6 +28,7 @@ fun HomeScreen(
 ) {
     val publicIP = screenModel.publicIP.collectAsState().value
     val httpResponse = screenModel.httpResponse.collectAsState().value
+    val goResult = screenModel.goResult.collectAsState().value
     HomeScreenContent(
         onClickReset={
             screenModel.clearSettings()
@@ -38,6 +39,10 @@ fun HomeScreen(
         onClickDoIPLookup = {
             screenModel.lookupIP()
         },
+        onClickDoGoCall = {
+            screenModel.doGoCall()
+        },
+        goResult=goResult,
         publicIP=publicIP,
         httpResponse=httpResponse
     )
@@ -47,7 +52,9 @@ fun HomeScreen(
 private fun HomeScreenContent(
     publicIP: String,
     httpResponse: String,
+    goResult: String,
     onClickReset: () -> Unit,
+    onClickDoGoCall: () -> Unit,
     onClickDoIPLookup: () -> Unit,
     onClickDoRequest: () -> Unit
 ) {
@@ -84,6 +91,20 @@ private fun HomeScreenContent(
                 ) {
                     Text("DoIPLookup")
                 }
+
+                TextField(
+                    value = goResult,
+                    onValueChange = {},
+                    label = {Text("go result")},
+                    readOnly = true
+                )
+                Button(
+                    onClick = onClickDoGoCall,
+                    shape = MaterialTheme.shapes.medium
+                ) {
+                    Text("DoGoCall")
+                }
+
 
                 TextField(
                     value = httpResponse,
