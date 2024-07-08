@@ -394,7 +394,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "probe-engine"
+name = "probeengine"
 version = "0.1.0"
 dependencies = [
  "jni",

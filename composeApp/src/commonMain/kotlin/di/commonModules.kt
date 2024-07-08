@@ -17,6 +17,19 @@ fun commonModule() = module {
         )
     }
 
+    single<SettingsManager> {
+        SettingsManager(settings = get())
+    }
+
+    /**
+     * Stores or repositories in Android speak
+     */
+    single<SettingsStore> {
+        SettingsStoreImpl(
+            settingsManager = get(),
+        )
+    }
+
     /**
      * ScreenModels
      */

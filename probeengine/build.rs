@@ -3,7 +3,7 @@ use std::{env, path::Path, process::Command};
 
 fn main() {
     rust2go::Builder::new()
-        .with_link(LinkType::Static)
+        .with_link(LinkType::Dynamic)
         .with_go_compiler(CrossGoCompiler {})
         .with_go_src("./go")
         .build();
