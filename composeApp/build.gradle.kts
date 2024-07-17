@@ -35,8 +35,6 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-            implementation("io.insert-koin:koin-android:3.5.6")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -49,26 +47,15 @@ kotlin {
 
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
             implementation("io.github.aakira:napier:2.7.1")
-            implementation("io.insert-koin:koin-core:3.5.6")
-            // TODO(r2): When koin 3.6.x comes out we can drop this.
-            // https://github.com/InsertKoinIO/koin/issues/1803
-            implementation("io.insert-koin:koin-compose:1.1.5")
-
-            val voyagerVersion = "1.0.0"
-            implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
-            implementation("cafe.adriel.voyager:voyager-screenmodel:$voyagerVersion")
-            implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:$voyagerVersion")
-            implementation("cafe.adriel.voyager:voyager-tab-navigator:$voyagerVersion")
-            implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
-            implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
-
-            implementation("com.russhwolf:multiplatform-settings-no-arg:1.1.1")
-            implementation("com.russhwolf:multiplatform-settings-coroutines:1.1.1")
-
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
+    }
+
+    compilerOptions {
+        // Common compiler options applied to all Kotlin source sets
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 }
 
