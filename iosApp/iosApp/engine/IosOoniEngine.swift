@@ -1,4 +1,4 @@
-import ComposeApp
+import composeApp
 import Oonimkall
 
 class IosOoniEngine : OoniEngine {
