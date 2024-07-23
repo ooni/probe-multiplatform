@@ -1,4 +1,4 @@
-package ui.main
+package org.ooni.probe.ui.main
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable

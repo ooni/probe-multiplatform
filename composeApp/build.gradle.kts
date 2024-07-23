@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
-    kotlin("plugin.serialization") version "1.9.22"
+    alias(libs.plugins.cocoapods)
 }
 
 kotlin {
@@ -28,6 +28,20 @@ kotlin {
             isStatic = true
         }
     }
+
+    cocoapods {
+        ios.deploymentTarget = "9.0"
+
+        version = "1.0"
+        summary = "Compose App"
+        homepage = "https://github.com/ooni/probe-multiplatform"
+
+        framework {
+            baseName = "composeApp"
+        }
+
+        podfile = project.file("../iosApp/Podfile")
+    }
     
     sourceSets {
         val desktopMain by getting
@@ -35,6 +49,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.android.oonimkall)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -44,9 +59,6 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-            implementation("io.github.aakira:napier:2.7.1")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -66,12 +78,6 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
-
-    externalNativeBuild {
-        cmake {
-            path("src/androidMain/kotlin/org/ooni/libooniprobe-android/CMakeLists.txt")
-        }
-    }
 
     buildTypes {
         all {
