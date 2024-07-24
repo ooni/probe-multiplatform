@@ -7,4 +7,5 @@ plugins {
     alias(libs.plugins.jetbrainsComposeCompiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.cocoapods) apply false
+    alias(libs.plugins.ktlint) apply false
 }

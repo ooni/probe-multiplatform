@@ -13,12 +13,12 @@ data class TaskSettings(
     @SerialName("temp_dir") val tempDir: String? = null,
     @SerialName("tunnel_dir") val tunnelDir: String? = null,
     @SerialName("assets_dir") val assetsDir: String? = null,
-    @SerialName("options") val options: Options = Options()
+    @SerialName("options") val options: Options = Options(),
 ) {
     @Serializable
     data class Options(
         @SerialName("no_collector") val noCollector: Boolean = true,
         @SerialName("software_name") val softwareName: String = "Probe Multiplatform",
-        @SerialName("software_version") val softwareVersion: String = "1.0"
+        @SerialName("software_version") val softwareVersion: String = "1.0",
     )
 }

@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.jetbrainsComposeCompiler)
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.ktlint)
 }
 
 kotlin {
@@ -37,7 +38,7 @@ kotlin {
 
         podfile = project.file("../iosApp/Podfile")
     }
-    
+
     sourceSets {
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
@@ -107,4 +108,12 @@ android {
             disable += "AndroidGradlePluginVersion"
         }
     }
+}
+
+ktlint {
+    filter {
+        exclude("**/generated/**")
+        include("**/kotlin/**")
+    }
+    additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
 }

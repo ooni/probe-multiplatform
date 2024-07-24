@@ -10,31 +10,32 @@ import kotlin.math.roundToInt
 class Engine(
     private val bridge: OonimkallBridge,
     private val json: Json,
-    private val baseFilePath: String
+    private val baseFilePath: String,
 ) {
+    fun startTask(taskSettings: TaskSettings): Flow<TaskEvent> =
+        channelFlow {
+            val finalSettings =
+                taskSettings.copy(
+                    stateDir = baseFilePath,
+                    tunnelDir = baseFilePath,
+                    tempDir = baseFilePath,
+                    assetsDir = baseFilePath,
+                )
 
-    fun startTask(taskSettings: TaskSettings): Flow<TaskEvent> = channelFlow {
-        val finalSettings = taskSettings.copy(
-            stateDir = baseFilePath,
-            tunnelDir = baseFilePath,
-            tempDir = baseFilePath,
-            assetsDir = baseFilePath,
-        )
+            val task = bridge.startTask(json.encodeToString(finalSettings))
 
-        val task = bridge.startTask(json.encodeToString(finalSettings))
+            while (!task.isDone()) {
+                val eventJson = task.waitForNextEvent()
+                val eventResult = json.decodeFromString<EventResult>(eventJson)
+                eventResult.toTaskEvent()?.let { send(it) }
+            }
 
-        while (!task.isDone()) {
-            val eventJson = task.waitForNextEvent()
-            val eventResult = json.decodeFromString<EventResult>(eventJson)
-            eventResult.toTaskEvent()?.let { send(it) }
-        }
-
-        invokeOnClose {
-            if (it is CancellationException) {
-                task.interrupt()
+            invokeOnClose {
+                if (it is CancellationException) {
+                    task.interrupt()
+                }
             }
         }
-    }
 
     private fun EventResult.toTaskEvent(): TaskEvent? =
         when (key) {
@@ -46,20 +47,22 @@ class Engine(
                 value?.percentage?.let { percentageValue ->
                     TaskEvent.Progress(
                         percentage = (percentageValue * 100.0).roundToInt(),
-                        message = value?.message
+                        message = value?.message,
                     )
                 }
 
-            "log" -> value?.message?.let { message ->
-                TaskEvent.Log(
-                    level = value?.log_level,
-                    message = message
-                )
-            }
+            "log" ->
+                value?.message?.let { message ->
+                    TaskEvent.Log(
+                        level = value?.logLevel,
+                        message = message,
+                    )
+                }
 
-            "status.report_create" -> value?.report_id?.let {
-                TaskEvent.ReportCreate(reportId = it)
-            }
+            "status.report_create" ->
+                value?.reportId?.let {
+                    TaskEvent.ReportCreate(reportId = it)
+                }
 
             "task_terminated" -> TaskEvent.TaskTerminated
 

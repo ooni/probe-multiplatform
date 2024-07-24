@@ -9,7 +9,6 @@ class Dependencies(
     private val oonimkallBridge: OonimkallBridge,
     private val baseFileDir: String,
 ) {
-
     private val json by lazy {
         Json {
             encodeDefaults = true
@@ -20,5 +19,4 @@ class Dependencies(
     private val engine by lazy { Engine(oonimkallBridge, json, baseFileDir) }
 
     val mainViewModel by lazy { MainViewModel(engine) }
-
 }
