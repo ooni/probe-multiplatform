@@ -1,19 +1,21 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.jetbrainsComposeCompiler)
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "11"
-            }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
     
@@ -61,44 +63,19 @@ kotlin {
         }
     }
 
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         // Common compiler options applied to all Kotlin source sets
         freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+    composeCompiler {
+        enableStrongSkippingMode = true
     }
 }
 
 android {
     namespace = "org.ooni.probe"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
-
-    buildTypes {
-        all {
-            externalNativeBuild {
-                cmake {
-                    targets("libooniprobe.so")
-                    arguments("-DGRADLE_USER_HOME=${project.gradle.gradleUserHomeDir}")
-                }
-            }
-        }
-        release {
-            externalNativeBuild {
-                cmake {
-                    arguments("-DANDROID_PACKAGE_NAME=${namespace}")
-                }
-            }
-        }
-        debug {
-            externalNativeBuild {
-                cmake {
-                    arguments("-DANDROID_PACKAGE_NAME=${namespace}.debug")
-                }
-            }
-        }
-    }
 
     defaultConfig {
         applicationId = "org.ooni.probe"
@@ -113,13 +90,16 @@ android {
         }
     }
     buildTypes {
+        getByName("debug") {
+            applicationIdSuffix = ".debug"
+        }
         getByName("release") {
             isMinifyEnabled = false
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
