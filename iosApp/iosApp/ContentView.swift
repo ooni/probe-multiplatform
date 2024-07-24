@@ -4,7 +4,7 @@ import composeApp
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
-        MainViewControllerKt.MainViewController(ooniEngine: IosOoniEngine())
+        MainViewControllerKt.MainViewController(bridge: IosOonimkallBridge())
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}

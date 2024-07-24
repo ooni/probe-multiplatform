@@ -1,8 +1,9 @@
 package org.ooni.probe
 
 import androidx.compose.ui.window.ComposeUIViewController
-import org.ooni.engine.OoniEngine
+import org.ooni.engine.OonimkallBridge
 import org.ooni.probe.di.Dependencies
+import platform.Foundation.NSTemporaryDirectory
 
-fun MainViewController(ooniEngine: OoniEngine) =
-    ComposeUIViewController { App(Dependencies(ooniEngine)) }
+fun MainViewController(bridge: OonimkallBridge) =
+    ComposeUIViewController { App(Dependencies(bridge, NSTemporaryDirectory())) }
