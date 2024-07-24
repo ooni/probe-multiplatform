@@ -32,6 +32,7 @@ kotlin {
         framework {
             baseName = "composeApp"
             isStatic = true
+            binaryOption("bundleId", "composeApp")
         }
 
         podfile = project.file("../iosApp/Podfile")
@@ -52,6 +53,10 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.kotlin.serialization)
+        }
+
+        all {
+            languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
         }
     }
 
@@ -95,5 +100,11 @@ android {
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
+    }
+    android {
+        lint {
+            warningsAsErrors = true
+            disable += "AndroidGradlePluginVersion"
+        }
     }
 }
