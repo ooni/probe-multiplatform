@@ -12,11 +12,6 @@
                 "ui": [
                     "compose"
                 ]
-            },
-            "desktop": {
-                "ui": [
-                    "compose"
-                ]
             }
         }
     },

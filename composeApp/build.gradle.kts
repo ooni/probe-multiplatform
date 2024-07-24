@@ -1,42 +1,47 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
-    kotlin("plugin.serialization") version "1.9.22"
+    alias(libs.plugins.jetbrainsComposeCompiler)
+    alias(libs.plugins.cocoapods)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "11"
-            }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
-    
-    jvm("desktop")
-    
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
+
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    cocoapods {
+        ios.deploymentTarget = "9.0"
+
+        version = "1.0"
+        summary = "Compose App"
+        homepage = "https://github.com/ooni/probe-multiplatform"
+
+        framework {
+            baseName = "composeApp"
             isStatic = true
         }
+
+        podfile = project.file("../iosApp/Podfile")
     }
     
     sourceSets {
-        val desktopMain by getting
-        
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-            implementation("io.insert-koin:koin-android:3.5.6")
+            implementation(libs.android.oonimkall)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -46,70 +51,23 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-            implementation("io.github.aakira:napier:2.7.1")
-            implementation("io.insert-koin:koin-core:3.5.6")
-            // TODO(r2): When koin 3.6.x comes out we can drop this.
-            // https://github.com/InsertKoinIO/koin/issues/1803
-            implementation("io.insert-koin:koin-compose:1.1.5")
-
-            val voyagerVersion = "1.0.0"
-            implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
-            implementation("cafe.adriel.voyager:voyager-screenmodel:$voyagerVersion")
-            implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:$voyagerVersion")
-            implementation("cafe.adriel.voyager:voyager-tab-navigator:$voyagerVersion")
-            implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
-            implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
-
-            implementation("com.russhwolf:multiplatform-settings-no-arg:1.1.1")
-            implementation("com.russhwolf:multiplatform-settings-coroutines:1.1.1")
-
+            implementation(libs.kotlin.serialization)
         }
-        desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
-        }
+    }
+
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    compilerOptions {
+        // Common compiler options applied to all Kotlin source sets
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+    composeCompiler {
+        enableStrongSkippingMode = true
     }
 }
 
 android {
     namespace = "org.ooni.probe"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
-
-    externalNativeBuild {
-        cmake {
-            path("src/androidMain/kotlin/org/ooni/libooniprobe-android/CMakeLists.txt")
-        }
-    }
-
-    buildTypes {
-        all {
-            externalNativeBuild {
-                cmake {
-                    targets("libooniprobe.so")
-                    arguments("-DGRADLE_USER_HOME=${project.gradle.gradleUserHomeDir}")
-                }
-            }
-        }
-        release {
-            externalNativeBuild {
-                cmake {
-                    arguments("-DANDROID_PACKAGE_NAME=${namespace}")
-                }
-            }
-        }
-        debug {
-            externalNativeBuild {
-                cmake {
-                    arguments("-DANDROID_PACKAGE_NAME=${namespace}.debug")
-                }
-            }
-        }
-    }
 
     defaultConfig {
         applicationId = "org.ooni.probe"
@@ -124,27 +82,18 @@ android {
         }
     }
     buildTypes {
+        getByName("debug") {
+            applicationIdSuffix = ".debug"
+        }
         getByName("release") {
             isMinifyEnabled = false
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
-    }
-}
-
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "org.ooni.probe"
-            packageVersion = "1.0.0"
-        }
     }
 }
