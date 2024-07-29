@@ -19,15 +19,15 @@ val appConfig =
             AppConfig(
                 appId = "org.dw.probe",
                 appName = "News Media Scan",
-                srcRoot = "src/ooniMain/kotlin",
-                resRoot = "src/ooniMain/resources",
+                srcRoot = "src/dwMain/kotlin",
+                resRoot = "src/dwMain/resources",
             ),
         "ooni" to
             AppConfig(
                 appId = "org.ooni.probe",
                 appName = "OONI Probe",
-                srcRoot = "src/dwMain/kotlin",
-                resRoot = "src/dwMain/resources",
+                srcRoot = "src/ooniMain/kotlin",
+                resRoot = "src/ooniMain/resources",
             ),
     )
 
@@ -78,8 +78,8 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.kotlin.serialization)
+            implementation(libs.bundles.tooling)
 
-            // add source directories and resources based on flavor
             getByName("commonMain") {
                 kotlin.srcDir(config.srcRoot)
             }
@@ -130,6 +130,9 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
+    }
+    buildFeatures {
+        buildConfig = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
