@@ -5,5 +5,7 @@ import org.ooni.engine.OonimkallBridge
 import org.ooni.probe.di.Dependencies
 import platform.Foundation.NSTemporaryDirectory
 
-fun MainViewController(bridge: OonimkallBridge) =
-    ComposeUIViewController { App(Dependencies(bridge, NSTemporaryDirectory())) }
+fun mainViewController(bridge: OonimkallBridge) =
+    ComposeUIViewController {
+        App(Dependencies(bridge, NSTemporaryDirectory()))
+    }

@@ -16,7 +16,7 @@ import org.ooni.engine.Engine
 import org.ooni.engine.TaskSettings
 
 class MainViewModel(
-    private val engine: Engine
+    private val engine: Engine,
 ) {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -53,7 +53,7 @@ class MainViewModel(
 
     data class State(
         val isRunning: Boolean = false,
-        val log: String = ""
+        val log: String = "",
     )
 
     sealed interface Event {
@@ -61,10 +61,11 @@ class MainViewModel(
     }
 
     companion object {
-        val TASK_SETTINGS = TaskSettings(
-            name = "web_connectivity",
-            inputs = listOf("https://ooni.org"),
-            logLevel = "DEBUG2"
-        )
+        val TASK_SETTINGS =
+            TaskSettings(
+                name = "web_connectivity",
+                inputs = listOf("https://ooni.org"),
+                logLevel = "DEBUG2",
+            )
     }
 }

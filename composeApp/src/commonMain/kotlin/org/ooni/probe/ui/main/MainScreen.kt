@@ -12,24 +12,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 
 @Composable
-fun MainScreen(
-    viewModel: MainViewModel
-) {
+fun MainScreen(viewModel: MainViewModel) {
     val state by viewModel.state.collectAsState()
 
     Column {
         Button(
             onClick = { viewModel.onEvent(MainViewModel.Event.StartClick) },
-            enabled = !state.isRunning
+            enabled = !state.isRunning,
         ) {
             Text("Run Test")
         }
 
         Text(
             text = state.log,
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState()),
         )
     }
 }

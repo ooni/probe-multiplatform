@@ -5,7 +5,9 @@ interface OonimkallBridge {
 
     interface Task {
         fun interrupt()
+
         fun isDone(): Boolean
+
         fun waitForNextEvent(): String
     }
 }

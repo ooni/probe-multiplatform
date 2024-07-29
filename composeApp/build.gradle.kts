@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.jetbrainsComposeCompiler)
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.ktlint)
 }
 
 kotlin {
@@ -32,11 +33,12 @@ kotlin {
         framework {
             baseName = "composeApp"
             isStatic = true
+            binaryOption("bundleId", "composeApp")
         }
 
         podfile = project.file("../iosApp/Podfile")
     }
-    
+
     sourceSets {
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
@@ -52,6 +54,10 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.kotlin.serialization)
+        }
+
+        all {
+            languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
         }
     }
 
@@ -96,4 +102,18 @@ android {
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
     }
+    android {
+        lint {
+            warningsAsErrors = true
+            disable += "AndroidGradlePluginVersion"
+        }
+    }
+}
+
+ktlint {
+    filter {
+        exclude("**/generated/**")
+        include("**/kotlin/**")
+    }
+    additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
 }

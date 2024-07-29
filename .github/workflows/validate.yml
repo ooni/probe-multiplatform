@@ -1,0 +1,69 @@
+name: Validate
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        type: [Debug, Release]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build Android
+        run: ./gradlew assemble${{ matrix.type }}
+
+      - name: Build iOS
+        run: ./gradlew link${{ matrix.type }}FrameworkIosSimulatorArm64
+
+  android-lint:
+    name: Android Lint
+    runs-on: macos-latest
+    needs: [ build ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Run lint
+        run: ./gradlew lint
+
+      - name: Uploads test reports
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: android-lint-report
+          path: composeApp/build/reports/
+
+  kotlin-lint:
+    name: Kotlin Lint
+    runs-on: macos-latest
+    needs: [ build ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Run lint
+        run: ./gradlew ktlintCheck
+
+      - name: Uploads test reports
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: android-lint-report
+          path: composeApp/build/reports/ktlint/
