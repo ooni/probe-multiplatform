@@ -11,6 +11,14 @@ plugins {
     alias(libs.plugins.ktlint)
 }
 
+
+val flavor: String by project
+val appId = when (flavor) {
+    "dw" -> "org.dw.probe"
+    else -> "org.ooni.probe"
+}
+println("The current build flavor is set to '$flavor' with suffix set to '$appId'.")
+
 kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -54,8 +62,21 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.kotlin.serialization)
-        }
 
+            // add source directories and resources based on flavor
+            when (flavor) {
+                "ooni" -> {
+                    getByName("commonMain") {
+                        kotlin.srcDir("src/ooniMain/kotlin")
+                    }
+                }
+                "dw" -> {
+                    getByName("commonMain") {
+                        kotlin.srcDir("src/dwMain/kotlin")
+                    }
+                }
+            }
+        }
         all {
             languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
         }
@@ -71,12 +92,28 @@ kotlin {
     }
 }
 
+compose.resources {
+    when (flavor) {
+        "ooni" -> {
+            customDirectory(
+                sourceSetName = "commonMain",
+                directoryProvider = provider { layout.projectDirectory.dir("src/ooniMain/resources") }
+            )
+        }
+        "dw" -> {
+            customDirectory(
+                sourceSetName = "commonMain",
+                directoryProvider = provider { layout.projectDirectory.dir("src/dwMain/resources") }
+            )
+        }
+    }
+}
 android {
     namespace = "org.ooni.probe"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "org.ooni.probe"
+        applicationId = appId
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -89,7 +126,7 @@ android {
     }
     buildTypes {
         getByName("debug") {
-            applicationIdSuffix = ".debug"
+            //applicationIdSuffix = ".debug"
         }
         getByName("release") {
             isMinifyEnabled = false
@@ -117,3 +154,11 @@ ktlint {
     }
     additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
 }
+
+//tasks.register("runDebug", Exec::class) {
+//    dependsOn("clean", "uninstallDebug", "installDebug")
+//    commandLine(
+//        "adb", "shell", "am", "start", "-n",
+//        "$appId/org.ooni.probe.MainActivity"
+//    )
+//}

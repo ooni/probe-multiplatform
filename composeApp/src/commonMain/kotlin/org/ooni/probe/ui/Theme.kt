@@ -10,18 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-private val primaryColor = Color(0xff0588cb)
-private val primaryLightColor = primaryColor.copy(alpha = 0.75f)
-private val secondaryColor = Color(0xff5db8fe)
-private val secondaryLightColor = secondaryColor.copy(alpha = 0.75f)
-private val primaryTextColor = Color(0xffffffff)
-private val secondaryTextColor = Color(0xff000000)
-private val surfaceDark = Color(0xFF161616)
-private val surfaceLight = Color(0xFFFFFFFF)
-private val backgroundLightColor = Color(0xffF1F0F5)
-private val backgroundDarkColor = Color(0xff010100)
-private val errorColor = Color(0xFFFF8989)
-private val onErrorColor = Color(0xFF000000)
 
 private val LightColors =
     lightColorScheme(
@@ -64,7 +52,7 @@ private val DarkColors =
     )
 
 @Composable
-internal fun Theme(
+fun AppTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
