@@ -157,9 +157,121 @@ ktlint {
     additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
 }
 
+tasks.register("copyCommonResourcesToFlavor") {
+    doLast {
+        val projectDir = project.projectDir.absolutePath
+
+        val sourceFile = File(projectDir, "src/commonMain/composeResources")
+
+        val destinationFile = File(projectDir, config.resRoot)
+
+        copyRecursive(sourceFile, destinationFile)
+    }
+}
+
+tasks.register("cleanCopiedCommonResourcesToFlavor") {
+    doLast {
+        val projectDir = project.projectDir.absolutePath
+
+        val destinationFile = File(projectDir, config.resRoot)
+        destinationFile.listFiles()?.forEach { folder ->
+            folder.listFiles()?.forEach { file ->
+                if (file.name == ".gitignore") {
+                    file.readText().lines().forEach { line ->
+                        if (line.isNotEmpty()) {
+                            println("Removing $line")
+                            File(folder, line).deleteRecursively()
+                        }
+                    }.also {
+                        file.delete()
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Configure the prepareComposeResourcesTaskForCommonMain task to depend on the copyCommonResourcesToFlavor task.
+ * This will ensure that the common resources are copied to the correct location before the task is executed.
+ *
+ * NOTE: Current limitation is that multiple resources directories are not supported.
+ */
+tasks.named("prepareComposeResourcesTaskForCommonMain").configure {
+    dependsOn("copyCommonResourcesToFlavor")
+}
+
+tasks.named("clean").configure {
+    dependsOn("cleanCopiedCommonResourcesToFlavor")
+}
+
 data class AppConfig(
     val appId: String,
     val appName: String,
     val srcRoot: String,
     val resRoot: String,
 )
+
+/**
+ * Ignore the copied file if it is not already ignored.
+ *
+ * @param filePath The path to the file to ignore.
+ * @param lineToAdd The line to add to the file.
+ */
+fun ignoreCopiedFileIfNotIgnored(
+    filePath: String,
+    lineToAdd: String,
+) {
+    val file = File(filePath)
+
+    if (!file.exists()) {
+        file.createNewFile()
+    }
+
+    val fileContents = file.readText()
+
+    if (!fileContents.contains(lineToAdd)) {
+        file.appendText("\n$lineToAdd")
+    }
+}
+
+/**
+ * Copy files from one directory to another.
+ *
+ * @param from The source directory.
+ * @param to The destination directory.
+ */
+fun copyRecursive(
+    from: File,
+    to: File,
+) {
+    if (!from.exists()) {
+        println("Source directory does not exist: $from")
+        return
+    }
+    from.listFiles()?.forEach { file ->
+        if (file.name != ".DS_Store") {
+            if (file.isDirectory) {
+                val newDir = File(to, file.name)
+                newDir.mkdir()
+                copyRecursive(file, newDir)
+            } else {
+                val destinationFile = File(to, file.name)
+                if (destinationFile.exists()) {
+                    println("Overwriting $destinationFile")
+                    destinationFile.delete()
+                }
+                if (!destinationFile.parentFile.exists()) {
+                    destinationFile.parentFile.mkdirs()
+                }
+                file.copyTo(destinationFile).also {
+                    println("Ignoring ${it.name}")
+                    ignoreCopiedFileIfNotIgnored(
+                        to.absolutePath + "/.gitignore",
+                        it.name,
+                    )
+                }
+            }
+        }
+    }
+}

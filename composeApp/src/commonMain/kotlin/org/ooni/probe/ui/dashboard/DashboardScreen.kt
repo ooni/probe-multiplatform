@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
 import ooniprobe.composeapp.generated.resources.logo
+import ooniprobe.composeapp.generated.resources.run_tests
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -47,7 +48,7 @@ fun DashboardScreen(
                 onClick = { onEvent(DashboardViewModel.Event.StartClick) },
                 enabled = !state.isRunning,
             ) {
-                Text("Run Test")
+                Text(stringResource(Res.string.run_tests))
             }
 
             Image(
