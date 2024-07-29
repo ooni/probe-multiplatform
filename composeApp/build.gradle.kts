@@ -11,7 +11,7 @@ plugins {
     alias(libs.plugins.ktlint)
 }
 
-val flavor: String by project
+val organization: String? by project
 
 val appConfig =
     mapOf(
@@ -31,9 +31,9 @@ val appConfig =
             ),
     )
 
-val config = appConfig[flavor] ?: appConfig["ooni"]!!
+val config = appConfig[organization] ?: appConfig["ooni"]!!
 
-println("The current build flavor is set to $flavor with app id set to ${config.appId}.")
+println("The current build flavor is set to $organization with app id set to ${config.appId}.")
 
 kotlin {
     androidTarget {
@@ -65,19 +65,18 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.androidx.activity.compose)
+            implementation(compose.preview)
             implementation(libs.android.oonimkall)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.kotlin.serialization)
+            implementation(libs.bundles.ui)
             implementation(libs.bundles.tooling)
 
             getByName("commonMain") {
@@ -133,13 +132,14 @@ android {
     }
     buildFeatures {
         buildConfig = true
+        compose = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
     dependencies {
-        debugImplementation(libs.compose.ui.tooling)
+        debugImplementation(compose.uiTooling)
     }
     android {
         lint {
