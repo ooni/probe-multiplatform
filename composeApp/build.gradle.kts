@@ -11,13 +11,29 @@ plugins {
     alias(libs.plugins.ktlint)
 }
 
-
 val flavor: String by project
-val appId = when (flavor) {
-    "dw" -> "org.dw.probe"
-    else -> "org.ooni.probe"
-}
-println("The current build flavor is set to '$flavor' with suffix set to '$appId'.")
+
+val appConfig =
+    mapOf(
+        "dw" to
+            AppConfig(
+                appId = "org.dw.probe",
+                appName = "News Media Scan",
+                srcRoot = "src/ooniMain/kotlin",
+                resRoot = "src/ooniMain/resources",
+            ),
+        "ooni" to
+            AppConfig(
+                appId = "org.ooni.probe",
+                appName = "OONI Probe",
+                srcRoot = "src/dwMain/kotlin",
+                resRoot = "src/dwMain/resources",
+            ),
+    )
+
+val config = appConfig[flavor] ?: appConfig["ooni"]!!
+
+println("The current build flavor is set to $flavor with app id set to ${config.appId}.")
 
 kotlin {
     androidTarget {
@@ -64,17 +80,8 @@ kotlin {
             implementation(libs.kotlin.serialization)
 
             // add source directories and resources based on flavor
-            when (flavor) {
-                "ooni" -> {
-                    getByName("commonMain") {
-                        kotlin.srcDir("src/ooniMain/kotlin")
-                    }
-                }
-                "dw" -> {
-                    getByName("commonMain") {
-                        kotlin.srcDir("src/dwMain/kotlin")
-                    }
-                }
+            getByName("commonMain") {
+                kotlin.srcDir(config.srcRoot)
             }
         }
         all {
@@ -93,31 +100,23 @@ kotlin {
 }
 
 compose.resources {
-    when (flavor) {
-        "ooni" -> {
-            customDirectory(
-                sourceSetName = "commonMain",
-                directoryProvider = provider { layout.projectDirectory.dir("src/ooniMain/resources") }
-            )
-        }
-        "dw" -> {
-            customDirectory(
-                sourceSetName = "commonMain",
-                directoryProvider = provider { layout.projectDirectory.dir("src/dwMain/resources") }
-            )
-        }
-    }
+    customDirectory(
+        sourceSetName = "commonMain",
+        directoryProvider = provider { layout.projectDirectory.dir(config.resRoot) },
+    )
 }
+
 android {
     namespace = "org.ooni.probe"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = appId
+        applicationId = config.appId
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        resValue("string", "app_name", config.appName)
     }
     packaging {
         resources {
@@ -126,7 +125,7 @@ android {
     }
     buildTypes {
         getByName("debug") {
-            //applicationIdSuffix = ".debug"
+            applicationIdSuffix = ".debug"
         }
         getByName("release") {
             isMinifyEnabled = false
@@ -155,10 +154,9 @@ ktlint {
     additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
 }
 
-//tasks.register("runDebug", Exec::class) {
-//    dependsOn("clean", "uninstallDebug", "installDebug")
-//    commandLine(
-//        "adb", "shell", "am", "start", "-n",
-//        "$appId/org.ooni.probe.MainActivity"
-//    )
-//}
+data class AppConfig(
+    val appId: String,
+    val appName: String,
+    val srcRoot: String,
+    val resRoot: String,
+)

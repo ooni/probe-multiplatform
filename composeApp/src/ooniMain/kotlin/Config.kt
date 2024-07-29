@@ -1,3 +1,3 @@
 object Config {
-    const val ENVIRONMENT:String = "OONI Probe"
+    const val ENVIRONMENT: String = "OONI Probe"
 }

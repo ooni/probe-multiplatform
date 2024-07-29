@@ -1,3 +1,3 @@
 object Config {
-    const val ENVIRONMENT:String = "News Media Scan"
+    const val ENVIRONMENT: String = "News Media Scan"
 }

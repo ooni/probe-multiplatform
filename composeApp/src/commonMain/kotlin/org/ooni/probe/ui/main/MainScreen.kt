@@ -59,5 +59,4 @@ fun MainScreen(viewModel: MainViewModel) {
             )
         }
     }
-
 }
