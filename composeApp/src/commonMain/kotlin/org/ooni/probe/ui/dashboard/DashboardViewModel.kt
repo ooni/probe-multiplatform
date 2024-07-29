@@ -1,6 +1,7 @@
-package org.ooni.probe.ui.main
+package org.ooni.probe.ui.dashboard
 
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
@@ -15,9 +17,9 @@ import kotlinx.coroutines.flow.update
 import org.ooni.engine.Engine
 import org.ooni.engine.TaskSettings
 
-class MainViewModel(
+class DashboardViewModel(
     private val engine: Engine,
-) {
+) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
     private val _state = MutableStateFlow(State())
@@ -44,7 +46,13 @@ class MainViewModel(
                     }
                 }
             }
-            .launchIn(CoroutineScope(Dispatchers.IO))
+            /*
+             This is only needed for this example. The best practice is for the data layer to
+             switch to a background dispatcher whenever is needed, and the viewModel should run
+             on the default (Main) dispatcher.
+             */
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
