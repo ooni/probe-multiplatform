@@ -98,13 +98,6 @@ kotlin {
     }
 }
 
-compose.resources {
-    customDirectory(
-        sourceSetName = "commonMain",
-        directoryProvider = provider { layout.projectDirectory.dir(config.resRoot) },
-    )
-}
-
 android {
     namespace = "org.ooni.probe"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -161,9 +154,9 @@ tasks.register("copyCommonResourcesToFlavor") {
     doLast {
         val projectDir = project.projectDir.absolutePath
 
-        val sourceFile = File(projectDir, "src/commonMain/composeResources")
+        val destinationFile = File(projectDir, "src/commonMain/composeResources")
 
-        val destinationFile = File(projectDir, config.resRoot)
+        val sourceFile = File(projectDir, config.resRoot)
 
         copyRecursive(sourceFile, destinationFile)
     }
@@ -173,9 +166,10 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
     doLast {
         val projectDir = project.projectDir.absolutePath
 
-        val destinationFile = File(projectDir, config.resRoot)
+        val destinationFile = File(projectDir, "src/commonMain/composeResources")
         destinationFile.listFiles()?.forEach { folder ->
             folder.listFiles()?.forEach { file ->
+                println(file.absoluteFile)
                 if (file.name == ".gitignore") {
                     file.readText().lines().forEach { line ->
                         if (line.isNotEmpty()) {
@@ -198,10 +192,6 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
  * NOTE: Current limitation is that multiple resources directories are not supported.
  */
 tasks.named("preBuild").configure {
-    dependsOn("copyCommonResourcesToFlavor")
-}
-
-tasks.named("clean").configure {
     dependsOn("copyCommonResourcesToFlavor")
 }
 
@@ -278,4 +268,12 @@ fun copyRecursive(
             }
         }
     }
+}
+
+tasks.register("runDebug", Exec::class) {
+    dependsOn("clean", "uninstallDebug", "installDebug")
+    commandLine(
+        "adb", "shell", "am", "start", "-n",
+        "${config.appId}.debug/org.ooni.probe.MainActivity",
+    )
 }
