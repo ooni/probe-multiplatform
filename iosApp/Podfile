@@ -1,11 +1,11 @@
 platform :ios, '12.0'
 use_frameworks!
 
+ooni_version = "v3.22.0"
+ooni_pods_location = "https://github.com/ooni/probe-cli/releases/download/#{ooni_version}"
+
 target 'OONI Probe' do
     pod 'composeApp', :path => '../composeApp'
-
-    ooni_version = "v3.22.0"
-    ooni_pods_location = "https://github.com/ooni/probe-cli/releases/download/#{ooni_version}"
 
     pod "libcrypto", :podspec => "#{ooni_pods_location}/libcrypto.podspec"
     pod "libevent", :podspec => "#{ooni_pods_location}/libevent.podspec"
@@ -17,9 +17,6 @@ end
 
 target 'News Media Scan' do
     pod 'composeApp', :path => '../composeApp'
-
-    ooni_version = "v3.22.0"
-    ooni_pods_location = "https://github.com/ooni/probe-cli/releases/download/#{ooni_version}"
 
     pod "libcrypto", :podspec => "#{ooni_pods_location}/libcrypto.podspec"
     pod "libevent", :podspec => "#{ooni_pods_location}/libevent.podspec"
