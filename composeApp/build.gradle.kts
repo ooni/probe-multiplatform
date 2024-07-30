@@ -169,7 +169,6 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
         val destinationFile = File(projectDir, "src/commonMain/composeResources")
         destinationFile.listFiles()?.forEach { folder ->
             folder.listFiles()?.forEach { file ->
-                println(file.absoluteFile)
                 if (file.name == ".gitignore") {
                     file.readText().lines().forEach { line ->
                         if (line.isNotEmpty()) {
