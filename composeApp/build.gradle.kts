@@ -197,7 +197,11 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
  *
  * NOTE: Current limitation is that multiple resources directories are not supported.
  */
-tasks.named("prepareComposeResourcesTaskForCommonMain").configure {
+tasks.named("preBuild").configure {
+    dependsOn("copyCommonResourcesToFlavor")
+}
+
+tasks.named("clean").configure {
     dependsOn("copyCommonResourcesToFlavor")
 }
 
