@@ -15,12 +15,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.app_name
-import ooniprobe.composeapp.generated.resources.logo
+import androidx.compose.ui.semantics.Role.Companion.Image
+//import ooniprobe.composeapp.generated.resources.Res
+//import ooniprobe.composeapp.generated.resources.app_name
+//import ooniprobe.composeapp.generated.resources.logo
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ooni.probe.config.Config
 import org.ooni.probe.ui.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,7 +35,7 @@ fun DashboardScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(stringResource(Res.string.app_name))
+                    Text(Config.BASE_SOFTWARE_NAME)
                 },
             )
         },
@@ -51,11 +53,11 @@ fun DashboardScreen(
                 Text("Run Tests")
             }
 
-            Image(
-                painterResource(Res.drawable.logo),
-                contentDescription = "OONI Probe Logo",
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-            )
+//            Image(
+//                painterResource(Res.drawable.logo),
+//                contentDescription = "OONI Probe Logo",
+//                modifier = Modifier.align(Alignment.CenterHorizontally),
+//            )
             Text(
                 text = state.log,
                 modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),

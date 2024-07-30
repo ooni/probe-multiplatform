@@ -1,7 +1,7 @@
 platform :ios, '12.0'
 use_frameworks!
 
-target 'iosApp' do
+target 'OONI Probe' do
     pod 'composeApp', :path => '../composeApp'
 
     ooni_version = "v3.22.0"
@@ -14,3 +14,27 @@ target 'iosApp' do
     pod "libz", :podspec => "#{ooni_pods_location}/libz.podspec"
     pod "oonimkall", :podspec => "#{ooni_pods_location}/oonimkall.podspec"
 end
+
+target 'News Media Scan' do
+    pod 'composeApp', :path => '../composeApp'
+
+    ooni_version = "v3.22.0"
+    ooni_pods_location = "https://github.com/ooni/probe-cli/releases/download/#{ooni_version}"
+
+    pod "libcrypto", :podspec => "#{ooni_pods_location}/libcrypto.podspec"
+    pod "libevent", :podspec => "#{ooni_pods_location}/libevent.podspec"
+    pod "libssl", :podspec => "#{ooni_pods_location}/libssl.podspec"
+    pod "libtor", :podspec => "#{ooni_pods_location}/libtor.podspec"
+    pod "libz", :podspec => "#{ooni_pods_location}/libz.podspec"
+    pod "oonimkall", :podspec => "#{ooni_pods_location}/oonimkall.podspec"
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['ENABLE_BITCODE'] = 'NO'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+    end
+  end
+end
+

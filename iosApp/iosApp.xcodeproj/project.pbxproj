@@ -9,32 +9,49 @@
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
+		0C4B32A97E48288E6FC028C4 /* Pods_News_Media_Scan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C77A9E84B4A4B03F0D67264 /* Pods_News_Media_Scan.framework */; };
+		1B3729B6273573C83E1504A9 /* Pods_OONI_Probe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10A02FA465AAC605457FF74 /* Pods_OONI_Probe.framework */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
-		90C537899E1A531A92327A33 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3690801A53F73052EF6710A7 /* Pods_iosApp.framework */; };
+		79FBCFFB2C593975004E041C /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
+		79FBCFFC2C593975004E041C /* IosOonimkallBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */; };
+		79FBCFFD2C593975004E041C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		79FBD0012C593975004E041C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
+		79FBD0022C593975004E041C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0D4C03D2E386ACD88F7BA119 /* Pods-OONI Probe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OONI Probe.debug.xcconfig"; path = "Target Support Files/Pods-OONI Probe/Pods-OONI Probe.debug.xcconfig"; sourceTree = "<group>"; };
+		1C77A9E84B4A4B03F0D67264 /* Pods_News_Media_Scan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_News_Media_Scan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
-		3690801A53F73052EF6710A7 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C317D1F5DE6C99A874555F9 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* OONI Probe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OONI Probe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79FBD0072C593975004E041C /* News Media Scan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "News Media Scan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosOonimkallBridge.swift; sourceTree = "<group>"; };
+		A10A02FA465AAC605457FF74 /* Pods_OONI_Probe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OONI_Probe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		B24B7C9C049ADDADBB7C8DCE /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
+		AB821C8706A50346DD40D08C /* Pods-News Media Scan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-News Media Scan.debug.xcconfig"; path = "Target Support Files/Pods-News Media Scan/Pods-News Media Scan.debug.xcconfig"; sourceTree = "<group>"; };
+		D2C47F66BDA54743BFF4DE34 /* Pods-OONI Probe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OONI Probe.release.xcconfig"; path = "Target Support Files/Pods-OONI Probe/Pods-OONI Probe.release.xcconfig"; sourceTree = "<group>"; };
+		F721E1F4BDE8EE69723E269A /* Pods-News Media Scan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-News Media Scan.release.xcconfig"; path = "Target Support Files/Pods-News Media Scan/Pods-News Media Scan.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		79FBCFFE2C593975004E041C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C4B32A97E48288E6FC028C4 /* Pods_News_Media_Scan.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B92378962B6B1156000C7307 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90C537899E1A531A92327A33 /* Pods_iosApp.framework in Frameworks */,
+				1B3729B6273573C83E1504A9 /* Pods_OONI_Probe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,8 +69,10 @@
 		20AA0919DAC14F9E057F989A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B24B7C9C049ADDADBB7C8DCE /* Pods-iosApp.debug.xcconfig */,
-				4C317D1F5DE6C99A874555F9 /* Pods-iosApp.release.xcconfig */,
+				AB821C8706A50346DD40D08C /* Pods-News Media Scan.debug.xcconfig */,
+				F721E1F4BDE8EE69723E269A /* Pods-News Media Scan.release.xcconfig */,
+				0D4C03D2E386ACD88F7BA119 /* Pods-OONI Probe.debug.xcconfig */,
+				D2C47F66BDA54743BFF4DE34 /* Pods-OONI Probe.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -61,7 +80,8 @@
 		42799AB246E5F90AF97AA0EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3690801A53F73052EF6710A7 /* Pods_iosApp.framework */,
+				1C77A9E84B4A4B03F0D67264 /* Pods_News_Media_Scan.framework */,
+				A10A02FA465AAC605457FF74 /* Pods_OONI_Probe.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -81,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				7555FF7B242A565900829871 /* OONI Probe.app */,
+				79FBD0072C593975004E041C /* News Media Scan.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,7 +111,6 @@
 			children = (
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
-				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 				93E977722C4FCCF7009CCABC /* engine */,
@@ -117,9 +137,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7555FF7A242A565900829871 /* iosApp */ = {
+		7555FF7A242A565900829871 /* OONI Probe */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "iosApp" */;
+			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "OONI Probe" */;
 			buildPhases = (
 				2221CAC0E44786DF6A5501B8 /* [CP] Check Pods Manifest.lock */,
 				F36B1CEB2AD83DDC00CB74D5 /* Compile Kotlin Framework */,
@@ -132,9 +152,29 @@
 			);
 			dependencies = (
 			);
-			name = iosApp;
+			name = "OONI Probe";
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* OONI Probe.app */;
+			productType = "com.apple.product-type.application";
+		};
+		79FBCFF72C593975004E041C /* News Media Scan */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 79FBD0042C593975004E041C /* Build configuration list for PBXNativeTarget "News Media Scan" */;
+			buildPhases = (
+				79FBCFF82C593975004E041C /* [CP] Check Pods Manifest.lock */,
+				79FBCFF92C593975004E041C /* Compile Kotlin Framework */,
+				79FBCFFA2C593975004E041C /* Sources */,
+				79FBCFFE2C593975004E041C /* Frameworks */,
+				79FBD0002C593975004E041C /* Resources */,
+				79FBD0032C593975004E041C /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "News Media Scan";
+			productName = iosApp;
+			productReference = 79FBD0072C593975004E041C /* News Media Scan.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -165,7 +205,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7555FF7A242A565900829871 /* iosApp */,
+				7555FF7A242A565900829871 /* OONI Probe */,
+				79FBCFF72C593975004E041C /* News Media Scan */,
 			);
 		};
 /* End PBXProject section */
@@ -177,6 +218,15 @@
 			files = (
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79FBD0002C593975004E041C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79FBD0012C593975004E041C /* Preview Assets.xcassets in Resources */,
+				79FBD0022C593975004E041C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,12 +248,69 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-iosApp-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-OONI Probe-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		79FBCFF82C593975004E041C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-News Media Scan-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		79FBCFF92C593975004E041C /* Compile Kotlin Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Compile Kotlin Framework";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew clean :composeApp:embedAndSignAppleFrameworkForXcode  -Porganization=dw\n";
+		};
+		79FBD0032C593975004E041C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/..\"\n./gradlew clean embedAndSignAppleFrameworkForXcode  -Porganization=dw\n";
 		};
 		93E977732C4FE022009CCABC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -220,7 +327,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT/..\"\n./gradlew embedAndSignAppleFrameworkForXcode\n";
+			shellScript = "cd \"$SRCROOT/..\"\n./gradlew clean embedAndSignAppleFrameworkForXcode  -Porganization=ooni\n";
 		};
 		F36B1CEB2AD83DDC00CB74D5 /* Compile Kotlin Framework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -238,7 +345,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew clean :composeApp:embedAndSignAppleFrameworkForXcode  -Porganization=ooni\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -250,6 +357,16 @@
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79FBCFFA2C593975004E041C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79FBCFFB2C593975004E041C /* iOSApp.swift in Sources */,
+				79FBCFFC2C593975004E041C /* IosOonimkallBridge.swift in Sources */,
+				79FBCFFD2C593975004E041C /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,7 +493,7 @@
 		};
 		7555FFA6242A565B00829871 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B24B7C9C049ADDADBB7C8DCE /* Pods-iosApp.debug.xcconfig */;
+			baseConfigurationReference = 0D4C03D2E386ACD88F7BA119 /* Pods-OONI Probe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -389,7 +506,7 @@
 					"$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_FILE = "iosApp/OONI-Probe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -400,7 +517,8 @@
 					"-framework",
 					composeApp,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_ID}${TEAM_ID}";
+				PRODUCT_BUNDLE_IDENTIFIER = org.ooni.probe.debug;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.ooni.probe.debug;
 				PRODUCT_NAME = "${APP_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -410,7 +528,7 @@
 		};
 		7555FFA7242A565B00829871 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C317D1F5DE6C99A874555F9 /* Pods-iosApp.release.xcconfig */;
+			baseConfigurationReference = D2C47F66BDA54743BFF4DE34 /* Pods-OONI Probe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -423,7 +541,7 @@
 					"$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_FILE = "iosApp/OONI-Probe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -434,8 +552,79 @@
 					"-framework",
 					composeApp,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_ID}${TEAM_ID}";
+				PRODUCT_BUNDLE_IDENTIFIER = org.ooni.probe;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.ooni.probe;
 				PRODUCT_NAME = "${APP_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		79FBD0052C593975004E041C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB821C8706A50346DD40D08C /* Pods-News Media Scan.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "iosApp/News-Media-Scan-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					composeApp,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.dw.probe.debug;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.dw.probe.debug;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		79FBD0062C593975004E041C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F721E1F4BDE8EE69723E269A /* Pods-News Media Scan.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "iosApp/News-Media-Scan-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					composeApp,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.dw.probe;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.dw.probe;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -454,11 +643,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "iosApp" */ = {
+		7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "OONI Probe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7555FFA6242A565B00829871 /* Debug */,
 				7555FFA7242A565B00829871 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		79FBD0042C593975004E041C /* Build configuration list for PBXNativeTarget "News Media Scan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79FBD0052C593975004E041C /* Debug */,
+				79FBD0062C593975004E041C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
