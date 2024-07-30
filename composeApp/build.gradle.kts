@@ -150,7 +150,7 @@ ktlint {
     additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
 }
 
-tasks.register("copyCommonResourcesToFlavor") {
+tasks.register("copyBrandingToCommonResources") {
     doLast {
         val projectDir = project.projectDir.absolutePath
 
@@ -186,17 +186,17 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
 }
 
 /**
- * Configure the prepareComposeResourcesTaskForCommonMain task to depend on the copyCommonResourcesToFlavor task.
+ * Configure the prepareComposeResourcesTaskForCommonMain task to depend on the copyBrandingToCommonResources task.
  * This will ensure that the common resources are copied to the correct location before the task is executed.
  *
  * NOTE: Current limitation is that multiple resources directories are not supported.
  */
 tasks.named("preBuild").configure {
-    dependsOn("copyCommonResourcesToFlavor")
+    dependsOn("copyBrandingToCommonResources")
 }
 
 tasks.named("clean").configure {
-    dependsOn("copyCommonResourcesToFlavor")
+    dependsOn("copyBrandingToCommonResources")
 }
 
 tasks.named("clean").configure {

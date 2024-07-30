@@ -1,6 +1,5 @@
 package org.ooni.probe.ui.dashboard
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,14 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.Role.Companion.Image
-//import ooniprobe.composeapp.generated.resources.Res
-//import ooniprobe.composeapp.generated.resources.app_name
-//import ooniprobe.composeapp.generated.resources.logo
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.config.Config
 import org.ooni.probe.ui.AppTheme
