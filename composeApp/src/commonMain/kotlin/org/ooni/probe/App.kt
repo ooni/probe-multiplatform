@@ -11,7 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.di.Dependencies
-import org.ooni.probe.ui.Theme
+import org.ooni.probe.ui.AppTheme
 import org.ooni.probe.ui.navigation.Navigation
 
 @Composable
@@ -19,7 +19,7 @@ import org.ooni.probe.ui.navigation.Navigation
 fun App(dependencies: Dependencies) {
     val navController = rememberNavController()
 
-    Theme {
+    AppTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
