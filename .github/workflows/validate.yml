@@ -13,6 +13,7 @@ jobs:
     strategy:
       matrix:
         type: [Debug, Release]
+        organization: [ooni, dw]
 
     steps:
       - uses: actions/checkout@v4
@@ -21,9 +22,9 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build Android
-        run: ./gradlew copyBrandingToCommonResources assemble${{ matrix.type }}
+        run: ./gradlew copyBrandingToCommonResources assemble${{ matrix.type }} -Porganization=${{ matrix.organization }}
 
-      - name: Build iOS
+      - name: Build iOS Framework
         run: ./gradlew link${{ matrix.type }}FrameworkIosSimulatorArm64
 
   android-lint:
