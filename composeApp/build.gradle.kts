@@ -137,7 +137,7 @@ android {
     android {
         lint {
             warningsAsErrors = true
-            disable += "AndroidGradlePluginVersion"
+            disable += listOf("AndroidGradlePluginVersion", "ObsoleteLintCustomCheck")
         }
     }
 }
@@ -192,6 +192,10 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
  * NOTE: Current limitation is that multiple resources directories are not supported.
  */
 tasks.named("preBuild").configure {
+    dependsOn("copyCommonResourcesToFlavor")
+}
+
+tasks.named("clean").configure {
     dependsOn("copyCommonResourcesToFlavor")
 }
 
@@ -273,7 +277,11 @@ fun copyRecursive(
 tasks.register("runDebug", Exec::class) {
     dependsOn("clean", "uninstallDebug", "installDebug")
     commandLine(
-        "adb", "shell", "am", "start", "-n",
+        "adb",
+        "shell",
+        "am",
+        "start",
+        "-n",
         "${config.appId}.debug/org.ooni.probe.MainActivity",
     )
 }
