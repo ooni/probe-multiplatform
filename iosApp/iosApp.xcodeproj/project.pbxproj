@@ -155,7 +155,7 @@
 				B92378962B6B1156000C7307 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
 				93E977732C4FE022009CCABC /* ShellScript */,
-				1D781D253A93CE29EBCAE109 /* [CP] Copy Pods Resources */,
+				C15EB4D3556522B7CE6B1638 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -176,7 +176,7 @@
 				79FBD0102C5A70AF004E041C /* Frameworks */,
 				79FBD0122C5A70AF004E041C /* Resources */,
 				79FBD0152C5A70AF004E041C /* ShellScript */,
-				D6DC91B67CBB539F590C053E /* [CP] Copy Pods Resources */,
+				E83A3E9E7BCDBBDBB4891740 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -243,23 +243,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1D781D253A93CE29EBCAE109 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2221CAC0E44786DF6A5501B8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -320,7 +303,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode -Porganization=dw\n";
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew copyBrandingToCommonResources :composeApp:embedAndSignAppleFrameworkForXcode -Porganization=dw\n";
 		};
 		79FBD0152C5A70AF004E041C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -337,7 +320,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT/..\"\n./gradlew embedAndSignAppleFrameworkForXcode -Porganization=dw\n";
+			shellScript = "cd \"$SRCROOT/..\"\n./gradlew copyBrandingToCommonResources embedAndSignAppleFrameworkForXcode -Porganization=dw\n";
 		};
 		93E977732C4FE022009CCABC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -354,9 +337,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT/..\"\n./gradlew embedAndSignAppleFrameworkForXcode -Porganization=ooni\n";
+			shellScript = "cd \"$SRCROOT/..\"\n./gradlew copyBrandingToCommonResources embedAndSignAppleFrameworkForXcode -Porganization=ooni\n";
 		};
-		D6DC91B67CBB539F590C053E /* [CP] Copy Pods Resources */ = {
+		C15EB4D3556522B7CE6B1638 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E83A3E9E7BCDBBDBB4891740 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -389,7 +389,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode -Porganization=ooni\n";
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew copyBrandingToCommonResources :composeApp:embedAndSignAppleFrameworkForXcode -Porganization=ooni\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

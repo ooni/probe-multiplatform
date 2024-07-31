@@ -13,6 +13,7 @@ jobs:
     strategy:
       matrix:
         type: [Debug, Release]
+        organization: [ooni, dw]
 
     steps:
       - uses: actions/checkout@v4
@@ -21,10 +22,10 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build Android
-        run: ./gradlew assemble${{ matrix.type }}
+        run: ./gradlew copyBrandingToCommonResources assemble${{ matrix.type }} -Porganization=${{ matrix.organization }}
 
-      - name: Build iOS
-        run: ./gradlew link${{ matrix.type }}FrameworkIosSimulatorArm64
+      - name: Build iOS Framework
+        run: ./gradlew link${{ matrix.type }}FrameworkIosSimulatorArm64 -Porganization=${{ matrix.organization }}
 
   android-lint:
     name: Android Lint
@@ -38,7 +39,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run lint
-        run: ./gradlew lint
+        run: ./gradlew copyBrandingToCommonResources lint
 
       - name: Uploads test reports
         uses: actions/upload-artifact@v4
@@ -59,7 +60,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run lint
-        run: ./gradlew ktlintCheck
+        run: ./gradlew copyBrandingToCommonResources ktlintCheck
 
       - name: Uploads test reports
         uses: actions/upload-artifact@v4
