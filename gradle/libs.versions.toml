@@ -20,6 +20,7 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "12.1.1" }
 
 [libraries]
 # UI
+android-activity = { module = "androidx.activity:activity-ktx", version = "1.9.1" }
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.8.0" }
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.7.0-alpha07" }
 
