@@ -16,8 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.app_name
-import ooniprobe.composeapp.generated.resources.logo
+import ooniprobe.composeapp.generated.resources.compose_multiplatform
+import ooniprobe.composeapp.generated.resources.run_tests
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -33,7 +33,7 @@ fun DashboardScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(stringResource(Res.string.app_name))
+                    Text("stringResource(Res.string.app_name)")
                 },
             )
         },
@@ -47,12 +47,11 @@ fun DashboardScreen(
                 onClick = { onEvent(DashboardViewModel.Event.StartClick) },
                 enabled = !state.isRunning,
             ) {
-                // Text(stringResource(Res.string.run_tests))
-                Text("Run Tests")
+                Text(stringResource(Res.string.run_tests))
             }
 
             Image(
-                painterResource(Res.drawable.logo),
+                painterResource(Res.drawable.compose_multiplatform),
                 contentDescription = "OONI Probe Logo",
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )

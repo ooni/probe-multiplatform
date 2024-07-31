@@ -33,7 +33,7 @@ EXTERNAL SOURCES:
     :podspec: https://github.com/ooni/probe-cli/releases/download/v3.22.0/oonimkall.podspec
 
 SPEC CHECKSUMS:
-  composeApp: 3f1f4ca4e070c2c0aa528bb1eb838ffc3860f5c0
+  composeApp: be6187105a7697f3cb0799a21bbbfddc5e65b077
   libcrypto: 1bb58600c586e28688f5578f4675f5ffa46c8eaf
   libevent: 5c8502ca5cc38be31bb510ddade0f238bcc5f0dc
   libssl: 170bebcaf567a0285e91a8850b9686137d07c3e1
@@ -41,6 +41,6 @@ SPEC CHECKSUMS:
   libz: 83658eb2a0db785623ffdf9ce13407e6b8b5c8f9
   oonimkall: 9768ce9dad18265d45d2ea972c84fb0bd5237cc3
 
-PODFILE CHECKSUM: 04b498ba1984c25e9816234b0551222184c25492
+PODFILE CHECKSUM: 6b9fec93f7dafc7e41cea21a2b743d6e57ed14d2
 
 COCOAPODS: 1.15.2

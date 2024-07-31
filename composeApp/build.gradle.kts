@@ -48,7 +48,7 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        ios.deploymentTarget = "9.0"
+        ios.deploymentTarget = "12.0"
 
         version = "1.0"
         summary = "Compose App"
@@ -96,13 +96,6 @@ kotlin {
     composeCompiler {
         enableStrongSkippingMode = true
     }
-}
-
-compose.resources {
-    customDirectory(
-        sourceSetName = "commonMain",
-        directoryProvider = provider { layout.projectDirectory.dir(config.resRoot) },
-    )
 }
 
 android {
