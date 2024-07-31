@@ -67,6 +67,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.android.oonimkall)
+            implementation(libs.android.activity)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -84,7 +85,10 @@ kotlin {
             }
         }
         all {
-            languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+            languageSettings {
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                optIn("androidx.compose.material3.ExperimentalMaterial3Api")
+            }
         }
     }
 

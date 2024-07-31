@@ -1,3 +1,7 @@
 <resources>
     <string name="run_tests">Run Test</string>
+    <string name="back">Back</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="test_results">Test Results</string>
+    <string name="settings">Settings</string>
 </resources>
