@@ -48,7 +48,7 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        ios.deploymentTarget = "9.0"
+        ios.deploymentTarget = "12.0"
 
         version = "1.0"
         summary = "Compose App"
@@ -96,13 +96,6 @@ kotlin {
     composeCompiler {
         enableStrongSkippingMode = true
     }
-}
-
-compose.resources {
-    customDirectory(
-        sourceSetName = "commonMain",
-        directoryProvider = provider { layout.projectDirectory.dir(config.resRoot) },
-    )
 }
 
 android {
@@ -157,13 +150,13 @@ ktlint {
     additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
 }
 
-tasks.register("copyCommonResourcesToFlavor") {
+tasks.register("copyBrandingToCommonResources") {
     doLast {
         val projectDir = project.projectDir.absolutePath
 
-        val sourceFile = File(projectDir, "src/commonMain/composeResources")
+        val destinationFile = File(projectDir, "src/commonMain/composeResources")
 
-        val destinationFile = File(projectDir, config.resRoot)
+        val sourceFile = File(projectDir, config.resRoot)
 
         copyRecursive(sourceFile, destinationFile)
     }
@@ -173,7 +166,7 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
     doLast {
         val projectDir = project.projectDir.absolutePath
 
-        val destinationFile = File(projectDir, config.resRoot)
+        val destinationFile = File(projectDir, "src/commonMain/composeResources")
         destinationFile.listFiles()?.forEach { folder ->
             folder.listFiles()?.forEach { file ->
                 if (file.name == ".gitignore") {
@@ -192,17 +185,17 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
 }
 
 /**
- * Configure the prepareComposeResourcesTaskForCommonMain task to depend on the copyCommonResourcesToFlavor task.
+ * Configure the prepareComposeResourcesTaskForCommonMain task to depend on the copyBrandingToCommonResources task.
  * This will ensure that the common resources are copied to the correct location before the task is executed.
  *
  * NOTE: Current limitation is that multiple resources directories are not supported.
  */
 tasks.named("preBuild").configure {
-    dependsOn("copyCommonResourcesToFlavor")
+    dependsOn("copyBrandingToCommonResources")
 }
 
 tasks.named("clean").configure {
-    dependsOn("copyCommonResourcesToFlavor")
+    dependsOn("copyBrandingToCommonResources")
 }
 
 tasks.named("clean").configure {
@@ -278,4 +271,16 @@ fun copyRecursive(
             }
         }
     }
+}
+
+tasks.register("runDebug", Exec::class) {
+    dependsOn("clean", "uninstallDebug", "installDebug")
+    commandLine(
+        "adb",
+        "shell",
+        "am",
+        "start",
+        "-n",
+        "${config.appId}.debug/org.ooni.probe.MainActivity",
+    )
 }
