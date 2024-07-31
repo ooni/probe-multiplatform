@@ -43,9 +43,6 @@ besides platform-specific code that we can’t avoid, such as the loading our pr
   * `data` data layer code (database, preferences, network...)
   * `ui` UI layer code, organized into features/screens
 
-<<<<<<< HEAD
-
-
 ### Build, Install, and Run
 
 To build, install, and run your application, use the following commands:
@@ -97,12 +94,9 @@ XCode Project Scheme `NewsMediaScan` and run it.
 - Ensure you can run clean and build the project successfully.
 - Run `pod install` in the `iosApp` directory.
 
-
 ## Testing
 
 Common tests (tests inside `commonTest`) only run on the iOS Simulator.
 Choosing the option `android (local)` won't work. This is a current
 [issue](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html#f03e048) with
 the official testing library.
-
-
