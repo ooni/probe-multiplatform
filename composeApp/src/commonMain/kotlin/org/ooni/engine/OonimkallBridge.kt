@@ -1,7 +1,6 @@
 package org.ooni.engine
 
 interface OonimkallBridge {
-
     @Throws(Exception::class)
     fun startTask(settingsSerialized: String): Task
 
@@ -14,11 +13,13 @@ interface OonimkallBridge {
     }
 
     @Throws(Exception::class)
-    fun newSession(sessionConfig: SessionConfig) : Session
+    fun newSession(sessionConfig: SessionConfig): Session
 
     interface Logger {
         fun debug(msg: String?)
+
         fun info(msg: String?)
+
         fun warn(msg: String?)
     }
 

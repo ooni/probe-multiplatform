@@ -10,14 +10,17 @@ import kotlinx.serialization.encoding.Encoder
 @Serializable(with = TaskOriginSerializer::class)
 enum class TaskOrigin(val value: String) {
     AutoRun("autorun"),
-    OoniRun("ooni-run")
+    OoniRun("ooni-run"),
 }
 
 object TaskOriginSerializer : KSerializer<TaskOrigin> {
     override val descriptor =
         PrimitiveSerialDescriptor("TaskOrigin", PrimitiveKind.STRING)
 
-    override fun serialize(encoder: Encoder, value: TaskOrigin) {
+    override fun serialize(
+        encoder: Encoder,
+        value: TaskOrigin,
+    ) {
         encoder.encodeString(value.value)
     }
 

@@ -19,7 +19,10 @@ object NetworkTypeSerializer : KSerializer<NetworkType> {
     override val descriptor =
         PrimitiveSerialDescriptor("NetworkType", PrimitiveKind.STRING)
 
-    override fun serialize(encoder: Encoder, value: NetworkType) {
+    override fun serialize(
+        encoder: Encoder,
+        value: NetworkType,
+    ) {
         encoder.encodeString(value.value)
     }
 

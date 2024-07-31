@@ -9,7 +9,6 @@ import oonimkall.Oonimkall
 import oonimkall.SessionConfig
 
 class AndroidOonimkallBridge : OonimkallBridge {
-
     override fun startTask(settingsSerialized: String): OonimkallBridge.Task {
         val task = Oonimkall.startTask(settingsSerialized)
         return object : OonimkallBridge.Task {
@@ -18,6 +17,7 @@ class AndroidOonimkallBridge : OonimkallBridge {
             }
 
             override fun isDone(): Boolean = task.isDone
+
             override fun waitForNextEvent() = task.waitForNextEvent()
         }
     }
@@ -67,13 +67,16 @@ class AndroidOonimkallBridge : OonimkallBridge {
             it.probeServicesURL = probeServicesURL
             it.proxy = proxy
 
-            it.logger = logger?.let { logger ->
-                object : Logger {
-                    override fun debug(msg: String?) = logger.debug(msg)
-                    override fun info(msg: String?) = logger.info(msg)
-                    override fun warn(msg: String?) = logger.warn(msg)
+            it.logger =
+                logger?.let { logger ->
+                    object : Logger {
+                        override fun debug(msg: String?) = logger.debug(msg)
+
+                        override fun info(msg: String?) = logger.info(msg)
+
+                        override fun warn(msg: String?) = logger.warn(msg)
+                    }
                 }
-            }
             it.verbose = verbose
         }
 
@@ -85,11 +88,12 @@ class AndroidOonimkallBridge : OonimkallBridge {
             it.runType = runType
             it.softwareName = softwareName
             it.softwareVersion = softwareVersion
-            it.webConnectivity = CheckInConfigWebConnectivity().also {
-              webConnectivityCategories.forEach { category ->
-                  it.addCategory(category)
-              }
-            }
+            it.webConnectivity =
+                CheckInConfigWebConnectivity().also {
+                    webConnectivityCategories.forEach { category ->
+                        it.addCategory(category)
+                    }
+                }
         }
 
     private fun OonimkallBridge.HTTPRequest.toMk() =
@@ -113,7 +117,6 @@ class AndroidOonimkallBridge : OonimkallBridge {
             }
         }
     }
-
 
     companion object {
         private const val CONTEXT_TIMEOUT = -1L

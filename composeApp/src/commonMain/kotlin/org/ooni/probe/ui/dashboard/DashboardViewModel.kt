@@ -78,16 +78,18 @@ class DashboardViewModel(
                 name = "web_connectivity",
                 inputs = listOf("https://ooni.org"),
                 logLevel = TaskLogLevel.Info,
-                options = TaskSettings.Options(
-                    noCollector = true,
-                    softwareName = Config.BASE_SOFTWARE_NAME,
-                    softwareVersion = "1.0"
-                ),
-                annotations = TaskSettings.Annotations(
-                    networkType = NetworkType.Wifi,
-                    flavor = Config.BASE_SOFTWARE_NAME,
-                    origin = TaskOrigin.OoniRun
-                )
+                options =
+                    TaskSettings.Options(
+                        noCollector = true,
+                        softwareName = Config.BASE_SOFTWARE_NAME,
+                        softwareVersion = "1.0",
+                    ),
+                annotations =
+                    TaskSettings.Annotations(
+                        networkType = NetworkType.Wifi,
+                        flavor = Config.BASE_SOFTWARE_NAME,
+                        origin = TaskOrigin.OoniRun,
+                    ),
             )
     }
 }

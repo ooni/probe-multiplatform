@@ -17,7 +17,10 @@ object TaskLogLevelSerializer : KSerializer<TaskLogLevel> {
     override val descriptor =
         PrimitiveSerialDescriptor("TaskLogLevel", PrimitiveKind.STRING)
 
-    override fun serialize(encoder: Encoder, value: TaskLogLevel) {
+    override fun serialize(
+        encoder: Encoder,
+        value: TaskLogLevel,
+    ) {
         encoder.encodeString(value.value)
     }
 
