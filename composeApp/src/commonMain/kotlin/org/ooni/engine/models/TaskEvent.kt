@@ -1,4 +1,4 @@
-package org.ooni.engine
+package org.ooni.engine.models
 
 sealed interface TaskEvent {
     data class Log(

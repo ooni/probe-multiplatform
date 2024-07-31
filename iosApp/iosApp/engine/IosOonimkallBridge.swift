@@ -2,7 +2,7 @@ import composeApp
 import Oonimkall
 
 class IosOonimkallBridge : OonimkallBridge {
-    func startTask(settingsSerialized: String) -> OonimkallBridgeTask {
+    func startTask(settingsSerialized: String) throws -> OonimkallBridgeTask {
         var error: NSError?
         let task = OonimkallStartTask(settingsSerialized, &error)!
 
@@ -15,5 +15,9 @@ class IosOonimkallBridge : OonimkallBridge {
         }
     
         return Task(task: task)
+    }
+    
+    func doNewSession(sessionConfig: OonimkallBridgeSessionConfig) throws -> OonimkallBridgeSession {
+        fatalError("Not Implemented")
     }
 }
