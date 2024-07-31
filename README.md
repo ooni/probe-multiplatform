@@ -43,8 +43,6 @@ besides platform-specific code that we can’t avoid, such as the loading our pr
   * `data` data layer code (database, preferences, network...)
   * `ui` UI layer code, organized into features/screens
 
-
-
 ### Build, Install, and Run
 
 To build, install, and run your application, use the following commands:
@@ -59,7 +57,8 @@ To build, install, and run your application, use the following commands:
   ./gradlew runDebug -Porganization=dw
   ```
 
-There is a custom gradle task(`copyBrandingToCommonResources`) that is used to copy brand specific resources to the common resources folder. This task is called before the `preBuild` task.
+There is a custom gradle task(`copyBrandingToCommonResources`) that is used to copy brand specific
+resources to the common resources folder. This task is called before the `preBuild` task.
 
 ### Creating Run Configurations in Android Studio
 
@@ -82,11 +81,22 @@ Configure run configurations for easy execution within Android Studio:
 
 #### OONI Probe iOS Configuration
 
-The "Run/Debug Configurations" already has the proper configuration and you just need to select the XCode Project Scheme `OONIProbe` and run it.
+The "Run/Debug Configurations" already has the proper configuration and you just need to select the
+XCode Project Scheme `OONIProbe` and run it.
 
 #### News Media Scan iOS Configuration
-The "Run/Debug Configurations" already has the proper configuration and you just need to select the XCode Project Scheme `NewsMediaScan` and run it.
+
+The "Run/Debug Configurations" already has the proper configuration and you just need to select the
+XCode Project Scheme `NewsMediaScan` and run it.
 
 #### Switching between OONI Probe and News Media Scan
+
 - Ensure you can run clean and build the project successfully.
 - Run `pod install` in the `iosApp` directory.
+
+## Testing
+
+Common tests (tests inside `commonTest`) only run on the iOS Simulator.
+Choosing the option `android (local)` won't work. This is a current
+[issue](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html#f03e048) with
+the official testing library.
