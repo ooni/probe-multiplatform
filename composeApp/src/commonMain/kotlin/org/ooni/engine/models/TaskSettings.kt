@@ -25,6 +25,7 @@ data class TaskSettings(
         // built from the flavors + debug or not + -unattended if autorun
         @SerialName("software_name") val softwareName: String,
         @SerialName("software_version") val softwareVersion: String,
+        @SerialName("max_runtime") val maxRuntime: Int? = null,
     )
 
     @Serializable
