@@ -2,24 +2,19 @@ package org.ooni.probe.ui.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.ooni.engine.Engine
-import org.ooni.engine.models.NetworkType
-import org.ooni.engine.models.TaskLogLevel
+import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskOrigin
-import org.ooni.engine.models.TaskSettings
-import org.ooni.probe.config.Config
 
 class DashboardViewModel(
     private val engine: Engine,
@@ -38,9 +33,30 @@ class DashboardViewModel(
 
                         _state.value = _state.value.copy(isRunning = true)
 
-                        engine.startTask(TASK_SETTINGS)
+                        val response =
+                            engine.httpDo(
+                                method = "GET",
+                                url = "https://api.dev.ooni.io/api/v2/oonirun/links/10426",
+                            )
+                        response?.let { Logger.d(it) }
+
+                        val checkInResults =
+                            engine.checkIn(
+                                categories = listOf("NEWS"),
+                                taskOrigin = TaskOrigin.OoniRun,
+                            )
+
+                        engine.startTask(
+                            name = "web_connectivity",
+                            inputs = checkInResults.urls.map { it.url },
+                            taskOrigin = TaskOrigin.OoniRun,
+                        )
                             .onEach { taskEvent ->
                                 _state.update { state ->
+                                    // Can't print the Measurement event,
+                                    // it's too long and halts the main thread
+                                    if (taskEvent is TaskEvent.Measurement) return@update state
+
                                     state.copy(log = state.log + "\n" + taskEvent)
                                 }
                             }
@@ -50,12 +66,6 @@ class DashboardViewModel(
                     }
                 }
             }
-            /*
-             This is only needed for this example. The best practice is for the data layer to
-             switch to a background dispatcher whenever is needed, and the viewModel should run
-             on the default (Main) dispatcher.
-             */
-            .flowOn(Dispatchers.IO)
             .launchIn(viewModelScope)
     }
 
@@ -70,26 +80,5 @@ class DashboardViewModel(
 
     sealed interface Event {
         data object StartClick : Event
-    }
-
-    companion object {
-        val TASK_SETTINGS =
-            TaskSettings(
-                name = "web_connectivity",
-                inputs = listOf("https://ooni.org"),
-                logLevel = TaskLogLevel.Info,
-                options =
-                    TaskSettings.Options(
-                        noCollector = true,
-                        softwareName = Config.BASE_SOFTWARE_NAME,
-                        softwareVersion = "1.0",
-                    ),
-                annotations =
-                    TaskSettings.Annotations(
-                        networkType = NetworkType.Wifi,
-                        flavor = Config.BASE_SOFTWARE_NAME,
-                        origin = TaskOrigin.OoniRun,
-                    ),
-            )
     }
 }
