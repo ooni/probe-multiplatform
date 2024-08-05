@@ -15,7 +15,11 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.ooni.engine.Engine
-import org.ooni.engine.TaskSettings
+import org.ooni.engine.models.NetworkType
+import org.ooni.engine.models.TaskLogLevel
+import org.ooni.engine.models.TaskOrigin
+import org.ooni.engine.models.TaskSettings
+import org.ooni.probe.config.Config
 
 class DashboardViewModel(
     private val engine: Engine,
@@ -73,7 +77,19 @@ class DashboardViewModel(
             TaskSettings(
                 name = "web_connectivity",
                 inputs = listOf("https://ooni.org"),
-                logLevel = "DEBUG2",
+                logLevel = TaskLogLevel.Info,
+                options =
+                    TaskSettings.Options(
+                        noCollector = true,
+                        softwareName = Config.BASE_SOFTWARE_NAME,
+                        softwareVersion = "1.0",
+                    ),
+                annotations =
+                    TaskSettings.Annotations(
+                        networkType = NetworkType.Wifi,
+                        flavor = Config.BASE_SOFTWARE_NAME,
+                        origin = TaskOrigin.OoniRun,
+                    ),
             )
     }
 }

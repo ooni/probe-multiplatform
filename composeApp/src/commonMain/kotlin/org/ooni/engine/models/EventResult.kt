@@ -1,4 +1,4 @@
-package org.ooni.engine
+package org.ooni.engine.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

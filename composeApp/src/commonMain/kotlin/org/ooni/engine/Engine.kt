@@ -5,6 +5,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.ooni.engine.models.EventResult
+import org.ooni.engine.models.TaskEvent
+import org.ooni.engine.models.TaskSettings
 import kotlin.math.roundToInt
 
 class Engine(
