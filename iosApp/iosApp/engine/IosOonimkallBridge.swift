@@ -40,6 +40,22 @@ class IosOonimkallBridge: OonimkallBridge {
                 self.sessionConfig = sessionConfig
             }
 
+            func error(_ message: String, code: Int = 0, domain: String = "IosOonimkallBridge", function: String = #function, file: String = #file, line: Int = #line) -> NSError {
+
+                let functionKey = "\(domain).function"
+                let fileKey = "\(domain).file"
+                let lineKey = "\(domain).line"
+
+                let error = NSError(domain: domain, code: code, userInfo: [
+                    message: message,
+                    functionKey: function,
+                    fileKey: file,
+                    lineKey: line
+                ])
+
+                return error
+            }
+
             func checkIn(config: OonimkallBridgeCheckInConfig) throws -> any OonimkallBridgeCheckInResults {
                 var error: NSError?
                 let ses = OonimkallNewSession(sessionConfig, &error)
@@ -48,7 +64,7 @@ class IosOonimkallBridge: OonimkallBridge {
                     throw error!
                 }
                 guard let context = ses?.newContext(withTimeout: CONTEXT_TIMEOUT) else {
-                    throw NSError()
+                    throw self.error("Unable to create context")
                 }
                 do {
                     let info = try ses?.check(in: context, config: config.toMk())
@@ -66,7 +82,7 @@ class IosOonimkallBridge: OonimkallBridge {
                     throw error!
                 }
                 guard let context = ses?.newContext(withTimeout: CONTEXT_TIMEOUT) else {
-                    throw NSError()
+                    throw self.error("Unable to create context")
                 }
                 do {
                     let response = try ses?.httpDo(context, jreq: request.toMk())
@@ -84,7 +100,7 @@ class IosOonimkallBridge: OonimkallBridge {
                     throw error!
                 }
                 guard let context = ses?.newContext(withTimeout: CONTEXT_TIMEOUT) else {
-                    throw NSError()
+                    throw self.error("Unable to create context")
                 }
                 do {
 
