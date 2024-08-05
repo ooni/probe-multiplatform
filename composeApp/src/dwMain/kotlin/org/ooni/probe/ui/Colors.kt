@@ -5,60 +5,74 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-class ThemeConfig {
-    companion object {
-        fun colorScheme(isDarkTheme: Boolean) = if (isDarkTheme) darkColors else lightColors
-    }
-}
+val primaryLight = Color(0xFF904A43)
+val onPrimaryLight = Color(0xFFFFFFFF)
+val primaryContainerLight = Color(0xFFFFDAD6)
+val onPrimaryContainerLight = Color(0xFF3B0907)
+val secondaryLight = Color(0xFF266489)
+val onSecondaryLight = Color(0xFFFFFFFF)
+val secondaryContainerLight = Color(0xFFC9E6FF)
+val onSecondaryContainerLight = Color(0xFF001E2F)
+val tertiaryLight = Color(0xFF266489)
+val onTertiaryLight = Color(0xFFFFFFFF)
+val tertiaryContainerLight = Color(0xFFC9E6FF)
+val onTertiaryContainerLight = Color(0xFF001E2F)
+val errorLight = Color(0xFFBA1A1A)
+val onErrorLight = Color(0xFFFFFFFF)
+val errorContainerLight = Color(0xFFFFDAD6)
+val onErrorContainerLight = Color(0xFF410002)
+val backgroundLight = Color(0xFFFFF8F7)
+val onBackgroundLight = Color(0xFF231918)
+val surfaceLight = Color(0xFFF5FAFB)
+val onSurfaceLight = Color(0xFF171D1E)
+val surfaceVariantLight = Color(0xFFE0E2EC)
+val onSurfaceVariantLight = Color(0xFF44474E)
+val outlineLight = Color(0xFF74777F)
+val outlineVariantLight = Color(0xFFC4C6D0)
+val scrimLight = Color(0xFF000000)
+val inverseSurfaceLight = Color(0xFF2B3133)
+val inverseOnSurfaceLight = Color(0xFFECF2F3)
+val inversePrimaryLight = Color(0xFFFFB4AB)
+val surfaceDimLight = Color(0xFFD5DBDC)
+val surfaceBrightLight = Color(0xFFF5FAFB)
+val surfaceContainerLowestLight = Color(0xFFFFFFFF)
+val surfaceContainerLowLight = Color(0xFFEFF5F6)
+val surfaceContainerLight = Color(0xFFE9EFF0)
+val surfaceContainerHighLight = Color(0xFFE3E9EA)
+val surfaceContainerHighestLight = Color(0xFFDEE3E5)
 
-private val primaryColor = Color(0xffD32625)
-private val primaryLightColor = primaryColor.copy(alpha = 0.75f)
-private val secondaryColor = Color(0xff5db8fe)
-private val secondaryLightColor = secondaryColor.copy(alpha = 0.75f)
-private val primaryTextColor = Color(0xffffffff)
-private val secondaryTextColor = Color(0xff000000)
-private val surfaceDark = Color(0xFF161616)
-private val surfaceLight = Color(0xFFFFFFFF)
-private val backgroundLightColor = Color(0xffF1F0F5)
-private val backgroundDarkColor = Color(0xff010100)
-private val errorColor = Color(0xFFFF8989)
-private val onErrorColor = Color(0xFF000000)
-
-val darkColors: ColorScheme =
-    darkColorScheme(
-        primary = primaryColor,
-        onPrimary = primaryTextColor,
-        secondary = secondaryLightColor,
-        onSecondary = secondaryTextColor,
-        tertiary = primaryLightColor,
-        onTertiary = primaryTextColor,
-        background = backgroundDarkColor,
-        onBackground = Color.White,
-        surface = surfaceDark,
-        onSurface = Color.White,
-        surfaceVariant = surfaceDark,
-        onSurfaceVariant = Color.White,
-        secondaryContainer = primaryColor,
-        onSecondaryContainer = Color.White,
-        error = errorColor,
-        onError = onErrorColor,
-    )
-val lightColors: ColorScheme =
-    lightColorScheme(
-        primary = primaryColor,
-        onPrimary = primaryTextColor,
-        secondary = secondaryColor,
-        onSecondary = secondaryTextColor,
-        tertiary = primaryLightColor,
-        onTertiary = primaryTextColor,
-        background = backgroundLightColor,
-        onBackground = Color.Black,
-        surface = surfaceLight,
-        onSurface = Color.Black,
-        surfaceVariant = surfaceLight,
-        onSurfaceVariant = Color.Black,
-        secondaryContainer = primaryColor,
-        onSecondaryContainer = Color.White,
-        error = errorColor,
-        onError = onErrorColor,
-    )
+val primaryDark = Color(0xFFFFB4AB)
+val onPrimaryDark = Color(0xFF561E19)
+val primaryContainerDark = Color(0xFF73332E)
+val onPrimaryContainerDark = Color(0xFFFFDAD6)
+val secondaryDark = Color(0xFF95CDF7)
+val onSecondaryDark = Color(0xFF00344E)
+val secondaryContainerDark = Color(0xFF004B6F)
+val onSecondaryContainerDark = Color(0xFFC9E6FF)
+val tertiaryDark = Color(0xFF95CDF7)
+val onTertiaryDark = Color(0xFF00344E)
+val tertiaryContainerDark = Color(0xFF004B6F)
+val onTertiaryContainerDark = Color(0xFFC9E6FF)
+val errorDark = Color(0xFFFFB4AB)
+val onErrorDark = Color(0xFF690005)
+val errorContainerDark = Color(0xFF93000A)
+val onErrorContainerDark = Color(0xFFFFDAD6)
+val backgroundDark = Color(0xFF1A1110)
+val onBackgroundDark = Color(0xFFF1DEDC)
+val surfaceDark = Color(0xFF0E1415)
+val onSurfaceDark = Color(0xFFDEE3E5)
+val surfaceVariantDark = Color(0xFF44474E)
+val onSurfaceVariantDark = Color(0xFFC4C6D0)
+val outlineDark = Color(0xFF8E9099)
+val outlineVariantDark = Color(0xFF44474E)
+val scrimDark = Color(0xFF000000)
+val inverseSurfaceDark = Color(0xFFDEE3E5)
+val inverseOnSurfaceDark = Color(0xFF2B3133)
+val inversePrimaryDark = Color(0xFF904A43)
+val surfaceDimDark = Color(0xFF0E1415)
+val surfaceBrightDark = Color(0xFF343A3B)
+val surfaceContainerLowestDark = Color(0xFF090F10)
+val surfaceContainerLowDark = Color(0xFF171D1E)
+val surfaceContainerDark = Color(0xFF1B2122)
+val surfaceContainerHighDark = Color(0xFF252B2C)
+val surfaceContainerHighestDark = Color(0xFF303637)
