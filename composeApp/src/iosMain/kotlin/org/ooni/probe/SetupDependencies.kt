@@ -5,14 +5,22 @@ import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import platform.Foundation.NSBundle
+import platform.Foundation.NSDocumentDirectory
+import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSTemporaryDirectory
+import platform.Foundation.NSUserDomainMask
 import platform.UIKit.UIDevice
 
+/**
+ * See link for `baseFileDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L54
+ * See link for `cacheDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L66
+ */
 fun setupDependencies(bridge: OonimkallBridge) =
     Dependencies(
         platformInfo = platformInfo,
         oonimkallBridge = bridge,
-        baseFileDir = NSTemporaryDirectory(),
+        baseFileDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).first().toString(),
+        cacheDir = NSTemporaryDirectory(),
     )
 
 private val platformInfo get() =

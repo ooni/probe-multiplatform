@@ -18,15 +18,16 @@ class Engine(
     private val bridge: OonimkallBridge,
     private val json: Json,
     private val baseFilePath: String,
+    private val cacheDir: String,
 ) {
     fun startTask(taskSettings: TaskSettings): Flow<TaskEvent> =
         channelFlow {
             val finalSettings =
                 taskSettings.copy(
-                    stateDir = baseFilePath,
-                    tunnelDir = baseFilePath,
-                    tempDir = baseFilePath,
-                    assetsDir = baseFilePath,
+                    stateDir = "$baseFilePath/state",
+                    tunnelDir = "$baseFilePath/tunnel",
+                    tempDir = cacheDir,
+                    assetsDir = "$baseFilePath/assets",
                 )
 
             val response = httpDo(finalSettings)

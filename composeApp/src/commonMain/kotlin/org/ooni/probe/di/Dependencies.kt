@@ -13,6 +13,7 @@ class Dependencies(
     val platformInfo: PlatformInfo,
     private val oonimkallBridge: OonimkallBridge,
     private val baseFileDir: String,
+    private val cacheDir: String,
 ) {
     // Data
 
@@ -25,7 +26,7 @@ class Dependencies(
 
     // Engine
 
-    private val engine by lazy { Engine(oonimkallBridge, json, baseFileDir) }
+    private val engine by lazy { Engine(oonimkallBridge, json, baseFileDir , cacheDir) }
 
     // ViewModels
 
