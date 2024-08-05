@@ -66,41 +66,31 @@ class Engine(
 
     fun session(finalSettings: TaskSettings): OonimkallBridge.Session {
         return bridge.newSession(
-            object : OonimkallBridge.SessionConfig {
-                override val softwareName: String
-                    get() = finalSettings.options.softwareName
-                override val softwareVersion: String
-                    get() = finalSettings.options.softwareVersion
-                override val proxy: String?
-                    get() = null
-                override val probeServicesURL: String?
-                    get() = "https://api.prod.ooni.io"
-                override val assetsDir: String
-                    get() = finalSettings.assetsDir.toString()
-                override val stateDir: String
-                    get() = finalSettings.stateDir.toString()
-                override val tempDir: String
-                    get() = finalSettings.tempDir.toString()
-                override val tunnelDir: String
-                    get() = finalSettings.tunnelDir.toString()
-                override val logger: OonimkallBridge.Logger?
-                    get() =
-                        object : OonimkallBridge.Logger {
-                            override fun debug(msg: String?) {
-                                println("DEBUG: $msg")
-                            }
-
-                            override fun info(msg: String?) {
-                                println("INFO: $msg")
-                            }
-
-                            override fun warn(msg: String?) {
-                                println("WARN: $msg")
-                            }
+            OonimkallBridge.SessionConfig(
+                softwareName = finalSettings.options.softwareName,
+                softwareVersion = finalSettings.options.softwareVersion,
+                proxy = null,
+                probeServicesURL = "https://api.prod.ooni.io",
+                assetsDir = finalSettings.assetsDir.toString(),
+                stateDir = finalSettings.stateDir.toString(),
+                tempDir = finalSettings.tempDir.toString(),
+                tunnelDir = finalSettings.tunnelDir.toString(),
+                logger =
+                    object : OonimkallBridge.Logger {
+                        override fun debug(msg: String?) {
+                            msg?.let { Logger.d(it) }
                         }
-                override val verbose: Boolean
-                    get() = true
-            },
+
+                        override fun info(msg: String?) {
+                            msg?.let { Logger.d(it) }
+                        }
+
+                        override fun warn(msg: String?) {
+                            msg?.let { Logger.d(it) }
+                        }
+                    },
+                verbose = true,
+            ),
         )
     }
 

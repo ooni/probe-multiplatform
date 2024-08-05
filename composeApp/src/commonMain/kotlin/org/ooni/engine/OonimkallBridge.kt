@@ -23,21 +23,18 @@ interface OonimkallBridge {
         fun warn(msg: String?)
     }
 
-    interface SessionConfig {
-        val softwareName: String
-        val softwareVersion: String
-
-        val proxy: String?
-        val probeServicesURL: String?
-
-        val assetsDir: String
-        val stateDir: String
-        val tempDir: String
-        val tunnelDir: String
-
-        val logger: Logger?
-        val verbose: Boolean
-    }
+    data class SessionConfig(
+        val softwareName: String,
+        val softwareVersion: String,
+        val proxy: String?,
+        val probeServicesURL: String?,
+        val assetsDir: String,
+        val stateDir: String,
+        val tempDir: String,
+        val tunnelDir: String,
+        val logger: Logger?,
+        val verbose: Boolean,
+    )
 
     interface Session {
         @Throws(Exception::class)
