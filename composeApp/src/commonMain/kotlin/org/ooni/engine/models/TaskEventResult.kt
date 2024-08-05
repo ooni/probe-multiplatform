@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class EventResult {
+class TaskEventResult {
     @SerialName("key")
     var key: String? = null
 
