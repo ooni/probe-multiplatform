@@ -50,38 +50,40 @@ interface OonimkallBridge {
         fun httpDo(request: HTTPRequest): HTTPResponse
     }
 
-    interface SubmitMeasurementResults {
-        val updatedMeasurement: String?
-        val updatedReportId: String?
-    }
+    data class SubmitMeasurementResults(
+        val updatedMeasurement: String?,
+        val updatedReportId: String?,
+    )
 
-    interface CheckInConfig {
-        val charging: Boolean
-        val onWiFi: Boolean
-        val platform: String // "android" or "ios"
-        val runType: String // "timed"
-        val softwareName: String
-        val softwareVersion: String
-        val webConnectivityCategories: List<String>
-    }
+    data class CheckInConfig(
+        val charging: Boolean,
+        val onWiFi: Boolean,
+        // "android" or "ios"
+        val platform: String,
+        // "timed"
+        val runType: String,
+        val softwareName: String,
+        val softwareVersion: String,
+        val webConnectivityCategories: List<String>,
+    )
 
-    interface CheckInResults {
-        val reportId: String?
-        val urls: List<UrlInfo>
-    }
+    data class CheckInResults(
+        val reportId: String?,
+        val urls: List<UrlInfo>,
+    )
 
-    interface UrlInfo {
-        val url: String
-        val categoryCode: String?
-        val countryCode: String?
-    }
+    data class UrlInfo(
+        val url: String,
+        val categoryCode: String?,
+        val countryCode: String?,
+    )
 
-    interface HTTPRequest {
-        val method: String
-        val url: String
-    }
+    data class HTTPRequest(
+        val method: String,
+        val url: String,
+    )
 
-    interface HTTPResponse {
-        val body: String?
-    }
+    data class HTTPResponse(
+        val body: String?,
+    )
 }

@@ -29,27 +29,25 @@ class AndroidOonimkallBridge : OonimkallBridge {
             override fun submitMeasurement(measurement: String): OonimkallBridge.SubmitMeasurementResults {
                 val context = session.newContextWithTimeout(CONTEXT_TIMEOUT)
                 val results = session.submit(context, measurement)
-                return object : OonimkallBridge.SubmitMeasurementResults {
-                    override val updatedMeasurement = results.updatedMeasurement
-                    override val updatedReportId = results.updatedReportID
-                }
+                return OonimkallBridge.SubmitMeasurementResults(
+                    updatedMeasurement = results.updatedMeasurement,
+                    updatedReportId = results.updatedReportID,
+                )
             }
 
             override fun checkIn(config: OonimkallBridge.CheckInConfig): OonimkallBridge.CheckInResults {
                 val context = session.newContextWithTimeout(CONTEXT_TIMEOUT)
                 val info = session.checkIn(context, config.toMk())
-                return object : OonimkallBridge.CheckInResults {
-                    override val reportId = info.webConnectivity?.reportID
-                    override val urls = info.webConnectivity.getUrlInfos()
-                }
+                return OonimkallBridge.CheckInResults(
+                    reportId = info.webConnectivity?.reportID,
+                    urls = info.webConnectivity.getUrlInfos(),
+                )
             }
 
             override fun httpDo(request: OonimkallBridge.HTTPRequest): OonimkallBridge.HTTPResponse {
                 val context = session.newContextWithTimeout(CONTEXT_TIMEOUT)
                 val response = session.httpDo(context, request.toMk())
-                return object : OonimkallBridge.HTTPResponse {
-                    override val body = response.body
-                }
+                return OonimkallBridge.HTTPResponse(body = response.body)
             }
         }
     }
@@ -109,11 +107,11 @@ class AndroidOonimkallBridge : OonimkallBridge {
             at(index).let { urlInfo ->
                 if (urlInfo.url == null) return@mapNotNull null
 
-                object : OonimkallBridge.UrlInfo {
-                    override val url = urlInfo.url
-                    override val categoryCode = urlInfo.categoryCode
-                    override val countryCode = urlInfo.countryCode
-                }
+                OonimkallBridge.UrlInfo(
+                    url = urlInfo.url,
+                    categoryCode = urlInfo.categoryCode,
+                    countryCode = urlInfo.countryCode,
+                )
             }
         }
     }
