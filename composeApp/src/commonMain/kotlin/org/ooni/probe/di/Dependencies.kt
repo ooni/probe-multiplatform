@@ -26,7 +26,7 @@ class Dependencies(
 
     // Engine
 
-    private val engine by lazy { Engine(oonimkallBridge, json, baseFileDir , cacheDir) }
+    private val engine by lazy { Engine(oonimkallBridge, json, baseFileDir, cacheDir) }
 
     // ViewModels
 
