@@ -1,5 +1,6 @@
 package org.ooni.engine
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -29,7 +30,9 @@ class Engine(
                 )
 
             val response = httpDo(finalSettings)
-            println(response)
+            response?.let {
+                Logger.d(it)
+            }
 
             val checkinResults = checkIn(finalSettings)
 
@@ -104,22 +107,15 @@ class Engine(
     suspend fun checkIn(finalSettings: TaskSettings): OonimkallBridge.CheckInResults? {
         return withContext(Dispatchers.IO) {
             return@withContext session(finalSettings).checkIn(
-                object : OonimkallBridge.CheckInConfig {
-                    override val charging: Boolean
-                        get() = true
-                    override val onWiFi: Boolean
-                        get() = true
-                    override val platform: String
-                        get() = "android"
-                    override val runType: String
-                        get() = "autorun"
-                    override val softwareName: String
-                        get() = "ooniprobe-android-unattended"
-                    override val softwareVersion: String
-                        get() = "3.8.8"
-                    override val webConnectivityCategories: List<String>
-                        get() = listOf("NEWS")
-                },
+                OonimkallBridge.CheckInConfig(
+                    charging = true,
+                    onWiFi = true,
+                    platform = "android",
+                    runType = "autorun",
+                    softwareName = "ooniprobe-android-unattended",
+                    softwareVersion = "3.8.8",
+                    webConnectivityCategories = listOf("NEWS"),
+                ),
             )
         }
     }
@@ -127,12 +123,10 @@ class Engine(
     suspend fun httpDo(finalSettings: TaskSettings): String? {
         return withContext(Dispatchers.IO) {
             return@withContext session(finalSettings).httpDo(
-                object : OonimkallBridge.HTTPRequest {
-                    override val url: String
-                        get() = "https://api.dev.ooni.io/api/v2/oonirun/links/10426"
-                    override val method: String
-                        get() = "GET"
-                },
+                OonimkallBridge.HTTPRequest(
+                    url = "https://api.dev.ooni.io/api/v2/oonirun/links/10426",
+                    method = "GET",
+                )
             ).body
         }
     }

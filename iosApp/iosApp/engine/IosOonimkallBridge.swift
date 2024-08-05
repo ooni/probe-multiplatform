@@ -56,7 +56,7 @@ class IosOonimkallBridge: OonimkallBridge {
                 return error
             }
 
-            func checkIn(config: OonimkallBridgeCheckInConfig) throws -> any OonimkallBridgeCheckInResults {
+            func checkIn(config: OonimkallBridgeCheckInConfig) throws -> OonimkallBridgeCheckInResults {
                 var error: NSError?
                 let ses = OonimkallNewSession(sessionConfig, &error)
                 // throw error if any
@@ -68,7 +68,30 @@ class IosOonimkallBridge: OonimkallBridge {
                 }
                 do {
                     let info = try ses?.check(in: context, config: config.toMk())
-                    return IosCheckInResults(info: info!)
+                    
+                    
+                    var responseUrls = [OonimkallBridgeUrlInfo]()
+
+                    let size = info?.webConnectivity?.size() ?? 0
+
+                    for i in 0..<size {
+
+                        if info?.webConnectivity?.at(i) != nil {
+                            let urlInfo: OonimkallURLInfo = (info?.webConnectivity?.at(i))!
+                            responseUrls.append(
+                                OonimkallBridgeUrlInfo(
+                                    url: urlInfo.url,
+                                    categoryCode: urlInfo.categoryCode,
+                                    countryCode: urlInfo.countryCode
+                                )
+                            )
+                        }
+                    }
+                    
+                    return OonimkallBridgeCheckInResults(
+                        reportId: info?.webConnectivity?.reportID,
+                        urls: responseUrls
+                    )
                 } catch {
                     throw error
                 }
@@ -86,13 +109,13 @@ class IosOonimkallBridge: OonimkallBridge {
                 }
                 do {
                     let response = try ses?.httpDo(context, jreq: request.toMk())
-                    return IosHTTPResponse(response: response)
+                    return OonimkallBridgeHTTPResponse(body: response?.body)
                 } catch {
                     throw error
                 }
             }
 
-            func submitMeasurement(measurement: String) throws -> any OonimkallBridgeSubmitMeasurementResults {
+            func submitMeasurement(measurement: String) throws -> OonimkallBridgeSubmitMeasurementResults {
                 var error: NSError?
                 let ses = OonimkallNewSession(sessionConfig, &error)
                 // throw error if any
@@ -105,7 +128,10 @@ class IosOonimkallBridge: OonimkallBridge {
                 do {
 
                     let result: OonimkallSubmitMeasurementResults? = try ses?.submit(context, measurement: measurement)
-                    return IosSubmitMeasurementResults(results: result)
+                    return OonimkallBridgeSubmitMeasurementResults(
+                        updatedMeasurement: result?.updatedMeasurement,
+                        updatedReportId: result?.updatedReportID
+                    )
                 } catch {
                     throw error
                 }
@@ -169,34 +195,6 @@ extension OonimkallBridgeHTTPRequest {
     }
 }
 
-class IosHTTPResponse: OonimkallBridgeHTTPResponse {
-    private let response: OonimkallHTTPResponse?
-
-    init(response: OonimkallHTTPResponse?) {
-        self.response = response
-    }
-
-    var body: String? {
-        response?.body
-    }
-}
-
-class IosSubmitMeasurementResults: OonimkallBridgeSubmitMeasurementResults {
-    private let results: OonimkallSubmitMeasurementResults?
-
-    init(results: OonimkallSubmitMeasurementResults?) {
-        self.results = results
-    }
-
-    var updatedMeasurement: String? {
-        results?.updatedMeasurement
-    }
-
-    var updatedReportId: String? {
-        results?.updatedReportID
-    }
-}
-
 @objc
 class IosLogger: OonimkallLogger {
     private let logger: OonimkallBridgeLogger?
@@ -221,55 +219,5 @@ class IosLogger: OonimkallLogger {
 
     override func warn(_ msg: String?) {
         logger?.warn(msg: msg)
-    }
-}
-
-
-class IosCheckInResults: OonimkallBridgeCheckInResults {
-    private let info: OonimkallCheckInInfo
-
-    init(info: OonimkallCheckInInfo) {
-        self.info = info
-    }
-
-    var reportId: String? {
-        info.webConnectivity?.reportID
-    }
-
-    var urls: [OonimkallBridgeUrlInfo] {
-
-        var responseUrls = [OonimkallBridgeUrlInfo]()
-
-        let size = info.webConnectivity?.size() ?? 0
-
-        for i in 0..<size {
-
-            if info.webConnectivity?.at(i) != nil {
-                let urlInfo: OonimkallURLInfo? = info.webConnectivity?.at(i)
-                responseUrls.append(IosUrlInfo(urlInfo: urlInfo!))
-            }
-        }
-
-        return responseUrls
-    }
-}
-
-class IosUrlInfo: OonimkallBridgeUrlInfo {
-    private let urlInfo: OonimkallURLInfo
-
-    init(urlInfo: OonimkallURLInfo) {
-        self.urlInfo = urlInfo
-    }
-
-    var url: String {
-        urlInfo.url
-    }
-
-    var categoryCode: String? {
-        urlInfo.categoryCode
-    }
-
-    var countryCode: String? {
-        urlInfo.countryCode
     }
 }
