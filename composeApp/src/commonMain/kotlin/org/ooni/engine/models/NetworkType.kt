@@ -8,16 +8,41 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 @Serializable(with = NetworkTypeSerializer::class)
-enum class NetworkType(val value: String) {
-    VPN("vpn"),
-    Wifi("wifi"),
-    Mobile("mobile"),
-    NoInternet("no_internet"),
+sealed interface NetworkType {
+    val value: String
+
+    data object VPN : NetworkType {
+        override val value = "vpn"
+    }
+
+    data object Wifi : NetworkType {
+        override val value = "wifi"
+    }
+
+    data object Mobile : NetworkType {
+        override val value = "mobile"
+    }
+
+    data object NoInternet : NetworkType {
+        override val value = "no_internet"
+    }
+
+    data class Unknown(override val value: String) : NetworkType
+
+    companion object {
+        fun fromValue(value: String) =
+            when (value) {
+                VPN.value -> VPN
+                Wifi.value -> Wifi
+                Mobile.value -> Mobile
+                NoInternet.value -> NoInternet
+                else -> Unknown(value)
+            }
+    }
 }
 
 object NetworkTypeSerializer : KSerializer<NetworkType> {
-    override val descriptor =
-        PrimitiveSerialDescriptor("NetworkType", PrimitiveKind.STRING)
+    override val descriptor = PrimitiveSerialDescriptor("NetworkType", PrimitiveKind.STRING)
 
     override fun serialize(
         encoder: Encoder,
@@ -26,8 +51,5 @@ object NetworkTypeSerializer : KSerializer<NetworkType> {
         encoder.encodeString(value.value)
     }
 
-    override fun deserialize(decoder: Decoder): NetworkType {
-        val string = decoder.decodeString()
-        return NetworkType.entries.firstOrNull { it.value == string } ?: NetworkType.NoInternet
-    }
+    override fun deserialize(decoder: Decoder): NetworkType = NetworkType.fromValue(decoder.decodeString())
 }

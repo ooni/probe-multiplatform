@@ -1,4 +1,5 @@
 [versions]
+
 agp = "8.3.2" # Max compatible version https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
 
 android-compileSdk = "34"
@@ -9,6 +10,7 @@ compose-plugin = "1.6.11"
 kotlin = "2.0.0"
 
 [plugins]
+
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
@@ -19,6 +21,11 @@ cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotli
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "12.1.1" }
 
 [libraries]
+
+# Kotlin
+kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.1" }
+kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
+
 # UI
 android-activity = { module = "androidx.activity:activity-ktx", version = "1.9.1" }
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.8.0" }
@@ -27,13 +34,15 @@ navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", 
 # Engine
 android-oonimkall = { module = "org.ooni:oonimkall", version = "2024.05.22-092559" }
 
-# Serialization
-kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.1" }
-
 # Logging
 kermit = { module = "co.touchlab:kermit", version = "2.0.4" }
 
 [bundles]
+
+kotlin = [
+    "kotlin-serialization",
+    "kotlin-datetime",
+]
 ui = [
     "lifecycle-viewmodel-compose",
     "navigation",
