@@ -7,12 +7,17 @@ import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 
+/**
+ * See link for `baseFileDir` https://github.com/ooni/probe-android/blob/5a11d1a36ec952aa1f355ba8db4129146139a5cc/engine/src/main/java/org/openobservatory/engine/Engine.java#L52
+ * See link for `cacheDir` https://github.com/ooni/probe-android/blob/5a11d1a36ec952aa1f355ba8db4129146139a5cc/engine/src/main/java/org/openobservatory/engine/Engine.java#L70
+ */
 class AndroidApplication : Application() {
     val dependencies by lazy {
         Dependencies(
             platformInfo = platformInfo,
             oonimkallBridge = AndroidOonimkallBridge(),
             baseFileDir = filesDir.absolutePath,
+            cacheDir = cacheDir.absolutePath,
         )
     }
 
