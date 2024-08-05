@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskEventResult
 import org.ooni.engine.models.TaskLogLevel
@@ -50,6 +51,15 @@ class Engine(
                 }
             }
         }.flowOn(backgroundDispatcher)
+
+    suspend fun submitMeasurements(
+        measurement: String,
+        taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
+    ): SubmitMeasurementResults =
+        withContext(backgroundDispatcher) {
+            val sessionConfig = buildSessionConfig(taskOrigin)
+            session(sessionConfig).submitMeasurement(measurement)
+        }
 
     suspend fun checkIn(
         categories: List<String>,
@@ -113,6 +123,8 @@ class Engine(
                 noCollector = true,
                 softwareName = buildSoftwareName(taskOrigin),
                 softwareVersion = platformInfo.version,
+                // TODO: fetch from preferences
+                maxRuntime = -1,
             ),
         annotations =
             TaskSettings.Annotations(
