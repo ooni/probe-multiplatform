@@ -86,17 +86,16 @@ class Engine(
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
     ): String? =
         withContext(backgroundDispatcher) {
-            session(buildSessionConfig(taskOrigin)).httpDo(
-                OonimkallBridge.HTTPRequest(
-                    method = method,
-                    url = url,
-                ),
-            ).body
+            session(buildSessionConfig(taskOrigin))
+                .httpDo(
+                    OonimkallBridge.HTTPRequest(
+                        method = method,
+                        url = url,
+                    ),
+                ).body
         }
 
-    private fun session(sessionConfig: OonimkallBridge.SessionConfig): OonimkallBridge.Session {
-        return bridge.newSession(sessionConfig)
-    }
+    private fun session(sessionConfig: OonimkallBridge.SessionConfig): OonimkallBridge.Session = bridge.newSession(sessionConfig)
 
     private fun buildTaskSettings(
         name: String,

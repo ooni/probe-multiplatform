@@ -13,7 +13,9 @@ sealed class Screen(
 
     data object Settings : Screen("settings")
 
-    data class Result(val resultId: TestResult.Id) : Screen("results/${resultId.value}") {
+    data class Result(
+        val resultId: TestResult.Id,
+    ) : Screen("results/${resultId.value}") {
         companion object {
             const val NAV_ROUTE = "results/{resultId}"
             val ARGUMENTS = listOf(navArgument("resultId") { type = NavType.StringType })

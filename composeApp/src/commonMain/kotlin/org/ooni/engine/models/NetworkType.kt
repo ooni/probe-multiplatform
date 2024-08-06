@@ -27,7 +27,9 @@ sealed interface NetworkType {
         override val value = "no_internet"
     }
 
-    data class Unknown(override val value: String) : NetworkType
+    data class Unknown(
+        override val value: String,
+    ) : NetworkType
 
     companion object {
         fun fromValue(value: String) =

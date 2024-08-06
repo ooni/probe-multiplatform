@@ -1,6 +1,7 @@
 package org.ooni.probe.di
 
 import androidx.annotation.VisibleForTesting
+import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.serialization.json.Json
@@ -9,6 +10,7 @@ import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TaskEventMapper
 import org.ooni.engine.models.NetworkType
+import org.ooni.probe.Database
 import org.ooni.probe.data.models.TestResult
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
@@ -20,6 +22,7 @@ class Dependencies(
     private val oonimkallBridge: OonimkallBridge,
     private val baseFileDir: String,
     private val cacheDir: String,
+    private val databaseDriverFactory: () -> SqlDriver,
 ) {
     // Commong
 
@@ -28,6 +31,7 @@ class Dependencies(
     // Data
 
     private val json by lazy { buildJson() }
+    private val database by lazy { buildDatabase(databaseDriverFactory) }
 
     // Engine
 
@@ -66,5 +70,8 @@ class Dependencies(
                 encodeDefaults = true
                 ignoreUnknownKeys = true
             }
+
+        @VisibleForTesting
+        fun buildDatabase(driverFactory: () -> SqlDriver): Database = Database(driverFactory())
     }
 }

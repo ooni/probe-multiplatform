@@ -1,0 +1,21 @@
+CREATE TABLE Network(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    network_name TEXT,
+    ip TEXT,
+    asn TEXT,
+    country_code TEXT,
+    network_type TEXT
+);
+
+insert:
+INSERT INTO Network (
+    id,
+    network_name,
+    ip,
+    asn,
+    country_code,
+    network_type
+) VALUES (?,?,?,?,?,?);
+
+selectAll:
+SELECT * FROM Network;

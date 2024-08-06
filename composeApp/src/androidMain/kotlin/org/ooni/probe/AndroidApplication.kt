@@ -2,6 +2,8 @@ package org.ooni.probe
 
 import android.app.Application
 import android.os.Build
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import org.ooni.engine.AndroidOonimkallBridge
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -18,6 +20,7 @@ class AndroidApplication : Application() {
             oonimkallBridge = AndroidOonimkallBridge(),
             baseFileDir = filesDir.absolutePath,
             cacheDir = cacheDir.absolutePath,
+            databaseDriverFactory = ::buildDatabaseDriver,
         )
     }
 
@@ -29,4 +32,6 @@ class AndroidApplication : Application() {
             override val model = "${Build.MANUFACTURER} ${Build.MODEL}"
         }
     }
+
+    private fun buildDatabaseDriver(): SqlDriver = AndroidSqliteDriver(Database.Schema, this, "v2")
 }

@@ -37,6 +37,8 @@ class ResultsViewModel(
     )
 
     sealed interface Event {
-        data class ResultClick(val result: TestResult) : Event
+        data class ResultClick(
+            val result: TestResult,
+        ) : Event
     }
 }

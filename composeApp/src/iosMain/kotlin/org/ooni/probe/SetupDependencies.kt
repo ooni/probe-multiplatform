@@ -1,5 +1,6 @@
 package org.ooni.probe
 
+import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import org.ooni.engine.OonimkallBridge
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -21,6 +22,7 @@ fun setupDependencies(bridge: OonimkallBridge) =
         oonimkallBridge = bridge,
         baseFileDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).first().toString(),
         cacheDir = NSTemporaryDirectory(),
+        databaseDriverFactory = ::buildDatabaseDriver,
     )
 
 private val platformInfo get() =
@@ -37,3 +39,5 @@ private val platformInfo get() =
 
         override val model = UIDevice.currentDevice.model
     }
+
+private fun buildDatabaseDriver() = NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")
