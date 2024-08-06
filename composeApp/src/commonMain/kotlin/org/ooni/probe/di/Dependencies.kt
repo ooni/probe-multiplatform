@@ -9,7 +9,6 @@ import org.ooni.engine.Engine
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TaskEventMapper
-import org.ooni.engine.models.NetworkType
 import org.ooni.probe.Database
 import org.ooni.probe.data.models.TestResult
 import org.ooni.probe.shared.PlatformInfo
@@ -23,8 +22,9 @@ class Dependencies(
     private val baseFileDir: String,
     private val cacheDir: String,
     private val databaseDriverFactory: () -> SqlDriver,
+    private val networkTypeFinder: NetworkTypeFinder,
 ) {
-    // Commong
+    // Common
 
     private val backgroundDispatcher = Dispatchers.IO
 
@@ -34,8 +34,6 @@ class Dependencies(
     private val database by lazy { buildDatabase(databaseDriverFactory) }
 
     // Engine
-
-    private val networkTypeFinder by lazy { NetworkTypeFinder { NetworkType.Unknown("") } } // TODO
 
     private val taskEventMapper by lazy { TaskEventMapper(networkTypeFinder, json) }
 
