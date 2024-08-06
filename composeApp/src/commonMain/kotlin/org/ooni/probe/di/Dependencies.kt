@@ -3,6 +3,8 @@ package org.ooni.probe.di
 import androidx.annotation.VisibleForTesting
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.serialization.json.Json
 import org.ooni.engine.Engine
 import org.ooni.engine.NetworkTypeFinder
@@ -25,6 +27,10 @@ class Dependencies(
     private val cacheDir: String,
     private val dataStore: DataStore<Preferences>,
 ) {
+    // Commong
+
+    private val backgroundDispatcher = Dispatchers.IO
+
     // Data
 
     private val json by lazy { buildJson() }
@@ -32,8 +38,22 @@ class Dependencies(
     // Engine
 
     private val networkTypeFinder by lazy { NetworkTypeFinder { NetworkType.Unknown("") } } // TODO
+
     private val taskEventMapper by lazy { TaskEventMapper(networkTypeFinder, json) }
-    private val engine by lazy { Engine(oonimkallBridge, json, baseFileDir, cacheDir, taskEventMapper) }
+
+    private val engine by lazy {
+        Engine(
+            bridge = oonimkallBridge,
+            json = json,
+            baseFilePath = baseFileDir,
+            cacheDir = cacheDir,
+            taskEventMapper = taskEventMapper,
+            networkTypeFinder = networkTypeFinder,
+            platformInfo = platformInfo,
+            backgroundDispatcher = backgroundDispatcher,
+        )
+    }
+
     private val preferenceManager by lazy { SettingsRepository(dataStore) }
 
     // ViewModels
