@@ -18,6 +18,7 @@ class AndroidApplication : Application() {
             oonimkallBridge = AndroidOonimkallBridge(),
             baseFileDir = filesDir.absolutePath,
             cacheDir = cacheDir.absolutePath,
+            dataStore = getDataStore(this),
         )
     }
 

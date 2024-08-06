@@ -21,6 +21,7 @@ fun setupDependencies(bridge: OonimkallBridge) =
         oonimkallBridge = bridge,
         baseFileDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).first().toString(),
         cacheDir = NSTemporaryDirectory(),
+        dataStore = createDataStore(),
     )
 
 private val platformInfo get() =

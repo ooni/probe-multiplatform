@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">News Media Scan</string>
+
+    <string name="Settings_About_Label">About News Media Scan</string>
 </resources>
