@@ -19,4 +19,11 @@ sealed class Screen(
             val ARGUMENTS = listOf(navArgument("resultId") { type = NavType.StringType })
         }
     }
+
+    data class SettingsCategory(val category: String) : Screen("settings/$category") {
+        companion object {
+            const val NAV_ROUTE = "settings/{category}"
+            val ARGUMENTS = listOf(navArgument("category") { type = NavType.StringType })
+        }
+    }
 }

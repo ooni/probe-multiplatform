@@ -9,12 +9,16 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.send_email
+import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.TestResult
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.result.ResultScreen
 import org.ooni.probe.ui.results.ResultsScreen
 import org.ooni.probe.ui.settings.SettingsScreen
+import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
 
 @Composable
 fun Navigation(
@@ -44,7 +48,15 @@ fun Navigation(
         }
 
         composable(route = Screen.Settings.route) {
-            SettingsScreen()
+            val viewModel =
+                viewModel {
+                    dependencies.settingsViewModel(
+                        goToSettingsForCategory = {
+                            navController.navigate(Screen.SettingsCategory(it).route)
+                        },
+                    )
+                }
+            SettingsScreen(viewModel::onEvent)
         }
 
         composable(
@@ -61,6 +73,31 @@ fun Navigation(
                 }
             val state by viewModel.state.collectAsState()
             ResultScreen(state, viewModel::onEvent)
+        }
+
+        composable(
+            route = Screen.SettingsCategory.NAV_ROUTE,
+            arguments = Screen.SettingsCategory.ARGUMENTS,
+        ) { entry ->
+            val category = entry.arguments?.getString("category") ?: return@composable
+            when (category) {
+                stringResource(Res.string.send_email) -> {
+                    // TODO: Implement based on platform
+                }
+
+                else -> {
+                    val viewModel =
+                        viewModel {
+                            dependencies.settingsCategoryViewModel(
+                                goToSettingsForCategory = {
+                                    navController.navigate(Screen.SettingsCategory(it).route)
+                                },
+                                onBack = { navController.navigateUp() },
+                            )
+                        }
+                    SettingsCategoryScreen(category = category, onEvent = viewModel::onEvent)
+                }
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ android-targetSdk = "34"
 
 compose-plugin = "1.6.11"
 kotlin = "2.0.0"
+dataStoreVersion = "1.1.1"
 
 [plugins]
 
@@ -25,11 +26,16 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "12.1.1" }
 # Kotlin
 kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.1" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
+kotlinx-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.23.2" }
 
 # UI
 android-activity = { module = "androidx.activity:activity-ktx", version = "1.9.1" }
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.8.0" }
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.7.0-alpha07" }
+
+# Preferences
+androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStoreVersion" }
+androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStoreVersion" }
 
 # Engine
 android-oonimkall = { module = "org.ooni:oonimkall", version = "2024.05.22-092559" }
