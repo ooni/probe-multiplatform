@@ -3,6 +3,7 @@ package org.ooni.engine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
+import org.ooni.engine.models.Failure
 import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskOrigin
@@ -12,6 +13,7 @@ import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class EngineTest {
     private val json = Dependencies.buildJson()
@@ -41,6 +43,20 @@ class EngineTest {
             assertEquals(NetworkType.NoInternet, settings.annotations.networkType)
         }
 
+    @Test
+    fun httpDoWithException() =
+        runTest {
+            val bridge = TestOonimkallBridge()
+            val exception = IllegalStateException("failure")
+            bridge.httpDoMock = { throw exception }
+            val engine = buildEngine(bridge)
+
+            val result = engine.httpDo("GET", "https://example.org")
+
+            assertTrue(result is Failure)
+            assertEquals(exception, result.reason.cause)
+        }
+
     private fun buildEngine(bridge: OonimkallBridge) =
         Engine(
             bridge = bridge,
@@ -56,6 +72,6 @@ class EngineTest {
                     override val osVersion = "1"
                     override val model = "test"
                 },
-            backgroundDispatcher = Dispatchers.Default,
+            backgroundDispatcher = Dispatchers.Unconfined,
         )
 }
