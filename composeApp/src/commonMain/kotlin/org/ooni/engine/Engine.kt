@@ -37,12 +37,19 @@ class Engine(
         channelFlow {
             val taskSettings = buildTaskSettings(name, inputs, taskOrigin)
             val settingsSerialized = json.encodeToString(taskSettings)
-            val task = bridge.startTask(settingsSerialized)
 
-            while (!task.isDone()) {
-                val eventJson = task.waitForNextEvent()
-                val taskEventResult = json.decodeFromString<TaskEventResult>(eventJson)
-                taskEventMapper(taskEventResult)?.let { send(it) }
+            var task: OonimkallBridge.Task? = null
+            try {
+                task = bridge.startTask(settingsSerialized)
+
+                while (!task.isDone()) {
+                    val eventJson = task.waitForNextEvent()
+                    val taskEventResult = json.decodeFromString<TaskEventResult>(eventJson)
+                    taskEventMapper(taskEventResult)?.let { send(it) }
+                }
+            } catch (e: Exception) {
+                task?.interrupt()
+                throw MkException(e)
             }
 
             invokeOnClose {
@@ -57,8 +64,12 @@ class Engine(
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
     ): SubmitMeasurementResults =
         withContext(backgroundDispatcher) {
-            val sessionConfig = buildSessionConfig(taskOrigin)
-            session(sessionConfig).submitMeasurement(measurement)
+            try {
+                val sessionConfig = buildSessionConfig(taskOrigin)
+                session(sessionConfig).submitMeasurement(measurement)
+            } catch (e: Exception) {
+                throw MkException(e)
+            }
         }
 
     suspend fun checkIn(
@@ -66,18 +77,22 @@ class Engine(
         taskOrigin: TaskOrigin,
     ): OonimkallBridge.CheckInResults =
         withContext(backgroundDispatcher) {
-            val sessionConfig = buildSessionConfig(taskOrigin)
-            session(sessionConfig).checkIn(
-                OonimkallBridge.CheckInConfig(
-                    charging = true,
-                    onWiFi = true,
-                    platform = platformInfo.platform.value,
-                    runType = taskOrigin.value,
-                    softwareName = sessionConfig.softwareName,
-                    softwareVersion = sessionConfig.softwareVersion,
-                    webConnectivityCategories = categories,
-                ),
-            )
+            try {
+                val sessionConfig = buildSessionConfig(taskOrigin)
+                session(sessionConfig).checkIn(
+                    OonimkallBridge.CheckInConfig(
+                        charging = true,
+                        onWiFi = true,
+                        platform = platformInfo.platform.value,
+                        runType = taskOrigin.value,
+                        softwareName = sessionConfig.softwareName,
+                        softwareVersion = sessionConfig.softwareVersion,
+                        webConnectivityCategories = categories,
+                    ),
+                )
+            } catch (e: Exception) {
+                throw MkException(e)
+            }
         }
 
     suspend fun httpDo(
@@ -86,13 +101,17 @@ class Engine(
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
     ): String? =
         withContext(backgroundDispatcher) {
-            session(buildSessionConfig(taskOrigin))
-                .httpDo(
-                    OonimkallBridge.HTTPRequest(
-                        method = method,
-                        url = url,
-                    ),
-                ).body
+            try {
+                session(buildSessionConfig(taskOrigin))
+                    .httpDo(
+                        OonimkallBridge.HTTPRequest(
+                            method = method,
+                            url = url,
+                        ),
+                    ).body
+            } catch (e: Exception) {
+                throw MkException(e)
+            }
         }
 
     private fun session(sessionConfig: OonimkallBridge.SessionConfig): OonimkallBridge.Session = bridge.newSession(sessionConfig)
@@ -179,4 +198,6 @@ class Engine(
             }
         }
     }
+
+    class MkException(e: Exception) : Exception(e)
 }

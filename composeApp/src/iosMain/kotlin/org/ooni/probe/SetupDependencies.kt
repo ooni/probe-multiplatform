@@ -2,6 +2,7 @@ package org.ooni.probe
 
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import org.ooni.engine.OonimkallBridge
+import org.ooni.engine.models.NetworkType
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -23,6 +24,8 @@ fun setupDependencies(bridge: OonimkallBridge) =
         baseFileDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).first().toString(),
         cacheDir = NSTemporaryDirectory(),
         databaseDriverFactory = ::buildDatabaseDriver,
+        // TODO
+        networkTypeFinder = { NetworkType.Unknown("") },
     )
 
 private val platformInfo get() =

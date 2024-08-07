@@ -6,6 +6,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
@@ -33,18 +34,27 @@ class DashboardViewModel(
 
                         _state.value = _state.value.copy(isRunning = true)
 
-                        val response =
-                            engine.httpDo(
-                                method = "GET",
-                                url = "https://api.dev.ooni.io/api/v2/oonirun/links/10426",
-                            )
-                        response?.let { Logger.d(it) }
+                        try {
+                            val response =
+                                engine.httpDo(
+                                    method = "GET",
+                                    url = "https://api.dev.ooni.io/api/v2/oonirun/links/10426",
+                                )
+                            response?.let { Logger.d(it) }
+                        } catch (e: Engine.MkException) {
+                            Logger.e("httpDo failed", e)
+                        }
 
                         val checkInResults =
-                            engine.checkIn(
-                                categories = listOf("NEWS"),
-                                taskOrigin = TaskOrigin.OoniRun,
-                            )
+                            try {
+                                engine.checkIn(
+                                    categories = listOf("NEWS"),
+                                    taskOrigin = TaskOrigin.OoniRun,
+                                )
+                            } catch (e: Engine.MkException) {
+                                Logger.e("checkIn failed", e)
+                                return@flatMapLatest emptyFlow()
+                            }
 
                         engine
                             .startTask(
@@ -61,6 +71,9 @@ class DashboardViewModel(
                                 }
                             }.onCompletion {
                                 _state.update { it.copy(isRunning = false) }
+                            }
+                            .catch {
+                                Logger.e("startTask failed", it)
                             }
                     }
                 }
