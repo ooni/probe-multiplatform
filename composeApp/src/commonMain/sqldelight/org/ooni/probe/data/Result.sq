@@ -27,4 +27,15 @@ INSERT INTO Result (
 ) VALUES (?,?,?,?,?,?,?,?,?,?);
 
 selectAll:
-SELECT * FROM Result;
+SELECT * FROM Result ORDER BY start_time DESC;
+
+selectAllWithNetwork:
+SELECT Result.*, Network.*, (SELECT COUNT(Measurement.id) FROM Measurement WHERE Measurement.result_id = Result.id) AS measurementsCount
+FROM Result
+LEFT JOIN Network ON Result.network_id = Network.id
+LEFT JOIN Measurement ON Measurement.result_id = Result.id
+ORDER BY Result.start_time DESC;
+
+selectById:
+SELECT Result.* FROM Result WHERE id = ? LIMIT 1;
+

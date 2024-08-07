@@ -2,7 +2,7 @@ package org.ooni.probe.ui.navigation
 
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import org.ooni.probe.data.models.TestResult
+import org.ooni.probe.data.models.ResultModel
 
 sealed class Screen(
     val route: String,
@@ -14,11 +14,11 @@ sealed class Screen(
     data object Settings : Screen("settings")
 
     data class Result(
-        val resultId: TestResult.Id,
+        val resultId: ResultModel.Id,
     ) : Screen("results/${resultId.value}") {
         companion object {
             const val NAV_ROUTE = "results/{resultId}"
-            val ARGUMENTS = listOf(navArgument("resultId") { type = NavType.StringType })
+            val ARGUMENTS = listOf(navArgument("resultId") { type = NavType.LongType })
         }
     }
 }

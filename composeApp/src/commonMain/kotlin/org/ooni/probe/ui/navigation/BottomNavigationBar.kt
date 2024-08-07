@@ -10,12 +10,13 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Tab_Label
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.dashboard
 import ooniprobe.composeapp.generated.resources.ic_dashboard
 import ooniprobe.composeapp.generated.resources.ic_history
 import ooniprobe.composeapp.generated.resources.ic_settings
 import ooniprobe.composeapp.generated.resources.settings
-import ooniprobe.composeapp.generated.resources.test_results
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -64,7 +65,7 @@ private val Screen.titleRes
     get() =
         when (this) {
             Screen.Dashboard -> Res.string.dashboard
-            Screen.Results -> Res.string.test_results
+            Screen.Results -> Res.string.TestResults_Overview_Tab_Label
             Screen.Settings -> Res.string.settings
             else -> throw IllegalArgumentException("Only main screens allowed in bottom navigation")
         }

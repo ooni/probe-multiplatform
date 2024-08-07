@@ -33,14 +33,14 @@ class NetworkRepository(
             )
         }
     }
-
-    private fun Network.toModel(): NetworkModel =
-        NetworkModel(
-            id = NetworkModel.Id(id),
-            networkName = network_name,
-            ip = ip,
-            asn = asn,
-            countryCode = country_code,
-            networkType = network_type?.let(NetworkType::fromValue),
-        )
 }
+
+fun Network.toModel(): NetworkModel =
+    NetworkModel(
+        id = NetworkModel.Id(id),
+        networkName = network_name,
+        ip = ip,
+        asn = asn,
+        countryCode = country_code,
+        networkType = network_type?.let(NetworkType::fromValue),
+    )

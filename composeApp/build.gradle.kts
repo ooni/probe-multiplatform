@@ -103,6 +103,7 @@ kotlin {
             languageSettings {
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 optIn("androidx.compose.material3.ExperimentalMaterial3Api")
+                optIn("androidx.compose.foundation.ExperimentalFoundationApi")
                 optIn("androidx.compose.ui.test.ExperimentalTestApi")
             }
         }
