@@ -31,9 +31,7 @@ class TestOonimkallBridge : OonimkallBridge {
 
             override fun isDone() = nextEvents.isEmpty()
 
-            override fun waitForNextEvent(): String {
-                return nextEvents.removeAt(0)
-            }
+            override fun waitForNextEvent(): String = nextEvents.removeAt(0)
         }
     }
 
@@ -43,16 +41,10 @@ class TestOonimkallBridge : OonimkallBridge {
     }
 
     class Session : OonimkallBridge.Session {
-        override fun submitMeasurement(measurement: String): OonimkallBridge.SubmitMeasurementResults {
-            return submitMeasurement(measurement)
-        }
+        override fun submitMeasurement(measurement: String): OonimkallBridge.SubmitMeasurementResults = submitMeasurement(measurement)
 
-        override fun checkIn(config: OonimkallBridge.CheckInConfig): OonimkallBridge.CheckInResults {
-            return checkIn(config)
-        }
+        override fun checkIn(config: OonimkallBridge.CheckInConfig): OonimkallBridge.CheckInResults = checkIn(config)
 
-        override fun httpDo(request: OonimkallBridge.HTTPRequest): OonimkallBridge.HTTPResponse {
-            return httpDo(request)
-        }
+        override fun httpDo(request: OonimkallBridge.HTTPRequest): OonimkallBridge.HTTPResponse = httpDo(request)
     }
 }

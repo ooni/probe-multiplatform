@@ -1,0 +1,45 @@
+CREATE TABLE Measurement(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    test_name TEXT,
+    start_time INTEGER,
+    runtime REAL,
+    is_done INTEGER,
+    is_uploaded INTEGER,
+    is_failed INTEGER,
+    failure_msg TEXT,
+    is_upload_failed INTEGER,
+    upload_failure_msg TEXT,
+    is_rerun INTEGER,
+    report_id TEXT,
+    is_anomaly INTEGER,
+    test_keys TEXT,
+    url_id INTEGER,
+    result_id INTEGER,
+    rerun_network TEXT,
+    FOREIGN KEY(`url_id`) REFERENCES Url(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    FOREIGN KEY(`result_id`) REFERENCES Result(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+insert:
+INSERT INTO Measurement (
+    id,
+    test_name,
+    start_time,
+    runtime,
+    is_done,
+    is_uploaded,
+    is_failed,
+    failure_msg,
+    is_upload_failed,
+    upload_failure_msg,
+    is_rerun,
+    report_id,
+    is_anomaly,
+    test_keys,
+    url_id,
+    result_id,
+    rerun_network
+) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+selectAll:
+SELECT * FROM Measurement;

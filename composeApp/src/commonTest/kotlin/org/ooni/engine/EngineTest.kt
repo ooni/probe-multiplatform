@@ -25,11 +25,12 @@ class EngineTest {
             val engine = buildEngine(bridge)
 
             val events =
-                engine.startTask(
-                    name = "web_connectivity",
-                    inputs = listOf("https://ooni.org"),
-                    TaskOrigin.OoniRun,
-                ).toList()
+                engine
+                    .startTask(
+                        name = "web_connectivity",
+                        inputs = listOf("https://ooni.org"),
+                        TaskOrigin.OoniRun,
+                    ).toList()
 
             assertEquals(1, events.size)
             assertEquals(TaskEvent.Started, events.first())

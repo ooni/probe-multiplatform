@@ -46,12 +46,12 @@ class DashboardViewModel(
                                 taskOrigin = TaskOrigin.OoniRun,
                             )
 
-                        engine.startTask(
-                            name = "web_connectivity",
-                            inputs = checkInResults.urls.map { it.url },
-                            taskOrigin = TaskOrigin.OoniRun,
-                        )
-                            .onEach { taskEvent ->
+                        engine
+                            .startTask(
+                                name = "web_connectivity",
+                                inputs = checkInResults.urls.map { it.url },
+                                taskOrigin = TaskOrigin.OoniRun,
+                            ).onEach { taskEvent ->
                                 _state.update { state ->
                                     // Can't print the Measurement event,
                                     // it's too long and halts the main thread
@@ -59,14 +59,12 @@ class DashboardViewModel(
 
                                     state.copy(log = state.log + "\n" + taskEvent)
                                 }
-                            }
-                            .onCompletion {
+                            }.onCompletion {
                                 _state.update { it.copy(isRunning = false) }
                             }
                     }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {

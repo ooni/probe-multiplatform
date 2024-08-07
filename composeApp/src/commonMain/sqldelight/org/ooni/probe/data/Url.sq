@@ -1,0 +1,17 @@
+CREATE TABLE Url(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    url TEXT,
+    category_code TEXT,
+    country_code TEXT
+);
+
+insert:
+INSERT INTO Url (
+    id,
+    url,
+    category_code,
+    country_code
+) VALUES (?,?,?,?);
+
+selectAll:
+SELECT * FROM Url;

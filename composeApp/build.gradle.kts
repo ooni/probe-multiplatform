@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.sqldelight)
 }
 
 val organization: String? by project
@@ -69,6 +70,7 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.android.oonimkall)
             implementation(libs.android.activity)
+            implementation(libs.sqldelight.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -85,10 +87,17 @@ kotlin {
                 kotlin.srcDir(config.srcRoot)
             }
         }
+        iosMain.dependencies {
+            implementation(libs.sqldelight.native)
+        }
         commonTest.dependencies {
             implementation(kotlin("test"))
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.uiTest)
+        }
+        getByName("androidUnitTest").dependencies {
+            implementation(kotlin("test-junit"))
+            implementation(libs.bundles.android.test)
         }
         all {
             languageSettings {
@@ -111,12 +120,21 @@ kotlin {
 
 android {
     namespace = "org.ooni.probe"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.android.compileSdk
+            .get()
+            .toInt()
 
     defaultConfig {
         applicationId = config.appId
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk =
+            libs.versions.android.minSdk
+                .get()
+                .toInt()
+        targetSdk =
+            libs.versions.android.targetSdk
+                .get()
+                .toInt()
         versionCode = 1
         versionName = "1.0"
         resValue("string", "app_name", config.appName)
@@ -153,12 +171,38 @@ android {
     }
 }
 
+sqldelight {
+    databases {
+        create("Database") {
+            packageName = "org.ooni.probe"
+            schemaOutputDirectory = file("src/commonMain/sqldelight/databases")
+            verifyMigrations = true
+        }
+    }
+}
+
 ktlint {
     filter {
         exclude("**/generated/**")
         include("**/kotlin/**")
     }
     additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
+}
+
+// Fix to exclude sqldelight generated files
+tasks {
+    listOf(
+        runKtlintFormatOverCommonMainSourceSet,
+        runKtlintCheckOverCommonMainSourceSet,
+    ).forEach {
+        it {
+            setSource(
+                kotlin.sourceSets.commonMain.map {
+                    it.kotlin.filter { file -> !file.absolutePath.contains("generated") }
+                },
+            )
+        }
+    }
 }
 
 tasks.register("copyBrandingToCommonResources") {
@@ -181,14 +225,17 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
         destinationFile.listFiles()?.forEach { folder ->
             folder.listFiles()?.forEach { file ->
                 if (file.name == ".gitignore") {
-                    file.readText().lines().forEach { line ->
-                        if (line.isNotEmpty()) {
-                            println("Removing $line")
-                            File(folder, line).deleteRecursively()
+                    file
+                        .readText()
+                        .lines()
+                        .forEach { line ->
+                            if (line.isNotEmpty()) {
+                                println("Removing $line")
+                                File(folder, line).deleteRecursively()
+                            }
+                        }.also {
+                            file.delete()
                         }
-                    }.also {
-                        file.delete()
-                    }
                 }
             }
         }

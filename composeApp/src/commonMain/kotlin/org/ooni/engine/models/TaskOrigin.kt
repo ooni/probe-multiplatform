@@ -8,7 +8,9 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 @Serializable(with = TaskOriginSerializer::class)
-enum class TaskOrigin(val value: String) {
+enum class TaskOrigin(
+    val value: String,
+) {
     AutoRun("autorun"),
     OoniRun("ooni-run"),
 }
