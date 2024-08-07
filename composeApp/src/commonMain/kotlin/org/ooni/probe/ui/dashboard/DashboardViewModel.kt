@@ -34,27 +34,20 @@ class DashboardViewModel(
 
                         _state.value = _state.value.copy(isRunning = true)
 
-                        try {
-                            val response =
-                                engine.httpDo(
-                                    method = "GET",
-                                    url = "https://api.dev.ooni.io/api/v2/oonirun/links/10426",
-                                )
-                            response?.let { Logger.d(it) }
-                        } catch (e: Engine.MkException) {
-                            Logger.e("httpDo failed", e)
-                        }
+                        engine.httpDo(
+                            method = "GET",
+                            url = "https://api.dev.ooni.io/api/v2/oonirun/links/10426",
+                        )
+                            .onSuccess { Logger.d(it.orEmpty()) }
+                            .onFailure { Logger.e("httpDo failed", it) }
 
                         val checkInResults =
-                            try {
-                                engine.checkIn(
-                                    categories = listOf("NEWS"),
-                                    taskOrigin = TaskOrigin.OoniRun,
-                                )
-                            } catch (e: Engine.MkException) {
-                                Logger.e("checkIn failed", e)
-                                return@flatMapLatest emptyFlow()
-                            }
+                            engine.checkIn(
+                                categories = listOf("NEWS"),
+                                taskOrigin = TaskOrigin.OoniRun,
+                            )
+                                .onFailure { Logger.e("checkIn failed", it) }
+                                .get() ?: return@flatMapLatest emptyFlow()
 
                         engine
                             .startTask(
