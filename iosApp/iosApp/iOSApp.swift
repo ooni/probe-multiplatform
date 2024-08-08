@@ -3,7 +3,10 @@ import composeApp
 
 @main
 struct iOSApp: App {
-    let dependencies = SetupDependenciesKt.setupDependencies(bridge: IosOonimkallBridge())
+    let dependencies = SetupDependenciesKt.setupDependencies(
+        bridge: IosOonimkallBridge(),
+        networkTypeFinder: IosNetworkTypeFinder()
+    )
 
 	var body: some Scene {
 		WindowGroup {
