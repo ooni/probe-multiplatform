@@ -8,6 +8,8 @@ ooni_pods_location = "https://github.com/ooni/probe-cli/releases/download/#{ooni
 target 'OONIProbe' do
     pod 'composeApp', :path => '../composeApp'
 
+    pod 'sqlite3', '~> 3.42.0'
+
     pod "libcrypto", :podspec => "#{ooni_pods_location}/libcrypto.podspec"
     pod "libevent", :podspec => "#{ooni_pods_location}/libevent.podspec"
     pod "libssl", :podspec => "#{ooni_pods_location}/libssl.podspec"
@@ -18,6 +20,8 @@ end
 
 target 'NewsMediaScan' do
     pod 'composeApp', :path => '../composeApp'
+
+    pod 'sqlite3', '~> 3.42.0'
 
     pod "libcrypto", :podspec => "#{ooni_pods_location}/libcrypto.podspec"
     pod "libevent", :podspec => "#{ooni_pods_location}/libevent.podspec"

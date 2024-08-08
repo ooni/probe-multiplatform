@@ -6,6 +6,9 @@ PODS:
   - libtor (2024.05.22-093305)
   - libz (2024.05.22-093305)
   - oonimkall (2024.05.22-093305)
+  - sqlite3 (3.42.0):
+    - sqlite3/common (= 3.42.0)
+  - sqlite3/common (3.42.0)
 
 DEPENDENCIES:
   - composeApp (from `../composeApp`)
@@ -15,6 +18,11 @@ DEPENDENCIES:
   - libtor (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/libtor.podspec`)
   - libz (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/libz.podspec`)
   - oonimkall (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/oonimkall.podspec`)
+  - sqlite3 (~> 3.42.0)
+
+SPEC REPOS:
+  trunk:
+    - sqlite3
 
 EXTERNAL SOURCES:
   composeApp:
@@ -40,7 +48,8 @@ SPEC CHECKSUMS:
   libtor: c72b23da6a5d2e16173149784f11cf66156c35be
   libz: 83658eb2a0db785623ffdf9ce13407e6b8b5c8f9
   oonimkall: 9768ce9dad18265d45d2ea972c84fb0bd5237cc3
+  sqlite3: f163dbbb7aa3339ad8fc622782c2d9d7b72f7e9c
 
-PODFILE CHECKSUM: 5bcb6ea084168cab14bd0cd0f6e4775194adbc48
+PODFILE CHECKSUM: c5dc5bf29da7489163ae2c4d6b438c4541281e5d
 
 COCOAPODS: 1.15.2
