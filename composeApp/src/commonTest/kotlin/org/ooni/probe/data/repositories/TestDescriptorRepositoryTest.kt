@@ -6,7 +6,7 @@ import kotlinx.coroutines.test.runTest
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.di.Dependencies
 import org.ooni.testing.createTestDatabaseDriver
-import org.ooni.testing.factories.TestDescriptorModelFactory
+import org.ooni.testing.factories.DescriptorFactory
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -28,7 +28,7 @@ class TestDescriptorRepositoryTest {
     fun createAndGet() =
         runTest {
             val model =
-                TestDescriptorModelFactory.build(
+                DescriptorFactory.buildInstalledModel(
                     netTests =
                         listOf(
                             NetTest("web_connectivity", inputs = listOf("https://ooni.org")),

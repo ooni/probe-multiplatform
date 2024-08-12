@@ -2,9 +2,9 @@ package org.ooni.probe.data.models
 
 import kotlinx.datetime.Instant
 
-data class TestDescriptorModel(
+data class InstalledTestDescriptorModel(
     val id: Id,
-    val name: String?,
+    val name: String,
     val shortDescription: String?,
     val description: String?,
     val author: String?,
@@ -19,7 +19,6 @@ data class TestDescriptorModel(
     val dateCreated: Instant?,
     val dateUpdated: Instant?,
     val revision: String?,
-    val previousRevision: String?,
     val isExpired: Boolean,
     val autoUpdate: Boolean,
 ) {
