@@ -11,7 +11,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class ResultViewModelTest {
-
     @Test
     fun backClicked() {
         var backPressed = false
@@ -22,17 +21,18 @@ class ResultViewModelTest {
     }
 
     @Test
-    fun getResult() = runTest {
-        val result = ResultModelFactory.build()
-        val viewModel = buildViewModel(getResult = { flowOf(result) })
+    fun getResult() =
+        runTest {
+            val result = ResultModelFactory.build()
+            val viewModel = buildViewModel(getResult = { flowOf(result) })
 
-        assertEquals(result, viewModel.state.first().result)
-    }
+            assertEquals(result, viewModel.state.first().result)
+        }
 
     private fun buildViewModel(
         resultId: ResultModel.Id = ResultModel.Id(1234),
         onBack: () -> Unit = {},
-        getResult: (ResultModel.Id) -> Flow<ResultModel?> = { flowOf(null) }
+        getResult: (ResultModel.Id) -> Flow<ResultModel?> = { flowOf(null) },
     ) = ResultViewModel(
         resultId = resultId,
         onBack = onBack,

@@ -77,28 +77,30 @@ private fun Result.toModel(): ResultModel? {
 
 private fun SelectAllWithNetwork.toModel(): ResultListItem? {
     return ResultListItem(
-        result = Result(
-            id = id,
-            test_group_name = test_group_name,
-            start_time = start_time,
-            is_viewed = is_viewed,
-            is_done = is_done,
-            data_usage_up = data_usage_up,
-            data_usage_down = data_usage_down,
-            failure_msg = failure_msg,
-            network_id = network_id,
-            descriptor_runId = descriptor_runId,
-        ).toModel() ?: return null,
-        network = id_?.let { networkId ->
-            Network(
-                id = networkId,
-                network_name = network_name,
-                ip = ip,
-                asn = asn,
-                country_code = country_code,
-                network_type = network_type,
-            ).toModel()
-        },
-        measurementsCount = measurementsCount
+        result =
+            Result(
+                id = id,
+                test_group_name = test_group_name,
+                start_time = start_time,
+                is_viewed = is_viewed,
+                is_done = is_done,
+                data_usage_up = data_usage_up,
+                data_usage_down = data_usage_down,
+                failure_msg = failure_msg,
+                network_id = network_id,
+                descriptor_runId = descriptor_runId,
+            ).toModel() ?: return null,
+        network =
+            id_?.let { networkId ->
+                Network(
+                    id = networkId,
+                    network_name = network_name,
+                    ip = ip,
+                    asn = asn,
+                    country_code = country_code,
+                    network_type = network_type,
+                ).toModel()
+            },
+        measurementsCount = measurementsCount,
     )
 }

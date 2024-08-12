@@ -43,7 +43,7 @@ fun ResultsScreen(
                 items(items = results, key = { it.idOrThrow }) { result ->
                     ResultItem(
                         item = result,
-                        onResultClick = { onEvent(ResultsViewModel.Event.ResultClick(result)) }
+                        onResultClick = { onEvent(ResultsViewModel.Event.ResultClick(result)) },
                     )
                 }
             }
@@ -54,31 +54,39 @@ fun ResultsScreen(
 @Composable
 fun ResultDateHeader(date: LocalDate) {
     Text(
-        date.format(Format { year(); char('-'); monthNumber() }),
+        date.format(
+            Format {
+                year()
+                char('-')
+                monthNumber()
+            },
+        ),
         style = MaterialTheme.typography.labelLarge,
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceVariant)
-            .padding(horizontal = 16.dp, vertical = 4.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .padding(horizontal = 16.dp, vertical = 4.dp),
     )
 }
 
 @Composable
 fun ResultItem(
     item: ResultListItem,
-    onResultClick: () -> Unit
+    onResultClick: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onResultClick() }
-            .background(
-                if (item.result.isViewed) {
-                    MaterialTheme.colorScheme.surface
-                } else {
-                    MaterialTheme.colorScheme.surfaceVariant
-                }
-            )
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable { onResultClick() }
+                .background(
+                    if (item.result.isViewed) {
+                        MaterialTheme.colorScheme.surface
+                    } else {
+                        MaterialTheme.colorScheme.surfaceVariant
+                    },
+                ),
     ) {
         Text(item.result.testGroupName.orEmpty())
         Text(item.network?.networkName ?: stringResource(Res.string.TestResults_UnknownASN))

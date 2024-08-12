@@ -10,31 +10,33 @@ import kotlin.test.assertEquals
 
 class ResultScreenTest {
     @Test
-    fun showResult() = runComposeUiTest {
-        val result = ResultModelFactory.build()
-        setContent {
-            ResultScreen(
-                state = ResultViewModel.State(result),
-                onEvent = {},
-            )
-        }
+    fun showResult() =
+        runComposeUiTest {
+            val result = ResultModelFactory.build()
+            setContent {
+                ResultScreen(
+                    state = ResultViewModel.State(result),
+                    onEvent = {},
+                )
+            }
 
-        onNodeWithText(result.testGroupName!!).assertExists()
-    }
+            onNodeWithText(result.testGroupName!!).assertExists()
+        }
 
     @Test
-    fun pressBack() = runComposeUiTest {
-        val events = mutableListOf<ResultViewModel.Event>()
-        val result = ResultModelFactory.build()
-        setContent {
-            ResultScreen(
-                state = ResultViewModel.State(result),
-                onEvent = events::add,
-            )
-        }
+    fun pressBack() =
+        runComposeUiTest {
+            val events = mutableListOf<ResultViewModel.Event>()
+            val result = ResultModelFactory.build()
+            setContent {
+                ResultScreen(
+                    state = ResultViewModel.State(result),
+                    onEvent = events::add,
+                )
+            }
 
-        onNodeWithContentDescription("Back").performClick()
-        assertEquals(1, events.size)
-        assertEquals(ResultViewModel.Event.BackClicked, events.first())
-    }
+            onNodeWithContentDescription("Back").performClick()
+            assertEquals(1, events.size)
+            assertEquals(ResultViewModel.Event.BackClicked, events.first())
+        }
 }

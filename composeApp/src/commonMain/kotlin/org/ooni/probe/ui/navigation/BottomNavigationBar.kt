@@ -11,7 +11,6 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Tab_Label
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.dashboard
 import ooniprobe.composeapp.generated.resources.ic_dashboard
 import ooniprobe.composeapp.generated.resources.ic_history

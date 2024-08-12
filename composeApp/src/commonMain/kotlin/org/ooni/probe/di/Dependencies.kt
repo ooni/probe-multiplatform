@@ -63,9 +63,7 @@ class Dependencies(
 
     val dashboardViewModel get() = DashboardViewModel(engine)
 
-    fun resultsViewModel(
-        goToResult: (ResultModel.Id) -> Unit
-    ) = ResultsViewModel(goToResult, getResults::invoke)
+    fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) = ResultsViewModel(goToResult, getResults::invoke)
 
     fun resultViewModel(
         resultId: ResultModel.Id,

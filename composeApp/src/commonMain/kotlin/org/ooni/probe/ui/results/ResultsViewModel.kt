@@ -13,21 +13,20 @@ import kotlinx.coroutines.flow.update
 import kotlinx.datetime.LocalDate
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.domain.GetResults
 
 class ResultsViewModel(
     goToResult: (ResultModel.Id) -> Unit,
     getResults: () -> Flow<List<ResultListItem>>,
 ) : ViewModel() {
-
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val _state = MutableStateFlow(
-        State(
-            results = emptyMap(),
-            isLoading = true
+    private val _state =
+        MutableStateFlow(
+            State(
+                results = emptyMap(),
+                isLoading = true,
+            ),
         )
-    )
     val state = _state.asStateFlow()
 
     init {
@@ -49,9 +48,10 @@ class ResultsViewModel(
     }
 
     private val ResultListItem.monthAndYear
-        get() = result.startTime.let { startTime ->
-            LocalDate(year = startTime.year, month = startTime.month, dayOfMonth = 1)
-        }
+        get() =
+            result.startTime.let { startTime ->
+                LocalDate(year = startTime.year, month = startTime.month, dayOfMonth = 1)
+            }
 
     data class State(
         val results: Map<LocalDate, List<ResultListItem>>,
