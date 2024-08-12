@@ -1,17 +1,46 @@
 package org.ooni.testing.factories
 
+import androidx.compose.ui.graphics.Color
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import org.jetbrains.compose.resources.DrawableResource
+import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.LocalizationString
 import org.ooni.probe.data.models.NetTest
-import org.ooni.probe.data.models.TestDescriptorModel
 import kotlin.math.absoluteValue
 import kotlin.random.Random
 
-object TestDescriptorModelFactory {
-    fun build(
-        id: TestDescriptorModel.Id = TestDescriptorModel.Id(Random.nextLong().absoluteValue),
-        name: String? = "Test",
+object DescriptorFactory {
+    fun buildDescriptorWithInstalled(
+        name: String = "test",
+        title: String = "Test",
+        shortDescription: String? = null,
+        description: String? = null,
+        icon: DrawableResource? = null,
+        color: Color? = null,
+        animation: String? = null,
+        dataUsage: String? = null,
+        netTests: List<NetTest> = emptyList(),
+        longRunningTests: List<NetTest>? = null,
+        installedTestDescriptorModel: InstalledTestDescriptorModel = buildInstalledModel(),
+    ) = Descriptor(
+        name = name,
+        title = { title },
+        shortDescription = { shortDescription },
+        description = { description },
+        icon = icon,
+        color = color,
+        animation = animation,
+        dataUsage = { dataUsage },
+        netTests = netTests,
+        longRunningTests = longRunningTests,
+        source = Descriptor.Source.Installed(installedTestDescriptorModel),
+    )
+
+    fun buildInstalledModel(
+        id: InstalledTestDescriptorModel.Id = InstalledTestDescriptorModel.Id(Random.nextLong().absoluteValue),
+        name: String = "Test",
         shortDescription: String? = null,
         description: String? = null,
         author: String? = null,
@@ -31,11 +60,10 @@ object TestDescriptorModelFactory {
             ),
         dateUpdated: Instant? = null,
         revision: String? = null,
-        previousRevision: String? = null,
         isExpired: Boolean = false,
         autoUpdate: Boolean = false,
     ) =
-        TestDescriptorModel(
+        InstalledTestDescriptorModel(
             id = id,
             name = name,
             shortDescription = shortDescription,
@@ -52,7 +80,6 @@ object TestDescriptorModelFactory {
             dateCreated = dateCreated,
             dateUpdated = dateUpdated,
             revision = revision,
-            previousRevision = previousRevision,
             isExpired = isExpired,
             autoUpdate = autoUpdate,
         )

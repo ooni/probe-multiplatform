@@ -10,10 +10,10 @@ import org.ooni.probe.Database
 import org.ooni.probe.data.Network
 import org.ooni.probe.data.Result
 import org.ooni.probe.data.SelectAllWithNetwork
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.data.models.TestDescriptorModel
 import org.ooni.probe.shared.toEpoch
 import org.ooni.probe.shared.toLocalDateTime
 
@@ -71,7 +71,7 @@ private fun Result.toModel(): ResultModel? {
         dataUsageDown = data_usage_down,
         failureMessage = failure_msg,
         networkId = network_id?.let(NetworkModel::Id),
-        testDescriptorId = descriptor_runId?.let(TestDescriptorModel::Id),
+        testDescriptorId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
     )
 }
 

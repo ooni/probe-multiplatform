@@ -12,8 +12,11 @@ import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.repositories.ResultRepository
+import org.ooni.probe.data.repositories.TestDescriptorRepository
+import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
+import org.ooni.probe.domain.GetTestDescriptors
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.result.ResultViewModel
@@ -36,6 +39,9 @@ class Dependencies(
     private val json by lazy { buildJson() }
     private val database by lazy { buildDatabase(databaseDriverFactory) }
     private val resultRepository by lazy { ResultRepository(database, backgroundDispatcher) }
+    private val testDescriptorRepository by lazy {
+        TestDescriptorRepository(database, json, backgroundDispatcher)
+    }
 
     // Engine
 
@@ -56,12 +62,24 @@ class Dependencies(
 
     // Domain
 
+    private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
     private val getResults by lazy { GetResults(resultRepository) }
     private val getResult by lazy { GetResult(resultRepository) }
+    private val getTestDescriptors by lazy {
+        GetTestDescriptors(
+            getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
+            listInstalledTestDescriptors = testDescriptorRepository::list,
+        )
+    }
 
     // ViewModels
 
-    val dashboardViewModel get() = DashboardViewModel(engine)
+    val dashboardViewModel
+        get() =
+            DashboardViewModel(
+                engine = engine,
+                getTestDescriptors = getTestDescriptors::invoke,
+            )
 
     fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) = ResultsViewModel(goToResult, getResults::invoke)
 

@@ -12,7 +12,7 @@ data class ResultModel(
     val dataUsageDown: Long?,
     val failureMessage: String?,
     val networkId: NetworkModel.Id?,
-    val testDescriptorId: TestDescriptorModel.Id?,
+    val testDescriptorId: InstalledTestDescriptorModel.Id?,
 ) {
     data class Id(
         val value: Long,

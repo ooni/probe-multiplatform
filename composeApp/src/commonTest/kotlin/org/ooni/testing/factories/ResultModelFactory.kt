@@ -3,9 +3,9 @@ package org.ooni.testing.factories
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.atTime
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.data.models.TestDescriptorModel
 import org.ooni.probe.shared.today
 
 object ResultModelFactory {
@@ -19,7 +19,7 @@ object ResultModelFactory {
         dataUsageDown: Long? = null,
         failureMessage: String? = null,
         networkId: NetworkModel.Id? = null,
-        testDescriptorId: TestDescriptorModel.Id? = null,
+        testDescriptorId: InstalledTestDescriptorModel.Id? = null,
     ) = ResultModel(
         id = id,
         testGroupName = testGroupName,
