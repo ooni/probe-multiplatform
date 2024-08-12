@@ -156,6 +156,7 @@
 				7555FF79242A565900829871 /* Resources */,
 				93E977732C4FE022009CCABC /* ShellScript */,
 				F57E468EACCE9B29FB4C68FC /* [CP] Copy Pods Resources */,
+				11F17E981064A71B74C323DA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -177,6 +178,7 @@
 				79FBD0122C5A70AF004E041C /* Resources */,
 				79FBD0152C5A70AF004E041C /* ShellScript */,
 				06E00FBBFEA4B57236F98854 /* [CP] Copy Pods Resources */,
+				3A3900471DFA31082B6AA60E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -260,6 +262,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		11F17E981064A71B74C323DA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2221CAC0E44786DF6A5501B8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -302,6 +321,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3A3900471DFA31082B6AA60E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		79FBD00B2C5A70AF004E041C /* Compile Kotlin Framework */ = {
