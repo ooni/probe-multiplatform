@@ -13,6 +13,8 @@ import org.ooni.probe.Database
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
+import org.ooni.probe.domain.BootstrapTestDescriptors
+import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
@@ -27,6 +29,7 @@ class Dependencies(
     private val oonimkallBridge: OonimkallBridge,
     private val baseFileDir: String,
     private val cacheDir: String,
+    private val readAssetFile: (String) -> String,
     private val databaseDriverFactory: () -> SqlDriver,
     private val networkTypeFinder: NetworkTypeFinder,
 ) {
@@ -62,6 +65,15 @@ class Dependencies(
 
     // Domain
 
+    val bootstrapTestDescriptors by lazy {
+        BootstrapTestDescriptors(
+            getBootstrapTestDescriptors = getBootstrapTestDescriptors::invoke,
+            createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
+        )
+    }
+    private val getBootstrapTestDescriptors by lazy {
+        GetBootstrapTestDescriptors(readAssetFile, json, backgroundDispatcher)
+    }
     private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
     private val getResults by lazy { GetResults(resultRepository) }
     private val getResult by lazy { GetResult(resultRepository) }

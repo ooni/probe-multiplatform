@@ -3,6 +3,7 @@ package org.ooni.probe.data.repositories
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.di.Dependencies
 import org.ooni.testing.createTestDatabaseDriver
@@ -35,9 +36,22 @@ class TestDescriptorRepositoryTest {
                         ),
                     nameIntl = mapOf("PT" to "Teste"),
                 )
-            subject.create(model)
+            subject.createOrIgnore(listOf(model))
 
             val result = subject.list().first().first()
             assertEquals(model, result)
+        }
+
+    @Test
+    fun createDuplicatedIsIgnored() =
+        runTest {
+            val model =
+                DescriptorFactory.buildInstalledModel(
+                    id = InstalledTestDescriptorModel.Id(123L),
+                )
+            subject.createOrIgnore(listOf(model, model))
+
+            val result = subject.list().first()
+            assertEquals(1, result.size)
         }
 }

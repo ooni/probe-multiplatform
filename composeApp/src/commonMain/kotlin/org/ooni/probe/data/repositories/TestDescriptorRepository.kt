@@ -24,29 +24,33 @@ class TestDescriptorRepository(
             .mapToList(backgroundDispatcher)
             .map { list -> list.mapNotNull { it.toModel() } }
 
-    suspend fun create(model: InstalledTestDescriptorModel) {
+    suspend fun createOrIgnore(models: List<InstalledTestDescriptorModel>) {
         withContext(backgroundDispatcher) {
-            database.testDescriptorQueries.insert(
-                runId = model.id.value,
-                name = model.name,
-                short_description = model.shortDescription,
-                description = model.description,
-                author = model.author,
-                nettests = json.encodeToString(model.netTests),
-                name_intl = json.encodeToString(model.nameIntl),
-                short_description_intl = json.encodeToString(model.shortDescriptionIntl),
-                description_intl = json.encodeToString(model.descriptionIntl),
-                icon = model.icon,
-                color = model.color,
-                animation = model.animation,
-                expiration_date = model.expirationDate?.toEpochMilliseconds(),
-                date_created = model.dateCreated?.toEpochMilliseconds(),
-                date_updated = model.dateUpdated?.toEpochMilliseconds(),
-                revision = model.revision,
-                previous_revision = null,
-                is_expired = if (model.isExpired) 1 else 0,
-                auto_update = if (model.autoUpdate) 1 else 0,
-            )
+            database.transaction {
+                models.forEach { model ->
+                    database.testDescriptorQueries.insertOrIgnore(
+                        runId = model.id.value,
+                        name = model.name,
+                        short_description = model.shortDescription,
+                        description = model.description,
+                        author = model.author,
+                        nettests = json.encodeToString(model.netTests),
+                        name_intl = json.encodeToString(model.nameIntl),
+                        short_description_intl = json.encodeToString(model.shortDescriptionIntl),
+                        description_intl = json.encodeToString(model.descriptionIntl),
+                        icon = model.icon,
+                        color = model.color,
+                        animation = model.animation,
+                        expiration_date = model.expirationDate?.toEpochMilliseconds(),
+                        date_created = model.dateCreated?.toEpochMilliseconds(),
+                        date_updated = model.dateUpdated?.toEpochMilliseconds(),
+                        revision = model.revision,
+                        previous_revision = null,
+                        is_expired = if (model.isExpired) 1 else 0,
+                        auto_update = if (model.autoUpdate) 1 else 0,
+                    )
+                }
+            }
         }
     }
 

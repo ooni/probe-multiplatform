@@ -40,6 +40,7 @@ fun App(dependencies: Dependencies) {
 
     LaunchedEffect(Unit) {
         logAppStart(dependencies)
+        dependencies.bootstrapTestDescriptors()
     }
 }
 

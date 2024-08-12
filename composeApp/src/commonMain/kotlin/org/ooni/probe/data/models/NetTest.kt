@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NetTest(
-    @SerialName("test_name")
-    val name: String,
-    val inputs: List<String>? = null,
+    @SerialName("test_name") val name: String,
+    @SerialName("inputs") val inputs: List<String>? = null,
 )

@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_chevron_right
-import ooniprobe.composeapp.generated.resources.logo
+import ooniprobe.composeapp.generated.resources.ic_settings
 import org.jetbrains.compose.resources.painterResource
 import org.ooni.probe.data.models.Descriptor
 
@@ -40,7 +40,8 @@ fun TestDescriptorItem(descriptor: Descriptor) {
                     modifier = Modifier.padding(bottom = 2.dp),
                 ) {
                     Icon(
-                        painter = painterResource(descriptor.icon ?: Res.drawable.logo),
+                        // TODO: pick better fallback icon
+                        painter = painterResource(descriptor.icon ?: Res.drawable.ic_settings),
                         contentDescription = null,
                         tint = descriptor.color ?: MaterialTheme.colorScheme.onSurface,
                         modifier =
@@ -50,7 +51,7 @@ fun TestDescriptorItem(descriptor: Descriptor) {
                     )
                     Text(
                         descriptor.title(),
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.titleMedium,
                     )
                 }
                 descriptor.shortDescription()?.let { shortDescription ->

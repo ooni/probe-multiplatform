@@ -23,6 +23,7 @@ val appConfig =
                 appName = "News Media Scan",
                 srcRoot = "src/dwMain/kotlin",
                 resRoot = "src/dwMain/resources",
+                composeResRoot = "src/dwMain/composeResources",
             ),
         "ooni" to
             AppConfig(
@@ -30,6 +31,7 @@ val appConfig =
                 appName = "OONI Probe",
                 srcRoot = "src/ooniMain/kotlin",
                 resRoot = "src/ooniMain/resources",
+                composeResRoot = "src/ooniMain/composeResources",
             ),
     )
 
@@ -101,9 +103,12 @@ kotlin {
         }
         all {
             languageSettings {
+                optIn("kotlin.ExperimentalStdlibApi")
+                // optIn("kotlinx.cinterop.ExperimentalForeignApi")
+                optIn("kotlinx.cinterop.BetaInteropApi")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
-                optIn("androidx.compose.material3.ExperimentalMaterial3Api")
                 optIn("androidx.compose.foundation.ExperimentalFoundationApi")
+                optIn("androidx.compose.material3.ExperimentalMaterial3Api")
                 optIn("androidx.compose.ui.test.ExperimentalTestApi")
             }
         }
@@ -161,14 +166,18 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    sourceSets["main"].resources.setSrcDirs(
+        listOf(
+            "src/androidMain/resources",
+            "src/commonMain/resources",
+        ),
+    )
     dependencies {
         debugImplementation(compose.uiTooling)
     }
-    android {
-        lint {
-            warningsAsErrors = true
-            disable += listOf("AndroidGradlePluginVersion", "ObsoleteLintCustomCheck")
-        }
+    lint {
+        warningsAsErrors = true
+        disable += listOf("AndroidGradlePluginVersion", "ObsoleteLintCustomCheck")
     }
 }
 
@@ -209,12 +218,14 @@ tasks {
 tasks.register("copyBrandingToCommonResources") {
     doLast {
         val projectDir = project.projectDir.absolutePath
-
-        val destinationFile = File(projectDir, "src/commonMain/composeResources")
-
-        val sourceFile = File(projectDir, config.resRoot)
-
-        copyRecursive(sourceFile, destinationFile)
+        copyRecursive(
+            from = File(projectDir, config.resRoot),
+            to = File(projectDir, "src/commonMain/resources"),
+        )
+        copyRecursive(
+            from = File(projectDir, config.composeResRoot),
+            to = File(projectDir, "src/commonMain/composeResources"),
+        )
     }
 }
 
@@ -222,24 +233,28 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
     doLast {
         val projectDir = project.projectDir.absolutePath
 
-        val destinationFile = File(projectDir, "src/commonMain/composeResources")
-        destinationFile.listFiles()?.forEach { folder ->
-            folder.listFiles()?.forEach { file ->
-                if (file.name == ".gitignore") {
-                    file
-                        .readText()
-                        .lines()
-                        .forEach { line ->
-                            if (line.isNotEmpty()) {
-                                println("Removing $line")
-                                File(folder, line).deleteRecursively()
+        fun deleteFilesFromGitIgnore(folderPath: String) {
+            val destinationFile = File(projectDir, folderPath)
+            destinationFile.listFiles()?.forEach { folder ->
+                folder.listFiles()?.forEach { file ->
+                    if (file.name == ".gitignore") {
+                        file
+                            .readText()
+                            .lines()
+                            .forEach { line ->
+                                if (line.isNotEmpty()) {
+                                    println("Removing $line")
+                                    File(folder, line).deleteRecursively()
+                                }
+                            }.also {
+                                file.delete()
                             }
-                        }.also {
-                            file.delete()
-                        }
+                    }
                 }
             }
         }
+        deleteFilesFromGitIgnore("src/commonMain/composeResources")
+        deleteFilesFromGitIgnore("src/commonMain/resources")
     }
 }
 
@@ -266,6 +281,7 @@ data class AppConfig(
     val appName: String,
     val srcRoot: String,
     val resRoot: String,
+    val composeResRoot: String,
 )
 
 /**
