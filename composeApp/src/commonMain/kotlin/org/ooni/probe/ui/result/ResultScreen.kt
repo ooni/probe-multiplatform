@@ -10,7 +10,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.back
-import ooniprobe.composeapp.generated.resources.test_results
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -21,7 +20,7 @@ fun ResultScreen(
     Column {
         TopAppBar(
             title = {
-                Text(stringResource(Res.string.test_results))
+                Text(state.result?.testGroupName.orEmpty())
             },
             navigationIcon = {
                 IconButton(onClick = { onEvent(ResultViewModel.Event.BackClicked) }) {
@@ -32,7 +31,5 @@ fun ResultScreen(
                 }
             },
         )
-
-        Text(state.result.id.value)
     }
 }
