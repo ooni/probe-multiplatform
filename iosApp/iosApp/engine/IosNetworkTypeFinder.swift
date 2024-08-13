@@ -38,7 +38,7 @@ class IosNetworkTypeFinder : NetworkTypeFinder {
                 return NetworkTypeUnknown(value: "")
             }
         }
-        return NetworkTypeUnknown(value: "")
+        return NetworkTypeNoInternet()
     }
 
 }
