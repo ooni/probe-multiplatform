@@ -21,8 +21,8 @@ CREATE TABLE TestDescriptor (
   PRIMARY KEY(`runId`)
 );
 
-insert:
-INSERT INTO TestDescriptor (
+insertOrIgnore:
+INSERT OR IGNORE INTO TestDescriptor (
   runId,
   name,
   short_description,

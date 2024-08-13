@@ -1,6 +1,5 @@
 package org.ooni.probe.domain
 
-import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -10,6 +9,7 @@ import org.ooni.probe.data.models.DefaultTestDescriptor
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.getCurrent
+import org.ooni.probe.shared.hexToColor
 
 class GetTestDescriptors(
     private val getDefaultTestDescriptors: () -> List<DefaultTestDescriptor>,
@@ -50,7 +50,7 @@ class GetTestDescriptors(
             description = { descriptionIntl?.getCurrent() ?: description },
             // TODO: fetch drawable resource from path
             icon = null,
-            color = color?.filter { it != '#' }?.toIntOrNull()?.let { Color(it) },
+            color = color?.hexToColor(),
             animation = animation,
             dataUsage = { null },
             netTests = netTests.orEmpty(),

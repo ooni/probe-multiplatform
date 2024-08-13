@@ -52,8 +52,9 @@ fun DashboardScreen(
         }
 
         LazyColumn {
+            val allSectionsHaveValues = state.tests.entries.all { it.value.any() }
             state.tests.forEach { (type, tests) ->
-                if (state.tests.keys.size > 1 && tests.isNotEmpty()) {
+                if (allSectionsHaveValues && tests.isNotEmpty()) {
                     item(type) {
                         TestDescriptorItem(type)
                     }
