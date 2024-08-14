@@ -1,6 +1,7 @@
 package org.ooni.probe.data.models
 
-import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import org.ooni.probe.shared.now
 
 data class InstalledTestDescriptorModel(
     val id: Id,
@@ -15,14 +16,15 @@ data class InstalledTestDescriptorModel(
     val icon: String?,
     val color: String?,
     val animation: String?,
-    val expirationDate: Instant?,
-    val dateCreated: Instant?,
-    val dateUpdated: Instant?,
+    val expirationDate: LocalDateTime?,
+    val dateCreated: LocalDateTime?,
+    val dateUpdated: LocalDateTime?,
     val revision: String?,
-    val isExpired: Boolean,
     val autoUpdate: Boolean,
 ) {
     data class Id(
         val value: Long,
     )
+
+    val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 }

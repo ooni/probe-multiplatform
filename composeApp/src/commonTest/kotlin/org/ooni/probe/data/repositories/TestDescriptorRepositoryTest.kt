@@ -3,6 +3,7 @@ package org.ooni.probe.data.repositories
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.di.Dependencies
@@ -28,14 +29,12 @@ class TestDescriptorRepositoryTest {
     @Test
     fun createAndGet() =
         runTest {
-            val model =
-                DescriptorFactory.buildInstalledModel(
-                    netTests =
-                        listOf(
-                            NetTest("web_connectivity", inputs = listOf("https://ooni.org")),
-                        ),
-                    nameIntl = mapOf("PT" to "Teste"),
-                )
+            val model = DescriptorFactory.buildInstalledModel(
+                netTests = listOf(
+                    NetTest(TestType.WebConnectivity, inputs = listOf("https://ooni.org")),
+                ),
+                nameIntl = mapOf("PT" to "Teste"),
+            )
             subject.createOrIgnore(listOf(model))
 
             val result = subject.list().first().first()
@@ -45,10 +44,9 @@ class TestDescriptorRepositoryTest {
     @Test
     fun createDuplicatedIsIgnored() =
         runTest {
-            val model =
-                DescriptorFactory.buildInstalledModel(
-                    id = InstalledTestDescriptorModel.Id(123L),
-                )
+            val model = DescriptorFactory.buildInstalledModel(
+                id = InstalledTestDescriptorModel.Id(123L),
+            )
             subject.createOrIgnore(listOf(model, model))
 
             val result = subject.list().first()

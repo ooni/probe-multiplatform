@@ -42,6 +42,8 @@ fun setupDependencies(
     databaseDriverFactory = ::buildDatabaseDriver,
     networkTypeFinder = networkTypeFinder,
     buildDataStore = ::buildDataStore,
+    // TODO: isBatteryCharging
+    isBatteryCharging = { true },
 )
 
 private val platformInfo

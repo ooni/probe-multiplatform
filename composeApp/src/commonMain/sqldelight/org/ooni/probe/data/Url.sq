@@ -5,13 +5,19 @@ CREATE TABLE Url(
     country_code TEXT
 );
 
-insert:
-INSERT INTO Url (
+insertOrReplace:
+INSERT OR REPLACE INTO Url (
     id,
     url,
     category_code,
     country_code
 ) VALUES (?,?,?,?);
 
+selectLastInsertedRowId:
+SELECT last_insert_rowid();
+
 selectAll:
 SELECT * FROM Url;
+
+selectByUrls:
+SELECT * FROM Url WHERE Url.url IN ?;

@@ -12,8 +12,8 @@ CREATE TABLE Result(
     FOREIGN KEY(`network_id`) REFERENCES Network(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
-insert:
-INSERT INTO Result (
+insertOrReplace:
+INSERT OR REPLACE INTO Result (
     id,
     test_group_name,
     start_time,
@@ -26,6 +26,9 @@ INSERT INTO Result (
     descriptor_runId
 ) VALUES (?,?,?,?,?,?,?,?,?,?);
 
+selectLastInsertedRowId:
+SELECT last_insert_rowid();
+
 selectAll:
 SELECT * FROM Result ORDER BY start_time DESC;
 
@@ -33,7 +36,6 @@ selectAllWithNetwork:
 SELECT Result.*, Network.*, (SELECT COUNT(Measurement.id) FROM Measurement WHERE Measurement.result_id = Result.id) AS measurementsCount
 FROM Result
 LEFT JOIN Network ON Result.network_id = Network.id
-LEFT JOIN Measurement ON Measurement.result_id = Result.id
 ORDER BY Result.start_time DESC;
 
 selectById:

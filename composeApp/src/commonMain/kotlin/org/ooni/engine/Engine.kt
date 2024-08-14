@@ -9,16 +9,19 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
+import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskEventResult
 import org.ooni.engine.models.TaskLogLevel
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
+import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.engine.models.resultOf
 import org.ooni.probe.config.Config
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
+import kotlin.time.Duration
 
 class Engine(
     private val bridge: OonimkallBridge,
@@ -27,6 +30,7 @@ class Engine(
     private val cacheDir: String,
     private val taskEventMapper: TaskEventMapper,
     private val networkTypeFinder: NetworkTypeFinder,
+    private val isBatteryCharging: suspend () -> Boolean,
     private val platformInfo: PlatformInfo,
     private val backgroundDispatcher: CoroutineDispatcher,
 ) {
@@ -34,9 +38,10 @@ class Engine(
         name: String,
         inputs: List<String>?,
         taskOrigin: TaskOrigin,
+        maxRuntime: Duration?,
     ): Flow<TaskEvent> =
         channelFlow {
-            val taskSettings = buildTaskSettings(name, inputs, taskOrigin)
+            val taskSettings = buildTaskSettings(name, inputs, taskOrigin, maxRuntime)
             val settingsSerialized = json.encodeToString(taskSettings)
 
             var task: OonimkallBridge.Task? = null
@@ -69,21 +74,19 @@ class Engine(
             session(sessionConfig).submitMeasurement(measurement)
         }.mapError { MkException(it) }
 
-    suspend fun checkIn(
-        categories: List<String>,
-        taskOrigin: TaskOrigin,
-    ): Result<OonimkallBridge.CheckInResults, Exception> =
+    suspend fun checkIn(taskOrigin: TaskOrigin): Result<OonimkallBridge.CheckInResults, MkException> =
         resultOf(backgroundDispatcher) {
             val sessionConfig = buildSessionConfig(taskOrigin)
             session(sessionConfig).checkIn(
                 OonimkallBridge.CheckInConfig(
-                    charging = true,
-                    onWiFi = true,
+                    charging = isBatteryCharging(),
+                    onWiFi = networkTypeFinder() == NetworkType.Wifi,
                     platform = platformInfo.platform.value,
                     runType = taskOrigin.value,
                     softwareName = sessionConfig.softwareName,
                     softwareVersion = sessionConfig.softwareVersion,
-                    webConnectivityCategories = categories,
+                    // TODO: fetch enabled categories from preferences
+                    webConnectivityCategories = WebConnectivityCategory.entries.map { it.code },
                 ),
             )
         }.mapError { MkException(it) }
@@ -109,6 +112,7 @@ class Engine(
         name: String,
         inputs: List<String>?,
         taskOrigin: TaskOrigin,
+        maxRuntime: Duration?,
     ) = TaskSettings(
         name = name,
         inputs = inputs.orEmpty(),
@@ -130,8 +134,7 @@ class Engine(
                 noCollector = true,
                 softwareName = buildSoftwareName(taskOrigin),
                 softwareVersion = platformInfo.version,
-                // TODO: fetch from preferences
-                maxRuntime = -1,
+                maxRuntime = maxRuntime?.inWholeSeconds?.toInt() ?: -1,
             ),
         annotations =
             TaskSettings.Annotations(

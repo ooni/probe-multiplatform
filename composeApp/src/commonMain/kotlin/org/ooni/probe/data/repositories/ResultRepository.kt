@@ -42,65 +42,70 @@ class ResultRepository(
             .mapToList(backgroundDispatcher)
             .map { it.firstOrNull()?.toModel() }
 
-    suspend fun create(model: ResultModel) {
+    suspend fun createOrUpdate(model: ResultModel): ResultModel.Id =
         withContext(backgroundDispatcher) {
-            database.resultQueries.insert(
-                id = model.id?.value,
-                test_group_name = model.testGroupName,
-                start_time = model.startTime.toEpoch(),
-                is_viewed = if (model.isViewed) 1 else 0,
-                is_done = if (model.isDone) 1 else 0,
-                data_usage_up = model.dataUsageUp,
-                data_usage_down = model.dataUsageDown,
-                failure_msg = model.failureMessage,
-                network_id = model.networkId?.value,
-                descriptor_runId = model.testDescriptorId?.value,
-            )
+            database.transactionWithResult {
+                database.resultQueries.insertOrReplace(
+                    id = model.id?.value,
+                    test_group_name = model.testGroupName,
+                    start_time = model.startTime.toEpoch(),
+                    is_viewed = if (model.isViewed) 1 else 0,
+                    is_done = if (model.isDone) 1 else 0,
+                    data_usage_up = model.dataUsageUp,
+                    data_usage_down = model.dataUsageDown,
+                    failure_msg = model.failureMessage,
+                    network_id = model.networkId?.value,
+                    descriptor_runId = model.testDescriptorId?.value,
+                )
+                model.id
+                    ?: ResultModel.Id(
+                        database.resultQueries.selectLastInsertedRowId().executeAsOne(),
+                    )
+            }
         }
+
+    private fun Result.toModel(): ResultModel? {
+        return ResultModel(
+            id = ResultModel.Id(id),
+            testGroupName = test_group_name,
+            startTime = start_time?.toLocalDateTime() ?: return null,
+            isViewed = is_viewed == 1L,
+            isDone = is_done == 1L,
+            dataUsageUp = data_usage_up ?: 0L,
+            dataUsageDown = data_usage_down ?: 0L,
+            failureMessage = failure_msg,
+            networkId = network_id?.let(NetworkModel::Id),
+            testDescriptorId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
+        )
     }
-}
 
-private fun Result.toModel(): ResultModel? {
-    return ResultModel(
-        id = ResultModel.Id(id),
-        testGroupName = test_group_name,
-        startTime = start_time?.toLocalDateTime() ?: return null,
-        isViewed = is_viewed == 1L,
-        isDone = is_done == 1L,
-        dataUsageUp = data_usage_up,
-        dataUsageDown = data_usage_down,
-        failureMessage = failure_msg,
-        networkId = network_id?.let(NetworkModel::Id),
-        testDescriptorId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
-    )
-}
-
-private fun SelectAllWithNetwork.toModel(): ResultListItem? {
-    return ResultListItem(
-        result =
-            Result(
-                id = id,
-                test_group_name = test_group_name,
-                start_time = start_time,
-                is_viewed = is_viewed,
-                is_done = is_done,
-                data_usage_up = data_usage_up,
-                data_usage_down = data_usage_down,
-                failure_msg = failure_msg,
-                network_id = network_id,
-                descriptor_runId = descriptor_runId,
-            ).toModel() ?: return null,
-        network =
-            id_?.let { networkId ->
-                Network(
-                    id = networkId,
-                    network_name = network_name,
-                    ip = ip,
-                    asn = asn,
-                    country_code = country_code,
-                    network_type = network_type,
-                ).toModel()
-            },
-        measurementsCount = measurementsCount,
-    )
+    private fun SelectAllWithNetwork.toModel(): ResultListItem? {
+        return ResultListItem(
+            result =
+                Result(
+                    id = id,
+                    test_group_name = test_group_name,
+                    start_time = start_time,
+                    is_viewed = is_viewed,
+                    is_done = is_done,
+                    data_usage_up = data_usage_up,
+                    data_usage_down = data_usage_down,
+                    failure_msg = failure_msg,
+                    network_id = network_id,
+                    descriptor_runId = descriptor_runId,
+                ).toModel() ?: return null,
+            network =
+                id_?.let { networkId ->
+                    Network(
+                        id = networkId,
+                        network_name = network_name,
+                        ip = ip,
+                        asn = asn,
+                        country_code = country_code,
+                        network_type = network_type,
+                    ).toModel()
+                },
+            measurementsCount = measurementsCount,
+        )
+    }
 }

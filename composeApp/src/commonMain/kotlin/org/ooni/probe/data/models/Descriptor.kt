@@ -2,7 +2,9 @@ package org.ooni.probe.data.models
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.DrawableResource
+import org.ooni.probe.shared.now
 
 data class Descriptor(
     val name: String,
@@ -13,8 +15,9 @@ data class Descriptor(
     val color: Color?,
     val animation: String?,
     val dataUsage: @Composable () -> String?,
+    val expirationDate: LocalDateTime?,
     val netTests: List<NetTest>,
-    val longRunningTests: List<NetTest>? = null,
+    val longRunningTests: List<NetTest> = emptyList(),
     val source: Source,
 ) {
     sealed interface Source {
@@ -22,4 +25,6 @@ data class Descriptor(
 
         data class Installed(val value: InstalledTestDescriptorModel) : Source
     }
+
+    val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 }

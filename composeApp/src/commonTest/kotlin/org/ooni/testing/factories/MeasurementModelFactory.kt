@@ -1,15 +1,18 @@
 package org.ooni.testing.factories
 
-import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.UrlModel
+import kotlin.math.absoluteValue
+import kotlin.random.Random
 
 object MeasurementModelFactory {
     fun build(
         id: MeasurementModel.Id? = null,
-        testName: String? = null,
-        startTime: Instant? = null,
+        test: TestType = TestType.WebConnectivity,
+        startTime: LocalDateTime? = null,
         runtime: Double? = null,
         isDone: Boolean = false,
         isUploaded: Boolean = false,
@@ -23,10 +26,10 @@ object MeasurementModelFactory {
         testKeys: String? = null,
         rerunNetwork: String? = null,
         urlId: UrlModel.Id? = null,
-        resultId: ResultModel.Id? = null,
+        resultId: ResultModel.Id = ResultModel.Id(Random.nextLong().absoluteValue),
     ) = MeasurementModel(
         id = id,
-        testName = testName,
+        test = test,
         startTime = startTime,
         runtime = runtime,
         isDone = isDone,
