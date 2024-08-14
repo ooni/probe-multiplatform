@@ -18,8 +18,6 @@
 		79FBD00F2C5A70AF004E041C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		79FBD0132C5A70AF004E041C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		79FBD0142C5A70AF004E041C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
-		93D3BF632C6B70AD00E9A9B7 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 93D3BF5F2C6B70AD00E9A9B7 /* .gitignore */; };
-		93D3BF642C6B70AD00E9A9B7 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 93D3BF5F2C6B70AD00E9A9B7 /* .gitignore */; };
 		93D3BF652C6B70AD00E9A9B7 /* descriptors.json in Resources */ = {isa = PBXBuildFile; fileRef = 93D3BF602C6B70AD00E9A9B7 /* descriptors.json */; };
 		93D3BF662C6B70AD00E9A9B7 /* descriptors.json in Resources */ = {isa = PBXBuildFile; fileRef = 93D3BF602C6B70AD00E9A9B7 /* descriptors.json */; };
 		93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */; };
@@ -42,9 +40,7 @@
 		79FBD01A2C5A70AF004E041C /* NewsMediaScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsMediaScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79FBD01B2C5A70AF004E041C /* iosApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iosApp copy-Info.plist"; path = "/Users/aanorbel/Code/ooni/new/probe-multiplatform/iosApp/iosApp copy-Info.plist"; sourceTree = "<absolute>"; };
 		8918F4B39DEEFE89FDF20821 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
-		93D3BF5A2C6B684800E9A9B7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		93D3BF5B2C6B684800E9A9B7 /* descriptors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = descriptors.json; sourceTree = "<group>"; };
-		93D3BF5F2C6B70AD00E9A9B7 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		93D3BF602C6B70AD00E9A9B7 /* descriptors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = descriptors.json; sourceTree = "<group>"; };
 		93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosOonimkallBridge.swift; sourceTree = "<group>"; };
 		96B0AC35C421922A1ED7D422 /* Pods_NewsMediaScan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsMediaScan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,7 +138,6 @@
 		93D3BF5C2C6B684800E9A9B7 /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				93D3BF5A2C6B684800E9A9B7 /* .gitignore */,
 				93D3BF5B2C6B684800E9A9B7 /* descriptors.json */,
 			);
 			path = assets;
@@ -160,7 +155,6 @@
 		93D3BF612C6B70AD00E9A9B7 /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				93D3BF5F2C6B70AD00E9A9B7 /* .gitignore */,
 				93D3BF602C6B70AD00E9A9B7 /* descriptors.json */,
 			);
 			path = assets;
@@ -279,7 +273,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
-				93D3BF632C6B70AD00E9A9B7 /* .gitignore in Resources */,
 				93D3BF652C6B70AD00E9A9B7 /* descriptors.json in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 			);
@@ -290,7 +283,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				79FBD0132C5A70AF004E041C /* Preview Assets.xcassets in Resources */,
-				93D3BF642C6B70AD00E9A9B7 /* .gitignore in Resources */,
 				93D3BF662C6B70AD00E9A9B7 /* descriptors.json in Resources */,
 				79FBD0142C5A70AF004E041C /* Assets.xcassets in Resources */,
 			);
