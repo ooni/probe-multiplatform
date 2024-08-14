@@ -11,11 +11,15 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		79B9D19A2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */; };
+		79B9D19B2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */; };
 		79FBD00D2C5A70AF004E041C /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		79FBD00E2C5A70AF004E041C /* IosOonimkallBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */; };
 		79FBD00F2C5A70AF004E041C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		79FBD0132C5A70AF004E041C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		79FBD0142C5A70AF004E041C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
+		93D3BF652C6B70AD00E9A9B7 /* descriptors.json in Resources */ = {isa = PBXBuildFile; fileRef = 93D3BF602C6B70AD00E9A9B7 /* descriptors.json */; };
+		93D3BF662C6B70AD00E9A9B7 /* descriptors.json in Resources */ = {isa = PBXBuildFile; fileRef = 93D3BF602C6B70AD00E9A9B7 /* descriptors.json */; };
 		93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */; };
 		94DC92639D2411CA34B45C81 /* Pods_NewsMediaScan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B0AC35C421922A1ED7D422 /* Pods_NewsMediaScan.framework */; };
 		A26A8A38C066256520CE779E /* Pods_OONIProbe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B59AB52BA10477541BE9D121 /* Pods_OONIProbe.framework */; };
@@ -32,9 +36,12 @@
 		7555FF7B242A565900829871 /* OONI Probe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OONI Probe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosNetworkTypeFinder.swift; sourceTree = "<group>"; };
 		79FBD01A2C5A70AF004E041C /* NewsMediaScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsMediaScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79FBD01B2C5A70AF004E041C /* iosApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iosApp copy-Info.plist"; path = "/Users/aanorbel/Code/ooni/new/probe-multiplatform/iosApp/iosApp copy-Info.plist"; sourceTree = "<absolute>"; };
 		8918F4B39DEEFE89FDF20821 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
+		93D3BF5B2C6B684800E9A9B7 /* descriptors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = descriptors.json; sourceTree = "<group>"; };
+		93D3BF602C6B70AD00E9A9B7 /* descriptors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = descriptors.json; sourceTree = "<group>"; };
 		93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosOonimkallBridge.swift; sourceTree = "<group>"; };
 		96B0AC35C421922A1ED7D422 /* Pods_NewsMediaScan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsMediaScan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -95,6 +102,8 @@
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
+				93D3BF5D2C6B684800E9A9B7 /* resources */,
+				93D3BF622C6B70AD00E9A9B7 /* resources */,
 				AB1DB47929225F7C00F7AF9C /* Configuration */,
 				7555FF7D242A565900829871 /* iosApp */,
 				7555FF7C242A565900829871 /* Products */,
@@ -126,10 +135,45 @@
 			path = iosApp;
 			sourceTree = "<group>";
 		};
+		93D3BF5C2C6B684800E9A9B7 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				93D3BF5B2C6B684800E9A9B7 /* descriptors.json */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		93D3BF5D2C6B684800E9A9B7 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				93D3BF5C2C6B684800E9A9B7 /* assets */,
+			);
+			name = resources;
+			path = ../composeApp/src/commonMain/resources;
+			sourceTree = "<group>";
+		};
+		93D3BF612C6B70AD00E9A9B7 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				93D3BF602C6B70AD00E9A9B7 /* descriptors.json */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		93D3BF622C6B70AD00E9A9B7 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				93D3BF612C6B70AD00E9A9B7 /* assets */,
+			);
+			name = resources;
+			path = ../composeApp/src/commonMain/resources;
+			sourceTree = "<group>";
+		};
 		93E977722C4FCCF7009CCABC /* engine */ = {
 			isa = PBXGroup;
 			children = (
 				93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */,
+				79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -227,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
+				93D3BF652C6B70AD00E9A9B7 /* descriptors.json in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79FBD0132C5A70AF004E041C /* Preview Assets.xcassets in Resources */,
+				93D3BF662C6B70AD00E9A9B7 /* descriptors.json in Resources */,
 				79FBD0142C5A70AF004E041C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +348,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3A3900471DFA31082B6AA60E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		79FBD00B2C5A70AF004E041C /* Compile Kotlin Framework */ = {
@@ -398,6 +461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B9D19A2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
@@ -408,6 +472,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B9D19B2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */,
 				79FBD00D2C5A70AF004E041C /* iOSApp.swift in Sources */,
 				79FBD00E2C5A70AF004E041C /* IosOonimkallBridge.swift in Sources */,
 				79FBD00F2C5A70AF004E041C /* ContentView.swift in Sources */,

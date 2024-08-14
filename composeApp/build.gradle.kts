@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.sqldelight)
 }
 
 val organization: String? by project
@@ -22,6 +23,7 @@ val appConfig =
                 appName = "News Media Scan",
                 srcRoot = "src/dwMain/kotlin",
                 resRoot = "src/dwMain/resources",
+                composeResRoot = "src/dwMain/composeResources",
             ),
         "ooni" to
             AppConfig(
@@ -29,6 +31,7 @@ val appConfig =
                 appName = "OONI Probe",
                 srcRoot = "src/ooniMain/kotlin",
                 resRoot = "src/ooniMain/resources",
+                composeResRoot = "src/ooniMain/composeResources",
             ),
     )
 
@@ -69,6 +72,7 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.android.oonimkall)
             implementation(libs.android.activity)
+            implementation(libs.sqldelight.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -89,14 +93,25 @@ kotlin {
                 kotlin.srcDir(config.srcRoot)
             }
         }
+        iosMain.dependencies {
+            implementation(libs.sqldelight.native)
+        }
         commonTest.dependencies {
             implementation(kotlin("test"))
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.uiTest)
         }
+        getByName("androidUnitTest").dependencies {
+            implementation(kotlin("test-junit"))
+            implementation(libs.bundles.android.test)
+        }
         all {
             languageSettings {
+                optIn("kotlin.ExperimentalStdlibApi")
+                // optIn("kotlinx.cinterop.ExperimentalForeignApi")
+                optIn("kotlinx.cinterop.BetaInteropApi")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                optIn("androidx.compose.foundation.ExperimentalFoundationApi")
                 optIn("androidx.compose.material3.ExperimentalMaterial3Api")
                 optIn("androidx.compose.ui.test.ExperimentalTestApi")
             }
@@ -115,12 +130,21 @@ kotlin {
 
 android {
     namespace = "org.ooni.probe"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.android.compileSdk
+            .get()
+            .toInt()
 
     defaultConfig {
         applicationId = config.appId
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk =
+            libs.versions.android.minSdk
+                .get()
+                .toInt()
+        targetSdk =
+            libs.versions.android.targetSdk
+                .get()
+                .toInt()
         versionCode = 1
         versionName = "1.0"
         resValue("string", "app_name", config.appName)
@@ -146,13 +170,27 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    sourceSets["main"].resources.setSrcDirs(
+        listOf(
+            "src/androidMain/resources",
+            "src/commonMain/resources",
+        ),
+    )
     dependencies {
         debugImplementation(compose.uiTooling)
     }
-    android {
-        lint {
-            warningsAsErrors = true
-            disable += listOf("AndroidGradlePluginVersion", "ObsoleteLintCustomCheck")
+    lint {
+        warningsAsErrors = true
+        disable += listOf("AndroidGradlePluginVersion", "ObsoleteLintCustomCheck")
+    }
+}
+
+sqldelight {
+    databases {
+        create("Database") {
+            packageName = "org.ooni.probe"
+            schemaOutputDirectory = file("src/commonMain/sqldelight/databases")
+            verifyMigrations = true
         }
     }
 }
@@ -165,15 +203,33 @@ ktlint {
     additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
 }
 
+// Fix to exclude sqldelight generated files
+tasks {
+    listOf(
+        runKtlintFormatOverCommonMainSourceSet,
+        runKtlintCheckOverCommonMainSourceSet,
+    ).forEach {
+        it {
+            setSource(
+                kotlin.sourceSets.commonMain.map {
+                    it.kotlin.filter { file -> !file.absolutePath.contains("generated") }
+                },
+            )
+        }
+    }
+}
+
 tasks.register("copyBrandingToCommonResources") {
     doLast {
         val projectDir = project.projectDir.absolutePath
-
-        val destinationFile = File(projectDir, "src/commonMain/composeResources")
-
-        val sourceFile = File(projectDir, config.resRoot)
-
-        copyRecursive(sourceFile, destinationFile)
+        copyRecursive(
+            from = File(projectDir, config.resRoot),
+            to = File(projectDir, "src/commonMain/resources"),
+        )
+        copyRecursive(
+            from = File(projectDir, config.composeResRoot),
+            to = File(projectDir, "src/commonMain/composeResources"),
+        )
     }
 }
 
@@ -181,21 +237,28 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
     doLast {
         val projectDir = project.projectDir.absolutePath
 
-        val destinationFile = File(projectDir, "src/commonMain/composeResources")
-        destinationFile.listFiles()?.forEach { folder ->
-            folder.listFiles()?.forEach { file ->
-                if (file.name == ".gitignore") {
-                    file.readText().lines().forEach { line ->
-                        if (line.isNotEmpty()) {
-                            println("Removing $line")
-                            File(folder, line).deleteRecursively()
-                        }
-                    }.also {
-                        file.delete()
+        fun deleteFilesFromGitIgnore(folderPath: String) {
+            val destinationFile = File(projectDir, folderPath)
+            destinationFile.listFiles()?.forEach { folder ->
+                folder.listFiles()?.forEach { file ->
+                    if (file.name == ".gitignore") {
+                        file
+                            .readText()
+                            .lines()
+                            .forEach { line ->
+                                if (line.isNotEmpty()) {
+                                    println("Removing $line")
+                                    File(folder, line).deleteRecursively()
+                                }
+                            }.also {
+                                file.delete()
+                            }
                     }
                 }
             }
         }
+        deleteFilesFromGitIgnore("src/commonMain/composeResources")
+        deleteFilesFromGitIgnore("src/commonMain/resources")
     }
 }
 
@@ -222,6 +285,7 @@ data class AppConfig(
     val appName: String,
     val srcRoot: String,
     val resRoot: String,
+    val composeResRoot: String,
 )
 
 /**

@@ -6,15 +6,16 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
+import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskEventResult
 import org.ooni.engine.models.TaskLogLevel
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
+import org.ooni.engine.models.resultOf
 import org.ooni.probe.config.Config
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -37,12 +38,19 @@ class Engine(
         channelFlow {
             val taskSettings = buildTaskSettings(name, inputs, taskOrigin)
             val settingsSerialized = json.encodeToString(taskSettings)
-            val task = bridge.startTask(settingsSerialized)
 
-            while (!task.isDone()) {
-                val eventJson = task.waitForNextEvent()
-                val taskEventResult = json.decodeFromString<TaskEventResult>(eventJson)
-                taskEventMapper(taskEventResult)?.let { send(it) }
+            var task: OonimkallBridge.Task? = null
+            try {
+                task = bridge.startTask(settingsSerialized)
+
+                while (!task.isDone()) {
+                    val eventJson = task.waitForNextEvent()
+                    val taskEventResult = json.decodeFromString<TaskEventResult>(eventJson)
+                    taskEventMapper(taskEventResult)?.let { send(it) }
+                }
+            } catch (e: Exception) {
+                task?.interrupt()
+                throw MkException(e)
             }
 
             invokeOnClose {
@@ -55,17 +63,17 @@ class Engine(
     suspend fun submitMeasurements(
         measurement: String,
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
-    ): SubmitMeasurementResults =
-        withContext(backgroundDispatcher) {
+    ): Result<SubmitMeasurementResults, MkException> =
+        resultOf(backgroundDispatcher) {
             val sessionConfig = buildSessionConfig(taskOrigin)
             session(sessionConfig).submitMeasurement(measurement)
-        }
+        }.mapError { MkException(it) }
 
     suspend fun checkIn(
         categories: List<String>,
         taskOrigin: TaskOrigin,
-    ): OonimkallBridge.CheckInResults =
-        withContext(backgroundDispatcher) {
+    ): Result<OonimkallBridge.CheckInResults, Exception> =
+        resultOf(backgroundDispatcher) {
             val sessionConfig = buildSessionConfig(taskOrigin)
             session(sessionConfig).checkIn(
                 OonimkallBridge.CheckInConfig(
@@ -78,25 +86,24 @@ class Engine(
                     webConnectivityCategories = categories,
                 ),
             )
-        }
+        }.mapError { MkException(it) }
 
     suspend fun httpDo(
         method: String,
         url: String,
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
-    ): String? =
-        withContext(backgroundDispatcher) {
-            session(buildSessionConfig(taskOrigin)).httpDo(
-                OonimkallBridge.HTTPRequest(
-                    method = method,
-                    url = url,
-                ),
-            ).body
-        }
+    ): Result<String?, MkException> =
+        resultOf(backgroundDispatcher) {
+            session(buildSessionConfig(taskOrigin))
+                .httpDo(
+                    OonimkallBridge.HTTPRequest(
+                        method = method,
+                        url = url,
+                    ),
+                ).body
+        }.mapError { MkException(it) }
 
-    private fun session(sessionConfig: OonimkallBridge.SessionConfig): OonimkallBridge.Session {
-        return bridge.newSession(sessionConfig)
-    }
+    private fun session(sessionConfig: OonimkallBridge.SessionConfig): OonimkallBridge.Session = bridge.newSession(sessionConfig)
 
     private fun buildTaskSettings(
         name: String,
@@ -180,4 +187,6 @@ class Engine(
             }
         }
     }
+
+    class MkException(t: Throwable) : Exception(t)
 }

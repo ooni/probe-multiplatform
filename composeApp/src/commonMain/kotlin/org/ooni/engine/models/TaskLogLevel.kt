@@ -8,7 +8,9 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 @Serializable(with = TaskLogLevelSerializer::class)
-enum class TaskLogLevel(val value: String) {
+enum class TaskLogLevel(
+    val value: String,
+) {
     Debug("DEBUG2"),
     Info("INFO"),
 }

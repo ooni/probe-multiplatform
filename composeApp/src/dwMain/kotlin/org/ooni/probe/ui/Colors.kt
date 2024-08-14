@@ -1,8 +1,5 @@
 package org.ooni.probe.ui
 
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
 val primaryLight = Color(0xFF904A43)

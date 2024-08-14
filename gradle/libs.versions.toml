@@ -8,6 +8,7 @@ android-targetSdk = "34"
 
 compose-plugin = "1.6.11"
 kotlin = "2.0.0"
+sqldelight = "2.0.2"
 dataStoreVersion = "1.1.1"
 
 [plugins]
@@ -20,6 +21,7 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "12.1.1" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 
 [libraries]
 
@@ -43,6 +45,14 @@ android-oonimkall = { module = "org.ooni:oonimkall", version = "2024.05.22-09255
 # Logging
 kermit = { module = "co.touchlab:kermit", version = "2.0.4" }
 
+# Data
+sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
+
+# Testing
+android-test-core = { module = "androidx.test:core", version = "1.6.1" }
+
 [bundles]
 
 kotlin = [
@@ -55,4 +65,8 @@ ui = [
 ]
 tooling = [
     "kermit",
+    "sqldelight-coroutines",
+]
+android-test = [
+    "android-test-core"
 ]

@@ -1,7 +1,11 @@
 package org.ooni.probe
 
 import android.app.Application
+import android.net.ConnectivityManager
 import android.os.Build
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -18,8 +22,12 @@ class AndroidApplication : Application() {
             oonimkallBridge = AndroidOonimkallBridge(),
             baseFileDir = filesDir.absolutePath,
             cacheDir = cacheDir.absolutePath,
+            readAssetFile = ::readAssetFile,
+            databaseDriverFactory = ::buildDatabaseDriver,
+            networkTypeFinder =
+                AndroidNetworkTypeFinder(getSystemService(ConnectivityManager::class.java)),
             dataStore = getDataStore(this),
-        )
+            )
     }
 
     private val platformInfo by lazy {
@@ -30,4 +38,8 @@ class AndroidApplication : Application() {
             override val model = "${Build.MANUFACTURER} ${Build.MODEL}"
         }
     }
+
+    private fun buildDatabaseDriver(): SqlDriver = AndroidSqliteDriver(Database.Schema, this, "v2")
+
+    private fun readAssetFile(path: String) = assets.open(path).bufferedReader().use { it.readText() }
 }

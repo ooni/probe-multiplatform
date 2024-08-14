@@ -9,10 +9,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import org.ooni.probe.data.models.ResultModel
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.send_email
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.data.models.TestResult
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.result.ResultScreen
@@ -63,11 +63,11 @@ fun Navigation(
             route = Screen.Result.NAV_ROUTE,
             arguments = Screen.Result.ARGUMENTS,
         ) { entry ->
-            val resultId = entry.arguments?.getString("resultId") ?: return@composable
+            val resultId = entry.arguments?.getLong("resultId") ?: return@composable
             val viewModel =
                 viewModel {
                     dependencies.resultViewModel(
-                        resultId = TestResult.Id(resultId),
+                        resultId = ResultModel.Id(resultId),
                         onBack = { navController.navigateUp() },
                     )
                 }

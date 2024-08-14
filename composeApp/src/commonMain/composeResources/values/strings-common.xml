@@ -2,8 +2,15 @@
     <string name="run_tests">Run Test</string>
     <string name="back">Back</string>
     <string name="dashboard">Dashboard</string>
-    <string name="test_results">Test Results</string>
     <string name="settings">Settings</string>
+
+    <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
+    <string name="Dashboard_RunV2_Title">OONI Run Links</string>
+
+    <string name="TestResults_Overview_Title">Test Results</string>
+    <string name="TestResults_Overview_Tab_Label">Test Results</string>
+    <string name="TestResults_UnknownASN">Unknown</string>
+    <string name="TestResults_NotAvailable">N/A</string>
 
     <string name="Settings_Notifications_Label">Notifications</string>
     <string name="Settings_Notifications_Enabled">Enabled</string>
