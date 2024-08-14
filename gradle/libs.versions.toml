@@ -66,6 +66,9 @@ ui = [
 tooling = [
     "kermit",
     "sqldelight-coroutines",
+    "kotlinx-atomicfu",
+    "androidx-datastore-core-okio",
+    "androidx-datastore-preferences-core",
 ]
 android-test = [
     "android-test-core"

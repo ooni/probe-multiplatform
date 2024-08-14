@@ -1,5 +1,7 @@
 package org.ooni.probe
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
@@ -8,9 +10,11 @@ import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import platform.Foundation.NSBundle
 import platform.Foundation.NSDocumentDirectory
+import platform.Foundation.NSFileManager
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSString
 import platform.Foundation.NSTemporaryDirectory
+import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 import platform.Foundation.stringWithContentsOfFile
 import platform.UIKit.UIDevice
@@ -37,8 +41,8 @@ fun setupDependencies(
     readAssetFile = ::readAssetFile,
     databaseDriverFactory = ::buildDatabaseDriver,
     networkTypeFinder = networkTypeFinder,
-    dataStore = createDataStore(),
-    )
+    buildDataStore = ::buildDataStore,
+)
 
 private val platformInfo
     get() =
@@ -80,3 +84,19 @@ private fun readAssetFile(path: String): String {
 private class BundleMarker : NSObject() {
     companion object : NSObjectMeta()
 }
+
+@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+fun buildDataStore(): DataStore<Preferences> =
+    getDataStore(
+        producePath = {
+            val documentDirectory: NSURL? =
+                NSFileManager.defaultManager.URLForDirectory(
+                    directory = NSDocumentDirectory,
+                    inDomain = NSUserDomainMask,
+                    appropriateForURL = null,
+                    create = false,
+                    error = null,
+                )
+            requireNotNull(documentDirectory).path + "/$DATA_STORE_FILE_NAME"
+        },
+    )

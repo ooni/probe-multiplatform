@@ -85,10 +85,6 @@ kotlin {
             implementation(libs.bundles.ui)
             implementation(libs.bundles.tooling)
 
-            implementation(libs.androidx.datastore.preferences.core)
-            implementation(libs.androidx.datastore.core.okio)
-            implementation(libs.kotlinx.atomicfu)
-
             getByName("commonMain") {
                 kotlin.srcDir(config.srcRoot)
             }

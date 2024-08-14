@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.settings.category
 
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,10 +11,11 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
-import org.ooni.probe.data.SettingsRepository
+import org.ooni.probe.data.repositories.PreferenceRepository
+import org.ooni.probe.data.repositories.SettingsKey
 
 class SettingsCategoryViewModel(
-    preferenceManager: SettingsRepository,
+    preferenceManager: PreferenceRepository,
     goToSettingsForCategory: (String) -> Unit,
     onBack: () -> Unit,
 ) : ViewModel() {
@@ -32,7 +34,7 @@ class SettingsCategoryViewModel(
 
     val settings: StateFlow<Map<String, Any?>?> =
         preferenceManager
-            .allSettings(listOf(intPreferencesKey("notifications_enabled")))
+            .allSettings(listOf(booleanPreferencesKey(SettingsKey.NOTIFICATIONS_ENABLED.value)))
             .stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(5000L),

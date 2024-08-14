@@ -1,9 +1,9 @@
 package org.ooni.probe.di
 
 import androidx.annotation.VisibleForTesting
-import app.cash.sqldelight.db.SqlDriver
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.serialization.json.Json
@@ -13,6 +13,7 @@ import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
 import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.domain.BootstrapTestDescriptors
@@ -21,8 +22,6 @@ import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
 import org.ooni.probe.domain.GetTestDescriptors
-import org.ooni.engine.models.NetworkType
-import org.ooni.probe.data.SettingsRepository
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.result.ResultViewModel
@@ -38,8 +37,8 @@ class Dependencies(
     private val readAssetFile: (String) -> String,
     private val databaseDriverFactory: () -> SqlDriver,
     private val networkTypeFinder: NetworkTypeFinder,
-    private val dataStore: DataStore<Preferences>,
-    ) {
+    private val buildDataStore: () -> DataStore<Preferences>,
+) {
     // Common
 
     private val backgroundDispatcher = Dispatchers.IO
@@ -90,8 +89,7 @@ class Dependencies(
             listInstalledTestDescriptors = testDescriptorRepository::list,
         )
     }
-    private val preferenceManager by lazy { SettingsRepository(dataStore) }
-
+    private val preferenceManager by lazy { PreferenceRepository(buildDataStore()) }
 
     // ViewModels
 

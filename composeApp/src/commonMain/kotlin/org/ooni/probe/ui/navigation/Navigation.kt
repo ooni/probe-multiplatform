@@ -9,10 +9,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import org.ooni.probe.data.models.ResultModel
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.send_email
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.result.ResultScreen
