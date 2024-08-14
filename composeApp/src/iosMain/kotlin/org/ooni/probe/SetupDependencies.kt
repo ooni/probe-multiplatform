@@ -1,8 +1,8 @@
 package org.ooni.probe
 
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
+import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
-import org.ooni.engine.models.NetworkType
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -21,22 +21,23 @@ import platform.darwin.NSObjectMeta
  * See link for `baseFileDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L54
  * See link for `cacheDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L66
  */
-fun setupDependencies(bridge: OonimkallBridge) =
-    Dependencies(
-        platformInfo = platformInfo,
-        oonimkallBridge = bridge,
-        baseFileDir =
-            NSSearchPathForDirectoriesInDomains(
-                NSDocumentDirectory,
-                NSUserDomainMask,
-                true,
-            ).first().toString(),
-        cacheDir = NSTemporaryDirectory(),
-        readAssetFile = ::readAssetFile,
-        databaseDriverFactory = ::buildDatabaseDriver,
-        // TODO
-        networkTypeFinder = { NetworkType.Unknown("") },
-    )
+fun setupDependencies(
+    bridge: OonimkallBridge,
+    networkTypeFinder: NetworkTypeFinder,
+) = Dependencies(
+    platformInfo = platformInfo,
+    oonimkallBridge = bridge,
+    baseFileDir =
+        NSSearchPathForDirectoriesInDomains(
+            NSDocumentDirectory,
+            NSUserDomainMask,
+            true,
+        ).first().toString(),
+    cacheDir = NSTemporaryDirectory(),
+    readAssetFile = ::readAssetFile,
+    databaseDriverFactory = ::buildDatabaseDriver,
+    networkTypeFinder = networkTypeFinder,
+)
 
 private val platformInfo
     get() =

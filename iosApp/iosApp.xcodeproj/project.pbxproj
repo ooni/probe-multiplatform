@@ -11,6 +11,8 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		79B9D19A2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */; };
+		79B9D19B2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */; };
 		79FBD00D2C5A70AF004E041C /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		79FBD00E2C5A70AF004E041C /* IosOonimkallBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */; };
 		79FBD00F2C5A70AF004E041C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
@@ -36,6 +38,7 @@
 		7555FF7B242A565900829871 /* OONI Probe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OONI Probe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosNetworkTypeFinder.swift; sourceTree = "<group>"; };
 		79FBD01A2C5A70AF004E041C /* NewsMediaScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsMediaScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79FBD01B2C5A70AF004E041C /* iosApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iosApp copy-Info.plist"; path = "/Users/aanorbel/Code/ooni/new/probe-multiplatform/iosApp/iosApp copy-Info.plist"; sourceTree = "<absolute>"; };
 		8918F4B39DEEFE89FDF20821 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -176,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */,
+				79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -484,6 +488,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B9D19A2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
@@ -494,6 +499,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B9D19B2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */,
 				79FBD00D2C5A70AF004E041C /* iOSApp.swift in Sources */,
 				79FBD00E2C5A70AF004E041C /* IosOonimkallBridge.swift in Sources */,
 				79FBD00F2C5A70AF004E041C /* ContentView.swift in Sources */,
