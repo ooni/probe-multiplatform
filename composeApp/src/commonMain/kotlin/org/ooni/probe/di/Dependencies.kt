@@ -13,6 +13,7 @@ import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
 import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.repositories.PreferenceCategoryKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
@@ -26,6 +27,7 @@ import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
+import org.ooni.probe.ui.settings.SettingsCategoryItem
 import org.ooni.probe.ui.settings.SettingsViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
 
@@ -102,15 +104,17 @@ class Dependencies(
 
     fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) = ResultsViewModel(goToResult, getResults::invoke)
 
-    fun settingsViewModel(goToSettingsForCategory: (String) -> Unit) = SettingsViewModel(goToSettingsForCategory)
+    fun settingsViewModel(goToSettingsForCategory: (PreferenceCategoryKey) -> Unit) = SettingsViewModel(goToSettingsForCategory)
 
     fun settingsCategoryViewModel(
-        goToSettingsForCategory: (String) -> Unit,
+        goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
         onBack: () -> Unit,
+        category: SettingsCategoryItem,
     ) = SettingsCategoryViewModel(
         preferenceManager = preferenceManager,
         onBack = onBack,
         goToSettingsForCategory = goToSettingsForCategory,
+        category = category,
     )
 
     fun resultViewModel(

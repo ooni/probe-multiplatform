@@ -9,14 +9,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.send_email
-import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.repositories.PreferenceCategoryKey
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.result.ResultScreen
 import org.ooni.probe.ui.results.ResultsScreen
+import org.ooni.probe.ui.settings.SettingsCategoryItem
 import org.ooni.probe.ui.settings.SettingsScreen
 import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
 
@@ -81,7 +80,7 @@ fun Navigation(
         ) { entry ->
             val category = entry.arguments?.getString("category") ?: return@composable
             when (category) {
-                stringResource(Res.string.send_email) -> {
+                PreferenceCategoryKey.SEND_EMAIL.value -> {
                     // TODO: Implement based on platform
                 }
 
@@ -93,9 +92,18 @@ fun Navigation(
                                     navController.navigate(Screen.SettingsCategory(it).route)
                                 },
                                 onBack = { navController.navigateUp() },
+                                category =
+                                    SettingsCategoryItem.getSettingsItem(
+                                        PreferenceCategoryKey.valueOf(category.uppercase()),
+                                    ),
                             )
                         }
-                    SettingsCategoryScreen(category = category, onEvent = viewModel::onEvent)
+                    val state by viewModel.state.collectAsState()
+
+                    SettingsCategoryScreen(
+                        state = state,
+                        onEvent = viewModel::onEvent,
+                    )
                 }
             }
         }

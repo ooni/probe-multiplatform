@@ -3,6 +3,7 @@ package org.ooni.probe.ui.navigation
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.repositories.PreferenceCategoryKey
 
 sealed class Screen(
     val route: String,
@@ -22,7 +23,7 @@ sealed class Screen(
         }
     }
 
-    data class SettingsCategory(val category: String) : Screen("settings/$category") {
+    data class SettingsCategory(val category: PreferenceCategoryKey) : Screen("settings/${category.value}") {
         companion object {
             const val NAV_ROUTE = "settings/{category}"
             val ARGUMENTS = listOf(navArgument("category") { type = NavType.StringType })

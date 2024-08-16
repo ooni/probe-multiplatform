@@ -61,6 +61,19 @@ class PreferenceRepository(
     }
 }
 
+enum class PreferenceCategoryKey(val value: String) {
+    NOTIFICATIONS("notifications"),
+    TEST_OPTIONS("test_options"),
+    PRIVACY("privacy"),
+    PROXY("proxy"),
+    ADVANCED("advanced"),
+    SEND_EMAIL("send_email"),
+    ABOUT_OONI("about_ooni"),
+
+    WEBSITES_CATEGORIES("websites_categories"),
+    SEE_RECENT_LOGS("see_recent_logs"),
+}
+
 enum class SettingsKey(val value: String) {
     // Notifications
     NOTIFICATIONS_ENABLED("notifications_enabled"),
@@ -117,6 +130,7 @@ enum class SettingsKey(val value: String) {
     LANGUAGE_SETTING("language_setting"),
     DEBUG_LOGS("debugLogs"),
     WARN_VPN_IN_USE("warn_vpn_in_use"),
+    STORAGE_SIZE("storage_size"), // purely decorative
 
     // MISC
     DELETE_UPLOADED_JSONS("deleteUploadedJsons"),

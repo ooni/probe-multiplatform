@@ -6,9 +6,10 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import org.ooni.probe.data.repositories.PreferenceCategoryKey
 
 open class SettingsViewModel(
-    goToSettingsForCategory: (String) -> Unit,
+    goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -22,6 +23,6 @@ open class SettingsViewModel(
     }
 
     sealed interface Event {
-        data class SettingsCategoryClick(val category: String) : Event
+        data class SettingsCategoryClick(val category: PreferenceCategoryKey) : Event
     }
 }
