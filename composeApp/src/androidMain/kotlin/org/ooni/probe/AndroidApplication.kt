@@ -49,6 +49,6 @@ class AndroidApplication : Application() {
     private fun buildDataStore(): DataStore<Preferences> =
         Dependencies.getDataStore(
             producePath = { this.filesDir.resolve(Dependencies.Companion.DATA_STORE_FILE_NAME).absolutePath },
-            migrations = listOf(SharedPreferencesMigration(this, "notifications_enabled")),
+            migrations = listOf(SharedPreferencesMigration(this, "${packageName}_preferences")),
         )
 }
