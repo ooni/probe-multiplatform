@@ -74,7 +74,7 @@ fun SettingsCategoryScreen(
                                 title = preferenceItem.title,
                                 key = preferenceItem.key,
                                 checked =
-                                    state.preference?.let { it[preferenceItem.key.value] as? Boolean }
+                                    state.preference?.let { it[preferenceItem.key] as? Boolean }
                                         ?: false,
                                 supportingContent = preferenceItem.supportingContent,
                                 onCheckedChange = { key, value ->
@@ -112,14 +112,14 @@ fun SettingsCategoryScreen(
                                 supportingContent = preferenceItem.supportingContent,
                                 modifier =
                                     Modifier.clickable {
-                                        if(preferenceItem is SettingsCategoryItem) {
-                                        onEvent(
-                                            SettingsCategoryViewModel.Event.SettingsCategoryClick(
-                                                PreferenceCategoryKey.valueOf(preferenceItem.route.name),
-                                            ),
-                                        )
-                                    }
-                                },
+                                        if (preferenceItem is SettingsCategoryItem) {
+                                            onEvent(
+                                                SettingsCategoryViewModel.Event.SettingsCategoryClick(
+                                                    PreferenceCategoryKey.valueOf(preferenceItem.route.name),
+                                                ),
+                                            )
+                                        }
+                                    },
                             )
 
                         PreferenceItemType.SELECT ->

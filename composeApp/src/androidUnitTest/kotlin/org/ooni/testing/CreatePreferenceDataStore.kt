@@ -9,6 +9,6 @@ import org.ooni.probe.di.Dependencies
 internal actual fun createPreferenceDataStore(): DataStore<Preferences> {
     val app = ApplicationProvider.getApplicationContext<Application>()
     return Dependencies.getDataStore(
-        producePath = { app.filesDir.resolve(Dependencies.Companion.DATA_STORE_FILE_NAME+".test").absolutePath },
+        producePath = { app.filesDir.resolve("test" + Dependencies.Companion.DATA_STORE_FILE_NAME).absolutePath },
     )
 }

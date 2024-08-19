@@ -20,7 +20,7 @@ internal actual fun createPreferenceDataStore(): DataStore<Preferences> {
                     create = false,
                     error = null,
                 )
-            requireNotNull(documentDirectory).path + "/${Dependencies.Companion.DATA_STORE_FILE_NAME}.test"
+            requireNotNull(documentDirectory).path + "/test.${Dependencies.Companion.DATA_STORE_FILE_NAME}"
         },
     )
 }

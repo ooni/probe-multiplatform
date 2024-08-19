@@ -2,7 +2,10 @@ package org.ooni.probe.data.repositories
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -32,9 +35,29 @@ class PreferenceRepository(
         return "${prefix?.let { "${it}_" } ?: ""}$name${if (autoRun) "_autorun" else ""}"
     }
 
-    fun allSettings(keys: List<Preferences.Key<*>>): Flow<Map<String, Any?>> =
+    fun preferenceKeyFromSettingsKey(
+        key: SettingsKey,
+        prefix: String? = null,
+        autoRun: Boolean = false,
+    ): Preferences.Key<*> {
+        val preferenceKey = getPreferenceKey(name = key.value, prefix = prefix, autoRun = autoRun)
+        return when (key) {
+            SettingsKey.MAX_RUNTIME -> intPreferencesKey(preferenceKey)
+            SettingsKey.PROXY_PORT -> intPreferencesKey(preferenceKey)
+            SettingsKey.PROXY_HOSTNAME -> stringPreferencesKey(preferenceKey)
+            SettingsKey.PROXY_PROTOCOL -> stringPreferencesKey(preferenceKey)
+            SettingsKey.LANGUAGE_SETTING -> stringPreferencesKey(preferenceKey)
+            else -> booleanPreferencesKey(preferenceKey)
+        }
+    }
+
+    fun allSettings(
+        keys: List<SettingsKey>,
+        prefix: String? = null,
+        autoRun: Boolean = false,
+    ): Flow<Map<SettingsKey, Any?>> =
         dataStore.data.map {
-            keys.map { key -> key.name to it[key] }.toMap()
+            keys.map { key -> key to it[preferenceKeyFromSettingsKey(key, prefix, autoRun)] }.toMap()
         }
 
     fun <T> getValueByKey(key: Preferences.Key<T>): Flow<T?> {

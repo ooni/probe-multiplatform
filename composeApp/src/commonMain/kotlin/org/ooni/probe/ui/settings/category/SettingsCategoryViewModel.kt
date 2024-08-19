@@ -1,6 +1,6 @@
 package org.ooni.probe.ui.settings.category
 
-import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -27,7 +27,7 @@ class SettingsCategoryViewModel(
     val state = _state.asStateFlow()
 
     init {
-        category.settings?.map { item -> booleanPreferencesKey(item.key.value) }?.let { preferenceKeys ->
+        category.settings?.map { item -> item.key }?.let { preferenceKeys ->
             preferenceManager.allSettings(preferenceKeys)
                 .onEach { result -> _state.update { it.copy(preference = result) } }
                 .launchIn(viewModelScope)
@@ -37,13 +37,15 @@ class SettingsCategoryViewModel(
             .onEach { goToSettingsForCategory(it.category) }.launchIn(viewModelScope)
 
         events.filterIsInstance<Event.CheckedChangeClick>().onEach {
-            preferenceManager.setValueByKey(
-                booleanPreferencesKey(it.key.value),
-                it.value,
-            )
+            (preferenceManager.preferenceKeyFromSettingsKey(it.key) as? Preferences.Key<Boolean>)?.let { key ->
+                preferenceManager.setValueByKey(
+                    key,
+                    it.value,
+                )
+            }
             _state.update { state ->
                 state.copy(
-                    preference = state.preference?.plus(it.key.value to it.value),
+                    preference = state.preference?.plus(it.key to it.value),
                 )
             }
         }.launchIn(viewModelScope)
@@ -56,7 +58,7 @@ class SettingsCategoryViewModel(
     }
 
     data class State(
-        val preference: Map<String, Any?>?,
+        val preference: Map<SettingsKey, Any?>?,
         val category: SettingsCategoryItem,
     )
 
