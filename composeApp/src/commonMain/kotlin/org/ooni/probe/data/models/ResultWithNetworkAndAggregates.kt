@@ -1,11 +1,8 @@
 package org.ooni.probe.data.models
 
-data class ResultListItem(
+data class ResultWithNetworkAndAggregates(
     val result: ResultModel,
-    val descriptor: Descriptor,
     val network: NetworkModel?,
     val measurementsCount: Long,
     val allMeasurementsUploaded: Boolean,
-) {
-    val idOrThrow get() = result.idOrThrow
-}
+)

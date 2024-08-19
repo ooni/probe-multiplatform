@@ -2,6 +2,7 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOneOrNull
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -10,10 +11,11 @@ import org.ooni.probe.Database
 import org.ooni.probe.data.Network
 import org.ooni.probe.data.Result
 import org.ooni.probe.data.SelectAllWithNetwork
+import org.ooni.probe.data.SelectByIdWithNetwork
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetworkModel
-import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
 import org.ooni.probe.shared.toEpoch
 import org.ooni.probe.shared.toLocalDateTime
 
@@ -28,19 +30,19 @@ class ResultRepository(
             .mapToList(backgroundDispatcher)
             .map { list -> list.mapNotNull { it.toModel() } }
 
-    fun listWithNetwork(): Flow<List<ResultListItem>> =
+    fun listWithNetwork(): Flow<List<ResultWithNetworkAndAggregates>> =
         database.resultQueries
             .selectAllWithNetwork()
             .asFlow()
             .mapToList(backgroundDispatcher)
             .map { list -> list.mapNotNull { it.toModel() } }
 
-    fun getById(resultId: ResultModel.Id): Flow<ResultModel?> =
+    fun getById(resultId: ResultModel.Id): Flow<Pair<ResultModel, NetworkModel?>?> =
         database.resultQueries
-            .selectById(resultId.value)
+            .selectByIdWithNetwork(resultId.value)
             .asFlow()
-            .mapToList(backgroundDispatcher)
-            .map { it.firstOrNull()?.toModel() }
+            .mapToOneOrNull(backgroundDispatcher)
+            .map { it?.toModel() }
 
     suspend fun createOrUpdate(model: ResultModel): ResultModel.Id =
         withContext(backgroundDispatcher) {
@@ -79,33 +81,59 @@ class ResultRepository(
         )
     }
 
-    private fun SelectAllWithNetwork.toModel(): ResultListItem? {
-        return ResultListItem(
-            result =
-                Result(
-                    id = id,
-                    test_group_name = test_group_name,
-                    start_time = start_time,
-                    is_viewed = is_viewed,
-                    is_done = is_done,
-                    data_usage_up = data_usage_up,
-                    data_usage_down = data_usage_down,
-                    failure_msg = failure_msg,
-                    network_id = network_id,
-                    descriptor_runId = descriptor_runId,
-                ).toModel() ?: return null,
-            network =
-                id_?.let { networkId ->
-                    Network(
-                        id = networkId,
-                        network_name = network_name,
-                        ip = ip,
-                        asn = asn,
-                        country_code = country_code,
-                        network_type = network_type,
-                    ).toModel()
-                },
+    private fun SelectAllWithNetwork.toModel(): ResultWithNetworkAndAggregates? {
+        return ResultWithNetworkAndAggregates(
+            result = Result(
+                id = id,
+                test_group_name = test_group_name,
+                start_time = start_time,
+                is_viewed = is_viewed,
+                is_done = is_done,
+                data_usage_up = data_usage_up,
+                data_usage_down = data_usage_down,
+                failure_msg = failure_msg,
+                network_id = network_id,
+                descriptor_runId = descriptor_runId,
+            ).toModel() ?: return null,
+            network = id_?.let { networkId ->
+                Network(
+                    id = networkId,
+                    network_name = network_name,
+                    ip = ip,
+                    asn = asn,
+                    country_code = country_code,
+                    network_type = network_type,
+                ).toModel()
+            },
             measurementsCount = measurementsCount,
+            allMeasurementsUploaded = allMeasurementsUploaded,
+        )
+    }
+
+    private fun SelectByIdWithNetwork.toModel(): Pair<ResultModel, NetworkModel?>? {
+        return Pair(
+            Result(
+                id = id,
+                test_group_name = test_group_name,
+                start_time = start_time,
+                is_viewed = is_viewed,
+                is_done = is_done,
+                data_usage_up = data_usage_up,
+                data_usage_down = data_usage_down,
+                failure_msg = failure_msg,
+                network_id = network_id,
+                descriptor_runId = descriptor_runId,
+            ).toModel() ?: return null,
+            id_?.let { networkId ->
+                Network(
+                    id = networkId,
+                    network_name = network_name,
+                    ip = ip,
+                    asn = asn,
+                    country_code = country_code,
+                    network_type = network_type,
+                ).toModel()
+            },
         )
     }
 }

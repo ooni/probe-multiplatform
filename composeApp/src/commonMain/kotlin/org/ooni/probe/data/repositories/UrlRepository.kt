@@ -82,13 +82,13 @@ class UrlRepository(
     fun getByUrl(url: String): Flow<UrlModel?> =
         listByUrls(listOf(url))
             .map { it.firstOrNull() }
+}
 
-    private fun Url.toModel(): UrlModel? {
-        return UrlModel(
-            id = UrlModel.Id(id),
-            url = url ?: return null,
-            countryCode = country_code,
-            category = category_code?.let(WebConnectivityCategory::fromCode),
-        )
-    }
+fun Url.toModel(): UrlModel? {
+    return UrlModel(
+        id = UrlModel.Id(id),
+        url = url ?: return null,
+        countryCode = country_code,
+        category = category_code?.let(WebConnectivityCategory::fromCode),
+    )
 }

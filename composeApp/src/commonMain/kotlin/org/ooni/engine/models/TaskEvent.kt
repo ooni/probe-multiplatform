@@ -35,7 +35,7 @@ sealed interface TaskEvent {
 
     data class MeasurementStart(
         val index: Int,
-        val url: String,
+        val url: String?,
     ) : TaskEvent
 
     data class MeasurementSubmissionSuccessful(

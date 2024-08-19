@@ -22,10 +22,10 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notic
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
 import ooniprobe.composeapp.generated.resources.Modal_Error_CantDownloadURLs
 import ooniprobe.composeapp.generated.resources.Notification_StopTest
+import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
 import ooniprobe.composeapp.generated.resources.logo
-import ooniprobe.composeapp.generated.resources.run_tests
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -58,7 +58,7 @@ fun DashboardScreen(
                 Button(
                     onClick = { onEvent(DashboardViewModel.Event.RunTestsClick) },
                 ) {
-                    Text(stringResource(Res.string.run_tests))
+                    Text(stringResource(Res.string.OONIRun_Run))
                 }
             }
 
@@ -113,7 +113,7 @@ fun DashboardScreen(
             state.tests.forEach { (type, tests) ->
                 if (allSectionsHaveValues && tests.isNotEmpty()) {
                     item(type) {
-                        TestDescriptorItem(type)
+                        TestDescriptorSection(type)
                     }
                 }
                 items(tests) { test ->

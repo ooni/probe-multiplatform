@@ -29,6 +29,8 @@ data class MeasurementModel(
         val value: Long,
     )
 
+    val idOrThrow get() = id ?: throw IllegalStateException("Id no available")
+
     val logFilePath: Path
         get() = logFilePath(resultId, test)
 

@@ -118,8 +118,19 @@ class Dependencies(
         GetBootstrapTestDescriptors(readAssetFile, json, backgroundDispatcher)
     }
     private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
-    private val getResults by lazy { GetResults(resultRepository) }
-    private val getResult by lazy { GetResult(resultRepository) }
+    private val getResults by lazy {
+        GetResults(
+            resultRepository.listWithNetwork(),
+            getTestDescriptors.invoke(),
+        )
+    }
+    private val getResult by lazy {
+        GetResult(
+            getResultById = resultRepository::getById,
+            getTestDescriptors = getTestDescriptors.invoke(),
+            getMeasurementsByResultId = measurementRepository::listByResultId,
+        )
+    }
     private val getTestDescriptors by lazy {
         GetTestDescriptors(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,

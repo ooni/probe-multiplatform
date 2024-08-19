@@ -46,3 +46,8 @@ SELECT last_insert_rowid();
 
 selectAll:
 SELECT * FROM Measurement;
+
+selectByResultIdWithUrl:
+SELECT * FROM Measurement
+LEFT JOIN Url ON Measurement.url_id = Url.id
+WHERE Measurement.result_id = ?;

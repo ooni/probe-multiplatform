@@ -24,8 +24,8 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.back
-import ooniprobe.composeapp.generated.resources.settings
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -101,7 +101,7 @@ fun SettingsCategoryScreen(
                                     Button(
                                         onClick = {},
                                     ) {
-                                        Text(stringResource(Res.string.settings))
+                                        Text(stringResource(Res.string.Settings_Title))
                                     }
                                 },
                             )

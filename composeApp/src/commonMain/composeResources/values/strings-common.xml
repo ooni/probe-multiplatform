@@ -1,15 +1,12 @@
 <resources>
-    <string name="run_tests">Run Test</string>
-    <string name="back">Back</string>
-    <string name="dashboard">Dashboard</string>
-    <string name="settings">Settings</string>
-
+    <string name="Dashboard_Tab_Label">Dashboard</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
 
     <string name="Dashboard_Running_Stopping_Title">Stopping test…</string>
     <string name="Dashboard_Running_Stopping_Notice">Finishing the currently pending tests, please wait…</string>
 
+    <string name="OONIRun_Run">Run</string>
     <string name="Notification_StopTest">Stop test</string>
 
     <string name="Test_Websites_Fullname">Websites</string>
@@ -35,6 +32,7 @@
     <string name="TestResults_UnknownASN">Unknown</string>
     <string name="TestResults_NotAvailable">N/A</string>
 
+    <string name="Settings_Title">Settings</string>
     <string name="Settings_Notifications_Label">Notifications</string>
     <string name="Settings_Notifications_Enabled">Enabled</string>
     <string name="Modal_EnableNotifications_Paragraph">Interested in running OONI Probe tests during emergent censorship events? Enable notifications to receive a message when we hear of internet censorship near you.</string>
@@ -131,5 +129,14 @@
     <string name="CategoryCode_IGO_Description">Intergovernmental organizations including The United Nations</string>
     <string name="CategoryCode_MISC_Description">Sites that haven\'t been categorized yet</string>
 
+    <string name="Snackbar_ResultsNotUploaded_Text">Not uploaded</string>
+
     <string name="Modal_Error_CantDownloadURLs">Unable to download URL list. Please try again.</string>
+
+    <!-- New Strings -->
+    <string name="back">Back</string>
+    <plurals name="measurements_count">
+        <item quantity="one">%1$d measurement</item>
+        <item quantity="other">%1$d measurements</item>
+    </plurals>
 </resources>

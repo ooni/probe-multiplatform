@@ -30,14 +30,24 @@ selectLastInsertedRowId:
 SELECT last_insert_rowid();
 
 selectAll:
-SELECT * FROM Result ORDER BY start_time DESC;
+SELECT * FROM Result
+ORDER BY start_time DESC
+LIMIT 100;
 
 selectAllWithNetwork:
-SELECT Result.*, Network.*, (SELECT COUNT(Measurement.id) FROM Measurement WHERE Measurement.result_id = Result.id) AS measurementsCount
+SELECT
+    Result.*,
+    Network.*,
+    (SELECT COUNT(Measurement.id) FROM Measurement WHERE Measurement.result_id = Result.id) AS measurementsCount,
+    (SELECT COUNT(Measurement.id) FROM Measurement WHERE Measurement.is_uploaded = 0) == 0 AS allMeasurementsUploaded
 FROM Result
 LEFT JOIN Network ON Result.network_id = Network.id
-ORDER BY Result.start_time DESC;
+ORDER BY Result.start_time DESC
+LIMIT 100;
 
-selectById:
-SELECT Result.* FROM Result WHERE id = ? LIMIT 1;
-
+selectByIdWithNetwork:
+SELECT Result.*, Network.*
+FROM Result
+LEFT JOIN Network ON Result.network_id = Network.id
+WHERE Result.id = ?
+LIMIT 1;

@@ -4,7 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.data.models.ResultModel
+import org.ooni.testing.factories.DescriptorFactory
 import org.ooni.testing.factories.ResultModelFactory
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -23,16 +25,21 @@ class ResultViewModelTest {
     @Test
     fun getResult() =
         runTest {
-            val result = ResultModelFactory.build()
-            val viewModel = buildViewModel(getResult = { flowOf(result) })
+            val item = ResultItem(
+                result = ResultModelFactory.build(),
+                network = null,
+                descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
+                measurements = emptyList(),
+            )
+            val viewModel = buildViewModel(getResult = { flowOf(item) })
 
-            assertEquals(result, viewModel.state.first().result)
+            assertEquals(item, viewModel.state.first().result)
         }
 
     private fun buildViewModel(
         resultId: ResultModel.Id = ResultModel.Id(1234),
         onBack: () -> Unit = {},
-        getResult: (ResultModel.Id) -> Flow<ResultModel?> = { flowOf(null) },
+        getResult: (ResultModel.Id) -> Flow<ResultItem?> = { flowOf(null) },
     ) = ResultViewModel(
         resultId = resultId,
         onBack = onBack,
