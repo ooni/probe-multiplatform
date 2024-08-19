@@ -191,7 +191,7 @@ open class PreferenceItem(
     open val title: StringResource,
     open val icon: DrawableResource? = null,
     open val type: PreferenceItemType,
-    open val key: String,
+    open val key: SettingsKey,
     open val supportingContent:
         @Composable()
         (() -> Unit)? = null,
@@ -201,7 +201,7 @@ data class SettingsItem(
     override val icon: DrawableResource? = null,
     override val title: StringResource,
     override val type: PreferenceItemType,
-    override val key: String,
+    override val key: SettingsKey,
     val children: List<SettingsItem>? = emptyList(),
     override val supportingContent:
         @Composable()
@@ -222,7 +222,7 @@ data class SettingsCategoryItem(
         icon = icon,
         supportingContent = supportingContent,
         type = PreferenceItemType.ROUTE,
-        key = route.value,
+        key = SettingsKey.ROUTE,
     ) {
     fun routeToSettingsCategory() = SettingsViewModel.Event.SettingsCategoryClick(route)
 
@@ -247,7 +247,7 @@ data class SettingsCategoryItem(
                             supportingContent = {
                                 Text(stringResource(Res.string.CategoryCode_ANON_Description))
                             },
-                            key = SettingsKey.ANON.value,
+                            key = SettingsKey.ANON,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
@@ -256,7 +256,7 @@ data class SettingsCategoryItem(
                             supportingContent = {
                                 Text(stringResource(Res.string.CategoryCode_COMT_Description))
                             },
-                            key = SettingsKey.COMT.value,
+                            key = SettingsKey.COMT,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
@@ -265,7 +265,7 @@ data class SettingsCategoryItem(
                             supportingContent = {
                                 Text(stringResource(Res.string.CategoryCode_CTRL_Description))
                             },
-                            key = SettingsKey.CTRL.value,
+                            key = SettingsKey.CTRL,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
@@ -274,7 +274,7 @@ data class SettingsCategoryItem(
                             supportingContent = {
                                 Text(stringResource(Res.string.CategoryCode_CULTR_Description))
                             },
-                            key = SettingsKey.CULTR.value,
+                            key = SettingsKey.CULTR,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
@@ -283,182 +283,182 @@ data class SettingsCategoryItem(
                             supportingContent = {
                                 Text(stringResource(Res.string.CategoryCode_ALDR_Description))
                             },
-                            key = SettingsKey.ALDR.value,
+                            key = SettingsKey.ALDR,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_comm,
                             title = Res.string.CategoryCode_COMM_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_COMM_Description)) },
-                            key = SettingsKey.COMM.value,
+                            key = SettingsKey.COMM,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_econ,
                             title = Res.string.CategoryCode_ECON_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_ECON_Description)) },
-                            key = SettingsKey.ECON.value,
+                            key = SettingsKey.ECON,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_env,
                             title = Res.string.CategoryCode_ENV_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_ENV_Description)) },
-                            key = SettingsKey.ENV.value,
+                            key = SettingsKey.ENV,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_file,
                             title = Res.string.CategoryCode_FILE_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_FILE_Description)) },
-                            key = SettingsKey.FILE.value,
+                            key = SettingsKey.FILE,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_gmb,
                             title = Res.string.CategoryCode_GMB_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_GMB_Description)) },
-                            key = SettingsKey.GMB.value,
+                            key = SettingsKey.GMB,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_game,
                             title = Res.string.CategoryCode_GAME_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_GAME_Description)) },
-                            key = SettingsKey.GAME.value,
+                            key = SettingsKey.GAME,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_govt,
                             title = Res.string.CategoryCode_GOVT_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_GOVT_Description)) },
-                            key = SettingsKey.GOVT.value,
+                            key = SettingsKey.GOVT,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_hack,
                             title = Res.string.CategoryCode_HACK_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_HACK_Description)) },
-                            key = SettingsKey.HACK.value,
+                            key = SettingsKey.HACK,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_hate,
                             title = Res.string.CategoryCode_HATE_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_HATE_Description)) },
-                            key = SettingsKey.HATE.value,
+                            key = SettingsKey.HATE,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_host,
                             title = Res.string.CategoryCode_HOST_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_HOST_Description)) },
-                            key = SettingsKey.HOST.value,
+                            key = SettingsKey.HOST,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_humr,
                             title = Res.string.CategoryCode_HUMR_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_HUMR_Description)) },
-                            key = SettingsKey.HUMR.value,
+                            key = SettingsKey.HUMR,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_igo,
                             title = Res.string.CategoryCode_IGO_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_IGO_Description)) },
-                            key = SettingsKey.IGO.value,
+                            key = SettingsKey.IGO,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_lgbt,
                             title = Res.string.CategoryCode_LGBT_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_LGBT_Description)) },
-                            key = SettingsKey.LGBT.value,
+                            key = SettingsKey.LGBT,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_mmed,
                             title = Res.string.CategoryCode_MMED_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_MMED_Description)) },
-                            key = SettingsKey.MMED.value,
+                            key = SettingsKey.MMED,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_news,
                             title = Res.string.CategoryCode_NEWS_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_NEWS_Description)) },
-                            key = SettingsKey.NEWS.value,
+                            key = SettingsKey.NEWS,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_date,
                             title = Res.string.CategoryCode_DATE_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_DATE_Description)) },
-                            key = SettingsKey.DATE.value,
+                            key = SettingsKey.DATE,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_polr,
                             title = Res.string.CategoryCode_POLR_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_POLR_Description)) },
-                            key = SettingsKey.POLR.value,
+                            key = SettingsKey.POLR,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_porn,
                             title = Res.string.CategoryCode_PORN_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_PORN_Description)) },
-                            key = SettingsKey.PORN.value,
+                            key = SettingsKey.PORN,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_prov,
                             title = Res.string.CategoryCode_PROV_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_PROV_Description)) },
-                            key = SettingsKey.PROV.value,
+                            key = SettingsKey.PROV,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_pubh,
                             title = Res.string.CategoryCode_PUBH_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_PUBH_Description)) },
-                            key = SettingsKey.PUBH.value,
+                            key = SettingsKey.PUBH,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_rel,
                             title = Res.string.CategoryCode_REL_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_REL_Description)) },
-                            key = SettingsKey.REL.value,
+                            key = SettingsKey.REL,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_srch,
                             title = Res.string.CategoryCode_SRCH_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_SRCH_Description)) },
-                            key = SettingsKey.SRCH.value,
+                            key = SettingsKey.SRCH,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_xed,
                             title = Res.string.CategoryCode_XED_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_XED_Description)) },
-                            key = SettingsKey.XED.value,
+                            key = SettingsKey.XED,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_grp,
                             title = Res.string.CategoryCode_GRP_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_GRP_Description)) },
-                            key = SettingsKey.GRP.value,
+                            key = SettingsKey.GRP,
                             type = PreferenceItemType.SWITCH,
                         ),
                         SettingsItem(
                             icon = Res.drawable.category_milx,
                             title = Res.string.CategoryCode_MILX_Name,
                             supportingContent = { Text(stringResource(Res.string.CategoryCode_MILX_Description)) },
-                            key = SettingsKey.MILX.value,
+                            key = SettingsKey.MILX,
                             type = PreferenceItemType.SWITCH,
                         ),
                     ),
@@ -474,7 +474,7 @@ data class SettingsCategoryItem(
                         listOf(
                             SettingsItem(
                                 title = Res.string.Settings_Notifications_Enabled,
-                                key = SettingsKey.NOTIFICATIONS_ENABLED.value,
+                                key = SettingsKey.NOTIFICATIONS_ENABLED,
                                 type = PreferenceItemType.SWITCH,
                             ),
                         ),
@@ -492,28 +492,28 @@ data class SettingsCategoryItem(
                         listOf(
                             SettingsItem(
                                 title = Res.string.Settings_AutomatedTesting_RunAutomatically,
-                                key = SettingsKey.AUTOMATED_TESTING_ENABLED.value,
+                                key = SettingsKey.AUTOMATED_TESTING_ENABLED,
                                 type = PreferenceItemType.SWITCH,
                             ),
                             SettingsItem(
                                 title = Res.string.Settings_AutomatedTesting_RunAutomatically_WiFiOnly,
-                                key = SettingsKey.AUTOMATED_TESTING_WIFIONLY.value,
+                                key = SettingsKey.AUTOMATED_TESTING_WIFIONLY,
                                 type = PreferenceItemType.SWITCH,
                             ),
                             SettingsItem(
                                 title = Res.string.Settings_AutomatedTesting_RunAutomatically_ChargingOnly,
-                                key = SettingsKey.AUTOMATED_TESTING_CHARGING.value,
+                                key = SettingsKey.AUTOMATED_TESTING_CHARGING,
                                 type = PreferenceItemType.SWITCH,
                             ),
                             webCategory,
                             SettingsItem(
                                 title = Res.string.Settings_Websites_MaxRuntimeEnabled,
-                                key = SettingsKey.MAX_RUNTIME_ENABLED.value,
+                                key = SettingsKey.MAX_RUNTIME_ENABLED,
                                 type = PreferenceItemType.SWITCH,
                             ),
                             SettingsItem(
                                 title = Res.string.Settings_Websites_MaxRuntime,
-                                key = SettingsKey.MAX_RUNTIME.value,
+                                key = SettingsKey.MAX_RUNTIME,
                                 type = PreferenceItemType.TEXT,
                             ),
                         ),
@@ -531,12 +531,12 @@ data class SettingsCategoryItem(
                         listOf(
                             SettingsItem(
                                 title = Res.string.Settings_Sharing_UploadResults,
-                                key = SettingsKey.UPLOAD_RESULTS.value,
+                                key = SettingsKey.UPLOAD_RESULTS,
                                 type = PreferenceItemType.SWITCH,
                             ),
                             SettingsItem(
                                 title = Res.string.Settings_Privacy_SendCrashReports,
-                                key = SettingsKey.SEND_CRASH.value,
+                                key = SettingsKey.SEND_CRASH,
                                 type = PreferenceItemType.SWITCH,
                             ),
                         ),
@@ -554,23 +554,23 @@ data class SettingsCategoryItem(
                         listOf(
                             SettingsItem(
                                 title = Res.string.Settings_Advanced_LanguageSettings_Title,
-                                key = SettingsKey.LANGUAGE_SETTING.value,
+                                key = SettingsKey.LANGUAGE_SETTING,
                                 type = PreferenceItemType.SELECT,
                             ),
                             seeRecentLogsCategory,
                             SettingsItem(
                                 title = Res.string.Settings_Advanced_DebugLogs,
-                                key = SettingsKey.DEBUG_LOGS.value,
+                                key = SettingsKey.DEBUG_LOGS,
                                 type = PreferenceItemType.SWITCH,
                             ),
                             SettingsItem(
                                 title = Res.string.Settings_Storage_Label,
-                                key = SettingsKey.STORAGE_SIZE.value,
+                                key = SettingsKey.STORAGE_SIZE,
                                 type = PreferenceItemType.BUTTON,
                             ),
                             SettingsItem(
                                 title = Res.string.Settings_WarmVPNInUse_Label,
-                                key = SettingsKey.WARN_VPN_IN_USE.value,
+                                key = SettingsKey.WARN_VPN_IN_USE,
                                 type = PreferenceItemType.SWITCH,
                             ),
                         ),

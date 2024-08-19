@@ -30,7 +30,9 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.repositories.PreferenceCategoryKey
+import org.ooni.probe.data.repositories.SettingsKey
 import org.ooni.probe.ui.settings.PreferenceItemType
+import org.ooni.probe.ui.settings.SettingsCategoryItem
 
 @Composable
 fun SettingsCategoryScreen(
@@ -72,7 +74,7 @@ fun SettingsCategoryScreen(
                                 title = preferenceItem.title,
                                 key = preferenceItem.key,
                                 checked =
-                                    state.preference?.let { it[preferenceItem.key] as? Boolean }
+                                    state.preference?.let { it[preferenceItem.key.value] as? Boolean }
                                         ?: false,
                                 supportingContent = preferenceItem.supportingContent,
                                 onCheckedChange = { key, value ->
@@ -110,12 +112,14 @@ fun SettingsCategoryScreen(
                                 supportingContent = preferenceItem.supportingContent,
                                 modifier =
                                     Modifier.clickable {
+                                        if(preferenceItem is SettingsCategoryItem) {
                                         onEvent(
                                             SettingsCategoryViewModel.Event.SettingsCategoryClick(
-                                                PreferenceCategoryKey.valueOf(preferenceItem.key.uppercase()),
+                                                PreferenceCategoryKey.valueOf(preferenceItem.route.name),
                                             ),
                                         )
-                                    },
+                                    }
+                                },
                             )
 
                         PreferenceItemType.SELECT ->
@@ -136,9 +140,9 @@ fun SwitchSettingsView(
     title: StringResource,
     supportingContent: @Composable (() -> Unit)? = null,
     leadingContent: @Composable (() -> Unit)? = null,
-    key: String,
+    key: SettingsKey,
     checked: Boolean,
-    onCheckedChange: (String, Boolean) -> Unit,
+    onCheckedChange: (SettingsKey, Boolean) -> Unit,
 ) {
     ListItem(
         headlineContent = { Text(stringResource(title)) },

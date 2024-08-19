@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.repositories.PreferenceCategoryKey
 import org.ooni.probe.data.repositories.PreferenceRepository
+import org.ooni.probe.data.repositories.SettingsKey
 import org.ooni.probe.ui.settings.SettingsCategoryItem
 
 class SettingsCategoryViewModel(
@@ -26,7 +27,7 @@ class SettingsCategoryViewModel(
     val state = _state.asStateFlow()
 
     init {
-        category.settings?.map { item -> booleanPreferencesKey(item.key) }?.let { preferenceKeys ->
+        category.settings?.map { item -> booleanPreferencesKey(item.key.value) }?.let { preferenceKeys ->
             preferenceManager.allSettings(preferenceKeys)
                 .onEach { result -> _state.update { it.copy(preference = result) } }
                 .launchIn(viewModelScope)
@@ -37,12 +38,12 @@ class SettingsCategoryViewModel(
 
         events.filterIsInstance<Event.CheckedChangeClick>().onEach {
             preferenceManager.setValueByKey(
-                booleanPreferencesKey(it.key),
+                booleanPreferencesKey(it.key.value),
                 it.value,
             )
             _state.update { state ->
                 state.copy(
-                    preference = state.preference?.plus(it.key to it.value),
+                    preference = state.preference?.plus(it.key.value to it.value),
                 )
             }
         }.launchIn(viewModelScope)
@@ -62,7 +63,7 @@ class SettingsCategoryViewModel(
     sealed interface Event {
         data class SettingsCategoryClick(val category: PreferenceCategoryKey) : Event
 
-        data class CheckedChangeClick(val key: String, val value: Boolean) : Event
+        data class CheckedChangeClick(val key: SettingsKey, val value: Boolean) : Event
 
         data object BackClicked : Event
     }

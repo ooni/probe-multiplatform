@@ -151,4 +151,6 @@ enum class SettingsKey(val value: String) {
     RUN_HTTP_HEADER_FIELD_MANIPULATION("run_http_header_field_manipulation"),
     EXPERIMENTAL("experimental"),
     TEST_WHATSAPP("test_whatsapp"),
+
+    ROUTE("route"),
 }
