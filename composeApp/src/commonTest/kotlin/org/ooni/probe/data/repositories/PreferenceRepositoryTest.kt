@@ -2,7 +2,6 @@ package org.ooni.probe.data.repositories
 
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.ooni.testing.createPreferenceDataStore
 import kotlin.test.AfterTest
@@ -21,22 +20,18 @@ class PreferenceRepositoryTest {
 
     @AfterTest
     fun after() =
-        runBlocking {
-            runTest {
-                preferenceRepository.clear()
-            }
+        runTest {
+            preferenceRepository.clear()
         }
 
     @Test
     fun testAllSettings() =
-        runBlocking {
-            runTest {
-                val key = stringPreferencesKey(SettingsKey.LANGUAGE_SETTING.value)
-                val value = "value"
-                preferenceRepository.setValueByKey(key, value)
-                val setting: Map<String, Any?> = preferenceRepository.allSettings(listOf(key)).first()
-                assertEquals(value, setting.values.first())
-            }
+        runTest {
+            val key = stringPreferencesKey(SettingsKey.LANGUAGE_SETTING.value)
+            val value = "value"
+            preferenceRepository.setValueByKey(key, value)
+            val setting: Map<String, Any?> = preferenceRepository.allSettings(listOf(key)).first()
+            assertEquals(value, setting.values.first())
         }
 
     @Test
@@ -106,12 +101,10 @@ class PreferenceRepositoryTest {
 
     @Test
     fun testContains() =
-        runBlocking {
-            runTest {
-                val key = stringPreferencesKey(SettingsKey.LANGUAGE_SETTING.value)
-                val value = "value"
-                preferenceRepository.setValueByKey(key, value)
-                assertEquals(true, preferenceRepository.contains(key))
-            }
+        runTest {
+            val key = stringPreferencesKey(SettingsKey.LANGUAGE_SETTING.value)
+            val value = "value"
+            preferenceRepository.setValueByKey(key, value)
+            assertEquals(true, preferenceRepository.contains(key))
         }
 }

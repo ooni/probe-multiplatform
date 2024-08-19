@@ -23,7 +23,7 @@ sealed class Screen(
         }
     }
 
-    data class SettingsCategory(val category: PreferenceCategoryKey) : Screen("settings/${category.value}") {
+    data class SettingsCategory(val category: PreferenceCategoryKey) : Screen("settings/${category.name}") {
         companion object {
             const val NAV_ROUTE = "settings/{category}"
             val ARGUMENTS = listOf(navArgument("category") { type = NavType.StringType })

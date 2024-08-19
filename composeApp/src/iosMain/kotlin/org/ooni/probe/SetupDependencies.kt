@@ -85,7 +85,6 @@ private class BundleMarker : NSObject() {
     companion object : NSObjectMeta()
 }
 
-@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 fun buildDataStore(): DataStore<Preferences> =
     Dependencies.getDataStore(
         producePath = {

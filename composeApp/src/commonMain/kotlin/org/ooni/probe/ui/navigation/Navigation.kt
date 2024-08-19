@@ -80,7 +80,7 @@ fun Navigation(
         ) { entry ->
             val category = entry.arguments?.getString("category") ?: return@composable
             when (category) {
-                PreferenceCategoryKey.SEND_EMAIL.value -> {
+                PreferenceCategoryKey.SEND_EMAIL.name -> {
                     // TODO: Implement based on platform
                 }
 
@@ -94,7 +94,7 @@ fun Navigation(
                                 onBack = { navController.navigateUp() },
                                 category =
                                     SettingsCategoryItem.getSettingsItem(
-                                        PreferenceCategoryKey.valueOf(category.uppercase()),
+                                        PreferenceCategoryKey.valueOf(category),
                                     ),
                             )
                         }
