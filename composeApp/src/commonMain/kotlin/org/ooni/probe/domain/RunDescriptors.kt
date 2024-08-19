@@ -1,8 +1,11 @@
 package org.ooni.probe.domain
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.take
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskOrigin
@@ -11,7 +14,8 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunSpecification
-import org.ooni.probe.data.models.TestState
+import org.ooni.probe.data.models.TestRunError
+import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.data.models.UrlModel
 import kotlin.time.Duration.Companion.seconds
 
@@ -19,27 +23,59 @@ class RunDescriptors(
     private val getTestDescriptorsBySpec: suspend (RunSpecification) -> List<Descriptor>,
     private val downloadUrls: suspend (TaskOrigin) -> Result<List<UrlModel>, MkException>,
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
-    private val getCurrentTestState: Flow<TestState>,
-    private val setCurrentTestState: ((TestState) -> TestState) -> Unit,
+    private val getCurrentTestRunState: Flow<TestRunState>,
+    private val setCurrentTestState: ((TestRunState) -> TestRunState) -> Unit,
+    private val observeCancelTestRun: Flow<Unit>,
+    private val reportTestRunError: (TestRunError) -> Unit,
     private val runNetTest: suspend (RunNetTest.Specification) -> Unit,
 ) {
     suspend operator fun invoke(spec: RunSpecification) {
         val descriptors = getTestDescriptorsBySpec(spec)
         val descriptorsWithFinalInputs = descriptors.prepareInputs(spec.taskOrigin)
 
-        if (getCurrentTestState.first() is TestState.Running) {
+        if (getCurrentTestRunState.first() is TestRunState.Running) {
             Logger.i("Tests are already running, so we won't run other tests")
             return
         }
         setCurrentTestState {
-            TestState.Running(estimatedRuntime = descriptorsWithFinalInputs.estimatedRuntime)
+            TestRunState.Running(estimatedRuntime = descriptorsWithFinalInputs.estimatedRuntime)
         }
 
-        descriptorsWithFinalInputs.forEach { descriptor ->
-            runDescriptor(descriptor, spec.taskOrigin, spec.isRerun)
-        }
+        runDescriptorsCancellable(descriptorsWithFinalInputs, spec)
 
-        setCurrentTestState { TestState.Idle }
+        setCurrentTestState { TestRunState.Idle }
+    }
+
+    private suspend fun runDescriptorsCancellable(
+        descriptors: List<Descriptor>,
+        spec: RunSpecification,
+    ) {
+        coroutineScope {
+            val runJob = async {
+                // Actually running the descriptors
+                descriptors.forEach { descriptor ->
+                    runDescriptor(descriptor, spec.taskOrigin, spec.isRerun)
+                }
+            }
+            // Observe if a cancel request has been made
+            val cancelJob = async {
+                observeCancelTestRun
+                    .take(1)
+                    .collect {
+                        setCurrentTestState { TestRunState.Stopping }
+                        runJob.cancel()
+                    }
+            }
+
+            try {
+                runJob.await()
+            } catch (e: Exception) {
+                // Exceptions were logged in the Engine
+            }
+            if (cancelJob.isActive) {
+                cancelJob.cancel()
+            }
+        }
     }
 
     private suspend fun List<Descriptor>.prepareInputs(taskOrigin: TaskOrigin) =
@@ -63,7 +99,7 @@ class RunDescriptors(
             ?: emptyList()
 
         if (urls.isEmpty()) {
-            // TODO: Add error to state
+            reportTestRunError(TestRunError.DownloadUrlsFailed)
         }
 
         return urls

@@ -8,9 +8,6 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -27,7 +24,6 @@ import org.ooni.probe.data.disk.WriteFileOkio
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.SettingsCategoryItem
-import org.ooni.probe.data.models.TestState
 import org.ooni.probe.data.repositories.MeasurementRepository
 import org.ooni.probe.data.repositories.NetworkRepository
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -44,6 +40,7 @@ import org.ooni.probe.domain.GetTestDescriptors
 import org.ooni.probe.domain.GetTestDescriptorsBySpec
 import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
+import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.result.ResultViewModel
@@ -70,7 +67,6 @@ class Dependencies(
 
     private val json by lazy { buildJson() }
     private val database by lazy { buildDatabase(databaseDriverFactory) }
-    private val currentTestState by lazy { MutableStateFlow<TestState>(TestState.Idle) }
 
     private val measurementRepository by lazy {
         MeasurementRepository(database, backgroundDispatcher)
@@ -112,7 +108,12 @@ class Dependencies(
             createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
         )
     }
-    val downloadUrls by lazy { DownloadUrls(engine::checkIn, urlRepository::createOrUpdateByUrl) }
+    private val downloadUrls by lazy {
+        DownloadUrls(
+            engine::checkIn,
+            urlRepository::createOrUpdateByUrl,
+        )
+    }
     private val getBootstrapTestDescriptors by lazy {
         GetBootstrapTestDescriptors(readAssetFile, json, backgroundDispatcher)
     }
@@ -134,7 +135,7 @@ class Dependencies(
         RunNetTest(
             startTest = engine::startTask,
             storeResult = resultRepository::createOrUpdate,
-            setCurrentTestState = currentTestState::update,
+            setCurrentTestState = testStateManager::updateState,
             getUrlByUrl = urlRepository::getByUrl,
             storeMeasurement = measurementRepository::createOrUpdate,
             storeNetwork = networkRepository::createIfNew,
@@ -149,11 +150,15 @@ class Dependencies(
             getTestDescriptorsBySpec = getTestDescriptorsBySpec::invoke,
             downloadUrls = downloadUrls::invoke,
             storeResult = resultRepository::createOrUpdate,
-            getCurrentTestState = currentTestState.asStateFlow(),
-            setCurrentTestState = currentTestState::update,
+            getCurrentTestRunState = testStateManager.observeState(),
+            setCurrentTestState = testStateManager::updateState,
+            observeCancelTestRun = testStateManager.observeTestRunCancels(),
+            reportTestRunError = testStateManager::reportError,
             runNetTest = { runNetTest(it)() },
         )
     }
+
+    private val testStateManager by lazy { TestRunStateManager() }
 
     // ViewModels
 
@@ -162,7 +167,9 @@ class Dependencies(
             DashboardViewModel(
                 getTestDescriptors = getTestDescriptors::invoke,
                 runDescriptors = runDescriptors::invoke,
-                getCurrentTestState = currentTestState::asStateFlow,
+                cancelTestRun = testStateManager::cancelTestRun,
+                observeTestRunState = testStateManager.observeState(),
+                observeTestRunErrors = testStateManager.observeError(),
             )
 
     fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) = ResultsViewModel(goToResult, getResults::invoke)
