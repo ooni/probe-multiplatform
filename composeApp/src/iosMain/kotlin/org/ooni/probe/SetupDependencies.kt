@@ -87,7 +87,7 @@ private class BundleMarker : NSObject() {
 
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 fun buildDataStore(): DataStore<Preferences> =
-    getDataStore(
+    Dependencies.getDataStore(
         producePath = {
             val documentDirectory: NSURL? =
                 NSFileManager.defaultManager.URLForDirectory(
@@ -97,6 +97,6 @@ fun buildDataStore(): DataStore<Preferences> =
                     create = false,
                     error = null,
                 )
-            requireNotNull(documentDirectory).path + "/$DATA_STORE_FILE_NAME"
+            requireNotNull(documentDirectory).path + "/${Dependencies.Companion.DATA_STORE_FILE_NAME}"
         },
     )

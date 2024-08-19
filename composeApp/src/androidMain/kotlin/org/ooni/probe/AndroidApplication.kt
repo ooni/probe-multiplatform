@@ -47,8 +47,8 @@ class AndroidApplication : Application() {
     private fun readAssetFile(path: String) = assets.open(path).bufferedReader().use { it.readText() }
 
     private fun buildDataStore(): DataStore<Preferences> =
-        getDataStore(
-            producePath = { this.filesDir.resolve(DATA_STORE_FILE_NAME).absolutePath },
+        Dependencies.getDataStore(
+            producePath = { this.filesDir.resolve(Dependencies.Companion.DATA_STORE_FILE_NAME).absolutePath },
             migrations = listOf(SharedPreferencesMigration(this, "notifications_enabled")),
         )
 }

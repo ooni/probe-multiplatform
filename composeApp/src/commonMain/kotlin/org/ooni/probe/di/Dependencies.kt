@@ -1,12 +1,15 @@
 package org.ooni.probe.di
 
 import androidx.annotation.VisibleForTesting
+import androidx.datastore.core.DataMigration
 import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.serialization.json.Json
+import okio.Path.Companion.toPath
 import org.ooni.engine.Engine
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
@@ -132,5 +135,26 @@ class Dependencies(
 
         @VisibleForTesting
         fun buildDatabase(driverFactory: () -> SqlDriver): Database = Database(driverFactory())
+
+        private lateinit var dataStore: DataStore<Preferences>
+        internal const val DATA_STORE_FILE_NAME = "probe.preferences_pb"
+
+        /**
+         * Gets the singleton DataStore instance, creating it if necessary.
+         */
+        fun getDataStore(
+            producePath: () -> String,
+            migrations: List<DataMigration<Preferences>> = listOf(),
+        ): DataStore<Preferences> =
+            if (::dataStore.isInitialized) {
+                dataStore
+            } else {
+                PreferenceDataStoreFactory.createWithPath(
+                    produceFile = { producePath().toPath() },
+                    migrations = migrations,
+                )
+                    .also { dataStore = it }
+            }
+
     }
 }
