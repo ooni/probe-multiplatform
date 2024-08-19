@@ -155,6 +155,5 @@ class Dependencies(
                 )
                     .also { dataStore = it }
             }
-
     }
 }

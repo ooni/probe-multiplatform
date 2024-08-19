@@ -28,7 +28,6 @@ sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 # Kotlin
 kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.1" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
-kotlinx-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.23.2" }
 
 # UI
 android-activity = { module = "androidx.activity:activity-ktx", version = "1.9.1" }
