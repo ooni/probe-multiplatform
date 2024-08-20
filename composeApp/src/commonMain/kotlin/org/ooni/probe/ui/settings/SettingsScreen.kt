@@ -237,6 +237,7 @@ data class SettingsCategoryItem(
                 title = Res.string.Settings_Websites_Categories_Label,
                 route = PreferenceCategoryKey.WEBSITES_CATEGORIES,
                 supportingContent = {
+                    // TODO(norbel): add enabled categories
                     Text(stringResource(Res.string.Settings_Websites_Categories_Description))
                 },
                 settings =
