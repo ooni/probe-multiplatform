@@ -49,6 +49,9 @@ sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", 
 sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 
+# Files
+okio = { module = "com.squareup.okio:okio", version = "3.9.0" }
+
 # Testing
 android-test-core = { module = "androidx.test:core", version = "1.6.1" }
 
@@ -67,6 +70,7 @@ tooling = [
     "sqldelight-coroutines",
     "androidx-datastore-core-okio",
     "androidx-datastore-preferences-core",
+    "okio",
 ]
 android-test = [
     "android-test-core"

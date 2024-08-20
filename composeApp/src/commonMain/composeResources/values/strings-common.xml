@@ -7,6 +7,24 @@
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
 
+    <string name="Test_Websites_Fullname">Websites</string>
+    <string name="Test_InstantMessaging_Fullname">Instant Messaging</string>
+    <string name="Test_Middleboxes_Fullname">Middleboxes</string>
+    <string name="Test_Performance_Fullname">Performance</string>
+    <string name="Test_Circumvention_Fullname">Circumvention</string>
+    <string name="Test_Experimental_Fullname">Experimental</string>
+    <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP Invalid Request Line Test</string>
+    <string name="Test_HTTPHeaderFieldManipulation_Fullname">HTTP Header Field Manipulation Test</string>
+    <string name="Test_WebConnectivity_Fullname">Web Connectivity Test</string>
+    <string name="Test_NDT_Fullname">NDT Speed Test</string>
+    <string name="Test_Dash_Fullname">DASH Streaming Test</string>
+    <string name="Test_WhatsApp_Fullname">WhatsApp Test</string>
+    <string name="Test_Telegram_Fullname">Telegram Test</string>
+    <string name="Test_FacebookMessenger_Fullname">Facebook Messenger Test</string>
+    <string name="Test_Psiphon_Fullname">Psiphon Test</string>
+    <string name="Test_Tor_Fullname">Tor Test</string>
+    <string name="Test_Signal_Fullname">Signal Test</string>
+
     <string name="TestResults_Overview_Title">Test Results</string>
     <string name="TestResults_Overview_Tab_Label">Test Results</string>
     <string name="TestResults_UnknownASN">Unknown</string>

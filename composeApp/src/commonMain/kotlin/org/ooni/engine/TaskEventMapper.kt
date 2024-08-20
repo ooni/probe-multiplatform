@@ -4,7 +4,6 @@ import co.touchlab.kermit.Logger
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskEventResult
-import kotlin.math.roundToInt
 
 class TaskEventMapper(
     private val networkTypeFinder: NetworkTypeFinder,
@@ -29,9 +28,27 @@ class TaskEventMapper(
                     message = value?.failure,
                 )
 
-            "failure.resolver_lookup" -> TaskEvent.ResolverLookupFailure(message = value?.failure)
+            "failure.resolver_lookup" ->
+                value?.let {
+                    TaskEvent.ResolverLookupFailure(
+                        message = value.failure,
+                        value = value,
+                    )
+                } ?: run {
+                    Logger.d("Task Event $key missing 'value'")
+                    null
+                }
 
-            "failure.startup" -> TaskEvent.StartupFailure(message = value?.failure)
+            "failure.startup" ->
+                value?.let {
+                    TaskEvent.StartupFailure(
+                        message = value.failure,
+                        value = value,
+                    )
+                } ?: run {
+                    Logger.d("Task Event $key missing 'value'")
+                    null
+                }
 
             "log" ->
                 value?.message?.let { message ->
@@ -62,7 +79,11 @@ class TaskEventMapper(
                     null
                 }
 
-            "status.end" -> TaskEvent.End
+            "status.end" ->
+                TaskEvent.End(
+                    downloadedKb = value?.downloadedKb?.toLong() ?: 0L,
+                    uploadedKb = value?.uploadedKb?.toLong() ?: 0L,
+                )
 
             "status.geoip_lookup" ->
                 TaskEvent.GeoIpLookup(
@@ -91,9 +112,9 @@ class TaskEventMapper(
                 TaskEvent.MeasurementSubmissionSuccessful(index = value?.idx ?: 0)
 
             "status.progress" ->
-                value?.percentage?.let { percentageValue ->
+                value?.percentage?.let { progress ->
                     TaskEvent.Progress(
-                        percentage = (percentageValue * 100.0).roundToInt(),
+                        progress = progress,
                         message = value.message,
                     )
                 } ?: run {
@@ -111,7 +132,10 @@ class TaskEventMapper(
 
             "status.started" -> TaskEvent.Started
 
-            "task_terminated" -> TaskEvent.TaskTerminated
+            "task_terminated" ->
+                TaskEvent.TaskTerminated(
+                    index = value?.idx ?: 0,
+                )
 
             else -> {
                 Logger.d("Task Event $key ignored")

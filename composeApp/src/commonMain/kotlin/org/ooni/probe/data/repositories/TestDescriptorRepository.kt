@@ -5,12 +5,15 @@ import app.cash.sqldelight.coroutines.mapToList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.Instant
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.ooni.engine.models.OONINetTest
 import org.ooni.probe.Database
 import org.ooni.probe.data.TestDescriptor
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.shared.toEpoch
+import org.ooni.probe.shared.toLocalDateTime
 
 class TestDescriptorRepository(
     private val database: Database,
@@ -34,16 +37,18 @@ class TestDescriptorRepository(
                         short_description = model.shortDescription,
                         description = model.description,
                         author = model.author,
-                        nettests = json.encodeToString(model.netTests),
+                        nettests = model.netTests
+                            ?.map { it.toOONI() }
+                            ?.let { json.encodeToString(it) },
                         name_intl = json.encodeToString(model.nameIntl),
                         short_description_intl = json.encodeToString(model.shortDescriptionIntl),
                         description_intl = json.encodeToString(model.descriptionIntl),
                         icon = model.icon,
                         color = model.color,
                         animation = model.animation,
-                        expiration_date = model.expirationDate?.toEpochMilliseconds(),
-                        date_created = model.dateCreated?.toEpochMilliseconds(),
-                        date_updated = model.dateUpdated?.toEpochMilliseconds(),
+                        expiration_date = model.expirationDate?.toEpoch(),
+                        date_created = model.dateCreated?.toEpoch(),
+                        date_updated = model.dateUpdated?.toEpoch(),
                         revision = model.revision,
                         previous_revision = null,
                         is_expired = if (model.isExpired) 1 else 0,
@@ -61,18 +66,19 @@ class TestDescriptorRepository(
             shortDescription = short_description,
             description = description,
             author = author,
-            netTests = nettests?.let(json::decodeFromString),
+            netTests = nettests
+                ?.let { json.decodeFromString<List<OONINetTest>>(it) }
+                ?.map { NetTest.fromOONI(it) },
             nameIntl = name_intl?.let(json::decodeFromString),
             shortDescriptionIntl = short_description_intl?.let(json::decodeFromString),
             descriptionIntl = description_intl?.let(json::decodeFromString),
             icon = icon,
             color = color,
             animation = animation,
-            expirationDate = expiration_date?.let(Instant::fromEpochMilliseconds),
-            dateCreated = date_created?.let(Instant::fromEpochMilliseconds),
-            dateUpdated = date_updated?.let(Instant::fromEpochMilliseconds),
+            expirationDate = expiration_date?.toLocalDateTime(),
+            dateCreated = date_created?.toLocalDateTime(),
+            dateUpdated = date_updated?.toLocalDateTime(),
             revision = revision,
-            isExpired = is_expired == 1L,
             autoUpdate = auto_update == 1L,
         )
     }

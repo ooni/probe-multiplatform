@@ -8,25 +8,42 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.serialization.json.Json
+import okio.FileSystem
 import okio.Path.Companion.toPath
+import okio.SYSTEM
 import org.ooni.engine.Engine
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
+import org.ooni.probe.data.disk.DeleteFile
+import org.ooni.probe.data.disk.DeleteFileOkio
+import org.ooni.probe.data.disk.WriteFile
+import org.ooni.probe.data.disk.WriteFileOkio
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.SettingsCategoryItem
+import org.ooni.probe.data.models.TestState
+import org.ooni.probe.data.repositories.MeasurementRepository
+import org.ooni.probe.data.repositories.NetworkRepository
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
+import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapTestDescriptors
+import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
 import org.ooni.probe.domain.GetTestDescriptors
+import org.ooni.probe.domain.GetTestDescriptorsBySpec
+import org.ooni.probe.domain.RunDescriptors
+import org.ooni.probe.domain.RunNetTest
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.result.ResultViewModel
@@ -43,6 +60,7 @@ class Dependencies(
     private val databaseDriverFactory: () -> SqlDriver,
     private val networkTypeFinder: NetworkTypeFinder,
     private val buildDataStore: () -> DataStore<Preferences>,
+    private val isBatteryCharging: () -> Boolean,
 ) {
     // Common
 
@@ -52,10 +70,21 @@ class Dependencies(
 
     private val json by lazy { buildJson() }
     private val database by lazy { buildDatabase(databaseDriverFactory) }
+    private val currentTestState by lazy { MutableStateFlow<TestState>(TestState.Idle) }
+
+    private val measurementRepository by lazy {
+        MeasurementRepository(database, backgroundDispatcher)
+    }
+    private val networkRepository by lazy { NetworkRepository(database, backgroundDispatcher) }
+    private val preferenceManager by lazy { PreferenceRepository(buildDataStore()) }
     private val resultRepository by lazy { ResultRepository(database, backgroundDispatcher) }
     private val testDescriptorRepository by lazy {
         TestDescriptorRepository(database, json, backgroundDispatcher)
     }
+    private val urlRepository by lazy { UrlRepository(database, backgroundDispatcher) }
+
+    private val writeFile: WriteFile by lazy { WriteFileOkio(FileSystem.SYSTEM, baseFileDir) }
+    private val deleteFile: DeleteFile by lazy { DeleteFileOkio(FileSystem.SYSTEM, baseFileDir) }
 
     // Engine
 
@@ -69,6 +98,7 @@ class Dependencies(
             cacheDir = cacheDir,
             taskEventMapper = taskEventMapper,
             networkTypeFinder = networkTypeFinder,
+            isBatteryCharging = isBatteryCharging,
             platformInfo = platformInfo,
             backgroundDispatcher = backgroundDispatcher,
         )
@@ -82,6 +112,7 @@ class Dependencies(
             createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
         )
     }
+    val downloadUrls by lazy { DownloadUrls(engine::checkIn, urlRepository::createOrUpdateByUrl) }
     private val getBootstrapTestDescriptors by lazy {
         GetBootstrapTestDescriptors(readAssetFile, json, backgroundDispatcher)
     }
@@ -94,15 +125,44 @@ class Dependencies(
             listInstalledTestDescriptors = testDescriptorRepository::list,
         )
     }
-    private val preferenceManager by lazy { PreferenceRepository(buildDataStore()) }
+
+    private val getTestDescriptorsBySpec by lazy {
+        GetTestDescriptorsBySpec(getTestDescriptors = getTestDescriptors::invoke)
+    }
+
+    private fun runNetTest(spec: RunNetTest.Specification) =
+        RunNetTest(
+            startTest = engine::startTask,
+            storeResult = resultRepository::createOrUpdate,
+            setCurrentTestState = currentTestState::update,
+            getUrlByUrl = urlRepository::getByUrl,
+            storeMeasurement = measurementRepository::createOrUpdate,
+            storeNetwork = networkRepository::createIfNew,
+            writeFile = writeFile,
+            deleteFile = deleteFile,
+            json = json,
+            spec = spec,
+        )
+
+    private val runDescriptors by lazy {
+        RunDescriptors(
+            getTestDescriptorsBySpec = getTestDescriptorsBySpec::invoke,
+            downloadUrls = downloadUrls::invoke,
+            storeResult = resultRepository::createOrUpdate,
+            getCurrentTestState = currentTestState.asStateFlow(),
+            setCurrentTestState = currentTestState::update,
+            runNetTest = { runNetTest(it)() },
+        )
+    }
 
     // ViewModels
 
     val dashboardViewModel
         get() =
             DashboardViewModel(
-                engine = engine,
                 getTestDescriptors = getTestDescriptors::invoke,
+                runDescriptors = runDescriptors::invoke,
+                getCurrentTestState = currentTestState::asStateFlow,
             )
 
     fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) = ResultsViewModel(goToResult, getResults::invoke)

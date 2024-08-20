@@ -57,7 +57,7 @@ class TaskEventMapperTest {
 
         assertEquals(TaskEvent.Progress::class, event::class)
         with(event as TaskEvent.Progress) {
-            assertEquals(10, percentage)
+            assertEquals(0.1, progress, 0.01)
             assertEquals("contacted bouncer", message)
         }
     }

@@ -1,16 +1,40 @@
 package org.ooni.probe.data.models
 
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import org.ooni.engine.models.NetworkType
 
+@Serializable
 data class NetworkModel(
-    val id: Id? = null,
-    val networkName: String?,
-    val ip: String?,
-    val asn: String?,
-    val countryCode: String?,
-    val networkType: NetworkType?,
+    @SerialName("id") val id: Id? = null,
+    @SerialName("network_name") val networkName: String?,
+    @SerialName("ip") val ip: String?,
+    @SerialName("asn") val asn: String?,
+    @SerialName("country_code") val countryCode: String?,
+    @SerialName("networkType") val networkType: NetworkType?,
 ) {
+    @Serializable(with = NetworkModelIdSerializer::class)
     data class Id(
         val value: Long,
     )
+}
+
+object NetworkModelIdSerializer : KSerializer<NetworkModel.Id> {
+    override val descriptor: SerialDescriptor =
+        PrimitiveSerialDescriptor("org.ooni.probe.data.models.NetworkModel.Id", PrimitiveKind.LONG)
+
+    override fun deserialize(decoder: Decoder): NetworkModel.Id = NetworkModel.Id(decoder.decodeLong())
+
+    override fun serialize(
+        encoder: Encoder,
+        value: NetworkModel.Id,
+    ) {
+        encoder.encodeLong(value.value)
+    }
 }

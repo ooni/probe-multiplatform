@@ -11,8 +11,10 @@ import kotlinx.datetime.todayIn
 
 fun LocalDateTime.toEpoch() = toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
 
-fun Long.toLocalDateTime() = Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.currentSystemDefault())
+fun Long.toLocalDateTime() = Instant.fromEpochMilliseconds(this).toLocalDateTime()
 
 fun LocalDate.Companion.today() = Clock.System.todayIn(TimeZone.currentSystemDefault())
 
-fun LocalDateTime.Companion.now() = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+fun LocalDateTime.Companion.now() = Clock.System.now().toLocalDateTime()
+
+fun Instant.toLocalDateTime() = toLocalDateTime(TimeZone.currentSystemDefault())

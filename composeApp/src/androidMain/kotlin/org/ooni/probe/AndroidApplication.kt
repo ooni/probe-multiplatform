@@ -30,6 +30,8 @@ class AndroidApplication : Application() {
             networkTypeFinder =
                 AndroidNetworkTypeFinder(getSystemService(ConnectivityManager::class.java)),
             buildDataStore = ::buildDataStore,
+            // TODO: isBatteryCharging
+            isBatteryCharging = { true },
         )
     }
 

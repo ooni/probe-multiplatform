@@ -37,6 +37,7 @@ class GetTestDescriptors(
             color = color,
             animation = animation,
             dataUsage = { stringResource(dataUsage) },
+            expirationDate = null,
             netTests = netTests,
             longRunningTests = longRunningTests,
             source = Descriptor.Source.Default(this),
@@ -53,6 +54,7 @@ class GetTestDescriptors(
             color = color?.hexToColor(),
             animation = animation,
             dataUsage = { null },
+            expirationDate = expirationDate,
             netTests = netTests.orEmpty(),
             source = Descriptor.Source.Installed(this),
         )

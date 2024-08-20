@@ -26,18 +26,18 @@ class EngineTest {
             bridge.addNextEvents("""{"key":"status.started","value":{}}""")
             val engine = buildEngine(bridge)
 
-            val events =
-                engine
-                    .startTask(
-                        name = "web_connectivity",
-                        inputs = listOf("https://ooni.org"),
-                        TaskOrigin.OoniRun,
-                    ).toList()
+            val events = engine.startTask(
+                name = "web_connectivity",
+                inputs = listOf("https://ooni.org"),
+                taskOrigin = TaskOrigin.OoniRun,
+                maxRuntime = null,
+            ).toList()
 
             assertEquals(1, events.size)
             assertEquals(TaskEvent.Started, events.first())
 
-            val settings = json.decodeFromString<TaskSettings>(bridge.lastStartTaskSettingsSerialized!!)
+            val settings =
+                json.decodeFromString<TaskSettings>(bridge.lastStartTaskSettingsSerialized!!)
             assertEquals("web_connectivity", settings.name)
             assertEquals(listOf("https://ooni.org"), settings.inputs)
             assertEquals(NetworkType.NoInternet, settings.annotations.networkType)
@@ -65,13 +65,13 @@ class EngineTest {
             cacheDir = "",
             taskEventMapper = TaskEventMapper(networkTypeFinder, json),
             networkTypeFinder = networkTypeFinder,
-            platformInfo =
-                object : PlatformInfo {
-                    override val version = "1"
-                    override val platform = Platform.Ios
-                    override val osVersion = "1"
-                    override val model = "test"
-                },
+            isBatteryCharging = { true },
+            platformInfo = object : PlatformInfo {
+                override val version = "1"
+                override val platform = Platform.Ios
+                override val osVersion = "1"
+                override val model = "test"
+            },
             backgroundDispatcher = Dispatchers.Unconfined,
         )
 }

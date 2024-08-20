@@ -3,7 +3,6 @@ package org.ooni.engine.models
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ooni.probe.data.models.NetTest
 
 /**
  * This class represents the response from a fetch request to the OONI API.
@@ -17,7 +16,7 @@ data class OONIRunDescriptor(
     @SerialName("short_description") val shortDescription: String,
     @SerialName("description") val description: String,
     @SerialName("author") val author: String,
-    @SerialName("nettests") val netTests: List<NetTest>,
+    @SerialName("nettests") val netTests: List<OONINetTest>,
     @SerialName("name_intl") val nameIntl: Map<String, String>,
     @SerialName("short_description_intl") val shortDescriptionIntl: Map<String, String>,
     @SerialName("description_intl") val descriptionIntl: Map<String, String>,

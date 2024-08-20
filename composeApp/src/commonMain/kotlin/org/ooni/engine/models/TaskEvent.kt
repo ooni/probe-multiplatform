@@ -5,7 +5,10 @@ sealed interface TaskEvent {
         val value: TaskEventResult.Value,
     ) : TaskEvent
 
-    data object End : TaskEvent
+    data class End(
+        val downloadedKb: Long,
+        val uploadedKb: Long,
+    ) : TaskEvent
 
     data class GeoIpLookup(
         val networkName: String?,
@@ -45,7 +48,7 @@ sealed interface TaskEvent {
     ) : TaskEvent
 
     data class Progress(
-        val percentage: Int,
+        val progress: Double,
         val message: String?,
     ) : TaskEvent
 
@@ -55,13 +58,17 @@ sealed interface TaskEvent {
 
     data class ResolverLookupFailure(
         val message: String?,
+        val value: TaskEventResult.Value,
     ) : TaskEvent
 
     data object Started : TaskEvent
 
     data class StartupFailure(
         val message: String?,
+        val value: TaskEventResult.Value,
     ) : TaskEvent
 
-    data object TaskTerminated : TaskEvent
+    data class TaskTerminated(
+        val index: Int,
+    ) : TaskEvent
 }

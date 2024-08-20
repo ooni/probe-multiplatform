@@ -1,6 +1,5 @@
 package org.ooni.probe.ui.results
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -37,10 +37,10 @@ fun ResultsScreen(
 
         LazyColumn {
             state.results.forEach { (date, results) ->
-                stickyHeader(key = date) {
+                stickyHeader(key = date.toString()) {
                     ResultDateHeader(date)
                 }
-                items(items = results, key = { it.idOrThrow }) { result ->
+                items(items = results) { result ->
                     ResultItem(
                         item = result,
                         onResultClick = { onEvent(ResultsViewModel.Event.ResultClick(result)) },
@@ -65,7 +65,6 @@ fun ResultDateHeader(date: LocalDate) {
         modifier =
             Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surfaceVariant)
                 .padding(horizontal = 16.dp, vertical = 4.dp),
     )
 }
@@ -75,21 +74,25 @@ fun ResultItem(
     item: ResultListItem,
     onResultClick: () -> Unit,
 ) {
-    Column(
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .clickable { onResultClick() }
-                .background(
-                    if (item.result.isViewed) {
-                        MaterialTheme.colorScheme.surface
-                    } else {
-                        MaterialTheme.colorScheme.surfaceVariant
-                    },
-                ),
+    Surface(
+        color =
+            if (item.result.isViewed) {
+                MaterialTheme.colorScheme.surface
+            } else {
+                MaterialTheme.colorScheme.surfaceVariant
+            },
+        modifier = Modifier.padding(top = 1.dp),
     ) {
-        Text(item.result.testGroupName.orEmpty())
-        Text(item.network?.networkName ?: stringResource(Res.string.TestResults_UnknownASN))
-        Text(item.result.startTime.toString())
+        Column(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .clickable { onResultClick() }
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+        ) {
+            Text(item.result.testGroupName.orEmpty())
+            Text(item.network?.networkName ?: stringResource(Res.string.TestResults_UnknownASN))
+            Text(item.result.startTime.toString())
+        }
     }
 }

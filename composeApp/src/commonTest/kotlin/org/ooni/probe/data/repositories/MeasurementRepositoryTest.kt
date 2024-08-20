@@ -12,6 +12,7 @@ import kotlin.random.Random
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class MeasurementRepositoryTest {
     private lateinit var subject: MeasurementRepository
@@ -26,14 +27,27 @@ class MeasurementRepositoryTest {
     }
 
     @Test
-    fun createAndGet() =
+    fun createOrUpdate_withIdAndGet() =
         runTest {
             val model =
-                MeasurementModelFactory.build(id = MeasurementModel.Id(Random.nextLong().absoluteValue))
+                MeasurementModelFactory.build(
+                    id = MeasurementModel.Id(Random.nextLong().absoluteValue),
+                )
 
-            subject.create(model)
+            val modelId = subject.createOrUpdate(model)
             val result = subject.list().first().first()
 
+            assertEquals(model.id, modelId)
             assertEquals(model, result)
+        }
+
+    @Test
+    fun createOrUpdate_withoutId() =
+        runTest {
+            val model = MeasurementModelFactory.build(id = null)
+
+            val modelId = subject.createOrUpdate(model)
+
+            assertNotNull(modelId)
         }
 }

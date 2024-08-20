@@ -26,6 +26,7 @@ import ooniprobe.composeapp.generated.resources.test_instant_messaging
 import ooniprobe.composeapp.generated.resources.test_performance
 import ooniprobe.composeapp.generated.resources.test_websites
 import ooniprobe.composeapp.generated.resources.websites_datausage
+import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.DefaultTestDescriptor
 import org.ooni.probe.data.models.NetTest
 
@@ -52,7 +53,7 @@ class GetDefaultTestDescriptors {
                 dataUsage = Res.string.websites_datausage,
                 netTests =
                     listOf(
-                        NetTest(name = "web_connectivity"),
+                        NetTest(TestType.WebConnectivity),
                     ),
             )
 
@@ -68,10 +69,10 @@ class GetDefaultTestDescriptors {
                 dataUsage = Res.string.small_datausage,
                 netTests =
                     listOf(
-                        NetTest(name = "whatsapp"),
-                        NetTest(name = "telegram"),
-                        NetTest(name = "facebook_messenger"),
-                        NetTest(name = "signal"),
+                        NetTest(TestType.Whatsapp),
+                        NetTest(TestType.Telegram),
+                        NetTest(TestType.FacebookMessenger),
+                        NetTest(TestType.Signal),
                     ),
             )
 
@@ -87,8 +88,8 @@ class GetDefaultTestDescriptors {
                 dataUsage = Res.string.small_datausage,
                 netTests =
                     listOf(
-                        NetTest(name = "psiphon"),
-                        NetTest(name = "tor"),
+                        NetTest(TestType.Psiphon),
+                        NetTest(TestType.Tor),
                     ),
             )
 
@@ -104,10 +105,10 @@ class GetDefaultTestDescriptors {
                 dataUsage = Res.string.performance_datausage,
                 netTests =
                     listOf(
-                        NetTest(name = "ndt"),
-                        NetTest(name = "dash"),
-                        NetTest(name = "http_header_field_manipulation"),
-                        NetTest(name = "http_invalid_request_line"),
+                        NetTest(TestType.Ndt),
+                        NetTest(TestType.Dash),
+                        NetTest(TestType.HttpHeaderFieldManipulation),
+                        NetTest(TestType.HttpInvalidRequestLine),
                     ),
             )
 
@@ -123,15 +124,15 @@ class GetDefaultTestDescriptors {
                 dataUsage = Res.string.TestResults_NotAvailable,
                 netTests =
                     listOf(
-                        NetTest(name = "stunreachability"),
-                        NetTest(name = "dnscheck"),
-                        NetTest(name = "riseupvpn"),
-                        NetTest(name = "echcheck"),
+                        NetTest(TestType.Experimental("stunreachability")),
+                        NetTest(TestType.Experimental("dnscheck")),
+                        NetTest(TestType.Experimental("riseupvpn")),
+                        NetTest(TestType.Experimental("echcheck")),
                     ),
                 longRunningTests =
                     listOf(
-                        NetTest(name = "torsf"),
-                        NetTest(name = "vanilla_tor"),
+                        NetTest(TestType.Experimental("torsf")),
+                        NetTest(TestType.Experimental("vanilla_tor")),
                     ),
             )
     }

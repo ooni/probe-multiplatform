@@ -20,8 +20,8 @@ CREATE TABLE Measurement(
     FOREIGN KEY(`result_id`) REFERENCES Result(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
-insert:
-INSERT INTO Measurement (
+insertOrReplace:
+INSERT OR REPLACE INTO Measurement (
     id,
     test_name,
     start_time,
@@ -40,6 +40,9 @@ INSERT INTO Measurement (
     result_id,
     rerun_network
 ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+selectLastInsertedRowId:
+SELECT last_insert_rowid();
 
 selectAll:
 SELECT * FROM Measurement;
