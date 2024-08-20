@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.ooni.probe.data.models.ResultModel
 
 class AboutViewModel(
     onBack: () -> Unit,
@@ -23,10 +22,6 @@ class AboutViewModel(
     fun onEvent(event: Event) {
         events.tryEmit(event)
     }
-
-    data class State(
-        val result: ResultModel?,
-    )
 
     sealed interface Event {
         data object BackClicked : Event

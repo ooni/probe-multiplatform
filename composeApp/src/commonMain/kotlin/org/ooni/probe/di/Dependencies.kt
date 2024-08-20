@@ -61,7 +61,7 @@ class Dependencies(
     private val buildDataStore: () -> DataStore<Preferences>,
     private val isBatteryCharging: () -> Boolean,
     private val launchUrl: (String) -> Unit,
-    ) {
+) {
     // Common
 
     private val backgroundDispatcher = Dispatchers.IO

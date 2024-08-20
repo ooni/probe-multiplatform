@@ -46,7 +46,7 @@ fun setupDependencies(
     // TODO: isBatteryCharging
     isBatteryCharging = { true },
     launchUrl = ::launchUrl,
-    )
+)
 
 private val platformInfo
     get() =

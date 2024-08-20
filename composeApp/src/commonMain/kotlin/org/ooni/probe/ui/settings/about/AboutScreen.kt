@@ -43,7 +43,7 @@ fun AboutScreen(onEvent: (AboutViewModel.Event) -> Unit) {
         item {
             Column(
                 modifier = Modifier.fillMaxWidth().padding(16.dp),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
             ) {
                 Text(stringResource(Res.string.Settings_About_Content_Paragraph))
                 Spacer(modifier = Modifier.height(16.dp))
