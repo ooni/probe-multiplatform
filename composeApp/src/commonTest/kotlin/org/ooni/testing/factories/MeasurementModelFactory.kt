@@ -22,7 +22,7 @@ object MeasurementModelFactory {
         uploadFailureMessage: String? = null,
         isRerun: Boolean = false,
         isAnomaly: Boolean = false,
-        reportId: String? = null,
+        reportId: MeasurementModel.ReportId? = null,
         testKeys: String? = null,
         rerunNetwork: String? = null,
         urlId: UrlModel.Id? = null,

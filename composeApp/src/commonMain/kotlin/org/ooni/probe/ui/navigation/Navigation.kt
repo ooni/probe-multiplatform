@@ -9,11 +9,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.shared.decodeUrlFromBase64
 import org.ooni.probe.ui.dashboard.DashboardScreen
+import org.ooni.probe.ui.measurement.MeasurementScreen
 import org.ooni.probe.ui.result.ResultScreen
 import org.ooni.probe.ui.results.ResultsScreen
 import org.ooni.probe.ui.settings.SettingsScreen
@@ -68,10 +71,26 @@ fun Navigation(
                     dependencies.resultViewModel(
                         resultId = ResultModel.Id(resultId),
                         onBack = { navController.navigateUp() },
+                        goToMeasurement = { reportId, input ->
+                            navController.navigate(Screen.Measurement(reportId, input).route)
+                        },
                     )
                 }
             val state by viewModel.state.collectAsState()
             ResultScreen(state, viewModel::onEvent)
+        }
+
+        composable(
+            route = Screen.Measurement.NAV_ROUTE,
+            arguments = Screen.Measurement.ARGUMENTS,
+        ) { entry ->
+            val reportId = entry.arguments?.getString("reportId") ?: return@composable
+            val input = entry.arguments?.getString("input").decodeUrlFromBase64()
+            MeasurementScreen(
+                reportId = MeasurementModel.ReportId(reportId),
+                input = input,
+                onBack = { navController.navigateUp() },
+            )
         }
 
         composable(

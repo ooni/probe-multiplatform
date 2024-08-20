@@ -135,6 +135,8 @@
 
     <!-- New Strings -->
     <string name="back">Back</string>
+    <string name="refresh">refresh</string>
+    <string name="measurement">Measurement</string>
     <plurals name="measurements_count">
         <item quantity="one">%1$d measurement</item>
         <item quantity="other">%1$d measurements</item>

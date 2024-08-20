@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.testing.factories.DescriptorFactory
@@ -39,10 +40,12 @@ class ResultViewModelTest {
     private fun buildViewModel(
         resultId: ResultModel.Id = ResultModel.Id(1234),
         onBack: () -> Unit = {},
+        goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit = { _, _ -> },
         getResult: (ResultModel.Id) -> Flow<ResultItem?> = { flowOf(null) },
     ) = ResultViewModel(
         resultId = resultId,
         onBack = onBack,
+        goToMeasurement = goToMeasurement,
         getResult = getResult,
     )
 }

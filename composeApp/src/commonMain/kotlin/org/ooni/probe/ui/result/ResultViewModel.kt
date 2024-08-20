@@ -17,6 +17,7 @@ import org.ooni.probe.data.models.ResultModel
 class ResultViewModel(
     resultId: ResultModel.Id,
     onBack: () -> Unit,
+    goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
     getResult: (ResultModel.Id) -> Flow<ResultItem?>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -33,6 +34,11 @@ class ResultViewModel(
             .filterIsInstance<Event.BackClicked>()
             .onEach { onBack() }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.MeasurementClicked>()
+            .onEach { goToMeasurement(it.measurementReportId, it.measurementInput) }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -46,6 +52,9 @@ class ResultViewModel(
     sealed interface Event {
         data object BackClicked : Event
 
-        data class MeasurementClicked(val measurementId: MeasurementModel.Id) : Event
+        data class MeasurementClicked(
+            val measurementReportId: MeasurementModel.ReportId,
+            val measurementInput: String?,
+        ) : Event
     }
 }

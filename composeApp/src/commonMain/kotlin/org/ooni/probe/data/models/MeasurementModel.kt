@@ -19,7 +19,7 @@ data class MeasurementModel(
     val uploadFailureMessage: String? = null,
     val isRerun: Boolean = false,
     val isAnomaly: Boolean = false,
-    val reportId: String?,
+    val reportId: ReportId?,
     val testKeys: String? = null,
     val rerunNetwork: String? = null,
     val urlId: UrlModel.Id?,
@@ -27,6 +27,10 @@ data class MeasurementModel(
 ) {
     data class Id(
         val value: Long,
+    )
+
+    data class ReportId(
+        val value: String,
     )
 
     val idOrThrow get() = id ?: throw IllegalStateException("Id no available")
