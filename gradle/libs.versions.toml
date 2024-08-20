@@ -9,6 +9,7 @@ android-targetSdk = "34"
 compose-plugin = "1.6.11"
 kotlin = "2.0.0"
 sqldelight = "2.0.2"
+dataStoreVersion = "1.1.1"
 
 [plugins]
 
@@ -32,6 +33,10 @@ kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version =
 android-activity = { module = "androidx.activity:activity-ktx", version = "1.9.1" }
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.8.0" }
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.7.0-alpha07" }
+
+# Preferences
+androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStoreVersion" }
+androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStoreVersion" }
 
 # Engine
 android-oonimkall = { module = "org.ooni:oonimkall", version = "2024.05.22-092559" }
@@ -60,6 +65,8 @@ ui = [
 tooling = [
     "kermit",
     "sqldelight-coroutines",
+    "androidx-datastore-core-okio",
+    "androidx-datastore-preferences-core",
 ]
 android-test = [
     "android-test-core"

@@ -24,4 +24,6 @@
     <string name="websites_datausage" translatable="false">~ 8 MB</string>
     <string name="small_datausage" translatable="false">&lt; 1 MB</string>
     <string name="performance_datausage" translatable="false">5 - 200 MB</string>
+
+    <string name="Settings_About_Label">About OONI</string>
 </resources>

@@ -3,6 +3,9 @@ package org.ooni.probe
 import android.app.Application
 import android.net.ConnectivityManager
 import android.os.Build
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.SharedPreferencesMigration
+import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import org.ooni.engine.AndroidNetworkTypeFinder
@@ -26,6 +29,7 @@ class AndroidApplication : Application() {
             databaseDriverFactory = ::buildDatabaseDriver,
             networkTypeFinder =
                 AndroidNetworkTypeFinder(getSystemService(ConnectivityManager::class.java)),
+            buildDataStore = ::buildDataStore,
         )
     }
 
@@ -41,4 +45,10 @@ class AndroidApplication : Application() {
     private fun buildDatabaseDriver(): SqlDriver = AndroidSqliteDriver(Database.Schema, this, "v2")
 
     private fun readAssetFile(path: String) = assets.open(path).bufferedReader().use { it.readText() }
+
+    private fun buildDataStore(): DataStore<Preferences> =
+        Dependencies.getDataStore(
+            producePath = { this.filesDir.resolve(Dependencies.Companion.DATA_STORE_FILE_NAME).absolutePath },
+            migrations = listOf(SharedPreferencesMigration(this, "${packageName}_preferences")),
+        )
 }

@@ -1,30 +1,65 @@
 package org.ooni.probe.ui.settings
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.settings
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.ooni.probe.ui.theme.AppTheme
+import org.ooni.probe.data.models.SettingsCategoryItem
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(onNavigateToSettingsCategory: (SettingsViewModel.Event) -> Unit) {
     Column {
         TopAppBar(
             title = {
                 Text(stringResource(Res.string.settings))
             },
         )
+
+        SettingsCategoryItem.getSettingsItems().forEach { item ->
+            SettingsItemView(
+                icon = item.icon,
+                title = item.title,
+                modifier =
+                    Modifier.clickable {
+                        onNavigateToSettingsCategory(
+                            item.routeToSettingsCategory(),
+                        )
+                    },
+            )
+        }
     }
 }
 
-@Preview
 @Composable
-fun SettingsScreenPreview() {
-    AppTheme {
-        SettingsScreen()
-    }
+fun SettingsItemView(
+    icon: DrawableResource?,
+    title: StringResource,
+    modifier: Modifier,
+) {
+    ListItem(
+        leadingContent = {
+            icon?.let {
+                Image(
+                    modifier = Modifier.height(24.dp).width(24.dp),
+                    painter = painterResource(it),
+                    contentDescription = stringResource(title),
+                )
+            }
+        },
+        headlineContent = { Text(stringResource(title)) },
+        modifier = modifier,
+    )
 }
