@@ -17,6 +17,7 @@ import platform.Foundation.NSTemporaryDirectory
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 import platform.Foundation.stringWithContentsOfFile
+import platform.UIKit.UIApplication
 import platform.UIKit.UIDevice
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
@@ -44,7 +45,8 @@ fun setupDependencies(
     buildDataStore = ::buildDataStore,
     // TODO: isBatteryCharging
     isBatteryCharging = { true },
-)
+    launchUrl = ::launchUrl,
+    )
 
 private val platformInfo
     get() =
@@ -101,3 +103,9 @@ fun buildDataStore(): DataStore<Preferences> =
             requireNotNull(documentDirectory).path + "/${Dependencies.Companion.DATA_STORE_FILE_NAME}"
         },
     )
+
+private fun launchUrl(url: String) {
+    NSURL.URLWithString(url)?.let {
+        UIApplication.sharedApplication.openURL(it)
+    }
+}

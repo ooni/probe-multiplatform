@@ -1,7 +1,9 @@
 package org.ooni.probe
 
 import android.app.Application
+import android.content.Intent
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Build
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.SharedPreferencesMigration
@@ -32,7 +34,17 @@ class AndroidApplication : Application() {
             buildDataStore = ::buildDataStore,
             // TODO: isBatteryCharging
             isBatteryCharging = { true },
+            launchUrl = ::launchUrl,
         )
+    }
+
+    private fun launchUrl(url: String) {
+        val intent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse(url),
+        )
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     private val platformInfo by lazy {

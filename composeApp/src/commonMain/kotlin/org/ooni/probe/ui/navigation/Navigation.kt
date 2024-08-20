@@ -20,6 +20,7 @@ import org.ooni.probe.ui.measurement.MeasurementScreen
 import org.ooni.probe.ui.result.ResultScreen
 import org.ooni.probe.ui.results.ResultsScreen
 import org.ooni.probe.ui.settings.SettingsScreen
+import org.ooni.probe.ui.settings.about.AboutScreen
 import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
 
 @Composable
@@ -55,6 +56,9 @@ fun Navigation(
                     dependencies.settingsViewModel(
                         goToSettingsForCategory = {
                             navController.navigate(Screen.SettingsCategory(it).route)
+                        },
+                        sendSupportEmail = {
+                            // TODO(norbel): Send support email
                         },
                     )
                 }
@@ -99,8 +103,14 @@ fun Navigation(
         ) { entry ->
             val category = entry.arguments?.getString("category") ?: return@composable
             when (category) {
-                PreferenceCategoryKey.SEND_EMAIL.name -> {
-                    // TODO: Implement based on platform
+                PreferenceCategoryKey.ABOUT_OONI.name -> {
+                    val viewModel =
+                        viewModel {
+                            dependencies.aboutViewModel(
+                                onBack = { navController.navigateUp() },
+                            )
+                        }
+                    AboutScreen(onEvent = viewModel::onEvent)
                 }
 
                 else -> {
