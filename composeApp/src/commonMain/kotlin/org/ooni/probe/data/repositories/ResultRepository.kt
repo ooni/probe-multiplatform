@@ -66,6 +66,11 @@ class ResultRepository(
             }
         }
 
+    suspend fun markAsViewed(resultId: ResultModel.Id) =
+        withContext(backgroundDispatcher) {
+            database.resultQueries.markAsViewed(resultId.value)
+        }
+
     private fun Result.toModel(): ResultModel? {
         return ResultModel(
             id = ResultModel.Id(id),

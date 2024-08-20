@@ -203,7 +203,13 @@ class Dependencies(
         resultId: ResultModel.Id,
         onBack: () -> Unit,
         goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
-    ) = ResultViewModel(resultId, onBack, goToMeasurement, getResult::invoke)
+    ) = ResultViewModel(
+        resultId = resultId,
+        onBack = onBack,
+        goToMeasurement = goToMeasurement,
+        getResult = getResult::invoke,
+        markResultAsViewed = resultRepository::markAsViewed,
+    )
 
     companion object {
         @VisibleForTesting

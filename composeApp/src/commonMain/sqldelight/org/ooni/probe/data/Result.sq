@@ -51,3 +51,6 @@ FROM Result
 LEFT JOIN Network ON Result.network_id = Network.id
 WHERE Result.id = ?
 LIMIT 1;
+
+markAsViewed:
+UPDATE Result SET is_viewed = 1 WHERE id = ?;

@@ -7,8 +7,11 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.ResultItem
@@ -19,6 +22,7 @@ class ResultViewModel(
     onBack: () -> Unit,
     goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
     getResult: (ResultModel.Id) -> Flow<ResultItem?>,
+    markResultAsViewed: suspend (ResultModel.Id) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -27,7 +31,23 @@ class ResultViewModel(
 
     init {
         getResult(resultId)
-            .onEach { result -> _state.update { it.copy(result = result) } }
+            .onEach { result ->
+                _state.update { it.copy(result = result) }
+                if (result?.result?.isViewed == false) {
+                    markResultAsViewed(resultId)
+                }
+            }
+            .launchIn(viewModelScope)
+
+        _state
+            .map { it.result }
+            .filterNotNull()
+            .take(1)
+            .onEach {
+                if (!it.result.isViewed) {
+                    markResultAsViewed(resultId)
+                }
+            }
             .launchIn(viewModelScope)
 
         events
