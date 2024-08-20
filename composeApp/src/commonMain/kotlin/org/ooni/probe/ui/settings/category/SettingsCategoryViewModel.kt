@@ -1,6 +1,5 @@
 package org.ooni.probe.ui.settings.category
 
-import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -10,10 +9,10 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import org.ooni.probe.data.repositories.PreferenceCategoryKey
+import org.ooni.probe.data.models.PreferenceCategoryKey
+import org.ooni.probe.data.models.SettingsCategoryItem
+import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
-import org.ooni.probe.data.repositories.SettingsKey
-import org.ooni.probe.ui.settings.SettingsCategoryItem
 
 class SettingsCategoryViewModel(
     preferenceManager: PreferenceRepository,
@@ -37,17 +36,10 @@ class SettingsCategoryViewModel(
             .onEach { goToSettingsForCategory(it.category) }.launchIn(viewModelScope)
 
         events.filterIsInstance<Event.CheckedChangeClick>().onEach {
-            (preferenceManager.preferenceKeyFromSettingsKey(it.key) as? Preferences.Key<Boolean>)?.let { key ->
-                preferenceManager.setValueByKey(
-                    key,
-                    it.value,
-                )
-            }
-            _state.update { state ->
-                state.copy(
-                    preference = state.preference?.plus(it.key to it.value),
-                )
-            }
+            preferenceManager.setValueByKey(
+                key = it.key,
+                value = it.value,
+            )
         }.launchIn(viewModelScope)
 
         events.filterIsInstance<Event.BackClicked>().onEach { onBack() }.launchIn(viewModelScope)

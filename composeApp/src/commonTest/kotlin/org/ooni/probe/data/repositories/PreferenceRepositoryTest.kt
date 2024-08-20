@@ -1,8 +1,8 @@
 package org.ooni.probe.data.repositories
 
-import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.ooni.probe.data.models.SettingsKey
 import org.ooni.testing.createPreferenceDataStore
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -27,12 +27,8 @@ class PreferenceRepositoryTest {
     @Test
     fun testAllSettings() =
         runTest {
-            val key: Preferences.Key<String> =
-                preferenceRepository.preferenceKeyFromSettingsKey(
-                    SettingsKey.LANGUAGE_SETTING,
-                ) as Preferences.Key<String>
             val value = "value"
-            preferenceRepository.setValueByKey(key, value)
+            preferenceRepository.setValueByKey(SettingsKey.LANGUAGE_SETTING, value)
             val setting: Map<SettingsKey, Any?> = preferenceRepository.allSettings(listOf(SettingsKey.LANGUAGE_SETTING)).first()
             assertEquals(value, setting.values.first())
         }
@@ -67,47 +63,42 @@ class PreferenceRepositoryTest {
     @Test
     fun testGetValueByKey() =
         runTest {
-            val key = preferenceRepository.preferenceKeyFromSettingsKey(SettingsKey.LANGUAGE_SETTING) as Preferences.Key<String>
             val value = "value"
-            preferenceRepository.setValueByKey(key, value)
-            assertEquals(value, preferenceRepository.getValueByKey(key = key).first())
+            preferenceRepository.setValueByKey(SettingsKey.LANGUAGE_SETTING, value)
+            assertEquals(value, preferenceRepository.getValueByKey(key = SettingsKey.LANGUAGE_SETTING).first())
         }
 
     @Test
     fun testSetValueByKey() =
         runTest {
-            val key = preferenceRepository.preferenceKeyFromSettingsKey(SettingsKey.LANGUAGE_SETTING) as Preferences.Key<String>
             val value = "value"
-            preferenceRepository.setValueByKey(key, value)
-            assertEquals(value, preferenceRepository.getValueByKey(key).first())
+            preferenceRepository.setValueByKey(SettingsKey.LANGUAGE_SETTING, value)
+            assertEquals(value, preferenceRepository.getValueByKey(SettingsKey.LANGUAGE_SETTING).first())
         }
 
     @Test
     fun testClear() =
         runTest {
-            val key = preferenceRepository.preferenceKeyFromSettingsKey(SettingsKey.LANGUAGE_SETTING) as Preferences.Key<String>
             val value = "value"
-            preferenceRepository.setValueByKey(key, value)
+            preferenceRepository.setValueByKey(SettingsKey.LANGUAGE_SETTING, value)
             preferenceRepository.clear()
-            assertNull(preferenceRepository.getValueByKey(key).first())
+            assertNull(preferenceRepository.getValueByKey(SettingsKey.LANGUAGE_SETTING).first())
         }
 
     @Test
     fun testRemove() =
         runTest {
-            val key = preferenceRepository.preferenceKeyFromSettingsKey(SettingsKey.LANGUAGE_SETTING) as Preferences.Key<String>
             val value = "value"
-            preferenceRepository.setValueByKey(key, value)
-            preferenceRepository.remove(key)
-            assertNull(preferenceRepository.getValueByKey(key).first())
+            preferenceRepository.setValueByKey(SettingsKey.LANGUAGE_SETTING, value)
+            preferenceRepository.remove(SettingsKey.LANGUAGE_SETTING)
+            assertNull(preferenceRepository.getValueByKey(SettingsKey.LANGUAGE_SETTING).first())
         }
 
     @Test
     fun testContains() =
         runTest {
-            val key = preferenceRepository.preferenceKeyFromSettingsKey(SettingsKey.LANGUAGE_SETTING) as Preferences.Key<String>
             val value = "value"
-            preferenceRepository.setValueByKey(key, value)
-            assertEquals(true, preferenceRepository.contains(key))
+            preferenceRepository.setValueByKey(SettingsKey.LANGUAGE_SETTING, value)
+            assertEquals(true, preferenceRepository.contains(SettingsKey.LANGUAGE_SETTING))
         }
 }

@@ -1,5 +1,6 @@
 package org.ooni.probe.data.repositories
 
+import androidx.annotation.VisibleForTesting
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -9,6 +10,19 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import org.ooni.probe.data.models.SettingsKey
+
+sealed class PreferenceKey<T>(val preferenceKey: Preferences.Key<T>) {
+    class IntKey(preferenceKey: Preferences.Key<Int>) : PreferenceKey<Int>(preferenceKey)
+
+    class StringKey(preferenceKey: Preferences.Key<String>) : PreferenceKey<String>(preferenceKey)
+
+    class BooleanKey(preferenceKey: Preferences.Key<Boolean>) : PreferenceKey<Boolean>(preferenceKey)
+
+    class FloatKey(preferenceKey: Preferences.Key<Float>) : PreferenceKey<Float>(preferenceKey)
+
+    class LongKey(preferenceKey: Preferences.Key<Long>) : PreferenceKey<Long>(preferenceKey)
+}
 
 class PreferenceRepository(
     private val dataStore: DataStore<Preferences>,
@@ -27,6 +41,7 @@ class PreferenceRepository(
      * @param autoRun If the preference is for auto run
      * @return The preference key
      */
+    @VisibleForTesting
     fun getPreferenceKey(
         name: String,
         prefix: String? = null,
@@ -35,19 +50,21 @@ class PreferenceRepository(
         return "${prefix?.let { "${it}_" } ?: ""}$name${if (autoRun) "_autorun" else ""}"
     }
 
-    fun preferenceKeyFromSettingsKey(
+    private fun preferenceKeyFromSettingsKey(
         key: SettingsKey,
         prefix: String? = null,
         autoRun: Boolean = false,
-    ): Preferences.Key<*> {
+    ): PreferenceKey<*> {
         val preferenceKey = getPreferenceKey(name = key.value, prefix = prefix, autoRun = autoRun)
         return when (key) {
-            SettingsKey.MAX_RUNTIME -> intPreferencesKey(preferenceKey)
-            SettingsKey.PROXY_PORT -> intPreferencesKey(preferenceKey)
-            SettingsKey.PROXY_HOSTNAME -> stringPreferencesKey(preferenceKey)
-            SettingsKey.PROXY_PROTOCOL -> stringPreferencesKey(preferenceKey)
-            SettingsKey.LANGUAGE_SETTING -> stringPreferencesKey(preferenceKey)
-            else -> booleanPreferencesKey(preferenceKey)
+            SettingsKey.MAX_RUNTIME,
+            SettingsKey.PROXY_PORT,
+            -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
+            SettingsKey.PROXY_HOSTNAME,
+            SettingsKey.PROXY_PROTOCOL,
+            SettingsKey.LANGUAGE_SETTING,
+            -> PreferenceKey.StringKey(stringPreferencesKey(preferenceKey))
+            else -> PreferenceKey.BooleanKey(booleanPreferencesKey(preferenceKey))
         }
     }
 
@@ -57,123 +74,45 @@ class PreferenceRepository(
         autoRun: Boolean = false,
     ): Flow<Map<SettingsKey, Any?>> =
         dataStore.data.map {
-            keys.map { key -> key to it[preferenceKeyFromSettingsKey(key, prefix, autoRun)] }.toMap()
+            keys.map { key -> key to it[preferenceKeyFromSettingsKey(key, prefix, autoRun).preferenceKey] }.toMap()
         }
 
-    fun <T> getValueByKey(key: Preferences.Key<T>): Flow<T?> {
-        return dataStore.data.map { it[key] }
+    fun getValueByKey(key: SettingsKey): Flow<Any?> {
+        return dataStore.data.map {
+            when (val preferenceKey = preferenceKeyFromSettingsKey(key)) {
+                is PreferenceKey.IntKey -> it[preferenceKey.preferenceKey]
+                is PreferenceKey.StringKey -> it[preferenceKey.preferenceKey]
+                is PreferenceKey.BooleanKey -> it[preferenceKey.preferenceKey]
+                is PreferenceKey.FloatKey -> it[preferenceKey.preferenceKey]
+                is PreferenceKey.LongKey -> it[preferenceKey.preferenceKey]
+            }
+        }
     }
 
     suspend fun <T> setValueByKey(
-        key: Preferences.Key<T>,
+        key: SettingsKey,
         value: T,
     ) {
-        dataStore.edit { it[key] = value }
+        dataStore.edit {
+            when (val preferenceKey = preferenceKeyFromSettingsKey(key)) {
+                is PreferenceKey.IntKey -> it[preferenceKey.preferenceKey] = value as Int
+                is PreferenceKey.StringKey -> it[preferenceKey.preferenceKey] = value as String
+                is PreferenceKey.BooleanKey -> it[preferenceKey.preferenceKey] = value as Boolean
+                is PreferenceKey.FloatKey -> it[preferenceKey.preferenceKey] = value as Float
+                is PreferenceKey.LongKey -> it[preferenceKey.preferenceKey] = value as Long
+            }
+        }
     }
 
     suspend fun clear() {
         dataStore.edit { it.clear() }
     }
 
-    suspend fun remove(key: Preferences.Key<*>) {
-        dataStore.edit { it.remove(key) }
+    suspend fun remove(key: SettingsKey) {
+        dataStore.edit { it.remove(preferenceKeyFromSettingsKey(key).preferenceKey) }
     }
 
-    suspend fun contains(key: Preferences.Key<*>): Boolean {
-        return dataStore.data.map { it.contains(key) }.firstOrNull() ?: false
+    suspend fun contains(key: SettingsKey): Boolean {
+        return dataStore.data.map { it.contains(preferenceKeyFromSettingsKey(key).preferenceKey) }.firstOrNull() ?: false
     }
-}
-
-enum class PreferenceCategoryKey(val value: String) {
-    NOTIFICATIONS("notifications"),
-    TEST_OPTIONS("test_options"),
-    PRIVACY("privacy"),
-    PROXY("proxy"),
-    ADVANCED("advanced"),
-    SEND_EMAIL("send_email"),
-    ABOUT_OONI("about_ooni"),
-
-    WEBSITES_CATEGORIES("websites_categories"),
-    SEE_RECENT_LOGS("see_recent_logs"),
-}
-
-enum class SettingsKey(val value: String) {
-    // Notifications
-    NOTIFICATIONS_ENABLED("notifications_enabled"),
-
-    // Test Options
-    AUTOMATED_TESTING_ENABLED("automated_testing_enabled"),
-    AUTOMATED_TESTING_WIFIONLY("automated_testing_wifionly"),
-    AUTOMATED_TESTING_CHARGING("automated_testing_charging"),
-    MAX_RUNTIME_ENABLED("max_runtime_enabled"),
-    MAX_RUNTIME("max_runtime"),
-
-    // Website categories
-    SRCH("SRCH"),
-    PORN("PORN"),
-    COMM("COMM"),
-    COMT("COMT"),
-    MMED("MMED"),
-    HATE("HATE"),
-    POLR("POLR"),
-    PUBH("PUBH"),
-    GAME("GAME"),
-    PROV("PROV"),
-    HACK("HACK"),
-    MILX("MILX"),
-    DATE("DATE"),
-    ANON("ANON"),
-    ALDR("ALDR"),
-    GMB("GMB"),
-    XED("XED"),
-    REL("REL"),
-    GRP("GRP"),
-    GOVT("GOVT"),
-    ECON("ECON"),
-    LGBT("LGBT"),
-    FILE("FILE"),
-    HOST("HOST"),
-    HUMR("HUMR"),
-    NEWS("NEWS"),
-    ENV("ENV"),
-    CULTR("CULTR"),
-    CTRL("CTRL"),
-    IGO("IGO"),
-
-    // Privacy
-    UPLOAD_RESULTS("upload_results"),
-    SEND_CRASH("send_crash"),
-
-    // Proxy
-    PROXY_HOSTNAME("proxy_hostname"),
-    PROXY_PORT("proxy_port"),
-
-    // Advanced
-    THEME_ENABLED("theme_enabled"),
-    LANGUAGE_SETTING("language_setting"),
-    DEBUG_LOGS("debugLogs"),
-    WARN_VPN_IN_USE("warn_vpn_in_use"),
-    STORAGE_SIZE("storage_size"), // purely decorative
-
-    // MISC
-    DELETE_UPLOADED_JSONS("deleteUploadedJsons"),
-    IS_NOTIFICATION_DIALOG("isNotificationDialog"),
-    FIRST_RUN("first_run"),
-
-    // Run Tests
-    TEST_SIGNAL("test_signal"),
-    RUN_HTTP_INVALID_REQUEST_LINE("run_http_invalid_request_line"),
-    TEST_FACEBOOK_MESSENGER("test_facebook_messenger"),
-    RUN_DASH("run_dash"),
-    WEB_CONNECTIVITY("web_connectivity"),
-    RUN_NDT("run_ndt"),
-    TEST_PSIPHON("test_psiphon"),
-    TEST_TOR("test_tor"),
-    PROXY_PROTOCOL("proxy_protocol"),
-    TEST_TELEGRAM("test_telegram"),
-    RUN_HTTP_HEADER_FIELD_MANIPULATION("run_http_header_field_manipulation"),
-    EXPERIMENTAL("experimental"),
-    TEST_WHATSAPP("test_whatsapp"),
-
-    ROUTE("route"),
 }

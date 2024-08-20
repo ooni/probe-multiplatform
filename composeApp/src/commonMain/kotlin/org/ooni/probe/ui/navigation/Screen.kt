@@ -2,8 +2,8 @@ package org.ooni.probe.ui.navigation
 
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.data.repositories.PreferenceCategoryKey
 
 sealed class Screen(
     val route: String,

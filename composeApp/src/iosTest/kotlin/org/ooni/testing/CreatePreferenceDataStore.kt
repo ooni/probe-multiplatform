@@ -8,7 +8,6 @@ import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 
-@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 internal actual fun createPreferenceDataStore(): DataStore<Preferences> {
     return Dependencies.getDataStore(
         producePath = {

@@ -9,13 +9,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.data.repositories.PreferenceCategoryKey
+import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.result.ResultScreen
 import org.ooni.probe.ui.results.ResultsScreen
-import org.ooni.probe.ui.settings.SettingsCategoryItem
 import org.ooni.probe.ui.settings.SettingsScreen
 import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
 

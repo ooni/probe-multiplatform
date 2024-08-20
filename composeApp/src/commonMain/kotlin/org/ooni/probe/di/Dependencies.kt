@@ -15,8 +15,9 @@ import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
+import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.data.repositories.PreferenceCategoryKey
+import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
@@ -30,7 +31,6 @@ import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
-import org.ooni.probe.ui.settings.SettingsCategoryItem
 import org.ooni.probe.ui.settings.SettingsViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
 

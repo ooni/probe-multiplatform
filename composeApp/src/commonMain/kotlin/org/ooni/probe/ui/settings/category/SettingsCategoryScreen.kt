@@ -29,10 +29,10 @@ import ooniprobe.composeapp.generated.resources.settings
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.data.repositories.PreferenceCategoryKey
-import org.ooni.probe.data.repositories.SettingsKey
-import org.ooni.probe.ui.settings.PreferenceItemType
-import org.ooni.probe.ui.settings.SettingsCategoryItem
+import org.ooni.probe.data.models.PreferenceCategoryKey
+import org.ooni.probe.data.models.PreferenceItemType
+import org.ooni.probe.data.models.SettingsCategoryItem
+import org.ooni.probe.data.models.SettingsKey
 
 @Composable
 fun SettingsCategoryScreen(

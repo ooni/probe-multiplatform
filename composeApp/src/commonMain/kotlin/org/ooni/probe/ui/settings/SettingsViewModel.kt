@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.ooni.probe.data.repositories.PreferenceCategoryKey
+import org.ooni.probe.data.models.PreferenceCategoryKey
 
 open class SettingsViewModel(
     goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
