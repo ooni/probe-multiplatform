@@ -91,7 +91,7 @@ class RunNetTest(
                     event.index,
                     MeasurementModel(
                         test = spec.netTest.test,
-                        reportId = reportId,
+                        reportId = reportId?.let(MeasurementModel::ReportId),
                         resultId = result.id ?: return,
                         urlId = if (event.url.isNullOrEmpty()) {
                             null

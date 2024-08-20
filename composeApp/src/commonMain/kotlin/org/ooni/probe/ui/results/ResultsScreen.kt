@@ -65,7 +65,7 @@ fun ResultsScreen(
 }
 
 @Composable
-fun ResultDateHeader(date: LocalDate) {
+private fun ResultDateHeader(date: LocalDate) {
     Text(
         date.format(
             Format {
@@ -84,7 +84,7 @@ fun ResultDateHeader(date: LocalDate) {
 }
 
 @Composable
-fun ResultItem(
+private fun ResultItem(
     item: ResultListItem,
     onResultClick: () -> Unit,
 ) {
@@ -112,6 +112,7 @@ fun ResultItem(
                 Text(
                     item.network?.networkName ?: stringResource(Res.string.TestResults_UnknownASN),
                     style = MaterialTheme.typography.titleLarge,
+                    maxLines = 3,
                 )
 
                 Text(
@@ -147,11 +148,10 @@ fun ResultItem(
                     ) {
                         Icon(
                             painterResource(Res.drawable.ic_cloud_off),
-                            tint = MaterialTheme.typography.labelLarge.color,
                             contentDescription = null,
                             modifier = Modifier
                                 .size(16.dp)
-                                .padding(end = 2.dp),
+                                .padding(end = 4.dp),
                         )
                         Text(
                             stringResource(Res.string.Snackbar_ResultsNotUploaded_Text).lowercase(),

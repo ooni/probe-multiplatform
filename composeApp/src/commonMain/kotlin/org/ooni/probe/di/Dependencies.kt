@@ -21,6 +21,7 @@ import org.ooni.probe.data.disk.DeleteFile
 import org.ooni.probe.data.disk.DeleteFileOkio
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.disk.WriteFileOkio
+import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.SettingsCategoryItem
@@ -201,7 +202,8 @@ class Dependencies(
     fun resultViewModel(
         resultId: ResultModel.Id,
         onBack: () -> Unit,
-    ) = ResultViewModel(resultId, onBack, getResult::invoke)
+        goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+    ) = ResultViewModel(resultId, onBack, goToMeasurement, getResult::invoke)
 
     companion object {
         @VisibleForTesting

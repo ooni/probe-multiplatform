@@ -131,7 +131,7 @@ class Engine(
         options =
             TaskSettings.Options(
                 // TODO: fetch from preferences
-                noCollector = true,
+                noCollector = false,
                 softwareName = buildSoftwareName(taskOrigin),
                 softwareVersion = platformInfo.version,
                 maxRuntime = maxRuntime?.inWholeSeconds?.toInt() ?: -1,

@@ -39,7 +39,7 @@ SELECT
     Result.*,
     Network.*,
     (SELECT COUNT(Measurement.id) FROM Measurement WHERE Measurement.result_id = Result.id) AS measurementsCount,
-    (SELECT COUNT(Measurement.id) FROM Measurement WHERE Measurement.is_uploaded = 0) == 0 AS allMeasurementsUploaded
+    (SELECT COUNT(Measurement.id) FROM Measurement WHERE Measurement.is_uploaded = 0 AND Measurement.result_id = Result.id) == 0 AS allMeasurementsUploaded
 FROM Result
 LEFT JOIN Network ON Result.network_id = Network.id
 ORDER BY Result.start_time DESC

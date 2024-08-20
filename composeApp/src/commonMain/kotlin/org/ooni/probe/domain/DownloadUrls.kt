@@ -14,7 +14,7 @@ class DownloadUrls(
     suspend operator fun invoke(taskOrigin: TaskOrigin): Result<List<UrlModel>, Engine.MkException> =
         engineCheckIn(taskOrigin)
             .map { results ->
-                val urls = results.urls.map { it.toModel() }
+                val urls = results.urls.map { it.toModel() }.take(5)
                 storeUrlsByUrl(urls)
             }
 

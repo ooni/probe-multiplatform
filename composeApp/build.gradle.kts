@@ -104,8 +104,9 @@ kotlin {
         all {
             languageSettings {
                 optIn("kotlin.ExperimentalStdlibApi")
-                optIn("kotlinx.cinterop.ExperimentalForeignApi")
+                optIn("kotlin.io.encoding.ExperimentalEncodingApi")
                 optIn("kotlinx.cinterop.BetaInteropApi")
+                optIn("kotlinx.cinterop.ExperimentalForeignApi")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 optIn("androidx.compose.foundation.ExperimentalFoundationApi")
                 optIn("androidx.compose.material3.ExperimentalMaterial3Api")
