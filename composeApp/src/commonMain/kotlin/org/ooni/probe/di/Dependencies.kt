@@ -35,6 +35,7 @@ import org.ooni.probe.domain.BootstrapTestDescriptors
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
+import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
 import org.ooni.probe.domain.GetTestDescriptors
@@ -73,7 +74,7 @@ class Dependencies(
         MeasurementRepository(database, backgroundDispatcher)
     }
     private val networkRepository by lazy { NetworkRepository(database, backgroundDispatcher) }
-    private val preferenceManager by lazy { PreferenceRepository(buildDataStore()) }
+    private val preferenceRepository by lazy { PreferenceRepository(buildDataStore()) }
     private val resultRepository by lazy { ResultRepository(database, backgroundDispatcher) }
     private val testDescriptorRepository by lazy {
         TestDescriptorRepository(database, json, backgroundDispatcher)
@@ -97,6 +98,7 @@ class Dependencies(
             networkTypeFinder = networkTypeFinder,
             isBatteryCharging = isBatteryCharging,
             platformInfo = platformInfo,
+            getEnginePreferences = getEnginePreferences::invoke,
             backgroundDispatcher = backgroundDispatcher,
         )
     }
@@ -119,6 +121,7 @@ class Dependencies(
         GetBootstrapTestDescriptors(readAssetFile, json, backgroundDispatcher)
     }
     private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
+    private val getEnginePreferences by lazy { GetEnginePreferences(preferenceRepository) }
     private val getResults by lazy {
         GetResults(
             resultRepository.listWithNetwork(),
@@ -164,9 +167,10 @@ class Dependencies(
             storeResult = resultRepository::createOrUpdate,
             getCurrentTestRunState = testStateManager.observeState(),
             setCurrentTestState = testStateManager::updateState,
+            runNetTest = { runNetTest(it)() },
             observeCancelTestRun = testStateManager.observeTestRunCancels(),
             reportTestRunError = testStateManager::reportError,
-            runNetTest = { runNetTest(it)() },
+            getEnginePreferences = getEnginePreferences::invoke,
         )
     }
 
@@ -193,7 +197,7 @@ class Dependencies(
         onBack: () -> Unit,
         category: SettingsCategoryItem,
     ) = SettingsCategoryViewModel(
-        preferenceManager = preferenceManager,
+        preferenceManager = preferenceRepository,
         onBack = onBack,
         goToSettingsForCategory = goToSettingsForCategory,
         category = category,

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.take
 import org.ooni.engine.Engine.MkException
+import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
@@ -17,6 +18,7 @@ import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.data.models.UrlModel
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 class RunDescriptors(
@@ -25,20 +27,22 @@ class RunDescriptors(
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
     private val getCurrentTestRunState: Flow<TestRunState>,
     private val setCurrentTestState: ((TestRunState) -> TestRunState) -> Unit,
+    private val runNetTest: suspend (RunNetTest.Specification) -> Unit,
     private val observeCancelTestRun: Flow<Unit>,
     private val reportTestRunError: (TestRunError) -> Unit,
-    private val runNetTest: suspend (RunNetTest.Specification) -> Unit,
+    private val getEnginePreferences: suspend () -> EnginePreferences,
 ) {
     suspend operator fun invoke(spec: RunSpecification) {
         val descriptors = getTestDescriptorsBySpec(spec)
         val descriptorsWithFinalInputs = descriptors.prepareInputs(spec.taskOrigin)
+        val estimatedRuntime = descriptorsWithFinalInputs.getEstimatedRuntime()
 
         if (getCurrentTestRunState.first() is TestRunState.Running) {
             Logger.i("Tests are already running, so we won't run other tests")
             return
         }
         setCurrentTestState {
-            TestRunState.Running(estimatedRuntime = descriptorsWithFinalInputs.estimatedRuntime)
+            TestRunState.Running(estimatedRuntime = estimatedRuntime)
         }
 
         runDescriptorsCancellable(descriptorsWithFinalInputs, spec)
@@ -105,12 +109,15 @@ class RunDescriptors(
         return urls
     }
 
-    private val List<Descriptor>.estimatedRuntime
-        get() = map { descriptor ->
-            descriptor.netTests.sumOf {
-                it.test.runtime(it.inputs).inWholeSeconds
-            }.seconds
+    private suspend fun List<Descriptor>.getEstimatedRuntime(): List<Duration> {
+        val maxRuntime = getEnginePreferences().maxRuntime
+        return map { descriptor ->
+            descriptor.netTests
+                .sumOf { it.test.runtime(it.inputs).inWholeSeconds }
+                .seconds
+                .coerceAtMost(maxRuntime ?: Duration.INFINITE)
         }
+    }
 
     private suspend fun runDescriptor(
         descriptor: Descriptor,
@@ -130,8 +137,6 @@ class RunDescriptors(
                     netTest = netTest,
                     taskOrigin = taskOrigin,
                     isRerun = isRerun,
-                    // TODO: fetch max runtime from preferences
-                    maxRuntime = null,
                     initialResult = resultWithId,
                     testIndex = index,
                 ),

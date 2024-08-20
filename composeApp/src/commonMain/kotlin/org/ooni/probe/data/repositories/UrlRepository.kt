@@ -89,6 +89,6 @@ fun Url.toModel(): UrlModel? {
         id = UrlModel.Id(id),
         url = url ?: return null,
         countryCode = country_code,
-        category = category_code?.let(WebConnectivityCategory::fromCode),
+        category = WebConnectivityCategory.fromCode(category_code),
     )
 }

@@ -22,6 +22,6 @@ class DownloadUrls(
         UrlModel(
             url = url,
             countryCode = countryCode,
-            category = categoryCode?.let(WebConnectivityCategory::fromCode),
+            category = WebConnectivityCategory.fromCode(categoryCode),
         )
 }
