@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.settings
+import ooniprobe.composeapp.generated.resources.Settings_Title
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
@@ -24,7 +24,7 @@ fun SettingsScreen(onNavigateToSettingsCategory: (SettingsViewModel.Event) -> Un
     Column {
         TopAppBar(
             title = {
-                Text(stringResource(Res.string.settings))
+                Text(stringResource(Res.string.Settings_Title))
             },
         )
 

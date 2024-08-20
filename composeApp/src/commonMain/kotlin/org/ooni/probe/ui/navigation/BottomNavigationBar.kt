@@ -9,13 +9,13 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
+import ooniprobe.composeapp.generated.resources.Dashboard_Tab_Label
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Tab_Label
-import ooniprobe.composeapp.generated.resources.dashboard
 import ooniprobe.composeapp.generated.resources.ic_dashboard
 import ooniprobe.composeapp.generated.resources.ic_history
 import ooniprobe.composeapp.generated.resources.ic_settings
-import ooniprobe.composeapp.generated.resources.settings
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -63,9 +63,9 @@ fun BottomNavigationBar(navController: NavController) {
 private val Screen.titleRes
     get() =
         when (this) {
-            Screen.Dashboard -> Res.string.dashboard
+            Screen.Dashboard -> Res.string.Dashboard_Tab_Label
             Screen.Results -> Res.string.TestResults_Overview_Tab_Label
-            Screen.Settings -> Res.string.settings
+            Screen.Settings -> Res.string.Settings_Title
             else -> throw IllegalArgumentException("Only main screens allowed in bottom navigation")
         }
 

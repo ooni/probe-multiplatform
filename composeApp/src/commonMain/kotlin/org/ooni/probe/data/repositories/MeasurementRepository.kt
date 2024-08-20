@@ -9,7 +9,10 @@ import kotlinx.coroutines.withContext
 import org.ooni.engine.models.TestType
 import org.ooni.probe.Database
 import org.ooni.probe.data.Measurement
+import org.ooni.probe.data.SelectByResultIdWithUrl
+import org.ooni.probe.data.Url
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.toEpoch
@@ -22,6 +25,13 @@ class MeasurementRepository(
     fun list(): Flow<List<MeasurementModel>> =
         database.measurementQueries
             .selectAll()
+            .asFlow()
+            .mapToList(backgroundDispatcher)
+            .map { list -> list.mapNotNull { it.toModel() } }
+
+    fun listByResultId(id: ResultModel.Id) =
+        database.measurementQueries
+            .selectByResultIdWithUrl(id.value)
             .asFlow()
             .mapToList(backgroundDispatcher)
             .map { list -> list.mapNotNull { it.toModel() } }
@@ -74,6 +84,38 @@ class MeasurementRepository(
             rerunNetwork = rerun_network,
             urlId = url_id?.let(UrlModel::Id),
             resultId = result_id?.let(ResultModel::Id) ?: return null,
+        )
+    }
+
+    private fun SelectByResultIdWithUrl.toModel(): MeasurementWithUrl? {
+        return MeasurementWithUrl(
+            measurement = Measurement(
+                id = id,
+                test_name = test_name,
+                start_time = start_time,
+                runtime = runtime,
+                is_done = is_done,
+                is_uploaded = is_uploaded,
+                is_failed = is_failed,
+                failure_msg = failure_msg,
+                is_upload_failed = is_upload_failed,
+                upload_failure_msg = upload_failure_msg,
+                is_rerun = is_rerun,
+                is_anomaly = is_anomaly,
+                report_id = report_id,
+                test_keys = test_keys,
+                rerun_network = rerun_network,
+                url_id = url_id,
+                result_id = result_id,
+            ).toModel() ?: return null,
+            url = id_?.let { urlId ->
+                Url(
+                    id = urlId,
+                    url = url,
+                    country_code = country_code,
+                    category_code = category_code,
+                ).toModel()
+            },
         )
     }
 }

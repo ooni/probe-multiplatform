@@ -93,12 +93,11 @@ class RunNetTest(
                         test = spec.netTest.test,
                         reportId = reportId,
                         resultId = result.id ?: return,
-                        urlId =
-                            if (event.url.isNotEmpty()) {
-                                getUrlByUrl(event.url).first()?.id
-                            } else {
-                                null
-                            },
+                        urlId = if (event.url.isNullOrEmpty()) {
+                            null
+                        } else {
+                            getUrlByUrl(event.url).first()?.id
+                        },
                     ),
                 )
             }

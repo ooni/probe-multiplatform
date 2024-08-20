@@ -27,4 +27,7 @@ data class Descriptor(
     }
 
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
+
+    companion object {
+    }
 }

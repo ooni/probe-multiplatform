@@ -10,12 +10,14 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.data.models.ResultModel
 
 class ResultViewModel(
     resultId: ResultModel.Id,
     onBack: () -> Unit,
-    getResult: (ResultModel.Id) -> Flow<ResultModel?>,
+    getResult: (ResultModel.Id) -> Flow<ResultItem?>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -38,10 +40,12 @@ class ResultViewModel(
     }
 
     data class State(
-        val result: ResultModel?,
+        val result: ResultItem?,
     )
 
     sealed interface Event {
         data object BackClicked : Event
+
+        data class MeasurementClicked(val measurementId: MeasurementModel.Id) : Event
     }
 }

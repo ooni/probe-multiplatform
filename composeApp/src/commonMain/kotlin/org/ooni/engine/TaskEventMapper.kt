@@ -98,15 +98,10 @@ class TaskEventMapper(
                 TaskEvent.MeasurementDone(index = value?.idx ?: 0)
 
             "status.measurement_start" ->
-                value?.input?.ifEmpty { null }?.let { url ->
-                    TaskEvent.MeasurementStart(
-                        index = value.idx,
-                        url = url,
-                    )
-                } ?: run {
-                    Logger.d("Task Event $key missing 'input'")
-                    null
-                }
+                TaskEvent.MeasurementStart(
+                    index = value?.idx ?: 0,
+                    url = value?.input,
+                )
 
             "status.measurement_submission" ->
                 TaskEvent.MeasurementSubmissionSuccessful(index = value?.idx ?: 0)

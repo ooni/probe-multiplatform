@@ -1,6 +1,8 @@
 package org.ooni.probe
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -37,11 +39,15 @@ fun App(dependencies: Dependencies) {
                 Scaffold(
                     snackbarHost = { SnackbarHost(snackbarHostState) },
                     bottomBar = { BottomNavigationBar(navController) },
-                ) {
-                    Navigation(
-                        navController = navController,
-                        dependencies = dependencies,
-                    )
+                ) { paddingValues ->
+                    Box(
+                        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding()),
+                    ) {
+                        Navigation(
+                            navController = navController,
+                            dependencies = dependencies,
+                        )
+                    }
                 }
             }
         }
