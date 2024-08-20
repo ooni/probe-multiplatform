@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
@@ -14,12 +15,15 @@ import kotlinx.coroutines.launch
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.RunSpecification
-import org.ooni.probe.data.models.TestState
+import org.ooni.probe.data.models.TestRunError
+import org.ooni.probe.data.models.TestRunState
 
 class DashboardViewModel(
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     runDescriptors: suspend (RunSpecification) -> Unit,
-    getCurrentTestState: () -> Flow<TestState>,
+    cancelTestRun: () -> Unit,
+    observeTestRunState: Flow<TestRunState>,
+    observeTestRunErrors: Flow<TestRunError>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -33,24 +37,39 @@ class DashboardViewModel(
             }
             .launchIn(viewModelScope)
 
-        getCurrentTestState()
+        observeTestRunState
             .onEach { testState ->
-                _state.update { it.copy(testState = testState) }
+                _state.update { it.copy(testRunState = testState) }
+            }
+            .launchIn(viewModelScope)
+
+        observeTestRunErrors
+            .onEach { error ->
+                _state.update { it.copy(testRunErrors = it.testRunErrors + error) }
             }
             .launchIn(viewModelScope)
 
         events
-            .onEach { event ->
-                when (event) {
-                    Event.StartClick -> {
-                        coroutineScope {
-                            launch {
-                                runDescriptors(buildRunSpecification())
-                            }
-                        }
+            .filterIsInstance<Event.RunTestsClick>()
+            .onEach {
+                coroutineScope {
+                    launch {
+                        runDescriptors(buildRunSpecification())
                     }
                 }
-            }.launchIn(viewModelScope)
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.StopTestsClick>()
+            .onEach { cancelTestRun() }
+            .launchIn(viewModelScope)
+        events
+            .filterIsInstance<Event.ErrorDisplayed>()
+            .onEach { event ->
+                _state.update { it.copy(testRunErrors = it.testRunErrors - event.error) }
+            }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -92,10 +111,15 @@ class DashboardViewModel(
 
     data class State(
         val tests: Map<DescriptorType, List<Descriptor>> = emptyMap(),
-        val testState: TestState = TestState.Idle,
+        val testRunState: TestRunState = TestRunState.Idle,
+        val testRunErrors: List<TestRunError> = emptyList(),
     )
 
     sealed interface Event {
-        data object StartClick : Event
+        data object RunTestsClick : Event
+
+        data object StopTestsClick : Event
+
+        data class ErrorDisplayed(val error: TestRunError) : Event
     }
 }

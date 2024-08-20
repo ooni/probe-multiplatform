@@ -3,9 +3,14 @@ package org.ooni.probe
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
@@ -19,21 +24,25 @@ import org.ooni.probe.ui.theme.AppTheme
 @Preview
 fun App(dependencies: Dependencies) {
     val navController = rememberNavController()
+    val snackbarHostState = remember { SnackbarHostState() }
 
-    AppTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background,
-        ) {
-            Scaffold(
-                bottomBar = {
-                    BottomNavigationBar(navController)
-                },
+    CompositionLocalProvider(
+        values = arrayOf(LocalSnackbarHostState provides snackbarHostState),
+    ) {
+        AppTheme {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background,
             ) {
-                Navigation(
-                    navController = navController,
-                    dependencies = dependencies,
-                )
+                Scaffold(
+                    snackbarHost = { SnackbarHost(snackbarHostState) },
+                    bottomBar = { BottomNavigationBar(navController) },
+                ) {
+                    Navigation(
+                        navController = navController,
+                        dependencies = dependencies,
+                    )
+                }
             }
         }
     }
@@ -56,3 +65,5 @@ private fun logAppStart(dependencies: Dependencies) {
         )
     }
 }
+
+val LocalSnackbarHostState = compositionLocalOf<SnackbarHostState?> { null }

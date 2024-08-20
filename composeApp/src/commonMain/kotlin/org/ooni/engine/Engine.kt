@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.isActive
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
@@ -48,20 +49,19 @@ class Engine(
             try {
                 task = bridge.startTask(settingsSerialized)
 
-                while (!task.isDone()) {
+                while (!task.isDone() && isActive) {
                     val eventJson = task.waitForNextEvent()
                     val taskEventResult = json.decodeFromString<TaskEventResult>(eventJson)
                     taskEventMapper(taskEventResult)?.let { send(it) }
                 }
+            } catch (e: CancellationException) {
+                Logger.d("Test cancelled")
+                throw e
             } catch (e: Exception) {
-                task?.interrupt()
+                Logger.d("Error while running task", e)
                 throw MkException(e)
-            }
-
-            invokeOnClose {
-                if (it is CancellationException) {
-                    task.interrupt()
-                }
+            } finally {
+                task?.interrupt()
             }
         }.flowOn(backgroundDispatcher)
 

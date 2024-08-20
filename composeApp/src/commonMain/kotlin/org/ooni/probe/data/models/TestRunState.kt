@@ -4,8 +4,8 @@ import org.ooni.engine.models.TestType
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-sealed interface TestState {
-    data object Idle : TestState
+sealed interface TestRunState {
+    data object Idle : TestRunState
 
     data class Running(
         val descriptorName: String? = null,
@@ -14,7 +14,7 @@ sealed interface TestState {
         val testProgress: Double = 0.0,
         val testIndex: Int = 0,
         val log: String? = "",
-    ) : TestState {
+    ) : TestRunState {
         val estimatedTimeLeft: Duration?
             get() {
                 if (estimatedRuntime == null) return null
@@ -26,4 +26,6 @@ sealed interface TestState {
                 return remainingTests + remainingFromCurrentTest
             }
     }
+
+    data object Stopping : TestRunState
 }
