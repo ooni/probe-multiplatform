@@ -38,7 +38,7 @@ class AndroidApplication : Application() {
         }
     }
 
-    private fun buildDatabaseDriver(): SqlDriver = AndroidSqliteDriver(Database.Schema, this, "v2")
+    private fun buildDatabaseDriver(): SqlDriver = AndroidSqliteDriver(Database.Schema, this, "v2.db")
 
     private fun readAssetFile(path: String) = assets.open(path).bufferedReader().use { it.readText() }
 }
