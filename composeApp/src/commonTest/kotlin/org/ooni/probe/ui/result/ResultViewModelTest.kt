@@ -42,10 +42,12 @@ class ResultViewModelTest {
         onBack: () -> Unit = {},
         goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit = { _, _ -> },
         getResult: (ResultModel.Id) -> Flow<ResultItem?> = { flowOf(null) },
+        markResultAsViewed: (ResultModel.Id) -> Unit = {},
     ) = ResultViewModel(
         resultId = resultId,
         onBack = onBack,
         goToMeasurement = goToMeasurement,
         getResult = getResult,
+        markResultAsViewed = markResultAsViewed,
     )
 }

@@ -89,12 +89,11 @@ private fun ResultItem(
     onResultClick: () -> Unit,
 ) {
     Surface(
-        color =
-            if (item.result.isViewed) {
-                MaterialTheme.colorScheme.surface
-            } else {
-                MaterialTheme.colorScheme.surfaceVariant
-            },
+        color = if (item.result.isViewed) {
+            MaterialTheme.colorScheme.surface
+        } else {
+            MaterialTheme.colorScheme.surfaceVariant
+        },
         modifier = Modifier.padding(top = 1.dp),
     ) {
         Row(
