@@ -42,15 +42,15 @@ class AndroidApplication : Application() {
 
     private fun launchUrl(
         url: String,
-        extras: Map<String, String>?
+        extras: Map<String, String>?,
     ) {
-        val uri =Uri.parse(url)
+        val uri = Uri.parse(url)
         val intent = Intent(
             when (uri.scheme) {
                 "mailto" -> Intent.ACTION_SENDTO
                 else -> Intent.ACTION_VIEW
             },
-            uri
+            uri,
         ).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
