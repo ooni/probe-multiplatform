@@ -59,6 +59,7 @@
     <string name="Settings_Proxy_Label">OONI backend proxy</string>
     <string name="Settings_Advanced_Label">Advanced</string>
     <string name="Settings_SendEmail_Label">Send email to support</string>
+    <string name="Settings_SendEmail_Message">Please describe the problem you are experiencing:</string>
 
     <string name="Settings_Advanced_DebugLogs">Debug logs</string>
     <string name="Settings_Advanced_RecentLogs">See recent logs</string>

@@ -40,13 +40,36 @@ class AndroidApplication : Application() {
         )
     }
 
-    private fun launchUrl(url: String) {
+    private fun launchUrl(
+        url: String,
+        extras: Map<String, String>?
+    ) {
+        val uri =Uri.parse(url)
         val intent = Intent(
-            Intent.ACTION_VIEW,
-            Uri.parse(url),
-        )
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
+            when (uri.scheme) {
+                "mailto" -> Intent.ACTION_SENDTO
+                else -> Intent.ACTION_VIEW
+            },
+            uri
+        ).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
+        if (uri.scheme == "mailto") {
+            val chooserTitle = extras?.get("chooserTitle") ?: "Send email"
+            val mailerIntent = Intent.createChooser(intent, chooserTitle).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                extras?.forEach { (key, value) ->
+                    when (key) {
+                        "subject" -> putExtra(Intent.EXTRA_SUBJECT, value)
+                        "body" -> putExtra(Intent.EXTRA_TEXT, value)
+                    }
+                }
+            }
+            startActivity(mailerIntent)
+        } else {
+            startActivity(intent)
+        }
     }
 
     private val platformInfo by lazy {

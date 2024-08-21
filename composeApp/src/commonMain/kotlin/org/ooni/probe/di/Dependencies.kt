@@ -61,7 +61,7 @@ class Dependencies(
     private val networkTypeFinder: NetworkTypeFinder,
     private val buildDataStore: () -> DataStore<Preferences>,
     private val isBatteryCharging: () -> Boolean,
-    private val launchUrl: (String) -> Unit,
+    private val launchUrl: (String, Map<String, String>?) -> Unit,
 ) {
     // Common
 
@@ -223,7 +223,12 @@ class Dependencies(
         markResultAsViewed = resultRepository::markAsViewed,
     )
 
-    fun aboutViewModel(onBack: () -> Unit) = AboutViewModel(onBack, launchUrl)
+    fun aboutViewModel(onBack: () -> Unit) =
+        AboutViewModel(onBack) {
+            launchUrl(it, emptyMap())
+        }
+
+    fun sendSupportEmail(): (String, Map<String, String>) -> Unit = launchUrl
 
     companion object {
         @VisibleForTesting
