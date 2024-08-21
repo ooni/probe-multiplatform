@@ -23,7 +23,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.back
-import ooniprobe.composeapp.generated.resources.ic_settings
+import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
@@ -91,9 +91,13 @@ private fun ResultMeasurementItem(
             .padding(16.dp),
     ) {
         Icon(
-            // TODO: Better fallback for nettest icon
-            // TODO: Web categories icon
-            painterResource(test.iconRes ?: Res.drawable.ic_settings),
+            painterResource(
+                if (test == TestType.WebConnectivity && item.url != null) {
+                    item.url.category.icon
+                } else {
+                    test.iconRes ?: Res.drawable.ooni_empty_state
+                },
+            ),
             contentDescription = null,
             modifier = Modifier
                 .padding(end = 16.dp)

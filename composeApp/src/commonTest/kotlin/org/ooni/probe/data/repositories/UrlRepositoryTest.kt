@@ -66,7 +66,7 @@ class UrlRepositoryTest {
                     id = UrlModel.Id(Random.nextLong().absoluteValue),
                     url = "https://example.org",
                     countryCode = null,
-                    category = null,
+                    category = WebConnectivityCategory.MISC,
                 )
             subject.createOrUpdate(existingModel)
 

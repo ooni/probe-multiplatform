@@ -19,10 +19,9 @@ import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.toLocalDateTime
-import kotlin.time.Duration
 
 class RunNetTest(
-    private val startTest: (String, List<String>?, TaskOrigin, Duration?) -> Flow<TaskEvent>,
+    private val startTest: (String, List<String>?, TaskOrigin) -> Flow<TaskEvent>,
     private val getUrlByUrl: suspend (String) -> Flow<UrlModel?>,
     private val storeMeasurement: suspend (MeasurementModel) -> MeasurementModel.Id,
     private val storeNetwork: suspend (NetworkModel) -> NetworkModel.Id,
@@ -38,7 +37,6 @@ class RunNetTest(
         val netTest: NetTest,
         val taskOrigin: TaskOrigin,
         val isRerun: Boolean,
-        val maxRuntime: Duration?,
         val initialResult: ResultModel,
         val testIndex: Int,
     )
@@ -59,7 +57,7 @@ class RunNetTest(
             )
         }
 
-        startTest(spec.netTest.test.name, spec.netTest.inputs, spec.taskOrigin, spec.maxRuntime)
+        startTest(spec.netTest.test.name, spec.netTest.inputs, spec.taskOrigin)
             .collect(::onEvent)
     }
 

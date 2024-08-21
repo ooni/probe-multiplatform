@@ -7,7 +7,7 @@ object UrlModelFactory {
     fun build(
         id: UrlModel.Id? = null,
         url: String = "https://ooni.org",
-        category: WebConnectivityCategory? = null,
+        category: WebConnectivityCategory = WebConnectivityCategory.MISC,
         countryCode: String? = null,
     ) = UrlModel(
         id = id,

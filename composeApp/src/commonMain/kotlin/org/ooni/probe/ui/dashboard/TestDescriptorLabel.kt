@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.ic_settings
+import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.ooni.probe.data.models.Descriptor
 
@@ -23,8 +23,7 @@ fun TestDescriptorLabel(descriptor: Descriptor) {
         modifier = Modifier.padding(bottom = 2.dp),
     ) {
         Icon(
-            // TODO: pick better fallback icon
-            painter = painterResource(descriptor.icon ?: Res.drawable.ic_settings),
+            painter = painterResource(descriptor.icon ?: Res.drawable.ooni_empty_state),
             contentDescription = null,
             tint = descriptor.color ?: Color.Unspecified,
             modifier =
