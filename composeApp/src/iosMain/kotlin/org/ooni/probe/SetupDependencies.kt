@@ -17,8 +17,11 @@ import platform.Foundation.NSTemporaryDirectory
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 import platform.Foundation.stringWithContentsOfFile
+import platform.MessageUI.MFMailComposeViewController
+import platform.UIKit.UIApplication
 import platform.UIKit.UIDevice
 import platform.UIKit.UIDeviceBatteryState
+import platform.UIKit.UIPasteboard
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
 
@@ -44,6 +47,7 @@ fun setupDependencies(
     networkTypeFinder = networkTypeFinder,
     buildDataStore = ::buildDataStore,
     isBatteryCharging = ::checkBatteryCharging,
+    launchUrl = ::launchUrl,
 )
 
 private val platformInfo
@@ -106,3 +110,33 @@ fun buildDataStore(): DataStore<Preferences> =
             requireNotNull(documentDirectory).path + "/${Dependencies.Companion.DATA_STORE_FILE_NAME}"
         },
     )
+
+private fun launchUrl(
+    url: String,
+    extras: Map<String, String>?,
+) {
+    NSURL.URLWithString(url)?.let {
+        if (it.scheme == "mailto") {
+            MFMailComposeViewController.canSendMail().let { canSendMail ->
+                val email = it.toString().removePrefix("mailto:")
+                if (canSendMail) {
+                    MFMailComposeViewController().apply {
+                        setToRecipients(listOf(email))
+                        extras?.forEach { (key, value) ->
+                            when (key) {
+                                "subject" -> setSubject(value)
+                                "body" -> setMessageBody(value, isHTML = false)
+                            }
+                        }
+                    }.let {
+                        UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(it, true, null)
+                    }
+                } else {
+                    UIPasteboard.generalPasteboard.string = email
+                }
+            }
+        } else {
+            UIApplication.sharedApplication.openURL(it)
+        }
+    }
+}

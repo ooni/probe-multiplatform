@@ -48,6 +48,7 @@ import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.settings.SettingsViewModel
+import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
 
 class Dependencies(
@@ -60,6 +61,7 @@ class Dependencies(
     private val networkTypeFinder: NetworkTypeFinder,
     private val buildDataStore: () -> DataStore<Preferences>,
     private val isBatteryCharging: () -> Boolean,
+    private val launchUrl: (String, Map<String, String>?) -> Unit,
 ) {
     // Common
 
@@ -190,7 +192,13 @@ class Dependencies(
 
     fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) = ResultsViewModel(goToResult, getResults::invoke)
 
-    fun settingsViewModel(goToSettingsForCategory: (PreferenceCategoryKey) -> Unit) = SettingsViewModel(goToSettingsForCategory)
+    fun settingsViewModel(
+        goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
+        sendSupportEmail: () -> Unit,
+    ) = SettingsViewModel(
+        goToSettingsForCategory,
+        sendSupportEmail,
+    )
 
     fun settingsCategoryViewModel(
         goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
@@ -214,6 +222,13 @@ class Dependencies(
         getResult = getResult::invoke,
         markResultAsViewed = resultRepository::markAsViewed,
     )
+
+    fun aboutViewModel(onBack: () -> Unit) =
+        AboutViewModel(onBack) {
+            launchUrl(it, emptyMap())
+        }
+
+    fun sendSupportEmail(): (String, Map<String, String>) -> Unit = launchUrl
 
     companion object {
         @VisibleForTesting

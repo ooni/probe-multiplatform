@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
 import androidx.datastore.core.DataStore
@@ -35,7 +36,40 @@ class AndroidApplication : Application() {
                 AndroidNetworkTypeFinder(getSystemService(ConnectivityManager::class.java)),
             buildDataStore = ::buildDataStore,
             isBatteryCharging = ::checkBatteryCharging,
+            launchUrl = ::launchUrl,
         )
+    }
+
+    private fun launchUrl(
+        url: String,
+        extras: Map<String, String>?,
+    ) {
+        val uri = Uri.parse(url)
+        val intent = Intent(
+            when (uri.scheme) {
+                "mailto" -> Intent.ACTION_SENDTO
+                else -> Intent.ACTION_VIEW
+            },
+            uri,
+        ).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
+        if (uri.scheme == "mailto") {
+            val chooserTitle = extras?.get("chooserTitle") ?: "Send email"
+            val mailerIntent = Intent.createChooser(intent, chooserTitle).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                extras?.forEach { (key, value) ->
+                    when (key) {
+                        "subject" -> putExtra(Intent.EXTRA_SUBJECT, value)
+                        "body" -> putExtra(Intent.EXTRA_TEXT, value)
+                    }
+                }
+            }
+            startActivity(mailerIntent)
+        } else {
+            startActivity(intent)
+        }
     }
 
     private val platformInfo by lazy {

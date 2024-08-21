@@ -10,12 +10,21 @@ import org.ooni.probe.data.models.PreferenceCategoryKey
 
 open class SettingsViewModel(
     goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
+    sendSupportEmail: () -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
     init {
         events.filterIsInstance<Event.SettingsCategoryClick>()
-            .onEach { goToSettingsForCategory(it.category) }.launchIn(viewModelScope)
+            .onEach {
+                when (it.category) {
+                    PreferenceCategoryKey.SEND_EMAIL -> {
+                        sendSupportEmail()
+                    } else -> {
+                        goToSettingsForCategory(it.category)
+                    }
+                }
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
