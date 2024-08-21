@@ -18,6 +18,7 @@ import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 import platform.Foundation.stringWithContentsOfFile
 import platform.UIKit.UIDevice
+import platform.UIKit.UIDeviceBatteryState
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
 
@@ -42,8 +43,7 @@ fun setupDependencies(
     databaseDriverFactory = ::buildDatabaseDriver,
     networkTypeFinder = networkTypeFinder,
     buildDataStore = ::buildDataStore,
-    // TODO: isBatteryCharging
-    isBatteryCharging = { true },
+    isBatteryCharging = ::checkBatteryCharging,
 )
 
 private val platformInfo
@@ -85,6 +85,11 @@ private fun readAssetFile(path: String): String {
 
 private class BundleMarker : NSObject() {
     companion object : NSObjectMeta()
+}
+
+private fun checkBatteryCharging(): Boolean {
+    UIDevice.currentDevice.batteryMonitoringEnabled = true
+    return UIDevice.currentDevice.batteryState == UIDeviceBatteryState.UIDeviceBatteryStateCharging
 }
 
 fun buildDataStore(): DataStore<Preferences> =
