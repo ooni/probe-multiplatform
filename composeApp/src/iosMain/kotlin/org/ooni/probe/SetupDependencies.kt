@@ -113,7 +113,7 @@ fun buildDataStore(): DataStore<Preferences> =
 
 private fun launchUrl(
     url: String,
-    extras: Map<String, String>?
+    extras: Map<String, String>?,
 ) {
     NSURL.URLWithString(url)?.let {
         if (it.scheme == "mailto") {
@@ -135,7 +135,7 @@ private fun launchUrl(
                     UIPasteboard.generalPasteboard.string = email
                 }
             }
-        }else {
+        } else {
             UIApplication.sharedApplication.openURL(it)
         }
     }
