@@ -174,19 +174,18 @@ class Dependencies(
         )
     }
 
-    private val testStateManager by lazy { TestRunStateManager() }
+    private val testStateManager by lazy { TestRunStateManager(resultRepository.getLatest()) }
 
     // ViewModels
 
-    val dashboardViewModel
-        get() =
-            DashboardViewModel(
-                getTestDescriptors = getTestDescriptors::invoke,
-                runDescriptors = runDescriptors::invoke,
-                cancelTestRun = testStateManager::cancelTestRun,
-                observeTestRunState = testStateManager.observeState(),
-                observeTestRunErrors = testStateManager.observeError(),
-            )
+    fun dashboardViewModel(goToResults: () -> Unit) =
+        DashboardViewModel(
+            goToResults = goToResults,
+            getTestDescriptors = getTestDescriptors::invoke,
+            runDescriptors = runDescriptors::invoke,
+            observeTestRunState = testStateManager.observeState(),
+            observeTestRunErrors = testStateManager.observeError(),
+        )
 
     fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) = ResultsViewModel(goToResult, getResults::invoke)
 

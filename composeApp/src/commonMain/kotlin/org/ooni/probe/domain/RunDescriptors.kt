@@ -6,6 +6,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.take
+import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.Result
@@ -18,6 +19,7 @@ import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.data.models.UrlModel
+import org.ooni.probe.shared.now
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -47,7 +49,7 @@ class RunDescriptors(
 
         runDescriptorsCancellable(descriptorsWithFinalInputs, spec)
 
-        setCurrentTestState { TestRunState.Idle }
+        setCurrentTestState { TestRunState.Idle(LocalDateTime.now(), true) }
     }
 
     private suspend fun runDescriptorsCancellable(

@@ -44,6 +44,13 @@ class ResultRepository(
             .mapToOneOrNull(backgroundDispatcher)
             .map { it?.toModel() }
 
+    fun getLatest(): Flow<ResultModel?> =
+        database.resultQueries
+            .selectLatest()
+            .asFlow()
+            .mapToOneOrNull(backgroundDispatcher)
+            .map { it?.toModel() }
+
     suspend fun createOrUpdate(model: ResultModel): ResultModel.Id =
         withContext(backgroundDispatcher) {
             database.transactionWithResult {
