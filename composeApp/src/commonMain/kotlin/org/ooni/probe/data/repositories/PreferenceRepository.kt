@@ -11,6 +11,33 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.ui.settings.proxy.ProxyProtocol
+
+const val IP_ADDRESS = (
+    "((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]" +
+        "[0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]" +
+        "[0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}" +
+        "|[1-9][0-9]|[0-9]))"
+)
+
+/**
+ * Regex for an IPv6 Address.
+ *
+ * Note that this value is adapted from the following StackOverflow answer:
+ * https://stackoverflow.com/a/17871737/1478764
+ */
+const val IPV6_ADDRESS =
+    (
+        "(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}" +
+            "|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|" +
+            "([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|" +
+            "[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4})" +
+            "{0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.)" +
+            "{3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}" +
+            "[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))"
+    )
+
+const val DOMAIN_NAME = ("((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}")
 
 sealed class PreferenceKey<T>(val preferenceKey: Preferences.Key<T>) {
     class IntKey(preferenceKey: Preferences.Key<Int>) : PreferenceKey<Int>(preferenceKey)
@@ -60,10 +87,12 @@ class PreferenceRepository(
             SettingsKey.MAX_RUNTIME,
             SettingsKey.PROXY_PORT,
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
+
             SettingsKey.PROXY_HOSTNAME,
             SettingsKey.PROXY_PROTOCOL,
             SettingsKey.LANGUAGE_SETTING,
             -> PreferenceKey.StringKey(stringPreferencesKey(preferenceKey))
+
             else -> PreferenceKey.BooleanKey(booleanPreferencesKey(preferenceKey))
         }
     }
@@ -74,7 +103,13 @@ class PreferenceRepository(
         autoRun: Boolean = false,
     ): Flow<Map<SettingsKey, Any?>> =
         dataStore.data.map {
-            keys.map { key -> key to it[preferenceKeyFromSettingsKey(key, prefix, autoRun).preferenceKey] }.toMap()
+            keys.map { key ->
+                key to it[
+                    preferenceKeyFromSettingsKey(
+                        key, prefix, autoRun,
+                    ).preferenceKey,
+                ]
+            }.toMap()
         }
 
     fun getValueByKey(key: SettingsKey): Flow<Any?> {
@@ -104,6 +139,34 @@ class PreferenceRepository(
         }
     }
 
+    suspend fun getProxyString(): String {
+        val proxyHost =
+            getValueByKey(SettingsKey.PROXY_HOSTNAME).firstOrNull() as String? ?: return ""
+        val proxyPort = getValueByKey(SettingsKey.PROXY_PORT).firstOrNull() as Int? ?: return ""
+
+        when (
+            val proxyProtocol =
+                getValueByKey(SettingsKey.PROXY_PROTOCOL).firstOrNull() as String?
+        ) {
+            ProxyProtocol.NONE.protocol -> return ""
+            ProxyProtocol.PSIPHON.protocol -> return "psiphon://"
+            ProxyProtocol.SOCKS5.protocol, ProxyProtocol.HTTP.protocol, ProxyProtocol.HTTPS.protocol -> {
+                val formattedHost = if (isIPv6(proxyHost)) {
+                    "[$proxyHost]"
+                } else {
+                    proxyHost
+                }
+                return "$proxyProtocol://$formattedHost:$proxyPort/"
+            }
+
+            else -> return ""
+        }
+    }
+
+    private fun isIPv6(hostname: String): Boolean {
+        return IPV6_ADDRESS.toRegex().matches(hostname)
+    }
+
     suspend fun clear() {
         dataStore.edit { it.clear() }
     }
@@ -113,6 +176,7 @@ class PreferenceRepository(
     }
 
     suspend fun contains(key: SettingsKey): Boolean {
-        return dataStore.data.map { it.contains(preferenceKeyFromSettingsKey(key).preferenceKey) }.firstOrNull() ?: false
+        return dataStore.data.map { it.contains(preferenceKeyFromSettingsKey(key).preferenceKey) }
+            .firstOrNull() ?: false
     }
 }

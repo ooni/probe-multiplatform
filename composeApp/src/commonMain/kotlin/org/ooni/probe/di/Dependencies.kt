@@ -49,6 +49,7 @@ import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.settings.SettingsViewModel
 import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
+import org.ooni.probe.ui.settings.proxy.ProxyViewModel
 
 class Dependencies(
     val platformInfo: PlatformInfo,
@@ -220,6 +221,8 @@ class Dependencies(
     )
 
     fun aboutViewModel(onBack: () -> Unit) = AboutViewModel(onBack, launchUrl)
+
+    fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceManager)
 
     companion object {
         @VisibleForTesting

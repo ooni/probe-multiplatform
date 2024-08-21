@@ -22,6 +22,7 @@ import org.ooni.probe.ui.results.ResultsScreen
 import org.ooni.probe.ui.settings.SettingsScreen
 import org.ooni.probe.ui.settings.about.AboutScreen
 import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
+import org.ooni.probe.ui.settings.proxy.ProxyScreen
 
 @Composable
 fun Navigation(
@@ -111,6 +112,20 @@ fun Navigation(
                             )
                         }
                     AboutScreen(onEvent = viewModel::onEvent)
+                }
+
+                PreferenceCategoryKey.PROXY.name -> {
+                    val viewModel =
+                        viewModel {
+                            dependencies.proxyViewModel(
+                                onBack = { navController.navigateUp() },
+                            )
+                        }
+                    val state by viewModel.state.collectAsState()
+                    ProxyScreen(
+                        state = state,
+                        onEvent = viewModel::onEvent,
+                    )
                 }
 
                 else -> {
