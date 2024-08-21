@@ -30,8 +30,10 @@ import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
 import ooniprobe.composeapp.generated.resources.measurements_count
+import ooniprobe.composeapp.generated.resources.months
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
+import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
@@ -66,10 +68,11 @@ fun ResultsScreen(
 
 @Composable
 private fun ResultDateHeader(date: LocalDate) {
+    val monthNames = stringArrayResource(Res.array.months)
     Text(
         date.format(
             Format {
-                monthName(MonthNames.ENGLISH_FULL) // TODO: localize months
+                monthName(MonthNames(monthNames))
                 char(' ')
                 year()
             },
