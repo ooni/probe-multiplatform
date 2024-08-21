@@ -19,10 +19,8 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -33,7 +31,6 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Running_EstimatedTimeL
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
-import ooniprobe.composeapp.generated.resources.Modal_Error_CantDownloadURLs
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
@@ -43,10 +40,9 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.ooni.probe.LocalSnackbarHostState
-import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.ui.customColors
+import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
 import org.ooni.probe.ui.theme.AppTheme
@@ -87,7 +83,10 @@ fun DashboardScreen(
         }
     }
 
-    ErrorMessages(state, onEvent)
+    TestRunErrorMessages(
+        errors = state.testRunErrors,
+        onErrorDisplayed = { onEvent(DashboardViewModel.Event.ErrorDisplayed(it)) },
+    )
 }
 
 @Composable
@@ -140,7 +139,7 @@ private fun TestRunStateSection(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .clickable { onEvent(DashboardViewModel.Event.RunningTestClick) }
-                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
             ) {
                 state.testType?.let { testType ->
                     Row {
@@ -208,25 +207,6 @@ private fun TestRunStateSection(
             Text(
                 text = stringResource(Res.string.Dashboard_Running_Stopping_Notice),
             )
-        }
-    }
-}
-
-@Composable
-private fun ErrorMessages(
-    state: DashboardViewModel.State,
-    onEvent: (DashboardViewModel.Event) -> Unit,
-) {
-    val snackbarHostState = LocalSnackbarHostState.current ?: return
-    val errorMessage = when (state.testRunErrors.firstOrNull()) {
-        TestRunError.DownloadUrlsFailed -> stringResource(Res.string.Modal_Error_CantDownloadURLs)
-        null -> ""
-    }
-    LaunchedEffect(state.testRunErrors) {
-        val error = state.testRunErrors.firstOrNull() ?: return@LaunchedEffect
-        val result = snackbarHostState.showSnackbar(errorMessage)
-        if (result == SnackbarResult.Dismissed) {
-            onEvent(DashboardViewModel.Event.ErrorDisplayed(error))
         }
     }
 }

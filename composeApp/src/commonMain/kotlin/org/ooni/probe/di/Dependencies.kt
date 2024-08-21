@@ -47,6 +47,7 @@ import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
+import org.ooni.probe.ui.running.RunningViewModel
 import org.ooni.probe.ui.settings.SettingsViewModel
 import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
@@ -180,23 +181,38 @@ class Dependencies(
 
     // ViewModels
 
-    fun dashboardViewModel(goToResults: () -> Unit) =
-        DashboardViewModel(
-            goToResults = goToResults,
-            getTestDescriptors = getTestDescriptors::invoke,
-            runDescriptors = runDescriptors::invoke,
-            observeTestRunState = testStateManager.observeState(),
-            observeTestRunErrors = testStateManager.observeError(),
-        )
+    fun dashboardViewModel(
+        goToResults: () -> Unit,
+        goToRunningTest: () -> Unit,
+    ) = DashboardViewModel(
+        goToResults = goToResults,
+        goToRunningTest = goToRunningTest,
+        getTestDescriptors = getTestDescriptors::invoke,
+        runDescriptors = runDescriptors::invoke,
+        observeTestRunState = testStateManager.observeState(),
+        observeTestRunErrors = testStateManager.observeError(),
+    )
 
-    fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) = ResultsViewModel(goToResult, getResults::invoke)
+    fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) =
+        ResultsViewModel(goToResult, getResults::invoke)
+
+    fun runningViewModel(
+        onBack: () -> Unit,
+        goToResults: () -> Unit,
+    ) = RunningViewModel(
+        onBack = onBack,
+        goToResults = goToResults,
+        observeTestRunState = testStateManager.observeState(),
+        observeTestRunErrors = testStateManager.observeError(),
+        cancelTestRun = testStateManager::cancelTestRun,
+    )
 
     fun settingsViewModel(
         goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
         sendSupportEmail: () -> Unit,
     ) = SettingsViewModel(
         goToSettingsForCategory,
-        sendSupportEmail,
+        sendSupportEmail
     )
 
     fun settingsCategoryViewModel(
