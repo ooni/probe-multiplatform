@@ -43,9 +43,6 @@ import ooniprobe.composeapp.generated.resources.Settings_Proxy_Psiphon
 import ooniprobe.composeapp.generated.resources.back
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.data.repositories.DOMAIN_NAME
-import org.ooni.probe.data.repositories.IPV6_ADDRESS
-import org.ooni.probe.data.repositories.IP_ADDRESS
 
 @Composable
 fun ProxyScreen(
@@ -59,11 +56,7 @@ fun ProxyScreen(
             },
             navigationIcon = {
                 IconButton(onClick = {
-                    if (state.proxyType != ProxyType.CUSTOM ||
-                        (isValidDomainNameOrIp(state.proxyHost ?: "") && isValidPort(state.proxyPort ?: 0))
-                    ) {
-                        onEvent(ProxyViewModel.Event.BackClicked)
-                    }
+                    onEvent(ProxyViewModel.Event.BackClicked)
                 }) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
@@ -117,6 +110,7 @@ fun ProxyScreen(
                     modifier = Modifier.weight(0.3f),
                     readOnly = true,
                     singleLine = true,
+                    isError = state.proxyProtocolError,
                     maxLines = 1,
                     trailingIcon = {
                         IconButton(onClick = { expanded = true }) {
@@ -144,51 +138,37 @@ fun ProxyScreen(
                     value = hostname,
                     onValueChange = {
                         hostname = it
-                        if (isValidDomainNameOrIp(it)) {
-                            onEvent(
-                                ProxyViewModel.Event.ProxyHostChanged(
-                                    host = it,
-                                ),
-                            )
-                        }
+                        onEvent(
+                            ProxyViewModel.Event.ProxyHostChanged(
+                                host = it,
+                            ),
+                        )
                     },
                     label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Hostname)) },
                     modifier = Modifier.weight(0.4f),
                     singleLine = true,
+                    isError = state.proxyHostError,
                 )
 
                 OutlinedTextField(
                     value = port,
                     onValueChange = {
                         port = it
-                        port.toIntOrNull()?.let { portInt ->
-                            if (isValidPort(portInt)) {
-                                onEvent(
-                                    ProxyViewModel.Event.ProxyPortChanged(
-                                        port = portInt,
-                                    ),
-                                )
-                            }
-                        }
+                        onEvent(
+                            ProxyViewModel.Event.ProxyPortChanged(
+                                port = port,
+                            ),
+                        )
                     },
                     label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Port)) },
                     modifier = Modifier.weight(0.2f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true,
+                    isError = state.proxyPortError,
                 )
             }
         }
     }
-}
-
-fun isValidPort(portInt: Int): Boolean {
-    return portInt in 1..65535
-}
-
-fun isValidDomainNameOrIp(host: String): Boolean {
-    return host.matches(IP_ADDRESS.toRegex()) || host.matches(IPV6_ADDRESS.toRegex()) || host.matches(
-        DOMAIN_NAME.toRegex(),
-    )
 }
 
 enum class ProxyType(val label: StringResource, val value: String) {
