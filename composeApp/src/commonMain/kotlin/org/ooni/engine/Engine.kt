@@ -10,19 +10,17 @@ import kotlinx.coroutines.isActive
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
+import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskEventResult
-import org.ooni.engine.models.TaskLogLevel
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
-import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.engine.models.resultOf
 import org.ooni.probe.config.Config
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
-import kotlin.time.Duration
 
 class Engine(
     private val bridge: OonimkallBridge,
@@ -33,16 +31,17 @@ class Engine(
     private val networkTypeFinder: NetworkTypeFinder,
     private val isBatteryCharging: suspend () -> Boolean,
     private val platformInfo: PlatformInfo,
+    private val getEnginePreferences: suspend () -> EnginePreferences,
     private val backgroundDispatcher: CoroutineDispatcher,
 ) {
     fun startTask(
         name: String,
         inputs: List<String>?,
         taskOrigin: TaskOrigin,
-        maxRuntime: Duration?,
     ): Flow<TaskEvent> =
         channelFlow {
-            val taskSettings = buildTaskSettings(name, inputs, taskOrigin, maxRuntime)
+            val preferences = getEnginePreferences()
+            val taskSettings = buildTaskSettings(name, inputs, taskOrigin, preferences)
             val settingsSerialized = json.encodeToString(taskSettings)
 
             var task: OonimkallBridge.Task? = null
@@ -70,13 +69,14 @@ class Engine(
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
     ): Result<SubmitMeasurementResults, MkException> =
         resultOf(backgroundDispatcher) {
-            val sessionConfig = buildSessionConfig(taskOrigin)
+            val sessionConfig = buildSessionConfig(taskOrigin, getEnginePreferences())
             session(sessionConfig).submitMeasurement(measurement)
         }.mapError { MkException(it) }
 
     suspend fun checkIn(taskOrigin: TaskOrigin): Result<OonimkallBridge.CheckInResults, MkException> =
         resultOf(backgroundDispatcher) {
-            val sessionConfig = buildSessionConfig(taskOrigin)
+            val preferences = getEnginePreferences()
+            val sessionConfig = buildSessionConfig(taskOrigin, preferences)
             session(sessionConfig).checkIn(
                 OonimkallBridge.CheckInConfig(
                     charging = isBatteryCharging(),
@@ -85,8 +85,7 @@ class Engine(
                     runType = taskOrigin.value,
                     softwareName = sessionConfig.softwareName,
                     softwareVersion = sessionConfig.softwareVersion,
-                    // TODO: fetch enabled categories from preferences
-                    webConnectivityCategories = WebConnectivityCategory.entries.map { it.code },
+                    webConnectivityCategories = preferences.enabledWebCategories,
                 ),
             )
         }.mapError { MkException(it) }
@@ -97,7 +96,7 @@ class Engine(
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
     ): Result<String?, MkException> =
         resultOf(backgroundDispatcher) {
-            session(buildSessionConfig(taskOrigin))
+            session(buildSessionConfig(taskOrigin, getEnginePreferences()))
                 .httpDo(
                     OonimkallBridge.HTTPRequest(
                         method = method,
@@ -112,54 +111,49 @@ class Engine(
         name: String,
         inputs: List<String>?,
         taskOrigin: TaskOrigin,
-        maxRuntime: Duration?,
+        preferences: EnginePreferences,
     ) = TaskSettings(
         name = name,
         inputs = inputs.orEmpty(),
-        disabledEvents =
-            listOf(
-                "status.queued",
-                "status.update.websites",
-                "failure.report_close",
-            ),
-        // TODO: fetch from preferences
-        logLevel = TaskLogLevel.Info,
+        disabledEvents = listOf(
+            "status.queued",
+            "status.update.websites",
+            "failure.report_close",
+        ),
+        logLevel = preferences.taskLogLevel,
         stateDir = "$baseFilePath/state",
         tunnelDir = "$baseFilePath/tunnel",
         tempDir = cacheDir,
         assetsDir = "$baseFilePath/assets",
-        options =
-            TaskSettings.Options(
-                // TODO: fetch from preferences
-                noCollector = false,
-                softwareName = buildSoftwareName(taskOrigin),
-                softwareVersion = platformInfo.version,
-                maxRuntime = maxRuntime?.inWholeSeconds?.toInt() ?: -1,
-            ),
-        annotations =
-            TaskSettings.Annotations(
-                networkType = networkTypeFinder(),
-                flavor = buildSoftwareName(taskOrigin),
-                origin = taskOrigin,
-            ),
-        // TODO: fetch from preferences
-        proxy = null,
-    )
-
-    private fun buildSessionConfig(taskOrigin: TaskOrigin) =
-        OonimkallBridge.SessionConfig(
+        options = TaskSettings.Options(
+            noCollector = !preferences.uploadResults,
             softwareName = buildSoftwareName(taskOrigin),
             softwareVersion = platformInfo.version,
-            // TODO: fetch from preferences
-            proxy = null,
-            probeServicesURL = Config.OONI_API_BASE_URL,
-            stateDir = "$baseFilePath/state",
-            tunnelDir = "$baseFilePath/tunnel",
-            tempDir = cacheDir,
-            assetsDir = "$baseFilePath/assets",
-            logger = oonimkallLogger,
-            verbose = false,
-        )
+            maxRuntime = preferences.maxRuntime?.inWholeSeconds?.toInt() ?: -1,
+        ),
+        annotations = TaskSettings.Annotations(
+            networkType = networkTypeFinder(),
+            flavor = buildSoftwareName(taskOrigin),
+            origin = taskOrigin,
+        ),
+        proxy = preferences.proxy,
+    )
+
+    private fun buildSessionConfig(
+        taskOrigin: TaskOrigin,
+        preferences: EnginePreferences,
+    ) = OonimkallBridge.SessionConfig(
+        softwareName = buildSoftwareName(taskOrigin),
+        softwareVersion = platformInfo.version,
+        proxy = preferences.proxy,
+        probeServicesURL = Config.OONI_API_BASE_URL,
+        stateDir = "$baseFilePath/state",
+        tunnelDir = "$baseFilePath/tunnel",
+        tempDir = cacheDir,
+        assetsDir = "$baseFilePath/assets",
+        logger = oonimkallLogger,
+        verbose = false,
+    )
 
     private fun buildSoftwareName(taskOrigin: TaskOrigin) =
         Config.BASE_SOFTWARE_NAME +

@@ -1,9 +1,12 @@
 package org.ooni.probe
 
 import android.app.Application
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.os.BatteryManager
 import android.os.Build
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.SharedPreferencesMigration
@@ -32,19 +35,41 @@ class AndroidApplication : Application() {
             networkTypeFinder =
                 AndroidNetworkTypeFinder(getSystemService(ConnectivityManager::class.java)),
             buildDataStore = ::buildDataStore,
-            // TODO: isBatteryCharging
-            isBatteryCharging = { true },
+            isBatteryCharging = ::checkBatteryCharging,
             launchUrl = ::launchUrl,
         )
     }
 
-    private fun launchUrl(url: String) {
+    private fun launchUrl(
+        url: String,
+        extras: Map<String, String>?,
+    ) {
+        val uri = Uri.parse(url)
         val intent = Intent(
-            Intent.ACTION_VIEW,
-            Uri.parse(url),
-        )
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
+            when (uri.scheme) {
+                "mailto" -> Intent.ACTION_SENDTO
+                else -> Intent.ACTION_VIEW
+            },
+            uri,
+        ).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
+        if (uri.scheme == "mailto") {
+            val chooserTitle = extras?.get("chooserTitle") ?: "Send email"
+            val mailerIntent = Intent.createChooser(intent, chooserTitle).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                extras?.forEach { (key, value) ->
+                    when (key) {
+                        "subject" -> putExtra(Intent.EXTRA_SUBJECT, value)
+                        "body" -> putExtra(Intent.EXTRA_TEXT, value)
+                    }
+                }
+            }
+            startActivity(mailerIntent)
+        } else {
+            startActivity(intent)
+        }
     }
 
     private val platformInfo by lazy {
@@ -65,4 +90,26 @@ class AndroidApplication : Application() {
             producePath = { this.filesDir.resolve(Dependencies.Companion.DATA_STORE_FILE_NAME).absolutePath },
             migrations = listOf(SharedPreferencesMigration(this, "${packageName}_preferences")),
         )
+
+    private fun checkBatteryCharging(): Boolean {
+        val batteryManager = this.getSystemService(BATTERY_SERVICE) as? BatteryManager
+        return batteryManager?.isCharging == true
+    }
+
+    /**
+     * From https://developer.android.com/training/monitoring-device-state/battery-monitoring#DetermineChargeState
+     *
+     * Influences auto-run behavior. https://github.com/ooni/probe-android/blob/366c5cffc913362243df20b5b0477b7ea7d35b16/app/src/main/java/org/openobservatory/ooniprobe/domain/GenerateAutoRunServiceSuite.java#L35-L37
+     */
+    fun getChargingLevel(context: Context): Float {
+        val ifilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+        context.registerReceiver(null, ifilter)?.let { batteryStatus ->
+            val level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+            val scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+            val batteryPct = level * 100 / scale.toFloat()
+            return batteryPct
+        } ?: run {
+            return 0.0f
+        }
+    }
 }

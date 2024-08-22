@@ -1,0 +1,4 @@
+<resources>
+    <string name="shareEmailTo" translatable="false">mailto:bugs@openobservatory.org</string>
+    <string name="shareSubject" translatable="false">[bug-report] OONI Probe %1$s</string>
+</resources>

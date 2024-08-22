@@ -3,9 +3,11 @@ package org.ooni.engine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
+import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskEvent
+import org.ooni.engine.models.TaskLogLevel
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
 import org.ooni.probe.di.Dependencies
@@ -30,7 +32,6 @@ class EngineTest {
                 name = "web_connectivity",
                 inputs = listOf("https://ooni.org"),
                 taskOrigin = TaskOrigin.OoniRun,
-                maxRuntime = null,
             ).toList()
 
             assertEquals(1, events.size)
@@ -71,6 +72,15 @@ class EngineTest {
                 override val platform = Platform.Ios
                 override val osVersion = "1"
                 override val model = "test"
+            },
+            getEnginePreferences = {
+                EnginePreferences(
+                    enabledWebCategories = emptyList(),
+                    taskLogLevel = TaskLogLevel.Info,
+                    uploadResults = false,
+                    proxy = null,
+                    maxRuntime = null,
+                )
             },
             backgroundDispatcher = Dispatchers.Unconfined,
         )

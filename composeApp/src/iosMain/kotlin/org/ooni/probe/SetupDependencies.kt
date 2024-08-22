@@ -17,8 +17,11 @@ import platform.Foundation.NSTemporaryDirectory
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 import platform.Foundation.stringWithContentsOfFile
+import platform.MessageUI.MFMailComposeViewController
 import platform.UIKit.UIApplication
 import platform.UIKit.UIDevice
+import platform.UIKit.UIDeviceBatteryState
+import platform.UIKit.UIPasteboard
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
 
@@ -43,8 +46,7 @@ fun setupDependencies(
     databaseDriverFactory = ::buildDatabaseDriver,
     networkTypeFinder = networkTypeFinder,
     buildDataStore = ::buildDataStore,
-    // TODO: isBatteryCharging
-    isBatteryCharging = { true },
+    isBatteryCharging = ::checkBatteryCharging,
     launchUrl = ::launchUrl,
 )
 
@@ -89,6 +91,11 @@ private class BundleMarker : NSObject() {
     companion object : NSObjectMeta()
 }
 
+private fun checkBatteryCharging(): Boolean {
+    UIDevice.currentDevice.batteryMonitoringEnabled = true
+    return UIDevice.currentDevice.batteryState == UIDeviceBatteryState.UIDeviceBatteryStateCharging
+}
+
 fun buildDataStore(): DataStore<Preferences> =
     Dependencies.getDataStore(
         producePath = {
@@ -104,8 +111,32 @@ fun buildDataStore(): DataStore<Preferences> =
         },
     )
 
-private fun launchUrl(url: String) {
+private fun launchUrl(
+    url: String,
+    extras: Map<String, String>?,
+) {
     NSURL.URLWithString(url)?.let {
-        UIApplication.sharedApplication.openURL(it)
+        if (it.scheme == "mailto") {
+            MFMailComposeViewController.canSendMail().let { canSendMail ->
+                val email = it.toString().removePrefix("mailto:")
+                if (canSendMail) {
+                    MFMailComposeViewController().apply {
+                        setToRecipients(listOf(email))
+                        extras?.forEach { (key, value) ->
+                            when (key) {
+                                "subject" -> setSubject(value)
+                                "body" -> setMessageBody(value, isHTML = false)
+                            }
+                        }
+                    }.let {
+                        UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(it, true, null)
+                    }
+                } else {
+                    UIPasteboard.generalPasteboard.string = email
+                }
+            }
+        } else {
+            UIApplication.sharedApplication.openURL(it)
+        }
     }
 }
