@@ -10,8 +10,8 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import org.ooni.probe.data.models.ProxyProtocol
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.ui.settings.proxy.ProxyProtocol
 
 const val IP_ADDRESS = (
     "((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]" +

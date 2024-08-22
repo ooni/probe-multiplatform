@@ -33,16 +33,14 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Hostname
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Port
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Protocol
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Enabled
-import ooniprobe.composeapp.generated.resources.Settings_Proxy_None
-import ooniprobe.composeapp.generated.resources.Settings_Proxy_Psiphon
 import ooniprobe.composeapp.generated.resources.back
-import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.data.models.ProxyProtocol
+import org.ooni.probe.data.models.ProxyType
 
 @Composable
 fun ProxyScreen(
@@ -167,42 +165,6 @@ fun ProxyScreen(
                     isError = state.proxyPortError,
                 )
             }
-        }
-    }
-}
-
-enum class ProxyType(val label: StringResource, val value: String) {
-    NONE(
-        label = Res.string.Settings_Proxy_None,
-        value = "none",
-    ),
-    PSIPHON(
-        label = Res.string.Settings_Proxy_Psiphon,
-        value = "psiphon",
-    ),
-    CUSTOM(label = Res.string.Settings_Proxy_Custom, value = "custom"),
-}
-
-enum class ProxyProtocol(val protocol: String) {
-    NONE("none"),
-    HTTP("http"),
-    HTTPS("https"),
-    SOCKS5("socks5"),
-    PSIPHON("psiphon"),
-    ;
-
-    fun proxyType(): ProxyType {
-        return when (this) {
-            NONE -> ProxyType.NONE
-            PSIPHON -> ProxyType.PSIPHON
-            else -> ProxyType.CUSTOM
-        }
-    }
-
-    fun toCustomProtocol(): String {
-        return when (this) {
-            PSIPHON, NONE -> ""
-            else -> this.protocol
         }
     }
 }

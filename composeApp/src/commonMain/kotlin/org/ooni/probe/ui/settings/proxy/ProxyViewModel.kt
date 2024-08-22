@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import org.ooni.probe.data.models.ProxyProtocol
+import org.ooni.probe.data.models.ProxyType
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.DOMAIN_NAME
 import org.ooni.probe.data.repositories.IPV6_ADDRESS
@@ -81,22 +83,20 @@ class ProxyViewModel(
                     }
                 }
                 is Event.ProxyHostChanged -> {
-                    if (isValidDomainNameOrIp(event.host))
-                        {
-                            _state.update {
-                                it.copy(proxyHost = event.host, proxyHostError = false)
-                            }
-                        } else {
+                    if (isValidDomainNameOrIp(event.host)) {
+                        _state.update {
+                            it.copy(proxyHost = event.host, proxyHostError = false)
+                        }
+                    } else {
                         _state.update { it.copy(proxyHostError = true) }
                     }
                 }
                 is Event.ProxyPortChanged -> {
-                    if (isValidPort(event.port))
-                        {
-                            _state.update {
-                                it.copy(proxyPort = event.port.toInt(), proxyPortError = false)
-                            }
-                        } else {
+                    if (isValidPort(event.port)) {
+                        _state.update {
+                            it.copy(proxyPort = event.port.toInt(), proxyPortError = false)
+                        }
+                    } else {
                         _state.update { it.copy(proxyPortError = true) }
                     }
                 }
