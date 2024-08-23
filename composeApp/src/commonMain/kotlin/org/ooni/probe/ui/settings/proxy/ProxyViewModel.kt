@@ -8,12 +8,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import org.ooni.probe.data.models.DOMAIN_NAME
+import org.ooni.probe.data.models.IPV6_ADDRESS
+import org.ooni.probe.data.models.IP_ADDRESS
 import org.ooni.probe.data.models.ProxyProtocol
 import org.ooni.probe.data.models.ProxyType
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.data.repositories.DOMAIN_NAME
-import org.ooni.probe.data.repositories.IPV6_ADDRESS
-import org.ooni.probe.data.repositories.IP_ADDRESS
 import org.ooni.probe.data.repositories.PreferenceRepository
 
 class ProxyViewModel(
