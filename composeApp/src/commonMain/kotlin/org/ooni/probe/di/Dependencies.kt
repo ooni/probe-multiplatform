@@ -6,8 +6,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -24,6 +26,7 @@ import org.ooni.probe.data.disk.WriteFileOkio
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.repositories.MeasurementRepository
 import org.ooni.probe.data.repositories.NetworkRepository
@@ -64,14 +67,16 @@ class Dependencies(
     private val buildDataStore: () -> DataStore<Preferences>,
     private val isBatteryCharging: () -> Boolean,
     private val launchUrl: (String, Map<String, String>?) -> Unit,
+    // TODO: Implement startBackgroundRun on iOS
+    startBackgroundRunInner: ((RunSpecification) -> Unit)? = null,
 ) {
     // Common
 
-    private val backgroundDispatcher = Dispatchers.IO
+    val backgroundDispatcher = Dispatchers.IO
 
     // Data
 
-    private val json by lazy { buildJson() }
+    val json by lazy { buildJson() }
     private val database by lazy { buildDatabase(databaseDriverFactory) }
 
     private val measurementRepository by lazy {
@@ -115,6 +120,7 @@ class Dependencies(
             createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
         )
     }
+    val cancelCurrentTest get() = testStateManager::cancelTestRun
     private val downloadUrls by lazy {
         DownloadUrls(
             engine::checkIn,
@@ -124,6 +130,7 @@ class Dependencies(
     private val getBootstrapTestDescriptors by lazy {
         GetBootstrapTestDescriptors(readAssetFile, json, backgroundDispatcher)
     }
+    val getCurrentTestState get() = testStateManager::observeState
     private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
     private val getEnginePreferences by lazy { GetEnginePreferences(preferenceRepository) }
     private val getResults by lazy {
@@ -164,7 +171,7 @@ class Dependencies(
             spec = spec,
         )
 
-    private val runDescriptors by lazy {
+    val runDescriptors by lazy {
         RunDescriptors(
             getTestDescriptorsBySpec = getTestDescriptorsBySpec::invoke,
             downloadUrls = downloadUrls::invoke,
@@ -179,6 +186,13 @@ class Dependencies(
     }
 
     val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
+
+    // TODO: Remove this when startBackgroundRun is implemented on iOS
+    private val startBackgroundRun: (RunSpecification) -> Unit = startBackgroundRunInner ?: { spec ->
+        CoroutineScope(backgroundDispatcher).launch {
+            runDescriptors(spec)
+        }
+    }
 
     private val testStateManager by lazy { TestRunStateManager(resultRepository.getLatest()) }
 
@@ -197,7 +211,7 @@ class Dependencies(
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
         getTestDescriptors = getTestDescriptors::invoke,
-        runDescriptors = runDescriptors::invoke,
+        startBackgroundRun = startBackgroundRun,
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
     )

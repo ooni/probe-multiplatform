@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LatestTest
 import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_RunFinished
@@ -200,13 +201,20 @@ private fun TestRunStateSection(
         }
 
         TestRunState.Stopping -> {
-            Text(
-                text = stringResource(Res.string.Dashboard_Running_Stopping_Title),
-                style = MaterialTheme.typography.titleMedium,
-            )
-            Text(
-                text = stringResource(Res.string.Dashboard_Running_Stopping_Notice),
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            ) {
+                Text(
+                    text = stringResource(Res.string.Dashboard_Running_Stopping_Title),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.titleMedium,
+                )
+                Text(
+                    text = stringResource(Res.string.Dashboard_Running_Stopping_Notice),
+                    textAlign = TextAlign.Center,
+                )
+            }
         }
     }
 }

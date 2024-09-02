@@ -1,5 +1,12 @@
 package org.ooni.engine.models
 
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Test_Dash_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Experimental_Fullname
@@ -26,6 +33,7 @@ import org.jetbrains.compose.resources.StringResource
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
+@Serializable(with = TestTypeSerializer::class)
 sealed class TestType {
     abstract val name: String
     abstract val labelRes: StringResource
@@ -157,5 +165,19 @@ sealed class TestType {
         }
 
         fun fromName(name: String) = ALL_NAMED.firstOrNull { it.name == name } ?: Experimental(name)
+    }
+}
+
+object TestTypeSerializer : KSerializer<TestType> {
+    override val descriptor: SerialDescriptor =
+        PrimitiveSerialDescriptor("org.ooni.engine.models.TestType", PrimitiveKind.STRING)
+
+    override fun deserialize(decoder: Decoder): TestType = TestType.fromName(decoder.decodeString())
+
+    override fun serialize(
+        encoder: Encoder,
+        value: TestType,
+    ) {
+        encoder.encodeString(value.name)
     }
 }

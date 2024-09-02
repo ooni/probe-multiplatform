@@ -54,13 +54,9 @@ fun RunningScreen(
     onEvent: (RunningViewModel.Event) -> Unit,
 ) {
     val descriptorColor = (state.testRunState as? TestRunState.Running)?.descriptor?.color
-    val contentColor = if (descriptorColor != null) {
-        MaterialTheme.customColors.onDescriptor
-    } else {
-        MaterialTheme.colorScheme.onSurface
-    }
+    val contentColor = MaterialTheme.customColors.onDescriptor
     Surface(
-        color = descriptorColor ?: MaterialTheme.colorScheme.surface,
+        color = descriptorColor ?: Color.DarkGray,
         contentColor = contentColor,
     ) {
         Column(
