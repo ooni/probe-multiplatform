@@ -19,9 +19,9 @@ import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.TestRunState
 
 class DashboardViewModel(
+    goToResults: () -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     runDescriptors: suspend (RunSpecification) -> Unit,
-    cancelTestRun: () -> Unit,
     observeTestRunState: Flow<TestRunState>,
     observeTestRunErrors: Flow<TestRunError>,
 ) : ViewModel() {
@@ -61,9 +61,17 @@ class DashboardViewModel(
             .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.StopTestsClick>()
-            .onEach { cancelTestRun() }
+            .filterIsInstance<Event.RunningTestClick>()
+            .onEach {
+                // TODO
+            }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.SeeResultsClick>()
+            .onEach { goToResults() }
+            .launchIn(viewModelScope)
+
         events
             .filterIsInstance<Event.ErrorDisplayed>()
             .onEach { event ->
@@ -111,14 +119,16 @@ class DashboardViewModel(
 
     data class State(
         val tests: Map<DescriptorType, List<Descriptor>> = emptyMap(),
-        val testRunState: TestRunState = TestRunState.Idle,
+        val testRunState: TestRunState = TestRunState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
     )
 
     sealed interface Event {
         data object RunTestsClick : Event
 
-        data object StopTestsClick : Event
+        data object RunningTestClick : Event
+
+        data object SeeResultsClick : Event
 
         data class ErrorDisplayed(val error: TestRunError) : Event
     }

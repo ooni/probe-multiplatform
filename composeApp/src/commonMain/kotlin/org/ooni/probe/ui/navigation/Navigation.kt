@@ -40,7 +40,11 @@ fun Navigation(
         modifier = Modifier.fillMaxSize(),
     ) {
         composable(route = Screen.Dashboard.route) {
-            val viewModel = viewModel { dependencies.dashboardViewModel }
+            val viewModel = viewModel {
+                dependencies.dashboardViewModel(
+                    goToResults = { navController.navigateToMainScreen(Screen.Results) },
+                )
+            }
             val state by viewModel.state.collectAsState()
             DashboardScreen(state, viewModel::onEvent)
         }
