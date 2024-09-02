@@ -42,6 +42,7 @@ import org.ooni.probe.domain.GetTestDescriptors
 import org.ooni.probe.domain.GetTestDescriptorsBySpec
 import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
+import org.ooni.probe.domain.SendSupportEmail
 import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
@@ -177,9 +178,17 @@ class Dependencies(
         )
     }
 
+    val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
+
     private val testStateManager by lazy { TestRunStateManager(resultRepository.getLatest()) }
 
     // ViewModels
+
+    fun aboutViewModel(onBack: () -> Unit) =
+        AboutViewModel(
+            onBack = onBack,
+            launchUrl = { launchUrl(it, emptyMap()) },
+        )
 
     fun dashboardViewModel(
         goToResults: () -> Unit,
@@ -193,8 +202,7 @@ class Dependencies(
         observeTestRunErrors = testStateManager.observeError(),
     )
 
-    fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) =
-        ResultsViewModel(goToResult, getResults::invoke)
+    fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) = ResultsViewModel(goToResult, getResults::invoke)
 
     fun runningViewModel(
         onBack: () -> Unit,
@@ -209,10 +217,10 @@ class Dependencies(
 
     fun settingsViewModel(
         goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
-        sendSupportEmail: () -> Unit,
+        sendSupportEmail: suspend () -> Unit,
     ) = SettingsViewModel(
-        goToSettingsForCategory,
-        sendSupportEmail
+        goToSettingsForCategory = goToSettingsForCategory,
+        sendSupportEmail = sendSupportEmail,
     )
 
     fun settingsCategoryViewModel(
@@ -237,13 +245,6 @@ class Dependencies(
         getResult = getResult::invoke,
         markResultAsViewed = resultRepository::markAsViewed,
     )
-
-    fun aboutViewModel(onBack: () -> Unit) =
-        AboutViewModel(onBack) {
-            launchUrl(it, emptyMap())
-        }
-
-    fun sendSupportEmail(): (String, Map<String, String>) -> Unit = launchUrl
 
     companion object {
         @VisibleForTesting

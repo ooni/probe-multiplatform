@@ -9,12 +9,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.Settings_SendEmail_Label
-import ooniprobe.composeapp.generated.resources.Settings_SendEmail_Message
-import ooniprobe.composeapp.generated.resources.shareEmailTo
-import ooniprobe.composeapp.generated.resources.shareSubject
-import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -62,33 +56,14 @@ fun Navigation(
         }
 
         composable(route = Screen.Settings.route) {
-            val sendSupportEmail = dependencies.sendSupportEmail()
-            val supportEmail = stringResource(Res.string.shareEmailTo)
-            val subject = stringResource(Res.string.shareSubject, dependencies.platformInfo.version)
-            val chooserTitle = stringResource(Res.string.Settings_SendEmail_Label)
-            val platformInfo = dependencies.platformInfo
-            val body = stringResource(Res.string.Settings_SendEmail_Message) + "\n\n\n" +
-                "PLATFORM: ${platformInfo.platform}\n" +
-                "MODEL: ${platformInfo.model}\n" +
-                "OS Version: ${platformInfo.osVersion}"
-            val viewModel =
-                viewModel {
-                    dependencies.settingsViewModel(
-                        goToSettingsForCategory = {
-                            navController.navigate(Screen.SettingsCategory(it).route)
-                        },
-                        sendSupportEmail = {
-                            sendSupportEmail.invoke(
-                                supportEmail,
-                                mapOf(
-                                    "subject" to subject,
-                                    "body" to body,
-                                    "chooserTitle" to chooserTitle
-                                ),
-                            )
-                        },
-                    )
-                }
+            val viewModel = viewModel {
+                dependencies.settingsViewModel(
+                    goToSettingsForCategory = {
+                        navController.navigate(Screen.SettingsCategory(it).route)
+                    },
+                    sendSupportEmail = dependencies.sendSupportEmail::invoke,
+                )
+            }
             SettingsScreen(viewModel::onEvent)
         }
 
