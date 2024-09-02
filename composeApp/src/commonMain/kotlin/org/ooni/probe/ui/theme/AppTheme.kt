@@ -7,14 +7,16 @@ import androidx.compose.runtime.CompositionLocalProvider
 import org.ooni.probe.ui.LocalCustomColors
 import org.ooni.probe.ui.customColorsDark
 import org.ooni.probe.ui.customColorsLight
+import org.ooni.probe.ui.navigation.Screen
 import org.ooni.probe.ui.shared.LightStatusBars
 
 @Composable
 fun AppTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
+    currentRoute: String? = null,
     content: @Composable () -> Unit,
 ) {
-    LightStatusBars(!useDarkTheme)
+    LightStatusBars(!useDarkTheme && currentRoute != Screen.RunningTest.route)
 
     CompositionLocalProvider(
         LocalCustomColors provides if (useDarkTheme) customColorsDark else customColorsLight,

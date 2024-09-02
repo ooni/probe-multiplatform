@@ -12,14 +12,17 @@ val successColorLight = Color(0xFF40c057)
 val onSuccessColorLight = Color.White
 val successColorDark = Color(0xFF2b8a3e)
 val onSuccessColorDark = Color.White
+val onDescriptorColorLight = Color.White
+val onDescriptorColorDark = Color.White
 
 data class CustomColors(
     val success: Color,
     val onSuccess: Color,
+    val onDescriptor: Color,
 )
 
-val customColorsLight = CustomColors(successColorLight, onSuccessColorLight)
-val customColorsDark = CustomColors(successColorDark, onSuccessColorDark)
+val customColorsLight = CustomColors(successColorLight, onSuccessColorLight, onDescriptorColorLight)
+val customColorsDark = CustomColors(successColorDark, onSuccessColorDark, onDescriptorColorDark)
 
 internal val LocalCustomColors = staticCompositionLocalOf { customColorsLight }
 

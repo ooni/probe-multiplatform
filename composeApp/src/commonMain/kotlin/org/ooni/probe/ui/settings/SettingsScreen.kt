@@ -3,7 +3,11 @@ package org.ooni.probe.ui.settings
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
@@ -21,7 +25,9 @@ import org.ooni.probe.data.models.SettingsCategoryItem
 
 @Composable
 fun SettingsScreen(onNavigateToSettingsCategory: (SettingsViewModel.Event) -> Unit) {
-    Column {
+    Column(
+        modifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
+    ) {
         TopAppBar(
             title = {
                 Text(stringResource(Res.string.Settings_Title))

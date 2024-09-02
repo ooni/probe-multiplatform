@@ -18,14 +18,12 @@ import ooniprobe.composeapp.generated.resources.ic_history
 import ooniprobe.composeapp.generated.resources.ic_settings
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.MAIN_NAVIGATION_SCREENS
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val entry by navController.currentBackStackEntryAsState()
     val currentRoute = entry?.destination?.route ?: return
-
-    // Only show the bottom app on the main screens
-    if (!MAIN_NAVIGATION_SCREENS.map { it.route }.contains(currentRoute)) return
 
     NavigationBar {
         MAIN_NAVIGATION_SCREENS.forEach { screen ->
@@ -79,5 +77,3 @@ private val Screen.iconRes
             Screen.Settings -> Res.drawable.ic_settings
             else -> throw IllegalArgumentException("Only main screens allowed in bottom navigation")
         }
-
-private val MAIN_NAVIGATION_SCREENS = listOf(Screen.Dashboard, Screen.Results, Screen.Settings)

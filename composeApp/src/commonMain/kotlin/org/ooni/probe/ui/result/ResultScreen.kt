@@ -3,7 +3,10 @@ package org.ooni.probe.ui.result
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -58,7 +61,9 @@ fun ResultScreen(
 
         if (state.result == null) return@Column
 
-        LazyColumn {
+        LazyColumn(
+            contentPadding = WindowInsets.navigationBars.asPaddingValues(),
+        ) {
             items(state.result.measurements, key = { it.measurement.idOrThrow.value }) { item ->
                 ResultMeasurementItem(
                     item = item,

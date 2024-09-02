@@ -9,12 +9,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.Settings_SendEmail_Label
-import ooniprobe.composeapp.generated.resources.Settings_SendEmail_Message
-import ooniprobe.composeapp.generated.resources.shareEmailTo
-import ooniprobe.composeapp.generated.resources.shareSubject
-import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -25,6 +19,7 @@ import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
 import org.ooni.probe.ui.result.ResultScreen
 import org.ooni.probe.ui.results.ResultsScreen
+import org.ooni.probe.ui.running.RunningScreen
 import org.ooni.probe.ui.settings.SettingsScreen
 import org.ooni.probe.ui.settings.about.AboutScreen
 import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
@@ -43,6 +38,7 @@ fun Navigation(
             val viewModel = viewModel {
                 dependencies.dashboardViewModel(
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
+                    goToRunningTest = { navController.navigate(Screen.RunningTest.route) },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -50,40 +46,24 @@ fun Navigation(
         }
 
         composable(route = Screen.Results.route) {
-            val viewModel =
-                viewModel {
-                    dependencies.resultsViewModel(
-                        goToResult = { navController.navigate(Screen.Result(it).route) },
-                    )
-                }
+            val viewModel = viewModel {
+                dependencies.resultsViewModel(
+                    goToResult = { navController.navigate(Screen.Result(it).route) },
+                )
+            }
             val state by viewModel.state.collectAsState()
             ResultsScreen(state, viewModel::onEvent)
         }
 
         composable(route = Screen.Settings.route) {
-            val sendSupportEmail = dependencies.sendSupportEmail()
-            val supportEmail = stringResource(Res.string.shareEmailTo)
-            val subject = stringResource(Res.string.shareSubject, dependencies.platformInfo.version)
-            val chooserTitle = stringResource(Res.string.Settings_SendEmail_Label)
-            val platformInfo = dependencies.platformInfo
-            val body = stringResource(Res.string.Settings_SendEmail_Message) + "\n\n\n" +
-                "PLATFORM: ${platformInfo.platform}\n" +
-                "MODEL: ${platformInfo.model}\n" +
-                "OS Version: ${platformInfo.osVersion}"
-            val viewModel =
-                viewModel {
-                    dependencies.settingsViewModel(
-                        goToSettingsForCategory = {
-                            navController.navigate(Screen.SettingsCategory(it).route)
-                        },
-                        sendSupportEmail = {
-                            sendSupportEmail.invoke(
-                                supportEmail,
-                                mapOf("subject" to subject, "body" to body, "chooserTitle" to chooserTitle),
-                            )
-                        },
-                    )
-                }
+            val viewModel = viewModel {
+                dependencies.settingsViewModel(
+                    goToSettingsForCategory = {
+                        navController.navigate(Screen.SettingsCategory(it).route)
+                    },
+                    sendSupportEmail = dependencies.sendSupportEmail::invoke,
+                )
+            }
             SettingsScreen(viewModel::onEvent)
         }
 
@@ -92,16 +72,15 @@ fun Navigation(
             arguments = Screen.Result.ARGUMENTS,
         ) { entry ->
             val resultId = entry.arguments?.getLong("resultId") ?: return@composable
-            val viewModel =
-                viewModel {
-                    dependencies.resultViewModel(
-                        resultId = ResultModel.Id(resultId),
-                        onBack = { navController.navigateUp() },
-                        goToMeasurement = { reportId, input ->
-                            navController.navigate(Screen.Measurement(reportId, input).route)
-                        },
-                    )
-                }
+            val viewModel = viewModel {
+                dependencies.resultViewModel(
+                    resultId = ResultModel.Id(resultId),
+                    onBack = { navController.popBackStack() },
+                    goToMeasurement = { reportId, input ->
+                        navController.navigate(Screen.Measurement(reportId, input).route)
+                    },
+                )
+            }
             val state by viewModel.state.collectAsState()
             ResultScreen(state, viewModel::onEvent)
         }
@@ -115,7 +94,7 @@ fun Navigation(
             MeasurementScreen(
                 reportId = MeasurementModel.ReportId(reportId),
                 input = input,
-                onBack = { navController.navigateUp() },
+                onBack = { navController.popBackStack() },
             )
         }
 
@@ -136,19 +115,17 @@ fun Navigation(
                 }
 
                 else -> {
-                    val viewModel =
-                        viewModel {
-                            dependencies.settingsCategoryViewModel(
-                                goToSettingsForCategory = {
-                                    navController.navigate(Screen.SettingsCategory(it).route)
-                                },
-                                onBack = { navController.navigateUp() },
-                                category =
-                                    SettingsCategoryItem.getSettingsItem(
-                                        PreferenceCategoryKey.valueOf(category),
-                                    ),
-                            )
-                        }
+                    val viewModel = viewModel {
+                        dependencies.settingsCategoryViewModel(
+                            goToSettingsForCategory = {
+                                navController.navigate(Screen.SettingsCategory(it).route)
+                            },
+                            onBack = { navController.popBackStack() },
+                            category = SettingsCategoryItem.getSettingsItem(
+                                PreferenceCategoryKey.valueOf(category),
+                            ),
+                        )
+                    }
                     val state by viewModel.state.collectAsState()
 
                     SettingsCategoryScreen(
@@ -157,6 +134,20 @@ fun Navigation(
                     )
                 }
             }
+        }
+
+        composable(route = Screen.RunningTest.route) {
+            val viewModel = viewModel {
+                dependencies.runningViewModel(
+                    onBack = { navController.popBackStack() },
+                    goToResults = {
+                        navController.popBackStack()
+                        navController.navigateToMainScreen(Screen.Results)
+                    },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            RunningScreen(state, viewModel::onEvent)
         }
     }
 }

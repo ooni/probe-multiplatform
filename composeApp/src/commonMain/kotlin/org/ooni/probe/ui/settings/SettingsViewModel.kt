@@ -10,7 +10,7 @@ import org.ooni.probe.data.models.PreferenceCategoryKey
 
 open class SettingsViewModel(
     goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
-    sendSupportEmail: () -> Unit,
+    sendSupportEmail: suspend () -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 

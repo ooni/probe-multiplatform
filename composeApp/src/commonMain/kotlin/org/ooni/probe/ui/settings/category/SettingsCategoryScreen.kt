@@ -4,7 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -54,7 +57,9 @@ fun SettingsCategoryScreen(
             },
         )
         Box(
-            modifier = Modifier.verticalScroll(rememberScrollState()).padding(bottom = 48.dp),
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(WindowInsets.navigationBars.asPaddingValues()),
         ) {
             Column {
                 state.category.settings?.forEach { preferenceItem ->

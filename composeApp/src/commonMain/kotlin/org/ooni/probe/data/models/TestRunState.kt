@@ -12,7 +12,7 @@ sealed interface TestRunState {
     ) : TestRunState
 
     data class Running(
-        val descriptorName: String? = null,
+        val descriptor: Descriptor? = null,
         val testType: TestType? = null,
         val estimatedRuntime: List<Duration>? = null,
         val testProgress: Double = 0.0,
