@@ -48,6 +48,9 @@ fun setupDependencies(
     buildDataStore = ::buildDataStore,
     isBatteryCharging = ::checkBatteryCharging,
     launchUrl = ::launchUrl,
+    configureAutoRun = {
+        // TODO: Implement configureAutoRun for iOS
+    },
 )
 
 private val platformInfo

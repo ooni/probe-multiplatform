@@ -23,6 +23,7 @@ import org.ooni.probe.data.disk.DeleteFile
 import org.ooni.probe.data.disk.DeleteFileOkio
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.disk.WriteFileOkio
+import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -36,6 +37,7 @@ import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapTestDescriptors
 import org.ooni.probe.domain.DownloadUrls
+import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
@@ -43,6 +45,7 @@ import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
 import org.ooni.probe.domain.GetTestDescriptors
 import org.ooni.probe.domain.GetTestDescriptorsBySpec
+import org.ooni.probe.domain.ObserveAndConfigureAutoRun
 import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
 import org.ooni.probe.domain.SendSupportEmail
@@ -67,12 +70,13 @@ class Dependencies(
     private val buildDataStore: () -> DataStore<Preferences>,
     private val isBatteryCharging: () -> Boolean,
     private val launchUrl: (String, Map<String, String>?) -> Unit,
-    // TODO: Implement startBackgroundRun on iOS
-    startBackgroundRunInner: ((RunSpecification) -> Unit)? = null,
+    // TODO: Implement startSingleRun on iOS
+    startSingleRunInner: ((RunSpecification) -> Unit)? = null,
+    private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
 ) {
     // Common
 
-    val backgroundDispatcher = Dispatchers.IO
+    private val backgroundDispatcher = Dispatchers.IO
 
     // Data
 
@@ -127,6 +131,7 @@ class Dependencies(
             urlRepository::createOrUpdateByUrl,
         )
     }
+    val getAutoRunSpecification by lazy { GetAutoRunSpecification() }
     private val getBootstrapTestDescriptors by lazy {
         GetBootstrapTestDescriptors(readAssetFile, json, backgroundDispatcher)
     }
@@ -155,6 +160,14 @@ class Dependencies(
 
     private val getTestDescriptorsBySpec by lazy {
         GetTestDescriptorsBySpec(getTestDescriptors = getTestDescriptors::invoke)
+    }
+
+    val observeAndConfigureAutoRun by lazy {
+        ObserveAndConfigureAutoRun(
+            backgroundDispatcher = backgroundDispatcher,
+            observeSettings = preferenceRepository::allSettings,
+            configureAutoRun = configureAutoRun,
+        )
     }
 
     private fun runNetTest(spec: RunNetTest.Specification) =
@@ -188,7 +201,7 @@ class Dependencies(
     val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
 
     // TODO: Remove this when startBackgroundRun is implemented on iOS
-    private val startBackgroundRun: (RunSpecification) -> Unit = startBackgroundRunInner ?: { spec ->
+    private val startBackgroundRun: (RunSpecification) -> Unit = startSingleRunInner ?: { spec ->
         CoroutineScope(backgroundDispatcher).launch {
             runDescriptors(spec)
         }

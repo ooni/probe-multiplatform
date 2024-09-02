@@ -31,10 +31,11 @@ kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version =
 
 # UI
 android-activity = { module = "androidx.activity:activity-ktx", version = "1.9.1" }
+android-work = { module = "androidx.work:work-runtime-ktx", version = "2.9.1" }
+
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.8.0" }
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.7.0-alpha07" }
 markdown = { module = "org.jetbrains:markdown", version = "0.7.3" }
-
 
 # Preferences
 androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStoreVersion" }
@@ -78,6 +79,12 @@ tooling = [
     "okio",
     "webview",
     "markdown",
+]
+android = [
+    "android-oonimkall",
+    "android-activity",
+    "android-work",
+    "sqldelight-android",
 ]
 android-test = [
     "android-test-core"

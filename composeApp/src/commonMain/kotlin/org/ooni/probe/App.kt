@@ -75,7 +75,12 @@ fun App(dependencies: Dependencies) {
 
     LaunchedEffect(Unit) {
         logAppStart(dependencies)
+    }
+    LaunchedEffect(Unit) {
         dependencies.bootstrapTestDescriptors()
+    }
+    LaunchedEffect(Unit) {
+        dependencies.observeAndConfigureAutoRun()
     }
 }
 
