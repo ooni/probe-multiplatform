@@ -2,6 +2,7 @@ package org.ooni.probe.ui.results
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,6 +27,8 @@ import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
+import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
+import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
@@ -53,6 +57,10 @@ fun ResultsScreen(
             },
         )
 
+        if (state.results.any { it.value.any { item -> !item.allMeasurementsUploaded } }) {
+            UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
+        }
+
         LazyColumn {
             state.results.forEach { (date, results) ->
                 stickyHeader(key = date.toString()) {
@@ -64,6 +72,24 @@ fun ResultsScreen(
                         onResultClick = { onEvent(ResultsViewModel.Event.ResultClick(result)) },
                     )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun UploadResults(onUploadClick: () -> Unit) {
+    Surface(color = MaterialTheme.colorScheme.surfaceContainer) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+        ) {
+            Text(stringResource(Res.string.Snackbar_ResultsSomeNotUploaded_Text))
+            TextButton(onClick = onUploadClick) {
+                Text(stringResource(Res.string.Snackbar_ResultsSomeNotUploaded_UploadAll))
             }
         }
     }

@@ -36,6 +36,13 @@ class MeasurementRepository(
             .mapToList(backgroundDispatcher)
             .map { list -> list.mapNotNull { it.toModel() } }
 
+    fun listNotUploaded() =
+        database.measurementQueries
+            .selectAllNotUploaded()
+            .asFlow()
+            .mapToList(backgroundDispatcher)
+            .map { list -> list.mapNotNull { it.toModel() } }
+
     suspend fun createOrUpdate(model: MeasurementModel): MeasurementModel.Id =
         withContext(backgroundDispatcher) {
             database.transactionWithResult {

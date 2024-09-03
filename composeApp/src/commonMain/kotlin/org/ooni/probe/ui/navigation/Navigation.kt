@@ -5,10 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.dialog
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -24,6 +26,7 @@ import org.ooni.probe.ui.settings.SettingsScreen
 import org.ooni.probe.ui.settings.about.AboutScreen
 import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
 import org.ooni.probe.ui.settings.proxy.ProxyScreen
+import org.ooni.probe.ui.upload.UploadMeasurementsDialog
 
 @Composable
 fun Navigation(
@@ -50,6 +53,7 @@ fun Navigation(
             val viewModel = viewModel {
                 dependencies.resultsViewModel(
                     goToResult = { navController.navigate(Screen.Result(it).route) },
+                    goToUpload = { navController.navigate(Screen.UploadMeasurements.route) },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -128,6 +132,7 @@ fun Navigation(
                         onEvent = viewModel::onEvent,
                     )
                 }
+
                 else -> {
                     val viewModel = viewModel {
                         dependencies.settingsCategoryViewModel(
@@ -162,6 +167,20 @@ fun Navigation(
             }
             val state by viewModel.state.collectAsState()
             RunningScreen(state, viewModel::onEvent)
+        }
+
+        dialog(
+            route = Screen.UploadMeasurements.route,
+            dialogProperties = DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false,
+            ),
+        ) {
+            val viewModel = viewModel {
+                dependencies.uploadMeasurementsViewModel(onClose = { navController.popBackStack() })
+            }
+            val state by viewModel.state.collectAsState()
+            UploadMeasurementsDialog(state, viewModel::onEvent)
         }
     }
 }
