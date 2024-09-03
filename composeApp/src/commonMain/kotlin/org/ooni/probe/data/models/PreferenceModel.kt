@@ -194,11 +194,7 @@ data class SettingsCategoryItem(
                     route = PreferenceCategoryKey.ADVANCED,
                     settings =
                         listOf(
-                            SettingsItem(
-                                title = Res.string.Settings_Advanced_LanguageSettings_Title,
-                                key = SettingsKey.LANGUAGE_SETTING,
-                                type = PreferenceItemType.SELECT,
-                            ),
+                            // TODO(aanorbel) : Add language settings when in app language switcher can be implemented
                             seeRecentLogsCategory,
                             SettingsItem(
                                 title = Res.string.Settings_Advanced_DebugLogs,
