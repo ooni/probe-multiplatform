@@ -10,6 +10,8 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.SettingsKey
 
 sealed class PreferenceKey<T>(val preferenceKey: Preferences.Key<T>) {
@@ -47,7 +49,7 @@ class PreferenceRepository(
         prefix: String? = null,
         autoRun: Boolean = false,
     ): String {
-        return "${prefix?.let { "${it}_" } ?: ""}$name${if (autoRun) "_autorun" else ""}"
+        return "${prefix?.let { "${it}_" } ?: ""}${if (autoRun) "autorun_" else ""}$name"
     }
 
     private fun preferenceKeyFromSettingsKey(
@@ -101,6 +103,37 @@ class PreferenceRepository(
                 is PreferenceKey.FloatKey -> it[preferenceKey.preferenceKey] = value as Float
                 is PreferenceKey.LongKey -> it[preferenceKey.preferenceKey] = value as Long
             }
+        }
+    }
+
+    fun isDescriptorEnabled(
+        descriptor: Descriptor,
+        isAutoRun: Boolean,
+    ): Flow<Boolean> {
+        val key = getPreferenceKey(
+            name = descriptor.name,
+            prefix = (descriptor.source as? Descriptor.Source.Installed)
+                ?.value?.id?.value?.toString(),
+            autoRun = isAutoRun,
+        )
+        return dataStore.data.map {
+            it[booleanPreferencesKey(key)] == true
+        }
+    }
+
+    fun isNetTestEnabled(
+        descriptor: Descriptor,
+        netTest: NetTest,
+        isAutoRun: Boolean,
+    ): Flow<Boolean> {
+        val key = getPreferenceKey(
+            name = netTest.test.name,
+            prefix = (descriptor.source as? Descriptor.Source.Installed)
+                ?.value?.id?.value?.toString(),
+            autoRun = isAutoRun,
+        )
+        return dataStore.data.map {
+            it[booleanPreferencesKey(key)] == true
         }
     }
 

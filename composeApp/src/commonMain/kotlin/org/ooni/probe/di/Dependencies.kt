@@ -131,7 +131,9 @@ class Dependencies(
             urlRepository::createOrUpdateByUrl,
         )
     }
-    val getAutoRunSpecification by lazy { GetAutoRunSpecification() }
+    val getAutoRunSpecification by lazy {
+        GetAutoRunSpecification(getTestDescriptors, preferenceRepository)
+    }
     private val getBootstrapTestDescriptors by lazy {
         GetBootstrapTestDescriptors(readAssetFile, json, backgroundDispatcher)
     }
