@@ -13,6 +13,11 @@ enum class TaskOrigin(
 ) {
     AutoRun("autorun"),
     OoniRun("ooni-run"),
+    ;
+
+    companion object {
+        fun fromValue(value: String?) = entries.firstOrNull { it.value == value } ?: OoniRun
+    }
 }
 
 object TaskOriginSerializer : KSerializer<TaskOrigin> {
@@ -26,8 +31,5 @@ object TaskOriginSerializer : KSerializer<TaskOrigin> {
         encoder.encodeString(value.value)
     }
 
-    override fun deserialize(decoder: Decoder): TaskOrigin {
-        val string = decoder.decodeString()
-        return TaskOrigin.entries.firstOrNull { it.value == string } ?: TaskOrigin.OoniRun
-    }
+    override fun deserialize(decoder: Decoder): TaskOrigin = TaskOrigin.fromValue(decoder.decodeString())
 }

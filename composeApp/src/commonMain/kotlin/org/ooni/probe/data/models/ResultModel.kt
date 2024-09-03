@@ -1,6 +1,7 @@
 package org.ooni.probe.data.models
 
 import kotlinx.datetime.LocalDateTime
+import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.shared.now
 
 data class ResultModel(
@@ -12,6 +13,7 @@ data class ResultModel(
     val dataUsageUp: Long = 0,
     val dataUsageDown: Long = 0,
     val failureMessage: String? = null,
+    val taskOrigin: TaskOrigin,
     val networkId: NetworkModel.Id? = null,
     val testDescriptorId: InstalledTestDescriptorModel.Id?,
 ) {

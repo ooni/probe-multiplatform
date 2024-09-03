@@ -130,6 +130,7 @@ class RunDescriptors(
         val newResult = ResultModel(
             testGroupName = descriptor.name,
             testDescriptorId = (descriptor.source as? Descriptor.Source.Installed)?.value?.id,
+            taskOrigin = taskOrigin,
         )
         val resultWithId = newResult.copy(id = storeResult(newResult))
 

@@ -30,10 +30,13 @@ import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
 import ooniprobe.composeapp.generated.resources.measurements_count
 import ooniprobe.composeapp.generated.resources.months
+import ooniprobe.composeapp.generated.resources.task_origin_auto_run
+import ooniprobe.composeapp.generated.resources.task_origin_manual
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.shared.relativeDateTime
@@ -123,6 +126,16 @@ private fun ResultItem(
                 horizontalAlignment = Alignment.End,
                 modifier = Modifier.weight(0.34f),
             ) {
+                Text(
+                    stringResource(
+                        when (item.result.taskOrigin) {
+                            TaskOrigin.AutoRun -> Res.string.task_origin_auto_run
+                            TaskOrigin.OoniRun -> Res.string.task_origin_manual
+                        },
+                    ),
+                    style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.padding(bottom = 2.dp),
+                )
                 Text(
                     pluralStringResource(
                         Res.plurals.measurements_count,

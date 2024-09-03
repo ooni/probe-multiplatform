@@ -9,6 +9,7 @@ CREATE TABLE Result(
     failure_msg TEXT,
     network_id INTEGER,
     descriptor_runId INTEGER REFERENCES TestDescriptor (`runId`),
+    task_origin TEXT DEFAULT 'ooni-run',
     FOREIGN KEY(`network_id`) REFERENCES Network(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
@@ -22,9 +23,10 @@ INSERT OR REPLACE INTO Result (
     data_usage_up,
     data_usage_down,
     failure_msg,
+    task_origin,
     network_id,
     descriptor_runId
-) VALUES (?,?,?,?,?,?,?,?,?,?);
+) VALUES (?,?,?,?,?,?,?,?,?,?, ?);
 
 markAsViewed:
 UPDATE Result SET is_viewed = 1 WHERE id = ?;

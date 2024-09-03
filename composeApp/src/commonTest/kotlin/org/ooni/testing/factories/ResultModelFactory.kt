@@ -3,6 +3,7 @@ package org.ooni.testing.factories
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.atTime
+import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultModel
@@ -18,6 +19,7 @@ object ResultModelFactory {
         dataUsageUp: Long = 0,
         dataUsageDown: Long = 0,
         failureMessage: String? = null,
+        taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
         networkId: NetworkModel.Id? = null,
         testDescriptorId: InstalledTestDescriptorModel.Id? = null,
     ) = ResultModel(
@@ -29,6 +31,7 @@ object ResultModelFactory {
         dataUsageUp = dataUsageUp,
         dataUsageDown = dataUsageDown,
         failureMessage = failureMessage,
+        taskOrigin = taskOrigin,
         networkId = networkId,
         testDescriptorId = testDescriptorId,
     )

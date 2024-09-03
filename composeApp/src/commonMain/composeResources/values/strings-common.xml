@@ -182,4 +182,6 @@
     <string name="minutes_abbreviated">%1$dm</string>
     <string name="seconds_abbreviated">%1$ds</string>
     <string name="notification_channel_name">Testing</string>
+    <string name="task_origin_manual">Manual Run</string>
+    <string name="task_origin_auto_run">Auto Run</string>
 </resources>

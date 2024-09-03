@@ -1,0 +1,1 @@
+ALTER TABLE Result ADD COLUMN task_origin TEXT DEFAULT 'ooni-run';
