@@ -90,10 +90,11 @@ class AndroidApplication : Application() {
             val localeManager = applicationContext
                 .getSystemService(LocaleManager::class.java)
             localeManager.overrideLocaleConfig = LocaleConfig(
-                LocaleList.forLanguageTags(getString(R.string.supported_languages))
+                LocaleList.forLanguageTags(getString(R.string.supported_languages)),
             )
         }
     }
+
     private fun buildDatabaseDriver(): SqlDriver = AndroidSqliteDriver(Database.Schema, this, "v2.db")
 
     private fun readAssetFile(path: String) = assets.open(path).bufferedReader().use { it.readText() }

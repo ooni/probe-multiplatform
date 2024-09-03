@@ -7,7 +7,6 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_About_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_DebugLogs
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
-import ooniprobe.composeapp.generated.resources.Settings_Advanced_LanguageSettings_Title
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_RecentLogs
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_ChargingOnly

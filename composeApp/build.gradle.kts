@@ -30,8 +30,8 @@ val appConfig =
                     "fr",
                     "pt-rBR",
                     "ru",
-                    "tr"
-                )
+                    "tr",
+                ),
             ),
         "ooni" to
             AppConfig(
@@ -64,7 +64,7 @@ val appConfig =
                     "tr",
                     "vi",
                     "zh-rCN",
-                    "zh-rTW"
+                    "zh-rTW",
                 ),
             ),
     )
