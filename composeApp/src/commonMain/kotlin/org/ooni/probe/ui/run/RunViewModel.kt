@@ -1,0 +1,223 @@
+package org.ooni.probe.ui.run
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
+import org.ooni.engine.models.TaskOrigin
+import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorType
+import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.RunSpecification
+import org.ooni.probe.data.repositories.PreferenceRepository
+import org.ooni.probe.ui.shared.SelectableAndCollapsableItem
+import org.ooni.probe.ui.shared.SelectableItem
+
+class RunViewModel(
+    onBack: () -> Unit,
+    startBackgroundRun: (RunSpecification) -> Unit,
+    getTestDescriptors: () -> Flow<List<Descriptor>>,
+    private val preferenceRepository: PreferenceRepository,
+) : ViewModel() {
+    private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
+
+    private val _state = MutableStateFlow(State(emptyMap()))
+    val state = _state.asStateFlow()
+
+    private val collapsedDescriptorsKeys = MutableStateFlow(emptyList<String>())
+
+    init {
+        combine(
+            getTestDescriptors(),
+            collapsedDescriptorsKeys,
+            ::Pair,
+        ).flatMapLatest { (descriptors, collapsedDescriptorsKeys) ->
+            preferenceRepository
+                .areNetTestsEnabled(descriptors.toNetTestsList(), isAutoRun = false)
+                .map { preferences ->
+                    val descriptorsWithTests =
+                        descriptors
+                            .associate { descriptor ->
+                                val tests = descriptor.allTests
+                                val allTestsSelected =
+                                    tests.all { preferences[descriptor to it] == true }
+
+                                SelectableAndCollapsableItem(
+                                    item = descriptor,
+                                    isSelected = allTestsSelected,
+                                    isExpanded = !collapsedDescriptorsKeys.contains(descriptor.key),
+                                ) to tests.map { test ->
+                                    SelectableItem(
+                                        item = test,
+                                        isSelected = preferences[descriptor to test] == true,
+                                    )
+                                }
+                            }
+                    mapOf(
+                        DescriptorType.Default to descriptorsWithTests
+                            .filter { it.key.item.source is Descriptor.Source.Default },
+                        DescriptorType.Installed to descriptorsWithTests
+                            .filter { it.key.item.source is Descriptor.Source.Installed },
+                    )
+                }
+        }
+            .onEach { _state.value = State(it) }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.BackClicked>()
+            .onEach { onBack() }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.SelectAllClicked>()
+            .onEach { setAllAreEnabled(true) }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.DeselectAllClicked>()
+            .onEach { setAllAreEnabled(false) }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.DescriptorChecked>()
+            .onEach {
+                setAreEnabled(
+                    it.descriptor.allTests.map { test -> it.descriptor to test },
+                    isEnabled = it.isChecked,
+                )
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.NetTestChecked>()
+            .onEach { setIsEnabled(it.descriptor, it.netTest, isEnabled = it.isChecked) }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.DescriptorDropdownToggled>()
+            .onEach { event ->
+                collapsedDescriptorsKeys.update { keys ->
+                    val key = event.descriptor.key
+                    if (keys.contains(key)) {
+                        keys - key
+                    } else {
+                        keys + key
+                    }
+                }
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.RunClicked>()
+            .onEach {
+                startBackgroundRun(buildRunSpecification())
+                onBack()
+            }
+            .launchIn(viewModelScope)
+    }
+
+    fun onEvent(event: Event) {
+        events.tryEmit(event)
+    }
+
+    private suspend fun setAllAreEnabled(isEnabled: Boolean) {
+        setAreEnabled(
+            _state.value.list.values
+                .flatMap { it.entries }
+                .flatMap { (descriptorItem, netTestItems) ->
+                    netTestItems.map { netTestItem ->
+                        descriptorItem.item to netTestItem.item
+                    }
+                },
+            isEnabled = isEnabled,
+        )
+    }
+
+    private suspend fun setIsEnabled(
+        descriptor: Descriptor,
+        test: NetTest,
+        isEnabled: Boolean,
+    ) {
+        setAreEnabled(listOf(descriptor to test), isEnabled)
+    }
+
+    private suspend fun setAreEnabled(
+        list: List<Pair<Descriptor, NetTest>>,
+        isEnabled: Boolean,
+    ) {
+        preferenceRepository.setAreNetTestsEnabled(
+            list = list,
+            isAutoRun = false,
+            isEnabled = isEnabled,
+        )
+    }
+
+    private fun List<Descriptor>.toNetTestsList() =
+        flatMap { descriptor ->
+            descriptor.allTests.map { netTest ->
+                descriptor to netTest
+            }
+        }
+
+    private fun buildRunSpecification(): RunSpecification {
+        val selectedTests = state.value.list.values
+            .flatMap { it.entries }
+            .associate { (descriptorItem, netTestItems) ->
+                descriptorItem.item to netTestItems
+                    .filter { it.isSelected }
+                    .map { it.item }
+            }
+        return RunSpecification(
+            tests =
+                selectedTests.map { (descriptor, tests) ->
+                    RunSpecification.Test(
+                        source =
+                            when (descriptor.source) {
+                                is Descriptor.Source.Default ->
+                                    RunSpecification.Test.Source.Default(descriptor.name)
+
+                                is Descriptor.Source.Installed ->
+                                    RunSpecification.Test.Source.Installed(descriptor.source.value.id)
+                            },
+                        netTests = tests,
+                    )
+                },
+            taskOrigin = TaskOrigin.OoniRun,
+            isRerun = false,
+        )
+    }
+
+    data class State(
+        val list: Map<DescriptorType, Map<SelectableAndCollapsableItem<Descriptor>, List<SelectableItem<NetTest>>>>,
+    )
+
+    sealed interface Event {
+        data object BackClicked : Event
+
+        data object SelectAllClicked : Event
+
+        data object DeselectAllClicked : Event
+
+        data class DescriptorChecked(val descriptor: Descriptor, val isChecked: Boolean) : Event
+
+        data class DescriptorDropdownToggled(val descriptor: Descriptor) : Event
+
+        data class NetTestChecked(
+            val descriptor: Descriptor,
+            val netTest: NetTest,
+            val isChecked: Boolean,
+        ) : Event
+
+        data object RunClicked : Event
+    }
+}

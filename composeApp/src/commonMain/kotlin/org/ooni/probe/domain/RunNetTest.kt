@@ -34,11 +34,13 @@ class RunNetTest(
 ) {
     data class Specification(
         val descriptor: Descriptor,
+        val descriptorIndex: Int,
         val netTest: NetTest,
         val taskOrigin: TaskOrigin,
         val isRerun: Boolean,
         val initialResult: ResultModel,
         val testIndex: Int,
+        val testTotal: Int,
     )
 
     private var result = spec.initialResult
@@ -52,9 +54,11 @@ class RunNetTest(
             if (it !is TestRunState.Running) return@setCurrentTestState it
             it.copy(
                 descriptor = spec.descriptor,
+                descriptorIndex = spec.descriptorIndex,
                 testType = spec.netTest.test,
                 testProgress = spec.testIndex * progressStep,
                 testIndex = spec.testIndex,
+                testTotal = spec.testTotal,
             )
         }
 

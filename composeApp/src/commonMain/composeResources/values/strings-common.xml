@@ -9,6 +9,11 @@
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <string name="Dashboard_RunV2_RunFinished">Run finished. Tap to view results.</string>
 
+    <string name="Dashboard_RunTests_Title">Run tests</string>
+    <string name="Dashboard_RunTests_Description">Select the tests to run</string>
+    <string name="Dashboard_RunTests_SelectAll">Select all tests</string>
+    <string name="Dashboard_RunTests_SelectNone">Deselect all tests</string>
+
     <string name="OONIRun_Run">Run</string>
     <string name="Notification_StopTest">Stop test</string>
 
@@ -193,4 +198,10 @@
     <string name="notification_channel_name">Testing</string>
     <string name="task_origin_manual">Manual Run</string>
     <string name="task_origin_auto_run">Auto Run</string>
+    <string name="collapse">Collapse</string>
+    <string name="expand">Expand</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Run %1$d test</item>
+        <item quantity="other">Run %1$d tests</item>
+    </plurals>
 </resources>
