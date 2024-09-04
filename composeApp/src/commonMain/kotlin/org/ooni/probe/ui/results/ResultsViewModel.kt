@@ -16,6 +16,7 @@ import org.ooni.probe.data.models.ResultModel
 
 class ResultsViewModel(
     goToResult: (ResultModel.Id) -> Unit,
+    goToUpload: () -> Unit,
     getResults: () -> Flow<List<ResultListItem>>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -41,6 +42,11 @@ class ResultsViewModel(
             .filterIsInstance<Event.ResultClick>()
             .onEach { goToResult(it.result.idOrThrow) }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.UploadClick>()
+            .onEach { goToUpload() }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -59,5 +65,7 @@ class ResultsViewModel(
 
     sealed interface Event {
         data class ResultClick(val result: ResultListItem) : Event
+
+        data object UploadClick : Event
     }
 }

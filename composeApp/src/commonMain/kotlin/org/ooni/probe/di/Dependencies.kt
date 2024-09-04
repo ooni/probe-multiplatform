@@ -21,6 +21,8 @@ import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
 import org.ooni.probe.data.disk.DeleteFile
 import org.ooni.probe.data.disk.DeleteFileOkio
+import org.ooni.probe.data.disk.ReadFile
+import org.ooni.probe.data.disk.ReadFileOkio
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.disk.WriteFileOkio
 import org.ooni.probe.data.models.AutoRunParameters
@@ -50,6 +52,7 @@ import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
 import org.ooni.probe.domain.SendSupportEmail
 import org.ooni.probe.domain.TestRunStateManager
+import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.result.ResultViewModel
@@ -59,6 +62,7 @@ import org.ooni.probe.ui.settings.SettingsViewModel
 import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
 import org.ooni.probe.ui.settings.proxy.ProxyViewModel
+import org.ooni.probe.ui.upload.UploadMeasurementsViewModel
 
 class Dependencies(
     val platformInfo: PlatformInfo,
@@ -95,6 +99,7 @@ class Dependencies(
     }
     private val urlRepository by lazy { UrlRepository(database, backgroundDispatcher) }
 
+    private val readFile: ReadFile by lazy { ReadFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val writeFile: WriteFile by lazy { WriteFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val deleteFile: DeleteFile by lazy { DeleteFileOkio(FileSystem.SYSTEM, baseFileDir) }
 
@@ -212,7 +217,19 @@ class Dependencies(
 
     private val testStateManager by lazy { TestRunStateManager(resultRepository.getLatest()) }
 
+    private val uploadMissingMeasurements by lazy {
+        UploadMissingMeasurements(
+            getMeasurementsNotUploaded = measurementRepository.listNotUploaded(),
+            submitMeasurement = engine::submitMeasurements,
+            readFile = readFile,
+            deleteFile = deleteFile,
+            updateMeasurement = measurementRepository::createOrUpdate,
+        )
+    }
+
     // ViewModels
+
+    fun aboutViewModel(onBack: () -> Unit) = AboutViewModel(onBack = onBack, launchUrl = { launchUrl(it, emptyMap()) })
 
     fun dashboardViewModel(
         goToResults: () -> Unit,
@@ -226,7 +243,7 @@ class Dependencies(
         observeTestRunErrors = testStateManager.observeError(),
     )
 
-    fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) = ResultsViewModel(goToResult, getResults::invoke)
+    fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
 
     fun runningViewModel(
         onBack: () -> Unit,
@@ -239,23 +256,13 @@ class Dependencies(
         cancelTestRun = testStateManager::cancelTestRun,
     )
 
-    fun settingsViewModel(
-        goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
-        sendSupportEmail: suspend () -> Unit,
-    ) = SettingsViewModel(
-        goToSettingsForCategory = goToSettingsForCategory,
-        sendSupportEmail = sendSupportEmail,
-    )
-
-    fun settingsCategoryViewModel(
-        goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
-        onBack: () -> Unit,
-        category: SettingsCategoryItem,
-    ) = SettingsCategoryViewModel(
-        preferenceManager = preferenceRepository,
-        onBack = onBack,
-        goToSettingsForCategory = goToSettingsForCategory,
-        category = category,
+    fun resultsViewModel(
+        goToResult: (ResultModel.Id) -> Unit,
+        goToUpload: () -> Unit,
+    ) = ResultsViewModel(
+        goToResult = goToResult,
+        goToUpload = goToUpload,
+        getResults = getResults::invoke,
     )
 
     fun resultViewModel(
@@ -270,14 +277,30 @@ class Dependencies(
         markResultAsViewed = resultRepository::markAsViewed,
     )
 
-    fun aboutViewModel(onBack: () -> Unit) =
-        AboutViewModel(onBack) {
-            launchUrl(it, emptyMap())
-        }
+    fun settingsCategoryViewModel(
+        goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
+        onBack: () -> Unit,
+        category: SettingsCategoryItem,
+    ) = SettingsCategoryViewModel(
+        preferenceManager = preferenceRepository,
+        onBack = onBack,
+        goToSettingsForCategory = goToSettingsForCategory,
+        category = category,
+    )
 
-    fun sendSupportEmail(): (String, Map<String, String>) -> Unit = launchUrl
+    fun settingsViewModel(
+        goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
+        sendSupportEmail: suspend () -> Unit,
+    ) = SettingsViewModel(
+        goToSettingsForCategory = goToSettingsForCategory,
+        sendSupportEmail = sendSupportEmail,
+    )
 
-    fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
+    fun uploadMeasurementsViewModel(onClose: () -> Unit) =
+        UploadMeasurementsViewModel(
+            onClose = onClose,
+            uploadMissingMeasurements = uploadMissingMeasurements::invoke,
+        )
 
     companion object {
         @VisibleForTesting
