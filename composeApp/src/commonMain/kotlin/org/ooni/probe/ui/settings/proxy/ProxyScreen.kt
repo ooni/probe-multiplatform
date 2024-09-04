@@ -1,5 +1,7 @@
 package org.ooni.probe.ui.settings.proxy
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +24,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -104,8 +107,24 @@ fun ProxyScreen(
                 OutlinedTextField(
                     value = state.proxyProtocol.toCustomProtocol(),
                     onValueChange = { },
-                    label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Protocol), maxLines = 1) },
+                    label = {
+                        Text(
+                            stringResource(Res.string.Settings_Proxy_Custom_Protocol),
+                            maxLines = 1,
+                        )
+                    },
                     modifier = Modifier.weight(0.3f),
+                    // Workaround to detect click on TextField: https://stackoverflow.com/a/70335041
+                    interactionSource = remember { MutableInteractionSource() }
+                        .also { interactionSource ->
+                            LaunchedEffect(interactionSource) {
+                                interactionSource.interactions.collect {
+                                    if (it is PressInteraction.Release) {
+                                        expanded = true
+                                    }
+                                }
+                            }
+                        },
                     readOnly = true,
                     singleLine = true,
                     isError = state.proxyProtocolError,
@@ -123,11 +142,7 @@ fun ProxyScreen(
                     protocols.forEach { protocol ->
                         DropdownMenuItem(text = { Text(protocol.protocol) }, onClick = {
                             expanded = false
-                            onEvent(
-                                ProxyViewModel.Event.ProtocolChanged(
-                                    protocol = protocol,
-                                ),
-                            )
+                            onEvent(ProxyViewModel.Event.ProtocolChanged(protocol))
                         })
                     }
                 }
