@@ -60,10 +60,12 @@ class PreferenceRepository(
             SettingsKey.MAX_RUNTIME,
             SettingsKey.PROXY_PORT,
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
+
             SettingsKey.PROXY_HOSTNAME,
             SettingsKey.PROXY_PROTOCOL,
             SettingsKey.LANGUAGE_SETTING,
             -> PreferenceKey.StringKey(stringPreferencesKey(preferenceKey))
+
             else -> PreferenceKey.BooleanKey(booleanPreferencesKey(preferenceKey))
         }
     }
@@ -74,7 +76,13 @@ class PreferenceRepository(
         autoRun: Boolean = false,
     ): Flow<Map<SettingsKey, Any?>> =
         dataStore.data.map {
-            keys.map { key -> key to it[preferenceKeyFromSettingsKey(key, prefix, autoRun).preferenceKey] }.toMap()
+            keys.map { key ->
+                key to it[
+                    preferenceKeyFromSettingsKey(
+                        key, prefix, autoRun,
+                    ).preferenceKey,
+                ]
+            }.toMap()
         }
 
     fun getValueByKey(key: SettingsKey): Flow<Any?> {
@@ -113,6 +121,7 @@ class PreferenceRepository(
     }
 
     suspend fun contains(key: SettingsKey): Boolean {
-        return dataStore.data.map { it.contains(preferenceKeyFromSettingsKey(key).preferenceKey) }.firstOrNull() ?: false
+        return dataStore.data.map { it.contains(preferenceKeyFromSettingsKey(key).preferenceKey) }
+            .firstOrNull() ?: false
     }
 }

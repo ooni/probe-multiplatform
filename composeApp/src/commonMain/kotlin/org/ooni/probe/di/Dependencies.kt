@@ -52,6 +52,7 @@ import org.ooni.probe.ui.running.RunningViewModel
 import org.ooni.probe.ui.settings.SettingsViewModel
 import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
+import org.ooni.probe.ui.settings.proxy.ProxyViewModel
 
 class Dependencies(
     val platformInfo: PlatformInfo,
@@ -184,12 +185,6 @@ class Dependencies(
 
     // ViewModels
 
-    fun aboutViewModel(onBack: () -> Unit) =
-        AboutViewModel(
-            onBack = onBack,
-            launchUrl = { launchUrl(it, emptyMap()) },
-        )
-
     fun dashboardViewModel(
         goToResults: () -> Unit,
         goToRunningTest: () -> Unit,
@@ -245,6 +240,15 @@ class Dependencies(
         getResult = getResult::invoke,
         markResultAsViewed = resultRepository::markAsViewed,
     )
+
+    fun aboutViewModel(onBack: () -> Unit) =
+        AboutViewModel(onBack) {
+            launchUrl(it, emptyMap())
+        }
+
+    fun sendSupportEmail(): (String, Map<String, String>) -> Unit = launchUrl
+
+    fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
 
     companion object {
         @VisibleForTesting
