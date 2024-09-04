@@ -7,6 +7,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.Database
 import org.ooni.probe.data.Network
 import org.ooni.probe.data.Result
@@ -63,6 +64,7 @@ class ResultRepository(
                     data_usage_up = model.dataUsageUp,
                     data_usage_down = model.dataUsageDown,
                     failure_msg = model.failureMessage,
+                    task_origin = model.taskOrigin.value,
                     network_id = model.networkId?.value,
                     descriptor_runId = model.testDescriptorId?.value,
                 )
@@ -88,6 +90,7 @@ class ResultRepository(
             dataUsageUp = data_usage_up ?: 0L,
             dataUsageDown = data_usage_down ?: 0L,
             failureMessage = failure_msg,
+            taskOrigin = TaskOrigin.fromValue(task_origin),
             networkId = network_id?.let(NetworkModel::Id),
             testDescriptorId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
         )
@@ -104,6 +107,7 @@ class ResultRepository(
                 data_usage_up = data_usage_up,
                 data_usage_down = data_usage_down,
                 failure_msg = failure_msg,
+                task_origin = task_origin,
                 network_id = network_id,
                 descriptor_runId = descriptor_runId,
             ).toModel() ?: return null,
@@ -133,6 +137,7 @@ class ResultRepository(
                 data_usage_up = data_usage_up,
                 data_usage_down = data_usage_down,
                 failure_msg = failure_msg,
+                task_origin = task_origin,
                 network_id = network_id,
                 descriptor_runId = descriptor_runId,
             ).toModel() ?: return null,
