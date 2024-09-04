@@ -1,6 +1,8 @@
 package org.ooni.probe
 
 import android.app.Application
+import android.app.LocaleConfig
+import android.app.LocaleManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -8,6 +10,7 @@ import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
+import android.os.LocaleList
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.SharedPreferencesMigration
 import androidx.datastore.preferences.core.Preferences
@@ -83,6 +86,17 @@ class AndroidApplication : Application() {
             override val platform = Platform.Android
             override val osVersion = Build.VERSION.SDK_INT.toString()
             override val model = "${Build.MANUFACTURER} ${Build.MODEL}"
+        }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            val localeManager = applicationContext
+                .getSystemService(LocaleManager::class.java)
+            localeManager.overrideLocaleConfig = LocaleConfig(
+                LocaleList.forLanguageTags(getString(R.string.supported_languages)),
+            )
         }
     }
 

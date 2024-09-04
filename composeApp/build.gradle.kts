@@ -24,6 +24,14 @@ val appConfig =
                 srcRoot = "src/dwMain/kotlin",
                 resRoot = "src/dwMain/resources",
                 composeResRoot = "src/dwMain/composeResources",
+                supportedLanguages = listOf(
+                    "de",
+                    "es",
+                    "fr",
+                    "pt-rBR",
+                    "ru",
+                    "tr",
+                ),
             ),
         "ooni" to
             AppConfig(
@@ -32,6 +40,32 @@ val appConfig =
                 srcRoot = "src/ooniMain/kotlin",
                 resRoot = "src/ooniMain/resources",
                 composeResRoot = "src/ooniMain/composeResources",
+                supportedLanguages = listOf(
+                    "ar",
+                    "ca",
+                    "de",
+                    "el",
+                    "es",
+                    "fa",
+                    "fr",
+                    "hi",
+                    "id",
+                    "is",
+                    "it",
+                    "my",
+                    "nl",
+                    "pt-rBR",
+                    "ro",
+                    "ru",
+                    "sk",
+                    "sq",
+                    "sw",
+                    "th",
+                    "tr",
+                    "vi",
+                    "zh-rCN",
+                    "zh-rTW",
+                ),
             ),
     )
 
@@ -143,6 +177,8 @@ android {
         versionCode = 1
         versionName = "1.0"
         resValue("string", "app_name", config.appName)
+        resValue("string", "supported_languages", config.supportedLanguages.joinToString(separator = ","))
+        resourceConfigurations += config.supportedLanguages
     }
     packaging {
         resources {
@@ -281,6 +317,7 @@ data class AppConfig(
     val srcRoot: String,
     val resRoot: String,
     val composeResRoot: String,
+    val supportedLanguages: List<String>,
 )
 
 /**
