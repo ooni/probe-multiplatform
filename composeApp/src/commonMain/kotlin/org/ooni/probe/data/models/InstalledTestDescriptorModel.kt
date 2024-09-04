@@ -1,6 +1,7 @@
 package org.ooni.probe.data.models
 
 import kotlinx.datetime.LocalDateTime
+import kotlinx.serialization.Serializable
 import org.ooni.probe.shared.now
 
 data class InstalledTestDescriptorModel(
@@ -22,6 +23,7 @@ data class InstalledTestDescriptorModel(
     val revision: String?,
     val autoUpdate: Boolean,
 ) {
+    @Serializable
     data class Id(
         val value: Long,
     )

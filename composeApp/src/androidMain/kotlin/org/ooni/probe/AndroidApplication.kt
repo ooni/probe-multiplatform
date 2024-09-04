@@ -15,6 +15,7 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
+import org.ooni.probe.background.RunService
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -37,6 +38,7 @@ class AndroidApplication : Application() {
             buildDataStore = ::buildDataStore,
             isBatteryCharging = ::checkBatteryCharging,
             launchUrl = ::launchUrl,
+            startBackgroundRunInner = { RunService.start(this, it) },
         )
     }
 

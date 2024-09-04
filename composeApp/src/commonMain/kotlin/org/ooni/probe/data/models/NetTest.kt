@@ -1,8 +1,10 @@
 package org.ooni.probe.data.models
 
+import kotlinx.serialization.Serializable
 import org.ooni.engine.models.OONINetTest
 import org.ooni.engine.models.TestType
 
+@Serializable
 data class NetTest(
     val test: TestType,
     val inputs: List<String>? = emptyList(),

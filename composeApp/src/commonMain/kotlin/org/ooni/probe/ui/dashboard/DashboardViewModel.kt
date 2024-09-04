@@ -2,9 +2,6 @@ package org.ooni.probe.ui.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +10,6 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.RunSpecification
@@ -24,7 +20,7 @@ class DashboardViewModel(
     goToResults: () -> Unit,
     goToRunningTest: () -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
-    runDescriptors: suspend (RunSpecification) -> Unit,
+    startBackgroundRun: (RunSpecification) -> Unit,
     observeTestRunState: Flow<TestRunState>,
     observeTestRunErrors: Flow<TestRunError>,
 ) : ViewModel() {
@@ -54,12 +50,7 @@ class DashboardViewModel(
 
         events
             .filterIsInstance<Event.RunTestsClick>()
-            .onEach {
-                // TODO: This will become a StartTestRun domain class to start a background service
-                CoroutineScope(Dispatchers.IO).launch {
-                    runDescriptors(buildRunSpecification())
-                }
-            }
+            .onEach { startBackgroundRun(buildRunSpecification()) }
             .launchIn(viewModelScope)
 
         events
