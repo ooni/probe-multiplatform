@@ -47,9 +47,13 @@ class RunDescriptors(
             TestRunState.Running(estimatedRuntime = estimatedRuntime)
         }
 
-        runDescriptorsCancellable(descriptorsWithFinalInputs, spec)
-
-        setCurrentTestState { TestRunState.Idle(LocalDateTime.now(), true) }
+        try {
+            runDescriptorsCancellable(descriptorsWithFinalInputs, spec)
+        } catch (e: Exception) {
+            // Exceptions were logged in the Engine
+        } finally {
+            setCurrentTestState { TestRunState.Idle(LocalDateTime.now(), true) }
+        }
     }
 
     private suspend fun runDescriptorsCancellable(
@@ -73,11 +77,8 @@ class RunDescriptors(
                     }
             }
 
-            try {
-                runJob.await()
-            } catch (e: Exception) {
-                // Exceptions were logged in the Engine
-            }
+            runJob.await()
+
             if (cancelJob.isActive) {
                 cancelJob.cancel()
             }

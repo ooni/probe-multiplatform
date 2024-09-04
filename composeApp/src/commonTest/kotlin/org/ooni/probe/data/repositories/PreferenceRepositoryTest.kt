@@ -44,14 +44,14 @@ class PreferenceRepositoryTest {
             preferenceRepository.getPreferenceKey(SettingsKey.LANGUAGE_SETTING.value, "prefix"),
         )
         assertEquals(
-            "${SettingsKey.LANGUAGE_SETTING.value}_autorun",
+            "autorun_${SettingsKey.LANGUAGE_SETTING.value}",
             preferenceRepository.getPreferenceKey(
                 SettingsKey.LANGUAGE_SETTING.value,
                 autoRun = true,
             ),
         )
         assertEquals(
-            "prefix_${SettingsKey.LANGUAGE_SETTING.value}_autorun",
+            "prefix_autorun_${SettingsKey.LANGUAGE_SETTING.value}",
             preferenceRepository.getPreferenceKey(
                 SettingsKey.LANGUAGE_SETTING.value,
                 "prefix",

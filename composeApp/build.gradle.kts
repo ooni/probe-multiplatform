@@ -70,9 +70,7 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(compose.preview)
-            implementation(libs.android.oonimkall)
-            implementation(libs.android.activity)
-            implementation(libs.sqldelight.android)
+            implementation(libs.bundles.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

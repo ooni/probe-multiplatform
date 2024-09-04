@@ -11,11 +11,13 @@ import android.os.Build
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.SharedPreferencesMigration
 import androidx.datastore.preferences.core.Preferences
+import androidx.work.WorkManager
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import kotlinx.coroutines.Dispatchers
 import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
-import org.ooni.probe.background.RunService
+import org.ooni.probe.background.RunWorkerManager
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -38,7 +40,8 @@ class AndroidApplication : Application() {
             buildDataStore = ::buildDataStore,
             isBatteryCharging = ::checkBatteryCharging,
             launchUrl = ::launchUrl,
-            startBackgroundRunInner = { RunService.start(this, it) },
+            startSingleRunInner = runWorkerManager::startSingleRun,
+            configureAutoRun = runWorkerManager::configureAutoRun,
         )
     }
 
@@ -113,5 +116,12 @@ class AndroidApplication : Application() {
         } ?: run {
             return 0.0f
         }
+    }
+
+    private val runWorkerManager by lazy {
+        RunWorkerManager(
+            WorkManager.getInstance(this),
+            Dispatchers.IO,
+        )
     }
 }
