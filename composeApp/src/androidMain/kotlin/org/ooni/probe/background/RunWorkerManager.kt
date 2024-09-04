@@ -39,6 +39,7 @@ class RunWorkerManager(
 
             val request = PeriodicWorkRequestBuilder<RunWorker>(1, TimeUnit.HOURS)
                 .setInitialDelay(1, TimeUnit.HOURS)
+                // TODO: Confirm with the team if we want to auto-test with a VPN on
                 .setConstraints(
                     Constraints.Builder()
                         .setRequiredNetworkType(
