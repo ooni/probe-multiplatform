@@ -96,7 +96,11 @@ class ProxySettings {
          * @param hostname the proxy hostname
          * @param port the proxy port
          */
-        fun newProxySettings(protocol: String?, hostname: String?, port: String?): ProxySettings {
+        fun newProxySettings(
+            protocol: String?,
+            hostname: String?,
+            port: String?,
+        ): ProxySettings {
             val settings = ProxySettings()
 
             protocol?.let { protocol ->

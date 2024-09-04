@@ -2,7 +2,9 @@ package org.ooni.probe.ui.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,9 +21,10 @@ import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.TestRunState
 
 class DashboardViewModel(
+    goToResults: () -> Unit,
+    goToRunningTest: () -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     runDescriptors: suspend (RunSpecification) -> Unit,
-    cancelTestRun: () -> Unit,
     observeTestRunState: Flow<TestRunState>,
     observeTestRunErrors: Flow<TestRunError>,
 ) : ViewModel() {
@@ -52,18 +55,23 @@ class DashboardViewModel(
         events
             .filterIsInstance<Event.RunTestsClick>()
             .onEach {
-                coroutineScope {
-                    launch {
-                        runDescriptors(buildRunSpecification())
-                    }
+                // TODO: This will become a StartTestRun domain class to start a background service
+                CoroutineScope(Dispatchers.IO).launch {
+                    runDescriptors(buildRunSpecification())
                 }
             }
             .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.StopTestsClick>()
-            .onEach { cancelTestRun() }
+            .filterIsInstance<Event.RunningTestClick>()
+            .onEach { goToRunningTest() }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.SeeResultsClick>()
+            .onEach { goToResults() }
+            .launchIn(viewModelScope)
+
         events
             .filterIsInstance<Event.ErrorDisplayed>()
             .onEach { event ->
@@ -111,14 +119,16 @@ class DashboardViewModel(
 
     data class State(
         val tests: Map<DescriptorType, List<Descriptor>> = emptyMap(),
-        val testRunState: TestRunState = TestRunState.Idle,
+        val testRunState: TestRunState = TestRunState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
     )
 
     sealed interface Event {
         data object RunTestsClick : Event
 
-        data object StopTestsClick : Event
+        data object RunningTestClick : Event
+
+        data object SeeResultsClick : Event
 
         data class ErrorDisplayed(val error: TestRunError) : Event
     }

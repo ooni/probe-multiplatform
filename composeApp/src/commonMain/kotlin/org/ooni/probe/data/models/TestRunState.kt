@@ -1,14 +1,18 @@
 package org.ooni.probe.data.models
 
+import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.models.TestType
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 sealed interface TestRunState {
-    data object Idle : TestRunState
+    data class Idle(
+        val lastTestAt: LocalDateTime? = null,
+        val justFinishedTest: Boolean = false,
+    ) : TestRunState
 
     data class Running(
-        val descriptorName: String? = null,
+        val descriptor: Descriptor? = null,
         val testType: TestType? = null,
         val estimatedRuntime: List<Duration>? = null,
         val testProgress: Double = 0.0,

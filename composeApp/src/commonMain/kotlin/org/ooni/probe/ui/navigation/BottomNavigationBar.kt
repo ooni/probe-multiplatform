@@ -18,14 +18,12 @@ import ooniprobe.composeapp.generated.resources.ic_history
 import ooniprobe.composeapp.generated.resources.ic_settings
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.MAIN_NAVIGATION_SCREENS
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val entry by navController.currentBackStackEntryAsState()
     val currentRoute = entry?.destination?.route ?: return
-
-    // Only show the bottom app on the main screens
-    if (!MAIN_NAVIGATION_SCREENS.map { it.route }.contains(currentRoute)) return
 
     NavigationBar {
         MAIN_NAVIGATION_SCREENS.forEach { screen ->
@@ -38,25 +36,27 @@ fun BottomNavigationBar(navController: NavController) {
                 },
                 label = { Text(stringResource(screen.titleRes)) },
                 selected = currentRoute == screen.route,
-                onClick = {
-                    navController.navigate(screen.route) {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
-                        // on the back stack as users select items
-                        navController.graph.findStartDestination().route?.let {
-                            popUpTo(it) {
-                                saveState = true
-                            }
-                        }
-                        // Avoid multiple copies of the same destination when
-                        // re-selecting the same item
-                        launchSingleTop = true
-                        // Restore state when re-selecting a previously selected item
-                        restoreState = true
-                    }
-                },
+                onClick = { navController.navigateToMainScreen(screen) },
             )
         }
+    }
+}
+
+fun NavController.navigateToMainScreen(screen: Screen) {
+    navigate(screen.route) {
+        // Pop up to the start destination of the graph to
+        // avoid building up a large stack of destinations
+        // on the back stack as users select items
+        graph.findStartDestination().route?.let {
+            popUpTo(it) {
+                saveState = true
+            }
+        }
+        // Avoid multiple copies of the same destination when
+        // re-selecting the same item
+        launchSingleTop = true
+        // Restore state when re-selecting a previously selected item
+        restoreState = true
     }
 }
 
@@ -77,5 +77,3 @@ private val Screen.iconRes
             Screen.Settings -> Res.drawable.ic_settings
             else -> throw IllegalArgumentException("Only main screens allowed in bottom navigation")
         }
-
-private val MAIN_NAVIGATION_SCREENS = listOf(Screen.Dashboard, Screen.Results, Screen.Settings)

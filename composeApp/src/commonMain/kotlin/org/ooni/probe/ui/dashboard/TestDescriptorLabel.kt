@@ -26,10 +26,9 @@ fun TestDescriptorLabel(descriptor: Descriptor) {
             painter = painterResource(descriptor.icon ?: Res.drawable.ooni_empty_state),
             contentDescription = null,
             tint = descriptor.color ?: Color.Unspecified,
-            modifier =
-                Modifier
-                    .size(24.dp)
-                    .padding(end = 4.dp),
+            modifier = Modifier
+                .padding(end = 8.dp)
+                .size(24.dp),
         )
         Text(
             descriptor.title(),

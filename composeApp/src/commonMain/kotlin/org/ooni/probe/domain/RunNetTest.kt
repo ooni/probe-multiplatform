@@ -51,6 +51,7 @@ class RunNetTest(
         setCurrentTestState {
             if (it !is TestRunState.Running) return@setCurrentTestState it
             it.copy(
+                descriptor = spec.descriptor,
                 testType = spec.netTest.test,
                 testProgress = spec.testIndex * progressStep,
                 testIndex = spec.testIndex,

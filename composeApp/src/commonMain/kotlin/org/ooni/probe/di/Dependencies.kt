@@ -42,11 +42,13 @@ import org.ooni.probe.domain.GetTestDescriptors
 import org.ooni.probe.domain.GetTestDescriptorsBySpec
 import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
+import org.ooni.probe.domain.SendSupportEmail
 import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
+import org.ooni.probe.ui.running.RunningViewModel
 import org.ooni.probe.ui.settings.SettingsViewModel
 import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
@@ -177,28 +179,43 @@ class Dependencies(
         )
     }
 
-    private val testStateManager by lazy { TestRunStateManager() }
+    val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
+
+    private val testStateManager by lazy { TestRunStateManager(resultRepository.getLatest()) }
 
     // ViewModels
 
-    val dashboardViewModel
-        get() =
-            DashboardViewModel(
-                getTestDescriptors = getTestDescriptors::invoke,
-                runDescriptors = runDescriptors::invoke,
-                cancelTestRun = testStateManager::cancelTestRun,
-                observeTestRunState = testStateManager.observeState(),
-                observeTestRunErrors = testStateManager.observeError(),
-            )
+    fun dashboardViewModel(
+        goToResults: () -> Unit,
+        goToRunningTest: () -> Unit,
+    ) = DashboardViewModel(
+        goToResults = goToResults,
+        goToRunningTest = goToRunningTest,
+        getTestDescriptors = getTestDescriptors::invoke,
+        runDescriptors = runDescriptors::invoke,
+        observeTestRunState = testStateManager.observeState(),
+        observeTestRunErrors = testStateManager.observeError(),
+    )
 
     fun resultsViewModel(goToResult: (ResultModel.Id) -> Unit) = ResultsViewModel(goToResult, getResults::invoke)
 
+    fun runningViewModel(
+        onBack: () -> Unit,
+        goToResults: () -> Unit,
+    ) = RunningViewModel(
+        onBack = onBack,
+        goToResults = goToResults,
+        observeTestRunState = testStateManager.observeState(),
+        observeTestRunErrors = testStateManager.observeError(),
+        cancelTestRun = testStateManager::cancelTestRun,
+    )
+
     fun settingsViewModel(
         goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
-        sendSupportEmail: () -> Unit,
+        sendSupportEmail: suspend () -> Unit,
     ) = SettingsViewModel(
-        goToSettingsForCategory,
-        sendSupportEmail,
+        goToSettingsForCategory = goToSettingsForCategory,
+        sendSupportEmail = sendSupportEmail,
     )
 
     fun settingsCategoryViewModel(

@@ -1,10 +1,13 @@
 <resources>
     <string name="Dashboard_Tab_Label">Dashboard</string>
-    <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
-    <string name="Dashboard_RunV2_Title">OONI Run Links</string>
-
+    <string name="Dashboard_Overview_LatestTest">Last test: %1$s</string>
+    <string name="Dashboard_Running_Running">Running:</string>
+    <string name="Dashboard_Running_EstimatedTimeLeft">Estimated time left:</string>
     <string name="Dashboard_Running_Stopping_Title">Stopping test…</string>
     <string name="Dashboard_Running_Stopping_Notice">Finishing the currently pending tests, please wait…</string>
+    <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
+    <string name="Dashboard_RunV2_Title">OONI Run Links</string>
+    <string name="Dashboard_RunV2_RunFinished">Run finished. Tap to view results.</string>
 
     <string name="OONIRun_Run">Run</string>
     <string name="Notification_StopTest">Stop test</string>
@@ -166,4 +169,16 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+    <string name="ago">%1$s ago</string>
+    <plurals name="minutes">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
+    <plurals name="hours">
+        <item quantity="one">%1$d hour</item>
+        <item quantity="other">%1$d hours</item>
+    </plurals>
+    <string name="hours_abbreviated">%1$dh</string>
+    <string name="minutes_abbreviated">%1$dm</string>
+    <string name="seconds_abbreviated">%1$ds</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.firasans_italic
 import ooniprobe.composeapp.generated.resources.firasans_regular
@@ -43,7 +44,10 @@ fun AppTypography() =
         headlineMedium = defaultTypography.headlineMedium.copy(fontFamily = customFontFamily()),
         headlineSmall = defaultTypography.headlineSmall.copy(fontFamily = customFontFamily()),
         titleLarge = defaultTypography.titleLarge.copy(fontFamily = customFontFamily()),
-        titleMedium = defaultTypography.titleMedium.copy(fontFamily = customFontFamily()),
+        titleMedium = defaultTypography.titleMedium.copy(
+            fontFamily = customFontFamily(),
+            fontSize = 18.sp,
+        ),
         titleSmall = defaultTypography.titleSmall.copy(fontFamily = customFontFamily()),
         bodyLarge = defaultTypography.bodyLarge.copy(fontFamily = customFontFamily()),
         bodyMedium = defaultTypography.bodyMedium.copy(fontFamily = customFontFamily()),

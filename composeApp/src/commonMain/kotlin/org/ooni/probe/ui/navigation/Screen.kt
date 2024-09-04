@@ -50,4 +50,6 @@ sealed class Screen(
             val ARGUMENTS = listOf(navArgument("category") { type = NavType.StringType })
         }
     }
+
+    data object RunningTest : Screen("running")
 }

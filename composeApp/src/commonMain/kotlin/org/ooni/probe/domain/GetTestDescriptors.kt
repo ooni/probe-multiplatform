@@ -9,6 +9,7 @@ import org.ooni.probe.data.models.DefaultTestDescriptor
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.getCurrent
+import org.ooni.probe.shared.InstalledDescriptorIcons
 import org.ooni.probe.shared.hexToColor
 
 class GetTestDescriptors(
@@ -49,8 +50,7 @@ class GetTestDescriptors(
             title = { nameIntl?.getCurrent() ?: name },
             shortDescription = { shortDescriptionIntl?.getCurrent() ?: shortDescription },
             description = { descriptionIntl?.getCurrent() ?: description },
-            // TODO: fetch drawable resource from path
-            icon = null,
+            icon = icon?.let(InstalledDescriptorIcons::getIconFromValue),
             color = color?.hexToColor(),
             animation = animation,
             dataUsage = { null },

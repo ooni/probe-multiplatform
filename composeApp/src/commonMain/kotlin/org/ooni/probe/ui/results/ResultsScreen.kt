@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDate.Companion.Format
-import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
@@ -37,6 +36,7 @@ import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
+import org.ooni.probe.ui.shared.relativeDateTime
 
 @Composable
 fun ResultsScreen(
@@ -113,23 +113,11 @@ private fun ResultItem(
 
                 Text(
                     item.network?.networkName ?: stringResource(Res.string.TestResults_UnknownASN),
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleMedium,
                     maxLines = 3,
                 )
 
-                Text(
-                    item.result.startTime.format(
-                        LocalDateTime.Format {
-                            date(LocalDate.Formats.ISO)
-                            char(' ')
-                            hour()
-                            char(':')
-                            minute()
-                            char(':')
-                            second()
-                        },
-                    ),
-                )
+                Text(item.result.startTime.relativeDateTime())
             }
             Column(
                 horizontalAlignment = Alignment.End,
