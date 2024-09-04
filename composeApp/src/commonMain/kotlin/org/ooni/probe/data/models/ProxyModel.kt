@@ -1,12 +1,10 @@
 package org.ooni.probe.data.models
 
-import kotlinx.coroutines.flow.firstOrNull
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_None
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Psiphon
 import org.jetbrains.compose.resources.StringResource
-import org.ooni.probe.data.repositories.PreferenceRepository
 
 const val IP_ADDRESS = (
     "((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]" +
@@ -92,38 +90,42 @@ class ProxySettings {
 
     companion object {
         /**
-         * Creates a new ProxySettings object from the values stored in the preference repository.
-         * @param preferenceRepository the [PreferenceRepository].
+         * Creates a new ProxySettings object from the given protocol, hostname, and port.
+         *
+         * @param protocol the proxy protocol
+         * @param hostname the proxy hostname
+         * @param port the proxy port
          */
-        suspend fun newProxySettings(preferenceRepository: PreferenceRepository): ProxySettings {
-            val protocol =
-                preferenceRepository.getValueByKey(SettingsKey.PROXY_PROTOCOL).firstOrNull() as String?
+        fun newProxySettings(protocol: String?, hostname: String?, port: String?): ProxySettings {
             val settings = ProxySettings()
 
-            when (protocol) {
-                ProxyProtocol.NONE.protocol -> {
-                    settings.protocol = ProxyProtocol.NONE
+            protocol?.let { protocol ->
+                when (protocol) {
+                    ProxyProtocol.NONE.name -> {
+                        settings.protocol = ProxyProtocol.NONE
+                    }
+                    ProxyProtocol.PSIPHON.name -> {
+                        settings.protocol = ProxyProtocol.PSIPHON
+                    }
+                    ProxyProtocol.SOCKS5.name, ProxyProtocol.HTTP.name, ProxyProtocol.HTTPS.name -> {
+                        // ProxyProtocol.valueOf will only accept one of the values in ProxyProtocol
+                        // as in the enum definition(uppercase).
+                        settings.protocol =
+                            ProxyProtocol.valueOf(protocol)
+                    }
+                    else -> {
+                        // This is where we will extend the code to add support for
+                        // more proxies, e.g., HTTP proxies.
+                        throw InvalidProxyURL("unhandled URL scheme")
+                    }
                 }
-                ProxyProtocol.PSIPHON.protocol -> {
-                    settings.protocol = ProxyProtocol.PSIPHON
-                }
-                ProxyProtocol.SOCKS5.protocol, ProxyProtocol.HTTP.protocol, ProxyProtocol.HTTPS.protocol -> {
-                    // ProxyProtocol.valueOf will only accept one of the values in ProxyProtocol
-                    // as in the enum definition(uppercase).
-                    settings.protocol =
-                        ProxyProtocol.valueOf(protocol)
-                }
-                else -> {
-                    // This is where we will extend the code to add support for
-                    // more proxies, e.g., HTTP proxies.
-                    throw InvalidProxyURL("unhandled URL scheme")
-                }
+            } ?: run {
+                settings.protocol = ProxyProtocol.NONE
             }
 
             settings.apply {
-                hostname =
-                    preferenceRepository.getValueByKey(SettingsKey.PROXY_HOSTNAME).firstOrNull() as String? ?: ""
-                port = (preferenceRepository.getValueByKey(SettingsKey.PROXY_PORT).firstOrNull() as Int? ?: "").toString()
+                this.hostname = hostname ?: ""
+                this.port = (port as Int? ?: "").toString()
             }
             return settings
         }
