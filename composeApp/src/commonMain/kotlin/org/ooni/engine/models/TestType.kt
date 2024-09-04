@@ -134,7 +134,7 @@ sealed class TestType {
         override val iconRes: DrawableResource = Res.drawable.test_websites
         override val url: String = "https://ooni.org/nettest/web-connectivity"
 
-        override fun runtime(inputs: List<String>?) = 5.seconds * (inputs?.size ?: 1)
+        override fun runtime(inputs: List<String>?) = 5.seconds * (inputs?.ifEmpty { null }?.size ?: 30)
     }
 
     data object Whatsapp : TestType() {

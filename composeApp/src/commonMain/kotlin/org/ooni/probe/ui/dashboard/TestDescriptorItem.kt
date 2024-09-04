@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.dashboard
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,10 +18,14 @@ import org.jetbrains.compose.resources.painterResource
 import org.ooni.probe.data.models.Descriptor
 
 @Composable
-fun TestDescriptorItem(descriptor: Descriptor) {
+fun TestDescriptorItem(
+    descriptor: Descriptor,
+    onClick: () -> Unit,
+) {
     Card(
         Modifier
-            .padding(horizontal = 16.dp, vertical = 4.dp),
+            .padding(horizontal = 16.dp, vertical = 4.dp)
+            .clickable { onClick() },
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

@@ -17,7 +17,7 @@ class DashboardScreenTest {
                 DashboardScreen(
                     state =
                         DashboardViewModel.State(
-                            tests = mapOf(DescriptorType.Installed to listOf(descriptor)),
+                            descriptors = mapOf(DescriptorType.Installed to listOf(descriptor)),
                         ),
                     onEvent = {},
                 )

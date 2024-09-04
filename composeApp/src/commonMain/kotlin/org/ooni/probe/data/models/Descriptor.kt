@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.DrawableResource
 import org.ooni.probe.shared.now
+import kotlin.time.Duration.Companion.seconds
 
 data class Descriptor(
     val name: String,
@@ -35,4 +36,9 @@ data class Descriptor(
         }
 
     val allTests get() = netTests + longRunningTests
+
+    val estimatedDuration
+        get() = allTests
+            .sumOf { it.test.runtime(it.inputs).inWholeSeconds }
+            .seconds
 }

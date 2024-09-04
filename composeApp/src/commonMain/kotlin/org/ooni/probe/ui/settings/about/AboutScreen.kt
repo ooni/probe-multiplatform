@@ -45,7 +45,8 @@ fun AboutScreen(onEvent: (AboutViewModel.Event) -> Unit) {
             ) {
                 MarkdownViewer(
                     markdown = stringResource(Res.string.Settings_About_Content_Paragraph),
-                ) { url -> onEvent(AboutViewModel.Event.LaunchUrlClicked(url)) }
+                    onUrlClicked = { url -> onEvent(AboutViewModel.Event.LaunchUrlClicked(url)) },
+                )
 
                 Spacer(modifier = Modifier.height(16.dp))
                 InfoLinks(

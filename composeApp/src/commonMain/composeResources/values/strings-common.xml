@@ -1,6 +1,9 @@
 <resources>
     <string name="Dashboard_Tab_Label">Dashboard</string>
-    <string name="Dashboard_Overview_LatestTest">Last test: %1$s</string>
+    <string name="Dashboard_Overview_LatestTest">Last test:</string>
+    <string name="Dashboard_Overview_Estimated">Estimated:</string>
+    <string name="Dashboard_Overview_LastRun_Never">N/A</string>
+
     <string name="Dashboard_Running_Running">Running:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Estimated time left:</string>
     <string name="Dashboard_Running_Stopping_Title">Stopping test…</string>
@@ -46,6 +49,7 @@
     <string name="Modal_EnableNotifications_Paragraph">Interested in running OONI Probe tests during emergent censorship events? Enable notifications to receive a message when we hear of internet censorship near you.</string>
 
     <string name="Settings_TestOptions_Label">Test options</string>
+    <string name="Settings_TestOptions_LongRunningTest">Long running test</string>
 
     <string name="Settings_AutomatedTesting_RunAutomatically">Run tests automatically</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Number">Number of automated tests: %1$s.</string>
@@ -172,6 +176,7 @@
     <string name="LoadingScreen_Runv2_Message">Link Loading</string>
     <string name="LoadingScreen_Runv2_Failure">Error</string>
     <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
+
     <!-- New Strings -->
     <string name="back">Back</string>
     <string name="refresh">refresh</string>
