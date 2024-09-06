@@ -5,9 +5,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.OONIRunDescriptor
+import org.ooni.engine.models.toModel
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
-import org.ooni.probe.data.models.NetTest
-import org.ooni.probe.shared.toLocalDateTime
 
 class GetBootstrapTestDescriptors(
     private val readAssetFile: (String) -> String,
@@ -27,24 +26,4 @@ class GetBootstrapTestDescriptors(
             descriptors.map { it.toModel() }
         }
 
-    private fun OONIRunDescriptor.toModel() =
-        InstalledTestDescriptorModel(
-            id = InstalledTestDescriptorModel.Id(oonirunLinkId),
-            name = name,
-            shortDescription = shortDescription,
-            description = description,
-            author = author,
-            netTests = netTests.map { NetTest.fromOONI(it) },
-            nameIntl = nameIntl,
-            shortDescriptionIntl = shortDescriptionIntl,
-            descriptionIntl = descriptionIntl,
-            icon = icon,
-            color = color,
-            animation = animation,
-            expirationDate = expirationDate.toLocalDateTime(),
-            dateCreated = dateCreated.toLocalDateTime(),
-            dateUpdated = dateUpdated.toLocalDateTime(),
-            revision = revision,
-            autoUpdate = true,
-        )
 }

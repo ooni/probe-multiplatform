@@ -3,6 +3,9 @@ package org.ooni.engine.models
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.shared.toLocalDateTime
 
 /**
  * This class represents the response from a fetch request to the OONI API.
@@ -29,3 +32,24 @@ data class OONIRunDescriptor(
     @SerialName("revision") val revision: String,
     @SerialName("is_expired") val isExpired: Boolean,
 )
+
+fun OONIRunDescriptor.toModel() =
+    InstalledTestDescriptorModel(
+        id = InstalledTestDescriptorModel.Id(oonirunLinkId),
+        name = name,
+        shortDescription = shortDescription,
+        description = description,
+        author = author,
+        netTests = netTests.map { NetTest.fromOONI(it) },
+        nameIntl = nameIntl,
+        shortDescriptionIntl = shortDescriptionIntl,
+        descriptionIntl = descriptionIntl,
+        icon = icon,
+        color = color,
+        animation = animation,
+        expirationDate = expirationDate.toLocalDateTime(),
+        dateCreated = dateCreated.toLocalDateTime(),
+        dateUpdated = dateUpdated.toLocalDateTime(),
+        revision = revision,
+        autoUpdate = true,
+    )

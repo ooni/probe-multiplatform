@@ -15,6 +15,7 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
@@ -27,7 +28,7 @@ import org.ooni.probe.ui.theme.AppTheme
 
 @Composable
 @Preview
-fun App(dependencies: Dependencies) {
+fun App(dependencies: Dependencies): NavHostController {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -82,6 +83,8 @@ fun App(dependencies: Dependencies) {
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()
     }
+
+    return navController
 }
 
 private fun logAppStart(dependencies: Dependencies) {

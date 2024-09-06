@@ -125,7 +125,7 @@ fun RunScreen(
 
                         if (!descriptorItem.isExpanded) return@forEach
 
-                        items(testItems, key = { it.item.test.name }) { testItem ->
+                        items(testItems) { testItem ->
                             TestItem(
                                 testItem = testItem,
                                 onChecked = {
@@ -211,7 +211,7 @@ private fun DescriptorItem(
 }
 
 @Composable
-private fun TestItem(
+fun TestItem(
     testItem: SelectableItem<NetTest>,
     onChecked: (Boolean) -> Unit,
 ) {

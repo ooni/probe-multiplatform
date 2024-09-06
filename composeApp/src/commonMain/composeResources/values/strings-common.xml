@@ -161,6 +161,15 @@
 
     <string name="Modal_Error_CantDownloadURLs">Unable to download URL list. Please try again.</string>
 
+    <string name="AddDescriptor_Settings">Test Settings</string>
+    <string name="AddDescriptor_Title">Install New Link</string>
+    <string name="AddDescriptor_Author">Author:</string>
+    <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
+    <string name="AddDescriptor_AutoRun">Run tests automatically</string>
+    <string name="AddDescriptor_Toasts_Installed">Link installed</string>
+    <string name="AddDescriptor_Action">Install Link</string>
+    <string name="AddDescriptor_Toasts_Canceled">Link installation cancelled</string>
+
     <!-- New Strings -->
     <string name="back">Back</string>
     <string name="refresh">refresh</string>

@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -39,6 +40,7 @@ import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapTestDescriptors
 import org.ooni.probe.domain.DownloadUrls
+import org.ooni.probe.domain.FetchDescriptor
 import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
@@ -50,11 +52,13 @@ import org.ooni.probe.domain.GetTestDescriptorsBySpec
 import org.ooni.probe.domain.ObserveAndConfigureAutoRun
 import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
+import org.ooni.probe.domain.SaveTestDescriptors
 import org.ooni.probe.domain.SendSupportEmail
 import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
+import org.ooni.probe.ui.descriptor.AddDescriptorViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.run.RunViewModel
@@ -138,6 +142,11 @@ class Dependencies(
             urlRepository::createOrUpdateByUrl,
         )
     }
+    private val fetchDescriptor by lazy {
+        FetchDescriptor(
+            engine::httpDo,
+        )
+    }
     val getAutoRunSpecification by lazy {
         GetAutoRunSpecification(getTestDescriptors, preferenceRepository)
     }
@@ -164,6 +173,13 @@ class Dependencies(
         GetTestDescriptors(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
             listInstalledTestDescriptors = testDescriptorRepository::list,
+        )
+    }
+
+    private val saveTestDescriptors by lazy {
+        SaveTestDescriptors(
+            preferencesRepository = preferenceRepository,
+            createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
         )
     }
 
@@ -310,6 +326,26 @@ class Dependencies(
         UploadMeasurementsViewModel(
             onClose = onClose,
             uploadMissingMeasurements = uploadMissingMeasurements::invoke,
+        )
+
+    fun addDescriptorViewModel(descriptorId: String, onBack: () -> Unit) =
+        AddDescriptorViewModel(
+            onCancel = {
+                // TODO(aanorbel): show toast/snackbar
+                onBack()
+            },
+            descriptorId = descriptorId,
+            json = json,
+            saveTestDescriptors = {
+                saveTestDescriptors.invoke(it)
+                // TODO(aanorbel): show toast/snackbar
+                onBack()
+            },
+            fetchDescriptor = { descriptorId ->
+                withContext(backgroundDispatcher) {
+                    fetchDescriptor(descriptorId)
+                }
+            },
         )
 
     companion object {

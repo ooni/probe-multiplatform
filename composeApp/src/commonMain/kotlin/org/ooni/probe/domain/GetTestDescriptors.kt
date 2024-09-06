@@ -8,9 +8,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.DefaultTestDescriptor
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
-import org.ooni.probe.data.models.getCurrent
-import org.ooni.probe.shared.InstalledDescriptorIcons
-import org.ooni.probe.shared.hexToColor
+import org.ooni.probe.data.models.toDescriptor
 
 class GetTestDescriptors(
     private val getDefaultTestDescriptors: () -> List<DefaultTestDescriptor>,
@@ -44,18 +42,4 @@ class GetTestDescriptors(
             source = Descriptor.Source.Default(this),
         )
 
-    private fun InstalledTestDescriptorModel.toDescriptor() =
-        Descriptor(
-            name = name,
-            title = { nameIntl?.getCurrent() ?: name },
-            shortDescription = { shortDescriptionIntl?.getCurrent() ?: shortDescription },
-            description = { descriptionIntl?.getCurrent() ?: description },
-            icon = icon?.let(InstalledDescriptorIcons::getIconFromValue),
-            color = color?.hexToColor(),
-            animation = animation,
-            dataUsage = { null },
-            expirationDate = expirationDate,
-            netTests = netTests.orEmpty(),
-            source = Descriptor.Source.Installed(this),
-        )
 }
