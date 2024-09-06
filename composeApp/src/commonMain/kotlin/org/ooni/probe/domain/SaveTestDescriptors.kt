@@ -7,8 +7,8 @@ import org.ooni.probe.data.repositories.PreferenceRepository
 
 class SaveTestDescriptors(
     private val preferencesRepository: PreferenceRepository,
-    private val createOrIgnoreTestDescriptors: suspend (List<InstalledTestDescriptorModel>) -> Unit
-){
+    private val createOrIgnoreTestDescriptors: suspend (List<InstalledTestDescriptorModel>) -> Unit,
+) {
     suspend operator fun invoke(models: List<Pair<InstalledTestDescriptorModel, List<NetTest>>>) {
         models.forEach { (model, tests) ->
             preferencesRepository.setAreNetTestsEnabled(

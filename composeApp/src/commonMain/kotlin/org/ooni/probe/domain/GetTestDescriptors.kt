@@ -41,5 +41,4 @@ class GetTestDescriptors(
             longRunningTests = longRunningTests,
             source = Descriptor.Source.Default(this),
         )
-
 }

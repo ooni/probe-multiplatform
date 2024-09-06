@@ -1,20 +1,16 @@
 package org.ooni.probe.ui.descriptor
 
-import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -47,7 +43,7 @@ fun AddDescriptorScreen(
 ) {
     state.descriptor?.let { descriptor ->
         Column(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
         ) {
             TopAppBar(title = {
                 Text(stringResource(Res.string.AddDescriptor_Title))
@@ -55,14 +51,14 @@ fun AddDescriptorScreen(
                 IconButton(
                     onClick = {
                         onEvent(
-                            AddDescriptorViewModel.Event.CancelClicked
+                            AddDescriptorViewModel.Event.CancelClicked,
                         )
                     },
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Add,
                         contentDescription = stringResource(Res.string.Modal_Cancel),
-                        modifier = Modifier.rotate(45.0F)
+                        modifier = Modifier.rotate(45.0F),
                     )
                 }
             })
@@ -74,9 +70,10 @@ fun AddDescriptorScreen(
                     shortDescription,
                 )
             }
-            Text(stringResource(Res.string.AddDescriptor_Settings),
+            Text(
+                stringResource(Res.string.AddDescriptor_Settings),
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 16.dp)
+                modifier = Modifier.padding(vertical = 16.dp),
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -87,7 +84,7 @@ fun AddDescriptorScreen(
                 Text(
                     stringResource(Res.string.AddDescriptor_AutoUpdate),
                     modifier = Modifier.weight(1f),
-                    )
+                )
                 Switch(
                     checked = state.autoUpdate,
                     onCheckedChange = {
@@ -123,14 +120,16 @@ fun AddDescriptorScreen(
                 modifier = Modifier
                     .padding(top = 32.dp)
                     .fillMaxWidth(),
-                horizontalArrangement  =  Arrangement.SpaceBetween) {
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
                 TextButton(
                     onClick = {
                         onEvent(AddDescriptorViewModel.Event.CancelClicked)
                     },
                 ) {
                     Text(
-                        stringResource(Res.string.Modal_Cancel),)
+                        stringResource(Res.string.Modal_Cancel),
+                    )
                 }
 
                 TextButton(
@@ -139,12 +138,13 @@ fun AddDescriptorScreen(
                     },
                 ) {
                     Text(
-                        stringResource(Res.string.AddDescriptor_Action),)
+                        stringResource(Res.string.AddDescriptor_Action),
+                    )
                 }
             }
         }
     } ?: Column(
-        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text("Loading")
     }

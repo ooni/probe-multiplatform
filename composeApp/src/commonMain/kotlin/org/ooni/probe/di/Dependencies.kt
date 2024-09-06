@@ -328,25 +328,27 @@ class Dependencies(
             uploadMissingMeasurements = uploadMissingMeasurements::invoke,
         )
 
-    fun addDescriptorViewModel(descriptorId: String, onBack: () -> Unit) =
-        AddDescriptorViewModel(
-            onCancel = {
-                // TODO(aanorbel): show toast/snackbar
-                onBack()
-            },
-            descriptorId = descriptorId,
-            json = json,
-            saveTestDescriptors = {
-                saveTestDescriptors.invoke(it)
-                // TODO(aanorbel): show toast/snackbar
-                onBack()
-            },
-            fetchDescriptor = { descriptorId ->
-                withContext(backgroundDispatcher) {
-                    fetchDescriptor(descriptorId)
-                }
-            },
-        )
+    fun addDescriptorViewModel(
+        descriptorId: String,
+        onBack: () -> Unit,
+    ) = AddDescriptorViewModel(
+        onCancel = {
+            // TODO(aanorbel): show toast/snackbar
+            onBack()
+        },
+        descriptorId = descriptorId,
+        json = json,
+        saveTestDescriptors = {
+            saveTestDescriptors.invoke(it)
+            // TODO(aanorbel): show toast/snackbar
+            onBack()
+        },
+        fetchDescriptor = { descriptorId ->
+            withContext(backgroundDispatcher) {
+                fetchDescriptor(descriptorId)
+            }
+        },
+    )
 
     companion object {
         @VisibleForTesting

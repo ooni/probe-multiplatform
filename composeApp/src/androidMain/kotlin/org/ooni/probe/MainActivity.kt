@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     println(uri.toString())
                     navController.navigate("add-descriptor/${uri.lastPathSegment}")
                 }
-                else ->{
+                else -> {
                 }
             }
         }

@@ -24,7 +24,6 @@ class AddDescriptorViewModel(
     json: Json,
     saveTestDescriptors: suspend (List<Pair<InstalledTestDescriptorModel, List<NetTest>>>) -> Unit,
 ) : ViewModel() {
-
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
     private val _state = MutableStateFlow(State())
@@ -69,9 +68,11 @@ class AddDescriptorViewModel(
 
                 is Event.AutoRunChanged -> {
                     _state.value =
-                        state.value.copy(selectableItems = state.value.selectableItems.map { item ->
-                            item.copy(isSelected = event.autoRun)
-                        })
+                        state.value.copy(
+                            selectableItems = state.value.selectableItems.map { item ->
+                                item.copy(isSelected = event.autoRun)
+                            },
+                        )
                 }
 
                 is Event.CancelClicked -> {
@@ -84,11 +85,10 @@ class AddDescriptorViewModel(
                     state.value.descriptor?.let { descriptor ->
                         viewModelScope.launch {
                             saveTestDescriptors(
-                                listOf(descriptor.copy(autoUpdate = state.value.autoUpdate) to selectedTests)
+                                listOf(descriptor.copy(autoUpdate = state.value.autoUpdate) to selectedTests),
                             )
                         }
                     }
-
                 }
             }
         }.launchIn(viewModelScope)
@@ -114,7 +114,9 @@ class AddDescriptorViewModel(
         data object InstallDescriptorClicked : Event
 
         data class SelectableItemClicked(val item: SelectableItem<NetTest>) : Event
+
         data class AutoUpdateChanged(val autoUpdate: Boolean) : Event
+
         data class AutoRunChanged(val autoRun: Boolean) : Event
     }
 }

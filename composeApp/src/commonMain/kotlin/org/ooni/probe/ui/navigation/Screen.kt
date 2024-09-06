@@ -24,9 +24,10 @@ sealed class Screen(
             val ARGUMENTS = listOf(navArgument("resultId") { type = NavType.LongType })
         }
     }
+
     data class AddDescriptor(
         val runId: String,
-    ) : Screen("add-descriptor/${runId}") {
+    ) : Screen("add-descriptor/$runId") {
         companion object {
             const val NAV_ROUTE = "add-descriptor/{runId}"
             val ARGUMENTS = listOf(navArgument("runId") { type = NavType.LongType })

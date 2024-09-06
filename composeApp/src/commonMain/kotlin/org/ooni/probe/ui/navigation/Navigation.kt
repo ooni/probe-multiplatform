@@ -1,7 +1,6 @@
 package org.ooni.probe.ui.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Snackbar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -169,12 +168,13 @@ fun Navigation(
 
         composable(
             route = Screen.AddDescriptor.NAV_ROUTE,
-            arguments = Screen.AddDescriptor.ARGUMENTS,) { entry ->
+            arguments = Screen.AddDescriptor.ARGUMENTS,
+        ) { entry ->
             val descriptorId = entry.arguments?.getLong("runId")!!
             val viewModel = viewModel {
                 dependencies.addDescriptorViewModel(
                     onBack = { navController.popBackStack() },
-                    descriptorId = descriptorId.toString()
+                    descriptorId = descriptorId.toString(),
                 )
             }
             val state by viewModel.state.collectAsState()
