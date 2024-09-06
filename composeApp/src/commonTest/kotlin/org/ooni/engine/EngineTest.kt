@@ -32,6 +32,7 @@ class EngineTest {
                 name = "web_connectivity",
                 inputs = listOf("https://ooni.org"),
                 taskOrigin = TaskOrigin.OoniRun,
+                descriptorId = null,
             ).toList()
 
             assertEquals(1, events.size)

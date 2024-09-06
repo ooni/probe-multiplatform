@@ -30,7 +30,7 @@ kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-j
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
 
 # UI
-android-activity = { module = "androidx.activity:activity-ktx", version = "1.9.1" }
+android-activity = { module = "androidx.activity:activity-ktx", version = "1.9.2" }
 android-work = { module = "androidx.work:work-runtime-ktx", version = "2.9.1" }
 
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.8.0" }
@@ -42,7 +42,7 @@ androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore
 androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStoreVersion" }
 
 # Engine
-android-oonimkall = { module = "org.ooni:oonimkall", version = "2024.05.22-092559" }
+android-oonimkall = { module = "org.ooni:oonimkall", version = "2024.08.08-091959" }
 
 # Logging
 kermit = { module = "co.touchlab:kermit", version = "2.0.4" }
