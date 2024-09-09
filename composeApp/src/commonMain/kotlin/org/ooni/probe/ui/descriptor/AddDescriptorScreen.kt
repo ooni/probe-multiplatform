@@ -100,15 +100,16 @@ fun AddDescriptorScreen(
                     onEvent(AddDescriptorViewModel.Event.AutoRunChanged(!state.allTestsSelected()))
                 },
             ) {
-                Text(
-                    stringResource(Res.string.AddDescriptor_AutoRun),
-                    modifier = Modifier.weight(1f),
-                )
                 Checkbox(
                     checked = state.allTestsSelected(),
                     onCheckedChange = {
                         onEvent(AddDescriptorViewModel.Event.AutoRunChanged(it))
                     },
+                    modifier = Modifier.padding(end = 16.dp),
+                )
+                Text(
+                    stringResource(Res.string.AddDescriptor_AutoRun),
+                    modifier = Modifier.weight(1f),
                 )
             }
             LazyColumn {

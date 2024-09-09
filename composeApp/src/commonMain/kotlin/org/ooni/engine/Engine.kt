@@ -18,7 +18,7 @@ import org.ooni.engine.models.TaskEventResult
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
 import org.ooni.engine.models.resultOf
-import org.ooni.probe.config.Config
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -153,7 +153,7 @@ class Engine(
         softwareName = buildSoftwareName(taskOrigin),
         softwareVersion = platformInfo.version,
         proxy = preferences.proxy,
-        probeServicesURL = Config.OONI_API_BASE_URL,
+        probeServicesURL = OrganizationConfig.ooniApiBaseUrl,
         stateDir = "$baseFilePath/state",
         tunnelDir = "$baseFilePath/tunnel",
         tempDir = cacheDir,
@@ -163,7 +163,7 @@ class Engine(
     )
 
     private fun buildSoftwareName(taskOrigin: TaskOrigin) =
-        Config.BASE_SOFTWARE_NAME +
+        OrganizationConfig.baseSoftwareName +
             "-" +
             platformInfo.platform.value +
             "-" +

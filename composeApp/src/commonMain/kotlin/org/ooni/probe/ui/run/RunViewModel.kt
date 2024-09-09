@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.run
 
+import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
@@ -14,12 +15,14 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.ooni.engine.models.TaskOrigin
+import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.repositories.PreferenceRepository
-import org.ooni.probe.ui.shared.SelectableAndCollapsableItem
+import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
 
 class RunViewModel(
@@ -48,13 +51,22 @@ class RunViewModel(
                         descriptors
                             .associate { descriptor ->
                                 val tests = descriptor.allTests
-                                val allTestsSelected =
-                                    tests.all { preferences[descriptor to it] == true }
+                                val selectedTestsCount =
+                                    tests.count { preferences[descriptor to it] == true }
+                                val containsKey = collapsedDescriptorsKeys.contains(descriptor.key)
 
-                                SelectableAndCollapsableItem(
+                                ParentSelectableItem(
                                     item = descriptor,
-                                    isSelected = allTestsSelected,
-                                    isExpanded = !collapsedDescriptorsKeys.contains(descriptor.key),
+                                    state = when (selectedTestsCount) {
+                                        0 -> ToggleableState.Off
+                                        tests.size -> ToggleableState.On
+                                        else -> ToggleableState.Indeterminate
+                                    },
+                                    isExpanded = when (OrganizationConfig.testDisplayMode) {
+                                        TestDisplayMode.Regular -> !containsKey
+                                        // Start with all descriptors collapsed
+                                        TestDisplayMode.WebsitesOnly -> containsKey
+                                    },
                                 ) to tests.map { test ->
                                     SelectableItem(
                                         item = test,
@@ -198,7 +210,7 @@ class RunViewModel(
     }
 
     data class State(
-        val list: Map<DescriptorType, Map<SelectableAndCollapsableItem<Descriptor>, List<SelectableItem<NetTest>>>>,
+        val list: Map<DescriptorType, Map<ParentSelectableItem<Descriptor>, List<SelectableItem<NetTest>>>>,
     )
 
     sealed interface Event {

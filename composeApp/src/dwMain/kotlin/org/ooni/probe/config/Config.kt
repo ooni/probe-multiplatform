@@ -1,7 +1,8 @@
 package org.ooni.probe.config
 
-object Config {
-    const val OONI_API_BASE_URL: String = "https://api.prod.ooni.io"
-    const val OONI_RUN_DASHBOARD_URL: String = "https://run-v2.ooni.org"
-    const val BASE_SOFTWARE_NAME: String = "news-media-scan"
+object OrganizationConfig : OrganizationConfigInterface {
+    override val baseSoftwareName = "news-media-scan"
+    override val ooniApiBaseUrl = "https://api.prod.ooni.io"
+    override val ooniRunDashboardUrl = "https://run-v2.ooni.org"
+    override val testDisplayMode = TestDisplayMode.WebsitesOnly
 }
