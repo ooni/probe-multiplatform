@@ -126,7 +126,7 @@ fun RunScreen(
 
                         if (!descriptorItem.isExpanded) return@descriptorsMap
 
-                        items(testItems, key = { it.item.test.name }) { testItem ->
+                        items(testItems, key = { "${descriptor.key}_${it.item.test.name}" }) { testItem ->
                             TestItem(
                                 testItem = testItem,
                                 onChecked = {
