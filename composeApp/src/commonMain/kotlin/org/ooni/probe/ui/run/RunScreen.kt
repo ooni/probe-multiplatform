@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,9 +22,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_Description
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_RunButton_Label
@@ -47,7 +48,7 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.dashboard.TestDescriptorSection
-import org.ooni.probe.ui.shared.SelectableAndCollapsableItem
+import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
 
 @Composable
@@ -93,7 +94,7 @@ fun RunScreen(
         Box {
             LazyColumn(
                 contentPadding = PaddingValues(
-                    start = 16.dp,
+                    start = 8.dp,
                     end = 16.dp,
                     // Insets + Run tests button
                     bottom =
@@ -109,7 +110,7 @@ fun RunScreen(
                         }
                     }
 
-                    descriptorsMap.forEach { (descriptorItem, testItems) ->
+                    descriptorsMap.forEach descriptorsMap@{ (descriptorItem, testItems) ->
                         val descriptor = descriptorItem.item
                         item(descriptor.key) {
                             DescriptorItem(
@@ -123,7 +124,7 @@ fun RunScreen(
                             )
                         }
 
-                        if (!descriptorItem.isExpanded) return@forEach
+                        if (!descriptorItem.isExpanded) return@descriptorsMap
 
                         items(testItems, key = { it.item.test.name }) { testItem ->
                             TestItem(
@@ -173,7 +174,7 @@ fun RunScreen(
 
 @Composable
 private fun DescriptorItem(
-    descriptorItem: SelectableAndCollapsableItem<Descriptor>,
+    descriptorItem: ParentSelectableItem<Descriptor>,
     onDropdownToggled: () -> Unit,
     onChecked: (Boolean) -> Unit,
 ) {
@@ -183,6 +184,11 @@ private fun DescriptorItem(
         modifier = Modifier.fillMaxWidth()
             .clickable { onDropdownToggled() },
     ) {
+        TriStateCheckbox(
+            state = descriptorItem.state,
+            onClick = { onChecked(descriptorItem.state != ToggleableState.On) },
+            modifier = Modifier.padding(end = 16.dp),
+        )
         TestDescriptorLabel(descriptor)
         IconButton(onClick = { onDropdownToggled() }) {
             Icon(
@@ -202,11 +208,6 @@ private fun DescriptorItem(
                 ),
             )
         }
-        Spacer(Modifier.weight(1f))
-        Checkbox(
-            checked = descriptorItem.isSelected,
-            onCheckedChange = { onChecked(it) },
-        )
     }
 }
 
@@ -222,17 +223,17 @@ private fun TestItem(
             .padding(start = 32.dp)
             .clickable { onChecked(!testItem.isSelected) },
     ) {
+        Checkbox(
+            checked = testItem.isSelected,
+            onCheckedChange = { onChecked(it) },
+            modifier = Modifier.padding(end = 16.dp),
+        )
         Text(
             if (test.test is TestType.Experimental) {
                 test.test.name
             } else {
                 stringResource(testItem.item.test.labelRes)
             },
-            modifier = Modifier.weight(1f),
-        )
-        Checkbox(
-            checked = testItem.isSelected,
-            onCheckedChange = { onChecked(it) },
         )
     }
 }

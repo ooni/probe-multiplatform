@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.run
 
+import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +20,7 @@ import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.repositories.PreferenceRepository
-import org.ooni.probe.ui.shared.SelectableAndCollapsableItem
+import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
 
 class RunViewModel(
@@ -48,12 +49,18 @@ class RunViewModel(
                         descriptors
                             .associate { descriptor ->
                                 val tests = descriptor.allTests
-                                val allTestsSelected =
-                                    tests.all { preferences[descriptor to it] == true }
+                                val selectedTestsCount =
+                                    tests.count { preferences[descriptor to it] == true }
 
-                                SelectableAndCollapsableItem(
+                                ParentSelectableItem(
                                     item = descriptor,
-                                    isSelected = allTestsSelected,
+                                    state = if (selectedTestsCount == 0) {
+                                        ToggleableState.Off
+                                    } else if (selectedTestsCount == tests.size) {
+                                        ToggleableState.On
+                                    } else {
+                                        ToggleableState.Indeterminate
+                                    },
                                     isExpanded = !collapsedDescriptorsKeys.contains(descriptor.key),
                                 ) to tests.map { test ->
                                     SelectableItem(
@@ -198,7 +205,7 @@ class RunViewModel(
     }
 
     data class State(
-        val list: Map<DescriptorType, Map<SelectableAndCollapsableItem<Descriptor>, List<SelectableItem<NetTest>>>>,
+        val list: Map<DescriptorType, Map<ParentSelectableItem<Descriptor>, List<SelectableItem<NetTest>>>>,
     )
 
     sealed interface Event {
