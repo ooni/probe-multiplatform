@@ -11,14 +11,15 @@ import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_Ooni_Title
 import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_Title
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.data.models.DescriptorType
 
 @Composable
-fun TestDescriptorSection(type: DashboardViewModel.DescriptorType) {
+fun TestDescriptorSection(type: DescriptorType) {
     Text(
         stringResource(
             when (type) {
-                DashboardViewModel.DescriptorType.Default -> Res.string.Dashboard_RunV2_Ooni_Title
-                DashboardViewModel.DescriptorType.Installed -> Res.string.Dashboard_RunV2_Title
+                DescriptorType.Default -> Res.string.Dashboard_RunV2_Ooni_Title
+                DescriptorType.Installed -> Res.string.Dashboard_RunV2_Title
             },
         ).uppercase(),
         style = MaterialTheme.typography.labelLarge,

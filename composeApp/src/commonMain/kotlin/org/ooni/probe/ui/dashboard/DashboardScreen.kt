@@ -77,7 +77,7 @@ fun DashboardScreen(
                         TestDescriptorSection(type)
                     }
                 }
-                items(tests) { test ->
+                items(tests, key = { it.key }) { test ->
                     TestDescriptorItem(test)
                 }
             }

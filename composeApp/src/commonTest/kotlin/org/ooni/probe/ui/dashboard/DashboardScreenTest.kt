@@ -2,6 +2,7 @@ package org.ooni.probe.ui.dashboard
 
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
+import org.ooni.probe.data.models.DescriptorType
 import org.ooni.testing.factories.DescriptorFactory
 import kotlin.test.Test
 
@@ -16,7 +17,7 @@ class DashboardScreenTest {
                 DashboardScreen(
                     state =
                         DashboardViewModel.State(
-                            tests = mapOf(DashboardViewModel.DescriptorType.Installed to listOf(descriptor)),
+                            tests = mapOf(DescriptorType.Installed to listOf(descriptor)),
                         ),
                     onEvent = {},
                 )

@@ -19,7 +19,8 @@ sealed class PreferenceKey<T>(val preferenceKey: Preferences.Key<T>) {
 
     class StringKey(preferenceKey: Preferences.Key<String>) : PreferenceKey<String>(preferenceKey)
 
-    class BooleanKey(preferenceKey: Preferences.Key<Boolean>) : PreferenceKey<Boolean>(preferenceKey)
+    class BooleanKey(preferenceKey: Preferences.Key<Boolean>) :
+        PreferenceKey<Boolean>(preferenceKey)
 
     class FloatKey(preferenceKey: Preferences.Key<Float>) : PreferenceKey<Float>(preferenceKey)
 
@@ -133,17 +134,44 @@ class PreferenceRepository(
         descriptor: Descriptor,
         netTest: NetTest,
         isAutoRun: Boolean,
-    ): Flow<Boolean> {
-        val key = getPreferenceKey(
-            name = netTest.test.name,
-            prefix = (descriptor.source as? Descriptor.Source.Installed)
-                ?.value?.id?.value?.toString(),
-            autoRun = isAutoRun,
-        )
-        return dataStore.data.map {
-            it[booleanPreferencesKey(key)] == true
+    ): Flow<Boolean> =
+        dataStore.data.map {
+            it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] == true
+        }
+
+    fun areNetTestsEnabled(
+        list: List<Pair<Descriptor, NetTest>>,
+        isAutoRun: Boolean,
+    ): Flow<Map<Pair<Descriptor, NetTest>, Boolean>> =
+        dataStore.data.map {
+            list.associate { (descriptor, netTest) ->
+                Pair(descriptor, netTest) to
+                    (it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] == true)
+            }
+        }
+
+    suspend fun setAreNetTestsEnabled(
+        list: List<Pair<Descriptor, NetTest>>,
+        isAutoRun: Boolean,
+        isEnabled: Boolean,
+    ) {
+        dataStore.edit {
+            list.forEach { (descriptor, netTest) ->
+                it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] = isEnabled
+            }
         }
     }
+
+    private fun getNetTestKey(
+        descriptor: Descriptor,
+        netTest: NetTest,
+        isAutoRun: Boolean,
+    ) = getPreferenceKey(
+        name = netTest.test.name,
+        prefix = (descriptor.source as? Descriptor.Source.Installed)
+            ?.value?.id?.value?.toString(),
+        autoRun = isAutoRun,
+    )
 
     suspend fun clear() {
         dataStore.edit { it.clear() }

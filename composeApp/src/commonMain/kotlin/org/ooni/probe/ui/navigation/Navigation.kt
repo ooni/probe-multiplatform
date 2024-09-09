@@ -21,6 +21,7 @@ import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
 import org.ooni.probe.ui.result.ResultScreen
 import org.ooni.probe.ui.results.ResultsScreen
+import org.ooni.probe.ui.run.RunScreen
 import org.ooni.probe.ui.running.RunningScreen
 import org.ooni.probe.ui.settings.SettingsScreen
 import org.ooni.probe.ui.settings.about.AboutScreen
@@ -43,6 +44,7 @@ fun Navigation(
                 dependencies.dashboardViewModel(
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.navigate(Screen.RunningTest.route) },
+                    goToRunTests = { navController.navigate(Screen.RunTests.route) },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -153,6 +155,14 @@ fun Navigation(
                     )
                 }
             }
+        }
+
+        composable(route = Screen.RunTests.route) {
+            val viewModel = viewModel {
+                dependencies.runViewModel(onBack = { navController.popBackStack() })
+            }
+            val state by viewModel.state.collectAsState()
+            RunScreen(state, viewModel::onEvent)
         }
 
         composable(route = Screen.RunningTest.route) {

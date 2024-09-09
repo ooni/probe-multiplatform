@@ -28,6 +28,11 @@ data class Descriptor(
 
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 
-    companion object {
-    }
+    val key: String
+        get() = when (source) {
+            is Source.Default -> name
+            is Source.Installed -> source.value.id.value.toString()
+        }
+
+    val allTests get() = netTests + longRunningTests
 }

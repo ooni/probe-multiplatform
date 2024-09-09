@@ -44,7 +44,7 @@ class RunDescriptors(
             return
         }
         setCurrentTestState {
-            TestRunState.Running(estimatedRuntime = estimatedRuntime)
+            TestRunState.Running(estimatedRuntimeOfDescriptors = estimatedRuntime)
         }
 
         try {
@@ -63,8 +63,8 @@ class RunDescriptors(
         coroutineScope {
             val runJob = async {
                 // Actually running the descriptors
-                descriptors.forEach { descriptor ->
-                    runDescriptor(descriptor, spec.taskOrigin, spec.isRerun)
+                descriptors.forEachIndexed { index, descriptor ->
+                    runDescriptor(descriptor, index, spec.taskOrigin, spec.isRerun)
                 }
             }
             // Observe if a cancel request has been made
@@ -124,6 +124,7 @@ class RunDescriptors(
 
     private suspend fun runDescriptor(
         descriptor: Descriptor,
+        index: Int,
         taskOrigin: TaskOrigin,
         isRerun: Boolean,
     ) {
@@ -134,15 +135,17 @@ class RunDescriptors(
         )
         val resultWithId = newResult.copy(id = storeResult(newResult))
 
-        (descriptor.netTests + descriptor.longRunningTests).forEachIndexed { index, netTest ->
+        descriptor.allTests.forEachIndexed { testIndex, netTest ->
             runNetTest(
                 RunNetTest.Specification(
                     descriptor = descriptor,
+                    descriptorIndex = index,
                     netTest = netTest,
                     taskOrigin = taskOrigin,
                     isRerun = isRerun,
                     initialResult = resultWithId,
-                    testIndex = index,
+                    testIndex = testIndex,
+                    testTotal = descriptor.allTests.size,
                 ),
             )
         }

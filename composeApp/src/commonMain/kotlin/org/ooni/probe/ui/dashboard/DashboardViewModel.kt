@@ -10,17 +10,16 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.Descriptor
-import org.ooni.probe.data.models.RunSpecification
+import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.TestRunState
 
 class DashboardViewModel(
     goToResults: () -> Unit,
     goToRunningTest: () -> Unit,
+    goToRunTests: () -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
-    startBackgroundRun: (RunSpecification) -> Unit,
     observeTestRunState: Flow<TestRunState>,
     observeTestRunErrors: Flow<TestRunError>,
 ) : ViewModel() {
@@ -50,7 +49,7 @@ class DashboardViewModel(
 
         events
             .filterIsInstance<Event.RunTestsClick>()
-            .onEach { startBackgroundRun(buildRunSpecification()) }
+            .onEach { goToRunTests() }
             .launchIn(viewModelScope)
 
         events
@@ -80,33 +79,6 @@ class DashboardViewModel(
             DescriptorType.Default to filter { it.source is Descriptor.Source.Default },
             DescriptorType.Installed to filter { it.source is Descriptor.Source.Installed },
         )
-
-    private fun buildRunSpecification(): RunSpecification {
-        val allTests = state.value.tests.values.flatten()
-        return RunSpecification(
-            tests =
-                allTests.map { test ->
-                    RunSpecification.Test(
-                        source =
-                            when (test.source) {
-                                is Descriptor.Source.Default ->
-                                    RunSpecification.Test.Source.Default(test.name)
-
-                                is Descriptor.Source.Installed ->
-                                    RunSpecification.Test.Source.Installed(test.source.value.id)
-                            },
-                        netTests = test.netTests,
-                    )
-                },
-            taskOrigin = TaskOrigin.OoniRun,
-            isRerun = false,
-        )
-    }
-
-    enum class DescriptorType {
-        Default,
-        Installed,
-    }
 
     data class State(
         val tests: Map<DescriptorType, List<Descriptor>> = emptyMap(),

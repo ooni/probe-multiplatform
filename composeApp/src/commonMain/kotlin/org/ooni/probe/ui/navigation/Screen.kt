@@ -51,6 +51,8 @@ sealed class Screen(
         }
     }
 
+    data object RunTests : Screen("run")
+
     data object RunningTest : Screen("running")
 
     data object UploadMeasurements : Screen("upload")

@@ -57,6 +57,7 @@ import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
+import org.ooni.probe.ui.run.RunViewModel
 import org.ooni.probe.ui.running.RunningViewModel
 import org.ooni.probe.ui.settings.SettingsViewModel
 import org.ooni.probe.ui.settings.about.AboutViewModel
@@ -234,16 +235,26 @@ class Dependencies(
     fun dashboardViewModel(
         goToResults: () -> Unit,
         goToRunningTest: () -> Unit,
+        goToRunTests: () -> Unit,
     ) = DashboardViewModel(
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
+        goToRunTests = goToRunTests,
         getTestDescriptors = getTestDescriptors::invoke,
-        startBackgroundRun = startBackgroundRun,
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
+
+    fun resultsViewModel(
+        goToResult: (ResultModel.Id) -> Unit,
+        goToUpload: () -> Unit,
+    ) = ResultsViewModel(
+        goToResult = goToResult,
+        goToUpload = goToUpload,
+        getResults = getResults::invoke,
+    )
 
     fun runningViewModel(
         onBack: () -> Unit,
@@ -256,14 +267,13 @@ class Dependencies(
         cancelTestRun = testStateManager::cancelTestRun,
     )
 
-    fun resultsViewModel(
-        goToResult: (ResultModel.Id) -> Unit,
-        goToUpload: () -> Unit,
-    ) = ResultsViewModel(
-        goToResult = goToResult,
-        goToUpload = goToUpload,
-        getResults = getResults::invoke,
-    )
+    fun runViewModel(onBack: () -> Unit) =
+        RunViewModel(
+            onBack = onBack,
+            startBackgroundRun = startBackgroundRun,
+            getTestDescriptors = getTestDescriptors::invoke,
+            preferenceRepository = preferenceRepository,
+        )
 
     fun resultViewModel(
         resultId: ResultModel.Id,
