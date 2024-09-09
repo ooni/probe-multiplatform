@@ -25,5 +25,4 @@ class GetBootstrapTestDescriptors(
                 }
             descriptors.map { it.toModel() }
         }
-
 }

@@ -133,6 +133,7 @@ class Dependencies(
         BootstrapTestDescriptors(
             getBootstrapTestDescriptors = getBootstrapTestDescriptors::invoke,
             createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
+            storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
     val cancelCurrentTest get() = testStateManager::cancelTestRun
@@ -181,6 +182,7 @@ class Dependencies(
         SaveTestDescriptors(
             preferencesRepository = preferenceRepository,
             createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
+            storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
 

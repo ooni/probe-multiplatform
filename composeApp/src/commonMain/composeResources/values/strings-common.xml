@@ -169,6 +169,7 @@
     <string name="AddDescriptor_Toasts_Installed">Link installed</string>
     <string name="AddDescriptor_Action">Install Link</string>
     <string name="AddDescriptor_Toasts_Canceled">Link installation cancelled</string>
+    <string name="LoadingScreen_Runv2_Message">Link Loading</string>
 
     <!-- New Strings -->
     <string name="back">Back</string>
