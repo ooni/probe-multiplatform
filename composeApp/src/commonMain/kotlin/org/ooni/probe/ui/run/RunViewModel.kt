@@ -15,6 +15,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.ooni.engine.models.TaskOrigin
+import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.NetTest
@@ -51,17 +53,20 @@ class RunViewModel(
                                 val tests = descriptor.allTests
                                 val selectedTestsCount =
                                     tests.count { preferences[descriptor to it] == true }
+                                val containsKey = collapsedDescriptorsKeys.contains(descriptor.key)
 
                                 ParentSelectableItem(
                                     item = descriptor,
-                                    state = if (selectedTestsCount == 0) {
-                                        ToggleableState.Off
-                                    } else if (selectedTestsCount == tests.size) {
-                                        ToggleableState.On
-                                    } else {
-                                        ToggleableState.Indeterminate
+                                    state = when (selectedTestsCount) {
+                                        0 -> ToggleableState.Off
+                                        tests.size -> ToggleableState.On
+                                        else -> ToggleableState.Indeterminate
                                     },
-                                    isExpanded = !collapsedDescriptorsKeys.contains(descriptor.key),
+                                    isExpanded = when (OrganizationConfig.testDisplayMode) {
+                                        TestDisplayMode.Regular -> !containsKey
+                                        // Start with all descriptors collapsed
+                                        TestDisplayMode.WebsitesOnly -> containsKey
+                                    },
                                 ) to tests.map { test ->
                                     SelectableItem(
                                         item = test,

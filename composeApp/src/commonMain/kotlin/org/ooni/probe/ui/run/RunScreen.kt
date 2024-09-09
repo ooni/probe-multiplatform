@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -44,6 +46,8 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
+import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
@@ -56,9 +60,7 @@ fun RunScreen(
     state: RunViewModel.State,
     onEvent: (RunViewModel.Event) -> Unit,
 ) {
-    Column(
-        modifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
-    ) {
+    Column {
         TopAppBar(
             title = { Text(stringResource(Res.string.Dashboard_RunTests_Title)) },
             navigationIcon = {
@@ -74,18 +76,23 @@ fun RunScreen(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 16.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
             Text(
                 stringResource(Res.string.Dashboard_RunTests_Description),
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(bottom = 8.dp),
             )
             Row {
-                OutlinedButton(onClick = { onEvent(RunViewModel.Event.SelectAllClicked) }) {
+                OutlinedButton(
+                    onClick = { onEvent(RunViewModel.Event.SelectAllClicked) },
+                    modifier = Modifier.padding(end = 8.dp),
+                ) {
                     Text(stringResource(Res.string.Dashboard_RunTests_SelectAll))
                 }
-                OutlinedButton(onClick = { onEvent(RunViewModel.Event.DeselectAllClicked) }) {
+                OutlinedButton(
+                    onClick = { onEvent(RunViewModel.Event.DeselectAllClicked) },
+                ) {
                     Text(stringResource(Res.string.Dashboard_RunTests_SelectNone))
                 }
             }
@@ -101,6 +108,7 @@ fun RunScreen(
                         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding() +
                             64.dp,
                 ),
+                modifier = Modifier.fillMaxSize(),
             ) {
                 val allSectionsHaveValues = state.list.entries.all { it.value.any() }
                 state.list.forEach { (type, descriptorsMap) ->
@@ -126,19 +134,12 @@ fun RunScreen(
 
                         if (!descriptorItem.isExpanded) return@descriptorsMap
 
-                        items(testItems, key = { "${descriptor.key}_${it.item.test.name}" }) { testItem ->
-                            TestItem(
-                                testItem = testItem,
-                                onChecked = {
-                                    onEvent(
-                                        RunViewModel.Event.NetTestChecked(
-                                            descriptor,
-                                            testItem.item,
-                                            it,
-                                        ),
-                                    )
-                                },
-                            )
+                        when (OrganizationConfig.testDisplayMode) {
+                            TestDisplayMode.Regular ->
+                                regularTestItems(descriptor, testItems, onEvent)
+
+                            TestDisplayMode.WebsitesOnly ->
+                                websiteItems(descriptor, testItems)
                         }
                     }
                 }
@@ -169,6 +170,27 @@ fun RunScreen(
                 )
             }
         }
+    }
+}
+
+private fun LazyListScope.regularTestItems(
+    descriptor: Descriptor,
+    testItems: List<SelectableItem<NetTest>>,
+    onEvent: (RunViewModel.Event) -> Unit,
+) {
+    items(testItems, key = { "${descriptor.key}_${it.item.test.name}" }) { testItem ->
+        TestItem(
+            testItem = testItem,
+            onChecked = {
+                onEvent(
+                    RunViewModel.Event.NetTestChecked(
+                        descriptor,
+                        testItem.item,
+                        it,
+                    ),
+                )
+            },
+        )
     }
 }
 
@@ -234,6 +256,21 @@ private fun TestItem(
             } else {
                 stringResource(testItem.item.test.labelRes)
             },
+        )
+    }
+}
+
+private fun LazyListScope.websiteItems(
+    descriptor: Descriptor,
+    testItems: List<SelectableItem<NetTest>>,
+) {
+    val websites = testItems.flatMap { it.item.inputs.orEmpty() }
+    items(websites, key = { "${descriptor.key}_$it" }) { website ->
+        Text(
+            website,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 48.dp, top = 4.dp),
         )
     }
 }
