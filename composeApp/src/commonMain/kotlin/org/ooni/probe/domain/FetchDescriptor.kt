@@ -16,11 +16,11 @@ class FetchDescriptor(
         return engineHttpDo(
             "GET",
             "https://api.dev.ooni.io/api/v2/oonirun/links/$descriptorId",
-            TaskOrigin.OoniRun
+            TaskOrigin.OoniRun,
         ).map { result ->
-                result?.let {
-                    json.decodeFromString<OONIRunDescriptor>(it).toModel()
-                } ?: throw MkException(Throwable("Failed to fetch descriptor"))
-            }
+            result?.let {
+                json.decodeFromString<OONIRunDescriptor>(it).toModel()
+            } ?: throw MkException(Throwable("Failed to fetch descriptor"))
+        }
     }
 }
