@@ -170,15 +170,19 @@ fun Navigation(
             route = Screen.AddDescriptor.NAV_ROUTE,
             arguments = Screen.AddDescriptor.ARGUMENTS,
         ) { entry ->
-            val descriptorId = entry.arguments?.getLong("runId")!!
-            val viewModel = viewModel {
-                dependencies.addDescriptorViewModel(
-                    onBack = { navController.popBackStack() },
-                    descriptorId = descriptorId.toString(),
-                )
+            entry.arguments?.getLong("runId")?.let { descriptorId ->
+                val viewModel = viewModel {
+                    dependencies.addDescriptorViewModel(
+                        onBack = { navController.popBackStack() },
+                        descriptorId = descriptorId.toString(),
+                    )
+                }
+                val state by viewModel.state.collectAsState()
+                AddDescriptorScreen(state, viewModel::onEvent)
+            } ?: run {
+                // TODO(aanorbel): display error toast/snackbar
+                navController.popBackStack()
             }
-            val state by viewModel.state.collectAsState()
-            AddDescriptorScreen(state, viewModel::onEvent)
         }
 
         composable(route = Screen.RunningTest.route) {

@@ -8,20 +8,16 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import org.ooni.engine.Engine
-import org.ooni.engine.models.OONIRunDescriptor
 import org.ooni.engine.models.Result
-import org.ooni.engine.models.toModel
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.shared.SelectableItem
 
 class AddDescriptorViewModel(
     onCancel: () -> Unit,
-    descriptorId: String,
-    fetchDescriptor: suspend (descriptorId: String) -> Result<String?, Engine.MkException>,
-    json: Json,
+    onError: () -> Unit,
+    fetchDescriptor: suspend () -> Result<InstalledTestDescriptorModel?, Engine.MkException>,
     saveTestDescriptors: suspend (List<Pair<InstalledTestDescriptorModel, List<NetTest>>>) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -31,12 +27,11 @@ class AddDescriptorViewModel(
 
     init {
         viewModelScope.launch {
-            fetchDescriptor(descriptorId).map { descriptor ->
+            fetchDescriptor().map { descriptor ->
                 descriptor?.let {
-                    val decodedDescriptor = json.decodeFromString<OONIRunDescriptor>(it).toModel()
                     _state.value = State(
-                        descriptor = decodedDescriptor,
-                        selectableItems = decodedDescriptor.netTests?.map { nettest ->
+                        descriptor = it,
+                        selectableItems = it.netTests?.map { nettest ->
                             SelectableItem(
                                 item = nettest,
                                 isSelected = true,
@@ -45,7 +40,7 @@ class AddDescriptorViewModel(
                     )
                 }
             }.onFailure {
-                println(it)
+                onError()
             }
         }
 

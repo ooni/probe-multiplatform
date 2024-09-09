@@ -144,7 +144,8 @@ class Dependencies(
     }
     private val fetchDescriptor by lazy {
         FetchDescriptor(
-            engine::httpDo,
+            engineHttpDo = engine::httpDo,
+            json = json,
         )
     }
     val getAutoRunSpecification by lazy {
@@ -336,14 +337,16 @@ class Dependencies(
             // TODO(aanorbel): show toast/snackbar
             onBack()
         },
-        descriptorId = descriptorId,
-        json = json,
+        onError = {
+            // TODO(aanorbel): show toast/snackbar
+            onBack()
+        },
         saveTestDescriptors = {
             saveTestDescriptors.invoke(it)
             // TODO(aanorbel): show toast/snackbar
             onBack()
         },
-        fetchDescriptor = { descriptorId ->
+        fetchDescriptor = {
             withContext(backgroundDispatcher) {
                 fetchDescriptor(descriptorId)
             }

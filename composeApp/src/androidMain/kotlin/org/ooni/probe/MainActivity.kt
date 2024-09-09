@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.navigation.NavHostController
+import co.touchlab.kermit.Logger
 
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
@@ -29,18 +30,18 @@ class MainActivity : ComponentActivity() {
 
     private fun manageIntent(intent: Intent) {
         intent.data?.let { uri: Uri ->
-            when (uri.host) {
-                "runv2" -> {
-                    println(uri.toString())
-                    navController.navigate("add-descriptor/${uri.lastPathSegment}")
-                }
+            try {
+                when (uri.host) {
+                    "runv2" -> {
+                        navController.navigate("add-descriptor/${uri.lastPathSegment}")
+                    }
 
-                "run.test.ooni.org" -> {
-                    println(uri.toString())
-                    navController.navigate("add-descriptor/${uri.lastPathSegment}")
+                    "run.test.ooni.org" -> {
+                        navController.navigate("add-descriptor/${uri.lastPathSegment}")
+                    }
                 }
-                else -> {
-                }
+            } catch (e: Exception) {
+                Logger.e(e) { "Failed to open run v2 link" }
             }
         }
     }
