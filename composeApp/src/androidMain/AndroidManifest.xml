@@ -25,6 +25,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity-alias
+            android:exported="true"
+            android:enabled="@string/ooni_run_enabled"
+            android:name=".OONIRunActivity"
+            android:targetActivity=".MainActivity">
+
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -49,7 +56,7 @@
                     android:host="runv2"
                     android:scheme="ooni" />
             </intent-filter>
-        </activity>
+        </activity-alias>
     </application>
 
 </manifest>

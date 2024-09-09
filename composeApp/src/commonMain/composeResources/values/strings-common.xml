@@ -170,7 +170,8 @@
     <string name="AddDescriptor_Action">Install Link</string>
     <string name="AddDescriptor_Toasts_Canceled">Link installation cancelled</string>
     <string name="LoadingScreen_Runv2_Message">Link Loading</string>
-
+    <string name="LoadingScreen_Runv2_Failure">Error</string>
+    <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
     <!-- New Strings -->
     <string name="back">Back</string>
     <string name="refresh">refresh</string>

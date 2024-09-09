@@ -36,7 +36,7 @@ class AddDescriptorViewModel(
                                 item = nettest,
                                 isSelected = true,
                             )
-                        } ?: emptyList(),
+                        }.orEmpty(),
                     )
                 }
             }.onFailure {

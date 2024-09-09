@@ -62,17 +62,10 @@ class RunNetTest(
                 testTotal = spec.testTotal,
             )
         }
+        val installedDescriptorId = (spec.descriptor.source as? Descriptor.Source.Installed)?.value?.id
 
-        when (spec.descriptor.source) {
-            is Descriptor.Source.Default -> {
-                startTest(spec.netTest.test.name, spec.netTest.inputs, spec.taskOrigin, null)
-                    .collect(::onEvent)
-            }
-            is Descriptor.Source.Installed -> {
-                startTest(spec.netTest.test.name, spec.netTest.inputs, spec.taskOrigin, spec.descriptor.source.value.id)
-                    .collect(::onEvent)
-            }
-        }
+        startTest(spec.netTest.test.name, spec.netTest.inputs, spec.taskOrigin, installedDescriptorId)
+            .collect(::onEvent)
     }
 
     private suspend fun onEvent(event: TaskEvent) {

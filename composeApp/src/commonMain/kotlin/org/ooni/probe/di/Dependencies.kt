@@ -1,6 +1,8 @@
 package org.ooni.probe.di
 
 import androidx.annotation.VisibleForTesting
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.datastore.core.DataMigration
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
@@ -134,7 +136,8 @@ class Dependencies(
             getBootstrapTestDescriptors = getBootstrapTestDescriptors::invoke,
             createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
-        )
+            preferencesRepository = preferenceRepository,
+            )
     }
     val cancelCurrentTest get() = testStateManager::cancelTestRun
     private val downloadUrls by lazy {
@@ -334,26 +337,49 @@ class Dependencies(
     fun addDescriptorViewModel(
         descriptorId: String,
         onBack: () -> Unit,
-    ) = AddDescriptorViewModel(
-        onCancel = {
-            // TODO(aanorbel): show toast/snackbar
-            onBack()
-        },
-        onError = {
-            // TODO(aanorbel): show toast/snackbar
-            onBack()
-        },
-        saveTestDescriptors = {
-            saveTestDescriptors.invoke(it)
-            // TODO(aanorbel): show toast/snackbar
-            onBack()
-        },
-        fetchDescriptor = {
-            withContext(backgroundDispatcher) {
+        snackbarHostState: SnackbarHostState?,
+        errorMessage: String,
+        cancelMessage: String,
+        installCompleteMessage: String,
+    ): AddDescriptorViewModel {
+        val scope = CoroutineScope(backgroundDispatcher)
+        return AddDescriptorViewModel(
+            onCancel = {
+                snackbarHostState?.let {
+                    showSnackbar(
+                        scope = scope,
+                        snackbarHostState = it,
+                        message = cancelMessage,
+                    )
+                }
+                onBack()
+            },
+            onError = {
+                snackbarHostState?.let {
+                    showSnackbar(
+                        scope = scope,
+                        snackbarHostState = it,
+                        message = errorMessage,
+                    )
+                }
+                onBack()
+            },
+            saveTestDescriptors = {
+                saveTestDescriptors.invoke(it)
+                snackbarHostState?.let {
+                    showSnackbar(
+                        scope = scope,
+                        snackbarHostState = it,
+                        message = installCompleteMessage,
+                    )
+                }
+                onBack()
+            },
+            fetchDescriptor = {
                 fetchDescriptor(descriptorId)
-            }
-        },
-    )
+            },
+        )
+    }
 
     companion object {
         @VisibleForTesting
@@ -385,5 +411,20 @@ class Dependencies(
                 )
                     .also { dataStore = it }
             }
+
+        fun showSnackbar(
+            scope: CoroutineScope,
+            snackbarHostState: SnackbarHostState,
+            message: String,
+            actionLabel: String? = null,
+            onDismissed: () -> Unit = {},
+        ) {
+            scope.launch {
+                val result = snackbarHostState.showSnackbar(message, actionLabel)
+                if (result == SnackbarResult.Dismissed) {
+                    onDismissed()
+                }
+            }
+        }
     }
 }

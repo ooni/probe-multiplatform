@@ -138,10 +138,7 @@ class Engine(
             networkType = networkTypeFinder(),
             flavor = buildSoftwareName(taskOrigin),
             origin = taskOrigin,
-            ooniRunLinkId = when (descriptorId) {
-                is InstalledTestDescriptorModel.Id -> descriptorId.value.toString()
-                else -> null
-            },
+            ooniRunLinkId = descriptorId?.value?.toString() ?: "",
         ),
         proxy = preferences.proxy,
     )
