@@ -190,6 +190,7 @@ class Dependencies(
             configureAutoRun = configureAutoRun,
         )
     }
+
     private fun runNetTest(spec: RunNetTest.Specification) =
         RunNetTest(
             startTest = engine::startTask,
