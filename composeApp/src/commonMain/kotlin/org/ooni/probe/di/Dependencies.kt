@@ -60,6 +60,7 @@ import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.AddDescriptorViewModel
+import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.run.RunViewModel
@@ -257,13 +258,27 @@ class Dependencies(
         goToResults: () -> Unit,
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
+        goToDescriptor: (String) -> Unit,
     ) = DashboardViewModel(
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
         goToRunTests = goToRunTests,
+        goToDescriptor = goToDescriptor,
         getTestDescriptors = getTestDescriptors::invoke,
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
+    )
+
+    fun descriptorViewModel(
+        descriptorKey: String,
+        onBack: () -> Unit,
+    ) = DescriptorViewModel(
+        descriptorKey = descriptorKey,
+        onBack = onBack,
+        getTestDescriptors = getTestDescriptors::invoke,
+        getDescriptorLastResult = resultRepository::getLatestByDescriptor,
+        preferenceRepository = preferenceRepository,
+        launchUrl = { launchUrl(it, null) },
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)

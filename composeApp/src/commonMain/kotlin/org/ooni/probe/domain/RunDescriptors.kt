@@ -21,7 +21,6 @@ import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.now
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.seconds
 
 class RunDescriptors(
     private val getTestDescriptorsBySpec: suspend (RunSpecification) -> List<Descriptor>,
@@ -115,10 +114,7 @@ class RunDescriptors(
     private suspend fun List<Descriptor>.getEstimatedRuntime(): List<Duration> {
         val maxRuntime = getEnginePreferences().maxRuntime
         return map { descriptor ->
-            descriptor.netTests
-                .sumOf { it.test.runtime(it.inputs).inWholeSeconds }
-                .seconds
-                .coerceAtMost(maxRuntime ?: Duration.INFINITE)
+            descriptor.estimatedDuration.coerceAtMost(maxRuntime ?: Duration.INFINITE)
         }
     }
 

@@ -3,6 +3,7 @@ package org.ooni.probe.ui.dashboard
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -69,16 +70,22 @@ fun DashboardScreen(
 
         LazyColumn(
             modifier = Modifier.padding(top = 24.dp),
+            contentPadding = PaddingValues(bottom = 16.dp),
         ) {
-            val allSectionsHaveValues = state.tests.entries.all { it.value.any() }
-            state.tests.forEach { (type, tests) ->
-                if (allSectionsHaveValues && tests.isNotEmpty()) {
+            val allSectionsHaveValues = state.descriptors.entries.all { it.value.any() }
+            state.descriptors.forEach { (type, items) ->
+                if (allSectionsHaveValues && items.isNotEmpty()) {
                     item(type) {
                         TestDescriptorSection(type)
                     }
                 }
-                items(tests, key = { it.key }) { test ->
-                    TestDescriptorItem(test)
+                items(items, key = { it.key }) { descriptor ->
+                    TestDescriptorItem(
+                        descriptor = descriptor,
+                        onClick = {
+                            onEvent(DashboardViewModel.Event.DescriptorClicked(descriptor))
+                        },
+                    )
                 }
             }
         }
@@ -113,10 +120,8 @@ private fun TestRunStateSection(
             }
             state.lastTestAt?.let { lastTestAt ->
                 Text(
-                    text = stringResource(
-                        Res.string.Dashboard_Overview_LatestTest,
-                        lastTestAt.relativeDateTime(),
-                    ),
+                    text = stringResource(Res.string.Dashboard_Overview_LatestTest) +
+                        " " + lastTestAt.relativeDateTime(),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(top = 4.dp),
                 )

@@ -26,6 +26,7 @@ import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.decodeUrlFromBase64
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.descriptor.AddDescriptorScreen
+import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
 import org.ooni.probe.ui.result.ResultScreen
 import org.ooni.probe.ui.results.ResultsScreen
@@ -53,6 +54,7 @@ fun Navigation(
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.navigate(Screen.RunningTest.route) },
                     goToRunTests = { navController.navigate(Screen.RunTests.route) },
+                    goToDescriptor = { navController.navigate(Screen.Descriptor(it).route) },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -228,6 +230,21 @@ fun Navigation(
             }
             val state by viewModel.state.collectAsState()
             UploadMeasurementsDialog(state, viewModel::onEvent)
+        }
+
+        composable(
+            route = Screen.Descriptor.NAV_ROUTE,
+            arguments = Screen.Descriptor.ARGUMENTS,
+        ) { entry ->
+            val descriptorKey = entry.arguments?.getString("descriptorKey") ?: return@composable
+            val viewModel = viewModel {
+                dependencies.descriptorViewModel(
+                    descriptorKey = descriptorKey,
+                    onBack = { navController.popBackStack() },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            DescriptorScreen(state, viewModel::onEvent)
         }
     }
 }
