@@ -1,4 +1,4 @@
-package org.ooni.probe.ui.descriptor
+package org.ooni.probe.ui.descriptor.add
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -37,6 +37,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.toDescriptor
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.run.TestItem
+import org.ooni.probe.ui.shared.NotificationMessages
 
 @Composable
 fun AddDescriptorScreen(
@@ -153,4 +154,8 @@ fun AddDescriptorScreen(
             Text(stringResource(Res.string.LoadingScreen_Runv2_Message))
         }
     }
+
+    NotificationMessages(
+        message = state.messages,
+    )
 }

@@ -59,8 +59,8 @@ import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
-import org.ooni.probe.ui.descriptor.AddDescriptorViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
+import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.run.RunViewModel
@@ -346,44 +346,10 @@ class Dependencies(
     fun addDescriptorViewModel(
         descriptorId: String,
         onBack: () -> Unit,
-        snackbarHostState: SnackbarHostState?,
-        errorMessage: String,
-        cancelMessage: String,
-        installCompleteMessage: String,
     ): AddDescriptorViewModel {
-        val scope = CoroutineScope(backgroundDispatcher)
         return AddDescriptorViewModel(
-            onCancel = {
-                snackbarHostState?.let {
-                    showSnackbar(
-                        scope = scope,
-                        snackbarHostState = it,
-                        message = cancelMessage,
-                    )
-                }
-                onBack()
-            },
-            onError = {
-                snackbarHostState?.let {
-                    showSnackbar(
-                        scope = scope,
-                        snackbarHostState = it,
-                        message = errorMessage,
-                    )
-                }
-                onBack()
-            },
-            saveTestDescriptors = {
-                saveTestDescriptors.invoke(it)
-                snackbarHostState?.let {
-                    showSnackbar(
-                        scope = scope,
-                        snackbarHostState = it,
-                        message = installCompleteMessage,
-                    )
-                }
-                onBack()
-            },
+            onBack = onBack,
+            saveTestDescriptors = saveTestDescriptors::invoke,
             fetchDescriptor = {
                 fetchDescriptor(descriptorId)
             },

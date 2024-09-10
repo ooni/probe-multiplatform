@@ -1,4 +1,4 @@
-package org.ooni.probe.ui.descriptor
+package org.ooni.probe.ui.descriptor.add
 
 import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.ViewModel
@@ -14,11 +14,11 @@ import org.ooni.engine.Engine
 import org.ooni.engine.models.Result
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.SnackBarMessage
 import org.ooni.probe.ui.shared.SelectableItem
 
 class AddDescriptorViewModel(
-    onCancel: () -> Unit,
-    onError: () -> Unit,
+    onBack: () -> Unit,
     fetchDescriptor: suspend () -> Result<InstalledTestDescriptorModel?, Engine.MkException>,
     saveTestDescriptors: suspend (List<Pair<InstalledTestDescriptorModel, List<NetTest>>>) -> Unit,
 ) : ViewModel() {
@@ -43,7 +43,8 @@ class AddDescriptorViewModel(
                 }
             }.onFailure {
                 Logger.e(it) { "Failed to fetch descriptor" }
-                onError()
+                _state.value = state.value.copy(messages = listOf(SnackBarMessage.AddDescriptorFailed))
+                onBack()
             }
         }
 
@@ -74,7 +75,8 @@ class AddDescriptorViewModel(
                 }
 
                 is Event.CancelClicked -> {
-                    onCancel()
+                    _state.value = state.value.copy(messages = listOf(SnackBarMessage.AddDescriptorCancel))
+                    onBack()
                 }
 
                 is Event.InstallDescriptorClicked -> {
@@ -86,6 +88,8 @@ class AddDescriptorViewModel(
                                 listOf(descriptor.copy(autoUpdate = state.value.autoUpdate) to selectedTests),
                             )
                         }
+                        _state.value = state.value.copy(messages = listOf(SnackBarMessage.AddDescriptorSuccess))
+                        onBack()
                     }
                 }
             }
@@ -99,6 +103,7 @@ class AddDescriptorViewModel(
     data class State(
         val descriptor: InstalledTestDescriptorModel? = null,
         val selectableItems: List<SelectableItem<NetTest>> = emptyList(),
+        val messages: List<SnackBarMessage> = emptyList(),
         val autoUpdate: Boolean = true,
     ) {
         fun allTestsSelected(): ToggleableState {
