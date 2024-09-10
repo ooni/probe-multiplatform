@@ -11,28 +11,40 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ooniprobe.composeapp.generated.resources.Modal_Cancel
+import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.back
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.PreferenceItemType
 import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.models.SettingsKey
@@ -42,10 +54,12 @@ fun SettingsCategoryScreen(
     state: SettingsCategoryViewModel.State,
     onEvent: (SettingsCategoryViewModel.Event) -> Unit,
 ) {
+    val category = state.category ?: return
+
     Column {
         TopAppBar(
             title = {
-                Text(stringResource(state.category.title))
+                Text(stringResource(category.title))
             },
             navigationIcon = {
                 IconButton(onClick = { onEvent(SettingsCategoryViewModel.Event.BackClicked) }) {
@@ -62,25 +76,15 @@ fun SettingsCategoryScreen(
                 .padding(WindowInsets.navigationBars.asPaddingValues()),
         ) {
             Column {
-                state.category.settings?.forEach { preferenceItem ->
+                category.settings?.forEach { preferenceItem ->
                     when (preferenceItem.type) {
                         PreferenceItemType.SWITCH ->
                             SwitchSettingsView(
-                                leadingContent =
-                                    preferenceItem.icon?.let {
-                                        {
-                                            Image(
-                                                modifier = Modifier.height(24.dp).width(24.dp),
-                                                painter = painterResource(it),
-                                                contentDescription = stringResource(preferenceItem.title),
-                                            )
-                                        }
-                                    },
+                                icon = preferenceItem.icon,
                                 title = preferenceItem.title,
                                 key = preferenceItem.key,
-                                checked =
-                                    state.preference?.let { it[preferenceItem.key] as? Boolean }
-                                        ?: false,
+                                checked = state.preferences[preferenceItem.key] == true,
+                                enabled = preferenceItem.enabled,
                                 supportingContent = preferenceItem.supportingContent,
                                 onCheckedChange = { key, value ->
                                     onEvent(
@@ -92,10 +96,20 @@ fun SettingsCategoryScreen(
                                 },
                             )
 
-                        PreferenceItemType.TEXT ->
-                            RouteSettingsView(
+                        PreferenceItemType.INT ->
+                            NumberPickerItem(
                                 title = preferenceItem.title,
                                 supportingContent = preferenceItem.supportingContent,
+                                enabled = preferenceItem.enabled,
+                                value = state.preferences[preferenceItem.key] as? Int,
+                                onChanged = {
+                                    onEvent(
+                                        SettingsCategoryViewModel.Event.IntChanged(
+                                            preferenceItem.key,
+                                            it,
+                                        ),
+                                    )
+                                },
                             )
 
                         PreferenceItemType.BUTTON ->
@@ -120,7 +134,7 @@ fun SettingsCategoryScreen(
                                         if (preferenceItem is SettingsCategoryItem) {
                                             onEvent(
                                                 SettingsCategoryViewModel.Event.SettingsCategoryClick(
-                                                    PreferenceCategoryKey.valueOf(preferenceItem.route.name),
+                                                    preferenceItem.route,
                                                 ),
                                             )
                                         }
@@ -134,7 +148,10 @@ fun SettingsCategoryScreen(
                             )
                     }
                 }
-                state.category.footerContent?.invoke()
+                category.footerContent?.let {
+                    HorizontalDivider(Modifier.padding(vertical = 16.dp))
+                    it.invoke()
+                }
             }
         }
     }
@@ -143,23 +160,43 @@ fun SettingsCategoryScreen(
 @Composable
 fun SwitchSettingsView(
     title: StringResource,
+    icon: DrawableResource?,
     supportingContent: @Composable (() -> Unit)? = null,
-    leadingContent: @Composable (() -> Unit)? = null,
     key: SettingsKey,
     checked: Boolean,
+    enabled: Boolean,
     onCheckedChange: (SettingsKey, Boolean) -> Unit,
 ) {
     ListItem(
-        headlineContent = { Text(stringResource(title)) },
+        headlineContent = {
+            Text(stringResource(title))
+        },
         supportingContent = supportingContent,
-        leadingContent = leadingContent,
+        leadingContent = icon?.let {
+            {
+                Image(
+                    modifier = Modifier.height(24.dp).width(24.dp),
+                    painter = painterResource(it),
+                    contentDescription = stringResource(title),
+                )
+            }
+        },
         trailingContent = {
             Switch(
                 checked = checked,
                 onCheckedChange = { newValue -> onCheckedChange(key, newValue) },
-                modifier = Modifier.scale(0.7f),
+                enabled = enabled,
             )
         },
+        modifier = Modifier
+            .alpha(if (enabled) 1f else 0.5f)
+            .run {
+                if (enabled) {
+                    clickable { onCheckedChange(key, !checked) }
+                } else {
+                    this
+                }
+            },
     )
 }
 
@@ -187,4 +224,71 @@ fun SettingsDescription(description: StringResource) {
         modifier = Modifier.padding(horizontal = 16.dp),
         fontSize = 12.sp,
     )
+}
+
+@Composable
+fun NumberPickerItem(
+    title: StringResource,
+    supportingContent: @Composable (() -> Unit)? = null,
+    enabled: Boolean,
+    value: Int?,
+    onChanged: (Int?) -> Unit,
+) {
+    var showDialog by remember { mutableStateOf(false) }
+
+    ListItem(
+        headlineContent = { Text(stringResource(title)) },
+        supportingContent = supportingContent,
+        modifier = Modifier
+            .alpha(if (enabled) 1f else 0.5f)
+            .run {
+                if (enabled) {
+                    clickable { showDialog = true }
+                } else {
+                    this
+                }
+            },
+    )
+
+    if (showDialog) {
+        var fieldValue by remember { mutableStateOf(value?.toString() ?: "") }
+        var isError by remember { mutableStateOf(false) }
+
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text(stringResource(title)) },
+            text = {
+                OutlinedTextField(
+                    value = fieldValue,
+                    onValueChange = {
+                        fieldValue = it
+                        isError = false
+                    },
+                    isError = isError,
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Number,
+                    ),
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        fieldValue.toIntOrNull()?.let {
+                            onChanged(it)
+                            showDialog = false
+                        } ?: run {
+                            isError = true
+                        }
+                    },
+                ) {
+                    Text(stringResource(Res.string.Modal_OK))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDialog = false }) {
+                    Text(stringResource(Res.string.Modal_Cancel))
+                }
+            },
+        )
+    }
 }
