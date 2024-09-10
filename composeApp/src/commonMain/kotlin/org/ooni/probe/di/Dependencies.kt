@@ -32,7 +32,6 @@ import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunSpecification
-import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.repositories.MeasurementRepository
 import org.ooni.probe.data.repositories.NetworkRepository
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -48,6 +47,7 @@ import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
+import org.ooni.probe.domain.GetSettings
 import org.ooni.probe.domain.GetTestDescriptors
 import org.ooni.probe.domain.GetTestDescriptorsBySpec
 import org.ooni.probe.domain.ObserveAndConfigureAutoRun
@@ -60,6 +60,7 @@ import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.AddDescriptorViewModel
+import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.run.RunViewModel
@@ -173,25 +174,16 @@ class Dependencies(
             getMeasurementsByResultId = measurementRepository::listByResultId,
         )
     }
+    private val getSettings by lazy { GetSettings(preferenceRepository) }
     private val getTestDescriptors by lazy {
         GetTestDescriptors(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
             listInstalledTestDescriptors = testDescriptorRepository::list,
         )
     }
-
-    private val saveTestDescriptors by lazy {
-        SaveTestDescriptors(
-            preferencesRepository = preferenceRepository,
-            createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
-            storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
-        )
-    }
-
     private val getTestDescriptorsBySpec by lazy {
         GetTestDescriptorsBySpec(getTestDescriptors = getTestDescriptors::invoke)
     }
-
     val observeAndConfigureAutoRun by lazy {
         ObserveAndConfigureAutoRun(
             backgroundDispatcher = backgroundDispatcher,
@@ -227,7 +219,13 @@ class Dependencies(
             getEnginePreferences = getEnginePreferences::invoke,
         )
     }
-
+    private val saveTestDescriptors by lazy {
+        SaveTestDescriptors(
+            preferencesRepository = preferenceRepository,
+            createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
+            storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
+        )
+    }
     val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
 
     // TODO: Remove this when startBackgroundRun is implemented on iOS
@@ -236,9 +234,7 @@ class Dependencies(
             runDescriptors(spec)
         }
     }
-
     private val testStateManager by lazy { TestRunStateManager(resultRepository.getLatest()) }
-
     private val uploadMissingMeasurements by lazy {
         UploadMissingMeasurements(
             getMeasurementsNotUploaded = measurementRepository.listNotUploaded(),
@@ -257,13 +253,27 @@ class Dependencies(
         goToResults: () -> Unit,
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
+        goToDescriptor: (String) -> Unit,
     ) = DashboardViewModel(
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
         goToRunTests = goToRunTests,
+        goToDescriptor = goToDescriptor,
         getTestDescriptors = getTestDescriptors::invoke,
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
+    )
+
+    fun descriptorViewModel(
+        descriptorKey: String,
+        onBack: () -> Unit,
+    ) = DescriptorViewModel(
+        descriptorKey = descriptorKey,
+        onBack = onBack,
+        getTestDescriptors = getTestDescriptors::invoke,
+        getDescriptorLastResult = resultRepository::getLatestByDescriptor,
+        preferenceRepository = preferenceRepository,
+        launchUrl = { launchUrl(it, null) },
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
@@ -309,23 +319,23 @@ class Dependencies(
     )
 
     fun settingsCategoryViewModel(
+        categoryKey: String,
         goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
         onBack: () -> Unit,
-        category: SettingsCategoryItem,
     ) = SettingsCategoryViewModel(
-        preferenceManager = preferenceRepository,
+        categoryKey = categoryKey,
         onBack = onBack,
         goToSettingsForCategory = goToSettingsForCategory,
-        category = category,
+        preferenceManager = preferenceRepository,
+        getSettings = getSettings::invoke,
     )
 
-    fun settingsViewModel(
-        goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
-        sendSupportEmail: suspend () -> Unit,
-    ) = SettingsViewModel(
-        goToSettingsForCategory = goToSettingsForCategory,
-        sendSupportEmail = sendSupportEmail,
-    )
+    fun settingsViewModel(goToSettingsForCategory: (PreferenceCategoryKey) -> Unit) =
+        SettingsViewModel(
+            goToSettingsForCategory = goToSettingsForCategory,
+            sendSupportEmail = sendSupportEmail::invoke,
+            getSettings = getSettings::invoke,
+        )
 
     fun uploadMeasurementsViewModel(onClose: () -> Unit) =
         UploadMeasurementsViewModel(

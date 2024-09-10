@@ -52,6 +52,13 @@ class ResultRepository(
             .mapToOneOrNull(backgroundDispatcher)
             .map { it?.toModel() }
 
+    fun getLatestByDescriptor(descriptorKey: String): Flow<ResultModel?> =
+        database.resultQueries
+            .selectLatestByDescriptor(descriptorKey)
+            .asFlow()
+            .mapToOneOrNull(backgroundDispatcher)
+            .map { it?.toModel() }
+
     suspend fun createOrUpdate(model: ResultModel): ResultModel.Id =
         withContext(backgroundDispatcher) {
             database.transactionWithResult {

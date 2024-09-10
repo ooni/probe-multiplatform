@@ -53,7 +53,7 @@ sealed class Screen(
 
     data class SettingsCategory(
         val category: PreferenceCategoryKey,
-    ) : Screen("settings/${category.name}") {
+    ) : Screen("settings/${category.value}") {
         companion object {
             const val NAV_ROUTE = "settings/{category}"
             val ARGUMENTS = listOf(navArgument("category") { type = NavType.StringType })
@@ -65,4 +65,13 @@ sealed class Screen(
     data object RunningTest : Screen("running")
 
     data object UploadMeasurements : Screen("upload")
+
+    data class Descriptor(
+        val descriptorKey: String,
+    ) : Screen("descriptors/$descriptorKey") {
+        companion object {
+            const val NAV_ROUTE = "descriptors/{descriptorKey}"
+            val ARGUMENTS = listOf(navArgument("descriptorKey") { type = NavType.StringType })
+        }
+    }
 }

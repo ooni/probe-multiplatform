@@ -21,11 +21,11 @@ import org.ooni.probe.LocalSnackbarHostState
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.decodeUrlFromBase64
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.descriptor.AddDescriptorScreen
+import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
 import org.ooni.probe.ui.result.ResultScreen
 import org.ooni.probe.ui.results.ResultsScreen
@@ -53,6 +53,7 @@ fun Navigation(
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.navigate(Screen.RunningTest.route) },
                     goToRunTests = { navController.navigate(Screen.RunTests.route) },
+                    goToDescriptor = { navController.navigate(Screen.Descriptor(it).route) },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -76,10 +77,10 @@ fun Navigation(
                     goToSettingsForCategory = {
                         navController.navigate(Screen.SettingsCategory(it).route)
                     },
-                    sendSupportEmail = dependencies.sendSupportEmail::invoke,
                 )
             }
-            SettingsScreen(viewModel::onEvent)
+            val state by viewModel.state.collectAsState()
+            SettingsScreen(state, viewModel::onEvent)
         }
 
         composable(
@@ -119,48 +120,33 @@ fun Navigation(
         ) { entry ->
             val category = entry.arguments?.getString("category") ?: return@composable
             when (category) {
-                PreferenceCategoryKey.ABOUT_OONI.name -> {
-                    val viewModel =
-                        viewModel {
-                            dependencies.aboutViewModel(
-                                onBack = { navController.navigateUp() },
-                            )
-                        }
+                PreferenceCategoryKey.ABOUT_OONI.value -> {
+                    val viewModel = viewModel {
+                        dependencies.aboutViewModel(onBack = { navController.navigateUp() })
+                    }
                     AboutScreen(onEvent = viewModel::onEvent)
                 }
 
-                PreferenceCategoryKey.PROXY.name -> {
-                    val viewModel =
-                        viewModel {
-                            dependencies.proxyViewModel(
-                                onBack = { navController.navigateUp() },
-                            )
-                        }
+                PreferenceCategoryKey.PROXY.value -> {
+                    val viewModel = viewModel {
+                        dependencies.proxyViewModel(onBack = { navController.navigateUp() })
+                    }
                     val state by viewModel.state.collectAsState()
-                    ProxyScreen(
-                        state = state,
-                        onEvent = viewModel::onEvent,
-                    )
+                    ProxyScreen(state, viewModel::onEvent)
                 }
 
                 else -> {
                     val viewModel = viewModel {
                         dependencies.settingsCategoryViewModel(
+                            categoryKey = category,
                             goToSettingsForCategory = {
                                 navController.navigate(Screen.SettingsCategory(it).route)
                             },
                             onBack = { navController.popBackStack() },
-                            category = SettingsCategoryItem.getSettingsItem(
-                                PreferenceCategoryKey.valueOf(category),
-                            ),
                         )
                     }
                     val state by viewModel.state.collectAsState()
-
-                    SettingsCategoryScreen(
-                        state = state,
-                        onEvent = viewModel::onEvent,
-                    )
+                    SettingsCategoryScreen(state, viewModel::onEvent)
                 }
             }
         }
@@ -228,6 +214,21 @@ fun Navigation(
             }
             val state by viewModel.state.collectAsState()
             UploadMeasurementsDialog(state, viewModel::onEvent)
+        }
+
+        composable(
+            route = Screen.Descriptor.NAV_ROUTE,
+            arguments = Screen.Descriptor.ARGUMENTS,
+        ) { entry ->
+            val descriptorKey = entry.arguments?.getString("descriptorKey") ?: return@composable
+            val viewModel = viewModel {
+                dependencies.descriptorViewModel(
+                    descriptorKey = descriptorKey,
+                    onBack = { navController.popBackStack() },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            DescriptorScreen(state, viewModel::onEvent)
         }
     }
 }

@@ -47,8 +47,8 @@ import org.ooni.probe.data.models.ProxyType
 
 @Composable
 fun ProxyScreen(
-    onEvent: (ProxyViewModel.Event) -> Unit,
     state: ProxyViewModel.State,
+    onEvent: (ProxyViewModel.Event) -> Unit,
 ) {
     Column {
         TopAppBar(

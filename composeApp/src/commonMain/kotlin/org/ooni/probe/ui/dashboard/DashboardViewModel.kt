@@ -19,6 +19,7 @@ class DashboardViewModel(
     goToResults: () -> Unit,
     goToRunningTest: () -> Unit,
     goToRunTests: () -> Unit,
+    goToDescriptor: (String) -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     observeTestRunState: Flow<TestRunState>,
     observeTestRunErrors: Flow<TestRunError>,
@@ -31,7 +32,7 @@ class DashboardViewModel(
     init {
         getTestDescriptors()
             .onEach { tests ->
-                _state.update { it.copy(tests = tests.groupByType()) }
+                _state.update { it.copy(descriptors = tests.groupByType()) }
             }
             .launchIn(viewModelScope)
 
@@ -68,6 +69,11 @@ class DashboardViewModel(
                 _state.update { it.copy(testRunErrors = it.testRunErrors - event.error) }
             }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.DescriptorClicked>()
+            .onEach { goToDescriptor(it.descriptor.key) }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -81,7 +87,7 @@ class DashboardViewModel(
         )
 
     data class State(
-        val tests: Map<DescriptorType, List<Descriptor>> = emptyMap(),
+        val descriptors: Map<DescriptorType, List<Descriptor>> = emptyMap(),
         val testRunState: TestRunState = TestRunState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
     )
@@ -94,5 +100,7 @@ class DashboardViewModel(
         data object SeeResultsClick : Event
 
         data class ErrorDisplayed(val error: TestRunError) : Event
+
+        data class DescriptorClicked(val descriptor: Descriptor) : Event
     }
 }
