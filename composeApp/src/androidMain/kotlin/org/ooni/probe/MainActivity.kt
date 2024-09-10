@@ -10,6 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.DeepLink
 
 class MainActivity : ComponentActivity() {
@@ -40,7 +41,7 @@ class MainActivity : ComponentActivity() {
         val uri = intent.data ?: return
         when (uri.host) {
             "runv2",
-            "run.test.ooni.org",
+            OrganizationConfig.ooniRunDomain,
             -> {
                 val id = uri.lastPathSegment ?: return
                 deepLinkFlow.tryEmit(DeepLink.AddDescriptor(id))

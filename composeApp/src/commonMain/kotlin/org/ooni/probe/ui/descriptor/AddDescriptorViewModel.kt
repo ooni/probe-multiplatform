@@ -3,6 +3,7 @@ package org.ooni.probe.ui.descriptor
 import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -41,6 +42,7 @@ class AddDescriptorViewModel(
                     )
                 }
             }.onFailure {
+                Logger.e(it) { "Failed to fetch descriptor" }
                 onError()
             }
         }

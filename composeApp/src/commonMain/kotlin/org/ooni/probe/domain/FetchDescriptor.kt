@@ -6,6 +6,7 @@ import org.ooni.engine.models.OONIRunDescriptor
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.toModel
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 
 class FetchDescriptor(
@@ -15,7 +16,7 @@ class FetchDescriptor(
     suspend operator fun invoke(descriptorId: String): Result<InstalledTestDescriptorModel?, MkException> {
         return engineHttpDo(
             "GET",
-            "https://api.dev.ooni.io/api/v2/oonirun/links/$descriptorId",
+            "${OrganizationConfig.ooniApiBaseUrl}/api/v2/oonirun/links/$descriptorId",
             TaskOrigin.OoniRun,
         ).map { result ->
             result?.let {

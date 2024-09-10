@@ -6,6 +6,7 @@ import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -56,6 +57,8 @@ fun setupDependencies(
 )
 
 fun initializeDeeplink() = MutableSharedFlow<DeepLink>(extraBufferCapacity = 1)
+
+fun ooniRunDomain() = OrganizationConfig.ooniRunDomain
 
 private val platformInfo
     get() =
