@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.descriptor
 
+import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -98,8 +99,14 @@ class AddDescriptorViewModel(
         val selectableItems: List<SelectableItem<NetTest>> = emptyList(),
         val autoUpdate: Boolean = true,
     ) {
-        fun allTestsSelected(): Boolean {
-            return selectableItems.all { it.isSelected }
+        fun allTestsSelected(): ToggleableState {
+            val selectedTestsCount =
+                selectableItems.count { it.isSelected }
+            return when (selectedTestsCount) {
+                0 -> ToggleableState.Off
+                selectableItems.size -> ToggleableState.On
+                else -> ToggleableState.Indeterminate
+            }
         }
     }
 

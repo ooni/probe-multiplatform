@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,9 +18,11 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Action
@@ -95,13 +96,13 @@ fun AddDescriptorScreen(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth().clickable {
-                    onEvent(AddDescriptorViewModel.Event.AutoRunChanged(!state.allTestsSelected()))
+                    onEvent(AddDescriptorViewModel.Event.AutoRunChanged(state.allTestsSelected() != ToggleableState.On))
                 },
             ) {
-                Checkbox(
-                    checked = state.allTestsSelected(),
-                    onCheckedChange = {
-                        onEvent(AddDescriptorViewModel.Event.AutoRunChanged(it))
+                TriStateCheckbox(
+                    state = state.allTestsSelected(),
+                    onClick = {
+                        onEvent(AddDescriptorViewModel.Event.AutoRunChanged(state.allTestsSelected() != ToggleableState.On))
                     },
                     modifier = Modifier.padding(end = 16.dp),
                 )
