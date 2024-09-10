@@ -3,12 +3,7 @@ package org.ooni.probe.ui.settings
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -21,36 +16,37 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.data.models.SettingsCategoryItem
 
 @Composable
-fun SettingsScreen(onNavigateToSettingsCategory: (SettingsViewModel.Event) -> Unit) {
-    Column(
-        modifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
-    ) {
+fun SettingsScreen(
+    state: SettingsViewModel.State,
+    onEvent: (SettingsViewModel.Event) -> Unit,
+) {
+    Column {
         TopAppBar(
             title = {
                 Text(stringResource(Res.string.Settings_Title))
             },
         )
 
-        SettingsCategoryItem.getSettingsItems().forEach { item ->
+        state.settings.forEach { item ->
             SettingsItemView(
                 icon = item.icon,
                 title = item.title,
-                modifier =
-                    Modifier.clickable {
-                        onNavigateToSettingsCategory(
-                            item.routeToSettingsCategory(),
-                        )
-                    },
+                modifier = Modifier.clickable {
+                    onEvent(
+                        SettingsViewModel.Event.SettingsCategoryClick(
+                            item.route,
+                        ),
+                    )
+                },
             )
         }
     }
 }
 
 @Composable
-fun SettingsItemView(
+private fun SettingsItemView(
     icon: DrawableResource?,
     title: StringResource,
     modifier: Modifier,
@@ -59,7 +55,7 @@ fun SettingsItemView(
         leadingContent = {
             icon?.let {
                 Image(
-                    modifier = Modifier.height(24.dp).width(24.dp),
+                    modifier = Modifier.size(24.dp),
                     painter = painterResource(it),
                     contentDescription = stringResource(title),
                 )
