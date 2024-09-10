@@ -3,8 +3,10 @@ package org.ooni.probe
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
+import kotlinx.coroutines.flow.MutableSharedFlow
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
+import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -52,6 +54,8 @@ fun setupDependencies(
         // TODO: Implement configureAutoRun for iOS
     },
 )
+
+fun initializeDeeplink() = MutableSharedFlow<DeepLink>()
 
 private val platformInfo
     get() =
