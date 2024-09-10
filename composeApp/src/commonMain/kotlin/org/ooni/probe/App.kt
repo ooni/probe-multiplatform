@@ -15,11 +15,12 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.flow.SharedFlow
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.ui.navigation.BottomNavigationBar
 import org.ooni.probe.ui.navigation.Navigation
@@ -28,7 +29,10 @@ import org.ooni.probe.ui.theme.AppTheme
 
 @Composable
 @Preview
-fun App(dependencies: Dependencies): NavHostController {
+fun App(
+    dependencies: Dependencies,
+    deepLinkFlow: SharedFlow<DeepLink>,
+) {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -83,8 +87,15 @@ fun App(dependencies: Dependencies): NavHostController {
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()
     }
-
-    return navController
+    LaunchedEffect(deepLinkFlow) {
+        deepLinkFlow.collect { deepLink ->
+            when (deepLink) {
+                is DeepLink.AddDescriptor -> {
+                    navController.navigate("add-descriptor/${deepLink.id}")
+                }
+            }
+        }
+    }
 }
 
 private fun logAppStart(dependencies: Dependencies) {

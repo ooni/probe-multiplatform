@@ -1,9 +1,16 @@
 package org.ooni.probe
 
 import androidx.compose.ui.window.ComposeUIViewController
+import kotlinx.coroutines.flow.SharedFlow
+import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
 
-fun mainViewController(dependencies: Dependencies) =
-    ComposeUIViewController {
-        App(dependencies)
-    }
+fun mainViewController(
+    dependencies: Dependencies,
+    deepLinkFlow: SharedFlow<DeepLink>,
+) = ComposeUIViewController {
+    App(
+        dependencies = dependencies,
+        deepLinkFlow = deepLinkFlow,
+    )
+}

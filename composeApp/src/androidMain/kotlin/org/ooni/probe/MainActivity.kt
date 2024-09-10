@@ -6,19 +6,24 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.navigation.NavHostController
+import androidx.lifecycle.lifecycleScope
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
+import org.ooni.probe.data.models.DeepLink
 
 class MainActivity : ComponentActivity() {
-    private lateinit var navController: NavHostController
+    private val deepLinkFlow = MutableSharedFlow<DeepLink>()
     private val app get() = applicationContext as AndroidApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            navController = App(app.dependencies)
+            App(app.dependencies, deepLinkFlow.asSharedFlow())
         }
+        intent?.let { manageIntent(it) }
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -32,12 +37,13 @@ class MainActivity : ComponentActivity() {
         intent.data?.let { uri: Uri ->
             try {
                 when (uri.host) {
-                    "runv2" -> {
-                        navController.navigate("add-descriptor/${uri.lastPathSegment}")
-                    }
-
-                    "run.test.ooni.org" -> {
-                        navController.navigate("add-descriptor/${uri.lastPathSegment}")
+                    "runv2", "run.test.ooni.org" -> {
+                        val id = uri.lastPathSegment ?: return
+                        lifecycleScope.launch {
+                            deepLinkFlow.emit(DeepLink.AddDescriptor(id))
+                        }
+                    } else -> {
+                        Logger.e { "Unknown deep link: $uri" }
                     }
                 }
             } catch (e: Exception) {

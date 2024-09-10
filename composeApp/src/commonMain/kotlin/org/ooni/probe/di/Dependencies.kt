@@ -12,7 +12,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -137,7 +136,7 @@ class Dependencies(
             createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
             preferencesRepository = preferenceRepository,
-            )
+        )
     }
     val cancelCurrentTest get() = testStateManager::cancelTestRun
     private val downloadUrls by lazy {
