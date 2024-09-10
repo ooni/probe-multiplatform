@@ -40,7 +40,8 @@ class MainActivity : ComponentActivity() {
         val uri = intent.data ?: return
         when (uri.host) {
             "runv2",
-            "run.test.ooni.org" -> {
+            "run.test.ooni.org",
+            -> {
                 val id = uri.lastPathSegment ?: return
                 deepLinkFlow.tryEmit(DeepLink.AddDescriptor(id))
             }
