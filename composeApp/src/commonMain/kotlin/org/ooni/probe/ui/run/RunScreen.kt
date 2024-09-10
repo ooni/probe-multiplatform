@@ -234,7 +234,7 @@ private fun DescriptorItem(
 }
 
 @Composable
-private fun TestItem(
+fun TestItem(
     testItem: SelectableItem<NetTest>,
     onChecked: (Boolean) -> Unit,
 ) {

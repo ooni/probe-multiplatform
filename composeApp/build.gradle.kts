@@ -24,6 +24,7 @@ val appConfig =
                 srcRoot = "src/dwMain/kotlin",
                 resRoot = "src/dwMain/resources",
                 composeResRoot = "src/dwMain/composeResources",
+                supportsOoniRun = false,
                 supportedLanguages = listOf(
                     "de",
                     "es",
@@ -40,6 +41,7 @@ val appConfig =
                 srcRoot = "src/ooniMain/kotlin",
                 resRoot = "src/ooniMain/resources",
                 composeResRoot = "src/ooniMain/composeResources",
+                supportsOoniRun = true,
                 supportedLanguages = listOf(
                     "ar",
                     "ca",
@@ -177,6 +179,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         resValue("string", "app_name", config.appName)
+        resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
         resValue("string", "supported_languages", config.supportedLanguages.joinToString(separator = ","))
         resourceConfigurations += config.supportedLanguages
     }
@@ -317,6 +320,7 @@ data class AppConfig(
     val srcRoot: String,
     val resRoot: String,
     val composeResRoot: String,
+    val supportsOoniRun: Boolean = false,
     val supportedLanguages: List<String>,
 )
 

@@ -12,6 +12,7 @@ import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.disk.DeleteFile
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.NetworkModel
@@ -21,7 +22,7 @@ import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.toLocalDateTime
 
 class RunNetTest(
-    private val startTest: (String, List<String>?, TaskOrigin) -> Flow<TaskEvent>,
+    private val startTest: (String, List<String>?, TaskOrigin, InstalledTestDescriptorModel.Id?) -> Flow<TaskEvent>,
     private val getUrlByUrl: suspend (String) -> Flow<UrlModel?>,
     private val storeMeasurement: suspend (MeasurementModel) -> MeasurementModel.Id,
     private val storeNetwork: suspend (NetworkModel) -> NetworkModel.Id,
@@ -61,8 +62,9 @@ class RunNetTest(
                 testTotal = spec.testTotal,
             )
         }
+        val installedDescriptorId = (spec.descriptor.source as? Descriptor.Source.Installed)?.value?.id
 
-        startTest(spec.netTest.test.name, spec.netTest.inputs, spec.taskOrigin)
+        startTest(spec.netTest.test.name, spec.netTest.inputs, spec.taskOrigin, installedDescriptorId)
             .collect(::onEvent)
     }
 

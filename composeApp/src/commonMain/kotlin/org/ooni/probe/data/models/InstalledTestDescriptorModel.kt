@@ -2,8 +2,11 @@ package org.ooni.probe.data.models
 
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
+import org.ooni.probe.shared.InstalledDescriptorIcons
+import org.ooni.probe.shared.hexToColor
 import org.ooni.probe.shared.now
 
+@Serializable
 data class InstalledTestDescriptorModel(
     val id: Id,
     val name: String,
@@ -30,3 +33,18 @@ data class InstalledTestDescriptorModel(
 
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 }
+
+fun InstalledTestDescriptorModel.toDescriptor() =
+    Descriptor(
+        name = name,
+        title = { nameIntl?.getCurrent() ?: name },
+        shortDescription = { shortDescriptionIntl?.getCurrent() ?: shortDescription },
+        description = { descriptionIntl?.getCurrent() ?: description },
+        icon = icon?.let(InstalledDescriptorIcons::getIconFromValue),
+        color = color?.hexToColor(),
+        animation = animation,
+        dataUsage = { null },
+        expirationDate = expirationDate,
+        netTests = netTests.orEmpty(),
+        source = Descriptor.Source.Installed(this),
+    )

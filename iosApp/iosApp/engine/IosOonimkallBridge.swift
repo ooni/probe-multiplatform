@@ -130,7 +130,7 @@ class IosOonimkallBridge: OonimkallBridge {
                     let result: OonimkallSubmitMeasurementResults? = try ses?.submit(context, measurement: measurement)
                     return OonimkallBridgeSubmitMeasurementResults(
                         updatedMeasurement: result?.updatedMeasurement,
-                        updatedReportId: result?.updatedReportID
+                        updatedReportId: result?.updatedReportID ?? ""
                     )
                 } catch {
                     throw error

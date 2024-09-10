@@ -4,13 +4,15 @@ import composeApp
 
 struct ComposeView: UIViewControllerRepresentable {
     let dependencies: Dependencies
+    let deepLinkFlow: Kotlinx_coroutines_coreSharedFlow
 
-    init(dependencies: Dependencies) {
+    init(dependencies: Dependencies, deepLinkFlow: Kotlinx_coroutines_coreSharedFlow) {
         self.dependencies = dependencies
+        self.deepLinkFlow = deepLinkFlow
     }
 
     func makeUIViewController(context: Context) -> UIViewController {
-        MainViewControllerKt.mainViewController(dependencies: dependencies)
+        MainViewControllerKt.mainViewController(dependencies: dependencies, deepLinkFlow: deepLinkFlow)
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
@@ -18,13 +20,15 @@ struct ComposeView: UIViewControllerRepresentable {
 
 struct ContentView: View {
     let dependencies: Dependencies
+    let deepLinkFlow: Kotlinx_coroutines_coreSharedFlow
 
-    init(dependencies: Dependencies) {
+    init(dependencies: Dependencies, deepLinkFlow: Kotlinx_coroutines_coreSharedFlow) {
         self.dependencies = dependencies
+        self.deepLinkFlow = deepLinkFlow
     }
 
     var body: some View {
-        ComposeView(dependencies: dependencies)
+        ComposeView(dependencies: dependencies, deepLinkFlow: deepLinkFlow)
                 .ignoresSafeArea(.keyboard) // Compose has own keyboard handler
     }
 }

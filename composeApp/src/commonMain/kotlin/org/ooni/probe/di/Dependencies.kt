@@ -1,6 +1,8 @@
 package org.ooni.probe.di
 
 import androidx.annotation.VisibleForTesting
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.datastore.core.DataMigration
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
@@ -39,6 +41,7 @@ import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapTestDescriptors
 import org.ooni.probe.domain.DownloadUrls
+import org.ooni.probe.domain.FetchDescriptor
 import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
@@ -50,11 +53,13 @@ import org.ooni.probe.domain.GetTestDescriptorsBySpec
 import org.ooni.probe.domain.ObserveAndConfigureAutoRun
 import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
+import org.ooni.probe.domain.SaveTestDescriptors
 import org.ooni.probe.domain.SendSupportEmail
 import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
+import org.ooni.probe.ui.descriptor.AddDescriptorViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.run.RunViewModel
@@ -129,6 +134,8 @@ class Dependencies(
         BootstrapTestDescriptors(
             getBootstrapTestDescriptors = getBootstrapTestDescriptors::invoke,
             createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
+            storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
+            preferencesRepository = preferenceRepository,
         )
     }
     val cancelCurrentTest get() = testStateManager::cancelTestRun
@@ -136,6 +143,12 @@ class Dependencies(
         DownloadUrls(
             engine::checkIn,
             urlRepository::createOrUpdateByUrl,
+        )
+    }
+    private val fetchDescriptor by lazy {
+        FetchDescriptor(
+            engineHttpDo = engine::httpDo,
+            json = json,
         )
     }
     val getAutoRunSpecification by lazy {
@@ -164,6 +177,14 @@ class Dependencies(
         GetTestDescriptors(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
             listInstalledTestDescriptors = testDescriptorRepository::list,
+        )
+    }
+
+    private val saveTestDescriptors by lazy {
+        SaveTestDescriptors(
+            preferencesRepository = preferenceRepository,
+            createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
+            storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
 
@@ -312,6 +333,53 @@ class Dependencies(
             uploadMissingMeasurements = uploadMissingMeasurements::invoke,
         )
 
+    fun addDescriptorViewModel(
+        descriptorId: String,
+        onBack: () -> Unit,
+        snackbarHostState: SnackbarHostState?,
+        errorMessage: String,
+        cancelMessage: String,
+        installCompleteMessage: String,
+    ): AddDescriptorViewModel {
+        val scope = CoroutineScope(backgroundDispatcher)
+        return AddDescriptorViewModel(
+            onCancel = {
+                snackbarHostState?.let {
+                    showSnackbar(
+                        scope = scope,
+                        snackbarHostState = it,
+                        message = cancelMessage,
+                    )
+                }
+                onBack()
+            },
+            onError = {
+                snackbarHostState?.let {
+                    showSnackbar(
+                        scope = scope,
+                        snackbarHostState = it,
+                        message = errorMessage,
+                    )
+                }
+                onBack()
+            },
+            saveTestDescriptors = {
+                saveTestDescriptors.invoke(it)
+                snackbarHostState?.let {
+                    showSnackbar(
+                        scope = scope,
+                        snackbarHostState = it,
+                        message = installCompleteMessage,
+                    )
+                }
+                onBack()
+            },
+            fetchDescriptor = {
+                fetchDescriptor(descriptorId)
+            },
+        )
+    }
+
     companion object {
         @VisibleForTesting
         fun buildJson() =
@@ -342,5 +410,20 @@ class Dependencies(
                 )
                     .also { dataStore = it }
             }
+
+        fun showSnackbar(
+            scope: CoroutineScope,
+            snackbarHostState: SnackbarHostState,
+            message: String,
+            actionLabel: String? = null,
+            onDismissed: () -> Unit = {},
+        ) {
+            scope.launch {
+                val result = snackbarHostState.showSnackbar(message, actionLabel)
+                if (result == SnackbarResult.Dismissed) {
+                    onDismissed()
+                }
+            }
+        }
     }
 }

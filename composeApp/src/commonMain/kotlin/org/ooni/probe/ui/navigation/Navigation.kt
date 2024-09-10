@@ -2,6 +2,7 @@ package org.ooni.probe.ui.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -11,6 +12,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
+import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Installed
+import ooniprobe.composeapp.generated.resources.LoadingScreen_Runv2_Canceled
+import ooniprobe.composeapp.generated.resources.LoadingScreen_Runv2_Failure
+import ooniprobe.composeapp.generated.resources.Res
+import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.LocalSnackbarHostState
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -18,6 +25,7 @@ import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.decodeUrlFromBase64
 import org.ooni.probe.ui.dashboard.DashboardScreen
+import org.ooni.probe.ui.descriptor.AddDescriptorScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
 import org.ooni.probe.ui.result.ResultScreen
 import org.ooni.probe.ui.results.ResultsScreen
@@ -163,6 +171,35 @@ fun Navigation(
             }
             val state by viewModel.state.collectAsState()
             RunScreen(state, viewModel::onEvent)
+        }
+
+        composable(
+            route = Screen.AddDescriptor.NAV_ROUTE,
+            arguments = Screen.AddDescriptor.ARGUMENTS,
+        ) { entry ->
+            val snackbarHostState = LocalSnackbarHostState.current
+            val cancelMessage = stringResource(Res.string.LoadingScreen_Runv2_Canceled)
+            val errorMessage = stringResource(Res.string.LoadingScreen_Runv2_Failure)
+            val installCompleteMessage = stringResource(Res.string.AddDescriptor_Toasts_Installed)
+            entry.arguments?.getLong("runId")?.let { descriptorId ->
+                val viewModel = viewModel {
+                    dependencies.addDescriptorViewModel(
+                        onBack = { navController.popBackStack() },
+                        descriptorId = descriptorId.toString(),
+                        snackbarHostState = snackbarHostState,
+                        errorMessage = errorMessage,
+                        cancelMessage = cancelMessage,
+                        installCompleteMessage = installCompleteMessage,
+                    )
+                }
+                val state by viewModel.state.collectAsState()
+                AddDescriptorScreen(state, viewModel::onEvent)
+            } ?: run {
+                LaunchedEffect(Unit) {
+                    snackbarHostState?.showSnackbar("Invalid descriptor ID")
+                }
+                navController.popBackStack()
+            }
         }
 
         composable(route = Screen.RunningTest.route) {

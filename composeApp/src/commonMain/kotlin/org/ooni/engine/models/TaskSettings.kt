@@ -37,5 +37,7 @@ data class TaskSettings(
         @SerialName("flavor") val flavor: String,
         // "autorun" or "ooni-run"
         @SerialName("origin") val origin: TaskOrigin,
+        // only for ooni-run
+        @SerialName("ooni_run_link_id") var ooniRunLinkId: String? = null,
     )
 }

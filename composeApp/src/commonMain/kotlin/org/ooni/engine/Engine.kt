@@ -19,6 +19,7 @@ import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
 import org.ooni.engine.models.resultOf
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 
@@ -38,10 +39,11 @@ class Engine(
         name: String,
         inputs: List<String>?,
         taskOrigin: TaskOrigin,
+        descriptorId: InstalledTestDescriptorModel.Id?,
     ): Flow<TaskEvent> =
         channelFlow {
             val preferences = getEnginePreferences()
-            val taskSettings = buildTaskSettings(name, inputs, taskOrigin, preferences)
+            val taskSettings = buildTaskSettings(name, inputs, taskOrigin, preferences, descriptorId)
             val settingsSerialized = json.encodeToString(taskSettings)
 
             var task: OonimkallBridge.Task? = null
@@ -112,6 +114,7 @@ class Engine(
         inputs: List<String>?,
         taskOrigin: TaskOrigin,
         preferences: EnginePreferences,
+        descriptorId: InstalledTestDescriptorModel.Id?,
     ) = TaskSettings(
         name = name,
         inputs = inputs.orEmpty(),
@@ -135,6 +138,7 @@ class Engine(
             networkType = networkTypeFinder(),
             flavor = buildSoftwareName(taskOrigin),
             origin = taskOrigin,
+            ooniRunLinkId = descriptorId?.value?.toString() ?: "",
         ),
         proxy = preferences.proxy,
     )
