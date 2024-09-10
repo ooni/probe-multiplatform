@@ -260,8 +260,8 @@ fun NumberPickerItem(
             text = {
                 OutlinedTextField(
                     value = fieldValue,
-                    onValueChange = {
-                        fieldValue = it
+                    onValueChange = { newValue ->
+                        fieldValue = newValue.replace(Regex("[^0-9]"), "")
                         isError = false
                     },
                     isError = isError,
@@ -273,12 +273,17 @@ fun NumberPickerItem(
             confirmButton = {
                 TextButton(
                     onClick = {
-                        fieldValue.toIntOrNull()?.let {
-                            onChanged(it)
-                            showDialog = false
-                        } ?: run {
+                        val intValue = fieldValue.toIntOrNull() ?: run {
                             isError = true
+                            return@TextButton
                         }
+                        if (intValue <= 0) {
+                            isError = true
+                            return@TextButton
+                        }
+
+                        onChanged(intValue)
+                        showDialog = false
                     },
                 ) {
                     Text(stringResource(Res.string.Modal_OK))

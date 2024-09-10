@@ -21,7 +21,11 @@ class GetEnginePreferences(
                 TaskLogLevel.Info
             },
             uploadResults = getValueForKey(SettingsKey.UPLOAD_RESULTS) == true,
-            maxRuntime = (getValueForKey(SettingsKey.MAX_RUNTIME) as? Int)?.seconds,
+            maxRuntime = if (getValueForKey(SettingsKey.MAX_RUNTIME_ENABLED) == true) {
+                (getValueForKey(SettingsKey.MAX_RUNTIME) as? Int)?.seconds
+            } else {
+                null
+            },
             proxy = ProxySettings.newProxySettings(
                 protocol = getValueForKey(SettingsKey.PROXY_PROTOCOL) as? String,
                 hostname = getValueForKey(SettingsKey.PROXY_HOSTNAME) as? String,
