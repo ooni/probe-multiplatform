@@ -168,7 +168,7 @@ private fun TestRunStateSection(
                     }
                 }
 
-                state.testProgress.let { progress ->
+                state.progress.let { progress ->
                     val color = MaterialTheme.colorScheme.primary
                     val trackColor = MaterialTheme.colorScheme.onBackground
                     val modifier = Modifier.fillMaxWidth()

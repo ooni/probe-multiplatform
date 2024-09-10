@@ -13,26 +13,35 @@ sealed interface TestRunState {
 
     data class Running(
         val descriptor: Descriptor? = null,
-        val descriptorIndex: Int = 0,
+        private val descriptorIndex: Int = 0,
         val testType: TestType? = null,
-        val estimatedRuntimeOfDescriptors: List<Duration>? = null,
-        val testProgress: Double = 0.0,
-        val testIndex: Int = 0,
-        val testTotal: Int = 1,
+        private val estimatedRuntimeOfDescriptors: List<Duration>? = null,
+        private val testProgress: Double = 0.0,
+        private val testIndex: Int = 0,
+        private val testTotal: Int = 1,
         val log: String? = "",
     ) : TestRunState {
         val estimatedTimeLeft: Duration?
             get() {
-                if (estimatedRuntimeOfDescriptors == null) return null
-                val remainingDescriptorsEstimatedTime =
-                    estimatedRuntimeOfDescriptors.drop(descriptorIndex + 1)
-                        .sumOf { it.inWholeSeconds }.seconds
-                val currentDescriptorEstimatedTime = estimatedRuntimeOfDescriptors[descriptorIndex]
-                val descriptorProgress = (testIndex + testProgress) / testTotal
-                val currentDescriptorRemainingBasedOnTest =
-                    (currentDescriptorEstimatedTime * (1 - descriptorProgress))
-                        .coerceAtLeast(0.seconds)
-                return remainingDescriptorsEstimatedTime + currentDescriptorRemainingBasedOnTest
+                if (estimatedRuntimeOfDescriptors.isNullOrEmpty()) return null
+                val totalTime = estimatedRuntimeOfDescriptors.sumOf { it.inWholeSeconds }.seconds
+                return totalTime * (1 - progress)
+            }
+
+        val progress: Double
+            get() {
+                if (estimatedRuntimeOfDescriptors.isNullOrEmpty()) return 0.0
+
+                val totalTime =
+                    estimatedRuntimeOfDescriptors.sumOf { it.inWholeSeconds }.toDouble()
+                val progressByDescriptor =
+                    estimatedRuntimeOfDescriptors.map { it.inWholeSeconds / totalTime }
+
+                val pastProgress = progressByDescriptor.take(descriptorIndex).sum()
+                val descriptorRelativeProgress = (testIndex + testProgress) / testTotal
+                val descriptorProgress =
+                    progressByDescriptor[descriptorIndex] * descriptorRelativeProgress
+                return pastProgress + descriptorProgress
             }
     }
 
