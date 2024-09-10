@@ -55,7 +55,7 @@ fun setupDependencies(
     },
 )
 
-fun initializeDeeplink() = MutableSharedFlow<DeepLink>()
+fun initializeDeeplink() = MutableSharedFlow<DeepLink>(extraBufferCapacity = 1)
 
 private val platformInfo
     get() =
