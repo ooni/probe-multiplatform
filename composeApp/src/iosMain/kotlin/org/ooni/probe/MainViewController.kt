@@ -1,16 +1,18 @@
 package org.ooni.probe
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.window.ComposeUIViewController
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
 import platform.UIKit.UIViewController
 
 fun mainViewController(
     dependencies: Dependencies,
-    deepLinkFlow: SharedFlow<DeepLink>,
+    deepLinkFlow: MutableSharedFlow<DeepLink?>,
 ): UIViewController {
     return ComposeUIViewController {
         val deepLink by deepLinkFlow.collectAsState(null)
@@ -18,5 +20,13 @@ fun mainViewController(
             dependencies = dependencies,
             deepLink = deepLink,
         )
+        LaunchedEffect(deepLink) {
+            deepLink?.let {
+                // Reset the deepLinkFlow after processing the deep link
+                launch {
+                    deepLinkFlow.emit(null)
+                }
+            }
+        }
     }
 }

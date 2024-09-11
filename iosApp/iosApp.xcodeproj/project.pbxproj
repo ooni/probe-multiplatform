@@ -201,6 +201,7 @@
 				B92378962B6B1156000C7307 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
 				93E977732C4FE022009CCABC /* ShellScript */,
+				F57E468EACCE9B29FB4C68FC /* [CP] Copy Pods Resources */,
 				11F17E981064A71B74C323DA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -222,6 +223,7 @@
 				79FBD0102C5A70AF004E041C /* Frameworks */,
 				79FBD0122C5A70AF004E041C /* Resources */,
 				79FBD0152C5A70AF004E041C /* ShellScript */,
+				06E00FBBFEA4B57236F98854 /* [CP] Copy Pods Resources */,
 				3A3900471DFA31082B6AA60E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -291,6 +293,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		06E00FBBFEA4B57236F98854 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		11F17E981064A71B74C323DA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -438,6 +457,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew copyBrandingToCommonResources :composeApp:embedAndSignAppleFrameworkForXcode -Porganization=ooni\n";
+		};
+		F57E468EACCE9B29FB4C68FC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
