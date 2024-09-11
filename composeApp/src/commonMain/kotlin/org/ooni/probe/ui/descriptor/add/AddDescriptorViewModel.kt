@@ -14,7 +14,6 @@ import org.ooni.engine.Engine
 import org.ooni.engine.models.Result
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
-import org.ooni.probe.data.models.SnackBarMessage
 import org.ooni.probe.ui.shared.SelectableItem
 
 class AddDescriptorViewModel(
@@ -92,6 +91,10 @@ class AddDescriptorViewModel(
                         onBack()
                     }
                 }
+
+                is Event.MessageDisplayed -> {
+                    _state.value = state.value.copy(messages = state.value.messages - event.message)
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -127,5 +130,15 @@ class AddDescriptorViewModel(
         data class AutoUpdateChanged(val autoUpdate: Boolean) : Event
 
         data class AutoRunChanged(val autoRun: Boolean) : Event
+
+        data class MessageDisplayed(val message: SnackBarMessage) : Event
+    }
+
+    sealed interface SnackBarMessage {
+        data object AddDescriptorFailed : SnackBarMessage
+
+        data object AddDescriptorCancel : SnackBarMessage
+
+        data object AddDescriptorSuccess : SnackBarMessage
     }
 }

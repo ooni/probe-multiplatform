@@ -157,5 +157,8 @@ fun AddDescriptorScreen(
 
     NotificationMessages(
         message = state.messages,
+        onMessageDisplayed = {
+            onEvent(AddDescriptorViewModel.Event.MessageDisplayed(it))
+        },
     )
 }

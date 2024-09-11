@@ -7,23 +7,23 @@ import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Installed
 import ooniprobe.composeapp.generated.resources.LoadingScreen_Runv2_Canceled
 import ooniprobe.composeapp.generated.resources.LoadingScreen_Runv2_Failure
 import ooniprobe.composeapp.generated.resources.Res
-import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.getString
 import org.ooni.probe.LocalSnackbarHostState
-import org.ooni.probe.data.models.SnackBarMessage
+import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
 
 @Composable
 fun NotificationMessages(
-    message: List<SnackBarMessage>,
-    onMessageDisplayed: (SnackBarMessage) -> Unit = { },
+    message: List<AddDescriptorViewModel.SnackBarMessage>,
+    onMessageDisplayed: (AddDescriptorViewModel.SnackBarMessage) -> Unit = { },
 ) {
     val snackbarHostState = LocalSnackbarHostState.current ?: return
-    val errorMessage = when (message.firstOrNull()) {
-        SnackBarMessage.AddDescriptorSuccess -> stringResource(Res.string.AddDescriptor_Toasts_Installed)
-        SnackBarMessage.AddDescriptorFailed -> stringResource(Res.string.LoadingScreen_Runv2_Failure)
-        SnackBarMessage.AddDescriptorCancel -> stringResource(Res.string.LoadingScreen_Runv2_Canceled)
-        else -> ""
-    }
     LaunchedEffect(message) {
+        val errorMessage = when (message.firstOrNull()) {
+            AddDescriptorViewModel.SnackBarMessage.AddDescriptorSuccess -> getString(Res.string.AddDescriptor_Toasts_Installed)
+            AddDescriptorViewModel.SnackBarMessage.AddDescriptorFailed -> getString(Res.string.LoadingScreen_Runv2_Failure)
+            AddDescriptorViewModel.SnackBarMessage.AddDescriptorCancel -> getString(Res.string.LoadingScreen_Runv2_Canceled)
+            else -> ""
+        }
         val error = message.firstOrNull() ?: return@LaunchedEffect
         val result = snackbarHostState.showSnackbar(errorMessage)
         if (result == SnackbarResult.Dismissed) {
