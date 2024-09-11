@@ -273,7 +273,6 @@ class Dependencies(
         getTestDescriptors = getTestDescriptors::invoke,
         getDescriptorLastResult = resultRepository::getLatestByDescriptor,
         preferenceRepository = preferenceRepository,
-        launchUrl = { launchUrl(it, null) },
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)

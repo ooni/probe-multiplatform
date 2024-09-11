@@ -35,7 +35,7 @@ android-work = { module = "androidx.work:work-runtime-ktx", version = "2.9.1" }
 
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.8.0" }
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.7.0-alpha07" }
-markdown = { module = "org.jetbrains:markdown", version = "0.7.3" }
+markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.26.0" }
 
 # Preferences
 androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStoreVersion" }
