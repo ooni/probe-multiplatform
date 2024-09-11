@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.first
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
 import org.ooni.engine.models.Result
-import org.ooni.probe.data.disk.DeleteFile
+import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.models.MeasurementModel
 
@@ -14,7 +14,7 @@ class UploadMissingMeasurements(
     private val getMeasurementsNotUploaded: Flow<List<MeasurementModel>>,
     private val submitMeasurement: suspend (String) -> Result<SubmitMeasurementResults, MkException>,
     private val readFile: ReadFile,
-    private val deleteFile: DeleteFile,
+    private val deleteFiles: DeleteFiles,
     private val updateMeasurement: suspend (MeasurementModel) -> Unit,
 ) {
     operator fun invoke(): Flow<State> =
@@ -49,7 +49,7 @@ class UploadMissingMeasurements(
                                 reportId = MeasurementModel.ReportId(submitResult.updatedReportId),
                             ),
                         )
-                        deleteFile(reportFilePath)
+                        deleteFiles(reportFilePath)
                     }
                     .onFailure { exception ->
                         failedToUpload++

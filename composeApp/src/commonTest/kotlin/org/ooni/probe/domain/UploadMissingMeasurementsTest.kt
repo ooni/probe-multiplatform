@@ -7,7 +7,7 @@ import org.ooni.engine.Engine
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Success
-import org.ooni.probe.data.disk.DeleteFile
+import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.testing.factories.MeasurementModelFactory
@@ -39,7 +39,7 @@ class UploadMissingMeasurementsTest {
                 readFile = object : ReadFile {
                     override suspend fun invoke(path: Path): String = ""
                 },
-                deleteFile = object : DeleteFile {
+                deleteFiles = object : DeleteFiles {
                     override suspend fun invoke(path: Path) {}
                 },
                 updateMeasurement = { newModel = it },
@@ -69,7 +69,7 @@ class UploadMissingMeasurementsTest {
                 readFile = object : ReadFile {
                     override suspend fun invoke(path: Path): String = ""
                 },
-                deleteFile = object : DeleteFile {
+                deleteFiles = object : DeleteFiles {
                     override suspend fun invoke(path: Path) {}
                 },
                 updateMeasurement = { newModel = it },

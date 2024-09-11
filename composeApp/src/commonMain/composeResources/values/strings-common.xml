@@ -40,6 +40,7 @@
 
     <string name="TestResults_Overview_Title">Test Results</string>
     <string name="TestResults_Overview_Tab_Label">Test Results</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">No tests have been run yet. Try running one!</string>
     <string name="TestResults_UnknownASN">Unknown</string>
     <string name="TestResults_NotAvailable">N/A</string>
 
@@ -162,6 +163,8 @@
     <string name="Modal_Retry">Retry</string>
     <string name="Modal_Cancel">Cancel</string>
     <string name="Modal_OK">OK</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Do you want to delete all test results?</string>
+    <string name="Modal_Delete">Delete</string>
 
     <string name="Modal_Error_CantDownloadURLs">Unable to download URL list. Please try again.</string>
 

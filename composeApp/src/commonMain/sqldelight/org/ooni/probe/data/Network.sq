@@ -17,6 +17,9 @@ INSERT OR REPLACE INTO Network (
     network_type
 ) VALUES (?,?,?,?,?,?);
 
+deleteAll:
+DELETE FROM Network;
+
 selectLastInsertedRowId:
 SELECT last_insert_rowid();
 

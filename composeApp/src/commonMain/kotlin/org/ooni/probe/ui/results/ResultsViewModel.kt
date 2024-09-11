@@ -18,23 +18,23 @@ class ResultsViewModel(
     goToResult: (ResultModel.Id) -> Unit,
     goToUpload: () -> Unit,
     getResults: () -> Flow<List<ResultListItem>>,
+    deleteAllResults: suspend () -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val _state =
-        MutableStateFlow(
-            State(
-                results = emptyMap(),
-                isLoading = true,
-            ),
-        )
+    private val _state = MutableStateFlow(State())
     val state = _state.asStateFlow()
 
     init {
         getResults()
             .onEach { results ->
                 val groupedResults = results.groupBy { it.monthAndYear }
-                _state.update { it.copy(results = groupedResults) }
+                _state.update {
+                    it.copy(
+                        results = groupedResults,
+                        isLoading = false,
+                    )
+                }
             }
             .launchIn(viewModelScope)
 
@@ -46,6 +46,11 @@ class ResultsViewModel(
         events
             .filterIsInstance<Event.UploadClick>()
             .onEach { goToUpload() }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.DeleteAllClick>()
+            .onEach { deleteAllResults() }
             .launchIn(viewModelScope)
     }
 
@@ -59,13 +64,18 @@ class ResultsViewModel(
         }
 
     data class State(
-        val results: Map<LocalDate, List<ResultListItem>>,
-        val isLoading: Boolean,
-    )
+        val results: Map<LocalDate, List<ResultListItem>> = emptyMap(),
+        val isLoading: Boolean = true,
+    ) {
+        val anyMissingUpload
+            get() = results.any { it.value.any { item -> !item.allMeasurementsUploaded } }
+    }
 
     sealed interface Event {
         data class ResultClick(val result: ResultListItem) : Event
 
         data object UploadClick : Event
+
+        data object DeleteAllClick : Event
     }
 }
