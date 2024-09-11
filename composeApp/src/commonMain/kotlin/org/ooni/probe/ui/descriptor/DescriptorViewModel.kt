@@ -33,6 +33,7 @@ class DescriptorViewModel(
     private val getDescriptorLastResult: (String) -> Flow<ResultModel?>,
     private val preferenceRepository: PreferenceRepository,
     private val launchUrl: (String) -> Unit,
+    deleteTestDescriptor: suspend (InstalledTestDescriptorModel) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -115,7 +116,7 @@ class DescriptorViewModel(
         events
             .filterIsInstance<Event.UninstallClicked>()
             .onEach {
-                // TODO(aanorbel): do stuff
+                deleteTestDescriptor(it.value)
                 onBack()
             }
             .launchIn(viewModelScope)

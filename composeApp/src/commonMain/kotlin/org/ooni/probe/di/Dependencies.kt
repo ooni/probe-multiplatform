@@ -39,6 +39,7 @@ import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapTestDescriptors
+import org.ooni.probe.domain.DeleteTestDescriptor
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FetchDescriptor
 import org.ooni.probe.domain.GetAutoRunSpecification
@@ -226,6 +227,12 @@ class Dependencies(
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
+    private val deleteTestDescriptor by lazy {
+        DeleteTestDescriptor(
+            preferencesRepository = preferenceRepository,
+            deleteByRunId = testDescriptorRepository::deleteByRunId,
+        )
+    }
     val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
 
     // TODO: Remove this when startBackgroundRun is implemented on iOS
@@ -274,6 +281,7 @@ class Dependencies(
         getDescriptorLastResult = resultRepository::getLatestByDescriptor,
         preferenceRepository = preferenceRepository,
         launchUrl = { launchUrl(it, null) },
+        deleteTestDescriptor = deleteTestDescriptor::invoke,
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)

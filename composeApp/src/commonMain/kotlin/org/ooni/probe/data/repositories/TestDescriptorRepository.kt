@@ -59,6 +59,12 @@ class TestDescriptorRepository(
         }
     }
 
+    suspend fun deleteByRunId(runId: InstalledTestDescriptorModel.Id) {
+        withContext(backgroundDispatcher) {
+            database.testDescriptorQueries.deleteByRunId(runId.value)
+        }
+    }
+
     private fun TestDescriptor.toModel(): InstalledTestDescriptorModel? {
         return InstalledTestDescriptorModel(
             id = runId?.let(InstalledTestDescriptorModel::Id) ?: return null,

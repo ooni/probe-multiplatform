@@ -173,6 +173,15 @@ class PreferenceRepository(
         autoRun = isAutoRun,
     )
 
+    suspend fun removeDescriptorPreferences(descriptor: Descriptor) {
+        descriptor.netTests.forEach { nettest ->
+            dataStore.edit {
+                it.remove(booleanPreferencesKey(getNetTestKey(descriptor, nettest, isAutoRun = true)))
+                it.remove(booleanPreferencesKey(getNetTestKey(descriptor, nettest, isAutoRun = false)))
+            }
+        }
+    }
+
     suspend fun clear() {
         dataStore.edit { it.clear() }
     }
