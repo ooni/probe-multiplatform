@@ -130,7 +130,6 @@ fun DescriptorScreen(
 
             MarkdownViewer(
                 markdown = descriptor.description().orEmpty(),
-                onUrlClicked = { onEvent(DescriptorViewModel.Event.UrlClicked(it)) },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
             )
 

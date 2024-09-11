@@ -30,7 +30,7 @@ class DescriptorViewModel(
     private val descriptorKey: String,
     onBack: () -> Unit,
     private val getTestDescriptors: () -> Flow<List<Descriptor>>,
-    private val getDescriptorLastResult: (String) -> Flow<ResultModel?>,
+    getDescriptorLastResult: (String) -> Flow<ResultModel?>,
     private val preferenceRepository: PreferenceRepository,
     private val launchUrl: (String) -> Unit,
     deleteTestDescriptor: suspend (InstalledTestDescriptorModel) -> Unit,
@@ -81,11 +81,6 @@ class DescriptorViewModel(
         events
             .filterIsInstance<Event.BackClicked>()
             .onEach { onBack() }
-            .launchIn(viewModelScope)
-
-        events
-            .filterIsInstance<Event.UrlClicked>()
-            .onEach { launchUrl(it.url) }
             .launchIn(viewModelScope)
 
         events
@@ -181,8 +176,6 @@ class DescriptorViewModel(
 
     sealed interface Event {
         data object BackClicked : Event
-
-        data class UrlClicked(val url: String) : Event
 
         data object AllChecked : Event
 
