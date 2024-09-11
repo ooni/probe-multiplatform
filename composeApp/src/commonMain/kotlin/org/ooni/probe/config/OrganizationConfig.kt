@@ -10,6 +10,7 @@ interface OrganizationConfigInterface {
         get() = "run.test.ooni.org"
 
     val ooniRunDashboardUrl: String
+        get() = "https://run.test.ooni.org"
 
     val testDisplayMode: TestDisplayMode
 }

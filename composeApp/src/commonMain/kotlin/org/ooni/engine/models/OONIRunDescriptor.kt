@@ -29,8 +29,12 @@ data class OONIRunDescriptor(
     @SerialName("expiration_date") val expirationDate: Instant,
     @SerialName("date_created") val dateCreated: Instant,
     @SerialName("date_updated") val dateUpdated: Instant,
-    @SerialName("revision") val revision: String,
     @SerialName("is_expired") val isExpired: Boolean,
+)
+
+@Serializable
+class OONIRunRevisions(
+    @SerialName("revisions") val revisions: List<String>,
 )
 
 fun OONIRunDescriptor.toModel() =
@@ -50,6 +54,5 @@ fun OONIRunDescriptor.toModel() =
         expirationDate = expirationDate.toLocalDateTime(),
         dateCreated = dateCreated.toLocalDateTime(),
         dateUpdated = dateUpdated.toLocalDateTime(),
-        revision = revision,
         autoUpdate = true,
     )

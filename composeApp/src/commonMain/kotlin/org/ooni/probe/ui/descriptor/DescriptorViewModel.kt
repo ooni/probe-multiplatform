@@ -15,7 +15,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.SettingsKey
@@ -109,6 +111,33 @@ class DescriptorViewModel(
                 )
             }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.UninstallClicked>()
+            .onEach {
+                // TODO(aanorbel): do stuff
+                onBack()
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.RevisionClicked>()
+            .onEach {
+                launchUrl(
+                    "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorKey?revision=${it.revision}",
+                )
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.SeeMoreRevisionsClicked>()
+            .onEach {
+
+                launchUrl(
+                    "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorKey",
+                )
+            }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -157,5 +186,11 @@ class DescriptorViewModel(
         data object AllChecked : Event
 
         data class TestChecked(val test: NetTest, val isChecked: Boolean) : Event
+
+        data class UninstallClicked(val value: InstalledTestDescriptorModel) : Event
+
+        data class RevisionClicked(val revision: String) : Event
+
+        data object SeeMoreRevisionsClicked : Event
     }
 }

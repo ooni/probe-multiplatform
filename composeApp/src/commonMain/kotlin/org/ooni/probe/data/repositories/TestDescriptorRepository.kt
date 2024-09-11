@@ -49,7 +49,7 @@ class TestDescriptorRepository(
                         expiration_date = model.expirationDate?.toEpoch(),
                         date_created = model.dateCreated?.toEpoch(),
                         date_updated = model.dateUpdated?.toEpoch(),
-                        revision = model.revision,
+                        revision = json.encodeToString(model.revision),
                         previous_revision = null,
                         is_expired = if (model.isExpired) 1 else 0,
                         auto_update = if (model.autoUpdate) 1 else 0,
@@ -78,7 +78,7 @@ class TestDescriptorRepository(
             expirationDate = expiration_date?.toLocalDateTime(),
             dateCreated = date_created?.toLocalDateTime(),
             dateUpdated = date_updated?.toLocalDateTime(),
-            revision = revision,
+            revision = revision?.let { json.decodeFromString<List<String>>(it) },
             autoUpdate = auto_update == 1L,
         )
     }
