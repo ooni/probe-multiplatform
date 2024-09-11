@@ -133,7 +133,7 @@ private fun TestRunning(
             .height(16.dp)
             .clip(RoundedCornerShape(32.dp))
 
-        if (state.testProgress == 0.0) {
+        if (state.progress == 0.0) {
             LinearProgressIndicator(
                 color = contentColor,
                 trackColor = progressTrackColor,
@@ -141,7 +141,7 @@ private fun TestRunning(
             )
         } else {
             LinearProgressIndicator(
-                progress = { state.testProgress.toFloat() },
+                progress = { state.progress.toFloat() },
                 color = contentColor,
                 trackColor = progressTrackColor,
                 modifier = progressModifier,

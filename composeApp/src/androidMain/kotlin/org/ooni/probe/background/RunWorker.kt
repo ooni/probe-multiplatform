@@ -148,7 +148,7 @@ class RunWorker(
             .setContentTitle(getString(Res.string.Dashboard_Running_Running))
             .setContentText(state.testType?.labelRes?.let { getString(it) })
             .setColor(state.descriptor?.color?.toArgb() ?: primaryLight.toArgb())
-            .setProgress(1000, (state.testProgress * 1000).roundToInt(), false)
+            .setProgress(1000, (state.progress * 1000).roundToInt(), false)
             .setAutoCancel(false)
             .setContentIntent(openAppIntent)
             .addAction(
