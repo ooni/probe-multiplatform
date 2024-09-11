@@ -73,3 +73,6 @@ SELECT * FROM Result
 WHERE Result.test_group_name = ?1 OR Result.descriptor_runId = ?1
 ORDER BY start_time DESC
 LIMIT 1;
+
+deleteByRunId:
+DELETE FROM Result WHERE descriptor_runId = ?;

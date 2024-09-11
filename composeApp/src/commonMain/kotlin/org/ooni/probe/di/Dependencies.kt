@@ -227,12 +227,18 @@ class Dependencies(
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
+
     private val deleteTestDescriptor by lazy {
         DeleteTestDescriptor(
             preferencesRepository = preferenceRepository,
             deleteByRunId = testDescriptorRepository::deleteByRunId,
+            deleteMeasurementByResultRunId = measurementRepository::deleteByResultRunId,
+            selectMeasurementsByResultRunId = measurementRepository::selectByResultRunId,
+            deleteResultByRunId = resultRepository::deleteByRunId,
+            deleteFile = deleteFile::invoke,
         )
     }
+
     val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
 
     // TODO: Remove this when startBackgroundRun is implemented on iOS

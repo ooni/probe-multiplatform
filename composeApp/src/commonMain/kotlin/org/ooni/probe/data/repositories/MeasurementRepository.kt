@@ -11,6 +11,7 @@ import org.ooni.probe.Database
 import org.ooni.probe.data.Measurement
 import org.ooni.probe.data.SelectByResultIdWithUrl
 import org.ooni.probe.data.Url
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.data.models.ResultModel
@@ -71,6 +72,19 @@ class MeasurementRepository(
                 )
             }
         }
+
+    suspend fun deleteByResultRunId(descriptorId: InstalledTestDescriptorModel.Id) {
+        withContext(backgroundDispatcher) {
+            database.measurementQueries.deleteByResultRunId(descriptorId.value)
+        }
+    }
+
+    fun selectByResultRunId(descriptorId: InstalledTestDescriptorModel.Id) =
+        database.measurementQueries
+            .selectByResultRunId(descriptorId.value)
+            .asFlow()
+            .mapToList(backgroundDispatcher)
+            .map { list -> list.mapNotNull { it.toModel() } }
 
     private fun Measurement.toModel(): MeasurementModel? {
         return MeasurementModel(
