@@ -112,9 +112,7 @@ class DescriptorViewModel(
         events
             .filterIsInstance<Event.UninstallClicked>()
             .onEach {
-                viewModelScope.launch {
-                    deleteTestDescriptor(it.value)
-                }
+                deleteTestDescriptor(it.value)
             }
             .launchIn(viewModelScope)
 

@@ -82,11 +82,9 @@ class AddDescriptorViewModel(
                     val selectedTests =
                         state.value.selectableItems.filter { it.isSelected }.map { it.item }
                     state.value.descriptor?.let { descriptor ->
-                        viewModelScope.launch {
-                            saveTestDescriptors(
-                                listOf(descriptor.copy(autoUpdate = state.value.autoUpdate) to selectedTests),
-                            )
-                        }
+                        saveTestDescriptors(
+                            listOf(descriptor.copy(autoUpdate = state.value.autoUpdate) to selectedTests),
+                        )
                         _state.value = state.value.copy(messages = listOf(SnackBarMessage.AddDescriptorSuccess))
                         onBack()
                     }
