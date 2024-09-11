@@ -115,7 +115,6 @@ class DescriptorViewModel(
                 viewModelScope.launch {
                     deleteTestDescriptor(it.value)
                 }
-                onBack()
             }
             .launchIn(viewModelScope)
 

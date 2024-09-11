@@ -10,11 +10,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.DeepLink
 
 class MainActivity : ComponentActivity() {
-    private val deepLinkFlow = MutableSharedFlow<DeepLink>(extraBufferCapacity = 1)
+    private val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
     private val app get() = applicationContext as AndroidApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +28,14 @@ class MainActivity : ComponentActivity() {
 
             LaunchedEffect(intent) {
                 intent?.let { manageIntent(it) }
+            }
+            LaunchedEffect(deepLink) {
+                deepLink?.let {
+                    // Reset the deepLinkFlow after processing the deep link
+                    launch {
+                        deepLinkFlow.emit(null)
+                    }
+                }
             }
         }
     }
