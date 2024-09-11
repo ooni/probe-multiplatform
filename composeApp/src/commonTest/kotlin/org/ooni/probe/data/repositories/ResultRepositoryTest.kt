@@ -3,6 +3,8 @@ package org.ooni.probe.data.repositories
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.ooni.engine.models.TaskOrigin
+import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
 import org.ooni.testing.createTestDatabaseDriver
@@ -29,12 +31,13 @@ class ResultRepositoryTest {
     @Test
     fun createWithIdAndGet() =
         runTest {
-            val model = ResultModelFactory.build(id = ResultModel.Id(Random.nextLong().absoluteValue))
+            val model =
+                ResultModelFactory.build(id = ResultModel.Id(Random.nextLong().absoluteValue))
 
             val modelId = subject.createOrUpdate(model)
             val result = subject.list().first().first()
 
-            assertEquals(model, result)
+            assertEquals(model, result.result)
             assertEquals(model.id, modelId)
         }
 
@@ -46,5 +49,29 @@ class ResultRepositoryTest {
             val modelId = subject.createOrUpdate(model)
 
             assertNotNull(modelId)
+        }
+
+    @Test
+    fun filterByTaskOrigin() =
+        runTest {
+            val model = ResultModelFactory.build(
+                id = ResultModel.Id(Random.nextLong().absoluteValue),
+                taskOrigin = TaskOrigin.OoniRun,
+            )
+            subject.createOrUpdate(model)
+
+            suspend fun assertResultSize(
+                expectedSize: Int,
+                filter: ResultFilter.Type<TaskOrigin>,
+            ) {
+                assertEquals(
+                    expectedSize,
+                    subject.list(ResultFilter(taskOrigin = filter)).first().size,
+                )
+            }
+
+            assertResultSize(1, ResultFilter.Type.All)
+            assertResultSize(1, ResultFilter.Type.One(TaskOrigin.OoniRun))
+            assertResultSize(0, ResultFilter.Type.One(TaskOrigin.AutoRun))
         }
 }
