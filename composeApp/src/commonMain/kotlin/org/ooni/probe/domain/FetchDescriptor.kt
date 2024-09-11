@@ -1,5 +1,6 @@
 package org.ooni.probe.domain
 
+import co.touchlab.kermit.Logger
 import kotlinx.serialization.json.Json
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.OONIRunDescriptor
@@ -21,9 +22,14 @@ class FetchDescriptor(
             TaskOrigin.OoniRun,
         ).map { result ->
             result?.let {
-                json.decodeFromString<OONIRunDescriptor>(it).toModel().copy(
-                    revision = fetchRevisions(descriptorId).get()?.revisions,
-                )
+                try {
+                    json.decodeFromString<OONIRunDescriptor>(it).toModel().copy(
+                        revisions = fetchRevisions(descriptorId).get()?.revisions,
+                    )
+                } catch (e: Throwable) {
+                    Logger.e(e) { "Failed to decode descriptor" }
+                    null
+                }
             } ?: throw MkException(Throwable("Failed to fetch descriptor"))
         }
     }
@@ -35,7 +41,12 @@ class FetchDescriptor(
             TaskOrigin.OoniRun,
         ).map { result ->
             result?.let {
-                json.decodeFromString<OONIRunRevisions>(it)
+                try {
+                    json.decodeFromString<OONIRunRevisions>(it)
+                } catch (e: Throwable) {
+                    Logger.e(e) { "Failed to decode revisions" }
+                    null
+                }
             } ?: throw MkException(Throwable("Failed to fetch revision"))
         }
     }

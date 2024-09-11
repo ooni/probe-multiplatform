@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.ooni.engine.Engine
 import org.ooni.engine.models.Result
@@ -40,9 +41,9 @@ class AddDescriptorViewModel(
                         }.orEmpty(),
                     )
                 }
-            }.onFailure {
-                Logger.e(it) { "Failed to fetch descriptor" }
-                _state.value = state.value.copy(messages = listOf(SnackBarMessage.AddDescriptorFailed))
+            }.onFailure { error ->
+                Logger.e(error) { "Failed to fetch descriptor" }
+                _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorFailed) }
                 onBack()
             }
         }
@@ -74,7 +75,7 @@ class AddDescriptorViewModel(
                 }
 
                 is Event.CancelClicked -> {
-                    _state.value = state.value.copy(messages = listOf(SnackBarMessage.AddDescriptorCancel))
+                    _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorCancel) }
                     onBack()
                 }
 
@@ -85,13 +86,13 @@ class AddDescriptorViewModel(
                         saveTestDescriptors(
                             listOf(descriptor.copy(autoUpdate = state.value.autoUpdate) to selectedTests),
                         )
-                        _state.value = state.value.copy(messages = listOf(SnackBarMessage.AddDescriptorSuccess))
+                        _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorSuccess) }
                         onBack()
                     }
                 }
 
                 is Event.MessageDisplayed -> {
-                    _state.value = state.value.copy(messages = state.value.messages - event.message)
+                    _state.update { it.copy(messages = state.value.messages - event.message) }
                 }
             }
         }.launchIn(viewModelScope)

@@ -3,6 +3,7 @@ package org.ooni.probe.ui.descriptor
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -22,7 +23,7 @@ fun InstalledDescriptorActionsView(
     modifier: Modifier,
 ) {
     Column(modifier = modifier) {
-        descriptor.revision?.let { revisions ->
+        descriptor.revisions?.let { revisions ->
             if (revisions.isNotEmpty()) {
                 Text(text = stringResource(Res.string.Dashboard_Runv2_Overview_PreviousRevisions))
             }
@@ -44,7 +45,7 @@ fun InstalledDescriptorActionsView(
         Button(
             onClick = { onEvent(DescriptorViewModel.Event.UninstallClicked(descriptor)) },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Red,
+                containerColor = MaterialTheme.colorScheme.error,
                 contentColor = Color.White,
             ),
         ) {
