@@ -3,14 +3,31 @@ package org.ooni.probe
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
+import co.touchlab.kermit.Logger
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.takeWhile
+import kotlinx.coroutines.launch
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
+import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
+import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.domain.GetAutoRunSpecification
+import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
+import platform.BackgroundTasks.BGProcessingTask
+import platform.BackgroundTasks.BGProcessingTaskRequest
+import platform.BackgroundTasks.BGTaskScheduler
 import platform.Foundation.NSBundle
+import platform.Foundation.NSDate
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
@@ -18,6 +35,7 @@ import platform.Foundation.NSString
 import platform.Foundation.NSTemporaryDirectory
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
+import platform.Foundation.dateByAddingTimeInterval
 import platform.Foundation.stringWithContentsOfFile
 import platform.MessageUI.MFMailComposeViewController
 import platform.UIKit.UIApplication
@@ -50,9 +68,7 @@ fun setupDependencies(
     buildDataStore = ::buildDataStore,
     isBatteryCharging = ::checkBatteryCharging,
     launchUrl = ::launchUrl,
-    configureAutoRun = {
-        // TODO: Implement configureAutoRun for iOS
-    },
+    configureAutoRun = ::configureAutoRun,
 )
 
 fun initializeDeeplink() = MutableSharedFlow<DeepLink>(extraBufferCapacity = 1)
@@ -145,5 +161,75 @@ private fun launchUrl(
         } else {
             UIApplication.sharedApplication.openURL(it)
         }
+    }
+}
+
+private const val RUN_UNIQUE_WORKER_NAME = "org.ooni.probe.foreground-task"
+
+fun registerTaskHandlers(dependencies: Dependencies) {
+    val getAutoRunSpecification by lazy { dependencies.getAutoRunSpecification }
+    val runDescriptors by lazy { dependencies.runDescriptors }
+    val getCurrentTestState by lazy { dependencies.getCurrentTestState }
+
+    Logger.d { "Registering task handlers" }
+    BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(RUN_UNIQUE_WORKER_NAME, null) { task ->
+        Logger.d { "Received task: $task" }
+        (task as? BGProcessingTask)?.let {
+            GlobalScope.launch {
+                // TODO(aanorbel): properly schedule the next run.
+                configureAutoRun(AutoRunParameters.Enabled(wifiOnly = false, onlyWhileCharging = false))
+                handleAutorunTask(it, getAutoRunSpecification, runDescriptors, getCurrentTestState)
+            }
+        }
+    }
+}
+
+fun configureAutoRun(params: AutoRunParameters) {
+    if (params !is AutoRunParameters.Enabled) {
+        Logger.d { "Cancelling autorun" }
+        BGTaskScheduler.sharedScheduler.cancelTaskRequestWithIdentifier(RUN_UNIQUE_WORKER_NAME)
+        return
+    }
+
+    Logger.d { "Configuring autorun" }
+    scheduleAutorun(params)
+}
+
+fun scheduleAutorun(params: AutoRunParameters.Enabled) {
+    BGTaskScheduler.sharedScheduler.submitTaskRequest(
+        taskRequest = BGProcessingTaskRequest(RUN_UNIQUE_WORKER_NAME).apply {
+            earliestBeginDate = NSDate().dateByAddingTimeInterval(60.0 * 60.0)
+            requiresNetworkConnectivity = params.wifiOnly
+            requiresExternalPower = params.onlyWhileCharging
+        },
+        error = null,
+    )
+}
+
+suspend fun handleAutorunTask(
+    task: BGProcessingTask,
+    getAutoRunSpecification: GetAutoRunSpecification,
+    runDescriptors: RunDescriptors,
+    getCurrentTestState: () -> Flow<TestRunState>,
+) {
+    Logger.d { "Handling autorun task" }
+    val spec = getAutoRunSpecification()
+    coroutineScope {
+        val runJob = async {
+            runDescriptors(spec)
+        }
+        // Observe the run state to update the notifications and finish the worker when it's done
+        var testStarted = false
+        getCurrentTestState()
+            .takeWhile { state ->
+                state is TestRunState.Running || (state is TestRunState.Idle && !testStarted)
+            }
+            .onEach { state ->
+                if (state !is TestRunState.Running) return@onEach
+                testStarted = true
+            }
+            .collect()
+
+        runJob.await()
     }
 }
