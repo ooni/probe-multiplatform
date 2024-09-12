@@ -164,7 +164,7 @@ private fun launchUrl(
     }
 }
 
-private const val RUN_UNIQUE_WORKER_NAME = "org.ooni.probe.foreground-task"
+private const val AUTORUN_TASK_NAME = "org.ooni.probe.autorun-task"
 
 fun registerTaskHandlers(dependencies: Dependencies) {
     val getAutoRunSpecification by lazy { dependencies.getAutoRunSpecification }
@@ -172,7 +172,7 @@ fun registerTaskHandlers(dependencies: Dependencies) {
     val getCurrentTestState by lazy { dependencies.getCurrentTestState }
 
     Logger.d { "Registering task handlers" }
-    BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(RUN_UNIQUE_WORKER_NAME, null) { task ->
+    BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(AUTORUN_TASK_NAME, null) { task ->
         Logger.d { "Received task: $task" }
         (task as? BGProcessingTask)?.let {
             GlobalScope.launch {
@@ -187,7 +187,7 @@ fun registerTaskHandlers(dependencies: Dependencies) {
 fun configureAutoRun(params: AutoRunParameters) {
     if (params !is AutoRunParameters.Enabled) {
         Logger.d { "Cancelling autorun" }
-        BGTaskScheduler.sharedScheduler.cancelTaskRequestWithIdentifier(RUN_UNIQUE_WORKER_NAME)
+        BGTaskScheduler.sharedScheduler.cancelTaskRequestWithIdentifier(AUTORUN_TASK_NAME)
         return
     }
 
@@ -197,7 +197,7 @@ fun configureAutoRun(params: AutoRunParameters) {
 
 fun scheduleAutorun(params: AutoRunParameters.Enabled) {
     BGTaskScheduler.sharedScheduler.submitTaskRequest(
-        taskRequest = BGProcessingTaskRequest(RUN_UNIQUE_WORKER_NAME).apply {
+        taskRequest = BGProcessingTaskRequest(AUTORUN_TASK_NAME).apply {
             earliestBeginDate = NSDate().dateByAddingTimeInterval(60.0 * 60.0)
             requiresNetworkConnectivity = params.wifiOnly
             requiresExternalPower = params.onlyWhileCharging
