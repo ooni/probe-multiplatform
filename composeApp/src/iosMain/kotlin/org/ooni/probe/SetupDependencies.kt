@@ -7,29 +7,18 @@ import co.touchlab.kermit.Logger
 import kotlinx.cinterop.ObjCObjectVar
 import kotlinx.cinterop.interpretCPointer
 import kotlinx.cinterop.nativeHeap.alloc
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.probe.background.RunOperation
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.RunSpecification
-import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.di.Dependencies
-import org.ooni.probe.domain.GetAutoRunSpecification
-import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import platform.BackgroundTasks.BGProcessingTask
@@ -40,7 +29,6 @@ import platform.Foundation.NSDate
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSError
 import platform.Foundation.NSFileManager
-import platform.Foundation.NSOperation
 import platform.Foundation.NSOperationQueue
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSString
@@ -57,237 +45,175 @@ import platform.UIKit.UIPasteboard
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
 
-/**
- * See link for `baseFileDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L54
- * See link for `cacheDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L66
- */
-fun setupDependencies(
+class SetupDependencies(
     bridge: OonimkallBridge,
     networkTypeFinder: NetworkTypeFinder,
-) = Dependencies(
-    platformInfo = platformInfo,
-    oonimkallBridge = bridge,
-    baseFileDir =
-        NSSearchPathForDirectoriesInDomains(
-            NSDocumentDirectory,
-            NSUserDomainMask,
-            true,
-        ).first().toString(),
-    cacheDir = NSTemporaryDirectory(),
-    readAssetFile = ::readAssetFile,
-    databaseDriverFactory = ::buildDatabaseDriver,
-    networkTypeFinder = networkTypeFinder,
-    buildDataStore = ::buildDataStore,
-    isBatteryCharging = ::checkBatteryCharging,
-    launchUrl = ::launchUrl,
-    startSingleRunInner = ::startSingleRun,
-    configureAutoRun = ::configureAutoRun,
-)
+) {
+    /**
+     * See link for `baseFileDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L54
+     * See link for `cacheDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L66
+     */
+    val dependencies: Dependencies = Dependencies(
+        platformInfo = platformInfo,
+        oonimkallBridge = bridge,
+        baseFileDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).first().toString(),
+        cacheDir = NSTemporaryDirectory(),
+        readAssetFile = ::readAssetFile,
+        databaseDriverFactory = ::buildDatabaseDriver,
+        networkTypeFinder = networkTypeFinder,
+        buildDataStore = ::buildDataStore,
+        isBatteryCharging = ::checkBatteryCharging,
+        launchUrl = ::launchUrl,
+        startSingleRunInner = ::startSingleRun,
+        configureAutoRun = ::configureAutoRun,
+    )
 
-fun startSingleRun(spec: RunSpecification,runDescriptors: RunDescriptors, getCurrentTestState: () -> Flow<TestRunState>) {
-    val operationQueue = NSOperationQueue()
-    val operation = RunSingleOperation(spec,runDescriptors,getCurrentTestState)
-    val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
-        operation.cancel()
-        // If the task is not completed, the system will terminate the app
+    fun startSingleRun(spec: RunSpecification) {
+        val operationQueue = NSOperationQueue()
+        val runDescriptors by lazy { dependencies.runDescriptors }
+        val getCurrentTestState by lazy { dependencies.getCurrentTestState }
+        val operation = RunOperation(spec = spec, runDescriptors = runDescriptors, getCurrentTestState = getCurrentTestState)
+        val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
+            operation.cancel()
+        }
+        operation.completionBlock = {
+            UIApplication.sharedApplication.endBackgroundTask(identifier)
+        }
+        operationQueue.addOperation(operation)
     }
-    operation.completionBlock = {
-        UIApplication.sharedApplication.endBackgroundTask(identifier)
-    }
-    operationQueue.addOperation(operation)
-}
 
-fun initializeDeeplink() = MutableSharedFlow<DeepLink>(extraBufferCapacity = 1)
+    fun initializeDeeplink() = MutableSharedFlow<DeepLink>(extraBufferCapacity = 1)
 
-private val platformInfo
-    get() =
-        object : PlatformInfo {
-            override val version =
-                (NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String).orEmpty()
-
+    private val platformInfo: PlatformInfo
+        get() = object : PlatformInfo {
+            override val version = (NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String).orEmpty()
             override val platform = Platform.Ios
-
-            override val osVersion =
-                with(UIDevice.currentDevice) {
-                    "$systemName $systemVersion"
-                }
-
+            override val osVersion = with(UIDevice.currentDevice) { "$systemName $systemVersion" }
             override val model = UIDevice.currentDevice.model
         }
 
-private fun buildDatabaseDriver() = NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")
+    private fun buildDatabaseDriver() = NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")
 
-/*
- New asset files need to be added to the iOS project using xCode:
- - Right click iosApp where you want it and select "Add Files to..."
- - Pick `src/commonMain/resources`
- - Deselect "Copy items if needed" and select "Create groups"
- - Pick both targets OONIProbe and NewsMediaScan
- */
-private fun readAssetFile(path: String): String {
-    val fileName = path.split(".").first()
-    val type = path.split(".").last()
-
-    val resource = NSBundle.bundleForClass(BundleMarker).pathForResource(fileName, type)
-    return resource?.let {
-        NSString.stringWithContentsOfFile(resource) as? String
-    } ?: run {
-        error("Couldn't read asset file: $path")
+    /*
+    New asset files need to be added to the iOS project using xCode:
+    - Right click iosApp where you want it and select "Add Files to..."
+    - Pick `src/commonMain/resources`
+    - Deselect "Copy items if needed" and select "Create groups"
+    - Pick both targets OONIProbe and NewsMediaScan
+    */
+    private fun readAssetFile(path: String): String {
+        val fileName = path.split(".").first()
+        val type = path.split(".").last()
+        val resource = NSBundle.bundleForClass(BundleMarker).pathForResource(fileName, type)
+        return resource?.let { NSString.stringWithContentsOfFile(resource) as? String }
+            ?: error("Couldn't read asset file: $path")
     }
-}
 
-private class BundleMarker : NSObject() {
-    companion object : NSObjectMeta()
-}
+    private class BundleMarker : NSObject() {
+        companion object : NSObjectMeta()
+    }
 
-private fun checkBatteryCharging(): Boolean {
-    UIDevice.currentDevice.batteryMonitoringEnabled = true
-    return UIDevice.currentDevice.batteryState == UIDeviceBatteryState.UIDeviceBatteryStateCharging
-}
+    private fun checkBatteryCharging(): Boolean {
+        UIDevice.currentDevice.batteryMonitoringEnabled = true
+        return UIDevice.currentDevice.batteryState == UIDeviceBatteryState.UIDeviceBatteryStateCharging
+    }
 
-fun buildDataStore(): DataStore<Preferences> =
-    Dependencies.getDataStore(
-        producePath = {
-            val documentDirectory: NSURL? =
-                NSFileManager.defaultManager.URLForDirectory(
-                    directory = NSDocumentDirectory,
-                    inDomain = NSUserDomainMask,
-                    appropriateForURL = null,
-                    create = false,
-                    error = null,
-                )
-            requireNotNull(documentDirectory).path + "/${Dependencies.Companion.DATA_STORE_FILE_NAME}"
-        },
-    )
+    fun buildDataStore(): DataStore<Preferences> =
+        Dependencies.getDataStore(
+            producePath = {
+                val documentDirectory: NSURL? =
+                    NSFileManager.defaultManager.URLForDirectory(
+                        directory = NSDocumentDirectory,
+                        inDomain = NSUserDomainMask,
+                        appropriateForURL = null,
+                        create = false,
+                        error = null,
+                    )
+                requireNotNull(documentDirectory).path + "/${Dependencies.Companion.DATA_STORE_FILE_NAME}"
+            },
+        )
 
-private fun launchUrl(
-    url: String,
-    extras: Map<String, String>?,
-) {
-    NSURL.URLWithString(url)?.let {
-        if (it.scheme == "mailto") {
-            MFMailComposeViewController.canSendMail().let { canSendMail ->
-                val email = it.toString().removePrefix("mailto:")
-                if (canSendMail) {
-                    MFMailComposeViewController().apply {
-                        setToRecipients(listOf(email))
-                        extras?.forEach { (key, value) ->
-                            when (key) {
-                                "subject" -> setSubject(value)
-                                "body" -> setMessageBody(value, isHTML = false)
+    private fun launchUrl(
+        url: String,
+        extras: Map<String, String>?,
+    ) {
+        NSURL.URLWithString(url)?.let {
+            if (it.scheme == "mailto") {
+                MFMailComposeViewController.canSendMail().let { canSendMail ->
+                    val email = it.toString().removePrefix("mailto:")
+                    if (canSendMail) {
+                        MFMailComposeViewController().apply {
+                            setToRecipients(listOf(email))
+                            extras?.forEach { (key, value) ->
+                                when (key) {
+                                    "subject" -> setSubject(value)
+                                    "body" -> setMessageBody(value, isHTML = false)
+                                }
                             }
+                        }.let {
+                            UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(it, true, null)
                         }
-                    }.let {
-                        UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(it, true, null)
+                    } else {
+                        UIPasteboard.generalPasteboard.string = email
                     }
-                } else {
-                    UIPasteboard.generalPasteboard.string = email
                 }
+            } else {
+                UIApplication.sharedApplication.openURL(it)
             }
-        } else {
-            UIApplication.sharedApplication.openURL(it)
         }
     }
-}
 
-private const val AUTORUN_TASK_NAME = "org.ooni.probe.autorun-task"
+    fun registerTaskHandlers() {
+        val getAutoRunSettings by lazy { dependencies.getAutoRunSettings }
 
-fun registerTaskHandlers(dependencies: Dependencies) {
-    val getAutoRunSpecification by lazy { dependencies.getAutoRunSpecification }
-    val runDescriptors by lazy { dependencies.runDescriptors }
-    val getCurrentTestState by lazy { dependencies.getCurrentTestState }
-    val getAutoRunSettings by lazy { dependencies.getAutoRunSettings }
-
-    Logger.d { "Registering task handlers" }
-    BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(AUTORUN_TASK_NAME, null) { task ->
-        Logger.d { "Received task: $task" }
-        (task as? BGProcessingTask)?.let {
-            GlobalScope.launch {
-                // Sccedule the next autorun task
-                configureAutoRun(getAutoRunSettings().first())
-            }
-            handleAutorunTask(
-                task = it,
-                getAutoRunSpecification = getAutoRunSpecification,
-                runDescriptors = runDescriptors,
-                getCurrentTestState = getCurrentTestState,
-            )
-        }
-    }
-}
-
-fun configureAutoRun(params: AutoRunParameters) {
-    if (params !is AutoRunParameters.Enabled) {
-        Logger.d { "Cancelling autorun" }
-        BGTaskScheduler.sharedScheduler.cancelTaskRequestWithIdentifier(AUTORUN_TASK_NAME)
-        return
-    }
-
-    Logger.d { "Configuring autorun" }
-    scheduleAutorun(params)
-}
-
-fun scheduleAutorun(params: AutoRunParameters.Enabled? = null) {
-    val error = interpretCPointer<ObjCObjectVar<NSError?>>(alloc(1, 1).rawPtr)
-    BGTaskScheduler.sharedScheduler.submitTaskRequest(
-        taskRequest = BGProcessingTaskRequest(AUTORUN_TASK_NAME).apply {
-            earliestBeginDate = NSDate().dateByAddingTimeInterval(60.0 * 60.0)
-            params?.wifiOnly?.let { requiresNetworkConnectivity = it }
-            params?.onlyWhileCharging?.let { requiresExternalPower = it }
-        },
-        error = error,
-    )
-}
-
-fun handleAutorunTask(
-    task: BGProcessingTask,
-    getAutoRunSpecification: GetAutoRunSpecification,
-    runDescriptors: RunDescriptors,
-    getCurrentTestState: () -> Flow<TestRunState>,
-) {
-    Logger.d { "Handling autorun task" }
-    val operationQueue = NSOperationQueue()
-    val operation = RunOperation(
-        getAutoRunSpecification = getAutoRunSpecification,
-        runDescriptors = runDescriptors,
-        getCurrentTestState = getCurrentTestState,
-    )
-
-    // Provide an expiration handler for the background task that cancels the operation
-    task.expirationHandler = {
-        operation.cancel()
-    }
-
-    // Inform the system that the background task is complete when the operation completes
-    operation.completionBlock = {
-        task.setTaskCompletedWithSuccess(!operation.isCancelled())
-    }
-
-    // Start the operation
-    operationQueue.addOperation(operation)
-}
-
-class RunSingleOperation(private val spec: RunSpecification,private val runDescriptors: RunDescriptors, private val getCurrentTestState: () -> Flow<TestRunState>) : NSOperation() {
-    override fun main() {
-        val coroutineScopeScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
-        coroutineScopeScope.launch {
-            coroutineScope {
-                val runJob = async {
-                    runDescriptors(spec)
+        Logger.d { "Registering task handlers" }
+        BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(OrganizationConfig.autorunTaskId, null) { task ->
+            Logger.d { "Received task: $task" }
+            (task as? BGProcessingTask)?.let {
+                GlobalScope.launch {
+                    configureAutoRun(getAutoRunSettings().first())
                 }
-                // Observe the run state to update the notifications and finish the worker when it's done
-                var testStarted = false
-                getCurrentTestState().takeWhile { state ->
-                    state is TestRunState.Running || (state is TestRunState.Idle && !testStarted)
-                }.onEach { state ->
-                    if (state !is TestRunState.Running) return@onEach
-                    testStarted = true
-                }.collect()
-
-                runJob.await()
+                handleAutorunTask(it)
             }
-        }.invokeOnCompletion {
-            Logger.d { "Operation completed" }
         }
+    }
+
+    fun configureAutoRun(params: AutoRunParameters) {
+        if (params !is AutoRunParameters.Enabled) {
+            Logger.d { "Cancelling autorun" }
+            BGTaskScheduler.sharedScheduler.cancelTaskRequestWithIdentifier(OrganizationConfig.autorunTaskId)
+            return
+        }
+        Logger.d { "Configuring autorun" }
+        scheduleAutorun(params)
+    }
+
+    fun scheduleAutorun(params: AutoRunParameters.Enabled? = null) {
+        val error = interpretCPointer<ObjCObjectVar<NSError?>>(alloc(1, 1).rawPtr)
+        BGTaskScheduler.sharedScheduler.submitTaskRequest(
+            taskRequest = BGProcessingTaskRequest(OrganizationConfig.autorunTaskId).apply {
+                earliestBeginDate = NSDate().dateByAddingTimeInterval(60.0 * 60.0)
+                params?.wifiOnly?.let { requiresNetworkConnectivity = it }
+                params?.onlyWhileCharging?.let { requiresExternalPower = it }
+            },
+            error = error,
+        )
+    }
+
+    fun handleAutorunTask(task: BGProcessingTask) {
+        val getAutoRunSpecification by lazy { dependencies.getAutoRunSpecification }
+        val runDescriptors by lazy { dependencies.runDescriptors }
+        val getCurrentTestState by lazy { dependencies.getCurrentTestState }
+        Logger.d { "Handling autorun task" }
+        val operationQueue = NSOperationQueue()
+        val operation = RunOperation(
+            getAutoRunSpecification = getAutoRunSpecification,
+            runDescriptors = runDescriptors,
+            getCurrentTestState = getCurrentTestState,
+        )
+
+        task.expirationHandler = { operation.cancel() }
+        operation.completionBlock = { task.setTaskCompletedWithSuccess(!operation.isCancelled()) }
+        operationQueue.addOperation(operation)
     }
 }

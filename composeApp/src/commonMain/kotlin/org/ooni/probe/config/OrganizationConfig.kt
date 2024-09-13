@@ -7,6 +7,8 @@ interface OrganizationConfigInterface {
     val ooniRunDashboardUrl: String
 
     val testDisplayMode: TestDisplayMode
+
+    val autorunTaskId: String
 }
 
 enum class TestDisplayMode {
