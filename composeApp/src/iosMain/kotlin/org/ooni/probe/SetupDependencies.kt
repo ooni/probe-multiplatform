@@ -94,13 +94,13 @@ class SetupDependencies(
 
     private fun buildDatabaseDriver() = NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")
 
-    /*
-    New asset files need to be added to the iOS project using xCode:
-    - Right click iosApp where you want it and select "Add Files to..."
-    - Pick `src/commonMain/resources`
-    - Deselect "Copy items if needed" and select "Create groups"
-    - Pick both targets OONIProbe and NewsMediaScan
-    */
+    /**
+     * New asset files need to be added to the iOS project using xCode:
+     * - Right click iosApp where you want it and select "Add Files to..."
+     * - Pick `src/commonMain/resources`
+     * - Deselect "Copy items if needed" and select "Create groups"
+     * - Pick both targets OONIProbe and NewsMediaScan
+     */
     private fun readAssetFile(path: String): String {
         val fileName = path.split(".").first()
         val type = path.split(".").last()
