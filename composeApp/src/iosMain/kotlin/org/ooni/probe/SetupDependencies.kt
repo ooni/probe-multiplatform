@@ -4,17 +4,17 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import co.touchlab.kermit.Logger
+import kotlinx.cinterop.ObjCObjectVar
+import kotlinx.cinterop.interpretCPointer
+import kotlinx.cinterop.nativeHeap.alloc
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.takeWhile
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
+import org.ooni.probe.background.RunOperation
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.TestRunState
@@ -29,7 +29,9 @@ import platform.BackgroundTasks.BGTaskScheduler
 import platform.Foundation.NSBundle
 import platform.Foundation.NSDate
 import platform.Foundation.NSDocumentDirectory
+import platform.Foundation.NSError
 import platform.Foundation.NSFileManager
+import platform.Foundation.NSOperationQueue
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSString
 import platform.Foundation.NSTemporaryDirectory
@@ -170,16 +172,22 @@ fun registerTaskHandlers(dependencies: Dependencies) {
     val getAutoRunSpecification by lazy { dependencies.getAutoRunSpecification }
     val runDescriptors by lazy { dependencies.runDescriptors }
     val getCurrentTestState by lazy { dependencies.getCurrentTestState }
+    val getAutoRunSettings by lazy { dependencies.getAutoRunSettings }
 
     Logger.d { "Registering task handlers" }
     BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(AUTORUN_TASK_NAME, null) { task ->
         Logger.d { "Received task: $task" }
         (task as? BGProcessingTask)?.let {
             GlobalScope.launch {
-                // TODO(aanorbel): properly schedule the next run.
-                configureAutoRun(AutoRunParameters.Enabled(wifiOnly = false, onlyWhileCharging = false))
-                handleAutorunTask(it, getAutoRunSpecification, runDescriptors, getCurrentTestState)
+                // Sccedule the next autorun task
+                configureAutoRun(getAutoRunSettings().first())
             }
+            handleAutorunTask(
+                task = it,
+                getAutoRunSpecification = getAutoRunSpecification,
+                runDescriptors = runDescriptors,
+                getCurrentTestState = getCurrentTestState,
+            )
         }
     }
 }
@@ -195,41 +203,42 @@ fun configureAutoRun(params: AutoRunParameters) {
     scheduleAutorun(params)
 }
 
-fun scheduleAutorun(params: AutoRunParameters.Enabled) {
+fun scheduleAutorun(params: AutoRunParameters.Enabled? = null) {
+    val error = interpretCPointer<ObjCObjectVar<NSError?>>(alloc(1, 1).rawPtr)
     BGTaskScheduler.sharedScheduler.submitTaskRequest(
         taskRequest = BGProcessingTaskRequest(AUTORUN_TASK_NAME).apply {
             earliestBeginDate = NSDate().dateByAddingTimeInterval(60.0 * 60.0)
-            requiresNetworkConnectivity = params.wifiOnly
-            requiresExternalPower = params.onlyWhileCharging
+            params?.wifiOnly?.let { requiresNetworkConnectivity = it }
+            params?.onlyWhileCharging?.let { requiresExternalPower = it }
         },
-        error = null,
+        error = error,
     )
 }
 
-suspend fun handleAutorunTask(
+fun handleAutorunTask(
     task: BGProcessingTask,
     getAutoRunSpecification: GetAutoRunSpecification,
     runDescriptors: RunDescriptors,
     getCurrentTestState: () -> Flow<TestRunState>,
 ) {
     Logger.d { "Handling autorun task" }
-    val spec = getAutoRunSpecification()
-    coroutineScope {
-        val runJob = async {
-            runDescriptors(spec)
-        }
-        // Observe the run state to update the notifications and finish the worker when it's done
-        var testStarted = false
-        getCurrentTestState()
-            .takeWhile { state ->
-                state is TestRunState.Running || (state is TestRunState.Idle && !testStarted)
-            }
-            .onEach { state ->
-                if (state !is TestRunState.Running) return@onEach
-                testStarted = true
-            }
-            .collect()
+    val operationQueue = NSOperationQueue()
+    val operation = RunOperation(
+        getAutoRunSpecification = getAutoRunSpecification,
+        runDescriptors = runDescriptors,
+        getCurrentTestState = getCurrentTestState,
+    )
 
-        runJob.await()
+    // Provide an expiration handler for the background task that cancels the operation
+    task.expirationHandler = {
+        operation.cancel()
     }
+
+    // Inform the system that the background task is complete when the operation completes
+    operation.completionBlock = {
+        task.setTaskCompletedWithSuccess(!operation.isCancelled())
+    }
+
+    // Start the operation
+    operationQueue.addOperation(operation)
 }

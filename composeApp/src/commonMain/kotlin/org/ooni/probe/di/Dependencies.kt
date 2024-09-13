@@ -41,6 +41,7 @@ import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapTestDescriptors
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FetchDescriptor
+import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
@@ -189,6 +190,11 @@ class Dependencies(
             backgroundDispatcher = backgroundDispatcher,
             observeSettings = preferenceRepository::allSettings,
             configureAutoRun = configureAutoRun,
+        )
+    }
+    val getAutoRunSettings by lazy {
+        GetAutoRunSettings(
+            observeSettings = preferenceRepository::allSettings,
         )
     }
 
