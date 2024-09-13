@@ -11,6 +11,7 @@ import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import okio.FileSystem
@@ -32,6 +33,7 @@ import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunSpecification
+import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.data.repositories.MeasurementRepository
 import org.ooni.probe.data.repositories.NetworkRepository
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -83,8 +85,7 @@ class Dependencies(
     private val buildDataStore: () -> DataStore<Preferences>,
     private val isBatteryCharging: () -> Boolean,
     private val launchUrl: (String, Map<String, String>?) -> Unit,
-    // TODO: Implement startSingleRun on iOS
-    startSingleRunInner: ((RunSpecification) -> Unit)? = null,
+    startSingleRunInner: ((RunSpecification, RunDescriptors, () -> Flow<TestRunState>) -> Unit)? = null,
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
 ) {
     // Common
@@ -235,7 +236,7 @@ class Dependencies(
     val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
 
     // TODO: Remove this when startBackgroundRun is implemented on iOS
-    private val startBackgroundRun: (RunSpecification) -> Unit = startSingleRunInner ?: { spec ->
+    private val startBackgroundRun: (RunSpecification, RunDescriptors,() -> Flow<TestRunState>) -> Unit = startSingleRunInner ?: { spec , runDescriptors, getCurrentTestState->
         CoroutineScope(backgroundDispatcher).launch {
             runDescriptors(spec)
         }
@@ -306,7 +307,9 @@ class Dependencies(
     fun runViewModel(onBack: () -> Unit) =
         RunViewModel(
             onBack = onBack,
-            startBackgroundRun = startBackgroundRun,
+            startBackgroundRun = { spec ->
+                startBackgroundRun(spec,runDescriptors, getCurrentTestState)
+            },
             getTestDescriptors = getTestDescriptors::invoke,
             preferenceRepository = preferenceRepository,
         )

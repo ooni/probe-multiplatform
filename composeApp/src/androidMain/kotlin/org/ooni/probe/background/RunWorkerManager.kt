@@ -9,16 +9,19 @@ import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.RunSpecification
+import org.ooni.probe.data.models.TestRunState
+import org.ooni.probe.domain.RunDescriptors
 import java.util.concurrent.TimeUnit
 
 class RunWorkerManager(
     private val workManager: WorkManager,
     private val backgroundDispatcher: CoroutineDispatcher,
 ) {
-    fun startSingleRun(spec: RunSpecification) {
+    fun startSingleRun(spec: RunSpecification,runDescriptors: RunDescriptors,getCurrentTestState: () -> Flow<TestRunState>) {
         workManager
             .enqueueUniqueWork(
                 RUN_UNIQUE_WORKER_NAME,

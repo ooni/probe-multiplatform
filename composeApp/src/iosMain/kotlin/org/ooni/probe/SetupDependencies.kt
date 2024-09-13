@@ -7,16 +7,25 @@ import co.touchlab.kermit.Logger
 import kotlinx.cinterop.ObjCObjectVar
 import kotlinx.cinterop.interpretCPointer
 import kotlinx.cinterop.nativeHeap.alloc
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.probe.background.RunOperation
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
+import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.domain.GetAutoRunSpecification
@@ -31,6 +40,7 @@ import platform.Foundation.NSDate
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSError
 import platform.Foundation.NSFileManager
+import platform.Foundation.NSOperation
 import platform.Foundation.NSOperationQueue
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSString
@@ -70,8 +80,22 @@ fun setupDependencies(
     buildDataStore = ::buildDataStore,
     isBatteryCharging = ::checkBatteryCharging,
     launchUrl = ::launchUrl,
+    startSingleRunInner = ::startSingleRun,
     configureAutoRun = ::configureAutoRun,
 )
+
+fun startSingleRun(spec: RunSpecification,runDescriptors: RunDescriptors, getCurrentTestState: () -> Flow<TestRunState>) {
+    val operationQueue = NSOperationQueue()
+    val operation = RunSingleOperation(spec,runDescriptors,getCurrentTestState)
+    val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
+        operation.cancel()
+        // If the task is not completed, the system will terminate the app
+    }
+    operation.completionBlock = {
+        UIApplication.sharedApplication.endBackgroundTask(identifier)
+    }
+    operationQueue.addOperation(operation)
+}
 
 fun initializeDeeplink() = MutableSharedFlow<DeepLink>(extraBufferCapacity = 1)
 
@@ -241,4 +265,29 @@ fun handleAutorunTask(
 
     // Start the operation
     operationQueue.addOperation(operation)
+}
+
+class RunSingleOperation(private val spec: RunSpecification,private val runDescriptors: RunDescriptors, private val getCurrentTestState: () -> Flow<TestRunState>) : NSOperation() {
+    override fun main() {
+        val coroutineScopeScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+        coroutineScopeScope.launch {
+            coroutineScope {
+                val runJob = async {
+                    runDescriptors(spec)
+                }
+                // Observe the run state to update the notifications and finish the worker when it's done
+                var testStarted = false
+                getCurrentTestState().takeWhile { state ->
+                    state is TestRunState.Running || (state is TestRunState.Idle && !testStarted)
+                }.onEach { state ->
+                    if (state !is TestRunState.Running) return@onEach
+                    testStarted = true
+                }.collect()
+
+                runJob.await()
+            }
+        }.invokeOnCompletion {
+            Logger.d { "Operation completed" }
+        }
+    }
 }
