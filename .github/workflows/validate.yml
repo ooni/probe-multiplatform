@@ -29,9 +29,10 @@ jobs:
 
       - name: Uploads artifacts
         uses: actions/upload-artifact@v4
+        if: matrix.type == 'Debug'  # we want just the debug apk. Releases have to be signed and uploaded to the stores
         with:
           name: ${{ matrix.organization }}-${{ matrix.type }}-APK
-          path: composeApp/build/outputs/apk/debug/composeApp-debug.apk # we want just the debug apk. Releases have to be signed and uploaded to the stores
+          path: composeApp/build/outputs/apk/debug/composeApp-debug.apk
 
   android-lint:
     name: Android Lint
@@ -97,7 +98,7 @@ jobs:
           path: composeApp/build/reports/tests/iosSimulatorArm64Test/
 
   distribute:
-      name: Upload artifact to Firebase App Distribution
+      name: Firebase App Distribution
       runs-on: ubuntu-latest
       needs: [ common-tests ]
       strategy:
@@ -122,4 +123,7 @@ jobs:
             run: |
                 cat <<< "${INPUT_SERVICE_CREDENTIALS_FILE_CONTENT}" > service_credentials_content.json
                 sudo npm install -g firebase-tools
-                firebase  appdistribution:distribute  "$INPUT_FILE"  --app "$INPUT_APP_ID" --groups "$INPUT_GROUPS"  --testers "$INPUT_TESTERS"  --release-notes "$(git show -s --format='%an <%ae> , Hash : %H, Message : %s')"
+                OUTPUT=$(firebase appdistribution:distribute "$INPUT_FILE" --app "$INPUT_APP_ID" --groups "$INPUT_GROUPS" --testers "$INPUT_TESTERS" --release-notes "$(git show -s --format='%an <%ae> , Hash : %H, Message : %s')")
+                echo "$OUTPUT"
+                DASHBOARD_URL=$(echo "$OUTPUT" | grep -o 'https://console.firebase.google.com/.*')
+                echo "Dashboard URL( ${{ matrix.organization }} ): $DASHBOARD_URL" >> $GITHUB_STEP_SUMMARY
