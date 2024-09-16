@@ -15,6 +15,7 @@ import org.ooni.probe.data.SelectAllWithNetwork
 import org.ooni.probe.data.SelectByIdWithNetwork
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetworkModel
+import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
 import org.ooni.probe.shared.toEpoch
@@ -24,19 +25,21 @@ class ResultRepository(
     private val database: Database,
     private val backgroundDispatcher: CoroutineDispatcher,
 ) {
-    fun list(): Flow<List<ResultModel>> =
-        database.resultQueries
-            .selectAll()
-            .asFlow()
-            .mapToList(backgroundDispatcher)
-            .map { list -> list.mapNotNull { it.toModel() } }
+    fun list(filter: ResultFilter = ResultFilter()): Flow<List<ResultWithNetworkAndAggregates>> {
+        val descriptorFilter = (filter.descriptor as? ResultFilter.Type.One)?.value
+        val originFilter = (filter.taskOrigin as? ResultFilter.Type.One)?.value
 
-    fun listWithNetwork(): Flow<List<ResultWithNetworkAndAggregates>> =
-        database.resultQueries
-            .selectAllWithNetwork()
+        return database.resultQueries
+            .selectAllWithNetwork(
+                filterByDescriptor = if (descriptorFilter != null) 1 else 0,
+                descriptorKey = descriptorFilter?.key,
+                filterByTaskOrigin = if (originFilter != null) 1 else 0,
+                taskOrigin = originFilter?.value,
+            )
             .asFlow()
             .mapToList(backgroundDispatcher)
             .map { list -> list.mapNotNull { it.toModel() } }
+    }
 
     fun getById(resultId: ResultModel.Id): Flow<Pair<ResultModel, NetworkModel?>?> =
         database.resultQueries
@@ -86,6 +89,21 @@ class ResultRepository(
         withContext(backgroundDispatcher) {
             database.resultQueries.markAsViewed(resultId.value)
         }
+
+    suspend fun deleteByRunId(resultId: InstalledTestDescriptorModel.Id) =
+        withContext(backgroundDispatcher) {
+            database.resultQueries.deleteByRunId(resultId.value)
+        }
+
+    suspend fun deleteAll() {
+        withContext(backgroundDispatcher) {
+            database.transaction {
+                database.measurementQueries.deleteAll()
+                database.resultQueries.deleteAll()
+                database.networkQueries.deleteAll()
+            }
+        }
+    }
 
     private fun Result.toModel(): ResultModel? {
         return ResultModel(

@@ -10,10 +10,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.DeepLink
 
 class MainActivity : ComponentActivity() {
-    private val deepLinkFlow = MutableSharedFlow<DeepLink>(extraBufferCapacity = 1)
+    private val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
     private val app get() = applicationContext as AndroidApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +23,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             val deepLink by deepLinkFlow.collectAsState(null)
 
-            App(app.dependencies, deepLink)
+            App(
+                dependencies = app.dependencies,
+                deepLink = deepLink,
+                onDeeplinkHandled = {
+                    deepLink?.let {
+                        deepLinkFlow.tryEmit(null)
+                    }
+                },
+            )
 
             LaunchedEffect(intent) {
                 intent?.let { manageIntent(it) }
@@ -40,11 +49,12 @@ class MainActivity : ComponentActivity() {
         val uri = intent.data ?: return
         when (uri.host) {
             "runv2",
-            "run.test.ooni.org",
+            OrganizationConfig.ooniRunDomain,
             -> {
                 val id = uri.lastPathSegment ?: return
                 deepLinkFlow.tryEmit(DeepLink.AddDescriptor(id))
             }
+
             else -> {
                 Logger.e { "Unknown deep link: $uri" }
             }

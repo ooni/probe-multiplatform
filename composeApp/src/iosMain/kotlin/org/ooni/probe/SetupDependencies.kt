@@ -84,6 +84,8 @@ class SetupDependencies(
 
     fun initializeDeeplink() = MutableSharedFlow<DeepLink>(extraBufferCapacity = 1)
 
+    fun ooniRunDomain() = OrganizationConfig.ooniRunDomain
+
     private val platformInfo: PlatformInfo
         get() = object : PlatformInfo {
             override val version = (NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String).orEmpty()

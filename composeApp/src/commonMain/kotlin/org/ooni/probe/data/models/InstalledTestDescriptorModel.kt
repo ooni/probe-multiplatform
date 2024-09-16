@@ -23,7 +23,7 @@ data class InstalledTestDescriptorModel(
     val expirationDate: LocalDateTime?,
     val dateCreated: LocalDateTime?,
     val dateUpdated: LocalDateTime?,
-    val revision: String?,
+    val revisions: List<String>? = emptyList(),
     val autoUpdate: Boolean,
 ) {
     @Serializable

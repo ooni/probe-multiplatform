@@ -82,7 +82,7 @@ object DescriptorFactory {
             expirationDate = expirationDate,
             dateCreated = dateCreated,
             dateUpdated = dateUpdated,
-            revision = revision,
+            revisions = emptyList(),
             autoUpdate = autoUpdate,
         )
 }

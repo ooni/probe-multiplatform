@@ -162,6 +162,14 @@ fun DescriptorScreen(
                 TestDisplayMode.Regular -> TestItems(descriptor, state.tests, onEvent)
                 TestDisplayMode.WebsitesOnly -> WebsiteItems(state.tests)
             }
+
+            if (descriptor.source is Descriptor.Source.Installed) {
+                InstalledDescriptorActionsView(
+                    descriptor = descriptor.source.value,
+                    onEvent = onEvent,
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                )
+            }
         }
     }
 }

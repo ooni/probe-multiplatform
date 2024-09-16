@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskEventResult
 import org.ooni.engine.models.TaskOrigin
-import org.ooni.probe.data.disk.DeleteFile
+import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
@@ -29,7 +29,7 @@ class RunNetTest(
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
     private val setCurrentTestState: ((TestRunState) -> TestRunState) -> Unit,
     private val writeFile: WriteFile,
-    private val deleteFile: DeleteFile,
+    private val deleteFiles: DeleteFiles,
     private val json: Json,
     private val spec: Specification,
 ) {
@@ -252,7 +252,7 @@ class RunNetTest(
             is TaskEvent.TaskTerminated -> {
                 val measurement = measurements[event.index] ?: return
                 if (measurement.isUploaded) {
-                    measurement.reportFilePath?.let { deleteFile(it) }
+                    measurement.reportFilePath?.let { deleteFiles(it) }
                 }
             }
         }

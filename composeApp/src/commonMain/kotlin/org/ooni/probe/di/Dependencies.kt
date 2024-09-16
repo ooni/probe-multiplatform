@@ -21,8 +21,8 @@ import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
-import org.ooni.probe.data.disk.DeleteFile
-import org.ooni.probe.data.disk.DeleteFileOkio
+import org.ooni.probe.data.disk.DeleteFiles
+import org.ooni.probe.data.disk.DeleteFilesOkio
 import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.disk.ReadFileOkio
 import org.ooni.probe.data.disk.WriteFile
@@ -39,6 +39,8 @@ import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapTestDescriptors
+import org.ooni.probe.domain.DeleteAllResults
+import org.ooni.probe.domain.DeleteTestDescriptor
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FetchDescriptor
 import org.ooni.probe.domain.GetAutoRunSettings
@@ -60,8 +62,8 @@ import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
-import org.ooni.probe.ui.descriptor.AddDescriptorViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
+import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.run.RunViewModel
@@ -108,7 +110,7 @@ class Dependencies(
 
     private val readFile: ReadFile by lazy { ReadFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val writeFile: WriteFile by lazy { WriteFileOkio(FileSystem.SYSTEM, baseFileDir) }
-    private val deleteFile: DeleteFile by lazy { DeleteFileOkio(FileSystem.SYSTEM, baseFileDir) }
+    private val deleteFiles: DeleteFiles by lazy { DeleteFilesOkio(FileSystem.SYSTEM, baseFileDir) }
 
     // Engine
 
@@ -146,6 +148,9 @@ class Dependencies(
             urlRepository::createOrUpdateByUrl,
         )
     }
+    private val deleteAllResults by lazy {
+        DeleteAllResults(resultRepository::deleteAll, deleteFiles::invoke)
+    }
     private val fetchDescriptor by lazy {
         FetchDescriptor(
             engineHttpDo = engine::httpDo,
@@ -163,8 +168,8 @@ class Dependencies(
     private val getEnginePreferences by lazy { GetEnginePreferences(preferenceRepository) }
     private val getResults by lazy {
         GetResults(
-            resultRepository.listWithNetwork(),
-            getTestDescriptors.invoke(),
+            resultRepository::list,
+            getTestDescriptors::invoke,
         )
     }
     private val getResult by lazy {
@@ -206,7 +211,7 @@ class Dependencies(
             storeMeasurement = measurementRepository::createOrUpdate,
             storeNetwork = networkRepository::createIfNew,
             writeFile = writeFile,
-            deleteFile = deleteFile,
+            deleteFiles = deleteFiles,
             json = json,
             spec = spec,
         )
@@ -231,6 +236,18 @@ class Dependencies(
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
+
+    private val deleteTestDescriptor by lazy {
+        DeleteTestDescriptor(
+            preferencesRepository = preferenceRepository,
+            deleteByRunId = testDescriptorRepository::deleteByRunId,
+            deleteMeasurementByResultRunId = measurementRepository::deleteByResultRunId,
+            selectMeasurementsByResultRunId = measurementRepository::selectByResultRunId,
+            deleteResultByRunId = resultRepository::deleteByRunId,
+            deleteFile = deleteFiles::invoke,
+        )
+    }
+
     val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
 
     private val testStateManager by lazy { TestRunStateManager(resultRepository.getLatest()) }
@@ -239,7 +256,7 @@ class Dependencies(
             getMeasurementsNotUploaded = measurementRepository.listNotUploaded(),
             submitMeasurement = engine::submitMeasurements,
             readFile = readFile,
-            deleteFile = deleteFile,
+            deleteFiles = deleteFiles,
             updateMeasurement = measurementRepository::createOrUpdate,
         )
     }
@@ -272,6 +289,8 @@ class Dependencies(
         getTestDescriptors = getTestDescriptors::invoke,
         getDescriptorLastResult = resultRepository::getLatestByDescriptor,
         preferenceRepository = preferenceRepository,
+        launchUrl = { launchUrl(it, null) },
+        deleteTestDescriptor = deleteTestDescriptor::invoke,
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
@@ -283,6 +302,8 @@ class Dependencies(
         goToResult = goToResult,
         goToUpload = goToUpload,
         getResults = getResults::invoke,
+        getDescriptors = getTestDescriptors::invoke,
+        deleteAllResults = deleteAllResults::invoke,
     )
 
     fun runningViewModel(
@@ -344,44 +365,10 @@ class Dependencies(
     fun addDescriptorViewModel(
         descriptorId: String,
         onBack: () -> Unit,
-        snackbarHostState: SnackbarHostState?,
-        errorMessage: String,
-        cancelMessage: String,
-        installCompleteMessage: String,
     ): AddDescriptorViewModel {
-        val scope = CoroutineScope(backgroundDispatcher)
         return AddDescriptorViewModel(
-            onCancel = {
-                snackbarHostState?.let {
-                    showSnackbar(
-                        scope = scope,
-                        snackbarHostState = it,
-                        message = cancelMessage,
-                    )
-                }
-                onBack()
-            },
-            onError = {
-                snackbarHostState?.let {
-                    showSnackbar(
-                        scope = scope,
-                        snackbarHostState = it,
-                        message = errorMessage,
-                    )
-                }
-                onBack()
-            },
-            saveTestDescriptors = {
-                saveTestDescriptors.invoke(it)
-                snackbarHostState?.let {
-                    showSnackbar(
-                        scope = scope,
-                        snackbarHostState = it,
-                        message = installCompleteMessage,
-                    )
-                }
-                onBack()
-            },
+            onBack = onBack,
+            saveTestDescriptors = saveTestDescriptors::invoke,
             fetchDescriptor = {
                 fetchDescriptor(descriptorId)
             },

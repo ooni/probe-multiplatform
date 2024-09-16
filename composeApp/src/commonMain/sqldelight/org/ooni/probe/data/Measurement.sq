@@ -41,6 +41,9 @@ INSERT OR REPLACE INTO Measurement (
     rerun_network
 ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
+deleteAll:
+DELETE FROM Measurement;
+
 selectLastInsertedRowId:
 SELECT last_insert_rowid();
 
@@ -56,3 +59,17 @@ selectAllNotUploaded:
 SELECT * FROM Measurement
 WHERE Measurement.is_done = 1 AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
 ORDER BY Measurement.start_time ASC;
+
+selectByResultRunId:
+SELECT * FROM Measurement
+WHERE Measurement.result_id IN (
+    SELECT Result.id FROM Result
+    WHERE Result.descriptor_runId = ?
+);
+
+deleteByResultRunId:
+DELETE FROM Measurement
+WHERE Measurement.result_id IN (
+    SELECT Result.id FROM Result
+    WHERE Result.descriptor_runId = ?
+);

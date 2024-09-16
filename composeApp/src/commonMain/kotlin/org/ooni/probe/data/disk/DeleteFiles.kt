@@ -4,15 +4,15 @@ import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toPath
 
-interface DeleteFile {
+interface DeleteFiles {
     suspend operator fun invoke(path: Path)
 }
 
-class DeleteFileOkio(
+class DeleteFilesOkio(
     private val fileSystem: FileSystem,
     private val baseFilesDir: String,
-) : DeleteFile {
+) : DeleteFiles {
     override suspend fun invoke(path: Path) {
-        fileSystem.delete(baseFilesDir.toPath().resolve(path))
+        fileSystem.deleteRecursively(baseFilesDir.toPath().resolve(path))
     }
 }

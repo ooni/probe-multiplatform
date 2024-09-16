@@ -2,6 +2,7 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -49,13 +50,24 @@ class TestDescriptorRepository(
                         expiration_date = model.expirationDate?.toEpoch(),
                         date_created = model.dateCreated?.toEpoch(),
                         date_updated = model.dateUpdated?.toEpoch(),
-                        revision = model.revision,
+                        revision = try {
+                            json.encodeToString(model.revisions)
+                        } catch (e: Exception) {
+                            Logger.e(e) { "Failed to encode revisions" }
+                            null
+                        },
                         previous_revision = null,
                         is_expired = if (model.isExpired) 1 else 0,
                         auto_update = if (model.autoUpdate) 1 else 0,
                     )
                 }
             }
+        }
+    }
+
+    suspend fun deleteByRunId(runId: InstalledTestDescriptorModel.Id) {
+        withContext(backgroundDispatcher) {
+            database.testDescriptorQueries.deleteByRunId(runId.value)
         }
     }
 
@@ -78,7 +90,14 @@ class TestDescriptorRepository(
             expirationDate = expiration_date?.toLocalDateTime(),
             dateCreated = date_created?.toLocalDateTime(),
             dateUpdated = date_updated?.toLocalDateTime(),
-            revision = revision,
+            revisions = revision?.let {
+                try {
+                    json.decodeFromString<List<String>>(it)
+                } catch (e: Exception) {
+                    // Handle the exception, e.g., log it or return a default value
+                    emptyList()
+                }
+            },
             autoUpdate = auto_update == 1L,
         )
     }

@@ -40,6 +40,8 @@
 
     <string name="TestResults_Overview_Title">Test Results</string>
     <string name="TestResults_Overview_Tab_Label">Test Results</string>
+    <string name="TestResults_Overview_FilterTests">Filter Tests</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">No tests have been run yet. Try running one!</string>
     <string name="TestResults_UnknownASN">Unknown</string>
     <string name="TestResults_NotAvailable">N/A</string>
 
@@ -162,6 +164,8 @@
     <string name="Modal_Retry">Retry</string>
     <string name="Modal_Cancel">Cancel</string>
     <string name="Modal_OK">OK</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Do you want to delete all test results?</string>
+    <string name="Modal_Delete">Delete</string>
 
     <string name="Modal_Error_CantDownloadURLs">Unable to download URL list. Please try again.</string>
 
@@ -176,6 +180,9 @@
     <string name="LoadingScreen_Runv2_Message">Link Loading</string>
     <string name="LoadingScreen_Runv2_Failure">Error</string>
     <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
+    <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
 
     <!-- New Strings -->
     <string name="back">Back</string>
@@ -220,4 +227,6 @@
         <item quantity="one">Run %1$d test</item>
         <item quantity="other">Run %1$d tests</item>
     </plurals>
+    <string name="test_type_all">All Types</string>
+    <string name="task_origin_all">All Sources</string>
 </resources>
