@@ -57,7 +57,9 @@ WHERE Measurement.result_id = ?;
 
 selectAllNotUploaded:
 SELECT * FROM Measurement
-WHERE Measurement.is_done = 1 AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
+WHERE Measurement.is_done = 1
+AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
+AND (:filterByResultId = 0 OR Measurement.result_id = :resultId)
 ORDER BY Measurement.start_time ASC;
 
 selectByResultRunId:

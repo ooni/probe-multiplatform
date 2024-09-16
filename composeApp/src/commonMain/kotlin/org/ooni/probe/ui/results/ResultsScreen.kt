@@ -141,7 +141,7 @@ fun ResultsScreen(
 }
 
 @Composable
-private fun UploadResults(onUploadClick: () -> Unit) {
+fun UploadResults(onUploadClick: () -> Unit) {
     Surface(
         color = MaterialTheme.colorScheme.surfaceContainer,
         shadowElevation = 2.dp,
