@@ -41,6 +41,9 @@ INSERT OR REPLACE INTO Measurement (
     rerun_network
 ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
+deleteAll:
+DELETE FROM Measurement;
+
 selectLastInsertedRowId:
 SELECT last_insert_rowid();
 

@@ -92,6 +92,16 @@ class ResultRepository(
             database.resultQueries.deleteByRunId(resultId.value)
         }
 
+    suspend fun deleteAll() {
+        withContext(backgroundDispatcher) {
+            database.transaction {
+                database.measurementQueries.deleteAll()
+                database.resultQueries.deleteAll()
+                database.networkQueries.deleteAll()
+            }
+        }
+    }
+
     private fun Result.toModel(): ResultModel? {
         return ResultModel(
             id = ResultModel.Id(id),

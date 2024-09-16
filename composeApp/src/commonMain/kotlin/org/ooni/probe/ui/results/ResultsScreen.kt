@@ -3,37 +3,54 @@ package org.ooni.probe.ui.results
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDate.Companion.Format
 import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
+import ooniprobe.composeapp.generated.resources.Modal_Cancel
+import ooniprobe.composeapp.generated.resources.Modal_Delete
+import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_NoTestsHaveBeenRun
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
+import ooniprobe.composeapp.generated.resources.ic_delete_all
 import ooniprobe.composeapp.generated.resources.measurements_count
 import ooniprobe.composeapp.generated.resources.months
+import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import ooniprobe.composeapp.generated.resources.task_origin_auto_run
 import ooniprobe.composeapp.generated.resources.task_origin_manual
 import org.jetbrains.compose.resources.painterResource
@@ -50,30 +67,60 @@ fun ResultsScreen(
     state: ResultsViewModel.State,
     onEvent: (ResultsViewModel.Event) -> Unit,
 ) {
+    var showDeleteConfirm by remember { mutableStateOf(false) }
+
     Column {
         TopAppBar(
             title = {
                 Text(stringResource(Res.string.TestResults_Overview_Title))
             },
+            actions = {
+                if (!state.isLoading && state.results.any()) {
+                    IconButton(onClick = { showDeleteConfirm = true }) {
+                        Icon(
+                            painterResource(Res.drawable.ic_delete_all),
+                            contentDescription = stringResource(Res.string.Modal_Delete),
+                        )
+                    }
+                }
+            },
         )
 
-        if (state.results.any { it.value.any { item -> !item.allMeasurementsUploaded } }) {
+        if (state.anyMissingUpload) {
             UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
         }
 
-        LazyColumn {
-            state.results.forEach { (date, results) ->
-                stickyHeader(key = date.toString()) {
-                    ResultDateHeader(date)
-                }
-                items(items = results) { result ->
-                    ResultItem(
-                        item = result,
-                        onResultClick = { onEvent(ResultsViewModel.Event.ResultClick(result)) },
-                    )
+        if (state.isLoading) {
+            LoadingResults()
+        } else if (state.results.isEmpty()) {
+            EmptyResults()
+        } else {
+            LazyColumn {
+                state.results.forEach { (date, results) ->
+                    stickyHeader(key = date.toString()) {
+                        ResultDateHeader(date)
+                    }
+                    items(items = results) { result ->
+                        ResultItem(
+                            item = result,
+                            onResultClick = { onEvent(ResultsViewModel.Event.ResultClick(result)) },
+                        )
+                    }
                 }
             }
         }
+    }
+
+    if (showDeleteConfirm) {
+        DeleteConfirmDialog(
+            onConfirm = {
+                onEvent(ResultsViewModel.Event.DeleteAllClick)
+                showDeleteConfirm = false
+            },
+            onDismiss = {
+                showDeleteConfirm = false
+            },
+        )
     }
 }
 
@@ -92,6 +139,39 @@ private fun UploadResults(onUploadClick: () -> Unit) {
                 Text(stringResource(Res.string.Snackbar_ResultsSomeNotUploaded_UploadAll))
             }
         }
+    }
+}
+
+@Composable
+private fun LoadingResults() {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun EmptyResults() {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 36.dp)
+            .padding(bottom = 120.dp) // Optical alignment
+            .alpha(0.5f),
+    ) {
+        Icon(
+            painterResource(Res.drawable.ooni_empty_state),
+            contentDescription = null,
+        )
+        Text(
+            stringResource(Res.string.TestResults_Overview_NoTestsHaveBeenRun),
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = 16.dp),
+        )
     }
 }
 
@@ -191,4 +271,30 @@ private fun ResultItem(
             }
         }
     }
+}
+
+@Composable
+private fun DeleteConfirmDialog(
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = { onDismiss() },
+        text = {
+            Text(stringResource(Res.string.Modal_DoYouWantToDeleteAllTests))
+        },
+        confirmButton = {
+            TextButton(onClick = { onConfirm() }) {
+                Text(
+                    stringResource(Res.string.Modal_Delete),
+                    color = MaterialTheme.colorScheme.error,
+                )
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = { onDismiss() }) {
+                Text(stringResource(Res.string.Modal_Cancel))
+            }
+        },
+    )
 }

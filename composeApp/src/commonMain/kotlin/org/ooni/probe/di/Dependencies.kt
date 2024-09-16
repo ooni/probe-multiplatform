@@ -21,8 +21,8 @@ import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
-import org.ooni.probe.data.disk.DeleteFile
-import org.ooni.probe.data.disk.DeleteFileOkio
+import org.ooni.probe.data.disk.DeleteFiles
+import org.ooni.probe.data.disk.DeleteFilesOkio
 import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.disk.ReadFileOkio
 import org.ooni.probe.data.disk.WriteFile
@@ -39,6 +39,7 @@ import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapTestDescriptors
+import org.ooni.probe.domain.DeleteAllResults
 import org.ooni.probe.domain.DeleteTestDescriptor
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FetchDescriptor
@@ -109,7 +110,7 @@ class Dependencies(
 
     private val readFile: ReadFile by lazy { ReadFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val writeFile: WriteFile by lazy { WriteFileOkio(FileSystem.SYSTEM, baseFileDir) }
-    private val deleteFile: DeleteFile by lazy { DeleteFileOkio(FileSystem.SYSTEM, baseFileDir) }
+    private val deleteFiles: DeleteFiles by lazy { DeleteFilesOkio(FileSystem.SYSTEM, baseFileDir) }
 
     // Engine
 
@@ -146,6 +147,9 @@ class Dependencies(
             engine::checkIn,
             urlRepository::createOrUpdateByUrl,
         )
+    }
+    private val deleteAllResults by lazy {
+        DeleteAllResults(resultRepository::deleteAll, deleteFiles::invoke)
     }
     private val fetchDescriptor by lazy {
         FetchDescriptor(
@@ -202,7 +206,7 @@ class Dependencies(
             storeMeasurement = measurementRepository::createOrUpdate,
             storeNetwork = networkRepository::createIfNew,
             writeFile = writeFile,
-            deleteFile = deleteFile,
+            deleteFiles = deleteFiles,
             json = json,
             spec = spec,
         )
@@ -235,7 +239,7 @@ class Dependencies(
             deleteMeasurementByResultRunId = measurementRepository::deleteByResultRunId,
             selectMeasurementsByResultRunId = measurementRepository::selectByResultRunId,
             deleteResultByRunId = resultRepository::deleteByRunId,
-            deleteFile = deleteFile::invoke,
+            deleteFile = deleteFiles::invoke,
         )
     }
 
@@ -253,7 +257,7 @@ class Dependencies(
             getMeasurementsNotUploaded = measurementRepository.listNotUploaded(),
             submitMeasurement = engine::submitMeasurements,
             readFile = readFile,
-            deleteFile = deleteFile,
+            deleteFiles = deleteFiles,
             updateMeasurement = measurementRepository::createOrUpdate,
         )
     }
@@ -299,6 +303,7 @@ class Dependencies(
         goToResult = goToResult,
         goToUpload = goToUpload,
         getResults = getResults::invoke,
+        deleteAllResults = deleteAllResults::invoke,
     )
 
     fun runningViewModel(
