@@ -65,6 +65,52 @@ class TestDescriptorRepository(
         }
     }
 
+    suspend fun createOrUpdate(models: List<InstalledTestDescriptorModel>) {
+        withContext(backgroundDispatcher) {
+            database.transaction {
+                models.forEach { model ->
+                    database.testDescriptorQueries.createOrUpdate(
+                        runId = model.id.value,
+                        name = model.name,
+                        short_description = model.shortDescription,
+                        description = model.description,
+                        author = model.author,
+                        nettests = model.netTests
+                            ?.map { it.toOONI() }
+                            ?.let { json.encodeToString(it) },
+                        name_intl = json.encodeToString(model.nameIntl),
+                        short_description_intl = json.encodeToString(model.shortDescriptionIntl),
+                        description_intl = json.encodeToString(model.descriptionIntl),
+                        icon = model.icon,
+                        color = model.color,
+                        animation = model.animation,
+                        expiration_date = model.expirationDate?.toEpoch(),
+                        date_created = model.dateCreated?.toEpoch(),
+                        date_updated = model.dateUpdated?.toEpoch(),
+                        revision = try {
+                            json.encodeToString(model.revisions)
+                        } catch (e: Exception) {
+                            Logger.e(e) { "Failed to encode revisions" }
+                            null
+                        },
+                        previous_revision = null,
+                        is_expired = if (model.isExpired) 1 else 0,
+                        auto_update = if (model.autoUpdate) 1 else 0,
+                    )
+                }
+            }
+        }
+    }
+
+    suspend fun setAutoUpdate(
+        runId: InstalledTestDescriptorModel.Id,
+        autoUpdate: Boolean,
+    ) {
+        withContext(backgroundDispatcher) {
+            database.testDescriptorQueries.setAutoUpdate(auto_update = if (autoUpdate) 1 else 0, runId = runId.value)
+        }
+    }
+
     suspend fun deleteByRunId(runId: InstalledTestDescriptorModel.Id) {
         withContext(backgroundDispatcher) {
             database.testDescriptorQueries.deleteByRunId(runId.value)

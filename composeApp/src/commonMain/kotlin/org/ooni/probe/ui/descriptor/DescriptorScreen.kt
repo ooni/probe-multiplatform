@@ -1,6 +1,7 @@
 package org.ooni.probe.ui.descriptor
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -18,16 +19,21 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TriStateCheckbox
+import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRun
+import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoUpdate
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Settings
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LastRun_Never
@@ -44,6 +50,7 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.shared.MarkdownViewer
 import org.ooni.probe.ui.shared.SelectableItem
+import org.ooni.probe.ui.shared.UpdateStatus
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
 
@@ -54,123 +61,169 @@ fun DescriptorScreen(
 ) {
     val descriptor = state.descriptor ?: return
 
-    Column {
-        val descriptorColor = descriptor.color ?: MaterialTheme.colorScheme.primary
-        TopAppBar(
-            title = {
-                Text(descriptor.title.invoke())
-            },
-            navigationIcon = {
-                IconButton(onClick = { onEvent(DescriptorViewModel.Event.BackClicked) }) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.back),
-                    )
-                }
-            },
-            colors = TopAppBarDefaults.topAppBarColors(
-                titleContentColor = descriptorColor,
-                navigationIconContentColor = descriptorColor,
-                actionIconContentColor = descriptorColor,
-            ),
-        )
+    val pullToRefreshState = rememberPullToRefreshState(
+        enabled = {
+            descriptor.source is Descriptor.Source.Installed
+        },
+    )
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(WindowInsets.navigationBars.asPaddingValues())
-                .padding(bottom = 32.dp),
-        ) {
+    if (pullToRefreshState.isRefreshing && !state.isRefreshing) {
+        onEvent(DescriptorViewModel.Event.FetchUpdatedDescriptor)
+    }
+
+    if (!state.isRefreshing) {
+        pullToRefreshState.endRefresh()
+    }
+
+    Box(Modifier.nestedScroll(pullToRefreshState.nestedScrollConnection)) {
+        Column {
+            val descriptorColor = descriptor.color ?: MaterialTheme.colorScheme.primary
+            TopAppBar(
+                title = {
+                    Text(descriptor.title.invoke())
+                },
+                navigationIcon = {
+                    IconButton(onClick = { onEvent(DescriptorViewModel.Event.BackClicked) }) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(Res.string.back),
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    titleContentColor = descriptorColor,
+                    navigationIconContentColor = descriptorColor,
+                    actionIconContentColor = descriptorColor,
+                ),
+            )
+
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
-                    .padding(8.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    // .nestedScroll(pullToRefreshState.nestedScrollConnection)
+                    .padding(WindowInsets.navigationBars.asPaddingValues())
+                    .padding(bottom = 32.dp),
             ) {
-                descriptor.icon?.let { icon ->
-                    Icon(
-                        painterResource(icon),
-                        contentDescription = null,
-                        tint = descriptorColor,
-                        modifier = Modifier.size(64.dp),
-                    )
-                }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(8.dp),
+                ) {
+                    descriptor.icon?.let { icon ->
+                        Icon(
+                            painterResource(icon),
+                            contentDescription = null,
+                            tint = descriptorColor,
+                            modifier = Modifier.size(64.dp),
+                        )
+                    }
 
-                Row {
-                    Text(stringResource(Res.string.Dashboard_Overview_Estimated))
+                    Row {
+                        Text(stringResource(Res.string.Dashboard_Overview_Estimated))
 
-                    descriptor.dataUsage()?.let { dataUsage ->
+                        descriptor.dataUsage()?.let { dataUsage ->
+                            Text(
+                                text = dataUsage,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(start = 8.dp),
+                            )
+                        }
+
+                        state.estimatedTime?.let { time ->
+                            Text(
+                                text = "~ ${time.shortFormat()}",
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(start = 8.dp),
+                            )
+                        }
+                    }
+
+                    Row {
+                        Text(stringResource(Res.string.Dashboard_Overview_LatestTest))
+
                         Text(
-                            text = dataUsage,
+                            text = state.lastResult?.startTime?.relativeDateTime()
+                                ?: stringResource(Res.string.Dashboard_Overview_LastRun_Never),
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(start = 8.dp),
                         )
                     }
-
-                    state.estimatedTime?.let { time ->
-                        Text(
-                            text = "~ ${time.shortFormat()}",
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(start = 8.dp),
-                        )
-                    }
                 }
 
-                Row {
-                    Text(stringResource(Res.string.Dashboard_Overview_LatestTest))
-
-                    Text(
-                        text = state.lastResult?.startTime?.relativeDateTime()
-                            ?: stringResource(Res.string.Dashboard_Overview_LastRun_Never),
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(start = 8.dp),
-                    )
-                }
-            }
-
-            MarkdownViewer(
-                markdown = descriptor.description().orEmpty(),
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
-            )
-
-            Text(
-                stringResource(Res.string.AddDescriptor_Settings),
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 16.dp),
-            )
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 8.dp)
-                    .clickable { onEvent(DescriptorViewModel.Event.AllChecked) },
-            ) {
-                TriStateCheckbox(
-                    state = state.allState,
-                    onClick = { onEvent(DescriptorViewModel.Event.AllChecked) },
+                MarkdownViewer(
+                    markdown = descriptor.description().orEmpty(),
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
                 )
+
+                if (descriptor.source is Descriptor.Source.Installed) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(horizontal = 16.dp).clickable {
+                            onEvent(DescriptorViewModel.Event.AutoUpdateChanged(!descriptor.source.value.autoUpdate))
+                        },
+                    ) {
+                        Text(
+                            stringResource(Res.string.AddDescriptor_AutoUpdate),
+                            modifier = Modifier.weight(1f),
+                        )
+                        Switch(
+                            checked = descriptor.source.value.autoUpdate,
+                            onCheckedChange = {
+                                onEvent(DescriptorViewModel.Event.AutoUpdateChanged(it))
+                            },
+                        )
+                    }
+                }
                 Text(
-                    stringResource(Res.string.AddDescriptor_AutoRun),
-                    modifier = Modifier.padding(start = 16.dp),
+                    stringResource(Res.string.AddDescriptor_Settings),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 16.dp),
                 )
-            }
 
-            when (OrganizationConfig.testDisplayMode) {
-                TestDisplayMode.Regular -> TestItems(descriptor, state.tests, onEvent)
-                TestDisplayMode.WebsitesOnly -> WebsiteItems(state.tests)
-            }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 8.dp)
+                        .clickable { onEvent(DescriptorViewModel.Event.AllChecked) },
+                ) {
+                    TriStateCheckbox(
+                        state = state.allState,
+                        onClick = { onEvent(DescriptorViewModel.Event.AllChecked) },
+                    )
+                    Text(
+                        stringResource(Res.string.AddDescriptor_AutoRun),
+                        modifier = Modifier.padding(start = 16.dp),
+                    )
+                }
 
-            if (descriptor.source is Descriptor.Source.Installed) {
-                InstalledDescriptorActionsView(
-                    descriptor = descriptor.source.value,
-                    onEvent = onEvent,
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                )
+                when (OrganizationConfig.testDisplayMode) {
+                    TestDisplayMode.Regular -> TestItems(descriptor, state.tests, onEvent)
+                    TestDisplayMode.WebsitesOnly -> WebsiteItems(state.tests)
+                }
+
+                if (descriptor.source is Descriptor.Source.Installed) {
+                    InstalledDescriptorActionsView(
+                        descriptor = descriptor.source.value,
+                        onEvent = onEvent,
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                    )
+                }
             }
         }
+        if (state.isRefreshing) {
+            UpdateStatus(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                type = state.refreshType
+            )
+        }
+        PullToRefreshContainer(
+            modifier = Modifier.align(Alignment.TopCenter),
+            state = pullToRefreshState,
+        )
     }
 }
 

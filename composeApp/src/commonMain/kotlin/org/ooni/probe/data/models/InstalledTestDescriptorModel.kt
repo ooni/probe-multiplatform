@@ -32,6 +32,10 @@ data class InstalledTestDescriptorModel(
     )
 
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
+
+    fun shouldUpdate(other: InstalledTestDescriptorModel): Boolean {
+        return (other.dateUpdated?.compareTo(dateUpdated ?: other.dateUpdated) ?: 0) > 0
+    }
 }
 
 fun InstalledTestDescriptorModel.toDescriptor() =
