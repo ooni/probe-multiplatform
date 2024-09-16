@@ -4,9 +4,9 @@ import composeApp
 
 struct ComposeView: UIViewControllerRepresentable {
     let dependencies: Dependencies
-    let deepLinkFlow: Kotlinx_coroutines_coreSharedFlow
+    let deepLinkFlow: Kotlinx_coroutines_coreMutableSharedFlow
 
-    init(dependencies: Dependencies, deepLinkFlow: Kotlinx_coroutines_coreSharedFlow) {
+    init(dependencies: Dependencies, deepLinkFlow: Kotlinx_coroutines_coreMutableSharedFlow) {
         self.dependencies = dependencies
         self.deepLinkFlow = deepLinkFlow
     }
@@ -20,9 +20,9 @@ struct ComposeView: UIViewControllerRepresentable {
 
 struct ContentView: View {
     let dependencies: Dependencies
-    let deepLinkFlow: Kotlinx_coroutines_coreSharedFlow
+    let deepLinkFlow: Kotlinx_coroutines_coreMutableSharedFlow
 
-    init(dependencies: Dependencies, deepLinkFlow: Kotlinx_coroutines_coreSharedFlow) {
+    init(dependencies: Dependencies, deepLinkFlow: Kotlinx_coroutines_coreMutableSharedFlow) {
         self.dependencies = dependencies
         self.deepLinkFlow = deepLinkFlow
     }

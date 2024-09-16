@@ -31,6 +31,7 @@ import org.ooni.probe.ui.theme.AppTheme
 fun App(
     dependencies: Dependencies,
     deepLink: DeepLink?,
+    onDeeplinkHandled: () -> Unit = {},
 ) {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -91,6 +92,7 @@ fun App(
         when (deepLink) {
             is DeepLink.AddDescriptor -> {
                 navController.navigate("add-descriptor/${deepLink.id}")
+                onDeeplinkHandled()
             }
             null -> Unit
         }

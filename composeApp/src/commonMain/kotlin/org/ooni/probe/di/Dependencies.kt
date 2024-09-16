@@ -39,6 +39,7 @@ import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapTestDescriptors
+import org.ooni.probe.domain.DeleteTestDescriptor
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FetchDescriptor
 import org.ooni.probe.domain.GetAutoRunSpecification
@@ -59,8 +60,8 @@ import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
-import org.ooni.probe.ui.descriptor.AddDescriptorViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
+import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.run.RunViewModel
@@ -226,6 +227,18 @@ class Dependencies(
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
+
+    private val deleteTestDescriptor by lazy {
+        DeleteTestDescriptor(
+            preferencesRepository = preferenceRepository,
+            deleteByRunId = testDescriptorRepository::deleteByRunId,
+            deleteMeasurementByResultRunId = measurementRepository::deleteByResultRunId,
+            selectMeasurementsByResultRunId = measurementRepository::selectByResultRunId,
+            deleteResultByRunId = resultRepository::deleteByRunId,
+            deleteFile = deleteFile::invoke,
+        )
+    }
+
     val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
 
     // TODO: Remove this when startBackgroundRun is implemented on iOS
@@ -273,6 +286,8 @@ class Dependencies(
         getTestDescriptors = getTestDescriptors::invoke,
         getDescriptorLastResult = resultRepository::getLatestByDescriptor,
         preferenceRepository = preferenceRepository,
+        launchUrl = { launchUrl(it, null) },
+        deleteTestDescriptor = deleteTestDescriptor::invoke,
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
@@ -345,44 +360,10 @@ class Dependencies(
     fun addDescriptorViewModel(
         descriptorId: String,
         onBack: () -> Unit,
-        snackbarHostState: SnackbarHostState?,
-        errorMessage: String,
-        cancelMessage: String,
-        installCompleteMessage: String,
     ): AddDescriptorViewModel {
-        val scope = CoroutineScope(backgroundDispatcher)
         return AddDescriptorViewModel(
-            onCancel = {
-                snackbarHostState?.let {
-                    showSnackbar(
-                        scope = scope,
-                        snackbarHostState = it,
-                        message = cancelMessage,
-                    )
-                }
-                onBack()
-            },
-            onError = {
-                snackbarHostState?.let {
-                    showSnackbar(
-                        scope = scope,
-                        snackbarHostState = it,
-                        message = errorMessage,
-                    )
-                }
-                onBack()
-            },
-            saveTestDescriptors = {
-                saveTestDescriptors.invoke(it)
-                snackbarHostState?.let {
-                    showSnackbar(
-                        scope = scope,
-                        snackbarHostState = it,
-                        message = installCompleteMessage,
-                    )
-                }
-                onBack()
-            },
+            onBack = onBack,
+            saveTestDescriptors = saveTestDescriptors::invoke,
             fetchDescriptor = {
                 fetchDescriptor(descriptorId)
             },

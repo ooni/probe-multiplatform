@@ -87,6 +87,11 @@ class ResultRepository(
             database.resultQueries.markAsViewed(resultId.value)
         }
 
+    suspend fun deleteByRunId(resultId: InstalledTestDescriptorModel.Id) =
+        withContext(backgroundDispatcher) {
+            database.resultQueries.deleteByRunId(resultId.value)
+        }
+
     private fun Result.toModel(): ResultModel? {
         return ResultModel(
             id = ResultModel.Id(id),

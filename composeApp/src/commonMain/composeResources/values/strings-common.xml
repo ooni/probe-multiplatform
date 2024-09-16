@@ -176,6 +176,9 @@
     <string name="LoadingScreen_Runv2_Message">Link Loading</string>
     <string name="LoadingScreen_Runv2_Failure">Error</string>
     <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
+    <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
 
     <!-- New Strings -->
     <string name="back">Back</string>

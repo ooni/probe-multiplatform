@@ -1,13 +1,15 @@
-package org.ooni.probe.ui.descriptor
+package org.ooni.probe.ui.descriptor.add
 
 import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.ooni.engine.Engine
 import org.ooni.engine.models.Result
@@ -16,8 +18,7 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.shared.SelectableItem
 
 class AddDescriptorViewModel(
-    onCancel: () -> Unit,
-    onError: () -> Unit,
+    onBack: () -> Unit,
     fetchDescriptor: suspend () -> Result<InstalledTestDescriptorModel?, Engine.MkException>,
     saveTestDescriptors: suspend (List<Pair<InstalledTestDescriptorModel, List<NetTest>>>) -> Unit,
 ) : ViewModel() {
@@ -40,8 +41,10 @@ class AddDescriptorViewModel(
                         }.orEmpty(),
                     )
                 }
-            }.onFailure {
-                onError()
+            }.onFailure { error ->
+                Logger.e(error) { "Failed to fetch descriptor" }
+                _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorFailed) }
+                onBack()
             }
         }
 
@@ -72,19 +75,24 @@ class AddDescriptorViewModel(
                 }
 
                 is Event.CancelClicked -> {
-                    onCancel()
+                    _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorCancel) }
+                    onBack()
                 }
 
                 is Event.InstallDescriptorClicked -> {
                     val selectedTests =
                         state.value.selectableItems.filter { it.isSelected }.map { it.item }
                     state.value.descriptor?.let { descriptor ->
-                        viewModelScope.launch {
-                            saveTestDescriptors(
-                                listOf(descriptor.copy(autoUpdate = state.value.autoUpdate) to selectedTests),
-                            )
-                        }
+                        saveTestDescriptors(
+                            listOf(descriptor.copy(autoUpdate = state.value.autoUpdate) to selectedTests),
+                        )
+                        _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorSuccess) }
+                        onBack()
                     }
+                }
+
+                is Event.MessageDisplayed -> {
+                    _state.update { it.copy(messages = state.value.messages - event.message) }
                 }
             }
         }.launchIn(viewModelScope)
@@ -97,6 +105,7 @@ class AddDescriptorViewModel(
     data class State(
         val descriptor: InstalledTestDescriptorModel? = null,
         val selectableItems: List<SelectableItem<NetTest>> = emptyList(),
+        val messages: List<SnackBarMessage> = emptyList(),
         val autoUpdate: Boolean = true,
     ) {
         fun allTestsSelected(): ToggleableState {
@@ -120,5 +129,15 @@ class AddDescriptorViewModel(
         data class AutoUpdateChanged(val autoUpdate: Boolean) : Event
 
         data class AutoRunChanged(val autoRun: Boolean) : Event
+
+        data class MessageDisplayed(val message: SnackBarMessage) : Event
+    }
+
+    sealed interface SnackBarMessage {
+        data object AddDescriptorFailed : SnackBarMessage
+
+        data object AddDescriptorCancel : SnackBarMessage
+
+        data object AddDescriptorSuccess : SnackBarMessage
     }
 }

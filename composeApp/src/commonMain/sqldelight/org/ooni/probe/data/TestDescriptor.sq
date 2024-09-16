@@ -46,3 +46,6 @@ INSERT OR IGNORE INTO TestDescriptor (
 
 selectAll:
 SELECT * FROM TestDescriptor;
+
+deleteByRunId:
+DELETE FROM TestDescriptor WHERE runId = ?;
