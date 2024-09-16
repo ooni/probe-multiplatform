@@ -41,8 +41,11 @@ fun LocalDateTime.relativeDateTime(): String =
         }
         stringResource(Res.string.ago, diffString)
     } else {
-        format(dateTimeFormat)
+        longFormat()
     }
+
+@Composable
+fun LocalDateTime.longFormat(): String = format(dateTimeFormat)
 
 @Composable
 fun Duration.shortFormat(): String =

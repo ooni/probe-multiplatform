@@ -114,16 +114,16 @@ fun ResultsScreen(
             )
         }
 
-        if (state.anyMissingUpload && state.filter.isAll) {
-            UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
-        }
-
         if (state.isLoading) {
             LoadingResults()
         } else if (state.results.isEmpty() && state.filter.isAll) {
             EmptyResults()
         } else {
             Summary(state.summary)
+
+            if (state.anyMissingUpload && state.filter.isAll) {
+                UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
+            }
 
             LazyColumn {
                 state.results.forEach { (date, results) ->
@@ -267,7 +267,7 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
                 Icon(
                     painterResource(Res.drawable.ic_download),
                     contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Download),
-                    modifier = Modifier.size(20.dp),
+                    modifier = Modifier.size(16.dp).padding(end = 4.dp),
                 )
                 Text(summary.dataUsageDown.formatDataUsage())
             }
@@ -278,7 +278,7 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
                 Icon(
                     painterResource(Res.drawable.ic_upload),
                     contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Upload),
-                    modifier = Modifier.size(20.dp),
+                    modifier = Modifier.size(16.dp).padding(end = 4.dp),
                 )
                 Text(summary.dataUsageUp.formatDataUsage())
             }
