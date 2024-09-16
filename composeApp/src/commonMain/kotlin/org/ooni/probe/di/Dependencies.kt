@@ -192,8 +192,8 @@ class Dependencies(
     val observeAndConfigureAutoRun by lazy {
         ObserveAndConfigureAutoRun(
             backgroundDispatcher = backgroundDispatcher,
-            observeSettings = preferenceRepository::allSettings,
             configureAutoRun = configureAutoRun,
+            getAutoRunSettings = getAutoRunSettings::invoke,
         )
     }
     val getAutoRunSettings by lazy {
