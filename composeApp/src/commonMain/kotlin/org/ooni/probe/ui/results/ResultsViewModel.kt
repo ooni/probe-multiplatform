@@ -42,6 +42,7 @@ class ResultsViewModel(
                 _state.update {
                     it.copy(
                         results = groupedResults,
+                        summary = results.toSummary(),
                         isLoading = false,
                     )
                 }
@@ -110,11 +111,27 @@ class ResultsViewModel(
             ResultFilter.Type.One(TaskOrigin.AutoRun),
         ),
         val results: Map<LocalDate, List<ResultListItem>> = emptyMap(),
+        val summary: Summary? = null,
         val isLoading: Boolean = true,
     ) {
         val anyMissingUpload
             get() = results.any { it.value.any { item -> !item.allMeasurementsUploaded } }
     }
+
+    data class Summary(
+        val resultsCount: Int,
+        val networksCount: Int,
+        val dataUsageUp: Long,
+        val dataUsageDown: Long,
+    )
+
+    private fun List<ResultListItem>.toSummary() =
+        Summary(
+            resultsCount = size,
+            networksCount = mapNotNull { it.network }.distinct().size,
+            dataUsageUp = sumOf { it.result.dataUsageUp },
+            dataUsageDown = sumOf { it.result.dataUsageDown },
+        )
 
     sealed interface Event {
         data class ResultClick(val result: ResultListItem) : Event

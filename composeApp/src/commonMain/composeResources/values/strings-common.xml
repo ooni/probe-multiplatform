@@ -41,9 +41,14 @@
     <string name="TestResults_Overview_Title">Test Results</string>
     <string name="TestResults_Overview_Tab_Label">Test Results</string>
     <string name="TestResults_Overview_FilterTests">Filter Tests</string>
+    <string name="TestResults_Overview_Hero_Tests">Tests</string>
+    <string name="TestResults_Overview_Hero_Networks">Networks</string>
+    <string name="TestResults_Overview_Hero_DataUsage">Data Usage</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">No tests have been run yet. Try running one!</string>
     <string name="TestResults_UnknownASN">Unknown</string>
     <string name="TestResults_NotAvailable">N/A</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">Upload</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Download</string>
 
     <string name="Settings_Title">Settings</string>
     <string name="Settings_Notifications_Label">Notifications</string>
