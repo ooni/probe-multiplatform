@@ -37,11 +37,6 @@ DELETE FROM Result;
 selectLastInsertedRowId:
 SELECT last_insert_rowid();
 
-selectAll:
-SELECT * FROM Result
-ORDER BY start_time DESC
-LIMIT 100;
-
 selectAllWithNetwork:
 SELECT
     Result.*,
@@ -56,6 +51,8 @@ SELECT
     ) == 0 AS allMeasurementsUploaded
 FROM Result
 LEFT JOIN Network ON Result.network_id = Network.id
+WHERE (:filterByDescriptor = 0 OR Result.test_group_name = :descriptorKey OR Result.descriptor_runId = :descriptorKey)
+AND (:filterByTaskOrigin = 0 OR Result.task_origin = :taskOrigin)
 ORDER BY Result.start_time DESC
 LIMIT 100;
 

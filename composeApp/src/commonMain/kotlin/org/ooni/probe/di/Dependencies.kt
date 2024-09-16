@@ -168,8 +168,8 @@ class Dependencies(
     private val getEnginePreferences by lazy { GetEnginePreferences(preferenceRepository) }
     private val getResults by lazy {
         GetResults(
-            resultRepository.listWithNetwork(),
-            getTestDescriptors.invoke(),
+            resultRepository::list,
+            getTestDescriptors::invoke,
         )
     }
     private val getResult by lazy {
@@ -303,6 +303,7 @@ class Dependencies(
         goToResult = goToResult,
         goToUpload = goToUpload,
         getResults = getResults::invoke,
+        getDescriptors = getTestDescriptors::invoke,
         deleteAllResults = deleteAllResults::invoke,
     )
 

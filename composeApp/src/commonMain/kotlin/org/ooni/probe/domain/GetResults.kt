@@ -3,18 +3,19 @@ package org.ooni.probe.domain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
 
 class GetResults(
-    private val getResultsWithNetwork: Flow<List<ResultWithNetworkAndAggregates>>,
-    private val getDescriptors: Flow<List<Descriptor>>,
+    private val getResults: (ResultFilter) -> Flow<List<ResultWithNetworkAndAggregates>>,
+    private val getDescriptors: () -> Flow<List<Descriptor>>,
 ) {
-    operator fun invoke(): Flow<List<ResultListItem>> =
+    operator fun invoke(filter: ResultFilter): Flow<List<ResultListItem>> =
         combine(
-            getResultsWithNetwork,
-            getDescriptors,
+            getResults(filter),
+            getDescriptors(),
         ) { results, descriptors ->
             results.mapNotNull { item ->
                 ResultListItem(
