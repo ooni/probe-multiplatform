@@ -44,6 +44,32 @@ INSERT OR IGNORE INTO TestDescriptor (
   auto_update
 ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
+createOrUpdate:
+INSERT OR REPLACE INTO TestDescriptor (
+  runId,
+  name,
+  short_description,
+  description,
+  author,
+  nettests,
+  name_intl,
+  short_description_intl,
+  description_intl,
+  icon,
+  color,
+  animation,
+  expiration_date,
+  date_created,
+  date_updated,
+  revision,
+  previous_revision,
+  is_expired,
+  auto_update
+) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+setAutoUpdate:
+UPDATE TestDescriptor SET auto_update = ? WHERE runId = ?;
+
 selectAll:
 SELECT * FROM TestDescriptor;
 

@@ -42,6 +42,7 @@ import org.ooni.probe.domain.BootstrapTestDescriptors
 import org.ooni.probe.domain.DeleteTestDescriptor
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FetchDescriptor
+import org.ooni.probe.domain.FetchDescriptorUpdate
 import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
@@ -153,6 +154,14 @@ class Dependencies(
             json = json,
         )
     }
+
+    private val fetchDescriptorUpdate by lazy {
+        FetchDescriptorUpdate(
+            fetchDescriptor = fetchDescriptor::invoke,
+            createOrUpdateTestDescriptors = testDescriptorRepository::createOrUpdate,
+        )
+    }
+
     val getAutoRunSpecification by lazy {
         GetAutoRunSpecification(getTestDescriptors, preferenceRepository)
     }
@@ -275,6 +284,7 @@ class Dependencies(
         getTestDescriptors = getTestDescriptors::invoke,
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
+        fetchDescriptorUpdate = fetchDescriptorUpdate::invoke,
     )
 
     fun descriptorViewModel(
@@ -288,6 +298,8 @@ class Dependencies(
         preferenceRepository = preferenceRepository,
         launchUrl = { launchUrl(it, null) },
         deleteTestDescriptor = deleteTestDescriptor::invoke,
+        fetchDescriptorUpdate = fetchDescriptorUpdate::invoke,
+        setAutoUpdate = testDescriptorRepository::setAutoUpdate,
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)

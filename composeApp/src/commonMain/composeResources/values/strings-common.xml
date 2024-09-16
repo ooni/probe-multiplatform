@@ -179,6 +179,9 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
+    <string name="Dashboard_Progress_UpdateLink_Label">Link updates loading</string>
+    <string name="Dashboard_Progress_ReviewLink_Label">Link updates ready</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">Review</string>
 
     <!-- New Strings -->
     <string name="back">Back</string>
