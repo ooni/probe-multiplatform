@@ -4,10 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
@@ -19,6 +22,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,14 +46,22 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_FilterTests
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Networks
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Tests
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_NoTestsHaveBeenRun
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
 import ooniprobe.composeapp.generated.resources.ic_delete_all
+import ooniprobe.composeapp.generated.resources.ic_download
+import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.months
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.ui.shared.formatDataUsage
 
 @Composable
 fun ResultsScreen(
@@ -111,6 +123,8 @@ fun ResultsScreen(
         } else if (state.results.isEmpty() && state.filter.isAll) {
             EmptyResults()
         } else {
+            Summary(state.summary)
+
             LazyColumn {
                 state.results.forEach { (date, results) ->
                     stickyHeader(key = date.toString()) {
@@ -191,6 +205,84 @@ private fun EmptyResults() {
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 16.dp),
         )
+    }
+}
+
+@Composable
+private fun Summary(summary: ResultsViewModel.Summary?) {
+    if (summary == null) return
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min) // So VerticalDividers don't expand to the whole screen
+            .padding(16.dp),
+    ) {
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                stringResource(Res.string.TestResults_Overview_Hero_Tests),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 12.dp),
+            )
+            Text(
+                summary.resultsCount.toString(),
+                style = MaterialTheme.typography.headlineMedium,
+            )
+        }
+
+        VerticalDivider(Modifier.padding(4.dp))
+
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                stringResource(Res.string.TestResults_Overview_Hero_Networks),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 12.dp),
+            )
+            Text(
+                summary.networksCount.toString(),
+                style = MaterialTheme.typography.headlineMedium,
+            )
+        }
+
+        VerticalDivider(Modifier.padding(4.dp))
+
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                stringResource(Res.string.TestResults_Overview_Hero_DataUsage),
+                style = MaterialTheme.typography.labelLarge,
+            )
+            Row(
+                modifier = Modifier.padding(top = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    painterResource(Res.drawable.ic_download),
+                    contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Download),
+                    modifier = Modifier.size(20.dp),
+                )
+                Text(summary.dataUsageDown.formatDataUsage())
+            }
+            Row(
+                modifier = Modifier.padding(top = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    painterResource(Res.drawable.ic_upload),
+                    contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Upload),
+                    modifier = Modifier.size(20.dp),
+                )
+                Text(summary.dataUsageUp.formatDataUsage())
+            }
+        }
     }
 }
 
