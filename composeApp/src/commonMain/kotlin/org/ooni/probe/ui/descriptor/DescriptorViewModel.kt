@@ -133,7 +133,7 @@ class DescriptorViewModel(
 
         events.filterIsInstance<Event.FetchUpdatedDescriptor>().onEach {
 
-            println("onEach: FetchUpdatedDescriptor")
+            Logger.d("onEach: FetchUpdatedDescriptor")
             if (state.value.isRefreshing) return@onEach
             val descriptor = state.value.descriptor ?: return@onEach
 
@@ -171,6 +171,9 @@ class DescriptorViewModel(
             val descriptor = state.value.updatedDescriptor ?: return@onEach
             if (descriptor.source !is Descriptor.Source.Installed) return@onEach
             reviewUpdates(listOf(descriptor.source.value))
+            _state.update {
+                it.copy(updatedDescriptor = null)
+            }
         }.launchIn(viewModelScope)
     }
 

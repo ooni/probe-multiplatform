@@ -47,7 +47,7 @@ class FetchDescriptorUpdate(
                 }
                 res
             }
-            resultsMap[status]?.add(result)
+            resultsMap[status]?.add(result.map { it?.copy(autoUpdate = descriptor.autoUpdate) })
         }
 
         createOrUpdateTestDescriptors(autoUpdateItems)

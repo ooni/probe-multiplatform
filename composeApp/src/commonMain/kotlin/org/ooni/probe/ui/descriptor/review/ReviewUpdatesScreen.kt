@@ -68,7 +68,10 @@ fun ReviewUpdatesScreen(
                 ReviewItem(state.currentDescriptor)
             }
             Row(
-                modifier = Modifier.align(Alignment.BottomCenter).padding(top = 32.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(top = 32.dp, bottom = 32.dp)
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 TextButton(

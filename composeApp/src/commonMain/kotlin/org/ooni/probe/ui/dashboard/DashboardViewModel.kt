@@ -1,5 +1,7 @@
 package org.ooni.probe.ui.dashboard
 
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
@@ -32,7 +34,7 @@ class DashboardViewModel(
         List<InstalledTestDescriptorModel>,
     ) -> MutableMap<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>>,
     reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
-) : ViewModel() {
+) : ViewModel() , DefaultLifecycleObserver {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
     private val _state = MutableStateFlow(State())
@@ -42,6 +44,7 @@ class DashboardViewModel(
         getTestDescriptors()
             .onEach { tests ->
                 _state.update { it.copy(descriptors = tests.groupByType()) }
+                onEvent(Event.FetchUpdatedDescriptors) // TODO(aanorbel): fetch update in different callback
             }
             .launchIn(viewModelScope)
 
@@ -114,6 +117,14 @@ class DashboardViewModel(
                 )
             }
         }.launchIn(viewModelScope)
+        events.filterIsInstance<Event.CancelUpdatesClicked>().onEach {
+            _state.update {
+                it.copy(
+                    refreshType = UpdateStatusType.None,
+                    availableUpdatesCanceled = true,
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -131,6 +142,7 @@ class DashboardViewModel(
         val testRunState: TestRunState = TestRunState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
         val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
+        val availableUpdatesCanceled: Boolean = false,
         val refreshType: UpdateStatusType = UpdateStatusType.None,
     ) {
         val isRefreshing: Boolean
@@ -151,5 +163,7 @@ class DashboardViewModel(
         data object FetchUpdatedDescriptors : Event
 
         data object ReviewUpdatesClicked : Event
+
+        data object CancelUpdatesClicked : Event
     }
 }

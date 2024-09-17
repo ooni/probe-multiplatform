@@ -25,12 +25,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LatestTest
 import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_RunFinished
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_EstimatedTimeLeft
@@ -109,6 +111,7 @@ fun DashboardScreen(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 type = state.refreshType,
                 onReviewLinkClicked = { onEvent(DashboardViewModel.Event.ReviewUpdatesClicked) },
+                onCancelClicked = { onEvent(DashboardViewModel.Event.CancelUpdatesClicked) },
             )
         }
 
