@@ -43,6 +43,7 @@ import org.ooni.probe.domain.DeleteAllResults
 import org.ooni.probe.domain.DeleteTestDescriptor
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FetchDescriptor
+import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
@@ -84,8 +85,7 @@ class Dependencies(
     private val buildDataStore: () -> DataStore<Preferences>,
     private val isBatteryCharging: () -> Boolean,
     private val launchUrl: (String, Map<String, String>?) -> Unit,
-    // TODO: Implement startSingleRun on iOS
-    startSingleRunInner: ((RunSpecification) -> Unit)? = null,
+    private val startSingleRunInner: ((RunSpecification) -> Unit),
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
 ) {
     // Common
@@ -192,8 +192,13 @@ class Dependencies(
     val observeAndConfigureAutoRun by lazy {
         ObserveAndConfigureAutoRun(
             backgroundDispatcher = backgroundDispatcher,
-            observeSettings = preferenceRepository::allSettings,
             configureAutoRun = configureAutoRun,
+            getAutoRunSettings = getAutoRunSettings::invoke,
+        )
+    }
+    val getAutoRunSettings by lazy {
+        GetAutoRunSettings(
+            observeSettings = preferenceRepository::allSettings,
         )
     }
 
@@ -245,12 +250,6 @@ class Dependencies(
 
     val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
 
-    // TODO: Remove this when startBackgroundRun is implemented on iOS
-    private val startBackgroundRun: (RunSpecification) -> Unit = startSingleRunInner ?: { spec ->
-        CoroutineScope(backgroundDispatcher).launch {
-            runDescriptors(spec)
-        }
-    }
     private val testStateManager by lazy { TestRunStateManager(resultRepository.getLatest()) }
     private val uploadMissingMeasurements by lazy {
         UploadMissingMeasurements(
@@ -321,7 +320,7 @@ class Dependencies(
     fun runViewModel(onBack: () -> Unit) =
         RunViewModel(
             onBack = onBack,
-            startBackgroundRun = startBackgroundRun,
+            startBackgroundRun = startSingleRunInner,
             getTestDescriptors = getTestDescriptors::invoke,
             preferenceRepository = preferenceRepository,
         )
