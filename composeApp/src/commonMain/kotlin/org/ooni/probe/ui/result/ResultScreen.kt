@@ -32,6 +32,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
+import org.ooni.probe.ui.results.UploadResults
 
 @Composable
 fun ResultScreen(
@@ -60,6 +61,10 @@ fun ResultScreen(
         )
 
         if (state.result == null) return@Column
+
+        if (state.result.anyMeasurementMissingUpload) {
+            UploadResults(onUploadClick = { onEvent(ResultViewModel.Event.UploadClicked) })
+        }
 
         LazyColumn(
             contentPadding = WindowInsets.navigationBars.asPaddingValues(),

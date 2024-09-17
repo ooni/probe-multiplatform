@@ -59,7 +59,7 @@ fun Navigation(
             val viewModel = viewModel {
                 dependencies.resultsViewModel(
                     goToResult = { navController.navigate(Screen.Result(it).route) },
-                    goToUpload = { navController.navigate(Screen.UploadMeasurements.route) },
+                    goToUpload = { navController.navigate(Screen.UploadMeasurements().route) },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -82,13 +82,18 @@ fun Navigation(
             route = Screen.Result.NAV_ROUTE,
             arguments = Screen.Result.ARGUMENTS,
         ) { entry ->
-            val resultId = entry.arguments?.getLong("resultId") ?: return@composable
+            val resultId = ResultModel.Id(
+                entry.arguments?.getLong("resultId") ?: return@composable,
+            )
             val viewModel = viewModel {
                 dependencies.resultViewModel(
-                    resultId = ResultModel.Id(resultId),
+                    resultId = resultId,
                     onBack = { navController.popBackStack() },
                     goToMeasurement = { reportId, input ->
                         navController.navigate(Screen.Measurement(reportId, input).route)
+                    },
+                    goToUpload = {
+                        navController.navigate(Screen.UploadMeasurements(resultId).route)
                     },
                 )
             }
@@ -191,14 +196,20 @@ fun Navigation(
         }
 
         dialog(
-            route = Screen.UploadMeasurements.route,
+            route = Screen.UploadMeasurements.NAV_ROUTE,
+            arguments = Screen.UploadMeasurements.ARGUMENTS,
             dialogProperties = DialogProperties(
                 dismissOnBackPress = false,
                 dismissOnClickOutside = false,
             ),
-        ) {
+        ) { entry ->
+            val resultId = entry.arguments?.getString("resultId")?.toLongOrNull()
+                ?.let(ResultModel::Id)
             val viewModel = viewModel {
-                dependencies.uploadMeasurementsViewModel(onClose = { navController.popBackStack() })
+                dependencies.uploadMeasurementsViewModel(
+                    resultId = resultId,
+                    onClose = { navController.popBackStack() },
+                )
             }
             val state by viewModel.state.collectAsState()
             UploadMeasurementsDialog(state, viewModel::onEvent)

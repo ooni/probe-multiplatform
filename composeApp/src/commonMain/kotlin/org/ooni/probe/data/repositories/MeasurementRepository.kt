@@ -37,9 +37,12 @@ class MeasurementRepository(
             .mapToList(backgroundDispatcher)
             .map { list -> list.mapNotNull { it.toModel() } }
 
-    fun listNotUploaded() =
+    fun listNotUploaded(resultId: ResultModel.Id?) =
         database.measurementQueries
-            .selectAllNotUploaded()
+            .selectAllNotUploaded(
+                filterByResultId = if (resultId != null) 1 else 0,
+                resultId = resultId?.value,
+            )
             .asFlow()
             .mapToList(backgroundDispatcher)
             .map { list -> list.mapNotNull { it.toModel() } }

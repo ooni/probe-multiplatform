@@ -47,6 +47,7 @@ class ResultViewModelTest {
         resultId = resultId,
         onBack = onBack,
         goToMeasurement = goToMeasurement,
+        goToUpload = {},
         getResult = getResult,
         markResultAsViewed = markResultAsViewed,
     )

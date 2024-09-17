@@ -41,6 +41,9 @@ data class MeasurementModel(
     val reportFilePath: Path?
         get() = id?.let { "Measurement/${id.value}_${test.name}.json".toPath() }
 
+    val isMissingUpload
+        get() = isDone && (!isUploaded || reportId == null)
+
     companion object {
         fun logFilePath(
             resultId: ResultModel.Id,

@@ -13,11 +13,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.take
+import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.domain.UploadMissingMeasurements
 
 class UploadMeasurementsViewModel(
+    resultId: ResultModel.Id?,
     onClose: () -> Unit,
-    uploadMissingMeasurements: () -> Flow<UploadMissingMeasurements.State>,
+    uploadMissingMeasurements: (ResultModel.Id?) -> Flow<UploadMissingMeasurements.State>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -32,7 +34,7 @@ class UploadMeasurementsViewModel(
             .filterIsInstance<Event.RetryClick>()
             .onStart { emit(Event.RetryClick) } // Start to upload right away
             .onEach {
-                uploadJob = uploadMissingMeasurements()
+                uploadJob = uploadMissingMeasurements(resultId)
                     .onEach { _state.value = it }
                     .launchIn(viewModelScope)
             }

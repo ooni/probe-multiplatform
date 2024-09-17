@@ -253,7 +253,7 @@ class Dependencies(
     private val testStateManager by lazy { TestRunStateManager(resultRepository.getLatest()) }
     private val uploadMissingMeasurements by lazy {
         UploadMissingMeasurements(
-            getMeasurementsNotUploaded = measurementRepository.listNotUploaded(),
+            getMeasurementsNotUploaded = measurementRepository::listNotUploaded,
             submitMeasurement = engine::submitMeasurements,
             readFile = readFile,
             deleteFiles = deleteFiles,
@@ -264,6 +264,15 @@ class Dependencies(
     // ViewModels
 
     fun aboutViewModel(onBack: () -> Unit) = AboutViewModel(onBack = onBack, launchUrl = { launchUrl(it, emptyMap()) })
+
+    fun addDescriptorViewModel(
+        descriptorId: String,
+        onBack: () -> Unit,
+    ) = AddDescriptorViewModel(
+        onBack = onBack,
+        saveTestDescriptors = saveTestDescriptors::invoke,
+        fetchDescriptor = { fetchDescriptor(descriptorId) },
+    )
 
     fun dashboardViewModel(
         goToResults: () -> Unit,
@@ -329,10 +338,12 @@ class Dependencies(
         resultId: ResultModel.Id,
         onBack: () -> Unit,
         goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+        goToUpload: () -> Unit,
     ) = ResultViewModel(
         resultId = resultId,
         onBack = onBack,
         goToMeasurement = goToMeasurement,
+        goToUpload = goToUpload,
         getResult = getResult::invoke,
         markResultAsViewed = resultRepository::markAsViewed,
     )
@@ -356,24 +367,14 @@ class Dependencies(
             getSettings = getSettings::invoke,
         )
 
-    fun uploadMeasurementsViewModel(onClose: () -> Unit) =
-        UploadMeasurementsViewModel(
-            onClose = onClose,
-            uploadMissingMeasurements = uploadMissingMeasurements::invoke,
-        )
-
-    fun addDescriptorViewModel(
-        descriptorId: String,
-        onBack: () -> Unit,
-    ): AddDescriptorViewModel {
-        return AddDescriptorViewModel(
-            onBack = onBack,
-            saveTestDescriptors = saveTestDescriptors::invoke,
-            fetchDescriptor = {
-                fetchDescriptor(descriptorId)
-            },
-        )
-    }
+    fun uploadMeasurementsViewModel(
+        resultId: ResultModel.Id?,
+        onClose: () -> Unit,
+    ) = UploadMeasurementsViewModel(
+        resultId = resultId,
+        onClose = onClose,
+        uploadMissingMeasurements = uploadMissingMeasurements::invoke,
+    )
 
     companion object {
         @VisibleForTesting
