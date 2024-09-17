@@ -21,6 +21,7 @@ class ResultViewModel(
     resultId: ResultModel.Id,
     onBack: () -> Unit,
     goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+    goToUpload: () -> Unit,
     getResult: (ResultModel.Id) -> Flow<ResultItem?>,
     markResultAsViewed: suspend (ResultModel.Id) -> Unit,
 ) : ViewModel() {
@@ -59,6 +60,11 @@ class ResultViewModel(
             .filterIsInstance<Event.MeasurementClicked>()
             .onEach { goToMeasurement(it.measurementReportId, it.measurementInput) }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.UploadClicked>()
+            .onEach { goToUpload() }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -76,5 +82,7 @@ class ResultViewModel(
             val measurementReportId: MeasurementModel.ReportId,
             val measurementInput: String?,
         ) : Event
+
+        data object UploadClicked : Event
     }
 }

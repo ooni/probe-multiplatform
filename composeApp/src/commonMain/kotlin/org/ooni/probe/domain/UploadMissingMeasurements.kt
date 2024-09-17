@@ -1,5 +1,6 @@
 package org.ooni.probe.domain
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.first
@@ -9,19 +10,20 @@ import org.ooni.engine.models.Result
 import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.ResultModel
 
 class UploadMissingMeasurements(
-    private val getMeasurementsNotUploaded: Flow<List<MeasurementModel>>,
+    private val getMeasurementsNotUploaded: (ResultModel.Id?) -> Flow<List<MeasurementModel>>,
     private val submitMeasurement: suspend (String) -> Result<SubmitMeasurementResults, MkException>,
     private val readFile: ReadFile,
     private val deleteFiles: DeleteFiles,
     private val updateMeasurement: suspend (MeasurementModel) -> Unit,
 ) {
-    operator fun invoke(): Flow<State> =
+    operator fun invoke(resultId: ResultModel.Id? = null): Flow<State> =
         channelFlow {
             send(State.Starting)
 
-            val measurements = getMeasurementsNotUploaded.first()
+            val measurements = getMeasurementsNotUploaded(resultId).first()
             val total = measurements.size
             var uploaded = 0
             var failedToUpload = 0
@@ -59,6 +61,7 @@ class UploadMissingMeasurements(
                                 uploadFailureMessage = exception.cause?.message,
                             ),
                         )
+                        Logger.w("Failed to submit measurement", exception)
                     }
             }
 

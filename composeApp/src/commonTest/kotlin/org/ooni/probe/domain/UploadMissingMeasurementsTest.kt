@@ -27,7 +27,7 @@ class UploadMissingMeasurementsTest {
             )
             var newModel: MeasurementModel? = null
             val subject = UploadMissingMeasurements(
-                getMeasurementsNotUploaded = flowOf(listOf(model)),
+                getMeasurementsNotUploaded = { flowOf(listOf(model)) },
                 submitMeasurement = {
                     Success(
                         OonimkallBridge.SubmitMeasurementResults(
@@ -64,7 +64,7 @@ class UploadMissingMeasurementsTest {
             )
             var newModel: MeasurementModel? = null
             val subject = UploadMissingMeasurements(
-                getMeasurementsNotUploaded = flowOf(listOf(model)),
+                getMeasurementsNotUploaded = { flowOf(listOf(model)) },
                 submitMeasurement = { Failure(Engine.MkException(Exception("failed"))) },
                 readFile = object : ReadFile {
                     override suspend fun invoke(path: Path): String = ""

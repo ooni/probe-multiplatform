@@ -44,6 +44,7 @@ import org.ooni.probe.domain.DeleteAllResults
 import org.ooni.probe.domain.DeleteTestDescriptor
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FetchDescriptor
+import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.FetchDescriptorUpdate
 import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
@@ -87,8 +88,7 @@ class Dependencies(
     private val buildDataStore: () -> DataStore<Preferences>,
     private val isBatteryCharging: () -> Boolean,
     private val launchUrl: (String, Map<String, String>?) -> Unit,
-    // TODO: Implement startSingleRun on iOS
-    startSingleRunInner: ((RunSpecification) -> Unit)? = null,
+    private val startSingleRunInner: ((RunSpecification) -> Unit),
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
 ) {
     // Common
@@ -203,8 +203,13 @@ class Dependencies(
     val observeAndConfigureAutoRun by lazy {
         ObserveAndConfigureAutoRun(
             backgroundDispatcher = backgroundDispatcher,
-            observeSettings = preferenceRepository::allSettings,
             configureAutoRun = configureAutoRun,
+            getAutoRunSettings = getAutoRunSettings::invoke,
+        )
+    }
+    val getAutoRunSettings by lazy {
+        GetAutoRunSettings(
+            observeSettings = preferenceRepository::allSettings,
         )
     }
 
@@ -256,16 +261,10 @@ class Dependencies(
 
     val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
 
-    // TODO: Remove this when startBackgroundRun is implemented on iOS
-    private val startBackgroundRun: (RunSpecification) -> Unit = startSingleRunInner ?: { spec ->
-        CoroutineScope(backgroundDispatcher).launch {
-            runDescriptors(spec)
-        }
-    }
     private val testStateManager by lazy { TestRunStateManager(resultRepository.getLatest()) }
     private val uploadMissingMeasurements by lazy {
         UploadMissingMeasurements(
-            getMeasurementsNotUploaded = measurementRepository.listNotUploaded(),
+            getMeasurementsNotUploaded = measurementRepository::listNotUploaded,
             submitMeasurement = engine::submitMeasurements,
             readFile = readFile,
             deleteFiles = deleteFiles,
@@ -276,6 +275,15 @@ class Dependencies(
     // ViewModels
 
     fun aboutViewModel(onBack: () -> Unit) = AboutViewModel(onBack = onBack, launchUrl = { launchUrl(it, emptyMap()) })
+
+    fun addDescriptorViewModel(
+        descriptorId: String,
+        onBack: () -> Unit,
+    ) = AddDescriptorViewModel(
+        onBack = onBack,
+        saveTestDescriptors = saveTestDescriptors::invoke,
+        fetchDescriptor = { fetchDescriptor(descriptorId) },
+    )
 
     fun dashboardViewModel(
         goToResults: () -> Unit,
@@ -339,7 +347,7 @@ class Dependencies(
     fun runViewModel(onBack: () -> Unit) =
         RunViewModel(
             onBack = onBack,
-            startBackgroundRun = startBackgroundRun,
+            startBackgroundRun = startSingleRunInner,
             getTestDescriptors = getTestDescriptors::invoke,
             preferenceRepository = preferenceRepository,
         )
@@ -348,10 +356,12 @@ class Dependencies(
         resultId: ResultModel.Id,
         onBack: () -> Unit,
         goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+        goToUpload: () -> Unit,
     ) = ResultViewModel(
         resultId = resultId,
         onBack = onBack,
         goToMeasurement = goToMeasurement,
+        goToUpload = goToUpload,
         getResult = getResult::invoke,
         markResultAsViewed = resultRepository::markAsViewed,
     )
@@ -375,24 +385,14 @@ class Dependencies(
             getSettings = getSettings::invoke,
         )
 
-    fun uploadMeasurementsViewModel(onClose: () -> Unit) =
-        UploadMeasurementsViewModel(
-            onClose = onClose,
-            uploadMissingMeasurements = uploadMissingMeasurements::invoke,
-        )
-
-    fun addDescriptorViewModel(
-        descriptorId: String,
-        onBack: () -> Unit,
-    ): AddDescriptorViewModel {
-        return AddDescriptorViewModel(
-            onBack = onBack,
-            saveTestDescriptors = saveTestDescriptors::invoke,
-            fetchDescriptor = {
-                fetchDescriptor(descriptorId)
-            },
-        )
-    }
+    fun uploadMeasurementsViewModel(
+        resultId: ResultModel.Id?,
+        onClose: () -> Unit,
+    ) = UploadMeasurementsViewModel(
+        resultId = resultId,
+        onClose = onClose,
+        uploadMissingMeasurements = uploadMissingMeasurements::invoke,
+    )
 
     fun reviewUpdatesViewModel(
         onBack: () -> Unit,

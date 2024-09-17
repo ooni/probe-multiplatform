@@ -64,7 +64,20 @@ sealed class Screen(
 
     data object RunningTest : Screen("running")
 
-    data object UploadMeasurements : Screen("upload")
+    data class UploadMeasurements(
+        val resultId: ResultModel.Id? = null,
+    ) : Screen("upload?resultId=${resultId?.value?.toString().orEmpty()}") {
+        companion object {
+            const val NAV_ROUTE = "upload?resultId={resultId}"
+            val ARGUMENTS = listOf(
+                navArgument("resultId") {
+                    type = NavType.StringType
+                    defaultValue = null
+                    nullable = true
+                },
+            )
+        }
+    }
 
     data class Descriptor(
         val descriptorKey: String,

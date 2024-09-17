@@ -41,9 +41,21 @@
     <string name="TestResults_Overview_Title">Test Results</string>
     <string name="TestResults_Overview_Tab_Label">Test Results</string>
     <string name="TestResults_Overview_FilterTests">Filter Tests</string>
+    <string name="TestResults_Overview_Hero_Tests">Tests</string>
+    <string name="TestResults_Overview_Hero_Networks">Networks</string>
+    <string name="TestResults_Overview_Hero_DataUsage">Data Usage</string>
+    <string name="TestResults_Summary_Hero_DateAndTime">Date &amp; Time</string>
+    <string name="TestResults_Summary_Hero_Network">Network</string>
+    <string name="TestResults_Summary_Hero_Country">Country</string>
+    <string name="TestResults_Summary_Hero_Runtime">Total Runtime</string>
+    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_Mobile">Mobile Data</string>
+    <string name="TestResults_Summary_Hero_NoInternet">No internet</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">No tests have been run yet. Try running one!</string>
     <string name="TestResults_UnknownASN">Unknown</string>
     <string name="TestResults_NotAvailable">N/A</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">Upload</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Download</string>
 
     <string name="Settings_Title">Settings</string>
     <string name="Settings_Notifications_Label">Notifications</string>
@@ -236,4 +248,5 @@
     </plurals>
     <string name="test_type_all">All Types</string>
     <string name="task_origin_all">All Sources</string>
+    <string name="vpn">VPN</string>
 </resources>

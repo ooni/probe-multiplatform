@@ -13,6 +13,8 @@ interface OrganizationConfigInterface {
         get() = "https://run.test.ooni.org"
 
     val testDisplayMode: TestDisplayMode
+
+    val autorunTaskId: String
 }
 
 enum class TestDisplayMode {
