@@ -1,5 +1,7 @@
 package org.ooni.probe.data.models
 
+import kotlin.time.Duration.Companion.seconds
+
 data class ResultItem(
     val result: ResultModel,
     val descriptor: Descriptor,
@@ -7,4 +9,6 @@ data class ResultItem(
     val measurements: List<MeasurementWithUrl>,
 ) {
     val anyMeasurementMissingUpload = measurements.any { it.measurement.isMissingUpload }
+
+    val totalRuntime get() = measurements.sumOf { it.measurement.runtime ?: 0.0 }.seconds
 }
