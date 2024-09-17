@@ -3,6 +3,7 @@ package org.ooni.probe.ui.descriptor
 import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +16,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import org.ooni.engine.Engine.MkException
+import org.ooni.engine.models.Result
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
@@ -37,8 +40,12 @@ class DescriptorViewModel(
     private val preferenceRepository: PreferenceRepository,
     private val launchUrl: (String) -> Unit,
     deleteTestDescriptor: suspend (InstalledTestDescriptorModel) -> Unit,
-    fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>) -> List<ResultStatus>,
+    fetchDescriptorUpdate:
+        suspend (
+            List<InstalledTestDescriptorModel>,
+        ) -> MutableMap<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>>,
     setAutoUpdate: suspend (InstalledTestDescriptorModel.Id, Boolean) -> Unit,
+    reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -128,37 +135,42 @@ class DescriptorViewModel(
 
             println("onEach: FetchUpdatedDescriptor")
             if (state.value.isRefreshing) return@onEach
+            val descriptor = state.value.descriptor ?: return@onEach
 
+            if (descriptor.source !is Descriptor.Source.Installed) return@onEach
+            _state.update {
+                it.copy(refreshType = UpdateStatusType.UpdateLink, updatedDescriptor = null)
+            }
+
+            val updates = fetchDescriptorUpdate(listOf(descriptor.source.value))
             _state.update {
                 it.copy(refreshType = UpdateStatusType.None)
             }
-
-            val descriptor = state.value.descriptor ?: return@onEach
-
-            if (descriptor.source is Descriptor.Source.Installed) {
-                fetchDescriptorUpdate(listOf(descriptor.source.value)).first()
-                    .let { resultStatus: ResultStatus ->
-                        when (resultStatus) {
-                            is ResultStatus.AutoUpdated -> println("AutoUpdated")
-                            is ResultStatus.NoUpdates -> println("NoUpdates")
-                        }
-                        resultStatus.value.onSuccess { updatedDescriptor ->
-
-                            println("Updated descriptor: $updatedDescriptor")
-                            _state.update {
-                                it.copy(
-                                    updatedDescriptor = updatedDescriptor?.toDescriptor(),
-                                    refreshType = UpdateStatusType.UpdateLink,
-                                )
-                            }
-                        }.onFailure {
-                            println("Failed to fetch updated descriptor: $it")
-                            _state.update {
-                                it.copy(refreshType = UpdateStatusType.None)
+            updates.forEach { (status, results) ->
+                when (status) {
+                    ResultStatus.AutoUpdated -> {
+                        // TODO(aanorbel) show a message `if(results.size > 0)`
+                    }
+                    ResultStatus.NoUpdates -> {
+                        // TODO(aanorbel) show a message `if(results.size > 0)`
+                    }
+                    ResultStatus.UpdatesAvailable -> {
+                        if (results.size == 1) {
+                            results.first().onSuccess { updatedDescriptor ->
+                                _state.update { it.copy(updatedDescriptor = updatedDescriptor?.toDescriptor()) }
+                            }.onFailure {
+                                Logger.e(it) { "Error fetching updates" }
                             }
                         }
                     }
+                }
             }
+        }.launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.UpdateDescriptor>().onEach {
+            val descriptor = state.value.updatedDescriptor ?: return@onEach
+            if (descriptor.source !is Descriptor.Source.Installed) return@onEach
+            reviewUpdates(listOf(descriptor.source.value))
         }.launchIn(viewModelScope)
     }
 
@@ -192,7 +204,6 @@ class DescriptorViewModel(
         val lastResult: ResultModel? = null,
         val refreshType: UpdateStatusType = UpdateStatusType.None,
     ) {
-
         val isRefreshing: Boolean
             get() = refreshType != UpdateStatusType.None
         val allState
@@ -219,5 +230,7 @@ class DescriptorViewModel(
         data object SeeMoreRevisionsClicked : Event
 
         data object FetchUpdatedDescriptor : Event
+
+        data object UpdateDescriptor : Event
     }
 }

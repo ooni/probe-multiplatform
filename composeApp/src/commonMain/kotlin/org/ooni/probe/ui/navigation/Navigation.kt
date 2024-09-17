@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import org.ooni.probe.LocalSnackbarHostState
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -21,6 +22,7 @@ import org.ooni.probe.shared.decodeUrlFromBase64
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.descriptor.add.AddDescriptorScreen
+import org.ooni.probe.ui.descriptor.review.ReviewUpdatesScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
 import org.ooni.probe.ui.result.ResultScreen
 import org.ooni.probe.ui.results.ResultsScreen
@@ -49,6 +51,13 @@ fun Navigation(
                     goToRunningTest = { navController.navigate(Screen.RunningTest.route) },
                     goToRunTests = { navController.navigate(Screen.RunTests.route) },
                     goToDescriptor = { navController.navigate(Screen.Descriptor(it).route) },
+                    reviewDescriptorUpdates = {
+                        navController.currentBackStackEntry?.savedStateHandle?.set(
+                            "descriptors",
+                            it,
+                        )
+                        navController.navigate(Screen.ReviewUpdates("descriptors").route)
+                    },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -213,10 +222,33 @@ fun Navigation(
                 dependencies.descriptorViewModel(
                     descriptorKey = descriptorKey,
                     onBack = { navController.popBackStack() },
+                    reviewDescriptorUpdates = {
+                        navController.currentBackStackEntry?.savedStateHandle?.set(
+                            "descriptors",
+                            it,
+                        )
+                        navController.navigate(Screen.ReviewUpdates(descriptorKey).route)
+                    },
                 )
             }
             val state by viewModel.state.collectAsState()
             DescriptorScreen(state, viewModel::onEvent)
+        }
+
+        composable(
+            route = Screen.ReviewUpdates.NAV_ROUTE,
+            arguments = Screen.ReviewUpdates.ARGUMENTS,
+        ) { entry ->
+            val descriptors: List<InstalledTestDescriptorModel> = navController.previousBackStackEntry?.savedStateHandle?.get("descriptors") ?: return@composable
+
+            val viewModel = viewModel {
+                dependencies.reviewUpdatesViewModel(
+                    descriptors = descriptors,
+                    onBack = { navController.popBackStack() },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            ReviewUpdatesScreen(state, viewModel::onEvent)
         }
     }
 }

@@ -11,7 +11,9 @@ class FetchDescriptorUpdate(
     private val fetchDescriptor: suspend (descriptorId: String) -> Result<InstalledTestDescriptorModel?, MkException>,
     private val createOrUpdateTestDescriptors: suspend (List<InstalledTestDescriptorModel>) -> Unit,
 ) {
-    suspend operator fun invoke(descriptors: List<InstalledTestDescriptorModel>): List<ResultStatus> {
+    suspend operator fun invoke(
+        descriptors: List<InstalledTestDescriptorModel>,
+    ): MutableMap<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>> {
         val response = coroutineScope {
             descriptors.map { descriptor ->
                 async {
@@ -20,41 +22,42 @@ class FetchDescriptorUpdate(
             }.awaitAll()
         }
         val autoUpdateItems = mutableListOf<InstalledTestDescriptorModel>()
-        val result = response.map { pair ->
-            if (pair.first.autoUpdate) {
-                var res: ResultStatus = ResultStatus.NoUpdates(value = pair.second)
-                pair.second.map { descriptor ->
-                    descriptor?.let {
-                        if (pair.first.shouldUpdate(descriptor)) {
-                            autoUpdateItems.add(descriptor.copy(autoUpdate = pair.first.autoUpdate))
-                            res = ResultStatus.AutoUpdated(value = pair.second)
+        val resultsMap = mutableMapOf<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>>()
+        ResultStatus.entries.forEach { resultsMap[it] = mutableListOf() }
+        response.forEach { (descriptor, result) ->
+            val status: ResultStatus = if (descriptor.autoUpdate) {
+                var res: ResultStatus = ResultStatus.NoUpdates
+                result.map { updatedDescriptor ->
+                    updatedDescriptor?.let {
+                        if (descriptor.shouldUpdate(it)) {
+                            autoUpdateItems.add(it.copy(autoUpdate = descriptor.autoUpdate))
+                            res = ResultStatus.AutoUpdated
                         }
                     }
                 }
-                return@map res
+                res
             } else {
-                var res: ResultStatus = ResultStatus.NoUpdates(value = pair.second)
-                pair.second.map { descriptor ->
-                    descriptor?.let {
-                        if (pair.first.shouldUpdate(descriptor)) {
-                            res = ResultStatus.UpdatesAvailable(value = pair.second)
+                var res: ResultStatus = ResultStatus.NoUpdates
+                result.map { updatedDescriptor ->
+                    updatedDescriptor?.let {
+                        if (descriptor.shouldUpdate(updatedDescriptor)) {
+                            res = ResultStatus.UpdatesAvailable
                         }
                     }
                 }
-                return@map res
+                res
             }
+            resultsMap[status]?.add(result)
         }
 
         createOrUpdateTestDescriptors(autoUpdateItems)
 
-        return result
+        return resultsMap
     }
 }
 
-abstract class ResultStatus(open val value: Result<InstalledTestDescriptorModel?, MkException>) {
-    data class AutoUpdated(override val value: Result<InstalledTestDescriptorModel?, MkException>) : ResultStatus(value)
-
-    data class NoUpdates(override val value: Result<InstalledTestDescriptorModel?, MkException>) : ResultStatus(value)
-
-    data class UpdatesAvailable(override val value: Result<InstalledTestDescriptorModel?, MkException>) : ResultStatus(value)
+enum class ResultStatus {
+    AutoUpdated,
+    NoUpdates,
+    UpdatesAvailable,
 }

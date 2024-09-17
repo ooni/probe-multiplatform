@@ -28,6 +28,7 @@ import org.ooni.probe.data.disk.ReadFileOkio
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.disk.WriteFileOkio
 import org.ooni.probe.data.models.AutoRunParameters
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -64,6 +65,7 @@ import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
+import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.run.RunViewModel
@@ -280,6 +282,7 @@ class Dependencies(
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
         goToDescriptor: (String) -> Unit,
+        reviewDescriptorUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
     ) = DashboardViewModel(
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
@@ -289,11 +292,13 @@ class Dependencies(
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
         fetchDescriptorUpdate = fetchDescriptorUpdate::invoke,
+        reviewUpdates = reviewDescriptorUpdates,
     )
 
     fun descriptorViewModel(
         descriptorKey: String,
         onBack: () -> Unit,
+        reviewDescriptorUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
     ) = DescriptorViewModel(
         descriptorKey = descriptorKey,
         onBack = onBack,
@@ -304,6 +309,7 @@ class Dependencies(
         deleteTestDescriptor = deleteTestDescriptor::invoke,
         fetchDescriptorUpdate = fetchDescriptorUpdate::invoke,
         setAutoUpdate = testDescriptorRepository::setAutoUpdate,
+        reviewUpdates = reviewDescriptorUpdates,
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
@@ -385,6 +391,17 @@ class Dependencies(
             fetchDescriptor = {
                 fetchDescriptor(descriptorId)
             },
+        )
+    }
+
+    fun reviewUpdatesViewModel(
+        onBack: () -> Unit,
+        descriptors: List<InstalledTestDescriptorModel>,
+    ): ReviewUpdatesViewModel {
+        return ReviewUpdatesViewModel(
+            onBack = onBack,
+            descriptors = descriptors,
+            createOrUpdate = testDescriptorRepository::createOrUpdate,
         )
     }
 

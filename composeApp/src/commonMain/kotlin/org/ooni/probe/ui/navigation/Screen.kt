@@ -74,4 +74,13 @@ sealed class Screen(
             val ARGUMENTS = listOf(navArgument("descriptorKey") { type = NavType.StringType })
         }
     }
+
+    data class ReviewUpdates(
+        val descriptors: String,
+    ) : Screen("review-updates/$descriptors") {
+        companion object {
+            const val NAV_ROUTE = "review-updates/{descriptors}"
+            val ARGUMENTS = listOf(navArgument("descriptors") { type = NavType.StringType })
+        }
+    }
 }

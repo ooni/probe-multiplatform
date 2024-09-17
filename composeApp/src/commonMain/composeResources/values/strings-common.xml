@@ -186,7 +186,11 @@
     <string name="Dashboard_Progress_UpdateLink_Label">Link updates loading</string>
     <string name="Dashboard_Progress_ReviewLink_Label">Link updates ready</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Review</string>
-
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates">Review Updates</string>
+    <string name="DescriptorUpdate_Updates">UPDATES</string>
+    <string name="Dashboard_ReviewDescriptor_Label">Link Update (%1$s of %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE AND FINISH (%1$s of %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
     <!-- New Strings -->
     <string name="back">Back</string>
     <string name="refresh">refresh</string>

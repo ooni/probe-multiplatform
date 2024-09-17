@@ -105,7 +105,11 @@ fun DashboardScreen(
             }
         }
         if (state.isRefreshing) {
-            UpdateStatus(modifier = Modifier.align(Alignment.BottomCenter), type = state.refreshType)
+            UpdateStatus(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                type = state.refreshType,
+                onReviewLinkClicked = { onEvent(DashboardViewModel.Event.ReviewUpdatesClicked) },
+            )
         }
 
         PullToRefreshContainer(

@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import org.ooni.engine.Engine.MkException
+import org.ooni.engine.models.Result
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
@@ -26,7 +28,10 @@ class DashboardViewModel(
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     observeTestRunState: Flow<TestRunState>,
     observeTestRunErrors: Flow<TestRunError>,
-    fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>) -> List<ResultStatus>,
+    fetchDescriptorUpdate: suspend (
+        List<InstalledTestDescriptorModel>,
+    ) -> MutableMap<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>>,
+    reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -85,24 +90,29 @@ class DashboardViewModel(
                 ?.filter { it.source is Descriptor.Source.Installed }
                 ?.map { (it.source as Descriptor.Source.Installed).value }
                 ?.let { descriptors ->
-                    val results = fetchDescriptorUpdate(descriptors)
+                    val results: MutableMap<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>> =
+                        fetchDescriptorUpdate(descriptors)
                     _state.update { it.copy(refreshType = UpdateStatusType.None) }
-                    results.forEach { resultStatus: ResultStatus ->
-                        when (resultStatus) {
-                            is ResultStatus.AutoUpdated -> println("AutoUpdated")
-                            is ResultStatus.NoUpdates -> println("NoUpdates")
-                        }
-                        resultStatus.value.onSuccess { updatedDescriptor ->
-
-                            println("Updated descriptor: $updatedDescriptor")
-                        }.onFailure {
-                            println("Failed to fetch updated descriptor: $it")
-                            _state.update {
-                                it.copy(refreshType = UpdateStatusType.None)
-                            }
+                    if (results[ResultStatus.UpdatesAvailable]?.isNotEmpty() == true) {
+                        _state.update {
+                            it.copy(
+                                refreshType = UpdateStatusType.ReviewLink,
+                                availableUpdates = results[ResultStatus.UpdatesAvailable]?.map { result -> result.get() }.let { updates ->
+                                    updates?.filterNotNull()
+                                } ?: emptyList(),
+                            )
                         }
                     }
                 }
+        }.launchIn(viewModelScope)
+        events.filterIsInstance<Event.ReviewUpdatesClicked>().onEach {
+            reviewUpdates(state.value.availableUpdates)
+            _state.update {
+                it.copy(
+                    refreshType = UpdateStatusType.None,
+                    availableUpdates = emptyList(),
+                )
+            }
         }.launchIn(viewModelScope)
     }
 
@@ -120,6 +130,7 @@ class DashboardViewModel(
         val descriptors: Map<DescriptorType, List<Descriptor>> = emptyMap(),
         val testRunState: TestRunState = TestRunState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
+        val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
         val refreshType: UpdateStatusType = UpdateStatusType.None,
     ) {
         val isRefreshing: Boolean
@@ -138,5 +149,7 @@ class DashboardViewModel(
         data class DescriptorClicked(val descriptor: Descriptor) : Event
 
         data object FetchUpdatedDescriptors : Event
+
+        data object ReviewUpdatesClicked : Event
     }
 }
