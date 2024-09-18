@@ -38,7 +38,7 @@ data class InstalledTestDescriptorModel(
     }
 }
 
-fun InstalledTestDescriptorModel.toDescriptor() =
+fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = UpdateStatus.Unknown) =
     Descriptor(
         name = name,
         title = { nameIntl?.getCurrent() ?: name },
@@ -51,4 +51,5 @@ fun InstalledTestDescriptorModel.toDescriptor() =
         expirationDate = expirationDate,
         netTests = netTests.orEmpty(),
         source = Descriptor.Source.Installed(this),
+        updateStatus = updateStatus,
     )

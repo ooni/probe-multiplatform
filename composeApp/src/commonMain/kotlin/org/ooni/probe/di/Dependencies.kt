@@ -44,8 +44,8 @@ import org.ooni.probe.domain.DeleteAllResults
 import org.ooni.probe.domain.DeleteTestDescriptor
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FetchDescriptor
-import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.FetchDescriptorUpdate
+import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
@@ -161,10 +161,11 @@ class Dependencies(
         )
     }
 
-    private val fetchDescriptorUpdate by lazy {
+    val fetchDescriptorUpdate by lazy {
         FetchDescriptorUpdate(
             fetchDescriptor = fetchDescriptor::invoke,
             createOrUpdateTestDescriptors = testDescriptorRepository::createOrUpdate,
+            listInstalledTestDescriptors = testDescriptorRepository::list,
         )
     }
 
@@ -300,7 +301,9 @@ class Dependencies(
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
         fetchDescriptorUpdate = fetchDescriptorUpdate::invoke,
+        descriptorUpdates = fetchDescriptorUpdate::observeState,
         reviewUpdates = reviewDescriptorUpdates,
+        cancelUpdates = fetchDescriptorUpdate::cancelUpdates,
     )
 
     fun descriptorViewModel(
@@ -318,6 +321,7 @@ class Dependencies(
         fetchDescriptorUpdate = fetchDescriptorUpdate::invoke,
         setAutoUpdate = testDescriptorRepository::setAutoUpdate,
         reviewUpdates = reviewDescriptorUpdates,
+        descriptorUpdates = fetchDescriptorUpdate::observeState,
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
@@ -402,6 +406,7 @@ class Dependencies(
             onBack = onBack,
             descriptors = descriptors,
             createOrUpdate = testDescriptorRepository::createOrUpdate,
+            cancelUpdates = fetchDescriptorUpdate::cancelUpdates,
         )
     }
 

@@ -11,6 +11,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.DefaultTestDescriptor
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.data.models.toDescriptor
 
 class GetTestDescriptors(
@@ -49,6 +50,7 @@ class GetTestDescriptors(
             netTests = netTests,
             longRunningTests = longRunningTests,
             source = Descriptor.Source.Default(this),
+            updateStatus = UpdateStatus.NotApplicable,
         )
 
     @Composable

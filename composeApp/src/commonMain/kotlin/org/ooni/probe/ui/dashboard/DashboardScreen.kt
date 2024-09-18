@@ -25,14 +25,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LatestTest
 import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_RunFinished
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_EstimatedTimeLeft
@@ -48,6 +46,7 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.ui.customColors
 import org.ooni.probe.ui.shared.TestRunErrorMessages
@@ -98,6 +97,7 @@ fun DashboardScreen(
                     items(items, key = { it.key }) { descriptor ->
                         TestDescriptorItem(
                             descriptor = descriptor,
+                            hasPendingUpdate = state.hasPendingUpdates(descriptor.source as? Descriptor.Source.Installed),
                             onClick = {
                                 onEvent(DashboardViewModel.Event.DescriptorClicked(descriptor))
                             },

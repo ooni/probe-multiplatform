@@ -87,6 +87,9 @@ fun App(
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()
     }
+    LaunchedEffect(Unit) {
+        dependencies.fetchDescriptorUpdate()
+    }
 
     LaunchedEffect(deepLink) {
         when (deepLink) {

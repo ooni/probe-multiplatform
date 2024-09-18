@@ -50,7 +50,9 @@ fun Navigation(
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.navigate(Screen.RunningTest.route) },
                     goToRunTests = { navController.navigate(Screen.RunTests.route) },
-                    goToDescriptor = { navController.navigate(Screen.Descriptor(it).route) },
+                    goToDescriptor = { descriptorKey ->
+                        navController.navigate(Screen.Descriptor(descriptorKey).route)
+                    },
                     reviewDescriptorUpdates = {
                         navController.currentBackStackEntry?.savedStateHandle?.set(
                             "descriptors",

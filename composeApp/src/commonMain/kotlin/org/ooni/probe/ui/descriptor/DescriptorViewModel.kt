@@ -46,6 +46,7 @@ class DescriptorViewModel(
         ) -> MutableMap<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>>,
     setAutoUpdate: suspend (InstalledTestDescriptorModel.Id, Boolean) -> Unit,
     reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
+    descriptorUpdates: () -> Flow<Set<InstalledTestDescriptorModel>>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -53,6 +54,21 @@ class DescriptorViewModel(
     val state = _state.asStateFlow()
 
     init {
+
+        descriptorUpdates().onEach { results ->
+            if (results.size == 1) {
+                results.first().let { updatedDescriptor ->
+                    if (updatedDescriptor.id.value == descriptorKey.toLongOrNull()) {
+                        _state.update {
+                            it.copy(
+                                updatedDescriptor = updatedDescriptor.toDescriptor(),
+                                refreshType = UpdateStatusType.None,
+                            )
+                        }
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
         getDescriptor().onEach { if (it == null) onBack() }.filterNotNull()
             .flatMapLatest { descriptor ->
 
@@ -142,38 +158,13 @@ class DescriptorViewModel(
                 it.copy(refreshType = UpdateStatusType.UpdateLink, updatedDescriptor = null)
             }
 
-            val updates = fetchDescriptorUpdate(listOf(descriptor.source.value))
-            _state.update {
-                it.copy(refreshType = UpdateStatusType.None)
-            }
-            updates.forEach { (status, results) ->
-                when (status) {
-                    ResultStatus.AutoUpdated -> {
-                        // TODO(aanorbel) show a message `if(results.size > 0)`
-                    }
-                    ResultStatus.NoUpdates -> {
-                        // TODO(aanorbel) show a message `if(results.size > 0)`
-                    }
-                    ResultStatus.UpdatesAvailable -> {
-                        if (results.size == 1) {
-                            results.first().onSuccess { updatedDescriptor ->
-                                _state.update { it.copy(updatedDescriptor = updatedDescriptor?.toDescriptor()) }
-                            }.onFailure {
-                                Logger.e(it) { "Error fetching updates" }
-                            }
-                        }
-                    }
-                }
-            }
+            fetchDescriptorUpdate(listOf(descriptor.source.value))
         }.launchIn(viewModelScope)
 
         events.filterIsInstance<Event.UpdateDescriptor>().onEach {
             val descriptor = state.value.updatedDescriptor ?: return@onEach
             if (descriptor.source !is Descriptor.Source.Installed) return@onEach
             reviewUpdates(listOf(descriptor.source.value))
-            _state.update {
-                it.copy(updatedDescriptor = null)
-            }
         }.launchIn(viewModelScope)
     }
 

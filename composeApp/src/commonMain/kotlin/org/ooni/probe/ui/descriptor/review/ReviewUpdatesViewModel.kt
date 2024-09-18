@@ -15,6 +15,7 @@ class ReviewUpdatesViewModel(
     private val onBack: () -> Unit,
     descriptors: List<InstalledTestDescriptorModel>,
     createOrUpdate: suspend (List<InstalledTestDescriptorModel>) -> Unit,
+    cancelUpdates: (Set<InstalledTestDescriptorModel>) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -24,7 +25,13 @@ class ReviewUpdatesViewModel(
     init {
         events.onEach {
             when (it) {
-                is Event.CancelClicked -> onBack()
+                is Event.CancelClicked -> {
+                    cancelUpdates(
+                        _state.value.descriptors.subList(state.value.currentDescriptorIndex, _state.value.descriptors.size)
+                            .toSet(),
+                    )
+                    onBack()
+                }
                 is Event.UpdateDescriptorClicked -> {
                     if (it.index <= _state.value.descriptors.size) {
                         val descriptor = _state.value.descriptors[it.index]
