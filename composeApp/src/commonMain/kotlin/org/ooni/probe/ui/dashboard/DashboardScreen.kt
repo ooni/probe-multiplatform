@@ -14,14 +14,17 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -33,10 +36,12 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Running_EstimatedTimeL
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
+import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
 import ooniprobe.composeapp.generated.resources.ic_timer
+import ooniprobe.composeapp.generated.resources.ic_warning
 import ooniprobe.composeapp.generated.resources.logo_probe
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
@@ -68,6 +73,10 @@ fun DashboardScreen(
 
         TestRunStateSection(state.testRunState, onEvent)
 
+        if (state.showVpnWarning) {
+            VpnWarning()
+        }
+
         LazyColumn(
             modifier = Modifier.padding(top = 24.dp),
             contentPadding = PaddingValues(bottom = 16.dp),
@@ -95,6 +104,10 @@ fun DashboardScreen(
         errors = state.testRunErrors,
         onErrorDisplayed = { onEvent(DashboardViewModel.Event.ErrorDisplayed(it)) },
     )
+
+    LaunchedEffect(Unit) {
+        onEvent(DashboardViewModel.Event.Start)
+    }
 }
 
 @Composable
@@ -220,6 +233,24 @@ private fun TestRunStateSection(
                     textAlign = TextAlign.Center,
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun VpnWarning() {
+    Surface(
+        color = MaterialTheme.colorScheme.errorContainer,
+        shape = RoundedCornerShape(8.dp),
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+    ) {
+        Row(Modifier.padding(8.dp)) {
+            Icon(
+                painterResource(Res.drawable.ic_warning),
+                contentDescription = null,
+                modifier = Modifier.padding(end = 8.dp),
+            )
+            Text(stringResource(Res.string.Modal_DisableVPN_Title))
         }
     }
 }
