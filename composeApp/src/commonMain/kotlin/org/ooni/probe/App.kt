@@ -83,6 +83,7 @@ fun App(
     }
     LaunchedEffect(Unit) {
         dependencies.bootstrapTestDescriptors()
+        dependencies.bootstrapPreferences()
     }
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()
