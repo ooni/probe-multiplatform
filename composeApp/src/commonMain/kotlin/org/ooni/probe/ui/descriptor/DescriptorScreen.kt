@@ -20,6 +20,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -52,7 +54,7 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.shared.MarkdownViewer
 import org.ooni.probe.ui.shared.SelectableItem
-import org.ooni.probe.ui.shared.UpdateStatus
+import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
 
@@ -150,7 +152,15 @@ fun DescriptorScreen(
                             modifier = Modifier.padding(start = 8.dp),
                         )
                     }
-
+                    if (descriptor.hasPendingUpdate) {
+                        SuggestionChip(
+                            onClick = { },
+                            colors = SuggestionChipDefaults.suggestionChipColors(
+                                labelColor = MaterialTheme.colorScheme.error,
+                            ),
+                            label = { Text("UPDATED") },
+                        )
+                    }
                     state.updatedDescriptor?.let {
                         OutlinedButton(onClick = { onEvent(DescriptorViewModel.Event.UpdateDescriptor) }) {
                             Text(stringResource(Res.string.Dashboard_Runv2_Overview_ReviewUpdates))
@@ -222,7 +232,7 @@ fun DescriptorScreen(
             }
         }
         if (state.isRefreshing) {
-            UpdateStatus(
+            UpdateProgressStatus(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 type = state.refreshType,
             )

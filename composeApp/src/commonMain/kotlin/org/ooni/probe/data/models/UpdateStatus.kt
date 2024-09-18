@@ -5,11 +5,11 @@ sealed class UpdateStatus {
 
     data object UpToDate : UpdateStatus()
 
-    data class Updatable(val updatedDescriptor: Descriptor) : UpdateStatus()
+    data class Updatable(val updatedDescriptor: InstalledTestDescriptorModel) : UpdateStatus()
 
     data object AutoUpdated : UpdateStatus()
 
     data object NotApplicable : UpdateStatus()
 
-    data object UpdateRejected : UpdateStatus()
+    data class UpdateRejected(val updatedDescriptor: InstalledTestDescriptorModel) : UpdateStatus()
 }

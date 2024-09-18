@@ -46,11 +46,10 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.ui.customColors
 import org.ooni.probe.ui.shared.TestRunErrorMessages
-import org.ooni.probe.ui.shared.UpdateStatus
+import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
 import org.ooni.probe.ui.theme.AppTheme
@@ -97,7 +96,6 @@ fun DashboardScreen(
                     items(items, key = { it.key }) { descriptor ->
                         TestDescriptorItem(
                             descriptor = descriptor,
-                            hasPendingUpdate = state.hasPendingUpdates(descriptor.source as? Descriptor.Source.Installed),
                             onClick = {
                                 onEvent(DashboardViewModel.Event.DescriptorClicked(descriptor))
                             },
@@ -107,7 +105,7 @@ fun DashboardScreen(
             }
         }
         if (state.isRefreshing) {
-            UpdateStatus(
+            UpdateProgressStatus(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 type = state.refreshType,
                 onReviewLinkClicked = { onEvent(DashboardViewModel.Event.ReviewUpdatesClicked) },

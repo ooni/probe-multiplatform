@@ -196,6 +196,8 @@ class Dependencies(
         GetTestDescriptors(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
             listInstalledTestDescriptors = testDescriptorRepository::list,
+            descriptorUpdates = fetchDescriptorUpdate::observeAvailableUpdatesState,
+            rejectedUpdates = fetchDescriptorUpdate::observeCanceledUpdatesState,
         )
     }
     private val getTestDescriptorsBySpec by lazy {
@@ -301,7 +303,8 @@ class Dependencies(
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
         fetchDescriptorUpdate = fetchDescriptorUpdate::invoke,
-        descriptorUpdates = fetchDescriptorUpdate::observeState,
+        observeAvailableUpdatesState = fetchDescriptorUpdate::observeAvailableUpdatesState,
+        observeCanceledUpdatesState = fetchDescriptorUpdate::observeCanceledUpdatesState,
         reviewUpdates = reviewDescriptorUpdates,
         cancelUpdates = fetchDescriptorUpdate::cancelUpdates,
     )
@@ -321,7 +324,7 @@ class Dependencies(
         fetchDescriptorUpdate = fetchDescriptorUpdate::invoke,
         setAutoUpdate = testDescriptorRepository::setAutoUpdate,
         reviewUpdates = reviewDescriptorUpdates,
-        descriptorUpdates = fetchDescriptorUpdate::observeState,
+        descriptorUpdates = fetchDescriptorUpdate::observeAvailableUpdatesState,
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)

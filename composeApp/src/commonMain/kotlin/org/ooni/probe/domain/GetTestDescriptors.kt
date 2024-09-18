@@ -2,7 +2,9 @@ package org.ooni.probe.domain
 
 import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import ooniprobe.composeapp.generated.resources.Res
@@ -17,6 +19,8 @@ import org.ooni.probe.data.models.toDescriptor
 class GetTestDescriptors(
     private val getDefaultTestDescriptors: () -> List<DefaultTestDescriptor>,
     private val listInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
+    private val descriptorUpdates: () -> StateFlow<Set<InstalledTestDescriptorModel>>,
+    private val rejectedUpdates: () -> StateFlow<Set<InstalledTestDescriptorModel>>,
 ) {
     operator fun invoke(): Flow<List<Descriptor>> {
         return suspend {
@@ -24,8 +28,33 @@ class GetTestDescriptors(
                 .map { it.toDescriptor() }
         }.asFlow()
             .flatMapLatest { defaultDescriptors ->
+                val availableUpdates = descriptorUpdates().first()
+                val rejectedUpdates = rejectedUpdates().first()
+
                 listInstalledTestDescriptors()
-                    .map { list -> list.map { it.toDescriptor() } }
+                    .map {
+                            list ->
+                        list.map { item ->
+                            val availableUpdate = availableUpdates.firstOrNull {
+                                it.id.value == item.id.value
+                            }
+                            item.toDescriptor(
+                                updateStatus = availableUpdate?.let {
+                                    if (it.autoUpdate) UpdateStatus.AutoUpdated else UpdateStatus.Updatable(it)
+                                } ?: UpdateStatus.UpToDate,
+                            )
+                        }
+                    }
+                    .map { list ->
+                        list.map { item ->
+                            print(rejectedUpdates)
+                            val rejectedUpdate = rejectedUpdates.firstOrNull {
+                                it.id.value.toString() == item.key
+                            }
+                            println(rejectedUpdate)
+                            item.copy(updateStatus = rejectedUpdate?.let { UpdateStatus.UpdateRejected(it) } ?: item.updateStatus)
+                        }
+                    }
                     .map { defaultDescriptors + it }
             }
     }

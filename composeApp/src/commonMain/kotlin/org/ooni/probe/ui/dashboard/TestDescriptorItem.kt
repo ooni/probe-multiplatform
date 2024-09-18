@@ -23,7 +23,6 @@ import org.ooni.probe.data.models.Descriptor
 @Composable
 fun TestDescriptorItem(
     descriptor: Descriptor,
-    hasPendingUpdate: Boolean = false,
     onClick: () -> Unit,
 ) {
     Card(
@@ -50,7 +49,7 @@ fun TestDescriptorItem(
                     )
                 }
             }
-            if (hasPendingUpdate) {
+            if (descriptor.hasPendingUpdate) {
                 SuggestionChip(
                     onClick = { },
                     colors = SuggestionChipDefaults.suggestionChipColors(

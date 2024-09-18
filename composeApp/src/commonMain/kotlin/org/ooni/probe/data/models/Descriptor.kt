@@ -30,6 +30,8 @@ data class Descriptor(
 
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 
+    val hasPendingUpdate get() = updateStatus is UpdateStatus.UpdateRejected
+
     val key: String
         get() = when (source) {
             is Source.Default -> name

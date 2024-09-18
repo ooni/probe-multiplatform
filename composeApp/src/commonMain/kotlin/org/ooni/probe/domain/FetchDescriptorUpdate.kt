@@ -83,7 +83,9 @@ class FetchDescriptorUpdate(
         }
     }
 
-    fun observeState() = availableUpdates.asStateFlow()
+    fun observeAvailableUpdatesState() = availableUpdates.asStateFlow()
+
+    fun observeCanceledUpdatesState() = rejectedUpdates.asStateFlow()
 }
 
 enum class ResultStatus {

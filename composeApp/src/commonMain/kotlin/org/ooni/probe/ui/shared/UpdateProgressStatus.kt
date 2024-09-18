@@ -28,7 +28,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.UpdateStatusType
 
 @Composable
-fun UpdateStatus(
+fun UpdateProgressStatus(
     modifier: Modifier,
     type: UpdateStatusType,
     onReviewLinkClicked: () -> Unit = {},
