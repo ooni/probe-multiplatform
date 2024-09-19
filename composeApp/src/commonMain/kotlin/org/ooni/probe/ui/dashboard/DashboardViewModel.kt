@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
@@ -16,13 +15,13 @@ import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.Result
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
+import org.ooni.probe.data.models.DescriptorUpdatesStatus
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.data.models.UpdateStatusType
 import org.ooni.probe.domain.ResultStatus
-import kotlin.reflect.KFunction0
 
 class DashboardViewModel(
     goToResults: () -> Unit,
@@ -36,9 +35,8 @@ class DashboardViewModel(
         List<InstalledTestDescriptorModel>,
     ) -> MutableMap<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>>,
     reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
-    observeAvailableUpdatesState: () -> Flow<Set<InstalledTestDescriptorModel>>,
+    observeAvailableUpdatesState: () -> Flow<DescriptorUpdatesStatus>,
     cancelUpdates: (Set<InstalledTestDescriptorModel>) -> Unit,
-    observeCanceledUpdatesState: KFunction0<StateFlow<Set<InstalledTestDescriptorModel>>>,
 ) : ViewModel(), DefaultLifecycleObserver {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -49,22 +47,22 @@ class DashboardViewModel(
         observeAvailableUpdatesState().onEach { updates ->
             _state.update {
                 it.copy(
-                    availableUpdates = updates.toList(),
+                    availableUpdates = updates.availableUpdates.toList(),
                 )
             }
 
-            if (updates.isNotEmpty()) {
-                _state.update { it.copy(refreshType = UpdateStatusType.ReviewLink) }
-            }
-        }.launchIn(viewModelScope)
-        observeCanceledUpdatesState().onEach { updates ->
+            _state.update { it.copy(refreshType = updates.refreshType) }
+
             _state.update {
                 it.copy(
                     descriptors = it.descriptors.mapValues { (type, descriptors) ->
                         descriptors.map { descriptor ->
                             descriptor.copy(
-                                updateStatus = updates.firstOrNull { it.id.value.toString() == descriptor.key }?.let {
-                                    UpdateStatus.UpdateRejected(it)
+                                updateStatus = updates.rejectedUpdates.firstOrNull {
+                                        item ->
+                                    item.id.value.toString() == descriptor.key
+                                }?.let { item ->
+                                    UpdateStatus.UpdateRejected(item)
                                 } ?: UpdateStatus.UpToDate,
                             )
                         }
@@ -161,7 +159,7 @@ class DashboardViewModel(
         val testRunState: TestRunState = TestRunState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
         val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
-        val refreshType: UpdateStatusType = UpdateStatusType.UpdateLink,
+        val refreshType: UpdateStatusType = UpdateStatusType.None,
     ) {
         val isRefreshing: Boolean
             get() = refreshType != UpdateStatusType.None

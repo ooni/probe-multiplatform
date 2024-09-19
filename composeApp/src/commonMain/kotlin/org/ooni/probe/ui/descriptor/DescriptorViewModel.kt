@@ -20,10 +20,12 @@ import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.Result
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorUpdatesStatus
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.data.models.UpdateStatusType
 import org.ooni.probe.data.models.toDescriptor
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -46,7 +48,7 @@ class DescriptorViewModel(
         ) -> MutableMap<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>>,
     setAutoUpdate: suspend (InstalledTestDescriptorModel.Id, Boolean) -> Unit,
     reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
-    descriptorUpdates: () -> Flow<Set<InstalledTestDescriptorModel>>,
+    descriptorUpdates: () -> Flow<DescriptorUpdatesStatus>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -56,8 +58,8 @@ class DescriptorViewModel(
     init {
 
         descriptorUpdates().onEach { results ->
-            if (results.size == 1) {
-                results.first().let { updatedDescriptor ->
+            if (results.availableUpdates.size == 1) {
+                results.availableUpdates.first().let { updatedDescriptor ->
                     if (updatedDescriptor.id.value == descriptorKey.toLongOrNull()) {
                         _state.update {
                             it.copy(
@@ -153,7 +155,7 @@ class DescriptorViewModel(
             if (state.value.isRefreshing) return@onEach
             val descriptor = state.value.descriptor ?: return@onEach
 
-            if (descriptor.source !is Descriptor.Source.Installed) return@onEach
+            if (descriptor.source !is Descriptor.Source.Installed || descriptor.updateStatus is UpdateStatus.UpdateRejected) return@onEach
             _state.update {
                 it.copy(refreshType = UpdateStatusType.UpdateLink, updatedDescriptor = null)
             }

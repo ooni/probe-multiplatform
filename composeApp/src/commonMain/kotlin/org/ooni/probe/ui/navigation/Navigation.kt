@@ -252,7 +252,9 @@ fun Navigation(
             route = Screen.ReviewUpdates.NAV_ROUTE,
             arguments = Screen.ReviewUpdates.ARGUMENTS,
         ) { entry ->
-            val descriptors: List<InstalledTestDescriptorModel> = navController.previousBackStackEntry?.savedStateHandle?.get("descriptors") ?: return@composable
+            val descriptors: List<InstalledTestDescriptorModel> =
+                navController.previousBackStackEntry?.savedStateHandle?.get("descriptors")
+                    ?: return@composable
 
             val viewModel = viewModel {
                 dependencies.reviewUpdatesViewModel(

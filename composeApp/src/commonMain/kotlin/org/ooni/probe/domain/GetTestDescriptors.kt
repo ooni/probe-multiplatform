@@ -12,6 +12,7 @@ import ooniprobe.composeapp.generated.resources.Settings_TestOptions_LongRunning
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.DefaultTestDescriptor
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorUpdatesStatus
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.data.models.toDescriptor
@@ -19,8 +20,7 @@ import org.ooni.probe.data.models.toDescriptor
 class GetTestDescriptors(
     private val getDefaultTestDescriptors: () -> List<DefaultTestDescriptor>,
     private val listInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
-    private val descriptorUpdates: () -> StateFlow<Set<InstalledTestDescriptorModel>>,
-    private val rejectedUpdates: () -> StateFlow<Set<InstalledTestDescriptorModel>>,
+    private val descriptorUpdates: () -> StateFlow<DescriptorUpdatesStatus>,
 ) {
     operator fun invoke(): Flow<List<Descriptor>> {
         return suspend {
@@ -28,8 +28,9 @@ class GetTestDescriptors(
                 .map { it.toDescriptor() }
         }.asFlow()
             .flatMapLatest { defaultDescriptors ->
-                val availableUpdates = descriptorUpdates().first()
-                val rejectedUpdates = rejectedUpdates().first()
+                val descriptorUpdates = descriptorUpdates().first()
+                val availableUpdates = descriptorUpdates.availableUpdates
+                val rejectedUpdates = descriptorUpdates.rejectedUpdates
 
                 listInstalledTestDescriptors()
                     .map {

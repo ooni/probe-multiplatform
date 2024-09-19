@@ -39,10 +39,10 @@ fun UpdateProgressStatus(
             .height(56.dp)
             .background(MaterialTheme.colorScheme.inverseSurface)
             .padding(horizontal = 16.dp, vertical = 8.dp),
-        horizontalArrangement = if (type == UpdateStatusType.UpdateLink) Arrangement.spacedBy(10.dp) else Arrangement.SpaceBetween,
+        horizontalArrangement = if (type == UpdateStatusType.FetchingUpdates) Arrangement.spacedBy(10.dp) else Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        if (type == UpdateStatusType.UpdateLink) {
+        if (type == UpdateStatusType.FetchingUpdates) {
             CircularProgressIndicator()
             Text(stringResource(Res.string.Dashboard_Progress_UpdateLink_Label), color = Color.White)
         } else if (type == UpdateStatusType.ReviewLink) {

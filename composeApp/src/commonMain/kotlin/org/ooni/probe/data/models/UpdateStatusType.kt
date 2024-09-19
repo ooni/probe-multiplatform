@@ -5,7 +5,7 @@ package org.ooni.probe.data.models
  */
 enum class UpdateStatusType {
     None,
-    AddLink,
+    FetchingUpdates,
     UpdateLink,
     ReviewLink,
 }

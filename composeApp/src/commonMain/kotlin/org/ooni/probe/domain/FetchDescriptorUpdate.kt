@@ -10,19 +10,25 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.Result
+import org.ooni.probe.data.models.DescriptorUpdatesStatus
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.UpdateStatusType
 
 class FetchDescriptorUpdate(
     private val fetchDescriptor: suspend (descriptorId: String) -> Result<InstalledTestDescriptorModel?, MkException>,
     private val createOrUpdateTestDescriptors: suspend (List<InstalledTestDescriptorModel>) -> Unit,
     private val listInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
 ) {
-    private val availableUpdates = MutableStateFlow<Set<InstalledTestDescriptorModel>>(emptySet())
-    private val rejectedUpdates = MutableStateFlow<Set<InstalledTestDescriptorModel>>(emptySet())
+    private val availableUpdates = MutableStateFlow(DescriptorUpdatesStatus())
 
     suspend fun invoke(
         descriptors: List<InstalledTestDescriptorModel>,
     ): MutableMap<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>> {
+        availableUpdates.update { _ ->
+            DescriptorUpdatesStatus(
+                refreshType = UpdateStatusType.FetchingUpdates,
+            )
+        }
         val response = coroutineScope {
             descriptors.map { descriptor ->
                 async {
@@ -64,28 +70,33 @@ class FetchDescriptorUpdate(
             result.get()
         }.orEmpty()
         availableUpdates.update { _ ->
-            updatesAvailable.toSet()
+            DescriptorUpdatesStatus(
+                availableUpdates = updatesAvailable.toSet(),
+                refreshType = UpdateStatusType.ReviewLink,
+            )
         }
         return resultsMap
     }
 
     suspend operator fun invoke() {
-        invoke(listInstalledTestDescriptors.invoke().first())
+        listInstalledTestDescriptors.invoke().first().let { items ->
+            if (items.isNotEmpty()) {
+                invoke(items)
+            }
+        }
     }
 
     fun cancelUpdates(descriptors: Set<InstalledTestDescriptorModel>) {
         availableUpdates.update {
                 currentItems ->
-            (currentItems - descriptors)
-        }
-        rejectedUpdates.update { currentItems ->
-            (currentItems + descriptors)
+            currentItems.copy(
+                availableUpdates = currentItems.availableUpdates - descriptors,
+                rejectedUpdates = currentItems.availableUpdates + descriptors,
+            )
         }
     }
 
     fun observeAvailableUpdatesState() = availableUpdates.asStateFlow()
-
-    fun observeCanceledUpdatesState() = rejectedUpdates.asStateFlow()
 }
 
 enum class ResultStatus {

@@ -197,7 +197,6 @@ class Dependencies(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
             listInstalledTestDescriptors = testDescriptorRepository::list,
             descriptorUpdates = fetchDescriptorUpdate::observeAvailableUpdatesState,
-            rejectedUpdates = fetchDescriptorUpdate::observeCanceledUpdatesState,
         )
     }
     private val getTestDescriptorsBySpec by lazy {
@@ -304,7 +303,6 @@ class Dependencies(
         observeTestRunErrors = testStateManager.observeError(),
         fetchDescriptorUpdate = fetchDescriptorUpdate::invoke,
         observeAvailableUpdatesState = fetchDescriptorUpdate::observeAvailableUpdatesState,
-        observeCanceledUpdatesState = fetchDescriptorUpdate::observeCanceledUpdatesState,
         reviewUpdates = reviewDescriptorUpdates,
         cancelUpdates = fetchDescriptorUpdate::cancelUpdates,
     )

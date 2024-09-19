@@ -24,6 +24,7 @@ import org.ooni.probe.data.models.Descriptor
 fun TestDescriptorItem(
     descriptor: Descriptor,
     onClick: () -> Unit,
+    updateDescriptor: () -> Unit = {},
 ) {
     Card(
         Modifier
@@ -51,7 +52,7 @@ fun TestDescriptorItem(
             }
             if (descriptor.hasPendingUpdate) {
                 SuggestionChip(
-                    onClick = { },
+                    onClick = updateDescriptor,
                     colors = SuggestionChipDefaults.suggestionChipColors(
                         labelColor = MaterialTheme.colorScheme.error,
                     ),
