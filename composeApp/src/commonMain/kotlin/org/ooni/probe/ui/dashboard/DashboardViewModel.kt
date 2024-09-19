@@ -53,22 +53,6 @@ class DashboardViewModel(
 
             _state.update { it.copy(refreshType = updates.refreshType) }
 
-            _state.update {
-                it.copy(
-                    descriptors = it.descriptors.mapValues { (type, descriptors) ->
-                        descriptors.map { descriptor ->
-                            descriptor.copy(
-                                updateStatus = updates.rejectedUpdates.firstOrNull {
-                                        item ->
-                                    item.id.value.toString() == descriptor.key
-                                }?.let { item ->
-                                    UpdateStatus.UpdateRejected(item)
-                                } ?: UpdateStatus.UpToDate,
-                            )
-                        }
-                    },
-                )
-            }
         }.launchIn(viewModelScope)
         getTestDescriptors()
             .onEach { tests ->

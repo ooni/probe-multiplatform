@@ -23,20 +23,18 @@ class GetTestDescriptors(
     private val descriptorUpdates: () -> StateFlow<DescriptorUpdatesStatus>,
 ) {
     operator fun invoke(): Flow<List<Descriptor>> {
-        return suspend {
+        return descriptorUpdates().flatMapLatest { descriptorUpdates ->
+
+             suspend {
             getDefaultTestDescriptors()
                 .map { it.toDescriptor() }
         }.asFlow()
             .flatMapLatest { defaultDescriptors ->
-                val descriptorUpdates = descriptorUpdates().first()
-                val availableUpdates = descriptorUpdates.availableUpdates
-                val rejectedUpdates = descriptorUpdates.rejectedUpdates
-
                 listInstalledTestDescriptors()
                     .map {
                             list ->
                         list.map { item ->
-                            val availableUpdate = availableUpdates.firstOrNull {
+                            val availableUpdate = descriptorUpdates.availableUpdates.firstOrNull {
                                 it.id.value == item.id.value
                             }
                             item.toDescriptor(
@@ -48,16 +46,23 @@ class GetTestDescriptors(
                     }
                     .map { list ->
                         list.map { item ->
-                            print(rejectedUpdates)
-                            val rejectedUpdate = rejectedUpdates.firstOrNull {
+                            val rejectedUpdate = descriptorUpdates.rejectedUpdates.firstOrNull {
                                 it.id.value.toString() == item.key
                             }
-                            println(rejectedUpdate)
                             item.copy(updateStatus = rejectedUpdate?.let { UpdateStatus.UpdateRejected(it) } ?: item.updateStatus)
+                        }
+                    }
+                    .map { list ->
+                        list.map { item ->
+                            val autoUpdate = descriptorUpdates.autoUpdated.firstOrNull {
+                                it.id.value.toString() == item.key
+                            }
+                            item.copy(updateStatus = autoUpdate?.let { UpdateStatus.AutoUpdated } ?: item.updateStatus)
                         }
                     }
                     .map { defaultDescriptors + it }
             }
+        }
     }
 
     private fun DefaultTestDescriptor.toDescriptor() =

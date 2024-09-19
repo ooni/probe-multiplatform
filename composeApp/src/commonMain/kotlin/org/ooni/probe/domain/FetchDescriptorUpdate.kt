@@ -69,9 +69,13 @@ class FetchDescriptorUpdate(
         val updatesAvailable: List<InstalledTestDescriptorModel> = resultsMap[ResultStatus.UpdatesAvailable]?.mapNotNull { result ->
             result.get()
         }.orEmpty()
+        val autoUpdated: List<InstalledTestDescriptorModel> = resultsMap[ResultStatus.AutoUpdated]?.mapNotNull { result ->
+            result.get()
+        }.orEmpty()
         availableUpdates.update { _ ->
             DescriptorUpdatesStatus(
                 availableUpdates = updatesAvailable.toSet(),
+                autoUpdated = autoUpdated.toSet(),
                 refreshType = UpdateStatusType.ReviewLink,
             )
         }
@@ -92,6 +96,7 @@ class FetchDescriptorUpdate(
             currentItems.copy(
                 availableUpdates = currentItems.availableUpdates - descriptors,
                 rejectedUpdates = currentItems.availableUpdates + descriptors,
+                refreshType = UpdateStatusType.None,
             )
         }
     }
