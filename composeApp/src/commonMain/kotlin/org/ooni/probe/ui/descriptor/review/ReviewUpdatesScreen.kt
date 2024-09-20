@@ -65,7 +65,9 @@ fun ReviewUpdatesScreen(
                 state = pagerState,
                 userScrollEnabled = false,
             ) { page ->
-                ReviewItem(state.currentDescriptor)
+                state.currentDescriptor?.let {
+                    ReviewItem(it)
+                }
             }
             Row(
                 modifier = Modifier

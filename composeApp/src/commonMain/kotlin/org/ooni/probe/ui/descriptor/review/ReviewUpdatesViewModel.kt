@@ -69,8 +69,8 @@ class ReviewUpdatesViewModel(
         val descriptors: List<InstalledTestDescriptorModel> = emptyList(),
         val currentDescriptorIndex: Int = 0,
     ) {
-        val currentDescriptor: Descriptor
-            get() = descriptors[currentDescriptorIndex].toDescriptor()
+        val currentDescriptor: Descriptor?
+            get() = descriptors.getOrNull(currentDescriptorIndex)?.toDescriptor()
     }
 
     sealed class Event {

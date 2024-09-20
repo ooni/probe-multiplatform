@@ -22,7 +22,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -36,7 +35,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRun
-import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoUpdate
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Settings
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LastRun_Never
@@ -174,23 +172,7 @@ fun DescriptorScreen(
                 )
 
                 if (descriptor.source is Descriptor.Source.Installed) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(horizontal = 16.dp).clickable {
-                            onEvent(DescriptorViewModel.Event.AutoUpdateChanged(!descriptor.source.value.autoUpdate))
-                        },
-                    ) {
-                        Text(
-                            stringResource(Res.string.AddDescriptor_AutoUpdate),
-                            modifier = Modifier.weight(1f),
-                        )
-                        Switch(
-                            checked = descriptor.source.value.autoUpdate,
-                            onCheckedChange = {
-                                onEvent(DescriptorViewModel.Event.AutoUpdateChanged(it))
-                            },
-                        )
-                    }
+                    ConfigureUpdates(onEvent, descriptor.source.value.autoUpdate)
                 }
                 Text(
                     stringResource(Res.string.AddDescriptor_Settings),

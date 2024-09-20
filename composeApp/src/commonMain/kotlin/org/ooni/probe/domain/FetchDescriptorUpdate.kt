@@ -91,7 +91,6 @@ class FetchDescriptorUpdate(
     }
 
     fun cancelUpdates(descriptors: Set<InstalledTestDescriptorModel>) {
-        removeUpdates(descriptors)
         availableUpdates.update {
                 currentItems ->
             currentItems.copy(
@@ -107,22 +106,12 @@ class FetchDescriptorUpdate(
                 currentItems ->
             currentItems.copy(
                 reviewUpdates = itemsForReview.toSet(),
+                refreshType = UpdateStatusType.None,
             )
         }
     }
 
     fun observeAvailableUpdatesState() = availableUpdates.asStateFlow()
-
-    fun removeUpdates(items: Set<InstalledTestDescriptorModel>) {
-        availableUpdates.update {
-                currentItems ->
-            currentItems.copy(
-                reviewUpdates = currentItems.reviewUpdates - items,
-                availableUpdates = currentItems.availableUpdates - items,
-                refreshType = UpdateStatusType.None,
-            )
-        }
-    }
 }
 
 enum class ResultStatus {

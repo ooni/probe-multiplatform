@@ -88,6 +88,7 @@ fun App(
         dependencies.observeAndConfigureAutoRun()
     }
     LaunchedEffect(Unit) {
+        dependencies.configureDescriptorAutoUpdate()
         dependencies.fetchDescriptorUpdate(null)
     }
 

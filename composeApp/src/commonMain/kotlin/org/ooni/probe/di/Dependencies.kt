@@ -410,10 +410,7 @@ class Dependencies(
     fun reviewUpdatesViewModel(onBack: () -> Unit): ReviewUpdatesViewModel {
         return ReviewUpdatesViewModel(
             onBack = onBack,
-            createOrUpdate = {
-                getDescriptorUpdate.removeUpdates(it)
-                testDescriptorRepository::createOrUpdate.invoke(it)
-            },
+            createOrUpdate = testDescriptorRepository::createOrUpdate,
             cancelUpdates = getDescriptorUpdate::cancelUpdates,
             observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
         )

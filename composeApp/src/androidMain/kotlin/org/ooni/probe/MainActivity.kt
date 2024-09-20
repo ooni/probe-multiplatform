@@ -8,10 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.lifecycleScope
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.launch
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.DeepLink
 
@@ -38,10 +36,6 @@ class MainActivity : ComponentActivity() {
             LaunchedEffect(intent) {
                 intent?.let { manageIntent(it) }
             }
-        }
-
-        lifecycleScope.launch {
-            app.dependencies.configureDescriptorAutoUpdate.invoke()
         }
     }
 

@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import co.touchlab.kermit.Logger
 import kotlinx.cinterop.ObjCObjectVar
+import kotlinx.cinterop.getRawValue
 import kotlinx.cinterop.interpretCPointer
 import kotlinx.cinterop.nativeHeap.alloc
 import kotlinx.coroutines.GlobalScope
@@ -72,8 +73,7 @@ class SetupDependencies(
         launchUrl = ::launchUrl,
         startSingleRunInner = ::startSingleRun,
         configureAutoRun = ::configureAutoRun,
-        // NOTE: All iOS background tasks need to be registered registered before the app starts
-        configureDescriptorAutoUpdate = { false },
+        configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
         fetchDescriptorUpdate = ::fetchDescriptorUpdate,
     )
 
@@ -204,6 +204,7 @@ class SetupDependencies(
         ) { task ->
             Logger.d { "Received task: $task" }
             (task as? BGProcessingTask)?.let {
+                configureDescriptorAutoUpdate()
                 handleUpdateDescriptorTask(it)
             }
         }
@@ -262,6 +263,22 @@ class SetupDependencies(
         task.expirationHandler = { operation.cancel() }
         operation.completionBlock = { task.setTaskCompletedWithSuccess(!operation.isCancelled()) }
         operationQueue.addOperation(operation)
+    }
+
+    private fun configureDescriptorAutoUpdate(): Boolean {
+        Logger.d("Configuring descriptor auto update")
+        val error = interpretCPointer<ObjCObjectVar<NSError?>>(alloc(1, 1).rawPtr)
+        BGTaskScheduler.sharedScheduler.submitTaskRequest(
+            BGProcessingTaskRequest(OrganizationConfig.updateDescriptorTaskId).apply {
+                earliestBeginDate = NSDate().dateByAddingTimeInterval(60.0 * 60.0 * 24.0)
+            },
+            error,
+        )
+        error?.getRawValue()?.let {
+            Logger.e("Error configuring descriptor auto update: $it")
+            return false
+        }
+        return true
     }
 
     private fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {

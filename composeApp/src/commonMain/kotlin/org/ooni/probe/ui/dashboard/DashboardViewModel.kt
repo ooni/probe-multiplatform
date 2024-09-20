@@ -103,12 +103,12 @@ class DashboardViewModel(
                 }
         }.launchIn(viewModelScope)
         events.filterIsInstance<Event.ReviewUpdatesClicked>().onEach {
-            reviewUpdates(state.value.availableUpdates)
             _state.update {
                 it.copy(
                     refreshType = UpdateStatusType.None,
                 )
             }
+            reviewUpdates(state.value.availableUpdates)
         }.launchIn(viewModelScope)
         events.filterIsInstance<Event.CancelUpdatesClicked>().onEach {
             cancelUpdates(state.value.availableUpdates.toSet())
