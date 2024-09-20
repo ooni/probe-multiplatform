@@ -3,7 +3,6 @@ package org.ooni.probe.domain
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.TaskEvent
@@ -23,7 +22,7 @@ import org.ooni.probe.shared.toLocalDateTime
 
 class RunNetTest(
     private val startTest: (String, List<String>?, TaskOrigin, InstalledTestDescriptorModel.Id?) -> Flow<TaskEvent>,
-    private val getUrlByUrl: suspend (String) -> Flow<UrlModel?>,
+    private val getOrCreateUrl: suspend (String) -> UrlModel,
     private val storeMeasurement: suspend (MeasurementModel) -> MeasurementModel.Id,
     private val storeNetwork: suspend (NetworkModel) -> NetworkModel.Id,
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
@@ -101,7 +100,7 @@ class RunNetTest(
                         urlId = if (event.url.isNullOrEmpty()) {
                             null
                         } else {
-                            getUrlByUrl(event.url).first()?.id
+                            getOrCreateUrl(event.url).id
                         },
                     ),
                 )

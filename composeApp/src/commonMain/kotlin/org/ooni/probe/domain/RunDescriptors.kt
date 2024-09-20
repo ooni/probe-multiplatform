@@ -91,9 +91,11 @@ class RunDescriptors(
                 longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(taskOrigin),
             )
         }
+            .filterNot { it.allTests.isEmpty() }
 
     private suspend fun List<NetTest>.downloadUrlsIfNeeded(taskOrigin: TaskOrigin): List<NetTest> =
         map { test -> test.copy(inputs = test.inputsOrDownloadUrls(taskOrigin)) }
+            .filterNot { it.test is TestType.WebConnectivity && it.inputs?.any() != true }
 
     private suspend fun NetTest.inputsOrDownloadUrls(taskOrigin: TaskOrigin): List<String>? {
         if (!inputs.isNullOrEmpty() || test !is TestType.WebConnectivity) return inputs
