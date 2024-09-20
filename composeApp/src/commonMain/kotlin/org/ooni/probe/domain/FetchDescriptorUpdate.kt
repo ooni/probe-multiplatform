@@ -76,7 +76,7 @@ class FetchDescriptorUpdate(
             DescriptorUpdatesStatus(
                 availableUpdates = updatesAvailable.toSet(),
                 autoUpdated = autoUpdated.toSet(),
-                refreshType = UpdateStatusType.ReviewLink,
+                refreshType = if (updatesAvailable.isNotEmpty()) UpdateStatusType.ReviewLink else UpdateStatusType.None,
             )
         }
         return resultsMap

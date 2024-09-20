@@ -11,17 +11,13 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import org.ooni.engine.Engine.MkException
-import org.ooni.engine.models.Result
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdatesStatus
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.TestRunState
-import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.data.models.UpdateStatusType
-import org.ooni.probe.domain.ResultStatus
 
 class DashboardViewModel(
     goToResults: () -> Unit,
@@ -33,7 +29,7 @@ class DashboardViewModel(
     observeTestRunErrors: Flow<TestRunError>,
     fetchDescriptorUpdate: suspend (
         List<InstalledTestDescriptorModel>,
-    ) -> MutableMap<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>>,
+    ) -> Unit,
     reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
     observeAvailableUpdatesState: () -> Flow<DescriptorUpdatesStatus>,
     cancelUpdates: (Set<InstalledTestDescriptorModel>) -> Unit,
@@ -48,11 +44,9 @@ class DashboardViewModel(
             _state.update {
                 it.copy(
                     availableUpdates = updates.availableUpdates.toList(),
+                    refreshType = updates.refreshType,
                 )
             }
-
-            _state.update { it.copy(refreshType = updates.refreshType) }
-
         }.launchIn(viewModelScope)
         getTestDescriptors()
             .onEach { tests ->
@@ -105,9 +99,7 @@ class DashboardViewModel(
             state.value.descriptors[DescriptorType.Installed]
                 ?.map { (it.source as Descriptor.Source.Installed).value }
                 ?.let { descriptors ->
-                    _state.update { it.copy(refreshType = UpdateStatusType.UpdateLink) }
                     fetchDescriptorUpdate(descriptors)
-                    _state.update { it.copy(refreshType = UpdateStatusType.ReviewLink) }
                 }
         }.launchIn(viewModelScope)
         events.filterIsInstance<Event.ReviewUpdatesClicked>().onEach {

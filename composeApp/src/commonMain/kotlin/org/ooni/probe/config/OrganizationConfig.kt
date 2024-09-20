@@ -15,6 +15,8 @@ interface OrganizationConfigInterface {
     val testDisplayMode: TestDisplayMode
 
     val autorunTaskId: String
+
+    val updateDescriptorTaskId: String
 }
 
 enum class TestDisplayMode {

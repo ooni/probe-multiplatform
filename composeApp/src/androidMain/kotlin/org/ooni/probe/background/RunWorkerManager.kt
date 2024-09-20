@@ -1,6 +1,7 @@
 package org.ooni.probe.background
 
 import androidx.work.Constraints
+import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
@@ -11,6 +12,7 @@ import androidx.work.WorkManager
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.ooni.probe.data.models.AutoRunParameters
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunSpecification
 import java.util.concurrent.TimeUnit
 
@@ -55,6 +57,34 @@ class RunWorkerManager(
                 ExistingPeriodicWorkPolicy.UPDATE,
                 request,
             )
+        }
+    }
+
+    suspend fun configureDescriptorAutoUpdate() {
+        withContext(backgroundDispatcher) {
+            val request = PeriodicWorkRequestBuilder<DescriptorUpdateWorker>(1, TimeUnit.DAYS)
+                .setInitialDelay(1, TimeUnit.DAYS)
+                .build()
+
+            workManager.enqueueUniquePeriodicWork(
+                DescriptorUpdateWorker.AutoUpdateWorkerName,
+                ExistingPeriodicWorkPolicy.UPDATE,
+                request,
+            )
+        }
+    }
+
+    suspend fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
+        withContext(backgroundDispatcher) {
+            workManager
+                .enqueueUniqueWork(
+                    DescriptorUpdateWorker.ManualUpdateWorkerName,
+                    ExistingWorkPolicy.REPLACE,
+                    OneTimeWorkRequestBuilder<DescriptorUpdateWorker>()
+                        .setInputData(descriptors?.let { DescriptorUpdateWorker.buildWorkData(it) } ?: Data.EMPTY)
+                        .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                        .build(),
+                )
         }
     }
 

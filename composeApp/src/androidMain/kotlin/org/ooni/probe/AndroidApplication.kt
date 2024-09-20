@@ -45,6 +45,8 @@ class AndroidApplication : Application() {
             launchUrl = ::launchUrl,
             startSingleRunInner = runWorkerManager::startSingleRun,
             configureAutoRun = runWorkerManager::configureAutoRun,
+            configureDescriptorAutoUpdate = runWorkerManager::configureDescriptorAutoUpdate,
+            fetchDescriptorUpdate = runWorkerManager::fetchDescriptorUpdate,
         )
     }
 

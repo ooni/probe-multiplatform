@@ -16,8 +16,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import org.ooni.engine.Engine.MkException
-import org.ooni.engine.models.Result
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorUpdatesStatus
@@ -29,7 +27,6 @@ import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.data.models.UpdateStatusType
 import org.ooni.probe.data.models.toDescriptor
 import org.ooni.probe.data.repositories.PreferenceRepository
-import org.ooni.probe.domain.ResultStatus
 import org.ooni.probe.ui.shared.SelectableItem
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
@@ -45,7 +42,7 @@ class DescriptorViewModel(
     fetchDescriptorUpdate:
         suspend (
             List<InstalledTestDescriptorModel>,
-        ) -> MutableMap<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>>,
+        ) -> Unit,
     setAutoUpdate: suspend (InstalledTestDescriptorModel.Id, Boolean) -> Unit,
     reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
     descriptorUpdates: () -> Flow<DescriptorUpdatesStatus>,
@@ -58,6 +55,11 @@ class DescriptorViewModel(
     init {
 
         descriptorUpdates().onEach { results ->
+            _state.update {
+                it.copy(
+                    refreshType = if (results.refreshType != UpdateStatusType.ReviewLink) results.refreshType else UpdateStatusType.None,
+                )
+            }
             if (results.availableUpdates.size == 1) {
                 results.availableUpdates.first().let { updatedDescriptor ->
                     if (updatedDescriptor.id.value == descriptorKey.toLongOrNull()) {
@@ -167,6 +169,9 @@ class DescriptorViewModel(
             val descriptor = state.value.updatedDescriptor ?: return@onEach
             if (descriptor.source !is Descriptor.Source.Installed) return@onEach
             reviewUpdates(listOf(descriptor.source.value))
+            _state.update {
+                it.copy(refreshType = UpdateStatusType.None, updatedDescriptor = null)
+            }
         }.launchIn(viewModelScope)
     }
 

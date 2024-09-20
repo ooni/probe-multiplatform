@@ -90,6 +90,8 @@ class Dependencies(
     private val launchUrl: (String, Map<String, String>?) -> Unit,
     private val startSingleRunInner: ((RunSpecification) -> Unit),
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
+    val configureDescriptorAutoUpdate: suspend () -> Unit,
+    val fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
 ) {
     // Common
 
@@ -106,7 +108,7 @@ class Dependencies(
     private val networkRepository by lazy { NetworkRepository(database, backgroundDispatcher) }
     private val preferenceRepository by lazy { PreferenceRepository(buildDataStore()) }
     private val resultRepository by lazy { ResultRepository(database, backgroundDispatcher) }
-    private val testDescriptorRepository by lazy {
+    val testDescriptorRepository by lazy {
         TestDescriptorRepository(database, json, backgroundDispatcher)
     }
     private val urlRepository by lazy { UrlRepository(database, backgroundDispatcher) }
@@ -161,7 +163,7 @@ class Dependencies(
         )
     }
 
-    val fetchDescriptorUpdate by lazy {
+    val getDescriptorUpdate by lazy {
         FetchDescriptorUpdate(
             fetchDescriptor = fetchDescriptor::invoke,
             createOrUpdateTestDescriptors = testDescriptorRepository::createOrUpdate,
@@ -196,7 +198,7 @@ class Dependencies(
         GetTestDescriptors(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
             listInstalledTestDescriptors = testDescriptorRepository::list,
-            descriptorUpdates = fetchDescriptorUpdate::observeAvailableUpdatesState,
+            descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
         )
     }
     private val getTestDescriptorsBySpec by lazy {
@@ -301,10 +303,10 @@ class Dependencies(
         getTestDescriptors = getTestDescriptors::invoke,
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
-        fetchDescriptorUpdate = fetchDescriptorUpdate::invoke,
-        observeAvailableUpdatesState = fetchDescriptorUpdate::observeAvailableUpdatesState,
+        fetchDescriptorUpdate = fetchDescriptorUpdate,
+        observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
         reviewUpdates = reviewDescriptorUpdates,
-        cancelUpdates = fetchDescriptorUpdate::cancelUpdates,
+        cancelUpdates = getDescriptorUpdate::cancelUpdates,
     )
 
     fun descriptorViewModel(
@@ -319,10 +321,10 @@ class Dependencies(
         preferenceRepository = preferenceRepository,
         launchUrl = { launchUrl(it, null) },
         deleteTestDescriptor = deleteTestDescriptor::invoke,
-        fetchDescriptorUpdate = fetchDescriptorUpdate::invoke,
+        fetchDescriptorUpdate = fetchDescriptorUpdate,
         setAutoUpdate = testDescriptorRepository::setAutoUpdate,
         reviewUpdates = reviewDescriptorUpdates,
-        descriptorUpdates = fetchDescriptorUpdate::observeAvailableUpdatesState,
+        descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
@@ -407,7 +409,7 @@ class Dependencies(
             onBack = onBack,
             descriptors = descriptors,
             createOrUpdate = testDescriptorRepository::createOrUpdate,
-            cancelUpdates = fetchDescriptorUpdate::cancelUpdates,
+            cancelUpdates = getDescriptorUpdate::cancelUpdates,
         )
     }
 

@@ -13,10 +13,12 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
+import org.ooni.probe.background.DescriptorUpdateOperation
 import org.ooni.probe.background.RunOperation
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -56,7 +58,11 @@ class SetupDependencies(
     val dependencies: Dependencies = Dependencies(
         platformInfo = platformInfo,
         oonimkallBridge = bridge,
-        baseFileDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).first().toString(),
+        baseFileDir = NSSearchPathForDirectoriesInDomains(
+            NSDocumentDirectory,
+            NSUserDomainMask,
+            true,
+        ).first().toString(),
         cacheDir = NSTemporaryDirectory(),
         readAssetFile = ::readAssetFile,
         databaseDriverFactory = ::buildDatabaseDriver,
@@ -66,13 +72,19 @@ class SetupDependencies(
         launchUrl = ::launchUrl,
         startSingleRunInner = ::startSingleRun,
         configureAutoRun = ::configureAutoRun,
+        configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
+        fetchDescriptorUpdate = ::fetchDescriptorUpdate,
     )
 
     fun startSingleRun(spec: RunSpecification) {
         val operationQueue = NSOperationQueue()
         val runDescriptors by lazy { dependencies.runDescriptors }
         val getCurrentTestState by lazy { dependencies.getCurrentTestState }
-        val operation = RunOperation(spec = spec, runDescriptors = runDescriptors, getCurrentTestState = getCurrentTestState)
+        val operation = RunOperation(
+            spec = spec,
+            runDescriptors = runDescriptors,
+            getCurrentTestState = getCurrentTestState,
+        )
         val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
             operation.cancel()
         }
@@ -88,7 +100,8 @@ class SetupDependencies(
 
     private val platformInfo: PlatformInfo
         get() = object : PlatformInfo {
-            override val version = (NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String).orEmpty()
+            override val version =
+                (NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String).orEmpty()
             override val platform = Platform.Ios
             override val osVersion = with(UIDevice.currentDevice) { "$systemName $systemVersion" }
             override val model = UIDevice.currentDevice.model
@@ -123,15 +136,14 @@ class SetupDependencies(
     fun buildDataStore(): DataStore<Preferences> =
         Dependencies.getDataStore(
             producePath = {
-                val documentDirectory: NSURL? =
-                    NSFileManager.defaultManager.URLForDirectory(
-                        directory = NSDocumentDirectory,
-                        inDomain = NSUserDomainMask,
-                        appropriateForURL = null,
-                        create = false,
-                        error = null,
-                    )
-                requireNotNull(documentDirectory).path + "/${Dependencies.Companion.DATA_STORE_FILE_NAME}"
+                val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
+                    directory = NSDocumentDirectory,
+                    inDomain = NSUserDomainMask,
+                    appropriateForURL = null,
+                    create = false,
+                    error = null,
+                )
+                requireNotNull(documentDirectory).path + "/${Dependencies.DATA_STORE_FILE_NAME}"
             },
         )
 
@@ -153,7 +165,11 @@ class SetupDependencies(
                                 }
                             }
                         }.let {
-                            UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(it, true, null)
+                            UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(
+                                it,
+                                true,
+                                null,
+                            )
                         }
                     } else {
                         UIPasteboard.generalPasteboard.string = email
@@ -169,13 +185,25 @@ class SetupDependencies(
         val getAutoRunSettings by lazy { dependencies.getAutoRunSettings }
 
         Logger.d { "Registering task handlers" }
-        BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(OrganizationConfig.autorunTaskId, null) { task ->
+        BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(
+            OrganizationConfig.autorunTaskId,
+            null,
+        ) { task ->
             Logger.d { "Received task: $task" }
             (task as? BGProcessingTask)?.let {
                 GlobalScope.launch {
                     configureAutoRun(getAutoRunSettings().first())
                 }
                 handleAutorunTask(it)
+            }
+        }
+        BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(
+            OrganizationConfig.updateDescriptorTaskId,
+            null,
+        ) { task ->
+            Logger.d { "Received task: $task" }
+            (task as? BGProcessingTask)?.let {
+                handleUpdateDescriptorTask(it)
             }
         }
     }
@@ -216,6 +244,42 @@ class SetupDependencies(
 
         task.expirationHandler = { operation.cancel() }
         operation.completionBlock = { task.setTaskCompletedWithSuccess(!operation.isCancelled()) }
+        operationQueue.addOperation(operation)
+    }
+
+    private fun handleUpdateDescriptorTask(task: BGProcessingTask) {
+        val testDescriptorRepository by lazy { dependencies.testDescriptorRepository }
+        Logger.d { "Handling update descriptor task" }
+        val operationQueue = NSOperationQueue()
+
+        val getDescriptorUpdate by lazy { dependencies.getDescriptorUpdate }
+        val operation = DescriptorUpdateOperation(
+            testDescriptorRepository = testDescriptorRepository,
+            fetchDescriptorUpdate = getDescriptorUpdate,
+        )
+
+        task.expirationHandler = { operation.cancel() }
+        operation.completionBlock = { task.setTaskCompletedWithSuccess(!operation.isCancelled()) }
+        operationQueue.addOperation(operation)
+    }
+
+    private fun configureDescriptorAutoUpdate() {
+    }
+
+    private fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
+        Logger.d("Fetching descriptor update")
+        val operationQueue = NSOperationQueue()
+        val getDescriptorUpdate by lazy { dependencies.getDescriptorUpdate }
+        val operation = DescriptorUpdateOperation(
+            descriptors = descriptors,
+            fetchDescriptorUpdate = getDescriptorUpdate,
+        )
+        val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
+            operation.cancel()
+        }
+        operation.completionBlock = {
+            UIApplication.sharedApplication.endBackgroundTask(identifier)
+        }
         operationQueue.addOperation(operation)
     }
 }

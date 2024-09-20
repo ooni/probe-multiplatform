@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import ooniprobe.composeapp.generated.resources.Res
@@ -25,43 +24,43 @@ class GetTestDescriptors(
     operator fun invoke(): Flow<List<Descriptor>> {
         return descriptorUpdates().flatMapLatest { descriptorUpdates ->
 
-             suspend {
-            getDefaultTestDescriptors()
-                .map { it.toDescriptor() }
-        }.asFlow()
-            .flatMapLatest { defaultDescriptors ->
-                listInstalledTestDescriptors()
-                    .map {
-                            list ->
-                        list.map { item ->
-                            val availableUpdate = descriptorUpdates.availableUpdates.firstOrNull {
-                                it.id.value == item.id.value
+            suspend {
+                getDefaultTestDescriptors()
+                    .map { it.toDescriptor() }
+            }.asFlow()
+                .flatMapLatest { defaultDescriptors ->
+                    listInstalledTestDescriptors()
+                        .map {
+                                list ->
+                            list.map { item ->
+                                val availableUpdate = descriptorUpdates.availableUpdates.firstOrNull {
+                                    it.id.value == item.id.value
+                                }
+                                item.toDescriptor(
+                                    updateStatus = availableUpdate?.let {
+                                        if (it.autoUpdate) UpdateStatus.AutoUpdated else UpdateStatus.Updatable(it)
+                                    } ?: UpdateStatus.UpToDate,
+                                )
                             }
-                            item.toDescriptor(
-                                updateStatus = availableUpdate?.let {
-                                    if (it.autoUpdate) UpdateStatus.AutoUpdated else UpdateStatus.Updatable(it)
-                                } ?: UpdateStatus.UpToDate,
-                            )
                         }
-                    }
-                    .map { list ->
-                        list.map { item ->
-                            val rejectedUpdate = descriptorUpdates.rejectedUpdates.firstOrNull {
-                                it.id.value.toString() == item.key
+                        .map { list ->
+                            list.map { item ->
+                                val rejectedUpdate = descriptorUpdates.rejectedUpdates.firstOrNull {
+                                    it.id.value.toString() == item.key
+                                }
+                                item.copy(updateStatus = rejectedUpdate?.let { UpdateStatus.UpdateRejected(it) } ?: item.updateStatus)
                             }
-                            item.copy(updateStatus = rejectedUpdate?.let { UpdateStatus.UpdateRejected(it) } ?: item.updateStatus)
                         }
-                    }
-                    .map { list ->
-                        list.map { item ->
-                            val autoUpdate = descriptorUpdates.autoUpdated.firstOrNull {
-                                it.id.value.toString() == item.key
+                        .map { list ->
+                            list.map { item ->
+                                val autoUpdate = descriptorUpdates.autoUpdated.firstOrNull {
+                                    it.id.value.toString() == item.key
+                                }
+                                item.copy(updateStatus = autoUpdate?.let { UpdateStatus.AutoUpdated } ?: item.updateStatus)
                             }
-                            item.copy(updateStatus = autoUpdate?.let { UpdateStatus.AutoUpdated } ?: item.updateStatus)
                         }
-                    }
-                    .map { defaultDescriptors + it }
-            }
+                        .map { defaultDescriptors + it }
+                }
         }
     }
 
