@@ -100,17 +100,32 @@ class PreferenceRepository(
         }
     }
 
-    suspend fun <T> setValueByKey(
+    suspend fun setValueByKey(
         key: SettingsKey,
-        value: T,
+        value: Any?,
     ) {
+        setValuesByKey(listOf(key to value))
+    }
+
+    suspend fun setValuesByKey(pairs: List<Pair<SettingsKey, Any?>>) {
         dataStore.edit {
-            when (val preferenceKey = preferenceKeyFromSettingsKey(key)) {
-                is PreferenceKey.IntKey -> it[preferenceKey.preferenceKey] = value as Int
-                is PreferenceKey.StringKey -> it[preferenceKey.preferenceKey] = value as String
-                is PreferenceKey.BooleanKey -> it[preferenceKey.preferenceKey] = value as Boolean
-                is PreferenceKey.FloatKey -> it[preferenceKey.preferenceKey] = value as Float
-                is PreferenceKey.LongKey -> it[preferenceKey.preferenceKey] = value as Long
+            pairs.forEach { (key, value) ->
+                when (val preferenceKey = preferenceKeyFromSettingsKey(key)) {
+                    is PreferenceKey.IntKey ->
+                        it[preferenceKey.preferenceKey] = value as Int
+
+                    is PreferenceKey.StringKey ->
+                        it[preferenceKey.preferenceKey] = value as String
+
+                    is PreferenceKey.BooleanKey ->
+                        it[preferenceKey.preferenceKey] = value as Boolean
+
+                    is PreferenceKey.FloatKey ->
+                        it[preferenceKey.preferenceKey] = value as Float
+
+                    is PreferenceKey.LongKey ->
+                        it[preferenceKey.preferenceKey] = value as Long
+                }
             }
         }
     }
@@ -146,7 +161,17 @@ class PreferenceRepository(
         dataStore.data.map {
             list.associate { (descriptor, netTest) ->
                 Pair(descriptor, netTest) to
-                    (it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] == true)
+                    (
+                        it[
+                            booleanPreferencesKey(
+                                getNetTestKey(
+                                    descriptor,
+                                    netTest,
+                                    isAutoRun,
+                                ),
+                            ),
+                        ] == true
+                    )
             }
         }
 
@@ -176,8 +201,24 @@ class PreferenceRepository(
     suspend fun removeDescriptorPreferences(descriptor: Descriptor) {
         descriptor.netTests.forEach { nettest ->
             dataStore.edit {
-                it.remove(booleanPreferencesKey(getNetTestKey(descriptor, nettest, isAutoRun = true)))
-                it.remove(booleanPreferencesKey(getNetTestKey(descriptor, nettest, isAutoRun = false)))
+                it.remove(
+                    booleanPreferencesKey(
+                        getNetTestKey(
+                            descriptor,
+                            nettest,
+                            isAutoRun = true,
+                        ),
+                    ),
+                )
+                it.remove(
+                    booleanPreferencesKey(
+                        getNetTestKey(
+                            descriptor,
+                            nettest,
+                            isAutoRun = false,
+                        ),
+                    ),
+                )
             }
         }
     }

@@ -38,6 +38,7 @@ import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
+import org.ooni.probe.domain.BootstrapPreferences
 import org.ooni.probe.domain.BootstrapTestDescriptors
 import org.ooni.probe.domain.DeleteAllResults
 import org.ooni.probe.domain.DeleteTestDescriptor
@@ -133,6 +134,9 @@ class Dependencies(
 
     // Domain
 
+    val bootstrapPreferences by lazy {
+        BootstrapPreferences(preferenceRepository, getTestDescriptors::invoke)
+    }
     val bootstrapTestDescriptors by lazy {
         BootstrapTestDescriptors(
             getBootstrapTestDescriptors = getBootstrapTestDescriptors::invoke,
