@@ -13,7 +13,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import org.ooni.probe.LocalSnackbarHostState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -54,10 +53,6 @@ fun Navigation(
                         navController.navigate(Screen.Descriptor(descriptorKey).route)
                     },
                     reviewDescriptorUpdates = {
-                        navController.currentBackStackEntry?.savedStateHandle?.set(
-                            "descriptors",
-                            it,
-                        )
                         navController.navigate(Screen.ReviewUpdates("descriptors").route)
                     },
                 )
@@ -236,10 +231,6 @@ fun Navigation(
                     descriptorKey = descriptorKey,
                     onBack = { navController.popBackStack() },
                     reviewDescriptorUpdates = {
-                        navController.currentBackStackEntry?.savedStateHandle?.set(
-                            "descriptors",
-                            it,
-                        )
                         navController.navigate(Screen.ReviewUpdates(descriptorKey).route)
                     },
                 )
@@ -252,13 +243,8 @@ fun Navigation(
             route = Screen.ReviewUpdates.NAV_ROUTE,
             arguments = Screen.ReviewUpdates.ARGUMENTS,
         ) { entry ->
-            val descriptors: List<InstalledTestDescriptorModel> =
-                navController.previousBackStackEntry?.savedStateHandle?.get("descriptors")
-                    ?: return@composable
-
             val viewModel = viewModel {
                 dependencies.reviewUpdatesViewModel(
-                    descriptors = descriptors,
                     onBack = { navController.popBackStack() },
                 )
             }

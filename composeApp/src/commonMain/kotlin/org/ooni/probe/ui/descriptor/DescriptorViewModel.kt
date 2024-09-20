@@ -168,10 +168,10 @@ class DescriptorViewModel(
         events.filterIsInstance<Event.UpdateDescriptor>().onEach {
             val descriptor = state.value.updatedDescriptor ?: return@onEach
             if (descriptor.source !is Descriptor.Source.Installed) return@onEach
-            reviewUpdates(listOf(descriptor.source.value))
             _state.update {
                 it.copy(refreshType = UpdateStatusType.None, updatedDescriptor = null)
             }
+            reviewUpdates(listOf(descriptor.source.value))
         }.launchIn(viewModelScope)
     }
 

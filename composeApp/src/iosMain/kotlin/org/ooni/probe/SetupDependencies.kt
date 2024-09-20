@@ -72,7 +72,8 @@ class SetupDependencies(
         launchUrl = ::launchUrl,
         startSingleRunInner = ::startSingleRun,
         configureAutoRun = ::configureAutoRun,
-        configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
+        // NOTE: All iOS background tasks need to be registered registered before the app starts
+        configureDescriptorAutoUpdate = { false },
         fetchDescriptorUpdate = ::fetchDescriptorUpdate,
     )
 
@@ -263,16 +264,15 @@ class SetupDependencies(
         operationQueue.addOperation(operation)
     }
 
-    private fun configureDescriptorAutoUpdate() {
-    }
-
     private fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
         Logger.d("Fetching descriptor update")
         val operationQueue = NSOperationQueue()
         val getDescriptorUpdate by lazy { dependencies.getDescriptorUpdate }
+        val testDescriptorRepository by lazy { dependencies.testDescriptorRepository }
         val operation = DescriptorUpdateOperation(
             descriptors = descriptors,
             fetchDescriptorUpdate = getDescriptorUpdate,
+            testDescriptorRepository = testDescriptorRepository,
         )
         val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
             operation.cancel()

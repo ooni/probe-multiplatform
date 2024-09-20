@@ -16,7 +16,7 @@ import org.ooni.probe.data.models.UpdateStatusType
 
 class FetchDescriptorUpdate(
     private val fetchDescriptor: suspend (descriptorId: String) -> Result<InstalledTestDescriptorModel?, MkException>,
-    private val createOrUpdateTestDescriptors: suspend (List<InstalledTestDescriptorModel>) -> Unit,
+    private val createOrUpdateTestDescriptors: suspend (Set<InstalledTestDescriptorModel>) -> Unit,
     private val listInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
 ) {
     private val availableUpdates = MutableStateFlow(DescriptorUpdatesStatus())
@@ -36,7 +36,7 @@ class FetchDescriptorUpdate(
                 }
             }.awaitAll()
         }
-        val autoUpdateItems = mutableListOf<InstalledTestDescriptorModel>()
+        val autoUpdateItems = mutableSetOf<InstalledTestDescriptorModel>()
         val resultsMap = mutableMapOf<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>>()
         ResultStatus.entries.forEach { resultsMap[it] = mutableListOf() }
         response.forEach { (descriptor, result) ->
@@ -91,6 +91,7 @@ class FetchDescriptorUpdate(
     }
 
     fun cancelUpdates(descriptors: Set<InstalledTestDescriptorModel>) {
+        removeUpdates(descriptors)
         availableUpdates.update {
                 currentItems ->
             currentItems.copy(
@@ -101,7 +102,27 @@ class FetchDescriptorUpdate(
         }
     }
 
+    fun reviewUpdates(itemsForReview: List<InstalledTestDescriptorModel>) {
+        availableUpdates.update {
+                currentItems ->
+            currentItems.copy(
+                reviewUpdates = itemsForReview.toSet(),
+            )
+        }
+    }
+
     fun observeAvailableUpdatesState() = availableUpdates.asStateFlow()
+
+    fun removeUpdates(items: Set<InstalledTestDescriptorModel>) {
+        availableUpdates.update {
+                currentItems ->
+            currentItems.copy(
+                reviewUpdates = currentItems.reviewUpdates - items,
+                availableUpdates = currentItems.availableUpdates - items,
+                refreshType = UpdateStatusType.None,
+            )
+        }
+    }
 }
 
 enum class ResultStatus {

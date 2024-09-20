@@ -90,7 +90,7 @@ class Dependencies(
     private val launchUrl: (String, Map<String, String>?) -> Unit,
     private val startSingleRunInner: ((RunSpecification) -> Unit),
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
-    val configureDescriptorAutoUpdate: suspend () -> Unit,
+    val configureDescriptorAutoUpdate: suspend () -> Boolean,
     val fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
 ) {
     // Common
@@ -294,7 +294,7 @@ class Dependencies(
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
         goToDescriptor: (String) -> Unit,
-        reviewDescriptorUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
+        reviewDescriptorUpdates: () -> Unit,
     ) = DashboardViewModel(
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
@@ -305,14 +305,17 @@ class Dependencies(
         observeTestRunErrors = testStateManager.observeError(),
         fetchDescriptorUpdate = fetchDescriptorUpdate,
         observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
-        reviewUpdates = reviewDescriptorUpdates,
+        reviewUpdates = {
+            getDescriptorUpdate::reviewUpdates.invoke(it)
+            reviewDescriptorUpdates()
+        },
         cancelUpdates = getDescriptorUpdate::cancelUpdates,
     )
 
     fun descriptorViewModel(
         descriptorKey: String,
         onBack: () -> Unit,
-        reviewDescriptorUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
+        reviewDescriptorUpdates: () -> Unit,
     ) = DescriptorViewModel(
         descriptorKey = descriptorKey,
         onBack = onBack,
@@ -323,7 +326,10 @@ class Dependencies(
         deleteTestDescriptor = deleteTestDescriptor::invoke,
         fetchDescriptorUpdate = fetchDescriptorUpdate,
         setAutoUpdate = testDescriptorRepository::setAutoUpdate,
-        reviewUpdates = reviewDescriptorUpdates,
+        reviewUpdates = {
+            getDescriptorUpdate::reviewUpdates.invoke(it)
+            reviewDescriptorUpdates()
+        },
         descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
     )
 
@@ -401,15 +407,15 @@ class Dependencies(
         uploadMissingMeasurements = uploadMissingMeasurements::invoke,
     )
 
-    fun reviewUpdatesViewModel(
-        onBack: () -> Unit,
-        descriptors: List<InstalledTestDescriptorModel>,
-    ): ReviewUpdatesViewModel {
+    fun reviewUpdatesViewModel(onBack: () -> Unit): ReviewUpdatesViewModel {
         return ReviewUpdatesViewModel(
             onBack = onBack,
-            descriptors = descriptors,
-            createOrUpdate = testDescriptorRepository::createOrUpdate,
+            createOrUpdate = {
+                getDescriptorUpdate.removeUpdates(it)
+                testDescriptorRepository::createOrUpdate.invoke(it)
+            },
             cancelUpdates = getDescriptorUpdate::cancelUpdates,
+            observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
         )
     }
 

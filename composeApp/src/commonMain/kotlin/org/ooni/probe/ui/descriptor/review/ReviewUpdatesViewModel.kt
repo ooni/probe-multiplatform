@@ -4,25 +4,32 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorUpdatesStatus
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.toDescriptor
+import kotlin.reflect.KFunction0
 
 class ReviewUpdatesViewModel(
     private val onBack: () -> Unit,
-    descriptors: List<InstalledTestDescriptorModel>,
-    createOrUpdate: suspend (List<InstalledTestDescriptorModel>) -> Unit,
+    createOrUpdate: suspend (Set<InstalledTestDescriptorModel>) -> Unit,
     cancelUpdates: (Set<InstalledTestDescriptorModel>) -> Unit,
+    observeAvailableUpdatesState: KFunction0<StateFlow<DescriptorUpdatesStatus>>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val _state = MutableStateFlow(State(descriptors))
+    private val _state = MutableStateFlow(State())
     val state = _state.asStateFlow()
 
     init {
+        observeAvailableUpdatesState().onEach {
+            _state.value = _state.value.copy(descriptors = it.reviewUpdates.toList())
+        }.launchIn(viewModelScope)
+
         events.onEach {
             when (it) {
                 is Event.CancelClicked -> {
@@ -35,7 +42,7 @@ class ReviewUpdatesViewModel(
                 is Event.UpdateDescriptorClicked -> {
                     if (it.index <= _state.value.descriptors.size) {
                         val descriptor = _state.value.descriptors[it.index]
-                        createOrUpdate(listOf(descriptor))
+                        createOrUpdate(setOf(descriptor))
                         navigateToNextItemOrClose(it.index)
                     } else {
                         onBack()
@@ -59,7 +66,7 @@ class ReviewUpdatesViewModel(
     }
 
     data class State(
-        val descriptors: List<InstalledTestDescriptorModel>,
+        val descriptors: List<InstalledTestDescriptorModel> = emptyList(),
         val currentDescriptorIndex: Int = 0,
     ) {
         val currentDescriptor: Descriptor

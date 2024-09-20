@@ -65,7 +65,7 @@ class TestDescriptorRepository(
         }
     }
 
-    suspend fun createOrUpdate(models: List<InstalledTestDescriptorModel>) {
+    suspend fun createOrUpdate(models: Set<InstalledTestDescriptorModel>) {
         withContext(backgroundDispatcher) {
             database.transaction {
                 models.forEach { model ->
