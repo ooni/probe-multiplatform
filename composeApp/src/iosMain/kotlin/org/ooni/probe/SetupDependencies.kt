@@ -70,7 +70,7 @@ class SetupDependencies(
         launchUrl = ::launchUrl,
         startSingleRunInner = ::startSingleRun,
         configureAutoRun = ::configureAutoRun,
-        openVpnSettings = { false },
+        openVpnSettings = ::openVpnSettings,
     )
 
     fun startSingleRun(spec: RunSpecification) {
@@ -234,5 +234,18 @@ class SetupDependencies(
         task.expirationHandler = { operation.cancel() }
         operation.completionBlock = { task.setTaskCompletedWithSuccess(!operation.isCancelled()) }
         operationQueue.addOperation(operation)
+    }
+
+    private fun openVpnSettings(): Boolean {
+        val url = "App-prefs:General&path=ManagedConfigurationList"
+        return NSURL.URLWithString(url)?.let {
+            if (UIApplication.sharedApplication.canOpenURL(it)) {
+                UIApplication.sharedApplication.openURL(it)
+                return@let true
+            } else {
+                Logger.e { "Cannot open URL: $url" }
+                return@let false
+            }
+        } ?: false
     }
 }
