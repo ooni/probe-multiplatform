@@ -44,9 +44,9 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.TestRunState
-import org.ooni.probe.ui.customColors
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.shortFormat
+import org.ooni.probe.ui.theme.customColors
 
 @Composable
 fun RunningScreen(

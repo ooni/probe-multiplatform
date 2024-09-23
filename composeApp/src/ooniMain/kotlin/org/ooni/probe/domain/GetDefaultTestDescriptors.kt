@@ -49,12 +49,11 @@ class GetDefaultTestDescriptors {
                 description = Res.string.Dashboard_Websites_Overview_Paragraph,
                 icon = Res.drawable.test_websites,
                 color = Color(0xFF4c6ef5),
-                animation = "anim/websites.json",
+                animation = "websites",
                 dataUsage = Res.string.websites_datausage,
-                netTests =
-                    listOf(
-                        NetTest(TestType.WebConnectivity),
-                    ),
+                netTests = listOf(
+                    NetTest(TestType.WebConnectivity),
+                ),
             )
 
         private val INSTANT_MESSAGING =
@@ -65,15 +64,14 @@ class GetDefaultTestDescriptors {
                 description = Res.string.Dashboard_InstantMessaging_Overview_Paragraph,
                 icon = Res.drawable.test_instant_messaging,
                 color = Color(0xFF15aabf),
-                animation = "anim/instant_messaging.json",
+                animation = "instant_messaging",
                 dataUsage = Res.string.small_datausage,
-                netTests =
-                    listOf(
-                        NetTest(TestType.Whatsapp),
-                        NetTest(TestType.Telegram),
-                        NetTest(TestType.FacebookMessenger),
-                        NetTest(TestType.Signal),
-                    ),
+                netTests = listOf(
+                    NetTest(TestType.Whatsapp),
+                    NetTest(TestType.Telegram),
+                    NetTest(TestType.FacebookMessenger),
+                    NetTest(TestType.Signal),
+                ),
             )
 
         private val CIRCUMVENTION =
@@ -84,13 +82,12 @@ class GetDefaultTestDescriptors {
                 description = Res.string.Dashboard_Circumvention_Overview_Paragraph,
                 icon = Res.drawable.test_circumvention,
                 color = Color(0xFFe64980),
-                animation = "anim/circumvention.json",
+                animation = "circumvention",
                 dataUsage = Res.string.small_datausage,
-                netTests =
-                    listOf(
-                        NetTest(TestType.Psiphon),
-                        NetTest(TestType.Tor),
-                    ),
+                netTests = listOf(
+                    NetTest(TestType.Psiphon),
+                    NetTest(TestType.Tor),
+                ),
             )
 
         private val PERFORMANCE =
@@ -101,15 +98,14 @@ class GetDefaultTestDescriptors {
                 description = Res.string.Dashboard_Performance_Overview_Paragraph,
                 icon = Res.drawable.test_performance,
                 color = Color(0xFFbe4bdb),
-                animation = "anim/performance.json",
+                animation = "performance",
                 dataUsage = Res.string.performance_datausage,
-                netTests =
-                    listOf(
-                        NetTest(TestType.Ndt),
-                        NetTest(TestType.Dash),
-                        NetTest(TestType.HttpHeaderFieldManipulation),
-                        NetTest(TestType.HttpInvalidRequestLine),
-                    ),
+                netTests = listOf(
+                    NetTest(TestType.Ndt),
+                    NetTest(TestType.Dash),
+                    NetTest(TestType.HttpHeaderFieldManipulation),
+                    NetTest(TestType.HttpInvalidRequestLine),
+                ),
             )
 
         private val EXPERIMENTAL =
@@ -120,20 +116,18 @@ class GetDefaultTestDescriptors {
                 description = Res.string.Dashboard_Experimental_Overview_Paragraph,
                 icon = Res.drawable.test_experimental,
                 color = Color(0xFF495057),
-                animation = "anim/experimental.json",
+                animation = "experimental",
                 dataUsage = Res.string.TestResults_NotAvailable,
-                netTests =
-                    listOf(
-                        NetTest(TestType.Experimental("stunreachability")),
-                        NetTest(TestType.Experimental("dnscheck")),
-                        NetTest(TestType.Experimental("riseupvpn")),
-                        NetTest(TestType.Experimental("echcheck")),
-                    ),
-                longRunningTests =
-                    listOf(
-                        NetTest(TestType.Experimental("torsf")),
-                        NetTest(TestType.Experimental("vanilla_tor")),
-                    ),
+                netTests = listOf(
+                    NetTest(TestType.Experimental("stunreachability")),
+                    NetTest(TestType.Experimental("dnscheck")),
+                    NetTest(TestType.Experimental("riseupvpn")),
+                    NetTest(TestType.Experimental("echcheck")),
+                ),
+                longRunningTests = listOf(
+                    NetTest(TestType.Experimental("torsf")),
+                    NetTest(TestType.Experimental("vanilla_tor")),
+                ),
             )
     }
 }

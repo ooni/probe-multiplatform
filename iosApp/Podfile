@@ -1,14 +1,18 @@
 platform :ios, '12.0'
 use_frameworks!
 
+def shared_pods
+    ooni_version = "v3.22.0"
+    ooni_pods_location = "https://github.com/ooni/probe-cli/releases/download/#{ooni_version}"
 
-ooni_version = "v3.22.0"
-ooni_pods_location = "https://github.com/ooni/probe-cli/releases/download/#{ooni_version}"
-
-target 'OONIProbe' do
     pod 'composeApp', :path => '../composeApp'
 
     pod 'sqlite3', '~> 3.42.0'
+    pod("lottie-ios") {
+        version = "~> 4.5.0"
+        moduleName = "Lottie"
+        extraOpts += listOf("-compiler-option", "-fmodules")
+    }
 
     pod "libcrypto", :podspec => "#{ooni_pods_location}/libcrypto.podspec"
     pod "libevent", :podspec => "#{ooni_pods_location}/libevent.podspec"
@@ -18,17 +22,12 @@ target 'OONIProbe' do
     pod "oonimkall", :podspec => "#{ooni_pods_location}/oonimkall.podspec"
 end
 
+target 'OONIProbe' do
+    shared_pods
+end
+
 target 'NewsMediaScan' do
-    pod 'composeApp', :path => '../composeApp'
-
-    pod 'sqlite3', '~> 3.42.0'
-
-    pod "libcrypto", :podspec => "#{ooni_pods_location}/libcrypto.podspec"
-    pod "libevent", :podspec => "#{ooni_pods_location}/libevent.podspec"
-    pod "libssl", :podspec => "#{ooni_pods_location}/libssl.podspec"
-    pod "libtor", :podspec => "#{ooni_pods_location}/libtor.podspec"
-    pod "libz", :podspec => "#{ooni_pods_location}/libz.podspec"
-    pod "oonimkall", :podspec => "#{ooni_pods_location}/oonimkall.podspec"
+    shared_pods
 end
 
 post_install do |installer|
