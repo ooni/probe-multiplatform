@@ -136,7 +136,7 @@ class RunWorker(
                 NotificationChannel(
                     NOTIFICATION_CHANNEL_ID,
                     getString(Res.string.notification_channel_name),
-                    NotificationManager.IMPORTANCE_DEFAULT,
+                    NotificationManager.IMPORTANCE_LOW,
                 ),
             )
         }
@@ -150,6 +150,10 @@ class RunWorker(
             .setColor(state.descriptor?.color?.toArgb() ?: primaryLight.toArgb())
             .setProgress(1000, (state.progress * 1000).roundToInt(), false)
             .setAutoCancel(false)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setSound(null)
+            .setVibrate(null)
+            .setLights(0, 0, 0)
             .setContentIntent(openAppIntent)
             .addAction(
                 NotificationCompat.Action.Builder(

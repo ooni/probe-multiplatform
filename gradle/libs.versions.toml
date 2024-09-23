@@ -1,13 +1,13 @@
 [versions]
 
-agp = "8.3.2" # Max compatible version https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
+agp = "8.5.2" # Check compatibility https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
 
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
 
 compose-plugin = "1.6.11"
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 sqldelight = "2.0.2"
 dataStoreVersion = "1.1.1"
 

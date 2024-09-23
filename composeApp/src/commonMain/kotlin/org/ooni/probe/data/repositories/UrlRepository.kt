@@ -4,6 +4,7 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.ooni.engine.models.WebConnectivityCategory
@@ -65,6 +66,19 @@ class UrlRepository(
             }
         }
 
+    suspend fun getOrCreateByUrl(url: String): UrlModel =
+        listByUrls(listOf(url))
+            .first()
+            .firstOrNull()
+            ?: run {
+                val newModel = UrlModel(
+                    url = url,
+                    category = WebConnectivityCategory.MISC,
+                    countryCode = null,
+                )
+                newModel.copy(id = createOrUpdate(newModel))
+            }
+
     fun list(): Flow<List<UrlModel>> =
         database.urlQueries
             .selectAll()
@@ -78,10 +92,6 @@ class UrlRepository(
             .asFlow()
             .mapToList(backgroundDispatcher)
             .map { list -> list.mapNotNull { it.toModel() } }
-
-    fun getByUrl(url: String): Flow<UrlModel?> =
-        listByUrls(listOf(url))
-            .map { it.firstOrNull() }
 }
 
 fun Url.toModel(): UrlModel? {

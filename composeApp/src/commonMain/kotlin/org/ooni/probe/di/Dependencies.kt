@@ -207,6 +207,7 @@ class Dependencies(
             observeSettings = preferenceRepository::allSettings,
         )
     }
+
     val runDescriptors by lazy {
         RunDescriptors(
             getTestDescriptorsBySpec = getTestDescriptorsBySpec::invoke,
@@ -257,7 +258,7 @@ class Dependencies(
             startTest = engine::startTask,
             storeResult = resultRepository::createOrUpdate,
             setCurrentTestState = testStateManager::updateState,
-            getUrlByUrl = urlRepository::getByUrl,
+            getOrCreateUrl = urlRepository::getOrCreateByUrl,
             storeMeasurement = measurementRepository::createOrUpdate,
             storeNetwork = networkRepository::createIfNew,
             writeFile = writeFile,
