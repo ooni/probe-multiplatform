@@ -59,6 +59,7 @@ import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
 import org.ooni.probe.domain.SaveTestDescriptors
 import org.ooni.probe.domain.SendSupportEmail
+import org.ooni.probe.domain.ShouldShowVpnWarning
 import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
@@ -88,6 +89,7 @@ class Dependencies(
     private val launchUrl: (String, Map<String, String>?) -> Unit,
     private val startSingleRunInner: ((RunSpecification) -> Unit),
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
+    private val openVpnSettings: () -> Boolean,
 ) {
     // Common
 
@@ -205,21 +207,6 @@ class Dependencies(
             observeSettings = preferenceRepository::allSettings,
         )
     }
-
-    private fun runNetTest(spec: RunNetTest.Specification) =
-        RunNetTest(
-            startTest = engine::startTask,
-            storeResult = resultRepository::createOrUpdate,
-            setCurrentTestState = testStateManager::updateState,
-            getUrlByUrl = urlRepository::getByUrl,
-            storeMeasurement = measurementRepository::createOrUpdate,
-            storeNetwork = networkRepository::createIfNew,
-            writeFile = writeFile,
-            deleteFiles = deleteFiles,
-            json = json,
-            spec = spec,
-        )
-
     val runDescriptors by lazy {
         RunDescriptors(
             getTestDescriptorsBySpec = getTestDescriptorsBySpec::invoke,
@@ -240,7 +227,6 @@ class Dependencies(
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
-
     private val deleteTestDescriptor by lazy {
         DeleteTestDescriptor(
             preferencesRepository = preferenceRepository,
@@ -251,9 +237,10 @@ class Dependencies(
             deleteFile = deleteFiles::invoke,
         )
     }
-
-    val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
-
+    private val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
+    private val shouldShowVpnWarning by lazy {
+        ShouldShowVpnWarning(preferenceRepository, networkTypeFinder::invoke)
+    }
     private val testStateManager by lazy { TestRunStateManager(resultRepository.getLatest()) }
     private val uploadMissingMeasurements by lazy {
         UploadMissingMeasurements(
@@ -264,6 +251,20 @@ class Dependencies(
             updateMeasurement = measurementRepository::createOrUpdate,
         )
     }
+
+    private fun runNetTest(spec: RunNetTest.Specification) =
+        RunNetTest(
+            startTest = engine::startTask,
+            storeResult = resultRepository::createOrUpdate,
+            setCurrentTestState = testStateManager::updateState,
+            getUrlByUrl = urlRepository::getByUrl,
+            storeMeasurement = measurementRepository::createOrUpdate,
+            storeNetwork = networkRepository::createIfNew,
+            writeFile = writeFile,
+            deleteFiles = deleteFiles,
+            json = json,
+            spec = spec,
+        )
 
     // ViewModels
 
@@ -291,6 +292,7 @@ class Dependencies(
         getTestDescriptors = getTestDescriptors::invoke,
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
+        shouldShowVpnWarning = shouldShowVpnWarning::invoke,
     )
 
     fun descriptorViewModel(
@@ -333,9 +335,11 @@ class Dependencies(
     fun runViewModel(onBack: () -> Unit) =
         RunViewModel(
             onBack = onBack,
-            startBackgroundRun = startSingleRunInner,
             getTestDescriptors = getTestDescriptors::invoke,
+            shouldShowVpnWarning = shouldShowVpnWarning::invoke,
             preferenceRepository = preferenceRepository,
+            startBackgroundRun = startSingleRunInner,
+            openVpnSettings = openVpnSettings,
         )
 
     fun resultViewModel(

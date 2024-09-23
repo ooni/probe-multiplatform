@@ -56,7 +56,11 @@ class SetupDependencies(
     val dependencies: Dependencies = Dependencies(
         platformInfo = platformInfo,
         oonimkallBridge = bridge,
-        baseFileDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).first().toString(),
+        baseFileDir = NSSearchPathForDirectoriesInDomains(
+            NSDocumentDirectory,
+            NSUserDomainMask,
+            true,
+        ).first().toString(),
         cacheDir = NSTemporaryDirectory(),
         readAssetFile = ::readAssetFile,
         databaseDriverFactory = ::buildDatabaseDriver,
@@ -66,13 +70,18 @@ class SetupDependencies(
         launchUrl = ::launchUrl,
         startSingleRunInner = ::startSingleRun,
         configureAutoRun = ::configureAutoRun,
+        openVpnSettings = ::openVpnSettings,
     )
 
     fun startSingleRun(spec: RunSpecification) {
         val operationQueue = NSOperationQueue()
         val runDescriptors by lazy { dependencies.runDescriptors }
         val getCurrentTestState by lazy { dependencies.getCurrentTestState }
-        val operation = RunOperation(spec = spec, runDescriptors = runDescriptors, getCurrentTestState = getCurrentTestState)
+        val operation = RunOperation(
+            spec = spec,
+            runDescriptors = runDescriptors,
+            getCurrentTestState = getCurrentTestState,
+        )
         val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
             operation.cancel()
         }
@@ -88,7 +97,8 @@ class SetupDependencies(
 
     private val platformInfo: PlatformInfo
         get() = object : PlatformInfo {
-            override val version = (NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String).orEmpty()
+            override val version =
+                (NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String).orEmpty()
             override val platform = Platform.Ios
             override val osVersion = with(UIDevice.currentDevice) { "$systemName $systemVersion" }
             override val model = UIDevice.currentDevice.model
@@ -153,7 +163,11 @@ class SetupDependencies(
                                 }
                             }
                         }.let {
-                            UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(it, true, null)
+                            UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(
+                                it,
+                                true,
+                                null,
+                            )
                         }
                     } else {
                         UIPasteboard.generalPasteboard.string = email
@@ -169,7 +183,10 @@ class SetupDependencies(
         val getAutoRunSettings by lazy { dependencies.getAutoRunSettings }
 
         Logger.d { "Registering task handlers" }
-        BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(OrganizationConfig.autorunTaskId, null) { task ->
+        BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(
+            OrganizationConfig.autorunTaskId,
+            null,
+        ) { task ->
             Logger.d { "Received task: $task" }
             (task as? BGProcessingTask)?.let {
                 GlobalScope.launch {
@@ -217,5 +234,18 @@ class SetupDependencies(
         task.expirationHandler = { operation.cancel() }
         operation.completionBlock = { task.setTaskCompletedWithSuccess(!operation.isCancelled()) }
         operationQueue.addOperation(operation)
+    }
+
+    private fun openVpnSettings(): Boolean {
+        val url = "App-prefs:General&path=ManagedConfigurationList"
+        return NSURL.URLWithString(url)?.let {
+            if (UIApplication.sharedApplication.canOpenURL(it)) {
+                UIApplication.sharedApplication.openURL(it)
+                return@let true
+            } else {
+                Logger.e { "Cannot open URL: $url" }
+                return@let false
+            }
+        } ?: false
     }
 }

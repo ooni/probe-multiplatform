@@ -179,6 +179,12 @@
     <string name="Modal_DoYouWantToDeleteAllTests">Do you want to delete all test results?</string>
     <string name="Modal_Delete">Delete</string>
 
+    <string name="Modal_DisableVPN_Title">Please disable your VPN connection.</string>
+    <string name="Modal_DisableVPN_Message">If you run OONI Probe with a VPN enabled, the test results may appear to come from the wrong country. Please disable your VPN connection.</string>
+    <string name="Modal_DisableVPN">Disable VPN</string>
+    <string name="Modal_RunAnyway">Run anyways</string>
+    <string name="Modal_AlwaysRun">Always Run</string>
+
     <string name="Modal_Error_CantDownloadURLs">Unable to download URL list. Please try again.</string>
 
     <string name="AddDescriptor_Settings">Test Settings</string>
@@ -242,4 +248,5 @@
     <string name="test_type_all">All Types</string>
     <string name="task_origin_all">All Sources</string>
     <string name="vpn">VPN</string>
+    <string name="disable_vpn_instructions">Go to Settings > General > VPN and disconnect from your VPN.</string>
 </resources>

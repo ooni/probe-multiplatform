@@ -23,6 +23,7 @@ class DashboardViewModel(
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     observeTestRunState: Flow<TestRunState>,
     observeTestRunErrors: Flow<TestRunError>,
+    shouldShowVpnWarning: suspend () -> Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -74,6 +75,13 @@ class DashboardViewModel(
             .filterIsInstance<Event.DescriptorClicked>()
             .onEach { goToDescriptor(it.descriptor.key) }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.Start>()
+            .onEach {
+                _state.update { it.copy(showVpnWarning = shouldShowVpnWarning()) }
+            }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -90,9 +98,12 @@ class DashboardViewModel(
         val descriptors: Map<DescriptorType, List<Descriptor>> = emptyMap(),
         val testRunState: TestRunState = TestRunState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
+        val showVpnWarning: Boolean = false,
     )
 
     sealed interface Event {
+        data object Start : Event
+
         data object RunTestsClick : Event
 
         data object RunningTestClick : Event
