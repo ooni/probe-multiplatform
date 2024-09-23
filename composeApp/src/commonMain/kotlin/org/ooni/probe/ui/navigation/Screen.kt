@@ -10,6 +10,8 @@ import org.ooni.probe.shared.encodeUrlToBase64
 sealed class Screen(
     val route: String,
 ) {
+    data object Onboarding : Screen("onboarding")
+
     data object Dashboard : Screen("dashboard")
 
     data object Results : Screen("results")

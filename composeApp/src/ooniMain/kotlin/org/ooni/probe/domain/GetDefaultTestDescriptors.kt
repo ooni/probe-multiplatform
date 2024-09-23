@@ -49,7 +49,7 @@ class GetDefaultTestDescriptors {
                 description = Res.string.Dashboard_Websites_Overview_Paragraph,
                 icon = Res.drawable.test_websites,
                 color = Color(0xFF4c6ef5),
-                animation = "anim/websites.json",
+                animation = "websites",
                 dataUsage = Res.string.websites_datausage,
                 netTests = listOf(
                     NetTest(TestType.WebConnectivity),
@@ -64,7 +64,7 @@ class GetDefaultTestDescriptors {
                 description = Res.string.Dashboard_InstantMessaging_Overview_Paragraph,
                 icon = Res.drawable.test_instant_messaging,
                 color = Color(0xFF15aabf),
-                animation = "anim/instant_messaging.json",
+                animation = "instant_messaging",
                 dataUsage = Res.string.small_datausage,
                 netTests = listOf(
                     NetTest(TestType.Whatsapp),
@@ -82,7 +82,7 @@ class GetDefaultTestDescriptors {
                 description = Res.string.Dashboard_Circumvention_Overview_Paragraph,
                 icon = Res.drawable.test_circumvention,
                 color = Color(0xFFe64980),
-                animation = "anim/circumvention.json",
+                animation = "circumvention",
                 dataUsage = Res.string.small_datausage,
                 netTests = listOf(
                     NetTest(TestType.Psiphon),
@@ -98,7 +98,7 @@ class GetDefaultTestDescriptors {
                 description = Res.string.Dashboard_Performance_Overview_Paragraph,
                 icon = Res.drawable.test_performance,
                 color = Color(0xFFbe4bdb),
-                animation = "anim/performance.json",
+                animation = "performance",
                 dataUsage = Res.string.performance_datausage,
                 netTests = listOf(
                     NetTest(TestType.Ndt),
@@ -116,7 +116,7 @@ class GetDefaultTestDescriptors {
                 description = Res.string.Dashboard_Experimental_Overview_Paragraph,
                 icon = Res.drawable.test_experimental,
                 color = Color(0xFF495057),
-                animation = "anim/experimental.json",
+                animation = "experimental",
                 dataUsage = Res.string.TestResults_NotAvailable,
                 netTests = listOf(
                     NetTest(TestType.Experimental("stunreachability")),

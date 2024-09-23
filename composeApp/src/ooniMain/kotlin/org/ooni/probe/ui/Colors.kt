@@ -73,3 +73,16 @@ val surfaceContainerLowDark = Color(0xFF171D1E)
 val surfaceContainerDark = Color(0xFF1B2122)
 val surfaceContainerHighDark = Color(0xFF252B2C)
 val surfaceContainerHighestDark = Color(0xFF303637)
+
+val onboarding1Color = Color(0xFF002B54)
+val onboarding2Color = Color(0xFF0F3E74)
+val onboarding3Color = Color(0xFF001A33)
+val onOnboardingColor = Color.White
+val quizColor = Color(0xFF0588cb)
+val onQuizColor = Color.White
+val quizTrueColor = Color(0xFF2f9e44)
+val onQuizTrueColor = Color.White
+val quizTrueAnimationColor = Color(0xFF2f9e44)
+val quizFalseColor = Color(0xFFe03131)
+val onQuizFalseColor = Color.White
+val quizFalseAnimationColor = Color(0xFFe03131)
