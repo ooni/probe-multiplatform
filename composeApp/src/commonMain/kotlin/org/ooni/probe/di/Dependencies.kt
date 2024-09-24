@@ -391,6 +391,7 @@ class Dependencies(
             Json {
                 encodeDefaults = true
                 ignoreUnknownKeys = true
+                isLenient = true
             }
 
         @VisibleForTesting

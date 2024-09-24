@@ -61,9 +61,15 @@ class RunNetTest(
                 testTotal = spec.testTotal,
             )
         }
-        val installedDescriptorId = (spec.descriptor.source as? Descriptor.Source.Installed)?.value?.id
+        val installedDescriptorId =
+            (spec.descriptor.source as? Descriptor.Source.Installed)?.value?.id
 
-        startTest(spec.netTest.test.name, spec.netTest.inputs, spec.taskOrigin, installedDescriptorId)
+        startTest(
+            spec.netTest.test.name,
+            spec.netTest.inputs,
+            spec.taskOrigin,
+            installedDescriptorId,
+        )
             .collect(::onEvent)
     }
 
@@ -162,8 +168,13 @@ class RunNetTest(
                                 runtime = event.result.testRuntime,
                             )
                         }
-                        // We ignore test_keys because we're no longer storing them
-                        // TODO: specific tests add more fields (see AbstractTest.onEntry)
+
+                        val evaluation =
+                            evaluateMeasurementKeys(spec.netTest.test, event.result.testKeys)
+                        measurement = measurement.copy(
+                            isFailed = evaluation.isFailed,
+                            isAnomaly = evaluation.isAnomaly,
+                        )
                     }
 
                     if (spec.isRerun && lastNetwork != null) {
