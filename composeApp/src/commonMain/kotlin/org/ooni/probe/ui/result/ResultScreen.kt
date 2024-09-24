@@ -99,6 +99,7 @@ fun ResultScreen(
             items(state.result.measurements, key = { it.measurement.idOrThrow.value }) { item ->
                 ResultMeasurementCell(
                     item = item,
+                    isResultDone = state.result.result.isDone,
                     onClick = { reportId, input ->
                         onEvent(ResultViewModel.Event.MeasurementClicked(reportId, input))
                     },

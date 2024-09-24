@@ -236,11 +236,11 @@ class RunNetTest(
                     updateResult {
                         it.copy(
                             failureMessage =
-                            if (it.failureMessage != null) {
-                                "${it.failureMessage}\n\n$message"
-                            } else {
-                                message
-                            },
+                                if (it.failureMessage != null) {
+                                    "${it.failureMessage}\n\n$message"
+                                } else {
+                                    message
+                                },
                         )
                     }
                 }

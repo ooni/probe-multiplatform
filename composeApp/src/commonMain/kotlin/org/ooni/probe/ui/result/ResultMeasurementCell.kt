@@ -33,17 +33,18 @@ import org.ooni.probe.data.models.MeasurementWithUrl
 @Composable
 fun ResultMeasurementCell(
     item: MeasurementWithUrl,
+    isResultDone: Boolean,
     onClick: (MeasurementModel.ReportId, String?) -> Unit,
 ) {
-    val test = item.measurement.test
-    val isCorrectlyUploaded = item.measurement.isUploaded && item.measurement.reportId != null
+    val measurement = item.measurement
+    val test = measurement.test
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .run {
-                if (isCorrectlyUploaded) {
-                    clickable { onClick(item.measurement.reportId!!, item.url?.url) }
+                if (measurement.isDone && !measurement.isMissingUpload) {
+                    clickable { onClick(measurement.reportId!!, item.url?.url) }
                 } else {
                     alpha(0.5f)
                 }
@@ -74,26 +75,28 @@ fun ResultMeasurementCell(
             maxLines = 1,
             modifier = Modifier.weight(1f),
         )
-        if (item.measurement.isDone && !isCorrectlyUploaded) {
+        if (isResultDone && measurement.isDoneAndMissingUpload) {
             Icon(
                 painterResource(Res.drawable.ic_cloud_off),
                 contentDescription = stringResource(Res.string.Snackbar_ResultsNotUploaded_Text),
                 modifier = Modifier.padding(end = 16.dp).size(24.dp),
             )
         }
-        if (item.measurement.isDone) {
+        if (measurement.isDone || isResultDone) {
+            val isFailed = measurement.isFailed || (isResultDone && !measurement.isDone)
             Icon(
                 painterResource(
                     when {
-                        item.measurement.isFailed -> Res.drawable.ic_measurement_failed
-                        item.measurement.isAnomaly -> Res.drawable.ic_measurement_anomaly
+                        isFailed ->
+                            Res.drawable.ic_measurement_failed
+                        measurement.isAnomaly -> Res.drawable.ic_measurement_anomaly
                         else -> Res.drawable.ic_measurement_ok
                     },
                 ),
                 contentDescription = stringResource(
                     when {
-                        item.measurement.isFailed -> Res.string.measurement_failed
-                        item.measurement.isAnomaly -> Res.string.measurement_anomaly
+                        isFailed -> Res.string.measurement_failed
+                        measurement.isAnomaly -> Res.string.measurement_anomaly
                         else -> Res.string.measurement_ok
                     },
                 ),
@@ -102,7 +105,7 @@ fun ResultMeasurementCell(
                     .padding(end = 16.dp)
                     .size(24.dp),
             )
-        } else {
+        } else if (!isResultDone) {
             CircularProgressIndicator(
                 modifier = Modifier
                     .padding(end = 16.dp)

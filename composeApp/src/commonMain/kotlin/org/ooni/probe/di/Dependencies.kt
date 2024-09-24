@@ -44,6 +44,7 @@ import org.ooni.probe.domain.DeleteAllResults
 import org.ooni.probe.domain.DeleteTestDescriptor
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FetchDescriptor
+import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
@@ -163,6 +164,7 @@ class Dependencies(
             json = json,
         )
     }
+    val finishInProgressData by lazy { FinishInProgressData(resultRepository::markAllAsDone) }
     val getAutoRunSpecification by lazy {
         GetAutoRunSpecification(getTestDescriptors, preferenceRepository)
     }
@@ -207,12 +209,12 @@ class Dependencies(
             observeSettings = preferenceRepository::allSettings,
         )
     }
-
     val runDescriptors by lazy {
         RunDescriptors(
             getTestDescriptorsBySpec = getTestDescriptorsBySpec::invoke,
             downloadUrls = downloadUrls::invoke,
             storeResult = resultRepository::createOrUpdate,
+            markResultAsDone = resultRepository::markAsDone,
             getCurrentTestRunState = testStateManager.observeState(),
             setCurrentTestState = testStateManager::updateState,
             runNetTest = { runNetTest(it)() },

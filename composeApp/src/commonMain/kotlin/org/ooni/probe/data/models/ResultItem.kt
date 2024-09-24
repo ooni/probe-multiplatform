@@ -8,7 +8,8 @@ data class ResultItem(
     val network: NetworkModel?,
     val measurements: List<MeasurementWithUrl>,
 ) {
-    val anyMeasurementMissingUpload = measurements.any { it.measurement.isMissingUpload }
+    val anyMeasurementMissingUpload =
+        result.isDone && measurements.any { it.measurement.isDoneAndMissingUpload }
 
     val totalRuntime get() = measurements.sumOf { it.measurement.runtime ?: 0.0 }.seconds
 }

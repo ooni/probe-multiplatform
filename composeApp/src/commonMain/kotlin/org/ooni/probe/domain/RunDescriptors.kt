@@ -26,6 +26,7 @@ class RunDescriptors(
     private val getTestDescriptorsBySpec: suspend (RunSpecification) -> List<Descriptor>,
     private val downloadUrls: suspend (TaskOrigin) -> Result<List<UrlModel>, MkException>,
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
+    private val markResultAsDone: suspend (ResultModel.Id) -> Unit,
     private val getCurrentTestRunState: Flow<TestRunState>,
     private val setCurrentTestState: ((TestRunState) -> TestRunState) -> Unit,
     private val runNetTest: suspend (RunNetTest.Specification) -> Unit,
@@ -147,5 +148,7 @@ class RunDescriptors(
                 ),
             )
         }
+
+        markResultAsDone(resultId)
     }
 }

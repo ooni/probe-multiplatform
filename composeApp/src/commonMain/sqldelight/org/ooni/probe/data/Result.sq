@@ -31,6 +31,12 @@ INSERT OR REPLACE INTO Result (
 markAsViewed:
 UPDATE Result SET is_viewed = 1 WHERE id = ?;
 
+markAsDone:
+UPDATE Result SET is_done = 1 WHERE id = ?;
+
+markAllAsDone:
+UPDATE Result SET is_done = 1;
+
 deleteAll:
 DELETE FROM Result;
 
