@@ -5,7 +5,6 @@ PODS:
   - libssl (2024.05.22-093305)
   - libtor (2024.05.22-093305)
   - libz (2024.05.22-093305)
-  - lottie-ios (4.4.1)
   - oonimkall (2024.05.22-093305)
   - sqlite3 (3.42.0):
     - sqlite3/common (= 3.42.0)
@@ -18,13 +17,11 @@ DEPENDENCIES:
   - libssl (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/libssl.podspec`)
   - libtor (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/libtor.podspec`)
   - libz (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/libz.podspec`)
-  - lottie-ios
   - oonimkall (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/oonimkall.podspec`)
   - sqlite3 (~> 3.42.0)
 
 SPEC REPOS:
   trunk:
-    - lottie-ios
     - sqlite3
 
 EXTERNAL SOURCES:
@@ -50,10 +47,9 @@ SPEC CHECKSUMS:
   libssl: 170bebcaf567a0285e91a8850b9686137d07c3e1
   libtor: c72b23da6a5d2e16173149784f11cf66156c35be
   libz: 83658eb2a0db785623ffdf9ce13407e6b8b5c8f9
-  lottie-ios: e047b1d2e6239b787cc5e9755b988869cf190494
   oonimkall: 9768ce9dad18265d45d2ea972c84fb0bd5237cc3
   sqlite3: f163dbbb7aa3339ad8fc622782c2d9d7b72f7e9c
 
-PODFILE CHECKSUM: 82211d9ccb82e30161b51a63b37a1c6dd97f1268
+PODFILE CHECKSUM: b06fce1e10c83d22148bcb93b3b75ca57d3bff2b
 
 COCOAPODS: 1.15.2

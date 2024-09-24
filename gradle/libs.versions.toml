@@ -59,7 +59,7 @@ okio = { module = "com.squareup.okio:okio", version = "3.9.0" }
 webview = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "1.9.20" }
 
 # Lottie animations
-kottie = { module = "io.github.ismai117:kottie", version = "1.9.6" } # 2.0.0 not supported yet
+kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.0-rc01" } # 2.0.0 not supported yet
 
 # Permissions
 moko-permissions = { module ="dev.icerock.moko:permissions-compose", version = "0.18.0" }
