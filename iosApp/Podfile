@@ -1,4 +1,4 @@
-platform :ios, '12.0'
+platform :ios, '15.3'
 use_frameworks!
 
 def shared_pods
@@ -8,11 +8,6 @@ def shared_pods
     pod 'composeApp', :path => '../composeApp'
 
     pod 'sqlite3', '~> 3.42.0'
-    pod("lottie-ios") {
-        version = "~> 4.5.0"
-        moduleName = "Lottie"
-        extraOpts += listOf("-compiler-option", "-fmodules")
-    }
 
     pod "libcrypto", :podspec => "#{ooni_pods_location}/libcrypto.podspec"
     pod "libevent", :podspec => "#{ooni_pods_location}/libevent.podspec"
@@ -34,7 +29,7 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
       config.build_settings['ENABLE_BITCODE'] = 'NO'
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.3'
     end
   end
 end

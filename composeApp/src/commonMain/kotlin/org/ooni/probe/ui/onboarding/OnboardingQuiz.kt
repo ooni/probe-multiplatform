@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
@@ -179,21 +180,20 @@ private fun ResultAnimation(
     isCorrect: Boolean,
     onFinish: () -> Unit,
 ) {
-    val backgroundColor = if (isCorrect) {
-        LocalCustomColors.current.quizTrueAnimation
-    } else {
-        LocalCustomColors.current.quizFalseAnimation
-    }
     Surface(
-        color = backgroundColor,
+        color = if (isCorrect) {
+            LocalCustomColors.current.quizTrueAnimation
+        } else {
+            LocalCustomColors.current.quizFalseAnimation
+        },
         contentColor = LocalCustomColors.current.onQuiz,
         shape = RoundedCornerShape(24.dp),
     ) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp),
+                .padding(36.dp)
+                .fillMaxWidth(),
         ) {
             LottieAnimation(
                 fileName = if (isCorrect) "checkMark" else "crossMark",
@@ -204,9 +204,9 @@ private fun ResultAnimation(
                         Res.string.quiz_answer_incorrect
                     },
                 ),
-                backgroundColor = backgroundColor,
                 restartOnPlay = false,
                 onFinish = onFinish,
+                modifier = Modifier.size(200.dp),
             )
         }
     }

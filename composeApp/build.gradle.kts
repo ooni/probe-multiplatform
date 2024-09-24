@@ -155,9 +155,6 @@ kotlin {
         // Common compiler options applied to all Kotlin source sets
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
-    composeCompiler {
-        enableStrongSkippingMode = true
-    }
 }
 
 android {
