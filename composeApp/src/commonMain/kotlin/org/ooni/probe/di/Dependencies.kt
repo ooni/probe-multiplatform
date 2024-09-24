@@ -256,7 +256,7 @@ class Dependencies(
     private fun runNetTest(spec: RunNetTest.Specification) =
         RunNetTest(
             startTest = engine::startTask,
-            storeResult = resultRepository::createOrUpdate,
+            getResultByIdAndUpdate = resultRepository::getByIdAndUpdate,
             setCurrentTestState = testStateManager::updateState,
             getOrCreateUrl = urlRepository::getOrCreateByUrl,
             storeMeasurement = measurementRepository::createOrUpdate,

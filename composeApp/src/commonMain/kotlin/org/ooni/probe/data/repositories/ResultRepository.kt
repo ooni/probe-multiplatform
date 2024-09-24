@@ -5,6 +5,7 @@ import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.ooni.engine.models.TaskOrigin
@@ -82,6 +83,13 @@ class ResultRepository(
                     ?: ResultModel.Id(
                         database.resultQueries.selectLastInsertedRowId().executeAsOne(),
                     )
+            }
+        }
+
+    suspend fun getByIdAndUpdate(id: ResultModel.Id, update: (ResultModel) -> ResultModel) =
+        withContext(backgroundDispatcher) {
+            getById(id).first()?.first?.let { result ->
+                createOrUpdate(update(result))
             }
         }
 

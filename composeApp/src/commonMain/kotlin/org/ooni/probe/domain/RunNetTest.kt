@@ -25,7 +25,7 @@ class RunNetTest(
     private val getOrCreateUrl: suspend (String) -> UrlModel,
     private val storeMeasurement: suspend (MeasurementModel) -> MeasurementModel.Id,
     private val storeNetwork: suspend (NetworkModel) -> NetworkModel.Id,
-    private val storeResult: suspend (ResultModel) -> ResultModel.Id,
+    private val getResultByIdAndUpdate: suspend (ResultModel.Id, (ResultModel) -> ResultModel) -> Unit,
     private val setCurrentTestState: ((TestRunState) -> TestRunState) -> Unit,
     private val writeFile: WriteFile,
     private val deleteFiles: DeleteFiles,
@@ -38,12 +38,11 @@ class RunNetTest(
         val netTest: NetTest,
         val taskOrigin: TaskOrigin,
         val isRerun: Boolean,
-        val initialResult: ResultModel,
+        val resultId: ResultModel.Id,
         val testIndex: Int,
         val testTotal: Int,
     )
 
-    private var result = spec.initialResult
     private var reportId: String? = null
     private var lastNetwork: NetworkModel? = null
     private val measurements = mutableMapOf<Int, MeasurementModel>()
@@ -102,7 +101,7 @@ class RunNetTest(
                     MeasurementModel(
                         test = spec.netTest.test,
                         reportId = reportId?.let(MeasurementModel::ReportId),
-                        resultId = result.id ?: return,
+                        resultId = spec.resultId,
                         urlId = if (event.url.isNullOrEmpty()) {
                             null
                         } else {
@@ -218,8 +217,8 @@ class RunNetTest(
             is TaskEvent.End -> {
                 updateResult {
                     it.copy(
-                        dataUsageDown = result.dataUsageDown + event.downloadedKb,
-                        dataUsageUp = result.dataUsageUp + event.uploadedKb,
+                        dataUsageDown = it.dataUsageDown + event.downloadedKb,
+                        dataUsageUp = it.dataUsageUp + event.uploadedKb,
                     )
                 }
             }
@@ -237,11 +236,11 @@ class RunNetTest(
                     updateResult {
                         it.copy(
                             failureMessage =
-                                if (result.failureMessage != null) {
-                                    "${result.failureMessage}\n\n$message"
-                                } else {
-                                    message
-                                },
+                            if (it.failureMessage != null) {
+                                "${it.failureMessage}\n\n$message"
+                            } else {
+                                message
+                            },
                         )
                     }
                 }
@@ -269,8 +268,7 @@ class RunNetTest(
     }
 
     private suspend fun updateResult(update: (ResultModel) -> ResultModel) {
-        result = update(result)
-        storeResult(result)
+        getResultByIdAndUpdate(spec.resultId, update)
     }
 
     private suspend fun createMeasurement(
@@ -293,7 +291,7 @@ class RunNetTest(
 
     private suspend fun writeToLogFile(text: String) {
         writeFile(
-            path = MeasurementModel.logFilePath(result.idOrThrow, spec.netTest.test),
+            path = MeasurementModel.logFilePath(spec.resultId, spec.netTest.test),
             contents = text,
             append = true,
         )
