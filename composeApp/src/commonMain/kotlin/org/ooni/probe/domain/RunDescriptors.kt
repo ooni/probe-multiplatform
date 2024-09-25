@@ -26,6 +26,7 @@ class RunDescriptors(
     private val getTestDescriptorsBySpec: suspend (RunSpecification) -> List<Descriptor>,
     private val downloadUrls: suspend (TaskOrigin) -> Result<List<UrlModel>, MkException>,
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
+    private val markResultAsDone: suspend (ResultModel.Id) -> Unit,
     private val getCurrentTestRunState: Flow<TestRunState>,
     private val setCurrentTestState: ((TestRunState) -> TestRunState) -> Unit,
     private val runNetTest: suspend (RunNetTest.Specification) -> Unit,
@@ -126,12 +127,12 @@ class RunDescriptors(
         taskOrigin: TaskOrigin,
         isRerun: Boolean,
     ) {
-        val newResult = ResultModel(
+        val result = ResultModel(
             testGroupName = descriptor.name,
             testDescriptorId = (descriptor.source as? Descriptor.Source.Installed)?.value?.id,
             taskOrigin = taskOrigin,
         )
-        val resultWithId = newResult.copy(id = storeResult(newResult))
+        val resultId = storeResult(result)
 
         descriptor.allTests.forEachIndexed { testIndex, netTest ->
             runNetTest(
@@ -141,11 +142,13 @@ class RunDescriptors(
                     netTest = netTest,
                     taskOrigin = taskOrigin,
                     isRerun = isRerun,
-                    initialResult = resultWithId,
+                    resultId = resultId,
                     testIndex = testIndex,
                     testTotal = descriptor.allTests.size,
                 ),
             )
         }
+
+        markResultAsDone(resultId)
     }
 }

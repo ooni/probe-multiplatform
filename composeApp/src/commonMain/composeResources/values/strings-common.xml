@@ -249,4 +249,7 @@
     <string name="task_origin_all">All Sources</string>
     <string name="vpn">VPN</string>
     <string name="disable_vpn_instructions">Go to Settings > General > VPN and disconnect from your VPN.</string>
+    <string name="measurement_failed">Failed</string>
+    <string name="measurement_ok">OK</string>
+    <string name="measurement_anomaly">Anomaly</string>
 </resources>

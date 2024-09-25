@@ -1,7 +1,6 @@
 package org.ooni.probe.ui.result
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,14 +49,10 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_
 import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_upload
-import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import ooniprobe.composeapp.generated.resources.vpn
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.NetworkType
-import org.ooni.engine.models.TestType
-import org.ooni.probe.data.models.MeasurementModel
-import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.ui.results.UploadResults
 import org.ooni.probe.ui.shared.formatDataUsage
@@ -102,8 +97,9 @@ fun ResultScreen(
             contentPadding = WindowInsets.navigationBars.asPaddingValues(),
         ) {
             items(state.result.measurements, key = { it.measurement.idOrThrow.value }) { item ->
-                ResultMeasurementItem(
+                ResultMeasurementCell(
                     item = item,
+                    isResultDone = state.result.result.isDone,
                     onClick = { reportId, input ->
                         onEvent(ResultViewModel.Event.MeasurementClicked(reportId, input))
                     },
@@ -264,48 +260,3 @@ private fun NetworkType.label(): String =
             is NetworkType.Unknown -> Res.string.TestResults_NotAvailable
         },
     )
-
-@Composable
-private fun ResultMeasurementItem(
-    item: MeasurementWithUrl,
-    onClick: (MeasurementModel.ReportId, String?) -> Unit,
-) {
-    val test = item.measurement.test
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .run {
-                if (item.measurement.isUploaded && item.measurement.reportId != null) {
-                    clickable { onClick(item.measurement.reportId, item.url?.url) }
-                } else {
-                    alpha(0.5f)
-                }
-            }
-            .padding(16.dp),
-    ) {
-        Icon(
-            painterResource(
-                if (test == TestType.WebConnectivity && item.url != null) {
-                    item.url.category.icon
-                } else {
-                    test.iconRes ?: Res.drawable.ooni_empty_state
-                },
-            ),
-            contentDescription = null,
-            modifier = Modifier
-                .padding(end = 16.dp)
-                .size(24.dp),
-        )
-        Text(
-            text = if (test == TestType.WebConnectivity && item.url != null) {
-                item.url.url
-            } else if (test is TestType.Experimental) {
-                test.name
-            } else {
-                stringResource(test.labelRes)
-            },
-            maxLines = 1,
-        )
-    }
-}

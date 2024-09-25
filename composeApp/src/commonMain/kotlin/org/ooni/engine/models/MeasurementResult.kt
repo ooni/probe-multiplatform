@@ -25,8 +25,6 @@ data class MeasurementResult(
     val reportId: String? = null,
     @SerialName("input")
     val input: String? = null,
-    /*
-     Field `test_keys` is ignored because we're not planning on storing the measurement results
-     as structured data.
-     */
+    @SerialName("test_keys")
+    val testKeys: TestKeys? = null,
 )

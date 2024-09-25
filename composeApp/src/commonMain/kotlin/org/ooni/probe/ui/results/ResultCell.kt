@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -66,6 +67,12 @@ fun ResultCell(
                 horizontalAlignment = Alignment.End,
                 modifier = Modifier.weight(0.34f),
             ) {
+                if (!item.result.isDone) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.padding(bottom = 4.dp)
+                            .size(24.dp),
+                    )
+                }
                 Text(
                     stringResource(
                         when (item.result.taskOrigin) {
