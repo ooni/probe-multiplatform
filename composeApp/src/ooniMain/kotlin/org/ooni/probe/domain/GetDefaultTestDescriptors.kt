@@ -51,10 +51,9 @@ class GetDefaultTestDescriptors {
                 color = Color(0xFF4c6ef5),
                 animation = "anim/websites.json",
                 dataUsage = Res.string.websites_datausage,
-                netTests =
-                    listOf(
-                        NetTest(TestType.WebConnectivity),
-                    ),
+                netTests = listOf(
+                    NetTest(TestType.WebConnectivity),
+                ),
             )
 
         private val INSTANT_MESSAGING =
@@ -67,13 +66,12 @@ class GetDefaultTestDescriptors {
                 color = Color(0xFF15aabf),
                 animation = "anim/instant_messaging.json",
                 dataUsage = Res.string.small_datausage,
-                netTests =
-                    listOf(
-                        NetTest(TestType.Whatsapp),
-                        NetTest(TestType.Telegram),
-                        NetTest(TestType.FacebookMessenger),
-                        NetTest(TestType.Signal),
-                    ),
+                netTests = listOf(
+                    NetTest(TestType.Whatsapp),
+                    NetTest(TestType.Telegram),
+                    NetTest(TestType.FacebookMessenger),
+                    NetTest(TestType.Signal),
+                ),
             )
 
         private val CIRCUMVENTION =
@@ -86,11 +84,10 @@ class GetDefaultTestDescriptors {
                 color = Color(0xFFe64980),
                 animation = "anim/circumvention.json",
                 dataUsage = Res.string.small_datausage,
-                netTests =
-                    listOf(
-                        NetTest(TestType.Psiphon),
-                        NetTest(TestType.Tor),
-                    ),
+                netTests = listOf(
+                    NetTest(TestType.Psiphon),
+                    NetTest(TestType.Tor),
+                ),
             )
 
         private val PERFORMANCE =
@@ -103,13 +100,12 @@ class GetDefaultTestDescriptors {
                 color = Color(0xFFbe4bdb),
                 animation = "anim/performance.json",
                 dataUsage = Res.string.performance_datausage,
-                netTests =
-                    listOf(
-                        NetTest(TestType.Ndt),
-                        NetTest(TestType.Dash),
-                        NetTest(TestType.HttpHeaderFieldManipulation),
-                        NetTest(TestType.HttpInvalidRequestLine),
-                    ),
+                netTests = listOf(
+                    NetTest(TestType.Ndt),
+                    NetTest(TestType.Dash),
+                    NetTest(TestType.HttpHeaderFieldManipulation),
+                    NetTest(TestType.HttpInvalidRequestLine),
+                ),
             )
 
         private val EXPERIMENTAL =
@@ -122,18 +118,16 @@ class GetDefaultTestDescriptors {
                 color = Color(0xFF495057),
                 animation = "anim/experimental.json",
                 dataUsage = Res.string.TestResults_NotAvailable,
-                netTests =
-                    listOf(
-                        NetTest(TestType.Experimental("stunreachability")),
-                        NetTest(TestType.Experimental("dnscheck")),
-                        NetTest(TestType.Experimental("riseupvpn")),
-                        NetTest(TestType.Experimental("echcheck")),
-                    ),
-                longRunningTests =
-                    listOf(
-                        NetTest(TestType.Experimental("torsf")),
-                        NetTest(TestType.Experimental("vanilla_tor")),
-                    ),
+                netTests = listOf(
+                    NetTest(TestType.Experimental("stunreachability")),
+                    NetTest(TestType.Experimental("openvpn")),
+                    // NetTest(TestType.Experimental("riseupvpn")),
+                    // NetTest(TestType.Experimental("echcheck")),
+                ),
+                longRunningTests = listOf(
+                    // NetTest(TestType.Experimental("torsf")),
+                    NetTest(TestType.Experimental("vanilla_tor")),
+                ),
             )
     }
 }
