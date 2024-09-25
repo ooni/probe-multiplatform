@@ -3,10 +3,10 @@ package org.ooni.probe.data.models
 import org.ooni.engine.Engine
 
 data class DescriptorUpdatesStatus(
-    val availableUpdates: Set<InstalledTestDescriptorModel> = emptySet(),
-    val autoUpdated: Set<InstalledTestDescriptorModel> = emptySet(),
-    val rejectedUpdates: Set<InstalledTestDescriptorModel> = emptySet(),
-    val reviewUpdates: Set<InstalledTestDescriptorModel> = emptySet(),
+    val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
+    val autoUpdated: List<InstalledTestDescriptorModel> = emptyList(),
+    val rejectedUpdates: List<InstalledTestDescriptorModel> = emptyList(),
+    val reviewUpdates: List<InstalledTestDescriptorModel> = emptyList(),
     val errors: List<Engine.MkException> = emptyList(),
     val refreshType: UpdateStatusType = UpdateStatusType.None,
 )

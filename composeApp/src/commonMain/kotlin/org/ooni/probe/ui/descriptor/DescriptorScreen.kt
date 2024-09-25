@@ -20,8 +20,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.SuggestionChip
-import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -53,6 +51,7 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.shared.MarkdownViewer
 import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.UpdateProgressStatus
+import org.ooni.probe.ui.shared.UpdatesChip
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
 
@@ -151,13 +150,7 @@ fun DescriptorScreen(
                         )
                     }
                     if (descriptor.updatable) {
-                        SuggestionChip(
-                            onClick = { },
-                            colors = SuggestionChipDefaults.suggestionChipColors(
-                                labelColor = MaterialTheme.colorScheme.error,
-                            ),
-                            label = { Text("UPDATED") },
-                        )
+                        UpdatesChip(onClick = { })
                     }
                     state.updatedDescriptor?.let {
                         OutlinedButton(onClick = { onEvent(DescriptorViewModel.Event.UpdateDescriptor) }) {

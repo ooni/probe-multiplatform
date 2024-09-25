@@ -74,8 +74,8 @@ class FetchDescriptorUpdate(
         }.orEmpty()
         availableUpdates.update { _ ->
             DescriptorUpdatesStatus(
-                availableUpdates = updatesAvailable.toSet(),
-                autoUpdated = autoUpdated.toSet(),
+                availableUpdates = updatesAvailable,
+                autoUpdated = autoUpdated,
                 errors = response.mapNotNull { (_, result) -> result.getError() },
                 refreshType = if (updatesAvailable.isNotEmpty()) UpdateStatusType.ReviewLink else UpdateStatusType.None,
             )
@@ -106,7 +106,7 @@ class FetchDescriptorUpdate(
         availableUpdates.update {
                 currentItems ->
             currentItems.copy(
-                reviewUpdates = itemsForReview.toSet(),
+                reviewUpdates = itemsForReview,
                 refreshType = UpdateStatusType.None,
             )
         }

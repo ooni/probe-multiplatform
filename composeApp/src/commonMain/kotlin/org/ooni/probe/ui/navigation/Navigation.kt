@@ -52,7 +52,7 @@ fun Navigation(
                     goToDescriptor = { descriptorKey ->
                         navController.navigate(Screen.Descriptor(descriptorKey).route)
                     },
-                    reviewDescriptorUpdates = {
+                    goToReviewDescriptorUpdates = {
                         navController.navigate(Screen.ReviewUpdates.route)
                     },
                 )

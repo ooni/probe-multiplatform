@@ -300,22 +300,20 @@ class Dependencies(
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
         goToDescriptor: (String) -> Unit,
-        reviewDescriptorUpdates: () -> Unit,
+        goToReviewDescriptorUpdates: () -> Unit,
     ) = DashboardViewModel(
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
         goToRunTests = goToRunTests,
         goToDescriptor = goToDescriptor,
+        goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         getTestDescriptors = getTestDescriptors::invoke,
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
         fetchDescriptorUpdate = fetchDescriptorUpdate,
         observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
-        reviewUpdates = {
-            getDescriptorUpdate::reviewUpdates.invoke(it)
-            reviewDescriptorUpdates()
-        },
+        reviewUpdates = getDescriptorUpdate::reviewUpdates,
         cancelUpdates = getDescriptorUpdate::cancelUpdates,
     )
 

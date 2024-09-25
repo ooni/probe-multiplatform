@@ -23,13 +23,12 @@ class DashboardViewModel(
     goToRunningTest: () -> Unit,
     goToRunTests: () -> Unit,
     goToDescriptor: (String) -> Unit,
+    goToReviewDescriptorUpdates: () -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     observeTestRunState: Flow<TestRunState>,
     observeTestRunErrors: Flow<TestRunError>,
     shouldShowVpnWarning: suspend () -> Boolean,
-    fetchDescriptorUpdate: suspend (
-        List<InstalledTestDescriptorModel>,
-    ) -> Unit,
+    fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>) -> Unit,
     reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
     observeAvailableUpdatesState: () -> Flow<DescriptorUpdatesStatus>,
     cancelUpdates: (Set<InstalledTestDescriptorModel>) -> Unit,
@@ -116,6 +115,7 @@ class DashboardViewModel(
                 )
             }
             reviewUpdates(state.value.availableUpdates)
+            goToReviewDescriptorUpdates()
         }.launchIn(viewModelScope)
         events.filterIsInstance<Event.CancelUpdatesClicked>().onEach {
             cancelUpdates(state.value.availableUpdates.toSet())

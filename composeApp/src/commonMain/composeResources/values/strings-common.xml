@@ -209,6 +209,8 @@
     <string name="Dashboard_ReviewDescriptor_Label">Link Update (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE AND FINISH (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
+    <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
+    <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <!-- New Strings -->
     <string name="back">Back</string>
     <string name="refresh">refresh</string>

@@ -7,9 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SuggestionChip
-import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,6 +16,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_chevron_right
 import org.jetbrains.compose.resources.painterResource
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.ui.shared.UpdatesChip
 
 @Composable
 fun TestDescriptorItem(
@@ -51,13 +49,7 @@ fun TestDescriptorItem(
                 }
             }
             if (descriptor.updatable) {
-                SuggestionChip(
-                    onClick = updateDescriptor,
-                    colors = SuggestionChipDefaults.suggestionChipColors(
-                        labelColor = MaterialTheme.colorScheme.error,
-                    ),
-                    label = { Text("UPDATED") },
-                )
+                UpdatesChip(onClick = updateDescriptor)
             }
             Icon(
                 painter = painterResource(Res.drawable.ic_chevron_right),
