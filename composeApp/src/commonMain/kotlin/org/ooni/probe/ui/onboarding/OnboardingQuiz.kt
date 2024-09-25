@@ -44,6 +44,7 @@ import ooniprobe.composeapp.generated.resources.quiz_answer_correct
 import ooniprobe.composeapp.generated.resources.quiz_answer_incorrect
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.data.models.Animation
 import org.ooni.probe.ui.shared.LottieAnimation
 import org.ooni.probe.ui.theme.LocalCustomColors
 
@@ -196,7 +197,7 @@ private fun ResultAnimation(
                 .fillMaxWidth(),
         ) {
             LottieAnimation(
-                fileName = if (isCorrect) "checkMark" else "crossMark",
+                animation = if (isCorrect) Animation.QuizCorrect else Animation.QuizIncorrect,
                 contentDescription = stringResource(
                     if (isCorrect) {
                         Res.string.quiz_answer_correct

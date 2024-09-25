@@ -11,18 +11,19 @@ import io.github.alexzhirkevich.compottie.animateLottieCompositionAsState
 import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import ooniprobe.composeapp.generated.resources.Res
+import org.ooni.probe.data.models.Animation
 
 @Composable
 fun LottieAnimation(
-    fileName: String,
+    animation: Animation,
     contentDescription: String?,
     modifier: Modifier = Modifier,
     restartOnPlay: Boolean = true,
     onFinish: (() -> Unit)? = null,
 ) {
-    val composition by rememberLottieComposition(fileName) {
+    val composition by rememberLottieComposition(animation) {
         LottieCompositionSpec.JsonString(
-            Res.readBytes("files/anim/$fileName.json").decodeToString(),
+            Res.readBytes("files/anim/${animation.fileName}.json").decodeToString(),
         )
     }
     val progress: LottieAnimationState = animateLottieCompositionAsState(
