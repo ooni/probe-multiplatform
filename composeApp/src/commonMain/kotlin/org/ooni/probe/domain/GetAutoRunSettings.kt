@@ -11,13 +11,15 @@ class GetAutoRunSettings(
     operator fun invoke(): Flow<AutoRunParameters> =
         observeSettings(
             listOf(
+                SettingsKey.FIRST_RUN,
                 SettingsKey.AUTOMATED_TESTING_ENABLED,
                 SettingsKey.AUTOMATED_TESTING_WIFIONLY,
                 SettingsKey.AUTOMATED_TESTING_CHARGING,
             ),
         ).map { preferences ->
+            val firstRunDone = preferences[SettingsKey.FIRST_RUN] == false
             val enabled = preferences[SettingsKey.AUTOMATED_TESTING_ENABLED] == true
-            if (enabled) {
+            if (firstRunDone && enabled) {
                 AutoRunParameters.Enabled(
                     wifiOnly = preferences[SettingsKey.AUTOMATED_TESTING_WIFIONLY] == true,
                     onlyWhileCharging = preferences[SettingsKey.AUTOMATED_TESTING_CHARGING] == true,

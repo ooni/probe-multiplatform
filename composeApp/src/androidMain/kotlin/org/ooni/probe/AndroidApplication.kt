@@ -40,8 +40,7 @@ class AndroidApplication : Application() {
             cacheDir = cacheDir.absolutePath,
             readAssetFile = ::readAssetFile,
             databaseDriverFactory = ::buildDatabaseDriver,
-            networkTypeFinder =
-                AndroidNetworkTypeFinder(getSystemService(ConnectivityManager::class.java)),
+            networkTypeFinder = AndroidNetworkTypeFinder(connectivityManager),
             buildDataStore = ::buildDataStore,
             isBatteryCharging = ::checkBatteryCharging,
             launchUrl = ::launchUrl,
@@ -49,6 +48,45 @@ class AndroidApplication : Application() {
             configureAutoRun = runWorkerManager::configureAutoRun,
             openVpnSettings = ::openVpnSettings,
         )
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            val localeManager = applicationContext
+                .getSystemService(LocaleManager::class.java)
+            localeManager.overrideLocaleConfig = LocaleConfig(
+                LocaleList.forLanguageTags(getString(R.string.supported_languages)),
+            )
+        }
+    }
+
+    private val platformInfo by lazy {
+        object : PlatformInfo {
+            override val version = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+            override val platform = Platform.Android
+            override val osVersion = Build.VERSION.SDK_INT.toString()
+            override val model = "${Build.MANUFACTURER} ${Build.MODEL}"
+            override val needsToRequestNotificationsPermission =
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+        }
+    }
+
+    private fun readAssetFile(path: String) = assets.open(path).bufferedReader().use { it.readText() }
+
+    private val connectivityManager get() = getSystemService(ConnectivityManager::class.java)
+
+    private fun buildDatabaseDriver(): SqlDriver = AndroidSqliteDriver(Database.Schema, this, "v2.db")
+
+    private fun buildDataStore(): DataStore<Preferences> =
+        Dependencies.getDataStore(
+            producePath = { this.filesDir.resolve(Dependencies.Companion.DATA_STORE_FILE_NAME).absolutePath },
+            migrations = listOf(SharedPreferencesMigration(this, "${packageName}_preferences")),
+        )
+
+    private fun checkBatteryCharging(): Boolean {
+        val batteryManager = this.getSystemService(BATTERY_SERVICE) as? BatteryManager
+        return batteryManager?.isCharging == true
     }
 
     private fun launchUrl(
@@ -81,41 +119,6 @@ class AndroidApplication : Application() {
         } else {
             startActivity(intent)
         }
-    }
-
-    private val platformInfo by lazy {
-        object : PlatformInfo {
-            override val version = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
-            override val platform = Platform.Android
-            override val osVersion = Build.VERSION.SDK_INT.toString()
-            override val model = "${Build.MANUFACTURER} ${Build.MODEL}"
-        }
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            val localeManager = applicationContext
-                .getSystemService(LocaleManager::class.java)
-            localeManager.overrideLocaleConfig = LocaleConfig(
-                LocaleList.forLanguageTags(getString(R.string.supported_languages)),
-            )
-        }
-    }
-
-    private fun buildDatabaseDriver(): SqlDriver = AndroidSqliteDriver(Database.Schema, this, "v2.db")
-
-    private fun readAssetFile(path: String) = assets.open(path).bufferedReader().use { it.readText() }
-
-    private fun buildDataStore(): DataStore<Preferences> =
-        Dependencies.getDataStore(
-            producePath = { this.filesDir.resolve(Dependencies.Companion.DATA_STORE_FILE_NAME).absolutePath },
-            migrations = listOf(SharedPreferencesMigration(this, "${packageName}_preferences")),
-        )
-
-    private fun checkBatteryCharging(): Boolean {
-        val batteryManager = this.getSystemService(BATTERY_SERVICE) as? BatteryManager
-        return batteryManager?.isCharging == true
     }
 
     /**

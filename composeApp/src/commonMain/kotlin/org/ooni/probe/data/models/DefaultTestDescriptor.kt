@@ -11,7 +11,7 @@ data class DefaultTestDescriptor(
     val description: StringResource,
     val icon: DrawableResource,
     val color: Color,
-    val animation: String,
+    val animation: Animation,
     val dataUsage: StringResource,
     var netTests: List<NetTest>,
     var longRunningTests: List<NetTest> = emptyList(),

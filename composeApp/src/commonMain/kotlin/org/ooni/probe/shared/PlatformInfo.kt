@@ -5,6 +5,7 @@ interface PlatformInfo {
     val platform: Platform
     val osVersion: String
     val model: String
+    val needsToRequestNotificationsPermission: Boolean
 }
 
 enum class Platform {

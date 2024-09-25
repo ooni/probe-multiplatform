@@ -14,7 +14,7 @@ data class Descriptor(
     val description: @Composable () -> String?,
     val icon: DrawableResource?,
     val color: Color?,
-    val animation: String?,
+    val animation: Animation?,
     val dataUsage: @Composable () -> String?,
     val expirationDate: LocalDateTime?,
     val netTests: List<NetTest>,

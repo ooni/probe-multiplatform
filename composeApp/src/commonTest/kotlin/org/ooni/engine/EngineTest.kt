@@ -73,6 +73,7 @@ class EngineTest {
                 override val platform = Platform.Ios
                 override val osVersion = "1"
                 override val model = "test"
+                override val needsToRequestNotificationsPermission = false
             },
             getEnginePreferences = {
                 EnginePreferences(

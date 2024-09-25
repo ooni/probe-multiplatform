@@ -22,6 +22,7 @@ import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.descriptor.add.AddDescriptorScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
+import org.ooni.probe.ui.onboarding.OnboardingScreen
 import org.ooni.probe.ui.result.ResultScreen
 import org.ooni.probe.ui.results.ResultsScreen
 import org.ooni.probe.ui.run.RunScreen
@@ -42,9 +43,30 @@ fun Navigation(
         startDestination = Screen.Dashboard.route,
         modifier = Modifier.fillMaxSize(),
     ) {
+        composable(route = Screen.Onboarding.route) {
+            val viewModel = viewModel {
+                dependencies.onboardingViewModel(
+                    goToDashboard = {
+                        navController.popBackStack()
+                        navController.navigateToMainScreen(Screen.Dashboard)
+                    },
+                    goToSettings = {
+                        navController.popBackStack()
+                        navController.navigateToMainScreen(Screen.Settings)
+                    },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            OnboardingScreen(state, viewModel::onEvent)
+        }
+
         composable(route = Screen.Dashboard.route) {
             val viewModel = viewModel {
                 dependencies.dashboardViewModel(
+                    goToOnboarding = {
+                        navController.popBackStack()
+                        navController.navigate(Screen.Onboarding.route)
+                    },
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.navigate(Screen.RunningTest.route) },
                     goToRunTests = { navController.navigate(Screen.RunTests.route) },

@@ -58,6 +58,12 @@ okio = { module = "com.squareup.okio:okio", version = "3.9.0" }
 # WebView
 webview = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "1.9.20" }
 
+# Lottie animations
+kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.0-rc01" } # 2.0.0 not supported yet
+
+# Permissions
+moko-permissions = { module ="dev.icerock.moko:permissions-compose", version = "0.18.0" }
+
 # Testing
 android-test-core = { module = "androidx.test:core", version = "1.6.1" }
 
@@ -79,6 +85,8 @@ tooling = [
     "okio",
     "webview",
     "markdown",
+    "kottie",
+    "moko-permissions",
 ]
 android = [
     "android-oonimkall",

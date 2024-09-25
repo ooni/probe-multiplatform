@@ -50,6 +50,7 @@ import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
+import org.ooni.probe.domain.GetFirstRun
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
 import org.ooni.probe.domain.GetSettings
@@ -67,6 +68,7 @@ import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
+import org.ooni.probe.ui.onboarding.OnboardingViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.run.RunViewModel
@@ -174,6 +176,7 @@ class Dependencies(
     val getCurrentTestState get() = testStateManager::observeState
     private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
     private val getEnginePreferences by lazy { GetEnginePreferences(preferenceRepository) }
+    private val getFirstRun by lazy { GetFirstRun(preferenceRepository) }
     private val getResults by lazy {
         GetResults(
             resultRepository::list,
@@ -283,15 +286,18 @@ class Dependencies(
     )
 
     fun dashboardViewModel(
+        goToOnboarding: () -> Unit,
         goToResults: () -> Unit,
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
         goToDescriptor: (String) -> Unit,
     ) = DashboardViewModel(
+        goToOnboarding = goToOnboarding,
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
         goToRunTests = goToRunTests,
         goToDescriptor = goToDescriptor,
+        getFirstRun = getFirstRun::invoke,
         getTestDescriptors = getTestDescriptors::invoke,
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
@@ -309,6 +315,17 @@ class Dependencies(
         preferenceRepository = preferenceRepository,
         launchUrl = { launchUrl(it, null) },
         deleteTestDescriptor = deleteTestDescriptor::invoke,
+    )
+
+    fun onboardingViewModel(
+        goToDashboard: () -> Unit,
+        goToSettings: () -> Unit,
+    ) = OnboardingViewModel(
+        goToDashboard = goToDashboard,
+        goToSettings = goToSettings,
+        platformInfo = platformInfo,
+        preferenceRepository = preferenceRepository,
+        launchUrl = { launchUrl(it, null) },
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
