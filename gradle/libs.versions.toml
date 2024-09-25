@@ -64,6 +64,9 @@ kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.0-rc01"
 # Permissions
 moko-permissions = { module ="dev.icerock.moko:permissions-compose", version = "0.18.0" }
 
+# Crash Reporting
+sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.9.0" }
+
 # Testing
 android-test-core = { module = "androidx.test:core", version = "1.6.1" }
 
@@ -87,6 +90,7 @@ tooling = [
     "markdown",
     "kottie",
     "moko-permissions",
+    "sentry",
 ]
 android = [
     "android-oonimkall",

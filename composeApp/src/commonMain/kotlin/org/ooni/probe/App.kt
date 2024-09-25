@@ -81,8 +81,13 @@ fun App(
         }
     }
 
+    Logger.addLogWriter(dependencies.crashMonitoring.logWriter)
+
     LaunchedEffect(Unit) {
         logAppStart(dependencies)
+    }
+    LaunchedEffect(Unit) {
+        dependencies.crashMonitoring.setup()
     }
     LaunchedEffect(Unit) {
         dependencies.bootstrapTestDescriptors()

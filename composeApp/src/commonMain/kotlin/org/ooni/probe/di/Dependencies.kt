@@ -68,6 +68,7 @@ import org.ooni.probe.domain.ShouldShowVpnWarning
 import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
+import org.ooni.probe.shared.monitoring.CrashMonitoring
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
@@ -124,6 +125,10 @@ class Dependencies(
     private val readFile: ReadFile by lazy { ReadFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val writeFile: WriteFile by lazy { WriteFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val deleteFiles: DeleteFiles by lazy { DeleteFilesOkio(FileSystem.SYSTEM, baseFileDir) }
+
+    // Monitoring
+
+    val crashMonitoring by lazy { CrashMonitoring(preferenceRepository) }
 
     // Engine
 
