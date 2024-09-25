@@ -20,7 +20,7 @@ fun LottieAnimation(
     restartOnPlay: Boolean = true,
     onFinish: (() -> Unit)? = null,
 ) {
-    val composition by rememberLottieComposition {
+    val composition by rememberLottieComposition(fileName) {
         LottieCompositionSpec.JsonString(
             Res.readBytes("files/anim/$fileName.json").decodeToString(),
         )
