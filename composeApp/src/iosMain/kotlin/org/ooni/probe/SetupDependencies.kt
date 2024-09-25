@@ -80,6 +80,7 @@ class SetupDependencies(
         configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
         fetchDescriptorUpdate = ::fetchDescriptorUpdate,
         localeDirection = ::localeDirection,
+        shareFile = { false },
     )
 
     private val operationsManager = OperationsManager(dependencies)

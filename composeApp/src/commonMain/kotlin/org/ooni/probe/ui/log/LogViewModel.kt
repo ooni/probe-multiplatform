@@ -18,6 +18,7 @@ class LogViewModel(
     onBack: () -> Unit,
     readLog: (Severity?) -> Flow<List<String>>,
     clearLog: suspend () -> Unit,
+    shareLogFile: suspend () -> Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -42,8 +43,22 @@ class LogViewModel(
             .launchIn(viewModelScope)
 
         events
+            .filterIsInstance<Event.ShareClicked>()
+            .onEach {
+                if (!shareLogFile()) {
+                    _state.update { it.copy(errors = it.errors + Error.Share) }
+                }
+            }
+            .launchIn(viewModelScope)
+
+        events
             .filterIsInstance<Event.FilterChanged>()
             .onEach { event -> _state.update { it.copy(filter = event.severity) } }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.ErrorShown>()
+            .onEach { event -> _state.update { it.copy(errors = it.errors - event.error) } }
             .launchIn(viewModelScope)
     }
 
@@ -54,6 +69,7 @@ class LogViewModel(
     data class State(
         val log: List<String> = emptyList(),
         val filter: Severity? = null,
+        val errors: List<Error> = emptyList(),
     )
 
     sealed interface Event {
@@ -61,6 +77,12 @@ class LogViewModel(
 
         data object ClearClicked : Event
 
+        data object ShareClicked : Event
+
         data class FilterChanged(val severity: Severity?) : Event
+
+        data class ErrorShown(val error: Error) : Event
     }
+
+    enum class Error { Share }
 }

@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -24,6 +25,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,8 +40,12 @@ import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.filter_logs
 import ooniprobe.composeapp.generated.resources.ic_delete_all
 import ooniprobe.composeapp.generated.resources.logs
+import ooniprobe.composeapp.generated.resources.share_logs
+import ooniprobe.composeapp.generated.resources.share_logs_error
+import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.LocalSnackbarHostState
 import org.ooni.probe.ui.shared.CustomFilterChip
 import org.ooni.probe.ui.theme.LocalCustomColors
 
@@ -64,6 +70,12 @@ fun LogScreen(
                     Icon(
                         painterResource(Res.drawable.ic_delete_all),
                         contentDescription = stringResource(Res.string.Settings_Storage_Delete),
+                    )
+                }
+                IconButton(onClick = { onEvent(LogViewModel.Event.ShareClicked) }) {
+                    Icon(
+                        Icons.Default.Share,
+                        contentDescription = stringResource(Res.string.share_logs),
                     )
                 }
             },
@@ -108,6 +120,19 @@ fun LogScreen(
                 )
             }
         }
+    }
+
+    val snackbarHostState = LocalSnackbarHostState.current ?: return
+    LaunchedEffect(state.errors) {
+        val error = state.errors.firstOrNull() ?: return@LaunchedEffect
+        snackbarHostState.showSnackbar(
+            getString(
+                when (error) {
+                    LogViewModel.Error.Share -> Res.string.share_logs_error
+                },
+            ),
+        )
+        onEvent(LogViewModel.Event.ErrorShown(error))
     }
 }
 

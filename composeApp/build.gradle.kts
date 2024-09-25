@@ -81,7 +81,7 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        ios.deploymentTarget = "15.3"
+        ios.deploymentTarget = "14.0"
 
         version = "1.0"
         summary = "Compose App"

@@ -51,6 +51,8 @@ class AppLogger(
         }
     }
 
+    fun getLogFilePath() = FILE_PATH
+
     val logWriter = object : LogWriter() {
         override fun isLoggable(
             tag: String,
