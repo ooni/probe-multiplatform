@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
@@ -23,9 +24,15 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.state.ToggleableState
@@ -35,9 +42,16 @@ import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_RunButton_Lab
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectAll
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectNone
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_Title
+import ooniprobe.composeapp.generated.resources.Modal_AlwaysRun
+import ooniprobe.composeapp.generated.resources.Modal_DisableVPN
+import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Message
+import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
+import ooniprobe.composeapp.generated.resources.Modal_OK
+import ooniprobe.composeapp.generated.resources.Modal_RunAnyway
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.collapse
+import ooniprobe.composeapp.generated.resources.disable_vpn_instructions
 import ooniprobe.composeapp.generated.resources.expand
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_down
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_up
@@ -60,6 +74,8 @@ fun RunScreen(
     state: RunViewModel.State,
     onEvent: (RunViewModel.Event) -> Unit,
 ) {
+    var showVpnWarning by remember { mutableStateOf(false) }
+
     Column {
         TopAppBar(
             title = { Text(stringResource(Res.string.Dashboard_RunTests_Title)) },
@@ -149,7 +165,13 @@ fun RunScreen(
                 it.values.sumOf { items -> items.count { item -> item.isSelected } }
             }
             Button(
-                onClick = { onEvent(RunViewModel.Event.RunClicked) },
+                onClick = {
+                    if (state.showVpnWarning) {
+                        showVpnWarning = true
+                    } else {
+                        onEvent(RunViewModel.Event.RunClicked)
+                    }
+                },
                 enabled = selectedTestsCount > 0,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
@@ -170,6 +192,36 @@ fun RunScreen(
                 )
             }
         }
+    }
+
+    if (showVpnWarning) {
+        VpnWarningDialog(
+            onDismiss = {
+                showVpnWarning = false
+            },
+            onRunAnyway = {
+                onEvent(RunViewModel.Event.RunClicked)
+                showVpnWarning = false
+            },
+            onRunAlways = {
+                onEvent(RunViewModel.Event.RunAlwaysClicked)
+                showVpnWarning = false
+            },
+            onDisableVpn = {
+                onEvent(RunViewModel.Event.DisableVpnClicked)
+                showVpnWarning = false
+            },
+        )
+    }
+
+    if (state.showDisableVpnInstructions) {
+        DisableVpnInstructionsDialog(
+            onDismiss = { onEvent(RunViewModel.Event.DisableVpnInstructionsDismissed) },
+        )
+    }
+
+    LaunchedEffect(Unit) {
+        onEvent(RunViewModel.Event.Start)
     }
 }
 
@@ -273,4 +325,45 @@ private fun LazyListScope.websiteItems(
                 .padding(start = 48.dp, top = 4.dp),
         )
     }
+}
+
+@Composable
+private fun VpnWarningDialog(
+    onDismiss: () -> Unit,
+    onRunAnyway: () -> Unit,
+    onRunAlways: () -> Unit,
+    onDisableVpn: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = { onDismiss() },
+        title = { Text(stringResource(Res.string.Modal_DisableVPN_Title)) },
+        text = { Text(stringResource(Res.string.Modal_DisableVPN_Message)) },
+        confirmButton = {
+            Row {
+                TextButton(onClick = { onRunAlways() }, Modifier.weight(1f)) {
+                    Text(stringResource(Res.string.Modal_AlwaysRun))
+                }
+                TextButton(onClick = { onRunAnyway() }, Modifier.weight(1f)) {
+                    Text(stringResource(Res.string.Modal_RunAnyway))
+                }
+                TextButton(onClick = { onDisableVpn() }, Modifier.weight(1f)) {
+                    Text(stringResource(Res.string.Modal_DisableVPN))
+                }
+            }
+        },
+    )
+}
+
+@Composable
+private fun DisableVpnInstructionsDialog(onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = { onDismiss() },
+        title = { Text(stringResource(Res.string.Modal_DisableVPN)) },
+        text = { Text(stringResource(Res.string.disable_vpn_instructions)) },
+        confirmButton = {
+            TextButton(onClick = { onDismiss() }) {
+                Text(stringResource(Res.string.Modal_OK))
+            }
+        },
+    )
 }

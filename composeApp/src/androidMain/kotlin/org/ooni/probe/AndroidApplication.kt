@@ -3,6 +3,7 @@ package org.ooni.probe
 import android.app.Application
 import android.app.LocaleConfig
 import android.app.LocaleManager
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -17,6 +18,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.work.WorkManager
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
@@ -45,6 +47,7 @@ class AndroidApplication : Application() {
             launchUrl = ::launchUrl,
             startSingleRunInner = runWorkerManager::startSingleRun,
             configureAutoRun = runWorkerManager::configureAutoRun,
+            openVpnSettings = ::openVpnSettings,
             configureDescriptorAutoUpdate = runWorkerManager::configureDescriptorAutoUpdate,
             fetchDescriptorUpdate = runWorkerManager::fetchDescriptorUpdate,
         )
@@ -140,4 +143,16 @@ class AndroidApplication : Application() {
             Dispatchers.IO,
         )
     }
+
+    private fun openVpnSettings() =
+        try {
+            startActivity(
+                Intent("android.net.vpn.SETTINGS")
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            )
+            true
+        } catch (e: ActivityNotFoundException) {
+            Logger.e("Could not open VPN Settings", e)
+            false
+        }
 }

@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.ooni.engine.models.TaskOrigin
@@ -21,15 +22,18 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.RunSpecification
+import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
 
 class RunViewModel(
     onBack: () -> Unit,
-    startBackgroundRun: (RunSpecification) -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
+    shouldShowVpnWarning: suspend () -> Boolean,
     private val preferenceRepository: PreferenceRepository,
+    startBackgroundRun: (RunSpecification) -> Unit,
+    openVpnSettings: () -> Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -82,7 +86,14 @@ class RunViewModel(
                     )
                 }
         }
-            .onEach { _state.value = State(it) }
+            .onEach { list -> _state.update { it.copy(list = list) } }
+            .launchIn(viewModelScope)
+
+        merge(
+            events.filterIsInstance<Event.Start>(),
+            events.filterIsInstance<Event.DisableVpnInstructionsDismissed>(),
+        )
+            .onEach { _state.update { it.copy(showVpnWarning = shouldShowVpnWarning()) } }
             .launchIn(viewModelScope)
 
         events
@@ -135,6 +146,29 @@ class RunViewModel(
                 startBackgroundRun(buildRunSpecification())
                 onBack()
             }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.RunAlwaysClicked>()
+            .onEach {
+                preferenceRepository.setValueByKey(SettingsKey.WARN_VPN_IN_USE, false)
+                startBackgroundRun(buildRunSpecification())
+                onBack()
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.DisableVpnClicked>()
+            .onEach {
+                if (!openVpnSettings()) {
+                    _state.update { it.copy(showDisableVpnInstructions = true) }
+                }
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.DisableVpnInstructionsDismissed>()
+            .onEach { _state.update { it.copy(showDisableVpnInstructions = false) } }
             .launchIn(viewModelScope)
     }
 
@@ -211,9 +245,13 @@ class RunViewModel(
 
     data class State(
         val list: Map<DescriptorType, Map<ParentSelectableItem<Descriptor>, List<SelectableItem<NetTest>>>>,
+        val showVpnWarning: Boolean = false,
+        val showDisableVpnInstructions: Boolean = false,
     )
 
     sealed interface Event {
+        data object Start : Event
+
         data object BackClicked : Event
 
         data object SelectAllClicked : Event
@@ -231,5 +269,11 @@ class RunViewModel(
         ) : Event
 
         data object RunClicked : Event
+
+        data object RunAlwaysClicked : Event
+
+        data object DisableVpnClicked : Event
+
+        data object DisableVpnInstructionsDismissed : Event
     }
 }

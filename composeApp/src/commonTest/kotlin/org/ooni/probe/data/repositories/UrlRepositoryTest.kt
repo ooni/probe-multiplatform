@@ -20,22 +20,20 @@ class UrlRepositoryTest {
 
     @BeforeTest
     fun before() {
-        subject =
-            UrlRepository(
-                database = Dependencies.buildDatabase(::createTestDatabaseDriver),
-                backgroundDispatcher = Dispatchers.Default,
-            )
+        subject = UrlRepository(
+            database = Dependencies.buildDatabase(::createTestDatabaseDriver),
+            backgroundDispatcher = Dispatchers.Default,
+        )
     }
 
     @Test
     fun createWithoutIdAndGet() =
         runTest {
-            val model =
-                UrlModelFactory.build(
-                    id = null,
-                    countryCode = "IT",
-                    category = WebConnectivityCategory.ENV,
-                )
+            val model = UrlModelFactory.build(
+                id = null,
+                countryCode = "IT",
+                category = WebConnectivityCategory.ENV,
+            )
 
             subject.createOrUpdate(model)
             val result = subject.list().first().first()
@@ -61,29 +59,26 @@ class UrlRepositoryTest {
     @Test
     fun createOrUpdateByUrls() =
         runTest {
-            val existingModel =
-                UrlModelFactory.build(
-                    id = UrlModel.Id(Random.nextLong().absoluteValue),
-                    url = "https://example.org",
-                    countryCode = null,
-                    category = WebConnectivityCategory.MISC,
-                )
+            val existingModel = UrlModelFactory.build(
+                id = UrlModel.Id(Random.nextLong().absoluteValue),
+                url = "https://example.org",
+                countryCode = null,
+                category = WebConnectivityCategory.MISC,
+            )
             subject.createOrUpdate(existingModel)
 
-            val modelWithSameUrl =
-                UrlModelFactory.build(
-                    id = null,
-                    url = existingModel.url,
-                    countryCode = "US",
-                    category = WebConnectivityCategory.ENV,
-                )
-            val modelWithNewUrl =
-                UrlModelFactory.build(
-                    id = null,
-                    url = "https://ooni.org",
-                    countryCode = "IT",
-                    category = WebConnectivityCategory.NEWS,
-                )
+            val modelWithSameUrl = UrlModelFactory.build(
+                id = null,
+                url = existingModel.url,
+                countryCode = "US",
+                category = WebConnectivityCategory.ENV,
+            )
+            val modelWithNewUrl = UrlModelFactory.build(
+                id = null,
+                url = "https://ooni.org",
+                countryCode = "IT",
+                category = WebConnectivityCategory.NEWS,
+            )
 
             val results = subject.createOrUpdateByUrl(listOf(modelWithSameUrl, modelWithNewUrl))
             val allUrls = subject.list().first()
@@ -105,15 +100,16 @@ class UrlRepositoryTest {
         }
 
     @Test
-    fun getByUrl() =
+    fun getOrCreateByUrl() =
         runTest {
             val url = "htts://example.org"
             val model = UrlModelFactory.build(url = url)
 
-            subject.createOrUpdate(model)
-            val result = subject.getByUrl(url).first()
+            val id = subject.createOrUpdate(model)
+            val result = subject.getOrCreateByUrl(url)
 
             assertNotNull(result)
             assertEquals(url, result.url)
+            assertEquals(id, result.id)
         }
 }

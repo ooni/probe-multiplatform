@@ -1,6 +1,5 @@
 package org.ooni.probe.ui.dashboard
 
-import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
@@ -27,13 +26,14 @@ class DashboardViewModel(
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     observeTestRunState: Flow<TestRunState>,
     observeTestRunErrors: Flow<TestRunError>,
+    shouldShowVpnWarning: suspend () -> Boolean,
     fetchDescriptorUpdate: suspend (
         List<InstalledTestDescriptorModel>,
     ) -> Unit,
     reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
     observeAvailableUpdatesState: () -> Flow<DescriptorUpdatesStatus>,
     cancelUpdates: (Set<InstalledTestDescriptorModel>) -> Unit,
-) : ViewModel(), DefaultLifecycleObserver {
+) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
     private val _state = MutableStateFlow(State())
@@ -95,6 +95,13 @@ class DashboardViewModel(
             }
             .launchIn(viewModelScope)
 
+        events
+            .filterIsInstance<Event.Start>()
+            .onEach {
+                _state.update { it.copy(showVpnWarning = shouldShowVpnWarning()) }
+            }
+            .launchIn(viewModelScope)
+
         events.filterIsInstance<Event.FetchUpdatedDescriptors>().onEach {
             state.value.descriptors[DescriptorType.Installed]
                 ?.map { (it.source as Descriptor.Source.Installed).value }
@@ -134,6 +141,7 @@ class DashboardViewModel(
         val descriptors: Map<DescriptorType, List<Descriptor>> = emptyMap(),
         val testRunState: TestRunState = TestRunState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
+        val showVpnWarning: Boolean = false,
         val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
         val refreshType: UpdateStatusType = UpdateStatusType.None,
     ) {
@@ -142,6 +150,8 @@ class DashboardViewModel(
     }
 
     sealed interface Event {
+        data object Start : Event
+
         data object RunTestsClick : Event
 
         data object RunningTestClick : Event
