@@ -7,6 +7,6 @@ data class DescriptorUpdatesStatus(
     val autoUpdated: Set<InstalledTestDescriptorModel> = emptySet(),
     val rejectedUpdates: Set<InstalledTestDescriptorModel> = emptySet(),
     val reviewUpdates: Set<InstalledTestDescriptorModel> = emptySet(),
-    val errors: Set<Engine.MkException> = emptySet(),
+    val errors: List<Engine.MkException> = emptyList(),
     val refreshType: UpdateStatusType = UpdateStatusType.None,
 )

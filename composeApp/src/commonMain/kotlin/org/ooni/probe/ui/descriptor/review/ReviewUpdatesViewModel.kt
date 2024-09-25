@@ -2,9 +2,9 @@ package org.ooni.probe.ui.descriptor.review
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -12,13 +12,12 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorUpdatesStatus
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.toDescriptor
-import kotlin.reflect.KFunction0
 
 class ReviewUpdatesViewModel(
     private val onBack: () -> Unit,
     createOrUpdate: suspend (Set<InstalledTestDescriptorModel>) -> Unit,
     cancelUpdates: (Set<InstalledTestDescriptorModel>) -> Unit,
-    observeAvailableUpdatesState: KFunction0<StateFlow<DescriptorUpdatesStatus>>,
+    observeAvailableUpdatesState: () -> Flow<DescriptorUpdatesStatus>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 

@@ -16,7 +16,7 @@ import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunSpecification
 import java.util.concurrent.TimeUnit
 
-class RunWorkerManager(
+class AppWorkerManager(
     private val workManager: WorkManager,
     private val backgroundDispatcher: CoroutineDispatcher,
 ) {
@@ -66,7 +66,7 @@ class RunWorkerManager(
                 .build()
             workManager.enqueueUniquePeriodicWork(
                 DescriptorUpdateWorker.AutoUpdateWorkerName,
-                ExistingPeriodicWorkPolicy.UPDATE,
+                ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
                 request,
             )
             true

@@ -2,18 +2,16 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.OONINetTest
 import org.ooni.probe.Database
 import org.ooni.probe.data.TestDescriptor
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
-import org.ooni.probe.shared.toEpoch
+import org.ooni.probe.data.models.toDb
 import org.ooni.probe.shared.toLocalDateTime
 
 class TestDescriptorRepository(
@@ -32,33 +30,27 @@ class TestDescriptorRepository(
         withContext(backgroundDispatcher) {
             database.transaction {
                 models.forEach { model ->
+                    val installedModel = model.toDb(json = json)
                     database.testDescriptorQueries.insertOrIgnore(
-                        runId = model.id.value,
-                        name = model.name,
-                        short_description = model.shortDescription,
-                        description = model.description,
-                        author = model.author,
-                        nettests = model.netTests
-                            ?.map { it.toOONI() }
-                            ?.let { json.encodeToString(it) },
-                        name_intl = json.encodeToString(model.nameIntl),
-                        short_description_intl = json.encodeToString(model.shortDescriptionIntl),
-                        description_intl = json.encodeToString(model.descriptionIntl),
-                        icon = model.icon,
-                        color = model.color,
-                        animation = model.animation,
-                        expiration_date = model.expirationDate?.toEpoch(),
-                        date_created = model.dateCreated?.toEpoch(),
-                        date_updated = model.dateUpdated?.toEpoch(),
-                        revision = try {
-                            json.encodeToString(model.revisions)
-                        } catch (e: Exception) {
-                            Logger.e(e) { "Failed to encode revisions" }
-                            null
-                        },
+                        runId = installedModel.runId,
+                        name = installedModel.name,
+                        short_description = installedModel.short_description,
+                        description = installedModel.description,
+                        author = installedModel.author,
+                        nettests = installedModel.nettests,
+                        name_intl = installedModel.name_intl,
+                        short_description_intl = installedModel.short_description_intl,
+                        description_intl = installedModel.description_intl,
+                        icon = installedModel.icon,
+                        color = installedModel.color,
+                        animation = installedModel.animation,
+                        expiration_date = installedModel.expiration_date,
+                        date_created = installedModel.date_created,
+                        date_updated = installedModel.date_updated,
+                        revision = installedModel.revision,
                         previous_revision = null,
-                        is_expired = if (model.isExpired) 1 else 0,
-                        auto_update = if (model.autoUpdate) 1 else 0,
+                        is_expired = installedModel.is_expired,
+                        auto_update = installedModel.auto_update,
                     )
                 }
             }
@@ -69,33 +61,27 @@ class TestDescriptorRepository(
         withContext(backgroundDispatcher) {
             database.transaction {
                 models.forEach { model ->
+                    val installedModel = model.toDb(json = json)
                     database.testDescriptorQueries.createOrUpdate(
-                        runId = model.id.value,
-                        name = model.name,
-                        short_description = model.shortDescription,
-                        description = model.description,
-                        author = model.author,
-                        nettests = model.netTests
-                            ?.map { it.toOONI() }
-                            ?.let { json.encodeToString(it) },
-                        name_intl = json.encodeToString(model.nameIntl),
-                        short_description_intl = json.encodeToString(model.shortDescriptionIntl),
-                        description_intl = json.encodeToString(model.descriptionIntl),
-                        icon = model.icon,
-                        color = model.color,
-                        animation = model.animation,
-                        expiration_date = model.expirationDate?.toEpoch(),
-                        date_created = model.dateCreated?.toEpoch(),
-                        date_updated = model.dateUpdated?.toEpoch(),
-                        revision = try {
-                            json.encodeToString(model.revisions)
-                        } catch (e: Exception) {
-                            Logger.e(e) { "Failed to encode revisions" }
-                            null
-                        },
+                        runId = installedModel.runId,
+                        name = installedModel.name,
+                        short_description = installedModel.short_description,
+                        description = installedModel.description,
+                        author = installedModel.author,
+                        nettests = installedModel.nettests,
+                        name_intl = installedModel.name_intl,
+                        short_description_intl = installedModel.short_description_intl,
+                        description_intl = installedModel.description_intl,
+                        icon = installedModel.icon,
+                        color = installedModel.color,
+                        animation = installedModel.animation,
+                        expiration_date = installedModel.expiration_date,
+                        date_created = installedModel.date_created,
+                        date_updated = installedModel.date_updated,
+                        revision = installedModel.revision,
                         previous_revision = null,
-                        is_expired = if (model.isExpired) 1 else 0,
-                        auto_update = if (model.autoUpdate) 1 else 0,
+                        is_expired = installedModel.is_expired,
+                        auto_update = installedModel.auto_update,
                     )
                 }
             }

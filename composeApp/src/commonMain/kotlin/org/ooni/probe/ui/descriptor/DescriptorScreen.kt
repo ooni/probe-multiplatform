@@ -150,7 +150,7 @@ fun DescriptorScreen(
                             modifier = Modifier.padding(start = 8.dp),
                         )
                     }
-                    if (descriptor.hasPendingUpdate) {
+                    if (descriptor.updatable) {
                         SuggestionChip(
                             onClick = { },
                             colors = SuggestionChipDefaults.suggestionChipColors(

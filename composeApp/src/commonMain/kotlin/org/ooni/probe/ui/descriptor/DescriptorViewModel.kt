@@ -3,7 +3,6 @@ package org.ooni.probe.ui.descriptor
 import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -153,7 +152,6 @@ class DescriptorViewModel(
 
         events.filterIsInstance<Event.FetchUpdatedDescriptor>().onEach {
 
-            Logger.d("onEach: FetchUpdatedDescriptor")
             if (state.value.isRefreshing) return@onEach
             val descriptor = state.value.descriptor ?: return@onEach
 

@@ -50,7 +50,7 @@ fun TestDescriptorItem(
                     )
                 }
             }
-            if (descriptor.hasPendingUpdate) {
+            if (descriptor.updatable) {
                 SuggestionChip(
                     onClick = updateDescriptor,
                     colors = SuggestionChipDefaults.suggestionChipColors(

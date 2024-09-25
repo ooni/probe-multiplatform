@@ -53,7 +53,7 @@ fun Navigation(
                         navController.navigate(Screen.Descriptor(descriptorKey).route)
                     },
                     reviewDescriptorUpdates = {
-                        navController.navigate(Screen.ReviewUpdates("descriptors").route)
+                        navController.navigate(Screen.ReviewUpdates.route)
                     },
                 )
             }
@@ -231,7 +231,7 @@ fun Navigation(
                     descriptorKey = descriptorKey,
                     onBack = { navController.popBackStack() },
                     reviewDescriptorUpdates = {
-                        navController.navigate(Screen.ReviewUpdates(descriptorKey).route)
+                        navController.navigate(Screen.ReviewUpdates.route)
                     },
                 )
             }
@@ -239,10 +239,7 @@ fun Navigation(
             DescriptorScreen(state, viewModel::onEvent)
         }
 
-        composable(
-            route = Screen.ReviewUpdates.NAV_ROUTE,
-            arguments = Screen.ReviewUpdates.ARGUMENTS,
-        ) { entry ->
+        composable(route = Screen.ReviewUpdates.route) { entry ->
             val viewModel = viewModel {
                 dependencies.reviewUpdatesViewModel(
                     onBack = { navController.popBackStack() },

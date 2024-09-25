@@ -93,9 +93,10 @@ fun ReviewUpdatesScreen(
                 ) {
                     Text(
                         stringResource(
-                            when (currentDescriptorIndex == state.descriptors.size) {
-                                true -> Res.string.Dashboard_ReviewDescriptor_Button_Last
-                                false -> Res.string.Dashboard_ReviewDescriptor_Button_Default
+                            if (currentDescriptorIndex == state.descriptors.size) {
+                                Res.string.Dashboard_ReviewDescriptor_Button_Last
+                            } else {
+                                Res.string.Dashboard_ReviewDescriptor_Button_Default
                             },
                             currentDescriptorIndex,
                             state.descriptors.size,

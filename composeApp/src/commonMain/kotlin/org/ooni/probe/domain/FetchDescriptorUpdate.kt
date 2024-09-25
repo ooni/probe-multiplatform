@@ -23,7 +23,7 @@ class FetchDescriptorUpdate(
 
     suspend fun invoke(
         descriptors: List<InstalledTestDescriptorModel>,
-    ): MutableMap<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>> {
+    ): Map<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>> {
         availableUpdates.update { _ ->
             DescriptorUpdatesStatus(
                 refreshType = UpdateStatusType.FetchingUpdates,
@@ -76,6 +76,7 @@ class FetchDescriptorUpdate(
             DescriptorUpdatesStatus(
                 availableUpdates = updatesAvailable.toSet(),
                 autoUpdated = autoUpdated.toSet(),
+                errors = response.mapNotNull { (_, result) -> result.getError() },
                 refreshType = if (updatesAvailable.isNotEmpty()) UpdateStatusType.ReviewLink else UpdateStatusType.None,
             )
         }
@@ -83,7 +84,7 @@ class FetchDescriptorUpdate(
     }
 
     suspend operator fun invoke() {
-        listInstalledTestDescriptors.invoke().first().let { items ->
+        listInstalledTestDescriptors().first().let { items ->
             if (items.isNotEmpty()) {
                 invoke(items)
             }

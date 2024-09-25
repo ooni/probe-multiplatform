@@ -43,7 +43,6 @@ class DescriptorUpdateWorker(
     override suspend fun doWork(): Result {
         return coroutineScope {
             val descriptors = getDescriptors() ?: return@coroutineScope Result.failure()
-            print("Descriptors: $descriptors")
             if (descriptors.isEmpty()) return@coroutineScope Result.success(buildWorkData(descriptors))
             dependencies.getDescriptorUpdate.invoke(descriptors)
             return@coroutineScope Result.success(buildWorkData(descriptors))
@@ -56,7 +55,7 @@ class DescriptorUpdateWorker(
             try {
                 return json.decodeFromString<List<InstalledTestDescriptorModel>>(descriptorsJson)
             } catch (e: Exception) {
-                Logger.w("Could not start RunService: invalid spec", e)
+                Logger.w("Could not start update worker: invalid configuration", e)
                 return null
             }
         }
