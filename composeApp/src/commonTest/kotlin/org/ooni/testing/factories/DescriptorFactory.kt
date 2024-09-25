@@ -5,6 +5,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.DrawableResource
+import org.ooni.probe.data.models.Animation
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.LocalizationString
@@ -22,7 +23,7 @@ object DescriptorFactory {
         description: String? = null,
         icon: DrawableResource? = null,
         color: Color? = null,
-        animation: String? = null,
+        animation: Animation? = null,
         dataUsage: String? = null,
         expirationDate: LocalDateTime? = null,
         netTests: List<NetTest> = emptyList(),

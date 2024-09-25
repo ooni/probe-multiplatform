@@ -86,6 +86,9 @@ fun App(
         dependencies.bootstrapPreferences()
     }
     LaunchedEffect(Unit) {
+        dependencies.finishInProgressData()
+    }
+    LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()
     }
     LaunchedEffect(Unit) {

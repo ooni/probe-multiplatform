@@ -5,6 +5,7 @@ import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.ooni.engine.models.TaskOrigin
@@ -85,9 +86,28 @@ class ResultRepository(
             }
         }
 
+    suspend fun getByIdAndUpdate(
+        id: ResultModel.Id,
+        update: (ResultModel) -> ResultModel,
+    ) = withContext(backgroundDispatcher) {
+        getById(id).first()?.first?.let { result ->
+            createOrUpdate(update(result))
+        }
+    }
+
     suspend fun markAsViewed(resultId: ResultModel.Id) =
         withContext(backgroundDispatcher) {
             database.resultQueries.markAsViewed(resultId.value)
+        }
+
+    suspend fun markAsDone(resultId: ResultModel.Id) =
+        withContext(backgroundDispatcher) {
+            database.resultQueries.markAsDone(resultId.value)
+        }
+
+    suspend fun markAllAsDone() =
+        withContext(backgroundDispatcher) {
+            database.resultQueries.markAllAsDone()
         }
 
     suspend fun deleteByRunId(resultId: InstalledTestDescriptorModel.Id) =

@@ -44,9 +44,10 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.TestRunState
-import org.ooni.probe.ui.customColors
+import org.ooni.probe.ui.shared.LottieAnimation
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.shortFormat
+import org.ooni.probe.ui.theme.customColors
 
 @Composable
 fun RunningScreen(
@@ -122,11 +123,19 @@ private fun TestRunning(
             }
         }
 
-        Icon(
-            painterResource(state.descriptor?.icon ?: Res.drawable.ooni_empty_state),
-            contentDescription = null,
-            modifier = Modifier.size(96.dp),
-        )
+        if (state.descriptor?.animation != null) {
+            LottieAnimation(
+                state.descriptor.animation,
+                contentDescription = null,
+                modifier = Modifier.size(160.dp),
+            )
+        } else {
+            Icon(
+                painterResource(state.descriptor?.icon ?: Res.drawable.ooni_empty_state),
+                contentDescription = null,
+                modifier = Modifier.size(160.dp).padding(24.dp),
+            )
+        }
 
         val progressTrackColor = contentColor.copy(alpha = 0.5f)
         val progressModifier = Modifier.fillMaxWidth()

@@ -46,11 +46,13 @@ import org.ooni.probe.domain.DeleteTestDescriptor
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FetchDescriptor
 import org.ooni.probe.domain.FetchDescriptorUpdate
+import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
+import org.ooni.probe.domain.GetFirstRun
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
 import org.ooni.probe.domain.GetSettings
@@ -69,6 +71,7 @@ import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
+import org.ooni.probe.ui.onboarding.OnboardingViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.run.RunViewModel
@@ -168,6 +171,7 @@ class Dependencies(
             json = json,
         )
     }
+    val finishInProgressData by lazy { FinishInProgressData(resultRepository::markAllAsDone) }
 
     val getDescriptorUpdate by lazy {
         FetchDescriptorUpdate(
@@ -186,6 +190,7 @@ class Dependencies(
     val getCurrentTestState get() = testStateManager::observeState
     private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
     private val getEnginePreferences by lazy { GetEnginePreferences(preferenceRepository) }
+    private val getFirstRun by lazy { GetFirstRun(preferenceRepository) }
     private val getResults by lazy {
         GetResults(
             resultRepository::list,
@@ -222,12 +227,12 @@ class Dependencies(
             observeSettings = preferenceRepository::allSettings,
         )
     }
-
     val runDescriptors by lazy {
         RunDescriptors(
             getTestDescriptorsBySpec = getTestDescriptorsBySpec::invoke,
             downloadUrls = downloadUrls::invoke,
             storeResult = resultRepository::createOrUpdate,
+            markResultAsDone = resultRepository::markAsDone,
             getCurrentTestRunState = testStateManager.observeState(),
             setCurrentTestState = testStateManager::updateState,
             runNetTest = { runNetTest(it)() },
@@ -271,7 +276,7 @@ class Dependencies(
     private fun runNetTest(spec: RunNetTest.Specification) =
         RunNetTest(
             startTest = engine::startTask,
-            storeResult = resultRepository::createOrUpdate,
+            getResultByIdAndUpdate = resultRepository::getByIdAndUpdate,
             setCurrentTestState = testStateManager::updateState,
             getOrCreateUrl = urlRepository::getOrCreateByUrl,
             storeMeasurement = measurementRepository::createOrUpdate,
@@ -296,16 +301,19 @@ class Dependencies(
     )
 
     fun dashboardViewModel(
+        goToOnboarding: () -> Unit,
         goToResults: () -> Unit,
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
         goToDescriptor: (String) -> Unit,
         goToReviewDescriptorUpdates: () -> Unit,
     ) = DashboardViewModel(
+        goToOnboarding = goToOnboarding,
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
         goToRunTests = goToRunTests,
         goToDescriptor = goToDescriptor,
+        getFirstRun = getFirstRun::invoke,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         getTestDescriptors = getTestDescriptors::invoke,
         observeTestRunState = testStateManager.observeState(),
@@ -336,6 +344,17 @@ class Dependencies(
             reviewDescriptorUpdates()
         },
         descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
+    )
+
+    fun onboardingViewModel(
+        goToDashboard: () -> Unit,
+        goToSettings: () -> Unit,
+    ) = OnboardingViewModel(
+        goToDashboard = goToDashboard,
+        goToSettings = goToSettings,
+        platformInfo = platformInfo,
+        preferenceRepository = preferenceRepository,
+        launchUrl = { launchUrl(it, null) },
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
@@ -429,6 +448,7 @@ class Dependencies(
             Json {
                 encodeDefaults = true
                 ignoreUnknownKeys = true
+                isLenient = true
             }
 
         @VisibleForTesting

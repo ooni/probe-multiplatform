@@ -44,6 +44,13 @@ INSERT OR REPLACE INTO Measurement (
 deleteAll:
 DELETE FROM Measurement;
 
+deleteByResultRunId:
+DELETE FROM Measurement
+WHERE Measurement.result_id IN (
+    SELECT Result.id FROM Result
+    WHERE Result.descriptor_runId = ?
+);
+
 selectLastInsertedRowId:
 SELECT last_insert_rowid();
 
@@ -64,13 +71,6 @@ ORDER BY Measurement.start_time ASC;
 
 selectByResultRunId:
 SELECT * FROM Measurement
-WHERE Measurement.result_id IN (
-    SELECT Result.id FROM Result
-    WHERE Result.descriptor_runId = ?
-);
-
-deleteByResultRunId:
-DELETE FROM Measurement
 WHERE Measurement.result_id IN (
     SELECT Result.id FROM Result
     WHERE Result.descriptor_runId = ?

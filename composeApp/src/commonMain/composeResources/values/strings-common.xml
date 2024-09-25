@@ -60,7 +60,6 @@
     <string name="Settings_Title">Settings</string>
     <string name="Settings_Notifications_Label">Notifications</string>
     <string name="Settings_Notifications_Enabled">Enabled</string>
-    <string name="Modal_EnableNotifications_Paragraph">Interested in running OONI Probe tests during emergent censorship events? Enable notifications to receive a message when we hear of internet censorship near you.</string>
 
     <string name="Settings_TestOptions_Label">Test options</string>
     <string name="Settings_TestOptions_LongRunningTest">Long running test</string>
@@ -258,4 +257,9 @@
     <string name="task_origin_all">All Sources</string>
     <string name="vpn">VPN</string>
     <string name="disable_vpn_instructions">Go to Settings > General > VPN and disconnect from your VPN.</string>
+    <string name="measurement_failed">Failed</string>
+    <string name="measurement_ok">OK</string>
+    <string name="measurement_anomaly">Anomaly</string>
+    <string name="quiz_answer_correct">Correct answer</string>
+    <string name="quiz_answer_incorrect">Incorrect answer</string>
 </resources>

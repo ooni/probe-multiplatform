@@ -47,6 +47,13 @@ class MeasurementRepository(
             .mapToList(backgroundDispatcher)
             .map { list -> list.mapNotNull { it.toModel() } }
 
+    fun selectByResultRunId(descriptorId: InstalledTestDescriptorModel.Id) =
+        database.measurementQueries
+            .selectByResultRunId(descriptorId.value)
+            .asFlow()
+            .mapToList(backgroundDispatcher)
+            .map { list -> list.mapNotNull { it.toModel() } }
+
     suspend fun createOrUpdate(model: MeasurementModel): MeasurementModel.Id =
         withContext(backgroundDispatcher) {
             database.transactionWithResult {
@@ -81,13 +88,6 @@ class MeasurementRepository(
             database.measurementQueries.deleteByResultRunId(descriptorId.value)
         }
     }
-
-    fun selectByResultRunId(descriptorId: InstalledTestDescriptorModel.Id) =
-        database.measurementQueries
-            .selectByResultRunId(descriptorId.value)
-            .asFlow()
-            .mapToList(backgroundDispatcher)
-            .map { list -> list.mapNotNull { it.toModel() } }
 
     private fun Measurement.toModel(): MeasurementModel? {
         return MeasurementModel(

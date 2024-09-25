@@ -4,9 +4,6 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import org.ooni.probe.ui.LocalCustomColors
-import org.ooni.probe.ui.customColorsDark
-import org.ooni.probe.ui.customColorsLight
 import org.ooni.probe.ui.navigation.Screen
 import org.ooni.probe.ui.shared.LightStatusBars
 
@@ -16,7 +13,11 @@ fun AppTheme(
     currentRoute: String? = null,
     content: @Composable () -> Unit,
 ) {
-    LightStatusBars(!useDarkTheme && currentRoute != Screen.RunningTest.route)
+    LightStatusBars(
+        !useDarkTheme &&
+            currentRoute != Screen.RunningTest.route &&
+            currentRoute != Screen.Onboarding.route,
+    )
 
     CompositionLocalProvider(
         LocalCustomColors provides if (useDarkTheme) customColorsDark else customColorsLight,

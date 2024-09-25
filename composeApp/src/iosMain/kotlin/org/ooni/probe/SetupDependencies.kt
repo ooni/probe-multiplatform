@@ -107,6 +107,7 @@ class SetupDependencies(
             override val platform = Platform.Ios
             override val osVersion = with(UIDevice.currentDevice) { "$systemName $systemVersion" }
             override val model = UIDevice.currentDevice.model
+            override val needsToRequestNotificationsPermission = true
         }
 
     private fun buildDatabaseDriver() = NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
@@ -19,10 +20,12 @@ import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.data.models.UpdateStatusType
 
 class DashboardViewModel(
+    goToOnboarding: () -> Unit,
     goToResults: () -> Unit,
     goToRunningTest: () -> Unit,
     goToRunTests: () -> Unit,
     goToDescriptor: (String) -> Unit,
+    getFirstRun: () -> Flow<Boolean>,
     goToReviewDescriptorUpdates: () -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     observeTestRunState: Flow<TestRunState>,
@@ -39,6 +42,11 @@ class DashboardViewModel(
     val state = _state.asStateFlow()
 
     init {
+        getFirstRun()
+            .take(1)
+            .onEach { firstRun -> if (firstRun) goToOnboarding() }
+            .launchIn(viewModelScope)
+
         observeAvailableUpdatesState().onEach { updates ->
             _state.update {
                 it.copy(

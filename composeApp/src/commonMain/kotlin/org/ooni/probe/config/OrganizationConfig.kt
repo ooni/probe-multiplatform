@@ -1,5 +1,7 @@
 package org.ooni.probe.config
 
+import org.jetbrains.compose.resources.DrawableResource
+
 interface OrganizationConfigInterface {
     val baseSoftwareName: String
 
@@ -16,8 +18,16 @@ interface OrganizationConfigInterface {
 
     val autorunTaskId: String
 
+    val onboardingImages: OnboardingImages
+
     val updateDescriptorTaskId: String
 }
+
+data class OnboardingImages(
+    val image1: DrawableResource,
+    val image2: DrawableResource,
+    val image3: DrawableResource,
+)
 
 enum class TestDisplayMode {
     Regular,
