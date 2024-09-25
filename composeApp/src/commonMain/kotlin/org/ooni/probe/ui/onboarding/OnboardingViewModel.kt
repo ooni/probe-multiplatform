@@ -135,6 +135,6 @@ class OnboardingViewModel(
     }
 
     companion object {
-        private const val LEARN_MORE_URL = "https://ooni.io/about/risks/"
+        private const val LEARN_MORE_URL = "https://ooni.org/about/risks/"
     }
 }
