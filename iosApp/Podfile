@@ -9,12 +9,6 @@ def shared_pods
 
     pod 'sqlite3', '~> 3.42.0'
 
-    pod("Sentry") {
-      version = "~> 8.25"
-      linkOnly = true
-      extraOpts += listOf("-compiler-option", "-fmodules")
-    }
-
     pod "libcrypto", :podspec => "#{ooni_pods_location}/libcrypto.podspec"
     pod "libevent", :podspec => "#{ooni_pods_location}/libevent.podspec"
     pod "libssl", :podspec => "#{ooni_pods_location}/libssl.podspec"

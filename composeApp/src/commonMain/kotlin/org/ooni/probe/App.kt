@@ -22,6 +22,7 @@ import co.touchlab.kermit.Logger
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.navigation.BottomNavigationBar
 import org.ooni.probe.ui.navigation.Navigation
 import org.ooni.probe.ui.navigation.Screen
@@ -81,10 +82,10 @@ fun App(
         }
     }
 
-    Logger.addLogWriter(dependencies.crashMonitoring.logWriter)
-
     LaunchedEffect(Unit) {
-        logAppStart(dependencies)
+        Logger.addLogWriter(dependencies.crashMonitoring.logWriter)
+        Logger.addLogWriter(dependencies.appLogger.logWriter)
+        logAppStart(dependencies.platformInfo)
     }
     LaunchedEffect(Unit) {
         dependencies.crashMonitoring.setup()
@@ -115,9 +116,9 @@ fun App(
     }
 }
 
-private fun logAppStart(dependencies: Dependencies) {
-    with(dependencies.platformInfo) {
-        Logger.i(
+private fun logAppStart(platformInfo: PlatformInfo) {
+    with(platformInfo) {
+        Logger.v(
             """
             ---APP START---
             Platform: $platform ($osVersion)"

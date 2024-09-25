@@ -68,11 +68,13 @@ import org.ooni.probe.domain.ShouldShowVpnWarning
 import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
+import org.ooni.probe.shared.monitoring.AppLogger
 import org.ooni.probe.shared.monitoring.CrashMonitoring
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
+import org.ooni.probe.ui.log.LogViewModel
 import org.ooni.probe.ui.onboarding.OnboardingViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
@@ -129,6 +131,14 @@ class Dependencies(
     // Monitoring
 
     val crashMonitoring by lazy { CrashMonitoring(preferenceRepository) }
+    val appLogger by lazy {
+        AppLogger(
+            readFile = readFile,
+            writeFile = writeFile,
+            deleteFiles = deleteFiles,
+            backgroundDispatcher = backgroundDispatcher,
+        )
+    }
 
     // Engine
 
@@ -350,6 +360,13 @@ class Dependencies(
         reviewUpdates = getDescriptorUpdate::reviewUpdates,
         descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
     )
+
+    fun logViewModel(onBack: () -> Unit) =
+        LogViewModel(
+            onBack = onBack,
+            readLog = appLogger::read,
+            clearLog = appLogger::clear,
+        )
 
     fun onboardingViewModel(
         goToDashboard: () -> Unit,
