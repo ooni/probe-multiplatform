@@ -252,7 +252,7 @@ fun Navigation(
                 dependencies.descriptorViewModel(
                     descriptorKey = descriptorKey,
                     onBack = { navController.popBackStack() },
-                    reviewDescriptorUpdates = {
+                    goToReviewDescriptorUpdates = {
                         navController.navigate(Screen.ReviewUpdates.route)
                     },
                 )

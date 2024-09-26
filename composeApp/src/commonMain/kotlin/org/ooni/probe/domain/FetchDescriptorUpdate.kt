@@ -91,7 +91,7 @@ class FetchDescriptorUpdate(
         }
     }
 
-    fun cancelUpdates(descriptors: Set<InstalledTestDescriptorModel>) {
+    fun cancelUpdates(descriptors: List<InstalledTestDescriptorModel>) {
         availableUpdates.update {
                 currentItems ->
             currentItems.copy(

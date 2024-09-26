@@ -33,15 +33,14 @@ import kotlin.time.Duration.Companion.seconds
 class DescriptorViewModel(
     private val descriptorKey: String,
     onBack: () -> Unit,
+    goToReviewDescriptorUpdates: () -> Unit,
     private val getTestDescriptors: () -> Flow<List<Descriptor>>,
     getDescriptorLastResult: (String) -> Flow<ResultModel?>,
     private val preferenceRepository: PreferenceRepository,
     private val launchUrl: (String) -> Unit,
     deleteTestDescriptor: suspend (InstalledTestDescriptorModel) -> Unit,
     fetchDescriptorUpdate:
-        suspend (
-            List<InstalledTestDescriptorModel>,
-        ) -> Unit,
+        suspend (List<InstalledTestDescriptorModel>) -> Unit,
     setAutoUpdate: suspend (InstalledTestDescriptorModel.Id, Boolean) -> Unit,
     reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
     descriptorUpdates: () -> Flow<DescriptorUpdatesStatus>,
@@ -170,6 +169,7 @@ class DescriptorViewModel(
                 it.copy(refreshType = UpdateStatusType.None, updatedDescriptor = null)
             }
             reviewUpdates(listOf(descriptor.source.value))
+            goToReviewDescriptorUpdates()
         }.launchIn(viewModelScope)
     }
 

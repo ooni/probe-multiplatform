@@ -328,10 +328,11 @@ class Dependencies(
     fun descriptorViewModel(
         descriptorKey: String,
         onBack: () -> Unit,
-        reviewDescriptorUpdates: () -> Unit,
+        goToReviewDescriptorUpdates: () -> Unit,
     ) = DescriptorViewModel(
         descriptorKey = descriptorKey,
         onBack = onBack,
+        goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         getTestDescriptors = getTestDescriptors::invoke,
         getDescriptorLastResult = resultRepository::getLatestByDescriptor,
         preferenceRepository = preferenceRepository,
@@ -339,10 +340,7 @@ class Dependencies(
         deleteTestDescriptor = deleteTestDescriptor::invoke,
         fetchDescriptorUpdate = fetchDescriptorUpdate,
         setAutoUpdate = testDescriptorRepository::setAutoUpdate,
-        reviewUpdates = {
-            getDescriptorUpdate::reviewUpdates.invoke(it)
-            reviewDescriptorUpdates()
-        },
+        reviewUpdates = getDescriptorUpdate::reviewUpdates,
         descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
     )
 

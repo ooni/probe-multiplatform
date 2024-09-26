@@ -34,7 +34,7 @@ class DashboardViewModel(
     fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>) -> Unit,
     reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
     observeAvailableUpdatesState: () -> Flow<DescriptorUpdatesStatus>,
-    cancelUpdates: (Set<InstalledTestDescriptorModel>) -> Unit,
+    cancelUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -126,7 +126,7 @@ class DashboardViewModel(
             goToReviewDescriptorUpdates()
         }.launchIn(viewModelScope)
         events.filterIsInstance<Event.CancelUpdatesClicked>().onEach {
-            cancelUpdates(state.value.availableUpdates.toSet())
+            cancelUpdates(state.value.availableUpdates)
             _state.update {
                 it.copy(
                     refreshType = UpdateStatusType.None,

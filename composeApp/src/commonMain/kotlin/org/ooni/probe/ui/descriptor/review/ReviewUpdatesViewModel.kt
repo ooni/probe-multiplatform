@@ -16,7 +16,7 @@ import org.ooni.probe.data.models.toDescriptor
 class ReviewUpdatesViewModel(
     private val onBack: () -> Unit,
     createOrUpdate: suspend (Set<InstalledTestDescriptorModel>) -> Unit,
-    cancelUpdates: (Set<InstalledTestDescriptorModel>) -> Unit,
+    cancelUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
     observeAvailableUpdatesState: () -> Flow<DescriptorUpdatesStatus>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -33,8 +33,7 @@ class ReviewUpdatesViewModel(
             when (it) {
                 is Event.CancelClicked -> {
                     cancelUpdates(
-                        _state.value.descriptors.subList(state.value.currentDescriptorIndex, _state.value.descriptors.size)
-                            .toSet(),
+                        _state.value.descriptors.subList(state.value.currentDescriptorIndex, _state.value.descriptors.size),
                     )
                     onBack()
                 }
