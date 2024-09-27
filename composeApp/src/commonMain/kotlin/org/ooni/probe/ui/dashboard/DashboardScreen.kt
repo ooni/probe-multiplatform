@@ -76,7 +76,9 @@ fun DashboardScreen(
     Box(Modifier.nestedScroll(pullToRefreshState.nestedScrollConnection)) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(bottom = if (state.isRefreshing) 48.dp else 0.dp)
+                .fillMaxWidth(),
         ) {
             Image(
                 painterResource(Res.drawable.logo_probe),

@@ -14,8 +14,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
-import org.ooni.probe.background.DescriptorUpdateOperation
-import org.ooni.probe.background.RunOperation
+import org.ooni.probe.background.OperationsManager
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
@@ -32,7 +31,6 @@ import platform.Foundation.NSDate
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSError
 import platform.Foundation.NSFileManager
-import platform.Foundation.NSOperationQueue
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSString
 import platform.Foundation.NSTemporaryDirectory
@@ -78,22 +76,10 @@ class SetupDependencies(
         fetchDescriptorUpdate = ::fetchDescriptorUpdate,
     )
 
+    private val operationsManager = OperationsManager(dependencies)
+
     fun startSingleRun(spec: RunSpecification) {
-        val operationQueue = NSOperationQueue()
-        val runDescriptors by lazy { dependencies.runDescriptors }
-        val getCurrentTestState by lazy { dependencies.getCurrentTestState }
-        val operation = RunOperation(
-            spec = spec,
-            runDescriptors = runDescriptors,
-            getCurrentTestState = getCurrentTestState,
-        )
-        val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
-            operation.cancel()
-        }
-        operation.completionBlock = {
-            UIApplication.sharedApplication.endBackgroundTask(identifier)
-        }
-        operationQueue.addOperation(operation)
+        operationsManager.startSingleRun(spec)
     }
 
     fun initializeDeeplink() = MutableSharedFlow<DeepLink>(extraBufferCapacity = 1)
@@ -197,7 +183,7 @@ class SetupDependencies(
                 GlobalScope.launch {
                     configureAutoRun(getAutoRunSettings().first())
                 }
-                handleAutorunTask(it)
+                operationsManager.handleAutorunTask(it)
             }
         }
         BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(
@@ -207,7 +193,7 @@ class SetupDependencies(
             Logger.d { "Received task: $task" }
             (task as? BGProcessingTask)?.let {
                 configureDescriptorAutoUpdate()
-                handleUpdateDescriptorTask(it)
+                operationsManager.handleUpdateDescriptorTask(it)
             }
         }
     }
@@ -234,23 +220,6 @@ class SetupDependencies(
         )
     }
 
-    fun handleAutorunTask(task: BGProcessingTask) {
-        val getAutoRunSpecification by lazy { dependencies.getAutoRunSpecification }
-        val runDescriptors by lazy { dependencies.runDescriptors }
-        val getCurrentTestState by lazy { dependencies.getCurrentTestState }
-        Logger.d { "Handling autorun task" }
-        val operationQueue = NSOperationQueue()
-        val operation = RunOperation(
-            getAutoRunSpecification = getAutoRunSpecification,
-            runDescriptors = runDescriptors,
-            getCurrentTestState = getCurrentTestState,
-        )
-
-        task.expirationHandler = { operation.cancel() }
-        operation.completionBlock = { task.setTaskCompletedWithSuccess(!operation.isCancelled()) }
-        operationQueue.addOperation(operation)
-    }
-
     private fun openVpnSettings(): Boolean {
         val url = "App-prefs:General&path=ManagedConfigurationList"
         return NSURL.URLWithString(url)?.let {
@@ -262,22 +231,6 @@ class SetupDependencies(
                 return@let false
             }
         } ?: false
-    }
-
-    private fun handleUpdateDescriptorTask(task: BGProcessingTask) {
-        val testDescriptorRepository by lazy { dependencies.testDescriptorRepository }
-        Logger.d { "Handling update descriptor task" }
-        val operationQueue = NSOperationQueue()
-
-        val getDescriptorUpdate by lazy { dependencies.getDescriptorUpdate }
-        val operation = DescriptorUpdateOperation(
-            testDescriptorRepository = testDescriptorRepository,
-            fetchDescriptorUpdate = getDescriptorUpdate,
-        )
-
-        task.expirationHandler = { operation.cancel() }
-        operation.completionBlock = { task.setTaskCompletedWithSuccess(!operation.isCancelled()) }
-        operationQueue.addOperation(operation)
     }
 
     private fun configureDescriptorAutoUpdate(): Boolean {
@@ -296,22 +249,7 @@ class SetupDependencies(
         return true
     }
 
-    private fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
-        Logger.d("Fetching descriptor update")
-        val operationQueue = NSOperationQueue()
-        val getDescriptorUpdate by lazy { dependencies.getDescriptorUpdate }
-        val testDescriptorRepository by lazy { dependencies.testDescriptorRepository }
-        val operation = DescriptorUpdateOperation(
-            descriptors = descriptors,
-            fetchDescriptorUpdate = getDescriptorUpdate,
-            testDescriptorRepository = testDescriptorRepository,
-        )
-        val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
-            operation.cancel()
-        }
-        operation.completionBlock = {
-            UIApplication.sharedApplication.endBackgroundTask(identifier)
-        }
-        operationQueue.addOperation(operation)
+    fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
+        operationsManager.fetchDescriptorUpdate(descriptors)
     }
 }

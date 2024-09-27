@@ -2,9 +2,7 @@ package org.ooni.probe.domain
 
 import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_LongRunningTest
@@ -19,48 +17,18 @@ import org.ooni.probe.data.models.toDescriptor
 class GetTestDescriptors(
     private val getDefaultTestDescriptors: () -> List<DefaultTestDescriptor>,
     private val listInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
-    private val descriptorUpdates: () -> StateFlow<DescriptorUpdatesStatus>,
+    private val descriptorUpdates: () -> Flow<DescriptorUpdatesStatus>,
 ) {
     operator fun invoke(): Flow<List<Descriptor>> {
-        return descriptorUpdates().flatMapLatest { descriptorUpdates ->
-
-            suspend {
-                getDefaultTestDescriptors()
-                    .map { it.toDescriptor() }
-            }.asFlow()
-                .flatMapLatest { defaultDescriptors ->
-                    listInstalledTestDescriptors()
-                        .map {
-                                list ->
-                            list.map { item ->
-                                val availableUpdate = descriptorUpdates.availableUpdates.firstOrNull {
-                                    it.id.value == item.id.value
-                                }
-                                item.toDescriptor(
-                                    updateStatus = availableUpdate?.let {
-                                        if (it.autoUpdate) UpdateStatus.AutoUpdated else UpdateStatus.Updatable(it)
-                                    } ?: UpdateStatus.UpToDate,
-                                )
-                            }
-                        }
-                        .map { list ->
-                            list.map { item ->
-                                val rejectedUpdate = descriptorUpdates.rejectedUpdates.firstOrNull {
-                                    it.id.value.toString() == item.key
-                                }
-                                item.copy(updateStatus = rejectedUpdate?.let { UpdateStatus.UpdateRejected(it) } ?: item.updateStatus)
-                            }
-                        }
-                        .map { list ->
-                            list.map { item ->
-                                val autoUpdate = descriptorUpdates.autoUpdated.firstOrNull {
-                                    it.id.value.toString() == item.key
-                                }
-                                item.copy(updateStatus = autoUpdate?.let { UpdateStatus.AutoUpdated } ?: item.updateStatus)
-                            }
-                        }
-                        .map { defaultDescriptors + it }
-                }
+        return combine(
+            listInstalledTestDescriptors(),
+            descriptorUpdates(),
+        ) { installedDescriptors, descriptorUpdates ->
+            val updatedDescriptors = installedDescriptors.map { item ->
+                item.toDescriptor(updateStatus = descriptorUpdates.getStatusOf(item.id))
+            }
+            return@combine getDefaultTestDescriptors()
+                .map { it.toDescriptor() } + updatedDescriptors
         }
     }
 
