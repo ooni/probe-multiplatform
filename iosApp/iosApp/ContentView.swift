@@ -29,7 +29,7 @@ struct ContentView: View {
 
     var body: some View {
         ComposeView(dependencies: dependencies, deepLinkFlow: deepLinkFlow)
-                .ignoresSafeArea(edges: .all)
+                .ignoresSafeArea(edges: .all) // https://stackoverflow.com/a/78053779
                 .ignoresSafeArea(.keyboard) // Compose has own keyboard handler
     }
 }
