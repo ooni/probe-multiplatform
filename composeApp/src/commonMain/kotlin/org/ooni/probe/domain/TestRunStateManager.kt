@@ -28,9 +28,9 @@ class TestRunStateManager(
                 }
             }
 
-    fun observeTestRunCancels() = cancels.asSharedFlow()
+    fun observeCancels() = cancels.asSharedFlow()
 
-    fun observeError() = errors.asSharedFlow()
+    fun observeErrors() = errors.asSharedFlow()
 
     fun updateState(update: (TestRunState) -> TestRunState) = state.update(update)
 

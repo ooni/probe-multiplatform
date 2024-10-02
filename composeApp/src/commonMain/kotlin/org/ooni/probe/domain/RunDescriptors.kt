@@ -6,6 +6,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.supervisorScope
 import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.EnginePreferences
@@ -33,6 +34,7 @@ class RunDescriptors(
     private val observeCancelTestRun: Flow<Unit>,
     private val reportTestRunError: (TestRunError) -> Unit,
     private val getEnginePreferences: suspend () -> EnginePreferences,
+    private val finishInProgressData: suspend () -> Unit,
 ) {
     suspend operator fun invoke(spec: RunSpecification) {
         val descriptors = getTestDescriptorsBySpec(spec)
@@ -53,6 +55,7 @@ class RunDescriptors(
             // Exceptions were logged in the Engine
         } finally {
             setCurrentTestState { TestRunState.Idle(LocalDateTime.now(), true) }
+            finishInProgressData()
         }
     }
 
