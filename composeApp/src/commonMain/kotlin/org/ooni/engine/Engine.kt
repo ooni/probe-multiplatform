@@ -20,8 +20,8 @@ import org.ooni.engine.models.TaskSettings
 import org.ooni.engine.models.resultOf
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
-import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
+import org.ooni.probe.shared.value
 
 class Engine(
     private val bridge: OonimkallBridge,
@@ -131,7 +131,7 @@ class Engine(
         options = TaskSettings.Options(
             noCollector = !preferences.uploadResults,
             softwareName = buildSoftwareName(taskOrigin),
-            softwareVersion = platformInfo.version,
+            softwareVersion = platformInfo.buildName,
             maxRuntime = preferences.maxRuntime?.inWholeSeconds?.toInt() ?: -1,
         ),
         annotations = TaskSettings.Annotations(
@@ -148,7 +148,7 @@ class Engine(
         preferences: EnginePreferences,
     ) = OonimkallBridge.SessionConfig(
         softwareName = buildSoftwareName(taskOrigin),
-        softwareVersion = platformInfo.version,
+        softwareVersion = platformInfo.buildName,
         proxy = preferences.proxy,
         probeServicesURL = OrganizationConfig.ooniApiBaseUrl,
         stateDir = "$baseFilePath/state",
@@ -163,15 +163,7 @@ class Engine(
         OrganizationConfig.baseSoftwareName +
             "-" +
             platformInfo.platform.value +
-            "-" +
             (if (taskOrigin == TaskOrigin.AutoRun) "-" + "unattended" else "")
-
-    private val Platform.value
-        get() =
-            when (this) {
-                Platform.Android -> "android"
-                Platform.Ios -> "ios"
-            }
 
     private val oonimkallLogger by lazy {
         object : OonimkallBridge.Logger {
