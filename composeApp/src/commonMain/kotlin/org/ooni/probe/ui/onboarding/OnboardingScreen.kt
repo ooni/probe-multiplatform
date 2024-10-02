@@ -21,7 +21,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LocalContentColor
@@ -183,9 +185,11 @@ fun OnboardingScreen(
 
 @Composable
 fun ColumnScope.WhatIsStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    OnboardingImage(OrganizationConfig.onboardingImages.image1)
-    OnboardingTitle(Res.string.Onboarding_WhatIsOONIProbe_Title)
-    OnboardingText(Res.string.Onboarding_WhatIsOONIProbe_Paragraph)
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        OnboardingImage(OrganizationConfig.onboardingImages.image1)
+        OnboardingTitle(Res.string.Onboarding_WhatIsOONIProbe_Title)
+        OnboardingText(Res.string.Onboarding_WhatIsOONIProbe_Paragraph)
+    }
 
     Spacer(Modifier.weight(1f))
 
@@ -203,11 +207,13 @@ fun ColumnScope.HeadsUpStep(
     onEvent: (OnboardingViewModel.Event) -> Unit,
     onShowQuiz: () -> Unit,
 ) {
-    OnboardingImage(OrganizationConfig.onboardingImages.image2)
-    OnboardingTitle(Res.string.Onboarding_ThingsToKnow_Title)
-    OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_1)
-    OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_2)
-    OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_3)
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        OnboardingImage(OrganizationConfig.onboardingImages.image2)
+        OnboardingTitle(Res.string.Onboarding_ThingsToKnow_Title)
+        OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_1)
+        OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_2)
+        OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_3)
+    }
 
     Spacer(Modifier.weight(1f))
 
@@ -229,9 +235,11 @@ fun ColumnScope.HeadsUpStep(
 
 @Composable
 fun ColumnScope.AutomatedTestingStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    OnboardingImage(OrganizationConfig.onboardingImages.image3)
-    OnboardingTitle(Res.string.Onboarding_AutomatedTesting_Title)
-    OnboardingText(Res.string.Onboarding_AutomatedTesting_Paragraph)
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        OnboardingImage(OrganizationConfig.onboardingImages.image3)
+        OnboardingTitle(Res.string.Onboarding_AutomatedTesting_Title)
+        OnboardingText(Res.string.Onboarding_AutomatedTesting_Paragraph)
+    }
 
     Spacer(Modifier.weight(1f))
 
@@ -255,9 +263,11 @@ fun ColumnScope.AutomatedTestingStep(onEvent: (OnboardingViewModel.Event) -> Uni
 
 @Composable
 fun ColumnScope.CrashReportingStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    OnboardingImage(OrganizationConfig.onboardingImages.image3)
-    OnboardingTitle(Res.string.Onboarding_Crash_Title)
-    OnboardingText(Res.string.Onboarding_Crash_Paragraph)
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        OnboardingImage(OrganizationConfig.onboardingImages.image3)
+        OnboardingTitle(Res.string.Onboarding_Crash_Title)
+        OnboardingText(Res.string.Onboarding_Crash_Paragraph)
+    }
 
     Spacer(Modifier.weight(1f))
 
@@ -286,9 +296,11 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
     BindEffect(controller)
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
-    OnboardingImage(OrganizationConfig.onboardingImages.image3)
-    OnboardingTitle(Res.string.Modal_EnableNotifications_Title)
-    OnboardingText(Res.string.Modal_EnableNotifications_Paragraph)
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        OnboardingImage(OrganizationConfig.onboardingImages.image3)
+        OnboardingTitle(Res.string.Modal_EnableNotifications_Title)
+        OnboardingText(Res.string.Modal_EnableNotifications_Paragraph)
+    }
 
     Spacer(Modifier.weight(1f))
 
@@ -330,13 +342,15 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
 
 @Composable
 fun ColumnScope.DefaultSettingsStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    OnboardingImage(OrganizationConfig.onboardingImages.image3)
-    OnboardingTitle(Res.string.Onboarding_DefaultSettings_Title)
-    OnboardingText(Res.string.Onboarding_DefaultSettings_Header)
-    OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_1)
-    OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_2)
-    OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_3)
-    OnboardingText(Res.string.Onboarding_DefaultSettings_Paragraph)
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        OnboardingImage(OrganizationConfig.onboardingImages.image3)
+        OnboardingTitle(Res.string.Onboarding_DefaultSettings_Title)
+        OnboardingText(Res.string.Onboarding_DefaultSettings_Header)
+        OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_1)
+        OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_2)
+        OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_3)
+        OnboardingText(Res.string.Onboarding_DefaultSettings_Paragraph)
+    }
 
     Spacer(Modifier.weight(1f))
 
