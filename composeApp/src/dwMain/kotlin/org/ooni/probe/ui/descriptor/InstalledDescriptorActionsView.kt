@@ -13,4 +13,7 @@ fun InstalledDescriptorActionsView(
 }
 
 @Composable
-fun ConfigureUpdates(onEvent: (DescriptorViewModel.Event) -> Unit, autoUpdate: Boolean) {}
+fun ConfigureUpdates(
+    onEvent: (DescriptorViewModel.Event) -> Unit,
+    autoUpdate: Boolean,
+) {}

@@ -22,7 +22,6 @@ import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.data.models.UpdateStatusType
 import org.ooni.probe.data.models.toDescriptor
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -154,7 +153,7 @@ class DescriptorViewModel(
             if (state.value.isRefreshing) return@onEach
             val descriptor = state.value.descriptor ?: return@onEach
 
-            if (descriptor.source !is Descriptor.Source.Installed || descriptor.updateStatus is UpdateStatus.UpdateRejected) return@onEach
+            if (descriptor.source !is Descriptor.Source.Installed) return@onEach
             _state.update {
                 it.copy(refreshType = UpdateStatusType.UpdateLink, updatedDescriptor = null)
             }
