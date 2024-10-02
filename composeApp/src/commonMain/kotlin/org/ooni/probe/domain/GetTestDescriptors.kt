@@ -3,6 +3,7 @@ package org.ooni.probe.domain
 import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_LongRunningTest
@@ -23,11 +24,12 @@ class GetTestDescriptors(
         return combine(
             listInstalledTestDescriptors(),
             descriptorUpdates(),
-        ) { installedDescriptors, descriptorUpdates ->
+            flowOf(getDefaultTestDescriptors()),
+        ) { installedDescriptors, descriptorUpdates, defaultDescriptors ->
             val updatedDescriptors = installedDescriptors.map { item ->
                 item.toDescriptor(updateStatus = descriptorUpdates.getStatusOf(item.id))
             }
-            return@combine getDefaultTestDescriptors()
+            return@combine defaultDescriptors
                 .map { it.toDescriptor() } + updatedDescriptors
         }
     }

@@ -1,5 +1,7 @@
 package org.ooni.probe
 
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
@@ -31,11 +33,14 @@ import platform.Foundation.NSDate
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSError
 import platform.Foundation.NSFileManager
+import platform.Foundation.NSLocale
+import platform.Foundation.NSLocaleLanguageDirectionRightToLeft
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSString
 import platform.Foundation.NSTemporaryDirectory
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
+import platform.Foundation.characterDirectionForLanguage
 import platform.Foundation.dateByAddingTimeInterval
 import platform.Foundation.stringWithContentsOfFile
 import platform.MessageUI.MFMailComposeViewController
@@ -74,9 +79,18 @@ class SetupDependencies(
         openVpnSettings = ::openVpnSettings,
         configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
         fetchDescriptorUpdate = ::fetchDescriptorUpdate,
+        localeDirection = ::localeDirection,
     )
 
     private val operationsManager = OperationsManager(dependencies)
+
+    private fun localeDirection(): LayoutDirection {
+        return if (NSLocale.characterDirectionForLanguage(Locale.current.language) == NSLocaleLanguageDirectionRightToLeft) {
+            LayoutDirection.Rtl
+        } else {
+            LayoutDirection.Ltr
+        }
+    }
 
     fun startSingleRun(spec: RunSpecification) {
         operationsManager.startSingleRun(spec)

@@ -15,6 +15,7 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
@@ -41,7 +42,9 @@ fun App(
     val isMainScreen = MAIN_NAVIGATION_SCREENS.map { it.route }.contains(currentRoute)
 
     CompositionLocalProvider(
-        values = arrayOf(LocalSnackbarHostState provides snackbarHostState),
+        values = dependencies.localeDirection?.invoke()?.let { LocalLayoutDirection provides it }?.let {
+            arrayOf(LocalSnackbarHostState provides snackbarHostState, it)
+        } ?: arrayOf(LocalSnackbarHostState provides snackbarHostState),
     ) {
         AppTheme(
             currentRoute = currentRoute,
