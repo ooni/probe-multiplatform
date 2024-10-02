@@ -69,7 +69,8 @@ class EngineTest {
             networkTypeFinder = networkTypeFinder,
             isBatteryCharging = { true },
             platformInfo = object : PlatformInfo {
-                override val version = "1"
+                override val buildName: String = "1"
+                override val buildNumber: String = "1"
                 override val platform = Platform.Ios
                 override val osVersion = "1"
                 override val model = "test"
