@@ -2,7 +2,6 @@ package org.ooni.probe.domain
 
 import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -25,8 +24,8 @@ class GetTestDescriptors(
         return combine(
             listInstalledTestDescriptors(),
             descriptorUpdates(),
-            flowOf(getDefaultTestDescriptors())
-        ) { installedDescriptors, descriptorUpdates , defaultDescriptors ->
+            flowOf(getDefaultTestDescriptors()),
+        ) { installedDescriptors, descriptorUpdates, defaultDescriptors ->
             val updatedDescriptors = installedDescriptors.map { item ->
                 item.toDescriptor(updateStatus = descriptorUpdates.getStatusOf(item.id))
             }
