@@ -6,7 +6,6 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.supervisorScope
 import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.EnginePreferences
