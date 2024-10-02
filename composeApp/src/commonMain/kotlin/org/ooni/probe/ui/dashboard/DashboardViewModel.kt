@@ -13,8 +13,11 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
+import org.ooni.probe.data.models.DescriptorUpdatesStatus
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.TestRunState
+import org.ooni.probe.data.models.UpdateStatusType
 
 class DashboardViewModel(
     goToOnboarding: () -> Unit,
@@ -23,10 +26,15 @@ class DashboardViewModel(
     goToRunTests: () -> Unit,
     goToDescriptor: (String) -> Unit,
     getFirstRun: () -> Flow<Boolean>,
+    goToReviewDescriptorUpdates: () -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     observeTestRunState: Flow<TestRunState>,
     observeTestRunErrors: Flow<TestRunError>,
     shouldShowVpnWarning: suspend () -> Boolean,
+    fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>) -> Unit,
+    reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
+    observeAvailableUpdatesState: () -> Flow<DescriptorUpdatesStatus>,
+    cancelUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -39,6 +47,14 @@ class DashboardViewModel(
             .onEach { firstRun -> if (firstRun) goToOnboarding() }
             .launchIn(viewModelScope)
 
+        observeAvailableUpdatesState().onEach { updates ->
+            _state.update {
+                it.copy(
+                    availableUpdates = updates.availableUpdates.toList(),
+                    refreshType = updates.refreshType,
+                )
+            }
+        }.launchIn(viewModelScope)
         getTestDescriptors()
             .onEach { tests ->
                 _state.update { it.copy(descriptors = tests.groupByType()) }
@@ -81,7 +97,9 @@ class DashboardViewModel(
 
         events
             .filterIsInstance<Event.DescriptorClicked>()
-            .onEach { goToDescriptor(it.descriptor.key) }
+            .onEach { event ->
+                goToDescriptor(event.descriptor.key)
+            }
             .launchIn(viewModelScope)
 
         events
@@ -90,6 +108,31 @@ class DashboardViewModel(
                 _state.update { it.copy(showVpnWarning = shouldShowVpnWarning()) }
             }
             .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.FetchUpdatedDescriptors>().onEach {
+            state.value.descriptors[DescriptorType.Installed]
+                ?.map { (it.source as Descriptor.Source.Installed).value }
+                ?.let { descriptors ->
+                    fetchDescriptorUpdate(descriptors)
+                }
+        }.launchIn(viewModelScope)
+        events.filterIsInstance<Event.ReviewUpdatesClicked>().onEach {
+            _state.update {
+                it.copy(
+                    refreshType = UpdateStatusType.None,
+                )
+            }
+            reviewUpdates(state.value.availableUpdates)
+            goToReviewDescriptorUpdates()
+        }.launchIn(viewModelScope)
+        events.filterIsInstance<Event.CancelUpdatesClicked>().onEach {
+            cancelUpdates(state.value.availableUpdates)
+            _state.update {
+                it.copy(
+                    refreshType = UpdateStatusType.None,
+                )
+            }
+        }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -107,7 +150,12 @@ class DashboardViewModel(
         val testRunState: TestRunState = TestRunState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
         val showVpnWarning: Boolean = false,
-    )
+        val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
+        val refreshType: UpdateStatusType = UpdateStatusType.None,
+    ) {
+        val isRefreshing: Boolean
+            get() = refreshType != UpdateStatusType.None
+    }
 
     sealed interface Event {
         data object Start : Event
@@ -121,5 +169,11 @@ class DashboardViewModel(
         data class ErrorDisplayed(val error: TestRunError) : Event
 
         data class DescriptorClicked(val descriptor: Descriptor) : Event
+
+        data object FetchUpdatedDescriptors : Event
+
+        data object ReviewUpdatesClicked : Event
+
+        data object CancelUpdatesClicked : Event
     }
 }

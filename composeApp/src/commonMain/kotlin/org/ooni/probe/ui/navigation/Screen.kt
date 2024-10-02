@@ -89,4 +89,6 @@ sealed class Screen(
             val ARGUMENTS = listOf(navArgument("descriptorKey") { type = NavType.StringType })
         }
     }
+
+    data object ReviewUpdates : Screen("review-updates")
 }

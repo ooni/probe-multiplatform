@@ -29,6 +29,7 @@ import org.ooni.probe.data.disk.ReadFileOkio
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.disk.WriteFileOkio
 import org.ooni.probe.data.models.AutoRunParameters
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -45,6 +46,7 @@ import org.ooni.probe.domain.DeleteAllResults
 import org.ooni.probe.domain.DeleteTestDescriptor
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FetchDescriptor
+import org.ooni.probe.domain.FetchDescriptorUpdate
 import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.GetAutoRunSpecification
@@ -69,6 +71,7 @@ import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
+import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
 import org.ooni.probe.ui.onboarding.OnboardingViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
@@ -94,6 +97,8 @@ class Dependencies(
     private val startSingleRunInner: ((RunSpecification) -> Unit),
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
     private val openVpnSettings: () -> Boolean,
+    val configureDescriptorAutoUpdate: suspend () -> Boolean,
+    val fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
 ) {
     // Common
@@ -111,7 +116,7 @@ class Dependencies(
     private val networkRepository by lazy { NetworkRepository(database, backgroundDispatcher) }
     private val preferenceRepository by lazy { PreferenceRepository(buildDataStore()) }
     private val resultRepository by lazy { ResultRepository(database, backgroundDispatcher) }
-    private val testDescriptorRepository by lazy {
+    val testDescriptorRepository by lazy {
         TestDescriptorRepository(database, json, backgroundDispatcher)
     }
     private val urlRepository by lazy { UrlRepository(database, backgroundDispatcher) }
@@ -169,6 +174,15 @@ class Dependencies(
         )
     }
     val finishInProgressData by lazy { FinishInProgressData(resultRepository::markAllAsDone) }
+
+    val getDescriptorUpdate by lazy {
+        FetchDescriptorUpdate(
+            fetchDescriptor = fetchDescriptor::invoke,
+            createOrUpdateTestDescriptors = testDescriptorRepository::createOrUpdate,
+            listInstalledTestDescriptors = testDescriptorRepository::list,
+        )
+    }
+
     val getAutoRunSpecification by lazy {
         GetAutoRunSpecification(getTestDescriptors, preferenceRepository)
     }
@@ -197,6 +211,7 @@ class Dependencies(
         GetTestDescriptors(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
             listInstalledTestDescriptors = testDescriptorRepository::list,
+            descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
         )
     }
     private val getTestDescriptorsBySpec by lazy {
@@ -296,6 +311,7 @@ class Dependencies(
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
         goToDescriptor: (String) -> Unit,
+        goToReviewDescriptorUpdates: () -> Unit,
     ) = DashboardViewModel(
         goToOnboarding = goToOnboarding,
         goToResults = goToResults,
@@ -303,23 +319,34 @@ class Dependencies(
         goToRunTests = goToRunTests,
         goToDescriptor = goToDescriptor,
         getFirstRun = getFirstRun::invoke,
+        goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         getTestDescriptors = getTestDescriptors::invoke,
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeError(),
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
+        fetchDescriptorUpdate = fetchDescriptorUpdate,
+        observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
+        reviewUpdates = getDescriptorUpdate::reviewUpdates,
+        cancelUpdates = getDescriptorUpdate::cancelUpdates,
     )
 
     fun descriptorViewModel(
         descriptorKey: String,
         onBack: () -> Unit,
+        goToReviewDescriptorUpdates: () -> Unit,
     ) = DescriptorViewModel(
         descriptorKey = descriptorKey,
         onBack = onBack,
+        goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         getTestDescriptors = getTestDescriptors::invoke,
         getDescriptorLastResult = resultRepository::getLatestByDescriptor,
         preferenceRepository = preferenceRepository,
         launchUrl = { launchUrl(it, null) },
         deleteTestDescriptor = deleteTestDescriptor::invoke,
+        fetchDescriptorUpdate = fetchDescriptorUpdate,
+        setAutoUpdate = testDescriptorRepository::setAutoUpdate,
+        reviewUpdates = getDescriptorUpdate::reviewUpdates,
+        descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
     )
 
     fun onboardingViewModel(
@@ -408,6 +435,15 @@ class Dependencies(
         onClose = onClose,
         uploadMissingMeasurements = uploadMissingMeasurements::invoke,
     )
+
+    fun reviewUpdatesViewModel(onBack: () -> Unit): ReviewUpdatesViewModel {
+        return ReviewUpdatesViewModel(
+            onBack = onBack,
+            createOrUpdate = testDescriptorRepository::createOrUpdate,
+            cancelUpdates = getDescriptorUpdate::cancelUpdates,
+            observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
+        )
+    }
 
     companion object {
         @VisibleForTesting
