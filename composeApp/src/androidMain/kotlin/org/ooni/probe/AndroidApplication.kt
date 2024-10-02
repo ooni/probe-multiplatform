@@ -22,7 +22,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
-import org.ooni.probe.background.RunWorkerManager
+import org.ooni.probe.background.AppWorkerManager
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -44,9 +44,11 @@ class AndroidApplication : Application() {
             buildDataStore = ::buildDataStore,
             isBatteryCharging = ::checkBatteryCharging,
             launchUrl = ::launchUrl,
-            startSingleRunInner = runWorkerManager::startSingleRun,
-            configureAutoRun = runWorkerManager::configureAutoRun,
+            startSingleRunInner = appWorkerManager::startSingleRun,
+            configureAutoRun = appWorkerManager::configureAutoRun,
             openVpnSettings = ::openVpnSettings,
+            configureDescriptorAutoUpdate = appWorkerManager::configureDescriptorAutoUpdate,
+            fetchDescriptorUpdate = appWorkerManager::fetchDescriptorUpdate,
         )
     }
 
@@ -138,8 +140,8 @@ class AndroidApplication : Application() {
         }
     }
 
-    private val runWorkerManager by lazy {
-        RunWorkerManager(
+    private val appWorkerManager by lazy {
+        AppWorkerManager(
             WorkManager.getInstance(this),
             Dispatchers.IO,
         )

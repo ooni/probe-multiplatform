@@ -20,6 +20,7 @@ data class Descriptor(
     val netTests: List<NetTest>,
     val longRunningTests: List<NetTest> = emptyList(),
     val source: Source,
+    val updateStatus: UpdateStatus,
 ) {
     sealed interface Source {
         data class Default(val value: DefaultTestDescriptor) : Source
@@ -28,6 +29,8 @@ data class Descriptor(
     }
 
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
+
+    val updatable get() = updateStatus is UpdateStatus.UpdateRejected
 
     val key: String
         get() = when (source) {

@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import co.touchlab.kermit.Logger
 import kotlinx.cinterop.ObjCObjectVar
+import kotlinx.cinterop.getRawValue
 import kotlinx.cinterop.interpretCPointer
 import kotlinx.cinterop.nativeHeap.alloc
 import kotlinx.coroutines.GlobalScope
@@ -15,10 +16,11 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
-import org.ooni.probe.background.RunOperation
+import org.ooni.probe.background.OperationsManager
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -33,7 +35,6 @@ import platform.Foundation.NSError
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSLocale
 import platform.Foundation.NSLocaleLanguageDirectionRightToLeft
-import platform.Foundation.NSOperationQueue
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSString
 import platform.Foundation.NSTemporaryDirectory
@@ -76,8 +77,12 @@ class SetupDependencies(
         startSingleRunInner = ::startSingleRun,
         configureAutoRun = ::configureAutoRun,
         openVpnSettings = ::openVpnSettings,
+        configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
+        fetchDescriptorUpdate = ::fetchDescriptorUpdate,
         localeDirection = ::localeDirection,
     )
+
+    private val operationsManager = OperationsManager(dependencies)
 
     private fun localeDirection(): LayoutDirection {
         return if (NSLocale.characterDirectionForLanguage(Locale.current.language) == NSLocaleLanguageDirectionRightToLeft) {
@@ -88,21 +93,7 @@ class SetupDependencies(
     }
 
     fun startSingleRun(spec: RunSpecification) {
-        val operationQueue = NSOperationQueue()
-        val runDescriptors by lazy { dependencies.runDescriptors }
-        val getCurrentTestState by lazy { dependencies.getCurrentTestState }
-        val operation = RunOperation(
-            spec = spec,
-            runDescriptors = runDescriptors,
-            getCurrentTestState = getCurrentTestState,
-        )
-        val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
-            operation.cancel()
-        }
-        operation.completionBlock = {
-            UIApplication.sharedApplication.endBackgroundTask(identifier)
-        }
-        operationQueue.addOperation(operation)
+        operationsManager.startSingleRun(spec)
     }
 
     fun initializeDeeplink() = MutableSharedFlow<DeepLink>(extraBufferCapacity = 1)
@@ -148,15 +139,14 @@ class SetupDependencies(
     fun buildDataStore(): DataStore<Preferences> =
         Dependencies.getDataStore(
             producePath = {
-                val documentDirectory: NSURL? =
-                    NSFileManager.defaultManager.URLForDirectory(
-                        directory = NSDocumentDirectory,
-                        inDomain = NSUserDomainMask,
-                        appropriateForURL = null,
-                        create = false,
-                        error = null,
-                    )
-                requireNotNull(documentDirectory).path + "/${Dependencies.Companion.DATA_STORE_FILE_NAME}"
+                val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
+                    directory = NSDocumentDirectory,
+                    inDomain = NSUserDomainMask,
+                    appropriateForURL = null,
+                    create = false,
+                    error = null,
+                )
+                requireNotNull(documentDirectory).path + "/${Dependencies.DATA_STORE_FILE_NAME}"
             },
         )
 
@@ -207,7 +197,17 @@ class SetupDependencies(
                 GlobalScope.launch {
                     configureAutoRun(getAutoRunSettings().first())
                 }
-                handleAutorunTask(it)
+                operationsManager.handleAutorunTask(it)
+            }
+        }
+        BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(
+            OrganizationConfig.updateDescriptorTaskId,
+            null,
+        ) { task ->
+            Logger.d { "Received task: $task" }
+            (task as? BGProcessingTask)?.let {
+                configureDescriptorAutoUpdate()
+                operationsManager.handleUpdateDescriptorTask(it)
             }
         }
     }
@@ -234,23 +234,6 @@ class SetupDependencies(
         )
     }
 
-    fun handleAutorunTask(task: BGProcessingTask) {
-        val getAutoRunSpecification by lazy { dependencies.getAutoRunSpecification }
-        val runDescriptors by lazy { dependencies.runDescriptors }
-        val getCurrentTestState by lazy { dependencies.getCurrentTestState }
-        Logger.d { "Handling autorun task" }
-        val operationQueue = NSOperationQueue()
-        val operation = RunOperation(
-            getAutoRunSpecification = getAutoRunSpecification,
-            runDescriptors = runDescriptors,
-            getCurrentTestState = getCurrentTestState,
-        )
-
-        task.expirationHandler = { operation.cancel() }
-        operation.completionBlock = { task.setTaskCompletedWithSuccess(!operation.isCancelled()) }
-        operationQueue.addOperation(operation)
-    }
-
     private fun openVpnSettings(): Boolean {
         val url = "App-prefs:General&path=ManagedConfigurationList"
         return NSURL.URLWithString(url)?.let {
@@ -262,5 +245,25 @@ class SetupDependencies(
                 return@let false
             }
         } ?: false
+    }
+
+    private fun configureDescriptorAutoUpdate(): Boolean {
+        Logger.d("Configuring descriptor auto update")
+        val error = interpretCPointer<ObjCObjectVar<NSError?>>(alloc(1, 1).rawPtr)
+        BGTaskScheduler.sharedScheduler.submitTaskRequest(
+            BGProcessingTaskRequest(OrganizationConfig.updateDescriptorTaskId).apply {
+                earliestBeginDate = NSDate().dateByAddingTimeInterval(60.0 * 60.0 * 24.0)
+            },
+            error,
+        )
+        error?.getRawValue()?.let {
+            Logger.e("Error configuring descriptor auto update: $it")
+            return false
+        }
+        return true
+    }
+
+    fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
+        operationsManager.fetchDescriptorUpdate(descriptors)
     }
 }

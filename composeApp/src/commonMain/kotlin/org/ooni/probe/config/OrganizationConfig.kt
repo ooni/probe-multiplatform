@@ -19,6 +19,8 @@ interface OrganizationConfigInterface {
     val autorunTaskId: String
 
     val onboardingImages: OnboardingImages
+
+    val updateDescriptorTaskId: String
 }
 
 data class OnboardingImages(

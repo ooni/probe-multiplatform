@@ -105,7 +105,9 @@ class Engine(
                         url = url,
                     ),
                 ).body
-        }.mapError { MkException(it) }
+        }.mapError {
+            MkException(it)
+        }
 
     private fun session(sessionConfig: OonimkallBridge.SessionConfig): OonimkallBridge.Session = bridge.newSession(sessionConfig)
 

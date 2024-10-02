@@ -2,6 +2,7 @@ package org.ooni.probe.ui.dashboard
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -23,10 +24,13 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -49,6 +53,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.ui.shared.TestRunErrorMessages
+import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
 import org.ooni.probe.ui.theme.AppTheme
@@ -59,45 +64,70 @@ fun DashboardScreen(
     state: DashboardViewModel.State,
     onEvent: (DashboardViewModel.Event) -> Unit,
 ) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Image(
-            painterResource(Res.drawable.logo_probe),
-            contentDescription = stringResource(Res.string.app_name),
+    val pullToRefreshState = rememberPullToRefreshState()
+
+    if (pullToRefreshState.isRefreshing && !state.isRefreshing) {
+        onEvent(DashboardViewModel.Event.FetchUpdatedDescriptors)
+    }
+
+    if (!state.isRefreshing) {
+        pullToRefreshState.endRefresh()
+    }
+    Box(Modifier.nestedScroll(pullToRefreshState.nestedScrollConnection)) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .padding(36.dp)
-                .padding(WindowInsets.statusBars.asPaddingValues()),
-        )
-
-        TestRunStateSection(state.testRunState, onEvent)
-
-        if (state.showVpnWarning) {
-            VpnWarning()
-        }
-
-        LazyColumn(
-            modifier = Modifier.padding(top = 24.dp),
-            contentPadding = PaddingValues(bottom = 16.dp),
+                .padding(bottom = if (state.isRefreshing) 48.dp else 0.dp)
+                .fillMaxWidth(),
         ) {
-            val allSectionsHaveValues = state.descriptors.entries.all { it.value.any() }
-            state.descriptors.forEach { (type, items) ->
-                if (allSectionsHaveValues && items.isNotEmpty()) {
-                    item(type) {
-                        TestDescriptorSection(type)
+            Image(
+                painterResource(Res.drawable.logo_probe),
+                contentDescription = stringResource(Res.string.app_name),
+                modifier = Modifier.padding(36.dp)
+                    .padding(WindowInsets.statusBars.asPaddingValues()),
+            )
+
+            TestRunStateSection(state.testRunState, onEvent)
+
+            if (state.showVpnWarning) {
+                VpnWarning()
+            }
+
+            LazyColumn(
+                modifier = Modifier.padding(top = 24.dp),
+                contentPadding = PaddingValues(bottom = 16.dp),
+            ) {
+                val allSectionsHaveValues = state.descriptors.entries.all { it.value.any() }
+                state.descriptors.forEach { (type, items) ->
+                    if (allSectionsHaveValues && items.isNotEmpty()) {
+                        item(type) {
+                            TestDescriptorSection(type)
+                        }
                     }
-                }
-                items(items, key = { it.key }) { descriptor ->
-                    TestDescriptorItem(
-                        descriptor = descriptor,
-                        onClick = {
-                            onEvent(DashboardViewModel.Event.DescriptorClicked(descriptor))
-                        },
-                    )
+                    items(items, key = { it.key }) { descriptor ->
+                        TestDescriptorItem(
+                            descriptor = descriptor,
+                            onClick = {
+                                onEvent(DashboardViewModel.Event.DescriptorClicked(descriptor))
+                            },
+                        )
+                    }
                 }
             }
         }
+        if (state.isRefreshing) {
+            UpdateProgressStatus(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                type = state.refreshType,
+                onReviewLinkClicked = { onEvent(DashboardViewModel.Event.ReviewUpdatesClicked) },
+                onCancelClicked = { onEvent(DashboardViewModel.Event.CancelUpdatesClicked) },
+            )
+        }
+
+        PullToRefreshContainer(
+            modifier = Modifier.align(Alignment.TopCenter),
+            state = pullToRefreshState,
+        )
     }
 
     TestRunErrorMessages(
@@ -133,8 +163,7 @@ private fun TestRunStateSection(
             }
             state.lastTestAt?.let { lastTestAt ->
                 Text(
-                    text = stringResource(Res.string.Dashboard_Overview_LatestTest) +
-                        " " + lastTestAt.relativeDateTime(),
+                    text = stringResource(Res.string.Dashboard_Overview_LatestTest) + " " + lastTestAt.relativeDateTime(),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(top = 4.dp),
                 )
@@ -156,8 +185,7 @@ private fun TestRunStateSection(
         is TestRunState.Running -> {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .clickable { onEvent(DashboardViewModel.Event.RunningTestClick) }
+                modifier = Modifier.clickable { onEvent(DashboardViewModel.Event.RunningTestClick) }
                     .padding(horizontal = 16.dp, vertical = 8.dp),
             ) {
                 state.testType?.let { testType ->
@@ -169,9 +197,7 @@ private fun TestRunStateSection(
                         Icon(
                             painterResource(testType.iconRes ?: Res.drawable.ooni_empty_state),
                             contentDescription = null,
-                            modifier = Modifier
-                                .padding(horizontal = 4.dp)
-                                .size(24.dp),
+                            modifier = Modifier.padding(horizontal = 4.dp).size(24.dp),
                         )
                         Text(
                             text = stringResource(testType.labelRes),
@@ -184,9 +210,7 @@ private fun TestRunStateSection(
                 state.progress.let { progress ->
                     val color = MaterialTheme.colorScheme.primary
                     val trackColor = MaterialTheme.colorScheme.onBackground
-                    val modifier = Modifier.fillMaxWidth()
-                        .padding(vertical = 4.dp)
-                        .height(8.dp)
+                    val modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp).height(8.dp)
 
                     if (progress == 0.0) {
                         LinearProgressIndicator(

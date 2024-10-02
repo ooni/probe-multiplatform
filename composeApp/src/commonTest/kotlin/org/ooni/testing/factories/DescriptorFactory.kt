@@ -10,6 +10,7 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.LocalizationString
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.shared.toLocalDateTime
 import kotlin.math.absoluteValue
 import kotlin.random.Random
@@ -41,6 +42,7 @@ object DescriptorFactory {
         netTests = netTests,
         longRunningTests = longRunningTests,
         source = Descriptor.Source.Installed(installedTestDescriptorModel),
+        updateStatus = UpdateStatus.UpToDate,
     )
 
     fun buildInstalledModel(

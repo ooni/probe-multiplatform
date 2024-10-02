@@ -21,6 +21,7 @@ import org.ooni.probe.shared.decodeUrlFromBase64
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.descriptor.add.AddDescriptorScreen
+import org.ooni.probe.ui.descriptor.review.ReviewUpdatesScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
 import org.ooni.probe.ui.onboarding.OnboardingScreen
 import org.ooni.probe.ui.result.ResultScreen
@@ -70,7 +71,12 @@ fun Navigation(
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.navigate(Screen.RunningTest.route) },
                     goToRunTests = { navController.navigate(Screen.RunTests.route) },
-                    goToDescriptor = { navController.navigate(Screen.Descriptor(it).route) },
+                    goToDescriptor = { descriptorKey ->
+                        navController.navigate(Screen.Descriptor(descriptorKey).route)
+                    },
+                    goToReviewDescriptorUpdates = {
+                        navController.navigate(Screen.ReviewUpdates.route)
+                    },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -246,10 +252,23 @@ fun Navigation(
                 dependencies.descriptorViewModel(
                     descriptorKey = descriptorKey,
                     onBack = { navController.popBackStack() },
+                    goToReviewDescriptorUpdates = {
+                        navController.navigate(Screen.ReviewUpdates.route)
+                    },
                 )
             }
             val state by viewModel.state.collectAsState()
             DescriptorScreen(state, viewModel::onEvent)
+        }
+
+        composable(route = Screen.ReviewUpdates.route) { entry ->
+            val viewModel = viewModel {
+                dependencies.reviewUpdatesViewModel(
+                    onBack = { navController.popBackStack() },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            ReviewUpdatesScreen(state, viewModel::onEvent)
         }
     }
 }

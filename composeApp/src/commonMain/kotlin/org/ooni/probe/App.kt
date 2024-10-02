@@ -94,6 +94,10 @@ fun App(
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()
     }
+    LaunchedEffect(Unit) {
+        dependencies.configureDescriptorAutoUpdate()
+        dependencies.fetchDescriptorUpdate(null)
+    }
 
     LaunchedEffect(deepLink) {
         when (deepLink) {

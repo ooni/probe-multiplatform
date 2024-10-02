@@ -16,11 +16,13 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_chevron_right
 import org.jetbrains.compose.resources.painterResource
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.ui.shared.UpdatesChip
 
 @Composable
 fun TestDescriptorItem(
     descriptor: Descriptor,
     onClick: () -> Unit,
+    updateDescriptor: () -> Unit = {},
 ) {
     Card(
         Modifier
@@ -45,6 +47,9 @@ fun TestDescriptorItem(
                         modifier = Modifier.padding(top = 4.dp),
                     )
                 }
+            }
+            if (descriptor.updatable) {
+                UpdatesChip(onClick = updateDescriptor)
             }
             Icon(
                 painter = painterResource(Res.drawable.ic_chevron_right),
