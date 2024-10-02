@@ -211,6 +211,7 @@
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <!-- New Strings -->
+    <string name="Dashboard_RunV2_UpdateTag">UPDATE</string>
     <string name="back">Back</string>
     <string name="refresh">refresh</string>
     <string name="measurement">Measurement</string>
