@@ -208,7 +208,7 @@ fun DescriptorScreen(
         }
         if (state.isRefreshing) {
             UpdateProgressStatus(
-                modifier = Modifier.align(Alignment.BottomCenter),
+                modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 48.dp),
                 type = state.refreshType,
             )
         }
