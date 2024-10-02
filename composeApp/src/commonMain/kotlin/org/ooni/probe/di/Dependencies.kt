@@ -3,6 +3,7 @@ package org.ooni.probe.di
 import androidx.annotation.VisibleForTesting
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.datastore.core.DataMigration
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
@@ -93,6 +94,7 @@ class Dependencies(
     private val startSingleRunInner: ((RunSpecification) -> Unit),
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
     private val openVpnSettings: () -> Boolean,
+    val localeDirection: (() -> LayoutDirection)? = null,
 ) {
     // Common
 

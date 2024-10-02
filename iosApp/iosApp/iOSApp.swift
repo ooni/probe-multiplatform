@@ -29,12 +29,6 @@ struct iOSApp: App {
 
 
     private func handleDeepLink(url: URL) {
-        // TODO(aanorbel): remove when web send proper link
-        deepLinkFlow.emit(value: DeepLink.AddDescriptor(id: "10445"), completionHandler: {error in
-            print(error ?? "no error")
-        })// Handle the deep link here
-        print("Opened URL: \(url)")
-
         if let host = url.host, host == "runv2" || host == appDependencies.ooniRunDomain() {
             let id = url.lastPathComponent
             deepLinkFlow.emit(value: DeepLink.AddDescriptor(id: id), completionHandler: {error in
