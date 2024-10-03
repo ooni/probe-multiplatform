@@ -24,12 +24,8 @@ import kotlinx.coroutines.Dispatchers
 import okio.Path.Companion.toPath
 import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
-<<<<<<< HEAD
 import org.ooni.probe.background.AppWorkerManager
-=======
-import org.ooni.probe.background.RunWorkerManager
 import org.ooni.probe.data.models.FileSharing
->>>>>>> ec8eb37 (Share log file)
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -54,12 +50,9 @@ class AndroidApplication : Application() {
             startSingleRunInner = appWorkerManager::startSingleRun,
             configureAutoRun = appWorkerManager::configureAutoRun,
             openVpnSettings = ::openVpnSettings,
-<<<<<<< HEAD
             configureDescriptorAutoUpdate = appWorkerManager::configureDescriptorAutoUpdate,
             fetchDescriptorUpdate = appWorkerManager::fetchDescriptorUpdate,
-=======
             shareFile = ::shareFile,
->>>>>>> ec8eb37 (Share log file)
         )
     }
 
