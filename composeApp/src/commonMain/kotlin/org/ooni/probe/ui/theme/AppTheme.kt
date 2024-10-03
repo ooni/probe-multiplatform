@@ -15,8 +15,9 @@ fun AppTheme(
 ) {
     LightStatusBars(
         !useDarkTheme &&
-            currentRoute != Screen.RunningTest.route &&
-            currentRoute != Screen.Onboarding.route,
+            currentRoute != Screen.Onboarding.route &&
+            currentRoute != Screen.Dashboard.route &&
+            currentRoute != Screen.RunningTest.route,
     )
 
     CompositionLocalProvider(

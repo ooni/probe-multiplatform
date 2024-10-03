@@ -1,6 +1,7 @@
 package org.ooni.probe.ui.dashboard
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,10 +19,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
@@ -30,7 +31,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -44,6 +48,7 @@ import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
+import ooniprobe.composeapp.generated.resources.dashboard_arc
 import ooniprobe.composeapp.generated.resources.ic_timer
 import ooniprobe.composeapp.generated.resources.ic_warning
 import ooniprobe.composeapp.generated.resources.logo_probe
@@ -74,6 +79,24 @@ fun DashboardScreen(
         pullToRefreshState.endRefresh()
     }
     Box(Modifier.nestedScroll(pullToRefreshState.nestedScrollConnection)) {
+        // Colorful top background
+        Column {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.primary)
+                    .height(144.dp)
+                    .padding(WindowInsets.statusBars.asPaddingValues()),
+            )
+            Image(
+                painterResource(Res.drawable.dashboard_arc),
+                contentDescription = null,
+                contentScale = ContentScale.FillWidth,
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -83,8 +106,10 @@ fun DashboardScreen(
             Image(
                 painterResource(Res.drawable.logo_probe),
                 contentDescription = stringResource(Res.string.app_name),
-                modifier = Modifier.padding(36.dp)
-                    .padding(WindowInsets.statusBars.asPaddingValues()),
+                modifier = Modifier
+                    .padding(vertical = 20.dp)
+                    .padding(WindowInsets.statusBars.asPaddingValues())
+                    .height(72.dp),
             )
 
             TestRunStateSection(state.testRunState, onEvent)
@@ -147,9 +172,16 @@ private fun TestRunStateSection(
 ) {
     when (state) {
         is TestRunState.Idle -> {
-            ElevatedButton(
+            OutlinedButton(
                 onClick = { onEvent(DashboardViewModel.Event.RunTestsClick) },
-                colors = ButtonDefaults.buttonColors(),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = MaterialTheme.colorScheme.primary,
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                ),
+                border = ButtonDefaults.outlinedButtonBorder.copy(
+                    brush = SolidColor(MaterialTheme.colorScheme.primary),
+                ),
+                elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 4.dp),
             ) {
                 Text(
                     stringResource(Res.string.OONIRun_Run),
@@ -185,8 +217,10 @@ private fun TestRunStateSection(
         is TestRunState.Running -> {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.clickable { onEvent(DashboardViewModel.Event.RunningTestClick) }
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                modifier = Modifier
+                    .clickable { onEvent(DashboardViewModel.Event.RunningTestClick) }
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 32.dp, bottom = 8.dp),
             ) {
                 state.testType?.let { testType ->
                     Row {
@@ -245,7 +279,9 @@ private fun TestRunStateSection(
         TestRunState.Stopping -> {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 32.dp, bottom = 8.dp),
             ) {
                 Text(
                     text = stringResource(Res.string.Dashboard_Running_Stopping_Title),
