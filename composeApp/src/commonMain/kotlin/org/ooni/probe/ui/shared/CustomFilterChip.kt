@@ -4,10 +4,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExposedDropdownMenuBoxScope
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 
@@ -30,8 +31,16 @@ fun ExposedDropdownMenuBoxScope.CustomFilterChip(
                 modifier = Modifier.fillMaxWidth(),
             )
         },
+        border = FilterChipDefaults.filterChipBorder(
+            enabled = true,
+            selected = selected,
+            borderColor = LocalContentColor.current,
+        ),
         colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+            containerColor = Color.Transparent,
+            labelColor = LocalContentColor.current,
+            selectedContainerColor = LocalContentColor.current.copy(alpha = 0.25f),
+            selectedLabelColor = LocalContentColor.current,
         ),
         modifier = modifier
             .fillMaxWidth()

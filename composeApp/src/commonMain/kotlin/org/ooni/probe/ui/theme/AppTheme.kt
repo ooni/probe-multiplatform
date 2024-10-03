@@ -17,6 +17,9 @@ fun AppTheme(
         !useDarkTheme &&
             currentRoute != Screen.Onboarding.route &&
             currentRoute != Screen.Dashboard.route &&
+            currentRoute != Screen.Results.route &&
+            currentRoute != Screen.Settings.route &&
+            currentRoute != Screen.RunTests.route &&
             currentRoute != Screen.RunningTest.route,
     )
 

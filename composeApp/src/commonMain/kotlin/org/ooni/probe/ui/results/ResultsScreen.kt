@@ -17,6 +17,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -61,6 +62,7 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.ui.shared.CustomColors
 import org.ooni.probe.ui.shared.formatDataUsage
 
 @Composable
@@ -85,33 +87,35 @@ fun ResultsScreen(
                     }
                 }
             },
+            colors = CustomColors.topAppBar(),
         )
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 8.dp),
-        ) {
-            Text(
-                stringResource(Res.string.TestResults_Overview_FilterTests),
-                modifier = Modifier.weight(2f),
-            )
+        Surface(color = MaterialTheme.colorScheme.primaryContainer) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+            ) {
+                Text(
+                    stringResource(Res.string.TestResults_Overview_FilterTests),
+                    modifier = Modifier.weight(2f),
+                )
 
-            DescriptorFilter(
-                current = state.filter.descriptor,
-                list = state.descriptorFilters,
-                onFilterChanged = { onEvent(ResultsViewModel.Event.DescriptorFilterChanged(it)) },
-                modifier = Modifier.weight(3f).padding(horizontal = 4.dp),
-            )
+                DescriptorFilter(
+                    current = state.filter.descriptor,
+                    list = state.descriptorFilters,
+                    onFilterChanged = { onEvent(ResultsViewModel.Event.DescriptorFilterChanged(it)) },
+                    modifier = Modifier.weight(3f).padding(horizontal = 4.dp),
+                )
 
-            OriginFilter(
-                current = state.filter.taskOrigin,
-                list = state.originFilters,
-                onFilterChanged = { onEvent(ResultsViewModel.Event.OriginFilterChanged(it)) },
-                modifier = Modifier.weight(3f),
-            )
+                OriginFilter(
+                    current = state.filter.taskOrigin,
+                    list = state.originFilters,
+                    onFilterChanged = { onEvent(ResultsViewModel.Event.OriginFilterChanged(it)) },
+                    modifier = Modifier.weight(3f),
+                )
+            }
         }
 
         if (state.isLoading) {
@@ -211,76 +215,77 @@ private fun EmptyResults() {
 @Composable
 private fun Summary(summary: ResultsViewModel.Summary?) {
     if (summary == null) return
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Min) // So VerticalDividers don't expand to the whole screen
-            .padding(16.dp),
-    ) {
-        Column(
-            modifier = Modifier.weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally,
+    Surface(color = MaterialTheme.colorScheme.primaryContainer) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min) // So VerticalDividers don't expand to the whole screen
+                .padding(16.dp),
         ) {
-            Text(
-                stringResource(Res.string.TestResults_Overview_Hero_Tests),
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.padding(bottom = 12.dp),
-            )
-            Text(
-                summary.resultsCount.toString(),
-                style = MaterialTheme.typography.headlineMedium,
-            )
-        }
-
-        VerticalDivider(Modifier.padding(4.dp))
-
-        Column(
-            modifier = Modifier.weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                stringResource(Res.string.TestResults_Overview_Hero_Networks),
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.padding(bottom = 12.dp),
-            )
-            Text(
-                summary.networksCount.toString(),
-                style = MaterialTheme.typography.headlineMedium,
-            )
-        }
-
-        VerticalDivider(Modifier.padding(4.dp))
-
-        Column(
-            modifier = Modifier.weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                stringResource(Res.string.TestResults_Overview_Hero_DataUsage),
-                style = MaterialTheme.typography.labelLarge,
-            )
-            Row(
-                modifier = Modifier.padding(top = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
+            Column(
+                modifier = Modifier.weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Icon(
-                    painterResource(Res.drawable.ic_download),
-                    contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Download),
-                    modifier = Modifier.size(16.dp).padding(end = 4.dp),
+                Text(
+                    stringResource(Res.string.TestResults_Overview_Hero_Tests),
+                    style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.padding(bottom = 8.dp),
                 )
-                Text(summary.dataUsageDown.formatDataUsage())
+                Text(
+                    summary.resultsCount.toString(),
+                    style = MaterialTheme.typography.headlineMedium,
+                )
             }
-            Row(
-                modifier = Modifier.padding(top = 4.dp),
-                verticalAlignment = Alignment.CenterVertically,
+
+            VerticalDivider(Modifier.padding(4.dp), color = LocalContentColor.current)
+
+            Column(
+                modifier = Modifier.weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Icon(
-                    painterResource(Res.drawable.ic_upload),
-                    contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Upload),
-                    modifier = Modifier.size(16.dp).padding(end = 4.dp),
+                Text(
+                    stringResource(Res.string.TestResults_Overview_Hero_Networks),
+                    style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.padding(bottom = 8.dp),
                 )
-                Text(summary.dataUsageUp.formatDataUsage())
+                Text(
+                    summary.networksCount.toString(),
+                    style = MaterialTheme.typography.headlineMedium,
+                )
+            }
+
+            VerticalDivider(Modifier.padding(4.dp), color = LocalContentColor.current)
+
+            Column(
+                modifier = Modifier.weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    stringResource(Res.string.TestResults_Overview_Hero_DataUsage),
+                    style = MaterialTheme.typography.labelLarge,
+                )
+                Row(
+                    modifier = Modifier.padding(top = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(
+                        painterResource(Res.drawable.ic_download),
+                        contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Download),
+                        modifier = Modifier.size(16.dp).padding(end = 4.dp),
+                    )
+                    Text(summary.dataUsageDown.formatDataUsage())
+                }
+                Row(
+                    modifier = Modifier.padding(top = 2.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(
+                        painterResource(Res.drawable.ic_upload),
+                        contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Upload),
+                        modifier = Modifier.size(16.dp).padding(end = 4.dp),
+                    )
+                    Text(summary.dataUsageUp.formatDataUsage())
+                }
             }
         }
     }
