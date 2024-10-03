@@ -33,6 +33,7 @@ class RunDescriptors(
     private val observeCancelTestRun: Flow<Unit>,
     private val reportTestRunError: (TestRunError) -> Unit,
     private val getEnginePreferences: suspend () -> EnginePreferences,
+    private val finishInProgressData: suspend () -> Unit,
 ) {
     suspend operator fun invoke(spec: RunSpecification) {
         val descriptors = getTestDescriptorsBySpec(spec)
@@ -53,6 +54,7 @@ class RunDescriptors(
             // Exceptions were logged in the Engine
         } finally {
             setCurrentTestState { TestRunState.Idle(LocalDateTime.now(), true) }
+            finishInProgressData()
         }
     }
 

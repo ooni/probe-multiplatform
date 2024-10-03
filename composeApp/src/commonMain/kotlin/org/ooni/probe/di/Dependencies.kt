@@ -253,9 +253,10 @@ class Dependencies(
             getCurrentTestRunState = testStateManager.observeState(),
             setCurrentTestState = testStateManager::updateState,
             runNetTest = { runNetTest(it)() },
-            observeCancelTestRun = testStateManager.observeTestRunCancels(),
+            observeCancelTestRun = testStateManager.observeCancels(),
             reportTestRunError = testStateManager::reportError,
             getEnginePreferences = getEnginePreferences::invoke,
+            finishInProgressData = finishInProgressData::invoke,
         )
     }
     private val saveTestDescriptors by lazy {
@@ -337,7 +338,7 @@ class Dependencies(
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         getTestDescriptors = getTestDescriptors::invoke,
         observeTestRunState = testStateManager.observeState(),
-        observeTestRunErrors = testStateManager.observeError(),
+        observeTestRunErrors = testStateManager.observeErrors(),
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
         fetchDescriptorUpdate = fetchDescriptorUpdate,
         observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
@@ -402,7 +403,7 @@ class Dependencies(
         onBack = onBack,
         goToResults = goToResults,
         observeTestRunState = testStateManager.observeState(),
-        observeTestRunErrors = testStateManager.observeError(),
+        observeTestRunErrors = testStateManager.observeErrors(),
         cancelTestRun = testStateManager::cancelTestRun,
     )
 
