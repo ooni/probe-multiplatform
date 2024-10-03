@@ -153,7 +153,11 @@ fun Navigation(
                     val viewModel = viewModel {
                         dependencies.aboutViewModel(onBack = { navController.navigateUp() })
                     }
-                    AboutScreen(onEvent = viewModel::onEvent)
+                    AboutScreen(
+                        onEvent = viewModel::onEvent,
+                        softwareName = viewModel.softwareName,
+                        softwareVersion = viewModel.softwareVersion,
+                    )
                 }
 
                 PreferenceCategoryKey.PROXY.value -> {

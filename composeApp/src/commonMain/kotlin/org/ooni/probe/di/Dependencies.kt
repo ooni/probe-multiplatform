@@ -306,7 +306,10 @@ class Dependencies(
 
     // ViewModels
 
-    fun aboutViewModel(onBack: () -> Unit) = AboutViewModel(onBack = onBack, launchUrl = { launchUrl(it, emptyMap()) })
+    fun aboutViewModel(onBack: () -> Unit) =
+        AboutViewModel(onBack = onBack, launchUrl = {
+            launchUrl(it, emptyMap())
+        }, platformInfo = platformInfo)
 
     fun addDescriptorViewModel(
         descriptorId: String,

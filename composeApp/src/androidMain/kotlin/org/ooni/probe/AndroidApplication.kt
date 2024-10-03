@@ -65,7 +65,8 @@ class AndroidApplication : Application() {
 
     private val platformInfo by lazy {
         object : PlatformInfo {
-            override val version = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+            override val buildName: String = BuildConfig.VERSION_NAME
+            override val buildNumber: String = BuildConfig.VERSION_CODE.toString()
             override val platform = Platform.Android
             override val osVersion = Build.VERSION.SDK_INT.toString()
             override val model = "${Build.MANUFACTURER} ${Build.MODEL}"

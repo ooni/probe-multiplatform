@@ -102,7 +102,8 @@ class SetupDependencies(
 
     private val platformInfo: PlatformInfo
         get() = object : PlatformInfo {
-            override val version =
+            override val buildName = NSBundle.mainBundle.infoDictionary?.get("CFBundleShortVersionString") as? String ?: ""
+            override val buildNumber =
                 (NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String).orEmpty()
             override val platform = Platform.Ios
             override val osVersion = with(UIDevice.currentDevice) { "$systemName $systemVersion" }
