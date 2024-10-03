@@ -32,6 +32,11 @@ val onQuizWarningColor = Color.White
 val quizWarningBackColor = Color(0xFF343a40)
 val onQuizWarningBackColor = Color.White
 
+val logDebugColor = Color.Unspecified
+val logInfoColor = Color(0xFF2b8a3e)
+val logWarnColor = Color(0xFFd9480f)
+val logErrorColor = Color(0xFFc92a2a)
+
 data class CustomColors(
     val success: Color,
     val onSuccess: Color,
@@ -52,6 +57,10 @@ data class CustomColors(
     val onQuizWarning: Color = onQuizWarningColor,
     val quizWarningBack: Color = quizWarningBackColor,
     val onQuizWarningBack: Color = onQuizWarningBackColor,
+    val logDebug: Color = logDebugColor,
+    val logInfo: Color = logInfoColor,
+    val logWarn: Color = logWarnColor,
+    val logError: Color = logErrorColor,
 )
 
 val customColorsLight = CustomColors(

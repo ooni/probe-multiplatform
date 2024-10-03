@@ -100,6 +100,8 @@
     <string name="Settings_Advanced_RecentLogs">See recent logs</string>
     <string name="Settings_Advanced_LanguageSettings_Title">Language Setting</string>
     <string name="Settings_Storage_Label">Storage usage</string>
+    <string name="Settings_Storage_Delete">Delete</string>
+    <string name="Settings_Storage_Clear">Clear</string>
     <string name="Settings_WarmVPNInUse_Label">Warn when VPN is in use</string>
 
     <string name="CategoryCode_ALDR_Name">Drugs &amp; Alcohol</string>
@@ -263,4 +265,7 @@
     <string name="measurement_anomaly">Anomaly</string>
     <string name="quiz_answer_correct">Correct answer</string>
     <string name="quiz_answer_incorrect">Incorrect answer</string>
+    <string name="logs">Logs</string>
+    <string name="share_logs">Share Logs</string>
+    <string name="filter_logs">Filter Logs</string>
 </resources>

@@ -20,7 +20,7 @@ class ReadFileOkio(
                 readUtf8()
             }
         } catch (e: IOException) {
-            Logger.w("Could not read $path", e)
+            Logger.v("Could not read $path", e)
             null
         }
 }

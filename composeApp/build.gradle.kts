@@ -88,7 +88,7 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        ios.deploymentTarget = "12.0"
+        ios.deploymentTarget = "15.3"
 
         version = "1.0"
         summary = "Compose App"
@@ -98,6 +98,11 @@ kotlin {
             baseName = "composeApp"
             isStatic = true
             binaryOption("bundleId", "composeApp")
+        }
+
+        pod("Sentry") {
+            version = "~> 8.25"
+            extraOpts += listOf("-compiler-option", "-fmodules")
         }
 
         podfile = project.file("../iosApp/Podfile")
@@ -178,7 +183,11 @@ android {
         versionName = "1.0"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
-        resValue("string", "supported_languages", config.supportedLanguages.joinToString(separator = ","))
+        resValue(
+            "string",
+            "supported_languages",
+            config.supportedLanguages.joinToString(separator = ","),
+        )
         resourceConfigurations += config.supportedLanguages
     }
     packaging {

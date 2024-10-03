@@ -3,11 +3,7 @@ package org.ooni.probe.ui.results
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuBoxScope
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,8 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.task_origin_all
 import ooniprobe.composeapp.generated.resources.task_origin_auto_run
@@ -26,6 +20,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.ResultFilter
+import org.ooni.probe.ui.shared.CustomFilterChip
 
 @Composable
 fun DescriptorFilter(
@@ -45,6 +40,7 @@ fun DescriptorFilter(
             text = current.label(),
             selected = current != ResultFilter.Type.All,
             onClick = { expanded = true },
+            modifier = Modifier.fillMaxWidth(),
         )
         ExposedDropdownMenu(
             expanded = expanded,
@@ -82,6 +78,7 @@ fun OriginFilter(
             text = current.name(),
             selected = current != ResultFilter.Type.All,
             onClick = { expanded = true },
+            modifier = Modifier.fillMaxWidth(),
         )
         ExposedDropdownMenu(
             expanded = expanded,
@@ -99,33 +96,6 @@ fun OriginFilter(
             }
         }
     }
-}
-
-@Composable
-private fun ExposedDropdownMenuBoxScope.CustomFilterChip(
-    text: String,
-    selected: Boolean,
-    onClick: () -> Unit,
-) {
-    FilterChip(
-        selected = selected,
-        onClick = { onClick() },
-        label = {
-            Text(
-                text,
-                textAlign = TextAlign.Center,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        },
-        colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .menuAnchor(),
-    )
 }
 
 @Composable

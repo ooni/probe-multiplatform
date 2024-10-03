@@ -20,12 +20,22 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.shared.today
 import kotlin.time.Duration
 
-private val dateTimeFormat = LocalDateTime.Format {
+private val longDateTimeFormat = LocalDateTime.Format {
     date(LocalDate.Formats.ISO)
     char(' ')
     hour()
     char(':')
     minute()
+}
+
+private val logDateTimeFormat = LocalDateTime.Format {
+    date(LocalDate.Formats.ISO)
+    char(' ')
+    hour()
+    char(':')
+    minute()
+    char(':')
+    second()
 }
 
 @Composable
@@ -44,8 +54,9 @@ fun LocalDateTime.relativeDateTime(): String =
         longFormat()
     }
 
-@Composable
-fun LocalDateTime.longFormat(): String = format(dateTimeFormat)
+fun LocalDateTime.longFormat(): String = format(longDateTimeFormat)
+
+fun LocalDateTime.logFormat(): String = format(logDateTimeFormat)
 
 @Composable
 fun Duration.shortFormat(): String =

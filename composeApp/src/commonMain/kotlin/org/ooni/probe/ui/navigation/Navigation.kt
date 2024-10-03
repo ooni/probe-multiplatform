@@ -22,6 +22,7 @@ import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.descriptor.add.AddDescriptorScreen
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesScreen
+import org.ooni.probe.ui.log.LogScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
 import org.ooni.probe.ui.onboarding.OnboardingScreen
 import org.ooni.probe.ui.result.ResultScreen
@@ -161,6 +162,14 @@ fun Navigation(
                     }
                     val state by viewModel.state.collectAsState()
                     ProxyScreen(state, viewModel::onEvent)
+                }
+
+                PreferenceCategoryKey.SEE_RECENT_LOGS.value -> {
+                    val viewModel = viewModel {
+                        dependencies.logViewModel(onBack = { navController.popBackStack() })
+                    }
+                    val state by viewModel.state.collectAsState()
+                    LogScreen(state, viewModel::onEvent)
                 }
 
                 else -> {
