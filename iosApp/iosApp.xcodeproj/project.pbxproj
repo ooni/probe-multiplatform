@@ -625,7 +625,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 205238D88AD064C8AF508845 /* Pods-OONIProbe.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = OONIProbe;
 				CODE_SIGN_ENTITLEMENTS = OONIProbe.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -661,7 +661,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B2A30B3FAFDB1355D98FFF9E /* Pods-OONIProbe.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = OONIProbe;
 				CODE_SIGN_ENTITLEMENTS = OONIProbe.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -697,7 +697,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 506A0735B8488E63307B34DA /* Pods-NewsMediaScan.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = NewsMediaScan;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
@@ -732,7 +732,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D603BCB2B32219C5CCC41B3 /* Pods-NewsMediaScan.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = NewsMediaScan;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
