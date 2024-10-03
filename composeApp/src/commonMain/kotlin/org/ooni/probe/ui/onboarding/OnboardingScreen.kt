@@ -384,7 +384,7 @@ private fun OnboardingImage(image: DrawableResource) {
 private fun OnboardingTitle(text: StringResource) {
     Text(
         stringResource(text),
-        style = MaterialTheme.typography.headlineMedium,
+        style = MaterialTheme.typography.headlineSmall,
         textAlign = TextAlign.Center,
         modifier = Modifier
             .fillMaxWidth()
@@ -434,7 +434,7 @@ private fun OnboardingMainButton(
             containerColor = LocalContentColor.current,
         ),
         modifier = modifier
-            .requiredSizeIn(minHeight = 64.dp),
+            .requiredSizeIn(minHeight = 60.dp),
     ) {
         Text(
             stringResource(text),
@@ -453,7 +453,7 @@ private fun OnboardingMainOutlineButton(
         onClick = onClick,
         colors = ButtonDefaults.outlinedButtonColors(contentColor = LocalContentColor.current),
         border = BorderStroke(width = 2.dp, color = LocalContentColor.current),
-        modifier = modifier.requiredSizeIn(minHeight = 64.dp),
+        modifier = modifier.requiredSizeIn(minHeight = 60.dp),
     ) {
         Text(
             stringResource(text),

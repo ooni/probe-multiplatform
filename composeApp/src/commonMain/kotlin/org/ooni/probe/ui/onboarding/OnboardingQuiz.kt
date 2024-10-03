@@ -193,7 +193,7 @@ private fun ResultAnimation(
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                .padding(36.dp)
+                .padding(24.dp)
                 .fillMaxWidth(),
         ) {
             LottieAnimation(
