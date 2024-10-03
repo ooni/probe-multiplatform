@@ -15,61 +15,54 @@ plugins {
 
 val organization: String? by project
 
-val appConfig =
-    mapOf(
-        "dw" to
-            AppConfig(
-                appId = "org.dw.probe",
-                appName = "News Media Scan",
-                srcRoot = "src/dwMain/kotlin",
-                resRoot = "src/dwMain/resources",
-                composeResRoot = "src/dwMain/composeResources",
-                supportsOoniRun = false,
-                supportedLanguages = listOf(
-                    "de",
-                    "es",
-                    "fr",
-                    "pt-rBR",
-                    "ru",
-                    "tr",
-                ),
-            ),
-        "ooni" to
-            AppConfig(
-                appId = "org.ooni.probe",
-                appName = "OONI Probe",
-                srcRoot = "src/ooniMain/kotlin",
-                resRoot = "src/ooniMain/resources",
-                composeResRoot = "src/ooniMain/composeResources",
-                supportsOoniRun = true,
-                supportedLanguages = listOf(
-                    "ar",
-                    "ca",
-                    "de",
-                    "el",
-                    "es",
-                    "fa",
-                    "fr",
-                    "hi",
-                    "id",
-                    "is",
-                    "it",
-                    "my",
-                    "nl",
-                    "pt-rBR",
-                    "ro",
-                    "ru",
-                    "sk",
-                    "sq",
-                    "sw",
-                    "th",
-                    "tr",
-                    "vi",
-                    "zh-rCN",
-                    "zh-rTW",
-                ),
-            ),
-    )
+val appConfig = mapOf(
+    "dw" to AppConfig(
+        appId = "org.dw.probe",
+        appName = "News Media Scan",
+        folder = "dwMain",
+        supportsOoniRun = false,
+        supportedLanguages = listOf(
+            "de",
+            "es",
+            "fr",
+            "pt-rBR",
+            "ru",
+            "tr",
+        ),
+    ),
+    "ooni" to AppConfig(
+        appId = "org.ooni.probe",
+        appName = "OONI Probe",
+        folder = "ooniMain",
+        supportsOoniRun = true,
+        supportedLanguages = listOf(
+            "ar",
+            "ca",
+            "de",
+            "el",
+            "es",
+            "fa",
+            "fr",
+            "hi",
+            "id",
+            "is",
+            "it",
+            "my",
+            "nl",
+            "pt-rBR",
+            "ro",
+            "ru",
+            "sk",
+            "sq",
+            "sw",
+            "th",
+            "tr",
+            "vi",
+            "zh-rCN",
+            "zh-rTW",
+        ),
+    ),
+)
 
 val config = appConfig[organization] ?: appConfig["ooni"]!!
 
@@ -125,7 +118,7 @@ kotlin {
             implementation(libs.bundles.tooling)
 
             getByName("commonMain") {
-                kotlin.srcDir(config.srcRoot)
+                kotlin.srcDir("src/${config.folder}/kotlin")
             }
         }
         iosMain.dependencies {
@@ -164,21 +157,12 @@ kotlin {
 
 android {
     namespace = "org.ooni.probe"
-    compileSdk =
-        libs.versions.android.compileSdk
-            .get()
-            .toInt()
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = config.appId
-        minSdk =
-            libs.versions.android.minSdk
-                .get()
-                .toInt()
-        targetSdk =
-            libs.versions.android.targetSdk
-                .get()
-                .toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
         resValue("string", "app_name", config.appName)
@@ -216,6 +200,9 @@ android {
             "src/androidMain/resources",
             "src/commonMain/resources",
         ),
+    )
+    sourceSets["main"].res.setSrcDirs(
+        listOf("src/commonMain/res"),
     )
     dependencies {
         debugImplementation(compose.uiTooling)
@@ -264,11 +251,15 @@ tasks.register("copyBrandingToCommonResources") {
     doLast {
         val projectDir = project.projectDir.absolutePath
         copyRecursive(
-            from = File(projectDir, config.resRoot),
+            from = File(projectDir, "src/${config.folder}/res"),
+            to = File(projectDir, "src/commonMain/res"),
+        )
+        copyRecursive(
+            from = File(projectDir, "src/${config.folder}/resources"),
             to = File(projectDir, "src/commonMain/resources"),
         )
         copyRecursive(
-            from = File(projectDir, config.composeResRoot),
+            from = File(projectDir, "src/${config.folder}/composeResources"),
             to = File(projectDir, "src/commonMain/composeResources"),
         )
     }
@@ -298,8 +289,9 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
                 }
             }
         }
-        deleteFilesFromGitIgnore("src/commonMain/composeResources")
+        deleteFilesFromGitIgnore("src/commonMain/res")
         deleteFilesFromGitIgnore("src/commonMain/resources")
+        deleteFilesFromGitIgnore("src/commonMain/composeResources")
     }
 }
 
@@ -324,9 +316,7 @@ tasks.named("clean").configure {
 data class AppConfig(
     val appId: String,
     val appName: String,
-    val srcRoot: String,
-    val resRoot: String,
-    val composeResRoot: String,
+    val folder: String,
     val supportsOoniRun: Boolean = false,
     val supportedLanguages: List<String>,
 )
