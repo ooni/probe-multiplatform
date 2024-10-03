@@ -33,7 +33,6 @@ fun TestDescriptorLabel(descriptor: Descriptor) {
         Text(
             descriptor.title(),
             style = MaterialTheme.typography.titleMedium,
-            color = descriptor.color ?: Color.Unspecified,
         )
     }
 }

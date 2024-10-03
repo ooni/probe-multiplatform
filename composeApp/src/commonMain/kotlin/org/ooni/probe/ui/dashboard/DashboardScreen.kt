@@ -140,6 +140,7 @@ fun DashboardScreen(
                 }
             }
         }
+
         if (state.isRefreshing) {
             UpdateProgressStatus(
                 modifier = Modifier.align(Alignment.BottomCenter),
