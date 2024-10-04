@@ -44,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
@@ -268,7 +269,8 @@ fun ColumnScope.AutomatedTestingStep(onEvent: (OnboardingViewModel.Event) -> Uni
             onClick = { onEvent(OnboardingViewModel.Event.AutoTestYesClicked) },
             modifier = Modifier
                 .padding(horizontal = 8.dp)
-                .weight(1f),
+                .weight(1f)
+                .testTag("Yes-AutoTest"),
         )
     }
 }
@@ -300,7 +302,8 @@ fun ColumnScope.CrashReportingStep(onEvent: (OnboardingViewModel.Event) -> Unit)
             onClick = { onEvent(OnboardingViewModel.Event.CrashReportingYesClicked) },
             modifier = Modifier
                 .padding(horizontal = 8.dp)
-                .weight(1f),
+                .weight(1f)
+                .testTag("Yes-CrashReporting"),
         )
     }
 }
@@ -330,7 +333,8 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
             onClick = { onEvent(OnboardingViewModel.Event.NextClicked) },
             modifier = Modifier
                 .padding(horizontal = 8.dp)
-                .weight(1f),
+                .weight(1f)
+                .testTag("No-Notifications"),
         )
         OnboardingMainButton(
             text = Res.string.Onboarding_Crash_Button_Yes,

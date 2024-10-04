@@ -32,19 +32,13 @@ const val IPV6_ADDRESS =
 
 const val DOMAIN_NAME = ("((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}")
 
-enum class ProxyType(val label: StringResource, val value: String) {
-    NONE(
-        label = Res.string.Settings_Proxy_None,
-        value = "none",
-    ),
-    PSIPHON(
-        label = Res.string.Settings_Proxy_Psiphon,
-        value = "psiphon",
-    ),
-    CUSTOM(label = Res.string.Settings_Proxy_Custom, value = "custom"),
+enum class ProxyType(val label: StringResource) {
+    NONE(label = Res.string.Settings_Proxy_None),
+    PSIPHON(label = Res.string.Settings_Proxy_Psiphon),
+    CUSTOM(label = Res.string.Settings_Proxy_Custom),
 }
 
-enum class ProxyProtocol(val protocol: String) {
+enum class ProxyProtocol(val value: String) {
     NONE("none"),
     HTTP("http"),
     HTTPS("https"),
@@ -63,8 +57,12 @@ enum class ProxyProtocol(val protocol: String) {
     fun toCustomProtocol(): String {
         return when (this) {
             PSIPHON, NONE -> ""
-            else -> this.protocol
+            else -> this.value
         }
+    }
+
+    companion object {
+        fun fromValue(value: String?) = value?.let { entries.firstOrNull { it.value == value } } ?: NONE
     }
 }
 
@@ -105,18 +103,21 @@ class ProxySettings {
 
             protocol?.let { protocol ->
                 when (protocol) {
-                    ProxyProtocol.NONE.name -> {
+                    ProxyProtocol.NONE.value -> {
                         settings.protocol = ProxyProtocol.NONE
                     }
-                    ProxyProtocol.PSIPHON.name -> {
+
+                    ProxyProtocol.PSIPHON.value -> {
                         settings.protocol = ProxyProtocol.PSIPHON
                     }
-                    ProxyProtocol.SOCKS5.name, ProxyProtocol.HTTP.name, ProxyProtocol.HTTPS.name -> {
-                        // ProxyProtocol.valueOf will only accept one of the values in ProxyProtocol
-                        // as in the enum definition(uppercase).
-                        settings.protocol =
-                            ProxyProtocol.valueOf(protocol)
+
+                    ProxyProtocol.SOCKS5.value,
+                    ProxyProtocol.HTTP.value,
+                    ProxyProtocol.HTTPS.value,
+                    -> {
+                        settings.protocol = ProxyProtocol.fromValue(protocol)
                     }
+
                     else -> {
                         // This is where we will extend the code to add support for
                         // more proxies, e.g., HTTP proxies.
@@ -145,7 +146,7 @@ class ProxySettings {
                 } else {
                     hostname
                 }
-                return "${protocol.protocol}://$formattedHost:$port/"
+                return "${protocol.value}://$formattedHost:$port/"
             }
 
             else -> return ""
