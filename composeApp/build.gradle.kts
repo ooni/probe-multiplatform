@@ -81,7 +81,7 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        ios.deploymentTarget = "15.3"
+        ios.deploymentTarget = "14.0"
 
         version = "1.0"
         summary = "Compose App"
@@ -202,7 +202,10 @@ android {
         ),
     )
     sourceSets["main"].res.setSrcDirs(
-        listOf("src/commonMain/res"),
+        listOf(
+            "src/androidMain/res",
+            "src/commonMain/res",
+        ),
     )
     dependencies {
         debugImplementation(compose.uiTooling)

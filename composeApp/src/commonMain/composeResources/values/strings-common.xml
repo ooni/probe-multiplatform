@@ -267,5 +267,6 @@
     <string name="quiz_answer_incorrect">Incorrect answer</string>
     <string name="logs">Logs</string>
     <string name="share_logs">Share Logs</string>
+    <string name="share_logs_error">Error sharing logs</string>
     <string name="filter_logs">Filter Logs</string>
 </resources>

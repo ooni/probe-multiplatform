@@ -29,6 +29,7 @@ import org.ooni.probe.data.disk.ReadFileOkio
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.disk.WriteFileOkio
 import org.ooni.probe.data.models.AutoRunParameters
+import org.ooni.probe.data.models.FileSharing
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
@@ -64,6 +65,7 @@ import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
 import org.ooni.probe.domain.SaveTestDescriptors
 import org.ooni.probe.domain.SendSupportEmail
+import org.ooni.probe.domain.ShareLogFile
 import org.ooni.probe.domain.ShouldShowVpnWarning
 import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.domain.UploadMissingMeasurements
@@ -103,6 +105,7 @@ class Dependencies(
     val configureDescriptorAutoUpdate: suspend () -> Boolean,
     val fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
+    private val shareFile: (FileSharing) -> Boolean,
 ) {
     // Common
 
@@ -182,6 +185,16 @@ class Dependencies(
     private val deleteAllResults by lazy {
         DeleteAllResults(resultRepository::deleteAll, deleteFiles::invoke)
     }
+    private val deleteTestDescriptor by lazy {
+        DeleteTestDescriptor(
+            preferencesRepository = preferenceRepository,
+            deleteByRunId = testDescriptorRepository::deleteByRunId,
+            deleteMeasurementByResultRunId = measurementRepository::deleteByResultRunId,
+            selectMeasurementsByResultRunId = measurementRepository::selectByResultRunId,
+            deleteResultByRunId = resultRepository::deleteByRunId,
+            deleteFile = deleteFiles::invoke,
+        )
+    }
     private val fetchDescriptor by lazy {
         FetchDescriptor(
             engineHttpDo = engine::httpDo,
@@ -189,7 +202,6 @@ class Dependencies(
         )
     }
     val finishInProgressData by lazy { FinishInProgressData(resultRepository::markAllAsDone) }
-
     val getDescriptorUpdate by lazy {
         FetchDescriptorUpdate(
             fetchDescriptor = fetchDescriptor::invoke,
@@ -197,7 +209,7 @@ class Dependencies(
             listInstalledTestDescriptors = testDescriptorRepository::list,
         )
     }
-
+    val getAutoRunSettings by lazy { GetAutoRunSettings(preferenceRepository::allSettings) }
     val getAutoRunSpecification by lazy {
         GetAutoRunSpecification(getTestDescriptors, preferenceRepository)
     }
@@ -239,11 +251,6 @@ class Dependencies(
             getAutoRunSettings = getAutoRunSettings::invoke,
         )
     }
-    val getAutoRunSettings by lazy {
-        GetAutoRunSettings(
-            observeSettings = preferenceRepository::allSettings,
-        )
-    }
     val runDescriptors by lazy {
         RunDescriptors(
             getTestDescriptorsBySpec = getTestDescriptorsBySpec::invoke,
@@ -266,17 +273,8 @@ class Dependencies(
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
-    private val deleteTestDescriptor by lazy {
-        DeleteTestDescriptor(
-            preferencesRepository = preferenceRepository,
-            deleteByRunId = testDescriptorRepository::deleteByRunId,
-            deleteMeasurementByResultRunId = measurementRepository::deleteByResultRunId,
-            selectMeasurementsByResultRunId = measurementRepository::selectByResultRunId,
-            deleteResultByRunId = resultRepository::deleteByRunId,
-            deleteFile = deleteFiles::invoke,
-        )
-    }
     private val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
+    private val shareLogFile by lazy { ShareLogFile(shareFile, appLogger::getLogFilePath) }
     private val shouldShowVpnWarning by lazy {
         ShouldShowVpnWarning(preferenceRepository, networkTypeFinder::invoke)
     }
@@ -370,6 +368,7 @@ class Dependencies(
             onBack = onBack,
             readLog = appLogger::read,
             clearLog = appLogger::clear,
+            shareLogFile = shareLogFile::invoke,
         )
 
     fun onboardingViewModel(

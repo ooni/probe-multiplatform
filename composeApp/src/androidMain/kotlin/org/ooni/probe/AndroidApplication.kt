@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
 import android.os.LocaleList
+import androidx.core.content.FileProvider
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.SharedPreferencesMigration
 import androidx.datastore.preferences.core.Preferences
@@ -20,9 +21,11 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
+import okio.Path.Companion.toPath
 import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
 import org.ooni.probe.background.AppWorkerManager
+import org.ooni.probe.data.models.FileSharing
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -49,6 +52,7 @@ class AndroidApplication : Application() {
             openVpnSettings = ::openVpnSettings,
             configureDescriptorAutoUpdate = appWorkerManager::configureDescriptorAutoUpdate,
             fetchDescriptorUpdate = appWorkerManager::fetchDescriptorUpdate,
+            shareFile = ::shareFile,
         )
     }
 
@@ -159,4 +163,35 @@ class AndroidApplication : Application() {
             Logger.e("Could not open VPN Settings", e)
             false
         }
+
+    private fun shareFile(fileSharing: FileSharing): Boolean {
+        val file = filesDir.absolutePath.toPath().resolve(fileSharing.filePath).toFile()
+        if (!file.exists()) {
+            Logger.w("File to share does not exist: $file")
+            return false
+        }
+
+        val uri = try {
+            FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", file)
+        } catch (e: IllegalArgumentException) {
+            Logger.w("Could not generate file uri to share", e)
+            return false
+        }
+
+        return try {
+            startActivity(
+                Intent.createChooser(
+                    Intent(Intent.ACTION_SEND)
+                        .setType("*/*")
+                        .putExtra(Intent.EXTRA_STREAM, uri)
+                        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),
+                    fileSharing.title,
+                ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            )
+            true
+        } catch (e: ActivityNotFoundException) {
+            Logger.e("Could not share file", e)
+            false
+        }
+    }
 }

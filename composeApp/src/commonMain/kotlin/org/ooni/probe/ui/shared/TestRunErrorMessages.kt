@@ -5,7 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import kotlinx.coroutines.delay
 import ooniprobe.composeapp.generated.resources.Modal_Error_CantDownloadURLs
 import ooniprobe.composeapp.generated.resources.Res
-import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.getString
 import org.ooni.probe.LocalSnackbarHostState
 import org.ooni.probe.data.models.TestRunError
 import kotlin.time.Duration.Companion.seconds
@@ -16,13 +16,15 @@ fun TestRunErrorMessages(
     onErrorDisplayed: (TestRunError) -> Unit,
 ) {
     val snackbarHostState = LocalSnackbarHostState.current ?: return
-    val errorMessage = when (errors.firstOrNull()) {
-        TestRunError.DownloadUrlsFailed -> stringResource(Res.string.Modal_Error_CantDownloadURLs)
-        null -> ""
-    }
     LaunchedEffect(errors) {
         val error = errors.firstOrNull() ?: return@LaunchedEffect
-        snackbarHostState.showSnackbar(errorMessage)
+        snackbarHostState.showSnackbar(
+            getString(
+                when (error) {
+                    TestRunError.DownloadUrlsFailed -> Res.string.Modal_Error_CantDownloadURLs
+                },
+            ),
+        )
         delay(0.5.seconds) // No need to wait for the snackbar to be fully dismissed
         onErrorDisplayed(error)
     }
