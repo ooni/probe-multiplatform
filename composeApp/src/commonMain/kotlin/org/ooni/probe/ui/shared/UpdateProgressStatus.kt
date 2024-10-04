@@ -1,6 +1,5 @@
 package org.ooni.probe.ui.shared
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,12 +11,12 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Dashboard_Progress_ReviewLink_Action
 import ooniprobe.composeapp.generated.resources.Dashboard_Progress_ReviewLink_Label
@@ -34,29 +33,37 @@ fun UpdateProgressStatus(
     onReviewLinkClicked: () -> Unit = {},
     onCancelClicked: () -> Unit = {},
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth()
-            .height(56.dp)
-            .background(MaterialTheme.colorScheme.inverseSurface)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        horizontalArrangement = if (type == UpdateStatusType.FetchingUpdates) Arrangement.spacedBy(10.dp) else Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
+    Surface(
+        color = MaterialTheme.colorScheme.inverseSurface,
+        modifier = modifier,
     ) {
-        if (type == UpdateStatusType.FetchingUpdates) {
-            CircularProgressIndicator()
-            Text(stringResource(Res.string.Dashboard_Progress_UpdateLink_Label), color = Color.White)
-        } else if (type == UpdateStatusType.ReviewLink) {
-            Text(stringResource(Res.string.Dashboard_Progress_ReviewLink_Label), color = Color.White)
-            Row {
-                TextButton(onClick = onReviewLinkClicked) {
-                    Text(stringResource(Res.string.Dashboard_Progress_ReviewLink_Action), color = Color.White)
-                }
-                IconButton(onClick = onCancelClicked) {
-                    Icon(
-                        imageVector = Icons.Filled.Close,
-                        contentDescription = stringResource(Res.string.Modal_Cancel),
-                        tint = Color.White,
-                    )
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .height(56.dp)
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+            horizontalArrangement =
+                if (type == UpdateStatusType.FetchingUpdates) {
+                    Arrangement.spacedBy(10.dp)
+                } else {
+                    Arrangement.SpaceBetween
+                },
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (type == UpdateStatusType.FetchingUpdates) {
+                CircularProgressIndicator()
+                Text(stringResource(Res.string.Dashboard_Progress_UpdateLink_Label))
+            } else if (type == UpdateStatusType.ReviewLink) {
+                Text(stringResource(Res.string.Dashboard_Progress_ReviewLink_Label))
+                Row {
+                    TextButton(onClick = onReviewLinkClicked) {
+                        Text(stringResource(Res.string.Dashboard_Progress_ReviewLink_Action))
+                    }
+                    IconButton(onClick = onCancelClicked) {
+                        Icon(
+                            imageVector = Icons.Filled.Close,
+                            contentDescription = stringResource(Res.string.Modal_Cancel),
+                        )
+                    }
                 }
             }
         }

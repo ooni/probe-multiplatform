@@ -175,7 +175,8 @@ fun RunScreen(
                 enabled = selectedTestsCount > 0,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(bottom = 16.dp),
+                    .padding(bottom = 16.dp)
+                    .padding(WindowInsets.navigationBars.asPaddingValues()),
             ) {
                 Text(
                     text = pluralStringResource(
