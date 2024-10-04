@@ -16,6 +16,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.ui.shared.CustomColors
 
 @Composable
 fun SettingsScreen(
@@ -27,6 +28,7 @@ fun SettingsScreen(
             title = {
                 Text(stringResource(Res.string.Settings_Title))
             },
+            colors = CustomColors.topAppBar(),
         )
 
         state.settings.forEach { item ->

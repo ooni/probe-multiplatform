@@ -84,7 +84,7 @@ fun DashboardScreen(
             Box(
                 Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.primary)
+                    .background(MaterialTheme.colorScheme.primaryContainer)
                     .height(144.dp)
                     .padding(WindowInsets.statusBars.asPaddingValues()),
             )
@@ -92,7 +92,7 @@ fun DashboardScreen(
                 painterResource(Res.drawable.dashboard_arc),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth,
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primaryContainer),
                 modifier = Modifier.fillMaxWidth(),
             )
         }

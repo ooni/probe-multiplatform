@@ -66,6 +66,7 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.dashboard.TestDescriptorSection
+import org.ooni.probe.ui.shared.CustomColors
 import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
 
@@ -87,6 +88,7 @@ fun RunScreen(
                     )
                 }
             },
+            colors = CustomColors.topAppBar(),
         )
 
         Column(
