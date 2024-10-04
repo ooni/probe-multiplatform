@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -114,6 +114,7 @@ fun OnboardingScreen(
             ) {
                 Column(
                     modifier = Modifier
+                        .fillMaxHeight()
                         .padding(WindowInsets.navigationBars.asPaddingValues())
                         .padding(bottom = 48.dp),
                 ) {
@@ -185,13 +186,17 @@ fun OnboardingScreen(
 
 @Composable
 fun ColumnScope.WhatIsStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        OnboardingImage(OrganizationConfig.onboardingImages.image1)
-        OnboardingTitle(Res.string.Onboarding_WhatIsOONIProbe_Title)
+    OnboardingImage(OrganizationConfig.onboardingImages.image1)
+    OnboardingTitle(Res.string.Onboarding_WhatIsOONIProbe_Title)
+
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .weight(1f)
+            .padding(bottom = 16.dp),
+    ) {
         OnboardingText(Res.string.Onboarding_WhatIsOONIProbe_Paragraph)
     }
-
-    Spacer(Modifier.weight(1f))
 
     OnboardingMainButton(
         text = Res.string.Onboarding_WhatIsOONIProbe_GotIt,
@@ -207,15 +212,19 @@ fun ColumnScope.HeadsUpStep(
     onEvent: (OnboardingViewModel.Event) -> Unit,
     onShowQuiz: () -> Unit,
 ) {
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        OnboardingImage(OrganizationConfig.onboardingImages.image2)
-        OnboardingTitle(Res.string.Onboarding_ThingsToKnow_Title)
+    OnboardingImage(OrganizationConfig.onboardingImages.image2)
+    OnboardingTitle(Res.string.Onboarding_ThingsToKnow_Title)
+
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .weight(1f)
+            .padding(bottom = 16.dp),
+    ) {
         OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_1)
         OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_2)
         OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_3)
     }
-
-    Spacer(Modifier.weight(1f))
 
     OnboardingMainButton(
         text = Res.string.Onboarding_ThingsToKnow_Button,
@@ -235,13 +244,16 @@ fun ColumnScope.HeadsUpStep(
 
 @Composable
 fun ColumnScope.AutomatedTestingStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        OnboardingImage(OrganizationConfig.onboardingImages.image3)
-        OnboardingTitle(Res.string.Onboarding_AutomatedTesting_Title)
+    OnboardingImage(OrganizationConfig.onboardingImages.image3)
+    OnboardingTitle(Res.string.Onboarding_AutomatedTesting_Title)
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .weight(1f)
+            .padding(bottom = 16.dp),
+    ) {
         OnboardingText(Res.string.Onboarding_AutomatedTesting_Paragraph)
     }
-
-    Spacer(Modifier.weight(1f))
 
     Row(modifier = Modifier.padding(horizontal = 8.dp)) {
         OnboardingMainOutlineButton(
@@ -263,13 +275,17 @@ fun ColumnScope.AutomatedTestingStep(onEvent: (OnboardingViewModel.Event) -> Uni
 
 @Composable
 fun ColumnScope.CrashReportingStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        OnboardingImage(OrganizationConfig.onboardingImages.image3)
-        OnboardingTitle(Res.string.Onboarding_Crash_Title)
+    OnboardingImage(OrganizationConfig.onboardingImages.image3)
+    OnboardingTitle(Res.string.Onboarding_Crash_Title)
+
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .weight(1f)
+            .padding(bottom = 16.dp),
+    ) {
         OnboardingText(Res.string.Onboarding_Crash_Paragraph)
     }
-
-    Spacer(Modifier.weight(1f))
 
     Row(modifier = Modifier.padding(horizontal = 8.dp)) {
         OnboardingMainOutlineButton(
@@ -296,13 +312,17 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
     BindEffect(controller)
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        OnboardingImage(OrganizationConfig.onboardingImages.image3)
-        OnboardingTitle(Res.string.Modal_EnableNotifications_Title)
+    OnboardingImage(OrganizationConfig.onboardingImages.image3)
+    OnboardingTitle(Res.string.Modal_EnableNotifications_Title)
+
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .weight(1f)
+            .padding(bottom = 16.dp),
+    ) {
         OnboardingText(Res.string.Modal_EnableNotifications_Paragraph)
     }
-
-    Spacer(Modifier.weight(1f))
 
     Row(modifier = Modifier.padding(horizontal = 8.dp)) {
         OnboardingMainOutlineButton(
@@ -342,17 +362,21 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
 
 @Composable
 fun ColumnScope.DefaultSettingsStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        OnboardingImage(OrganizationConfig.onboardingImages.image3)
-        OnboardingTitle(Res.string.Onboarding_DefaultSettings_Title)
+    OnboardingImage(OrganizationConfig.onboardingImages.image3)
+    OnboardingTitle(Res.string.Onboarding_DefaultSettings_Title)
+
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .weight(1f)
+            .padding(bottom = 16.dp),
+    ) {
         OnboardingText(Res.string.Onboarding_DefaultSettings_Header)
         OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_1)
         OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_2)
         OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_3)
         OnboardingText(Res.string.Onboarding_DefaultSettings_Paragraph)
     }
-
-    Spacer(Modifier.weight(1f))
 
     OnboardingMainButton(
         text = Res.string.Onboarding_DefaultSettings_Button_Go,
@@ -433,8 +457,7 @@ private fun OnboardingMainButton(
             contentColor = OnboardingViewModel.Step.WhatIs.surfaceColor,
             containerColor = LocalContentColor.current,
         ),
-        modifier = modifier
-            .requiredSizeIn(minHeight = 60.dp),
+        modifier = modifier.requiredSizeIn(minHeight = 60.dp),
     ) {
         Text(
             stringResource(text),
