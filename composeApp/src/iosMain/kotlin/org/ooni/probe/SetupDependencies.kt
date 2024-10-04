@@ -21,6 +21,7 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.FileSharing
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -44,10 +45,14 @@ import platform.Foundation.characterDirectionForLanguage
 import platform.Foundation.dateByAddingTimeInterval
 import platform.Foundation.stringWithContentsOfFile
 import platform.MessageUI.MFMailComposeViewController
+import platform.UIKit.UIActivityTypeAirDrop
+import platform.UIKit.UIActivityTypePostToFacebook
+import platform.UIKit.UIActivityViewController
 import platform.UIKit.UIApplication
 import platform.UIKit.UIDevice
 import platform.UIKit.UIDeviceBatteryState
 import platform.UIKit.UIPasteboard
+import platform.UIKit.UIViewController
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
 
@@ -80,7 +85,7 @@ class SetupDependencies(
         configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
         fetchDescriptorUpdate = ::fetchDescriptorUpdate,
         localeDirection = ::localeDirection,
-        shareFile = { false },
+        shareFile = ::shareFile,
     )
 
     private val operationsManager = OperationsManager(dependencies)
@@ -141,14 +146,7 @@ class SetupDependencies(
     fun buildDataStore(): DataStore<Preferences> =
         Dependencies.getDataStore(
             producePath = {
-                val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
-                    directory = NSDocumentDirectory,
-                    inDomain = NSUserDomainMask,
-                    appropriateForURL = null,
-                    create = false,
-                    error = null,
-                )
-                requireNotNull(documentDirectory).path + "/${Dependencies.DATA_STORE_FILE_NAME}"
+                filesDir() + "/${Dependencies.Companion.DATA_STORE_FILE_NAME}"
             },
         )
 
@@ -170,7 +168,7 @@ class SetupDependencies(
                                 }
                             }
                         }.let {
-                            UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(
+                            findCurrentViewController()?.presentViewController(
                                 it,
                                 true,
                                 null,
@@ -267,5 +265,45 @@ class SetupDependencies(
 
     fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
         operationsManager.fetchDescriptorUpdate(descriptors)
+    }
+
+    private fun shareFile(share: FileSharing): Boolean {
+        val filePath = filesDir() + "/" + share.filePath.toString()
+
+        val url = NSURL.fileURLWithPath(filePath)
+        val activityViewController = UIActivityViewController(
+            activityItems = listOf(url),
+            applicationActivities = null,
+        )
+        activityViewController.excludedActivityTypes =
+            listOf(UIActivityTypeAirDrop, UIActivityTypePostToFacebook)
+
+        findCurrentViewController()?.let {
+            it.presentViewController(
+                activityViewController,
+                true,
+                null,
+            )
+            return true
+        } ?: run {
+            Logger.e { "Cannot share file: $filePath" }
+            return false
+        }
+    }
+
+    private fun filesDir(): String? {
+        val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
+            directory = NSDocumentDirectory,
+            inDomain = NSUserDomainMask,
+            appropriateForURL = null,
+            create = false,
+            error = null,
+        )
+
+        return requireNotNull(documentDirectory).path
+    }
+
+    private fun findCurrentViewController(): UIViewController? {
+        return UIApplication.sharedApplication.keyWindow?.rootViewController
     }
 }
