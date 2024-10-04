@@ -53,7 +53,7 @@ class DescriptorUpdateWorker(
         val descriptorsJson = inputData.getString(DATA_KEY_DESCRIPTORS)
         if (descriptorsJson != null) {
             try {
-                val ids =  json.decodeFromString<List<InstalledTestDescriptorModel.Id>>(descriptorsJson)
+                val ids = json.decodeFromString<List<InstalledTestDescriptorModel.Id>>(descriptorsJson)
                 return testDescriptorRepository.selectByRunIds(ids).first()
             } catch (e: Exception) {
                 Logger.w("Could not start update worker: invalid configuration", e)
