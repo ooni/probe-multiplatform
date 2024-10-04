@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
@@ -41,7 +42,6 @@ fun ResultCell(
         } else {
             MaterialTheme.colorScheme.surfaceVariant
         },
-        modifier = Modifier.padding(top = 1.dp),
     ) {
         Row(
             verticalAlignment = Alignment.Bottom,
@@ -55,13 +55,27 @@ fun ResultCell(
             ) {
                 TestDescriptorLabel(item.descriptor)
 
+                item.network?.networkName?.let { networkName ->
+                    Text(
+                        networkName,
+                        style = MaterialTheme.typography.titleMedium,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+
+                val asn = item.network?.asn ?: stringResource(Res.string.TestResults_UnknownASN)
                 Text(
-                    item.network?.networkName ?: stringResource(Res.string.TestResults_UnknownASN),
+                    "($asn)",
                     style = MaterialTheme.typography.titleMedium,
-                    maxLines = 3,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
 
-                Text(item.result.startTime.relativeDateTime())
+                Text(
+                    item.result.startTime.relativeDateTime(),
+                    style = MaterialTheme.typography.labelMedium,
+                )
             }
             Column(
                 horizontalAlignment = Alignment.End,

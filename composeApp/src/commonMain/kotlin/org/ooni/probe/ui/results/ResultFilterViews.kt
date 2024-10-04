@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.task_origin_all
 import ooniprobe.composeapp.generated.resources.task_origin_auto_run
@@ -48,7 +49,13 @@ fun DescriptorFilter(
         ) {
             list.forEach { option ->
                 DropdownMenuItem(
-                    text = { Text(option.label()) },
+                    text = {
+                        Text(
+                            option.label(),
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    },
                     onClick = {
                         onFilterChanged(option)
                         expanded = false
