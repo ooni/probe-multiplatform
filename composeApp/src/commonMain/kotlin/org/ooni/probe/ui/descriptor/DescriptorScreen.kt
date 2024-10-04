@@ -20,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -54,6 +55,7 @@ import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.UpdatesChip
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
+import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
 fun DescriptorScreen(
@@ -79,6 +81,7 @@ fun DescriptorScreen(
     Box(Modifier.nestedScroll(pullToRefreshState.nestedScrollConnection)) {
         Column {
             val descriptorColor = descriptor.color ?: MaterialTheme.colorScheme.primary
+            val onDescriptorColor = LocalCustomColors.current.onDescriptor
             TopAppBar(
                 title = {
                     Text(descriptor.title.invoke())
@@ -92,9 +95,11 @@ fun DescriptorScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    titleContentColor = descriptorColor,
-                    navigationIconContentColor = descriptorColor,
-                    actionIconContentColor = descriptorColor,
+                    containerColor = descriptorColor,
+                    scrolledContainerColor = descriptorColor,
+                    navigationIconContentColor = onDescriptorColor,
+                    titleContentColor = onDescriptorColor,
+                    actionIconContentColor = onDescriptorColor,
                 ),
             )
 
@@ -105,56 +110,61 @@ fun DescriptorScreen(
                     .padding(WindowInsets.navigationBars.asPaddingValues())
                     .padding(bottom = 32.dp),
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(8.dp),
+                Surface(
+                    color = descriptorColor,
+                    contentColor = onDescriptorColor,
                 ) {
-                    descriptor.icon?.let { icon ->
-                        Icon(
-                            painterResource(icon),
-                            contentDescription = null,
-                            tint = descriptorColor,
-                            modifier = Modifier.size(64.dp),
-                        )
-                    }
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(8.dp),
+                    ) {
+                        descriptor.icon?.let { icon ->
+                            Icon(
+                                painterResource(icon),
+                                contentDescription = null,
+                                tint = onDescriptorColor,
+                                modifier = Modifier.size(64.dp),
+                            )
+                        }
 
-                    Row {
-                        Text(stringResource(Res.string.Dashboard_Overview_Estimated))
+                        Row {
+                            Text(stringResource(Res.string.Dashboard_Overview_Estimated))
 
-                        descriptor.dataUsage()?.let { dataUsage ->
+                            descriptor.dataUsage()?.let { dataUsage ->
+                                Text(
+                                    text = dataUsage,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(start = 8.dp),
+                                )
+                            }
+
+                            state.estimatedTime?.let { time ->
+                                Text(
+                                    text = "~ ${time.shortFormat()}",
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(start = 8.dp),
+                                )
+                            }
+                        }
+
+                        Row {
+                            Text(stringResource(Res.string.Dashboard_Overview_LatestTest))
+
                             Text(
-                                text = dataUsage,
+                                text = state.lastResult?.startTime?.relativeDateTime()
+                                    ?: stringResource(Res.string.Dashboard_Overview_LastRun_Never),
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(start = 8.dp),
                             )
                         }
-
-                        state.estimatedTime?.let { time ->
-                            Text(
-                                text = "~ ${time.shortFormat()}",
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(start = 8.dp),
-                            )
+                        if (descriptor.updatable) {
+                            UpdatesChip(onClick = { })
                         }
-                    }
-
-                    Row {
-                        Text(stringResource(Res.string.Dashboard_Overview_LatestTest))
-
-                        Text(
-                            text = state.lastResult?.startTime?.relativeDateTime()
-                                ?: stringResource(Res.string.Dashboard_Overview_LastRun_Never),
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(start = 8.dp),
-                        )
-                    }
-                    if (descriptor.updatable) {
-                        UpdatesChip(onClick = { })
-                    }
-                    state.updatedDescriptor?.let {
-                        OutlinedButton(onClick = { onEvent(DescriptorViewModel.Event.UpdateDescriptor) }) {
-                            Text(stringResource(Res.string.Dashboard_Runv2_Overview_ReviewUpdates))
+                        state.updatedDescriptor?.let {
+                            OutlinedButton(onClick = { onEvent(DescriptorViewModel.Event.UpdateDescriptor) }) {
+                                Text(stringResource(Res.string.Dashboard_Runv2_Overview_ReviewUpdates))
+                            }
                         }
                     }
                 }

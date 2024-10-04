@@ -4,7 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 
-object CustomColors {
+object ColorDefaults {
     @Composable
     fun topAppBar() =
         TopAppBarDefaults.topAppBarColors(

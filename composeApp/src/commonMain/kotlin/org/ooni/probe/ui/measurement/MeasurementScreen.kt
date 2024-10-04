@@ -30,6 +30,7 @@ import ooniprobe.composeapp.generated.resources.measurement
 import ooniprobe.composeapp.generated.resources.refresh
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.ui.shared.ColorDefaults
 
 @Composable
 fun MeasurementScreen(
@@ -67,6 +68,7 @@ fun MeasurementScreen(
                     )
                 }
             },
+            colors = ColorDefaults.topAppBar(),
         )
 
         LinearProgressIndicator(
@@ -74,8 +76,8 @@ fun MeasurementScreen(
                 val loadingState = webViewState.loadingState
                 if (loadingState is LoadingState.Loading) loadingState.progress else 1f
             },
-            color = MaterialTheme.colorScheme.background,
-            trackColor = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.primary,
+            trackColor = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(1.dp),
