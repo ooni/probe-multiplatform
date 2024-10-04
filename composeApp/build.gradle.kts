@@ -202,7 +202,10 @@ android {
         ),
     )
     sourceSets["main"].res.setSrcDirs(
-        listOf("src/commonMain/res"),
+        listOf(
+            "src/androidMain/res",
+            "src/commonMain/res",
+        ),
     )
     dependencies {
         debugImplementation(compose.uiTooling)
