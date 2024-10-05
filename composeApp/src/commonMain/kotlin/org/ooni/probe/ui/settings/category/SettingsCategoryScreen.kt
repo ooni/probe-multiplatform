@@ -48,6 +48,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.PreferenceItemType
 import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.ui.shared.CustomColors
 
 @Composable
 fun SettingsCategoryScreen(
@@ -61,6 +62,7 @@ fun SettingsCategoryScreen(
             title = {
                 Text(stringResource(category.title))
             },
+            colors = CustomColors.topAppBar(),
             navigationIcon = {
                 IconButton(onClick = { onEvent(SettingsCategoryViewModel.Event.BackClicked) }) {
                     Icon(
