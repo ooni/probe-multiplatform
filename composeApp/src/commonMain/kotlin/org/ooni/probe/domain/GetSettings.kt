@@ -1,8 +1,20 @@
 package org.ooni.probe.domain
 
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
+import ooniprobe.composeapp.generated.resources.Modal_Cancel
+import ooniprobe.composeapp.generated.resources.Modal_Delete
+import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Paragraph
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_About_Label
@@ -20,6 +32,7 @@ import ooniprobe.composeapp.generated.resources.Settings_Privacy_SendCrashReport
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
 import ooniprobe.composeapp.generated.resources.Settings_SendEmail_Label
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults
+import ooniprobe.composeapp.generated.resources.Settings_Storage_Clear
 import ooniprobe.composeapp.generated.resources.Settings_Storage_Label
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_WarmVPNInUse_Label
@@ -48,15 +61,22 @@ import kotlin.time.Duration.Companion.seconds
 
 class GetSettings(
     private val preferencesRepository: PreferenceRepository,
+    private val clearStorage: () -> Unit,
+    val getStorageUsed: () -> Unit,
+    val observeStorageUsed: Flow<Long>,
 ) {
-    operator fun invoke(): Flow<List<SettingsCategoryItem>> =
-        preferencesRepository.allSettings(
-            WebConnectivityCategory.entries.mapNotNull { it.settingsKey } + listOf(
-                SettingsKey.AUTOMATED_TESTING_ENABLED,
-                SettingsKey.MAX_RUNTIME_ENABLED,
-                SettingsKey.MAX_RUNTIME,
+    operator fun invoke(): Flow<List<SettingsCategoryItem>> {
+        getStorageUsed()
+        return combine(
+            preferencesRepository.allSettings(
+                WebConnectivityCategory.entries.mapNotNull { it.settingsKey } + listOf(
+                    SettingsKey.AUTOMATED_TESTING_ENABLED,
+                    SettingsKey.MAX_RUNTIME_ENABLED,
+                    SettingsKey.MAX_RUNTIME,
+                ),
             ),
-        ).map { preferences ->
+            observeStorageUsed,
+        ) { preferences, storageUsed ->
             val enabledCategoriesCount =
                 WebConnectivityCategory.entries.count { preferences[it.settingsKey] == true }
             buildSettings(
@@ -64,14 +84,17 @@ class GetSettings(
                 enabledCategoriesCount = enabledCategoriesCount,
                 maxRuntimeEnabled = preferences[SettingsKey.MAX_RUNTIME_ENABLED] == true,
                 maxRuntime = preferences[SettingsKey.MAX_RUNTIME] as? Int,
+                storageUsed = storageUsed,
             )
         }
+    }
 
     private fun buildSettings(
         autoRunEnabled: Boolean,
         enabledCategoriesCount: Int,
         maxRuntimeEnabled: Boolean,
         maxRuntime: Int?,
+        storageUsed: Long,
     ): List<SettingsCategoryItem> {
         return listOf(
             SettingsCategoryItem(
@@ -199,6 +222,45 @@ class GetSettings(
                         title = Res.string.Settings_Storage_Label,
                         key = SettingsKey.STORAGE_SIZE,
                         type = PreferenceItemType.BUTTON,
+                        supportingContent = {
+                            Text("${storageUsed / 1024f / 1024f}  MB")
+                        },
+                        trailingContent = {
+                            var showDialog by remember { mutableStateOf(false) }
+
+                            if (showDialog) {
+                                AlertDialog(
+                                    onDismissRequest = { showDialog = false },
+                                    text = { Text(stringResource(Res.string.Modal_DoYouWantToDeleteAllTests)) },
+                                    confirmButton = {
+                                        Button(
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.error,
+                                            ),
+                                            onClick = {
+                                                clearStorage()
+                                                showDialog = false
+                                            },
+                                        ) {
+                                            Text(stringResource(Res.string.Modal_Delete))
+                                        }
+                                    },
+                                    dismissButton = {
+                                        OutlinedButton(
+                                            onClick = { showDialog = false },
+                                        ) {
+                                            Text(stringResource(Res.string.Modal_Cancel))
+                                        }
+                                    },
+                                )
+                            }
+
+                            Button(
+                                onClick = { showDialog = true },
+                            ) {
+                                Text(stringResource(Res.string.Settings_Storage_Clear))
+                            }
+                        },
                     ),
                     SettingsItem(
                         title = Res.string.Settings_WarmVPNInUse_Label,

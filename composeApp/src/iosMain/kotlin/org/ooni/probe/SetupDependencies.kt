@@ -14,14 +14,16 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import okio.FileSystem
+import okio.Path.Companion.toPath
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.probe.background.OperationsManager
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.FileSharing
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -67,11 +69,7 @@ class SetupDependencies(
     val dependencies: Dependencies = Dependencies(
         platformInfo = platformInfo,
         oonimkallBridge = bridge,
-        baseFileDir = NSSearchPathForDirectoriesInDomains(
-            NSDocumentDirectory,
-            NSUserDomainMask,
-            true,
-        ).first().toString(),
+        baseFileDir = baseFileDir(),
         cacheDir = NSTemporaryDirectory(),
         readAssetFile = ::readAssetFile,
         databaseDriverFactory = ::buildDatabaseDriver,
@@ -86,6 +84,7 @@ class SetupDependencies(
         fetchDescriptorUpdate = ::fetchDescriptorUpdate,
         localeDirection = ::localeDirection,
         shareFile = ::shareFile,
+        storageUsed = ::storageUsed,
     )
 
     private val operationsManager = OperationsManager(dependencies)
@@ -291,6 +290,14 @@ class SetupDependencies(
         }
     }
 
+    private fun baseFileDir(): String {
+        return NSSearchPathForDirectoriesInDomains(
+            NSDocumentDirectory,
+            NSUserDomainMask,
+            true,
+        ).first().toString()
+    }
+
     private fun filesDir(): String? {
         val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
             directory = NSDocumentDirectory,
@@ -305,5 +312,15 @@ class SetupDependencies(
 
     private fun findCurrentViewController(): UIViewController? {
         return UIApplication.sharedApplication.keyWindow?.rootViewController
+    }
+
+    private fun storageUsed(): Long {
+        val fileSystem = FileSystem.SYSTEM
+
+        return baseFileDir().let { filesDir ->
+            fileSystem.listRecursively(filesDir.toPath())
+                .filter { fileSystem.metadata(it).isRegularFile }
+                .sumOf { (fileSystem.metadata(it).size ?: 0) }
+        }
     }
 }

@@ -10,6 +10,7 @@ open class PreferenceItem(
     open val type: PreferenceItemType,
     open val key: SettingsKey,
     open val supportingContent: @Composable (() -> Unit)? = null,
+    open val trailingContent: @Composable (() -> Unit)? = null,
     open val enabled: Boolean = true,
 )
 
@@ -19,6 +20,7 @@ data class SettingsItem(
     override val type: PreferenceItemType,
     override val key: SettingsKey,
     override val supportingContent: @Composable (() -> Unit)? = null,
+    override val trailingContent: @Composable (() -> Unit)? = null,
     override val enabled: Boolean = true,
 ) : PreferenceItem(
         title = title,

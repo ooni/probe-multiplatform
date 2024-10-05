@@ -3,6 +3,7 @@ package org.ooni.probe
 import android.app.Application
 import android.app.LocaleConfig
 import android.app.LocaleManager
+import android.app.usage.StorageStatsManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -12,6 +13,9 @@ import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
 import android.os.LocaleList
+import android.os.Process
+import android.os.storage.StorageManager
+import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.SharedPreferencesMigration
@@ -21,6 +25,7 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
+import okio.FileSystem
 import okio.Path.Companion.toPath
 import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
@@ -53,6 +58,7 @@ class AndroidApplication : Application() {
             configureDescriptorAutoUpdate = appWorkerManager::configureDescriptorAutoUpdate,
             fetchDescriptorUpdate = appWorkerManager::fetchDescriptorUpdate,
             shareFile = ::shareFile,
+            storageUsed = ::getStorageUsed,
         )
     }
 
@@ -193,5 +199,41 @@ class AndroidApplication : Application() {
             Logger.e("Could not share file", e)
             false
         }
+    }
+
+    private fun getStorageUsed(): Long {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            try {
+                return getStorageStatsManagerStorageUsed(this)
+            } catch (exception: Exception) {
+                Logger.e("Could not get storage stats manager storage used", exception)
+                return getFileStorageUsed()
+            }
+        }
+        return getFileStorageUsed()
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Throws(Exception::class)
+    private fun getStorageStatsManagerStorageUsed(context: Context): Long {
+        val storageStatsManager =
+            context.getSystemService(STORAGE_STATS_SERVICE) as StorageStatsManager
+        val user = Process.myUserHandle()
+        val uuid = StorageManager.UUID_DEFAULT
+        val storageStats = storageStatsManager.queryStatsForPackage(
+            uuid,
+            context.applicationInfo.packageName,
+            user,
+        )
+        return storageStats.appBytes + storageStats.dataBytes + storageStats.cacheBytes
+    }
+
+    private fun getFileStorageUsed(): Long {
+        return getDatabasePath("v2.db").parentFile?.absolutePath?.toPath()?.let { databasePath ->
+            val fileSystem = FileSystem.SYSTEM
+            return fileSystem.listRecursively(databasePath)
+                .filter { fileSystem.metadata(it).isRegularFile }
+                .sumOf { (fileSystem.metadata(it).size ?: 0) }
+        } ?: 0
     }
 }
