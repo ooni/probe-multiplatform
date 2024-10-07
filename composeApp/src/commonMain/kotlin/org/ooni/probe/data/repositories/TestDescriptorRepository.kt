@@ -26,6 +26,13 @@ class TestDescriptorRepository(
             .mapToList(backgroundDispatcher)
             .map { list -> list.mapNotNull { it.toModel() } }
 
+    fun selectByRunIds(ids: List<InstalledTestDescriptorModel.Id>) =
+        database.testDescriptorQueries
+            .selectByRunIds(ids.map { it.value })
+            .asFlow()
+            .mapToList(backgroundDispatcher)
+            .map { list -> list.mapNotNull { it.toModel() } }
+
     suspend fun createOrIgnore(models: List<InstalledTestDescriptorModel>) {
         withContext(backgroundDispatcher) {
             database.transaction {

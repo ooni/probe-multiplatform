@@ -80,7 +80,16 @@ class AppWorkerManager(
                     DescriptorUpdateWorker.ManualUpdateWorkerName,
                     ExistingWorkPolicy.REPLACE,
                     OneTimeWorkRequestBuilder<DescriptorUpdateWorker>()
-                        .setInputData(descriptors?.let { DescriptorUpdateWorker.buildWorkData(it) } ?: Data.EMPTY)
+                        .setInputData(
+                            descriptors?.let {
+                                DescriptorUpdateWorker.buildWorkData(
+                                    it.map {
+                                            descriptor ->
+                                        descriptor.id
+                                    },
+                                )
+                            } ?: Data.EMPTY,
+                        )
                         .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
                         .build(),
                 )

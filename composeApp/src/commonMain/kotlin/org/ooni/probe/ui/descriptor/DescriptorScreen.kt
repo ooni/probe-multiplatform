@@ -208,7 +208,8 @@ fun DescriptorScreen(
         }
         if (state.isRefreshing) {
             UpdateProgressStatus(
-                modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 48.dp),
+                modifier = Modifier.align(Alignment.BottomCenter)
+                    .padding(WindowInsets.navigationBars.asPaddingValues()),
                 type = state.refreshType,
             )
         }
