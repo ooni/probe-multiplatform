@@ -43,9 +43,9 @@ class DescriptorUpdateWorker(
     override suspend fun doWork(): Result {
         return coroutineScope {
             val descriptors = getDescriptors() ?: return@coroutineScope Result.failure()
-            if (descriptors.isEmpty()) return@coroutineScope Result.success(buildWorkData(descriptors))
+            if (descriptors.isEmpty()) return@coroutineScope Result.success(buildWorkData(descriptors.map { it.id }))
             dependencies.getDescriptorUpdate.invoke(descriptors)
-            return@coroutineScope Result.success(buildWorkData(descriptors))
+            return@coroutineScope Result.success(buildWorkData(descriptors.map { it.id }))
         }
     }
 
@@ -53,7 +53,8 @@ class DescriptorUpdateWorker(
         val descriptorsJson = inputData.getString(DATA_KEY_DESCRIPTORS)
         if (descriptorsJson != null) {
             try {
-                return json.decodeFromString<List<InstalledTestDescriptorModel>>(descriptorsJson)
+                val ids = json.decodeFromString<List<InstalledTestDescriptorModel.Id>>(descriptorsJson)
+                return testDescriptorRepository.selectByRunIds(ids).first()
             } catch (e: Exception) {
                 Logger.w("Could not start update worker: invalid configuration", e)
                 return null
@@ -83,7 +84,7 @@ class DescriptorUpdateWorker(
     }
 
     companion object {
-        fun buildWorkData(descriptors: List<InstalledTestDescriptorModel>): Data {
+        fun buildWorkData(descriptors: List<InstalledTestDescriptorModel.Id>): Data {
             return workDataOf(
                 DATA_KEY_DESCRIPTORS to Dependencies.buildJson().encodeToString(descriptors),
             )

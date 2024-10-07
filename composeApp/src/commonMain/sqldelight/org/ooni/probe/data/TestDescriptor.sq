@@ -73,5 +73,8 @@ UPDATE TestDescriptor SET auto_update = ? WHERE runId = ?;
 selectAll:
 SELECT * FROM TestDescriptor;
 
+selectByRunIds:
+SELECT * FROM TestDescriptor WHERE runId IN ?;
+
 deleteByRunId:
 DELETE FROM TestDescriptor WHERE runId = ?;
