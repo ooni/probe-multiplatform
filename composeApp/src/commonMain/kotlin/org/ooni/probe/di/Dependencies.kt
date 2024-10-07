@@ -43,6 +43,7 @@ import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapPreferences
 import org.ooni.probe.domain.BootstrapTestDescriptors
+import org.ooni.probe.domain.ClearStorage
 import org.ooni.probe.domain.DeleteAllResults
 import org.ooni.probe.domain.DeleteTestDescriptor
 import org.ooni.probe.domain.DownloadUrls
@@ -58,6 +59,7 @@ import org.ooni.probe.domain.GetFirstRun
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
 import org.ooni.probe.domain.GetSettings
+import org.ooni.probe.domain.GetStorageUsed
 import org.ooni.probe.domain.GetTestDescriptors
 import org.ooni.probe.domain.GetTestDescriptorsBySpec
 import org.ooni.probe.domain.ObserveAndConfigureAutoRun
@@ -99,7 +101,7 @@ class Dependencies(
     private val buildDataStore: () -> DataStore<Preferences>,
     private val isBatteryCharging: () -> Boolean,
     private val launchUrl: (String, Map<String, String>?) -> Unit,
-    private val startSingleRunInner: ((RunSpecification) -> Unit),
+    private val startSingleRunInner: (RunSpecification) -> Unit,
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
     private val openVpnSettings: () -> Boolean,
     val configureDescriptorAutoUpdate: suspend () -> Boolean,
@@ -130,6 +132,15 @@ class Dependencies(
     private val readFile: ReadFile by lazy { ReadFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val writeFile: WriteFile by lazy { WriteFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val deleteFiles: DeleteFiles by lazy { DeleteFilesOkio(FileSystem.SYSTEM, baseFileDir) }
+
+    private val getStorageUsed by lazy {
+        GetStorageUsed(
+            backgroundDispatcher = backgroundDispatcher,
+            baseFileDir = baseFileDir,
+            cacheDir = cacheDir,
+            fileSystem = FileSystem.SYSTEM,
+        )
+    }
 
     // Monitoring
 
@@ -233,7 +244,22 @@ class Dependencies(
             getMeasurementsByResultId = measurementRepository::listByResultId,
         )
     }
-    private val getSettings by lazy { GetSettings(preferenceRepository) }
+    private val clearStorage by lazy {
+        ClearStorage(
+            backgroundDispatcher = backgroundDispatcher,
+            deleteAllResults = deleteAllResults::invoke,
+            clearLogs = appLogger::clear,
+            getStorageUsed = getStorageUsed::update,
+        )
+    }
+
+    private val getSettings by lazy {
+        GetSettings(
+            preferencesRepository = preferenceRepository,
+            observeStorageUsed = getStorageUsed::observe,
+            clearStorage = clearStorage::invoke,
+        )
+    }
     private val getTestDescriptors by lazy {
         GetTestDescriptors(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,

@@ -62,11 +62,7 @@ class SetupDependencies(
     val dependencies: Dependencies = Dependencies(
         platformInfo = platformInfo,
         oonimkallBridge = bridge,
-        baseFileDir = NSSearchPathForDirectoriesInDomains(
-            NSDocumentDirectory,
-            NSUserDomainMask,
-            true,
-        ).first().toString(),
+        baseFileDir = baseFileDir(),
         cacheDir = NSTemporaryDirectory(),
         readAssetFile = ::readAssetFile,
         databaseDriverFactory = ::buildDatabaseDriver,
@@ -277,6 +273,14 @@ class SetupDependencies(
             Logger.e { "Cannot share file: $filePath" }
             return false
         }
+    }
+
+    private fun baseFileDir(): String {
+        return NSSearchPathForDirectoriesInDomains(
+            NSDocumentDirectory,
+            NSUserDomainMask,
+            true,
+        ).first().toString()
     }
 
     private fun filesDir(): String? {

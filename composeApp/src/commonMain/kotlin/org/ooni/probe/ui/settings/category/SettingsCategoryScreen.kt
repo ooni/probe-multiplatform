@@ -15,7 +15,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,7 +37,6 @@ import androidx.compose.ui.unit.sp
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.back
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
@@ -117,13 +115,7 @@ fun SettingsCategoryScreen(
                             RouteSettingsView(
                                 title = preferenceItem.title,
                                 supportingContent = preferenceItem.supportingContent,
-                                trailingContent = {
-                                    Button(
-                                        onClick = {},
-                                    ) {
-                                        Text(stringResource(Res.string.Settings_Title))
-                                    }
-                                },
+                                trailingContent = preferenceItem.trailingContent,
                             )
 
                         PreferenceItemType.ROUTE ->
