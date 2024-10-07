@@ -1,6 +1,5 @@
 package org.ooni.probe.ui.settings.category
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,7 +47,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.PreferenceItemType
 import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.ui.shared.CustomColors
+import org.ooni.probe.ui.shared.ColorDefaults
 
 @Composable
 fun SettingsCategoryScreen(
@@ -62,7 +61,6 @@ fun SettingsCategoryScreen(
             title = {
                 Text(stringResource(category.title))
             },
-            colors = CustomColors.topAppBar(),
             navigationIcon = {
                 IconButton(onClick = { onEvent(SettingsCategoryViewModel.Event.BackClicked) }) {
                     Icon(
@@ -71,6 +69,7 @@ fun SettingsCategoryScreen(
                     )
                 }
             },
+            colors = ColorDefaults.topAppBar(),
         )
         Box(
             modifier = Modifier
@@ -176,7 +175,7 @@ fun SwitchSettingsView(
         supportingContent = supportingContent,
         leadingContent = icon?.let {
             {
-                Image(
+                Icon(
                     modifier = Modifier.height(24.dp).width(24.dp),
                     painter = painterResource(it),
                     contentDescription = stringResource(title),

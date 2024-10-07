@@ -64,7 +64,7 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.ui.shared.CustomColors
+import org.ooni.probe.ui.shared.ColorDefaults
 import org.ooni.probe.ui.shared.formatDataUsage
 
 @Composable
@@ -89,7 +89,7 @@ fun ResultsScreen(
                     }
                 }
             },
-            colors = CustomColors.topAppBar(),
+            colors = ColorDefaults.topAppBar(),
         )
 
         Surface(color = MaterialTheme.colorScheme.primaryContainer) {

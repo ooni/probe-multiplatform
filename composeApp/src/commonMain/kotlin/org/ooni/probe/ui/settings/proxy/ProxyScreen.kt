@@ -44,7 +44,7 @@ import ooniprobe.composeapp.generated.resources.back
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ProxyProtocol
 import org.ooni.probe.data.models.ProxyType
-import org.ooni.probe.ui.shared.CustomColors
+import org.ooni.probe.ui.shared.ColorDefaults
 
 @Composable
 fun ProxyScreen(
@@ -56,7 +56,6 @@ fun ProxyScreen(
             title = {
                 Text(stringResource(Res.string.Settings_Proxy_Enabled))
             },
-            colors = CustomColors.topAppBar(),
             navigationIcon = {
                 IconButton(onClick = {
                     onEvent(ProxyViewModel.Event.BackClicked)
@@ -67,6 +66,7 @@ fun ProxyScreen(
                     )
                 }
             },
+            colors = ColorDefaults.topAppBar(),
         )
         Column(Modifier.selectableGroup()) {
             ProxyType.entries.forEach { text ->

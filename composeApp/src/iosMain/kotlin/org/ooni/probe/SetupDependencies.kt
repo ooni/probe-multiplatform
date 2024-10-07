@@ -20,8 +20,8 @@ import org.ooni.probe.background.OperationsManager
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.FileSharing
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
