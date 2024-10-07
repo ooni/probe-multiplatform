@@ -6,10 +6,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import co.touchlab.kermit.Logger
-import kotlinx.cinterop.ObjCObjectVar
-import kotlinx.cinterop.getRawValue
-import kotlinx.cinterop.interpretCPointer
-import kotlinx.cinterop.nativeHeap.alloc
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
@@ -20,8 +16,8 @@ import org.ooni.probe.background.OperationsManager
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.FileSharing
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -32,7 +28,6 @@ import platform.BackgroundTasks.BGTaskScheduler
 import platform.Foundation.NSBundle
 import platform.Foundation.NSDate
 import platform.Foundation.NSDocumentDirectory
-import platform.Foundation.NSError
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSLocale
 import platform.Foundation.NSLocaleLanguageDirectionRightToLeft
@@ -222,15 +217,14 @@ class SetupDependencies(
         scheduleAutorun(params)
     }
 
-    fun scheduleAutorun(params: AutoRunParameters.Enabled? = null) {
-        val error = interpretCPointer<ObjCObjectVar<NSError?>>(alloc(1, 1).rawPtr)
-        BGTaskScheduler.sharedScheduler.submitTaskRequest(
+    fun scheduleAutorun(params: AutoRunParameters.Enabled? = null): Boolean {
+        return BGTaskScheduler.sharedScheduler.submitTaskRequest(
             taskRequest = BGProcessingTaskRequest(OrganizationConfig.autorunTaskId).apply {
                 earliestBeginDate = NSDate().dateByAddingTimeInterval(60.0 * 60.0)
                 params?.wifiOnly?.let { requiresNetworkConnectivity = it }
                 params?.onlyWhileCharging?.let { requiresExternalPower = it }
             },
-            error = error,
+            error = null,
         )
     }
 
@@ -249,18 +243,12 @@ class SetupDependencies(
 
     private fun configureDescriptorAutoUpdate(): Boolean {
         Logger.d("Configuring descriptor auto update")
-        val error = interpretCPointer<ObjCObjectVar<NSError?>>(alloc(1, 1).rawPtr)
-        BGTaskScheduler.sharedScheduler.submitTaskRequest(
+        return BGTaskScheduler.sharedScheduler.submitTaskRequest(
             BGProcessingTaskRequest(OrganizationConfig.updateDescriptorTaskId).apply {
                 earliestBeginDate = NSDate().dateByAddingTimeInterval(60.0 * 60.0 * 24.0)
             },
-            error,
+            error = null,
         )
-        error?.getRawValue()?.let {
-            Logger.e("Error configuring descriptor auto update: $it")
-            return false
-        }
-        return true
     }
 
     fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
