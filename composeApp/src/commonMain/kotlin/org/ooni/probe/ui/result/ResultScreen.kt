@@ -22,7 +22,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -58,6 +60,7 @@ import org.ooni.probe.ui.results.UploadResults
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.longFormat
 import org.ooni.probe.ui.shared.shortFormat
+import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
 fun ResultScreen(
@@ -66,6 +69,7 @@ fun ResultScreen(
 ) {
     Column {
         val descriptorColor = state.result?.descriptor?.color ?: MaterialTheme.colorScheme.primary
+        val onDescriptorColor = LocalCustomColors.current.onDescriptor
         TopAppBar(
             title = {
                 Text(state.result?.descriptor?.title?.invoke().orEmpty())
@@ -79,15 +83,22 @@ fun ResultScreen(
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                titleContentColor = descriptorColor,
-                navigationIconContentColor = descriptorColor,
-                actionIconContentColor = descriptorColor,
+                containerColor = descriptorColor,
+                scrolledContainerColor = descriptorColor,
+                navigationIconContentColor = onDescriptorColor,
+                titleContentColor = onDescriptorColor,
+                actionIconContentColor = onDescriptorColor,
             ),
         )
 
         if (state.result == null) return@Column
 
-        Summary(state.result)
+        Surface(
+            color = descriptorColor,
+            contentColor = onDescriptorColor,
+        ) {
+            Summary(state.result)
+        }
 
         if (state.result.anyMeasurementMissingUpload) {
             UploadResults(onUploadClick = { onEvent(ResultViewModel.Event.UploadClicked) })
@@ -140,7 +151,7 @@ private fun Summary(item: ResultItem) {
                         .padding(bottom = 8.dp)
                         .alpha(if (pagerState.currentPage == index) 1f else 0.33f)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.onSurface)
+                        .background(LocalContentColor.current)
                         .size(12.dp),
                 )
             }

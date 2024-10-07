@@ -32,6 +32,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
+import org.ooni.probe.ui.shared.ColorDefaults
 
 @Composable
 fun ReviewUpdatesScreen(
@@ -59,6 +60,7 @@ fun ReviewUpdatesScreen(
                     )
                 }
             },
+            colors = ColorDefaults.topAppBar(),
         )
         Box(modifier = Modifier.fillMaxHeight().padding(16.dp)) {
             HorizontalPager(

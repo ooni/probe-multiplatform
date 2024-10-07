@@ -46,6 +46,7 @@ import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.LocalSnackbarHostState
+import org.ooni.probe.ui.shared.ColorDefaults
 import org.ooni.probe.ui.shared.CustomFilterChip
 import org.ooni.probe.ui.theme.LocalCustomColors
 
@@ -79,6 +80,7 @@ fun LogScreen(
                     )
                 }
             },
+            colors = ColorDefaults.topAppBar(),
         )
 
         Row(

@@ -46,7 +46,7 @@ fun ResultMeasurementCell(
                 if (measurement.isDone && !measurement.isMissingUpload) {
                     clickable { onClick(measurement.reportId!!, item.url?.url) }
                 } else {
-                    alpha(0.5f)
+                    alpha(0.66f)
                 }
             }
             .padding(16.dp),

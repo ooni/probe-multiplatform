@@ -47,9 +47,7 @@ fun App(
             arrayOf(LocalSnackbarHostState provides snackbarHostState, it)
         } ?: arrayOf(LocalSnackbarHostState provides snackbarHostState),
     ) {
-        AppTheme(
-            currentRoute = currentRoute,
-        ) {
+        AppTheme {
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background,

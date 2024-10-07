@@ -37,6 +37,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.toDescriptor
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.run.TestItem
+import org.ooni.probe.ui.shared.ColorDefaults
 import org.ooni.probe.ui.shared.NotificationMessages
 
 @Composable
@@ -48,22 +49,26 @@ fun AddDescriptorScreen(
         Column(
             modifier = Modifier.padding(start = 16.dp, end = 16.dp),
         ) {
-            TopAppBar(title = {
-                Text(stringResource(Res.string.AddDescriptor_Title))
-            }, actions = {
-                IconButton(
-                    onClick = {
-                        onEvent(
-                            AddDescriptorViewModel.Event.CancelClicked,
+            TopAppBar(
+                title = {
+                    Text(stringResource(Res.string.AddDescriptor_Title))
+                },
+                actions = {
+                    IconButton(
+                        onClick = {
+                            onEvent(
+                                AddDescriptorViewModel.Event.CancelClicked,
+                            )
+                        },
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Close,
+                            contentDescription = stringResource(Res.string.Modal_Cancel),
                         )
-                    },
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Close,
-                        contentDescription = stringResource(Res.string.Modal_Cancel),
-                    )
-                }
-            })
+                    }
+                },
+                colors = ColorDefaults.topAppBar(),
+            )
             Box(modifier = Modifier.padding(16.dp)) {
                 TestDescriptorLabel(descriptor.toDescriptor())
             }
@@ -147,9 +152,13 @@ fun AddDescriptorScreen(
             }
         }
     } ?: Column(
-        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
             CircularProgressIndicator()
             Text(stringResource(Res.string.LoadingScreen_Runv2_Message))
         }
