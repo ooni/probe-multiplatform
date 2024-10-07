@@ -9,7 +9,7 @@ object OrganizationConfig : OrganizationConfigInterface {
     override val ooniRunDashboardUrl = "https://run-v2.ooni.org"
     override val testDisplayMode = TestDisplayMode.WebsitesOnly
     override val autorunTaskId = "org.dw.probe.autorun-task"
-    override val updateDescriptorTaskId = "org.dw.probe.update-descriptor-task-task"
+    override val updateDescriptorTaskId = "org.dw.probe.update-descriptor-task"
     override val onboardingImages = OnboardingImages(
         image1 = Res.drawable.onboarding,
         image2 = Res.drawable.onboarding,

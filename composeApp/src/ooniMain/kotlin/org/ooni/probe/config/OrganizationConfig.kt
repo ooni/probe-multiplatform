@@ -10,7 +10,7 @@ object OrganizationConfig : OrganizationConfigInterface {
     override val ooniApiBaseUrl = "https://api.dev.ooni.io"
     override val testDisplayMode = TestDisplayMode.Regular
     override val autorunTaskId = "org.ooni.probe.autorun-task"
-    override val updateDescriptorTaskId = "org.ooni.probe.update-descriptor-task-task"
+    override val updateDescriptorTaskId = "org.ooni.probe.update-descriptor-task"
     override val onboardingImages = OnboardingImages(
         image1 = Res.drawable.onboarding1,
         image2 = Res.drawable.onboarding2,
