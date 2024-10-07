@@ -108,7 +108,6 @@ class Dependencies(
     val fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
     private val shareFile: (FileSharing) -> Boolean,
-    private val storageUsed: () -> Long,
 ) {
     // Common
 
@@ -136,7 +135,9 @@ class Dependencies(
 
     private val getStorageUsed by lazy {
         GetStorageUsed(
-            osStorageUsed = storageUsed,
+            baseFileDir = baseFileDir,
+            cacheDir = cacheDir,
+            fileSystem = FileSystem.SYSTEM,
         )
     }
 
@@ -247,16 +248,17 @@ class Dependencies(
             backgroundDispatcher = backgroundDispatcher,
             deleteAllResults = deleteAllResults::invoke,
             clearLogs = appLogger::clear,
-            getStorageUsed = getStorageUsed::invoke,
+            getStorageUsed = getStorageUsed::update,
+            deleteFiles = deleteFiles::invoke,
         )
     }
 
     private val getSettings by lazy {
         GetSettings(
             preferencesRepository = preferenceRepository,
-            observeStorageUsed = getStorageUsed.storageUsed,
+            observeStorageUsed = getStorageUsed::observe,
             clearStorage = clearStorage::invoke,
-            getStorageUsed = getStorageUsed::invoke,
+            getStorageUsed = getStorageUsed::update,
         )
     }
     private val getTestDescriptors by lazy {

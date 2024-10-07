@@ -14,8 +14,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import okio.FileSystem
-import okio.Path.Companion.toPath
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.probe.background.OperationsManager
@@ -84,7 +82,6 @@ class SetupDependencies(
         fetchDescriptorUpdate = ::fetchDescriptorUpdate,
         localeDirection = ::localeDirection,
         shareFile = ::shareFile,
-        storageUsed = ::storageUsed,
     )
 
     private val operationsManager = OperationsManager(dependencies)
@@ -312,15 +309,5 @@ class SetupDependencies(
 
     private fun findCurrentViewController(): UIViewController? {
         return UIApplication.sharedApplication.keyWindow?.rootViewController
-    }
-
-    private fun storageUsed(): Long {
-        val fileSystem = FileSystem.SYSTEM
-
-        return baseFileDir().let { filesDir ->
-            fileSystem.listRecursively(filesDir.toPath())
-                .filter { fileSystem.metadata(it).isRegularFile }
-                .sumOf { (fileSystem.metadata(it).size ?: 0) }
-        }
     }
 }

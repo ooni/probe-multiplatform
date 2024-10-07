@@ -78,7 +78,7 @@ class AppLogger(
     }
 
     companion object {
-        private val FILE_PATH = "Log/logger.txt".toPath()
+        val FILE_PATH = "Log/logger.txt".toPath()
         private const val MAX_LINES = 1000
     }
 }

@@ -56,6 +56,7 @@ import org.ooni.probe.data.models.SettingsItem
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.ui.settings.category.SettingsDescription
+import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.shortFormat
 import kotlin.time.Duration.Companion.seconds
 
@@ -63,7 +64,7 @@ class GetSettings(
     private val preferencesRepository: PreferenceRepository,
     private val clearStorage: () -> Unit,
     val getStorageUsed: () -> Unit,
-    val observeStorageUsed: Flow<Long>,
+    val observeStorageUsed: () -> Flow<Long>,
 ) {
     operator fun invoke(): Flow<List<SettingsCategoryItem>> {
         getStorageUsed()
@@ -75,7 +76,7 @@ class GetSettings(
                     SettingsKey.MAX_RUNTIME,
                 ),
             ),
-            observeStorageUsed,
+            observeStorageUsed(),
         ) { preferences, storageUsed ->
             val enabledCategoriesCount =
                 WebConnectivityCategory.entries.count { preferences[it.settingsKey] == true }
@@ -223,7 +224,7 @@ class GetSettings(
                         key = SettingsKey.STORAGE_SIZE,
                         type = PreferenceItemType.BUTTON,
                         supportingContent = {
-                            Text("${storageUsed / 1024f / 1024f}  MB")
+                            Text(storageUsed.formatDataUsage())
                         },
                         trailingContent = {
                             var showDialog by remember { mutableStateOf(false) }
@@ -236,6 +237,7 @@ class GetSettings(
                                         Button(
                                             colors = ButtonDefaults.buttonColors(
                                                 containerColor = MaterialTheme.colorScheme.error,
+                                                contentColor = MaterialTheme.colorScheme.onError,
                                             ),
                                             onClick = {
                                                 clearStorage()
