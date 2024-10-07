@@ -135,6 +135,7 @@ class Dependencies(
 
     private val getStorageUsed by lazy {
         GetStorageUsed(
+            backgroundDispatcher = backgroundDispatcher,
             baseFileDir = baseFileDir,
             cacheDir = cacheDir,
             fileSystem = FileSystem.SYSTEM,
@@ -249,7 +250,6 @@ class Dependencies(
             deleteAllResults = deleteAllResults::invoke,
             clearLogs = appLogger::clear,
             getStorageUsed = getStorageUsed::update,
-            deleteFiles = deleteFiles::invoke,
         )
     }
 
@@ -258,7 +258,6 @@ class Dependencies(
             preferencesRepository = preferenceRepository,
             observeStorageUsed = getStorageUsed::observe,
             clearStorage = clearStorage::invoke,
-            getStorageUsed = getStorageUsed::update,
         )
     }
     private val getTestDescriptors by lazy {

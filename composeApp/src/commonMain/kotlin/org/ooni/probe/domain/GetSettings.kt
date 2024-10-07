@@ -9,9 +9,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
@@ -62,12 +64,10 @@ import kotlin.time.Duration.Companion.seconds
 
 class GetSettings(
     private val preferencesRepository: PreferenceRepository,
-    private val clearStorage: () -> Unit,
-    val getStorageUsed: () -> Unit,
+    private val clearStorage: suspend () -> Unit,
     val observeStorageUsed: () -> Flow<Long>,
 ) {
     operator fun invoke(): Flow<List<SettingsCategoryItem>> {
-        getStorageUsed()
         return combine(
             preferencesRepository.allSettings(
                 WebConnectivityCategory.entries.mapNotNull { it.settingsKey } + listOf(
@@ -228,6 +228,7 @@ class GetSettings(
                         },
                         trailingContent = {
                             var showDialog by remember { mutableStateOf(false) }
+                            val coroutine = rememberCoroutineScope()
 
                             if (showDialog) {
                                 AlertDialog(
@@ -240,7 +241,10 @@ class GetSettings(
                                                 contentColor = MaterialTheme.colorScheme.onError,
                                             ),
                                             onClick = {
-                                                clearStorage()
+                                                coroutine.launch {
+                                                    clearStorage()
+                                                    showDialog = false
+                                                }
                                                 showDialog = false
                                             },
                                         ) {
