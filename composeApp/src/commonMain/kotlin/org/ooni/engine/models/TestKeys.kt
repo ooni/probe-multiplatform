@@ -7,12 +7,12 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.decodeFromJsonElement
+import org.ooni.probe.di.Dependencies
 
 @Serializable
 data class TestKeys(
@@ -112,7 +112,8 @@ object TamperingSerializer : KSerializer<TestKeys.Tampering> {
                 TestKeys.Tampering(element.booleanOrNull == true)
 
             is JsonObject -> {
-                val keys = Json.decodeFromJsonElement<TestKeys.TamperingKeys>(element)
+                val keys = Dependencies.buildJson()
+                    .decodeFromJsonElement<TestKeys.TamperingKeys>(element)
                 TestKeys.Tampering(keys.value)
             }
 
