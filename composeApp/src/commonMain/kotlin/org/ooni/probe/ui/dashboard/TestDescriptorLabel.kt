@@ -19,10 +19,13 @@ import org.jetbrains.compose.resources.painterResource
 import org.ooni.probe.data.models.Descriptor
 
 @Composable
-fun TestDescriptorLabel(descriptor: Descriptor) {
+fun TestDescriptorLabel(
+    descriptor: Descriptor,
+    modifier: Modifier = Modifier,
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(bottom = 2.dp),
+        modifier = modifier.padding(bottom = 2.dp),
     ) {
         Icon(
             painter = painterResource(descriptor.icon ?: Res.drawable.ooni_empty_state),

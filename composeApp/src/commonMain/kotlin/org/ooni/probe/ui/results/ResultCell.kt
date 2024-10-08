@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
@@ -36,8 +37,10 @@ fun ResultCell(
     item: ResultListItem,
     onResultClick: () -> Unit,
 ) {
+    val hasError = item.result.isDone && item.measurementsCount == 0L
+
     Surface(
-        color = if (item.result.isViewed) {
+        color = if (item.result.isViewed || hasError) {
             MaterialTheme.colorScheme.surface
         } else {
             MaterialTheme.colorScheme.surfaceVariant
@@ -47,13 +50,16 @@ fun ResultCell(
             verticalAlignment = Alignment.Bottom,
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { onResultClick() }
+                .run { if (!hasError) clickable { onResultClick() } else this }
                 .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
             Column(
                 modifier = Modifier.weight(0.66f),
             ) {
-                TestDescriptorLabel(item.descriptor)
+                TestDescriptorLabel(
+                    item.descriptor,
+                    modifier = if (hasError) Modifier.alpha(0.5f) else Modifier,
+                )
 
                 item.network?.networkName?.let { networkName ->
                     Text(
@@ -64,13 +70,21 @@ fun ResultCell(
                     )
                 }
 
-                val asn = item.network?.asn ?: stringResource(Res.string.TestResults_UnknownASN)
-                Text(
-                    "($asn)",
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
+                if (hasError) {
+                    Text(
+                        item.result.failureMessage.orEmpty().lines().first(),
+                        maxLines = 2,
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                } else {
+                    val asn = item.network?.asn ?: stringResource(Res.string.TestResults_UnknownASN)
+                    Text(
+                        "($asn)",
+                        style = MaterialTheme.typography.titleMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
 
                 Text(
                     item.result.startTime.relativeDateTime(),
@@ -97,15 +111,17 @@ fun ResultCell(
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 2.dp),
                 )
-                Text(
-                    pluralStringResource(
-                        Res.plurals.measurements_count,
-                        item.measurementsCount.toInt(),
-                        item.measurementsCount,
-                    ),
-                    style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.padding(bottom = 2.dp),
-                )
+                if (!hasError) {
+                    Text(
+                        pluralStringResource(
+                            Res.plurals.measurements_count,
+                            item.measurementsCount.toInt(),
+                            item.measurementsCount,
+                        ),
+                        style = MaterialTheme.typography.labelLarge,
+                        modifier = Modifier.padding(bottom = 2.dp),
+                    )
+                }
                 if (!item.allMeasurementsUploaded) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
