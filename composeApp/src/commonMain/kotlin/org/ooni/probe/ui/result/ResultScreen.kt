@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -51,6 +52,7 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_
 import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_upload
+import ooniprobe.composeapp.generated.resources.ooni_bw
 import ooniprobe.composeapp.generated.resources.vpn
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -156,6 +158,12 @@ private fun Summary(item: ResultItem) {
                 )
             }
         }
+        Icon(
+            painterResource(Res.drawable.ooni_bw),
+            contentDescription = null,
+            modifier = Modifier.align(Alignment.BottomEnd)
+                .offset(x = 18.dp, y = 18.dp),
+        )
     }
 }
 

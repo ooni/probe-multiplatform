@@ -23,7 +23,6 @@ import ooniprobe.composeapp.generated.resources.ic_measurement_ok
 import ooniprobe.composeapp.generated.resources.measurement_anomaly
 import ooniprobe.composeapp.generated.resources.measurement_failed
 import ooniprobe.composeapp.generated.resources.measurement_ok
-import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
@@ -51,19 +50,21 @@ fun ResultMeasurementCell(
             }
             .padding(16.dp),
     ) {
-        Icon(
-            painterResource(
-                if (test == TestType.WebConnectivity && item.url != null) {
-                    item.url.category.icon
-                } else {
-                    test.iconRes ?: Res.drawable.ooni_empty_state
-                },
-            ),
-            contentDescription = item.url?.category?.title?.let { stringResource(it) },
-            modifier = Modifier
-                .padding(end = 16.dp)
-                .size(24.dp),
-        )
+        val iconResource = when {
+            test == TestType.WebConnectivity && item.url != null -> item.url.category.icon
+            else -> test.iconRes
+        }
+
+        val contentDescription = item.url?.category?.title?.let { stringResource(it) } ?: ""
+        iconResource?.let { resource ->
+            Icon(
+                painterResource(resource),
+                contentDescription = contentDescription,
+                modifier = Modifier
+                    .padding(end = 16.dp)
+                    .size(24.dp),
+            )
+        }
         Text(
             text = if (test == TestType.WebConnectivity && item.url != null) {
                 item.url.url
