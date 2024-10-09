@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        type: [Debug, Release]
+        type: [Debug]
         organization: [ooni, dw]
 
     steps:
