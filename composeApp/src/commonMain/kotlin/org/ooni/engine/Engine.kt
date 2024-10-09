@@ -1,5 +1,6 @@
 package org.ooni.engine
 
+import androidx.annotation.VisibleForTesting
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
@@ -24,7 +25,8 @@ import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.shared.value
 
 class Engine(
-    private val bridge: OonimkallBridge,
+    @VisibleForTesting
+    var bridge: OonimkallBridge,
     private val json: Json,
     private val baseFilePath: String,
     private val cacheDir: String,

@@ -161,7 +161,8 @@ class Dependencies(
 
     private val taskEventMapper by lazy { TaskEventMapper(networkTypeFinder, json) }
 
-    private val engine by lazy {
+    @VisibleForTesting
+    val engine by lazy {
         Engine(
             bridge = oonimkallBridge,
             json = json,
@@ -263,7 +264,9 @@ class Dependencies(
             clearStorage = clearStorage::invoke,
         )
     }
-    private val getTestDescriptors by lazy {
+
+    @VisibleForTesting
+    val getTestDescriptors by lazy {
         GetTestDescriptors(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
             listInstalledTestDescriptors = testDescriptorRepository::list,

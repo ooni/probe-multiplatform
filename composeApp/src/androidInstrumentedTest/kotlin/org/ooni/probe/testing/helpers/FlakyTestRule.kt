@@ -1,4 +1,4 @@
-package org.ooni.probe.test.helpers
+package org.ooni.probe.testing.helpers
 
 import co.touchlab.kermit.Logger
 import org.junit.rules.TestRule
