@@ -34,12 +34,12 @@ class ProxyViewModel(
             ),
         ).onEach { result ->
             _state.update {
-                val proxyProtocol = (result[SettingsKey.PROXY_PROTOCOL] as String?)?.let { protocol ->
-                    ProxyProtocol.valueOf(protocol)
-                } ?: ProxyProtocol.NONE
+                val proxyProtocol = ProxyProtocol.fromValue(
+                    result[SettingsKey.PROXY_PROTOCOL] as? String,
+                )
                 it.copy(
-                    proxyHost = result[SettingsKey.PROXY_HOSTNAME] as String?,
-                    proxyPort = result[SettingsKey.PROXY_PORT] as Int?,
+                    proxyHost = result[SettingsKey.PROXY_HOSTNAME] as? String,
+                    proxyPort = result[SettingsKey.PROXY_PORT] as? Int,
                     proxyProtocol = proxyProtocol,
                     proxyType = proxyProtocol.proxyType(),
                 )
@@ -49,7 +49,7 @@ class ProxyViewModel(
             when (event) {
                 is Event.BackClicked -> {
                     state.value.run {
-                        preferenceManager.setValueByKey(key = SettingsKey.PROXY_PROTOCOL, value = proxyProtocol.name)
+                        preferenceManager.setValueByKey(key = SettingsKey.PROXY_PROTOCOL, value = proxyProtocol.value)
 
                         if (isValidDomainNameOrIp(proxyHost ?: "")) {
                             preferenceManager.setValueByKey(key = SettingsKey.PROXY_HOSTNAME, value = proxyHost)
@@ -103,9 +103,9 @@ class ProxyViewModel(
                 is Event.ProtocolTypeSelected -> {
                     _state.update { it.copy(proxyType = event.protocol) }
                     val protocolName = when (event.protocol) {
-                        ProxyType.NONE -> ProxyProtocol.NONE.name
-                        ProxyType.PSIPHON -> ProxyProtocol.PSIPHON.name
-                        ProxyType.CUSTOM -> state.value.proxyProtocol.name
+                        ProxyType.NONE -> ProxyProtocol.NONE.value
+                        ProxyType.PSIPHON -> ProxyProtocol.PSIPHON.value
+                        ProxyType.CUSTOM -> state.value.proxyProtocol.value
                     }
                     preferenceManager.setValueByKey(key = SettingsKey.PROXY_PROTOCOL, value = protocolName)
                     if (event.protocol != ProxyType.CUSTOM) {

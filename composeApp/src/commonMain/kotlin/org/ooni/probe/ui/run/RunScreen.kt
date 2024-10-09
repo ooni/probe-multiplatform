@@ -35,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_Description
@@ -126,7 +127,8 @@ fun RunScreen(
                         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding() +
                             64.dp,
                 ),
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize()
+                    .testTag("Run-DescriptorsList"),
             ) {
                 val allSectionsHaveValues = state.list.entries.all { it.value.any() }
                 state.list.forEach { (type, descriptorsMap) ->

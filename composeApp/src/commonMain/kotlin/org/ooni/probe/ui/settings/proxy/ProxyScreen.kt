@@ -142,7 +142,7 @@ fun ProxyScreen(
                 )
                 DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                     protocols.forEach { protocol ->
-                        DropdownMenuItem(text = { Text(protocol.protocol) }, onClick = {
+                        DropdownMenuItem(text = { Text(protocol.value) }, onClick = {
                             expanded = false
                             onEvent(ProxyViewModel.Event.ProtocolChanged(protocol))
                         })

@@ -133,6 +133,9 @@ kotlin {
             implementation(kotlin("test-junit"))
             implementation(libs.bundles.android.test)
         }
+        getByName("androidInstrumentedTest").dependencies {
+            implementation(libs.bundles.android.instrumented.test)
+        }
         all {
             languageSettings {
                 optIn("kotlin.ExperimentalStdlibApi")
@@ -173,6 +176,7 @@ android {
             config.supportedLanguages.joinToString(separator = ","),
         )
         resourceConfigurations += config.supportedLanguages
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
         resources {

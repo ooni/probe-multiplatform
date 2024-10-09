@@ -10,6 +10,7 @@ compose-plugin = "1.6.11"
 kotlin = "2.0.20"
 sqldelight = "2.0.2"
 dataStoreVersion = "1.1.1"
+junitKtx = "1.2.1"
 
 [plugins]
 
@@ -67,8 +68,15 @@ moko-permissions = { module ="dev.icerock.moko:permissions-compose", version = "
 # Crash Reporting
 sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.9.0" }
 
-# Testing
+# Android Testing
 android-test-core = { module = "androidx.test:core", version = "1.6.1" }
+
+# Android Instrumented Testing
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+android-test-runner = { module = "androidx.test:runner", version = "1.6.2" }
+android-test-rules = { module = "androidx.test:rules", version = "1.6.1" }
+androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.7.3" }
+androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.6.1" }
 
 [bundles]
 
@@ -100,4 +108,11 @@ android = [
 ]
 android-test = [
     "android-test-core"
+]
+android-instrumented-test = [
+    "androidx-junit-ktx",
+    "android-test-runner",
+    "android-test-rules",
+    "androidx-compose-test-android",
+    "androidx-espresso-web",
 ]

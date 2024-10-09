@@ -18,8 +18,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
 import com.multiplatform.webview.web.LoadingState
 import com.multiplatform.webview.web.WebView
 import com.multiplatform.webview.web.rememberWebViewNavigator
@@ -40,6 +42,7 @@ fun MeasurementScreen(
 ) {
     val inputSuffix = input?.let { "?input=$it" } ?: ""
     val url = "https://explorer.ooni.org/measurement/${reportId.value}$inputSuffix"
+    LaunchedEffect(url) { Logger.i("URL: $url") }
 
     val webViewState = rememberWebViewState(url)
     val webViewNavigator = rememberWebViewNavigator()

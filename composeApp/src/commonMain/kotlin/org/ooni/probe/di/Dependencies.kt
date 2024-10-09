@@ -98,7 +98,8 @@ class Dependencies(
     private val readAssetFile: (String) -> String,
     private val databaseDriverFactory: () -> SqlDriver,
     private val networkTypeFinder: NetworkTypeFinder,
-    private val buildDataStore: () -> DataStore<Preferences>,
+    @VisibleForTesting
+    val buildDataStore: () -> DataStore<Preferences>,
     private val isBatteryCharging: () -> Boolean,
     private val launchUrl: (String, Map<String, String>?) -> Unit,
     private val startSingleRunInner: (RunSpecification) -> Unit,
@@ -122,7 +123,9 @@ class Dependencies(
         MeasurementRepository(database, backgroundDispatcher)
     }
     private val networkRepository by lazy { NetworkRepository(database, backgroundDispatcher) }
-    private val preferenceRepository by lazy { PreferenceRepository(buildDataStore()) }
+
+    @VisibleForTesting
+    val preferenceRepository by lazy { PreferenceRepository(buildDataStore()) }
     private val resultRepository by lazy { ResultRepository(database, backgroundDispatcher) }
     val testDescriptorRepository by lazy {
         TestDescriptorRepository(database, json, backgroundDispatcher)
