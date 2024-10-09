@@ -237,7 +237,7 @@ class RunNetTest(
                         it.copy(
                             failureMessage =
                                 if (it.failureMessage != null) {
-                                    "${it.failureMessage}\n\n$message"
+                                    "${it.failureMessage}\n$message"
                                 } else {
                                     message
                                 },
