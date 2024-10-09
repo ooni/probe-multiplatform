@@ -98,17 +98,26 @@ jobs:
           path: composeApp/build/reports/tests/iosSimulatorArm64Test/
 
   instrumentation-tests:
-    name: Common Tests
+    name: Instrumentation Tests
     runs-on: macos-latest
     needs: [ build ]
-
+    strategy:
+      matrix:
+        organization: [ ooni, dw ]
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: Run common tests
+      - uses: actions/checkout@v4
+
+      - name: Download app APK
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.organization }}-Debug-APK
+
+      - name: Run build instrumentation tests
         run: ./gradlew copyBrandingToCommonResources assembleDebugAndroidTest
 
       - name: Set up Cloud SDK
@@ -130,7 +139,7 @@ jobs:
   distribute:
     name: Firebase App Distribution
     runs-on: ubuntu-latest
-    needs: [ common-tests ]
+    needs: [ common-tests , instrumentation-tests]
     strategy:
       matrix:
         organization: [ ooni, dw ]
