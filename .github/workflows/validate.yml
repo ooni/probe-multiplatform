@@ -97,6 +97,36 @@ jobs:
           name: android-lint-report
           path: composeApp/build/reports/tests/iosSimulatorArm64Test/
 
+  instrumentation-tests:
+    name: Common Tests
+    runs-on: macos-latest
+    needs: [ build ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Run common tests
+        run: ./gradlew copyBrandingToCommonResources assembleDebugAndroidTest
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: '>= 495.0.0'
+
+      - name: Firebase Test Lab
+        env:
+          INPUT_SERVICE_CREDENTIALS_FILE_CONTENT: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+          GOOGLE_APPLICATION_CREDENTIALS: service_credentials_content.json
+          INPUT_FILE: composeApp-debug.apk
+        run: |
+          cat <<< "${INPUT_SERVICE_CREDENTIALS_FILE_CONTENT}" > service_credentials_content.json
+          gcloud auth activate-service-account --key-file=service_credentials_content.json
+          gcloud firebase test android run  --type instrumentation --app $INPUT_FILE  --test composeApp/build/outputs/apk/androidTest/debug/composeApp-debug-androidTest.apk --device model=bluejay,version=32,locale=en,orientation=portrait --device model=Pixel3,version=30,locale=fr,orientation=landscape --timeout 180s --client-details matrixLabel="Example matrix label" --project ooniprobe-android
+
+
   distribute:
     name: Firebase App Distribution
     runs-on: ubuntu-latest
