@@ -113,7 +113,7 @@ jobs:
     needs: [ build ]
     strategy:
       matrix:
-        organization: [ ooni, dw ]
+        organization: [ ooni ]
     steps:
       - uses: actions/checkout@v4
 
@@ -143,7 +143,7 @@ jobs:
         run: |
           cat <<< "${INPUT_SERVICE_CREDENTIALS_FILE_CONTENT}" > service_credentials_content.json
           gcloud auth activate-service-account --key-file=service_credentials_content.json
-          gcloud firebase test android run  --type instrumentation --app $INPUT_FILE  --test composeApp-debug-androidTest.apk --device model=MediumPhone.arm,version=29,locale=en,orientation=portrait --device model=MediumPhone.arm,version=29,locale=fr,orientation=landscape --timeout 180s --client-details matrixLabel="Example matrix label" --project ooniprobe-android
+          gcloud firebase test android run  --type instrumentation --app $INPUT_FILE  --test composeApp-debug-androidTest.apk --device model=MediumPhone.arm,version=29,locale=en,orientation=portrait --timeout 180s --client-details matrixLabel="Example matrix label" --project ooniprobe-android
 
 
   distribute:

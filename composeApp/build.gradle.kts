@@ -177,6 +177,7 @@ android {
         )
         resourceConfigurations += config.supportedLanguages
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
     }
     packaging {
         resources {
@@ -213,6 +214,10 @@ android {
     )
     dependencies {
         debugImplementation(compose.uiTooling)
+        androidTestUtil(libs.android.orchestrator)
+    }
+    testOptions {
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
     }
     lint {
         warningsAsErrors = true
