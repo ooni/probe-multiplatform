@@ -17,6 +17,7 @@ class FlakyTestRule(
             override fun evaluate() {
                 var throwable: Throwable? = null
                 repeat(attempts) {
+                    Logger.i("TEST FLAKY ATTEMPT $it")
                     try {
                         statement.evaluate()
                         return@evaluate
@@ -24,6 +25,7 @@ class FlakyTestRule(
                         Logger.e("Test failed ", t)
                         throwable = t
                     }
+                    Logger.i("TEST FLAKY ATTEMPT $it DONE")
                 }
                 throw throwable!!
             }

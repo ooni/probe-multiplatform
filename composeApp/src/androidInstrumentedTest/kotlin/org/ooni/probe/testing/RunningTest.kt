@@ -15,7 +15,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.testing.helpers.CleanTestRule
 import org.ooni.probe.testing.helpers.FlakyTestRule
 import org.ooni.probe.testing.helpers.checkLinkInsideWebView
 import org.ooni.probe.testing.helpers.checkSummaryInsideWebView
@@ -28,9 +27,6 @@ import kotlin.time.Duration.Companion.minutes
 
 @RunWith(AndroidJUnit4::class)
 class RunningTest {
-    @get:Rule
-    val clean = CleanTestRule()
-
     @get:Rule
     val flakyTestRule = FlakyTestRule()
 

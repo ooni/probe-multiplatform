@@ -24,7 +24,6 @@ import org.junit.runner.RunWith
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TestOonimkallBridge
 import org.ooni.probe.MainActivity
-import org.ooni.probe.testing.helpers.CleanTestRule
 import org.ooni.probe.testing.helpers.FlakyTestRule
 import org.ooni.probe.testing.helpers.clickOnText
 import org.ooni.probe.testing.helpers.context
@@ -37,8 +36,6 @@ import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 class DescriptorsTest {
-    @get:Rule
-    val clean = CleanTestRule()
 
     @get:Rule
     val flakyTestRule = FlakyTestRule()

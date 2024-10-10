@@ -14,7 +14,6 @@ import org.junit.runner.RunWith
 import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.data.models.ProxyProtocol
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.testing.helpers.CleanTestRule
 import org.ooni.probe.testing.helpers.FlakyTestRule
 import org.ooni.probe.testing.helpers.clickOnContentDescription
 import org.ooni.probe.testing.helpers.clickOnText
@@ -25,9 +24,6 @@ import org.ooni.probe.testing.helpers.wait
 
 @RunWith(AndroidJUnit4::class)
 class SettingsTest {
-    @get:Rule
-    val clean = CleanTestRule()
-
     @get:Rule
     val flakyTestRule = FlakyTestRule()
 
