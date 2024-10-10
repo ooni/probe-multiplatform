@@ -1,6 +1,7 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -22,12 +23,7 @@ val appConfig = mapOf(
         folder = "dwMain",
         supportsOoniRun = false,
         supportedLanguages = listOf(
-            "de",
-            "es",
-            "fr",
-            "pt-rBR",
-            "ru",
-            "tr",
+            "de", "es", "fr", "pt-rBR", "ru", "tr",
         ),
     ),
     "ooni" to AppConfig(
@@ -36,30 +32,8 @@ val appConfig = mapOf(
         folder = "ooniMain",
         supportsOoniRun = true,
         supportedLanguages = listOf(
-            "ar",
-            "ca",
-            "de",
-            "el",
-            "es",
-            "fa",
-            "fr",
-            "hi",
-            "id",
-            "is",
-            "it",
-            "my",
-            "nl",
-            "pt-rBR",
-            "ro",
-            "ru",
-            "sk",
-            "sq",
-            "sw",
-            "th",
-            "tr",
-            "vi",
-            "zh-rCN",
-            "zh-rTW",
+            "ar", "ca", "de", "el", "es", "fa", "fr", "hi", "id", "is", "it", "my", "nl", "pt-rBR",
+            "ro", "ru", "sk", "sq", "sw", "th", "tr", "vi", "zh-rCN", "zh-rTW",
         ),
     ),
 )
@@ -74,6 +48,12 @@ kotlin {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
         }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant {
+            // This makes instrumented tests depend on commonTest and androidUnitTest sources
+            sourceSetTree.set(KotlinSourceSetTree.test)
+        }
+        instrumentedTestVariant { }
     }
 
     iosX64()
@@ -106,20 +86,19 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.bundles.android)
         }
-        commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(libs.bundles.kotlin)
-            implementation(libs.bundles.ui)
-            implementation(libs.bundles.tooling)
-
-            getByName("commonMain") {
-                kotlin.srcDir("src/${config.folder}/kotlin")
+        commonMain {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material3)
+                implementation(compose.ui)
+                implementation(compose.components.resources)
+                implementation(compose.components.uiToolingPreview)
+                implementation(libs.bundles.kotlin)
+                implementation(libs.bundles.ui)
+                implementation(libs.bundles.tooling)
             }
+            kotlin.srcDir("src/${config.folder}/kotlin")
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native)
@@ -129,11 +108,11 @@ kotlin {
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.uiTest)
         }
-        getByName("androidUnitTest").dependencies {
+        androidUnitTest.dependencies {
             implementation(kotlin("test-junit"))
             implementation(libs.bundles.android.test)
         }
-        getByName("androidInstrumentedTest").dependencies {
+        androidInstrumentedTest.dependencies {
             implementation(libs.bundles.android.instrumented.test)
         }
         all {

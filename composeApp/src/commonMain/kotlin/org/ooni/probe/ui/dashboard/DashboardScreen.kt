@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -119,7 +120,8 @@ fun DashboardScreen(
             }
 
             LazyColumn(
-                modifier = Modifier.padding(top = 24.dp),
+                modifier = Modifier.padding(top = 24.dp)
+                    .testTag("Dashboard-List"),
                 contentPadding = PaddingValues(bottom = 16.dp),
             ) {
                 val allSectionsHaveValues = state.descriptors.entries.all { it.value.any() }

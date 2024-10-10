@@ -1,4 +1,4 @@
-package org.ooni.probe.test.helpers
+package org.ooni.probe.testing.helpers
 
 import okio.FileSystem
 import okio.Path.Companion.toPath

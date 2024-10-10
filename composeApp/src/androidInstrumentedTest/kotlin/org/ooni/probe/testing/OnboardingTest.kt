@@ -1,4 +1,4 @@
-package org.ooni.probe.test
+package org.ooni.probe.testing
 
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
@@ -13,14 +13,14 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.test.helpers.CleanTestRule
-import org.ooni.probe.test.helpers.FlakyTestRule
-import org.ooni.probe.test.helpers.clickOnTag
-import org.ooni.probe.test.helpers.clickOnText
-import org.ooni.probe.test.helpers.dependencies
-import org.ooni.probe.test.helpers.preferences
-import org.ooni.probe.test.helpers.start
-import org.ooni.probe.test.helpers.wait
+import org.ooni.probe.testing.helpers.CleanTestRule
+import org.ooni.probe.testing.helpers.FlakyTestRule
+import org.ooni.probe.testing.helpers.clickOnTag
+import org.ooni.probe.testing.helpers.clickOnText
+import org.ooni.probe.testing.helpers.dependencies
+import org.ooni.probe.testing.helpers.preferences
+import org.ooni.probe.testing.helpers.start
+import org.ooni.probe.testing.helpers.wait
 
 @RunWith(AndroidJUnit4::class)
 class OnboardingTest {

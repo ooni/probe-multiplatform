@@ -46,9 +46,7 @@ fun AddDescriptorScreen(
     onEvent: (AddDescriptorViewModel.Event) -> Unit,
 ) {
     state.descriptor?.let { descriptor ->
-        Column(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-        ) {
+        Column {
             TopAppBar(
                 title = {
                     Text(stringResource(Res.string.AddDescriptor_Title))
@@ -69,89 +67,108 @@ fun AddDescriptorScreen(
                 },
                 colors = ColorDefaults.topAppBar(),
             )
-            Box(modifier = Modifier.padding(16.dp)) {
-                TestDescriptorLabel(descriptor.toDescriptor())
-            }
-            descriptor.toDescriptor().shortDescription()?.let { shortDescription ->
+
+            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+                Box(modifier = Modifier.padding(16.dp)) {
+                    TestDescriptorLabel(descriptor.toDescriptor())
+                }
+                descriptor.toDescriptor().shortDescription()?.let { shortDescription ->
+                    Text(
+                        shortDescription,
+                    )
+                }
                 Text(
-                    shortDescription,
+                    stringResource(Res.string.AddDescriptor_Settings),
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(vertical = 16.dp),
                 )
-            }
-            Text(
-                stringResource(Res.string.AddDescriptor_Settings),
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 16.dp),
-            )
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().clickable {
-                    onEvent(AddDescriptorViewModel.Event.AutoUpdateChanged(!state.autoUpdate))
-                },
-            ) {
-                Text(
-                    stringResource(Res.string.AddDescriptor_AutoUpdate),
-                    modifier = Modifier.weight(1f),
-                )
-                Switch(
-                    checked = state.autoUpdate,
-                    onCheckedChange = {
-                        onEvent(AddDescriptorViewModel.Event.AutoUpdateChanged(it))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth().clickable {
+                        onEvent(AddDescriptorViewModel.Event.AutoUpdateChanged(!state.autoUpdate))
                     },
-                )
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().clickable {
-                    onEvent(AddDescriptorViewModel.Event.AutoRunChanged(state.allTestsSelected() != ToggleableState.On))
-                },
-            ) {
-                TriStateCheckbox(
-                    state = state.allTestsSelected(),
-                    onClick = {
+                ) {
+                    Text(
+                        stringResource(Res.string.AddDescriptor_AutoUpdate),
+                        modifier = Modifier.weight(1f),
+                    )
+                    Switch(
+                        checked = state.autoUpdate,
+                        onCheckedChange = {
+                            onEvent(AddDescriptorViewModel.Event.AutoUpdateChanged(it))
+                        },
+                    )
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth().clickable {
                         onEvent(AddDescriptorViewModel.Event.AutoRunChanged(state.allTestsSelected() != ToggleableState.On))
                     },
-                    modifier = Modifier.padding(end = 16.dp),
-                )
-                Text(
-                    stringResource(Res.string.AddDescriptor_AutoRun),
-                    modifier = Modifier.weight(1f),
-                )
-            }
-            LazyColumn {
-                items(state.selectableItems) { selectableItem ->
-                    TestItem(selectableItem, onChecked = { _ ->
-                        onEvent(AddDescriptorViewModel.Event.SelectableItemClicked(selectableItem))
-                    })
-                }
-            }
-            Row(
-                modifier = Modifier
-                    .padding(top = 32.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                TextButton(
-                    onClick = {
-                        onEvent(AddDescriptorViewModel.Event.CancelClicked)
-                    },
                 ) {
+                    TriStateCheckbox(
+                        state = state.allTestsSelected(),
+                        onClick = {
+                            onEvent(AddDescriptorViewModel.Event.AutoRunChanged(state.allTestsSelected() != ToggleableState.On))
+                        },
+                        modifier = Modifier.padding(end = 16.dp),
+                    )
                     Text(
-                        stringResource(Res.string.Modal_Cancel),
+                        stringResource(Res.string.AddDescriptor_AutoRun),
+                        modifier = Modifier.weight(1f),
                     )
                 }
+                LazyColumn {
+                    items(state.selectableItems) { selectableItem ->
+                        TestItem(selectableItem, onChecked = { _ ->
+                            onEvent(
+                                AddDescriptorViewModel.Event.SelectableItemClicked(
+                                    selectableItem,
+                                ),
+                            )
+                        })
+                    }
+                }
+                Row(
+                    modifier = Modifier
+                        .padding(top = 32.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    TextButton(
+                        onClick = {
+                            onEvent(AddDescriptorViewModel.Event.CancelClicked)
+                        },
+                    ) {
+                        Text(
+                            stringResource(Res.string.Modal_Cancel),
+                        )
+                    }
 
-                TextButton(
-                    onClick = {
-                        onEvent(AddDescriptorViewModel.Event.InstallDescriptorClicked)
-                    },
-                ) {
-                    Text(
-                        stringResource(Res.string.AddDescriptor_Action),
-                    )
+                    TextButton(
+                        onClick = {
+                            onEvent(AddDescriptorViewModel.Event.InstallDescriptorClicked)
+                        },
+                    ) {
+                        Text(
+                            stringResource(Res.string.AddDescriptor_Action),
+                        )
+                    }
                 }
             }
         }
-    } ?: Column(
+    } ?: LoadingDescriptor()
+
+    NotificationMessages(
+        message = state.messages,
+        onMessageDisplayed = {
+            onEvent(AddDescriptorViewModel.Event.MessageDisplayed(it))
+        },
+    )
+}
+
+@Composable
+private fun LoadingDescriptor() {
+    Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -163,11 +180,4 @@ fun AddDescriptorScreen(
             Text(stringResource(Res.string.LoadingScreen_Runv2_Message))
         }
     }
-
-    NotificationMessages(
-        message = state.messages,
-        onMessageDisplayed = {
-            onEvent(AddDescriptorViewModel.Event.MessageDisplayed(it))
-        },
-    )
 }

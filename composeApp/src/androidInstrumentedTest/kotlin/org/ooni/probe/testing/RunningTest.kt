@@ -1,4 +1,4 @@
-package org.ooni.probe.test
+package org.ooni.probe.testing
 
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isDisplayed
@@ -15,15 +15,15 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.test.helpers.CleanTestRule
-import org.ooni.probe.test.helpers.FlakyTestRule
-import org.ooni.probe.test.helpers.checkLinkInsideWebView
-import org.ooni.probe.test.helpers.checkSummaryInsideWebView
-import org.ooni.probe.test.helpers.clickOnText
-import org.ooni.probe.test.helpers.preferences
-import org.ooni.probe.test.helpers.skipOnboarding
-import org.ooni.probe.test.helpers.start
-import org.ooni.probe.test.helpers.wait
+import org.ooni.probe.testing.helpers.CleanTestRule
+import org.ooni.probe.testing.helpers.FlakyTestRule
+import org.ooni.probe.testing.helpers.checkLinkInsideWebView
+import org.ooni.probe.testing.helpers.checkSummaryInsideWebView
+import org.ooni.probe.testing.helpers.clickOnText
+import org.ooni.probe.testing.helpers.preferences
+import org.ooni.probe.testing.helpers.skipOnboarding
+import org.ooni.probe.testing.helpers.start
+import org.ooni.probe.testing.helpers.wait
 import kotlin.time.Duration.Companion.minutes
 
 @RunWith(AndroidJUnit4::class)

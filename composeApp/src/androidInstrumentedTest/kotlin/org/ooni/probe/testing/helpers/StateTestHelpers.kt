@@ -1,4 +1,4 @@
-package org.ooni.probe.test.helpers
+package org.ooni.probe.testing.helpers
 
 import org.ooni.probe.data.models.SettingsKey
 
