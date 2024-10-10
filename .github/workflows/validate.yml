@@ -144,7 +144,7 @@ jobs:
           cat <<< "${INPUT_SERVICE_CREDENTIALS_FILE_CONTENT}" > service_credentials_content.json
           gcloud auth activate-service-account --key-file=service_credentials_content.json
           LABEL=$(git show -s --format='%H')
-          gcloud firebase test android run  --type instrumentation --app $INPUT_FILE  --test composeApp-debug-androidTest.apk --device model=MediumPhone.arm,version=29,locale=en,orientation=portrait --timeout 180s --client-details matrixLabel="$LABEL" --project ooniprobe-android
+          gcloud firebase test android run  --type instrumentation --app $INPUT_FILE  --test composeApp-debug-androidTest.apk --device model=MediumPhone.arm,version=29,locale=en,orientation=portrait --timeout 180s --client-details matrixLabel="$LABEL" --environment-variables clearPackageData=true  --project ooniprobe-android
 
 
   distribute:

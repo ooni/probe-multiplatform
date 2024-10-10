@@ -36,7 +36,6 @@ import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 class DescriptorsTest {
-
     @get:Rule
     val flakyTestRule = FlakyTestRule()
 
