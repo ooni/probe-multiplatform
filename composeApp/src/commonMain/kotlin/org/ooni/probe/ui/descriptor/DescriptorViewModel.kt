@@ -33,6 +33,7 @@ class DescriptorViewModel(
     private val descriptorKey: String,
     onBack: () -> Unit,
     goToReviewDescriptorUpdates: () -> Unit,
+    goToChooseWebsites: () -> Unit,
     private val getTestDescriptors: () -> Flow<List<Descriptor>>,
     getDescriptorLastResult: (String) -> Flow<ResultModel?>,
     private val preferenceRepository: PreferenceRepository,
@@ -50,29 +51,36 @@ class DescriptorViewModel(
     val state = _state.asStateFlow()
 
     init {
-
-        descriptorUpdates().onEach { results ->
-            _state.update {
-                it.copy(
-                    refreshType = if (results.refreshType != UpdateStatusType.ReviewLink) results.refreshType else UpdateStatusType.None,
-                )
-            }
-            if (results.availableUpdates.size == 1) {
-                results.availableUpdates.first().let { updatedDescriptor ->
-                    if (updatedDescriptor.id.value == descriptorKey.toLongOrNull()) {
-                        _state.update {
-                            it.copy(
-                                updatedDescriptor = updatedDescriptor.toDescriptor(),
-                                refreshType = UpdateStatusType.None,
-                            )
+        descriptorUpdates()
+            .onEach { results ->
+                _state.update {
+                    it.copy(
+                        refreshType = if (results.refreshType != UpdateStatusType.ReviewLink) {
+                            results.refreshType
+                        } else {
+                            UpdateStatusType.None
+                        },
+                    )
+                }
+                if (results.availableUpdates.size == 1) {
+                    results.availableUpdates.first().let { updatedDescriptor ->
+                        if (updatedDescriptor.id.value == descriptorKey.toLongOrNull()) {
+                            _state.update {
+                                it.copy(
+                                    updatedDescriptor = updatedDescriptor.toDescriptor(),
+                                    refreshType = UpdateStatusType.None,
+                                )
+                            }
                         }
                     }
                 }
             }
-        }.launchIn(viewModelScope)
-        getDescriptor().onEach { if (it == null) onBack() }.filterNotNull()
-            .flatMapLatest { descriptor ->
+            .launchIn(viewModelScope)
 
+        getDescriptor()
+            .onEach { if (it == null) onBack() }
+            .filterNotNull()
+            .flatMapLatest { descriptor ->
                 combine(
                     preferenceRepository.areNetTestsEnabled(
                         list = descriptor.allTests.map { descriptor to it },
@@ -95,81 +103,103 @@ class DescriptorViewModel(
                         )
                     }
                 }
-            }.launchIn(viewModelScope)
-
-        getDescriptorLastResult(descriptorKey).onEach { lastResult ->
-            _state.update {
-                it.copy(lastResult = lastResult)
             }
-        }.launchIn(viewModelScope)
+            .launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.BackClicked>().onEach { onBack() }.launchIn(viewModelScope)
-
-        events.filterIsInstance<Event.AllChecked>().onEach {
-            val descriptor = state.value.descriptor ?: return@onEach
-            val allTestsSelected = state.value.tests.all { it.isSelected }
-            preferenceRepository.setAreNetTestsEnabled(
-                list = descriptor.allTests.map { descriptor to it },
-                isAutoRun = true,
-                isEnabled = !allTestsSelected,
-            )
-        }.launchIn(viewModelScope)
-
-        events.filterIsInstance<Event.TestChecked>().onEach {
-            val descriptor = state.value.descriptor ?: return@onEach
-            preferenceRepository.setAreNetTestsEnabled(
-                list = listOf(descriptor to it.test),
-                isAutoRun = true,
-                isEnabled = it.isChecked,
-            )
-        }.launchIn(viewModelScope)
-
-        events.filterIsInstance<Event.UninstallClicked>().onEach {
-            deleteTestDescriptor(it.value)
-        }.launchIn(viewModelScope)
-
-        events.filterIsInstance<Event.RevisionClicked>().onEach {
-            launchUrl(
-                "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorKey?revision=${it.revision}",
-            )
-        }.launchIn(viewModelScope)
-
-        events.filterIsInstance<Event.SeeMoreRevisionsClicked>().onEach {
-
-            launchUrl(
-                "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorKey",
-            )
-        }.launchIn(viewModelScope)
-
-        events.filterIsInstance<Event.AutoUpdateChanged>().onEach {
-
-            val descriptor = state.value.descriptor ?: return@onEach
-            if (descriptor.source !is Descriptor.Source.Installed) return@onEach
-            setAutoUpdate(descriptor.source.value.id, it.value)
-        }.launchIn(viewModelScope)
-
-        events.filterIsInstance<Event.FetchUpdatedDescriptor>().onEach {
-
-            if (state.value.isRefreshing) return@onEach
-            val descriptor = state.value.descriptor ?: return@onEach
-
-            if (descriptor.source !is Descriptor.Source.Installed) return@onEach
-            _state.update {
-                it.copy(refreshType = UpdateStatusType.UpdateLink, updatedDescriptor = null)
+        getDescriptorLastResult(descriptorKey)
+            .onEach { lastResult ->
+                _state.update {
+                    it.copy(lastResult = lastResult)
+                }
             }
+            .launchIn(viewModelScope)
 
-            fetchDescriptorUpdate(listOf(descriptor.source.value))
-        }.launchIn(viewModelScope)
+        events.filterIsInstance<Event.BackClicked>()
+            .onEach { onBack() }
+            .launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.UpdateDescriptor>().onEach {
-            val descriptor = state.value.updatedDescriptor ?: return@onEach
-            if (descriptor.source !is Descriptor.Source.Installed) return@onEach
-            _state.update {
-                it.copy(refreshType = UpdateStatusType.None, updatedDescriptor = null)
+        events.filterIsInstance<Event.AllChecked>()
+            .onEach {
+                val descriptor = state.value.descriptor ?: return@onEach
+                val allTestsSelected = state.value.tests.all { it.isSelected }
+                preferenceRepository.setAreNetTestsEnabled(
+                    list = descriptor.allTests.map { descriptor to it },
+                    isAutoRun = true,
+                    isEnabled = !allTestsSelected,
+                )
             }
-            reviewUpdates(listOf(descriptor.source.value))
-            goToReviewDescriptorUpdates()
-        }.launchIn(viewModelScope)
+            .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.TestChecked>()
+            .onEach {
+                val descriptor = state.value.descriptor ?: return@onEach
+                preferenceRepository.setAreNetTestsEnabled(
+                    list = listOf(descriptor to it.test),
+                    isAutoRun = true,
+                    isEnabled = it.isChecked,
+                )
+            }
+            .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.UninstallClicked>()
+            .onEach {
+                deleteTestDescriptor(it.value)
+            }
+            .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.RevisionClicked>()
+            .onEach {
+                launchUrl(
+                    "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorKey?revision=${it.revision}",
+                )
+            }
+            .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.SeeMoreRevisionsClicked>()
+            .onEach {
+                launchUrl(
+                    "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorKey",
+                )
+            }
+            .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.AutoUpdateChanged>()
+            .onEach {
+                val descriptor = state.value.descriptor ?: return@onEach
+                if (descriptor.source !is Descriptor.Source.Installed) return@onEach
+                setAutoUpdate(descriptor.source.value.id, it.value)
+            }
+            .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.FetchUpdatedDescriptor>()
+            .onEach {
+                if (state.value.isRefreshing) return@onEach
+                val descriptor = state.value.descriptor ?: return@onEach
+
+                if (descriptor.source !is Descriptor.Source.Installed) return@onEach
+                _state.update {
+                    it.copy(refreshType = UpdateStatusType.UpdateLink, updatedDescriptor = null)
+                }
+
+                fetchDescriptorUpdate(listOf(descriptor.source.value))
+            }
+            .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.UpdateDescriptor>()
+            .onEach {
+                val descriptor = state.value.updatedDescriptor ?: return@onEach
+                if (descriptor.source !is Descriptor.Source.Installed) return@onEach
+                _state.update {
+                    it.copy(refreshType = UpdateStatusType.None, updatedDescriptor = null)
+                }
+                reviewUpdates(listOf(descriptor.source.value))
+                goToReviewDescriptorUpdates()
+            }
+            .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.ChooseWebsitesClicked>()
+            .onEach { goToChooseWebsites() }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -230,5 +260,7 @@ class DescriptorViewModel(
         data object FetchUpdatedDescriptor : Event
 
         data object UpdateDescriptor : Event
+
+        data object ChooseWebsitesClicked : Event
     }
 }

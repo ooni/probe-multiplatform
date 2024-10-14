@@ -91,4 +91,6 @@ sealed class Screen(
     }
 
     data object ReviewUpdates : Screen("review-updates")
+
+    data object ChooseWebsites : Screen("choose-websites")
 }
