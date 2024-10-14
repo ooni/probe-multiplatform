@@ -22,7 +22,7 @@ class UrlRepositoryTest {
     fun before() {
         subject = UrlRepository(
             database = Dependencies.buildDatabase(::createTestDatabaseDriver),
-            backgroundDispatcher = Dispatchers.Default,
+            backgroundContext = Dispatchers.Default,
         )
     }
 

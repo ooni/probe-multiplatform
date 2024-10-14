@@ -1,4 +1,4 @@
-package org.ooni.probe.testing
+package org.ooni.probe.uitesting
 
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.isNotDisplayed
@@ -7,25 +7,22 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.testing.helpers.FlakyTestRule
-import org.ooni.probe.testing.helpers.checkSummaryInsideWebView
-import org.ooni.probe.testing.helpers.clickOnText
-import org.ooni.probe.testing.helpers.preferences
-import org.ooni.probe.testing.helpers.skipOnboarding
-import org.ooni.probe.testing.helpers.start
-import org.ooni.probe.testing.helpers.wait
+import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
+import org.ooni.probe.uitesting.helpers.clickOnText
+import org.ooni.probe.uitesting.helpers.preferences
+import org.ooni.probe.uitesting.helpers.skipOnboarding
+import org.ooni.probe.uitesting.helpers.start
+import org.ooni.probe.uitesting.helpers.wait
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 class UploadResultTest {
-    @get:Rule
-    val flakyTestRule = FlakyTestRule()
-
     @get:Rule
     val compose = createEmptyComposeRule()
 
@@ -38,6 +35,7 @@ class UploadResultTest {
         }
 
     @Test
+    @Ignore("Single test upload is currently failing on the dev back-end")
     fun uploadSingleResult() =
         runTest {
             with(compose) {

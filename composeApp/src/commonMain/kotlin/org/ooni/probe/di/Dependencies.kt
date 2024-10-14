@@ -89,6 +89,7 @@ import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
 import org.ooni.probe.ui.settings.proxy.ProxyViewModel
 import org.ooni.probe.ui.upload.UploadMeasurementsViewModel
+import kotlin.coroutines.CoroutineContext
 
 class Dependencies(
     val platformInfo: PlatformInfo,
@@ -112,7 +113,8 @@ class Dependencies(
 ) {
     // Common
 
-    private val backgroundDispatcher = Dispatchers.IO
+    @VisibleForTesting
+    var backgroundContext: CoroutineContext = Dispatchers.IO
 
     // Data
 
@@ -120,17 +122,17 @@ class Dependencies(
     private val database by lazy { buildDatabase(databaseDriverFactory) }
 
     private val measurementRepository by lazy {
-        MeasurementRepository(database, backgroundDispatcher)
+        MeasurementRepository(database, backgroundContext)
     }
-    private val networkRepository by lazy { NetworkRepository(database, backgroundDispatcher) }
+    private val networkRepository by lazy { NetworkRepository(database, backgroundContext) }
 
     @VisibleForTesting
     val preferenceRepository by lazy { PreferenceRepository(buildDataStore()) }
-    private val resultRepository by lazy { ResultRepository(database, backgroundDispatcher) }
+    private val resultRepository by lazy { ResultRepository(database, backgroundContext) }
     val testDescriptorRepository by lazy {
-        TestDescriptorRepository(database, json, backgroundDispatcher)
+        TestDescriptorRepository(database, json, backgroundContext)
     }
-    private val urlRepository by lazy { UrlRepository(database, backgroundDispatcher) }
+    private val urlRepository by lazy { UrlRepository(database, backgroundContext) }
 
     private val readFile: ReadFile by lazy { ReadFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val writeFile: WriteFile by lazy { WriteFileOkio(FileSystem.SYSTEM, baseFileDir) }
@@ -138,7 +140,7 @@ class Dependencies(
 
     private val getStorageUsed by lazy {
         GetStorageUsed(
-            backgroundDispatcher = backgroundDispatcher,
+            backgroundContext = backgroundContext,
             baseFileDir = baseFileDir,
             cacheDir = cacheDir,
             fileSystem = FileSystem.SYSTEM,
@@ -153,7 +155,7 @@ class Dependencies(
             readFile = readFile,
             writeFile = writeFile,
             deleteFiles = deleteFiles,
-            backgroundDispatcher = backgroundDispatcher,
+            backgroundContext = backgroundContext,
         )
     }
 
@@ -173,7 +175,7 @@ class Dependencies(
             isBatteryCharging = isBatteryCharging,
             platformInfo = platformInfo,
             getEnginePreferences = getEnginePreferences::invoke,
-            backgroundDispatcher = backgroundDispatcher,
+            backgroundContext = backgroundContext,
         )
     }
 
@@ -229,7 +231,7 @@ class Dependencies(
         GetAutoRunSpecification(getTestDescriptors, preferenceRepository)
     }
     private val getBootstrapTestDescriptors by lazy {
-        GetBootstrapTestDescriptors(readAssetFile, json, backgroundDispatcher)
+        GetBootstrapTestDescriptors(readAssetFile, json, backgroundContext)
     }
     val getCurrentTestState get() = testStateManager::observeState
     private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
@@ -250,7 +252,7 @@ class Dependencies(
     }
     private val clearStorage by lazy {
         ClearStorage(
-            backgroundDispatcher = backgroundDispatcher,
+            backgroundContext = backgroundContext,
             deleteAllResults = deleteAllResults::invoke,
             clearLogs = appLogger::clear,
             getStorageUsed = getStorageUsed::update,
@@ -278,7 +280,7 @@ class Dependencies(
     }
     val observeAndConfigureAutoRun by lazy {
         ObserveAndConfigureAutoRun(
-            backgroundDispatcher = backgroundDispatcher,
+            backgroundContext = backgroundContext,
             configureAutoRun = configureAutoRun,
             getAutoRunSettings = getAutoRunSettings::invoke,
         )

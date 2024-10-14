@@ -3,7 +3,6 @@ package org.ooni.probe.data.repositories
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -21,10 +20,11 @@ import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
 import org.ooni.probe.shared.toEpoch
 import org.ooni.probe.shared.toLocalDateTime
+import kotlin.coroutines.CoroutineContext
 
 class ResultRepository(
     private val database: Database,
-    private val backgroundDispatcher: CoroutineDispatcher,
+    private val backgroundContext: CoroutineContext,
 ) {
     fun list(filter: ResultFilter = ResultFilter()): Flow<List<ResultWithNetworkAndAggregates>> {
         val descriptorFilter = (filter.descriptor as? ResultFilter.Type.One)?.value
@@ -38,7 +38,7 @@ class ResultRepository(
                 taskOrigin = originFilter?.value,
             )
             .asFlow()
-            .mapToList(backgroundDispatcher)
+            .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
     }
 
@@ -46,25 +46,25 @@ class ResultRepository(
         database.resultQueries
             .selectByIdWithNetwork(resultId.value)
             .asFlow()
-            .mapToOneOrNull(backgroundDispatcher)
+            .mapToOneOrNull(backgroundContext)
             .map { it?.toModel() }
 
     fun getLatest(): Flow<ResultModel?> =
         database.resultQueries
             .selectLatest()
             .asFlow()
-            .mapToOneOrNull(backgroundDispatcher)
+            .mapToOneOrNull(backgroundContext)
             .map { it?.toModel() }
 
     fun getLatestByDescriptor(descriptorKey: String): Flow<ResultModel?> =
         database.resultQueries
             .selectLatestByDescriptor(descriptorKey)
             .asFlow()
-            .mapToOneOrNull(backgroundDispatcher)
+            .mapToOneOrNull(backgroundContext)
             .map { it?.toModel() }
 
     suspend fun createOrUpdate(model: ResultModel): ResultModel.Id =
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.transactionWithResult {
                 database.resultQueries.insertOrReplace(
                     id = model.id?.value,
@@ -89,34 +89,34 @@ class ResultRepository(
     suspend fun getByIdAndUpdate(
         id: ResultModel.Id,
         update: (ResultModel) -> ResultModel,
-    ) = withContext(backgroundDispatcher) {
+    ) = withContext(backgroundContext) {
         getById(id).first()?.first?.let { result ->
             createOrUpdate(update(result))
         }
     }
 
     suspend fun markAsViewed(resultId: ResultModel.Id) =
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.resultQueries.markAsViewed(resultId.value)
         }
 
     suspend fun markAsDone(resultId: ResultModel.Id) =
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.resultQueries.markAsDone(resultId.value)
         }
 
     suspend fun markAllAsDone() =
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.resultQueries.markAllAsDone()
         }
 
     suspend fun deleteByRunId(resultId: InstalledTestDescriptorModel.Id) =
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.resultQueries.deleteByRunId(resultId.value)
         }
 
     suspend fun deleteAll() {
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.transaction {
                 database.measurementQueries.deleteAll()
                 database.resultQueries.deleteAll()

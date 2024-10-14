@@ -1,4 +1,4 @@
-package org.ooni.probe.testing
+package org.ooni.probe.uitesting
 
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isDisplayed
@@ -8,6 +8,8 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeUp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -15,21 +17,17 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.testing.helpers.FlakyTestRule
-import org.ooni.probe.testing.helpers.checkLinkInsideWebView
-import org.ooni.probe.testing.helpers.checkSummaryInsideWebView
-import org.ooni.probe.testing.helpers.clickOnText
-import org.ooni.probe.testing.helpers.preferences
-import org.ooni.probe.testing.helpers.skipOnboarding
-import org.ooni.probe.testing.helpers.start
-import org.ooni.probe.testing.helpers.wait
+import org.ooni.probe.uitesting.helpers.checkLinkInsideWebView
+import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
+import org.ooni.probe.uitesting.helpers.clickOnText
+import org.ooni.probe.uitesting.helpers.preferences
+import org.ooni.probe.uitesting.helpers.skipOnboarding
+import org.ooni.probe.uitesting.helpers.start
+import org.ooni.probe.uitesting.helpers.wait
 import kotlin.time.Duration.Companion.minutes
 
 @RunWith(AndroidJUnit4::class)
 class RunningTest {
-    @get:Rule
-    val flakyTestRule = FlakyTestRule()
-
     @get:Rule
     val compose = createEmptyComposeRule()
 
@@ -94,6 +92,7 @@ class RunningTest {
                 clickOnText("Deselect all tests")
                 onNodeWithTag("Run-DescriptorsList")
                     .performScrollToNode(hasText("HTTP Header", substring = true))
+                    .performTouchInput { swipeUp() }
                 clickOnText("HTTP Header", substring = true)
                 clickOnText("Run 1 test")
 
@@ -118,6 +117,7 @@ class RunningTest {
                 clickOnText("Deselect all tests")
                 onNodeWithTag("Run-DescriptorsList")
                     .performScrollToNode(hasText("stunreachability"))
+                    .performTouchInput { swipeUp() }
                 clickOnText("stunreachability", substring = true)
                 clickOnText("Run 1 test")
 
@@ -134,6 +134,6 @@ class RunningTest {
         }
 
     companion object {
-        private val TEST_WAIT_TIMEOUT = 1.minutes
+        private val TEST_WAIT_TIMEOUT = 3.minutes
     }
 }

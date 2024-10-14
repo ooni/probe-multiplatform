@@ -1,4 +1,4 @@
-package org.ooni.probe.testing
+package org.ooni.probe.uitesting
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
@@ -14,19 +14,15 @@ import org.junit.runner.RunWith
 import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.data.models.ProxyProtocol
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.testing.helpers.FlakyTestRule
-import org.ooni.probe.testing.helpers.clickOnContentDescription
-import org.ooni.probe.testing.helpers.clickOnText
-import org.ooni.probe.testing.helpers.preferences
-import org.ooni.probe.testing.helpers.skipOnboarding
-import org.ooni.probe.testing.helpers.start
-import org.ooni.probe.testing.helpers.wait
+import org.ooni.probe.uitesting.helpers.clickOnContentDescription
+import org.ooni.probe.uitesting.helpers.clickOnText
+import org.ooni.probe.uitesting.helpers.preferences
+import org.ooni.probe.uitesting.helpers.skipOnboarding
+import org.ooni.probe.uitesting.helpers.start
+import org.ooni.probe.uitesting.helpers.wait
 
 @RunWith(AndroidJUnit4::class)
 class SettingsTest {
-    @get:Rule
-    val flakyTestRule = FlakyTestRule()
-
     @get:Rule
     val compose = createEmptyComposeRule()
 
