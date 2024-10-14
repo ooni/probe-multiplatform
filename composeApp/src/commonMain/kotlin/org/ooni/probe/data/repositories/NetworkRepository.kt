@@ -2,17 +2,17 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.ooni.engine.models.NetworkType
 import org.ooni.probe.Database
 import org.ooni.probe.data.Network
 import org.ooni.probe.data.models.NetworkModel
+import kotlin.coroutines.CoroutineContext
 
 class NetworkRepository(
     private val database: Database,
-    private val backgroundDispatcher: CoroutineDispatcher,
+    private val backgroundContext: CoroutineContext,
 ) {
     /*
      If the model has an ID, only update.
@@ -20,7 +20,7 @@ class NetworkRepository(
      If we do, return that ID, otherwise create a new entry.
      */
     suspend fun createIfNew(model: NetworkModel): NetworkModel.Id =
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.transactionWithResult {
                 if (model.id == null) {
                     database.networkQueries.selectByValues(
@@ -54,7 +54,7 @@ class NetworkRepository(
         database.networkQueries
             .selectAll()
             .asFlow()
-            .mapToList(backgroundDispatcher)
+            .mapToList(backgroundContext)
             .map { list -> list.map { it.toModel() } }
 }
 

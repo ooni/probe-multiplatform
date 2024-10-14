@@ -1,8 +1,7 @@
 package org.ooni.engine.models
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.coroutineContext
+import kotlin.coroutines.CoroutineContext
 
 sealed class Result<out S, out F> {
     inline infix fun <S2> map(mapper: (S) -> S2): Result<S2, F> =
@@ -49,10 +48,10 @@ data class Success<out S>(val value: S) : Result<S, Nothing>()
 data class Failure<out F>(val reason: F) : Result<Nothing, F>()
 
 suspend fun <S> resultOf(
-    coroutineDispatcher: CoroutineDispatcher? = null,
+    coroutineContext: CoroutineContext? = null,
     action: suspend () -> S,
 ): Result<S, Throwable> =
-    withContext(coroutineDispatcher ?: coroutineContext) {
+    withContext(coroutineContext ?: kotlin.coroutines.coroutineContext) {
         try {
             Success(action())
         } catch (throwable: Throwable) {

@@ -1,6 +1,5 @@
 package org.ooni.probe.domain
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -9,9 +8,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
 import okio.FileSystem
 import okio.Path.Companion.toPath
+import kotlin.coroutines.CoroutineContext
 
 class GetStorageUsed(
-    private val backgroundDispatcher: CoroutineDispatcher,
+    private val backgroundContext: CoroutineContext,
     private val baseFileDir: String,
     private val fileSystem: FileSystem,
     private val cacheDir: String,
@@ -23,7 +23,7 @@ class GetStorageUsed(
             .onStart { if (storageUsed.value == 0L) update() }
 
     suspend fun update(): Long {
-        return withContext(backgroundDispatcher) {
+        return withContext(backgroundContext) {
             val usedStorage =
                 (
                     fileSystem.listRecursively(baseFileDir.toPath()).toList() + fileSystem.listRecursively(

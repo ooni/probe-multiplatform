@@ -2,7 +2,6 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -11,13 +10,14 @@ import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.Database
 import org.ooni.probe.data.Url
 import org.ooni.probe.data.models.UrlModel
+import kotlin.coroutines.CoroutineContext
 
 class UrlRepository(
     private val database: Database,
-    private val backgroundDispatcher: CoroutineDispatcher,
+    private val backgroundContext: CoroutineContext,
 ) {
     suspend fun createOrUpdate(model: UrlModel): UrlModel.Id =
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.transactionWithResult {
                 createOrUpdateWithoutTransaction(model)
             }
@@ -28,7 +28,7 @@ class UrlRepository(
             id = model.id?.value,
             url = model.url,
             country_code = model.countryCode,
-            category_code = model.category?.code,
+            category_code = model.category.code,
         )
 
         return model.id ?: UrlModel.Id(
@@ -37,7 +37,7 @@ class UrlRepository(
     }
 
     suspend fun createOrUpdateByUrl(models: List<UrlModel>): List<UrlModel> =
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.transactionWithResult {
                 val existingModels =
                     database.urlQueries.selectByUrls(models.filter { it.id == null }.map { it.url })
@@ -83,14 +83,14 @@ class UrlRepository(
         database.urlQueries
             .selectAll()
             .asFlow()
-            .mapToList(backgroundDispatcher)
+            .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
     private fun listByUrls(urls: List<String>): Flow<List<UrlModel>> =
         database.urlQueries
             .selectByUrls(urls)
             .asFlow()
-            .mapToList(backgroundDispatcher)
+            .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 }
 

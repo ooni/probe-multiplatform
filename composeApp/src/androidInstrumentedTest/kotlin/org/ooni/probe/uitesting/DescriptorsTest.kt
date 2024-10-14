@@ -1,4 +1,4 @@
-package org.ooni.probe.testing
+package org.ooni.probe.uitesting
 
 import android.content.Intent
 import android.net.Uri
@@ -24,25 +24,17 @@ import org.junit.runner.RunWith
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TestOonimkallBridge
 import org.ooni.probe.MainActivity
-import org.ooni.probe.testing.helpers.CleanTestRule
-import org.ooni.probe.testing.helpers.FlakyTestRule
-import org.ooni.probe.testing.helpers.clickOnText
-import org.ooni.probe.testing.helpers.context
-import org.ooni.probe.testing.helpers.dependencies
-import org.ooni.probe.testing.helpers.preferences
-import org.ooni.probe.testing.helpers.skipOnboarding
-import org.ooni.probe.testing.helpers.start
-import org.ooni.probe.testing.helpers.wait
+import org.ooni.probe.uitesting.helpers.clickOnText
+import org.ooni.probe.uitesting.helpers.context
+import org.ooni.probe.uitesting.helpers.dependencies
+import org.ooni.probe.uitesting.helpers.preferences
+import org.ooni.probe.uitesting.helpers.skipOnboarding
+import org.ooni.probe.uitesting.helpers.start
+import org.ooni.probe.uitesting.helpers.wait
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 class DescriptorsTest {
-    @get:Rule
-    val clean = CleanTestRule()
-
-    @get:Rule
-    val flakyTestRule = FlakyTestRule()
-
     @get:Rule
     val compose = createEmptyComposeRule()
 
@@ -53,7 +45,7 @@ class DescriptorsTest {
         }
 
     @Test
-    fun installAndUninstall() =
+    fun installAndUninstall() {
         runTest {
             start(
                 Intent(context, MainActivity::class.java)
@@ -72,6 +64,9 @@ class DescriptorsTest {
 
                 clickOnText("Install Link")
 
+                Thread.sleep(2000)
+
+                wait { onNodeWithTag("Dashboard-List").isDisplayed() }
                 onNodeWithTag("Dashboard-List")
                     .performScrollToNode(hasText("Android instrumented tests"))
                 onNodeWithText("Testing").assertIsDisplayed()
@@ -88,6 +83,7 @@ class DescriptorsTest {
                 onNodeWithText("Testing").assertIsNotDisplayed()
             }
         }
+    }
 
     @Test
     fun installAndUpdate() =
@@ -104,6 +100,8 @@ class DescriptorsTest {
                 }
                 clickOnText("Install updates automatically")
                 clickOnText("Install Link")
+
+                Thread.sleep(2000)
 
                 setupTestEngine()
 

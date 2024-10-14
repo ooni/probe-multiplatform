@@ -21,7 +21,7 @@ class NetworkRepositoryTest {
         subject =
             NetworkRepository(
                 database = Dependencies.buildDatabase(::createTestDatabaseDriver),
-                backgroundDispatcher = Dispatchers.Default,
+                backgroundContext = Dispatchers.Default,
             )
     }
 

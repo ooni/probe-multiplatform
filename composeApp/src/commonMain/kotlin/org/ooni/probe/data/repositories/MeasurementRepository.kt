@@ -2,7 +2,6 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -18,23 +17,24 @@ import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.toEpoch
 import org.ooni.probe.shared.toLocalDateTime
+import kotlin.coroutines.CoroutineContext
 
 class MeasurementRepository(
     private val database: Database,
-    private val backgroundDispatcher: CoroutineDispatcher,
+    private val backgroundContext: CoroutineContext,
 ) {
     fun list(): Flow<List<MeasurementModel>> =
         database.measurementQueries
             .selectAll()
             .asFlow()
-            .mapToList(backgroundDispatcher)
+            .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
     fun listByResultId(id: ResultModel.Id) =
         database.measurementQueries
             .selectByResultIdWithUrl(id.value)
             .asFlow()
-            .mapToList(backgroundDispatcher)
+            .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
     fun listNotUploaded(resultId: ResultModel.Id?) =
@@ -44,18 +44,18 @@ class MeasurementRepository(
                 resultId = resultId?.value,
             )
             .asFlow()
-            .mapToList(backgroundDispatcher)
+            .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
     fun selectByResultRunId(descriptorId: InstalledTestDescriptorModel.Id) =
         database.measurementQueries
             .selectByResultRunId(descriptorId.value)
             .asFlow()
-            .mapToList(backgroundDispatcher)
+            .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
     suspend fun createOrUpdate(model: MeasurementModel): MeasurementModel.Id =
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.transactionWithResult {
                 database.measurementQueries.insertOrReplace(
                     id = model.id?.value,
@@ -84,7 +84,7 @@ class MeasurementRepository(
         }
 
     suspend fun deleteByResultRunId(descriptorId: InstalledTestDescriptorModel.Id) {
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.measurementQueries.deleteByResultRunId(descriptorId.value)
         }
     }

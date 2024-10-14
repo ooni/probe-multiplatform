@@ -1,4 +1,4 @@
-package org.ooni.probe.testing.helpers
+package org.ooni.probe.uitesting.helpers
 
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.isDisplayed

@@ -2,7 +2,6 @@ package org.ooni.probe.shared.monitoring
 
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Severity
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,12 +17,13 @@ import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.shared.now
 import org.ooni.probe.ui.shared.logFormat
+import kotlin.coroutines.CoroutineContext
 
 class AppLogger(
     private val readFile: ReadFile,
     private val writeFile: WriteFile,
     private val deleteFiles: DeleteFiles,
-    private val backgroundDispatcher: CoroutineDispatcher,
+    private val backgroundContext: CoroutineContext,
 ) {
     private val log = MutableStateFlow(emptyList<String>())
 
@@ -45,7 +45,7 @@ class AppLogger(
             }
 
     suspend fun clear() {
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             log.value = emptyList()
             deleteFiles(FILE_PATH)
         }
@@ -65,7 +65,7 @@ class AppLogger(
             tag: String,
             throwable: Throwable?,
         ) {
-            CoroutineScope(backgroundDispatcher).launch {
+            CoroutineScope(backgroundContext).launch {
                 val logMessage =
                     "${LocalDateTime.now().logFormat()} : ${severity.name.uppercase()} : $message"
                 log.update { lines ->

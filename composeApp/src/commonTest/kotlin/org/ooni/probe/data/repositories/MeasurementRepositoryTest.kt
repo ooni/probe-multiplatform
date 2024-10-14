@@ -22,7 +22,7 @@ class MeasurementRepositoryTest {
         subject =
             MeasurementRepository(
                 database = Dependencies.buildDatabase(::createTestDatabaseDriver),
-                backgroundDispatcher = Dispatchers.Default,
+                backgroundContext = Dispatchers.Default,
             )
     }
 

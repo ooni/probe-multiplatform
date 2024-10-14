@@ -22,7 +22,7 @@ class TestDescriptorRepositoryTest {
             TestDescriptorRepository(
                 database = Dependencies.buildDatabase(::createTestDatabaseDriver),
                 json = Dependencies.buildJson(),
-                backgroundDispatcher = Dispatchers.Default,
+                backgroundContext = Dispatchers.Default,
             )
     }
 

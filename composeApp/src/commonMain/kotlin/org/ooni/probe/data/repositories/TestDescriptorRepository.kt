@@ -2,7 +2,6 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -13,28 +12,29 @@ import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.toDb
 import org.ooni.probe.shared.toLocalDateTime
+import kotlin.coroutines.CoroutineContext
 
 class TestDescriptorRepository(
     private val database: Database,
     private val json: Json,
-    private val backgroundDispatcher: CoroutineDispatcher,
+    private val backgroundContext: CoroutineContext,
 ) {
     fun list() =
         database.testDescriptorQueries
             .selectAll()
             .asFlow()
-            .mapToList(backgroundDispatcher)
+            .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
     fun selectByRunIds(ids: List<InstalledTestDescriptorModel.Id>) =
         database.testDescriptorQueries
             .selectByRunIds(ids.map { it.value })
             .asFlow()
-            .mapToList(backgroundDispatcher)
+            .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
     suspend fun createOrIgnore(models: List<InstalledTestDescriptorModel>) {
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.transaction {
                 models.forEach { model ->
                     val installedModel = model.toDb(json = json)
@@ -65,7 +65,7 @@ class TestDescriptorRepository(
     }
 
     suspend fun createOrUpdate(models: Set<InstalledTestDescriptorModel>) {
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.transaction {
                 models.forEach { model ->
                     val installedModel = model.toDb(json = json)
@@ -99,13 +99,13 @@ class TestDescriptorRepository(
         runId: InstalledTestDescriptorModel.Id,
         autoUpdate: Boolean,
     ) {
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.testDescriptorQueries.setAutoUpdate(auto_update = if (autoUpdate) 1 else 0, runId = runId.value)
         }
     }
 
     suspend fun deleteByRunId(runId: InstalledTestDescriptorModel.Id) {
-        withContext(backgroundDispatcher) {
+        withContext(backgroundContext) {
             database.testDescriptorQueries.deleteByRunId(runId.value)
         }
     }

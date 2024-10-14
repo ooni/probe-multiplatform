@@ -1,4 +1,4 @@
-package org.ooni.probe.testing
+package org.ooni.probe.uitesting
 
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
@@ -13,30 +13,23 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.testing.helpers.CleanTestRule
-import org.ooni.probe.testing.helpers.FlakyTestRule
-import org.ooni.probe.testing.helpers.clickOnTag
-import org.ooni.probe.testing.helpers.clickOnText
-import org.ooni.probe.testing.helpers.dependencies
-import org.ooni.probe.testing.helpers.preferences
-import org.ooni.probe.testing.helpers.start
-import org.ooni.probe.testing.helpers.wait
+import org.ooni.probe.uitesting.helpers.clickOnTag
+import org.ooni.probe.uitesting.helpers.clickOnText
+import org.ooni.probe.uitesting.helpers.dependencies
+import org.ooni.probe.uitesting.helpers.preferences
+import org.ooni.probe.uitesting.helpers.start
+import org.ooni.probe.uitesting.helpers.wait
 
 @RunWith(AndroidJUnit4::class)
 class OnboardingTest {
     @get:Rule
-    val clean = CleanTestRule()
-
-    @get:Rule
-    val flakyTestRule = FlakyTestRule()
-
-    @get:Rule
     val compose = createEmptyComposeRule()
 
     @Before
-    fun setUp() {
-        start()
-    }
+    fun setUp() =
+        runTest {
+            start()
+        }
 
     @Test
     fun onboarding() =

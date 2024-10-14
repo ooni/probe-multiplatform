@@ -3,7 +3,6 @@ package org.ooni.engine
 import androidx.annotation.VisibleForTesting
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flowOn
@@ -23,6 +22,7 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.shared.value
+import kotlin.coroutines.CoroutineContext
 
 class Engine(
     @VisibleForTesting
@@ -35,7 +35,7 @@ class Engine(
     private val isBatteryCharging: suspend () -> Boolean,
     private val platformInfo: PlatformInfo,
     private val getEnginePreferences: suspend () -> EnginePreferences,
-    private val backgroundDispatcher: CoroutineDispatcher,
+    private val backgroundContext: CoroutineContext,
 ) {
     fun startTask(
         name: String,
@@ -66,19 +66,19 @@ class Engine(
             } finally {
                 task?.interrupt()
             }
-        }.flowOn(backgroundDispatcher)
+        }.flowOn(backgroundContext)
 
     suspend fun submitMeasurements(
         measurement: String,
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
     ): Result<SubmitMeasurementResults, MkException> =
-        resultOf(backgroundDispatcher) {
+        resultOf(backgroundContext) {
             val sessionConfig = buildSessionConfig(taskOrigin, getEnginePreferences())
             session(sessionConfig).submitMeasurement(measurement)
         }.mapError { MkException(it) }
 
     suspend fun checkIn(taskOrigin: TaskOrigin): Result<OonimkallBridge.CheckInResults, MkException> =
-        resultOf(backgroundDispatcher) {
+        resultOf(backgroundContext) {
             val preferences = getEnginePreferences()
             val sessionConfig = buildSessionConfig(taskOrigin, preferences)
             session(sessionConfig).checkIn(
@@ -99,7 +99,7 @@ class Engine(
         url: String,
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
     ): Result<String?, MkException> =
-        resultOf(backgroundDispatcher) {
+        resultOf(backgroundContext) {
             session(buildSessionConfig(taskOrigin, getEnginePreferences()))
                 .httpDo(
                     OonimkallBridge.HTTPRequest(

@@ -85,6 +85,6 @@ class EngineTest {
                     maxRuntime = null,
                 )
             },
-            backgroundDispatcher = Dispatchers.Unconfined,
+            backgroundContext = Dispatchers.Unconfined,
         )
 }
