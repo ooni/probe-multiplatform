@@ -76,7 +76,7 @@ fun ResultMeasurementCell(
             },
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1f).padding(end = 8.dp),
         )
         if (isResultDone && measurement.isDoneAndMissingUpload) {
             Icon(
