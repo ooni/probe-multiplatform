@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import ooniprobe.composeapp.generated.resources.Dashboard_Tab_Label
 import ooniprobe.composeapp.generated.resources.Res
@@ -38,31 +37,13 @@ fun BottomNavigationBar(navController: NavController) {
                 },
                 label = { Text(stringResource(screen.titleRes)) },
                 selected = currentRoute == screen.route,
-                onClick = { navController.navigateToMainScreen(screen) },
+                onClick = { navController.safeNavigateToMain(screen) },
                 colors = NavigationBarItemDefaults.colors(
                     indicatorColor = MaterialTheme.colorScheme.primaryContainer,
                     selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 ),
             )
         }
-    }
-}
-
-fun NavController.navigateToMainScreen(screen: Screen) {
-    navigate(screen.route) {
-        // Pop up to the start destination of the graph to
-        // avoid building up a large stack of destinations
-        // on the back stack as users select items
-        graph.findStartDestination().route?.let {
-            popUpTo(it) {
-                saveState = true
-            }
-        }
-        // Avoid multiple copies of the same destination when
-        // re-selecting the same item
-        launchSingleTop = true
-        // Restore state when re-selecting a previously selected item
-        restoreState = true
     }
 }
 

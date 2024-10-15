@@ -7,7 +7,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.DialogProperties
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -35,6 +38,8 @@ import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
 import org.ooni.probe.ui.settings.proxy.ProxyScreen
 import org.ooni.probe.ui.upload.UploadMeasurementsDialog
 
+private val START_SCREEN = Screen.Dashboard
+
 @Composable
 fun Navigation(
     navController: NavHostController,
@@ -42,19 +47,17 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Dashboard.route,
+        startDestination = START_SCREEN.route,
         modifier = Modifier.fillMaxSize(),
     ) {
         composable(route = Screen.Onboarding.route) {
             val viewModel = viewModel {
                 dependencies.onboardingViewModel(
                     goToDashboard = {
-                        navController.popBackStack()
-                        navController.navigateToMainScreen(Screen.Dashboard)
+                        navController.goBackAndNavigateToMain(Screen.Dashboard)
                     },
                     goToSettings = {
-                        navController.popBackStack()
-                        navController.navigateToMainScreen(Screen.Settings)
+                        navController.goBackAndNavigateToMain(Screen.Settings)
                     },
                 )
             }
@@ -66,17 +69,16 @@ fun Navigation(
             val viewModel = viewModel {
                 dependencies.dashboardViewModel(
                     goToOnboarding = {
-                        navController.popBackStack()
-                        navController.navigate(Screen.Onboarding.route)
+                        navController.goBackAndNavigate(Screen.Onboarding)
                     },
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
-                    goToRunningTest = { navController.navigate(Screen.RunningTest.route) },
-                    goToRunTests = { navController.navigate(Screen.RunTests.route) },
+                    goToRunningTest = { navController.safeNavigate(Screen.RunningTest) },
+                    goToRunTests = { navController.safeNavigate(Screen.RunTests) },
                     goToDescriptor = { descriptorKey ->
-                        navController.navigate(Screen.Descriptor(descriptorKey).route)
+                        navController.safeNavigate(Screen.Descriptor(descriptorKey))
                     },
                     goToReviewDescriptorUpdates = {
-                        navController.navigate(Screen.ReviewUpdates.route)
+                        navController.safeNavigate(Screen.ReviewUpdates)
                     },
                 )
             }
@@ -87,8 +89,8 @@ fun Navigation(
         composable(route = Screen.Results.route) {
             val viewModel = viewModel {
                 dependencies.resultsViewModel(
-                    goToResult = { navController.navigate(Screen.Result(it).route) },
-                    goToUpload = { navController.navigate(Screen.UploadMeasurements().route) },
+                    goToResult = { navController.safeNavigate(Screen.Result(it)) },
+                    goToUpload = { navController.safeNavigate(Screen.UploadMeasurements()) },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -99,7 +101,7 @@ fun Navigation(
             val viewModel = viewModel {
                 dependencies.settingsViewModel(
                     goToSettingsForCategory = {
-                        navController.navigate(Screen.SettingsCategory(it).route)
+                        navController.safeNavigate(Screen.SettingsCategory(it))
                     },
                 )
             }
@@ -117,12 +119,12 @@ fun Navigation(
             val viewModel = viewModel {
                 dependencies.resultViewModel(
                     resultId = resultId,
-                    onBack = { navController.popBackStack() },
+                    onBack = { navController.goBack() },
                     goToMeasurement = { reportId, input ->
-                        navController.navigate(Screen.Measurement(reportId, input).route)
+                        navController.safeNavigate(Screen.Measurement(reportId, input))
                     },
                     goToUpload = {
-                        navController.navigate(Screen.UploadMeasurements(resultId).route)
+                        navController.safeNavigate(Screen.UploadMeasurements(resultId))
                     },
                 )
             }
@@ -139,7 +141,7 @@ fun Navigation(
             MeasurementScreen(
                 reportId = MeasurementModel.ReportId(reportId),
                 input = input,
-                onBack = { navController.popBackStack() },
+                onBack = { navController.goBack() },
             )
         }
 
@@ -151,7 +153,7 @@ fun Navigation(
             when (category) {
                 PreferenceCategoryKey.ABOUT_OONI.value -> {
                     val viewModel = viewModel {
-                        dependencies.aboutViewModel(onBack = { navController.navigateUp() })
+                        dependencies.aboutViewModel(onBack = { navController.goBack() })
                     }
                     AboutScreen(
                         onEvent = viewModel::onEvent,
@@ -162,7 +164,7 @@ fun Navigation(
 
                 PreferenceCategoryKey.PROXY.value -> {
                     val viewModel = viewModel {
-                        dependencies.proxyViewModel(onBack = { navController.navigateUp() })
+                        dependencies.proxyViewModel(onBack = { navController.goBack() })
                     }
                     val state by viewModel.state.collectAsState()
                     ProxyScreen(state, viewModel::onEvent)
@@ -170,7 +172,7 @@ fun Navigation(
 
                 PreferenceCategoryKey.SEE_RECENT_LOGS.value -> {
                     val viewModel = viewModel {
-                        dependencies.logViewModel(onBack = { navController.popBackStack() })
+                        dependencies.logViewModel(onBack = { navController.goBack() })
                     }
                     val state by viewModel.state.collectAsState()
                     LogScreen(state, viewModel::onEvent)
@@ -181,9 +183,9 @@ fun Navigation(
                         dependencies.settingsCategoryViewModel(
                             categoryKey = category,
                             goToSettingsForCategory = {
-                                navController.navigate(Screen.SettingsCategory(it).route)
+                                navController.safeNavigate(Screen.SettingsCategory(it))
                             },
-                            onBack = { navController.popBackStack() },
+                            onBack = { navController.goBack() },
                         )
                     }
                     val state by viewModel.state.collectAsState()
@@ -194,7 +196,7 @@ fun Navigation(
 
         composable(route = Screen.RunTests.route) {
             val viewModel = viewModel {
-                dependencies.runViewModel(onBack = { navController.popBackStack() })
+                dependencies.runViewModel(onBack = { navController.goBack() })
             }
             val state by viewModel.state.collectAsState()
             RunScreen(state, viewModel::onEvent)
@@ -207,7 +209,7 @@ fun Navigation(
             entry.arguments?.getLong("runId")?.let { descriptorId ->
                 val viewModel = viewModel {
                     dependencies.addDescriptorViewModel(
-                        onBack = { navController.popBackStack() },
+                        onBack = { navController.goBack() },
                         descriptorId = descriptorId.toString(),
                     )
                 }
@@ -218,17 +220,16 @@ fun Navigation(
                 LaunchedEffect(Unit) {
                     snackbarHostState?.showSnackbar("Invalid descriptor ID")
                 }
-                navController.popBackStack()
+                navController.goBack()
             }
         }
 
         composable(route = Screen.RunningTest.route) {
             val viewModel = viewModel {
                 dependencies.runningViewModel(
-                    onBack = { navController.popBackStack() },
+                    onBack = { navController.goBack() },
                     goToResults = {
-                        navController.popBackStack()
-                        navController.navigateToMainScreen(Screen.Results)
+                        navController.goBackAndNavigateToMain(Screen.Results)
                     },
                 )
             }
@@ -249,7 +250,7 @@ fun Navigation(
             val viewModel = viewModel {
                 dependencies.uploadMeasurementsViewModel(
                     resultId = resultId,
-                    onClose = { navController.popBackStack() },
+                    onClose = { navController.goBack() },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -264,9 +265,9 @@ fun Navigation(
             val viewModel = viewModel {
                 dependencies.descriptorViewModel(
                     descriptorKey = descriptorKey,
-                    onBack = { navController.popBackStack() },
+                    onBack = { navController.goBack() },
                     goToReviewDescriptorUpdates = {
-                        navController.navigate(Screen.ReviewUpdates.route)
+                        navController.safeNavigate(Screen.ReviewUpdates)
                     },
                 )
             }
@@ -274,14 +275,75 @@ fun Navigation(
             DescriptorScreen(state, viewModel::onEvent)
         }
 
-        composable(route = Screen.ReviewUpdates.route) { entry ->
+        composable(route = Screen.ReviewUpdates.route) {
             val viewModel = viewModel {
                 dependencies.reviewUpdatesViewModel(
-                    onBack = { navController.popBackStack() },
+                    onBack = { navController.goBack() },
                 )
             }
             val state by viewModel.state.collectAsState()
             ReviewUpdatesScreen(state, viewModel::onEvent)
         }
+    }
+}
+
+// Helpers
+
+private fun NavController.goBack() {
+    if (!isResumed()) return
+    if (!popBackStack()) {
+        navigateToMainScreen(START_SCREEN)
+    }
+}
+
+private fun NavController.goBackTo(
+    screen: Screen,
+    inclusive: Boolean = false,
+) {
+    if (!isResumed()) return
+    if (!popBackStack(screen.route, inclusive = inclusive)) {
+        navigateToMainScreen(START_SCREEN)
+    }
+}
+
+private fun NavController.goBackAndNavigate(screen: Screen) {
+    if (!isResumed()) return
+    popBackStack()
+    navigate(screen.route)
+}
+
+private fun NavController.goBackAndNavigateToMain(screen: Screen) {
+    if (!isResumed()) return
+    popBackStack()
+    navigateToMainScreen(screen)
+}
+
+private fun NavController.safeNavigate(screen: Screen) {
+    if (!isResumed()) return
+    navigate(screen.route)
+}
+
+fun NavController.safeNavigateToMain(screen: Screen) {
+    if (!isResumed()) return
+    navigateToMainScreen(screen)
+}
+
+private fun NavController.isResumed() = currentBackStackEntry?.lifecycle?.currentState == Lifecycle.State.RESUMED
+
+private fun NavController.navigateToMainScreen(screen: Screen) {
+    navigate(screen.route) {
+        // Pop up to the start destination of the graph to
+        // avoid building up a large stack of destinations
+        // on the back stack as users select items
+        graph.findStartDestination().route?.let {
+            popUpTo(it) {
+                saveState = true
+            }
+        }
+        // Avoid multiple copies of the same destination when
+        // re-selecting the same item
+        launchSingleTop = true
+        // Restore state when re-selecting a previously selected item
+        restoreState = true
     }
 }
