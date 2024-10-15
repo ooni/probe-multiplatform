@@ -64,4 +64,8 @@
     <string name="Settings_About_Content_Blog">Blog</string>
     <string name="Settings_About_Content_Reports">Reports</string>
     <string name="Settings_About_Content_DataPolicy">OONI Data Policy</string>
+
+    <string name="Modal_CustomURL_Title_NotSaved">Are you sure?</string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator.</string>
+
 </resources>
