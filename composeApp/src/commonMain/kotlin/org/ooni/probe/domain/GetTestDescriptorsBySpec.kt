@@ -16,15 +16,11 @@ class GetTestDescriptorsBySpec(
             .mapNotNull { descriptor ->
                 val specTest = spec.forDescriptor(descriptor) ?: return@mapNotNull null
 
-                val specDescriptor =
-                    descriptor.copy(
-                        netTests =
-                            descriptor.netTests
-                                .filter { specTest.netTests.contains(it) },
-                        longRunningTests =
-                            descriptor.longRunningTests
-                                .filter { specTest.netTests.contains(it) },
-                    )
+                val specDescriptor = descriptor.copy(
+                    netTests = specTest.netTests,
+                    // long running are already inside netTests
+                    longRunningTests = emptyList(),
+                )
 
                 if (specDescriptor.netTests.isEmpty() && specDescriptor.longRunningTests.isEmpty()) {
                     return@mapNotNull null

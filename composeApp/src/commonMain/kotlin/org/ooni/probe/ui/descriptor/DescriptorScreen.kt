@@ -15,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -30,11 +31,13 @@ import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRun
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Settings
+import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsites
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LastRun_Never
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LatestTest
@@ -110,64 +113,7 @@ fun DescriptorScreen(
                     .padding(WindowInsets.navigationBars.asPaddingValues())
                     .padding(bottom = 32.dp),
             ) {
-                Surface(
-                    color = descriptorColor,
-                    contentColor = onDescriptorColor,
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(8.dp),
-                    ) {
-                        descriptor.icon?.let { icon ->
-                            Icon(
-                                painterResource(icon),
-                                contentDescription = null,
-                                tint = onDescriptorColor,
-                                modifier = Modifier.size(64.dp),
-                            )
-                        }
-
-                        Row {
-                            Text(stringResource(Res.string.Dashboard_Overview_Estimated))
-
-                            descriptor.dataUsage()?.let { dataUsage ->
-                                Text(
-                                    text = dataUsage,
-                                    fontWeight = FontWeight.Bold,
-                                    modifier = Modifier.padding(start = 8.dp),
-                                )
-                            }
-
-                            state.estimatedTime?.let { time ->
-                                Text(
-                                    text = "~ ${time.shortFormat()}",
-                                    fontWeight = FontWeight.Bold,
-                                    modifier = Modifier.padding(start = 8.dp),
-                                )
-                            }
-                        }
-
-                        Row {
-                            Text(stringResource(Res.string.Dashboard_Overview_LatestTest))
-
-                            Text(
-                                text = state.lastResult?.startTime?.relativeDateTime()
-                                    ?: stringResource(Res.string.Dashboard_Overview_LastRun_Never),
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(start = 8.dp),
-                            )
-                        }
-                        if (descriptor.updatable) {
-                            UpdatesChip(onClick = { })
-                        }
-                        state.updatedDescriptor?.let {
-                            OutlinedButton(onClick = { onEvent(DescriptorViewModel.Event.UpdateDescriptor) }) {
-                                Text(stringResource(Res.string.Dashboard_Runv2_Overview_ReviewUpdates))
-                            }
-                        }
-                    }
-                }
+                DescriptorDetails(state, onEvent)
 
                 MarkdownViewer(
                     markdown = descriptor.description().orEmpty(),
@@ -227,6 +173,96 @@ fun DescriptorScreen(
             modifier = Modifier.align(Alignment.TopCenter),
             state = pullToRefreshState,
         )
+    }
+}
+
+@Composable
+private fun DescriptorDetails(
+    state: DescriptorViewModel.State,
+    onEvent: (DescriptorViewModel.Event) -> Unit,
+) {
+    val descriptor = state.descriptor ?: return
+    val descriptorColor = descriptor.color ?: MaterialTheme.colorScheme.primary
+    val onDescriptorColor = LocalCustomColors.current.onDescriptor
+
+    Surface(
+        color = descriptorColor,
+        contentColor = onDescriptorColor,
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
+                .padding(8.dp),
+        ) {
+            descriptor.icon?.let { icon ->
+                Icon(
+                    painterResource(icon),
+                    contentDescription = null,
+                    tint = onDescriptorColor,
+                    modifier = Modifier.size(64.dp),
+                )
+            }
+
+            Row {
+                Text(stringResource(Res.string.Dashboard_Overview_Estimated))
+
+                descriptor.dataUsage()?.let { dataUsage ->
+                    Text(
+                        text = dataUsage,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(start = 8.dp),
+                    )
+                }
+
+                state.estimatedTime?.let { time ->
+                    Text(
+                        text = "~ ${time.shortFormat()}",
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(start = 8.dp),
+                    )
+                }
+            }
+
+            Row {
+                Text(stringResource(Res.string.Dashboard_Overview_LatestTest))
+
+                Text(
+                    text = state.lastResult?.startTime?.relativeDateTime()
+                        ?: stringResource(Res.string.Dashboard_Overview_LastRun_Never),
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(start = 8.dp),
+                )
+            }
+
+            if (descriptor.name == "websites") {
+                OutlinedButton(
+                    onClick = { onEvent(DescriptorViewModel.Event.ChooseWebsitesClicked) },
+                    border = ButtonDefaults.outlinedButtonBorder.copy(
+                        brush = SolidColor(onDescriptorColor),
+                    ),
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = onDescriptorColor),
+                    modifier = Modifier.padding(top = 8.dp),
+                ) {
+                    Text(stringResource(Res.string.Dashboard_Overview_ChooseWebsites))
+                }
+            }
+
+            if (descriptor.updatable) {
+                UpdatesChip(onClick = { }, modifier = Modifier.padding(top = 8.dp))
+            }
+            state.updatedDescriptor?.let {
+                OutlinedButton(
+                    onClick = { onEvent(DescriptorViewModel.Event.UpdateDescriptor) },
+                    border = ButtonDefaults.outlinedButtonBorder.copy(
+                        brush = SolidColor(onDescriptorColor),
+                    ),
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = onDescriptorColor),
+                    modifier = Modifier.padding(top = 8.dp),
+                ) {
+                    Text(stringResource(Res.string.Dashboard_Runv2_Overview_ReviewUpdates))
+                }
+            }
+        }
     }
 }
 

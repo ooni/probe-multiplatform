@@ -18,6 +18,7 @@ import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.decodeUrlFromBase64
+import org.ooni.probe.ui.choosewebsites.ChooseWebsitesScreen
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.descriptor.add.AddDescriptorScreen
@@ -268,6 +269,7 @@ fun Navigation(
                     goToReviewDescriptorUpdates = {
                         navController.navigate(Screen.ReviewUpdates.route)
                     },
+                    goToChooseWebsites = { navController.navigate(Screen.ChooseWebsites.route) },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -282,6 +284,19 @@ fun Navigation(
             }
             val state by viewModel.state.collectAsState()
             ReviewUpdatesScreen(state, viewModel::onEvent)
+        }
+
+        composable(route = Screen.ChooseWebsites.route) { entry ->
+            val viewModel = viewModel {
+                dependencies.chooseWebsitesViewModel(
+                    onBack = { navController.popBackStack() },
+                    goToDashboard = {
+                        navController.popBackStack(Screen.Dashboard.route, inclusive = false)
+                    },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            ChooseWebsitesScreen(state, viewModel::onEvent)
         }
     }
 }

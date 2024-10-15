@@ -3,6 +3,7 @@
     <string name="Dashboard_Overview_LatestTest">Last test:</string>
     <string name="Dashboard_Overview_Estimated">Estimated:</string>
     <string name="Dashboard_Overview_LastRun_Never">N/A</string>
+    <string name="Dashboard_Overview_ChooseWebsites">Choose websites</string>
 
     <string name="Dashboard_Running_Running">Running:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Estimated time left:</string>
@@ -213,6 +214,15 @@
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">UPDATE</string>
+
+    <string name="Settings_Websites_CustomURL_Title">Choose websites to test</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="Settings_Websites_CustomURL_NoURLEntered">No URLs entered</string>
+    <string name="Settings_Websites_CustomURL_Run">Run</string>
+    <string name="Settings_Websites_CustomURL_Add">Add website</string>
+    <string name="CustomWebsites_Fab_Text">Test %1$d URLs</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Are you sure?</string>
+    <string name="Modal_CustomURL_NotSaved">Your URLs will not be saved when you leave this screen. Are you sure you want to leave this screen?</string>
 
     <!-- New Strings -->
     <string name="back">Back</string>

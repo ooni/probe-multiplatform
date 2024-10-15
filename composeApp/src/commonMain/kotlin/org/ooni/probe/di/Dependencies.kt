@@ -74,6 +74,7 @@ import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.shared.monitoring.AppLogger
 import org.ooni.probe.shared.monitoring.CrashMonitoring
+import org.ooni.probe.ui.choosewebsites.ChooseWebsitesViewModel
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
@@ -353,6 +354,15 @@ class Dependencies(
         fetchDescriptor = { fetchDescriptor(descriptorId) },
     )
 
+    fun chooseWebsitesViewModel(
+        onBack: () -> Unit,
+        goToDashboard: () -> Unit,
+    ) = ChooseWebsitesViewModel(
+        onBack = onBack,
+        goToDashboard = goToDashboard,
+        startBackgroundRun = startSingleRunInner,
+    )
+
     fun dashboardViewModel(
         goToOnboarding: () -> Unit,
         goToResults: () -> Unit,
@@ -382,10 +392,12 @@ class Dependencies(
         descriptorKey: String,
         onBack: () -> Unit,
         goToReviewDescriptorUpdates: () -> Unit,
+        goToChooseWebsites: () -> Unit,
     ) = DescriptorViewModel(
         descriptorKey = descriptorKey,
         onBack = onBack,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
+        goToChooseWebsites = goToChooseWebsites,
         getTestDescriptors = getTestDescriptors::invoke,
         getDescriptorLastResult = resultRepository::getLatestByDescriptor,
         preferenceRepository = preferenceRepository,
