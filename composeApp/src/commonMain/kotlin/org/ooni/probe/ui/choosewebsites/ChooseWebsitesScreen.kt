@@ -2,6 +2,7 @@ package org.ooni.probe.ui.choosewebsites
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -66,7 +67,10 @@ fun ChooseWebsitesScreen(
 
         Box(Modifier.fillMaxSize()) {
             LazyColumn(
-                contentPadding = WindowInsets.navigationBars.asPaddingValues(),
+                contentPadding = PaddingValues(
+                    bottom = WindowInsets.navigationBars.asPaddingValues()
+                        .calculateBottomPadding() + 64.dp,
+                ),
             ) {
                 itemsIndexed(state.websites) { index, item ->
                     OutlinedTextField(
@@ -108,7 +112,7 @@ fun ChooseWebsitesScreen(
                 item(key = "Add") {
                     TextButton(
                         onClick = { onEvent(ChooseWebsitesViewModel.Event.AddWebsiteClicked) },
-                        modifier = Modifier.fillMaxWidth().padding(16.dp),
+                        modifier = Modifier.padding(16.dp),
                     ) {
                         Icon(
                             painterResource(Res.drawable.ic_add),
