@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,7 +26,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.CustomWebsites_Fab_Text
+import ooniprobe.composeapp.generated.resources.Modal_Cancel
+import ooniprobe.composeapp.generated.resources.Modal_CustomURL_NotSaved
+import ooniprobe.composeapp.generated.resources.Modal_CustomURL_Title_NotSaved
 import ooniprobe.composeapp.generated.resources.Modal_Delete
+import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Websites_CustomURL_Add
 import ooniprobe.composeapp.generated.resources.Settings_Websites_CustomURL_Title
@@ -80,7 +85,11 @@ fun ChooseWebsitesScreen(
                             if (state.canRemoveUrls) {
                                 IconButton(
                                     onClick = {
-                                        onEvent(ChooseWebsitesViewModel.Event.DeleteWebsiteClicked(index))
+                                        onEvent(
+                                            ChooseWebsitesViewModel.Event.DeleteWebsiteClicked(
+                                                index,
+                                            ),
+                                        )
                                     },
                                 ) {
                                     Icon(
@@ -130,4 +139,33 @@ fun ChooseWebsitesScreen(
             }
         }
     }
+
+    if (state.showBackConfirmation) {
+        BackConfirmationDialog(
+            onConfirm = { onEvent(ChooseWebsitesViewModel.Event.BackConfirmed) },
+            onDismiss = { onEvent(ChooseWebsitesViewModel.Event.BackCancelled) },
+        )
+    }
+}
+
+@Composable
+private fun BackConfirmationDialog(
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = { onDismiss() },
+        title = { Text(stringResource(Res.string.Modal_CustomURL_Title_NotSaved)) },
+        text = { Text(stringResource(Res.string.Modal_CustomURL_NotSaved)) },
+        confirmButton = {
+            TextButton(onClick = { onConfirm() }) {
+                Text(stringResource(Res.string.Modal_OK))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = { onDismiss() }) {
+                Text(stringResource(Res.string.Modal_Cancel))
+            }
+        },
+    )
 }

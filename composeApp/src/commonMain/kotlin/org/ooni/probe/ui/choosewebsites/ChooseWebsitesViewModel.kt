@@ -28,6 +28,22 @@ class ChooseWebsitesViewModel(
     init {
         events
             .filterIsInstance<Event.BackClicked>()
+            .onEach {
+                if (_state.value == State()) {
+                    onBack()
+                } else {
+                    _state.update { it.copy(showBackConfirmation = true) }
+                }
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.BackCancelled>()
+            .onEach { _state.update { it.copy(showBackConfirmation = false) } }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.BackConfirmed>()
             .onEach { onBack() }
             .launchIn(viewModelScope)
 
@@ -108,12 +124,17 @@ class ChooseWebsitesViewModel(
 
     data class State(
         val websites: List<WebsiteItem> = listOf(WebsiteItem()),
+        val showBackConfirmation: Boolean = false,
     ) {
         val canRemoveUrls get() = websites.size > 1
     }
 
     sealed interface Event {
         data object BackClicked : Event
+
+        data object BackConfirmed : Event
+
+        data object BackCancelled : Event
 
         data class UrlChanged(val index: Int, val url: String) : Event
 

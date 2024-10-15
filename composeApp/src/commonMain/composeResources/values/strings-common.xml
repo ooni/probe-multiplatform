@@ -221,6 +221,8 @@
     <string name="Settings_Websites_CustomURL_Run">Run</string>
     <string name="Settings_Websites_CustomURL_Add">Add website</string>
     <string name="CustomWebsites_Fab_Text">Test %1$d URLs</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Are you sure?</string>
+    <string name="Modal_CustomURL_NotSaved">Your URLs will not be saved when you leave this screen. Are you sure you want to leave this screen?</string>
 
     <!-- New Strings -->
     <string name="back">Back</string>
