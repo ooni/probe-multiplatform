@@ -37,7 +37,7 @@ fun BottomNavigationBar(navController: NavController) {
                 },
                 label = { Text(stringResource(screen.titleRes)) },
                 selected = currentRoute == screen.route,
-                onClick = { navController.safeNavigateToMain(screen) },
+                onClick = { navController.navigateToMainScreen(screen) },
                 colors = NavigationBarItemDefaults.colors(
                     indicatorColor = MaterialTheme.colorScheme.primaryContainer,
                     selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,

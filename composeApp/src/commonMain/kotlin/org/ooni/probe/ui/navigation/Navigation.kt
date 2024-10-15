@@ -290,9 +290,9 @@ fun Navigation(
         composable(route = Screen.ChooseWebsites.route) { entry ->
             val viewModel = viewModel {
                 dependencies.chooseWebsitesViewModel(
-                    onBack = { navController.popBackStack() },
+                    onBack = { navController.goBack() },
                     goToDashboard = {
-                        navController.popBackStack(Screen.Dashboard.route, inclusive = false)
+                        navController.goBackTo(Screen.Dashboard, inclusive = false)
                     },
                 )
             }
@@ -338,14 +338,9 @@ private fun NavController.safeNavigate(screen: Screen) {
     navigate(screen.route)
 }
 
-fun NavController.safeNavigateToMain(screen: Screen) {
-    if (!isResumed()) return
-    navigateToMainScreen(screen)
-}
-
 private fun NavController.isResumed() = currentBackStackEntry?.lifecycle?.currentState == Lifecycle.State.RESUMED
 
-private fun NavController.navigateToMainScreen(screen: Screen) {
+fun NavController.navigateToMainScreen(screen: Screen) {
     navigate(screen.route) {
         // Pop up to the start destination of the graph to
         // avoid building up a large stack of destinations
