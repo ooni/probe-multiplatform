@@ -45,31 +45,46 @@ class ProxyViewModel(
                 )
             }
         }.launchIn(viewModelScope)
+
         events.onEach { event ->
             when (event) {
                 is Event.BackClicked -> {
                     state.value.run {
-                        preferenceManager.setValueByKey(key = SettingsKey.PROXY_PROTOCOL, value = proxyProtocol.value)
+                        preferenceManager.setValueByKey(
+                            key = SettingsKey.PROXY_PROTOCOL,
+                            value = proxyProtocol.value,
+                        )
 
-                        if (isValidDomainNameOrIp(proxyHost ?: "")) {
-                            preferenceManager.setValueByKey(key = SettingsKey.PROXY_HOSTNAME, value = proxyHost)
-                        } else {
-                            _state.update { it.copy(proxyHostError = true) }
+                        if (proxyType == ProxyType.CUSTOM) {
+                            if (isValidDomainNameOrIp(proxyHost ?: "")) {
+                                preferenceManager.setValueByKey(
+                                    key = SettingsKey.PROXY_HOSTNAME,
+                                    value = proxyHost,
+                                )
+                            } else {
+                                _state.update { it.copy(proxyHostError = true) }
+                            }
+
+                            if (isValidPort(proxyPort.toString())) {
+                                preferenceManager.setValueByKey(
+                                    key = SettingsKey.PROXY_PORT,
+                                    value = proxyPort,
+                                )
+                            } else {
+                                _state.update { it.copy(proxyPortError = true) }
+                            }
                         }
 
-                        if (isValidPort(proxyPort.toString())) {
-                            preferenceManager.setValueByKey(key = SettingsKey.PROXY_PORT, value = proxyPort)
-                        } else {
-                            _state.update { it.copy(proxyPortError = true) }
-                        }
-
-                        if (proxyPortError || proxyHostError || proxyProtocolError) {
+                        if (proxyType == ProxyType.CUSTOM &&
+                            (proxyPortError || proxyHostError || proxyProtocolError)
+                        ) {
                             return@run
                         } else {
                             onBack()
                         }
                     }
                 }
+
                 is Event.ProtocolChanged -> {
                     if (event.protocol.proxyType() == ProxyType.CUSTOM) {
                         _state.update {
@@ -82,6 +97,7 @@ class ProxyViewModel(
                         }
                     }
                 }
+
                 is Event.ProxyHostChanged -> {
                     if (isValidDomainNameOrIp(event.host)) {
                         _state.update {
@@ -91,6 +107,7 @@ class ProxyViewModel(
                         _state.update { it.copy(proxyHostError = true) }
                     }
                 }
+
                 is Event.ProxyPortChanged -> {
                     if (isValidPort(event.port)) {
                         _state.update {
@@ -100,6 +117,7 @@ class ProxyViewModel(
                         _state.update { it.copy(proxyPortError = true) }
                     }
                 }
+
                 is Event.ProtocolTypeSelected -> {
                     _state.update { it.copy(proxyType = event.protocol) }
                     val protocolName = when (event.protocol) {
@@ -107,11 +125,21 @@ class ProxyViewModel(
                         ProxyType.PSIPHON -> ProxyProtocol.PSIPHON.value
                         ProxyType.CUSTOM -> state.value.proxyProtocol.value
                     }
-                    preferenceManager.setValueByKey(key = SettingsKey.PROXY_PROTOCOL, value = protocolName)
+                    preferenceManager.setValueByKey(
+                        key = SettingsKey.PROXY_PROTOCOL,
+                        value = protocolName,
+                    )
                     if (event.protocol != ProxyType.CUSTOM) {
                         preferenceManager.remove(key = SettingsKey.PROXY_HOSTNAME)
                         preferenceManager.remove(key = SettingsKey.PROXY_PORT)
-                        _state.update { it.copy(proxyHost = null, proxyPort = null, proxyHostError = false, proxyPortError = false) }
+                        _state.update {
+                            it.copy(
+                                proxyHost = null,
+                                proxyPort = null,
+                                proxyHostError = false,
+                                proxyPortError = false,
+                            )
+                        }
                     }
                 }
             }
