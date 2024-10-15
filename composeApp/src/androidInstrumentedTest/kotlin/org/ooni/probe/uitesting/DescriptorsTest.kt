@@ -7,8 +7,11 @@ import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeDown
@@ -79,6 +82,8 @@ class DescriptorsTest {
 
                 clickOnText("Android instrumented tests")
                 clickOnText("Uninstall Link")
+
+                compose.onAllNodesWithText("Uninstall Link").onLast().performClick()
 
                 onNodeWithText("Testing").assertIsNotDisplayed()
             }
