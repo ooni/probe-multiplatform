@@ -46,6 +46,5 @@
     <string name="websites_datausage" translatable="false"/>
     <string name="small_datausage" translatable="false"/>
     <string name="performance_datausage" translatable="false"/>
-    <string name="Modal_CustomURL_Title_NotSaved" translatable="false"/>
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt" translatable="false"/>
 </resources>
