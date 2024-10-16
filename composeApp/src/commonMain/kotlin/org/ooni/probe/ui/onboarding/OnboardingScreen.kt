@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
@@ -20,11 +19,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LocalContentColor
@@ -34,7 +32,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,6 +45,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import co.touchlab.kermit.Logger
 import dev.icerock.moko.permissions.DeniedAlwaysException
 import dev.icerock.moko.permissions.DeniedException
@@ -58,8 +56,11 @@ import dev.icerock.moko.permissions.compose.PermissionsControllerFactory
 import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import ooniprobe.composeapp.generated.resources.Modal_Autorun_BatteryOptimization
+import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Paragraph
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
+import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Paragraph
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Button_No
@@ -97,54 +98,44 @@ fun OnboardingScreen(
     state: OnboardingViewModel.State,
     onEvent: (OnboardingViewModel.Event) -> Unit,
 ) {
-    val pagerState = rememberPagerState(0, pageCount = { state.stepList.size })
-    LaunchedEffect(state.stepIndex) {
-        pagerState.animateScrollToPage(state.stepIndex)
-    }
     var showQuiz by remember { mutableStateOf(false) }
 
     Box {
-        HorizontalPager(
-            state = pagerState,
-            userScrollEnabled = false,
-            modifier = Modifier.fillMaxSize(),
-        ) { stepIndex ->
-            val step = state.stepList[state.stepIndex]
-            Surface(
-                color = step.surfaceColor,
-                contentColor = LocalCustomColors.current.onOnboarding,
+        Surface(
+            color = state.step.surfaceColor,
+            contentColor = LocalCustomColors.current.onOnboarding,
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(WindowInsets.navigationBars.asPaddingValues())
+                    .padding(bottom = 48.dp),
             ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(WindowInsets.navigationBars.asPaddingValues())
-                        .padding(bottom = 48.dp),
-                ) {
-                    when (state.stepList[stepIndex]) {
-                        OnboardingViewModel.Step.WhatIs ->
-                            WhatIsStep(onEvent)
+                when (state.step) {
+                    OnboardingViewModel.Step.WhatIs ->
+                        WhatIsStep(onEvent)
 
-                        OnboardingViewModel.Step.HeadsUp ->
-                            HeadsUpStep(
-                                onEvent = onEvent,
-                                onShowQuiz = { showQuiz = true },
-                            )
+                    OnboardingViewModel.Step.HeadsUp ->
+                        HeadsUpStep(
+                            onEvent = onEvent,
+                            onShowQuiz = { showQuiz = true },
+                        )
 
-                        OnboardingViewModel.Step.AutomatedTesting ->
-                            AutomatedTestingStep(onEvent)
+                    is OnboardingViewModel.Step.AutomatedTesting ->
+                        AutomatedTestingStep(state.step.showBatteryOptimizationDialog, onEvent)
 
-                        OnboardingViewModel.Step.CrashReporting ->
-                            CrashReportingStep(onEvent)
+                    OnboardingViewModel.Step.CrashReporting ->
+                        CrashReportingStep(onEvent)
 
-                        OnboardingViewModel.Step.RequestNotificationPermission ->
-                            RequestPermissionStep(onEvent)
+                    OnboardingViewModel.Step.RequestNotificationPermission ->
+                        RequestPermissionStep(onEvent)
 
-                        OnboardingViewModel.Step.DefaultSettings ->
-                            DefaultSettingsStep(onEvent)
-                    }
+                    OnboardingViewModel.Step.DefaultSettings ->
+                        DefaultSettingsStep(onEvent)
                 }
             }
         }
+
         Row(
             Modifier
                 .wrapContentHeight()
@@ -153,11 +144,11 @@ fun OnboardingScreen(
                 .padding(WindowInsets.navigationBars.asPaddingValues()),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            repeat(pagerState.pageCount) { index ->
+            repeat(state.totalSteps) { index ->
                 if (index != 0) {
                     Box(
                         modifier = Modifier
-                            .alpha(if (pagerState.currentPage >= index) 1f else 0.33f)
+                            .alpha(if (state.stepIndex >= index) 1f else 0.33f)
                             .background(LocalCustomColors.current.onOnboarding)
                             .height(2.dp)
                             .width(36.dp),
@@ -165,7 +156,7 @@ fun OnboardingScreen(
                 }
                 Box(
                     modifier = Modifier
-                        .alpha(if (pagerState.currentPage >= index) 1f else 0.33f)
+                        .alpha(if (state.stepIndex >= index) 1f else 0.33f)
                         .padding(1.dp)
                         .clip(CircleShape)
                         .background(LocalCustomColors.current.onOnboarding)
@@ -245,7 +236,10 @@ fun ColumnScope.HeadsUpStep(
 }
 
 @Composable
-fun ColumnScope.AutomatedTestingStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
+fun ColumnScope.AutomatedTestingStep(
+    showBatteryOptimizationDialog: Boolean,
+    onEvent: (OnboardingViewModel.Event) -> Unit,
+) {
     OnboardingImage(OrganizationConfig.onboardingImages.image3)
     OnboardingTitle(Res.string.Onboarding_AutomatedTesting_Title)
     Column(
@@ -263,15 +257,37 @@ fun ColumnScope.AutomatedTestingStep(onEvent: (OnboardingViewModel.Event) -> Uni
             onClick = { onEvent(OnboardingViewModel.Event.AutoTestNoClicked) },
             modifier = Modifier
                 .padding(horizontal = 8.dp)
-                .weight(1f),
+                .weight(1f)
+                .testTag("No-AutoTest"),
         )
         OnboardingMainButton(
             text = Res.string.Onboarding_Crash_Button_Yes,
             onClick = { onEvent(OnboardingViewModel.Event.AutoTestYesClicked) },
             modifier = Modifier
                 .padding(horizontal = 8.dp)
-                .weight(1f)
-                .testTag("Yes-AutoTest"),
+                .weight(1f),
+        )
+    }
+
+    if (showBatteryOptimizationDialog) {
+        AlertDialog(
+            onDismissRequest = { },
+            text = { Text(stringResource(Res.string.Modal_Autorun_BatteryOptimization)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    onEvent(OnboardingViewModel.Event.BatteryOptimizationOkClicked)
+                }) {
+                    Text(stringResource(Res.string.Modal_OK))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    onEvent(OnboardingViewModel.Event.BatteryOptimizationCancelClicked)
+                }) {
+                    Text(stringResource(Res.string.Modal_Cancel))
+                }
+            },
+            properties = DialogProperties(dismissOnClickOutside = false, dismissOnBackPress = false),
         )
     }
 }

@@ -9,10 +9,12 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.shared.PlatformInfo
-import org.ooni.probe.ui.dashboard.DashboardViewModel.Event
 
 class OnboardingViewModel(
     private val goToDashboard: () -> Unit,
@@ -20,16 +22,28 @@ class OnboardingViewModel(
     platformInfo: PlatformInfo,
     private val preferenceRepository: PreferenceRepository,
     private val launchUrl: (String) -> Unit,
+    private val batteryOptimization: BatteryOptimization,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
+    private val stepList = listOfNotNull(
+        Step.WhatIs,
+        Step.HeadsUp,
+        Step.AutomatedTesting(false),
+        Step.CrashReporting,
+        if (platformInfo.needsToRequestNotificationsPermission) {
+            Step.RequestNotificationPermission
+        } else {
+            null
+        },
+        Step.DefaultSettings,
+    )
+
     private val _state = MutableStateFlow(
         State(
-            stepList = if (platformInfo.needsToRequestNotificationsPermission) {
-                Step.entries
-            } else {
-                Step.entries - Step.RequestNotificationPermission
-            },
+            step = stepList[0],
+            stepIndex = 0,
+            totalSteps = stepList.size,
         ),
     )
     val state = _state.asStateFlow()
@@ -50,12 +64,32 @@ class OnboardingViewModel(
             events.filterIsInstance<Event.AutoTestNoClicked>(),
         )
             .onEach { event ->
+                val enableAutoTest = event == Event.AutoTestYesClicked
+
                 preferenceRepository.setValueByKey(
                     SettingsKey.AUTOMATED_TESTING_ENABLED,
-                    event == Event.AutoTestYesClicked,
+                    enableAutoTest,
                 )
-                moveToNextStep()
+
+                if (enableAutoTest &&
+                    batteryOptimization.isSupported &&
+                    !batteryOptimization.isIgnoring
+                ) {
+                    requestIgnoreBatteryOptimization()
+                } else {
+                    moveToNextStep()
+                }
             }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.BatteryOptimizationOkClicked>()
+            .onEach { requestIgnoreBatteryOptimization() }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.BatteryOptimizationCancelClicked>()
+            .onEach { moveToNextStep() }
             .launchIn(viewModelScope)
 
         merge(
@@ -94,26 +128,48 @@ class OnboardingViewModel(
 
     private suspend fun moveToNextStep() {
         val state = _state.value
-        if (state.stepIndex < state.stepList.size - 1) {
-            _state.value = state.copy(stepIndex = state.stepIndex + 1)
+        if (state.stepIndex < stepList.size - 1) {
+            val newIndex = state.stepIndex + 1
+            _state.value = state.copy(
+                step = stepList[newIndex],
+                stepIndex = newIndex,
+            )
         } else {
             preferenceRepository.setValueByKey(SettingsKey.FIRST_RUN, false)
             goToDashboard()
         }
     }
 
+    private fun requestIgnoreBatteryOptimization() {
+        batteryOptimization.requestIgnore { isIgnoring ->
+            if (isIgnoring) {
+                viewModelScope.launch { moveToNextStep() }
+            } else {
+                _state.update {
+                    it.copy(step = Step.AutomatedTesting(true))
+                }
+            }
+        }
+    }
+
     data class State(
-        val stepIndex: Int = 0,
-        val stepList: List<Step>,
+        val step: Step,
+        val stepIndex: Int,
+        val totalSteps: Int,
     )
 
-    enum class Step {
-        WhatIs,
-        HeadsUp,
-        AutomatedTesting,
-        CrashReporting,
-        RequestNotificationPermission,
-        DefaultSettings,
+    sealed interface Step {
+        data object WhatIs : Step
+
+        data object HeadsUp : Step
+
+        data class AutomatedTesting(val showBatteryOptimizationDialog: Boolean) : Step
+
+        data object CrashReporting : Step
+
+        data object RequestNotificationPermission : Step
+
+        data object DefaultSettings : Step
     }
 
     sealed interface Event {
@@ -124,6 +180,10 @@ class OnboardingViewModel(
         data object AutoTestYesClicked : Event
 
         data object AutoTestNoClicked : Event
+
+        data object BatteryOptimizationOkClicked : Event
+
+        data object BatteryOptimizationCancelClicked : Event
 
         data object CrashReportingYesClicked : Event
 

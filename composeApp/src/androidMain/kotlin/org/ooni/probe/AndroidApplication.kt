@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
 import android.os.LocaleList
+import android.os.PowerManager
 import androidx.core.content.FileProvider
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.SharedPreferencesMigration
@@ -25,6 +26,7 @@ import okio.Path.Companion.toPath
 import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
 import org.ooni.probe.background.AppWorkerManager
+import org.ooni.probe.config.AndroidBatteryOptimization
 import org.ooni.probe.data.models.FileSharing
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -53,8 +55,11 @@ class AndroidApplication : Application() {
             configureDescriptorAutoUpdate = appWorkerManager::configureDescriptorAutoUpdate,
             fetchDescriptorUpdate = appWorkerManager::fetchDescriptorUpdate,
             shareFile = ::shareFile,
+            batteryOptimization = batteryOptimization,
         )
     }
+
+    private val mainActivityLifecycleCallbacks = MainActivityLifecycleCallbacks()
 
     override fun onCreate() {
         super.onCreate()
@@ -65,6 +70,7 @@ class AndroidApplication : Application() {
                 LocaleList.forLanguageTags(getString(R.string.supported_languages)),
             )
         }
+        registerActivityLifecycleCallbacks(mainActivityLifecycleCallbacks)
     }
 
     private val platformInfo by lazy {
@@ -193,5 +199,15 @@ class AndroidApplication : Application() {
             Logger.e("Could not share file", e)
             false
         }
+    }
+
+    private val batteryOptimization by lazy {
+        AndroidBatteryOptimization(
+            powerManager = getSystemService(PowerManager::class.java),
+            packageName = packageName,
+            requestCall = { callback ->
+                mainActivityLifecycleCallbacks.activity?.requestIgnoreBatteryOptimization(callback)
+            },
+        )
     }
 }

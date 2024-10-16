@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.probe.background.OperationsManager
+import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
@@ -77,6 +78,7 @@ class SetupDependencies(
         fetchDescriptorUpdate = ::fetchDescriptorUpdate,
         localeDirection = ::localeDirection,
         shareFile = ::shareFile,
+        batteryOptimization = object : BatteryOptimization {},
     )
 
     private val operationsManager = OperationsManager(dependencies)
