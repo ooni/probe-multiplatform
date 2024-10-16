@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
@@ -20,8 +19,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -35,7 +32,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -102,53 +98,44 @@ fun OnboardingScreen(
     state: OnboardingViewModel.State,
     onEvent: (OnboardingViewModel.Event) -> Unit,
 ) {
-    val pagerState = rememberPagerState(0, pageCount = { state.totalSteps })
-    LaunchedEffect(state.stepIndex) {
-        pagerState.scrollToPage(state.stepIndex)
-    }
     var showQuiz by remember { mutableStateOf(false) }
 
     Box {
-        HorizontalPager(
-            state = pagerState,
-            userScrollEnabled = false,
-            modifier = Modifier.fillMaxSize(),
+        Surface(
+            color = state.step.surfaceColor,
+            contentColor = LocalCustomColors.current.onOnboarding,
         ) {
-            Surface(
-                color = state.step.surfaceColor,
-                contentColor = LocalCustomColors.current.onOnboarding,
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(WindowInsets.navigationBars.asPaddingValues())
+                    .padding(bottom = 48.dp),
             ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(WindowInsets.navigationBars.asPaddingValues())
-                        .padding(bottom = 48.dp),
-                ) {
-                    when (state.step) {
-                        OnboardingViewModel.Step.WhatIs ->
-                            WhatIsStep(onEvent)
+                when (state.step) {
+                    OnboardingViewModel.Step.WhatIs ->
+                        WhatIsStep(onEvent)
 
-                        OnboardingViewModel.Step.HeadsUp ->
-                            HeadsUpStep(
-                                onEvent = onEvent,
-                                onShowQuiz = { showQuiz = true },
-                            )
+                    OnboardingViewModel.Step.HeadsUp ->
+                        HeadsUpStep(
+                            onEvent = onEvent,
+                            onShowQuiz = { showQuiz = true },
+                        )
 
-                        is OnboardingViewModel.Step.AutomatedTesting ->
-                            AutomatedTestingStep(state.step.showBatteryOptimizationDialog, onEvent)
+                    is OnboardingViewModel.Step.AutomatedTesting ->
+                        AutomatedTestingStep(state.step.showBatteryOptimizationDialog, onEvent)
 
-                        OnboardingViewModel.Step.CrashReporting ->
-                            CrashReportingStep(onEvent)
+                    OnboardingViewModel.Step.CrashReporting ->
+                        CrashReportingStep(onEvent)
 
-                        OnboardingViewModel.Step.RequestNotificationPermission ->
-                            RequestPermissionStep(onEvent)
+                    OnboardingViewModel.Step.RequestNotificationPermission ->
+                        RequestPermissionStep(onEvent)
 
-                        OnboardingViewModel.Step.DefaultSettings ->
-                            DefaultSettingsStep(onEvent)
-                    }
+                    OnboardingViewModel.Step.DefaultSettings ->
+                        DefaultSettingsStep(onEvent)
                 }
             }
         }
+
         Row(
             Modifier
                 .wrapContentHeight()
@@ -157,11 +144,11 @@ fun OnboardingScreen(
                 .padding(WindowInsets.navigationBars.asPaddingValues()),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            repeat(pagerState.pageCount) { index ->
+            repeat(state.totalSteps) { index ->
                 if (index != 0) {
                     Box(
                         modifier = Modifier
-                            .alpha(if (pagerState.currentPage >= index) 1f else 0.33f)
+                            .alpha(if (state.stepIndex >= index) 1f else 0.33f)
                             .background(LocalCustomColors.current.onOnboarding)
                             .height(2.dp)
                             .width(36.dp),
@@ -169,7 +156,7 @@ fun OnboardingScreen(
                 }
                 Box(
                     modifier = Modifier
-                        .alpha(if (pagerState.currentPage >= index) 1f else 0.33f)
+                        .alpha(if (state.stepIndex >= index) 1f else 0.33f)
                         .padding(1.dp)
                         .clip(CircleShape)
                         .background(LocalCustomColors.current.onOnboarding)
