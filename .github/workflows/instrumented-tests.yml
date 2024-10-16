@@ -1,0 +1,50 @@
+name: Android Instrumented Tests
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  instrumentation-tests:
+    name: Run Android Instrumented Tests
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build APKs
+        run: ./gradlew copyBrandingToCommonResources assembleDebug assembleDebugAndroidTest
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: '>= 495.0.0'
+
+      - name: GCloud authentication
+        env:
+          INPUT_SERVICE_CREDENTIALS_FILE_CONTENT: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+          GOOGLE_APPLICATION_CREDENTIALS: service_credentials_content.json
+        run: |
+          cat <<< "${INPUT_SERVICE_CREDENTIALS_FILE_CONTENT}" > service_credentials_content.json
+          gcloud auth activate-service-account --key-file=service_credentials_content.json
+
+      - name: Firebase Test Lab
+        env:
+          INPUT_FILE: composeApp-debug.apk
+        run: >-
+          LABEL=$(git show -s --format='%H')
+          gcloud firebase test android run
+          --type instrumentation
+          --app $INPUT_FILE
+          --test composeApp-debug-androidTest.apk
+          --device model=MediumPhone.arm,version=29,locale=en,orientation=portrait
+          --timeout 180s
+          --num-flaky-test-attempts=2
+          --client-details matrixLabel="$LABEL"
+          --use-orchestrator
+          --environment-variables clearPackageData=true
+          --project ooniprobe-android
+          --test-targets "package org.ooni.probe.uitesting"

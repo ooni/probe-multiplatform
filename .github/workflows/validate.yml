@@ -24,9 +24,6 @@ jobs:
       - name: Build Android
         run: ./gradlew copyBrandingToCommonResources assemble${{ matrix.type }} -Porganization=${{ matrix.organization }}
 
-      - name: Build Android instrumentation tests
-        run: ./gradlew copyBrandingToCommonResources assembleDebugAndroidTest
-
       - name: Build iOS Framework
         run: ./gradlew link${{ matrix.type }}FrameworkIosSimulatorArm64 -Porganization=${{ matrix.organization }}
 
@@ -36,13 +33,6 @@ jobs:
         with:
           name: ${{ matrix.organization }}-${{ matrix.type }}-APK
           path: composeApp/build/outputs/apk/debug/composeApp-debug.apk
-
-      - name: Uploads test artifacts
-        uses: actions/upload-artifact@v4
-        if: matrix.type == 'Debug'
-        with:
-          name: ${{ matrix.organization }}-${{ matrix.type }}-androidTest-APK
-          path: composeApp/build/outputs/apk/androidTest/debug/composeApp-debug-androidTest.apk
 
   android-lint:
     name: Android Lint
@@ -107,64 +97,10 @@ jobs:
           name: android-lint-report
           path: composeApp/build/reports/tests/iosSimulatorArm64Test/
 
-  instrumentation-tests:
-    name: Instrumentation Tests
-    runs-on: macos-latest
-    needs: [ build ]
-    strategy:
-      matrix:
-        organization: [ ooni ]
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Download app APK
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ matrix.organization }}-Debug-APK
-
-      - name: Download test APK
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ matrix.organization }}-Debug-androidTest-APK
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          version: '>= 495.0.0'
-
-      - name: GCloud authentication
-        env:
-          INPUT_SERVICE_CREDENTIALS_FILE_CONTENT: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-          GOOGLE_APPLICATION_CREDENTIALS: service_credentials_content.json
-        run: |
-          cat <<< "${INPUT_SERVICE_CREDENTIALS_FILE_CONTENT}" > service_credentials_content.json
-          gcloud auth activate-service-account --key-file=service_credentials_content.json
-
-      - name: Firebase Test Lab
-        env:
-          INPUT_FILE: composeApp-debug.apk
-        run: >-
-          LABEL=$(git show -s --format='%H')
-          gcloud firebase test android run
-          --type instrumentation
-          --app $INPUT_FILE
-          --test composeApp-debug-androidTest.apk
-          --device model=MediumPhone.arm,version=29,locale=en,orientation=portrait
-          --timeout 180s
-          --num-flaky-test-attempts=2
-          --client-details matrixLabel="$LABEL"
-          --use-orchestrator
-          --environment-variables clearPackageData=true
-          --project ooniprobe-android
-          --test-targets "package org.ooni.probe.uitesting"
-
   distribute:
     name: Firebase App Distribution
     runs-on: ubuntu-latest
-    needs: [ common-tests , instrumentation-tests]
+    needs: [ common-tests ]
     strategy:
       matrix:
         organization: [ ooni, dw ]
