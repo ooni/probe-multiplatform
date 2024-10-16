@@ -21,21 +21,31 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.Modal_Cancel
+import ooniprobe.composeapp.generated.resources.Modal_ReRun_Title
+import ooniprobe.composeapp.generated.resources.Modal_ReRun_Websites_Run
+import ooniprobe.composeapp.generated.resources.Modal_ReRun_Websites_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.TestResults_NotAvailable
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
@@ -51,6 +61,7 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
 import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.ic_download
+import ooniprobe.composeapp.generated.resources.ic_replay
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ooni_bw
 import ooniprobe.composeapp.generated.resources.vpn
@@ -69,6 +80,8 @@ fun ResultScreen(
     state: ResultViewModel.State,
     onEvent: (ResultViewModel.Event) -> Unit,
 ) {
+    var showRerunConfirmation by remember { mutableStateOf(false) }
+
     Column {
         val descriptorColor = state.result?.descriptor?.color ?: MaterialTheme.colorScheme.primary
         val onDescriptorColor = LocalCustomColors.current.onDescriptor
@@ -82,6 +95,19 @@ fun ResultScreen(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(Res.string.back),
                     )
+                }
+            },
+            actions = {
+                if (state.result?.canBeRerun == true) {
+                    IconButton(
+                        onClick = { showRerunConfirmation = true },
+                        enabled = state.rerunEnabled,
+                    ) {
+                        Icon(
+                            painterResource(Res.drawable.ic_replay),
+                            contentDescription = stringResource(Res.string.Modal_ReRun_Title),
+                        )
+                    }
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
@@ -119,6 +145,14 @@ fun ResultScreen(
                 )
             }
         }
+    }
+
+    if (showRerunConfirmation) {
+        RerunConfirmationDialog(
+            websitesCount = state.result?.urlCount ?: 0,
+            onDismiss = { showRerunConfirmation = false },
+            onConfirm = { onEvent(ResultViewModel.Event.RerunClicked) },
+        )
     }
 }
 
@@ -279,3 +313,26 @@ private fun NetworkType.label(): String =
             is NetworkType.Unknown -> Res.string.TestResults_NotAvailable
         },
     )
+
+@Composable
+private fun RerunConfirmationDialog(
+    websitesCount: Int,
+    onDismiss: () -> Unit,
+    onConfirm: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(Res.string.Modal_ReRun_Title)) },
+        text = { Text(stringResource(Res.string.Modal_ReRun_Websites_Title, websitesCount)) },
+        confirmButton = {
+            TextButton(onClick = onConfirm) {
+                Text(stringResource(Res.string.Modal_ReRun_Websites_Run))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(Res.string.Modal_Cancel))
+            }
+        },
+    )
+}

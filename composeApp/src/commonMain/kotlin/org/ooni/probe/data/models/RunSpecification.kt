@@ -21,6 +21,14 @@ data class RunSpecification(
 
             @Serializable
             data class Installed(val id: InstalledTestDescriptorModel.Id) : Source
+
+            companion object {
+                fun fromDescriptor(descriptor: Descriptor) =
+                    when (descriptor.source) {
+                        is Descriptor.Source.Default -> Default(descriptor.name)
+                        is Descriptor.Source.Installed -> Installed(descriptor.source.value.id)
+                    }
+            }
         }
     }
 }

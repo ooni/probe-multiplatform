@@ -467,13 +467,17 @@ class Dependencies(
         onBack: () -> Unit,
         goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
         goToUpload: () -> Unit,
+        goToDashboard: () -> Unit,
     ) = ResultViewModel(
         resultId = resultId,
         onBack = onBack,
         goToMeasurement = goToMeasurement,
         goToUpload = goToUpload,
+        goToDashboard = goToDashboard,
         getResult = getResult::invoke,
+        getCurrentTestRunState = testStateManager.observeState(),
         markResultAsViewed = resultRepository::markAsViewed,
+        startBackgroundRun = startSingleRunInner,
     )
 
     fun settingsCategoryViewModel(

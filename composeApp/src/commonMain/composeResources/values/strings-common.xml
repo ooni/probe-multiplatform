@@ -57,6 +57,9 @@
     <string name="TestResults_NotAvailable">N/A</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Upload</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Download</string>
+    <string name="Modal_ReRun_Title">Re-run test</string>
+    <string name="Modal_ReRun_Websites_Title">You are about to re-test %1$s websites.</string>
+    <string name="Modal_ReRun_Websites_Run">Run</string>
 
     <string name="Settings_Title">Settings</string>
     <string name="Settings_Notifications_Label">Notifications</string>

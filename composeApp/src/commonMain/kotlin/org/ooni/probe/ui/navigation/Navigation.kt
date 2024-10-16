@@ -127,6 +127,9 @@ fun Navigation(
                     goToUpload = {
                         navController.safeNavigate(Screen.UploadMeasurements(resultId))
                     },
+                    goToDashboard = {
+                        navController.popBackStack(Screen.Dashboard.route, inclusive = false)
+                    },
                 )
             }
             val state by viewModel.state.collectAsState()
