@@ -39,7 +39,7 @@ jobs:
           gcloud firebase test android run
           --type instrumentation
           --app $INPUT_FILE
-          --test composeApp-debug-androidTest.apk
+          --test composeApp/build/outputs/apk/androidTest/debug/composeApp-debug-androidTest.apk
           --device model=MediumPhone.arm,version=29,locale=en,orientation=portrait
           --timeout 180s
           --num-flaky-test-attempts=2
