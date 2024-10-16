@@ -32,13 +32,11 @@ jobs:
           gcloud auth activate-service-account --key-file=service_credentials_content.json
 
       - name: Firebase Test Lab
-        env:
-          INPUT_FILE: composeApp-debug.apk
         run: >-
           LABEL=$(git show -s --format='%H')
           gcloud firebase test android run
           --type instrumentation
-          --app $INPUT_FILE
+          --app composeApp/build/outputs/apk/debug/composeApp-debug.apk
           --test composeApp/build/outputs/apk/androidTest/debug/composeApp-debug-androidTest.apk
           --device model=MediumPhone.arm,version=29,locale=en,orientation=portrait
           --timeout 180s
