@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
@@ -25,6 +26,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.CustomWebsites_Fab_Text
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
@@ -85,6 +87,10 @@ fun ChooseWebsitesScreen(
                         },
                         label = { stringResource(Res.string.Settings_Websites_CustomURL_URL) },
                         isError = item.hasError,
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions.Default.copy(
+                            keyboardType = KeyboardType.Uri,
+                        ),
                         trailingIcon = {
                             if (state.canRemoveUrls) {
                                 IconButton(
