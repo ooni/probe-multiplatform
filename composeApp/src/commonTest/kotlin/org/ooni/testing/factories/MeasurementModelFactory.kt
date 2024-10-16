@@ -3,6 +3,7 @@ package org.ooni.testing.factories
 import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.UrlModel
 import kotlin.math.absoluteValue
@@ -45,5 +46,13 @@ object MeasurementModelFactory {
         rerunNetwork = rerunNetwork,
         urlId = urlId,
         resultId = resultId,
+    )
+
+    fun buildWithUrl(
+        measurement: MeasurementModel = MeasurementModelFactory.build(),
+        url: UrlModel = UrlModelFactory.build(),
+    ) = MeasurementWithUrl(
+        measurement = measurement,
+        url = url,
     )
 }

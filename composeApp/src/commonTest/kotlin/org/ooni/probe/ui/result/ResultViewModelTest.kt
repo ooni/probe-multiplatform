@@ -1,6 +1,7 @@
 package org.ooni.probe.ui.result
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
@@ -48,7 +49,10 @@ class ResultViewModelTest {
         onBack = onBack,
         goToMeasurement = goToMeasurement,
         goToUpload = {},
+        goToDashboard = {},
         getResult = getResult,
+        getCurrentTestRunState = emptyFlow(),
         markResultAsViewed = markResultAsViewed,
+        startBackgroundRun = {},
     )
 }
