@@ -1,10 +1,15 @@
 package org.ooni.probe
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -59,5 +64,29 @@ class MainActivity : ComponentActivity() {
                 Logger.e { "Unknown deep link: $uri" }
             }
         }
+    }
+
+    // Battery Optimization
+
+    private var ignoreBatteryOptimizationCallback: (() -> Unit)? = null
+
+    private val ignoreBatteryOptimizationContract =
+        registerForActivityResult(object : ActivityResultContract<Unit, Unit>() {
+            @SuppressLint("BatteryLife")
+            override fun createIntent(
+                context: Context,
+                input: Unit,
+            ) = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+                .setData(Uri.parse("package:$packageName"))
+
+            override fun parseResult(
+                resultCode: Int,
+                intent: Intent?,
+            ) {}
+        }) { ignoreBatteryOptimizationCallback?.invoke() }
+
+    fun requestIgnoreBatteryOptimization(callback: () -> Unit) {
+        ignoreBatteryOptimizationCallback = callback
+        ignoreBatteryOptimizationContract.launch(Unit)
     }
 }

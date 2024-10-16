@@ -46,7 +46,7 @@ class OnboardingTest {
                 clickOnText("True")
 
                 wait { onNodeWithText("Automated testing").isDisplayed() }
-                clickOnTag("Yes-AutoTest")
+                clickOnTag("No-AutoTest")
 
                 wait { onNodeWithText("Crash Reporting").isDisplayed() }
                 clickOnTag("Yes-CrashReporting")
@@ -63,7 +63,7 @@ class OnboardingTest {
             }
 
             assertEquals(
-                true,
+                false,
                 preferences.getValueByKey(SettingsKey.AUTOMATED_TESTING_ENABLED).first(),
             )
             assertEquals(true, preferences.getValueByKey(SettingsKey.SEND_CRASH).first())

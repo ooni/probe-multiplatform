@@ -22,6 +22,7 @@ import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
+import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.DeleteFilesOkio
 import org.ooni.probe.data.disk.ReadFile
@@ -111,6 +112,7 @@ class Dependencies(
     val fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
     private val shareFile: (FileSharing) -> Boolean,
+    private val batteryOptimization: BatteryOptimization,
 ) {
     // Common
 
@@ -426,6 +428,7 @@ class Dependencies(
         platformInfo = platformInfo,
         preferenceRepository = preferenceRepository,
         launchUrl = { launchUrl(it, null) },
+        batteryOptimization = batteryOptimization,
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)

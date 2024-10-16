@@ -25,6 +25,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LocalContentColor
@@ -48,6 +49,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import co.touchlab.kermit.Logger
 import dev.icerock.moko.permissions.DeniedAlwaysException
 import dev.icerock.moko.permissions.DeniedException
@@ -58,8 +60,11 @@ import dev.icerock.moko.permissions.compose.PermissionsControllerFactory
 import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import ooniprobe.composeapp.generated.resources.Modal_Autorun_BatteryOptimization
+import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Paragraph
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
+import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Paragraph
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Button_No
@@ -97,9 +102,9 @@ fun OnboardingScreen(
     state: OnboardingViewModel.State,
     onEvent: (OnboardingViewModel.Event) -> Unit,
 ) {
-    val pagerState = rememberPagerState(0, pageCount = { state.stepList.size })
+    val pagerState = rememberPagerState(0, pageCount = { state.totalSteps })
     LaunchedEffect(state.stepIndex) {
-        pagerState.animateScrollToPage(state.stepIndex)
+        pagerState.scrollToPage(state.stepIndex)
     }
     var showQuiz by remember { mutableStateOf(false) }
 
@@ -108,10 +113,9 @@ fun OnboardingScreen(
             state = pagerState,
             userScrollEnabled = false,
             modifier = Modifier.fillMaxSize(),
-        ) { stepIndex ->
-            val step = state.stepList[state.stepIndex]
+        ) {
             Surface(
-                color = step.surfaceColor,
+                color = state.step.surfaceColor,
                 contentColor = LocalCustomColors.current.onOnboarding,
             ) {
                 Column(
@@ -120,7 +124,7 @@ fun OnboardingScreen(
                         .padding(WindowInsets.navigationBars.asPaddingValues())
                         .padding(bottom = 48.dp),
                 ) {
-                    when (state.stepList[stepIndex]) {
+                    when (state.step) {
                         OnboardingViewModel.Step.WhatIs ->
                             WhatIsStep(onEvent)
 
@@ -130,8 +134,8 @@ fun OnboardingScreen(
                                 onShowQuiz = { showQuiz = true },
                             )
 
-                        OnboardingViewModel.Step.AutomatedTesting ->
-                            AutomatedTestingStep(onEvent)
+                        is OnboardingViewModel.Step.AutomatedTesting ->
+                            AutomatedTestingStep(state.step.showBatteryOptimizationDialog, onEvent)
 
                         OnboardingViewModel.Step.CrashReporting ->
                             CrashReportingStep(onEvent)
@@ -245,7 +249,10 @@ fun ColumnScope.HeadsUpStep(
 }
 
 @Composable
-fun ColumnScope.AutomatedTestingStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
+fun ColumnScope.AutomatedTestingStep(
+    showBatteryOptimizationDialog: Boolean,
+    onEvent: (OnboardingViewModel.Event) -> Unit,
+) {
     OnboardingImage(OrganizationConfig.onboardingImages.image3)
     OnboardingTitle(Res.string.Onboarding_AutomatedTesting_Title)
     Column(
@@ -263,15 +270,37 @@ fun ColumnScope.AutomatedTestingStep(onEvent: (OnboardingViewModel.Event) -> Uni
             onClick = { onEvent(OnboardingViewModel.Event.AutoTestNoClicked) },
             modifier = Modifier
                 .padding(horizontal = 8.dp)
-                .weight(1f),
+                .weight(1f)
+                .testTag("No-AutoTest"),
         )
         OnboardingMainButton(
             text = Res.string.Onboarding_Crash_Button_Yes,
             onClick = { onEvent(OnboardingViewModel.Event.AutoTestYesClicked) },
             modifier = Modifier
                 .padding(horizontal = 8.dp)
-                .weight(1f)
-                .testTag("Yes-AutoTest"),
+                .weight(1f),
+        )
+    }
+
+    if (showBatteryOptimizationDialog) {
+        AlertDialog(
+            onDismissRequest = { },
+            text = { Text(stringResource(Res.string.Modal_Autorun_BatteryOptimization)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    onEvent(OnboardingViewModel.Event.BatteryOptimizationOkClicked)
+                }) {
+                    Text(stringResource(Res.string.Modal_OK))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    onEvent(OnboardingViewModel.Event.BatteryOptimizationCancelClicked)
+                }) {
+                    Text(stringResource(Res.string.Modal_Cancel))
+                }
+            },
+            properties = DialogProperties(dismissOnClickOutside = false, dismissOnBackPress = false),
         )
     }
 }

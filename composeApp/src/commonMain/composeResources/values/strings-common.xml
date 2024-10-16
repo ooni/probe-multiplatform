@@ -224,6 +224,8 @@
     <string name="Modal_CustomURL_Title_NotSaved">Are you sure?</string>
     <string name="Modal_CustomURL_NotSaved">Your URLs will not be saved when you leave this screen. Are you sure you want to leave this screen?</string>
 
+    <string name="Modal_Autorun_BatteryOptimization">OONI Probe cannot run automatically without battery optimization. Do you want to try again?</string>
+
     <!-- New Strings -->
     <string name="back">Back</string>
     <string name="refresh">refresh</string>

@@ -53,7 +53,6 @@ kotlin {
             // This makes instrumented tests depend on commonTest and androidUnitTest sources
             sourceSetTree.set(KotlinSourceSetTree.test)
         }
-        instrumentedTestVariant { }
     }
 
     iosX64()
