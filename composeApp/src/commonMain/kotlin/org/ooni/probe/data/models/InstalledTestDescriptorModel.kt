@@ -5,6 +5,16 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_Description
+import ooniprobe.composeapp.generated.resources.Res
+import org.jetbrains.compose.resources.stringResource
+import kotlinx.datetime.LocalDateTime.Companion.Format
+import kotlinx.datetime.format
+import kotlinx.datetime.format.MonthNames
+import kotlinx.datetime.format.char
+import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_LastUpdatd
+import ooniprobe.composeapp.generated.resources.months
+import org.jetbrains.compose.resources.stringArrayResource
 import org.ooni.probe.data.TestDescriptor
 import org.ooni.probe.shared.InstalledDescriptorIcons
 import org.ooni.probe.shared.hexToColor
@@ -49,6 +59,19 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
         title = { nameIntl?.getCurrent() ?: name },
         shortDescription = { shortDescriptionIntl?.getCurrent() ?: shortDescription },
         description = { descriptionIntl?.getCurrent() ?: description },
+        metadata = {
+            val monthNames = stringArrayResource(Res.array.months)
+            val formattedDate = { date: LocalDateTime? -> date?.format(dateTimeFormat(monthNames)) }
+            formattedDate(dateCreated)?.let { formattedDateCreated ->
+                stringResource(
+                    Res.string.Dashboard_Runv2_Overview_Description,
+                    author.orEmpty(),
+                    formattedDateCreated,
+                ) + ". " + formattedDate(dateUpdated)?.let {
+                    stringResource(Res.string.Dashboard_Runv2_Overview_LastUpdatd, it)
+                }
+            }
+        },
         icon = icon?.let(InstalledDescriptorIcons::getIconFromValue),
         color = color?.hexToColor(),
         animation = animation?.let(Animation::fromFileName),
@@ -58,6 +81,15 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
         source = Descriptor.Source.Installed(this),
         updateStatus = updateStatus,
     )
+
+private fun dateTimeFormat(monthNames: List<String>) =
+    Format {
+        monthName(MonthNames(monthNames))
+        char(' ')
+        dayOfMonth()
+        chars(" , ")
+        year()
+    }
 
 fun InstalledTestDescriptorModel.toDb(json: Json): TestDescriptor {
     return TestDescriptor(
