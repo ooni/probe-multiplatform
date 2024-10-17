@@ -115,6 +115,13 @@ fun DescriptorScreen(
             ) {
                 DescriptorDetails(state, onEvent)
 
+                descriptor.metadata()?.let {
+                    Text(
+                        it,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp),
+                    )
+                }
                 MarkdownViewer(
                     markdown = descriptor.description().orEmpty(),
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),

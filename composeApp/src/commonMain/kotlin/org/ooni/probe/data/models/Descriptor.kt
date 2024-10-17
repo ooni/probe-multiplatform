@@ -12,6 +12,7 @@ data class Descriptor(
     val title: @Composable () -> String,
     val shortDescription: @Composable () -> String?,
     val description: @Composable () -> String?,
+    val metadata: @Composable () -> String? = { null },
     val icon: DrawableResource?,
     val color: Color?,
     val animation: Animation?,
