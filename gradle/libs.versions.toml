@@ -31,7 +31,7 @@ kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-j
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
 
 # UI
-android-activity = { module = "androidx.activity:activity-ktx", version = "1.9.2" }
+android-activity = { module = "androidx.activity:activity-ktx", version = "1.9.3" }
 android-work = { module = "androidx.work:work-runtime-ktx", version = "2.9.1" }
 
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.8.0" }
@@ -72,11 +72,11 @@ sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.9.0" }
 android-test-core = { module = "androidx.test:core", version = "1.6.1" }
 
 # Android Instrumented Testing
-android-orchestrator = { module = "androidx.test:orchestrator", version = "1.5.0" }
+android-orchestrator = { module = "androidx.test:orchestrator", version = "1.5.1" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 android-test-runner = { module = "androidx.test:runner", version = "1.6.2" }
 android-test-rules = { module = "androidx.test:rules", version = "1.6.1" }
-androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.7.3" }
+androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.7.4" }
 androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.6.1" }
 
 [bundles]
