@@ -203,6 +203,7 @@
     <string name="LoadingScreen_Runv2_Message">Link Loading</string>
     <string name="LoadingScreen_Runv2_Failure">Error</string>
     <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
+    <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
@@ -230,6 +231,7 @@
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe cannot run automatically without battery optimization. Do you want to try again?</string>
 
     <!-- New Strings -->
+    <string name="Dashboard_Runv2_Overview_LastUpdatd">Last updated %1$s</string>    
     <string name="back">Back</string>
     <string name="refresh">refresh</string>
     <string name="measurement">Measurement</string>
