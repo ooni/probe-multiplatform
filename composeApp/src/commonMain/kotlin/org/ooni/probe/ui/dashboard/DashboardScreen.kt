@@ -25,15 +25,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
-import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -70,16 +68,10 @@ fun DashboardScreen(
     state: DashboardViewModel.State,
     onEvent: (DashboardViewModel.Event) -> Unit,
 ) {
-    val pullToRefreshState = rememberPullToRefreshState()
-
-    if (pullToRefreshState.isRefreshing && !state.isRefreshing) {
-        onEvent(DashboardViewModel.Event.FetchUpdatedDescriptors)
-    }
-
-    if (!state.isRefreshing) {
-        pullToRefreshState.endRefresh()
-    }
-    Box(Modifier.nestedScroll(pullToRefreshState.nestedScrollConnection)) {
+    PullToRefreshBox(
+        isRefreshing = state.isRefreshing,
+        onRefresh = { onEvent(DashboardViewModel.Event.FetchUpdatedDescriptors) },
+    ) {
         // Colorful top background
         Column {
             Box(
@@ -151,11 +143,6 @@ fun DashboardScreen(
                 onCancelClicked = { onEvent(DashboardViewModel.Event.CancelUpdatesClicked) },
             )
         }
-
-        PullToRefreshContainer(
-            modifier = Modifier.align(Alignment.TopCenter),
-            state = pullToRefreshState,
-        )
     }
 
     TestRunErrorMessages(
@@ -181,7 +168,7 @@ private fun TestRunStateSection(
                     contentColor = MaterialTheme.colorScheme.primary,
                     containerColor = MaterialTheme.colorScheme.onPrimary,
                 ),
-                border = ButtonDefaults.outlinedButtonBorder.copy(
+                border = ButtonDefaults.outlinedButtonBorder(true).copy(
                     brush = SolidColor(MaterialTheme.colorScheme.primary),
                 ),
                 elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 4.dp),
