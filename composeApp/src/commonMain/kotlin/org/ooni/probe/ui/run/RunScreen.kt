@@ -1,8 +1,11 @@
 package org.ooni.probe.ui.run
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -70,6 +73,7 @@ import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.TopBar
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RunScreen(
     state: RunViewModel.State,
@@ -90,7 +94,9 @@ fun RunScreen(
             },
         )
 
-        Column(
+        FlowRow(
+            verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
@@ -98,7 +104,7 @@ fun RunScreen(
             Text(
                 stringResource(Res.string.Dashboard_RunTests_Description),
                 style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(bottom = 8.dp),
+                modifier = Modifier.padding(end = 16.dp).align(Alignment.CenterVertically),
             )
             Row {
                 OutlinedButton(

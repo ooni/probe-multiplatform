@@ -56,6 +56,7 @@ import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.UpdatesChip
+import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
 import org.ooni.probe.ui.theme.LocalCustomColors
@@ -197,13 +198,15 @@ private fun DescriptorDetails(
             modifier = Modifier.fillMaxWidth()
                 .padding(8.dp),
         ) {
-            descriptor.icon?.let { icon ->
-                Icon(
-                    painterResource(icon),
-                    contentDescription = null,
-                    tint = onDescriptorColor,
-                    modifier = Modifier.size(64.dp),
-                )
+            if (!isHeightCompact()) {
+                descriptor.icon?.let { icon ->
+                    Icon(
+                        painterResource(icon),
+                        contentDescription = null,
+                        tint = onDescriptorColor,
+                        modifier = Modifier.size(64.dp),
+                    )
+                }
             }
 
             Row {

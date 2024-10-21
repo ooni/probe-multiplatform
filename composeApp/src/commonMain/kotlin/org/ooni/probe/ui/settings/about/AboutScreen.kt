@@ -32,6 +32,7 @@ import ooniprobe.composeapp.generated.resources.version
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.ui.shared.MarkdownViewer
 import org.ooni.probe.ui.shared.TopBar
+import org.ooni.probe.ui.shared.isHeightCompact
 
 @Composable
 fun AboutScreen(
@@ -62,7 +63,7 @@ fun AboutScreen(
                 )
 
                 InfoBackground(
-                    modifier = Modifier.padding(bottom = 32.dp),
+                    modifier = Modifier.padding(bottom = if (isHeightCompact()) 8.dp else 32.dp),
                 )
 
                 Text(

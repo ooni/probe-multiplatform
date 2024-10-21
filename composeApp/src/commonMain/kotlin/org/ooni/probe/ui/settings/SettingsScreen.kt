@@ -3,6 +3,8 @@ package org.ooni.probe.ui.settings
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
@@ -29,18 +31,20 @@ fun SettingsScreen(
             },
         )
 
-        state.settings.forEach { item ->
-            SettingsItemView(
-                icon = item.icon,
-                title = item.title,
-                modifier = Modifier.clickable {
-                    onEvent(
-                        SettingsViewModel.Event.SettingsCategoryClick(
-                            item.route,
-                        ),
-                    )
-                },
-            )
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            state.settings.forEach { item ->
+                SettingsItemView(
+                    icon = item.icon,
+                    title = item.title,
+                    modifier = Modifier.clickable {
+                        onEvent(
+                            SettingsViewModel.Event.SettingsCategoryClick(
+                                item.route,
+                            ),
+                        )
+                    },
+                )
+            }
         }
     }
 }

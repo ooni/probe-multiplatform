@@ -65,6 +65,7 @@ import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.formatDataUsage
+import org.ooni.probe.ui.shared.isHeightCompact
 
 @Composable
 fun ResultsScreen(
@@ -123,7 +124,9 @@ fun ResultsScreen(
         } else if (state.results.isEmpty() && state.filter.isAll) {
             EmptyResults()
         } else {
-            Summary(state.summary)
+            if (!isHeightCompact()) {
+                Summary(state.summary)
+            }
 
             if (state.anyMissingUpload && state.filter.isAll) {
                 UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
@@ -198,7 +201,6 @@ private fun EmptyResults() {
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 36.dp)
-            .padding(bottom = 120.dp) // Optical alignment
             .alpha(0.5f),
     ) {
         Icon(

@@ -71,6 +71,7 @@ import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.ui.results.UploadResults
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.formatDataUsage
+import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.longFormat
 import org.ooni.probe.ui.shared.shortFormat
 import org.ooni.probe.ui.theme.LocalCustomColors
@@ -121,11 +122,13 @@ fun ResultScreen(
 
         if (state.result == null) return@Column
 
-        Surface(
-            color = descriptorColor,
-            contentColor = onDescriptorColor,
-        ) {
-            Summary(state.result)
+        if (!isHeightCompact()) {
+            Surface(
+                color = descriptorColor,
+                contentColor = onDescriptorColor,
+            ) {
+                Summary(state.result)
+            }
         }
 
         if (state.result.anyMeasurementMissingUpload) {
