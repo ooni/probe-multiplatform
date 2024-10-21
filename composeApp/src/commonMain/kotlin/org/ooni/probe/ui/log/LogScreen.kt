@@ -23,7 +23,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -46,8 +45,8 @@ import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.LocalSnackbarHostState
-import org.ooni.probe.ui.shared.ColorDefaults
 import org.ooni.probe.ui.shared.CustomFilterChip
+import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -56,7 +55,7 @@ fun LogScreen(
     onEvent: (LogViewModel.Event) -> Unit,
 ) {
     Column {
-        TopAppBar(
+        TopBar(
             title = { Text(stringResource(Res.string.logs)) },
             navigationIcon = {
                 IconButton(onClick = { onEvent(LogViewModel.Event.BackClicked) }) {
@@ -80,7 +79,6 @@ fun LogScreen(
                     )
                 }
             },
-            colors = ColorDefaults.topAppBar(),
         )
 
         Row(

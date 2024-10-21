@@ -22,7 +22,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -46,6 +45,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.ui.shared.LottieAnimation
 import org.ooni.probe.ui.shared.TestRunErrorMessages
+import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.shortFormat
 import org.ooni.probe.ui.theme.customColors
 
@@ -63,7 +63,7 @@ fun RunningScreen(
         Column(
             modifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
         ) {
-            TopAppBar(
+            TopBar(
                 title = {},
                 navigationIcon = {
                     IconButton(onClick = { onEvent(RunningViewModel.Event.BackClicked) }) {

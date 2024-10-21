@@ -19,7 +19,6 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,6 +31,7 @@ import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.version
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.ui.shared.MarkdownViewer
+import org.ooni.probe.ui.shared.TopBar
 
 @Composable
 fun AboutScreen(
@@ -45,7 +45,7 @@ fun AboutScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                TopAppBar(
+                TopBar(
                     title = {},
                     navigationIcon = {
                         IconButton(onClick = { onEvent(AboutViewModel.Event.BackClicked) }) {

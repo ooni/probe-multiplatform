@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.navigation
 
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -8,6 +9,8 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import ooniprobe.composeapp.generated.resources.Dashboard_Tab_Label
@@ -20,13 +23,19 @@ import ooniprobe.composeapp.generated.resources.ic_settings
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.MAIN_NAVIGATION_SCREENS
+import org.ooni.probe.ui.shared.isHeightCompact
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val entry by navController.currentBackStackEntryAsState()
     val currentRoute = entry?.destination?.route ?: return
 
-    NavigationBar {
+    val customMinHeightModifier =
+        Modifier.run { if (isHeightCompact()) defaultMinSize(minHeight = 64.dp) else this }
+
+    NavigationBar(
+        modifier = customMinHeightModifier,
+    ) {
         MAIN_NAVIGATION_SCREENS.forEach { screen ->
             NavigationBarItem(
                 icon = {
@@ -42,6 +51,7 @@ fun BottomNavigationBar(navController: NavController) {
                     indicatorColor = MaterialTheme.colorScheme.primaryContainer,
                     selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 ),
+                modifier = customMinHeightModifier,
             )
         }
     }

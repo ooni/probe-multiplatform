@@ -3,6 +3,7 @@ package org.ooni.probe.ui.dashboard
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -58,6 +59,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.UpdateProgressStatus
+import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
 import org.ooni.probe.ui.theme.AppTheme
@@ -73,12 +75,14 @@ fun DashboardScreen(
         onRefresh = { onEvent(DashboardViewModel.Event.FetchUpdatedDescriptors) },
     ) {
         // Colorful top background
-        Column {
+        Column(
+            verticalArrangement = Arrangement.Center,
+        ) {
             Box(
                 Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.primaryContainer)
-                    .height(144.dp)
+                    .height(if (isHeightCompact()) 80.dp else 144.dp)
                     .padding(WindowInsets.statusBars.asPaddingValues()),
             )
             Image(
@@ -100,9 +104,9 @@ fun DashboardScreen(
                 painterResource(Res.drawable.logo_probe),
                 contentDescription = stringResource(Res.string.app_name),
                 modifier = Modifier
-                    .padding(vertical = 20.dp)
+                    .padding(vertical = if (isHeightCompact()) 4.dp else 20.dp)
                     .padding(WindowInsets.statusBars.asPaddingValues())
-                    .height(72.dp),
+                    .height(if (isHeightCompact()) 48.dp else 72.dp),
             )
 
             TestRunStateSection(state.testRunState, onEvent)
@@ -112,7 +116,7 @@ fun DashboardScreen(
             }
 
             LazyColumn(
-                modifier = Modifier.padding(top = 24.dp)
+                modifier = Modifier.padding(top = if (isHeightCompact()) 8.dp else 24.dp)
                     .testTag("Dashboard-List"),
                 contentPadding = PaddingValues(bottom = 16.dp),
             ) {

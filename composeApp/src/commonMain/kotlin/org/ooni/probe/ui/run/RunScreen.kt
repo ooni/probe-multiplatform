@@ -25,7 +25,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -67,9 +66,9 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.dashboard.TestDescriptorSection
-import org.ooni.probe.ui.shared.ColorDefaults
 import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
+import org.ooni.probe.ui.shared.TopBar
 
 @Composable
 fun RunScreen(
@@ -79,7 +78,7 @@ fun RunScreen(
     var showVpnWarning by remember { mutableStateOf(false) }
 
     Column {
-        TopAppBar(
+        TopBar(
             title = { Text(stringResource(Res.string.Dashboard_RunTests_Title)) },
             navigationIcon = {
                 IconButton(onClick = { onEvent(RunViewModel.Event.BackClicked) }) {
@@ -89,7 +88,6 @@ fun RunScreen(
                     )
                 }
             },
-            colors = ColorDefaults.topAppBar(),
         )
 
         Column(

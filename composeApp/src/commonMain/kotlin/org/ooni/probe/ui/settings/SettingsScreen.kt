@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -16,7 +15,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.ui.shared.ColorDefaults
+import org.ooni.probe.ui.shared.TopBar
 
 @Composable
 fun SettingsScreen(
@@ -24,11 +23,10 @@ fun SettingsScreen(
     onEvent: (SettingsViewModel.Event) -> Unit,
 ) {
     Column {
-        TopAppBar(
+        TopBar(
             title = {
                 Text(stringResource(Res.string.Settings_Title))
             },
-            colors = ColorDefaults.topAppBar(),
         )
 
         state.settings.forEach { item ->

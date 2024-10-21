@@ -36,7 +36,7 @@ android-work = { module = "androidx.work:work-runtime-ktx", version = "2.9.1" }
 
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.8.0" }
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.7.0-alpha07" }
-markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.26.0" }
+window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "compose-plugin" }
 
 # Preferences
 androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStoreVersion" }
@@ -68,6 +68,9 @@ moko-permissions = { module ="dev.icerock.moko:permissions-compose", version = "
 # Crash Reporting
 sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.9.0" }
 
+# Markdown
+markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.26.0" }
+
 # Android Testing
 android-test-core = { module = "androidx.test:core", version = "1.6.1" }
 
@@ -88,6 +91,7 @@ kotlin = [
 ui = [
     "lifecycle-viewmodel-compose",
     "navigation",
+    "window-size",
 ]
 tooling = [
     "kermit",

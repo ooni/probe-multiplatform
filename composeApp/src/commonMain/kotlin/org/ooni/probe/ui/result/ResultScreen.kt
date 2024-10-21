@@ -29,7 +29,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -70,6 +69,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.NetworkType
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.ui.results.UploadResults
+import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.longFormat
 import org.ooni.probe.ui.shared.shortFormat
@@ -85,7 +85,7 @@ fun ResultScreen(
     Column {
         val descriptorColor = state.result?.descriptor?.color ?: MaterialTheme.colorScheme.primary
         val onDescriptorColor = LocalCustomColors.current.onDescriptor
-        TopAppBar(
+        TopBar(
             title = {
                 Text(state.result?.descriptor?.title?.invoke().orEmpty())
             },
