@@ -181,7 +181,8 @@ private fun TestRunning(
 
         OutlinedButton(
             onClick = { onEvent(RunningViewModel.Event.StopTestClicked) },
-            border = ButtonDefaults.outlinedButtonBorder.copy(brush = SolidColor(contentColor)),
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true)
+                .copy(brush = SolidColor(contentColor)),
             colors = ButtonDefaults.outlinedButtonColors(contentColor = contentColor),
         ) {
             Text(stringResource(Res.string.Notification_StopTest))

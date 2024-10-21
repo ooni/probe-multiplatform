@@ -26,13 +26,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TriStateCheckbox
-import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
+import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRun
@@ -67,21 +67,15 @@ fun DescriptorScreen(
 ) {
     val descriptor = state.descriptor ?: return
 
-    val pullToRefreshState = rememberPullToRefreshState(
-        enabled = {
-            descriptor.source is Descriptor.Source.Installed
-        },
-    )
-
-    if (pullToRefreshState.isRefreshing && !state.isRefreshing) {
-        onEvent(DescriptorViewModel.Event.FetchUpdatedDescriptor)
-    }
-
-    if (!state.isRefreshing) {
-        pullToRefreshState.endRefresh()
-    }
-
-    Box(Modifier.nestedScroll(pullToRefreshState.nestedScrollConnection)) {
+    val pullRefreshState = rememberPullToRefreshState()
+    Box(
+        Modifier.pullToRefresh(
+            isRefreshing = state.isRefreshing,
+            onRefresh = { onEvent(DescriptorViewModel.Event.FetchUpdatedDescriptor) },
+            state = pullRefreshState,
+            enabled = descriptor.source is Descriptor.Source.Installed,
+        ),
+    ) {
         Column {
             val descriptorColor = descriptor.color ?: MaterialTheme.colorScheme.primary
             val onDescriptorColor = LocalCustomColors.current.onDescriptor
@@ -176,9 +170,11 @@ fun DescriptorScreen(
                 type = state.refreshType,
             )
         }
-        PullToRefreshContainer(
+
+        PullToRefreshDefaults.Indicator(
             modifier = Modifier.align(Alignment.TopCenter),
-            state = pullToRefreshState,
+            isRefreshing = state.isRefreshing,
+            state = pullRefreshState,
         )
     }
 }
@@ -244,7 +240,7 @@ private fun DescriptorDetails(
             if (descriptor.name == "websites") {
                 OutlinedButton(
                     onClick = { onEvent(DescriptorViewModel.Event.ChooseWebsitesClicked) },
-                    border = ButtonDefaults.outlinedButtonBorder.copy(
+                    border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                         brush = SolidColor(onDescriptorColor),
                     ),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = onDescriptorColor),
@@ -260,7 +256,7 @@ private fun DescriptorDetails(
             state.updatedDescriptor?.let {
                 OutlinedButton(
                     onClick = { onEvent(DescriptorViewModel.Event.UpdateDescriptor) },
-                    border = ButtonDefaults.outlinedButtonBorder.copy(
+                    border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                         brush = SolidColor(onDescriptorColor),
                     ),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = onDescriptorColor),

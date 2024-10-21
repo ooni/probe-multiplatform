@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="GradleDependency">
+        <!-- Kotlin 2.0.20 is the max supported version by KMM for now -->
+        <ignore regexp="jetbrains.kotlin" />
+    </issue>
+</lint>

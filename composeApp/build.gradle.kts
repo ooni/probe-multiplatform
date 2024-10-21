@@ -200,6 +200,7 @@ android {
     lint {
         warningsAsErrors = true
         disable += listOf("AndroidGradlePluginVersion", "ObsoleteLintCustomCheck")
+        lintConfig = file("lint.xml")
     }
 }
 
