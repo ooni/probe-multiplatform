@@ -36,14 +36,16 @@ class RunDescriptors(
     private val finishInProgressData: suspend () -> Unit,
 ) {
     suspend operator fun invoke(spec: RunSpecification) {
-        val descriptors = getTestDescriptorsBySpec(spec)
-        val descriptorsWithFinalInputs = descriptors.prepareInputs(spec.taskOrigin)
-        val estimatedRuntime = descriptorsWithFinalInputs.getEstimatedRuntime()
-
         if (getCurrentTestRunState.first() is TestRunState.Running) {
             Logger.i("Tests are already running, so we won't run other tests")
             return
         }
+        setCurrentTestState { TestRunState.Running() }
+
+        val descriptors = getTestDescriptorsBySpec(spec)
+        val descriptorsWithFinalInputs = descriptors.prepareInputs(spec.taskOrigin)
+        val estimatedRuntime = descriptorsWithFinalInputs.getEstimatedRuntime()
+
         setCurrentTestState {
             TestRunState.Running(estimatedRuntimeOfDescriptors = estimatedRuntime)
         }
