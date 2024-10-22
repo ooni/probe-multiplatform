@@ -10,9 +10,11 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import org.ooni.probe.data.models.ProxySettings
+import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.TestRunState
-import org.ooni.probe.ui.dashboard.DashboardViewModel.Event
+import org.ooni.probe.data.repositories.PreferenceRepository
 
 class RunningViewModel(
     onBack: () -> Unit,
@@ -20,6 +22,7 @@ class RunningViewModel(
     observeTestRunState: Flow<TestRunState>,
     observeTestRunErrors: Flow<TestRunError>,
     cancelTestRun: () -> Unit,
+    preferencesRepository: PreferenceRepository,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -27,6 +30,20 @@ class RunningViewModel(
     val state = _state.asStateFlow()
 
     init {
+        preferencesRepository.allSettings(
+            listOf(
+                SettingsKey.PROXY_PROTOCOL,
+                SettingsKey.PROXY_HOSTNAME,
+                SettingsKey.PROXY_PORT,
+            ),
+        ).onEach { proxySettings ->
+            val proxy = ProxySettings.newProxySettings(
+                protocol = proxySettings[SettingsKey.PROXY_PROTOCOL] as? String,
+                hostname = proxySettings[SettingsKey.PROXY_HOSTNAME] as? String,
+                port = proxySettings[SettingsKey.PROXY_PORT] as? String,
+            ).getProxyString()
+            _state.update { it.copy(hasProxy = proxy.isNotEmpty()) }
+        }.launchIn(viewModelScope)
         observeTestRunState
             .onEach { testRunState ->
                 if (testRunState is TestRunState.Idle) {
@@ -72,6 +89,7 @@ class RunningViewModel(
     data class State(
         val testRunState: TestRunState? = null,
         val testRunErrors: List<TestRunError> = emptyList(),
+        val hasProxy: Boolean = false,
     )
 
     sealed interface Event {

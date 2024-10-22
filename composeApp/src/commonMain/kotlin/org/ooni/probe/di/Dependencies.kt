@@ -453,6 +453,7 @@ class Dependencies(
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeErrors(),
         cancelTestRun = testStateManager::cancelTestRun,
+        preferencesRepository = preferenceRepository,
     )
 
     fun runViewModel(onBack: () -> Unit) =
