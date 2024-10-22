@@ -9,11 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.logo_probe
 import ooniprobe.composeapp.generated.resources.onboarding
 import org.jetbrains.compose.resources.painterResource
+import org.ooni.probe.ui.shared.isHeightCompact
 
 @Composable
 fun InfoLinks(launchUrl: (String) -> Unit) {
@@ -24,6 +26,6 @@ fun InfoBackground(modifier: Modifier = Modifier) {
     Image(
         painter = painterResource(Res.drawable.logo_probe),
         contentDescription = null,
-        modifier = modifier.height(80.dp),
+        modifier = modifier.height(if (isHeightCompact()) 48.dp else 80.dp),
     )
 }

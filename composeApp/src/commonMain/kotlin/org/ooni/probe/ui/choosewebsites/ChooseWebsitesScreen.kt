@@ -22,7 +22,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,7 +43,7 @@ import ooniprobe.composeapp.generated.resources.ic_cancel
 import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.ui.shared.ColorDefaults
+import org.ooni.probe.ui.shared.TopBar
 
 @Composable
 fun ChooseWebsitesScreen(
@@ -54,7 +53,7 @@ fun ChooseWebsitesScreen(
     Column(
         modifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
     ) {
-        TopAppBar(
+        TopBar(
             title = { Text(stringResource(Res.string.Settings_Websites_CustomURL_Title)) },
             navigationIcon = {
                 IconButton(onClick = { onEvent(ChooseWebsitesViewModel.Event.BackClicked) }) {
@@ -64,7 +63,6 @@ fun ChooseWebsitesScreen(
                     )
                 }
             },
-            colors = ColorDefaults.topAppBar(),
         )
 
         Box(Modifier.fillMaxSize()) {

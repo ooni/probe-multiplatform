@@ -16,7 +16,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -36,7 +35,7 @@ import ooniprobe.composeapp.generated.resources.measurement
 import ooniprobe.composeapp.generated.resources.refresh
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.MeasurementModel
-import org.ooni.probe.ui.shared.ColorDefaults
+import org.ooni.probe.ui.shared.TopBar
 
 @Composable
 fun MeasurementScreen(
@@ -67,7 +66,7 @@ fun MeasurementScreen(
     )
 
     Column {
-        TopAppBar(
+        TopBar(
             title = {
                 Text(stringResource(Res.string.measurement))
             },
@@ -90,7 +89,6 @@ fun MeasurementScreen(
                     )
                 }
             },
-            colors = ColorDefaults.topAppBar(),
         )
 
         LinearProgressIndicator(

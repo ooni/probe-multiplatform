@@ -23,7 +23,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,7 +45,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.PreferenceItemType
 import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.ui.shared.ColorDefaults
+import org.ooni.probe.ui.shared.TopBar
 
 @Composable
 fun SettingsCategoryScreen(
@@ -56,7 +55,7 @@ fun SettingsCategoryScreen(
     val category = state.category ?: return
 
     Column {
-        TopAppBar(
+        TopBar(
             title = {
                 Text(stringResource(category.title))
             },
@@ -68,7 +67,6 @@ fun SettingsCategoryScreen(
                     )
                 }
             },
-            colors = ColorDefaults.topAppBar(),
         )
         Box(
             modifier = Modifier

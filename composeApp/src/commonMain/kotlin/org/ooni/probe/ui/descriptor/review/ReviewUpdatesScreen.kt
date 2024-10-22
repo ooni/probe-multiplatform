@@ -16,7 +16,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,7 +31,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
-import org.ooni.probe.ui.shared.ColorDefaults
+import org.ooni.probe.ui.shared.TopBar
 
 @Composable
 fun ReviewUpdatesScreen(
@@ -44,7 +43,7 @@ fun ReviewUpdatesScreen(
     })
     val currentDescriptorIndex = state.currentDescriptorIndex + 1
     Column {
-        TopAppBar(
+        TopBar(
             title = { Text(stringResource(Res.string.Dashboard_ReviewDescriptor_Label, currentDescriptorIndex, state.descriptors.size)) },
             actions = {
                 IconButton(
@@ -60,7 +59,6 @@ fun ReviewUpdatesScreen(
                     )
                 }
             },
-            colors = ColorDefaults.topAppBar(),
         )
         Box(modifier = Modifier.fillMaxHeight().padding(16.dp)) {
             HorizontalPager(

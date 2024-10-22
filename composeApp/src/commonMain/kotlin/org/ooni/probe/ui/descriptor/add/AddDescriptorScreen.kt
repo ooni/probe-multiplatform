@@ -17,7 +17,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,8 +36,8 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.toDescriptor
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.run.TestItem
-import org.ooni.probe.ui.shared.ColorDefaults
 import org.ooni.probe.ui.shared.NotificationMessages
+import org.ooni.probe.ui.shared.TopBar
 
 @Composable
 fun AddDescriptorScreen(
@@ -47,7 +46,7 @@ fun AddDescriptorScreen(
 ) {
     state.descriptor?.let { descriptor ->
         Column {
-            TopAppBar(
+            TopBar(
                 title = {
                     Text(stringResource(Res.string.AddDescriptor_Title))
                 },
@@ -65,7 +64,6 @@ fun AddDescriptorScreen(
                         )
                     }
                 },
-                colors = ColorDefaults.topAppBar(),
             )
 
             Column(modifier = Modifier.padding(horizontal = 16.dp)) {

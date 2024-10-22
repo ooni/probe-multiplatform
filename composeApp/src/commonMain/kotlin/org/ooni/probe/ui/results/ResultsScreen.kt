@@ -23,7 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -64,8 +63,9 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.ui.shared.ColorDefaults
+import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.formatDataUsage
+import org.ooni.probe.ui.shared.isHeightCompact
 
 @Composable
 fun ResultsScreen(
@@ -75,7 +75,7 @@ fun ResultsScreen(
     var showDeleteConfirm by remember { mutableStateOf(false) }
 
     Column {
-        TopAppBar(
+        TopBar(
             title = {
                 Text(stringResource(Res.string.TestResults_Overview_Title))
             },
@@ -89,7 +89,6 @@ fun ResultsScreen(
                     }
                 }
             },
-            colors = ColorDefaults.topAppBar(),
         )
 
         Surface(color = MaterialTheme.colorScheme.primaryContainer) {
@@ -125,7 +124,9 @@ fun ResultsScreen(
         } else if (state.results.isEmpty() && state.filter.isAll) {
             EmptyResults()
         } else {
-            Summary(state.summary)
+            if (!isHeightCompact()) {
+                Summary(state.summary)
+            }
 
             if (state.anyMissingUpload && state.filter.isAll) {
                 UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
@@ -200,7 +201,6 @@ private fun EmptyResults() {
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 36.dp)
-            .padding(bottom = 120.dp) // Optical alignment
             .alpha(0.5f),
     ) {
         Icon(

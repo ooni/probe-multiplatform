@@ -23,7 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
@@ -54,8 +53,10 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.shared.MarkdownViewer
 import org.ooni.probe.ui.shared.SelectableItem
+import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.UpdatesChip
+import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
 import org.ooni.probe.ui.theme.LocalCustomColors
@@ -79,7 +80,7 @@ fun DescriptorScreen(
         Column {
             val descriptorColor = descriptor.color ?: MaterialTheme.colorScheme.primary
             val onDescriptorColor = LocalCustomColors.current.onDescriptor
-            TopAppBar(
+            TopBar(
                 title = {
                     Text(descriptor.title.invoke())
                 },
@@ -197,13 +198,15 @@ private fun DescriptorDetails(
             modifier = Modifier.fillMaxWidth()
                 .padding(8.dp),
         ) {
-            descriptor.icon?.let { icon ->
-                Icon(
-                    painterResource(icon),
-                    contentDescription = null,
-                    tint = onDescriptorColor,
-                    modifier = Modifier.size(64.dp),
-                )
+            if (!isHeightCompact()) {
+                descriptor.icon?.let { icon ->
+                    Icon(
+                        painterResource(icon),
+                        contentDescription = null,
+                        tint = onDescriptorColor,
+                        modifier = Modifier.size(64.dp),
+                    )
+                }
             }
 
             Row {

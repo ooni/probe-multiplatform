@@ -22,7 +22,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -44,7 +43,7 @@ import ooniprobe.composeapp.generated.resources.back
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ProxyProtocol
 import org.ooni.probe.data.models.ProxyType
-import org.ooni.probe.ui.shared.ColorDefaults
+import org.ooni.probe.ui.shared.TopBar
 
 @Composable
 fun ProxyScreen(
@@ -52,7 +51,7 @@ fun ProxyScreen(
     onEvent: (ProxyViewModel.Event) -> Unit,
 ) {
     Column {
-        TopAppBar(
+        TopBar(
             title = {
                 Text(stringResource(Res.string.Settings_Proxy_Enabled))
             },
@@ -66,7 +65,6 @@ fun ProxyScreen(
                     )
                 }
             },
-            colors = ColorDefaults.topAppBar(),
         )
         Column(Modifier.selectableGroup()) {
             ProxyType.entries.forEach { text ->

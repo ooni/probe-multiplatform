@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -91,6 +92,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.ui.shared.MarkdownViewer
+import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -417,12 +419,18 @@ fun ColumnScope.DefaultSettingsStep(onEvent: (OnboardingViewModel.Event) -> Unit
 
 @Composable
 private fun OnboardingImage(image: DrawableResource) {
-    Image(
-        painterResource(image),
-        contentDescription = null,
-        contentScale = ContentScale.FillWidth,
-        modifier = Modifier.fillMaxWidth().padding(WindowInsets.statusBars.asPaddingValues()),
-    )
+    if (isHeightCompact()) {
+        Spacer(
+            modifier = Modifier.padding(WindowInsets.statusBars.asPaddingValues()),
+        )
+    } else {
+        Image(
+            painterResource(image),
+            contentDescription = null,
+            contentScale = ContentScale.FillWidth,
+            modifier = Modifier.fillMaxWidth().padding(WindowInsets.statusBars.asPaddingValues()),
+        )
+    }
 }
 
 @Composable
@@ -478,7 +486,7 @@ private fun OnboardingMainButton(
             contentColor = OnboardingViewModel.Step.WhatIs.surfaceColor,
             containerColor = LocalContentColor.current,
         ),
-        modifier = modifier.requiredSizeIn(minHeight = 60.dp),
+        modifier = modifier.requiredSizeIn(minHeight = if (isHeightCompact()) 48.dp else 60.dp),
     ) {
         Text(
             stringResource(text),
@@ -497,7 +505,7 @@ private fun OnboardingMainOutlineButton(
         onClick = onClick,
         colors = ButtonDefaults.outlinedButtonColors(contentColor = LocalContentColor.current),
         border = BorderStroke(width = 2.dp, color = LocalContentColor.current),
-        modifier = modifier.requiredSizeIn(minHeight = 60.dp),
+        modifier = modifier.requiredSizeIn(minHeight = if (isHeightCompact()) 48.dp else 60.dp),
     ) {
         Text(
             stringResource(text),
