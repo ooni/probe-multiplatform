@@ -212,12 +212,12 @@ private fun TestRunStateSection(
                     .padding(horizontal = 16.dp)
                     .padding(top = 32.dp, bottom = 8.dp),
             ) {
-                state.testType?.let { testType ->
-                    Row {
-                        Text(
-                            text = stringResource(Res.string.Dashboard_Running_Running),
-                            style = MaterialTheme.typography.bodyLarge,
-                        )
+                Row {
+                    Text(
+                        text = stringResource(Res.string.Dashboard_Running_Running),
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                    state.testType?.let { testType ->
                         Icon(
                             painterResource(testType.iconRes ?: Res.drawable.ooni_empty_state),
                             contentDescription = null,
