@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -33,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_EstimatedTimeLeft
+import ooniprobe.composeapp.generated.resources.Dashboard_Running_ProxyInUse
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
@@ -40,6 +43,7 @@ import ooniprobe.composeapp.generated.resources.Notification_StopTest
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
+import ooniprobe.composeapp.generated.resources.test_circumvention
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.TestRunState
@@ -80,7 +84,7 @@ fun RunningScreen(
             )
 
             when (state.testRunState) {
-                is TestRunState.Running -> TestRunning(state.testRunState, onEvent)
+                is TestRunState.Running -> TestRunning(state.hasProxy, state.testRunState, onEvent)
                 TestRunState.Stopping -> TestStopping()
                 else -> Unit
             }
@@ -95,6 +99,7 @@ fun RunningScreen(
 
 @Composable
 private fun TestRunning(
+    hasProxy: Boolean,
     state: TestRunState.Running,
     onEvent: (RunningViewModel.Event) -> Unit,
 ) {
@@ -120,6 +125,32 @@ private fun TestRunning(
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                 )
+                if (hasProxy) {
+                    AssistChip(
+                        onClick = { },
+                        label = {
+                            Text(
+                                text = stringResource(Res.string.Dashboard_Running_ProxyInUse),
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                        },
+                        leadingIcon = {
+                            Icon(
+                                painter = painterResource(Res.drawable.test_circumvention),
+                                contentDescription = null,
+                                modifier = Modifier.size(AssistChipDefaults.IconSize),
+                                tint = MaterialTheme.customColors.onDescriptor,
+                            )
+                        },
+                        colors = AssistChipDefaults.assistChipColors(
+                            labelColor = MaterialTheme.customColors.onDescriptor,
+                        ),
+                        border = AssistChipDefaults.assistChipBorder(
+                            enabled = true,
+                            borderColor = MaterialTheme.customColors.onDescriptor,
+                        ),
+                    )
+                }
             }
         }
 

@@ -57,6 +57,7 @@ import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetFirstRun
+import org.ooni.probe.domain.GetProxySettings
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
 import org.ooni.probe.domain.GetSettings
@@ -238,7 +239,10 @@ class Dependencies(
     }
     val getCurrentTestState get() = testStateManager::observeState
     private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
-    private val getEnginePreferences by lazy { GetEnginePreferences(preferenceRepository) }
+    private val getProxySettings by lazy { GetProxySettings(preferenceRepository) }
+    private val getEnginePreferences by lazy {
+        GetEnginePreferences(preferencesRepository = preferenceRepository, getProxySettings = getProxySettings::invoke)
+    }
     private val getFirstRun by lazy { GetFirstRun(preferenceRepository) }
     private val getResults by lazy {
         GetResults(
@@ -453,6 +457,7 @@ class Dependencies(
         observeTestRunState = testStateManager.observeState(),
         observeTestRunErrors = testStateManager.observeErrors(),
         cancelTestRun = testStateManager::cancelTestRun,
+        getProxySettings = getProxySettings::invoke,
     )
 
     fun runViewModel(onBack: () -> Unit) =

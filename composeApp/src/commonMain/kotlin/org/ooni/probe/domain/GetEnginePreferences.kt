@@ -11,6 +11,7 @@ import kotlin.time.Duration.Companion.seconds
 
 class GetEnginePreferences(
     private val preferencesRepository: PreferenceRepository,
+    private val getProxySettings: suspend () -> ProxySettings,
 ) {
     suspend operator fun invoke() =
         EnginePreferences(
@@ -26,11 +27,7 @@ class GetEnginePreferences(
             } else {
                 null
             },
-            proxy = ProxySettings.newProxySettings(
-                protocol = getValueForKey(SettingsKey.PROXY_PROTOCOL) as? String,
-                hostname = getValueForKey(SettingsKey.PROXY_HOSTNAME) as? String,
-                port = getValueForKey(SettingsKey.PROXY_PORT) as? String,
-            ).getProxyString(),
+            proxy = getProxySettings().getProxyString(),
         )
 
     private suspend fun getEnabledCategories(): List<String> {

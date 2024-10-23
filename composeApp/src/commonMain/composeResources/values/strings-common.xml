@@ -9,6 +9,7 @@
     <string name="Dashboard_Running_EstimatedTimeLeft">Estimated time left:</string>
     <string name="Dashboard_Running_Stopping_Title">Stopping test…</string>
     <string name="Dashboard_Running_Stopping_Notice">Finishing the currently pending tests, please wait…</string>
+    <string name="Dashboard_Running_ProxyInUse">Proxy in use</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <string name="Dashboard_RunV2_RunFinished">Run finished. Tap to view results.</string>
@@ -231,7 +232,7 @@
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe cannot run automatically without battery optimization. Do you want to try again?</string>
 
     <!-- New Strings -->
-    <string name="Dashboard_Runv2_Overview_LastUpdatd">Last updated %1$s</string>    
+    <string name="Dashboard_Runv2_Overview_LastUpdatd">Last updated %1$s</string>
     <string name="back">Back</string>
     <string name="refresh">refresh</string>
     <string name="measurement">Measurement</string>
