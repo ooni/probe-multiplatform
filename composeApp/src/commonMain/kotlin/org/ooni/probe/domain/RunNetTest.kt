@@ -189,8 +189,9 @@ class RunNetTest(
             }
 
             is TaskEvent.MeasurementSubmissionSuccessful -> {
-                updateMeasurement(event.index) {
-                    it.copy(isUploaded = true)
+                updateMeasurement(event.index) { measurement ->
+                    measurement.reportFilePath?.let { deleteFiles(it) }
+                    measurement.copy(isUploaded = true)
                 }
             }
 
@@ -259,10 +260,7 @@ class RunNetTest(
             }
 
             is TaskEvent.TaskTerminated -> {
-                val measurement = measurements[event.index] ?: return
-                if (measurement.isUploaded) {
-                    measurement.reportFilePath?.let { deleteFiles(it) }
-                }
+                deleteLogFile()
             }
         }
     }
@@ -291,11 +289,17 @@ class RunNetTest(
 
     private suspend fun writeToLogFile(text: String) {
         writeFile(
-            path = MeasurementModel.logFilePath(spec.resultId, spec.netTest.test),
+            path = getLogFilePath(),
             contents = text,
             append = true,
         )
     }
+
+    private suspend fun deleteLogFile() {
+        deleteFiles(getLogFilePath())
+    }
+
+    private fun getLogFilePath() = MeasurementModel.logFilePath(spec.resultId, spec.netTest.test)
 
     private suspend fun writeToReportFile(
         measurement: MeasurementModel,
