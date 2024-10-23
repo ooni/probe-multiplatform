@@ -115,7 +115,7 @@ class Dependencies(
     val localeDirection: (() -> LayoutDirection)? = null,
     private val shareFile: (FileSharing) -> Boolean,
     private val batteryOptimization: BatteryOptimization,
-    private val flavorConfig: FlavorConfigInterface,
+    val flavorConfig: FlavorConfigInterface,
 ) {
     // Common
 
