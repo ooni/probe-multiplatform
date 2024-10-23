@@ -262,7 +262,7 @@ class Dependencies(
             backgroundContext = backgroundContext,
             deleteAllResults = deleteAllResults::invoke,
             clearLogs = appLogger::clear,
-            getStorageUsed = getStorageUsed::update,
+            updateStorageUsed = getStorageUsed::update,
         )
     }
 

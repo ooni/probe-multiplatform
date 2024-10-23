@@ -20,7 +20,7 @@ class GetStorageUsed(
 
     fun observe(): Flow<Long> =
         storageUsed.asStateFlow()
-            .onStart { if (storageUsed.value == 0L) update() }
+            .onStart { update() }
 
     suspend fun update(): Long {
         return withContext(backgroundContext) {
