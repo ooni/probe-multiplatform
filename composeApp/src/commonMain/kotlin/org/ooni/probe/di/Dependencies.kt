@@ -22,6 +22,7 @@ import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
+import org.ooni.probe.background.RunBackgroundTask
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.DeleteFilesOkio
@@ -231,17 +232,19 @@ class Dependencies(
         )
     }
     val getAutoRunSettings by lazy { GetAutoRunSettings(preferenceRepository::allSettings) }
-    val getAutoRunSpecification by lazy {
+    private val getAutoRunSpecification by lazy {
         GetAutoRunSpecification(getTestDescriptors, preferenceRepository)
     }
     private val getBootstrapTestDescriptors by lazy {
         GetBootstrapTestDescriptors(readAssetFile, json, backgroundContext)
     }
-    val getCurrentTestState get() = testStateManager::observeState
     private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
     private val getProxySettings by lazy { GetProxySettings(preferenceRepository) }
     private val getEnginePreferences by lazy {
-        GetEnginePreferences(preferencesRepository = preferenceRepository, getProxySettings = getProxySettings::invoke)
+        GetEnginePreferences(
+            preferencesRepository = preferenceRepository,
+            getProxySettings = getProxySettings::invoke,
+        )
     }
     private val getFirstRun by lazy { GetFirstRun(preferenceRepository) }
     private val getResults by lazy {
@@ -292,7 +295,7 @@ class Dependencies(
             getAutoRunSettings = getAutoRunSettings::invoke,
         )
     }
-    val runDescriptors by lazy {
+    private val runDescriptors by lazy {
         RunDescriptors(
             getTestDescriptorsBySpec = getTestDescriptorsBySpec::invoke,
             downloadUrls = downloadUrls::invoke,
@@ -343,6 +346,18 @@ class Dependencies(
             json = json,
             spec = spec,
         )
+
+    // Background
+
+    val runBackgroundTask by lazy {
+        RunBackgroundTask(
+            getPreferenceValueByKey = preferenceRepository::getValueByKey,
+            uploadMissingMeasurements = uploadMissingMeasurements::invoke,
+            getAutoRunSpecification = getAutoRunSpecification::invoke,
+            runDescriptors = runDescriptors::invoke,
+            getCurrentTestState = testStateManager::observeState,
+        )
+    }
 
     // ViewModels
 

@@ -42,7 +42,7 @@ fun UploadMeasurementsDialog(
             when (state) {
                 UploadMissingMeasurements.State.Starting -> {}
                 is UploadMissingMeasurements.State.Uploading -> {
-                    val progress = state.uploaded + state.failedToUpload
+                    val progress = state.uploaded + state.failedToUpload + 1
                     Text(
                         stringResource(
                             Res.string.Modal_ResultsNotUploaded_Uploading,
