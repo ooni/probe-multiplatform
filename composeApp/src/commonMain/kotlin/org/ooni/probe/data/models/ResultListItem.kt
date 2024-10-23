@@ -6,6 +6,7 @@ data class ResultListItem(
     val network: NetworkModel?,
     val measurementsCount: Long,
     val allMeasurementsUploaded: Boolean,
+    val anyMeasurementUploadFailed: Boolean,
 ) {
     val idOrThrow get() = result.idOrThrow
 }

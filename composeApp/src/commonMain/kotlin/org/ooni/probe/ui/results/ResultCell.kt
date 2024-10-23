@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.Modal_UploadFailed_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
@@ -129,12 +131,23 @@ fun ResultCell(
                         Icon(
                             painterResource(Res.drawable.ic_cloud_off),
                             contentDescription = null,
+                            tint = if (item.anyMeasurementUploadFailed) {
+                                MaterialTheme.colorScheme.error
+                            } else {
+                                LocalContentColor.current
+                            },
                             modifier = Modifier
                                 .size(16.dp)
                                 .padding(end = 4.dp),
                         )
                         Text(
-                            stringResource(Res.string.Snackbar_ResultsNotUploaded_Text).lowercase(),
+                            stringResource(
+                                if (item.anyMeasurementUploadFailed) {
+                                    Res.string.Modal_UploadFailed_Title
+                                } else {
+                                    Res.string.Snackbar_ResultsNotUploaded_Text
+                                },
+                            ).lowercase(),
                             style = MaterialTheme.typography.labelLarge,
                         )
                     }

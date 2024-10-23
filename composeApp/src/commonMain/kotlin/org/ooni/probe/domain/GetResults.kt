@@ -24,6 +24,7 @@ class GetResults(
                     network = item.network,
                     measurementsCount = item.measurementsCount,
                     allMeasurementsUploaded = item.allMeasurementsUploaded,
+                    anyMeasurementUploadFailed = item.anyMeasurementUploadFailed,
                 )
             }
         }

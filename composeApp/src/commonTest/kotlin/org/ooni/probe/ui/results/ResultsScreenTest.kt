@@ -118,5 +118,6 @@ class ResultsScreenTest {
             network = NetworkModelFactory.build(),
             measurementsCount = 4,
             allMeasurementsUploaded = false,
+            anyMeasurementUploadFailed = false,
         )
 }
