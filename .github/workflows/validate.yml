@@ -22,7 +22,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build Android
-        run: ./gradlew copyBrandingToCommonResources assemble${{ matrix.type }} -Porganization=${{ matrix.organization }}
+        run: ./gradlew copyBrandingToCommonResources assembleFull${{ matrix.type }} -Porganization=${{ matrix.organization }}
 
       - name: Build iOS Framework
         run: ./gradlew link${{ matrix.type }}FrameworkIosSimulatorArm64 -Porganization=${{ matrix.organization }}
@@ -32,7 +32,7 @@ jobs:
         if: matrix.type == 'Debug' # we want just the debug apk. Releases have to be signed and uploaded to the stores
         with:
           name: ${{ matrix.organization }}-${{ matrix.type }}-APK
-          path: composeApp/build/outputs/apk/debug/composeApp-debug.apk
+          path: composeApp/build/outputs/apk/full/debug/composeApp-full-debug.apk
 
   android-lint:
     name: Android Lint

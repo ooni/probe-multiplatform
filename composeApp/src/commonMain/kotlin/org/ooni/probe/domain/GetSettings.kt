@@ -66,6 +66,7 @@ class GetSettings(
     private val preferencesRepository: PreferenceRepository,
     private val clearStorage: suspend () -> Unit,
     val observeStorageUsed: () -> Flow<Long>,
+    private val supportsCrashReporting: Boolean,
 ) {
     operator fun invoke(): Flow<List<SettingsCategoryItem>> {
         return combine(
@@ -86,6 +87,7 @@ class GetSettings(
                 maxRuntimeEnabled = preferences[SettingsKey.MAX_RUNTIME_ENABLED] == true,
                 maxRuntime = preferences[SettingsKey.MAX_RUNTIME] as? Int,
                 storageUsed = storageUsed,
+                supportsCrashReporting = supportsCrashReporting,
             )
         }
     }
@@ -96,6 +98,7 @@ class GetSettings(
         maxRuntimeEnabled: Boolean,
         maxRuntime: Int?,
         storageUsed: Long,
+        supportsCrashReporting: Boolean = false,
     ): List<SettingsCategoryItem> {
         return listOf(
             SettingsCategoryItem(
@@ -186,18 +189,24 @@ class GetSettings(
                 icon = Res.drawable.privacy,
                 title = Res.string.Settings_Privacy_Label,
                 route = PreferenceCategoryKey.PRIVACY,
-                settings = listOf(
-                    SettingsItem(
-                        title = Res.string.Settings_Sharing_UploadResults,
-                        key = SettingsKey.UPLOAD_RESULTS,
-                        type = PreferenceItemType.SWITCH,
-                    ),
-                    SettingsItem(
-                        title = Res.string.Settings_Privacy_SendCrashReports,
-                        key = SettingsKey.SEND_CRASH,
-                        type = PreferenceItemType.SWITCH,
-                    ),
-                ),
+                settings = buildList {
+                    add(
+                        SettingsItem(
+                            title = Res.string.Settings_Sharing_UploadResults,
+                            key = SettingsKey.UPLOAD_RESULTS,
+                            type = PreferenceItemType.SWITCH,
+                        ),
+                    )
+                    if (supportsCrashReporting) {
+                        add(
+                            SettingsItem(
+                                title = Res.string.Settings_Privacy_SendCrashReports,
+                                key = SettingsKey.SEND_CRASH,
+                                type = PreferenceItemType.SWITCH,
+                            ),
+                        )
+                    }
+                },
             ),
             SettingsCategoryItem(
                 icon = Res.drawable.proxy,

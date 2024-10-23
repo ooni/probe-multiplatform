@@ -23,6 +23,7 @@ import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
 import org.ooni.probe.config.BatteryOptimization
+import org.ooni.probe.config.FlavorConfigInterface
 import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.DeleteFilesOkio
 import org.ooni.probe.data.disk.ReadFile
@@ -114,6 +115,7 @@ class Dependencies(
     val localeDirection: (() -> LayoutDirection)? = null,
     private val shareFile: (FileSharing) -> Boolean,
     private val batteryOptimization: BatteryOptimization,
+    private val flavorConfig: FlavorConfigInterface,
 ) {
     // Common
 
@@ -271,6 +273,7 @@ class Dependencies(
             preferencesRepository = preferenceRepository,
             observeStorageUsed = getStorageUsed::observe,
             clearStorage = clearStorage::invoke,
+            supportsCrashReporting = flavorConfig.isCrashReportingEnabled,
         )
     }
 
@@ -433,6 +436,7 @@ class Dependencies(
         preferenceRepository = preferenceRepository,
         launchUrl = { launchUrl(it, null) },
         batteryOptimization = batteryOptimization,
+        supportsCrashReporting = flavorConfig.isCrashReportingEnabled,
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
