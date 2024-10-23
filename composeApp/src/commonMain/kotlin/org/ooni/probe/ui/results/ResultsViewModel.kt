@@ -116,6 +116,8 @@ class ResultsViewModel(
     ) {
         val anyMissingUpload
             get() = results.any { it.value.any { item -> !item.allMeasurementsUploaded } }
+
+        val areResultsLimited get() = results.values.sumOf { it.size } >= ResultFilter.LIMIT
     }
 
     data class Summary(

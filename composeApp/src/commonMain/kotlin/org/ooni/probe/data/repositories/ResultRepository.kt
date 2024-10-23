@@ -36,6 +36,7 @@ class ResultRepository(
                 descriptorKey = descriptorFilter?.key,
                 filterByTaskOrigin = if (originFilter != null) 1 else 0,
                 taskOrigin = originFilter?.value,
+                limit = filter.limit,
             )
             .asFlow()
             .mapToList(backgroundContext)
