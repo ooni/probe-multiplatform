@@ -57,7 +57,7 @@ sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref 
 okio = { module = "com.squareup.okio:okio", version = "3.9.0" }
 
 # WebView
-webview = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "1.9.20" }
+webview = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "1.9.40-alpha04" }
 
 # Lottie animations
 kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.0-rc01" } # 2.0.0 not supported yet
