@@ -23,6 +23,7 @@ class OnboardingViewModel(
     private val preferenceRepository: PreferenceRepository,
     private val launchUrl: (String) -> Unit,
     private val batteryOptimization: BatteryOptimization,
+    supportsCrashReporting: Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -30,7 +31,7 @@ class OnboardingViewModel(
         Step.WhatIs,
         Step.HeadsUp,
         Step.AutomatedTesting(false),
-        Step.CrashReporting,
+        if (supportsCrashReporting) Step.CrashReporting else null,
         if (platformInfo.needsToRequestNotificationsPermission) {
             Step.RequestNotificationPermission
         } else {

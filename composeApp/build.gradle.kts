@@ -203,6 +203,15 @@ android {
         disable += listOf("AndroidGradlePluginVersion", "ObsoleteLintCustomCheck")
         lintConfig = file("lint.xml")
     }
+    flavorDimensions += "license"
+    productFlavors {
+        create("full") {
+            dimension = "license"
+        }
+        create("fdroid") {
+            dimension = "license"
+        }
+    }
 }
 
 sqldelight {
