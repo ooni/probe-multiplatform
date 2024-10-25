@@ -33,6 +33,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.measurement
 import ooniprobe.composeapp.generated.resources.refresh
+import org.intellij.markdown.html.urlEncode
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.ui.shared.TopBar
@@ -43,7 +44,7 @@ fun MeasurementScreen(
     input: String?,
     onBack: () -> Unit,
 ) {
-    val inputSuffix = input?.let { "?input=$it" } ?: ""
+    val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
     val url = "https://explorer.ooni.org/measurement/${reportId.value}$inputSuffix"
     LaunchedEffect(url) { Logger.i("URL: $url") }
 
