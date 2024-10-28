@@ -288,4 +288,5 @@
     <string name="share_logs">Share Logs</string>
     <string name="share_logs_error">Error sharing logs</string>
     <string name="filter_logs">Filter Logs</string>
+    <string name="results_limited_notice">Only the last %1$d results are shown</string>
 </resources>

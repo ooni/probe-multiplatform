@@ -60,6 +60,7 @@ import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.months
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
+import ooniprobe.composeapp.generated.resources.results_limited_notice
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
@@ -143,6 +144,20 @@ fun ResultsScreen(
                             onResultClick = { onEvent(ResultsViewModel.Event.ResultClick(result)) },
                         )
                         HorizontalDivider(thickness = with(LocalDensity.current) { 1.toDp() })
+                    }
+                }
+                if (state.areResultsLimited) {
+                    item("limited") {
+                        Text(
+                            text = stringResource(
+                                Res.string.results_limited_notice,
+                                state.filter.limit,
+                            ),
+                            style = MaterialTheme.typography.labelLarge,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 24.dp),
+                        )
                     }
                 }
             }
