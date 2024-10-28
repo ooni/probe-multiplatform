@@ -96,6 +96,12 @@ kotlin {
                 implementation(libs.bundles.kotlin)
                 implementation(libs.bundles.ui)
                 implementation(libs.bundles.tooling)
+                if (!isFdroidTaskRequested()) {
+                    implementation(libs.bundles.full)
+                    kotlin.srcDir("src/commonFullMain/kotlin")
+                } else {
+                    kotlin.srcDir("src/commonFdroidMain/kotlin")
+                }
             }
             kotlin.srcDir("src/${config.folder}/kotlin")
         }
@@ -246,6 +252,10 @@ tasks {
             )
         }
     }
+}
+
+fun isFdroidTaskRequested(): Boolean {
+    return gradle.startParameter.taskRequests.flatMap { it.args }.any { it.contains("Fdroid") }
 }
 
 tasks.register("copyBrandingToCommonResources") {
