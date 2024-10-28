@@ -15,6 +15,7 @@ plugins {
 }
 
 val organization: String? by project
+val licence: String? by project
 
 val appConfig = mapOf(
     "dw" to AppConfig(
@@ -207,6 +208,9 @@ android {
     productFlavors {
         create("full") {
             dimension = "license"
+            dependencies {
+                implementation(libs.bundles.full)
+            }
         }
         create("fdroid") {
             dimension = "license"
