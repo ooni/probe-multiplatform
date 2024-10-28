@@ -54,6 +54,7 @@ class SettingsTest {
         runTest {
             preferences.setValuesByKey(
                 listOf(
+                    SettingsKey.UPLOAD_RESULTS to false,
                     SettingsKey.AUTOMATED_TESTING_ENABLED to false,
                     SettingsKey.AUTOMATED_TESTING_WIFIONLY to false,
                     SettingsKey.AUTOMATED_TESTING_CHARGING to false,
@@ -64,15 +65,20 @@ class SettingsTest {
                 clickOnText("Settings")
                 clickOnText("Test options")
 
+                clickOnText("Automatically Publish Results")
+                wait { preferences.getValueByKey(SettingsKey.UPLOAD_RESULTS).first() == true }
+
                 clickOnText("Run tests automatically")
+                wait {
+                    preferences.getValueByKey(SettingsKey.AUTOMATED_TESTING_ENABLED).first() == true
+                }
+
                 clickOnText("Only on WiFi")
                 clickOnText("Only while charging")
 
                 wait {
-                    preferences.getValueByKey(SettingsKey.AUTOMATED_TESTING_ENABLED)
+                    preferences.getValueByKey(SettingsKey.AUTOMATED_TESTING_WIFIONLY)
                         .first() == true &&
-                        preferences.getValueByKey(SettingsKey.AUTOMATED_TESTING_WIFIONLY)
-                            .first() == true &&
                         preferences.getValueByKey(SettingsKey.AUTOMATED_TESTING_CHARGING)
                             .first() == true
                 }
@@ -112,7 +118,6 @@ class SettingsTest {
         runTest {
             preferences.setValuesByKey(
                 listOf(
-                    SettingsKey.UPLOAD_RESULTS to false,
                     SettingsKey.SEND_CRASH to false,
                 ),
             )
@@ -120,12 +125,10 @@ class SettingsTest {
             with(compose) {
                 clickOnText("Settings")
                 clickOnText("Privacy")
-                clickOnText("Automatically Publish Results")
                 clickOnText("Send crash reports")
 
                 wait {
-                    preferences.getValueByKey(SettingsKey.UPLOAD_RESULTS).first() == true &&
-                        preferences.getValueByKey(SettingsKey.SEND_CRASH).first() == true
+                    preferences.getValueByKey(SettingsKey.SEND_CRASH).first() == true
                 }
             }
         }
