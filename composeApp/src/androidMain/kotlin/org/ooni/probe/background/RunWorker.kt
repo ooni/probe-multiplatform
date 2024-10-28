@@ -17,13 +17,10 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.takeWhile
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.serialization.encodeToString
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
+import ooniprobe.composeapp.generated.resources.Modal_ResultsNotUploaded_Uploading
 import ooniprobe.composeapp.generated.resources.Notification_StopTest
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.notification_channel_name
@@ -34,6 +31,7 @@ import org.ooni.probe.R
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.ui.primaryLight
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.math.roundToInt
@@ -44,9 +42,7 @@ class RunWorker(
 ) : CoroutineWorker(appContext, workerParams) {
     private val dependencies by lazy { (appContext as AndroidApplication).dependencies }
     private val json by lazy { dependencies.json }
-    private val getAutoRunSpecification by lazy { dependencies.getAutoRunSpecification }
-    private val runDescriptors by lazy { dependencies.runDescriptors }
-    private val getCurrentTestState by lazy { dependencies.getCurrentTestState }
+    private val runBackgroundTask by lazy { dependencies.runBackgroundTask }
     private val cancelCurrentTest by lazy { dependencies.cancelCurrentTest }
 
     private val notificationManager by lazy {
@@ -78,29 +74,26 @@ class RunWorker(
     }
 
     private suspend fun work() {
-        val spec = getSpecification() ?: return
-
-        // Start the actual run
-        coroutineScope {
-            val runJob = async {
-                runDescriptors(spec)
-            }
-
-            // Observe the run state to update the notifications and finish the worker when it's done
-            var testStarted = false
-            getCurrentTestState()
-                .takeWhile { state ->
-                    state is TestRunState.Running || (state is TestRunState.Idle && !testStarted)
-                }
-                .onEach { state ->
-                    if (state !is TestRunState.Running) return@onEach
-                    testStarted = true
-                    notificationManager.notify(NOTIFICATION_ID, buildNotification(state))
-                }
-                .collect()
-
-            runJob.await()
+        try {
+            getSpecification()
+        } catch (e: Exception) {
+            Logger.w("Could not start RunService: invalid spec", e)
+            return
         }
+
+        runBackgroundTask(getSpecification())
+            .collectLatest { state ->
+                notificationManager.notify(
+                    NOTIFICATION_ID,
+                    when (state) {
+                        is RunBackgroundTask.State.UploadingMissingResults ->
+                            buildNotification(state.state)
+
+                        is RunBackgroundTask.State.RunningTests ->
+                            buildNotification(state.state)
+                    },
+                )
+            }
     }
 
     private fun registerReceiver() {
@@ -116,18 +109,13 @@ class RunWorker(
         applicationContext.unregisterReceiver(stopRunReceiver)
     }
 
-    private suspend fun getSpecification(): RunSpecification? {
+    private fun getSpecification(): RunSpecification? {
         val specJson = inputData.getString(DATA_KEY_SPEC)
-        if (specJson != null) {
-            try {
-                return json.decodeFromString<RunSpecification>(specJson)
-            } catch (e: Exception) {
-                Logger.w("Could not start RunService: invalid spec", e)
-                return null
-            }
+        return if (specJson != null) {
+            json.decodeFromString<RunSpecification>(specJson)
+        } else {
+            null
         }
-
-        return getAutoRunSpecification()
     }
 
     private suspend fun buildNotificationChannelIfNeeded() {
@@ -142,27 +130,51 @@ class RunWorker(
         }
     }
 
-    private suspend fun buildNotification(state: TestRunState.Running): Notification {
-        return NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.drawable.notification_icon)
-            .setContentTitle(getString(Res.string.Dashboard_Running_Running))
-            .setContentText(state.testType?.labelRes?.let { getString(it) })
-            .setColor(state.descriptor?.color?.toArgb() ?: primaryLight.toArgb())
-            .setProgress(1000, (state.progress * 1000).roundToInt(), false)
-            .setAutoCancel(false)
-            .setPriority(NotificationCompat.PRIORITY_LOW)
-            .setSound(null)
-            .setVibrate(null)
-            .setLights(0, 0, 0)
-            .setContentIntent(openAppIntent)
-            .addAction(
-                NotificationCompat.Action.Builder(
-                    null,
-                    getString(Res.string.Notification_StopTest),
-                    stopRunIntent,
-                ).build(),
-            )
-            .build()
+    private suspend fun buildNotification(state: UploadMissingMeasurements.State) =
+        buildNotification {
+            setColor(primaryLight.toArgb())
+                .run {
+                    if (state is UploadMissingMeasurements.State.Uploading) {
+                        val progress = state.uploaded + state.failedToUpload + 1
+                        setContentText(
+                            getString(
+                                Res.string.Modal_ResultsNotUploaded_Uploading,
+                                "$progress/${state.total}",
+                            ),
+                        )
+                            .setProgress(state.total, progress, false)
+                    } else {
+                        setProgress(1, 0, true)
+                    }
+                }
+        }
+
+    private suspend fun buildNotification(state: TestRunState.Running) =
+        buildNotification {
+            setContentText(state.testType?.labelRes?.let { labelRes -> getString(labelRes) })
+                .setColor(state.descriptor?.color?.toArgb() ?: primaryLight.toArgb())
+                .setProgress(1000, (state.progress * 1000).roundToInt(), false)
+                .addAction(
+                    NotificationCompat.Action.Builder(
+                        null,
+                        getString(Res.string.Notification_StopTest),
+                        stopRunIntent,
+                    ).build(),
+                )
+        }
+
+    private suspend fun buildNotification(build: suspend NotificationCompat.Builder.() -> NotificationCompat.Builder): Notification {
+        return build(
+            NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
+                .setSmallIcon(R.drawable.notification_icon)
+                .setContentTitle(getString(Res.string.Dashboard_Running_Running))
+                .setAutoCancel(false)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setSound(null)
+                .setVibrate(null)
+                .setLights(0, 0, 0)
+                .setContentIntent(openAppIntent),
+        ).build()
     }
 
     private val openAppIntent

@@ -11,12 +11,9 @@ import platform.UIKit.UIApplication
 class OperationsManager(private val dependencies: Dependencies) {
     fun startSingleRun(spec: RunSpecification) {
         val operationQueue = NSOperationQueue()
-        val runDescriptors by lazy { dependencies.runDescriptors }
-        val getCurrentTestState by lazy { dependencies.getCurrentTestState }
         val operation = RunOperation(
             spec = spec,
-            runDescriptors = runDescriptors,
-            getCurrentTestState = getCurrentTestState,
+            runBackgroundTask = dependencies.runBackgroundTask::invoke,
         )
         val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
             operation.cancel()
@@ -28,17 +25,12 @@ class OperationsManager(private val dependencies: Dependencies) {
     }
 
     fun handleAutorunTask(task: BGProcessingTask) {
-        val getAutoRunSpecification by lazy { dependencies.getAutoRunSpecification }
-        val runDescriptors by lazy { dependencies.runDescriptors }
-        val getCurrentTestState by lazy { dependencies.getCurrentTestState }
         Logger.d { "Handling autorun task" }
         val operationQueue = NSOperationQueue()
         val operation = RunOperation(
-            getAutoRunSpecification = getAutoRunSpecification,
-            runDescriptors = runDescriptors,
-            getCurrentTestState = getCurrentTestState,
+            spec = null,
+            runBackgroundTask = dependencies.runBackgroundTask::invoke,
         )
-
         task.expirationHandler = { operation.cancel() }
         operation.completionBlock = { task.setTaskCompletedWithSuccess(!operation.isCancelled()) }
         operationQueue.addOperation(operation)
