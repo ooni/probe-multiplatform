@@ -172,6 +172,15 @@ android {
             isMinifyEnabled = false
         }
     }
+    flavorDimensions += "license"
+    productFlavors {
+        create("full") {
+            dimension = "license"
+        }
+        create("fdroid") {
+            dimension = "license"
+        }
+    }
     buildFeatures {
         buildConfig = true
         compose = true
@@ -195,6 +204,7 @@ android {
     dependencies {
         debugImplementation(compose.uiTooling)
         androidTestUtil(libs.android.orchestrator)
+        "fullImplementation"(libs.bundles.full)
     }
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
@@ -203,18 +213,6 @@ android {
         warningsAsErrors = true
         disable += listOf("AndroidGradlePluginVersion", "ObsoleteLintCustomCheck")
         lintConfig = file("lint.xml")
-    }
-    flavorDimensions += "license"
-    productFlavors {
-        create("full") {
-            dimension = "license"
-            dependencies {
-                implementation(libs.bundles.full)
-            }
-        }
-        create("fdroid") {
-            dimension = "license"
-        }
     }
 }
 
