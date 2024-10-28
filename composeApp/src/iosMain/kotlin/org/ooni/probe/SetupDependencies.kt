@@ -14,6 +14,7 @@ import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.probe.background.OperationsManager
 import org.ooni.probe.config.BatteryOptimization
+import org.ooni.probe.config.FlavorConfig
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
@@ -79,6 +80,7 @@ class SetupDependencies(
         localeDirection = ::localeDirection,
         shareFile = ::shareFile,
         batteryOptimization = object : BatteryOptimization {},
+        flavorConfig = FlavorConfig(),
     )
 
     private val operationsManager = OperationsManager(dependencies)

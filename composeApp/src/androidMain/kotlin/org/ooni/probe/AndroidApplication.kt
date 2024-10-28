@@ -27,6 +27,7 @@ import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
 import org.ooni.probe.background.AppWorkerManager
 import org.ooni.probe.config.AndroidBatteryOptimization
+import org.ooni.probe.config.FlavorConfig
 import org.ooni.probe.data.models.FileSharing
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -56,6 +57,7 @@ class AndroidApplication : Application() {
             fetchDescriptorUpdate = appWorkerManager::fetchDescriptorUpdate,
             shareFile = ::shareFile,
             batteryOptimization = batteryOptimization,
+            flavorConfig = FlavorConfig(),
         )
     }
 

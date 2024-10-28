@@ -86,7 +86,9 @@ fun App(
         logAppStart(dependencies.platformInfo)
     }
     LaunchedEffect(Unit) {
-        dependencies.crashMonitoring.setup()
+        if (dependencies.flavorConfig.isCrashReportingEnabled) {
+            dependencies.crashMonitoring.setup()
+        }
     }
     LaunchedEffect(Unit) {
         dependencies.bootstrapTestDescriptors()

@@ -103,13 +103,15 @@ tooling = [
     "markdown",
     "kottie",
     "moko-permissions",
-    "sentry",
 ]
 android = [
     "android-oonimkall",
     "android-activity",
     "android-work",
     "sqldelight-android",
+]
+full = [
+    "sentry",
 ]
 android-test = [
     "android-test-core"
