@@ -46,6 +46,7 @@ import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapPreferences
 import org.ooni.probe.domain.BootstrapTestDescriptors
+import org.ooni.probe.domain.CheckSkipAutoRunNotUploadedLimit
 import org.ooni.probe.domain.ClearStorage
 import org.ooni.probe.domain.DeleteAllResults
 import org.ooni.probe.domain.DeleteTestDescriptor
@@ -206,6 +207,12 @@ class Dependencies(
             urlRepository::createOrUpdateByUrl,
         )
     }
+    private val checkSkipAutoRunNotUploadedLimit by lazy {
+        CheckSkipAutoRunNotUploadedLimit(
+            resultRepository::countMissingUpload,
+            preferenceRepository::getValueByKey,
+        )
+    }
     private val deleteAllResults by lazy {
         DeleteAllResults(resultRepository::deleteAll, deleteFiles::invoke)
     }
@@ -356,6 +363,7 @@ class Dependencies(
         RunBackgroundTask(
             getPreferenceValueByKey = preferenceRepository::getValueByKey,
             uploadMissingMeasurements = uploadMissingMeasurements::invoke,
+            checkSkipAutoRunNotUploadedLimit = checkSkipAutoRunNotUploadedLimit::invoke,
             getAutoRunSpecification = getAutoRunSpecification::invoke,
             runDescriptors = runDescriptors::invoke,
             getCurrentTestState = testStateManager::observeState,

@@ -43,6 +43,7 @@ import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Lab
 import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntime
 import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled
 import ooniprobe.composeapp.generated.resources.advanced
+import ooniprobe.composeapp.generated.resources.auto_test_not_uploaded_limit
 import ooniprobe.composeapp.generated.resources.ic_settings
 import ooniprobe.composeapp.generated.resources.notifications
 import ooniprobe.composeapp.generated.resources.outline_info
@@ -73,6 +74,7 @@ class GetSettings(
             preferencesRepository.allSettings(
                 WebConnectivityCategory.entries.mapNotNull { it.settingsKey } + listOf(
                     SettingsKey.AUTOMATED_TESTING_ENABLED,
+                    SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT,
                     SettingsKey.MAX_RUNTIME_ENABLED,
                     SettingsKey.MAX_RUNTIME,
                 ),
@@ -83,6 +85,8 @@ class GetSettings(
                 WebConnectivityCategory.entries.count { preferences[it.settingsKey] == true }
             buildSettings(
                 autoRunEnabled = preferences[SettingsKey.AUTOMATED_TESTING_ENABLED] == true,
+                autoRunNotUploadedLimit =
+                    preferences[SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT] as? Int,
                 enabledCategoriesCount = enabledCategoriesCount,
                 maxRuntimeEnabled = preferences[SettingsKey.MAX_RUNTIME_ENABLED] == true,
                 maxRuntime = preferences[SettingsKey.MAX_RUNTIME] as? Int,
@@ -94,6 +98,7 @@ class GetSettings(
 
     private fun buildSettings(
         autoRunEnabled: Boolean,
+        autoRunNotUploadedLimit: Int?,
         enabledCategoriesCount: Int,
         maxRuntimeEnabled: Boolean,
         maxRuntime: Int?,
@@ -139,6 +144,19 @@ class GetSettings(
                         key = SettingsKey.AUTOMATED_TESTING_CHARGING,
                         type = PreferenceItemType.SWITCH,
                         enabled = autoRunEnabled,
+                    ),
+                    SettingsItem(
+                        title = Res.string.auto_test_not_uploaded_limit,
+                        key = SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT,
+                        type = PreferenceItemType.INT,
+                        enabled = autoRunEnabled,
+                        supportingContent = {
+                            val value = (
+                                autoRunNotUploadedLimit
+                                    ?: BootstrapPreferences.NOT_UPLOADED_LIMIT_DEFAULT
+                            ).coerceAtLeast(1)
+                            Text(value.toString())
+                        },
                     ),
                     SettingsCategoryItem(
                         title = Res.string.Settings_Websites_Categories_Label,

@@ -2,6 +2,7 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOne
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -63,6 +64,11 @@ class ResultRepository(
             .asFlow()
             .mapToOneOrNull(backgroundContext)
             .map { it?.toModel() }
+
+    fun countMissingUpload(): Flow<Long> =
+        database.resultQueries.countMissingUpload()
+            .asFlow()
+            .mapToOne(backgroundContext)
 
     suspend fun createOrUpdate(model: ResultModel): ResultModel.Id =
         withContext(backgroundContext) {

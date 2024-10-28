@@ -80,6 +80,7 @@ enum class SettingsKey(val value: String) {
     AUTOMATED_TESTING_ENABLED("automated_testing_enabled"),
     AUTOMATED_TESTING_WIFIONLY("automated_testing_wifionly"),
     AUTOMATED_TESTING_CHARGING("automated_testing_charging"),
+    AUTOMATED_TESTING_NOT_UPLOADED_LIMIT("automated_testing_not_uploaded_limit"),
     MAX_RUNTIME_ENABLED("max_runtime_enabled"),
     MAX_RUNTIME("max_runtime"),
 
