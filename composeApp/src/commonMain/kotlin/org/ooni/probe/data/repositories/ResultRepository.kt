@@ -169,6 +169,7 @@ class ResultRepository(
             },
             measurementsCount = measurementsCount,
             allMeasurementsUploaded = allMeasurementsUploaded,
+            anyMeasurementUploadFailed = anyMeasurementUploadFailed,
         )
     }
 

@@ -5,4 +5,5 @@ data class ResultWithNetworkAndAggregates(
     val network: NetworkModel?,
     val measurementsCount: Long,
     val allMeasurementsUploaded: Boolean,
+    val anyMeasurementUploadFailed: Boolean,
 )

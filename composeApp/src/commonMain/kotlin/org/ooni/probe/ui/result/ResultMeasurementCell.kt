@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,6 +17,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.Modal_UploadFailed_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
@@ -81,7 +84,18 @@ fun ResultMeasurementCell(
         if (isResultDone && measurement.isDoneAndMissingUpload) {
             Icon(
                 painterResource(Res.drawable.ic_cloud_off),
-                contentDescription = stringResource(Res.string.Snackbar_ResultsNotUploaded_Text),
+                contentDescription = stringResource(
+                    if (measurement.isUploadFailed) {
+                        Res.string.Modal_UploadFailed_Title
+                    } else {
+                        Res.string.Snackbar_ResultsNotUploaded_Text
+                    },
+                ),
+                tint = if (measurement.isUploadFailed) {
+                    MaterialTheme.colorScheme.error
+                } else {
+                    LocalContentColor.current
+                },
                 modifier = Modifier.padding(end = 16.dp).size(24.dp),
             )
         }
@@ -90,8 +104,7 @@ fun ResultMeasurementCell(
             Icon(
                 painterResource(
                     when {
-                        isFailed ->
-                            Res.drawable.ic_measurement_failed
+                        isFailed -> Res.drawable.ic_measurement_failed
                         measurement.isAnomaly -> Res.drawable.ic_measurement_anomaly
                         else -> Res.drawable.ic_measurement_ok
                     },

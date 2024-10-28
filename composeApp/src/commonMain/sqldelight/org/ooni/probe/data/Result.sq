@@ -53,8 +53,17 @@ SELECT
     ) AS measurementsCount,
     (
         SELECT COUNT(Measurement.id) FROM Measurement
-        WHERE Measurement.is_done = 1 AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL) AND Measurement.result_id = Result.id
-    ) == 0 AS allMeasurementsUploaded
+        WHERE Measurement.is_done = 1
+        AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
+        AND Measurement.result_id = Result.id
+    ) == 0 AS allMeasurementsUploaded,
+    (
+        SELECT COUNT(Measurement.id) FROM Measurement
+        WHERE Measurement.is_done = 1
+        AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
+        AND Measurement.is_upload_failed = 1
+        AND Measurement.result_id = Result.id
+    ) > 0 AS anyMeasurementUploadFailed
 FROM Result
 LEFT JOIN Network ON Result.network_id = Network.id
 WHERE (:filterByDescriptor = 0 OR Result.test_group_name = :descriptorKey OR Result.descriptor_runId = :descriptorKey)
