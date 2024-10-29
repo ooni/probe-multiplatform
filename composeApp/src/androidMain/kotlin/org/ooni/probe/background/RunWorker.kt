@@ -20,6 +20,8 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.serialization.encodeToString
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
+import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notice
+import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
 import ooniprobe.composeapp.generated.resources.Modal_ResultsNotUploaded_Uploading
 import ooniprobe.composeapp.generated.resources.Notification_StopTest
 import ooniprobe.composeapp.generated.resources.Res
@@ -91,6 +93,9 @@ class RunWorker(
 
                         is RunBackgroundTask.State.RunningTests ->
                             buildNotification(state.state)
+
+                        is RunBackgroundTask.State.StoppingTests ->
+                            buildStoppingNotification()
                     },
                 )
             }
@@ -132,21 +137,18 @@ class RunWorker(
 
     private suspend fun buildNotification(state: UploadMissingMeasurements.State) =
         buildNotification {
-            setColor(primaryLight.toArgb())
-                .run {
-                    if (state is UploadMissingMeasurements.State.Uploading) {
-                        val progress = state.uploaded + state.failedToUpload + 1
-                        setContentText(
-                            getString(
-                                Res.string.Modal_ResultsNotUploaded_Uploading,
-                                "$progress/${state.total}",
-                            ),
-                        )
-                            .setProgress(state.total, progress, false)
-                    } else {
-                        setProgress(1, 0, true)
-                    }
-                }
+            if (state is UploadMissingMeasurements.State.Uploading) {
+                val progress = state.uploaded + state.failedToUpload + 1
+                setContentText(
+                    getString(
+                        Res.string.Modal_ResultsNotUploaded_Uploading,
+                        "$progress/${state.total}",
+                    ),
+                )
+                    .setProgress(state.total, progress, false)
+            } else {
+                setProgress(1, 0, true)
+            }
         }
 
     private suspend fun buildNotification(state: TestRunState.Running) =
@@ -163,16 +165,25 @@ class RunWorker(
                 )
         }
 
+    private suspend fun buildStoppingNotification() =
+        buildNotification {
+            setContentTitle(getString(Res.string.Dashboard_Running_Stopping_Title))
+                .setContentText(getString(Res.string.Dashboard_Running_Stopping_Notice))
+                .setProgress(1, 0, true)
+        }
+
     private suspend fun buildNotification(build: suspend NotificationCompat.Builder.() -> NotificationCompat.Builder): Notification {
         return build(
             NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle(getString(Res.string.Dashboard_Running_Running))
                 .setAutoCancel(false)
+                .setOngoing(true)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setSound(null)
                 .setVibrate(null)
                 .setLights(0, 0, 0)
+                .setColor(primaryLight.toArgb())
                 .setContentIntent(openAppIntent),
         ).build()
     }
