@@ -211,7 +211,9 @@ class GetSettings(
                         }
                     },
                 )
-            } else null,
+            } else {
+                null
+            },
             SettingsCategoryItem(
                 icon = Res.drawable.proxy,
                 title = Res.string.Settings_Proxy_Label,
