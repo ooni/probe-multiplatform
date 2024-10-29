@@ -72,6 +72,7 @@ class GetSettings(
         return combine(
             preferencesRepository.allSettings(
                 WebConnectivityCategory.entries.mapNotNull { it.settingsKey } + listOf(
+                    SettingsKey.UPLOAD_RESULTS,
                     SettingsKey.AUTOMATED_TESTING_ENABLED,
                     SettingsKey.MAX_RUNTIME_ENABLED,
                     SettingsKey.MAX_RUNTIME,
@@ -82,6 +83,7 @@ class GetSettings(
             val enabledCategoriesCount =
                 WebConnectivityCategory.entries.count { preferences[it.settingsKey] == true }
             buildSettings(
+                uploadResultsEnabled = preferences[SettingsKey.UPLOAD_RESULTS] == true,
                 autoRunEnabled = preferences[SettingsKey.AUTOMATED_TESTING_ENABLED] == true,
                 enabledCategoriesCount = enabledCategoriesCount,
                 maxRuntimeEnabled = preferences[SettingsKey.MAX_RUNTIME_ENABLED] == true,
@@ -93,6 +95,7 @@ class GetSettings(
     }
 
     private fun buildSettings(
+        uploadResultsEnabled: Boolean,
         autoRunEnabled: Boolean,
         enabledCategoriesCount: Int,
         maxRuntimeEnabled: Boolean,
@@ -100,7 +103,7 @@ class GetSettings(
         storageUsed: Long,
         supportsCrashReporting: Boolean = false,
     ): List<SettingsCategoryItem> {
-        return listOf(
+        return listOfNotNull(
             SettingsCategoryItem(
                 icon = Res.drawable.notifications,
                 title = Res.string.Settings_Notifications_Label,
@@ -124,9 +127,15 @@ class GetSettings(
                 route = PreferenceCategoryKey.TEST_OPTIONS,
                 settings = listOf(
                     SettingsItem(
+                        title = Res.string.Settings_Sharing_UploadResults,
+                        key = SettingsKey.UPLOAD_RESULTS,
+                        type = PreferenceItemType.SWITCH,
+                    ),
+                    SettingsItem(
                         title = Res.string.Settings_AutomatedTesting_RunAutomatically,
                         key = SettingsKey.AUTOMATED_TESTING_ENABLED,
                         type = PreferenceItemType.SWITCH,
+                        enabled = uploadResultsEnabled,
                     ),
                     SettingsItem(
                         title = Res.string.Settings_AutomatedTesting_RunAutomatically_WiFiOnly,
@@ -185,29 +194,26 @@ class GetSettings(
                     )
                 },
             ),
-            SettingsCategoryItem(
-                icon = Res.drawable.privacy,
-                title = Res.string.Settings_Privacy_Label,
-                route = PreferenceCategoryKey.PRIVACY,
-                settings = buildList {
-                    add(
-                        SettingsItem(
-                            title = Res.string.Settings_Sharing_UploadResults,
-                            key = SettingsKey.UPLOAD_RESULTS,
-                            type = PreferenceItemType.SWITCH,
-                        ),
-                    )
-                    if (supportsCrashReporting) {
-                        add(
-                            SettingsItem(
-                                title = Res.string.Settings_Privacy_SendCrashReports,
-                                key = SettingsKey.SEND_CRASH,
-                                type = PreferenceItemType.SWITCH,
-                            ),
-                        )
-                    }
-                },
-            ),
+            if (supportsCrashReporting) {
+                SettingsCategoryItem(
+                    icon = Res.drawable.privacy,
+                    title = Res.string.Settings_Privacy_Label,
+                    route = PreferenceCategoryKey.PRIVACY,
+                    settings = buildList {
+                        if (supportsCrashReporting) {
+                            add(
+                                SettingsItem(
+                                    title = Res.string.Settings_Privacy_SendCrashReports,
+                                    key = SettingsKey.SEND_CRASH,
+                                    type = PreferenceItemType.SWITCH,
+                                ),
+                            )
+                        }
+                    },
+                )
+            } else {
+                null
+            },
             SettingsCategoryItem(
                 icon = Res.drawable.proxy,
                 title = Res.string.Settings_Proxy_Label,
