@@ -62,6 +62,7 @@ class PreferenceRepository(
         return when (key) {
             SettingsKey.MAX_RUNTIME,
             SettingsKey.PROXY_PORT,
+            SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT,
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
 
             SettingsKey.PROXY_HOSTNAME,
@@ -79,13 +80,9 @@ class PreferenceRepository(
         autoRun: Boolean = false,
     ): Flow<Map<SettingsKey, Any?>> =
         dataStore.data.map {
-            keys.map { key ->
-                key to it[
-                    preferenceKeyFromSettingsKey(
-                        key, prefix, autoRun,
-                    ).preferenceKey,
-                ]
-            }.toMap()
+            keys.associateWith { key ->
+                it[preferenceKeyFromSettingsKey(key, prefix, autoRun).preferenceKey]
+            }
         }
 
     fun getValueByKey(key: SettingsKey): Flow<Any?> {
@@ -160,18 +157,9 @@ class PreferenceRepository(
     ): Flow<Map<Pair<Descriptor, NetTest>, Boolean>> =
         dataStore.data.map {
             list.associate { (descriptor, netTest) ->
-                Pair(descriptor, netTest) to
-                    (
-                        it[
-                            booleanPreferencesKey(
-                                getNetTestKey(
-                                    descriptor,
-                                    netTest,
-                                    isAutoRun,
-                                ),
-                            ),
-                        ] == true
-                    )
+                Pair(descriptor, netTest) to (
+                    it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] == true
+                )
             }
         }
 
@@ -199,25 +187,13 @@ class PreferenceRepository(
     )
 
     suspend fun removeDescriptorPreferences(descriptor: Descriptor) {
-        descriptor.netTests.forEach { nettest ->
+        descriptor.netTests.forEach { netTest ->
             dataStore.edit {
                 it.remove(
-                    booleanPreferencesKey(
-                        getNetTestKey(
-                            descriptor,
-                            nettest,
-                            isAutoRun = true,
-                        ),
-                    ),
+                    booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun = true)),
                 )
                 it.remove(
-                    booleanPreferencesKey(
-                        getNetTestKey(
-                            descriptor,
-                            nettest,
-                            isAutoRun = false,
-                        ),
-                    ),
+                    booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun = false)),
                 )
             }
         }

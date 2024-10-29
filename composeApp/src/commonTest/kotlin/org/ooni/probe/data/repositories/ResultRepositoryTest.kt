@@ -4,10 +4,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.TaskOrigin
+import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
 import org.ooni.testing.createTestDatabaseDriver
+import org.ooni.testing.factories.MeasurementModelFactory
 import org.ooni.testing.factories.ResultModelFactory
 import kotlin.math.absoluteValue
 import kotlin.random.Random
@@ -18,14 +20,13 @@ import kotlin.test.assertNotNull
 
 class ResultRepositoryTest {
     private lateinit var subject: ResultRepository
+    private lateinit var measurementRepository: MeasurementRepository
 
     @BeforeTest
     fun before() {
-        subject =
-            ResultRepository(
-                database = Dependencies.buildDatabase(::createTestDatabaseDriver),
-                backgroundContext = Dispatchers.Default,
-            )
+        val database = Dependencies.buildDatabase(::createTestDatabaseDriver)
+        subject = ResultRepository(database, Dispatchers.Default)
+        measurementRepository = MeasurementRepository(database, Dispatchers.Default)
     }
 
     @Test
@@ -73,5 +74,30 @@ class ResultRepositoryTest {
             assertResultSize(1, ResultFilter.Type.All)
             assertResultSize(1, ResultFilter.Type.One(TaskOrigin.OoniRun))
             assertResultSize(0, ResultFilter.Type.One(TaskOrigin.AutoRun))
+        }
+
+    @Test
+    fun countMissingUpload() =
+        runTest {
+            val result = ResultModelFactory.build()
+            subject.createOrUpdate(result)
+            assertEquals(0, subject.countMissingUpload().first())
+
+            val measurement = MeasurementModelFactory.build(
+                id = MeasurementModel.Id(1),
+                resultId = result.id!!,
+                isDone = true,
+                isUploaded = false,
+            )
+            measurementRepository.createOrUpdate(measurement)
+            assertEquals(1, subject.countMissingUpload().first())
+
+            measurementRepository.createOrUpdate(
+                measurement.copy(
+                    isUploaded = true,
+                    reportId = MeasurementModel.ReportId("1234"),
+                ),
+            )
+            assertEquals(0, subject.countMissingUpload().first())
         }
 }

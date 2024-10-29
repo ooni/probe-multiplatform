@@ -1,5 +1,6 @@
 package org.ooni.probe.background
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +20,7 @@ import org.ooni.probe.domain.UploadMissingMeasurements.State
 class RunBackgroundTask(
     private val getPreferenceValueByKey: (SettingsKey) -> Flow<Any?>,
     private val uploadMissingMeasurements: (ResultModel.Id?) -> Flow<UploadMissingMeasurements.State>,
+    private val checkSkipAutoRunNotUploadedLimit: () -> Flow<Boolean>,
     private val getAutoRunSpecification: suspend () -> RunSpecification,
     private val runDescriptors: suspend (RunSpecification) -> Unit,
     private val getCurrentTestState: () -> Flow<TestRunState>,
@@ -31,6 +33,11 @@ class RunBackgroundTask(
                 uploadMissingMeasurements(null).collectLatest {
                     send(State.UploadingMissingResults(it))
                 }
+            }
+
+            if (checkSkipAutoRunNotUploadedLimit().first()) {
+                Logger.i("Skipping auto-run tests due to not uploaded results limit")
+                return@channelFlow
             }
 
             coroutineScope {

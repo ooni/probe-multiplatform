@@ -50,4 +50,25 @@ class MeasurementRepositoryTest {
 
             assertNotNull(modelId)
         }
+
+    @Test
+    fun createAndUpdate() =
+        runTest {
+            val model = MeasurementModelFactory.build(
+                id = MeasurementModel.Id(Random.nextLong().absoluteValue),
+                isDone = false,
+            )
+
+            subject.createOrUpdate(model)
+            with(subject.list().first().first()) {
+                assertEquals(model.id, id)
+                assertEquals(false, isDone)
+            }
+
+            subject.createOrUpdate(model.copy(isDone = true))
+            with(subject.list().first().first()) {
+                assertEquals(model.id, id)
+                assertEquals(true, isDone)
+            }
+        }
 }

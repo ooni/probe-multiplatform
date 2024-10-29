@@ -34,6 +34,7 @@ class BootstrapPreferences(
                 SettingsKey.UPLOAD_RESULTS to true,
                 SettingsKey.AUTOMATED_TESTING_WIFIONLY to true,
                 SettingsKey.AUTOMATED_TESTING_CHARGING to true,
+                SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT to NOT_UPLOADED_LIMIT_DEFAULT,
             ) +
                 WebConnectivityCategory.entries
                     .mapNotNull { it.settingsKey }
@@ -47,4 +48,8 @@ class BootstrapPreferences(
             .flatMap { descriptor ->
                 descriptor.netTests.map { test -> descriptor to test }
             }
+
+    companion object {
+        const val NOT_UPLOADED_LIMIT_DEFAULT = 10
+    }
 }
