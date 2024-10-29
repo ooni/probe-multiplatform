@@ -10,17 +10,18 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.takeWhile
+import org.ooni.engine.models.NetworkType
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.domain.UploadMissingMeasurements
-import org.ooni.probe.domain.UploadMissingMeasurements.State
 
 class RunBackgroundTask(
     private val getPreferenceValueByKey: (SettingsKey) -> Flow<Any?>,
     private val uploadMissingMeasurements: (ResultModel.Id?) -> Flow<UploadMissingMeasurements.State>,
     private val checkSkipAutoRunNotUploadedLimit: () -> Flow<Boolean>,
+    private val getNetworkType: () -> NetworkType,
     private val getAutoRunSpecification: suspend () -> RunSpecification,
     private val runDescriptors: suspend (RunSpecification) -> Unit,
     private val getCurrentTestState: () -> Flow<TestRunState>,
@@ -36,7 +37,12 @@ class RunBackgroundTask(
             }
 
             if (checkSkipAutoRunNotUploadedLimit().first()) {
-                Logger.i("Skipping auto-run tests due to not uploaded results limit")
+                Logger.i("Skipping auto-run tests: too many not-uploaded results")
+                return@channelFlow
+            }
+
+            if (getNetworkType() == NetworkType.VPN) {
+                Logger.i("Skipping auto-run tests: VPN enabled")
                 return@channelFlow
             }
 
