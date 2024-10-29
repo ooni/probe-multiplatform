@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.log
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
@@ -54,7 +55,7 @@ fun LogScreen(
     state: LogViewModel.State,
     onEvent: (LogViewModel.Event) -> Unit,
 ) {
-    Column {
+    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
             title = { Text(stringResource(Res.string.logs)) },
             navigationIcon = {

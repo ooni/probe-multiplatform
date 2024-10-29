@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.choosewebsites
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -51,7 +52,9 @@ fun ChooseWebsitesScreen(
     onEvent: (ChooseWebsitesViewModel.Event) -> Unit,
 ) {
     Column(
-        modifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
+        modifier = Modifier
+            .padding(WindowInsets.navigationBars.asPaddingValues())
+            .background(MaterialTheme.colorScheme.background),
     ) {
         TopBar(
             title = { Text(stringResource(Res.string.Settings_Websites_CustomURL_Title)) },

@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.settings.category
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -54,7 +56,7 @@ fun SettingsCategoryScreen(
 ) {
     val category = state.category ?: return
 
-    Column {
+    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
             title = {
                 Text(stringResource(category.title))

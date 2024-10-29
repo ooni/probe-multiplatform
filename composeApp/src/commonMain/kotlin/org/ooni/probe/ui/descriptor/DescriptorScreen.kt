@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.descriptor
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -70,12 +71,14 @@ fun DescriptorScreen(
 
     val pullRefreshState = rememberPullToRefreshState()
     Box(
-        Modifier.pullToRefresh(
-            isRefreshing = state.isRefreshing,
-            onRefresh = { onEvent(DescriptorViewModel.Event.FetchUpdatedDescriptor) },
-            state = pullRefreshState,
-            enabled = descriptor.source is Descriptor.Source.Installed,
-        ),
+        Modifier
+            .pullToRefresh(
+                isRefreshing = state.isRefreshing,
+                onRefresh = { onEvent(DescriptorViewModel.Event.FetchUpdatedDescriptor) },
+                state = pullRefreshState,
+                enabled = descriptor.source is Descriptor.Source.Installed,
+            )
+            .background(MaterialTheme.colorScheme.background),
     ) {
         Column {
             val descriptorColor = descriptor.color ?: MaterialTheme.colorScheme.primary

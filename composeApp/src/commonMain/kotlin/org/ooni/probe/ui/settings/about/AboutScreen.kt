@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.settings.about
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -40,7 +41,7 @@ fun AboutScreen(
     softwareName: String,
     softwareVersion: String,
 ) {
-    Column {
+    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         Surface(color = MaterialTheme.colorScheme.primaryContainer) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,

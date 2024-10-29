@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.descriptor.review
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,7 +43,7 @@ fun ReviewUpdatesScreen(
         state.descriptors.size
     })
     val currentDescriptorIndex = state.currentDescriptorIndex + 1
-    Column {
+    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
             title = { Text(stringResource(Res.string.Dashboard_ReviewDescriptor_Label, currentDescriptorIndex, state.descriptors.size)) },
             actions = {

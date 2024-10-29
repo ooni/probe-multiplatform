@@ -75,7 +75,7 @@ fun ResultsScreen(
 ) {
     var showDeleteConfirm by remember { mutableStateOf(false) }
 
-    Column {
+    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
             title = {
                 Text(stringResource(Res.string.TestResults_Overview_Title))
