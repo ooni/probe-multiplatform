@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -33,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -178,19 +180,19 @@ fun SwitchSettingsView(
         trailingContent = {
             Switch(
                 checked = checked,
-                onCheckedChange = { newValue -> onCheckedChange(key, newValue) },
+                onCheckedChange = null,
                 enabled = enabled,
             )
         },
         modifier = Modifier
             .alpha(if (enabled) 1f else 0.5f)
-            .run {
-                if (enabled) {
-                    clickable { onCheckedChange(key, !checked) }
-                } else {
-                    this
-                }
-            },
+            .toggleable(
+                value = checked,
+                onValueChange = { onCheckedChange(key, it) },
+                enabled = enabled,
+                role = Role.Switch,
+            )
+            .padding(vertical = 2.dp),
     )
 }
 

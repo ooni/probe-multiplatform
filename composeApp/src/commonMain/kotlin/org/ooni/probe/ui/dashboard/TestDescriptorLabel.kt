@@ -25,7 +25,7 @@ fun TestDescriptorLabel(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.padding(bottom = 2.dp),
+        modifier = modifier,
     ) {
         Icon(
             painter = painterResource(descriptor.icon ?: Res.drawable.ooni_empty_state),
