@@ -25,6 +25,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.CustomWebsites_Fab_Text
@@ -109,7 +110,8 @@ fun ChooseWebsitesScreen(
                         },
                         modifier = Modifier.fillMaxWidth()
                             .padding(horizontal = 16.dp)
-                            .padding(top = 16.dp),
+                            .padding(top = 16.dp)
+                            .testTag("ChooseWebsite-UrlField"),
                     )
                 }
 
