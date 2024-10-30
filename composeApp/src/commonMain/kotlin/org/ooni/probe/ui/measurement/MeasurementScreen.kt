@@ -36,6 +36,7 @@ import ooniprobe.composeapp.generated.resources.measurement
 import ooniprobe.composeapp.generated.resources.refresh
 import org.intellij.markdown.html.urlEncode
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.config.TestingFlags
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.ui.shared.TopBar
 
@@ -50,7 +51,7 @@ fun MeasurementScreen(
     LaunchedEffect(url) { Logger.i("URL: $url") }
 
     val webViewState = rememberWebViewState(url)
-    webViewState.webSettings.isJavaScriptEnabled = false
+    webViewState.webSettings.isJavaScriptEnabled = TestingFlags.webviewJavascriptEnabled
     val webViewNavigator = rememberWebViewNavigator(
         // Don't allow other links to open
         requestInterceptor = object : RequestInterceptor {
