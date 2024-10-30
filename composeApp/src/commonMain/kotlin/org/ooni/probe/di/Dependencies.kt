@@ -364,6 +364,7 @@ class Dependencies(
             getPreferenceValueByKey = preferenceRepository::getValueByKey,
             uploadMissingMeasurements = uploadMissingMeasurements::invoke,
             checkSkipAutoRunNotUploadedLimit = checkSkipAutoRunNotUploadedLimit::invoke,
+            getNetworkType = networkTypeFinder::invoke,
             getAutoRunSpecification = getAutoRunSpecification::invoke,
             runDescriptors = runDescriptors::invoke,
             getCurrentTestState = testStateManager::observeState,
