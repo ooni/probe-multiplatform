@@ -73,6 +73,7 @@ fun DashboardScreen(
     PullToRefreshBox(
         isRefreshing = state.isRefreshing,
         onRefresh = { onEvent(DashboardViewModel.Event.FetchUpdatedDescriptors) },
+        modifier = Modifier.background(MaterialTheme.colorScheme.background),
     ) {
         // Colorful top background
         Column(

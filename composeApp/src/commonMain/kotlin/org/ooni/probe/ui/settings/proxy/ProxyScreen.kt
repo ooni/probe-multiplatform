@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.settings.proxy
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Arrangement
@@ -50,7 +51,7 @@ fun ProxyScreen(
     state: ProxyViewModel.State,
     onEvent: (ProxyViewModel.Event) -> Unit,
 ) {
-    Column {
+    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
             title = {
                 Text(stringResource(Res.string.Settings_Proxy_Enabled))

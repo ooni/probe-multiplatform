@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.descriptor.add
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -45,7 +47,7 @@ fun AddDescriptorScreen(
     onEvent: (AddDescriptorViewModel.Event) -> Unit,
 ) {
     state.descriptor?.let { descriptor ->
-        Column {
+        Column(Modifier.background(MaterialTheme.colorScheme.background)) {
             TopBar(
                 title = {
                     Text(stringResource(Res.string.AddDescriptor_Title))

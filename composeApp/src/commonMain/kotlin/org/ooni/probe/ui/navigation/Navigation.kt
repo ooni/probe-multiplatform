@@ -1,5 +1,7 @@
 package org.ooni.probe.ui.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -49,6 +51,10 @@ fun Navigation(
     NavHost(
         navController = navController,
         startDestination = START_SCREEN.route,
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None },
+        popEnterTransition = { EnterTransition.None },
+        popExitTransition = { ExitTransition.None },
         modifier = Modifier.fillMaxSize(),
     ) {
         composable(route = Screen.Onboarding.route) {

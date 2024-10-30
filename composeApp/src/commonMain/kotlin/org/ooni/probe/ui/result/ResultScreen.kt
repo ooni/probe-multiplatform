@@ -83,7 +83,7 @@ fun ResultScreen(
 ) {
     var showRerunConfirmation by remember { mutableStateOf(false) }
 
-    Column {
+    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         val descriptorColor = state.result?.descriptor?.color ?: MaterialTheme.colorScheme.primary
         val onDescriptorColor = LocalCustomColors.current.onDescriptor
         TopBar(

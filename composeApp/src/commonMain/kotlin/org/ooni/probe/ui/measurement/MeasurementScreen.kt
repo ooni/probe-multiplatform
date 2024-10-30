@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.measurement
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -66,7 +67,7 @@ fun MeasurementScreen(
         },
     )
 
-    Column {
+    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
             title = {
                 Text(stringResource(Res.string.measurement))
