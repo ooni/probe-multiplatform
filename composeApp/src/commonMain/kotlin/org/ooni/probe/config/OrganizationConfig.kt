@@ -6,13 +6,13 @@ interface OrganizationConfigInterface {
     val baseSoftwareName: String
 
     val ooniApiBaseUrl: String
-        get() = "https://api.dev.ooni.io"
+        get() = "https://api.ooni.org"
 
     val ooniRunDomain: String
-        get() = "run.test.ooni.org"
+        get() = "run.ooni.org"
 
     val ooniRunDashboardUrl: String
-        get() = "https://run.test.ooni.org"
+        get() = "https://run.ooni.org"
 
     val testDisplayMode: TestDisplayMode
 
