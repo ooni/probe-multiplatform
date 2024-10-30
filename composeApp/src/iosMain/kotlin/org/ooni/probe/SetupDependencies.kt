@@ -208,9 +208,8 @@ class SetupDependencies(
     }
 
     fun configureAutoRun(params: AutoRunParameters) {
+        BGTaskScheduler.sharedScheduler.cancelTaskRequestWithIdentifier(OrganizationConfig.autorunTaskId)
         if (params !is AutoRunParameters.Enabled) {
-            Logger.d { "Cancelling autorun" }
-            BGTaskScheduler.sharedScheduler.cancelTaskRequestWithIdentifier(OrganizationConfig.autorunTaskId)
             return
         }
         Logger.d { "Configuring autorun" }
