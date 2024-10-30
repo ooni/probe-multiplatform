@@ -54,12 +54,20 @@ class RunBackgroundTask(
                 var testStarted = false
                 getCurrentTestState()
                     .takeWhile { state ->
-                        state is TestRunState.Running || (state is TestRunState.Idle && !testStarted)
+                        state is TestRunState.Running ||
+                            state is TestRunState.Stopping ||
+                            (state is TestRunState.Idle && !testStarted)
                     }
                     .onEach { state ->
-                        if (state !is TestRunState.Running) return@onEach
+                        if (state is TestRunState.Idle) return@onEach
                         testStarted = true
-                        send(State.RunningTests(state))
+                        send(
+                            if (state is TestRunState.Running) {
+                                State.RunningTests(state)
+                            } else {
+                                State.StoppingTests
+                            },
+                        )
                     }
                     .collect()
 
@@ -71,5 +79,7 @@ class RunBackgroundTask(
         data class UploadingMissingResults(val state: UploadMissingMeasurements.State) : State
 
         data class RunningTests(val state: TestRunState.Running) : State
+
+        data object StoppingTests : State
     }
 }
