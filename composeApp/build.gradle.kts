@@ -103,6 +103,7 @@ kotlin {
                     kotlin.srcDir("src/commonFdroidMain/kotlin")
                 }
             }
+            kotlin.srcDir(if (isDebugTaskRequested()) "src/commonMain/debug/kotlin" else "src/commonMain/release/kotlin")
             kotlin.srcDir("src/${config.folder}/kotlin")
         }
         iosMain.dependencies {
@@ -172,9 +173,12 @@ android {
     buildTypes {
         getByName("debug") {
             applicationIdSuffix = ".debug"
+            resValue("string", "run_v2_domain", "run.test.ooni.org")
         }
         getByName("release") {
             isMinifyEnabled = false
+            resValue("string", "run_v2_domain", "run.ooni.org")
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     buildFeatures {
@@ -256,6 +260,10 @@ tasks {
 
 fun isFdroidTaskRequested(): Boolean {
     return gradle.startParameter.taskRequests.flatMap { it.args }.any { it.contains("Fdroid") }
+}
+
+fun isDebugTaskRequested(): Boolean {
+    return gradle.startParameter.taskRequests.flatMap { it.args }.any { it.contains("Debug") }
 }
 
 tasks.register("copyBrandingToCommonResources") {
