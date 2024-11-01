@@ -81,6 +81,21 @@ sealed class Screen(
         }
     }
 
+    data class ChooseWebsites(
+        val url: String? = null,
+    ) : Screen("choose-websites?url=${url.encodeUrlToBase64()}") {
+        companion object {
+            const val NAV_ROUTE = "choose-websites?url={url}"
+            val ARGUMENTS = listOf(
+                navArgument("url") {
+                    type = NavType.StringType
+                    defaultValue = null
+                    nullable = true
+                },
+            )
+        }
+    }
+
     data class Descriptor(
         val descriptorKey: String,
     ) : Screen("descriptors/$descriptorKey") {
@@ -91,6 +106,4 @@ sealed class Screen(
     }
 
     data object ReviewUpdates : Screen("review-updates")
-
-    data object ChooseWebsites : Screen("choose-websites")
 }

@@ -390,10 +390,12 @@ class Dependencies(
     fun chooseWebsitesViewModel(
         onBack: () -> Unit,
         goToDashboard: () -> Unit,
+        initialUrl: String?,
     ) = ChooseWebsitesViewModel(
         onBack = onBack,
         goToDashboard = goToDashboard,
         startBackgroundRun = startSingleRunInner,
+        initialUrl = initialUrl,
     )
 
     fun dashboardViewModel(

@@ -58,6 +58,22 @@
                     android:scheme="ooni" />
             </intent-filter>
         </activity-alias>
+        <activity-alias
+            android:exported="true"
+            android:enabled="@string/ooni_run_enabled"
+            android:name=".ShareRunActivity"
+            android:targetActivity=".MainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="org.openobservatory.ooniprobe.nettest" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+        </activity-alias>
 
         <provider
             android:name="androidx.core.content.FileProvider"

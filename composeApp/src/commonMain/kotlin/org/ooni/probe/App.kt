@@ -26,6 +26,7 @@ import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.navigation.BottomNavigationBar
 import org.ooni.probe.ui.navigation.Navigation
 import org.ooni.probe.ui.navigation.Screen
+import org.ooni.probe.ui.navigation.safeNavigate
 import org.ooni.probe.ui.theme.AppTheme
 
 @Composable
@@ -109,6 +110,10 @@ fun App(
         when (deepLink) {
             is DeepLink.AddDescriptor -> {
                 navController.navigate("add-descriptor/${deepLink.id}")
+                onDeeplinkHandled()
+            }
+            is DeepLink.RunUrls -> {
+                navController.safeNavigate(Screen.ChooseWebsites(deepLink.url))
                 onDeeplinkHandled()
             }
             null -> Unit
