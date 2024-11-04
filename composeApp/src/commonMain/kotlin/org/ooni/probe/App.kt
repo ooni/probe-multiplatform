@@ -19,7 +19,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
-import ooniprobe.composeapp.generated.resources.LoadingScreen_Runv2_Failure
+import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Unsupported_Url
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -119,7 +119,7 @@ fun App(
                 onDeeplinkHandled()
             }
             DeepLink.Error -> {
-                snackbarHostState.showSnackbar(getString(Res.string.LoadingScreen_Runv2_Failure))
+                snackbarHostState.showSnackbar(getString(Res.string.AddDescriptor_Toasts_Unsupported_Url))
                 onDeeplinkHandled()
             }
             null -> Unit

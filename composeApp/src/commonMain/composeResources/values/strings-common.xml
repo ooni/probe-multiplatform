@@ -290,4 +290,5 @@
     <string name="filter_logs">Filter Logs</string>
     <string name="results_limited_notice">Only the last %1$d results are shown</string>
     <string name="auto_test_not_uploaded_limit">Skip after this amount of results failed to upload</string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
 </resources>

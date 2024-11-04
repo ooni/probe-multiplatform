@@ -60,11 +60,7 @@ class MainActivity : ComponentActivity() {
 
     private fun manageSend(intent: Intent) {
         val url = intent.getStringExtra(Intent.EXTRA_TEXT) ?: return
-        if (Patterns.WEB_URL.matcher(url).matches()) {
-            deepLinkFlow.tryEmit(DeepLink.RunUrls(url))
-        } else {
-            deepLinkFlow.tryEmit(DeepLink.Error)
-        }
+        deepLinkFlow.tryEmit(DeepLink.RunUrls(url))
     }
 
     private fun manageOoniRun(intent: Intent) {
