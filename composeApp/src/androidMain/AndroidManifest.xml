@@ -68,7 +68,7 @@
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <action android:name="org.openobservatory.ooniprobe.nettest" />
+                <action android:name="${applicationId}.nettest" />
 
                 <data android:mimeType="text/plain" />
             </intent-filter>

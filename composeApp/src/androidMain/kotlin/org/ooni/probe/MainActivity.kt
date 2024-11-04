@@ -53,27 +53,29 @@ class MainActivity : ComponentActivity() {
     private fun manageIntent(intent: Intent) {
         if (intent.action != Intent.ACTION_VIEW && intent.action != Intent.ACTION_SEND) return
 
-        if (intent.action == Intent.ACTION_VIEW) {
-            val uri = intent.data ?: return
-            when (uri.host) {
-                "runv2",
-                OrganizationConfig.ooniRunDomain,
-                -> {
-                    val id = uri.lastPathSegment ?: return
-                    deepLinkFlow.tryEmit(DeepLink.AddDescriptor(id))
-                }
+        when (intent.action) {
+            Intent.ACTION_VIEW -> {
+                val uri = intent.data ?: return
+                when (uri.host) {
+                    "runv2",
+                    OrganizationConfig.ooniRunDomain,
+                    -> {
+                        val id = uri.lastPathSegment ?: return
+                        deepLinkFlow.tryEmit(DeepLink.AddDescriptor(id))
+                    }
 
-                else -> {
-                    Logger.e { "Unknown deep link: $uri" }
+                    else -> {
+                        Logger.e { "Unknown deep link: $uri" }
+                    }
                 }
             }
-        } else if (intent.action == Intent.ACTION_SEND) {
-            val url = intent.getStringExtra(Intent.EXTRA_TEXT) ?: return
-            if (Patterns.WEB_URL.matcher(url).matches()) {
-                deepLinkFlow.tryEmit(DeepLink.RunUrls(url))
-            } else {
-                Logger.e { "Unknown deep link: $url" }
-                return
+            Intent.ACTION_SEND -> {
+                val url = intent.getStringExtra(Intent.EXTRA_TEXT) ?: return
+                if (Patterns.WEB_URL.matcher(url).matches()) {
+                    deepLinkFlow.tryEmit(DeepLink.RunUrls(url))
+                } else {
+                    return
+                }
             }
         }
     }

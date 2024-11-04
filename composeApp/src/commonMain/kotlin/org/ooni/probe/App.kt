@@ -26,7 +26,6 @@ import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.navigation.BottomNavigationBar
 import org.ooni.probe.ui.navigation.Navigation
 import org.ooni.probe.ui.navigation.Screen
-import org.ooni.probe.ui.navigation.safeNavigate
 import org.ooni.probe.ui.theme.AppTheme
 
 @Composable
