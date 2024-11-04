@@ -23,7 +23,15 @@ class ChooseWebsitesViewModel(
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val _state = MutableStateFlow(State(websites = listOf(WebsiteItem(url = initialUrl ?: "http://"))))
+    private val _state = MutableStateFlow(
+        State(
+            websites = listOfNotNull(
+                initialUrl?.let {
+                    WebsiteItem(url = it, hasError = it.isValidUrl())
+                },
+            ),
+        ),
+    )
     val state = _state.asStateFlow()
 
     init {
