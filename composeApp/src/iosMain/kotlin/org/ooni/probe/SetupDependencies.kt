@@ -180,7 +180,6 @@ class SetupDependencies(
     }
 
     fun registerTaskHandlers() {
-
         Logger.d { "Registering task handlers" }
         BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(
             OrganizationConfig.autorunTaskId,
