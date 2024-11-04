@@ -2,11 +2,21 @@ package org.ooni.probe.uitesting
 
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Button_Go
+import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_PopQuiz_True
+import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Button
+import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_WhatIsOONIProbe_GotIt
+import ooniprobe.composeapp.generated.resources.Onboarding_WhatIsOONIProbe_Title
+import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.app_name
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -16,6 +26,8 @@ import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.clickOnTag
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.dependencies
+import org.ooni.probe.uitesting.helpers.onNodeWithContentDescription
+import org.ooni.probe.uitesting.helpers.onNodeWithText
 import org.ooni.probe.uitesting.helpers.preferences
 import org.ooni.probe.uitesting.helpers.start
 import org.ooni.probe.uitesting.helpers.wait
@@ -35,31 +47,39 @@ class OnboardingTest {
     fun onboarding() =
         runTest {
             with(compose) {
-                wait { onNodeWithText("What is OONI Probe?").isDisplayed() }
-                clickOnText("Got It")
+                wait {
+                    onNodeWithText(Res.string.Onboarding_WhatIsOONIProbe_Title)
+                        .isDisplayed()
+                }
+                clickOnText(Res.string.Onboarding_WhatIsOONIProbe_GotIt)
 
-                wait { onNodeWithText("Heads-up!").isDisplayed() }
-                clickOnText("I understand")
+                wait {
+                    onNodeWithText(Res.string.Onboarding_ThingsToKnow_Title)
+                        .isDisplayed()
+                }
+                clickOnText(Res.string.Onboarding_ThingsToKnow_Button)
 
                 // Quiz
-                clickOnText("True")
-                clickOnText("True")
+                clickOnText(Res.string.Onboarding_PopQuiz_True)
+                clickOnText(Res.string.Onboarding_PopQuiz_True)
 
-                wait { onNodeWithText("Automated testing").isDisplayed() }
+                wait { onNodeWithText(Res.string.Onboarding_AutomatedTesting_Title).isDisplayed() }
                 clickOnTag("No-AutoTest")
 
-                wait { onNodeWithText("Crash Reporting").isDisplayed() }
+                wait { onNodeWithText(Res.string.Onboarding_Crash_Title).isDisplayed() }
                 clickOnTag("Yes-CrashReporting")
 
                 if (dependencies.platformInfo.needsToRequestNotificationsPermission) {
-                    wait { onNodeWithText("Get updates on internet censorship").isDisplayed() }
+                    wait {
+                        onNodeWithText(Res.string.Modal_EnableNotifications_Title).isDisplayed()
+                    }
                     clickOnTag("No-Notifications")
                 }
 
-                wait { onNodeWithText("Default Settings").isDisplayed() }
-                clickOnText("Let’s go")
+                wait { onNodeWithText(Res.string.Onboarding_DefaultSettings_Title).isDisplayed() }
+                clickOnText(Res.string.Onboarding_DefaultSettings_Button_Go)
 
-                wait { onNodeWithContentDescription("OONI Probe").isDisplayed() }
+                wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
             }
 
             assertEquals(

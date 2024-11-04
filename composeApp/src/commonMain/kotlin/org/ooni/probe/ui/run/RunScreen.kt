@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
@@ -39,6 +40,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_Description
@@ -266,12 +268,17 @@ private fun DescriptorItem(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
-            .clickable { onDropdownToggled() },
+            .padding(vertical = 4.dp)
+            .triStateToggleable(
+                state = descriptorItem.state,
+                onClick = { onChecked(descriptorItem.state != ToggleableState.On) },
+                role = Role.Checkbox,
+            ),
     ) {
         TriStateCheckbox(
             state = descriptorItem.state,
-            onClick = { onChecked(descriptorItem.state != ToggleableState.On) },
-            modifier = Modifier.padding(end = 16.dp),
+            onClick = null,
+            modifier = Modifier.padding(start = 16.dp, end = 20.dp),
         )
         TestDescriptorLabel(descriptor)
         IconButton(onClick = { onDropdownToggled() }) {
