@@ -113,7 +113,7 @@ fun App(
                 onDeeplinkHandled()
             }
             is DeepLink.RunUrls -> {
-                navController.safeNavigate(Screen.ChooseWebsites(deepLink.url))
+                navController.navigate(Screen.ChooseWebsites(deepLink.url).route)
                 onDeeplinkHandled()
             }
             null -> Unit

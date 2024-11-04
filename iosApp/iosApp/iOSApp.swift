@@ -1,6 +1,13 @@
 import SwiftUI
 import composeApp
 
+extension URL {
+    subscript(queryParam:String) -> String? {
+        guard let url = URLComponents(string: self.absoluteString) else { return nil }
+        return url.queryItems?.first(where: { $0.name == queryParam })?.value
+    }
+}
+
 @main
 struct iOSApp: App {
 
@@ -34,6 +41,14 @@ struct iOSApp: App {
             deepLinkFlow.emit(value: DeepLink.AddDescriptor(id: id), completionHandler: {error in
                 print(error ?? "none")
             })
+        }
+
+        if let host = url.host, host == "nettest" {
+            if let webAddress = url["url"] {
+                deepLinkFlow.emit(value: DeepLink.RunUrls(url: webAddress), completionHandler: {error in
+                    print(error ?? "none")
+                })
+            }
         }
     }
 }
