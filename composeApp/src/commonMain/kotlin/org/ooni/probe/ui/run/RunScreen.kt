@@ -1,7 +1,6 @@
 package org.ooni.probe.ui.run
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +17,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
@@ -39,6 +40,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_Description
@@ -129,8 +131,7 @@ fun RunScreen(
                     end = 16.dp,
                     // Insets + Run tests button
                     bottom =
-                        WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding() +
-                            64.dp,
+                        WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding() + 64.dp,
                 ),
                 modifier = Modifier.fillMaxSize()
                     .testTag("Run-DescriptorsList"),
@@ -266,12 +267,17 @@ private fun DescriptorItem(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
-            .clickable { onDropdownToggled() },
+            .triStateToggleable(
+                state = descriptorItem.state,
+                onClick = { onChecked(descriptorItem.state != ToggleableState.On) },
+                role = Role.Checkbox,
+            )
+            .padding(horizontal = 16.dp),
     ) {
         TriStateCheckbox(
             state = descriptorItem.state,
-            onClick = { onChecked(descriptorItem.state != ToggleableState.On) },
-            modifier = Modifier.padding(end = 16.dp),
+            onClick = null,
+            modifier = Modifier.padding(end = 24.dp),
         )
         TestDescriptorLabel(descriptor)
         IconButton(onClick = { onDropdownToggled() }) {
@@ -305,12 +311,17 @@ fun TestItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
             .padding(start = 32.dp)
-            .clickable { onChecked(!testItem.isSelected) },
+            .toggleable(
+                value = testItem.isSelected,
+                onValueChange = { onChecked(it) },
+                role = Role.Checkbox,
+            )
+            .padding(horizontal = 16.dp, vertical = 10.dp),
     ) {
         Checkbox(
             checked = testItem.isSelected,
-            onCheckedChange = { onChecked(it) },
-            modifier = Modifier.padding(end = 16.dp),
+            onCheckedChange = null,
+            modifier = Modifier.padding(end = 24.dp),
         )
         Text(
             if (test.test is TestType.Experimental) {

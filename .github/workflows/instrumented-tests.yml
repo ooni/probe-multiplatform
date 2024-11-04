@@ -9,6 +9,11 @@ jobs:
   instrumentation-tests:
     name: Run Android Instrumented Tests
     runs-on: macos-latest
+
+    strategy:
+      matrix:
+        organization: [ ooni, dw ]
+
     steps:
       - uses: actions/checkout@v4
 
@@ -16,7 +21,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build APKs
-        run: ./gradlew copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest
+        run: ./gradlew copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=${{ matrix.organization }}
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2

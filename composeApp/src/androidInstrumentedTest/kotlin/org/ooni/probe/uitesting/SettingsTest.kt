@@ -6,6 +6,27 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import ooniprobe.composeapp.generated.resources.CategoryCode_ANON_Name
+import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Settings_Advanced_DebugLogs
+import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
+import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically
+import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_ChargingOnly
+import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_WiFiOnly
+import ooniprobe.composeapp.generated.resources.Settings_Notifications_Enabled
+import ooniprobe.composeapp.generated.resources.Settings_Notifications_Label
+import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
+import ooniprobe.composeapp.generated.resources.Settings_Privacy_SendCrashReports
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Psiphon
+import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults
+import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
+import ooniprobe.composeapp.generated.resources.Settings_Title
+import ooniprobe.composeapp.generated.resources.Settings_WarmVPNInUse_Label
+import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Description
+import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
+import ooniprobe.composeapp.generated.resources.back
+import org.jetbrains.compose.resources.getString
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -39,9 +60,9 @@ class SettingsTest {
             assertTrue(preferences.getValueByKey(SettingsKey.NOTIFICATIONS_ENABLED).first() != true)
 
             with(compose) {
-                clickOnText("Settings")
-                clickOnText("Notifications")
-                clickOnText("Enabled")
+                clickOnText(Res.string.Settings_Title)
+                clickOnText(Res.string.Settings_Notifications_Label)
+                clickOnText(Res.string.Settings_Notifications_Enabled)
 
                 wait {
                     preferences.getValueByKey(SettingsKey.NOTIFICATIONS_ENABLED).first() == true
@@ -62,19 +83,19 @@ class SettingsTest {
             )
 
             with(compose) {
-                clickOnText("Settings")
-                clickOnText("Test options")
+                clickOnText(Res.string.Settings_Title)
+                clickOnText(Res.string.Settings_TestOptions_Label)
 
-                clickOnText("Automatically Publish Results")
+                clickOnText(Res.string.Settings_Sharing_UploadResults)
                 wait { preferences.getValueByKey(SettingsKey.UPLOAD_RESULTS).first() == true }
 
-                clickOnText("Run tests automatically")
+                clickOnText(Res.string.Settings_AutomatedTesting_RunAutomatically)
                 wait {
                     preferences.getValueByKey(SettingsKey.AUTOMATED_TESTING_ENABLED).first() == true
                 }
 
-                clickOnText("Only on WiFi")
-                clickOnText("Only while charging")
+                clickOnText(Res.string.Settings_AutomatedTesting_RunAutomatically_WiFiOnly)
+                clickOnText(Res.string.Settings_AutomatedTesting_RunAutomatically_ChargingOnly)
 
                 wait {
                     preferences.getValueByKey(SettingsKey.AUTOMATED_TESTING_WIFIONLY)
@@ -95,16 +116,18 @@ class SettingsTest {
             )
 
             with(compose) {
-                clickOnText("Settings")
-                clickOnText("Test options")
+                clickOnText(Res.string.Settings_Title)
+                clickOnText(Res.string.Settings_TestOptions_Label)
 
-                onNodeWithText("0 categories enabled").assertIsDisplayed()
-                clickOnText("Website categories to test")
+                onNodeWithText(getString(Res.string.Settings_Websites_Categories_Description, 0))
+                    .assertIsDisplayed()
+                clickOnText(Res.string.Settings_Websites_Categories_Label)
 
-                clickOnText("Circumvention tools")
-                clickOnContentDescription("Back")
+                clickOnText(Res.string.CategoryCode_ANON_Name)
+                clickOnContentDescription(Res.string.back)
 
-                clickOnText("1 categories enabled")
+                onNodeWithText(getString(Res.string.Settings_Websites_Categories_Description, 1))
+                    .assertIsDisplayed()
 
                 wait {
                     preferences.getValueByKey(WebConnectivityCategory.ANON.settingsKey!!)
@@ -123,9 +146,9 @@ class SettingsTest {
             )
 
             with(compose) {
-                clickOnText("Settings")
-                clickOnText("Privacy")
-                clickOnText("Send crash reports")
+                clickOnText(Res.string.Settings_Title)
+                clickOnText(Res.string.Settings_Privacy_Label)
+                clickOnText(Res.string.Settings_Privacy_SendCrashReports)
 
                 wait {
                     preferences.getValueByKey(SettingsKey.SEND_CRASH).first() == true
@@ -143,9 +166,9 @@ class SettingsTest {
             )
 
             with(compose) {
-                clickOnText("Settings")
-                clickOnText("OONI backend proxy")
-                clickOnText("Psiphon")
+                clickOnText(Res.string.Settings_Title)
+                clickOnText(Res.string.Settings_Proxy_Label)
+                clickOnText(Res.string.Settings_Proxy_Psiphon)
 
                 wait {
                     preferences.getValueByKey(SettingsKey.PROXY_PROTOCOL)
@@ -165,15 +188,14 @@ class SettingsTest {
             )
 
             with(compose) {
-                clickOnText("Settings")
-                clickOnText("Advanced")
-                clickOnText("Debug logs")
-                clickOnText("Warn when VPN is in use")
+                clickOnText(Res.string.Settings_Title)
+                clickOnText(Res.string.Settings_Advanced_Label)
 
-                wait {
-                    preferences.getValueByKey(SettingsKey.DEBUG_LOGS).first() == true &&
-                        preferences.getValueByKey(SettingsKey.WARN_VPN_IN_USE).first() == true
-                }
+                clickOnText(Res.string.Settings_Advanced_DebugLogs)
+                wait { preferences.getValueByKey(SettingsKey.DEBUG_LOGS).first() == true }
+
+                clickOnText(Res.string.Settings_WarmVPNInUse_Label)
+                wait { preferences.getValueByKey(SettingsKey.WARN_VPN_IN_USE).first() == true }
             }
         }
 }

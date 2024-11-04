@@ -1,7 +1,6 @@
 package org.ooni.probe.ui.descriptor.add
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.CircularProgressIndicator
@@ -23,6 +24,7 @@ import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -84,9 +86,15 @@ fun AddDescriptorScreen(
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth().clickable {
-                        onEvent(AddDescriptorViewModel.Event.AutoUpdateChanged(!state.autoUpdate))
-                    },
+                    modifier = Modifier.fillMaxWidth()
+                        .toggleable(
+                            value = state.autoUpdate,
+                            onValueChange = {
+                                onEvent(AddDescriptorViewModel.Event.AutoUpdateChanged(it))
+                            },
+                            role = Role.Switch,
+                        )
+                        .padding(vertical = 8.dp),
                 ) {
                     Text(
                         stringResource(Res.string.AddDescriptor_AutoUpdate),
@@ -94,23 +102,29 @@ fun AddDescriptorScreen(
                     )
                     Switch(
                         checked = state.autoUpdate,
-                        onCheckedChange = {
-                            onEvent(AddDescriptorViewModel.Event.AutoUpdateChanged(it))
-                        },
+                        onCheckedChange = null,
                     )
                 }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth().clickable {
-                        onEvent(AddDescriptorViewModel.Event.AutoRunChanged(state.allTestsSelected() != ToggleableState.On))
-                    },
+                    modifier = Modifier.fillMaxWidth()
+                        .triStateToggleable(
+                            state = state.allTestsSelected(),
+                            onClick = {
+                                onEvent(
+                                    AddDescriptorViewModel.Event.AutoRunChanged(
+                                        state.allTestsSelected() != ToggleableState.On,
+                                    ),
+                                )
+                            },
+                        )
+                        .padding(start = 16.dp)
+                        .padding(vertical = 12.dp),
                 ) {
                     TriStateCheckbox(
                         state = state.allTestsSelected(),
-                        onClick = {
-                            onEvent(AddDescriptorViewModel.Event.AutoRunChanged(state.allTestsSelected() != ToggleableState.On))
-                        },
-                        modifier = Modifier.padding(end = 16.dp),
+                        onClick = null,
+                        modifier = Modifier.padding(end = 24.dp),
                     )
                     Text(
                         stringResource(Res.string.AddDescriptor_AutoRun),
@@ -121,9 +135,7 @@ fun AddDescriptorScreen(
                     items(state.selectableItems) { selectableItem ->
                         TestItem(selectableItem, onChecked = { _ ->
                             onEvent(
-                                AddDescriptorViewModel.Event.SelectableItemClicked(
-                                    selectableItem,
-                                ),
+                                AddDescriptorViewModel.Event.SelectableItemClicked(selectableItem),
                             )
                         })
                     }

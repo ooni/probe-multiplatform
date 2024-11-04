@@ -18,6 +18,14 @@ import androidx.compose.ui.test.swipeDown
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import ooniprobe.composeapp.generated.resources.AddDescriptor_Action
+import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoUpdate
+import ooniprobe.composeapp.generated.resources.AddDescriptor_Title
+import ooniprobe.composeapp.generated.resources.Dashboard_Progress_ReviewLink_Action
+import ooniprobe.composeapp.generated.resources.Dashboard_ReviewDescriptor_Button_Last
+import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_UninstallLink
+import ooniprobe.composeapp.generated.resources.Res
+import org.jetbrains.compose.resources.getString
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -30,6 +38,9 @@ import org.ooni.probe.MainActivity
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.context
 import org.ooni.probe.uitesting.helpers.dependencies
+import org.ooni.probe.uitesting.helpers.isNewsMediaScan
+import org.ooni.probe.uitesting.helpers.onAllNodesWithText
+import org.ooni.probe.uitesting.helpers.onNodeWithText
 import org.ooni.probe.uitesting.helpers.preferences
 import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
@@ -50,6 +61,8 @@ class DescriptorsTest {
     @Test
     fun installAndUninstall() {
         runTest {
+            if (isNewsMediaScan) return@runTest
+
             start(
                 Intent(context, MainActivity::class.java)
                     .setAction(Intent.ACTION_VIEW)
@@ -58,7 +71,7 @@ class DescriptorsTest {
 
             with(compose) {
                 wait(DESCRIPTOR_DOWNLOAD_WAIT_TIMEOUT) {
-                    onNodeWithText("Install New Link").isDisplayed()
+                    onNodeWithText(Res.string.AddDescriptor_Title).isDisplayed()
                 }
 
                 onNodeWithText("Testing").assertIsDisplayed()
@@ -81,9 +94,10 @@ class DescriptorsTest {
                 assertTrue(preferences.isNetTestEnabled(descriptor, test, isAutoRun = true).first())
 
                 clickOnText("Android instrumented tests")
-                clickOnText("Uninstall Link")
+                clickOnText(Res.string.Dashboard_Runv2_Overview_UninstallLink)
 
-                compose.onAllNodesWithText("Uninstall Link").onLast().performClick()
+                onAllNodesWithText(Res.string.Dashboard_Runv2_Overview_UninstallLink).onLast()
+                    .performClick()
 
                 onNodeWithText("Testing").assertIsNotDisplayed()
             }
@@ -93,6 +107,8 @@ class DescriptorsTest {
     @Test
     fun installAndUpdate() =
         runTest {
+            if (isNewsMediaScan) return@runTest
+
             start(
                 Intent(context, MainActivity::class.java)
                     .setAction(Intent.ACTION_VIEW)
@@ -101,10 +117,10 @@ class DescriptorsTest {
 
             with(compose) {
                 wait(DESCRIPTOR_DOWNLOAD_WAIT_TIMEOUT) {
-                    onNodeWithText("Install New Link").isDisplayed()
+                    onNodeWithText(Res.string.AddDescriptor_Title).isDisplayed()
                 }
-                clickOnText("Install updates automatically")
-                clickOnText("Install Link")
+                clickOnText(Res.string.AddDescriptor_AutoUpdate)
+                clickOnText(Res.string.AddDescriptor_Action)
 
                 Thread.sleep(2000)
 
@@ -114,15 +130,14 @@ class DescriptorsTest {
                 // Pull down to refresh
                 onNodeWithTag("Dashboard-List").performTouchInput { swipeDown() }
 
-                wait(DESCRIPTOR_DOWNLOAD_WAIT_TIMEOUT) {
-                    onNodeWithText("Review").isDisplayed()
-                }
-
-                clickOnText("Review")
+                clickOnText(
+                    Res.string.Dashboard_Progress_ReviewLink_Action,
+                    timeout = DESCRIPTOR_DOWNLOAD_WAIT_TIMEOUT,
+                )
 
                 wait { onNodeWithText("Testing 2").isDisplayed() }
 
-                clickOnText("UPDATE AND FINISH (1 of 1)")
+                clickOnText(getString(Res.string.Dashboard_ReviewDescriptor_Button_Last, 1, 1))
 
                 onNodeWithTag("Dashboard-List")
                     .performScrollToNode(hasText("Android instrumented tests"))
