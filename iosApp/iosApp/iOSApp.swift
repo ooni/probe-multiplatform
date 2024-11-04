@@ -10,21 +10,21 @@ extension URL {
 
 @main
 struct iOSApp: App {
-
+    
     @Environment(\.openURL) var openURL
-
+    
     let appDependencies = SetupDependencies(
         bridge: IosOonimkallBridge(),
         networkTypeFinder: IosNetworkTypeFinder()
     )
-
+    
     let deepLinkFlow: Kotlinx_coroutines_coreMutableSharedFlow
     init() {
         appDependencies.registerTaskHandlers()
         deepLinkFlow = appDependencies.initializeDeeplink()
-
+        
     }
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView(dependencies: appDependencies.dependencies,  deepLinkFlow: deepLinkFlow)
@@ -33,19 +33,29 @@ struct iOSApp: App {
                 }
         }
     }
-
-
+    
+    
     private func handleDeepLink(url: URL) {
-        if let host = url.host, host == "runv2" || host == appDependencies.ooniRunDomain() {
+        guard let host = url.host else {
+            deepLinkFlow.emit(value: DeepLink.Error(), completionHandler: { error in
+                print(error ?? "none")
+            })
+            return
+        }
+        
+        if host == "runv2" || host == appDependencies.ooniRunDomain() {
             let id = url.lastPathComponent
             deepLinkFlow.emit(value: DeepLink.AddDescriptor(id: id), completionHandler: {error in
                 print(error ?? "none")
             })
-        }
-
-        if let host = url.host, host == "nettest" {
+        } else if host == "nettest" {
             if let webAddress = url["url"] {
                 deepLinkFlow.emit(value: DeepLink.RunUrls(url: webAddress), completionHandler: {error in
+                    print(error ?? "none")
+                })
+            } else {
+                
+                deepLinkFlow.emit(value: DeepLink.Error(), completionHandler: {error in
                     print(error ?? "none")
                 })
             }

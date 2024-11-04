@@ -19,6 +19,9 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
+import ooniprobe.composeapp.generated.resources.LoadingScreen_Runv2_Failure
+import ooniprobe.composeapp.generated.resources.Res
+import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
@@ -113,6 +116,10 @@ fun App(
             }
             is DeepLink.RunUrls -> {
                 navController.navigate(Screen.ChooseWebsites(deepLink.url).route)
+                onDeeplinkHandled()
+            }
+            DeepLink.Error -> {
+                snackbarHostState.showSnackbar(getString(Res.string.LoadingScreen_Runv2_Failure))
                 onDeeplinkHandled()
             }
             null -> Unit

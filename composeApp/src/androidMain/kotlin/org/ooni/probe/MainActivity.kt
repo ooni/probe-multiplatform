@@ -51,31 +51,35 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun manageIntent(intent: Intent) {
-        if (intent.action != Intent.ACTION_VIEW && intent.action != Intent.ACTION_SEND) return
-
         when (intent.action) {
-            Intent.ACTION_VIEW -> {
-                val uri = intent.data ?: return
-                when (uri.host) {
-                    "runv2",
-                    OrganizationConfig.ooniRunDomain,
-                    -> {
-                        val id = uri.lastPathSegment ?: return
-                        deepLinkFlow.tryEmit(DeepLink.AddDescriptor(id))
-                    }
+            Intent.ACTION_VIEW -> manageOoniRun(intent)
+            Intent.ACTION_SEND -> manageSend(intent)
+            else -> return
+        }
+    }
 
-                    else -> {
-                        Logger.e { "Unknown deep link: $uri" }
-                    }
-                }
+    private fun manageSend(intent: Intent) {
+        val url = intent.getStringExtra(Intent.EXTRA_TEXT) ?: return
+        if (Patterns.WEB_URL.matcher(url).matches()) {
+            deepLinkFlow.tryEmit(DeepLink.RunUrls(url))
+        } else {
+            deepLinkFlow.tryEmit(DeepLink.Error)
+        }
+    }
+
+    private fun manageOoniRun(intent: Intent) {
+        val uri = intent.data ?: return
+        when (uri.host) {
+            "runv2",
+            OrganizationConfig.ooniRunDomain,
+            -> {
+                val id = uri.lastPathSegment ?: return
+                deepLinkFlow.tryEmit(DeepLink.AddDescriptor(id))
             }
-            Intent.ACTION_SEND -> {
-                val url = intent.getStringExtra(Intent.EXTRA_TEXT) ?: return
-                if (Patterns.WEB_URL.matcher(url).matches()) {
-                    deepLinkFlow.tryEmit(DeepLink.RunUrls(url))
-                } else {
-                    return
-                }
+
+            else -> {
+                deepLinkFlow.tryEmit(DeepLink.Error)
+                Logger.e { "Unknown deep link: $uri" }
             }
         }
     }
