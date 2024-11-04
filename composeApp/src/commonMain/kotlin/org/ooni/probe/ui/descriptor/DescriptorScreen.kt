@@ -1,7 +1,6 @@
 package org.ooni.probe.ui.descriptor
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +12,8 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -33,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRun
@@ -140,17 +142,19 @@ fun DescriptorScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 8.dp)
-                        .clickable { onEvent(DescriptorViewModel.Event.AllChecked) },
+                        .triStateToggleable(
+                            state = state.allState,
+                            onClick = { onEvent(DescriptorViewModel.Event.AllChecked) },
+                            role = Role.Checkbox,
+                        )
+                        .padding(horizontal = 8.dp, vertical = 12.dp),
                 ) {
                     TriStateCheckbox(
                         state = state.allState,
-                        onClick = { onEvent(DescriptorViewModel.Event.AllChecked) },
+                        onClick = null,
+                        modifier = Modifier.padding(start = 16.dp, end = 24.dp),
                     )
-                    Text(
-                        stringResource(Res.string.AddDescriptor_AutoRun),
-                        modifier = Modifier.padding(start = 16.dp),
-                    )
+                    Text(stringResource(Res.string.AddDescriptor_AutoRun))
                 }
 
                 when (OrganizationConfig.testDisplayMode) {
@@ -287,18 +291,18 @@ private fun TestItems(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable {
-                    onEvent(
-                        DescriptorViewModel.Event.TestChecked(test, !netTestItem.isSelected),
-                    )
-                }
-                .padding(start = 32.dp, top = 4.dp),
+                .padding(start = 32.dp)
+                .toggleable(
+                    value = netTestItem.isSelected,
+                    onValueChange = { onEvent(DescriptorViewModel.Event.TestChecked(test, it)) },
+                    role = Role.Checkbox,
+                )
+                .padding(horizontal = 16.dp)
+                .padding(vertical = 12.dp),
         ) {
             Checkbox(
                 checked = netTestItem.isSelected,
-                onCheckedChange = {
-                    onEvent(DescriptorViewModel.Event.TestChecked(test, it))
-                },
+                onCheckedChange = null,
             )
             Icon(
                 painterResource(
@@ -306,7 +310,7 @@ private fun TestItems(
                 ),
                 contentDescription = null,
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 8.dp)
+                    .padding(start = 24.dp, end = 8.dp)
                     .size(24.dp),
             )
             Text(

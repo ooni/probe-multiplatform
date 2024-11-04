@@ -1,9 +1,9 @@
 package org.ooni.probe.ui.descriptor
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoUpdate
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_PreviousRevisions
@@ -69,7 +70,7 @@ fun InstalledDescriptorActionsView(
         )
     }
 
-    Column(modifier = modifier) {
+    Column(modifier = modifier.padding(top = 16.dp)) {
         descriptor.revisions?.let { revisions ->
             if (revisions.isNotEmpty()) {
                 Text(text = stringResource(Res.string.Dashboard_Runv2_Overview_PreviousRevisions))
@@ -108,9 +109,14 @@ fun ConfigureUpdates(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(horizontal = 16.dp).clickable {
-            onEvent(DescriptorViewModel.Event.AutoUpdateChanged(!autoUpdate))
-        },
+        modifier = Modifier
+            .padding(bottom = 8.dp)
+            .toggleable(
+                value = autoUpdate,
+                onValueChange = { onEvent(DescriptorViewModel.Event.AutoUpdateChanged(it)) },
+                role = Role.Switch,
+            )
+            .padding(horizontal = 16.dp, vertical = 8.dp),
     ) {
         Text(
             stringResource(Res.string.AddDescriptor_AutoUpdate),
@@ -118,9 +124,7 @@ fun ConfigureUpdates(
         )
         Switch(
             checked = autoUpdate,
-            onCheckedChange = {
-                onEvent(DescriptorViewModel.Event.AutoUpdateChanged(it))
-            },
+            onCheckedChange = null,
         )
     }
 }
