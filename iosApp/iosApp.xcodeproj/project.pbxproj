@@ -11,6 +11,9 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		795E37782CD5053900086360 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E37772CD5053900086360 /* ShareViewController.swift */; };
+		795E377B2CD5053900086360 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 795E377A2CD5053900086360 /* Base */; };
+		795E377F2CD5053900086360 /* share.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 795E37752CD5053900086360 /* share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		79B9D19A2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */; };
 		79B9D19B2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */; };
 		79FBD00D2C5A70AF004E041C /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
@@ -25,6 +28,30 @@
 		A63D4DAB2DEF80E322CD2A82 /* Pods_OONIProbe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD59ED7E2702C84FF0455021 /* Pods_OONIProbe.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		795E377D2CD5053900086360 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7555FF73242A565900829871 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 795E37742CD5053900086360;
+			remoteInfo = share;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		795E37802CD5053900086360 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				795E377F2CD5053900086360 /* share.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -36,6 +63,10 @@
 		7555FF7B242A565900829871 /* OONI Probe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OONI Probe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		795E37752CD5053900086360 /* share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		795E37772CD5053900086360 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		795E377A2CD5053900086360 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		795E377C2CD5053900086360 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79A29BC42C9045A80052C9D0 /* OONIProbe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OONIProbe.entitlements; sourceTree = "<group>"; };
 		79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosNetworkTypeFinder.swift; sourceTree = "<group>"; };
 		79FBD01A2C5A70AF004E041C /* News Media Scan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "News Media Scan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +82,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		795E37722CD5053900086360 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		79FBD0102C5A70AF004E041C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -108,6 +146,7 @@
 				93D3BF622C6B70AD00E9A9B7 /* resources */,
 				AB1DB47929225F7C00F7AF9C /* Configuration */,
 				7555FF7D242A565900829871 /* iosApp */,
+				795E37762CD5053900086360 /* share */,
 				7555FF7C242A565900829871 /* Products */,
 				20AA0919DAC14F9E057F989A /* Pods */,
 				79FBD01B2C5A70AF004E041C /* iosApp copy-Info.plist */,
@@ -120,6 +159,7 @@
 			children = (
 				7555FF7B242A565900829871 /* OONI Probe.app */,
 				79FBD01A2C5A70AF004E041C /* News Media Scan.app */,
+				795E37752CD5053900086360 /* share.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,6 +175,16 @@
 				93E977722C4FCCF7009CCABC /* engine */,
 			);
 			path = iosApp;
+			sourceTree = "<group>";
+		};
+		795E37762CD5053900086360 /* share */ = {
+			isa = PBXGroup;
+			children = (
+				795E37772CD5053900086360 /* ShareViewController.swift */,
+				795E37792CD5053900086360 /* MainInterface.storyboard */,
+				795E377C2CD5053900086360 /* Info.plist */,
+			);
+			path = share;
 			sourceTree = "<group>";
 		};
 		93D3BF5C2C6B684800E9A9B7 /* assets */ = {
@@ -203,15 +253,34 @@
 				93E977732C4FE022009CCABC /* ShellScript */,
 				F57E468EACCE9B29FB4C68FC /* [CP] Copy Pods Resources */,
 				11F17E981064A71B74C323DA /* [CP] Embed Pods Frameworks */,
+				795E37802CD5053900086360 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				795E377E2CD5053900086360 /* PBXTargetDependency */,
 			);
 			name = OONIProbe;
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* OONI Probe.app */;
 			productType = "com.apple.product-type.application";
+		};
+		795E37742CD5053900086360 /* share */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 795E37832CD5053900086360 /* Build configuration list for PBXNativeTarget "share" */;
+			buildPhases = (
+				795E37712CD5053900086360 /* Sources */,
+				795E37722CD5053900086360 /* Frameworks */,
+				795E37732CD5053900086360 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = share;
+			productName = share;
+			productReference = 795E37752CD5053900086360 /* share.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		79FBD0092C5A70AF004E041C /* NewsMediaScan */ = {
 			isa = PBXNativeTarget;
@@ -241,12 +310,15 @@
 		7555FF73242A565900829871 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = orgName;
 				TargetAttributes = {
 					7555FF7A242A565900829871 = {
 						CreatedOnToolsVersion = 11.3.1;
+					};
+					795E37742CD5053900086360 = {
+						CreatedOnToolsVersion = 15.4;
 					};
 				};
 			};
@@ -265,6 +337,7 @@
 			targets = (
 				7555FF7A242A565900829871 /* OONIProbe */,
 				79FBD0092C5A70AF004E041C /* NewsMediaScan */,
+				795E37742CD5053900086360 /* share */,
 			);
 		};
 /* End PBXProject section */
@@ -277,6 +350,14 @@
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				93D3BF652C6B70AD00E9A9B7 /* descriptors.json in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		795E37732CD5053900086360 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				795E377B2CD5053900086360 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +570,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		795E37712CD5053900086360 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				795E37782CD5053900086360 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		79FBD00C2C5A70AF004E041C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -501,6 +590,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		795E377E2CD5053900086360 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 795E37742CD5053900086360 /* share */;
+			targetProxy = 795E377D2CD5053900086360 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		795E37792CD5053900086360 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				795E377A2CD5053900086360 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7555FFA3242A565B00829871 /* Debug */ = {
@@ -625,6 +733,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 205238D88AD064C8AF508845 /* Pods-OONIProbe.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = OONIProbe;
 				CODE_SIGN_ENTITLEMENTS = OONIProbe.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -661,6 +770,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B2A30B3FAFDB1355D98FFF9E /* Pods-OONIProbe.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = OONIProbe;
 				CODE_SIGN_ENTITLEMENTS = OONIProbe.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -688,6 +798,72 @@
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "${OONI_PROBE_BUNDLE_ID}";
 				PRODUCT_NAME = "${OONI_PROBE_APP_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		795E37812CD5053900086360 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "${OONI_TEAM_ID}";
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = share/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = share;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 orgName. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "${OONI_PROBE_BUNDLE_ID}.debug.share";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		795E37822CD5053900086360 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "${OONI_TEAM_ID}";
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = share/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = share;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 orgName. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "${OONI_PROBE_BUNDLE_ID}.share";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -780,6 +956,15 @@
 			buildConfigurations = (
 				7555FFA6242A565B00829871 /* Debug */,
 				7555FFA7242A565B00829871 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		795E37832CD5053900086360 /* Build configuration list for PBXNativeTarget "share" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				795E37812CD5053900086360 /* Debug */,
+				795E37822CD5053900086360 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

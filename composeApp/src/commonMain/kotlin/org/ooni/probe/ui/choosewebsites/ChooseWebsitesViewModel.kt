@@ -19,10 +19,19 @@ class ChooseWebsitesViewModel(
     onBack: () -> Unit,
     goToDashboard: () -> Unit,
     startBackgroundRun: (RunSpecification) -> Unit,
+    initialUrl: String? = null,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val _state = MutableStateFlow(State())
+    private val _state = MutableStateFlow(
+        State(
+            websites = listOf(
+                initialUrl?.let {
+                    WebsiteItem(url = it, hasError = !it.isValidUrl())
+                } ?: WebsiteItem(),
+            ),
+        ),
+    )
     val state = _state.asStateFlow()
 
     init {

@@ -19,6 +19,9 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
+import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Unsupported_Url
+import ooniprobe.composeapp.generated.resources.Res
+import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
@@ -109,6 +112,14 @@ fun App(
         when (deepLink) {
             is DeepLink.AddDescriptor -> {
                 navController.navigate("add-descriptor/${deepLink.id}")
+                onDeeplinkHandled()
+            }
+            is DeepLink.RunUrls -> {
+                navController.navigate(Screen.ChooseWebsites(deepLink.url).route)
+                onDeeplinkHandled()
+            }
+            DeepLink.Error -> {
+                snackbarHostState.showSnackbar(getString(Res.string.AddDescriptor_Toasts_Unsupported_Url))
                 onDeeplinkHandled()
             }
             null -> Unit

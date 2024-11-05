@@ -50,7 +50,19 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun manageIntent(intent: Intent) {
-        if (intent.action != Intent.ACTION_VIEW) return
+        when (intent.action) {
+            Intent.ACTION_VIEW -> manageOoniRun(intent)
+            Intent.ACTION_SEND -> manageSend(intent)
+            else -> return
+        }
+    }
+
+    private fun manageSend(intent: Intent) {
+        val url = intent.getStringExtra(Intent.EXTRA_TEXT) ?: return
+        deepLinkFlow.tryEmit(DeepLink.RunUrls(url))
+    }
+
+    private fun manageOoniRun(intent: Intent) {
         val uri = intent.data ?: return
         when (uri.host) {
             "runv2",
@@ -61,6 +73,7 @@ class MainActivity : ComponentActivity() {
             }
 
             else -> {
+                deepLinkFlow.tryEmit(DeepLink.Error)
                 Logger.e { "Unknown deep link: $uri" }
             }
         }

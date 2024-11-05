@@ -1,10 +1,18 @@
 import SwiftUI
 import composeApp
 
+extension URL {
+    subscript(queryParam:String) -> String? {
+        guard let url = URLComponents(string: self.absoluteString) else { return nil }
+        return url.queryItems?.first(where: { $0.name == queryParam })?.value
+    }
+}
+
 @main
 struct iOSApp: App {
 
     @Environment(\.openURL) var openURL
+
     @Environment(\.scenePhase)var scenePhase
 
     let appDependencies = SetupDependencies(
@@ -39,11 +47,29 @@ struct iOSApp: App {
 
 
     private func handleDeepLink(url: URL) {
-        if let host = url.host, host == "runv2" || host == appDependencies.ooniRunDomain() {
+        guard let host = url.host else {
+            deepLinkFlow.emit(value: DeepLink.Error(), completionHandler: { error in
+                print(error ?? "none")
+            })
+            return
+        }
+
+        if host == "runv2" || host == appDependencies.ooniRunDomain() {
             let id = url.lastPathComponent
             deepLinkFlow.emit(value: DeepLink.AddDescriptor(id: id), completionHandler: {error in
                 print(error ?? "none")
             })
+        } else if host == "nettest" {
+            if let webAddress = url["url"] {
+                deepLinkFlow.emit(value: DeepLink.RunUrls(url: webAddress), completionHandler: {error in
+                    print(error ?? "none")
+                })
+            } else {
+
+                deepLinkFlow.emit(value: DeepLink.Error(), completionHandler: {error in
+                    print(error ?? "none")
+                })
+            }
         }
     }
 }

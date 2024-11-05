@@ -279,7 +279,7 @@ fun Navigation(
                     goToReviewDescriptorUpdates = {
                         navController.safeNavigate(Screen.ReviewUpdates)
                     },
-                    goToChooseWebsites = { navController.navigate(Screen.ChooseWebsites.route) },
+                    goToChooseWebsites = { navController.safeNavigate(Screen.ChooseWebsites()) },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -296,10 +296,15 @@ fun Navigation(
             ReviewUpdatesScreen(state, viewModel::onEvent)
         }
 
-        composable(route = Screen.ChooseWebsites.route) { entry ->
+        composable(
+            route = Screen.ChooseWebsites.NAV_ROUTE,
+            arguments = Screen.ChooseWebsites.ARGUMENTS,
+        ) { entry ->
+            val url = entry.arguments?.getString("url")
             val viewModel = viewModel {
                 dependencies.chooseWebsitesViewModel(
                     onBack = { navController.goBack() },
+                    initialUrl = url.decodeUrlFromBase64(),
                     goToDashboard = {
                         navController.goBackTo(Screen.Dashboard, inclusive = false)
                     },
@@ -342,7 +347,7 @@ private fun NavController.goBackAndNavigateToMain(screen: Screen) {
     navigateToMainScreen(screen)
 }
 
-private fun NavController.safeNavigate(screen: Screen) {
+fun NavController.safeNavigate(screen: Screen) {
     if (!isResumed()) return
     navigate(screen.route)
 }
