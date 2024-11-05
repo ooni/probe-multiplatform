@@ -28,8 +28,9 @@ import org.ooni.probe.data.models.UpdateStatusType
 
 @Composable
 fun UpdateProgressStatus(
-    modifier: Modifier,
     type: UpdateStatusType,
+    modifier: Modifier = Modifier,
+    contentModifier: Modifier = Modifier,
     onReviewLinkClicked: () -> Unit = {},
     onCancelClicked: () -> Unit = {},
 ) {
@@ -38,15 +39,15 @@ fun UpdateProgressStatus(
         modifier = modifier,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = contentModifier
+                .fillMaxWidth()
                 .height(56.dp)
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-            horizontalArrangement =
-                if (type == UpdateStatusType.FetchingUpdates) {
-                    Arrangement.spacedBy(10.dp)
-                } else {
-                    Arrangement.SpaceBetween
-                },
+            horizontalArrangement = if (type == UpdateStatusType.FetchingUpdates) {
+                Arrangement.spacedBy(10.dp)
+            } else {
+                Arrangement.SpaceBetween
+            },
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (type == UpdateStatusType.FetchingUpdates) {
