@@ -180,8 +180,6 @@ class SetupDependencies(
     }
 
     fun registerTaskHandlers() {
-        val getAutoRunSettings by lazy { dependencies.getAutoRunSettings }
-
         Logger.d { "Registering task handlers" }
         BGTaskScheduler.sharedScheduler.registerForTaskWithIdentifier(
             OrganizationConfig.autorunTaskId,
@@ -189,9 +187,7 @@ class SetupDependencies(
         ) { task ->
             Logger.d { "Received task: $task" }
             (task as? BGProcessingTask)?.let {
-                GlobalScope.launch {
-                    configureAutoRun(getAutoRunSettings().first())
-                }
+                scheduleNextAutorun()
                 operationsManager.handleAutorunTask(it)
             }
         }
@@ -207,9 +203,15 @@ class SetupDependencies(
         }
     }
 
+    fun scheduleNextAutorun() {
+        val getAutoRunSettings by lazy { dependencies.getAutoRunSettings }
+        GlobalScope.launch {
+            configureAutoRun(getAutoRunSettings().first())
+        }
+    }
+
     fun configureAutoRun(params: AutoRunParameters) {
         if (params !is AutoRunParameters.Enabled) {
-            Logger.d { "Cancelling autorun" }
             BGTaskScheduler.sharedScheduler.cancelTaskRequestWithIdentifier(OrganizationConfig.autorunTaskId)
             return
         }
@@ -221,7 +223,7 @@ class SetupDependencies(
         return BGTaskScheduler.sharedScheduler.submitTaskRequest(
             taskRequest = BGProcessingTaskRequest(OrganizationConfig.autorunTaskId).apply {
                 earliestBeginDate = NSDate().dateByAddingTimeInterval(60.0 * 60.0)
-                params?.wifiOnly?.let { requiresNetworkConnectivity = it }
+                requiresNetworkConnectivity = true
                 params?.onlyWhileCharging?.let { requiresExternalPower = it }
             },
             error = null,
@@ -245,6 +247,7 @@ class SetupDependencies(
         Logger.d("Configuring descriptor auto update")
         return BGTaskScheduler.sharedScheduler.submitTaskRequest(
             BGProcessingTaskRequest(OrganizationConfig.updateDescriptorTaskId).apply {
+                requiresNetworkConnectivity = true
                 earliestBeginDate = NSDate().dateByAddingTimeInterval(60.0 * 60.0 * 24.0)
             },
             error = null,
