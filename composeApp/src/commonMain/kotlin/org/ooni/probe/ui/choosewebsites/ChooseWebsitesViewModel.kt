@@ -25,10 +25,10 @@ class ChooseWebsitesViewModel(
 
     private val _state = MutableStateFlow(
         State(
-            websites = listOfNotNull(
+            websites = listOf(
                 initialUrl?.let {
                     WebsiteItem(url = it, hasError = it.isValidUrl())
-                },
+                } ?: WebsiteItem(),
             ),
         ),
     )
