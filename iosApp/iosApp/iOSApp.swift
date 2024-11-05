@@ -5,6 +5,7 @@ import composeApp
 struct iOSApp: App {
 
     @Environment(\.openURL) var openURL
+    @Environment(\.scenePhase)var scenePhase
 
     let appDependencies = SetupDependencies(
         bridge: IosOonimkallBridge(),
@@ -23,6 +24,15 @@ struct iOSApp: App {
             ContentView(dependencies: appDependencies.dependencies,  deepLinkFlow: deepLinkFlow)
                 .onOpenURL { url in
                     handleDeepLink(url: url)
+                }
+                .onChange(of: scenePhase) { newPhase in
+                    if newPhase == .inactive {
+                        // no-op
+                    } else if newPhase == .active {
+                        // no-op
+                    } else if newPhase == .background {
+                        appDependencies.scheduleNextAutorun()
+                    }
                 }
         }
     }
