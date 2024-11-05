@@ -27,7 +27,7 @@ class ChooseWebsitesViewModel(
         State(
             websites = listOf(
                 initialUrl?.let {
-                    WebsiteItem(url = it, hasError = it.isValidUrl())
+                    WebsiteItem(url = it, hasError = !it.isValidUrl())
                 } ?: WebsiteItem(),
             ),
         ),
