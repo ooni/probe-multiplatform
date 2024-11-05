@@ -5,6 +5,10 @@ on:
       - main
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   instrumentation-tests:
     name: Run Android Instrumented Tests
