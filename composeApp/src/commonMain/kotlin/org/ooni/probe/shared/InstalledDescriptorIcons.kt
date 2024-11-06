@@ -83,6 +83,11 @@ import ooniprobe.composeapp.generated.resources.fa_umbrella
 import ooniprobe.composeapp.generated.resources.fa_utensils
 import ooniprobe.composeapp.generated.resources.fa_wine_glass
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
+import ooniprobe.composeapp.generated.resources.test_circumvention
+import ooniprobe.composeapp.generated.resources.test_experimental
+import ooniprobe.composeapp.generated.resources.test_instant_messaging
+import ooniprobe.composeapp.generated.resources.test_performance
+import ooniprobe.composeapp.generated.resources.test_websites
 import org.jetbrains.compose.resources.DrawableResource
 
 enum class InstalledDescriptorIcons(
@@ -170,6 +175,11 @@ enum class InstalledDescriptorIcons(
     FaUmbrella("FaUmbrella", Res.drawable.fa_umbrella),
     FaUtensils("FaUtensils", Res.drawable.fa_utensils),
     FaWineGlass("FaWineGlass", Res.drawable.fa_wine_glass),
+    OoniWebsites("OoniWebsites", Res.drawable.test_websites),
+    OoniInstantMessaging("OoniInstantMessaging", Res.drawable.test_instant_messaging),
+    OoniCircumvention("OoniCircumvention", Res.drawable.test_circumvention),
+    OoniPerformance("OoniPerformance", Res.drawable.test_performance),
+    OoniExperimental("OoniExperimental", Res.drawable.test_experimental),
     ;
 
     companion object {
