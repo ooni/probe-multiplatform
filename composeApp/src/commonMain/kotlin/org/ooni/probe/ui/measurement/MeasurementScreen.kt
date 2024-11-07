@@ -50,7 +50,10 @@ fun MeasurementScreen(
     val url = "https://explorer.ooni.org/measurement/${reportId.value}$inputSuffix"
     LaunchedEffect(url) { Logger.i("URL: $url") }
 
-    val webViewState = rememberWebViewState(url)
+    val webViewState = rememberWebViewState(
+        url = url,
+        additionalHttpHeaders = mapOf("Enable-Embedded-View" to "true"),
+    )
     webViewState.webSettings.isJavaScriptEnabled = TestingFlags.webviewJavascriptEnabled
     val webViewNavigator = rememberWebViewNavigator(
         // Don't allow other links to open
