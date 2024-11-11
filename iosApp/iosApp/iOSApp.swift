@@ -17,7 +17,8 @@ struct iOSApp: App {
 
     let appDependencies = SetupDependencies(
         bridge: IosOonimkallBridge(),
-        networkTypeFinder: IosNetworkTypeFinder()
+        networkTypeFinder: IosNetworkTypeFinder(),
+        backgroundRunner: IosBackgroundRunner()
     )
 
     let deepLinkFlow: Kotlinx_coroutines_coreMutableSharedFlow

@@ -1,6 +1,8 @@
 package org.ooni.probe.background
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.runBlocking
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
@@ -8,32 +10,18 @@ import platform.BackgroundTasks.BGProcessingTask
 import platform.Foundation.NSOperationQueue
 import platform.UIKit.UIApplication
 
-class OperationsManager(private val dependencies: Dependencies) {
+class OperationsManager(private val dependencies: Dependencies, private val backgroundRunner: BackgroundRunner) {
     fun startSingleRun(spec: RunSpecification) {
-        val operationQueue = NSOperationQueue()
-        val operation = RunOperation(
-            spec = spec,
-            runBackgroundTask = dependencies.runBackgroundTask::invoke,
-        )
-        val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
-            operation.cancel()
-        }
-        operation.completionBlock = {
-            UIApplication.sharedApplication.endBackgroundTask(identifier)
-        }
-        operationQueue.addOperation(operation)
+        backgroundRunner(background = {
+            runBlocking { dependencies.runBackgroundTask(spec).collect() }
+        })
     }
 
     fun handleAutorunTask(task: BGProcessingTask) {
         Logger.d { "Handling autorun task" }
-        val operationQueue = NSOperationQueue()
-        val operation = RunOperation(
-            spec = null,
-            runBackgroundTask = dependencies.runBackgroundTask::invoke,
-        )
-        task.expirationHandler = { operation.cancel() }
-        operation.completionBlock = { task.setTaskCompletedWithSuccess(!operation.isCancelled()) }
-        operationQueue.addOperation(operation)
+        backgroundRunner(background = {
+            runBlocking { dependencies.runBackgroundTask(null).collect() }
+        })
     }
 
     fun handleUpdateDescriptorTask(task: BGProcessingTask) {
