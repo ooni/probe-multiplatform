@@ -1,7 +1,9 @@
 package org.ooni.probe.background
 
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -14,7 +16,8 @@ class RunOperation(
 ) : NSOperation() {
     override fun main() {
         Logger.d { "Running operation" }
-        GlobalScope.launch {
+        val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        coroutineScope.launch {
             runBackgroundTask(spec).collect()
         }.invokeOnCompletion {
             Logger.d { "Operation completed" }

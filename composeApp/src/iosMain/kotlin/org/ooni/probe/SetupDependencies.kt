@@ -6,7 +6,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -30,6 +31,7 @@ import platform.BackgroundTasks.BGTaskScheduler
 import platform.Foundation.NSBundle
 import platform.Foundation.NSDate
 import platform.Foundation.NSDocumentDirectory
+import platform.Foundation.NSError
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSLocale
 import platform.Foundation.NSLocaleLanguageDirectionRightToLeft
@@ -41,7 +43,9 @@ import platform.Foundation.NSUserDomainMask
 import platform.Foundation.characterDirectionForLanguage
 import platform.Foundation.dateByAddingTimeInterval
 import platform.Foundation.stringWithContentsOfFile
+import platform.MessageUI.MFMailComposeResult
 import platform.MessageUI.MFMailComposeViewController
+import platform.MessageUI.MFMailComposeViewControllerDelegateProtocol
 import platform.UIKit.UIActivityTypeAirDrop
 import platform.UIKit.UIActivityTypePostToFacebook
 import platform.UIKit.UIActivityViewController
@@ -155,6 +159,17 @@ class SetupDependencies(
                     val email = it.toString().removePrefix("mailto:")
                     if (canSendMail) {
                         MFMailComposeViewController().apply {
+                            mailComposeDelegate = object :
+                                NSObject(),
+                                MFMailComposeViewControllerDelegateProtocol {
+                                override fun mailComposeController(
+                                    controller: MFMailComposeViewController,
+                                    didFinishWithResult: MFMailComposeResult,
+                                    error: NSError?,
+                                ) {
+                                    controller.dismissViewControllerAnimated(true, null)
+                                }
+                            }
                             setToRecipients(listOf(email))
                             extras?.forEach { (key, value) ->
                                 when (key) {
@@ -205,7 +220,7 @@ class SetupDependencies(
 
     fun scheduleNextAutorun() {
         val getAutoRunSettings by lazy { dependencies.getAutoRunSettings }
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.Default).launch {
             configureAutoRun(getAutoRunSettings().first())
         }
     }
