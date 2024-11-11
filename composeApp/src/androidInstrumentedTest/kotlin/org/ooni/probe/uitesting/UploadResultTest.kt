@@ -23,7 +23,6 @@ import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.ooni.probe.config.TestingFlags
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnText
@@ -45,7 +44,6 @@ class UploadResultTest {
     @Before
     fun setUp() =
         runTest {
-            TestingFlags.webviewJavascriptEnabled = true
             skipOnboarding()
             preferences.setValueByKey(SettingsKey.UPLOAD_RESULTS, false)
             start()

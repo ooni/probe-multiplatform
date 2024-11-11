@@ -21,23 +21,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import co.touchlab.kermit.Logger
-import com.multiplatform.webview.request.RequestInterceptor
-import com.multiplatform.webview.request.WebRequest
-import com.multiplatform.webview.request.WebRequestInterceptResult
-import com.multiplatform.webview.web.LoadingState
-import com.multiplatform.webview.web.WebView
-import com.multiplatform.webview.web.WebViewNavigator
-import com.multiplatform.webview.web.rememberWebViewNavigator
-import com.multiplatform.webview.web.rememberWebViewState
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.measurement
 import ooniprobe.composeapp.generated.resources.refresh
 import org.intellij.markdown.html.urlEncode
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.config.TestingFlags
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.ui.shared.OoniWebView
+import org.ooni.probe.ui.shared.OoniWebViewController
 import org.ooni.probe.ui.shared.TopBar
 
 @Composable
@@ -46,30 +38,7 @@ fun MeasurementScreen(
     input: String?,
     onBack: () -> Unit,
 ) {
-    val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
-    val url = "https://explorer.ooni.org/measurement/${reportId.value}$inputSuffix"
-    LaunchedEffect(url) { Logger.i("URL: $url") }
-
-    val webViewState = rememberWebViewState(
-        url = url,
-        additionalHttpHeaders = mapOf("Enable-Embedded-View" to "true"),
-    )
-    webViewState.webSettings.isJavaScriptEnabled = TestingFlags.webviewJavascriptEnabled
-    val webViewNavigator = rememberWebViewNavigator(
-        // Don't allow other links to open
-        requestInterceptor = object : RequestInterceptor {
-            override fun onInterceptUrlRequest(
-                request: WebRequest,
-                navigator: WebViewNavigator,
-            ) = if (request.url.startsWith("https://explorer.ooni.org/measurement/") ||
-                request.url.startsWith("https://explorer.ooni.org/m/")
-            ) {
-                WebRequestInterceptResult.Allow
-            } else {
-                WebRequestInterceptResult.Reject
-            }
-        },
-    )
+    val controller = OoniWebViewController()
 
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
@@ -86,8 +55,8 @@ fun MeasurementScreen(
             },
             actions = {
                 IconButton(
-                    onClick = { webViewNavigator.reload() },
-                    enabled = webViewState.loadingState is LoadingState.Finished,
+                    onClick = { controller.reload() },
+                    enabled = controller.state is OoniWebViewController.State.Finished,
                 ) {
                     Icon(
                         Icons.Default.Refresh,
@@ -99,8 +68,7 @@ fun MeasurementScreen(
 
         LinearProgressIndicator(
             progress = {
-                val loadingState = webViewState.loadingState
-                if (loadingState is LoadingState.Loading) loadingState.progress else 1f
+                (controller.state as? OoniWebViewController.State.Loading)?.progress ?: 1f
             },
             color = MaterialTheme.colorScheme.primary,
             trackColor = MaterialTheme.colorScheme.onBackground,
@@ -109,13 +77,17 @@ fun MeasurementScreen(
                 .height(1.dp),
         )
 
-        WebView(
-            state = webViewState,
-            navigator = webViewNavigator,
-            captureBackPresses = false,
+        OoniWebView(
+            controller = controller,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(WindowInsets.navigationBars.asPaddingValues()),
         )
+    }
+
+    val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
+    val url = "https://explorer.ooni.org/measurement/${reportId.value}$inputSuffix"
+    LaunchedEffect(url) {
+        controller.load(url)
     }
 }
