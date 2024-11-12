@@ -8,7 +8,7 @@ class IosBackgroundRunner : BackgroundRunner {
 
     /// Invoke the given task in the background.
     func invoke(background: @escaping ()  -> Void) {
-        let serialQueue = DispatchQueue(label: "org.openobservatory.queue", qos: .userInitiated, attributes: [.concurrent])
+        let serialQueue = DispatchQueue(label: Bundle.main.bundleIdentifier ?? OrganizationConfig().autorunTaskId, qos: .userInitiated, attributes: [.concurrent])
         serialQueue.async(execute: DispatchWorkItem {
             self.setupBackgroundTask()
             background()
