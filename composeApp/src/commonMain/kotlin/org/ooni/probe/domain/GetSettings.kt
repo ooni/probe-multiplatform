@@ -146,19 +146,19 @@ class GetSettings(
                         title = Res.string.Settings_AutomatedTesting_RunAutomatically_WiFiOnly,
                         key = SettingsKey.AUTOMATED_TESTING_WIFIONLY,
                         type = PreferenceItemType.SWITCH,
-                        enabled = autoRunEnabled,
+                        enabled = autoRunEnabled && uploadResultsEnabled,
                     ),
                     SettingsItem(
                         title = Res.string.Settings_AutomatedTesting_RunAutomatically_ChargingOnly,
                         key = SettingsKey.AUTOMATED_TESTING_CHARGING,
                         type = PreferenceItemType.SWITCH,
-                        enabled = autoRunEnabled,
+                        enabled = autoRunEnabled && uploadResultsEnabled,
                     ),
                     SettingsItem(
                         title = Res.string.auto_test_not_uploaded_limit,
                         key = SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT,
                         type = PreferenceItemType.INT,
-                        enabled = autoRunEnabled,
+                        enabled = autoRunEnabled && uploadResultsEnabled,
                         supportingContent = {
                             val value = (
                                 autoRunNotUploadedLimit
