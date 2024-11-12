@@ -355,6 +355,7 @@ class Dependencies(
             deleteFiles = deleteFiles,
             json = json,
             spec = spec,
+            observeCancelTestRun = testStateManager.observeCancels(),
         )
 
     // Background

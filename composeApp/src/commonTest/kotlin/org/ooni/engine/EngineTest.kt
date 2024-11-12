@@ -1,6 +1,7 @@
 package org.ooni.engine
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.EnginePreferences
@@ -33,6 +34,7 @@ class EngineTest {
                 inputs = listOf("https://ooni.org"),
                 taskOrigin = TaskOrigin.OoniRun,
                 descriptorId = null,
+                observeCancelTestRun = emptyFlow(),
             ).toList()
 
             assertEquals(1, events.size)

@@ -3,9 +3,11 @@ package org.ooni.engine
 import androidx.annotation.VisibleForTesting
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.isActive
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -42,6 +44,7 @@ class Engine(
         inputs: List<String>?,
         taskOrigin: TaskOrigin,
         descriptorId: InstalledTestDescriptorModel.Id?,
+        observeCancelTestRun: Flow<Unit>,
     ): Flow<TaskEvent> =
         channelFlow {
             val preferences = getEnginePreferences()
@@ -52,11 +55,20 @@ class Engine(
             try {
                 task = bridge.startTask(settingsSerialized)
 
+                val cancelJob = async {
+                    observeCancelTestRun
+                        .take(1)
+                        .collect {
+                            task.interrupt()
+                        }
+                }
+
                 while (!task.isDone() && isActive) {
                     val eventJson = task.waitForNextEvent()
                     val taskEventResult = json.decodeFromString<TaskEventResult>(eventJson)
                     taskEventMapper(taskEventResult)?.let { send(it) }
                 }
+                cancelJob.cancel()
             } catch (e: CancellationException) {
                 Logger.d("Test cancelled")
                 throw e

@@ -68,6 +68,10 @@ class RunDescriptors(
             val runJob = async {
                 // Actually running the descriptors
                 descriptors.forEachIndexed { index, descriptor ->
+                    // check if cancel has been requested before running descriptor
+                    if (getCurrentTestRunState.first() is TestRunState.Stopping) {
+                        return@forEachIndexed
+                    }
                     runDescriptor(descriptor, index, spec.taskOrigin, spec.isRerun)
                 }
             }
@@ -77,7 +81,6 @@ class RunDescriptors(
                     .take(1)
                     .collect {
                         setCurrentTestState { TestRunState.Stopping }
-                        runJob.cancel()
                     }
             }
 
