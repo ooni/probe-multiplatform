@@ -2,7 +2,6 @@ package org.ooni.engine
 
 import androidx.annotation.VisibleForTesting
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
@@ -37,6 +36,7 @@ class Engine(
     private val isBatteryCharging: suspend () -> Boolean,
     private val platformInfo: PlatformInfo,
     private val getEnginePreferences: suspend () -> EnginePreferences,
+    private val observeCancelTestRun: () -> Flow<Unit>,
     private val backgroundContext: CoroutineContext,
 ) {
     fun startTask(
@@ -44,7 +44,6 @@ class Engine(
         inputs: List<String>?,
         taskOrigin: TaskOrigin,
         descriptorId: InstalledTestDescriptorModel.Id?,
-        observeCancelTestRun: Flow<Unit>,
     ): Flow<TaskEvent> =
         channelFlow {
             val preferences = getEnginePreferences()
@@ -56,7 +55,7 @@ class Engine(
                 task = bridge.startTask(settingsSerialized)
 
                 val cancelJob = async {
-                    observeCancelTestRun
+                    observeCancelTestRun()
                         .take(1)
                         .collect {
                             task.interrupt()
@@ -68,15 +67,17 @@ class Engine(
                     val taskEventResult = json.decodeFromString<TaskEventResult>(eventJson)
                     taskEventMapper(taskEventResult)?.let { send(it) }
                 }
-                cancelJob.cancel()
-            } catch (e: CancellationException) {
-                Logger.d("Test cancelled")
-                throw e
+
+                if (cancelJob.isActive) {
+                    cancelJob.cancel()
+                }
             } catch (e: Exception) {
                 Logger.d("Error while running task", e)
                 throw MkException(e)
             } finally {
-                task?.interrupt()
+                if (task?.isDone() == false) {
+                    task.interrupt()
+                }
             }
         }.flowOn(backgroundContext)
 

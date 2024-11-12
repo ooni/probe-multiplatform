@@ -183,6 +183,7 @@ class Dependencies(
             isBatteryCharging = isBatteryCharging,
             platformInfo = platformInfo,
             getEnginePreferences = getEnginePreferences::invoke,
+            observeCancelTestRun = testStateManager::observeCancels,
             backgroundContext = backgroundContext,
         )
     }
@@ -355,7 +356,6 @@ class Dependencies(
             deleteFiles = deleteFiles,
             json = json,
             spec = spec,
-            observeCancelTestRun = testStateManager.observeCancels(),
         )
 
     // Background

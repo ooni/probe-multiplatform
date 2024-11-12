@@ -34,7 +34,6 @@ class EngineTest {
                 inputs = listOf("https://ooni.org"),
                 taskOrigin = TaskOrigin.OoniRun,
                 descriptorId = null,
-                observeCancelTestRun = emptyFlow(),
             ).toList()
 
             assertEquals(1, events.size)
@@ -87,6 +86,7 @@ class EngineTest {
                     maxRuntime = null,
                 )
             },
+            observeCancelTestRun = { emptyFlow() },
             backgroundContext = Dispatchers.Unconfined,
         )
 }
