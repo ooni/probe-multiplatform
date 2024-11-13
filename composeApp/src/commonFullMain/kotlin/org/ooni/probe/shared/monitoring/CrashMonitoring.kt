@@ -13,8 +13,6 @@ import org.ooni.probe.data.repositories.PreferenceRepository
 class CrashMonitoring(
     private val preferencesRepository: PreferenceRepository,
 ) {
-    private var isEnabled = false
-
     suspend fun setup() {
         preferencesRepository.getValueByKey(SettingsKey.SEND_CRASH)
             .onEach { sendCrash ->
@@ -22,9 +20,7 @@ class CrashMonitoring(
                     Sentry.init {
                         it.dsn = SENTRY_DSN
                     }
-                    isEnabled = true
                 } else {
-                    isEnabled = false
                     Sentry.close()
                 }
             }
@@ -35,7 +31,7 @@ class CrashMonitoring(
         override fun isLoggable(
             tag: String,
             severity: Severity,
-        ): Boolean = isEnabled && severity != Severity.Verbose
+        ): Boolean = Sentry.isEnabled() && severity != Severity.Verbose
 
         override fun log(
             severity: Severity,
@@ -43,9 +39,9 @@ class CrashMonitoring(
             tag: String,
             throwable: Throwable?,
         ) {
-            if (!isEnabled) return
+            if (!Sentry.isEnabled()) return
 
-            if (severity == Severity.Error) {
+            if (severity == Severity.Warn || severity == Severity.Error) {
                 if (throwable != null) {
                     addBreadcrumb(severity, message, tag)
                     Sentry.captureException(throwable)
