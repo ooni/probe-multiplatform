@@ -52,7 +52,6 @@ import ooniprobe.composeapp.generated.resources.dashboard_arc
 import ooniprobe.composeapp.generated.resources.ic_timer
 import ooniprobe.composeapp.generated.resources.ic_warning
 import ooniprobe.composeapp.generated.resources.logo_probe
-import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -223,13 +222,15 @@ private fun TestRunStateSection(
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     state.testType?.let { testType ->
-                        Icon(
-                            painterResource(testType.iconRes ?: Res.drawable.ooni_empty_state),
-                            contentDescription = null,
-                            modifier = Modifier.padding(horizontal = 4.dp).size(24.dp),
-                        )
+                        testType.iconRes?.let {
+                            Icon(
+                                painterResource(it),
+                                contentDescription = null,
+                                modifier = Modifier.padding(horizontal = 4.dp).size(24.dp),
+                            )
+                        }
                         Text(
-                            text = stringResource(testType.labelRes),
+                            text = testType.displayName,
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Bold,
                         )
