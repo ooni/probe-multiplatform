@@ -69,8 +69,6 @@ fun DescriptorScreen(
     state: DescriptorViewModel.State,
     onEvent: (DescriptorViewModel.Event) -> Unit,
 ) {
-    val descriptor = state.descriptor ?: return
-
     val pullRefreshState = rememberPullToRefreshState()
     Box(
         Modifier
@@ -78,16 +76,16 @@ fun DescriptorScreen(
                 isRefreshing = state.isRefreshing,
                 onRefresh = { onEvent(DescriptorViewModel.Event.FetchUpdatedDescriptor) },
                 state = pullRefreshState,
-                enabled = descriptor.source is Descriptor.Source.Installed,
+                enabled = state.descriptor?.source is Descriptor.Source.Installed,
             )
             .background(MaterialTheme.colorScheme.background),
     ) {
         Column {
-            val descriptorColor = descriptor.color ?: MaterialTheme.colorScheme.primary
+            val descriptorColor = state.descriptor?.color ?: MaterialTheme.colorScheme.primary
             val onDescriptorColor = LocalCustomColors.current.onDescriptor
             TopBar(
                 title = {
-                    Text(descriptor.title.invoke())
+                    Text(state.descriptor?.title?.invoke().orEmpty())
                 },
                 navigationIcon = {
                     IconButton(onClick = { onEvent(DescriptorViewModel.Event.BackClicked) }) {
@@ -113,6 +111,8 @@ fun DescriptorScreen(
                     .padding(WindowInsets.navigationBars.asPaddingValues())
                     .padding(bottom = 32.dp),
             ) {
+                val descriptor = state.descriptor ?: return
+
                 DescriptorDetails(state, onEvent)
 
                 descriptor.metadata()?.let {
