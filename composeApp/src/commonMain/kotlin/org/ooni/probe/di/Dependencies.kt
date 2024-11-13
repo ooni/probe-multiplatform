@@ -183,6 +183,7 @@ class Dependencies(
             isBatteryCharging = isBatteryCharging,
             platformInfo = platformInfo,
             getEnginePreferences = getEnginePreferences::invoke,
+            observeCancelTestRun = testStateManager::observeCancels,
             backgroundContext = backgroundContext,
         )
     }

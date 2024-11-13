@@ -2,10 +2,11 @@ package org.ooni.engine
 
 import androidx.annotation.VisibleForTesting
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.isActive
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -35,6 +36,7 @@ class Engine(
     private val isBatteryCharging: suspend () -> Boolean,
     private val platformInfo: PlatformInfo,
     private val getEnginePreferences: suspend () -> EnginePreferences,
+    private val observeCancelTestRun: () -> Flow<Unit>,
     private val backgroundContext: CoroutineContext,
 ) {
     fun startTask(
@@ -52,19 +54,30 @@ class Engine(
             try {
                 task = bridge.startTask(settingsSerialized)
 
+                val cancelJob = async {
+                    observeCancelTestRun()
+                        .take(1)
+                        .collect {
+                            task.interrupt()
+                        }
+                }
+
                 while (!task.isDone() && isActive) {
                     val eventJson = task.waitForNextEvent()
                     val taskEventResult = json.decodeFromString<TaskEventResult>(eventJson)
                     taskEventMapper(taskEventResult)?.let { send(it) }
                 }
-            } catch (e: CancellationException) {
-                Logger.d("Test cancelled")
-                throw e
+
+                if (cancelJob.isActive) {
+                    cancelJob.cancel()
+                }
             } catch (e: Exception) {
                 Logger.d("Error while running task", e)
                 throw MkException(e)
             } finally {
-                task?.interrupt()
+                if (task?.isDone() == false) {
+                    task.interrupt()
+                }
             }
         }.flowOn(backgroundContext)
 

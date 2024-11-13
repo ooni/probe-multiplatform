@@ -65,23 +65,20 @@ class RunDescriptors(
         spec: RunSpecification,
     ) {
         coroutineScope {
-            val runJob = async {
-                // Actually running the descriptors
-                descriptors.forEachIndexed { index, descriptor ->
-                    runDescriptor(descriptor, index, spec.taskOrigin, spec.isRerun)
-                }
-            }
             // Observe if a cancel request has been made
             val cancelJob = async {
                 observeCancelTestRun
                     .take(1)
                     .collect {
                         setCurrentTestState { TestRunState.Stopping }
-                        runJob.cancel()
                     }
             }
 
-            runJob.await()
+            // Actually running the descriptors
+            descriptors.forEachIndexed { index, descriptor ->
+                if (isRunStopped()) return@forEachIndexed
+                runDescriptor(descriptor, index, spec.taskOrigin, spec.isRerun)
+            }
 
             if (cancelJob.isActive) {
                 cancelJob.cancel()
@@ -139,6 +136,7 @@ class RunDescriptors(
         val resultId = storeResult(result)
 
         descriptor.allTests.forEachIndexed { testIndex, netTest ->
+            if (isRunStopped()) return@forEachIndexed
             runNetTest(
                 RunNetTest.Specification(
                     descriptor = descriptor,
@@ -155,4 +153,6 @@ class RunDescriptors(
 
         markResultAsDone(resultId)
     }
+
+    private suspend fun isRunStopped() = getCurrentTestRunState.first() is TestRunState.Stopping
 }
