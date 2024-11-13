@@ -5,6 +5,8 @@ import co.touchlab.kermit.Severity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
@@ -18,6 +20,7 @@ import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.shared.now
 import org.ooni.probe.ui.shared.logFormat
 import kotlin.coroutines.CoroutineContext
+import kotlin.time.Duration.Companion.seconds
 
 class AppLogger(
     private val readFile: ReadFile,
@@ -53,6 +56,17 @@ class AppLogger(
 
     fun getLogFilePath() = FILE_PATH
 
+    // Persist the log into the log file after a certain period without changes
+    suspend fun writeLogsToFile() {
+        withContext(backgroundContext) {
+            log
+                .debounce(5.seconds)
+                .collectLatest { lines ->
+                    writeFile(FILE_PATH, lines.joinToString("\n"), append = false)
+                }
+        }
+    }
+
     val logWriter = object : LogWriter() {
         override fun isLoggable(
             tag: String,
@@ -69,9 +83,7 @@ class AppLogger(
                 val logMessage =
                     "${LocalDateTime.now().logFormat()} : ${severity.name.uppercase()} : $message"
                 log.update { lines ->
-                    val newLines = (lines + logMessage).takeLast(MAX_LINES)
-                    writeFile(FILE_PATH, newLines.joinToString("\n"), append = false)
-                    newLines
+                    (lines + logMessage).takeLast(MAX_LINES)
                 }
             }
         }

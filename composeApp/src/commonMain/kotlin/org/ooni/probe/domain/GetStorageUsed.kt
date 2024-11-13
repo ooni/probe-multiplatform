@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
+import okio.FileNotFoundException
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import kotlin.coroutines.CoroutineContext
@@ -24,13 +25,16 @@ class GetStorageUsed(
 
     suspend fun update(): Long {
         return withContext(backgroundContext) {
-            val usedStorage =
-                (
-                    fileSystem.listRecursively(baseFileDir.toPath()).toList() + fileSystem.listRecursively(
-                        cacheDir.toPath(),
-                    )
-                ).filter { fileSystem.metadata(it).isRegularFile }
-                    .sumOf { (fileSystem.metadata(it).size ?: 0) }
+            val allFiles = listOf(baseFileDir, cacheDir)
+                .flatMap { fileSystem.listRecursively(baseFileDir.toPath()) }
+            val usedStorage = allFiles.sumOf {
+                val metadata = try {
+                    fileSystem.metadata(it)
+                } catch (e: FileNotFoundException) {
+                    return@sumOf 0L
+                }
+                if (metadata.isRegularFile) metadata.size ?: 0 else 0
+            }
             storageUsed.update { usedStorage }
             return@withContext usedStorage
         }

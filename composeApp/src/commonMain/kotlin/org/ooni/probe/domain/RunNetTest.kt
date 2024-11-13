@@ -127,8 +127,6 @@ class RunNetTest(
                     if (it !is TestRunState.Running) return@setCurrentTestState it
                     it.copy(log = event.message)
                 }
-
-                writeToLogFile(event.message + "\n")
             }
 
             is TaskEvent.Progress -> {
@@ -139,8 +137,6 @@ class RunNetTest(
                         log = event.message,
                     )
                 }
-
-                writeToLogFile(event.message + "\n")
             }
 
             is TaskEvent.Measurement -> {
@@ -259,9 +255,7 @@ class RunNetTest(
                 Logger.w("BugJsonDump", Failure(event.value))
             }
 
-            is TaskEvent.TaskTerminated -> {
-                deleteLogFile()
-            }
+            is TaskEvent.TaskTerminated -> Unit
         }
     }
 
@@ -286,20 +280,6 @@ class RunNetTest(
         measurements[index] = updatedMeasurement
         storeMeasurement(updatedMeasurement)
     }
-
-    private suspend fun writeToLogFile(text: String) {
-        writeFile(
-            path = getLogFilePath(),
-            contents = text,
-            append = true,
-        )
-    }
-
-    private suspend fun deleteLogFile() {
-        deleteFiles(getLogFilePath())
-    }
-
-    private fun getLogFilePath() = MeasurementModel.logFilePath(spec.resultId, spec.netTest.test)
 
     private suspend fun writeToReportFile(
         measurement: MeasurementModel,
