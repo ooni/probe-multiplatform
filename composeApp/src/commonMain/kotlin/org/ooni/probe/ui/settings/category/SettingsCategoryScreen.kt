@@ -56,12 +56,10 @@ fun SettingsCategoryScreen(
     state: SettingsCategoryViewModel.State,
     onEvent: (SettingsCategoryViewModel.Event) -> Unit,
 ) {
-    val category = state.category ?: return
-
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
             title = {
-                Text(stringResource(category.title))
+                Text(state.category?.title?.let { stringResource(it) }.orEmpty())
             },
             navigationIcon = {
                 IconButton(onClick = { onEvent(SettingsCategoryViewModel.Event.BackClicked) }) {
@@ -77,6 +75,7 @@ fun SettingsCategoryScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(WindowInsets.navigationBars.asPaddingValues()),
         ) {
+            val category = state.category ?: return
             Column {
                 category.settings?.forEach { preferenceItem ->
                     when (preferenceItem.type) {
