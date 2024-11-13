@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import org.ooni.probe.data.models.Descriptor
@@ -83,10 +84,10 @@ class PreferenceRepository(
             keys.associateWith { key ->
                 it[preferenceKeyFromSettingsKey(key, prefix, autoRun).preferenceKey]
             }
-        }
+        }.distinctUntilChanged()
 
-    fun getValueByKey(key: SettingsKey): Flow<Any?> {
-        return dataStore.data.map {
+    fun getValueByKey(key: SettingsKey): Flow<Any?> =
+        dataStore.data.map {
             when (val preferenceKey = preferenceKeyFromSettingsKey(key)) {
                 is PreferenceKey.IntKey -> it[preferenceKey.preferenceKey]
                 is PreferenceKey.StringKey -> it[preferenceKey.preferenceKey]
@@ -94,8 +95,7 @@ class PreferenceRepository(
                 is PreferenceKey.FloatKey -> it[preferenceKey.preferenceKey]
                 is PreferenceKey.LongKey -> it[preferenceKey.preferenceKey]
             }
-        }
-    }
+        }.distinctUntilChanged()
 
     suspend fun setValueByKey(
         key: SettingsKey,
@@ -139,7 +139,7 @@ class PreferenceRepository(
         )
         return dataStore.data.map {
             it[booleanPreferencesKey(key)] == true
-        }
+        }.distinctUntilChanged()
     }
 
     fun isNetTestEnabled(
@@ -149,7 +149,7 @@ class PreferenceRepository(
     ): Flow<Boolean> =
         dataStore.data.map {
             it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] == true
-        }
+        }.distinctUntilChanged()
 
     fun areNetTestsEnabled(
         list: List<Pair<Descriptor, NetTest>>,
@@ -161,7 +161,7 @@ class PreferenceRepository(
                     it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] == true
                 )
             }
-        }
+        }.distinctUntilChanged()
 
     suspend fun setAreNetTestsEnabled(
         list: List<Pair<Descriptor, NetTest>>,
