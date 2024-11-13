@@ -405,7 +405,7 @@ fun copyRecursive(
 }
 
 tasks.register("runDebug", Exec::class) {
-    dependsOn("clean", "uninstallFullDebug", "installFullDebug")
+    dependsOn("clean", "installFullDebug")
     commandLine(
         "adb",
         "shell",
