@@ -81,6 +81,10 @@
 		DD59ED7E2702C84FF0455021 /* Pods_OONIProbe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OONIProbe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		79167AE52CE2A92800C070C5 /* background */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = background; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		795E37722CD5053900086360 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -167,6 +171,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				79167AE52CE2A92800C070C5 /* background */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
@@ -260,6 +265,9 @@
 			dependencies = (
 				795E377E2CD5053900086360 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				79167AE52CE2A92800C070C5 /* background */,
+			);
 			name = OONIProbe;
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* OONI Probe.app */;
@@ -298,6 +306,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				79167AE52CE2A92800C070C5 /* background */,
 			);
 			name = NewsMediaScan;
 			productName = iosApp;

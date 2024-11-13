@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
+import org.ooni.probe.background.BackgroundRunner
 import org.ooni.probe.background.OperationsManager
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.FlavorConfig
@@ -60,6 +61,7 @@ import platform.darwin.NSObjectMeta
 class SetupDependencies(
     bridge: OonimkallBridge,
     networkTypeFinder: NetworkTypeFinder,
+    val backgroundRunner: BackgroundRunner,
 ) {
     /**
      * See link for `baseFileDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L54
@@ -87,7 +89,7 @@ class SetupDependencies(
         flavorConfig = FlavorConfig(),
     )
 
-    private val operationsManager = OperationsManager(dependencies)
+    private val operationsManager = OperationsManager(dependencies, backgroundRunner)
 
     private fun localeDirection(): LayoutDirection {
         return if (NSLocale.characterDirectionForLanguage(Locale.current.language) == NSLocaleLanguageDirectionRightToLeft) {
