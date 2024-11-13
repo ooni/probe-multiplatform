@@ -36,6 +36,7 @@ import ooniprobe.composeapp.generated.resources.measurement
 import ooniprobe.composeapp.generated.resources.refresh
 import org.intellij.markdown.html.urlEncode
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestingFlags
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.ui.shared.TopBar
@@ -47,7 +48,7 @@ fun MeasurementScreen(
     onBack: () -> Unit,
 ) {
     val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
-    val url = "https://explorer.ooni.org/measurement/${reportId.value}$inputSuffix"
+    val url = "${OrganizationConfig.explorerUrl}/measurement/${reportId.value}$inputSuffix"
     LaunchedEffect(url) { Logger.i("URL: $url") }
 
     val webViewState = rememberWebViewState(
@@ -61,8 +62,8 @@ fun MeasurementScreen(
             override fun onInterceptUrlRequest(
                 request: WebRequest,
                 navigator: WebViewNavigator,
-            ) = if (request.url.startsWith("https://explorer.ooni.org/measurement/") ||
-                request.url.startsWith("https://explorer.ooni.org/m/")
+            ) = if (request.url.startsWith("${OrganizationConfig.explorerUrl}/measurement/") ||
+                request.url.startsWith("${OrganizationConfig.explorerUrl}/m/")
             ) {
                 WebRequestInterceptResult.Allow
             } else {
