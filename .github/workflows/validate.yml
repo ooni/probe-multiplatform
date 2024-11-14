@@ -43,6 +43,7 @@ jobs:
           fi
 
           echo "Building $SCHEME"
+          echo "organization=${{ matrix.organization }}" >> gradle.properties
           xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme "$SCHEME" -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED="NO" | xcpretty
 
       - name: Uploads artifacts
