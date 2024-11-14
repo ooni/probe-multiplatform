@@ -14,6 +14,7 @@
 		795E37782CD5053900086360 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E37772CD5053900086360 /* ShareViewController.swift */; };
 		795E377B2CD5053900086360 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 795E377A2CD5053900086360 /* Base */; };
 		795E377F2CD5053900086360 /* share.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 795E37752CD5053900086360 /* share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		79A8F0B42CE60367001DE8E1 /* IosBackgroundRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A8F0B32CE60367001DE8E1 /* IosBackgroundRunner.swift */; };
 		79B9D19A2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */; };
 		79B9D19B2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */; };
 		79FBD00D2C5A70AF004E041C /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
@@ -68,6 +69,7 @@
 		795E377A2CD5053900086360 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		795E377C2CD5053900086360 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79A29BC42C9045A80052C9D0 /* OONIProbe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OONIProbe.entitlements; sourceTree = "<group>"; };
+		79A8F0B32CE60367001DE8E1 /* IosBackgroundRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IosBackgroundRunner.swift; sourceTree = "<group>"; };
 		79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosNetworkTypeFinder.swift; sourceTree = "<group>"; };
 		79FBD01A2C5A70AF004E041C /* News Media Scan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "News Media Scan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79FBD01B2C5A70AF004E041C /* iosApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iosApp copy-Info.plist"; path = "/Users/aanorbel/Code/ooni/new/probe-multiplatform/iosApp/iosApp copy-Info.plist"; sourceTree = "<absolute>"; };
@@ -80,10 +82,6 @@
 		D64CB7120DD6292730C16110 /* Pods_NewsMediaScan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsMediaScan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD59ED7E2702C84FF0455021 /* Pods_OONIProbe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OONIProbe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		79167AE52CE2A92800C070C5 /* background */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = background; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		795E37722CD5053900086360 /* Frameworks */ = {
@@ -171,7 +169,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				79167AE52CE2A92800C070C5 /* background */,
+				79A8F0B22CE60347001DE8E1 /* background */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
@@ -190,6 +188,14 @@
 				795E377C2CD5053900086360 /* Info.plist */,
 			);
 			path = share;
+			sourceTree = "<group>";
+		};
+		79A8F0B22CE60347001DE8E1 /* background */ = {
+			isa = PBXGroup;
+			children = (
+				79A8F0B32CE60367001DE8E1 /* IosBackgroundRunner.swift */,
+			);
+			path = background;
 			sourceTree = "<group>";
 		};
 		93D3BF5C2C6B684800E9A9B7 /* assets */ = {
@@ -265,9 +271,6 @@
 			dependencies = (
 				795E377E2CD5053900086360 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				79167AE52CE2A92800C070C5 /* background */,
-			);
 			name = OONIProbe;
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* OONI Probe.app */;
@@ -306,9 +309,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				79167AE52CE2A92800C070C5 /* background */,
 			);
 			name = NewsMediaScan;
 			productName = iosApp;
@@ -574,6 +574,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79A8F0B42CE60367001DE8E1 /* IosBackgroundRunner.swift in Sources */,
 				79B9D19A2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */,
@@ -593,6 +594,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79A8F0B42CE60367001DE8E1 /* IosBackgroundRunner.swift in Sources */,
 				79B9D19B2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */,
 				79FBD00D2C5A70AF004E041C /* iOSApp.swift in Sources */,
 				79FBD00E2C5A70AF004E041C /* IosOonimkallBridge.swift in Sources */,
