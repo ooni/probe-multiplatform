@@ -1,5 +1,6 @@
 package org.ooni.engine.models
 
+import androidx.compose.runtime.Composable
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -30,6 +31,7 @@ import ooniprobe.composeapp.generated.resources.test_websites
 import ooniprobe.composeapp.generated.resources.test_whatsapp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -41,6 +43,10 @@ sealed class TestType {
     open val url: String? = null
 
     abstract fun runtime(inputs: List<String>?): Duration
+
+    val displayName: String
+        @Composable
+        get() = (if (this is Experimental) name else stringResource(labelRes))
 
     data object Dash : TestType() {
         override val name: String = "dash"

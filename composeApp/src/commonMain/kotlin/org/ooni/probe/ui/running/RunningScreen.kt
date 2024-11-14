@@ -121,7 +121,7 @@ private fun TestRunning(
                     style = MaterialTheme.typography.bodyLarge,
                 )
                 Text(
-                    text = stringResource(testType.labelRes),
+                    text = testType.displayName,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                 )

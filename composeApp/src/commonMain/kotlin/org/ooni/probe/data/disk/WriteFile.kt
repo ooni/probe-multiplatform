@@ -34,12 +34,16 @@ class WriteFileOkio(
             return
         }
 
-        fileSystem
-            .run { if (append) appendingSink(absolutePath) else sink(absolutePath) }
-            .use { sink ->
-                sink.buffer().use {
-                    it.writeUtf8(contents)
+        try {
+            fileSystem
+                .run { if (append) appendingSink(absolutePath) else sink(absolutePath) }
+                .use { sink ->
+                    sink.buffer().use {
+                        it.writeUtf8(contents)
+                    }
                 }
-            }
+        } catch (e: Exception) {
+            Logger.e("Could not update file $path", e)
+        }
     }
 }
