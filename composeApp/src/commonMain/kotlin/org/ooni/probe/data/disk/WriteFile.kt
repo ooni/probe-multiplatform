@@ -29,7 +29,6 @@ class WriteFileOkio(
 
         try {
             absolutePath.parent?.let { fileSystem.createDirectories(it) }
-
         } catch (e: IOException) {
             Logger.v("Could not create file $path", e)
             return
