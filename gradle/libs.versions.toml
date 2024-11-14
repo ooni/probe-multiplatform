@@ -56,9 +56,6 @@ sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref 
 # Files
 okio = { module = "com.squareup.okio:okio", version = "3.9.0" }
 
-# WebView
-webview = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "1.9.40-alpha04" }
-
 # Lottie animations
 kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.0-rc01" } # 2.0.0 not supported yet
 
@@ -66,10 +63,13 @@ kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.0-rc01"
 moko-permissions = { module ="dev.icerock.moko:permissions-compose", version = "0.18.0" }
 
 # Crash Reporting
-sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.9.0" }
+sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.10.0" }
 
 # Markdown
 markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.26.0" }
+
+# WebView
+web-view = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "1.9.40-alpha04" }
 
 # Android Testing
 android-test-core = { module = "androidx.test:core", version = "1.6.1" }
@@ -99,10 +99,10 @@ tooling = [
     "androidx-datastore-core-okio",
     "androidx-datastore-preferences-core",
     "okio",
-    "webview",
     "markdown",
     "kottie",
     "moko-permissions",
+    "web-view",
 ]
 android = [
     "android-oonimkall",
