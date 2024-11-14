@@ -31,6 +31,8 @@ jobs:
       - name: Build iOS Framework
         run: ./gradlew link${{ matrix.type }}FrameworkIosSimulatorArm64 -Porganization=${{ matrix.organization }}
 
+      - run: cd iosApp/ && pod install
+      - run: ./gradlew podInstall
       - name: Build iOS App
         run:  |
           if [ "${{ matrix.organization }}" == "ooni" ]; then
@@ -40,7 +42,7 @@ jobs:
           fi
 
           echo "Building $SCHEME"
-          cd iosApp/ && pod install && xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme "$SCHEME" -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED="NO" | xcpretty
+          xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme "$SCHEME" -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED="NO" | xcpretty
 
       - name: Uploads artifacts
         uses: actions/upload-artifact@v4
