@@ -27,6 +27,7 @@ import ooniprobe.composeapp.generated.resources.measurement
 import ooniprobe.composeapp.generated.resources.refresh
 import org.intellij.markdown.html.urlEncode
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.ui.shared.OoniWebView
 import org.ooni.probe.ui.shared.OoniWebViewController
@@ -86,7 +87,7 @@ fun MeasurementScreen(
     }
 
     val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
-    val url = "https://explorer.ooni.org/measurement/${reportId.value}$inputSuffix"
+    val url = "${OrganizationConfig.explorerUrl}/measurement/${reportId.value}$inputSuffix"
     LaunchedEffect(url) {
         controller.load(url)
     }

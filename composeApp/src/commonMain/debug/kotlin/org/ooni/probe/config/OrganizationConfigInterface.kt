@@ -13,6 +13,9 @@ interface OrganizationConfigInterface {
     val ooniRunDashboardUrl: String
         get() = "https://run.test.ooni.org"
 
+    val explorerUrl: String
+        get() = "https://explorer.test.ooni.org"
+
     val testDisplayMode: TestDisplayMode
 
     val autorunTaskId: String
