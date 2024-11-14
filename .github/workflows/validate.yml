@@ -31,10 +31,11 @@ jobs:
       - name: Build iOS Framework
         run: ./gradlew link${{ matrix.type }}FrameworkIosSimulatorArm64 -Porganization=${{ matrix.organization }}
 
-      - run: cd iosApp/ && pod install
       - run: ./gradlew podInstall
+      - run: cd iosApp/ && pod install
       - name: Build iOS App
         run:  |
+          set -o pipefail
           if [ "${{ matrix.organization }}" == "ooni" ]; then
             SCHEME="OONIProbe"
           elif [ "${{ matrix.organization }}" == "dw" ]; then
