@@ -33,7 +33,6 @@ jobs:
 
       - name: Build iOS App
         run:  |
-          set -o pipefail
           if [ "${{ matrix.organization }}" == "ooni" ]; then
             SCHEME="OONIProbe"
           elif [ "${{ matrix.organization }}" == "dw" ]; then
@@ -41,7 +40,7 @@ jobs:
           fi
 
           echo "Building $SCHEME"
-          xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme "$SCHEME" -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED="NO" | xcpretty
+          cd iosApp/ && pod install && xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme "$SCHEME" -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED="NO" | xcpretty
 
       - name: Uploads artifacts
         uses: actions/upload-artifact@v4
