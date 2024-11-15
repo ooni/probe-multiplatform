@@ -14,6 +14,11 @@ import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_LastUpdatd
 import ooniprobe.composeapp.generated.resources.months
+import ooniprobe.composeapp.generated.resources.test_circumvention
+import ooniprobe.composeapp.generated.resources.test_experimental
+import ooniprobe.composeapp.generated.resources.test_instant_messaging
+import ooniprobe.composeapp.generated.resources.test_performance
+import ooniprobe.composeapp.generated.resources.test_websites
 import org.jetbrains.compose.resources.stringArrayResource
 import org.ooni.probe.data.TestDescriptor
 import org.ooni.probe.shared.InstalledDescriptorIcons
@@ -74,13 +79,23 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
         },
         icon = icon?.let(InstalledDescriptorIcons::getIconFromValue),
         color = color?.hexToColor(),
-        animation = animation?.let(Animation::fromFileName),
+        animation = icon?.let { determineAnimation(it) } ?: animation?.let(Animation::fromFileName),
         dataUsage = { null },
         expirationDate = expirationDate,
         netTests = netTests.orEmpty(),
         source = Descriptor.Source.Installed(this),
         updateStatus = updateStatus,
     )
+
+private val iconAnimationMap = mapOf(
+    Res.drawable.test_websites to Animation.Websites,
+    Res.drawable.test_instant_messaging to Animation.InstantMessaging,
+    Res.drawable.test_circumvention to Animation.Circumvention,
+    Res.drawable.test_performance to Animation.Performance,
+    Res.drawable.test_experimental to Animation.Experimental,
+)
+
+private fun determineAnimation(icon: String): Animation? = iconAnimationMap[InstalledDescriptorIcons.getIconFromValue(icon)]
 
 private fun dateTimeFormat(monthNames: List<String>) =
     Format {
