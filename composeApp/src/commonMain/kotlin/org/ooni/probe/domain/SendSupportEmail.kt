@@ -6,11 +6,12 @@ import ooniprobe.composeapp.generated.resources.Settings_SendEmail_Message
 import ooniprobe.composeapp.generated.resources.shareEmailTo
 import ooniprobe.composeapp.generated.resources.shareSubject
 import org.jetbrains.compose.resources.getString
+import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.shared.PlatformInfo
 
 class SendSupportEmail(
     private val platformInfo: PlatformInfo,
-    private val launchUrl: (String, Map<String, String>?) -> Unit,
+    private val launchAction: (PlatformAction) -> Boolean,
 ) {
     suspend operator fun invoke() {
         getString(Res.string.shareEmailTo)
@@ -22,12 +23,12 @@ class SendSupportEmail(
             "MODEL: ${platformInfo.model}\n" +
             "OS Version: ${platformInfo.osVersion}"
 
-        launchUrl(
-            supportEmail,
-            mapOf(
-                "subject" to subject,
-                "body" to body,
-                "chooserTitle" to chooserTitle,
+        launchAction(
+            PlatformAction.Mail(
+                to = supportEmail,
+                subject = subject,
+                body = body,
+                chooserTitle = chooserTitle,
             ),
         )
     }
