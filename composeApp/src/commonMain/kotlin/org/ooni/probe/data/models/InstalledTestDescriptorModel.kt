@@ -61,7 +61,7 @@ data class InstalledTestDescriptorModel(
     val isDefaultTestDescriptor get() = id.value in 10470..10474 // TODO(aanorbel): switch to OONI reserved namespace
 
     val key get() = if (isDefaultTestDescriptor) {
-        when(id.value) {
+        when (id.value) {
             10470L -> "websites"
             10471L -> "instant_messaging"
             10472L -> "circumvention"
@@ -100,7 +100,7 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
         icon = icon?.let(InstalledDescriptorIcons::getIconFromValue),
         color = color?.hexToColor(),
         animation = icon?.let { determineAnimation(it) } ?: animation?.let(Animation::fromFileName),
-        dataUsage = { if (isDefaultTestDescriptor) stringResource(getDataUsage()) else null  },
+        dataUsage = { if (isDefaultTestDescriptor) stringResource(getDataUsage()) else null },
         expirationDate = expirationDate,
         netTests = netTests.orEmpty(),
         source = Descriptor.Source.Installed(this),
@@ -108,7 +108,7 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
     )
 
 fun InstalledTestDescriptorModel.getDataUsage(): StringResource {
-    return when(this.key) {
+    return when (this.key) {
         "websites" -> Res.string.websites_datausage
         "instant_messaging" -> Res.string.small_datausage
         "circumvention" -> Res.string.small_datausage

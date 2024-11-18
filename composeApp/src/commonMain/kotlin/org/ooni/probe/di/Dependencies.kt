@@ -53,7 +53,6 @@ import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
-import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetFirstRun
 import org.ooni.probe.domain.GetProxySettings
@@ -244,7 +243,6 @@ class Dependencies(
     private val getBootstrapTestDescriptors by lazy {
         GetBootstrapTestDescriptors(readAssetFile, json, backgroundContext)
     }
-    private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
     private val getProxySettings by lazy { GetProxySettings(preferenceRepository) }
     private val getEnginePreferences by lazy {
         GetEnginePreferences(
@@ -288,7 +286,7 @@ class Dependencies(
     @VisibleForTesting
     val getTestDescriptors by lazy {
         GetTestDescriptors(
-            getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
+            getDefaultTestDescriptors = { emptyList() },
             listInstalledTestDescriptors = testDescriptorRepository::list,
             descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
         )
