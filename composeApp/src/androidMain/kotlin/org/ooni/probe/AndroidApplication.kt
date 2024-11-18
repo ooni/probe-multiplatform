@@ -28,8 +28,7 @@ import org.ooni.engine.AndroidOonimkallBridge
 import org.ooni.probe.background.AppWorkerManager
 import org.ooni.probe.config.AndroidBatteryOptimization
 import org.ooni.probe.config.FlavorConfig
-import org.ooni.probe.data.models.FileSharing
-import org.ooni.probe.data.models.IntentAction
+import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -50,14 +49,11 @@ class AndroidApplication : Application() {
             networkTypeFinder = AndroidNetworkTypeFinder(connectivityManager),
             buildDataStore = ::buildDataStore,
             isBatteryCharging = ::checkBatteryCharging,
-            launchUrl = ::launchUrl,
             startSingleRunInner = appWorkerManager::startSingleRun,
             configureAutoRun = appWorkerManager::configureAutoRun,
-            openVpnSettings = ::openVpnSettings,
             configureDescriptorAutoUpdate = appWorkerManager::configureDescriptorAutoUpdate,
             fetchDescriptorUpdate = appWorkerManager::fetchDescriptorUpdate,
-            shareFile = ::shareFile,
-            shareText = ::shareText,
+            launchAction = ::launchAction,
             batteryOptimization = batteryOptimization,
             flavorConfig = FlavorConfig(),
         )
@@ -110,6 +106,16 @@ class AndroidApplication : Application() {
         return batteryManager?.isCharging == true
     }
 
+    private fun launchAction(action: PlatformAction): Boolean {
+        return when (action) {
+            is PlatformAction.Mail -> sendMail(action)
+            is PlatformAction.OpenUrl -> openUrl(action)
+            is PlatformAction.Share -> shareText(action)
+            is PlatformAction.FileSharing -> shareFile(action)
+            is PlatformAction.VpnSettings -> openVpnSettings()
+        }
+    }
+
     private fun launchUrl(
         url: String,
         extras: Map<String, String>?,
@@ -139,6 +145,37 @@ class AndroidApplication : Application() {
             startActivity(mailerIntent)
         } else {
             startActivity(intent)
+        }
+    }
+
+    private fun sendMail(mail: PlatformAction.Mail): Boolean {
+        val intent = Intent.createChooser(
+            Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:${mail.to}")
+                putExtra(Intent.EXTRA_SUBJECT, mail.subject)
+                putExtra(Intent.EXTRA_TEXT, mail.body)
+            },
+            mail.chooserTitle,
+        ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        return try {
+            startActivity(intent)
+            true
+        } catch (e: ActivityNotFoundException) {
+            Logger.e("Could not send mail", e)
+            false
+        }
+    }
+
+    private fun openUrl(openUrl: PlatformAction.OpenUrl): Boolean {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(openUrl.url)).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        return try {
+            startActivity(intent)
+            true
+        } catch (e: ActivityNotFoundException) {
+            Logger.e("Could not open url", e)
+            false
         }
     }
 
@@ -178,7 +215,7 @@ class AndroidApplication : Application() {
             false
         }
 
-    private fun shareFile(fileSharing: FileSharing): Boolean {
+    private fun shareFile(fileSharing: PlatformAction.FileSharing): Boolean {
         val file = filesDir.absolutePath.toPath().resolve(fileSharing.filePath).toFile()
         if (!file.exists()) {
             Logger.w("File to share does not exist: $file")
@@ -209,7 +246,7 @@ class AndroidApplication : Application() {
         }
     }
 
-    private fun shareText(share: IntentAction.Share): Boolean {
+    private fun shareText(share: PlatformAction.Share): Boolean {
         return try {
             startActivity(
                 Intent.createChooser(

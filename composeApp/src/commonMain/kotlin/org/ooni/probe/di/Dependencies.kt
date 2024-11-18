@@ -32,9 +32,8 @@ import org.ooni.probe.data.disk.ReadFileOkio
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.disk.WriteFileOkio
 import org.ooni.probe.data.models.AutoRunParameters
-import org.ooni.probe.data.models.FileSharing
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
-import org.ooni.probe.data.models.IntentAction
+import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -110,15 +109,12 @@ class Dependencies(
     @VisibleForTesting
     val buildDataStore: () -> DataStore<Preferences>,
     private val isBatteryCharging: () -> Boolean,
-    private val launchUrl: (String, Map<String, String>?) -> Unit,
     private val startSingleRunInner: (RunSpecification) -> Unit,
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
-    private val openVpnSettings: () -> Boolean,
     val configureDescriptorAutoUpdate: suspend () -> Boolean,
     val fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
-    private val shareFile: (FileSharing) -> Boolean,
-    private var shareText: (IntentAction.Share) -> Boolean,
+    private val launchAction: (PlatformAction) -> Boolean,
     private val batteryOptimization: BatteryOptimization,
     val flavorConfig: FlavorConfigInterface,
 ) {
@@ -331,8 +327,8 @@ class Dependencies(
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
-    private val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchUrl) }
-    private val shareLogFile by lazy { ShareLogFile(shareFile, appLogger::getLogFilePath) }
+    private val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchAction) }
+    private val shareLogFile by lazy { ShareLogFile(launchAction, appLogger::getLogFilePath) }
     private val shouldShowVpnWarning by lazy {
         ShouldShowVpnWarning(preferenceRepository, networkTypeFinder::invoke)
     }
@@ -379,7 +375,7 @@ class Dependencies(
 
     fun aboutViewModel(onBack: () -> Unit) =
         AboutViewModel(onBack = onBack, launchUrl = {
-            launchUrl(it, emptyMap())
+            launchAction(PlatformAction.OpenUrl(it))
         }, platformInfo = platformInfo)
 
     fun addDescriptorViewModel(
@@ -440,7 +436,7 @@ class Dependencies(
         getTestDescriptors = getTestDescriptors::invoke,
         getDescriptorLastResult = resultRepository::getLatestByDescriptor,
         preferenceRepository = preferenceRepository,
-        launchUrl = { launchUrl(it, null) },
+        launchUrl = { launchAction(PlatformAction.OpenUrl(it)) },
         deleteTestDescriptor = deleteTestDescriptor::invoke,
         fetchDescriptorUpdate = fetchDescriptorUpdate,
         setAutoUpdate = testDescriptorRepository::setAutoUpdate,
@@ -464,7 +460,7 @@ class Dependencies(
         goToSettings = goToSettings,
         platformInfo = platformInfo,
         preferenceRepository = preferenceRepository,
-        launchUrl = { launchUrl(it, null) },
+        launchUrl = { launchAction(PlatformAction.OpenUrl(it)) },
         batteryOptimization = batteryOptimization,
         supportsCrashReporting = flavorConfig.isCrashReportingEnabled,
     )
@@ -501,7 +497,7 @@ class Dependencies(
             shouldShowVpnWarning = shouldShowVpnWarning::invoke,
             preferenceRepository = preferenceRepository,
             startBackgroundRun = startSingleRunInner,
-            openVpnSettings = openVpnSettings,
+            openVpnSettings = launchAction,
         )
 
     fun resultViewModel(
@@ -525,7 +521,7 @@ class Dependencies(
     fun measurementViewModel(onBack: () -> Unit) =
         MeasurementViewModel(
             onBack = onBack,
-            shareUrl = { shareText(IntentAction.Share(it)) },
+            shareUrl = { launchAction(PlatformAction.Share(it)) },
         )
 
     fun settingsCategoryViewModel(

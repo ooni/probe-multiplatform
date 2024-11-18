@@ -20,9 +20,8 @@ import org.ooni.probe.config.FlavorConfig
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
-import org.ooni.probe.data.models.FileSharing
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
-import org.ooni.probe.data.models.IntentAction
+import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -78,15 +77,12 @@ class SetupDependencies(
         networkTypeFinder = networkTypeFinder,
         buildDataStore = ::buildDataStore,
         isBatteryCharging = ::checkBatteryCharging,
-        launchUrl = ::launchUrl,
         startSingleRunInner = ::startSingleRun,
         configureAutoRun = ::configureAutoRun,
-        openVpnSettings = ::openVpnSettings,
         configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
         fetchDescriptorUpdate = ::fetchDescriptorUpdate,
         localeDirection = ::localeDirection,
-        shareFile = ::shareFile,
-        shareText = ::shareText,
+        launchAction = ::launchAction,
         batteryOptimization = object : BatteryOptimization {},
         flavorConfig = FlavorConfig(),
     )
@@ -153,47 +149,46 @@ class SetupDependencies(
             },
         )
 
-    private fun launchUrl(
-        url: String,
-        extras: Map<String, String>?,
-    ) {
-        NSURL.URLWithString(url)?.let {
-            if (it.scheme == "mailto") {
-                MFMailComposeViewController.canSendMail().let { canSendMail ->
-                    val email = it.toString().removePrefix("mailto:")
-                    if (canSendMail) {
-                        MFMailComposeViewController().apply {
-                            mailComposeDelegate = object :
-                                NSObject(),
-                                MFMailComposeViewControllerDelegateProtocol {
-                                override fun mailComposeController(
-                                    controller: MFMailComposeViewController,
-                                    didFinishWithResult: MFMailComposeResult,
-                                    error: NSError?,
-                                ) {
-                                    controller.dismissViewControllerAnimated(true, null)
-                                }
-                            }
-                            setToRecipients(listOf(email))
-                            extras?.forEach { (key, value) ->
-                                when (key) {
-                                    "subject" -> setSubject(value)
-                                    "body" -> setMessageBody(value, isHTML = false)
-                                }
-                            }
-                        }.let {
-                            findCurrentViewController()?.presentViewController(
-                                it,
-                                true,
-                                null,
-                            )
+    private fun launchAction(action: PlatformAction): Boolean {
+        return when (action) {
+            is PlatformAction.Mail -> sendMail(action)
+            is PlatformAction.OpenUrl -> openUrl(action)
+            is PlatformAction.Share -> shareText(action)
+            is PlatformAction.FileSharing -> shareFile(action)
+            is PlatformAction.VpnSettings -> openVpnSettings()
+        }
+    }
+
+    private fun sendMail(action: PlatformAction.Mail): Boolean {
+        MFMailComposeViewController.canSendMail().let { canSendMail ->
+            val email = action.to.removePrefix("mailto:")
+            if (canSendMail) {
+                MFMailComposeViewController().apply {
+                    mailComposeDelegate = object :
+                        NSObject(),
+                        MFMailComposeViewControllerDelegateProtocol {
+                        override fun mailComposeController(
+                            controller: MFMailComposeViewController,
+                            didFinishWithResult: MFMailComposeResult,
+                            error: NSError?,
+                        ) {
+                            controller.dismissViewControllerAnimated(true, null)
                         }
-                    } else {
-                        UIPasteboard.generalPasteboard.string = email
                     }
+                    setToRecipients(listOf(email))
+                    setSubject(action.subject)
+                    setMessageBody(action.body, isHTML = false)
+                }.let {
+                    findCurrentViewController()?.presentViewController(
+                        it,
+                        true,
+                        null,
+                    )
                 }
+                return true
             } else {
-                UIApplication.sharedApplication.openURL(it)
+                UIPasteboard.generalPasteboard.string = email
+                return false
             }
         }
     }
@@ -277,7 +272,7 @@ class SetupDependencies(
         operationsManager.fetchDescriptorUpdate(descriptors)
     }
 
-    private fun shareText(share: IntentAction.Share): Boolean {
+    private fun shareText(share: PlatformAction.Share): Boolean {
         val activityViewController = UIActivityViewController(
             activityItems = listOf(share.text),
             applicationActivities = null,
@@ -298,7 +293,7 @@ class SetupDependencies(
         }
     }
 
-    private fun shareFile(share: FileSharing): Boolean {
+    private fun shareFile(share: PlatformAction.FileSharing): Boolean {
         val filePath = filesDir() + "/" + share.filePath.toString()
 
         val url = NSURL.fileURLWithPath(filePath)
@@ -320,6 +315,19 @@ class SetupDependencies(
             Logger.e { "Cannot share file: $filePath" }
             return false
         }
+    }
+
+    private fun openUrl(openUrl: PlatformAction.OpenUrl): Boolean {
+        val url = openUrl.url
+        return NSURL.URLWithString(url)?.let {
+            if (UIApplication.sharedApplication.canOpenURL(it)) {
+                UIApplication.sharedApplication.openURL(it)
+                return@let true
+            } else {
+                Logger.e { "Cannot open URL: $url" }
+                return@let false
+            }
+        } ?: false
     }
 
     private fun baseFileDir(): String {
