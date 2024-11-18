@@ -16,7 +16,7 @@ import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdatesStatus
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.TestRunError
-import org.ooni.probe.data.models.TestRunState
+import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.UpdateStatusType
 
 class DashboardViewModel(
@@ -28,7 +28,7 @@ class DashboardViewModel(
     getFirstRun: () -> Flow<Boolean>,
     goToReviewDescriptorUpdates: () -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
-    observeTestRunState: Flow<TestRunState>,
+    observeRunBackgroundState: Flow<RunBackgroundState>,
     observeTestRunErrors: Flow<TestRunError>,
     shouldShowVpnWarning: suspend () -> Boolean,
     fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>) -> Unit,
@@ -61,9 +61,9 @@ class DashboardViewModel(
             }
             .launchIn(viewModelScope)
 
-        observeTestRunState
+        observeRunBackgroundState
             .onEach { testState ->
-                _state.update { it.copy(testRunState = testState) }
+                _state.update { it.copy(runBackgroundState = testState) }
             }
             .launchIn(viewModelScope)
 
@@ -147,7 +147,7 @@ class DashboardViewModel(
 
     data class State(
         val descriptors: Map<DescriptorType, List<Descriptor>> = emptyMap(),
-        val testRunState: TestRunState = TestRunState.Idle(),
+        val runBackgroundState: RunBackgroundState = RunBackgroundState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
         val showVpnWarning: Boolean = false,
         val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),

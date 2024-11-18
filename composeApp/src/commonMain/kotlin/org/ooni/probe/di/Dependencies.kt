@@ -1,18 +1,14 @@
 package org.ooni.probe.di
 
 import androidx.annotation.VisibleForTesting
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.datastore.core.DataMigration
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -68,13 +64,13 @@ import org.ooni.probe.domain.GetStorageUsed
 import org.ooni.probe.domain.GetTestDescriptors
 import org.ooni.probe.domain.GetTestDescriptorsBySpec
 import org.ooni.probe.domain.ObserveAndConfigureAutoRun
+import org.ooni.probe.domain.RunBackgroundStateManager
 import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
 import org.ooni.probe.domain.SaveTestDescriptors
 import org.ooni.probe.domain.SendSupportEmail
 import org.ooni.probe.domain.ShareLogFile
 import org.ooni.probe.domain.ShouldShowVpnWarning
-import org.ooni.probe.domain.TestRunStateManager
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.shared.monitoring.AppLogger
@@ -182,7 +178,7 @@ class Dependencies(
             isBatteryCharging = isBatteryCharging,
             platformInfo = platformInfo,
             getEnginePreferences = getEnginePreferences::invoke,
-            observeCancelTestRun = testStateManager::observeCancels,
+            addRunCancelListener = runBackgroundStateManager::addCancelListener,
             backgroundContext = backgroundContext,
         )
     }
@@ -200,7 +196,7 @@ class Dependencies(
             preferencesRepository = preferenceRepository,
         )
     }
-    val cancelCurrentTest get() = testStateManager::cancelTestRun
+    val cancelCurrentTest get() = runBackgroundStateManager::cancel
     private val downloadUrls by lazy {
         DownloadUrls(
             engine::checkIn,
@@ -311,11 +307,11 @@ class Dependencies(
             downloadUrls = downloadUrls::invoke,
             storeResult = resultRepository::createOrUpdate,
             markResultAsDone = resultRepository::markAsDone,
-            getCurrentTestRunState = testStateManager.observeState(),
-            setCurrentTestState = testStateManager::updateState,
+            getRunBackgroundState = runBackgroundStateManager.observeState(),
+            setRunBackgroundState = runBackgroundStateManager::updateState,
             runNetTest = { runNetTest(it)() },
-            observeCancelTestRun = testStateManager.observeCancels(),
-            reportTestRunError = testStateManager::reportError,
+            addRunCancelListener = runBackgroundStateManager::addCancelListener,
+            reportTestRunError = runBackgroundStateManager::reportError,
             getEnginePreferences = getEnginePreferences::invoke,
             finishInProgressData = finishInProgressData::invoke,
         )
@@ -332,7 +328,7 @@ class Dependencies(
     private val shouldShowVpnWarning by lazy {
         ShouldShowVpnWarning(preferenceRepository, networkTypeFinder::invoke)
     }
-    private val testStateManager by lazy { TestRunStateManager(resultRepository.getLatest()) }
+    val runBackgroundStateManager by lazy { RunBackgroundStateManager(resultRepository.getLatest()) }
     private val uploadMissingMeasurements by lazy {
         UploadMissingMeasurements(
             getMeasurementsNotUploaded = measurementRepository::listNotUploaded,
@@ -347,7 +343,7 @@ class Dependencies(
         RunNetTest(
             startTest = engine::startTask,
             getResultByIdAndUpdate = resultRepository::getByIdAndUpdate,
-            setCurrentTestState = testStateManager::updateState,
+            setCurrentTestState = runBackgroundStateManager::updateState,
             getOrCreateUrl = urlRepository::getOrCreateByUrl,
             storeMeasurement = measurementRepository::createOrUpdate,
             storeNetwork = networkRepository::createIfNew,
@@ -367,7 +363,10 @@ class Dependencies(
             getNetworkType = networkTypeFinder::invoke,
             getAutoRunSpecification = getAutoRunSpecification::invoke,
             runDescriptors = runDescriptors::invoke,
-            getCurrentTestState = testStateManager::observeState,
+            addRunCancelListener = runBackgroundStateManager::addCancelListener,
+            clearRunCancelListeners = runBackgroundStateManager::clearCancelListeners,
+            setRunBackgroundState = runBackgroundStateManager::updateState,
+            getRunBackgroundState = runBackgroundStateManager::observeState,
         )
     }
 
@@ -414,8 +413,8 @@ class Dependencies(
         getFirstRun = getFirstRun::invoke,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         getTestDescriptors = getTestDescriptors::invoke,
-        observeTestRunState = testStateManager.observeState(),
-        observeTestRunErrors = testStateManager.observeErrors(),
+        observeRunBackgroundState = runBackgroundStateManager.observeState(),
+        observeTestRunErrors = runBackgroundStateManager.observeErrors(),
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
         fetchDescriptorUpdate = fetchDescriptorUpdate,
         observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
@@ -484,9 +483,9 @@ class Dependencies(
     ) = RunningViewModel(
         onBack = onBack,
         goToResults = goToResults,
-        observeTestRunState = testStateManager.observeState(),
-        observeTestRunErrors = testStateManager.observeErrors(),
-        cancelTestRun = testStateManager::cancelTestRun,
+        observeRunBackgroundState = runBackgroundStateManager.observeState(),
+        observeTestRunErrors = runBackgroundStateManager.observeErrors(),
+        cancelTestRun = runBackgroundStateManager::cancel,
         getProxySettings = getProxySettings::invoke,
     )
 
@@ -513,7 +512,7 @@ class Dependencies(
         goToUpload = goToUpload,
         goToDashboard = goToDashboard,
         getResult = getResult::invoke,
-        getCurrentTestRunState = testStateManager.observeState(),
+        getCurrentRunBackgroundState = runBackgroundStateManager.observeState(),
         markResultAsViewed = resultRepository::markAsViewed,
         startBackgroundRun = startSingleRunInner,
     )
@@ -592,20 +591,5 @@ class Dependencies(
                 )
                     .also { dataStore = it }
             }
-
-        fun showSnackbar(
-            scope: CoroutineScope,
-            snackbarHostState: SnackbarHostState,
-            message: String,
-            actionLabel: String? = null,
-            onDismissed: () -> Unit = {},
-        ) {
-            scope.launch {
-                val result = snackbarHostState.showSnackbar(message, actionLabel)
-                if (result == SnackbarResult.Dismissed) {
-                    onDismissed()
-                }
-            }
-        }
     }
 }

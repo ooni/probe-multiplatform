@@ -13,12 +13,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.ooni.probe.data.models.ProxySettings
 import org.ooni.probe.data.models.TestRunError
-import org.ooni.probe.data.models.TestRunState
+import org.ooni.probe.data.models.RunBackgroundState
 
 class RunningViewModel(
     onBack: () -> Unit,
     goToResults: () -> Unit,
-    observeTestRunState: Flow<TestRunState>,
+    observeRunBackgroundState: Flow<RunBackgroundState>,
     observeTestRunErrors: Flow<TestRunError>,
     cancelTestRun: () -> Unit,
     getProxySettings: suspend () -> ProxySettings,
@@ -33,9 +33,9 @@ class RunningViewModel(
             val proxy = getProxySettings().getProxyString()
             _state.update { it.copy(hasProxy = proxy.isNotEmpty()) }
         }
-        observeTestRunState
+        observeRunBackgroundState
             .onEach { testRunState ->
-                if (testRunState is TestRunState.Idle) {
+                if (testRunState is RunBackgroundState.Idle) {
                     if (testRunState.justFinishedTest) {
                         goToResults()
                     } else {
@@ -43,7 +43,7 @@ class RunningViewModel(
                     }
                     return@onEach
                 }
-                _state.update { it.copy(testRunState = testRunState) }
+                _state.update { it.copy(runBackgroundState = testRunState) }
             }
             .launchIn(viewModelScope)
 
@@ -76,7 +76,7 @@ class RunningViewModel(
     }
 
     data class State(
-        val testRunState: TestRunState? = null,
+        val runBackgroundState: RunBackgroundState? = null,
         val testRunErrors: List<TestRunError> = emptyList(),
         val hasProxy: Boolean = false,
     )

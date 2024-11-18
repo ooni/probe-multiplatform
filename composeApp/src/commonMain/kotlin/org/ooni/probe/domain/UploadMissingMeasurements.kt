@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.isActive
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
 import org.ooni.engine.models.Result
@@ -29,6 +30,8 @@ class UploadMissingMeasurements(
             var failedToUpload = 0
 
             measurements.forEach { measurement ->
+                if (!isActive) return@channelFlow // Check is coroutine was cancelled
+
                 send(State.Uploading(uploaded, failedToUpload, total))
 
                 val reportFilePath = measurement.reportFilePath ?: run {
