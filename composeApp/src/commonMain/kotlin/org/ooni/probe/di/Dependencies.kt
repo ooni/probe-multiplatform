@@ -179,7 +179,7 @@ class Dependencies(
             isBatteryCharging = isBatteryCharging,
             platformInfo = platformInfo,
             getEnginePreferences = getEnginePreferences::invoke,
-            addRunCancelListener = testStateManager::addCancelListener,
+            addRunCancelListener = runBackgroundStateManager::addCancelListener,
             backgroundContext = backgroundContext,
         )
     }
@@ -197,7 +197,7 @@ class Dependencies(
             preferencesRepository = preferenceRepository,
         )
     }
-    val cancelCurrentTest get() = testStateManager::cancel
+    val cancelCurrentTest get() = runBackgroundStateManager::cancel
     private val downloadUrls by lazy {
         DownloadUrls(
             engine::checkIn,
@@ -308,11 +308,11 @@ class Dependencies(
             downloadUrls = downloadUrls::invoke,
             storeResult = resultRepository::createOrUpdate,
             markResultAsDone = resultRepository::markAsDone,
-            getRunBackgroundState = testStateManager.observeState(),
-            setRunBackgroundState = testStateManager::updateState,
+            getRunBackgroundState = runBackgroundStateManager.observeState(),
+            setRunBackgroundState = runBackgroundStateManager::updateState,
             runNetTest = { runNetTest(it)() },
-            addRunCancelListener = testStateManager::addCancelListener,
-            reportTestRunError = testStateManager::reportError,
+            addRunCancelListener = runBackgroundStateManager::addCancelListener,
+            reportTestRunError = runBackgroundStateManager::reportError,
             getEnginePreferences = getEnginePreferences::invoke,
             finishInProgressData = finishInProgressData::invoke,
         )
@@ -329,7 +329,7 @@ class Dependencies(
     private val shouldShowVpnWarning by lazy {
         ShouldShowVpnWarning(preferenceRepository, networkTypeFinder::invoke)
     }
-    private val testStateManager by lazy { RunBackgroundStateManager(resultRepository.getLatest()) }
+    val runBackgroundStateManager by lazy { RunBackgroundStateManager(resultRepository.getLatest()) }
     private val uploadMissingMeasurements by lazy {
         UploadMissingMeasurements(
             getMeasurementsNotUploaded = measurementRepository::listNotUploaded,
@@ -344,7 +344,7 @@ class Dependencies(
         RunNetTest(
             startTest = engine::startTask,
             getResultByIdAndUpdate = resultRepository::getByIdAndUpdate,
-            setCurrentTestState = testStateManager::updateState,
+            setCurrentTestState = runBackgroundStateManager::updateState,
             getOrCreateUrl = urlRepository::getOrCreateByUrl,
             storeMeasurement = measurementRepository::createOrUpdate,
             storeNetwork = networkRepository::createIfNew,
@@ -364,10 +364,10 @@ class Dependencies(
             getNetworkType = networkTypeFinder::invoke,
             getAutoRunSpecification = getAutoRunSpecification::invoke,
             runDescriptors = runDescriptors::invoke,
-            addRunCancelListener = testStateManager::addCancelListener,
-            clearRunCancelListeners = testStateManager::clearCancelListeners,
-            setRunBackgroundState = testStateManager::updateState,
-            getRunBackgroundState = testStateManager::observeState,
+            addRunCancelListener = runBackgroundStateManager::addCancelListener,
+            clearRunCancelListeners = runBackgroundStateManager::clearCancelListeners,
+            setRunBackgroundState = runBackgroundStateManager::updateState,
+            getRunBackgroundState = runBackgroundStateManager::observeState,
         )
     }
 
@@ -414,8 +414,8 @@ class Dependencies(
         getFirstRun = getFirstRun::invoke,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         getTestDescriptors = getTestDescriptors::invoke,
-        observeRunBackgroundState = testStateManager.observeState(),
-        observeTestRunErrors = testStateManager.observeErrors(),
+        observeRunBackgroundState = runBackgroundStateManager.observeState(),
+        observeTestRunErrors = runBackgroundStateManager.observeErrors(),
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
         fetchDescriptorUpdate = fetchDescriptorUpdate,
         observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
@@ -484,9 +484,9 @@ class Dependencies(
     ) = RunningViewModel(
         onBack = onBack,
         goToResults = goToResults,
-        observeRunBackgroundState = testStateManager.observeState(),
-        observeTestRunErrors = testStateManager.observeErrors(),
-        cancelTestRun = testStateManager::cancel,
+        observeRunBackgroundState = runBackgroundStateManager.observeState(),
+        observeTestRunErrors = runBackgroundStateManager.observeErrors(),
+        cancelTestRun = runBackgroundStateManager::cancel,
         getProxySettings = getProxySettings::invoke,
     )
 
@@ -513,7 +513,7 @@ class Dependencies(
         goToUpload = goToUpload,
         goToDashboard = goToDashboard,
         getResult = getResult::invoke,
-        getCurrentRunBackgroundState = testStateManager.observeState(),
+        getCurrentRunBackgroundState = runBackgroundStateManager.observeState(),
         markResultAsViewed = resultRepository::markAsViewed,
         startBackgroundRun = startSingleRunInner,
     )

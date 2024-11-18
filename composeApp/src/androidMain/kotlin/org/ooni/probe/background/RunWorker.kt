@@ -46,6 +46,9 @@ class RunWorker(
     private val json by lazy { dependencies.json }
     private val runBackgroundTask by lazy { dependencies.runBackgroundTask }
     private val cancelCurrentTest by lazy { dependencies.cancelCurrentTest }
+    private val setRunBackgroundState by lazy {
+        dependencies.runBackgroundStateManager::updateState
+    }
 
     private val notificationManager by lazy {
         appContext.getSystemService(NotificationManager::class.java)
@@ -67,6 +70,7 @@ class RunWorker(
             work()
         } catch (e: CancellationException) {
             Logger.i("Run Worker: cancelled")
+            setRunBackgroundState { RunBackgroundState.Idle() }
         } finally {
             notificationManager.cancel(NOTIFICATION_ID)
             unregisterReceiver()
