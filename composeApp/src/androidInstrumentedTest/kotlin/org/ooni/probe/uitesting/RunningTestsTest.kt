@@ -43,7 +43,7 @@ import org.ooni.probe.uitesting.helpers.wait
 import kotlin.time.Duration.Companion.minutes
 
 @RunWith(AndroidJUnit4::class)
-class RunningTest {
+class RunningTestsTest {
     @get:Rule
     val compose = createEmptyComposeRule()
 
