@@ -414,6 +414,7 @@ class Dependencies(
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         getTestDescriptors = getTestDescriptors::invoke,
         observeRunBackgroundState = runBackgroundStateManager.observeState(),
+        setRunBackgroundState = runBackgroundStateManager::updateState,
         observeTestRunErrors = runBackgroundStateManager.observeErrors(),
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
         fetchDescriptorUpdate = fetchDescriptorUpdate,
