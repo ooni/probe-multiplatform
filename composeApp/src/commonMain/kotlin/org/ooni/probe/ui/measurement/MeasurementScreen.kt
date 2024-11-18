@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -38,8 +39,12 @@ fun MeasurementScreen(
     reportId: MeasurementModel.ReportId,
     input: String?,
     onBack: () -> Unit,
+    onEvent: (MeasurementViewModel.Event) -> Unit,
 ) {
     val controller = OoniWebViewController()
+
+    val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
+    val url = "${OrganizationConfig.explorerUrl}/measurement/${reportId.value}$inputSuffix"
 
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
@@ -55,6 +60,16 @@ fun MeasurementScreen(
                 }
             },
             actions = {
+                IconButton(
+                    onClick = {
+                        onEvent(MeasurementViewModel.Event.ShareUrl(url))
+                    },
+                ) {
+                    Icon(
+                        Icons.Default.Share,
+                        contentDescription = null,
+                    )
+                }
                 IconButton(
                     onClick = { controller.reload() },
                     enabled = controller.state is OoniWebViewController.State.Finished,
@@ -86,8 +101,6 @@ fun MeasurementScreen(
         )
     }
 
-    val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
-    val url = "${OrganizationConfig.explorerUrl}/measurement/${reportId.value}$inputSuffix"
     LaunchedEffect(url) {
         controller.load(url)
     }

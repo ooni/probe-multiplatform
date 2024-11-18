@@ -148,10 +148,14 @@ fun Navigation(
         ) { entry ->
             val reportId = entry.arguments?.getString("reportId") ?: return@composable
             val input = entry.arguments?.getString("input").decodeUrlFromBase64()
+            val viewModel = viewModel {
+                dependencies.measurementViewModel(onBack = { navController.goBack() })
+            }
             MeasurementScreen(
                 reportId = MeasurementModel.ReportId(reportId),
                 input = input,
                 onBack = { navController.goBack() },
+                viewModel::onEvent,
             )
         }
 

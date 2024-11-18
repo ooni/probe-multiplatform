@@ -22,6 +22,7 @@ import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.FileSharing
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.IntentAction
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -85,6 +86,7 @@ class SetupDependencies(
         fetchDescriptorUpdate = ::fetchDescriptorUpdate,
         localeDirection = ::localeDirection,
         shareFile = ::shareFile,
+        shareText = ::shareText,
         batteryOptimization = object : BatteryOptimization {},
         flavorConfig = FlavorConfig(),
     )
@@ -273,6 +275,27 @@ class SetupDependencies(
 
     fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
         operationsManager.fetchDescriptorUpdate(descriptors)
+    }
+
+    private fun shareText(share: IntentAction.Share): Boolean {
+        val activityViewController = UIActivityViewController(
+            activityItems = listOf(share.text),
+            applicationActivities = null,
+        )
+        activityViewController.excludedActivityTypes =
+            listOf(UIActivityTypeAirDrop, UIActivityTypePostToFacebook)
+
+        findCurrentViewController()?.let {
+            it.presentViewController(
+                activityViewController,
+                true,
+                null,
+            )
+            return true
+        } ?: run {
+            Logger.e { "Cannot share text: ${share.text}" }
+            return false
+        }
     }
 
     private fun shareFile(share: FileSharing): Boolean {

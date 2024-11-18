@@ -34,6 +34,7 @@ import org.ooni.probe.data.disk.WriteFileOkio
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.FileSharing
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.IntentAction
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -85,6 +86,7 @@ import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
 import org.ooni.probe.ui.log.LogViewModel
+import org.ooni.probe.ui.measurement.MeasurementViewModel
 import org.ooni.probe.ui.onboarding.OnboardingViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
@@ -116,6 +118,7 @@ class Dependencies(
     val fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
     private val shareFile: (FileSharing) -> Boolean,
+    private var shareText: (IntentAction.Share) -> Boolean,
     private val batteryOptimization: BatteryOptimization,
     val flavorConfig: FlavorConfigInterface,
 ) {
@@ -518,6 +521,12 @@ class Dependencies(
         markResultAsViewed = resultRepository::markAsViewed,
         startBackgroundRun = startSingleRunInner,
     )
+
+    fun measurementViewModel(onBack: () -> Unit) =
+        MeasurementViewModel(
+            onBack = onBack,
+            shareUrl = { shareText(IntentAction.Share(it)) },
+        )
 
     fun settingsCategoryViewModel(
         categoryKey: String,

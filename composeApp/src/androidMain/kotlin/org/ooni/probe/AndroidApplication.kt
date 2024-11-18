@@ -29,6 +29,7 @@ import org.ooni.probe.background.AppWorkerManager
 import org.ooni.probe.config.AndroidBatteryOptimization
 import org.ooni.probe.config.FlavorConfig
 import org.ooni.probe.data.models.FileSharing
+import org.ooni.probe.data.models.IntentAction
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -56,6 +57,7 @@ class AndroidApplication : Application() {
             configureDescriptorAutoUpdate = appWorkerManager::configureDescriptorAutoUpdate,
             fetchDescriptorUpdate = appWorkerManager::fetchDescriptorUpdate,
             shareFile = ::shareFile,
+            shareText = ::shareText,
             batteryOptimization = batteryOptimization,
             flavorConfig = FlavorConfig(),
         )
@@ -198,6 +200,23 @@ class AndroidApplication : Application() {
                         .putExtra(Intent.EXTRA_STREAM, uri)
                         .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),
                     fileSharing.title,
+                ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            )
+            true
+        } catch (e: ActivityNotFoundException) {
+            Logger.e("Could not share file", e)
+            false
+        }
+    }
+
+    private fun shareText(share: IntentAction.Share): Boolean {
+        return try {
+            startActivity(
+                Intent.createChooser(
+                    Intent(Intent.ACTION_SEND)
+                        .setType("text/plain")
+                        .putExtra(Intent.EXTRA_TEXT, share.text),
+                    null,
                 ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             )
             true
