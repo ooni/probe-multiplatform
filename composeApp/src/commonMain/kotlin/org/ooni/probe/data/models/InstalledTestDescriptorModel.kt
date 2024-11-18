@@ -13,12 +13,17 @@ import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_LastUpdatd
+import ooniprobe.composeapp.generated.resources.TestResults_NotAvailable
 import ooniprobe.composeapp.generated.resources.months
+import ooniprobe.composeapp.generated.resources.performance_datausage
+import ooniprobe.composeapp.generated.resources.small_datausage
 import ooniprobe.composeapp.generated.resources.test_circumvention
 import ooniprobe.composeapp.generated.resources.test_experimental
 import ooniprobe.composeapp.generated.resources.test_instant_messaging
 import ooniprobe.composeapp.generated.resources.test_performance
 import ooniprobe.composeapp.generated.resources.test_websites
+import ooniprobe.composeapp.generated.resources.websites_datausage
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringArrayResource
 import org.ooni.probe.data.TestDescriptor
 import org.ooni.probe.shared.InstalledDescriptorIcons
@@ -53,6 +58,21 @@ data class InstalledTestDescriptorModel(
 
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 
+    val isDefaultTestDescriptor get() = id.value in 10470..10474 // TODO(aanorbel): switch to OONI reserved namespace
+
+    val key get() = if (isDefaultTestDescriptor) {
+        when(id.value) {
+            10470L -> "websites"
+            10471L -> "instant_messaging"
+            10472L -> "circumvention"
+            10473L -> "performance"
+            10474L -> "experimental"
+            else -> id.value.toString()
+        }
+    } else {
+        id.value.toString()
+    }
+
     fun shouldUpdate(other: InstalledTestDescriptorModel): Boolean {
         return dateUpdated != null && other.dateUpdated != null && other.dateUpdated > dateUpdated
     }
@@ -80,12 +100,23 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
         icon = icon?.let(InstalledDescriptorIcons::getIconFromValue),
         color = color?.hexToColor(),
         animation = icon?.let { determineAnimation(it) } ?: animation?.let(Animation::fromFileName),
-        dataUsage = { null },
+        dataUsage = { if (isDefaultTestDescriptor) stringResource(getDataUsage()) else null  },
         expirationDate = expirationDate,
         netTests = netTests.orEmpty(),
         source = Descriptor.Source.Installed(this),
         updateStatus = updateStatus,
     )
+
+fun InstalledTestDescriptorModel.getDataUsage(): StringResource {
+    return when(this.key) {
+        "websites" -> Res.string.websites_datausage
+        "instant_messaging" -> Res.string.small_datausage
+        "circumvention" -> Res.string.small_datausage
+        "performance" -> Res.string.performance_datausage
+        "experimental" -> Res.string.TestResults_NotAvailable
+        else -> Res.string.TestResults_NotAvailable
+    }
+}
 
 private val iconAnimationMap = mapOf(
     Res.drawable.test_websites to Animation.Websites,

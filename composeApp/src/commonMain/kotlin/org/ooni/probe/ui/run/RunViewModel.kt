@@ -81,9 +81,9 @@ class RunViewModel(
                             }
                     mapOf(
                         DescriptorType.Default to descriptorsWithTests
-                            .filter { it.key.item.source is Descriptor.Source.Default },
+                            .filter { (key, _) -> key.item.isDefaultDescriptor() },
                         DescriptorType.Installed to descriptorsWithTests
-                            .filter { it.key.item.source is Descriptor.Source.Installed },
+                            .filter { (key, _) -> key.item.isInstalledNonDefaultDescriptor() },
                     )
                 }
         }

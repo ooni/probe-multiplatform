@@ -32,14 +32,14 @@ import org.ooni.probe.data.models.DefaultTestDescriptor
 import org.ooni.probe.data.models.NetTest
 
 class GetDefaultTestDescriptors {
-    operator fun invoke(): List<DefaultTestDescriptor> =
-        listOf(
+    operator fun invoke(): List<DefaultTestDescriptor> = emptyList()
+        /*listOf(
             WEBSITES,
             INSTANT_MESSAGING,
             CIRCUMVENTION,
             PERFORMANCE,
             EXPERIMENTAL,
-        )
+        )*/
 
     companion object {
         private val WEBSITES =

@@ -36,7 +36,7 @@ data class Descriptor(
     val key: String
         get() = when (source) {
             is Source.Default -> name
-            is Source.Installed -> source.value.id.value.toString()
+            is Source.Installed -> source.value.key
         }
 
     val allTests get() = netTests + longRunningTests
@@ -45,4 +45,18 @@ data class Descriptor(
         get() = allTests
             .sumOf { it.test.runtime(it.inputs).inWholeSeconds }
             .seconds
+
+    fun isDefaultDescriptor(): Boolean {
+        return when (source) {
+            is Source.Default -> true
+            is Source.Installed -> source.value.isDefaultTestDescriptor
+        }
+    }
+
+    fun isInstalledNonDefaultDescriptor(): Boolean {
+        return when (source) {
+            is Source.Installed -> !source.value.isDefaultTestDescriptor
+            else -> false
+        }
+    }
 }

@@ -127,8 +127,10 @@ fun DescriptorScreen(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
                 )
 
-                if (descriptor.source is Descriptor.Source.Installed) {
-                    ConfigureUpdates(onEvent, descriptor.source.value.autoUpdate)
+                if (descriptor.isInstalledNonDefaultDescriptor()) {
+                    (descriptor.source as Descriptor.Source.Installed?)?.let {
+                        ConfigureUpdates(onEvent, it.value.autoUpdate)
+                    }
                 }
                 Text(
                     stringResource(Res.string.AddDescriptor_Settings),
