@@ -2,7 +2,6 @@ package org.ooni.probe.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -29,16 +28,12 @@ class BootstrapPreferences(
         preferencesRepository.setValuesByKey(
             listOf(
                 SettingsKey.FIRST_RUN to true,
-                SettingsKey.MAX_RUNTIME_ENABLED to true,
-                SettingsKey.MAX_RUNTIME to 90,
                 SettingsKey.UPLOAD_RESULTS to true,
                 SettingsKey.AUTOMATED_TESTING_WIFIONLY to true,
                 SettingsKey.AUTOMATED_TESTING_CHARGING to true,
                 SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT to NOT_UPLOADED_LIMIT_DEFAULT,
             ) +
-                WebConnectivityCategory.entries
-                    .mapNotNull { it.settingsKey }
-                    .map { it to true },
+                preferenceDefaults(),
         )
     }
 
