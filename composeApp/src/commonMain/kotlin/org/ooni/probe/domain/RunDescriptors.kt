@@ -89,19 +89,32 @@ class RunDescriptors(
     private suspend fun List<Descriptor>.prepareInputs(taskOrigin: TaskOrigin) =
         map { descriptor ->
             descriptor.copy(
-                netTests = descriptor.netTests.downloadUrlsIfNeeded(taskOrigin),
-                longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(taskOrigin),
+                netTests = descriptor.netTests.downloadUrlsIfNeeded(taskOrigin, descriptor),
+                longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(taskOrigin, descriptor),
             )
         }
             .filterNot { it.allTests.isEmpty() }
 
-    private suspend fun List<NetTest>.downloadUrlsIfNeeded(taskOrigin: TaskOrigin): List<NetTest> =
-        map { test -> test.copy(inputs = test.inputsOrDownloadUrls(taskOrigin)) }
+    private suspend fun List<NetTest>.downloadUrlsIfNeeded(
+        taskOrigin: TaskOrigin,
+        descriptor: Descriptor,
+    ): List<NetTest> =
+        map { test -> test.copy(inputs = test.inputsOrDownloadUrls(taskOrigin, descriptor)) }
             .filterNot { it.test is TestType.WebConnectivity && it.inputs?.any() != true }
 
-    private suspend fun NetTest.inputsOrDownloadUrls(taskOrigin: TaskOrigin): List<String>? {
+    private suspend fun NetTest.inputsOrDownloadUrls(
+        taskOrigin: TaskOrigin,
+        descriptor: Descriptor,
+    ): List<String>? {
         if (!inputs.isNullOrEmpty() || test !is TestType.WebConnectivity) return inputs
 
+        setCurrentTestState {
+            if (it !is TestRunState.Running) return@setCurrentTestState it
+            it.copy(
+                descriptor = descriptor,
+                testType = test,
+            )
+        }
         val urls = downloadUrls(taskOrigin)
             .onFailure { Logger.w("Could not download urls", it) }
             .get()
