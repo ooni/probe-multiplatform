@@ -26,6 +26,7 @@ class ResultsViewModel(
     getResults: (ResultFilter) -> Flow<List<ResultListItem>>,
     getDescriptors: () -> Flow<List<Descriptor>>,
     deleteAllResults: suspend () -> Unit,
+    markJustFinishedTestAsSeen: () -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -59,6 +60,11 @@ class ResultsViewModel(
                     )
                 }
             }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.Start>()
+            .onEach { markJustFinishedTestAsSeen() }
             .launchIn(viewModelScope)
 
         events
@@ -136,6 +142,8 @@ class ResultsViewModel(
         )
 
     sealed interface Event {
+        data object Start : Event
+
         data class ResultClick(val result: ResultListItem) : Event
 
         data object UploadClick : Event

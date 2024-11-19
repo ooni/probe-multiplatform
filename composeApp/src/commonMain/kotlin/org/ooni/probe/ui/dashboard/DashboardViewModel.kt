@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
@@ -30,7 +29,6 @@ class DashboardViewModel(
     goToReviewDescriptorUpdates: () -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     observeRunBackgroundState: Flow<RunBackgroundState>,
-    setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
     observeTestRunErrors: Flow<TestRunError>,
     shouldShowVpnWarning: suspend () -> Boolean,
     fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>) -> Unit,
@@ -90,13 +88,7 @@ class DashboardViewModel(
 
         events
             .filterIsInstance<Event.SeeResultsClick>()
-            .onEach {
-                val runState = observeRunBackgroundState.first()
-                if (runState is RunBackgroundState.Idle && runState.justFinishedTest) {
-                    setRunBackgroundState { runState.copy(justFinishedTest = false) }
-                }
-                goToResults()
-            }
+            .onEach { goToResults() }
             .launchIn(viewModelScope)
 
         events

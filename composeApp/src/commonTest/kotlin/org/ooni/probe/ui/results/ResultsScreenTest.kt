@@ -19,6 +19,20 @@ import kotlin.test.assertEquals
 
 class ResultsScreenTest {
     @Test
+    fun start() =
+        runComposeUiTest {
+            val events = mutableListOf<ResultsViewModel.Event>()
+            setContent {
+                ResultsScreen(
+                    state = ResultsViewModel.State(results = emptyMap(), isLoading = true),
+                    onEvent = events::add,
+                )
+            }
+
+            assertEquals(ResultsViewModel.Event.Start, events.last())
+        }
+
+    @Test
     fun showResults() =
         runComposeUiTest {
             val item = buildItem()
@@ -65,7 +79,7 @@ class ResultsScreenTest {
             }
 
             onNodeWithText(title!!).performClick()
-            assertEquals(ResultsViewModel.Event.ResultClick(item), events.first())
+            assertEquals(ResultsViewModel.Event.ResultClick(item), events.last())
         }
 
     @Test
@@ -88,7 +102,7 @@ class ResultsScreenTest {
             runTest {
                 onNodeWithContentDescription(getString(Res.string.Modal_Delete)).performClick()
                 onNodeWithText(getString(Res.string.Modal_Delete)).performClick()
-                assertEquals(ResultsViewModel.Event.DeleteAllClick, events.first())
+                assertEquals(ResultsViewModel.Event.DeleteAllClick, events.last())
             }
         }
 
