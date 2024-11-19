@@ -30,8 +30,8 @@ import org.jetbrains.compose.resources.getString
 import org.ooni.probe.AndroidApplication
 import org.ooni.probe.MainActivity
 import org.ooni.probe.R
+import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
-import org.ooni.probe.data.models.TestRunState
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.ui.primaryLight
@@ -46,6 +46,9 @@ class RunWorker(
     private val json by lazy { dependencies.json }
     private val runBackgroundTask by lazy { dependencies.runBackgroundTask }
     private val cancelCurrentTest by lazy { dependencies.cancelCurrentTest }
+    private val setRunBackgroundState by lazy {
+        dependencies.runBackgroundStateManager::updateState
+    }
 
     private val notificationManager by lazy {
         appContext.getSystemService(NotificationManager::class.java)
@@ -55,7 +58,7 @@ class RunWorker(
 
     override suspend fun getForegroundInfo(): ForegroundInfo {
         buildNotificationChannelIfNeeded()
-        return ForegroundInfo(NOTIFICATION_ID, buildNotification(TestRunState.Running()))
+        return ForegroundInfo(NOTIFICATION_ID, buildNotification(RunBackgroundState.RunningTests()))
     }
 
     override suspend fun doWork(): Result {
@@ -67,6 +70,7 @@ class RunWorker(
             work()
         } catch (e: CancellationException) {
             Logger.i("Run Worker: cancelled")
+            setRunBackgroundState { RunBackgroundState.Idle() }
         } finally {
             notificationManager.cancel(NOTIFICATION_ID)
             unregisterReceiver()
@@ -85,19 +89,17 @@ class RunWorker(
 
         runBackgroundTask(getSpecification())
             .collectLatest { state ->
-                notificationManager.notify(
-                    NOTIFICATION_ID,
-                    when (state) {
-                        is RunBackgroundTask.State.UploadingMissingResults ->
-                            buildNotification(state.state)
-
-                        is RunBackgroundTask.State.RunningTests ->
-                            buildNotification(state.state)
-
-                        is RunBackgroundTask.State.StoppingTests ->
-                            buildStoppingNotification()
-                    },
-                )
+                val notification = when (state) {
+                    is RunBackgroundState.Idle -> null
+                    is RunBackgroundState.UploadingMissingResults -> buildNotification(state.state)
+                    is RunBackgroundState.RunningTests -> buildNotification(state)
+                    is RunBackgroundState.Stopping -> buildStoppingNotification()
+                }
+                if (notification != null) {
+                    notificationManager.notify(NOTIFICATION_ID, notification)
+                } else {
+                    notificationManager.cancel(NOTIFICATION_ID)
+                }
             }
     }
 
@@ -146,23 +148,18 @@ class RunWorker(
                     ),
                 )
                     .setProgress(state.total, progress, false)
+                    .addAction(buildNotificationStopAction())
             } else {
                 setProgress(1, 0, true)
             }
         }
 
-    private suspend fun buildNotification(state: TestRunState.Running) =
+    private suspend fun buildNotification(state: RunBackgroundState.RunningTests) =
         buildNotification {
             setContentText(state.testType?.labelRes?.let { labelRes -> getString(labelRes) })
                 .setColor(state.descriptor?.color?.toArgb() ?: primaryLight.toArgb())
                 .setProgress(1000, (state.progress * 1000).roundToInt(), false)
-                .addAction(
-                    NotificationCompat.Action.Builder(
-                        null,
-                        getString(Res.string.Notification_StopTest),
-                        stopRunIntent,
-                    ).build(),
-                )
+                .addAction(buildNotificationStopAction())
         }
 
     private suspend fun buildStoppingNotification() =
@@ -187,6 +184,13 @@ class RunWorker(
                 .setContentIntent(openAppIntent),
         ).build()
     }
+
+    private suspend fun buildNotificationStopAction() =
+        NotificationCompat.Action.Builder(
+            null,
+            getString(Res.string.Notification_StopTest),
+            stopRunIntent,
+        ).build()
 
     private val openAppIntent
         get() = PendingIntent.getActivity(

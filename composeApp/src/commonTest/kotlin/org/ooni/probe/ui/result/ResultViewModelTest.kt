@@ -51,7 +51,7 @@ class ResultViewModelTest {
         goToUpload = {},
         goToDashboard = {},
         getResult = getResult,
-        getCurrentTestRunState = emptyFlow(),
+        getCurrentRunBackgroundState = emptyFlow(),
         markResultAsViewed = markResultAsViewed,
         startBackgroundRun = {},
     )
