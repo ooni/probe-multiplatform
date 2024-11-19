@@ -121,23 +121,28 @@ fun ResultScreen(
         )
 
         if (state.result == null) return@Column
-
-        if (!isHeightCompact()) {
-            Surface(
-                color = descriptorColor,
-                contentColor = onDescriptorColor,
-            ) {
-                Summary(state.result)
-            }
-        }
-
-        if (state.result.anyMeasurementMissingUpload) {
-            UploadResults(onUploadClick = { onEvent(ResultViewModel.Event.UploadClicked) })
-        }
+        val showSummary = !isHeightCompact()
 
         LazyColumn(
             contentPadding = WindowInsets.navigationBars.asPaddingValues(),
         ) {
+            if (showSummary) {
+                item("summary") {
+                    Surface(
+                        color = descriptorColor,
+                        contentColor = onDescriptorColor,
+                    ) {
+                        Summary(state.result)
+                    }
+                }
+            }
+
+            if (state.result.anyMeasurementMissingUpload) {
+                stickyHeader("upload_results") {
+                    UploadResults(onUploadClick = { onEvent(ResultViewModel.Event.UploadClicked) })
+                }
+            }
+
             items(state.result.measurements, key = { it.measurement.idOrThrow.value }) { item ->
                 ResultMeasurementCell(
                     item = item,

@@ -22,7 +22,7 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunSpecification
-import org.ooni.probe.data.models.TestRunState
+import org.ooni.probe.data.models.RunBackgroundState
 
 class ResultViewModel(
     resultId: ResultModel.Id,
@@ -31,7 +31,7 @@ class ResultViewModel(
     goToUpload: () -> Unit,
     goToDashboard: () -> Unit,
     getResult: (ResultModel.Id) -> Flow<ResultItem?>,
-    getCurrentTestRunState: Flow<TestRunState>,
+    getCurrentRunBackgroundState: Flow<RunBackgroundState>,
     markResultAsViewed: suspend (ResultModel.Id) -> Unit,
     startBackgroundRun: (RunSpecification) -> Unit,
 ) : ViewModel() {
@@ -52,11 +52,11 @@ class ResultViewModel(
 
         combine(
             state.map { it.result }.distinctUntilChanged(),
-            getCurrentTestRunState,
+            getCurrentRunBackgroundState,
         ) { resultItem, testState ->
             _state.update {
                 it.copy(
-                    rerunEnabled = resultItem?.canBeRerun == true && testState is TestRunState.Idle,
+                    rerunEnabled = resultItem?.canBeRerun == true && testState is RunBackgroundState.Idle,
                 )
             }
         }

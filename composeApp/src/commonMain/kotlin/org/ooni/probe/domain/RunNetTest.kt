@@ -16,7 +16,7 @@ import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.data.models.TestRunState
+import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.toLocalDateTime
 
@@ -26,7 +26,7 @@ class RunNetTest(
     private val storeMeasurement: suspend (MeasurementModel) -> MeasurementModel.Id,
     private val storeNetwork: suspend (NetworkModel) -> NetworkModel.Id,
     private val getResultByIdAndUpdate: suspend (ResultModel.Id, (ResultModel) -> ResultModel) -> Unit,
-    private val setCurrentTestState: ((TestRunState) -> TestRunState) -> Unit,
+    private val setCurrentTestState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
     private val writeFile: WriteFile,
     private val deleteFiles: DeleteFiles,
     private val json: Json,
@@ -50,7 +50,7 @@ class RunNetTest(
 
     suspend operator fun invoke() {
         setCurrentTestState {
-            if (it !is TestRunState.Running) return@setCurrentTestState it
+            if (it !is RunBackgroundState.RunningTests) return@setCurrentTestState it
             it.copy(
                 descriptor = spec.descriptor,
                 descriptorIndex = spec.descriptorIndex,
@@ -124,14 +124,14 @@ class RunNetTest(
                 )
 
                 setCurrentTestState {
-                    if (it !is TestRunState.Running) return@setCurrentTestState it
+                    if (it !is RunBackgroundState.RunningTests) return@setCurrentTestState it
                     it.copy(log = event.message)
                 }
             }
 
             is TaskEvent.Progress -> {
                 setCurrentTestState {
-                    if (it !is TestRunState.Running) return@setCurrentTestState it
+                    if (it !is RunBackgroundState.RunningTests) return@setCurrentTestState it
                     it.copy(
                         testProgress = (spec.testIndex + event.progress) * progressStep,
                         log = event.message,

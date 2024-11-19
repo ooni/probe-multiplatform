@@ -1,11 +1,8 @@
 package org.ooni.probe.domain
 
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.take
 import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.EnginePreferences
@@ -17,7 +14,7 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.TestRunError
-import org.ooni.probe.data.models.TestRunState
+import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.now
 import kotlin.time.Duration
@@ -27,27 +24,23 @@ class RunDescriptors(
     private val downloadUrls: suspend (TaskOrigin) -> Result<List<UrlModel>, MkException>,
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
     private val markResultAsDone: suspend (ResultModel.Id) -> Unit,
-    private val getCurrentTestRunState: Flow<TestRunState>,
-    private val setCurrentTestState: ((TestRunState) -> TestRunState) -> Unit,
+    private val getRunBackgroundState: Flow<RunBackgroundState>,
+    private val setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
     private val runNetTest: suspend (RunNetTest.Specification) -> Unit,
-    private val observeCancelTestRun: Flow<Unit>,
+    private val addRunCancelListener: (() -> Unit) -> Unit,
     private val reportTestRunError: (TestRunError) -> Unit,
     private val getEnginePreferences: suspend () -> EnginePreferences,
     private val finishInProgressData: suspend () -> Unit,
 ) {
     suspend operator fun invoke(spec: RunSpecification) {
-        if (getCurrentTestRunState.first() is TestRunState.Running) {
-            Logger.i("Tests are already running, so we won't run other tests")
-            return
-        }
-        setCurrentTestState { TestRunState.Running() }
+        setRunBackgroundState { RunBackgroundState.RunningTests() }
 
         val descriptors = getTestDescriptorsBySpec(spec)
         val descriptorsWithFinalInputs = descriptors.prepareInputs(spec.taskOrigin)
         val estimatedRuntime = descriptorsWithFinalInputs.getEstimatedRuntime()
 
-        setCurrentTestState {
-            TestRunState.Running(estimatedRuntimeOfDescriptors = estimatedRuntime)
+        setRunBackgroundState {
+            RunBackgroundState.RunningTests(estimatedRuntimeOfDescriptors = estimatedRuntime)
         }
 
         try {
@@ -55,7 +48,7 @@ class RunDescriptors(
         } catch (e: Exception) {
             // Exceptions were logged in the Engine
         } finally {
-            setCurrentTestState { TestRunState.Idle(LocalDateTime.now(), true) }
+            setRunBackgroundState { RunBackgroundState.Idle(LocalDateTime.now(), true) }
             finishInProgressData()
         }
     }
@@ -64,25 +57,14 @@ class RunDescriptors(
         descriptors: List<Descriptor>,
         spec: RunSpecification,
     ) {
-        coroutineScope {
-            // Observe if a cancel request has been made
-            val cancelJob = async {
-                observeCancelTestRun
-                    .take(1)
-                    .collect {
-                        setCurrentTestState { TestRunState.Stopping }
-                    }
-            }
+        addRunCancelListener {
+            setRunBackgroundState { RunBackgroundState.Stopping }
+        }
 
-            // Actually running the descriptors
-            descriptors.forEachIndexed { index, descriptor ->
-                if (isRunStopped()) return@forEachIndexed
-                runDescriptor(descriptor, index, spec.taskOrigin, spec.isRerun)
-            }
-
-            if (cancelJob.isActive) {
-                cancelJob.cancel()
-            }
+        // Actually running the descriptors
+        descriptors.forEachIndexed { index, descriptor ->
+            if (isRunStopped()) return@forEachIndexed
+            runDescriptor(descriptor, index, spec.taskOrigin, spec.isRerun)
         }
     }
 
@@ -167,5 +149,5 @@ class RunDescriptors(
         markResultAsDone(resultId)
     }
 
-    private suspend fun isRunStopped() = getCurrentTestRunState.first() is TestRunState.Stopping
+    private suspend fun isRunStopped() = getRunBackgroundState.first() is RunBackgroundState.Stopping
 }

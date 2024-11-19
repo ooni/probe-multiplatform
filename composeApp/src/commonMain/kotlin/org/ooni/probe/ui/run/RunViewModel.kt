@@ -20,6 +20,7 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
+import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
@@ -33,7 +34,7 @@ class RunViewModel(
     shouldShowVpnWarning: suspend () -> Boolean,
     private val preferenceRepository: PreferenceRepository,
     startBackgroundRun: (RunSpecification) -> Unit,
-    openVpnSettings: () -> Boolean,
+    openVpnSettings: (PlatformAction.VpnSettings) -> Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -160,7 +161,7 @@ class RunViewModel(
         events
             .filterIsInstance<Event.DisableVpnClicked>()
             .onEach {
-                if (!openVpnSettings()) {
+                if (!openVpnSettings(PlatformAction.VpnSettings)) {
                     _state.update { it.copy(showDisableVpnInstructions = true) }
                 }
             }

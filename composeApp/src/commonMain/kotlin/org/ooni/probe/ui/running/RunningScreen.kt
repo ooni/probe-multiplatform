@@ -46,7 +46,7 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import ooniprobe.composeapp.generated.resources.test_circumvention
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.data.models.TestRunState
+import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.ui.shared.LottieAnimation
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.TopBar
@@ -58,7 +58,7 @@ fun RunningScreen(
     state: RunningViewModel.State,
     onEvent: (RunningViewModel.Event) -> Unit,
 ) {
-    val descriptorColor = (state.testRunState as? TestRunState.Running)?.descriptor?.color
+    val descriptorColor = (state.runBackgroundState as? RunBackgroundState.RunningTests)?.descriptor?.color
     val contentColor = MaterialTheme.customColors.onDescriptor
     Surface(
         color = descriptorColor ?: MaterialTheme.colorScheme.primaryContainer,
@@ -83,9 +83,9 @@ fun RunningScreen(
                 ),
             )
 
-            when (state.testRunState) {
-                is TestRunState.Running -> TestRunning(state.hasProxy, state.testRunState, onEvent)
-                TestRunState.Stopping -> TestStopping()
+            when (state.runBackgroundState) {
+                is RunBackgroundState.RunningTests -> TestRunning(state.hasProxy, state.runBackgroundState, onEvent)
+                RunBackgroundState.Stopping -> TestStopping()
                 else -> Unit
             }
         }
@@ -100,7 +100,7 @@ fun RunningScreen(
 @Composable
 private fun TestRunning(
     hasProxy: Boolean,
-    state: TestRunState.Running,
+    state: RunBackgroundState.RunningTests,
     onEvent: (RunningViewModel.Event) -> Unit,
 ) {
     val contentColor = LocalContentColor.current

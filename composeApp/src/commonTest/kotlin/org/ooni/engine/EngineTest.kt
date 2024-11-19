@@ -1,7 +1,6 @@
 package org.ooni.engine
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.EnginePreferences
@@ -86,7 +85,7 @@ class EngineTest {
                     maxRuntime = null,
                 )
             },
-            observeCancelTestRun = { emptyFlow() },
+            addRunCancelListener = {},
             backgroundContext = Dispatchers.Unconfined,
         )
 }

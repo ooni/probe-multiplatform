@@ -2,16 +2,21 @@ package org.ooni.probe.data.models
 
 import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.models.TestType
+import org.ooni.probe.domain.UploadMissingMeasurements
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-sealed interface TestRunState {
+sealed interface RunBackgroundState {
     data class Idle(
         val lastTestAt: LocalDateTime? = null,
         val justFinishedTest: Boolean = false,
-    ) : TestRunState
+    ) : RunBackgroundState
 
-    data class Running(
+    data class UploadingMissingResults(
+        val state: UploadMissingMeasurements.State,
+    ) : RunBackgroundState
+
+    data class RunningTests(
         val descriptor: Descriptor? = null,
         private val descriptorIndex: Int = 0,
         val testType: TestType? = null,
@@ -20,7 +25,7 @@ sealed interface TestRunState {
         private val testIndex: Int = 0,
         private val testTotal: Int = 1,
         val log: String? = "",
-    ) : TestRunState {
+    ) : RunBackgroundState {
         val estimatedTimeLeft: Duration?
             get() {
                 if (estimatedRuntimeOfDescriptors.isNullOrEmpty()) return null
@@ -45,5 +50,5 @@ sealed interface TestRunState {
             }
     }
 
-    data object Stopping : TestRunState
+    data object Stopping : RunBackgroundState
 }
