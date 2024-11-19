@@ -90,8 +90,8 @@ class RunDescriptors(
     ): List<String>? {
         if (!inputs.isNullOrEmpty() || test !is TestType.WebConnectivity) return inputs
 
-        setCurrentTestState {
-            if (it !is TestRunState.Running) return@setCurrentTestState it
+        setRunBackgroundState {
+            if (it !is RunBackgroundState.RunningTests) return@setRunBackgroundState it
             it.copy(
                 descriptor = descriptor,
                 testType = test,
