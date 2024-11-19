@@ -9,6 +9,7 @@ interface PlatformInfo {
     val osVersion: String
     val model: String
     val needsToRequestNotificationsPermission: Boolean
+    val sentryDsn: String
 }
 
 enum class Platform {

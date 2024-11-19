@@ -114,6 +114,7 @@ class SetupDependencies(
             override val osVersion = with(UIDevice.currentDevice) { "$systemName $systemVersion" }
             override val model = UIDevice.currentDevice.model
             override val needsToRequestNotificationsPermission = true
+            override val sentryDsn = "https://a19b2c03b50acdad7d5635559a8e2cad@o155150.ingest.sentry.io/4508325650235392"
         }
 
     private fun buildDatabaseDriver() = NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")

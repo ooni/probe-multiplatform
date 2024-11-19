@@ -82,6 +82,7 @@ class AndroidApplication : Application() {
             override val model = "${Build.MANUFACTURER} ${Build.MODEL}"
             override val needsToRequestNotificationsPermission =
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+            override val sentryDsn = "https://7a49ffedcb48b9b69705d1ac2c032c69@o155150.ingest.sentry.io/4508325642764288"
         }
     }
 
