@@ -37,6 +37,7 @@ import org.ooni.probe.data.models.ProxyProtocol
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.clickOnContentDescription
 import org.ooni.probe.uitesting.helpers.clickOnText
+import org.ooni.probe.uitesting.helpers.isOoni
 import org.ooni.probe.uitesting.helpers.preferences
 import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
@@ -109,6 +110,7 @@ class SettingsTest {
     @Test
     fun testOptions_websiteCategories() =
         runTest {
+            if (!isOoni) return@runTest
             preferences.setValuesByKey(
                 WebConnectivityCategory.entries.mapNotNull {
                     it.settingsKey?.let { key -> key to false }
