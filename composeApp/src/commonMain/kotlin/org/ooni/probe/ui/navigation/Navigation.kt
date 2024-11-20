@@ -75,9 +75,7 @@ fun Navigation(
         composable(route = Screen.Dashboard.route) {
             val viewModel = viewModel {
                 dependencies.dashboardViewModel(
-                    goToOnboarding = {
-                        navController.goBackAndNavigate(Screen.Onboarding)
-                    },
+                    goToOnboarding = { navController.goBackAndNavigate(Screen.Onboarding) },
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.safeNavigate(Screen.RunningTest) },
                     goToRunTests = { navController.safeNavigate(Screen.RunTests) },
@@ -323,7 +321,7 @@ fun Navigation(
 // Helpers
 
 private fun NavController.goBack() {
-    if (!isResumed()) return
+    if (!isStarted()) return
     if (!popBackStack()) {
         navigateToMainScreen(START_SCREEN)
     }
@@ -333,30 +331,32 @@ private fun NavController.goBackTo(
     screen: Screen,
     inclusive: Boolean = false,
 ) {
-    if (!isResumed()) return
+    if (!isStarted()) return
     if (!popBackStack(screen.route, inclusive = inclusive)) {
         navigateToMainScreen(START_SCREEN)
     }
 }
 
 private fun NavController.goBackAndNavigate(screen: Screen) {
-    if (!isResumed()) return
+    if (!isStarted()) return
     popBackStack()
     navigate(screen.route)
 }
 
 private fun NavController.goBackAndNavigateToMain(screen: Screen) {
-    if (!isResumed()) return
+    if (!isStarted()) return
     popBackStack()
     navigateToMainScreen(screen)
 }
 
 fun NavController.safeNavigate(screen: Screen) {
-    if (!isResumed()) return
+    if (!isStarted()) return
     navigate(screen.route)
 }
 
-private fun NavController.isResumed() = currentBackStackEntry?.lifecycle?.currentState == Lifecycle.State.RESUMED
+private fun NavController.isStarted() =
+    setOf(Lifecycle.State.STARTED, Lifecycle.State.RESUMED)
+        .contains(currentBackStackEntry?.lifecycle?.currentState)
 
 fun NavController.navigateToMainScreen(screen: Screen) {
     navigate(screen.route) {
