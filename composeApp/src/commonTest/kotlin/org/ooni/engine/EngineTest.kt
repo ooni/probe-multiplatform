@@ -75,6 +75,7 @@ class EngineTest {
                 override val osVersion = "1"
                 override val model = "test"
                 override val needsToRequestNotificationsPermission = false
+                override val sentryDsn = ""
             },
             getEnginePreferences = {
                 EnginePreferences(

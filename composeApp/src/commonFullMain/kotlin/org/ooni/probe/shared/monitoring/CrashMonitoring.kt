@@ -9,16 +9,18 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
+import org.ooni.probe.shared.PlatformInfo
 
 class CrashMonitoring(
     private val preferencesRepository: PreferenceRepository,
+    private val platformInfo: PlatformInfo,
 ) {
     suspend fun setup() {
         preferencesRepository.getValueByKey(SettingsKey.SEND_CRASH)
             .onEach { sendCrash ->
                 if (sendCrash == true) {
                     Sentry.init {
-                        it.dsn = SENTRY_DSN
+                        it.dsn = platformInfo.sentryDsn
                     }
                 } else {
                     Sentry.close()
@@ -80,10 +82,5 @@ class CrashMonitoring(
                 ),
             )
         }
-    }
-
-    companion object {
-        private const val SENTRY_DSN =
-            "https://9dcd83d9519844188803aa817cdcd416@o155150.ingest.sentry.io/5619989"
     }
 }

@@ -152,7 +152,7 @@ class Dependencies(
 
     // Monitoring
 
-    val crashMonitoring by lazy { CrashMonitoring(preferenceRepository) }
+    val crashMonitoring by lazy { CrashMonitoring(preferenceRepository, platformInfo) }
     val appLogger by lazy {
         AppLogger(
             readFile = readFile,
