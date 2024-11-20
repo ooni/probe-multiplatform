@@ -21,7 +21,7 @@ import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.toLocalDateTime
 
 class RunNetTest(
-    private val startTest: (String, List<String>?, TaskOrigin, InstalledTestDescriptorModel.Id?) -> Flow<TaskEvent>,
+    private val startTest: (NetTest, TaskOrigin, InstalledTestDescriptorModel.Id?) -> Flow<TaskEvent>,
     private val getOrCreateUrl: suspend (String) -> UrlModel,
     private val storeMeasurement: suspend (MeasurementModel) -> MeasurementModel.Id,
     private val storeNetwork: suspend (NetworkModel) -> NetworkModel.Id,
@@ -64,8 +64,7 @@ class RunNetTest(
             (spec.descriptor.source as? Descriptor.Source.Installed)?.value?.id
 
         startTest(
-            spec.netTest.test.name,
-            spec.netTest.inputs,
+            spec.netTest,
             spec.taskOrigin,
             installedDescriptorId,
         )
