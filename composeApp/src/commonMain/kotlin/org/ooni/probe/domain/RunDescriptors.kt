@@ -90,6 +90,7 @@ class RunDescriptors(
     ): List<String>? {
         if (!inputs.isNullOrEmpty() || test !is TestType.WebConnectivity) return inputs
 
+        // NOTE: General assumption here is that web_connectivity tests will run first.
         setRunBackgroundState {
             if (it !is RunBackgroundState.RunningTests) return@setRunBackgroundState it
             it.copy(
