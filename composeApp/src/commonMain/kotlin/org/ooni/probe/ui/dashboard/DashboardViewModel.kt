@@ -15,8 +15,8 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdatesStatus
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
-import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.RunBackgroundState
+import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.UpdateStatusType
 
 class DashboardViewModel(
@@ -47,14 +47,17 @@ class DashboardViewModel(
             .onEach { firstRun -> if (firstRun) goToOnboarding() }
             .launchIn(viewModelScope)
 
-        observeAvailableUpdatesState().onEach { updates ->
-            _state.update {
-                it.copy(
-                    availableUpdates = updates.availableUpdates.toList(),
-                    refreshType = updates.refreshType,
-                )
+        observeAvailableUpdatesState()
+            .onEach { updates ->
+                _state.update {
+                    it.copy(
+                        availableUpdates = updates.availableUpdates.toList(),
+                        refreshType = updates.refreshType,
+                    )
+                }
             }
-        }.launchIn(viewModelScope)
+            .launchIn(viewModelScope)
+
         getTestDescriptors()
             .onEach { tests ->
                 _state.update { it.copy(descriptors = tests.groupByType()) }
@@ -97,9 +100,7 @@ class DashboardViewModel(
 
         events
             .filterIsInstance<Event.DescriptorClicked>()
-            .onEach { event ->
-                goToDescriptor(event.descriptor.key)
-            }
+            .onEach { event -> goToDescriptor(event.descriptor.key) }
             .launchIn(viewModelScope)
 
         events
@@ -109,30 +110,40 @@ class DashboardViewModel(
             }
             .launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.FetchUpdatedDescriptors>().onEach {
-            state.value.descriptors[DescriptorType.Installed]
-                ?.map { (it.source as Descriptor.Source.Installed).value }
-                ?.let { descriptors ->
-                    fetchDescriptorUpdate(descriptors)
+        events
+            .filterIsInstance<Event.FetchUpdatedDescriptors>()
+            .onEach {
+                state.value.descriptors[DescriptorType.Installed]
+                    ?.map { (it.source as Descriptor.Source.Installed).value }
+                    ?.let { descriptors ->
+                        fetchDescriptorUpdate(descriptors)
+                    }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.ReviewUpdatesClicked>()
+            .onEach {
+                _state.update {
+                    it.copy(
+                        refreshType = UpdateStatusType.None,
+                    )
                 }
-        }.launchIn(viewModelScope)
-        events.filterIsInstance<Event.ReviewUpdatesClicked>().onEach {
-            _state.update {
-                it.copy(
-                    refreshType = UpdateStatusType.None,
-                )
+                reviewUpdates(state.value.availableUpdates)
+                goToReviewDescriptorUpdates()
             }
-            reviewUpdates(state.value.availableUpdates)
-            goToReviewDescriptorUpdates()
-        }.launchIn(viewModelScope)
-        events.filterIsInstance<Event.CancelUpdatesClicked>().onEach {
-            cancelUpdates(state.value.availableUpdates)
-            _state.update {
-                it.copy(
-                    refreshType = UpdateStatusType.None,
-                )
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.CancelUpdatesClicked>()
+            .onEach {
+                cancelUpdates(state.value.availableUpdates)
+                _state.update {
+                    it.copy(
+                        refreshType = UpdateStatusType.None,
+                    )
+                }
             }
-        }.launchIn(viewModelScope)
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {

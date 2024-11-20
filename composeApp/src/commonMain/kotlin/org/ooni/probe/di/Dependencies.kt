@@ -63,6 +63,7 @@ import org.ooni.probe.domain.GetSettings
 import org.ooni.probe.domain.GetStorageUsed
 import org.ooni.probe.domain.GetTestDescriptors
 import org.ooni.probe.domain.GetTestDescriptorsBySpec
+import org.ooni.probe.domain.MarkJustFinishedTestAsSeen
 import org.ooni.probe.domain.ObserveAndConfigureAutoRun
 import org.ooni.probe.domain.RunBackgroundStateManager
 import org.ooni.probe.domain.RunDescriptors
@@ -294,6 +295,9 @@ class Dependencies(
     private val getTestDescriptorsBySpec by lazy {
         GetTestDescriptorsBySpec(getTestDescriptors = getTestDescriptors::invoke)
     }
+    private val markJustFinishedTestAsSeen by lazy {
+        MarkJustFinishedTestAsSeen(runBackgroundStateManager::updateState)
+    }
     val observeAndConfigureAutoRun by lazy {
         ObserveAndConfigureAutoRun(
             backgroundContext = backgroundContext,
@@ -475,6 +479,7 @@ class Dependencies(
         getResults = getResults::invoke,
         getDescriptors = getTestDescriptors::invoke,
         deleteAllResults = deleteAllResults::invoke,
+        markJustFinishedTestAsSeen = markJustFinishedTestAsSeen::invoke,
     )
 
     fun runningViewModel(
