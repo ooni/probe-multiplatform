@@ -371,6 +371,7 @@ class Dependencies(
             clearRunCancelListeners = runBackgroundStateManager::clearCancelListeners,
             setRunBackgroundState = runBackgroundStateManager::updateState,
             getRunBackgroundState = runBackgroundStateManager::observeState,
+            getLatestResult = resultRepository::getLatest,
         )
     }
 
