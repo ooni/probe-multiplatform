@@ -272,6 +272,7 @@ class Dependencies(
             deleteAllResults = deleteAllResults::invoke,
             clearLogs = appLogger::clear,
             updateStorageUsed = getStorageUsed::update,
+            clearPreferences = preferenceRepository::clear,
         )
     }
 

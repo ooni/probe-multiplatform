@@ -1,16 +1,19 @@
 package org.ooni.probe.domain
 
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -59,7 +62,7 @@ import org.ooni.probe.ui.shared.formatDataUsage
 
 class GetSettings(
     private val preferencesRepository: PreferenceRepository,
-    private val clearStorage: suspend () -> Unit,
+    private val clearStorage: suspend (Boolean) -> Unit,
     val observeStorageUsed: () -> Flow<Long>,
     private val supportsCrashReporting: Boolean,
 ) {
@@ -216,41 +219,26 @@ class GetSettings(
                         key = SettingsKey.STORAGE_SIZE,
                         type = PreferenceItemType.BUTTON,
                         supportingContent = {
-                            Text(storageUsed.formatDataUsage())
+                            var showDialog by remember { mutableStateOf(false) }
+                            if (showDialog) {
+                                ClearStorageDialog(
+                                    onClose = { showDialog = false },
+                                    fullReset = true,
+                                )
+                            }
+
+                            Text(
+                                storageUsed.formatDataUsage(),
+                                modifier = Modifier.combinedClickable(
+                                    onClick = {},
+                                    onLongClick = { showDialog = true },
+                                ),
+                            )
                         },
                         trailingContent = {
                             var showDialog by remember { mutableStateOf(false) }
-                            val coroutine = rememberCoroutineScope()
-
                             if (showDialog) {
-                                AlertDialog(
-                                    onDismissRequest = { showDialog = false },
-                                    text = { Text(stringResource(Res.string.Modal_DoYouWantToDeleteAllTests)) },
-                                    confirmButton = {
-                                        Button(
-                                            colors = ButtonDefaults.buttonColors(
-                                                containerColor = MaterialTheme.colorScheme.error,
-                                                contentColor = MaterialTheme.colorScheme.onError,
-                                            ),
-                                            onClick = {
-                                                coroutine.launch {
-                                                    clearStorage()
-                                                    showDialog = false
-                                                }
-                                                showDialog = false
-                                            },
-                                        ) {
-                                            Text(stringResource(Res.string.Modal_Delete))
-                                        }
-                                    },
-                                    dismissButton = {
-                                        OutlinedButton(
-                                            onClick = { showDialog = false },
-                                        ) {
-                                            Text(stringResource(Res.string.Modal_Cancel))
-                                        }
-                                    },
-                                )
+                                ClearStorageDialog(onClose = { showDialog = false })
                             }
 
                             Button(
@@ -277,6 +265,45 @@ class GetSettings(
                 title = Res.string.Settings_About_Label,
                 route = PreferenceCategoryKey.ABOUT_OONI,
             ),
+        )
+    }
+
+    @Composable
+    private fun ClearStorageDialog(
+        onClose: () -> Unit,
+        fullReset: Boolean = false,
+    ) {
+        val coroutine = rememberCoroutineScope()
+
+        AlertDialog(
+            onDismissRequest = { onClose() },
+            text = { Text(stringResource(Res.string.Modal_DoYouWantToDeleteAllTests)) },
+            confirmButton = {
+                var enabled by remember { mutableStateOf(true) }
+                Button(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error,
+                        contentColor = MaterialTheme.colorScheme.onError,
+                    ),
+                    enabled = enabled,
+                    onClick = {
+                        enabled = false
+                        coroutine.launch {
+                            clearStorage(fullReset)
+                            onClose()
+                        }
+                    },
+                ) {
+                    Text(stringResource(Res.string.Modal_Delete))
+                }
+            },
+            dismissButton = {
+                OutlinedButton(
+                    onClick = { onClose() },
+                ) {
+                    Text(stringResource(Res.string.Modal_Cancel))
+                }
+            },
         )
     }
 }
