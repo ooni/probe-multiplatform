@@ -38,10 +38,6 @@ import ooniprobe.composeapp.generated.resources.Settings_Storage_Clear
 import ooniprobe.composeapp.generated.resources.Settings_Storage_Label
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_WarmVPNInUse_Label
-import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Description
-import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
-import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntime
-import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled
 import ooniprobe.composeapp.generated.resources.advanced
 import ooniprobe.composeapp.generated.resources.auto_test_not_uploaded_limit
 import ooniprobe.composeapp.generated.resources.ic_settings
@@ -60,8 +56,6 @@ import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.ui.settings.category.SettingsDescription
 import org.ooni.probe.ui.shared.formatDataUsage
-import org.ooni.probe.ui.shared.shortFormat
-import kotlin.time.Duration.Companion.seconds
 
 class GetSettings(
     private val preferencesRepository: PreferenceRepository,
@@ -87,8 +81,7 @@ class GetSettings(
             buildSettings(
                 uploadResultsEnabled = preferences[SettingsKey.UPLOAD_RESULTS] == true,
                 autoRunEnabled = preferences[SettingsKey.AUTOMATED_TESTING_ENABLED] == true,
-                autoRunNotUploadedLimit =
-                    preferences[SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT] as? Int,
+                autoRunNotUploadedLimit = preferences[SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT] as? Int,
                 enabledCategoriesCount = enabledCategoriesCount,
                 maxRuntimeEnabled = preferences[SettingsKey.MAX_RUNTIME_ENABLED] == true,
                 maxRuntime = preferences[SettingsKey.MAX_RUNTIME] as? Int,
@@ -167,44 +160,10 @@ class GetSettings(
                             Text(value.toString())
                         },
                     ),
-                    SettingsCategoryItem(
-                        title = Res.string.Settings_Websites_Categories_Label,
-                        route = PreferenceCategoryKey.WEBSITES_CATEGORIES,
-                        supportingContent = {
-                            Text(
-                                stringResource(
-                                    Res.string.Settings_Websites_Categories_Description,
-                                    enabledCategoriesCount,
-                                ),
-                            )
-                        },
-                        settings = WebConnectivityCategory.entries
-                            .mapNotNull { cat ->
-                                SettingsItem(
-                                    icon = cat.icon,
-                                    title = cat.title,
-                                    supportingContent = { Text(stringResource(cat.description)) },
-                                    key = cat.settingsKey ?: return@mapNotNull null,
-                                    type = PreferenceItemType.SWITCH,
-                                )
-                            },
-                    ),
-                    SettingsItem(
-                        title = Res.string.Settings_Websites_MaxRuntimeEnabled,
-                        key = SettingsKey.MAX_RUNTIME_ENABLED,
-                        type = PreferenceItemType.SWITCH,
-                    ),
-                    SettingsItem(
-                        title = Res.string.Settings_Websites_MaxRuntime,
-                        key = SettingsKey.MAX_RUNTIME,
-                        type = PreferenceItemType.INT,
-                        enabled = maxRuntimeEnabled,
-                        supportingContent = {
-                            maxRuntime?.let {
-                                Text(it.coerceAtLeast(0).seconds.shortFormat())
-                            }
-                        },
-                    ),
+                ) + webConnectivityPreferences(
+                    enabledCategoriesCount,
+                    maxRuntimeEnabled,
+                    maxRuntime,
                 ),
                 footerContent = {
                     SettingsDescription(
