@@ -97,7 +97,11 @@ actual fun OoniWebView(
                     view: WebView,
                     newProgress: Int,
                 ) {
-                    controller.state = OoniWebViewController.State.Loading(newProgress / 100f)
+                    controller.state = if (newProgress != 100) {
+                        OoniWebViewController.State.Loading(newProgress / 100f)
+                    } else {
+                        OoniWebViewController.State.Finished
+                    }
                 }
             }
             webView
