@@ -24,6 +24,8 @@ import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.shared.value
 import kotlin.coroutines.CoroutineContext
 
+const val MAX_RUNTIME_DISABLED = -1
+
 class Engine(
     @VisibleForTesting
     var bridge: OonimkallBridge,
@@ -121,7 +123,7 @@ class Engine(
         preferences: EnginePreferences,
         descriptorId: InstalledTestDescriptorModel.Id?,
     ) = TaskSettings(
-        name =netTest.test.name,
+        name = netTest.test.name,
         inputs = netTest.inputs.orEmpty(),
         disabledEvents = listOf(
             "status.queued",
@@ -137,7 +139,7 @@ class Engine(
             noCollector = !preferences.uploadResults,
             softwareName = buildSoftwareName(taskOrigin),
             softwareVersion = platformInfo.buildName,
-            maxRuntime = if (taskOrigin == TaskOrigin.AutoRun) -1 else (preferences.maxRuntime?.inWholeSeconds?.toInt() ?: -1),
+            maxRuntime = maxRuntime(taskOrigin, netTest, preferences),
         ),
         annotations = TaskSettings.Annotations(
             networkType = networkTypeFinder(),
@@ -147,6 +149,20 @@ class Engine(
         ),
         proxy = preferences.proxy,
     )
+
+    private fun maxRuntime(
+        taskOrigin: TaskOrigin,
+        netTest: NetTest,
+        preferences: EnginePreferences,
+    ) = if (taskOrigin == TaskOrigin.AutoRun) {
+        MAX_RUNTIME_DISABLED
+    } else if (netTest.callCheckIn == true) {
+        preferences.maxRuntime?.inWholeSeconds?.toInt()?.let { maxRuntimePreference ->
+            if (maxRuntimePreference > 0) 30 + maxRuntimePreference else MAX_RUNTIME_DISABLED
+        } ?: MAX_RUNTIME_DISABLED
+    } else {
+        netTest.test.runtime(inputs = netTest.inputs).inWholeSeconds.toInt()
+    }
 
     private fun buildSessionConfig(
         taskOrigin: TaskOrigin,
