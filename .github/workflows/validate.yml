@@ -125,7 +125,7 @@ jobs:
     name: Firebase App Distribution
     runs-on: ubuntu-latest
     needs: [ common-tests ]
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     strategy:
       matrix:
         organization: [ ooni, dw ]
