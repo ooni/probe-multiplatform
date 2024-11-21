@@ -156,12 +156,12 @@ class Engine(
         preferences: EnginePreferences,
     ) = if (taskOrigin == TaskOrigin.AutoRun) {
         MAX_RUNTIME_DISABLED
-    } else if (netTest.callCheckIn == true) {
+    } else if (netTest.callCheckIn) {
         preferences.maxRuntime?.inWholeSeconds?.toInt()?.let { maxRuntimePreference ->
             if (maxRuntimePreference > 0) 30 + maxRuntimePreference else MAX_RUNTIME_DISABLED
         } ?: MAX_RUNTIME_DISABLED
     } else {
-        netTest.test.runtime(inputs = netTest.inputs).inWholeSeconds.toInt()
+        MAX_RUNTIME_DISABLED
     }
 
     private fun buildSessionConfig(
