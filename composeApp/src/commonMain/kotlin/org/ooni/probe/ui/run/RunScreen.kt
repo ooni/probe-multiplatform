@@ -279,7 +279,7 @@ private fun DescriptorItem(
             onClick = null,
             modifier = Modifier.padding(end = 24.dp),
         )
-        TestDescriptorLabel(descriptor)
+        TestDescriptorLabel(descriptor, modifier = Modifier.weight(1f))
         IconButton(onClick = { onDropdownToggled() }) {
             Icon(
                 painterResource(
