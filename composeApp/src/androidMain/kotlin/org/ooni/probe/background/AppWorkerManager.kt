@@ -62,6 +62,7 @@ class AppWorkerManager(
     suspend fun configureDescriptorAutoUpdate(): Boolean {
         return withContext(backgroundDispatcher) {
             val request = PeriodicWorkRequestBuilder<DescriptorUpdateWorker>(1, TimeUnit.DAYS)
+                .setInitialDelay(1, TimeUnit.DAYS) // avoid immediate start
                 .build()
             workManager.enqueueUniquePeriodicWork(
                 DescriptorUpdateWorker.AutoUpdateWorkerName,

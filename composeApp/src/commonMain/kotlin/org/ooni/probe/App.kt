@@ -97,16 +97,14 @@ fun App(
     LaunchedEffect(Unit) {
         dependencies.bootstrapTestDescriptors()
         dependencies.bootstrapPreferences()
+        dependencies.configureDescriptorAutoUpdate()
+        dependencies.fetchDescriptorUpdate(null)
     }
     LaunchedEffect(Unit) {
         dependencies.finishInProgressData()
     }
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()
-    }
-    LaunchedEffect(Unit) {
-        dependencies.configureDescriptorAutoUpdate()
-        dependencies.fetchDescriptorUpdate(null)
     }
 
     LaunchedEffect(deepLink) {
