@@ -12,8 +12,10 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Res
@@ -41,11 +43,14 @@ class DescriptorUpdateWorker(
     }
 
     override suspend fun doWork(): Result {
-        return coroutineScope {
-            val descriptors = getDescriptors() ?: return@coroutineScope Result.failure()
-            if (descriptors.isEmpty()) return@coroutineScope Result.success(buildWorkData(descriptors.map { it.id }))
+        try {
+            val descriptors = getDescriptors() ?: return Result.failure()
+            if (descriptors.isEmpty()) return Result.success(buildWorkData(descriptors.map { it.id }))
             dependencies.getDescriptorUpdate.invoke(descriptors)
-            return@coroutineScope Result.success(buildWorkData(descriptors.map { it.id }))
+            return Result.success(buildWorkData(descriptors.map { it.id }))
+        } catch (e: CancellationException) {
+            Logger.w("DescriptorUpdateWorker: cancelled", e)
+            return Result.failure()
         }
     }
 
@@ -55,7 +60,10 @@ class DescriptorUpdateWorker(
             try {
                 val ids = json.decodeFromString<List<InstalledTestDescriptorModel.Id>>(descriptorsJson)
                 return testDescriptorRepository.selectByRunIds(ids).first()
-            } catch (e: Exception) {
+            } catch (e: SerializationException) {
+                Logger.w("Could not start update worker: invalid configuration", e)
+                return null
+            }catch (e: IllegalArgumentException) {
                 Logger.w("Could not start update worker: invalid configuration", e)
                 return null
             }
