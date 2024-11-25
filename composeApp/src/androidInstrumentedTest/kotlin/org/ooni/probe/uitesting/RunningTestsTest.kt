@@ -30,7 +30,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.uitesting.helpers.checkLinkInsideWebView
+import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
 import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.isNewsMediaScan
@@ -137,10 +137,7 @@ class RunningTestsTest {
                 clickOnText(Res.string.Test_Experimental_Fullname)
                 compose.onAllNodesWithText("stunreachability")[0].performClick()
                 wait { onNodeWithText(Res.string.measurement).isDisplayed() }
-                checkLinkInsideWebView(
-                    "https://ooni.org/nettest/http-requests/",
-                    "STUN Reachability",
-                )
+                checkTextAnywhereInsideWebView("stunreachability")
             }
         }
 
