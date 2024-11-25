@@ -10,6 +10,8 @@ import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskLogLevel
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
+import org.ooni.engine.models.TestType
+import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -29,8 +31,10 @@ class EngineTest {
             val engine = buildEngine(bridge)
 
             val events = engine.startTask(
-                name = "web_connectivity",
-                inputs = listOf("https://ooni.org"),
+                NetTest(
+                    test = TestType.WebConnectivity,
+                    inputs = listOf("https://ooni.org"),
+                ),
                 taskOrigin = TaskOrigin.OoniRun,
                 descriptorId = null,
             ).toList()

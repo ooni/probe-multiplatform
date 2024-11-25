@@ -34,6 +34,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.times
 
 @Serializable(with = TestTypeSerializer::class)
 sealed class TestType {
@@ -140,7 +141,7 @@ sealed class TestType {
         override val iconRes: DrawableResource = Res.drawable.test_websites
         override val url: String = "https://ooni.org/nettest/web-connectivity"
 
-        override fun runtime(inputs: List<String>?) = 5.seconds * (inputs?.ifEmpty { null }?.size ?: 30)
+        override fun runtime(inputs: List<String>?) = 30.seconds + inputs.orEmpty().size.times(5.seconds)
     }
 
     data object Whatsapp : TestType() {

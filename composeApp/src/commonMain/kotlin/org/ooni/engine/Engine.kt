@@ -19,9 +19,12 @@ import org.ooni.engine.models.TaskSettings
 import org.ooni.engine.models.resultOf
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.shared.value
 import kotlin.coroutines.CoroutineContext
+
+const val MAX_RUNTIME_DISABLED = -1
 
 class Engine(
     @VisibleForTesting
@@ -38,15 +41,14 @@ class Engine(
     private val backgroundContext: CoroutineContext,
 ) {
     fun startTask(
-        name: String,
-        inputs: List<String>?,
+        netTest: NetTest,
         taskOrigin: TaskOrigin,
         descriptorId: InstalledTestDescriptorModel.Id?,
     ): Flow<TaskEvent> =
         channelFlow {
             val preferences = getEnginePreferences()
             val taskSettings =
-                buildTaskSettings(name, inputs, taskOrigin, preferences, descriptorId)
+                buildTaskSettings(netTest, taskOrigin, preferences, descriptorId)
             val settingsSerialized = json.encodeToString(taskSettings)
 
             var task: OonimkallBridge.Task? = null
@@ -116,14 +118,13 @@ class Engine(
     private fun session(sessionConfig: OonimkallBridge.SessionConfig): OonimkallBridge.Session = bridge.newSession(sessionConfig)
 
     private fun buildTaskSettings(
-        name: String,
-        inputs: List<String>?,
+        netTest: NetTest,
         taskOrigin: TaskOrigin,
         preferences: EnginePreferences,
         descriptorId: InstalledTestDescriptorModel.Id?,
     ) = TaskSettings(
-        name = name,
-        inputs = inputs.orEmpty(),
+        name = netTest.test.name,
+        inputs = netTest.inputs.orEmpty(),
         disabledEvents = listOf(
             "status.queued",
             "status.update.websites",
@@ -138,7 +139,7 @@ class Engine(
             noCollector = !preferences.uploadResults,
             softwareName = buildSoftwareName(taskOrigin),
             softwareVersion = platformInfo.buildName,
-            maxRuntime = preferences.maxRuntime?.inWholeSeconds?.toInt() ?: -1,
+            maxRuntime = maxRuntime(taskOrigin, netTest, preferences),
         ),
         annotations = TaskSettings.Annotations(
             networkType = networkTypeFinder(),
@@ -148,6 +149,20 @@ class Engine(
         ),
         proxy = preferences.proxy,
     )
+
+    private fun maxRuntime(
+        taskOrigin: TaskOrigin,
+        netTest: NetTest,
+        preferences: EnginePreferences,
+    ) = if (taskOrigin == TaskOrigin.AutoRun) {
+        MAX_RUNTIME_DISABLED
+    } else if (netTest.callCheckIn) {
+        preferences.maxRuntime?.inWholeSeconds?.toInt()?.let { maxRuntimePreference ->
+            if (maxRuntimePreference > 0) 30 + maxRuntimePreference else MAX_RUNTIME_DISABLED
+        } ?: MAX_RUNTIME_DISABLED
+    } else {
+        MAX_RUNTIME_DISABLED
+    }
 
     private fun buildSessionConfig(
         taskOrigin: TaskOrigin,

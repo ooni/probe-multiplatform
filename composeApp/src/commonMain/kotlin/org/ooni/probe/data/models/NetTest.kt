@@ -8,6 +8,7 @@ import org.ooni.engine.models.TestType
 data class NetTest(
     val test: TestType,
     val inputs: List<String>? = emptyList(),
+    val callCheckIn: Boolean = false,
 ) {
     fun toOONI() = OONINetTest(test.name, inputs)
 
