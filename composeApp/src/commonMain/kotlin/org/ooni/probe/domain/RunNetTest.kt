@@ -221,7 +221,7 @@ class RunNetTest(
 
             is TaskEvent.StartupFailure,
             is TaskEvent.ResolverLookupFailure,
-                -> {
+            -> {
                 val message = when (event) {
                     is TaskEvent.StartupFailure -> event.message
                     is TaskEvent.ResolverLookupFailure -> event.message
@@ -232,28 +232,33 @@ class RunNetTest(
                     updateResult {
                         it.copy(
                             failureMessage =
-                            if (it.failureMessage != null) {
-                                "${it.failureMessage}\n$message"
-                            } else {
-                                message
-                            },
+                                if (it.failureMessage != null) {
+                                    "${it.failureMessage}\n$message"
+                                } else {
+                                    message
+                                },
                         )
                     }
                 }
 
+                if (event.isCancelled() == true) return
+
                 when (event) {
                     is TaskEvent.StartupFailure ->
-                        Logger.w(message ?: "StartupFailure", Failure(event.value))
+                        Logger.w("StartupFailure", StartupFailure(message, event.value))
 
                     is TaskEvent.ResolverLookupFailure ->
-                        Logger.i(message ?: "ResolverLookupFailure", Failure(event.value))
+                        Logger.i(
+                            "ResolverLookupFailure",
+                            ResolverLookupFailure(message, event.value),
+                        )
 
                     else -> Unit
                 }
             }
 
             is TaskEvent.BugJsonDump -> {
-                Logger.w("BugJsonDump", Failure(event.value))
+                Logger.w("BugJsonDump", BugJsonDump(event.value))
             }
 
             is TaskEvent.TaskTerminated -> Unit
@@ -293,5 +298,21 @@ class RunNetTest(
         )
     }
 
-    inner class Failure(value: TaskEventResult.Value) : Exception(json.encodeToString(value))
+    open inner class Failure(message: String?, value: TaskEventResult.Value?) : Exception(
+        if (message != null && value != null) {
+            message + "\n" + json.encodeToString(value)
+        } else if (value != null) {
+            json.encodeToString(value)
+        } else {
+            message ?: ""
+        },
+    )
+
+    inner class StartupFailure(message: String?, value: TaskEventResult.Value?) :
+        Failure(message, value)
+
+    inner class ResolverLookupFailure(message: String?, value: TaskEventResult.Value?) :
+        Failure(message, value)
+
+    inner class BugJsonDump(value: TaskEventResult.Value?) : Failure(null, value)
 }

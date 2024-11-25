@@ -52,15 +52,19 @@ class Engine(
             val settingsSerialized = json.encodeToString(taskSettings)
 
             var task: OonimkallBridge.Task? = null
+            var isCancelled = false
             try {
                 task = bridge.startTask(settingsSerialized)
 
-                addRunCancelListener { task.interrupt() }
+                addRunCancelListener {
+                    isCancelled = true
+                    task.interrupt()
+                }
 
                 while (!task.isDone() && isActive) {
                     val eventJson = task.waitForNextEvent()
                     val taskEventResult = json.decodeFromString<TaskEventResult>(eventJson)
-                    taskEventMapper(taskEventResult)?.let { send(it) }
+                    taskEventMapper(taskEventResult, isCancelled)?.let { send(it) }
                 }
             } catch (e: Exception) {
                 Logger.d("Error while running task", e)

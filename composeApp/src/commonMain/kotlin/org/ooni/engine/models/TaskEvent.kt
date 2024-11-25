@@ -59,6 +59,7 @@ sealed interface TaskEvent {
     data class ResolverLookupFailure(
         val message: String?,
         val value: TaskEventResult.Value,
+        val isCancelled: Boolean,
     ) : TaskEvent
 
     data object Started : TaskEvent
@@ -66,9 +67,17 @@ sealed interface TaskEvent {
     data class StartupFailure(
         val message: String?,
         val value: TaskEventResult.Value,
+        val isCancelled: Boolean,
     ) : TaskEvent
 
     data class TaskTerminated(
         val index: Int,
     ) : TaskEvent
+
+    fun isCancelled() =
+        when (this) {
+            is StartupFailure -> isCancelled
+            is ResolverLookupFailure -> isCancelled
+            else -> null
+        }
 }
