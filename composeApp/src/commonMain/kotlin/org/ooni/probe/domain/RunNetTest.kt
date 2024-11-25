@@ -221,7 +221,7 @@ class RunNetTest(
 
             is TaskEvent.StartupFailure,
             is TaskEvent.ResolverLookupFailure,
-            -> {
+                -> {
                 val message = when (event) {
                     is TaskEvent.StartupFailure -> event.message
                     is TaskEvent.ResolverLookupFailure -> event.message
@@ -232,22 +232,24 @@ class RunNetTest(
                     updateResult {
                         it.copy(
                             failureMessage =
-                                if (it.failureMessage != null) {
-                                    "${it.failureMessage}\n$message"
-                                } else {
-                                    message
-                                },
+                            if (it.failureMessage != null) {
+                                "${it.failureMessage}\n$message"
+                            } else {
+                                message
+                            },
                         )
                     }
                 }
 
-                val value = when (event) {
-                    is TaskEvent.StartupFailure -> event.value
-                    is TaskEvent.ResolverLookupFailure -> event.value
-                    else -> null
-                } ?: return
+                when (event) {
+                    is TaskEvent.StartupFailure ->
+                        Logger.w(message ?: "StartupFailure", Failure(event.value))
 
-                Logger.w(message ?: "Failure", Failure(value))
+                    is TaskEvent.ResolverLookupFailure ->
+                        Logger.i(message ?: "ResolverLookupFailure", Failure(event.value))
+
+                    else -> Unit
+                }
             }
 
             is TaskEvent.BugJsonDump -> {
