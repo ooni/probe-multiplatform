@@ -13,7 +13,6 @@ import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
@@ -63,7 +62,7 @@ class DescriptorUpdateWorker(
             } catch (e: SerializationException) {
                 Logger.w("Could not start update worker: invalid configuration", e)
                 return null
-            }catch (e: IllegalArgumentException) {
+            } catch (e: IllegalArgumentException) {
                 Logger.w("Could not start update worker: invalid configuration", e)
                 return null
             }
