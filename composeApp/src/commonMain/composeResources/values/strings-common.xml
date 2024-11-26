@@ -293,4 +293,5 @@
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
     <string name="Settings_Sharing_UploadResults_Description">Results are automatically uploaded to OONI explorer</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run every hour in the background</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
 </resources>
