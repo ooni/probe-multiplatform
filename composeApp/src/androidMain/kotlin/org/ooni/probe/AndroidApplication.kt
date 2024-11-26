@@ -152,7 +152,7 @@ class AndroidApplication : Application() {
     private fun sendMail(mail: PlatformAction.Mail): Boolean {
         val intent = Intent.createChooser(
             Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("mailto:${mail.to}")
+                data = Uri.parse(mail.to)
                 putExtra(Intent.EXTRA_SUBJECT, mail.subject)
                 putExtra(Intent.EXTRA_TEXT, mail.body)
             },
