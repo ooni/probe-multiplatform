@@ -88,6 +88,7 @@ class IosOonimkallBridge: OonimkallBridge {
                         }
                     }
                     
+                    try ses?.close()
                     return OonimkallBridgeCheckInResults(
                         reportId: info?.webConnectivity?.reportID,
                         urls: responseUrls

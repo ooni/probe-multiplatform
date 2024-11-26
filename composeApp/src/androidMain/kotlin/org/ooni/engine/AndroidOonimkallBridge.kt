@@ -38,6 +38,9 @@ class AndroidOonimkallBridge : OonimkallBridge {
             override fun checkIn(config: OonimkallBridge.CheckInConfig): OonimkallBridge.CheckInResults {
                 val context = session.newContextWithTimeout(CONTEXT_TIMEOUT)
                 val info = session.checkIn(context, config.toMk())
+                runCatching {
+                    session.close()
+                }
                 return OonimkallBridge.CheckInResults(
                     reportId = info.webConnectivity?.reportID,
                     urls = info.webConnectivity.getUrlInfos(),
