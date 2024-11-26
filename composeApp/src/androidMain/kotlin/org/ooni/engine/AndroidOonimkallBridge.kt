@@ -38,11 +38,6 @@ class AndroidOonimkallBridge : OonimkallBridge {
             override fun checkIn(config: OonimkallBridge.CheckInConfig): OonimkallBridge.CheckInResults {
                 val context = session.newContextWithTimeout(CONTEXT_TIMEOUT)
                 val info = session.checkIn(context, config.toMk())
-                runCatching {
-                    session.close()
-                }.onFailure {
-                    co.touchlab.kermit.Logger.w(it) { "Failed to close session" }
-                }
                 return OonimkallBridge.CheckInResults(
                     reportId = info.webConnectivity?.reportID,
                     urls = info.webConnectivity.getUrlInfos(),
@@ -53,6 +48,10 @@ class AndroidOonimkallBridge : OonimkallBridge {
                 val context = session.newContextWithTimeout(CONTEXT_TIMEOUT)
                 val response = session.httpDo(context, request.toMk())
                 return OonimkallBridge.HTTPResponse(body = response.body)
+            }
+
+            override fun close() {
+                session.close()
             }
         }
     }
