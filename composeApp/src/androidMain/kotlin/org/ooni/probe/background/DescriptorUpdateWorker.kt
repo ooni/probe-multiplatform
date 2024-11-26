@@ -44,7 +44,10 @@ class DescriptorUpdateWorker(
     override suspend fun doWork(): Result {
         try {
             val descriptors = getDescriptors() ?: return Result.failure()
-            if (descriptors.isEmpty()) return Result.success(buildWorkData(descriptors.map { it.id }))
+            if (descriptors.isEmpty()) {
+                Logger.i("Skipping DescriptorUpdateWorker: no descriptors to update")
+                return Result.success(buildWorkData(descriptors.map { it.id }))
+            }
             dependencies.getDescriptorUpdate.invoke(descriptors)
             return Result.success(buildWorkData(descriptors.map { it.id }))
         } catch (e: CancellationException) {
@@ -57,7 +60,8 @@ class DescriptorUpdateWorker(
         val descriptorsJson = inputData.getString(DATA_KEY_DESCRIPTORS)
         if (descriptorsJson != null) {
             try {
-                val ids = json.decodeFromString<List<InstalledTestDescriptorModel.Id>>(descriptorsJson)
+                val ids =
+                    json.decodeFromString<List<InstalledTestDescriptorModel.Id>>(descriptorsJson)
                 return testDescriptorRepository.selectByRunIds(ids).first()
             } catch (e: SerializationException) {
                 Logger.w("Could not start update worker: invalid configuration", e)

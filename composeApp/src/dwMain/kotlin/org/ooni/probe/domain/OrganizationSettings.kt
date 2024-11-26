@@ -11,6 +11,6 @@ fun webConnectivityPreferences(
     return emptyList()
 }
 
-fun preferenceDefaults(): List<Pair<SettingsKey,Any>> {
+fun preferenceDefaults(): List<Pair<SettingsKey, Any>> {
     return emptyList()
 }
