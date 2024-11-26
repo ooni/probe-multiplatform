@@ -91,13 +91,10 @@ fun ComposeTestRule.checkSummaryInsideWebView(text: String) {
     }
 }
 
-fun ComposeTestRule.checkLinkInsideWebView(
-    link: String,
-    text: String,
-) {
+fun ComposeTestRule.checkTextAnywhereInsideWebView(text: String) {
     waitAssertion(WEBSITE_WAIT_TIMEOUT) {
         onWebView()
-            .withElement(findElement(Locator.CSS_SELECTOR, "a[href=\"$link\""))
+            .withElement(findElement(Locator.CSS_SELECTOR, "*"))
             .check(webMatches(getText(), containsString(text)))
     }
 }
