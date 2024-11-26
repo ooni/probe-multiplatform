@@ -241,17 +241,24 @@ class RunNetTest(
                     }
                 }
 
-                val value = when (event) {
-                    is TaskEvent.StartupFailure -> event.value
-                    is TaskEvent.ResolverLookupFailure -> event.value
-                    else -> null
-                } ?: return
+                if (event.isCancelled() == true) return
 
-                Logger.w(message ?: "Failure", Failure(value))
+                when (event) {
+                    is TaskEvent.StartupFailure ->
+                        Logger.w("StartupFailure", StartupFailure(message, event.value))
+
+                    is TaskEvent.ResolverLookupFailure ->
+                        Logger.i(
+                            "ResolverLookupFailure",
+                            ResolverLookupFailure(message, event.value),
+                        )
+
+                    else -> Unit
+                }
             }
 
             is TaskEvent.BugJsonDump -> {
-                Logger.w("BugJsonDump", Failure(event.value))
+                Logger.w("BugJsonDump", BugJsonDump(event.value))
             }
 
             is TaskEvent.TaskTerminated -> Unit
@@ -291,5 +298,21 @@ class RunNetTest(
         )
     }
 
-    inner class Failure(value: TaskEventResult.Value) : Exception(json.encodeToString(value))
+    open inner class Failure(message: String?, value: TaskEventResult.Value?) : Exception(
+        if (message != null && value != null) {
+            message + "\n" + json.encodeToString(value)
+        } else if (value != null) {
+            json.encodeToString(value)
+        } else {
+            message ?: ""
+        },
+    )
+
+    inner class StartupFailure(message: String?, value: TaskEventResult.Value?) :
+        Failure(message, value)
+
+    inner class ResolverLookupFailure(message: String?, value: TaskEventResult.Value?) :
+        Failure(message, value)
+
+    inner class BugJsonDump(value: TaskEventResult.Value?) : Failure(null, value)
 }
