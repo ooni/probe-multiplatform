@@ -40,6 +40,8 @@ class AndroidOonimkallBridge : OonimkallBridge {
                 val info = session.checkIn(context, config.toMk())
                 runCatching {
                     session.close()
+                }.onFailure {
+                    co.touchlab.kermit.Logger.w(it) { "Failed to close session" }
                 }
                 return OonimkallBridge.CheckInResults(
                     reportId = info.webConnectivity?.reportID,
