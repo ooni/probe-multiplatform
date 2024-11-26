@@ -2,6 +2,9 @@
 
 Multiplatform (Android and iOS currently) version of the Probe app.
 
+![Validate](https://github.com/ooni/probe-multiplatform/actions/workflows/validate.yml/badge.svg)
+![Android Instrumented Tests](https://github.com/ooni/probe-multiplatform/actions/workflows/instrumented-tests.yml/badge.svg)
+
 ## Project structure
 
 * `composeApp` is for code that will be shared across your Compose Multiplatform applications.
