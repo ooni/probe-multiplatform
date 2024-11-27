@@ -28,6 +28,7 @@ import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_RecentLogs
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_ChargingOnly
+import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_Description
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_Footer
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_WiFiOnly
 import ooniprobe.composeapp.generated.resources.Settings_Notifications_Enabled
@@ -37,10 +38,16 @@ import ooniprobe.composeapp.generated.resources.Settings_Privacy_SendCrashReport
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
 import ooniprobe.composeapp.generated.resources.Settings_SendEmail_Label
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults
+import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_Description
 import ooniprobe.composeapp.generated.resources.Settings_Storage_Clear
 import ooniprobe.composeapp.generated.resources.Settings_Storage_Label
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_WarmVPNInUse_Label
+import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Description
+import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
+import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled_Description
+import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled_New
+import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntime_New
 import ooniprobe.composeapp.generated.resources.advanced
 import ooniprobe.composeapp.generated.resources.auto_test_not_uploaded_limit
 import ooniprobe.composeapp.generated.resources.ic_settings
@@ -51,6 +58,7 @@ import ooniprobe.composeapp.generated.resources.proxy
 import ooniprobe.composeapp.generated.resources.send_email
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.WebConnectivityCategory
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.PreferenceItemType
 import org.ooni.probe.data.models.SettingsCategoryItem
@@ -59,6 +67,8 @@ import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.ui.settings.category.SettingsDescription
 import org.ooni.probe.ui.shared.formatDataUsage
+import org.ooni.probe.ui.shared.shortFormat
+import kotlin.time.Duration.Companion.seconds
 
 class GetSettings(
     private val preferencesRepository: PreferenceRepository,
@@ -82,6 +92,7 @@ class GetSettings(
             val enabledCategoriesCount =
                 WebConnectivityCategory.entries.count { preferences[it.settingsKey] == true }
             buildSettings(
+                hasWebsitesDescriptor = OrganizationConfig.hasWebsitesDescriptor,
                 uploadResultsEnabled = preferences[SettingsKey.UPLOAD_RESULTS] == true,
                 autoRunEnabled = preferences[SettingsKey.AUTOMATED_TESTING_ENABLED] == true,
                 autoRunNotUploadedLimit = preferences[SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT] as? Int,
@@ -95,6 +106,7 @@ class GetSettings(
     }
 
     private fun buildSettings(
+        hasWebsitesDescriptor: Boolean,
         uploadResultsEnabled: Boolean,
         autoRunEnabled: Boolean,
         autoRunNotUploadedLimit: Int?,
@@ -131,43 +143,117 @@ class GetSettings(
                         title = Res.string.Settings_Sharing_UploadResults,
                         key = SettingsKey.UPLOAD_RESULTS,
                         type = PreferenceItemType.SWITCH,
+                        supportingContent = {
+                            Text(
+                                stringResource(Res.string.Settings_Sharing_UploadResults_Description),
+                                style = MaterialTheme.typography.labelLarge,
+                            )
+                        },
                     ),
                     SettingsItem(
                         title = Res.string.Settings_AutomatedTesting_RunAutomatically,
                         key = SettingsKey.AUTOMATED_TESTING_ENABLED,
                         type = PreferenceItemType.SWITCH,
                         enabled = uploadResultsEnabled,
-                    ),
-                    SettingsItem(
-                        title = Res.string.Settings_AutomatedTesting_RunAutomatically_WiFiOnly,
-                        key = SettingsKey.AUTOMATED_TESTING_WIFIONLY,
-                        type = PreferenceItemType.SWITCH,
-                        enabled = autoRunEnabled && uploadResultsEnabled,
-                    ),
-                    SettingsItem(
-                        title = Res.string.Settings_AutomatedTesting_RunAutomatically_ChargingOnly,
-                        key = SettingsKey.AUTOMATED_TESTING_CHARGING,
-                        type = PreferenceItemType.SWITCH,
-                        enabled = autoRunEnabled && uploadResultsEnabled,
-                    ),
-                    SettingsItem(
-                        title = Res.string.auto_test_not_uploaded_limit,
-                        key = SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT,
-                        type = PreferenceItemType.INT,
-                        enabled = autoRunEnabled && uploadResultsEnabled,
                         supportingContent = {
-                            val value = (
-                                autoRunNotUploadedLimit
-                                    ?: BootstrapPreferences.NOT_UPLOADED_LIMIT_DEFAULT
-                            ).coerceAtLeast(1)
-                            Text(value.toString())
+                            Text(
+                                stringResource(Res.string.Settings_AutomatedTesting_RunAutomatically_Description),
+                                style = MaterialTheme.typography.labelLarge,
+                            )
                         },
                     ),
-                ) + webConnectivityPreferences(
-                    enabledCategoriesCount,
-                    maxRuntimeEnabled,
-                    maxRuntime,
-                ),
+                ) + if (autoRunEnabled) {
+                    listOf(
+                        SettingsItem(
+                            title = Res.string.Settings_AutomatedTesting_RunAutomatically_WiFiOnly,
+                            key = SettingsKey.AUTOMATED_TESTING_WIFIONLY,
+                            type = PreferenceItemType.SWITCH,
+                            enabled = autoRunEnabled && uploadResultsEnabled,
+                            indentation = 1,
+                        ),
+                        SettingsItem(
+                            title = Res.string.Settings_AutomatedTesting_RunAutomatically_ChargingOnly,
+                            key = SettingsKey.AUTOMATED_TESTING_CHARGING,
+                            type = PreferenceItemType.SWITCH,
+                            enabled = autoRunEnabled && uploadResultsEnabled,
+                            indentation = 1,
+                        ),
+                        SettingsItem(
+                            title = Res.string.auto_test_not_uploaded_limit,
+                            key = SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT,
+                            type = PreferenceItemType.INT,
+                            enabled = autoRunEnabled && uploadResultsEnabled,
+                            supportingContent = {
+                                val value = (
+                                    autoRunNotUploadedLimit
+                                        ?: BootstrapPreferences.NOT_UPLOADED_LIMIT_DEFAULT
+                                ).coerceAtLeast(1)
+                                Text(value.toString())
+                            },
+                            indentation = 1,
+                        ),
+                    )
+                } else {
+                    emptyList()
+                } + if (hasWebsitesDescriptor) {
+                    listOfNotNull(
+                        SettingsItem(
+                            title = Res.string.Settings_Websites_MaxRuntimeEnabled_New,
+                            key = SettingsKey.MAX_RUNTIME_ENABLED,
+                            type = PreferenceItemType.SWITCH,
+                            supportingContent = {
+                                Text(
+                                    stringResource(Res.string.Settings_Websites_MaxRuntimeEnabled_Description),
+                                    style = MaterialTheme.typography.labelLarge,
+                                )
+                            },
+                            indentation = 0,
+                        ),
+                        if (maxRuntimeEnabled) {
+                            SettingsItem(
+                                title = Res.string.Settings_Websites_MaxRuntime_New,
+                                key = SettingsKey.MAX_RUNTIME,
+                                type = PreferenceItemType.INT,
+                                supportingContent = {
+                                    maxRuntime?.let {
+                                        Text(it.coerceAtLeast(0).seconds.shortFormat())
+                                    }
+                                },
+                                indentation = 1,
+                            )
+                        } else {
+                            null
+                        },
+                    )
+                } else {
+                    emptyList()
+                } + if (hasWebsitesDescriptor) {
+                    listOf(
+                        SettingsCategoryItem(
+                            title = Res.string.Settings_Websites_Categories_Label,
+                            route = PreferenceCategoryKey.WEBSITES_CATEGORIES,
+                            supportingContent = {
+                                Text(
+                                    stringResource(
+                                        Res.string.Settings_Websites_Categories_Description,
+                                        enabledCategoriesCount,
+                                    ),
+                                )
+                            },
+                            settings = WebConnectivityCategory.entries.mapNotNull { cat ->
+                                SettingsItem(
+                                    icon = cat.icon,
+                                    title = cat.title,
+                                    supportingContent = { Text(stringResource(cat.description)) },
+                                    key = cat.settingsKey ?: return@mapNotNull null,
+                                    type = PreferenceItemType.SWITCH,
+                                )
+                            },
+                        ),
+                    )
+                } else {
+                    emptyList()
+                },
                 footerContent = {
                     SettingsDescription(
                         Res.string.Settings_AutomatedTesting_RunAutomatically_Footer,

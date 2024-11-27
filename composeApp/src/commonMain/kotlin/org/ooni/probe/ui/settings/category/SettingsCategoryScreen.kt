@@ -78,69 +78,73 @@ fun SettingsCategoryScreen(
             val category = state.category ?: return
             Column {
                 category.settings?.forEach { preferenceItem ->
-                    when (preferenceItem.type) {
-                        PreferenceItemType.SWITCH ->
-                            SwitchSettingsView(
-                                icon = preferenceItem.icon,
-                                title = preferenceItem.title,
-                                key = preferenceItem.key,
-                                checked = state.preferences[preferenceItem.key] == true,
-                                enabled = preferenceItem.enabled,
-                                supportingContent = preferenceItem.supportingContent,
-                                onCheckedChange = { key, value ->
-                                    onEvent(
-                                        SettingsCategoryViewModel.Event.CheckedChangeClick(
-                                            key,
-                                            value,
-                                        ),
-                                    )
-                                },
-                            )
-
-                        PreferenceItemType.INT ->
-                            NumberPickerItem(
-                                title = preferenceItem.title,
-                                supportingContent = preferenceItem.supportingContent,
-                                enabled = preferenceItem.enabled,
-                                value = state.preferences[preferenceItem.key] as? Int,
-                                onChanged = {
-                                    onEvent(
-                                        SettingsCategoryViewModel.Event.IntChanged(
-                                            preferenceItem.key,
-                                            it,
-                                        ),
-                                    )
-                                },
-                            )
-
-                        PreferenceItemType.BUTTON ->
-                            RouteSettingsView(
-                                title = preferenceItem.title,
-                                supportingContent = preferenceItem.supportingContent,
-                                trailingContent = preferenceItem.trailingContent,
-                            )
-
-                        PreferenceItemType.ROUTE ->
-                            RouteSettingsView(
-                                title = preferenceItem.title,
-                                supportingContent = preferenceItem.supportingContent,
-                                modifier =
-                                    Modifier.clickable {
-                                        if (preferenceItem is SettingsCategoryItem) {
-                                            onEvent(
-                                                SettingsCategoryViewModel.Event.SettingsCategoryClick(
-                                                    preferenceItem.route,
-                                                ),
-                                            )
-                                        }
+                    Box(
+                        modifier = Modifier.padding(start = 32.dp * preferenceItem.indentation),
+                    ) {
+                        when (preferenceItem.type) {
+                            PreferenceItemType.SWITCH ->
+                                SwitchSettingsView(
+                                    icon = preferenceItem.icon,
+                                    title = preferenceItem.title,
+                                    key = preferenceItem.key,
+                                    checked = state.preferences[preferenceItem.key] == true,
+                                    enabled = preferenceItem.enabled,
+                                    supportingContent = preferenceItem.supportingContent,
+                                    onCheckedChange = { key, value ->
+                                        onEvent(
+                                            SettingsCategoryViewModel.Event.CheckedChangeClick(
+                                                key,
+                                                value,
+                                            ),
+                                        )
                                     },
-                            )
+                                )
 
-                        PreferenceItemType.SELECT ->
-                            RouteSettingsView(
-                                title = preferenceItem.title,
-                                supportingContent = preferenceItem.supportingContent,
-                            )
+                            PreferenceItemType.INT ->
+                                NumberPickerItem(
+                                    title = preferenceItem.title,
+                                    supportingContent = preferenceItem.supportingContent,
+                                    enabled = preferenceItem.enabled,
+                                    value = state.preferences[preferenceItem.key] as? Int,
+                                    onChanged = {
+                                        onEvent(
+                                            SettingsCategoryViewModel.Event.IntChanged(
+                                                preferenceItem.key,
+                                                it,
+                                            ),
+                                        )
+                                    },
+                                )
+
+                            PreferenceItemType.BUTTON ->
+                                RouteSettingsView(
+                                    title = preferenceItem.title,
+                                    supportingContent = preferenceItem.supportingContent,
+                                    trailingContent = preferenceItem.trailingContent,
+                                )
+
+                            PreferenceItemType.ROUTE ->
+                                RouteSettingsView(
+                                    title = preferenceItem.title,
+                                    supportingContent = preferenceItem.supportingContent,
+                                    modifier =
+                                        Modifier.clickable {
+                                            if (preferenceItem is SettingsCategoryItem) {
+                                                onEvent(
+                                                    SettingsCategoryViewModel.Event.SettingsCategoryClick(
+                                                        preferenceItem.route,
+                                                    ),
+                                                )
+                                            }
+                                        },
+                                )
+
+                            PreferenceItemType.SELECT ->
+                                RouteSettingsView(
+                                    title = preferenceItem.title,
+                                    supportingContent = preferenceItem.supportingContent,
+                                )
+                        }
                     }
                 }
                 category.footerContent?.let {

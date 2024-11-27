@@ -291,4 +291,9 @@
     <string name="results_limited_notice">Only the last %1$d results are shown</string>
     <string name="auto_test_not_uploaded_limit">Skip after this amount of results failed to upload</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
+    <string name="Settings_Sharing_UploadResults_Description">Results are automatically uploaded to OONI explorer</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_New">Limit Websites test duration</string>
+    <string name="Settings_Websites_MaxRuntime_New">Maximum Websites test duration</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run every hour in the background</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
 </resources>

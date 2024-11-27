@@ -161,9 +161,11 @@ fun Navigation(
             route = Screen.SettingsCategory.NAV_ROUTE,
             arguments = Screen.SettingsCategory.ARGUMENTS,
         ) { entry ->
-            val category = entry.arguments?.getString("category") ?: return@composable
+            val category = PreferenceCategoryKey.fromValue(
+                entry.arguments?.getString("category"),
+            ) ?: return@composable
             when (category) {
-                PreferenceCategoryKey.ABOUT_OONI.value -> {
+                PreferenceCategoryKey.ABOUT_OONI -> {
                     val viewModel = viewModel {
                         dependencies.aboutViewModel(onBack = { navController.goBack() })
                     }
@@ -174,7 +176,7 @@ fun Navigation(
                     )
                 }
 
-                PreferenceCategoryKey.PROXY.value -> {
+                PreferenceCategoryKey.PROXY -> {
                     val viewModel = viewModel {
                         dependencies.proxyViewModel(onBack = { navController.goBack() })
                     }
@@ -182,7 +184,7 @@ fun Navigation(
                     ProxyScreen(state, viewModel::onEvent)
                 }
 
-                PreferenceCategoryKey.SEE_RECENT_LOGS.value -> {
+                PreferenceCategoryKey.SEE_RECENT_LOGS -> {
                     val viewModel = viewModel {
                         dependencies.logViewModel(onBack = { navController.goBack() })
                     }
@@ -193,7 +195,7 @@ fun Navigation(
                 else -> {
                     val viewModel = viewModel {
                         dependencies.settingsCategoryViewModel(
-                            categoryKey = category,
+                            categoryKey = category.value,
                             goToSettingsForCategory = {
                                 navController.safeNavigate(Screen.SettingsCategory(it))
                             },
