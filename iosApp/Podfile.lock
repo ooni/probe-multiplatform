@@ -1,12 +1,12 @@
 PODS:
   - composeApp (1.0):
     - Sentry (~> 8.38.0)
-  - libcrypto (2024.05.22-093305)
-  - libevent (2024.05.22-093305)
-  - libssl (2024.05.22-093305)
-  - libtor (2024.05.22-093305)
-  - libz (2024.05.22-093305)
-  - oonimkall (2024.05.22-093305)
+  - libcrypto (2024.11.26-053946)
+  - libevent (2024.11.26-053946)
+  - libssl (2024.11.26-053946)
+  - libtor (2024.11.26-053946)
+  - libz (2024.11.26-053946)
+  - oonimkall (2024.11.26-053946)
   - Sentry (8.38.0):
     - Sentry/Core (= 8.38.0)
   - Sentry/Core (8.38.0)
@@ -16,12 +16,12 @@ PODS:
 
 DEPENDENCIES:
   - composeApp (from `../composeApp`)
-  - libcrypto (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/libcrypto.podspec`)
-  - libevent (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/libevent.podspec`)
-  - libssl (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/libssl.podspec`)
-  - libtor (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/libtor.podspec`)
-  - libz (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/libz.podspec`)
-  - oonimkall (from `https://github.com/ooni/probe-cli/releases/download/v3.22.0/oonimkall.podspec`)
+  - libcrypto (from `https://github.com/ooni/probe-cli/releases/download/v3.24.0/libcrypto.podspec`)
+  - libevent (from `https://github.com/ooni/probe-cli/releases/download/v3.24.0/libevent.podspec`)
+  - libssl (from `https://github.com/ooni/probe-cli/releases/download/v3.24.0/libssl.podspec`)
+  - libtor (from `https://github.com/ooni/probe-cli/releases/download/v3.24.0/libtor.podspec`)
+  - libz (from `https://github.com/ooni/probe-cli/releases/download/v3.24.0/libz.podspec`)
+  - oonimkall (from `https://github.com/ooni/probe-cli/releases/download/v3.24.0/oonimkall.podspec`)
   - sqlite3 (~> 3.42.0)
 
 SPEC REPOS:
@@ -33,29 +33,29 @@ EXTERNAL SOURCES:
   composeApp:
     :path: "../composeApp"
   libcrypto:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.22.0/libcrypto.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.24.0/libcrypto.podspec
   libevent:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.22.0/libevent.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.24.0/libevent.podspec
   libssl:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.22.0/libssl.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.24.0/libssl.podspec
   libtor:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.22.0/libtor.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.24.0/libtor.podspec
   libz:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.22.0/libz.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.24.0/libz.podspec
   oonimkall:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.22.0/oonimkall.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.24.0/oonimkall.podspec
 
 SPEC CHECKSUMS:
   composeApp: 675ce506dcd05e76ecb4fdd0f73a10d4af635af1
-  libcrypto: 1bb58600c586e28688f5578f4675f5ffa46c8eaf
-  libevent: 5c8502ca5cc38be31bb510ddade0f238bcc5f0dc
-  libssl: 170bebcaf567a0285e91a8850b9686137d07c3e1
-  libtor: c72b23da6a5d2e16173149784f11cf66156c35be
-  libz: 83658eb2a0db785623ffdf9ce13407e6b8b5c8f9
-  oonimkall: 9768ce9dad18265d45d2ea972c84fb0bd5237cc3
+  libcrypto: 7fb50209305641e986f6b1a1e4680ec4d71602e3
+  libevent: b9f2a7f3b682f7a072f4d21edf360052d3a591dc
+  libssl: 115acb9ff8f7d20f437ff8e112f1d21f210dad94
+  libtor: efd4a639943c12a239094c2927891578cb4c7fcc
+  libz: 8e83c9433082438bce962f836f845d835f26b850
+  oonimkall: 935a4263650a75bef0d8b487f7d349094b4c2b73
   Sentry: 205813e7e758b53df157cedb8c55b31a14300645
   sqlite3: f163dbbb7aa3339ad8fc622782c2d9d7b72f7e9c
 
-PODFILE CHECKSUM: 7ccceb3a8043e0a52e0aaf77c23a4e93dbe689e7
+PODFILE CHECKSUM: 59b6c2ae5c19ca87fa0a3f359deffa5e78551529
 
 COCOAPODS: 1.16.2
