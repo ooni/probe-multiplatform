@@ -18,14 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.Measurements_Count
 import ooniprobe.composeapp.generated.resources.Modal_UploadFailed_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
+import ooniprobe.composeapp.generated.resources.TaskOrigin_AutoRun
+import ooniprobe.composeapp.generated.resources.TaskOrigin_Manual
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
-import ooniprobe.composeapp.generated.resources.measurements_count
-import ooniprobe.composeapp.generated.resources.task_origin_auto_run
-import ooniprobe.composeapp.generated.resources.task_origin_manual
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
@@ -106,8 +106,8 @@ fun ResultCell(
                 Text(
                     stringResource(
                         when (item.result.taskOrigin) {
-                            TaskOrigin.AutoRun -> Res.string.task_origin_auto_run
-                            TaskOrigin.OoniRun -> Res.string.task_origin_manual
+                            TaskOrigin.AutoRun -> Res.string.TaskOrigin_AutoRun
+                            TaskOrigin.OoniRun -> Res.string.TaskOrigin_Manual
                         },
                     ),
                     style = MaterialTheme.typography.labelLarge,
@@ -116,7 +116,7 @@ fun ResultCell(
                 if (!hasError) {
                     Text(
                         pluralStringResource(
-                            Res.plurals.measurements_count,
+                            Res.plurals.Measurements_Count,
                             item.measurementsCount.toInt(),
                             item.measurementsCount,
                         ),

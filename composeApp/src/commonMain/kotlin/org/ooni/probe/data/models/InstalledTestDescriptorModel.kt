@@ -2,24 +2,24 @@ package org.ooni.probe.data.models
 
 import co.touchlab.kermit.Logger
 import kotlinx.datetime.LocalDateTime
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_Description
-import ooniprobe.composeapp.generated.resources.Res
-import org.jetbrains.compose.resources.stringResource
 import kotlinx.datetime.LocalDateTime.Companion.Format
 import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
-import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_LastUpdatd
-import ooniprobe.composeapp.generated.resources.months
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import ooniprobe.composeapp.generated.resources.Common_Months
+import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_Description
+import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_LastUpdated
+import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.test_circumvention
 import ooniprobe.composeapp.generated.resources.test_experimental
 import ooniprobe.composeapp.generated.resources.test_instant_messaging
 import ooniprobe.composeapp.generated.resources.test_performance
 import ooniprobe.composeapp.generated.resources.test_websites
 import org.jetbrains.compose.resources.stringArrayResource
+import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.TestDescriptor
 import org.ooni.probe.shared.InstalledDescriptorIcons
 import org.ooni.probe.shared.hexToColor
@@ -65,7 +65,7 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
         shortDescription = { shortDescriptionIntl?.getCurrent() ?: shortDescription },
         description = { descriptionIntl?.getCurrent() ?: description },
         metadata = {
-            val monthNames = stringArrayResource(Res.array.months)
+            val monthNames = stringArrayResource(Res.array.Common_Months)
             val formattedDate = { date: LocalDateTime? -> date?.format(dateTimeFormat(monthNames)) }
             formattedDate(dateCreated)?.let { formattedDateCreated ->
                 stringResource(
@@ -73,7 +73,7 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
                     author.orEmpty(),
                     formattedDateCreated,
                 ) + ". " + formattedDate(dateUpdated)?.let {
-                    stringResource(Res.string.Dashboard_Runv2_Overview_LastUpdatd, it)
+                    stringResource(Res.string.Dashboard_Runv2_Overview_LastUpdated, it)
                 }
             }
         },
