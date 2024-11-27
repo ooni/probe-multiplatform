@@ -17,6 +17,9 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.Measurements_Anomaly
+import ooniprobe.composeapp.generated.resources.Measurements_Failed
+import ooniprobe.composeapp.generated.resources.Measurements_Ok
 import ooniprobe.composeapp.generated.resources.Modal_UploadFailed_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
@@ -24,9 +27,6 @@ import ooniprobe.composeapp.generated.resources.ic_cloud_off
 import ooniprobe.composeapp.generated.resources.ic_measurement_anomaly
 import ooniprobe.composeapp.generated.resources.ic_measurement_failed
 import ooniprobe.composeapp.generated.resources.ic_measurement_ok
-import ooniprobe.composeapp.generated.resources.measurement_anomaly
-import ooniprobe.composeapp.generated.resources.measurement_failed
-import ooniprobe.composeapp.generated.resources.measurement_ok
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
@@ -111,9 +111,9 @@ fun ResultMeasurementCell(
                 ),
                 contentDescription = stringResource(
                     when {
-                        isFailed -> Res.string.measurement_failed
-                        measurement.isAnomaly -> Res.string.measurement_anomaly
-                        else -> Res.string.measurement_ok
+                        isFailed -> Res.string.Measurements_Failed
+                        measurement.isAnomaly -> Res.string.Measurements_Anomaly
+                        else -> Res.string.Measurements_Ok
                     },
                 ),
                 tint = Color.Unspecified,

@@ -26,6 +26,7 @@ import ooniprobe.composeapp.generated.resources.Settings_About_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_DebugLogs
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_RecentLogs
+import ooniprobe.composeapp.generated.resources.Settings_AutoTest_NotUploadedLimit
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_ChargingOnly
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_Description
@@ -49,7 +50,6 @@ import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnab
 import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled_New
 import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntime_New
 import ooniprobe.composeapp.generated.resources.advanced
-import ooniprobe.composeapp.generated.resources.auto_test_not_uploaded_limit
 import ooniprobe.composeapp.generated.resources.ic_settings
 import ooniprobe.composeapp.generated.resources.notifications
 import ooniprobe.composeapp.generated.resources.outline_info
@@ -179,7 +179,7 @@ class GetSettings(
                             indentation = 1,
                         ),
                         SettingsItem(
-                            title = Res.string.auto_test_not_uploaded_limit,
+                            title = Res.string.Settings_AutoTest_NotUploadedLimit,
                             key = SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT,
                             type = PreferenceItemType.INT,
                             enabled = autoRunEnabled && uploadResultsEnabled,

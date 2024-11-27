@@ -35,12 +35,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Hostname
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Port
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Protocol
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Enabled
-import ooniprobe.composeapp.generated.resources.back
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ProxyProtocol
 import org.ooni.probe.data.models.ProxyType
@@ -62,7 +62,7 @@ fun ProxyScreen(
                 }) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.back),
+                        contentDescription = stringResource(Res.string.Common_Back),
                     )
                 }
             },

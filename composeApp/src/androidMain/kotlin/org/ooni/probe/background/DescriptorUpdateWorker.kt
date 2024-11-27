@@ -17,8 +17,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
+import ooniprobe.composeapp.generated.resources.Notification_ChannelName
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.notification_channel_name
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.AndroidApplication
 import org.ooni.probe.R
@@ -79,7 +79,7 @@ class DescriptorUpdateWorker(
             notificationManager.createNotificationChannel(
                 NotificationChannel(
                     NOTIFICATION_CHANNEL_ID,
-                    getString(Res.string.notification_channel_name),
+                    getString(Res.string.Notification_ChannelName),
                     NotificationManager.IMPORTANCE_DEFAULT,
                 ),
             )

@@ -13,10 +13,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.task_origin_all
-import ooniprobe.composeapp.generated.resources.task_origin_auto_run
-import ooniprobe.composeapp.generated.resources.task_origin_manual
-import ooniprobe.composeapp.generated.resources.test_type_all
+import ooniprobe.composeapp.generated.resources.Results_TaskOrigin_All
+import ooniprobe.composeapp.generated.resources.Results_TestType_All
+import ooniprobe.composeapp.generated.resources.TaskOrigin_AutoRun
+import ooniprobe.composeapp.generated.resources.TaskOrigin_Manual
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.Descriptor
@@ -108,16 +108,16 @@ fun OriginFilter(
 @Composable
 private fun ResultFilter.Type<Descriptor>.label() =
     when (this) {
-        ResultFilter.Type.All -> stringResource(Res.string.test_type_all)
+        ResultFilter.Type.All -> stringResource(Res.string.Results_TestType_All)
         is ResultFilter.Type.One -> value.title()
     }
 
 @Composable
 private fun ResultFilter.Type<TaskOrigin>.name() =
     when (this) {
-        ResultFilter.Type.All -> stringResource(Res.string.task_origin_all)
+        ResultFilter.Type.All -> stringResource(Res.string.Results_TaskOrigin_All)
         is ResultFilter.Type.One -> when (value) {
-            TaskOrigin.AutoRun -> stringResource(Res.string.task_origin_auto_run)
-            TaskOrigin.OoniRun -> stringResource(Res.string.task_origin_manual)
+            TaskOrigin.AutoRun -> stringResource(Res.string.TaskOrigin_AutoRun)
+            TaskOrigin.OoniRun -> stringResource(Res.string.TaskOrigin_Manual)
         }
     }

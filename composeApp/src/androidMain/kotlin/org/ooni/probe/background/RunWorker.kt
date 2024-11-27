@@ -23,9 +23,9 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
 import ooniprobe.composeapp.generated.resources.Modal_ResultsNotUploaded_Uploading
+import ooniprobe.composeapp.generated.resources.Notification_ChannelName
 import ooniprobe.composeapp.generated.resources.Notification_StopTest
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.notification_channel_name
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.AndroidApplication
 import org.ooni.probe.MainActivity
@@ -130,7 +130,7 @@ class RunWorker(
             notificationManager.createNotificationChannel(
                 NotificationChannel(
                     NOTIFICATION_CHANNEL_ID,
-                    getString(Res.string.notification_channel_name),
+                    getString(Res.string.Notification_ChannelName),
                     NotificationManager.IMPORTANCE_LOW,
                 ),
             )

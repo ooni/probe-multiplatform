@@ -41,10 +41,12 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_ReRun_Title
 import ooniprobe.composeapp.generated.resources.Modal_ReRun_Websites_Run
 import ooniprobe.composeapp.generated.resources.Modal_ReRun_Websites_Title
+import ooniprobe.composeapp.generated.resources.NetworkType_Vpn
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.TestResults_NotAvailable
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
@@ -58,12 +60,10 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Runtime
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_WiFi
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
-import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_replay
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ooni_bw
-import ooniprobe.composeapp.generated.resources.vpn
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.NetworkType
@@ -94,7 +94,7 @@ fun ResultScreen(
                 IconButton(onClick = { onEvent(ResultViewModel.Event.BackClicked) }) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.back),
+                        contentDescription = stringResource(Res.string.Common_Back),
                     )
                 }
             },
@@ -316,7 +316,7 @@ private fun NetworkType.label(): String =
         when (this) {
             NetworkType.Mobile -> Res.string.TestResults_Summary_Hero_Mobile
             NetworkType.NoInternet -> Res.string.TestResults_Summary_Hero_NoInternet
-            NetworkType.VPN -> Res.string.vpn
+            NetworkType.VPN -> Res.string.NetworkType_Vpn
             NetworkType.Wifi -> Res.string.TestResults_Summary_Hero_WiFi
             is NetworkType.Unknown -> Res.string.TestResults_NotAvailable
         },
