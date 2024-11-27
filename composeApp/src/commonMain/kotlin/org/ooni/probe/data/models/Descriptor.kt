@@ -46,6 +46,12 @@ data class Descriptor(
             .sumOf { it.test.runtime(it.inputs).inWholeSeconds }
             .seconds
 
+    val settingsPrefix: String?
+        get() = when (isDefaultDescriptor()) {
+            true -> null
+            else -> (source as Source.Installed).value.id.value.toString()
+        }
+
     fun isDefaultDescriptor(): Boolean {
         return when (source) {
             is Source.Default -> true
