@@ -106,7 +106,7 @@ class RunBackgroundTask(
             return
         }
 
-        if (getNetworkType() == NetworkType.VPN) {
+        if (getNetworkType() == NetworkType.VPN && spec == null) {
             Logger.i("Skipping auto-run tests: VPN enabled")
             return
         }
