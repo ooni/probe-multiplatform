@@ -28,8 +28,8 @@ class RunBackgroundTask(
     private val uploadMissingMeasurements: (ResultModel.Id?) -> Flow<UploadMissingMeasurements.State>,
     private val checkSkipAutoRunNotUploadedLimit: () -> Flow<Boolean>,
     private val getNetworkType: () -> NetworkType,
-    private val getAutoRunSpecification: suspend () -> RunSpecification,
-    private val runDescriptors: suspend (RunSpecification) -> Unit,
+    private val getAutoRunSpecification: suspend () -> RunSpecification.Full,
+    private val runDescriptors: suspend (RunSpecification.Full) -> Unit,
     private val setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
     private val getRunBackgroundState: () -> Flow<RunBackgroundState>,
     private val addRunCancelListener: (() -> Unit) -> Unit,
@@ -44,51 +44,56 @@ class RunBackgroundTask(
                 return@channelFlow
             }
 
-            val uploadCancelled = uploadMissingResults(isAutoRun = spec == null)
-            if (uploadCancelled) return@channelFlow
+            val isAutoRun = spec == null
+            if (isAutoRun || spec is RunSpecification.OnlyUploadMissingResults) {
+                val uploadCancelled = uploadMissingResults()
+                if (uploadCancelled) return@channelFlow
+            }
 
-            runTests(spec)
+            if (spec is RunSpecification.OnlyUploadMissingResults) {
+                setRunBackgroundState { RunBackgroundState.Idle() }
+                return@channelFlow
+            }
+
+            runTests(spec as? RunSpecification.Full)
 
             // When a test is cancelled, sometimes the last measurement isn't uploaded
 
             getLatestResult().first()?.id.let { latestResultId ->
                 val idleState = getRunBackgroundState().first()
-                uploadMissingResults(isAutoRun = spec == null, resultId = latestResultId)
+                uploadMissingResults(resultId = latestResultId)
                 updateState(idleState)
             }
         }.onCompletion {
             clearRunCancelListeners()
         }
 
-    private suspend fun ProducerScope<RunBackgroundState>.uploadMissingResults(
-        isAutoRun: Boolean,
-        resultId: ResultModel.Id? = null,
-    ): Boolean {
+    private suspend fun ProducerScope<RunBackgroundState>.uploadMissingResults(resultId: ResultModel.Id? = null): Boolean {
         val autoUpload = getPreferenceValueByKey(SettingsKey.UPLOAD_RESULTS).first() == true
+        if (!autoUpload) return false
+
         var isCancelled = false
 
-        if ((isAutoRun || resultId != null) && autoUpload) {
-            coroutineScope {
-                val uploadJob = async {
-                    uploadMissingMeasurements(resultId)
-                        .collectLatest { uploadState ->
-                            updateState(RunBackgroundState.UploadingMissingResults(uploadState))
-                        }
-                }
-
-                addRunCancelListener {
-                    isCancelled = true
-                    if (uploadJob.isActive) uploadJob.cancel()
-                    CoroutineScope(Dispatchers.Default).launch {
-                        updateState(RunBackgroundState.Stopping)
+        coroutineScope {
+            val uploadJob = async {
+                uploadMissingMeasurements(resultId)
+                    .collectLatest { uploadState ->
+                        updateState(RunBackgroundState.UploadingMissingResults(uploadState))
                     }
-                }
+            }
 
-                try {
-                    uploadJob.await()
-                } catch (e: CancellationException) {
-                    Logger.i("Upload Missing Results (result=$resultId): cancelled")
+            addRunCancelListener {
+                isCancelled = true
+                if (uploadJob.isActive) uploadJob.cancel()
+                CoroutineScope(Dispatchers.Default).launch {
+                    updateState(RunBackgroundState.Stopping)
                 }
+            }
+
+            try {
+                uploadJob.await()
+            } catch (e: CancellationException) {
+                Logger.i("Upload Missing Results (result=$resultId): cancelled")
             }
         }
 
@@ -100,7 +105,7 @@ class RunBackgroundTask(
         return false
     }
 
-    private suspend fun ProducerScope<RunBackgroundState>.runTests(spec: RunSpecification?) {
+    private suspend fun ProducerScope<RunBackgroundState>.runTests(spec: RunSpecification.Full?) {
         if (checkSkipAutoRunNotUploadedLimit().first()) {
             Logger.i("Skipping auto-run tests: too many not-uploaded results")
             return

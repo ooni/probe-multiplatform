@@ -106,7 +106,7 @@ class Dependencies(
     @VisibleForTesting
     val buildDataStore: () -> DataStore<Preferences>,
     private val isBatteryCharging: () -> Boolean,
-    private val startSingleRunInner: (RunSpecification) -> Unit,
+    val startSingleRunInner: (RunSpecification) -> Unit,
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
     val configureDescriptorAutoUpdate: suspend () -> Boolean,
     val fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,

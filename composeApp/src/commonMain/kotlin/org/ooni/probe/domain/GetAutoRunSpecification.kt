@@ -11,10 +11,10 @@ class GetAutoRunSpecification(
     private val getDescriptors: GetTestDescriptors,
     private val preferenceRepository: PreferenceRepository,
 ) {
-    suspend operator fun invoke(): RunSpecification {
+    suspend operator fun invoke(): RunSpecification.Full {
         val descriptors = getDescriptors().first().filterForAutoRun()
 
-        return RunSpecification(
+        return RunSpecification.Full(
             tests = descriptors.map { descriptor ->
                 RunSpecification.Test(
                     source = RunSpecification.Test.Source.fromDescriptor(descriptor),
