@@ -162,7 +162,6 @@ class SetupDependencies(
 
     private fun sendMail(action: PlatformAction.Mail): Boolean {
         MFMailComposeViewController.canSendMail().let { canSendMail ->
-            val email = action.to.removePrefix("mailto:")
             if (canSendMail) {
                 MFMailComposeViewController().apply {
                     mailComposeDelegate = object :
@@ -176,7 +175,7 @@ class SetupDependencies(
                             controller.dismissViewControllerAnimated(true, null)
                         }
                     }
-                    setToRecipients(listOf(email))
+                    setToRecipients(listOf(action.to))
                     setSubject(action.subject)
                     setMessageBody(action.body, isHTML = false)
                 }.let {
@@ -188,7 +187,7 @@ class SetupDependencies(
                 }
                 return true
             } else {
-                UIPasteboard.generalPasteboard.string = email
+                UIPasteboard.generalPasteboard.string = action.to
                 return false
             }
         }
