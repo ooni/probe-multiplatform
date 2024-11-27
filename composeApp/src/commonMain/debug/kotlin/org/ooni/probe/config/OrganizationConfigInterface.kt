@@ -14,7 +14,7 @@ interface OrganizationConfigInterface {
         get() = "https://run.test.ooni.org"
 
     val explorerUrl: String
-        get() = "https://explorer.test.ooni.org"
+        get() = "https://explorer.ooni.org"
 
     val testDisplayMode: TestDisplayMode
 
