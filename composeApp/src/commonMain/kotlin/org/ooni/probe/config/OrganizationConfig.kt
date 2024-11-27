@@ -10,13 +10,13 @@ interface OrganizationConfigInterface {
     val updateDescriptorTaskId: String
     val hasWebsitesDescriptor: Boolean
 
-    val ooniApiBaseUrl get() = BuildTypesDefaults.ooniApiBaseUrl
-    val ooniRunDomain get() = BuildTypesDefaults.ooniRunDomain
-    val ooniRunDashboardUrl get() = BuildTypesDefaults.ooniRunDashboardUrl
-    val explorerUrl get() = BuildTypesDefaults.explorerUrl
+    val ooniApiBaseUrl get() = BuildTypeDefaults.ooniApiBaseUrl
+    val ooniRunDomain get() = BuildTypeDefaults.ooniRunDomain
+    val ooniRunDashboardUrl get() = BuildTypeDefaults.ooniRunDashboardUrl
+    val explorerUrl get() = BuildTypeDefaults.explorerUrl
 }
 
-interface BuildTypesDefaultsInterface {
+interface BuildTypeDefaultsInterface {
     val ooniApiBaseUrl: String
     val ooniRunDomain: String
     val ooniRunDashboardUrl: String

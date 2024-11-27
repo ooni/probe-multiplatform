@@ -45,9 +45,9 @@ import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_WarmVPNInUse_Label
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Description
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
-import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntime
-import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled
 import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled_Description
+import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled_New
+import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntime_New
 import ooniprobe.composeapp.generated.resources.advanced
 import ooniprobe.composeapp.generated.resources.auto_test_not_uploaded_limit
 import ooniprobe.composeapp.generated.resources.ic_settings
@@ -198,7 +198,7 @@ class GetSettings(
                 } + if (hasWebsitesDescriptor) {
                     listOfNotNull(
                         SettingsItem(
-                            title = Res.string.Settings_Websites_MaxRuntimeEnabled,
+                            title = Res.string.Settings_Websites_MaxRuntimeEnabled_New,
                             key = SettingsKey.MAX_RUNTIME_ENABLED,
                             type = PreferenceItemType.SWITCH,
                             supportingContent = {
@@ -211,7 +211,7 @@ class GetSettings(
                         ),
                         if (maxRuntimeEnabled) {
                             SettingsItem(
-                                title = Res.string.Settings_Websites_MaxRuntime,
+                                title = Res.string.Settings_Websites_MaxRuntime_New,
                                 key = SettingsKey.MAX_RUNTIME,
                                 type = PreferenceItemType.INT,
                                 supportingContent = {
