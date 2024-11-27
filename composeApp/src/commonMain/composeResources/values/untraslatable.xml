@@ -1,5 +1,5 @@
 <resources>
-    <string name="shareEmailTo" translatable="false">mailto:bugs@openobservatory.org</string>
+    <string name="shareEmailTo" translatable="false">bugs@openobservatory.org</string>
     <string name="shareSubject" translatable="false">[bug-report] OONI Probe %1$s</string>
     <string name="version" translatable="false">%1$s: %2$s</string>
 </resources>

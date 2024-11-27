@@ -14,7 +14,6 @@ class SendSupportEmail(
     private val launchAction: (PlatformAction) -> Boolean,
 ) {
     suspend operator fun invoke() {
-        getString(Res.string.shareEmailTo)
         val supportEmail = getString(Res.string.shareEmailTo)
         val subject = getString(Res.string.shareSubject, platformInfo.version)
         val chooserTitle = getString(Res.string.Settings_SendEmail_Label)
