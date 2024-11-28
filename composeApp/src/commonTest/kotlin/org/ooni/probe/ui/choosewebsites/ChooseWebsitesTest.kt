@@ -45,7 +45,7 @@ class ChooseWebsitesTest {
             }
             onNodeWithText("Test ${websites.size} URLs").performClick()
 
-            val spec = runSpec
+            val spec = runSpec as? RunSpecification.Full
             assertNotNull(spec)
             assertEquals(false, spec.isRerun)
             assertEquals(TaskOrigin.OoniRun, spec.taskOrigin)

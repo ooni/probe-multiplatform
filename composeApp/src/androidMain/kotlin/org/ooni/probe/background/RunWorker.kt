@@ -22,9 +22,9 @@ import kotlinx.serialization.encodeToString
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
-import ooniprobe.composeapp.generated.resources.Modal_ResultsNotUploaded_Uploading
 import ooniprobe.composeapp.generated.resources.Notification_StopTest
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.UploadingMissingResults
 import ooniprobe.composeapp.generated.resources.notification_channel_name
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.AndroidApplication
@@ -143,7 +143,7 @@ class RunWorker(
                 val progress = state.uploaded + state.failedToUpload + 1
                 setContentText(
                     getString(
-                        Res.string.Modal_ResultsNotUploaded_Uploading,
+                        Res.string.UploadingMissingResults,
                         "$progress/${state.total}",
                     ),
                 )

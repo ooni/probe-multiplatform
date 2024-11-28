@@ -24,6 +24,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.DeepLink
+import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.navigation.BottomNavigationBar
@@ -99,6 +100,7 @@ fun App(
         dependencies.bootstrapPreferences()
         dependencies.configureDescriptorAutoUpdate()
         dependencies.fetchDescriptorUpdate(null)
+        dependencies.startSingleRunInner(RunSpecification.OnlyUploadMissingResults)
     }
     LaunchedEffect(Unit) {
         dependencies.finishInProgressData()

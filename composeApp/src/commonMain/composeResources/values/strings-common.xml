@@ -296,4 +296,5 @@
     <string name="Settings_Websites_MaxRuntime_New">Maximum Websites test duration</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run every hour in the background</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
+    <string name="UploadingMissingResults">Uploading missing results %1$s</string>
 </resources>

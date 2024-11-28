@@ -9,7 +9,7 @@ import org.ooni.probe.data.models.RunSpecification
 class GetTestDescriptorsBySpec(
     private val getTestDescriptors: () -> Flow<List<Descriptor>>,
 ) {
-    suspend operator fun invoke(spec: RunSpecification): List<Descriptor> =
+    suspend operator fun invoke(spec: RunSpecification.Full): List<Descriptor> =
         getTestDescriptors()
             .first()
             .filterNot { it.isExpired }
@@ -30,7 +30,7 @@ class GetTestDescriptorsBySpec(
             }
 
     // Is this descriptor contained in the RunSpecification's list of tests
-    private fun RunSpecification.forDescriptor(descriptor: Descriptor) =
+    private fun RunSpecification.Full.forDescriptor(descriptor: Descriptor) =
         tests.firstOrNull { specTest ->
             when (descriptor.source) {
                 is Descriptor.Source.Default -> {

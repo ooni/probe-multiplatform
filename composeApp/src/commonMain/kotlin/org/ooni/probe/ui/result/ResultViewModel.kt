@@ -103,7 +103,7 @@ class ResultViewModel(
 
     private fun getRerunSpecification(): RunSpecification? {
         val item = _state.value.result ?: return null
-        return RunSpecification(
+        return RunSpecification.Full(
             tests = listOf(
                 RunSpecification.Test(
                     source = RunSpecification.Test.Source.fromDescriptor(item.descriptor),
