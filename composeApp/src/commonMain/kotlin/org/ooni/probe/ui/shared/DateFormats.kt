@@ -15,8 +15,8 @@ import ooniprobe.composeapp.generated.resources.Common_Minutes
 import ooniprobe.composeapp.generated.resources.Common_Minutes_Abbreviated
 import ooniprobe.composeapp.generated.resources.Common_Seconds_Abbreviated
 import ooniprobe.composeapp.generated.resources.Res
-import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.shared.today
 import kotlin.time.Duration
 
@@ -44,9 +44,9 @@ fun LocalDateTime.relativeDateTime(): String =
         val diff = (Clock.System.now() - toInstant(TimeZone.currentSystemDefault()))
         val diffString = diff.toComponents { hours, minutes, _, _ ->
             if (hours > 0) {
-                pluralStringResource(Res.plurals.Common_Hours, hours.toInt(), hours.toInt())
+                pluralStringResourceItem(Res.plurals.Common_Hours, hours.toInt(), hours.toInt())
             } else {
-                pluralStringResource(Res.plurals.Common_Minutes, minutes, minutes)
+                pluralStringResourceItem(Res.plurals.Common_Minutes, minutes, minutes)
             }
         }
         stringResource(Res.string.Common_Ago, diffString)

@@ -27,10 +27,10 @@ import ooniprobe.composeapp.generated.resources.TaskOrigin_Manual
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.ResultListItem
+import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.shared.relativeDateTime
 
@@ -115,7 +115,7 @@ fun ResultCell(
                 )
                 if (!hasError) {
                     Text(
-                        pluralStringResource(
+                        pluralStringResourceItem(
                             Res.plurals.Measurements_Count,
                             item.measurementsCount.toInt(),
                             item.measurementsCount,

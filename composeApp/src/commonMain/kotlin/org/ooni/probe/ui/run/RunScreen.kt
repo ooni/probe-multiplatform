@@ -63,13 +63,13 @@ import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_down
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_up
 import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.dashboard.TestDescriptorSection
 import org.ooni.probe.ui.shared.ParentSelectableItem
@@ -189,7 +189,7 @@ fun RunScreen(
                     .padding(WindowInsets.navigationBars.asPaddingValues()),
             ) {
                 Text(
-                    text = pluralStringResource(
+                    text = pluralStringResourceItem(
                         Res.plurals.Dashboard_RunTests_RunButton_Label,
                         selectedTestsCount,
                         selectedTestsCount,
