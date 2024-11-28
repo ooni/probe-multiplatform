@@ -238,48 +238,42 @@
     <string name="Common_Collapse">Collapse</string>
     <string name="Common_Expand">Expand</string>
     <string name="Common_Ago">%1$s ago</string>
-    <plurals name="Common_Minutes">
-        <item quantity="one">%1$d minute</item>
-        <item quantity="other">%1$d minutes</item>
-    </plurals>
-    <plurals name="Common_Hours">
-        <item quantity="one">%1$d hour</item>
-        <item quantity="other">%1$d hours</item>
-    </plurals>
+    <string name="Common_Minutes_One">%1$d minute</string>
+    <string name="Common_Minutes_Other">%1$d minutes</string>
+    <string name="Common_Hour_One">%1$d hour</string>
+    <string name="Common_Hour_Other">%1$d hours</string>
     <string name="Common_Hours_Abbreviated">%1$dh</string>
     <string name="Common_Minutes_Abbreviated">%1$dm</string>
     <string name="Common_Seconds_Abbreviated">%1$ds</string>
-    <string-array name="Common_Months">
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
-        <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
-        <item>August</item>
-        <item>September</item>
-        <item>October</item>
-        <item>November</item>
-        <item>December</item>
-    </string-array>
+
+    <string name="Common_Months_January">January</string>
+    <string name="Common_Months_February">February</string>
+    <string name="Common_Months_March">March</string>
+    <string name="Common_Months_April">April</string>
+    <string name="Common_Months_May">May</string>
+    <string name="Common_Months_June">June</string>
+    <string name="Common_Months_July">July</string>
+    <string name="Common_Months_August">August</string>
+    <string name="Common_Months_September">September</string>
+    <string name="Common_Months_October">October</string>
+    <string name="Common_Months_November">November</string>
+    <string name="Common_Months_December">December</string>
 
     <string name="Onboarding_QuizAnswer_Correct">Correct answer</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Incorrect answer</string>
 
     <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
-    <plurals name="Dashboard_RunTests_RunButton_Label">
-        <item quantity="one">Run %1$d test</item>
-        <item quantity="other">Run %1$d tests</item>
-    </plurals>
+
+    <string name="Dashboard_RunTests_RunButton_Label_One">Run %1$d test</string>
+    <string name="Dashboard_RunTests_RunButton_Label_Other">Run %1$d tests</string>
 
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
 
     <string name="Measurement_Title">Measurement</string>
-    <plurals name="Measurements_Count">
-        <item quantity="one">%1$d measurement</item>
-        <item quantity="other">%1$d measurements</item>
-    </plurals>
+
+    <string name="Measurements_Count_One">%1$d measurement</string>
+    <string name="Measurements_Count_Other">%1$d measurements</string>
+
     <string name="Measurements_Failed">Failed</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Anomaly</string>

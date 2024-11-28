@@ -42,7 +42,6 @@ import kotlinx.datetime.LocalDate.Companion.Format
 import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
-import ooniprobe.composeapp.generated.resources.Common_Months
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
@@ -63,8 +62,8 @@ import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
@@ -316,7 +315,7 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
 
 @Composable
 private fun ResultDateHeader(date: LocalDate) {
-    val monthNames = stringArrayResource(Res.array.Common_Months)
+    val monthNames = stringMonthArrayResource()
     Text(
         date.format(
             Format {

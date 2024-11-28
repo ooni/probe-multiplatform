@@ -2,4 +2,38 @@
     <string name="shareEmailTo" translatable="false">bugs@openobservatory.org</string>
     <string name="shareSubject" translatable="false">[bug-report] OONI Probe %1$s</string>
     <string name="version" translatable="false">%1$s: %2$s</string>
+
+    <plurals name="Common_Minutes" translatable="false">
+        <item quantity="one">@string/Common_Minutes_One</item>
+        <item quantity="other">@string/Common_Minutes_Other</item>
+    </plurals>
+    <plurals name="Common_Hours" translatable="false">
+        <item quantity="one">@string/Common_Hour_One</item>
+        <item quantity="other">@string/Common_Hour_Other</item>
+    </plurals>
+
+    <plurals name="Dashboard_RunTests_RunButton_Label" translatable="false">
+        <item quantity="one">@string/Dashboard_RunTests_RunButton_Label_One</item>
+        <item quantity="other">@string/Dashboard_RunTests_RunButton_Label_Other</item>
+    </plurals>
+
+    <plurals name="Measurements_Count" translatable="false">
+        <item quantity="one">@string/Measurements_Count_One</item>
+        <item quantity="other">@string/Measurements_Count_Other</item>
+    </plurals>
+
+    <string-array name="Common_Months" translatable="false">
+        <item>@string/Common_Months_January</item>
+        <item>@string/Common_Months_February</item>
+        <item>@string/Common_Months_March</item>
+        <item>@string/Common_Months_April</item>
+        <item>@string/Common_Months_May</item>
+        <item>@string/Common_Months_June</item>
+        <item>@string/Common_Months_July</item>
+        <item>@string/Common_Months_August</item>
+        <item>@string/Common_Months_September</item>
+        <item>@string/Common_Months_October</item>
+        <item>@string/Common_Months_November</item>
+        <item>@string/Common_Months_December</item>
+    </string-array>
 </resources>
