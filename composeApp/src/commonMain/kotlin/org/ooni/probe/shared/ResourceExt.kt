@@ -23,6 +23,8 @@ import ooniprobe.composeapp.generated.resources.Measurements_Count_One
 import ooniprobe.composeapp.generated.resources.Measurements_Count_Other
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.PluralStringResource
+import org.jetbrains.compose.resources.getPluralString
+import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -63,5 +65,15 @@ fun pluralStringResourceItem(
 ): String {
     return stringMap[pluralStringResource(resource, quantity, formatArgs)]?.let {
         return stringResource(it, *formatArgs)
+    } ?: ""
+}
+
+suspend fun getPluralStringResourceItem(
+    resource: PluralStringResource,
+    quantity: Int,
+    vararg formatArgs: Any,
+): String {
+    return stringMap[getPluralString(resource, quantity, formatArgs)]?.let {
+        return getString(it, *formatArgs)
     } ?: ""
 }

@@ -2,6 +2,7 @@ package org.ooni.probe.uitesting
 
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isDisplayed
+import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
@@ -14,6 +15,7 @@ import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_RunButton_Label
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectNone
 import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_RunFinished
+import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Test_Circumvention_Fullname
@@ -22,16 +24,15 @@ import ooniprobe.composeapp.generated.resources.Test_InstantMessaging_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Performance_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Psiphon_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Signal_Fullname
-import ooniprobe.composeapp.generated.resources.measurement
-import org.jetbrains.compose.resources.getPluralString
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
+import org.ooni.probe.shared.getPluralStringResourceItem
 import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
+import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
@@ -64,13 +65,13 @@ class RunningTestsTest {
 
                 clickOnText(Res.string.Dashboard_RunTests_SelectNone)
                 clickOnText(Res.string.Test_Signal_Fullname)
-                clickOnText(getPluralString(Res.plurals.Dashboard_RunTests_RunButton_Label, 1, 1))
+                clickOnRunButton(1)
 
                 clickOnText(Res.string.Dashboard_RunV2_RunFinished, timeout = TEST_WAIT_TIMEOUT)
 
                 clickOnText(Res.string.Test_InstantMessaging_Fullname)
                 clickOnText(Res.string.Test_Signal_Fullname)
-                wait { onNodeWithText(Res.string.measurement).isDisplayed() }
+                wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
                 checkSummaryInsideWebView("Signal")
             }
         }
@@ -84,13 +85,13 @@ class RunningTestsTest {
 
                 clickOnText(Res.string.Dashboard_RunTests_SelectNone)
                 clickOnText(Res.string.Test_Psiphon_Fullname)
-                clickOnText(getPluralString(Res.plurals.Dashboard_RunTests_RunButton_Label, 1, 1))
+                clickOnRunButton(1)
 
                 clickOnText(Res.string.Dashboard_RunV2_RunFinished, timeout = TEST_WAIT_TIMEOUT)
 
                 clickOnText(Res.string.Test_Circumvention_Fullname)
                 clickOnText(Res.string.Test_Psiphon_Fullname)
-                wait { onNodeWithText(Res.string.measurement).isDisplayed() }
+                wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
                 checkSummaryInsideWebView("Psiphon")
             }
         }
@@ -107,13 +108,13 @@ class RunningTestsTest {
                     .performScrollToNode(hasText("HTTP Header", substring = true))
                     .performTouchInput { swipeUp() }
                 clickOnText("HTTP Header", substring = true)
-                clickOnText(getPluralString(Res.plurals.Dashboard_RunTests_RunButton_Label, 1, 1))
+                clickOnRunButton(1)
 
                 clickOnText(Res.string.Dashboard_RunV2_RunFinished, timeout = TEST_WAIT_TIMEOUT)
 
                 clickOnText(Res.string.Test_Performance_Fullname)
                 clickOnText("HTTP Header", substring = true)
-                wait { onNodeWithText(Res.string.measurement).isDisplayed() }
+                wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
                 checkSummaryInsideWebView("middleboxes")
             }
         }
@@ -130,13 +131,13 @@ class RunningTestsTest {
                     .performScrollToNode(hasText("stunreachability"))
                     .performTouchInput { swipeUp() }
                 clickOnText("stunreachability", substring = true)
-                clickOnText(getPluralString(Res.plurals.Dashboard_RunTests_RunButton_Label, 1, 1))
+                clickOnRunButton(1)
 
                 clickOnText(Res.string.Dashboard_RunV2_RunFinished, timeout = TEST_WAIT_TIMEOUT)
 
                 clickOnText(Res.string.Test_Experimental_Fullname)
                 compose.onAllNodesWithText("stunreachability")[0].performClick()
-                wait { onNodeWithText(Res.string.measurement).isDisplayed() }
+                wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
                 checkTextAnywhereInsideWebView("stunreachability")
             }
         }
@@ -151,16 +152,26 @@ class RunningTestsTest {
 
                 clickOnText(Res.string.Dashboard_RunTests_SelectNone)
                 clickOnText("Trusted International Media")
-                clickOnText(getPluralString(Res.plurals.Dashboard_RunTests_RunButton_Label, 1, 1))
+                clickOnRunButton(1)
 
                 clickOnText(Res.string.Dashboard_RunV2_RunFinished, timeout = TEST_WAIT_TIMEOUT)
 
                 clickOnText("Trusted International Media")
                 clickOnText("https://www.dw.com")
-                wait { onNodeWithText(Res.string.measurement).isDisplayed() }
+                wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
                 checkSummaryInsideWebView("https://www.dw.com")
             }
         }
+
+    private suspend fun ComposeTestRule.clickOnRunButton(quantity: Int) {
+        clickOnText(
+            getPluralStringResourceItem(
+                Res.plurals.Dashboard_RunTests_RunButton_Label,
+                quantity,
+                quantity,
+            ),
+        )
+    }
 
     companion object {
         private val TEST_WAIT_TIMEOUT = 3.minutes
