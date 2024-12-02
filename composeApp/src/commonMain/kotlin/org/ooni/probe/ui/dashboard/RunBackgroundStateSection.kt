@@ -29,7 +29,7 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notic
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.UploadingMissingResults
+import ooniprobe.composeapp.generated.resources.Results_UploadingMissing
 import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -104,7 +104,7 @@ fun RunBackgroundStateSection(
                         val progress = uploadState.uploaded + uploadState.failedToUpload + 1
                         Text(
                             text = stringResource(
-                                Res.string.UploadingMissingResults,
+                                Res.string.Results_UploadingMissing,
                                 "$progress/${uploadState.total}",
                             ),
                             style = MaterialTheme.typography.bodyLarge,

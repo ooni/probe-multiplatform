@@ -57,7 +57,7 @@ class RunBackgroundTaskTest {
             )
 
             subject(
-                RunSpecification(
+                RunSpecification.Full(
                     tests = emptyList(),
                     taskOrigin = TaskOrigin.OoniRun,
                     isRerun = false,
@@ -72,8 +72,8 @@ class RunBackgroundTaskTest {
         uploadMissingMeasurements: (ResultModel.Id?) -> Flow<UploadMissingMeasurements.State> = { emptyFlow() },
         checkSkipAutoRunNotUploadedLimit: () -> Flow<Boolean> = { flowOf(false) },
         getNetworkType: () -> NetworkType = { NetworkType.Wifi },
-        getAutoRunSpecification: suspend () -> RunSpecification = {
-            RunSpecification(
+        getAutoRunSpecification: suspend () -> RunSpecification.Full = {
+            RunSpecification.Full(
                 tests = emptyList(),
                 taskOrigin = TaskOrigin.AutoRun,
                 isRerun = false,

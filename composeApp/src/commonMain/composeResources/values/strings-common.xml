@@ -232,69 +232,71 @@
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe cannot run automatically without battery optimization. Do you want to try again?</string>
 
     <!-- New Strings -->
-    <string name="Dashboard_Runv2_Overview_LastUpdatd">Last updated %1$s</string>
-    <string name="back">Back</string>
-    <string name="refresh">refresh</string>
-    <string name="measurement">Measurement</string>
-    <plurals name="measurements_count">
-        <item quantity="one">%1$d measurement</item>
-        <item quantity="other">%1$d measurements</item>
-    </plurals>
-    <string-array name="months">
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
-        <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
-        <item>August</item>
-        <item>September</item>
-        <item>October</item>
-        <item>November</item>
-        <item>December</item>
-    </string-array>
-    <string name="ago">%1$s ago</string>
-    <plurals name="minutes">
-        <item quantity="one">%1$d minute</item>
-        <item quantity="other">%1$d minutes</item>
-    </plurals>
-    <plurals name="hours">
-        <item quantity="one">%1$d hour</item>
-        <item quantity="other">%1$d hours</item>
-    </plurals>
-    <string name="hours_abbreviated">%1$dh</string>
-    <string name="minutes_abbreviated">%1$dm</string>
-    <string name="seconds_abbreviated">%1$ds</string>
-    <string name="notification_channel_name">Testing</string>
-    <string name="task_origin_manual">Manual Run</string>
-    <string name="task_origin_auto_run">Auto Run</string>
-    <string name="collapse">Collapse</string>
-    <string name="expand">Expand</string>
-    <plurals name="Dashboard_RunTests_RunButton_Label">
-        <item quantity="one">Run %1$d test</item>
-        <item quantity="other">Run %1$d tests</item>
-    </plurals>
-    <string name="test_type_all">All Types</string>
-    <string name="task_origin_all">All Sources</string>
-    <string name="vpn">VPN</string>
-    <string name="disable_vpn_instructions">Go to Settings > General > VPN and disconnect from your VPN.</string>
-    <string name="measurement_failed">Failed</string>
-    <string name="measurement_ok">OK</string>
-    <string name="measurement_anomaly">Anomaly</string>
-    <string name="quiz_answer_correct">Correct answer</string>
-    <string name="quiz_answer_incorrect">Incorrect answer</string>
-    <string name="logs">Logs</string>
-    <string name="share_logs">Share Logs</string>
-    <string name="share_logs_error">Error sharing logs</string>
-    <string name="filter_logs">Filter Logs</string>
-    <string name="results_limited_notice">Only the last %1$d results are shown</string>
-    <string name="auto_test_not_uploaded_limit">Skip after this amount of results failed to upload</string>
+
+    <string name="Common_Back">Back</string>
+    <string name="Common_Refresh">refresh</string>
+    <string name="Common_Collapse">Collapse</string>
+    <string name="Common_Expand">Expand</string>
+    <string name="Common_Ago">%1$s ago</string>
+    <string name="Common_Minutes_One">%1$d minute</string>
+    <string name="Common_Minutes_Other">%1$d minutes</string>
+    <string name="Common_Hour_One">%1$d hour</string>
+    <string name="Common_Hour_Other">%1$d hours</string>
+    <string name="Common_Hours_Abbreviated">%1$dh</string>
+    <string name="Common_Minutes_Abbreviated">%1$dm</string>
+    <string name="Common_Seconds_Abbreviated">%1$ds</string>
+
+    <string name="Common_Months_January">January</string>
+    <string name="Common_Months_February">February</string>
+    <string name="Common_Months_March">March</string>
+    <string name="Common_Months_April">April</string>
+    <string name="Common_Months_May">May</string>
+    <string name="Common_Months_June">June</string>
+    <string name="Common_Months_July">July</string>
+    <string name="Common_Months_August">August</string>
+    <string name="Common_Months_September">September</string>
+    <string name="Common_Months_October">October</string>
+    <string name="Common_Months_November">November</string>
+    <string name="Common_Months_December">December</string>
+
+    <string name="Onboarding_QuizAnswer_Correct">Correct answer</string>
+    <string name="Onboarding_QuizAnswer_Incorrect">Incorrect answer</string>
+
+    <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
+
+    <string name="Dashboard_RunTests_RunButton_Label_One">Run %1$d test</string>
+    <string name="Dashboard_RunTests_RunButton_Label_Other">Run %1$d tests</string>
+
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
+
+    <string name="Measurement_Title">Measurement</string>
+
+    <string name="Measurements_Count_One">%1$d measurement</string>
+    <string name="Measurements_Count_Other">%1$d measurements</string>
+
+    <string name="Measurements_Failed">Failed</string>
+    <string name="Measurements_Ok">OK</string>
+    <string name="Measurements_Anomaly">Anomaly</string>
+
+    <string name="Results_TestType_All">All Types</string>
+    <string name="Results_TaskOrigin_All">All Sources</string>
+    <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
+    <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
+
+    <string name="Settings_Logs">Logs</string>
+    <string name="Settings_ShareLogs">Share Logs</string>
+    <string name="Settings_ShareLogs_Error">Error sharing logs</string>
+    <string name="Settings_FilterLogs">Filter Logs</string>
+    <string name="Settings_DisableVpnInstructions">Go to Settings > General > VPN and disconnect from your VPN.</string>
+    <string name="Settings_AutoTest_NotUploadedLimit">Skip after this amount of results failed to upload</string>
     <string name="Settings_Sharing_UploadResults_Description">Results are automatically uploaded to OONI explorer</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_New">Limit Websites test duration</string>
     <string name="Settings_Websites_MaxRuntime_New">Maximum Websites test duration</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run every hour in the background</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
-    <string name="UploadingMissingResults">Uploading missing results %1$s</string>
+
+    <string name="Notification_ChannelName">Testing</string>
+    <string name="TaskOrigin_Manual">Manual Run</string>
+    <string name="TaskOrigin_AutoRun">Auto Run</string>
+    <string name="NetworkType_Vpn">VPN</string>
 </resources>

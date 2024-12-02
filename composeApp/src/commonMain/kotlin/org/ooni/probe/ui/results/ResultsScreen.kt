@@ -46,6 +46,7 @@ import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Results_LimitedNotice
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_FilterTests
@@ -59,12 +60,10 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_
 import ooniprobe.composeapp.generated.resources.ic_delete_all
 import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_upload
-import ooniprobe.composeapp.generated.resources.months
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
-import ooniprobe.composeapp.generated.resources.results_limited_notice
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
@@ -151,7 +150,7 @@ fun ResultsScreen(
                     item("limited") {
                         Text(
                             text = stringResource(
-                                Res.string.results_limited_notice,
+                                Res.string.Results_LimitedNotice,
                                 state.filter.limit,
                             ),
                             style = MaterialTheme.typography.labelLarge,
@@ -316,7 +315,7 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
 
 @Composable
 private fun ResultDateHeader(date: LocalDate) {
-    val monthNames = stringArrayResource(Res.array.months)
+    val monthNames = stringMonthArrayResource()
     Text(
         date.format(
             Format {
