@@ -112,9 +112,11 @@ class RunNetTest(
 
             is TaskEvent.Log -> {
                 Logger.log(
-                    severity = when (event.level) {
-                        "WARNING" -> Severity.Warn
-                        "DEBUG" -> Severity.Debug
+                    severity = when {
+                        event.level == "WARNING" && !LOGS_TO_LOWER_LEVEL.contains(event.message) ->
+                            Severity.Warn
+
+                        event.level == "DEBUG" -> Severity.Debug
                         else -> Severity.Info
                     },
                     message = event.message,
@@ -315,4 +317,10 @@ class RunNetTest(
         Failure(message, value)
 
     inner class BugJsonDump(value: TaskEventResult.Value?) : Failure(null, value)
+
+    companion object {
+        private val LOGS_TO_LOWER_LEVEL = listOf(
+            "Picking from default OpenVPN endpoints",
+        )
+    }
 }
