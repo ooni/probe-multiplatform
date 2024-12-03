@@ -22,18 +22,4 @@
         <item quantity="other">@string/Measurements_Count_Other</item>
     </plurals>
 
-    <string-array name="Common_Months" translatable="false">
-        <item>@string/Common_Months_January</item>
-        <item>@string/Common_Months_February</item>
-        <item>@string/Common_Months_March</item>
-        <item>@string/Common_Months_April</item>
-        <item>@string/Common_Months_May</item>
-        <item>@string/Common_Months_June</item>
-        <item>@string/Common_Months_July</item>
-        <item>@string/Common_Months_August</item>
-        <item>@string/Common_Months_September</item>
-        <item>@string/Common_Months_October</item>
-        <item>@string/Common_Months_November</item>
-        <item>@string/Common_Months_December</item>
-    </string-array>
 </resources>
