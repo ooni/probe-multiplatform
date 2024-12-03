@@ -237,6 +237,8 @@
     <string name="Common_Refresh">refresh</string>
     <string name="Common_Collapse">Collapse</string>
     <string name="Common_Expand">Expand</string>
+    <string name="Common_SelectAll">Select all</string>
+    <string name="Common_DeselectAll">Deselect all</string>
     <string name="Common_Ago">%1$s ago</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>
