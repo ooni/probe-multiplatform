@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -53,9 +55,7 @@ fun ChooseWebsitesScreen(
     onEvent: (ChooseWebsitesViewModel.Event) -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .padding(WindowInsets.navigationBars.asPaddingValues())
-            .background(MaterialTheme.colorScheme.background),
+        modifier = Modifier.background(MaterialTheme.colorScheme.background),
     ) {
         TopBar(
             title = { Text(stringResource(Res.string.Settings_Websites_CustomURL_Title)) },
@@ -71,6 +71,7 @@ fun ChooseWebsitesScreen(
 
         Box(Modifier.fillMaxSize()) {
             LazyColumn(
+                modifier = Modifier.imePadding(),
                 contentPadding = PaddingValues(
                     bottom = WindowInsets.navigationBars.asPaddingValues()
                         .calculateBottomPadding() + 64.dp,
@@ -137,7 +138,8 @@ fun ChooseWebsitesScreen(
                 onClick = { onEvent(ChooseWebsitesViewModel.Event.RunClicked) },
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(WindowInsets.navigationBars.asPaddingValues())
+                    .imePadding()
+                    .navigationBarsPadding()
                     .padding(bottom = 16.dp),
             ) {
                 Icon(
