@@ -27,7 +27,7 @@ class GetAutoRunSpecification(
     }
 
     private suspend fun List<Descriptor>.filterForAutoRun() =
-        filter { it.isEnabledForAutoRun() }
+        filter { it.enabled && it.isEnabledForAutoRun() }
             .map { descriptor ->
                 descriptor.copy(
                     netTests = descriptor.netTests
