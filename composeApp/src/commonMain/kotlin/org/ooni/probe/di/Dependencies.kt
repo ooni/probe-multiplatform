@@ -292,6 +292,7 @@ class Dependencies(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
             listInstalledTestDescriptors = testDescriptorRepository::list,
             descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
+            getPreferenceValues = preferenceRepository::allSettings,
         )
     }
     private val getTestDescriptorsBySpec by lazy {

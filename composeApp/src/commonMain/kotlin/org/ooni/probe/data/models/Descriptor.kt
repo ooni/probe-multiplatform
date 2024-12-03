@@ -22,6 +22,7 @@ data class Descriptor(
     val longRunningTests: List<NetTest> = emptyList(),
     val source: Source,
     val updateStatus: UpdateStatus,
+    val enabled: Boolean = true,
 ) {
     sealed interface Source {
         data class Default(val value: DefaultTestDescriptor) : Source
