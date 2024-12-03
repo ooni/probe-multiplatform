@@ -26,7 +26,7 @@ import org.ooni.probe.domain.UploadMissingMeasurements
 class RunBackgroundTask(
     private val getPreferenceValueByKey: (SettingsKey) -> Flow<Any?>,
     private val uploadMissingMeasurements: (ResultModel.Id?) -> Flow<UploadMissingMeasurements.State>,
-    private val checkSkipAutoRunNotUploadedLimit: () -> Flow<Boolean>,
+    private val checkSkipAutoRunNotUploadedLimit: suspend () -> Boolean,
     private val getNetworkType: () -> NetworkType,
     private val getAutoRunSpecification: suspend () -> RunSpecification.Full,
     private val runDescriptors: suspend (RunSpecification.Full) -> Unit,
@@ -106,7 +106,7 @@ class RunBackgroundTask(
     }
 
     private suspend fun ProducerScope<RunBackgroundState>.runTests(spec: RunSpecification.Full?) {
-        if (checkSkipAutoRunNotUploadedLimit().first()) {
+        if (checkSkipAutoRunNotUploadedLimit()) {
             Logger.i("Skipping auto-run tests: too many not-uploaded results")
             return
         }
