@@ -104,7 +104,6 @@ class ChooseWebsitesViewModel(
                     RunSpecification.Full(
                         tests = listOf(
                             RunSpecification.Test(
-                                source = RunSpecification.Test.Source.Default("websites"),
                                 netTests = listOf(
                                     NetTest(
                                         test = TestType.WebConnectivity,

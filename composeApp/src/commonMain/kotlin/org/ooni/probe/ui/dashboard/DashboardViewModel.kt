@@ -114,7 +114,7 @@ class DashboardViewModel(
             .filterIsInstance<Event.FetchUpdatedDescriptors>()
             .onEach {
                 state.value.descriptors[DescriptorType.Installed]
-                    ?.map { (it.source as Descriptor.Source.Installed).value }
+                    ?.map { it.source }
                     ?.let { descriptors ->
                         fetchDescriptorUpdate(descriptors)
                     }

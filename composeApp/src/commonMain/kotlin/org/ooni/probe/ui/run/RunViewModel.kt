@@ -228,14 +228,7 @@ class RunViewModel(
             tests =
                 selectedTests.map { (descriptor, tests) ->
                     RunSpecification.Test(
-                        source =
-                            when (descriptor.source) {
-                                is Descriptor.Source.Default ->
-                                    RunSpecification.Test.Source.Default(descriptor.name)
-
-                                is Descriptor.Source.Installed ->
-                                    RunSpecification.Test.Source.Installed(descriptor.source.value.id)
-                            },
+                        source =  descriptor.source.id,
                         netTests = tests,
                     )
                 },

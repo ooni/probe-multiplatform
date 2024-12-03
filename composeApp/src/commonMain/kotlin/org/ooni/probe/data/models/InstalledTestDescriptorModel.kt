@@ -103,7 +103,7 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
         dataUsage = { if (isDefaultTestDescriptor) stringResource(getDataUsage()) else null },
         expirationDate = expirationDate,
         netTests = netTests.orEmpty(),
-        source = Descriptor.Source.Installed(this),
+        source = this,
         updateStatus = updateStatus,
     )
 

@@ -286,7 +286,6 @@ class Dependencies(
     @VisibleForTesting
     val getTestDescriptors by lazy {
         GetTestDescriptors(
-            getDefaultTestDescriptors = { emptyList() },
             listInstalledTestDescriptors = testDescriptorRepository::list,
             descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
         )

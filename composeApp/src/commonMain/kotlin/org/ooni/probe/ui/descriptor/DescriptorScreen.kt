@@ -76,7 +76,7 @@ fun DescriptorScreen(
                 isRefreshing = state.isRefreshing,
                 onRefresh = { onEvent(DescriptorViewModel.Event.FetchUpdatedDescriptor) },
                 state = pullRefreshState,
-                enabled = state.descriptor?.source is Descriptor.Source.Installed,
+                enabled = true,
             )
             .background(MaterialTheme.colorScheme.background),
     ) {
@@ -127,11 +127,7 @@ fun DescriptorScreen(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
                 )
 
-                if (descriptor.isInstalledNonDefaultDescriptor()) {
-                    (descriptor.source as Descriptor.Source.Installed?)?.let {
-                        ConfigureUpdates(onEvent, it.value.autoUpdate)
-                    }
-                }
+                ConfigureUpdates(onEvent, descriptor.source.autoUpdate)
                 Text(
                     stringResource(Res.string.AddDescriptor_Settings),
                     style = MaterialTheme.typography.titleMedium,
@@ -164,13 +160,11 @@ fun DescriptorScreen(
                     TestDisplayMode.WebsitesOnly -> WebsiteItems(state.tests)
                 }
 
-                if (descriptor.source is Descriptor.Source.Installed) {
-                    InstalledDescriptorActionsView(
-                        descriptor = descriptor.source.value,
-                        onEvent = onEvent,
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                    )
-                }
+                InstalledDescriptorActionsView(
+                    descriptor = descriptor.source,
+                    onEvent = onEvent,
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                )
             }
         }
         if (state.isRefreshing) {

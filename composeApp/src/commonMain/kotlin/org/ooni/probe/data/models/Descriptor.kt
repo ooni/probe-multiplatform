@@ -20,24 +20,15 @@ data class Descriptor(
     val expirationDate: LocalDateTime?,
     val netTests: List<NetTest>,
     val longRunningTests: List<NetTest> = emptyList(),
-    val source: Source,
+    val source: InstalledTestDescriptorModel,
     val updateStatus: UpdateStatus,
 ) {
-    sealed interface Source {
-        data class Default(val value: DefaultTestDescriptor) : Source
-
-        data class Installed(val value: InstalledTestDescriptorModel) : Source
-    }
-
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 
     val updatable get() = updateStatus is UpdateStatus.UpdateRejected
 
     val key: String
-        get() = when (source) {
-            is Source.Default -> name
-            is Source.Installed -> source.value.key
-        }
+        get() = source.key
 
     val allTests get() = netTests + longRunningTests
 
@@ -46,23 +37,14 @@ data class Descriptor(
             .sumOf { it.test.runtime(it.inputs).inWholeSeconds }
             .seconds
 
-    val settingsPrefix: String?
-        get() = when (isDefaultDescriptor()) {
-            true -> null
-            else -> (source as Source.Installed).value.id.value.toString()
-        }
+    val settingsPrefix: String
+        get() = source.id.value.toString()
 
     fun isDefaultDescriptor(): Boolean {
-        return when (source) {
-            is Source.Default -> true
-            is Source.Installed -> source.value.isDefaultTestDescriptor
-        }
+        return source.isDefaultTestDescriptor
     }
 
     fun isInstalledNonDefaultDescriptor(): Boolean {
-        return when (source) {
-            is Source.Installed -> !source.value.isDefaultTestDescriptor
-            else -> false
-        }
+        return  !source.isDefaultTestDescriptor
     }
 }
