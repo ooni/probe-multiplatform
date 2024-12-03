@@ -9,7 +9,6 @@ import kotlinx.datetime.format.char
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import ooniprobe.composeapp.generated.resources.Common_Months
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_Description
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_LastUpdated
 import ooniprobe.composeapp.generated.resources.Res
@@ -18,12 +17,12 @@ import ooniprobe.composeapp.generated.resources.test_experimental
 import ooniprobe.composeapp.generated.resources.test_instant_messaging
 import ooniprobe.composeapp.generated.resources.test_performance
 import ooniprobe.composeapp.generated.resources.test_websites
-import org.jetbrains.compose.resources.stringArrayResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.TestDescriptor
 import org.ooni.probe.shared.InstalledDescriptorIcons
 import org.ooni.probe.shared.hexToColor
 import org.ooni.probe.shared.now
+import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.shared.toEpoch
 
 @Serializable
@@ -65,7 +64,7 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
         shortDescription = { shortDescriptionIntl?.getCurrent() ?: shortDescription },
         description = { descriptionIntl?.getCurrent() ?: description },
         metadata = {
-            val monthNames = stringArrayResource(Res.array.Common_Months)
+            val monthNames = stringMonthArrayResource()
             val formattedDate = { date: LocalDateTime? -> date?.format(dateTimeFormat(monthNames)) }
             formattedDate(dateCreated)?.let { formattedDateCreated ->
                 stringResource(
