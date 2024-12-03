@@ -28,10 +28,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.Common_Back
+import ooniprobe.composeapp.generated.resources.Common_Refresh
+import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.back
-import ooniprobe.composeapp.generated.resources.measurement
-import ooniprobe.composeapp.generated.resources.refresh
 import org.intellij.markdown.html.urlEncode
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.config.OrganizationConfig
@@ -56,13 +56,13 @@ fun MeasurementScreen(
         Box {
             TopBar(
                 title = {
-                    Text(stringResource(Res.string.measurement))
+                    Text(stringResource(Res.string.Measurement_Title))
                 },
                 navigationIcon = {
                     IconButton(onClick = { onBack() }) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(Res.string.back),
+                            contentDescription = stringResource(Res.string.Common_Back),
                         )
                     }
                 },
@@ -93,7 +93,7 @@ fun MeasurementScreen(
                         ) {
                             Icon(
                                 Icons.Default.Refresh,
-                                contentDescription = stringResource(Res.string.refresh),
+                                contentDescription = stringResource(Res.string.Common_Refresh),
                             )
                         }
                     }

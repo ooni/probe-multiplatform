@@ -43,7 +43,7 @@ androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore
 androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStoreVersion" }
 
 # Engine
-android-oonimkall = { module = "org.ooni:oonimkall", version = "2024.08.08-091959" }
+android-oonimkall = { module = "org.ooni:oonimkall", version = "2024.11.26-053000" }
 
 # Logging
 kermit = { module = "co.touchlab:kermit", version = "2.0.4" }

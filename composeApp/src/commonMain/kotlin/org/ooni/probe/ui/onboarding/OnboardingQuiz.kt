@@ -39,9 +39,9 @@ import ooniprobe.composeapp.generated.resources.Onboarding_PopQuiz_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_PopQuiz_True
 import ooniprobe.composeapp.generated.resources.Onboarding_PopQuiz_Wrong_Button_Back
 import ooniprobe.composeapp.generated.resources.Onboarding_PopQuiz_Wrong_Button_Continue
+import ooniprobe.composeapp.generated.resources.Onboarding_QuizAnswer_Correct
+import ooniprobe.composeapp.generated.resources.Onboarding_QuizAnswer_Incorrect
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.quiz_answer_correct
-import ooniprobe.composeapp.generated.resources.quiz_answer_incorrect
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.Animation
@@ -200,9 +200,9 @@ private fun ResultAnimation(
                 animation = if (isCorrect) Animation.QuizCorrect else Animation.QuizIncorrect,
                 contentDescription = stringResource(
                     if (isCorrect) {
-                        Res.string.quiz_answer_correct
+                        Res.string.Onboarding_QuizAnswer_Correct
                     } else {
-                        Res.string.quiz_answer_incorrect
+                        Res.string.Onboarding_QuizAnswer_Incorrect
                     },
                 ),
                 restartOnPlay = false,

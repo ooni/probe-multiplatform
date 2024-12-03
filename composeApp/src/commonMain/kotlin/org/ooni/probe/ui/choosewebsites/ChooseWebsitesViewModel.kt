@@ -101,7 +101,7 @@ class ChooseWebsitesViewModel(
                 }
 
                 startBackgroundRun(
-                    RunSpecification(
+                    RunSpecification.Full(
                         tests = listOf(
                             RunSpecification.Test(
                                 source = RunSpecification.Test.Source.Default("websites"),

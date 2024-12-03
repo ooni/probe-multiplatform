@@ -8,15 +8,15 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
 import kotlinx.datetime.format.char
 import kotlinx.datetime.toInstant
+import ooniprobe.composeapp.generated.resources.Common_Ago
+import ooniprobe.composeapp.generated.resources.Common_Hours
+import ooniprobe.composeapp.generated.resources.Common_Hours_Abbreviated
+import ooniprobe.composeapp.generated.resources.Common_Minutes
+import ooniprobe.composeapp.generated.resources.Common_Minutes_Abbreviated
+import ooniprobe.composeapp.generated.resources.Common_Seconds_Abbreviated
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.ago
-import ooniprobe.composeapp.generated.resources.hours
-import ooniprobe.composeapp.generated.resources.hours_abbreviated
-import ooniprobe.composeapp.generated.resources.minutes
-import ooniprobe.composeapp.generated.resources.minutes_abbreviated
-import ooniprobe.composeapp.generated.resources.seconds_abbreviated
-import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.shared.today
 import kotlin.time.Duration
 
@@ -44,12 +44,12 @@ fun LocalDateTime.relativeDateTime(): String =
         val diff = (Clock.System.now() - toInstant(TimeZone.currentSystemDefault()))
         val diffString = diff.toComponents { hours, minutes, _, _ ->
             if (hours > 0) {
-                pluralStringResource(Res.plurals.hours, hours.toInt(), hours.toInt())
+                pluralStringResourceItem(Res.plurals.Common_Hours, hours.toInt(), hours.toInt())
             } else {
-                pluralStringResource(Res.plurals.minutes, minutes, minutes)
+                pluralStringResourceItem(Res.plurals.Common_Minutes, minutes, minutes)
             }
         }
-        stringResource(Res.string.ago, diffString)
+        stringResource(Res.string.Common_Ago, diffString)
     } else {
         longFormat()
     }
@@ -61,9 +61,23 @@ fun LocalDateTime.logFormat(): String = format(logDateTimeFormat)
 @Composable
 fun Duration.shortFormat(): String =
     toComponents { hours, minutes, seconds, _ ->
-        (if (hours > 0) stringResource(Res.string.hours_abbreviated, hours.toInt()) else "") +
-            " " +
-            (if (minutes > 0) stringResource(Res.string.minutes_abbreviated, minutes) else "") +
-            " " +
-            (if (seconds > 0) stringResource(Res.string.seconds_abbreviated, seconds) else "")
+        (
+            if (hours > 0) {
+                stringResource(Res.string.Common_Hours_Abbreviated, hours.toInt())
+            } else {
+                ""
+            }
+        ) + " " + (
+            if (minutes > 0) {
+                stringResource(Res.string.Common_Minutes_Abbreviated, minutes)
+            } else {
+                ""
+            }
+        ) + " " + (
+            if (seconds > 0) {
+                stringResource(Res.string.Common_Seconds_Abbreviated, seconds)
+            } else {
+                ""
+            }
+        )
     }.trimStart()

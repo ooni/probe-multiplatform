@@ -20,7 +20,7 @@ import org.ooni.probe.shared.now
 import kotlin.time.Duration
 
 class RunDescriptors(
-    private val getTestDescriptorsBySpec: suspend (RunSpecification) -> List<Descriptor>,
+    private val getTestDescriptorsBySpec: suspend (RunSpecification.Full) -> List<Descriptor>,
     private val downloadUrls: suspend (TaskOrigin) -> Result<List<UrlModel>, MkException>,
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
     private val markResultAsDone: suspend (ResultModel.Id) -> Unit,
@@ -32,7 +32,7 @@ class RunDescriptors(
     private val getEnginePreferences: suspend () -> EnginePreferences,
     private val finishInProgressData: suspend () -> Unit,
 ) {
-    suspend operator fun invoke(spec: RunSpecification) {
+    suspend operator fun invoke(spec: RunSpecification.Full) {
         setRunBackgroundState { RunBackgroundState.RunningTests() }
 
         val descriptors = getTestDescriptorsBySpec(spec)
@@ -55,7 +55,7 @@ class RunDescriptors(
 
     private suspend fun runDescriptorsCancellable(
         descriptors: List<Descriptor>,
-        spec: RunSpecification,
+        spec: RunSpecification.Full,
     ) {
         addRunCancelListener {
             setRunBackgroundState { RunBackgroundState.Stopping }

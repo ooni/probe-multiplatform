@@ -49,6 +49,10 @@ class AndroidOonimkallBridge : OonimkallBridge {
                 val response = session.httpDo(context, request.toMk())
                 return OonimkallBridge.HTTPResponse(body = response.body)
             }
+
+            override fun close() {
+                session.close()
+            }
         }
     }
 

@@ -34,6 +34,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_EstimatedTimeLeft
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_ProxyInUse
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
@@ -41,7 +42,6 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notic
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
 import ooniprobe.composeapp.generated.resources.Notification_StopTest
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import ooniprobe.composeapp.generated.resources.test_circumvention
 import org.jetbrains.compose.resources.painterResource
@@ -73,7 +73,7 @@ fun RunningScreen(
                     IconButton(onClick = { onEvent(RunningViewModel.Event.BackClicked) }) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(Res.string.back),
+                            contentDescription = stringResource(Res.string.Common_Back),
                         )
                     }
                 },

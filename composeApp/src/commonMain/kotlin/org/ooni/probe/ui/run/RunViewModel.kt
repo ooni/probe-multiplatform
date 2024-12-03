@@ -224,7 +224,7 @@ class RunViewModel(
                     .filter { it.isSelected }
                     .map { it.item }
             }
-        return RunSpecification(
+        return RunSpecification.Full(
             tests =
                 selectedTests.map { (descriptor, tests) ->
                     RunSpecification.Test(

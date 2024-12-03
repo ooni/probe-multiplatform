@@ -372,7 +372,7 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
                         Logger.i("Permission request cancelled")
                         // Nothing to do here
                     } catch (e: Exception) {
-                        Logger.e("Error requesting permission")
+                        Logger.e("Error requesting permission", e)
                     }
                 }
             },

@@ -34,14 +34,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Severity
+import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Settings_FilterLogs
+import ooniprobe.composeapp.generated.resources.Settings_Logs
+import ooniprobe.composeapp.generated.resources.Settings_ShareLogs
+import ooniprobe.composeapp.generated.resources.Settings_ShareLogs_Error
 import ooniprobe.composeapp.generated.resources.Settings_Storage_Delete
-import ooniprobe.composeapp.generated.resources.back
-import ooniprobe.composeapp.generated.resources.filter_logs
 import ooniprobe.composeapp.generated.resources.ic_delete_all
-import ooniprobe.composeapp.generated.resources.logs
-import ooniprobe.composeapp.generated.resources.share_logs
-import ooniprobe.composeapp.generated.resources.share_logs_error
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -57,12 +57,12 @@ fun LogScreen(
 ) {
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
-            title = { Text(stringResource(Res.string.logs)) },
+            title = { Text(stringResource(Res.string.Settings_Logs)) },
             navigationIcon = {
                 IconButton(onClick = { onEvent(LogViewModel.Event.BackClicked) }) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.back),
+                        contentDescription = stringResource(Res.string.Common_Back),
                     )
                 }
             },
@@ -76,7 +76,7 @@ fun LogScreen(
                 IconButton(onClick = { onEvent(LogViewModel.Event.ShareClicked) }) {
                     Icon(
                         Icons.Default.Share,
-                        contentDescription = stringResource(Res.string.share_logs),
+                        contentDescription = stringResource(Res.string.Settings_ShareLogs),
                     )
                 }
             },
@@ -90,7 +90,7 @@ fun LogScreen(
                 .padding(bottom = 8.dp),
         ) {
             Text(
-                stringResource(Res.string.filter_logs),
+                stringResource(Res.string.Settings_FilterLogs),
                 modifier = Modifier.weight(2f),
             )
             SeverityFilter(
@@ -129,7 +129,7 @@ fun LogScreen(
         snackbarHostState.showSnackbar(
             getString(
                 when (error) {
-                    LogViewModel.Error.Share -> Res.string.share_logs_error
+                    LogViewModel.Error.Share -> Res.string.Settings_ShareLogs_Error
                 },
             ),
         )

@@ -9,7 +9,10 @@ class TaskEventMapper(
     private val networkTypeFinder: NetworkTypeFinder,
     private val json: Json,
 ) {
-    operator fun invoke(result: TaskEventResult): TaskEvent? {
+    operator fun invoke(
+        result: TaskEventResult,
+        isCancelled: Boolean = false,
+    ): TaskEvent? {
         val key = result.key
         val value = result.value
 
@@ -33,6 +36,7 @@ class TaskEventMapper(
                     TaskEvent.ResolverLookupFailure(
                         message = value.failure,
                         value = value,
+                        isCancelled = isCancelled,
                     )
                 } ?: run {
                     Logger.d("Task Event $key missing 'value'")
@@ -44,6 +48,7 @@ class TaskEventMapper(
                     TaskEvent.StartupFailure(
                         message = value.failure,
                         value = value,
+                        isCancelled = isCancelled,
                     )
                 } ?: run {
                     Logger.d("Task Event $key missing 'value'")

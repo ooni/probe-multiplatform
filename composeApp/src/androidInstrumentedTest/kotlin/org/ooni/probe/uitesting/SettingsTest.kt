@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.CategoryCode_ANON_Name
+import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_DebugLogs
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
@@ -25,7 +26,6 @@ import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.Settings_WarmVPNInUse_Label
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Description
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
-import ooniprobe.composeapp.generated.resources.back
 import org.jetbrains.compose.resources.getString
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -126,7 +126,7 @@ class SettingsTest {
                 clickOnText(Res.string.Settings_Websites_Categories_Label)
 
                 clickOnText(Res.string.CategoryCode_ANON_Name)
-                clickOnContentDescription(Res.string.back)
+                clickOnContentDescription(Res.string.Common_Back)
 
                 onNodeWithText(getString(Res.string.Settings_Websites_Categories_Description, 1))
                     .assertIsDisplayed()

@@ -43,6 +43,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.Common_Back
+import ooniprobe.composeapp.generated.resources.Common_Collapse
+import ooniprobe.composeapp.generated.resources.Common_Expand
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_Description
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_RunButton_Label
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectAll
@@ -55,21 +58,18 @@ import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
 import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Modal_RunAnyway
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.back
-import ooniprobe.composeapp.generated.resources.collapse
-import ooniprobe.composeapp.generated.resources.disable_vpn_instructions
-import ooniprobe.composeapp.generated.resources.expand
+import ooniprobe.composeapp.generated.resources.Settings_DisableVpnInstructions
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_down
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_up
 import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.dashboard.TestDescriptorSection
 import org.ooni.probe.ui.shared.ParentSelectableItem
@@ -91,7 +91,7 @@ fun RunScreen(
                 IconButton(onClick = { onEvent(RunViewModel.Event.BackClicked) }) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.back),
+                        contentDescription = stringResource(Res.string.Common_Back),
                     )
                 }
             },
@@ -189,7 +189,7 @@ fun RunScreen(
                     .padding(WindowInsets.navigationBars.asPaddingValues()),
             ) {
                 Text(
-                    text = pluralStringResource(
+                    text = pluralStringResourceItem(
                         Res.plurals.Dashboard_RunTests_RunButton_Label,
                         selectedTestsCount,
                         selectedTestsCount,
@@ -291,9 +291,9 @@ private fun DescriptorItem(
                 ),
                 contentDescription = stringResource(
                     if (descriptorItem.isExpanded) {
-                        Res.string.collapse
+                        Res.string.Common_Collapse
                     } else {
-                        Res.string.expand
+                        Res.string.Common_Expand
                     },
                 ),
             )
@@ -380,7 +380,7 @@ private fun DisableVpnInstructionsDialog(onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = { onDismiss() },
         title = { Text(stringResource(Res.string.Modal_DisableVPN)) },
-        text = { Text(stringResource(Res.string.disable_vpn_instructions)) },
+        text = { Text(stringResource(Res.string.Settings_DisableVpnInstructions)) },
         confirmButton = {
             TextButton(onClick = { onDismiss() }) {
                 Text(stringResource(Res.string.Modal_OK))

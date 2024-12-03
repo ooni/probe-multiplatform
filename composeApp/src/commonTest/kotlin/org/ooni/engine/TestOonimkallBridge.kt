@@ -46,5 +46,7 @@ class TestOonimkallBridge : OonimkallBridge {
         override fun checkIn(config: OonimkallBridge.CheckInConfig): OonimkallBridge.CheckInResults = checkInMock!!(config)
 
         override fun httpDo(request: OonimkallBridge.HTTPRequest): OonimkallBridge.HTTPResponse = httpDoMock!!(request)
+
+        override fun close() {}
     }
 }

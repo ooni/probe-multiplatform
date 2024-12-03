@@ -26,9 +26,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_About_Content_Paragraph
-import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.version
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.ui.shared.MarkdownViewer
@@ -53,7 +53,7 @@ fun AboutScreen(
                         IconButton(onClick = { onEvent(AboutViewModel.Event.BackClicked) }) {
                             Icon(
                                 Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(Res.string.back),
+                                contentDescription = stringResource(Res.string.Common_Back),
                             )
                         }
                     },

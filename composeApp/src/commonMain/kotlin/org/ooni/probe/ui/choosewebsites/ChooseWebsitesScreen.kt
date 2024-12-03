@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.CustomWebsites_Fab_Text
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_CustomURL_NotSaved
@@ -39,7 +40,6 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Websites_CustomURL_Add
 import ooniprobe.composeapp.generated.resources.Settings_Websites_CustomURL_Title
 import ooniprobe.composeapp.generated.resources.Settings_Websites_CustomURL_URL
-import ooniprobe.composeapp.generated.resources.back
 import ooniprobe.composeapp.generated.resources.ic_add
 import ooniprobe.composeapp.generated.resources.ic_cancel
 import ooniprobe.composeapp.generated.resources.ic_timer
@@ -63,7 +63,7 @@ fun ChooseWebsitesScreen(
                 IconButton(onClick = { onEvent(ChooseWebsitesViewModel.Event.BackClicked) }) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.back),
+                        contentDescription = stringResource(Res.string.Common_Back),
                     )
                 }
             },

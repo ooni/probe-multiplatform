@@ -9,13 +9,13 @@ import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_RunButton_Label
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectNone
 import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_RunFinished
+import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.Modal_ResultsNotUploaded_Uploading
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
 import ooniprobe.composeapp.generated.resources.Test_InstantMessaging_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Signal_Fullname
-import ooniprobe.composeapp.generated.resources.measurement
 import org.jetbrains.compose.resources.getPluralString
 import org.jetbrains.compose.resources.getString
 import org.junit.Before
@@ -75,7 +75,7 @@ class UploadResultTest {
 
                 clickOnText(Res.string.Test_Signal_Fullname)
 
-                wait { onNodeWithText(Res.string.measurement).isDisplayed() }
+                wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
                 checkSummaryInsideWebView("Signal")
             }
         }
@@ -105,7 +105,7 @@ class UploadResultTest {
 
                 clickOnText("https://www.dw.com")
 
-                wait { onNodeWithText(Res.string.measurement).isDisplayed() }
+                wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
                 checkSummaryInsideWebView("https://www.dw.com")
             }
         }

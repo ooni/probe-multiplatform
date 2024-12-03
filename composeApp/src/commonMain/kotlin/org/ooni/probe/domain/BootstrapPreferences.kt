@@ -33,7 +33,7 @@ class BootstrapPreferences(
                 SettingsKey.AUTOMATED_TESTING_CHARGING to true,
                 SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT to NOT_UPLOADED_LIMIT_DEFAULT,
             ) +
-                preferenceDefaults(),
+                organizationPreferenceDefaults(),
         )
     }
 

@@ -52,15 +52,19 @@ class Engine(
             val settingsSerialized = json.encodeToString(taskSettings)
 
             var task: OonimkallBridge.Task? = null
+            var isCancelled = false
             try {
                 task = bridge.startTask(settingsSerialized)
 
-                addRunCancelListener { task.interrupt() }
+                addRunCancelListener {
+                    isCancelled = true
+                    task.interrupt()
+                }
 
                 while (!task.isDone() && isActive) {
                     val eventJson = task.waitForNextEvent()
                     val taskEventResult = json.decodeFromString<TaskEventResult>(eventJson)
-                    taskEventMapper(taskEventResult)?.let { send(it) }
+                    taskEventMapper(taskEventResult, isCancelled)?.let { send(it) }
                 }
             } catch (e: Exception) {
                 Logger.d("Error while running task", e)
@@ -81,22 +85,32 @@ class Engine(
             session(sessionConfig).submitMeasurement(measurement)
         }.mapError { MkException(it) }
 
-    suspend fun checkIn(taskOrigin: TaskOrigin): Result<OonimkallBridge.CheckInResults, MkException> =
-        resultOf(backgroundContext) {
+    suspend fun checkIn(taskOrigin: TaskOrigin): Result<OonimkallBridge.CheckInResults, MkException> {
+        return resultOf(backgroundContext) {
             val preferences = getEnginePreferences()
             val sessionConfig = buildSessionConfig(taskOrigin, preferences)
-            session(sessionConfig).checkIn(
-                OonimkallBridge.CheckInConfig(
-                    charging = isBatteryCharging(),
-                    onWiFi = networkTypeFinder() == NetworkType.Wifi,
-                    platform = platformInfo.platform.value,
-                    runType = taskOrigin.value,
-                    softwareName = sessionConfig.softwareName,
-                    softwareVersion = sessionConfig.softwareVersion,
-                    webConnectivityCategories = preferences.enabledWebCategories,
-                ),
-            )
+            val session = session(sessionConfig)
+            try {
+                session.checkIn(
+                    OonimkallBridge.CheckInConfig(
+                        charging = isBatteryCharging(),
+                        onWiFi = networkTypeFinder() == NetworkType.Wifi,
+                        platform = platformInfo.platform.value,
+                        runType = taskOrigin.value,
+                        softwareName = sessionConfig.softwareName,
+                        softwareVersion = sessionConfig.softwareVersion,
+                        webConnectivityCategories = preferences.enabledWebCategories,
+                    ),
+                )
+            } finally {
+                try {
+                    session.close()
+                } catch (e: Exception) {
+                    Logger.w("Error closing session", e)
+                }
+            }
         }.mapError { MkException(it) }
+    }
 
     suspend fun httpDo(
         method: String,
