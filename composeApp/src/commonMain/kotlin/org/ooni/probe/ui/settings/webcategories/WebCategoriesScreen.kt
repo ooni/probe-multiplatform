@@ -18,10 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import ooniprobe.composeapp.generated.resources.Common_Back
-import ooniprobe.composeapp.generated.resources.Common_DeselectAll
-import ooniprobe.composeapp.generated.resources.Common_SelectAll
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
+import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Selection_All
+import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Selection_None
 import ooniprobe.composeapp.generated.resources.ic_deselect
 import ooniprobe.composeapp.generated.resources.ic_select_all
 import org.jetbrains.compose.resources.painterResource
@@ -59,7 +59,7 @@ fun WebCategoriesScreen(
                 ) {
                     Icon(
                         painterResource(Res.drawable.ic_select_all),
-                        stringResource(Res.string.Common_SelectAll),
+                        stringResource(Res.string.Settings_Websites_Categories_Selection_All),
                     )
                 }
                 IconButton(
@@ -68,7 +68,7 @@ fun WebCategoriesScreen(
                 ) {
                     Icon(
                         painterResource(Res.drawable.ic_deselect),
-                        stringResource(Res.string.Common_DeselectAll),
+                        stringResource(Res.string.Settings_Websites_Categories_Selection_None),
                     )
                 }
             },

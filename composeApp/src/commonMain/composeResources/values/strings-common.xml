@@ -237,8 +237,6 @@
     <string name="Common_Refresh">refresh</string>
     <string name="Common_Collapse">Collapse</string>
     <string name="Common_Expand">Expand</string>
-  <string name="Settings_Websites_Categories_Selection_None">Deselect All</string>
-  <string name="Settings_Websites_Categories_Selection_All">Select All</string>
     <string name="Common_Ago">%1$s ago</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>
@@ -296,6 +294,8 @@
     <string name="Settings_Websites_MaxRuntime_New">Maximum Websites test duration</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run every hour in the background</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
+    <string name="Settings_Websites_Categories_Selection_None">Deselect All</string>
+    <string name="Settings_Websites_Categories_Selection_All">Select All</string>
 
     <string name="Notification_ChannelName">Testing</string>
     <string name="TaskOrigin_Manual">Manual Run</string>
