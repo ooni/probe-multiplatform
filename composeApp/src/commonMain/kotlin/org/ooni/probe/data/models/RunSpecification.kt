@@ -21,7 +21,7 @@ sealed interface RunSpecification {
         val netTests: List<NetTest>,
     ) {
         companion object {
-            fun fromDescriptor(descriptor: Descriptor) =descriptor.source.id
+            fun fromDescriptor(descriptor: Descriptor) = descriptor.source.id
         }
     }
 }

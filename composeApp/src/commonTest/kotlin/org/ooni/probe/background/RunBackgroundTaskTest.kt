@@ -70,7 +70,7 @@ class RunBackgroundTaskTest {
     private fun buildSubject(
         getPreferenceValueByKey: (SettingsKey) -> Flow<Any?> = { flowOf(true) },
         uploadMissingMeasurements: (ResultModel.Id?) -> Flow<UploadMissingMeasurements.State> = { emptyFlow() },
-        checkSkipAutoRunNotUploadedLimit: () -> Flow<Boolean> = { flowOf(false) },
+        checkSkipAutoRunNotUploadedLimit: suspend () -> Boolean = { false },
         getNetworkType: () -> NetworkType = { NetworkType.Wifi },
         getAutoRunSpecification: suspend () -> RunSpecification.Full = {
             RunSpecification.Full(

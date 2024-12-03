@@ -1,6 +1,5 @@
 package org.ooni.probe.domain
 
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -20,7 +19,7 @@ class CheckSkipAutoRunNotUploadedLimitTest {
                     CheckSkipAutoRunNotUploadedLimit(
                         countResultsMissingUpload = { flowOf(count) },
                         getPreferenceValueByKey = { flowOf(limit) },
-                    )().first(),
+                    )(),
                 )
             }
 

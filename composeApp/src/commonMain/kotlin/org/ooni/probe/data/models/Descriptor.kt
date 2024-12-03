@@ -45,6 +45,6 @@ data class Descriptor(
     }
 
     fun isInstalledNonDefaultDescriptor(): Boolean {
-        return  !source.isDefaultTestDescriptor
+        return !source.isDefaultTestDescriptor
     }
 }

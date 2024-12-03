@@ -29,6 +29,10 @@ class UploadMissingMeasurements(
             var uploaded = 0
             var failedToUpload = 0
 
+            if (total > 0) {
+                Logger.i("Uploading missing measurements: $total")
+            }
+
             measurements.forEach { measurement ->
                 if (!isActive) return@channelFlow // Check is coroutine was cancelled
 

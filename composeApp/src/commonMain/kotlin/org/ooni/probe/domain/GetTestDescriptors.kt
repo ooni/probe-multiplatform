@@ -23,7 +23,7 @@ class GetTestDescriptors(
             val updatedDescriptors = installedDescriptors.map { item ->
                 item.toDescriptor(updateStatus = descriptorUpdates.getStatusOf(item.id))
             }
-            return@combine  updatedDescriptors
+            return@combine updatedDescriptors
         }
     }
 
