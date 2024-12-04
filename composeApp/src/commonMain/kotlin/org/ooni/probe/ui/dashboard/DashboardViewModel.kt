@@ -113,9 +113,8 @@ class DashboardViewModel(
         events
             .filterIsInstance<Event.FetchUpdatedDescriptors>()
             .onEach {
-                state.value.descriptors[DescriptorType.Installed]
-                    ?.map { it.source }
-                    ?.let { descriptors ->
+                state.value.descriptors.flatMap { it.value }
+                    .map { it.source }.let { descriptors ->
                         fetchDescriptorUpdate(descriptors)
                     }
             }.launchIn(viewModelScope)

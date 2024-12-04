@@ -17,7 +17,7 @@ class GetAutoRunSpecification(
         return RunSpecification.Full(
             tests = descriptors.map { descriptor ->
                 RunSpecification.Test(
-                    source = RunSpecification.Test.fromDescriptor(descriptor),
+                    sourceId = descriptor.source.id,
                     netTests = descriptor.netTests,
                 )
             },

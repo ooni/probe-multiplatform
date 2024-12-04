@@ -30,6 +30,21 @@ import org.ooni.probe.shared.now
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.shared.toEpoch
 
+enum class OoniTest(val id: Long, val key: String) {
+    WEBSITES(10470L, "websites"),
+    INSTANT_MESSAGING(10471L, "instant_messaging"),
+    CIRCUMVENTION(10472L, "circumvention"),
+    PERFORMANCE(10473L, "performance"),
+    EXPERIMENTAL(10474L, "experimental"),
+    ;
+
+    companion object {
+        private val map = entries.associateBy(OoniTest::id)
+
+        fun fromId(id: Long) = map[id]
+    }
+}
+
 @Serializable
 data class InstalledTestDescriptorModel(
     val id: Id,
@@ -59,18 +74,7 @@ data class InstalledTestDescriptorModel(
 
     val isDefaultTestDescriptor get() = id.value in 10470..10474 // TODO(aanorbel): switch to OONI reserved namespace
 
-    val key get() = if (isDefaultTestDescriptor) {
-        when (id.value) {
-            10470L -> "websites"
-            10471L -> "instant_messaging"
-            10472L -> "circumvention"
-            10473L -> "performance"
-            10474L -> "experimental"
-            else -> id.value.toString()
-        }
-    } else {
-        id.value.toString()
-    }
+    val key get() = OoniTest.fromId(id.value) ?: id.value.toString()
 
     fun shouldUpdate(other: InstalledTestDescriptorModel): Boolean {
         return dateUpdated != null && other.dateUpdated != null && other.dateUpdated > dateUpdated
@@ -108,11 +112,11 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
 
 fun InstalledTestDescriptorModel.getDataUsage(): StringResource {
     return when (this.key) {
-        "websites" -> Res.string.websites_datausage
-        "instant_messaging" -> Res.string.small_datausage
-        "circumvention" -> Res.string.small_datausage
-        "performance" -> Res.string.performance_datausage
-        "experimental" -> Res.string.TestResults_NotAvailable
+        OoniTest.WEBSITES.key -> Res.string.websites_datausage
+        OoniTest.INSTANT_MESSAGING.key -> Res.string.small_datausage
+        OoniTest.CIRCUMVENTION.key -> Res.string.small_datausage
+        OoniTest.PERFORMANCE.key -> Res.string.performance_datausage
+        OoniTest.EXPERIMENTAL.key -> Res.string.TestResults_NotAvailable
         else -> Res.string.TestResults_NotAvailable
     }
 }

@@ -17,11 +17,7 @@ sealed interface RunSpecification {
 
     @Serializable
     data class Test(
-        val source: InstalledTestDescriptorModel.Id? = null,
+        val sourceId: InstalledTestDescriptorModel.Id,
         val netTests: List<NetTest>,
-    ) {
-        companion object {
-            fun fromDescriptor(descriptor: Descriptor) = descriptor.source.id
-        }
-    }
+    )
 }
