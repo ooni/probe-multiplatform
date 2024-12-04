@@ -90,14 +90,16 @@ fun InstalledDescriptorActionsView(
                 }
             }
         }
-        Button(
-            onClick = { showDialog = true },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.error,
-                contentColor = Color.White,
-            ),
-        ) {
-            Text(text = stringResource(Res.string.Dashboard_Runv2_Overview_UninstallLink))
+        if (descriptor.isDefaultTestDescriptor.not()) {
+            Button(
+                onClick = { showDialog = true },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.error,
+                    contentColor = Color.White,
+                ),
+            ) {
+                Text(text = stringResource(Res.string.Dashboard_Runv2_Overview_UninstallLink))
+            }
         }
     }
 }

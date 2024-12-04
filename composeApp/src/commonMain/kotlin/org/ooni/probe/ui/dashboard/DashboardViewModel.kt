@@ -113,9 +113,8 @@ class DashboardViewModel(
         events
             .filterIsInstance<Event.FetchUpdatedDescriptors>()
             .onEach {
-                state.value.descriptors[DescriptorType.Installed]
-                    ?.map { (it.source as Descriptor.Source.Installed).value }
-                    ?.let { descriptors ->
+                state.value.descriptors.flatMap { it.value }
+                    .map { it.source }.let { descriptors ->
                         fetchDescriptorUpdate(descriptors)
                     }
             }.launchIn(viewModelScope)
@@ -152,8 +151,8 @@ class DashboardViewModel(
 
     private fun List<Descriptor>.groupByType() =
         mapOf(
-            DescriptorType.Default to filter { it.source is Descriptor.Source.Default },
-            DescriptorType.Installed to filter { it.source is Descriptor.Source.Installed },
+            DescriptorType.Default to filter { it.isDefaultDescriptor() },
+            DescriptorType.Installed to filter { it.isInstalledNonDefaultDescriptor() },
         )
 
     data class State(
