@@ -758,6 +758,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = "${APP_VERSION}";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -795,6 +796,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = "${APP_VERSION}";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -832,7 +834,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = "${APP_VERSION}";
 				PRODUCT_BUNDLE_IDENTIFIER = "${OONI_PROBE_BUNDLE_ID}.debug.share";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -865,7 +867,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = "${APP_VERSION}";
 				PRODUCT_BUNDLE_IDENTIFIER = "${OONI_PROBE_BUNDLE_ID}.share";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -896,6 +898,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = "${APP_VERSION}";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -931,6 +934,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = "${APP_VERSION}";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
