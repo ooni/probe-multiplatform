@@ -240,15 +240,6 @@ class GetSettings(
                                     ),
                                 )
                             },
-                            settings = WebConnectivityCategory.entries.mapNotNull { cat ->
-                                SettingsItem(
-                                    icon = cat.icon,
-                                    title = cat.title,
-                                    supportingContent = { Text(stringResource(cat.description)) },
-                                    key = cat.settingsKey ?: return@mapNotNull null,
-                                    type = PreferenceItemType.SWITCH,
-                                )
-                            },
                         ),
                     )
                 } else {

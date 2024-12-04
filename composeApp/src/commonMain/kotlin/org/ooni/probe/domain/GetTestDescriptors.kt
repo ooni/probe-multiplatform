@@ -8,10 +8,12 @@ import kotlinx.coroutines.flow.map
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_LongRunningTest
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.data.models.DefaultTestDescriptor
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorUpdatesStatus
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.data.models.toDescriptor
 
@@ -19,20 +21,28 @@ class GetTestDescriptors(
     private val getDefaultTestDescriptors: () -> List<DefaultTestDescriptor>,
     private val listInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
     private val descriptorUpdates: () -> Flow<DescriptorUpdatesStatus>,
+    private val getPreferenceValues: (List<SettingsKey>) -> Flow<Map<SettingsKey, Any?>>,
 ) {
     operator fun invoke(): Flow<List<Descriptor>> {
         return combine(
             listInstalledTestDescriptors(),
             descriptorUpdates(),
             flowOf(getDefaultTestDescriptors()),
-        ) { installedDescriptors, descriptorUpdates, defaultDescriptors ->
+            isWebsitesDescriptorEnabled(),
+        ) { installedDescriptors, descriptorUpdates, defaultDescriptors, isWebsitesEnabled ->
             val updatedDescriptors = installedDescriptors.map { item ->
                 item.toDescriptor(updateStatus = descriptorUpdates.getStatusOf(item.id))
             }
-            return@combine defaultDescriptors
-                .map { it.toDescriptor() } + updatedDescriptors
+            val allDescriptors = defaultDescriptors.map { it.toDescriptor() } + updatedDescriptors
+            return@combine allDescriptors.map {
+                it.copy(enabled = it.name != "websites" || isWebsitesEnabled)
+            }
         }
     }
+
+    private fun isWebsitesDescriptorEnabled() =
+        getPreferenceValues(WebConnectivityCategory.entries.mapNotNull { it.settingsKey })
+            .map { preferences -> preferences.any { it.value == true } }
 
     private fun DefaultTestDescriptor.toDescriptor() =
         Descriptor(

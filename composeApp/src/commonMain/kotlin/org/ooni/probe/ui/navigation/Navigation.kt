@@ -39,6 +39,7 @@ import org.ooni.probe.ui.settings.SettingsScreen
 import org.ooni.probe.ui.settings.about.AboutScreen
 import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
 import org.ooni.probe.ui.settings.proxy.ProxyScreen
+import org.ooni.probe.ui.settings.webcategories.WebCategoriesScreen
 import org.ooni.probe.ui.upload.UploadMeasurementsDialog
 
 private val START_SCREEN = Screen.Dashboard
@@ -165,6 +166,14 @@ fun Navigation(
                 entry.arguments?.getString("category"),
             ) ?: return@composable
             when (category) {
+                PreferenceCategoryKey.WEBSITES_CATEGORIES -> {
+                    val viewModel = viewModel {
+                        dependencies.webCategoriesViewModel(onBack = { navController.goBack() })
+                    }
+                    val state by viewModel.state.collectAsState()
+                    WebCategoriesScreen(state, viewModel::onEvent)
+                }
+
                 PreferenceCategoryKey.ABOUT_OONI -> {
                     val viewModel = viewModel {
                         dependencies.aboutViewModel(onBack = { navController.goBack() })
