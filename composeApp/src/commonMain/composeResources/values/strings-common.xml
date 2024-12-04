@@ -288,7 +288,6 @@
     <string name="Settings_ShareLogs_Error">Error sharing logs</string>
     <string name="Settings_FilterLogs">Filter Logs</string>
     <string name="Settings_DisableVpnInstructions">Go to Settings > General > VPN and disconnect from your VPN.</string>
-    <string name="Settings_AutoTest_NotUploadedLimit">Skip after this amount of results failed to upload</string>
     <string name="Settings_Sharing_UploadResults_Description">Results are automatically uploaded to OONI explorer</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_New">Limit Websites test duration</string>
     <string name="Settings_Websites_MaxRuntime_New">Maximum Websites test duration</string>

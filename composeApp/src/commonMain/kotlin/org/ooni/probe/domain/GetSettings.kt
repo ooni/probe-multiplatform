@@ -26,7 +26,6 @@ import ooniprobe.composeapp.generated.resources.Settings_About_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_DebugLogs
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_RecentLogs
-import ooniprobe.composeapp.generated.resources.Settings_AutoTest_NotUploadedLimit
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_ChargingOnly
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_Description
@@ -82,7 +81,6 @@ class GetSettings(
                 WebConnectivityCategory.entries.mapNotNull { it.settingsKey } + listOf(
                     SettingsKey.UPLOAD_RESULTS,
                     SettingsKey.AUTOMATED_TESTING_ENABLED,
-                    SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT,
                     SettingsKey.MAX_RUNTIME_ENABLED,
                     SettingsKey.MAX_RUNTIME,
                 ),
@@ -95,7 +93,6 @@ class GetSettings(
                 hasWebsitesDescriptor = OrganizationConfig.hasWebsitesDescriptor,
                 uploadResultsEnabled = preferences[SettingsKey.UPLOAD_RESULTS] == true,
                 autoRunEnabled = preferences[SettingsKey.AUTOMATED_TESTING_ENABLED] == true,
-                autoRunNotUploadedLimit = preferences[SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT] as? Int,
                 enabledCategoriesCount = enabledCategoriesCount,
                 maxRuntimeEnabled = preferences[SettingsKey.MAX_RUNTIME_ENABLED] == true,
                 maxRuntime = preferences[SettingsKey.MAX_RUNTIME] as? Int,
@@ -109,7 +106,6 @@ class GetSettings(
         hasWebsitesDescriptor: Boolean,
         uploadResultsEnabled: Boolean,
         autoRunEnabled: Boolean,
-        autoRunNotUploadedLimit: Int?,
         enabledCategoriesCount: Int,
         maxRuntimeEnabled: Boolean,
         maxRuntime: Int?,
@@ -176,20 +172,6 @@ class GetSettings(
                             key = SettingsKey.AUTOMATED_TESTING_CHARGING,
                             type = PreferenceItemType.SWITCH,
                             enabled = autoRunEnabled && uploadResultsEnabled,
-                            indentation = 1,
-                        ),
-                        SettingsItem(
-                            title = Res.string.Settings_AutoTest_NotUploadedLimit,
-                            key = SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT,
-                            type = PreferenceItemType.INT,
-                            enabled = autoRunEnabled && uploadResultsEnabled,
-                            supportingContent = {
-                                val value = (
-                                    autoRunNotUploadedLimit
-                                        ?: BootstrapPreferences.NOT_UPLOADED_LIMIT_DEFAULT
-                                ).coerceAtLeast(1)
-                                Text(value.toString())
-                            },
                             indentation = 1,
                         ),
                     )

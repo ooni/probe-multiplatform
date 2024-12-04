@@ -208,7 +208,6 @@ class Dependencies(
     private val checkSkipAutoRunNotUploadedLimit by lazy {
         CheckSkipAutoRunNotUploadedLimit(
             resultRepository::countMissingUpload,
-            preferenceRepository::getValueByKey,
         )
     }
     private val deleteAllResults by lazy {
