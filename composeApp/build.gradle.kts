@@ -62,7 +62,7 @@ kotlin {
     cocoapods {
         ios.deploymentTarget = "14.0"
 
-        version = "1.0"
+        version = "1.0.0"
         summary = "Compose App"
         homepage = "https://github.com/ooni/probe-multiplatform"
 
@@ -154,7 +154,7 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
         resValue(
