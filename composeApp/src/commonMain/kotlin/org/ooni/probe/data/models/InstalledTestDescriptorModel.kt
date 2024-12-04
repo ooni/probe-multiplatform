@@ -42,6 +42,10 @@ enum class OoniTest(val id: Long, val key: String) {
         private val map = entries.associateBy(OoniTest::id)
 
         fun fromId(id: Long) = map[id]
+
+        fun isValidId(id: Long): Boolean {
+            return entries.any { it.id == id }
+        }
     }
 }
 
@@ -72,7 +76,7 @@ data class InstalledTestDescriptorModel(
 
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 
-    val isDefaultTestDescriptor get() = id.value in 10470..10474 // TODO(aanorbel): switch to OONI reserved namespace
+    val isDefaultTestDescriptor get() = OoniTest.isValidId(id.value)
 
     val key get() = OoniTest.fromId(id.value)?.key ?: id.value.toString()
 
