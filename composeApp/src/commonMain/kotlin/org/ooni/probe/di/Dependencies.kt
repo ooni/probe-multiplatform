@@ -91,6 +91,7 @@ import org.ooni.probe.ui.settings.SettingsViewModel
 import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
 import org.ooni.probe.ui.settings.proxy.ProxyViewModel
+import org.ooni.probe.ui.settings.webcategories.WebCategoriesViewModel
 import org.ooni.probe.ui.upload.UploadMeasurementsViewModel
 import kotlin.coroutines.CoroutineContext
 
@@ -206,7 +207,6 @@ class Dependencies(
     private val checkSkipAutoRunNotUploadedLimit by lazy {
         CheckSkipAutoRunNotUploadedLimit(
             resultRepository::countMissingUpload,
-            preferenceRepository::getValueByKey,
         )
     }
     private val deleteAllResults by lazy {
@@ -288,6 +288,7 @@ class Dependencies(
         GetTestDescriptors(
             listInstalledTestDescriptors = testDescriptorRepository::list,
             descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
+            getPreferenceValues = preferenceRepository::allSettings,
         )
     }
     private val getTestDescriptorsBySpec by lazy {
@@ -527,6 +528,15 @@ class Dependencies(
             shareUrl = { launchAction(PlatformAction.Share(it)) },
         )
 
+    fun reviewUpdatesViewModel(onBack: () -> Unit): ReviewUpdatesViewModel {
+        return ReviewUpdatesViewModel(
+            onBack = onBack,
+            createOrUpdate = testDescriptorRepository::createOrUpdate,
+            cancelUpdates = getDescriptorUpdate::cancelUpdates,
+            observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
+        )
+    }
+
     fun settingsCategoryViewModel(
         categoryKey: String,
         goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
@@ -555,14 +565,12 @@ class Dependencies(
         uploadMissingMeasurements = uploadMissingMeasurements::invoke,
     )
 
-    fun reviewUpdatesViewModel(onBack: () -> Unit): ReviewUpdatesViewModel {
-        return ReviewUpdatesViewModel(
+    fun webCategoriesViewModel(onBack: () -> Unit) =
+        WebCategoriesViewModel(
             onBack = onBack,
-            createOrUpdate = testDescriptorRepository::createOrUpdate,
-            cancelUpdates = getDescriptorUpdate::cancelUpdates,
-            observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
+            getPreferencesByKeys = preferenceRepository::allSettings,
+            setPreferenceValuesByKeys = preferenceRepository::setValuesByKey,
         )
-    }
 
     companion object {
         @VisibleForTesting

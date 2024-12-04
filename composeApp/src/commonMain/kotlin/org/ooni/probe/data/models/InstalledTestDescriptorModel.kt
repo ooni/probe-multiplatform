@@ -74,7 +74,7 @@ data class InstalledTestDescriptorModel(
 
     val isDefaultTestDescriptor get() = id.value in 10470..10474 // TODO(aanorbel): switch to OONI reserved namespace
 
-    val key get() = OoniTest.fromId(id.value) ?: id.value.toString()
+    val key get() = OoniTest.fromId(id.value)?.key ?: id.value.toString()
 
     fun shouldUpdate(other: InstalledTestDescriptorModel): Boolean {
         return dateUpdated != null && other.dateUpdated != null && other.dateUpdated > dateUpdated

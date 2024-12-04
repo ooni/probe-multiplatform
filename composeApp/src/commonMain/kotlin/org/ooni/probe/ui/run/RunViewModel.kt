@@ -20,8 +20,8 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
-import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -62,9 +62,9 @@ class RunViewModel(
 
                                 ParentSelectableItem(
                                     item = descriptor,
-                                    state = when (selectedTestsCount) {
-                                        0 -> ToggleableState.Off
-                                        tests.size -> ToggleableState.On
+                                    state = when {
+                                        !descriptor.enabled || selectedTestsCount == 0 -> ToggleableState.Off
+                                        selectedTestsCount == tests.size -> ToggleableState.On
                                         else -> ToggleableState.Indeterminate
                                     },
                                     isExpanded = when (OrganizationConfig.testDisplayMode) {
@@ -75,7 +75,7 @@ class RunViewModel(
                                 ) to tests.map { test ->
                                     SelectableItem(
                                         item = test,
-                                        isSelected = preferences[descriptor to test] == true,
+                                        isSelected = descriptor.enabled && preferences[descriptor to test] == true,
                                     )
                                 }
                             }

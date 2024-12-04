@@ -22,6 +22,7 @@ data class Descriptor(
     val longRunningTests: List<NetTest> = emptyList(),
     val source: InstalledTestDescriptorModel,
     val updateStatus: UpdateStatus,
+    val enabled: Boolean = true,
 ) {
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 

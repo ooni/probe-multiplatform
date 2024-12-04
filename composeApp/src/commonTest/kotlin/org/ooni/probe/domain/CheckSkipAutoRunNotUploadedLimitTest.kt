@@ -12,20 +12,16 @@ class CheckSkipAutoRunNotUploadedLimitTest {
             suspend fun assertCheck(
                 expected: Boolean,
                 count: Long,
-                limit: Any?,
             ) {
                 assertEquals(
                     expected,
                     CheckSkipAutoRunNotUploadedLimit(
                         countResultsMissingUpload = { flowOf(count) },
-                        getPreferenceValueByKey = { flowOf(limit) },
                     )(),
                 )
             }
 
-            assertCheck(expected = true, count = 20, limit = null)
-            assertCheck(expected = true, count = 5, limit = 5)
-            assertCheck(expected = false, count = 0, limit = null)
-            assertCheck(expected = false, count = 100, limit = 101)
+            assertCheck(expected = true, count = 20)
+            assertCheck(expected = false, count = 5)
         }
 }

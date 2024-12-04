@@ -244,6 +244,7 @@ private fun LazyListScope.regularTestItems(
     items(testItems, key = { "${descriptor.key}_${it.item.test.name}" }) { testItem ->
         TestItem(
             testItem = testItem,
+            enabled = descriptor.enabled,
             onChecked = {
                 onEvent(
                     RunViewModel.Event.NetTestChecked(
@@ -271,11 +272,13 @@ private fun DescriptorItem(
                 state = descriptorItem.state,
                 onClick = { onChecked(descriptorItem.state != ToggleableState.On) },
                 role = Role.Checkbox,
+                enabled = descriptor.enabled,
             )
             .padding(horizontal = 16.dp),
     ) {
         TriStateCheckbox(
             state = descriptorItem.state,
+            enabled = descriptor.enabled,
             onClick = null,
             modifier = Modifier.padding(end = 24.dp),
         )
@@ -304,6 +307,7 @@ private fun DescriptorItem(
 @Composable
 fun TestItem(
     testItem: SelectableItem<NetTest>,
+    enabled: Boolean = true,
     onChecked: (Boolean) -> Unit,
 ) {
     val test = testItem.item
@@ -315,11 +319,13 @@ fun TestItem(
                 value = testItem.isSelected,
                 onValueChange = { onChecked(it) },
                 role = Role.Checkbox,
+                enabled = enabled,
             )
             .padding(horizontal = 16.dp, vertical = 10.dp),
     ) {
         Checkbox(
             checked = testItem.isSelected,
+            enabled = enabled,
             onCheckedChange = null,
             modifier = Modifier.padding(end = 24.dp),
         )

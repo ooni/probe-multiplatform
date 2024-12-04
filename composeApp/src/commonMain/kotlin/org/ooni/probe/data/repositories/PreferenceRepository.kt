@@ -63,7 +63,6 @@ class PreferenceRepository(
         return when (key) {
             SettingsKey.MAX_RUNTIME,
             SettingsKey.PROXY_PORT,
-            SettingsKey.AUTOMATED_TESTING_NOT_UPLOADED_LIMIT,
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
 
             SettingsKey.PROXY_HOSTNAME,
