@@ -7,48 +7,21 @@
 آیا وبسایت‌ها و شبکه‌های اجتماعی مسدود هستند؟ آیا ارتباط اینترنت شما به طور غیرعادی کند است؟
 
 برای بررسی آن، کاوشگر OONI را اجرا کنید!</string>
-  <string name="Onboarding_WhatIsOONIProbe_GotIt">متوجه شدم</string>
-  <string name="Onboarding_ThingsToKnow_Title">توجه توجه!</string>
   <string name="Onboarding_ThingsToKnow_Bullet_1">داده‌های OONI به صورت آزاد منتشر می‌شوند و شامل اطلاعات شبکه‌ی شماست.</string>
   <string name="Onboarding_ThingsToKnow_Bullet_2">هرکس (مثلا دولت یا ISP) که فعالیت اینترنت شما را نظارت می‌کند، خواهد دید که شما OONI Probe را اجرا کرده‌اید.</string>
   <string name="Onboarding_ThingsToKnow_Bullet_3">شما ممکن است بخواهید وبسایت‌های مسدود شده را تست کنید (اما همچنین می‌توانید وب سایت‌های مورد تست را انتخاب کنید).</string>
-  <string name="Onboarding_ThingsToKnow_Button">می‌فهمم</string>
-  <string name="Onboarding_ThingsToKnow_LearnMore">اطلاعات بیشتر</string>
-  <string name="Onboarding_PopQuiz_Title">پرسش و آزمون</string>
-  <string name="Onboarding_PopQuiz_True">درست</string>
-  <string name="Onboarding_PopQuiz_False"> غلط</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Back">برگرد</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Continue">ادامه</string>
-  <string name="Onboarding_PopQuiz_1_Title">سوال 1 از 2</string>
   <string name="Onboarding_PopQuiz_1_Question">اگر کسی فعالیت اینترنت من را نظارت کند، خواهید فهمید که OONI Probe را اجرا می‌کنم.</string>
-  <string name="Onboarding_PopQuiz_1_Wrong_Title">هشدار</string>
   <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe ابزار حریم خصوصی نیست. هر کسی که فعالیت اینترنت شما را نظارت کند، خواهد فهمید که نرم افزار را اجرا می‌کنید.</string>
-  <string name="Onboarding_PopQuiz_2_Title">سوال 2 از 2</string>
   <string name="Onboarding_PopQuiz_2_Question">هر بار که OONI Probe را اجرا می‌کنم، داده‌های شبکه‌ای که جمع‌آوری می‌کنم به طور خودکار منتشر می‌شوند.</string>
-  <string name="Onboarding_PopQuiz_2_Wrong_Title">هشدار</string>
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">برای افزایش شفافیت سانسور اینترنت، داده‌های شبکه‌ی تمامی کاربران OONI Probe به طور خودکار منتشر می‌شود (مگر آنکه در تنظیمات انصراف دهند).</string>
-  <string name="Onboarding_AutomatedTesting_Title">آزمایش خودکار</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">برای بررسی سانسور اینترنت به طور روزانه، لطفا تست خودکار را فعال کنید تا OONI Probe قادر به اجرای دوره‌ای تست‌ها باشد.
 
 نگران نباشید، ما مصرف باتری را در نظر خواهیم گرفت.
 
 شما می‌توانید هر زمانی که بخواهید، تست خودکار را از تنظیمات غیرفعال کنید.</string>
-  <string name="Onboarding_Crash_Title">گزارش خرابی</string>
   <string name="Onboarding_Crash_Paragraph">به منظور بهبود عملکرد OONI Probe، زمانی که برنامه به درستی کار نمی‌کند نیاز به جمع‌آوری گزارش‌های خرابی به صورت ناشناس خواهیم داشت.
 
 آیا علاقه به مشارکت در ارسال گزارش‌های خرابی به تیم توسعه OONI دارید؟</string>
-  <string name="Onboarding_Crash_Button_Yes">بله</string>
-  <string name="Onboarding_Crash_Button_No">خیر</string>
-  <string name="Onboarding_DefaultSettings_Title">تنظیمات پیش فرض</string>
-  <string name="Onboarding_DefaultSettings_Header">ما اطلاعات زیر را جمع‌آوری و منتشر می‌کنیم:</string>
-  <string name="Onboarding_DefaultSettings_Bullet_1">کد کشور (مثلا IT برای ایتالیا)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_2">اطلاعات شبکه (شامل شماره سیستم مستقل ASN)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_3">زمان و تاریخ تست</string>
-  <string name="Onboarding_DefaultSettings_Paragraph">ما همه‌ی تلاش خود را می‌‌کنیم تا آدرس IP ی شما یا هر اطلاعات قابل شناسایی شخصی بالقوه‌ی دیگر را منتشر نکنیم.
-
-در [سیاست‌ داده‌ی OONI](https://ooni.org/about/data-policy/) بیشتر بخوانید.</string>
-  <string name="Onboarding_DefaultSettings_Button_Go">بزن بریم! </string>
-  <string name="Onboarding_DefaultSettings_Button_Change">تغییر پیشفرض‌ها</string>
   <string name="Dashboard_Websites_Card_Description">تست مسدودیت وبسایت‌ها</string>
   <string name="Dashboard_Websites_Overview_Paragraph">با استفاده از[تست اتصال وب](https://ooni.org/nettest/web-connectivity/) OONI بررسی کنید که آیا وبسایت ها مسدود شده اند یا خیر.
 
@@ -88,8 +61,7 @@
 %1$s
 
 نتایج شما بر روی [OONI Explorer](https://explorer.ooni.org/) و [OONI API](https://api.ooni.io/) منتشر خواهند شد.</string>
-  <string name="Modal_EnableNotifications_Title">دریافت به‌روزرسانی سانسور اینترنت</string>
-  <string name="Modal_EnableNotifications_Paragraph">آیا به اجرای آزمون‌های News Media Scan در زمان رویدادهای برجسته‌ی سانسور تمایل دارید؟ اعلان‌ها را فعال کنید تا در زمانی که ما از سانسور اینترنت در نزدیکیتان مطلع شدیم، پیغام دریافت کنید!</string>
+  <string name="Modal_EnableNotifications_Paragraph">آیا به اجرای آزمون‌های OONI Probe در زمان رویدادهای برجسته‌ی سانسور تمایل دارید؟ اعلان‌ها را فعال کنید تا در زمانی که ما از سانسور اینترنت در نزدیکیتان مطلع شدیم، پیغام دریافت کنید!</string>
   <string name="Settings_About_Label">درباره‌ی اونی</string>
   <string name="Settings_About_Content_Paragraph">رصد خانه‌‌ی آزاد تداخل در شبکه (OONI) یک پروژه‌ی نرم افزار رایگان تحت پروژه‌ی Tor است که هدف آن افزایش شفافیت در سانسور اینترنت در جهان است.
 

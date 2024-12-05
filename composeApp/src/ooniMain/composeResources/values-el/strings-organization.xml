@@ -7,48 +7,21 @@
 Έχουν μπλοκαριστεί ιστοσελίδες και μέσα κοινωνικής δικτύωσης; Είναι ασυνήθιστα αργή η σύνδεσή σου στο Διαδίκτυο;
 
 Τρέξε το OONI Probe για να μάθεις!</string>
-  <string name="Onboarding_WhatIsOONIProbe_GotIt">Συνέχεια</string>
-  <string name="Onboarding_ThingsToKnow_Title">Έχε υπόψιν σου ότι...</string>
   <string name="Onboarding_ThingsToKnow_Bullet_1">Τα δεδομένα που συλλέγονται μέσω του OONI Probe δημοσιεύονται ανοικτά και θα περιλαμβάνουν πληροφορίες του δικτύου σου.</string>
   <string name="Onboarding_ThingsToKnow_Bullet_2">Όποιοσδήποτε τυχόν παρακολουθεί τη δραστηριότητά σου στο διαδίκτυο (π.χ. κυβέρνηση ή πάροχος internet) θα ξέρει ότι τρέχεις το OONI Probe.</string>
   <string name="Onboarding_ThingsToKnow_Bullet_3">Ίσως τύχει να κάνεις δοκιμές σε απαγορευμένες/μπλοκαρισμένες ιστοσελίδες (αλλά μπορείς να επιλέξεις για ποιές ιστοσελίδες να κάνεις δοκιμές).</string>
-  <string name="Onboarding_ThingsToKnow_Button">Κατάλαβα</string>
-  <string name="Onboarding_ThingsToKnow_LearnMore">Μάθε περισσότερα</string>
-  <string name="Onboarding_PopQuiz_Title">Κουίζ</string>
-  <string name="Onboarding_PopQuiz_True">Σωστό</string>
-  <string name="Onboarding_PopQuiz_False">Λάθος</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Back">Πίσω</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Συνέχεια</string>
-  <string name="Onboarding_PopQuiz_1_Title">Ερώτηση 1/2</string>
   <string name="Onboarding_PopQuiz_1_Question">Αν κάποιος παρακολουθεί τη δραστηριότητά μου στο διαδίκτυο, θα δει ότι τρέχω το OONI Probe.</string>
-  <string name="Onboarding_PopQuiz_1_Wrong_Title">Προσοχή</string>
   <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">Το OONI Probe δεν προστατεύει την ιδιωτικότητά σου. Όποιος παρακολουθεί τη δραστηριότητά σου στο διαδίκτυο μπορεί να δει ποιο λογισμικό τρέχεις.</string>
-  <string name="Onboarding_PopQuiz_2_Title">Ερώτηση 2/2</string>
   <string name="Onboarding_PopQuiz_2_Question">Κάθε φορά που τρέχω το OONI Probe, τα δικτυακά δεδομένα που συλλέγω δημοσιεύονται.</string>
-  <string name="Onboarding_PopQuiz_2_Wrong_Title">Προσοχή</string>
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Για να αυξηθεί η διαφάνεια της λογοκρισίας στο Διαδίκτυο, τα δεδομένα δικτύου όλων των χρηστών του OONI Probe δημοσιεύονται αυτόματα (εκτός αν απενεργοποιήθουν οι σχετικές ρυθμίσεις).</string>
-  <string name="Onboarding_AutomatedTesting_Title">Αυτοματοποιημένες δοκιμές</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">Για καθημερινές μετρήσεις λογοκρισίας στο διαδίκτυο, παρακαλούμε ενεργοποίησε τις αυτοματοποιημένες δοκιμές, ώστε το OONI Probe να μπορεί να εκτελεί περιοδικά τις δοκιμές.
 
 Μην ανησυχείς, υπάρχει πρόνοια για τη κατανάλωση μπαταρίας. 
 
 Μπορείς να απενεργοποιήσεις τις αυτόματες δοκιμές ανά πάσα στιγμή μέσω των ρυθμίσεων.</string>
-  <string name="Onboarding_Crash_Title">Αναφορά σφαλμάτων</string>
   <string name="Onboarding_Crash_Paragraph">Για να βελτιώσουμε το OONI Probe, θα θέλαμε να συλλέγουμε ανώνυμες αναφορές σφαλμάτων και κρασαρίσματος όταν η εφαρμογή δεν λειτουργεί σωστά.
 
 Επιθυμείς να υποβάλλεις αναφορές σφαλμάτων στην ομάδα ανάπτυξης του OONI;</string>
-  <string name="Onboarding_Crash_Button_Yes">Ναι</string>
-  <string name="Onboarding_Crash_Button_No">Όχι</string>
-  <string name="Onboarding_DefaultSettings_Title">Προεπιλεγμένες ρυθμίσεις</string>
-  <string name="Onboarding_DefaultSettings_Header">Συλλέγουμε και δημοσιεύουμε:</string>
-  <string name="Onboarding_DefaultSettings_Bullet_1">Κωδικό χώρας (π.χ. GR για την Ελλάδα)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_2">Πληροφορίες δικτύου (όπως ASN, για τον εντοπισμό πάροχου δικτύου)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_3">Ώρα και ημερομηνὶα εκτέλεσης δοκιμών</string>
-  <string name="Onboarding_DefaultSettings_Paragraph">Κάνουμε ό,τι μπορούμε ώστε να μη δημοσιευτεί η διεύθυνση IP ή άλλα δεδομένα που δυνητικά μπορεί να σε ταυτοποιήσουν.
-
-Μάθε περισσότερα διαβάζοντας την [Πολιτική Δεδομένων του OONI](https://ooni.io/about/data-policy/).</string>
-  <string name="Onboarding_DefaultSettings_Button_Go">Συνέχεια</string>
-  <string name="Onboarding_DefaultSettings_Button_Change">Αλλαγή ρυθμίσεων</string>
   <string name="Dashboard_Websites_Card_Description">Έλεγξε το μπλοκάρισμα ιστοσελιδών</string>
   <string name="Dashboard_Websites_Overview_Paragraph">Δες αν έχουν μπλοκαριστεί ιστοσελίδες, χρησιμοποιώντας τη δοκιμή [Web Connectivity](https://ooni.org/nettest/web-connectivity/) του OONI.
 
@@ -88,8 +61,7 @@
 %1$s
 
 Τα αποτελέσματά σου θα δημοσιευθούν στο [OONI Explorer](https://explorer.ooni.org/) και στο [OONI API](https://api.ooni.io/).</string>
-  <string name="Modal_EnableNotifications_Title">Ειδοποιήσεις για λογοκρισία στο διαδίκτυο</string>
-  <string name="Modal_EnableNotifications_Paragraph">Ενδιαφέρεσαι να εκτελείς δοκιμές του News Media Scan κατά τη διάρκεια εκτάκτων συμβάντων λογοκρισίας; Ενεργοποίησε τις ειδοποιήσεις για να λαμβάνεις μηνύματα όταν μαθαίνουμε για περιστατικά λογοκρισίας κοντά σου.</string>
+  <string name="Modal_EnableNotifications_Paragraph">Ενδιαφέρεσαι να εκτελείς δοκιμές του OONI Probe κατά τη διάρκεια εκτάκτων συμβάντων λογοκρισίας; Ενεργοποίησε τις ειδοποιήσεις για να λαμβάνεις μηνύματα όταν μαθαίνουμε για περιστατικά λογοκρισίας κοντά σου.</string>
   <string name="Settings_About_Label">Σχετικά με το OONI</string>
   <string name="Settings_About_Content_Paragraph">Το OONI (Open Observatory of Network Interference) είναι ένα έργο ελεύθερου λογισμικού του οργανισμού The Tor Project, με στόχο την αύξηση της διαφάνειας για τη λογοκρισία στο διαδίκτυο, παγκοσμίως.
 

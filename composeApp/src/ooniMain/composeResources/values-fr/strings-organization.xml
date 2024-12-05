@@ -7,42 +7,15 @@
 Les sites Web et les applis de médias sociaux sont-ils bloqués ? Votre connexion Internet est-elle anormalement lente ?
 
 Lancez OONI Probe pour le savoir !</string>
-  <string name="Onboarding_WhatIsOONIProbe_GotIt">D’accord</string>
-  <string name="Onboarding_ThingsToKnow_Title">À savoir !</string>
   <string name="Onboarding_ThingsToKnow_Bullet_1">Les données de l’OONI sont publiées ouvertement et comprendront les renseignements relatifs à votre réseau.</string>
   <string name="Onboarding_ThingsToKnow_Bullet_2">Quiconque surveille votre activité sur Internet (p. ex. un gouvernement ou un FAI) verra que vous utilisez OONI Probe.</string>
   <string name="Onboarding_ThingsToKnow_Bullet_3">Vous pourriez tester des sites Web interdits (mais vous pouvez choisir quels sites tester).</string>
-  <string name="Onboarding_ThingsToKnow_Button">Je comprends</string>
-  <string name="Onboarding_ThingsToKnow_LearnMore">En apprendre davantage</string>
-  <string name="Onboarding_PopQuiz_Title">Jeu-questionnaire</string>
-  <string name="Onboarding_PopQuiz_True">Vrai</string>
-  <string name="Onboarding_PopQuiz_False">Faux</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Back">Retour</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Poursuivre</string>
-  <string name="Onboarding_PopQuiz_1_Title">Question 1 de 2</string>
   <string name="Onboarding_PopQuiz_1_Question">Si quelqu’un surveille mon activité sur Internet, il verra que j’exécute OONI Probe.</string>
-  <string name="Onboarding_PopQuiz_1_Wrong_Title">Avertissement</string>
   <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe n’est pas un outil de protection des données personnelles. Quiconque surveille votre activité sur Internet verra quel logiciel vous utilisez.</string>
-  <string name="Onboarding_PopQuiz_2_Title">Question 2 de 2</string>
   <string name="Onboarding_PopQuiz_2_Question">Chaque fois que j’exécute OONI Probe, les données réseau que je recueille seront publiées automatiquement.</string>
-  <string name="Onboarding_PopQuiz_2_Wrong_Title">Avertissement</string>
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Afin d’accroître la transparence de la censure d’Internet, les données réseau de tous les utilisateurs d’OONI Probe sont publiées automatiquement (à moins qu’ils ne décident de ne pas y participer dans les paramètres).</string>
-  <string name="Onboarding_AutomatedTesting_Title">Test automatisé</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">Pour mesurer la censure d’Internet tous les jours, veuillez activer les tests automatisés afin qu’OONI Probe puisse effectuer des tests régulièrement. Ne vous inquiétez pas, nous ferons attention à l’utilisation de la pile. Vous pouvez désactiver les tests automatisés n’importe quand dans les paramètres.</string>
-  <string name="Onboarding_Crash_Title">Signaler un plantage</string>
   <string name="Onboarding_Crash_Paragraph">Afin d’améliorer OONI Probe, nous souhaitons recueillir des relevés anonymes de plantage quand l’appli ne fonctionne pas correctement. Acceptez-vous d’envoyer des rapports de plantage à l’équipe de développement d’OONI ?</string>
-  <string name="Onboarding_Crash_Button_Yes">Oui</string>
-  <string name="Onboarding_Crash_Button_No">Non</string>
-  <string name="Onboarding_DefaultSettings_Title">Paramètres par défaut</string>
-  <string name="Onboarding_DefaultSettings_Header">Nous recueillons et publions :</string>
-  <string name="Onboarding_DefaultSettings_Bullet_1">Le code de pays (p. ex. IT pour Italie)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_2">Des renseignements sur le réseau (dont le numéro de système autonome)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_3">L’estampille temporelle du test</string>
-  <string name="Onboarding_DefaultSettings_Paragraph">Nous faisons de notre mieux pour ne publier ni votre adresse IP ni aucun autre renseignement qui pourrait vous identifier.
-
-Apprenez-en davantage dans la [Politique sur les données de l’OONI](https://ooni.org/about/data-policy/) (page en anglais).</string>
-  <string name="Onboarding_DefaultSettings_Button_Go">Allons-y</string>
-  <string name="Onboarding_DefaultSettings_Button_Change">Modifier les paramètres</string>
   <string name="Dashboard_Websites_Card_Description">Testez le blocage de sites Web</string>
   <string name="Dashboard_Websites_Overview_Paragraph">Vérifiez le blocage des sites Web grâce au [Test de connectivité Web](https://ooni.org/nettest/web-connectivity/) de l’OONI (page en anglais).
 
@@ -82,7 +55,6 @@ Vos résultats seront publiés dans l’[Explorateur OONI](https://explorer.oon
 %1$s
 
 Vos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/) et l’[API d’OONI](https://api.ooni.io/) (site en anglais).</string>
-  <string name="Modal_EnableNotifications_Title">Obtenez des mises à jour sur la censure d’Internet</string>
   <string name="Modal_EnableNotifications_Paragraph">Voulez-vous exécuter les tests d’OONI Probe pendant des événements de censure émergents ? Activez les notifications afin de recevoir un message si nous sommes informés de censure d’Internet près de vous.</string>
   <string name="Settings_About_Label">À propos de l’OONI</string>
   <string name="Settings_About_Content_Paragraph">L’observatoire ouvert des interférences réseau (« Open Observatory of Network Interference » OONI) est un projet de logiciel libre, dans le cadre du projet Tor, qui vise à accroître la transparence de la censure d’Internet dans le monde entier.

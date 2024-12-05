@@ -7,48 +7,21 @@
 Apakah situs web dan aplikasi media sosial diblokir? Apakah koneksi internetmu menjadi lambat tidak seperti biasanya?
 
  Jalankan OONI Probe untuk mencari tahu!</string>
-  <string name="Onboarding_WhatIsOONIProbe_GotIt">Mengerti</string>
-  <string name="Onboarding_ThingsToKnow_Title">Perhatian!</string>
   <string name="Onboarding_ThingsToKnow_Bullet_1">Data OONI dipublikasikan secara terbuka dan akan menyertakan informasi jaringan Anda.</string>
   <string name="Onboarding_ThingsToKnow_Bullet_2">Siapa saja yang memantau aktivitas internet anda (contoh: Pemerintah atau Penyedia Jasa Internet) akan melihat bahwa Anda sedang menjalankan OONI Probe.</string>
   <string name="Onboarding_ThingsToKnow_Bullet_3">Anda bisa jadi mengetes situs web yang dilarang (tapi Anda bisa memilih situs mana yang akan diuji).</string>
-  <string name="Onboarding_ThingsToKnow_Button">Saya mengerti</string>
-  <string name="Onboarding_ThingsToKnow_LearnMore">Pelajari lebih lanjut</string>
-  <string name="Onboarding_PopQuiz_Title">Kuis Dadakan</string>
-  <string name="Onboarding_PopQuiz_True">Benar</string>
-  <string name="Onboarding_PopQuiz_False">Salah</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Back">Kembali</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Lanjut</string>
-  <string name="Onboarding_PopQuiz_1_Title">Pertanyaan 1/2</string>
   <string name="Onboarding_PopQuiz_1_Question">Jika seseorang memantau aktivitas internet saya, mereka akan melihat bahwa saya sedang menjalankan OONI Probe.</string>
-  <string name="Onboarding_PopQuiz_1_Wrong_Title">Peringatan</string>
   <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe bukanlah alat privasi. Siapa saja yang memantau aktivitas internet anda akan melihat perangkat lunak apa yang sedang anda jalankan.</string>
-  <string name="Onboarding_PopQuiz_2_Title">Pertanyaan 2/2</string>
   <string name="Onboarding_PopQuiz_2_Question">Setiap kali Saya menjalankan OONI Probe, data jaringan yang saya kumpulkan akan dipublikasikan secara otomatis.</string>
-  <string name="Onboarding_PopQuiz_2_Wrong_Title">Peringatan</string>
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Untuk meningkatkan transparansi dalam sensor internet, data jaringan semua pengguna OONI Probe akan dipublikasikan secara otomatis (kecuali ia tidak diikutsertakan di pengaturan).</string>
-  <string name="Onboarding_AutomatedTesting_Title">Pengetesan otomatis</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">Untuk mengukur sensor internet setiap hari, silakan aktifkan pengetesan otomatis sehingga OONI Probe dapat menjalankan tes secara berkala.
 
 Jangan khawatir, kami akan memperhatikan penggunaan baterai.
 
 Anda dapat menonaktifkan pengetesan otomatis dari pengaturan kapan saja.</string>
-  <string name="Onboarding_Crash_Title">Pelaporan Kerusakan</string>
   <string name="Onboarding_Crash_Paragraph">Untuk meningkatkan OONI Probe, kami ingin mengumpulkan laporan kerusakan secara anonim ketika aplikasi tidak berfungsi dengan baik. 
 
 Apakah Anda ingin ikut serta dalam mengirimkan laporan kerusakan ke tim pengembangan OONI?</string>
-  <string name="Onboarding_Crash_Button_Yes">Ya</string>
-  <string name="Onboarding_Crash_Button_No">Tidak</string>
-  <string name="Onboarding_DefaultSettings_Title">Pengaturan Bawaan</string>
-  <string name="Onboarding_DefaultSettings_Header">Kami mengumpulkan dan memublikasikan:</string>
-  <string name="Onboarding_DefaultSettings_Bullet_1">Kode Negara (misalnya IT untuk Italia)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_2">Informasi jaringan (termasuk Nomor Sistem Otonom)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_3">Waktu &amp; tanggal pengetesan</string>
-  <string name="Onboarding_DefaultSettings_Paragraph">Kami melakukan yang terbaik untuk tidak memublikasikan alamat IP atau hal lain yang berpotensi sebagai informasi identitas pribadi Anda.
-
-Pelajari lebih lanjut melalui [Kebijakan Data OONI](https://ooni.org/about/data-policy/).</string>
-  <string name="Onboarding_DefaultSettings_Button_Go">Ayo mulai!</string>
-  <string name="Onboarding_DefaultSettings_Button_Change">Ubah bawaan</string>
   <string name="Dashboard_Websites_Card_Description">Tes situs-situs web yang diblokir</string>
   <string name="Dashboard_Websites_Overview_Paragraph">Periksa apakah suatu situs web diblokir dengan [Tes Konektivitas Web](https://ooni.org/nettest/web-connectivity/) OONI.
 
@@ -88,8 +61,7 @@ Hasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/) da
 %1$s
 
 Hasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/) dan [OONI API](https://api.ooni.io/).</string>
-  <string name="Modal_EnableNotifications_Title">Dapatkan pembaruan tentang sensor internet</string>
-  <string name="Modal_EnableNotifications_Paragraph">Tertarik menjalankan tes News Media Scan selama terjadinya sensor darurat? Aktifkan notifikasi untuk menerima pesan saat kami mendengar adanya sensor internet di dekat Anda.</string>
+  <string name="Modal_EnableNotifications_Paragraph">Tertarik menjalankan tes OONI Probe selama terjadinya sensor darurat? Aktifkan notifikasi untuk menerima pesan saat kami mendengar adanya sensor internet di dekat Anda.</string>
   <string name="Settings_About_Label">Tentang OONI</string>
   <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) adalah proyek perangkat lunak gratis di bawah Tor Project yang bertujuan untuk meningkatkan transparansi sensor internet di seluruh dunia.
 

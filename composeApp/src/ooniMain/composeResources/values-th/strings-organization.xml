@@ -7,48 +7,21 @@
 เว็บไซต์และสื่อสังคมถูกปิดกั้นหรือไม่? การเชื่อมต่ออินเทอร์เน็ตของคุณช้ากว่าปกติรึเปล่า?
 
 ให้ OONI Probe ทำงานเพื่อหาคำตอบ!</string>
-  <string name="Onboarding_WhatIsOONIProbe_GotIt">รับทราบ!</string>
-  <string name="Onboarding_ThingsToKnow_Title">ดูให้ดี!</string>
   <string name="Onboarding_ThingsToKnow_Bullet_1">ข้อมูล OONI นั้นถูกเผยแพร่อย่างเปิดเผยและจะมีข้อมูลเกี่ยวกับเครือข่ายของคุณด้วย</string>
   <string name="Onboarding_ThingsToKnow_Bullet_2">ใครก็ตามที่จับตากิจกรรมอินเทอร์เน็ตของคุณ (เช่น รัฐบาลหรือผู้ให้บริการอินเทอร์เน็ต) จะเห็นว่าคุณกำลังใช้ OONI Probe อยู่</string>
   <string name="Onboarding_ThingsToKnow_Bullet_3">คุณอาจทดสอบเว็บไซต์ที่ถูกแบน (แต่คุณสามารถเลือกได้ว่าจะทดสอบเว็บไซต์ไหน)</string>
-  <string name="Onboarding_ThingsToKnow_Button">ฉันเข้าใจเเล้ว</string>
-  <string name="Onboarding_ThingsToKnow_LearnMore">เรียนรู้เพิ่มเติม</string>
-  <string name="Onboarding_PopQuiz_Title">ตอบได้หรือไม่</string>
-  <string name="Onboarding_PopQuiz_True">จริง</string>
-  <string name="Onboarding_PopQuiz_False">เท็จ</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Back">ย้อนกลับ</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Continue">ทำต่อ</string>
-  <string name="Onboarding_PopQuiz_1_Title">คำถามที่ 1 จาก 2</string>
   <string name="Onboarding_PopQuiz_1_Question">ถ้ามีใครกำลังจับตากิจกรรมอินเทอร์เน็ตของฉัน พวกเขาจะเห็นได้ว่าฉันกำลังใช้ OONI Probe</string>
-  <string name="Onboarding_PopQuiz_1_Wrong_Title">คำเตือน</string>
   <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">ถ้ามีใครกำลังจับตากิจกรรมอินเทอร์เน็ตของฉัน พวกเขาจะเห็นได้ว่าฉันกำลังใช้ OONI Probe</string>
-  <string name="Onboarding_PopQuiz_2_Title">คำถามที่ 2 จาก 2</string>
   <string name="Onboarding_PopQuiz_2_Question">ทุกครั้งที่ฉันเรียกใช้ OONI Probe ข้อมูลเครือข่ายที่ฉันเก็บรวบรวมจะถูกเผยแพร่โดยอัตโนมัติ</string>
-  <string name="Onboarding_PopQuiz_2_Wrong_Title">คำเตือน</string>
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">เพื่อเพิ่มความโปร่งใสของการปิดกั้นอินเทอร์เน็ต ข้อมูลเครือข่ายของผู้ใช้ OONI Probe ทุกรายจะถูกเผยแพร่โดยอัตโนมัติ (เว้นเสียแต่ว่าพวกเขาได้เลือก ไม่เข้าร่วม ในการตั้งค่า)</string>
-  <string name="Onboarding_AutomatedTesting_Title">การทดสอบอัตโนมัติ</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">ถ้าอยากให้ตรวจวัดการปิดกั้นอินเทอร์เน็ตทุกวัน กรุณาเปิดใช้การทดสอบอัตโนมัติ เพื่อให้ OONI Probe ทำงานได้ตามรอบเวลา
 
 เราระวังเกี่ยวกับการใช้แบต ดังนั้นไม่ต้องห่วง
 
 คุณสามารถปิดช้การทดสอบอัตโนมัติจากการตั้งค่าได้ทุกเมื่อ</string>
-  <string name="Onboarding_Crash_Title">รายงานแอปพัง</string>
   <string name="Onboarding_Crash_Paragraph">เพื่อปรับปรุง OONI Probe เราอยากรวบรวมรายงานการพังของแอป เมื่อแอปไม่ทำงานตามปกติ
 
 คุณอยากสมัครใจส่งรายงานการพังของแอปให้กับทีมพัฒนาของ OONI หรือไม่?</string>
-  <string name="Onboarding_Crash_Button_Yes">ใช่</string>
-  <string name="Onboarding_Crash_Button_No">ไม่</string>
-  <string name="Onboarding_DefaultSettings_Title">การตั้งค่าเริ่มต้น</string>
-  <string name="Onboarding_DefaultSettings_Header">เราจัดเก็บรวบรวมเเละเผยเเพร่:</string>
-  <string name="Onboarding_DefaultSettings_Bullet_1">รหัสประเทศ (เช่น IT สำหรับอิตาลี)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_2">ข้อมูลเครือข่าย (รวมถึง Autonomous System Number)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_3">วันเเละเวลาของการทดสอบ</string>
-  <string name="Onboarding_DefaultSettings_Paragraph">เราทำดีที่สุดเพื่อจะไม่เผยแพร่ที่อยู่ไอพีหรือข้อมูลอื่นใดของคุณ ที่อาจใช้ระบุบุคคลได้
-
-เรียนรู้เพิ่มเติมใน [นโยบายข้อมูลของ OONI](https://ooni.org/about/data-policy/)</string>
-  <string name="Onboarding_DefaultSettings_Button_Go">เริ่มกันเลย</string>
-  <string name="Onboarding_DefaultSettings_Button_Change">เปลี่ยนค่าเริ่มต้น</string>
   <string name="Dashboard_Websites_Card_Description">ทดสอบการปิดกั้นเว็บไซต์</string>
   <string name="Dashboard_Websites_Overview_Paragraph">ตรวจสอบว่าเว็บไซต์ถูกปิดกั้นหรือไม่ ด้วย[การทดสอบการเชื่อมต่อเว็บ](https://ooni.io/nettest/web-connectivity/) ของ OONI
 
@@ -88,8 +61,7 @@
 %1$s
 
 ผลทดสอบของคุณจะถูกเผยแพร่บน [OONI Explorer](https://explorer.ooni.org/) และ [OONI API](https://api.ooni.io/)</string>
-  <string name="Modal_EnableNotifications_Title">รับข่าวสารเกี่ยวกับการปิดกั้นอินเทอร์เน็ต</string>
-  <string name="Modal_EnableNotifications_Paragraph">สนใจทดสอบบน News Media Scan ระหว่างเหตุการณ์ปิดกั้นเนื้อหาที่เกิดใหม่หรือไม่? เปิดการแจ้งเตือน เพื่อรับข้อความเมื่อเราทราบเกี่ยวกับการปิดกั้นอินเทอร์เน็ตใกล้คุณ!</string>
+  <string name="Modal_EnableNotifications_Paragraph">สนใจทดสอบบน OONI Probe ระหว่างเหตุการณ์ปิดกั้นเนื้อหาที่เกิดใหม่หรือไม่? เปิดการแจ้งเตือน เพื่อรับข้อความเมื่อเราทราบเกี่ยวกับการปิดกั้นอินเทอร์เน็ตใกล้คุณ!</string>
   <string name="Settings_About_Label">เกี่ยวกับ OONI</string>
   <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) เป็นโครงการซอฟต์แวร์เสรีภายใต้ Tor Project ที่มีเป้าหมายเพิ่มความโปร่งใสเกี่ยวกับการปิดกั้นอินเทอร์เน็ตทั่วโลก
 

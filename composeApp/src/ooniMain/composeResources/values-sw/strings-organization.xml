@@ -7,44 +7,17 @@
 Je, tovuti na mitandao ya kijamii zimezuiwa? Je, muunganisho wako wa mtandao uko polepole sana?
 
 Fungua uchunguzi wa OONI kujua!</string>
-  <string name="Onboarding_WhatIsOONIProbe_GotIt">Nimekupata</string>
-  <string name="Onboarding_ThingsToKnow_Title">Tahadhari!</string>
   <string name="Onboarding_ThingsToKnow_Bullet_1">Takwimu za OONI zimechapishwa kwa uwazi na zitajumuisha habari ya mtandao wako.</string>
   <string name="Onboarding_ThingsToKnow_Bullet_2">Mtu yeyote anayefuatilia shughuli zako za mtandao (kwa mfano serikali au ISP) ataona kwamba unatumia OONI Probe</string>
   <string name="Onboarding_ThingsToKnow_Bullet_3">Unaweza kujaribu tovuti zilizopigwa marufuku (lakini unaweza kuchagua tovuti gani za kujaribu).</string>
-  <string name="Onboarding_ThingsToKnow_Button">Ninaelewa</string>
-  <string name="Onboarding_ThingsToKnow_LearnMore">Kujifunze zaidi</string>
-  <string name="Onboarding_PopQuiz_Title">Jaribio la chapchap</string>
-  <string name="Onboarding_PopQuiz_True">Kweli</string>
-  <string name="Onboarding_PopQuiz_False">Uwongo</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Back">Rudi nyuma</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Endelea</string>
-  <string name="Onboarding_PopQuiz_1_Title">Swali la 1/2</string>
   <string name="Onboarding_PopQuiz_1_Question">Ikiwa mtu anafuatilia shughuli zangu za kimtandao, ataona kuwa ninaendesha OONI Probe.</string>
-  <string name="Onboarding_PopQuiz_1_Wrong_Title">Onyo</string>
   <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe sio zana ya faragha. Mtu yeyote anayefuatilia shughuli zako za kimtandao ataona ni programu ipi unayoendesha.</string>
-  <string name="Onboarding_PopQuiz_2_Title">Swali la 2/2</string>
   <string name="Onboarding_PopQuiz_2_Question">Kila wakati ninapoendesha programu ya OONI Probe, data ya mtandao ninayokusanya itachapishwa kiatomatiki.</string>
-  <string name="Onboarding_PopQuiz_2_Wrong_Title">Onyo</string>
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Ili kuongeza uwazi wa udhibiti wa mtandao, habari za mtandao za watumiaji wote wa OONI Probe zitachapishwa kiatomati (isipokuwa watakapo chagua mipangilio nje ya hili).</string>
-  <string name="Onboarding_AutomatedTesting_Title">Upimaji wa kiotomatiki</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">Ili kupima udhibiti wa mtandao kila siku, tafadhali wezesha upimaji wa kiotomatiki ili OONI Probe iweze kuendesha vipimo mara kwa mara.Usijali, tutazingatia matumizi ya betri. Unaweza kuzima upimaji wa kiotomatiki kutoka kwa mipangilio wakati wowote.</string>
-  <string name="Onboarding_Crash_Title">Taarifa za Marekebisho</string>
   <string name="Onboarding_Crash_Paragraph">Ili kuboresha OONI Probe tungependa kukusanya ripoti zisizojulikana za marekebisho wakati programu haifanyi kazi vizuri.
 
 Je! Ungependa kuchagua kutuma ripoti za ajali kwa timu ya maendeleo ya OONI?</string>
-  <string name="Onboarding_Crash_Button_Yes">Ndio</string>
-  <string name="Onboarding_Crash_Button_No">Hapana</string>
-  <string name="Onboarding_DefaultSettings_Title">Mipangilio chaguo-msingi</string>
-  <string name="Onboarding_DefaultSettings_Header">Tunakusanya na kuchapisha:</string>
-  <string name="Onboarding_DefaultSettings_Bullet_1">Msimbo wa nchi (k.m. IT ya Italia)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_2">Maelezo ya mtandao (pamoja na Nambari ya Mfumo wa Kujiendesha)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_3">Muda na tarehe ya majaribio</string>
-  <string name="Onboarding_DefaultSettings_Paragraph">Tunafanya bidii kutokuchapisha anwani yako ya IP au habari zingine zozote zinayoweza kujitambulisha kibinafsi.
-
-Jifunze zaidi kupitia [Sera ya Takwimu ya OONI](https://ooni.org/about/data-policy/).</string>
-  <string name="Onboarding_DefaultSettings_Button_Go">Twende</string>
-  <string name="Onboarding_DefaultSettings_Button_Change">Badilisha chaguo-msingi</string>
   <string name="Dashboard_Websites_Card_Description">Pima uzuiaji wa tovuti.</string>
   <string name="Dashboard_Websites_Overview_Paragraph">Angalia kama tovuti zimezuiwa kwa kutumia [Kipimo wa Kuunganishaa Wavuti](https://ooni.org/nettest/web-connectivity).
 
@@ -85,7 +58,6 @@ Matokeo yako yatachapishwa kwenye [OONI Explorer](https://explorer.ooni.org/) na
 {orodha ya majaribio_ya majaribio}
 
 Matokeo yako yatachapishwa kwenye [OONI Explorer](https://explorer.ooni.org/) na [OONI API](https://api.ooni.io/).</string>
-  <string name="Modal_EnableNotifications_Title">Pata sasisho juu ya udhibiti wa mtandao</string>
   <string name="Modal_EnableNotifications_Paragraph">Je! Unavutiwa na kufanya majaribio ya uchunguzi wa OONI wakati wa hafla za udhibitishaji? Washa arifa za kupokea ujumbe tunaposikia juu ya udhibiti wa mtandao karibu nawe. </string>
   <string name="Settings_About_Label">Kuhusu OONI</string>
   <string name="Settings_About_Content_Paragraph">Uchunguzi wa Wazi wa Uingiliano wa Mtandao (OONI) ni mradi wa programu ya bure chini ya Mradi wa Tor ambao unakusudia kuongeza uwazi wa udhibiti wa mtandao kote ulimwenguni.

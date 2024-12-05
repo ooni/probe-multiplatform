@@ -7,49 +7,22 @@
 Er lokað á vefsvæði og samfélagsmiðla? Er internet-tengingin óvenjulega hægvirk?
 
 Keyrðu OONI Probe til að sjá hvað er í gangi!</string>
-  <string name="Onboarding_WhatIsOONIProbe_GotIt">Náði því</string>
-  <string name="Onboarding_ThingsToKnow_Title">Taktu eftir!</string>
   <string name="Onboarding_ThingsToKnow_Bullet_1">Gögn úr OONI eru birt opinberlega og munu innihalda upplýsingar um netkerfið þitt.</string>
   <string name="Onboarding_ThingsToKnow_Bullet_2">Það er hugsanlegt að hver sá sem fylgist með netumferðinni þinni (t.d. 
 stjórnvöld, netþjónustan þín, o.fl.) geti greint að þú sért að keyra OONI Probe.</string>
   <string name="Onboarding_ThingsToKnow_Bullet_3">Þú gætir prófað bönnuð vefsvæði (en þú getur valið hvaða vefsvæði á að prófa).</string>
-  <string name="Onboarding_ThingsToKnow_Button">Ég skil</string>
-  <string name="Onboarding_ThingsToKnow_LearnMore">Fræðast frekar</string>
-  <string name="Onboarding_PopQuiz_Title">Spurningaleikur</string>
-  <string name="Onboarding_PopQuiz_True">Satt</string>
-  <string name="Onboarding_PopQuiz_False">Ósatt</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Back">Til baka</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Áfram</string>
-  <string name="Onboarding_PopQuiz_1_Title">Spurning 1/2</string>
   <string name="Onboarding_PopQuiz_1_Question">Ef einhver er að fylgjast með netumferðinni minni, geta þeir séð að ég er að keyra OONI Probe.</string>
-  <string name="Onboarding_PopQuiz_1_Wrong_Title">Aðvörun</string>
   <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe er ekki tól fyrir netleynd. Hver sá sem fylgist með netumferðinni þinni getur séð hvaða hugbúnað þú ert að keyra.</string>
-  <string name="Onboarding_PopQuiz_2_Title">Spurning 2/2</string>
   <string name="Onboarding_PopQuiz_2_Question">Í hvert skipti sem ég keyri OONI Probe, verða þau gögn um netkerfið sem ég safna birt sjálfvirkt.</string>
-  <string name="Onboarding_PopQuiz_2_Wrong_Title">Aðvörun</string>
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Til að auka gegnsæi upplýsinga um ritskoðun internetsins, eru netkerfisgögn allra notenda OONI Probe birtar opinberlega (nema að þeir biðji sérstaklega um annað í stillingum sínum).</string>
-  <string name="Onboarding_AutomatedTesting_Title">Sjálfvirkar prófanir</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">Til að mæla ritskoðun internetsins daglega, skaltu virkja sjálfvirkar prófanir svo að OONI Probe geti keyrt prófanir eftir þörfum.
 
 Ekki hafa áhyggjur, við tökum tillit til rafhlöðuendingar. 
 
 Þú getur gert sjálfvirkar prófanir óvirkar hvenær sem er.</string>
-  <string name="Onboarding_Crash_Title">Hrunskýrslur</string>
   <string name="Onboarding_Crash_Paragraph">Til að bæta OONI Probe myndum við vilja safna nafnlausum hrunskýrslum þegar forritið virkar ekki sem skyldi.
 
 Vilt þú bjóðast til að senda hrunskýrslur til OONI-þróunarteymisins?</string>
-  <string name="Onboarding_Crash_Button_Yes">Já</string>
-  <string name="Onboarding_Crash_Button_No">Nei</string>
-  <string name="Onboarding_DefaultSettings_Title">Sjálfgefnar stillingar</string>
-  <string name="Onboarding_DefaultSettings_Header">Við söfnum og birtum:</string>
-  <string name="Onboarding_DefaultSettings_Bullet_1">Landskóði (t.d. IT fyrir Ítalíu)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_2">Upplýsingar um netkerfið (þar með talið Autonomous System Number)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_3">Tími og dagsetning prófunar</string>
-  <string name="Onboarding_DefaultSettings_Paragraph">Við gerum okkar besta til að birta ekki IP-vistfangið þitt eða aðrar mögulega persónugreinanlegar upplýsingar.
-
-Ítarlegri upplýsingar eru í [gagnaleyndarstefnu OONI](https://ooni.org/about/data-policy/).</string>
-  <string name="Onboarding_DefaultSettings_Button_Go">Hefjumst handa</string>
-  <string name="Onboarding_DefaultSettings_Button_Change">Breyta sjálfgefnum gildum</string>
   <string name="Dashboard_Websites_Card_Description">Prófa hindranir fyrir vefsíður</string>
   <string name="Dashboard_Websites_Overview_Paragraph">Athugaðu hvort lokað sé á vefsvæði með því að nota [prófun veftenginga](https://ooni.org/nettest/web-connectivity/) hjá OONI.
 
@@ -89,8 +62,7 @@ Niðurstöðurnar þínar verða birtar í [OONI Explorer](https://explorer.ooni
 %1$s
 
 Niðurstöðurnar þínar verða birtar í [OONI Explorer](https://explorer.ooni.org/) og [OONI API](https://api.ooni.io/).</string>
-  <string name="Modal_EnableNotifications_Title">Fáðu vísbendingar um ritskoðun internetsins</string>
-  <string name="Modal_EnableNotifications_Paragraph">Hefurðu áhuga á að gera prófanir á News Media Scan þegar ritskoðun á sér stað? Virkjaðu tilkynningar til að fá skilaboð þegar við heyrum um ritskoðun internetsins á þínum slóðum.</string>
+  <string name="Modal_EnableNotifications_Paragraph">Hefurðu áhuga á að gera prófanir á OONI Probe þegar ritskoðun á sér stað? Virkjaðu tilkynningar til að fá skilaboð þegar við heyrum um ritskoðun internetsins á þínum slóðum.</string>
   <string name="Settings_About_Label">Um OONI</string>
   <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) er frjálst hugbúnaðarverkefni undir merkjum Tor-verkefnisins og miðar að því að auka gegnsæi upplýsinga um ritskoðun internetsins út um allan heim.
 

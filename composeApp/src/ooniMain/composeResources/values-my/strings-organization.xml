@@ -7,46 +7,21 @@
 ဝဘ်ဆိုက်များနှင့် ဆိုရှယ်မီဒီယာအက်ပ်များကို ပိတ်ဆို့ နေပါသလား။ သင့်အင်တာနက် ချိတ်ဆက်မှုသည် ပုံမှန်မဟုတ်ဘဲ နှေးနေပါသလား။
 
 ၄င်းအကြောင်းအရာတို့ကို သိရှိရန် OONI Probe ကိုဖွင့်ပါ။</string>
-  <string name="Onboarding_WhatIsOONIProbe_GotIt">ရပြီ</string>
-  <string name="Onboarding_ThingsToKnow_Title">ကြိုတင်အသိပေးသည်။</string>
   <string name="Onboarding_ThingsToKnow_Bullet_1">OONI ဒေတာကို ပွင့်လင်းမြင်သာစွာ ထုတ်ဝေထားပြီး သင့်ကွန်ရက် အချက်အလက် များကိုလည်း ပါဝင်မည် ဖြစ်သည်။</string>
   <string name="Onboarding_ThingsToKnow_Bullet_2">သင့် အင်တာနက် အသုံးပြုမှုကို စောင့်ကြည့်နေသူတိုင်း (အစိုးရ သို့မဟုတ် အင်တာနက် ဝန်ဆောင်မှု ပံ့ပိုးသူ) သည်  OONI Probe အား သင် အသုံးပြုနေကြောင်း တွေ့မြင်ရမည်။  </string>
   <string name="Onboarding_ThingsToKnow_Bullet_3">တားမြစ်ထားသော ဝဘ်ဆိုဒ်များကို သင် စမ်းသပ်နိုင်သည် (သို့သော် စမ်းသပ်မည့် ဆိုဒ်များကို သင် ရွေးချယ်နိုင်သည်)။</string>
-  <string name="Onboarding_ThingsToKnow_Button">နားလည်သည်</string>
-  <string name="Onboarding_ThingsToKnow_LearnMore">ပိုမိုလေ့လာရန်</string>
-  <string name="Onboarding_PopQuiz_Title">လျှပ်တပြက် ဉာဏ်စမ်း</string>
-  <string name="Onboarding_PopQuiz_True">မှန်သည်</string>
-  <string name="Onboarding_PopQuiz_False">မှားသည်</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Back">နောက်သို့</string>
-  <string name="Onboarding_PopQuiz_Wrong_Button_Continue">ဆက်လုပ်မည်</string>
-  <string name="Onboarding_PopQuiz_1_Title">မေးခွန်း ၁/၂</string>
   <string name="Onboarding_PopQuiz_1_Question">တစ်စုံတစ်ယောက်သည် ကျွန်ုပ်၏ အင်တာနက်လုပ်ဆောင်ချက်ကို စောင့်ကြည့်နေပါက၊ ကျွန်ုပ်သည် OONI Probe ကို အသုံးပြုနေကြောင်း ၎င်းတို့ မြင်တွေ့ရမည် ဖြစ်သည်။</string>
-  <string name="Onboarding_PopQuiz_1_Wrong_Title">သတိပေးချက်</string>
   <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe သည် ကိုယ်ရေးလုံခြုံမှု ကိရိယာတစ်ခု မဟုတ်ပါ။ သင့် အင်တာနက် လုပ်ဆောင်ချက်များကို စောင့်ကြည့် နေသူတိုင်းသည် သင် အသုံးပြုနေသည့် ဆော့ဖ်ဝဲလ်ကို သိပါလိမ့်မည်။</string>
-  <string name="Onboarding_PopQuiz_2_Title">မေးခွန်း ၂/၂</string>
   <string name="Onboarding_PopQuiz_2_Question">OONI Probe ကို ကျွန်ုပ်အသုံးပြုတိုင်း၊ ကျွန်ုပ် စုဆောင်းထားသော ကွန်ရက်ဒေတာကို အလိုအလျောက် ထုတ်ဝေပါမည်။</string>
-  <string name="Onboarding_PopQuiz_2_Wrong_Title">သတိပေးချက်</string>
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">အင်တာနက် ဆင်ဆာဖြတ်တောက်မှု ပွင့်လင်းမြင်သာရေး တိုးမြင့်စေရန် OONI Probe အသုံးပြုသူများ အားလုံး၏ ကွန်ရက် ဒေတာများအား အလိုအလျောက် ထုတ်ဝေပါမည် (ဆက်တင်တွင် ရွေးချယ်ထားပါက)။</string>
-  <string name="Onboarding_AutomatedTesting_Title">အလိုအလျောက် စမ်းသပ်ခြင်း</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">နေ့စဉ် အင်တာနက် ဆင်ဆာဖြတ်တောက်မှုကို တိုင်းတာရန်အတွက် OONI Probe သည် စမ်းသပ်မှုများကို အခါအားလျော်စွာ လုပ်ဆောင်နိုင်စေရန် အလိုအလျောက် စမ်းသပ်မှုကို ဖွင့်ပါ။
 
 စိတ်မပူပါနှင့်၊ ဘက်ထရီ အသုံးပြုမှုကို ကျွန်ုပ်တို့ သတိထားပါမည်။
 
 ဆက်တင်များမှ အလိုအလျောက် စမ်းသပ်ခြင်းကို အချိန်မရွေး ပိတ်နိုင်သည်။</string>
-  <string name="Onboarding_Crash_Title">ပျက်စီးမှု သတင်းပို့ခြင်း</string>
   <string name="Onboarding_Crash_Paragraph">OONI Probe ပိုမိုကောင်းမွန်စေရန်အတွက် အက်ပ်သည် ကောင်းမွန်စွာ အလုပ်မလုပ်သည့်အခါ အမည်မသိ ပျက်စီးမှု အစီရင်ခံစာများကို စုဆောင်းလိုပါသည်။
 
 ပျက်စီးမှု အစီရင်ခံစာများကို OONI ဖွံ့ဖြိုးတိုးတက်ရေး အဖွဲ့ထံ တင်သွင်းခြင်း လုပ်ငန်းတွင် သင် ပါဝင်လိုပါသလား။ </string>
-  <string name="Onboarding_Crash_Button_Yes">ဟုတ်တယ်</string>
-  <string name="Onboarding_Crash_Button_No">မဟုတ်ဘူး</string>
-  <string name="Onboarding_DefaultSettings_Title">နဂိုမူလ ဆက်တင်များ</string>
-  <string name="Onboarding_DefaultSettings_Header">ကျွန်ုပ်တို့ ကောက်ယူစုဆောင်း၍ ဖြန့်ဝေသည် -</string>
-  <string name="Onboarding_DefaultSettings_Bullet_1">နိုင်ငံကုဒ် (ဥပမာ - အီတလီအတွက် IT)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_2">ကွန်ရက် သတင်းအချက်အလက် (အလိုအလျောက်စနစ် နံပတ်အပါအဝင်)</string>
-  <string name="Onboarding_DefaultSettings_Bullet_3">စမ်းသပ်ချိန်နှင့် ရက်စွဲ</string>
-  <string name="Onboarding_DefaultSettings_Paragraph">သင်၏ IP လိပ်စာ သို့မဟုတ် အခြားသော ပုဂ္ဂိုလ်ရေးအရ ခွဲခြား သိမြင်နိုင်သော အချက်အလက်များကို ထုတ်ဝေခြင်းမပြုရန် ကျွန်ုပ်တို့ အကောင်းဆုံး လုပ်ဆောင်ပါသည်။ [OONI ၏ ဒေတာမူဝါဒ](https://ooni.org/about/data-policy/) တွင် ပိုမိုလေ့လာပါ။</string>
-  <string name="Onboarding_DefaultSettings_Button_Go">သွားကြစို့</string>
-  <string name="Onboarding_DefaultSettings_Button_Change">နဂိုမူလများကို ပြောင်းမည်</string>
   <string name="Dashboard_Websites_Card_Description">ဝဘ်ဆိုဒ်များ ပိတ်ဆို့ခြင်းကို စမ်းသပ်ပါ
 </string>
   <string name="Dashboard_Websites_Overview_Paragraph">OONI ၏ [ဝဘ်ချိတ်ဆက်မှု စမ်းသပ်ခြင်း](https://ooni.org/nettest/web-connectivity/) ကို အသုံးပြု၍ ဝဘ်ဆိုဒ်များအား ပိတ်ဆို့ထားခြင်းရှိ၊ မရှိ စစ်ဆေးပါ။
@@ -85,8 +60,7 @@ OONI ၏ [HTTP မဆီလျော်သော တောင်းဆိုမ�
 %1$s
 
 သင့်ရလဒ်များကို [OONI Explorer](https://explorer.ooni.org/) နှင့် [OONI API](https://api.ooni.io/) တွင် ထုတ်ဝေပါမည်။</string>
-  <string name="Modal_EnableNotifications_Title">အင်တာနက် ဆင်ဆာဖြတ်ခြင်းဆိုင်ရာ အပ်ဒိတ်များကို ရယူပါ။</string>
-  <string name="Modal_EnableNotifications_Paragraph">အရေးပေါ် ဆင်ဆာဖြတ်တောက်မှု ဖြစ်ရပ်များအတွင်း News Media Scan စမ်းသပ်မှုများကို လုပ်ဆောင်ရန် စိတ်ဝင်စားပါသလား။ သင့် အနီးရှိ အင်တာနက်ဆင်ဆာ ဖြတ်တောက်မှုကို ကျွန်ုပ်တို့ ကြားရသည့်အခါ အချက်အလက် သတင်း လက်ခံရရှိရန် အသိပေးချက်များကို ဖွင့်ပါ။ </string>
+  <string name="Modal_EnableNotifications_Paragraph">အရေးပေါ် ဆင်ဆာဖြတ်တောက်မှု ဖြစ်ရပ်များအတွင်း OONI Probe စမ်းသပ်မှုများကို လုပ်ဆောင်ရန် စိတ်ဝင်စားပါသလား။ သင့် အနီးရှိ အင်တာနက်ဆင်ဆာ ဖြတ်တောက်မှုကို ကျွန်ုပ်တို့ ကြားရသည့်အခါ အချက်အလက် သတင်း လက်ခံရရှိရန် အသိပေးချက်များကို ဖွင့်ပါ။ </string>
   <string name="Settings_About_Label">OONI အကြောင်း</string>
   <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) သည် Tor ပရောဂျက် အောက်ရှိ လွတ်လပ်ဆော့ဖ်ဝဲလ် ပရောဂျက်တစ်ခု ဖြစ်ပြီး ကမ္ဘာတစ်ဝှမ်းရှိ အင်တာနက် ဆင်ဆာဖြတ်တောက်မှုများကို ပွင့်လင်းမြင်သာမှု ရှိစေရန် ရည်ရွယ်ပါသည်။ 
 
