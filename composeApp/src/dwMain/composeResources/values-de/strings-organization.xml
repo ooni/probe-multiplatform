@@ -1,2 +1,59 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing--><string name="Onboarding_WhatIsOONIProbe_Title">Was ist OONI Probe?</string><string name="Onboarding_WhatIsOONIProbe_Paragraph">Deine App um Internetzensur zu messen.\n\nSind Webseiten oder Social-Media-Apps gesperrt? Ist deine Internetverbindung ungewöhnlich langsam?\n\nNutze OONI Probe, um es herauszufinden!</string><string name="Onboarding_WhatIsOONIProbe_GotIt">Verstanden</string><string name="Onboarding_ThingsToKnow_Title">Vorsicht!</string><string name="Onboarding_ThingsToKnow_Bullet_1">OONI-Daten werden öffentlich publiziert und enthalten Ihre Netzwerkinformationen.</string><string name="Onboarding_ThingsToKnow_Bullet_2">Jeder, der deine Internetaktivitäten überwacht (z. B. Regierung oder ISP), wird sehen, dass du OONI Probe benutzt.</string><string name="Onboarding_ThingsToKnow_Bullet_3">Möglicherweise testest du verbotene bzw. gesperrte Webseiten (aber du kannst auswählen, welche Webseiten du testen möchtest).</string><string name="Onboarding_ThingsToKnow_Button">Ich verstehe</string><string name="Onboarding_ThingsToKnow_LearnMore">Erfahre mehr</string><string name="Onboarding_PopQuiz_Title">Pop Quiz</string><string name="Onboarding_PopQuiz_True">Wahr</string><string name="Onboarding_PopQuiz_False">Falsch</string><string name="Onboarding_PopQuiz_Wrong_Button_Back">Zurückgehen</string><string name="Onboarding_PopQuiz_Wrong_Button_Continue">Weiter</string><string name="Onboarding_PopQuiz_1_Title">Frage 1/2</string><string name="Onboarding_PopQuiz_1_Question">Sollte jemand meine Internetaktivitäten überwachen, wird die Person erfahren, dass ich OONI Probe betreibe.</string><string name="Onboarding_PopQuiz_1_Wrong_Title">Warnung</string><string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe ist kein Datenschutzwerkzeug. Jeder, der deine Internetaktivitäten überwacht, wird feststellen können, welche Software du ausführst.</string><string name="Onboarding_PopQuiz_2_Title">Frage 2/2</string><string name="Onboarding_PopQuiz_2_Question">Bei jedem Start von OONI Probe werden die von mir gesammelten Netzwerkdaten automatisch veröffentlicht.</string><string name="Onboarding_PopQuiz_2_Wrong_Title">Warnung</string><string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Um Transparenz im Hinblick auf Internetzensur zu erhöhen, werden die Netzwerkdaten aller OONI Probe-Benutzer automatisch veröffentlicht (sofern dies nicht in den Einstellungen deaktiviert wird).</string><string name="Onboarding_AutomatedTesting_Title">Automatisches Testen</string><string name="Onboarding_AutomatedTesting_Paragraph">Um die Internet-Zensur jeden Tag zu messen, aktiviere bitte die automatische Testfunktion, damit OONI Probe regelmäßig Tests durchführen kann.\n\nKeine Sorge, wir werden auf den Batterieverbrauch achten. \n\nDu kannst die automatischen Tests jederzeit in den Einstellungen deaktivieren.</string><string name="Onboarding_Crash_Title">Absturz-Berichterstattung</string><string name="Onboarding_Crash_Paragraph">Um OONI Probe zu verbessern, würden wir gerne anonyme Absturzberichte sammeln, wenn die App nicht richtig funktioniert.\n\nMöchtest du dich für das Einsenden von Absturzberichten an das OONI-Entwicklungsteam entscheiden?</string><string name="Onboarding_Crash_Button_Yes">Ja</string><string name="Onboarding_Crash_Button_No">Nein</string><string name="Onboarding_DefaultSettings_Title">Vorgabeeinstellungen</string><string name="Onboarding_DefaultSettings_Header">Wir sammeln und veröffentlichen:</string><string name="Onboarding_DefaultSettings_Bullet_1">Ländercode (z. B. DE für Deutschland)</string><string name="Onboarding_DefaultSettings_Bullet_2">Netzwerkinformationen (einschließlich der Autonomous System Number, ASN)</string><string name="Onboarding_DefaultSettings_Bullet_3">Zeit &amp;amp; Datum des Tests</string><string name="Onboarding_DefaultSettings_Paragraph">Wir tun unser Bestes, um deine IP-Adresse oder andere potentiell persönlich identifizierbare Informationen nicht zu veröffentlichen.\n\nErfahre mehr über [OONI\'s Daten-Richtlinie](https://ooni.org/about/data-policy/).</string><string name="Onboarding_DefaultSettings_Button_Go">Auf geht\'s</string><string name="Onboarding_DefaultSettings_Button_Change">Defaults ändern</string><string name="Modal_EnableNotifications_Title">Aktuelle Informationen zur Internetzensur</string><string name="Modal_EnableNotifications_Paragraph">Bist du daran interessiert, OONI Probe-Tests während auftretender Zensurereignisse durchzuführen? Aktiviere Benachrichtigungen, um eine Nachricht zu erhalten, wenn wir von Internet-Zensur in deiner Nähe erfahren.</string><string name="Settings_About_Label">Über OONI</string><string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI)  ist ein freies Software Projekt im Rahmen des Tor Projektes und versucht Internetzensur auf der Welt sichtbar zu machen.\n\nSeit 2012 hat OONI\'s globale Gemineschaft Netzwerke in über 200 Ländern vermessen. Manche dieser Messungen zeigen Beweise für Internetzensur.</string></resources>
+<resources>
+  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
+  <string name="Onboarding_WhatIsOONIProbe_Title">Was ist OONI Probe?</string>
+  <string name="Onboarding_WhatIsOONIProbe_Paragraph">Deine App um Internetzensur zu messen.
+
+Sind Webseiten oder Social-Media-Apps gesperrt? Ist deine Internetverbindung ungewöhnlich langsam?
+
+Nutze OONI Probe, um es herauszufinden!</string>
+  <string name="Onboarding_WhatIsOONIProbe_GotIt">Verstanden</string>
+  <string name="Onboarding_ThingsToKnow_Title">Vorsicht!</string>
+  <string name="Onboarding_ThingsToKnow_Bullet_1">OONI-Daten werden öffentlich publiziert und enthalten Ihre Netzwerkinformationen.</string>
+  <string name="Onboarding_ThingsToKnow_Bullet_2">Jeder, der deine Internetaktivitäten überwacht (z. B. Regierung oder ISP), wird sehen, dass du OONI Probe benutzt.</string>
+  <string name="Onboarding_ThingsToKnow_Bullet_3">Möglicherweise testest du verbotene bzw. gesperrte Webseiten (aber du kannst auswählen, welche Webseiten du testen möchtest).</string>
+  <string name="Onboarding_ThingsToKnow_Button">Ich verstehe</string>
+  <string name="Onboarding_ThingsToKnow_LearnMore">Erfahre mehr</string>
+  <string name="Onboarding_PopQuiz_Title">Pop Quiz</string>
+  <string name="Onboarding_PopQuiz_True">Wahr</string>
+  <string name="Onboarding_PopQuiz_False">Falsch</string>
+  <string name="Onboarding_PopQuiz_Wrong_Button_Back">Zurückgehen</string>
+  <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Weiter</string>
+  <string name="Onboarding_PopQuiz_1_Title">Frage 1/2</string>
+  <string name="Onboarding_PopQuiz_1_Question">Sollte jemand meine Internetaktivitäten überwachen, wird die Person erfahren, dass ich OONI Probe betreibe.</string>
+  <string name="Onboarding_PopQuiz_1_Wrong_Title">Warnung</string>
+  <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe ist kein Datenschutzwerkzeug. Jeder, der deine Internetaktivitäten überwacht, wird feststellen können, welche Software du ausführst.</string>
+  <string name="Onboarding_PopQuiz_2_Title">Frage 2/2</string>
+  <string name="Onboarding_PopQuiz_2_Question">Bei jedem Start von OONI Probe werden die von mir gesammelten Netzwerkdaten automatisch veröffentlicht.</string>
+  <string name="Onboarding_PopQuiz_2_Wrong_Title">Warnung</string>
+  <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Um Transparenz im Hinblick auf Internetzensur zu erhöhen, werden die Netzwerkdaten aller OONI Probe-Benutzer automatisch veröffentlicht (sofern dies nicht in den Einstellungen deaktiviert wird).</string>
+  <string name="Onboarding_AutomatedTesting_Title">Automatisches Testen</string>
+  <string name="Onboarding_AutomatedTesting_Paragraph">Um die Internet-Zensur jeden Tag zu messen, aktiviere bitte die automatische Testfunktion, damit OONI Probe regelmäßig Tests durchführen kann.
+
+Keine Sorge, wir werden auf den Batterieverbrauch achten. 
+
+Du kannst die automatischen Tests jederzeit in den Einstellungen deaktivieren.</string>
+  <string name="Onboarding_Crash_Title">Absturz-Berichterstattung</string>
+  <string name="Onboarding_Crash_Paragraph">Um OONI Probe zu verbessern, würden wir gerne anonyme Absturzberichte sammeln, wenn die App nicht richtig funktioniert.
+
+Möchtest du dich für das Einsenden von Absturzberichten an das OONI-Entwicklungsteam entscheiden?</string>
+  <string name="Onboarding_Crash_Button_Yes">Ja</string>
+  <string name="Onboarding_Crash_Button_No">Nein</string>
+  <string name="Onboarding_DefaultSettings_Title">Vorgabeeinstellungen</string>
+  <string name="Onboarding_DefaultSettings_Header">Wir sammeln und veröffentlichen:</string>
+  <string name="Onboarding_DefaultSettings_Bullet_1">Ländercode (z. B. DE für Deutschland)</string>
+  <string name="Onboarding_DefaultSettings_Bullet_2">Netzwerkinformationen (einschließlich der Autonomous System Number, ASN)</string>
+  <string name="Onboarding_DefaultSettings_Bullet_3">Zeit &amp; Datum des Tests</string>
+  <string name="Onboarding_DefaultSettings_Paragraph">Wir tun unser Bestes, um deine IP-Adresse oder andere potentiell persönlich identifizierbare Informationen nicht zu veröffentlichen.
+
+Erfahre mehr über [OONI's Daten-Richtlinie](https://ooni.org/about/data-policy/).</string>
+  <string name="Onboarding_DefaultSettings_Button_Go">Auf geht's</string>
+  <string name="Onboarding_DefaultSettings_Button_Change">Defaults ändern</string>
+  <string name="Modal_EnableNotifications_Title">Aktuelle Informationen zur Internetzensur</string>
+  <string name="Modal_EnableNotifications_Paragraph">Bist du daran interessiert, News Media Scan-Tests während auftretender Zensurereignisse durchzuführen? Aktiviere Benachrichtigungen, um eine Nachricht zu erhalten, wenn wir von Internet-Zensur in deiner Nähe erfahren.</string>
+  <string name="Settings_About_Label">Über OONI</string>
+  <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI)  ist ein freies Software Projekt im Rahmen des Tor Projektes und versucht Internetzensur auf der Welt sichtbar zu machen.
+
+Seit 2012 hat OONI's globale Gemineschaft Netzwerke in über 200 Ländern vermessen. Manche dieser Messungen zeigen Beweise für Internetzensur.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Du kannst diesen Link nur über den Original-Link installieren, den der Ersteller geschickt hat.</string>
+</resources>

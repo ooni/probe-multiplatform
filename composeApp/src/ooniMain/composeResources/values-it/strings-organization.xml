@@ -1,2 +1,102 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing--><string name="Onboarding_WhatIsOONIProbe_Title">Cos\'è OONI Probe?</string><string name="Onboarding_WhatIsOONIProbe_Paragraph">La tua app per misurare la censura di internet\n\nCi sono siti web e/o app social bloccati? La tua rete internet è stranamente lenta?\n\nScoprilo con OONI Probe!</string><string name="Onboarding_WhatIsOONIProbe_GotIt">Ho capito</string><string name="Onboarding_ThingsToKnow_Title">Sappiatelo!</string><string name="Onboarding_ThingsToKnow_Bullet_1">I dati di OONI sono pubblici e i dettagli della tua rete saranno inclusi.</string><string name="Onboarding_ThingsToKnow_Bullet_2">Chiunque stia monitorando la tua attività internet (es. provider o governo) potrà sapere che stai usando OONI Probe.</string><string name="Onboarding_ThingsToKnow_Bullet_3">Potresti misurare siti web bloccati (ma puoi scegliere che siti testare).</string><string name="Onboarding_ThingsToKnow_Button">Ho capito</string><string name="Onboarding_ThingsToKnow_LearnMore">Per saperne di più</string><string name="Onboarding_PopQuiz_Title">Quiz</string><string name="Onboarding_PopQuiz_True">Vero</string><string name="Onboarding_PopQuiz_False">Falso</string><string name="Onboarding_PopQuiz_Wrong_Button_Back">Torna indietro</string><string name="Onboarding_PopQuiz_Wrong_Button_Continue">Continua</string><string name="Onboarding_PopQuiz_1_Title">Domanda 1/2</string><string name="Onboarding_PopQuiz_1_Question">Se qualcuno sta monitorando la mia attività internet, può vedere che sto usando OONI Probe.</string><string name="Onboarding_PopQuiz_1_Wrong_Title">Attenzione</string><string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe non è uno strumento per la privacy. Chiunque stia monitorando la tua attività internet può sapere che software stai usando.</string><string name="Onboarding_PopQuiz_2_Title">Domanda 2/2</string><string name="Onboarding_PopQuiz_2_Question">Ogni volta che eseguo OONI Probe, le misure di rete che raccolgo saranno pubblicate automaticamente.</string><string name="Onboarding_PopQuiz_2_Wrong_Title">Attenzione</string><string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Per aumentare la trasparenza sulla censura di internet, le misure di rete di OONI Probe sono pubblicate automaticamente (a meno che non sia disabilitato nelle impostazioni).</string><string name="Onboarding_AutomatedTesting_Title">Testing automatico</string><string name="Onboarding_AutomatedTesting_Paragraph">To measure internet censorship every day, please enable automated testing so that OONI Probe can run tests periodically.\n\nDon\'t worry, we\'ll be mindful of battery usage. \n\nYou can disable automated testing from the settings at any time.</string><string name="Onboarding_Crash_Title">Segnalazione crash</string><string name="Onboarding_Crash_Paragraph">Per migliorare OONI Probe vorremo raccogliere segnalazioni di crash anonimi quando l\'app non funziona correttamente.\n\nVuoi inviare le segnalazioni di crash al team di sviluppo di OONI?</string><string name="Onboarding_Crash_Button_Yes">Sì</string><string name="Onboarding_Crash_Button_No">No</string><string name="Onboarding_DefaultSettings_Title">Impostazioni predefinite</string><string name="Onboarding_DefaultSettings_Header">Raccogliamo e pubblichiamo:</string><string name="Onboarding_DefaultSettings_Bullet_1">Il codice del paese (es. IT per l\'Italia)</string><string name="Onboarding_DefaultSettings_Bullet_2">Informazioni sulla tua rete (incluso l\'Autonomous System Number)</string><string name="Onboarding_DefaultSettings_Bullet_3">Data e ora del test</string><string name="Onboarding_DefaultSettings_Paragraph">Facciamo del nostro meglio per evitare di pubblicare il tuo indirizzo IP o altre informazioni personali.\n\nPer maggiori informazioni vedi la [Data Policy di OONI](https://ooni.org/about/data-policy/)</string><string name="Onboarding_DefaultSettings_Button_Go">Andiamo</string><string name="Onboarding_DefaultSettings_Button_Change">Cambia i default</string><string name="Dashboard_Websites_Card_Description">Verifica il blocco di siti web</string><string name="Dashboard_Websites_Overview_Paragraph">Controlla se i siti web sono bloccati usando il [test di Connettività Web](https://ooni.org/nettest/web-connectivity/) di OONI\n\nOgni volta che fai tap su Run, misurerai diversi siti web dalla [lista globale](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) e [specifica per il paese](https://github.com/citizenlab/test-lists/tree/master/lists) del Citizen Lab.\n\nPer misurare un sito a tua scelta, fai tap sul bottone Scegli siti o configura le categorie da testare nelle impostazioni di questa card.\n\nQuesto test misura se i siti web sono bloccati per mezzo di censura su base DNS, blocco TCP/IP o tramite un proxy HTTP trasparente.\n\nI risultati saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).</string><string name="Dashboard_Performance_Card_Description">Misura la velocità e le prestazioni della tua rete</string><string name="Dashboard_Performance_Overview_Paragraph">Misura la velocità e le prestazioni della tua rete con il test [NDT](https://ooni.org/nettest/ndt/).\n\nMisura le prestazioni dello streaming video con il test [DASH](https://ooni.org/nettest/dash/).\n\nQuesti test consumano traffico dati in base alla velocità della tua rete.\n\nI risultati dei tuoi test saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).\n\nAttenzione: questi test usano server di terze parti. Non possiamo quindi garantire che il vostro indirizzo IP non sarà raccolto.</string><string name="Dashboard_Middleboxes_Card_Description">Rileva middlebox nella tua rete</string><string name="Dashboard_Middleboxes_Overview_Paragraph">I provider di servizi internet (ISP) spesso usano apparecchiature di rete (middlebox) per motivi di networking (come ad esempio per il caching). Alle volte queste middlebox sono usate per implementare censura e/o sorveglianza internet.\n\nPuoi trovare middlebox sulla tua rete usando i test di OONI [HTTP Invalid Request Line](https://ooni.org/nettest/http-invalid-request-line/) e [HTTP Header Field Manipulation](https://ooni.org/nettest/http-header-field-manipulation/).\n\nI risultati dei tuoi test saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).</string><string name="Dashboard_InstantMessaging_Card_Description">Verifica il blocco di app di messaggistica</string><string name="Dashboard_InstantMessaging_Overview_Paragraph">Controlla se [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/) o [Telegram](https://ooni.org/nettest/telegram/) sono bloccati.\n\nI risultati dei tuoi test saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).</string><string name="Dashboard_Circumvention_Card_Description">Testa il blocco degli strumenti d\'elusione della censura</string><string name="Dashboard_Circumvention_Overview_Paragraph">Controlla se [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) o [RiseupVPN](https://ooni.org/nettest/riseupvpn/) sono bloccati.\n\nI tuoi risultati saranno pubblicati in [OONI Explorer](https://explorer.ooni.org/) e [OONI API](https://api.ooni.io/).</string><string name="Dashboard_Experimental_Card_Description">Esegui nuovi test sperimentali</string><string name="Dashboard_Experimental_Overview_Paragraph">Esegui i seguenti nuovi test sperimentali sviluppati dal team di OONI:\n%1$s\n\nI risultati saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/) e [OONI API](https://api.ooni.io/).</string><string name="Modal_EnableNotifications_Title">Ricevi aggiornamenti sulla censura di internet</string><string name="Modal_EnableNotifications_Paragraph">Interessato a fare i test di OONI Probe durante gli eventi di censura emergenti? Abilita le notifiche per ricevere un messaggio quando sentiamo parlare di censura di internet vicino a te!</string><string name="Settings_About_Label">Informazioni su OONI</string><string name="Settings_About_Content_Paragraph">L\'Osservatorio Aperto delle l’Interferenze di Rete (Open Observatory of Network Interference, OONI) è un progetto di software libero di Tor Project che si propone di incrementare la trasparenza nell’ambito della censura di internet in tutto il mondo.\n\nDal 2012, la comunità globale di OONI ha raccolto misurazioni di rete in oltre 200 Paesi. In alcuni casi, questi dati sono stati utilizzati per dimostrare la deliberata censura di internet.</string><string name="Settings_About_Content_LearnMore">Per saperne di più</string><string name="Settings_About_Content_Blog">Blog</string><string name="Settings_About_Content_Reports">Segnalazioni</string><string name="Settings_About_Content_DataPolicy">La Policy sui dati di OONI</string><string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator.</string></resources>
+<resources>
+  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
+  <string name="Onboarding_WhatIsOONIProbe_Title">Cos'è OONI Probe?</string>
+  <string name="Onboarding_WhatIsOONIProbe_Paragraph">La tua app per misurare la censura di internet
+
+Ci sono siti web e/o app social bloccati? La tua rete internet è stranamente lenta?
+
+Scoprilo con OONI Probe!</string>
+  <string name="Onboarding_WhatIsOONIProbe_GotIt">Ho capito</string>
+  <string name="Onboarding_ThingsToKnow_Title">Sappiatelo!</string>
+  <string name="Onboarding_ThingsToKnow_Bullet_1">I dati di OONI sono pubblici e i dettagli della tua rete saranno inclusi.</string>
+  <string name="Onboarding_ThingsToKnow_Bullet_2">Chiunque stia monitorando la tua attività internet (es. provider o governo) potrà sapere che stai usando OONI Probe.</string>
+  <string name="Onboarding_ThingsToKnow_Bullet_3">Potresti misurare siti web bloccati (ma puoi scegliere che siti testare).</string>
+  <string name="Onboarding_ThingsToKnow_Button">Ho capito</string>
+  <string name="Onboarding_ThingsToKnow_LearnMore">Per saperne di più</string>
+  <string name="Onboarding_PopQuiz_Title">Quiz</string>
+  <string name="Onboarding_PopQuiz_True">Vero</string>
+  <string name="Onboarding_PopQuiz_False">Falso</string>
+  <string name="Onboarding_PopQuiz_Wrong_Button_Back">Torna indietro</string>
+  <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Continua</string>
+  <string name="Onboarding_PopQuiz_1_Title">Domanda 1/2</string>
+  <string name="Onboarding_PopQuiz_1_Question">Se qualcuno sta monitorando la mia attività internet, può vedere che sto usando OONI Probe.</string>
+  <string name="Onboarding_PopQuiz_1_Wrong_Title">Attenzione</string>
+  <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe non è uno strumento per la privacy. Chiunque stia monitorando la tua attività internet può sapere che software stai usando.</string>
+  <string name="Onboarding_PopQuiz_2_Title">Domanda 2/2</string>
+  <string name="Onboarding_PopQuiz_2_Question">Ogni volta che eseguo OONI Probe, le misure di rete che raccolgo saranno pubblicate automaticamente.</string>
+  <string name="Onboarding_PopQuiz_2_Wrong_Title">Attenzione</string>
+  <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Per aumentare la trasparenza sulla censura di internet, le misure di rete di OONI Probe sono pubblicate automaticamente (a meno che non sia disabilitato nelle impostazioni).</string>
+  <string name="Onboarding_AutomatedTesting_Title">Testing automatico</string>
+  <string name="Onboarding_AutomatedTesting_Paragraph">To measure internet censorship every day, please enable automated testing so that OONI Probe can run tests periodically.
+
+Don't worry, we'll be mindful of battery usage. 
+
+You can disable automated testing from the settings at any time.</string>
+  <string name="Onboarding_Crash_Title">Segnalazione crash</string>
+  <string name="Onboarding_Crash_Paragraph">Per migliorare OONI Probe vorremo raccogliere segnalazioni di crash anonimi quando l'app non funziona correttamente.
+
+Vuoi inviare le segnalazioni di crash al team di sviluppo di OONI?</string>
+  <string name="Onboarding_Crash_Button_Yes">Sì</string>
+  <string name="Onboarding_Crash_Button_No">No</string>
+  <string name="Onboarding_DefaultSettings_Title">Impostazioni predefinite</string>
+  <string name="Onboarding_DefaultSettings_Header">Raccogliamo e pubblichiamo:</string>
+  <string name="Onboarding_DefaultSettings_Bullet_1">Il codice del paese (es. IT per l'Italia)</string>
+  <string name="Onboarding_DefaultSettings_Bullet_2">Informazioni sulla tua rete (incluso l'Autonomous System Number)</string>
+  <string name="Onboarding_DefaultSettings_Bullet_3">Data e ora del test</string>
+  <string name="Onboarding_DefaultSettings_Paragraph">Facciamo del nostro meglio per evitare di pubblicare il tuo indirizzo IP o altre informazioni personali.
+
+Per maggiori informazioni vedi la [Data Policy di OONI](https://ooni.org/about/data-policy/)</string>
+  <string name="Onboarding_DefaultSettings_Button_Go">Andiamo</string>
+  <string name="Onboarding_DefaultSettings_Button_Change">Cambia i default</string>
+  <string name="Dashboard_Websites_Card_Description">Verifica il blocco di siti web</string>
+  <string name="Dashboard_Websites_Overview_Paragraph">Controlla se i siti web sono bloccati usando il [test di Connettività Web](https://ooni.org/nettest/web-connectivity/) di OONI
+
+Ogni volta che fai tap su Run, misurerai diversi siti web dalla [lista globale](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) e [specifica per il paese](https://github.com/citizenlab/test-lists/tree/master/lists) del Citizen Lab.
+
+Per misurare un sito a tua scelta, fai tap sul bottone Scegli siti o configura le categorie da testare nelle impostazioni di questa card.
+
+Questo test misura se i siti web sono bloccati per mezzo di censura su base DNS, blocco TCP/IP o tramite un proxy HTTP trasparente.
+
+I risultati saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).</string>
+  <string name="Dashboard_Performance_Card_Description">Misura la velocità e le prestazioni della tua rete</string>
+  <string name="Dashboard_Performance_Overview_Paragraph">Misura la velocità e le prestazioni della tua rete con il test [NDT](https://ooni.org/nettest/ndt/).
+
+Misura le prestazioni dello streaming video con il test [DASH](https://ooni.org/nettest/dash/).
+
+Questi test consumano traffico dati in base alla velocità della tua rete.
+
+I risultati dei tuoi test saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).
+
+Attenzione: questi test usano server di terze parti. Non possiamo quindi garantire che il vostro indirizzo IP non sarà raccolto.</string>
+  <string name="Dashboard_Middleboxes_Card_Description">Rileva middlebox nella tua rete</string>
+  <string name="Dashboard_Middleboxes_Overview_Paragraph">I provider di servizi internet (ISP) spesso usano apparecchiature di rete (middlebox) per motivi di networking (come ad esempio per il caching). Alle volte queste middlebox sono usate per implementare censura e/o sorveglianza internet.
+
+Puoi trovare middlebox sulla tua rete usando i test di OONI [HTTP Invalid Request Line](https://ooni.org/nettest/http-invalid-request-line/) e [HTTP Header Field Manipulation](https://ooni.org/nettest/http-header-field-manipulation/).
+
+I risultati dei tuoi test saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).</string>
+  <string name="Dashboard_InstantMessaging_Card_Description">Verifica il blocco di app di messaggistica</string>
+  <string name="Dashboard_InstantMessaging_Overview_Paragraph">Controlla se [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/) o [Telegram](https://ooni.org/nettest/telegram/) sono bloccati.
+
+I risultati dei tuoi test saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).</string>
+  <string name="Dashboard_Circumvention_Card_Description">Testa il blocco degli strumenti d'elusione della censura</string>
+  <string name="Dashboard_Circumvention_Overview_Paragraph">Controlla se [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) o [RiseupVPN](https://ooni.org/nettest/riseupvpn/) sono bloccati.
+
+I tuoi risultati saranno pubblicati in [OONI Explorer](https://explorer.ooni.org/) e [OONI API](https://api.ooni.io/).</string>
+  <string name="Dashboard_Experimental_Card_Description">Esegui nuovi test sperimentali</string>
+  <string name="Dashboard_Experimental_Overview_Paragraph">Esegui i seguenti nuovi test sperimentali sviluppati dal team di OONI:
+%1$s
+
+I risultati saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/) e [OONI API](https://api.ooni.io/).</string>
+  <string name="Modal_EnableNotifications_Title">Ricevi aggiornamenti sulla censura di internet</string>
+  <string name="Modal_EnableNotifications_Paragraph">Interessato a fare i test di News Media Scan durante gli eventi di censura emergenti? Abilita le notifiche per ricevere un messaggio quando sentiamo parlare di censura di internet vicino a te!</string>
+  <string name="Settings_About_Label">Informazioni su OONI</string>
+  <string name="Settings_About_Content_Paragraph">L'Osservatorio Aperto delle l’Interferenze di Rete (Open Observatory of Network Interference, OONI) è un progetto di software libero di Tor Project che si propone di incrementare la trasparenza nell’ambito della censura di internet in tutto il mondo.
+
+Dal 2012, la comunità globale di OONI ha raccolto misurazioni di rete in oltre 200 Paesi. In alcuni casi, questi dati sono stati utilizzati per dimostrare la deliberata censura di internet.</string>
+  <string name="Settings_About_Content_LearnMore">Per saperne di più</string>
+  <string name="Settings_About_Content_Blog">Blog</string>
+  <string name="Settings_About_Content_Reports">Segnalazioni</string>
+  <string name="Settings_About_Content_DataPolicy">La Policy sui dati di OONI</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator.</string>
+</resources>
