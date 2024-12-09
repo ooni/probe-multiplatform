@@ -43,7 +43,10 @@ class CrashMonitoring(
         ) {
             if (!Sentry.isEnabled()) return
 
-            if (severity == Severity.Warn || severity == Severity.Error) {
+            if (
+                (severity == Severity.Warn || severity == Severity.Error) &&
+                MESSAGES_TO_SKIP_REPORT.none { message.contains(it) }
+            ) {
                 if (throwable != null) {
                     addBreadcrumb(severity, message, tag)
                     Sentry.captureException(throwable)
@@ -82,5 +85,12 @@ class CrashMonitoring(
                 ),
             )
         }
+    }
+
+    companion object {
+        private val MESSAGES_TO_SKIP_REPORT = listOf(
+            "Picking from default OpenVPN endpoints",
+            "sessionresolver: LookupHost failed",
+        )
     }
 }
