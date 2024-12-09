@@ -1,2 +1,70 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing--><string name="Onboarding_WhatIsOONIProbe_Title">什么是 OONI Probe?</string><string name="Onboarding_WhatIsOONIProbe_Paragraph">为您评估网络审查的一款应用。\n\n网站和社交媒体应用被屏蔽？网络连接异常缓慢？\n\n运行 OONI Probe 来找出答案吧！</string><string name="Onboarding_WhatIsOONIProbe_GotIt">知道了</string><string name="Onboarding_ThingsToKnow_Title">小心！</string><string name="Onboarding_ThingsToKnow_Bullet_1">包含您的网络信息的 OONI 数据将被公开发布。</string><string name="Onboarding_ThingsToKnow_Bullet_2">监控您的网络活动的实体（例如政府或运营商）都会知道您在运行 OONI Probe。</string><string name="Onboarding_ThingsToKnow_Bullet_3">您可能想测试被禁止的网站（由你决定测试哪些网站）。</string><string name="Onboarding_ThingsToKnow_Button">明白</string><string name="Onboarding_ThingsToKnow_LearnMore">了解更多</string><string name="Onboarding_PopQuiz_Title">小测验</string><string name="Onboarding_PopQuiz_True">正确</string><string name="Onboarding_PopQuiz_False">错误</string><string name="Onboarding_PopQuiz_Wrong_Button_Back">返回</string><string name="Onboarding_PopQuiz_Wrong_Button_Continue">继续</string><string name="Onboarding_PopQuiz_1_Title">问题 1/2</string><string name="Onboarding_PopQuiz_1_Question">如果有人在监控我的网络活动，他们将会知道我在运行 OONI Probe。</string><string name="Onboarding_PopQuiz_1_Wrong_Title">警告</string><string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe 不是隐私工具。任何监控您的网络活动的实体都能知道您在运行何种软件。</string><string name="Onboarding_PopQuiz_2_Title">问题 2/2</string><string name="Onboarding_PopQuiz_2_Question">每当我运行 OONI Probe，我收集的网络数据都将会被自动发布。</string><string name="Onboarding_PopQuiz_2_Wrong_Title">警告</string><string name="Onboarding_PopQuiz_2_Wrong_Paragraph">为提升网络审查的透明度，所有 OONI Probe 用户的网络数据都将自动发布（除非在设置中选择退出）。</string><string name="Onboarding_AutomatedTesting_Title">自动化测试</string><string name="Onboarding_AutomatedTesting_Paragraph">为了测量每天的网络审查，请启用自动测试，以便 OONI 可以定期运行测试。别担心，我们会注意电池的使用。您可以在任何时候从设置中禁用自动测试。</string><string name="Onboarding_Crash_Title">崩溃报告</string><string name="Onboarding_Crash_Paragraph">为了改进 OONI Probe，我们希望在应用程序无法正常工作时收集匿名的崩溃报告。\n\n您愿意选择向 OONI 开发团队提交崩溃报告吗?</string><string name="Onboarding_Crash_Button_Yes">是</string><string name="Onboarding_Crash_Button_No">否</string><string name="Onboarding_DefaultSettings_Title">默认设置</string><string name="Onboarding_DefaultSettings_Header">我们收集并发布：</string><string name="Onboarding_DefaultSettings_Bullet_1">国家代码（例如，IT 指代意大利）</string><string name="Onboarding_DefaultSettings_Bullet_2">网络信息（包含 ASN）</string><string name="Onboarding_DefaultSettings_Bullet_3">测试的日期和时间</string><string name="Onboarding_DefaultSettings_Paragraph">我们尽最大努力不发布您的 IP 地址或任何其他潜在的个人身份信息。通过 [OONI 的数据政策] 了解更多信息(https://ooni.org/about/data-policy/)。</string><string name="Onboarding_DefaultSettings_Button_Go">开始</string><string name="Onboarding_DefaultSettings_Button_Change">更改默认值</string><string name="Dashboard_Websites_Card_Description">测试网站是否被屏蔽</string><string name="Dashboard_Websites_Overview_Paragraph">使用 OONI 的[网页连通性测试](https://ooni.org/nettest/web-connectivity/)检查网站是否被屏蔽。\n\n每次您点击“运行”时，都会测试公民实验室的[全球](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv)和[特定国家](https://github.com/citizenlab/test-lists/tree/master/lists)列表中的一些网站。\n\n如要测试您自选的网站，点击“选择网站”按钮或通过本卡片的设置选择网站类别。\n\n此测试测量网站是否遭受 DNS 篡改、TCP/IP 封锁或透明 HTTP 代理的屏蔽。\n\n您的测试结果会被发布在 [OONI Explorer](https://explorer.ooni.org/world/) 和 [OONI API](https://api.ooni.io/)。</string><string name="Dashboard_Performance_Card_Description">测试您的网速和性能</string><string name="Dashboard_Performance_Overview_Paragraph">使用 [NDT](https://ooni.org/nettest/ndt/) 测试测量你的网络速度和性能。\n\n使用 [DASH](https://ooni.org/nettest/dash/) 测试测量视频流性能。\n\n这些测试消耗的数据取决于你的网络速度。\n\n您的结果将被发布在 [OONI Explorer](https://explorer.ooni.org/world/)和[OONI API](https://api.ooni.io/)。\n\n免责声明：这些测试依赖于第三方服务器。因此，我们不能保证你的 IP 地址不会被收集。</string><string name="Dashboard_Middleboxes_Card_Description">检测您网络中的 Middlebox</string><string name="Dashboard_Middleboxes_Overview_Paragraph">互联网服务提供商经常使用网络设备（中介箱）来实现各种网络目的（如缓存）。有时这些中介箱被用来实施互联网审查和/或监控。\n\n使用ONI的[HTTP无效请求行](https://ooni.org/nettest/http-invalid-request-line/)和[HTTP头域操纵](https://ooni.org/nettest/http-header-field-manipulation/)测试，找到你网络中的中介箱。\n\n你的结果将公布在[ONI Explorer](https://explorer.ooni.org/world/)和[ONI API](https://api.ooni.io/)。</string><string name="Dashboard_InstantMessaging_Card_Description">测试即时消息应用的屏蔽情况</string><string name="Dashboard_InstantMessaging_Overview_Paragraph">检测 [WhatsApp](https://ooni.org/nettest/whatsapp/)、[Facebook Messenger](https://ooni.org/nettest/facebook-messenger/)、[Telegram](https://ooni.org/nettest/telegram/)和 [Signal](https://ooni.org/nettest/signal) 是否被屏蔽。\n\n你的结果将公布在 [OONI Explorer](https://explorer.ooni.org/world/) 和[OONI API](https://api.ooni.io/)。</string><string name="Dashboard_Circumvention_Card_Description">测试翻墙工具屏蔽状况</string><string name="Dashboard_Circumvention_Overview_Paragraph">检测 [Psiphon](https://ooni.org/nettest/psiphon/)、[Tor](https://ooni.org/nettest/tor/) 或 [RiseupVPN](https://ooni.org/nettest/riseupvpn/) 是否被封锁。\n\n你的结果将公布在 [OONI Explorer](https://explorer.ooni.org/) 和[OONI API](https://api.ooni.io/)。</string><string name="Dashboard_Experimental_Card_Description">运行新的实验性测试</string><string name="Dashboard_Experimental_Overview_Paragraph">运行由 OONI 团队开发的以下新的实验性测试：\n%1$s\n\n你的结果将在 [OONI Explorer](https://explorer.ooni.org/)和 [OONI API](https://api.ooni.io/)上公布。</string><string name="Modal_EnableNotifications_Title">获取网络审查的动态</string><string name="Modal_EnableNotifications_Paragraph">对在紧急审查事件期间运行 OONI Probe 感兴趣吗？启用通知接收功能，当我们知晓您附近的网络审查发生时，您就会收到一条消息。</string><string name="Settings_About_Label">关于 OONI</string><string name="Settings_About_Content_Paragraph">OONI 是 Tor Project 下属的一个自由软件项目，旨在提升全球的网络审查的透明度。\n\nOONI 全球社区从 2012 年起测量两百多个国家的网络。一些测量结果甚至成为了网络审查的证据。</string><string name="Settings_About_Content_LearnMore">详细了解</string><string name="Settings_About_Content_Blog">博客</string><string name="Settings_About_Content_Reports">报告</string><string name="Settings_About_Content_DataPolicy">OONI 数据政策</string><string name="Dashboard_Runv2_Overview_Uninstall_Prompt">你将只能从创建者发送的原始链接再次安装此链接。</string></resources>
+<resources>
+  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
+  <string name="Onboarding_WhatIsOONIProbe_Title">什么是 OONI Probe?</string>
+  <string name="Onboarding_WhatIsOONIProbe_Paragraph">为您评估网络审查的一款应用。
+
+网站和社交媒体应用被屏蔽？网络连接异常缓慢？
+
+运行 OONI Probe 来找出答案吧！</string>
+  <string name="Onboarding_ThingsToKnow_Bullet_1">包含您的网络信息的 OONI 数据将被公开发布。</string>
+  <string name="Onboarding_ThingsToKnow_Bullet_2">监控您的网络活动的实体（例如政府或运营商）都会知道您在运行 OONI Probe。</string>
+  <string name="Onboarding_ThingsToKnow_Bullet_3">您可能想测试被禁止的网站（由您决定测试哪些网站）。</string>
+  <string name="Onboarding_PopQuiz_1_Question">如果有人在监控我的网络活动，他们将会知道我在运行 OONI Probe。</string>
+  <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe 不是隐私工具。任何监控您的网络活动的实体都能知道您在运行何种软件。</string>
+  <string name="Onboarding_PopQuiz_2_Question">每当我运行 OONI Probe，我收集的网络数据都将会被自动发布。</string>
+  <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">为提升网络审查的透明度，所有 OONI Probe 用户的网络数据都将自动发布（除非在设置中选择退出）。</string>
+  <string name="Onboarding_AutomatedTesting_Paragraph">为了测量每天的网络审查，请启用自动测试，以便 OONI 可以定期运行测试。别担心，我们会注意电池的使用。您可以在任何时候从设置中禁用自动测试。</string>
+  <string name="Onboarding_Crash_Paragraph">为了改进 OONI Probe，我们希望在应用程序无法正常工作时收集匿名的崩溃报告。
+
+您愿意选择向 OONI 开发团队提交崩溃报告吗?</string>
+  <string name="Dashboard_Websites_Card_Description">测试网站是否被屏蔽</string>
+  <string name="Dashboard_Websites_Overview_Paragraph">使用 OONI 的[网页连通性测试](https://ooni.org/nettest/web-connectivity/)检查网站是否被屏蔽。
+
+每次您点击“运行”时，都会测试公民实验室的[全球](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv)和[特定国家](https://github.com/citizenlab/test-lists/tree/master/lists)列表中的一些网站。
+
+如要测试您自选的网站，点击“选择网站”按钮或通过本卡片的设置选择网站类别。
+
+此测试测量网站是否遭受 DNS 篡改、TCP/IP 封锁或透明 HTTP 代理的屏蔽。
+
+您的测试结果会被发布在 [OONI Explorer](https://explorer.ooni.org/world/) 和 [OONI API](https://api.ooni.io/)。</string>
+  <string name="Dashboard_Performance_Card_Description">测试您的网速和性能</string>
+  <string name="Dashboard_Performance_Overview_Paragraph">使用 [NDT](https://ooni.org/nettest/ndt/) 测试测量您的网络速度和性能。
+
+使用 [DASH](https://ooni.org/nettest/dash/) 测试测量视频流性能。
+
+这些测试消耗的数据取决于您的网络速度。
+
+您的结果将被发布在 [OONI Explorer](https://explorer.ooni.org/world/)和[OONI API](https://api.ooni.io/)。
+
+免责声明：这些测试依赖于第三方服务器。因此，我们不能保证您的 IP 地址不会被收集。</string>
+  <string name="Dashboard_Middleboxes_Card_Description">检测您网络中的 Middlebox</string>
+  <string name="Dashboard_Middleboxes_Overview_Paragraph">互联网服务提供商经常使用网络设备（中介箱）来实现各种网络目的（如缓存）。有时这些中介箱被用来实施互联网审查和/或监控。
+
+使用ONI的[HTTP无效请求行](https://ooni.org/nettest/http-invalid-request-line/)和[HTTP头域操纵](https://ooni.org/nettest/http-header-field-manipulation/)测试，找到您网络中的中介箱。
+
+您的结果将公布在[ONI Explorer](https://explorer.ooni.org/world/)和[ONI API](https://api.ooni.io/)。</string>
+  <string name="Dashboard_InstantMessaging_Card_Description">测试即时消息应用的屏蔽情况</string>
+  <string name="Dashboard_InstantMessaging_Overview_Paragraph">检测 [WhatsApp](https://ooni.org/nettest/whatsapp/)、[Facebook Messenger](https://ooni.org/nettest/facebook-messenger/)、[Telegram](https://ooni.org/nettest/telegram/)和 [Signal](https://ooni.org/nettest/signal) 是否被屏蔽。
+
+您的结果将公布在 [OONI Explorer](https://explorer.ooni.org/world/) 和[OONI API](https://api.ooni.io/)。</string>
+  <string name="Dashboard_Circumvention_Card_Description">测试翻墙工具屏蔽状况</string>
+  <string name="Dashboard_Circumvention_Overview_Paragraph">检测 [Psiphon](https://ooni.org/nettest/psiphon/)、[Tor](https://ooni.org/nettest/tor/) 或 [RiseupVPN](https://ooni.org/nettest/riseupvpn/) 是否被封锁。
+
+您的结果将公布在 [OONI Explorer](https://explorer.ooni.org/) 和[OONI API](https://api.ooni.io/)。</string>
+  <string name="Dashboard_Experimental_Card_Description">运行新的实验性测试</string>
+  <string name="Dashboard_Experimental_Overview_Paragraph">运行由 OONI 团队开发的以下新的实验性测试：
+%1$s
+
+您的结果将在 [OONI Explorer](https://explorer.ooni.org/)和 [OONI API](https://api.ooni.io/)上公布。</string>
+  <string name="Modal_EnableNotifications_Paragraph">对在紧急审查事件期间运行 OONI Probe 感兴趣吗？启用通知接收功能，当我们知晓您附近的网络审查发生时，您就会收到一条消息。</string>
+  <string name="Settings_About_Label">关于 OONI</string>
+  <string name="Settings_About_Content_Paragraph">OONI 是 Tor Project 下属的一个自由软件项目，旨在提升全球的网络审查的透明度。
+
+OONI 全球社区从 2012 年起测量两百多个国家的网络。一些测量结果甚至成为了网络审查的证据。</string>
+  <string name="Settings_About_Content_LearnMore">详细了解</string>
+  <string name="Settings_About_Content_Blog">博客</string>
+  <string name="Settings_About_Content_Reports">报告</string>
+  <string name="Settings_About_Content_DataPolicy">OONI 数据政策</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">您将只能从创建者发送的原始链接再次安装此链接。</string>
+</resources>
