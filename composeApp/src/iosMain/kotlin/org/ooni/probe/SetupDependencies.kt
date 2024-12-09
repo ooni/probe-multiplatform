@@ -29,6 +29,7 @@ import org.ooni.probe.shared.PlatformInfo
 import platform.BackgroundTasks.BGProcessingTask
 import platform.BackgroundTasks.BGProcessingTaskRequest
 import platform.BackgroundTasks.BGTaskScheduler
+import platform.CoreGraphics.CGRectMake
 import platform.Foundation.NSBundle
 import platform.Foundation.NSDate
 import platform.Foundation.NSDocumentDirectory
@@ -53,8 +54,12 @@ import platform.UIKit.UIActivityViewController
 import platform.UIKit.UIApplication
 import platform.UIKit.UIDevice
 import platform.UIKit.UIDeviceBatteryState
+import platform.UIKit.UIModalPresentationOverCurrentContext
 import platform.UIKit.UIPasteboard
+import platform.UIKit.UIUserInterfaceIdiomPad
 import platform.UIKit.UIViewController
+import platform.UIKit.UI_USER_INTERFACE_IDIOM
+import platform.UIKit.popoverPresentationController
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
 
@@ -178,18 +183,37 @@ class SetupDependencies(
                     setToRecipients(listOf(action.to))
                     setSubject(action.subject)
                     setMessageBody(action.body, isHTML = false)
-                }.let {
-                    findCurrentViewController()?.presentViewController(
-                        it,
-                        true,
-                        null,
-                    )
+                }.let { mailComposer ->
+                    presentViewController(mailComposer)
                 }
                 return true
             } else {
                 UIPasteboard.generalPasteboard.string = action.to
                 return false
             }
+        }
+    }
+
+    private fun presentViewController(uiViewController: UIViewController): Boolean  {
+        return findCurrentViewController()?.let { viewController ->
+
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                uiViewController.popoverPresentationController?.sourceView = viewController.view
+
+                uiViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext
+                uiViewController.popoverPresentationController?.sourceRect =
+                    CGRectMake(0.0, 0.0, 200.0, 200.0)
+            }
+
+            viewController.presentViewController(
+                uiViewController,
+                true,
+                null,
+            )
+            true
+        } ?: run {
+            Logger.e { "Cannot find current view controller" }
+            false
         }
     }
 
@@ -277,20 +301,8 @@ class SetupDependencies(
             activityItems = listOf(share.text),
             applicationActivities = null,
         )
-        activityViewController.excludedActivityTypes =
-            listOf(UIActivityTypeAirDrop, UIActivityTypePostToFacebook)
 
-        findCurrentViewController()?.let {
-            it.presentViewController(
-                activityViewController,
-                true,
-                null,
-            )
-            return true
-        } ?: run {
-            Logger.e { "Cannot share text: ${share.text}" }
-            return false
-        }
+        return presentViewController(activityViewController)
     }
 
     private fun shareFile(share: PlatformAction.FileSharing): Boolean {
@@ -304,17 +316,7 @@ class SetupDependencies(
         activityViewController.excludedActivityTypes =
             listOf(UIActivityTypeAirDrop, UIActivityTypePostToFacebook)
 
-        findCurrentViewController()?.let {
-            it.presentViewController(
-                activityViewController,
-                true,
-                null,
-            )
-            return true
-        } ?: run {
-            Logger.e { "Cannot share file: $filePath" }
-            return false
-        }
+        return presentViewController(activityViewController)
     }
 
     private fun openUrl(openUrl: PlatformAction.OpenUrl): Boolean {
