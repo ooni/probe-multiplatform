@@ -1,5 +1,6 @@
 import com.android.build.api.variant.FilterConfiguration.FilterType.ABI
 import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
@@ -60,6 +61,8 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    jvm("desktop")
+
     cocoapods {
         ios.deploymentTarget = "14.0"
 
@@ -110,6 +113,14 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.sqldelight.native)
         }
+        val desktopMain by getting {
+            dependencies {
+                implementation(files("./src/desktopMain/libs/oonimkall.jar"))
+                implementation(compose.desktop.currentOs)
+                implementation(libs.bundles.desktop)
+            }
+        }
+        // Testing
         commonTest.dependencies {
             implementation(kotlin("test"))
             @OptIn(ExperimentalComposeLibrary::class)
@@ -285,6 +296,18 @@ android {
         lintConfig = file("lint.xml")
     }
     flavorDimensions += "license"
+}
+
+compose.desktop {
+    application {
+        mainClass = "org.ooni.probe.MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "org.ooni.probe"
+            packageVersion = "1.0.0"
+        }
+    }
 }
 
 sqldelight {

@@ -45,6 +45,7 @@ window-size = { module = "org.jetbrains.compose.material3:material3-window-size-
 
 # Preferences
 androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStoreVersion" }
+androidx-datastore-core-jvm = { group = "androidx.datastore", name = "datastore-core-jvm", version.ref = "dataStoreVersion" }
 androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStoreVersion" }
 
 # Engine
@@ -57,6 +58,7 @@ kermit = { module = "co.touchlab:kermit", version = "2.0.5" }
 sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
+sqldelight-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 
 # Files
 okio = { module = "com.squareup.okio:okio", version = "3.10.2" }
@@ -65,7 +67,7 @@ okio = { module = "com.squareup.okio:okio", version = "3.10.2" }
 kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.0-rc04" } # 2.0.0 not supported yet
 
 # Permissions
-moko-permissions-common = { module ="dev.icerock.moko:permissions-compose", version.ref = "mokoPermissions" }
+moko-permissions-compose = { module ="dev.icerock.moko:permissions-compose", version.ref = "mokoPermissions" }
 moko-permissions-notifications = { module ="dev.icerock.moko:permissions-notifications", version.ref = "mokoPermissions" }
 
 # Crash Reporting
@@ -114,8 +116,8 @@ tooling = [
     "okio",
     "markdown",
     "kottie",
-    "moko-permissions-common",
-    "moko-permissions-notifications",
+    # "moko-permissions-compose",
+    # "moko-permissions-notifications",
     "web-view",
 ]
 android = [
@@ -124,6 +126,10 @@ android = [
     "android-fragment",
     "android-work",
     "sqldelight-android",
+]
+desktop = [
+    "sqldelight-jvm",
+    "androidx-datastore-core-jvm",
 ]
 full = [
     "sentry",
