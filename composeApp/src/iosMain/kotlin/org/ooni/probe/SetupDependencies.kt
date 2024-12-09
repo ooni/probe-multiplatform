@@ -184,28 +184,36 @@ class SetupDependencies(
                     setSubject(action.subject)
                     setMessageBody(action.body, isHTML = false)
                 }.let { mailComposer ->
-
-                    findCurrentViewController()?.let { viewController ->
-
-                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                            mailComposer.popoverPresentationController?.sourceView = viewController.view
-
-                            mailComposer.modalPresentationStyle = UIModalPresentationOverCurrentContext
-                            mailComposer.popoverPresentationController?.sourceRect = CGRectMake(0.0, 0.0, 200.0, 200.0)
-                        }
-
-                        viewController.presentViewController(
-                            mailComposer,
-                            true,
-                            null,
-                        )
-                    }
+                    presentViewController(mailComposer)
                 }
                 return true
             } else {
                 UIPasteboard.generalPasteboard.string = action.to
                 return false
             }
+        }
+    }
+
+    private fun presentViewController(uiViewController: UIViewController): Boolean  {
+        return findCurrentViewController()?.let { viewController ->
+
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                uiViewController.popoverPresentationController?.sourceView = viewController.view
+
+                uiViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext
+                uiViewController.popoverPresentationController?.sourceRect =
+                    CGRectMake(0.0, 0.0, 200.0, 200.0)
+            }
+
+            viewController.presentViewController(
+                uiViewController,
+                true,
+                null,
+            )
+            true
+        } ?: run {
+            Logger.e { "Cannot find current view controller" }
+            false
         }
     }
 
@@ -294,24 +302,7 @@ class SetupDependencies(
             applicationActivities = null,
         )
 
-        findCurrentViewController()?.let { viewController ->
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                activityViewController.popoverPresentationController?.sourceView = viewController.view
-
-                activityViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext
-                activityViewController.popoverPresentationController?.sourceRect = CGRectMake(0.0, 0.0, 200.0, 200.0)
-            }
-
-            viewController.presentViewController(
-                activityViewController,
-                true,
-                null,
-            )
-            return true
-        } ?: run {
-            Logger.e { "Cannot share text: ${share.text}" }
-            return false
-        }
+        return presentViewController(activityViewController)
     }
 
     private fun shareFile(share: PlatformAction.FileSharing): Boolean {
@@ -325,24 +316,7 @@ class SetupDependencies(
         activityViewController.excludedActivityTypes =
             listOf(UIActivityTypeAirDrop, UIActivityTypePostToFacebook)
 
-        findCurrentViewController()?.let {  viewController ->
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                activityViewController.popoverPresentationController?.sourceView = viewController.view
-
-                activityViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext
-                activityViewController.popoverPresentationController?.sourceRect = CGRectMake(0.0, 0.0, 200.0, 200.0)
-            }
-
-            viewController.presentViewController(
-                activityViewController,
-                true,
-                null,
-            )
-            return true
-        } ?: run {
-            Logger.e { "Cannot share file: $filePath" }
-            return false
-        }
+        return presentViewController(activityViewController)
     }
 
     private fun openUrl(openUrl: PlatformAction.OpenUrl): Boolean {
