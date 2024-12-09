@@ -47,16 +47,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import co.touchlab.kermit.Logger
-import dev.icerock.moko.permissions.DeniedAlwaysException
-import dev.icerock.moko.permissions.DeniedException
-import dev.icerock.moko.permissions.Permission
-import dev.icerock.moko.permissions.RequestCanceledException
-import dev.icerock.moko.permissions.compose.BindEffect
-import dev.icerock.moko.permissions.compose.PermissionsControllerFactory
-import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Modal_Autorun_BatteryOptimization
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Paragraph
@@ -329,9 +320,9 @@ fun ColumnScope.CrashReportingStep(onEvent: (OnboardingViewModel.Event) -> Unit)
 
 @Composable
 fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    val factory: PermissionsControllerFactory = rememberPermissionsControllerFactory()
-    val controller = remember(factory) { factory.createPermissionsController() }
-    BindEffect(controller)
+    // val factory: PermissionsControllerFactory = rememberPermissionsControllerFactory()
+    // val controller = remember(factory) { factory.createPermissionsController() }
+    // BindEffect(controller)
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
     OnboardingImage(OrganizationConfig.onboardingImages.image3)
@@ -358,6 +349,7 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
         OnboardingMainButton(
             text = Res.string.Onboarding_Crash_Button_Yes,
             onClick = {
+                /*
                 coroutineScope.launch {
                     try {
                         controller.providePermission(Permission.REMOTE_NOTIFICATION)
@@ -375,6 +367,8 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
                         Logger.e("Error requesting permission", e)
                     }
                 }
+                 */
+                onEvent(OnboardingViewModel.Event.RequestNotificationsPermissionClicked)
             },
             modifier = Modifier
                 .padding(horizontal = 8.dp)
