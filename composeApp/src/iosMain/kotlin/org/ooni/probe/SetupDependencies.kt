@@ -29,6 +29,7 @@ import org.ooni.probe.shared.PlatformInfo
 import platform.BackgroundTasks.BGProcessingTask
 import platform.BackgroundTasks.BGProcessingTaskRequest
 import platform.BackgroundTasks.BGTaskScheduler
+import platform.CoreGraphics.CGRectMake
 import platform.Foundation.NSBundle
 import platform.Foundation.NSDate
 import platform.Foundation.NSDocumentDirectory
@@ -53,8 +54,12 @@ import platform.UIKit.UIActivityViewController
 import platform.UIKit.UIApplication
 import platform.UIKit.UIDevice
 import platform.UIKit.UIDeviceBatteryState
+import platform.UIKit.UIModalPresentationOverCurrentContext
 import platform.UIKit.UIPasteboard
+import platform.UIKit.UIUserInterfaceIdiomPad
 import platform.UIKit.UIViewController
+import platform.UIKit.UI_USER_INTERFACE_IDIOM
+import platform.UIKit.popoverPresentationController
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
 
@@ -178,12 +183,23 @@ class SetupDependencies(
                     setToRecipients(listOf(action.to))
                     setSubject(action.subject)
                     setMessageBody(action.body, isHTML = false)
-                }.let {
-                    findCurrentViewController()?.presentViewController(
-                        it,
-                        true,
-                        null,
-                    )
+                }.let { mailComposer ->
+
+                    findCurrentViewController()?.let { viewController ->
+
+                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                            mailComposer.popoverPresentationController?.sourceView = viewController.view
+
+                            mailComposer.modalPresentationStyle = UIModalPresentationOverCurrentContext
+                            mailComposer.popoverPresentationController?.sourceRect = CGRectMake(0.0, 0.0, 200.0, 200.0)
+                        }
+
+                        viewController.presentViewController(
+                            mailComposer,
+                            true,
+                            null,
+                        )
+                    }
                 }
                 return true
             } else {
@@ -277,11 +293,16 @@ class SetupDependencies(
             activityItems = listOf(share.text),
             applicationActivities = null,
         )
-        activityViewController.excludedActivityTypes =
-            listOf(UIActivityTypeAirDrop, UIActivityTypePostToFacebook)
 
-        findCurrentViewController()?.let {
-            it.presentViewController(
+        findCurrentViewController()?.let { viewController ->
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                activityViewController.popoverPresentationController?.sourceView = viewController.view
+
+                activityViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext
+                activityViewController.popoverPresentationController?.sourceRect = CGRectMake(0.0, 0.0, 200.0, 200.0)
+            }
+
+            viewController.presentViewController(
                 activityViewController,
                 true,
                 null,
@@ -304,8 +325,15 @@ class SetupDependencies(
         activityViewController.excludedActivityTypes =
             listOf(UIActivityTypeAirDrop, UIActivityTypePostToFacebook)
 
-        findCurrentViewController()?.let {
-            it.presentViewController(
+        findCurrentViewController()?.let {  viewController ->
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                activityViewController.popoverPresentationController?.sourceView = viewController.view
+
+                activityViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext
+                activityViewController.popoverPresentationController?.sourceRect = CGRectMake(0.0, 0.0, 200.0, 200.0)
+            }
+
+            viewController.presentViewController(
                 activityViewController,
                 true,
                 null,
