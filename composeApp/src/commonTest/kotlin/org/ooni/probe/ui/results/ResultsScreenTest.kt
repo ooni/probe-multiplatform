@@ -130,7 +130,9 @@ class ResultsScreenTest {
             result = ResultModelFactory.build(),
             descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
             network = NetworkModelFactory.build(),
-            measurementsCount = 4,
+            doneMeasurementsCount = 4,
+            failedMeasurementsCount = 0,
+            anomalyMeasurementsCount = 0,
             allMeasurementsUploaded = false,
             anyMeasurementUploadFailed = false,
         )

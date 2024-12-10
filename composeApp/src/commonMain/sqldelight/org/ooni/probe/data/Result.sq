@@ -49,8 +49,16 @@ SELECT
     Network.*,
     (
         SELECT COUNT(Measurement.id) FROM Measurement
-        WHERE Measurement.result_id = Result.id
-    ) AS measurementsCount,
+        WHERE Measurement.result_id = Result.id AND Measurement.is_done = 1
+    ) AS doneMeasurementsCount,
+    (
+        SELECT COUNT(Measurement.id) FROM Measurement
+        WHERE Measurement.result_id = Result.id AND Measurement.is_failed = 1
+    ) AS failedMeasurementsCount,
+    (
+        SELECT COUNT(Measurement.id) FROM Measurement
+        WHERE Measurement.result_id = Result.id AND Measurement.is_anomaly = 1
+    ) AS anomalyMeasurementsCount,
     (
         SELECT COUNT(Measurement.id) FROM Measurement
         WHERE Measurement.is_done = 1
