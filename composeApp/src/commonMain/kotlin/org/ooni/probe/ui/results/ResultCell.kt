@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Measurements_Count
@@ -24,22 +25,36 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.TaskOrigin_AutoRun
 import ooniprobe.composeapp.generated.resources.TaskOrigin_Manual
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Circumvention_Available
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Circumvention_Blocked
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Available
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Blocked
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
+import ooniprobe.composeapp.generated.resources.ic_history
+import ooniprobe.composeapp.generated.resources.ic_measurement_anomaly
+import ooniprobe.composeapp.generated.resources.ic_measurement_failed
+import ooniprobe.composeapp.generated.resources.ic_measurement_ok
+import ooniprobe.composeapp.generated.resources.ic_world
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TaskOrigin
+import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.shared.relativeDateTime
+import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
 fun ResultCell(
     item: ResultListItem,
     onResultClick: () -> Unit,
 ) {
-    val hasError = item.result.isDone && item.measurementsCount == 0L
+    val hasError = item.result.isDone && item.doneMeasurementsCount == 0L
 
     Surface(
         color = if (item.result.isViewed || hasError) {
@@ -49,7 +64,6 @@ fun ResultCell(
         },
     ) {
         Row(
-            verticalAlignment = Alignment.Bottom,
             modifier = Modifier
                 .fillMaxWidth()
                 .run { if (!hasError) clickable { onResultClick() } else this }
@@ -89,13 +103,15 @@ fun ResultCell(
                 }
 
                 Text(
-                    item.result.startTime.relativeDateTime(),
+                    item.result.startTime.relativeDateTime() + " – " + item.sourceText,
                     style = MaterialTheme.typography.labelMedium,
                 )
             }
             Column(
-                horizontalAlignment = Alignment.End,
-                modifier = Modifier.weight(0.34f),
+                horizontalAlignment = Alignment.Start,
+                modifier = Modifier
+                    .padding(start = 8.dp, top = 24.dp)
+                    .weight(0.35f),
             ) {
                 if (!item.result.isDone) {
                     CircularProgressIndicator(
@@ -103,26 +119,8 @@ fun ResultCell(
                             .size(24.dp),
                     )
                 }
-                Text(
-                    stringResource(
-                        when (item.result.taskOrigin) {
-                            TaskOrigin.AutoRun -> Res.string.TaskOrigin_AutoRun
-                            TaskOrigin.OoniRun -> Res.string.TaskOrigin_Manual
-                        },
-                    ),
-                    style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.padding(bottom = 2.dp),
-                )
                 if (!hasError) {
-                    Text(
-                        pluralStringResourceItem(
-                            Res.plurals.Measurements_Count,
-                            item.measurementsCount.toInt(),
-                            item.measurementsCount,
-                        ),
-                        style = MaterialTheme.typography.labelLarge,
-                        modifier = Modifier.padding(bottom = 2.dp),
-                    )
+                    ResultCounts(item)
                 }
                 if (!item.allMeasurementsUploaded) {
                     Row(
@@ -137,7 +135,7 @@ fun ResultCell(
                                 LocalContentColor.current
                             },
                             modifier = Modifier
-                                .size(16.dp)
+                                .size(20.dp)
                                 .padding(end = 4.dp),
                         )
                         Text(
@@ -156,3 +154,149 @@ fun ResultCell(
         }
     }
 }
+
+@Composable
+private fun ResultCounts(item: ResultListItem) {
+    val descriptorName = item.descriptor.name
+    val firstTest = item.descriptor.netTests.firstOrNull()?.test
+
+    Column {
+        if (item.failedMeasurementsCount > 0) {
+            (
+                ResultCountItem(
+                    icon = Res.drawable.ic_measurement_failed,
+                    text = pluralStringResourceItem(
+                        Res.plurals.TestResults_Overview_Websites_Blocked,
+                        item.failedMeasurementsCount.toInt(),
+                        item.failedMeasurementsCount,
+                    ),
+                    color = MaterialTheme.colorScheme.error,
+                )
+            )
+        }
+
+        when {
+            descriptorName == "websites" || firstTest == TestType.WebConnectivity -> {
+                ResultCountItem(
+                    icon = Res.drawable.ic_measurement_anomaly,
+                    text = pluralStringResourceItem(
+                        Res.plurals.TestResults_Overview_Websites_Blocked,
+                        item.anomalyMeasurementsCount.toInt(),
+                        item.anomalyMeasurementsCount,
+                    ),
+                    color = if (item.anomalyMeasurementsCount > 0) {
+                        LocalCustomColors.current.logWarn
+                    } else {
+                        LocalContentColor.current
+                    },
+                )
+                ResultCountItem(
+                    icon = Res.drawable.ic_world,
+                    text = pluralStringResourceItem(
+                        Res.plurals.TestResults_Overview_Websites_Tested,
+                        item.testedMeasurementsCount.toInt(),
+                        item.testedMeasurementsCount,
+                    ),
+                )
+            }
+
+            descriptorName == "instant_messaging" -> {
+                ResultCountItem(
+                    icon = Res.drawable.ic_measurement_anomaly,
+                    text = pluralStringResourceItem(
+                        Res.plurals.TestResults_Overview_InstantMessaging_Blocked,
+                        item.anomalyMeasurementsCount.toInt(),
+                        item.anomalyMeasurementsCount,
+                    ),
+                    color = if (item.anomalyMeasurementsCount > 0) {
+                        LocalCustomColors.current.logWarn
+                    } else {
+                        LocalContentColor.current
+                    },
+                )
+                ResultCountItem(
+                    icon = Res.drawable.ic_measurement_ok,
+                    text = pluralStringResourceItem(
+                        Res.plurals.TestResults_Overview_InstantMessaging_Available,
+                        item.successMeasurementsCount.toInt(),
+                        item.successMeasurementsCount,
+                    ),
+                )
+            }
+
+            descriptorName == "circumvention" -> {
+                ResultCountItem(
+                    icon = Res.drawable.ic_measurement_anomaly,
+                    text = pluralStringResourceItem(
+                        Res.plurals.TestResults_Overview_Circumvention_Blocked,
+                        item.anomalyMeasurementsCount.toInt(),
+                        item.anomalyMeasurementsCount,
+                    ),
+                    color = if (item.anomalyMeasurementsCount > 0) {
+                        LocalCustomColors.current.logWarn
+                    } else {
+                        LocalContentColor.current
+                    },
+                )
+                ResultCountItem(
+                    icon = Res.drawable.ic_measurement_ok,
+                    text = pluralStringResourceItem(
+                        Res.plurals.TestResults_Overview_Circumvention_Available,
+                        item.successMeasurementsCount.toInt(),
+                        item.successMeasurementsCount,
+                    ),
+                )
+            }
+
+            descriptorName == "performance" -> {
+                // download
+                // upload
+                // video
+            }
+
+            descriptorName == "experimental" -> {
+                ResultCountItem(
+                    icon = Res.drawable.ic_history,
+                    text = pluralStringResourceItem(
+                        Res.plurals.Measurements_Count,
+                        item.doneMeasurementsCount.toInt(),
+                        item.doneMeasurementsCount,
+                    ),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ResultCountItem(
+    icon: DrawableResource,
+    text: String,
+    color: Color = LocalContentColor.current,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(bottom = 2.dp),
+    ) {
+        Icon(
+            painter = painterResource(icon),
+            tint = color.copy(alpha = 0.66f),
+            contentDescription = null,
+            modifier = Modifier.padding(end = 2.dp).size(16.dp),
+        )
+        Text(
+            text = text,
+            style = MaterialTheme.typography.labelLarge,
+            color = color,
+        )
+    }
+}
+
+private val ResultListItem.sourceText
+    @Composable
+    get() = stringResource(
+        when (result.taskOrigin) {
+            TaskOrigin.AutoRun -> Res.string.TaskOrigin_AutoRun
+            TaskOrigin.OoniRun -> Res.string.TaskOrigin_Manual
+        },
+    )

@@ -173,7 +173,9 @@ class ResultRepository(
                     network_type = network_type,
                 ).toModel()
             },
-            measurementsCount = measurementsCount,
+            doneMeasurementsCount = doneMeasurementsCount,
+            failedMeasurementsCount = failedMeasurementsCount,
+            anomalyMeasurementsCount = anomalyMeasurementsCount,
             allMeasurementsUploaded = allMeasurementsUploaded,
             anyMeasurementUploadFailed = anyMeasurementUploadFailed,
         )

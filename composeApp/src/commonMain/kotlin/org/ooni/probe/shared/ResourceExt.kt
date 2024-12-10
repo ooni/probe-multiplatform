@@ -21,7 +21,21 @@ import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_RunButton_Lab
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_RunButton_Label_Other
 import ooniprobe.composeapp.generated.resources.Measurements_Count_One
 import ooniprobe.composeapp.generated.resources.Measurements_Count_Other
+import ooniprobe.composeapp.generated.resources.Measurements_Failed_One
+import ooniprobe.composeapp.generated.resources.Measurements_Failed_Other
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Circumvention_Available_Plural
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Circumvention_Available_Singular
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Circumvention_Blocked_Plural
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Circumvention_Blocked_Singular
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Available_Plural
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Available_Singular
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Blocked_Plural
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Blocked_Singular
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked_Plural
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked_Singular
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested_Plural
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested_Singular
 import org.jetbrains.compose.resources.PluralStringResource
 import org.jetbrains.compose.resources.getPluralString
 import org.jetbrains.compose.resources.getString
@@ -37,25 +51,38 @@ val stringMap = mapOf(
     "@string/Dashboard_RunTests_RunButton_Label_Other" to Res.string.Dashboard_RunTests_RunButton_Label_Other,
     "@string/Measurements_Count_One" to Res.string.Measurements_Count_One,
     "@string/Measurements_Count_Other" to Res.string.Measurements_Count_Other,
+    "@string/Measurements_Failed_One" to Res.string.Measurements_Failed_One,
+    "@string/Measurements_Failed_Other" to Res.string.Measurements_Failed_Other,
+    "@string/TestResults_Overview_Websites_Blocked_Singular" to Res.string.TestResults_Overview_Websites_Blocked_Singular,
+    "@string/TestResults_Overview_Websites_Blocked_Plural" to Res.string.TestResults_Overview_Websites_Blocked_Plural,
+    "@string/TestResults_Overview_Websites_Tested_Singular" to Res.string.TestResults_Overview_Websites_Tested_Singular,
+    "@string/TestResults_Overview_Websites_Tested_Plural" to Res.string.TestResults_Overview_Websites_Tested_Plural,
+    "@string/TestResults_Overview_InstantMessaging_Blocked_Singular" to Res.string.TestResults_Overview_InstantMessaging_Blocked_Singular,
+    "@string/TestResults_Overview_InstantMessaging_Blocked_Plural" to Res.string.TestResults_Overview_InstantMessaging_Blocked_Plural,
+    "@string/TestResults_Overview_InstantMessaging_Available_Singular" to Res.string.TestResults_Overview_InstantMessaging_Available_Singular,
+    "@string/TestResults_Overview_InstantMessaging_Available_Plural" to Res.string.TestResults_Overview_InstantMessaging_Available_Plural,
+    "@string/TestResults_Overview_Circumvention_Blocked_Singular" to Res.string.TestResults_Overview_Circumvention_Blocked_Singular,
+    "@string/TestResults_Overview_Circumvention_Blocked_Plural" to Res.string.TestResults_Overview_Circumvention_Blocked_Plural,
+    "@string/TestResults_Overview_Circumvention_Available_Singular" to Res.string.TestResults_Overview_Circumvention_Available_Singular,
+    "@string/TestResults_Overview_Circumvention_Available_Plural" to Res.string.TestResults_Overview_Circumvention_Available_Plural,
 )
 
 @Composable
-fun stringMonthArrayResource(): List<String> {
-    return listOf(
-        stringResource(Res.string.Common_Months_January),
-        stringResource(Res.string.Common_Months_February),
-        stringResource(Res.string.Common_Months_March),
-        stringResource(Res.string.Common_Months_April),
-        stringResource(Res.string.Common_Months_May),
-        stringResource(Res.string.Common_Months_June),
-        stringResource(Res.string.Common_Months_July),
-        stringResource(Res.string.Common_Months_August),
-        stringResource(Res.string.Common_Months_September),
-        stringResource(Res.string.Common_Months_October),
-        stringResource(Res.string.Common_Months_November),
-        stringResource(Res.string.Common_Months_December),
-    )
-}
+fun stringMonthArrayResource(): List<String> =
+    listOf(
+        Res.string.Common_Months_January,
+        Res.string.Common_Months_February,
+        Res.string.Common_Months_March,
+        Res.string.Common_Months_April,
+        Res.string.Common_Months_May,
+        Res.string.Common_Months_June,
+        Res.string.Common_Months_July,
+        Res.string.Common_Months_August,
+        Res.string.Common_Months_September,
+        Res.string.Common_Months_October,
+        Res.string.Common_Months_November,
+        Res.string.Common_Months_December,
+    ).map { stringResource(it) }
 
 @Composable
 fun pluralStringResourceItem(

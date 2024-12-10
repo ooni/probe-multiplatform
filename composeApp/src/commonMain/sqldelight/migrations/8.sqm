@@ -1,0 +1,2 @@
+CREATE INDEX idx_measure_is_failed ON Measurement (is_failed);
+CREATE INDEX idx_measure_is_anomaly ON Measurement (is_anomaly);

@@ -1,0 +1,59 @@
+<resources>
+    <string name="shareEmailTo" translatable="false">bugs@openobservatory.org</string>
+    <string name="shareSubject" translatable="false">[bug-report] OONI Probe %1$s</string>
+    <string name="version" translatable="false">%1$s: %2$s</string>
+
+    <plurals name="Common_Minutes" translatable="false">
+        <item quantity="one">@string/Common_Minutes_One</item>
+        <item quantity="other">@string/Common_Minutes_Other</item>
+    </plurals>
+    <plurals name="Common_Hours" translatable="false">
+        <item quantity="one">@string/Common_Hour_One</item>
+        <item quantity="other">@string/Common_Hour_Other</item>
+    </plurals>
+
+    <plurals name="Dashboard_RunTests_RunButton_Label" translatable="false">
+        <item quantity="one">@string/Dashboard_RunTests_RunButton_Label_One</item>
+        <item quantity="other">@string/Dashboard_RunTests_RunButton_Label_Other</item>
+    </plurals>
+
+    <plurals name="TestResults_Overview_Websites_Blocked" translatable="false">
+        <item quantity="one">@string/TestResults_Overview_Websites_Blocked_Singular</item>
+        <item quantity="other">@string/TestResults_Overview_Websites_Blocked_Plural</item>
+    </plurals>
+
+    <plurals name="TestResults_Overview_Websites_Tested" translatable="false">
+        <item quantity="one">@string/TestResults_Overview_Websites_Tested_Singular</item>
+        <item quantity="other">@string/TestResults_Overview_Websites_Tested_Plural</item>
+    </plurals>
+
+    <plurals name="TestResults_Overview_InstantMessaging_Blocked" translatable="false">
+        <item quantity="one">@string/TestResults_Overview_InstantMessaging_Blocked_Singular</item>
+        <item quantity="other">@string/TestResults_Overview_InstantMessaging_Blocked_Plural</item>
+    </plurals>
+
+    <plurals name="TestResults_Overview_InstantMessaging_Available" translatable="false">
+        <item quantity="one">@string/TestResults_Overview_InstantMessaging_Available_Singular</item>
+        <item quantity="other">@string/TestResults_Overview_InstantMessaging_Available_Plural</item>
+    </plurals>
+
+    <plurals name="TestResults_Overview_Circumvention_Blocked" translatable="false">
+        <item quantity="one">@string/TestResults_Overview_Circumvention_Blocked_Singular</item>
+        <item quantity="other">@string/TestResults_Overview_Circumvention_Blocked_Plural</item>
+    </plurals>
+
+    <plurals name="TestResults_Overview_Circumvention_Available" translatable="false">
+        <item quantity="one">@string/TestResults_Overview_Circumvention_Available_Singular</item>
+        <item quantity="other">@string/TestResults_Overview_Circumvention_Available_Plural</item>
+    </plurals>
+
+    <plurals name="Measurements_Count" translatable="false">
+        <item quantity="one">@string/Measurements_Count_One</item>
+        <item quantity="other">@string/Measurements_Count_Other</item>
+    </plurals>
+
+    <plurals name="Measurements_Failed" translatable="false">
+        <item quantity="one">@string/Measurements_Failed_One</item>
+        <item quantity="other">@string/Measurements_Failed_Other</item>
+    </plurals>
+</resources>
