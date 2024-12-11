@@ -67,6 +67,7 @@ import ooniprobe.composeapp.generated.resources.ooni_bw
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.NetworkType
+import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.ui.results.UploadResults
 import org.ooni.probe.ui.shared.TopBar
@@ -143,14 +144,38 @@ fun ResultScreen(
                 }
             }
 
-            items(state.result.measurements, key = { it.measurement.idOrThrow.value }) { item ->
-                ResultMeasurementCell(
-                    item = item,
-                    isResultDone = state.result.result.isDone,
-                    onClick = { reportId, input ->
-                        onEvent(ResultViewModel.Event.MeasurementClicked(reportId, input))
-                    },
-                )
+            items(state.groupedMeasurements, key = { item ->
+                var key: Any = item.toString()
+                when (item) {
+                    is ResultViewModel.MeasurementGroup -> key = item.test.name
+                    is MeasurementWithUrl -> key = item.measurement.idOrThrow.value
+                }
+                key
+            }) { item ->
+                when (item) {
+                    is ResultViewModel.MeasurementGroup -> {
+                        ResultGroupMeasurementCell(
+                            item = item,
+                            isResultDone = state.result.result.isDone,
+                            onClick = { reportId, input ->
+                                onEvent(ResultViewModel.Event.MeasurementClicked(reportId, input))
+                            },
+                            onDropdownToggled = {
+                                onEvent(ResultViewModel.Event.MeasurementGroupToggled(item))
+                            },
+                        )
+                    }
+
+                    is MeasurementWithUrl -> {
+                        ResultMeasurementCell(
+                            item = item,
+                            isResultDone = state.result.result.isDone,
+                            onClick = { reportId, input ->
+                                onEvent(ResultViewModel.Event.MeasurementClicked(reportId, input))
+                            },
+                        )
+                    }
+                }
             }
         }
     }
@@ -171,8 +196,7 @@ private fun Summary(item: ResultItem) {
         HorizontalPager(
             state = pagerState,
             verticalAlignment = Alignment.Top,
-            modifier = Modifier
-                .padding(top = 8.dp, bottom = 16.dp)
+            modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
                 .defaultMinSize(minHeight = 128.dp),
         ) { page ->
             when (page) {
@@ -181,30 +205,22 @@ private fun Summary(item: ResultItem) {
             }
         }
         Row(
-            Modifier
-                .wrapContentHeight()
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
+            Modifier.wrapContentHeight().fillMaxWidth().align(Alignment.BottomCenter)
                 .padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.Center,
         ) {
             repeat(pagerState.pageCount) { index ->
                 Box(
-                    modifier = Modifier
-                        .padding(horizontal = 8.dp)
-                        .padding(bottom = 8.dp)
-                        .alpha(if (pagerState.currentPage == index) 1f else 0.33f)
-                        .clip(CircleShape)
-                        .background(LocalContentColor.current)
-                        .size(12.dp),
+                    modifier = Modifier.padding(horizontal = 8.dp).padding(bottom = 8.dp)
+                        .alpha(if (pagerState.currentPage == index) 1f else 0.33f).clip(CircleShape)
+                        .background(LocalContentColor.current).size(12.dp),
                 )
             }
         }
         Icon(
             painterResource(Res.drawable.ooni_bw),
             contentDescription = null,
-            modifier = Modifier.align(Alignment.BottomEnd)
-                .offset(x = 18.dp, y = 18.dp),
+            modifier = Modifier.align(Alignment.BottomEnd).offset(x = 18.dp, y = 18.dp),
         )
     }
 }
@@ -286,8 +302,7 @@ private fun SummaryNetwork(item: ResultItem) {
                 modifier = labelModifier,
             )
             Text(
-                item.network?.countryCode
-                    ?: stringResource(Res.string.TestResults_NotAvailable),
+                item.network?.countryCode ?: stringResource(Res.string.TestResults_NotAvailable),
                 modifier = valueModifier,
             )
         }
