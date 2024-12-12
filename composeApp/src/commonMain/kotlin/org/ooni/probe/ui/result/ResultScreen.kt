@@ -4,11 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -30,6 +32,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,7 +53,6 @@ import ooniprobe.composeapp.generated.resources.NetworkType_Vpn
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.TestResults_NotAvailable
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Tests
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Country
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_DateAndTime
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Mobile
@@ -60,6 +62,9 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Runtime
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_WiFi
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Blocked_Singular
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Reachable_Singular
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Tested_Singular
 import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_replay
 import ooniprobe.composeapp.generated.resources.ic_upload
@@ -190,7 +195,7 @@ fun ResultScreen(
 
 @Composable
 private fun Summary(item: ResultItem) {
-    val pagerState = rememberPagerState(pageCount = { 2 })
+    val pagerState = rememberPagerState(pageCount = { 3 })
     Box {
         HorizontalPager(
             state = pagerState,
@@ -199,8 +204,9 @@ private fun Summary(item: ResultItem) {
                 .defaultMinSize(minHeight = 128.dp),
         ) { page ->
             when (page) {
-                0 -> SummaryDetails(item)
-                1 -> SummaryNetwork(item)
+                0 -> SummaryStats(item)
+                1 -> SummaryDetails(item)
+                2 -> SummaryNetwork(item)
             }
         }
         Row(
@@ -225,21 +231,72 @@ private fun Summary(item: ResultItem) {
 }
 
 @Composable
+private fun SummaryStats(item: ResultItem) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min) // So VerticalDividers don't expand to the whole screen
+            .padding(16.dp),
+    ) {
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                item.measurementCounts.total.toString(),
+                style = MaterialTheme.typography.headlineMedium,
+            )
+
+            Text(
+                stringResource(Res.string.TestResults_Summary_Websites_Hero_Tested_Singular),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 8.dp),
+            )
+        }
+
+        VerticalDivider(Modifier.padding(4.dp), color = LocalContentColor.current)
+
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                item.measurementCounts.failed?.toString() ?: "0",
+                style = MaterialTheme.typography.headlineMedium,
+            )
+
+            Text(
+                stringResource(Res.string.TestResults_Summary_Websites_Hero_Blocked_Singular),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 8.dp),
+            )
+        }
+
+        VerticalDivider(Modifier.padding(4.dp), color = LocalContentColor.current)
+
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                item.measurementCounts.succeeded?.toString() ?: "0",
+                style = MaterialTheme.typography.headlineMedium,
+            )
+
+            Text(
+                stringResource(Res.string.TestResults_Summary_Websites_Hero_Reachable_Singular),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 8.dp),
+            )
+        }
+    }
+}
+
+@Composable
 private fun SummaryDetails(item: ResultItem) {
     Column(Modifier.padding(horizontal = 16.dp)) {
         val labelModifier = Modifier.weight(4f)
         val valueModifier = Modifier.weight(6f)
-        Row {
-            Text(
-                stringResource(Res.string.TestResults_Overview_Hero_Tests),
-                fontWeight = FontWeight.Bold,
-                modifier = labelModifier,
-            )
-            Text(
-                item.measurements.size.toString(),
-                modifier = valueModifier,
-            )
-        }
         Row {
             Text(
                 stringResource(Res.string.TestResults_Summary_Hero_DateAndTime),

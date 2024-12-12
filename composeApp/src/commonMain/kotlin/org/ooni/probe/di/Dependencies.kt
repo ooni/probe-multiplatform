@@ -264,6 +264,7 @@ class Dependencies(
             getResultById = resultRepository::getById,
             getTestDescriptors = getTestDescriptors.invoke(),
             getMeasurementsByResultId = measurementRepository::listByResultId,
+            countByResultId = measurementRepository::countByResultId,
         )
     }
     private val clearStorage by lazy {

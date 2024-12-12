@@ -2,11 +2,14 @@ package org.ooni.probe.data.models
 
 import kotlin.time.Duration.Companion.seconds
 
+data class ResultCount(val total: Long, val failed: Long?, val succeeded: Long?)
+
 data class ResultItem(
     val result: ResultModel,
     val descriptor: Descriptor,
     val network: NetworkModel?,
     val measurements: List<MeasurementWithUrl>,
+    val measurementCounts: ResultCount,
 ) {
     val anyMeasurementMissingUpload =
         result.isDone && measurements.any { it.measurement.isDoneAndMissingUpload }

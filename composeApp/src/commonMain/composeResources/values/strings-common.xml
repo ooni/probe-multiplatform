@@ -70,6 +70,12 @@
     <string name="TestResults_NotAvailable">N/A</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Upload</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Download</string>
+
+
+    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Tested</string>
+    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Blocked</string>
+    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Accessible</string>
+
     <string name="Modal_ReRun_Title">Re-run test</string>
     <string name="Modal_ReRun_Websites_Title">You are about to re-test %1$s websites.</string>
     <string name="Modal_ReRun_Websites_Run">Run</string>
