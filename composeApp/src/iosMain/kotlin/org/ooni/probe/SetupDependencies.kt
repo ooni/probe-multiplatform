@@ -194,7 +194,7 @@ class SetupDependencies(
         }
     }
 
-    private fun presentViewController(uiViewController: UIViewController): Boolean  {
+    private fun presentViewController(uiViewController: UIViewController): Boolean {
         return findCurrentViewController()?.let { viewController ->
 
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
