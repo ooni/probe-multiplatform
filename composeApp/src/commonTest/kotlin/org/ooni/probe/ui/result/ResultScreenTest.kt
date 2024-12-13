@@ -30,7 +30,10 @@ class ResultScreenTest {
             var title: String? = null
             setContent {
                 ResultScreen(
-                    state = ResultViewModel.State(item),
+                    state = ResultViewModel.State(
+                        result = item,
+                        groupedMeasurements = emptyList(),
+                    ),
                     onEvent = {},
                 )
 
@@ -58,7 +61,11 @@ class ResultScreenTest {
             )
             setContent {
                 ResultScreen(
-                    state = ResultViewModel.State(item, rerunEnabled = true),
+                    state = ResultViewModel.State(
+                        result = item,
+                        groupedMeasurements = emptyList(),
+                        rerunEnabled = true,
+                    ),
                     onEvent = events::add,
                 )
             }
@@ -83,7 +90,10 @@ class ResultScreenTest {
             )
             setContent {
                 ResultScreen(
-                    state = ResultViewModel.State(item),
+                    state = ResultViewModel.State(
+                        result = item,
+                        groupedMeasurements = emptyList(),
+                    ),
                     onEvent = events::add,
                 )
             }
