@@ -17,12 +17,10 @@ class BootstrapPreferences(
         preferencesRepository.setAreNetTestsEnabled(
             list = allTests,
             isAutoRun = false,
-            isEnabled = true,
         )
         preferencesRepository.setAreNetTestsEnabled(
             list = allTests,
             isAutoRun = true,
-            isEnabled = true,
         )
 
         preferencesRepository.setValuesByKey(
