@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.ResultCount
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.testing.factories.DescriptorFactory
@@ -32,6 +33,7 @@ class ResultViewModelTest {
                 network = null,
                 descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
                 measurements = emptyList(),
+                measurementCounts = ResultCount(0, 0, 0),
             )
             val viewModel = buildViewModel(getResult = { flowOf(item) })
 
