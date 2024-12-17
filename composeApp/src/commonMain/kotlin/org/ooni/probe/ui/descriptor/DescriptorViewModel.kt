@@ -166,8 +166,7 @@ class DescriptorViewModel(
         events.filterIsInstance<Event.AutoUpdateChanged>()
             .onEach {
                 val descriptor = state.value.descriptor ?: return@onEach
-                if (descriptor.source !is Descriptor.Source.Installed) return@onEach
-                setAutoUpdate(descriptor.source.value.id, it.value)
+                setAutoUpdate(descriptor.source.id, it.value)
             }
             .launchIn(viewModelScope)
 
@@ -176,23 +175,21 @@ class DescriptorViewModel(
                 if (state.value.isRefreshing) return@onEach
                 val descriptor = state.value.descriptor ?: return@onEach
 
-                if (descriptor.source !is Descriptor.Source.Installed) return@onEach
                 _state.update {
                     it.copy(refreshType = UpdateStatusType.UpdateLink, updatedDescriptor = null)
                 }
 
-                fetchDescriptorUpdate(listOf(descriptor.source.value))
+                fetchDescriptorUpdate(listOf(descriptor.source))
             }
             .launchIn(viewModelScope)
 
         events.filterIsInstance<Event.UpdateDescriptor>()
             .onEach {
                 val descriptor = state.value.updatedDescriptor ?: return@onEach
-                if (descriptor.source !is Descriptor.Source.Installed) return@onEach
                 _state.update {
                     it.copy(refreshType = UpdateStatusType.None, updatedDescriptor = null)
                 }
-                reviewUpdates(listOf(descriptor.source.value))
+                reviewUpdates(listOf(descriptor.source))
                 goToReviewDescriptorUpdates()
             }
             .launchIn(viewModelScope)

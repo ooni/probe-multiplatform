@@ -34,7 +34,7 @@ fun List<Descriptor>.forResult(result: ResultModel): Descriptor? =
     result.testDescriptorId
         ?.let { descriptorId ->
             firstOrNull {
-                it.source is Descriptor.Source.Installed && it.source.value.id == descriptorId
+                it.source.id == descriptorId
             }
         }
         ?: firstOrNull { it.name == result.testGroupName }

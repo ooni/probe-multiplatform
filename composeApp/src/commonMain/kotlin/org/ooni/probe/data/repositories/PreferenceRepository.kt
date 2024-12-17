@@ -132,8 +132,7 @@ class PreferenceRepository(
     ): Flow<Boolean> {
         val key = getPreferenceKey(
             name = descriptor.name,
-            prefix = (descriptor.source as? Descriptor.Source.Installed)
-                ?.value?.id?.value?.toString(),
+            prefix = descriptor.source.id.value.toString(),
             autoRun = isAutoRun,
         )
         return dataStore.data.map {
@@ -180,8 +179,7 @@ class PreferenceRepository(
         isAutoRun: Boolean,
     ) = getPreferenceKey(
         name = netTest.test.name,
-        prefix = (descriptor.source as? Descriptor.Source.Installed)
-            ?.value?.id?.value?.toString(),
+        prefix = descriptor.settingsPrefix,
         autoRun = isAutoRun,
     )
 
