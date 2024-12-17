@@ -65,6 +65,16 @@ fun UploadMeasurementsDialog(
 
                 is UploadMissingMeasurements.State.Finished -> {
                     if (state.failedToUpload == 0) {
+                        Text(
+                            stringResource(Res.string.Toast_ResultsUploaded),
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.padding(bottom = 8.dp),
+                        )
+                        Row(modifier = Modifier.padding(top = 16.dp)) {
+                            TextButton(onClick = { onEvent(UploadMeasurementsViewModel.Event.CloseClick) }) {
+                                Text(stringResource(Res.string.Modal_OK))
+                            }
+                        }
                         val snackbarHostState = LocalSnackbarHostState.current
                         LaunchedEffect(Unit) {
                             snackbarHostState
