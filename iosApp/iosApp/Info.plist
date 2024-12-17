@@ -38,8 +38,18 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>This app does not use Bluetooth, but this permission is required by an [external framework](https://github.com/icerockdev/moko-permissions/issues/103).</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This app does not use your contacts, but this permission is required by an [external framework](https://github.com/icerockdev/moko-permissions/issues/103).</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app does not use your location, but this permission is required by an [external framework](https://github.com/icerockdev/moko-permissions/issues/103).</string>
+	<key>NSMotionUsageDescription</key>
+	<string>This app does not track motion data, but this permission is required by an [external framework](https://github.com/icerockdev/moko-permissions/issues/103).</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -47,7 +57,6 @@
 	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>audio</string>
 		<string>fetch</string>
 		<string>processing</string>
 	</array>
@@ -57,6 +66,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -72,17 +83,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-    <key>UIStatusBarStyle</key>
-    <string>UIStatusBarStyleLightContent</string>
-    <key>ITSAppUsesNonExemptEncryption</key>
-    <false/>
-    <key>NSContactsUsageDescription</key>
-    <string>This app does not use your contacts, but this permission is required by an [external framework](https://github.com/icerockdev/moko-permissions/issues/103).</string>
-    <key>NSMotionUsageDescription</key>
-    <string>This app does not track motion data, but this permission is required by an [external framework](https://github.com/icerockdev/moko-permissions/issues/103).</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app does not use your location, but this permission is required by an [external framework](https://github.com/icerockdev/moko-permissions/issues/103).</string>
-    <key>NSBluetoothAlwaysUsageDescription</key>
-    <string>This app does not use Bluetooth, but this permission is required by an [external framework](https://github.com/icerockdev/moko-permissions/issues/103).</string>
 </dict>
 </plist>
