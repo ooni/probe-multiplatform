@@ -494,7 +494,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which sentry-cli >/dev/null; then\nexport SENTRY_ORG=ooni\nexport SENTRY_PROJECT=probe-multiplatform-ios\nERROR=$(sentry-cli debug-files upload \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"warning: sentry-cli - $ERROR\"\nfi\nelse\necho \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
+			shellScript = "\nif which sentry-cli >/dev/null; then\nexport SENTRY_ORG=ooni\nexport SENTRY_PROJECT=probe-multiplatform-ios\nERROR=$(sentry-cli debug-files upload \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"warning: sentry-cli - $ERROR\"\nfi\nelse\necho \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
 		};
 		79851F9C2D08B0BB002E0951 /* Sentry Upload Symbols Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -513,7 +513,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which sentry-cli >/dev/null; then\nexport SENTRY_ORG=ooni\nexport SENTRY_PROJECT=probe-multiplatform-ios\nERROR=$(sentry-cli debug-files upload \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"warning: sentry-cli - $ERROR\"\nfi\nelse\necho \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
+			shellScript = "\nif which sentry-cli >/dev/null; then\nexport SENTRY_ORG=ooni\nexport SENTRY_PROJECT=probe-multiplatform-ios\nERROR=$(sentry-cli debug-files upload \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"warning: sentry-cli - $ERROR\"\nfi\nelse\necho \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
 		};
 		79FBD00B2C5A70AF004E041C /* Compile Kotlin Framework */ = {
 			isa = PBXShellScriptBuildPhase;
