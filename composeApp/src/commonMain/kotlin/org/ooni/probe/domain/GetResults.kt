@@ -22,9 +22,7 @@ class GetResults(
                     result = item.result,
                     descriptor = descriptors.forResult(item.result) ?: return@mapNotNull null,
                     network = item.network,
-                    doneMeasurementsCount = item.doneMeasurementsCount,
-                    failedMeasurementsCount = item.failedMeasurementsCount,
-                    anomalyMeasurementsCount = item.anomalyMeasurementsCount,
+                    measurementCounts = item.measurementCounts,
                     allMeasurementsUploaded = item.allMeasurementsUploaded,
                     anyMeasurementUploadFailed = item.anyMeasurementUploadFailed,
                 )

@@ -42,7 +42,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TaskOrigin
-import org.ooni.engine.models.TestType
+import org.ooni.engine.models.TestGroup
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
@@ -54,7 +54,7 @@ fun ResultCell(
     item: ResultListItem,
     onResultClick: () -> Unit,
 ) {
-    val hasError = item.result.isDone && item.doneMeasurementsCount == 0L
+    val hasError = item.result.isDone && item.measurementCounts.done == 0L
 
     Surface(
         color = if (item.result.isViewed || hasError) {
@@ -86,9 +86,9 @@ fun ResultCell(
                     )
                 }
 
-                if (hasError) {
+                if (hasError && !item.result.failureMessage.isNullOrEmpty()) {
                     Text(
-                        item.result.failureMessage.orEmpty().lines().first(),
+                        item.result.failureMessage.lines().first(),
                         maxLines = 2,
                         color = MaterialTheme.colorScheme.error,
                     )
@@ -157,34 +157,32 @@ fun ResultCell(
 
 @Composable
 private fun ResultCounts(item: ResultListItem) {
-    val descriptorName = item.descriptor.name
-    val firstTest = item.descriptor.netTests.firstOrNull()?.test
+    val testGroup = TestGroup.fromTests(item.descriptor.netTests.map { it.test })
+    val counts = item.measurementCounts
 
     Column {
-        if (item.failedMeasurementsCount > 0) {
-            (
-                ResultCountItem(
-                    icon = Res.drawable.ic_measurement_failed,
-                    text = pluralStringResourceItem(
-                        Res.plurals.TestResults_Overview_Websites_Blocked,
-                        item.failedMeasurementsCount.toInt(),
-                        item.failedMeasurementsCount,
-                    ),
-                    color = MaterialTheme.colorScheme.error,
-                )
+        if (counts.failed > 0) {
+            ResultCountItem(
+                icon = Res.drawable.ic_measurement_failed,
+                text = pluralStringResourceItem(
+                    Res.plurals.TestResults_Overview_Websites_Blocked,
+                    counts.failed.toInt(),
+                    counts.failed,
+                ),
+                color = MaterialTheme.colorScheme.error,
             )
         }
 
-        when {
-            descriptorName == "websites" || firstTest == TestType.WebConnectivity -> {
+        when (testGroup) {
+            TestGroup.Websites -> {
                 ResultCountItem(
                     icon = Res.drawable.ic_measurement_anomaly,
                     text = pluralStringResourceItem(
                         Res.plurals.TestResults_Overview_Websites_Blocked,
-                        item.anomalyMeasurementsCount.toInt(),
-                        item.anomalyMeasurementsCount,
+                        counts.anomaly.toInt(),
+                        counts.anomaly,
                     ),
-                    color = if (item.anomalyMeasurementsCount > 0) {
+                    color = if (counts.anomaly > 0) {
                         LocalCustomColors.current.logWarn
                     } else {
                         LocalContentColor.current
@@ -194,21 +192,21 @@ private fun ResultCounts(item: ResultListItem) {
                     icon = Res.drawable.ic_world,
                     text = pluralStringResourceItem(
                         Res.plurals.TestResults_Overview_Websites_Tested,
-                        item.testedMeasurementsCount.toInt(),
-                        item.testedMeasurementsCount,
+                        counts.tested.toInt(),
+                        counts.tested,
                     ),
                 )
             }
 
-            descriptorName == "instant_messaging" -> {
+            TestGroup.InstantMessaging -> {
                 ResultCountItem(
                     icon = Res.drawable.ic_measurement_anomaly,
                     text = pluralStringResourceItem(
                         Res.plurals.TestResults_Overview_InstantMessaging_Blocked,
-                        item.anomalyMeasurementsCount.toInt(),
-                        item.anomalyMeasurementsCount,
+                        counts.anomaly.toInt(),
+                        counts.anomaly,
                     ),
-                    color = if (item.anomalyMeasurementsCount > 0) {
+                    color = if (counts.anomaly > 0) {
                         LocalCustomColors.current.logWarn
                     } else {
                         LocalContentColor.current
@@ -218,21 +216,21 @@ private fun ResultCounts(item: ResultListItem) {
                     icon = Res.drawable.ic_measurement_ok,
                     text = pluralStringResourceItem(
                         Res.plurals.TestResults_Overview_InstantMessaging_Available,
-                        item.successMeasurementsCount.toInt(),
-                        item.successMeasurementsCount,
+                        counts.success.toInt(),
+                        counts.success,
                     ),
                 )
             }
 
-            descriptorName == "circumvention" -> {
+            TestGroup.Circumvention -> {
                 ResultCountItem(
                     icon = Res.drawable.ic_measurement_anomaly,
                     text = pluralStringResourceItem(
                         Res.plurals.TestResults_Overview_Circumvention_Blocked,
-                        item.anomalyMeasurementsCount.toInt(),
-                        item.anomalyMeasurementsCount,
+                        counts.anomaly.toInt(),
+                        counts.anomaly,
                     ),
-                    color = if (item.anomalyMeasurementsCount > 0) {
+                    color = if (counts.anomaly > 0) {
                         LocalCustomColors.current.logWarn
                     } else {
                         LocalContentColor.current
@@ -242,25 +240,25 @@ private fun ResultCounts(item: ResultListItem) {
                     icon = Res.drawable.ic_measurement_ok,
                     text = pluralStringResourceItem(
                         Res.plurals.TestResults_Overview_Circumvention_Available,
-                        item.successMeasurementsCount.toInt(),
-                        item.successMeasurementsCount,
+                        counts.success.toInt(),
+                        counts.success,
                     ),
                 )
             }
 
-            descriptorName == "performance" -> {
-                // download
-                // upload
-                // video
+            TestGroup.Performance -> {
+                // TODO: Performance aggregated data: download, upload and video
             }
 
-            descriptorName == "experimental" -> {
+            TestGroup.Experimental,
+            TestGroup.Unknown,
+            -> {
                 ResultCountItem(
                     icon = Res.drawable.ic_history,
                     text = pluralStringResourceItem(
                         Res.plurals.Measurements_Count,
-                        item.doneMeasurementsCount.toInt(),
-                        item.doneMeasurementsCount,
+                        counts.done.toInt(),
+                        counts.done,
                     ),
                 )
             }

@@ -44,40 +44,52 @@ selectLastInsertedRowId:
 SELECT last_insert_rowid();
 
 selectAllWithNetwork:
-SELECT
-    Result.*,
-    Network.*,
-    (
-        SELECT COUNT(Measurement.id) FROM Measurement
-        WHERE Measurement.result_id = Result.id AND Measurement.is_done = 1
-    ) AS doneMeasurementsCount,
-    (
-        SELECT COUNT(Measurement.id) FROM Measurement
-        WHERE Measurement.result_id = Result.id AND Measurement.is_failed = 1
-    ) AS failedMeasurementsCount,
-    (
-        SELECT COUNT(Measurement.id) FROM Measurement
-        WHERE Measurement.result_id = Result.id AND Measurement.is_anomaly = 1
-    ) AS anomalyMeasurementsCount,
-    (
-        SELECT COUNT(Measurement.id) FROM Measurement
-        WHERE Measurement.is_done = 1
-        AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
-        AND Measurement.result_id = Result.id
-    ) == 0 AS allMeasurementsUploaded,
-    (
-        SELECT COUNT(Measurement.id) FROM Measurement
-        WHERE Measurement.is_done = 1
-        AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
-        AND Measurement.is_upload_failed = 1
-        AND Measurement.result_id = Result.id
-    ) > 0 AS anyMeasurementUploadFailed
-FROM Result
-LEFT JOIN Network ON Result.network_id = Network.id
-WHERE (:filterByDescriptor = 0 OR Result.test_group_name = :descriptorKey OR Result.descriptor_runId = :descriptorKey)
-AND (:filterByTaskOrigin = 0 OR Result.task_origin = :taskOrigin)
-ORDER BY Result.start_time DESC
-LIMIT :limit;
+SELECT *,
+    notUploadedMeasurements == 0 AS allMeasurementsUploaded,
+    uploadFailCount > 0 AS anyMeasurementUploadFailed
+FROM (
+    SELECT
+        MAX(Result.id) AS id,
+        MAX(Result.test_group_name) AS test_group_name,
+        MAX(Result.start_time) AS start_time,
+        MAX(Result.is_viewed) AS is_viewed,
+        MAX(Result.is_done) AS is_done,
+        MAX(Result.data_usage_up) AS data_usage_up,
+        MAX(Result.data_usage_down) AS data_usage_down,
+        MAX(Result.failure_msg) AS failure_msg,
+        MAX(Result.task_origin) AS task_origin,
+        MAX(Result.network_id) AS network_id,
+        MAX(Result.descriptor_runId) AS descriptor_runId,
+        MAX(Network.id) AS network_id_inner,
+        MAX(Network.network_name) AS network_name,
+        MAX(Network.ip) AS ip,
+        MAX(Network.asn) AS asn,
+        MAX(Network.country_code) AS country_code,
+        MAX(Network.network_type) AS network_type,
+        COUNT(Measurement.id) AS measurementsCount,
+        SUM(
+            CASE WHEN Measurement.is_done = 1
+                    AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
+                    AND Measurement.is_upload_failed = 1
+                    THEN 1 ELSE 0 END
+        ) AS uploadFailCount,
+        SUM(
+            CASE WHEN Measurement.is_done = 1
+                      AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
+                    THEN 1 ELSE 0 END
+        ) AS notUploadedMeasurements,
+        SUM(CASE WHEN Measurement.is_done = 1 THEN 1 ELSE 0 END) AS doneMeasurementsCount,
+        SUM(CASE WHEN Measurement.is_failed = 1 THEN 1 ELSE 0 END) AS failedMeasurementsCount,
+        SUM(CASE WHEN Measurement.is_anomaly = 1 THEN 1 ELSE 0 END) AS anomalyMeasurementsCount
+    FROM Result
+    LEFT JOIN Network ON Result.network_id = Network.id
+    LEFT JOIN Measurement ON Measurement.result_id = Result.id
+    WHERE (:filterByDescriptor = 0 OR Result.test_group_name = :descriptorKey OR Result.descriptor_runId = :descriptorKey)
+        AND (:filterByTaskOrigin = 0 OR Result.task_origin = :taskOrigin)
+    GROUP BY Result.id
+    ORDER BY Result.start_time DESC
+    LIMIT :limit
+);
 
 selectByIdWithNetwork:
 SELECT Result.*, Network.*
@@ -98,13 +110,16 @@ ORDER BY start_time DESC
 LIMIT 1;
 
 countMissingUpload:
-SELECT COUNT(Result.id) FROM Result
-WHERE (
-  SELECT COUNT(Measurement.id) FROM Measurement
-  WHERE Measurement.is_done = 1
-  AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
-  AND Measurement.result_id = Result.id
-) > 0;
+SELECT COUNT(failed_measurements > 0)
+FROM (
+    SELECT SUM(Measurement.id) AS failed_measurements
+    FROM Result
+    LEFT JOIN Measurement ON Measurement.result_id = Result.id
+    WHERE Measurement.is_done = 1
+    AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
+    AND Measurement.result_id = Result.id
+    GROUP BY Result.id
+);
 
 deleteByRunId:
 DELETE FROM Result WHERE descriptor_runId = ?;

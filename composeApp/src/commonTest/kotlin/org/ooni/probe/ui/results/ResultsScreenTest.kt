@@ -10,6 +10,7 @@ import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_NoTestsHaveBeenRun
 import org.jetbrains.compose.resources.getString
+import org.ooni.probe.data.models.MeasurementCounts
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.testing.factories.DescriptorFactory
 import org.ooni.testing.factories.NetworkModelFactory
@@ -130,10 +131,12 @@ class ResultsScreenTest {
             result = ResultModelFactory.build(),
             descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
             network = NetworkModelFactory.build(),
-            doneMeasurementsCount = 4,
-            failedMeasurementsCount = 0,
-            anomalyMeasurementsCount = 0,
-            allMeasurementsUploaded = false,
+            measurementCounts = MeasurementCounts(
+                done = 4,
+                failed = 0,
+                anomaly = 0,
+            ),
+            allMeasurementsUploaded = true,
             anyMeasurementUploadFailed = false,
         )
 }
