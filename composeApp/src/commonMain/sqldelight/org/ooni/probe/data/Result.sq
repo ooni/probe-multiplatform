@@ -13,6 +13,11 @@ CREATE TABLE Result(
     FOREIGN KEY(`network_id`) REFERENCES Network(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
+CREATE INDEX idx_result_start_time ON Result (start_time);
+CREATE INDEX idx_result_test_name ON Result (test_group_name);
+CREATE INDEX idx_result_descriptor ON Result (descriptor_runId);
+CREATE INDEX idx_result_task_origin ON Result (task_origin);
+
 insertOrReplace:
 INSERT OR REPLACE INTO Result (
     id,
@@ -62,7 +67,6 @@ FROM (
         MAX(Result.descriptor_runId) AS descriptor_runId,
         MAX(Network.id) AS network_id_inner,
         MAX(Network.network_name) AS network_name,
-        MAX(Network.ip) AS ip,
         MAX(Network.asn) AS asn,
         MAX(Network.country_code) AS country_code,
         MAX(Network.network_type) AS network_type,
