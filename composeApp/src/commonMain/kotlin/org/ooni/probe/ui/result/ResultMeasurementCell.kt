@@ -147,9 +147,9 @@ fun ResultGroupMeasurementCell(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth().alpha(0.66f).clickable {
-            onDropdownToggled()
-        }.padding(horizontal = 16.dp),
+        modifier = Modifier.fillMaxWidth()
+            .clickable { onDropdownToggled() }
+            .padding(horizontal = 16.dp, vertical = 4.dp),
     ) {
         TestName(item.test, item.measurements.first(), modifier = Modifier.weight(1f))
         IconButton(onClick = { onDropdownToggled() }) {
