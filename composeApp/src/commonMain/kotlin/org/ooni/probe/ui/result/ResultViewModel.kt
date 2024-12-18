@@ -183,10 +183,11 @@ class ResultViewModel(
 
     sealed class MeasurementGroupItem {
         data class Single(val measurement: MeasurementWithUrl) : MeasurementGroupItem()
+
         data class Group(
             val test: TestType,
             val measurements: List<MeasurementWithUrl>,
-            val isExpanded: Boolean
+            val isExpanded: Boolean,
         ) : MeasurementGroupItem()
     }
 }
