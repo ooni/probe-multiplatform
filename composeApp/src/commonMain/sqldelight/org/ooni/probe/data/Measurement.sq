@@ -61,6 +61,7 @@ selectByResultIdWithUrl:
 SELECT * FROM Measurement
 LEFT JOIN Url ON Measurement.url_id = Url.id
 WHERE Measurement.result_id = ?;
+
 selectAllNotUploaded:
 SELECT * FROM Measurement
 WHERE Measurement.is_done = 1
