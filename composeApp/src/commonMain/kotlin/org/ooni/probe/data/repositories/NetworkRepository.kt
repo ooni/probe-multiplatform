@@ -25,7 +25,6 @@ class NetworkRepository(
                 if (model.id == null) {
                     database.networkQueries.selectByValues(
                         network_name = model.networkName,
-                        ip = model.ip,
                         asn = model.asn,
                         country_code = model.countryCode,
                         network_type = model.networkType?.value,
@@ -37,7 +36,6 @@ class NetworkRepository(
                 database.networkQueries.insertOrReplace(
                     id = model.id?.value,
                     network_name = model.networkName,
-                    ip = model.ip,
                     asn = model.asn,
                     country_code = model.countryCode,
                     network_type = model.networkType?.value,
@@ -62,7 +60,6 @@ fun Network.toModel(): NetworkModel =
     NetworkModel(
         id = NetworkModel.Id(id),
         networkName = network_name,
-        ip = ip,
         asn = asn,
         countryCode = country_code,
         networkType = network_type?.let(NetworkType::fromValue),
