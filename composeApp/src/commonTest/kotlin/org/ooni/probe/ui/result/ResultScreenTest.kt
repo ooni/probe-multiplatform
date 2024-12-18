@@ -10,7 +10,6 @@ import ooniprobe.composeapp.generated.resources.Modal_ReRun_Websites_Run
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.data.models.MeasurementModel
-import org.ooni.probe.data.models.ResultCount
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.testing.factories.DescriptorFactory
 import org.ooni.testing.factories.MeasurementModelFactory
@@ -27,7 +26,6 @@ class ResultScreenTest {
                 network = null,
                 descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
                 measurements = emptyList(),
-                measurementCounts = ResultCount(0, 0, 0),
             )
             var title: String? = null
             setContent {
@@ -60,7 +58,6 @@ class ResultScreenTest {
                         ),
                     ),
                 ),
-                measurementCounts = ResultCount(0, 0, 0),
             )
             setContent {
                 ResultScreen(
@@ -90,7 +87,6 @@ class ResultScreenTest {
                 network = null,
                 descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
                 measurements = emptyList(),
-                measurementCounts = ResultCount(0, 0, 0),
             )
             setContent {
                 ResultScreen(
