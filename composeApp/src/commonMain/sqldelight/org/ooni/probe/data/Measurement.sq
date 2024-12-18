@@ -20,6 +20,9 @@ CREATE TABLE Measurement(
     FOREIGN KEY(`result_id`) REFERENCES Result(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
+CREATE INDEX idx_measure_result_id ON Measurement (result_id);
+CREATE INDEX idx_measure_start_time ON Measurement (start_time);
+
 insertOrReplace:
 INSERT OR REPLACE INTO Measurement (
     id,
@@ -60,7 +63,8 @@ SELECT * FROM Measurement;
 selectByResultIdWithUrl:
 SELECT * FROM Measurement
 LEFT JOIN Url ON Measurement.url_id = Url.id
-WHERE Measurement.result_id = ?;
+WHERE Measurement.result_id = ?
+ORDER BY Measurement.start_time ASC;
 
 selectAllNotUploaded:
 SELECT * FROM Measurement
