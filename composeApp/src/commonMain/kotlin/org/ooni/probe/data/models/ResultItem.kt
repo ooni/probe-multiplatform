@@ -2,6 +2,10 @@ package org.ooni.probe.data.models
 
 import kotlin.time.Duration.Companion.seconds
 
+data class ResultCount(val total: Long, val succeeded: Long) {
+    val failed get() = total - succeeded
+}
+
 data class ResultItem(
     val result: ResultModel,
     val descriptor: Descriptor,
@@ -16,4 +20,12 @@ data class ResultItem(
     val canBeRerun get() = descriptor.name == "websites" && result.isDone && urlCount > 0
 
     val urlCount get() = measurements.count { it.url != null }
+
+    val measurementCounts
+        get() = ResultCount(
+            total = measurements.size.toLong(),
+            succeeded = measurements.count {
+                !it.measurement.isFailed && !it.measurement.isAnomaly && it.measurement.isDone
+            }.toLong(),
+        )
 }
