@@ -22,8 +22,8 @@ import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.RunBackgroundState
+import org.ooni.probe.data.models.RunSpecification
 
 class ResultViewModel(
     resultId: ResultModel.Id,
@@ -46,34 +46,17 @@ class ResultViewModel(
         combine(
             getResult(resultId),
             expandedDescriptorsKeys,
-            ::Pair,
-        )
-            .onEach { (result, expandedDescriptorsKeys) ->
-                var groupedMeasurements = listOf<MeasurementGroupItem>()
-                result?.measurements?.let { measurements ->
-                    groupedMeasurements = measurements.groupBy { it.measurement.test }.flatMap { (key, itemList) ->
-                        when {
-                            itemList.size == 1 -> listOf(MeasurementGroupItem.Single(itemList.first()))
-                            itemList.size > 1 && itemList.size == measurements.size -> itemList.map { MeasurementGroupItem.Single(it) }
-                            else -> {
-                                listOf(
-                                    MeasurementGroupItem.Group(
-                                        test = key,
-                                        measurements = itemList,
-                                        isExpanded = expandedDescriptorsKeys.contains(key),
-                                    ),
-                                )
-                            }
-                        }
-                    }
-                }
-                _state.update {
-                    it.copy(result = result, groupedMeasurements = groupedMeasurements)
-                }
-                if (result?.result?.isViewed == false) {
-                    markResultAsViewed(resultId)
-                }
+        ) { result, expandedDescriptorsKeys ->
+            _state.update {
+                it.copy(
+                    result = result,
+                    groupedMeasurements = groupMeasurements(result, expandedDescriptorsKeys),
+                )
             }
+            if (result?.result?.isViewed == false) {
+                markResultAsViewed(resultId)
+            }
+        }
             .launchIn(viewModelScope)
 
         combine(
@@ -140,6 +123,34 @@ class ResultViewModel(
     fun onEvent(event: Event) {
         events.tryEmit(event)
     }
+
+    private fun groupMeasurements(
+        result: ResultItem?,
+        expandedDescriptorsKeys: List<TestType>,
+    ) = result?.measurements?.let { measurements ->
+        measurements
+            .groupBy { it.measurement.test }
+            .flatMap { (key, itemList) ->
+                if (itemList.size == 1 || itemList.size == measurements.size) {
+                    itemList.sort().map { MeasurementGroupItem.Single(it) }
+                } else {
+                    listOf(
+                        MeasurementGroupItem.Group(
+                            test = key,
+                            measurements = itemList.sort(),
+                            isExpanded = expandedDescriptorsKeys.contains(key),
+                        ),
+                    )
+                }
+            }
+    }.orEmpty()
+
+    private fun List<MeasurementWithUrl>.sort() =
+        sortedWith(
+            compareByDescending<MeasurementWithUrl> { it.measurement.isFailed }
+                .thenByDescending { it.measurement.isAnomaly }
+                .thenBy { it.measurement.startTime },
+        )
 
     private fun getRerunSpecification(): RunSpecification? {
         val item = _state.value.result ?: return null
