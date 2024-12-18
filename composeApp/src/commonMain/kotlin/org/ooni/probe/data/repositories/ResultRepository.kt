@@ -168,7 +168,6 @@ class ResultRepository(
                 Network(
                     id = networkId,
                     network_name = network_name,
-                    ip = ip,
                     asn = asn,
                     country_code = country_code,
                     network_type = network_type,
@@ -203,7 +202,6 @@ class ResultRepository(
                 Network(
                     id = networkId,
                     network_name = network_name,
-                    ip = ip,
                     asn = asn,
                     country_code = country_code,
                     network_type = network_type,
