@@ -38,6 +38,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
+import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
 
 @Composable
 fun ResultMeasurementCell(
@@ -139,14 +140,16 @@ private fun TestName(
 
 @Composable
 fun ResultGroupMeasurementCell(
-    item: ResultViewModel.MeasurementGroup,
+    item: Group,
     isResultDone: Boolean,
     onClick: (MeasurementModel.ReportId, String?) -> Unit,
     onDropdownToggled: () -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth().alpha(0.66f).padding(horizontal = 16.dp),
+        modifier = Modifier.fillMaxWidth().alpha(0.66f).clickable {
+            onDropdownToggled()
+        }.padding(horizontal = 16.dp),
     ) {
         TestName(item.test, item.measurements.first(), modifier = Modifier.weight(1f))
         IconButton(onClick = { onDropdownToggled() }) {

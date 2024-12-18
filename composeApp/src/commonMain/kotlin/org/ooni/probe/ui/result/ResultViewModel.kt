@@ -49,16 +49,15 @@ class ResultViewModel(
             ::Pair,
         )
             .onEach { (result, expandedDescriptorsKeys) ->
-                var groupedMeasurements = listOf<Any>()
+                var groupedMeasurements = listOf<MeasurementGroupItem>()
                 result?.measurements?.let { measurements ->
-                    groupedMeasurements = measurements.groupBy { it.measurement.test.name }.flatMap { (_, itemList) ->
+                    groupedMeasurements = measurements.groupBy { it.measurement.test }.flatMap { (key, itemList) ->
                         when {
-                            itemList.size == 1 -> listOf(itemList.first())
-                            itemList.size > 1 && itemList.size == measurements.size -> itemList
+                            itemList.size == 1 -> listOf(MeasurementGroupItem.Single(itemList.first()))
+                            itemList.size > 1 && itemList.size == measurements.size -> itemList.map { MeasurementGroupItem.Single(it) }
                             else -> {
-                                val key = itemList.first().measurement.test
                                 listOf(
-                                    MeasurementGroup(
+                                    MeasurementGroupItem.Group(
                                         test = key,
                                         measurements = itemList,
                                         isExpanded = expandedDescriptorsKeys.contains(key),
@@ -163,7 +162,7 @@ class ResultViewModel(
 
     data class State(
         val result: ResultItem?,
-        val groupedMeasurements: List<Any>,
+        val groupedMeasurements: List<MeasurementGroupItem>,
         val rerunEnabled: Boolean = false,
     )
 
@@ -179,12 +178,15 @@ class ResultViewModel(
 
         data object RerunClicked : Event
 
-        data class MeasurementGroupToggled(val measurementGroup: MeasurementGroup) : Event
+        data class MeasurementGroupToggled(val measurementGroup: MeasurementGroupItem.Group) : Event
     }
 
-    data class MeasurementGroup(
-        val test: TestType,
-        val measurements: List<MeasurementWithUrl>,
-        val isExpanded: Boolean = false,
-    )
+    sealed class MeasurementGroupItem {
+        data class Single(val measurement: MeasurementWithUrl) : MeasurementGroupItem()
+        data class Group(
+            val test: TestType,
+            val measurements: List<MeasurementWithUrl>,
+            val isExpanded: Boolean
+        ) : MeasurementGroupItem()
+    }
 }

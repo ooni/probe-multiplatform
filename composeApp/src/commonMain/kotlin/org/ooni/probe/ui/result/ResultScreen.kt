@@ -67,8 +67,9 @@ import ooniprobe.composeapp.generated.resources.ooni_bw
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.NetworkType
-import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.data.models.ResultItem
+import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
+import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Single
 import org.ooni.probe.ui.results.UploadResults
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.formatDataUsage
@@ -145,15 +146,13 @@ fun ResultScreen(
             }
 
             items(state.groupedMeasurements, key = { item ->
-                var key: Any = item.toString()
                 when (item) {
-                    is ResultViewModel.MeasurementGroup -> key = item.test.name
-                    is MeasurementWithUrl -> key = item.measurement.idOrThrow.value
+                    is Group -> item.test.name
+                    is Single -> item.measurement.measurement.idOrThrow.value
                 }
-                key
             }) { item ->
                 when (item) {
-                    is ResultViewModel.MeasurementGroup -> {
+                    is Group -> {
                         ResultGroupMeasurementCell(
                             item = item,
                             isResultDone = state.result.result.isDone,
@@ -166,9 +165,9 @@ fun ResultScreen(
                         )
                     }
 
-                    is MeasurementWithUrl -> {
+                    is Single -> {
                         ResultMeasurementCell(
-                            item = item,
+                            item = item.measurement,
                             isResultDone = state.result.result.isDone,
                             onClick = { reportId, input ->
                                 onEvent(ResultViewModel.Event.MeasurementClicked(reportId, input))
