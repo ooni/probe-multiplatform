@@ -30,7 +30,7 @@ import org.ooni.probe.ui.shared.SelectableItem
 
 class RunViewModel(
     onBack: () -> Unit,
-    getTestDescriptors: () -> Flow<List<Descriptor>>,
+    getTestDescriptors: (Boolean?) -> Flow<List<Descriptor>>,
     shouldShowVpnWarning: suspend () -> Boolean,
     private val preferenceRepository: PreferenceRepository,
     startBackgroundRun: (RunSpecification) -> Unit,
@@ -45,7 +45,7 @@ class RunViewModel(
 
     init {
         combine(
-            getTestDescriptors(),
+            getTestDescriptors(false),
             collapsedDescriptorsKeys,
             ::Pair,
         ).flatMapLatest { (descriptors, collapsedDescriptorsKeys) ->
