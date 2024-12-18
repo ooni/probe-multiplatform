@@ -40,6 +40,8 @@ import kotlin.time.times
 sealed class TestType {
     abstract val name: String
     abstract val labelRes: StringResource
+    open val isManualRunEnabled: Boolean = true
+    open val isBackgroundRunEnabled: Boolean = true
     open val iconRes: DrawableResource? = null
     open val url: String? = null
 
@@ -52,6 +54,7 @@ sealed class TestType {
     data object Dash : TestType() {
         override val name: String = "dash"
         override val labelRes: StringResource = Res.string.Test_Dash_Fullname
+        override val isBackgroundRunEnabled: Boolean = false
         override val url: String = "https://ooni.org/nettest/dash"
 
         override fun runtime(inputs: List<String>?) = 45.seconds
@@ -59,6 +62,7 @@ sealed class TestType {
 
     data class Experimental(
         override val name: String,
+        override val isBackgroundRunEnabled: Boolean = false,
     ) : TestType() {
         override val labelRes: StringResource = Res.string.Test_Experimental_Fullname
         override val iconRes: DrawableResource = Res.drawable.test_experimental
@@ -94,6 +98,7 @@ sealed class TestType {
     data object Ndt : TestType() {
         override val name: String = "ndt"
         override val labelRes: StringResource = Res.string.Test_NDT_Fullname
+        override val isBackgroundRunEnabled: Boolean = false
         override val url: String = "https://ooni.org/nettest/ndt"
 
         override fun runtime(inputs: List<String>?) = 45.seconds

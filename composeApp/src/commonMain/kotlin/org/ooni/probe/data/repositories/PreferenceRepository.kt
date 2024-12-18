@@ -147,7 +147,7 @@ class PreferenceRepository(
         isAutoRun: Boolean,
     ): Flow<Boolean> =
         dataStore.data.map {
-            it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] == true
+            it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] ?: netTest.defaultPreferenceValue(isAutoRun)
         }.distinctUntilChanged()
 
     fun areNetTestsEnabled(
@@ -157,7 +157,7 @@ class PreferenceRepository(
         dataStore.data.map {
             list.associate { (descriptor, netTest) ->
                 Pair(descriptor, netTest) to (
-                    it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] == true
+                    it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] ?: netTest.defaultPreferenceValue(isAutoRun)
                 )
             }
         }.distinctUntilChanged()
@@ -170,6 +170,17 @@ class PreferenceRepository(
         dataStore.edit {
             list.forEach { (descriptor, netTest) ->
                 it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] = isEnabled
+            }
+        }
+    }
+
+    suspend fun setAreNetTestsEnabled(
+        list: List<Pair<Descriptor, NetTest>>,
+        isAutoRun: Boolean,
+    ) {
+        dataStore.edit {
+            list.forEach { (descriptor, netTest) ->
+                it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] = netTest.defaultPreferenceValue(isAutoRun)
             }
         }
     }
@@ -209,5 +220,9 @@ class PreferenceRepository(
     suspend fun contains(key: SettingsKey): Boolean {
         return dataStore.data.map { it.contains(preferenceKeyFromSettingsKey(key).preferenceKey) }
             .firstOrNull() ?: false
+    }
+
+    private fun NetTest.defaultPreferenceValue(isAutoRun: Boolean): Boolean {
+        return if (isAutoRun) test.isBackgroundRunEnabled else test.isManualRunEnabled
     }
 }

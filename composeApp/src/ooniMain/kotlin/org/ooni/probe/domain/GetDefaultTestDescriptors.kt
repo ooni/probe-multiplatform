@@ -120,14 +120,28 @@ class GetDefaultTestDescriptors {
                 animation = Animation.Experimental,
                 dataUsage = Res.string.TestResults_NotAvailable,
                 netTests = listOf(
-                    NetTest(TestType.Experimental("stunreachability")),
-                    NetTest(TestType.Experimental("openvpn")),
+                    NetTest(
+                        TestType.Experimental(
+                            name = "stunreachability",
+                            isBackgroundRunEnabled = true,
+                        ),
+                    ),
+                    NetTest(
+                        TestType.Experimental(
+                            name = "openvpn",
+                            isBackgroundRunEnabled = true,
+                        ),
+                    ),
                     // NetTest(TestType.Experimental("riseupvpn")),
                     // NetTest(TestType.Experimental("echcheck")),
                 ),
                 longRunningTests = listOf(
                     // NetTest(TestType.Experimental("torsf")),
-                    NetTest(TestType.Experimental("vanilla_tor")),
+                    NetTest(
+                        TestType.Experimental(
+                            name = "vanilla_tor",
+                        ),
+                    ),
                 ),
             )
     }
