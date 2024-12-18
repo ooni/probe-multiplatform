@@ -61,15 +61,6 @@ selectByResultIdWithUrl:
 SELECT * FROM Measurement
 LEFT JOIN Url ON Measurement.url_id = Url.id
 WHERE Measurement.result_id = ?;
-
-countByResultId:
-SELECT
-    COUNT(*) AS total_measurements,
-    SUM(CASE WHEN is_rerun = 0 AND is_done = 1 AND is_failed = 0 AND is_anomaly = 0 THEN 1 ELSE 0 END) AS ok_measurements,
-    SUM(CASE WHEN is_rerun = 0 AND is_done = 1 AND is_failed = 1 THEN 1 ELSE 0 END) AS failed_measurements
-FROM Measurement
-WHERE result_id = ?;
-
 selectAllNotUploaded:
 SELECT * FROM Measurement
 WHERE Measurement.is_done = 1
