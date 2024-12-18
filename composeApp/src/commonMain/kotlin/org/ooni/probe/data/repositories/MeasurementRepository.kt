@@ -2,7 +2,6 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import app.cash.sqldelight.coroutines.mapToOneNotNull
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -14,7 +13,6 @@ import org.ooni.probe.data.Url
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
-import org.ooni.probe.data.models.ResultCount
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.toEpoch
@@ -55,12 +53,6 @@ class MeasurementRepository(
             .asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
-
-    fun countByResultId(resultId: ResultModel.Id): Flow<ResultCount> {
-        return database.measurementQueries.countByResultId(resultId.value).asFlow()
-            .mapToOneNotNull(backgroundContext)
-            .map { ResultCount(it.total_measurements, it.failed_measurements, it.ok_measurements) }
-    }
 
     suspend fun createOrUpdate(model: MeasurementModel): MeasurementModel.Id =
         withContext(backgroundContext) {
