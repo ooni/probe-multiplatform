@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.update
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.data.models.ResultModel
@@ -36,14 +37,39 @@ class ResultViewModel(
     startBackgroundRun: (RunSpecification) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
+    private val expandedDescriptorsKeys = MutableStateFlow(emptyList<TestType>())
 
-    private val _state = MutableStateFlow(State(result = null))
+    private val _state = MutableStateFlow(State(result = null, groupedMeasurements = emptyList()))
     val state = _state.asStateFlow()
 
     init {
-        getResult(resultId)
-            .onEach { result ->
-                _state.update { it.copy(result = result) }
+        combine(
+            getResult(resultId),
+            expandedDescriptorsKeys,
+            ::Pair,
+        )
+            .onEach { (result, expandedDescriptorsKeys) ->
+                var groupedMeasurements = listOf<MeasurementGroupItem>()
+                result?.measurements?.let { measurements ->
+                    groupedMeasurements = measurements.groupBy { it.measurement.test }.flatMap { (key, itemList) ->
+                        when {
+                            itemList.size == 1 -> listOf(MeasurementGroupItem.Single(itemList.first()))
+                            itemList.size > 1 && itemList.size == measurements.size -> itemList.map { MeasurementGroupItem.Single(it) }
+                            else -> {
+                                listOf(
+                                    MeasurementGroupItem.Group(
+                                        test = key,
+                                        measurements = itemList,
+                                        isExpanded = expandedDescriptorsKeys.contains(key),
+                                    ),
+                                )
+                            }
+                        }
+                    }
+                }
+                _state.update {
+                    it.copy(result = result, groupedMeasurements = groupedMeasurements)
+                }
                 if (result?.result?.isViewed == false) {
                     markResultAsViewed(resultId)
                 }
@@ -95,6 +121,20 @@ class ResultViewModel(
                 goToDashboard()
             }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.MeasurementGroupToggled>()
+            .onEach { event ->
+                expandedDescriptorsKeys.update { keys ->
+                    val key = event.measurementGroup.test
+                    if (keys.contains(key)) {
+                        keys - key
+                    } else {
+                        keys + key
+                    }
+                }
+            }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -122,6 +162,7 @@ class ResultViewModel(
 
     data class State(
         val result: ResultItem?,
+        val groupedMeasurements: List<MeasurementGroupItem>,
         val rerunEnabled: Boolean = false,
     )
 
@@ -136,5 +177,17 @@ class ResultViewModel(
         data object UploadClicked : Event
 
         data object RerunClicked : Event
+
+        data class MeasurementGroupToggled(val measurementGroup: MeasurementGroupItem.Group) : Event
+    }
+
+    sealed class MeasurementGroupItem {
+        data class Single(val measurement: MeasurementWithUrl) : MeasurementGroupItem()
+
+        data class Group(
+            val test: TestType,
+            val measurements: List<MeasurementWithUrl>,
+            val isExpanded: Boolean,
+        ) : MeasurementGroupItem()
     }
 }
