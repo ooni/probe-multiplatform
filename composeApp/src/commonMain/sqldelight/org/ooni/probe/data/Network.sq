@@ -1,7 +1,6 @@
 CREATE TABLE Network(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     network_name TEXT,
-    ip TEXT,
     asn TEXT,
     country_code TEXT,
     network_type TEXT
@@ -11,11 +10,10 @@ insertOrReplace:
 INSERT OR REPLACE INTO Network (
     id,
     network_name,
-    ip,
     asn,
     country_code,
     network_type
-) VALUES (?,?,?,?,?,?);
+) VALUES (?,?,?,?,?);
 
 deleteAll:
 DELETE FROM Network;
@@ -28,5 +26,5 @@ SELECT * FROM Network;
 
 selectByValues:
 SELECT * FROM Network
-WHERE network_name = ? AND ip = ? AND asn = ? AND country_code = ? AND network_type = ?
+WHERE network_name = ? AND asn = ? AND country_code = ? AND network_type = ?
 LIMIT 1;

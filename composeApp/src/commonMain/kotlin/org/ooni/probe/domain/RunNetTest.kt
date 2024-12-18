@@ -80,7 +80,6 @@ class RunNetTest(
             is TaskEvent.GeoIpLookup -> {
                 val network = NetworkModel(
                     networkName = event.networkName,
-                    ip = event.ip,
                     asn = event.asn,
                     countryCode = event.countryCode,
                     networkType = event.networkType,
