@@ -71,7 +71,7 @@ setAutoUpdate:
 UPDATE TestDescriptor SET auto_update = ? WHERE runId = ?;
 
 selectAll:
-SELECT * FROM TestDescriptor;
+SELECT * FROM TestDescriptor WHERE (is_expired IS NULL OR is_expired = :isExpired) OR (:isExpired IS NULL);
 
 selectByRunIds:
 SELECT * FROM TestDescriptor WHERE runId IN ?;
