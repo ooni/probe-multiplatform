@@ -11,7 +11,7 @@ fun Long.formatDataUsage(): String {
     return (this / 1024.0.pow(digitGroups.toDouble())).format() + " " + units[digitGroups]
 }
 
-private fun Double.format(decimalChars: Int = 2): String {
+fun Double.format(decimalChars: Int = 2): String {
     val absoluteValue = abs(this).toInt()
     val decimalValue = abs((this - absoluteValue) * 10.0.pow(decimalChars)).toInt()
     return if (decimalValue == 0) absoluteValue.toString() else "$absoluteValue.$decimalValue"

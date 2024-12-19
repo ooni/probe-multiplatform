@@ -31,13 +31,18 @@ import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMess
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
+import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_history
 import ooniprobe.composeapp.generated.resources.ic_measurement_anomaly
 import ooniprobe.composeapp.generated.resources.ic_measurement_failed
 import ooniprobe.composeapp.generated.resources.ic_measurement_ok
+import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ic_world
+import ooniprobe.composeapp.generated.resources.video_quality
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -64,8 +69,7 @@ fun ResultCell(
         },
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
                 .run { if (!hasError) clickable { onResultClick() } else this }
                 .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
@@ -109,14 +113,11 @@ fun ResultCell(
             }
             Column(
                 horizontalAlignment = Alignment.Start,
-                modifier = Modifier
-                    .padding(start = 8.dp, top = 24.dp)
-                    .weight(0.35f),
+                modifier = Modifier.padding(start = 8.dp, top = 24.dp).weight(0.35f),
             ) {
                 if (!item.result.isDone) {
                     CircularProgressIndicator(
-                        modifier = Modifier.padding(bottom = 4.dp)
-                            .size(24.dp),
+                        modifier = Modifier.padding(bottom = 4.dp).size(24.dp),
                     )
                 }
                 if (!hasError) {
@@ -134,9 +135,7 @@ fun ResultCell(
                             } else {
                                 LocalContentColor.current
                             },
-                            modifier = Modifier
-                                .size(20.dp)
-                                .padding(end = 4.dp),
+                            modifier = Modifier.size(20.dp).padding(end = 4.dp),
                         )
                         Text(
                             stringResource(
@@ -248,6 +247,51 @@ private fun ResultCounts(item: ResultListItem) {
 
             TestGroup.Performance -> {
                 // TODO: Performance aggregated data: download, upload and video
+
+                Column {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(
+                            painterResource(Res.drawable.ic_download),
+                            contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Download),
+                            modifier = Modifier.size(24.dp).padding(end = 4.dp),
+                        )
+                        item.download?.let {
+                            Text(
+                                text = it,
+                            )
+                        }
+                    }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(
+                            painterResource(Res.drawable.ic_upload),
+                            contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Upload),
+                            modifier = Modifier.size(24.dp).padding(end = 4.dp),
+                        )
+                        item.upload?.let {
+                            Text(
+                                text = it,
+                            )
+                        }
+                    }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(
+                            painterResource(Res.drawable.video_quality),
+                            contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Upload),
+                            modifier = Modifier.size(24.dp).padding(end = 4.dp),
+                        )
+                        item.videoQuality?.let {
+                            Text(
+                                text = stringResource(it),
+                            )
+                        }
+                    }
+                }
             }
 
             TestGroup.Experimental,
@@ -291,8 +335,7 @@ private fun ResultCountItem(
 }
 
 private val ResultListItem.sourceText
-    @Composable
-    get() = stringResource(
+    @Composable get() = stringResource(
         when (result.taskOrigin) {
             TaskOrigin.AutoRun -> Res.string.TaskOrigin_AutoRun
             TaskOrigin.OoniRun -> Res.string.TaskOrigin_Manual
