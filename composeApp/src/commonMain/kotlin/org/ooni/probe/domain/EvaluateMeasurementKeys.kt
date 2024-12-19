@@ -92,3 +92,17 @@ fun evaluateMeasurementKeys(
                     keys?.registrationServerStatus == TestKeys.BLOCKED_VALUE,
             )
     }
+
+fun extractTestKeysPropertiesToJson(testKeys: TestKeys): Map<String, Map<String, Double?>> {
+    return mapOf(
+        "simple" to mapOf(
+            "median_bitrate" to testKeys.simple?.medianBitrate,
+            "upload" to testKeys.simple?.medianBitrate,
+            "download" to testKeys.simple?.medianBitrate,
+        ),
+        "summary" to mapOf(
+            "upload" to testKeys.summary?.upload,
+            "download" to testKeys.summary?.download,
+        ),
+    )
+}

@@ -5,15 +5,20 @@ import app.cash.sqldelight.coroutines.mapToList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
+import org.ooni.engine.models.TestKeys
 import org.ooni.engine.models.TestType
 import org.ooni.probe.Database
 import org.ooni.probe.data.Measurement
 import org.ooni.probe.data.SelectByResultIdWithUrl
+import org.ooni.probe.data.SelectTestKeysByResultId
 import org.ooni.probe.data.Url
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
+import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.models.TestKeysWithResultId
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.toEpoch
 import org.ooni.probe.shared.toLocalDateTime
@@ -21,6 +26,7 @@ import kotlin.coroutines.CoroutineContext
 
 class MeasurementRepository(
     private val database: Database,
+    private val json: Json,
     private val backgroundContext: CoroutineContext,
 ) {
     fun list(): Flow<List<MeasurementModel>> =
@@ -53,6 +59,17 @@ class MeasurementRepository(
             .asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
+
+    fun selectTestKeysByResultId(filter: ResultFilter): Flow<List<TestKeysWithResultId>> {
+        val descriptorFilter = (filter.descriptor as? ResultFilter.Type.One)?.value
+        return database.measurementQueries
+            .selectTestKeysByResultId(
+                descriptorKey = descriptorFilter?.key,
+            )
+            .asFlow()
+            .mapToList(backgroundContext)
+            .map { list -> list.mapNotNull { it.toModel() } }
+    }
 
     suspend fun createOrUpdate(model: MeasurementModel): MeasurementModel.Id =
         withContext(backgroundContext) {
@@ -140,6 +157,17 @@ class MeasurementRepository(
                     category_code = category_code,
                 ).toModel()
             },
+        )
+    }
+
+    private fun SelectTestKeysByResultId.toModel(): TestKeysWithResultId? {
+        return TestKeysWithResultId(
+            id = MeasurementModel.Id(id),
+            resultId = result_id?.let(ResultModel::Id) ?: return null,
+            testName = test_name,
+            testKeys = test_keys?.let { json.decodeFromString<TestKeys>(it) },
+            testGroupName = test_group_name,
+            descriptorRunId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
         )
     }
 }

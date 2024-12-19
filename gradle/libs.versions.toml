@@ -54,7 +54,7 @@ sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.re
 sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 
 # Files
-okio = { module = "com.squareup.okio:okio", version = "3.9.0" }
+okio = { module = "com.squareup.okio:okio", version = "3.9.1" }
 
 # Lottie animations
 kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.0-rc01" } # 2.0.0 not supported yet
