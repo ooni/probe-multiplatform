@@ -56,4 +56,18 @@
         <item quantity="one">@string/Measurements_Failed_One</item>
         <item quantity="other">@string/Measurements_Failed_Other</item>
     </plurals>
+
+    <plurals name="TestResults_Summary_Websites_Hero_Tested" translatable="false">
+        <item quantity="one">@string/TestResults_Summary_Websites_Hero_Tested_Singular</item>
+        <item quantity="other">@string/TestResults_Summary_Websites_Hero_Tested_Plural</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked" translatable="false">
+        <item quantity="one">@string/TestResults_Summary_Websites_Hero_Blocked_Singular</item>
+        <item quantity="other">@string/TestResults_Summary_Websites_Hero_Blocked_Plural</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable" translatable="false">
+        <item quantity="one">@string/TestResults_Summary_Websites_Hero_Reachable_Singular</item>
+        <item quantity="other">@string/TestResults_Summary_Websites_Hero_Reachable_Plural</item>
+    </plurals>
+
 </resources>
