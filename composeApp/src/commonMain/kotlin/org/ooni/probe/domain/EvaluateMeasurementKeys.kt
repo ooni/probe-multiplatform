@@ -107,6 +107,6 @@ fun extractTestKeysPropertiesToJson(testKeys: TestKeys): Map<String, Map<String,
                 "upload" to summary.upload,
                 "download" to summary.download,
             ).filter { it.value != null }
-        }
+        },
     )
 }

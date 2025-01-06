@@ -31,8 +31,6 @@ import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMess
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested
-import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
-import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
 import ooniprobe.composeapp.generated.resources.ic_download
@@ -309,7 +307,7 @@ private fun PerformanceMetric(
     icon: DrawableResource,
     text: String?,
     color: Color = LocalContentColor.current,
-    ) {
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(bottom = 2.dp),
