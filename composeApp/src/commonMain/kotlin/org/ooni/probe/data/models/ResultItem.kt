@@ -2,9 +2,7 @@ package org.ooni.probe.data.models
 
 import kotlin.time.Duration.Companion.seconds
 
-data class ResultCount(val total: Long, val succeeded: Long) {
-    val failed get() = total - succeeded
-}
+data class ResultCount(val total: Long, val succeeded: Long, val failed: Long)
 
 data class ResultItem(
     val result: ResultModel,
@@ -27,5 +25,6 @@ data class ResultItem(
             succeeded = measurements.count {
                 !it.measurement.isFailed && !it.measurement.isAnomaly && it.measurement.isDone
             }.toLong(),
+            failed = measurements.count {  it.measurement.isAnomaly }.toLong(),
         )
 }
