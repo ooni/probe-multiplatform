@@ -100,13 +100,13 @@ fun extractTestKeysPropertiesToJson(testKeys: TestKeys): Map<String, Map<String,
                 "median_bitrate" to simple.medianBitrate,
                 "upload" to simple.medianBitrate,
                 "download" to simple.medianBitrate,
-            )
+            ).filter { it.value != null }
         },
         "summary" to testKeys.summary?.let { summary ->
             mapOf(
                 "upload" to summary.upload,
                 "download" to summary.download,
-            )
+            ).filter { it.value != null }
         }
     )
 }
