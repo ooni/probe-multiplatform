@@ -15,6 +15,7 @@ import org.ooni.probe.data.Result
 import org.ooni.probe.data.SelectAllWithNetwork
 import org.ooni.probe.data.SelectByIdWithNetwork
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.MeasurementCounts
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultModel
@@ -151,7 +152,7 @@ class ResultRepository(
     private fun SelectAllWithNetwork.toModel(): ResultWithNetworkAndAggregates? {
         return ResultWithNetworkAndAggregates(
             result = Result(
-                id = id,
+                id = id ?: return null,
                 test_group_name = test_group_name,
                 start_time = start_time,
                 is_viewed = is_viewed,
@@ -163,7 +164,7 @@ class ResultRepository(
                 network_id = network_id,
                 descriptor_runId = descriptor_runId,
             ).toModel() ?: return null,
-            network = id_?.let { networkId ->
+            network = network_id_inner?.let { networkId ->
                 Network(
                     id = networkId,
                     network_name = network_name,
@@ -173,7 +174,11 @@ class ResultRepository(
                     network_type = network_type,
                 ).toModel()
             },
-            measurementsCount = measurementsCount,
+            measurementCounts = MeasurementCounts(
+                done = doneMeasurementsCount ?: 0,
+                failed = failedMeasurementsCount ?: 0,
+                anomaly = anomalyMeasurementsCount ?: 0,
+            ),
             allMeasurementsUploaded = allMeasurementsUploaded,
             anyMeasurementUploadFailed = anyMeasurementUploadFailed,
         )
