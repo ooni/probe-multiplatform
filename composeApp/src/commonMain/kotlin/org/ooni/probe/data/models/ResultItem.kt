@@ -25,6 +25,6 @@ data class ResultItem(
             succeeded = measurements.count {
                 !it.measurement.isFailed && !it.measurement.isAnomaly && it.measurement.isDone
             }.toLong(),
-            failed = measurements.count {  it.measurement.isAnomaly }.toLong(),
+            failed = measurements.count { it.measurement.isAnomaly }.toLong(),
         )
 }

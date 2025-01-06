@@ -36,6 +36,12 @@ import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Bl
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked_Singular
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested_Plural
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested_Singular
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Blocked_Plural
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Blocked_Singular
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Reachable_Plural
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Reachable_Singular
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Tested_Plural
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Tested_Singular
 import org.jetbrains.compose.resources.PluralStringResource
 import org.jetbrains.compose.resources.getPluralString
 import org.jetbrains.compose.resources.getString
@@ -125,4 +131,18 @@ private val stringMap = mapOf(
         to Res.string.TestResults_Overview_Circumvention_Available_Singular,
     "@string/TestResults_Overview_Circumvention_Available_Plural"
         to Res.string.TestResults_Overview_Circumvention_Available_Plural,
+    "@string/TestResults_Summary_Websites_Hero_Tested_Singular"
+        to Res.string.TestResults_Summary_Websites_Hero_Tested_Singular,
+    "@string/TestResults_Summary_Websites_Hero_Tested_Plural"
+        to Res.string.TestResults_Summary_Websites_Hero_Tested_Plural,
+    "@string/TestResults_Summary_Websites_Hero_Tested_Plural"
+        to Res.string.TestResults_Summary_Websites_Hero_Tested_Plural,
+    "@string/TestResults_Summary_Websites_Hero_Blocked_Singular"
+        to Res.string.TestResults_Summary_Websites_Hero_Blocked_Singular,
+    "@string/TestResults_Summary_Websites_Hero_Blocked_Plural"
+        to Res.string.TestResults_Summary_Websites_Hero_Blocked_Plural,
+    "@string/TestResults_Summary_Websites_Hero_Reachable_Singular"
+        to Res.string.TestResults_Summary_Websites_Hero_Reachable_Singular,
+    "@string/TestResults_Summary_Websites_Hero_Reachable_Plural"
+        to Res.string.TestResults_Summary_Websites_Hero_Reachable_Plural,
 )

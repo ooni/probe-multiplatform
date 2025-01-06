@@ -62,9 +62,9 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Runtime
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_WiFi
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
-import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Blocked_Singular
-import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Reachable_Singular
-import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Tested_Singular
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Blocked
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Reachable
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Tested
 import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_replay
 import ooniprobe.composeapp.generated.resources.ic_upload
@@ -73,6 +73,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.NetworkType
 import org.ooni.probe.data.models.ResultItem
+import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Single
 import org.ooni.probe.ui.results.UploadResults
@@ -248,7 +249,7 @@ private fun SummaryStats(item: ResultItem) {
             )
 
             Text(
-                stringResource(Res.string.TestResults_Summary_Websites_Hero_Tested_Singular),
+                pluralStringResourceItem(Res.plurals.TestResults_Summary_Websites_Hero_Tested, item.measurementCounts.total.toInt()),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
@@ -261,12 +262,12 @@ private fun SummaryStats(item: ResultItem) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                item.measurementCounts.failed?.toString() ?: "0",
+                item.measurementCounts.failed.toString(),
                 style = MaterialTheme.typography.headlineMedium,
             )
 
             Text(
-                stringResource(Res.string.TestResults_Summary_Websites_Hero_Blocked_Singular),
+                pluralStringResourceItem(Res.plurals.TestResults_Summary_Websites_Hero_Blocked, item.measurementCounts.failed.toInt()),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
@@ -279,12 +280,12 @@ private fun SummaryStats(item: ResultItem) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                item.measurementCounts.succeeded?.toString() ?: "0",
+                item.measurementCounts.succeeded.toString(),
                 style = MaterialTheme.typography.headlineMedium,
             )
 
             Text(
-                stringResource(Res.string.TestResults_Summary_Websites_Hero_Reachable_Singular),
+                pluralStringResourceItem(Res.plurals.TestResults_Summary_Websites_Hero_Reachable, item.measurementCounts.succeeded.toInt()),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
