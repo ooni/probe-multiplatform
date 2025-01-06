@@ -23,9 +23,9 @@ class GetTestDescriptors(
     private val descriptorUpdates: () -> Flow<DescriptorUpdatesStatus>,
     private val getPreferenceValues: (List<SettingsKey>) -> Flow<Map<SettingsKey, Any?>>,
 ) {
-    operator fun invoke(isExpired: Boolean? = null): Flow<List<Descriptor>> {
+    operator fun invoke(includeExpired: Boolean? = null): Flow<List<Descriptor>> {
         return combine(
-            listInstalledTestDescriptors(isExpired),
+            listInstalledTestDescriptors(includeExpired),
             descriptorUpdates(),
             flowOf(getDefaultTestDescriptors()),
             isWebsitesDescriptorEnabled(),
