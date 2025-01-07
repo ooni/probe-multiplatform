@@ -72,6 +72,7 @@ import ooniprobe.composeapp.generated.resources.ooni_bw
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.NetworkType
+import org.ooni.engine.models.TestGroup
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
@@ -196,7 +197,9 @@ fun ResultScreen(
 
 @Composable
 private fun Summary(item: ResultItem) {
-    val pagerState = rememberPagerState(pageCount = { 3 })
+    val testGroup = TestGroup.fromTests(item.descriptor.netTests.map { it.test })
+
+    val pagerState = rememberPagerState(pageCount = testGroup::summaryPageCount)
     Box {
         HorizontalPager(
             state = pagerState,
@@ -205,8 +208,15 @@ private fun Summary(item: ResultItem) {
                 .defaultMinSize(minHeight = 128.dp),
         ) { page ->
             when (page) {
-                0 -> SummaryStats(item)
-                1 -> SummaryDetails(item)
+                0 -> when (testGroup) {
+                    TestGroup.Experimental -> SummaryDetails(item)
+                    TestGroup.Performance -> Text("Performance")
+                    else -> SummaryStats(item)
+                }
+                1 -> when (testGroup) {
+                    TestGroup.Experimental -> SummaryNetwork(item)
+                    else -> SummaryDetails(item)
+                }
                 2 -> SummaryNetwork(item)
             }
         }
@@ -292,6 +302,12 @@ private fun SummaryStats(item: ResultItem) {
         }
     }
 }
+
+fun TestGroup.summaryPageCount(): Int =
+    when (this) {
+        TestGroup.Experimental -> 2
+        else -> 3
+    }
 
 @Composable
 private fun SummaryDetails(item: ResultItem) {
