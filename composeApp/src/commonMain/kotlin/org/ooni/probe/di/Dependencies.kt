@@ -127,7 +127,7 @@ class Dependencies(
     private val database by lazy { buildDatabase(databaseDriverFactory) }
 
     private val measurementRepository by lazy {
-        MeasurementRepository(database, backgroundContext)
+        MeasurementRepository(database, json, backgroundContext)
     }
     private val networkRepository by lazy { NetworkRepository(database, backgroundContext) }
 
@@ -257,6 +257,7 @@ class Dependencies(
         GetResults(
             resultRepository::list,
             getTestDescriptors::invoke,
+            measurementRepository::selectTestKeysByResultId,
         )
     }
     private val getResult by lazy {

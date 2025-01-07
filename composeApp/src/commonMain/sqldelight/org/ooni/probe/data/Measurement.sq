@@ -79,3 +79,15 @@ WHERE Measurement.result_id IN (
     SELECT Result.id FROM Result
     WHERE Result.descriptor_runId = ?
 );
+
+selectTestKeysByResultId:
+SELECT
+    Measurement.id,
+    Measurement.test_name,
+    Measurement.result_id,
+    Measurement.test_keys,
+    Result.test_group_name,
+    Result.descriptor_runId
+FROM Measurement
+JOIN Result ON Measurement.result_id = Result.id
+WHERE Result.test_group_name = :descriptorKey OR Result.descriptor_runId = :descriptorKey;
