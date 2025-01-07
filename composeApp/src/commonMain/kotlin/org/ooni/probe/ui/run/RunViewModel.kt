@@ -30,7 +30,7 @@ import org.ooni.probe.ui.shared.SelectableItem
 
 class RunViewModel(
     onBack: () -> Unit,
-    getTestDescriptors: (Boolean?) -> Flow<List<Descriptor>>,
+    getTestDescriptors: () -> Flow<List<Descriptor>>,
     shouldShowVpnWarning: suspend () -> Boolean,
     private val preferenceRepository: PreferenceRepository,
     startBackgroundRun: (RunSpecification) -> Unit,
@@ -45,16 +45,16 @@ class RunViewModel(
 
     init {
         combine(
-            getTestDescriptors(false),
+            getTestDescriptors(),
             collapsedDescriptorsKeys,
             ::Pair,
         ).flatMapLatest { (descriptors, collapsedDescriptorsKeys) ->
             preferenceRepository
-                .areNetTestsEnabled(descriptors.toNetTestsList(), isAutoRun = false)
+                .areNetTestsEnabled(descriptors.runnableDescriptors().toNetTestsList(), isAutoRun = false)
                 .map { preferences ->
                     val descriptorsWithTests =
                         descriptors
-                            .associate { descriptor ->
+                            .runnableDescriptors().associate { descriptor ->
                                 val tests = descriptor.allTests
                                 val selectedTestsCount =
                                     tests.count { preferences[descriptor to it] == true }
@@ -276,5 +276,14 @@ class RunViewModel(
         data object DisableVpnClicked : Event
 
         data object DisableVpnInstructionsDismissed : Event
+    }
+}
+
+private fun List<Descriptor>.runnableDescriptors(): List<Descriptor> {
+    return filter {
+        when (it.source) {
+            is Descriptor.Source.Default -> true
+            is Descriptor.Source.Installed -> !it.isExpired
+        }
     }
 }

@@ -19,13 +19,13 @@ import org.ooni.probe.data.models.toDescriptor
 
 class GetTestDescriptors(
     private val getDefaultTestDescriptors: () -> List<DefaultTestDescriptor>,
-    private val listInstalledTestDescriptors: (Boolean?) -> Flow<List<InstalledTestDescriptorModel>>,
+    private val listInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
     private val descriptorUpdates: () -> Flow<DescriptorUpdatesStatus>,
     private val getPreferenceValues: (List<SettingsKey>) -> Flow<Map<SettingsKey, Any?>>,
 ) {
-    operator fun invoke(includeExpired: Boolean? = null): Flow<List<Descriptor>> {
+    operator fun invoke(): Flow<List<Descriptor>> {
         return combine(
-            listInstalledTestDescriptors(includeExpired),
+            listInstalledTestDescriptors(),
             descriptorUpdates(),
             flowOf(getDefaultTestDescriptors()),
             isWebsitesDescriptorEnabled(),

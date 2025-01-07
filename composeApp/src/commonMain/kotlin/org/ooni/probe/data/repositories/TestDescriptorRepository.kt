@@ -19,9 +19,9 @@ class TestDescriptorRepository(
     private val json: Json,
     private val backgroundContext: CoroutineContext,
 ) {
-    fun list(includeExpired: Boolean? = null) =
+    fun list() =
         database.testDescriptorQueries
-            .selectAll(isExpired = includeExpired?.let { if (it) 1 else 0 })
+            .selectAll()
             .asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
