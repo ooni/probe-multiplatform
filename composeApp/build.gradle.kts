@@ -203,8 +203,17 @@ android {
             "src/commonMain/res",
         ),
     )
+    productFlavors {
+        create("full") {
+            dimension = "license"
+        }
+        create("fdroid") {
+            dimension = "license"
+        }
+    }
     dependencies {
         debugImplementation(compose.uiTooling)
+        "fullImplementation"(libs.bundles.full.android)
         androidTestUtil(libs.android.orchestrator)
     }
     testOptions {
@@ -216,14 +225,6 @@ android {
         lintConfig = file("lint.xml")
     }
     flavorDimensions += "license"
-    productFlavors {
-        create("full") {
-            dimension = "license"
-        }
-        create("fdroid") {
-            dimension = "license"
-        }
-    }
 }
 
 sqldelight {
