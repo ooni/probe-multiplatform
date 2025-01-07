@@ -272,12 +272,12 @@ private fun SummaryStats(item: ResultItem) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                item.measurementCounts.failed.toString(),
+                item.measurementCounts.anomaly.toString(),
                 style = MaterialTheme.typography.headlineMedium,
             )
 
             Text(
-                pluralStringResourceItem(Res.plurals.TestResults_Summary_Websites_Hero_Blocked, item.measurementCounts.failed.toInt()),
+                pluralStringResourceItem(Res.plurals.TestResults_Summary_Websites_Hero_Blocked, item.measurementCounts.anomaly.toInt()),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
