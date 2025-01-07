@@ -138,5 +138,6 @@ class ResultsScreenTest {
             ),
             allMeasurementsUploaded = true,
             anyMeasurementUploadFailed = false,
+            testKeys = emptyList(),
         )
 }

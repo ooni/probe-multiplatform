@@ -21,12 +21,13 @@ import kotlin.test.assertNotNull
 class ResultRepositoryTest {
     private lateinit var subject: ResultRepository
     private lateinit var measurementRepository: MeasurementRepository
+    private val json = Dependencies.buildJson()
 
     @BeforeTest
     fun before() {
         val database = Dependencies.buildDatabase(::createTestDatabaseDriver)
         subject = ResultRepository(database, Dispatchers.Default)
-        measurementRepository = MeasurementRepository(database, Dispatchers.Default)
+        measurementRepository = MeasurementRepository(database = database, backgroundContext = Dispatchers.Default, json = json)
     }
 
     @Test

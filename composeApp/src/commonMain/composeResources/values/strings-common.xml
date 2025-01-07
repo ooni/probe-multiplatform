@@ -71,6 +71,10 @@
     <string name="TestResults_Summary_Performance_Hero_Upload">Upload</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Download</string>
 
+    <string name="TestResults_Gbps">Gbit/s</string>
+    <string name="TestResults_Mbps">Mbit/s</string>
+    <string name="TestResults_Kbps">kbit/s</string>
+
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Tested</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Tested</string>
 

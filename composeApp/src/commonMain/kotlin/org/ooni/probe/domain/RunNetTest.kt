@@ -162,6 +162,13 @@ class RunNetTest(
                             )
                         }
 
+                        event.result.testKeys?.let {
+                            val testKeys = extractTestKeysPropertiesToJson(it)
+                            measurement = measurement.copy(
+                                testKeys = json.encodeToString(testKeys),
+                            )
+                        }
+
                         val evaluation =
                             evaluateMeasurementKeys(spec.netTest.test, event.result.testKeys)
                         measurement = measurement.copy(
