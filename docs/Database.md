@@ -8,7 +8,96 @@ Minimum SQLite version:
 
 ## Schema
 
+### TestDescriptor
+
+Stores installed test descriptors: Run V2 descriptors and NewsMediaScan default descriptors.
+It does not store OONI default descriptors, but it will in the future.
+
+```sql
+CREATE TABLE TestDescriptor (
+    runId INTEGER,
+    name TEXT,
+    short_description TEXT,
+    description TEXT,
+    author TEXT,
+    nettests TEXT,
+    name_intl TEXT,
+    short_description_intl TEXT,
+    description_intl TEXT,
+    icon TEXT,
+    color TEXT,
+    animation TEXT,
+    expiration_date INTEGER,
+    date_created INTEGER,
+    date_updated INTEGER,
+    revision TEXT,
+    previous_revision TEXT,
+    is_expired INTEGER,
+    auto_update INTEGER,
+    PRIMARY KEY(`runId`)
+);
 ```
+
+#### Notes
+
+* `runId` is currently an INTEGER, but the back-end API does not specify that TestDescriptor identifier will forever be numbers.
+* `is_expired` is kept for legacy reasons, but it shouldn't be trusted to be up-to-date.
+Rely instead on `expiration_date`.
+
+### Result
+
+A Result is an aggregation of measurements from a single TestDescriptor ran in a point in time.
+
+```sql
+CREATE TABLE Result(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    test_group_name TEXT,
+    start_time INTEGER,
+    is_viewed INTEGER,
+    is_done INTEGER,
+    data_usage_up INTEGER,
+    data_usage_down INTEGER,
+    failure_msg TEXT,
+    network_id INTEGER,
+    descriptor_runId INTEGER REFERENCES TestDescriptor (`runId`),
+    task_origin TEXT DEFAULT 'ooni-run',
+    FOREIGN KEY(`network_id`) REFERENCES Network(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE INDEX idx_result_start_time ON Result (start_time);
+CREATE INDEX idx_result_test_name ON Result (test_group_name);
+CREATE INDEX idx_result_descriptor ON Result (descriptor_runId);
+CREATE INDEX idx_result_task_origin ON Result (task_origin);
+```
+
+#### Notes
+
+* `descriptor_runId` is only present when the Result is related with an installed TestDescriptor.
+If its a Result from a default OONI descriptor, it's linked using the `test_group_name` instead.
+* `task_origin` possible values are:
+  * `ooni-run` for manually user-started tests;
+  * `autorun` for automatically started background tests.
+
+### Network
+
+Network details of one or more Results.
+
+```sql
+CREATE TABLE Network(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    network_name TEXT,
+    asn TEXT,
+    country_code TEXT,
+    network_type TEXT
+);
+```
+
+### Measurement
+
+Stores the outcome of a single net-test from a TestDescriptor. If the net-test has more than
+one input (`web_connectivity` tests usually), a Measurement is created for each input.
+
+```sql
 CREATE TABLE Measurement(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     test_name TEXT,
@@ -31,57 +120,24 @@ CREATE TABLE Measurement(
     FOREIGN KEY(`result_id`) REFERENCES Result(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
-CREATE TABLE Result(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    test_group_name TEXT,
-    start_time INTEGER,
-    is_viewed INTEGER,
-    is_done INTEGER,
-    data_usage_up INTEGER,
-    data_usage_down INTEGER,
-    failure_msg TEXT,
-    network_id INTEGER,
-    descriptor_runId INTEGER REFERENCES TestDescriptor (`runId`),
-    task_origin TEXT DEFAULT 'ooni-run',
-    FOREIGN KEY(`network_id`) REFERENCES Network(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
-);
+CREATE INDEX idx_measure_result_id ON Measurement (result_id);
+CREATE INDEX idx_measure_start_time ON Measurement (start_time);
+```
 
-CREATE TABLE Network(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    network_name TEXT,
-    ip TEXT,
-    asn TEXT,
-    country_code TEXT,
-    network_type TEXT
-);
+#### Notes
 
+* We are no longer storing the full `test_keys` in the database. We only store the keys for
+Performance net-tests is they are present.
+
+### Url
+
+Stores the Url details for a `web_connectivity` net-test Measurement.
+
+```sql
 CREATE TABLE Url(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     url TEXT,
     category_code TEXT,
     country_code TEXT
-);
-
-CREATE TABLE TestDescriptor (
-  runId INTEGER,
-  name TEXT,
-  short_description TEXT,
-  description TEXT,
-  author TEXT,
-  nettests TEXT,
-  name_intl TEXT,
-  short_description_intl TEXT,
-  description_intl TEXT,
-  icon TEXT,
-  color TEXT,
-  animation TEXT,
-  expiration_date INTEGER,
-  date_created INTEGER,
-  date_updated INTEGER,
-  revision TEXT,
-  previous_revision TEXT,
-  is_expired INTEGER,
-  auto_update INTEGER,
-  PRIMARY KEY(`runId`)
 );
 ```
