@@ -5,6 +5,7 @@ import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.RunSpecification
+import org.ooni.probe.data.models.runnableDescriptors
 import org.ooni.probe.data.repositories.PreferenceRepository
 
 class GetAutoRunSpecification(
@@ -15,7 +16,7 @@ class GetAutoRunSpecification(
         val descriptors = getDescriptors().first().filterForAutoRun()
 
         return RunSpecification.Full(
-            tests = descriptors.map { descriptor ->
+            tests = descriptors.runnableDescriptors().map { descriptor ->
                 RunSpecification.Test(
                     source = RunSpecification.Test.Source.fromDescriptor(descriptor),
                     netTests = descriptor.netTests,

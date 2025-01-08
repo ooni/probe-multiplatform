@@ -24,6 +24,7 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.data.models.runnableDescriptors
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
@@ -277,8 +278,4 @@ class RunViewModel(
 
         data object DisableVpnInstructionsDismissed : Event
     }
-}
-
-private fun List<Descriptor>.runnableDescriptors(): List<Descriptor> {
-    return filter { !it.isExpired }
 }
