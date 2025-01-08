@@ -280,10 +280,5 @@ class RunViewModel(
 }
 
 private fun List<Descriptor>.runnableDescriptors(): List<Descriptor> {
-    return filter {
-        when (it.source) {
-            is Descriptor.Source.Default -> true
-            is Descriptor.Source.Installed -> !it.isExpired
-        }
-    }
+    return filter { !it.isExpired }
 }
