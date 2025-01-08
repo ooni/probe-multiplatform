@@ -66,7 +66,7 @@ class AppWorkerManager(
                 .setConstraints(
                     Constraints.Builder()
                         .setRequiredNetworkType(NetworkType.CONNECTED)
-                        .build()
+                        .build(),
                 )
                 .build()
             workManager.enqueueUniquePeriodicWork(
