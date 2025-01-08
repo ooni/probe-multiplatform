@@ -321,9 +321,10 @@
     <string name="Modal_EnableNotifications_Title">Get updates on internet censorship</string>
 
     <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
-
     <string name="Dashboard_RunTests_RunButton_Label_One">Run %1$d test</string>
     <string name="Dashboard_RunTests_RunButton_Label_Other">Run %1$d tests</string>
+    <string name="Dashboard_Update_Ready">The app update has just been downloaded</string>
+    <string name="Dashboard_Update_Restart">Restart</string>
 
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
 

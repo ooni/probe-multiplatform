@@ -15,12 +15,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
+import org.ooni.probe.config.AndroidUpdateMonitoring
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.config.UpdateMonitoring
 import org.ooni.probe.data.models.DeepLink
 
 class MainActivity : ComponentActivity() {
     private val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
     private val app get() = applicationContext as AndroidApplication
+    private val updateMonitoring: UpdateMonitoring = AndroidUpdateMonitoring()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -42,6 +45,11 @@ class MainActivity : ComponentActivity() {
                 intent?.let { manageIntent(it) }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateMonitoring.onResume(this)
     }
 
     override fun onNewIntent(intent: Intent) {

@@ -71,6 +71,9 @@ markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version
 # WebView
 web-view = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "1.9.40-alpha04" }
 
+# In-App Updates
+android-app-update = { module = "com.google.android.play:app-update-ktx", version = "2.1.0" }
+
 # Android Testing
 android-test-core = { module = "androidx.test:core", version = "1.6.1" }
 
@@ -112,6 +115,9 @@ android = [
 ]
 full = [
     "sentry",
+]
+full-android = [
+    "android-app-update",
 ]
 android-test = [
     "android-test-core"
