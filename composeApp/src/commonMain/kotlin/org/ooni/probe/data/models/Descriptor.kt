@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.DrawableResource
+import org.ooni.engine.models.SummaryType
 import org.ooni.probe.shared.now
 import kotlin.time.Duration.Companion.seconds
 
@@ -23,6 +24,7 @@ data class Descriptor(
     val source: Source,
     val updateStatus: UpdateStatus,
     val enabled: Boolean = true,
+    val summaryType: SummaryType,
 ) {
     sealed interface Source {
         data class Default(val value: DefaultTestDescriptor) : Source
