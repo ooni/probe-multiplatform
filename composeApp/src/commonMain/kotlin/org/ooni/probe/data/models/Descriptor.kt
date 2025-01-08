@@ -47,3 +47,7 @@ data class Descriptor(
             .sumOf { it.test.runtime(it.inputs).inWholeSeconds }
             .seconds
 }
+
+fun List<Descriptor>.runnableDescriptors(): List<Descriptor> {
+    return filter { !it.isExpired }
+}

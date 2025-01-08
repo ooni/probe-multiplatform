@@ -19,6 +19,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_chevron_right
 import org.jetbrains.compose.resources.painterResource
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.ui.shared.ExpiredChip
 import org.ooni.probe.ui.shared.UpdatesChip
 
 @Composable
@@ -55,6 +56,9 @@ fun TestDescriptorItem(
         }
         if (descriptor.updatable) {
             UpdatesChip(onClick = updateDescriptor)
+        }
+        if (descriptor.isExpired) {
+            ExpiredChip()
         }
         Icon(
             painter = painterResource(Res.drawable.ic_chevron_right),

@@ -24,6 +24,7 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.data.models.runnableDescriptors
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
@@ -50,11 +51,11 @@ class RunViewModel(
             ::Pair,
         ).flatMapLatest { (descriptors, collapsedDescriptorsKeys) ->
             preferenceRepository
-                .areNetTestsEnabled(descriptors.toNetTestsList(), isAutoRun = false)
+                .areNetTestsEnabled(descriptors.runnableDescriptors().toNetTestsList(), isAutoRun = false)
                 .map { preferences ->
                     val descriptorsWithTests =
                         descriptors
-                            .associate { descriptor ->
+                            .runnableDescriptors().associate { descriptor ->
                                 val tests = descriptor.allTests
                                 val selectedTestsCount =
                                     tests.count { preferences[descriptor to it] == true }
