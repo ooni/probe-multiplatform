@@ -1,4 +1,4 @@
-# OONI Probe Multiplatform
+# OONI Probe Multiplatform App
 
 Multiplatform (Android and iOS currently) version of the Probe app.
 
