@@ -136,7 +136,7 @@ class SetupDependencies(
         val fileName = path.split(".").first()
         val type = path.split(".").last()
         val resource = NSBundle.bundleForClass(BundleMarker).pathForResource(fileName, type)
-        return resource?.let { NSString.stringWithContentsOfFile(resource, NSUTF8StringEncoding,null) }
+        return resource?.let { NSString.stringWithContentsOfFile(resource, NSUTF8StringEncoding, null) }
             ?: error("Couldn't read asset file: $path")
     }
 
