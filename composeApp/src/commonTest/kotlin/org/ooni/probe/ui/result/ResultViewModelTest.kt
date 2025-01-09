@@ -32,6 +32,7 @@ class ResultViewModelTest {
                 network = null,
                 descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
                 measurements = emptyList(),
+                testKeys = emptyList(),
             )
             val viewModel = buildViewModel(getResult = { flowOf(item) })
 

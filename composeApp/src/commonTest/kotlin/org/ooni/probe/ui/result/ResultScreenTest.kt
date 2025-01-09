@@ -26,6 +26,7 @@ class ResultScreenTest {
                 network = null,
                 descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
                 measurements = emptyList(),
+                testKeys = emptyList(),
             )
             var title: String? = null
             setContent {
@@ -58,6 +59,7 @@ class ResultScreenTest {
                         ),
                     ),
                 ),
+                testKeys = emptyList(),
             )
             setContent {
                 ResultScreen(
@@ -87,6 +89,7 @@ class ResultScreenTest {
                 network = null,
                 descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
                 measurements = emptyList(),
+                testKeys = emptyList(),
             )
             setContent {
                 ResultScreen(
