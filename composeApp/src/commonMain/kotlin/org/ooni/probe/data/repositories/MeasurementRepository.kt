@@ -11,12 +11,12 @@ import org.ooni.engine.models.TestType
 import org.ooni.probe.Database
 import org.ooni.probe.data.Measurement
 import org.ooni.probe.data.SelectByResultIdWithUrl
+import org.ooni.probe.data.SelectTestKeysByDescriptorKey
 import org.ooni.probe.data.SelectTestKeysByResultId
 import org.ooni.probe.data.Url
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
-import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.TestKeysWithResultId
 import org.ooni.probe.data.models.UrlModel
@@ -60,11 +60,20 @@ class MeasurementRepository(
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
-    fun selectTestKeysByResultId(filter: ResultFilter): Flow<List<TestKeysWithResultId>> {
-        val descriptorFilter = (filter.descriptor as? ResultFilter.Type.One)?.value
+    fun selectTestKeysByDescriptorKey(descriptorKey: String?): Flow<List<TestKeysWithResultId>> {
+        return database.measurementQueries
+            .selectTestKeysByDescriptorKey(
+                descriptorKey = descriptorKey,
+            )
+            .asFlow()
+            .mapToList(backgroundContext)
+            .map { list -> list.mapNotNull { it.toModel() } }
+    }
+
+    fun selectTestKeysByResultId(resultId: ResultModel.Id): Flow<List<TestKeysWithResultId>> {
         return database.measurementQueries
             .selectTestKeysByResultId(
-                descriptorKey = descriptorFilter?.key,
+                resultId = resultId.value,
             )
             .asFlow()
             .mapToList(backgroundContext)
@@ -157,6 +166,17 @@ class MeasurementRepository(
                     category_code = category_code,
                 ).toModel()
             },
+        )
+    }
+
+    private fun SelectTestKeysByDescriptorKey.toModel(): TestKeysWithResultId? {
+        return TestKeysWithResultId(
+            id = MeasurementModel.Id(id),
+            resultId = result_id?.let(ResultModel::Id) ?: return null,
+            testName = test_name,
+            testKeys = test_keys?.let { json.decodeFromString<TestKeys>(it) },
+            testGroupName = test_group_name,
+            descriptorRunId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
         )
     }
 

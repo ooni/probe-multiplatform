@@ -257,7 +257,7 @@ class Dependencies(
         GetResults(
             resultRepository::list,
             getTestDescriptors::invoke,
-            measurementRepository::selectTestKeysByResultId,
+            measurementRepository::selectTestKeysByDescriptorKey,
         )
     }
     private val getResult by lazy {
@@ -265,6 +265,7 @@ class Dependencies(
             getResultById = resultRepository::getById,
             getTestDescriptors = getTestDescriptors.invoke(),
             getMeasurementsByResultId = measurementRepository::listByResultId,
+            getTestKeys = measurementRepository::selectTestKeysByResultId,
         )
     }
     private val clearStorage by lazy {
