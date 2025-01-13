@@ -399,19 +399,22 @@ private fun SummaryPerformance(item: ResultItem) {
                 stringResource(Res.string.TestResults_Summary_Performance_Hero_Video),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
+                maxLines = 1,
             )
 
             Text(
                 stringResource(
                     item.testKeys?.videoQuality() ?: Res.string.TestResults_NotAvailable,
                 ),
-                style = MaterialTheme.typography.headlineMedium,
+                style = MaterialTheme.typography.headlineSmall,
+                maxLines = 1,
             )
 
             Text(
                 stringResource(Res.string.TestResults_Summary_Performance_Hero_Video_Quality),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
+                maxLines = 1,
             )
         }
 
@@ -425,30 +428,35 @@ private fun SummaryPerformance(item: ResultItem) {
                 stringResource(Res.string.TestResults_Summary_Performance_Hero_Download),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
+                maxLines = 1,
             )
 
             item.testKeys?.downloadSpeed()?.let { (downloadSpeed, unit) ->
 
                 Text(
                     downloadSpeed,
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1,
                 )
 
                 Text(
                     stringResource(unit),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 8.dp),
+                    maxLines = 1,
                 )
             } ?: run {
                 Text(
                     stringResource(Res.string.TestResults_NotAvailable),
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1,
                 )
 
                 Text(
                     stringResource(Res.string.TestResults_Kbps),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 8.dp),
+                    maxLines = 1,
                 )
             }
         }
@@ -463,29 +471,34 @@ private fun SummaryPerformance(item: ResultItem) {
                 stringResource(Res.string.TestResults_Summary_Performance_Hero_Upload),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
+                maxLines = 1,
             )
             item.testKeys?.uploadSpeed()?.let { (uploadSpeed, unit) ->
 
                 Text(
                     uploadSpeed,
                     style = MaterialTheme.typography.headlineMedium,
+                    maxLines = 1,
                 )
 
                 Text(
                     stringResource(unit),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 8.dp),
+                    maxLines = 1,
                 )
             } ?: run {
                 Text(
                     stringResource(Res.string.TestResults_NotAvailable),
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1,
                 )
 
                 Text(
                     stringResource(Res.string.TestResults_Kbps),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 8.dp),
+                    maxLines = 1,
                 )
             }
         }
@@ -500,12 +513,14 @@ private fun SummaryPerformance(item: ResultItem) {
                 stringResource(Res.string.TestResults_Summary_Performance_Hero_Ping),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
+                maxLines = 1,
             )
 
             Text(
                 item.testKeys?.ping()?.toString()
                     ?: stringResource(Res.string.TestResults_NotAvailable),
-                style = MaterialTheme.typography.headlineMedium,
+                style = MaterialTheme.typography.headlineSmall,
+                maxLines = 1,
             )
 
             Text(
