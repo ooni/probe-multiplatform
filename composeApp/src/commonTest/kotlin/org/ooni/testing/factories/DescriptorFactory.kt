@@ -5,6 +5,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.DrawableResource
+import org.ooni.engine.models.SummaryType
 import org.ooni.probe.data.models.Animation
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
@@ -29,6 +30,7 @@ object DescriptorFactory {
         netTests: List<NetTest> = emptyList(),
         longRunningTests: List<NetTest> = emptyList(),
         installedTestDescriptorModel: InstalledTestDescriptorModel = buildInstalledModel(),
+        summaryType: SummaryType = SummaryType.Simple,
     ) = Descriptor(
         name = name,
         title = { title },
@@ -43,6 +45,7 @@ object DescriptorFactory {
         longRunningTests = longRunningTests,
         source = Descriptor.Source.Installed(installedTestDescriptorModel),
         updateStatus = UpdateStatus.UpToDate,
+        summaryType = summaryType,
     )
 
     fun buildInstalledModel(

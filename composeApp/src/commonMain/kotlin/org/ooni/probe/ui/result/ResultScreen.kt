@@ -77,7 +77,7 @@ import ooniprobe.composeapp.generated.resources.ooni_bw
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.NetworkType
-import org.ooni.engine.models.TestGroup
+import org.ooni.engine.models.SummaryType
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.data.models.downloadSpeed
 import org.ooni.probe.data.models.ping
@@ -206,30 +206,18 @@ fun ResultScreen(
 
 @Composable
 private fun Summary(item: ResultItem) {
-    val testGroup = TestGroup.fromTests(item.descriptor.netTests.map { it.test })
+    val summaryType = item.descriptor.summaryType
+    val pages = summaryType.summaryPages
+    val pagerState = rememberPagerState(pageCount = pages::size)
 
-    val pagerState = rememberPagerState(pageCount = testGroup::summaryPageCount)
     Box {
         HorizontalPager(
             state = pagerState,
             verticalAlignment = Alignment.Top,
             modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
                 .defaultMinSize(minHeight = 128.dp),
-        ) { page ->
-            when (page) {
-                0 -> when (testGroup) {
-                    TestGroup.Experimental -> SummaryDetails(item)
-                    TestGroup.Performance -> SummaryPerformance(item)
-                    else -> SummaryStats(item)
-                }
-
-                1 -> when (testGroup) {
-                    TestGroup.Experimental -> SummaryNetwork(item)
-                    else -> SummaryDetails(item)
-                }
-
-                2 -> SummaryNetwork(item)
-            }
+        ) { pageIndex ->
+            pages[pageIndex](item)
         }
         Row(
             Modifier.wrapContentHeight().fillMaxWidth().align(Alignment.BottomCenter)
@@ -251,6 +239,24 @@ private fun Summary(item: ResultItem) {
         )
     }
 }
+
+private val SummaryType.summaryPages: List<@Composable (ResultItem) -> Unit>
+    get() = when (this) {
+        SummaryType.Simple -> listOf(
+            { SummaryDetails(it) },
+            { SummaryNetwork(it) },
+        )
+        SummaryType.Anomaly -> listOf(
+            { SummaryStats(it) },
+            { SummaryDetails(it) },
+            { SummaryNetwork(it) },
+        )
+        SummaryType.Performance -> listOf(
+            { SummaryPerformance(it) },
+            { SummaryDetails(it) },
+            { SummaryNetwork(it) },
+        )
+    }
 
 @Composable
 private fun SummaryStats(item: ResultItem) {
@@ -322,12 +328,6 @@ private fun SummaryStats(item: ResultItem) {
         }
     }
 }
-
-fun TestGroup.summaryPageCount(): Int =
-    when (this) {
-        TestGroup.Experimental -> 2
-        else -> 3
-    }
 
 @Composable
 private fun SummaryDetails(item: ResultItem) {

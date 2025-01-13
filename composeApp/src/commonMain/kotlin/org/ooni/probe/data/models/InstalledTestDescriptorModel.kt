@@ -18,6 +18,7 @@ import ooniprobe.composeapp.generated.resources.test_instant_messaging
 import ooniprobe.composeapp.generated.resources.test_performance
 import ooniprobe.composeapp.generated.resources.test_websites
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.engine.models.SummaryType
 import org.ooni.probe.data.TestDescriptor
 import org.ooni.probe.shared.InstalledDescriptorIcons
 import org.ooni.probe.shared.hexToColor
@@ -84,6 +85,8 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
         netTests = netTests.orEmpty(),
         source = Descriptor.Source.Installed(this),
         updateStatus = updateStatus,
+        // In the future, this will become a DB field with a value provided by the back-end
+        summaryType = SummaryType.Simple,
     )
 
 private val iconAnimationMap = mapOf(

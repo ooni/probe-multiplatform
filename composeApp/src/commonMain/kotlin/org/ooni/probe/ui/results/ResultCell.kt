@@ -25,10 +25,6 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.TaskOrigin_AutoRun
 import ooniprobe.composeapp.generated.resources.TaskOrigin_Manual
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Circumvention_Available
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Circumvention_Blocked
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Available
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
@@ -37,7 +33,6 @@ import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_history
 import ooniprobe.composeapp.generated.resources.ic_measurement_anomaly
 import ooniprobe.composeapp.generated.resources.ic_measurement_failed
-import ooniprobe.composeapp.generated.resources.ic_measurement_ok
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ic_world
 import ooniprobe.composeapp.generated.resources.twoParam
@@ -45,8 +40,8 @@ import ooniprobe.composeapp.generated.resources.video_quality
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.engine.models.SummaryType
 import org.ooni.engine.models.TaskOrigin
-import org.ooni.engine.models.TestGroup
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.downloadSpeed
 import org.ooni.probe.data.models.uploadSpeed
@@ -158,7 +153,7 @@ fun ResultCell(
 
 @Composable
 private fun ResultCounts(item: ResultListItem) {
-    val testGroup = TestGroup.fromTests(item.descriptor.netTests.map { it.test })
+    val summaryType = item.descriptor.summaryType
     val counts = item.measurementCounts
 
     Column {
@@ -174,8 +169,18 @@ private fun ResultCounts(item: ResultListItem) {
             )
         }
 
-        when (testGroup) {
-            TestGroup.Websites -> {
+        when (summaryType) {
+            SummaryType.Simple -> {
+                ResultCountItem(
+                    icon = Res.drawable.ic_history,
+                    text = pluralStringResourceItem(
+                        Res.plurals.Measurements_Count,
+                        counts.done.toInt(),
+                        counts.done,
+                    ),
+                )
+            }
+            SummaryType.Anomaly -> {
                 ResultCountItem(
                     icon = Res.drawable.ic_measurement_anomaly,
                     text = pluralStringResourceItem(
@@ -198,56 +203,7 @@ private fun ResultCounts(item: ResultListItem) {
                     ),
                 )
             }
-
-            TestGroup.InstantMessaging -> {
-                ResultCountItem(
-                    icon = Res.drawable.ic_measurement_anomaly,
-                    text = pluralStringResourceItem(
-                        Res.plurals.TestResults_Overview_InstantMessaging_Blocked,
-                        counts.anomaly.toInt(),
-                        counts.anomaly,
-                    ),
-                    color = if (counts.anomaly > 0) {
-                        LocalCustomColors.current.logWarn
-                    } else {
-                        LocalContentColor.current
-                    },
-                )
-                ResultCountItem(
-                    icon = Res.drawable.ic_measurement_ok,
-                    text = pluralStringResourceItem(
-                        Res.plurals.TestResults_Overview_InstantMessaging_Available,
-                        counts.success.toInt(),
-                        counts.success,
-                    ),
-                )
-            }
-
-            TestGroup.Circumvention -> {
-                ResultCountItem(
-                    icon = Res.drawable.ic_measurement_anomaly,
-                    text = pluralStringResourceItem(
-                        Res.plurals.TestResults_Overview_Circumvention_Blocked,
-                        counts.anomaly.toInt(),
-                        counts.anomaly,
-                    ),
-                    color = if (counts.anomaly > 0) {
-                        LocalCustomColors.current.logWarn
-                    } else {
-                        LocalContentColor.current
-                    },
-                )
-                ResultCountItem(
-                    icon = Res.drawable.ic_measurement_ok,
-                    text = pluralStringResourceItem(
-                        Res.plurals.TestResults_Overview_Circumvention_Available,
-                        counts.success.toInt(),
-                        counts.success,
-                    ),
-                )
-            }
-
-            TestGroup.Performance -> {
+            SummaryType.Performance -> {
                 item.testKeys?.downloadSpeed()?.let { (download, unit) ->
 
                     PerformanceMetric(
@@ -255,7 +211,6 @@ private fun ResultCounts(item: ResultListItem) {
                         text = stringResource(Res.string.twoParam, download, stringResource(unit)),
                     )
                 }
-
                 item.testKeys?.uploadSpeed()?.let { (upload, unit) ->
 
                     PerformanceMetric(
@@ -269,19 +224,6 @@ private fun ResultCounts(item: ResultListItem) {
                     text = item.testKeys?.videoQuality()?.let {
                         stringResource(it)
                     },
-                )
-            }
-
-            TestGroup.Experimental,
-            TestGroup.Unknown,
-            -> {
-                ResultCountItem(
-                    icon = Res.drawable.ic_history,
-                    text = pluralStringResourceItem(
-                        Res.plurals.Measurements_Count,
-                        counts.done.toInt(),
-                        counts.done,
-                    ),
                 )
             }
         }

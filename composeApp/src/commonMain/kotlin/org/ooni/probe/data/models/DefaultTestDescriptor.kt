@@ -3,6 +3,7 @@ package org.ooni.probe.data.models
 import androidx.compose.ui.graphics.Color
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
+import org.ooni.engine.models.SummaryType
 
 data class DefaultTestDescriptor(
     val label: String,
@@ -13,6 +14,7 @@ data class DefaultTestDescriptor(
     val color: Color,
     val animation: Animation,
     val dataUsage: StringResource,
-    var netTests: List<NetTest>,
-    var longRunningTests: List<NetTest> = emptyList(),
+    val netTests: List<NetTest>,
+    val longRunningTests: List<NetTest> = emptyList(),
+    val summaryType: SummaryType,
 )
