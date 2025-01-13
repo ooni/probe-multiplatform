@@ -65,6 +65,7 @@ class GetTestDescriptors(
             longRunningTests = longRunningTests,
             source = Descriptor.Source.Default(this),
             updateStatus = UpdateStatus.NotApplicable,
+            summaryType = summaryType,
         )
 
     @Composable
