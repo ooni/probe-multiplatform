@@ -15,6 +15,7 @@ def shared_pods
     pod "libtor", :podspec => "#{ooni_pods_location}/libtor.podspec"
     pod "libz", :podspec => "#{ooni_pods_location}/libz.podspec"
     pod "oonimkall", :podspec => "#{ooni_pods_location}/oonimkall.podspec"
+    pod "Siren"
 end
 
 target 'OONIProbe' do
