@@ -44,7 +44,7 @@ class AppWorkerManager(
                 .setConstraints(
                     Constraints.Builder()
                         .setRequiredNetworkType(
-                            if (params.wifiOnly) NetworkType.UNMETERED else NetworkType.NOT_REQUIRED,
+                            if (params.wifiOnly) NetworkType.UNMETERED else NetworkType.CONNECTED,
                         )
                         .setRequiresCharging(params.onlyWhileCharging)
                         .build(),
@@ -63,6 +63,11 @@ class AppWorkerManager(
         return withContext(backgroundDispatcher) {
             val request = PeriodicWorkRequestBuilder<DescriptorUpdateWorker>(1, TimeUnit.DAYS)
                 .setInitialDelay(1, TimeUnit.DAYS) // avoid immediate start
+                .setConstraints(
+                    Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build(),
+                )
                 .build()
             workManager.enqueueUniquePeriodicWork(
                 DescriptorUpdateWorker.AutoUpdateWorkerName,
@@ -83,10 +88,7 @@ class AppWorkerManager(
                         .setInputData(
                             descriptors?.let {
                                 DescriptorUpdateWorker.buildWorkData(
-                                    it.map {
-                                            descriptor ->
-                                        descriptor.id
-                                    },
+                                    it.map { descriptor -> descriptor.id },
                                 )
                             } ?: Data.EMPTY,
                         )
