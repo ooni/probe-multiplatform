@@ -36,6 +36,7 @@ import ooniprobe.composeapp.generated.resources.ic_measurement_anomaly
 import ooniprobe.composeapp.generated.resources.ic_measurement_failed
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ic_world
+import ooniprobe.composeapp.generated.resources.twoParam
 import ooniprobe.composeapp.generated.resources.video_quality
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
@@ -43,6 +44,9 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.SummaryType
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.ResultListItem
+import org.ooni.probe.data.models.downloadSpeed
+import org.ooni.probe.data.models.uploadSpeed
+import org.ooni.probe.data.models.videoQuality
 import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.shared.relativeDateTime
@@ -201,19 +205,24 @@ private fun ResultCounts(item: ResultListItem) {
                 )
             }
             SummaryType.Performance -> {
-                PerformanceMetric(
-                    icon = Res.drawable.ic_download,
-                    text = item.download,
-                )
+                item.testKeys?.downloadSpeed()?.let { (download, unit) ->
 
-                PerformanceMetric(
-                    icon = Res.drawable.ic_upload,
-                    text = item.upload,
-                )
+                    PerformanceMetric(
+                        icon = Res.drawable.ic_download,
+                        text = stringResource(Res.string.twoParam, download, stringResource(unit)),
+                    )
+                }
+                item.testKeys?.uploadSpeed()?.let { (upload, unit) ->
+
+                    PerformanceMetric(
+                        icon = Res.drawable.ic_upload,
+                        text = stringResource(Res.string.twoParam, upload, stringResource(unit)),
+                    )
+                }
 
                 PerformanceMetric(
                     icon = Res.drawable.video_quality,
-                    text = item.videoQuality?.let {
+                    text = item.testKeys?.videoQuality()?.let {
                         stringResource(it)
                     },
                 )

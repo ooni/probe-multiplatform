@@ -51,6 +51,7 @@ import ooniprobe.composeapp.generated.resources.Modal_ReRun_Websites_Run
 import ooniprobe.composeapp.generated.resources.Modal_ReRun_Websites_Title
 import ooniprobe.composeapp.generated.resources.NetworkType_Vpn
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.TestResults_Kbps
 import ooniprobe.composeapp.generated.resources.TestResults_NotAvailable
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Country
@@ -61,10 +62,14 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_NoInter
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Runtime
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_WiFi
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Ping
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Video
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Video_Quality
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Reachable
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Tested
+import ooniprobe.composeapp.generated.resources.TestResults_ms
 import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_replay
 import ooniprobe.composeapp.generated.resources.ic_upload
@@ -74,6 +79,10 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.SummaryType
 import org.ooni.probe.data.models.ResultItem
+import org.ooni.probe.data.models.downloadSpeed
+import org.ooni.probe.data.models.ping
+import org.ooni.probe.data.models.uploadSpeed
+import org.ooni.probe.data.models.videoQuality
 import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Single
@@ -243,7 +252,7 @@ private val SummaryType.summaryPages: List<@Composable (ResultItem) -> Unit>
             { SummaryNetwork(it) },
         )
         SummaryType.Performance -> listOf(
-            // TODO: Insert performance summary page here
+            { SummaryPerformance(it) },
             { SummaryDetails(it) },
             { SummaryNetwork(it) },
         )
@@ -267,7 +276,10 @@ private fun SummaryStats(item: ResultItem) {
             )
 
             Text(
-                pluralStringResourceItem(Res.plurals.TestResults_Summary_Websites_Hero_Tested, item.measurementCounts.total.toInt()),
+                pluralStringResourceItem(
+                    Res.plurals.TestResults_Summary_Websites_Hero_Tested,
+                    item.measurementCounts.total.toInt(),
+                ),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
@@ -285,7 +297,10 @@ private fun SummaryStats(item: ResultItem) {
             )
 
             Text(
-                pluralStringResourceItem(Res.plurals.TestResults_Summary_Websites_Hero_Blocked, item.measurementCounts.anomaly.toInt()),
+                pluralStringResourceItem(
+                    Res.plurals.TestResults_Summary_Websites_Hero_Blocked,
+                    item.measurementCounts.anomaly.toInt(),
+                ),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
@@ -303,7 +318,10 @@ private fun SummaryStats(item: ResultItem) {
             )
 
             Text(
-                pluralStringResourceItem(Res.plurals.TestResults_Summary_Websites_Hero_Reachable, item.measurementCounts.succeeded.toInt()),
+                pluralStringResourceItem(
+                    Res.plurals.TestResults_Summary_Websites_Hero_Reachable,
+                    item.measurementCounts.succeeded.toInt(),
+                ),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
@@ -360,6 +378,155 @@ private fun SummaryDetails(item: ResultItem) {
             Text(
                 item.totalRuntime.shortFormat(),
                 modifier = valueModifier,
+            )
+        }
+    }
+}
+
+@Composable
+private fun SummaryPerformance(item: ResultItem) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min)
+            .padding(16.dp),
+    ) {
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                stringResource(Res.string.TestResults_Summary_Performance_Hero_Video),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 8.dp),
+                maxLines = 1,
+            )
+
+            Text(
+                stringResource(
+                    item.testKeys?.videoQuality() ?: Res.string.TestResults_NotAvailable,
+                ),
+                style = MaterialTheme.typography.headlineSmall,
+                maxLines = 1,
+            )
+
+            Text(
+                stringResource(Res.string.TestResults_Summary_Performance_Hero_Video_Quality),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 8.dp),
+                maxLines = 1,
+            )
+        }
+
+        VerticalDivider(Modifier.padding(4.dp), color = LocalContentColor.current)
+
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                stringResource(Res.string.TestResults_Summary_Performance_Hero_Download),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 8.dp),
+                maxLines = 1,
+            )
+
+            item.testKeys?.downloadSpeed()?.let { (downloadSpeed, unit) ->
+
+                Text(
+                    downloadSpeed,
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1,
+                )
+
+                Text(
+                    stringResource(unit),
+                    style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                    maxLines = 1,
+                )
+            } ?: run {
+                Text(
+                    stringResource(Res.string.TestResults_NotAvailable),
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1,
+                )
+
+                Text(
+                    stringResource(Res.string.TestResults_Kbps),
+                    style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                    maxLines = 1,
+                )
+            }
+        }
+
+        VerticalDivider(Modifier.padding(4.dp), color = LocalContentColor.current)
+
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                stringResource(Res.string.TestResults_Summary_Performance_Hero_Upload),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 8.dp),
+                maxLines = 1,
+            )
+            item.testKeys?.uploadSpeed()?.let { (uploadSpeed, unit) ->
+
+                Text(
+                    uploadSpeed,
+                    style = MaterialTheme.typography.headlineMedium,
+                    maxLines = 1,
+                )
+
+                Text(
+                    stringResource(unit),
+                    style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                    maxLines = 1,
+                )
+            } ?: run {
+                Text(
+                    stringResource(Res.string.TestResults_NotAvailable),
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1,
+                )
+
+                Text(
+                    stringResource(Res.string.TestResults_Kbps),
+                    style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                    maxLines = 1,
+                )
+            }
+        }
+
+        VerticalDivider(Modifier.padding(4.dp), color = LocalContentColor.current)
+
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                stringResource(Res.string.TestResults_Summary_Performance_Hero_Ping),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 8.dp),
+                maxLines = 1,
+            )
+
+            Text(
+                item.testKeys?.ping()?.toString()
+                    ?: stringResource(Res.string.TestResults_NotAvailable),
+                style = MaterialTheme.typography.headlineSmall,
+                maxLines = 1,
+            )
+
+            Text(
+                stringResource(Res.string.TestResults_ms),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 8.dp),
             )
         }
     }

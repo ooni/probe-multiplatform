@@ -84,6 +84,12 @@
     <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Accessible</string>
     <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Accessible</string>
 
+    <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
+    <string name="TestResults_Summary_Performance_Hero_Video_Quality">Quality</string>
+    <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
+
+    <string name="TestResults_ms">ms</string>
+
     <string name="Modal_ReRun_Title">Re-run test</string>
     <string name="Modal_ReRun_Websites_Title">You are about to re-test %1$s websites.</string>
     <string name="Modal_ReRun_Websites_Run">Run</string>

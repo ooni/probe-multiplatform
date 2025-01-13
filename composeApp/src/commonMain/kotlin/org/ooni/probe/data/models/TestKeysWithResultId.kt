@@ -18,6 +18,7 @@ import ooniprobe.composeapp.generated.resources.r720p
 import ooniprobe.composeapp.generated.resources.r720p_ext
 import org.jetbrains.compose.resources.StringResource
 import org.ooni.engine.models.TestKeys
+import org.ooni.engine.models.TestType
 import org.ooni.probe.ui.shared.format
 
 data class TestKeysWithResultId(
@@ -28,6 +29,29 @@ data class TestKeysWithResultId(
     val testGroupName: String?,
     val descriptorRunId: InstalledTestDescriptorModel.Id?,
 )
+
+fun List<TestKeysWithResultId>.videoQuality() =
+    this.firstOrNull { TestType.Dash.name == it.testName }?.testKeys?.getVideoQuality(extended = false)
+
+fun List<TestKeysWithResultId>.uploadSpeed() =
+    this.firstOrNull { TestType.Ndt.name == it.testName }?.testKeys?.let { testKey ->
+        return@let testKey.summary?.upload?.let {
+            val upload = setFractionalDigits(getScaledValue(it))
+            val unit = getUnit(it)
+            upload to unit
+        }
+    }
+
+fun List<TestKeysWithResultId>.downloadSpeed() =
+    this.firstOrNull { TestType.Ndt.name == it.testName }?.testKeys?.let { testKey ->
+        return@let testKey.summary?.download?.let {
+            val download = setFractionalDigits(getScaledValue(it))
+            val unit = getUnit(it)
+            download to unit
+        }
+    }
+
+fun List<TestKeysWithResultId>.ping() = this.firstOrNull { TestType.Ndt.name == it.testName }?.testKeys?.summary?.ping?.format(1)
 
 fun TestKeys.getVideoQuality(extended: Boolean): StringResource {
     return simple?.medianBitrate?.let {

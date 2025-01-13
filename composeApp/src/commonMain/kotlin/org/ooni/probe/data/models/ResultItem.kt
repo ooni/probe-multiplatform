@@ -9,6 +9,7 @@ data class ResultItem(
     val descriptor: Descriptor,
     val network: NetworkModel?,
     val measurements: List<MeasurementWithUrl>,
+    val testKeys: List<TestKeysWithResultId>?,
 ) {
     val anyMeasurementMissingUpload =
         result.isDone && measurements.any { it.measurement.isDoneAndMissingUpload }
