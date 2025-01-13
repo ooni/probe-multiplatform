@@ -1,3 +1,4 @@
+import Siren
 import SwiftUI
 import composeApp
 
@@ -8,8 +9,21 @@ extension URL {
     }
 }
 
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        let siren = Siren.shared
+        siren.rulesManager = RulesManager(globalRules: Rules(promptFrequency: .immediately, forAlertType: .option),
+                                          showAlertAfterCurrentVersionHasBeenReleasedForDays: 0)
+        siren.wail()
+
+        return true
+    }
+
+}
+
 @main
 struct iOSApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     @Environment(\.openURL) var openURL
 
