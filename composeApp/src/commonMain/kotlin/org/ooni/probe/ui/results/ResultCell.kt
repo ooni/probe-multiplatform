@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Measurements_Count
+import ooniprobe.composeapp.generated.resources.Measurements_Failed
 import ooniprobe.composeapp.generated.resources.Modal_UploadFailed_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
@@ -162,7 +163,7 @@ private fun ResultCounts(item: ResultListItem) {
             ResultCountItem(
                 icon = Res.drawable.ic_measurement_failed,
                 text = pluralStringResourceItem(
-                    Res.plurals.TestResults_Overview_Websites_Blocked,
+                    Res.plurals.Measurements_Failed,
                     counts.failed.toInt(),
                     counts.failed,
                 ),
