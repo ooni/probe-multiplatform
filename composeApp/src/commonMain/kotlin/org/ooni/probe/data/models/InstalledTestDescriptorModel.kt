@@ -86,7 +86,7 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
         source = Descriptor.Source.Installed(this),
         updateStatus = updateStatus,
         // In the future, this will become a DB field with a value provided by the back-end
-        summaryType = SummaryType.Simple,
+        summaryType = SummaryType.Anomaly,
     )
 
 private val iconAnimationMap = mapOf(
