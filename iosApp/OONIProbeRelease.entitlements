@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:run.test.ooni.org</string>
+		<string>applinks:run.ooni.org</string>
 	</array>
 </dict>
 </plist>
