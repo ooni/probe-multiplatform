@@ -1,6 +1,8 @@
 CREATE TABLE Result(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    test_group_name TEXT,
+    descriptor_name TEXT,
+    descriptor_runId TEXT,
+    descriptor_revision INTEGER,
     start_time INTEGER,
     is_viewed INTEGER,
     is_done INTEGER,
@@ -8,20 +10,19 @@ CREATE TABLE Result(
     data_usage_down INTEGER,
     failure_msg TEXT,
     network_id INTEGER,
-    descriptor_runId INTEGER REFERENCES TestDescriptor (`runId`),
     task_origin TEXT DEFAULT 'ooni-run',
-    FOREIGN KEY(`network_id`) REFERENCES Network(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+    FOREIGN KEY(`network_id`) REFERENCES Network(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    FOREIGN KEY(`descriptor_runId`, `descriptor_revision`) REFERENCES TestDescriptor(`runId`, `revision`) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
 CREATE INDEX idx_result_start_time ON Result (start_time);
-CREATE INDEX idx_result_test_name ON Result (test_group_name);
-CREATE INDEX idx_result_descriptor ON Result (descriptor_runId);
+CREATE INDEX idx_result_descriptor_name ON Result (descriptor_name);
 CREATE INDEX idx_result_task_origin ON Result (task_origin);
 
 insertOrReplace:
 INSERT OR REPLACE INTO Result (
     id,
-    test_group_name,
+    descriptor_name,
     start_time,
     is_viewed,
     is_done,
@@ -30,8 +31,9 @@ INSERT OR REPLACE INTO Result (
     failure_msg,
     task_origin,
     network_id,
-    descriptor_runId
-) VALUES (?,?,?,?,?,?,?,?,?,?, ?);
+    descriptor_runId,
+    descriptor_revision
+) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);
 
 markAsViewed:
 UPDATE Result SET is_viewed = 1 WHERE id = ?;
@@ -55,7 +57,7 @@ SELECT *,
 FROM (
     SELECT
         MAX(Result.id) AS id,
-        MAX(Result.test_group_name) AS test_group_name,
+        MAX(Result.descriptor_name) AS descriptor_name,
         MAX(Result.start_time) AS start_time,
         MAX(Result.is_viewed) AS is_viewed,
         MAX(Result.is_done) AS is_done,
@@ -65,6 +67,7 @@ FROM (
         MAX(Result.task_origin) AS task_origin,
         MAX(Result.network_id) AS network_id,
         MAX(Result.descriptor_runId) AS descriptor_runId,
+        MAX(Result.descriptor_revision) AS descriptor_revision,
         MAX(Network.id) AS network_id_inner,
         MAX(Network.network_name) AS network_name,
         MAX(Network.asn) AS asn,
@@ -88,7 +91,7 @@ FROM (
     FROM Result
     LEFT JOIN Network ON Result.network_id = Network.id
     LEFT JOIN Measurement ON Measurement.result_id = Result.id
-    WHERE (:filterByDescriptor = 0 OR Result.test_group_name = :descriptorKey OR Result.descriptor_runId = :descriptorKey)
+    WHERE (:filterByDescriptor = 0 OR Result.descriptor_name = :descriptorKey OR Result.descriptor_runId = :descriptorKey)
         AND (:filterByTaskOrigin = 0 OR Result.task_origin = :taskOrigin)
     GROUP BY Result.id
     ORDER BY Result.start_time DESC
@@ -109,7 +112,7 @@ LIMIT 1;
 
 selectLatestByDescriptor:
 SELECT * FROM Result
-WHERE Result.test_group_name = ?1 OR Result.descriptor_runId = ?1
+WHERE Result.descriptor_name = ?1 OR Result.descriptor_runId = ?1
 ORDER BY start_time DESC
 LIMIT 1;
 

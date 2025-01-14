@@ -92,8 +92,7 @@ class FetchDescriptorUpdate(
     }
 
     fun cancelUpdates(descriptors: List<InstalledTestDescriptorModel>) {
-        availableUpdates.update {
-                currentItems ->
+        availableUpdates.update { currentItems ->
             currentItems.copy(
                 availableUpdates = currentItems.availableUpdates - descriptors,
                 rejectedUpdates = currentItems.availableUpdates + descriptors,
@@ -103,8 +102,7 @@ class FetchDescriptorUpdate(
     }
 
     fun reviewUpdates(itemsForReview: List<InstalledTestDescriptorModel>) {
-        availableUpdates.update {
-                currentItems ->
+        availableUpdates.update { currentItems ->
             currentItems.copy(
                 reviewUpdates = itemsForReview,
                 refreshType = UpdateStatusType.None,

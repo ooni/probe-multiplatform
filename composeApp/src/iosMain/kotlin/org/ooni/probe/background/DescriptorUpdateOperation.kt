@@ -23,9 +23,10 @@ class DescriptorUpdateOperation(
 
     override fun main() {
         super.main()
-        val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-        coroutineScope.launch {
-            fetchDescriptorUpdate.invoke(descriptors ?: testDescriptorRepository!!.list().first())
+        CoroutineScope(SupervisorJob() + Dispatchers.Default).launch {
+            fetchDescriptorUpdate.invoke(
+                descriptors ?: testDescriptorRepository!!.listAll().first(),
+            )
         }
     }
 }

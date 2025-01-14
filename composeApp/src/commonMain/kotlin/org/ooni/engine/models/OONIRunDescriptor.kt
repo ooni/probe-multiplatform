@@ -14,7 +14,7 @@ import org.ooni.probe.shared.toLocalDateTime
  */
 @Serializable
 data class OONIRunDescriptor(
-    @SerialName("oonirun_link_id") val oonirunLinkId: Long,
+    @SerialName("oonirun_link_id") val oonirunLinkId: String,
     @SerialName("name") val name: String,
     @SerialName("short_description") val shortDescription: String,
     @SerialName("description") val description: String,
@@ -30,6 +30,7 @@ data class OONIRunDescriptor(
     @SerialName("date_created") val dateCreated: Instant,
     @SerialName("date_updated") val dateUpdated: Instant,
     @SerialName("is_expired") val isExpired: Boolean,
+    @SerialName("revision") val revision: Long,
 )
 
 @Serializable
@@ -40,6 +41,7 @@ class OONIRunRevisions(
 fun OONIRunDescriptor.toModel() =
     InstalledTestDescriptorModel(
         id = InstalledTestDescriptorModel.Id(oonirunLinkId),
+        revision = revision,
         name = name,
         shortDescription = shortDescription,
         description = description,

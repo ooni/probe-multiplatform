@@ -1,5 +1,6 @@
 CREATE TABLE TestDescriptor (
-  runId INTEGER,
+  runId TEXT NOT NULL,
+  revision INTEGER NOT NULL,
   name TEXT,
   short_description TEXT,
   description TEXT,
@@ -14,16 +15,15 @@ CREATE TABLE TestDescriptor (
   expiration_date INTEGER,
   date_created INTEGER,
   date_updated INTEGER,
-  revision TEXT,
-  previous_revision TEXT,
-  is_expired INTEGER,
   auto_update INTEGER,
-  PRIMARY KEY(`runId`)
+  revisions TEXT,
+  PRIMARY KEY(`runId`, `revision`)
 );
 
 insertOrIgnore:
 INSERT OR IGNORE INTO TestDescriptor (
   runId,
+  revision,
   name,
   short_description,
   description,
@@ -38,15 +38,14 @@ INSERT OR IGNORE INTO TestDescriptor (
   expiration_date,
   date_created,
   date_updated,
-  revision,
-  previous_revision,
-  is_expired,
-  auto_update
-) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+  auto_update,
+  revisions
+) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 createOrUpdate:
 INSERT OR REPLACE INTO TestDescriptor (
   runId,
+  revision,
   name,
   short_description,
   description,
@@ -61,20 +60,34 @@ INSERT OR REPLACE INTO TestDescriptor (
   expiration_date,
   date_created,
   date_updated,
-  revision,
-  previous_revision,
-  is_expired,
-  auto_update
-) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+  auto_update,
+  revisions
+) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 setAutoUpdate:
 UPDATE TestDescriptor SET auto_update = ? WHERE runId = ?;
 
 selectAll:
-SELECT * FROM TestDescriptor;
+SELECT * FROM TestDescriptor ORDER BY runId;
 
-selectByRunIds:
-SELECT * FROM TestDescriptor WHERE runId IN ?;
+selectLatest:
+WITH latest AS (
+    SELECT runId, MAX(date_updated) AS last_date_updated FROM TestDescriptor GROUP BY runId
+)
+SELECT * FROM TestDescriptor
+WHERE runId IN (SELECT runId FROM latest)
+AND date_updated IN (SELECT last_date_updated FROM latest)
+ORDER BY runId;
+
+selectLatestByRunIds:
+WITH latest AS (
+    SELECT runId, MAX(date_updated) AS last_date_updated FROM TestDescriptor
+    WHERE runId IN ?
+    GROUP BY runId
+)
+SELECT * FROM TestDescriptor
+WHERE runId IN (SELECT runId FROM latest)
+AND date_updated IN (SELECT last_date_updated FROM latest);
 
 deleteByRunId:
 DELETE FROM TestDescriptor WHERE runId = ?;

@@ -49,7 +49,9 @@ object DescriptorFactory {
     )
 
     fun buildInstalledModel(
-        id: InstalledTestDescriptorModel.Id = InstalledTestDescriptorModel.Id(Random.nextLong().absoluteValue),
+        id: InstalledTestDescriptorModel.Id =
+            InstalledTestDescriptorModel.Id(Random.nextLong().absoluteValue.toString()),
+        revision: Long = 1,
         name: String = "Test",
         shortDescription: String? = null,
         description: String? = null,
@@ -62,33 +64,33 @@ object DescriptorFactory {
         color: String? = null,
         animation: String? = null,
         expirationDate: LocalDateTime? = null,
-        // Remove nanoseconds from timestamp, because we're going to lose them
-        // when storing in the database in milliseconds
-        dateCreated: LocalDateTime? = Instant.fromEpochMilliseconds(
-            Clock.System.now().toEpochMilliseconds(),
-        ).toLocalDateTime(),
-        dateUpdated: LocalDateTime? = null,
-        revision: String? = null,
-        isExpired: Boolean = false,
+        dateCreated: LocalDateTime? = now(),
+        dateUpdated: LocalDateTime? = now(),
         autoUpdate: Boolean = false,
-    ) =
-        InstalledTestDescriptorModel(
-            id = id,
-            name = name,
-            shortDescription = shortDescription,
-            description = description,
-            author = author,
-            netTests = netTests,
-            nameIntl = nameIntl,
-            shortDescriptionIntl = shortDescriptionIntl,
-            descriptionIntl = descriptionIntl,
-            icon = icon,
-            color = color,
-            animation = animation,
-            expirationDate = expirationDate,
-            dateCreated = dateCreated,
-            dateUpdated = dateUpdated,
-            revisions = emptyList(),
-            autoUpdate = autoUpdate,
-        )
+    ) = InstalledTestDescriptorModel(
+        id = id,
+        revision = revision,
+        name = name,
+        shortDescription = shortDescription,
+        description = description,
+        author = author,
+        netTests = netTests,
+        nameIntl = nameIntl,
+        shortDescriptionIntl = shortDescriptionIntl,
+        descriptionIntl = descriptionIntl,
+        icon = icon,
+        color = color,
+        animation = animation,
+        expirationDate = expirationDate,
+        dateCreated = dateCreated,
+        dateUpdated = dateUpdated,
+        autoUpdate = autoUpdate,
+    )
+
+    // Remove nanoseconds from timestamp, because we're going to lose them
+    // when storing in the database in milliseconds
+    private fun now() =
+        Instant.fromEpochMilliseconds(
+        Clock.System.now().toEpochMilliseconds(),
+    ).toLocalDateTime()
 }

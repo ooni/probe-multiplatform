@@ -35,13 +35,13 @@ class GetResults(
 }
 
 fun List<Descriptor>.forResult(result: ResultModel): Descriptor? =
-    result.testDescriptorId
-        ?.let { descriptorId ->
+    result.descriptorKey
+        ?.let { key ->
             firstOrNull {
-                it.source is Descriptor.Source.Installed && it.source.value.id == descriptorId
+                it.source is Descriptor.Source.Installed && it.source.value.key == key
             }
         }
-        ?: firstOrNull { it.name == result.testGroupName }
+        ?: firstOrNull { it.name == result.descriptorName }
 
 fun List<TestKeysWithResultId>.forResult(result: ResultModel): List<TestKeysWithResultId>? =
     result.id

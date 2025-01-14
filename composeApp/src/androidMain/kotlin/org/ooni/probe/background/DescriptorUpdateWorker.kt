@@ -62,7 +62,7 @@ class DescriptorUpdateWorker(
             try {
                 val ids =
                     json.decodeFromString<List<InstalledTestDescriptorModel.Id>>(descriptorsJson)
-                return testDescriptorRepository.selectByRunIds(ids).first()
+                return testDescriptorRepository.listLatestByRunIds(ids).first()
             } catch (e: SerializationException) {
                 Logger.w("Could not start update worker: invalid configuration", e)
                 return null
@@ -71,7 +71,7 @@ class DescriptorUpdateWorker(
                 return null
             }
         }
-        return testDescriptorRepository.list().first()
+        return testDescriptorRepository.listLatest().first()
     }
 
     private suspend fun buildNotificationChannelIfNeeded() {

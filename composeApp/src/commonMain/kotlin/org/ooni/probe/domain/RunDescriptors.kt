@@ -128,8 +128,8 @@ class RunDescriptors(
         isRerun: Boolean,
     ) {
         val result = ResultModel(
-            testGroupName = descriptor.name,
-            testDescriptorId = (descriptor.source as? Descriptor.Source.Installed)?.value?.id,
+            descriptorName = descriptor.name,
+            descriptorKey = (descriptor.source as? Descriptor.Source.Installed)?.value?.key,
             taskOrigin = taskOrigin,
         )
         val resultId = storeResult(result)

@@ -3,27 +3,32 @@ package org.ooni.probe.data.repositories
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.shared.now
+import org.ooni.probe.shared.toLocalDateTime
 import org.ooni.testing.createTestDatabaseDriver
 import org.ooni.testing.factories.DescriptorFactory
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertContains
 import kotlin.test.assertEquals
+import kotlin.time.Duration.Companion.days
 
 class TestDescriptorRepositoryTest {
     private lateinit var subject: TestDescriptorRepository
 
     @BeforeTest
     fun before() {
-        subject =
-            TestDescriptorRepository(
-                database = Dependencies.buildDatabase(::createTestDatabaseDriver),
-                json = Dependencies.buildJson(),
-                backgroundContext = Dispatchers.Default,
-            )
+        subject = TestDescriptorRepository(
+            database = Dependencies.buildDatabase(::createTestDatabaseDriver),
+            json = Dependencies.buildJson(),
+            backgroundContext = Dispatchers.Default,
+        )
     }
 
     @Test
@@ -37,7 +42,7 @@ class TestDescriptorRepositoryTest {
             )
             subject.createOrIgnore(listOf(model))
 
-            val result = subject.list().first().first()
+            val result = subject.listAll().first().first()
             assertEquals(model, result)
         }
 
@@ -45,11 +50,73 @@ class TestDescriptorRepositoryTest {
     fun createDuplicatedIsIgnored() =
         runTest {
             val model = DescriptorFactory.buildInstalledModel(
-                id = InstalledTestDescriptorModel.Id(123L),
+                id = InstalledTestDescriptorModel.Id("ABC"),
+                revision = 1,
             )
             subject.createOrIgnore(listOf(model, model))
 
-            val result = subject.list().first()
+            val result = subject.listAll().first()
             assertEquals(1, result.size)
         }
+
+    @Test
+    fun listAllAndLatest() =
+        runTest {
+            val modelA1 = DescriptorFactory.buildInstalledModel(
+                id = InstalledTestDescriptorModel.Id("A"),
+                revision = 1,
+                dateUpdated = now().minus(1.days).toLocalDateTime(),
+            )
+            val modelA2 = DescriptorFactory.buildInstalledModel(
+                id = InstalledTestDescriptorModel.Id("A"),
+                revision = 2,
+                dateUpdated = now().toLocalDateTime(),
+            )
+            val modelB1 = DescriptorFactory.buildInstalledModel(
+                id = InstalledTestDescriptorModel.Id("B"),
+                revision = 1,
+                dateUpdated = now().minus(1.days).toLocalDateTime(),
+            )
+            val modelB2 = DescriptorFactory.buildInstalledModel(
+                id = InstalledTestDescriptorModel.Id("B"),
+                revision = 2,
+                dateUpdated = now().toLocalDateTime(),
+            )
+            subject.createOrIgnore(listOf(modelA1, modelA2, modelB1, modelB2))
+
+            val all = subject.listAll().first()
+            assertEquals(4, all.size)
+
+            val latest = subject.listLatest().first()
+            assertEquals(2, latest.size)
+            assertContains(latest, modelA2)
+            assertContains(latest, modelB2)
+        }
+
+    @Test
+    fun listLatestByRunIds() =
+        runTest {
+            val modelA1 = DescriptorFactory.buildInstalledModel(
+                id = InstalledTestDescriptorModel.Id("A"),
+                revision = 1,
+                dateUpdated = now().minus(1.days).toLocalDateTime(),
+            )
+            val modelA2 = DescriptorFactory.buildInstalledModel(
+                id = InstalledTestDescriptorModel.Id("A"),
+                revision = 2,
+                dateUpdated = now().toLocalDateTime(),
+            )
+            val modelB1 = DescriptorFactory.buildInstalledModel(
+                id = InstalledTestDescriptorModel.Id("B"),
+                revision = 1,
+                dateUpdated = now().toLocalDateTime(),
+            )
+            subject.createOrIgnore(listOf(modelA1, modelA2, modelB1))
+
+            val latest = subject.listLatestByRunIds(listOf(modelA1.id)).first()
+            assertEquals(1, latest.size)
+            assertContains(latest, modelA2)
+        }
+
+    private fun now() = Instant.fromEpochMilliseconds(Clock.System.now().toEpochMilliseconds())
 }
