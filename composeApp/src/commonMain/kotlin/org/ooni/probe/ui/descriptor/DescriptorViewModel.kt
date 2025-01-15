@@ -23,7 +23,6 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.UpdateStatusType
-import org.ooni.probe.data.models.toDescriptor
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.ui.shared.SelectableItem
 import kotlin.time.Duration
@@ -39,8 +38,7 @@ class DescriptorViewModel(
     private val preferenceRepository: PreferenceRepository,
     private val launchUrl: (String) -> Unit,
     deleteTestDescriptor: suspend (InstalledTestDescriptorModel) -> Unit,
-    fetchDescriptorUpdate:
-        suspend (List<InstalledTestDescriptorModel>) -> Unit,
+    fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>) -> Unit,
     setAutoUpdate: suspend (InstalledTestDescriptorModel.Id, Boolean) -> Unit,
     reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
     descriptorUpdates: () -> Flow<DescriptorUpdatesStatus>,
@@ -61,18 +59,6 @@ class DescriptorViewModel(
                             UpdateStatusType.None
                         },
                     )
-                }
-                if (results.availableUpdates.size == 1) {
-                    results.availableUpdates.first().let { updatedDescriptor ->
-                        if (updatedDescriptor.id.value == descriptorKey) {
-                            _state.update {
-                                it.copy(
-                                    updatedDescriptor = updatedDescriptor.toDescriptor(),
-                                    refreshType = UpdateStatusType.None,
-                                )
-                            }
-                        }
-                    }
                 }
             }
             .launchIn(viewModelScope)
@@ -178,7 +164,7 @@ class DescriptorViewModel(
 
                 if (descriptor.source !is Descriptor.Source.Installed) return@onEach
                 _state.update {
-                    it.copy(refreshType = UpdateStatusType.UpdateLink, updatedDescriptor = null)
+                    it.copy(refreshType = UpdateStatusType.UpdateLink)
                 }
 
                 fetchDescriptorUpdate(listOf(descriptor.source.value))
@@ -187,12 +173,11 @@ class DescriptorViewModel(
 
         events.filterIsInstance<Event.UpdateDescriptor>()
             .onEach {
-                val descriptor = state.value.updatedDescriptor ?: return@onEach
-                if (descriptor.source !is Descriptor.Source.Installed) return@onEach
+                val newDescriptor = state.value.descriptor?.updatedDescriptor ?: return@onEach
                 _state.update {
-                    it.copy(refreshType = UpdateStatusType.None, updatedDescriptor = null)
+                    it.copy(refreshType = UpdateStatusType.None)
                 }
-                reviewUpdates(listOf(descriptor.source.value))
+                reviewUpdates(listOf(newDescriptor))
                 goToReviewDescriptorUpdates()
             }
             .launchIn(viewModelScope)
@@ -229,7 +214,6 @@ class DescriptorViewModel(
 
     data class State(
         val descriptor: Descriptor? = null,
-        val updatedDescriptor: Descriptor? = null,
         val estimatedTime: Duration? = null,
         val tests: List<SelectableItem<NetTest>> = emptyList(),
         val lastResult: ResultModel? = null,

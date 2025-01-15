@@ -26,7 +26,7 @@ import org.ooni.probe.ui.shared.UpdatesChip
 fun TestDescriptorItem(
     descriptor: Descriptor,
     onClick: () -> Unit,
-    updateDescriptor: () -> Unit = {},
+    onUpdateClick: () -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -55,7 +55,7 @@ fun TestDescriptorItem(
             }
         }
         if (descriptor.updatable) {
-            UpdatesChip(onClick = updateDescriptor)
+            UpdatesChip(onClick = onUpdateClick)
         }
         if (descriptor.isExpired) {
             ExpiredChip()
