@@ -71,10 +71,11 @@ fun InstalledDescriptorActionsView(
     }
 
     Column(modifier = modifier.padding(top = 16.dp)) {
-        descriptor.revisions?.let { revisions ->
-            if (revisions.isNotEmpty()) {
-                Text(text = stringResource(Res.string.Dashboard_Runv2_Overview_PreviousRevisions))
-            }
+        val revisions = descriptor.previousRevisions
+
+        if (revisions.isNotEmpty()) {
+            Text(text = stringResource(Res.string.Dashboard_Runv2_Overview_PreviousRevisions))
+
             revisions.take(5).forEach { revision ->
                 TextButton(
                     onClick = { onEvent(DescriptorViewModel.Event.RevisionClicked(revision)) },
@@ -90,6 +91,7 @@ fun InstalledDescriptorActionsView(
                 }
             }
         }
+
         Button(
             onClick = { showDialog = true },
             colors = ButtonDefaults.buttonColors(

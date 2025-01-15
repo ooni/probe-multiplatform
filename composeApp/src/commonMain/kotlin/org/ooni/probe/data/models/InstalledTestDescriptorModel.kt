@@ -59,6 +59,9 @@ data class InstalledTestDescriptorModel(
 
     val key get() = Key(id, revision)
 
+    val previousRevisions
+        get() = if (revisions.isNullOrEmpty()) emptyList() else revisions.drop(1)
+
     fun shouldUpdate(other: InstalledTestDescriptorModel): Boolean {
         return dateUpdated != null && other.dateUpdated != null && other.dateUpdated > dateUpdated
     }
