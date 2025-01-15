@@ -91,3 +91,6 @@ AND date_updated IN (SELECT last_date_updated FROM latest);
 
 deleteByRunId:
 DELETE FROM TestDescriptor WHERE runId = ?;
+
+clearOldNetTests:
+UPDATE TestDescriptor SET nettests = NULL WHERE runId = ? AND revision < ?;

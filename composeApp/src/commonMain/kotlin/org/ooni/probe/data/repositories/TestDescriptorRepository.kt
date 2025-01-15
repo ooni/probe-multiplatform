@@ -72,7 +72,7 @@ class TestDescriptorRepository(
         }
     }
 
-    suspend fun createOrUpdate(models: Set<InstalledTestDescriptorModel>) {
+    suspend fun createOrUpdate(models: List<InstalledTestDescriptorModel>) {
         withContext(backgroundContext) {
             database.transaction {
                 models.forEach { model ->
@@ -96,6 +96,10 @@ class TestDescriptorRepository(
                         date_updated = installedModel.date_updated,
                         auto_update = installedModel.auto_update,
                         revisions = installedModel.revisions,
+                    )
+                    database.testDescriptorQueries.clearOldNetTests(
+                        installedModel.runId,
+                        installedModel.revision,
                     )
                 }
             }

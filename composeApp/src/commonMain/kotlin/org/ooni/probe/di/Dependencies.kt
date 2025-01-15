@@ -193,9 +193,7 @@ class Dependencies(
     val bootstrapTestDescriptors by lazy {
         BootstrapTestDescriptors(
             getBootstrapTestDescriptors = getBootstrapTestDescriptors::invoke,
-            createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
-            storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
-            preferencesRepository = preferenceRepository,
+            saveTestDescriptors = saveTestDescriptors::invoke,
         )
     }
     val cancelCurrentTest get() = runBackgroundStateManager::cancel
@@ -233,7 +231,7 @@ class Dependencies(
     val getDescriptorUpdate by lazy {
         FetchDescriptorUpdate(
             fetchDescriptor = fetchDescriptor::invoke,
-            createOrUpdateTestDescriptors = testDescriptorRepository::createOrUpdate,
+            saveTestDescriptors = saveTestDescriptors::invoke,
             listInstalledTestDescriptors = testDescriptorRepository::listLatest,
         )
     }
@@ -327,8 +325,8 @@ class Dependencies(
     }
     private val saveTestDescriptors by lazy {
         SaveTestDescriptors(
-            preferencesRepository = preferenceRepository,
-            createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
+            createOrIgnoreDescriptors = testDescriptorRepository::createOrIgnore,
+            createOrUpdateDescriptors = testDescriptorRepository::createOrUpdate,
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
@@ -394,6 +392,7 @@ class Dependencies(
         onBack = onBack,
         saveTestDescriptors = saveTestDescriptors::invoke,
         fetchDescriptor = { fetchDescriptor(descriptorId) },
+        preferenceRepository = preferenceRepository,
     )
 
     fun chooseWebsitesViewModel(
@@ -537,7 +536,7 @@ class Dependencies(
     fun reviewUpdatesViewModel(onBack: () -> Unit): ReviewUpdatesViewModel {
         return ReviewUpdatesViewModel(
             onBack = onBack,
-            createOrUpdate = testDescriptorRepository::createOrUpdate,
+            saveTestDescriptors = saveTestDescriptors::invoke,
             cancelUpdates = getDescriptorUpdate::cancelUpdates,
             observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
         )

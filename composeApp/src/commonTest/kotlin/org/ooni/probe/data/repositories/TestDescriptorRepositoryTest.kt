@@ -17,6 +17,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 import kotlin.time.Duration.Companion.days
 
 class TestDescriptorRepositoryTest {
@@ -57,6 +58,24 @@ class TestDescriptorRepositoryTest {
 
             val result = subject.listAll().first()
             assertEquals(1, result.size)
+        }
+
+    @Test
+    fun createOrUpdateClearsOldNetTests() =
+        runTest {
+            val oldModel = DescriptorFactory.buildInstalledModel(
+                id = InstalledTestDescriptorModel.Id("ABC"),
+                revision = 1,
+                netTests = listOf(NetTest(TestType.FacebookMessenger)),
+            )
+            val newModel = oldModel.copy(revision = 2)
+            subject.createOrUpdate(listOf(oldModel))
+            subject.createOrUpdate(listOf(newModel))
+
+            val result = subject.listAll().first()
+            assertEquals(2, result.size)
+            assertNull(result.first { it.revision == 1L }.netTests)
+            assertEquals(newModel.netTests, result.first { it.revision == 2L }.netTests)
         }
 
     @Test

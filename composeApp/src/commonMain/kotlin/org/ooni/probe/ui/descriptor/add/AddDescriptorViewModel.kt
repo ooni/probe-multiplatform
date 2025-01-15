@@ -15,12 +15,16 @@ import org.ooni.engine.Engine
 import org.ooni.engine.models.Result
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.toDescriptor
+import org.ooni.probe.data.repositories.PreferenceRepository
+import org.ooni.probe.domain.SaveTestDescriptors
 import org.ooni.probe.ui.shared.SelectableItem
 
 class AddDescriptorViewModel(
     onBack: () -> Unit,
     fetchDescriptor: suspend () -> Result<InstalledTestDescriptorModel?, Engine.MkException>,
-    saveTestDescriptors: suspend (List<Pair<InstalledTestDescriptorModel, List<NetTest>>>) -> Unit,
+    private val saveTestDescriptors: suspend (List<InstalledTestDescriptorModel>, SaveTestDescriptors.Mode) -> Unit,
+    private val preferenceRepository: PreferenceRepository,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -80,15 +84,14 @@ class AddDescriptorViewModel(
                 }
 
                 is Event.InstallDescriptorClicked -> {
+                    val descriptor = state.value.descriptor ?: return@onEach
                     val selectedTests =
                         state.value.selectableItems.filter { it.isSelected }.map { it.item }
-                    state.value.descriptor?.let { descriptor ->
-                        saveTestDescriptors(
-                            listOf(descriptor.copy(autoUpdate = state.value.autoUpdate) to selectedTests),
-                        )
-                        _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorSuccess) }
-                        onBack()
+                    installDescriptor(descriptor, selectedTests)
+                    _state.update {
+                        it.copy(messages = it.messages + SnackBarMessage.AddDescriptorSuccess)
                     }
+                    onBack()
                 }
 
                 is Event.MessageDisplayed -> {
@@ -100,6 +103,21 @@ class AddDescriptorViewModel(
 
     fun onEvent(event: Event) {
         events.tryEmit(event)
+    }
+
+    private suspend fun installDescriptor(
+        descriptor: InstalledTestDescriptorModel,
+        selectedTests: List<NetTest>,
+    ) {
+        saveTestDescriptors(
+            listOf(descriptor.copy(autoUpdate = state.value.autoUpdate)),
+            SaveTestDescriptors.Mode.CreateOrUpdate,
+        )
+        preferenceRepository.setAreNetTestsEnabled(
+            selectedTests.map { test -> descriptor.toDescriptor() to test },
+            isAutoRun = true,
+            isEnabled = true,
+        )
     }
 
     data class State(

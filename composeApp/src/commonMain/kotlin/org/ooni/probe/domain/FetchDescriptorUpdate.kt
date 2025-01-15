@@ -16,7 +16,7 @@ import org.ooni.probe.data.models.UpdateStatusType
 
 class FetchDescriptorUpdate(
     private val fetchDescriptor: suspend (descriptorId: String) -> Result<InstalledTestDescriptorModel?, MkException>,
-    private val createOrUpdateTestDescriptors: suspend (Set<InstalledTestDescriptorModel>) -> Unit,
+    private val saveTestDescriptors: suspend (List<InstalledTestDescriptorModel>, SaveTestDescriptors.Mode) -> Unit,
     private val listInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
 ) {
     private val availableUpdates = MutableStateFlow(DescriptorUpdatesStatus())
@@ -36,7 +36,7 @@ class FetchDescriptorUpdate(
                 }
             }.awaitAll()
         }
-        val autoUpdateItems = mutableSetOf<InstalledTestDescriptorModel>()
+        val autoUpdateItems = mutableListOf<InstalledTestDescriptorModel>()
         val resultsMap = mutableMapOf<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>>()
         ResultStatus.entries.forEach { resultsMap[it] = mutableListOf() }
         response.forEach { (descriptor, result) ->
@@ -65,7 +65,8 @@ class FetchDescriptorUpdate(
             resultsMap[status]?.add(result.map { it?.copy(autoUpdate = descriptor.autoUpdate) })
         }
 
-        createOrUpdateTestDescriptors(autoUpdateItems)
+        saveTestDescriptors(autoUpdateItems, SaveTestDescriptors.Mode.CreateOrUpdate)
+
         val updatesAvailable: List<InstalledTestDescriptorModel> = resultsMap[ResultStatus.UpdatesAvailable]?.mapNotNull { result ->
             result.get()
         }.orEmpty()

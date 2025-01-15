@@ -12,7 +12,6 @@ import org.ooni.probe.shared.toLocalDateTime
 import org.ooni.testing.factories.DescriptorFactory
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.days
 
@@ -21,11 +20,11 @@ class FetchDescriptorUpdateTest {
     fun noUpdate() =
         runTest {
             val oldDescriptor = DescriptorFactory.buildInstalledModel(autoUpdate = true)
-            var createOrUpdate: Set<InstalledTestDescriptorModel>? = null
+            var saveDescriptors: List<InstalledTestDescriptorModel>? = null
             val subject = FetchDescriptorUpdate(
                 fetchDescriptor = { Success(oldDescriptor) },
-                createOrUpdateTestDescriptors = { createOrUpdate = it },
-                listInstalledTestDescriptors = { flowOf(listOf(oldDescriptor)) }
+                saveTestDescriptors = { list, _ -> saveDescriptors = list },
+                listInstalledTestDescriptors = { flowOf(listOf(oldDescriptor)) },
             )
 
             subject()
@@ -34,7 +33,7 @@ class FetchDescriptorUpdateTest {
 
             assertEquals(0, state.autoUpdated.size)
             assertEquals(UpdateStatusType.None, state.refreshType)
-            assertTrue(createOrUpdate.isNullOrEmpty())
+            assertTrue(saveDescriptors.isNullOrEmpty())
         }
 
     @Test
@@ -42,17 +41,17 @@ class FetchDescriptorUpdateTest {
         runTest {
             val oldDescriptor = DescriptorFactory.buildInstalledModel(
                 autoUpdate = true,
-                dateUpdated = Clock.System.now().minus(1.days).toLocalDateTime()
+                dateUpdated = Clock.System.now().minus(1.days).toLocalDateTime(),
             )
             val newDescriptor = oldDescriptor.copy(
                 revision = 2,
-                dateUpdated = LocalDateTime.now()
+                dateUpdated = LocalDateTime.now(),
             )
-            var createOrUpdate: Set<InstalledTestDescriptorModel>? = null
+            var saveDescriptors: List<InstalledTestDescriptorModel>? = null
             val subject = FetchDescriptorUpdate(
                 fetchDescriptor = { Success(newDescriptor) },
-                createOrUpdateTestDescriptors = { createOrUpdate = it },
-                listInstalledTestDescriptors = { flowOf(listOf(oldDescriptor)) }
+                saveTestDescriptors = { list, _ -> saveDescriptors = list },
+                listInstalledTestDescriptors = { flowOf(listOf(oldDescriptor)) },
             )
 
             subject()
@@ -61,7 +60,7 @@ class FetchDescriptorUpdateTest {
 
             assertEquals(1, state.autoUpdated.size)
             assertEquals(UpdateStatusType.None, state.refreshType)
-            assertEquals(setOf(newDescriptor), createOrUpdate)
+            assertEquals(listOf(newDescriptor), saveDescriptors)
         }
 
     @Test
@@ -69,17 +68,17 @@ class FetchDescriptorUpdateTest {
         runTest {
             val oldDescriptor = DescriptorFactory.buildInstalledModel(
                 autoUpdate = false,
-                dateUpdated = Clock.System.now().minus(1.days).toLocalDateTime()
+                dateUpdated = Clock.System.now().minus(1.days).toLocalDateTime(),
             )
             val newDescriptor = oldDescriptor.copy(
                 revision = 2,
-                dateUpdated = LocalDateTime.now()
+                dateUpdated = LocalDateTime.now(),
             )
-            var createOrUpdate: Set<InstalledTestDescriptorModel>? = null
+            var saveDescriptors: List<InstalledTestDescriptorModel>? = null
             val subject = FetchDescriptorUpdate(
                 fetchDescriptor = { Success(newDescriptor) },
-                createOrUpdateTestDescriptors = { createOrUpdate = it },
-                listInstalledTestDescriptors = { flowOf(listOf(oldDescriptor)) }
+                saveTestDescriptors = { list, _ -> saveDescriptors = list },
+                listInstalledTestDescriptors = { flowOf(listOf(oldDescriptor)) },
             )
 
             subject()
@@ -89,7 +88,7 @@ class FetchDescriptorUpdateTest {
             assertEquals(1, state.availableUpdates.size)
             assertEquals(0, state.reviewUpdates.size)
             assertEquals(UpdateStatusType.ReviewLink, state.refreshType)
-            assertTrue(createOrUpdate.isNullOrEmpty())
+            assertTrue(saveDescriptors.isNullOrEmpty())
 
             subject.reviewUpdates(listOf(newDescriptor))
 

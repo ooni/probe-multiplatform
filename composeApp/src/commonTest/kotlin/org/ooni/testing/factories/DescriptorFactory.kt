@@ -91,6 +91,6 @@ object DescriptorFactory {
     // when storing in the database in milliseconds
     private fun now() =
         Instant.fromEpochMilliseconds(
-        Clock.System.now().toEpochMilliseconds(),
-    ).toLocalDateTime()
+            Clock.System.now().toEpochMilliseconds(),
+        ).toLocalDateTime()
 }

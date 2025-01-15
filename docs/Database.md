@@ -15,7 +15,8 @@ It does not store OONI default descriptors, but it will in the future.
 
 ```sql
 CREATE TABLE TestDescriptor (
-    runId INTEGER,
+    runId TEXT NOT NULL,
+    revision INTEGER NOT NULL,
     name TEXT,
     short_description TEXT,
     description TEXT,
@@ -30,19 +31,16 @@ CREATE TABLE TestDescriptor (
     expiration_date INTEGER,
     date_created INTEGER,
     date_updated INTEGER,
-    revision TEXT,
-    previous_revision TEXT,
-    is_expired INTEGER,
     auto_update INTEGER,
-    PRIMARY KEY(`runId`)
+    revisions TEXT,
+    PRIMARY KEY(`runId`, `revision`)
 );
 ```
 
 #### Notes
-
-* `runId` is currently an INTEGER, but the back-end API does not specify that TestDescriptor identifier will forever be numbers.
-* `is_expired` is kept for legacy reasons, but it shouldn't be trusted to be up-to-date.
-Rely instead on `expiration_date`.
+- We store old revisions in the database, so old results can still show the old descriptor
+  information. But we clear `nettests field of old revisions, to save space, since we no longer
+  need them.
 
 ### Result
 
@@ -51,7 +49,9 @@ A Result is an aggregation of measurements from a single TestDescriptor ran in a
 ```sql
 CREATE TABLE Result(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    test_group_name TEXT,
+    descriptor_name TEXT,
+    descriptor_runId TEXT,
+    descriptor_revision INTEGER,
     start_time INTEGER,
     is_viewed INTEGER,
     is_done INTEGER,
@@ -59,21 +59,21 @@ CREATE TABLE Result(
     data_usage_down INTEGER,
     failure_msg TEXT,
     network_id INTEGER,
-    descriptor_runId INTEGER REFERENCES TestDescriptor (`runId`),
     task_origin TEXT DEFAULT 'ooni-run',
-    FOREIGN KEY(`network_id`) REFERENCES Network(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+    FOREIGN KEY(`network_id`) REFERENCES Network(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    FOREIGN KEY(`descriptor_runId`, `descriptor_revision`) REFERENCES TestDescriptor(`runId`, `revision`) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
 CREATE INDEX idx_result_start_time ON Result (start_time);
-CREATE INDEX idx_result_test_name ON Result (test_group_name);
-CREATE INDEX idx_result_descriptor ON Result (descriptor_runId);
+CREATE INDEX idx_result_descriptor_name ON Result (descriptor_name);
 CREATE INDEX idx_result_task_origin ON Result (task_origin);
 ```
 
 #### Notes
 
-* `descriptor_runId` is only present when the Result is related with an installed TestDescriptor.
-If its a Result from a default OONI descriptor, it's linked using the `test_group_name` instead.
+* `descriptor_runId` and `descriptor_revision` are only present when the Result is related with an
+  installed TestDescriptor. If its a Result from a default OONI descriptor, it's linked using the
+  `descriptor_name` instead.
 * `task_origin` possible values are:
   * `ooni-run` for manually user-started tests;
   * `autorun` for automatically started background tests.
