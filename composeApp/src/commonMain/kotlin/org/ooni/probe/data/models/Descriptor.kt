@@ -50,6 +50,4 @@ data class Descriptor(
             .seconds
 }
 
-fun List<Descriptor>.runnableDescriptors(): List<Descriptor> {
-    return filter { !it.isExpired }
-}
+fun List<Descriptor>.notExpired() = filter { !it.isExpired }

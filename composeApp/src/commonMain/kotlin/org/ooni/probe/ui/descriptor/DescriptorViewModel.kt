@@ -34,7 +34,7 @@ class DescriptorViewModel(
     onBack: () -> Unit,
     goToReviewDescriptorUpdates: () -> Unit,
     goToChooseWebsites: () -> Unit,
-    private val getTestDescriptors: () -> Flow<List<Descriptor>>,
+    private val getLatestTestDescriptors: () -> Flow<List<Descriptor>>,
     getDescriptorLastResult: (String) -> Flow<ResultModel?>,
     private val preferenceRepository: PreferenceRepository,
     private val launchUrl: (String) -> Unit,
@@ -64,7 +64,7 @@ class DescriptorViewModel(
                 }
                 if (results.availableUpdates.size == 1) {
                     results.availableUpdates.first().let { updatedDescriptor ->
-                        if (updatedDescriptor.id.value == descriptorKey.toLongOrNull()) {
+                        if (updatedDescriptor.id.value == descriptorKey) {
                             _state.update {
                                 it.copy(
                                     updatedDescriptor = updatedDescriptor.toDescriptor(),
@@ -206,7 +206,10 @@ class DescriptorViewModel(
         events.tryEmit(event)
     }
 
-    private fun getDescriptor() = getTestDescriptors().map { list -> list.firstOrNull { it.key == descriptorKey } }
+    private fun getDescriptor() =
+        getLatestTestDescriptors().map { list ->
+            list.firstOrNull { it.key == descriptorKey }
+        }
 
     private fun getMaxRuntime(): Flow<Duration?> =
         preferenceRepository.allSettings(

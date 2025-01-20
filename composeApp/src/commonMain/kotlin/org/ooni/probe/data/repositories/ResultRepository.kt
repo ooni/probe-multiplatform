@@ -76,7 +76,7 @@ class ResultRepository(
             database.transactionWithResult {
                 database.resultQueries.insertOrReplace(
                     id = model.id?.value,
-                    test_group_name = model.testGroupName,
+                    descriptor_name = model.descriptorName,
                     start_time = model.startTime.toEpoch(),
                     is_viewed = if (model.isViewed) 1 else 0,
                     is_done = if (model.isDone) 1 else 0,
@@ -85,7 +85,8 @@ class ResultRepository(
                     failure_msg = model.failureMessage,
                     task_origin = model.taskOrigin.value,
                     network_id = model.networkId?.value,
-                    descriptor_runId = model.testDescriptorId?.value,
+                    descriptor_runId = model.descriptorKey?.id?.value,
+                    descriptor_revision = model.descriptorKey?.revision,
                 )
                 model.id
                     ?: ResultModel.Id(
@@ -118,9 +119,9 @@ class ResultRepository(
             database.resultQueries.markAllAsDone()
         }
 
-    suspend fun deleteByRunId(resultId: InstalledTestDescriptorModel.Id) =
+    suspend fun deleteByRunId(descriptorId: InstalledTestDescriptorModel.Id) =
         withContext(backgroundContext) {
-            database.resultQueries.deleteByRunId(resultId.value)
+            database.resultQueries.deleteByRunId(descriptorId.value)
         }
 
     suspend fun deleteAll() {
@@ -136,7 +137,7 @@ class ResultRepository(
     private fun Result.toModel(): ResultModel? {
         return ResultModel(
             id = ResultModel.Id(id),
-            testGroupName = test_group_name,
+            descriptorName = descriptor_name,
             startTime = start_time?.toLocalDateTime() ?: return null,
             isViewed = is_viewed == 1L,
             isDone = is_done == 1L,
@@ -145,7 +146,15 @@ class ResultRepository(
             failureMessage = failure_msg,
             taskOrigin = TaskOrigin.fromValue(task_origin),
             networkId = network_id?.let(NetworkModel::Id),
-            testDescriptorId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
+            descriptorKey = descriptor_runId?.let {
+                descriptor_revision?.let {
+                    InstalledTestDescriptorModel.Key(
+                        // TODO: Convert descriptor_runId to TEXT
+                        id = InstalledTestDescriptorModel.Id(descriptor_runId.toString()),
+                        revision = descriptor_revision,
+                    )
+                }
+            },
         )
     }
 
@@ -153,7 +162,7 @@ class ResultRepository(
         return ResultWithNetworkAndAggregates(
             result = Result(
                 id = id ?: return null,
-                test_group_name = test_group_name,
+                descriptor_name = descriptor_name,
                 start_time = start_time,
                 is_viewed = is_viewed,
                 is_done = is_done,
@@ -163,6 +172,7 @@ class ResultRepository(
                 task_origin = task_origin,
                 network_id = network_id,
                 descriptor_runId = descriptor_runId,
+                descriptor_revision = descriptor_revision,
             ).toModel() ?: return null,
             network = network_id_inner?.let { networkId ->
                 Network(
@@ -187,7 +197,7 @@ class ResultRepository(
         return Pair(
             Result(
                 id = id,
-                test_group_name = test_group_name,
+                descriptor_name = descriptor_name,
                 start_time = start_time,
                 is_viewed = is_viewed,
                 is_done = is_done,
@@ -197,6 +207,7 @@ class ResultRepository(
                 task_origin = task_origin,
                 network_id = network_id,
                 descriptor_runId = descriptor_runId,
+                descriptor_revision = descriptor_revision,
             ).toModel() ?: return null,
             id_?.let { networkId ->
                 Network(

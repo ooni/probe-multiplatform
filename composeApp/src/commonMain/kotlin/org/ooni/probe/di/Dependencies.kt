@@ -29,8 +29,8 @@ import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.disk.WriteFileOkio
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
-import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunSpecification
@@ -188,14 +188,12 @@ class Dependencies(
     // Domain
 
     val bootstrapPreferences by lazy {
-        BootstrapPreferences(preferenceRepository, getTestDescriptors::invoke)
+        BootstrapPreferences(preferenceRepository, getTestDescriptors::latest)
     }
     val bootstrapTestDescriptors by lazy {
         BootstrapTestDescriptors(
             getBootstrapTestDescriptors = getBootstrapTestDescriptors::invoke,
-            createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
-            storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
-            preferencesRepository = preferenceRepository,
+            saveTestDescriptors = saveTestDescriptors::invoke,
         )
     }
     val cancelCurrentTest get() = runBackgroundStateManager::cancel
@@ -233,13 +231,13 @@ class Dependencies(
     val getDescriptorUpdate by lazy {
         FetchDescriptorUpdate(
             fetchDescriptor = fetchDescriptor::invoke,
-            createOrUpdateTestDescriptors = testDescriptorRepository::createOrUpdate,
-            listInstalledTestDescriptors = testDescriptorRepository::list,
+            saveTestDescriptors = saveTestDescriptors::invoke,
+            listInstalledTestDescriptors = testDescriptorRepository::listLatest,
         )
     }
     val getAutoRunSettings by lazy { GetAutoRunSettings(preferenceRepository::allSettings) }
     private val getAutoRunSpecification by lazy {
-        GetAutoRunSpecification(getTestDescriptors, preferenceRepository)
+        GetAutoRunSpecification(getTestDescriptors::latest, preferenceRepository)
     }
     private val getBootstrapTestDescriptors by lazy {
         GetBootstrapTestDescriptors(readAssetFile, json, backgroundContext)
@@ -256,14 +254,14 @@ class Dependencies(
     private val getResults by lazy {
         GetResults(
             resultRepository::list,
-            getTestDescriptors::invoke,
+            getTestDescriptors::all,
             measurementRepository::selectTestKeysByDescriptorKey,
         )
     }
     private val getResult by lazy {
         GetResult(
             getResultById = resultRepository::getById,
-            getTestDescriptors = getTestDescriptors.invoke(),
+            getTestDescriptors = getTestDescriptors::all,
             getMeasurementsByResultId = measurementRepository::listByResultId,
             getTestKeys = measurementRepository::selectTestKeysByResultId,
         )
@@ -291,13 +289,14 @@ class Dependencies(
     val getTestDescriptors by lazy {
         GetTestDescriptors(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
-            listInstalledTestDescriptors = testDescriptorRepository::list,
+            listAllInstalledTestDescriptors = testDescriptorRepository::listAll,
+            listLatestInstalledTestDescriptors = testDescriptorRepository::listLatest,
             descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
             getPreferenceValues = preferenceRepository::allSettings,
         )
     }
     private val getTestDescriptorsBySpec by lazy {
-        GetTestDescriptorsBySpec(getTestDescriptors = getTestDescriptors::invoke)
+        GetTestDescriptorsBySpec(getTestDescriptors = getTestDescriptors::latest)
     }
     private val markJustFinishedTestAsSeen by lazy {
         MarkJustFinishedTestAsSeen(runBackgroundStateManager::updateState)
@@ -326,8 +325,8 @@ class Dependencies(
     }
     private val saveTestDescriptors by lazy {
         SaveTestDescriptors(
-            preferencesRepository = preferenceRepository,
-            createOrIgnoreTestDescriptors = testDescriptorRepository::createOrIgnore,
+            createOrIgnoreDescriptors = testDescriptorRepository::createOrIgnore,
+            createOrUpdateDescriptors = testDescriptorRepository::createOrUpdate,
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
@@ -393,6 +392,7 @@ class Dependencies(
         onBack = onBack,
         saveTestDescriptors = saveTestDescriptors::invoke,
         fetchDescriptor = { fetchDescriptor(descriptorId) },
+        preferenceRepository = preferenceRepository,
     )
 
     fun chooseWebsitesViewModel(
@@ -421,7 +421,7 @@ class Dependencies(
         goToDescriptor = goToDescriptor,
         getFirstRun = getFirstRun::invoke,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
-        getTestDescriptors = getTestDescriptors::invoke,
+        getTestDescriptors = getTestDescriptors::latest,
         observeRunBackgroundState = runBackgroundStateManager.observeState(),
         observeTestRunErrors = runBackgroundStateManager.observeErrors(),
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
@@ -441,7 +441,7 @@ class Dependencies(
         onBack = onBack,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         goToChooseWebsites = goToChooseWebsites,
-        getTestDescriptors = getTestDescriptors::invoke,
+        getLatestTestDescriptors = getTestDescriptors::latest,
         getDescriptorLastResult = resultRepository::getLatestByDescriptor,
         preferenceRepository = preferenceRepository,
         launchUrl = { launchAction(PlatformAction.OpenUrl(it)) },
@@ -482,7 +482,7 @@ class Dependencies(
         goToResult = goToResult,
         goToUpload = goToUpload,
         getResults = getResults::invoke,
-        getDescriptors = getTestDescriptors::invoke,
+        getDescriptors = getTestDescriptors::latest,
         deleteAllResults = deleteAllResults::invoke,
         markJustFinishedTestAsSeen = markJustFinishedTestAsSeen::invoke,
     )
@@ -502,7 +502,7 @@ class Dependencies(
     fun runViewModel(onBack: () -> Unit) =
         RunViewModel(
             onBack = onBack,
-            getTestDescriptors = getTestDescriptors::invoke,
+            getTestDescriptors = getTestDescriptors::latest,
             shouldShowVpnWarning = shouldShowVpnWarning::invoke,
             preferenceRepository = preferenceRepository,
             startBackgroundRun = startSingleRunInner,
@@ -536,7 +536,7 @@ class Dependencies(
     fun reviewUpdatesViewModel(onBack: () -> Unit): ReviewUpdatesViewModel {
         return ReviewUpdatesViewModel(
             onBack = onBack,
-            createOrUpdate = testDescriptorRepository::createOrUpdate,
+            saveTestDescriptors = saveTestDescriptors::invoke,
             cancelUpdates = getDescriptorUpdate::cancelUpdates,
             observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
         )

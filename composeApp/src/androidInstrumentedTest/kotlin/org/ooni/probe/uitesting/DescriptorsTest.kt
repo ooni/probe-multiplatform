@@ -86,7 +86,7 @@ class DescriptorsTest {
                     .performScrollToNode(hasText("Android instrumented tests"))
                 onNodeWithText("Testing").assertIsDisplayed()
 
-                val descriptor = dependencies.getTestDescriptors().first().last()
+                val descriptor = dependencies.getTestDescriptors.latest().first().last()
                 assertEquals("Testing", descriptor.name)
 
                 val test = descriptor.netTests.first()

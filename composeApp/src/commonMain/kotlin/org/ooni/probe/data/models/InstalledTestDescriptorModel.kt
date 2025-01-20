@@ -22,13 +22,13 @@ import org.ooni.engine.models.SummaryType
 import org.ooni.probe.data.TestDescriptor
 import org.ooni.probe.shared.InstalledDescriptorIcons
 import org.ooni.probe.shared.hexToColor
-import org.ooni.probe.shared.now
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.shared.toEpoch
 
 @Serializable
 data class InstalledTestDescriptorModel(
     val id: Id,
+    val revision: Long,
     val name: String,
     val shortDescription: String?,
     val description: String?,
@@ -48,10 +48,16 @@ data class InstalledTestDescriptorModel(
 ) {
     @Serializable
     data class Id(
-        val value: Long,
+        val value: String,
     )
 
-    val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
+    @Serializable
+    data class Key(
+        val id: Id,
+        val revision: Long,
+    )
+
+    val key get() = Key(id, revision)
 
     fun shouldUpdate(other: InstalledTestDescriptorModel): Boolean {
         return dateUpdated != null && other.dateUpdated != null && other.dateUpdated > dateUpdated
@@ -72,9 +78,10 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
                     Res.string.Dashboard_Runv2_Overview_Description,
                     author.orEmpty(),
                     formattedDateCreated,
-                ) + ". " + formattedDate(dateUpdated)?.let {
-                    stringResource(Res.string.Dashboard_Runv2_Overview_LastUpdated, it)
-                }
+                ) + ". " +
+                    formattedDate(dateUpdated)?.let {
+                        stringResource(Res.string.Dashboard_Runv2_Overview_LastUpdated, it)
+                    }
             }
         },
         icon = icon?.let(InstalledDescriptorIcons::getIconFromValue),
@@ -104,13 +111,14 @@ private fun dateTimeFormat(monthNames: List<String>) =
         monthName(MonthNames(monthNames))
         char(' ')
         dayOfMonth()
-        chars(" , ")
+        chars(", ")
         year()
     }
 
-fun InstalledTestDescriptorModel.toDb(json: Json): TestDescriptor {
-    return TestDescriptor(
+fun InstalledTestDescriptorModel.toDb(json: Json) =
+    TestDescriptor(
         runId = id.value,
+        revision = revision,
         name = name,
         short_description = shortDescription,
         description = description,
@@ -127,14 +135,11 @@ fun InstalledTestDescriptorModel.toDb(json: Json): TestDescriptor {
         expiration_date = expirationDate?.toEpoch(),
         date_created = dateCreated?.toEpoch(),
         date_updated = dateUpdated?.toEpoch(),
-        revision = try {
+        auto_update = if (autoUpdate) 1 else 0,
+        revisions = try {
             json.encodeToString(revisions)
         } catch (e: Exception) {
             Logger.e(e) { "Failed to encode revisions" }
             null
         },
-        previous_revision = null,
-        is_expired = if (isExpired) 1 else 0,
-        auto_update = if (autoUpdate) 1 else 0,
     )
-}

@@ -19,13 +19,19 @@ import org.ooni.probe.data.models.toDescriptor
 
 class GetTestDescriptors(
     private val getDefaultTestDescriptors: () -> List<DefaultTestDescriptor>,
-    private val listInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
+    private val listAllInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
+    private val listLatestInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
     private val descriptorUpdates: () -> Flow<DescriptorUpdatesStatus>,
     private val getPreferenceValues: (List<SettingsKey>) -> Flow<Map<SettingsKey, Any?>>,
 ) {
-    operator fun invoke(): Flow<List<Descriptor>> {
+    // Warning: this list will bring duplicated descriptors of different revisions
+    fun all(): Flow<List<Descriptor>> = get(listAllInstalledTestDescriptors)
+
+    fun latest(): Flow<List<Descriptor>> = get(listLatestInstalledTestDescriptors)
+
+    private fun get(installedDescriptorFlow: () -> Flow<List<InstalledTestDescriptorModel>>): Flow<List<Descriptor>> {
         return combine(
-            listInstalledTestDescriptors(),
+            installedDescriptorFlow(),
             descriptorUpdates(),
             flowOf(getDefaultTestDescriptors()),
             isWebsitesDescriptorEnabled(),
@@ -76,8 +82,10 @@ class GetTestDescriptors(
         * [RiseupVPN](https://ooni.org/nettest/riseupvpn/)
         * [ECH Check](https://github.com/ooni/spec/blob/master/nettests/ts-039-echcheck.md)
         * [Tor Snowflake](https://ooni.org/nettest/tor-snowflake/) (${stringResource(Res.string.Settings_TestOptions_LongRunningTest)})
-        * [Vanilla Tor](https://github.com/ooni/spec/blob/master/nettests/ts-016-vanilla-tor.md) (${stringResource(
-            Res.string.Settings_TestOptions_LongRunningTest,
-        )})
+        * [Vanilla Tor](https://github.com/ooni/spec/blob/master/nettests/ts-016-vanilla-tor.md) (${
+            stringResource(
+                Res.string.Settings_TestOptions_LongRunningTest,
+            )
+        })
         """.trimIndent()
 }

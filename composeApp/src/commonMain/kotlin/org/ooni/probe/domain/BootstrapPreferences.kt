@@ -8,7 +8,7 @@ import org.ooni.probe.data.repositories.PreferenceRepository
 
 class BootstrapPreferences(
     private val preferencesRepository: PreferenceRepository,
-    private val getTestDescriptors: () -> Flow<List<Descriptor>>,
+    private val getLatestTestDescriptors: () -> Flow<List<Descriptor>>,
 ) {
     suspend operator fun invoke() {
         if (preferencesRepository.getValueByKey(SettingsKey.FIRST_RUN).first() != null) return
@@ -35,7 +35,7 @@ class BootstrapPreferences(
     }
 
     private suspend fun getAllNetTests() =
-        getTestDescriptors()
+        getLatestTestDescriptors()
             .first()
             .flatMap { descriptor ->
                 descriptor.netTests.map { test -> descriptor to test }

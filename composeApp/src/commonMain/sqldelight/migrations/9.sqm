@@ -1,0 +1,71 @@
+-- Changes:
+-- > `runId` type change from INTEGER to TEXT
+-- > `revision` type change from TEXT to INTEGER and is set to 0 for all columns
+-- > new field `revisions` to hold the JSON with all revision numbers
+-- > primary key becomes (`runId`, `revision`)
+
+CREATE TABLE TestDescriptorTemporary(
+  runId TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  name TEXT,
+  short_description TEXT,
+  description TEXT,
+  author TEXT,
+  nettests TEXT,
+  name_intl TEXT,
+  short_description_intl TEXT,
+  description_intl TEXT,
+  icon TEXT,
+  color TEXT,
+  animation TEXT,
+  expiration_date INTEGER,
+  date_created INTEGER,
+  date_updated INTEGER,
+  auto_update INTEGER,
+  revisions TEXT,
+  PRIMARY KEY(`runId`, `revision`)
+);
+
+INSERT INTO TestDescriptorTemporary(
+    runId, revision, revisions, name, short_description, description, author, nettests, name_intl, short_description_intl, description_intl, icon, color, animation, expiration_date, date_created, date_updated, auto_update
+)
+SELECT CAST(runId AS TEXT), 0, revision, name, short_description, description, author, nettests, name_intl, short_description_intl, description_intl, icon, color, animation, expiration_date, date_created, date_updated, auto_update
+FROM TestDescriptor
+WHERE runId IS NOT NULL;
+
+DROP TABLE TestDescriptor;
+ALTER TABLE TestDescriptorTemporary RENAME TO TestDescriptor;
+
+-- Changes:
+-- > rename `test_group_name` to `descriptor_name`
+-- > `descriptor_runId` type change from INTEGER to TEXT
+-- > new field `descriptor_revision`
+-- > new composite foreign key for Descriptor
+
+CREATE TABLE ResultTemporary(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    descriptor_name TEXT,
+    descriptor_runId TEXT,
+    descriptor_revision INTEGER,
+    start_time INTEGER,
+    is_viewed INTEGER,
+    is_done INTEGER,
+    data_usage_up INTEGER,
+    data_usage_down INTEGER,
+    failure_msg TEXT,
+    network_id INTEGER,
+    task_origin TEXT DEFAULT 'ooni-run',
+    FOREIGN KEY(`network_id`) REFERENCES Network(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    FOREIGN KEY(`descriptor_runId`, `descriptor_revision`) REFERENCES TestDescriptor(`runId`, `revision`) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+INSERT INTO ResultTemporary(
+    id, descriptor_name, descriptor_runId, descriptor_revision, start_time, is_viewed, is_done, data_usage_up, data_usage_down, failure_msg, network_id, task_origin
+)
+SELECT id, test_group_name, CAST(descriptor_runId AS TEXT), 0, start_time, is_viewed, is_done, data_usage_up, data_usage_down, failure_msg, network_id, task_origin
+FROM Result;
+
+DROP TABLE Result;
+ALTER TABLE ResultTemporary RENAME TO Result;
+
+CREATE INDEX idx_result_descriptor_name ON Result (descriptor_name);

@@ -175,7 +175,7 @@ class MeasurementRepository(
             resultId = result_id?.let(ResultModel::Id) ?: return null,
             testName = test_name,
             testKeys = test_keys?.let { json.decodeFromString<TestKeys>(it) },
-            testGroupName = test_group_name,
+            descriptorName = descriptor_name,
             descriptorRunId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
         )
     }
@@ -186,7 +186,7 @@ class MeasurementRepository(
             resultId = result_id?.let(ResultModel::Id) ?: return null,
             testName = test_name,
             testKeys = test_keys?.let { json.decodeFromString<TestKeys>(it) },
-            testGroupName = test_group_name,
+            descriptorName = descriptor_name,
             descriptorRunId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
         )
     }

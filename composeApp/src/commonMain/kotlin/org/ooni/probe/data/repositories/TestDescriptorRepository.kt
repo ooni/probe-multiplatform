@@ -2,6 +2,7 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -19,19 +20,27 @@ class TestDescriptorRepository(
     private val json: Json,
     private val backgroundContext: CoroutineContext,
 ) {
-    fun list() =
+    // Warning: this list will bring duplicated descriptors of different revisions
+    fun listAll() =
         database.testDescriptorQueries
             .selectAll()
             .asFlow()
             .mapToList(backgroundContext)
-            .map { list -> list.mapNotNull { it.toModel() } }
+            .map { list -> list.map { it.toModel() } }
 
-    fun selectByRunIds(ids: List<InstalledTestDescriptorModel.Id>) =
+    fun listLatest() =
         database.testDescriptorQueries
-            .selectByRunIds(ids.map { it.value })
+            .selectLatest()
             .asFlow()
             .mapToList(backgroundContext)
-            .map { list -> list.mapNotNull { it.toModel() } }
+            .map { list -> list.map { it.toModel() } }
+
+    fun listLatestByRunIds(ids: List<InstalledTestDescriptorModel.Id>) =
+        database.testDescriptorQueries
+            .selectLatestByRunIds(ids.map { it.value })
+            .asFlow()
+            .mapToList(backgroundContext)
+            .map { list -> list.map { it.toModel() } }
 
     suspend fun createOrIgnore(models: List<InstalledTestDescriptorModel>) {
         withContext(backgroundContext) {
@@ -40,6 +49,7 @@ class TestDescriptorRepository(
                     val installedModel = model.toDb(json = json)
                     database.testDescriptorQueries.insertOrIgnore(
                         runId = installedModel.runId,
+                        revision = installedModel.revision,
                         name = installedModel.name,
                         short_description = installedModel.short_description,
                         description = installedModel.description,
@@ -54,23 +64,22 @@ class TestDescriptorRepository(
                         expiration_date = installedModel.expiration_date,
                         date_created = installedModel.date_created,
                         date_updated = installedModel.date_updated,
-                        revision = installedModel.revision,
-                        previous_revision = null,
-                        is_expired = installedModel.is_expired,
                         auto_update = installedModel.auto_update,
+                        revisions = installedModel.revisions,
                     )
                 }
             }
         }
     }
 
-    suspend fun createOrUpdate(models: Set<InstalledTestDescriptorModel>) {
+    suspend fun createOrUpdate(models: List<InstalledTestDescriptorModel>) {
         withContext(backgroundContext) {
             database.transaction {
                 models.forEach { model ->
                     val installedModel = model.toDb(json = json)
                     database.testDescriptorQueries.createOrUpdate(
                         runId = installedModel.runId,
+                        revision = installedModel.revision,
                         name = installedModel.name,
                         short_description = installedModel.short_description,
                         description = installedModel.description,
@@ -85,10 +94,12 @@ class TestDescriptorRepository(
                         expiration_date = installedModel.expiration_date,
                         date_created = installedModel.date_created,
                         date_updated = installedModel.date_updated,
-                        revision = installedModel.revision,
-                        previous_revision = null,
-                        is_expired = installedModel.is_expired,
                         auto_update = installedModel.auto_update,
+                        revisions = installedModel.revisions,
+                    )
+                    database.testDescriptorQueries.clearOldNetTests(
+                        installedModel.runId,
+                        installedModel.revision,
                     )
                 }
             }
@@ -100,7 +111,10 @@ class TestDescriptorRepository(
         autoUpdate: Boolean,
     ) {
         withContext(backgroundContext) {
-            database.testDescriptorQueries.setAutoUpdate(auto_update = if (autoUpdate) 1 else 0, runId = runId.value)
+            database.testDescriptorQueries.setAutoUpdate(
+                auto_update = if (autoUpdate) 1 else 0,
+                runId = runId.value,
+            )
         }
     }
 
@@ -110,9 +124,10 @@ class TestDescriptorRepository(
         }
     }
 
-    private fun TestDescriptor.toModel(): InstalledTestDescriptorModel? {
-        return InstalledTestDescriptorModel(
-            id = runId?.let(InstalledTestDescriptorModel::Id) ?: return null,
+    private fun TestDescriptor.toModel() =
+        InstalledTestDescriptorModel(
+            id = InstalledTestDescriptorModel.Id(runId),
+            revision = revision,
             name = name.orEmpty(),
             shortDescription = short_description,
             description = description,
@@ -129,15 +144,14 @@ class TestDescriptorRepository(
             expirationDate = expiration_date?.toLocalDateTime(),
             dateCreated = date_created?.toLocalDateTime(),
             dateUpdated = date_updated?.toLocalDateTime(),
-            revisions = revision?.let {
+            autoUpdate = auto_update == 1L,
+            revisions = revisions?.let {
                 try {
                     json.decodeFromString<List<String>>(it)
                 } catch (e: Exception) {
-                    // Handle the exception, e.g., log it or return a default value
+                    Logger.e(e) { "Failed to decode revisions" }
                     emptyList()
                 }
             },
-            autoUpdate = auto_update == 1L,
         )
-    }
 }

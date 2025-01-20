@@ -26,7 +26,7 @@ data class TestKeysWithResultId(
     val testName: String?,
     val testKeys: TestKeys?,
     val resultId: ResultModel.Id,
-    val testGroupName: String?,
+    val descriptorName: String?,
     val descriptorRunId: InstalledTestDescriptorModel.Id?,
 )
 

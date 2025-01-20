@@ -12,7 +12,7 @@ import org.ooni.probe.shared.today
 object ResultModelFactory {
     fun build(
         id: ResultModel.Id? = ResultModel.Id(1234L),
-        testGroupName: String? = "web_connectivity",
+        descriptorName: String? = "websites",
         startTime: LocalDateTime = LocalDate.today().atTime(0, 0),
         isViewed: Boolean = false,
         isDone: Boolean = false,
@@ -21,10 +21,10 @@ object ResultModelFactory {
         failureMessage: String? = null,
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
         networkId: NetworkModel.Id? = null,
-        testDescriptorId: InstalledTestDescriptorModel.Id? = null,
+        descriptorKey: InstalledTestDescriptorModel.Key? = null,
     ) = ResultModel(
         id = id,
-        testGroupName = testGroupName,
+        descriptorName = descriptorName,
         startTime = startTime,
         isViewed = isViewed,
         isDone = isDone,
@@ -33,6 +33,6 @@ object ResultModelFactory {
         failureMessage = failureMessage,
         taskOrigin = taskOrigin,
         networkId = networkId,
-        testDescriptorId = testDescriptorId,
+        descriptorKey = descriptorKey,
     )
 }
