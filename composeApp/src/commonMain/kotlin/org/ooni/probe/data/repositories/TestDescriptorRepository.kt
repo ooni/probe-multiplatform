@@ -20,7 +20,11 @@ class TestDescriptorRepository(
     private val json: Json,
     private val backgroundContext: CoroutineContext,
 ) {
-    // Warning: this list will bring duplicated descriptors of different revisions
+    /**
+     * Lists all entries in the database.
+     *
+     * Warning: this list will bring duplicated descriptors of different revisions.
+     */
     fun listAll() =
         database.testDescriptorQueries
             .selectAll()
@@ -28,6 +32,9 @@ class TestDescriptorRepository(
             .mapToList(backgroundContext)
             .map { list -> list.map { it.toModel() } }
 
+    /**
+     * Lists the latest revision of every installed descriptor in the database.
+     */
     fun listLatest() =
         database.testDescriptorQueries
             .selectLatest()

@@ -149,8 +149,7 @@ class ResultRepository(
             descriptorKey = descriptor_runId?.let {
                 descriptor_revision?.let {
                     InstalledTestDescriptorModel.Key(
-                        // TODO: Convert descriptor_runId to TEXT
-                        id = InstalledTestDescriptorModel.Id(descriptor_runId.toString()),
+                        id = InstalledTestDescriptorModel.Id(descriptor_runId),
                         revision = descriptor_revision,
                     )
                 }
