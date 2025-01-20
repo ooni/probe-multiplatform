@@ -110,16 +110,21 @@ class RunNetTest(
             }
 
             is TaskEvent.Log -> {
-                Logger.log(
-                    severity = when (event.level) {
-                        "WARNING" -> Severity.Warn
-                        "DEBUG" -> Severity.Debug
-                        else -> Severity.Info
-                    },
-                    message = event.message,
-                    throwable = null,
-                    tag = Logger.tag,
-                )
+                val knownException = event.getKnownException()
+                if (knownException != null) {
+                    Logger.w(event.message, knownException)
+                } else {
+                    Logger.log(
+                        severity = when (event.level) {
+                            "WARNING" -> Severity.Warn
+                            "DEBUG" -> Severity.Debug
+                            else -> Severity.Info
+                        },
+                        message = event.message,
+                        throwable = null,
+                        tag = Logger.tag,
+                    )
+                }
 
                 setCurrentTestState {
                     if (it !is RunBackgroundState.RunningTests) return@setCurrentTestState it
@@ -251,20 +256,17 @@ class RunNetTest(
 
                 when (event) {
                     is TaskEvent.StartupFailure ->
-                        Logger.w("StartupFailure", StartupFailure(message, event.value))
+                        Logger.w("", StartupFailure(message, event.value))
 
                     is TaskEvent.ResolverLookupFailure ->
-                        Logger.i(
-                            "ResolverLookupFailure",
-                            ResolverLookupFailure(message, event.value),
-                        )
+                        Logger.i("", ResolverLookupFailure(message, event.value))
 
                     else -> Unit
                 }
             }
 
             is TaskEvent.BugJsonDump -> {
-                Logger.w("BugJsonDump", BugJsonDump(event.value))
+                Logger.w("", BugJsonDump(event.value))
             }
 
             is TaskEvent.TaskTerminated -> Unit
@@ -304,6 +306,17 @@ class RunNetTest(
         )
     }
 
+    /**
+     * Some log warnings are known, but come with a different warning message for each instance.
+     * Here we group them under a single exception class for crash reporting.
+     */
+    private fun TaskEvent.Log.getKnownException() =
+        if (message.startsWith("cannot submit measurement")) {
+            CannotSubmitMeasurement()
+        } else {
+            null
+        }
+
     open inner class Failure(message: String?, value: TaskEventResult.Value?) : Exception(
         if (message != null && value != null) {
             message + "\n" + json.encodeToString(value)
@@ -321,4 +334,6 @@ class RunNetTest(
         Failure(message, value)
 
     inner class BugJsonDump(value: TaskEventResult.Value?) : Failure(null, value)
+
+    inner class CannotSubmitMeasurement : Failure(null, null)
 }
