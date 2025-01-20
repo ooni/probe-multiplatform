@@ -27,7 +27,7 @@ val appConfig = mapOf(
         ),
     ),
     "ooni" to AppConfig(
-        appId = "org.ooni.probe",
+        appId = "org.openobservatory.ooniprobe",
         appName = "OONI Probe",
         folder = "ooniMain",
         supportsOoniRun = true,
@@ -153,8 +153,7 @@ android {
         applicationId = config.appId
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-// TODO: Update from latest version https://github.com/ooni/probe-android/blob/bb7ae9f42f96f2fdbac3d36f5a9dbb6e6783358b/app/build.gradle#L17
-        versionCode = 1
+        versionCode = 124
         versionName = "5.0.0"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
@@ -174,7 +173,7 @@ android {
     }
     buildTypes {
         getByName("debug") {
-            applicationIdSuffix = ".debug"
+            applicationIdSuffix = ".dev"
             resValue("string", "run_v2_domain", "run.test.ooni.org")
         }
         getByName("release") {
