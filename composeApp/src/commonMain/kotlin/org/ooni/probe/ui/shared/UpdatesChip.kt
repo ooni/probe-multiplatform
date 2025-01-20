@@ -1,6 +1,6 @@
 package org.ooni.probe.ui.shared
 
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
@@ -17,9 +17,12 @@ fun UpdatesChip(
 ) {
     SuggestionChip(
         onClick = onClick,
-        enabled = false,
         colors = SuggestionChipDefaults.suggestionChipColors(
-            labelColor = MaterialTheme.colorScheme.error,
+            labelColor = LocalContentColor.current,
+        ),
+        border = SuggestionChipDefaults.suggestionChipBorder(
+            enabled = true,
+            borderColor = LocalContentColor.current,
         ),
         label = { Text(stringResource(Res.string.Dashboard_RunV2_UpdateTag)) },
         modifier = modifier,

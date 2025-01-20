@@ -134,6 +134,19 @@ class DashboardViewModel(
             .launchIn(viewModelScope)
 
         events
+            .filterIsInstance<Event.UpdateDescriptorClicked>()
+            .onEach {
+                reviewUpdates(
+                    listOf(
+                        (it.descriptor.source as? Descriptor.Source.Installed)?.value
+                            ?: return@onEach,
+                    ),
+                )
+                goToReviewDescriptorUpdates()
+            }
+            .launchIn(viewModelScope)
+
+        events
             .filterIsInstance<Event.CancelUpdatesClicked>()
             .onEach {
                 cancelUpdates(state.value.availableUpdates)
@@ -180,6 +193,8 @@ class DashboardViewModel(
         data class ErrorDisplayed(val error: TestRunError) : Event
 
         data class DescriptorClicked(val descriptor: Descriptor) : Event
+
+        data class UpdateDescriptorClicked(val descriptor: Descriptor) : Event
 
         data object FetchUpdatedDescriptors : Event
 

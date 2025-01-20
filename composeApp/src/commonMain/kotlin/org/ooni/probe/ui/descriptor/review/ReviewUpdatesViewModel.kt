@@ -17,8 +17,9 @@ import org.ooni.probe.domain.SaveTestDescriptors
 class ReviewUpdatesViewModel(
     private val onBack: () -> Unit,
     saveTestDescriptors: suspend (List<InstalledTestDescriptorModel>, SaveTestDescriptors.Mode) -> Unit,
-    cancelUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
     observeAvailableUpdatesState: () -> Flow<DescriptorUpdatesStatus>,
+    cancelUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
+    markAsUpdated: (List<InstalledTestDescriptorModel>) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -52,6 +53,7 @@ class ReviewUpdatesViewModel(
                             listOf(descriptor),
                             SaveTestDescriptors.Mode.CreateOrUpdate,
                         )
+                        markAsUpdated(listOf(descriptor))
                         navigateToNextItemOrClose(it.index)
                     } else {
                         onBack()

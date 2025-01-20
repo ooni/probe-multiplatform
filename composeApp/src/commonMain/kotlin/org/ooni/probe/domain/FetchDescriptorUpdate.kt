@@ -19,12 +19,14 @@ class FetchDescriptorUpdate(
     private val saveTestDescriptors: suspend (List<InstalledTestDescriptorModel>, SaveTestDescriptors.Mode) -> Unit,
     private val listInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
 ) {
-    private val availableUpdates = MutableStateFlow(DescriptorUpdatesStatus())
+    private val status = MutableStateFlow(DescriptorUpdatesStatus())
+
+    fun observeStatus() = status.asStateFlow()
 
     suspend fun invoke(
         descriptors: List<InstalledTestDescriptorModel>,
     ): Map<ResultStatus, MutableList<Result<InstalledTestDescriptorModel?, MkException>>> {
-        availableUpdates.update { _ ->
+        status.update { _ ->
             DescriptorUpdatesStatus(
                 refreshType = UpdateStatusType.FetchingUpdates,
             )
@@ -32,7 +34,7 @@ class FetchDescriptorUpdate(
         val response = coroutineScope {
             descriptors.map { descriptor ->
                 async {
-                    Pair(descriptor, fetchDescriptor(descriptor.id.value.toString()))
+                    Pair(descriptor, fetchDescriptor(descriptor.id.value))
                 }
             }.awaitAll()
         }
@@ -73,7 +75,7 @@ class FetchDescriptorUpdate(
         val autoUpdated: List<InstalledTestDescriptorModel> = resultsMap[ResultStatus.AutoUpdated]?.mapNotNull { result ->
             result.get()
         }.orEmpty()
-        availableUpdates.update { _ ->
+        status.update { _ ->
             DescriptorUpdatesStatus(
                 availableUpdates = updatesAvailable,
                 autoUpdated = autoUpdated,
@@ -93,7 +95,7 @@ class FetchDescriptorUpdate(
     }
 
     fun cancelUpdates(descriptors: List<InstalledTestDescriptorModel>) {
-        availableUpdates.update { currentItems ->
+        status.update { currentItems ->
             currentItems.copy(
                 availableUpdates = currentItems.availableUpdates - descriptors,
                 rejectedUpdates = currentItems.availableUpdates + descriptors,
@@ -103,7 +105,7 @@ class FetchDescriptorUpdate(
     }
 
     fun reviewUpdates(itemsForReview: List<InstalledTestDescriptorModel>) {
-        availableUpdates.update { currentItems ->
+        status.update { currentItems ->
             currentItems.copy(
                 reviewUpdates = itemsForReview,
                 refreshType = UpdateStatusType.None,
@@ -111,7 +113,15 @@ class FetchDescriptorUpdate(
         }
     }
 
-    fun observeAvailableUpdatesState() = availableUpdates.asStateFlow()
+    fun markAsUpdated(items: List<InstalledTestDescriptorModel>) {
+        status.update { status ->
+            status.copy(
+                availableUpdates = status.availableUpdates - items,
+                rejectedUpdates = status.rejectedUpdates - items,
+                reviewUpdates = status.reviewUpdates - items,
+            )
+        }
+    }
 }
 
 enum class ResultStatus {

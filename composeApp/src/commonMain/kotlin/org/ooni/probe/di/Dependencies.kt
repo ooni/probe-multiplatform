@@ -291,7 +291,7 @@ class Dependencies(
             getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
             listAllInstalledTestDescriptors = testDescriptorRepository::listAll,
             listLatestInstalledTestDescriptors = testDescriptorRepository::listLatest,
-            descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
+            descriptorUpdates = getDescriptorUpdate::observeStatus,
             getPreferenceValues = preferenceRepository::allSettings,
         )
     }
@@ -426,7 +426,7 @@ class Dependencies(
         observeTestRunErrors = runBackgroundStateManager.observeErrors(),
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
         fetchDescriptorUpdate = fetchDescriptorUpdate,
-        observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
+        observeAvailableUpdatesState = getDescriptorUpdate::observeStatus,
         reviewUpdates = getDescriptorUpdate::reviewUpdates,
         cancelUpdates = getDescriptorUpdate::cancelUpdates,
     )
@@ -449,7 +449,7 @@ class Dependencies(
         fetchDescriptorUpdate = fetchDescriptorUpdate,
         setAutoUpdate = testDescriptorRepository::setAutoUpdate,
         reviewUpdates = getDescriptorUpdate::reviewUpdates,
-        descriptorUpdates = getDescriptorUpdate::observeAvailableUpdatesState,
+        descriptorUpdates = getDescriptorUpdate::observeStatus,
     )
 
     fun logViewModel(onBack: () -> Unit) =
@@ -537,8 +537,9 @@ class Dependencies(
         return ReviewUpdatesViewModel(
             onBack = onBack,
             saveTestDescriptors = saveTestDescriptors::invoke,
+            observeAvailableUpdatesState = getDescriptorUpdate::observeStatus,
             cancelUpdates = getDescriptorUpdate::cancelUpdates,
-            observeAvailableUpdatesState = getDescriptorUpdate::observeAvailableUpdatesState,
+            markAsUpdated = getDescriptorUpdate::markAsUpdated,
         )
     }
 

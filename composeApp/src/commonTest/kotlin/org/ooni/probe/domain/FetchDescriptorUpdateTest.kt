@@ -29,7 +29,7 @@ class FetchDescriptorUpdateTest {
 
             subject()
 
-            val state = subject.observeAvailableUpdatesState().value
+            val state = subject.observeStatus().value
 
             assertEquals(0, state.autoUpdated.size)
             assertEquals(UpdateStatusType.None, state.refreshType)
@@ -56,7 +56,7 @@ class FetchDescriptorUpdateTest {
 
             subject()
 
-            val state = subject.observeAvailableUpdatesState().value
+            val state = subject.observeStatus().value
 
             assertEquals(1, state.autoUpdated.size)
             assertEquals(UpdateStatusType.None, state.refreshType)
@@ -83,7 +83,7 @@ class FetchDescriptorUpdateTest {
 
             subject()
 
-            val state = subject.observeAvailableUpdatesState().value
+            val state = subject.observeStatus().value
 
             assertEquals(1, state.availableUpdates.size)
             assertEquals(0, state.reviewUpdates.size)
@@ -92,7 +92,7 @@ class FetchDescriptorUpdateTest {
 
             subject.reviewUpdates(listOf(newDescriptor))
 
-            val reviewState = subject.observeAvailableUpdatesState().value
+            val reviewState = subject.observeStatus().value
 
             assertEquals(1, reviewState.reviewUpdates.size)
             assertEquals(UpdateStatusType.None, reviewState.refreshType)

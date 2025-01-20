@@ -112,6 +112,9 @@ fun DashboardScreen(
                             onClick = {
                                 onEvent(DashboardViewModel.Event.DescriptorClicked(descriptor))
                             },
+                            onUpdateClick = {
+                                onEvent(DashboardViewModel.Event.UpdateDescriptorClicked(descriptor))
+                            },
                         )
                     }
                 }

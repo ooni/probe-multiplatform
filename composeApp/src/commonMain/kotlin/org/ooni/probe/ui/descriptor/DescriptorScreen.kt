@@ -54,6 +54,7 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.ui.shared.ExpiredChip
 import org.ooni.probe.ui.shared.MarkdownViewer
 import org.ooni.probe.ui.shared.SelectableItem
@@ -261,15 +262,16 @@ private fun DescriptorDetails(
                 }
             }
 
-            if (descriptor.updatable) {
-                UpdatesChip(onClick = { }, modifier = Modifier.padding(top = 8.dp))
-            }
-
             if (descriptor.isExpired) {
                 ExpiredChip()
             }
 
-            state.updatedDescriptor?.let {
+            if (descriptor.updateStatus is UpdateStatus.UpdateRejected) {
+                UpdatesChip(
+                    onClick = { onEvent(DescriptorViewModel.Event.UpdateDescriptor) },
+                    modifier = Modifier.padding(top = 8.dp),
+                )
+            } else if (descriptor.updateStatus is UpdateStatus.Updatable) {
                 OutlinedButton(
                     onClick = { onEvent(DescriptorViewModel.Event.UpdateDescriptor) },
                     border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
