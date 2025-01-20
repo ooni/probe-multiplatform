@@ -304,15 +304,8 @@ class RunNetTest(
         )
     }
 
-    open inner class Failure(message: String?, value: TaskEventResult.Value?) : Exception(
-        if (message != null && value != null) {
-            message + "\n" + json.encodeToString(value)
-        } else if (value != null) {
-            json.encodeToString(value)
-        } else {
-            message ?: ""
-        },
-    )
+    open inner class Failure(message: String?, value: TaskEventResult.Value?) :
+        Exception(message ?: value?.let(json::encodeToString))
 
     inner class StartupFailure(message: String?, value: TaskEventResult.Value?) :
         Failure(message, value)
