@@ -48,7 +48,9 @@ class CrashMonitoring(
                 MESSAGES_TO_SKIP_REPORT.none { message.contains(it) }
             ) {
                 if (throwable != null) {
-                    addBreadcrumb(severity, message, tag)
+                    if (message.isNotBlank()) {
+                        addBreadcrumb(severity, message, tag)
+                    }
                     Sentry.captureException(throwable)
                 } else {
                     Sentry.captureMessage(message)
