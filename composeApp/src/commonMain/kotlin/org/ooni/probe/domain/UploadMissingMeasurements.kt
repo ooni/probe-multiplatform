@@ -42,7 +42,9 @@ class UploadMissingMeasurements(
                     failedToUpload++
                     return@forEach
                 }
-                val report = readFile(reportFilePath) ?: run {
+                val report = readFile(reportFilePath)
+                if (report.isNullOrBlank()) {
+                    Logger.w("Missing or empty measurement report file")
                     failedToUpload++
                     return@forEach
                 }

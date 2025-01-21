@@ -4,7 +4,7 @@ import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toPath
 
-interface DeleteFiles {
+fun interface DeleteFiles {
     suspend operator fun invoke(path: Path)
 }
 

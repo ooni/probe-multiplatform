@@ -8,7 +8,7 @@ import okio.Path.Companion.toPath
 import okio.buffer
 import okio.use
 
-interface WriteFile {
+fun interface WriteFile {
     suspend operator fun invoke(
         path: Path,
         contents: String,
