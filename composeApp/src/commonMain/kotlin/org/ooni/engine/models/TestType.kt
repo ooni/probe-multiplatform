@@ -51,11 +51,16 @@ sealed class TestType {
         @Composable
         get() = (if (this is Experimental) name else stringResource(labelRes))
 
+    open val preferenceKey: String
+        get() = name
+
     data object Dash : TestType() {
         override val name: String = "dash"
         override val labelRes: StringResource = Res.string.Test_Dash_Fullname
         override val isBackgroundRunEnabled: Boolean = false
         override val url: String = "https://ooni.org/nettest/dash"
+
+        override val preferenceKey: String = "run_dash"
 
         override fun runtime(inputs: List<String>?) = 45.seconds
     }
@@ -76,6 +81,8 @@ sealed class TestType {
         override val iconRes: DrawableResource = Res.drawable.test_facebook_messenger
         override val url: String = "https://ooni.org/nettest/facebook-messenger"
 
+        override val preferenceKey: String = "test_facebook_messenger"
+
         override fun runtime(inputs: List<String>?) = 10.seconds
     }
 
@@ -84,6 +91,8 @@ sealed class TestType {
         override val labelRes: StringResource = Res.string.Test_HTTPHeaderFieldManipulation_Fullname
         override val url: String = "https://ooni.org/nettest/http-header-field-manipulation"
 
+        override val preferenceKey: String = "run_http_header_field_manipulation"
+
         override fun runtime(inputs: List<String>?) = 5.seconds
     }
 
@@ -91,6 +100,8 @@ sealed class TestType {
         override val name: String = "http_invalid_request_line"
         override val labelRes: StringResource = Res.string.Test_HTTPInvalidRequestLine_Fullname
         override val url: String = "https://ooni.org/nettest/http-invalid-request-line"
+
+        override val preferenceKey: String = "run_http_invalid_request_line"
 
         override fun runtime(inputs: List<String>?) = 10.seconds
     }
@@ -101,6 +112,8 @@ sealed class TestType {
         override val isBackgroundRunEnabled: Boolean = false
         override val url: String = "https://ooni.org/nettest/ndt"
 
+        override val preferenceKey: String = "run_ndt"
+
         override fun runtime(inputs: List<String>?) = 45.seconds
     }
 
@@ -109,6 +122,8 @@ sealed class TestType {
         override val labelRes: StringResource = Res.string.Test_Psiphon_Fullname
         override val iconRes: DrawableResource = Res.drawable.test_psiphon
         override val url: String = "https://ooni.org/nettest/psiphon"
+
+        override val preferenceKey: String = "test_psiphon"
 
         override fun runtime(inputs: List<String>?) = 20.seconds
     }
@@ -119,6 +134,8 @@ sealed class TestType {
         override val iconRes: DrawableResource = Res.drawable.test_signal
         override val url: String = "https://ooni.org/nettest/signal"
 
+        override val preferenceKey: String = "test_signal"
+
         override fun runtime(inputs: List<String>?) = 10.seconds
     }
 
@@ -127,6 +144,8 @@ sealed class TestType {
         override val labelRes: StringResource = Res.string.Test_Telegram_Fullname
         override val iconRes: DrawableResource = Res.drawable.test_telegram
         override val url: String = "https://ooni.org/nettest/telegram"
+
+        override val preferenceKey: String = "test_telegram"
 
         override fun runtime(inputs: List<String>?) = 10.seconds
     }
@@ -137,6 +156,8 @@ sealed class TestType {
         override val iconRes: DrawableResource = Res.drawable.test_tor
         override val url: String = "https://ooni.org/nettest/tor"
 
+        override val preferenceKey: String = "test_tor"
+
         override fun runtime(inputs: List<String>?) = 40.seconds
     }
 
@@ -146,6 +167,8 @@ sealed class TestType {
         override val iconRes: DrawableResource = Res.drawable.test_websites
         override val url: String = "https://ooni.org/nettest/web-connectivity"
 
+        override val preferenceKey: String = "web_connectivity"
+
         override fun runtime(inputs: List<String>?) = 30.seconds + inputs.orEmpty().size.times(5.seconds)
     }
 
@@ -154,6 +177,8 @@ sealed class TestType {
         override val labelRes: StringResource = Res.string.Test_WhatsApp_Fullname
         override val iconRes: DrawableResource = Res.drawable.test_whatsapp
         override val url: String = "https://ooni.org/nettest/whatsapp"
+
+        override val preferenceKey: String = "test_whatsapp"
 
         override fun runtime(inputs: List<String>?) = 10.seconds
     }

@@ -50,9 +50,9 @@ enum class SettingsKey(val value: String) {
     // Proxy
     PROXY_HOSTNAME("proxy_hostname"),
     PROXY_PORT("proxy_port"),
+    PROXY_PROTOCOL("proxy_protocol"),
 
     // Advanced
-    THEME_ENABLED("theme_enabled"),
     LANGUAGE_SETTING("language_setting"),
     DEBUG_LOGS("debugLogs"),
     WARN_VPN_IN_USE("warn_vpn_in_use"),
@@ -62,21 +62,6 @@ enum class SettingsKey(val value: String) {
     DELETE_UPLOADED_JSONS("deleteUploadedJsons"),
     IS_NOTIFICATION_DIALOG("isNotificationDialog"),
     FIRST_RUN("first_run"),
-
-    // Run Tests
-    TEST_SIGNAL("test_signal"),
-    RUN_HTTP_INVALID_REQUEST_LINE("run_http_invalid_request_line"),
-    TEST_FACEBOOK_MESSENGER("test_facebook_messenger"),
-    RUN_DASH("run_dash"),
-    WEB_CONNECTIVITY("web_connectivity"),
-    RUN_NDT("run_ndt"),
-    TEST_PSIPHON("test_psiphon"),
-    TEST_TOR("test_tor"),
-    PROXY_PROTOCOL("proxy_protocol"),
-    TEST_TELEGRAM("test_telegram"),
-    RUN_HTTP_HEADER_FIELD_MANIPULATION("run_http_header_field_manipulation"),
-    EXPERIMENTAL("experimental"),
-    TEST_WHATSAPP("test_whatsapp"),
 
     ROUTE("route"),
 }
