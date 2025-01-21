@@ -4,7 +4,6 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.fa_anchor
 import ooniprobe.composeapp.generated.resources.fa_award
 import ooniprobe.composeapp.generated.resources.fa_bed
-import ooniprobe.composeapp.generated.resources.fa_bolt
 import ooniprobe.composeapp.generated.resources.fa_bone
 import ooniprobe.composeapp.generated.resources.fa_book_open_reader
 import ooniprobe.composeapp.generated.resources.fa_brush
@@ -14,16 +13,17 @@ import ooniprobe.composeapp.generated.resources.fa_car
 import ooniprobe.composeapp.generated.resources.fa_carrot
 import ooniprobe.composeapp.generated.resources.fa_cloud_rain
 import ooniprobe.composeapp.generated.resources.fa_cloud_sun
-import ooniprobe.composeapp.generated.resources.fa_cloud_sun_rain
 import ooniprobe.composeapp.generated.resources.fa_compass
 import ooniprobe.composeapp.generated.resources.fa_computer
 import ooniprobe.composeapp.generated.resources.fa_crown
 import ooniprobe.composeapp.generated.resources.fa_cube
 import ooniprobe.composeapp.generated.resources.fa_dove
+import ooniprobe.composeapp.generated.resources.fa_dragon
 import ooniprobe.composeapp.generated.resources.fa_droplet
 import ooniprobe.composeapp.generated.resources.fa_earth_americas
 import ooniprobe.composeapp.generated.resources.fa_face_smile
 import ooniprobe.composeapp.generated.resources.fa_faucet
+import ooniprobe.composeapp.generated.resources.fa_feather
 import ooniprobe.composeapp.generated.resources.fa_film
 import ooniprobe.composeapp.generated.resources.fa_fire
 import ooniprobe.composeapp.generated.resources.fa_fish
@@ -37,14 +37,14 @@ import ooniprobe.composeapp.generated.resources.fa_guitar
 import ooniprobe.composeapp.generated.resources.fa_hammer
 import ooniprobe.composeapp.generated.resources.fa_hand
 import ooniprobe.composeapp.generated.resources.fa_handshake
-import ooniprobe.composeapp.generated.resources.fa_heart
+import ooniprobe.composeapp.generated.resources.fa_hippo
 import ooniprobe.composeapp.generated.resources.fa_ice_cream
 import ooniprobe.composeapp.generated.resources.fa_industry
+import ooniprobe.composeapp.generated.resources.fa_kiwi_bird
 import ooniprobe.composeapp.generated.resources.fa_magnet
 import ooniprobe.composeapp.generated.resources.fa_map
 import ooniprobe.composeapp.generated.resources.fa_meteor
 import ooniprobe.composeapp.generated.resources.fa_microscope
-import ooniprobe.composeapp.generated.resources.fa_money_bill
 import ooniprobe.composeapp.generated.resources.fa_moon
 import ooniprobe.composeapp.generated.resources.fa_mountain_sun
 import ooniprobe.composeapp.generated.resources.fa_mug_hot
@@ -56,14 +56,13 @@ import ooniprobe.composeapp.generated.resources.fa_person_biking
 import ooniprobe.composeapp.generated.resources.fa_pills
 import ooniprobe.composeapp.generated.resources.fa_plane
 import ooniprobe.composeapp.generated.resources.fa_plug
-import ooniprobe.composeapp.generated.resources.fa_poo
-import ooniprobe.composeapp.generated.resources.fa_radiation
 import ooniprobe.composeapp.generated.resources.fa_radio
 import ooniprobe.composeapp.generated.resources.fa_rainbow
 import ooniprobe.composeapp.generated.resources.fa_ribbon
 import ooniprobe.composeapp.generated.resources.fa_road
 import ooniprobe.composeapp.generated.resources.fa_rocket
 import ooniprobe.composeapp.generated.resources.fa_sack_dollar
+import ooniprobe.composeapp.generated.resources.fa_school
 import ooniprobe.composeapp.generated.resources.fa_scissors
 import ooniprobe.composeapp.generated.resources.fa_seedling
 import ooniprobe.composeapp.generated.resources.fa_shield
@@ -81,6 +80,7 @@ import ooniprobe.composeapp.generated.resources.fa_tree
 import ooniprobe.composeapp.generated.resources.fa_trophy
 import ooniprobe.composeapp.generated.resources.fa_umbrella
 import ooniprobe.composeapp.generated.resources.fa_utensils
+import ooniprobe.composeapp.generated.resources.fa_volcano
 import ooniprobe.composeapp.generated.resources.fa_wine_glass
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import ooniprobe.composeapp.generated.resources.test_circumvention
@@ -97,7 +97,6 @@ enum class InstalledDescriptorIcons(
     FaAnchor("FaAnchor", Res.drawable.fa_anchor),
     FaAward("FaAward", Res.drawable.fa_award),
     FaBed("FaBed", Res.drawable.fa_bed),
-    FaBolt("FaBolt", Res.drawable.fa_bolt),
     FaBone("FaBone", Res.drawable.fa_bone),
     FaBookOpenReader("FaBookOpenReader", Res.drawable.fa_book_open_reader),
     FaBrush("FaBrush", Res.drawable.fa_brush),
@@ -110,13 +109,14 @@ enum class InstalledDescriptorIcons(
     FaCompass("FaCompass", Res.drawable.fa_compass),
     FaComputer("FaComputer", Res.drawable.fa_computer),
     FaCrown("FaCrown", Res.drawable.fa_crown),
-    FaCloudSunRain("FaCloudSunRain", Res.drawable.fa_cloud_sun_rain),
     FaCube("FaCube", Res.drawable.fa_cube),
     FaDove("FaDove", Res.drawable.fa_dove),
+    FaDragon("FaDragon", Res.drawable.fa_dragon),
     FaDroplet("FaDroplet", Res.drawable.fa_droplet),
     FaEarthAmericas("FaEarthAmericas", Res.drawable.fa_earth_americas),
     FaFaceSmile("FaFaceSmile", Res.drawable.fa_face_smile),
     FaFaucet("FaFaucet", Res.drawable.fa_faucet),
+    FaFeather("FaFeather", Res.drawable.fa_feather),
     FaFilm("FaFilm", Res.drawable.fa_film),
     FaFire("FaFire", Res.drawable.fa_fire),
     FaFish("FaFish", Res.drawable.fa_fish),
@@ -130,14 +130,14 @@ enum class InstalledDescriptorIcons(
     FaHammer("FaHammer", Res.drawable.fa_hammer),
     FaHand("FaHand", Res.drawable.fa_hand),
     FaHandshake("FaHandshake", Res.drawable.fa_handshake),
-    FaHeart("FaHeart", Res.drawable.fa_heart),
+    FaHippo("FaHippo", Res.drawable.fa_hippo),
     FaIceCream("FaIceCream", Res.drawable.fa_ice_cream),
     FaIndustry("FaIndustry", Res.drawable.fa_industry),
+    FaKiwiBird("FaKiwiBird", Res.drawable.fa_kiwi_bird),
     FaMagnet("FaMagnet", Res.drawable.fa_magnet),
     FaMap("FaMap", Res.drawable.fa_map),
     FaMeteor("FaMeteor", Res.drawable.fa_meteor),
     FaMicroscope("FaMicroscope", Res.drawable.fa_microscope),
-    FaMoneyBill("FaMoneyBill", Res.drawable.fa_money_bill),
     FaMoon("FaMoon", Res.drawable.fa_moon),
     FaMountainSun("FaMountainSun", Res.drawable.fa_mountain_sun),
     FaMugHot("FaMugHot", Res.drawable.fa_mug_hot),
@@ -149,17 +149,16 @@ enum class InstalledDescriptorIcons(
     FaPills("FaPills", Res.drawable.fa_pills),
     FaPlane("FaPlane", Res.drawable.fa_plane),
     FaPlug("FaPlug", Res.drawable.fa_plug),
-    FaPoo("FaPoo", Res.drawable.fa_poo),
-    FaRadiation("FaRadiation", Res.drawable.fa_radiation),
     FaRadio("FaRadio", Res.drawable.fa_radio),
     FaRainbow("FaRainbow", Res.drawable.fa_rainbow),
     FaRibbon("FaRibbon", Res.drawable.fa_ribbon),
     FaRoad("FaRoad", Res.drawable.fa_road),
     FaRocket("FaRocket", Res.drawable.fa_rocket),
     FaSackDollar("FaSackDollar", Res.drawable.fa_sack_dollar),
+    FaSchool("FaSchool", Res.drawable.fa_school),
     FaScissors("FaScissors", Res.drawable.fa_scissors),
-    FaSkull("FaSkull", Res.drawable.fa_skull),
     FaSeedling("FaSeedling", Res.drawable.fa_seedling),
+    FaSkull("FaSkull", Res.drawable.fa_skull),
     FaShield("FaShield", Res.drawable.fa_shield),
     FaSignsPost("FaSignsPost", Res.drawable.fa_signs_post),
     FaSnowflake("FaSnowflake", Res.drawable.fa_snowflake),
@@ -167,13 +166,17 @@ enum class InstalledDescriptorIcons(
     FaSpider("FaSpider", Res.drawable.fa_spider),
     FaSuitcaseMedical("FaSuitcaseMedical", Res.drawable.fa_suitcase_medical),
     FaSun("FaSun", Res.drawable.fa_sun),
-    FaTemperatureThreeQuarters("FaTemperatureThreeQuarters", Res.drawable.fa_temperature_three_quarters),
+    FaTemperatureThreeQuarters(
+        "FaTemperatureThreeQuarters",
+        Res.drawable.fa_temperature_three_quarters,
+    ),
     FaToiletPaper("FaToiletPaper", Res.drawable.fa_toilet_paper),
     FaTractor("FaTractor", Res.drawable.fa_tractor),
     FaTree("FaTree", Res.drawable.fa_tree),
     FaTrophy("FaTrophy", Res.drawable.fa_trophy),
     FaUmbrella("FaUmbrella", Res.drawable.fa_umbrella),
     FaUtensils("FaUtensils", Res.drawable.fa_utensils),
+    FaVolcano("FaVolcano", Res.drawable.fa_volcano),
     FaWineGlass("FaWineGlass", Res.drawable.fa_wine_glass),
     OoniWebsites("OoniWebsites", Res.drawable.test_websites),
     OoniInstantMessaging("OoniInstantMessaging", Res.drawable.test_instant_messaging),
