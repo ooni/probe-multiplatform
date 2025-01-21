@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.ServiceInfo
 import android.os.Build
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.app.NotificationCompat
@@ -58,18 +59,45 @@ class RunWorker(
 
     override suspend fun getForegroundInfo(): ForegroundInfo {
         buildNotificationChannelIfNeeded()
-        return ForegroundInfo(NOTIFICATION_ID, buildNotification(RunBackgroundState.RunningTests()))
+        val notification = buildNotification(RunBackgroundState.RunningTests())
+        return if (Build.VERSION.SDK_INT >= 29) {
+            ForegroundInfo(
+                NOTIFICATION_ID,
+                notification,
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC,
+            )
+        } else {
+            ForegroundInfo(
+                NOTIFICATION_ID,
+                notification,
+            )
+        }
     }
 
     override suspend fun doWork(): Result {
+        Logger.i("Run Worker: start")
         try {
-            Logger.i("Run Worker: started")
-            registerReceiver()
-            buildNotificationChannelIfNeeded()
+            setForeground(getForegroundInfo())
+        } catch (e: IllegalStateException) {
+            Logger.w(
+                "Run Worker: cannot start due to foreground service restriction",
+                ForegroundServiceRestriction(e),
+            )
+            return Result.failure()
+        }
 
+        try {
+            registerReceiver()
             work()
         } catch (e: CancellationException) {
-            Logger.i("Run Worker: cancelled")
+            if (isStopped) {
+                Logger.w(
+                    "Run Worker: early stop",
+                    EarlyStop(if (Build.VERSION.SDK_INT >= 31) stopReason else null),
+                )
+            } else {
+                Logger.i("Run Worker: cancelled")
+            }
             setRunBackgroundState { RunBackgroundState.Idle() }
         } finally {
             notificationManager.cancel(NOTIFICATION_ID)
@@ -217,6 +245,10 @@ class RunWorker(
             cancelCurrentTest()
         }
     }
+
+    class ForegroundServiceRestriction(reason: IllegalStateException) : Exception(reason)
+
+    class EarlyStop(reason: Int?) : EarlyStopWorkerException(reason)
 
     companion object {
         private const val NOTIFICATION_CHANNEL_ID = "RUN"

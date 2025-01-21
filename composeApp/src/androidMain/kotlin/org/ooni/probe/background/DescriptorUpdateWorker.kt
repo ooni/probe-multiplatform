@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.pm.ServiceInfo
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
@@ -38,21 +39,53 @@ class DescriptorUpdateWorker(
 
     override suspend fun getForegroundInfo(): ForegroundInfo {
         buildNotificationChannelIfNeeded()
-        return ForegroundInfo(NOTIFICATION_ID, buildNotification())
+        val notification = buildNotification()
+        return if (Build.VERSION.SDK_INT >= 29) {
+            ForegroundInfo(
+                NOTIFICATION_ID,
+                notification,
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC,
+            )
+        } else {
+            ForegroundInfo(
+                NOTIFICATION_ID,
+                notification,
+            )
+        }
     }
 
     override suspend fun doWork(): Result {
+        Logger.i("DescriptorUpdateWorker: start")
         try {
+            setForeground(getForegroundInfo())
+        } catch (e: IllegalStateException) {
+            Logger.w(
+                "DescriptorUpdateWorker: cannot start due to foreground service restriction",
+                ForegroundServiceRestriction(e),
+            )
+            return Result.failure()
+        }
+
+        return try {
             val descriptors = getDescriptors() ?: return Result.failure()
             if (descriptors.isEmpty()) {
-                Logger.i("Skipping DescriptorUpdateWorker: no descriptors to update")
-                return Result.success(buildWorkData(descriptors.map { it.id }))
+                Logger.i("DescriptorUpdateWorker: Skipping, no descriptors to update")
+            } else {
+                dependencies.getDescriptorUpdate.invoke(descriptors)
             }
-            dependencies.getDescriptorUpdate.invoke(descriptors)
-            return Result.success(buildWorkData(descriptors.map { it.id }))
+            Result.success(buildWorkData(descriptors.map { it.id }))
         } catch (e: CancellationException) {
-            Logger.w("DescriptorUpdateWorker: cancelled", e)
-            return Result.failure()
+            if (isStopped) {
+                Logger.w(
+                    "DescriptorUpdateWorker: early stop",
+                    EarlyStop(if (Build.VERSION.SDK_INT >= 31) stopReason else null),
+                )
+            } else {
+                Logger.w("DescriptorUpdateWorker: cancelled", e)
+            }
+            Result.failure()
+        } finally {
+            Logger.i("DescriptorUpdateWorker: finished")
         }
     }
 
@@ -93,6 +126,10 @@ class DescriptorUpdateWorker(
             .setAutoCancel(false)
             .build()
     }
+
+    class ForegroundServiceRestriction(reason: IllegalStateException) : Exception(reason)
+
+    class EarlyStop(reason: Int?) : EarlyStopWorkerException(reason)
 
     companion object {
         fun buildWorkData(descriptors: List<InstalledTestDescriptorModel.Id>): Data {
