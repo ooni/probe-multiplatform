@@ -2,7 +2,7 @@
 <resources>
   <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
   <string name="Onboarding_WhatIsOONIProbe_Title">Qu’est-ce qu’OONI Probe ?</string>
-  <string name="Onboarding_WhatIsOONIProbe_Paragraph">Votre appli pour mesurer la censure d’Internet. 
+  <string name="Onboarding_WhatIsOONIProbe_Paragraph">Votre appli pour mesurer la censure d’Internet.
 
 Les sites Web et les applis de médias sociaux sont-ils bloqués ? Votre connexion Internet est-elle anormalement lente ?
 
@@ -21,7 +21,7 @@ Lancez OONI Probe pour le savoir !</string>
 
 Chaque fois que vous touchez Lancer, vous testez différents sites Web provenant des listes de tests [mondiale](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) et [propre à un pays](https://github.com/citizenlab/test-lists/tree/master/lists) du « Citizen Lab » (site en anglais).
 
-Pour tester les sites de votre choix, touchez le bouton « Choisir des sites Web » ou sélectionnez des catégories de sites dans les paramètres de cette carte. 
+Pour tester les sites de votre choix, touchez le bouton « Choisir des sites Web » ou sélectionnez des catégories de sites dans les paramètres de cette carte.
 
 Ce test mesure si les sites Web sont bloqués par une manipulation DNS, par un blocage TCP/IP ou par un mandataire HTTP transparent.
 
@@ -64,5 +64,5 @@ Depuis 2012, la communauté internationale de l’OONI prend des mesures des ré
   <string name="Settings_About_Content_Blog">Blogue</string>
   <string name="Settings_About_Content_Reports">Relevés</string>
   <string name="Settings_About_Content_DataPolicy">OONI Politique sur les données</string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator.</string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>
