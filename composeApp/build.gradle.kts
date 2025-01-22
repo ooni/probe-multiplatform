@@ -18,7 +18,7 @@ val organization: String? by project
 
 val appConfig = mapOf(
     "dw" to AppConfig(
-        appId = "org.dw.probe",
+        appId = "com.dw.ooniprobe",
         appName = "News Media Scan",
         folder = "dwMain",
         supportsOoniRun = false,
@@ -153,7 +153,7 @@ android {
         applicationId = config.appId
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 124
+        versionCode = 125
         versionName = "5.0.0"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
