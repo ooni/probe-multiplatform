@@ -6,7 +6,7 @@ import okio.IOException
 import okio.Path
 import okio.Path.Companion.toPath
 
-interface ReadFile {
+fun interface ReadFile {
     suspend operator fun invoke(path: Path): String?
 }
 
