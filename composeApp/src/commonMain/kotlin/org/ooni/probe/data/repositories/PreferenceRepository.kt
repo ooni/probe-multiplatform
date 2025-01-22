@@ -190,7 +190,7 @@ class PreferenceRepository(
         netTest: NetTest,
         isAutoRun: Boolean,
     ) = getPreferenceKey(
-        name = netTest.test.name,
+        name = netTest.test.preferenceKey,
         prefix = (descriptor.source as? Descriptor.Source.Installed)
             ?.value?.id?.value?.toString(),
         autoRun = isAutoRun,
