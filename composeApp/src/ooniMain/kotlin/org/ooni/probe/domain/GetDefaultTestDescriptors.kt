@@ -132,11 +132,11 @@ class GetDefaultTestDescriptors {
                         isBackgroundRunEnabled = true,
                     ),
                 ),
-                // NetTest(TestType.Experimental("riseupvpn")),
-                // NetTest(TestType.Experimental("echcheck")),
+                NetTest(TestType.Experimental(name = "echcheck")),
+                NetTest(TestType.Experimental(name = "dnscheck")),
             ),
             longRunningTests = listOf(
-                // NetTest(TestType.Experimental("torsf")),
+                NetTest(TestType.Experimental(name = "torsf")),
                 NetTest(
                     TestType.Experimental(
                         name = "vanilla_tor",
