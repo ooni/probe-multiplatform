@@ -2,7 +2,7 @@
 <resources>
   <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
   <string name="Onboarding_WhatIsOONIProbe_Title">ما هو OONI Probe؟</string>
-  <string name="Onboarding_WhatIsOONIProbe_Paragraph">تطبيقكم لقياس الرّقابة على الانترنت. 
+  <string name="Onboarding_WhatIsOONIProbe_Paragraph">تطبيقكم لقياس الرّقابة على الانترنت.
 
 هل هناك مواقع أو تطبيقات إعلام اجتماعي محجوبة؟ هل الاتصال بالانترنت أبطأ من العادة؟
 
@@ -23,11 +23,11 @@
 
 هل تودّون بالمشاركة في إرسال التبليغات عن التعطيلات لفريق مطوّري OONI؟ </string>
   <string name="Dashboard_Websites_Card_Description">اختبار حجب المواقع</string>
-  <string name="Dashboard_Websites_Overview_Paragraph">تأكّدوا عمّا إذا كانت المواقع محجوبة باستخدام [اختبار الاتصاليّة بالويب](https://ooni.io/nettest/web-connectivity) من OONI 
+  <string name="Dashboard_Websites_Overview_Paragraph">تأكّدوا عمّا إذا كانت المواقع محجوبة باستخدام [اختبار الاتصاليّة بالويب](https://ooni.io/nettest/web-connectivity) من OONI
 
 في كل مرّة تنقرون فيها "Run" ستقومون بفحص المواقع الموجودة لدى قائمة اختبارات Citizen Lab [العالميّة](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) و تلك [الخاصّة ببلد معيّنة](https://github.com/citizenlab/test-lists/tree/master/lists)
 
-لاختبار مواقع معيّنة، انقروا زر "Choose websites" أو "اختاروا من ضمن تصنيفات المواقع عبر إعدادات هذا الكرت. 
+لاختبار مواقع معيّنة، انقروا زر "Choose websites" أو "اختاروا من ضمن تصنيفات المواقع عبر إعدادات هذا الكرت.
 
 اختيار مواقع" هذا الفحص يكشف عمّا إذا كانت المواقع محجوبة عن طريق التلاعب ب DNS، حجب TCP/IP أو عن طريق بروكسي HTTP غير مرئي.
 
@@ -49,7 +49,7 @@
 
 ستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.org/) و على [OONI API](https://api.ooni.io/).</string>
   <string name="Dashboard_InstantMessaging_Card_Description">اختبار حجب برامج المراسلة الفورية</string>
-  <string name="Dashboard_InstantMessaging_Overview_Paragraph">تحقّقوا من حجب  [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), and [Signal](https://ooni.org/nettest/signal) are blocked. 
+  <string name="Dashboard_InstantMessaging_Overview_Paragraph">تحقّقوا من حجب  [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), and [Signal](https://ooni.org/nettest/signal) are blocked.
 
 ستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.org/) و على [OONI API](https://api.ooni.io/).</string>
   <string name="Dashboard_Circumvention_Card_Description">اختبار حجب وسائل تجاوز الرقابة.</string>
@@ -57,7 +57,7 @@
 
 ستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.org/) و على [OONI API](https://api.ooni.io/).</string>
   <string name="Dashboard_Experimental_Card_Description">إجراء الاختبارات التجريبيّة الجديدة</string>
-  <string name="Dashboard_Experimental_Overview_Paragraph">يمكنكم إجراء بعض الاختبارات التجريبيّة الجديدة المطوّرة من قبل فريق OONI: 
+  <string name="Dashboard_Experimental_Overview_Paragraph">يمكنكم إجراء بعض الاختبارات التجريبيّة الجديدة المطوّرة من قبل فريق OONI:
 %1$s
 
 سيتم نشر نتائج اختباراتكم على كل من [مكتشف OONI](https://explorer.ooni.org) و [واجهة تطبيق OONI](https://api.ooni.io/)</string>
@@ -70,5 +70,5 @@
   <string name="Settings_About_Content_Blog">مدونة</string>
   <string name="Settings_About_Content_Reports">التقارير</string>
   <string name="Settings_About_Content_DataPolicy">سياسة OONI في البيانات   </string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator.</string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>

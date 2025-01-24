@@ -23,7 +23,7 @@ Je! Ungependa kuchagua kutuma ripoti za ajali kwa timu ya maendeleo ya OONI?</st
 
 Kila unapoboyeza "Anzisha", unajaribu tovuti tofauti kutoka kwa Maabara ya Citizen [ya kimataifa](https://github.com/citizenlab/test-/blob/master/lists/global.csv) na [nchi maalum](https://github.com/citizenlab/test/tree/master/lists) orodha ya mtihani.
 
-Ili kujaribu tovuti za chaguo lako, gusa kitufe cha Chagua tovuti au chagua makundi ya tovuti kupitia mipangilio ya kadi hii. 
+Ili kujaribu tovuti za chaguo lako, gusa kitufe cha Chagua tovuti au chagua makundi ya tovuti kupitia mipangilio ya kadi hii.
 
 Mtihani huu unapima kama tovuti zimefungwa kwa njia ya DNS kutatiza, TCP/IP kuzuiwa au kwa mhimili wa HTTP wazi.
 
@@ -67,5 +67,5 @@ Tangu 2012, jamii ya kimataifa ya OONI imekuwa ikipima mitandao katika nchi zaid
   <string name="Settings_About_Content_Blog">Blogi</string>
   <string name="Settings_About_Content_Reports">Ripoti</string>
   <string name="Settings_About_Content_DataPolicy">Sera ya Takwimu ya OONI</string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Utaweza kusakinisha kiungo hiki tena kutoka kwa kiungo asili kilichotumwa na mtayarishi pekee.</string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>
