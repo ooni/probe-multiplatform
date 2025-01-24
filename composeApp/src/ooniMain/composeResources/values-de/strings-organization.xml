@@ -16,7 +16,7 @@ Nutze OONI Probe, um es herauszufinden!</string>
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Um Transparenz im Hinblick auf Internetzensur zu erhöhen, werden die Netzwerkdaten aller OONI Probe-Benutzer automatisch veröffentlicht (sofern dies nicht in den Einstellungen deaktiviert wird).</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">Um die Internet-Zensur jeden Tag zu messen, aktiviere bitte die automatische Testfunktion, damit OONI Probe regelmäßig Tests durchführen kann.
 
-Keine Sorge, wir werden auf den Batterieverbrauch achten.
+Keine Sorge, wir werden auf den Batterieverbrauch achten. 
 
 Du kannst die automatischen Tests jederzeit in den Einstellungen deaktivieren.</string>
   <string name="Onboarding_Crash_Paragraph">Um OONI Probe zu verbessern, würden wir gerne anonyme Absturzberichte sammeln, wenn die App nicht richtig funktioniert.
@@ -70,5 +70,5 @@ Seit 2012 hat OONI's globale Gemineschaft Netzwerke in über 200 Ländern vermes
   <string name="Settings_About_Content_Blog">Blog</string>
   <string name="Settings_About_Content_Reports">Berichte</string>
   <string name="Settings_About_Content_DataPolicy">OONI Datenschutzbestimmungen</string>
-    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Du kannst diesen Link nur über den Original-Link installieren, den der Ersteller geschickt hat.</string>
 </resources>

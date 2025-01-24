@@ -66,5 +66,5 @@ OONI 全球社区从 2012 年起测量两百多个国家的网络。一些测量
   <string name="Settings_About_Content_Blog">博客</string>
   <string name="Settings_About_Content_Reports">报告</string>
   <string name="Settings_About_Content_DataPolicy">OONI 数据政策</string>
-    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">您将只能从创建者发送的原始链接再次安装此链接。</string>
 </resources>

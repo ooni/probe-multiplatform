@@ -2,7 +2,7 @@
 <resources>
   <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
   <string name="Onboarding_WhatIsOONIProbe_Title">Qu’est-ce qu’OONI Probe ?</string>
-  <string name="Onboarding_WhatIsOONIProbe_Paragraph">Votre appli pour mesurer la censure d’Internet.
+  <string name="Onboarding_WhatIsOONIProbe_Paragraph">Votre appli pour mesurer la censure d’Internet. 
 
 Les sites Web et les applis de médias sociaux sont-ils bloqués ? Votre connexion Internet est-elle anormalement lente ?
 
@@ -14,14 +14,14 @@ Lancez OONI Probe pour le savoir !</string>
   <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe n’est pas un outil de protection des données personnelles. Quiconque surveille votre activité sur Internet verra quel logiciel vous utilisez.</string>
   <string name="Onboarding_PopQuiz_2_Question">Chaque fois que j’exécute OONI Probe, les données réseau que je recueille seront publiées automatiquement.</string>
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Afin d’accroître la transparence de la censure d’Internet, les données réseau de tous les utilisateurs d’OONI Probe sont publiées automatiquement (à moins qu’ils ne décident de ne pas y participer dans les paramètres).</string>
-  <string name="Onboarding_AutomatedTesting_Paragraph">Pour mesurer la censure d’Internet tous les jours, veuillez activer les tests automatisés afin qu’OONI Probe puisse effectuer des tests régulièrement. Ne vous inquiétez pas, nous ferons attention à l’utilisation de la pile. Vous pouvez désactiver les tests automatisés n’importe quand dans les paramètres.</string>
+  <string name="Onboarding_AutomatedTesting_Paragraph">Pour mesurer la censure d’Internet tous les jours, activez les tests automatisés afin qu’OONI Probe puisse effectuer des tests régulièrement. Ne vous inquiétez pas, nous ferons attention à l’utilisation de la batterie. Vous pouvez désactiver les tests automatisés n’importe quand dans les paramètres.</string>
   <string name="Onboarding_Crash_Paragraph">Afin d’améliorer OONI Probe, nous souhaitons recueillir des relevés anonymes de plantage quand l’appli ne fonctionne pas correctement. Acceptez-vous d’envoyer des rapports de plantage à l’équipe de développement d’OONI ?</string>
   <string name="Dashboard_Websites_Card_Description">Testez le blocage de sites Web</string>
   <string name="Dashboard_Websites_Overview_Paragraph">Vérifiez le blocage des sites Web grâce au [Test de connectivité Web](https://ooni.org/nettest/web-connectivity/) de l’OONI (page en anglais).
 
 Chaque fois que vous touchez Lancer, vous testez différents sites Web provenant des listes de tests [mondiale](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) et [propre à un pays](https://github.com/citizenlab/test-lists/tree/master/lists) du « Citizen Lab » (site en anglais).
 
-Pour tester les sites de votre choix, touchez le bouton « Choisir des sites Web » ou sélectionnez des catégories de sites dans les paramètres de cette carte.
+Pour tester les sites de votre choix, touchez le bouton « Choisir des sites Web » ou sélectionnez des catégories de sites dans les paramètres de cette carte. 
 
 Ce test mesure si les sites Web sont bloqués par une manipulation DNS, par un blocage TCP/IP ou par un mandataire HTTP transparent.
 
@@ -64,5 +64,5 @@ Depuis 2012, la communauté internationale de l’OONI prend des mesures des ré
   <string name="Settings_About_Content_Blog">Blogue</string>
   <string name="Settings_About_Content_Reports">Relevés</string>
   <string name="Settings_About_Content_DataPolicy">OONI Politique sur les données</string>
-    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Vous ne pourrez réinstaller ce lien qu’à partir du lien original envoyé par le créateur.</string>
 </resources>

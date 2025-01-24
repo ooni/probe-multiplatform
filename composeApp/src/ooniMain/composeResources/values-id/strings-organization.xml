@@ -19,7 +19,7 @@ Apakah situs web dan aplikasi media sosial diblokir? Apakah koneksi internetmu m
 Jangan khawatir, kami akan memperhatikan penggunaan baterai.
 
 Anda dapat menonaktifkan pengetesan otomatis dari pengaturan kapan saja.</string>
-  <string name="Onboarding_Crash_Paragraph">Untuk meningkatkan OONI Probe, kami ingin mengumpulkan laporan kerusakan secara anonim ketika aplikasi tidak berfungsi dengan baik.
+  <string name="Onboarding_Crash_Paragraph">Untuk meningkatkan OONI Probe, kami ingin mengumpulkan laporan kerusakan secara anonim ketika aplikasi tidak berfungsi dengan baik. 
 
 Apakah Anda ingin ikut serta dalam mengirimkan laporan kerusakan ke tim pengembangan OONI?</string>
   <string name="Dashboard_Websites_Card_Description">Tes situs-situs web yang diblokir</string>
@@ -27,7 +27,7 @@ Apakah Anda ingin ikut serta dalam mengirimkan laporan kerusakan ke tim pengemba
 
 Setiap kali Anda mengetuk Jalankan, Anda mengetes situs web berbeda dari daftar tes [global](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) dan [khusus-negara](https://github.com/citizenlab/test-lists/tree/master/lists) Citizen Lab.
 
-Untuk mengetes situs pilihan Anda, ketuk tombol Pilih situs web atau pilih kategori situs melalui pengaturan kartu ini.
+Untuk mengetes situs pilihan Anda, ketuk tombol Pilih situs web atau pilih kategori situs melalui pengaturan kartu ini. 
 
 Tes ini mengukur apakah situs web diblokir melalui perusakan DNS, pemblokiran TCP/IP, atau proksi HTTP transparan.
 
@@ -70,5 +70,5 @@ Sejak 2012, komunitas global OONI telah mengukur jaringan di lebih dari 200 nega
   <string name="Settings_About_Content_Blog">Blog</string>
   <string name="Settings_About_Content_Reports">Laporan</string>
   <string name="Settings_About_Content_DataPolicy">Kebijakan Data OONI</string>
-    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Anda dapat memasang kembali tautan ini hanya dari tautan asli yang dikirim oleh pembuatnya.</string>
 </resources>

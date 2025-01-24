@@ -16,7 +16,7 @@ Scoprilo con OONI Probe!</string>
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Per aumentare la trasparenza sulla censura di internet, le misure di rete di OONI Probe sono pubblicate automaticamente (a meno che non sia disabilitato nelle impostazioni).</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">To measure internet censorship every day, please enable automated testing so that OONI Probe can run tests periodically.
 
-Don't worry, we'll be mindful of battery usage.
+Don't worry, we'll be mindful of battery usage. 
 
 You can disable automated testing from the settings at any time.</string>
   <string name="Onboarding_Crash_Paragraph">Per migliorare OONI Probe vorremo raccogliere segnalazioni di crash anonimi quando l'app non funziona correttamente.
@@ -70,5 +70,5 @@ Dal 2012, la comunità globale di OONI ha raccolto misurazioni di rete in oltre 
   <string name="Settings_About_Content_Blog">Blog</string>
   <string name="Settings_About_Content_Reports">Segnalazioni</string>
   <string name="Settings_About_Content_DataPolicy">La Policy sui dati di OONI</string>
-    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator.</string>
 </resources>

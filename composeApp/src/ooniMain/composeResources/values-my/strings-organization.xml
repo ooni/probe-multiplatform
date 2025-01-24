@@ -45,7 +45,7 @@
   <string name="Dashboard_Middleboxes_Card_Description">သင့် ကွန်ရက်ရှိ middleboxes ကို ရှာဖွေရန်</string>
   <string name="Dashboard_Middleboxes_Overview_Paragraph">အင်တာနက် ဝန်ဆောင်မှုပေးသူများသည် ကွန်ရက် ချိတ်ဆက်ခြင်းဆိုင်ရာ ရည်ရွယ်ချက်အမျိုးမျိုးအတွက် (caching ကဲ့သို့) အတွက် ကွန်ရက်သုံးပစ္စည်းများ (middleboxes) ကို မကြာခဏ အသုံးပြုကြသည်။ တခါတရံ ဤ middleboxes ကို အင်တာနက်ဆင်ဆာဖြတ်တောက်ခြင်းနှင့်/ သို့မဟုတ် စောင့်ကြည့်ခြင်းအား အကောင်အထည်ဖော်ရန် အသုံးပြုသည်။
 
-OONI ၏ [HTTP မဆီလျော်သော တောင်းဆိုမှုလိုင်း](https://ooni.org/nettest/http-invalid-request-line/) နှင့် [HTTP Header Field Manipulation](https://ooni.org/nettest/http-header-field-manipulation/) စမ်းသပ်မှုများကို သုံး၍ သင့်ကွန်ရက်အတွင်းရှိ middleboxes ကို ရှာနိုင်သည်။
+OONI ၏ [HTTP မဆီလျော်သော တောင်းဆိုမှုလိုင်း](https://ooni.org/nettest/http-invalid-request-line/) နှင့် [HTTP Header Field Manipulation](https://ooni.org/nettest/http-header-field-manipulation/) စမ်းသပ်မှုများကို သုံး၍ သင့်ကွန်ရက်အတွင်းရှိ middleboxes ကို ရှာနိုင်သည်။ 
 
 သင့်ရလဒ်များအား [OONI Explorer](https://explorer.ooni.org/world/) နှင့် [OONI API](https://api.ooni.io/) တွင် ထုတ်ပြန်ပေးပါမည်။</string>
   <string name="Dashboard_InstantMessaging_Card_Description">လက်ငင်း စာတိုပေးပို့ခြင်း အက်ပ်များ ပိတ်ဆို့ခြင်းအား စမ်းသပ်မည်</string>
@@ -62,12 +62,12 @@ OONI ၏ [HTTP မဆီလျော်သော တောင်းဆိုမ�
 သင့်ရလဒ်များကို [OONI Explorer](https://explorer.ooni.org/) နှင့် [OONI API](https://api.ooni.io/) တွင် ထုတ်ဝေပါမည်။</string>
   <string name="Modal_EnableNotifications_Paragraph">အရေးပေါ် ဆင်ဆာဖြတ်တောက်မှု ဖြစ်ရပ်များအတွင်း OONI Probe စမ်းသပ်မှုများကို လုပ်ဆောင်ရန် စိတ်ဝင်စားပါသလား။ သင့် အနီးရှိ အင်တာနက်ဆင်ဆာ ဖြတ်တောက်မှုကို ကျွန်ုပ်တို့ ကြားရသည့်အခါ အချက်အလက် သတင်း လက်ခံရရှိရန် အသိပေးချက်များကို ဖွင့်ပါ။ </string>
   <string name="Settings_About_Label">OONI အကြောင်း</string>
-  <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) သည် Tor ပရောဂျက် အောက်ရှိ လွတ်လပ်ဆော့ဖ်ဝဲလ် ပရောဂျက်တစ်ခု ဖြစ်ပြီး ကမ္ဘာတစ်ဝှမ်းရှိ အင်တာနက် ဆင်ဆာဖြတ်တောက်မှုများကို ပွင့်လင်းမြင်သာမှု ရှိစေရန် ရည်ရွယ်ပါသည်။
+  <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) သည် Tor ပရောဂျက် အောက်ရှိ လွတ်လပ်ဆော့ဖ်ဝဲလ် ပရောဂျက်တစ်ခု ဖြစ်ပြီး ကမ္ဘာတစ်ဝှမ်းရှိ အင်တာနက် ဆင်ဆာဖြတ်တောက်မှုများကို ပွင့်လင်းမြင်သာမှု ရှိစေရန် ရည်ရွယ်ပါသည်။ 
 
 ၂၀၁၂ ခုနှစ်မှ စတင်၍ OONI ၏ ကမ္ဘာ့ အသိုင်းအဝိုင်းသည် နိုင်ငံပေါင်း ၂၀၀ ကျော်တွင် ကွန်ရက်များကို တိုင်းတာနေပါသည်။ ဤတိုင်းတာမှုအချို့သည် အင်တာနက် ဆင်ဆာ ဖြတ်တောက်ခြင်း၏ သက်သေအဖြစ် တည်ရှိနေသည်။</string>
   <string name="Settings_About_Content_LearnMore">ပိုမိုလေ့လာရန်</string>
   <string name="Settings_About_Content_Blog">ဘလော့ဂ်</string>
   <string name="Settings_About_Content_Reports">အစီရင်ခံစာများ</string>
   <string name="Settings_About_Content_DataPolicy">OONI ဒေတာမူဝါဒ</string>
-    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator.</string>
 </resources>
