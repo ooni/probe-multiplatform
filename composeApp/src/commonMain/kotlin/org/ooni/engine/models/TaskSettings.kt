@@ -39,5 +39,7 @@ data class TaskSettings(
         @SerialName("origin") val origin: TaskOrigin,
         // only for ooni-run
         @SerialName("ooni_run_link_id") var ooniRunLinkId: String? = null,
+        // system version (Android API version and iOS OS Version)
+        @SerialName("os_version") val osVersion: String,
     )
 }
