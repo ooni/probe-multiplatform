@@ -70,5 +70,5 @@ Desde 2012, a comunidade global da OONI mede redes em mais de 200 países. Algum
   <string name="Settings_About_Content_Blog">Blog</string>
   <string name="Settings_About_Content_Reports">Relatórios</string>
   <string name="Settings_About_Content_DataPolicy">Política de dados da OONI</string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Você poderá instalar este link novamente apenas a partir do link original enviado pelo criador.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted</string>
 </resources>

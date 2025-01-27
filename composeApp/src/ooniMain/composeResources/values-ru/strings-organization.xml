@@ -70,5 +70,5 @@
   <string name="Settings_About_Content_Blog">Блог</string>
   <string name="Settings_About_Content_Reports">Отчеты</string>
   <string name="Settings_About_Content_DataPolicy">Политика данных OONI</string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Вы сможете снова установить эту ссылку только с помощью оргинальной ссылки, которую вы получили от создателя.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted</string>
 </resources>

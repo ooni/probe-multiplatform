@@ -269,7 +269,7 @@ Important: If you have a VPN enabled, OONI Probe will not run tests automaticall
   <string name="Common_Refresh">refresh</string>
   <string name="Common_Collapse">Plega</string>
   <string name="Common_Expand">Desplega</string>
-  <string name="Common_Ago">%1$s ago</string>
+  <string name="Common_Ago">fa %1$s</string>
   <string name="Common_Minutes_One">%1$d minute</string>
   <string name="Common_Minutes_Other">%1$d minutes</string>
   <string name="Common_Hour_One">%1$d hour</string>

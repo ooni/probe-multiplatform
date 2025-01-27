@@ -70,5 +70,5 @@ Des de 2012, la comunitat global d'OONI ha estat mesurant xarxes en més de 200 
   <string name="Settings_About_Content_Blog">Blog</string>
   <string name="Settings_About_Content_Reports">Informes</string>
   <string name="Settings_About_Content_DataPolicy">Política de dades d'OONI</string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted</string>
 </resources>

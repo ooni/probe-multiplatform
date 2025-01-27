@@ -70,5 +70,5 @@ Seit 2012 hat OONI's globale Gemineschaft Netzwerke in über 200 Ländern vermes
   <string name="Settings_About_Content_Blog">Blog</string>
   <string name="Settings_About_Content_Reports">Berichte</string>
   <string name="Settings_About_Content_DataPolicy">OONI Datenschutzbestimmungen</string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Du kannst diesen Link nur über den Original-Link installieren, den der Ersteller geschickt hat.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted</string>
 </resources>
