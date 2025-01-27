@@ -117,7 +117,7 @@ class SetupDependencies(
             override val buildNumber =
                 (NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String).orEmpty()
             override val platform = Platform.Ios
-            override val osVersion = with(UIDevice.currentDevice) { "$systemName $systemVersion" }
+            override val osVersion = with(UIDevice.currentDevice) { systemVersion }
             override val model = UIDevice.currentDevice.model
             override val needsToRequestNotificationsPermission = true
             override val sentryDsn = "https://a19b2c03b50acdad7d5635559a8e2cad@o155150.ingest.sentry.io/4508325650235392"

@@ -159,7 +159,8 @@ class Engine(
             networkType = networkTypeFinder(),
             flavor = buildSoftwareName(taskOrigin),
             origin = taskOrigin,
-            ooniRunLinkId = descriptorId?.value?.toString() ?: "",
+            osVersion = platformInfo.osVersion,
+            ooniRunLinkId = descriptorId?.value ?: "",
         ),
         proxy = preferences.proxy,
     )
