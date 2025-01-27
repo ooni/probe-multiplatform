@@ -68,7 +68,7 @@ sealed class TestType {
     data class Experimental(
         override val name: String,
         override val isBackgroundRunEnabled: Boolean = false,
-        override val isManualRunEnabled: Boolean = true
+        override val isManualRunEnabled: Boolean = true,
     ) : TestType() {
         override val labelRes: StringResource = Res.string.Test_Experimental_Fullname
         override val iconRes: DrawableResource = Res.drawable.test_experimental
