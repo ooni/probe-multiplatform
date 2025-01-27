@@ -70,5 +70,5 @@ Që nga viti 2012, komuniteti global i OONI mat rrjetin në më shumë se 20 sht
   <string name="Settings_About_Content_Blog">Blog</string>
   <string name="Settings_About_Content_Reports">Podania</string>
   <string name="Settings_About_Content_DataPolicy">Politika e të dhënave të OONI</string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>

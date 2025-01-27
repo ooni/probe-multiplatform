@@ -71,5 +71,5 @@ Síðan árið 2012, hafa aðilar á vegum OONI um víða veröld verið að mæ
   <string name="Settings_About_Content_Blog">Blogg</string>
   <string name="Settings_About_Content_Reports">Skýrslur</string>
   <string name="Settings_About_Content_DataPolicy">Gagnaleyndarstefna OONI</string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>

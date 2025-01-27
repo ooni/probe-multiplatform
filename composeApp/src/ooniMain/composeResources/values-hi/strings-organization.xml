@@ -70,5 +70,5 @@ OONI की [HTTP Invalid Request Line](https://ooni.org/nettest/http-invalid-re
   <string name="Settings_About_Content_Blog">ब्लॉग</string>
   <string name="Settings_About_Content_Reports">Reports</string>
   <string name="Settings_About_Content_DataPolicy">OONI डेटा नीति</string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>

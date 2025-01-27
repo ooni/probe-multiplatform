@@ -69,5 +69,5 @@ OONI ၏ [HTTP မဆီလျော်သော တောင်းဆိုမ�
   <string name="Settings_About_Content_Blog">ဘလော့ဂ်</string>
   <string name="Settings_About_Content_Reports">အစီရင်ခံစာများ</string>
   <string name="Settings_About_Content_DataPolicy">OONI ဒေတာမူဝါဒ</string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>
