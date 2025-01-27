@@ -2,7 +2,7 @@
 <resources>
   <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
   <string name="Onboarding_WhatIsOONIProbe_Title">Čo je OONI Probe?</string>
-  <string name="Onboarding_WhatIsOONIProbe_Paragraph">Tvoja aplikácia na meranie cenzúry internetu.
+  <string name="Onboarding_WhatIsOONIProbe_Paragraph">Tvoja aplikácia na meranie cenzúry internetu. 
 
 Sú webové stránky a aplikácie sociálnych médií blokované? Je tvoje internetové pripojenie nezvyčajne pomalé?
 
@@ -16,7 +16,7 @@ Spusti OONI Probe a zistíš!</string>
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Pre zvýšenie transparentnosti cenzúry internetu sa sieťové údaje všetkých používateľov OONI Probe automaticky uverejňujú (pokiaľ sa neodhlásia v nastaveniach).</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">To measure internet censorship every day, please enable automated testing so that OONI Probe can run tests periodically.
 
-Don't worry, we'll be mindful of battery usage.
+Don't worry, we'll be mindful of battery usage. 
 
 You can disable automated testing from the settings at any time.</string>
   <string name="Onboarding_Crash_Paragraph">To improve OONI Probe we would like to collect anonymous crash reports when the app does not work properly.
@@ -27,7 +27,7 @@ Would you like to opt-in to submitting crash reports to the OONI development tea
 
 Every time you tap Run, you test different websites from the Citizen Lab's [global](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) and [country-specific](https://github.com/citizenlab/test-lists/tree/master/lists) test lists.
 
-To test the sites of your choice, tap the Choose websites button or select categories of sites via the settings of this card.
+To test the sites of your choice, tap the Choose websites button or select categories of sites via the settings of this card. 
 
 This test measures whether websites are blocked by means of DNS tampering, TCP/IP blocking or by a transparent HTTP proxy.
 
@@ -70,5 +70,5 @@ Globálna komunita OONI meria siete od roku 2012 vo viac ako 200 krajinách. Nie
   <string name="Settings_About_Content_Blog">Blog</string>
   <string name="Settings_About_Content_Reports">Podania</string>
   <string name="Settings_About_Content_DataPolicy">Dátová politika OONI</string>
-    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>

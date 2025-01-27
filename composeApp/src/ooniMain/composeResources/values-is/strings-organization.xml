@@ -2,13 +2,13 @@
 <resources>
   <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
   <string name="Onboarding_WhatIsOONIProbe_Title">Hvað er OONI Probe?</string>
-  <string name="Onboarding_WhatIsOONIProbe_Paragraph">Forritið þitt til að mæla ritskoðun á internetinu.
+  <string name="Onboarding_WhatIsOONIProbe_Paragraph">Forritið þitt til að mæla ritskoðun á internetinu. 
 
 Er lokað á vefsvæði og samfélagsmiðla? Er internet-tengingin óvenjulega hægvirk?
 
 Keyrðu OONI Probe til að sjá hvað er í gangi!</string>
   <string name="Onboarding_ThingsToKnow_Bullet_1">Gögn úr OONI eru birt opinberlega og munu innihalda upplýsingar um netkerfið þitt.</string>
-  <string name="Onboarding_ThingsToKnow_Bullet_2">Það er hugsanlegt að hver sá sem fylgist með netumferðinni þinni (t.d.
+  <string name="Onboarding_ThingsToKnow_Bullet_2">Það er hugsanlegt að hver sá sem fylgist með netumferðinni þinni (t.d. 
 stjórnvöld, netþjónustan þín, o.fl.) geti greint að þú sért að keyra OONI Probe.</string>
   <string name="Onboarding_ThingsToKnow_Bullet_3">Þú gætir prófað bönnuð vefsvæði (en þú getur valið hvaða vefsvæði á að prófa).</string>
   <string name="Onboarding_PopQuiz_1_Question">Ef einhver er að fylgjast með netumferðinni minni, geta þeir séð að ég er að keyra OONI Probe.</string>
@@ -17,7 +17,7 @@ stjórnvöld, netþjónustan þín, o.fl.) geti greint að þú sért að keyra 
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Til að auka gegnsæi upplýsinga um ritskoðun internetsins, eru netkerfisgögn allra notenda OONI Probe birtar opinberlega (nema að þeir biðji sérstaklega um annað í stillingum sínum).</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">Til að mæla ritskoðun internetsins daglega, skaltu virkja sjálfvirkar prófanir svo að OONI Probe geti keyrt prófanir eftir þörfum.
 
-Ekki hafa áhyggjur, við tökum tillit til rafhlöðuendingar.
+Ekki hafa áhyggjur, við tökum tillit til rafhlöðuendingar. 
 
 Þú getur gert sjálfvirkar prófanir óvirkar hvenær sem er.</string>
   <string name="Onboarding_Crash_Paragraph">Til að bæta OONI Probe myndum við vilja safna nafnlausum hrunskýrslum þegar forritið virkar ekki sem skyldi.
@@ -28,7 +28,7 @@ Vilt þú bjóðast til að senda hrunskýrslur til OONI-þróunarteymisins?</st
 
 Í hvert skipti sem þú ýtir á 'Keyra' muntu prófa þau vefsvæði sem innifalin eru í [almennu](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) og [lands-sértæku](https://github.com/citizenlab/test-lists/tree/master/lists) prófunarlistunum hjá Citizen Lab.
 
-Til að prófa vefsvæði að eigin vali, skaltu ýta á hnappinn til að velja vefsvæði eða velja flokka vefsvæða í gegnum stillingar þessa spjalds.
+Til að prófa vefsvæði að eigin vali, skaltu ýta á hnappinn til að velja vefsvæði eða velja flokka vefsvæða í gegnum stillingar þessa spjalds. 
 
 Þetta prófar hvort lokað sé á vefi með því að fikta við DNS, lokun með TCP/IP eða með gegnsæum HTTP-milliþjónum (proxy).
 
@@ -71,5 +71,5 @@ Síðan árið 2012, hafa aðilar á vegum OONI um víða veröld verið að mæ
   <string name="Settings_About_Content_Blog">Blogg</string>
   <string name="Settings_About_Content_Reports">Skýrslur</string>
   <string name="Settings_About_Content_DataPolicy">Gagnaleyndarstefna OONI</string>
-    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>

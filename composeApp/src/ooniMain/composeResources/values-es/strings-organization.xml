@@ -2,7 +2,7 @@
 <resources>
   <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
   <string name="Onboarding_WhatIsOONIProbe_Title">¿Qué es OONI Probe?</string>
-  <string name="Onboarding_WhatIsOONIProbe_Paragraph">Tu aplicación para medir censura en Internet.
+  <string name="Onboarding_WhatIsOONIProbe_Paragraph">Tu aplicación para medir censura en Internet. 
 
 ¿Los sitios web y aplicaciones de redes sociales están siendo bloqueados? ¿Tu conexión a Internet es inusualmente lenta?
 
@@ -16,7 +16,7 @@
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Para incrementar la transparencia de la censura en Internet, los datos de red de todos los usuarios de OONI Probe son automáticamente publicados (a menos que opten por no hacerlo en las configuraciones).</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">Para medir la censura en Internet todos los días, por favor habilita las pruebas automáticas, de manera que OONI Probe pueda ejecutar pruebas periódicamente.
 
-No te preocupes, estaremos muy conscientes del uso de la batería.
+No te preocupes, estaremos muy conscientes del uso de la batería. 
 
 Puedes deshabilitar las pruebas automáticas desde la configuración en cualquier momento.</string>
   <string name="Onboarding_Crash_Paragraph">Para mejorar OONI Probe nos gustaría recolectar informes de error anónimos cuando la aplicación no funcione apropiadamente.
@@ -70,5 +70,5 @@ Desde 2012, la comunidad global de OONI ha estado midiendo redes en más de 200 
   <string name="Settings_About_Content_Blog">Blog</string>
   <string name="Settings_About_Content_Reports">Reportes</string>
   <string name="Settings_About_Content_DataPolicy">Política de datos OONI</string>
-    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>

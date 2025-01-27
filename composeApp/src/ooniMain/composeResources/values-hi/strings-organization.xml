@@ -16,7 +16,7 @@
   <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">इंटरनेट सेंसरशिप की पारदर्शिता बढ़ाने के लिए, सभी OONI जांच उपयोगकर्ताओं का नेटवर्क डेटा स्वचालित रूप से प्रकाशित होता है (जब तक वे सेटिंग्स में ऑप्ट-आउट नहीं करते)।</string>
   <string name="Onboarding_AutomatedTesting_Paragraph">To measure internet censorship every day, please enable automated testing so that OONI Probe can run tests periodically.
 
-Don't worry, we'll be mindful of battery usage.
+Don't worry, we'll be mindful of battery usage. 
 
 You can disable automated testing from the settings at any time.</string>
   <string name="Onboarding_Crash_Paragraph">OONI प्रोब को और बहतर बनाने के लिए हम दुर्घटनाओं की जानकारी अज्ञात्त तरीके से इक्कठा करना चाहते है जब ऐप तरीके से काम ना करे।
@@ -70,5 +70,5 @@ OONI की [HTTP Invalid Request Line](https://ooni.org/nettest/http-invalid-re
   <string name="Settings_About_Content_Blog">ब्लॉग</string>
   <string name="Settings_About_Content_Reports">Reports</string>
   <string name="Settings_About_Content_DataPolicy">OONI डेटा नीति</string>
-    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>

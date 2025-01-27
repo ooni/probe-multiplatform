@@ -27,7 +27,7 @@ Otomatik sınamayı istediğiniz zaman ayarlardan kapatabilirsiniz.</string>
 
 Çalıştır üzerine her tıkladığınızda, Citizen Lab [küresel](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) ve [ülkeye özel](https://github.com/citizenlab/test-lists/tree/master/lists) sınama listelerindeki çeşitli siteler denetlenir.
 
-Belirli siteleri sınamak için siteleri seçin düğmesine tıklayın ya da bu kartın ayarlarından kategoriyi ya da siteleri seçin.
+Belirli siteleri sınamak için siteleri seçin düğmesine tıklayın ya da bu kartın ayarlarından kategoriyi ya da siteleri seçin. 
 
 Bu sınama sitelerin DNS müdahalesi, TCP/IP engelleme ya da görünmez vekil sunucu ile engellenip engellenmediğini ortaya çıkarır.
 
@@ -70,5 +70,5 @@ Küresel OONI topluluğu 2012 yılından beri 200 üzerinde ülkedeki milyonlarc
   <string name="Settings_About_Content_Blog">Günlük</string>
   <string name="Settings_About_Content_Reports">Raporlar</string>
   <string name="Settings_About_Content_DataPolicy">OONI veri işleme ilkesi</string>
-    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
+  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>
