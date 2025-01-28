@@ -18,7 +18,7 @@ class OperationsManager(private val dependencies: Dependencies, private val back
     // https://developer.apple.com/documentation/foundation/nsdate/1410206-timeintervalsince
     fun startSingleRun(spec: RunSpecification) {
         val startDateTime = NSDate()
-        val differed = CoroutineScope(Dispatchers.Default).async {
+        val deferred = CoroutineScope(Dispatchers.Default).async {
             try {
                 dependencies.runBackgroundTask(spec).collect()
                 Logger.i { "Job finished successfully in ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
@@ -26,18 +26,18 @@ class OperationsManager(private val dependencies: Dependencies, private val back
                 Logger.e(e) { "Job failed with exception in ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
             }
         }
-        backgroundRunner(background = {
-            differed.start()
-        }, cancel = {
-            differed.cancel()
-            Logger.i { "Job cancelled after ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
+        backgroundRunner(onDoInBackground = {
+            deferred.start()
+        }, onCancel = {
+            deferred.cancel()
+            Logger.e { "Job cancelled after ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
         })
     }
 
     fun handleAutorunTask(task: BGProcessingTask) {
         Logger.d { "Handling autorun task" }
         val startDateTime = NSDate()
-        val differed = CoroutineScope(Dispatchers.Default).async {
+        val deferred = CoroutineScope(Dispatchers.Default).async {
             try {
                 dependencies.runBackgroundTask(null).collect()
                 Logger.i { "Job finished successfully in ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
@@ -47,11 +47,11 @@ class OperationsManager(private val dependencies: Dependencies, private val back
                 task.setTaskCompletedWithSuccess(false)
             }
         }
-        backgroundRunner(background = {
-            differed.start()
-        }, cancel = {
-            differed.cancel()
-            Logger.i { "Job cancelled after ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
+        backgroundRunner(onDoInBackground = {
+            deferred.start()
+        }, onCancel = {
+            deferred.cancel()
+            Logger.e { "Job cancelled after ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
         })
     }
 

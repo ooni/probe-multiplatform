@@ -3,10 +3,10 @@ import UIKit
 
 class IosBackgroundRunner : BackgroundRunner {
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
-    
+
     /// Invoke the given task in the background.
-    func invoke(background: @escaping ()  -> Void,cancel: @escaping ()  -> Void) {
-        
+    func invoke(onDoInBackground: @escaping ()  -> Void,onCancel: @escaping ()  -> Void) {
+
         // Perform the task on a background queue.
         DispatchQueue.global().async {
             // Request the task assertion and save the ID.
@@ -14,12 +14,12 @@ class IosBackgroundRunner : BackgroundRunner {
                 // End the task if time expires.
                 UIApplication.shared.endBackgroundTask(self.backgroundTask)
                 self.backgroundTask = UIBackgroundTaskIdentifier.invalid
-                cancel()
+                onCancel()
             }
-            
+
             // run background operation synchronously.
-            background()
-            
+            onDoInBackground()
+
             // End the task assertion.
             UIApplication.shared.endBackgroundTask(self.backgroundTask)
             self.backgroundTask = UIBackgroundTaskIdentifier.invalid
