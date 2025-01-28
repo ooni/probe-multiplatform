@@ -1,4 +1,4 @@
-package org.ooni.probe.domain
+package org.ooni.probe.domain.descriptors
 
 import org.ooni.engine.models.TestType
 import org.ooni.engine.models.WebConnectivityCategory

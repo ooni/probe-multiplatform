@@ -52,7 +52,7 @@ class AndroidApplication : Application() {
             startSingleRunInner = appWorkerManager::startSingleRun,
             configureAutoRun = appWorkerManager::configureAutoRun,
             configureDescriptorAutoUpdate = appWorkerManager::configureDescriptorAutoUpdate,
-            fetchDescriptorUpdate = appWorkerManager::fetchDescriptorUpdate,
+            startDescriptorsUpdate = appWorkerManager::startDescriptorsUpdate,
             launchAction = ::launchAction,
             batteryOptimization = batteryOptimization,
             flavorConfig = FlavorConfig(),

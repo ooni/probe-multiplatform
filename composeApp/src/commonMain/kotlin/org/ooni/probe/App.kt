@@ -99,7 +99,7 @@ fun App(
         dependencies.bootstrapTestDescriptors()
         dependencies.bootstrapPreferences()
         dependencies.configureDescriptorAutoUpdate()
-        dependencies.fetchDescriptorUpdate(null)
+        dependencies.startDescriptorsUpdate(null)
         dependencies.startSingleRunInner(RunSpecification.OnlyUploadMissingResults)
     }
     LaunchedEffect(Unit) {

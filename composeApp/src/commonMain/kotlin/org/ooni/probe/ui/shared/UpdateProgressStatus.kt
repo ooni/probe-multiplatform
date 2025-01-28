@@ -24,11 +24,11 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Progress_UpdateLink_La
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.data.models.UpdateStatusType
+import org.ooni.probe.data.models.DescriptorUpdateOperationState
 
 @Composable
 fun UpdateProgressStatus(
-    type: UpdateStatusType,
+    type: DescriptorUpdateOperationState,
     modifier: Modifier = Modifier,
     contentModifier: Modifier = Modifier,
     onReviewLinkClicked: () -> Unit = {},
@@ -43,17 +43,17 @@ fun UpdateProgressStatus(
                 .fillMaxWidth()
                 .height(56.dp)
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-            horizontalArrangement = if (type == UpdateStatusType.FetchingUpdates) {
+            horizontalArrangement = if (type == DescriptorUpdateOperationState.FetchingUpdates) {
                 Arrangement.spacedBy(10.dp)
             } else {
                 Arrangement.SpaceBetween
             },
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            if (type == UpdateStatusType.FetchingUpdates) {
+            if (type == DescriptorUpdateOperationState.FetchingUpdates) {
                 CircularProgressIndicator()
                 Text(stringResource(Res.string.Dashboard_Progress_UpdateLink_Label))
-            } else if (type == UpdateStatusType.ReviewLink) {
+            } else if (type == DescriptorUpdateOperationState.ReviewNecessaryNotice) {
                 Text(stringResource(Res.string.Dashboard_Progress_ReviewLink_Label))
                 Row {
                     TextButton(onClick = onReviewLinkClicked) {

@@ -86,7 +86,7 @@ class SetupDependencies(
         startSingleRunInner = ::startSingleRun,
         configureAutoRun = ::configureAutoRun,
         configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
-        fetchDescriptorUpdate = ::fetchDescriptorUpdate,
+        startDescriptorsUpdate = ::startDescriptorsUpdate,
         localeDirection = ::localeDirection,
         launchAction = ::launchAction,
         batteryOptimization = object : BatteryOptimization {},
@@ -293,8 +293,8 @@ class SetupDependencies(
         )
     }
 
-    fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
-        operationsManager.fetchDescriptorUpdate(descriptors)
+    fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
+        operationsManager.startDescriptorsUpdate(descriptors)
     }
 
     private fun shareText(share: PlatformAction.Share): Boolean {

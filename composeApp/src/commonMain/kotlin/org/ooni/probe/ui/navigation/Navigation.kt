@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import org.ooni.probe.LocalSnackbarHostState
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -84,7 +85,7 @@ fun Navigation(
                         navController.safeNavigate(Screen.Descriptor(descriptorKey))
                     },
                     goToReviewDescriptorUpdates = {
-                        navController.safeNavigate(Screen.ReviewUpdates)
+                        navController.safeNavigate(Screen.ReviewUpdates(it))
                     },
                 )
             }
@@ -290,7 +291,7 @@ fun Navigation(
                     descriptorKey = descriptorKey,
                     onBack = { navController.goBack() },
                     goToReviewDescriptorUpdates = {
-                        navController.safeNavigate(Screen.ReviewUpdates)
+                        navController.safeNavigate(Screen.ReviewUpdates(it))
                     },
                     goToChooseWebsites = { navController.safeNavigate(Screen.ChooseWebsites()) },
                 )
@@ -299,9 +300,17 @@ fun Navigation(
             DescriptorScreen(state, viewModel::onEvent)
         }
 
-        composable(route = Screen.ReviewUpdates.route) {
+        composable(
+            route = Screen.ReviewUpdates.NAV_ROUTE,
+            arguments = Screen.ReviewUpdates.ARGUMENTS,
+        ) { entry ->
+            val ids = entry.arguments?.getString("ids")
+                ?.ifEmpty { null }
+                ?.split(",")
+                ?.map { InstalledTestDescriptorModel.Id(it) }
             val viewModel = viewModel {
                 dependencies.reviewUpdatesViewModel(
+                    descriptorIds = ids,
                     onBack = { navController.goBack() },
                 )
             }

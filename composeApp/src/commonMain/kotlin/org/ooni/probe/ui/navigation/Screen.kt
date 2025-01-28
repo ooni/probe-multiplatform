@@ -2,6 +2,7 @@ package org.ooni.probe.ui.navigation
 
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -105,5 +106,18 @@ sealed class Screen(
         }
     }
 
-    data object ReviewUpdates : Screen("review-updates")
+    data class ReviewUpdates(
+        val descriptorIds: List<InstalledTestDescriptorModel.Id>? = null,
+    ) : Screen("review-updates?ids=${descriptorIds?.joinToString(",") { it.value }.orEmpty()}") {
+        companion object {
+            const val NAV_ROUTE = "review-updates?ids={ids}"
+            val ARGUMENTS = listOf(
+                navArgument("ids") {
+                    type = NavType.StringType
+                    defaultValue = null
+                    nullable = true
+                },
+            )
+        }
+    }
 }

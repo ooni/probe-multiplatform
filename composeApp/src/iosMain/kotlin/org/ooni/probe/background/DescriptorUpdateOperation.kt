@@ -7,13 +7,13 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.repositories.TestDescriptorRepository
-import org.ooni.probe.domain.FetchDescriptorUpdate
+import org.ooni.probe.domain.descriptors.FetchDescriptorsUpdates
 import platform.Foundation.NSOperation
 
 class DescriptorUpdateOperation(
     private val descriptors: List<InstalledTestDescriptorModel>? = null,
     private val testDescriptorRepository: TestDescriptorRepository? = null,
-    private val fetchDescriptorUpdate: FetchDescriptorUpdate,
+    private val fetchDescriptorsUpdates: FetchDescriptorsUpdates,
 ) : NSOperation() {
     init {
         require(descriptors != null || testDescriptorRepository != null) {
@@ -24,8 +24,8 @@ class DescriptorUpdateOperation(
     override fun main() {
         super.main()
         CoroutineScope(SupervisorJob() + Dispatchers.Default).launch {
-            fetchDescriptorUpdate.invoke(
-                descriptors ?: testDescriptorRepository!!.listAll().first(),
+            fetchDescriptorsUpdates.invoke(
+                descriptors ?: testDescriptorRepository!!.listLatest().first(),
             )
         }
     }

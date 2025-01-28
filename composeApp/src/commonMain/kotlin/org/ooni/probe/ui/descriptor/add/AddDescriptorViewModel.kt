@@ -17,7 +17,7 @@ import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.toDescriptor
 import org.ooni.probe.data.repositories.PreferenceRepository
-import org.ooni.probe.domain.SaveTestDescriptors
+import org.ooni.probe.domain.descriptors.SaveTestDescriptors
 import org.ooni.probe.ui.shared.SelectableItem
 
 class AddDescriptorViewModel(

@@ -13,11 +13,11 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
-import org.ooni.probe.data.models.DescriptorUpdatesStatus
+import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.TestRunError
-import org.ooni.probe.data.models.UpdateStatusType
+import org.ooni.probe.data.models.DescriptorUpdateOperationState
 
 class DashboardViewModel(
     goToOnboarding: () -> Unit,
@@ -26,15 +26,14 @@ class DashboardViewModel(
     goToRunTests: () -> Unit,
     goToDescriptor: (String) -> Unit,
     getFirstRun: () -> Flow<Boolean>,
-    goToReviewDescriptorUpdates: () -> Unit,
+    goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     observeRunBackgroundState: Flow<RunBackgroundState>,
     observeTestRunErrors: Flow<TestRunError>,
     shouldShowVpnWarning: suspend () -> Boolean,
-    fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>) -> Unit,
-    reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
-    observeAvailableUpdatesState: () -> Flow<DescriptorUpdatesStatus>,
-    cancelUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
+    observeDescriptorUpdateState: () -> Flow<DescriptorsUpdateState>,
+    startDescriptorsUpdates: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
+    dismissDescriptorsUpdateNotice: () -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -47,12 +46,12 @@ class DashboardViewModel(
             .onEach { firstRun -> if (firstRun) goToOnboarding() }
             .launchIn(viewModelScope)
 
-        observeAvailableUpdatesState()
+        observeDescriptorUpdateState()
             .onEach { updates ->
                 _state.update {
                     it.copy(
                         availableUpdates = updates.availableUpdates.toList(),
-                        refreshType = updates.refreshType,
+                        descriptorsUpdateOperationState = updates.operationState,
                     )
                 }
             }
@@ -112,50 +111,33 @@ class DashboardViewModel(
 
         events
             .filterIsInstance<Event.FetchUpdatedDescriptors>()
-            .onEach {
-                state.value.descriptors[DescriptorType.Installed]
-                    ?.map { (it.source as Descriptor.Source.Installed).value }
-                    ?.let { descriptors ->
-                        fetchDescriptorUpdate(descriptors)
-                    }
-            }.launchIn(viewModelScope)
+            .onEach { startDescriptorsUpdates(null) }
+            .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ReviewUpdatesClicked>()
             .onEach {
-                _state.update {
-                    it.copy(
-                        refreshType = UpdateStatusType.None,
-                    )
-                }
-                reviewUpdates(state.value.availableUpdates)
-                goToReviewDescriptorUpdates()
+                dismissDescriptorsUpdateNotice()
+                goToReviewDescriptorUpdates(null)
             }
             .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.UpdateDescriptorClicked>()
             .onEach {
-                reviewUpdates(
+                dismissDescriptorsUpdateNotice()
+                goToReviewDescriptorUpdates(
                     listOf(
-                        (it.descriptor.source as? Descriptor.Source.Installed)?.value
+                        (it.descriptor.source as? Descriptor.Source.Installed)?.value?.id
                             ?: return@onEach,
                     ),
                 )
-                goToReviewDescriptorUpdates()
             }
             .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.CancelUpdatesClicked>()
-            .onEach {
-                cancelUpdates(state.value.availableUpdates)
-                _state.update {
-                    it.copy(
-                        refreshType = UpdateStatusType.None,
-                    )
-                }
-            }
+            .onEach { dismissDescriptorsUpdateNotice() }
             .launchIn(viewModelScope)
     }
 
@@ -175,10 +157,10 @@ class DashboardViewModel(
         val testRunErrors: List<TestRunError> = emptyList(),
         val showVpnWarning: Boolean = false,
         val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
-        val refreshType: UpdateStatusType = UpdateStatusType.None,
+        val descriptorsUpdateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
     ) {
         val isRefreshing: Boolean
-            get() = refreshType != UpdateStatusType.None
+            get() = descriptorsUpdateOperationState == DescriptorUpdateOperationState.FetchingUpdates
     }
 
     sealed interface Event {
