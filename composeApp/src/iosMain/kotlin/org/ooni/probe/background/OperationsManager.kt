@@ -13,6 +13,7 @@ import platform.Foundation.NSDate
 import platform.Foundation.NSOperationQueue
 import platform.Foundation.timeIntervalSinceDate
 import platform.UIKit.UIApplication
+import io.sentry.kotlin.multiplatform.Sentry
 
 class OperationsManager(private val dependencies: Dependencies, private val backgroundRunner: BackgroundRunner) {
     // https://developer.apple.com/documentation/foundation/nsdate/1410206-timeintervalsince
@@ -22,8 +23,10 @@ class OperationsManager(private val dependencies: Dependencies, private val back
             try {
                 dependencies.runBackgroundTask(spec).collect()
                 Logger.i { "Job finished successfully in ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
+                Sentry.captureMessage("Job finished")
             } catch (e: Exception) {
                 Logger.e(e) { "Job failed with exception in ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
+                Sentry.captureMessage("Job failed")
             }
         }
         backgroundRunner(background = {
@@ -31,6 +34,7 @@ class OperationsManager(private val dependencies: Dependencies, private val back
         }, cancel = {
             differed.cancel()
             Logger.i { "Job cancelled after ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
+            Sentry.captureMessage("Job Canceled")
         })
     }
 
@@ -42,9 +46,11 @@ class OperationsManager(private val dependencies: Dependencies, private val back
                 dependencies.runBackgroundTask(null).collect()
                 Logger.i { "Job finished successfully in ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
                 task.setTaskCompletedWithSuccess(true)
+                Sentry.captureMessage("Job finished")
             } catch (e: Exception) {
                 Logger.e(e) { "Job failed with exception in ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
                 task.setTaskCompletedWithSuccess(false)
+                Sentry.captureMessage("Job failed")
             }
         }
         backgroundRunner(background = {
@@ -52,6 +58,7 @@ class OperationsManager(private val dependencies: Dependencies, private val back
         }, cancel = {
             differed.cancel()
             Logger.i { "Job cancelled after ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
+            Sentry.captureMessage("Job Canceled")
         })
     }
 
