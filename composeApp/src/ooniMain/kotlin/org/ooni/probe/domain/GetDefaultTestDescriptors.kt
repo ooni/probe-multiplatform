@@ -132,14 +132,32 @@ class GetDefaultTestDescriptors {
                         isBackgroundRunEnabled = true,
                     ),
                 ),
-                NetTest(TestType.Experimental(name = "echcheck")),
-                NetTest(TestType.Experimental(name = "dnscheck")),
+                NetTest(
+                    TestType.Experimental(
+                        name = "echcheck",
+                        isBackgroundRunEnabled = true,
+                    ),
+                ),
+                NetTest(
+                    TestType.Experimental(
+                        name = "dnscheck",
+                        isBackgroundRunEnabled = true,
+                    ),
+                ),
             ),
             longRunningTests = listOf(
-                NetTest(TestType.Experimental(name = "torsf")),
+                NetTest(
+                    TestType.Experimental(
+                        name = "torsf",
+                        isBackgroundRunEnabled = true,
+                        isManualRunEnabled = false,
+                    ),
+                ),
                 NetTest(
                     TestType.Experimental(
                         name = "vanilla_tor",
+                        isBackgroundRunEnabled = true,
+                        isManualRunEnabled = false,
                     ),
                 ),
             ),
