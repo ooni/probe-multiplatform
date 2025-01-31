@@ -44,6 +44,7 @@ data class InstalledTestDescriptorModel(
     val dateCreated: LocalDateTime?,
     val dateUpdated: LocalDateTime?,
     val revisions: List<String>? = emptyList(),
+    val rejectedRevision: Long? = null,
     val autoUpdate: Boolean,
 ) {
     @Serializable
@@ -145,4 +146,5 @@ fun InstalledTestDescriptorModel.toDb(json: Json) =
             Logger.e(e) { "Failed to encode revisions" }
             null
         },
+        rejected_revision = rejectedRevision,
     )

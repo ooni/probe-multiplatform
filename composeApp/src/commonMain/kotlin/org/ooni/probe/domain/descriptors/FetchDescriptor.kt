@@ -1,4 +1,4 @@
-package org.ooni.probe.domain
+package org.ooni.probe.domain.descriptors
 
 import co.touchlab.kermit.Logger
 import kotlinx.serialization.SerializationException

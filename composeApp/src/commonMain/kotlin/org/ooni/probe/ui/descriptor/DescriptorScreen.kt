@@ -60,7 +60,6 @@ import org.ooni.probe.ui.shared.MarkdownViewer
 import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.UpdateProgressStatus
-import org.ooni.probe.ui.shared.UpdatesChip
 import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
@@ -177,7 +176,7 @@ fun DescriptorScreen(
             UpdateProgressStatus(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 contentModifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
-                type = state.refreshType,
+                type = state.updateOperationState,
             )
         }
 
@@ -266,12 +265,7 @@ private fun DescriptorDetails(
                 ExpiredChip()
             }
 
-            if (descriptor.updateStatus is UpdateStatus.UpdateRejected) {
-                UpdatesChip(
-                    onClick = { onEvent(DescriptorViewModel.Event.UpdateDescriptor) },
-                    modifier = Modifier.padding(top = 8.dp),
-                )
-            } else if (descriptor.updateStatus is UpdateStatus.Updatable) {
+            if (descriptor.updateStatus is UpdateStatus.Updatable) {
                 OutlinedButton(
                     onClick = { onEvent(DescriptorViewModel.Event.UpdateDescriptor) },
                     border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(

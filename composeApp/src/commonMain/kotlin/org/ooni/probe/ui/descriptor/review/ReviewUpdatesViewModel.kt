@@ -6,20 +6,21 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.ooni.probe.data.models.Descriptor
-import org.ooni.probe.data.models.DescriptorUpdatesStatus
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.update
+import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.toDescriptor
-import org.ooni.probe.domain.SaveTestDescriptors
 
 class ReviewUpdatesViewModel(
+    private val ids: List<InstalledTestDescriptorModel.Id>?,
     private val onBack: () -> Unit,
-    saveTestDescriptors: suspend (List<InstalledTestDescriptorModel>, SaveTestDescriptors.Mode) -> Unit,
-    observeAvailableUpdatesState: () -> Flow<DescriptorUpdatesStatus>,
-    cancelUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
-    markAsUpdated: (List<InstalledTestDescriptorModel>) -> Unit,
+    observeDescriptorsUpdateState: () -> Flow<DescriptorsUpdateState>,
+    acceptDescriptorUpdate: suspend (InstalledTestDescriptorModel) -> Unit,
+    rejectDescriptorUpdate: suspend (InstalledTestDescriptorModel) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -27,46 +28,50 @@ class ReviewUpdatesViewModel(
     val state = _state.asStateFlow()
 
     init {
-        observeAvailableUpdatesState()
-            .onEach {
-                _state.value = _state.value.copy(descriptors = it.reviewUpdates.toList())
+        observeDescriptorsUpdateState()
+            .take(1)
+            .onEach { updateState ->
+                val descriptorsToReview = updateState.availableUpdates.filter {
+                    ids == null || ids.contains(it.id)
+                }
+                if (descriptorsToReview.isEmpty()) {
+                    onBack()
+                    return@onEach
+                }
+                _state.update { state ->
+                    state.copy(descriptors = descriptorsToReview)
+                }
             }
             .launchIn(viewModelScope)
 
-        events.onEach {
-            when (it) {
-                is Event.CancelClicked -> {
-                    val state = _state.value
-                    cancelUpdates(
-                        state.descriptors.subList(
-                            state.currentDescriptorIndex,
-                            state.descriptors.size,
-                        ),
-                    )
-                    onBack()
-                }
+        events
+            .filterIsInstance<Event.BackClicked>()
+            .onEach { onBack() }
+            .launchIn(viewModelScope)
 
-                is Event.UpdateDescriptorClicked -> {
-                    if (it.index <= _state.value.descriptors.size) {
-                        val descriptor = _state.value.descriptors[it.index]
-                        saveTestDescriptors(
-                            listOf(descriptor),
-                            SaveTestDescriptors.Mode.CreateOrUpdate,
-                        )
-                        markAsUpdated(listOf(descriptor))
-                        navigateToNextItemOrClose(it.index)
-                    } else {
-                        onBack()
-                    }
-                }
+        events
+            .filterIsInstance<Event.UpdateClicked>()
+            .onEach {
+                val descriptor = _state.value.currentInstalledDescriptor ?: return@onEach
+                acceptDescriptorUpdate(descriptor)
+                navigateToNextItemOrClose()
             }
-        }.launchIn(viewModelScope)
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.RejectClicked>()
+            .onEach {
+                val descriptor = _state.value.currentInstalledDescriptor ?: return@onEach
+                rejectDescriptorUpdate(descriptor)
+                navigateToNextItemOrClose()
+            }
+            .launchIn(viewModelScope)
     }
 
-    private fun navigateToNextItemOrClose(index: Int) {
-        val nextIndex = index + 1
-        if (nextIndex < _state.value.descriptors.size) {
-            _state.value = _state.value.copy(currentDescriptorIndex = nextIndex)
+    private fun navigateToNextItemOrClose() {
+        val state = _state.value
+        if (state.index + 1 < state.descriptors.size) {
+            _state.update { it.copy(index = state.index + 1) }
         } else {
             onBack()
         }
@@ -78,15 +83,19 @@ class ReviewUpdatesViewModel(
 
     data class State(
         val descriptors: List<InstalledTestDescriptorModel> = emptyList(),
-        val currentDescriptorIndex: Int = 0,
+        val index: Int = 0,
     ) {
-        val currentDescriptor: Descriptor?
-            get() = descriptors.getOrNull(currentDescriptorIndex)?.toDescriptor()
+        val currentInstalledDescriptor: InstalledTestDescriptorModel?
+            get() = descriptors.getOrNull(index)
+        val currentDescriptor
+            get() = currentInstalledDescriptor?.toDescriptor()
     }
 
-    sealed class Event {
-        data object CancelClicked : Event()
+    sealed interface Event {
+        data object BackClicked : Event
 
-        data class UpdateDescriptorClicked(val index: Int) : Event()
+        data object RejectClicked : Event
+
+        data object UpdateClicked : Event
     }
 }

@@ -34,14 +34,8 @@ data class Descriptor(
 
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 
-    val updatable get() = updatedDescriptor != null
-
     val updatedDescriptor
-        get() = when (updateStatus) {
-            is UpdateStatus.Updatable -> updateStatus.updatedDescriptor
-            is UpdateStatus.UpdateRejected -> updateStatus.updatedDescriptor
-            else -> null
-        }
+        get() = (updateStatus as? UpdateStatus.Updatable)?.updatedDescriptor
 
     val key: String
         get() = when (source) {

@@ -17,12 +17,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Descriptor
-import org.ooni.probe.data.models.DescriptorUpdatesStatus
+import org.ooni.probe.data.models.DescriptorUpdateOperationState
+import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.data.models.UpdateStatusType
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.ui.shared.SelectableItem
 import kotlin.time.Duration
@@ -31,17 +31,18 @@ import kotlin.time.Duration.Companion.seconds
 class DescriptorViewModel(
     private val descriptorKey: String,
     onBack: () -> Unit,
-    goToReviewDescriptorUpdates: () -> Unit,
+    goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
     goToChooseWebsites: () -> Unit,
     private val getLatestTestDescriptors: () -> Flow<List<Descriptor>>,
     getDescriptorLastResult: (String) -> Flow<ResultModel?>,
     private val preferenceRepository: PreferenceRepository,
     private val launchUrl: (String) -> Unit,
     deleteTestDescriptor: suspend (InstalledTestDescriptorModel) -> Unit,
-    fetchDescriptorUpdate: suspend (List<InstalledTestDescriptorModel>) -> Unit,
+    startDescriptorsUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     setAutoUpdate: suspend (InstalledTestDescriptorModel.Id, Boolean) -> Unit,
-    reviewUpdates: (List<InstalledTestDescriptorModel>) -> Unit,
-    descriptorUpdates: () -> Flow<DescriptorUpdatesStatus>,
+    observeDescriptorsUpdateState: () -> Flow<DescriptorsUpdateState>,
+    dismissDescriptorReviewNotice: () -> Unit,
+    undoRejectedDescriptorUpdate: suspend (InstalledTestDescriptorModel.Id) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -49,15 +50,11 @@ class DescriptorViewModel(
     val state = _state.asStateFlow()
 
     init {
-        descriptorUpdates()
-            .onEach { results ->
+        observeDescriptorsUpdateState()
+            .onEach { updateState ->
                 _state.update {
                     it.copy(
-                        refreshType = if (results.refreshType != UpdateStatusType.ReviewLink) {
-                            results.refreshType
-                        } else {
-                            UpdateStatusType.None
-                        },
+                        updateOperationState = updateState.operationState,
                     )
                 }
             }
@@ -163,22 +160,25 @@ class DescriptorViewModel(
                 val descriptor = state.value.descriptor ?: return@onEach
 
                 if (descriptor.source !is Descriptor.Source.Installed) return@onEach
-                _state.update {
-                    it.copy(refreshType = UpdateStatusType.UpdateLink)
-                }
-
-                fetchDescriptorUpdate(listOf(descriptor.source.value))
+                startDescriptorsUpdate(listOf(descriptor.source.value))
             }
             .launchIn(viewModelScope)
 
         events.filterIsInstance<Event.UpdateDescriptor>()
             .onEach {
                 val newDescriptor = state.value.descriptor?.updatedDescriptor ?: return@onEach
-                _state.update {
-                    it.copy(refreshType = UpdateStatusType.None)
-                }
-                reviewUpdates(listOf(newDescriptor))
-                goToReviewDescriptorUpdates()
+                dismissDescriptorReviewNotice()
+                goToReviewDescriptorUpdates(listOf(newDescriptor.id))
+            }
+            .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.UndoRejectedRevisionClicked>()
+            .onEach {
+                val descriptor =
+                    (state.value.descriptor?.source as? Descriptor.Source.Installed)?.value
+                        ?: return@onEach
+                undoRejectedDescriptorUpdate(descriptor.id)
+                startDescriptorsUpdate(listOf(descriptor))
             }
             .launchIn(viewModelScope)
 
@@ -217,10 +217,10 @@ class DescriptorViewModel(
         val estimatedTime: Duration? = null,
         val tests: List<SelectableItem<NetTest>> = emptyList(),
         val lastResult: ResultModel? = null,
-        val refreshType: UpdateStatusType = UpdateStatusType.None,
+        val updateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
     ) {
         val isRefreshing: Boolean
-            get() = refreshType != UpdateStatusType.None
+            get() = updateOperationState == DescriptorUpdateOperationState.FetchingUpdates
         val allState
             get() = when (tests.count { it.isSelected }) {
                 0 -> ToggleableState.Off
@@ -239,6 +239,8 @@ class DescriptorViewModel(
         data class UninstallClicked(val value: InstalledTestDescriptorModel) : Event
 
         data class RevisionClicked(val revision: String) : Event
+
+        data object UndoRejectedRevisionClicked : Event
 
         data class AutoUpdateChanged(val value: Boolean) : Event
 

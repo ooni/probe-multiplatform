@@ -73,6 +73,7 @@ class TestDescriptorRepository(
                         date_updated = installedModel.date_updated,
                         auto_update = installedModel.auto_update,
                         revisions = installedModel.revisions,
+                        rejected_revision = installedModel.rejected_revision,
                     )
                 }
             }
@@ -103,6 +104,7 @@ class TestDescriptorRepository(
                         date_updated = installedModel.date_updated,
                         auto_update = installedModel.auto_update,
                         revisions = installedModel.revisions,
+                        rejected_revision = installedModel.rejected_revision,
                     )
                     database.testDescriptorQueries.clearOldNetTests(
                         installedModel.runId,
@@ -121,6 +123,18 @@ class TestDescriptorRepository(
             database.testDescriptorQueries.setAutoUpdate(
                 auto_update = if (autoUpdate) 1 else 0,
                 runId = runId.value,
+            )
+        }
+    }
+
+    suspend fun updateRejectedRevision(
+        runId: InstalledTestDescriptorModel.Id,
+        rejectedRevision: Long?,
+    ) {
+        withContext(backgroundContext) {
+            database.testDescriptorQueries.updateRejectedRevision(
+                runId = runId.value,
+                rejected_revision = rejectedRevision,
             )
         }
     }
@@ -160,5 +174,6 @@ class TestDescriptorRepository(
                     emptyList()
                 }
             },
+            rejectedRevision = rejected_revision,
         )
 }

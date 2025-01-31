@@ -1,4 +1,4 @@
-package org.ooni.probe.domain
+package org.ooni.probe.domain.descriptors
 
 import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +11,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.data.models.DefaultTestDescriptor
 import org.ooni.probe.data.models.Descriptor
-import org.ooni.probe.data.models.DescriptorUpdatesStatus
+import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.UpdateStatus
@@ -21,7 +21,7 @@ class GetTestDescriptors(
     private val getDefaultTestDescriptors: () -> List<DefaultTestDescriptor>,
     private val listAllInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
     private val listLatestInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
-    private val descriptorUpdates: () -> Flow<DescriptorUpdatesStatus>,
+    private val observeDescriptorsUpdateState: () -> Flow<DescriptorsUpdateState>,
     private val getPreferenceValues: (List<SettingsKey>) -> Flow<Map<SettingsKey, Any?>>,
 ) {
     // Warning: this list will bring duplicated descriptors of different revisions
@@ -32,7 +32,7 @@ class GetTestDescriptors(
     private fun get(installedDescriptorFlow: () -> Flow<List<InstalledTestDescriptorModel>>): Flow<List<Descriptor>> {
         return combine(
             installedDescriptorFlow(),
-            descriptorUpdates(),
+            observeDescriptorsUpdateState(),
             flowOf(getDefaultTestDescriptors()),
             isWebsitesDescriptorEnabled(),
         ) { installedDescriptors, descriptorUpdates, defaultDescriptors, isWebsitesEnabled ->

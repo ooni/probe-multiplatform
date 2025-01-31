@@ -24,7 +24,9 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoUpdate
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_PreviousRevisions
+import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_RejectedUpdate
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_SeeMore
+import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_UndoRejectedUpdate
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_UninstallLink
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_Uninstall_Prompt
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
@@ -71,23 +73,57 @@ fun InstalledDescriptorActionsView(
     }
 
     Column(modifier = modifier.padding(top = 16.dp)) {
-        val revisions = descriptor.previousRevisions
+        descriptor.rejectedRevision?.let { rejectedRevision ->
+            Column(Modifier.padding(bottom = 16.dp)) {
+                Text(
+                    text = stringResource(Res.string.Dashboard_Runv2_Overview_RejectedUpdate),
+                    style = MaterialTheme.typography.titleMedium,
+                )
 
-        if (revisions.isNotEmpty()) {
-            Text(text = stringResource(Res.string.Dashboard_Runv2_Overview_PreviousRevisions))
-
-            revisions.take(5).forEach { revision ->
-                TextButton(
-                    onClick = { onEvent(DescriptorViewModel.Event.RevisionClicked(revision)) },
-                ) {
-                    Text(text = "#: $revision")
+                Row {
+                    Text(
+                        "v$rejectedRevision",
+                        style = MaterialTheme.typography.labelLarge,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 13.dp),
+                    )
+                    TextButton(
+                        onClick = { onEvent(DescriptorViewModel.Event.UndoRejectedRevisionClicked) },
+                    ) {
+                        Text(text = stringResource(Res.string.Dashboard_Runv2_Overview_UndoRejectedUpdate))
+                    }
                 }
             }
-            if (revisions.size > 5) {
-                TextButton(
-                    onClick = { onEvent(DescriptorViewModel.Event.SeeMoreRevisionsClicked) },
-                ) {
-                    Text(text = stringResource(Res.string.Dashboard_Runv2_Overview_SeeMore))
+        }
+
+        val previousRevisions = descriptor.previousRevisions
+
+        if (previousRevisions.isNotEmpty()) {
+            Column(Modifier.padding(bottom = 16.dp)) {
+                Text(
+                    text = stringResource(Res.string.Dashboard_Runv2_Overview_PreviousRevisions),
+                    style = MaterialTheme.typography.titleMedium,
+                )
+
+                Row {
+                    previousRevisions.take(5).forEach { revision ->
+                        TextButton(
+                            onClick = {
+                                onEvent(
+                                    DescriptorViewModel.Event.RevisionClicked(revision),
+                                )
+                            },
+                        ) {
+                            Text(text = "v$revision")
+                        }
+                    }
+                }
+
+                if (previousRevisions.size > 5) {
+                    TextButton(
+                        onClick = { onEvent(DescriptorViewModel.Event.SeeMoreRevisionsClicked) },
+                    ) {
+                        Text(text = stringResource(Res.string.Dashboard_Runv2_Overview_SeeMore))
+                    }
                 }
             }
         }

@@ -12,6 +12,8 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Dashboard_ReviewDescriptor_Button_Default
 import ooniprobe.composeapp.generated.resources.Dashboard_ReviewDescriptor_Button_Last
 import ooniprobe.composeapp.generated.resources.Dashboard_ReviewDescriptor_Label
+import ooniprobe.composeapp.generated.resources.Dashboard_ReviewDescriptor_Reject
 import ooniprobe.composeapp.generated.resources.DescriptorUpdate_Updates
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Res
@@ -39,18 +42,26 @@ fun ReviewUpdatesScreen(
     state: ReviewUpdatesViewModel.State,
     onEvent: (ReviewUpdatesViewModel.Event) -> Unit,
 ) {
-    val pagerState = rememberPagerState(initialPage = state.currentDescriptorIndex, pageCount = {
+    val pagerState = rememberPagerState(initialPage = state.index, pageCount = {
         state.descriptors.size
     })
-    val currentDescriptorIndex = state.currentDescriptorIndex + 1
+    val currentDescriptorIndex = state.index + 1
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
-            title = { Text(stringResource(Res.string.Dashboard_ReviewDescriptor_Label, currentDescriptorIndex, state.descriptors.size)) },
+            title = {
+                Text(
+                    stringResource(
+                        Res.string.Dashboard_ReviewDescriptor_Label,
+                        currentDescriptorIndex,
+                        state.descriptors.size,
+                    ),
+                )
+            },
             actions = {
                 IconButton(
                     onClick = {
                         onEvent(
-                            ReviewUpdatesViewModel.Event.CancelClicked,
+                            ReviewUpdatesViewModel.Event.BackClicked,
                         )
                     },
                 ) {
@@ -65,44 +76,45 @@ fun ReviewUpdatesScreen(
             HorizontalPager(
                 state = pagerState,
                 userScrollEnabled = false,
-            ) { page ->
+            ) {
                 state.currentDescriptor?.let {
                     ReviewItem(it)
                 }
             }
-            Row(
+            Column(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(top = 32.dp, bottom = 32.dp)
+                    .padding(vertical = 32.dp)
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                TextButton(
-                    onClick = {
-                        onEvent(ReviewUpdatesViewModel.Event.CancelClicked)
-                    },
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Text(
-                        stringResource(Res.string.Modal_Cancel),
-                    )
-                }
-
-                TextButton(
-                    onClick = {
-                        onEvent(ReviewUpdatesViewModel.Event.UpdateDescriptorClicked(state.currentDescriptorIndex))
-                    },
-                ) {
-                    Text(
-                        stringResource(
-                            if (currentDescriptorIndex == state.descriptors.size) {
-                                Res.string.Dashboard_ReviewDescriptor_Button_Last
-                            } else {
-                                Res.string.Dashboard_ReviewDescriptor_Button_Default
-                            },
-                            currentDescriptorIndex,
-                            state.descriptors.size,
+                    TextButton(
+                        onClick = { onEvent(ReviewUpdatesViewModel.Event.RejectClicked) },
+                        colors = ButtonDefaults.textButtonColors(
+                            contentColor = MaterialTheme.colorScheme.error,
                         ),
-                    )
+                    ) {
+                        Text(stringResource(Res.string.Dashboard_ReviewDescriptor_Reject))
+                    }
+
+                    Button(
+                        onClick = { onEvent(ReviewUpdatesViewModel.Event.UpdateClicked) },
+                    ) {
+                        Text(
+                            stringResource(
+                                if (currentDescriptorIndex == state.descriptors.size) {
+                                    Res.string.Dashboard_ReviewDescriptor_Button_Last
+                                } else {
+                                    Res.string.Dashboard_ReviewDescriptor_Button_Default
+                                },
+                                currentDescriptorIndex,
+                                state.descriptors.size,
+                            ),
+                        )
+                    }
                 }
             }
         }

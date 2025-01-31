@@ -44,7 +44,7 @@ object DescriptorFactory {
         netTests = netTests,
         longRunningTests = longRunningTests,
         source = Descriptor.Source.Installed(installedTestDescriptorModel),
-        updateStatus = UpdateStatus.UpToDate,
+        updateStatus = UpdateStatus.NoNewUpdate,
         summaryType = summaryType,
     )
 

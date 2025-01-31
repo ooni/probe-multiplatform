@@ -38,6 +38,7 @@ import ooniprobe.composeapp.generated.resources.logo_probe
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.isHeightCompact
@@ -121,10 +122,10 @@ fun DashboardScreen(
             }
         }
 
-        if (state.isRefreshing) {
+        if (state.descriptorsUpdateOperationState != DescriptorUpdateOperationState.Idle) {
             UpdateProgressStatus(
                 modifier = Modifier.align(Alignment.BottomCenter),
-                type = state.refreshType,
+                type = state.descriptorsUpdateOperationState,
                 onReviewLinkClicked = { onEvent(DashboardViewModel.Event.ReviewUpdatesClicked) },
                 onCancelClicked = { onEvent(DashboardViewModel.Event.CancelUpdatesClicked) },
             )

@@ -78,7 +78,7 @@ class AppWorkerManager(
         }
     }
 
-    suspend fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
+    suspend fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
         withContext(backgroundDispatcher) {
             workManager
                 .enqueueUniqueWork(

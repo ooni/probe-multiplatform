@@ -19,6 +19,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_chevron_right
 import org.jetbrains.compose.resources.painterResource
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.ui.shared.ExpiredChip
 import org.ooni.probe.ui.shared.UpdatesChip
 
@@ -54,7 +55,7 @@ fun TestDescriptorItem(
                 )
             }
         }
-        if (descriptor.updatable) {
+        if (descriptor.updateStatus is UpdateStatus.Updatable) {
             UpdatesChip(onClick = onUpdateClick)
         }
         if (descriptor.isExpired) {

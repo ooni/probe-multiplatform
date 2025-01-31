@@ -63,7 +63,7 @@ class OperationsManager(private val dependencies: Dependencies, private val back
         val getDescriptorUpdate by lazy { dependencies.getDescriptorUpdate }
         val operation = DescriptorUpdateOperation(
             testDescriptorRepository = testDescriptorRepository,
-            fetchDescriptorUpdate = getDescriptorUpdate,
+            fetchDescriptorsUpdates = getDescriptorUpdate,
         )
 
         task.expirationHandler = { operation.cancel() }
@@ -71,14 +71,14 @@ class OperationsManager(private val dependencies: Dependencies, private val back
         operationQueue.addOperation(operation)
     }
 
-    fun fetchDescriptorUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
+    fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
         Logger.d("Fetching descriptor update")
         val operationQueue = NSOperationQueue()
         val getDescriptorUpdate by lazy { dependencies.getDescriptorUpdate }
         val testDescriptorRepository by lazy { dependencies.testDescriptorRepository }
         val operation = DescriptorUpdateOperation(
             descriptors = descriptors,
-            fetchDescriptorUpdate = getDescriptorUpdate,
+            fetchDescriptorsUpdates = getDescriptorUpdate,
             testDescriptorRepository = testDescriptorRepository,
         )
         val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
