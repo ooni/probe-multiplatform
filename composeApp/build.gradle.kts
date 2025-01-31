@@ -414,6 +414,6 @@ tasks.register("runDebug", Exec::class) {
         "am",
         "start",
         "-n",
-        "${config.appId}.debug/org.ooni.probe.MainActivity",
+        "${config.appId}.dev/org.ooni.probe.MainActivity",
     )
 }

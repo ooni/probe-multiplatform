@@ -17,3 +17,4 @@ captures
 **/xcshareddata/WorkspaceSettings.xcsettings
 /iosApp/Pods/
 .kotlin
+Gemfile.lock
