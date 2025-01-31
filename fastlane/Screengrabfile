@@ -1,0 +1,7 @@
+locales(['en-US'])
+app_apk_path "composeApp/build/outputs/apk/full/debug/composeApp-full-debug.apk"
+tests_apk_path "composeApp/build/outputs/apk/androidTest/full/debug/composeApp-full-debug-androidTest.apk"
+reinstall_app true
+exit_on_test_failure false
+clear_previous_screenshots true
+use_adb_root true

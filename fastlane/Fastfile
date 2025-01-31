@@ -1,0 +1,59 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  lane :tests do
+    gradle(task: "test")
+  end
+
+  lane :upload_screenshots do
+    upload_to_play_store(
+      skip_upload_apk: "true",
+      skip_upload_aab: "true",
+      version_code: "63",
+      skip_upload_changelogs: "true",
+      skip_upload_images: "true",
+      skip_upload_metadata: "true"
+    )
+  end
+
+  lane :capture_screen do
+    gradle(task: "clean  copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=ooni")
+    capture_android_screenshots
+  end
+
+
+  desc "Deploy a new version to the Google Play"
+  lane :release do
+    gradle(
+     task: 'assemble',
+     build_type: 'stableFullRelease'
+    )
+    upload_to_play_store(
+     skip_upload_metadata: 'true',
+     skip_upload_apk: 'true',
+     skip_upload_images: 'true',
+     skip_upload_screenshots: 'true',
+     version_code: '69'
+    )
+  end
+end
