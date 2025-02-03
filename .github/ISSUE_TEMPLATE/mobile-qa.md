@@ -9,25 +9,12 @@ assignees: aanorbel
 
 ## Preparing the master branch for release
 
-- [ ] (android) `app/build.gradle`: use the latest probe-cli
-- [ ] (android) `engine/build.gradle`: use the latest probe-cli
-- [ ] (android) `app/build.gradle`: bump version number and code
-- [ ] (android) `app/build.gradle`: possibly upgrade the SDKs
-- [ ] (ios) `Podfile`: update to the last probe-cli and run `pod install`
+- [ ] (android) `gradle/libs.versions.toml`: use the latest probe-engine
+- [ ] (android) `composeApp/build.gradle.kts`: bump version number and code
+- [ ] (android) `composeApp/build.gradle.kts`: possibly upgrade the SDKs
+- [ ] (ios) `iosApp/Podfile`: update to the last probe-engine and run `pod install`
 - [ ] update the translation strings
 - [ ] merge any other feature PR we may need
-
-## (android) Preparing a stable full release
-
-Run these commands from the `master` branch of the `probe-cli` repository
-
-- [ ] `./MONOREPO/tools/gitx sync`
-- [ ] `./MONOREPO/w/build-android-stable.bash`
-- [ ] `$ANDROID_HOME/platform-tools/adb install ./MOBILE/android/app.apk`
-
-Optionally, you may want to run this command to observe the app logs:
-
-- [ ] `$ANDROID_HOME/platform-tools/adb shell logcat`
 
 ## Tests and results
 
@@ -74,7 +61,7 @@ Optionally, you may want to run this command to observe the app logs:
         - [ ] disable telegram, signal and facebook messenger; check that only whatsapp is run
     - [ ] tap on the result row
         - [ ] check that the total counts on top match
-        - [x] check that the data usage shows a sane number, ex 36KB up, 18KB down
+        - [ ] check that the data usage shows a sane number, ex 36KB up, 18KB down
         - [ ] check that the total runtime shows a sane number, ex. 2.16s
 - [ ] run the performance test
      - [ ] tap on settings and re-run the test changing
@@ -94,24 +81,18 @@ Optionally, you may want to run this command to observe the app logs:
     - [ ] (android) disable notifications for OONI Probe from android settings and make sure that installing the app asks for the dynamic permission of enabling notifications
 - [ ] advanced
     - [ ] enable debug logs and run a test; check that the logs are at debug level verbosity
+    - [ ] ensure logs can be shared.
 
 ## About
 
 - [ ] make sure all links are working as intended
 
-## OONI Run v1
+## OONI Run v2
 
-We should also test the following links using OONI Run v1. The original document did not spell out which was the source from which we should be trying to load the links, so for now I'd say it's fine to try and use GitHub.
-
-- [ ] Web Connectivity
-    - [ ] no inputs: https://run.ooni.io/nettest?tn=web_connectivity&mv=2.0.0 
-    - [ ] empty inputs: https://run.ooni.io/nettest?tn=web_connectivity&ta=%7B%22urls%22%3A%5B%5D%7D&mv=2.0.0 
-    - [ ] partial input: https://run.ooni.io/nettest?tn=web_connectivity&ta=%7B%22urls%22%3A%5B%22http%3A%2F%2F%22%5D%7D&mv=2.0.0
-    - [ ] valid URLs: https://run.ooni.io/nettest?tn=web_connectivity&ta=%7B%22urls%22%3A%5B%22http%3A%2F%2Fwww.google.it%22%2C%22https%3A%2F%2Frun.ooni.io%2F%22%5D%7D&mv=2.0.0 
-    - [ ] with malformed URL content: https://run.ooni.io/nettest?tn=web_connectivity&ta=%7B%22urls%22%3A%5B%22http%3A%2F%2Fwww.google.it%22%2C%22https%3A%2F%2Frun.ooni.io&mv=2.0.0
-- [ ] NDT: https://run.ooni.io/nettest?tn=ndt&mv=2.0.0
-- [ ] DASH: https://run.ooni.io/nettest?tn=dash&mv=2.0.0
-- [ ] HIRL: https://run.ooni.io/nettest?tn=http_invalid_request_line&mv=2.0.0
-- [ ] HHFM https://run.ooni.io/nettest?tn=http_header_field_manipulation&mv=2.0.0
-- [ ] with invalid minimum version: https://run.ooni.io/nettest?tn=ndt&mv=15.0.0
-- [ ] with invalid nettest name: https://run.ooni.io/nettest?tn=antani&mv=2.0.0
+We should also test the following links using OONI Run v2.
+- [ ] Install a sample Run v2 link and ensure that all the tests are shown in the installed page. https://run.ooni.org/v2/10026
+- [ ] Ensure the installed descriptor is shown on the dashboard.
+- [ ] Ensure you can run the installed descriptor and the results are shown in the results page.
+- [ ] Ensure the results json contains an annotation with the key `ooni_run_link_id` and value being the run ID.
+- [ ] Filter the test results to only display results for the Run v2 link.
+- [ ] Install an expired Run v2 link and ensure that it doesn't show up in the run page.
