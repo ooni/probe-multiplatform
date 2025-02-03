@@ -29,7 +29,7 @@ class GetAutoRunSpecification(
     }
 
     private suspend fun List<Descriptor>.filterForAutoRun() =
-        filter { it.enabled && it.isEnabledForAutoRun() }
+        filter { it.enabled }
             .map { descriptor ->
                 descriptor.copy(
                     netTests = descriptor.netTests
@@ -40,14 +40,6 @@ class GetAutoRunSpecification(
             }
             // We only want descriptors with any test left
             .filter { it.netTests.any() || it.longRunningTests.any() }
-
-    private suspend fun Descriptor.isEnabledForAutoRun() =
-        if (name == "experimental") {
-            // Only the experimental descriptor has its own auto-run preference
-            preferenceRepository.isDescriptorEnabled(this, isAutoRun = true).first()
-        } else {
-            true
-        }
 
     private suspend fun Descriptor.isEnabledForAutoRun(netTest: NetTest) =
         preferenceRepository.isNetTestEnabled(this, netTest, isAutoRun = true).first()

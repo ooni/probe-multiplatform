@@ -126,21 +126,6 @@ class PreferenceRepository(
         }
     }
 
-    fun isDescriptorEnabled(
-        descriptor: Descriptor,
-        isAutoRun: Boolean,
-    ): Flow<Boolean> {
-        val key = getPreferenceKey(
-            name = descriptor.name,
-            prefix = (descriptor.source as? Descriptor.Source.Installed)
-                ?.value?.id?.value?.toString(),
-            autoRun = isAutoRun,
-        )
-        return dataStore.data.map {
-            it[booleanPreferencesKey(key)] == true
-        }.distinctUntilChanged()
-    }
-
     fun isNetTestEnabled(
         descriptor: Descriptor,
         netTest: NetTest,
