@@ -1,5 +1,5 @@
 OONI_TEAM_ID=TT53HD8N84
-OONI_PROBE_BUNDLE_ID=org.ooni.probe
+OONI_PROBE_BUNDLE_ID=org.openobservatory.ooniprobe
 OONI_PROBE_APP_NAME=OONI Probe
 NMS_BUNDLE_ID=com.dw.ooniprobe
 NMS_APP_NAME=News Media Scan
