@@ -167,6 +167,12 @@ class RunNetTest(
                             )
                         }
 
+                        if (event.result.input != null && measurement.urlId == null) {
+                            measurement = measurement.copy(
+                                urlId = getOrCreateUrl(event.result.input).id
+                            )
+                        }
+
                         event.result.testKeys?.let {
                             val testKeys = extractTestKeysPropertiesToJson(it)
                             measurement = measurement.copy(
