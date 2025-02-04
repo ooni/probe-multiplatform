@@ -2,6 +2,13 @@
 
 Multiplatform (Android and iOS currently) version of the Probe app.
 
+**Releases**
+
+[![Probe Android @ Google Play](https://img.shields.io/endpoint?color=2D638B&logo=google-play&logoColor=8DD8F8&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dorg.openobservatory.ooniprobe%26gl%3DUS%26hl%3Den%26l%3DProbe%2520Android%2520%2540%2520Google%2520Play%26m%3D%24version)](https://play.google.com/store/apps/details?id=org.openobservatory.ooniprobe)
+[![NMS Android @ Google Play](https://img.shields.io/endpoint?color=D32625&logo=google-play&logoColor=D32625&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dcom.dw.ooniprobe%26gl%3DDE%26hl%3Den%26l%3DNMS%2520Android%2520%2540%2520Google%2520Play%26m%3D%24version)](https://play.google.com/store/apps/details?id=com.dw.ooniprobe)
+
+**CI Status**
+
 [![Validate](https://github.com/ooni/probe-multiplatform/actions/workflows/validate.yml/badge.svg)](https://github.com/ooni/probe-multiplatform/actions/workflows/validate.yml)
 [![Android Instrumented Tests](https://github.com/ooni/probe-multiplatform/actions/workflows/instrumented-tests.yml/badge.svg)](https://github.com/ooni/probe-multiplatform/actions/workflows/instrumented-tests.yml)
 
