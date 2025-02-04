@@ -1,6 +1,5 @@
 package org.ooni.probe.data.models
 
-import co.touchlab.kermit.Logger
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalDateTime.Companion.Format
 import kotlinx.datetime.format
@@ -43,7 +42,6 @@ data class InstalledTestDescriptorModel(
     val expirationDate: LocalDateTime?,
     val dateCreated: LocalDateTime?,
     val dateUpdated: LocalDateTime?,
-    val revisions: List<String>? = emptyList(),
     val rejectedRevision: Long? = null,
     val autoUpdate: Boolean,
 ) {
@@ -61,11 +59,7 @@ data class InstalledTestDescriptorModel(
     val key get() = Key(id, revision)
 
     val previousRevisions
-        get() = if (revisions.isNullOrEmpty()) emptyList() else revisions.drop(1)
-
-    fun shouldUpdate(other: InstalledTestDescriptorModel): Boolean {
-        return dateUpdated != null && other.dateUpdated != null && other.dateUpdated > dateUpdated
-    }
+        get() = if (revision <= 1) emptyList() else (1 until revision).toList().reversed()
 }
 
 fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = UpdateStatus.Unknown) =
@@ -140,11 +134,5 @@ fun InstalledTestDescriptorModel.toDb(json: Json) =
         date_created = dateCreated?.toEpoch(),
         date_updated = dateUpdated?.toEpoch(),
         auto_update = if (autoUpdate) 1 else 0,
-        revisions = try {
-            json.encodeToString(revisions)
-        } catch (e: Exception) {
-            Logger.e(e) { "Failed to encode revisions" }
-            null
-        },
         rejected_revision = rejectedRevision,
     )

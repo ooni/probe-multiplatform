@@ -238,7 +238,7 @@ class DescriptorViewModel(
 
         data class UninstallClicked(val value: InstalledTestDescriptorModel) : Event
 
-        data class RevisionClicked(val revision: String) : Event
+        data class RevisionClicked(val revision: Long) : Event
 
         data object UndoRejectedRevisionClicked : Event
 
