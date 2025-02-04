@@ -108,9 +108,7 @@ fun InstalledDescriptorActionsView(
                     previousRevisions.take(5).forEach { revision ->
                         TextButton(
                             onClick = {
-                                onEvent(
-                                    DescriptorViewModel.Event.RevisionClicked(revision),
-                                )
+                                onEvent(DescriptorViewModel.Event.RevisionClicked(revision))
                             },
                         ) {
                             Text(text = "v$revision")

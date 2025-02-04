@@ -2,7 +2,6 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -72,7 +71,6 @@ class TestDescriptorRepository(
                         date_created = installedModel.date_created,
                         date_updated = installedModel.date_updated,
                         auto_update = installedModel.auto_update,
-                        revisions = installedModel.revisions,
                         rejected_revision = installedModel.rejected_revision,
                     )
                 }
@@ -103,7 +101,6 @@ class TestDescriptorRepository(
                         date_created = installedModel.date_created,
                         date_updated = installedModel.date_updated,
                         auto_update = installedModel.auto_update,
-                        revisions = installedModel.revisions,
                         rejected_revision = installedModel.rejected_revision,
                     )
                     database.testDescriptorQueries.clearOldNetTests(
@@ -166,14 +163,6 @@ class TestDescriptorRepository(
             dateCreated = date_created?.toLocalDateTime(),
             dateUpdated = date_updated?.toLocalDateTime(),
             autoUpdate = auto_update == 1L,
-            revisions = revisions?.let {
-                try {
-                    json.decodeFromString<List<String>>(it)
-                } catch (e: Exception) {
-                    Logger.e(e) { "Failed to decode revisions" }
-                    emptyList()
-                }
-            },
             rejectedRevision = rejected_revision,
         )
 }

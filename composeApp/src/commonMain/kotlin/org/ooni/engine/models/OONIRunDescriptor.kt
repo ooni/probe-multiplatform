@@ -33,11 +33,6 @@ data class OONIRunDescriptor(
     @SerialName("revision") val revision: Long,
 )
 
-@Serializable
-class OONIRunRevisions(
-    @SerialName("revisions") val revisions: List<String>,
-)
-
 fun OONIRunDescriptor.toModel() =
     InstalledTestDescriptorModel(
         id = InstalledTestDescriptorModel.Id(oonirunLinkId),

@@ -1,0 +1,31 @@
+-- Remove `revisions` column
+CREATE TABLE TestDescriptorTemporary (
+  runId TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  name TEXT,
+  short_description TEXT,
+  description TEXT,
+  author TEXT,
+  nettests TEXT,
+  name_intl TEXT,
+  short_description_intl TEXT,
+  description_intl TEXT,
+  icon TEXT,
+  color TEXT,
+  animation TEXT,
+  expiration_date INTEGER,
+  date_created INTEGER,
+  date_updated INTEGER,
+  auto_update INTEGER,
+  rejected_revision INTEGER,
+  PRIMARY KEY(`runId`, `revision`)
+);
+
+INSERT INTO TestDescriptorTemporary(
+    runId, revision, name, short_description, description, author, nettests, name_intl, short_description_intl, description_intl, icon, color, animation, expiration_date, date_created, date_updated, auto_update, rejected_revision
+)
+SELECT runId, revision, name, short_description, description, author, nettests, name_intl, short_description_intl, description_intl, icon, color, animation, expiration_date, date_created, date_updated, auto_update, rejected_revision
+FROM TestDescriptor;
+
+DROP TABLE TestDescriptor;
+ALTER TABLE TestDescriptorTemporary RENAME TO TestDescriptor;
