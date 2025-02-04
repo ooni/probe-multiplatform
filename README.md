@@ -4,8 +4,11 @@ Multiplatform (Android and iOS currently) version of the Probe app.
 
 **Releases**
 
-[![Probe Android @ Google Play](https://img.shields.io/endpoint?color=2D638B&logo=google-play&logoColor=8DD8F8&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dorg.openobservatory.ooniprobe%26gl%3DUS%26hl%3Den%26l%3DProbe%2520Android%2520%2540%2520Google%2520Play%26m%3D%24version)](https://play.google.com/store/apps/details?id=org.openobservatory.ooniprobe)
-[![NMS Android @ Google Play](https://img.shields.io/endpoint?color=D32625&logo=google-play&logoColor=D32625&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dcom.dw.ooniprobe%26gl%3DDE%26hl%3Den%26l%3DNMS%2520Android%2520%2540%2520Google%2520Play%26m%3D%24version)](https://play.google.com/store/apps/details?id=com.dw.ooniprobe)
+[![Probe Android @ Google Play](https://img.shields.io/endpoint?color=2D638B&logo=google-play&logoColor=8DD8F8&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dorg.openobservatory.ooniprobe%26gl%3DUS%26hl%3Den%26l%3DProbe%2520Android%2520%2540%2520Google%2520Play%26m%3D%24version)](https://play.google.com/store/apps/details?id=org.openobservatory.ooniprobe)<br/>
+[![Probe Android @ F-Droid](https://img.shields.io/f-droid/v/org.openobservatory.ooniprobe?logo=fdroid&logoColor=8DD8F8&label=Probe%20Android%20%40%20F-Droid&color=2D638B)](https://f-droid.org/en/packages/org.openobservatory.ooniprobe/)<br/>
+[![Probe iOS @ App Store](https://img.shields.io/itunes/v/1199566366?logo=appstore&logoColor=8DD8F8&label=Probe%20iOS%20%40%20App%20Store&color=2D638B)](https://apps.apple.com/us/app/ooni-probe/id1199566366)<br/>
+[![NMS Android @ Google Play](https://img.shields.io/endpoint?color=D32625&logo=google-play&logoColor=D32625&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dcom.dw.ooniprobe%26gl%3DDE%26hl%3Den%26l%3DNMS%2520Android%2520%2540%2520Google%2520Play%26m%3D%24version)](https://play.google.com/store/apps/details?id=com.dw.ooniprobe)</br>
+[![NMS iOS @ App Store](https://img.shields.io/itunes/v/6738992797?logo=appstore&logoColor=D32625&label=NMS%20iOS%20%40%20App%20Store&color=D32625)](https://apps.apple.com/us/app/news-media-scan/id6738992797)
 
 **CI Status**
 
