@@ -167,6 +167,15 @@ class RunNetTest(
                             )
                         }
 
+                        // Introduced to capture the URL for measurements (`echcheck`) which did not
+                        // emmit the URL in the measurement start event.
+                        // see https://github.com/ooni/probe-multiplatform/issues/435
+                        if (event.result.input != null && measurement.urlId == null) {
+                            measurement = measurement.copy(
+                                urlId = getOrCreateUrl(event.result.input).id,
+                            )
+                        }
+
                         event.result.testKeys?.let {
                             val testKeys = extractTestKeysPropertiesToJson(it)
                             measurement = measurement.copy(
