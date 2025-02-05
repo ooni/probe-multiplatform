@@ -32,7 +32,7 @@ CREATE TABLE TestDescriptor (
     date_created INTEGER,
     date_updated INTEGER,
     auto_update INTEGER,
-    revisions TEXT,
+    rejected_revision INTEGER,
     PRIMARY KEY(`runId`, `revision`)
 );
 ```
