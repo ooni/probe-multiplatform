@@ -298,7 +298,8 @@ private fun DescriptorItem(
                     } else {
                         Res.string.Common_Expand
                     },
-                ),
+                ) + " " + descriptor.title(),
+                modifier = Modifier.padding(2.dp),
             )
         }
     }
@@ -321,7 +322,7 @@ fun TestItem(
                 role = Role.Checkbox,
                 enabled = enabled,
             )
-            .padding(horizontal = 16.dp, vertical = 10.dp),
+            .padding(horizontal = 16.dp, vertical = 12.dp),
     ) {
         Checkbox(
             checked = testItem.isSelected,
