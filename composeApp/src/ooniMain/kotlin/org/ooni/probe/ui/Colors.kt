@@ -2,9 +2,9 @@ package org.ooni.probe.ui
 
 import androidx.compose.ui.graphics.Color
 
-val primaryLight = Color(0xFF0588CB)
+val primaryLight = Color(0xFF0579B3)
 val onPrimaryLight = Color(0xFFFFFFFF)
-val primaryContainerLight = Color(0xFF0588CB)
+val primaryContainerLight = Color(0xFF0579B3)
 val onPrimaryContainerLight = Color(0xFFFFFFFF)
 val secondaryLight = Color(0xFF2D638B)
 val onSecondaryLight = Color(0xFFFFFFFF)
