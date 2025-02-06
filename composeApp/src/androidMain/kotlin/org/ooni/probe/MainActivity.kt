@@ -19,6 +19,7 @@ import org.ooni.probe.config.AndroidUpdateMonitoring
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.UpdateMonitoring
 import org.ooni.probe.data.models.DeepLink
+import org.ooni.probe.ui.shared.showAppReview
 
 class MainActivity : ComponentActivity() {
     private val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
@@ -41,6 +42,14 @@ class MainActivity : ComponentActivity() {
                 },
             )
 
+            LaunchedEffect(Unit) {
+                if (app.dependencies.shouldShowAppReview()) {
+                    showAppReview(
+                        activity = this@MainActivity,
+                        onShown = { app.dependencies.markAppReviewAsShown() },
+                    )
+                }
+            }
             LaunchedEffect(intent) {
                 intent?.let { manageIntent(it) }
             }

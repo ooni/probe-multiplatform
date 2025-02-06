@@ -1,11 +1,13 @@
 package org.ooni.probe
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.window.ComposeUIViewController
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.ui.shared.requestAppReview
 import platform.UIKit.UIViewController
 
 fun mainViewController(
@@ -23,5 +25,12 @@ fun mainViewController(
                 }
             },
         )
+
+        LaunchedEffect(Unit) {
+            if (dependencies.shouldShowAppReview()) {
+                requestAppReview()
+                dependencies.markAppReviewAsShown()
+            }
+        }
     }
 }

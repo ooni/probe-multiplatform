@@ -75,6 +75,9 @@ web-view = { module = "io.github.kevinnzou:compose-webview-multiplatform", versi
 # In-App Updates
 android-app-update = { module = "com.google.android.play:app-update-ktx", version = "2.1.0" }
 
+# In-App Review
+android-app-review = { module = "com.google.android.play:review-ktx", version = "2.0.2" }
+
 # Android Testing
 android-test-core = { module = "androidx.test:core", version = "1.6.1" }
 
@@ -120,6 +123,7 @@ full = [
 ]
 full-android = [
     "android-app-update",
+    "android-app-review"
 ]
 android-test = [
     "android-test-core"

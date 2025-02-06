@@ -34,6 +34,7 @@ import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunSpecification
+import org.ooni.probe.data.repositories.AppReviewRepository
 import org.ooni.probe.data.repositories.MeasurementRepository
 import org.ooni.probe.data.repositories.NetworkRepository
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -66,6 +67,8 @@ import org.ooni.probe.domain.SendSupportEmail
 import org.ooni.probe.domain.ShareLogFile
 import org.ooni.probe.domain.ShouldShowVpnWarning
 import org.ooni.probe.domain.UploadMissingMeasurements
+import org.ooni.probe.domain.appreview.MarkAppReviewAsShown
+import org.ooni.probe.domain.appreview.ShouldShowAppReview
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
 import org.ooni.probe.domain.descriptors.BootstrapTestDescriptors
 import org.ooni.probe.domain.descriptors.DeleteTestDescriptor
@@ -131,6 +134,7 @@ class Dependencies(
     val json by lazy { buildJson() }
     private val database by lazy { buildDatabase(databaseDriverFactory) }
 
+    private val appReviewRepository by lazy { AppReviewRepository(dataStore) }
     private val measurementRepository by lazy {
         MeasurementRepository(database, json, backgroundContext)
     }
@@ -315,8 +319,11 @@ class Dependencies(
     private val getTestDescriptorsBySpec by lazy {
         GetTestDescriptorsBySpec(getTestDescriptors = getTestDescriptors::latest)
     }
+    val markAppReviewAsShown by lazy {
+        MarkAppReviewAsShown(setShownAt = appReviewRepository::setShownAt)
+    }
     private val markJustFinishedTestAsSeen by lazy {
-        MarkJustFinishedTestAsSeen(runBackgroundStateManager::updateState)
+        MarkJustFinishedTestAsSeen(setRunBackgroundState = runBackgroundStateManager::updateState)
     }
     val observeAndConfigureAutoRun by lazy {
         ObserveAndConfigureAutoRun(
@@ -355,6 +362,15 @@ class Dependencies(
     }
     private val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchAction) }
     private val shareLogFile by lazy { ShareLogFile(launchAction, appLogger::getLogFilePath) }
+    val shouldShowAppReview by lazy {
+        ShouldShowAppReview(
+            incrementLaunchTimes = appReviewRepository::incrementLaunchTimes,
+            getLaunchTimes = appReviewRepository::getLaunchTimes,
+            getShownAt = appReviewRepository::getShownAt,
+            getFirstOpenAt = appReviewRepository::getFirstOpenAt,
+            setFirstOpenAt = appReviewRepository::setFirstOpenAt,
+        )
+    }
     private val shouldShowVpnWarning by lazy {
         ShouldShowVpnWarning(preferenceRepository, networkTypeFinder::invoke)
     }
