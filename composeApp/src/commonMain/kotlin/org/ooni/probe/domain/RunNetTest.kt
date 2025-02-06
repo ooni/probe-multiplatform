@@ -322,6 +322,8 @@ class RunNetTest(
     private fun TaskEvent.Log.getKnownException() =
         if (message.startsWith("cannot submit measurement")) {
             CannotSubmitMeasurement()
+        } else if (message.startsWith("statsManager") && message.contains("not found:")) {
+            StatsManagerNotFoundError()
         } else {
             null
         }
@@ -338,4 +340,6 @@ class RunNetTest(
     inner class BugJsonDump(value: TaskEventResult.Value?) : Failure(null, value)
 
     inner class CannotSubmitMeasurement : Failure(null, null)
+
+    inner class StatsManagerNotFoundError : Failure(null, null)
 }
