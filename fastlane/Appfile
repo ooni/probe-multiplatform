@@ -1,2 +1,2 @@
 json_key_file("fastlane/key.json")
-package_name("org.openobservatory.ooniprobe.dev")
+package_name ENV["BUNDLE_ID"] || "org.openobservatory.ooniprobe.dev"

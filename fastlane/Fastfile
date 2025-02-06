@@ -36,8 +36,14 @@ platform :android do
     )
   end
 
-  lane :capture_screen do
+  lane :capture_screen_ooni do
     gradle(task: "clean  copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=ooni")
+    capture_android_screenshots
+  end
+
+  lane :capture_screen_dw do
+    gradle(task: "clean  copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=dw")
+
     capture_android_screenshots
   end
 

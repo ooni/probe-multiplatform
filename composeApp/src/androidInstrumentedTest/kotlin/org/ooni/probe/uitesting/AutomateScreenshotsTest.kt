@@ -5,8 +5,6 @@ import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectAll
-import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectNone
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
@@ -35,11 +33,13 @@ import org.ooni.probe.uitesting.helpers.preferences
 import org.ooni.probe.uitesting.helpers.start
 import org.ooni.probe.uitesting.helpers.wait
 import tools.fastlane.screengrab.Screengrab
+import tools.fastlane.screengrab.cleanstatusbar.BluetoothState
+import tools.fastlane.screengrab.cleanstatusbar.CleanStatusBar
+import tools.fastlane.screengrab.cleanstatusbar.MobileDataType
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 class AutomateScreenshotsTest {
-
     @get:Rule
     val compose = createEmptyComposeRule()
 
@@ -48,6 +48,10 @@ class AutomateScreenshotsTest {
         runTest {
             preferences.setValueByKey(SettingsKey.FIRST_RUN, true)
             start()
+            CleanStatusBar()
+                .setBluetoothState(BluetoothState.DISCONNECTED)
+                .setMobileNetworkDataType(MobileDataType.LTE)
+                .enable()
         }
 
     @Test
@@ -106,10 +110,9 @@ class AutomateScreenshotsTest {
 
                 Screengrab.screenshot("07-run-tests")
 
-                clickOnRunButton(1)
+                clickOnTag("Run-Button")
 
                 Screengrab.screenshot("08-dashboard-running")
-
             }
 
             assertEquals(
