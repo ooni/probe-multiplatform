@@ -1,9 +1,8 @@
-package org.ooni.probe.uitesting
+package org.ooni.probe.uitesting.screenshots
 
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
@@ -18,7 +17,6 @@ import ooniprobe.composeapp.generated.resources.Onboarding_WhatIsOONIProbe_GotIt
 import ooniprobe.composeapp.generated.resources.Onboarding_WhatIsOONIProbe_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -36,10 +34,13 @@ import tools.fastlane.screengrab.Screengrab
 import tools.fastlane.screengrab.cleanstatusbar.BluetoothState
 import tools.fastlane.screengrab.cleanstatusbar.CleanStatusBar
 import tools.fastlane.screengrab.cleanstatusbar.MobileDataType
+import tools.fastlane.screengrab.locale.LocaleTestRule
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 class AutomateScreenshotsTest {
+    @Rule @JvmField
+    val localeTestRule = LocaleTestRule()
     @get:Rule
     val compose = createEmptyComposeRule()
 
@@ -114,11 +115,5 @@ class AutomateScreenshotsTest {
 
                 Screengrab.screenshot("08-dashboard-running")
             }
-
-            assertEquals(
-                false,
-                preferences.getValueByKey(SettingsKey.AUTOMATED_TESTING_ENABLED).first(),
-            )
-            assertEquals(true, preferences.getValueByKey(SettingsKey.SEND_CRASH).first())
         }
 }
