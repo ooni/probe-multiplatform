@@ -38,13 +38,17 @@ platform :android do
 
   lane :capture_screen_ooni do
     gradle(task: "clean  copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=ooni")
-    capture_android_screenshots
+    capture_android_screenshots(
+        app_package_name: 'org.openobservatory.ooniprobe.dev'
+    )
   end
 
   lane :capture_screen_dw do
     gradle(task: "clean  copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=dw")
 
-    capture_android_screenshots
+    capture_android_screenshots(
+        app_package_name: 'com.dw.ooniprobe.dev'
+    )
   end
 
 
