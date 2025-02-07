@@ -41,6 +41,7 @@ import kotlin.time.Duration.Companion.seconds
 class AutomateScreenshotsTest {
     @Rule @JvmField
     val localeTestRule = LocaleTestRule()
+
     @get:Rule
     val compose = createEmptyComposeRule()
 
