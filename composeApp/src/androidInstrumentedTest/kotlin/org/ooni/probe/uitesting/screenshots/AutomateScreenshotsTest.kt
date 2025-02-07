@@ -1,11 +1,9 @@
 package org.ooni.probe.uitesting.screenshots
 
-import android.Manifest
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.isNotDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.rule.GrantPermissionRule
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Dashboard_Progress_UpdateLink_Label
@@ -23,7 +21,6 @@ import ooniprobe.composeapp.generated.resources.Onboarding_WhatIsOONIProbe_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_About_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
-import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_WiFiOnly
 import ooniprobe.composeapp.generated.resources.Settings_Notifications_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Enabled
@@ -62,14 +59,6 @@ class AutomateScreenshotsTest {
     val localeTestRule = LocaleTestRule()
 
     @get:Rule
-    val mRuntimePermissionRule: GrantPermissionRule =
-        GrantPermissionRule.grant(
-            Manifest.permission.CHANGE_CONFIGURATION,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-        )
-
-    @get:Rule
     val compose = createEmptyComposeRule()
 
     @Before
@@ -84,7 +73,6 @@ class AutomateScreenshotsTest {
     @Test
     fun onboarding() =
         runTest {
-
             preferences.setValueByKey(SettingsKey.FIRST_RUN, true)
             start()
 
@@ -136,7 +124,6 @@ class AutomateScreenshotsTest {
             skipOnboarding()
             start()
             with(compose) {
-
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
 
                 wait(timeout = 30.seconds) {
@@ -185,12 +172,13 @@ class AutomateScreenshotsTest {
 
                 clickOnText(Res.string.Settings_TestOptions_Label)
                 wait {
-                    onNodeWithText(Res.string.Settings_TestOptions_Label).isDisplayed() && onNodeWithText(Res.string.Settings_Sharing_UploadResults_Description).isDisplayed()
+                    onNodeWithText(Res.string.Settings_TestOptions_Label).isDisplayed() &&
+                        onNodeWithText(Res.string.Settings_Sharing_UploadResults_Description).isDisplayed()
                 }
 
                 Screengrab.screenshot("11-test-options")
 
-                if (isOoni){
+                if (isOoni) {
                     clickOnText(Res.string.Settings_Websites_Categories_Label)
                     wait { onNodeWithText(Res.string.Settings_Websites_Categories_Label).isDisplayed() }
 

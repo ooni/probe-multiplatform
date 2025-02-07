@@ -5,5 +5,4 @@ tests_apk_path "composeApp/build/outputs/apk/androidTest/full/debug/composeApp-f
 reinstall_app true
 exit_on_test_failure false
 clear_previous_screenshots true
-use_adb_root true
 use_tests_in_packages(['org.ooni.probe.uitesting.screenshots'])
