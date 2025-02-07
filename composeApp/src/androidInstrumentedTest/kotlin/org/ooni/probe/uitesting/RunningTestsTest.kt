@@ -163,17 +163,17 @@ class RunningTestsTest {
             }
         }
 
+    private suspend fun ComposeTestRule.clickOnRunButton(quantity: Int) {
+        clickOnText(
+            getPluralStringResourceItem(
+                Res.plurals.Dashboard_RunTests_RunButton_Label,
+                quantity,
+                quantity,
+            ),
+        )
+    }
+
     companion object {
         private val TEST_WAIT_TIMEOUT = 3.minutes
     }
-}
-
-suspend fun ComposeTestRule.clickOnRunButton(quantity: Int) {
-    clickOnText(
-        getPluralStringResourceItem(
-            Res.plurals.Dashboard_RunTests_RunButton_Label,
-            quantity,
-            quantity,
-        ),
-    )
 }
