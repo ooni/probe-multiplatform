@@ -26,7 +26,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build Android
-        run: ./gradlew copyBrandingToCommonResources assembleFull${{ matrix.type }} -Porganization=${{ matrix.organization }}
+        run: ./gradlew copyBrandingToCommonResources assemble${{ matrix.type }} -Porganization=${{ matrix.organization }}
 
       - name: Build iOS Framework
         run: ./gradlew link${{ matrix.type }}FrameworkIosSimulatorArm64 -Porganization=${{ matrix.organization }}
@@ -55,8 +55,8 @@ jobs:
       - name: Uploads artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.organization }}-${{ matrix.type }}-APK
-          path: composeApp/build/outputs/apk/full/debug/composeApp-full-debug.apk
+          name: ${{ matrix.organization }}-${{ matrix.type }}-APKs
+          path: composeApp/build/outputs/apk/**/**/composeApp-*.apk
 
   android-lint:
     name: Android Lint
@@ -70,7 +70,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run lint
-        run: ./gradlew copyBrandingToCommonResources lint
+        run: ./gradlew copyBrandingToCommonResources lintFdroidDebug lintFullDebug
 
       - name: Uploads test reports
         uses: actions/upload-artifact@v4
