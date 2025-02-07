@@ -1,8 +1,10 @@
 package org.ooni.probe.uitesting.screenshots
 
+import android.Manifest
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.rule.GrantPermissionRule
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
@@ -41,6 +43,14 @@ import kotlin.time.Duration.Companion.seconds
 class AutomateScreenshotsTest {
     @Rule @JvmField
     val localeTestRule = LocaleTestRule()
+
+    @get:Rule
+    val mRuntimePermissionRule: GrantPermissionRule =
+        GrantPermissionRule.grant(
+            Manifest.permission.CHANGE_CONFIGURATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+        )
 
     @get:Rule
     val compose = createEmptyComposeRule()
