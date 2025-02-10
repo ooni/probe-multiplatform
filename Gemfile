@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "fastlane", "~> 2.224.0"
+gem "fastlane", "~> 2.226.0"
 gem 'abbrev'
 gem 'logger'
 gem 'mutex_m'

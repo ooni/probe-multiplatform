@@ -175,7 +175,7 @@ android {
         getByName("debug") {
             applicationIdSuffix = ".dev"
             resValue("string", "run_v2_domain", "run.test.ooni.org")
-            sourceSets["main"].manifest.srcFile("src/androidDebug/AndroidManifest.xml")
+            sourceSets["debug"].manifest.srcFile("src/androidDebug/AndroidManifest.xml")
         }
         getByName("release") {
             isMinifyEnabled = false
