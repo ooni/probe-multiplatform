@@ -153,7 +153,7 @@ android {
         applicationId = config.appId
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 128
+        versionCode = 129
         versionName = "5.0.2"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
