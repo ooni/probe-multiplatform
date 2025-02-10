@@ -3,6 +3,7 @@ package org.ooni.probe.uitesting.screenshots
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.isNotDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Common_Back
@@ -29,13 +30,20 @@ import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_D
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.app_name
 import org.junit.AfterClass
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.ooni.engine.models.NetworkType
+import org.ooni.engine.models.TaskOrigin
+import org.ooni.engine.models.TestType
+import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnContentDescription
 import org.ooni.probe.uitesting.helpers.clickOnTag
 import org.ooni.probe.uitesting.helpers.clickOnText
@@ -47,6 +55,9 @@ import org.ooni.probe.uitesting.helpers.preferences
 import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
 import org.ooni.probe.uitesting.helpers.wait
+import org.ooni.testing.factories.MeasurementModelFactory
+import org.ooni.testing.factories.ResultModelFactory
+import org.ooni.testing.factories.UrlModelFactory
 import tools.fastlane.screengrab.Screengrab
 import tools.fastlane.screengrab.cleanstatusbar.CleanStatusBar
 import tools.fastlane.screengrab.locale.LocaleTestRule
@@ -234,4 +245,233 @@ class AutomateScreenshotsTest {
                 Screengrab.screenshot("16-about")
             }
         }
+
+    @Test
+    fun results() =
+        runTest {
+            skipOnboarding()
+            setupTestResults()
+            start()
+            with(compose) {
+                wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
+
+                clickOnText(Res.string.TestResults_Overview_Title)
+
+                wait { onNodeWithText("Websites").isDisplayed() }
+
+                Screengrab.screenshot("17-results")
+
+                clickOnText("Websites")
+
+                wait(10.seconds) { onNodeWithText("https://z-lib.org/").isDisplayed() }
+
+                Thread.sleep(1000)
+                Screengrab.screenshot("18-websites-results")
+                Thread.sleep(1000)
+
+                clickOnText("https://z-lib.org/")
+
+                checkTextAnywhereInsideWebView("https://z-lib.org/")
+
+                Screengrab.screenshot("19-website-measurement-anomaly")
+
+                clickOnContentDescription(Res.string.Common_Back)
+                wait { onNodeWithText("Websites").isDisplayed() }
+                clickOnContentDescription(Res.string.Common_Back)
+                wait { onNodeWithText("Websites").isDisplayed() }
+                clickOnText("Performance")
+                wait { onNodeWithText("DASH Streaming Test").isDisplayed() }
+                clickOnText("DASH Streaming Test")
+
+                checkTextAnywhereInsideWebView("2160p (4k)")
+
+                Screengrab.screenshot("20-dash-measurement")
+            }
+        }
+
+    private suspend fun setupTestResults() {
+        val networkId = dependencies.networkRepository.createIfNew(
+            NetworkModel(
+                networkName = "Vodafone Italia",
+                asn = "AS12345",
+                countryCode = "IT",
+                networkType = NetworkType.Wifi,
+            ),
+        )
+
+        val websitesResultId = dependencies.resultRepository.createOrUpdate(
+            ResultModelFactory.build(
+                id = null,
+                networkId = networkId,
+                descriptorName = "websites",
+                isViewed = true,
+                isDone = true,
+                dataUsageUp = 257,
+                dataUsageDown = 12345,
+                taskOrigin = TaskOrigin.AutoRun,
+            ),
+        )
+        dependencies.measurementRepository.createOrUpdate(
+            MeasurementModelFactory.build(
+                resultId = websitesResultId,
+                test = TestType.WebConnectivity,
+                urlId = dependencies.urlRepository.createOrUpdate(
+                    UrlModelFactory.build(url = "https://z-lib.org/"),
+                ),
+                reportId = MeasurementModel.ReportId("20250210T113750Z_webconnectivity_IT_12874_n1_qx1LFyoqM4orUsor"),
+                isDone = true,
+                isUploaded = true,
+                isAnomaly = true,
+            ),
+        )
+        listOf(
+            "https://ooni.org",
+            "https://twitter.com",
+            "https://facebook.com",
+            "https://peta.org",
+            "https://www.ran.org",
+            "https://leap.se",
+            "https://ilga.org",
+            "https://gpgtools.org",
+            "https://cdt.org",
+            "https://www.viber.com",
+            "https://anonymouse.org",
+            "https://mail.proton.me",
+            "https://kick.com",
+            "https://ipfs.io",
+            "https://imgur.com",
+            "https://icq.com",
+            "https://duckduckgo.com",
+            "https://discord.com",
+            "https://cloudflare-ipfs.com",
+            "https://app.element.io",
+            "https://github.com",
+        ).forEach { url ->
+            dependencies.measurementRepository.createOrUpdate(
+                MeasurementModelFactory.build(
+                    resultId = websitesResultId,
+                    urlId = dependencies.urlRepository.createOrUpdate(
+                        UrlModelFactory.build(url = url),
+                    ),
+                    isDone = true,
+                    isUploaded = true,
+                    isAnomaly = false,
+                    reportId = MeasurementModel.ReportId("1234"),
+                ),
+            )
+        }
+        listOf(
+            "http://mp3cool.pro",
+            "https://ytx.mx",
+            "https://sci-hub.se",
+            "https://vibe3.com",
+            "https://cb01.in",
+            "http://ulub.pl",
+        ).forEach { url ->
+            dependencies.measurementRepository.createOrUpdate(
+                MeasurementModelFactory.build(
+                    resultId = websitesResultId,
+                    test = TestType.WebConnectivity,
+                    urlId = dependencies.urlRepository.createOrUpdate(
+                        UrlModelFactory.build(url = url),
+                    ),
+                    isDone = true,
+                    isUploaded = true,
+                    isAnomaly = true,
+                    reportId = MeasurementModel.ReportId("1234"),
+                ),
+            )
+        }
+
+        val imResultId = dependencies.resultRepository.createOrUpdate(
+            ResultModelFactory.build(
+                id = null,
+                networkId = networkId,
+                descriptorName = "instant_messaging",
+                isViewed = true,
+                isDone = true,
+                dataUsageUp = 257,
+                dataUsageDown = 12345,
+                taskOrigin = TaskOrigin.AutoRun,
+            ),
+        )
+        listOf(
+            TestType.Whatsapp,
+            TestType.Telegram,
+            TestType.FacebookMessenger,
+            TestType.Signal,
+        ).forEach { testType ->
+            dependencies.measurementRepository.createOrUpdate(
+                MeasurementModelFactory.build(
+                    resultId = imResultId,
+                    test = testType,
+                    isDone = true,
+                    isUploaded = true,
+                    reportId = MeasurementModel.ReportId("1234"),
+                ),
+            )
+        }
+
+        val circumventionResultId = dependencies.resultRepository.createOrUpdate(
+            ResultModelFactory.build(
+                id = null,
+                networkId = networkId,
+                descriptorName = "circumvention",
+                isViewed = true,
+                isDone = true,
+                dataUsageUp = 257,
+                dataUsageDown = 12345,
+                taskOrigin = TaskOrigin.AutoRun,
+            ),
+        )
+        listOf(
+            TestType.Tor,
+            TestType.Psiphon,
+            TestType.HttpHeaderFieldManipulation,
+            TestType.HttpInvalidRequestLine,
+        ).forEach { testType ->
+            dependencies.measurementRepository.createOrUpdate(
+                MeasurementModelFactory.build(
+                    resultId = circumventionResultId,
+                    test = testType,
+                    isDone = true,
+                    isUploaded = true,
+                    reportId = MeasurementModel.ReportId("1234"),
+                ),
+            )
+        }
+
+        val performanceResultId = dependencies.resultRepository.createOrUpdate(
+            ResultModelFactory.build(
+                id = null,
+                networkId = networkId,
+                descriptorName = "performance",
+                isViewed = true,
+                isDone = true,
+                dataUsageUp = 257,
+                dataUsageDown = 12345,
+                taskOrigin = TaskOrigin.AutoRun,
+            ),
+        )
+        dependencies.measurementRepository.createOrUpdate(
+            MeasurementModelFactory.build(
+                resultId = performanceResultId,
+                test = TestType.Ndt,
+                isDone = true,
+                isUploaded = true,
+                testKeys = """{"summary":{"upload":6058.420633995402,"download":554105.6493846333,"ping":28}}""",
+                reportId = MeasurementModel.ReportId("1234"),
+            ),
+        )
+        dependencies.measurementRepository.createOrUpdate(
+            MeasurementModelFactory.build(
+                resultId = performanceResultId,
+                test = TestType.Dash,
+                reportId = MeasurementModel.ReportId("20250210T143842Z_dash_IT_1267_n1_1hoAk1rFwFsAoyXH"),
+                isDone = true,
+                isUploaded = true,
+                testKeys = """{"simple":{"median_bitrate":230936,"upload":1000,"download":2000}}""",
+            ),
+        )
+    }
 }

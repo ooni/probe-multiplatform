@@ -135,18 +135,26 @@ class Dependencies(
     private val database by lazy { buildDatabase(databaseDriverFactory) }
 
     private val appReviewRepository by lazy { AppReviewRepository(dataStore) }
-    private val measurementRepository by lazy {
+
+    @VisibleForTesting
+    val measurementRepository by lazy {
         MeasurementRepository(database, json, backgroundContext)
     }
-    private val networkRepository by lazy { NetworkRepository(database, backgroundContext) }
+
+    @VisibleForTesting
+    val networkRepository by lazy { NetworkRepository(database, backgroundContext) }
 
     @VisibleForTesting
     val preferenceRepository by lazy { PreferenceRepository(buildDataStore()) }
-    private val resultRepository by lazy { ResultRepository(database, backgroundContext) }
+
+    @VisibleForTesting
+    val resultRepository by lazy { ResultRepository(database, backgroundContext) }
     val testDescriptorRepository by lazy {
         TestDescriptorRepository(database, json, backgroundContext)
     }
-    private val urlRepository by lazy { UrlRepository(database, backgroundContext) }
+
+    @VisibleForTesting
+    val urlRepository by lazy { UrlRepository(database, backgroundContext) }
 
     private val readFile: ReadFile by lazy { ReadFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val writeFile: WriteFile by lazy { WriteFileOkio(FileSystem.SYSTEM, baseFileDir) }

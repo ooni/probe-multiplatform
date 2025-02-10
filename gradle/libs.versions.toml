@@ -1,6 +1,6 @@
 [versions]
 
-agp = "8.8.0" # Check compatibility https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
+agp = "8.7.2" # Check compatibility https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
 
 android-compileSdk = "35"
 android-minSdk = "24"
