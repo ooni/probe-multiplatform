@@ -160,7 +160,7 @@ Importante: Se você tiver uma VPN habilitada, a OONI Probe não executará test
   <string name="Settings_Websites_CustomURL_Title">Escolha sites para testar</string>
   <string name="Settings_Websites_CustomURL_URL">URL</string>
   <string name="Settings_Websites_CustomURL_NoURLEntered">Nenhuma URL inserida</string>
-  <string name="Settings_Websites_CustomURL_Run">Rodar</string>
+  <string name="Settings_Websites_CustomURL_Run">Executar</string>
   <string name="Settings_Websites_CustomURL_Add">Adicionar website</string>
   <string name="Settings_WarmVPNInUse_Label">Avise quando a VPN estiver em uso</string>
   <string name="Settings_SendEmail_Label">Enviar e-mail para suporte</string>
@@ -169,7 +169,7 @@ Importante: Se você tiver uma VPN habilitada, a OONI Probe não executará test
   <string name="Settings_Storage_Delete">Apagar</string>
   <string name="Settings_Storage_Clear">Limpar</string>
   <string name="Notification_StopTest">Parar o teste</string>
-  <string name="OONIRun_Run">Executat</string>
+  <string name="OONIRun_Run">Executar</string>
   <string name="CategoryCode_ALDR_Name">Drogas e Álcool</string>
   <string name="CategoryCode_REL_Name">Religião</string>
   <string name="CategoryCode_PORN_Name">Pornografia</string>
