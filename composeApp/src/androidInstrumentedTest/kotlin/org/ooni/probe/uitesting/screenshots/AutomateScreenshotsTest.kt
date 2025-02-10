@@ -30,7 +30,8 @@ import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
 import ooniprobe.composeapp.generated.resources.app_name
-import org.junit.Before
+import org.junit.AfterClass
+import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -47,28 +48,32 @@ import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
 import org.ooni.probe.uitesting.helpers.wait
 import tools.fastlane.screengrab.Screengrab
-import tools.fastlane.screengrab.cleanstatusbar.BluetoothState
 import tools.fastlane.screengrab.cleanstatusbar.CleanStatusBar
-import tools.fastlane.screengrab.cleanstatusbar.MobileDataType
 import tools.fastlane.screengrab.locale.LocaleTestRule
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 class AutomateScreenshotsTest {
-    @Rule @JvmField
+    @Rule
+    @JvmField
     val localeTestRule = LocaleTestRule()
 
     @get:Rule
     val compose = createEmptyComposeRule()
 
-    @Before
-    fun setUp() =
-        runTest {
-            CleanStatusBar()
-                .setBluetoothState(BluetoothState.DISCONNECTED)
-                .setMobileNetworkDataType(MobileDataType.LTE)
-                .enable()
+    companion object {
+        @BeforeClass
+        @JvmStatic
+        fun beforeAll() {
+            CleanStatusBar.enableWithDefaults()
         }
+
+        @AfterClass
+        @JvmStatic
+        fun afterAll() {
+            CleanStatusBar.disable()
+        }
+    }
 
     @Test
     fun onboarding() =

@@ -1,18 +1,3 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
-
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
-
 default_platform(:android)
 
 platform :android do
@@ -30,7 +15,7 @@ platform :android do
 
   desc "Capture the  OONI Probe screenshots for the Google Play"
   lane :capture_screen_ooni do
-    gradle(task: "clean  copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=ooni")
+    gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=ooni")
     capture_android_screenshots(
         app_package_name: 'org.openobservatory.ooniprobe.dev'
     )
@@ -38,7 +23,7 @@ platform :android do
 
     desc "Capture the  DW screenshots for the Google Play"
   lane :capture_screen_dw do
-    gradle(task: "clean  copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=dw")
+    gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=dw")
 
     capture_android_screenshots(
         app_package_name: 'com.dw.ooniprobe.dev'
