@@ -16,7 +16,11 @@ jobs:
 
     strategy:
       matrix:
+        license: [ full, fdroid ]
         organization: [ ooni, dw ]
+        exclude:
+          - license: fdroid
+            organization: dw
 
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +29,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build APKs
-        run: ./gradlew copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=${{ matrix.organization }}
+        run: ./gradlew copyBrandingToCommonResources assemble${{ matrix.license }}Debug assemble${{ matrix.license }}DebugAndroidTest -Porganization=${{ matrix.organization }}
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
@@ -45,8 +49,8 @@ jobs:
           LABEL=$(git show -s --format='%H')
           gcloud firebase test android run
           --type instrumentation
-          --app composeApp/build/outputs/apk/full/debug/composeApp-full-debug.apk
-          --test composeApp/build/outputs/apk/androidTest/full/debug/composeApp-full-debug-androidTest.apk
+          --app composeApp/build/outputs/apk/${{ matrix.license }}/debug/composeApp-${{ matrix.license }}-debug.apk
+          --test composeApp/build/outputs/apk/androidTest/${{ matrix.license }}/debug/composeApp-${{ matrix.license }}-debug-androidTest.apk
           --device model=MediumPhone.arm,version=29,locale=en,orientation=portrait
           --timeout 180s
           --num-flaky-test-attempts=2
