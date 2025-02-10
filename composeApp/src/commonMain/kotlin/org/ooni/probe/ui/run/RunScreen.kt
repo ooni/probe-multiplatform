@@ -186,7 +186,8 @@ fun RunScreen(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(bottom = 16.dp)
-                    .padding(WindowInsets.navigationBars.asPaddingValues()),
+                    .padding(WindowInsets.navigationBars.asPaddingValues())
+                    .testTag("Run-Button"),
             ) {
                 Text(
                     text = pluralStringResourceItem(

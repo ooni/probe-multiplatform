@@ -175,6 +175,7 @@ android {
         getByName("debug") {
             applicationIdSuffix = ".dev"
             resValue("string", "run_v2_domain", "run.test.ooni.org")
+            sourceSets["debug"].manifest.srcFile("src/androidDebug/AndroidManifest.xml")
         }
         getByName("release") {
             isMinifyEnabled = false
@@ -414,6 +415,6 @@ tasks.register("runDebug", Exec::class) {
         "am",
         "start",
         "-n",
-        "${config.appId}.debug/org.ooni.probe.MainActivity",
+        "${config.appId}.dev/org.ooni.probe.MainActivity",
     )
 }

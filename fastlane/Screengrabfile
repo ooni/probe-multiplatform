@@ -1,0 +1,8 @@
+locales(['en-US', 'pt-BR'])
+# locales(['ar', 'en-US', 'hi-IN', 'pt-BR', 'sk', 'zh-CN', 'ca', 'es-ES', 'id', 'ro', 'sq', 'zh-TW', 'de-DE', 'fa', 'is-IS', 'ru-RU', 'th', 'el-GR', 'fr-FR', 'it-IT', 'tr-TR'])
+app_apk_path "composeApp/build/outputs/apk/full/debug/composeApp-full-debug.apk"
+tests_apk_path "composeApp/build/outputs/apk/androidTest/full/debug/composeApp-full-debug-androidTest.apk"
+reinstall_app true
+exit_on_test_failure false
+clear_previous_screenshots true
+use_tests_in_packages(['org.ooni.probe.uitesting.screenshots'])

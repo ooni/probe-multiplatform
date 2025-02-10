@@ -88,6 +88,7 @@ android-test-runner = { module = "androidx.test:runner", version = "1.6.2" }
 android-test-rules = { module = "androidx.test:rules", version = "1.6.1" }
 androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.7.7" }
 androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.6.1" }
+fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" }
 
 [bundles]
 
@@ -134,4 +135,5 @@ android-instrumented-test = [
     "android-test-rules",
     "androidx-compose-test-android",
     "androidx-espresso-web",
+    "fastlane-screengrab",
 ]
