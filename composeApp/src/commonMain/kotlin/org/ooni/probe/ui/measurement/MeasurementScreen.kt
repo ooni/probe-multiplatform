@@ -1,6 +1,7 @@
 package org.ooni.probe.ui.measurement
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -20,19 +21,25 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Common_Refresh
+import ooniprobe.composeapp.generated.resources.Measurement_LoadingFailed
 import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.ic_cloud_off
 import org.intellij.markdown.html.urlEncode
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.MeasurementModel
@@ -89,7 +96,7 @@ fun MeasurementScreen(
                     } else {
                         IconButton(
                             onClick = { controller.reload() },
-                            enabled = controller.state is OoniWebViewController.State.Finished,
+                            enabled = controller.state.isFinished,
                         ) {
                             Icon(
                                 Icons.Default.Refresh,
@@ -115,12 +122,45 @@ fun MeasurementScreen(
             )
         }
 
-        OoniWebView(
-            controller = controller,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(WindowInsets.navigationBars.asPaddingValues()),
-        )
+        Box(modifier = Modifier.fillMaxSize()) {
+            val isFailure = controller.state is OoniWebViewController.State.Failure
+
+            OoniWebView(
+                controller = controller,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .alpha(if (isFailure) 0f else 1f)
+                    .padding(WindowInsets.navigationBars.asPaddingValues()),
+            )
+
+            if (isFailure) {
+                Column(
+                    modifier = Modifier.fillMaxSize().padding(32.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Icon(
+                        painter = painterResource(Res.drawable.ic_cloud_off),
+                        contentDescription = null,
+                        modifier = Modifier.padding(bottom = 32.dp).size(48.dp),
+                    )
+                    Text(
+                        text = stringResource(Res.string.Measurement_LoadingFailed),
+                        style = MaterialTheme.typography.titleMedium,
+                        textAlign = TextAlign.Center,
+                    )
+                    OutlinedButton(
+                        onClick = { controller.reload() },
+                        modifier = Modifier.padding(top = 32.dp),
+                    ) {
+                        Text(
+                            stringResource(Res.string.Common_Refresh),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    }
+                }
+            }
+        }
     }
 
     LaunchedEffect(url) {
