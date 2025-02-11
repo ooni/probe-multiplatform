@@ -1,36 +1,17 @@
 package org.ooni.probe.uitesting.screenshots
 
 import androidx.compose.ui.test.isDisplayed
-import androidx.compose.ui.test.isNotDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Common_Back
-import ooniprobe.composeapp.generated.resources.Dashboard_Progress_UpdateLink_Label
-import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
-import ooniprobe.composeapp.generated.resources.OONIRun_Run
-import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
-import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Title
-import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Button_Go
-import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Title
-import ooniprobe.composeapp.generated.resources.Onboarding_PopQuiz_True
-import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Button
-import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Title
-import ooniprobe.composeapp.generated.resources.Onboarding_WhatIsOONIProbe_GotIt
-import ooniprobe.composeapp.generated.resources.Onboarding_WhatIsOONIProbe_Title
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.Settings_About_Label
-import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
-import ooniprobe.composeapp.generated.resources.Settings_Notifications_Label
-import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
-import ooniprobe.composeapp.generated.resources.Settings_Proxy_Enabled
-import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
-import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_Description
-import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
-import ooniprobe.composeapp.generated.resources.Settings_Title
-import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
+import ooniprobe.composeapp.generated.resources.Test_Dash_Fullname
+import ooniprobe.composeapp.generated.resources.Test_Performance_Fullname
+import ooniprobe.composeapp.generated.resources.Test_Websites_Fullname
 import ooniprobe.composeapp.generated.resources.app_name
 import org.junit.AfterClass
 import org.junit.BeforeClass
@@ -40,18 +21,18 @@ import org.junit.runner.RunWith
 import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
+import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.NetworkModel
-import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.data.models.getCurrent
 import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnContentDescription
-import org.ooni.probe.uitesting.helpers.clickOnTag
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.dependencies
+import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
 import org.ooni.probe.uitesting.helpers.onNodeWithContentDescription
 import org.ooni.probe.uitesting.helpers.onNodeWithText
-import org.ooni.probe.uitesting.helpers.preferences
 import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
 import org.ooni.probe.uitesting.helpers.wait
@@ -247,24 +228,26 @@ class AutomateScreenshotsTest {
         }
 
     @Test
-    fun results() =
+    fun ooniResults() =
         runTest {
+            if (!isOoni) return@runTest
             skipOnboarding()
-            setupTestResults()
+            setupOoniTestResults()
             start()
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
 
                 clickOnText(Res.string.TestResults_Overview_Title)
 
-                wait { onNodeWithText("Websites").isDisplayed() }
+                wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
 
                 Screengrab.screenshot("17-results")
 
-                clickOnText("Websites")
+                clickOnText(Res.string.Test_Websites_Fullname)
 
                 wait(10.seconds) { onNodeWithText("https://z-lib.org/").isDisplayed() }
 
+                // Screenshot was coming up empty, so I had to surround it with sleeps
                 Thread.sleep(1000)
                 Screengrab.screenshot("18-websites-results")
                 Thread.sleep(1000)
@@ -276,12 +259,12 @@ class AutomateScreenshotsTest {
                 Screengrab.screenshot("19-website-measurement-anomaly")
 
                 clickOnContentDescription(Res.string.Common_Back)
-                wait { onNodeWithText("Websites").isDisplayed() }
+                wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
                 clickOnContentDescription(Res.string.Common_Back)
-                wait { onNodeWithText("Websites").isDisplayed() }
-                clickOnText("Performance")
-                wait { onNodeWithText("DASH Streaming Test").isDisplayed() }
-                clickOnText("DASH Streaming Test")
+                wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
+                clickOnText(Res.string.Test_Performance_Fullname)
+                wait { onNodeWithText(Res.string.Test_Dash_Fullname).isDisplayed() }
+                clickOnText(Res.string.Test_Dash_Fullname)
 
                 checkTextAnywhereInsideWebView("2160p (4k)")
 
@@ -289,7 +272,46 @@ class AutomateScreenshotsTest {
             }
         }
 
-    private suspend fun setupTestResults() {
+    @Test
+    fun nmsResults() =
+        runTest {
+            if (!isNewsMediaScan) return@runTest
+            skipOnboarding()
+            setupNmsTestResults()
+
+            dependencies.bootstrapTestDescriptors()
+            val trustedDescriptor = dependencies.testDescriptorRepository.listLatest().first()
+                .first { it.id.value == "10004" }
+            val trustedName = with(trustedDescriptor) { nameIntl?.getCurrent() ?: name }
+
+            start()
+            with(compose) {
+                wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
+
+                clickOnText(Res.string.TestResults_Overview_Title)
+
+                wait { onNodeWithText(trustedName).isDisplayed() }
+
+                Screengrab.screenshot("17-results")
+
+                clickOnText(trustedName)
+
+                wait(10.seconds) { onNodeWithText("https://www.dw.com").isDisplayed() }
+
+                // Screenshot was coming up empty, so I had to surround it with sleeps
+                Thread.sleep(1000)
+                Screengrab.screenshot("18-websites-results")
+                Thread.sleep(1000)
+
+                clickOnText("https://www.dw.com")
+
+                checkTextAnywhereInsideWebView("https://www.dw.com")
+
+                Screengrab.screenshot("19-website-measurement")
+            }
+        }
+
+    private suspend fun setupOoniTestResults() {
         val networkId = dependencies.networkRepository.createIfNew(
             NetworkModel(
                 networkName = "Vodafone Italia",
@@ -473,5 +495,134 @@ class AutomateScreenshotsTest {
                 testKeys = """{"simple":{"median_bitrate":230936,"upload":1000,"download":2000}}""",
             ),
         )
+    }
+
+    private suspend fun setupNmsTestResults() {
+        val networkId = dependencies.networkRepository.createIfNew(
+            NetworkModel(
+                networkName = "Vodafone GmbH",
+                asn = "AS3209",
+                countryCode = "DE",
+                networkType = NetworkType.Wifi,
+            ),
+        )
+
+        val trustedId = dependencies.resultRepository.createOrUpdate(
+            ResultModelFactory.build(
+                id = null,
+                networkId = networkId,
+                descriptorKey = InstalledTestDescriptorModel.Key(
+                    id = InstalledTestDescriptorModel.Id("10004"),
+                    revision = 2,
+                ),
+                isViewed = true,
+                isDone = true,
+                dataUsageUp = 1257,
+                dataUsageDown = 26589,
+                taskOrigin = TaskOrigin.AutoRun,
+            ),
+        )
+        val selectedId = dependencies.resultRepository.createOrUpdate(
+            ResultModelFactory.build(
+                id = null,
+                networkId = networkId,
+                descriptorKey = InstalledTestDescriptorModel.Key(
+                    id = InstalledTestDescriptorModel.Id("10005"),
+                    revision = 4,
+                ),
+                isViewed = true,
+                isDone = true,
+                dataUsageUp = 1257,
+                dataUsageDown = 26589,
+                taskOrigin = TaskOrigin.AutoRun,
+            ),
+        )
+        val globalId = dependencies.resultRepository.createOrUpdate(
+            ResultModelFactory.build(
+                id = null,
+                networkId = networkId,
+                descriptorKey = InstalledTestDescriptorModel.Key(
+                    id = InstalledTestDescriptorModel.Id("10006"),
+                    revision = 5,
+                ),
+                isViewed = true,
+                isDone = true,
+                dataUsageUp = 1267,
+                dataUsageDown = 37189,
+                taskOrigin = TaskOrigin.AutoRun,
+            ),
+        )
+
+        dependencies.measurementRepository.createOrUpdate(
+            MeasurementModelFactory.build(
+                resultId = trustedId,
+                test = TestType.WebConnectivity,
+                urlId = dependencies.urlRepository.createOrUpdate(
+                    UrlModelFactory.build(url = "https://www.dw.com"),
+                ),
+                reportId = MeasurementModel.ReportId("20250205T153106Z_webconnectivity_DE_3209_n1_iB2GPLBoLLpSlEYf"),
+                isDone = true,
+                isUploaded = true,
+            ),
+        )
+        listOf(
+            "https://www.francemediasmonde.com/",
+            "https://www.mc-doualiya.com/",
+            "https://www.bbc.com/",
+            "http://www.lemonde.fr/",
+            "https://www.rferl.org/",
+            "http://www.rfi.fr/",
+            "http://www.voanews.com/",
+            "https://ici.radio-canada.ca/rci/en",
+            "https://www.rfa.org/english/",
+            "https://www.france24.com/en/",
+            "https://www3.nhk.or.jp/nhkworld/",
+            "https://www.abc.net.au/news",
+            "https://www.swissinfo.ch/eng/",
+            "https://www.srgssr.ch/en/home/",
+        ).forEach { url ->
+            dependencies.measurementRepository.createOrUpdate(
+                MeasurementModelFactory.build(
+                    resultId = trustedId,
+                    test = TestType.WebConnectivity,
+                    urlId = dependencies.urlRepository.createOrUpdate(
+                        UrlModelFactory.build(url = url),
+                    ),
+                    reportId = MeasurementModel.ReportId("12345"),
+                    isDone = true,
+                    isUploaded = true,
+                ),
+            )
+        }
+
+        repeat(91) {
+            dependencies.measurementRepository.createOrUpdate(
+                MeasurementModelFactory.build(
+                    resultId = selectedId,
+                    test = TestType.WebConnectivity,
+                    urlId = dependencies.urlRepository.createOrUpdate(
+                        UrlModelFactory.build(url = "https://example.org"),
+                    ),
+                    reportId = MeasurementModel.ReportId("12345"),
+                    isDone = true,
+                    isUploaded = true,
+                ),
+            )
+        }
+
+        repeat(142) {
+            dependencies.measurementRepository.createOrUpdate(
+                MeasurementModelFactory.build(
+                    resultId = globalId,
+                    test = TestType.WebConnectivity,
+                    urlId = dependencies.urlRepository.createOrUpdate(
+                        UrlModelFactory.build(url = "https://example.org"),
+                    ),
+                    reportId = MeasurementModel.ReportId("12345"),
+                    isDone = true,
+                    isUploaded = true,
+                ),
+            )
+        }
     }
 }
