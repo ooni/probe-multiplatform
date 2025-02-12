@@ -18,7 +18,7 @@ class OoniWebViewController {
     var state by mutableStateOf<State>(State.Initializing)
     var canGoBack by mutableStateOf(false)
 
-    private var events by mutableStateOf<List<Event>>(emptyList())
+    private var events by mutableStateOf<Set<Event>>(emptySet())
 
     @Composable
     fun rememberNextEvent() = remember(events) { events.firstOrNull() }
@@ -60,6 +60,10 @@ class OoniWebViewController {
 
         data class Loading(val progress: Float) : State
 
-        data object Finished : State
+        data object Failure : State
+
+        data object Successful : State
+
+        val isFinished get() = this is Failure || this is Successful
     }
 }
