@@ -336,6 +336,11 @@
     <string name="Measurements_Failed">Falhou</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Anomalia</string>
+    <string name="Measurements_Count_One">%1$d medido</string>
+    <string name="Measurements_Count_Other">%1$d medidos</string>
+    <string name="Measurements_Failed_One">%1$d falhado</string>
+    <string name="Measurements_Failed_Other">%1$d falhados</string>
+
     <string name="Results_TestType_All">Todos os Tipos</string>
     <string name="Results_TaskOrigin_All">Todas as Fontes</string>
     <string name="Results_LimitedNotice">Somente os últimos%1$dresultados são mostrados</string>
