@@ -3,5 +3,6 @@
 /screenshots/*/*.png
 /screenshots/screenshots.html
 /screenshots/report.xml
+/metadata/dw/
 /metadata/
 /README.md
