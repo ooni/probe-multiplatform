@@ -208,6 +208,7 @@
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Tout n’a pas été téléversé</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Tout téléverser</string>
     <string name="Modal_ResultsNotUploaded_Uploading">Téléversement de %1$s…</string>
+    <string name="Toast_ResultsUploaded">Le téléversement est réussi</string>
     <string name="Modal_UploadFailed_Title">Échec de téléversement</string>
     <string name="Modal_UploadFailed_Paragraph">Nous n’avons pas réussi à téléverser %1$s mesures sur %2$s. Le journal des échecs a été partagé avec les développeurs d’OONI.</string>
     <string name="Modal_Retry">Ressayer</string>
@@ -249,6 +250,8 @@
     <string name="Dashboard_ReviewDescriptor_Button_Default">METTRE À JOUR (%1$s de %2$s)</string>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRÉ</string>
     <string name="Dashboard_RunV2_UpdatedTag">MIS À JOUR</string>
+    <string name="Dashboard_RunV2_UpdateTag">MISE À JOUR</string>
+
     <string name="Settings_Websites_CustomURL_Title">Choisir les sites Web à tester</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_NoURLEntered">Aucune URL n’a été saisie</string>
@@ -271,6 +274,10 @@
     <string name="Common_Minutes_Other">%1$d minutes</string>
     <string name="Common_Hour_One">%1$d heure</string>
     <string name="Common_Hour_Other">%1$d heures</string>
+    <string name="Common_Hours_Abbreviated">%1$d h</string>
+    <string name="Common_Minutes_Abbreviated">%1$d min</string>
+    <string name="Common_Seconds_Abbreviated">%1$d s</string>
+
     <string name="Common_Months_January">janvier</string>
     <string name="Common_Months_February">février</string>
     <string name="Common_Months_March">mars</string>
@@ -314,18 +321,24 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Des renseignements sur le réseau (dont le numéro de système autonome)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">L’estampille temporelle du test</string>
     <string name="Onboarding_DefaultSettings_Paragraph">Nous faisons de notre mieux pour ne publier ni votre adresse IP ni aucun autre renseignement qui pourrait vous identifier.\n\nApprenez-en davantage dans la [Politique sur les données de l’OONI](https://ooni.org/about/data-policy/) (page en anglais).</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">Allons-y</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Modifier les paramètres</string>
 
     <string name="Modal_EnableNotifications_Title">Obtenez des mises à jour sur la censure d’Internet</string>
 
     <string name="Dashboard_Runv2_Overview_LastUpdated">Dernière mise à jour le %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">Mise à jour refusée</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Rétablir</string>
     <string name="Dashboard_RunTests_RunButton_Label_One">Exécuter %1$d test</string>
     <string name="Dashboard_RunTests_RunButton_Label_Other">Exécuter %1$d tests</string>
+    <string name="Dashboard_Update_Ready">La mise à jour de l’appli vient d’être téléchargée</string>
     <string name="Dashboard_Update_Restart">Redémarrer</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">Refusez la mise à jour</string>
+
     <string name="AddDescriptor_Toasts_Unsupported_Url">Cette URL n’est pas prise en charge</string>
 
     <string name="Measurement_Title">Mesure</string>
+    <string name="Measurement_LoadingFailed">Échec de chargement des renseignements relatifs aux mesures</string>
     <string name="Measurements_Failed">Échec</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Anomalie</string>
