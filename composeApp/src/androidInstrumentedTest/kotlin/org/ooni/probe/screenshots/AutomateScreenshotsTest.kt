@@ -1,4 +1,4 @@
-package org.ooni.probe.uitesting.screenshots
+package org.ooni.probe.screenshots
 
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.isNotDisplayed
@@ -38,7 +38,6 @@ import ooniprobe.composeapp.generated.resources.Test_Websites_Fullname
 import ooniprobe.composeapp.generated.resources.app_name
 import org.junit.AfterClass
 import org.junit.BeforeClass
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
