@@ -10,3 +10,10 @@ git:
       file_format: ANDROID
       source_language: en
       translation_files_expression: 'composeApp/src/ooniMain/composeResources/values-<lang>/strings-organization.xml'
+  settings:
+    pr_branch_name:
+      translations/<br_unique_id>
+    language_mapping:
+      pt_BR: pt-rBR
+      zh_CN: zh-rCN
+      zh_TW: zh-rTW
