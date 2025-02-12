@@ -37,6 +37,7 @@ import ooniprobe.composeapp.generated.resources.Test_Performance_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Websites_Fullname
 import ooniprobe.composeapp.generated.resources.app_name
 import org.junit.AfterClass
+import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
@@ -92,6 +93,12 @@ class AutomateScreenshotsTest {
             CleanStatusBar.disable()
         }
     }
+
+    @Before
+    fun setUp() =
+        runTest {
+            preferences.setValueByKey(SettingsKey.SEND_CRASH, false)
+        }
 
     @Test
     fun onboarding() =
