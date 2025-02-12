@@ -76,13 +76,13 @@
     <string name="TestResults_Kbps">kbit/s</string>
 
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Probado</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Probado</string>
+    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Probados</string>
 
     <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Bloqueado</string>
     <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Bloqueados</string>
 
     <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Accesible</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Accesible</string>
+    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Accesibles</string>
 
     <string name="TestResults_Summary_Performance_Hero_Video">Vídeo</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Calidad</string>
