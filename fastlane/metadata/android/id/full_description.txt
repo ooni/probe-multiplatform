@@ -1,0 +1,24 @@
+Apakah websites dan aplikasi media sosial diblok? Apakah jaringanmu tidak biasanya lambat? Jalankan OONI Probe untuk mencari tahu!
+
+Dengan aplikasi ini, Anda akan menguji blokir situs dan aplikasi pesan ringkas, mengukur kecepatan dan kinerja jaringan Anda, serta memeriksa apakah sistem yang mungkin bertanggungjawab dalam penyensoran dan pengawasan ada dalam jaringan Anda.
+
+OONI Probe dikembangkan oleh Open Observatory of Network Interference (OONI), sebuah proyek perangkat lunak gratis (di bawah The Tor Project) dengan tujuan untuk membuka penyensoran internet di seluruh dunia.
+
+Sejak 2012, komunitas global OONI telah mengumpulkan jutaan pengukuran jaringan dari lebih dari 200 negara, menjelaskan berbagai kasus gangguan jaringan.
+
+<b>Mengumpulkan bukti terhadap penyensoran internet</b>
+Anda bisa memeriksa apakah dan bagaimana situs dan aplikasi pesan ringkas diblokir. Data pengukuran jaringan yang Anda kumpulkan mungkin susah sebagai bukti penyensoran Internet.
+
+<b>Mendeteksi sistem yang bertanggungjawab terhadap penyensoran dan pengawasan</b>
+Pengujian OONI Probe juga didesain untuk membuka adanya sistem (kotaktengah) yang mungkin bertanggungjawab terhadap penyensoran dan pengawasan.
+
+<b>Mengukur kecepatan dan kinerja jaringan Anda</b>
+Anda bisa mengukur kecepatan dan kinerja jaringan Anda dengan menjalankan penerapan Uji Diagnosis Jaringan (NDT) OONI. Anda juga bisa mengukur kinerja aliran video dengan uji Dynamic Adaptive Streaming over HTTP (DASH).
+
+<b>Data terbuka</b>
+OONI mempublikasikan data pengukuran karena pembukaan data mengizinkan pihak ketiga untuk memverifikasi temuan OONI, membuat studi independen, dan menjawab pertanyaan penelitian lain. Data OONI yang dipublikasikan secara terbuka juga membantu untuk meningkatkan transparansi penyensoran internet di seluruh dunia. Anda bisa melihat-lihat dan mengunduh data OONI di sini: https://ooni.io/data/
+
+<b>Perangkat lunak gratis</b>
+Semua pengujian OONI Probe (termasuk NDT dan DASH) menggunakan perangkat lunak gratis dan sumber terbuka. Anda bisa menemukan proyek perangkat lunak OONI di GitHub: https://github.com/ooni. Tertarik belajar bagaimana pengujian OONI Probe bekerja? Pelajari lebih lanjut di https://ooni.io/nettest/
+
+Untuk menerima kabar terbaru dari OONI, ikuti kami di Twitter: https://twitter.com/OpenObservatory

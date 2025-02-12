@@ -1,0 +1,24 @@
+Worden websites en sociale media-apps geblokkeerd? Is uw netwerk ongewoon traag? Voer OONI Probe uit om erachter te komen!
+
+Met deze app onderzoekt u het blokkeren van websites en instant messaging-apps, meet u de snelheid en prestaties van uw netwerk en controleert u of er systemen in uw netwerk zitten die verantwoordelijk kunnen zijn voor censuur en toezicht.
+
+OONI Probe is ontwikkeld door het Open Observatory of Network Interference (OONI), een gratis softwareproject (onder The Tor Project) dat tot doel heeft internetcensuur over de hele wereld aan het licht te brengen.
+
+Sinds 2012 heeft de wereldwijde gemeenschap van OONI miljoenen netwerkmetingen verzameld uit meer dan 200 landen, wat licht werpt op meerdere gevallen van netwerkinterferentie.
+
+<b>Verzamel bewijs van internetcensuur</b>
+U kunt controleren of en hoe websites en instant messaging-apps worden geblokkeerd. De netwerkmeetgegevens die u verzamelt, kunnen dienen als bewijs van internetcensuur.
+
+<b>Detecteer systemen die verantwoordelijk zijn voor censuur en toezicht</b>
+OONI Probe-tests zijn ook bedoeld om de aanwezigheid van systemen (middleboxen) bloot te leggen die verantwoordelijk kunnen zijn voor censuur en toezicht.
+
+<b>Meet de snelheid en prestaties van uw netwerk</b>
+U kunt de snelheid en prestaties van uw netwerk meten door OONI's implementatie van de Network Diagnostic Test (NDT) uit te voeren. U kunt de prestaties van videostreaming ook meten met de Dynamic Adaptive Streaming over HTTP (DASH) test.
+
+<b>Open gegevens</b>
+OONI publiceert netwerkmeetgegevens omdat open data derden in staat stelt OONI-bevindingen te verifiëren, onafhankelijke onderzoeken uit te voeren en andere onderzoeksvragen te beantwoorden. Het openlijk publiceren van OONI-gegevens helpt ook de transparantie van internetcensuur over de hele wereld te vergroten. U kunt OONI-gegevens hier verkennen en downloaden: https://ooni.io/data/
+
+<b>Gratis software</b>
+Alle OONI Probe-tests (inclusief onze NDT- en DASH-implementaties) zijn gebaseerd op gratis en open source software. U kunt OONI-softwareprojecten vinden op GitHub: https://github.com/ooni. Benieuwd hoe OONI Probe-tests werken? Meer informatie: https://ooni.io/nettest/
+
+Volg ons op Twitter om updates van het OONI-verse te ontvangen: https://twitter.com/OpenObservatory
