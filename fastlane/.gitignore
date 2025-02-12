@@ -2,7 +2,7 @@
 /report.xml
 /screenshots/*/*.png
 /screenshots/screenshots.html
-/fastlane/metadata/android/screenshots.html
+/metadata/android/screenshots.html
 /screenshots/report.xml
 /README.md
 
