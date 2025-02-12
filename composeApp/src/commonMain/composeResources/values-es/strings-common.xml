@@ -47,15 +47,15 @@
     <string name="TestResults_Overview_Hero_Networks">Redes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Uso de datos</string>
     <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s bloqueado</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s bloqueados</string>
+    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s bloqueado</string>
     <string name="TestResults_Overview_Websites_Tested_Singular">%1$s probado</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s probados</string>
+    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s probado</string>
     <string name="TestResults_Overview_InstantMessaging_Blocked_Singular">%1$s bloqueado</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Plural">%1$s bloqueados</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Singular">%1$s accesible</string>
+    <string name="TestResults_Overview_InstantMessaging_Blocked_Plural">%1$s bloqueado</string>
+    <string name="TestResults_Overview_InstantMessaging_Available_Singular">%1$s accesibles</string>
     <string name="TestResults_Overview_InstantMessaging_Available_Plural">%1$s accesibles</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Singular">%1$s bloqueado(s)</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Plural">%1$s bloqueados</string>
+    <string name="TestResults_Overview_Circumvention_Blocked_Singular">%1$s bloqueado</string>
+    <string name="TestResults_Overview_Circumvention_Blocked_Plural">%1$s bloqueado</string>
     <string name="TestResults_Overview_Circumvention_Available_Singular">%1$s disponible(s)</string>
     <string name="TestResults_Overview_Circumvention_Available_Plural">%1$s disponible(s)</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Fecha y Hora</string>
@@ -76,13 +76,13 @@
     <string name="TestResults_Kbps">kbit/s</string>
 
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Probado</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Probados</string>
+    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Probado</string>
 
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Bloqueado</string>
+    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Bloqueados</string>
     <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Bloqueados</string>
 
     <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Accesible</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Accesibles</string>
+    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Accesible</string>
 
     <string name="TestResults_Summary_Performance_Hero_Video">Vídeo</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Calidad</string>
@@ -106,9 +106,7 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_DateLast">Última prueba automatizada: %1$s.</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Sólo sobre WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Sólo cuando se está cargando</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Al habilitar pruebas automáticas, OONI Probe las ejecutará automáticamente múltiples veces por día. Los resultados de tus pruebas serán automáticamente publicados en el Explorador OONI: https://explorer.ooni.org/
-
-Importante: Si tienes una VPN habilitada, OONI Probe no ejecutará pruebas automáticamente. Por favor desactiva tu VPN para efectuar pruebas automatizadas con OONI Probe. Aprende más: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Al habilitar pruebas automáticas, OONI Probe las ejecutará automáticamente múltiples veces por día. Los resultados de tus pruebas serán automáticamente publicados en el Explorador OONI: https://explorer.ooni.org/\n\nImportante: Si tienes una VPN habilitada, OONI Probe no ejecutará pruebas automáticamente. Por favor desactiva tu VPN para efectuar pruebas automatizadas con OONI Probe. Aprende más: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
 
     <string name="Settings_Websites_MaxRuntimeEnabled">Limite la duración de la prueba</string>
     <string name="Settings_Websites_MaxRuntime">Duración de la prueba</string>
@@ -136,12 +134,7 @@ Importante: Si tienes una VPN habilitada, OONI Probe no ejecutará pruebas autom
     <string name="Settings_SendEmail_Message">Por favor describe el problema que estás experimentando:</string>
 
     <string name="Settings_Advanced_DebugLogs">Registros de depuración</string>
-    <string name="Settings_Advanced_RecentLogs">Opción A: (Traducción literal)
-
-Ver registros recientes
-
-Opción B: (más apegada a la estructura de OONI):
-Ver logs recientes</string>
+    <string name="Settings_Advanced_RecentLogs">Opción A: (Traducción literal)\n\nVer registros recientes\n\nOpción B: (más apegada a la estructura de OONI):\nVer logs recientes</string>
     <string name="Settings_Advanced_LanguageSettings_Title">Configuración de Idioma</string>
     <string name="Settings_Storage_Label">Uso de almacenamiento</string>
     <string name="Settings_Storage_Delete">Eliminar</string>
@@ -221,8 +214,8 @@ Ver logs recientes</string>
     <string name="Modal_Retry">Intentar de nuevo</string>
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">Aceptar</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">¿Deseas eliminar todos los resultados de las pruebas?</string>
-    <string name="Modal_Delete">Borrar</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">¿Deseas eliminar todos los resultados de las pruebas\?</string>
+    <string name="Modal_Delete">Eliminar</string>
 
     <string name="Modal_DisableVPN_Title">Por favor deshabilita tu conexión VPN.</string>
     <string name="Modal_DisableVPN_Message">Si ejecutas OONI Probe con una VPN habilitada, los resultados de la prueba podrían aparecer como proviniendo desde el país incorrecto. Por favor deshabilita tu conexión VPN.</string>
@@ -263,10 +256,10 @@ Ver logs recientes</string>
     <string name="Settings_Websites_CustomURL_Run">Ejecutar</string>
     <string name="Settings_Websites_CustomURL_Add">Añadir sitio web</string>
     <string name="CustomWebsites_Fab_Text">Test %s URLs</string>
-    <string name="Modal_CustomURL_Title_NotSaved">¿Estas seguro?</string>
-    <string name="Modal_CustomURL_NotSaved">Tus URLs no serán guardadas cuando dejes esta pantalla. ¿Estás seguro de que quieres dejarla?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">¿Estas seguro\?</string>
+    <string name="Modal_CustomURL_NotSaved">Tus URLs no serán guardadas cuando dejes esta pantalla. ¿Estás seguro de que quieres dejarla\?</string>
 
-    <string name="Modal_Autorun_BatteryOptimization">OONI Probe no se puede ejecutar automáticamente sin optimización de batería. ¿Quieres intentarlo de nuevo?</string>
+    <string name="Modal_Autorun_BatteryOptimization">OONI Probe no se puede ejecutar automáticamente sin optimización de batería. ¿Quieres intentarlo de nuevo\?</string>
 
     <!-- New Strings -->
 
@@ -325,9 +318,7 @@ Ver logs recientes</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Código de país (ej. IT por Italia)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">Información de red (incluyendo Número de Sistema Autónomo)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Hora y fecha de la prueba</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">Hacemos lo humanamente posible para no publicar tu dirección IP o cualquier otra información potencialmente identificable a nivel personal. 
-
-Aprende más a través de la [Política de Datos de OONI](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">Hacemos lo humanamente posible para no publicar tu dirección IP o cualquier otra información potencialmente identificable a nivel personal. \n\nAprende más a través de la [Política de Datos de OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Go">Vamos</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Cambiar ajustes</string>
 
@@ -342,10 +333,10 @@ Aprende más a través de la [Política de Datos de OONI](https://ooni.org/about
 
     <string name="Measurement_Title">Measurement</string>
     <string name="Measurements_Failed">Falló</string>
-    <string name="Measurements_Ok">OK</string>
+    <string name="Measurements_Ok">Aceptar</string>
     <string name="Measurements_Anomaly">Anomalía</string>
     <string name="Measurements_Count_One">%1$d measurement</string>
-    <string name="Measurements_Count_Other">%1$d measurements</string>
+    <string name="Measurements_Count_Other">%1$d measurement</string>
     <string name="Results_TestType_All">All Types</string>
     <string name="Results_TaskOrigin_All">All Sources</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
