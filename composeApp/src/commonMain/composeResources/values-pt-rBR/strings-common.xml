@@ -272,6 +272,10 @@
     <string name="Common_Minutes_Other">%1$dminutos</string>
     <string name="Common_Hour_One">%1$dhora</string>
     <string name="Common_Hour_Other">%1$dhoras</string>
+    <string name="Common_Hours_Abbreviated">%1$dh</string>
+    <string name="Common_Minutes_Abbreviated">%1$dm</string>
+    <string name="Common_Seconds_Abbreviated">%1$ds</string>
+
     <string name="Common_Months_January">Janeiro</string>
     <string name="Common_Months_February">Fevereiro</string>
     <string name="Common_Months_March">Março</string>
