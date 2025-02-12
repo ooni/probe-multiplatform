@@ -21,6 +21,7 @@
     <string name="Dashboard_Performance_Card_Description">測試網路速度和效能</string>
     <string name="Dashboard_Performance_Overview_Paragraph">利用 [NDT](https://ooni.org/nettest/ndt/) 測試來衡量網路速度和效能。\n\n用 [DASH](https://ooni.org/nettest/dash/) 測試來了解影片串流的表現。\n\n這些測試會因所在網路速度而消耗數據\n\n測試結果會發佈在 [OONI Explorer](https://explorer.ooni.org/world/) 和 [OONI API](https://api.ooni.io/).\n\n免責聲明: 這些測試是透過第三方伺服器，故我們無法保證你的 IP 地址不被他人收集。</string>
     <string name="Dashboard_Middleboxes_Card_Description">偵測你的網路環境是否有中間盒</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph">因各種情況（如為了緩存），網路連線服務商經常會使用一些網路用具 (如中間盒) 。但有時候，中間盒被會用作網路審查與監控。\n\n使用 OONI\'s [HTTP  無效請求列](https://ooni.org/nettest/http-invalid-request-line/) 和 [HTTP 表頭欄位操控](https://ooni.org/nettest/http-header-field-manipulation/) 測試來找出網路是否有中間盒。\n\n測試結果會發佈在 [OONI Explorer](https://explorer.ooni.org/world/) 和 [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_InstantMessaging_Card_Description">測試遭封鎖的即時通訊應用</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">檢查 [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) 以及 [Signal](https://ooni.org/nettest/signal) 是否已被封鎖。\n\n其結果會發佈在  [OONI Explorer](https://explorer.ooni.org/world/) 與 [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Circumvention_Card_Description">测試翻墙工具屏蔽狀況</string>
