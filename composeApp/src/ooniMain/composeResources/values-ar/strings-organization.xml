@@ -1,74 +1,38 @@
-<?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
-  <string name="Onboarding_WhatIsOONIProbe_Title">ما هو OONI Probe؟</string>
-  <string name="Onboarding_WhatIsOONIProbe_Paragraph">تطبيقكم لقياس الرّقابة على الانترنت. 
+    <string name="app_name">مسبار OONI</string>
 
-هل هناك مواقع أو تطبيقات إعلام اجتماعي محجوبة؟ هل الاتصال بالانترنت أبطأ من العادة؟
+    <string name="Onboarding_WhatIsOONIProbe_Title">ما هو OONI Probe؟</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">تطبيقكم لقياس الرّقابة على الانترنت. \n\nهل هناك مواقع أو تطبيقات إعلام اجتماعي محجوبة؟ هل الاتصال بالانترنت أبطأ من العادة؟\n\nاستخدموا OONI Probe لتعرفوا! </string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">يتم نشر بيانات OONI علنيّاً، بما فيها معلومات الشّبكة الخاصّة بك. </string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">بإمكان أي شخص يقوم بمراقبة أنشطتك على الانترنت (مثلاً الحكومة أو مزوّد خدمة الانترنت) أن يرى بإنّكم تستخدموا OONI Probe.  </string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">بإمكانك اختبار المواقع المحجوبة (ولكن بإمكانك كذلك اختيار مواقع معيّنة تودّ اختبارها). </string>
+    <string name="Onboarding_PopQuiz_1_Question">إذا كان هناك من يراقب نشاطاتي على الانترنت، سيكون بإمكانهم العلم بأنّني استخدم OONI Probe. </string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe ليس أداة خصوصيّة. إن كان هناك من يراقب أنشطتكم على الانترنت، سيكون بإمكانه أن يرى بأنّكم تستخدمون هذا البرنامج. </string>
+    <string name="Onboarding_PopQuiz_2_Question">كل مرّّة أدير فيها OONI Probe، سيتم نشر بيانات الشبكة التي أجمعها أوتوماتيكيّاً. </string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">للزّيادة من شفافيّة الرّقابة على الانترنت، يتم النشر الأوتوماتيكي لجميع بيانات الشبكة التابعة لمستخدمي OONI Probe (إلا إذا اختاروا عدم المشاركة في ذلك من خلال الإعدادات).</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">لقياس الرقابة على الانترنت كل يوم، يُرجى تفعيل الاختبار التلقائي لكي يتمكن OONI Probe من تشغيل الاختبارات بشكل دوري.\n\nلا تقلق، سوف نضع في الحسبان استهلاك طاقة البطارية.\n\nيمكنك تعطيل الاختبار التلقائي انطلاقا من الإعدادات في أي وقت.</string>
+    <string name="Onboarding_Crash_Paragraph">لتحسين خدمات OONI Probe نود تجميع تقارير حول تعطيلات في عمل التطبيق بمجهوليّة.\n\nهل تودّون بالمشاركة في إرسال التبليغات عن التعطيلات لفريق مطوّري OONI؟ </string>
 
-استخدموا OONI Probe لتعرفوا! </string>
-  <string name="Onboarding_ThingsToKnow_Bullet_1">يتم نشر بيانات OONI علنيّاً، بما فيها معلومات الشّبكة الخاصّة بك. </string>
-  <string name="Onboarding_ThingsToKnow_Bullet_2">بإمكان أي شخص يقوم بمراقبة أنشطتك على الانترنت (مثلاً الحكومة أو مزوّد خدمة الانترنت) أن يرى بإنّكم تستخدموا OONI Probe.  </string>
-  <string name="Onboarding_ThingsToKnow_Bullet_3">بإمكانك اختبار المواقع المحجوبة (ولكن بإمكانك كذلك اختيار مواقع معيّنة تودّ اختبارها). </string>
-  <string name="Onboarding_PopQuiz_1_Question">إذا كان هناك من يراقب نشاطاتي على الانترنت، سيكون بإمكانهم العلم بأنّني استخدم OONI Probe. </string>
-  <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe ليس أداة خصوصيّة. إن كان هناك من يراقب أنشطتكم على الانترنت، سيكون بإمكانه أن يرى بأنّكم تستخدمون هذا البرنامج. </string>
-  <string name="Onboarding_PopQuiz_2_Question">كل مرّّة أدير فيها OONI Probe، سيتم نشر بيانات الشبكة التي أجمعها أوتوماتيكيّاً. </string>
-  <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">للزّيادة من شفافيّة الرّقابة على الانترنت، يتم النشر الأوتوماتيكي لجميع بيانات الشبكة التابعة لمستخدمي OONI Probe (إلا إذا اختاروا عدم المشاركة في ذلك من خلال الإعدادات).</string>
-  <string name="Onboarding_AutomatedTesting_Paragraph">لقياس الرقابة على الانترنت كل يوم، يُرجى تفعيل الاختبار التلقائي لكي يتمكن OONI Probe من تشغيل الاختبارات بشكل دوري.
+    <!-- Find proper fix for translation -->
+    <string name="Modal_EnableNotifications_Paragraph">لديكم اهتمام بإجارء اختبارات OONI Probe خلال أحداث قد تسودها الرّقابة في المستقبل؟ يرجى تفعيل الإشعارات لاستقبال رسالة عندما نسمع بحادثة رقابة بجواركم. </string>
 
-لا تقلق، سوف نضع في الحسبان استهلاك طاقة البطارية.
+    <string name="Dashboard_Websites_Card_Description">اختبار حجب المواقع</string>
+    <string name="Dashboard_Websites_Overview_Paragraph">تأكّدوا عمّا إذا كانت المواقع محجوبة باستخدام [اختبار الاتصاليّة بالويب](https://ooni.io/nettest/web-connectivity) من OONI \n\nفي كل مرّة تنقرون فيها \"Run\" ستقومون بفحص المواقع الموجودة لدى قائمة اختبارات Citizen Lab [العالميّة](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) و تلك [الخاصّة ببلد معيّنة](https://github.com/citizenlab/test-lists/tree/master/lists)\n\nلاختبار مواقع معيّنة، انقروا زر \"Choose websites\" أو \"اختاروا من ضمن تصنيفات المواقع عبر إعدادات هذا الكرت. \n\nاختيار مواقع\" هذا الفحص يكشف عمّا إذا كانت المواقع محجوبة عن طريق التلاعب ب DNS، حجب TCP/IP أو عن طريق بروكسي HTTP غير مرئي.\n\nسيتم نشر نتائج فحصكم على كل من [مكتشف OONI](https://explorer.ooni.org) و [واجهة تطبيق OONI](https://api.ooni.io/)</string>
+    <string name="Dashboard_Performance_Card_Description">اختبار سرعة و جودة شبكتك</string>
+    <string name="Dashboard_Performance_Overview_Paragraph">يمكن قياس سرعة و جودة شبكتك من خلال اختبار [NDT](https://ooni.io/nettest/ndt/).\n\nويمكن قياس أداء بث الفيديو من خلال اختبار [DASH](https://ooni.io/nettest/dash/).\n\nهذه الاختبارات تستهلك بيانات بحسب سرعة اتصالك بالشبكة.\n\nستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.io/world/) و على [OONI API](https://api.ooni.io/).\n\nتنبيه: هذه الاختبارات تعتمد على خوادم من أطراف ثالثة. لذلك لا نستطيع ضمان عدم تسجيل عنوان IP الخاص بك.</string>
+    <string name="Dashboard_Middleboxes_Card_Description">البحث عن اختبارات تفتيش في شبكتك</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph">عادة ما تقوم الشركات المزودة لخدمة الإنترنت باستخدام أجهزة شبكية اعتراضية (middleboxes) لاستخدامات مختلفة فى الشبكة (مثل تسريع الخدمة عن طريق تقديم نسخة مسجلة من المطلوب) . أحيانا ما تستخدم هذه الأجهزة الإعتراضية لتنفيذ الحجب أو مراقية للإنترنت.\n\nاعثر على الأجهزة الإعتراضية فى شبكتك بإستخدام إختبارات HTTP Invalid Request Line](https://ooni.io/nettest/http-invalid-request-line/) و [HTTP Header Field Manipulation](https://ooni.io/nettest/http-header-field-manipulation/).\n\nستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.org/) و على [OONI API](https://api.ooni.io/).</string>
+    <string name="Dashboard_InstantMessaging_Card_Description">اختبار حجب برامج المراسلة الفورية</string>
+    <string name="Dashboard_InstantMessaging_Overview_Paragraph">تحقّقوا من حجب  [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), and [Signal](https://ooni.org/nettest/signal) are blocked. \n\nستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.org/) و على [OONI API](https://api.ooni.io/).</string>
+    <string name="Dashboard_Circumvention_Card_Description">اختبار حجب وسائل تجاوز الرقابة.</string>
+    <string name="Dashboard_Circumvention_Overview_Paragraph">تحققوا من حجب [Psiphon](https://ooni.io/nettest/psiphon/) و [تور](https://ooni.io/nettest/tor/).\n\nستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.org/) و على [OONI API](https://api.ooni.io/).</string>
+    <string name="Dashboard_Experimental_Card_Description">إجراء الاختبارات التجريبيّة الجديدة</string>
+    <string name="Settings_About_Label">عن OONI</string>
+    <string name="Settings_About_Content_Paragraph">المرصد المفتوح للتدخل في الشبكات (OONI) هو مشروع برنامج مجاني تحت مظلة مشروع تور الذي يهدف إلى تعزيز الشفافية حول ممارسات الرقابة على الانترنت حول العالم.\n\nمنذ عام 2012، يقوم مجتمع OONI العالمي بقياس الشبكات في أكثر من 200 دولة. بعض هذه المقاييس تعتبر أدلة على الرقابة على الانترنت. </string>
 
-يمكنك تعطيل الاختبار التلقائي انطلاقا من الإعدادات في أي وقت.</string>
-  <string name="Onboarding_Crash_Paragraph">لتحسين خدمات OONI Probe نود تجميع تقارير حول تعطيلات في عمل التطبيق بمجهوليّة.
+    <string name="Settings_About_Content_LearnMore">تعرّف على المزيد</string>
+    <string name="Settings_About_Content_Blog">المدونة</string>
+    <string name="Settings_About_Content_Reports">التقارير</string>
+    <string name="Settings_About_Content_DataPolicy">سياسة OONI في البيانات   </string>
 
-هل تودّون بالمشاركة في إرسال التبليغات عن التعطيلات لفريق مطوّري OONI؟ </string>
-  <string name="Dashboard_Websites_Card_Description">اختبار حجب المواقع</string>
-  <string name="Dashboard_Websites_Overview_Paragraph">تأكّدوا عمّا إذا كانت المواقع محجوبة باستخدام [اختبار الاتصاليّة بالويب](https://ooni.io/nettest/web-connectivity) من OONI 
-
-في كل مرّة تنقرون فيها "Run" ستقومون بفحص المواقع الموجودة لدى قائمة اختبارات Citizen Lab [العالميّة](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) و تلك [الخاصّة ببلد معيّنة](https://github.com/citizenlab/test-lists/tree/master/lists)
-
-لاختبار مواقع معيّنة، انقروا زر "Choose websites" أو "اختاروا من ضمن تصنيفات المواقع عبر إعدادات هذا الكرت. 
-
-اختيار مواقع" هذا الفحص يكشف عمّا إذا كانت المواقع محجوبة عن طريق التلاعب ب DNS، حجب TCP/IP أو عن طريق بروكسي HTTP غير مرئي.
-
-سيتم نشر نتائج فحصكم على كل من [مكتشف OONI](https://explorer.ooni.org) و [واجهة تطبيق OONI](https://api.ooni.io/)</string>
-  <string name="Dashboard_Performance_Card_Description">اختبار سرعة و جودة شبكتك</string>
-  <string name="Dashboard_Performance_Overview_Paragraph">يمكن قياس سرعة و جودة شبكتك من خلال اختبار [NDT](https://ooni.io/nettest/ndt/).
-
-ويمكن قياس أداء بث الفيديو من خلال اختبار [DASH](https://ooni.io/nettest/dash/).
-
-هذه الاختبارات تستهلك بيانات بحسب سرعة اتصالك بالشبكة.
-
-ستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.io/world/) و على [OONI API](https://api.ooni.io/).
-
-تنبيه: هذه الاختبارات تعتمد على خوادم من أطراف ثالثة. لذلك لا نستطيع ضمان عدم تسجيل عنوان IP الخاص بك.</string>
-  <string name="Dashboard_Middleboxes_Card_Description">البحث عن اختبارات تفتيش في شبكتك</string>
-  <string name="Dashboard_Middleboxes_Overview_Paragraph">عادة ما تقوم الشركات المزودة لخدمة الإنترنت باستخدام أجهزة شبكية اعتراضية (middleboxes) لاستخدامات مختلفة فى الشبكة (مثل تسريع الخدمة عن طريق تقديم نسخة مسجلة من المطلوب) . أحيانا ما تستخدم هذه الأجهزة الإعتراضية لتنفيذ الحجب أو مراقية للإنترنت.
-
-اعثر على الأجهزة الإعتراضية فى شبكتك بإستخدام إختبارات HTTP Invalid Request Line](https://ooni.io/nettest/http-invalid-request-line/) و [HTTP Header Field Manipulation](https://ooni.io/nettest/http-header-field-manipulation/).
-
-ستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.org/) و على [OONI API](https://api.ooni.io/).</string>
-  <string name="Dashboard_InstantMessaging_Card_Description">اختبار حجب برامج المراسلة الفورية</string>
-  <string name="Dashboard_InstantMessaging_Overview_Paragraph">تحقّقوا من حجب  [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), and [Signal](https://ooni.org/nettest/signal) are blocked. 
-
-ستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.org/) و على [OONI API](https://api.ooni.io/).</string>
-  <string name="Dashboard_Circumvention_Card_Description">اختبار حجب وسائل تجاوز الرقابة.</string>
-  <string name="Dashboard_Circumvention_Overview_Paragraph">تحققوا من حجب [Psiphon](https://ooni.io/nettest/psiphon/) و [تور](https://ooni.io/nettest/tor/).
-
-ستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.org/) و على [OONI API](https://api.ooni.io/).</string>
-  <string name="Dashboard_Experimental_Card_Description">إجراء الاختبارات التجريبيّة الجديدة</string>
-  <string name="Dashboard_Experimental_Overview_Paragraph">يمكنكم إجراء بعض الاختبارات التجريبيّة الجديدة المطوّرة من قبل فريق OONI: 
-%1$s
-
-سيتم نشر نتائج اختباراتكم على كل من [مكتشف OONI](https://explorer.ooni.org) و [واجهة تطبيق OONI](https://api.ooni.io/)</string>
-  <string name="Modal_EnableNotifications_Paragraph">لديكم اهتمام بإجارء اختبارات OONI Probe خلال أحداث قد تسودها الرّقابة في المستقبل؟ يرجى تفعيل الإشعارات لاستقبال رسالة عندما نسمع بحادثة رقابة بجواركم. </string>
-  <string name="Settings_About_Label">عن OONI</string>
-  <string name="Settings_About_Content_Paragraph">المرصد المفتوح للتدخل في الشبكات (OONI) هو مشروع برنامج مجاني تحت مظلة مشروع تور الذي يهدف إلى تعزيز الشفافية حول ممارسات الرقابة على الانترنت حول العالم.
-
-منذ عام 2012، يقوم مجتمع OONI العالمي بقياس الشبكات في أكثر من 200 دولة. بعض هذه المقاييس تعتبر أدلة على الرقابة على الانترنت. </string>
-  <string name="Settings_About_Content_LearnMore">تعرف على المزيد</string>
-  <string name="Settings_About_Content_Blog">مدونة</string>
-  <string name="Settings_About_Content_Reports">التقارير</string>
-  <string name="Settings_About_Content_DataPolicy">سياسة OONI في البيانات   </string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
-</resources>
+    </resources>
