@@ -5,12 +5,14 @@ import android.graphics.Bitmap
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
+import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 
@@ -80,8 +82,18 @@ actual fun OoniWebView(
                     view: WebView,
                     url: String?,
                 ) {
-                    controller.state = OoniWebViewController.State.Finished
                     controller.canGoBack = view.canGoBack()
+                }
+
+                override fun onReceivedError(
+                    view: WebView,
+                    request: WebResourceRequest?,
+                    error: WebResourceError?,
+                ) {
+                    if (request?.isForMainFrame == true) {
+                        controller.state = OoniWebViewController.State.Failure
+                        controller.canGoBack = view.canGoBack()
+                    }
                 }
 
                 override fun onLoadResource(
@@ -97,10 +109,12 @@ actual fun OoniWebView(
                     view: WebView,
                     newProgress: Int,
                 ) {
-                    controller.state = if (newProgress != 100) {
-                        OoniWebViewController.State.Loading(newProgress / 100f)
-                    } else {
-                        OoniWebViewController.State.Finished
+                    if (controller.state is OoniWebViewController.State.Loading) {
+                        controller.state = if (newProgress != 100) {
+                            OoniWebViewController.State.Loading(newProgress / 100f)
+                        } else {
+                            OoniWebViewController.State.Successful
+                        }
                     }
                 }
             }

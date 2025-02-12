@@ -266,7 +266,7 @@
     <!-- New Strings -->
 
     <string name="Common_Back">Back</string>
-    <string name="Common_Refresh">refresh</string>
+    <string name="Common_Refresh">Refresh</string>
     <string name="Common_Collapse">Collapse</string>
     <string name="Common_Expand">Expand</string>
     <string name="Common_Ago">%1$s ago</string>
@@ -338,6 +338,7 @@
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
 
     <string name="Measurement_Title">Measurement</string>
+    <string name="Measurement_LoadingFailed">Failed to load measurement information</string>
     <string name="Measurements_Failed">Failed</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Anomaly</string>
