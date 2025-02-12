@@ -89,3 +89,18 @@ Common tests (tests inside `commonTest`) only run on the iOS Simulator.
 Choosing the option `android (local)` won't work. This is a current
 [issue](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html#f03e048) with
 the official testing library.
+
+## Translations
+
+The app is translated by the community through [Transifex](https://www.transifex.com/otf/ooniprobe/)
+([Guidelines](https://github.com/ooni/translations/blob/master/Guidelines%20for%20OONI%20Probe.md)).
+
+**Important Note:** Any Pull Request that introduces new strings into the app should be
+reviewed by @agrabeli. The Pull Request should include screenshots showing the strings in context.
+
+New or updated strings on the default version of the `strings-common.xml` and
+`strings-organization.xml` files are automatically uploaded to Transifex when a Pull Request is
+merged into the `main` branch.
+
+Transifex automatically creates Pull Requests with the latest translation changes to keep the app
+up-to-date.
