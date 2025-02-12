@@ -1,0 +1,7 @@
+git:
+filters:
+  - filter_type: file
+    source_file: composeApp/src/dwMain/composeResources/values/strings-organization.xml
+    file_format: ANDROID
+    source_language: en
+    translation_files_expression: 'composeApp/src/dwMain/composeResources/values-<lang>/strings-organization.xml'
