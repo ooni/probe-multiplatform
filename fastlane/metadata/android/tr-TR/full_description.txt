@@ -1,0 +1,24 @@
+Web siteleri ve sosyal ağ uygulamaları engelleniyor mu? Ağınız genel olarak yavaş mı? Sorunları bulmak için OONI Probe uygulamasını çalıştırın!
+
+Bu uygulama ile web sitelerinin ve anlık ileti uygulamalarının engellenip engellenmediğini anlayabilir, ağınızın hızını ve performansını ölçebilir, ağınızda sansür ve izleme amacıyla kullanılan sistemler olup olmadığını denetleyebilirsiniz.
+
+OONI Probe, dünyadaki İnternet sansürünü ortaya çıkarmak için Open Observatory of Network Interference (OONI) tarafından geliştirilmiş bir özgür yazılım projesidir (Tor Projesi altında).
+
+Küresel OONI topluluğu 2012 yılından beri 200 üzerinde ülkedeki milyonlarca ağ ile ilgili ölçüm sonucunu toplayarak ağ müdahalelerini açığa çıkarmıştır.
+
+<b>İnternet sansürü ile ilgili kanıt toplayın</b>
+Web siteleri ve anlık ileti uygulamalarının engellenip engellenmediğini denetleyebilirsiniz. Toplayacağınız ağ ölçümü verileri İnternet sansürünün kanıtı olarak kullanılabilir.
+
+<b>Sansür ve izleme için kullanılan sistemleri belirleyin</b>
+OONI Probe sınamaları, ayrıca sansür ve izleme için kullanılan sistemlerin (ara kutular) varlığını ortaya çıkarmak için tasarlanmıştır.
+
+<b>Ağınızın hızını ve performansını ölçün</b>
+OONI Ağ Tanılama Sınaması (NDT) özelliğini kullanarak ağınızın hız ve performansını ölçebilirsiniz. Ayrıca HTTP üzerinden Hareketli Uyumlu Akış (DASH) sınamasını kullanarak görüntü akışı performansını da ölçebilirsiniz.
+
+<b>Açık veri</b>
+Açık veriler üçüncü tarafların OONI bulgularını doğrulamasını, bağımsız çalışmalar yürütmesini ve diğer araştırma sorularını yanıtlamasını sağladığından ağ ölçümü verileri OONI tarafından yayınlanır. OONI verilerinin açık olarak yayınlanması dünya üzerindeki İnternet sansürü uygulamalarının daha net görülebilmesini sağlar. OONI verilerini şuradan görüp indirebilirsiniz: https://ooni.io/data/
+
+<b>Özgür yazılım</b>
+Tüm OONI Probe sınamaları (NDT ve DASH özellikleri dahil), özgür ve açık kaynaklı yazılımlar olarak geliştirilmiştir. OONI yazılım projelerini GitHub üzerinde bulabilirsiniz: https://github.com/ooni. OONI Probe sınamalarının nasıl çalıştığını merak ediyorsanız ayrıntılı bilgi almak için şu adrese bakabilirsiniz: https://ooni.io/nettest/
+
+OONI-verse güncellemelerini almak isterseniz bizi Twitter üzerinden takip edebilirsiniz: https://twitter.com/OpenObservatory

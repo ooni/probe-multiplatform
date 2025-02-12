@@ -1,0 +1,24 @@
+A janë bllokuar aplikacionet e rrjeteve sociale? A është interneti juaj më i ngadaltë se zakonisht? Përdor OONI Probe për të mësuar më shumë.
+
+Me këtë aplikacion, ju kontrolloni bllokimin e faqeve online dhe aplikacioneve për shkëmbim mesazhesh, mat shpejtësinë dhe performancën e internetit dhe shiko nëse sistemet mund të jenë përgjegjëse për censurimin dhe mbikëqyrjen në rrjetin tënd.
+
+OONI Probe zhvillohet nga Open Observatory of Network Interference (OONI), një projekt i lirë (nën The Tor Project) me qëllim të nxjerri në pahë censurimin e internetit kudo në botë.
+
+Që në vitin 2012, komuniteti global i OONI ka mbledhur miliona rezultate të matjeve të rrjetit nga më shumë se 200 vende, duke zbardhur shumë raste të ndërhyrjeve në rrjet.
+
+<b>Mblidh prova të censurimit të internetit</b>
+Ju mund të kontrolloni nëse edhe si faqet online dhe aplikacionet e mesazheve janë bllokuar. Të dhënat e matjeve te rrjetit tuaj mund të shërbejnë si prova për çensurën në internet. 
+
+<b>Dallon sistemet përgjegjëse për censurim dhe përgjime</b>
+Testimet e OONI Probe janë dizajnuar të zbulojnë praninë e sistemeve (middleboxes) që mund të jenë përgjegjëse për përgjime dhe censurime.
+
+<b>Mat shpejtësinë dhe performancën e rrjetit tënd</b>
+Ju mund të masni shpejtësinë dhe performancën e rrjetit tuaj duke përdorur implementimin e NDT (testi i diagnostikimit të rrjetit). Ju gjithashtu mund të kontrolloni performancën e shikimit të videove me testin DASH ( Dynamic Adaptive Streaming over HTTP ).
+
+<b>Të dhëna të hapura</b>
+OONI bën publike të dhënat e matjeve të rrjetit sepse të dhënat e hapura lejojnë palët e treta të verifkojnë gjetjet e OONI, të kryejnë studime të pavarura dhe t'u përgjigjen pyetjeve kërkimore. Duke publikuar të dhënat e OONI ndihmon në rritjen e transparencës të censurimit të internetit në botë. Ju mund të shihni këto të dhëna në: https://ooni.io/data/
+
+<b>Program pa pagesë</b>
+Të gjitha testimet e OONI Probe (përfshirë implementimin e NDT dhe DASH), bazohen në softuer me kod-burim të hapur dhe të lirë. Ju mund të gjeni projektet e OONI në GitHub: https://github.com/ooni. Kuriozë të shihni si funksionojnë testet e OONI Probe? Mëso më shumë: https://ooni.io/nettest/
+
+Për të marrë përditësime nga OONI-vers, na ndiqni në Twitter: https://twitter.com/OpenObservatory
