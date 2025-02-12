@@ -1,0 +1,24 @@
+Os sites e aplicativos de mídia social estão bloqueados? Sua rede está demasiadamente lenta? Execute o OONI Probe para descobrir!
+
+Com este app, você examinará o bloqueio de sites e aplicativos de mensagens instantâneas, avaliará a velocidade e a performance da sua rede e verificará se há nela algum sistema responsável pela censura e pela vigilância.
+
+OONI Probe é desenvolvido pelo Observatório Aberto de Interferência de Rede (OONI), um projeto de software livre (ligado ao Projeto Tor) que visa a descobrir a censura na Internet em todo o mundo.
+
+Desde 2012, a comunidade global da OONI coletou milhões de medições de rede de mais de 200 países, esclarecendo vários casos de interferência de rede.
+
+<b>Coletar evidências de censura na internet</b>
+Você pode verificar se e como os sites e aplicativos de mensagens instantâneas estão bloqueados. Os dados de medição da rede que você coletará podem servir como evidência de censura na Internet.
+
+<b>Detectar sistemas responsáveis pela censura e vigilância</b>
+Os testes OONI Probe também são projetados para revelar a presença de sistemas (middleboxes) que poderiam ser responsáveis pela censura e vigilância.
+
+<b>Meça a velocidade e o desempenho da sua rede</b>
+Você pode medir a velocidade e o desempenho da sua rede executando a implementação do Teste de Diagnóstico de Rede (NDT) da OONI. Você também pode medir o desempenho da transmissão de vídeo com o teste Network Dynamic Adaptive Streaming em HTTP (DASH).
+
+<b>Dados abertos</b>
+A OONI publica dados de medição de rede porque os dados abertos permitem que outras pessoas verifiquem as descobertas da OONI, conduzam estudos independentes e respondam a outras questões de pesquisa. A publicação aberta de dados OONI também ajuda a aumentar a transparência sobre a censura na Internet em todo o mundo. Você pode pesquisar e baixar os dados do OONI aqui: https://ooni.io/data/
+
+<b>Software Livre</b>
+Todos os testes do OONI Probe (incluindo nossas implementações de NDT e DASH) são baseados em software livre e de código aberto. Você pode encontrar os projetos de software OONI no GitHub: https://github.com/ooni. Você quer saber como funcionam os testes OONI Probe? Para saber mais: https://ooni.io/nettest/
+
+Para receber atualizações do OONI-verse, siga-nos no Twitter: https://twitter.com/OpenObservatory

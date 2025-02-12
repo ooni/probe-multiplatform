@@ -2,6 +2,14 @@
 /report.xml
 /screenshots/*/*.png
 /screenshots/screenshots.html
+/metadata/android/screenshots.html
 /screenshots/report.xml
-/metadata/
 /README.md
+
+/metadata/android/*/images/phoneScreenshots/*.jpg
+/metadata/android/*/images/phoneScreenshots/*.png
+!/metadata/android/*/images/phoneScreenshots/1_*
+!/metadata/android/*/images/phoneScreenshots/2_*
+!/metadata/android/*/images/phoneScreenshots/3_*
+!/metadata/android/*/images/phoneScreenshots/4_*
+!/metadata/android/*/images/phoneScreenshots/5_*

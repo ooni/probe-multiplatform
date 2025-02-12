@@ -1,0 +1,24 @@
+網站和社交媒體應用軟體遭到封鎖？網路速度過慢？交給 OONI Probe 來找出原因吧！ 
+
+透過本應用，可以檢查網站和即時通訊軟體被封鎖的狀況，評量網路速度與效能，以及檢查所使用的網路系統是否正進行在審查與監控。
+
+OONI Probe 是由 Open Observatory of Network Interference (OONI) 所開發，它是Tor 計畫底下的一個自由軟體專案，旨在向世界揭示網際網路的審查狀況
+
+自2012年，OONI 已自全球 200 多個國家收集了百萬筆網路測量結果，篩出多個網際網路審查與干擾的實例。
+
+<b>收集網際網路審查的證據</b>
+可用於檢查網站和即時通訊服務是否被屏蔽封鎖，測量的數據可以收集起來作為網路審查的證據。
+
+<b>偵測執行審查與監控的系統</b>
+OONI Probe 測試用於揭示網路審查與監控系統(例如middleboxes)的存在。
+
+<b>評量網路的速度與表現</b>
+ OONI 的網路診斷測試 (NDT)，可用於評量網路流速與表現。而 HTTP的動態自適應流 (DASH) 測試則可用來評估影片串流表現。
+
+<b>開放資料</b>
+OONI 發布所收集到的網路測量資料，讓開放資料由第三方來驗證 OONI 的發現、進行獨立研究或是回答其它研究問題。開放 ONNI 資料也能協助提高全球網際網路審查制度的透明度。所有的資料都公布在：https://ooni.io/data/
+
+<b>自由軟體</b>
+所有 OONI Probe 測試 (包含執行 NDT 和 DASH )，都是使用開源自由的軟體。OONI 專案軟體代碼庫在 GitHub: https://github.com/ooni. 有興趣多了解 OONI Probe 測試的操作？請參考 ： https://ooni.io/nettest/
+
+欲取得 OONI-verse 近況，請關注我們的推特: https://twitter.com/OpenObservatory

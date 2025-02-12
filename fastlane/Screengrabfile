@@ -4,5 +4,5 @@ app_apk_path "composeApp/build/outputs/apk/full/debug/composeApp-full-debug.apk"
 tests_apk_path "composeApp/build/outputs/apk/androidTest/full/debug/composeApp-full-debug-androidTest.apk"
 reinstall_app true
 exit_on_test_failure false
-clear_previous_screenshots true
+clear_previous_screenshots false # ensures the selected screenshots for the store are not deleted.
 use_tests_in_packages(['org.ooni.probe.screenshots'])
