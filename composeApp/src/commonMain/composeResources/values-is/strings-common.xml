@@ -106,9 +106,7 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_DateLast">Síðasta sjálfvirka prófun: %1$s.</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Aðeins á WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Aðeins þegar verið er í hleðslu</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Þegar sjálfvirkar prófanir eru virkjaðar, munu OONI Probe prófanir keyra sjálfkrafa nokkrum sinnum á dag. Prófunarniðurstöður þínar verða birtar á OONI Explorer https://explorer.ooni.org/
-
-Mikilvægt: Ef þú hefur virkjað VPN, verða OONI Probe prófanir ekki keyra sjálfkrafa. Slökktu á VPN til að keyra sjálfvirkar OONI Probe prófanir. Kannaðu nánar: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Þegar sjálfvirkar prófanir eru virkjaðar, munu OONI Probe prófanir keyra sjálfkrafa nokkrum sinnum á dag. Prófunarniðurstöður þínar verða birtar á OONI Explorer https://explorer.ooni.org/\n\nMikilvægt: Ef þú hefur virkjað VPN, verða OONI Probe prófanir ekki keyra sjálfkrafa. Slökktu á VPN til að keyra sjálfvirkar OONI Probe prófanir. Kannaðu nánar: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
 
     <string name="Settings_Websites_MaxRuntimeEnabled">Takmarka tímalengd prófunar</string>
     <string name="Settings_Websites_MaxRuntime">Tímalengd prófunar</string>
@@ -216,7 +214,7 @@ Mikilvægt: Ef þú hefur virkjað VPN, verða OONI Probe prófanir ekki keyra s
     <string name="Modal_Retry">Reyna aftur</string>
     <string name="Modal_Cancel">Hætta við</string>
     <string name="Modal_OK">Í lagi</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Viltu eyða öllum niðurstöðum prófana?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Viltu eyða öllum niðurstöðum prófana\?</string>
     <string name="Modal_Delete">Eyða</string>
 
     <string name="Modal_DisableVPN_Title">Gerðu VPN-tenginguna þína óvirka.</string>
@@ -258,10 +256,10 @@ Mikilvægt: Ef þú hefur virkjað VPN, verða OONI Probe prófanir ekki keyra s
     <string name="Settings_Websites_CustomURL_Run">Keyra</string>
     <string name="Settings_Websites_CustomURL_Add">Bæta við vefsvæði</string>
     <string name="CustomWebsites_Fab_Text">Test %s URLs</string>
-    <string name="Modal_CustomURL_Title_NotSaved">Ertu viss?</string>
-    <string name="Modal_CustomURL_NotSaved">Slóðirnar þínar verða ekki vistaðar þegar þú ferð af þessum skjá. Ertu viss um að þú viljir fara af skjánum?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Ertu viss\?</string>
+    <string name="Modal_CustomURL_NotSaved">Slóðirnar þínar verða ekki vistaðar þegar þú ferð af þessum skjá. Ertu viss um að þú viljir fara af skjánum\?</string>
 
-    <string name="Modal_Autorun_BatteryOptimization">OONI Probe getur ekki keyrt á þess að rafhlöðunotkun sé bestuð. Viltu prófa aftur?</string>
+    <string name="Modal_Autorun_BatteryOptimization">OONI Probe getur ekki keyrt á þess að rafhlöðunotkun sé bestuð. Viltu prófa aftur\?</string>
 
     <!-- New Strings -->
 
@@ -320,9 +318,7 @@ Mikilvægt: Ef þú hefur virkjað VPN, verða OONI Probe prófanir ekki keyra s
     <string name="Onboarding_DefaultSettings_Bullet_1">Landskóði (t.d. IT fyrir Ítalíu)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">Upplýsingar um netkerfið (þar með talið Autonomous System Number)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Tími og dagsetning prófunar</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">Við gerum okkar besta til að birta ekki IP-vistfangið þitt eða aðrar mögulega persónugreinanlegar upplýsingar.
-
-Ítarlegri upplýsingar eru í [gagnaleyndarstefnu OONI](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">Við gerum okkar besta til að birta ekki IP-vistfangið þitt eða aðrar mögulega persónugreinanlegar upplýsingar.\n\nÍtarlegri upplýsingar eru í [gagnaleyndarstefnu OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Go">Hefjumst handa</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Breyta sjálfgefnum gildum</string>
 
@@ -340,7 +336,7 @@ Mikilvægt: Ef þú hefur virkjað VPN, verða OONI Probe prófanir ekki keyra s
     <string name="Measurements_Ok">Í lagi</string>
     <string name="Measurements_Anomaly">Frávik</string>
     <string name="Measurements_Count_One">%1$d measurement</string>
-    <string name="Measurements_Count_Other">%1$d measurements</string>
+    <string name="Measurements_Count_Other">%1$d measurement</string>
     <string name="Results_TestType_All">All Types</string>
     <string name="Results_TaskOrigin_All">All Sources</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
