@@ -1,0 +1,284 @@
+<resources>
+    <string name="Dashboard_Tab_Label">Bảng tóm tắt</string>
+    <string name="Dashboard_Overview_LatestTest">Lần kiểm tra chót:</string>
+    <string name="Dashboard_Overview_Estimated">Ước lượng:</string>
+    <string name="Dashboard_Overview_LastRun_Never">Không có</string>
+    <string name="Dashboard_Overview_ChooseWebsites">Chọn trang web</string>
+
+    <string name="Dashboard_Running_Running">Đang chạy:</string>
+    <string name="Dashboard_Running_EstimatedTimeLeft">Ước lượng thời gian còn lại:</string>
+    <string name="Dashboard_Running_Stopping_Title">Dừng kiểm tra</string>
+    <string name="Dashboard_Running_Stopping_Notice">Đang hoàn tất các bài kiểm tra dở dang, vui lòng chờ đợi....</string>
+    <string name="Dashboard_Running_ProxyInUse">Proxy đang sử dụng</string>
+    <string name="OONIRun_Run">Chạy</string>
+    <string name="Notification_StopTest">Dừng kiểm tra</string>
+
+    <string name="Test_Websites_Fullname">Trang web</string>
+    <string name="Test_InstantMessaging_Fullname">Tin Nhắn Nhanh</string>
+    <string name="Test_Middleboxes_Fullname">Middleboxes</string>
+    <string name="Test_Performance_Fullname">Hiệu suất</string>
+    <string name="Test_Circumvention_Fullname">Vượt thoát kiểm duyệt</string>
+    <string name="Test_Experimental_Fullname">Thử nghiệm</string>
+    <string name="Test_HTTPInvalidRequestLine_Fullname">Kiểm tra HTTP Invalid Request Line</string>
+    <string name="Test_HTTPHeaderFieldManipulation_Fullname">Kiểm tra HTTP Header Field Manipulation</string>
+    <string name="Test_WebConnectivity_Fullname">Kiểm tra Kết Nối Web</string>
+    <string name="Test_NDT_Fullname">Kiểm tra Tốc độ NDT</string>
+    <string name="Test_Dash_Fullname">Kiểm tra phát trực tuyến DASH</string>
+    <string name="Test_WhatsApp_Fullname">Kiểm tra WhatsApp</string>
+    <string name="Test_Telegram_Fullname">Kiểm tra Telegram</string>
+    <string name="Test_FacebookMessenger_Fullname">Kiểm tra Facebook Messenger</string>
+    <string name="Test_Psiphon_Fullname">Kiểm tra Psiphon</string>
+    <string name="Test_Tor_Fullname">Kiểm tra Tor</string>
+    <string name="Test_Signal_Fullname">Kiểm tra Signal</string>
+
+    <string name="TestResults_Overview_Title">Kết quả kiểm tra</string>
+    <string name="TestResults_Overview_Tab_Label">Kết quả kiểm tra</string>
+    <string name="TestResults_Overview_FilterTests">Sàng lọc Kiểm tra</string>
+    <string name="TestResults_Overview_Hero_Tests">Các bài kiểm tra</string>
+    <string name="TestResults_Overview_Hero_Networks">Mạng</string>
+    <string name="TestResults_Overview_Hero_DataUsage">Lượng dữ liệu dùng</string>
+    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s đã bị chặn</string>
+    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s đã bị chặn</string>
+    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s đã được kiểm tra</string>
+    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s đã được kiểm tra</string>
+    <string name="TestResults_Overview_InstantMessaging_Blocked_Singular">%1$s đã bị chặn</string>
+    <string name="TestResults_Overview_InstantMessaging_Blocked_Plural">%1$s đã bị chặn</string>
+    <string name="TestResults_Overview_InstantMessaging_Available_Singular">%1$s có thể truy cập</string>
+    <string name="TestResults_Overview_InstantMessaging_Available_Plural">%1$s có thể truy cập</string>
+    <string name="TestResults_Overview_Circumvention_Blocked_Singular">%1$s đã bị chặn</string>
+    <string name="TestResults_Overview_Circumvention_Blocked_Plural">%1$s đã bị chặn</string>
+    <string name="TestResults_Overview_Circumvention_Available_Singular">%1$s có sẵn</string>
+    <string name="TestResults_Overview_Circumvention_Available_Plural">%1$s có sẵn</string>
+    <string name="TestResults_Summary_Hero_DateAndTime">Ngày &amp; Giờ</string>
+    <string name="TestResults_Summary_Hero_Network">Mạng</string>
+    <string name="TestResults_Summary_Hero_Country">Quốc gia</string>
+    <string name="TestResults_Summary_Hero_Runtime">Tổng cộng thời gian chạy</string>
+    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_Mobile">Dữ liệu di động</string>
+    <string name="TestResults_Summary_Hero_NoInternet">Không có internet</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">Chưa có bài kiểm tra nào được chạy. Hãy chạy thử một bài kiểm tra!</string>
+    <string name="TestResults_UnknownASN">Không rõ</string>
+    <string name="TestResults_NotAvailable">Không có</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">Tải lên</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Tải về</string>
+
+    <string name="TestResults_Gbps">Gbit/giây</string>
+    <string name="TestResults_Mbps">Mbit/giây</string>
+    <string name="TestResults_Kbps">kbit/giây</string>
+
+    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Đã kiểm tra</string>
+    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Đã kiểm tra</string>
+
+    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Đã chặn</string>
+    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Đã chặn</string>
+
+    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Truy cập được</string>
+    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Truy cập được</string>
+
+    <string name="TestResults_Summary_Performance_Hero_Video">Các biểu mẫu yêu thích, dành cho người dùng được kết nối với máy chủ ODK 📝</string>
+    <string name="TestResults_Summary_Performance_Hero_Video_Quality">Chất lượng</string>
+    <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
+
+    <string name="TestResults_ms">mili giây</string>
+
+    <string name="Modal_ReRun_Title">Chạy lại bài kiểm tra</string>
+    <string name="Modal_ReRun_Websites_Title">Bạn chuẩn bị kiểm tra lại %1$s trang web.</string>
+    <string name="Modal_ReRun_Websites_Run">Chạy</string>
+
+    <string name="Settings_Title">Thiết đặt</string>
+    <string name="Settings_Notifications_Label">Thông báo</string>
+    <string name="Settings_Notifications_Enabled">Được bật</string>
+
+    <string name="Settings_TestOptions_Label">Tùy chọn kiểm tra</string>
+    <string name="Settings_TestOptions_LongRunningTest">Bài kiểm tra dài</string>
+
+    <string name="Settings_AutomatedTesting_RunAutomatically">Chạy kiểm tra tự động</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Number">Số lượng các bài kiểm tra tự động: %1$s.</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_DateLast">Lần kiểm tra tự động gần đây nhất: %1$s.</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Chỉ khi có WiFi</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Chỉ khi đang sạc</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Khi bật kiểm tra tự động, các bài kiểm tra OONI Probe sẽ tự động chạy nhiều lần mỗi ngày. Kết quả kiểm tra của bạn sẽ tự động được xuất bản trên OONI Explorer: https://explorer.ooni.org/\n\nQuan trọng: Nếu bạn bật VPN, OONI Probe sẽ không tự động chạy kiểm tra. Vui lòng tắt VPN của bạn để kiểm tra OONI Probe tự động. Tìm hiểu thêm: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+
+    <string name="Settings_Websites_MaxRuntimeEnabled">Giới hạn thời lượng kiểm tra</string>
+    <string name="Settings_Websites_MaxRuntime">Thời lượng kiểm tra </string>
+    <string name="Settings_Websites_Categories_Label">Thể loại web để kiểm tra</string>
+    <string name="Settings_Websites_Categories_Description">%1$s thể loại đã bật mở</string>
+
+    <string name="Settings_Privacy_Label">Riêng tư</string>
+
+    <string name="Settings_Sharing_UploadResults">Tự động công bố các kết quả</string>
+    <string name="Settings_Privacy_SendCrashReports">Gửi báo cáo sự cố</string>
+
+    <string name="Settings_Proxy_Label">Backend proxy của OONI</string>
+
+    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy_None">Không có</string>
+    <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom">Proxy tùy chỉnh</string>
+    <string name="Settings_Proxy_Custom_Protocol">Giao thức</string>
+
+    <string name="Settings_Proxy_Custom_Hostname">Tên máy chủ</string>
+    <string name="Settings_Proxy_Custom_Port">Cổng</string>
+
+    <string name="Settings_Advanced_Label">Nâng cao</string>
+    <string name="Settings_SendEmail_Label">Gửi email đến hỗ trợ</string>
+    <string name="Settings_SendEmail_Message">Vui lòng mô tả vấn đề bạn đang gặp phải:</string>
+
+    <string name="Settings_Advanced_DebugLogs">Nhật ký gỡ lỗi</string>
+    <string name="Settings_Advanced_RecentLogs">Xem nhật kí gần đây</string>
+    <string name="Settings_Advanced_LanguageSettings_Title">Thiết đặt Ngôn ngữ</string>
+    <string name="Settings_Storage_Label">Lượng lưu trữ sử dụng</string>
+    <string name="Settings_Storage_Delete">Xóa</string>
+    <string name="Settings_Storage_Clear">Xoá</string>
+    <string name="Settings_WarmVPNInUse_Label">Cảnh báo khi VPN được sử dụng </string>
+
+    <string name="CategoryCode_ALDR_Name">Ma túy và Rượu</string>
+    <string name="CategoryCode_REL_Name">Tôn giáo</string>
+    <string name="CategoryCode_PORN_Name">Nội dung khiêu dâm</string>
+    <string name="CategoryCode_PROV_Name">Trang phục khêu gợi</string>
+    <string name="CategoryCode_POLR_Name">Phê bình chính trị</string>
+    <string name="CategoryCode_HUMR_Name">Các vấn đề về nhân quyền</string>
+    <string name="CategoryCode_ENV_Name">Môi trường </string>
+    <string name="CategoryCode_MILX_Name">Chủ nghĩa khủng bố và các phần tử quá khích</string>
+    <string name="CategoryCode_HATE_Name">Phát ngôn thù hận</string>
+    <string name="CategoryCode_NEWS_Name">Truyền thông tin tức</string>
+    <string name="CategoryCode_XED_Name">Giáo dục giới tính</string>
+    <string name="CategoryCode_PUBH_Name">Y tế công cộng</string>
+    <string name="CategoryCode_GMB_Name">Cờ bạc</string>
+    <string name="CategoryCode_ANON_Name">Công cụ vượt thoát kiểm duyệt</string>
+    <string name="CategoryCode_DATE_Name">Hẹn hò trực tuyến</string>
+    <string name="CategoryCode_GRP_Name">Mạng xã hội</string>
+    <string name="CategoryCode_LGBT_Name">LGBTQ+</string>
+    <string name="CategoryCode_FILE_Name">Chia sẻ tập tin</string>
+    <string name="CategoryCode_HACK_Name">Các công cụ đánh cắp dữ liệu</string>
+    <string name="CategoryCode_COMT_Name">Các công cụ thông tin liên lạc</string>
+    <string name="CategoryCode_MMED_Name">Chia sẻ truyền thông</string>
+    <string name="CategoryCode_HOST_Name">Dịch vụ lưu trữ web và viết blog</string>
+    <string name="CategoryCode_SRCH_Name">Công cụ tìm kiếm</string>
+    <string name="CategoryCode_GAME_Name">Game</string>
+    <string name="CategoryCode_CULTR_Name">Văn hóa</string>
+    <string name="CategoryCode_ECON_Name">Kinh tế</string>
+    <string name="CategoryCode_GOVT_Name">Chính quyền</string>
+    <string name="CategoryCode_COMM_Name">Thương mại điện tử</string>
+    <string name="CategoryCode_CTRL_Name">Kiểm soát nội dung</string>
+    <string name="CategoryCode_IGO_Name">Tổ chức liên chính phủ</string>
+    <string name="CategoryCode_MISC_Name">Nội dung khác</string>
+    <string name="CategoryCode_ALDR_Description">Sử dụng và mua bán ma túy và rượu</string>
+    <string name="CategoryCode_REL_Description">Các vấn đề tôn giáo, cả ủng hộ và phản biện</string>
+    <string name="CategoryCode_PORN_Description">Nội dung khiêu dâm nhẹ và mạnh bạo</string>
+    <string name="CategoryCode_PROV_Description">Trang phục khêu gợi và hình ảnh  phụ nữ mặc quần áo hở hang</string>
+    <string name="CategoryCode_POLR_Description">Quan điểm chính trị phê phán</string>
+    <string name="CategoryCode_HUMR_Description">Các vấn đề về nhân quyền</string>
+    <string name="CategoryCode_ENV_Description">Thảo luận về các vấn đề môi trường</string>
+    <string name="CategoryCode_MILX_Description">Chủ nghĩa khủng bố, các phần tử bạo lực hoặc phong trào ly khai</string>
+    <string name="CategoryCode_HATE_Description">Phê phán các nhóm về chủng tộc, giới tính, xu hướng tính dục hoặc các đặc điểm khác</string>
+    <string name="CategoryCode_NEWS_Description">Các trang web tin tức lớn, các hãng tin tức khu vực và các phương tiện truyền thông độc lập</string>
+    <string name="CategoryCode_XED_Description">Các vấn đề sức khỏe tình dục bao gồm tránh thai, các bệnh lây qua đường tình dục, ngăn ngừa hiếp dâm và nạo phá thai</string>
+    <string name="CategoryCode_PUBH_Description">Các vấn đề về y tế công cộng, như COVID-19, HIV/AIDS, Ebola</string>
+    <string name="CategoryCode_GMB_Description">Cờ bạc và cá độ trực truyến</string>
+    <string name="CategoryCode_ANON_Description">Ẩn danh, vượt thoát kiểm duyệt và mã hóa</string>
+    <string name="CategoryCode_DATE_Description">Các trang hẹn hò trực tuyến</string>
+    <string name="CategoryCode_GRP_Description">Các nền tảng và công cụ mạng xã hội trực tuyến</string>
+    <string name="CategoryCode_LGBT_Description">Cộng đồng LGBTQ + thảo luận về các vấn đề liên quan (trừ nội dung khiêu dâm)</string>
+    <string name="CategoryCode_FILE_Description">Chia sẻ tập tin bao gồm dữ liệu lưu trữ điện toán đám mây, torrent và P2P</string>
+    <string name="CategoryCode_HACK_Description">Công cụ bảo mật máy tính và tin tức</string>
+    <string name="CategoryCode_COMT_Description">Công cụ giao tiếp cá nhân và nhóm bao gồm VoIP, nhắn tin và webmail</string>
+    <string name="CategoryCode_MMED_Description">Chia sẻ video, âm thanh và hình ảnh</string>
+    <string name="CategoryCode_HOST_Description">Lưu trữ web, viết blog và xuất bản trực tuyến khác</string>
+    <string name="CategoryCode_SRCH_Description">Công cụ tìm kiếm và cổng thông tin</string>
+    <string name="CategoryCode_GAME_Description">Trò chơi trực tuyến và các nền tảng trò chơi (không bao gồm các trang web cờ bạc)</string>
+    <string name="CategoryCode_CULTR_Description">Giải trí, bao gồm lịch sử, văn học, âm nhạc, phim ảnh, châm biếm và hài</string>
+    <string name="CategoryCode_ECON_Description">Tình hình chung về phát triển kinh tế và nghèo đói</string>
+    <string name="CategoryCode_GOVT_Description">Các trang web do chính phủ quản lý, bao gồm quân đội</string>
+    <string name="CategoryCode_COMM_Description">Các sản phẩm và dịch vụ thương mại</string>
+    <string name="CategoryCode_CTRL_Description">Nội dung ôn hoà hoặc vô hại được sử dụng để kiểm soát</string>
+    <string name="CategoryCode_IGO_Description"> Các tổ chức liên chính phủ bao gồm Liên Hợp quốc</string>
+    <string name="CategoryCode_MISC_Description">Các trang web chưa được phân loại</string>
+
+    <string name="Snackbar_ResultsNotUploaded_Text">Chưa được tải lên</string>
+    <string name="Snackbar_ResultsSomeNotUploaded_Text">Một số chưa được tải lên</string>
+    <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Tải lên tất cả</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Đang tải lên %1$s ...</string>
+    <string name="Toast_ResultsUploaded">Tải lên thành công</string>
+    <string name="Modal_UploadFailed_Title">Tải lên thất bại</string>
+    <string name="Modal_UploadFailed_Paragraph">Chúng tôi không thể tải lên %1$s / %2$s kết quả đo lường. Nhật ký lỗi đã được chia sẻ với các nhà phát triển OONI.</string>
+    <string name="Modal_Retry">Thử lại</string>
+    <string name="Modal_Cancel">Hủy</string>
+    <string name="Modal_OK">OK</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Bạn có muốn xóa tất cả các kết quả kiểm tra không\?</string>
+    <string name="Modal_Delete">Xóa</string>
+
+    <string name="Modal_DisableVPN_Title">Vui lòng tắt kết nối VPN của bạn.</string>
+    <string name="Modal_DisableVPN_Message">Nếu bạn chạy OONI Probe mà vẫn bật VPN, kết quả kiểm tra có thể đến từ quốc gia khác. Vui lòng tắt kết nối VPN của bạn.</string>
+    <string name="Modal_DisableVPN">Tắt VPN</string>
+    <string name="Modal_RunAnyway">Cứ chạy</string>
+    <string name="Modal_AlwaysRun">Luôn chạy</string>
+
+    <string name="Modal_Error_CantDownloadURLs">Không thể tải danh sách URL. Vui lòng thử lại.</string>
+
+    <string name="AddDescriptor_Settings">Thiết lập Thử nghiệm</string>
+    <string name="AddDescriptor_Author">Tác giả:</string>
+    <string name="AddDescriptor_AutoRun">Chạy kiểm tra tự động</string>
+    <string name="LoadingScreen_Runv2_Failure">Lỗi</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">Duyệt xem</string>
+    <string name="Settings_Websites_CustomURL_Title">Chọn các trang web để kiểm tra</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="Settings_Websites_CustomURL_NoURLEntered">Không có URL nào được nhập</string>
+    <string name="Settings_Websites_CustomURL_Run">Chạy</string>
+    <string name="Settings_Websites_CustomURL_Add">Thêm trang web</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Bạn có chắc không\?</string>
+    <string name="Modal_CustomURL_NotSaved">URL của bạn sẽ không được lưu khi bạn rời khỏi màn hình này. Bạn có chắc chắn muốn rời khỏi màn hình này không\?</string>
+
+    <string name="Modal_Autorun_BatteryOptimization">OONI Probe không thể chạy tự động nếu không tối ưu hóa pin. Bạn có muốn thử lại không\?</string>
+
+    <!-- New Strings -->
+
+    <string name="Common_Back">Lùi</string>
+    <string name="Common_Refresh">Làm mới</string>
+    <string name="Common_Collapse">Thu gọn</string>
+    <string name="Common_Expand">Mở rộng</string>
+    <string name="Common_Hour_Other">%1$d giờ</string>
+    <string name="Common_Months_May">05</string>
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">Hiểu rồi</string>
+    <string name="Onboarding_ThingsToKnow_Title">Chú ý!</string>
+
+    <string name="Onboarding_ThingsToKnow_Button">Tôi hiểu</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Tìm hiểu thêm</string>
+    <string name="Onboarding_PopQuiz_Title">Đố Nhanh</string>
+    <string name="Onboarding_PopQuiz_True">Đúng</string>
+    <string name="Onboarding_PopQuiz_False">Sai</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Quay lại</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Tiếp tục</string>
+    <string name="Onboarding_PopQuiz_1_Title">Câu hỏi 1/2</string>
+
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Cảnh báo</string>
+    <string name="Onboarding_PopQuiz_2_Title">Câu hỏi 2/2</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Cảnh báo</string>
+
+    <string name="Onboarding_AutomatedTesting_Title">Kiểm tra tự động</string>
+
+    <string name="Onboarding_Crash_Title">Báo cáo sự cố</string>
+
+    <string name="Onboarding_Crash_Button_Yes">Đồng ý</string>
+    <string name="Onboarding_Crash_Button_No">Không</string>
+    <string name="Onboarding_DefaultSettings_Title">Thiết đặt mặc định</string>
+    <string name="Onboarding_DefaultSettings_Header">Chúng tôi thu thập và công bố:</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">Mã quốc gia (ví dụ VN cho Việt Nam)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">Thông tin mạng (bao gồm Số hệ thống tự trị - ASN)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">Ngày Giờ kiểm tra</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">Chúng tôi luôn cố gắng để không công bố địa chỉ IP của bạn hay bất kỳ thông tin nào khác có thể nhận dạng cá nhân.\n\nTìm hiểu thêm thông qua [Chính sách dữ liệu của OONI] (https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">Thay đổi mặc định</string>
+
+    <string name="Modal_EnableNotifications_Title">Nhận thông tin cập nhật về kiểm duyệt internet</string>
+
+    <string name="Dashboard_Update_Restart">Khởi động lại</string>
+    <string name="Measurements_Failed">Thất bại</string>
+    <string name="Measurements_Ok">OK</string>
+    <string name="Measurements_Anomaly">Bất thường</string>
+    <string name="Settings_Logs">Ký sự</string>
+    <string name="Settings_Websites_Categories_Selection_None">Bỏ chọn tất cả</string>
+    <string name="Settings_Websites_Categories_Selection_All">Chọn Tất cả</string>
+
+    <string name="Notification_ChannelName">Đang thử</string>
+    <string name="NetworkType_Vpn">VPN</string>
+</resources>

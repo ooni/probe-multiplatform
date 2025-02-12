@@ -1,74 +1,38 @@
-<?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
-  <string name="Onboarding_WhatIsOONIProbe_Title">Τι είναι το OONI Probe;</string>
-  <string name="Onboarding_WhatIsOONIProbe_Paragraph">Η εφαρμογή σου για την ανίχνευση της λογοκρισίας στο διαδίκτυο. 
+    <string name="app_name">OONI Probe</string>
 
-Έχουν μπλοκαριστεί ιστοσελίδες και μέσα κοινωνικής δικτύωσης; Είναι ασυνήθιστα αργή η σύνδεσή σου στο Διαδίκτυο;
+    <string name="Onboarding_WhatIsOONIProbe_Title">Τι είναι το OONI Probe;</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Η εφαρμογή σου για την ανίχνευση της λογοκρισίας στο διαδίκτυο. \n\nΈχουν μπλοκαριστεί ιστοσελίδες και μέσα κοινωνικής δικτύωσης; Είναι ασυνήθιστα αργή η σύνδεσή σου στο Διαδίκτυο;\n\nΤρέξε το OONI Probe για να μάθεις!</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">Τα δεδομένα που συλλέγονται μέσω του OONI Probe δημοσιεύονται ανοικτά και θα περιλαμβάνουν πληροφορίες του δικτύου σου.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">Όποιοσδήποτε τυχόν παρακολουθεί τη δραστηριότητά σου στο διαδίκτυο (π.χ. κυβέρνηση ή πάροχος internet) θα ξέρει ότι τρέχεις το OONI Probe.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">Ίσως τύχει να κάνεις δοκιμές σε απαγορευμένες/μπλοκαρισμένες ιστοσελίδες (αλλά μπορείς να επιλέξεις για ποιές ιστοσελίδες να κάνεις δοκιμές).</string>
+    <string name="Onboarding_PopQuiz_1_Question">Αν κάποιος παρακολουθεί τη δραστηριότητά μου στο διαδίκτυο, θα δει ότι τρέχω το OONI Probe.</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">Το OONI Probe δεν προστατεύει την ιδιωτικότητά σου. Όποιος παρακολουθεί τη δραστηριότητά σου στο διαδίκτυο μπορεί να δει ποιο λογισμικό τρέχεις.</string>
+    <string name="Onboarding_PopQuiz_2_Question">Κάθε φορά που τρέχω το OONI Probe, τα δικτυακά δεδομένα που συλλέγω δημοσιεύονται.</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Για να αυξηθεί η διαφάνεια της λογοκρισίας στο Διαδίκτυο, τα δεδομένα δικτύου όλων των χρηστών του OONI Probe δημοσιεύονται αυτόματα (εκτός αν απενεργοποιήθουν οι σχετικές ρυθμίσεις).</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">Για καθημερινές μετρήσεις λογοκρισίας στο διαδίκτυο, παρακαλούμε ενεργοποίησε τις αυτοματοποιημένες δοκιμές, ώστε το OONI Probe να μπορεί να εκτελεί περιοδικά τις δοκιμές.\n\nΜην ανησυχείς, υπάρχει πρόνοια για τη κατανάλωση μπαταρίας. \n\nΜπορείς να απενεργοποιήσεις τις αυτόματες δοκιμές ανά πάσα στιγμή μέσω των ρυθμίσεων.</string>
+    <string name="Onboarding_Crash_Paragraph">Για να βελτιώσουμε το OONI Probe, θα θέλαμε να συλλέγουμε ανώνυμες αναφορές σφαλμάτων και κρασαρίσματος όταν η εφαρμογή δεν λειτουργεί σωστά.\n\nΕπιθυμείς να υποβάλλεις αναφορές σφαλμάτων στην ομάδα ανάπτυξης του OONI;</string>
 
-Τρέξε το OONI Probe για να μάθεις!</string>
-  <string name="Onboarding_ThingsToKnow_Bullet_1">Τα δεδομένα που συλλέγονται μέσω του OONI Probe δημοσιεύονται ανοικτά και θα περιλαμβάνουν πληροφορίες του δικτύου σου.</string>
-  <string name="Onboarding_ThingsToKnow_Bullet_2">Όποιοσδήποτε τυχόν παρακολουθεί τη δραστηριότητά σου στο διαδίκτυο (π.χ. κυβέρνηση ή πάροχος internet) θα ξέρει ότι τρέχεις το OONI Probe.</string>
-  <string name="Onboarding_ThingsToKnow_Bullet_3">Ίσως τύχει να κάνεις δοκιμές σε απαγορευμένες/μπλοκαρισμένες ιστοσελίδες (αλλά μπορείς να επιλέξεις για ποιές ιστοσελίδες να κάνεις δοκιμές).</string>
-  <string name="Onboarding_PopQuiz_1_Question">Αν κάποιος παρακολουθεί τη δραστηριότητά μου στο διαδίκτυο, θα δει ότι τρέχω το OONI Probe.</string>
-  <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">Το OONI Probe δεν προστατεύει την ιδιωτικότητά σου. Όποιος παρακολουθεί τη δραστηριότητά σου στο διαδίκτυο μπορεί να δει ποιο λογισμικό τρέχεις.</string>
-  <string name="Onboarding_PopQuiz_2_Question">Κάθε φορά που τρέχω το OONI Probe, τα δικτυακά δεδομένα που συλλέγω δημοσιεύονται.</string>
-  <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Για να αυξηθεί η διαφάνεια της λογοκρισίας στο Διαδίκτυο, τα δεδομένα δικτύου όλων των χρηστών του OONI Probe δημοσιεύονται αυτόματα (εκτός αν απενεργοποιήθουν οι σχετικές ρυθμίσεις).</string>
-  <string name="Onboarding_AutomatedTesting_Paragraph">Για καθημερινές μετρήσεις λογοκρισίας στο διαδίκτυο, παρακαλούμε ενεργοποίησε τις αυτοματοποιημένες δοκιμές, ώστε το OONI Probe να μπορεί να εκτελεί περιοδικά τις δοκιμές.
+    <!-- Find proper fix for translation -->
+    <string name="Modal_EnableNotifications_Paragraph">Ενδιαφέρεσαι να εκτελείς δοκιμές του OONI Probe κατά τη διάρκεια εκτάκτων συμβάντων λογοκρισίας; Ενεργοποίησε τις ειδοποιήσεις για να λαμβάνεις μηνύματα όταν μαθαίνουμε για περιστατικά λογοκρισίας κοντά σου.</string>
 
-Μην ανησυχείς, υπάρχει πρόνοια για τη κατανάλωση μπαταρίας. 
+    <string name="Dashboard_Websites_Card_Description">Έλεγξε το μπλοκάρισμα ιστοσελιδών</string>
+    <string name="Dashboard_Websites_Overview_Paragraph">Δες αν έχουν μπλοκαριστεί ιστοσελίδες, χρησιμοποιώντας τη δοκιμή [Web Connectivity](https://ooni.org/nettest/web-connectivity/) του OONI.\n\nΚάθε φορά που πατάς Εκτέλεση, ελέγχεις διαφορετικές ιστοσελίδες από την [παγκόσμια](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) και τις [εθνικές](https://github.com/citizenlab/test-lists/tree/master/lists) λίστες του Citizen Lab.\n\nΓια να ελέγξεις όποιες ιστοσελίδες θες, πάτα το κουμπί \"Επέλεξε ιστοσελίδες\" ή διάλεξε κατηγορίες ιστοσελιδών μέσω των ρυθμίσεων αυτής της κάρτας.\n\nΑυτή η δοκιμή εξετάζει αν ιστοσελίδες έχουν μπλοκαριστεί μέσω τροποποίησης του DNS, μπλοκάρισμα σε επίπεδο TCP/IP ή μέσω διάφανου HTTP proxy.\n\nΤα αποτελέσματα των δοκιμών σου θα δημοσιευτούν στο [OONI Explorer](https://explorer.ooni.org/world/) και στο [OONI API](https://api.ooni.io/).</string>
+    <string name="Dashboard_Performance_Card_Description">Έλεγξε την ταχύτητα και την απόδοση του δικτύου σου</string>
+    <string name="Dashboard_Performance_Overview_Paragraph">Έλεγξε την ταχύτητα και την απόδοση του δικτύου σου, χρησιμοποιώντας τη δοκιμή [NDT](https://ooni.org/nettest/ndt/).\n\nΜέτρησε την απόδοση ροής βίντεο, χρησιμοποιώντας τη δοκιμή [DASH](https://ooni.org/nettest/dash/).\n\nΑυτές οι δοκιμές καταναλώνουν δεδομένα ανάλογα με την ταχύτητα του δικτύου σου.\n\nΤα αποτελέσματα των δοκιμών σου θα δημοσιευτούν στο [OONI Explorer](https://explorer.ooni.org/world/) και στο [OONI API](https://api.ooni.io/).\n\nΠροσοχή: Αυτές οι δοκιμές βασίζονται σε διακομιστές τρίτων. Επομένως, δεν μπορούμε να εγγυηθούμε ότι η διεύθυνση IP σου δε θα συλλεχθεί.</string>
+    <string name="Dashboard_Middleboxes_Card_Description">Εντόπισε middleboxes στο δίκτυό σου</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph">Οι πάροχοι διαδικτύου χρησιμοποιούν συχνά συσκευές (middleboxes) για διάφορους σκοπούς δικτύωσης (όπως caching). Μερικές φορές αυτές οι συσκευές χρησιμοποιούνται για την εφαρμογή λογοκρισίας ή επιτήρησης στο Διαδίκτυο.\n\nΔες αν χρησιμοποιούνται τέτοιες συσκευές (middleboxes) στο δίκτυό σου, εκτελώντας τις δοκιμές [HTTP Invalid Request Line](https://ooni.org/nettest/http-invalid-request-line/) και [HTTP Header Field Manipulation](https://ooni.org/nettest/http-header-field-manipulation/) του OONI.\n\nΤα αποτελέσματα των δοκιμών σου θα δημοσιευτούν στο [OONI Explorer](https://explorer.ooni.org/world/) και στο [OONI API](https://api.ooni.io/).</string>
+    <string name="Dashboard_InstantMessaging_Card_Description">Έλεγξε το μπλοκάρισμα εφαρμογών συνομιλιών</string>
+    <string name="Dashboard_InstantMessaging_Overview_Paragraph">Δες αν το [WhatsApp](https://ooni.org/nettest/whatsapp/), το [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), το [Telegram](https://ooni.org/nettest/telegram/) και το [Signal](https://ooni.org/nettest/signal) έχουν μπλοκαριστεί.\n\nΤα αποτελέσματα των δοκιμών σου θα δημοσιευτούν στο [OONI Explorer](https://explorer.ooni.org/world/) και στο [OONI API](https://api.ooni.io/).</string>
+    <string name="Dashboard_Circumvention_Card_Description">Έλεγξε το μπλοκάρισμα εργαλείων παράκαμψης λογοκρισίας</string>
+    <string name="Dashboard_Circumvention_Overview_Paragraph">Δες αν το [Psiphon](https://ooni.org/nettest/psiphon/), το [Tor](https://ooni.org/nettest/tor/) ή το [RiseupVPN](https://ooni.org/nettest/riseupvpn/) έχουν μπλοκαριστεί.\n\nΤα αποτελέσματα θα δημοσιευτούν στο [OONI Explorer] (https://explorer.ooni.org/) και στο [OONI API] (https://api.ooni.io/).</string>
+    <string name="Dashboard_Experimental_Card_Description">Εκτέλεση νέων πειραματικών δοκιμών</string>
+    <string name="Settings_About_Label">Σχετικά με το OONI</string>
+    <string name="Settings_About_Content_Paragraph">Το OONI (Open Observatory of Network Interference) είναι ένα έργο ελεύθερου λογισμικού του οργανισμού The Tor Project, με στόχο την αύξηση της διαφάνειας για τη λογοκρισία στο διαδίκτυο, παγκοσμίως.\n\nΑπό το 2012, η ​​παγκόσμια κοινότητα του OONI παίρνει μετρησεις σε δίκτυα  σε περισσότερες από 200 χώρες. Κάποια από τα συλλεγόμενα στοιχεία αποτελούν απόδειξη της ύπαρξης λογοκρισίας στο διαδίκτυο.</string>
 
-Μπορείς να απενεργοποιήσεις τις αυτόματες δοκιμές ανά πάσα στιγμή μέσω των ρυθμίσεων.</string>
-  <string name="Onboarding_Crash_Paragraph">Για να βελτιώσουμε το OONI Probe, θα θέλαμε να συλλέγουμε ανώνυμες αναφορές σφαλμάτων και κρασαρίσματος όταν η εφαρμογή δεν λειτουργεί σωστά.
+    <string name="Settings_About_Content_LearnMore">Μάθετε περισσότερα</string>
+    <string name="Settings_About_Content_Blog">Ιστολόγιο</string>
+    <string name="Settings_About_Content_Reports">Αναφορές</string>
+    <string name="Settings_About_Content_DataPolicy">Πολιτική δεδομένων του OONI</string>
 
-Επιθυμείς να υποβάλλεις αναφορές σφαλμάτων στην ομάδα ανάπτυξης του OONI;</string>
-  <string name="Dashboard_Websites_Card_Description">Έλεγξε το μπλοκάρισμα ιστοσελιδών</string>
-  <string name="Dashboard_Websites_Overview_Paragraph">Δες αν έχουν μπλοκαριστεί ιστοσελίδες, χρησιμοποιώντας τη δοκιμή [Web Connectivity](https://ooni.org/nettest/web-connectivity/) του OONI.
-
-Κάθε φορά που πατάς Εκτέλεση, ελέγχεις διαφορετικές ιστοσελίδες από την [παγκόσμια](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) και τις [εθνικές](https://github.com/citizenlab/test-lists/tree/master/lists) λίστες του Citizen Lab.
-
-Για να ελέγξεις όποιες ιστοσελίδες θες, πάτα το κουμπί "Επέλεξε ιστοσελίδες" ή διάλεξε κατηγορίες ιστοσελιδών μέσω των ρυθμίσεων αυτής της κάρτας.
-
-Αυτή η δοκιμή εξετάζει αν ιστοσελίδες έχουν μπλοκαριστεί μέσω τροποποίησης του DNS, μπλοκάρισμα σε επίπεδο TCP/IP ή μέσω διάφανου HTTP proxy.
-
-Τα αποτελέσματα των δοκιμών σου θα δημοσιευτούν στο [OONI Explorer](https://explorer.ooni.org/world/) και στο [OONI API](https://api.ooni.io/).</string>
-  <string name="Dashboard_Performance_Card_Description">Έλεγξε την ταχύτητα και την απόδοση του δικτύου σου</string>
-  <string name="Dashboard_Performance_Overview_Paragraph">Έλεγξε την ταχύτητα και την απόδοση του δικτύου σου, χρησιμοποιώντας τη δοκιμή [NDT](https://ooni.org/nettest/ndt/).
-
-Μέτρησε την απόδοση ροής βίντεο, χρησιμοποιώντας τη δοκιμή [DASH](https://ooni.org/nettest/dash/).
-
-Αυτές οι δοκιμές καταναλώνουν δεδομένα ανάλογα με την ταχύτητα του δικτύου σου.
-
-Τα αποτελέσματα των δοκιμών σου θα δημοσιευτούν στο [OONI Explorer](https://explorer.ooni.org/world/) και στο [OONI API](https://api.ooni.io/).
-
-Προσοχή: Αυτές οι δοκιμές βασίζονται σε διακομιστές τρίτων. Επομένως, δεν μπορούμε να εγγυηθούμε ότι η διεύθυνση IP σου δε θα συλλεχθεί.</string>
-  <string name="Dashboard_Middleboxes_Card_Description">Εντόπισε middleboxes στο δίκτυό σου</string>
-  <string name="Dashboard_Middleboxes_Overview_Paragraph">Οι πάροχοι διαδικτύου χρησιμοποιούν συχνά συσκευές (middleboxes) για διάφορους σκοπούς δικτύωσης (όπως caching). Μερικές φορές αυτές οι συσκευές χρησιμοποιούνται για την εφαρμογή λογοκρισίας ή επιτήρησης στο Διαδίκτυο.
-
-Δες αν χρησιμοποιούνται τέτοιες συσκευές (middleboxes) στο δίκτυό σου, εκτελώντας τις δοκιμές [HTTP Invalid Request Line](https://ooni.org/nettest/http-invalid-request-line/) και [HTTP Header Field Manipulation](https://ooni.org/nettest/http-header-field-manipulation/) του OONI.
-
-Τα αποτελέσματα των δοκιμών σου θα δημοσιευτούν στο [OONI Explorer](https://explorer.ooni.org/world/) και στο [OONI API](https://api.ooni.io/).</string>
-  <string name="Dashboard_InstantMessaging_Card_Description">Έλεγξε το μπλοκάρισμα εφαρμογών συνομιλιών</string>
-  <string name="Dashboard_InstantMessaging_Overview_Paragraph">Δες αν το [WhatsApp](https://ooni.org/nettest/whatsapp/), το [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), το [Telegram](https://ooni.org/nettest/telegram/) και το [Signal](https://ooni.org/nettest/signal) έχουν μπλοκαριστεί.
-
-Τα αποτελέσματα των δοκιμών σου θα δημοσιευτούν στο [OONI Explorer](https://explorer.ooni.org/world/) και στο [OONI API](https://api.ooni.io/).</string>
-  <string name="Dashboard_Circumvention_Card_Description">Έλεγξε το μπλοκάρισμα εργαλείων παράκαμψης λογοκρισίας</string>
-  <string name="Dashboard_Circumvention_Overview_Paragraph">Δες αν το [Psiphon](https://ooni.org/nettest/psiphon/), το [Tor](https://ooni.org/nettest/tor/) ή το [RiseupVPN](https://ooni.org/nettest/riseupvpn/) έχουν μπλοκαριστεί.
-
-Τα αποτελέσματα θα δημοσιευτούν στο [OONI Explorer] (https://explorer.ooni.org/) και στο [OONI API] (https://api.ooni.io/).</string>
-  <string name="Dashboard_Experimental_Card_Description">Εκτέλεση νέων πειραματικών δοκιμών</string>
-  <string name="Dashboard_Experimental_Overview_Paragraph">Εκτέλεσε τις παρακάτω νέες πειραματικές δοκιμές που αναπτύχθηκαν από την ομάδα του OONI:
-%1$s
-
-Τα αποτελέσματά σου θα δημοσιευθούν στο [OONI Explorer](https://explorer.ooni.org/) και στο [OONI API](https://api.ooni.io/).</string>
-  <string name="Modal_EnableNotifications_Paragraph">Ενδιαφέρεσαι να εκτελείς δοκιμές του OONI Probe κατά τη διάρκεια εκτάκτων συμβάντων λογοκρισίας; Ενεργοποίησε τις ειδοποιήσεις για να λαμβάνεις μηνύματα όταν μαθαίνουμε για περιστατικά λογοκρισίας κοντά σου.</string>
-  <string name="Settings_About_Label">Σχετικά με το OONI</string>
-  <string name="Settings_About_Content_Paragraph">Το OONI (Open Observatory of Network Interference) είναι ένα έργο ελεύθερου λογισμικού του οργανισμού The Tor Project, με στόχο την αύξηση της διαφάνειας για τη λογοκρισία στο διαδίκτυο, παγκοσμίως.
-
-Από το 2012, η ​​παγκόσμια κοινότητα του OONI παίρνει μετρησεις σε δίκτυα  σε περισσότερες από 200 χώρες. Κάποια από τα συλλεγόμενα στοιχεία αποτελούν απόδειξη της ύπαρξης λογοκρισίας στο διαδίκτυο.</string>
-  <string name="Settings_About_Content_LearnMore">Μάθε περισσότερα</string>
-  <string name="Settings_About_Content_Blog">Blog</string>
-  <string name="Settings_About_Content_Reports">Αναφορές</string>
-  <string name="Settings_About_Content_DataPolicy">Πολιτική δεδομένων του OONI</string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
-</resources>
+    </resources>

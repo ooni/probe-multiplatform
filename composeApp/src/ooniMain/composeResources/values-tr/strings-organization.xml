@@ -1,74 +1,39 @@
-<?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
-  <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe nedir?</string>
-  <string name="Onboarding_WhatIsOONIProbe_Paragraph">İnternet sansürünü ölçme uygulaması.
+    <string name="app_name">OONI Probe</string>
 
-Siteler ve sosyal ağ uygulamaları engelleniyor mu? İnternet bağlantınız genel olarak yavaş mı?
+    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe nedir\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">İnternet sansürünü ölçme uygulaması.\n\nSiteler ve sosyal ağ uygulamaları engelleniyor mu\? İnternet bağlantınız genel olarak yavaş mı\?\n\nSorunu bulmak için OONI Probe uygulamasını çalıştırın!</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">OONI verileri herkese açık olarak yayınlanır ve ağ bilgilerinizi de içerir.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">İnternet işlemlerinizi izleyenler (hükümet ya da İnternet hizmeti sağlayıcınız) OONI Probe uygulamasını çalıştırdığınızı görebilir.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">Engellenmiş siteleri sınayabilirsiniz (ancak sınanacak siteleri seçebilirsiniz).</string>
+    <string name="Onboarding_PopQuiz_1_Question">İnternetim izleniyorsa, OONI Probe çalıştırdığım anlaşılabilir.</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe bir kişisel gizlilik sağlama aracı değildir. İnternet işlemlerinizi izleyenler çalıştırdığınız uygulamaları görebilir.</string>
+    <string name="Onboarding_PopQuiz_2_Question">OONI Probe uygulamasını çalıştırdığımda topladığım veriler herkese açık olarak yayınlanır.</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">İnternet sansürü şeffaflığını sağlamak için tüm OONI Probe kullanıcılarının ağ verileri otomatik olarak yayınlanır (ayarlardan kapatılmadıkça).</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">Lütfen İnternet sansürünün OONI Probe tarafından günlük olarak ölçülebilmesi için otomatik sınamayı açın.\n\nEndişelenmeyin, pil kullanımına dikkat edeceğiz.\n\nOtomatik sınamayı istediğiniz zaman ayarlardan kapatabilirsiniz.</string>
+    <string name="Onboarding_Crash_Paragraph">OONI Probe uygulamasını iyileştirmek için, sorun çıktığında kişisel veri içermeyen anonim çökme bildirimleri almak istiyoruz.\n\nÇökme bildirimlerinin OONI geliştirme ekibine gönderilmesini ister misiniz\?</string>
 
-Sorunu bulmak için OONI Probe uygulamasını çalıştırın!</string>
-  <string name="Onboarding_ThingsToKnow_Bullet_1">OONI verileri herkese açık olarak yayınlanır ve ağ bilgilerinizi de içerir.</string>
-  <string name="Onboarding_ThingsToKnow_Bullet_2">İnternet işlemlerinizi izleyenler (hükümet ya da İnternet hizmeti sağlayıcınız) OONI Probe uygulamasını çalıştırdığınızı görebilir.</string>
-  <string name="Onboarding_ThingsToKnow_Bullet_3">Engellenmiş siteleri sınayabilirsiniz (ancak sınanacak siteleri seçebilirsiniz).</string>
-  <string name="Onboarding_PopQuiz_1_Question">İnternetim izleniyorsa, OONI Probe çalıştırdığım anlaşılabilir.</string>
-  <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe bir kişisel gizlilik sağlama aracı değildir. İnternet işlemlerinizi izleyenler çalıştırdığınız uygulamaları görebilir.</string>
-  <string name="Onboarding_PopQuiz_2_Question">OONI Probe uygulamasını çalıştırdığımda topladığım veriler herkese açık olarak yayınlanır.</string>
-  <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">İnternet sansürü şeffaflığını sağlamak için tüm OONI Probe kullanıcılarının ağ verileri otomatik olarak yayınlanır (ayarlardan kapatılmadıkça).</string>
-  <string name="Onboarding_AutomatedTesting_Paragraph">Lütfen İnternet sansürünün OONI Probe tarafından günlük olarak ölçülebilmesi için otomatik sınamayı açın.
+    <!-- Find proper fix for translation -->
+    <string name="Modal_EnableNotifications_Paragraph">Yeni sansür uygulamaları sırasında OONI Probe sınamaları yapmak ilginizi çeker mi\? Yakınınızda bir İnternet sansürü olduğunu öğrendiğimizde size bildirmemiz için bildirimleri açabilirsiniz.</string>
 
-Endişelenmeyin, pil kullanımına dikkat edeceğiz.
+    <string name="Dashboard_Websites_Card_Description">Site engellemelerini sınayın</string>
+    <string name="Dashboard_Websites_Overview_Paragraph">OONI [site bağlantısı sınaması](https://ooni.org/nettest/web-connectivity/) özelliğini kullanarak sitelerin engellenip engellenmediğini denetleyebilirsiniz.\n\nÇalıştır üzerine her tıkladığınızda, Citizen Lab [küresel](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) ve [ülkeye özel](https://github.com/citizenlab/test-lists/tree/master/lists) sınama listelerindeki çeşitli siteler denetlenir.\n\nBelirli siteleri sınamak için siteleri seçin düğmesine tıklayın ya da bu kartın ayarlarından kategoriyi ya da siteleri seçin. \n\nBu sınama sitelerin DNS müdahalesi, TCP/IP engelleme ya da görünmez vekil sunucu ile engellenip engellenmediğini ortaya çıkarır.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
+    <string name="Dashboard_Performance_Card_Description">Ağınızın hızını ve başarımını ölçün</string>
+    <string name="Dashboard_Performance_Overview_Paragraph">[NDT](https://ooni.org/nettest/ndt/) sınaması ile ağınızın hızını ve başarımını ölçebilirsiniz.\n\n[DASH](https://ooni.org/nettest/dash/) sınaması ile görüntü akış başarımını ölçebilirsiniz.\n\nBu sınamalar sırasında ağınızın hızına göre belirlenen miktarda çeşitli veriler aktarılır.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.\n\nBildirim: Bu sınamalar üçüncü tarafların sunucuları üzerinden yapılır. Bu nedenle IP adresinizin kaydedilmeyeceğini garanti edemeyiz.</string>
+    <string name="Dashboard_Middleboxes_Card_Description">Ağınızdaki ara kutuları bulun</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph">İnternet hizmeti sağlayıcıları sıklıkla bazı ağ uygulamaları için (ön bellekleme gibi) çeşitli aygıtlar (ara kutular) kullanır. Bazen bu ara kutular İnternet sansürü ve izlemesi için kullanılır.\n\nOONI [HTTP geçersiz istek satırı](https://ooni.org/nettest/http-invalid-request-line/) ve [HTTP üst bilgi alanı değişikliği](https://ooni.org/nettest/http-header-field-manipulation/) sınamalarını kullanarak ara kutuları bulabilirsiniz.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
+    <string name="Dashboard_InstantMessaging_Card_Description">Anlık ileti uygulamalarının engellenip engellenmediğini anlayın</string>
+    <string name="Dashboard_InstantMessaging_Overview_Paragraph">[WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) ve [Signal](https://ooni.org/nettest/signal) uygulamalarının engellenip engellenmediğini kontrol edebilirsiniz.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
+    <string name="Dashboard_Circumvention_Card_Description">Sansürü aşma araçları engellemesini sınayın</string>
+    <string name="Dashboard_Circumvention_Overview_Paragraph">[Psiphon](https://ooni.org/nettest/psiphon/) ve [Tor](https://ooni.org/nettest/tor/) ya da [RiseupVPN](https://ooni.org/nettest/riseupvpn/) engelleniyor mu öğrenin.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/) ve [OONI API](https://api.ooni.io/) sayfasında yayınlanır.</string>
+    <string name="Dashboard_Experimental_Card_Description">Yeni deneysel sınamaları çalıştır</string>
+    <string name="Settings_About_Label">OONI hakkında</string>
+    <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI, ağ müdahalesi açık gözlemevi) Tor Projesi altında yürütülen bir özgür yazılım projesidir ve dünya çapında İnternet sansürünü ortaya daha görünür hale getirmeyi amaçlamıştır.\n\nKüresel OONI topluluğu 2012 yılından beri 200 üzerinde ülkedeki milyonlarca ağ ile ilgili ölçüm sonucunu toplayarak ağ müdahalelerini açığa çıkarmıştır.</string>
 
-Otomatik sınamayı istediğiniz zaman ayarlardan kapatabilirsiniz.</string>
-  <string name="Onboarding_Crash_Paragraph">OONI Probe uygulamasını iyileştirmek için, sorun çıktığında kişisel veri içermeyen anonim çökme bildirimleri almak istiyoruz.
+    <string name="Settings_About_Content_LearnMore">Ayrıntılı bilgi alın</string>
+    <string name="Settings_About_Content_Blog">Günlük</string>
+    <string name="Settings_About_Content_Reports">Raporlar</string>
+    <string name="Settings_About_Content_DataPolicy">OONI veri işleme ilkesi</string>
 
-Çökme bildirimlerinin OONI geliştirme ekibine gönderilmesini ister misiniz?</string>
-  <string name="Dashboard_Websites_Card_Description">Site engellemelerini sınayın</string>
-  <string name="Dashboard_Websites_Overview_Paragraph">OONI [site bağlantısı sınaması](https://ooni.org/nettest/web-connectivity/) özelliğini kullanarak sitelerin engellenip engellenmediğini denetleyebilirsiniz.
-
-Çalıştır üzerine her tıkladığınızda, Citizen Lab [küresel](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) ve [ülkeye özel](https://github.com/citizenlab/test-lists/tree/master/lists) sınama listelerindeki çeşitli siteler denetlenir.
-
-Belirli siteleri sınamak için siteleri seçin düğmesine tıklayın ya da bu kartın ayarlarından kategoriyi ya da siteleri seçin. 
-
-Bu sınama sitelerin DNS müdahalesi, TCP/IP engelleme ya da görünmez vekil sunucu ile engellenip engellenmediğini ortaya çıkarır.
-
-Sonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
-  <string name="Dashboard_Performance_Card_Description">Ağınızın hızını ve başarımını ölçün</string>
-  <string name="Dashboard_Performance_Overview_Paragraph">[NDT](https://ooni.org/nettest/ndt/) sınaması ile ağınızın hızını ve başarımını ölçebilirsiniz.
-
-[DASH](https://ooni.org/nettest/dash/) sınaması ile görüntü akış başarımını ölçebilirsiniz.
-
-Bu sınamalar sırasında ağınızın hızına göre belirlenen miktarda çeşitli veriler aktarılır.
-
-Sonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.
-
-Bildirim: Bu sınamalar üçüncü tarafların sunucuları üzerinden yapılır. Bu nedenle IP adresinizin kaydedilmeyeceğini garanti edemeyiz.</string>
-  <string name="Dashboard_Middleboxes_Card_Description">Ağınızdaki ara kutuları bulun</string>
-  <string name="Dashboard_Middleboxes_Overview_Paragraph">İnternet hizmeti sağlayıcıları sıklıkla bazı ağ uygulamaları için (ön bellekleme gibi) çeşitli aygıtlar (ara kutular) kullanır. Bazen bu ara kutular İnternet sansürü ve izlemesi için kullanılır.
-
-OONI [HTTP geçersiz istek satırı](https://ooni.org/nettest/http-invalid-request-line/) ve [HTTP üst bilgi alanı değişikliği](https://ooni.org/nettest/http-header-field-manipulation/) sınamalarını kullanarak ara kutuları bulabilirsiniz.
-
-Sonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
-  <string name="Dashboard_InstantMessaging_Card_Description">Anlık ileti uygulamalarının engellenip engellenmediğini anlayın</string>
-  <string name="Dashboard_InstantMessaging_Overview_Paragraph">[WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) ve [Signal](https://ooni.org/nettest/signal) uygulamalarının engellenip engellenmediğini kontrol edebilirsiniz.
-
-Sonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
-  <string name="Dashboard_Circumvention_Card_Description">Sansürü aşma araçları engellemesini sınayın</string>
-  <string name="Dashboard_Circumvention_Overview_Paragraph">[Psiphon](https://ooni.org/nettest/psiphon/) ve [Tor](https://ooni.org/nettest/tor/) ya da [RiseupVPN](https://ooni.org/nettest/riseupvpn/) engelleniyor mu öğrenin.
-
-Sonuçlarınız [OONI Explorer](https://explorer.ooni.org/) ve [OONI API](https://api.ooni.io/) sayfasında yayınlanır.</string>
-  <string name="Dashboard_Experimental_Card_Description">Yeni deneysel sınamaları çalıştır</string>
-  <string name="Dashboard_Experimental_Overview_Paragraph">OONI ekibi tarafından geliştirilmiş yeni deneysel sınamaları çalıştırın:
-%1$s
-
-Sonuçlarınız [OONI Explorer](https://explorer.ooni.org/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
-  <string name="Modal_EnableNotifications_Paragraph">Yeni sansür uygulamaları sırasında OONI Probe sınamaları yapmak ilginizi çeker mi? Yakınınızda bir İnternet sansürü olduğunu öğrendiğimizde size bildirmemiz için bildirimleri açabilirsiniz.</string>
-  <string name="Settings_About_Label">OONI hakkında</string>
-  <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI, ağ müdahalesi açık gözlemevi) Tor Projesi altında yürütülen bir özgür yazılım projesidir ve dünya çapında İnternet sansürünü ortaya daha görünür hale getirmeyi amaçlamıştır.
-
-Küresel OONI topluluğu 2012 yılından beri 200 üzerinde ülkedeki milyonlarca ağ ile ilgili ölçüm sonucunu toplayarak ağ müdahalelerini açığa çıkarmıştır.</string>
-  <string name="Settings_About_Content_LearnMore">Ayrıntılı bilgi alın</string>
-  <string name="Settings_About_Content_Blog">Günlük</string>
-  <string name="Settings_About_Content_Reports">Raporlar</string>
-  <string name="Settings_About_Content_DataPolicy">OONI veri işleme ilkesi</string>
-  <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Bu bağlantıyı yalnızca geliştiricisinin gönderdiği özgün bağlantıdan yeniden kurabilirsiniz. Bu bağlantıdaki ölçümler silinecek, ancak Explorer üzerinden erişilebilecek.</string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Bu bağlantıyı yalnızca geliştiricisinin gönderdiği özgün bağlantıdan yeniden kurabilirsiniz. Bu bağlantıdaki ölçümler silinecek, ancak Explorer üzerinden erişilebilecek.</string>
 </resources>
