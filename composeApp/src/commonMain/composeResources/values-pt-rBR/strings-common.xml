@@ -250,6 +250,8 @@
     <string name="Dashboard_ReviewDescriptor_Button_Default">ATUALIZAÇÃO (%1$s de %2$s)</string>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRADO</string>
     <string name="Dashboard_RunV2_UpdatedTag">ATUALIZADO</string>
+    <string name="Dashboard_RunV2_UpdateTag">ATUALIZAÇÃO</string>
+
     <string name="Settings_Websites_CustomURL_Title">Escolha sites para testar</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_NoURLEntered">Nenhuma URL inserida</string>
