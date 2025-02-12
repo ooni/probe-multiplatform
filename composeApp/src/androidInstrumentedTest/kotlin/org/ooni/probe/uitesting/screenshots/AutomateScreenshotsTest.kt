@@ -1,13 +1,36 @@
 package org.ooni.probe.uitesting.screenshots
 
 import androidx.compose.ui.test.isDisplayed
+import androidx.compose.ui.test.isNotDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Common_Back
+import ooniprobe.composeapp.generated.resources.Dashboard_Progress_UpdateLink_Label
+import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
+import ooniprobe.composeapp.generated.resources.OONIRun_Run
+import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Button_Go
+import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_PopQuiz_True
+import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Button
+import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_WhatIsOONIProbe_GotIt
+import ooniprobe.composeapp.generated.resources.Onboarding_WhatIsOONIProbe_Title
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Settings_About_Label
+import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
+import ooniprobe.composeapp.generated.resources.Settings_Notifications_Label
+import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Enabled
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
+import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_Description
+import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
+import ooniprobe.composeapp.generated.resources.Settings_Title
+import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.Test_Dash_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Performance_Fullname
@@ -15,6 +38,7 @@ import ooniprobe.composeapp.generated.resources.Test_Websites_Fullname
 import ooniprobe.composeapp.generated.resources.app_name
 import org.junit.AfterClass
 import org.junit.BeforeClass
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,15 +48,18 @@ import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.NetworkModel
+import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.getCurrent
 import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnContentDescription
+import org.ooni.probe.uitesting.helpers.clickOnTag
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.dependencies
 import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
 import org.ooni.probe.uitesting.helpers.onNodeWithContentDescription
 import org.ooni.probe.uitesting.helpers.onNodeWithText
+import org.ooni.probe.uitesting.helpers.preferences
 import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
 import org.ooni.probe.uitesting.helpers.wait
@@ -247,10 +274,9 @@ class AutomateScreenshotsTest {
 
                 wait(10.seconds) { onNodeWithText("https://z-lib.org/").isDisplayed() }
 
-                // Screenshot was coming up empty, so I had to surround it with sleeps
-                Thread.sleep(1000)
+                // Screenshot was coming up empty, so we need to explicitly sleep here
+                Thread.sleep(3000)
                 Screengrab.screenshot("18-websites-results")
-                Thread.sleep(1000)
 
                 clickOnText("https://z-lib.org/")
 
@@ -277,9 +303,9 @@ class AutomateScreenshotsTest {
         runTest {
             if (!isNewsMediaScan) return@runTest
             skipOnboarding()
+            dependencies.bootstrapTestDescriptors()
             setupNmsTestResults()
 
-            dependencies.bootstrapTestDescriptors()
             val trustedDescriptor = dependencies.testDescriptorRepository.listLatest().first()
                 .first { it.id.value == "10004" }
             val trustedName = with(trustedDescriptor) { nameIntl?.getCurrent() ?: name }
@@ -298,10 +324,9 @@ class AutomateScreenshotsTest {
 
                 wait(10.seconds) { onNodeWithText("https://www.dw.com").isDisplayed() }
 
-                // Screenshot was coming up empty, so I had to surround it with sleeps
-                Thread.sleep(1000)
+                // Screenshot was coming up empty, so we need to explicitly sleep here
+                Thread.sleep(3000)
                 Screengrab.screenshot("18-websites-results")
-                Thread.sleep(1000)
 
                 clickOnText("https://www.dw.com")
 
@@ -312,6 +337,8 @@ class AutomateScreenshotsTest {
         }
 
     private suspend fun setupOoniTestResults() {
+        dependencies.resultRepository.deleteAll()
+
         val networkId = dependencies.networkRepository.createIfNew(
             NetworkModel(
                 networkName = "Vodafone Italia",
@@ -498,6 +525,8 @@ class AutomateScreenshotsTest {
     }
 
     private suspend fun setupNmsTestResults() {
+        dependencies.resultRepository.deleteAll()
+
         val networkId = dependencies.networkRepository.createIfNew(
             NetworkModel(
                 networkName = "Vodafone GmbH",
