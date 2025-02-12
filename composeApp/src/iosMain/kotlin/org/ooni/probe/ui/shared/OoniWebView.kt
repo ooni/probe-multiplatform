@@ -20,11 +20,16 @@ actual fun OoniWebView(
     val state = rememberWebViewState("about:blank")
     val navigator = rememberWebViewNavigator()
 
-    LaunchedEffect(state.loadingState) {
+    LaunchedEffect(state.loadingState, state.errorsForCurrentRequest) {
+        val errors = state.errorsForCurrentRequest
         controller.state = when (val loadingState = state.loadingState) {
             LoadingState.Initializing -> OoniWebViewController.State.Initializing
             is LoadingState.Loading -> OoniWebViewController.State.Loading(loadingState.progress)
-            LoadingState.Finished -> OoniWebViewController.State.Finished
+            LoadingState.Finished -> if (errors.any { it.isFromMainFrame }) {
+                OoniWebViewController.State.Failure
+            } else {
+                OoniWebViewController.State.Successful
+            }
         }
     }
 
