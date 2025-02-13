@@ -54,6 +54,7 @@ import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnContentDescription
 import org.ooni.probe.uitesting.helpers.clickOnTag
 import org.ooni.probe.uitesting.helpers.clickOnText
+import org.ooni.probe.uitesting.helpers.defaultSettings
 import org.ooni.probe.uitesting.helpers.dependencies
 import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
@@ -182,6 +183,7 @@ class AutomateScreenshotsTest {
     fun settings() =
         runTest {
             skipOnboarding()
+            defaultSettings()
             start()
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
