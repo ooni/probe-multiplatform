@@ -27,6 +27,8 @@
     <string name="Dashboard_Circumvention_Card_Description">Sansürü aşma araçları engellemesini sınayın</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">[Psiphon](https://ooni.org/nettest/psiphon/) ve [Tor](https://ooni.org/nettest/tor/) ya da [RiseupVPN](https://ooni.org/nettest/riseupvpn/) engelleniyor mu öğrenin.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/) ve [OONI API](https://api.ooni.io/) sayfasında yayınlanır.</string>
     <string name="Dashboard_Experimental_Card_Description">Yeni deneysel sınamaları çalıştır</string>
+    <string name="Dashboard_Experimental_Overview_Paragraph">OONI ekibi tarafından geliştirilmiş yeni deneysel sınamaları çalıştırın:\n%1$s\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
+
     <string name="Settings_About_Label">OONI hakkında</string>
     <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI, ağ müdahalesi açık gözlemevi) Tor Projesi altında yürütülen bir özgür yazılım projesidir ve dünya çapında İnternet sansürünü ortaya daha görünür hale getirmeyi amaçlamıştır.\n\nKüresel OONI topluluğu 2012 yılından beri 200 üzerinde ülkedeki milyonlarca ağ ile ilgili ölçüm sonucunu toplayarak ağ müdahalelerini açığa çıkarmıştır.</string>
 

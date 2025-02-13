@@ -27,6 +27,8 @@
     <string name="Dashboard_Circumvention_Card_Description">Prófa hindranir fyrir leiðir framhjá ritskoðun</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">Athugaðu hvort [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) eða [RiseupVPN](https://ooni.org/nettest/riseupvpn/) verði fyrir hindrunum.\n\nNiðurstöðurnar þínar verða birtar í [OONI Explorer](https://explorer.ooni.org/) og [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Experimental_Card_Description">Keyra nýjar prófanir á tilraunastigi</string>
+    <string name="Dashboard_Experimental_Overview_Paragraph">Keyrðu eftirfarandi tilraunaprófanir sem þróaðar hafa verið af OONI-teyminu:\n%1$s\n\nNiðurstöðurnar þínar verða birtar í [OONI Explorer](https://explorer.ooni.org/) og [OONI API](https://api.ooni.io/).</string>
+
     <string name="Settings_About_Label">Um OONI</string>
     <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) er frjálst hugbúnaðarverkefni undir merkjum Tor-verkefnisins og miðar að því að auka gegnsæi upplýsinga um ritskoðun internetsins út um allan heim.\n\nSíðan árið 2012, hafa aðilar á vegum OONI um víða veröld verið að mæla netkerfi í meira en 200 löndum. Sumar þessara mælinga eru sönnunargögn um ritskoðun á internetinu.</string>
 

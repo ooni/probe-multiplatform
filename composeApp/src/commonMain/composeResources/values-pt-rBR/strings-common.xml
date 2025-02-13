@@ -321,18 +321,24 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Informações de rede (incluindo o Número do Sistema Autônomo)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Hora e data do teste</string>
     <string name="Onboarding_DefaultSettings_Paragraph">Fazemos o possível para não publicar seu endereço IP ou qualquer outra informação que identifique você pessoalmente.\n\nAprenda mais através da [política de dados da OONI](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">Vamos lá</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Alterar padrões</string>
 
     <string name="Modal_EnableNotifications_Title">Receba atualizações sobre censura na internet</string>
 
     <string name="Dashboard_Runv2_Overview_LastUpdated">Última atualização%1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">Atualização rejeitada</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Desfazer</string>
     <string name="Dashboard_RunTests_RunButton_Label_One">Executar %1$d teste</string>
     <string name="Dashboard_RunTests_RunButton_Label_Other">Executar %1$d testes</string>
+    <string name="Dashboard_Update_Ready">A atualização do aplicativo acabou de ser baixada</string>
     <string name="Dashboard_Update_Restart">Reiniciar</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">Rejeitar Atualização</string>
+
     <string name="AddDescriptor_Toasts_Unsupported_Url">URL sem suporte</string>
 
     <string name="Measurement_Title">Medição</string>
+    <string name="Measurement_LoadingFailed">Falha ao carregar a informação da medição</string>
     <string name="Measurements_Failed">Falhou</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Anomalia</string>
@@ -354,6 +360,7 @@
     <string name="Settings_Sharing_UploadResults_Description">Resultados são automaticamente subidos para o explorador do OONI.</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_New">Limitar a duração de testes de Websites</string>
     <string name="Settings_Websites_MaxRuntime_New">Duração máxima do teste de Websites</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description">Testes serão executados a cada hora em segundo plano</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Somente para execuções manuais</string>
     <string name="Settings_Websites_Categories_Selection_None">Desmarcar todos</string>
     <string name="Settings_Websites_Categories_Selection_All">Selecionar todos</string>

@@ -27,6 +27,8 @@
     <string name="Dashboard_Circumvention_Card_Description">Έλεγξε το μπλοκάρισμα εργαλείων παράκαμψης λογοκρισίας</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">Δες αν το [Psiphon](https://ooni.org/nettest/psiphon/), το [Tor](https://ooni.org/nettest/tor/) ή το [RiseupVPN](https://ooni.org/nettest/riseupvpn/) έχουν μπλοκαριστεί.\n\nΤα αποτελέσματα θα δημοσιευτούν στο [OONI Explorer] (https://explorer.ooni.org/) και στο [OONI API] (https://api.ooni.io/).</string>
     <string name="Dashboard_Experimental_Card_Description">Εκτέλεση νέων πειραματικών δοκιμών</string>
+    <string name="Dashboard_Experimental_Overview_Paragraph">Εκτέλεσε τις παρακάτω νέες πειραματικές δοκιμές που αναπτύχθηκαν από την ομάδα του OONI:\n%1$s\n\nΤα αποτελέσματά σου θα δημοσιευθούν στο [OONI Explorer](https://explorer.ooni.org/) και στο [OONI API](https://api.ooni.io/).</string>
+
     <string name="Settings_About_Label">Σχετικά με το OONI</string>
     <string name="Settings_About_Content_Paragraph">Το OONI (Open Observatory of Network Interference) είναι ένα έργο ελεύθερου λογισμικού του οργανισμού The Tor Project, με στόχο την αύξηση της διαφάνειας για τη λογοκρισία στο διαδίκτυο, παγκοσμίως.\n\nΑπό το 2012, η ​​παγκόσμια κοινότητα του OONI παίρνει μετρησεις σε δίκτυα  σε περισσότερες από 200 χώρες. Κάποια από τα συλλεγόμενα στοιχεία αποτελούν απόδειξη της ύπαρξης λογοκρισίας στο διαδίκτυο.</string>
 

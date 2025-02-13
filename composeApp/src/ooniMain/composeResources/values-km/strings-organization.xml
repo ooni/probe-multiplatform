@@ -27,6 +27,8 @@
     <string name="Dashboard_Circumvention_Card_Description">តេស្តលើកាបិទឧបករណ៍បញ្ចៀសការ​រឹត​ត្បិត</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">ពិនិត្យមើលថាតើ [Psiphon](https://ooni.org/nettest/psiphon/) [Tor](https://ooni.org/nettest/tor/) ឬ [RiseupVPN](https://ooni.org/nettest/riseupvpn/) ត្រូវបានបិទឬទេ។\n\nលទ្ធផលរបស់អ្នកនឹងផ្សព្វផ្សាយលើ [OONI Explorer](https://explorer.ooni.org/) and [OONI API](https://api.ooni.io/)។</string>
     <string name="Dashboard_Experimental_Card_Description">ដំណើរការតេស្តសាកល្បងថ្មីៗ</string>
+    <string name="Dashboard_Experimental_Overview_Paragraph">ដំណើរការតេស្តសាកល្បងថ្មីៗដែលបង្កើតដោយក្រុមការងារ OONI៖\n%1$s\n\nលទ្ធផលរបស់អ្នកនឹងផ្សព្វផ្សាយលើ [OONI Explorer](https://explorer.ooni.org/) និង [OONI API](https://api.ooni.io/)។</string>
+
     <string name="Settings_About_Label">អំពី OONI</string>
     <string name="Settings_About_Content_Paragraph">The Open Observatory of Network Interference (OONI) គឺជាគម្រោងសុវែរមិនគិតថ្លៃរបស់ The Tor Project ដែលមានគោលដៅបង្កើនតម្លាភាពនៃការរឹតត្បឹតអុីនធឺណិតនៅជុំវិញពិភពលោក។\n\nចាប់ពីឆ្នាំ 2012 មកសហគមន៍របស់ OONI បានវាស់វែងបណ្ដាញនានានៅក្នុងជាង 200 ប្រទេស។ ការវាស់វែងមួយចំនួនត្រូវបានប្រើជាភស្តុតាងអំពីការរឹតត្បិតអុីនធឺណិត។</string>
 

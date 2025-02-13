@@ -26,6 +26,8 @@
     <string name="Dashboard_Circumvention_Card_Description">सेंसरशिप परिधि उपकरणों के अवरोधन का परीक्षण करें</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">जांचें कि क्या [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) या [RiseupVPN](https://ooni.org/nettest/riseupvpn/) अवरुद्ध हैं।\n\nआपके परिणाम [OONI एक्सप्लोरर](https://explorer.ooni.org/) और [OONI API](https://api.ooni.io/) पर प्रकाशित किए जाएंगे।</string>
     <string name="Dashboard_Experimental_Card_Description">नए प्रयोगात्मक परीक्षण चलाएं</string>
+    <string name="Dashboard_Experimental_Overview_Paragraph">OONI टीम द्वारा विकसित निम्नलिखित नए प्रयोगात्मक परीक्षण चलाएँ:\n%1$s\n\nआपके परिणाम [OONI Explorer](https://explorer.ooni.org/) और [OONI API](https://api.ooni.io/) पर प्रकाशित किए जाएंगे। </string>
+
     <string name="Settings_About_Label">OONI बारे में</string>
     <string name="Settings_About_Content_Paragraph">द ओपन ऑब्जर्वेटरी ऑफ नेटवर्क इंटरफेरेंस (OONI) द टोर प्रोजेक्ट के तहत एक मुफ्त सॉफ्टवेयर परियोजना है जिसका उद्देश्य दुनिया भर में इंटरनेट सेंसरशिप की पारदर्शिता को बढ़ाना है।\n\n2012 से, OONI का वैश्विक समुदाय 200 से अधिक देशों में नेटवर्क को माप रहा है। इनमें से कुछ माप इंटरनेट सेंसरशिप के सबूत के रूप में काम करते हैं।</string>
 

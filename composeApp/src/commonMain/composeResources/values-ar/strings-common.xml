@@ -46,16 +46,16 @@
     <string name="TestResults_Overview_Hero_Tests">اختبارات</string>
     <string name="TestResults_Overview_Hero_Networks">الشبكات</string>
     <string name="TestResults_Overview_Hero_DataUsage">إستخدام البيانات</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s محجوب</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s محجوبة</string>
+    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s محجوبة </string>
+    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s محجوبة </string>
     <string name="TestResults_Overview_Websites_Tested_Singular">%1$s تمّ اختبارها</string>
     <string name="TestResults_Overview_Websites_Tested_Plural">%1$s تمّ اختبارها</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Singular">%1$s محجوب</string>
+    <string name="TestResults_Overview_InstantMessaging_Blocked_Singular">%1$s محجوبة </string>
     <string name="TestResults_Overview_InstantMessaging_Blocked_Plural">%1$s محجوبة </string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Singular">%1$s متاح</string>
+    <string name="TestResults_Overview_InstantMessaging_Available_Singular">%1$s متاحة</string>
     <string name="TestResults_Overview_InstantMessaging_Available_Plural">%1$s متاحة</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Singular">%1$s محجوب</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Plural">%1$s محجوب</string>
+    <string name="TestResults_Overview_Circumvention_Blocked_Singular">%1$s محجوبة </string>
+    <string name="TestResults_Overview_Circumvention_Blocked_Plural">%1$s محجوبة </string>
     <string name="TestResults_Overview_Circumvention_Available_Singular">%1$s متوفر</string>
     <string name="TestResults_Overview_Circumvention_Available_Plural">%1$s متوفر</string>
     <string name="TestResults_Summary_Hero_DateAndTime">التاريخ والوقت</string>
@@ -106,9 +106,7 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_DateLast">آخر اختبار أوتوماتيكي %1$s.</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">فقط عند الاتصال عبر الواي الفاي </string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">فقط عند الشحن </string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">عند تفعيل الاختبار التلقائي، سيشغل OONI Probe الاختبارات تلقائيا عدة مرات في اليوم. سوف ينشر OONI Explorer نتائج اختباراتك تلقائيا : https://explorer.ooni.org/
-
-هام : إذا كان عندك VPN مُفعَّل، فلن يشغل OONI Probe الاختبارات تلقائيا. يُرجى إيقاف اتصالك بـ VPN لتمكين OONI Probe للقيام بالاختبار التلقائي. للتعرف على المزيد : https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">عند تفعيل الاختبار التلقائي، سيشغل OONI Probe الاختبارات تلقائيا عدة مرات في اليوم. سوف ينشر OONI Explorer نتائج اختباراتك تلقائيا : https://explorer.ooni.org/\n\nهام : إذا كان عندك VPN مُفعَّل، فلن يشغل OONI Probe الاختبارات تلقائيا. يُرجى إيقاف اتصالك بـ VPN لتمكين OONI Probe للقيام بالاختبار التلقائي. للتعرف على المزيد : https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
 
     <string name="Settings_Websites_MaxRuntimeEnabled">قيّد مدة الاختبار</string>
     <string name="Settings_Websites_MaxRuntime">مدة الاختبار</string>
@@ -139,7 +137,7 @@
     <string name="Settings_Advanced_RecentLogs">الاطلاع على السجلات الأخيرة</string>
     <string name="Settings_Advanced_LanguageSettings_Title">إعدادات اللغة</string>
     <string name="Settings_Storage_Label">استخدام سعة التخزين </string>
-    <string name="Settings_Storage_Delete">احذف</string>
+    <string name="Settings_Storage_Delete">حذف</string>
     <string name="Settings_Storage_Clear">Clear</string>
     <string name="Settings_WarmVPNInUse_Label">نبِّه عند استخدام VPN</string>
 
@@ -215,7 +213,7 @@
     <string name="Modal_UploadFailed_Paragraph">أخفقنا في رفع %1$s من %2$s قياسا. تم مشاركة سجل الإخفاق مع مطوري OONI.</string>
     <string name="Modal_Retry">حاول مجددا</string>
     <string name="Modal_Cancel">إلغاء</string>
-    <string name="Modal_OK">موافقة</string>
+    <string name="Modal_OK">موافق</string>
     <string name="Modal_DoYouWantToDeleteAllTests">هل تريد حذف جميع نتائج الإختبارات؟</string>
     <string name="Modal_Delete">حذف</string>
 
@@ -320,9 +318,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">رمز الدّولة (مثلاً IT لإيطاليا) </string>
     <string name="Onboarding_DefaultSettings_Bullet_2">معلومات الشبكة (متضمنا رقم ASN)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">وقت وتاريخ الاختبار</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">نعمل ما في وسعنا لعدم نشر عنوان بروتوكل الانترنت (IP) أو أي بيانات أخرى قد تساعد  في تحديد هويّتك الشّخصيّة. 
-
-تعلّم أكثر عبر [سياسة البيانات في OONI](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">نعمل ما في وسعنا لعدم نشر عنوان بروتوكل الانترنت (IP) أو أي بيانات أخرى قد تساعد  في تحديد هويّتك الشّخصيّة. \n\nتعلّم أكثر عبر [سياسة البيانات في OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Go">فلننطلق!</string>
     <string name="Onboarding_DefaultSettings_Button_Change">تغيير الافتراضي</string>
 
@@ -340,7 +336,7 @@
     <string name="Measurements_Ok">موافق</string>
     <string name="Measurements_Anomaly">شذوذ</string>
     <string name="Measurements_Count_One">%1$d measurement</string>
-    <string name="Measurements_Count_Other">%1$d measurements</string>
+    <string name="Measurements_Count_Other">%1$d measurement</string>
     <string name="Results_TestType_All">All Types</string>
     <string name="Results_TaskOrigin_All">All Sources</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>

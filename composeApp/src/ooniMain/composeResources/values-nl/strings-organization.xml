@@ -27,6 +27,8 @@
     <string name="Dashboard_Circumvention_Card_Description">Test de blokkering van tools voor het omzeilen van censuur</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">Controleer of [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) of [RiseupVPN](https://ooni.org/nettest/riseupvpn/) zijn geblokkeerd.\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/) en [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Experimental_Card_Description">Nieuwe experimentele tests uitvoeren</string>
+    <string name="Dashboard_Experimental_Overview_Paragraph">Voer de volgende nieuwe experimentele tests uit die zijn ontwikkeld door het OONI-team:\n%1$s\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/) en [OONI API](https://api.ooni.io/).</string>
+
     <string name="Settings_About_Label">Over OONI</string>
     <string name="Settings_About_Content_Paragraph">The Open Observatory of Network Interference (OONI) is een gratis softwareproject onder The Tor Project dat tot doel heeft de transparantie van internetcensuur over de hele wereld te vergroten.\n\nSinds 2012 meet de wereldwijde gemeenschap van OONI netwerken in meer dan 200 landen. Sommige van deze metingen dienen als bewijs van internetcensuur.</string>
 

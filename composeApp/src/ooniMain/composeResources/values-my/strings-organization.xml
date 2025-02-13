@@ -27,6 +27,8 @@
     <string name="Dashboard_Circumvention_Card_Description">ဆင်ဆာရှောင်တိမ်း ကိရိယာများကို ပိတ်ဆို့ စမ်းသပ်မည်</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">[Psiphon](https://ooni.org/nettest/psiphon/)၊ [Tor](https://ooni.org/nettest/tor/) သို့မဟုတ် [RiseupVPN](https://ooni.org/nettest/riseupvpn/) တို့ကို ပိတ်ဆို့ထားခြင်း ရှိ/မရှိ စစ်ဆေးရန်\nသင့် ရလဒ်များအား [OONI Explorer](https://explorer.ooni.org/) နှင့် [OONI API](https://api.ooni.io/) တွင် ထုတ်ပြန်ပေးပါမည်။ </string>
     <string name="Dashboard_Experimental_Card_Description">စမ်းသပ်မှုအသစ်များကို လုပ်ဆောင်ရန်</string>
+    <string name="Dashboard_Experimental_Overview_Paragraph">OONI အဖွဲ့မှ ဖန်တီးထားသော အောက်ပါ စမ်းသပ်မှုအသစ်များကို လုပ်ဆောင်မည်\n%1$s\n\nသင့်ရလဒ်များကို [OONI Explorer](https://explorer.ooni.org/) နှင့် [OONI API](https://api.ooni.io/) တွင် ထုတ်ဝေပါမည်။</string>
+
     <string name="Settings_About_Label">OONI အကြောင်း</string>
     <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) သည် Tor ပရောဂျက် အောက်ရှိ လွတ်လပ်ဆော့ဖ်ဝဲလ် ပရောဂျက်တစ်ခု ဖြစ်ပြီး ကမ္ဘာတစ်ဝှမ်းရှိ အင်တာနက် ဆင်ဆာဖြတ်တောက်မှုများကို ပွင့်လင်းမြင်သာမှု ရှိစေရန် ရည်ရွယ်ပါသည်။ \n\n၂၀၁၂ ခုနှစ်မှ စတင်၍ OONI ၏ ကမ္ဘာ့ အသိုင်းအဝိုင်းသည် နိုင်ငံပေါင်း ၂၀၀ ကျော်တွင် ကွန်ရက်များကို တိုင်းတာနေပါသည်။ ဤတိုင်းတာမှုအချို့သည် အင်တာနက် ဆင်ဆာ ဖြတ်တောက်ခြင်း၏ သက်သေအဖြစ် တည်ရှိနေသည်။</string>
 
