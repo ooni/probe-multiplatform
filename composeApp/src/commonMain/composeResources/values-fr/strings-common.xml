@@ -333,7 +333,7 @@
     <string name="Dashboard_RunTests_RunButton_Label_Other">Exécuter %1$d tests</string>
     <string name="Dashboard_Update_Ready">La mise à jour de l’appli vient d’être téléchargée</string>
     <string name="Dashboard_Update_Restart">Redémarrer</string>
-    <string name="Dashboard_ReviewDescriptor_Reject">Refusez la mise à jour</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">Refuser la mise à jour</string>
 
     <string name="AddDescriptor_Toasts_Unsupported_Url">Cette URL n’est pas prise en charge</string>
 
