@@ -236,6 +236,7 @@
     <string name="LoadingScreen_Runv2_Message">链接加载</string>
     <string name="LoadingScreen_Runv2_Failure">错误</string>
     <string name="LoadingScreen_Runv2_Canceled">链接安装被取消了</string>
+    <string name="Dashboard_Runv2_Overview_Description">由 %1$s 于 %2$s 创建</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">卸载链接</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">上次修改</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">查看更多</string>
@@ -249,6 +250,8 @@
     <string name="Dashboard_ReviewDescriptor_Button_Default">更新(%1$s，共 %2$s)</string>
     <string name="Dashboard_RunV2_ExpiredTag">已到期</string>
     <string name="Dashboard_RunV2_UpdatedTag">已更新</string>
+    <string name="Dashboard_RunV2_UpdateTag">更新</string>
+
     <string name="Settings_Websites_CustomURL_Title">选择要测试的网站</string>
     <string name="Settings_Websites_CustomURL_URL">网址</string>
     <string name="Settings_Websites_CustomURL_NoURLEntered">没有输入 URL</string>
@@ -271,6 +274,10 @@
     <string name="Common_Minutes_Other">%1$d 分钟</string>
     <string name="Common_Hour_One">%1$d 小时</string>
     <string name="Common_Hour_Other">%1$d 小时</string>
+    <string name="Common_Hours_Abbreviated">%1$d小时</string>
+    <string name="Common_Minutes_Abbreviated">%1$d分钟</string>
+    <string name="Common_Seconds_Abbreviated">%1$d秒</string>
+
     <string name="Common_Months_January">一月</string>
     <string name="Common_Months_February">二月</string>
     <string name="Common_Months_March">三月</string>
@@ -314,21 +321,32 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">网络信息（包含 ASN）</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">测试的日期和时间</string>
     <string name="Onboarding_DefaultSettings_Paragraph">我们尽最大努力不发布您的 IP 地址或任何其他潜在的个人身份信息。通过 [OONI 的数据政策] 了解更多信息(https://ooni.org/about/data-policy/)。</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">开始吧</string>
     <string name="Onboarding_DefaultSettings_Button_Change">更改默认值</string>
 
     <string name="Modal_EnableNotifications_Title">获取网络审查的动态</string>
 
     <string name="Dashboard_Runv2_Overview_LastUpdated">上次更新 %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">拒绝了更新</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">撤销</string>
     <string name="Dashboard_RunTests_RunButton_Label_One">运行 %1$d 个测试</string>
     <string name="Dashboard_RunTests_RunButton_Label_Other">运行 %1$d 个测试</string>
+    <string name="Dashboard_Update_Ready">刚下载了应用更新</string>
     <string name="Dashboard_Update_Restart">重新启动</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">拒绝更新</string>
+
     <string name="AddDescriptor_Toasts_Unsupported_Url">不支持的 URL</string>
 
     <string name="Measurement_Title">测量</string>
+    <string name="Measurement_LoadingFailed">加载测量信息失败</string>
     <string name="Measurements_Failed">失败</string>
     <string name="Measurements_Ok">正常</string>
     <string name="Measurements_Anomaly">异常</string>
+    <string name="Measurements_Count_One">%1$d 已测量</string>
+    <string name="Measurements_Count_Other">%1$d 已测量</string>
+    <string name="Measurements_Failed_One">%1$d 失败了</string>
+    <string name="Measurements_Failed_Other">%1$d 失败了</string>
+
     <string name="Results_TestType_All">所有类型</string>
     <string name="Results_TaskOrigin_All">所有来源</string>
     <string name="Results_LimitedNotice">只显示最后 %1$d 个结果</string>
@@ -342,6 +360,7 @@
     <string name="Settings_Sharing_UploadResults_Description">结果自动上传到 OONI explorer</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_New">限制网站测试持续时间</string>
     <string name="Settings_Websites_MaxRuntime_New">最大化网站测试持续时间</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description">每小时在后台运行测试</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">仅手动运行</string>
     <string name="Settings_Websites_Categories_Selection_None">取消全选</string>
     <string name="Settings_Websites_Categories_Selection_All">选择全部</string>
