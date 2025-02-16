@@ -250,6 +250,8 @@
     <string name="Dashboard_ReviewDescriptor_Button_Default">AKTUALISIERUNG (%1$s von %2$s)</string>
     <string name="Dashboard_RunV2_ExpiredTag">ABGELAUFEN</string>
     <string name="Dashboard_RunV2_UpdatedTag">AKTUALISIERT</string>
+    <string name="Dashboard_RunV2_UpdateTag">AKTUALISIERUNG</string>
+
     <string name="Settings_Websites_CustomURL_Title">Wähle Webseiten zum testen aus</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_NoURLEntered">Keine URLs eingegeben</string>
@@ -272,6 +274,10 @@
     <string name="Common_Minutes_Other">%1$d Minuten</string>
     <string name="Common_Hour_One">%1$d Stunde</string>
     <string name="Common_Hour_Other">%1$d Stunden</string>
+    <string name="Common_Hours_Abbreviated">%1$dStd</string>
+    <string name="Common_Minutes_Abbreviated">%1$dMin</string>
+    <string name="Common_Seconds_Abbreviated">%1$dSek</string>
+
     <string name="Common_Months_January">Januar</string>
     <string name="Common_Months_February">Februar</string>
     <string name="Common_Months_March">März</string>
@@ -315,21 +321,32 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Netzwerkinformationen (einschließlich der Autonomous System Number, ASN)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Zeit &amp; Datum des Tests</string>
     <string name="Onboarding_DefaultSettings_Paragraph">Wir tun unser Bestes, um deine IP-Adresse oder andere potentiell persönlich identifizierbare Informationen nicht zu veröffentlichen.\n\nErfahre mehr über [OONI\'s Daten-Richtlinie](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">Los geht\'s</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Defaults ändern</string>
 
     <string name="Modal_EnableNotifications_Title">Aktuelle Informationen zur Internetzensur</string>
 
     <string name="Dashboard_Runv2_Overview_LastUpdated">Zuletzt aktualisiert %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">Abgelehnte Aktualisierung</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Zurück</string>
     <string name="Dashboard_RunTests_RunButton_Label_One">Führe %1$d Test aus</string>
     <string name="Dashboard_RunTests_RunButton_Label_Other">Führe %1$d Tests aus</string>
+    <string name="Dashboard_Update_Ready">Die Aktualisierung der App wurde soeben heruntergeladen</string>
     <string name="Dashboard_Update_Restart">Neustart</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">Aktualisierung ablehnen</string>
+
     <string name="AddDescriptor_Toasts_Unsupported_Url">Nicht unterstützte URL</string>
 
     <string name="Measurement_Title">Messung</string>
+    <string name="Measurement_LoadingFailed">Messinformationen konnten nicht geladen werden</string>
     <string name="Measurements_Failed">Fehlgeschlagen</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Anomalie</string>
+    <string name="Measurements_Count_One">%1$d gemessen</string>
+    <string name="Measurements_Count_Other">%1$d gemessen</string>
+    <string name="Measurements_Failed_One">%1$d fehlgeschlagen</string>
+    <string name="Measurements_Failed_Other">%1$d fehlgeschlagen</string>
+
     <string name="Results_TestType_All">Alle Typen</string>
     <string name="Results_TaskOrigin_All">Alle Quellen</string>
     <string name="Results_LimitedNotice">Nur die letzten %1$d Resultate werden angezeigt</string>
@@ -343,6 +360,7 @@
     <string name="Settings_Sharing_UploadResults_Description">Die Ergebnisse werden automatisch in OONI-Explorer hochgeladen</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_New">Testdauer der Websites begrenzen</string>
     <string name="Settings_Websites_MaxRuntime_New">Maximale Testdauer der Websites</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description">Die Tests laufen jede Stunde im Hintergrund.</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Nur für manuelle Ausführungen</string>
     <string name="Settings_Websites_Categories_Selection_None">Alles abwählen</string>
     <string name="Settings_Websites_Categories_Selection_All">Alles auswählen</string>
