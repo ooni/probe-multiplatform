@@ -7,7 +7,7 @@
     <string name="Onboarding_ThingsToKnow_Bullet_2">Jeder, der deine Internetverbindung überwacht, wird sehen können, dass du den News Media Scan nutzt.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">Es werden Nachrichten-Websites geprüft, die in dem Land, in dem du dich gerade befindest, verboten sein könnten.</string>
     <string name="Onboarding_PopQuiz_1_Question">Falls meine Internetverbindung überwacht wird, wird man sehen können, dass ich den News Media Scan nutze.</string>
-    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">News Media Scan ist kein Tool zum Schutz der Privatsphäre. Jeder, der Ihre Internetaktivitäten überwacht, kann sehen, welche Software Sie ausführen.</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">News Media Scan ist kein Tool zum Schutz der Privatsphäre. Jeder, der deine Internetaktivitäten überwacht, kann sehen, welche Software du ausführst.</string>
     <string name="Onboarding_PopQuiz_2_Question">Jedes Mal, wenn ich News Media Scan ausführe, werden die gesammelten Netzwerkdaten automatisch veröffentlicht.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Um die Transparenz der Internetzensur zu erhöhen, werden die Netzwerkdaten aller News Media Scan-Benutzer automatisch veröffentlicht (es sei denn, sie lehnen dies in den Einstellungen ab).</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">Um die Internet-Zensur täglich zu messen, aktivieren Sie bitte die automatische Testfunktion, damit News Media Scan in regelmäßigen Abständen Tests durchführen kann.\n\nKeine Sorge, wir werden den Akkuverbrauch im Auge behalten.\n\nSie können die automatischen Tests jederzeit in den Einstellungen deaktivieren.</string>
