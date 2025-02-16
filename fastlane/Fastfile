@@ -17,7 +17,8 @@ platform :android do
     lane :capture_screen_ooni do
         gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=ooni")
         capture_android_screenshots(
-            app_package_name: 'org.openobservatory.ooniprobe.dev'
+            app_package_name: 'org.openobservatory.ooniprobe.dev',
+            locales: ["en-US","ar", "ca", "de", "el", "es", "fa", "fr", "hi", "id", "is", "it", "my", "nl", "pt-BR", "ro", "ru", "sk", "sq", "sw", "th", "tr", "vi", "zh-CN", "zh-TW"],
         )
     end
 
