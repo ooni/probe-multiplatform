@@ -24,14 +24,6 @@ import ooniprobe.composeapp.generated.resources.Measurements_Count_Other
 import ooniprobe.composeapp.generated.resources.Measurements_Failed_One
 import ooniprobe.composeapp.generated.resources.Measurements_Failed_Other
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Circumvention_Available_Plural
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Circumvention_Available_Singular
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Circumvention_Blocked_Plural
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Circumvention_Blocked_Singular
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Available_Plural
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Available_Singular
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Blocked_Plural
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_InstantMessaging_Blocked_Singular
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked_Plural
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked_Singular
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested_Plural
@@ -115,22 +107,6 @@ private val stringMap = mapOf(
         to Res.string.TestResults_Overview_Websites_Tested_Singular,
     "@string/TestResults_Overview_Websites_Tested_Plural"
         to Res.string.TestResults_Overview_Websites_Tested_Plural,
-    "@string/TestResults_Overview_InstantMessaging_Blocked_Singular"
-        to Res.string.TestResults_Overview_InstantMessaging_Blocked_Singular,
-    "@string/TestResults_Overview_InstantMessaging_Blocked_Plural"
-        to Res.string.TestResults_Overview_InstantMessaging_Blocked_Plural,
-    "@string/TestResults_Overview_InstantMessaging_Available_Singular"
-        to Res.string.TestResults_Overview_InstantMessaging_Available_Singular,
-    "@string/TestResults_Overview_InstantMessaging_Available_Plural"
-        to Res.string.TestResults_Overview_InstantMessaging_Available_Plural,
-    "@string/TestResults_Overview_Circumvention_Blocked_Singular"
-        to Res.string.TestResults_Overview_Circumvention_Blocked_Singular,
-    "@string/TestResults_Overview_Circumvention_Blocked_Plural"
-        to Res.string.TestResults_Overview_Circumvention_Blocked_Plural,
-    "@string/TestResults_Overview_Circumvention_Available_Singular"
-        to Res.string.TestResults_Overview_Circumvention_Available_Singular,
-    "@string/TestResults_Overview_Circumvention_Available_Plural"
-        to Res.string.TestResults_Overview_Circumvention_Available_Plural,
     "@string/TestResults_Summary_Websites_Hero_Tested_Singular"
         to Res.string.TestResults_Summary_Websites_Hero_Tested_Singular,
     "@string/TestResults_Summary_Websites_Hero_Tested_Plural"

@@ -27,26 +27,6 @@
         <item quantity="other">@string/TestResults_Overview_Websites_Tested_Plural</item>
     </plurals>
 
-    <plurals name="TestResults_Overview_InstantMessaging_Blocked" translatable="false">
-        <item quantity="one">@string/TestResults_Overview_InstantMessaging_Blocked_Singular</item>
-        <item quantity="other">@string/TestResults_Overview_InstantMessaging_Blocked_Plural</item>
-    </plurals>
-
-    <plurals name="TestResults_Overview_InstantMessaging_Available" translatable="false">
-        <item quantity="one">@string/TestResults_Overview_InstantMessaging_Available_Singular</item>
-        <item quantity="other">@string/TestResults_Overview_InstantMessaging_Available_Plural</item>
-    </plurals>
-
-    <plurals name="TestResults_Overview_Circumvention_Blocked" translatable="false">
-        <item quantity="one">@string/TestResults_Overview_Circumvention_Blocked_Singular</item>
-        <item quantity="other">@string/TestResults_Overview_Circumvention_Blocked_Plural</item>
-    </plurals>
-
-    <plurals name="TestResults_Overview_Circumvention_Available" translatable="false">
-        <item quantity="one">@string/TestResults_Overview_Circumvention_Available_Singular</item>
-        <item quantity="other">@string/TestResults_Overview_Circumvention_Available_Plural</item>
-    </plurals>
-
     <plurals name="Measurements_Count" translatable="false">
         <item quantity="one">@string/Measurements_Count_One</item>
         <item quantity="other">@string/Measurements_Count_Other</item>
