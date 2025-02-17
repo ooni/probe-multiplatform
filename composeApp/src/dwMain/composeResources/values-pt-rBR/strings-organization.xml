@@ -11,7 +11,7 @@
     <string name="Onboarding_PopQuiz_2_Question">Sempre que executar o News Media Scan, os dados de rede que coleto serão publicados automaticamente.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Para aumentar a transparência da censura na Internet, os dados de rede de todos os usuários do News Media Scan são publicados automaticamente (a menos que eles optem por não participar nas configurações).</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">Para medir a censura na internet todos os dias, ative os testes automatizados para que o News Media Scan possa executar testes periodicamente.\n\nNão se preocupe, estaremos atentos ao uso da bateria.\n\nVocê pode desativar o teste automatizado nas configurações a qualquer momento.</string>
-    <string name="Onboarding_Crash_Paragraph">Para melhorar o News Media Scan, gostaríamos de coletar relatórios de falhas anônimos quando o aplicativo não funciona corretamente. Gostaria de aceitar o envio de relatórios de falhas para a equipe de desenvolvimento da OONI\?</string>
+    <string name="Onboarding_Crash_Paragraph">Para melhorar o News Media Scan, gostaríamos de coletar relatórios de falhas anônimos quando o aplicativo não funciona corretamente.\n\nGostaria de aceitar o envio de relatórios de falhas para a equipe de desenvolvimento da OONI\?</string>
 
     <!-- Find proper fix for translation -->
     <string name="Modal_EnableNotifications_Paragraph">Interessado em executar os testes do News Media Scan durante eventos emergentes de censura\? Ative as notificações para receber uma mensagem quando soubermos de censura na Internet perto de você.</string>
