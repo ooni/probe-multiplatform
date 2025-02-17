@@ -216,6 +216,12 @@ android {
         "fullImplementation"(libs.bundles.full.android)
         androidTestUtil(libs.android.orchestrator)
     }
+    // Our APK is too large and F-Droid asked for a split by ABI
+    splits {
+        abi {
+            isEnable = true
+        }
+    }
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
     }
