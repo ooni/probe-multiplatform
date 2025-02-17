@@ -8,6 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Common_Back
+import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsites
 import ooniprobe.composeapp.generated.resources.Dashboard_Progress_UpdateLink_Label
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
@@ -31,6 +32,7 @@ import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_D
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
+import ooniprobe.composeapp.generated.resources.Settings_Websites_CustomURL_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.Test_Dash_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Performance_Fullname
@@ -303,6 +305,29 @@ class AutomateScreenshotsTest {
                 checkTextAnywhereInsideWebView("2160p (4k)")
 
                 Screengrab.screenshot("20-dash-measurement")
+            }
+        }
+
+    @Test
+    fun choseWebsites() =
+        runTest {
+            skipOnboarding()
+            start()
+            with(compose) {
+                wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
+
+                wait(timeout = 30.seconds) {
+                    onNodeWithText(Res.string.Dashboard_Progress_UpdateLink_Label)
+                        .isNotDisplayed()
+                }
+
+                if (isOoni) {
+                    clickOnText(Res.string.Test_Websites_Fullname)
+                    wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
+                    clickOnText(Res.string.Dashboard_Overview_ChooseWebsites)
+                    wait { onNodeWithText(Res.string.Settings_Websites_CustomURL_Title).isDisplayed() }
+                    Screengrab.screenshot("21-choose-websites")
+                }
             }
         }
 
