@@ -21,14 +21,14 @@ platform :android do
     )
   end
 
-    desc "Capture the  DW screenshots for the Google Play"
+  desc "Capture the DW screenshots for the Google Play"
   lane :capture_screen_dw do
     gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=dw")
 
     capture_android_screenshots(
         app_package_name: 'com.dw.ooniprobe.dev',
-        output_directory: 'fastlane/metadata/dw',
-        locales: ["en-US","de", "es", "fr","pt-BR","ru","tr"],
+        output_directory: 'fastlane/metadata/dw/android',
+        locales: ["en-US", "de", "es", "fr", "pt-BR", "ru", "tr"],
     )
   end
 

@@ -5,6 +5,11 @@ git:
       file_format: ANDROID
       source_language: en
       translation_files_expression: 'composeApp/src/dwMain/composeResources/values-<lang>/strings-organization.xml'
+    - filter_type: dir
+      source_file_dir: fastlane/metadata/dw/android
+      file_format: TXT
+      source_language: en-US
+      translation_files_expression: 'fastlane/metadata/dw/android/<lang>/'
   settings:
     pr_branch_name:
       translations/nms/<br_unique_id>
