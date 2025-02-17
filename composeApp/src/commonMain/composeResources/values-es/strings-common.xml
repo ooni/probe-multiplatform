@@ -255,7 +255,7 @@
     <string name="Settings_Websites_CustomURL_NoURLEntered">No se han introducido URLs</string>
     <string name="Settings_Websites_CustomURL_Run">Ejecutar</string>
     <string name="Settings_Websites_CustomURL_Add">Añadir sitio web</string>
-    <string name="CustomWebsites_Fab_Text">Test %s URLs</string>
+    <string name="CustomWebsites_Fab_Text">Probar %1$d URLs</string>
     <string name="Modal_CustomURL_Title_NotSaved">¿Estas seguro\?</string>
     <string name="Modal_CustomURL_NotSaved">Tus URLs no serán guardadas cuando dejes esta pantalla. ¿Estás seguro de que quieres dejarla\?</string>
 
