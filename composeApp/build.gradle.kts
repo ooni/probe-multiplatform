@@ -216,6 +216,12 @@ android {
         "fullImplementation"(libs.bundles.full.android)
         androidTestUtil(libs.android.orchestrator)
     }
+    dependenciesInfo {
+        // Disables dependency metadata when building APKs.
+        includeInApk = false
+        // Disables dependency metadata when building Android App Bundles.
+        includeInBundle = false
+    }
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
     }
