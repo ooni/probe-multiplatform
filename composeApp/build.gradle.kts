@@ -1,3 +1,4 @@
+import com.android.build.api.variant.FilterConfiguration.FilterType.*
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -153,7 +154,7 @@ android {
         applicationId = config.appId
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 131
+        versionCode = 131 // Always increment by 5. See fdroid flavor below
         versionName = "5.0.2"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
@@ -219,6 +220,26 @@ android {
                     include("x86", "x86_64", "armeabi-v7a", "arm64-v8a")
                     // Specifies that you don't want to also generate a universal APK that includes all ABIs.
                     isUniversalApk = false
+                }
+            }
+
+            // Map for the version code that gives each ABI a value.
+            val abiCodes =
+                mapOf("armeabi-v7a" to 1, "arm64-v8a" to 2, "x86" to 3, "x86_64" to 4)
+
+            androidComponents {
+                onVariants { variant ->
+                    variant.outputs.forEach { output ->
+                        val name = output.filters.find { it.filterType == ABI }?.identifier
+
+                        val baseAbiCode = abiCodes[name]
+
+                        if (baseAbiCode != null) {
+                            output.versionCode.set(
+                                baseAbiCode + (output.versionCode.get() ?: 0)
+                            )
+                        }
+                    }
                 }
             }
         }
