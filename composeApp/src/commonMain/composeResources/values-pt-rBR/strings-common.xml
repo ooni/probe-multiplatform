@@ -1,5 +1,5 @@
 <resources>
-    <string name="Dashboard_Tab_Label">P. Comando</string>
+    <string name="Dashboard_Tab_Label">Painel Comando</string>
     <string name="Dashboard_Overview_LatestTest">Último teste:</string>
     <string name="Dashboard_Overview_Estimated">Estimado:</string>
     <string name="Dashboard_Overview_LastRun_Never">N/A</string>
@@ -41,7 +41,7 @@
     <string name="Test_Signal_Fullname">Teste do Signal</string>
 
     <string name="TestResults_Overview_Title">Resultado dos testes</string>
-    <string name="TestResults_Overview_Tab_Label">Resultado dos testes</string>
+    <string name="TestResults_Overview_Tab_Label">Resultados</string>
     <string name="TestResults_Overview_FilterTests">Filtrar Testes</string>
     <string name="TestResults_Overview_Hero_Tests">Testes</string>
     <string name="TestResults_Overview_Hero_Networks">Redes</string>

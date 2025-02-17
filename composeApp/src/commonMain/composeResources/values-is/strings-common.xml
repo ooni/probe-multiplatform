@@ -255,7 +255,7 @@
     <string name="Settings_Websites_CustomURL_NoURLEntered">Engar slóðir settar inn</string>
     <string name="Settings_Websites_CustomURL_Run">Keyra</string>
     <string name="Settings_Websites_CustomURL_Add">Bæta við vefsvæði</string>
-    <string name="CustomWebsites_Fab_Text">Test %s URLs</string>
+    <string name="CustomWebsites_Fab_Text">Test %1$d URLs</string>
     <string name="Modal_CustomURL_Title_NotSaved">Ertu viss\?</string>
     <string name="Modal_CustomURL_NotSaved">Slóðirnar þínar verða ekki vistaðar þegar þú ferð af þessum skjá. Ertu viss um að þú viljir fara af skjánum\?</string>
 
