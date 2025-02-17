@@ -1,6 +1,4 @@
 CREATE INDEX idx_result_start_time ON Result (start_time);
-CREATE INDEX idx_result_test_name ON Result (test_group_name);
-CREATE INDEX idx_result_descriptor ON Result (descriptor_runId);
 CREATE INDEX idx_result_task_origin ON Result (task_origin);
 
 CREATE INDEX idx_measure_result_id ON Measurement (result_id);
