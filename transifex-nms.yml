@@ -10,6 +10,15 @@ git:
       file_format: TXT
       source_language: en-US
       translation_files_expression: 'fastlane/metadata/dw/android/<lang>/'
+      ignore_dirs:
+        - fastlane/metadata/dw/android/en-US/changelogs/
+    - filter_type: dir
+      source_file_dir: fastlane/metadata/dw/ios
+      file_format: TXT
+      source_language: en
+      translation_files_expression: 'fastlane/metadata/dw/ios/<lang>/'
+      ignore_files:
+        - fastlane/metadata/dw/ios/en/release_notes.txt
   settings:
     pr_branch_name:
       translations/nms/<br_unique_id>
