@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Verificação mídia de notícias</string>
+    <string name="app_name">News Media Scan</string>
 
     <string name="Onboarding_WhatIsOONIProbe_Title">Os sites de mídia de notícias estão bloqueados\?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Execute o News Media Scan para descobrir! News Media Scan é o aplicativo #1 para lhe dar transparência sobre o cenário de notícias em qualquer país que você se encontra atualmente. Além disso, ao usar o aplicativo, você está fazendo uma contribuição importante para a medição da censura em todo o mundo. A lista que você vê no aplicativo é uma lista pública, com curadoria da comunidade no GitHub e não com curadoria da DW. Representa uma gama objetiva de provedores de mídia de notícias internacionais e nacionais.</string>
