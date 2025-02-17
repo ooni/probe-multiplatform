@@ -1,5 +1,7 @@
 <resources>
+    <!-- Dashboard -->
     <string name="Dashboard_Tab_Label">ក្ដារព័ត៌មាន</string>
+
     <string name="Dashboard_Overview_LatestTest">តេស្តចុងក្រោយ៖</string>
     <string name="Dashboard_Overview_Estimated">ប៉ាន់ស្មាន៖</string>
     <string name="Dashboard_Overview_LastRun_Never">ទទេ</string>
@@ -10,21 +12,36 @@
     <string name="Dashboard_Running_Stopping_Title">បញ្ចប់ការធ្វើតេស្ត</string>
     <string name="Dashboard_Running_Stopping_Notice">បញ្ចប់ការសាកល្បងមិនដំណើរការ។ សូមរង់ចាំ</string>
     <string name="Dashboard_Running_ProxyInUse">Proxyកំពុងដំណើរការ</string>
-    <string name="Dashboard_RunV2_Ooni_Title">តេស្ត OONI</string>
-    <string name="Dashboard_RunV2_Title">តំណរភ្ជាប់ OONI Run</string>
-    <string name="Dashboard_RunV2_RunFinished">ដំណើរការបានបញ្ចប់។ ចុចដើម្បីមើលលទ្ធផល</string>
 
     <string name="Dashboard_RunTests_Title">ដំណើរការតេស្ត</string>
     <string name="Dashboard_RunTests_Description">ជ្រើសរើសតេស្តដើម្បីដំណើរការ</string>
     <string name="Dashboard_RunTests_SelectAll">ជ្រើសរើសតេស្តទាំងអស់</string>
     <string name="Dashboard_RunTests_SelectNone">ដកការជ្រើសរើសតេស្តទាំងអស់</string>
+    <string name="Dashboard_RunV2_Ooni_Title">តេស្ត OONI</string>
+    <string name="Dashboard_RunV2_Title">តំណរភ្ជាប់ OONI Run</string>
+    <string name="Dashboard_RunV2_RunFinished">ដំណើរការបានបញ្ចប់។ ចុចដើម្បីមើលលទ្ធផល</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink">លុបតំណរភ្ជាប់</string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions">ការត្រួតពិនិត្យលើកមុន</string>
+    <string name="Dashboard_Runv2_Overview_SeeMore">មើលបន្ថែម</string>
+    <string name="Dashboard_RunV2_ExpiredTag">ផុតកំណត់</string>
+    <string name="Dashboard_RunV2_UpdatedTag">ទាន់សម័យ</string>
+    <string name="Dashboard_RunV2_UpdateTag">បច្ចុប្បន្នភាព</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">លែងធ្វើវិញ</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates">ពិនិត្យមើលបច្ចុប្បន្នភាព</string>
 
-    <string name="OONIRun_Run">ដំណើរការ</string>
-    <string name="Notification_StopTest">បញ្ឈប់តេស្ត</string>
+    <string name="Dashboard_Progress_UpdateLink_Label">បច្ចុប្បន្នភាពតំណរភ្ជាប់កំពុងបញ្ជូន</string>
+    <string name="Dashboard_Progress_ReviewLink_Label">បច្ចុប្បន្នភាពតំណរភ្ជាប់រួចរាល់</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">ពិនិត្យ</string>
+
+    <string name="Dashboard_ReviewDescriptor_Label">បច្ចុប្បន្នភាព (%1$s នៃ %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last">បច្ចុប្បន្នភាព និងបញ្ចប់ (%1$s នៃ %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default">បច្ចុប្បន្នភាព (%1$s នៃ %2$s)</string>
+    <string name="Dashboard_Update_Restart">ផ្ដើមឡើងវិញ</string>
+
+    <!-- Test -->
 
     <string name="Test_Websites_Fullname">វេបសាយ</string>
     <string name="Test_InstantMessaging_Fullname">សាររហ័ស</string>
-    <string name="Test_Middleboxes_Fullname">Middleboxes</string>
     <string name="Test_Performance_Fullname">គុណភាព</string>
     <string name="Test_Circumvention_Fullname">ការបញ្ចៀស</string>
     <string name="Test_Experimental_Fullname">ពិសោធន៍</string>
@@ -40,6 +57,8 @@
     <string name="Test_Tor_Fullname">តេស្ត Tor</string>
     <string name="Test_Signal_Fullname">តេស្ត Signal</string>
 
+    <!-- Test Results -->
+
     <string name="TestResults_Overview_Title">លទ្ធផលតេស្ត</string>
     <string name="TestResults_Overview_Tab_Label">លទ្ធផលតេស្ត</string>
     <string name="TestResults_Overview_FilterTests">សម្រាំងតេស្ត</string>
@@ -50,14 +69,7 @@
     <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s បានបិទខ្ទប់</string>
     <string name="TestResults_Overview_Websites_Tested_Singular">%1$s បានតេស្ត</string>
     <string name="TestResults_Overview_Websites_Tested_Plural">%1$s បានតេស្ត</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Singular">%1$s បានបិទខ្ទប់</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Plural">%1$s បានបិទខ្ទប់</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Singular">%1$s ដែលចូលប្រើបាន</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Plural">%1$s ដែលចូលប្រើបាន</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Singular">%1$s បានបិទខ្ទប់</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Plural">%1$s បានបិទខ្ទប់</string>
-    <string name="TestResults_Overview_Circumvention_Available_Singular">%1$s ដែលដំណើរការ</string>
-    <string name="TestResults_Overview_Circumvention_Available_Plural">%1$s ដែលដំណើរការ</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">មិនទាន់មានតេស្តដំណើរការទេ។ សូមសាកដំណើរការតេស្ត!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">កាលបរិច្ឆេទ និង ពេលវេលា</string>
     <string name="TestResults_Summary_Hero_Network">បណ្តាញ</string>
     <string name="TestResults_Summary_Hero_Country">ប្រទេស</string>
@@ -65,34 +77,30 @@
     <string name="TestResults_Summary_Hero_WiFi">WIFI</string>
     <string name="TestResults_Summary_Hero_Mobile">ទិន្នន័យចល័ត</string>
     <string name="TestResults_Summary_Hero_NoInternet">មិនមានអុីនធឺណិត</string>
-    <string name="TestResults_Overview_NoTestsHaveBeenRun">មិនទាន់មានតេស្តដំណើរការទេ។ សូមសាកដំណើរការតេស្ត!</string>
-    <string name="TestResults_UnknownASN">អត់ស្គាល់</string>
-    <string name="TestResults_NotAvailable">ទទេ</string>
-    <string name="TestResults_Summary_Performance_Hero_Upload">បញ្ជូល</string>
-    <string name="TestResults_Summary_Performance_Hero_Download">ទាញយក</string>
-
-    <string name="TestResults_Gbps">Gbit/s</string>
-    <string name="TestResults_Mbps">Mbit/s</string>
-    <string name="TestResults_Kbps">kbit/s</string>
-
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">បានតេស្ត</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">បានតេស្ត</string>
-
     <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">បានបិទខ្ទប់</string>
     <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">បានបិទខ្ទប់</string>
-
     <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">អាចចូលប្រើបាន</string>
     <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">អាចចូលប្រើបាន</string>
-
+    <string name="TestResults_Summary_Performance_Hero_Upload">បញ្ជូល</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">ទាញយក</string>
     <string name="TestResults_Summary_Performance_Hero_Video">វីដេអូ</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">គុណភាព</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
 
+    <string name="TestResults_Gbps">Gbit/s</string>
+    <string name="TestResults_Mbps">Mbit/s</string>
+    <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
 
-    <string name="Modal_ReRun_Title">ដំណើរការតេស្តម្តងទៀត</string>
-    <string name="Modal_ReRun_Websites_Title">អ្នកនឹងតេស្តវែបសាយ {ចំនួនវែបសាយ} ម្តងទៀត។</string>
-    <string name="Modal_ReRun_Websites_Run">ដំណើរការ</string>
+    <string name="TestResults_UnknownASN">អត់ស្គាល់</string>
+    <string name="TestResults_NotAvailable">ទទេ</string>
+
+    <string name="Measurements_Failed">បរាជ័យ</string>
+    <string name="Measurements_Ok">យល់ព្រម</string>
+    <string name="Measurements_Anomaly">ខុសប្រក្រតី</string>
+    <!-- Settings -->
 
     <string name="Settings_Title">ការកំណត់</string>
     <string name="Settings_Notifications_Label">ការជូនដំណឹង</string>
@@ -102,11 +110,10 @@
     <string name="Settings_TestOptions_LongRunningTest">ដំណើរការតេស្តវែង</string>
 
     <string name="Settings_AutomatedTesting_RunAutomatically">ដំណើរការតេស្តដោយស្វ័យប្រវត្តិ</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Number">ចំនួនតេស្តស្វ័យប្រវត្តិ៖ {ចំនួនតេស្ត}។</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_DateLast">ថ្ងៃធ្វើតេស្តដោយស្វ័យប្រវត្តិចុងក្រោយ៖ %1$s</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">ពេលមាន Wifi ប៉ុណ្ណោះ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">ពេលកំពុងសាកថ្មប៉ុណ្ណោះ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">OONI Probe នឹងដំណើរការតេស្តស្វ័យប្រវត្តិពីរ ទៅបីដងក្នុងមួយថ្ងៃ នៅពេលអ្នកបើកដំណើរការតេស្តស្វ័យប្រវត្តិ។ លទ្ធផលតេស្តរបស់អ្នកនឹងផ្សព្វផ្សាយដោយស្វ័យប្រវតិ្តនៅក្នុង OONI Explorer៖ https://explorer.ooni.org/ \n\nចំនុចសំខាន់៖ ប្រសិនបើអ្នកបើក VPN នោះOONI Probeនឹងមិនដំណើរការតេស្តជាស្វ័យប្រវតិ្តទេ។ សូមបិទ VPN របស់អ្នកដើម្បីដំណើរការតេស្ត OONI Probe ស្វ័យប្រវត្តិ។ ស្វែងយល់បន្ថែម៖ https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_Sharing_UploadResults">ផ្សព្វផ្សាយលទ្ធផលស្វ័យប្រវត្តិ</string>
 
     <string name="Settings_Websites_MaxRuntimeEnabled">កំណត់ថេរវេលាតេស្ត</string>
     <string name="Settings_Websites_MaxRuntime">ថេរវេលាតេស្ត</string>
@@ -114,32 +121,37 @@
     <string name="Settings_Websites_Categories_Description">%1$s ប្រភេទផ្សេងៗត្រូវបានបើក</string>
 
     <string name="Settings_Privacy_Label">ឯកជនភាព</string>
-
-    <string name="Settings_Sharing_UploadResults">ផ្សព្វផ្សាយលទ្ធផលស្វ័យប្រវត្តិ</string>
     <string name="Settings_Privacy_SendCrashReports">ផ្ញើរបាយការណ៍ដែលមិនដំណើរការ</string>
 
     <string name="Settings_Proxy_Label">ប្រុកសុី OONI ខាងក្រោយ</string>
-
     <string name="Settings_Proxy_Enabled">Proxy</string>
     <string name="Settings_Proxy_None">គ្មាន</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
     <string name="Settings_Proxy_Custom">ប្រុកសុី ផ្ទាល់ខ្លួន</string>
     <string name="Settings_Proxy_Custom_Protocol">ច្រក</string>
-
     <string name="Settings_Proxy_Custom_Hostname">ឈ្មោះម៉ាស៊ីន</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
 
     <string name="Settings_Advanced_Label">កម្រិតខ្ពស់</string>
+    <string name="Settings_Advanced_DebugLogs">កំណត់ហេតុ Debug</string>
+    <string name="Settings_Advanced_RecentLogs">មើលកំណត់ហេតុថ្មីៗ</string>
     <string name="Settings_SendEmail_Label">ផ្ញើអុីម៉ែលទៅកាន់អ្នកជំនួយបច្ចេកទេស</string>
     <string name="Settings_SendEmail_Message">សូមពិពណ៌នាបញ្ហាដែលអ្នកជួបប្រទះ៖</string>
 
-    <string name="Settings_Advanced_DebugLogs">កំណត់ហេតុ Debug</string>
-    <string name="Settings_Advanced_RecentLogs">មើលកំណត់ហេតុថ្មីៗ</string>
-    <string name="Settings_Advanced_LanguageSettings_Title">ការកំណត់ភាសា</string>
     <string name="Settings_Storage_Label">ការប្រើប្រាស់កន្លែងផ្ទុក</string>
     <string name="Settings_Storage_Delete">លុប</string>
     <string name="Settings_Storage_Clear">សំអាត</string>
     <string name="Settings_WarmVPNInUse_Label">ព្រមានខ្ញុំ បើ VPN កំពុងបើក</string>
+    <string name="Settings_Logs">កំណត់ត្រា</string>
+    <string name="Settings_Websites_Categories_Selection_None">ដកការជ្រើសរើសទាំងអស់</string>
+    <string name="Settings_Websites_Categories_Selection_All">ជ្រើសរើសទាំងអស់</string>
+    <string name="Settings_Websites_CustomURL_Title">ជ្រើសរើសវែបសាយដើម្បីតេស្ត</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="Settings_Websites_CustomURL_Run">ដំណើរការ</string>
+    <string name="Settings_Websites_CustomURL_Add">បន្ថែមវេបសាយ</string>
+    <string name="CustomWebsites_Fab_Text">តេស្ត URLs %1$d </string>
+
+    <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">គ្រឿងញៀន &amp; គ្រឿងស្រវឹង</string>
     <string name="CategoryCode_REL_Name">សាសនា</string>
@@ -204,6 +216,46 @@
     <string name="CategoryCode_IGO_Description">ស្ថាប័នអន្តររដ្ឋាភិបាលរាប់ទាំងអង្គការសហប្រជាជាតិ</string>
     <string name="CategoryCode_MISC_Description">វែបសាយដែលមិនទាន់ដាក់ជាក្រុម</string>
 
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">យល់</string>
+    <string name="Onboarding_ThingsToKnow_Title">ប្រុងប្រយត្ន័!</string>
+    <string name="Onboarding_ThingsToKnow_Button">ខ្ញុំ​យល់</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">ស្វែងយល់បន្ថែម</string>
+    <string name="Onboarding_PopQuiz_Title">សំណួរចំគោលដៅ</string>
+    <string name="Onboarding_PopQuiz_True">ត្រឹមត្រូវ</string>
+    <string name="Onboarding_PopQuiz_False">មិនពិត</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">ត្រឡប់​ក្រោយ</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">បន្ត</string>
+    <string name="Onboarding_PopQuiz_1_Title">សំណួរ 1/2</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">ការព្រមាន</string>
+    <string name="Onboarding_PopQuiz_2_Title">សំណួរ 2/2</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">ការព្រមាន</string>
+    <string name="Onboarding_AutomatedTesting_Title">តេស្តដោយស្វ័យប្រវត្តិ</string>
+    <string name="Onboarding_Crash_Title">របាយការណ៍មិនដំណើរការ</string>
+    <string name="Onboarding_Crash_Button_Yes">បាទ​ ចាស</string>
+    <string name="Onboarding_Crash_Button_No">ទេ</string>
+    <string name="Onboarding_DefaultSettings_Title">កំណត់​ទៅលំនាំដើម</string>
+    <string name="Onboarding_DefaultSettings_Header">យើងប្រមូល និងផ្សព្វផ្សាយ៖</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">លេខកូដប្រទេស (ឧ. ពត៌មានITប្រទេសអ៉ីតាលី)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">ព័ត៌មានបណ្តាញ (រួមទាំងលេខប្រព័ន្ធស្វយ័ត)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">ពេលវេលា និង​កាលបរិច្ឆេទនៃការ​សាកល្បង</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">ពួកយើងប្រឹងប្រែងអស់ពីលទ្ធភាពក្នុងការមិនបង្ហាញអាសយដ្ឋាន IP របស់អ្នក ឬព័ត៌មានដទៃទៀតដែលអាចឱ្យគេកំណត់អត្តសញ្ញាណរបស់អ្នកបាន។\n\nស្វែងយល់បន្ថែមតាមរយៈ [គោលនយោបាយទិន្នន័យរបស់ OONI] (https://ooni.org/about/data-policy/)</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">ផ្លាស់ប្តូរលំនាំដើម</string>
+
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">តេស្ត​ការ​កំណត់នានា</string>
+    <string name="AddDescriptor_Title">ដំឡើងតំណរភ្ជាប់ថ្មី</string>
+    <string name="AddDescriptor_AutoUpdate">ដំឡើងបច្ចុប្បន្នភាពស្វ័យប្រវត្តិ</string>
+    <string name="AddDescriptor_AutoRun">ដំណើរការតេស្តដោយស្វ័យប្រវត្តិ</string>
+    <string name="AddDescriptor_Toasts_Installed">តំណរភ្ជាប់ដែលបានតំឡើង</string>
+    <string name="AddDescriptor_Action">ដំឡើងតំណរភ្ជាប់</string>
+    <string name="LoadingScreen_Runv2_Message">តំណរភ្ជាប់កំពុងបញ្ជូនបន្ត</string>
+    <string name="LoadingScreen_Runv2_Failure">កំហុស</string>
+    <string name="LoadingScreen_Runv2_Canceled">ការដំឡើងតំណរភ្ជាប់ត្រូវបានបញ្ឈប់</string>
+    <string name="DescriptorUpdate_Updates">បច្ចុប្បន្នភាព</string>
+
+    <!-- Modals / Toasts / Snackbar -->
+
     <string name="Snackbar_ResultsNotUploaded_Text">មិនបានបញ្ជូល</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">មិនបានបញ្ជូលមួយចំនួន</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">បញ្ជូលទាំងអស់</string>
@@ -216,99 +268,30 @@
     <string name="Modal_OK">យល់ព្រម</string>
     <string name="Modal_DoYouWantToDeleteAllTests">តើអ្នកចង់លុបលទ្ធផលតេស្តទាំងអស់មែនទេ\?</string>
     <string name="Modal_Delete">លុប</string>
-
+    <string name="Modal_ReRun_Title">ដំណើរការតេស្តម្តងទៀត</string>
+    <string name="Modal_ReRun_Websites_Title">អ្នកនឹងតេស្តវែបសាយ {ចំនួនវែបសាយ} ម្តងទៀត។</string>
+    <string name="Modal_ReRun_Websites_Run">ដំណើរការ</string>
     <string name="Modal_DisableVPN_Title">សូមបិទ VPN របស់អ្នក</string>
     <string name="Modal_DisableVPN_Message">ប្រសិនបើអ្នកដំណើរការ​OONI Probe និង VPN ពេលជាមួយគ្នា នោះលទ្ធផលនឹងបង្ហាញពីប្រទេសផ្សេង។ ដូច្នេះសូមបិទ VPN។</string>
     <string name="Modal_DisableVPN">ផ្អាកដំណើរការ VPN</string>
     <string name="Modal_RunAnyway">ដំណើរការតែម្ដង</string>
     <string name="Modal_AlwaysRun">តែងតែដំណើរការ</string>
-
     <string name="Modal_Error_CantDownloadURLs">មិនអាចទាញយកបញ្ជី URL ទេ។ សូមព្យាយាមម្ដងទៀត។</string>
-
-    <string name="AddDescriptor_Settings">តេស្ត​ការ​កំណត់នានា</string>
-    <string name="AddDescriptor_Title">ដំឡើងតំណរភ្ជាប់ថ្មី</string>
-    <string name="AddDescriptor_Author">កវី៖</string>
-    <string name="AddDescriptor_AutoUpdate">ដំឡើងបច្ចុប្បន្នភាពស្វ័យប្រវត្តិ</string>
-    <string name="AddDescriptor_AutoRun">ដំណើរការតេស្តដោយស្វ័យប្រវត្តិ</string>
-    <string name="AddDescriptor_Toasts_Installed">តំណរភ្ជាប់ដែលបានតំឡើង</string>
-    <string name="AddDescriptor_Action">ដំឡើងតំណរភ្ជាប់</string>
-    <string name="AddDescriptor_Toasts_Canceled">ការដំឡើងតំណរភ្ជាប់ត្រូវបានបញ្ឈប់</string>
-    <string name="LoadingScreen_Runv2_Message">តំណរភ្ជាប់កំពុងបញ្ជូនបន្ត</string>
-    <string name="LoadingScreen_Runv2_Failure">កំហុស</string>
-    <string name="LoadingScreen_Runv2_Canceled">ការដំឡើងតំណរភ្ជាប់ត្រូវបានបញ្ឈប់</string>
-    <string name="Dashboard_Runv2_Overview_UninstallLink">លុបតំណរភ្ជាប់</string>
-    <string name="Dashboard_Runv2_Overview_PreviousRevisions">ការត្រួតពិនិត្យលើកមុន</string>
-    <string name="Dashboard_Runv2_Overview_SeeMore">មើលបន្ថែម</string>
-    <string name="Dashboard_Progress_UpdateLink_Label">បច្ចុប្បន្នភាពតំណរភ្ជាប់កំពុងបញ្ជូន</string>
-    <string name="Dashboard_Progress_ReviewLink_Label">បច្ចុប្បន្នភាពតំណរភ្ជាប់រួចរាល់</string>
-    <string name="Dashboard_Progress_ReviewLink_Action">ពិនិត្យ</string>
-    <string name="Dashboard_Runv2_Overview_ReviewUpdates">ពិនិត្យមើលបច្ចុប្បន្នភាព</string>
-    <string name="DescriptorUpdate_Updates">បច្ចុប្បន្នភាព</string>
-    <string name="Dashboard_ReviewDescriptor_Label">បច្ចុប្បន្នភាព (%1$s នៃ %2$s)</string>
-    <string name="Dashboard_ReviewDescriptor_Button_Last">បច្ចុប្បន្នភាព និងបញ្ចប់ (%1$s នៃ %2$s)</string>
-    <string name="Dashboard_ReviewDescriptor_Button_Default">បច្ចុប្បន្នភាព (%1$s នៃ %2$s)</string>
-    <string name="Dashboard_RunV2_ExpiredTag">ផុតកំណត់</string>
-    <string name="Dashboard_RunV2_UpdatedTag">ទាន់សម័យ</string>
-    <string name="Dashboard_RunV2_UpdateTag">បច្ចុប្បន្នភាព</string>
-
-    <string name="Settings_Websites_CustomURL_Title">ជ្រើសរើសវែបសាយដើម្បីតេស្ត</string>
-    <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_NoURLEntered">មិនមាន URLs ត្រូវបានបញ្ជូលទេ</string>
-    <string name="Settings_Websites_CustomURL_Run">ដំណើរការ</string>
-    <string name="Settings_Websites_CustomURL_Add">បន្ថែមវេបសាយ</string>
-    <string name="CustomWebsites_Fab_Text">តេស្ត URLs %1$d </string>
     <string name="Modal_CustomURL_Title_NotSaved">តើ​អ្នក​ប្រាកដ ​ឬទេ\?</string>
     <string name="Modal_CustomURL_NotSaved">URLs របស់អ្នកនឹងមិនរក្សាទុកទេនៅពេលអ្នកចាកចេញពីអេក្រង់នេះ។ តើអ្នកច្បាស់ទេថាអ្នកចង់ចាកចេញពីអេក្រង់នេះ\?</string>
-
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe មិនអាចដំណើរការដោយស្វ័យប្រវ័ត្តិដោយគ្មានការត្រួតពិនិត្យលើថ្មសាក។ តើអ្នកចង់ព្យាយាមម្តងទៀតទេ។</string>
+    <string name="Modal_EnableNotifications_Title">ទទួលបច្ចុប្បន្នភាពពីការរឹតត្បឹតអុីនធឺណិត</string>
 
-    <!-- New Strings -->
+    <!-- Common / Others -->
+
+    <string name="OONIRun_Run">ដំណើរការ</string>
+
+    <string name="Notification_StopTest">បញ្ឈប់តេស្ត</string>
 
     <string name="Common_Back">ត្រឡប់ក្រោយ</string>
     <string name="Common_Refresh">ផ្ទុកឡើងវិញ</string>
     <string name="Common_Collapse">បង្រួម</string>
     <string name="Common_Expand">ពង្រីក</string>
     <string name="Common_Months_May">ឧសភា​</string>
-    <string name="Onboarding_WhatIsOONIProbe_GotIt">យល់</string>
-    <string name="Onboarding_ThingsToKnow_Title">ប្រុងប្រយត្ន័!</string>
-
-    <string name="Onboarding_ThingsToKnow_Button">ខ្ញុំ​យល់</string>
-    <string name="Onboarding_ThingsToKnow_LearnMore">ស្វែងយល់បន្ថែម</string>
-    <string name="Onboarding_PopQuiz_Title">សំណួរចំគោលដៅ</string>
-    <string name="Onboarding_PopQuiz_True">ត្រឹមត្រូវ</string>
-    <string name="Onboarding_PopQuiz_False">មិនពិត</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Back">ត្រឡប់​ក្រោយ</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">បន្ត</string>
-    <string name="Onboarding_PopQuiz_1_Title">សំណួរ 1/2</string>
-
-    <string name="Onboarding_PopQuiz_1_Wrong_Title">ការព្រមាន</string>
-    <string name="Onboarding_PopQuiz_2_Title">សំណួរ 2/2</string>
-    <string name="Onboarding_PopQuiz_2_Wrong_Title">ការព្រមាន</string>
-
-    <string name="Onboarding_AutomatedTesting_Title">តេស្តដោយស្វ័យប្រវត្តិ</string>
-
-    <string name="Onboarding_Crash_Title">របាយការណ៍មិនដំណើរការ</string>
-
-    <string name="Onboarding_Crash_Button_Yes">បាទ​ ចាស</string>
-    <string name="Onboarding_Crash_Button_No">ទេ</string>
-    <string name="Onboarding_DefaultSettings_Title">កំណត់​ទៅលំនាំដើម</string>
-    <string name="Onboarding_DefaultSettings_Header">យើងប្រមូល និងផ្សព្វផ្សាយ៖</string>
-    <string name="Onboarding_DefaultSettings_Bullet_1">លេខកូដប្រទេស (ឧ. ពត៌មានITប្រទេសអ៉ីតាលី)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_2">ព័ត៌មានបណ្តាញ (រួមទាំងលេខប្រព័ន្ធស្វយ័ត)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_3">ពេលវេលា និង​កាលបរិច្ឆេទនៃការ​សាកល្បង</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">ពួកយើងប្រឹងប្រែងអស់ពីលទ្ធភាពក្នុងការមិនបង្ហាញអាសយដ្ឋាន IP របស់អ្នក ឬព័ត៌មានដទៃទៀតដែលអាចឱ្យគេកំណត់អត្តសញ្ញាណរបស់អ្នកបាន។\n\nស្វែងយល់បន្ថែមតាមរយៈ [គោលនយោបាយទិន្នន័យរបស់ OONI] (https://ooni.org/about/data-policy/)</string>
-    <string name="Onboarding_DefaultSettings_Button_Change">ផ្លាស់ប្តូរលំនាំដើម</string>
-
-    <string name="Modal_EnableNotifications_Title">ទទួលបច្ចុប្បន្នភាពពីការរឹតត្បឹតអុីនធឺណិត</string>
-
-    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">លែងធ្វើវិញ</string>
-    <string name="Dashboard_Update_Restart">ផ្ដើមឡើងវិញ</string>
-    <string name="Measurements_Failed">បរាជ័យ</string>
-    <string name="Measurements_Ok">យល់ព្រម</string>
-    <string name="Measurements_Anomaly">ខុសប្រក្រតី</string>
-    <string name="Settings_Logs">កំណត់ត្រា</string>
-    <string name="Settings_Websites_Categories_Selection_None">ដកការជ្រើសរើសទាំងអស់</string>
-    <string name="Settings_Websites_Categories_Selection_All">ជ្រើសរើសទាំងអស់</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
