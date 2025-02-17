@@ -1,4 +1,4 @@
-import com.android.build.api.variant.FilterConfiguration.FilterType.*
+import com.android.build.api.variant.FilterConfiguration.FilterType.ABI
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -236,7 +236,7 @@ android {
 
                         if (baseAbiCode != null) {
                             output.versionCode.set(
-                                baseAbiCode + (output.versionCode.get() ?: 0)
+                                baseAbiCode + (output.versionCode.get() ?: 0),
                             )
                         }
                     }
