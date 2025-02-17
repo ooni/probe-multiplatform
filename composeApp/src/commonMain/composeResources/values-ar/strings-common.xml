@@ -255,7 +255,7 @@
     <string name="Settings_Websites_CustomURL_NoURLEntered">لم يتم إدخال أي روابط</string>
     <string name="Settings_Websites_CustomURL_Run">ابدأ</string>
     <string name="Settings_Websites_CustomURL_Add">أضف موقعًا</string>
-    <string name="CustomWebsites_Fab_Text">Test %s URLs</string>
+    <string name="CustomWebsites_Fab_Text">Test %1$d URLs</string>
     <string name="Modal_CustomURL_Title_NotSaved">هل أنت متأكد؟</string>
     <string name="Modal_CustomURL_NotSaved">المواقع لن تسجل اذا تركت هذه الواجهة. هل تريد ترك الواجهة؟</string>
 
