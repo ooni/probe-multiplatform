@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -44,7 +45,12 @@ fun BottomNavigationBar(navController: NavController) {
                         contentDescription = stringResource(screen.titleRes),
                     )
                 },
-                label = { Text(stringResource(screen.titleRes)) },
+                label = {
+                    Text(
+                        stringResource(screen.titleRes),
+                        textAlign = TextAlign.Center,
+                    )
+                },
                 selected = currentRoute == screen.route,
                 onClick = { navController.navigateToMainScreen(screen) },
                 colors = NavigationBarItemDefaults.colors(
