@@ -209,18 +209,24 @@ android {
         }
         create("fdroid") {
             dimension = "license"
+            // Our APK is too large and F-Droid asked for a split by ABI
+            splits {
+                abi {
+                    isEnable = true
+                    // Resets the list of ABIs for Gradle to create APKs for to none.
+                    reset()
+                    // Specifies a list of ABIs supported by probe-engine.
+                    include("x86", "x86_64", "armeabi-v7a", "arm64-v8a")
+                    // Specifies that you don't want to also generate a universal APK that includes all ABIs.
+                    isUniversalApk = false
+                }
+            }
         }
     }
     dependencies {
         debugImplementation(compose.uiTooling)
         "fullImplementation"(libs.bundles.full.android)
         androidTestUtil(libs.android.orchestrator)
-    }
-    // Our APK is too large and F-Droid asked for a split by ABI
-    splits {
-        abi {
-            isEnable = true
-        }
     }
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
