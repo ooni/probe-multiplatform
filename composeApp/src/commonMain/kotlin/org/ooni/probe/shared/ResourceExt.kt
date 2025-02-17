@@ -115,22 +115,6 @@ private val stringMap = mapOf(
         to Res.string.TestResults_Overview_Websites_Tested_Singular,
     "@string/TestResults_Overview_Websites_Tested_Plural"
         to Res.string.TestResults_Overview_Websites_Tested_Plural,
-    "@string/TestResults_Overview_InstantMessaging_Blocked_Singular"
-        to Res.string.TestResults_Overview_InstantMessaging_Blocked_Singular,
-    "@string/TestResults_Overview_InstantMessaging_Blocked_Plural"
-        to Res.string.TestResults_Overview_InstantMessaging_Blocked_Plural,
-    "@string/TestResults_Overview_InstantMessaging_Available_Singular"
-        to Res.string.TestResults_Overview_InstantMessaging_Available_Singular,
-    "@string/TestResults_Overview_InstantMessaging_Available_Plural"
-        to Res.string.TestResults_Overview_InstantMessaging_Available_Plural,
-    "@string/TestResults_Overview_Circumvention_Blocked_Singular"
-        to Res.string.TestResults_Overview_Circumvention_Blocked_Singular,
-    "@string/TestResults_Overview_Circumvention_Blocked_Plural"
-        to Res.string.TestResults_Overview_Circumvention_Blocked_Plural,
-    "@string/TestResults_Overview_Circumvention_Available_Singular"
-        to Res.string.TestResults_Overview_Circumvention_Available_Singular,
-    "@string/TestResults_Overview_Circumvention_Available_Plural"
-        to Res.string.TestResults_Overview_Circumvention_Available_Plural,
     "@string/TestResults_Summary_Websites_Hero_Tested_Singular"
         to Res.string.TestResults_Summary_Websites_Hero_Tested_Singular,
     "@string/TestResults_Summary_Websites_Hero_Tested_Plural"
