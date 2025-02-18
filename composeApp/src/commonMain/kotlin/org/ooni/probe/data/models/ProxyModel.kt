@@ -1,5 +1,6 @@
 package org.ooni.probe.data.models
 
+import co.touchlab.kermit.Logger
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_None
@@ -70,21 +71,35 @@ enum class ProxyProtocol(val value: String) {
  * ProxySettings contains the settings configured inside the proxy. Please, see the
  * documentation of proxy activity for the design rationale.
  */
-class ProxySettings {
-    /**
-     * Scheme is the proxy scheme (e.g., "psiphon", "socks5").
-     */
-    var protocol: ProxyProtocol = ProxyProtocol.NONE
+sealed interface ProxySettings {
+    fun getProxyString(): String
 
-    /**
-     * Hostname is the hostname for custom proxies.
-     */
-    var hostname: String = ""
+    data object None : ProxySettings {
+        override fun getProxyString() = ""
+    }
 
-    /**
-     * Port is the port for custom proxies.
-     */
-    var port: String = ""
+    data object Psiphon : ProxySettings {
+        override fun getProxyString() = "psiphon://"
+    }
+
+    data class Custom(
+        val protocol: ProxyProtocol,
+        val hostname: String,
+        val port: Int,
+    ) : ProxySettings {
+        override fun getProxyString(): String {
+            val formattedHost = if (isIPv6(hostname)) {
+                "[$hostname]"
+            } else {
+                hostname
+            }
+            return "${protocol.value}://$formattedHost:$port/"
+        }
+
+        private fun isIPv6(hostname: String): Boolean {
+            return IPV6_ADDRESS.toRegex().matches(hostname)
+        }
+    }
 
     companion object {
         /**
@@ -97,65 +112,32 @@ class ProxySettings {
         fun newProxySettings(
             protocol: String?,
             hostname: String?,
-            port: String?,
-        ): ProxySettings {
-            val settings = ProxySettings()
+            port: Int?,
+        ): ProxySettings =
+            when (protocol) {
+                ProxyProtocol.NONE.value -> None
+                ProxyProtocol.PSIPHON.value -> Psiphon
 
-            protocol?.let { protocol ->
-                when (protocol) {
-                    ProxyProtocol.NONE.value -> {
-                        settings.protocol = ProxyProtocol.NONE
-                    }
-
-                    ProxyProtocol.PSIPHON.value -> {
-                        settings.protocol = ProxyProtocol.PSIPHON
-                    }
-
-                    ProxyProtocol.SOCKS5.value,
-                    ProxyProtocol.HTTP.value,
-                    ProxyProtocol.HTTPS.value,
-                    -> {
-                        settings.protocol = ProxyProtocol.fromValue(protocol)
-                    }
-
-                    else -> {
-                        // This is where we will extend the code to add support for
-                        // more proxies, e.g., HTTP proxies.
-                        throw InvalidProxyURL("unhandled URL scheme")
-                    }
+                ProxyProtocol.SOCKS5.value,
+                ProxyProtocol.HTTP.value,
+                ProxyProtocol.HTTPS.value,
+                -> run {
+                    Custom(
+                        protocol = ProxyProtocol.fromValue(protocol),
+                        hostname = hostname ?: return@run null,
+                        port = port ?: return@run null,
+                    )
                 }
+
+                else -> null
             } ?: run {
-                settings.protocol = ProxyProtocol.NONE
+                Logger.w(
+                    "Invalid proxy settings: protocol=$protocol hostname=$hostname port=$port",
+                    InvalidSettings(),
+                )
+                None
             }
-
-            settings.apply {
-                this.hostname = hostname ?: ""
-                this.port = (port as Int? ?: "").toString()
-            }
-            return settings
-        }
     }
 
-    fun getProxyString(): String {
-        when (protocol) {
-            ProxyProtocol.NONE -> return ""
-            ProxyProtocol.PSIPHON -> return "psiphon://"
-            ProxyProtocol.SOCKS5, ProxyProtocol.HTTP, ProxyProtocol.HTTPS -> {
-                val formattedHost = if (isIPv6(hostname)) {
-                    "[$hostname]"
-                } else {
-                    hostname
-                }
-                return "${protocol.value}://$formattedHost:$port/"
-            }
-
-            else -> return ""
-        }
-    }
-
-    private fun isIPv6(hostname: String): Boolean {
-        return IPV6_ADDRESS.toRegex().matches(hostname)
-    }
-
-    class InvalidProxyURL(message: String) : Exception(message)
+    class InvalidSettings : Exception("Invalid proxy settings")
 }

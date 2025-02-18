@@ -12,7 +12,7 @@ class GetProxySettings(
         ProxySettings.newProxySettings(
             protocol = getValueForKey(SettingsKey.PROXY_PROTOCOL) as? String,
             hostname = getValueForKey(SettingsKey.PROXY_HOSTNAME) as? String,
-            port = getValueForKey(SettingsKey.PROXY_PORT) as? String,
+            port = getValueForKey(SettingsKey.PROXY_PORT) as? Int,
         )
 
     private suspend fun getValueForKey(settingsKey: SettingsKey) = preferencesRepository.getValueByKey(settingsKey).first()
