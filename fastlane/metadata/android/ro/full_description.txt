@@ -6,19 +6,19 @@ OONI Probe este dezvoltat de Open Observatory of Network Interference (OONI), un
 
 Din 2012, comunitatea globală OONI a colectat milioane de măsurători de rețea din peste 200 de țări, făcând lumină în mai multe cazuri de interferențe de rețea.
 
-<b>Colectați dovezi de cenzură pe internet</b>
+Colectați dovezi de cenzură pe internet
 Puteți verifica dacă sunt blocate site-urile și aplicațiile de mesagerie instantanee. Datele de măsurare a rețelei pe care le veți colecta pot servi drept dovadă a cenzurii pe internet.
 
-<b>Detectați sistemele responsabile cu cenzura și supravegherea</b>
+Detectați sistemele responsabile cu cenzura și supravegherea
 Testele OONI Probe sunt de asemenea concepute pentru a descoperi prezența sistemelor (middleboxes) care ar putea fi responsabile cu cenzura și supravegherea.
 
-<b>Măsurați viteza și performanța rețelei dvs.</b>
+Măsurați viteza și performanța rețelei dvs.
 Puteți măsura viteza și performanța rețelei dvs. utilizând implementarea OONI a Network Test Diagnostic Test (NDT). De asemenea, puteți măsura performanța de streaming video cu ajutorul testului Dynamic Adaptive Streaming prin HTTP (DASH).
 
-<b>Open data</b>
+Open data
 OONI publică date de măsurare a rețelei, deoarece datele deschise permit terților să verifice constatările OONI, să efectueze studii independente și să răspundă la alte întrebări de cercetare. Publicarea deschisă a datelor OONI contribuie, de asemenea, la creșterea transparenței cenzurii pe internet în întreaga lume. Puteți explora și descărca datele OONI de aici: https://ooni.io/data/
 
-<b>Software gratuit</b>
+Software gratuit
 Toate testele OONI Probe (inclusiv implementările noastre NDT și DASH), se bazează pe software gratuit și open source. Puteți găsi proiecte software OONI pe GitHub: https://github.com/ooni. Aveți curiozitatea de a afla cum funcționează testele OONI Probe? Aflați mai multe pe: https://ooni.io/nettest/
 
 Pentru a primi actualizări de la OONI-verse, urmăriți-ne pe Twitter: https://twitter.com/OpenObservatory
