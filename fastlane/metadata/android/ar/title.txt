@@ -1,1 +1,1 @@
-OONI Probe
+مسبار OONI

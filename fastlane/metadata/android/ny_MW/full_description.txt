@@ -1,0 +1,24 @@
+Kodi ma webusaiti ndi Matsamba a Nchezo zatsekedwa? Netiweki yanu ikuchedwa modabwitsa? Gwilitsani OONI Probe kuti mudziwe!
+
+Ndi OONI, mutha kufufuza kutsekedwa kwa mawebusaiti ndi njila zotumizilana uthenga pompopompo, kupima liwilo ndi machitidwe a netiweki, komanso kudziwa ngati netiweki  yanu ili ndi kuthekela kukhetha ndi chidiso.
+
+OONI Probe yapangidwa ndi a Open Observatory of Network Interference (OONI), imene ndi ntchito yokonza software yaulele (pansi pa Tor Project)  ndicholinga chobweletsa poyela mchitidwe wokhetha intaneti padziko lapansi.
+
+Kuyamba mu 2012, OONI’s padziko lonse yatolela mazana a mpimo wa netiweki kuchokela mmaiko oposa 200 , kuonetsa nkhani zochuluka za kusokoneza mwadala netiweki. 
+
+Sonkhetsani umboni wa makhetha pa intaneti
+Mutha kufufuza pamene komanso mmene mawebusaiti ndi njila zapelekela uthenga pompompo zatsekedwa.  Zotsatila mudzapeze mukapima netiweki zidzatha kutengedwa ngati umboni wa makhetha pa intaneti. 
+
+Zizindikileni njila zothandizila makhetha ndi chidiso
+Mpima wa OONI Probe umapangidwa kutinso ufukule kepezeka kwa njila (middleboxes) zochitila makhetha ndi chidiso.
+
+Pimani liwilo ndi mchitidwe a netiweki yanu
+Mutha kupima liwilo ndi mchitidwe wa netiweki yanu pogwilitsa ntchito Network Diagnostic Test (NDT) ya OONI. Muthanso kupima mmene kuonela kanema kuchitila pogwilitsa ntchito  Adaptive Streaming over HTTP (DASH).
+
+Uthenga opezeka
+OONI imasindikiza uthenga opeseka pa kupima netiweki chifukwa uthenga wa aliyense umalola ena kutha kutsimikizila zotsatilazi, kuchita kafukufuku wapadela, komanso kuyankha mafunso ena a kafukuku. Kusindikiza poyela kwa zotsatila za OONI kumabweletsa poyela makhetha a intaneti padziko lonse . Pezani zambili za OONI apa: https://ooni.io/data/
+
+Sofitiweya yaulere
+Zonse zimene OONI Probe imakgwilitsa ntchito pakupima  (kuphatikizapo NDT komanso DASH), zigwilitsa ntchito sofitiweya yaulele komanso nditopezekela aliyense. mungathe kupeza sofitiweya ya OONI pa GitHub: https://github.com/ooni. Mukufuna kudziwa zambili zammene OONI Probe amagwilila ntchito? Pezani zambili pa: https://ooni.io/nettest/
+
+Kuti mulandile nkhani ndi zina zofunikila zatsopano kuchokela ku OONI-verse, tsatilani tsamba lathu la Twitter: https://twitter.com/OpenObservatory

@@ -1,24 +1,24 @@
-Je! Tovuti na programu za media ya kijamii zimezuiwa? Je! Mtandao wako uko polepole sana? Endesha uchunguzi wa OONI kujua!
+Je, umezuiliwa kuingia kwenye tovuti na mitandao ya kijamii? Je, mtandao wako huwa unapungua kasi? Fungua OONI Probe kufahamu zaidi!
 
-Pamoja na programu hii, utachunguza uzuiaji wa wavuti na programu za ujumbe wa papo hapo, pima kasi ya mtandao wako na utendaji, na uangalie ikiwa mifumo inayoweza kuwajibika kwa udhibiti na ufuatiliaji iko kwenye mtandao wako. 
+Kupitia programu hii, unaweza kuchunguza uzuiaji wa tovuti mbalimbali na programu za kutuma ujumbe, kupima kasi na utendaji wa mitandano, na kufuatilia mifumo yanayoweza sababisha uthibiti na ufuatiliaji kwenye mtandano wako. 
 
-Probe ya OONI imeundwa na Fungua uchunguzi wa kuingiliwa kwa mtandao (OONI), mradi wa programu ya bure (chini ya Mradi wa Tor) ambao unakusudia kufunua udhibiti wa mtandao kote ulimwenguni.
+Probe ya OONI imeundwa naFungua Uchunguzi wa Open Observatory of Network Interference (OONI/Fungua uchunguzi wa kuingiliwa kwa mtandao), mradi wa programu ya bure (chini ya Mradi wa Tor) ambao unakusudia kufunua udhibiti wa mtandao kote ulimwenguni.
 
 Tangu 2012, jamii ya ulimwengu ya OONI imekusanya mamilioni ya vipimo vya mtandao kutoka nchi zaidi ya 200, ikitoa mwangaza juu ya visa vingi vya kuingiliwa kwa mtandao.
 
-<b>Kukusanya ushahidi wa udhibiti wa mtandao</b>
-Unaweza kuangalia ikiwa tovuti na programu za ujumbe wa papo kwa hapo zimezuiwa na jinsi gani. Takwimu za kipimo cha mtandao utakazokusanya zinaweza kutumika kama uthibitisho wa udhibiti wa mtandao.
+Kukusanya ushahidi wa udhibiti wa mtandao
+Unaweza kuangalia kama tovuti mbali mbali na programu za kutuma ujumbe zimezuiwa. Takwimu za kipimo cha mtandao unayoyakusanya zinaweza kutumika kama uthibitisho wa udhibiti wa mtandao.
 
-<b>Gundua mifumo inayohusika na udhibiti na ufuatiliaji  </b>
-Vipimo vya uchunguzi wa OONI pia vimeundwa kugundua uwepo wa mifumo (sanduku za kati) ambazo zinaweza kuwajibika kwa udhibiti na ufuatiliaji. 
+Gundua mifumo inayohusika na udhibiti na ufuatiliaji  
+Vipimo vya OONI Probe pia vimeundwa kugundua uwepo wa mifumo (sanduku za kati) ambazo zinaweza kuwajibika kwa udhibiti na ufuatiliaji. 
 
-<b>Pima kasi na utendaji wa mtandao wako</b>
-Unaweza kupima kasi na utendaji wa mtandao wako kwa kutekeleza utekelezaji wa OONI wa Mtihani wa Utambuzi wa Mtandao (NDT). Unaweza pia kupima utiririshaji wa video na jaribio la Dynamic Adaptive Streaming juu ya jaribio la HTTP (DASH).
+Pima kasi na utendaji wa mtandao wako
+Unaweza kupima kasi na utendaji wa mtandao wako kwa kuanzisha programu ya Mtihani wa Utambuzi wa Mtandao wa OONI (ama, NDT). Unaweza pia kupima utiririshaji wa video na jaribio la Dynamic Adaptive Streaming juu ya jaribio la HTTP (DASH).
 
-<b>Fungua data</b>
-OONI inachapisha data ya kipimo cha mtandao kwa sababu data wazi inaruhusu mhusika wa tatu kuthibitisha matokeo ya OONI, kufanya masomo ya kujitegemea, na kujibu maswali mengine ya utafiti. Kuchapisha wazi data ya OONI pia husaidia kuongeza uwazi wa udhibiti wa mtandao kote ulimwenguni. Unaweza kukagua na kupakua data ya OONI hapa: https://ooni.io/data/
+Data za wazi
+OONI inachapisha data ya vipimo cha mitandao kwa sababu data za wazi zinaruhusu wahusika wa tatu kuthibitisha matokeo ya OONI, kufanya masomo ya kujitegemea, na kujibu maswali mengine ya utafiti. Kuchapisha wazi data za OONI pia husaidia kuongeza uwazi wa udhibiti wa mtandao kote ulimwenguni. Unaweza kukagua na kupakua data za OONI hapa: https://ooni.io/data/
 
-<b>programu ya bure</b>
-Vipimo vyote vya OONI Probe (pamoja na utekelezaji wetu wa NDT na DASH), vinategemea programu ya chanzo huru na wazi. Unaweza kupata miradi ya programu ya OONI kwenye GitHub: https://github.com/ooni. Unataka kujua jinsi mitihani ya OONI Probe inavyofanya kazi Jifunze zaidi: https://ooni.io/nettest/ 
+programu za bure
+Vipimo vyote vya OONI Probe (pamoja na utekelezaji wetu wa NDT na DASH), vinategemea programu za chanzo huru na wazi. Unaweza kupata mradi wa programu ya OONI kwenye GitHub: https://github.com/ooni. Unataka kujua jinsi mitihani ya OONI Probe inavyofanya kazi? Jifunze zaidi: https://ooni.io/nettest/ 
 
-Ili kupokea maboresho kutoka kwa aya ya OONI, tufuate kwenye Twitter: https://twitter.com/OpenObservatory
+Ili kupokea maboresho kutoka kwa jamii ya OONI, tufuate kwenye Twitter: https://twitter.com/OpenObservatory

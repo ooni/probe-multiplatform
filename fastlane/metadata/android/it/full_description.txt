@@ -1,0 +1,24 @@
+Sono bloccati siti web e app social? La tua rete è stranamente lenta? Scoprilo con OONI Probe!
+
+Con questa app, potrai esaminare il blocco di siti web, app di messaggistica, misurare le prestazioni e la velocità della tua rete. Potrai, inoltre, determinare la presenza di dispositivi di rete che potrebbero essere responsabili di censura e sorveglianza sulla tua rete.
+
+OONI Probe è sviluppato dall'Osservatorio Aperto delle Interferenze di Rete (OONI), un progetto di software libero (parte del Tor Project) che ha come obiettivo quello di monitorare la censura internet in tutto il mondo.
+
+Dal 2012, la community globale di OONI ha raccolto milioni di misure di rete da più di 200 paesi nel mondo, facendo luce su molti casi di interferenza di rete.
+
+Raccogli prove di censura internet
+Puoi verificare se e come i siti web e le app di messaggistica sono bloccati. Le misure di rete da te raccolte possono essere usate come prove sulla censura di internet.
+
+Rileva dispositivi che implementano la censura e la sorveglianza
+I test di OONI Probe sono progettati per scoprire la presenza di dispositivi (middlebox) che potrebbero implementare censura e sorveglianza.
+
+Misura la velocità e le prestazioni della tua rete
+Puoi misurare la velocità e le prestazioni della tua rete eseguendo la implementazione di OONI del Network Diagnostic Test (NDT). Puoi anche misurare le prestazioni dello streaming video attraverso il test Dynamic Adaptive Streaming over HTTP (DASH).
+
+Open data
+OONI pubblica le misure di rete come open data. Questo permette a chiunque di validare i nostri risultati, condurre studi indipendenti e di rispondere ad altre domande di ricerca. Il fatto che OONI pubblica i dati apertamente aiuta ad aumentare la trasparenza della censura di internet in tutto il monto. Puoi esplorare e scaricare i dati di OONI qui: https://ooni.io/data/
+
+Software libero
+Tutti i test di OONI Probe (inclusi NDT e DASH), sono basati su software libero. Puoi trovare i progetti software di OONI su GitHub: https://github.com/ooni. Vuoi sapere di più su come funzionano i test di OONI Probe? Visita: https://ooni.io/nettest/
+
+Per ricevere aggiornamenti dall'OONI-verso, seguiteci su Twitter: https://twitter.com/OpenObservatory

@@ -29,7 +29,9 @@
     <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
+    <string name="Dashboard_RunV2_UpdateTag">UPPFÆRSLA</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">Hafnaði uppfærslu</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Afturkalla</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Review Updates</string>
 
@@ -40,6 +42,9 @@
     <string name="Dashboard_ReviewDescriptor_Label">Link Update (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE AND FINISH (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">Hafna uppfærslu</string>
+
+    <string name="Dashboard_Update_Ready">Náð var í uppfærslu forritsins rétt í þessu</string>
     <string name="Dashboard_Update_Restart">Endurræsa</string>
 
     <!-- Test -->
@@ -109,11 +114,15 @@
     <!-- Measurements -->
 
     <string name="Measurement_Title">Measurement</string>
+    <string name="Measurement_LoadingFailed">Mistókst að hlaða inn upplýsingum um mælingar</string>
     <string name="Measurements_Failed">Mistókst</string>
     <string name="Measurements_Ok">Í lagi</string>
     <string name="Measurements_Anomaly">Frávik</string>
     <string name="Measurements_Count_One">%1$d measurement</string>
     <string name="Measurements_Count_Other">%1$d measurement</string>
+    <string name="Measurements_Failed_One">%1$d mistókst</string>
+    <string name="Measurements_Failed_Other">%1$d mistókst</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">Stillingar</string>
