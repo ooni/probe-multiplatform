@@ -1,0 +1,6 @@
+Gerek duyduğunuz haber sitelerine ulaşıp ulaşamayacağınızı veya engellenip engellenmediklerini öğrenin. DW Haber medyayı taraması size gerek duyduğunuz şeffaflığı sağlar. Ayrıca Dünya çapında sansürün ortaya çıkarılmasına yardımcı olarak küresel "İnternet Özgürlüğü" topluluğuna değerli bir katkıda bulunmuş olursunuz.
+Bu uygulama Deutsche Welle (DW) ve OONI arasındaki yakın işbirliğinin ürünüdür.
+
+DW hakkında: Özgür beyinler için tarafsız bilgi; DW markasının sözü budur. Bağımsız bir medya şirketi olarak Almanya'nın uluslararası haber yayıncısı, Dünya üzerinde her yerde bulunan insanları bilgilendirir. DW, 32 dilde programlarıyla Dünya'nın dört bir yanındaki insanları TV, radyo, İnternet ve sosyal medya aracılığıyla birbirine bağlıyor.
+
+OONI hakkında: 2012 yılında kurulan Açık ağ izleme gözlemevi (Open Observatory of Network Interference, OONI), Dünya çapında İnternet sansürünü belgeleme konusunda merkezi olmayan çabaları güçlendirmeyi amaçlayan, kar amacı gütmeyen bir ücretsiz yazılım projesidir.
