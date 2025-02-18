@@ -14,15 +14,15 @@ git:
       ignore_dirs:
         - fastlane/metadata/dw/android/en-US/changelogs/
       ignore_files:
-        - fastlane/metadata/android/en-US/video.txt
+        - fastlane/metadata/dw/android/en-US/video.txt
     - filter_type: dir
-      source_file_dir: fastlane/metadata/dw/ios
+      source_file_dir: fastlane/metadata/dw/ios/en-US
       file_format: TXT
       source_file_extension: txt
-      source_language: en
+      source_language: en-US
       translation_files_expression: 'fastlane/metadata/dw/ios/<lang>/'
       ignore_files:
-        - fastlane/metadata/dw/ios/en/release_notes.txt
+        - fastlane/metadata/dw/ios/en-US/release_notes.txt
   settings:
     pr_branch_name:
       translations/nms/<br_unique_id>

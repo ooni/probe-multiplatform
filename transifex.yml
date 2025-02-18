@@ -11,7 +11,7 @@ git:
       source_language: en
       translation_files_expression: 'composeApp/src/ooniMain/composeResources/values-<lang>/strings-organization.xml'
     - filter_type: dir
-      source_file_dir: fastlane/metadata/android
+      source_file_dir: fastlane/metadata/android/en-US
       file_format: TXT
       source_file_extension: txt
       source_language: en-US
@@ -21,13 +21,13 @@ git:
       ignore_files:
         - fastlane/metadata/android/en-US/video.txt
     - filter_type: dir
-      source_file_dir: fastlane/metadata/ios
+      source_file_dir: fastlane/metadata/ios/en-US
       file_format: TXT
       source_file_extension: txt
-      source_language: en
+      source_language: en-US
       translation_files_expression: 'fastlane/metadata/ios/<lang>/'
       ignore_files:
-        - fastlane/metadata/ios/en/release_notes.txt
+        - fastlane/metadata/ios/en-US/release_notes.txt
   settings:
     pr_branch_name:
       translations/<br_unique_id>
