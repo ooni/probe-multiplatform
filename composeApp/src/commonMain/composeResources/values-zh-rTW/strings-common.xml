@@ -1,5 +1,7 @@
 <resources>
+    <!-- Dashboard -->
     <string name="Dashboard_Tab_Label">儀表板</string>
+
     <string name="Dashboard_Overview_LatestTest">上回測試：</string>
     <string name="Dashboard_Overview_Estimated">預估：</string>
     <string name="Dashboard_Overview_LastRun_Never">不適用</string>
@@ -10,12 +12,17 @@
     <string name="Dashboard_Running_Stopping_Title">停止測試...</string>
     <string name="Dashboard_Running_Stopping_Notice">完成當前該處理的測試，請稍等....</string>
     <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
-    <string name="OONIRun_Run">執行</string>
-    <string name="Notification_StopTest">停止測試</string>
+
+    <string name="Dashboard_Runv2_Overview_Description">建立者 %1$s 於 %2$s</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">復原</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">複檢</string>
+
+    <string name="Dashboard_Update_Restart">重新啟動</string>
+
+    <!-- Test -->
 
     <string name="Test_Websites_Fullname">網站</string>
     <string name="Test_InstantMessaging_Fullname">即時通訊</string>
-    <string name="Test_Middleboxes_Fullname">中間盒</string>
     <string name="Test_Performance_Fullname">效能</string>
     <string name="Test_Circumvention_Fullname">規避</string>
     <string name="Test_Experimental_Fullname">試驗性</string>
@@ -31,6 +38,8 @@
     <string name="Test_Tor_Fullname">Tor 測試</string>
     <string name="Test_Signal_Fullname">Signal 測試</string>
 
+    <!-- Test Results -->
+
     <string name="TestResults_Overview_Title">測試結果</string>
     <string name="TestResults_Overview_Tab_Label">測試結果</string>
     <string name="TestResults_Overview_FilterTests">篩選測試</string>
@@ -41,14 +50,7 @@
     <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s 已被封鎖</string>
     <string name="TestResults_Overview_Websites_Tested_Singular">%1$s 測試過</string>
     <string name="TestResults_Overview_Websites_Tested_Plural">%1$s 測試過</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Singular">%1$s 已被封鎖</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Plural">%1$s 已被封鎖</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Singular">%1$s 可訪問</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Plural">%1$s 可訪問</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Singular">%1$s 已被封鎖</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Plural">%1$s 已被封鎖</string>
-    <string name="TestResults_Overview_Circumvention_Available_Singular">%1$s 可用</string>
-    <string name="TestResults_Overview_Circumvention_Available_Plural">%1$s 可用</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">尚未進行任何測試，請試試執行一次！</string>
     <string name="TestResults_Summary_Hero_DateAndTime">日期 &amp; 時間</string>
     <string name="TestResults_Summary_Hero_Network">網路</string>
     <string name="TestResults_Summary_Hero_Country">國家</string>
@@ -56,34 +58,29 @@
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">行動數據</string>
     <string name="TestResults_Summary_Hero_NoInternet">無連網</string>
-    <string name="TestResults_Overview_NoTestsHaveBeenRun">尚未進行任何測試，請試試執行一次！</string>
-    <string name="TestResults_UnknownASN">未知</string>
-    <string name="TestResults_NotAvailable">不適用</string>
-    <string name="TestResults_Summary_Performance_Hero_Upload">上傳</string>
-    <string name="TestResults_Summary_Performance_Hero_Download">下載</string>
-
-    <string name="TestResults_Gbps">Gbit/s</string>
-    <string name="TestResults_Mbps">Mbit/s</string>
-    <string name="TestResults_Kbps">kbit/s</string>
-
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">已測試過</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">已測試過</string>
-
     <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">被封鎖的</string>
     <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">被封鎖的</string>
-
     <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">可訪問的</string>
     <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">可訪問的</string>
-
+    <string name="TestResults_Summary_Performance_Hero_Upload">上傳</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">下載</string>
     <string name="TestResults_Summary_Performance_Hero_Video">影片</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">品質</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
 
+    <string name="TestResults_Gbps">Gbit/s</string>
+    <string name="TestResults_Mbps">Mbit/s</string>
+    <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
 
-    <string name="Modal_ReRun_Title">重新執行測試</string>
-    <string name="Modal_ReRun_Websites_Title">您即將重新測試 %1$s。</string>
-    <string name="Modal_ReRun_Websites_Run">執行</string>
+    <string name="TestResults_UnknownASN">未知</string>
+    <string name="TestResults_NotAvailable">不適用</string>
+
+    <string name="Measurements_Failed">失敗</string>
+    <string name="Measurements_Ok">正常</string>
+    <!-- Settings -->
 
     <string name="Settings_Title">設定</string>
     <string name="Settings_Notifications_Label">通知</string>
@@ -93,11 +90,10 @@
     <string name="Settings_TestOptions_LongRunningTest">長時間運行測試</string>
 
     <string name="Settings_AutomatedTesting_RunAutomatically">自動進行測試</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Number">自動測試次數: %1$s.</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_DateLast">上一回自動測試日期: %1$s.</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">僅在 WiFi 執行</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">僅在充電時執行</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">開啟自動測試， OONI Probe 會每天執行多次測試且其結果會自動發佈到 OONI Explorer: https://explorer.ooni.org/ \n\n重要：如果打開 VPN 則 OONI Probe 將無法自動執行，請關閉 VPN 以便自動執行 OONI Probe，了解詳情請看: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_Sharing_UploadResults">自動發佈結果</string>
 
     <string name="Settings_Websites_MaxRuntimeEnabled">限制測時持續時間</string>
     <string name="Settings_Websites_MaxRuntime">測試期間</string>
@@ -105,32 +101,35 @@
     <string name="Settings_Websites_Categories_Description">%1$s 啟用的分類</string>
 
     <string name="Settings_Privacy_Label">隱私</string>
-
-    <string name="Settings_Sharing_UploadResults">自動發佈結果</string>
     <string name="Settings_Privacy_SendCrashReports">送出出錯崩潰報告</string>
 
     <string name="Settings_Proxy_Label">OONI 後端代理</string>
-
     <string name="Settings_Proxy_Enabled">代理伺服器</string>
     <string name="Settings_Proxy_None">無</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
     <string name="Settings_Proxy_Custom">自定代理</string>
     <string name="Settings_Proxy_Custom_Protocol">協定</string>
-
     <string name="Settings_Proxy_Custom_Hostname">主機名</string>
     <string name="Settings_Proxy_Custom_Port">埠</string>
 
     <string name="Settings_Advanced_Label">進階的</string>
+    <string name="Settings_Advanced_DebugLogs">調試記錄</string>
+    <string name="Settings_Advanced_RecentLogs">查看近期活動記錄</string>
     <string name="Settings_SendEmail_Label">寄求助郵件</string>
     <string name="Settings_SendEmail_Message">請描述您所遇到的問題: </string>
 
-    <string name="Settings_Advanced_DebugLogs">調試記錄</string>
-    <string name="Settings_Advanced_RecentLogs">查看近期活動記錄</string>
-    <string name="Settings_Advanced_LanguageSettings_Title">語言設置</string>
     <string name="Settings_Storage_Label">儲存用量</string>
     <string name="Settings_Storage_Delete">刪除</string>
     <string name="Settings_Storage_Clear">清除</string>
     <string name="Settings_WarmVPNInUse_Label">使用 VPN 時發出提醒警示</string>
+    <string name="Settings_Logs">活動記錄</string>
+    <string name="Settings_Websites_Categories_Selection_None">取消全選</string>
+    <string name="Settings_Websites_Categories_Selection_All">選擇全部</string>
+    <string name="Settings_Websites_CustomURL_Title">選擇要測試的網站</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="Settings_Websites_CustomURL_Run">執行</string>
+    <string name="Settings_Websites_CustomURL_Add">新增網站</string>
+    <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">藥物 &amp; 酒精</string>
     <string name="CategoryCode_REL_Name">宗教</string>
@@ -195,6 +194,38 @@
     <string name="CategoryCode_IGO_Description">跨國政府組織，如聯合國</string>
     <string name="CategoryCode_MISC_Description">尚未被分類的網站</string>
 
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">了解！</string>
+    <string name="Onboarding_ThingsToKnow_Title">當心！</string>
+    <string name="Onboarding_ThingsToKnow_Button">我了解</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">瞭解更多</string>
+    <string name="Onboarding_PopQuiz_Title">突擊測驗！</string>
+    <string name="Onboarding_PopQuiz_True">是</string>
+    <string name="Onboarding_PopQuiz_False">否</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">返回</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">繼續</string>
+    <string name="Onboarding_PopQuiz_1_Title">問題 2 之 1</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">警告  </string>
+    <string name="Onboarding_PopQuiz_2_Title">問題 2 之 2</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">警告  </string>
+    <string name="Onboarding_AutomatedTesting_Title">自動化測試</string>
+    <string name="Onboarding_Crash_Title">崩潰報告</string>
+    <string name="Onboarding_Crash_Button_Yes">是</string>
+    <string name="Onboarding_Crash_Button_No">否</string>
+    <string name="Onboarding_DefaultSettings_Title">預設值</string>
+    <string name="Onboarding_DefaultSettings_Header">我們會收集與發佈：</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">國別代碼 (e.g. IT 為義大利)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">網路資訊 ( 包含網路自治系統代號 ASN)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">測試的時間和日期</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">我們盡量不會發佈用戶 IP 位置或是其它可能辨識個人資料的資訊。\n\n可進一步了解[ONNI 資料政策](https://ooni.io/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">變更預設</string>
+
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">測試設定</string>
+    <string name="AddDescriptor_AutoRun">自動進行測試</string>
+    <string name="LoadingScreen_Runv2_Failure">錯誤</string>
+    <!-- Modals / Toasts / Snackbar -->
+
     <string name="Snackbar_ResultsNotUploaded_Text">未上傳的</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">部份未上傳的</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">上傳全部</string>
@@ -207,32 +238,26 @@
     <string name="Modal_OK">正常</string>
     <string name="Modal_DoYouWantToDeleteAllTests">要刪除所有的測試結果嗎？</string>
     <string name="Modal_Delete">刪除</string>
-
+    <string name="Modal_ReRun_Title">重新執行測試</string>
+    <string name="Modal_ReRun_Websites_Title">您即將重新測試 %1$s。</string>
+    <string name="Modal_ReRun_Websites_Run">執行</string>
     <string name="Modal_DisableVPN_Title">請關閉 VPN 連接</string>
     <string name="Modal_DisableVPN_Message">若在 VPN 下執行 OONI Probe 則測試結果可能會來自錯誤的國家，故請先關閉 VPN 連接</string>
     <string name="Modal_DisableVPN">關閉 VPN</string>
     <string name="Modal_RunAnyway">無論如何都要執行</string>
     <string name="Modal_AlwaysRun">終始執行</string>
-
     <string name="Modal_Error_CantDownloadURLs">無法下載 URL 清單，請再試一次。</string>
-
-    <string name="AddDescriptor_Settings">測試設定</string>
-    <string name="AddDescriptor_Author">作者：</string>
-    <string name="AddDescriptor_AutoRun">自動進行測試</string>
-    <string name="LoadingScreen_Runv2_Failure">錯誤</string>
-    <string name="Dashboard_Runv2_Overview_Description">建立者 %1$s 於 %2$s</string>
-    <string name="Dashboard_Progress_ReviewLink_Action">複檢</string>
-    <string name="Settings_Websites_CustomURL_Title">選擇要測試的網站</string>
-    <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_NoURLEntered">未輸入URL</string>
-    <string name="Settings_Websites_CustomURL_Run">執行</string>
-    <string name="Settings_Websites_CustomURL_Add">新增網站</string>
     <string name="Modal_CustomURL_Title_NotSaved">你確定嗎？</string>
     <string name="Modal_CustomURL_NotSaved">關閉此畫面後不會儲存 URL 記錄，確定要離開此畫面嗎？  </string>
-
     <string name="Modal_Autorun_BatteryOptimization">未進行電池優化前 OONI Probe 無法自動執行，要再試一次嗎\?</string>
+    <string name="Modal_EnableNotifications_Title">取得最新網路審查動態</string>
 
-    <!-- New Strings -->
+    <!-- Common / Others -->
+
+    <string name="OONIRun_Run">執行</string>
+
+    <string name="Notification_ChannelName">測試中</string>
+    <string name="Notification_StopTest">停止測試</string>
 
     <string name="Common_Back">返回</string>
     <string name="Common_Refresh">更新</string>
@@ -255,46 +280,5 @@
     <string name="Common_Months_November">十一月</string>
     <string name="Common_Months_December">十二月</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_GotIt">了解！</string>
-    <string name="Onboarding_ThingsToKnow_Title">當心！</string>
-
-    <string name="Onboarding_ThingsToKnow_Button">我了解</string>
-    <string name="Onboarding_ThingsToKnow_LearnMore">瞭解更多</string>
-    <string name="Onboarding_PopQuiz_Title">突擊測驗！</string>
-    <string name="Onboarding_PopQuiz_True">是</string>
-    <string name="Onboarding_PopQuiz_False">否</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Back">返回</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">繼續</string>
-    <string name="Onboarding_PopQuiz_1_Title">問題 2 之 1</string>
-
-    <string name="Onboarding_PopQuiz_1_Wrong_Title">警告  </string>
-    <string name="Onboarding_PopQuiz_2_Title">問題 2 之 2</string>
-    <string name="Onboarding_PopQuiz_2_Wrong_Title">警告  </string>
-
-    <string name="Onboarding_AutomatedTesting_Title">自動化測試</string>
-
-    <string name="Onboarding_Crash_Title">崩潰報告</string>
-
-    <string name="Onboarding_Crash_Button_Yes">是</string>
-    <string name="Onboarding_Crash_Button_No">否</string>
-    <string name="Onboarding_DefaultSettings_Title">預設值</string>
-    <string name="Onboarding_DefaultSettings_Header">我們會收集與發佈：</string>
-    <string name="Onboarding_DefaultSettings_Bullet_1">國別代碼 (e.g. IT 為義大利)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_2">網路資訊 ( 包含網路自治系統代號 ASN)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_3">測試的時間和日期</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">我們盡量不會發佈用戶 IP 位置或是其它可能辨識個人資料的資訊。\n\n可進一步了解[ONNI 資料政策](https://ooni.io/about/data-policy/).</string>
-    <string name="Onboarding_DefaultSettings_Button_Change">變更預設</string>
-
-    <string name="Modal_EnableNotifications_Title">取得最新網路審查動態</string>
-
-    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">復原</string>
-    <string name="Dashboard_Update_Restart">重新啟動</string>
-    <string name="Measurements_Failed">失敗</string>
-    <string name="Measurements_Ok">正常</string>
-    <string name="Settings_Logs">活動記錄</string>
-    <string name="Settings_Websites_Categories_Selection_None">取消全選</string>
-    <string name="Settings_Websites_Categories_Selection_All">選擇全部</string>
-
-    <string name="Notification_ChannelName">測試中</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

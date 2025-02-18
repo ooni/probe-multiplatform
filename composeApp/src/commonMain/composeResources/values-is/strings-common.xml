@@ -1,5 +1,7 @@
 <resources>
+    <!-- Dashboard -->
     <string name="Dashboard_Tab_Label">Stjórnborð</string>
+
     <string name="Dashboard_Overview_LatestTest">Síðasta prófun:</string>
     <string name="Dashboard_Overview_Estimated">Áætlað:</string>
     <string name="Dashboard_Overview_LastRun_Never">Ekki tiltækt</string>
@@ -10,21 +12,40 @@
     <string name="Dashboard_Running_Stopping_Title">Stöðva prófun…</string>
     <string name="Dashboard_Running_Stopping_Notice">Lýk þeim prófunum sem eru í gangi, bíddu aðeins…</string>
     <string name="Dashboard_Running_ProxyInUse">Milliþjónn í notkun</string>
-    <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
-    <string name="Dashboard_RunV2_Title">OONI Run Links</string>
-    <string name="Dashboard_RunV2_RunFinished">Run finished. Tap to view results.</string>
 
     <string name="Dashboard_RunTests_Title">Run tests</string>
     <string name="Dashboard_RunTests_Description">Select the tests to run</string>
     <string name="Dashboard_RunTests_SelectAll">Select all tests</string>
     <string name="Dashboard_RunTests_SelectNone">Deselect all tests</string>
+    <string name="Dashboard_RunTests_RunButton_Label_One">Run %1$d test</string>
+    <string name="Dashboard_RunTests_RunButton_Label_Other">Run %1$d tests</string>
 
-    <string name="OONIRun_Run">Keyra</string>
-    <string name="Notification_StopTest">Stöðva prófun</string>
+    <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
+    <string name="Dashboard_RunV2_Title">OONI Run Links</string>
+    <string name="Dashboard_RunV2_RunFinished">Run finished. Tap to view results.</string>
+    <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
+    <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
+    <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
+    <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Afturkalla</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates">Review Updates</string>
+
+    <string name="Dashboard_Progress_UpdateLink_Label">Link updates loading</string>
+    <string name="Dashboard_Progress_ReviewLink_Label">Link updates ready</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">Review</string>
+
+    <string name="Dashboard_ReviewDescriptor_Label">Link Update (%1$s of %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE AND FINISH (%1$s of %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
+    <string name="Dashboard_Update_Restart">Endurræsa</string>
+
+    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Vefsvæði</string>
     <string name="Test_InstantMessaging_Fullname">Snarskilaboð</string>
-    <string name="Test_Middleboxes_Fullname">Millitölvur</string>
     <string name="Test_Performance_Fullname">Afköst</string>
     <string name="Test_Circumvention_Fullname">Hjáleiðir</string>
     <string name="Test_Experimental_Fullname">Á tilraunastigi</string>
@@ -40,6 +61,8 @@
     <string name="Test_Tor_Fullname">Prófun Tor</string>
     <string name="Test_Signal_Fullname">Prófun merkis</string>
 
+    <!-- Test Results -->
+
     <string name="TestResults_Overview_Title">Niðurstöður prófunar</string>
     <string name="TestResults_Overview_Tab_Label">Niðurstöður prófunar</string>
     <string name="TestResults_Overview_FilterTests">Sía prófanir</string>
@@ -50,14 +73,7 @@
     <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s hindranir</string>
     <string name="TestResults_Overview_Websites_Tested_Singular">%1$s prófanir</string>
     <string name="TestResults_Overview_Websites_Tested_Plural">%1$s prófanir</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Singular">%1$s hindranir</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Plural">%1$s hindranir</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Singular">%1$s aðgengilegt</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Plural">%1$s aðgengilegt</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Singular">%1$s hindranir</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Plural">%1$s hindranir</string>
-    <string name="TestResults_Overview_Circumvention_Available_Singular">%1$s tiltæk</string>
-    <string name="TestResults_Overview_Circumvention_Available_Plural">%1$s tiltæk</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">Engar prófanir hafa verið keyrðar ennþá. Prófaðu að keyra eina!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Dagsetning og tími</string>
     <string name="TestResults_Summary_Hero_Network">Netkerfi</string>
     <string name="TestResults_Summary_Hero_Country">Land</string>
@@ -65,34 +81,40 @@
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Farsímagögn</string>
     <string name="TestResults_Summary_Hero_NoInternet">Engin internettenging</string>
-    <string name="TestResults_Overview_NoTestsHaveBeenRun">Engar prófanir hafa verið keyrðar ennþá. Prófaðu að keyra eina!</string>
-    <string name="TestResults_UnknownASN">Óþekkt</string>
-    <string name="TestResults_NotAvailable">Ekki tiltækt</string>
-    <string name="TestResults_Summary_Performance_Hero_Upload">Senda inn</string>
-    <string name="TestResults_Summary_Performance_Hero_Download">Sækja</string>
-
-    <string name="TestResults_Gbps">Gbit/s</string>
-    <string name="TestResults_Mbps">Mbit/s</string>
-    <string name="TestResults_Kbps">kbit/s</string>
-
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Prófað</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Prófað</string>
-
     <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Hindrað</string>
     <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Hindrað</string>
-
     <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Aðgengilegt</string>
     <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Aðgengilegt</string>
-
+    <string name="TestResults_Summary_Performance_Hero_Upload">Senda inn</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Sækja</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Myndskeið</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Gæði</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping-skipun</string>
 
+    <string name="TestResults_Gbps">Gbit/s</string>
+    <string name="TestResults_Mbps">Mbit/s</string>
+    <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">msek</string>
 
-    <string name="Modal_ReRun_Title">Keyra prófun aftur</string>
-    <string name="Modal_ReRun_Websites_Title">Þú ert við það að endurprófa %1$s vefsvæði.</string>
-    <string name="Modal_ReRun_Websites_Run">Keyra</string>
+    <string name="TestResults_UnknownASN">Óþekkt</string>
+    <string name="TestResults_NotAvailable">Ekki tiltækt</string>
+
+    <string name="Results_TestType_All">All Types</string>
+    <string name="Results_TaskOrigin_All">All Sources</string>
+    <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
+    <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
+
+    <!-- Measurements -->
+
+    <string name="Measurement_Title">Measurement</string>
+    <string name="Measurements_Failed">Mistókst</string>
+    <string name="Measurements_Ok">Í lagi</string>
+    <string name="Measurements_Anomaly">Frávik</string>
+    <string name="Measurements_Count_One">%1$d measurement</string>
+    <string name="Measurements_Count_Other">%1$d measurement</string>
+    <!-- Settings -->
 
     <string name="Settings_Title">Stillingar</string>
     <string name="Settings_Notifications_Label">Tilkynningar</string>
@@ -102,11 +124,11 @@
     <string name="Settings_TestOptions_LongRunningTest">Lang-keyrslu prófun</string>
 
     <string name="Settings_AutomatedTesting_RunAutomatically">Keyra prófanir sjálfvirkt</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Number">Fjöldi sjálfvirkra prófana: %1$s.</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_DateLast">Síðasta sjálfvirka prófun: %1$s.</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Aðeins á WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Aðeins þegar verið er í hleðslu</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Þegar sjálfvirkar prófanir eru virkjaðar, munu OONI Probe prófanir keyra sjálfkrafa nokkrum sinnum á dag. Prófunarniðurstöður þínar verða birtar á OONI Explorer https://explorer.ooni.org/\n\nMikilvægt: Ef þú hefur virkjað VPN, verða OONI Probe prófanir ekki keyra sjálfkrafa. Slökktu á VPN til að keyra sjálfvirkar OONI Probe prófanir. Kannaðu nánar: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run in the background</string>
+    <string name="Settings_Sharing_UploadResults">Sjálfvirk birting niðurstaðna</string>
 
     <string name="Settings_Websites_MaxRuntimeEnabled">Takmarka tímalengd prófunar</string>
     <string name="Settings_Websites_MaxRuntime">Tímalengd prófunar</string>
@@ -114,32 +136,45 @@
     <string name="Settings_Websites_Categories_Description">%1$s flokkar virkir</string>
 
     <string name="Settings_Privacy_Label">Friðhelgi</string>
-
-    <string name="Settings_Sharing_UploadResults">Sjálfvirk birting niðurstaðna</string>
     <string name="Settings_Privacy_SendCrashReports">Senda hrunskýrslur</string>
 
     <string name="Settings_Proxy_Label">Milliþjónn OONI-bakenda</string>
-
     <string name="Settings_Proxy_Enabled">Milliþjónn</string>
     <string name="Settings_Proxy_None">Engin</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
     <string name="Settings_Proxy_Custom">Sérsniðinn milliþjónn</string>
     <string name="Settings_Proxy_Custom_Protocol">Sésniðinn samskiptamáti milliþjóns</string>
-
     <string name="Settings_Proxy_Custom_Hostname">Vélarheiti</string>
     <string name="Settings_Proxy_Custom_Port">Gátt</string>
 
     <string name="Settings_Advanced_Label">Ítarlegra</string>
+    <string name="Settings_Advanced_DebugLogs">Villuskrár</string>
+    <string name="Settings_Advanced_RecentLogs">Skoða nýlegar atvikaskrár</string>
     <string name="Settings_SendEmail_Label">Senda tölvupóst til að fá aðstoð</string>
     <string name="Settings_SendEmail_Message">Lýstu hvaða vandamál þú átt við að eiga:</string>
 
-    <string name="Settings_Advanced_DebugLogs">Villuskrár</string>
-    <string name="Settings_Advanced_RecentLogs">Skoða nýlegar atvikaskrár</string>
-    <string name="Settings_Advanced_LanguageSettings_Title">Tungumálastillingar</string>
     <string name="Settings_Storage_Label">Notkun á geymsluplássi</string>
     <string name="Settings_Storage_Delete">Eyða</string>
     <string name="Settings_Storage_Clear">Hreinsa</string>
     <string name="Settings_WarmVPNInUse_Label">Aðvara þegar VPN er í notkun</string>
+    <string name="Settings_DisableVpnInstructions">Go to Settings &gt; General &gt; VPN and disconnect from your VPN.</string>
+    <string name="Settings_Logs">Logs</string>
+    <string name="Settings_ShareLogs">Share Logs</string>
+    <string name="Settings_ShareLogs_Error">Error sharing logs</string>
+    <string name="Settings_FilterLogs">Filter Logs</string>
+    <string name="Settings_Sharing_UploadResults_Description">Results are automatically uploaded to OONI explorer</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_New">Limit Websites test duration</string>
+    <string name="Settings_Websites_MaxRuntime_New">Maximum Websites test duration</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
+    <string name="Settings_Websites_Categories_Selection_None">Afvelja allt</string>
+    <string name="Settings_Websites_Categories_Selection_All">Velja allt</string>
+    <string name="Settings_Websites_CustomURL_Title">Veldu vefsvæði til að prófa</string>
+    <string name="Settings_Websites_CustomURL_URL">Slóð</string>
+    <string name="Settings_Websites_CustomURL_Run">Keyra</string>
+    <string name="Settings_Websites_CustomURL_Add">Bæta við vefsvæði</string>
+    <string name="CustomWebsites_Fab_Text">Test %1$d URLs</string>
+
+    <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Áfengi og lyf</string>
     <string name="CategoryCode_REL_Name">Trúarbrögð</string>
@@ -204,6 +239,52 @@
     <string name="CategoryCode_IGO_Description">Milliríkjastofnanir að Sameinuðu Þjóðunum meðtöldum</string>
     <string name="CategoryCode_MISC_Description">Vefsvæði sem ekki hafa enn verið flokkuð</string>
 
+    <!-- Onboarding -->
+
+    <string name="Onboarding_QuizAnswer_Correct">Correct answer</string>
+    <string name="Onboarding_QuizAnswer_Incorrect">Incorrect answer</string>
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">Náði því</string>
+    <string name="Onboarding_ThingsToKnow_Title">Taktu eftir!</string>
+    <string name="Onboarding_ThingsToKnow_Button">Ég skil</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Fræðast frekar</string>
+    <string name="Onboarding_PopQuiz_Title">Spurningaleikur</string>
+    <string name="Onboarding_PopQuiz_True">Satt</string>
+    <string name="Onboarding_PopQuiz_False">Ósatt</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Til baka</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Áfram</string>
+    <string name="Onboarding_PopQuiz_1_Title">Spurning 1/2</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Aðvörun</string>
+    <string name="Onboarding_PopQuiz_2_Title">Spurning 2/2</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Aðvörun</string>
+    <string name="Onboarding_AutomatedTesting_Title">Sjálfvirkar prófanir</string>
+    <string name="Onboarding_Crash_Title">Hrunskýrslur</string>
+    <string name="Onboarding_Crash_Button_Yes">Já</string>
+    <string name="Onboarding_Crash_Button_No">Nei</string>
+    <string name="Onboarding_DefaultSettings_Title">Sjálfgefnar stillingar</string>
+    <string name="Onboarding_DefaultSettings_Header">Við söfnum og birtum:</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">Landskóði (t.d. IT fyrir Ítalíu)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">Upplýsingar um netkerfið (þar með talið Autonomous System Number)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">Tími og dagsetning prófunar</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">Við gerum okkar besta til að birta ekki IP-vistfangið þitt eða aðrar mögulega persónugreinanlegar upplýsingar.\n\nÍtarlegri upplýsingar eru í [gagnaleyndarstefnu OONI](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">Hefjumst handa</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">Breyta sjálfgefnum gildum</string>
+
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">Prófa stillingar</string>
+    <string name="AddDescriptor_Title">Install New Link</string>
+    <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
+    <string name="AddDescriptor_AutoRun">Keyra prófanir sjálfvirkt</string>
+    <string name="AddDescriptor_Toasts_Installed">Link installed</string>
+    <string name="AddDescriptor_Action">Install Link</string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
+    <string name="LoadingScreen_Runv2_Message">Link Loading</string>
+    <string name="LoadingScreen_Runv2_Failure">Villa</string>
+    <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
+    <string name="DescriptorUpdate_Updates">UPDATES</string>
+
+    <!-- Modals / Toasts / Snackbar -->
+
     <string name="Snackbar_ResultsNotUploaded_Text">Ekki sent inn</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Sumt var ekki sent inn</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Senda inn allt</string>
@@ -216,52 +297,26 @@
     <string name="Modal_OK">Í lagi</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Viltu eyða öllum niðurstöðum prófana\?</string>
     <string name="Modal_Delete">Eyða</string>
-
+    <string name="Modal_ReRun_Title">Keyra prófun aftur</string>
+    <string name="Modal_ReRun_Websites_Title">Þú ert við það að endurprófa %1$s vefsvæði.</string>
+    <string name="Modal_ReRun_Websites_Run">Keyra</string>
     <string name="Modal_DisableVPN_Title">Gerðu VPN-tenginguna þína óvirka.</string>
     <string name="Modal_DisableVPN_Message">Ef þú keyrir OONI Probe með virku VPN, geta niðurstöður prófana litið út fyrir að koma frá röngu landi. Gerðu VPN-tenginguna þína óvirka.</string>
     <string name="Modal_DisableVPN">Gera VPN óvirkt</string>
     <string name="Modal_RunAnyway">Keyra samt</string>
     <string name="Modal_AlwaysRun">Alltaf keyra</string>
-
     <string name="Modal_Error_CantDownloadURLs">Get ekki sótt lista yfir slóðir. Reyndu aftur.</string>
-
-    <string name="AddDescriptor_Settings">Prófa stillingar</string>
-    <string name="AddDescriptor_Title">Install New Link</string>
-    <string name="AddDescriptor_Author">Höfundur:</string>
-    <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
-    <string name="AddDescriptor_AutoRun">Keyra prófanir sjálfvirkt</string>
-    <string name="AddDescriptor_Toasts_Installed">Link installed</string>
-    <string name="AddDescriptor_Action">Install Link</string>
-    <string name="AddDescriptor_Toasts_Canceled">Link installation cancelled</string>
-    <string name="LoadingScreen_Runv2_Message">Link Loading</string>
-    <string name="LoadingScreen_Runv2_Failure">Villa</string>
-    <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
-    <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
-    <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
-    <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
-    <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
-    <string name="Dashboard_Progress_UpdateLink_Label">Link updates loading</string>
-    <string name="Dashboard_Progress_ReviewLink_Label">Link updates ready</string>
-    <string name="Dashboard_Progress_ReviewLink_Action">Review</string>
-    <string name="Dashboard_Runv2_Overview_ReviewUpdates">Review Updates</string>
-    <string name="DescriptorUpdate_Updates">UPDATES</string>
-    <string name="Dashboard_ReviewDescriptor_Label">Link Update (%1$s of %2$s)</string>
-    <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE AND FINISH (%1$s of %2$s)</string>
-    <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
-    <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
-    <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
-    <string name="Settings_Websites_CustomURL_Title">Veldu vefsvæði til að prófa</string>
-    <string name="Settings_Websites_CustomURL_URL">Slóð</string>
-    <string name="Settings_Websites_CustomURL_NoURLEntered">Engar slóðir settar inn</string>
-    <string name="Settings_Websites_CustomURL_Run">Keyra</string>
-    <string name="Settings_Websites_CustomURL_Add">Bæta við vefsvæði</string>
-    <string name="CustomWebsites_Fab_Text">Test %1$d URLs</string>
     <string name="Modal_CustomURL_Title_NotSaved">Ertu viss\?</string>
     <string name="Modal_CustomURL_NotSaved">Slóðirnar þínar verða ekki vistaðar þegar þú ferð af þessum skjá. Ertu viss um að þú viljir fara af skjánum\?</string>
-
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe getur ekki keyrt á þess að rafhlöðunotkun sé bestuð. Viltu prófa aftur\?</string>
+    <string name="Modal_EnableNotifications_Title">Fáðu vísbendingar um ritskoðun internetsins</string>
 
-    <!-- New Strings -->
+    <!-- Common / Others -->
+
+    <string name="OONIRun_Run">Keyra</string>
+
+    <string name="Notification_ChannelName">Testing</string>
+    <string name="Notification_StopTest">Stöðva prófun</string>
 
     <string name="Common_Back">Til baka</string>
     <string name="Common_Refresh">refresh</string>
@@ -289,73 +344,6 @@
     <string name="Common_Months_November">nóvember</string>
     <string name="Common_Months_December">desember</string>
 
-    <string name="Onboarding_QuizAnswer_Correct">Correct answer</string>
-    <string name="Onboarding_QuizAnswer_Incorrect">Incorrect answer</string>
-    <string name="Onboarding_WhatIsOONIProbe_GotIt">Náði því</string>
-    <string name="Onboarding_ThingsToKnow_Title">Taktu eftir!</string>
-
-    <string name="Onboarding_ThingsToKnow_Button">Ég skil</string>
-    <string name="Onboarding_ThingsToKnow_LearnMore">Fræðast frekar</string>
-    <string name="Onboarding_PopQuiz_Title">Spurningaleikur</string>
-    <string name="Onboarding_PopQuiz_True">Satt</string>
-    <string name="Onboarding_PopQuiz_False">Ósatt</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Til baka</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Áfram</string>
-    <string name="Onboarding_PopQuiz_1_Title">Spurning 1/2</string>
-
-    <string name="Onboarding_PopQuiz_1_Wrong_Title">Aðvörun</string>
-    <string name="Onboarding_PopQuiz_2_Title">Spurning 2/2</string>
-    <string name="Onboarding_PopQuiz_2_Wrong_Title">Aðvörun</string>
-
-    <string name="Onboarding_AutomatedTesting_Title">Sjálfvirkar prófanir</string>
-
-    <string name="Onboarding_Crash_Title">Hrunskýrslur</string>
-
-    <string name="Onboarding_Crash_Button_Yes">Já</string>
-    <string name="Onboarding_Crash_Button_No">Nei</string>
-    <string name="Onboarding_DefaultSettings_Title">Sjálfgefnar stillingar</string>
-    <string name="Onboarding_DefaultSettings_Header">Við söfnum og birtum:</string>
-    <string name="Onboarding_DefaultSettings_Bullet_1">Landskóði (t.d. IT fyrir Ítalíu)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_2">Upplýsingar um netkerfið (þar með talið Autonomous System Number)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_3">Tími og dagsetning prófunar</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">Við gerum okkar besta til að birta ekki IP-vistfangið þitt eða aðrar mögulega persónugreinanlegar upplýsingar.\n\nÍtarlegri upplýsingar eru í [gagnaleyndarstefnu OONI](https://ooni.org/about/data-policy/).</string>
-    <string name="Onboarding_DefaultSettings_Button_Go">Hefjumst handa</string>
-    <string name="Onboarding_DefaultSettings_Button_Change">Breyta sjálfgefnum gildum</string>
-
-    <string name="Modal_EnableNotifications_Title">Fáðu vísbendingar um ritskoðun internetsins</string>
-
-    <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
-    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Afturkalla</string>
-    <string name="Dashboard_RunTests_RunButton_Label_One">Run %1$d test</string>
-    <string name="Dashboard_RunTests_RunButton_Label_Other">Run %1$d tests</string>
-    <string name="Dashboard_Update_Restart">Endurræsa</string>
-    <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
-
-    <string name="Measurement_Title">Measurement</string>
-    <string name="Measurements_Failed">Mistókst</string>
-    <string name="Measurements_Ok">Í lagi</string>
-    <string name="Measurements_Anomaly">Frávik</string>
-    <string name="Measurements_Count_One">%1$d measurement</string>
-    <string name="Measurements_Count_Other">%1$d measurement</string>
-    <string name="Results_TestType_All">All Types</string>
-    <string name="Results_TaskOrigin_All">All Sources</string>
-    <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
-    <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
-
-    <string name="Settings_Logs">Logs</string>
-    <string name="Settings_ShareLogs">Share Logs</string>
-    <string name="Settings_ShareLogs_Error">Error sharing logs</string>
-    <string name="Settings_FilterLogs">Filter Logs</string>
-    <string name="Settings_DisableVpnInstructions">Go to Settings &gt; General &gt; VPN and disconnect from your VPN.</string>
-    <string name="Settings_Sharing_UploadResults_Description">Results are automatically uploaded to OONI explorer</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_New">Limit Websites test duration</string>
-    <string name="Settings_Websites_MaxRuntime_New">Maximum Websites test duration</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run in the background</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
-    <string name="Settings_Websites_Categories_Selection_None">Afvelja allt</string>
-    <string name="Settings_Websites_Categories_Selection_All">Velja allt</string>
-
-    <string name="Notification_ChannelName">Testing</string>
     <string name="TaskOrigin_Manual">Manual Run</string>
     <string name="TaskOrigin_AutoRun">Auto Run</string>
     <string name="NetworkType_Vpn">VPN</string>

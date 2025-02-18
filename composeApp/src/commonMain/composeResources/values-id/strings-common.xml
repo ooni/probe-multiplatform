@@ -1,5 +1,7 @@
 <resources>
+    <!-- Dashboard -->
     <string name="Dashboard_Tab_Label">Dasbor</string>
+
     <string name="Dashboard_Overview_LatestTest">Tes terakhir:</string>
     <string name="Dashboard_Overview_Estimated">Estimasi:</string>
     <string name="Dashboard_Overview_LastRun_Never">N/A</string>
@@ -10,21 +12,35 @@
     <string name="Dashboard_Running_Stopping_Title">Menghentikan tes...</string>
     <string name="Dashboard_Running_Stopping_Notice">Menyelesaikan tes yang saat ini tertunda, silakan tunggu...</string>
     <string name="Dashboard_Running_ProxyInUse">Proksi yang digunakan</string>
-    <string name="Dashboard_RunV2_Ooni_Title">Tes OONI</string>
-    <string name="Dashboard_RunV2_Title">Tautan OONI Run</string>
-    <string name="Dashboard_RunV2_RunFinished">Tes selesai dijalankan. Ketuk untuk melihat hasilnya.</string>
 
     <string name="Dashboard_RunTests_Title">Jalankan tes</string>
     <string name="Dashboard_RunTests_Description">Pilih tes untuk dijalankan</string>
     <string name="Dashboard_RunTests_SelectAll">Pilih semua tes</string>
     <string name="Dashboard_RunTests_SelectNone">Batal pilih semua tes</string>
+    <string name="Dashboard_RunV2_Ooni_Title">Tes OONI</string>
+    <string name="Dashboard_RunV2_Title">Tautan OONI Run</string>
+    <string name="Dashboard_RunV2_RunFinished">Tes selesai dijalankan. Ketuk untuk melihat hasilnya.</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink">Copot Tautan</string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions">Revisi sebelumnya</string>
+    <string name="Dashboard_Runv2_Overview_SeeMore">Lihat Lebih Lanjut</string>
+    <string name="Dashboard_RunV2_ExpiredTag">KEDALUWARSA</string>
+    <string name="Dashboard_RunV2_UpdatedTag">DIPERBARUI</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Undo</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates">Tinjau Pembaruan</string>
 
-    <string name="OONIRun_Run">Mulai</string>
-    <string name="Notification_StopTest">Hentikan tes</string>
+    <string name="Dashboard_Progress_UpdateLink_Label">Memuat pembaruan tautan</string>
+    <string name="Dashboard_Progress_ReviewLink_Label">Pembaruan tautan sudah siap</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">Tinjau</string>
+
+    <string name="Dashboard_ReviewDescriptor_Label">Pembaruan Tautan (%1$s dari %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last">PERBARUI DAN SELESAI (%1$s dari %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default">PERBARUI (%1$s dari %2$s)</string>
+    <string name="Dashboard_Update_Restart">Mulai ulang</string>
+
+    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Situs web</string>
     <string name="Test_InstantMessaging_Fullname">Perpesanan Instan</string>
-    <string name="Test_Middleboxes_Fullname">Middlebox</string>
     <string name="Test_Performance_Fullname">Kinerja</string>
     <string name="Test_Circumvention_Fullname">Penghindaran</string>
     <string name="Test_Experimental_Fullname">Eksperimental</string>
@@ -40,6 +56,8 @@
     <string name="Test_Tor_Fullname">Tes Tor</string>
     <string name="Test_Signal_Fullname">Tes Signal</string>
 
+    <!-- Test Results -->
+
     <string name="TestResults_Overview_Title">Hasil Tes</string>
     <string name="TestResults_Overview_Tab_Label">Hasil Tes</string>
     <string name="TestResults_Overview_FilterTests">Tes Filter</string>
@@ -50,14 +68,7 @@
     <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s diblokir</string>
     <string name="TestResults_Overview_Websites_Tested_Singular">%1$s dites</string>
     <string name="TestResults_Overview_Websites_Tested_Plural">%1$s dites</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Singular">%1$s diblokir</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Plural">%1$s diblokir</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Singular">%1$s terakses</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Plural">%1$s terakses</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Singular">%1$s diblokir</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Plural">%1$s diblokir</string>
-    <string name="TestResults_Overview_Circumvention_Available_Singular">%1$s tersedia</string>
-    <string name="TestResults_Overview_Circumvention_Available_Plural">%1$s tersedia</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">Belum ada tes yang dijalankan. Coba jalankan satu!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Tanggal &amp; Waktu</string>
     <string name="TestResults_Summary_Hero_Network">Jaringan</string>
     <string name="TestResults_Summary_Hero_Country">Negara</string>
@@ -65,34 +76,30 @@
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Data Seluler</string>
     <string name="TestResults_Summary_Hero_NoInternet">Tidak ada internet</string>
-    <string name="TestResults_Overview_NoTestsHaveBeenRun">Belum ada tes yang dijalankan. Coba jalankan satu!</string>
-    <string name="TestResults_UnknownASN">Tidak diketahui</string>
-    <string name="TestResults_NotAvailable">N/A</string>
-    <string name="TestResults_Summary_Performance_Hero_Upload">Unggah</string>
-    <string name="TestResults_Summary_Performance_Hero_Download">Unduh</string>
-
-    <string name="TestResults_Gbps">Gbit/s</string>
-    <string name="TestResults_Mbps">Mbit/s</string>
-    <string name="TestResults_Kbps">kbit/s</string>
-
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Sudah dites</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Sudah dites</string>
-
     <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Diblokir</string>
     <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Diblokir</string>
-
     <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Dapat diakses</string>
     <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Dapat diakses</string>
-
+    <string name="TestResults_Summary_Performance_Hero_Upload">Unggah</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Unduh</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video </string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Kualitas</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
 
+    <string name="TestResults_Gbps">Gbit/s</string>
+    <string name="TestResults_Mbps">Mbit/s</string>
+    <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
 
-    <string name="Modal_ReRun_Title">Tes ulang</string>
-    <string name="Modal_ReRun_Websites_Title">Anda akan mengetes ulang %1$s situs web.</string>
-    <string name="Modal_ReRun_Websites_Run">Mulai</string>
+    <string name="TestResults_UnknownASN">Tidak diketahui</string>
+    <string name="TestResults_NotAvailable">N/A</string>
+
+    <string name="Measurements_Failed">Gagal</string>
+    <string name="Measurements_Ok">Oke</string>
+    <string name="Measurements_Anomaly">Anomali</string>
+    <!-- Settings -->
 
     <string name="Settings_Title">Setelan</string>
     <string name="Settings_Notifications_Label">Notifikasi</string>
@@ -102,11 +109,10 @@
     <string name="Settings_TestOptions_LongRunningTest">Tes jangka panjang</string>
 
     <string name="Settings_AutomatedTesting_RunAutomatically">Jalankan tes secara otomatis</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Number">Jumlah pengetesan otomatis: %1$s.</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_DateLast">Pengetesan otomatis terakhir: %1$s.</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Hanya melalui WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Hanya ketika mengisi daya</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Dengan mengaktifkan pengetesan otomatis, tes OONI Probe akan berjalan secara otomatis beberapa kali per hari. Hasil tes Anda akan secara otomatis dipublikasikan di OONI Explorer: https://explorer.ooni.org/ \n\nPenting: Jika Anda mengaktifkan VPN, OONI Probe tidak akan menjalankan tes secara otomatis. Silakan nonaktifkan VPN Anda untuk pengetesan OONI Probe secara otomatis. Pelajari lebih lanjut: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_Sharing_UploadResults">Publikasikan Hasil Secara Otomatis</string>
 
     <string name="Settings_Websites_MaxRuntimeEnabled">Batas durasi tes</string>
     <string name="Settings_Websites_MaxRuntime">Durasi tes</string>
@@ -114,32 +120,37 @@
     <string name="Settings_Websites_Categories_Description">%1$s kategori diaktifkan</string>
 
     <string name="Settings_Privacy_Label">Privasi</string>
-
-    <string name="Settings_Sharing_UploadResults">Publikasikan Hasil Secara Otomatis</string>
     <string name="Settings_Privacy_SendCrashReports">Kirim laporan kerusakan</string>
 
     <string name="Settings_Proxy_Label">Proksi belakang OONI</string>
-
     <string name="Settings_Proxy_Enabled">Proksi</string>
     <string name="Settings_Proxy_None">Tidak ada</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
     <string name="Settings_Proxy_Custom">Proksi Ubah Suaian</string>
     <string name="Settings_Proxy_Custom_Protocol">Protokol</string>
-
     <string name="Settings_Proxy_Custom_Hostname">Nama hos</string>
     <string name="Settings_Proxy_Custom_Port">Porta</string>
 
     <string name="Settings_Advanced_Label">Lanjutan</string>
+    <string name="Settings_Advanced_DebugLogs">Log Awakutu</string>
+    <string name="Settings_Advanced_RecentLogs">Lihat log terbaru</string>
     <string name="Settings_SendEmail_Label">Kirim surel ke dukungan</string>
     <string name="Settings_SendEmail_Message">Silakan deskripsikan masalah yang Anda alami:</string>
 
-    <string name="Settings_Advanced_DebugLogs">Log Awakutu</string>
-    <string name="Settings_Advanced_RecentLogs">Lihat log terbaru</string>
-    <string name="Settings_Advanced_LanguageSettings_Title">Pengaturan Bahasa</string>
     <string name="Settings_Storage_Label">Penggunaan penyimpanan</string>
     <string name="Settings_Storage_Delete">Delete</string>
     <string name="Settings_Storage_Clear">Bersihkan</string>
     <string name="Settings_WarmVPNInUse_Label">Peringatkan ketika VPN sedang dipakai</string>
+    <string name="Settings_Logs">Log</string>
+    <string name="Settings_Websites_Categories_Selection_None">Batal Pilih Semua</string>
+    <string name="Settings_Websites_Categories_Selection_All">Pilih Semua</string>
+    <string name="Settings_Websites_CustomURL_Title">Pilih situs web untuk dites</string>
+    <string name="Settings_Websites_CustomURL_URL">URL </string>
+    <string name="Settings_Websites_CustomURL_Run">Mulai</string>
+    <string name="Settings_Websites_CustomURL_Add">Tambahkan situs web</string>
+    <string name="CustomWebsites_Fab_Text">Tes %1$d URL</string>
+
+    <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Narkoba &amp; Alkohol</string>
     <string name="CategoryCode_REL_Name">Agama</string>
@@ -204,6 +215,46 @@
     <string name="CategoryCode_IGO_Description">Organisasi antarpemerintah seperti Persatuan Bangsa-Bangsa</string>
     <string name="CategoryCode_MISC_Description">Situs yang belum dikategorikan</string>
 
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">Mengerti</string>
+    <string name="Onboarding_ThingsToKnow_Title">Perhatian!</string>
+    <string name="Onboarding_ThingsToKnow_Button">Saya mengerti</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Pelajari lebih lanjut</string>
+    <string name="Onboarding_PopQuiz_Title">Kuis Dadakan</string>
+    <string name="Onboarding_PopQuiz_True">Benar</string>
+    <string name="Onboarding_PopQuiz_False">Salah</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Kembali</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Lanjut</string>
+    <string name="Onboarding_PopQuiz_1_Title">Pertanyaan 1/2</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Peringatan</string>
+    <string name="Onboarding_PopQuiz_2_Title">Pertanyaan 2/2</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Peringatan</string>
+    <string name="Onboarding_AutomatedTesting_Title">Pengetesan otomatis</string>
+    <string name="Onboarding_Crash_Title">Pelaporan Kerusakan</string>
+    <string name="Onboarding_Crash_Button_Yes">Ya</string>
+    <string name="Onboarding_Crash_Button_No">Tidak</string>
+    <string name="Onboarding_DefaultSettings_Title">Pengaturan Bawaan</string>
+    <string name="Onboarding_DefaultSettings_Header">Kami mengumpulkan dan memublikasikan:</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">Kode Negara (misalnya IT untuk Italia)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">Informasi jaringan (termasuk Nomor Sistem Otonom)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">Waktu &amp; tanggal pengetesan</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">Kami melakukan yang terbaik untuk tidak memublikasikan alamat IP atau hal lain yang berpotensi sebagai informasi identitas pribadi Anda.\n\nPelajari lebih lanjut melalui [Kebijakan Data OONI](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">Ubah bawaan</string>
+
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">Pengaturan Tes</string>
+    <string name="AddDescriptor_Title">Pasang Tautan Baru</string>
+    <string name="AddDescriptor_AutoUpdate">Pasang pembaruan secara otomatis</string>
+    <string name="AddDescriptor_AutoRun">Jalankan tes secara otomatis</string>
+    <string name="AddDescriptor_Toasts_Installed">Tautan terpasang</string>
+    <string name="AddDescriptor_Action">Pasang Tautan</string>
+    <string name="LoadingScreen_Runv2_Message">Memuat Tautan</string>
+    <string name="LoadingScreen_Runv2_Failure">Galat</string>
+    <string name="LoadingScreen_Runv2_Canceled">Pemasangan tautan dibatalkan</string>
+    <string name="DescriptorUpdate_Updates">PEMBARUAN</string>
+
+    <!-- Modals / Toasts / Snackbar -->
+
     <string name="Snackbar_ResultsNotUploaded_Text">Tidak terunggah</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Beberapa tidak terunggah</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Unggah Semua</string>
@@ -216,51 +267,26 @@
     <string name="Modal_OK">Oke</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Anda ingin menghapus semua hasil tes\?</string>
     <string name="Modal_Delete">Delete</string>
-
+    <string name="Modal_ReRun_Title">Tes ulang</string>
+    <string name="Modal_ReRun_Websites_Title">Anda akan mengetes ulang %1$s situs web.</string>
+    <string name="Modal_ReRun_Websites_Run">Mulai</string>
     <string name="Modal_DisableVPN_Title">Silakan nonaktifkan koneksi VPN Anda.</string>
     <string name="Modal_DisableVPN_Message">Jika Anda menjalankan OONI Probe dengan VPN yang diaktifkan, hasil tes bisa jadi terlihat berasal dari negara yang salah. Silakan nonaktifkan koneksi VPN Anda.</string>
     <string name="Modal_DisableVPN">Nonaktifkan VPN</string>
     <string name="Modal_RunAnyway">Tetap jalankan</string>
     <string name="Modal_AlwaysRun">Selalu Jalankan</string>
-
     <string name="Modal_Error_CantDownloadURLs">Tidak dapat mengunduh daftar URL. Silakan coba lagi.</string>
-
-    <string name="AddDescriptor_Settings">Pengaturan Tes</string>
-    <string name="AddDescriptor_Title">Pasang Tautan Baru</string>
-    <string name="AddDescriptor_Author">Pembuat:</string>
-    <string name="AddDescriptor_AutoUpdate">Pasang pembaruan secara otomatis</string>
-    <string name="AddDescriptor_AutoRun">Jalankan tes secara otomatis</string>
-    <string name="AddDescriptor_Toasts_Installed">Tautan terpasang</string>
-    <string name="AddDescriptor_Action">Pasang Tautan</string>
-    <string name="AddDescriptor_Toasts_Canceled">Pemasangan tautan dibatalkan</string>
-    <string name="LoadingScreen_Runv2_Message">Memuat Tautan</string>
-    <string name="LoadingScreen_Runv2_Failure">Galat</string>
-    <string name="LoadingScreen_Runv2_Canceled">Pemasangan tautan dibatalkan</string>
-    <string name="Dashboard_Runv2_Overview_UninstallLink">Copot Tautan</string>
-    <string name="Dashboard_Runv2_Overview_PreviousRevisions">Revisi sebelumnya</string>
-    <string name="Dashboard_Runv2_Overview_SeeMore">Lihat Lebih Lanjut</string>
-    <string name="Dashboard_Progress_UpdateLink_Label">Memuat pembaruan tautan</string>
-    <string name="Dashboard_Progress_ReviewLink_Label">Pembaruan tautan sudah siap</string>
-    <string name="Dashboard_Progress_ReviewLink_Action">Tinjau</string>
-    <string name="Dashboard_Runv2_Overview_ReviewUpdates">Tinjau Pembaruan</string>
-    <string name="DescriptorUpdate_Updates">PEMBARUAN</string>
-    <string name="Dashboard_ReviewDescriptor_Label">Pembaruan Tautan (%1$s dari %2$s)</string>
-    <string name="Dashboard_ReviewDescriptor_Button_Last">PERBARUI DAN SELESAI (%1$s dari %2$s)</string>
-    <string name="Dashboard_ReviewDescriptor_Button_Default">PERBARUI (%1$s dari %2$s)</string>
-    <string name="Dashboard_RunV2_ExpiredTag">KEDALUWARSA</string>
-    <string name="Dashboard_RunV2_UpdatedTag">DIPERBARUI</string>
-    <string name="Settings_Websites_CustomURL_Title">Pilih situs web untuk dites</string>
-    <string name="Settings_Websites_CustomURL_URL">URL </string>
-    <string name="Settings_Websites_CustomURL_NoURLEntered">Tidak ada URL yang dimasukkan</string>
-    <string name="Settings_Websites_CustomURL_Run">Mulai</string>
-    <string name="Settings_Websites_CustomURL_Add">Tambahkan situs web</string>
-    <string name="CustomWebsites_Fab_Text">Tes %1$d URL</string>
     <string name="Modal_CustomURL_Title_NotSaved">Anda yakin\?</string>
     <string name="Modal_CustomURL_NotSaved">URL Anda tidak akan disimpan saat Anda meninggalkan layar ini. Anda yakin ingin meninggalkan layar ini\?</string>
-
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe tidak dapat berjalan secara otomatis tanpa pengoptimalan baterai. Apakah Anda ingin mencoba lagi\?</string>
+    <string name="Modal_EnableNotifications_Title">Dapatkan pembaruan tentang sensor internet</string>
 
-    <!-- New Strings -->
+    <!-- Common / Others -->
+
+    <string name="OONIRun_Run">Mulai</string>
+
+    <string name="Notification_ChannelName">Menguji</string>
+    <string name="Notification_StopTest">Hentikan tes</string>
 
     <string name="Common_Back">Kembali</string>
     <string name="Common_Refresh">Perbarui</string>
@@ -282,47 +308,5 @@
     <string name="Common_Months_November">November</string>
     <string name="Common_Months_December">Desember</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_GotIt">Mengerti</string>
-    <string name="Onboarding_ThingsToKnow_Title">Perhatian!</string>
-
-    <string name="Onboarding_ThingsToKnow_Button">Saya mengerti</string>
-    <string name="Onboarding_ThingsToKnow_LearnMore">Pelajari lebih lanjut</string>
-    <string name="Onboarding_PopQuiz_Title">Kuis Dadakan</string>
-    <string name="Onboarding_PopQuiz_True">Benar</string>
-    <string name="Onboarding_PopQuiz_False">Salah</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Kembali</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Lanjut</string>
-    <string name="Onboarding_PopQuiz_1_Title">Pertanyaan 1/2</string>
-
-    <string name="Onboarding_PopQuiz_1_Wrong_Title">Peringatan</string>
-    <string name="Onboarding_PopQuiz_2_Title">Pertanyaan 2/2</string>
-    <string name="Onboarding_PopQuiz_2_Wrong_Title">Peringatan</string>
-
-    <string name="Onboarding_AutomatedTesting_Title">Pengetesan otomatis</string>
-
-    <string name="Onboarding_Crash_Title">Pelaporan Kerusakan</string>
-
-    <string name="Onboarding_Crash_Button_Yes">Ya</string>
-    <string name="Onboarding_Crash_Button_No">Tidak</string>
-    <string name="Onboarding_DefaultSettings_Title">Pengaturan Bawaan</string>
-    <string name="Onboarding_DefaultSettings_Header">Kami mengumpulkan dan memublikasikan:</string>
-    <string name="Onboarding_DefaultSettings_Bullet_1">Kode Negara (misalnya IT untuk Italia)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_2">Informasi jaringan (termasuk Nomor Sistem Otonom)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_3">Waktu &amp; tanggal pengetesan</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">Kami melakukan yang terbaik untuk tidak memublikasikan alamat IP atau hal lain yang berpotensi sebagai informasi identitas pribadi Anda.\n\nPelajari lebih lanjut melalui [Kebijakan Data OONI](https://ooni.org/about/data-policy/).</string>
-    <string name="Onboarding_DefaultSettings_Button_Change">Ubah bawaan</string>
-
-    <string name="Modal_EnableNotifications_Title">Dapatkan pembaruan tentang sensor internet</string>
-
-    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Undo</string>
-    <string name="Dashboard_Update_Restart">Mulai ulang</string>
-    <string name="Measurements_Failed">Gagal</string>
-    <string name="Measurements_Ok">Oke</string>
-    <string name="Measurements_Anomaly">Anomali</string>
-    <string name="Settings_Logs">Log</string>
-    <string name="Settings_Websites_Categories_Selection_None">Batal Pilih Semua</string>
-    <string name="Settings_Websites_Categories_Selection_All">Pilih Semua</string>
-
-    <string name="Notification_ChannelName">Menguji</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

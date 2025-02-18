@@ -1,5 +1,7 @@
 <resources>
+    <!-- Dashboard -->
     <string name="Dashboard_Tab_Label">Dashboard</string>
+
     <string name="Dashboard_Overview_LatestTest">Laatste test:</string>
     <string name="Dashboard_Overview_Estimated">Geschat:</string>
     <string name="Dashboard_Overview_LastRun_Never">n.v.t.</string>
@@ -10,12 +12,17 @@
     <string name="Dashboard_Running_Stopping_Title">Stoppen met testen…</string>
     <string name="Dashboard_Running_Stopping_Notice">De momenteel lopende tests worden voltooid, een ogenblik geduld...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in gebruik</string>
-    <string name="OONIRun_Run">Voer uit</string>
-    <string name="Notification_StopTest">Stop de test</string>
+
+    <string name="Dashboard_Runv2_Overview_Description">Gemaakt door %1$s op %2$s</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ongedaan maken</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">Beoordeling</string>
+
+    <string name="Dashboard_Update_Restart">Herstarten</string>
+
+    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Chatprogramma\'s</string>
-    <string name="Test_Middleboxes_Fullname">Middleboxen</string>
     <string name="Test_Performance_Fullname">Prestaties</string>
     <string name="Test_Circumvention_Fullname">Omzeiling</string>
     <string name="Test_Experimental_Fullname">Experimenteel</string>
@@ -31,6 +38,8 @@
     <string name="Test_Tor_Fullname">Tor-test</string>
     <string name="Test_Signal_Fullname">Signal-test</string>
 
+    <!-- Test Results -->
+
     <string name="TestResults_Overview_Title">Test Resultaten</string>
     <string name="TestResults_Overview_Tab_Label">Test Resultaten</string>
     <string name="TestResults_Overview_FilterTests">Filtertests</string>
@@ -41,14 +50,7 @@
     <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s geblokkeerd</string>
     <string name="TestResults_Overview_Websites_Tested_Singular">%1$s getest</string>
     <string name="TestResults_Overview_Websites_Tested_Plural">%1$s getest</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Singular">%1$s geblokkeerd</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Plural">%1$s geblokkeerd</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Singular">{Aantal} toegankelijk</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Plural">{Aantal} toegankelijk</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Singular">%1$s geblokkeerd</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Plural">%1$s geblokkeerd</string>
-    <string name="TestResults_Overview_Circumvention_Available_Singular">%1$s beschikbaar</string>
-    <string name="TestResults_Overview_Circumvention_Available_Plural">%1$s beschikbaar</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">Er zijn nog geen tests uitgevoerd. Probeer er een te draaien!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Datum en Tijd</string>
     <string name="TestResults_Summary_Hero_Network">Netwerk</string>
     <string name="TestResults_Summary_Hero_Country">Land</string>
@@ -56,34 +58,29 @@
     <string name="TestResults_Summary_Hero_WiFi">wifi</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobiele Data</string>
     <string name="TestResults_Summary_Hero_NoInternet">Geen internet</string>
-    <string name="TestResults_Overview_NoTestsHaveBeenRun">Er zijn nog geen tests uitgevoerd. Probeer er een te draaien!</string>
-    <string name="TestResults_UnknownASN">Onbekend</string>
-    <string name="TestResults_NotAvailable">n.v.t.</string>
-    <string name="TestResults_Summary_Performance_Hero_Upload">Uploaden</string>
-    <string name="TestResults_Summary_Performance_Hero_Download">Download</string>
-
-    <string name="TestResults_Gbps">Gbit/s</string>
-    <string name="TestResults_Mbps">Mbit/s</string>
-    <string name="TestResults_Kbps">kbit/s</string>
-
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Getest</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Getest</string>
-
     <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Geblokkeerd</string>
     <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Geblokkeerd</string>
-
     <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Toegankelijk</string>
     <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Toegankelijk</string>
-
+    <string name="TestResults_Summary_Performance_Hero_Upload">Uploaden</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Download</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Kwaliteit</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
 
+    <string name="TestResults_Gbps">Gbit/s</string>
+    <string name="TestResults_Mbps">Mbit/s</string>
+    <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
 
-    <string name="Modal_ReRun_Title">Test opnieuw uitvoeren</string>
-    <string name="Modal_ReRun_Websites_Title">U staat op het punt %1$s websites opnieuw te testen.</string>
-    <string name="Modal_ReRun_Websites_Run">Voer uit</string>
+    <string name="TestResults_UnknownASN">Onbekend</string>
+    <string name="TestResults_NotAvailable">n.v.t.</string>
+
+    <string name="Measurements_Failed">Mislukt</string>
+    <string name="Measurements_Ok">Oke</string>
+    <!-- Settings -->
 
     <string name="Settings_Title">Instellingen</string>
     <string name="Settings_Notifications_Label">Meldingen</string>
@@ -91,11 +88,10 @@
 
     <string name="Settings_TestOptions_Label">Testopties</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Tests automatisch uitvoeren</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Number">Aantal geautomatiseerde tests: %1$s.</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_DateLast">Laatste geautomatiseerde test: %1$s.</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Alleen op WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Alleen tijdens het opladen</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Door automatisch testen in te schakelen, worden OONI Probe-tests automatisch meerdere keren per dag uitgevoerd. Uw testresultaten worden automatisch gepubliceerd in OONI Explorer: https://explorer.ooni.org/\n\nBelangrijk: als je een VPN hebt ingeschakeld, voert OONI Probe niet automatisch tests uit. Schakel uw VPN uit voor geautomatiseerde OONI Probe-tests. Meer informatie: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_Sharing_UploadResults">Resultaten Automatisch Publiceren</string>
 
     <string name="Settings_Websites_MaxRuntimeEnabled">Testduur beperken</string>
     <string name="Settings_Websites_MaxRuntime">Test tijdsduur</string>
@@ -103,31 +99,34 @@
     <string name="Settings_Websites_Categories_Description">%1$s categorieën ingeschakeld</string>
 
     <string name="Settings_Privacy_Label">Privacy</string>
-
-    <string name="Settings_Sharing_UploadResults">Resultaten Automatisch Publiceren</string>
     <string name="Settings_Privacy_SendCrashReports">Crashrapporten versturen</string>
 
     <string name="Settings_Proxy_Label">OONI-backend-proxy</string>
-
     <string name="Settings_Proxy_Enabled">Proxy</string>
     <string name="Settings_Proxy_None">Geen</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
     <string name="Settings_Proxy_Custom">Aangepaste Proxy</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
-
     <string name="Settings_Proxy_Custom_Hostname">Hostnaam</string>
     <string name="Settings_Proxy_Custom_Port">Poort</string>
 
     <string name="Settings_Advanced_Label">Geavanceerd</string>
+    <string name="Settings_Advanced_DebugLogs">Debug-logs</string>
     <string name="Settings_SendEmail_Label">Stuur een e-mail naar ondersteuning</string>
     <string name="Settings_SendEmail_Message">Beschrijf het probleem dat u ondervindt:</string>
 
-    <string name="Settings_Advanced_DebugLogs">Debug-logs</string>
-    <string name="Settings_Advanced_LanguageSettings_Title">Taalinstelling</string>
     <string name="Settings_Storage_Label">Opslaggebruik</string>
     <string name="Settings_Storage_Delete">Verwijderen</string>
     <string name="Settings_Storage_Clear">Wissen</string>
     <string name="Settings_WarmVPNInUse_Label">Waarschuwen wanneer VPN in gebruik is</string>
+    <string name="Settings_Logs">Logboeken</string>
+    <string name="Settings_Websites_Categories_Selection_None">Deselecteer Alles</string>
+    <string name="Settings_Websites_Categories_Selection_All">Alles selecteren</string>
+    <string name="Settings_Websites_CustomURL_Title">Kies websites om te testen</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="Settings_Websites_CustomURL_Run">Voer uit</string>
+    <string name="Settings_Websites_CustomURL_Add">Website toevoegen</string>
+    <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Drugs &amp; Alcohol</string>
     <string name="CategoryCode_REL_Name">Religie</string>
@@ -192,6 +191,38 @@
     <string name="CategoryCode_IGO_Description">Intergouvernementele organisaties, waaronder de Verenigde Naties</string>
     <string name="CategoryCode_MISC_Description">Sites die nog niet zijn gecategoriseerd</string>
 
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">Begrepen</string>
+    <string name="Onboarding_ThingsToKnow_Title">Let op!</string>
+    <string name="Onboarding_ThingsToKnow_Button">Ik begrijp het</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Meer info</string>
+    <string name="Onboarding_PopQuiz_Title">Pop Quiz</string>
+    <string name="Onboarding_PopQuiz_True">Waar</string>
+    <string name="Onboarding_PopQuiz_False">Niet waar</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Ga terug</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Ga verder</string>
+    <string name="Onboarding_PopQuiz_1_Title">Vraag 1/2</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Waarschuwing</string>
+    <string name="Onboarding_PopQuiz_2_Title">Vraag 2/2</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Waarschuwing</string>
+    <string name="Onboarding_AutomatedTesting_Title">Geautomatiseerd testen</string>
+    <string name="Onboarding_Crash_Title">Crashrapportage</string>
+    <string name="Onboarding_Crash_Button_Yes">Ja</string>
+    <string name="Onboarding_Crash_Button_No">Nee</string>
+    <string name="Onboarding_DefaultSettings_Title">Standaardinstellingen</string>
+    <string name="Onboarding_DefaultSettings_Header">We verzamelen en publiceren:</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">Landcode (bvb. IT voor Italië)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">Netwerkinformatie (inclusief Autonoom Systeemnummer)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">Tijd en datum van testen</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">We doen ons best om uw IP-adres of andere mogelijk persoonlijk identificeerbare informatie niet te publiceren.\n\nLees meer via [OONI\'s gegevensbeleid](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">Standaard-inst. wijzigen</string>
+
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">Testen van de instellingen</string>
+    <string name="AddDescriptor_AutoRun">Tests automatisch uitvoeren</string>
+    <string name="LoadingScreen_Runv2_Failure">Fout</string>
+    <!-- Modals / Toasts / Snackbar -->
+
     <string name="Snackbar_ResultsNotUploaded_Text">Niet geüpload</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Sommige zijn niet geüpload</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Alles Uploaden</string>
@@ -204,32 +235,26 @@
     <string name="Modal_OK">Oke</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Wilt u alle testresultaten verwijderen\?</string>
     <string name="Modal_Delete">Verwijderen</string>
-
+    <string name="Modal_ReRun_Title">Test opnieuw uitvoeren</string>
+    <string name="Modal_ReRun_Websites_Title">U staat op het punt %1$s websites opnieuw te testen.</string>
+    <string name="Modal_ReRun_Websites_Run">Voer uit</string>
     <string name="Modal_DisableVPN_Title">Schakel uw VPN-verbinding uit a.u.b.</string>
     <string name="Modal_DisableVPN_Message">Als u OONI Probe gebruikt terwijl een VPN is ingeschakeld, lijkt het alsof de testresultaten uit het verkeerde land komen. Schakel uw VPN-verbinding uit a.u.b.</string>
     <string name="Modal_DisableVPN">VPN uitschakelen</string>
     <string name="Modal_RunAnyway">Voer het toch uit</string>
     <string name="Modal_AlwaysRun">Voer het Altijd uit</string>
-
     <string name="Modal_Error_CantDownloadURLs">Kan de URL-lijst niet downloaden. Probeer het opnieuw.</string>
-
-    <string name="AddDescriptor_Settings">Testen van de instellingen</string>
-    <string name="AddDescriptor_Author">Auteur:</string>
-    <string name="AddDescriptor_AutoRun">Tests automatisch uitvoeren</string>
-    <string name="LoadingScreen_Runv2_Failure">Fout</string>
-    <string name="Dashboard_Runv2_Overview_Description">Gemaakt door %1$s op %2$s</string>
-    <string name="Dashboard_Progress_ReviewLink_Action">Beoordeling</string>
-    <string name="Settings_Websites_CustomURL_Title">Kies websites om te testen</string>
-    <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_NoURLEntered">Geen URL\'s ingevoerd</string>
-    <string name="Settings_Websites_CustomURL_Run">Voer uit</string>
-    <string name="Settings_Websites_CustomURL_Add">Website toevoegen</string>
     <string name="Modal_CustomURL_Title_NotSaved">Weet je het zeker\?</string>
     <string name="Modal_CustomURL_NotSaved">Uw URL\'s worden niet opgeslagen wanneer u dit scherm verlaat. Weet je zeker dat je dit scherm wilt verlaten\?</string>
-
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe kan niet automatisch werken zonder batterijoptimalisatie. Wil je het opnieuw proberen\?</string>
+    <string name="Modal_EnableNotifications_Title">Ontvang updates over internetcensuur</string>
 
-    <!-- New Strings -->
+    <!-- Common / Others -->
+
+    <string name="OONIRun_Run">Voer uit</string>
+
+    <string name="Notification_ChannelName">Testen </string>
+    <string name="Notification_StopTest">Stop de test</string>
 
     <string name="Common_Back">Terug</string>
     <string name="Common_Refresh">Vernieuwen</string>
@@ -252,46 +277,5 @@
     <string name="Common_Months_November">november</string>
     <string name="Common_Months_December">december</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_GotIt">Begrepen</string>
-    <string name="Onboarding_ThingsToKnow_Title">Let op!</string>
-
-    <string name="Onboarding_ThingsToKnow_Button">Ik begrijp het</string>
-    <string name="Onboarding_ThingsToKnow_LearnMore">Meer info</string>
-    <string name="Onboarding_PopQuiz_Title">Pop Quiz</string>
-    <string name="Onboarding_PopQuiz_True">Waar</string>
-    <string name="Onboarding_PopQuiz_False">Niet waar</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Ga terug</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Ga verder</string>
-    <string name="Onboarding_PopQuiz_1_Title">Vraag 1/2</string>
-
-    <string name="Onboarding_PopQuiz_1_Wrong_Title">Waarschuwing</string>
-    <string name="Onboarding_PopQuiz_2_Title">Vraag 2/2</string>
-    <string name="Onboarding_PopQuiz_2_Wrong_Title">Waarschuwing</string>
-
-    <string name="Onboarding_AutomatedTesting_Title">Geautomatiseerd testen</string>
-
-    <string name="Onboarding_Crash_Title">Crashrapportage</string>
-
-    <string name="Onboarding_Crash_Button_Yes">Ja</string>
-    <string name="Onboarding_Crash_Button_No">Nee</string>
-    <string name="Onboarding_DefaultSettings_Title">Standaardinstellingen</string>
-    <string name="Onboarding_DefaultSettings_Header">We verzamelen en publiceren:</string>
-    <string name="Onboarding_DefaultSettings_Bullet_1">Landcode (bvb. IT voor Italië)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_2">Netwerkinformatie (inclusief Autonoom Systeemnummer)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_3">Tijd en datum van testen</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">We doen ons best om uw IP-adres of andere mogelijk persoonlijk identificeerbare informatie niet te publiceren.\n\nLees meer via [OONI\'s gegevensbeleid](https://ooni.org/about/data-policy/).</string>
-    <string name="Onboarding_DefaultSettings_Button_Change">Standaard-inst. wijzigen</string>
-
-    <string name="Modal_EnableNotifications_Title">Ontvang updates over internetcensuur</string>
-
-    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ongedaan maken</string>
-    <string name="Dashboard_Update_Restart">Herstarten</string>
-    <string name="Measurements_Failed">Mislukt</string>
-    <string name="Measurements_Ok">Oke</string>
-    <string name="Settings_Logs">Logboeken</string>
-    <string name="Settings_Websites_Categories_Selection_None">Deselecteer Alles</string>
-    <string name="Settings_Websites_Categories_Selection_All">Alles selecteren</string>
-
-    <string name="Notification_ChannelName">Testen </string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

@@ -1,5 +1,7 @@
 <resources>
+    <!-- Dashboard -->
     <string name="Dashboard_Tab_Label">Dashboard</string>
+
     <string name="Dashboard_Overview_LatestTest">Ultimo test:</string>
     <string name="Dashboard_Overview_Estimated">Tempo stimato:</string>
     <string name="Dashboard_Overview_LastRun_Never">Non valido</string>
@@ -10,12 +12,17 @@
     <string name="Dashboard_Running_Stopping_Title">Interrompendo il test…</string>
     <string name="Dashboard_Running_Stopping_Notice">Finendo di eseguire i test in corso, attendere prego…</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in uso</string>
-    <string name="OONIRun_Run">Esegui</string>
-    <string name="Notification_StopTest">Ferma il test</string>
+
+    <string name="Dashboard_Runv2_Overview_Description">Creata da %1$s il {%time}</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Annulla</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">Rivedi</string>
+
+    <string name="Dashboard_Update_Restart">Riavvia</string>
+
+    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Siti web</string>
     <string name="Test_InstantMessaging_Fullname">Messaggistica istantanea</string>
-    <string name="Test_Middleboxes_Fullname">Middleboxes</string>
     <string name="Test_Performance_Fullname">Prestazioni</string>
     <string name="Test_Circumvention_Fullname">Elusione</string>
     <string name="Test_Experimental_Fullname">Sperimentale</string>
@@ -31,6 +38,8 @@
     <string name="Test_Tor_Fullname">Test Tor</string>
     <string name="Test_Signal_Fullname">Test di Signal</string>
 
+    <!-- Test Results -->
+
     <string name="TestResults_Overview_Title">Risultati dei test</string>
     <string name="TestResults_Overview_Tab_Label">Risultati dei test</string>
     <string name="TestResults_Overview_FilterTests">Filtra i test</string>
@@ -41,14 +50,7 @@
     <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s bloccati</string>
     <string name="TestResults_Overview_Websites_Tested_Singular">%1$s testati</string>
     <string name="TestResults_Overview_Websites_Tested_Plural">%1$s testati</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Singular">%1$s bloccati</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Plural">%1$s bloccati</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Singular">%1$s accessibili</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Plural">%1$s accessibili</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Singular">%1$s bloccati</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Plural">%1$s bloccati</string>
-    <string name="TestResults_Overview_Circumvention_Available_Singular">%1$s disponibili</string>
-    <string name="TestResults_Overview_Circumvention_Available_Plural">%1$s disponibili</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">Nessun test è stato eseguito. Prova ad eseguirne uno!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Data e Ora</string>
     <string name="TestResults_Summary_Hero_Network">Rete</string>
     <string name="TestResults_Summary_Hero_Country">Paese</string>
@@ -56,34 +58,29 @@
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Traffico Dati Mobile</string>
     <string name="TestResults_Summary_Hero_NoInternet">Internet assente</string>
-    <string name="TestResults_Overview_NoTestsHaveBeenRun">Nessun test è stato eseguito. Prova ad eseguirne uno!</string>
-    <string name="TestResults_UnknownASN">Sconosciuto</string>
-    <string name="TestResults_NotAvailable">Non valido</string>
-    <string name="TestResults_Summary_Performance_Hero_Upload">Carica</string>
-    <string name="TestResults_Summary_Performance_Hero_Download">Scarica</string>
-
-    <string name="TestResults_Gbps">Gbit/s</string>
-    <string name="TestResults_Mbps">Mbit/s</string>
-    <string name="TestResults_Kbps">kbit/s</string>
-
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Testato</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Testato</string>
-
     <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Bloccati</string>
     <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Bloccati</string>
-
     <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Accessibili</string>
     <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Accessibili</string>
-
+    <string name="TestResults_Summary_Performance_Hero_Upload">Carica</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Scarica</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Qualità</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
 
+    <string name="TestResults_Gbps">Gbit/s</string>
+    <string name="TestResults_Mbps">Mbit/s</string>
+    <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
 
-    <string name="Modal_ReRun_Title">Ri-esegui il test</string>
-    <string name="Modal_ReRun_Websites_Title">Stai per ri-testare %1$s siti.</string>
-    <string name="Modal_ReRun_Websites_Run">Esegui</string>
+    <string name="TestResults_UnknownASN">Sconosciuto</string>
+    <string name="TestResults_NotAvailable">Non valido</string>
+
+    <string name="Measurements_Failed">Fallito</string>
+    <string name="Measurements_Ok">OK</string>
+    <!-- Settings -->
 
     <string name="Settings_Title">Impostazioni</string>
     <string name="Settings_Notifications_Label">Notifiche</string>
@@ -91,39 +88,44 @@
 
     <string name="Settings_TestOptions_Label">Opzioni dei test</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Esegui test automaticamente</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Number">Numero di test automatici: %1$s.</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_DateLast">Ultimo test automatico: %1$s.</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Solo su WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Solo durante il caricamento</string>
+    <string name="Settings_Sharing_UploadResults">Risultati Pubblicati Automaticamente</string>
+
     <string name="Settings_Websites_MaxRuntimeEnabled">Limita la durata del test</string>
     <string name="Settings_Websites_MaxRuntime">Durata del test</string>
     <string name="Settings_Websites_Categories_Label">Categorie di siti web da misurare</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorie abilitate</string>
 
     <string name="Settings_Privacy_Label">Privacy</string>
-
-    <string name="Settings_Sharing_UploadResults">Risultati Pubblicati Automaticamente</string>
     <string name="Settings_Privacy_SendCrashReports">Manda rapporto sui crash</string>
 
     <string name="Settings_Proxy_Label">Proxy backend OONI</string>
-
     <string name="Settings_Proxy_Enabled">Proxy</string>
     <string name="Settings_Proxy_None">Nessuno</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
     <string name="Settings_Proxy_Custom">Proxy personalizzato</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocollo</string>
-
     <string name="Settings_Proxy_Custom_Hostname">Nome host</string>
     <string name="Settings_Proxy_Custom_Port">Porta</string>
 
     <string name="Settings_Advanced_Label">Avanzate</string>
+    <string name="Settings_Advanced_DebugLogs">Log di debug</string>
     <string name="Settings_SendEmail_Label">Invia email a supporto</string>
     <string name="Settings_SendEmail_Message">Per favore descrivi il problema:</string>
 
-    <string name="Settings_Advanced_DebugLogs">Log di debug</string>
     <string name="Settings_Storage_Label">Utilizzo spazio di archiviazione</string>
     <string name="Settings_Storage_Delete">Rimuovi</string>
     <string name="Settings_Storage_Clear">Elimina</string>
+    <string name="Settings_Logs">Log</string>
+    <string name="Settings_Websites_Categories_Selection_None">Deseleziona tutto</string>
+    <string name="Settings_Websites_Categories_Selection_All">Seleziona tutto</string>
+    <string name="Settings_Websites_CustomURL_Title">Scegli i siti da testare</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="Settings_Websites_CustomURL_Run">Esegui</string>
+    <string name="Settings_Websites_CustomURL_Add">Aggiungi sito web</string>
+    <!-- Website Categories -->
+
     <string name="CategoryCode_ALDR_Name">Droghe e Alcool</string>
     <string name="CategoryCode_REL_Name">Religione</string>
     <string name="CategoryCode_PORN_Name">Pornografia</string>
@@ -187,6 +189,38 @@
     <string name="CategoryCode_IGO_Description">Organizzazioni intergovernative, incluse le Nazioni Unite</string>
     <string name="CategoryCode_MISC_Description">Siti web non ancora classificati</string>
 
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">Ho capito</string>
+    <string name="Onboarding_ThingsToKnow_Title">Sappiatelo!</string>
+    <string name="Onboarding_ThingsToKnow_Button">Ho capito</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Per saperne di più</string>
+    <string name="Onboarding_PopQuiz_Title">Quiz</string>
+    <string name="Onboarding_PopQuiz_True">Vero</string>
+    <string name="Onboarding_PopQuiz_False">Falso</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Torna indietro</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Continua</string>
+    <string name="Onboarding_PopQuiz_1_Title">Domanda 1/2</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Attenzione</string>
+    <string name="Onboarding_PopQuiz_2_Title">Domanda 2/2</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Attenzione</string>
+    <string name="Onboarding_AutomatedTesting_Title">Testing automatico</string>
+    <string name="Onboarding_Crash_Title">Segnalazione crash</string>
+    <string name="Onboarding_Crash_Button_Yes">Sì</string>
+    <string name="Onboarding_Crash_Button_No">No</string>
+    <string name="Onboarding_DefaultSettings_Title">Impostazioni predefinite</string>
+    <string name="Onboarding_DefaultSettings_Header">Raccogliamo e pubblichiamo:</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">Il codice del paese (es. IT per l\'Italia)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">Informazioni sulla tua rete (incluso l\'Autonomous System Number)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">Data e ora del test</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">Facciamo del nostro meglio per evitare di pubblicare il tuo indirizzo IP o altre informazioni personali.\n\nPer maggiori informazioni vedi la [Data Policy di OONI](https://ooni.org/about/data-policy/)</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">Cambia i default</string>
+
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">Fai un test delle impostazioni</string>
+    <string name="AddDescriptor_AutoRun">Esegui test automaticamente</string>
+    <string name="LoadingScreen_Runv2_Failure">Errore</string>
+    <!-- Modals / Toasts / Snackbar -->
+
     <string name="Snackbar_ResultsNotUploaded_Text">Non caricati</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Alcuni non caricati</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Carica tutti</string>
@@ -199,24 +233,20 @@
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Vuoi cancellare tutti i risultati dei test\?</string>
     <string name="Modal_Delete">Rimuovi</string>
-
+    <string name="Modal_ReRun_Title">Ri-esegui il test</string>
+    <string name="Modal_ReRun_Websites_Title">Stai per ri-testare %1$s siti.</string>
+    <string name="Modal_ReRun_Websites_Run">Esegui</string>
     <string name="Modal_Error_CantDownloadURLs">Non è stato possibile scaricare la lista di URL. Riprova.</string>
-
-    <string name="AddDescriptor_Settings">Fai un test delle impostazioni</string>
-    <string name="AddDescriptor_Author">Autore:</string>
-    <string name="AddDescriptor_AutoRun">Esegui test automaticamente</string>
-    <string name="LoadingScreen_Runv2_Failure">Errore</string>
-    <string name="Dashboard_Runv2_Overview_Description">Creata da %1$s il {%time}</string>
-    <string name="Dashboard_Progress_ReviewLink_Action">Rivedi</string>
-    <string name="Settings_Websites_CustomURL_Title">Scegli i siti da testare</string>
-    <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_NoURLEntered">Nessun URL inserito</string>
-    <string name="Settings_Websites_CustomURL_Run">Esegui</string>
-    <string name="Settings_Websites_CustomURL_Add">Aggiungi sito web</string>
     <string name="Modal_CustomURL_Title_NotSaved">Sei sicuro\?</string>
     <string name="Modal_CustomURL_NotSaved">Gli URL non saranno salvati quando lasci questa pagina. Sei sicuro di voler lasciare questa pagina\?</string>
+    <string name="Modal_EnableNotifications_Title">Ricevi aggiornamenti sulla censura di internet</string>
 
-    <!-- New Strings -->
+    <!-- Common / Others -->
+
+    <string name="OONIRun_Run">Esegui</string>
+
+    <string name="Notification_ChannelName">Verifica in corso</string>
+    <string name="Notification_StopTest">Ferma il test</string>
 
     <string name="Common_Back">Indietro</string>
     <string name="Common_Refresh">Aggiorna</string>
@@ -240,46 +270,5 @@
     <string name="Common_Months_November">Novembre</string>
     <string name="Common_Months_December">Dicembre</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_GotIt">Ho capito</string>
-    <string name="Onboarding_ThingsToKnow_Title">Sappiatelo!</string>
-
-    <string name="Onboarding_ThingsToKnow_Button">Ho capito</string>
-    <string name="Onboarding_ThingsToKnow_LearnMore">Per saperne di più</string>
-    <string name="Onboarding_PopQuiz_Title">Quiz</string>
-    <string name="Onboarding_PopQuiz_True">Vero</string>
-    <string name="Onboarding_PopQuiz_False">Falso</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Torna indietro</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Continua</string>
-    <string name="Onboarding_PopQuiz_1_Title">Domanda 1/2</string>
-
-    <string name="Onboarding_PopQuiz_1_Wrong_Title">Attenzione</string>
-    <string name="Onboarding_PopQuiz_2_Title">Domanda 2/2</string>
-    <string name="Onboarding_PopQuiz_2_Wrong_Title">Attenzione</string>
-
-    <string name="Onboarding_AutomatedTesting_Title">Testing automatico</string>
-
-    <string name="Onboarding_Crash_Title">Segnalazione crash</string>
-
-    <string name="Onboarding_Crash_Button_Yes">Sì</string>
-    <string name="Onboarding_Crash_Button_No">No</string>
-    <string name="Onboarding_DefaultSettings_Title">Impostazioni predefinite</string>
-    <string name="Onboarding_DefaultSettings_Header">Raccogliamo e pubblichiamo:</string>
-    <string name="Onboarding_DefaultSettings_Bullet_1">Il codice del paese (es. IT per l\'Italia)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_2">Informazioni sulla tua rete (incluso l\'Autonomous System Number)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_3">Data e ora del test</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">Facciamo del nostro meglio per evitare di pubblicare il tuo indirizzo IP o altre informazioni personali.\n\nPer maggiori informazioni vedi la [Data Policy di OONI](https://ooni.org/about/data-policy/)</string>
-    <string name="Onboarding_DefaultSettings_Button_Change">Cambia i default</string>
-
-    <string name="Modal_EnableNotifications_Title">Ricevi aggiornamenti sulla censura di internet</string>
-
-    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Annulla</string>
-    <string name="Dashboard_Update_Restart">Riavvia</string>
-    <string name="Measurements_Failed">Fallito</string>
-    <string name="Measurements_Ok">OK</string>
-    <string name="Settings_Logs">Log</string>
-    <string name="Settings_Websites_Categories_Selection_None">Deseleziona tutto</string>
-    <string name="Settings_Websites_Categories_Selection_All">Seleziona tutto</string>
-
-    <string name="Notification_ChannelName">Verifica in corso</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
