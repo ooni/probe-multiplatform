@@ -10,6 +10,20 @@ git:
       file_format: ANDROID
       source_language: en
       translation_files_expression: 'composeApp/src/ooniMain/composeResources/values-<lang>/strings-organization.xml'
+    - filter_type: dir
+      source_file_dir: fastlane/metadata/android
+      file_format: TXT
+      source_language: en-US
+      translation_files_expression: 'fastlane/metadata/android/<lang>/'
+      ignore_dirs:
+        - fastlane/metadata/android/en-US/changelogs/
+    - filter_type: dir
+      source_file_dir: fastlane/metadata/ios
+      file_format: TXT
+      source_language: en
+      translation_files_expression: 'fastlane/metadata/ios/<lang>/'
+      ignore_files:
+        - fastlane/metadata/ios/en/release_notes.txt
   settings:
     pr_branch_name:
       translations/<br_unique_id>
