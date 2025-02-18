@@ -4,5 +4,3 @@ This app is the product of close cooperation between Deutsche Welle (DW) and OON
 About DW: Unbiased information for free minds – that is the DW brand promise. As an independent media company, Germany’s international news broadcaster informs people around the world. With programming in 32 languages, DW connects people across the globe via TV, radio, Internet and on social media.
 
 About OONI: Founded in 2012, the Open Observatory of Network Interference (OONI) is a non-profit free software project that aims to empower decentralized efforts in documenting internet censorship around the world.
-
-Note: The app is currently only available in English
