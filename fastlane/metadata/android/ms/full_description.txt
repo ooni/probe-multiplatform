@@ -1,0 +1,24 @@
+Adakah tapak-tapak web dan aplikasi-aplikasi media sosial telah disekat? Adakah rangkaian anda perlahan dan luar biasa? Jalankan OONI Probe untuk mengetahui dengan lebih lanjut.
+
+Dengan aplikasi ini, anda boleh memeriksa sekatan tapak web dan aplikasi pemesejan segera, mengukur kelajuan dan prestasi rangkaian anda, dan memeriksa sama ada sistem-sistem yang berkemungkinan menyebabkan penapisan dan pemantauan berada dalam rangkaian anda.
+
+OONI Probe adalah dibangunkan oleh Open Observatory of Network Interference (OONI), satu projek perisian bebas (dibawah The Tor Project) yang bertujuan untuk mendedahkan penapisan internet di seluruh dunia.
+
+Sejak 2012, komuniti global OONI telah mengumpul berjuta-juta ukuran rangkaian dari lebih 200 negara, memberi pencerahan kepada pelbagai kes gangguan rangkaian.
+
+Mengumpul bukti penapisan internet
+Anda boleh meneliti sama ada dan bagaimana tapak-tapak web dan aplikasi-aplikasi pemesejan segera disekat. Data ukuran rangkaian yang anda kumpul boleh menjadi bukti penapisan internet.
+
+Mengesan sistem yang mengakibatkan penapisan dan pengawasan
+Ujian-ujian OONI Probe adalah juga direka untuk mendedahkan kehadiran sistem (middleboxes) yang boleh mengakibatkan penapisan dan pemantauan.
+
+Mengukur kelajuan dan prestasi rangkaian anda
+Anda boleh mengukur kelajuan dan prestasi rangkaian anda dengan menjalankan pelaksaaan Network Diagnostic Test (NDT) oleh OONI. Anda juga boleh mengukur prestasi pengaliran video melalui ujian Dynamic Adaptive Streaming over HTTP (DASH).
+
+Data terbuka
+OONI menerbitkan data ukuran rangkaian kerana data terbuka membenarkan pihak ketiga untuk mengesahkan penemuan OONI, menjalankan kajian secara bebas, dan menjawab soalan-soalan penyelidikan yang lain. Penerbitan data OONI secara terbuka juga membantu meningkatkan ketelusan penapisan internet di seluruh dunia. Anda boleh meneroka dan muat turun data OONI di sini: https://ooni.io/data/
+
+Perisian bebas
+Semua ujian OONI Probe (termasuk pelaksanaan NDT dan DASH), adalah berdasarkan perisian bebas dan sumber terbuka. Anda boleh mencari projek-projek perisian OONI di GitHub: https://github.com/ooni. Ingin tahu bagaimana ujian OONI Probe berfungsi? Ketahui lebih lanjut: https://ooni.io/nettest/
+
+Untuk mendapatkan pengemaskinian dari OONI-verse, sila ikuti kami di Twitter: https://twitter.com/OpenObservatory
