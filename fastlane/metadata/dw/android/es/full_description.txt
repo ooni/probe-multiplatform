@@ -1,0 +1,6 @@
+Descubra si puede llegar a los sitios de noticias que necesita o si están bloqueados. Los medios de comunicación por DW le proporcionan la transparencia que necesita. También hará una valiosa contribución a la comunidad global de "libertad de Internet" al ayudar a descubrir la censura en todo el mundo.
+Esta aplicación es el producto de una estrecha cooperación entre Deutsche Welle (DW) y OONI.
+
+Acerca de DW: Información gratuita para decisiones libres: esa es la marca central de Deutsche Welle (DW). Como empresa de medios internacional e independiente, la emisora ​​internacional alemana informa a personas de todo el mundo. Con programación en 32 idiomas, DW conecta a personas de todo el mundo todos los días, a través de televisión, radio, Internet y redes sociales.
+
+Acerca de OONI: Fundado en 2012, el Open Observatory of Network Interference (OONI) es un proyecto de software libre sin fines de lucro que tiene como objetivo promover esfuerzos descentralizados para documentar la censura de Internet en todo el mundo.
