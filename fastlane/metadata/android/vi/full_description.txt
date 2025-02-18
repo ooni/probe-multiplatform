@@ -1,0 +1,25 @@
+Các trang web và ứng dụng mạng xã hội có bị chặn không? Mạng của bạn có bị chậm bất thường không? Chạy OONI Probe để tìm hiểu!
+
+Với ứng dụng này, bạn sẽ kiểm tra được các trang web và ứng dụng tin nhắn nhanh đang bị chặn, đo tốc độ và hiệu suất mạng internet bạn đang dùng, cũng như dò xem các hệ thống kiểm duyệt và giám sát có được cài trong mạng của bạn.
+
+OONI Probe được phát triển bởi Đài Quan Sát Mở việc Can Thiệp Mạng (OONI), một dự án phần mềm miễn phí (thuộc Dự án Tor) nhằm mục đích phát hiện việc kiểm duyệt mạng internet trên toàn cầu.
+
+Kể từ năm 2012, cộng đồng OONI trên toàn cầu đã thu thập hàng triệu kết quả đo lường mạng từ hơn 200 quốc gia, làm sáng tỏ nhiều trường hợp về can thiệp mạng.
+
+Thu thập bằng chứng về kiểm duyệt internet
+Bạn có thể kiểm tra các trang web và ứng dụng nhắn tin nhắn nhanh có bị chặn không và bị chặn như thế nào. Dữ liệu đo lường mạng mà bạn sẽ thu thập có thể dùng làm bằng chứng cho việc kiểm duyệt internet.
+
+Phát hiện các hệ thống dùng để kiểm duyệt và giám sát
+Các bài kiểm tra của OONI Probe cũng được thiết kế để phát hiện ra các hệ thống (middlebox) dùng để kiểm duyệt và giám sát.
+
+Đo tốc độ và hiệu suất mạng của bạn
+Bạn có thể đo tốc độ và hiệu suất mạng của mình bằng cách chạy tính năng Kiểm tra chẩn đoán mạng (NDT) của OONI. Bạn cũng có thể đo hiệu suất phát trực tuyến video thông qua tính năng kiểm tra Truyền trực tuyến thích ứng động qua HTTP (DASH).
+
+Dữ liệu mở
+OONI công bố dữ liệu đo lường mạng vì dữ liệu mở cho phép các bên thứ ba kiểm chứng các phát hiện của OONI, thực hiện các nghiên cứu độc lập và trả lời các câu hỏi nghiên cứu khác. Việc công khai dữ liệu OONI cũng giúp tăng tính minh bạch cho việc kiểm duyệt internet trên toàn thế giới. Bạn có thể tìm hiểu thêm và tải dữ liệu OONI tại đây: https://ooni.io/data/
+
+Phần mềm miễn phí
+Tất cả các bài kiểm tra của phần mềm OONI Probe (bao gồm kiểm tra NDT và DASH ) đều dựa trên phần mềm mã nguồn mở và miễn phí. Bạn có thể xem các dự án phần mềm OONI trên GitHub: https://github.com/ooni. Để biết thêm về cách thức hoạt động của các bài kiểm tra OONI Probe, vui lòng xem thêm tại: https://ooni.io/nettest/
+
+Để nhận được những thông tin cập nhật từ ONNI, hãy theo dõi chúng tôi trên Twitter:
+https://twitter.com/OpenObservatory
