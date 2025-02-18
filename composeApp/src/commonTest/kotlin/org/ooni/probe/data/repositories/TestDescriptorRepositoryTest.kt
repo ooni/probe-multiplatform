@@ -113,6 +113,22 @@ class TestDescriptorRepositoryTest {
         }
 
     @Test
+    fun listLatestWithSameDateUpdated() =
+        runTest {
+            val model1 = DescriptorFactory.buildInstalledModel(
+                id = InstalledTestDescriptorModel.Id("A"),
+                revision = 0,
+                dateUpdated = now().toLocalDateTime(),
+            )
+            val model2 = model1.copy(revision = 1)
+            subject.createOrIgnore(listOf(model1, model2))
+
+            val latest = subject.listLatest().first()
+            assertEquals(1, latest.size)
+            assertContains(latest, model2)
+        }
+
+    @Test
     fun listLatestByRunIds() =
         runTest {
             val modelA1 = DescriptorFactory.buildInstalledModel(
