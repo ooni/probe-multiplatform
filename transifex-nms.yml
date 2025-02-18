@@ -8,6 +8,7 @@ git:
     - filter_type: dir
       source_file_dir: fastlane/metadata/dw/android
       file_format: TXT
+      source_file_extension: txt
       source_language: en-US
       translation_files_expression: 'fastlane/metadata/dw/android/<lang>/'
       ignore_dirs:
@@ -15,6 +16,7 @@ git:
     - filter_type: dir
       source_file_dir: fastlane/metadata/dw/ios
       file_format: TXT
+      source_file_extension: txt
       source_language: en
       translation_files_expression: 'fastlane/metadata/dw/ios/<lang>/'
       ignore_files:
