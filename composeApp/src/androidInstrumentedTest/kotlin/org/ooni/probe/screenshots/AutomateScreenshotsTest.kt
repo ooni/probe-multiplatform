@@ -70,8 +70,10 @@ import org.ooni.testing.factories.MeasurementModelFactory
 import org.ooni.testing.factories.ResultModelFactory
 import org.ooni.testing.factories.UrlModelFactory
 import tools.fastlane.screengrab.Screengrab
+import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
 import tools.fastlane.screengrab.cleanstatusbar.CleanStatusBar
 import tools.fastlane.screengrab.locale.LocaleTestRule
+import java.util.Locale
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
@@ -87,6 +89,7 @@ class AutomateScreenshotsTest {
         @BeforeClass
         @JvmStatic
         fun beforeAll() {
+            Screengrab.setDefaultScreenshotStrategy(UiAutomatorScreenshotStrategy())
             CleanStatusBar.enableWithDefaults()
         }
 
@@ -148,6 +151,10 @@ class AutomateScreenshotsTest {
                 wait { onNodeWithText(Res.string.Onboarding_DefaultSettings_Title).isDisplayed() }
                 Screengrab.screenshot("05-default-settings")
                 clickOnText(Res.string.Onboarding_DefaultSettings_Button_Go)
+
+                wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
+                Screengrab.screenshot("1_"+ locale())
+
             }
         }
 
@@ -155,6 +162,7 @@ class AutomateScreenshotsTest {
     fun runTests() =
         runTest {
             skipOnboarding()
+            defaultSettings()
             start()
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
@@ -172,12 +180,10 @@ class AutomateScreenshotsTest {
                 }
 
                 clickOnText(Res.string.OONIRun_Run)
-
-                Screengrab.screenshot("07-run-tests")
-
                 clickOnTag("Run-Button")
 
-                Screengrab.screenshot("08-dashboard-running")
+                Thread.sleep(3000)
+                Screengrab.screenshot("07-run-tests")
             }
         }
 
@@ -279,6 +285,7 @@ class AutomateScreenshotsTest {
                 wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
 
                 Screengrab.screenshot("17-results")
+                Screengrab.screenshot("2_"+ locale())
 
                 clickOnText(Res.string.Test_Websites_Fullname)
 
@@ -293,6 +300,7 @@ class AutomateScreenshotsTest {
                 checkTextAnywhereInsideWebView("https://z-lib.org/")
 
                 Screengrab.screenshot("19-website-measurement-anomaly")
+                Screengrab.screenshot("3_"+ locale())
 
                 clickOnContentDescription(Res.string.Common_Back)
                 wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
@@ -305,6 +313,7 @@ class AutomateScreenshotsTest {
                 checkTextAnywhereInsideWebView("2160p (4k)")
 
                 Screengrab.screenshot("20-dash-measurement")
+                Screengrab.screenshot("4_"+ locale())
             }
         }
 
@@ -327,6 +336,7 @@ class AutomateScreenshotsTest {
                     clickOnText(Res.string.Dashboard_Overview_ChooseWebsites)
                     wait { onNodeWithText(Res.string.Settings_Websites_CustomURL_Title).isDisplayed() }
                     Screengrab.screenshot("21-choose-websites")
+                    Screengrab.screenshot("5_"+ locale())
                 }
             }
         }
@@ -686,5 +696,9 @@ class AutomateScreenshotsTest {
                 ),
             )
         }
+    }
+
+    fun locale(): String {
+        return Locale.getDefault().toString().replace("_", "-")
     }
 }
