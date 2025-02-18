@@ -71,23 +71,15 @@ selectAll:
 SELECT * FROM TestDescriptor ORDER BY runId;
 
 selectLatest:
-WITH latest AS (
-    SELECT runId, MAX(date_updated) AS last_date_updated FROM TestDescriptor GROUP BY runId
-)
-SELECT * FROM TestDescriptor
-WHERE runId IN (SELECT runId FROM latest)
-AND date_updated IN (SELECT last_date_updated FROM latest)
+SELECT * FROM TestDescriptor TD1
+WHERE TD1.revision = (SELECT MAX(TD2.revision) FROM TestDescriptor TD2 WHERE TD2.runId = TD1.runId)
 ORDER BY runId;
 
 selectLatestByRunIds:
-WITH latest AS (
-    SELECT runId, MAX(date_updated) AS last_date_updated FROM TestDescriptor
-    WHERE runId IN ?
-    GROUP BY runId
-)
-SELECT * FROM TestDescriptor
-WHERE runId IN (SELECT runId FROM latest)
-AND date_updated IN (SELECT last_date_updated FROM latest);
+SELECT * FROM TestDescriptor TD1
+WHERE TD1.revision = (SELECT MAX(TD2.revision) FROM TestDescriptor TD2 WHERE TD2.runId = TD1.runId)
+AND TD1.runId IN ?
+ORDER BY runId;
 
 deleteByRunId:
 DELETE FROM TestDescriptor WHERE runId = ?;
