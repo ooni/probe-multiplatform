@@ -1,0 +1,24 @@
+Er lokað á vefsvæði og samfélagsmiðla? Er nettengingin óvenjulega hægvirk? Keyrðu OONI Probe til að sjá hvað er í gangi!
+
+Með þessu forriti geturðu athugað hvernig vefsvæði og smáskilaboðaforrit eru hindruð, prófað hraða netkerfisins þíns og afköst þess, og fundið kerfi sem standa fyrir ritskoðun og eftirliti á netinu þínu.
+
+OONI Probe er þróað af Open Observatory of Network Interference (OONI), sem er frjálst hugbúnaðarverkefni (undir The Tor Project verkefninu) sem leitast við að fletta ofan af ritskoðun internetsins um víða veröld.
+
+Síðan 2012 hefur alþjóðasamfélag OONI safnað milljónum mælinga á netkerfum frá meira en 200 löndum og þannig varpað ljósi á fjölmörg dæmi um íhlutanir í virkni netkerfa.
+
+Safnaðu vísbendingum um ritskoðun internetsins
+Þú getur athugað hvort og hvernig vefsvæði og smáskilaboðaforrit eru hindruð. Mælingagögnin sem þú safnar gætu nýst sem vísbendingar um ritskoðun internetsins.
+
+Finndu kerfi sem standa fyrir ritskoðun og eftirliti
+Prófanir OONI Probe eru einnig hannaðar til að fletta ofan af tilvist kerfa (millitölva) sem gætu borið ábyrgð á ritskoðun og eftirliti.
+
+Mældu hraða og afköst netkerfisins þíns
+Þú getur mælt hraða og afköst netkerfisins þíns með því að keyra útfærslu OONI á Network Diagnostic Test (NDT) prófuninni. Þú getur einnig mælt streymi myndmerkis með Dynamic Adaptive Streaming over HTTP (DASH) prófun.
+
+Opin gögn
+OONI birtir netmælingagögn opinberlega vegna þess að opinn aðgangur að gögnum gerir utanaðkomandi aðilum kleift að sannprófa niðurstöður OONI, gera sínar eigin útreikninga og svara öðrum rannsóknarspurningum. Opinber birting gagna frá OONI eykur líka gagnsæi á ritskoðun internetsins í heiminum. Þú getur skoðað og sótt OONI-gögnin hér: https://ooni.io/data/
+
+Frjáls hugbúnaður
+Allar prófanir OONI Probe (þar með taldar NDT og DASH-útfærslurnar) byggjast á frjálsum og opnum hugbúnaði. Þú finnur hugbúnaðarverkefni OONI á GitHub: https://github.com/ooni. Ertu forvitin/n að vita hvernig prófanir OONI Probe virka? Kannaðu nánar: https://ooni.io/nettest/
+
+Til að fá fréttir af því sem tengist OONI, geturðu fylgst með okkur á Twitter: https://twitter.com/OpenObservatory
