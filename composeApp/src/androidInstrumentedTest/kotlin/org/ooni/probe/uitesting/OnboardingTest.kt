@@ -26,6 +26,7 @@ import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.clickOnTag
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.dependencies
+import org.ooni.probe.uitesting.helpers.isCrashReportingEnabled
 import org.ooni.probe.uitesting.helpers.onNodeWithContentDescription
 import org.ooni.probe.uitesting.helpers.onNodeWithText
 import org.ooni.probe.uitesting.helpers.preferences
@@ -66,8 +67,10 @@ class OnboardingTest {
                 wait { onNodeWithText(Res.string.Onboarding_AutomatedTesting_Title).isDisplayed() }
                 clickOnTag("No-AutoTest")
 
-                wait { onNodeWithText(Res.string.Onboarding_Crash_Title).isDisplayed() }
-                clickOnTag("Yes-CrashReporting")
+                if (isCrashReportingEnabled) {
+                    wait { onNodeWithText(Res.string.Onboarding_Crash_Title).isDisplayed() }
+                    clickOnTag("Yes-CrashReporting")
+                }
 
                 if (dependencies.platformInfo.needsToRequestNotificationsPermission) {
                     wait {
@@ -86,6 +89,11 @@ class OnboardingTest {
                 false,
                 preferences.getValueByKey(SettingsKey.AUTOMATED_TESTING_ENABLED).first(),
             )
-            assertEquals(true, preferences.getValueByKey(SettingsKey.SEND_CRASH).first())
+            if (isCrashReportingEnabled) {
+                assertEquals(
+                    true,
+                    preferences.getValueByKey(SettingsKey.SEND_CRASH).first(),
+                )
+            }
         }
 }

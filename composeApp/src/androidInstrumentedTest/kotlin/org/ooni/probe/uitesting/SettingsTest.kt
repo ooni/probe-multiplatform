@@ -37,6 +37,7 @@ import org.ooni.probe.data.models.ProxyProtocol
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.clickOnContentDescription
 import org.ooni.probe.uitesting.helpers.clickOnText
+import org.ooni.probe.uitesting.helpers.isCrashReportingEnabled
 import org.ooni.probe.uitesting.helpers.isOoni
 import org.ooni.probe.uitesting.helpers.preferences
 import org.ooni.probe.uitesting.helpers.skipOnboarding
@@ -141,6 +142,8 @@ class SettingsTest {
     @Test
     fun privacy() =
         runTest {
+            if (!isCrashReportingEnabled) return@runTest
+
             preferences.setValuesByKey(
                 listOf(
                     SettingsKey.SEND_CRASH to false,
