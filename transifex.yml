@@ -10,24 +10,41 @@ git:
       file_format: ANDROID
       source_language: en
       translation_files_expression: 'composeApp/src/ooniMain/composeResources/values-<lang>/strings-organization.xml'
-    - filter_type: dir
-      source_file_dir: fastlane/metadata/android/en-US
+    - filter_type: file
+      source_file: fastlane/metadata/android/en-US/title.txt
       file_format: TXT
-      source_file_extension: txt
       source_language: en-US
-      translation_files_expression: 'fastlane/metadata/android/<lang>/'
-      ignore_dirs:
-        - fastlane/metadata/android/en-US/changelogs/
-      ignore_files:
-        - fastlane/metadata/android/en-US/video.txt
-    - filter_type: dir
-      source_file_dir: fastlane/metadata/ios/en-US
+      translation_files_expression: 'fastlane/metadata/android/<lang>/title.txt'
+    - filter_type: file
+      source_file: fastlane/metadata/android/en-US/short_description.txt
       file_format: TXT
-      source_file_extension: txt
       source_language: en-US
-      translation_files_expression: 'fastlane/metadata/ios/<lang>/'
-      ignore_files:
-        - fastlane/metadata/ios/en-US/release_notes.txt
+      translation_files_expression: 'fastlane/metadata/android/<lang>/short_description.txt'
+    - filter_type: file
+      source_file: fastlane/metadata/android/en-US/full_description.txt
+      file_format: TXT
+      source_language: en-US
+      translation_files_expression: 'fastlane/metadata/android/<lang>/full_description.txt'
+    - filter_type: file
+      source_file: fastlane/metadata/ios/en-US/name.txt
+      file_format: TXT
+      source_language: en-US
+      translation_files_expression: 'fastlane/metadata/ios/<lang>/name.txt'
+    - filter_type: file
+      source_file: fastlane/metadata/ios/en-US/subtitle.txt
+      file_format: TXT
+      source_language: en-US
+      translation_files_expression: 'fastlane/metadata/ios/<lang>/subtitle.txt'
+    - filter_type: file
+      source_file: fastlane/metadata/ios/en-US/description.txt
+      file_format: TXT
+      source_language: en-US
+      translation_files_expression: 'fastlane/metadata/ios/<lang>/description.txt'
+    - filter_type: file
+      source_file: fastlane/metadata/ios/en-US/promotional_text.txt
+      file_format: TXT
+      source_language: en-US
+      translation_files_expression: 'fastlane/metadata/ios/<lang>/promotional_text.txt'
   settings:
     pr_branch_name:
       translations/<br_unique_id>
