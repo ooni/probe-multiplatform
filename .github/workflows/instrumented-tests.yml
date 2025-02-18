@@ -1,8 +1,6 @@
 name: Android Instrumented Tests
 on:
   push:
-    branches:
-      - main
   workflow_dispatch:
 
 concurrency:
@@ -49,7 +47,7 @@ jobs:
           LABEL=$(git show -s --format='%H')
           gcloud firebase test android run
           --type instrumentation
-          --app composeApp/build/outputs/apk/${{ matrix.license }}/debug/composeApp-${{ matrix.license }}-debug.apk
+          --app composeApp/build/outputs/apk/${{ matrix.license }}/debug/composeApp-${{ matrix.license }}-universal-debug.apk
           --test composeApp/build/outputs/apk/androidTest/${{ matrix.license }}/debug/composeApp-${{ matrix.license }}-debug-androidTest.apk
           --device model=MediumPhone.arm,version=29,locale=en,orientation=portrait
           --timeout 180s
