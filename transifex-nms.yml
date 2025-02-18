@@ -13,6 +13,8 @@ git:
       translation_files_expression: 'fastlane/metadata/dw/android/<lang>/'
       ignore_dirs:
         - fastlane/metadata/dw/android/en-US/changelogs/
+      ignore_files:
+        - fastlane/metadata/android/en-US/video.txt
     - filter_type: dir
       source_file_dir: fastlane/metadata/dw/ios
       file_format: TXT

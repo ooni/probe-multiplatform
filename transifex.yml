@@ -18,6 +18,8 @@ git:
       translation_files_expression: 'fastlane/metadata/android/<lang>/'
       ignore_dirs:
         - fastlane/metadata/android/en-US/changelogs/
+      ignore_files:
+        - fastlane/metadata/android/en-US/video.txt
     - filter_type: dir
       source_file_dir: fastlane/metadata/ios
       file_format: TXT
