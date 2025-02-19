@@ -1,8 +1,8 @@
-Les sites Web et les applis de médias sociaux sont-ils bloqués ? Votre réseau est-il anormalement lent ? Lancez OONI Probe pour le savoir !
+Les sites Web et les applis de médias sociaux sont-ils bloqués ? Votre réseau est-il anormalement lent ? Lancez OONI Probe pour le savoir.
 
 Avec cette appli, vous examinerez le blocage des sites Web et des applis de messagerie instantanée, mesurerez la vitesse et les performances de votre réseau, et vérifierez la présence sur votre réseau de systèmes qui pourraient être la source de censure ou de surveillance.
 
-OONI Probe est développé par l’observatoire ouvert des interférences réseau (« Open Observatory of Network Interference » OONI), un projet de logiciel libre (dans le cadre du Projet Tor) qui vise à mettre au grand jour la censure d’Internet dans le monde entier.
+OONI Probe est développée par l’observatoire ouvert des interférences réseau (« Open Observatory of Network Interference » OONI), un projet de logiciel libre (dans le cadre du Projet Tor) qui vise à mettre au grand jour la censure d’Internet dans le monde entier.
 
 Depuis 2012, la communauté internationale de l’OONI a recueilli des millions de mesures du réseau provenant de plus de 200 pays, révélant plusieurs cas d’interférences réseau.
 
