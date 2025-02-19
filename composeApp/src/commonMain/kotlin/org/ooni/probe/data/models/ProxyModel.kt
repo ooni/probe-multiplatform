@@ -115,7 +115,10 @@ sealed interface ProxySettings {
             port: Int?,
         ): ProxySettings =
             when (protocol) {
-                ProxyProtocol.NONE.value -> None
+                ProxyProtocol.NONE.value,
+                null,
+                -> None
+
                 ProxyProtocol.PSIPHON.value -> Psiphon
 
                 ProxyProtocol.SOCKS5.value,
