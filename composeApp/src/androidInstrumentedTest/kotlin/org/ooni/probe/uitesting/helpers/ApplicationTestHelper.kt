@@ -32,3 +32,9 @@ val isOoni
 
 val isNewsMediaScan
     get() = OrganizationConfig.baseSoftwareName.contains("news")
+
+val isCrashReportingEnabled
+    get() = dependencies.flavorConfig.isCrashReportingEnabled
+
+val isRemoteNotificationsEnabled
+    get() = dependencies.flavorConfig.isRemoteNotificationsEnabled
