@@ -1,6 +1,6 @@
 Découvrez si vous pouvez accéder aux sites d’information dont vous avez besoin ou s’ils sont bloqués. News Media Scan de DW vous offre la transparence dont vous avez besoin. Vous apporterez également une contribution précieuse à la communauté mondiale de la « liberté sur Internet » en aidant à découvrir la censure dans le monde.
-Cette appli est le fruit d’une étroite collaboration entre Deutsche Welle (DW) et OONI.
+Cette appli est le fruit d’une étroite collaboration entre Deutsche Welle (DW) et l’OONI.
 
 À propos de DW : des informations impartiales pour des esprits libres, telle est la promesse de la marque DW. En tant qu’entreprise médiatique indépendante, le radiodiffuseur d’actualités internationales allemand informe les gens dans le monde entier. Avec des programmes en 32 langues, DW relie les gens du monde entier par la télévision, la radio, internet et les médias sociaux.
 
-A propos d'OONI: créé en 2012, l'Open Observatory of Network Interference (OONI) est un projet de logiciel libre à but non lucratif, qui vise à encourager les efforts décentralisés pour documenter la censure sur internet dans le monde entier.
+À propos de l’OONI : fondé en 2012, l’observatoire ouvert des interférences réseau (OONI) est un projet de logiciel libre sans but lucratif qui vise à encourager les efforts décentralisés de documentation de la censure sur Internet dans le monde.
