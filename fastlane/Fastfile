@@ -2,48 +2,75 @@ default_platform(:android)
 
 platform :android do
 
-  desc "Upload the screenshots to the Google Play"
-  lane :upload_screenshots do
-    upload_to_play_store(
-      skip_upload_apk: "true",
-      skip_upload_aab: "true",
-      skip_upload_changelogs: "true",
-      skip_upload_images: "true",
-      skip_upload_metadata: "true"
-    )
-  end
+    desc "Upload the screenshots to the Google Play"
+    lane :upload_screenshots do
+        upload_to_play_store(
+            skip_upload_apk: "true",
+            skip_upload_aab: "true",
+            skip_upload_changelogs: "true",
+            skip_upload_images: "true",
+            skip_upload_metadata: "true"
+        )
+    end
 
-  desc "Capture the  OONI Probe screenshots for the Google Play"
-  lane :capture_screen_ooni do
-    gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=ooni")
-    capture_android_screenshots(
-        app_package_name: 'org.openobservatory.ooniprobe.dev'
-    )
-  end
+    desc "Capture the OONI Probe screenshots for the Google Play"
+    lane :capture_screen_ooni do
+        gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=ooni")
+        capture_android_screenshots(
+            app_package_name: 'org.openobservatory.ooniprobe.dev'
+        )
+    end
 
-  desc "Capture the DW screenshots for the Google Play"
-  lane :capture_screen_dw do
-    gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=dw")
+    desc "Capture the DW screenshots for the Google Play"
+    lane :capture_screen_dw do
+        gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=dw")
 
-    capture_android_screenshots(
-        app_package_name: 'com.dw.ooniprobe.dev',
-        output_directory: 'fastlane/metadata/dw/android',
-        locales: ["en-US", "de", "es", "fr", "pt-BR", "ru", "tr"],
-    )
-  end
+        capture_android_screenshots(
+            app_package_name: 'com.dw.ooniprobe.dev',
+            output_directory: 'fastlane/metadata/dw/android',
+            locales: ["en-US", "de", "es", "fr", "pt-BR", "ru", "tr"],
+        )
+    end
 
+    desc "Deploy a new version to the Google Play"
+    lane :release do
+        gradle(
+            task: 'assemble',
+            build_type: 'stableFullRelease'
+        )
+        upload_to_play_store(
+            skip_upload_metadata: 'true',
+            skip_upload_apk: 'true',
+            skip_upload_images: 'true',
+            skip_upload_screenshots: 'true',
+        )
+    end
+end
 
-  desc "Deploy a new version to the Google Play"
-  lane :release do
-    gradle(
-     task: 'assemble',
-     build_type: 'stableFullRelease'
-    )
-    upload_to_play_store(
-     skip_upload_metadata: 'true',
-     skip_upload_apk: 'true',
-     skip_upload_images: 'true',
-     skip_upload_screenshots: 'true',
-    )
-  end
+platform :ios do
+    desc "Build iOS app"
+    lane :build do |options|
+        organization = options[:organization] || "ooni"
+        scheme = case organization
+                 when "ooni" then "OONIProbe"
+                 when "dw" then "NewsMediaScan"
+                 else raise "Invalid organization #{organization}"
+                 end
+
+        gradle(task: "podInstall -Porganization=#{organization}")
+        cocoapods(podfile: "./iosApp/Podfile")
+
+        puts "Building #{scheme}"
+        sh "cd .. && echo \"organization=#{organization}\" >> gradle.properties"
+        sh "cd .. && xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme '#{scheme}' -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED='NO' | xcpretty"
+    end
+
+    desc "Upload debug symbols to Sentry"
+    lane :upload_debug_symbols do |options|
+        sentry_debug_files_upload(
+            auth_token: options[:auth_token],
+            org_slug: options[:org_slug],
+            project_slug: options[:project_slug]
+        )
+    end
 end
