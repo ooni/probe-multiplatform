@@ -6,19 +6,19 @@ OONI Probe est développée par l’observatoire ouvert des interférences rés
 
 Depuis 2012, la communauté internationale de l’OONI a recueilli des millions de mesures du réseau provenant de plus de 200 pays, révélant plusieurs cas d’interférences réseau.
 
-Recueillir des preuves de censure d’Internet
+▶ Recueillir des preuves de censure d’Internet 
 Vous pouvez vérifier si et comment les sites Web et les applis de messagerie instantanée sont bloqués. Les données de mesure du réseau que vous recueillerez pourront servir de preuve de censure d’Internet.
 
-Détecter la présence de systèmes de censure ou de surveillance
+▶ Détecter la présence de systèmes de censure ou de surveillance
 Les tests d’OONI Probe sont également conçus pour détecter la présence de systèmes (des boîtiers intermédiaires) qui pourraient être la cause de censure et de surveillance.
 
-Mesurer la vitesse et les performances de votre réseau
+▶ Mesurer la vitesse et les performances de votre réseau
 Vous pouvez mesurer la vitesse et les performances de votre réseau en exécutant l’application par OONI du test diagnostic du réseau (NDT). Vous pouvez également mesurer les performances de la diffusion en continu de vidéos avec le test de diffusion dynamique adaptative par HTTP (DASH).
 
-Données ouvertes
+▶ Données ouvertes
 L’OONI publie les données de mesure du réseau, car les données ouvertes permettent à des tiers de vérifier les résultats de l’OONI, d’entreprendre des recherches indépendantes, et de répondre à d’autres questions de recherche. La publication ouverte des données de l’OONI contribue également à accroître la transparence quant à la censure d’Internet dans le monde entier. Vous pouvez explorer et télécharger les données de l’OONI ici : https://ooni.io/data/
 
-Logiciel libre
+▶ Logiciel libre
 Tous les tests d’OONI Probe (y compris nos applications de NDT et de DASH) s’appuient sur des logiciels libres et à code source ouvert. Vous trouverez les projets de logiciels de l’OONI sur GitHub : https://github.com/ooni. Êtes-vous curieux de savoir comment fonctionnent les tests OONI Probe ? Apprenez-en davantage : https://ooni.io/nettest/
 
 Pour recevoir des mises à jour de l’OONI-vers, suivez-nous sur Twitter : https://twitter.com/OpenObservatory
