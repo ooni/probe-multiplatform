@@ -219,7 +219,7 @@ android {
                     // Specifies a list of ABIs supported by probe-engine.
                     include("x86", "x86_64", "armeabi-v7a", "arm64-v8a")
                     // Specifies that you don't want to also generate a universal APK that includes all ABIs.
-                    isUniversalApk = false
+                    isUniversalApk = true
                 }
             }
 
