@@ -153,8 +153,7 @@ class AutomateScreenshotsTest {
                 clickOnText(Res.string.Onboarding_DefaultSettings_Button_Go)
 
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
-                Screengrab.screenshot("1_"+ locale())
-
+                Screengrab.screenshot("1_" + locale())
             }
         }
 
@@ -285,7 +284,7 @@ class AutomateScreenshotsTest {
                 wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
 
                 Screengrab.screenshot("17-results")
-                Screengrab.screenshot("2_"+ locale())
+                Screengrab.screenshot("2_" + locale())
 
                 clickOnText(Res.string.Test_Websites_Fullname)
 
@@ -300,7 +299,7 @@ class AutomateScreenshotsTest {
                 checkTextAnywhereInsideWebView("https://z-lib.org/")
 
                 Screengrab.screenshot("19-website-measurement-anomaly")
-                Screengrab.screenshot("3_"+ locale())
+                Screengrab.screenshot("3_" + locale())
 
                 clickOnContentDescription(Res.string.Common_Back)
                 wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
@@ -313,7 +312,7 @@ class AutomateScreenshotsTest {
                 checkTextAnywhereInsideWebView("2160p (4k)")
 
                 Screengrab.screenshot("20-dash-measurement")
-                Screengrab.screenshot("4_"+ locale())
+                Screengrab.screenshot("4_" + locale())
             }
         }
 
@@ -336,7 +335,7 @@ class AutomateScreenshotsTest {
                     clickOnText(Res.string.Dashboard_Overview_ChooseWebsites)
                     wait { onNodeWithText(Res.string.Settings_Websites_CustomURL_Title).isDisplayed() }
                     Screengrab.screenshot("21-choose-websites")
-                    Screengrab.screenshot("5_"+ locale())
+                    Screengrab.screenshot("5_" + locale())
                 }
             }
         }
