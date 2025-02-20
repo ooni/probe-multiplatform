@@ -1,0 +1,29 @@
+name: Release Notifications
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  release:
+    name: Notify Sentry and Slack
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG_SLUG }}
+        with:
+          environment: production
+          projects: ${{ secrets.SENTRY_PROJECT_SLUG_IOS }} ${{ secrets.SENTRY_PROJECT_SLUG_ANDROID }}
+          version: ${{ github.ref }}
+
+      - name: Slack Notification
+        env:
+          SLACK_URL: ${{ secrets.SLACK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"New release of the Probe Multiplatform app: ${{ github.ref }}"}' $SLACK_URL
