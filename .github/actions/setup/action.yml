@@ -11,3 +11,14 @@ runs:
 
     - name: Gradle cache
       uses: gradle/actions/setup-gradle@v3
+
+    - name: Set up ruby env
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
+    - name: Xcode Cache
+      uses: irgaly/xcode-cache@v1
+      with:
+        key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
+        restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-

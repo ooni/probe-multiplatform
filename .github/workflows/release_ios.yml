@@ -1,0 +1,31 @@
+name: Release iOS Apps
+
+on:
+  release:
+    types: [ published ]
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Release
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        organization: [ ooni, dw ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build iOS App
+        run: bundle exec fastlane ios build organization:${{ matrix.organization }}
+
+      - name: Upload debug symbols
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG_SLUG: ${{ secrets.SENTRY_ORG_SLUG }}
+          SENTRY_PROJECT_SLUG: ${{ secrets.SENTRY_PROJECT_SLUG_IOS }}
+        run: bundle exec fastlane ios upload_debug_symbols auth_token:$SENTRY_AUTH_TOKEN org_slug:$SENTRY_ORG_SLUG project_slug:$SENTRY_PROJECT_SLUG
