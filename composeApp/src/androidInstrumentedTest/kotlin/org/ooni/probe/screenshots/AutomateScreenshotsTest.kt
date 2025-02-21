@@ -10,7 +10,10 @@ import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsites
 import ooniprobe.composeapp.generated.resources.Dashboard_Progress_UpdateLink_Label
+import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
+import ooniprobe.composeapp.generated.resources.Dashboard_Tab_Label
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
+import ooniprobe.composeapp.generated.resources.Notification_StopTest
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Title
@@ -151,9 +154,6 @@ class AutomateScreenshotsTest {
                 wait { onNodeWithText(Res.string.Onboarding_DefaultSettings_Title).isDisplayed() }
                 Screengrab.screenshot("05-default-settings")
                 clickOnText(Res.string.Onboarding_DefaultSettings_Button_Go)
-
-                wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
-                Screengrab.screenshot("1_" + locale())
             }
         }
 
@@ -171,7 +171,36 @@ class AutomateScreenshotsTest {
                         .isNotDisplayed()
                 }
 
-                Screengrab.screenshot("06-dashboard")
+                if (onNodeWithText(Res.string.Dashboard_Running_Running).isDisplayed()) {
+                    Screengrab.screenshot("06-dashboard-running")
+
+                    clickOnText(Res.string.Dashboard_Running_Running)
+                    wait(timeout = 30.seconds) {
+                        onNodeWithText(Res.string.Notification_StopTest)
+                            .isDisplayed()
+                    }
+
+                    Screengrab.screenshot("06-running-running")
+
+                    clickOnText(Res.string.Notification_StopTest)
+
+                    wait(timeout = 30.seconds) {
+                        onNodeWithText(Res.string.Dashboard_Tab_Label)
+                            .isDisplayed()
+                    }
+
+                    clickOnText(Res.string.Dashboard_Tab_Label)
+
+                    Thread.sleep(300)
+
+                    Screengrab.screenshot("1_" + locale())
+
+                    Screengrab.screenshot("06-dashboard")
+                } else {
+                    Screengrab.screenshot("1_" + locale())
+
+                    Screengrab.screenshot("06-dashboard")
+                }
 
                 wait(timeout = 30.seconds) {
                     onNodeWithText(Res.string.OONIRun_Run)
@@ -284,6 +313,7 @@ class AutomateScreenshotsTest {
                 wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
 
                 Screengrab.screenshot("17-results")
+                Thread.sleep(3000)
                 Screengrab.screenshot("2_" + locale())
 
                 clickOnText(Res.string.Test_Websites_Fullname)
@@ -312,6 +342,7 @@ class AutomateScreenshotsTest {
                 checkTextAnywhereInsideWebView("2160p (4k)")
 
                 Screengrab.screenshot("20-dash-measurement")
+                Thread.sleep(3000)
                 Screengrab.screenshot("4_" + locale())
             }
         }
