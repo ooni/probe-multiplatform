@@ -16,7 +16,7 @@ Miss die Geschwindigkeit und Performance deines Netzwerks
 Du kannst die Geschwindigkeit und Leistung deines Netzwerks messen, indem du OONIs Implementierung des Network Diagnostic Test (NDT) ausführst. Mit dem Dynamic Adaptive Streaming over HTTP (DASH) Test kannst du die Performance von Video-Streaming messen.
 
 Open Data
-OONI veröffentlicht Netzwerkmessdaten, da dies Dritten ermöglicht, die Ergebnisse von OONI zu überprüfen, unabhängige Studien durchzuführen und andere Forschungsfragen zu beantworten. Durch die offene Veröffentlichung von OONI-Daten wird auch die Transparenz von Internet Zensur auf der ganzen Welt erhöht. Du kannst die OONI-Daten hier erkunden und herunterladen: https://ooni.io/data/
+OONI veröffentlicht Netzwerkmessdaten, da dies Dritten ermöglicht, die Ergebnisse von OONI zu überprüfen, unabhängige Studien durchzuführen und andere Forschungsfragen zu beantworten. Durch die offene Veröffentlichung von OONI-Daten wird auch die Transparenz von Internetzensur auf der ganzen Welt erhöht. Du kannst die OONI-Daten hier erkunden und herunterladen: https://ooni.io/data/
 
 Freie Software
 Alle OONI Probe Tests (einschließlich unserer NDT- und DASH-Implementierungen) basieren auf Freier- und Open-Source-Software. Die OONI Softwareprojekte findest du auf GitHub: https://github.com/ooni. Neugierig, wie OONI Probe-Tests funktionieren? Erfahre mehr: https://ooni.io/nettest/
