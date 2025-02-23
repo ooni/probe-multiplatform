@@ -2,9 +2,9 @@ Sind Webseiten oder Social-Media-Apps gesperrt? Ist dein Netzwerk ungewöhnlich 
 
 Mit dieser App kannst du Sperrungen von Webseiten und Instant-Messaging-Apps untersuchen, die Geschwindigkeit und die Performance deines Netzwerks testen und prüfen, welche Systeme für Zensur und Überwachung in deinem Netzwerk verantwortlich sein können.
 
-OONI Probe is developed by the Open Observatory of Network Interference (OONI), a free software project (under The Tor Project) that aims to uncover internet censorship around the world.
+OONI Probe wurde vom Open Observatory of Network Interference (OONI) entwickelt, ein freies Software-Projekt (unter dem Tor Projekt), das zum Ziel hat, Internetzensur weltweit aufzudecken. 
 
-Since 2012, OONI’s global community has collected millions of network measurements from more than 200 countries, shedding light on multiple cases of network interference.
+Seit 2012 hat die globale OONI-Gemeinschaft Millionen von Netzmessungen aus mehr als 200 Ländern gesammelt und dabei zahlreiche Fälle von Netzstörungen aufgedeckt.
 
 Sammle Anzeichen auf Internetzensur
 Du kannst überprüfen, ob und wie Webseiten und Instant Messaging-Apps blockiert werden. Die von dir erfassten Netzwerkmessdaten können als Beweis für Internetzensur dienen.
