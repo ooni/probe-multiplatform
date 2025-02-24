@@ -29,7 +29,9 @@
     <string name="Dashboard_Runv2_Overview_SeeMore">Ayrıntıları görüntüle</string>
     <string name="Dashboard_RunV2_ExpiredTag">SÜRESİ GEÇMİŞ</string>
     <string name="Dashboard_RunV2_UpdatedTag">GÜNCELLENDİ</string>
+    <string name="Dashboard_RunV2_UpdateTag">GÜNCELLE</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">Son güncellenme: %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">Güncelleme reddedildi</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Geri al</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Güncellemeleri değerlendirin</string>
 
@@ -40,6 +42,9 @@
     <string name="Dashboard_ReviewDescriptor_Label">Bağlantı güncellemesi (%1$s / %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">GÜNCELLE VE TAMAMLA (%1$s / %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">GÜNCELLE (%1$s of %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">Güncellemeyi reddet</string>
+
+    <string name="Dashboard_Update_Ready">Uygulama güncellemesi indirildi</string>
     <string name="Dashboard_Update_Restart">Yeniden başlat</string>
 
     <!-- Test -->
@@ -109,9 +114,15 @@
     <!-- Measurements -->
 
     <string name="Measurement_Title">Ölçüm</string>
+    <string name="Measurement_LoadingFailed">Ölçüm bilgileri yüklenemedi</string>
     <string name="Measurements_Failed">Tamamlanamadı</string>
     <string name="Measurements_Ok">Tamam</string>
     <string name="Measurements_Anomaly">Anormallik</string>
+    <string name="Measurements_Count_One">%1$d ölçüldü</string>
+    <string name="Measurements_Count_Other">%1$d ölçüldü</string>
+    <string name="Measurements_Failed_One">%1$d ölçülemedi</string>
+    <string name="Measurements_Failed_Other">%1$d ölçülemedi</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">Ayarlar</string>
@@ -125,6 +136,7 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Yalnızca Wi-Fi kullanılırken</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Yalnızca şarj edilirken</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Otomatik sınama açıldığında, OONI Probe sınamaları günde birkaç kez otomatik olarak çalışır. Sınama sonuçlarınız otomatik olarak OONI Explorer üzerinde yayınlanır: https://explorer.ooni.org/\n\nÖnemli: Etkin bir VPN bağlantınız varsa, OONI Probe sınamaları otomatik olarak çalıştırmaz. Otomatik OONI Probe sınaması için lütfen VPN bağlantınızı kapatın. Ayrıntılı bilgi almak için https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn adresine bakabilirsiniz</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description">Sınamalar saatte bir arka planda yapılacak</string>
     <string name="Settings_Sharing_UploadResults">Sonuçlar otomatik olarak yayınlansın</string>
 
     <string name="Settings_Websites_MaxRuntimeEnabled">Sınama süresi sınırlansın</string>
@@ -263,6 +275,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Ağ bilgileri (otonom sistem numarası ile)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Sınama tarihi ve saati</string>
     <string name="Onboarding_DefaultSettings_Paragraph">IP adresinizi ya da kim olduğunuzu ortaya çıkarabilecek bilgileri yayınlamamak için elimizden geleni yapıyoruz.\n\nAyrıntılı bilgi almak için [OONI veri işleme ilkesi](https://ooni.io/about/data-policy/) bölümüne bakabilirsiniz.</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">Başlayalım</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Varsayılanları değiştir</string>
 
     <!-- Descriptors -->
@@ -323,6 +336,10 @@
     <string name="Common_Minutes_Other">%1$d dakika</string>
     <string name="Common_Hour_One">%1$d saat</string>
     <string name="Common_Hour_Other">%1$d saat</string>
+    <string name="Common_Hours_Abbreviated">%1$ds</string>
+    <string name="Common_Minutes_Abbreviated">%1$dd</string>
+    <string name="Common_Seconds_Abbreviated">%1$dsn</string>
+
     <string name="Common_Months_January">Ocak</string>
     <string name="Common_Months_February">Şubat</string>
     <string name="Common_Months_March">Mart</string>
