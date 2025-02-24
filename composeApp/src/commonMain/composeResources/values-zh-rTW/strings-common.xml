@@ -16,6 +16,7 @@
     <string name="Dashboard_RunV2_Ooni_Title">OONI 測試</string>
     <string name="Dashboard_Runv2_Overview_Description">建立者 %1$s 於 %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">移除安裝連結</string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions">過往版本</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">復原</string>
     <string name="Dashboard_Progress_ReviewLink_Action">複檢</string>
 
