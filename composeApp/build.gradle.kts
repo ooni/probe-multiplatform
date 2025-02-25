@@ -172,6 +172,22 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    signingConfigs {
+        create("release") {
+            if (System.getenv("ANDROID_KEY_STOREFILE") != null &&
+                System.getenv("ANDROID_KEYSTORE_PASSWORD") != null &&
+                System.getenv("ANDROID_KEY_ALIAS") != null &&
+                System.getenv("ANDROID_KEY_PASSWORD") != null
+            ) {
+                storeFile = file(System.getenv("ANDROID_KEY_STOREFILE"))
+                storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword = System.getenv("ANDROID_KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         getByName("debug") {
             applicationIdSuffix = ".dev"
@@ -181,7 +197,11 @@ android {
         getByName("release") {
             isMinifyEnabled = false
             resValue("string", "run_v2_domain", "run.ooni.org")
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = if (System.getenv("ANDROID_KEY_STOREFILE") != null) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
     buildFeatures {
