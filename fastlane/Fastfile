@@ -32,18 +32,40 @@ platform :android do
         )
     end
 
-    desc "Deploy a new version to the Google Play"
-    lane :release do
-        gradle(
-            task: 'assemble',
-            build_type: 'stableFullRelease'
-        )
+    desc "Publish a new version of the app"
+    desc "#### Example:"
+    desc "```\nfastlane android publish track:alpha organization:ooni json_key:...\n```"
+    desc "#### Options"
+    desc " * **`track`**: internal, alpha, beta, production"
+    desc " * **`organization`**: ooni, dw"
+    desc " * **`json_key`**: the contents of the Google Play service account JSON"
+    desc ""
+    lane :publish do |options|
+        organization = options[:organization] || "ooni"
+        raise "Invalid organization #{organization}" unless %w(ooni dw).include?(organization)
+
+        bundle(organization: organization)
+
+        metadata_path = case organization
+            when "ooni" then "./metadata/"
+            when "dw" then "./metadata/dw/"
+            end
+
         upload_to_play_store(
-            skip_upload_metadata: 'true',
-            skip_upload_apk: 'true',
-            skip_upload_images: 'true',
-            skip_upload_screenshots: 'true',
+            track: options[:track],
+            metadata_path: metadata_path,
+            json_key_data: options[:json_key],
+            skip_upload_metadata: true,
+            skip_upload_apk: true, # we're uploading AAB
+            skip_upload_images: true,
+            skip_upload_screenshots: true,
+            validate_only: true,
         )
+    end
+
+    desc "Create AAB file"
+    lane :bundle do |options|
+        gradle(task: "copyBrandingToCommonResources bundleFullRelease -Porganization=#{options[:organization]}")
     end
 end
 
@@ -52,10 +74,10 @@ platform :ios do
     lane :build do |options|
         organization = options[:organization] || "ooni"
         scheme = case organization
-                 when "ooni" then "OONIProbe"
-                 when "dw" then "NewsMediaScan"
-                 else raise "Invalid organization #{organization}"
-                 end
+            when "ooni" then "OONIProbe"
+            when "dw" then "NewsMediaScan"
+            else raise "Invalid organization #{organization}"
+            end
 
         gradle(task: "podInstall -Porganization=#{organization}")
         cocoapods(podfile: "./iosApp/Podfile")
