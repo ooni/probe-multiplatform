@@ -2,11 +2,6 @@ name: Publish OONI Probe on Huawei AppGallery
 
 on:
   workflow_dispatch:
-    inputs:
-      ooniProbe:
-        description: 'OONI Probe Android'
-        required: false
-        type: boolean
 
 jobs:
   publish:

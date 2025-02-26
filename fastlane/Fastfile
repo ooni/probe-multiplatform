@@ -114,7 +114,7 @@ platform :android do
             package_name: package_name,
             track: options[:current_track],
             track_promote_to: options[:promote_track],
-            rollout: options[:rollout], # iThe percentage of the user fraction when uploading to the rollout track (setting to 1 will complete the rollout)
+            rollout: options[:rollout], # The percentage of the user fraction when uploading to the rollout track (setting to 1 will complete the rollout)
             metadata_path: metadata_path,
             json_key_data: options[:json_key],
             skip_upload_apk: true,
@@ -158,10 +158,12 @@ platform :android do
 
         gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=#{organization}")
 
+        enable_demo_mode
         capture_android_screenshots(
             app_package_name: package_name,
             locales: locales,
-            output_directory: output_directory
+            output_directory: output_directory,
+            clear_previous_screenshots: false
         )
     end
 
@@ -199,6 +201,28 @@ platform :android do
             skip_upload_metadata: options[:metadata] || false,
             skip_upload_screenshots: false
         )
+    end
+
+    private_lane :enable_demo_mode do
+        # Enable demo mode before running screengrab
+        adb_command = "adb shell settings put global sysui_demo 1"
+        Action.sh(adb_command)
+
+        # Set demo mode properties
+        demo_commands = [
+            "enter",
+            "battery level 100",
+            "battery plug false",
+            "network wifi level 4",
+            "network mobile hidden",
+            "clock 0800",
+            "notifications remove",
+            "status bar icons"
+        ]
+
+        demo_commands.each do |cmd|
+            Action.sh("adb shell am broadcast -a com.android.systemui.demo -e command #{cmd}")
+        end
     end
 end
 
