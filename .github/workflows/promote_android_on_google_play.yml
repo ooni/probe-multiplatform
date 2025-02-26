@@ -1,0 +1,70 @@
+name: Promote Android on Google Play
+
+on:
+  workflow_dispatch:
+    inputs:
+      organization:
+        description: 'Organization'
+        required: true
+        type: choice
+        default: 'ooni'
+        options:
+          - ooni
+          - dw
+      currentTrack:
+        description: 'Current Google Play Track'
+        required: true
+        type: choice
+        default: 'internal'
+        options:
+          - internal
+          - alpha
+          - beta
+          - production
+      promoteTrack:
+        description: 'Google Play Track to promote to'
+        required: true
+        type: choice
+        default: 'alpha'
+        options:
+          - internal
+          - alpha
+          - beta
+          - production
+      rollout:
+        description: 'Rollout fraction (0 - 0.5 - 1)'
+        required: true
+        type: string
+      versionCode:
+        description: 'Bundle version code'
+        required: true
+        type: number
+
+jobs:
+  promote:
+    name: Promote app on Google Play
+    if: ${{ inputs.ooniProbe }}
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Decode Google Play Service Account
+        if: inputs.organization == 'ooni'
+        run: echo "${{ secrets.OONI_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > fastlane/key.json
+
+      - name: Decode Google Play Service Account
+        if: inputs.organization == 'dw'
+        run: echo "${{ secrets.DW_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > fastlane/key.json
+
+      - name: Promote
+        env:
+          ORGANIZATION: ${{ inputs.organization }}
+          CURRENT_TRACK: ${{ inputs.currentTrack }}
+          PROMOTE_TRACK: ${{ inputs.promoteTrack }}
+          ROLLOUT: ${{ inputs.rollout }}
+          VERSION_CODE: ${{ inputs.versionCode }}
+        run: bundle exec fastlane android promote organization:$ORGANIZATION current_track:$CURRENT_TRACK promote_track:PROMOTE_TRACK rollout:$ROLLOUT version_code:$VERSION_CODE

@@ -1,7 +1,6 @@
 /key.json
 /report.xml
 screenshots.html
-/README.md
 
 /metadata/android/*/images/phoneScreenshots/*.jpg
 /metadata/android/*/images/phoneScreenshots/*.png

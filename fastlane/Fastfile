@@ -2,62 +2,6 @@ default_platform(:android)
 
 platform :android do
 
-  before_all do
-    # Enable demo mode before running screengrab
-    adb_command = "adb shell settings put global sysui_demo 1"
-    Action.sh(adb_command)
-
-    # Set demo mode properties
-    demo_commands = [
-      "enter",
-      "battery level 100",
-      "battery plug false",
-      "network wifi level 4",
-      "network mobile hidden",
-      "clock 0800",
-      "notifications remove",
-      "status bar icons"
-    ]
-
-    demo_commands.each do |cmd|
-      Action.sh("adb shell am broadcast -a com.android.systemui.demo -e command #{cmd}")
-    end
-
-  end
-
-    desc "Upload the screenshots to the Google Play"
-    lane :upload_screenshots do
-        upload_to_play_store(
-            skip_upload_apk: "true",
-            skip_upload_aab: "true",
-            skip_upload_changelogs: "true",
-            skip_upload_images: "true",
-            skip_upload_metadata: "true"
-        )
-    end
-
-    desc "Capture the OONI Probe screenshots for the Google Play"
-    lane :capture_screen_ooni do
-        gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=ooni")
-        capture_android_screenshots(
-            app_package_name: 'org.openobservatory.ooniprobe.dev',
-            use_timestamp_suffix: false,
-            locales: ["en-US","ar", "ca", "de", "el", "es", "fa", "fr", "hi", "id", "is", "it", "my", "nl", "pt-BR", "ro", "ru", "sk", "sq", "sw", "th", "tr", "vi", "zh-CN", "zh-TW"],
-        )
-    end
-
-    desc "Capture the DW screenshots for the Google Play"
-    lane :capture_screen_dw do
-        gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=dw")
-
-        capture_android_screenshots(
-            app_package_name: 'com.dw.ooniprobe.dev',
-            output_directory: 'fastlane/metadata/dw/android',
-            locales: ["en-US", "de", "es", "fr", "pt-BR", "ru", "tr"],
-        )
-    end
-
-
     desc "Publish the app to Huawei AppGallery"
     desc "#### Example:"
     desc "```\nfastlane android publish_app_gallery client_id:xxx client_secret:xxx app_id:xxx apk_path:xxx\n```"
@@ -85,16 +29,21 @@ platform :android do
         )
     end
 
-    desc "Publish a new version of the app"
+    desc "Publish a new version of the app on Google Play"
     desc "#### Example:"
     desc "```\nfastlane android publish track:alpha organization:ooni json_key:...\n```"
     desc "#### Options"
     desc " * **`track`**: internal, alpha, beta, production"
     desc " * **`organization`**: ooni, dw"
     desc " * **`json_key`**: the contents of the Google Play service account JSON"
+    desc "#### Required environment variables"
+    desc " * **`ANDROID_KEY_STOREFILE`**: path the Android Keystore file"
+    desc " * **`ANDROID_KEYSTORE_PASSWORD`**: Android Keystore password"
+    desc " * **`ANDROID_KEY_PASSWORD`**: Android Keystore Key password"
+    desc " * **`ANDROID_KEY_ALIAS`**: Android Keystore Key alias"
     desc ""
     lane :publish do |options|
-        organization = options[:organization] || "ooni"
+        organization = options[:organization]
         raise "Invalid organization #{organization}" unless %w(ooni dw).include?(organization)
 
         bundle(organization: organization)
@@ -119,18 +68,171 @@ platform :android do
             skip_upload_apk: true, # we're uploading AAB
             skip_upload_images: true,
             skip_upload_screenshots: true,
-            validate_only: true,
         )
     end
 
     desc "Create AAB file"
+    desc "#### Example:"
+    desc "```\nfastlane android bundle organization:ooni\n```"
+    desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
+    desc "#### Required environment variables"
+    desc " * **`ANDROID_KEY_STOREFILE`**: path the Android Keystore file"
+    desc " * **`ANDROID_KEYSTORE_PASSWORD`**: Android Keystore password"
+    desc " * **`ANDROID_KEY_PASSWORD`**: Android Keystore Key password"
+    desc " * **`ANDROID_KEY_ALIAS`**: Android Keystore Key alias"
+    desc ""
     lane :bundle do |options|
         gradle(task: "copyBrandingToCommonResources bundleFullRelease -Porganization=#{options[:organization]}")
+    end
+
+    desc "Promote Google Play release"
+    desc "#### Example:"
+    desc "```\nfastlane android promote organization:ooni track:alpha promote_track:beta rollout:0.5 version_code:<version_code>\n```"
+    desc "#### Options"
+    desc " * **`current_track`**: internal, alpha, beta, production"
+    desc " * **`promote_track`**: alpha, beta, production (optional to just update rollout)"
+    desc " * **`rollout`**: set or update rollout (0 to 1)"
+    desc " * **`organization`**: ooni, dw"
+    desc " * **`json_key`**: the contents of the Google Play service account JSON"
+    desc ""
+    lane :promote do |options|
+        organization = options[:organization]
+        raise "Invalid organization #{organization}" unless %w(ooni dw).include?(organization)
+
+        metadata_path = case organization
+            when "ooni" then "./fastlane/metadata/android"
+            when "dw" then "./fastlane/metadata/dw/android"
+            end
+
+        package_name = case organization
+            when "ooni" then "org.openobservatory.ooniprobe"
+            when "dw" then "com.dw.ooniprobe"
+            end
+
+        upload_to_play_store(
+            package_name: package_name,
+            track: options[:current_track],
+            track_promote_to: options[:promote_track],
+            rollout: options[:rollout], # The percentage of the user fraction when uploading to the rollout track (setting to 1 will complete the rollout)
+            metadata_path: metadata_path,
+            json_key_data: options[:json_key],
+            skip_upload_apk: true,
+            skip_upload_aab: true,
+            skip_upload_images: true,
+            skip_upload_metadata: true,
+            skip_upload_screenshots: true,
+            version_code: options[:version_code],
+        )
+    end
+
+    desc "Capture screenshots for Google Play"
+    desc "#### Example:"
+    desc "```\nfastlane android capture_screens organization:ooni locales:en,it\n```"
+    desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
+    desc " * **`locales`**: comma-separated list of locales (optional, defaults to full list based on the organization)"
+    desc ""
+    lane :capture_screens do |options|
+        organization = options[:organization]
+        raise "Invalid organization #{organization}" unless %w(ooni dw).include?(organization)
+
+        package_name = case organization
+            when "ooni" then "org.openobservatory.ooniprobe.dev"
+            when "dw" then "com.dw.ooniprobe.dev"
+            end
+
+        locales = if options[:locales]
+            options[:locales].split(',')
+        else
+            case organization
+            when "ooni" then ['ar', 'en-US', 'hi-IN', 'pt-BR', 'sk', 'zh-CN', 'ca', 'es-ES', 'id', 'ro', 'sq', 'zh-TW', 'de-DE', 'fa', 'is-IS', 'ru-RU', 'th', 'el-GR', 'fr-FR', 'it-IT', 'tr-TR']
+            when "dw" then ['en-US', 'de', 'es', 'fr', 'pt-BR', 'ru', 'tr']
+            end
+        end
+
+        output_directory = case organization
+            when "ooni" then "fastlane/metadata/android"
+            when "dw" then "fastlane/metadata/dw/android"
+            end
+
+        gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=#{organization}")
+
+        enable_demo_mode
+        capture_android_screenshots(
+            app_package_name: package_name,
+            locales: locales,
+            output_directory: output_directory,
+            clear_previous_screenshots: false
+        )
+    end
+
+    desc "Update Google Play store listing information"
+    desc "#### Example:"
+    desc "```\nfastlane android update_google_play organization:ooni screenshots:true metadata:true json_key:...\n```"
+    desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
+    desc " * **`screenshots`**: true or false (default false)"
+    desc " * **`metadata`**: true or false (default false)"
+    desc " * **`json_key`**: the contents of the Google Play service account JSON"
+    desc ""
+    lane :update_google_play do |options|
+        organization = options[:organization]
+        raise "Invalid organization #{organization}" unless %w(ooni dw).include?(organization)
+
+        metadata_path = case organization
+            when "ooni" then "./fastlane/metadata/android"
+            when "dw" then "./fastlane/metadata/dw/android"
+            end
+
+        package_name = case organization
+            when "ooni" then "org.openobservatory.ooniprobe"
+            when "dw" then "com.dw.ooniprobe"
+            end
+
+        upload_to_play_store(
+            package_name: package_name,
+            metadata_path: metadata_path,
+            json_key_data: options[:json_key],
+            skip_upload_apk: true,
+            skip_upload_aab: true,
+            skip_upload_changelogs: true,
+            skip_upload_images: options[:screenshots] || false,
+            skip_upload_metadata: options[:metadata] || false,
+            skip_upload_screenshots: false
+        )
+    end
+
+    private_lane :enable_demo_mode do
+        # Enable demo mode before running screengrab
+        adb_command = "adb shell settings put global sysui_demo 1"
+        Action.sh(adb_command)
+
+        # Set demo mode properties
+        demo_commands = [
+            "enter",
+            "battery level 100",
+            "battery plug false",
+            "network wifi level 4",
+            "network mobile hidden",
+            "clock 0800",
+            "notifications remove",
+            "status bar icons"
+        ]
+
+        demo_commands.each do |cmd|
+            Action.sh("adb shell am broadcast -a com.android.systemui.demo -e command #{cmd}")
+        end
     end
 end
 
 platform :ios do
     desc "Build iOS app"
+    desc "#### Example:"
+    desc "```\nfastlane ios build organization:ooni\n```"
+    desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
+    desc ""
     lane :build do |options|
         organization = options[:organization] || "ooni"
         scheme = case organization
@@ -147,12 +249,29 @@ platform :ios do
         sh "cd .. && xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme '#{scheme}' -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED='NO' | xcpretty"
     end
 
-    desc "Upload debug symbols to Sentry"
-    lane :upload_debug_symbols do |options|
-        sentry_debug_files_upload(
-            auth_token: options[:auth_token],
-            org_slug: options[:org_slug],
-            project_slug: options[:project_slug]
-        )
+    desc "Publish iOS app"
+    desc "#### Example:"
+    desc "```\nfastlane ios publish organization:ooni\n```"
+    desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
+    desc ""
+    lane :publish do |options|
+        # TODO
     end
+end
+
+desc "Upload debug symbols to Sentry"
+desc "#### Example:"
+desc "```\nfastlane sentry_upload_debug_symbols auth_token:... org_slug:ooni project_slug:probe-multiplatform-ios\n```"
+desc "#### Options"
+desc " * **`auth_token`**: Sentry auth token"
+desc " * **`org_slug`**: Sentry organization slug"
+desc " * **`project_slug`**: Sentry project slug"
+desc ""
+lane :sentry_upload_debug_symbols do |options|
+    sentry_debug_files_upload(
+        auth_token: options[:auth_token],
+        org_slug: options[:org_slug],
+        project_slug: options[:project_slug]
+    )
 end
