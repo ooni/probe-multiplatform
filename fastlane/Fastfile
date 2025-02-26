@@ -60,7 +60,7 @@ platform :android do
 
     desc "Promote Google Play release"
     desc "#### Example:"
-    desc "```\nfastlane android publish organization:ooni track:alpha promote_track:beta rollout:0.5\n```"
+    desc "```\nfastlane android promote organization:ooni track:alpha promote_track:beta rollout:0.5 version_code:<version_code>\n```"
     desc "#### Options"
     desc " * **`current_track`**: internal, alpha, beta, production"
     desc " * **`promote_track`**: alpha, beta, production (optional to just update rollout)"
@@ -73,21 +73,28 @@ platform :android do
         raise "Invalid organization #{organization}" unless %w(ooni dw).include?(organization)
 
         metadata_path = case organization
-            when "ooni" then "./metadata/"
-            when "dw" then "./metadata/dw/"
+            when "ooni" then "./fastlane/metadata/android"
+            when "dw" then "./fastlane/metadata/dw/android"
+            end
+
+        package_name = case organization
+            when "ooni" then "org.openobservatory.ooniprobe"
+            when "dw" then "com.dw.ooniprobe"
             end
 
         upload_to_play_store(
+            package_name: package_name,
             track: options[:current_track],
             track_promote_to: options[:promote_track],
-            rollout: options[:rollout].presence, # if blank returns null
+            rollout: options[:rollout], # iThe percentage of the user fraction when uploading to the rollout track (setting to 1 will complete the rollout)
             metadata_path: metadata_path,
             json_key_data: options[:json_key],
             skip_upload_apk: true,
             skip_upload_aab: true,
             skip_upload_images: true,
             skip_upload_metadata: true,
-            skip_upload_screenshots: true
+            skip_upload_screenshots: true,
+            version_code: options[:version_code],
         )
     end
 
@@ -144,11 +151,17 @@ platform :android do
         raise "Invalid organization #{organization}" unless %w(ooni dw).include?(organization)
 
         metadata_path = case organization
-            when "ooni" then "./metadata/"
-            when "dw" then "./metadata/dw/"
+            when "ooni" then "./fastlane/metadata/android"
+            when "dw" then "./fastlane/metadata/dw/android"
+            end
+
+        package_name = case organization
+            when "ooni" then "org.openobservatory.ooniprobe"
+            when "dw" then "com.dw.ooniprobe"
             end
 
         upload_to_play_store(
+            package_name: package_name,
             metadata_path: metadata_path,
             json_key_data: options[:json_key],
             skip_upload_apk: true,

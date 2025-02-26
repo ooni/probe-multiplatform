@@ -117,7 +117,7 @@ Promote Google Play release
 #### Example:
 
 ```
-fastlane android publish organization:ooni track:alpha promote_track:beta rollout:0.5
+fastlane android promote organization:ooni track:alpha promote_track:beta rollout:0.5 version_code:<version_code>
 ```
 
 #### Options
