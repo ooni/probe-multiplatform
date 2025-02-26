@@ -32,6 +32,34 @@ platform :android do
         )
     end
 
+
+    desc "Publish the app to Huawei AppGallery"
+    desc "#### Example:"
+    desc "```\nfastlane android publish_app_gallery client_id:xxx client_secret:xxx app_id:xxx apk_path:xxx\n```"
+    desc "#### Options"
+    desc " * **`client_id`**: The client ID for Huawei AppGallery Connect"
+    desc " * **`client_secret`**: The client secret for Huawei AppGallery Connect"
+    desc " * **`app_id`**: The app ID for the application"
+    desc " * **`apk_path`**: The path to the APK/AAB file"
+    desc " * **`organization`**: ooni, dw (default: ooni)"
+    desc ""
+    lane :publish_app_gallery do |options|
+        organization = options[:organization] || "ooni"
+        raise "Invalid organization #{organization}" unless %w(ooni).include?(organization)
+
+        bundle(organization: organization)
+
+        huawei_appgallery_connect(
+            client_id: options[:client_id],
+            client_secret: options[:client_secret],
+            app_id: options[:app_id],
+            apk_path: options[:apk_path],
+            delay_before_submit_for_review: 60,
+            is_aab: true,
+            submit_for_review: true,
+        )
+    end
+
     desc "Publish a new version of the app"
     desc "#### Example:"
     desc "```\nfastlane android publish track:alpha organization:ooni json_key:...\n```"
