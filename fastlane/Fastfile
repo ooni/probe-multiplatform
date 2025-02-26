@@ -47,8 +47,8 @@ platform :android do
         bundle(organization: organization)
 
         metadata_path = case organization
-            when "ooni" then "./metadata/"
-            when "dw" then "./metadata/dw/"
+            when "ooni" then "./fastlane/metadata/android"
+            when "dw" then "./fastlane/metadata/dw/android"
             end
 
         package_name = case organization
