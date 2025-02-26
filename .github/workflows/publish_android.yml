@@ -36,7 +36,7 @@ jobs:
 
       # Decode Android env variables
       - name: Decode Android keystore
-        run: echo "${{ secrets.OONI_ANDROID_KEY_STOREFILE }}" | base64 --decode > upload-keystore.jks
+        run: echo "${{ secrets.OONI_ANDROID_KEY_STOREFILE }}" | base64 --decode > composeApp/upload-keystore.jks
 
       # Decode Android release Service Account
       - name: Decode Android Service Account
