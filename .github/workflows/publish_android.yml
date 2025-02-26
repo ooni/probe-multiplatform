@@ -34,9 +34,21 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      # Decode Android env variables
+      - name: Decode Android keystore
+        run: echo "${{ secrets.OONI_ANDROID_KEY_STOREFILE }}" | base64 --decode > upload-keystore.jks
+
+      # Decode Android release Service Account
+      - name: Decode Android Service Account
+        run: echo "${{ secrets.OONI_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > fastlane/key.json
+
       - name: Publish
         env:
           TRACK: ${{ inputs.track }}
+          ANDROID_KEY_STOREFILE: upload-keystore.jks
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.OONI_ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.OONI_ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.OONI_ANDROID_KEY_ALIAS }}
         run: bundle exec fastlane android publish track:$TRACK organization:ooni
 
   publishNewsMediaScan:
