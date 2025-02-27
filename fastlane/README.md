@@ -66,8 +66,6 @@ fastlane android publish_app_gallery client_id:xxx client_secret:xxx app_id:xxx 
 
  * **`apk_path`**: The path to the APK/AAB file
 
- * **`organization`**: ooni, dw (default: ooni)
-
 #### Required environment variables
 
  * **`ANDROID_KEYSTORE_FILE`**: path the Android Keystore file

@@ -8,7 +8,6 @@ platform :android do
     desc " * **`client_secret`**: The client secret for Huawei AppGallery Connect"
     desc " * **`app_id`**: The app ID for the application"
     desc " * **`apk_path`**: The path to the APK/AAB file"
-    desc " * **`organization`**: ooni, dw (default: ooni)"
     desc "#### Required environment variables"
     desc " * **`ANDROID_KEYSTORE_FILE`**: path the Android Keystore file"
     desc " * **`ANDROID_KEYSTORE_PASSWORD`**: Android Keystore password"
@@ -16,8 +15,6 @@ platform :android do
     desc " * **`ANDROID_KEY_ALIAS`**: Android Keystore Key alias"
     desc ""
     lane :publish_app_gallery do |options|
-        organization = organization!(options)
-
         bundle(organization: organization)
 
         huawei_appgallery_connect(
@@ -259,7 +256,7 @@ end
 
 def organization!(options)
     organization = options[:organization]
-    raise "Invalid organization '#{organization}'" unless %w(ooni).include?(organization)
+    raise "Invalid organization '#{organization}'" unless %w(ooni dw).include?(organization)
     return organization
 end
 

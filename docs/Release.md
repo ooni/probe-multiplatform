@@ -140,18 +140,17 @@ To update the screenshots or the metadata (title, short and full description) of
 and News Media Scan Android apps, go to
 [Update Google Play information](https://github.com/ooni/probe-multiplatform/actions/workflows/update_google_play.yml).
 
-### Update Apple App Store listing
+### Update Apple App Store listings
 
 To update the screenshots or the metadata (title, short and full description) of the OONI Probe
 and News Media Scan iOS apps, go to
-[Update Apple App Store information](https://github.com/ooni/probe-multiplatform/actions/workflows/update_ios.yml).
+[Update Apple App Store information](https://github.com/ooni/probe-multiplatform/actions/workflows/update_apple_app_store.yml).
 
 ### Update F-Droid listing
 
 On release, F-Droid should pick up the OONI Probe screenshots and metadata automtically from the
 repository.
 
-### Updating other listings
+### Updating Huawei AppGallery listing
 
-The Apple App Store and Huawei AppGallery listings are updated manually.
-
+The Huawei AppGallery listing must be updated manually.
