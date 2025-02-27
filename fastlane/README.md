@@ -94,7 +94,7 @@ fastlane android publish track:alpha organization:ooni json_key:...
 
 #### Required environment variables
 
- * **`ANDROID_KEY_STOREFILE`**: path the Android Keystore file
+ * **`ANDROID_KEYSTORE_FILE`**: path the Android Keystore file
 
  * **`ANDROID_KEYSTORE_PASSWORD`**: Android Keystore password
 
@@ -124,7 +124,7 @@ fastlane android bundle organization:ooni
 
 #### Required environment variables
 
- * **`ANDROID_KEY_STOREFILE`**: path the Android Keystore file
+ * **`ANDROID_KEYSTORE_FILE`**: path the Android Keystore file
 
  * **`ANDROID_KEYSTORE_PASSWORD`**: Android Keystore password
 

@@ -20,7 +20,7 @@ jobs:
 
       - name: Publish to Huawei AppGallery
         env:
-          ANDROID_KEY_STOREFILE: upload-keystore.jks
+          ANDROID_KEYSTORE_FILE: upload-keystore.jks
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.OONI_ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_PASSWORD: ${{ secrets.OONI_ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.OONI_ANDROID_KEY_ALIAS }}
