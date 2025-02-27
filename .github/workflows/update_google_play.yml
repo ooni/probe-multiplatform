@@ -22,7 +22,7 @@ on:
 
 jobs:
   updateOoniProbe:
-    name: Upload OONI Probe Android Screenshots
+    name: Update OONI Probe Google Play information
     if: ${{ inputs.ooniProbe }}
     runs-on: macos-latest
 
@@ -42,7 +42,7 @@ jobs:
         run: bundle exec fastlane android update_google_play organization:ooni screenshots:$SCREENSHOTS metadata:$METADATA
 
   updateNewsMediaScan:
-    name: Upload News Media Scan Android Screenshots
+    name: Update News Media Scan Google Play information
     if: ${{ inputs.newsMediaScan }}
     runs-on: macos-latest
 

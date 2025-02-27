@@ -48,7 +48,7 @@ fastlane sentry_upload_debug_symbols auth_token:... org_slug:ooni project_slug:p
 [bundle exec] fastlane android publish_app_gallery
 ```
 
-Publish a new version of the app on Huawei AppGallery
+Publish the app to Huawei AppGallery
 
 #### Example:
 
