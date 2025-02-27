@@ -156,7 +156,7 @@ class AutomateScreenshotsTest {
                 clickOnText(Res.string.Onboarding_DefaultSettings_Button_Go)
 
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
-                Screengrab.screenshot("1_"+ locale())
+                Screengrab.screenshot("1_" + locale())
             }
         }
 
