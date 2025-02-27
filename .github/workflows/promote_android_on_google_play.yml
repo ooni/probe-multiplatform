@@ -26,6 +26,7 @@ on:
         required: false
         type: choice
         options:
+          -
           - internal
           - alpha
           - beta
