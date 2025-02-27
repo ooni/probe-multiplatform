@@ -47,7 +47,7 @@ androidx-datastore-preferences-core = { group = "androidx.datastore", name = "da
 android-oonimkall = { module = "org.ooni:oonimkall", version = "2024.11.26-053000" }
 
 # Logging
-kermit = { module = "co.touchlab:kermit", version = "2.0.4" }
+kermit = { module = "co.touchlab:kermit", version = "2.0.5" }
 
 # Data
 sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
