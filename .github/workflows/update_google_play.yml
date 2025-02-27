@@ -57,5 +57,5 @@ jobs:
       - name: Update Google Play
         env:
           SCREENSHOTS: ${{ inputs.screenshots }}
-          $METADATA: ${{ inputs.metadata }}
+          METADATA: ${{ inputs.metadata }}
         run: bundle exec fastlane android update_google_play organization:dw screenshots:$SCREENSHOTS metadata:$METADATA

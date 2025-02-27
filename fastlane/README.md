@@ -42,6 +42,34 @@ fastlane sentry_upload_debug_symbols auth_token:... org_slug:ooni project_slug:p
 
 ## Android
 
+### android publish_app_gallery
+
+```sh
+[bundle exec] fastlane android publish_app_gallery
+```
+
+Publish a new version of the app on Huawei AppGallery
+
+#### Example:
+
+```
+fastlane android publish_app_gallery client_id:xxx client_secret:xxx app_id:xxx apk_path:xxx
+```
+
+#### Options
+
+ * **`client_id`**: The client ID for Huawei AppGallery Connect
+
+ * **`client_secret`**: The client secret for Huawei AppGallery Connect
+
+ * **`app_id`**: The app ID for the application
+
+ * **`apk_path`**: The path to the APK/AAB file
+
+ * **`organization`**: ooni, dw (default: ooni)
+
+
+
 ### android publish
 
 ```sh

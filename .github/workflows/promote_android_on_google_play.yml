@@ -33,8 +33,12 @@ on:
           - production
       rollout:
         description: 'Rollout fraction (0 - 0.5 - 1)'
-        required: false
+        required: true
         type: string
+      versionCode:
+        description: 'Bundle version code'
+        required: true
+        type: number
 
 jobs:
   promote:
@@ -54,7 +58,7 @@ jobs:
 
       - name: Decode Google Play Service Account
         if: inputs.organization == 'dw'
-        run: echo "" # TODO
+        run: echo "${{ secrets.DW_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > fastlane/key.json
 
       - name: Promote
         env:
@@ -62,4 +66,5 @@ jobs:
           CURRENT_TRACK: ${{ inputs.currentTrack }}
           PROMOTE_TRACK: ${{ inputs.promoteTrack }}
           ROLLOUT: ${{ inputs.rollout }}
-        run: bundle exec fastlane android publish organization:$ORGANIZATION current_track:$CURRENT_TRACK promote_track:PROMOTE_TRACK rollout:$ROLLOUT
+          VERSION_CODE: ${{ inputs.versionCode }}
+        run: bundle exec fastlane android publish organization:$ORGANIZATION current_track:$CURRENT_TRACK promote_track:PROMOTE_TRACK rollout:$ROLLOUT version_code:$VERSION_CODE
