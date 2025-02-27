@@ -39,10 +39,13 @@ class UrlRepository(
     suspend fun createOrUpdateByUrl(models: List<UrlModel>): List<UrlModel> =
         withContext(backgroundContext) {
             database.transactionWithResult {
-                val existingModels =
-                    database.urlQueries.selectByUrls(models.filter { it.id == null }.map { it.url })
-                        .executeAsList()
-                        .mapNotNull { it.toModel() }
+                val urlsWithoutId = models.filter { it.id == null }.map { it.url }
+                val existingModels: List<UrlModel> =
+                    // Some lists are too large for a single SQL query
+                    urlsWithoutId.chunked(200) { urlsChunk ->
+                        database.urlQueries.selectByUrls(urlsChunk).executeAsList()
+                    }
+                        .flatMap { list -> list.mapNotNull { it.toModel() } }
 
                 models.map { model ->
                     if (model.id != null) {
