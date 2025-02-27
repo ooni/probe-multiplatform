@@ -39,4 +39,6 @@ EOF
 # Generate documentation files
 generate_doc 0 "probe-multiplatform" "README.md" "00-index.md" "OONI Probe" "OONI Probe documentation"
 generate_doc 1 "probe-multiplatform/architecture" "docs/Architecture.md" "01-architecture.md" "Architecture" "Architecture documentation"
-generate_doc 1 "probe-multiplatform/database" "docs/Database.md" "02-database.md" "Database" "Database documentation"
+generate_doc 2 "probe-multiplatform/database" "docs/Database.md" "02-database.md" "Database" "Database documentation"
+generate_doc 3 "probe-multiplatform/background-work" "docs/BackgroundWork.md" "03-background-work.md" "Background Work" "Background Work documentation"
+generate_doc 4 "probe-multiplatform/release" "docs/Release.md" "04-release.md" "Release Process" "App distribution documentation"
