@@ -68,6 +68,16 @@ fastlane android publish_app_gallery client_id:xxx client_secret:xxx app_id:xxx 
 
  * **`organization`**: ooni, dw (default: ooni)
 
+#### Required environment variables
+
+ * **`ANDROID_KEYSTORE_FILE`**: path the Android Keystore file
+
+ * **`ANDROID_KEYSTORE_PASSWORD`**: Android Keystore password
+
+ * **`ANDROID_KEY_PASSWORD`**: Android Keystore Key password
+
+ * **`ANDROID_KEY_ALIAS`**: Android Keystore Key alias
+
 
 
 ### android publish
@@ -150,13 +160,13 @@ fastlane android promote organization:ooni track:alpha promote_track:beta rollou
 
 #### Options
 
+ * **`organization`**: ooni, dw
+
  * **`current_track`**: internal, alpha, beta, production
 
  * **`promote_track`**: alpha, beta, production (optional to just update rollout)
 
- * **`rollout`**: set or update rollout (0 to 1)
-
- * **`organization`**: ooni, dw
+ * **`rollout`**: set or update rollout [0 to 1] (optional, defaults to 1)
 
  * **`json_key`**: the contents of the Google Play service account JSON
 

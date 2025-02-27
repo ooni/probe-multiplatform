@@ -1,5 +1,3 @@
-default_platform(:android)
-
 platform :android do
 
     desc "Publish the app to Huawei AppGallery"
@@ -18,8 +16,7 @@ platform :android do
     desc " * **`ANDROID_KEY_ALIAS`**: Android Keystore Key alias"
     desc ""
     lane :publish_app_gallery do |options|
-        organization = options[:organization]
-        raise "Invalid organization #{organization}" unless %w(ooni).include?(organization)
+        organization = organization!(options)
 
         bundle(organization: organization)
 
@@ -48,25 +45,14 @@ platform :android do
     desc " * **`ANDROID_KEY_ALIAS`**: Android Keystore Key alias"
     desc ""
     lane :publish do |options|
-        organization = options[:organization]
-        raise "Invalid organization #{organization}" unless %w(ooni dw).include?(organization)
+        organization = organization!(options)
 
         bundle(organization: organization)
 
-        metadata_path = case organization
-            when "ooni" then "./fastlane/metadata/android"
-            when "dw" then "./fastlane/metadata/dw/android"
-            end
-
-        package_name = case organization
-            when "ooni" then "org.openobservatory.ooniprobe"
-            when "dw" then "com.dw.ooniprobe"
-            end
-
         upload_to_play_store(
-            package_name: package_name,
+            package_name: package_name(organization),
             track: options[:track],
-            metadata_path: metadata_path,
+            metadata_path: metadata_path(organization),
             json_key_data: options[:json_key],
             skip_upload_metadata: true,
             skip_upload_changelogs: true,
@@ -95,39 +81,28 @@ platform :android do
     desc "#### Example:"
     desc "```\nfastlane android promote organization:ooni track:alpha promote_track:beta rollout:0.5 version_code:<version_code>\n```"
     desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
     desc " * **`current_track`**: internal, alpha, beta, production"
     desc " * **`promote_track`**: alpha, beta, production (optional to just update rollout)"
-    desc " * **`rollout`**: set or update rollout (0 to 1)"
-    desc " * **`organization`**: ooni, dw"
+    desc " * **`rollout`**: set or update rollout [0 to 1] (optional, defaults to 1)"
     desc " * **`json_key`**: the contents of the Google Play service account JSON"
     desc ""
     lane :promote do |options|
-        organization = options[:organization]
-        raise "Invalid organization #{organization}" unless %w(ooni dw).include?(organization)
-
-        metadata_path = case organization
-            when "ooni" then "./fastlane/metadata/android"
-            when "dw" then "./fastlane/metadata/dw/android"
-            end
-
-        package_name = case organization
-            when "ooni" then "org.openobservatory.ooniprobe"
-            when "dw" then "com.dw.ooniprobe"
-            end
+        organization = organization!(options)
 
         upload_to_play_store(
-            package_name: package_name,
+            package_name: package_name(organization),
             track: options[:current_track],
-            track_promote_to: options[:promote_track],
-            rollout: options[:rollout], # The percentage of the user fraction when uploading to the rollout track (setting to 1 will complete the rollout)
-            metadata_path: metadata_path,
+            track_promote_to: ((options[:promote_track].nil? or options[:promote_track].empty?) ? nil : options[:promote_track]),
+            # The percentage of the user fraction when uploading to the rollout track (setting to 1 will complete the rollout)
+            rollout: ((options[:rollout].nil? or options[:rollout].empty?) ? '1' : options[:rollout]),
+            metadata_path: metadata_path(organization),
             json_key_data: options[:json_key],
             skip_upload_apk: true,
             skip_upload_aab: true,
             skip_upload_images: true,
             skip_upload_metadata: true,
             skip_upload_screenshots: true,
-            version_code: options[:version_code],
         )
     end
 
@@ -139,13 +114,7 @@ platform :android do
     desc " * **`locales`**: comma-separated list of locales (optional, defaults to full list based on the organization)"
     desc ""
     lane :capture_screens do |options|
-        organization = options[:organization]
-        raise "Invalid organization #{organization}" unless %w(ooni dw).include?(organization)
-
-        package_name = case organization
-            when "ooni" then "org.openobservatory.ooniprobe.dev"
-            when "dw" then "com.dw.ooniprobe.dev"
-            end
+        organization = organization!(options)
 
         locales = if options[:locales]
             options[:locales].split(',')
@@ -156,18 +125,13 @@ platform :android do
             end
         end
 
-        output_directory = case organization
-            when "ooni" then "fastlane/metadata/android"
-            when "dw" then "fastlane/metadata/dw/android"
-            end
-
         gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=#{organization}")
 
         enable_demo_mode
         capture_android_screenshots(
-            app_package_name: package_name,
+            app_package_name: package_name(organization),
             locales: locales,
-            output_directory: output_directory,
+            output_directory: metadata_path(organization),
             clear_previous_screenshots: false
         )
     end
@@ -182,22 +146,11 @@ platform :android do
     desc " * **`json_key`**: the contents of the Google Play service account JSON"
     desc ""
     lane :update_google_play do |options|
-        organization = options[:organization]
-        raise "Invalid organization #{organization}" unless %w(ooni dw).include?(organization)
-
-        metadata_path = case organization
-            when "ooni" then "./fastlane/metadata/android"
-            when "dw" then "./fastlane/metadata/dw/android"
-            end
-
-        package_name = case organization
-            when "ooni" then "org.openobservatory.ooniprobe"
-            when "dw" then "com.dw.ooniprobe"
-            end
+        organization = organization!(options)
 
         upload_to_play_store(
-            package_name: package_name,
-            metadata_path: metadata_path,
+            package_name: package_name(organization),
+            metadata_path: metadata_path(organization),
             json_key_data: options[:json_key],
             skip_upload_apk: true,
             skip_upload_aab: true,
@@ -239,11 +192,11 @@ platform :ios do
     desc " * **`organization`**: ooni, dw"
     desc ""
     lane :build do |options|
-        organization = options[:organization] || "ooni"
+        organization = organization!(options)
+
         scheme = case organization
             when "ooni" then "OONIProbe"
             when "dw" then "NewsMediaScan"
-            else raise "Invalid organization #{organization}"
             end
 
         gradle(task: "podInstall -Porganization=#{organization}")
@@ -279,4 +232,24 @@ lane :sentry_upload_debug_symbols do |options|
         org_slug: options[:org_slug],
         project_slug: options[:project_slug]
     )
+end
+
+def organization!(options)
+    organization = options[:organization]
+    raise "Invalid organization '#{organization}'" unless %w(ooni).include?(organization)
+    return organization
+end
+
+def metadata_path(organization)
+    case organization
+    when "ooni" then "./fastlane/metadata/android"
+    when "dw" then "./fastlane/metadata/dw/android"
+    end
+end
+
+def package_name(organization)
+    case organization
+    when "ooni" then "org.openobservatory.ooniprobe"
+    when "dw" then "com.dw.ooniprobe"
+    end
 end

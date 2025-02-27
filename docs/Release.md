@@ -38,8 +38,11 @@ F-droid.
 
 #### 1.3 Release notes
 
-Write the release notes inside a new `txt` file at `fastlane/metadata/android/en-US/changelogs`.
-The name of the `txt` file should match the `versionCode` of the new release.
+Update the release notes for each flavor and platform:
+- OONI Probe Android: `fastlane/metadata/android/en-US/changelogs/default.txt`
+- OONI Probe iOS: `fastlane/metadata/ios/en-US/release_notes.txt`
+- News Media Scan Android: `fastlane/metadata/dw/android/en-US/changelogs/default.txt`
+- News Media Scan iOS: `fastlane/metadata/dw/ios/en-US/release_notes.txt`
 
 #### 1.4 Create the Pull Request
 
