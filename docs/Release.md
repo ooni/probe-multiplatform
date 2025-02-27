@@ -134,11 +134,17 @@ bundle exec fastlane android capture_screens organization:ooni
 
 Only the screenshots 1-5 are committed to git, since those are the ones we submit to Google Play.
 
-### Update Google Play listing
+### Update Google Play listings
 
 To update the screenshots or the metadata (title, short and full description) of the OONI Probe
 and News Media Scan Android apps, go to
 [Update Google Play information](https://github.com/ooni/probe-multiplatform/actions/workflows/update_google_play.yml).
+
+### Update Apple App Store listing
+
+To update the screenshots or the metadata (title, short and full description) of the OONI Probe
+and News Media Scan iOS apps, go to
+[Update Apple App Store information](https://github.com/ooni/probe-multiplatform/actions/workflows/update_ios.yml).
 
 ### Update F-Droid listing
 

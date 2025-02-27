@@ -216,6 +216,29 @@ platform :ios do
     lane :publish do |options|
         # TODO
     end
+
+    desc "Update Apple App Store information"
+    desc "#### Example:"
+    desc "```\nfastlane android update_app_store organization:ooni screenshots:true metadata:true\n```"
+    desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
+    desc " * **`screenshots`**: true or false (default false)"
+    desc " * **`metadata`**: true or false (default false)"
+    desc ""
+    lane :update_app_store do |options|
+        # TODO
+    end
+
+    desc "Capture screenshots for Apple App Store"
+    desc "#### Example:"
+    desc "```\nfastlane ios capture_screens organization:ooni locales:en,it\n```"
+    desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
+    desc " * **`locales`**: comma-separated list of locales (optional, defaults to full list based on the organization)"
+    desc ""
+    lane :capture_screens do |options|
+        # TODO
+    end
 end
 
 desc "Upload debug symbols to Sentry"

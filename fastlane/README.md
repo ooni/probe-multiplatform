@@ -265,6 +265,52 @@ fastlane ios publish organization:ooni
 
 
 
+### ios update_app_store
+
+```sh
+[bundle exec] fastlane ios update_app_store
+```
+
+Update Apple App Store information
+
+#### Example:
+
+```
+fastlane android update_app_store organization:ooni screenshots:true metadata:true
+```
+
+#### Options
+
+ * **`organization`**: ooni, dw
+
+ * **`screenshots`**: true or false (default false)
+
+ * **`metadata`**: true or false (default false)
+
+
+
+### ios capture_screens
+
+```sh
+[bundle exec] fastlane ios capture_screens
+```
+
+Capture screenshots for Apple App Store
+
+#### Example:
+
+```
+fastlane ios capture_screens organization:ooni locales:en,it
+```
+
+#### Options
+
+ * **`organization`**: ooni, dw
+
+ * **`locales`**: comma-separated list of locales (optional, defaults to full list based on the organization)
+
+
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
