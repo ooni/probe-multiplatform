@@ -8,8 +8,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Common_Back
+import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsites
 import ooniprobe.composeapp.generated.resources.Dashboard_Progress_UpdateLink_Label
+import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
+import ooniprobe.composeapp.generated.resources.Dashboard_Tab_Label
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
+import ooniprobe.composeapp.generated.resources.Notification_StopTest
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Title
@@ -31,7 +35,8 @@ import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_D
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
+import ooniprobe.composeapp.generated.resources.Settings_Websites_CustomURL_Title
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Tab_Label
 import ooniprobe.composeapp.generated.resources.Test_Dash_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Performance_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Websites_Fullname
@@ -68,8 +73,10 @@ import org.ooni.testing.factories.MeasurementModelFactory
 import org.ooni.testing.factories.ResultModelFactory
 import org.ooni.testing.factories.UrlModelFactory
 import tools.fastlane.screengrab.Screengrab
+import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
 import tools.fastlane.screengrab.cleanstatusbar.CleanStatusBar
 import tools.fastlane.screengrab.locale.LocaleTestRule
+import java.util.Locale
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
@@ -85,6 +92,7 @@ class AutomateScreenshotsTest {
         @BeforeClass
         @JvmStatic
         fun beforeAll() {
+            Screengrab.setDefaultScreenshotStrategy(UiAutomatorScreenshotStrategy())
             CleanStatusBar.enableWithDefaults()
         }
 
@@ -153,6 +161,7 @@ class AutomateScreenshotsTest {
     fun runTests() =
         runTest {
             skipOnboarding()
+            defaultSettings()
             start()
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
@@ -162,7 +171,36 @@ class AutomateScreenshotsTest {
                         .isNotDisplayed()
                 }
 
-                Screengrab.screenshot("06-dashboard")
+                if (onNodeWithText(Res.string.Dashboard_Running_Running).isDisplayed()) {
+                    Screengrab.screenshot("06-dashboard-running")
+
+                    clickOnText(Res.string.Dashboard_Running_Running)
+                    wait(timeout = 30.seconds) {
+                        onNodeWithText(Res.string.Notification_StopTest)
+                            .isDisplayed()
+                    }
+
+                    Screengrab.screenshot("06-running-running")
+
+                    clickOnText(Res.string.Notification_StopTest)
+
+                    wait(timeout = 30.seconds) {
+                        onNodeWithText(Res.string.Dashboard_Tab_Label)
+                            .isDisplayed()
+                    }
+
+                    clickOnText(Res.string.Dashboard_Tab_Label)
+
+                    Thread.sleep(300)
+
+                    Screengrab.screenshot("1_" + locale())
+
+                    Screengrab.screenshot("06-dashboard")
+                } else {
+                    Screengrab.screenshot("1_" + locale())
+
+                    Screengrab.screenshot("06-dashboard")
+                }
 
                 wait(timeout = 30.seconds) {
                     onNodeWithText(Res.string.OONIRun_Run)
@@ -170,12 +208,10 @@ class AutomateScreenshotsTest {
                 }
 
                 clickOnText(Res.string.OONIRun_Run)
-
-                Screengrab.screenshot("07-run-tests")
-
                 clickOnTag("Run-Button")
 
-                Screengrab.screenshot("08-dashboard-running")
+                Thread.sleep(3000)
+                Screengrab.screenshot("07-run-tests")
             }
         }
 
@@ -272,11 +308,13 @@ class AutomateScreenshotsTest {
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
 
-                clickOnText(Res.string.TestResults_Overview_Title)
+                clickOnText(Res.string.TestResults_Overview_Tab_Label)
 
                 wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
 
                 Screengrab.screenshot("17-results")
+                Thread.sleep(3000)
+                Screengrab.screenshot("2_" + locale())
 
                 clickOnText(Res.string.Test_Websites_Fullname)
 
@@ -291,6 +329,7 @@ class AutomateScreenshotsTest {
                 checkTextAnywhereInsideWebView("https://z-lib.org/")
 
                 Screengrab.screenshot("19-website-measurement-anomaly")
+                Screengrab.screenshot("3_" + locale())
 
                 clickOnContentDescription(Res.string.Common_Back)
                 wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
@@ -303,6 +342,32 @@ class AutomateScreenshotsTest {
                 checkTextAnywhereInsideWebView("2160p (4k)")
 
                 Screengrab.screenshot("20-dash-measurement")
+                Thread.sleep(3000)
+                Screengrab.screenshot("4_" + locale())
+            }
+        }
+
+    @Test
+    fun choseWebsites() =
+        runTest {
+            skipOnboarding()
+            start()
+            with(compose) {
+                wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
+
+                wait(timeout = 30.seconds) {
+                    onNodeWithText(Res.string.Dashboard_Progress_UpdateLink_Label)
+                        .isNotDisplayed()
+                }
+
+                if (isOoni) {
+                    clickOnText(Res.string.Test_Websites_Fullname)
+                    wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
+                    clickOnText(Res.string.Dashboard_Overview_ChooseWebsites)
+                    wait { onNodeWithText(Res.string.Settings_Websites_CustomURL_Title).isDisplayed() }
+                    Screengrab.screenshot("21-choose-websites")
+                    Screengrab.screenshot("5_" + locale())
+                }
             }
         }
 
@@ -322,7 +387,7 @@ class AutomateScreenshotsTest {
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
 
-                clickOnText(Res.string.TestResults_Overview_Title)
+                clickOnText(Res.string.TestResults_Overview_Tab_Label)
 
                 wait { onNodeWithText(trustedName).isDisplayed() }
 
@@ -661,5 +726,9 @@ class AutomateScreenshotsTest {
                 ),
             )
         }
+    }
+
+    fun locale(): String {
+        return Locale.getDefault().toString().replace("_", "-")
     }
 }

@@ -2,6 +2,29 @@ default_platform(:android)
 
 platform :android do
 
+  before_all do
+    # Enable demo mode before running screengrab
+    adb_command = "adb shell settings put global sysui_demo 1"
+    Action.sh(adb_command)
+
+    # Set demo mode properties
+    demo_commands = [
+      "enter",
+      "battery level 100",
+      "battery plug false",
+      "network wifi level 4",
+      "network mobile hidden",
+      "clock 0800",
+      "notifications remove",
+      "status bar icons"
+    ]
+
+    demo_commands.each do |cmd|
+      Action.sh("adb shell am broadcast -a com.android.systemui.demo -e command #{cmd}")
+    end
+
+  end
+
     desc "Upload the screenshots to the Google Play"
     lane :upload_screenshots do
         upload_to_play_store(
@@ -17,7 +40,9 @@ platform :android do
     lane :capture_screen_ooni do
         gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=ooni")
         capture_android_screenshots(
-            app_package_name: 'org.openobservatory.ooniprobe.dev'
+            app_package_name: 'org.openobservatory.ooniprobe.dev',
+            use_timestamp_suffix: false,
+            locales: ["en-US","ar", "ca", "de", "el", "es", "fa", "fr", "hi", "id", "is", "it", "my", "nl", "pt-BR", "ro", "ru", "sk", "sq", "sw", "th", "tr", "vi", "zh-CN", "zh-TW"],
         )
     end
 
