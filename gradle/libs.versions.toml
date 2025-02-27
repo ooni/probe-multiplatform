@@ -9,7 +9,7 @@ android-targetSdk = "35"
 compose-plugin = "1.7.0"
 kotlin = "2.1.0"
 sqldelight = "2.0.2"
-dataStoreVersion = "1.1.2"
+dataStoreVersion = "1.1.3"
 junitKtx = "1.2.1"
 
 [plugins]
@@ -31,7 +31,7 @@ kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-j
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
 
 # UI
-android-activity = { module = "androidx.activity:activity-ktx", version = "1.10.0" }
+android-activity = { module = "androidx.activity:activity-ktx", version = "1.10.1" }
 android-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.6" }
 android-work = { module = "androidx.work:work-runtime-ktx", version = "2.10.0" }
 
