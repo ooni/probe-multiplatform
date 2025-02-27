@@ -67,4 +67,4 @@ jobs:
           PROMOTE_TRACK: ${{ inputs.promoteTrack }}
           ROLLOUT: ${{ inputs.rollout }}
           VERSION_CODE: ${{ inputs.versionCode }}
-        run: bundle exec fastlane android publish organization:$ORGANIZATION current_track:$CURRENT_TRACK promote_track:PROMOTE_TRACK rollout:$ROLLOUT version_code:$VERSION_CODE
+        run: bundle exec fastlane android promote organization:$ORGANIZATION current_track:$CURRENT_TRACK promote_track:PROMOTE_TRACK rollout:$ROLLOUT version_code:$VERSION_CODE
