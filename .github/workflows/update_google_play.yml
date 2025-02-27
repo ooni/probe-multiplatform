@@ -1,0 +1,61 @@
+name: Update Google Play information
+
+on:
+  workflow_dispatch:
+    inputs:
+      ooniProbe:
+        description: 'OONI Probe Android'
+        required: false
+        type: boolean
+      newsMediaScan:
+        description: 'News Media Scan Android'
+        required: false
+        type: boolean
+      screenshots:
+        description: 'Update screenshots'
+        required: false
+        type: boolean
+      metadata:
+        description: 'Update metadata (title and descriptions)'
+        required: false
+        type: boolean
+
+jobs:
+  updateOoniProbe:
+    name: Update OONI Probe Google Play information
+    if: ${{ inputs.ooniProbe }}
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Decode Google Play Service Account
+        run: echo "${{ secrets.OONI_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > fastlane/key.json
+
+      - name: Update Google Play
+        env:
+          SCREENSHOTS: ${{ inputs.screenshots }}
+          METADATA: ${{ inputs.metadata }}
+        run: bundle exec fastlane android update_google_play organization:ooni screenshots:$SCREENSHOTS metadata:$METADATA
+
+  updateNewsMediaScan:
+    name: Update News Media Scan Google Play information
+    if: ${{ inputs.newsMediaScan }}
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      # TODO: Get Google Play Service Account
+
+      - name: Update Google Play
+        env:
+          SCREENSHOTS: ${{ inputs.screenshots }}
+          METADATA: ${{ inputs.metadata }}
+        run: bundle exec fastlane android update_google_play organization:dw screenshots:$SCREENSHOTS metadata:$METADATA

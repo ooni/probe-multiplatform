@@ -154,6 +154,9 @@ class AutomateScreenshotsTest {
                 wait { onNodeWithText(Res.string.Onboarding_DefaultSettings_Title).isDisplayed() }
                 Screengrab.screenshot("05-default-settings")
                 clickOnText(Res.string.Onboarding_DefaultSettings_Button_Go)
+
+                wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
+                Screengrab.screenshot("1_" + locale())
             }
         }
 
@@ -313,6 +316,7 @@ class AutomateScreenshotsTest {
                 wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
 
                 Screengrab.screenshot("17-results")
+
                 Thread.sleep(3000)
                 Screengrab.screenshot("2_" + locale())
 
@@ -342,6 +346,7 @@ class AutomateScreenshotsTest {
                 checkTextAnywhereInsideWebView("2160p (4k)")
 
                 Screengrab.screenshot("20-dash-measurement")
+
                 Thread.sleep(3000)
                 Screengrab.screenshot("4_" + locale())
             }

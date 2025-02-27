@@ -1,0 +1,56 @@
+name: Update Apple App Store information
+
+on:
+  workflow_dispatch:
+    inputs:
+      ooniProbe:
+        description: 'OONI Probe iOS'
+        required: false
+        type: boolean
+      newsMediaScan:
+        description: 'News Media Scan iOS'
+        required: false
+        type: boolean
+      screenshots:
+        description: 'Update screenshots'
+        required: false
+        type: boolean
+      metadata:
+        description: 'Update metadata (title and descriptions)'
+        required: false
+        type: boolean
+
+jobs:
+  updateOoniProbe:
+    name: Update OONI Probe Apple App Store information
+    if: ${{ inputs.ooniProbe }}
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Update Apple App Store
+        env:
+          SCREENSHOTS: ${{ inputs.screenshots }}
+          METADATA: ${{ inputs.metadata }}
+        run: bundle exec fastlane ios update_app_store organization:ooni screenshots:$SCREENSHOTS metadata:$METADATA
+
+  updateNewsMediaScan:
+    name: Update News Media Scan Apple App Store information
+    if: ${{ inputs.newsMediaScan }}
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Update Apple App Store
+        env:
+          SCREENSHOTS: ${{ inputs.screenshots }}
+          METADATA: ${{ inputs.metadata }}
+        run: bundle exec fastlane ios update_app_store organization:dw screenshots:$SCREENSHOTS metadata:$METADATA

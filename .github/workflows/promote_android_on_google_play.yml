@@ -1,0 +1,57 @@
+name: Promote Android on Google Play
+
+on:
+  workflow_dispatch:
+    inputs:
+      organization:
+        description: 'Organization'
+        required: true
+        type: choice
+        default: 'ooni'
+        options:
+          - ooni
+          - dw
+      currentTrack:
+        description: 'Current Google Play Track'
+        required: true
+        type: choice
+        default: 'internal'
+        options:
+          - internal
+          - alpha
+          - beta
+          - production
+      promoteTrack:
+        description: 'Google Play Track to promote to (optional to just update rollout)'
+        required: false
+        type: choice
+        options:
+          - internal
+          - alpha
+          - beta
+          - production
+      rollout:
+        description: 'Rollout fraction [0 - 0.5 - 1] (optional, default is 1 = 100%)'
+        required: false
+        type: string
+
+jobs:
+  promote:
+    name: Promote app on Google Play
+    if: ${{ inputs.ooniProbe }}
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Promote
+        env:
+          ORGANIZATION: ${{ inputs.organization }}
+          CURRENT_TRACK: ${{ inputs.currentTrack }}
+          PROMOTE_TRACK: ${{ inputs.promoteTrack }}
+          ROLLOUT: ${{ inputs.rollout }}
+          JSON_KEY: "${{ inputs.organization == 'ooni' && secrets.OONI_ANDROID_SERVICE_ACCOUNT || secrets.DW_ANDROID_SERVICE_ACCOUNT }}"
+        run: bundle exec fastlane android promote organization:$ORGANIZATION current_track:$CURRENT_TRACK promote_track:PROMOTE_TRACK rollout:$ROLLOUT json_key:$JSON_KEY
