@@ -1,4 +1,4 @@
-name: Android Instrumented Tests
+name: Run Android Instrumented Tests
 on:
   push:
     branches:
