@@ -11,9 +11,14 @@ platform :android do
     desc " * **`app_id`**: The app ID for the application"
     desc " * **`apk_path`**: The path to the APK/AAB file"
     desc " * **`organization`**: ooni, dw (default: ooni)"
+    desc "#### Required environment variables"
+    desc " * **`ANDROID_KEYSTORE_FILE`**: path the Android Keystore file"
+    desc " * **`ANDROID_KEYSTORE_PASSWORD`**: Android Keystore password"
+    desc " * **`ANDROID_KEY_PASSWORD`**: Android Keystore Key password"
+    desc " * **`ANDROID_KEY_ALIAS`**: Android Keystore Key alias"
     desc ""
     lane :publish_app_gallery do |options|
-        organization = options[:organization] || "ooni"
+        organization = options[:organization]
         raise "Invalid organization #{organization}" unless %w(ooni).include?(organization)
 
         bundle(organization: organization)
@@ -37,7 +42,7 @@ platform :android do
     desc " * **`organization`**: ooni, dw"
     desc " * **`json_key`**: the contents of the Google Play service account JSON"
     desc "#### Required environment variables"
-    desc " * **`ANDROID_KEY_STOREFILE`**: path the Android Keystore file"
+    desc " * **`ANDROID_KEYSTORE_FILE`**: path the Android Keystore file"
     desc " * **`ANDROID_KEYSTORE_PASSWORD`**: Android Keystore password"
     desc " * **`ANDROID_KEY_PASSWORD`**: Android Keystore Key password"
     desc " * **`ANDROID_KEY_ALIAS`**: Android Keystore Key alias"
@@ -77,7 +82,7 @@ platform :android do
     desc "#### Options"
     desc " * **`organization`**: ooni, dw"
     desc "#### Required environment variables"
-    desc " * **`ANDROID_KEY_STOREFILE`**: path the Android Keystore file"
+    desc " * **`ANDROID_KEYSTORE_FILE`**: path the Android Keystore file"
     desc " * **`ANDROID_KEYSTORE_PASSWORD`**: Android Keystore password"
     desc " * **`ANDROID_KEY_PASSWORD`**: Android Keystore Key password"
     desc " * **`ANDROID_KEY_ALIAS`**: Android Keystore Key alias"

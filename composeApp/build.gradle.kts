@@ -175,12 +175,12 @@ android {
 
     signingConfigs {
         create("release") {
-            if (System.getenv("ANDROID_KEY_STOREFILE") != null &&
+            if (System.getenv("ANDROID_KEYSTORE_FILE") != null &&
                 System.getenv("ANDROID_KEYSTORE_PASSWORD") != null &&
                 System.getenv("ANDROID_KEY_ALIAS") != null &&
                 System.getenv("ANDROID_KEY_PASSWORD") != null
             ) {
-                storeFile = file(System.getenv("ANDROID_KEY_STOREFILE"))
+                storeFile = file(System.getenv("ANDROID_KEYSTORE_FILE"))
                 storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
                 keyAlias = System.getenv("ANDROID_KEY_ALIAS")
                 keyPassword = System.getenv("ANDROID_KEY_PASSWORD")
@@ -197,7 +197,7 @@ android {
         getByName("release") {
             isMinifyEnabled = false
             resValue("string", "run_v2_domain", "run.ooni.org")
-            signingConfig = if (System.getenv("ANDROID_KEY_STOREFILE") != null) {
+            signingConfig = if (System.getenv("ANDROID_KEYSTORE_FILE") != null) {
                 signingConfigs.getByName("release")
             } else {
                 signingConfigs.getByName("debug")

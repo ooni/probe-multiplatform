@@ -52,14 +52,6 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: Decode Google Play Service Account
-        if: inputs.organization == 'ooni'
-        run: echo "${{ secrets.OONI_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > fastlane/key.json
-
-      - name: Decode Google Play Service Account
-        if: inputs.organization == 'dw'
-        run: echo "${{ secrets.DW_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > fastlane/key.json
-
       - name: Promote
         env:
           ORGANIZATION: ${{ inputs.organization }}
@@ -67,4 +59,5 @@ jobs:
           PROMOTE_TRACK: ${{ inputs.promoteTrack }}
           ROLLOUT: ${{ inputs.rollout }}
           VERSION_CODE: ${{ inputs.versionCode }}
-        run: bundle exec fastlane android promote organization:$ORGANIZATION current_track:$CURRENT_TRACK promote_track:PROMOTE_TRACK rollout:$ROLLOUT version_code:$VERSION_CODE
+          JSON_KEY: "${{ inputs.organization == 'ooni' && secrets.OONI_ANDROID_SERVICE_ACCOUNT || secrets.DW_ANDROID_SERVICE_ACCOUNT }}"
+        run: bundle exec fastlane android promote organization:$ORGANIZATION current_track:$CURRENT_TRACK promote_track:PROMOTE_TRACK rollout:$ROLLOUT version_code:$VERSION_CODE json_key:$JSON_KEY
