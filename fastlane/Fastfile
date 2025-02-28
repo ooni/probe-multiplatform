@@ -112,21 +112,13 @@ platform :android do
     desc ""
     lane :capture_screens do |options|
         organization = organization!(options)
+        locales = locales_or_default(options)
 
-        locales = if options[:locales]
-            options[:locales].split(',')
-        else
-            case organization
-            when "ooni" then ['ar', 'en-US', 'hi-IN', 'pt-BR', 'sk', 'zh-CN', 'ca', 'es-ES', 'id', 'ro', 'sq', 'zh-TW', 'de-DE', 'fa', 'is-IS', 'ru-RU', 'th', 'el-GR', 'fr-FR', 'it-IT', 'tr-TR']
-            when "dw" then ['en-US', 'de', 'es', 'fr', 'pt-BR', 'ru', 'tr']
-            end
-        end
-
-        gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=#{organization}")
+        # gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=#{organization}")
 
         enable_demo_mode
         capture_android_screenshots(
-            app_package_name: package_name(organization),
+            app_package_name: package_name(organization, debug: true),
             locales: locales,
             output_directory: metadata_path(organization),
             clear_previous_screenshots: false
@@ -267,9 +259,20 @@ def metadata_path(organization)
     end
 end
 
-def package_name(organization)
+def package_name(organization, debug: false)
     case organization
     when "ooni" then "org.openobservatory.ooniprobe"
     when "dw" then "com.dw.ooniprobe"
-    end
+    end + (debug ? '.dev' : '')
+end
+
+def locales_or_default(options)
+   if options[:locales]
+       options[:locales].split(',')
+   else
+       case options[:organization]
+       when "ooni" then ['ar', 'en-US', 'hi-IN', 'pt-BR', 'sk', 'zh-CN', 'ca', 'es-ES', 'id', 'ro', 'sq', 'zh-TW', 'de-DE', 'fa', 'is-IS', 'ru-RU', 'th', 'el-GR', 'fr-FR', 'it-IT', 'tr-TR']
+       when "dw" then ['en-US', 'de', 'es', 'fr', 'pt-BR', 'ru', 'tr']
+       end
+   end
 end
