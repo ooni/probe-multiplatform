@@ -42,7 +42,7 @@ import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapPreferences
-import org.ooni.probe.domain.CheckSkipAutoRunNotUploadedLimit
+import org.ooni.probe.domain.CheckAutoRunConstraints
 import org.ooni.probe.domain.ClearStorage
 import org.ooni.probe.domain.DeleteAllResults
 import org.ooni.probe.domain.DownloadUrls
@@ -226,8 +226,11 @@ class Dependencies(
             urlRepository::createOrUpdateByUrl,
         )
     }
-    private val checkSkipAutoRunNotUploadedLimit by lazy {
-        CheckSkipAutoRunNotUploadedLimit(
+    private val checkAutoRunConstraints by lazy {
+        CheckAutoRunConstraints(
+            getAutoRunSettings = getAutoRunSettings::invoke,
+            getNetworkType = networkTypeFinder::invoke,
+            isBatteryCharging = isBatteryCharging::invoke,
             resultRepository::countMissingUpload,
         )
     }
@@ -418,8 +421,7 @@ class Dependencies(
         RunBackgroundTask(
             getPreferenceValueByKey = preferenceRepository::getValueByKey,
             uploadMissingMeasurements = uploadMissingMeasurements::invoke,
-            checkSkipAutoRunNotUploadedLimit = checkSkipAutoRunNotUploadedLimit::invoke,
-            getNetworkType = networkTypeFinder::invoke,
+            checkAutoRunConstraints = checkAutoRunConstraints::invoke,
             getAutoRunSpecification = getAutoRunSpecification::invoke,
             runDescriptors = runDescriptors::invoke,
             addRunCancelListener = runBackgroundStateManager::addCancelListener,
