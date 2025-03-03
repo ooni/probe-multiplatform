@@ -37,6 +37,9 @@ jobs:
       - name: Decode Android keystore
         run: echo "${{ secrets.OONI_ANDROID_KEY_STOREFILE }}" | base64 --decode > composeApp/upload-keystore.jks
 
+      - name: Decode Service Account file
+        run: echo "${{ secrets.OONI_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > key.json
+
       - name: Publish
         env:
           TRACK: ${{ inputs.track }}
@@ -44,8 +47,7 @@ jobs:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.OONI_ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_PASSWORD: ${{ secrets.OONI_ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.OONI_ANDROID_KEY_ALIAS }}
-          JSON_KEY: ${{ secrets.OONI_ANDROID_SERVICE_ACCOUNT }}
-        run: bundle exec fastlane android publish track:$TRACK organization:ooni json_key:$JSON_KEY
+        run: bundle exec fastlane android publish track:$TRACK organization:ooni json_key:key.json
 
   publishNewsMediaScan:
     name: Publish News Media Scan Android
@@ -63,4 +65,4 @@ jobs:
       - name: Publish
         env:
           TRACK: ${{ inputs.track }}
-        run: bundle exec fastlane android publish track:$TRACK organization:dw
+        run: bundle exec fastlane android publish track:$TRACK organization:dw json_key:key.json

@@ -48,11 +48,18 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Decode Service Account file
+        if: ${{ inputs.organization == 'ooni' }}
+        run: echo "${{ secrets.OONI_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > key.json
+
+      - name: Decode Service Account file
+        if: ${{ inputs.organization == 'ooni' }}
+        run: echo "${{ secrets.DW_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > key.json
+
       - name: Promote
         env:
           ORGANIZATION: ${{ inputs.organization }}
           CURRENT_TRACK: ${{ inputs.currentTrack }}
           PROMOTE_TRACK: ${{ inputs.promoteTrack }}
           ROLLOUT: ${{ inputs.rollout }}
-          JSON_KEY: "${{ inputs.organization == 'ooni' && secrets.OONI_ANDROID_SERVICE_ACCOUNT || secrets.DW_ANDROID_SERVICE_ACCOUNT }}"
-        run: bundle exec fastlane android promote organization:$ORGANIZATION current_track:$CURRENT_TRACK promote_track:PROMOTE_TRACK rollout:$ROLLOUT json_key:$JSON_KEY
+        run: bundle exec fastlane android promote organization:$ORGANIZATION current_track:$CURRENT_TRACK promote_track:PROMOTE_TRACK rollout:$ROLLOUT json_key:key.json

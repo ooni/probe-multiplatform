@@ -98,7 +98,7 @@ fastlane android publish track:alpha organization:ooni json_key:...
 
  * **`organization`**: ooni, dw
 
- * **`json_key`**: the contents of the Google Play service account JSON
+ * **`json_key`**: path to Google Play service account JSON file
 
 #### Required environment variables
 
@@ -166,7 +166,7 @@ fastlane android promote organization:ooni track:alpha promote_track:beta rollou
 
  * **`rollout`**: set or update rollout [0 to 1] (optional, defaults to 1)
 
- * **`json_key`**: the contents of the Google Play service account JSON
+ * **`json_key`**: path to Google Play service account JSON file
 
 
 
@@ -214,7 +214,7 @@ fastlane android update_google_play organization:ooni screenshots:true metadata:
 
  * **`metadata`**: true or false (default false)
 
- * **`json_key`**: the contents of the Google Play service account JSON
+ * **`json_key`**: path to Google Play service account JSON file
 
 
 

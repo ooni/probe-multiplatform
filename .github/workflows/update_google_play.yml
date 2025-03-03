@@ -32,14 +32,14 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: Decode Google Play Service Account
-        run: echo "${{ secrets.OONI_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > fastlane/key.json
+      - name: Decode Service Account file
+        run: echo "${{ secrets.OONI_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > key.json
 
       - name: Update Google Play
         env:
           SCREENSHOTS: ${{ inputs.screenshots }}
           METADATA: ${{ inputs.metadata }}
-        run: bundle exec fastlane android update_google_play organization:ooni screenshots:$SCREENSHOTS metadata:$METADATA
+        run: bundle exec fastlane android update_google_play organization:ooni screenshots:$SCREENSHOTS metadata:$METADATA json_key:key.json
 
   updateNewsMediaScan:
     name: Update News Media Scan Google Play information
@@ -52,10 +52,11 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      # TODO: Get Google Play Service Account
+      - name: Decode Service Account file
+        run: echo "${{ secrets.DW_ANDROID_KEY_STOREFILE }}" | base64 --decode > key.json
 
       - name: Update Google Play
         env:
           SCREENSHOTS: ${{ inputs.screenshots }}
           METADATA: ${{ inputs.metadata }}
-        run: bundle exec fastlane android update_google_play organization:dw screenshots:$SCREENSHOTS metadata:$METADATA
+        run: bundle exec fastlane android update_google_play organization:dw screenshots:$SCREENSHOTS metadata:$METADATA json_key:key.json
