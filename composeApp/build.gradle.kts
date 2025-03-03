@@ -74,7 +74,7 @@ kotlin {
         }
 
         pod("Sentry") {
-            version = "~> 8.38.0"
+            version = "~> 8.45.0"
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
 
