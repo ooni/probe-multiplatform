@@ -41,14 +41,8 @@ class AppWorkerManager(
 
             val request = PeriodicWorkRequestBuilder<RunWorker>(1, TimeUnit.HOURS)
                 .setInitialDelay(1, TimeUnit.HOURS)
-                .setConstraints(
-                    Constraints.Builder()
-                        .setRequiredNetworkType(
-                            if (params.wifiOnly) NetworkType.UNMETERED else NetworkType.CONNECTED,
-                        )
-                        .setRequiresCharging(params.onlyWhileCharging)
-                        .build(),
-                )
+                // Constraints are checked manually at the start of the run,
+                // to avoid early stopped due the constraints not being met anymore
                 .build()
 
             workManager.enqueueUniquePeriodicWork(

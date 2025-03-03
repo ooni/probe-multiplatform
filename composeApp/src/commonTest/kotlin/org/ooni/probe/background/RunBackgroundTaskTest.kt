@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
-import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
@@ -16,17 +15,15 @@ import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.domain.UploadMissingMeasurements
 import kotlin.test.Test
 import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 class RunBackgroundTaskTest {
     @Test
-    fun skipAutoRunIfVpnIsEnabled() =
+    fun skipIfFailedAutoRunConstraints() =
         runTest {
             var wasRunDescriptorsCalled = false
             val state = MutableStateFlow<RunBackgroundState>(RunBackgroundState.Idle())
             val subject = buildSubject(
-                getNetworkType = { NetworkType.VPN },
-                getRunBackgroundState = { state },
+                checkAutoRunConstraints = { false },
                 runDescriptors = {
                     wasRunDescriptorsCalled = true
                     state.value = RunBackgroundState.RunningTests()
@@ -40,38 +37,10 @@ class RunBackgroundTaskTest {
             assertFalse(wasRunDescriptorsCalled)
         }
 
-    @Test
-    fun runManualRunIfVpnIsEnabled() =
-        runTest {
-            var wasRunDescriptorsCalled = false
-            val state = MutableStateFlow<RunBackgroundState>(RunBackgroundState.Idle())
-            val subject = buildSubject(
-                getNetworkType = { NetworkType.VPN },
-                getRunBackgroundState = { state },
-                runDescriptors = {
-                    wasRunDescriptorsCalled = true
-                    state.value = RunBackgroundState.RunningTests()
-                    delay(100)
-                    state.value = RunBackgroundState.Idle()
-                },
-            )
-
-            subject(
-                RunSpecification.Full(
-                    tests = emptyList(),
-                    taskOrigin = TaskOrigin.OoniRun,
-                    isRerun = false,
-                ),
-            ).collect()
-
-            assertTrue(wasRunDescriptorsCalled)
-        }
-
     private fun buildSubject(
         getPreferenceValueByKey: (SettingsKey) -> Flow<Any?> = { flowOf(true) },
         uploadMissingMeasurements: (ResultModel.Id?) -> Flow<UploadMissingMeasurements.State> = { emptyFlow() },
-        checkSkipAutoRunNotUploadedLimit: suspend () -> Boolean = { false },
-        getNetworkType: () -> NetworkType = { NetworkType.Wifi },
+        checkAutoRunConstraints: suspend () -> Boolean = { false },
         getAutoRunSpecification: suspend () -> RunSpecification.Full = {
             RunSpecification.Full(
                 tests = emptyList(),
@@ -88,8 +57,7 @@ class RunBackgroundTaskTest {
     ) = RunBackgroundTask(
         getPreferenceValueByKey = getPreferenceValueByKey,
         uploadMissingMeasurements = uploadMissingMeasurements,
-        checkSkipAutoRunNotUploadedLimit = checkSkipAutoRunNotUploadedLimit,
-        getNetworkType = getNetworkType,
+        checkAutoRunConstraints = checkAutoRunConstraints,
         getAutoRunSpecification = getAutoRunSpecification,
         runDescriptors = runDescriptors,
         setRunBackgroundState = setRunBackgroundState,

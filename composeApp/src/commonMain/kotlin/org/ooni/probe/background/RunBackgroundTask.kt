@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
-import org.ooni.engine.models.NetworkType
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
@@ -26,8 +25,7 @@ import org.ooni.probe.domain.UploadMissingMeasurements
 class RunBackgroundTask(
     private val getPreferenceValueByKey: (SettingsKey) -> Flow<Any?>,
     private val uploadMissingMeasurements: (ResultModel.Id?) -> Flow<UploadMissingMeasurements.State>,
-    private val checkSkipAutoRunNotUploadedLimit: suspend () -> Boolean,
-    private val getNetworkType: () -> NetworkType,
+    private val checkAutoRunConstraints: suspend () -> Boolean,
     private val getAutoRunSpecification: suspend () -> RunSpecification.Full,
     private val runDescriptors: suspend (RunSpecification.Full) -> Unit,
     private val setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
@@ -45,6 +43,9 @@ class RunBackgroundTask(
             }
 
             val isAutoRun = spec == null
+
+            if (isAutoRun && !checkAutoRunConstraints()) return@channelFlow
+
             if (isAutoRun || spec is RunSpecification.OnlyUploadMissingResults) {
                 val uploadCancelled = uploadMissingResults()
                 if (uploadCancelled) return@channelFlow
@@ -106,16 +107,6 @@ class RunBackgroundTask(
     }
 
     private suspend fun ProducerScope<RunBackgroundState>.runTests(spec: RunSpecification.Full?) {
-        if (checkSkipAutoRunNotUploadedLimit()) {
-            Logger.i("Skipping auto-run tests: too many not-uploaded results")
-            return
-        }
-
-        if (getNetworkType() == NetworkType.VPN && spec == null) {
-            Logger.i("Skipping auto-run tests: VPN enabled")
-            return
-        }
-
         coroutineScope {
             val runJob = async {
                 runDescriptors(spec ?: getAutoRunSpecification())

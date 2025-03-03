@@ -82,7 +82,8 @@ class AndroidApplication : Application() {
             override val model = "${Build.MANUFACTURER} ${Build.MODEL}"
             override val needsToRequestNotificationsPermission =
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-            override val sentryDsn = "https://7a49ffedcb48b9b69705d1ac2c032c69@o155150.ingest.sentry.io/4508325642764288"
+            override val sentryDsn =
+                "https://7a49ffedcb48b9b69705d1ac2c032c69@o155150.ingest.sentry.io/4508325642764288"
         }
     }
 
@@ -114,38 +115,6 @@ class AndroidApplication : Application() {
             is PlatformAction.Share -> shareText(action)
             is PlatformAction.FileSharing -> shareFile(action)
             is PlatformAction.VpnSettings -> openVpnSettings()
-        }
-    }
-
-    private fun launchUrl(
-        url: String,
-        extras: Map<String, String>?,
-    ) {
-        val uri = Uri.parse(url)
-        val intent = Intent(
-            when (uri.scheme) {
-                "mailto" -> Intent.ACTION_SENDTO
-                else -> Intent.ACTION_VIEW
-            },
-            uri,
-        ).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-
-        if (uri.scheme == "mailto") {
-            val chooserTitle = extras?.get("chooserTitle") ?: "Send email"
-            val mailerIntent = Intent.createChooser(intent, chooserTitle).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                extras?.forEach { (key, value) ->
-                    when (key) {
-                        "subject" -> putExtra(Intent.EXTRA_SUBJECT, value)
-                        "body" -> putExtra(Intent.EXTRA_TEXT, value)
-                    }
-                }
-            }
-            startActivity(mailerIntent)
-        } else {
-            startActivity(intent)
         }
     }
 
