@@ -183,17 +183,15 @@ platform :ios do
     lane :build do |options|
         organization = organization!(options)
 
-        scheme = case organization
-            when "ooni" then "OONIProbe"
-            when "dw" then "NewsMediaScan"
-            end
+        scheme = scheme!(organization)
 
         gradle(task: "podInstall -Porganization=#{organization}")
         cocoapods(podfile: "./iosApp/Podfile")
 
         puts "Building #{scheme}"
         sh "cd .. && echo \"organization=#{organization}\" >> gradle.properties"
-        sh "cd .. && xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme '#{scheme}' -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED='NO' | xcpretty"
+        sh "cd .. && xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme '#{scheme}' -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED='NO' -archivePath iosApp/build/#{scheme}.xcarchive | xcpretty"
+        # sh "cd .. && xcodebuild -exportArchive -archivePath iosApp/build/#{scheme}.xcarchive  -exportPath iosApp/build/#{scheme}.ipa -exportOptionsPlist iosApp/#{scheme}.exportOptions.plist"
     end
 
     desc "Publish iOS app"
@@ -203,6 +201,12 @@ platform :ios do
     desc " * **`organization`**: ooni, dw"
     desc ""
     lane :publish do |options|
+        organization = organization!(options)
+        scheme = scheme!(organization)
+        build(organization: organization)
+#         upload_to_app_store(
+#           ipa: "iosApp/build/#{scheme}.ipa"
+#         )
         # TODO
     end
 
@@ -250,6 +254,13 @@ def organization!(options)
     organization = options[:organization]
     raise "Invalid organization '#{organization}'" unless %w(ooni dw).include?(organization)
     return organization
+end
+
+def scheme!(organization)
+    case organization
+    when "ooni" then "OONIProbe"
+    when "dw" then "NewsMediaScan"
+    end
 end
 
 def metadata_path(organization)
