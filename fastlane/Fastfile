@@ -115,7 +115,7 @@ platform :android do
         organization = organization!(options)
         locales = locales_or_default(options)
 
-        # gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=#{organization}")
+        gradle(task: "clean copyBrandingToCommonResources assembleFullDebug assembleFullDebugAndroidTest -Porganization=#{organization}")
 
         enable_demo_mode
         capture_android_screenshots(
@@ -265,10 +265,7 @@ def scheme!(organization)
 end
 
 def metadata_path(organization)
-    case organization
-    when "ooni" then "./fastlane/metadata/android"
-    when "dw" then "./fastlane/metadata/dw/android"
-    end
+    "./fastlane/metadata/#{organization}/android"
 end
 
 def package_name(organization, debug: false)

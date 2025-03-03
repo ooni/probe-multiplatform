@@ -39,10 +39,10 @@ F-droid.
 #### 1.3 Release notes
 
 Update the release notes for each flavor and platform:
-- OONI Probe Android: `fastlane/metadata/android/en-US/changelogs/default.txt`
-- OONI Probe iOS: `fastlane/metadata/ios/en-US/release_notes.txt`
-- News Media Scan Android: `fastlane/metadata/dw/android/en-US/changelogs/default.txt`
-- News Media Scan iOS: `fastlane/metadata/dw/ios/en-US/release_notes.txt`
+- OONI Probe Android: `metadata/ooni/android/en-US/changelogs/default.txt`
+- OONI Probe iOS: `metadata/ooni/ios/en-US/release_notes.txt`
+- News Media Scan Android: `metadata/dw/android/en-US/changelogs/default.txt`
+- News Media Scan iOS: `metadata/dw/ios/en-US/release_notes.txt`
 
 #### 1.4 Create the Pull Request
 
