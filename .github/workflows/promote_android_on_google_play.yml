@@ -52,7 +52,7 @@ jobs:
         run: echo "${{ secrets.OONI_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > key.json
 
       - name: Decode Service Account file
-        if: ${{ inputs.organization == 'ooni' }}
+        if: ${{ inputs.organization == 'dw' }}
         run: echo "${{ secrets.DW_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > key.json
 
       - name: Promote

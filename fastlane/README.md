@@ -89,7 +89,7 @@ Publish a new version of the app on Google Play
 #### Example:
 
 ```
-fastlane android publish track:alpha organization:ooni json_key:...
+fastlane android publish track:alpha organization:ooni json_key:key.json
 ```
 
 #### Options
@@ -153,7 +153,7 @@ Promote Google Play release
 #### Example:
 
 ```
-fastlane android promote organization:ooni track:alpha promote_track:beta rollout:0.5 version_code:<version_code>
+fastlane android promote organization:ooni track:alpha promote_track:beta rollout:0.5 json_key:key.json
 ```
 
 #### Options
@@ -203,7 +203,7 @@ Update Google Play store listing information
 #### Example:
 
 ```
-fastlane android update_google_play organization:ooni screenshots:true metadata:true json_key:...
+fastlane android update_google_play organization:ooni screenshots:true metadata:true json_key:key.json
 ```
 
 #### Options

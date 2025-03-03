@@ -30,7 +30,7 @@ platform :android do
 
     desc "Publish a new version of the app on Google Play"
     desc "#### Example:"
-    desc "```\nfastlane android publish track:alpha organization:ooni json_key:...\n```"
+    desc "```\nfastlane android publish track:alpha organization:ooni json_key:key.json\n```"
     desc "#### Options"
     desc " * **`track`**: internal, alpha, beta, production"
     desc " * **`organization`**: ooni, dw"
@@ -76,7 +76,7 @@ platform :android do
 
     desc "Promote Google Play release"
     desc "#### Example:"
-    desc "```\nfastlane android promote organization:ooni track:alpha promote_track:beta rollout:0.5 version_code:<version_code>\n```"
+    desc "```\nfastlane android promote organization:ooni track:alpha promote_track:beta rollout:0.5 json_key:key.json\n```"
     desc "#### Options"
     desc " * **`organization`**: ooni, dw"
     desc " * **`current_track`**: internal, alpha, beta, production"
@@ -127,7 +127,7 @@ platform :android do
 
     desc "Update Google Play store listing information"
     desc "#### Example:"
-    desc "```\nfastlane android update_google_play organization:ooni screenshots:true metadata:true json_key:...\n```"
+    desc "```\nfastlane android update_google_play organization:ooni screenshots:true metadata:true json_key:key.json\n```"
     desc "#### Options"
     desc " * **`organization`**: ooni, dw"
     desc " * **`screenshots`**: true or false (default false)"
