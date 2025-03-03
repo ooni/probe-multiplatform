@@ -87,6 +87,8 @@ export JAVA_HOME="${jdk_dir}/Home"
 # The default execution directory of this script is the ci_scripts directory.
 cd $CI_PRIMARY_REPOSITORY_PATH # change working directory to the root of your cloned repo.
 
+./gradlew copyBrandingToCommonResources -Porganization=$ORGANIZATION
+
 ./gradlew podInstall -Porganization=$ORGANIZATION
 
 # Install CocoaPods dependencies.
