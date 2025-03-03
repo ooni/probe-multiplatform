@@ -39,7 +39,6 @@ on:
 jobs:
   promote:
     name: Promote app on Google Play
-    if: ${{ inputs.ooniProbe }}
     runs-on: macos-latest
 
     steps:
