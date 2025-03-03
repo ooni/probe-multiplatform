@@ -33,7 +33,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Decode Service Account file
-        run: echo "${{ secrets.OONI_ANDROID_KEY_STOREFILE }}" | base64 --decode > key.json
+        run: echo "${{ secrets.OONI_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > key.json
 
       - name: Update Google Play
         env:
