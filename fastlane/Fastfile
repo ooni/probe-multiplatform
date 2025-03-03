@@ -34,7 +34,7 @@ platform :android do
     desc "#### Options"
     desc " * **`track`**: internal, alpha, beta, production"
     desc " * **`organization`**: ooni, dw"
-    desc " * **`json_key`**: the contents of the Google Play service account JSON"
+    desc " * **`json_key`**: path to Google Play service account JSON file"
     desc "#### Required environment variables"
     desc " * **`ANDROID_KEYSTORE_FILE`**: path the Android Keystore file"
     desc " * **`ANDROID_KEYSTORE_PASSWORD`**: Android Keystore password"
@@ -50,7 +50,7 @@ platform :android do
             package_name: package_name(organization),
             track: options[:track],
             metadata_path: metadata_path(organization),
-            json_key_data: options[:json_key],
+            json_key: options[:json_key],
             skip_upload_metadata: true,
             skip_upload_changelogs: true,
             skip_upload_apk: true, # we're uploading AAB
@@ -82,7 +82,7 @@ platform :android do
     desc " * **`current_track`**: internal, alpha, beta, production"
     desc " * **`promote_track`**: alpha, beta, production (optional to just update rollout)"
     desc " * **`rollout`**: set or update rollout [0 to 1] (optional, defaults to 1)"
-    desc " * **`json_key`**: the contents of the Google Play service account JSON"
+    desc " * **`json_key`**: path to Google Play service account JSON file"
     desc ""
     lane :promote do |options|
         organization = organization!(options)
@@ -94,7 +94,7 @@ platform :android do
             # The percentage of the user fraction when uploading to the rollout track (setting to 1 will complete the rollout)
             rollout: ((options[:rollout].nil? or options[:rollout].empty?) ? '1' : options[:rollout]),
             metadata_path: metadata_path(organization),
-            json_key_data: options[:json_key],
+            json_key: options[:json_key],
             skip_upload_apk: true,
             skip_upload_aab: true,
             skip_upload_images: true,
@@ -132,7 +132,7 @@ platform :android do
     desc " * **`organization`**: ooni, dw"
     desc " * **`screenshots`**: true or false (default false)"
     desc " * **`metadata`**: true or false (default false)"
-    desc " * **`json_key`**: the contents of the Google Play service account JSON"
+    desc " * **`json_key`**: path to Google Play service account JSON file"
     desc ""
     lane :update_google_play do |options|
         organization = organization!(options)
@@ -140,7 +140,7 @@ platform :android do
         upload_to_play_store(
             package_name: package_name(organization),
             metadata_path: metadata_path(organization),
-            json_key_data: options[:json_key],
+            json_key: options[:json_key],
             skip_upload_apk: true,
             skip_upload_aab: true,
             skip_upload_changelogs: true,
