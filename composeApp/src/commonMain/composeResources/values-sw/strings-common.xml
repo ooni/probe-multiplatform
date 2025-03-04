@@ -275,7 +275,7 @@
     <string name="Modal_RunAnyway">Endesha hata hivyo</string>
     <string name="Modal_AlwaysRun">Daima endesha</string>
     <string name="Modal_Error_CantDownloadURLs">Imeshindwa kupakua orodha ya URL. Tafadhali jaribu tena.</string>
-    <string name="Modal_CustomURL_Title_NotSaved">Una uhakika\?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Una uhakika?</string>
     <string name="Modal_CustomURL_NotSaved">URL zako hazitahifadhiwa ukiondoka kwenye skrini hii. Je! Una uhakika unataka kuondoka kwenye skrini hii\?</string>
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe haiwezi kufanya kazi kiotomatiki bila uboreshaji wa betri. Unataka kujaribu tena\?</string>
     <string name="Modal_EnableNotifications_Title">Pata sasisho juu ya udhibiti wa mtandao</string>
