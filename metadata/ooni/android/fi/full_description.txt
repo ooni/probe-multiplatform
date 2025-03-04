@@ -1,0 +1,24 @@
+Onko verkkosivut ja sosiaalisen median sovellukset estetty? Onko verkkosi normaalia hitaampi? Selvitä se käyttämällä OONI Probea!
+
+Tällä sovelluksella tarkastelet onko verkkosivuja tai pikaviestisovelluksia estetty, mittaat verkkosi nopeutta ja suorituskykyä, sekä tarkistat onko verkossasi merkkejä sensuurista tai valvonnasta.
+
+OONI Proben on kehittänyt Open Observatory of Network Interference (OONI), joka on vapaan ohjelmiston projekti (Tor Projectin alla). Se pyrkii paljastamaan internetin sensuuria ympäri maailmaa.
+
+Vuodesta 2012 lähtien OONIn kansainvälinen yhteisö on kerännyt miljoonia verkkomittauksia yli 200:sta maasta, valaisten useita verkon häirinnän tapauksia.
+
+Kerää todisteita internetin sensuurista
+Voit tarkistaa, jos ja miten verkkosivut ja pikaviestisovellukset on estetty. Keräämäsi verkkomittaukset sattavat toimia internetin sensuurin todisteina.
+
+Havaitse sensuurista ja vakoilusta vastuussa olevat järjestelmät
+OONI Probe -testit on myös suunniteltu paljastamaan sensuurista ja vakoilusta vastuussa olevia laitteistoja (middleboxit).
+
+Mittaa verkkosi nopeus ja suorituskyky
+You can measure the speed and performance of your network by running OONI's implementation of the Network Diagnostic Test (NDT). You can also measure video streaming performance with the Dynamic Adaptive Streaming over HTTP (DASH) test.
+
+Avoin data
+OONI publishes network measurement data because open data allows third parties to verify OONI findings, conduct independent studies, and answer other research questions. Openly publishing OONI data also helps increase transparency of internet censorship around the world. You can explore and download OONI data here: https://ooni.io/data/
+
+Vapaa ohjelmisto
+All OONI Probe tests (including our NDT and DASH implementations), are based on free and open source software. You can find OONI software projects on GitHub: https://github.com/ooni. Curious to learn how OONI Probe tests work? Learn more: https://ooni.io/nettest/
+
+To receive updates from the OONI-verse, follow us on Twitter: https://twitter.com/OpenObservatory
