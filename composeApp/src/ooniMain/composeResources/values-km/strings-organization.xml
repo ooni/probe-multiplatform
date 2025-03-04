@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">OONI Probe</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">តើ OONI Probe ជាអ្វី\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">តើ OONI Probe ជាអ្វី?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">កម្មវីធីសម្រាប់វាស់ការ​រឹត​ត្បិតអុិនធឺណឺត។\n\n​តើមានវែបសាយ ឬបណ្ដាញទំនាក់ទំនងសង្គមណាខ្លះដែលត្រូវបានបិទខ្ទប់\? តើការភ្ជាប់ទៅបណ្ដាញអុីនធឺណិតរបស់អ្នកតែងតែយឺតដែរ ឬទេ\?\n\n ដំណើរការកម្មវិធី OONI Probe ដើម្បីស្វែងយល់បន្ថែម!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">ទិន្នន័យ OONI និងព័ត៌មានបណ្តាញរបស់អ្នកនឹងត្រូវបោះពុម្ពផ្សាយដោយបើកចំហ។</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">អ្នកដែលកំពុងតែដានការប្រើប្រាស់អុិនធឺណែតរបស់អ្នក (ឧ. រដ្ឋាភិបាល ឬ អ្នកផ្ដល់សេវាកម្មអុីនធឺណិត) នឹងដឹងថាអ្នកកំពុងដំណើរការ OONI Probe ។</string>
