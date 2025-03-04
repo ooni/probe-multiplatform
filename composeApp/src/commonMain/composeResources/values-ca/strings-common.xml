@@ -216,13 +216,13 @@
     <string name="Modal_Retry">Torna-ho a intentar</string>
     <string name="Modal_Cancel">Cancel·la</string>
     <string name="Modal_OK">Correcte</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Voleu eliminar tots els resultats de la prova\?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Voleu eliminar tots els resultats de la prova?</string>
     <string name="Modal_Delete">Suprimeix</string>
     <string name="Modal_ReRun_Title">Torna a executar la prova</string>
     <string name="Modal_ReRun_Websites_Title">Esteu a punt de tornar a provar %1$s llocs web.</string>
     <string name="Modal_ReRun_Websites_Run">Inicia</string>
     <string name="Modal_Error_CantDownloadURLs">No s\'ha pogut baixar la llista d\'URL. Torneu-ho a provar.</string>
-    <string name="Modal_CustomURL_Title_NotSaved">N\'estàs segur\?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">N’estàs segur?</string>
     <string name="Modal_CustomURL_NotSaved">Les vostres URL no es desaran quan surti d\'aquesta pantalla. Esteu segur de voler sortir d\'aquesta pantalla\?</string>
     <string name="Modal_EnableNotifications_Title">Obtingueu actualitzacions sobre la censura a Internet</string>
 
