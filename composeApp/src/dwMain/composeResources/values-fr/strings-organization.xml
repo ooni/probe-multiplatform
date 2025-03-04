@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">News Media Scan</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">Des sites d\'actualité sont-ils bloqués \?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Des sites d\'actualité sont-ils bloqués?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Démarrez News Media Scan pour le savoir ! News Media Scan est la première appli qui vous offre de la transparence sur le paysage médiatique de la région dans laquelle vous vous trouvez. Vous apporterez également une précieuse contribution à la mesure de la censure à travers le monde. \n\nLa liste que vous voyez dans l\'application est une liste publique, créée par la communauté GitHub et non par la DW. Elle représente un éventail objectif de fournisseurs de médias d\'informations nationaux et internationaux.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Attention !\n\nOONI publiera ouvertement les données de mesure que vous envoyez, ainsi que les informations relatives à votre réseau.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Toute personne surveillant votre connexion internet pourra voir que vous utilisez News Media Scan.</string>
