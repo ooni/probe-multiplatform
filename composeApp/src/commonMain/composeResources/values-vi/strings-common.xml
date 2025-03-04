@@ -246,7 +246,7 @@
     <string name="Modal_RunAnyway">Cứ chạy</string>
     <string name="Modal_AlwaysRun">Luôn chạy</string>
     <string name="Modal_Error_CantDownloadURLs">Không thể tải danh sách URL. Vui lòng thử lại.</string>
-    <string name="Modal_CustomURL_Title_NotSaved">Bạn có chắc không\?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Bạn có chắc không?</string>
     <string name="Modal_CustomURL_NotSaved">URL của bạn sẽ không được lưu khi bạn rời khỏi màn hình này. Bạn có chắc chắn muốn rời khỏi màn hình này không\?</string>
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe không thể chạy tự động nếu không tối ưu hóa pin. Bạn có muốn thử lại không\?</string>
     <string name="Modal_EnableNotifications_Title">Nhận thông tin cập nhật về kiểm duyệt internet</string>
