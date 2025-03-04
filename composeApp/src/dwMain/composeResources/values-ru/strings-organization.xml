@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">News Media Scan</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">Новостной сайт заблокирован\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Новостной сайт заблокирован?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Запусти News Media Scan и узнай! News Media Scan – приложение номер один, которое дает тебе четкое представление о новостном ландшафте, в какой бы стране ты ни находился. Кроме того, используя это приложение, ты вносишь вклад в измерение уровня цензуры по всему миру.\n\nСписок, который ты увидишь в News Media Scan, находится в общественном доступе. Он составляется не DW, а пользователями сервиса для разработки IT-проектов GitHub и представляет собой объективную подборку международных и  национальных новостных медиакомпаний.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI опубликует полученные от тебя результаты измерений уровня цензуры, включая информацию о твоей сети.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Любой, кто мониторит твое интернет-соединение, сможет увидеть, что ты пользуешься News Media Scan.</string>
