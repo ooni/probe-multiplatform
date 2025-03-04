@@ -179,7 +179,11 @@ class RunNetTest(
                         event.result.testKeys?.let {
                             val testKeys = extractTestKeysPropertiesToJson(it)
                             measurement = measurement.copy(
-                                testKeys = json.encodeToString(testKeys),
+                                testKeys = if (testKeys.isEmpty()) {
+                                    null
+                                } else {
+                                    json.encodeToString(testKeys)
+                                },
                             )
                         }
 

@@ -2,6 +2,7 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -174,7 +175,7 @@ class MeasurementRepository(
             id = MeasurementModel.Id(id),
             resultId = result_id?.let(ResultModel::Id) ?: return null,
             testName = test_name,
-            testKeys = test_keys?.let { json.decodeFromString<TestKeys>(it) },
+            testKeys = test_keys?.let(::decodeTestKeys),
             descriptorName = descriptor_name,
             descriptorRunId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
         )
@@ -185,9 +186,19 @@ class MeasurementRepository(
             id = MeasurementModel.Id(id),
             resultId = result_id?.let(ResultModel::Id) ?: return null,
             testName = test_name,
-            testKeys = test_keys?.let { json.decodeFromString<TestKeys>(it) },
+            testKeys = test_keys?.let(::decodeTestKeys),
             descriptorName = descriptor_name,
             descriptorRunId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
         )
+    }
+
+    private fun decodeTestKeys(value: String): TestKeys? {
+        if (value == "null") return null // Due to a past bug
+        return try {
+            json.decodeFromString<TestKeys>(value)
+        } catch (e: Exception) {
+            Logger.e("Invalid stored test_keys", e)
+            null
+        }
     }
 }
