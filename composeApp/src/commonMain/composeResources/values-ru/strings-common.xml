@@ -277,7 +277,7 @@
     <string name="Modal_RunAnyway">Тестировать в любом случае</string>
     <string name="Modal_AlwaysRun">Всегда тестировать</string>
     <string name="Modal_Error_CantDownloadURLs">Ошибка скачивания списка адресов. Пожалуйста, попробуйте снова.</string>
-    <string name="Modal_CustomURL_Title_NotSaved">Вы уверены\?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Вы уверены?</string>
     <string name="Modal_CustomURL_NotSaved">Если вы закроете этот экран, адреса не сохранятся. Вы уверены, что хотите его закрыть\?</string>
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe не может включаться автоматически без оптимального заряда батареи. Попробовать еще раз\?</string>
     <string name="Modal_EnableNotifications_Title">Получайте новости о случаях интернет-цензуры</string>
