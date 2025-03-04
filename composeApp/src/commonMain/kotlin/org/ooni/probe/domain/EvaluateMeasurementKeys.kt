@@ -43,7 +43,7 @@ fun evaluateMeasurementKeys(
         TestType.Signal ->
             MeasurementKeysResult(
                 isFailed = keys?.signalBackendStatus?.isEmpty() != false,
-                isAnomaly = keys?.signalBackendStatus == TestKeys.BLOCKED_VALUE,
+                isAnomaly = keys?.signalBackendStatus.isBlocked,
             )
 
         TestType.Telegram ->
@@ -51,9 +51,9 @@ fun evaluateMeasurementKeys(
                 isFailed = keys?.telegramHttpBlocking == null ||
                     keys.telegramTcpBlocking == null ||
                     keys.telegramWebStatus == null,
-                isAnomaly = keys?.facebookTcpBlocking == true ||
-                    keys?.facebookDnsBlocking == true ||
-                    keys?.telegramWebStatus == TestKeys.BLOCKED_VALUE,
+                isAnomaly = keys?.telegramHttpBlocking == true ||
+                    keys?.telegramTcpBlocking == true ||
+                    keys?.telegramWebStatus.isBlocked,
             )
 
         TestType.Tor ->
@@ -87,11 +87,14 @@ fun evaluateMeasurementKeys(
                 isFailed = keys?.whatsappEndpointsStatus == null ||
                     keys.whatsappWebStatus == null ||
                     keys.registrationServerStatus == null,
-                isAnomaly = keys?.whatsappEndpointsStatus == TestKeys.BLOCKED_VALUE ||
-                    keys?.whatsappWebStatus == TestKeys.BLOCKED_VALUE ||
-                    keys?.registrationServerStatus == TestKeys.BLOCKED_VALUE,
+                isAnomaly = keys?.whatsappEndpointsStatus.isBlocked ||
+                    keys?.whatsappWebStatus.isBlocked ||
+                    keys?.registrationServerStatus.isBlocked,
             )
     }
+
+private val String?.isBlocked
+    get() = equals(TestKeys.BLOCKED_VALUE, ignoreCase = true)
 
 fun extractTestKeysPropertiesToJson(testKeys: TestKeys): Map<String, Map<String, Double?>?> {
     return mapOf(
