@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">News Media Scan</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">Haber medyası siteleri engelleniyor mu\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Haber medyası siteleri engelleniyor mu?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Öğrenmek için News Media Scan uygulamasını çalıştırın! News Media Scan, şu anda bulunduğunuz ülkedeki haber medyaları hakkında size şeffaflık sağlayan 1 numaralı uygulamadır. Ayrıca uygulamayı kullanarak Dünya çapında sansür uygulamalarının ölçülmesine önemli bir katkıda bulunursunuz.\n\nUygulamada gördüğünüz liste GitHub üzerinde bulunan herkese açık, topluluk tarafından seçilmiş bir listedir ve DW tarafından seçilmemiştir. Uluslararası ve ulusal haber medyası sağlayıcılarının objektif bir aralığını temsil eder.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI, gönderdiğiniz ölçüm verilerini ağ bilgilerinizle birlikte herkese açık olarak yayınlar.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">İnternet bağlantınızı izleyen herkes News Media Scan uygulamasını çalıştırdığınızı görebilir.</string>
