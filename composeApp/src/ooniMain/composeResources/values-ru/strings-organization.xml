@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">OONI Probe</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">Что такое OONI Probe\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Что такое OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Приложение для анализа интернет-цензуры. \n\nЗаблокированы сайты или приложения соцсети\? Интернет тормозит больше обычного\?\n\nУзнай почему с помощью OONI Probe!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Данные OONI публикуются в открытом доступе и будут включать информацию о вашей сети.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Все, кто могут отслеживать ваши действия в сети (например, правительство или интернет-провайдер), будут видеть, что вы используете OONI Probe.</string>
