@@ -315,7 +315,7 @@
     <string name="Modal_RunAnyway">Execute mesmo assim</string>
     <string name="Modal_AlwaysRun">Sempre Executar</string>
     <string name="Modal_Error_CantDownloadURLs">Não foi possível baixar a lista de URL\'s. Por favor, tente novamente.</string>
-    <string name="Modal_CustomURL_Title_NotSaved">Você tem a certeza\?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Você tem a certeza?</string>
     <string name="Modal_CustomURL_NotSaved">Suas URLs não serão salvas quando você sair desta tela. Tem certeza de que deseja sair desta tela\?</string>
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe não pode ser executado automaticamente sem a otimização da bateria. Você quer tentar novamente\?</string>
     <string name="Modal_EnableNotifications_Title">Receba atualizações sobre censura na internet</string>
