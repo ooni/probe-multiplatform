@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">OONI Probe</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">什么是 OONI Probe\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">什么是 OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">为您评估网络审查的一款应用。\n\n网站和社交媒体应用被屏蔽？网络连接异常缓慢？\n\n运行 OONI Probe 来找出答案吧！</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">包含您的网络信息的 OONI 数据将被公开发布。</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">监控您的网络活动的实体（例如政府或运营商）都会知道您在运行 OONI Probe。</string>
