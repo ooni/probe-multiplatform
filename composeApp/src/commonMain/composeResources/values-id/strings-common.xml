@@ -276,7 +276,7 @@
     <string name="Modal_RunAnyway">Tetap jalankan</string>
     <string name="Modal_AlwaysRun">Selalu Jalankan</string>
     <string name="Modal_Error_CantDownloadURLs">Tidak dapat mengunduh daftar URL. Silakan coba lagi.</string>
-    <string name="Modal_CustomURL_Title_NotSaved">Anda yakin\?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Anda yakin?</string>
     <string name="Modal_CustomURL_NotSaved">URL Anda tidak akan disimpan saat Anda meninggalkan layar ini. Anda yakin ingin meninggalkan layar ini\?</string>
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe tidak dapat berjalan secara otomatis tanpa pengoptimalan baterai. Apakah Anda ingin mencoba lagi\?</string>
     <string name="Modal_EnableNotifications_Title">Dapatkan pembaruan tentang sensor internet</string>
