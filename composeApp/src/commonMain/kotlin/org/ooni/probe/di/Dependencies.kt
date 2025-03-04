@@ -398,6 +398,7 @@ class Dependencies(
             readFile = readFile,
             deleteFiles = deleteFiles,
             updateMeasurement = measurementRepository::createOrUpdate,
+            deleteMeasurementById = measurementRepository::deleteById,
         )
     }
 

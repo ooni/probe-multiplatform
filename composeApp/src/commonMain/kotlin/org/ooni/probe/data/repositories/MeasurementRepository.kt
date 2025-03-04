@@ -115,6 +115,12 @@ class MeasurementRepository(
         }
     }
 
+    suspend fun deleteById(measurementId: MeasurementModel.Id) {
+        withContext(backgroundContext) {
+            database.measurementQueries.deleteById(measurementId.value)
+        }
+    }
+
     private fun Measurement.toModel(): MeasurementModel? {
         return MeasurementModel(
             id = MeasurementModel.Id(id),
