@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">OONI Probe</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe क्या है\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe क्या है?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">इंटरनेट सेंसरशिप को मापने के लिए आपका ऐप।\n\nक्या वेबसाइट और सोशल मीडिया ऐप ब्लॉक किए गए हैं\? क्या आपका इंटरनेट कनेक्शन असामान्य रूप से धीमा है\?\n\nपता लगाने के लिए OONI जांच चलाएं!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI डेटा खुले तौर पर प्रकाशित होता है और इसमें आपकी नेटवर्क जानकारी शामिल होगी।</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">आपकी इंटरनेट गतिविधि (जैसे सरकार या आईएसपी) की निगरानी करने वाला कोई भी व्यक्ति देखेगा कि आप OONI जांच चला रहे हैं।</string>
