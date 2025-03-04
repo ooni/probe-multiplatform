@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">OONI Probe</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">Apakah OONI Probe\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Apakah OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Aplikasi mengukur penapisan internet anda.\n\nAdakah tapak web dan aplikasi media sosial disekat\? Adakah sambungan internet anda perlahan secara luar biasa\?\n\nJalankan OONI Probe untuk mengetahui lebih lanjut!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Data OONI adalah diterbitkan secara terbuka dan akan merangkumi maklumat mengenai rangkaian anda.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Sesiapa yang memantau aktiviti internet anda (cth. kerajaan atau ISP) akan melihat bahawa anda tengah menjalankan OONI Probe.</string>
