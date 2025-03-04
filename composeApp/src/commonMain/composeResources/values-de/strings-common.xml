@@ -304,7 +304,7 @@
     <string name="Modal_Retry">Erneut versuchen</string>
     <string name="Modal_Cancel">Abbrechen</string>
     <string name="Modal_OK">OK</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Möchtest du alle Testergebnisse löschen\?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Möchtest du alle Testergebnisse löschen?</string>
     <string name="Modal_Delete">Löschen</string>
     <string name="Modal_ReRun_Title">Wiederhole Test</string>
     <string name="Modal_ReRun_Websites_Title">Sie sind dabei, %1$s Websites erneut zu testen.</string>
@@ -316,8 +316,8 @@
     <string name="Modal_AlwaysRun">Immer gestartet</string>
     <string name="Modal_Error_CantDownloadURLs">URL-Liste kann nicht heruntergeladen werden. Bitte versuche es erneut.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Bist du sicher?</string>
-    <string name="Modal_CustomURL_NotSaved">Deine URLs werden nicht gespeichert, wenn du diesen Bildschirm verlässt. Möchtest du diesen Bildschirm wirklich verlassen\?</string>
-    <string name="Modal_Autorun_BatteryOptimization">OONI Probe kann nicht automatisch ohne Batterieoptimierung laufen. Möchtest du es noch einmal versuchen\?</string>
+    <string name="Modal_CustomURL_NotSaved">Deine URLs werden nicht gespeichert, wenn du diesen Bildschirm verlässt. Möchtest du diesen Bildschirm wirklich verlassen?</string>
+    <string name="Modal_Autorun_BatteryOptimization">OONI Probe kann nicht automatisch ohne Batterieoptimierung laufen. Möchtest du es noch einmal versuchen?</string>
     <string name="Modal_EnableNotifications_Title">Aktuelle Informationen zur Internetzensur</string>
 
     <!-- Common / Others -->
