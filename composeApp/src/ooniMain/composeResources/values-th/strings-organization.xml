@@ -2,7 +2,7 @@
     <string name="app_name">OONI Probe</string>
 
     <string name="Onboarding_WhatIsOONIProbe_Title">OONI คืออะไร</string>
-    <string name="Onboarding_WhatIsOONIProbe_Paragraph">เเอปเพื่อตรวจหาการปิดกั้นอินเทอร์เน็ต\n\nเว็บไซต์และสื่อสังคมถูกปิดกั้นหรือไม่\? การเชื่อมต่ออินเทอร์เน็ตของคุณช้ากว่าปกติรึเปล่า\?\n\nให้ OONI Probe ทำงานเพื่อหาคำตอบ!</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">เเอปเพื่อตรวจหาการปิดกั้นอินเทอร์เน็ต\n\nเว็บไซต์และสื่อสังคมถูกปิดกั้นหรือไม่? การเชื่อมต่ออินเทอร์เน็ตของคุณช้ากว่าปกติรึเปล่า?\n\nให้ OONI Probe ทำงานเพื่อหาคำตอบ!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">ข้อมูล OONI นั้นถูกเผยแพร่อย่างเปิดเผยและจะมีข้อมูลเกี่ยวกับเครือข่ายของคุณด้วย</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">ใครก็ตามที่จับตากิจกรรมอินเทอร์เน็ตของคุณ (เช่น รัฐบาลหรือผู้ให้บริการอินเทอร์เน็ต) จะเห็นว่าคุณกำลังใช้ OONI Probe อยู่</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">คุณอาจทดสอบเว็บไซต์ที่ถูกแบน (แต่คุณสามารถเลือกได้ว่าจะทดสอบเว็บไซต์ไหน)</string>
