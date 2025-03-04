@@ -2,7 +2,7 @@
     <string name="app_name">OONI Probe</string>
 
     <string name="Onboarding_WhatIsOONIProbe_Title">Je, OONI Probe ni nini?</string>
-    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Programu yako ya kupima udhibiti wa mtandao.\n\nJe, tovuti na mitandao ya kijamii zimezuiwa\? Je, muunganisho wako wa mtandao uko polepole sana\?\n\nFungua uchunguzi wa OONI kujua!</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Programu yako ya kupima udhibiti wa mtandao.\n\nJe, tovuti na mitandao ya kijamii zimezuiwa? Je, muunganisho wako wa mtandao uko polepole sana?\n\nFungua uchunguzi wa OONI kujua!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Takwimu za OONI zimechapishwa kwa uwazi na zitajumuisha habari ya mtandao wako.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Mtu yeyote anayefuatilia shughuli zako za mtandao (kwa mfano serikali au ISP) ataona kwamba unatumia OONI Probe</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">Unaweza kujaribu tovuti zilizopigwa marufuku (lakini unaweza kuchagua tovuti gani za kujaribu).</string>
