@@ -2,7 +2,7 @@
     <string name="app_name">ONNI Probe</string>
 
     <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe là gì?</string>
-    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Ứng dụng này để đo lường kiểm duyệt internet\n\nCác trang web và các ứng dụng mạng xã hội có bị chặn không\? Kết nối internet của bạn có bị chậm bất thường không\?\n\nHãy chạy ứng dụng OONI Probe để tìm hiểu!</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Ứng dụng này để đo lường kiểm duyệt internet\n\nCác trang web và các ứng dụng mạng xã hội có bị chặn không? Kết nối internet của bạn có bị chậm bất thường không?\n\nHãy chạy ứng dụng OONI Probe để tìm hiểu!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Dữ liệu của OONI được công bố công khai, bao gồm thông tin về mạng của bạn.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Bất cứ ai giám sát hoạt động internet của bạn (ví dụ như chính phủ hay nhà mạng) sẽ biết bạn đang chạy OONI Probe.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">Bạn có thể kiểm tra các trang web bị chặn (hoặc chọn bất cứ trang nào để kiểm tra)</string>
