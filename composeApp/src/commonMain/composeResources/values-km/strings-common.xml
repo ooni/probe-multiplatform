@@ -277,7 +277,7 @@
     <string name="Modal_RunAnyway">ដំណើរការតែម្ដង</string>
     <string name="Modal_AlwaysRun">តែងតែដំណើរការ</string>
     <string name="Modal_Error_CantDownloadURLs">មិនអាចទាញយកបញ្ជី URL ទេ។ សូមព្យាយាមម្ដងទៀត។</string>
-    <string name="Modal_CustomURL_Title_NotSaved">តើ​អ្នក​ប្រាកដ ​ឬទេ\?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">តើ​អ្នក​ប្រាកដ ​ឬទេ?</string>
     <string name="Modal_CustomURL_NotSaved">URLs របស់អ្នកនឹងមិនរក្សាទុកទេនៅពេលអ្នកចាកចេញពីអេក្រង់នេះ។ តើអ្នកច្បាស់ទេថាអ្នកចង់ចាកចេញពីអេក្រង់នេះ\?</string>
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe មិនអាចដំណើរការដោយស្វ័យប្រវ័ត្តិដោយគ្មានការត្រួតពិនិត្យលើថ្មសាក។ តើអ្នកចង់ព្យាយាមម្តងទៀតទេ។</string>
     <string name="Modal_EnableNotifications_Title">ទទួលបច្ចុប្បន្នភាពពីការរឹតត្បឹតអុីនធឺណិត</string>
