@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">OONI Probe</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe nedir\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe nedir?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">İnternet sansürünü ölçme uygulaması.\n\nSiteler ve sosyal ağ uygulamaları engelleniyor mu\? İnternet bağlantınız genel olarak yavaş mı\?\n\nSorunu bulmak için OONI Probe uygulamasını çalıştırın!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI verileri herkese açık olarak yayınlanır ve ağ bilgilerinizi de içerir.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">İnternet işlemlerinizi izleyenler (hükümet ya da İnternet hizmeti sağlayıcınız) OONI Probe uygulamasını çalıştırdığınızı görebilir.</string>
