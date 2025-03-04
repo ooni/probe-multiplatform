@@ -304,7 +304,7 @@
     <string name="Modal_Retry">Ressayer</string>
     <string name="Modal_Cancel">Annuler</string>
     <string name="Modal_OK">OK</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Voulez-vous supprimer tous les résultats de test \?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Voulez-vous supprimer tous les résultats de test?</string>
     <string name="Modal_Delete">Supprimer</string>
     <string name="Modal_ReRun_Title">Relancer le test</string>
     <string name="Modal_ReRun_Websites_Title">Vous êtes sur le point de retester %1$s sites Web.</string>
@@ -316,8 +316,8 @@
     <string name="Modal_AlwaysRun">Toujours exécuter</string>
     <string name="Modal_Error_CantDownloadURLs">Impossible de télécharger la liste des URL. Réessayez.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Confirmez-vous?</string>
-    <string name="Modal_CustomURL_NotSaved">Vos URL ne seront pas enregistrées si vous quittez cet écran. Voulez-vous vraiment le quitter \?</string>
-    <string name="Modal_Autorun_BatteryOptimization">OONI Probe ne peut pas fonctionner automatiquement sans optimisation de la batterie. Voulez-vous réessayer \?</string>
+    <string name="Modal_CustomURL_NotSaved">Vos URL ne seront pas enregistrées si vous quittez cet écran. Voulez-vous vraiment le quitter?</string>
+    <string name="Modal_Autorun_BatteryOptimization">OONI Probe ne peut pas fonctionner automatiquement sans optimisation de la batterie. Voulez-vous réessayer?</string>
     <string name="Modal_EnableNotifications_Title">Obtenez des mises à jour sur la censure d’Internet</string>
 
     <!-- Common / Others -->
