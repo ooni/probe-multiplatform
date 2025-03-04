@@ -244,7 +244,7 @@
     <string name="Modal_RunAnyway">Voer het toch uit</string>
     <string name="Modal_AlwaysRun">Voer het Altijd uit</string>
     <string name="Modal_Error_CantDownloadURLs">Kan de URL-lijst niet downloaden. Probeer het opnieuw.</string>
-    <string name="Modal_CustomURL_Title_NotSaved">Weet je het zeker\?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Weet je het zeker?</string>
     <string name="Modal_CustomURL_NotSaved">Uw URL\'s worden niet opgeslagen wanneer u dit scherm verlaat. Weet je zeker dat je dit scherm wilt verlaten\?</string>
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe kan niet automatisch werken zonder batterijoptimalisatie. Wil je het opnieuw proberen\?</string>
     <string name="Modal_EnableNotifications_Title">Ontvang updates over internetcensuur</string>
