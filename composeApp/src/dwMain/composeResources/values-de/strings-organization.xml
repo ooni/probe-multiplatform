@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">News Media Scan</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">Sind Nachrichtenportale blockiert\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Sind Nachrichtenportale blockiert?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Starte den News Media Scan, um das herauszufinden! News Media Scan ist die beste App, die dir Transparenz über die Nachrichtenlandschaft in der Region bietet, in der du dich gerade befindest. Außerdem leistest du einen wichtigen Beitrag zur Messung der Zensur auf der ganzen Welt.\n\nDie Liste, die du in der App siehst, ist eine öffentliche, von der Community kuratierte Liste auf GitHub und nicht von der DW. Sie repräsentiert eine objektive Auswahl an internationalen und nationalen Nachrichtenmedienanbietern.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI wird die von dir gesendeten Messdaten zusammen mit deinen Netzwerkinformationen veröffentlichen.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Jeder, der deine Internetverbindung überwacht, wird sehen können, dass du den News Media Scan nutzt.</string>
