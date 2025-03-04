@@ -266,7 +266,7 @@
     <string name="Modal_Retry">សាកម្តងទៀត</string>
     <string name="Modal_Cancel">បោះបង់</string>
     <string name="Modal_OK">យល់ព្រម</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">តើអ្នកចង់លុបលទ្ធផលតេស្តទាំងអស់មែនទេ\?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">តើអ្នកចង់លុបលទ្ធផលតេស្តទាំងអស់មែនទេ?</string>
     <string name="Modal_Delete">លុប</string>
     <string name="Modal_ReRun_Title">ដំណើរការតេស្តម្តងទៀត</string>
     <string name="Modal_ReRun_Websites_Title">អ្នកនឹងតេស្តវែបសាយ {ចំនួនវែបសាយ} ម្តងទៀត។</string>
@@ -278,7 +278,7 @@
     <string name="Modal_AlwaysRun">តែងតែដំណើរការ</string>
     <string name="Modal_Error_CantDownloadURLs">មិនអាចទាញយកបញ្ជី URL ទេ។ សូមព្យាយាមម្ដងទៀត។</string>
     <string name="Modal_CustomURL_Title_NotSaved">តើ​អ្នក​ប្រាកដ ​ឬទេ?</string>
-    <string name="Modal_CustomURL_NotSaved">URLs របស់អ្នកនឹងមិនរក្សាទុកទេនៅពេលអ្នកចាកចេញពីអេក្រង់នេះ។ តើអ្នកច្បាស់ទេថាអ្នកចង់ចាកចេញពីអេក្រង់នេះ\?</string>
+    <string name="Modal_CustomURL_NotSaved">URLs របស់អ្នកនឹងមិនរក្សាទុកទេនៅពេលអ្នកចាកចេញពីអេក្រង់នេះ។ តើអ្នកច្បាស់ទេថាអ្នកចង់ចាកចេញពីអេក្រង់នេះ?</string>
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe មិនអាចដំណើរការដោយស្វ័យប្រវ័ត្តិដោយគ្មានការត្រួតពិនិត្យលើថ្មសាក។ តើអ្នកចង់ព្យាយាមម្តងទៀតទេ។</string>
     <string name="Modal_EnableNotifications_Title">ទទួលបច្ចុប្បន្នភាពពីការរឹតត្បឹតអុីនធឺណិត</string>
 
