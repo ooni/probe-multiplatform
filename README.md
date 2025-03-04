@@ -104,3 +104,11 @@ merged into the `main` branch.
 
 Transifex automatically creates Pull Requests with the latest translation changes to keep the app
 up-to-date.
+
+### Metadata
+
+Metadata such as Store Listing copy and screenshots are located in the `metadata` root folder.
+Transifex also maintains those translations automatically.
+
+Inside `fastlane/metadata` are only symbolic links mapping the locales supported by Google Play or
+Apple App Store to the Transifex locales. Changes should only be made to the root `metadata` folder.

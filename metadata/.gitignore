@@ -1,0 +1,14 @@
+ooni/android/*/images/phoneScreenshots/*.jpg
+ooni/android/*/images/phoneScreenshots/*.png
+!ooni/android/*/images/phoneScreenshots/1_*
+!ooni/android/*/images/phoneScreenshots/2_*
+!ooni/android/*/images/phoneScreenshots/3_*
+!ooni/android/*/images/phoneScreenshots/4_*
+!ooni/android/*/images/phoneScreenshots/5_*
+
+dw/android/*/images/phoneScreenshots/*.png
+!dw/android/*/images/phoneScreenshots/1_*
+!dw/android/*/images/phoneScreenshots/2_*
+!dw/android/*/images/phoneScreenshots/3_*
+!dw/android/*/images/phoneScreenshots/4_*
+!dw/android/*/images/phoneScreenshots/5_*

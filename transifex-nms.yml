@@ -6,43 +6,43 @@ git:
       source_language: en
       translation_files_expression: 'composeApp/src/dwMain/composeResources/values-<lang>/strings-organization.xml'
     - filter_type: file
-      source_file: fastlane/metadata/dw/android/en-US/title.txt
+      source_file: metadata/dw/android/en-US/title.txt
       file_format: TXT
       source_language: en-US
-      translation_files_expression: 'fastlane/metadata/dw/android/<lang>/title.txt'
+      translation_files_expression: 'metadata/dw/android/<lang>/title.txt'
     - filter_type: file
-      source_file: fastlane/metadata/dw/android/en-US/short_description.txt
+      source_file: metadata/dw/android/en-US/short_description.txt
       file_format: TXT
       source_language: en-US
-      translation_files_expression: 'fastlane/metadata/dw/android/<lang>/short_description.txt'
+      translation_files_expression: 'metadata/dw/android/<lang>/short_description.txt'
     - filter_type: file
-      source_file: fastlane/metadata/dw/android/en-US/full_description.txt
+      source_file: metadata/dw/android/en-US/full_description.txt
       file_format: TXT
       source_language: en-US
-      translation_files_expression: 'fastlane/metadata/dw/android/<lang>/full_description.txt'
+      translation_files_expression: 'metadata/dw/android/<lang>/full_description.txt'
     - filter_type: file
-      source_file: fastlane/metadata/dw/ios/en-US/name.txt
+      source_file: metadata/dw/ios/en-US/name.txt
       file_format: TXT
       source_language: en-US
-      translation_files_expression: 'fastlane/metadata/dw/ios/<lang>/name.txt'
+      translation_files_expression: 'metadata/dw/ios/<lang>/name.txt'
     - filter_type: file
-      source_file: fastlane/metadata/dw/ios/en-US/subtitle.txt
+      source_file: metadata/dw/ios/en-US/subtitle.txt
       file_format: TXT
       source_language: en-US
-      translation_files_expression: 'fastlane/metadata/dw/ios/<lang>/subtitle.txt'
+      translation_files_expression: 'metadata/dw/ios/<lang>/subtitle.txt'
     - filter_type: file
-      source_file: fastlane/metadata/dw/ios/en-US/description.txt
+      source_file: metadata/dw/ios/en-US/description.txt
       file_format: TXT
       source_language: en-US
-      translation_files_expression: 'fastlane/metadata/dw/ios/<lang>/description.txt'
+      translation_files_expression: 'metadata/dw/ios/<lang>/description.txt'
     - filter_type: file
-      source_file: fastlane/metadata/dw/ios/en-US/promotional_text.txt
+      source_file: metadata/dw/ios/en-US/promotional_text.txt
       file_format: TXT
       source_language: en-US
-      translation_files_expression: 'fastlane/metadata/dw/ios/<lang>/promotional_text.txt'
+      translation_files_expression: 'metadata/dw/ios/<lang>/promotional_text.txt'
   settings:
     pr_branch_name:
-      translations/nms/<br_unique_id>
+      translations/dw/<br_unique_id>
     language_mapping:
       pt_BR: pt-rBR
       zh_CN: zh-rCN
