@@ -234,7 +234,7 @@
     <string name="Modal_Retry">ลองใหม่อีกครั้ง</string>
     <string name="Modal_Cancel">ยกเลิก</string>
     <string name="Modal_OK">OK</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">คุณต้องการลบผลทดสอบทั้งหมดหรือไม่\?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">คุณต้องการลบผลทดสอบทั้งหมดหรือไม่?</string>
     <string name="Modal_Delete">ลบ</string>
     <string name="Modal_ReRun_Title">ทดสอบใหม่อีกรอบ</string>
     <string name="Modal_ReRun_Websites_Title">คุณกำลังจะทดสอบ %1$s เว็บไซต์อีกครั้ง</string>
@@ -246,8 +246,8 @@
     <string name="Modal_AlwaysRun">ทำงานตลอดเวลา</string>
     <string name="Modal_Error_CantDownloadURLs">ไม่สามารถดาวน์โหลดรายการที่อยู่เว็บได้ กรุณาลองอีกครั้ง</string>
     <string name="Modal_CustomURL_Title_NotSaved">คุณแน่ใจหรือไม่?</string>
-    <string name="Modal_CustomURL_NotSaved">ที่อยู่ของคุณจะไม่ถูกบันทึกเมื่อคุณออกจากหน้าจอนี้ คุณแน่ใจหรือไม่ว่าต้องการจะออกจากหน้าจอนี้\?</string>
-    <string name="Modal_Autorun_BatteryOptimization">OONI Probe ไม่สามารถทำงานโดยอัตโนมัติได้ หากไม่เปิดการเพิ่มประสิทธิภาพแบตเตอรี่ คุณต้องการลองอีกครั้งหรือไม่\?</string>
+    <string name="Modal_CustomURL_NotSaved">ที่อยู่ของคุณจะไม่ถูกบันทึกเมื่อคุณออกจากหน้าจอนี้ คุณแน่ใจหรือไม่ว่าต้องการจะออกจากหน้าจอนี้?</string>
+    <string name="Modal_Autorun_BatteryOptimization">OONI Probe ไม่สามารถทำงานโดยอัตโนมัติได้ หากไม่เปิดการเพิ่มประสิทธิภาพแบตเตอรี่ คุณต้องการลองอีกครั้งหรือไม่?</string>
     <string name="Modal_EnableNotifications_Title">รับข่าวสารเกี่ยวกับการปิดกั้นอินเทอร์เน็ต</string>
 
     <!-- Common / Others -->
