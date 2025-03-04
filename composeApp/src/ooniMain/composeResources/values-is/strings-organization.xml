@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">OONI Probe</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">Hvað er OONI Probe\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Hvað er OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Forritið þitt til að mæla ritskoðun á internetinu. \n\nEr lokað á vefsvæði og samfélagsmiðla\? Er internet-tengingin óvenjulega hægvirk\?\n\nKeyrðu OONI Probe til að sjá hvað er í gangi!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Gögn úr OONI eru birt opinberlega og munu innihalda upplýsingar um netkerfið þitt.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Það er hugsanlegt að hver sá sem fylgist með netumferðinni þinni (t.d. \nstjórnvöld, netþjónustan þín, o.fl.) geti greint að þú sért að keyra OONI Probe.</string>
