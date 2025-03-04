@@ -2,7 +2,7 @@
     <string name="app_name">OONI Probe</string>
 
     <string name="Onboarding_WhatIsOONIProbe_Title">¿Qué es OONI Probe?</string>
-    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Tu aplicación para medir censura en Internet. \n\n¿Los sitios web y aplicaciones de redes sociales están siendo bloqueados\? ¿Tu conexión a Internet es inusualmente lenta\?\n\n¡Ejecuta OONI Probe para saberlo!</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Tu aplicación para medir censura en Internet. \n\n¿Los sitios web y aplicaciones de redes sociales están siendo bloqueados? ¿Tu conexión a Internet es inusualmente lenta?\n\n¡Ejecuta OONI Probe para saberlo!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Los datos de OONI están en el dominio público e incluirán tu información de red.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Cualquiera monitoreando tu actividad de Internet (ej., gobierno o ISP) verá que estás ejecutando OONI Probe.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">Puedes probar sitios web prohibidos (pero puedes elegir qué sitios probar).</string>
