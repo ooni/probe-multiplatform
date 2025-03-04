@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">OONI Probe</string>
+
+    <string name="Onboarding_WhatIsOONIProbe_Title">Apakah OONI Probe\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Aplikasi mengukur penapisan internet anda.\n\nAdakah tapak web dan aplikasi media sosial disekat\? Adakah sambungan internet anda perlahan secara luar biasa\?\n\nJalankan OONI Probe untuk mengetahui lebih lanjut!</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">Data OONI adalah diterbitkan secara terbuka dan akan merangkumi maklumat mengenai rangkaian anda.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">Sesiapa yang memantau aktiviti internet anda (cth. kerajaan atau ISP) akan melihat bahawa anda tengah menjalankan OONI Probe.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">Anda berkemungkinan memeriksa tapak web yang diharamkan (namun anda juga boleh memilih untuk memeriksa tapak web mengikut pilihan anda)</string>
+    <string name="Onboarding_PopQuiz_1_Question">Jika seseorang tengah memantau aktiviti internet saya, dia akan melihat bahawa saya sedang menjalankan OONI Probe.</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe bukan sesuatu alat privasi. Sesiapa yang memantau aktiviti internet anda akan melihat perisian yang anda sedang menggunakan.</string>
+    <string name="Onboarding_PopQuiz_2_Question">Setiap kali saya menjalankan OONI Probe, data rangkaian yang saya kumpul akan diterbitkan secara automatik.</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Untuk meningkatkan ketelusan penapisan internet, data rangkaian kesemua pengguna OONI Probe akan diterbitkan secara automatik (kecuali pengguna yang telah pilih keluar dalam pengesetan).</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">Bagi mengukur penapisan internet setiap hari, sila membolehkan ujian berautomasi supaya OONI Probe boleh menjalankan ujian secara berkala. \n\nJangan risau, kami akan berhati-hati dalam penggunaan bateri.\n\nAnda boleh melumpuhkan ujian berautomasi dalam pengesetan bila-bila masa.</string>
+    <string name="Onboarding_Crash_Paragraph">Untuk memperbaik OONI Probe, kami ingin mengumpul laporan ranap secara tanpa nama apabila aplikasi ini tidak berfungsi dengan betul.\n\nAdakah anda memilih untuk menghantar laporan ranap kepada pasukan pembangunan OONI\?</string>
+
+    <string name="Dashboard_Websites_Card_Description">Periksa sekatan tapak web</string>
+    <string name="Dashboard_Performance_Card_Description">Uji kelajuan dan prestasi rangkaian anda</string>
+    <string name="Dashboard_Middleboxes_Card_Description">Mengesan middleboxes dalam rangkaian anda</string>
+    <string name="Dashboard_InstantMessaging_Card_Description">Periksa sekatan aplikasi pemesejan segera</string>
+    <string name="Dashboard_Circumvention_Card_Description">Periksa sekatan alat memintas penapisan</string>
+    <string name="Dashboard_Experimental_Card_Description">Jalankan ujian eksperimen baru</string>
+    <string name="Settings_About_Label">Mengenai OONI</string>
+    <string name="Settings_About_Content_LearnMore">Ketahui lebih lanjut</string>
+    <string name="Settings_About_Content_Blog">Blog</string>
+    <string name="Settings_About_Content_Reports">Laporan</string>
+    <string name="Settings_About_Content_DataPolicy">Polisi Data OONI</string>
+
+    </resources>
