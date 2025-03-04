@@ -315,7 +315,7 @@
     <string name="Modal_RunAnyway">Keyra samt</string>
     <string name="Modal_AlwaysRun">Alltaf keyra</string>
     <string name="Modal_Error_CantDownloadURLs">Get ekki sótt lista yfir slóðir. Reyndu aftur.</string>
-    <string name="Modal_CustomURL_Title_NotSaved">Ertu viss\?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Ertu viss?</string>
     <string name="Modal_CustomURL_NotSaved">Slóðirnar þínar verða ekki vistaðar þegar þú ferð af þessum skjá. Ertu viss um að þú viljir fara af skjánum\?</string>
     <string name="Modal_Autorun_BatteryOptimization">OONI Probe getur ekki keyrt á þess að rafhlöðunotkun sé bestuð. Viltu prófa aftur\?</string>
     <string name="Modal_EnableNotifications_Title">Fáðu vísbendingar um ritskoðun internetsins</string>
