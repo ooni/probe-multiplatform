@@ -213,14 +213,14 @@
     <string name="Modal_Retry">Retry</string>
     <string name="Modal_Cancel">Anulați</string>
     <string name="Modal_OK">OK</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Doriți să ștergeți toate rezultatele testelor\?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Doriți să ștergeți toate rezultatele testelor?</string>
     <string name="Modal_Delete">Ștergeți</string>
     <string name="Modal_ReRun_Title">Reexecutați testul</string>
     <string name="Modal_ReRun_Websites_Title">Sunteți pe cale să testați site-urile {websNumber}.</string>
     <string name="Modal_ReRun_Websites_Run">Executare</string>
     <string name="Modal_Error_CantDownloadURLs">Imposibil de descărcat lista URL. Vă rugăm să încercați din nou.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Ești sigur(ă)?</string>
-    <string name="Modal_CustomURL_NotSaved">URL-urile dvs. nu vor fi salvate când părăsiți acest ecran. Sigur doriți să părăsiți acest ecran\?</string>
+    <string name="Modal_CustomURL_NotSaved">URL-urile dvs. nu vor fi salvate când părăsiți acest ecran. Sigur doriți să părăsiți acest ecran?</string>
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Executare</string>
