@@ -229,7 +229,7 @@
     <string name="Modal_Retry">पुन: प्रयास करें</string>
     <string name="Modal_Cancel">रद्द करें</string>
     <string name="Modal_OK">ठीक है </string>
-    <string name="Modal_DoYouWantToDeleteAllTests">क्या आप सभी परीक्षण परिणामों को हटाना चाहते हैं\?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">क्या आप सभी परीक्षण परिणामों को हटाना चाहते हैं?</string>
     <string name="Modal_Delete">डिलीट</string>
     <string name="Modal_ReRun_Title">परीक्षण फिर से चलाएं</string>
     <string name="Modal_ReRun_Websites_Title">आप %1$s वेबसाइटों का फिर से परीक्षण करने वाले हैं।</string>
@@ -238,7 +238,7 @@
     <string name="Modal_DisableVPN">VPN बंद करें</string>
     <string name="Modal_RunAnyway">जारी रखें</string>
     <string name="Modal_Error_CantDownloadURLs">यूआरएल सूची डाउनलोड करने में असमर्थ। कृपया पुन: प्रयास करें।</string>
-    <string name="Modal_CustomURL_NotSaved">जब आप यह स्क्रीन छोड़ते हैं तो आपके URL सहेजे नहीं जाएंगे। क्या आप वाकई इस स्क्रीन को छोड़ना चाहते हैं\?</string>
+    <string name="Modal_CustomURL_NotSaved">जब आप यह स्क्रीन छोड़ते हैं तो आपके URL सहेजे नहीं जाएंगे। क्या आप वाकई इस स्क्रीन को छोड़ना चाहते हैं?</string>
     <string name="Modal_EnableNotifications_Title">इंटरनेट सेंसरशिप पर नई जानकारी प्राप्त करें</string>
 
     <!-- Common / Others -->
