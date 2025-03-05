@@ -45,7 +45,7 @@ class CrashMonitoring(
 
             if (
                 (severity == Severity.Warn || severity == Severity.Error) &&
-                MESSAGES_TO_SKIP_REPORT.none { message.contains(it) }
+                (throwable != null || MESSAGES_TO_SKIP_REPORT.none { message.contains(it) })
             ) {
                 if (throwable != null) {
                     if (message.isNotBlank()) {
@@ -93,6 +93,7 @@ class CrashMonitoring(
         private val MESSAGES_TO_SKIP_REPORT = listOf(
             "Picking from default OpenVPN endpoints",
             "sessionresolver: LookupHost failed",
+            "cannot submit measurement:",
         )
     }
 }

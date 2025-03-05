@@ -3,7 +3,6 @@ package org.ooni.probe.domain
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import kotlinx.coroutines.flow.Flow
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskEventResult
@@ -320,7 +319,13 @@ class RunNetTest(
      * Here we group them under a single exception class for crash reporting.
      */
     private fun TaskEvent.Log.getKnownException() =
-        if (message.startsWith("cannot submit measurement")) {
+        if (
+            message.startsWith("cannot submit measurement") &&
+            listOf(
+                "interrupted", "generic_timeout_error", "connection_aborted", "connection_reset",
+                "eof_error",
+            ).none { message.contains(it) }
+        ) {
             CannotSubmitMeasurement()
         } else if (message.startsWith("statsManager") && message.contains("not found:")) {
             StatsManagerNotFoundError()
