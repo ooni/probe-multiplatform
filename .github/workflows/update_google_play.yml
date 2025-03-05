@@ -43,7 +43,7 @@ jobs:
         env:
           SCREENSHOTS: ${{ inputs.screenshots }}
           METADATA: ${{ inputs.metadata }}
-          $CHANGELOGS: ${{ inputs.changelogs }}
+          CHANGELOGS: ${{ inputs.changelogs }}
         run: bundle exec fastlane android update_google_play organization:ooni screenshots:$SCREENSHOTS metadata:$METADATA changelogs:$CHANGELOGS json_key:key.json
 
   updateNewsMediaScan:
@@ -64,5 +64,5 @@ jobs:
         env:
           SCREENSHOTS: ${{ inputs.screenshots }}
           METADATA: ${{ inputs.metadata }}
-          $CHANGELOGS: ${{ inputs.changelogs }}
+          CHANGELOGS: ${{ inputs.changelogs }}
         run: bundle exec fastlane android update_google_play organization:dw screenshots:$SCREENSHOTS metadata:$METADATA changelogs:$CHANGELOGS json_key:key.json
