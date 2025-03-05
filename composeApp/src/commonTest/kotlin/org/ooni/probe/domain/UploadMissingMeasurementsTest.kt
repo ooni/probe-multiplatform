@@ -36,6 +36,7 @@ class UploadMissingMeasurementsTest {
                 readFile = { "{}" },
                 deleteFiles = { },
                 updateMeasurement = { newModel = it },
+                deleteMeasurementById = { },
             )
 
             val results = mutableListOf<UploadMissingMeasurements.State>()
@@ -62,6 +63,7 @@ class UploadMissingMeasurementsTest {
                 readFile = { "{}" },
                 deleteFiles = { },
                 updateMeasurement = { newModel = it },
+                deleteMeasurementById = { },
             )
 
             val results = mutableListOf<UploadMissingMeasurements.State>()
@@ -80,12 +82,14 @@ class UploadMissingMeasurementsTest {
                 id = MeasurementModel.Id(Random.nextLong().absoluteValue),
             )
             var updateMeasurementCalled = false
+            var deleteMeasurementCalled = false
             val subject = UploadMissingMeasurements(
                 getMeasurementsNotUploaded = { flowOf(listOf(model)) },
                 submitMeasurement = { Failure(Engine.MkException(Exception("failed"))) },
                 readFile = { "" },
                 deleteFiles = { },
                 updateMeasurement = { updateMeasurementCalled = true },
+                deleteMeasurementById = { deleteMeasurementCalled = true },
             )
 
             val results = mutableListOf<UploadMissingMeasurements.State>()
@@ -95,5 +99,6 @@ class UploadMissingMeasurementsTest {
             assertEquals(UploadMissingMeasurements.State.Uploading(0, 0, 1), results[1])
             assertEquals(UploadMissingMeasurements.State.Finished(0, 1, 1), results[2])
             assertFalse(updateMeasurementCalled)
+            assertTrue(deleteMeasurementCalled)
         }
 }

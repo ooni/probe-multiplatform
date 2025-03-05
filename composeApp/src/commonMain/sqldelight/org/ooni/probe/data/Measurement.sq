@@ -54,6 +54,9 @@ WHERE Measurement.result_id IN (
     WHERE Result.descriptor_runId = ?
 );
 
+deleteById:
+DELETE FROM Measurement WHERE Measurement.id = ?;
+
 selectLastInsertedRowId:
 SELECT last_insert_rowid();
 

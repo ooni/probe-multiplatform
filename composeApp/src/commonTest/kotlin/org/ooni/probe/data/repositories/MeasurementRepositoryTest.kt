@@ -73,4 +73,17 @@ class MeasurementRepositoryTest {
                 assertEquals(true, isDone)
             }
         }
+
+    @Test
+    fun createAndDelete() =
+        runTest {
+            val model = MeasurementModelFactory.build(id = null)
+            val modelId = subject.createOrUpdate(model)
+
+            assertEquals(1, subject.list().first().size)
+
+            subject.deleteById(modelId)
+
+            assertEquals(0, subject.list().first().size)
+        }
 }

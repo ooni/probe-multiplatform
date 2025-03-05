@@ -19,6 +19,7 @@ class UploadMissingMeasurements(
     private val readFile: ReadFile,
     private val deleteFiles: DeleteFiles,
     private val updateMeasurement: suspend (MeasurementModel) -> Unit,
+    private val deleteMeasurementById: suspend (MeasurementModel.Id) -> Unit,
 ) {
     operator fun invoke(resultId: ResultModel.Id? = null): Flow<State> =
         channelFlow {
@@ -46,6 +47,7 @@ class UploadMissingMeasurements(
                 if (report.isNullOrBlank()) {
                     Logger.w("Missing or empty measurement report file")
                     failedToUpload++
+                    measurement.id?.let { deleteMeasurementById(it) }
                     return@forEach
                 }
 
