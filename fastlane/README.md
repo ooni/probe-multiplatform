@@ -214,6 +214,8 @@ fastlane android update_google_play organization:ooni screenshots:true metadata:
 
  * **`metadata`**: true or false (default false)
 
+ * **`changelogs`**: true or false (default false)
+
  * **`json_key`**: path to Google Play service account JSON file
 
 

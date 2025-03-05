@@ -149,6 +149,7 @@ platform :android do
             skip_upload_metadata: options[:metadata] != true && options[:metadata] != 'true',
             skip_upload_screenshots: options[:screenshots] != true && options[:screenshots] != 'true',
             skip_upload_changelogs: options[:changelogs] != true && options[:changelogs] != 'true',
+            version_code: 0, # it will use default.txt
         )
     end
 
