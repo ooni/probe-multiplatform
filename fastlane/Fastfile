@@ -30,10 +30,11 @@ platform :android do
 
     desc "Publish a new version of the app on Google Play"
     desc "#### Example:"
-    desc "```\nfastlane android publish track:alpha organization:ooni json_key:key.json\n```"
+    desc "```\nfastlane android publish track:alpha version_code:100 organization:ooni json_key:key.json\n```"
     desc "#### Options"
     desc " * **`track`**: internal, alpha, beta, production"
     desc " * **`organization`**: ooni, dw"
+    desc " * **`version_code`**: new version code"
     desc " * **`json_key`**: path to Google Play service account JSON file"
     desc "#### Required environment variables"
     desc " * **`ANDROID_KEYSTORE_FILE`**: path the Android Keystore file"
@@ -49,6 +50,7 @@ platform :android do
         upload_to_play_store(
             package_name: package_name(organization),
             track: options[:track],
+            version_code: options[:version_code],
             metadata_path: metadata_path(organization),
             json_key: options[:json_key],
             skip_upload_metadata: true,
@@ -133,7 +135,6 @@ platform :android do
     desc " * **`organization`**: ooni, dw"
     desc " * **`screenshots`**: true or false (default false)"
     desc " * **`metadata`**: true or false (default false)"
-    desc " * **`changelogs`**: true or false (default false)"
     desc " * **`json_key`**: path to Google Play service account JSON file"
     desc ""
     lane :update_google_play do |options|
@@ -146,10 +147,9 @@ platform :android do
             skip_upload_apk: true,
             skip_upload_aab: true,
             skip_upload_images: true,
+            skip_upload_changelogs: true,
             skip_upload_metadata: options[:metadata] != true && options[:metadata] != 'true',
             skip_upload_screenshots: options[:screenshots] != true && options[:screenshots] != 'true',
-            skip_upload_changelogs: options[:changelogs] != true && options[:changelogs] != 'true',
-            version_code: 0, # it will use default.txt
         )
     end
 

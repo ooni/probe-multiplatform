@@ -13,6 +13,10 @@ on:
           - alpha
           - beta
           - production
+      versionCode:
+        description: 'New version code'
+        required: true
+        type: number
       ooniProbe:
         description: 'OONI Probe Android'
         required: false
@@ -65,4 +69,5 @@ jobs:
       - name: Publish
         env:
           TRACK: ${{ inputs.track }}
-        run: bundle exec fastlane android publish track:$TRACK organization:dw json_key:key.json
+          VERSION_CODE: ${{ inputs.versionCode }}
+        run: bundle exec fastlane android publish track:$TRACK version_code:$VERSION_CODE organization:dw json_key:key.json

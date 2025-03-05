@@ -89,7 +89,7 @@ Publish a new version of the app on Google Play
 #### Example:
 
 ```
-fastlane android publish track:alpha organization:ooni json_key:key.json
+fastlane android publish track:alpha version_code:100 organization:ooni json_key:key.json
 ```
 
 #### Options
@@ -97,6 +97,8 @@ fastlane android publish track:alpha organization:ooni json_key:key.json
  * **`track`**: internal, alpha, beta, production
 
  * **`organization`**: ooni, dw
+
+ * **`version_code`**: new version code
 
  * **`json_key`**: path to Google Play service account JSON file
 
@@ -213,8 +215,6 @@ fastlane android update_google_play organization:ooni screenshots:true metadata:
  * **`screenshots`**: true or false (default false)
 
  * **`metadata`**: true or false (default false)
-
- * **`changelogs`**: true or false (default false)
 
  * **`json_key`**: path to Google Play service account JSON file
 
