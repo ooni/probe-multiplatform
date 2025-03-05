@@ -32,14 +32,19 @@ be released.
 
 #### 1.2 Update the version
 
-Update the `versionCode` and `versionName` at `composeApp/build.gradle.kts`. The `versionCode`
-should be increased in increments of 10 to allow for different versionCodes for each split APK for
-F-droid.
+For Android, update the `versionCode` and `versionName` at `composeApp/build.gradle.kts`.
+The `versionCode` should be increased in increments of 10 to allow for different versionCodes for
+each split APK for F-droid.
+
+For iOS, update the `BUNDLE_VERSION` to match `versionCode` and `APP_VERSION` to match `versionName`
+at `iosApp/Configuration/Config.xcconfig`.
 
 #### 1.3 Release notes
 
 Update the release notes for all flavors and platforms at
-`metadata/ooni/android/en-US/changelogs/default.txt`
+`metadata/ooni/android/en-US/changelogs/default.txt`.
+
+Ensure the release note includes the current engine version as part of the release note.
 
 #### 1.4 Create the Pull Request
 
