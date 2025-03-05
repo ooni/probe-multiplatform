@@ -3,7 +3,7 @@ on: push
 
 jobs:
   build_docs:
-    runs-on: "ubuntu-20.04"
+    runs-on: "ubuntu-latest"
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
