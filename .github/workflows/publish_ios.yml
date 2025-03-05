@@ -24,6 +24,12 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Xcode Cache
+        uses: irgaly/xcode-cache@v1
+        with:
+          key: xcode-cache-deriveddata-${{ github.workflow }}-ooni-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-ooni-
+
       - name: Publish iOS App
         run: bundle exec fastlane ios publish organization:ooni
 
@@ -44,6 +50,12 @@ jobs:
 
       - name: Setup
         uses: ./.github/actions/setup
+
+      - name: Xcode Cache
+        uses: irgaly/xcode-cache@v1
+        with:
+          key: xcode-cache-deriveddata-${{ github.workflow }}-dw-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-dw-
 
       - name: Publish iOS App
         run: bundle exec fastlane ios publish organization:dw
