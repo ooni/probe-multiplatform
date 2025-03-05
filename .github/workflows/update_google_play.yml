@@ -19,6 +19,10 @@ on:
         description: 'Update metadata (title and descriptions)'
         required: false
         type: boolean
+      changelogs:
+        description: 'Update changelogs / release notes'
+        required: false
+        type: boolean
 
 jobs:
   updateOoniProbe:
@@ -39,7 +43,8 @@ jobs:
         env:
           SCREENSHOTS: ${{ inputs.screenshots }}
           METADATA: ${{ inputs.metadata }}
-        run: bundle exec fastlane android update_google_play organization:ooni screenshots:$SCREENSHOTS metadata:$METADATA json_key:key.json
+          $CHANGELOGS: ${{ inputs.changelogs }}
+        run: bundle exec fastlane android update_google_play organization:ooni screenshots:$SCREENSHOTS metadata:$METADATA changelogs:$CHANGELOGS json_key:key.json
 
   updateNewsMediaScan:
     name: Update News Media Scan Google Play information
@@ -59,4 +64,5 @@ jobs:
         env:
           SCREENSHOTS: ${{ inputs.screenshots }}
           METADATA: ${{ inputs.metadata }}
-        run: bundle exec fastlane android update_google_play organization:dw screenshots:$SCREENSHOTS metadata:$METADATA json_key:key.json
+          $CHANGELOGS: ${{ inputs.changelogs }}
+        run: bundle exec fastlane android update_google_play organization:dw screenshots:$SCREENSHOTS metadata:$METADATA changelogs:$CHANGELOGS json_key:key.json

@@ -133,6 +133,7 @@ platform :android do
     desc " * **`organization`**: ooni, dw"
     desc " * **`screenshots`**: true or false (default false)"
     desc " * **`metadata`**: true or false (default false)"
+    desc " * **`changelogs`**: true or false (default false)"
     desc " * **`json_key`**: path to Google Play service account JSON file"
     desc ""
     lane :update_google_play do |options|
@@ -144,10 +145,10 @@ platform :android do
             json_key: options[:json_key],
             skip_upload_apk: true,
             skip_upload_aab: true,
-            skip_upload_changelogs: true,
             skip_upload_images: true,
             skip_upload_metadata: options[:metadata] != true && options[:metadata] != 'true',
             skip_upload_screenshots: options[:screenshots] != true && options[:screenshots] != 'true',
+            skip_upload_changelogs: options[:changelogs] != true && options[:changelogs] != 'true',
         )
     end
 
