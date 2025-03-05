@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ONNI Probe</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe là gì\?</string>
-    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Ứng dụng này để đo lường kiểm duyệt internet\n\nCác trang web và các ứng dụng mạng xã hội có bị chặn không\? Kết nối internet của bạn có bị chậm bất thường không\?\n\nHãy chạy ứng dụng OONI Probe để tìm hiểu!</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe là gì?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Ứng dụng này để đo lường kiểm duyệt internet\n\nCác trang web và các ứng dụng mạng xã hội có bị chặn không? Kết nối internet của bạn có bị chậm bất thường không?\n\nHãy chạy ứng dụng OONI Probe để tìm hiểu!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Dữ liệu của OONI được công bố công khai, bao gồm thông tin về mạng của bạn.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Bất cứ ai giám sát hoạt động internet của bạn (ví dụ như chính phủ hay nhà mạng) sẽ biết bạn đang chạy OONI Probe.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">Bạn có thể kiểm tra các trang web bị chặn (hoặc chọn bất cứ trang nào để kiểm tra)</string>
@@ -11,10 +11,10 @@
     <string name="Onboarding_PopQuiz_2_Question">Bất cứ khi nào tôi chạy ứng dụng OONI Probe, dữ liệu mạng mà tôi thu thập được sẽ được tự động công bố.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Để tăng tính minh bạch của việc kiểm duyệt internet, dữ liệu mạng của tất cả người dùng OONI Probe sẽ tự động được công bố (trừ khi họ tắt tính năng này khi cài đặt).</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">Để đo lường sự kiểm duyệt internet hàng ngày, vui lòng bật chế độ kiểm tra tự động để OONI Probe có thể chạy các bài kiểm tra định kỳ\n\nĐừng lo, chúng tôi sẽ lưu ý đến việc sử dụng pin.\n\nBạn có thể tắt kiểm tra tự động ở phần cài đặt bất cứ lúc nào. </string>
-    <string name="Onboarding_Crash_Paragraph">Để cải thiện OONI Probe, chúng tôi muốn thu thập các báo cáo sự cố ẩn danh khi ứng dụng không hoạt động bình thường.\n\nBạn có muốn chọn gửi báo cáo sự cố cho nhóm phát triển OONI không\?</string>
+    <string name="Onboarding_Crash_Paragraph">Để cải thiện OONI Probe, chúng tôi muốn thu thập các báo cáo sự cố ẩn danh khi ứng dụng không hoạt động bình thường.\n\nBạn có muốn chọn gửi báo cáo sự cố cho nhóm phát triển OONI không?</string>
 
     <!-- Find proper fix for translation -->
-    <string name="Modal_EnableNotifications_Paragraph">Bạn quan tâm đến việc chạy kiểm tra OONI Probe trong các tình huống kiểm duyệt khẩn cấp\? Bật thông báo để nhận tin nhắn khi chúng tôi biết có kiểm duyệt internet ở gần bạn.</string>
+    <string name="Modal_EnableNotifications_Paragraph">Bạn quan tâm đến việc chạy kiểm tra OONI Probe trong các tình huống kiểm duyệt khẩn cấp? Bật thông báo để nhận tin nhắn khi chúng tôi biết có kiểm duyệt internet ở gần bạn.</string>
 
     <string name="Dashboard_Websites_Card_Description">Kiểm tra việc chặn các trang web</string>
     <string name="Dashboard_Websites_Overview_Paragraph">Kiểm tra xem các trang web có bị chặn không bằng cách sử dụng [Kiểm tra Kết nối Web] của OONI (https://ooni.org/nettest/web-connectivity/).\n\nMỗi khi nhấn Chạy, bạn sẽ kiểm tra các trang web khác nhau từ danh sách [toàn cầu] của Citizen Lab (https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) và danh sách  [quốc gia cụ thể] (https://github.com/citizenlab/test-lists/tree/master/lists).\n\nĐể chọn trang bạn muốn kiểm tra, hãy nhấn vào nút Chọn trang web hoặc chọn các danh mục trang web ở phần cài đặt.\n\nKiểm tra này cho biết các trang web có bị chặn bởi các phương thức sửa DNS trái phép, chặn TCP/IP hay bởi một proxy HTTP minh bạch không.\n\nKết quả của bạn sẽ được công bố trên [OONI Explorer] (https://explorer.ooni.org/world/) và [OONI API] (https://api.ooni.io/).</string>

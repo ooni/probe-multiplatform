@@ -304,7 +304,7 @@
     <string name="Modal_Retry">Reyna aftur</string>
     <string name="Modal_Cancel">Hætta við</string>
     <string name="Modal_OK">Í lagi</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Viltu eyða öllum niðurstöðum prófana\?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Viltu eyða öllum niðurstöðum prófana?</string>
     <string name="Modal_Delete">Eyða</string>
     <string name="Modal_ReRun_Title">Keyra prófun aftur</string>
     <string name="Modal_ReRun_Websites_Title">Þú ert við það að endurprófa %1$s vefsvæði.</string>
@@ -315,9 +315,9 @@
     <string name="Modal_RunAnyway">Keyra samt</string>
     <string name="Modal_AlwaysRun">Alltaf keyra</string>
     <string name="Modal_Error_CantDownloadURLs">Get ekki sótt lista yfir slóðir. Reyndu aftur.</string>
-    <string name="Modal_CustomURL_Title_NotSaved">Ertu viss\?</string>
-    <string name="Modal_CustomURL_NotSaved">Slóðirnar þínar verða ekki vistaðar þegar þú ferð af þessum skjá. Ertu viss um að þú viljir fara af skjánum\?</string>
-    <string name="Modal_Autorun_BatteryOptimization">OONI Probe getur ekki keyrt á þess að rafhlöðunotkun sé bestuð. Viltu prófa aftur\?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Ertu viss?</string>
+    <string name="Modal_CustomURL_NotSaved">Slóðirnar þínar verða ekki vistaðar þegar þú ferð af þessum skjá. Ertu viss um að þú viljir fara af skjánum?</string>
+    <string name="Modal_Autorun_BatteryOptimization">OONI Probe getur ekki keyrt á þess að rafhlöðunotkun sé bestuð. Viltu prófa aftur?</string>
     <string name="Modal_EnableNotifications_Title">Fáðu vísbendingar um ritskoðun internetsins</string>
 
     <!-- Common / Others -->

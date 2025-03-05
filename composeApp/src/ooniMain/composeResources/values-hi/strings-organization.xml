@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">OONI Probe</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe क्या है\?</string>
-    <string name="Onboarding_WhatIsOONIProbe_Paragraph">इंटरनेट सेंसरशिप को मापने के लिए आपका ऐप।\n\nक्या वेबसाइट और सोशल मीडिया ऐप ब्लॉक किए गए हैं\? क्या आपका इंटरनेट कनेक्शन असामान्य रूप से धीमा है\?\n\nपता लगाने के लिए OONI जांच चलाएं!</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe क्या है?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">इंटरनेट सेंसरशिप को मापने के लिए आपका ऐप।\n\nक्या वेबसाइट और सोशल मीडिया ऐप ब्लॉक किए गए हैं? क्या आपका इंटरनेट कनेक्शन असामान्य रूप से धीमा है?\n\nपता लगाने के लिए OONI जांच चलाएं!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI डेटा खुले तौर पर प्रकाशित होता है और इसमें आपकी नेटवर्क जानकारी शामिल होगी।</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">आपकी इंटरनेट गतिविधि (जैसे सरकार या आईएसपी) की निगरानी करने वाला कोई भी व्यक्ति देखेगा कि आप OONI जांच चला रहे हैं।</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">आप प्रतिबंधित वेबसाइटों का परीक्षण कर सकते हैं (लेकिन आप चुन सकते हैं कि कौन सी साइटें जांचें)।</string>
@@ -10,10 +10,10 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI जांच एक गोपनीयता उपकरण नहीं है। आपकी इंटरनेट गतिविधि की निगरानी करने वाला कोई भी व्यक्ति देखेगा कि आप कौन सा सॉफ्टवेयर चला रहे हैं।</string>
     <string name="Onboarding_PopQuiz_2_Question">हर बार जब मैं OONI जांच चलाता हूं, तो मैं एकत्रित नेटवर्क डेटा स्वचालित रूप से प्रकाशित हो जाता हूं।</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">इंटरनेट सेंसरशिप की पारदर्शिता बढ़ाने के लिए, सभी OONI जांच उपयोगकर्ताओं का नेटवर्क डेटा स्वचालित रूप से प्रकाशित होता है (जब तक वे सेटिंग्स में ऑप्ट-आउट नहीं करते)।</string>
-    <string name="Onboarding_Crash_Paragraph">OONI प्रोब को और बहतर बनाने के लिए हम दुर्घटनाओं की जानकारी अज्ञात्त तरीके से इक्कठा करना चाहते है जब ऐप तरीके से काम ना करे।\n\nक्या आप इस ऐच्छिक सुविधा का प्रयोग कर दुर्घटनाओं की जानकारी हमारी OONI डेवलपमेंट टीम को जमा करना चाहेंगे\?</string>
+    <string name="Onboarding_Crash_Paragraph">OONI प्रोब को और बहतर बनाने के लिए हम दुर्घटनाओं की जानकारी अज्ञात्त तरीके से इक्कठा करना चाहते है जब ऐप तरीके से काम ना करे।\n\nक्या आप इस ऐच्छिक सुविधा का प्रयोग कर दुर्घटनाओं की जानकारी हमारी OONI डेवलपमेंट टीम को जमा करना चाहेंगे?</string>
 
     <!-- Find proper fix for translation -->
-    <string name="Modal_EnableNotifications_Paragraph">क्या आप आकस्मिक सेंसरशिप घटनाओं के दौरान OONI प्रोब परीक्षण चलाने के इच्छुक हैं\? जब हम आपके आस-पास इंटरनेट सेंसरशिप के बारे में सुनते हैं तो उसके बारे में सन्देश प्राप्त करने के लिए सूचनाएं सक्षम करें।</string>
+    <string name="Modal_EnableNotifications_Paragraph">क्या आप आकस्मिक सेंसरशिप घटनाओं के दौरान OONI प्रोब परीक्षण चलाने के इच्छुक हैं? जब हम आपके आस-पास इंटरनेट सेंसरशिप के बारे में सुनते हैं तो उसके बारे में सन्देश प्राप्त करने के लिए सूचनाएं सक्षम करें।</string>
 
     <string name="Dashboard_Websites_Card_Description">वेबसाइटों के अवरुद्ध परीक्षण का परीक्षण करें</string>
     <string name="Dashboard_Websites_Overview_Paragraph">OONI के [वेब कनेक्टिविटी परीक्षण](https://ooni.org/nettest/web-connectivity/) का उपयोग करके जांचें कि क्या वेबसाइटों को अवरुद्ध किया गया है।\n\nहर बार जब आप रन पर टैप करते हैं, तो आप सिटीजन लैब की [दुनिया भर](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) की और [देश-विशिष्ट](https://github.com/citizenlab/test-lists/tree/master/lists) परीक्षण सूचियों से विभिन्न वेबसाइटों का परीक्षण करते हैं।\n\nअपनी पसंद की वेबसाइटों का परीक्षण करने के लिए, इस कार्ड की सेटिंग के माध्यम से वेबसाइट चुनें बटन पर टैप करें या साइटों की श्रेणियों का चयन करें।\n\nयह परीक्षण मापता है अगर वेबसाइटों को DNS छेड़छाड़, टीसीपी/आईपी ब्लॉकिंग या पारदर्शी HTTP प्रॉक्सी द्वारा अवरुद्ध किया गया है या नहीं।\n\nआपके परिणाम [OONI एक्सप्लोरर](https://explorer.ooni.org/world/) और [OONI API](https://api.ooni.io/) पर प्रकाशित किए जाएंगे।</string>

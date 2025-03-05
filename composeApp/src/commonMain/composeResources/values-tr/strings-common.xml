@@ -304,7 +304,7 @@
     <string name="Modal_Retry">Yeniden dene</string>
     <string name="Modal_Cancel">İptal</string>
     <string name="Modal_OK">Tamam</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Tüm sınama sonuçlarını silmek ister misiniz\?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Tüm sınama sonuçlarını silmek ister misiniz?</string>
     <string name="Modal_Delete">Sil</string>
     <string name="Modal_ReRun_Title">Sınamayı yinele</string>
     <string name="Modal_ReRun_Websites_Title">%1$s siteyi yeniden sınamak üzeresiniz.</string>
@@ -315,9 +315,9 @@
     <string name="Modal_RunAnyway">Yine de çalıştır</string>
     <string name="Modal_AlwaysRun">Her zaman çalışsın</string>
     <string name="Modal_Error_CantDownloadURLs">Adres listesi indirilemedi. Lütfen yeniden deneyin.</string>
-    <string name="Modal_CustomURL_Title_NotSaved">Emin misiniz\?</string>
-    <string name="Modal_CustomURL_NotSaved">Bu sayfadan ayrıldığınızda adresleriniz kaydedilmez. Bu sayfadan ayrılmak istediğinize emin misiniz\?</string>
-    <string name="Modal_Autorun_BatteryOptimization">OONI Probe, pil iyileştirmesi olmadan otomatik olarak çalışamaz. Yeniden denemek ister misiniz\?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Emin misiniz?</string>
+    <string name="Modal_CustomURL_NotSaved">Bu sayfadan ayrıldığınızda adresleriniz kaydedilmez. Bu sayfadan ayrılmak istediğinize emin misiniz?</string>
+    <string name="Modal_Autorun_BatteryOptimization">OONI Probe, pil iyileştirmesi olmadan otomatik olarak çalışamaz. Yeniden denemek ister misiniz?</string>
     <string name="Modal_EnableNotifications_Title">İnternet sansürleri hakkında güncel bilgileri alın</string>
 
     <!-- Common / Others -->

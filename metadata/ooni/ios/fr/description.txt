@@ -6,7 +6,7 @@ OONI Probe est développée par l’observatoire ouvert des interférences rés
 
 Depuis 2012, la communauté internationale de l’OONI a recueilli des millions de mesures du réseau provenant de plus de 200 pays, révélant plusieurs cas d’interférences réseau.
 
-▶ Recueillir des preuves de censure d’Internet 
+▶ Recueillir des preuves de censure d’Internet
 Vous pouvez vérifier si et comment les sites Web et les applis de messagerie instantanée sont bloqués. Les données de mesure du réseau que vous recueillerez pourront servir de preuve de censure d’Internet.
 
 ▶ Détecter la présence de systèmes de censure ou de surveillance

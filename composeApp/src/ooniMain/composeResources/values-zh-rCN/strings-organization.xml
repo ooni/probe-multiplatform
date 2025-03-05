@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">OONI Probe</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">什么是 OONI Probe\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">什么是 OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">为您评估网络审查的一款应用。\n\n网站和社交媒体应用被屏蔽？网络连接异常缓慢？\n\n运行 OONI Probe 来找出答案吧！</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">包含您的网络信息的 OONI 数据将被公开发布。</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">监控您的网络活动的实体（例如政府或运营商）都会知道您在运行 OONI Probe。</string>
@@ -11,7 +11,7 @@
     <string name="Onboarding_PopQuiz_2_Question">每当我运行 OONI Probe，我收集的网络数据都将会被自动发布。</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">为提升网络审查的透明度，所有 OONI Probe 用户的网络数据都将自动发布（除非在设置中选择退出）。</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">为了测量每天的网络审查，请启用自动测试，以便 OONI 可以定期运行测试。别担心，我们会注意电池的使用。您可以在任何时候从设置中禁用自动测试。</string>
-    <string name="Onboarding_Crash_Paragraph">为了改进 OONI Probe，我们希望在应用程序无法正常工作时收集匿名的崩溃报告。\n\n您愿意选择向 OONI 开发团队提交崩溃报告吗\?</string>
+    <string name="Onboarding_Crash_Paragraph">为了改进 OONI Probe，我们希望在应用程序无法正常工作时收集匿名的崩溃报告。\n\n您愿意选择向 OONI 开发团队提交崩溃报告吗?</string>
 
     <!-- Find proper fix for translation -->
     <string name="Modal_EnableNotifications_Paragraph">对在紧急审查事件期间运行 OONI Probe 感兴趣吗？启用通知接收功能，当我们知晓您附近的网络审查发生时，您就会收到一条消息。</string>

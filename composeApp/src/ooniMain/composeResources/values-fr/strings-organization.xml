@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">OONI Probe</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">Qu’est-ce qu’OONI Probe \?</string>
-    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Votre appli pour mesurer la censure d’Internet. \n\nLes sites Web et les applis de médias sociaux sont-ils bloqués \? Votre connexion Internet est-elle anormalement lente \?\n\nLancez OONI Probe pour le savoir !</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Qu’est-ce qu’OONI Probe ?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Votre appli pour mesurer la censure d’Internet. \n\nLes sites Web et les applis de médias sociaux sont-ils bloqués? Votre connexion Internet est-elle anormalement lente?\n\nLancez OONI Probe pour le savoir !</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Les données de l’OONI sont publiées ouvertement et comprendront les renseignements relatifs à votre réseau.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Quiconque surveille votre activité sur Internet (p. ex. un gouvernement ou un FAI) verra que vous utilisez OONI Probe.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">Vous pourriez tester des sites Web interdits (mais vous pouvez choisir quels sites tester).</string>
@@ -11,10 +11,10 @@
     <string name="Onboarding_PopQuiz_2_Question">Chaque fois que j’exécute OONI Probe, les données réseau que je recueille seront publiées automatiquement.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Afin d’accroître la transparence de la censure d’Internet, les données réseau de tous les utilisateurs d’OONI Probe sont publiées automatiquement (à moins qu’ils ne décident de ne pas y participer dans les paramètres).</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">Pour mesurer la censure d’Internet tous les jours, activez les tests automatisés afin qu’OONI Probe puisse effectuer des tests régulièrement. Ne vous inquiétez pas, nous ferons attention à l’utilisation de la batterie. Vous pouvez désactiver les tests automatisés n’importe quand dans les paramètres.</string>
-    <string name="Onboarding_Crash_Paragraph">Afin d’améliorer OONI Probe, nous souhaitons recueillir des relevés anonymes de plantage quand l’appli ne fonctionne pas correctement. Acceptez-vous d’envoyer des rapports de plantage à l’équipe de développement d’OONI \?</string>
+    <string name="Onboarding_Crash_Paragraph">Afin d’améliorer OONI Probe, nous souhaitons recueillir des relevés anonymes de plantage quand l’appli ne fonctionne pas correctement. Acceptez-vous d’envoyer des rapports de plantage à l’équipe de développement d’OONI?</string>
 
     <!-- Find proper fix for translation -->
-    <string name="Modal_EnableNotifications_Paragraph">Voulez-vous exécuter les tests d’OONI Probe pendant des événements de censure émergents \? Activez les notifications afin de recevoir un message si nous sommes informés de censure d’Internet près de vous.</string>
+    <string name="Modal_EnableNotifications_Paragraph">Voulez-vous exécuter les tests d’OONI Probe pendant des événements de censure émergents? Activez les notifications afin de recevoir un message si nous sommes informés de censure d’Internet près de vous.</string>
 
     <string name="Dashboard_Websites_Card_Description">Testez le blocage de sites Web</string>
     <string name="Dashboard_Websites_Overview_Paragraph">Vérifiez le blocage des sites Web grâce au [Test de connectivité Web](https://ooni.org/nettest/web-connectivity/) de l’OONI (page en anglais).\n\nChaque fois que vous touchez Lancer, vous testez différents sites Web provenant des listes de tests [mondiale](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) et [propre à un pays](https://github.com/citizenlab/test-lists/tree/master/lists) du « Citizen Lab » (site en anglais).\n\nPour tester les sites de votre choix, touchez le bouton « Choisir des sites Web » ou sélectionnez des catégories de sites dans les paramètres de cette carte. \n\nCe test mesure si les sites Web sont bloqués par une manipulation DNS, par un blocage TCP/IP ou par un mandataire HTTP transparent.\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/world/) et l’[API d’OONI](https://api.ooni.io/) (site en anglais).</string>

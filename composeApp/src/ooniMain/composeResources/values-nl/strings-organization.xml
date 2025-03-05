@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">OONI Probe</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">Wat is OONI Probe\?</string>
-    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Uw app voor het meten van internetcensuur.\n\nWorden websites en sociale media-apps geblokkeerd\? Is uw internetverbinding ongewoon traag\?\n\nVoer OONI Probe uit om erachter te komen!</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Wat is OONI Probe?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Uw app voor het meten van internetcensuur.\n\nWorden websites en sociale media-apps geblokkeerd? Is uw internetverbinding ongewoon traag?\n\nVoer OONI Probe uit om erachter te komen!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI-gegevens worden openlijk gepubliceerd en bevatten uw netwerkinformatie.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Iedereen die uw internetactiviteit in de gaten houdt (bvd. de overheid of een ISP) kunt bekijken dat u OONI Probe gebruikt.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">U kunt verboden websites testen (maar u kunt kiezen welke sites u wilt testen).</string>
@@ -11,10 +11,10 @@
     <string name="Onboarding_PopQuiz_2_Question">Elke keer dat ik OONI Probe gebruik, worden de netwerkgegevens die ik verzamel automatisch gepubliceerd.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Om de transparantie van internetcensuur te vergroten, worden de netwerkgegevens van alle OONI Probe-gebruikers automatisch gepubliceerd (tenzij ze zich afmelden in de instellingen).</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">Als u elke dag internetcensuur wilt meten, moet u geautomatiseerde tests inschakelen, zodat OONI Probe periodiek tests kan uitvoeren.\n\nMaak u geen zorgen, we zullen rekening houden met het batterijgebruik.\n\nU kunt automatisch testen op elk moment uitschakelen via de instellingen.</string>
-    <string name="Onboarding_Crash_Paragraph">Om OONI Probe te verbeteren willen we graag anonieme crashrapporten verzamelen wanneer de app niet goed werkt.\n\nWilt u ervoor kiezen om crashrapporten in te dienen bij het OONI-ontwikkelteam\?</string>
+    <string name="Onboarding_Crash_Paragraph">Om OONI Probe te verbeteren willen we graag anonieme crashrapporten verzamelen wanneer de app niet goed werkt.\n\nWilt u ervoor kiezen om crashrapporten in te dienen bij het OONI-ontwikkelteam?</string>
 
     <!-- Find proper fix for translation -->
-    <string name="Modal_EnableNotifications_Paragraph">Geïnteresseerd in het uitvoeren van OONI Probe-tests tijdens opkomende censuurgebeurtenissen\? Schakel meldingen in om een bericht te ontvangen wanneer we horen van internetcensuur bij jou in de buurt.</string>
+    <string name="Modal_EnableNotifications_Paragraph">Geïnteresseerd in het uitvoeren van OONI Probe-tests tijdens opkomende censuurgebeurtenissen? Schakel meldingen in om een bericht te ontvangen wanneer we horen van internetcensuur bij jou in de buurt.</string>
 
     <string name="Dashboard_Websites_Card_Description">Test het blokkeren van websites</string>
     <string name="Dashboard_Websites_Overview_Paragraph">Controleer of websites worden geblokkeerd met behulp van OONI\'s [Web Connectivity-test](https://ooni.org/nettest/web-connectivity/).\n\nElke keer dat je op Uitvoeren tikt, test je verschillende websites van Citizen Lab\'s [global](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) en [country-specific](https://github.com/citizenlab/test-lists/tree/master/lists) testlijsten.\n\nOm de sites van uw keuze te testen, tikt u op de knop Websites kiezen of selecteert u categorieën van sites via de instellingen van deze kaart.\n\nDeze test meet of websites worden geblokkeerd door middel van DNS-manipulatie, TCP/IP-blokkering of door een transparante HTTP-proxy.\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/world/) en [OONI API](https://api.ooni.io/).</string>

@@ -1,5 +1,7 @@
 <resources>
+    <!-- Dashboard -->
     <string name="Dashboard_Tab_Label">ဒက်ရှ်ဘုတ်</string>
+
     <string name="Dashboard_Overview_LatestTest">နောက်ဆုံး စမ်းသပ်မှု -</string>
     <string name="Dashboard_Overview_Estimated">ခန့်မှန်းထားသည် -</string>
     <string name="Dashboard_Overview_LastRun_Never">မရရှိနိုင်ပါ</string>
@@ -10,12 +12,14 @@
     <string name="Dashboard_Running_Stopping_Title">စမ်းသပ်မှုကို ရပ်နေသည်...</string>
     <string name="Dashboard_Running_Stopping_Notice">လက်ရှိ စောင့်ဆိုင်းနေသော စမ်းသပ်မှုများကို အပြီးသတ်နေသည်၊ ကျေးဇူးပြု၍ စောင့်ပါ...</string>
     <string name="Dashboard_Running_ProxyInUse">အသုံးပြုနေသော ပရောက်စီ</string>
-    <string name="OONIRun_Run">စမ်းမည်</string>
-    <string name="Notification_StopTest">စမ်းသပ်မှုကို ရပ်ပါ</string>
+
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">ပြန်ပြင်ရန်</string>
+    <string name="Dashboard_Update_Restart">စက်ပြန်ဖွင့်ရန်</string>
+
+    <!-- Test -->
 
     <string name="Test_Websites_Fullname">ဝဘ်ဆိုဒ်များ</string>
     <string name="Test_InstantMessaging_Fullname">ချက်ခြင်း စာတိုပေးပို့ခြင်း\n</string>
-    <string name="Test_Middleboxes_Fullname">Middleboxes</string>
     <string name="Test_Performance_Fullname">စွမ်းဆောင်ရည်</string>
     <string name="Test_Circumvention_Fullname">ရှောင်တိမ်းခြင်း</string>
     <string name="Test_Experimental_Fullname">စမ်းသပ် လေ့လာနေဆဲ</string>
@@ -31,6 +35,8 @@
     <string name="Test_Tor_Fullname">Tor စမ်းသပ်မှု</string>
     <string name="Test_Signal_Fullname">Signal စမ်းသပ်မှု</string>
 
+    <!-- Test Results -->
+
     <string name="TestResults_Overview_Title">စမ်းသပ်မှု ရလဒ်များ</string>
     <string name="TestResults_Overview_Tab_Label">စမ်းသပ်မှု ရလဒ်များ</string>
     <string name="TestResults_Overview_FilterTests">စမ်းသပ်မှုများ</string>
@@ -41,14 +47,7 @@
     <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s ခု ပိတ်ဆို့ထားသည်</string>
     <string name="TestResults_Overview_Websites_Tested_Singular">%1$s  ကြိမ် စမ်းသပ်ခဲ့သည်</string>
     <string name="TestResults_Overview_Websites_Tested_Plural">%1$s  ကြိမ် စမ်းသပ်ခဲ့သည်</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Singular">%1$s ခု ပိတ်ဆို့ထားသည်</string>
-    <string name="TestResults_Overview_InstantMessaging_Blocked_Plural">%1$s ခု ပိတ်ဆို့ထားသည်</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Singular">%1$s အသုံးပြုနိုင်သည်</string>
-    <string name="TestResults_Overview_InstantMessaging_Available_Plural">%1$s အသုံးပြုနိုင်သည်</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Singular">%1$s ခု ပိတ်ဆို့ထားသည်</string>
-    <string name="TestResults_Overview_Circumvention_Blocked_Plural">%1$s ခု ပိတ်ဆို့ထားသည်</string>
-    <string name="TestResults_Overview_Circumvention_Available_Singular">%1$s ရရှိနိုင်သည်</string>
-    <string name="TestResults_Overview_Circumvention_Available_Plural">%1$s ရရှိနိုင်သည်</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">စမ်းသပ်မှု မရှိသေးပါ။ စမ်းသပ်မှုတစ်ခုကို လုပ်ဆောင် ကြည့်လိုက်ပါ။</string>
     <string name="TestResults_Summary_Hero_DateAndTime">နေ့စွဲ နှင့် အချိန်</string>
     <string name="TestResults_Summary_Hero_Network">ကွန်ရက်</string>
     <string name="TestResults_Summary_Hero_Country">နိုင်ငံ</string>
@@ -56,34 +55,30 @@
     <string name="TestResults_Summary_Hero_WiFi">ဝိုင်ဖိုင်</string>
     <string name="TestResults_Summary_Hero_Mobile">မိုဘိုင်းဒေတာ</string>
     <string name="TestResults_Summary_Hero_NoInternet">အင်တာနက်မရှိပါ</string>
-    <string name="TestResults_Overview_NoTestsHaveBeenRun">စမ်းသပ်မှု မရှိသေးပါ။ စမ်းသပ်မှုတစ်ခုကို လုပ်ဆောင် ကြည့်လိုက်ပါ။</string>
-    <string name="TestResults_UnknownASN">မသိ</string>
-    <string name="TestResults_NotAvailable">မရရှိနိုင်ပါ</string>
-    <string name="TestResults_Summary_Performance_Hero_Upload">အပ်လုဒ်</string>
-    <string name="TestResults_Summary_Performance_Hero_Download">ဒေါင်းလုဒ်လုပ်ရန်</string>
-
-    <string name="TestResults_Gbps">ဂစ်ဂါဘစ်/စက္ကန့်</string>
-    <string name="TestResults_Mbps">မဂ္ဂါဘစ်/စက္ကန့်</string>
-    <string name="TestResults_Kbps">ကီလိုဘစ်/စက္ကန့်</string>
-
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">စမ်းသပ်ခဲ့သည်</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">စမ်းသပ်ခဲ့သည်</string>
-
     <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">ပိတ်ဆို့ထားသည်</string>
     <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">ပိတ်ဆို့ထားသည်</string>
-
     <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">အသုံးပြုနိုင်သည်</string>
     <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">အသုံးပြုနိုင်သည်</string>
-
+    <string name="TestResults_Summary_Performance_Hero_Upload">အပ်လုဒ်</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">ဒေါင်းလုဒ်လုပ်ရန်</string>
     <string name="TestResults_Summary_Performance_Hero_Video">ယခုချိန်တွင် Apple App Store ရှိ ကန့်သတ်ချက်များကြောင့် Tella Android တွင် ရရှိနိုင်သည့် အသွင်ပြောင်းထားသော အင်္ဂါရပ်များကို  iOS အတွက် ပံ့ပိုးမထားပါ။</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">အရည်အသွေး</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">ပို့ပါ</string>
 
+    <string name="TestResults_Gbps">ဂစ်ဂါဘစ်/စက္ကန့်</string>
+    <string name="TestResults_Mbps">မဂ္ဂါဘစ်/စက္ကန့်</string>
+    <string name="TestResults_Kbps">ကီလိုဘစ်/စက္ကန့်</string>
     <string name="TestResults_ms">မီလီစက္ကန့်</string>
 
-    <string name="Modal_ReRun_Title">စမ်းသပ်မှု ပြန်လုပ်ပါ</string>
-    <string name="Modal_ReRun_Websites_Title">သင်သည် ဝဘ်ဆိုဒ် %1$s ကို ပြန်လည် စမ်းသပ် တော့မည်။</string>
-    <string name="Modal_ReRun_Websites_Run">စမ်းမည်</string>
+    <string name="TestResults_UnknownASN">မသိ</string>
+    <string name="TestResults_NotAvailable">မရရှိနိုင်ပါ</string>
+
+    <string name="Measurements_Failed">မအောင်မြင်ပါ</string>
+    <string name="Measurements_Ok">အိုကေ</string>
+    <string name="Measurements_Anomaly">မူမမှန်ချက်</string>
+    <!-- Settings -->
 
     <string name="Settings_Title">ဆက်တင်များ</string>
     <string name="Settings_Notifications_Label">အသိပေးချက်များ</string>
@@ -93,11 +88,10 @@
     <string name="Settings_TestOptions_LongRunningTest">တာရှည်စမ်းသပ်မှု</string>
 
     <string name="Settings_AutomatedTesting_RunAutomatically">စမ်းသပ်မှုများကို အလိုအလျောက် လုပ်ဆောင်ပါ</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Number">အလိုအလျောက်စမ်းသပ်မှု အရေအတွက် - %1$s။</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_DateLast">နောက်ဆုံး လုပ်ဆောင်ခဲ့သည့် အလိုအလျောက် စမ်းသပ်မှု - %1$s။</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">WiFi နှင့် သာ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">အားသွင်းနေစဉ်သာ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">အလိုအလျောက် စမ်းသပ်ခြင်းကို ဖွင့်ထားခြင်းဖြင့် OONI Probe စမ်းသပ်မှုများသည် တစ်နေ့လျှင် အကြိမ်များစွာ အလိုအလျောက် လုပ်ဆောင်မည် ဖြစ်သည်။ သင်၏ စမ်းသပ်မှုရလဒ်များကို OONI Explorer တွင် အလိုအလျောက် ထုတ်ပြန်လိမ့်မည် - https://explorer.ooni.org/ \n\nအရေးကြီးသည် - သင့်စက်တွင် VPN ဖွင့်ထားပါက OONI Probe သည် စမ်းသပ်မှုများကို အလိုအလျောက် လုပ်ဆောင်မည် မဟုတ်ပါ။ အလိုအလျောက် OONI Probe စမ်းသပ်မှုအတွက် သင့်စက် VPN ကို ပိတ်ပါ။ ပိုမိုလေ့လာရန် - https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn သို့ သွားပါ</string>
+    <string name="Settings_Sharing_UploadResults">အလိုအလျောက် ထုတ်ပြန်သော ရလဒ်များ</string>
 
     <string name="Settings_Websites_MaxRuntimeEnabled">စမ်းသပ်ကာလကို ကန့်သတ်မည်</string>
     <string name="Settings_Websites_MaxRuntime">စမ်းသပ်မှုကာလ</string>
@@ -105,32 +99,35 @@
     <string name="Settings_Websites_Categories_Description">အမျိုးအစား %1$s ခု ကို ဖွင့်ထားသည်</string>
 
     <string name="Settings_Privacy_Label">ကိုယ်ရေးလုံခြုံမှု</string>
-
-    <string name="Settings_Sharing_UploadResults">အလိုအလျောက် ထုတ်ပြန်သော ရလဒ်များ</string>
     <string name="Settings_Privacy_SendCrashReports">ပျက်စီးမှု အစီရင်ခံစာများ ပေးပို့မည်</string>
 
     <string name="Settings_Proxy_Label">OONI နောက်ခံ ပရောက်စီ</string>
-
     <string name="Settings_Proxy_Enabled">ကြားခံ အင်တာနက်စနစ်</string>
     <string name="Settings_Proxy_None">မရှိ</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
     <string name="Settings_Proxy_Custom">အထူး ပရောက်စီ\n</string>
     <string name="Settings_Proxy_Custom_Protocol">လုပ်ထုံးလုပ်နည်း</string>
-
     <string name="Settings_Proxy_Custom_Hostname">အထိုင်နေရာ အမည်</string>
     <string name="Settings_Proxy_Custom_Port">ပေါ့တ်</string>
 
     <string name="Settings_Advanced_Label">အဆင့်မြင့်</string>
+    <string name="Settings_Advanced_DebugLogs">အမှားပြင်ဆင်မှု မှတ်တမ်းများ\n</string>
+    <string name="Settings_Advanced_RecentLogs">လတ်တလော မှတ်တမ်းများကို ကြည့်ပါ</string>
     <string name="Settings_SendEmail_Label">ပံ့ပိုးကူညီရန် အီးမေးလ် ပို့ပါ</string>
     <string name="Settings_SendEmail_Message">သင်ကြုံတွေ့နေရသော ပြဿနာကို ကျေးဇူးပြု၍ ဖော်ပြပါ -</string>
 
-    <string name="Settings_Advanced_DebugLogs">အမှားပြင်ဆင်မှု မှတ်တမ်းများ\n</string>
-    <string name="Settings_Advanced_RecentLogs">လတ်တလော မှတ်တမ်းများကို ကြည့်ပါ</string>
-    <string name="Settings_Advanced_LanguageSettings_Title">ဘာသာစကား ဆက်တင်</string>
     <string name="Settings_Storage_Label">သိုလှောင်မှုအား အသုံးပြုမှု</string>
     <string name="Settings_Storage_Delete">ဖျက်မည်</string>
     <string name="Settings_Storage_Clear">ရှင်းမည်</string>
     <string name="Settings_WarmVPNInUse_Label">VPN အသုံးပြုနေချိန်တွင် သတိပေးပါ</string>
+    <string name="Settings_Logs">မှတ်တမ်းများ</string>
+    <string name="Settings_Websites_Categories_Selection_None">အားလုံးကို မရွေးချယ်ရန်\n</string>
+    <string name="Settings_Websites_Categories_Selection_All">အားလုံးကို ရွေးချယ်မည်\n</string>
+    <string name="Settings_Websites_CustomURL_Title">စမ်းသပ်မည့် ဝဘ်ဆိုဒ်များ ရွေးချယ်ရန်</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="Settings_Websites_CustomURL_Run">စမ်းမည်</string>
+    <string name="Settings_Websites_CustomURL_Add">ဝဘ်ဆိုဒ်ထည့်ရန်</string>
+    <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">မူးယစ်ဆေးဝါးနှင့် အရက်</string>
     <string name="CategoryCode_REL_Name">ဘာသာတရား</string>
@@ -195,6 +192,38 @@
     <string name="CategoryCode_IGO_Description">ကုလသမဂ္ဂ အပါအဝင် အစိုးရ အဖွဲ့အစည်းများ</string>
     <string name="CategoryCode_MISC_Description">အမျိုးအစား မခွဲခြားရသေးသော ဆိုဒ်များ</string>
 
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">ရပြီ</string>
+    <string name="Onboarding_ThingsToKnow_Title">ကြိုတင်အသိပေးသည်။</string>
+    <string name="Onboarding_ThingsToKnow_Button">နားလည်သည်</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">ပိုမိုလေ့လာရန်</string>
+    <string name="Onboarding_PopQuiz_Title">လျှပ်တပြက် ဉာဏ်စမ်း</string>
+    <string name="Onboarding_PopQuiz_True">မှန်သည်</string>
+    <string name="Onboarding_PopQuiz_False">မှားသည်</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">နောက်သို့</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">ဆက်လုပ်မည်</string>
+    <string name="Onboarding_PopQuiz_1_Title">မေးခွန်း ၁/၂</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">သတိပေးချက်</string>
+    <string name="Onboarding_PopQuiz_2_Title">မေးခွန်း ၂/၂</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">သတိပေးချက်</string>
+    <string name="Onboarding_AutomatedTesting_Title">အလိုအလျောက် စမ်းသပ်ခြင်း</string>
+    <string name="Onboarding_Crash_Title">ပျက်စီးမှု သတင်းပို့ခြင်း</string>
+    <string name="Onboarding_Crash_Button_Yes">ပါဝင်သည်</string>
+    <string name="Onboarding_Crash_Button_No">အဆင့်သတ်မှတ်ချက်</string>
+    <string name="Onboarding_DefaultSettings_Title">နဂိုမူလ ဆက်တင်များ</string>
+    <string name="Onboarding_DefaultSettings_Header">ကျွန်ုပ်တို့ ကောက်ယူစုဆောင်း၍ ဖြန့်ဝေသည် -</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">နိုင်ငံကုဒ် (ဥပမာ - အီတလီအတွက် IT)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">ကွန်ရက် သတင်းအချက်အလက် (အလိုအလျောက်စနစ် နံပတ်အပါအဝင်)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">စမ်းသပ်ချိန်နှင့် ရက်စွဲ</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">သင်၏ IP လိပ်စာ သို့မဟုတ် အခြားသော ပုဂ္ဂိုလ်ရေးအရ ခွဲခြား သိမြင်နိုင်သော အချက်အလက်များကို ထုတ်ဝေခြင်းမပြုရန် ကျွန်ုပ်တို့ အကောင်းဆုံး လုပ်ဆောင်ပါသည်။ [OONI ၏ ဒေတာမူဝါဒ](https://ooni.org/about/data-policy/) တွင် ပိုမိုလေ့လာပါ။</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">နဂိုမူလများကို ပြောင်းမည်</string>
+
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">စစ်ဆေးမှု ချိန်ညှိချက်များ</string>
+    <string name="AddDescriptor_AutoRun">စမ်းသပ်မှုများကို အလိုအလျောက် လုပ်ဆောင်ပါ</string>
+    <string name="LoadingScreen_Runv2_Failure">ပြဿနာ</string>
+    <!-- Modals / Toasts / Snackbar -->
+
     <string name="Snackbar_ResultsNotUploaded_Text">အပ်လုဒ် မလုပ်ပါ</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">အချို့ကို အပ်လုဒ်မလုပ်ခဲ့ပါ</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">အားလုံးကို အပ်လုဒ်လုပ်ပါ</string>
@@ -207,30 +236,25 @@
     <string name="Modal_OK">အိုကေ</string>
     <string name="Modal_DoYouWantToDeleteAllTests">စမ်းသပ်မှုရလဒ်အားလုံးကို ဖျက်လိုပါသလား။</string>
     <string name="Modal_Delete">ဖျက်မည်</string>
-
+    <string name="Modal_ReRun_Title">စမ်းသပ်မှု ပြန်လုပ်ပါ</string>
+    <string name="Modal_ReRun_Websites_Title">သင်သည် ဝဘ်ဆိုဒ် %1$s ကို ပြန်လည် စမ်းသပ် တော့မည်။</string>
+    <string name="Modal_ReRun_Websites_Run">စမ်းမည်</string>
     <string name="Modal_DisableVPN_Title">သင်၏ VPN ချိတ်ဆက်မှုကို ပိတ်ပါ။</string>
     <string name="Modal_DisableVPN_Message">အကယ်၍ သင်သည် VPN ကိုဖွင့်ထားလျက် OONI Probeကို စမ်းသပ်လုပ်ဆောင်ပါက၊ စမ်းသပ်မှုရလဒ်များသည် နိုင်ငံမှားယွင်းကာ ထွက်ပေါ်လာနိုင်သည်။ သင်၏ VPN ချိတ်ဆက်မှုကို ပိတ်ပါ။ </string>
     <string name="Modal_DisableVPN">VPN ကို ပိတ်မည်</string>
     <string name="Modal_RunAnyway">ဘာဖြစ်ဖြစ် စမ်းမည်</string>
     <string name="Modal_AlwaysRun">အမြဲတမ်း စမ်းမည်</string>
-
     <string name="Modal_Error_CantDownloadURLs">URL စာရင်းကို ဒေါင်းလုဒ်လုပ်၍ မရပါ။ ထပ်စမ်းကြည့်ပါ။</string>
-
-    <string name="AddDescriptor_Settings">စစ်ဆေးမှု ချိန်ညှိချက်များ</string>
-    <string name="AddDescriptor_Author">စာရေးဆရာ -</string>
-    <string name="AddDescriptor_AutoRun">စမ်းသပ်မှုများကို အလိုအလျောက် လုပ်ဆောင်ပါ</string>
-    <string name="LoadingScreen_Runv2_Failure">ပြဿနာ</string>
-    <string name="Settings_Websites_CustomURL_Title">စမ်းသပ်မည့် ဝဘ်ဆိုဒ်များ ရွေးချယ်ရန်</string>
-    <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_NoURLEntered">URL များ ထည့်ထားခြင်း မရှိပါ</string>
-    <string name="Settings_Websites_CustomURL_Run">စမ်းမည်</string>
-    <string name="Settings_Websites_CustomURL_Add">ဝဘ်ဆိုဒ်ထည့်ရန်</string>
     <string name="Modal_CustomURL_Title_NotSaved">သေချာပါသလား။</string>
     <string name="Modal_CustomURL_NotSaved">ဤဝဘ်စာမျက်နှာမှ ထွက်သည့်အခါ သင့် URL များကို သိမ်းဆည်းမည် မဟုတ်ပါ။ ဤစာမျက်နှာမှ ထွက်လိုသည်မှာ သေချာပါသလား။ </string>
-
     <string name="Modal_Autorun_BatteryOptimization">ဘက်ထရီ ပိုမိုကောင်းမွန်အောင် လုပ်ဆောင်ခြင်းမရှိဘဲ OONI Probe သည် စမ်းသပ်မှုအား အလိုအလျောက် မလည်ပတ်နိုင်ပါ။ ထပ်မံ ကြိုးစားလိုပါသလား။ </string>
+    <string name="Modal_EnableNotifications_Title">အင်တာနက် ဆင်ဆာဖြတ်ခြင်းဆိုင်ရာ အပ်ဒိတ်များကို ရယူပါ။</string>
 
-    <!-- New Strings -->
+    <!-- Common / Others -->
+
+    <string name="OONIRun_Run">စမ်းမည်</string>
+
+    <string name="Notification_StopTest">စမ်းသပ်မှုကို ရပ်ပါ</string>
 
     <string name="Common_Back">နောက်သို့</string>
     <string name="Common_Refresh">ရီဖရက်ရှ်လုပ်ရန်</string>
@@ -238,46 +262,5 @@
     <string name="Common_Expand">ချဲ့မည်</string>
     <string name="Common_Minutes_Other">%1$d မိနစ်</string>
     <string name="Common_Hour_Other">%1$d နာရီ</string>
-    <string name="Onboarding_WhatIsOONIProbe_GotIt">ရပြီ</string>
-    <string name="Onboarding_ThingsToKnow_Title">ကြိုတင်အသိပေးသည်။</string>
-
-    <string name="Onboarding_ThingsToKnow_Button">နားလည်သည်</string>
-    <string name="Onboarding_ThingsToKnow_LearnMore">ပိုမိုလေ့လာရန်</string>
-    <string name="Onboarding_PopQuiz_Title">လျှပ်တပြက် ဉာဏ်စမ်း</string>
-    <string name="Onboarding_PopQuiz_True">မှန်သည်</string>
-    <string name="Onboarding_PopQuiz_False">မှားသည်</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Back">နောက်သို့</string>
-    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">ဆက်လုပ်မည်</string>
-    <string name="Onboarding_PopQuiz_1_Title">မေးခွန်း ၁/၂</string>
-
-    <string name="Onboarding_PopQuiz_1_Wrong_Title">သတိပေးချက်</string>
-    <string name="Onboarding_PopQuiz_2_Title">မေးခွန်း ၂/၂</string>
-    <string name="Onboarding_PopQuiz_2_Wrong_Title">သတိပေးချက်</string>
-
-    <string name="Onboarding_AutomatedTesting_Title">အလိုအလျောက် စမ်းသပ်ခြင်း</string>
-
-    <string name="Onboarding_Crash_Title">ပျက်စီးမှု သတင်းပို့ခြင်း</string>
-
-    <string name="Onboarding_Crash_Button_Yes">ပါဝင်သည်</string>
-    <string name="Onboarding_Crash_Button_No">အဆင့်သတ်မှတ်ချက်</string>
-    <string name="Onboarding_DefaultSettings_Title">နဂိုမူလ ဆက်တင်များ</string>
-    <string name="Onboarding_DefaultSettings_Header">ကျွန်ုပ်တို့ ကောက်ယူစုဆောင်း၍ ဖြန့်ဝေသည် -</string>
-    <string name="Onboarding_DefaultSettings_Bullet_1">နိုင်ငံကုဒ် (ဥပမာ - အီတလီအတွက် IT)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_2">ကွန်ရက် သတင်းအချက်အလက် (အလိုအလျောက်စနစ် နံပတ်အပါအဝင်)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_3">စမ်းသပ်ချိန်နှင့် ရက်စွဲ</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">သင်၏ IP လိပ်စာ သို့မဟုတ် အခြားသော ပုဂ္ဂိုလ်ရေးအရ ခွဲခြား သိမြင်နိုင်သော အချက်အလက်များကို ထုတ်ဝေခြင်းမပြုရန် ကျွန်ုပ်တို့ အကောင်းဆုံး လုပ်ဆောင်ပါသည်။ [OONI ၏ ဒေတာမူဝါဒ](https://ooni.org/about/data-policy/) တွင် ပိုမိုလေ့လာပါ။</string>
-    <string name="Onboarding_DefaultSettings_Button_Change">နဂိုမူလများကို ပြောင်းမည်</string>
-
-    <string name="Modal_EnableNotifications_Title">အင်တာနက် ဆင်ဆာဖြတ်ခြင်းဆိုင်ရာ အပ်ဒိတ်များကို ရယူပါ။</string>
-
-    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">ပြန်ပြင်ရန်</string>
-    <string name="Dashboard_Update_Restart">စက်ပြန်ဖွင့်ရန်</string>
-    <string name="Measurements_Failed">မအောင်မြင်ပါ</string>
-    <string name="Measurements_Ok">အိုကေ</string>
-    <string name="Measurements_Anomaly">မူမမှန်ချက်</string>
-    <string name="Settings_Logs">မှတ်တမ်းများ</string>
-    <string name="Settings_Websites_Categories_Selection_None">အားလုံးကို မရွေးချယ်ရန်\n</string>
-    <string name="Settings_Websites_Categories_Selection_All">အားလုံးကို ရွေးချယ်မည်\n</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
