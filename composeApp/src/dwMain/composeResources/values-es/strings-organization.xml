@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">News Media Scan</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">¿Están bloqueados en su región los sitios de noticias\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">¿Están bloqueados en su región los sitios de noticias?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">¡Ejecute News Media Scan para descubrirlo! News Media Scan es la primera aplicación que le brinda transparencia sobre el panorama de las noticias en la región en la que usted se encuentra actualmente. También hace una contribución importante a la medición de la censura en todo el mundo.\n\nLa lista que ve en la aplicación es una lista pública seleccionada por la comunidad en GitHub y no por DW. Representa una selección objetiva de proveedores de medios de noticias nacionales e internacionales.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">¡Atención!\n\nOONI publicará las métricas que envíe junto con la información de su red.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Cualquiera que supervise su conexión a Internet podrá ver que está utilizando News Media Scan.</string>
@@ -11,7 +11,7 @@
     <string name="Onboarding_PopQuiz_2_Question">Siempre que ejecuto News Media Scan, los datos de red que recopilo se publicarán en automático.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Para aumentar la transparencia sobre la censura en internet, los datos de red de todos los usuarios de News Media Scan se publican automáticamente (salvo que se excluya en la configuración).</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">Para medir cada día la censura en Internet, habilite la función de prueba automática para que News Media Scan pueda ejecutar pruebas a intervalos regulares.\nNo se preocupe, estaremos atentos al uso de la batería.\nPuede desactivar las pruebas automáticas en cualquier momento en Configuración.</string>
-    <string name="Onboarding_Crash_Paragraph">Para mejorar News Media Scan, nos gustaría recopilar datos anónimos sobre fallos inesperados al usar la aplicación.\n\n¿Quiere enviar informes de fallos al equipo de desarrollo de OONI\?</string>
+    <string name="Onboarding_Crash_Paragraph">Para mejorar News Media Scan, nos gustaría recopilar datos anónimos sobre fallos inesperados al usar la aplicación.\n\n¿Quiere enviar informes de fallos al equipo de desarrollo de OONI?</string>
 
     <string name="Settings_About_Label">Acerca de News Media Scan</string>
     <string name="Settings_About_Content_Paragraph">Esta aplicación fue creada en estrecha colaboración entre Deutsche Welle (DW) y OONI.\n\nAcerca de DW: Información gratuita para decisiones libres: esa es la marca central de Deutsche Welle (DW). Como empresa de medios internacional e independiente, la emisora ​​internacional alemana informa a personas de todo el mundo. Con programación en 32 idiomas, DW conecta a personas de todo el mundo todos los días, a través de televisión, radio, Internet y redes sociales.\n\nMás información: [Sobre DW](https://corporate.dw.com/en/about-dw/s-30688) (en inglés)\n\nAcerca de OONI: Fundado en 2012, el Open Observatory of Network Interference [(OONI)](https://explorer.ooni.org/) es un proyecto de software libre sin fines de lucro que tiene como objetivo promover esfuerzos descentralizados para documentar la censura de Internet en todo el mundo.\n\nSea parte del movimiento por la libertad en Internet proporcionando datos de su red.</string>

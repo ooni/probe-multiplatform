@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">News Media Scan</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">Sind Nachrichtenportale blockiert\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Sind Nachrichtenportale blockiert?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Starte den News Media Scan, um das herauszufinden! News Media Scan ist die beste App, die dir Transparenz über die Nachrichtenlandschaft in der Region bietet, in der du dich gerade befindest. Außerdem leistest du einen wichtigen Beitrag zur Messung der Zensur auf der ganzen Welt.\n\nDie Liste, die du in der App siehst, ist eine öffentliche, von der Community kuratierte Liste auf GitHub und nicht von der DW. Sie repräsentiert eine objektive Auswahl an internationalen und nationalen Nachrichtenmedienanbietern.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI wird die von dir gesendeten Messdaten zusammen mit deinen Netzwerkinformationen veröffentlichen.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Jeder, der deine Internetverbindung überwacht, wird sehen können, dass du den News Media Scan nutzt.</string>
@@ -11,10 +11,10 @@
     <string name="Onboarding_PopQuiz_2_Question">Jedes Mal, wenn ich News Media Scan ausführe, werden die gesammelten Netzwerkdaten automatisch veröffentlicht.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Um die Transparenz der Internetzensur zu erhöhen, werden die Netzwerkdaten aller News Media Scan-Benutzer automatisch veröffentlicht (es sei denn, sie lehnen dies in den Einstellungen ab).</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">Um die Internet-Zensur täglich zu messen, aktiviere bitte die automatische Testfunktion, damit News Media Scan in regelmäßigen Abständen Tests durchführen kann.\n\nKeine Sorge, wir werden den Akkuverbrauch im Auge behalten.\n\nDu kannst die automatischen Tests jederzeit in den Einstellungen deaktivieren.</string>
-    <string name="Onboarding_Crash_Paragraph">Um News Media Scan zu verbessern, würden wir gerne anonyme Absturzberichte sammeln, wenn die App nicht richtig funktioniert.\n\nMöchtest du dem OONI-Entwicklungsteam Absturzberichte übermitteln\?</string>
+    <string name="Onboarding_Crash_Paragraph">Um News Media Scan zu verbessern, würden wir gerne anonyme Absturzberichte sammeln, wenn die App nicht richtig funktioniert.\n\nMöchtest du dem OONI-Entwicklungsteam Absturzberichte übermitteln?</string>
 
     <!-- Find proper fix for translation -->
-    <string name="Modal_EnableNotifications_Paragraph">Bist du daran interessiert, News Media-Scan-Tests während auftretender Zensurereignisse durchzuführen\? Aktiviere Benachrichtigungen, um eine Nachricht zu erhalten, wenn wir von Internet-Zensur in deiner Nähe erfahren.</string>
+    <string name="Modal_EnableNotifications_Paragraph">Bist du daran interessiert, News Media-Scan-Tests während auftretender Zensurereignisse durchzuführen? Aktiviere Benachrichtigungen, um eine Nachricht zu erhalten, wenn wir von Internet-Zensur in deiner Nähe erfahren.</string>
 
     <string name="Settings_About_Label">Über News Media Scan</string>
     <string name="Settings_About_Content_Paragraph">Diese App ist in in enger Zusammenarbeit zwischen der Deutschen Welle (DW) und OONI entstanden.\n\nÜber DW: Freie Informationen für freie Entscheidungen – das ist der Markenkern der Deutschen Welle (DW). Als unabhängiges, internationales Medienunternehmen informiert der deutsche Auslandssender Menschen weltweit. Mit Programmangeboten in 32 Sprachen verbindet die DW täglich Menschen in aller Welt – via TV, Radio, Internet und Sozialen Medien.\n\nWeitere Infos [über DW](https://corporate.dw.com/en/about-dw/s-30688) .\n\nÜber OONI: Das 2012 gegründete Open Observatory of Network Interference (OONI) ist ein gemeinnütziges, freies Softwareprojekt, das dezentrale Bemühungen zur Dokumentation von Internetzensur auf der ganzen Welt fördern will. Dank ihrer globalen Gemeinschaft wurden [mehr als eine Milliarde Netzwerkmessungen](https://explorer.ooni.org/) aus mehr als 200 Ländern veröffentlicht, die Aufschluss über Fälle von Internetzensur weltweit geben.\n\nSei Teil der Internet Freedom-Bewegung, indem du Daten aus Ihrem Netz bereitstellst.</string>

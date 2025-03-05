@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">News Media Scan</string>
 
-    <string name="Onboarding_WhatIsOONIProbe_Title">Haber medyası siteleri engelleniyor mu\?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Haber medyası siteleri engelleniyor mu?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Öğrenmek için News Media Scan uygulamasını çalıştırın! News Media Scan, şu anda bulunduğunuz ülkedeki haber medyaları hakkında size şeffaflık sağlayan 1 numaralı uygulamadır. Ayrıca uygulamayı kullanarak Dünya çapında sansür uygulamalarının ölçülmesine önemli bir katkıda bulunursunuz.\n\nUygulamada gördüğünüz liste GitHub üzerinde bulunan herkese açık, topluluk tarafından seçilmiş bir listedir ve DW tarafından seçilmemiştir. Uluslararası ve ulusal haber medyası sağlayıcılarının objektif bir aralığını temsil eder.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI, gönderdiğiniz ölçüm verilerini ağ bilgilerinizle birlikte herkese açık olarak yayınlar.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">İnternet bağlantınızı izleyen herkes News Media Scan uygulamasını çalıştırdığınızı görebilir.</string>
@@ -11,10 +11,10 @@
     <string name="Onboarding_PopQuiz_2_Question">News Media Scan uygulamasını çalıştırdığımda topladığım veriler herkese açık olarak yayınlanır.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">İnternet sansürü şeffaflığını sağlamak için tüm News Media Scan kullanıcılarının ağ verileri otomatik olarak yayınlanır (ayarlardan kapatılmadıkça).</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">Lütfen İnternet sansürünün News Media Scan tarafından günlük olarak ölçülebilmesi için otomatik sınamayı açın.\n\nEndişelenmeyin, pil kullanımına dikkat edeceğiz.\n\nOtomatik sınamayı istediğiniz zaman ayarlardan kapatabilirsiniz.</string>
-    <string name="Onboarding_Crash_Paragraph">News Media Scan uygulamasını iyileştirmek için, sorun çıktığında kişisel veri içermeyen anonim çökme bildirimleri almak istiyoruz.\n\nÇökme bildirimlerinin OONI geliştirme ekibine gönderilmesini ister misiniz\?</string>
+    <string name="Onboarding_Crash_Paragraph">News Media Scan uygulamasını iyileştirmek için, sorun çıktığında kişisel veri içermeyen anonim çökme bildirimleri almak istiyoruz.\n\nÇökme bildirimlerinin OONI geliştirme ekibine gönderilmesini ister misiniz?</string>
 
     <!-- Find proper fix for translation -->
-    <string name="Modal_EnableNotifications_Paragraph">Yeni sansür uygulamaları sırasında New Media Scan sınamaları yapmak ilginizi çeker mi\? Yakınınızda bir İnternet sansürü olduğunu öğrendiğimizde size bildirmemiz için bildirimleri açabilirsiniz.</string>
+    <string name="Modal_EnableNotifications_Paragraph">Yeni sansür uygulamaları sırasında New Media Scan sınamaları yapmak ilginizi çeker mi? Yakınınızda bir İnternet sansürü olduğunu öğrendiğimizde size bildirmemiz için bildirimleri açabilirsiniz.</string>
 
     <string name="Settings_About_Label">News Media Scan hakkında</string>
     <string name="Settings_About_Content_Paragraph">Bu uygulama Deutsche Welle (DW) ve OONI arasındaki yakın işbirliğinin ürünüdür.\n\n_DW hakkında:_ Özgür beyinler için tarafsız bilgi; DW markasının sözü budur. Bağımsız bir medya şirketi olarak Almanya\'nın uluslararası haber yayıncısı, Dünya üzerinde her yerde bulunan insanları bilgilendirir. DW, 32 dilde programlarıyla Dünya\'nın dört bir yanındaki insanları TV, radyo, İnternet ve sosyal medya aracılığıyla birbirine bağlıyor.\n\nAyrıntılı bilgi almak için:[ DW hakkında](https://corporate.dw.com/en/about-dw/s-30688)\n\n_OONI hakkında:_ 2012 yılında kurulan Açık ağ izleme gözlemevi (Open Observatory of Network Interference, OONI), Dünya çapında İnternet sansürünü belgeleme konusunda merkezi olmayan çabaları güçlendirmeyi amaçlayan, kar amacı gütmeyen bir ücretsiz yazılım projesidir. Küresel topluluğu sayesinde, 200 üzerindeki ülkede [bir milyardan fazla ağ ölçümü](https://explorer.ooni.org/) yayınlandı ve Dünya çapındaki İnternet sansürü uygulamalarını ortaya çıkardı.\n\nKullandığınız ağlardan veri sağlayarak İnternet özgürlüğü hareketinin bir parçası olun.</string>
