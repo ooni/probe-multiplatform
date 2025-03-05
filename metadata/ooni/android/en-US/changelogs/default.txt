@@ -1,1 +1,2 @@
+* Measurement engine synced with OONI Probe CLI v3.24.0.
 * Bug fixes and other improvements.
