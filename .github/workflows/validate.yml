@@ -25,6 +25,12 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Xcode Cache
+        uses: irgaly/xcode-cache@v1
+        with:
+          key: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.organization }}-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.organization }}-
+
       - name: Build Android
         run: ./gradlew copyBrandingToCommonResources assemble${{ matrix.type }} -Porganization=${{ matrix.organization }}
 
