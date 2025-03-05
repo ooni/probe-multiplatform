@@ -283,7 +283,7 @@ def locales_or_default(options)
    else
        case options[:organization]
        when "ooni" then ['ar', 'en-US', 'hi-IN', 'pt-BR', 'sk', 'zh-CN', 'ca', 'es-ES', 'id', 'ro', 'sq', 'zh-TW', 'de-DE', 'fa', 'is-IS', 'ru-RU', 'th', 'el-GR', 'fr-FR', 'it-IT', 'tr-TR']
-       when "dw" then ['en-US', 'de', 'es', 'fr', 'pt-BR', 'ru', 'tr']
+       when "dw" then ['en-US', 'de-DE', 'es-ES', 'fr-FR', 'pt-BR', 'ru', 'tr-TR']
        end
    end
 end
