@@ -44,6 +44,8 @@ at `iosApp/Configuration/Config.xcconfig`.
 Update the release notes for all flavors and platforms at
 `metadata/ooni/android/en-US/changelogs/default.txt`.
 
+Ensure the release note includes the current engine version as part of the release note.
+
 #### 1.4 Create the Pull Request
 
 Push the branch to Github and create a Pull Request for it against `main`. Make sure CI validations
