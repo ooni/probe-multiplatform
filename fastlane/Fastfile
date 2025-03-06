@@ -30,6 +30,25 @@ platform :android do
         )
     end
 
+    desc "Update Huawei AppGallery store listing information"
+    desc "#### Example:"
+    desc "```\nfastlane android update_app_gallery client_id:xxx client_secret:xxx app_id:xxx \n```"
+    desc "#### Options"
+    desc " * **`client_id`**: The client ID for Huawei AppGallery Connect"
+    desc " * **`client_secret`**: The client secret for Huawei AppGallery Connect"
+    desc " * **`app_id`**: The app ID for the application"
+    desc ""
+    lane :update_app_gallery do |options|
+        organization = organization!(options)
+
+        huawei_appgallery_connect_update_app_localization(
+            client_id: options[:client_id],
+            client_secret: options[:client_secret],
+            app_id: options[:app_id],
+            metadata_path: "fastlane/metadata/android",
+        )
+    end
+
     desc "Publish a new version of the app on Google Play"
     desc "#### Example:"
     desc "```\nfastlane android publish track:alpha version_code:100 organization:ooni json_key:key.json\n```"
