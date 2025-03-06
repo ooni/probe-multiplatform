@@ -6,7 +6,6 @@ on:
 jobs:
   publish:
     name: Publish OONI Probe Android on Huawei AppGallery
-    if: ${{ inputs.ooniProbe }}
     runs-on: macos-latest
 
     steps:
