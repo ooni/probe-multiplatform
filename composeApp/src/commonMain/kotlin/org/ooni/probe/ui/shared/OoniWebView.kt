@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.intl.Locale
 
 @Composable
 expect fun OoniWebView(
@@ -27,6 +28,7 @@ class OoniWebViewController {
         url: String,
         additionalHttpHeaders: Map<String, String> = mapOf(
             "Enable-Embedded-View" to "true",
+            "Accept-Language" to "${Locale.current.toLanguageTag()},${Locale.current.language};q=0.9,en;q=0.8",
         ),
     ) {
         events = events + Event.Load(url, additionalHttpHeaders)
