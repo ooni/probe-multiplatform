@@ -45,7 +45,7 @@ platform :android do
             client_id: options[:client_id],
             client_secret: options[:client_secret],
             app_id: options[:app_id],
-            metadata_path: "fastlane/metadata/android",
+            metadata_path: "fastlane/metadata/huawei",
         )
     end
 
