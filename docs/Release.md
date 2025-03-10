@@ -52,8 +52,8 @@ Distribute Closed Testing (alpha) builds of the OONI Probe Android and News Medi
 on Google Play, so the OONI team and partners can test them.
 
 Go to [Publish Android on Google Play](https://github.com/ooni/probe-multiplatform/actions/workflows/publish_android_on_google_play.yml),
-press *Run Workflow*, pick `alpha` as the track, select both apps and press *Run Workflow*. Confirm
-both actions run successfully.
+press *Run Workflow*, pick the new release branch, pick `alpha` as the track, select both apps and
+press *Run Workflow*. Confirm both actions run successfully.
 
 ### 2. Publishing
 
@@ -61,17 +61,18 @@ Once the alpha versions have been approved for release, we can start publishing.
 
 #### 2.1 Tag & Create Release
 
-2.1.1 Merge the release branch PR into `main`.
-
-2.1.2 Tag the latest commit on `main`:
+2.1.1 Tag the latest commit on the release branch:
 
 ```
 git tag -s v[x.y.z] -f -m "[x.x.x] release"
-git push origin --tags
+git push origin tag v[x.y.z]
 ```
 
-2.1.3 Create a new [Github release](https://github.com/ooni/probe-multiplatform/releases) with the
-release notes.
+2.1.2 Merge the release branch PR into `main`, always through a merge commit! We don't want to lose
+our tagged commit.
+
+2.1.3 Create a new [Github release](https://github.com/ooni/probe-multiplatform/releases) based on
+the new tag and write the release notes.
 
 The new Github release should create new release on Sentry to help with error reporting, and publish
 an internal Slack message warning of the new incoming release.
@@ -79,8 +80,9 @@ an internal Slack message warning of the new incoming release.
 #### 2.2 Publish iOS Apps
 
 Go to [Publish iOS Apps](https://github.com/ooni/probe-multiplatform/actions/workflows/publish_ios.yml),
-press *Run Workflow*, pick both apps and press *Run Workflow*. Confirm both actions run
-successfully. The updates will be reviewed by Apple, so we need to keep an eye if they pass.
+press *Run Workflow*, use workflow from the new tag, pick both apps and press *Run Workflow*.
+Confirm both actions run successfully. The updates will be reviewed by Apple, so we need to keep an
+eye if they pass.
 
 #### 2.2 Publish OONI Probe Android on F-Droid
 
@@ -92,21 +94,24 @@ but sometimes it can take more time.
 #### 2.3 Publish OONI Probe Android on Huawei AppGallery
 
 Go to [Publish OONI Probe on Huawei AppGallery](https://github.com/ooni/probe-multiplatform/actions/workflows/publish_android_on_huawei.yml),
-press *Run Workflow* and press *Run Workflow*. Confirm the action ran successfully.
+press *Run Workflow*, use workflow from the new tag and press *Run Workflow*. Confirm the action ran
+successfully.
 
 #### 2.4 Promote News Media Scan Android
 
 Go to [Promote Android on Google Play](https://github.com/ooni/probe-multiplatform/actions/workflows/promote_android_on_google_play.yml),
-press *Run Workflow*, pick the Organization `dw`, the Current Track `alpha`, the Promote Track
-`production` and press *Run Workflow*. Confirm the action ran successfully.
+press *Run Workflow*, pick the Organization `dw`, the Current Track
+`alpha`, the Promote Track `production` and press *Run Workflow*. Confirm the action ran
+successfully.
 
 #### 2.5 Promote OONI Probe Android
 
 Since this is our app with the biggest amount of users, we take more steps to release it. First we
-promote from `alpha` to `beta`, and then from `beta` to `production` with a `0.2` (20%) rollout value.
+promote from `alpha` to `beta`, and then from `beta` to `production` with a `0.2` (20%) rollout
+value.
 
-Both steps are done at [Promote Android on Google Play](https://github.com/ooni/probe-multiplatform/actions/workflows/promote_android_on_google_play.yml)
-like on the previous step, but with the Organization as `ooni`.
+Both steps are done at [Promote Android on Google Play](https://github.com/ooni/probe-multiplatform/actions/workflows/promote_android_on_google_play.yml) like on the previous step, but with the
+Organization as `ooni`.
 
 ## Monitoring
 
