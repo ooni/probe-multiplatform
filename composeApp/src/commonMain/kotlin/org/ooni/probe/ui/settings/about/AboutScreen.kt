@@ -45,7 +45,7 @@ fun AboutScreen(
     Column(
         Modifier
             .background(MaterialTheme.colorScheme.background)
-            .testTag("AboutScreen")
+            .testTag("AboutScreen"),
     ) {
         Surface(color = MaterialTheme.colorScheme.primaryContainer) {
             Column(

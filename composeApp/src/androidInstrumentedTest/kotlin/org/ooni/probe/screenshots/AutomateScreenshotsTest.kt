@@ -77,7 +77,6 @@ import tools.fastlane.screengrab.Screengrab
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
 import tools.fastlane.screengrab.cleanstatusbar.CleanStatusBar
 import tools.fastlane.screengrab.locale.LocaleTestRule
-import java.util.Locale
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
