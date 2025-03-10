@@ -233,7 +233,15 @@ platform :ios do
     desc " * **`locales`**: comma-separated list of locales (optional, defaults to full list based on the organization)"
     desc ""
     lane :capture_screens do |options|
-        # TODO
+        organization = organization!(options)
+
+        scheme = scheme!(organization)
+
+        capture_screenshots(
+            workspace: "iosApp/iosApp.xcworkspace",
+            output_directory: "metadata/#{organization}/ios",
+            scheme: scheme,
+        )
     end
 end
 
