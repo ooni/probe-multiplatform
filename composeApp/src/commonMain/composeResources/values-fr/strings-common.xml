@@ -325,6 +325,7 @@
     <string name="OONIRun_Run">Lancer</string>
 
     <string name="Notification_ChannelName">Test</string>
+    <string name="Notification_UpdateChannelName">Mises à jour des liens</string>
     <string name="Notification_StopTest">Arrêter le test</string>
 
     <string name="Common_Back">Retour</string>
