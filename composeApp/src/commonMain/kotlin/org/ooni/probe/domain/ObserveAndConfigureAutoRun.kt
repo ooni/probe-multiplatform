@@ -10,9 +10,9 @@ import kotlin.coroutines.CoroutineContext
 class ObserveAndConfigureAutoRun(
     private val backgroundContext: CoroutineContext,
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
-    private val getAutoRunSettings: suspend () -> Flow<AutoRunParameters>,
+    private val getAutoRunSettings: () -> Flow<AutoRunParameters>,
 ) {
-    suspend operator fun invoke() =
+    operator fun invoke() =
         getAutoRunSettings()
             .onEach { configureAutoRun(it) }
             .launchIn(CoroutineScope(backgroundContext))

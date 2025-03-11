@@ -41,6 +41,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
+import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.isHeightCompact
@@ -150,6 +151,13 @@ fun DashboardScreen(
         errors = state.testRunErrors,
         onErrorDisplayed = { onEvent(DashboardViewModel.Event.ErrorDisplayed(it)) },
     )
+
+    if (state.showIgnoreBatteryOptimizationNotice) {
+        IgnoreBatteryOptimizationDialog(
+            onAccepted = { onEvent(DashboardViewModel.Event.IgnoreBatteryOptimizationAccepted) },
+            onDismissed = { onEvent(DashboardViewModel.Event.IgnoreBatteryOptimizationDismissed) },
+        )
+    }
 
     LaunchedEffect(Unit) {
         onEvent(DashboardViewModel.Event.Start)

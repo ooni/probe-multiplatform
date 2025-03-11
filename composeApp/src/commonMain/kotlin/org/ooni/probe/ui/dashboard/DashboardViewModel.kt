@@ -11,13 +11,15 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
+import org.ooni.probe.config.BatteryOptimization
+import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
+import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.TestRunError
-import org.ooni.probe.data.models.DescriptorUpdateOperationState
 
 class DashboardViewModel(
     goToOnboarding: () -> Unit,
@@ -34,6 +36,8 @@ class DashboardViewModel(
     observeDescriptorUpdateState: () -> Flow<DescriptorsUpdateState>,
     startDescriptorsUpdates: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     dismissDescriptorsUpdateNotice: () -> Unit,
+    getAutoRunSettings: () -> Flow<AutoRunParameters>,
+    batteryOptimization: BatteryOptimization,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -44,6 +48,18 @@ class DashboardViewModel(
         getFirstRun()
             .take(1)
             .onEach { firstRun -> if (firstRun) goToOnboarding() }
+            .launchIn(viewModelScope)
+
+        getAutoRunSettings()
+            .take(1)
+            .onEach { autoRunParameters ->
+                if (autoRunParameters is AutoRunParameters.Enabled &&
+                    batteryOptimization.isSupported &&
+                    !batteryOptimization.isIgnoring
+                ) {
+                    _state.update { it.copy(showIgnoreBatteryOptimizationNotice = true) }
+                }
+            }
             .launchIn(viewModelScope)
 
         observeDescriptorUpdateState()
@@ -139,6 +155,21 @@ class DashboardViewModel(
             .filterIsInstance<Event.CancelUpdatesClicked>()
             .onEach { dismissDescriptorsUpdateNotice() }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.IgnoreBatteryOptimizationAccepted>()
+            .onEach {
+                _state.update { it.copy(showIgnoreBatteryOptimizationNotice = false) }
+                if (batteryOptimization.isSupported && !batteryOptimization.isIgnoring) {
+                    batteryOptimization.requestIgnore()
+                }
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.IgnoreBatteryOptimizationDismissed>()
+            .onEach { _state.update { it.copy(showIgnoreBatteryOptimizationNotice = false) } }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -158,6 +189,7 @@ class DashboardViewModel(
         val showVpnWarning: Boolean = false,
         val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
         val descriptorsUpdateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
+        val showIgnoreBatteryOptimizationNotice: Boolean = false,
     ) {
         val isRefreshing: Boolean
             get() = descriptorsUpdateOperationState == DescriptorUpdateOperationState.FetchingUpdates
@@ -186,5 +218,9 @@ class DashboardViewModel(
         data object ReviewUpdatesClicked : Event
 
         data object CancelUpdatesClicked : Event
+
+        data object IgnoreBatteryOptimizationAccepted : Event
+
+        data object IgnoreBatteryOptimizationDismissed : Event
     }
 }
