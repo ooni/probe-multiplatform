@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import ooniprobe.composeapp.generated.resources.Dashboard_Tab_Label
 import ooniprobe.composeapp.generated.resources.Res
@@ -29,7 +30,6 @@ import org.ooni.probe.ui.shared.isHeightCompact
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val entry by navController.currentBackStackEntryAsState()
-    val currentRoute = entry?.destination?.route ?: return
 
     val customMinHeightModifier =
         Modifier.run { if (isHeightCompact()) defaultMinSize(minHeight = 64.dp) else this }
@@ -51,7 +51,7 @@ fun BottomNavigationBar(navController: NavController) {
                         textAlign = TextAlign.Center,
                     )
                 },
-                selected = currentRoute == screen.route,
+                selected = entry?.destination?.hasRoute(screen::class) == true,
                 onClick = { navController.navigateToMainScreen(screen) },
                 colors = NavigationBarItemDefaults.colors(
                     indicatorColor = MaterialTheme.colorScheme.primaryContainer,
