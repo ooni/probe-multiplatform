@@ -161,6 +161,9 @@ class DashboardViewModel(
     ) {
         val isRefreshing: Boolean
             get() = descriptorsUpdateOperationState == DescriptorUpdateOperationState.FetchingUpdates
+
+        val isRefreshEnabled: Boolean
+            get() = descriptors[DescriptorType.Installed]?.any() == true
     }
 
     sealed interface Event {
