@@ -211,6 +211,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
     sourceSets["main"].resources.setSrcDirs(
         listOf(
@@ -265,6 +266,7 @@ android {
         }
     }
     dependencies {
+        coreLibraryDesugaring(libs.android.desugar.jdk)
         debugImplementation(compose.uiTooling)
         "fullImplementation"(libs.bundles.full.android)
         androidTestUtil(libs.android.orchestrator)
