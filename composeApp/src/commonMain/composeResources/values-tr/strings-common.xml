@@ -317,7 +317,6 @@
     <string name="Modal_Error_CantDownloadURLs">Adres listesi indirilemedi. Lütfen yeniden deneyin.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Emin misiniz?</string>
     <string name="Modal_CustomURL_NotSaved">Bu sayfadan ayrıldığınızda adresleriniz kaydedilmez. Bu sayfadan ayrılmak istediğinize emin misiniz?</string>
-    <string name="Modal_Autorun_BatteryOptimization">OONI Probe, pil iyileştirmesi olmadan otomatik olarak çalışamaz. Yeniden denemek ister misiniz?</string>
     <string name="Modal_EnableNotifications_Title">İnternet sansürleri hakkında güncel bilgileri alın</string>
 
     <!-- Common / Others -->
@@ -325,6 +324,7 @@
     <string name="OONIRun_Run">Çalıştır</string>
 
     <string name="Notification_ChannelName">Sınanıyor</string>
+    <string name="Notification_UpdateChannelName">Bağlantı güncellemeleri</string>
     <string name="Notification_StopTest">Sınamayı durdur</string>
 
     <string name="Common_Back">Geri</string>

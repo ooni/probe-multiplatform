@@ -317,7 +317,6 @@
     <string name="Modal_Error_CantDownloadURLs">Impossible de télécharger la liste des URL. Réessayez.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Confirmez-vous?</string>
     <string name="Modal_CustomURL_NotSaved">Vos URL ne seront pas enregistrées si vous quittez cet écran. Voulez-vous vraiment le quitter?</string>
-    <string name="Modal_Autorun_BatteryOptimization">OONI Probe ne peut pas fonctionner automatiquement sans optimisation de la batterie. Voulez-vous réessayer?</string>
     <string name="Modal_EnableNotifications_Title">Obtenez des mises à jour sur la censure d’Internet</string>
 
     <!-- Common / Others -->
@@ -325,6 +324,7 @@
     <string name="OONIRun_Run">Lancer</string>
 
     <string name="Notification_ChannelName">Test</string>
+    <string name="Notification_UpdateChannelName">Mises à jour des liens</string>
     <string name="Notification_StopTest">Arrêter le test</string>
 
     <string name="Common_Back">Retour</string>

@@ -247,7 +247,6 @@
     <string name="Modal_Error_CantDownloadURLs">URL စာရင်းကို ဒေါင်းလုဒ်လုပ်၍ မရပါ။ ထပ်စမ်းကြည့်ပါ။</string>
     <string name="Modal_CustomURL_Title_NotSaved">သေချာပါသလား။</string>
     <string name="Modal_CustomURL_NotSaved">ဤဝဘ်စာမျက်နှာမှ ထွက်သည့်အခါ သင့် URL များကို သိမ်းဆည်းမည် မဟုတ်ပါ။ ဤစာမျက်နှာမှ ထွက်လိုသည်မှာ သေချာပါသလား။ </string>
-    <string name="Modal_Autorun_BatteryOptimization">ဘက်ထရီ ပိုမိုကောင်းမွန်အောင် လုပ်ဆောင်ခြင်းမရှိဘဲ OONI Probe သည် စမ်းသပ်မှုအား အလိုအလျောက် မလည်ပတ်နိုင်ပါ။ ထပ်မံ ကြိုးစားလိုပါသလား။ </string>
     <string name="Modal_EnableNotifications_Title">အင်တာနက် ဆင်ဆာဖြတ်ခြင်းဆိုင်ရာ အပ်ဒိတ်များကို ရယူပါ။</string>
 
     <!-- Common / Others -->

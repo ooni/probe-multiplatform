@@ -253,7 +253,6 @@
     <string name="Modal_Error_CantDownloadURLs">無法下載 URL 清單，請再試一次。</string>
     <string name="Modal_CustomURL_Title_NotSaved">你確定嗎？</string>
     <string name="Modal_CustomURL_NotSaved">關閉此畫面後不會儲存 URL 記錄，確定要離開此畫面嗎？  </string>
-    <string name="Modal_Autorun_BatteryOptimization">未進行電池優化前 OONI Probe 無法自動執行，要再試一次嗎?</string>
     <string name="Modal_EnableNotifications_Title">取得最新網路審查動態</string>
 
     <!-- Common / Others -->

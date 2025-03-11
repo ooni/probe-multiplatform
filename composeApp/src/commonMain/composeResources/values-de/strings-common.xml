@@ -317,7 +317,6 @@
     <string name="Modal_Error_CantDownloadURLs">URL-Liste kann nicht heruntergeladen werden. Bitte versuche es erneut.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Bist du sicher?</string>
     <string name="Modal_CustomURL_NotSaved">Deine URLs werden nicht gespeichert, wenn du diesen Bildschirm verlässt. Möchtest du diesen Bildschirm wirklich verlassen?</string>
-    <string name="Modal_Autorun_BatteryOptimization">OONI Probe kann nicht automatisch ohne Batterieoptimierung laufen. Möchtest du es noch einmal versuchen?</string>
     <string name="Modal_EnableNotifications_Title">Aktuelle Informationen zur Internetzensur</string>
 
     <!-- Common / Others -->

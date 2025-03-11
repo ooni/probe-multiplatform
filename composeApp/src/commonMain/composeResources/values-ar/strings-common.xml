@@ -308,7 +308,6 @@
     <string name="Modal_Error_CantDownloadURLs">التطبيق غير قادر على تحميل قائمة المواقع. من فضلك حاول مرة أخرى.</string>
     <string name="Modal_CustomURL_Title_NotSaved">هل أنت متأكد؟</string>
     <string name="Modal_CustomURL_NotSaved">المواقع لن تسجل اذا تركت هذه الواجهة. هل تريد ترك الواجهة؟</string>
-    <string name="Modal_Autorun_BatteryOptimization">لا يمكن لـ OONI Probe  أن يعمل تلقائيا بدون تحسينات البطارية. هل ترغب في المحاولة مرة أخرى ؟</string>
     <string name="Modal_EnableNotifications_Title">احصل.ي على تحديثات حول الرّقابة على الانترنت </string>
 
     <!-- Common / Others -->
