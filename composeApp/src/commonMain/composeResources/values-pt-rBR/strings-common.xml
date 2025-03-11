@@ -325,6 +325,7 @@
     <string name="OONIRun_Run">Executar</string>
 
     <string name="Notification_ChannelName">Testando</string>
+    <string name="Notification_UpdateChannelName">Atualizações de Links</string>
     <string name="Notification_StopTest">Parar o teste</string>
 
     <string name="Common_Back">Voltar </string>
