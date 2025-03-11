@@ -1,4 +1,4 @@
-Finden Sie heraus, ob Nachrichtenportale in Ihrer Region erreichbar oder blockiert sind. Der News Media Scan by DW verschafft Ihnen die nötige Transparenz. Außerdem leisten Sie einen wertvollen Beitrag zur globalen "Internet Freedom"-Community, indem Sie helfen, Zensur auf der ganzen Welt aufzudecken.
+Finde heraus, ob Nachrichtenportale in deiner Region erreichbar oder blockiert sind. Der News Media Scan by DW verschafft dir die nötige Transparenz. Außerdem leistest du einen wertvollen Beitrag zur globalen "Internet Freedom"-Community, indem du hilfst, Zensur auf der ganzen Welt aufzudecken.
 Diese App ist das Produkt einer engen Zusammenarbeit zwischen der Deutschen Welle (DW) und OONI.
 
 Über DW: Freie Informationen für freie Entscheidungen – das ist der Markenkern der Deutschen Welle (DW). Als unabhängiges, internationales Medienunternehmen informiert der deutsche Auslandssender Menschen weltweit. Mit Programmangeboten in 32 Sprachen verbindet die DW täglich Menschen in aller Welt – via TV, Radio, Internet und sozialen Medien.
