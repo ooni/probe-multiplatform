@@ -483,6 +483,8 @@ class Dependencies(
         startDescriptorsUpdates = startDescriptorsUpdate,
         dismissDescriptorsUpdateNotice = dismissDescriptorReviewNotice::invoke,
         observeDescriptorUpdateState = descriptorUpdateStateManager::observe,
+        getAutoRunSettings = getAutoRunSettings::invoke,
+        batteryOptimization = batteryOptimization,
     )
 
     fun descriptorViewModel(
@@ -607,8 +609,9 @@ class Dependencies(
         categoryKey = categoryKey,
         onBack = onBack,
         goToSettingsForCategory = goToSettingsForCategory,
-        preferenceManager = preferenceRepository,
+        preferenceRepository = preferenceRepository,
         getSettings = getSettings::invoke,
+        batteryOptimization = batteryOptimization,
     )
 
     fun settingsViewModel(goToSettingsForCategory: (PreferenceCategoryKey) -> Unit) =

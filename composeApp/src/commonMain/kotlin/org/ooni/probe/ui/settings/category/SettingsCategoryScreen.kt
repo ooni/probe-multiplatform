@@ -49,6 +49,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.PreferenceItemType
 import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TopBar
 
 @Composable
@@ -153,6 +154,17 @@ fun SettingsCategoryScreen(
                 }
             }
         }
+    }
+
+    if (state.showIgnoreBatteryOptimizationNotice) {
+        IgnoreBatteryOptimizationDialog(
+            onAccepted = {
+                onEvent(SettingsCategoryViewModel.Event.IgnoreBatteryOptimizationAccepted)
+            },
+            onDismissed = {
+                onEvent(SettingsCategoryViewModel.Event.IgnoreBatteryOptimizationDismissed)
+            },
+        )
     }
 }
 
