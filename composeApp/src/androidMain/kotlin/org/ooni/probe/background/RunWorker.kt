@@ -113,7 +113,7 @@ class RunWorker(
                     is RunBackgroundState.Stopping -> buildStoppingNotification()
                 }
                 if (notification != null) {
-                    setForeground(buildForegroundInfo(notification))
+                    notificationManager.notify(NOTIFICATION_ID, notification)
                 }
             }
     }
