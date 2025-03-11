@@ -4,7 +4,6 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -17,14 +16,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
-import org.ooni.probe.LocalSnackbarHostState
+import androidx.navigation.toRoute
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementsFilter
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
-import org.ooni.probe.shared.decodeUrlFromBase64
 import org.ooni.probe.ui.choosewebsites.ChooseWebsitesScreen
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.descriptor.DescriptorScreen
@@ -54,14 +52,14 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = START_SCREEN.route,
+        startDestination = START_SCREEN,
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
         popEnterTransition = { EnterTransition.None },
         popExitTransition = { ExitTransition.None },
         modifier = Modifier.fillMaxSize(),
     ) {
-        composable(route = Screen.Onboarding.route) {
+        composable<Screen.Onboarding> {
             val viewModel = viewModel {
                 dependencies.onboardingViewModel(
                     goToDashboard = {
@@ -76,7 +74,7 @@ fun Navigation(
             OnboardingScreen(state, viewModel::onEvent)
         }
 
-        composable(route = Screen.Dashboard.route) {
+        composable<Screen.Dashboard> {
             val viewModel = viewModel {
                 dependencies.dashboardViewModel(
                     goToOnboarding = { navController.goBackAndNavigate(Screen.Onboarding) },
@@ -86,8 +84,8 @@ fun Navigation(
                     goToDescriptor = { descriptorKey ->
                         navController.safeNavigate(Screen.Descriptor(descriptorKey))
                     },
-                    goToReviewDescriptorUpdates = {
-                        navController.safeNavigate(Screen.ReviewUpdates(it))
+                    goToReviewDescriptorUpdates = { list ->
+                        navController.safeNavigate(Screen.ReviewUpdates(list?.map { it.value }))
                     },
                 )
             }
@@ -95,10 +93,10 @@ fun Navigation(
             DashboardScreen(state, viewModel::onEvent)
         }
 
-        composable(route = Screen.Results.route) {
+        composable<Screen.Results> {
             val viewModel = viewModel {
                 dependencies.resultsViewModel(
-                    goToResult = { navController.safeNavigate(Screen.Result(it)) },
+                    goToResult = { navController.safeNavigate(Screen.Result(it.value)) },
                     goToUpload = { navController.safeNavigate(Screen.UploadMeasurements()) },
                 )
             }
@@ -106,11 +104,11 @@ fun Navigation(
             ResultsScreen(state, viewModel::onEvent)
         }
 
-        composable(route = Screen.Settings.route) {
+        composable<Screen.Settings> {
             val viewModel = viewModel {
                 dependencies.settingsViewModel(
                     goToSettingsForCategory = {
-                        navController.safeNavigate(Screen.SettingsCategory(it))
+                        navController.safeNavigate(Screen.SettingsCategory(it.value))
                     },
                 )
             }
@@ -118,24 +116,21 @@ fun Navigation(
             SettingsScreen(state, viewModel::onEvent)
         }
 
-        composable(
-            route = Screen.Result.NAV_ROUTE,
-            arguments = Screen.Result.ARGUMENTS,
-        ) { entry ->
-            val resultId = ResultModel.Id(
-                entry.arguments?.getLong("resultId") ?: return@composable,
-            )
+        composable<Screen.Result> { entry ->
+            val resultId = entry.toRoute<Screen.Result>().resultId
             val viewModel = viewModel {
                 dependencies.resultViewModel(
-                    resultId = resultId,
+                    resultId = ResultModel.Id(resultId),
                     onBack = { navController.goBack() },
                     goToMeasurement = { reportId, input ->
-                        navController.safeNavigate(Screen.Measurement(reportId, input))
+                        navController.safeNavigate(Screen.Measurement(reportId.value, input))
                     },
-                    goToMeasurementRaw = { navController.safeNavigate(Screen.MeasurementRaw(it)) },
+                    goToMeasurementRaw = {
+                        navController.safeNavigate(Screen.MeasurementRaw(it.value))
+                    },
                     goToUpload = { navController.safeNavigate(Screen.UploadMeasurements(resultId)) },
                     goToDashboard = {
-                        navController.popBackStack(Screen.Dashboard.route, inclusive = false)
+                        navController.popBackStack(Screen.Dashboard, inclusive = false)
                     },
                 )
             }
@@ -143,16 +138,12 @@ fun Navigation(
             ResultScreen(state, viewModel::onEvent)
         }
 
-        composable(
-            route = Screen.Measurement.NAV_ROUTE,
-            arguments = Screen.Measurement.ARGUMENTS,
-        ) { entry ->
-            val reportId = entry.arguments?.getString("reportId") ?: return@composable
-            val input = entry.arguments?.getString("input").decodeUrlFromBase64()
+        composable<Screen.Measurement> { entry ->
+            val route = entry.toRoute<Screen.Measurement>()
             val viewModel = viewModel {
                 dependencies.measurementViewModel(
-                    reportId = MeasurementModel.ReportId(reportId),
-                    input = input,
+                    reportId = MeasurementModel.ReportId(route.measurementReportId),
+                    input = route.input,
                     onBack = { navController.goBack() },
                 )
             }
@@ -160,20 +151,17 @@ fun Navigation(
             MeasurementScreen(state, viewModel::onEvent)
         }
 
-        composable(
-            route = Screen.MeasurementRaw.NAV_ROUTE,
-            arguments = Screen.MeasurementRaw.ARGUMENTS,
-        ) { entry ->
-            val measurementId = entry.arguments?.getLong("measurementId") ?: return@composable
+        composable<Screen.MeasurementRaw> { entry ->
+            val route = entry.toRoute<Screen.MeasurementRaw>()
             val viewModel = viewModel {
                 dependencies.measurementRawViewModel(
-                    measurementId = MeasurementModel.Id(measurementId),
+                    measurementId = MeasurementModel.Id(route.measurementId),
                     onBack = { navController.goBack() },
                     goToUpload = {
-                        navController.safeNavigate(Screen.UploadMeasurements(measurementId = it))
+                        navController.safeNavigate(Screen.UploadMeasurements(measurementId = it.value))
                     },
                     goToMeasurement = { reportId, input ->
-                        navController.goBackAndNavigate(Screen.Measurement(reportId, input))
+                        navController.goBackAndNavigate(Screen.Measurement(reportId.value, input))
                     },
                 )
             }
@@ -181,13 +169,9 @@ fun Navigation(
             MeasurementRawScreen(state, viewModel::onEvent)
         }
 
-        composable(
-            route = Screen.SettingsCategory.NAV_ROUTE,
-            arguments = Screen.SettingsCategory.ARGUMENTS,
-        ) { entry ->
-            val category = PreferenceCategoryKey.fromValue(
-                entry.arguments?.getString("category"),
-            ) ?: return@composable
+        composable<Screen.SettingsCategory> { entry ->
+            val categoryKey = entry.toRoute<Screen.SettingsCategory>().category
+            val category = PreferenceCategoryKey.fromValue(categoryKey) ?: return@composable
             when (category) {
                 PreferenceCategoryKey.WEBSITES_CATEGORIES -> {
                     val viewModel = viewModel {
@@ -229,7 +213,7 @@ fun Navigation(
                         dependencies.settingsCategoryViewModel(
                             categoryKey = category.value,
                             goToSettingsForCategory = {
-                                navController.safeNavigate(Screen.SettingsCategory(it))
+                                navController.safeNavigate(Screen.SettingsCategory(it.value))
                             },
                             onBack = { navController.goBack() },
                         )
@@ -240,7 +224,7 @@ fun Navigation(
             }
         }
 
-        composable(route = Screen.RunTests.route) {
+        composable<Screen.RunTests> {
             val viewModel = viewModel {
                 dependencies.runViewModel(onBack = { navController.goBack() })
             }
@@ -248,29 +232,19 @@ fun Navigation(
             RunScreen(state, viewModel::onEvent)
         }
 
-        composable(
-            route = Screen.AddDescriptor.NAV_ROUTE,
-            arguments = Screen.AddDescriptor.ARGUMENTS,
-        ) { entry ->
-            entry.arguments?.getLong("runId")?.let { descriptorId ->
-                val viewModel = viewModel {
-                    dependencies.addDescriptorViewModel(
-                        onBack = { navController.goBack() },
-                        descriptorId = descriptorId.toString(),
-                    )
-                }
-                val state by viewModel.state.collectAsState()
-                AddDescriptorScreen(state, viewModel::onEvent)
-            } ?: run {
-                val snackbarHostState = LocalSnackbarHostState.current
-                LaunchedEffect(Unit) {
-                    snackbarHostState?.showSnackbar("Invalid descriptor ID")
-                }
-                navController.goBack()
+        composable<Screen.AddDescriptor> { entry ->
+            val descriptorId = entry.toRoute<Screen.AddDescriptor>().runId
+            val viewModel = viewModel {
+                dependencies.addDescriptorViewModel(
+                    onBack = { navController.goBack() },
+                    descriptorId = descriptorId.toString(),
+                )
             }
+            val state by viewModel.state.collectAsState()
+            AddDescriptorScreen(state, viewModel::onEvent)
         }
 
-        composable(route = Screen.RunningTest.route) {
+        composable<Screen.RunningTest> {
             val viewModel = viewModel {
                 dependencies.runningViewModel(
                     onBack = { navController.goBack() },
@@ -283,25 +257,20 @@ fun Navigation(
             RunningScreen(state, viewModel::onEvent)
         }
 
-        dialog(
-            route = Screen.UploadMeasurements.NAV_ROUTE,
-            arguments = Screen.UploadMeasurements.ARGUMENTS,
+        dialog<Screen.UploadMeasurements>(
             dialogProperties = DialogProperties(
                 dismissOnBackPress = false,
                 dismissOnClickOutside = false,
             ),
         ) { entry ->
-            val resultId = entry.arguments?.getString("resultId")?.toLongOrNull()
-                ?.let(ResultModel::Id)
-            val measurementId = entry.arguments?.getString("measurementId")?.toLongOrNull()
-                ?.let(MeasurementModel::Id)
-            val filter = if (resultId != null) {
-                MeasurementsFilter.Result(resultId)
-            } else if (measurementId != null) {
-                MeasurementsFilter.Measurement(measurementId)
-            } else {
-                MeasurementsFilter.All
+            val route = entry.toRoute<Screen.UploadMeasurements>()
+            val filter = route.resultId?.let {
+                MeasurementsFilter.Result(ResultModel.Id(it))
             }
+                ?: route.measurementId?.let {
+                    MeasurementsFilter.Measurement(MeasurementModel.Id(it))
+                }
+                ?: MeasurementsFilter.All
             val viewModel = viewModel {
                 dependencies.uploadMeasurementsViewModel(
                     filter = filter,
@@ -312,17 +281,13 @@ fun Navigation(
             UploadMeasurementsDialog(state, viewModel::onEvent)
         }
 
-        composable(
-            route = Screen.Descriptor.NAV_ROUTE,
-            arguments = Screen.Descriptor.ARGUMENTS,
-        ) { entry ->
-            val descriptorKey = entry.arguments?.getString("descriptorKey") ?: return@composable
+        composable<Screen.Descriptor> { entry ->
             val viewModel = viewModel {
                 dependencies.descriptorViewModel(
-                    descriptorKey = descriptorKey,
+                    descriptorKey = entry.toRoute<Screen.Descriptor>().descriptorKey,
                     onBack = { navController.goBack() },
-                    goToReviewDescriptorUpdates = {
-                        navController.safeNavigate(Screen.ReviewUpdates(it))
+                    goToReviewDescriptorUpdates = { list ->
+                        navController.safeNavigate(Screen.ReviewUpdates(list?.map { it.value }))
                     },
                     goToChooseWebsites = { navController.safeNavigate(Screen.ChooseWebsites()) },
                 )
@@ -331,17 +296,11 @@ fun Navigation(
             DescriptorScreen(state, viewModel::onEvent)
         }
 
-        composable(
-            route = Screen.ReviewUpdates.NAV_ROUTE,
-            arguments = Screen.ReviewUpdates.ARGUMENTS,
-        ) { entry ->
-            val ids = entry.arguments?.getString("ids")
-                ?.ifEmpty { null }
-                ?.split(",")
-                ?.map { InstalledTestDescriptorModel.Id(it) }
+        composable<Screen.ReviewUpdates> { entry ->
             val viewModel = viewModel {
                 dependencies.reviewUpdatesViewModel(
-                    descriptorIds = ids,
+                    descriptorIds = entry.toRoute<Screen.ReviewUpdates>().descriptorIds
+                        ?.map(InstalledTestDescriptorModel::Id),
                     onBack = { navController.goBack() },
                 )
             }
@@ -349,15 +308,11 @@ fun Navigation(
             ReviewUpdatesScreen(state, viewModel::onEvent)
         }
 
-        composable(
-            route = Screen.ChooseWebsites.NAV_ROUTE,
-            arguments = Screen.ChooseWebsites.ARGUMENTS,
-        ) { entry ->
-            val url = entry.arguments?.getString("url")
+        composable<Screen.ChooseWebsites> { entry ->
             val viewModel = viewModel {
                 dependencies.chooseWebsitesViewModel(
                     onBack = { navController.goBack() },
-                    initialUrl = url.decodeUrlFromBase64(),
+                    initialUrl = entry.toRoute<Screen.ChooseWebsites>().url,
                     goToDashboard = {
                         navController.goBackTo(Screen.Dashboard, inclusive = false)
                     },
@@ -383,7 +338,7 @@ private fun NavController.goBackTo(
     inclusive: Boolean = false,
 ) {
     if (!isStarted()) return
-    if (!popBackStack(screen.route, inclusive = inclusive)) {
+    if (!popBackStack(screen, inclusive = inclusive)) {
         navigateToMainScreen(START_SCREEN)
     }
 }
@@ -391,7 +346,7 @@ private fun NavController.goBackTo(
 private fun NavController.goBackAndNavigate(screen: Screen) {
     if (!isStarted()) return
     popBackStack()
-    navigate(screen.route)
+    navigate(screen)
 }
 
 private fun NavController.goBackAndNavigateToMain(screen: Screen) {
@@ -402,7 +357,7 @@ private fun NavController.goBackAndNavigateToMain(screen: Screen) {
 
 fun NavController.safeNavigate(screen: Screen) {
     if (!isStarted()) return
-    navigate(screen.route)
+    navigate(screen)
 }
 
 private fun NavController.isStarted() =
@@ -410,7 +365,7 @@ private fun NavController.isStarted() =
         .contains(currentBackStackEntry?.lifecycle?.currentState)
 
 fun NavController.navigateToMainScreen(screen: Screen) {
-    navigate(screen.route) {
+    navigate(screen) {
         // Pop up to the start destination of the graph to
         // avoid building up a large stack of destinations
         // on the back stack as users select items
