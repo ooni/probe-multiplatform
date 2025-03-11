@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
-import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
 import android.os.LocaleList
@@ -32,6 +31,7 @@ import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
+import androidx.core.net.toUri
 
 /**
  * See link for `baseFileDir` https://github.com/ooni/probe-android/blob/5a11d1a36ec952aa1f355ba8db4129146139a5cc/engine/src/main/java/org/openobservatory/engine/Engine.java#L52
@@ -104,8 +104,11 @@ class AndroidApplication : Application() {
         )
 
     private fun checkBatteryCharging(): Boolean {
-        val batteryManager = this.getSystemService(BATTERY_SERVICE) as? BatteryManager
-        return batteryManager?.isCharging == true
+        // From https://developer.android.com/training/monitoring-device-state/battery-monitoring#DetermineChargeState
+        val batteryStatus = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val status = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+        return status == BatteryManager.BATTERY_STATUS_CHARGING ||
+            status == BatteryManager.BATTERY_STATUS_FULL
     }
 
     private fun launchAction(action: PlatformAction): Boolean {
@@ -120,7 +123,7 @@ class AndroidApplication : Application() {
 
     private fun sendMail(mail: PlatformAction.Mail): Boolean {
         val intent = Intent.createChooser(
-            Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:${mail.to}")).apply {
+            Intent(Intent.ACTION_SENDTO, "mailto:${mail.to}".toUri()).apply {
                 putExtra(Intent.EXTRA_EMAIL, arrayOf(mail.to))
                 putExtra(Intent.EXTRA_SUBJECT, mail.subject)
                 putExtra(Intent.EXTRA_TEXT, mail.body)
@@ -137,7 +140,7 @@ class AndroidApplication : Application() {
     }
 
     private fun openUrl(openUrl: PlatformAction.OpenUrl): Boolean {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(openUrl.url)).apply {
+        val intent = Intent(Intent.ACTION_VIEW, openUrl.url.toUri()).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
         return try {

@@ -60,18 +60,7 @@ class RunWorker(
     override suspend fun getForegroundInfo(): ForegroundInfo {
         buildNotificationChannelIfNeeded()
         val notification = buildNotification(RunBackgroundState.RunningTests())
-        return if (Build.VERSION.SDK_INT >= 29) {
-            ForegroundInfo(
-                NOTIFICATION_ID,
-                notification,
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC,
-            )
-        } else {
-            ForegroundInfo(
-                NOTIFICATION_ID,
-                notification,
-            )
-        }
+        return buildForegroundInfo(notification)
     }
 
     override suspend fun doWork(): Result {
@@ -124,9 +113,7 @@ class RunWorker(
                     is RunBackgroundState.Stopping -> buildStoppingNotification()
                 }
                 if (notification != null) {
-                    notificationManager.notify(NOTIFICATION_ID, notification)
-                } else {
-                    notificationManager.cancel(NOTIFICATION_ID)
+                    setForeground(buildForegroundInfo(notification))
                 }
             }
     }
@@ -161,6 +148,21 @@ class RunWorker(
                     getString(Res.string.Notification_ChannelName),
                     NotificationManager.IMPORTANCE_LOW,
                 ),
+            )
+        }
+    }
+
+    private fun buildForegroundInfo(notification: Notification): ForegroundInfo {
+        return if (Build.VERSION.SDK_INT >= 29) {
+            ForegroundInfo(
+                NOTIFICATION_ID,
+                notification,
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC,
+            )
+        } else {
+            ForegroundInfo(
+                NOTIFICATION_ID,
+                notification,
             )
         }
     }
@@ -207,6 +209,7 @@ class RunWorker(
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setSound(null)
                 .setVibrate(null)
+                .setOnlyAlertOnce(true)
                 .setLights(0, 0, 0)
                 .setColor(primaryLight.toArgb())
                 .setContentIntent(openAppIntent),

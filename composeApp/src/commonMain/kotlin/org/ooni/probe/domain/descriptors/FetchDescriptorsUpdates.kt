@@ -16,11 +16,16 @@ class FetchDescriptorsUpdates(
     private val updateState: ((DescriptorsUpdateState) -> DescriptorsUpdateState) -> Unit,
 ) {
     suspend operator fun invoke(descriptors: List<InstalledTestDescriptorModel>) {
+        if (descriptors.isEmpty()) {
+            Logger.i("Skipping, no descriptors to update")
+        }
+
         updateState {
             DescriptorsUpdateState(
                 operationState = DescriptorUpdateOperationState.FetchingUpdates,
             )
         }
+
         val fetchResults = coroutineScope {
             descriptors.map { descriptor ->
                 async { descriptor to fetchDescriptor(descriptor.id.value) }

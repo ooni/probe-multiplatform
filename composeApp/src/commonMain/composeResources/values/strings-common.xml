@@ -325,6 +325,7 @@
     <string name="OONIRun_Run">Run</string>
 
     <string name="Notification_ChannelName">Testing</string>
+    <string name="Notification_UpdateChannelName">Link Updates</string>
     <string name="Notification_StopTest">Stop test</string>
 
     <string name="Common_Back">Back</string>

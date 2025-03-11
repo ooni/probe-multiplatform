@@ -16,9 +16,8 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.encodeToString
-import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
-import ooniprobe.composeapp.generated.resources.Notification_ChannelName
+import ooniprobe.composeapp.generated.resources.Dashboard_Progress_UpdateLink_Label
+import ooniprobe.composeapp.generated.resources.Notification_UpdateChannelName
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.AndroidApplication
@@ -68,11 +67,7 @@ class DescriptorUpdateWorker(
 
         return try {
             val descriptors = getDescriptors() ?: return Result.failure()
-            if (descriptors.isEmpty()) {
-                Logger.i("DescriptorUpdateWorker: Skipping, no descriptors to update")
-            } else {
-                dependencies.getDescriptorUpdate.invoke(descriptors)
-            }
+            dependencies.getDescriptorUpdate.invoke(descriptors)
             Result.success(buildWorkData(descriptors.map { it.id }))
         } catch (e: CancellationException) {
             if (isStopped) {
@@ -112,8 +107,8 @@ class DescriptorUpdateWorker(
             notificationManager.createNotificationChannel(
                 NotificationChannel(
                     NOTIFICATION_CHANNEL_ID,
-                    getString(Res.string.Notification_ChannelName),
-                    NotificationManager.IMPORTANCE_DEFAULT,
+                    getString(Res.string.Notification_UpdateChannelName),
+                    NotificationManager.IMPORTANCE_LOW,
                 ),
             )
         }
@@ -122,7 +117,7 @@ class DescriptorUpdateWorker(
     private suspend fun buildNotification(): Notification {
         return NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.notification_icon)
-            .setContentTitle(getString(Res.string.Dashboard_Running_Running))
+            .setContentTitle(getString(Res.string.Dashboard_Progress_UpdateLink_Label))
             .setAutoCancel(false)
             .build()
     }

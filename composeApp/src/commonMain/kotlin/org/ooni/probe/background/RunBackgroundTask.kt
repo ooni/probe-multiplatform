@@ -116,6 +116,7 @@ class RunBackgroundTask(
             getRunBackgroundState()
                 .takeWhile { state ->
                     state is RunBackgroundState.RunningTests ||
+                        state is RunBackgroundState.UploadingMissingResults ||
                         state is RunBackgroundState.Stopping ||
                         (state is RunBackgroundState.Idle && !testStarted)
                 }
