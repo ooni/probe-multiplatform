@@ -8,7 +8,7 @@ import org.ooni.probe.data.models.PlatformAction
 
 class ShareLogFile(
     private val shareFile: (PlatformAction) -> Boolean,
-    private val getAppLoggerFile: () -> Path,
+    private val getAppLoggerFile: suspend () -> Path,
 ) {
     suspend operator fun invoke(): Boolean =
         shareFile(

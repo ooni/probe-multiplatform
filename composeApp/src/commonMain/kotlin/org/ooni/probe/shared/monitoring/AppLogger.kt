@@ -54,7 +54,9 @@ class AppLogger(
         }
     }
 
-    fun getLogFilePath() = FILE_PATH
+    suspend fun getLogFilePath() =
+        FILE_PATH
+            .also { writeFile(it, "", append = true) } // Ensure file exists
 
     // Persist the log into the log file after a certain period without changes
     suspend fun writeLogsToFile() {
