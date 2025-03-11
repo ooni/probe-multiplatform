@@ -317,7 +317,6 @@
     <string name="Modal_Error_CantDownloadURLs">无法下载 URL 列表。请重试。</string>
     <string name="Modal_CustomURL_Title_NotSaved">是否确定？</string>
     <string name="Modal_CustomURL_NotSaved">离开此屏幕将不会保存您的 URL。确定离开吗？</string>
-    <string name="Modal_Autorun_BatteryOptimization">如果没有优化电池，OONI 将会无法自动运行。您想再试一次吗？</string>
     <string name="Modal_EnableNotifications_Title">获取网络审查的动态</string>
 
     <!-- Common / Others -->
