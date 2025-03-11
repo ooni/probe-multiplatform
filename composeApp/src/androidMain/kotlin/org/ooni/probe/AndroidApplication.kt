@@ -4,6 +4,7 @@ import android.app.Application
 import android.app.LocaleConfig
 import android.app.LocaleManager
 import android.content.ActivityNotFoundException
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -13,6 +14,7 @@ import android.os.Build
 import android.os.LocaleList
 import android.os.PowerManager
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.SharedPreferencesMigration
 import androidx.datastore.preferences.core.Preferences
@@ -31,7 +33,6 @@ import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
-import androidx.core.net.toUri
 
 /**
  * See link for `baseFileDir` https://github.com/ooni/probe-android/blob/5a11d1a36ec952aa1f355ba8db4129146139a5cc/engine/src/main/java/org/openobservatory/engine/Engine.java#L52
@@ -207,6 +208,8 @@ class AndroidApplication : Application() {
                 Intent.createChooser(
                     Intent(Intent.ACTION_SEND)
                         .setType("*/*")
+                        // Avoid SecurityException
+                        .also { it.clipData = ClipData.newRawUri("", uri) }
                         .putExtra(Intent.EXTRA_STREAM, uri)
                         .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),
                     fileSharing.title,
