@@ -20,7 +20,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
+import androidx.compose.material3.pulltorefresh.pullToRefresh
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -49,10 +51,16 @@ fun DashboardScreen(
     state: DashboardViewModel.State,
     onEvent: (DashboardViewModel.Event) -> Unit,
 ) {
-    PullToRefreshBox(
-        isRefreshing = state.isRefreshing,
-        onRefresh = { onEvent(DashboardViewModel.Event.FetchUpdatedDescriptors) },
-        modifier = Modifier.background(MaterialTheme.colorScheme.background),
+    val pullRefreshState = rememberPullToRefreshState()
+    Box(
+        Modifier
+            .pullToRefresh(
+                isRefreshing = state.isRefreshing,
+                onRefresh = { onEvent(DashboardViewModel.Event.FetchUpdatedDescriptors) },
+                state = pullRefreshState,
+                enabled = state.isRefreshEnabled,
+            )
+            .background(MaterialTheme.colorScheme.background),
     ) {
         // Colorful top background
         Column(
@@ -130,6 +138,12 @@ fun DashboardScreen(
                 onCancelClicked = { onEvent(DashboardViewModel.Event.CancelUpdatesClicked) },
             )
         }
+
+        PullToRefreshDefaults.Indicator(
+            modifier = Modifier.align(Alignment.TopCenter),
+            isRefreshing = state.isRefreshing,
+            state = pullRefreshState,
+        )
     }
 
     TestRunErrorMessages(
