@@ -78,6 +78,30 @@ fastlane android publish_app_gallery client_id:xxx client_secret:xxx app_id:xxx 
 
 
 
+### android update_app_gallery
+
+```sh
+[bundle exec] fastlane android update_app_gallery
+```
+
+Update Huawei AppGallery store listing information
+
+#### Example:
+
+```
+fastlane android update_app_gallery client_id:xxx client_secret:xxx app_id:xxx 
+```
+
+#### Options
+
+ * **`client_id`**: The client ID for Huawei AppGallery Connect
+
+ * **`client_secret`**: The client secret for Huawei AppGallery Connect
+
+ * **`app_id`**: The app ID for the application
+
+
+
 ### android publish
 
 ```sh

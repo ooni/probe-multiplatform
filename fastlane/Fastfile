@@ -15,6 +15,8 @@ platform :android do
     desc " * **`ANDROID_KEY_ALIAS`**: Android Keystore Key alias"
     desc ""
     lane :publish_app_gallery do |options|
+        organization = organization!(options)
+
         bundle(organization: organization)
 
         huawei_appgallery_connect(
@@ -25,6 +27,25 @@ platform :android do
             delay_before_submit_for_review: 60,
             is_aab: true,
             submit_for_review: true,
+        )
+    end
+
+    desc "Update Huawei AppGallery store listing information"
+    desc "#### Example:"
+    desc "```\nfastlane android update_app_gallery client_id:xxx client_secret:xxx app_id:xxx \n```"
+    desc "#### Options"
+    desc " * **`client_id`**: The client ID for Huawei AppGallery Connect"
+    desc " * **`client_secret`**: The client secret for Huawei AppGallery Connect"
+    desc " * **`app_id`**: The app ID for the application"
+    desc ""
+    lane :update_app_gallery do |options|
+        organization = organization!(options)
+
+        huawei_appgallery_connect_update_app_localization(
+            client_id: options[:client_id],
+            client_secret: options[:client_secret],
+            app_id: options[:app_id],
+            metadata_path: "fastlane/metadata/huawei",
         )
     end
 
