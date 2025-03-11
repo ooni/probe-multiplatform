@@ -50,8 +50,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7746A3DB2D7D895200C007B6"
-               BuildableName = "iosAppUITests.xctest"
-               BlueprintName = "iosAppUITests"
+               BuildableName = "OONIProbeUITests.xctest"
+               BlueprintName = "OONIProbeUITests"
                ReferencedContainer = "container:iosApp.xcodeproj">
             </BuildableReference>
          </TestableReference>

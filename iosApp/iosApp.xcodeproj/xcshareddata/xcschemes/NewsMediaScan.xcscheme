@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7555FF7A242A565900829871"
-               BuildableName = "OONI Probe.app"
-               BlueprintName = "OONIProbe"
+               BlueprintIdentifier = "79FBD0092C5A70AF004E041C"
+               BuildableName = "News Media Scan.app"
+               BlueprintName = "NewsMediaScan"
                ReferencedContainer = "container:iosApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -35,9 +35,9 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7746A3DB2D7D895200C007B6"
-               BuildableName = "OONIProbeUITests.xctest"
-               BlueprintName = "OONIProbeUITests"
+               BlueprintIdentifier = "7746A46A2D80383D00C007B6"
+               BuildableName = "NewsMediaScanUITests.xctest"
+               BlueprintName = "NewsMediaScanUITests"
                ReferencedContainer = "container:iosApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -57,9 +57,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7555FF7A242A565900829871"
-            BuildableName = "OONI Probe.app"
-            BlueprintName = "OONIProbe"
+            BlueprintIdentifier = "79FBD0092C5A70AF004E041C"
+            BuildableName = "News Media Scan.app"
+            BlueprintName = "NewsMediaScan"
             ReferencedContainer = "container:iosApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7555FF7A242A565900829871"
-            BuildableName = "OONI Probe.app"
-            BlueprintName = "OONIProbe"
+            BlueprintIdentifier = "79FBD0092C5A70AF004E041C"
+            BuildableName = "News Media Scan.app"
+            BlueprintName = "NewsMediaScan"
             ReferencedContainer = "container:iosApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

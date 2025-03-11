@@ -240,7 +240,8 @@ platform :ios do
         capture_screenshots(
             workspace: "iosApp/iosApp.xcworkspace",
             output_directory: "metadata/#{organization}/ios",
-            scheme: scheme,
+            scheme: "#{scheme}UITests",
+            test_target_name: scheme,
         )
     end
 end

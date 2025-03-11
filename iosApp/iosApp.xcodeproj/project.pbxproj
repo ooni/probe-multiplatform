@@ -45,6 +45,20 @@
 			remoteGlobalIDString = 79FBD0092C5A70AF004E041C;
 			remoteInfo = NewsMediaScan;
 		};
+		7746A46C2D80383D00C007B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7555FF73242A565900829871 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7555FF7A242A565900829871;
+			remoteInfo = OONIProbe;
+		};
+		7746A46E2D80383D00C007B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7555FF73242A565900829871 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 79FBD0092C5A70AF004E041C;
+			remoteInfo = NewsMediaScan;
+		};
 		795E377D2CD5053900086360 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7555FF73242A565900829871 /* Project object */;
@@ -79,7 +93,8 @@
 		7555FF7B242A565900829871 /* OONI Probe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OONI Probe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7746A3DC2D7D895200C007B6 /* iosAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7746A3DC2D7D895200C007B6 /* OONIProbeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OONIProbeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7746A4752D80383D00C007B6 /* NewsMediaScanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsMediaScanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IosBackgroundRunner.swift; path = background/IosBackgroundRunner.swift; sourceTree = "<group>"; };
 		795E37752CD5053900086360 /* share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		795E37772CD5053900086360 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +120,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		7746A3D92D7D895200C007B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7746A4702D80383D00C007B6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -190,7 +212,8 @@
 				7555FF7B242A565900829871 /* OONI Probe.app */,
 				79FBD01A2C5A70AF004E041C /* News Media Scan.app */,
 				795E37752CD5053900086360 /* share.appex */,
-				7746A3DC2D7D895200C007B6 /* iosAppUITests.xctest */,
+				7746A3DC2D7D895200C007B6 /* OONIProbeUITests.xctest */,
+				7746A4752D80383D00C007B6 /* NewsMediaScanUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -298,9 +321,9 @@
 			productReference = 7555FF7B242A565900829871 /* OONI Probe.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7746A3DB2D7D895200C007B6 /* iosAppUITests */ = {
+		7746A3DB2D7D895200C007B6 /* OONIProbeUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7746A3E42D7D895200C007B6 /* Build configuration list for PBXNativeTarget "iosAppUITests" */;
+			buildConfigurationList = 7746A3E42D7D895200C007B6 /* Build configuration list for PBXNativeTarget "OONIProbeUITests" */;
 			buildPhases = (
 				7746A3D82D7D895200C007B6 /* Sources */,
 				7746A3D92D7D895200C007B6 /* Frameworks */,
@@ -315,11 +338,35 @@
 			fileSystemSynchronizedGroups = (
 				7746A3DD2D7D895200C007B6 /* iosAppUITests */,
 			);
-			name = iosAppUITests;
+			name = OONIProbeUITests;
 			packageProductDependencies = (
 			);
 			productName = iosAppUITests;
-			productReference = 7746A3DC2D7D895200C007B6 /* iosAppUITests.xctest */;
+			productReference = 7746A3DC2D7D895200C007B6 /* OONIProbeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		7746A46A2D80383D00C007B6 /* NewsMediaScanUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7746A4722D80383D00C007B6 /* Build configuration list for PBXNativeTarget "NewsMediaScanUITests" */;
+			buildPhases = (
+				7746A46F2D80383D00C007B6 /* Sources */,
+				7746A4702D80383D00C007B6 /* Frameworks */,
+				7746A4712D80383D00C007B6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7746A46B2D80383D00C007B6 /* PBXTargetDependency */,
+				7746A46D2D80383D00C007B6 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7746A3DD2D7D895200C007B6 /* iosAppUITests */,
+			);
+			name = NewsMediaScanUITests;
+			packageProductDependencies = (
+			);
+			productName = iosAppUITests;
+			productReference = 7746A4752D80383D00C007B6 /* NewsMediaScanUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		795E37742CD5053900086360 /* share */ = {
@@ -379,6 +426,9 @@
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = 7555FF7A242A565900829871;
 					};
+					7746A46A2D80383D00C007B6 = {
+						TestTargetID = 79FBD0092C5A70AF004E041C;
+					};
 					795E37742CD5053900086360 = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -400,7 +450,8 @@
 				7555FF7A242A565900829871 /* OONIProbe */,
 				79FBD0092C5A70AF004E041C /* NewsMediaScan */,
 				795E37742CD5053900086360 /* share */,
-				7746A3DB2D7D895200C007B6 /* iosAppUITests */,
+				7746A3DB2D7D895200C007B6 /* OONIProbeUITests */,
+				7746A46A2D80383D00C007B6 /* NewsMediaScanUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -417,6 +468,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7746A3DA2D7D895200C007B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7746A4712D80383D00C007B6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -686,6 +744,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7746A46F2D80383D00C007B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		795E37712CD5053900086360 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -718,6 +783,16 @@
 			isa = PBXTargetDependency;
 			target = 79FBD0092C5A70AF004E041C /* NewsMediaScan */;
 			targetProxy = 7746A3E72D7ED04F00C007B6 /* PBXContainerItemProxy */;
+		};
+		7746A46B2D80383D00C007B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7555FF7A242A565900829871 /* OONIProbe */;
+			targetProxy = 7746A46C2D80383D00C007B6 /* PBXContainerItemProxy */;
+		};
+		7746A46D2D80383D00C007B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 79FBD0092C5A70AF004E041C /* NewsMediaScan */;
+			targetProxy = 7746A46E2D80383D00C007B6 /* PBXContainerItemProxy */;
 		};
 		795E377E2CD5053900086360 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -860,7 +935,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 205238D88AD064C8AF508845 /* Pods-OONIProbe.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = OONIProbe;
 				CODE_SIGN_ENTITLEMENTS = OONIProbe.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -898,7 +972,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B2A30B3FAFDB1355D98FFF9E /* Pods-OONIProbe.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = OONIProbe;
 				CODE_SIGN_ENTITLEMENTS = OONIProbeRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -982,6 +1055,60 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				TEST_TARGET_NAME = OONIProbe;
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		7746A4732D80383D00C007B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.openobservatory.iosAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = NewsMediaScan;
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		7746A4742D80383D00C007B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.openobservatory.iosAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = NewsMediaScan;
 				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Release;
@@ -1145,11 +1272,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7746A3E42D7D895200C007B6 /* Build configuration list for PBXNativeTarget "iosAppUITests" */ = {
+		7746A3E42D7D895200C007B6 /* Build configuration list for PBXNativeTarget "OONIProbeUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7746A3E52D7D895200C007B6 /* Debug */,
 				7746A3E62D7D895200C007B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7746A4722D80383D00C007B6 /* Build configuration list for PBXNativeTarget "NewsMediaScanUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7746A4732D80383D00C007B6 /* Debug */,
+				7746A4742D80383D00C007B6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
