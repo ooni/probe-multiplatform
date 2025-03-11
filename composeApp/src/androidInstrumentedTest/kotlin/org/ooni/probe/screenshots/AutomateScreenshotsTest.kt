@@ -3,6 +3,7 @@ package org.ooni.probe.screenshots
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.isNotDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
@@ -76,7 +77,6 @@ import tools.fastlane.screengrab.Screengrab
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
 import tools.fastlane.screengrab.cleanstatusbar.CleanStatusBar
 import tools.fastlane.screengrab.locale.LocaleTestRule
-import java.util.Locale
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
@@ -112,6 +112,7 @@ class AutomateScreenshotsTest {
     @Test
     fun onboarding() =
         runTest {
+            if (!isOoni) return@runTest
             preferences.setValueByKey(SettingsKey.FIRST_RUN, true)
             start()
 
@@ -163,6 +164,7 @@ class AutomateScreenshotsTest {
     @Test
     fun runTests() =
         runTest {
+            if (!isOoni) return@runTest
             skipOnboarding()
             defaultSettings()
             start()
@@ -221,6 +223,7 @@ class AutomateScreenshotsTest {
     @Test
     fun settings() =
         runTest {
+            if (!isOoni) return@runTest
             skipOnboarding()
             defaultSettings()
             start()
@@ -355,6 +358,7 @@ class AutomateScreenshotsTest {
     @Test
     fun choseWebsites() =
         runTest {
+            if (!isOoni) return@runTest
             skipOnboarding()
             start()
             with(compose) {
@@ -365,19 +369,17 @@ class AutomateScreenshotsTest {
                         .isNotDisplayed()
                 }
 
-                if (isOoni) {
-                    clickOnText(Res.string.Test_Websites_Fullname)
-                    wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
-                    clickOnText(Res.string.Dashboard_Overview_ChooseWebsites)
-                    wait { onNodeWithText(Res.string.Settings_Websites_CustomURL_Title).isDisplayed() }
-                    Screengrab.screenshot("21-choose-websites")
-                    Screengrab.screenshot("5_" + locale())
-                }
+                clickOnText(Res.string.Test_Websites_Fullname)
+                wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
+                clickOnText(Res.string.Dashboard_Overview_ChooseWebsites)
+                wait { onNodeWithText(Res.string.Settings_Websites_CustomURL_Title).isDisplayed() }
+                Screengrab.screenshot("21-choose-websites")
+                Screengrab.screenshot("5_" + locale())
             }
         }
 
     @Test
-    fun nmsResults() =
+    fun nmsScreenshots() =
         runTest {
             if (!isNewsMediaScan) return@runTest
             skipOnboarding()
@@ -392,11 +394,30 @@ class AutomateScreenshotsTest {
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
 
+                // Wait for description updates to finish
+                Thread.sleep(2000)
+                wait { onNodeWithContentDescription(Res.string.Dashboard_Progress_UpdateLink_Label).isNotDisplayed() }
+                Thread.sleep(2000)
+
+                Screengrab.screenshot("1_${locale()}")
+
+                clickOnText(Res.string.Settings_Title)
+
+                wait { onNodeWithContentDescription(Res.string.Settings_About_Label).isDisplayed() }
+
+                clickOnText(Res.string.Settings_About_Label)
+
+                wait { onNodeWithTag("AboutScreen").isDisplayed() }
+                Screengrab.screenshot("5_${locale()}")
+
+                clickOnContentDescription(Res.string.Common_Back)
+
                 clickOnText(Res.string.TestResults_Overview_Tab_Label)
 
                 wait { onNodeWithText(trustedName).isDisplayed() }
 
-                Screengrab.screenshot("17-results")
+                Thread.sleep(3000)
+                Screengrab.screenshot("2_${locale()}")
 
                 clickOnText(trustedName)
 
@@ -404,13 +425,13 @@ class AutomateScreenshotsTest {
 
                 // Screenshot was coming up empty, so we need to explicitly sleep here
                 Thread.sleep(3000)
-                Screengrab.screenshot("18-websites-results")
+                Screengrab.screenshot("3_${locale()}")
 
                 clickOnText("https://www.dw.com")
 
                 checkTextAnywhereInsideWebView("https://www.dw.com")
 
-                Screengrab.screenshot("19-website-measurement")
+                Screengrab.screenshot("4_${locale()}")
             }
         }
 
@@ -733,7 +754,5 @@ class AutomateScreenshotsTest {
         }
     }
 
-    fun locale(): String {
-        return Locale.getDefault().toString().replace("_", "-")
-    }
+    private fun locale() = Screengrab.getLocale()
 }

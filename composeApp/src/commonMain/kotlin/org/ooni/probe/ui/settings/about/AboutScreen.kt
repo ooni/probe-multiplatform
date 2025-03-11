@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Res
@@ -41,7 +42,11 @@ fun AboutScreen(
     softwareName: String,
     softwareVersion: String,
 ) {
-    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
+    Column(
+        Modifier
+            .background(MaterialTheme.colorScheme.background)
+            .testTag("AboutScreen"),
+    ) {
         Surface(color = MaterialTheme.colorScheme.primaryContainer) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
