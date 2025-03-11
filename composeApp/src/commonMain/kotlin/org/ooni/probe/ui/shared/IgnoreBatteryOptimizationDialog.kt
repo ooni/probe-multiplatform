@@ -1,6 +1,7 @@
 package org.ooni.probe.ui.shared
 
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -19,7 +20,7 @@ fun IgnoreBatteryOptimizationDialog(
         onDismissRequest = onDismissed,
         text = { Text(stringResource(Res.string.Modal_Autorun_BatteryOptimization_Reminder)) },
         confirmButton = {
-            TextButton(onClick = onAccepted) {
+            OutlinedButton(onClick = onAccepted) {
                 Text(stringResource(Res.string.Modal_OK))
             }
         },

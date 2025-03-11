@@ -317,7 +317,7 @@
     <string name="Modal_Error_CantDownloadURLs">Unable to download URL list. Please try again.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Are you sure?</string>
     <string name="Modal_CustomURL_NotSaved">Your URLs will not be saved when you leave this screen. Are you sure you want to leave this screen?</string>
-    <string name="Modal_Autorun_BatteryOptimization">The application cannot run tests automatically without battery optimization. Do you want to try again?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">The application cannot run tests automatically without background permission. Do you want to try again?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">The application needs permission to run tests automatically in the background.</string>
     <string name="Modal_EnableNotifications_Title">Get updates on internet censorship</string>
 

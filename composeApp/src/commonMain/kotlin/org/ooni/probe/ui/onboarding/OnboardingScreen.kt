@@ -58,7 +58,7 @@ import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory
 import dev.icerock.moko.permissions.notifications.REMOTE_NOTIFICATION
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import ooniprobe.composeapp.generated.resources.Modal_Autorun_BatteryOptimization
+import ooniprobe.composeapp.generated.resources.Modal_Autorun_BatteryOptimization_Onboarding
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Paragraph
 import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
@@ -275,9 +275,11 @@ fun ColumnScope.AutomatedTestingStep(
     if (showBatteryOptimizationDialog) {
         AlertDialog(
             onDismissRequest = { },
-            text = { Text(stringResource(Res.string.Modal_Autorun_BatteryOptimization)) },
+            text = {
+                Text(stringResource(Res.string.Modal_Autorun_BatteryOptimization_Onboarding))
+            },
             confirmButton = {
-                TextButton(onClick = {
+                OutlinedButton(onClick = {
                     onEvent(OnboardingViewModel.Event.BatteryOptimizationOkClicked)
                 }) {
                     Text(stringResource(Res.string.Modal_OK))
