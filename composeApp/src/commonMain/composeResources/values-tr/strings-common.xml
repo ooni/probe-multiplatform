@@ -325,6 +325,7 @@
     <string name="OONIRun_Run">Çalıştır</string>
 
     <string name="Notification_ChannelName">Sınanıyor</string>
+    <string name="Notification_UpdateChannelName">Bağlantı güncellemeleri</string>
     <string name="Notification_StopTest">Sınamayı durdur</string>
 
     <string name="Common_Back">Geri</string>
