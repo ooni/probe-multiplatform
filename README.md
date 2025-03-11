@@ -1,5 +1,21 @@
 # OONI Probe Multiplatform App
 
+[![OONI Probe Android](https://github.com/ooni/probe/blob/master/images/OONIProbeLogo.png?raw=true)](https://ooni.org)
+
+<p align="center">
+  <a href="https://slack.openobservatory.org/">
+    <img src="https://slack.openobservatory.org/badge.svg" alt="chat on Slack">
+  </a>
+
+  <a href="https://github.com/ooni/probe-multiplatform/issues">
+    <img src="https://img.shields.io/github/issues/ooni/probe-multiplatform" alt="open issues">
+  </a>
+
+  <a href="https://twitter.com/intent/follow?screen_name=OpenObservatory">
+    <img src="https://img.shields.io/twitter/follow/OpenObservatory?style=social&logo=twitter" alt="follow on Twitter">
+  </a>
+</p>
+
 Multiplatform (Android and iOS currently) version of the Probe app.
 
 **Releases**
@@ -13,7 +29,7 @@ Multiplatform (Android and iOS currently) version of the Probe app.
 **CI Status**
 
 [![Validate](https://github.com/ooni/probe-multiplatform/actions/workflows/validate.yml/badge.svg)](https://github.com/ooni/probe-multiplatform/actions/workflows/validate.yml)
-[![Android Instrumented Tests](https://github.com/ooni/probe-multiplatform/actions/workflows/instrumented-tests.yml/badge.svg)](https://github.com/ooni/probe-multiplatform/actions/workflows/instrumented-tests.yml)
+[![Android Instrumented Tests](https://github.com/ooni/probe-multiplatform/actions/workflows/run_android_instrumented_tests.yml/badge.svg)](https://github.com/ooni/probe-multiplatform/actions/workflows/run_android_instrumented_tests.yml)
 
 ## Project structure
 
