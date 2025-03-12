@@ -25,6 +25,7 @@
     <string name="Dashboard_InstantMessaging_Card_Description">Kiểm tra việc chặn các ứng dụng nhắn tin tức thời</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">Kiểm tra [WhatsApp] (https://ooni.org/nettest/whatsapp/), [Facebook Messenger] (https://ooni.org/nettest/facebook-messenger/), [Telegram] (https://ooni .org/nettest/telegram/) và [Signal] (https://ooni.org/nettest/signal) có bị chặn không.\n\nKết quả kiểm tra của bạn sẽ được công bố trên [OONI Explorer] (https://explorer.ooni.org/world/) và [OONI API] (https://api.ooni.io/).</string>
     <string name="Dashboard_Circumvention_Card_Description">Kiểm tra việc chặn các công cụ vượt thoát kiểm duyệt</string>
+    <string name="Dashboard_Circumvention_Overview_Paragraph">Kiểm tra [Psiphon] (https://ooni.org/nettest/psiphon/) hay [Tor] (https://ooni.org/nettest/tor/) có bị chặn không.\n\nKết quả kiểm tra của bạn sẽ được công bố trên [OONI Explorer] (https://explorer.ooni.org/) và [OONI API] (https://api.ooni.io/).</string>
     <string name="Dashboard_Experimental_Card_Description">Chạy các bài kiểm tra thử nghiệm mới</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">Chạy các bài kiểm tra thử nghiệm mới sau đây do nhóm OONI phát triển:\n%1$s\n\nKết quả kiểm tra của bạn sẽ được công bố trên [OONI Explorer] (https://explorer.ooni.org/) và [OONI API] (https://api.ooni.io/).</string>
 
