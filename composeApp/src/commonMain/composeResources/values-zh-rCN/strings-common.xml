@@ -317,6 +317,8 @@
     <string name="Modal_Error_CantDownloadURLs">无法下载 URL 列表。请重试。</string>
     <string name="Modal_CustomURL_Title_NotSaved">是否确定？</string>
     <string name="Modal_CustomURL_NotSaved">离开此屏幕将不会保存您的 URL。确定离开吗？</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">没有后台权限，本应用无法自动运行测试。你要再次尝试吗？</string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder">应用需要权限以在后台自动运行测试</string>
     <string name="Modal_EnableNotifications_Title">获取网络审查的动态</string>
 
     <!-- Common / Others -->
@@ -324,6 +326,7 @@
     <string name="OONIRun_Run">运行</string>
 
     <string name="Notification_ChannelName">测试中</string>
+    <string name="Notification_UpdateChannelName">链接更新</string>
     <string name="Notification_StopTest">停止测试</string>
 
     <string name="Common_Back">返回</string>
