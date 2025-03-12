@@ -17,7 +17,7 @@ fun mainViewController(
     dependencies: Dependencies,
     deepLinkFlow: MutableSharedFlow<DeepLink?>,
 ): UIViewController {
-    return ComposeUIViewController (configure = {
+    return ComposeUIViewController(configure = {
         accessibilitySyncOptions = AccessibilitySyncOptions.Always(debugLogger = null)
     }) {
         val deepLink by deepLinkFlow.collectAsState(null)

@@ -234,7 +234,7 @@ platform :ios do
     desc ""
     lane :capture_screens do |options|
         organization = organization!(options)
-
+        locales = locales_or_default(options)
         scheme = scheme!(organization)
 
         capture_screenshots(
@@ -242,6 +242,9 @@ platform :ios do
             output_directory: "metadata/#{organization}/ios",
             scheme: "#{scheme}UITests",
             test_target_name: scheme,
+            erase_simulator: true,
+            # languages: locales,
+            override_status_bar_arguments: "--time 12:00 --batteryState charging",
         )
     end
 end
