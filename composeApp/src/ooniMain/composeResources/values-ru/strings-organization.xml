@@ -25,6 +25,7 @@
     <string name="Dashboard_InstantMessaging_Card_Description">Протестировать блокировку мессенджеров</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">Проверить заблокированы ли [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), и [Signal](https://ooni.org/nettest/signal).\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.org/world/) и [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Circumvention_Card_Description">Протестировать блокировку инструментов обхода цензуры</string>
+    <string name="Dashboard_Circumvention_Overview_Paragraph">Узнайте, заблокированы ли [Psiphon](https://ooni.io/nettest/psiphon/) и [Tor](https://ooni.io/nettest/tor/).\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.org/) и [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Experimental_Card_Description">Запустить новые экспериментальные тесты</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">Попробуйте запустить новые экспериментальные тесты созданные командой OONI:\n%1$s\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.org/) и [OONI API](https://api.ooni.io/).</string>
 
