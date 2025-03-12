@@ -25,7 +25,7 @@
     <string name="Dashboard_InstantMessaging_Card_Description">测试即时消息应用的屏蔽情况</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">检测 [WhatsApp](https://ooni.org/nettest/whatsapp/)、[Facebook Messenger](https://ooni.org/nettest/facebook-messenger/)、[Telegram](https://ooni.org/nettest/telegram/)和 [Signal](https://ooni.org/nettest/signal) 是否被屏蔽。\n\n您的结果将公布在 [OONI Explorer](https://explorer.ooni.org/world/) 和[OONI API](https://api.ooni.io/)。</string>
     <string name="Dashboard_Circumvention_Card_Description">测试翻墙工具屏蔽状况</string>
-    <string name="Dashboard_Circumvention_Overview_Paragraph">检测 [Psiphon](https://ooni.org/nettest/psiphon/)、[Tor](https://ooni.org/nettest/tor/) 或 [RiseupVPN](https://ooni.org/nettest/riseupvpn/) 是否被封锁。\n\n您的结果将公布在 [OONI Explorer](https://explorer.ooni.org/) 和[OONI API](https://api.ooni.io/)。</string>
+    <string name="Dashboard_Circumvention_Overview_Paragraph">测试 [赛风](https://ooni.io/nettest/psiphon/) 和 [Tor](https://ooni.io/nettest/tor/) 是否被屏蔽。\n\n你的测试结果将会发布在 [OONI Explorer](https://explorer.ooni.org/) 和 [OONI API](https://api.ooni.io/)。</string>
     <string name="Dashboard_Experimental_Card_Description">运行新的实验性测试</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">运行由 OONI 团队开发的以下新的实验性测试：\n%1$s\n\n您的结果将在 [OONI Explorer](https://explorer.ooni.org/)和 [OONI API](https://api.ooni.io/)上公布。</string>
 

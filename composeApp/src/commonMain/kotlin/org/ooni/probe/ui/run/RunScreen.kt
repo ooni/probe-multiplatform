@@ -165,7 +165,7 @@ fun RunScreen(
                                 regularTestItems(descriptor, testItems, onEvent)
 
                             TestDisplayMode.WebsitesOnly ->
-                                websiteItems(descriptor, testItems)
+                                websiteItems(testItems)
                         }
                     }
                 }
@@ -341,12 +341,9 @@ fun TestItem(
     }
 }
 
-private fun LazyListScope.websiteItems(
-    descriptor: Descriptor,
-    testItems: List<SelectableItem<NetTest>>,
-) {
+private fun LazyListScope.websiteItems(testItems: List<SelectableItem<NetTest>>) {
     val websites = testItems.flatMap { it.item.inputs.orEmpty() }
-    items(websites, key = { "${descriptor.key}_$it" }) { website ->
+    items(websites) { website ->
         Text(
             website,
             modifier = Modifier
