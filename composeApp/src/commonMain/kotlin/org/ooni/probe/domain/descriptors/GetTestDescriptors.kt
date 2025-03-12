@@ -78,9 +78,9 @@ class GetTestDescriptors(
     private fun experimentalLinks() =
         """
         * [STUN Reachability](https://github.com/ooni/spec/blob/master/nettests/ts-025-stun-reachability.md)
-        * [DNS Check](https://github.com/ooni/spec/blob/master/nettests/ts-028-dnscheck.md)
-        * [RiseupVPN](https://ooni.org/nettest/riseupvpn/)
+        * [OpenVPN](https://github.com/ooni/spec/blob/master/nettests/ts-040-openvpn.md)
         * [ECH Check](https://github.com/ooni/spec/blob/master/nettests/ts-039-echcheck.md)
+        * [DNS Check](https://github.com/ooni/spec/blob/master/nettests/ts-028-dnscheck.md)
         * [Tor Snowflake](https://ooni.org/nettest/tor-snowflake/) (${stringResource(Res.string.Settings_TestOptions_LongRunningTest)})
         * [Vanilla Tor](https://github.com/ooni/spec/blob/master/nettests/ts-016-vanilla-tor.md) (${
             stringResource(
