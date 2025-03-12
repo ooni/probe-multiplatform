@@ -25,6 +25,7 @@
     <string name="Dashboard_InstantMessaging_Card_Description">តេស្តលើការទប់ស្កាត់កម្មវិធីផ្ញើសារភ្លាមៗ</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">ពិនិត្យមើលថាតើ [WhatsApp](https://ooni.org/nettest/whatsapp/) [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/)​[Telegram](https://ooni.org/nettest/telegram/) និង [Signal](https://ooni.org/nettest/signal) ត្រូវបានបិទឬទេ។\n\nលទ្ធផលរបស់អ្នកនឹងផ្សព្វផ្សាយលើ [OONI Explorer](https://explorer.ooni.org/world/) and [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Circumvention_Card_Description">តេស្តលើកាបិទឧបករណ៍បញ្ចៀសការ​រឹត​ត្បិត</string>
+    <string name="Dashboard_Circumvention_Overview_Paragraph">ពិនិត្យមើលថាតើ [Psiphon](https://ooni.org/nettest/psiphon/) ឬ [Tor](https://ooni.org/nettest/tor/) ត្រូវបានបិទឬទេ។\n\nលទ្ធផលរបស់អ្នកនឹងផ្សព្វផ្សាយលើ [OONI Explorer](https://explorer.ooni.org/) and [OONI API](https://api.ooni.io/)។</string>
     <string name="Dashboard_Experimental_Card_Description">ដំណើរការតេស្តសាកល្បងថ្មីៗ</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">ដំណើរការតេស្តសាកល្បងថ្មីៗដែលបង្កើតដោយក្រុមការងារ OONI៖\n%1$s\n\nលទ្ធផលរបស់អ្នកនឹងផ្សព្វផ្សាយលើ [OONI Explorer](https://explorer.ooni.org/) និង [OONI API](https://api.ooni.io/)។</string>
 
