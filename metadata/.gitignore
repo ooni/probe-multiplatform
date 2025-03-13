@@ -12,3 +12,9 @@ dw/android/*/images/phoneScreenshots/*.png
 !dw/android/*/images/phoneScreenshots/3_*
 !dw/android/*/images/phoneScreenshots/4_*
 !dw/android/*/images/phoneScreenshots/5_*
+
+ooni/ios/*/*.png
+ooni/ios/*.html
+
+dw/ios/*/*.png
+dw/ios/*.html
