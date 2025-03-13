@@ -25,7 +25,7 @@
     <string name="Dashboard_InstantMessaging_Card_Description">Anlık ileti uygulamalarının engellenip engellenmediğini anlayın</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">[WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) ve [Signal](https://ooni.org/nettest/signal) uygulamalarının engellenip engellenmediğini kontrol edebilirsiniz.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
     <string name="Dashboard_Circumvention_Card_Description">Sansürü aşma araçları engellemesini sınayın</string>
-    <string name="Dashboard_Circumvention_Overview_Paragraph">[Psiphon](https://ooni.org/nettest/psiphon/) ve [Tor](https://ooni.org/nettest/tor/) ya da [RiseupVPN](https://ooni.org/nettest/riseupvpn/) engelleniyor mu öğrenin.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/) ve [OONI API](https://api.ooni.io/) sayfasında yayınlanır.</string>
+    <string name="Dashboard_Circumvention_Overview_Paragraph">[Psiphon](https://ooni.org/nettest/psiphon/) ya da [Tor](https://ooni.org/nettest/tor/) engelleniyor mu öğrenin.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
     <string name="Dashboard_Experimental_Card_Description">Yeni deneysel sınamaları çalıştır</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">OONI ekibi tarafından geliştirilmiş yeni deneysel sınamaları çalıştırın:\n%1$s\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
 

@@ -25,7 +25,6 @@
     <string name="Dashboard_InstantMessaging_Card_Description">ပိတ်ဆို့ခြင်းခံရသောnstant messaging apps များကို စမ်းသပ်ရန်</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">[WhatsApp](https://ooni.org/nettest/whatsapp/)၊ [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/)၊ [Telegram](https://ooni.org/nettest/telegram/) နှင့် [Signal](https://ooni.org/nettest/signal) တို့ကို ပိတ်ဆို့ထားခြင်း ရှိ/မရှိ စစ်ဆေးမည်။\n\nသင့် ရလဒ်များအား [OONI Explorer](https://explorer.ooni.org/world/) နှင့် [OONI API](https://api.ooni.io/) တွင် ထုတ်ဝေပါမည်။</string>
     <string name="Dashboard_Circumvention_Card_Description">ဆင်ဆာရှောင်တိမ်း ကိရိယာများကို ပိတ်ဆို့ စမ်းသပ်မည်</string>
-    <string name="Dashboard_Circumvention_Overview_Paragraph">[Psiphon](https://ooni.org/nettest/psiphon/)၊ [Tor](https://ooni.org/nettest/tor/) သို့မဟုတ် [RiseupVPN](https://ooni.org/nettest/riseupvpn/) တို့ကို ပိတ်ဆို့ထားခြင်း ရှိ/မရှိ စစ်ဆေးရန်\nသင့် ရလဒ်များအား [OONI Explorer](https://explorer.ooni.org/) နှင့် [OONI API](https://api.ooni.io/) တွင် ထုတ်ပြန်ပေးပါမည်။ </string>
     <string name="Dashboard_Experimental_Card_Description">စမ်းသပ်မှုအသစ်များကို လုပ်ဆောင်ရန်</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">OONI အဖွဲ့မှ ဖန်တီးထားသော အောက်ပါ စမ်းသပ်မှုအသစ်များကို လုပ်ဆောင်မည်\n%1$s\n\nသင့်ရလဒ်များကို [OONI Explorer](https://explorer.ooni.org/) နှင့် [OONI API](https://api.ooni.io/) တွင် ထုတ်ဝေပါမည်။</string>
 
