@@ -17,6 +17,9 @@
     <string name="Dashboard_RunTests_Description">Выберите тесты, которые вы хотите запустить</string>
     <string name="Dashboard_RunTests_SelectAll">Выбрать все тесты</string>
     <string name="Dashboard_RunTests_SelectNone">Отменить выбор всех тестов</string>
+    <string name="Dashboard_RunTests_RunButton_Label_One">Провести %1$d тест</string>
+    <string name="Dashboard_RunTests_RunButton_Label_Other">Провести %1$d тесты</string>
+
     <string name="Dashboard_RunV2_Ooni_Title">Тесты OONI</string>
     <string name="Dashboard_RunV2_Title">Ссылки OONI Run </string>
     <string name="Dashboard_RunV2_RunFinished">Тест закончен. Нажмите, чтобы узнать результаты.</string>
@@ -26,6 +29,9 @@
     <string name="Dashboard_Runv2_Overview_SeeMore">Узнать больше</string>
     <string name="Dashboard_RunV2_ExpiredTag">УСТАРЕЛА</string>
     <string name="Dashboard_RunV2_UpdatedTag">ОБНОВЛЕНА</string>
+    <string name="Dashboard_RunV2_UpdateTag">ОБНОВИТЬ</string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated">Последний раз обновлено %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">Отмененное обновление</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Отменить</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Просмотреть обновления</string>
 
@@ -36,6 +42,9 @@
     <string name="Dashboard_ReviewDescriptor_Label">Обновлены ссылки (%1$s из %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">ОБНОВИТЬ И ЗАВЕРШИТЬ (%1$s из %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">ОБНОВИТЬ (%1$s из %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">Отменить обновление</string>
+
+    <string name="Dashboard_Update_Ready">Скачано обновление для приложения</string>
     <string name="Dashboard_Update_Restart">Перезапуск</string>
 
     <!-- Test -->
@@ -97,9 +106,23 @@
     <string name="TestResults_UnknownASN">Неизвестно</string>
     <string name="TestResults_NotAvailable">Н/П</string>
 
+    <string name="Results_TestType_All">Все типы</string>
+    <string name="Results_TaskOrigin_All">Все источники</string>
+    <string name="Results_LimitedNotice">Показываются только последние %1$d результатов</string>
+    <string name="Results_UploadingMissing">Загрузить результаты %1$s</string>
+
+    <!-- Measurements -->
+
+    <string name="Measurement_Title">Измерение</string>
+    <string name="Measurement_LoadingFailed">Не получилось загрузить информацию об измерении</string>
     <string name="Measurements_Failed">Ошибка</string>
     <string name="Measurements_Ok">ОК</string>
     <string name="Measurements_Anomaly">Аномалия</string>
+    <string name="Measurements_Count_One">%1$d измерены</string>
+    <string name="Measurements_Count_Other">%1$d измерены</string>
+    <string name="Measurements_Failed_One">%1$d ошибок</string>
+    <string name="Measurements_Failed_Other">%1$d ошибок</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">Настройки</string>
@@ -113,6 +136,7 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Только на Wi-Fi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Только во время зарядки</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Если вы включите автоматическое тестирование в OONI Probe, тесты будут проводиться несколько раз в день. Результаты будут автоматически публиковаться в OONI Explorer: https://explorer.ooni.org/\n\nВажно:  Если у вас включен VPN, OONI Probe тесты не будут производиться автоматически. Пожалуйста, выключите VPN для автоматических тестов. Узнать больше: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn </string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description">Тесты будут проводиться в фоновом режиме каждый час</string>
     <string name="Settings_Sharing_UploadResults">Автоматически публиковать результаты</string>
 
     <string name="Settings_Websites_MaxRuntimeEnabled">Ограничить продолжительность теста</string>
@@ -142,7 +166,12 @@
     <string name="Settings_Storage_Delete">Удалить</string>
     <string name="Settings_Storage_Clear">Очистить</string>
     <string name="Settings_WarmVPNInUse_Label">Предупреждать когда VPN подключен </string>
+    <string name="Settings_DisableVpnInstructions">Зайдите в Настройки &gt; Общие &gt; VPN и отключите ваш VPN. </string>
     <string name="Settings_Logs">Журналы</string>
+    <string name="Settings_ShareLogs">Поделиться логами</string>
+    <string name="Settings_ShareLogs_Error">Не получилось поделиться логами</string>
+    <string name="Settings_FilterLogs">Отфильтровать логи</string>
+    <string name="Settings_Sharing_UploadResults_Description">Результаты автоматически загружаются в OONI Explorer</string>
     <string name="Settings_Websites_Categories_Selection_None">Отменить выбор</string>
     <string name="Settings_Websites_Categories_Selection_All">Выбрать все</string>
     <string name="Settings_Websites_CustomURL_Title">Выберите сайты для тестирования</string>
