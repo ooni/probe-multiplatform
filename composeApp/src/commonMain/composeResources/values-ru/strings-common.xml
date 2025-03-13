@@ -172,6 +172,9 @@
     <string name="Settings_ShareLogs_Error">Не получилось поделиться логами</string>
     <string name="Settings_FilterLogs">Отфильтровать логи</string>
     <string name="Settings_Sharing_UploadResults_Description">Результаты автоматически загружаются в OONI Explorer</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_New">Ограничить длительность тестирования сайтов</string>
+    <string name="Settings_Websites_MaxRuntime_New">Максимальная длительность тестирования сайтов</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Только для тестов запущенных вручную</string>
     <string name="Settings_Websites_Categories_Selection_None">Отменить выбор</string>
     <string name="Settings_Websites_Categories_Selection_All">Выбрать все</string>
     <string name="Settings_Websites_CustomURL_Title">Выберите сайты для тестирования</string>
@@ -245,6 +248,10 @@
     <string name="CategoryCode_IGO_Description">Межправительственные организации, включая ООН</string>
     <string name="CategoryCode_MISC_Description">Сайты, не вошедшие ни в одну категорию</string>
 
+    <!-- Onboarding -->
+
+    <string name="Onboarding_QuizAnswer_Correct">Правильный ответ</string>
+    <string name="Onboarding_QuizAnswer_Incorrect">Неправильный ответ</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">ОК</string>
     <string name="Onboarding_ThingsToKnow_Title">Обратите внимание!</string>
     <string name="Onboarding_ThingsToKnow_Button">Я понимаю</string>
@@ -268,6 +275,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Сетевую информацию (включая номер автономной системы)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Время и дату тестирования</string>
     <string name="Onboarding_DefaultSettings_Paragraph">Мы всегда работаем над тем, чтобы ваш IP-адрес или другие персональные данные не были опубликованы.\n\nУзнайте подробнее в [политике по обработке данных OONI](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">Начнем</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Изменить настройки</string>
 
     <!-- Descriptors -->
@@ -278,6 +286,7 @@
     <string name="AddDescriptor_AutoRun">Запускать тесты автоматически</string>
     <string name="AddDescriptor_Toasts_Installed">Ссылка установлена</string>
     <string name="AddDescriptor_Action">Установить ссылку</string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url">Неподдерживаемый URL</string>
     <string name="LoadingScreen_Runv2_Message">Ссылка загружается</string>
     <string name="LoadingScreen_Runv2_Failure">Ошибка</string>
     <string name="LoadingScreen_Runv2_Canceled">Установка ссылки отменена</string>
@@ -308,6 +317,8 @@
     <string name="Modal_Error_CantDownloadURLs">Ошибка скачивания списка адресов. Пожалуйста, попробуйте снова.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Вы уверены?</string>
     <string name="Modal_CustomURL_NotSaved">Если вы закроете этот экран, адреса не сохранятся. Вы уверены, что хотите его закрыть?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">Приложение не может запускать тесты в фоновом режиме без специального разрешения. Хотите попробовать снова\? </string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder">Приложению нужно разрешение, чтобы запускать тесты автоматически в фоновом режиме. </string>
     <string name="Modal_EnableNotifications_Title">Получайте новости о случаях интернет-цензуры</string>
 
     <!-- Common / Others -->
@@ -315,16 +326,22 @@
     <string name="OONIRun_Run">Запустить</string>
 
     <string name="Notification_ChannelName">Проверка</string>
+    <string name="Notification_UpdateChannelName">Обновление ссылок</string>
     <string name="Notification_StopTest">Прекратить тест </string>
 
     <string name="Common_Back">вернуться и отредактировать</string>
     <string name="Common_Refresh">Обновить</string>
     <string name="Common_Collapse">Закрыть</string>
     <string name="Common_Expand">Открыть</string>
+    <string name="Common_Ago">%1$s назад</string>
     <string name="Common_Minutes_One">%1$d минуту</string>
     <string name="Common_Minutes_Other">%1$d минуты</string>
     <string name="Common_Hour_One">%1$d час</string>
     <string name="Common_Hour_Other">%1$d часа</string>
+    <string name="Common_Hours_Abbreviated">%1$dчас</string>
+    <string name="Common_Minutes_Abbreviated">%1$dмин</string>
+    <string name="Common_Seconds_Abbreviated">%1$dсек</string>
+
     <string name="Common_Months_January">Январь</string>
     <string name="Common_Months_February">Февраль</string>
     <string name="Common_Months_March">Март</string>
@@ -338,5 +355,7 @@
     <string name="Common_Months_November">Ноябрь</string>
     <string name="Common_Months_December">Декабрь</string>
 
+    <string name="TaskOrigin_Manual">Ручное тестирование</string>
+    <string name="TaskOrigin_AutoRun">Автоматическое тестирование</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
