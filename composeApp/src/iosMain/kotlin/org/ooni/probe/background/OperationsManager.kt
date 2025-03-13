@@ -26,12 +26,18 @@ class OperationsManager(private val dependencies: Dependencies, private val back
                 Logger.e(e) { "Job failed with exception in ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
             }
         }
-        backgroundRunner(onDoInBackground = {
-            deferred.start()
-        }, onCancel = {
-            deferred.cancel()
-            Logger.e { "Job cancelled after ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
-        })
+        backgroundRunner(
+            longRunningProcess = {
+                deferred.start()
+            },
+            cancellationHandler = {
+                deferred.cancel()
+                Logger.e { "Job cancelled after ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
+            },
+            completionHandler = {
+                Logger.i { "Task completed in ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
+            },
+        )
     }
 
     fun handleAutorunTask(task: BGProcessingTask) {
@@ -47,12 +53,18 @@ class OperationsManager(private val dependencies: Dependencies, private val back
                 task.setTaskCompletedWithSuccess(false)
             }
         }
-        backgroundRunner(onDoInBackground = {
-            deferred.start()
-        }, onCancel = {
-            deferred.cancel()
-            Logger.e { "Job cancelled after ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
-        })
+        backgroundRunner(
+            longRunningProcess = {
+                deferred.start()
+            },
+            cancellationHandler = {
+                deferred.cancel()
+                Logger.e { "Job cancelled after ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
+            },
+            completionHandler = {
+                Logger.i { "Task completed in ${NSDate().timeIntervalSinceDate(startDateTime)} ms" }
+            },
+        )
     }
 
     fun handleUpdateDescriptorTask(task: BGProcessingTask) {
