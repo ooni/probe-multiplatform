@@ -13,33 +13,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-### sentry_upload_debug_symbols
-
-```sh
-[bundle exec] fastlane sentry_upload_debug_symbols
-```
-
-Upload debug symbols to Sentry
-
-#### Example:
-
-```
-fastlane sentry_upload_debug_symbols auth_token:... org_slug:ooni project_slug:probe-multiplatform-ios path:.
-```
-
-#### Options
-
- * **`auth_token`**: Sentry auth token
-
- * **`org_slug`**: Sentry organization slug
-
- * **`project_slug`**: Sentry project slug
-
-
-
-----
-
-
 ## Android
 
 ### android publish_app_gallery
@@ -332,6 +305,30 @@ fastlane ios capture_screens organization:ooni locales:en,it
  * **`organization`**: ooni, dw
 
  * **`locales`**: comma-separated list of locales (optional, defaults to full list based on the organization)
+
+
+
+### ios sentry_upload_debug_symbols
+
+```sh
+[bundle exec] fastlane ios sentry_upload_debug_symbols
+```
+
+Upload debug symbols to Sentry
+
+#### Example:
+
+```
+fastlane sentry_upload_debug_symbols auth_token:... org_slug:ooni project_slug:probe-multiplatform-ios path:.
+```
+
+#### Options
+
+ * **`auth_token`**: Sentry auth token
+
+ * **`org_slug`**: Sentry organization slug
+
+ * **`project_slug`**: Sentry project slug
 
 
 

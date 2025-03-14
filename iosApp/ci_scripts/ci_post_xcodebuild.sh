@@ -7,4 +7,4 @@ cd $CI_PRIMARY_REPOSITORY_PATH # change working directory to the root of your cl
 
 source ~/.zshrc
 
-bundle exec fastlane sentry_upload_debug_symbols auth_token:$SENTRY_AUTH_TOKEN org_slug:ooni project_slug:probe-multiplatform-ios path: $CI_ARCHIVE_PATH
+bundle exec fastlane ios sentry_upload_debug_symbols auth_token:$SENTRY_AUTH_TOKEN org_slug:ooni project_slug:probe-multiplatform-ios

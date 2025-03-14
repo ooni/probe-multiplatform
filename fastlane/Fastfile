@@ -256,25 +256,27 @@ platform :ios do
     lane :capture_screens do |options|
         # TODO
     end
+
+
+    desc "Upload debug symbols to Sentry"
+    desc "#### Example:"
+    desc "```\nfastlane sentry_upload_debug_symbols auth_token:... org_slug:ooni project_slug:probe-multiplatform-ios path:.\n```"
+    desc "#### Options"
+    desc " * **`auth_token`**: Sentry auth token"
+    desc " * **`org_slug`**: Sentry organization slug"
+    desc " * **`project_slug`**: Sentry project slug"
+    desc ""
+    lane :sentry_upload_debug_symbols do |options|
+
+        sentry_debug_files_upload(
+            auth_token: options[:auth_token],
+            org_slug: options[:org_slug],
+            project_slug: options[:project_slug],
+            path: options[:path] || '.'
+        )
+    end
 end
 
-desc "Upload debug symbols to Sentry"
-desc "#### Example:"
-desc "```\nfastlane sentry_upload_debug_symbols auth_token:... org_slug:ooni project_slug:probe-multiplatform-ios path:.\n```"
-desc "#### Options"
-desc " * **`auth_token`**: Sentry auth token"
-desc " * **`org_slug`**: Sentry organization slug"
-desc " * **`project_slug`**: Sentry project slug"
-desc ""
-lane :sentry_upload_debug_symbols do |options|
-
-    sentry_debug_files_upload(
-        auth_token: options[:auth_token],
-        org_slug: options[:org_slug],
-        project_slug: options[:project_slug],
-        path: options[:path] || '.'
-    )
-end
 
 def organization!(options)
     organization = options[:organization]
