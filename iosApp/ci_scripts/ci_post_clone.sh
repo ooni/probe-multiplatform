@@ -16,8 +16,8 @@ source ~/.zshrc
 ### Start fastlane setup
 cd $CI_PRIMARY_REPOSITORY_PATH # change working directory to the root of your cloned repo.
 
-echo 'export GEM_HOME=$HOME/gems' >>~/.bash_profile
-echo 'export PATH=$HOME/gems/bin:$PATH' >>~/.bash_profile
+echo 'export GEM_HOME=$HOME/gems' >>~/.zshrc
+echo 'export PATH=$HOME/gems/bin:$PATH' >>~/.zshrc
 export GEM_HOME=$HOME/gems
 export PATH="$GEM_HOME/bin:$PATH"
 
