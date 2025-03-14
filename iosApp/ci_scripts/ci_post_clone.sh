@@ -9,6 +9,10 @@ brew install cocoapods
 
 brew install ruby@3.3
 
+echo 'export PATH="/usr/local/opt/ruby@3.3/bin:$PATH"' >> ~/.zshrc
+
+source ~/.zshrc
+
 ### Start fastlane setup
 cd $CI_PRIMARY_REPOSITORY_PATH # change working directory to the root of your cloned repo.
 
