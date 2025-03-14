@@ -7,6 +7,8 @@ set -e
 HOMEBREW_NO_AUTO_UPDATE=1 # disable homebrew's automatic updates.
 brew install cocoapods
 
+brew install ruby@3.3
+
 ### Start fastlane setup
 cd $CI_PRIMARY_REPOSITORY_PATH # change working directory to the root of your cloned repo.
 
