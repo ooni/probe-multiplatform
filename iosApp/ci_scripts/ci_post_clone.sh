@@ -7,6 +7,21 @@ set -e
 HOMEBREW_NO_AUTO_UPDATE=1 # disable homebrew's automatic updates.
 brew install cocoapods
 
+### Start fastlane setup
+cd $CI_PRIMARY_REPOSITORY_PATH # change working directory to the root of your cloned repo.
+
+echo 'export GEM_HOME=$HOME/gems' >>~/.bash_profile
+echo 'export PATH=$HOME/gems/bin:$PATH' >>~/.bash_profile
+export GEM_HOME=$HOME/gems
+export PATH="$GEM_HOME/bin:$PATH"
+
+gem install bundler --install-dir $GEM_HOME
+
+bundle install
+
+### End fastlane setup
+
+### Start Java setup
 root_dir=$CI_WORKSPACE_PATH
 repo_dir=$CI_PRIMARY_REPOSITORY_PATH
 jdk_dir="${CI_DERIVED_DATA_PATH}/JDK"
@@ -83,6 +98,7 @@ recover_cache_files
 install_jdk_if_needed
 
 export JAVA_HOME="${jdk_dir}/Home"
+### End Java setup
 
 # The default execution directory of this script is the ci_scripts directory.
 cd $CI_PRIMARY_REPOSITORY_PATH # change working directory to the root of your cloned repo.

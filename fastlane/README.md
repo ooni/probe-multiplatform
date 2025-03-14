@@ -24,7 +24,7 @@ Upload debug symbols to Sentry
 #### Example:
 
 ```
-fastlane sentry_upload_debug_symbols auth_token:... org_slug:ooni project_slug:probe-multiplatform-ios
+fastlane sentry_upload_debug_symbols auth_token:... org_slug:ooni project_slug:probe-multiplatform-ios path:.
 ```
 
 #### Options
