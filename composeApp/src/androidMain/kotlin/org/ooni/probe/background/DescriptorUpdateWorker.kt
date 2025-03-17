@@ -58,9 +58,10 @@ class DescriptorUpdateWorker(
         try {
             setForeground(getForegroundInfo())
         } catch (e: IllegalStateException) {
+            e.message?.let(Logger::i)
             Logger.w(
                 "DescriptorUpdateWorker: cannot start due to foreground service restriction",
-                ForegroundServiceRestriction(e),
+                ForegroundServiceRestriction(),
             )
             return Result.failure()
         }
@@ -122,7 +123,7 @@ class DescriptorUpdateWorker(
             .build()
     }
 
-    class ForegroundServiceRestriction(reason: IllegalStateException) : Exception(reason)
+    class ForegroundServiceRestriction : Exception()
 
     class EarlyStop(reason: Int?) : EarlyStopWorkerException(reason)
 
