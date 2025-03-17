@@ -29,7 +29,9 @@
     <string name="Dashboard_Runv2_Overview_SeeMore">Ver más</string>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
+    <string name="Dashboard_RunV2_UpdateTag">ACTUALIZACIÓN</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">Actualización rechazada</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Deshacer</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Revisar Actualizaciones</string>
 
@@ -40,6 +42,8 @@
     <string name="Dashboard_ReviewDescriptor_Label">Link Update (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE AND FINISH (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">Rechazar Actualización</string>
+
     <string name="Dashboard_Update_Restart">Reiniciar</string>
 
     <!-- Test -->
@@ -315,6 +319,7 @@
     <string name="OONIRun_Run">Ejecutar</string>
 
     <string name="Notification_ChannelName">Probando</string>
+    <string name="Notification_UpdateChannelName">Actualizaciones de Enlaces</string>
     <string name="Notification_StopTest">Detener la prueba</string>
 
     <string name="Common_Back">Volver</string>
