@@ -68,9 +68,10 @@ class RunWorker(
         try {
             setForeground(getForegroundInfo())
         } catch (e: IllegalStateException) {
+            e.message?.let(Logger::i)
             Logger.w(
                 "Run Worker: cannot start due to foreground service restriction",
-                ForegroundServiceRestriction(e),
+                ForegroundServiceRestriction(),
             )
             return Result.failure()
         }
@@ -249,7 +250,7 @@ class RunWorker(
         }
     }
 
-    class ForegroundServiceRestriction(reason: IllegalStateException) : Exception(reason)
+    class ForegroundServiceRestriction : Exception()
 
     class EarlyStop(reason: Int?) : EarlyStopWorkerException(reason)
 
