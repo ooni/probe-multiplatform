@@ -16,6 +16,7 @@ import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.UrlModel
+import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.now
 import kotlin.time.Duration
 
@@ -33,23 +34,32 @@ class RunDescriptors(
     private val finishInProgressData: suspend () -> Unit,
 ) {
     suspend operator fun invoke(spec: RunSpecification.Full) {
-        setRunBackgroundState { RunBackgroundState.RunningTests() }
+        Instrumentation.withTransaction(
+            operation = "RunDescriptors",
+            data = mapOf(
+                "taskOrigin" to spec.taskOrigin.value,
+                "isRerun" to spec.isRerun,
+                "testsCount" to spec.tests.size,
+            ),
+        ) {
+            setRunBackgroundState { RunBackgroundState.RunningTests() }
 
-        val descriptors = getTestDescriptorsBySpec(spec)
-        val descriptorsWithFinalInputs = descriptors.prepareInputs(spec.taskOrigin)
-        val estimatedRuntime = descriptorsWithFinalInputs.getEstimatedRuntime()
+            val descriptors = getTestDescriptorsBySpec(spec)
+            val descriptorsWithFinalInputs = descriptors.prepareInputs(spec.taskOrigin)
+            val estimatedRuntime = descriptorsWithFinalInputs.getEstimatedRuntime()
 
-        setRunBackgroundState {
-            RunBackgroundState.RunningTests(estimatedRuntimeOfDescriptors = estimatedRuntime)
-        }
+            setRunBackgroundState {
+                RunBackgroundState.RunningTests(estimatedRuntimeOfDescriptors = estimatedRuntime)
+            }
 
-        try {
-            runDescriptorsCancellable(descriptorsWithFinalInputs, spec)
-        } catch (e: Exception) {
-            // Exceptions were logged in the Engine
-        } finally {
-            setRunBackgroundState { RunBackgroundState.Idle(LocalDateTime.now(), true) }
-            finishInProgressData()
+            try {
+                runDescriptorsCancellable(descriptorsWithFinalInputs, spec)
+            } catch (e: Exception) {
+                // Exceptions were logged in the Engine
+            } finally {
+                setRunBackgroundState { RunBackgroundState.Idle(LocalDateTime.now(), true) }
+                finishInProgressData()
+            }
         }
     }
 

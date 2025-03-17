@@ -12,6 +12,7 @@ import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.shared.monitoring.Instrumentation
 
 class UploadMissingMeasurements(
     private val getMeasurementsNotUploaded: (ResultModel.Id?) -> Flow<List<MeasurementModel>>,
@@ -23,60 +24,67 @@ class UploadMissingMeasurements(
 ) {
     operator fun invoke(resultId: ResultModel.Id? = null): Flow<State> =
         channelFlow {
-            send(State.Starting)
+            Instrumentation.withTransaction(
+                operation = "UploadMissingMeasurements",
+                data = mapOf(
+                    "resultId" to resultId?.value.toString(),
+                ),
+            ) {
+                send(State.Starting)
 
-            val measurements = getMeasurementsNotUploaded(resultId).first()
-            val total = measurements.size
-            var uploaded = 0
-            var failedToUpload = 0
+                val measurements = getMeasurementsNotUploaded(resultId).first()
+                val total = measurements.size
+                var uploaded = 0
+                var failedToUpload = 0
 
-            if (total > 0) {
-                Logger.i("Uploading missing measurements: $total")
-            }
-
-            measurements.forEach { measurement ->
-                if (!isActive) return@channelFlow // Check is coroutine was cancelled
-
-                send(State.Uploading(uploaded, failedToUpload, total))
-
-                val reportFilePath = measurement.reportFilePath ?: run {
-                    failedToUpload++
-                    return@forEach
-                }
-                val report = readFile(reportFilePath)
-                if (report.isNullOrBlank()) {
-                    Logger.w("Missing or empty measurement report file")
-                    failedToUpload++
-                    measurement.id?.let { deleteMeasurementById(it) }
-                    return@forEach
+                if (total > 0) {
+                    Logger.i("Uploading missing measurements: $total")
                 }
 
-                submitMeasurement(report)
-                    .onSuccess { submitResult ->
-                        uploaded++
-                        updateMeasurement(
-                            measurement.copy(
-                                isUploaded = true,
-                                isUploadFailed = false,
-                                uploadFailureMessage = null,
-                                reportId = MeasurementModel.ReportId(submitResult.updatedReportId),
-                            ),
-                        )
-                        deleteFiles(reportFilePath)
-                    }
-                    .onFailure { exception ->
+                measurements.forEach { measurement ->
+                    if (!isActive) return@withTransaction // Check is coroutine was cancelled
+
+                    send(State.Uploading(uploaded, failedToUpload, total))
+
+                    val reportFilePath = measurement.reportFilePath ?: run {
                         failedToUpload++
-                        updateMeasurement(
-                            measurement.copy(
-                                isUploadFailed = true,
-                                uploadFailureMessage = exception.cause?.message,
-                            ),
-                        )
-                        Logger.w("Failed to submit measurement", exception)
+                        return@forEach
                     }
-            }
+                    val report = readFile(reportFilePath)
+                    if (report.isNullOrBlank()) {
+                        Logger.w("Missing or empty measurement report file")
+                        failedToUpload++
+                        measurement.id?.let { deleteMeasurementById(it) }
+                        return@forEach
+                    }
 
-            send(State.Finished(uploaded, failedToUpload, total))
+                    submitMeasurement(report)
+                        .onSuccess { submitResult ->
+                            uploaded++
+                            updateMeasurement(
+                                measurement.copy(
+                                    isUploaded = true,
+                                    isUploadFailed = false,
+                                    uploadFailureMessage = null,
+                                    reportId = MeasurementModel.ReportId(submitResult.updatedReportId),
+                                ),
+                            )
+                            deleteFiles(reportFilePath)
+                        }
+                        .onFailure { exception ->
+                            failedToUpload++
+                            updateMeasurement(
+                                measurement.copy(
+                                    isUploadFailed = true,
+                                    uploadFailureMessage = exception.cause?.message,
+                                ),
+                            )
+                            Logger.w("Failed to submit measurement", exception)
+                        }
+                }
+
+                send(State.Finished(uploaded, failedToUpload, total))
+            }
         }
 
     sealed interface State {
