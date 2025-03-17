@@ -317,6 +317,8 @@
     <string name="Modal_Error_CantDownloadURLs">URL-Liste kann nicht heruntergeladen werden. Bitte versuche es erneut.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Bist du sicher?</string>
     <string name="Modal_CustomURL_NotSaved">Deine URLs werden nicht gespeichert, wenn du diesen Bildschirm verlässt. Möchtest du diesen Bildschirm wirklich verlassen?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">Die Anwendung kann keine automatischen Tests ohne Hintergrundgenehmigung durchführen. Möchtest du es noch einmal versuchen\?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder">Die Anwendung benötigt die Erlaubnis, Tests automatisch im Hintergrund durchzuführen.</string>
     <string name="Modal_EnableNotifications_Title">Aktuelle Informationen zur Internetzensur</string>
 
     <!-- Common / Others -->
@@ -324,6 +326,7 @@
     <string name="OONIRun_Run">Ausführen</string>
 
     <string name="Notification_ChannelName">Testvorgang</string>
+    <string name="Notification_UpdateChannelName">Link Aktualisierungen</string>
     <string name="Notification_StopTest">Test anhalten</string>
 
     <string name="Common_Back">Zurück</string>
