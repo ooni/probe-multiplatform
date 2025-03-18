@@ -8,4 +8,5 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.cocoapods) apply false
     alias(libs.plugins.ktlint) apply false
+    id("dev.hydraulic.conveyor") version "1.12" apply false
 }

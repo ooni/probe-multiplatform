@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
+    id("dev.hydraulic.conveyor")
 }
 
 val organization: String? by project
@@ -41,8 +42,6 @@ val appConfig = mapOf(
 
 val config = appConfig[organization] ?: appConfig["ooni"]!!
 
-println("The current build flavor is set to $organization with app id set to ${config.appId}.")
-
 kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -61,6 +60,10 @@ kotlin {
     iosSimulatorArm64()
 
     jvm("desktop")
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+        vendor.set(JvmVendorSpec.JETBRAINS)
+    }
 
     cocoapods {
         ios.deploymentTarget = "14.0"
@@ -117,6 +120,7 @@ kotlin {
                 implementation(files("./src/desktopMain/libs/oonimkall.jar"))
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
+                implementation("dev.hydraulic.conveyor:conveyor-control:1.1")
             }
         }
         // Testing
@@ -243,10 +247,20 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "org.ooni.probe"
+            packageName = "ooni-probe"
             packageVersion = "1.0.0"
+
+            macOS {
+                minimumSystemVersion = "10.15.0"
+            }
         }
     }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "ooniprobe.composeapp.generated.resources"
+    generateResClass = always
 }
 
 sqldelight {
@@ -439,4 +453,26 @@ tasks.register("runDebug", Exec::class) {
         "-n",
         "${config.appId}.debug/org.ooni.probe.MainActivity",
     )
+}
+
+// Conveyor
+
+// region Work around temporary Compose bugs.
+configurations.all {
+    attributes {
+        // https://github.com/JetBrains/compose-jb/issues/1404#issuecomment-1146894731
+        attribute(Attribute.of("ui", String::class.java), "awt")
+    }
+}
+
+version = "1.0"
+
+dependencies {
+    debugImplementation(compose.uiTooling)
+
+    // Use the configurations created by the Conveyor plugin to tell Gradle/Conveyor where to find the artifacts for each platform.
+    linuxAmd64(compose.desktop.linux_x64)
+    macAmd64(compose.desktop.macos_x64)
+    macAarch64(compose.desktop.macos_arm64)
+    windowsAmd64(compose.desktop.windows_x64)
 }
