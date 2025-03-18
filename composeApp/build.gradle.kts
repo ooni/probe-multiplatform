@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.conveyor)
 }
 
 val organization: String? by project
@@ -42,8 +43,6 @@ val appConfig = mapOf(
 
 val config = appConfig[organization] ?: appConfig["ooni"]!!
 
-println("The current build flavor is set to $organization with app id set to ${config.appId}.")
-
 kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -62,6 +61,10 @@ kotlin {
     iosSimulatorArm64()
 
     jvm("desktop")
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+        vendor.set(JvmVendorSpec.JETBRAINS)
+    }
 
     cocoapods {
         ios.deploymentTarget = "14.0"
@@ -300,18 +303,6 @@ android {
     flavorDimensions += "license"
 }
 
-compose.desktop {
-    application {
-        mainClass = "org.ooni.probe.MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "org.ooni.probe"
-            packageVersion = android.defaultConfig.versionName
-        }
-    }
-}
-
 sqldelight {
     databases {
         create("Database") {
@@ -330,6 +321,66 @@ ktlint {
     additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
 }
 
+tasks.register("runDebug", Exec::class) {
+    dependsOn("clean", "installFullDebug")
+    commandLine(
+        "adb",
+        "shell",
+        "am",
+        "start",
+        "-n",
+        "${config.appId}.dev/org.ooni.probe.MainActivity",
+    )
+}
+
+// Desktop
+
+compose.desktop {
+    application {
+        mainClass = "org.ooni.probe.MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "ooni-probe"
+            packageVersion = android.defaultConfig.versionName
+
+            macOS {
+                minimumSystemVersion = "10.15.0"
+            }
+        }
+    }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "ooniprobe.composeapp.generated.resources"
+    generateResClass = always
+}
+
+// Conveyor
+
+// region Work around temporary Compose bugs.
+configurations.all {
+    attributes {
+        // https://github.com/JetBrains/compose-jb/issues/1404#issuecomment-1146894731
+        attribute(Attribute.of("ui", String::class.java), "awt")
+    }
+}
+
+version = android.defaultConfig.versionName ?: ""
+
+dependencies {
+    debugImplementation(compose.uiTooling)
+
+    // Use the configurations created by the Conveyor plugin to tell Gradle/Conveyor where to find the artifacts for each platform.
+    linuxAmd64(compose.desktop.linux_x64)
+    macAmd64(compose.desktop.macos_x64)
+    macAarch64(compose.desktop.macos_arm64)
+    windowsAmd64(compose.desktop.windows_x64)
+}
+
+// Resources
+
 // Fix to exclude sqldelight generated files
 tasks {
     listOf(
@@ -344,14 +395,6 @@ tasks {
             )
         }
     }
-}
-
-fun isFdroidTaskRequested(): Boolean {
-    return gradle.startParameter.taskRequests.flatMap { it.args }.any { it.contains("Fdroid") }
-}
-
-fun isDebugTaskRequested(): Boolean {
-    return gradle.startParameter.taskRequests.flatMap { it.args }.any { it.contains("Debug") }
 }
 
 tasks.register("copyBrandingToCommonResources") {
@@ -420,14 +463,6 @@ tasks.named("clean").configure {
     dependsOn("cleanCopiedCommonResourcesToFlavor")
 }
 
-data class AppConfig(
-    val appId: String,
-    val appName: String,
-    val folder: String,
-    val supportsOoniRun: Boolean = false,
-    val supportedLanguages: List<String>,
-)
-
 /**
  * Ignore the copied file if it is not already ignored.
  *
@@ -492,14 +527,20 @@ fun copyRecursive(
     }
 }
 
-tasks.register("runDebug", Exec::class) {
-    dependsOn("clean", "installFullDebug")
-    commandLine(
-        "adb",
-        "shell",
-        "am",
-        "start",
-        "-n",
-        "${config.appId}.dev/org.ooni.probe.MainActivity",
-    )
+// Helpers
+
+data class AppConfig(
+    val appId: String,
+    val appName: String,
+    val folder: String,
+    val supportsOoniRun: Boolean = false,
+    val supportedLanguages: List<String>,
+)
+
+fun isFdroidTaskRequested(): Boolean {
+    return gradle.startParameter.taskRequests.flatMap { it.args }.any { it.contains("Fdroid") }
+}
+
+fun isDebugTaskRequested(): Boolean {
+    return gradle.startParameter.taskRequests.flatMap { it.args }.any { it.contains("Debug") }
 }

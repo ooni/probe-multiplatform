@@ -43,6 +43,25 @@ jobs:
           name: ${{ matrix.organization }}-${{ matrix.type }}-APKs
           path: composeApp/build/outputs/apk/**/**/composeApp-*.apk
 
+  desktop-build:
+    name: Desktop Build
+    runs-on: macos-latest
+    needs: [ build ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Copy branding resources
+        run: ./gradlew copyBrandingToCommonResources
+
+      - name: Run Conveyor (make app)
+        uses: hydraulic-software/conveyor/actions/build@v9.1
+        with:
+          command: make app
+
   android-lint:
     name: Android Lint
     runs-on: macos-latest
