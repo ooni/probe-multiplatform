@@ -243,7 +243,7 @@ platform :ios do
             scheme: "#{scheme}UITests",
             test_target_name: scheme,
             erase_simulator: true,
-            # languages: locales,
+            languages: locales,
             override_status_bar_arguments: "--time 12:00 --batteryState charging",
         )
     end
