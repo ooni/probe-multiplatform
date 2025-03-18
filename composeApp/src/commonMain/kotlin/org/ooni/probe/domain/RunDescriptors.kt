@@ -35,7 +35,7 @@ class RunDescriptors(
 ) {
     suspend operator fun invoke(spec: RunSpecification.Full) {
         Instrumentation.withTransaction(
-            operation = "RunDescriptors",
+            operation = this::class.simpleName.orEmpty(),
             data = mapOf(
                 "taskOrigin" to spec.taskOrigin.value,
                 "isRerun" to spec.isRerun,

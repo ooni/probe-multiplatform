@@ -39,7 +39,7 @@ class RunBackgroundTask(
         channelFlow {
             Instrumentation.withTransaction(
                 name = "Run",
-                operation = "RunBackgroundTask",
+                operation = this@RunBackgroundTask::class.simpleName.orEmpty(),
                 data = mapOf(
                     "specType" to spec?.let { it::class.simpleName }.toString(),
                 ),

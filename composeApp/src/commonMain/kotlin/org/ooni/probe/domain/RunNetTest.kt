@@ -50,7 +50,7 @@ class RunNetTest(
 
     suspend operator fun invoke() {
         Instrumentation.withTransaction(
-            operation = "RunNetTest",
+            operation = this::class.simpleName.orEmpty(),
             data = mapOf(
                 "test" to spec.netTest.test.name,
                 "inputsCount" to (spec.netTest.inputs?.size ?: 0),
