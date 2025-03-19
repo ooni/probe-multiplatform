@@ -96,7 +96,10 @@ class Engine(
                         charging = isBatteryCharging(),
                         onWiFi = networkTypeFinder() == NetworkType.Wifi,
                         platform = platformInfo.platform.value,
-                        runType = taskOrigin.value,
+                        runType = when (taskOrigin) {
+                            TaskOrigin.AutoRun -> "timed"
+                            TaskOrigin.OoniRun -> "manual"
+                        },
                         softwareName = sessionConfig.softwareName,
                         softwareVersion = sessionConfig.softwareVersion,
                         webConnectivityCategories = preferences.enabledWebCategories,
