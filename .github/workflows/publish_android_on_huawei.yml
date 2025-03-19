@@ -27,4 +27,4 @@ jobs:
           CLIENT_ID: ${{ secrets.APP_GALLERY_CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.APP_GALLERY_CLIENT_SECRET }}
           APK_PATH: composeApp/build/outputs/bundle/fullRelease/composeApp-full-release.aab
-        run: bundle exec fastlane android publish_app_gallery app_id:$APP_ID client_id:$CLIENT_ID client_secret:$CLIENT_SECRET apk_path:$APK_PATH
+        run: bundle exec fastlane android publish_app_gallery organization:ooni app_id:$APP_ID client_id:$CLIENT_ID client_secret:$CLIENT_SECRET apk_path:$APK_PATH
