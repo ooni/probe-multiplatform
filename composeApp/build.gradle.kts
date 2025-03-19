@@ -251,6 +251,8 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "ooni-probe"
             packageVersion = "1.0.0"
+            modules("java.sql")
+            modules("jdk.unsupported")
         }
     }
 }

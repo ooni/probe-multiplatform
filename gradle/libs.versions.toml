@@ -84,6 +84,8 @@ android-test-rules = { module = "androidx.test:rules", version = "1.6.1" }
 androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.7.5" }
 androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.6.1" }
 
+auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.5.1"}
+
 [bundles]
 
 kotlin = [
@@ -115,6 +117,7 @@ android = [
 desktop = [
     "sqldelight-jvm",
     "androidx-datastore-core-jvm",
+    "auto-launch"
 ]
 full = [
     "sentry",
