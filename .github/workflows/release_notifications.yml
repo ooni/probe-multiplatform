@@ -26,4 +26,4 @@ jobs:
         env:
           SLACK_URL: ${{ secrets.SLACK_URL }}
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"New release of the Probe Multiplatform app: ${{ github.ref }}"}' $SLACK_URL
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"New release of the Probe Multiplatform app ${{ github.ref_name }}: https://github.com/ooni/probe-multiplatform/releases/latest"}' $SLACK_URL
