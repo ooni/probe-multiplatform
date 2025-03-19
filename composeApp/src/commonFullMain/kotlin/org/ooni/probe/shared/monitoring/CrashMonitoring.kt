@@ -21,6 +21,7 @@ class CrashMonitoring(
                 if (sendCrash == true) {
                     Sentry.init {
                         it.dsn = platformInfo.sentryDsn
+                        it.release = platformInfo.version
                         it.tracesSampleRate = 1.0
                     }
                 } else {
