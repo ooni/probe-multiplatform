@@ -17,6 +17,7 @@ import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.UrlModel
+import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.toLocalDateTime
 
 class RunNetTest(
@@ -48,26 +49,34 @@ class RunNetTest(
     private val progressStep = 1.0 / spec.descriptor.netTests.size
 
     suspend operator fun invoke() {
-        setCurrentTestState {
-            if (it !is RunBackgroundState.RunningTests) return@setCurrentTestState it
-            it.copy(
-                descriptor = spec.descriptor,
-                descriptorIndex = spec.descriptorIndex,
-                testType = spec.netTest.test,
-                testProgress = spec.testIndex * progressStep,
-                testIndex = spec.testIndex,
-                testTotal = spec.testTotal,
-            )
-        }
-        val installedDescriptorId =
-            (spec.descriptor.source as? Descriptor.Source.Installed)?.value?.id
+        Instrumentation.withTransaction(
+            operation = this::class.simpleName.orEmpty(),
+            data = mapOf(
+                "test" to spec.netTest.test.name,
+                "inputsCount" to (spec.netTest.inputs?.size ?: 0),
+            ),
+        ) {
+            setCurrentTestState {
+                if (it !is RunBackgroundState.RunningTests) return@setCurrentTestState it
+                it.copy(
+                    descriptor = spec.descriptor,
+                    descriptorIndex = spec.descriptorIndex,
+                    testType = spec.netTest.test,
+                    testProgress = spec.testIndex * progressStep,
+                    testIndex = spec.testIndex,
+                    testTotal = spec.testTotal,
+                )
+            }
+            val installedDescriptorId =
+                (spec.descriptor.source as? Descriptor.Source.Installed)?.value?.id
 
-        startTest(
-            spec.netTest,
-            spec.taskOrigin,
-            installedDescriptorId,
-        )
-            .collect(::onEvent)
+            startTest(
+                spec.netTest,
+                spec.taskOrigin,
+                installedDescriptorId,
+            )
+                .collect(::onEvent)
+        }
     }
 
     private suspend fun onEvent(event: TaskEvent) {

@@ -21,6 +21,7 @@ import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.domain.UploadMissingMeasurements
+import org.ooni.probe.shared.monitoring.Instrumentation
 
 class RunBackgroundTask(
     private val getPreferenceValueByKey: (SettingsKey) -> Flow<Any?>,
@@ -36,34 +37,42 @@ class RunBackgroundTask(
 ) {
     operator fun invoke(spec: RunSpecification?): Flow<RunBackgroundState> =
         channelFlow {
-            val initialState = getRunBackgroundState().first()
-            if (initialState !is RunBackgroundState.Idle) {
-                Logger.i("Background task is already running, so we won't start another one")
-                return@channelFlow
-            }
+            Instrumentation.withTransaction(
+                name = "Run",
+                operation = this@RunBackgroundTask::class.simpleName.orEmpty(),
+                data = mapOf(
+                    "specType" to spec?.let { it::class.simpleName }.toString(),
+                ),
+            ) {
+                val initialState = getRunBackgroundState().first()
+                if (initialState !is RunBackgroundState.Idle) {
+                    Logger.i("Background task is already running, so we won't start another one")
+                    return@withTransaction
+                }
 
-            val isAutoRun = spec == null
+                val isAutoRun = spec == null
 
-            if (isAutoRun && !checkAutoRunConstraints()) return@channelFlow
+                if (isAutoRun && !checkAutoRunConstraints()) return@withTransaction
 
-            if (isAutoRun || spec is RunSpecification.OnlyUploadMissingResults) {
-                val uploadCancelled = uploadMissingResults()
-                if (uploadCancelled) return@channelFlow
-            }
+                if (isAutoRun || spec is RunSpecification.OnlyUploadMissingResults) {
+                    val uploadCancelled = uploadMissingResults()
+                    if (uploadCancelled) return@withTransaction
+                }
 
-            if (spec is RunSpecification.OnlyUploadMissingResults) {
-                setRunBackgroundState { RunBackgroundState.Idle() }
-                return@channelFlow
-            }
+                if (spec is RunSpecification.OnlyUploadMissingResults) {
+                    setRunBackgroundState { RunBackgroundState.Idle() }
+                    return@withTransaction
+                }
 
-            runTests(spec as? RunSpecification.Full)
+                runTests(spec as? RunSpecification.Full)
 
-            // When a test is cancelled, sometimes the last measurement isn't uploaded
+                // When a test is cancelled, sometimes the last measurement isn't uploaded
 
-            getLatestResult().first()?.id.let { latestResultId ->
-                val idleState = getRunBackgroundState().first()
-                uploadMissingResults(resultId = latestResultId)
-                updateState(idleState)
+                getLatestResult().first()?.id.let { latestResultId ->
+                    val idleState = getRunBackgroundState().first()
+                    uploadMissingResults(resultId = latestResultId)
+                    updateState(idleState)
+                }
             }
         }.onCompletion {
             clearRunCancelListeners()

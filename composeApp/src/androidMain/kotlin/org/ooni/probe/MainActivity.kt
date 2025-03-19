@@ -3,7 +3,6 @@ package org.ooni.probe
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.ComponentActivity
@@ -20,6 +19,7 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.UpdateMonitoring
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.ui.shared.showAppReview
+import androidx.core.net.toUri
 
 class MainActivity : ComponentActivity() {
     private val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
@@ -107,7 +107,7 @@ class MainActivity : ComponentActivity() {
                 context: Context,
                 input: Unit,
             ) = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-                .setData(Uri.parse("package:$packageName"))
+                .setData("package:$packageName".toUri())
 
             override fun parseResult(
                 resultCode: Int,

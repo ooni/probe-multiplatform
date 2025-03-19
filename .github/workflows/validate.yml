@@ -54,8 +54,11 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: Run lint
-        run: ./gradlew copyBrandingToCommonResources lintFdroidDebug lintFullDebug
+      - name: Run fdroid lint
+        run: ./gradlew copyBrandingToCommonResources lintFdroidDebug
+
+      - name: Run full lint
+        run: ./gradlew copyBrandingToCommonResources lintFullDebug
 
       - name: Uploads test reports
         uses: actions/upload-artifact@v4
