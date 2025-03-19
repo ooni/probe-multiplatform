@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.isActive
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
 import org.ooni.engine.models.EnginePreferences
@@ -96,7 +95,7 @@ class Engine(
                         charging = isBatteryCharging(),
                         onWiFi = networkTypeFinder() == NetworkType.Wifi,
                         platform = platformInfo.platform.value,
-                        runType = taskOrigin.value,
+                        runType = taskOrigin.runType,
                         softwareName = sessionConfig.softwareName,
                         softwareVersion = sessionConfig.softwareVersion,
                         webConnectivityCategories = preferences.enabledWebCategories,
@@ -216,6 +215,12 @@ class Engine(
             }
         }
     }
+
+    private val TaskOrigin.runType
+        get() = when (this) {
+            TaskOrigin.AutoRun -> "timed"
+            TaskOrigin.OoniRun -> "manual"
+        }
 
     class MkException(t: Throwable) : Exception(t)
 }
