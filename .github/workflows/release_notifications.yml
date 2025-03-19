@@ -6,21 +6,11 @@ on:
 
 jobs:
   release:
-    name: Notify Sentry and Slack
+    name: Notifications
     runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Create Sentry release
-        uses: getsentry/action-release@v1
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG_SLUG }}
-        with:
-          environment: production
-          projects: ${{ secrets.SENTRY_PROJECT_SLUG_IOS }} ${{ secrets.SENTRY_PROJECT_SLUG_ANDROID }}
-          version: ${{ github.ref }}
 
       - name: Slack Notification
         env:
