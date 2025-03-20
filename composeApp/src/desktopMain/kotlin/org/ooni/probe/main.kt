@@ -17,6 +17,7 @@ import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import io.github.vinceglb.autolaunch.AutoLaunch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -79,6 +80,14 @@ fun main() {
 
         LaunchedEffect(Unit){
             autoLaunch.enable()
+        }
+
+        // start an hourly background task that calls startSingleRun
+        LaunchedEffect(Unit) {
+            while (true) {
+                startSingleRun()
+                delay(1000 * 60 * 60)
+            }
         }
 
         Window(
