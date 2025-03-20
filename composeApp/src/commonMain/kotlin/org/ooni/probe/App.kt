@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
@@ -43,13 +44,15 @@ fun App(
     val snackbarHostState = remember { SnackbarHostState() }
 
     val currentNavEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = currentNavEntry?.destination?.route
-    val isMainScreen = MAIN_NAVIGATION_SCREENS.map { it.route }.contains(currentRoute)
+    val isMainScreen = MAIN_NAVIGATION_SCREENS.any {
+        currentNavEntry?.destination?.hasRoute(it::class) == true
+    }
 
     CompositionLocalProvider(
-        values = dependencies.localeDirection?.invoke()?.let { LocalLayoutDirection provides it }?.let {
-            arrayOf(LocalSnackbarHostState provides snackbarHostState, it)
-        } ?: arrayOf(LocalSnackbarHostState provides snackbarHostState),
+        values = dependencies.localeDirection?.invoke()?.let { LocalLayoutDirection provides it }
+            ?.let {
+                arrayOf(LocalSnackbarHostState provides snackbarHostState, it)
+            } ?: arrayOf(LocalSnackbarHostState provides snackbarHostState),
     ) {
         AppTheme {
             Surface(
@@ -112,17 +115,22 @@ fun App(
     LaunchedEffect(deepLink) {
         when (deepLink) {
             is DeepLink.AddDescriptor -> {
-                navController.navigate("add-descriptor/${deepLink.id}")
+                navController.navigate(
+                    Screen.AddDescriptor(deepLink.id.toLongOrNull() ?: return@LaunchedEffect),
+                )
                 onDeeplinkHandled()
             }
+
             is DeepLink.RunUrls -> {
-                navController.navigate(Screen.ChooseWebsites(deepLink.url).route)
+                navController.navigate(Screen.ChooseWebsites(deepLink.url))
                 onDeeplinkHandled()
             }
+
             DeepLink.Error -> {
                 snackbarHostState.showSnackbar(getString(Res.string.AddDescriptor_Toasts_Unsupported_Url))
                 onDeeplinkHandled()
             }
+
             null -> Unit
         }
     }
@@ -143,4 +151,4 @@ private fun logAppStart(platformInfo: PlatformInfo) {
 
 val LocalSnackbarHostState = compositionLocalOf<SnackbarHostState?> { null }
 
-val MAIN_NAVIGATION_SCREENS = listOf(Screen.Dashboard, Screen.Results, Screen.Settings)
+val MAIN_NAVIGATION_SCREENS = listOf<Screen>(Screen.Dashboard, Screen.Results, Screen.Settings)
