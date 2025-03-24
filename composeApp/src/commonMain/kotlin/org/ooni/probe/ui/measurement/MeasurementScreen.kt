@@ -38,26 +38,18 @@ import ooniprobe.composeapp.generated.resources.Measurement_LoadingFailed
 import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
-import org.intellij.markdown.html.urlEncode
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.config.OrganizationConfig
-import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.ui.shared.OoniWebView
 import org.ooni.probe.ui.shared.OoniWebViewController
 import org.ooni.probe.ui.shared.TopBar
 
 @Composable
 fun MeasurementScreen(
-    reportId: MeasurementModel.ReportId,
-    input: String?,
-    onBack: () -> Unit,
+    state: MeasurementViewModel.State,
     onEvent: (MeasurementViewModel.Event) -> Unit,
 ) {
     val controller = remember { OoniWebViewController() }
-
-    val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
-    val url = "${OrganizationConfig.explorerUrl}/measurement/${reportId.value}$inputSuffix"
 
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         Box {
@@ -66,7 +58,7 @@ fun MeasurementScreen(
                     Text(stringResource(Res.string.Measurement_Title))
                 },
                 navigationIcon = {
-                    IconButton(onClick = { onBack() }) {
+                    IconButton(onClick = { onEvent(MeasurementViewModel.Event.BackClicked) }) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(Res.string.Common_Back),
@@ -76,7 +68,7 @@ fun MeasurementScreen(
                 actions = {
                     IconButton(
                         onClick = {
-                            onEvent(MeasurementViewModel.Event.ShareUrl(url))
+                            onEvent(MeasurementViewModel.Event.ShareUrl)
                         },
                     ) {
                         Icon(
@@ -122,6 +114,8 @@ fun MeasurementScreen(
             )
         }
 
+        if (state !is MeasurementViewModel.State.ShowMeasurement) return@Column
+
         Box(modifier = Modifier.fillMaxSize()) {
             val isFailure = controller.state is OoniWebViewController.State.Failure
 
@@ -163,7 +157,8 @@ fun MeasurementScreen(
         }
     }
 
+    val url = (state as? MeasurementViewModel.State.ShowMeasurement)?.url
     LaunchedEffect(url) {
-        controller.load(url)
+        url?.let(controller::load)
     }
 }

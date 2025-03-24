@@ -90,6 +90,7 @@ class SetupDependencies(
         localeDirection = ::localeDirection,
         launchAction = ::launchAction,
         batteryOptimization = object : BatteryOptimization {},
+        isWebViewAvailable = { true },
         flavorConfig = FlavorConfig(),
     )
 
