@@ -12,7 +12,12 @@ fun showAppReview(
     onShown: suspend () -> Unit,
 ) {
     val manager = ReviewManagerFactory.create(activity)
-    val request = manager.requestReviewFlow()
+    val request = try {
+        manager.requestReviewFlow()
+    } catch (e: Exception) {
+        Logger.i("Could not request review", e)
+        return
+    }
     request.addOnCompleteListener { task ->
         if (task.isSuccessful) {
             val flow = manager.launchReviewFlow(activity, task.result)
