@@ -90,13 +90,11 @@ class AndroidApplication : Application() {
         )
     }
 
-    private fun readAssetFile(path: String) =
-        assets.open(path).bufferedReader().use { it.readText() }
+    private fun readAssetFile(path: String) = assets.open(path).bufferedReader().use { it.readText() }
 
     private val connectivityManager get() = getSystemService(ConnectivityManager::class.java)
 
-    private fun buildDatabaseDriver(): SqlDriver =
-        AndroidSqliteDriver(Database.Schema, this, "v2.db")
+    private fun buildDatabaseDriver(): SqlDriver = AndroidSqliteDriver(Database.Schema, this, "v2.db")
 
     private fun buildDataStore(): DataStore<Preferences> =
         Dependencies.getDataStore(

@@ -116,8 +116,6 @@ tooling = [
     "okio",
     "markdown",
     "kottie",
-    # "moko-permissions-compose",
-    # "moko-permissions-notifications",
     "web-view",
 ]
 android = [
@@ -126,6 +124,10 @@ android = [
     "android-fragment",
     "android-work",
     "sqldelight-android",
+]
+mobile = [
+    "moko-permissions-compose",
+    "moko-permissions-notifications",
 ]
 desktop = [
     "sqldelight-jvm",

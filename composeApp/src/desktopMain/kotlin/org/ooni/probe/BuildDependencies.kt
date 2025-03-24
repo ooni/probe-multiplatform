@@ -39,19 +39,21 @@ val dependencies = Dependencies(
     startDescriptorsUpdate = ::startDescriptorsUpdate,
     launchAction = ::launchAction,
     batteryOptimization = object : BatteryOptimization {},
+    isWebViewAvailable = ::isWebViewAvailable,
     flavorConfig = DesktopFlavorConfig(),
 )
 
 // TODO: Desktop - PlatformInfo
-private fun buildPlatformInfo() = PlatformInfo(
-    buildName = "1.0",
-    buildNumber = "1",
-    platform = Platform.Desktop,
-    osVersion = "1.0",
-    model = "model",
-    needsToRequestNotificationsPermission = false,
-    sentryDsn = "",
-)
+private fun buildPlatformInfo() =
+    PlatformInfo(
+        buildName = "1.0",
+        buildNumber = "1",
+        platform = Platform.Desktop,
+        osVersion = "1.0",
+        model = "model",
+        needsToRequestNotificationsPermission = false,
+        sentryDsn = "",
+    )
 
 private fun readAssetFile(path: String): String {
     // TODO: Desktop - readAssetFile
@@ -69,8 +71,7 @@ private fun buildDatabaseDriver(): JdbcSqliteDriver {
 private fun networkTypeFinder() = NetworkType.Wifi
 
 // TODO: Desktop - Confirm appropriate path and configuration
-private fun buildDataStore() =
-    PreferenceDataStoreFactory.create { "$BASE_FILES_DIR/probe.preferences_pb".toPath().toFile() }
+private fun buildDataStore() = PreferenceDataStoreFactory.create { "$BASE_FILES_DIR/probe.preferences_pb".toPath().toFile() }
 
 private fun isBatteryCharging(): Boolean {
     // TODO: Desktop - isBatteryCharging
@@ -102,6 +103,11 @@ private fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorMode
 
 private fun launchAction(action: PlatformAction): Boolean {
     // TODO: Desktop - launchAction
+    return true
+}
+
+private fun isWebViewAvailable(): Boolean {
+    // TODO: Desktop - isWebViewAvailable
     return true
 }
 

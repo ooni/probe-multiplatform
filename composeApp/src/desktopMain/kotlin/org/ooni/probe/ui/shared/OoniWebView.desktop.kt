@@ -7,6 +7,6 @@ import androidx.compose.ui.Modifier
 actual fun OoniWebView(
     controller: OoniWebViewController,
     modifier: Modifier,
-    allowedDomains: List<String>
+    allowedDomains: List<String>,
 ) {
 }

@@ -88,6 +88,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.bundles.android)
+            implementation(libs.bundles.mobile)
         }
         commonMain {
             dependencies {
@@ -112,6 +113,7 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native)
+            implementation(libs.bundles.mobile)
         }
         val desktopMain by getting {
             dependencies {

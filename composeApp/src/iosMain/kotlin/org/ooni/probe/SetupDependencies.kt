@@ -112,19 +112,19 @@ class SetupDependencies(
 
     fun ooniRunDomain() = OrganizationConfig.ooniRunDomain
 
-    private fun buildPlatformInfo() = PlatformInfo(
-        buildName = NSBundle.mainBundle.infoDictionary?.get("CFBundleShortVersionString") as? String
-            ?: "",
-        buildNumber = NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String ?: "",
-        platform = Platform.Ios,
-        osVersion = with(UIDevice.currentDevice) { systemVersion },
-        model = UIDevice.currentDevice.model,
-        needsToRequestNotificationsPermission = true,
-        sentryDsn = "https://a19b2c03b50acdad7d5635559a8e2cad@o155150.ingest.sentry.io/4508325650235392",
-    )
+    private fun buildPlatformInfo() =
+        PlatformInfo(
+            buildName = NSBundle.mainBundle.infoDictionary?.get("CFBundleShortVersionString") as? String
+                ?: "",
+            buildNumber = NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String ?: "",
+            platform = Platform.Ios,
+            osVersion = with(UIDevice.currentDevice) { systemVersion },
+            model = UIDevice.currentDevice.model,
+            needsToRequestNotificationsPermission = true,
+            sentryDsn = "https://a19b2c03b50acdad7d5635559a8e2cad@o155150.ingest.sentry.io/4508325650235392",
+        )
 
-    private fun buildDatabaseDriver() =
-        NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")
+    private fun buildDatabaseDriver() = NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")
 
     /**
      * New asset files need to be added to the iOS project using xCode:
@@ -141,7 +141,7 @@ class SetupDependencies(
             NSString.stringWithContentsOfFile(
                 resource,
                 NSUTF8StringEncoding,
-                null
+                null,
             )
         }
             ?: error("Couldn't read asset file: $path")

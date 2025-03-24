@@ -15,7 +15,8 @@ data class PlatformInfo(
 enum class Platform {
     Android,
     Ios,
-    Desktop;
+    Desktop,
+    ;
 
     val value
         get() = when (this) {
