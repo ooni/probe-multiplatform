@@ -72,7 +72,7 @@ moko-permissions-notifications = { module ="dev.icerock.moko:permissions-notific
 sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.11.0" }
 
 # Markdown
-markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.31.0" }
+markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.32.0" }
 
 # WebView
 web-view = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "1.9.40" }
