@@ -120,6 +120,7 @@ class Dependencies(
     val configureDescriptorAutoUpdate: suspend () -> Boolean,
     val startDescriptorsUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
+    private val isWebViewAvailable: () -> Boolean,
     private val launchAction: (PlatformAction) -> Boolean,
     private val batteryOptimization: BatteryOptimization,
     val flavorConfig: FlavorConfigInterface,
@@ -584,11 +585,18 @@ class Dependencies(
         startBackgroundRun = startSingleRunInner,
     )
 
-    fun measurementViewModel(onBack: () -> Unit) =
-        MeasurementViewModel(
-            onBack = onBack,
-            shareUrl = { launchAction(PlatformAction.Share(it)) },
-        )
+    fun measurementViewModel(
+        reportId: MeasurementModel.ReportId,
+        input: String?,
+        onBack: () -> Unit,
+    ) = MeasurementViewModel(
+        reportId = reportId,
+        input = input,
+        onBack = onBack,
+        shareUrl = { launchAction(PlatformAction.Share(it)) },
+        openUrl = { launchAction(PlatformAction.OpenUrl(it)) },
+        isWebViewAvailable = isWebViewAvailable,
+    )
 
     fun reviewUpdatesViewModel(
         descriptorIds: List<InstalledTestDescriptorModel.Id>?,

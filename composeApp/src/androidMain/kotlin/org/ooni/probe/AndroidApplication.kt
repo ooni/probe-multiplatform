@@ -18,6 +18,7 @@ import androidx.core.net.toUri
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.SharedPreferencesMigration
 import androidx.datastore.preferences.core.Preferences
+import androidx.webkit.WebViewCompat
 import androidx.work.WorkManager
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
@@ -56,6 +57,7 @@ class AndroidApplication : Application() {
             startDescriptorsUpdate = appWorkerManager::startDescriptorsUpdate,
             launchAction = ::launchAction,
             batteryOptimization = batteryOptimization,
+            isWebViewAvailable = ::isWebViewAvailable,
             flavorConfig = FlavorConfig(),
         )
     }
@@ -238,6 +240,8 @@ class AndroidApplication : Application() {
             false
         }
     }
+
+    private fun isWebViewAvailable() = WebViewCompat.getCurrentWebViewPackage(this) != null
 
     private val batteryOptimization by lazy {
         AndroidBatteryOptimization(
