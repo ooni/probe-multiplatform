@@ -20,7 +20,6 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.shared.PlatformInfo
-import org.ooni.probe.shared.value
 import kotlin.coroutines.CoroutineContext
 
 const val MAX_RUNTIME_DISABLED = -1

@@ -305,7 +305,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "org.ooni.probe"
-            packageVersion = "1.0.0"
+            packageVersion = android.defaultConfig.versionName
         }
     }
 }

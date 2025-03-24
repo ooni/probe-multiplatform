@@ -74,7 +74,7 @@ class SetupDependencies(
      * See link for `cacheDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L66
      */
     val dependencies: Dependencies = Dependencies(
-        platformInfo = platformInfo,
+        platformInfo = buildPlatformInfo(),
         oonimkallBridge = bridge,
         baseFileDir = baseFileDir(),
         cacheDir = NSTemporaryDirectory(),
@@ -112,19 +112,19 @@ class SetupDependencies(
 
     fun ooniRunDomain() = OrganizationConfig.ooniRunDomain
 
-    private val platformInfo: PlatformInfo
-        get() = object : PlatformInfo {
-            override val buildName = NSBundle.mainBundle.infoDictionary?.get("CFBundleShortVersionString") as? String ?: ""
-            override val buildNumber =
-                (NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String).orEmpty()
-            override val platform = Platform.Ios
-            override val osVersion = with(UIDevice.currentDevice) { systemVersion }
-            override val model = UIDevice.currentDevice.model
-            override val needsToRequestNotificationsPermission = true
-            override val sentryDsn = "https://a19b2c03b50acdad7d5635559a8e2cad@o155150.ingest.sentry.io/4508325650235392"
-        }
+    private fun buildPlatformInfo() = PlatformInfo(
+        buildName = NSBundle.mainBundle.infoDictionary?.get("CFBundleShortVersionString") as? String
+            ?: "",
+        buildNumber = NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String ?: "",
+        platform = Platform.Ios,
+        osVersion = with(UIDevice.currentDevice) { systemVersion },
+        model = UIDevice.currentDevice.model,
+        needsToRequestNotificationsPermission = true,
+        sentryDsn = "https://a19b2c03b50acdad7d5635559a8e2cad@o155150.ingest.sentry.io/4508325650235392",
+    )
 
-    private fun buildDatabaseDriver() = NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")
+    private fun buildDatabaseDriver() =
+        NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")
 
     /**
      * New asset files need to be added to the iOS project using xCode:
@@ -137,7 +137,13 @@ class SetupDependencies(
         val fileName = path.split(".").first()
         val type = path.split(".").last()
         val resource = NSBundle.bundleForClass(BundleMarker).pathForResource(fileName, type)
-        return resource?.let { NSString.stringWithContentsOfFile(resource, NSUTF8StringEncoding, null) }
+        return resource?.let {
+            NSString.stringWithContentsOfFile(
+                resource,
+                NSUTF8StringEncoding,
+                null
+            )
+        }
             ?: error("Couldn't read asset file: $path")
     }
 

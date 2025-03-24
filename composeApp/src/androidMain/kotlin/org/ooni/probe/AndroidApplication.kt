@@ -77,24 +77,26 @@ class AndroidApplication : Application() {
     }
 
     private val platformInfo by lazy {
-        object : PlatformInfo {
-            override val buildName: String = BuildConfig.VERSION_NAME
-            override val buildNumber: String = BuildConfig.VERSION_CODE.toString()
-            override val platform = Platform.Android
-            override val osVersion = Build.VERSION.SDK_INT.toString()
-            override val model = "${Build.MANUFACTURER} ${Build.MODEL}"
-            override val needsToRequestNotificationsPermission =
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-            override val sentryDsn =
-                "https://7a49ffedcb48b9b69705d1ac2c032c69@o155150.ingest.sentry.io/4508325642764288"
-        }
+        PlatformInfo(
+            buildName = BuildConfig.VERSION_NAME,
+            buildNumber = BuildConfig.VERSION_CODE.toString(),
+            platform = Platform.Android,
+            osVersion = Build.VERSION.SDK_INT.toString(),
+            model = "${Build.MANUFACTURER} ${Build.MODEL}",
+            needsToRequestNotificationsPermission =
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU,
+            sentryDsn =
+                "https://7a49ffedcb48b9b69705d1ac2c032c69@o155150.ingest.sentry.io/4508325642764288",
+        )
     }
 
-    private fun readAssetFile(path: String) = assets.open(path).bufferedReader().use { it.readText() }
+    private fun readAssetFile(path: String) =
+        assets.open(path).bufferedReader().use { it.readText() }
 
     private val connectivityManager get() = getSystemService(ConnectivityManager::class.java)
 
-    private fun buildDatabaseDriver(): SqlDriver = AndroidSqliteDriver(Database.Schema, this, "v2.db")
+    private fun buildDatabaseDriver(): SqlDriver =
+        AndroidSqliteDriver(Database.Schema, this, "v2.db")
 
     private fun buildDataStore(): DataStore<Preferences> =
         Dependencies.getDataStore(
