@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Title
@@ -38,7 +39,7 @@ fun SettingsScreen(
                 SettingsItemView(
                     icon = item.icon,
                     title = item.title,
-                    modifier = Modifier.clickable {
+                    modifier = Modifier.testTag(item.route.value).clickable {
                         onEvent(
                             SettingsViewModel.Event.SettingsCategoryClick(
                                 item.route,
