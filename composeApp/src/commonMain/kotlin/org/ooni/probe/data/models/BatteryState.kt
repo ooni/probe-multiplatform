@@ -1,5 +1,7 @@
 package org.ooni.probe.data.models
 
-data class BatteryState(
-    val isCharging: Boolean,
-)
+enum class BatteryState {
+    NotCharging,
+    Charging,
+    Unknown,
+}
