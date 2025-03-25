@@ -61,6 +61,8 @@ jobs:
         uses: hydraulic-software/conveyor/actions/build@v9.1
         with:
           command: make app
+          signing_key: ${{ secrets.SIGNING_KEY }}
+          agree_to_license: 1
 
   android-lint:
     name: Android Lint
