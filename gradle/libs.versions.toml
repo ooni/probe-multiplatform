@@ -101,6 +101,7 @@ fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" 
 # Desktop
 
 conveyor = { module = "dev.hydraulic.conveyor:conveyor-control", version = "1.1" }
+directories = { module = "dev.dirs:directories", version = "26" }
 
 [bundles]
 
@@ -138,6 +139,7 @@ desktop = [
     "sqldelight-jvm",
     "androidx-datastore-core-jvm",
     "conveyor",
+    "directories",
 ]
 full = [
     "sentry",
