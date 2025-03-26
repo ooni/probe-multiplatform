@@ -74,6 +74,7 @@ class GetSettings(
     private val clearStorage: suspend (Boolean) -> Unit,
     val observeStorageUsed: () -> Flow<Long>,
     private val supportsCrashReporting: Boolean,
+    private val knownBatteryState: Boolean,
 ) {
     operator fun invoke(): Flow<List<SettingsCategoryItem>> {
         return combine(
@@ -167,14 +168,19 @@ class GetSettings(
                             enabled = autoRunEnabled && uploadResultsEnabled,
                             indentation = 1,
                         ),
-                        SettingsItem(
-                            title = Res.string.Settings_AutomatedTesting_RunAutomatically_ChargingOnly,
-                            key = SettingsKey.AUTOMATED_TESTING_CHARGING,
-                            type = PreferenceItemType.SWITCH,
-                            enabled = autoRunEnabled && uploadResultsEnabled,
-                            indentation = 1,
-                        ),
-                    )
+                    ) + if (knownBatteryState) {
+                        listOf(
+                            SettingsItem(
+                                title = Res.string.Settings_AutomatedTesting_RunAutomatically_ChargingOnly,
+                                key = SettingsKey.AUTOMATED_TESTING_CHARGING,
+                                type = PreferenceItemType.SWITCH,
+                                enabled = autoRunEnabled && uploadResultsEnabled,
+                                indentation = 1,
+                            ),
+                        )
+                    } else {
+                        emptyList()
+                    }
                 } else {
                     emptyList()
                 } + if (hasWebsitesDescriptor) {

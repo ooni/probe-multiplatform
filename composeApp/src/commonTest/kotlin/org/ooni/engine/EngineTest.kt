@@ -11,6 +11,7 @@ import org.ooni.engine.models.TaskLogLevel
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
 import org.ooni.engine.models.TestType
+import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -71,7 +72,7 @@ class EngineTest {
             cacheDir = "",
             taskEventMapper = TaskEventMapper(networkTypeFinder, json),
             networkTypeFinder = networkTypeFinder,
-            isBatteryCharging = { true },
+            getBatteryState = { BatteryState.Charging },
             platformInfo = PlatformInfo(
                 buildName = "1",
                 buildNumber = "1",

@@ -13,6 +13,7 @@ import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.FlavorConfigInterface
 import org.ooni.probe.config.OptionalFeature
 import org.ooni.probe.data.models.AutoRunParameters
+import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.RunSpecification
@@ -32,7 +33,7 @@ val dependencies = Dependencies(
     databaseDriverFactory = ::buildDatabaseDriver,
     networkTypeFinder = ::networkTypeFinder,
     buildDataStore = ::buildDataStore,
-    isBatteryCharging = ::isBatteryCharging,
+    getBatteryState = { BatteryState.Unknown },
     startSingleRunInner = ::startSingleRun,
     configureAutoRun = ::configureAutoRun,
     configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
@@ -52,6 +53,7 @@ private fun buildPlatformInfo() =
         osVersion = "1.0",
         model = "model",
         needsToRequestNotificationsPermission = false,
+        knownBatteryState = false,
         sentryDsn = "",
     )
 
@@ -72,11 +74,6 @@ private fun networkTypeFinder() = NetworkType.Wifi
 
 // TODO: Desktop - Confirm appropriate path and configuration
 private fun buildDataStore() = PreferenceDataStoreFactory.create { "$BASE_FILES_DIR/probe.preferences_pb".toPath().toFile() }
-
-private fun isBatteryCharging(): Boolean {
-    // TODO: Desktop - isBatteryCharging
-    return true
-}
 
 private fun startSingleRun(spec: RunSpecification) {
     // TODO: Desktop - background running

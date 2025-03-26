@@ -4,9 +4,11 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.NetworkType
 import org.ooni.probe.data.models.AutoRunParameters
+import org.ooni.probe.data.models.BatteryState
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class CheckAutoRunConstraintsTest {
     @Test
@@ -28,7 +30,8 @@ class CheckAutoRunConstraintsTest {
                             )
                         },
                         getNetworkType = { NetworkType.Wifi },
-                        isBatteryCharging = { true },
+                        getBatteryState = { BatteryState.Charging },
+                        knownBatteryState = true,
                         countResultsMissingUpload = { flowOf(count) },
                     )(),
                 )
@@ -51,10 +54,44 @@ class CheckAutoRunConstraintsTest {
                     )
                 },
                 getNetworkType = { NetworkType.VPN },
-                isBatteryCharging = { true },
+                getBatteryState = { BatteryState.Charging },
+                knownBatteryState = true,
                 countResultsMissingUpload = { flowOf(0) },
             )
 
             assertFalse(subject())
+        }
+
+    @Test
+    fun checkCharging() =
+        runTest {
+            suspend fun test(
+                onlyWhileCharging: Boolean,
+                batteryState: BatteryState,
+                knownBatteryState: Boolean,
+            ) = CheckAutoRunConstraints(
+                getAutoRunSettings = {
+                    flowOf(
+                        AutoRunParameters.Enabled(
+                            wifiOnly = false,
+                            onlyWhileCharging = onlyWhileCharging,
+                        ),
+                    )
+                },
+                getNetworkType = { NetworkType.Wifi },
+                getBatteryState = { batteryState },
+                knownBatteryState = knownBatteryState,
+                countResultsMissingUpload = { flowOf(0) },
+            )()
+
+            assertTrue(
+                test(onlyWhileCharging = true, BatteryState.Charging, knownBatteryState = true),
+            )
+            assertFalse(
+                test(onlyWhileCharging = true, BatteryState.NotCharging, knownBatteryState = true),
+            )
+            assertTrue(
+                test(onlyWhileCharging = true, BatteryState.Unknown, knownBatteryState = false),
+            )
         }
 }

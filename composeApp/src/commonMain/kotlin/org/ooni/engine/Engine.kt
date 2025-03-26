@@ -17,6 +17,7 @@ import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
 import org.ooni.engine.models.resultOf
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.shared.PlatformInfo
@@ -32,7 +33,7 @@ class Engine(
     private val cacheDir: String,
     private val taskEventMapper: TaskEventMapper,
     private val networkTypeFinder: NetworkTypeFinder,
-    private val isBatteryCharging: suspend () -> Boolean,
+    private val getBatteryState: () -> BatteryState,
     private val platformInfo: PlatformInfo,
     private val getEnginePreferences: suspend () -> EnginePreferences,
     private val addRunCancelListener: (() -> Unit) -> Unit,
@@ -198,6 +199,15 @@ class Engine(
             "-" +
             platformInfo.platform.value +
             (if (taskOrigin == TaskOrigin.AutoRun) "-" + "unattended" else "")
+
+    private fun isBatteryCharging(): Boolean {
+        return when (getBatteryState()) {
+            BatteryState.NotCharging -> false
+            BatteryState.Charging,
+            BatteryState.Unknown,
+            -> true
+        }
+    }
 
     private val oonimkallLogger by lazy {
         object : OonimkallBridge.Logger {

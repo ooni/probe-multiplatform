@@ -28,6 +28,7 @@ import org.ooni.probe.data.disk.ReadFileOkio
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.disk.WriteFileOkio
 import org.ooni.probe.data.models.AutoRunParameters
+import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.PlatformAction
@@ -114,7 +115,7 @@ class Dependencies(
     private val networkTypeFinder: NetworkTypeFinder,
     @VisibleForTesting
     val buildDataStore: () -> DataStore<Preferences>,
-    private val isBatteryCharging: () -> Boolean,
+    private val getBatteryState: () -> BatteryState,
     val startSingleRunInner: (RunSpecification) -> Unit,
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
     val configureDescriptorAutoUpdate: suspend () -> Boolean,
@@ -195,7 +196,7 @@ class Dependencies(
             cacheDir = cacheDir,
             taskEventMapper = taskEventMapper,
             networkTypeFinder = networkTypeFinder,
-            isBatteryCharging = isBatteryCharging,
+            getBatteryState = getBatteryState,
             platformInfo = platformInfo,
             getEnginePreferences = getEnginePreferences::invoke,
             addRunCancelListener = runBackgroundStateManager::addCancelListener,
@@ -231,7 +232,8 @@ class Dependencies(
         CheckAutoRunConstraints(
             getAutoRunSettings = getAutoRunSettings::invoke,
             getNetworkType = networkTypeFinder::invoke,
-            isBatteryCharging = isBatteryCharging::invoke,
+            getBatteryState = getBatteryState::invoke,
+            knownBatteryState = platformInfo.knownBatteryState,
             resultRepository::countMissingUpload,
         )
     }
@@ -315,6 +317,7 @@ class Dependencies(
             observeStorageUsed = getStorageUsed::observe,
             clearStorage = clearStorage::invoke,
             supportsCrashReporting = flavorConfig.isCrashReportingEnabled,
+            knownBatteryState = platformInfo.knownBatteryState,
         )
     }
 
