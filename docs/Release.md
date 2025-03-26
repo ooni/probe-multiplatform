@@ -32,9 +32,22 @@ be released.
 
 #### 1.2 Update the version
 
-For Android, update the `versionCode` and `versionName` at `composeApp/build.gradle.kts`.
-The `versionCode` should be increased in increments of 10 to allow for different versionCodes for
-each split APK for F-droid.
+`versionCode` is an integer number that must be incremented every time there's a new release.
+It should be increased in increments of 10 to allow for different versionCodes for each split APK
+for F-droid.
+
+`versionName` is the public version of a release. The app is versioned by combining 3 numbers:
+`MAJOR.MINOR.PATCH`:
+
+- `PATCH` is incremented if a release only includes bug fixes, dependency updates or
+copy/translation changes;
+- `MINOR` is incremented if a release includes new features or changes in user experience
+(PATCH resets to 0);
+- `MAJOR` is incremented only if a release includes significant new features or changes
+(MINOR AND PATCH reset to 0).
+
+For Android and Desktop, update the `versionCode` and `versionName` at
+`composeApp/build.gradle.kts`.
 
 For iOS, update the `BUNDLE_VERSION` to match `versionCode` and `APP_VERSION` to match `versionName`
 at `iosApp/Configuration/Config.xcconfig`.
