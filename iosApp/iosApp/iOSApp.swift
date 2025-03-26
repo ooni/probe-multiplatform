@@ -18,8 +18,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         let launchArguments = ProcessInfo.processInfo.arguments
 
-        if launchArguments.contains("--skipOnboarding") {
-            UserDefaults.standard.set(3, forKey: "notification_popup")
+        if (launchArguments.contains("--skipOnboarding")){
+            UserDefaults.standard.set(false, forKey: "first_run") // skip onboarding
         }
         return true
     }

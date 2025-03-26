@@ -36,20 +36,6 @@
 			remoteGlobalIDString = 7555FF7A242A565900829871;
 			remoteInfo = OONIProbe;
 		};
-		7746A3E72D7ED04F00C007B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7555FF73242A565900829871 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 79FBD0092C5A70AF004E041C;
-			remoteInfo = NewsMediaScan;
-		};
-		7746A46C2D80383D00C007B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7555FF73242A565900829871 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7555FF7A242A565900829871;
-			remoteInfo = OONIProbe;
-		};
 		7746A46E2D80383D00C007B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7555FF73242A565900829871 /* Project object */;
@@ -331,7 +317,6 @@
 			);
 			dependencies = (
 				7746A3E32D7D895200C007B6 /* PBXTargetDependency */,
-				7746A3E82D7ED04F00C007B6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				7746A3DD2D7D895200C007B6 /* iosAppUITests */,
@@ -354,7 +339,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7746A46B2D80383D00C007B6 /* PBXTargetDependency */,
 				7746A46D2D80383D00C007B6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
@@ -774,16 +758,6 @@
 			isa = PBXTargetDependency;
 			target = 7555FF7A242A565900829871 /* OONIProbe */;
 			targetProxy = 7746A3E22D7D895200C007B6 /* PBXContainerItemProxy */;
-		};
-		7746A3E82D7ED04F00C007B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 79FBD0092C5A70AF004E041C /* NewsMediaScan */;
-			targetProxy = 7746A3E72D7ED04F00C007B6 /* PBXContainerItemProxy */;
-		};
-		7746A46B2D80383D00C007B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7555FF7A242A565900829871 /* OONIProbe */;
-			targetProxy = 7746A46C2D80383D00C007B6 /* PBXContainerItemProxy */;
 		};
 		7746A46D2D80383D00C007B6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

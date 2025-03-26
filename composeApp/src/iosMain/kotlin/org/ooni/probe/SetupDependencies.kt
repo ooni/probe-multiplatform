@@ -79,14 +79,14 @@ object PreferenceMigration : DataMigration<Preferences> {
     }
 
     override suspend fun shouldMigrate(currentData: Preferences): Boolean {
-        return currentData.asMap().isEmpty()
+        return NSUserDefaults.standardUserDefaults.dictionaryRepresentation().containsKey(SettingsKey.FIRST_RUN.value) && currentData.asMap().isEmpty()
     }
 
     override suspend fun migrate(currentData: Preferences): Preferences {
         val newPreferences = currentData.toMutablePreferences()
 
         newPreferences[booleanPreferencesKey(SettingsKey.FIRST_RUN.value)] =
-            NSUserDefaults.standardUserDefaults.integerForKey("notification_popup") < 1
+            NSUserDefaults.standardUserDefaults.boolForKey(SettingsKey.FIRST_RUN.value)
 
         (
             listOf(
