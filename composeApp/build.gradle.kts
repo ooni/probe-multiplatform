@@ -123,6 +123,8 @@ kotlin {
                 implementation(files("./src/desktopMain/libs/oonimkall.jar"))
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
+                implementation("dev.datlag:kcef:2024.04.20.4")
+                implementation("dev.datlag:jcef:2024.04.20")
             }
         }
         // Testing
@@ -347,6 +349,14 @@ compose.desktop {
             macOS {
                 minimumSystemVersion = "10.15.0"
             }
+        }
+
+        // Source: https://github.com/KevinnZou/compose-webview-multiplatform/blob/main/README.desktop.md#flags
+        jvmArgs("--add-opens", "java.desktop/sun.awt=ALL-UNNAMED")
+        jvmArgs("--add-opens", "java.desktop/java.awt.peer=ALL-UNNAMED") // recommended but not necessary
+        if (System.getProperty("os.name").contains("Mac")) {
+            jvmArgs("--add-opens", "java.desktop/sun.lwawt=ALL-UNNAMED")
+            jvmArgs("--add-opens", "java.desktop/sun.lwawt.macosx=ALL-UNNAMED")
         }
     }
 }
