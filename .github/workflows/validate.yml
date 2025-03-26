@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build
+    name: Build Mobile
     runs-on: macos-latest
 
     strategy:
@@ -43,6 +43,25 @@ jobs:
           name: ${{ matrix.organization }}-${{ matrix.type }}-APKs
           path: composeApp/build/outputs/apk/**/**/composeApp-*.apk
 
+  build-desktop:
+    name: Build Desktop
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Package Desktop app
+        run: ./gradlew copyBrandingToCommonResources packageDistributionForCurrentOS
+
+      - name: Uploads artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: DesktopApp
+          path: composeApp/build/compose/binaries/**/**/*
+
   android-lint:
     name: Android Lint
     runs-on: macos-latest
@@ -70,7 +89,6 @@ jobs:
   kotlin-lint:
     name: Kotlin Lint
     runs-on: macos-latest
-    needs: [ build ]
 
     steps:
       - uses: actions/checkout@v4

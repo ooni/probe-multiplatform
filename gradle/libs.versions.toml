@@ -24,6 +24,7 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "12.2.0" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+conveyor = { id = "dev.hydraulic.conveyor", version = "1.12" }
 
 [libraries]
 
@@ -97,6 +98,10 @@ androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-a
 androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.6.1" }
 fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" }
 
+# Desktop
+
+conveyor = { module = "dev.hydraulic.conveyor:conveyor-control", version = "1.1" }
+
 [bundles]
 
 kotlin = [
@@ -132,6 +137,7 @@ mobile = [
 desktop = [
     "sqldelight-jvm",
     "androidx-datastore-core-jvm",
+    "conveyor",
 ]
 full = [
     "sentry",
