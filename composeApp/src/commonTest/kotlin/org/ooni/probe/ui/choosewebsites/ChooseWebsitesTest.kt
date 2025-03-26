@@ -12,7 +12,6 @@ import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.RunSpecification
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 class ChooseWebsitesTest {
     private var runSpec: RunSpecification? = null
@@ -45,8 +44,8 @@ class ChooseWebsitesTest {
             }
             onNodeWithText("Test ${websites.size} URLs").performClick()
 
-            val spec = runSpec as? RunSpecification.Full
-            assertNotNull(spec)
+            waitUntil { runSpec != null }
+            val spec = runSpec as RunSpecification.Full
             assertEquals(false, spec.isRerun)
             assertEquals(TaskOrigin.OoniRun, spec.taskOrigin)
             assertEquals(1, spec.tests.size)
