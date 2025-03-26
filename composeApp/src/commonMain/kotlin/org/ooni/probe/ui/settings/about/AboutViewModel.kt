@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.shared.PlatformInfo
-import org.ooni.probe.shared.value
 
 class AboutViewModel(
     onBack: () -> Unit,

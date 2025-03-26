@@ -72,15 +72,15 @@ class EngineTest {
             taskEventMapper = TaskEventMapper(networkTypeFinder, json),
             networkTypeFinder = networkTypeFinder,
             isBatteryCharging = { true },
-            platformInfo = object : PlatformInfo {
-                override val buildName: String = "1"
-                override val buildNumber: String = "1"
-                override val platform = Platform.Ios
-                override val osVersion = "1"
-                override val model = "test"
-                override val needsToRequestNotificationsPermission = false
-                override val sentryDsn = ""
-            },
+            platformInfo = PlatformInfo(
+                buildName = "1",
+                buildNumber = "1",
+                platform = Platform.Ios,
+                osVersion = "1",
+                model = "test",
+                needsToRequestNotificationsPermission = false,
+                sentryDsn = "",
+            ),
             getEnginePreferences = {
                 EnginePreferences(
                     enabledWebCategories = emptyList(),

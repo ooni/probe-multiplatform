@@ -48,14 +48,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import co.touchlab.kermit.Logger
-import dev.icerock.moko.permissions.DeniedAlwaysException
-import dev.icerock.moko.permissions.DeniedException
-import dev.icerock.moko.permissions.Permission
-import dev.icerock.moko.permissions.RequestCanceledException
-import dev.icerock.moko.permissions.compose.BindEffect
-import dev.icerock.moko.permissions.compose.PermissionsControllerFactory
-import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory
-import dev.icerock.moko.permissions.notifications.REMOTE_NOTIFICATION
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Modal_Autorun_BatteryOptimization_Onboarding
@@ -93,6 +85,11 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.ui.shared.MarkdownViewer
+import org.ooni.probe.ui.shared.Permission
+import org.ooni.probe.ui.shared.PermissionDeniedAlwaysException
+import org.ooni.probe.ui.shared.PermissionDeniedException
+import org.ooni.probe.ui.shared.PermissionRequestCanceledException
+import org.ooni.probe.ui.shared.buildPermissionsController
 import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.theme.LocalCustomColors
 
@@ -292,7 +289,10 @@ fun ColumnScope.AutomatedTestingStep(
                     Text(stringResource(Res.string.Modal_Cancel))
                 }
             },
-            properties = DialogProperties(dismissOnClickOutside = false, dismissOnBackPress = false),
+            properties = DialogProperties(
+                dismissOnClickOutside = false,
+                dismissOnBackPress = false,
+            ),
         )
     }
 }
@@ -332,9 +332,7 @@ fun ColumnScope.CrashReportingStep(onEvent: (OnboardingViewModel.Event) -> Unit)
 
 @Composable
 fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    val factory: PermissionsControllerFactory = rememberPermissionsControllerFactory()
-    val controller = remember(factory) { factory.createPermissionsController() }
-    BindEffect(controller)
+    val permissionsController = buildPermissionsController()
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
     OnboardingImage(OrganizationConfig.onboardingImages.image3)
@@ -363,15 +361,15 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
             onClick = {
                 coroutineScope.launch {
                     try {
-                        controller.providePermission(Permission.REMOTE_NOTIFICATION)
+                        permissionsController.providePermission(Permission.RemoteNotification)
                         onEvent(OnboardingViewModel.Event.RequestNotificationsPermissionClicked)
-                    } catch (e: DeniedException) {
+                    } catch (e: PermissionDeniedException) {
                         Logger.i("Permission denied")
                         onEvent(OnboardingViewModel.Event.NextClicked)
-                    } catch (e: DeniedAlwaysException) {
+                    } catch (e: PermissionDeniedAlwaysException) {
                         Logger.i("Permission already denied")
                         onEvent(OnboardingViewModel.Event.NextClicked)
-                    } catch (e: RequestCanceledException) {
+                    } catch (e: PermissionRequestCanceledException) {
                         Logger.i("Permission request cancelled")
                         // Nothing to do here
                     } catch (e: Exception) {
