@@ -118,14 +118,14 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run common tests
-        run: ./gradlew copyBrandingToCommonResources :composeApp:iosSimulatorArm64Test
+        run: ./gradlew copyBrandingToCommonResources :composeApp:desktopTest
 
       - name: Uploads test reports
         uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: android-lint-report
-          path: composeApp/build/reports/tests/iosSimulatorArm64Test/
+          path: composeApp/build/reports/tests/desktopTest/
 
   distribute:
     name: Firebase App Distribution
