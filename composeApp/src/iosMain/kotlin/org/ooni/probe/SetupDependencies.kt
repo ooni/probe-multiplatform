@@ -24,6 +24,7 @@ import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.domain.PreferenceMigration
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import platform.BackgroundTasks.BGProcessingTask
@@ -155,6 +156,7 @@ class SetupDependencies(
             producePath = {
                 filesDir() + "/${Dependencies.Companion.DATA_STORE_FILE_NAME}"
             },
+            migrations = listOf(PreferenceMigration),
         )
 
     private fun launchAction(action: PlatformAction): Boolean {

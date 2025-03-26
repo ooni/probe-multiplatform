@@ -23,8 +23,6 @@
 		79FBD00F2C5A70AF004E041C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		79FBD0132C5A70AF004E041C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		79FBD0142C5A70AF004E041C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
-		93D3BF652C6B70AD00E9A9B7 /* descriptors.json in Resources */ = {isa = PBXBuildFile; fileRef = 93D3BF602C6B70AD00E9A9B7 /* descriptors.json */; };
-		93D3BF662C6B70AD00E9A9B7 /* descriptors.json in Resources */ = {isa = PBXBuildFile; fileRef = 93D3BF602C6B70AD00E9A9B7 /* descriptors.json */; };
 		93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */; };
 		A0BFEE644239A9C4B4F518F9 /* Pods_NewsMediaScan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D64CB7120DD6292730C16110 /* Pods_NewsMediaScan.framework */; };
 		A63D4DAB2DEF80E322CD2A82 /* Pods_OONIProbe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD59ED7E2702C84FF0455021 /* Pods_OONIProbe.framework */; };
@@ -32,20 +30,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		7746A3E22D7D895200C007B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7555FF73242A565900829871 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7555FF7A242A565900829871;
-			remoteInfo = OONIProbe;
-		};
-		7746A3E72D7ED04F00C007B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7555FF73242A565900829871 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 79FBD0092C5A70AF004E041C;
-			remoteInfo = NewsMediaScan;
-		};
-		7746A46C2D80383D00C007B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7555FF73242A565900829871 /* Project object */;
 			proxyType = 1;
@@ -333,7 +317,6 @@
 			);
 			dependencies = (
 				7746A3E32D7D895200C007B6 /* PBXTargetDependency */,
-				7746A3E82D7ED04F00C007B6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				7746A3DD2D7D895200C007B6 /* iosAppUITests */,
@@ -356,7 +339,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7746A46B2D80383D00C007B6 /* PBXTargetDependency */,
 				7746A46D2D80383D00C007B6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
@@ -462,7 +444,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
-				93D3BF652C6B70AD00E9A9B7 /* descriptors.json in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -494,7 +475,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				79FBD0132C5A70AF004E041C /* Preview Assets.xcassets in Resources */,
-				93D3BF662C6B70AD00E9A9B7 /* descriptors.json in Resources */,
 				79FBD0142C5A70AF004E041C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -778,16 +758,6 @@
 			isa = PBXTargetDependency;
 			target = 7555FF7A242A565900829871 /* OONIProbe */;
 			targetProxy = 7746A3E22D7D895200C007B6 /* PBXContainerItemProxy */;
-		};
-		7746A3E82D7ED04F00C007B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 79FBD0092C5A70AF004E041C /* NewsMediaScan */;
-			targetProxy = 7746A3E72D7ED04F00C007B6 /* PBXContainerItemProxy */;
-		};
-		7746A46B2D80383D00C007B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7555FF7A242A565900829871 /* OONIProbe */;
-			targetProxy = 7746A46C2D80383D00C007B6 /* PBXContainerItemProxy */;
 		};
 		7746A46D2D80383D00C007B6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

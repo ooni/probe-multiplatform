@@ -337,10 +337,6 @@ tasks.register("copyBrandingToCommonResources") {
             to = File(projectDir, "src/commonMain/res"),
         )
         copyRecursive(
-            from = File(projectDir, "src/${config.folder}/resources"),
-            to = File(projectDir, "src/commonMain/resources"),
-        )
-        copyRecursive(
             from = File(projectDir, "src/${config.folder}/composeResources"),
             to = File(projectDir, "src/commonMain/composeResources"),
         )

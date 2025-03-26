@@ -16,6 +16,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                                           showAlertAfterCurrentVersionHasBeenReleasedForDays: 0)
         siren.wail()
 
+        let launchArguments = ProcessInfo.processInfo.arguments
+
+        if (launchArguments.contains("--skipOnboarding")){
+            UserDefaults.standard.set(false, forKey: "first_run") // skip onboarding
+        }
         return true
     }
 
