@@ -2,14 +2,8 @@ package org.ooni.probe
 
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.datastore.core.DataMigration
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.floatPreferencesKey
-import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.core.longPreferencesKey
-import androidx.datastore.preferences.core.stringPreferencesKey
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineScope
@@ -29,9 +23,8 @@ import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.RunSpecification
-import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.di.Dependencies
-import org.ooni.probe.domain.organizationPreferenceDefaults
+import org.ooni.probe.domain.PreferenceMigration
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import platform.BackgroundTasks.BGProcessingTask
@@ -50,7 +43,6 @@ import platform.Foundation.NSString
 import platform.Foundation.NSTemporaryDirectory
 import platform.Foundation.NSURL
 import platform.Foundation.NSUTF8StringEncoding
-import platform.Foundation.NSUserDefaults
 import platform.Foundation.NSUserDomainMask
 import platform.Foundation.characterDirectionForLanguage
 import platform.Foundation.dateByAddingTimeInterval
@@ -72,56 +64,6 @@ import platform.UIKit.UI_USER_INTERFACE_IDIOM
 import platform.UIKit.popoverPresentationController
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
-
-object PreferenceMigration : DataMigration<Preferences> {
-    override suspend fun cleanUp() {
-        NSBundle.mainBundle.bundleIdentifier?.let { NSUserDefaults.standardUserDefaults.removePersistentDomainForName(it) }
-    }
-
-    override suspend fun shouldMigrate(currentData: Preferences): Boolean {
-        return NSUserDefaults.standardUserDefaults.dictionaryRepresentation().containsKey(SettingsKey.FIRST_RUN.value) && currentData.asMap().isEmpty()
-    }
-
-    override suspend fun migrate(currentData: Preferences): Preferences {
-        val newPreferences = currentData.toMutablePreferences()
-
-        newPreferences[booleanPreferencesKey(SettingsKey.FIRST_RUN.value)] =
-            NSUserDefaults.standardUserDefaults.boolForKey(SettingsKey.FIRST_RUN.value)
-
-        (
-            listOf(
-                SettingsKey.NOTIFICATIONS_ENABLED to true,
-                SettingsKey.SEND_CRASH to true,
-                SettingsKey.UPLOAD_RESULTS to true,
-                SettingsKey.AUTOMATED_TESTING_ENABLED to true,
-                SettingsKey.AUTOMATED_TESTING_WIFIONLY to true,
-                SettingsKey.AUTOMATED_TESTING_CHARGING to true,
-            ) +
-                organizationPreferenceDefaults()
-        ).forEach { (settingsKey, value) ->
-            when (value) {
-                is Int -> newPreferences[intPreferencesKey(settingsKey.value)] = value
-
-                is String -> newPreferences[stringPreferencesKey(settingsKey.value)] = value
-
-                is Boolean -> newPreferences[booleanPreferencesKey(settingsKey.value)] = value
-
-                is Float -> newPreferences[floatPreferencesKey(settingsKey.value)] = value
-
-                is Long -> newPreferences[longPreferencesKey(settingsKey.value)] = value
-            }
-        }
-
-        NSUserDefaults.standardUserDefaults.arrayForKey("categories_disabled")
-            ?.let { disabledCategories ->
-                disabledCategories.mapNotNull { it as? String }.forEach { category ->
-                    newPreferences[booleanPreferencesKey(category)] = false
-                }
-            } ?: Logger.w("'categories_disabled' key not found in NSUserDefaults")
-
-        return newPreferences
-    }
-}
 
 class SetupDependencies(
     bridge: OonimkallBridge,
