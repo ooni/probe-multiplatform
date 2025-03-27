@@ -344,6 +344,9 @@ compose.desktop {
             packageName = "ooni-probe"
             packageVersion = android.defaultConfig.versionName
 
+            modules("java.sql")
+            modules("jdk.unsupported")
+
             macOS {
                 minimumSystemVersion = "10.15.0"
             }
