@@ -1,4 +1,6 @@
 import XCTest
+import composeApp
+import SwiftUI
 
 class iosAppUITests: XCTestCase {
 
@@ -55,7 +57,6 @@ class iosAppUITests: XCTestCase {
         snapshot("05-default-settings")
         app.buttons.firstMatch.tap()
 
-        snapshot("1")
     }
 
 
@@ -67,6 +68,8 @@ class iosAppUITests: XCTestCase {
         app.launch()
 
         sleep(2)
+
+        snapshot("1")
 
         app.buttons.firstMatch.tap()
         snapshot("07-run-tests")
@@ -120,9 +123,119 @@ class iosAppUITests: XCTestCase {
 
         app.buttons["about_ooni"].coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
         snapshot("16-about")
+        if (OrganizationConfig().baseSoftwareName.contains("news")) {
+            snapshot("5")
+        }
 
         app.buttons.firstMatch.tap()
 
     }
 
+
+    @MainActor
+    func testOONIResults() async throws {
+        try XCTSkipIf(!OrganizationConfig().baseSoftwareName.contains("ooni"))
+        // UI tests must launch the application that they test.
+        let app = XCUIApplication()
+        app.launchArguments.append("--skipOnboarding")
+        app.launchArguments.append("--presetDatabase")
+        setupSnapshot(app)
+        app.launch()
+
+        sleep(2)
+
+        app.buttons["results"].tap()
+        snapshot("17-results")
+        snapshot("2")
+
+        app.buttons["websites"].tap()
+
+        sleep(2)
+
+        snapshot("18-websites-results")
+
+        app.buttons.element(boundBy: 2).tap()
+        
+        sleep(5)
+        
+        snapshot("19-website-measurement-anomaly")
+        snapshot("3")
+        
+        app.buttons.firstMatch.tap()
+        sleep(1)
+
+        app.buttons.firstMatch.tap()
+        sleep(1)
+
+        app.buttons["performance"].tap()
+        
+        sleep(2)
+        
+        snapshot("20-performance-results")
+        
+        app.buttons.element(boundBy: 2).tap()
+
+        sleep(5)
+
+        snapshot("20-dash-measurement")
+        snapshot("4")
+
+
+    }
+
+    
+    
+    @MainActor
+    func testChoseWebsites() async throws {
+        try XCTSkipIf(!OrganizationConfig().baseSoftwareName.contains("ooni"))
+        // UI tests must launch the application that they test.
+        let app = XCUIApplication()
+        app.launchArguments.append("--skipOnboarding")
+        setupSnapshot(app)
+        app.launch()
+
+        sleep(2)
+        
+        app.buttons["websites"].tap()
+        sleep(1)
+        
+        app.buttons["Chose-Websites"].tap()
+        
+        snapshot("21-choose-websites")
+        snapshot("5")
+
+
+    }
+
+    @MainActor
+    func testDWResults() async throws {
+        try XCTSkipIf(!OrganizationConfig().baseSoftwareName.contains("news"))
+        // UI tests must launch the application that they test.
+        let app = XCUIApplication()
+        app.launchArguments.append("--skipOnboarding")
+        app.launchArguments.append("--presetDatabase")
+        setupSnapshot(app)
+        app.launch()
+
+        sleep(2)
+
+        app.buttons["results"].tap()
+        snapshot("17-results")
+        snapshot("2")
+
+        app.buttons["10004"].tap()
+
+        sleep(2)
+
+        snapshot("18-websites-results")
+        snapshot("3")
+
+        app.buttons.element(boundBy: 1).tap()
+        
+        sleep(5)
+        
+        snapshot("19-website-measurement-ok")
+        snapshot("4")
+
+    }
 }

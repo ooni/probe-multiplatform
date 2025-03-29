@@ -3,8 +3,8 @@
 # A list of devices you want to take the screenshots from
 devices(
   [
-    "iPhone 16 Pro",
-    "iPad Pro 11-inch (M4)"
+    "iPhone 14 Plus",
+    "iPad Pro 13-inch (M4)"
   ]
 )
 
