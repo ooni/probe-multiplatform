@@ -14,11 +14,12 @@ class iosAppUITests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier ?? "")
+        UserDefaults.standard.removeObject(forKey: SettingsKey.firstRun.value)
     }
 
     @MainActor
-    func testOnboarding() throws {
+    func test_01_Onboarding() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
 
@@ -61,7 +62,7 @@ class iosAppUITests: XCTestCase {
 
 
     @MainActor
-    func testRun() throws {
+    func test_02_Run() throws {
         let app = XCUIApplication()
         app.launchArguments.append("--skipOnboarding")
         setupSnapshot(app)
@@ -80,7 +81,7 @@ class iosAppUITests: XCTestCase {
     }
 
     @MainActor
-    func testSettings() throws {
+    func test_03_Settings() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launchArguments.append("--skipOnboarding")
@@ -133,7 +134,7 @@ class iosAppUITests: XCTestCase {
 
 
     @MainActor
-    func testOONIResults() async throws {
+    func test_04_OONIResults() async throws {
         try XCTSkipIf(!OrganizationConfig().baseSoftwareName.contains("ooni"))
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
@@ -155,24 +156,24 @@ class iosAppUITests: XCTestCase {
         snapshot("18-websites-results")
 
         app.buttons.element(boundBy: 2).tap()
-        
+
         sleep(5)
-        
+
         snapshot("19-website-measurement-anomaly")
         snapshot("3")
-        
-        app.buttons.firstMatch.tap()
+
+        app.buttons["Back"].tap()
         sleep(1)
 
-        app.buttons.firstMatch.tap()
+        app.buttons["Back"].tap()
         sleep(1)
 
         app.buttons["performance"].tap()
-        
+
         sleep(2)
-        
+
         snapshot("20-performance-results")
-        
+
         app.buttons.element(boundBy: 2).tap()
 
         sleep(5)
@@ -183,10 +184,10 @@ class iosAppUITests: XCTestCase {
 
     }
 
-    
-    
+
+
     @MainActor
-    func testChoseWebsites() async throws {
+    func test_05_ChoseWebsites() async throws {
         try XCTSkipIf(!OrganizationConfig().baseSoftwareName.contains("ooni"))
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
@@ -195,12 +196,12 @@ class iosAppUITests: XCTestCase {
         app.launch()
 
         sleep(2)
-        
+
         app.buttons["websites"].tap()
         sleep(1)
-        
+
         app.buttons["Chose-Websites"].tap()
-        
+
         snapshot("21-choose-websites")
         snapshot("5")
 
@@ -208,7 +209,7 @@ class iosAppUITests: XCTestCase {
     }
 
     @MainActor
-    func testDWResults() async throws {
+    func test_06_DWResults() async throws {
         try XCTSkipIf(!OrganizationConfig().baseSoftwareName.contains("news"))
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
@@ -231,9 +232,9 @@ class iosAppUITests: XCTestCase {
         snapshot("3")
 
         app.buttons.element(boundBy: 1).tap()
-        
+
         sleep(5)
-        
+
         snapshot("19-website-measurement-ok")
         snapshot("4")
 

@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Common_Back
@@ -58,7 +59,7 @@ fun MeasurementScreen(
                     Text(stringResource(Res.string.Measurement_Title))
                 },
                 navigationIcon = {
-                    IconButton(onClick = { onEvent(MeasurementViewModel.Event.BackClicked) }) {
+                    IconButton(onClick = { onEvent(MeasurementViewModel.Event.BackClicked) },modifier = Modifier.testTag("Back")) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(Res.string.Common_Back),
