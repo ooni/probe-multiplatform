@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
-import ooniprobe.composeapp.generated.resources.ooni_bw
+import ooniprobe.composeapp.generated.resources.tray_icon
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -43,7 +43,7 @@ fun main() {
                 isWindowVisible = false
             },
             visible = isWindowVisible,
-            icon = painterResource(Res.drawable.ooni_bw),
+            icon = painterResource(Res.drawable.tray_icon),
             title = stringResource(Res.string.app_name),
         ) {
             App(
@@ -54,7 +54,7 @@ fun main() {
         }
 
         Tray(
-            icon = painterResource(Res.drawable.ooni_bw),
+            icon = painterResource(Res.drawable.tray_icon),
             tooltip = stringResource(Res.string.app_name),
             menu = {
                 Item(
