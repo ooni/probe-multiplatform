@@ -151,6 +151,7 @@ kotlin {
                 optIn("androidx.compose.material3.ExperimentalMaterial3Api")
                 optIn("androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi")
                 optIn("androidx.compose.ui.test.ExperimentalTestApi")
+                optIn("androidx.compose.ui.ExperimentalComposeUiApi")
             }
         }
     }
