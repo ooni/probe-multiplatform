@@ -9,7 +9,7 @@ android-targetSdk = "35"
 compose-plugin = "1.7.3"
 kotlin = "2.1.20"
 sqldelight = "2.0.2"
-dataStoreVersion = "1.1.3"
+dataStoreVersion = "1.1.4"
 junitKtx = "1.2.1"
 mokoPermissions = "0.19.1"
 
