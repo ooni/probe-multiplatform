@@ -59,8 +59,8 @@ private fun buildPlatformInfo() =
     )
 
 private fun readAssetFile(path: String): String {
-    // TODO: Desktop - readAssetFile
-    return ""
+    // Read asset is only needed for NewsMediaScan Android and iOS, not for Desktop
+    throw NotImplementedError()
 }
 
 // TODO: Desktop - buildDatabaseDriver persist in storage instead of in memory
