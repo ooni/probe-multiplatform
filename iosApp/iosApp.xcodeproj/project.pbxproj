@@ -10,6 +10,8 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
+		4B3EB11158BEF8E313184F03 /* Pods_OONIProbeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D66F034741194372DDA4078 /* Pods_OONIProbeUITests.framework */; };
+		53D3BE26559E9626379058CC /* Pods_NewsMediaScanUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4B28F104580A82EDFEDC452 /* Pods_NewsMediaScanUITests.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		793F99462CE646DE0094FAFC /* IosBackgroundRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */; };
 		793F99472CE646DE0094FAFC /* IosBackgroundRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */; };
@@ -72,6 +74,8 @@
 		1831699651CB16A290CA40C6 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 		205238D88AD064C8AF508845 /* Pods-OONIProbe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OONIProbe.debug.xcconfig"; path = "Target Support Files/Pods-OONIProbe/Pods-OONIProbe.debug.xcconfig"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
+		2D66F034741194372DDA4078 /* Pods_OONIProbeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OONIProbeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		31641EB0E2DF221138690D52 /* Pods-OONIProbeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OONIProbeUITests.release.xcconfig"; path = "Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4D603BCB2B32219C5CCC41B3 /* Pods-NewsMediaScan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsMediaScan.release.xcconfig"; path = "Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan.release.xcconfig"; sourceTree = "<group>"; };
 		506A0735B8488E63307B34DA /* Pods-NewsMediaScan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsMediaScan.debug.xcconfig"; path = "Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan.debug.xcconfig"; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* OONI Probe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OONI Probe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,14 +90,18 @@
 		795E377C2CD5053900086360 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79A29BC42C9045A80052C9D0 /* OONIProbe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OONIProbe.entitlements; sourceTree = "<group>"; };
 		79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosNetworkTypeFinder.swift; sourceTree = "<group>"; };
+		79C8D8D4BE12EB4A29D8332D /* Pods-NewsMediaScanUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsMediaScanUITests.release.xcconfig"; path = "Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests.release.xcconfig"; sourceTree = "<group>"; };
 		79D0E9392D0360A500F7DE42 /* OONIProbeRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OONIProbeRelease.entitlements; sourceTree = "<group>"; };
 		79FBD01A2C5A70AF004E041C /* News Media Scan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "News Media Scan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8918F4B39DEEFE89FDF20821 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
+		9155D307318D3F295444355A /* Pods-NewsMediaScanUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsMediaScanUITests.debug.xcconfig"; path = "Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		93D3BF5B2C6B684800E9A9B7 /* descriptors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = descriptors.json; sourceTree = "<group>"; };
 		93D3BF602C6B70AD00E9A9B7 /* descriptors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = descriptors.json; sourceTree = "<group>"; };
 		93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosOonimkallBridge.swift; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		B2A30B3FAFDB1355D98FFF9E /* Pods-OONIProbe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OONIProbe.release.xcconfig"; path = "Target Support Files/Pods-OONIProbe/Pods-OONIProbe.release.xcconfig"; sourceTree = "<group>"; };
+		B4B28F104580A82EDFEDC452 /* Pods_NewsMediaScanUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsMediaScanUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C02FBC8C3F3507D1E93C8831 /* Pods-OONIProbeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OONIProbeUITests.debug.xcconfig"; path = "Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D64CB7120DD6292730C16110 /* Pods_NewsMediaScan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsMediaScan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD59ED7E2702C84FF0455021 /* Pods_OONIProbe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OONIProbe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -107,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B3EB11158BEF8E313184F03 /* Pods_OONIProbeUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53D3BE26559E9626379058CC /* Pods_NewsMediaScanUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +166,8 @@
 			children = (
 				D64CB7120DD6292730C16110 /* Pods_NewsMediaScan.framework */,
 				DD59ED7E2702C84FF0455021 /* Pods_OONIProbe.framework */,
+				B4B28F104580A82EDFEDC452 /* Pods_NewsMediaScanUITests.framework */,
+				2D66F034741194372DDA4078 /* Pods_OONIProbeUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -169,6 +181,10 @@
 				4D603BCB2B32219C5CCC41B3 /* Pods-NewsMediaScan.release.xcconfig */,
 				205238D88AD064C8AF508845 /* Pods-OONIProbe.debug.xcconfig */,
 				B2A30B3FAFDB1355D98FFF9E /* Pods-OONIProbe.release.xcconfig */,
+				9155D307318D3F295444355A /* Pods-NewsMediaScanUITests.debug.xcconfig */,
+				79C8D8D4BE12EB4A29D8332D /* Pods-NewsMediaScanUITests.release.xcconfig */,
+				C02FBC8C3F3507D1E93C8831 /* Pods-OONIProbeUITests.debug.xcconfig */,
+				31641EB0E2DF221138690D52 /* Pods-OONIProbeUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -309,9 +325,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7746A3E42D7D895200C007B6 /* Build configuration list for PBXNativeTarget "OONIProbeUITests" */;
 			buildPhases = (
+				1F10E3A729C69427EB6C8BBB /* [CP] Check Pods Manifest.lock */,
 				7746A3D82D7D895200C007B6 /* Sources */,
 				7746A3D92D7D895200C007B6 /* Frameworks */,
 				7746A3DA2D7D895200C007B6 /* Resources */,
+				9214FA9AC1E4A8135AB7BFD0 /* [CP] Embed Pods Frameworks */,
+				33128707484B6D3E17E3E650 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -322,8 +341,6 @@
 				7746A3DD2D7D895200C007B6 /* iosAppUITests */,
 			);
 			name = OONIProbeUITests;
-			packageProductDependencies = (
-			);
 			productName = iosAppUITests;
 			productReference = 7746A3DC2D7D895200C007B6 /* OONIProbeUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -332,9 +349,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7746A4722D80383D00C007B6 /* Build configuration list for PBXNativeTarget "NewsMediaScanUITests" */;
 			buildPhases = (
+				FE1F9784B605FCA7F4C56923 /* [CP] Check Pods Manifest.lock */,
 				7746A46F2D80383D00C007B6 /* Sources */,
 				7746A4702D80383D00C007B6 /* Frameworks */,
 				7746A4712D80383D00C007B6 /* Resources */,
+				2CBE8B4CC1AE3141C0649C31 /* [CP] Embed Pods Frameworks */,
+				4F427154CB927DC7095DDB8B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -345,8 +365,6 @@
 				7746A3DD2D7D895200C007B6 /* iosAppUITests */,
 			);
 			name = NewsMediaScanUITests;
-			packageProductDependencies = (
-			);
 			productName = iosAppUITests;
 			productReference = 7746A4752D80383D00C007B6 /* NewsMediaScanUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -516,6 +534,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		1F10E3A729C69427EB6C8BBB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OONIProbeUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2221CAC0E44786DF6A5501B8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -536,6 +576,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2CBE8B4CC1AE3141C0649C31 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		320D500964B2C4AE97004E19 /* [CP] Check Pods Manifest.lock */ = {
@@ -560,6 +617,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		33128707484B6D3E17E3E650 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3A3900471DFA31082B6AA60E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -575,6 +649,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4F427154CB927DC7095DDB8B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		79851F9B2D08ADC0002E0951 /* Sentry Upload Symbols Script */ = {
@@ -650,6 +741,23 @@
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT/..\"\n./gradlew copyBrandingToCommonResources embedAndSignAppleFrameworkForXcode -Porganization=dw\n";
 		};
+		9214FA9AC1E4A8135AB7BFD0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		93E977732C4FE022009CCABC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -700,6 +808,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE1F9784B605FCA7F4C56923 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NewsMediaScanUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -977,13 +1107,14 @@
 		};
 		7746A3E52D7D895200C007B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C02FBC8C3F3507D1E93C8831 /* Pods-OONIProbeUITests.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
@@ -1005,12 +1136,13 @@
 		};
 		7746A3E62D7D895200C007B6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31641EB0E2DF221138690D52 /* Pods-OONIProbeUITests.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
@@ -1031,13 +1163,14 @@
 		};
 		7746A4732D80383D00C007B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9155D307318D3F295444355A /* Pods-NewsMediaScanUITests.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
@@ -1059,12 +1192,13 @@
 		};
 		7746A4742D80383D00C007B6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79C8D8D4BE12EB4A29D8332D /* Pods-NewsMediaScanUITests.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;

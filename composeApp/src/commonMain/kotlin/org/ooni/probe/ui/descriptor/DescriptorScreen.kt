@@ -34,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -255,7 +256,7 @@ private fun DescriptorDetails(
                         brush = SolidColor(onDescriptorColor),
                     ),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = onDescriptorColor),
-                    modifier = Modifier.padding(top = 8.dp),
+                    modifier = Modifier.padding(top = 8.dp).testTag("Choose-Websites"),
                 ) {
                     Text(stringResource(Res.string.Dashboard_Overview_ChooseWebsites))
                 }

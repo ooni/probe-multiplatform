@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Measurements_Count
@@ -69,7 +70,8 @@ fun ResultCell(
         Row(
             modifier = Modifier.fillMaxWidth()
                 .run { if (!hasError) clickable { onResultClick() } else this }
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .testTag(item.descriptor.key),
         ) {
             Column(
                 modifier = Modifier.weight(0.66f),
