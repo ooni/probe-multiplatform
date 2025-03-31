@@ -19,6 +19,7 @@ import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.FlavorConfig
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AutoRunParameters
+import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.PlatformAction
@@ -83,7 +84,7 @@ class SetupDependencies(
         databaseDriverFactory = ::buildDatabaseDriver,
         networkTypeFinder = networkTypeFinder,
         buildDataStore = ::buildDataStore,
-        isBatteryCharging = ::checkBatteryCharging,
+        getBatteryState = ::getBatteryState,
         startSingleRunInner = ::startSingleRun,
         configureAutoRun = ::configureAutoRun,
         configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
@@ -152,9 +153,11 @@ class SetupDependencies(
         companion object : NSObjectMeta()
     }
 
-    private fun checkBatteryCharging(): Boolean {
+    private fun getBatteryState(): BatteryState {
         UIDevice.currentDevice.batteryMonitoringEnabled = true
-        return UIDevice.currentDevice.batteryState == UIDeviceBatteryState.UIDeviceBatteryStateCharging
+        val isCharging =
+            UIDevice.currentDevice.batteryState == UIDeviceBatteryState.UIDeviceBatteryStateCharging
+        return if (isCharging) BatteryState.Charging else BatteryState.NotCharging
     }
 
     fun buildDataStore(): DataStore<Preferences> =

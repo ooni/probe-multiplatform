@@ -5,11 +5,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import org.ooni.engine.models.NetworkType
 import org.ooni.probe.data.models.AutoRunParameters
+import org.ooni.probe.data.models.BatteryState
 
 class CheckAutoRunConstraints(
     private val getAutoRunSettings: suspend () -> Flow<AutoRunParameters>,
     private val getNetworkType: () -> NetworkType,
-    private val isBatteryCharging: () -> Boolean,
+    private val getBatteryState: () -> BatteryState,
+    private val knownBatteryState: Boolean,
     private val countResultsMissingUpload: () -> Flow<Long>,
 ) {
     suspend operator fun invoke(): Boolean {
@@ -30,7 +32,10 @@ class CheckAutoRunConstraints(
             return false
         }
 
-        if (autoRunParameters.onlyWhileCharging && !isBatteryCharging()) {
+        if (knownBatteryState &&
+            autoRunParameters.onlyWhileCharging &&
+            getBatteryState() == BatteryState.NotCharging
+        ) {
             Logger.i("Not starting auto-run because of battery charging constraint")
             return false
         }

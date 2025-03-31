@@ -30,6 +30,7 @@ import org.ooni.engine.AndroidOonimkallBridge
 import org.ooni.probe.background.AppWorkerManager
 import org.ooni.probe.config.AndroidBatteryOptimization
 import org.ooni.probe.config.FlavorConfig
+import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
@@ -50,7 +51,7 @@ class AndroidApplication : Application() {
             databaseDriverFactory = ::buildDatabaseDriver,
             networkTypeFinder = AndroidNetworkTypeFinder(connectivityManager),
             buildDataStore = ::buildDataStore,
-            isBatteryCharging = ::checkBatteryCharging,
+            getBatteryState = ::getBatteryState,
             startSingleRunInner = appWorkerManager::startSingleRun,
             configureAutoRun = appWorkerManager::configureAutoRun,
             configureDescriptorAutoUpdate = appWorkerManager::configureDescriptorAutoUpdate,
@@ -106,12 +107,13 @@ class AndroidApplication : Application() {
             ),
         )
 
-    private fun checkBatteryCharging(): Boolean {
+    private fun getBatteryState(): BatteryState {
         // From https://developer.android.com/training/monitoring-device-state/battery-monitoring#DetermineChargeState
         val batteryStatus = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         val status = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
-        return status == BatteryManager.BATTERY_STATUS_CHARGING ||
+        val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
             status == BatteryManager.BATTERY_STATUS_FULL
+        return if (isCharging) BatteryState.Charging else BatteryState.NotCharging
     }
 
     private fun launchAction(action: PlatformAction): Boolean {
