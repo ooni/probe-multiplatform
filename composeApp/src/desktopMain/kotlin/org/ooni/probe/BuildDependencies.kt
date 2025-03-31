@@ -2,6 +2,7 @@ package org.ooni.probe
 
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
+import dev.dirs.ProjectDirectories
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -21,14 +22,13 @@ import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 
-// TODO: Desktop - proper directories for each system
-private const val BASE_FILES_DIR = "../temp"
+private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
 
 val dependencies = Dependencies(
     platformInfo = buildPlatformInfo(),
     oonimkallBridge = DesktopOonimkallBridge(),
-    baseFileDir = "$BASE_FILES_DIR/files/",
-    cacheDir = "$BASE_FILES_DIR/cache/",
+    baseFileDir = projectDirectories.dataDir,
+    cacheDir = projectDirectories.cacheDir,
     readAssetFile = ::readAssetFile,
     databaseDriverFactory = ::buildDatabaseDriver,
     networkTypeFinder = ::networkTypeFinder,
@@ -73,7 +73,10 @@ private fun buildDatabaseDriver(): JdbcSqliteDriver {
 private fun networkTypeFinder() = NetworkType.Wifi
 
 // TODO: Desktop - Confirm appropriate path and configuration
-private fun buildDataStore() = PreferenceDataStoreFactory.create { "$BASE_FILES_DIR/probe.preferences_pb".toPath().toFile() }
+private fun buildDataStore() =
+    PreferenceDataStoreFactory.create {
+        projectDirectories.dataDir.toPath().resolve("probe.preferences_pb").toFile()
+    }
 
 private fun startSingleRun(spec: RunSpecification) {
     // TODO: Desktop - background running
