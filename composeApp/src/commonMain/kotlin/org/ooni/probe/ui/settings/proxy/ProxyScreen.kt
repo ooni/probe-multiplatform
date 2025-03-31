@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.settings.proxy
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
@@ -182,5 +183,8 @@ fun ProxyScreen(
                 )
             }
         }
+    }
+    BackHandler(enabled = state.proxyType == ProxyType.CUSTOM){
+        onEvent(ProxyViewModel.Event.BackClicked)
     }
 }
