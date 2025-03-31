@@ -256,7 +256,7 @@ private fun DescriptorDetails(
                         brush = SolidColor(onDescriptorColor),
                     ),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = onDescriptorColor),
-                    modifier = Modifier.padding(top = 8.dp).testTag("Chose-Websites"),
+                    modifier = Modifier.padding(top = 8.dp).testTag("Choose-Websites"),
                 ) {
                     Text(stringResource(Res.string.Dashboard_Overview_ChooseWebsites))
                 }

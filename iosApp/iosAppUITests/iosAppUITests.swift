@@ -200,7 +200,7 @@ class iosAppUITests: XCTestCase {
         app.buttons["websites"].tap()
         sleep(1)
 
-        app.buttons["Chose-Websites"].tap()
+        app.buttons["Choose-Websites"].tap()
 
         snapshot("21-choose-websites")
         snapshot("5")

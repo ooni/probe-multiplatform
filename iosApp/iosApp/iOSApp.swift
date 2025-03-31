@@ -51,7 +51,7 @@ struct iOSApp: App {
 
         if launchArguments.contains("--presetDatabase") {
             // Enable logging
-            DatabaseHelper.Companion().initialize(dependency: appDependencies.dependencies)
+            DatabaseHelper.companion.initialize(dependency: appDependencies.dependencies)
 
             Task { [self] in
                 try await self.initDatabase()
@@ -64,7 +64,7 @@ struct iOSApp: App {
     func initDatabase() async {
         do {
             try await DatabaseHelper.companion.clear()
-            try await DatabaseHelper.Companion().setup()
+            try await DatabaseHelper.companion.setup()
         } catch {
             print("Failed to clear database: \(error)")
         }
