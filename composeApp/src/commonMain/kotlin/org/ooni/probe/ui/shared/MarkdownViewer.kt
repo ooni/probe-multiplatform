@@ -23,7 +23,7 @@ fun MarkdownViewer(
         // Colors fail to work just with typography
         colors = @Suppress("DEPRECATION") markdownColor(
             text = textColor,
-            linkText = linkColor
+            linkText = linkColor,
         ),
         typography = markdownTypography(
             text = MaterialTheme.typography.bodyLarge
