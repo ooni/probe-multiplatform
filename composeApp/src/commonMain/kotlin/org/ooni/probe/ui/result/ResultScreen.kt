@@ -110,7 +110,7 @@ fun ResultScreen(
                 Text(state.result?.descriptor?.title?.invoke().orEmpty())
             },
             navigationIcon = {
-                IconButton(onClick = { onEvent(ResultViewModel.Event.BackClicked) },modifier = Modifier.testTag("Back")) {
+                IconButton(onClick = { onEvent(ResultViewModel.Event.BackClicked) }, modifier = Modifier.testTag("Back")) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(Res.string.Common_Back),

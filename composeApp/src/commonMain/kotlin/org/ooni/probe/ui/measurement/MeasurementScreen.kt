@@ -59,7 +59,7 @@ fun MeasurementScreen(
                     Text(stringResource(Res.string.Measurement_Title))
                 },
                 navigationIcon = {
-                    IconButton(onClick = { onEvent(MeasurementViewModel.Event.BackClicked) },modifier = Modifier.testTag("Back")) {
+                    IconButton(onClick = { onEvent(MeasurementViewModel.Event.BackClicked) }, modifier = Modifier.testTag("Back")) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(Res.string.Common_Back),

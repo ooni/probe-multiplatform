@@ -11,20 +11,19 @@ import org.ooni.probe.di.Dependencies
 import kotlin.concurrent.Volatile
 
 class DatabaseHelper private constructor(private val dependency: Dependencies) {
-
     companion object {
         @Volatile
-        private var INSTANCE: DatabaseHelper? = null
+        private var instance: DatabaseHelper? = null
 
         fun initialize(dependency: Dependencies): DatabaseHelper {
-            if (INSTANCE == null) {
-                INSTANCE = DatabaseHelper(dependency)
+            if (instance == null) {
+                instance = DatabaseHelper(dependency)
             }
-            return INSTANCE!!
+            return instance!!
         }
 
         val shared: DatabaseHelper
-            get() = INSTANCE ?: throw IllegalStateException("DatabaseHelper is not initialized")
+            get() = instance ?: throw IllegalStateException("DatabaseHelper is not initialized")
 
         suspend fun clear() {
             val clearStorage by lazy { shared.dependency.clearStorage }
@@ -51,7 +50,6 @@ class DatabaseHelper private constructor(private val dependency: Dependencies) {
         }
 
         private suspend fun setupDw(networkId: NetworkModel.Id) {
-
             val trustedId = shared.dependency.resultRepository.createOrUpdate(
                 ResultModelFactory.build(
                     id = null,
@@ -170,6 +168,7 @@ class DatabaseHelper private constructor(private val dependency: Dependencies) {
                 )
             }
         }
+
         private suspend fun setupOoni(networkId: NetworkModel.Id) {
             val websitesResultId = shared.dependency.resultRepository.createOrUpdate(
                 ResultModelFactory.build(
