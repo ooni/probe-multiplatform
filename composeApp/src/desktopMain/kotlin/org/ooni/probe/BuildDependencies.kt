@@ -1,7 +1,6 @@
 package org.ooni.probe
 
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import dev.dirs.ProjectDirectories
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +12,7 @@ import org.ooni.engine.models.NetworkType
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.FlavorConfigInterface
 import org.ooni.probe.config.OptionalFeature
+import org.ooni.probe.data.buildDatabaseDriver
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
@@ -21,16 +21,17 @@ import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
+import java.io.File
 
 private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
 
 val dependencies = Dependencies(
     platformInfo = buildPlatformInfo(),
     oonimkallBridge = DesktopOonimkallBridge(),
-    baseFileDir = projectDirectories.dataDir,
-    cacheDir = projectDirectories.cacheDir,
+    baseFileDir = projectDirectories.dataDir.also { File(it).mkdirs() },
+    cacheDir = projectDirectories.cacheDir.also { File(it).mkdirs() },
     readAssetFile = ::readAssetFile,
-    databaseDriverFactory = ::buildDatabaseDriver,
+    databaseDriverFactory = { buildDatabaseDriver(projectDirectories.dataDir) },
     networkTypeFinder = ::networkTypeFinder,
     buildDataStore = ::buildDataStore,
     getBatteryState = { BatteryState.Unknown },
@@ -60,13 +61,6 @@ private fun buildPlatformInfo() =
 private fun readAssetFile(path: String): String {
     // TODO: Desktop - readAssetFile
     return ""
-}
-
-private fun buildDatabaseDriver(): JdbcSqliteDriver {
-    // TODO: Desktop - buildDatabaseDriver persist in storage instead of in memory
-    val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
-    Database.Schema.create(driver)
-    return driver
 }
 
 // TODO: Desktop - buildDatabaseDriver persist in storage instead of in memory
