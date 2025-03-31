@@ -21,7 +21,7 @@ import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 
-private val projectDirectories = ProjectDirectories.from(null, null, "OONI Probe")
+private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
 
 val dependencies = Dependencies(
     platformInfo = buildPlatformInfo(),
