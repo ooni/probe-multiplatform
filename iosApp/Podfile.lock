@@ -1,12 +1,12 @@
 PODS:
   - composeApp (1.0.0):
     - Sentry (~> 8.45.0)
-  - libcrypto (2024.11.26-053946)
-  - libevent (2024.11.26-053946)
-  - libssl (2024.11.26-053946)
-  - libtor (2024.11.26-053946)
-  - libz (2024.11.26-053946)
-  - oonimkall (2024.11.26-053946)
+  - libcrypto (2025.03.19-102335)
+  - libevent (2025.03.19-102335)
+  - libssl (2025.03.19-102335)
+  - libtor (2025.03.19-102335)
+  - libz (2025.03.19-102335)
+  - oonimkall (2025.03.19-102335)
   - Sentry (8.45.0):
     - Sentry/Core (= 8.45.0)
   - Sentry/Core (8.45.0)
@@ -17,12 +17,12 @@ PODS:
 
 DEPENDENCIES:
   - composeApp (from `../composeApp`)
-  - libcrypto (from `https://github.com/ooni/probe-cli/releases/download/v3.24.0/libcrypto.podspec`)
-  - libevent (from `https://github.com/ooni/probe-cli/releases/download/v3.24.0/libevent.podspec`)
-  - libssl (from `https://github.com/ooni/probe-cli/releases/download/v3.24.0/libssl.podspec`)
-  - libtor (from `https://github.com/ooni/probe-cli/releases/download/v3.24.0/libtor.podspec`)
-  - libz (from `https://github.com/ooni/probe-cli/releases/download/v3.24.0/libz.podspec`)
-  - oonimkall (from `https://github.com/ooni/probe-cli/releases/download/v3.24.0/oonimkall.podspec`)
+  - libcrypto (from `https://github.com/ooni/probe-cli/releases/download/v3.25.0-alpha/libcrypto.podspec`)
+  - libevent (from `https://github.com/ooni/probe-cli/releases/download/v3.25.0-alpha/libevent.podspec`)
+  - libssl (from `https://github.com/ooni/probe-cli/releases/download/v3.25.0-alpha/libssl.podspec`)
+  - libtor (from `https://github.com/ooni/probe-cli/releases/download/v3.25.0-alpha/libtor.podspec`)
+  - libz (from `https://github.com/ooni/probe-cli/releases/download/v3.25.0-alpha/libz.podspec`)
+  - oonimkall (from `https://github.com/ooni/probe-cli/releases/download/v3.25.0-alpha/oonimkall.podspec`)
   - Siren
   - sqlite3 (~> 3.42.0)
 
@@ -36,30 +36,30 @@ EXTERNAL SOURCES:
   composeApp:
     :path: "../composeApp"
   libcrypto:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.24.0/libcrypto.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.25.0-alpha/libcrypto.podspec
   libevent:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.24.0/libevent.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.25.0-alpha/libevent.podspec
   libssl:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.24.0/libssl.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.25.0-alpha/libssl.podspec
   libtor:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.24.0/libtor.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.25.0-alpha/libtor.podspec
   libz:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.24.0/libz.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.25.0-alpha/libz.podspec
   oonimkall:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.24.0/oonimkall.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.25.0-alpha/oonimkall.podspec
 
 SPEC CHECKSUMS:
   composeApp: 434bfe1a3ef0a4cdb34672a63aeef2ff56edb47e
-  libcrypto: 7fb50209305641e986f6b1a1e4680ec4d71602e3
-  libevent: b9f2a7f3b682f7a072f4d21edf360052d3a591dc
-  libssl: 115acb9ff8f7d20f437ff8e112f1d21f210dad94
-  libtor: efd4a639943c12a239094c2927891578cb4c7fcc
-  libz: 8e83c9433082438bce962f836f845d835f26b850
-  oonimkall: 935a4263650a75bef0d8b487f7d349094b4c2b73
+  libcrypto: 9eeddeda5f2d9a7982fadb055192c38defa00e24
+  libevent: 3dbcc5b191c72fc0b21271b2777abc69c62e757d
+  libssl: b96533baa09e93860de934ce7593f45410fe5e83
+  libtor: 1f7905b1256d524103760b7291861a601a56a985
+  libz: d3a954f686b3c74ced45b3a5ca76827de074a555
+  oonimkall: 845c1ab182892f065f382a794b2a52ebb4db60dd
   Sentry: f7c0c4b82e2f7e5909a660544dfaff84e35d5e03
   Siren: c0f6012f61196b73455202db07730f6454a4beb0
   sqlite3: f163dbbb7aa3339ad8fc622782c2d9d7b72f7e9c
 
-PODFILE CHECKSUM: 658feca781b7bdbe6e617824a73a1a71ceea9695
+PODFILE CHECKSUM: 4d5b48807bc607527ebb311827060dfb856abf6f
 
 COCOAPODS: 1.16.2
