@@ -124,7 +124,6 @@ class GetSettings(
         )
     }
 
-
     private fun buildSettings(
         hasWebsitesDescriptor: Boolean,
         uploadResultsEnabled: Boolean,
