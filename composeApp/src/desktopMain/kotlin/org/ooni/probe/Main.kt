@@ -25,16 +25,19 @@ import org.ooni.probe.data.models.DeepLink
 import java.awt.Desktop
 
 fun main() {
-    application {
-        val autoLaunch = AutoLaunch(appPackageName = "org.openobservatory.ooniprobe")
+    val autoLaunch = AutoLaunch(appPackageName = "org.openobservatory.ooniprobe")
 
+    val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
+
+    Desktop.getDesktop().setOpenURIHandler { event ->
+        deepLinkFlow.tryEmit(DeepLink.AddDescriptor(event.uri.path.split("/").last()))
+    }
+
+    application {
         var isWindowVisible by remember { mutableStateOf(!autoLaunch.isStartedViaAutostart()) }
-        val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
+
         val deepLink by deepLinkFlow.collectAsState(null)
 
-        Desktop.getDesktop().setOpenURIHandler { event ->
-            deepLinkFlow.tryEmit(DeepLink.AddDescriptor(event.uri.path.split("/").last()))
-        }
         // start an hourly background task that calls startSingleRun
         LaunchedEffect(Unit) {
             while (true) {
