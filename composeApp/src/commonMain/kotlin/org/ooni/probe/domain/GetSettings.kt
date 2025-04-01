@@ -75,6 +75,7 @@ class GetSettings(
     val observeStorageUsed: () -> Flow<Long>,
     private val supportsCrashReporting: Boolean,
     private val knownBatteryState: Boolean,
+    private val supportsNotificationSettings: Boolean,
 ) {
     operator fun invoke(): Flow<List<SettingsCategoryItem>> {
         return combine(
@@ -103,6 +104,27 @@ class GetSettings(
         }
     }
 
+    private fun createNotificationsSettings(): SettingsCategoryItem {
+        return SettingsCategoryItem(
+            icon = Res.drawable.notifications,
+            title = Res.string.Settings_Notifications_Label,
+            route = PreferenceCategoryKey.NOTIFICATIONS,
+            settings = listOf(
+                SettingsItem(
+                    title = Res.string.Settings_Notifications_Enabled,
+                    key = SettingsKey.NOTIFICATIONS_ENABLED,
+                    type = PreferenceItemType.SWITCH,
+                ),
+            ),
+            footerContent = {
+                SettingsDescription(
+                    Res.string.Modal_EnableNotifications_Paragraph,
+                )
+            },
+        )
+    }
+
+
     private fun buildSettings(
         hasWebsitesDescriptor: Boolean,
         uploadResultsEnabled: Boolean,
@@ -114,23 +136,7 @@ class GetSettings(
         supportsCrashReporting: Boolean = false,
     ): List<SettingsCategoryItem> {
         return listOfNotNull(
-            SettingsCategoryItem(
-                icon = Res.drawable.notifications,
-                title = Res.string.Settings_Notifications_Label,
-                route = PreferenceCategoryKey.NOTIFICATIONS,
-                settings = listOf(
-                    SettingsItem(
-                        title = Res.string.Settings_Notifications_Enabled,
-                        key = SettingsKey.NOTIFICATIONS_ENABLED,
-                        type = PreferenceItemType.SWITCH,
-                    ),
-                ),
-                footerContent = {
-                    SettingsDescription(
-                        Res.string.Modal_EnableNotifications_Paragraph,
-                    )
-                },
-            ),
+            createNotificationsSettings().takeIf { supportsNotificationSettings },
             SettingsCategoryItem(
                 icon = Res.drawable.ic_settings,
                 title = Res.string.Settings_TestOptions_Label,
