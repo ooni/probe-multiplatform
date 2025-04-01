@@ -117,7 +117,7 @@ fun openVpnSettings(): Boolean {
 fun shareText(action: PlatformAction.Share): Boolean {
     return try {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
-            val uri = URI.create("mailto:?subject=${URLEncoder.encode(action.text, StandardCharsets.UTF_8)}")
+            val uri = URI.create("mailto:?body=${URLEncoder.encode(action.text, StandardCharsets.UTF_8)}")
             Desktop.getDesktop().mail(uri)
             true
         } else {
