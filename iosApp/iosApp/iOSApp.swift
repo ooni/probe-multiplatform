@@ -1,6 +1,7 @@
 import Siren
 import SwiftUI
 import composeApp
+import Foundation
 
 extension URL {
     subscript(queryParam:String) -> String? {
@@ -45,6 +46,28 @@ struct iOSApp: App {
         appDependencies.registerTaskHandlers()
         deepLinkFlow = appDependencies.initializeDeeplink()
 
+
+        let launchArguments = ProcessInfo.processInfo.arguments
+
+        if launchArguments.contains("--presetDatabase") {
+            // Enable logging
+            DatabaseHelper.companion.initialize(dependency: appDependencies.dependencies)
+
+            Task { [self] in
+                try await self.initDatabase()
+            }
+
+        }
+
+    }
+
+    func initDatabase() async {
+        do {
+            try await DatabaseHelper.companion.clear()
+            try await DatabaseHelper.companion.setup()
+        } catch {
+            print("Failed to clear database: \(error)")
+        }
     }
 
     var body: some Scene {

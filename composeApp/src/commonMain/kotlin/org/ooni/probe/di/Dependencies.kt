@@ -301,7 +301,7 @@ class Dependencies(
             getTestKeys = measurementRepository::selectTestKeysByResultId,
         )
     }
-    private val clearStorage by lazy {
+    val clearStorage by lazy {
         ClearStorage(
             backgroundContext = backgroundContext,
             deleteAllResults = deleteAllResults::invoke,

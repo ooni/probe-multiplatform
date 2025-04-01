@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_chevron_right
@@ -36,6 +37,7 @@ fun TestDescriptorItem(
             .padding(horizontal = 16.dp, vertical = 4.dp)
             .clip(CardDefaults.shape)
             .clickable { onClick() }
+            .testTag(descriptor.key)
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.surfaceVariant,

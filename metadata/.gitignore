@@ -14,7 +14,17 @@ dw/android/*/images/phoneScreenshots/*.png
 !dw/android/*/images/phoneScreenshots/5_*
 
 ooni/ios/*/*.png
+!ooni/ios/*/*-1.png
+!ooni/ios/*/*-2.png
+!ooni/ios/*/*-3.png
+!ooni/ios/*/*-4.png
+!ooni/ios/*/*-5.png
 ooni/ios/*.html
 
 dw/ios/*/*.png
+!dw/ios/*/*-1.png
+!dw/ios/*/*-2.png
+!dw/ios/*/*-3.png
+!dw/ios/*/*-4.png
+!dw/ios/*/*-5.png
 dw/ios/*.html

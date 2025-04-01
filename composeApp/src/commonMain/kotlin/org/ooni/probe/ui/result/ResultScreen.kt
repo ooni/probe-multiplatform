@@ -42,6 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Common_Back
@@ -109,7 +110,7 @@ fun ResultScreen(
                 Text(state.result?.descriptor?.title?.invoke().orEmpty())
             },
             navigationIcon = {
-                IconButton(onClick = { onEvent(ResultViewModel.Event.BackClicked) }) {
+                IconButton(onClick = { onEvent(ResultViewModel.Event.BackClicked) }, modifier = Modifier.testTag("Back")) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(Res.string.Common_Back),
