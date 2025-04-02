@@ -317,6 +317,8 @@
     <string name="Modal_Error_CantDownloadURLs">Adres listesi indirilemedi. Lütfen yeniden deneyin.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Emin misiniz?</string>
     <string name="Modal_CustomURL_NotSaved">Bu sayfadan ayrıldığınızda adresleriniz kaydedilmez. Bu sayfadan ayrılmak istediğinize emin misiniz?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">Uygulama arka planda çalışma izni olmadan otomatik sınamaları yapamaz. Yeniden denemek ister misiniz\?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder">Uygulamanın otomatik sınamaları yapabilmesi için arka planda çalışmasına izin verilmedir.</string>
     <string name="Modal_EnableNotifications_Title">İnternet sansürleri hakkında güncel bilgileri alın</string>
 
     <!-- Common / Others -->
