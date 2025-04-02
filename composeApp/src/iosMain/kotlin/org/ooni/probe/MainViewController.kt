@@ -4,7 +4,6 @@ import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.AccessibilitySyncOptions
 import androidx.compose.ui.window.ComposeUIViewController
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.ooni.probe.data.models.DeepLink
@@ -17,9 +16,7 @@ fun mainViewController(
     dependencies: Dependencies,
     deepLinkFlow: MutableSharedFlow<DeepLink?>,
 ): UIViewController {
-    return ComposeUIViewController(configure = {
-        accessibilitySyncOptions = AccessibilitySyncOptions.Always(debugLogger = null)
-    }) {
+    return ComposeUIViewController {
         val deepLink by deepLinkFlow.collectAsState(null)
         App(
             dependencies = dependencies,

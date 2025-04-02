@@ -6,7 +6,7 @@ android-compileSdk = "35"
 android-minSdk = "24"
 android-targetSdk = "35"
 
-compose-plugin = "1.7.3"
+compose-plugin = "1.8.0-beta01"
 kotlin = "2.1.20"
 sqldelight = "2.0.2"
 dataStoreVersion = "1.1.4"
@@ -43,6 +43,7 @@ android-work = { module = "androidx.work:work-runtime-ktx", version = "2.10.0" }
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.8.4" }
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.8.0-alpha11" }
 window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "compose-plugin" }
+back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-plugin" }
 
 # Preferences
 androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStoreVersion" }
@@ -114,6 +115,7 @@ ui = [
     "lifecycle-viewmodel-compose",
     "navigation",
     "window-size",
+    "back-handler",
 ]
 tooling = [
     "kermit",

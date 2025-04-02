@@ -32,6 +32,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -182,5 +183,9 @@ fun ProxyScreen(
                 )
             }
         }
+    }
+
+    BackHandler {
+        onEvent(ProxyViewModel.Event.BackClicked)
     }
 }
