@@ -20,6 +20,7 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.domain.CancelListenerCallback
 import org.ooni.probe.shared.PlatformInfo
 import kotlin.coroutines.CoroutineContext
 
@@ -36,7 +37,7 @@ class Engine(
     private val getBatteryState: () -> BatteryState,
     private val platformInfo: PlatformInfo,
     private val getEnginePreferences: suspend () -> EnginePreferences,
-    private val addRunCancelListener: (() -> Unit) -> Unit,
+    private val addRunCancelListener: (() -> Unit) -> CancelListenerCallback,
     private val backgroundContext: CoroutineContext,
 ) {
     fun startTask(
@@ -51,13 +52,16 @@ class Engine(
             val settingsSerialized = json.encodeToString(taskSettings)
 
             var task: OonimkallBridge.Task? = null
+            var cancelListener: CancelListenerCallback? = null
             var isCancelled = false
             try {
                 task = bridge.startTask(settingsSerialized)
 
-                addRunCancelListener {
-                    isCancelled = true
-                    task.interrupt()
+                cancelListener = addRunCancelListener {
+                    if (!isCancelled) {
+                        isCancelled = true
+                        task.interrupt()
+                    }
                 }
 
                 while (!task.isDone() && isActive) {
@@ -72,6 +76,7 @@ class Engine(
                 if (task?.isDone() == false) {
                     task.interrupt()
                 }
+                cancelListener?.dismiss()
             }
         }.flowOn(backgroundContext)
 

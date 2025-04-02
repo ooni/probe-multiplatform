@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
@@ -20,6 +19,7 @@ import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.domain.CancelListenerCallback
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.monitoring.Instrumentation
 
@@ -31,8 +31,7 @@ class RunBackgroundTask(
     private val runDescriptors: suspend (RunSpecification.Full) -> Unit,
     private val setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
     private val getRunBackgroundState: () -> Flow<RunBackgroundState>,
-    private val addRunCancelListener: (() -> Unit) -> Unit,
-    private val clearRunCancelListeners: () -> Unit,
+    private val addRunCancelListener: (() -> Unit) -> CancelListenerCallback,
     private val getLatestResult: () -> Flow<ResultModel?>,
 ) {
     operator fun invoke(spec: RunSpecification?): Flow<RunBackgroundState> =
@@ -74,8 +73,6 @@ class RunBackgroundTask(
                     updateState(idleState)
                 }
             }
-        }.onCompletion {
-            clearRunCancelListeners()
         }
 
     private suspend fun ProducerScope<RunBackgroundState>.uploadMissingResults(resultId: ResultModel.Id? = null): Boolean {
@@ -83,6 +80,7 @@ class RunBackgroundTask(
         if (!autoUpload) return false
 
         var isCancelled = false
+        var cancelListenerCallback: CancelListenerCallback? = null
 
         coroutineScope {
             val uploadJob = async {
@@ -92,7 +90,7 @@ class RunBackgroundTask(
                     }
             }
 
-            addRunCancelListener {
+            cancelListenerCallback = addRunCancelListener {
                 isCancelled = true
                 if (uploadJob.isActive) uploadJob.cancel()
                 CoroutineScope(Dispatchers.Default).launch {
@@ -106,6 +104,8 @@ class RunBackgroundTask(
                 Logger.i("Upload Missing Results (result=$resultId): cancelled")
             }
         }
+
+        cancelListenerCallback?.dismiss()
 
         if (isCancelled) {
             updateState(RunBackgroundState.Idle())
