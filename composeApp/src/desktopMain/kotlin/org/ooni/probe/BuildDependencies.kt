@@ -55,7 +55,7 @@ private fun buildPlatformInfo() =
         model = "model",
         needsToRequestNotificationsPermission = false,
         knownBatteryState = false,
-        sentryDsn = "",
+        sentryDsn = "https://e33da707dc40ab9508198b62de9bc269@o155150.ingest.us.sentry.io/4509084408610816",
     )
 
 private fun readAssetFile(path: String): String {
