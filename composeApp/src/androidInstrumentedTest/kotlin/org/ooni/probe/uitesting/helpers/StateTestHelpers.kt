@@ -14,7 +14,6 @@ suspend fun defaultSettings() {
             SettingsKey.AUTOMATED_TESTING_ENABLED to true,
             SettingsKey.AUTOMATED_TESTING_WIFIONLY to true,
             SettingsKey.AUTOMATED_TESTING_CHARGING to true,
-            SettingsKey.NOTIFICATIONS_ENABLED to true,
         ) +
             organizationPreferenceDefaults(),
     )

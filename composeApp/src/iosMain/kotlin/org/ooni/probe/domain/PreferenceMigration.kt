@@ -31,7 +31,6 @@ object PreferenceMigration : DataMigration<Preferences> {
 
         (
             listOf(
-                SettingsKey.NOTIFICATIONS_ENABLED to true,
                 SettingsKey.SEND_CRASH to true,
                 SettingsKey.UPLOAD_RESULTS to true,
                 SettingsKey.AUTOMATED_TESTING_ENABLED to true,

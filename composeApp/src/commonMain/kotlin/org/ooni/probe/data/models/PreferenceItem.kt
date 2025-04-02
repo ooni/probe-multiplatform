@@ -58,7 +58,6 @@ enum class PreferenceItemType {
 }
 
 enum class PreferenceCategoryKey(val value: String) {
-    NOTIFICATIONS("notifications"),
     TEST_OPTIONS("test_options"),
     PRIVACY("privacy"),
     PROXY("proxy"),

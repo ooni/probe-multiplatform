@@ -13,13 +13,13 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsite
 import ooniprobe.composeapp.generated.resources.Dashboard_Progress_UpdateLink_Label
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Tab_Label
-import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
 import ooniprobe.composeapp.generated.resources.Notification_StopTest
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Button_Go
 import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_Notifications_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_PopQuiz_True
 import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Button
 import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Title
@@ -137,9 +137,9 @@ class AutomateScreenshotsTest {
                 Screengrab.screenshot("03-crash-reporting")
                 clickOnTag("Yes-CrashReporting")
 
-                if (dependencies.platformInfo.needsToRequestNotificationsPermission) {
+                if (dependencies.platformInfo.requestNotificationsPermission) {
                     wait {
-                        onNodeWithText(Res.string.Modal_EnableNotifications_Title).isDisplayed()
+                        onNodeWithText(Res.string.Onboarding_Notifications_Title).isDisplayed()
                     }
                     Screengrab.screenshot("04-enable-notifications")
                     clickOnTag("No-Notifications")

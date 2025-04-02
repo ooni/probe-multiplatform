@@ -51,10 +51,6 @@ class iosAppUITests: XCTestCase {
 
         app.buttons["Yes-CrashReporting"].firstMatch.tap()
 
-
-        snapshot("04-enable-notifications")
-        app.buttons["No-Notifications"].firstMatch.tap()
-
         snapshot("05-default-settings")
         app.buttons.firstMatch.tap()
 
