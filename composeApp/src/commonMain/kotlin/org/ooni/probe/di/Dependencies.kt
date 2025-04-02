@@ -108,7 +108,7 @@ import kotlin.coroutines.CoroutineContext
 class Dependencies(
     val platformInfo: PlatformInfo,
     private val oonimkallBridge: OonimkallBridge,
-    private val baseFileDir: String,
+    val baseFileDir: String,
     val cacheDir: String,
     private val readAssetFile: (String) -> String,
     private val databaseDriverFactory: () -> SqlDriver,

@@ -62,7 +62,7 @@ kotlin {
 
     jvm("desktop")
     jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(17))
         vendor.set(JvmVendorSpec.JETBRAINS)
     }
 
@@ -350,6 +350,15 @@ compose.desktop {
             macOS {
                 minimumSystemVersion = "10.15.0"
             }
+        }
+
+        // For WebView
+        jvmArgs("--add-opens", "java.desktop/sun.awt=ALL-UNNAMED")
+        jvmArgs("--add-opens", "java.desktop/java.awt.peer=ALL-UNNAMED") // recommended but not necessary
+
+        if (System.getProperty("os.name").contains("Mac")) {
+            jvmArgs("--add-opens", "java.desktop/sun.lwawt=ALL-UNNAMED")
+            jvmArgs("--add-opens", "java.desktop/sun.lwawt.macosx=ALL-UNNAMED")
         }
     }
 }
