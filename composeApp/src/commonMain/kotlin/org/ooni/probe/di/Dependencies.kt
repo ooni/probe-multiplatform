@@ -318,6 +318,7 @@ class Dependencies(
             clearStorage = clearStorage::invoke,
             supportsCrashReporting = flavorConfig.isCrashReportingEnabled,
             knownBatteryState = platformInfo.knownBatteryState,
+            supportsNotificationSettings = platformInfo.supportsNotificationSettings,
         )
     }
 

@@ -54,6 +54,7 @@ private fun buildPlatformInfo() =
         osVersion = "1.0",
         model = "model",
         needsToRequestNotificationsPermission = false,
+        supportsNotificationSettings = false,
         knownBatteryState = false,
         sentryDsn = "",
     )
