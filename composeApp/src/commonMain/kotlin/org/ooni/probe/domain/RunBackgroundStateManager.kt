@@ -42,16 +42,17 @@ class RunBackgroundStateManager(
 
     // Cancels
 
-    fun addCancelListener(listener: () -> Unit) {
+    fun addCancelListener(listener: () -> Unit): CancelListenerCallback {
         cancelListeners.add(listener)
-    }
-
-    fun clearCancelListeners() {
-        cancelListeners.clear()
+        return CancelListenerCallback { cancelListeners.remove(listener) }
     }
 
     fun cancel() {
         cancelListeners.forEach { it() }
-        clearCancelListeners()
+        cancelListeners.clear()
     }
+}
+
+fun interface CancelListenerCallback {
+    fun dismiss()
 }

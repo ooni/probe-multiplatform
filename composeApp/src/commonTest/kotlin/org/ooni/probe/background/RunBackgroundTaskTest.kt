@@ -12,6 +12,7 @@ import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.domain.CancelListenerCallback
 import org.ooni.probe.domain.UploadMissingMeasurements
 import kotlin.test.Test
 import kotlin.test.assertFalse
@@ -51,8 +52,7 @@ class RunBackgroundTaskTest {
         runDescriptors: suspend (RunSpecification) -> Unit = {},
         setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit = {},
         getRunBackgroundState: () -> Flow<RunBackgroundState> = { flowOf(RunBackgroundState.Idle()) },
-        addRunCancelListener: (() -> Unit) -> Unit = {},
-        clearRunCancelListeners: () -> Unit = {},
+        addRunCancelListener: (() -> Unit) -> CancelListenerCallback = { CancelListenerCallback {} },
         getLatestResult: () -> Flow<ResultModel?> = { flowOf(null) },
     ) = RunBackgroundTask(
         getPreferenceValueByKey = getPreferenceValueByKey,
@@ -63,7 +63,6 @@ class RunBackgroundTaskTest {
         setRunBackgroundState = setRunBackgroundState,
         getRunBackgroundState = getRunBackgroundState,
         addRunCancelListener = addRunCancelListener,
-        clearRunCancelListeners = clearRunCancelListeners,
         getLatestResult = getLatestResult,
     )
 }
