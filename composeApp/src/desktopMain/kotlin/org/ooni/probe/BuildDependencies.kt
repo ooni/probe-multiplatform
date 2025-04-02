@@ -1,6 +1,7 @@
 package org.ooni.probe
 
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import co.touchlab.kermit.Logger
 import dev.dirs.ProjectDirectories
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +22,11 @@ import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
+import java.awt.Desktop
 import java.io.File
+import java.net.URI
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
 
@@ -97,8 +102,81 @@ private fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorMode
 }
 
 private fun launchAction(action: PlatformAction): Boolean {
-    // TODO: Desktop - launchAction
-    return true
+    return when (action) {
+        is PlatformAction.FileSharing -> shareFile(action)
+        is PlatformAction.Mail -> sendMail(action)
+        is PlatformAction.OpenUrl -> openUrl(action)
+        is PlatformAction.Share -> shareText(action)
+        PlatformAction.VpnSettings -> openVpnSettings()
+    }
+}
+
+fun openVpnSettings(): Boolean {
+    return false
+}
+
+fun shareText(action: PlatformAction.Share): Boolean {
+    return try {
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
+            val uri = URI.create("mailto:?body=${URLEncoder.encode(action.text, StandardCharsets.UTF_8)}")
+            Desktop.getDesktop().mail(uri)
+            true
+        } else {
+            false
+        }
+    } catch (e: Exception) {
+        Logger.e(e) { "Failed to share text" }
+        false
+    }
+}
+
+fun shareFile(action: PlatformAction.FileSharing): Boolean {
+    return try {
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.APP_OPEN_FILE)) {
+            val file = projectDirectories.dataDir.toPath().resolve(action.filePath).toFile()
+            if (!file.exists()) {
+                Logger.w("File to share does not exist: $file")
+                return false
+            }
+            Desktop.getDesktop().open(file)
+            true
+        } else {
+            false
+        }
+    } catch (e: Exception) {
+        Logger.e(e) { "Failed to share file" }
+        false
+    }
+}
+
+fun openUrl(action: PlatformAction.OpenUrl): Boolean {
+    if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+        Desktop.getDesktop().browse(URI(action.url))
+        return true
+    } else {
+        return false
+    }
+}
+
+fun sendMail(action: PlatformAction.Mail): Boolean {
+    return try {
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
+            val mailUri = buildMailUri(action)
+            Desktop.getDesktop().mail(mailUri)
+            true
+        } else {
+            false
+        }
+    } catch (e: Exception) {
+        Logger.e(e) { "Failed to send mail" }
+        false
+    }
+}
+
+private fun buildMailUri(action: PlatformAction.Mail): URI {
+    val subject = URLEncoder.encode(action.subject, StandardCharsets.UTF_8).replace("+", "%20")
+    val body = URLEncoder.encode(action.body, StandardCharsets.UTF_8).replace("+", "%20").replace("%0A", "%0D%0A")
+    return URI("mailto:${action.to}?subject=$subject&body=$body")
 }
 
 private fun isWebViewAvailable(): Boolean {
