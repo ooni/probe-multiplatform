@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -648,6 +649,8 @@ class Dependencies(
             getPreferencesByKeys = preferenceRepository::allSettings,
             setPreferenceValuesByKeys = preferenceRepository::setValuesByKey,
         )
+
+    suspend fun hasTestDescriptorInstalled() = testDescriptorRepository.listAll().first().isNotEmpty()
 
     companion object {
         @VisibleForTesting
