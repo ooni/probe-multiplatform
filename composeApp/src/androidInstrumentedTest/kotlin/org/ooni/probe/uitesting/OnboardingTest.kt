@@ -5,11 +5,11 @@ import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Button_Go
 import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_Notifications_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_PopQuiz_True
 import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Button
 import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Title
@@ -72,9 +72,9 @@ class OnboardingTest {
                     clickOnTag("Yes-CrashReporting")
                 }
 
-                if (dependencies.platformInfo.needsToRequestNotificationsPermission) {
+                if (dependencies.platformInfo.requestNotificationsPermission) {
                     wait {
-                        onNodeWithText(Res.string.Modal_EnableNotifications_Title).isDisplayed()
+                        onNodeWithText(Res.string.Onboarding_Notifications_Title).isDisplayed()
                     }
                     clickOnTag("No-Notifications")
                 }

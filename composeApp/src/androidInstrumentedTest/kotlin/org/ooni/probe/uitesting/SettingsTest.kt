@@ -14,8 +14,6 @@ import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_ChargingOnly
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_WiFiOnly
-import ooniprobe.composeapp.generated.resources.Settings_Notifications_Enabled
-import ooniprobe.composeapp.generated.resources.Settings_Notifications_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_SendCrashReports
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
@@ -27,7 +25,6 @@ import ooniprobe.composeapp.generated.resources.Settings_WarmVPNInUse_Label
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Description
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
 import org.jetbrains.compose.resources.getString
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -54,22 +51,6 @@ class SettingsTest {
         runTest {
             skipOnboarding()
             start()
-        }
-
-    @Test
-    fun notifications() =
-        runTest {
-            assertTrue(preferences.getValueByKey(SettingsKey.NOTIFICATIONS_ENABLED).first() != true)
-
-            with(compose) {
-                clickOnText(Res.string.Settings_Title)
-                clickOnText(Res.string.Settings_Notifications_Label)
-                clickOnText(Res.string.Settings_Notifications_Enabled)
-
-                wait {
-                    preferences.getValueByKey(SettingsKey.NOTIFICATIONS_ENABLED).first() == true
-                }
-            }
         }
 
     @Test

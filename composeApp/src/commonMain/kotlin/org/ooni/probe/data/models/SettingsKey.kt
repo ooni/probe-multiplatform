@@ -1,9 +1,6 @@
 package org.ooni.probe.data.models
 
 enum class SettingsKey(val value: String) {
-    // Notifications
-    NOTIFICATIONS_ENABLED("notifications_enabled"),
-
     // Test Options
     AUTOMATED_TESTING_ENABLED("automated_testing_enabled"),
     AUTOMATED_TESTING_WIFIONLY("automated_testing_wifionly"),

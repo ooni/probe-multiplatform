@@ -126,8 +126,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">Settings</string>
-    <string name="Settings_Notifications_Label">Notifications</string>
-    <string name="Settings_Notifications_Enabled">Enabled</string>
 
     <string name="Settings_TestOptions_Label">Test options</string>
     <string name="Settings_TestOptions_LongRunningTest">Long running test</string>
@@ -269,6 +267,10 @@
     <string name="Onboarding_Crash_Title">Crash Reporting</string>
     <string name="Onboarding_Crash_Button_Yes">Yes</string>
     <string name="Onboarding_Crash_Button_No">No</string>
+    <string name="Onboarding_Notifications_Title">Enable Notifications</string>
+    <string name="Onboarding_Notifications_Paragraph">After you start running tests, you can close the app and they will continue running in the background. Enable notifications so you can keep track of what tests are running, or stop them, without having to open the app.</string>
+    <string name="Onboarding_Notifications_Ok">OK</string>
+    <string name="Onboarding_Notifications_Skip">Skip</string>
     <string name="Onboarding_DefaultSettings_Title">Default Settings</string>
     <string name="Onboarding_DefaultSettings_Header">We collect and publish:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Country code (e.g. IT for Italy)</string>
@@ -319,7 +321,6 @@
     <string name="Modal_CustomURL_NotSaved">Your URLs will not be saved when you leave this screen. Are you sure you want to leave this screen?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">The application cannot run tests automatically without background permission. Do you want to try again?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">The application needs permission to run tests automatically in the background.</string>
-    <string name="Modal_EnableNotifications_Title">Get updates on internet censorship</string>
 
     <!-- Common / Others -->
 

@@ -6,8 +6,7 @@ data class PlatformInfo(
     val platform: Platform,
     val osVersion: String,
     val model: String,
-    val needsToRequestNotificationsPermission: Boolean,
-    val supportsNotificationSettings: Boolean = true,
+    val requestNotificationsPermission: Boolean,
     val knownBatteryState: Boolean = true,
     val sentryDsn: String,
 ) {

@@ -84,8 +84,7 @@ class AndroidApplication : Application() {
             platform = Platform.Android,
             osVersion = Build.VERSION.SDK_INT.toString(),
             model = "${Build.MANUFACTURER} ${Build.MODEL}",
-            needsToRequestNotificationsPermission =
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU,
+            requestNotificationsPermission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU,
             sentryDsn =
                 "https://7a49ffedcb48b9b69705d1ac2c032c69@o155150.ingest.sentry.io/4508325642764288",
         )

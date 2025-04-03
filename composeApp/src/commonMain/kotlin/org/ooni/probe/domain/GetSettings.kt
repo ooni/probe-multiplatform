@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
-import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Paragraph
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_About_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_DebugLogs
@@ -31,8 +30,6 @@ import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAut
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_Description
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_Footer
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_WiFiOnly
-import ooniprobe.composeapp.generated.resources.Settings_Notifications_Enabled
-import ooniprobe.composeapp.generated.resources.Settings_Notifications_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_SendCrashReports
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
@@ -50,7 +47,6 @@ import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnab
 import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntime_New
 import ooniprobe.composeapp.generated.resources.advanced
 import ooniprobe.composeapp.generated.resources.ic_settings
-import ooniprobe.composeapp.generated.resources.notifications
 import ooniprobe.composeapp.generated.resources.outline_info
 import ooniprobe.composeapp.generated.resources.privacy
 import ooniprobe.composeapp.generated.resources.proxy
@@ -75,7 +71,6 @@ class GetSettings(
     val observeStorageUsed: () -> Flow<Long>,
     private val supportsCrashReporting: Boolean,
     private val knownBatteryState: Boolean,
-    private val supportsNotificationSettings: Boolean,
 ) {
     operator fun invoke(): Flow<List<SettingsCategoryItem>> {
         return combine(
@@ -104,26 +99,6 @@ class GetSettings(
         }
     }
 
-    private fun createNotificationsSettings(): SettingsCategoryItem {
-        return SettingsCategoryItem(
-            icon = Res.drawable.notifications,
-            title = Res.string.Settings_Notifications_Label,
-            route = PreferenceCategoryKey.NOTIFICATIONS,
-            settings = listOf(
-                SettingsItem(
-                    title = Res.string.Settings_Notifications_Enabled,
-                    key = SettingsKey.NOTIFICATIONS_ENABLED,
-                    type = PreferenceItemType.SWITCH,
-                ),
-            ),
-            footerContent = {
-                SettingsDescription(
-                    Res.string.Modal_EnableNotifications_Paragraph,
-                )
-            },
-        )
-    }
-
     private fun buildSettings(
         hasWebsitesDescriptor: Boolean,
         uploadResultsEnabled: Boolean,
@@ -135,7 +110,6 @@ class GetSettings(
         supportsCrashReporting: Boolean = false,
     ): List<SettingsCategoryItem> {
         return listOfNotNull(
-            createNotificationsSettings().takeIf { supportsNotificationSettings },
             SettingsCategoryItem(
                 icon = Res.drawable.ic_settings,
                 title = Res.string.Settings_TestOptions_Label,
