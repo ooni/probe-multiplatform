@@ -93,11 +93,6 @@ class iosAppUITests: XCTestCase {
 
         sleep(1)
 
-        app.buttons["notifications"].coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
-        snapshot("10-notifications")
-
-        app.buttons.firstMatch.tap()
-
         app.buttons["test_options"].coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
         snapshot("11-test-options")
 
