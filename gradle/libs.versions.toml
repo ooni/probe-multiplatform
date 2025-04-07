@@ -39,6 +39,7 @@ android-desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version =
 android-activity = { module = "androidx.activity:activity-ktx", version = "1.10.1" }
 android-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.6" }
 android-work = { module = "androidx.work:work-runtime-ktx", version = "2.10.0" }
+android-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0" }
 
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.8.4" }
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.8.0-alpha11" }
@@ -133,6 +134,7 @@ android = [
     "android-fragment",
     "android-work",
     "sqldelight-android",
+    "android-appcompat",
 ]
 mobile = [
     "moko-permissions-compose",
