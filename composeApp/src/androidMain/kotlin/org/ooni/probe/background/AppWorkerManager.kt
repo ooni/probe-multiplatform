@@ -53,6 +53,13 @@ class AppWorkerManager(
         }
     }
 
+    suspend fun cancelDescriptorAutoUpdate(): Boolean {
+        return withContext(backgroundDispatcher) {
+            workManager.cancelUniqueWork(DescriptorUpdateWorker.AutoUpdateWorkerName)
+            true
+        }
+    }
+
     suspend fun configureDescriptorAutoUpdate(): Boolean {
         return withContext(backgroundDispatcher) {
             val request = PeriodicWorkRequestBuilder<DescriptorUpdateWorker>(1, TimeUnit.DAYS)

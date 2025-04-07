@@ -9,7 +9,6 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -62,6 +61,7 @@ import org.ooni.probe.domain.GetSettings
 import org.ooni.probe.domain.GetStorageUsed
 import org.ooni.probe.domain.MarkJustFinishedTestAsSeen
 import org.ooni.probe.domain.ObserveAndConfigureAutoRun
+import org.ooni.probe.domain.ObserveAndConfigureAutoUpdate
 import org.ooni.probe.domain.RunBackgroundStateManager
 import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
@@ -120,6 +120,7 @@ class Dependencies(
     val startSingleRunInner: (RunSpecification) -> Unit,
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
     val configureDescriptorAutoUpdate: suspend () -> Boolean,
+    val cancelDescriptorAutoUpdate: suspend () -> Boolean,
     val startDescriptorsUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
     private val isWebViewAvailable: () -> Boolean,
@@ -349,6 +350,17 @@ class Dependencies(
             getAutoRunSettings = getAutoRunSettings::invoke,
         )
     }
+
+    val observeAndConfigureAutoUpdate by lazy {
+        ObserveAndConfigureAutoUpdate(
+            backgroundContext = backgroundContext,
+            listAllInstalledTestDescriptors = testDescriptorRepository::listAll,
+            configureDescriptorAutoUpdate = configureDescriptorAutoUpdate,
+            cancelDescriptorAutoUpdate = cancelDescriptorAutoUpdate,
+            startDescriptorsUpdate = startDescriptorsUpdate,
+        )
+    }
+
     private val rejectDescriptorUpdate by lazy {
         RejectDescriptorUpdate(
             updateDescriptorRejectedRevision = testDescriptorRepository::updateRejectedRevision,
@@ -649,8 +661,6 @@ class Dependencies(
             getPreferencesByKeys = preferenceRepository::allSettings,
             setPreferenceValuesByKeys = preferenceRepository::setValuesByKey,
         )
-
-    suspend fun hasTestDescriptorInstalled() = testDescriptorRepository.listAll().first().isNotEmpty()
 
     companion object {
         @VisibleForTesting
