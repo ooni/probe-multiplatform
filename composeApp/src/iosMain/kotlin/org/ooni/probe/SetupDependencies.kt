@@ -88,6 +88,7 @@ class SetupDependencies(
         startSingleRunInner = ::startSingleRun,
         configureAutoRun = ::configureAutoRun,
         configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
+        cancelDescriptorAutoUpdate = ::cancelDescriptorAutoUpdate,
         startDescriptorsUpdate = ::startDescriptorsUpdate,
         localeDirection = ::localeDirection,
         launchAction = ::launchAction,
@@ -292,6 +293,17 @@ class SetupDependencies(
                 return@let false
             }
         } ?: false
+    }
+
+    private fun cancelDescriptorAutoUpdate(): Boolean {
+        Logger.d("Cancelling descriptor auto update")
+        return try {
+            BGTaskScheduler.sharedScheduler.cancelTaskRequestWithIdentifier(OrganizationConfig.updateDescriptorTaskId)
+            true
+        } catch (e: Exception) {
+            Logger.e(e) { "Failed to cancel descriptor auto update" }
+            false
+        }
     }
 
     private fun configureDescriptorAutoUpdate(): Boolean {

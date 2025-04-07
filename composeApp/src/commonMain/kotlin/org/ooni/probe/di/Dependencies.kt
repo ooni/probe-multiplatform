@@ -61,6 +61,7 @@ import org.ooni.probe.domain.GetSettings
 import org.ooni.probe.domain.GetStorageUsed
 import org.ooni.probe.domain.MarkJustFinishedTestAsSeen
 import org.ooni.probe.domain.ObserveAndConfigureAutoRun
+import org.ooni.probe.domain.ObserveAndConfigureAutoUpdate
 import org.ooni.probe.domain.RunBackgroundStateManager
 import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
@@ -119,6 +120,7 @@ class Dependencies(
     val startSingleRunInner: (RunSpecification) -> Unit,
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
     val configureDescriptorAutoUpdate: suspend () -> Boolean,
+    val cancelDescriptorAutoUpdate: suspend () -> Boolean,
     val startDescriptorsUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
     private val isWebViewAvailable: () -> Boolean,
@@ -347,6 +349,17 @@ class Dependencies(
             getAutoRunSettings = getAutoRunSettings::invoke,
         )
     }
+
+    val observeAndConfigureAutoUpdate by lazy {
+        ObserveAndConfigureAutoUpdate(
+            backgroundContext = backgroundContext,
+            listAllInstalledTestDescriptors = testDescriptorRepository::listAll,
+            configureDescriptorAutoUpdate = configureDescriptorAutoUpdate,
+            cancelDescriptorAutoUpdate = cancelDescriptorAutoUpdate,
+            startDescriptorsUpdate = startDescriptorsUpdate,
+        )
+    }
+
     private val rejectDescriptorUpdate by lazy {
         RejectDescriptorUpdate(
             updateDescriptorRejectedRevision = testDescriptorRepository::updateRejectedRevision,

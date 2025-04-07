@@ -43,6 +43,7 @@ val dependencies = Dependencies(
     startSingleRunInner = ::startSingleRun,
     configureAutoRun = ::configureAutoRun,
     configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
+    cancelDescriptorAutoUpdate = ::cancelDescriptorAutoUpdate,
     startDescriptorsUpdate = ::startDescriptorsUpdate,
     launchAction = ::launchAction,
     batteryOptimization = object : BatteryOptimization {},
@@ -89,6 +90,11 @@ private fun configureAutoRun(params: AutoRunParameters) {
 }
 
 private fun configureDescriptorAutoUpdate(): Boolean {
+    // TODO: Desktop - background running
+    return true
+}
+
+private fun cancelDescriptorAutoUpdate(): Boolean {
     // TODO: Desktop - background running
     return true
 }
