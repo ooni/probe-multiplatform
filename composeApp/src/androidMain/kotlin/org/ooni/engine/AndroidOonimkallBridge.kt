@@ -85,7 +85,7 @@ class AndroidOonimkallBridge : OonimkallBridge {
     private fun OonimkallBridge.CheckInConfig.toMk() =
         CheckInConfig().also {
             it.charging = charging
-            it.onWiFi = onWiFi
+            if (onWiFi != null) it.onWiFi = onWiFi
             it.platform = platform
             it.runType = runType
             it.softwareName = softwareName

@@ -233,6 +233,7 @@ class Dependencies(
             getAutoRunSettings = getAutoRunSettings::invoke,
             getNetworkType = networkTypeFinder::invoke,
             getBatteryState = getBatteryState::invoke,
+            knownNetworkType = platformInfo.knownNetworkType,
             knownBatteryState = platformInfo.knownBatteryState,
             resultRepository::countMissingUpload,
         )
@@ -317,6 +318,7 @@ class Dependencies(
             observeStorageUsed = getStorageUsed::observe,
             clearStorage = clearStorage::invoke,
             supportsCrashReporting = flavorConfig.isCrashReportingEnabled,
+            knownNetworkType = platformInfo.knownNetworkType,
             knownBatteryState = platformInfo.knownBatteryState,
         )
     }
