@@ -81,8 +81,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">ဆက်တင်များ</string>
-    <string name="Settings_Notifications_Label">အသိပေးချက်များ</string>
-    <string name="Settings_Notifications_Enabled">ဖွင့်ထားသည်</string>
 
     <string name="Settings_TestOptions_Label">စမ်းသပ်ရွေးချယ်မှုများ</string>
     <string name="Settings_TestOptions_LongRunningTest">တာရှည်စမ်းသပ်မှု</string>
@@ -209,6 +207,9 @@
     <string name="Onboarding_Crash_Title">ပျက်စီးမှု သတင်းပို့ခြင်း</string>
     <string name="Onboarding_Crash_Button_Yes">ပါဝင်သည်</string>
     <string name="Onboarding_Crash_Button_No">အဆင့်သတ်မှတ်ချက်</string>
+    <string name="Onboarding_Notifications_Title">အသိပေးချက်များ ဖွင့်မယ်</string>
+    <string name="Onboarding_Notifications_Ok">အိုကေ</string>
+    <string name="Onboarding_Notifications_Skip">ကျော်မည်</string>
     <string name="Onboarding_DefaultSettings_Title">နဂိုမူလ ဆက်တင်များ</string>
     <string name="Onboarding_DefaultSettings_Header">ကျွန်ုပ်တို့ ကောက်ယူစုဆောင်း၍ ဖြန့်ဝေသည် -</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">နိုင်ငံကုဒ် (ဥပမာ - အီတလီအတွက် IT)</string>
@@ -247,8 +248,6 @@
     <string name="Modal_Error_CantDownloadURLs">URL စာရင်းကို ဒေါင်းလုဒ်လုပ်၍ မရပါ။ ထပ်စမ်းကြည့်ပါ။</string>
     <string name="Modal_CustomURL_Title_NotSaved">သေချာပါသလား။</string>
     <string name="Modal_CustomURL_NotSaved">ဤဝဘ်စာမျက်နှာမှ ထွက်သည့်အခါ သင့် URL များကို သိမ်းဆည်းမည် မဟုတ်ပါ။ ဤစာမျက်နှာမှ ထွက်လိုသည်မှာ သေချာပါသလား။ </string>
-    <string name="Modal_EnableNotifications_Title">အင်တာနက် ဆင်ဆာဖြတ်ခြင်းဆိုင်ရာ အပ်ဒိတ်များကို ရယူပါ။</string>
-
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">စမ်းမည်</string>
