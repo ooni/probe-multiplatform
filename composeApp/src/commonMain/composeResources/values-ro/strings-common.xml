@@ -77,8 +77,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">Setări</string>
-    <string name="Settings_Notifications_Label">Notificări</string>
-    <string name="Settings_Notifications_Enabled">Activat</string>
 
     <string name="Settings_TestOptions_Label">Opțiuni de testare</string>
     <string name="Settings_Sharing_UploadResults">Publicare automată a rezultatelor</string>
@@ -190,6 +188,8 @@
     <string name="Onboarding_PopQuiz_2_Wrong_Title">Avertizare</string>
     <string name="Onboarding_Crash_Button_Yes">Da</string>
     <string name="Onboarding_Crash_Button_No">Nu</string>
+    <string name="Onboarding_Notifications_Ok">OK</string>
+    <string name="Onboarding_Notifications_Skip">Sari</string>
     <string name="Onboarding_DefaultSettings_Title">Setări implicite</string>
     <string name="Onboarding_DefaultSettings_Header">Colectăm și publicăm:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Codul țării (de exemplu IT pentru Italia)</string>
