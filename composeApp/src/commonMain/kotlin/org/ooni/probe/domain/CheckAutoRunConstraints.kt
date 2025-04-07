@@ -11,6 +11,7 @@ class CheckAutoRunConstraints(
     private val getAutoRunSettings: suspend () -> Flow<AutoRunParameters>,
     private val getNetworkType: () -> NetworkType,
     private val getBatteryState: () -> BatteryState,
+    private val knownNetworkType: Boolean,
     private val knownBatteryState: Boolean,
     private val countResultsMissingUpload: () -> Flow<Long>,
 ) {
@@ -27,7 +28,10 @@ class CheckAutoRunConstraints(
             return false
         }
 
-        if (autoRunParameters.wifiOnly && getNetworkType() != NetworkType.Wifi) {
+        if (knownNetworkType &&
+            autoRunParameters.wifiOnly &&
+            getNetworkType() != NetworkType.Wifi
+        ) {
             Logger.i("Not starting auto-run because of Wi-Fi constraint")
             return false
         }

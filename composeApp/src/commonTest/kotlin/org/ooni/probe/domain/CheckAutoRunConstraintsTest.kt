@@ -31,6 +31,7 @@ class CheckAutoRunConstraintsTest {
                         },
                         getNetworkType = { NetworkType.Wifi },
                         getBatteryState = { BatteryState.Charging },
+                        knownNetworkType = true,
                         knownBatteryState = true,
                         countResultsMissingUpload = { flowOf(count) },
                     )(),
@@ -55,6 +56,7 @@ class CheckAutoRunConstraintsTest {
                 },
                 getNetworkType = { NetworkType.VPN },
                 getBatteryState = { BatteryState.Charging },
+                knownNetworkType = true,
                 knownBatteryState = true,
                 countResultsMissingUpload = { flowOf(0) },
             )
@@ -80,6 +82,7 @@ class CheckAutoRunConstraintsTest {
                 },
                 getNetworkType = { NetworkType.Wifi },
                 getBatteryState = { batteryState },
+                knownNetworkType = true,
                 knownBatteryState = knownBatteryState,
                 countResultsMissingUpload = { flowOf(0) },
             )()

@@ -61,6 +61,7 @@ private fun buildPlatformInfo() =
         model = "model",
         requestNotificationsPermission = false,
         knownBatteryState = false,
+        knownNetworkType = false,
         sentryDsn = "https://e33da707dc40ab9508198b62de9bc269@o155150.ingest.sentry.io/4509084408610816",
     )
 
@@ -69,8 +70,11 @@ private fun readAssetFile(path: String): String {
     throw NotImplementedError()
 }
 
-// TODO: Desktop - buildDatabaseDriver persist in storage instead of in memory
-private fun networkTypeFinder() = NetworkType.Wifi
+/*
+ * This is a dummy implementation for now.
+ * In the future we can write a proper implement using native APIs.
+ */
+private fun networkTypeFinder() = NetworkType.Unknown("unknown")
 
 // TODO: Desktop - Confirm appropriate path and configuration
 private fun buildDataStore() =

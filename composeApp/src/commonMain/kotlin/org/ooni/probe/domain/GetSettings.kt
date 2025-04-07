@@ -70,6 +70,7 @@ class GetSettings(
     private val clearStorage: suspend (Boolean) -> Unit,
     val observeStorageUsed: () -> Flow<Long>,
     private val supportsCrashReporting: Boolean,
+    private val knownNetworkType: Boolean,
     private val knownBatteryState: Boolean,
 ) {
     operator fun invoke(): Flow<List<SettingsCategoryItem>> {
@@ -114,7 +115,7 @@ class GetSettings(
                 icon = Res.drawable.ic_settings,
                 title = Res.string.Settings_TestOptions_Label,
                 route = PreferenceCategoryKey.TEST_OPTIONS,
-                settings = listOf(
+                settings = listOfNotNull(
                     SettingsItem(
                         title = Res.string.Settings_Sharing_UploadResults,
                         key = SettingsKey.UPLOAD_RESULTS,
@@ -138,32 +139,29 @@ class GetSettings(
                             )
                         },
                     ),
-                ) + if (autoRunEnabled) {
-                    listOf(
+                    if (autoRunEnabled && knownNetworkType) {
                         SettingsItem(
                             title = Res.string.Settings_AutomatedTesting_RunAutomatically_WiFiOnly,
                             key = SettingsKey.AUTOMATED_TESTING_WIFIONLY,
                             type = PreferenceItemType.SWITCH,
                             enabled = autoRunEnabled && uploadResultsEnabled,
                             indentation = 1,
-                        ),
-                    ) + if (knownBatteryState) {
-                        listOf(
-                            SettingsItem(
-                                title = Res.string.Settings_AutomatedTesting_RunAutomatically_ChargingOnly,
-                                key = SettingsKey.AUTOMATED_TESTING_CHARGING,
-                                type = PreferenceItemType.SWITCH,
-                                enabled = autoRunEnabled && uploadResultsEnabled,
-                                indentation = 1,
-                            ),
                         )
                     } else {
-                        emptyList()
-                    }
-                } else {
-                    emptyList()
-                } + if (hasWebsitesDescriptor) {
-                    listOfNotNull(
+                        null
+                    },
+                    if (autoRunEnabled && knownBatteryState) {
+                        SettingsItem(
+                            title = Res.string.Settings_AutomatedTesting_RunAutomatically_ChargingOnly,
+                            key = SettingsKey.AUTOMATED_TESTING_CHARGING,
+                            type = PreferenceItemType.SWITCH,
+                            enabled = autoRunEnabled && uploadResultsEnabled,
+                            indentation = 1,
+                        )
+                    } else {
+                        null
+                    },
+                    if (hasWebsitesDescriptor) {
                         SettingsItem(
                             title = Res.string.Settings_Websites_MaxRuntimeEnabled_New,
                             key = SettingsKey.MAX_RUNTIME_ENABLED,
@@ -175,27 +173,26 @@ class GetSettings(
                                 )
                             },
                             indentation = 0,
-                        ),
-                        if (maxRuntimeEnabled) {
-                            SettingsItem(
-                                title = Res.string.Settings_Websites_MaxRuntime_New,
-                                key = SettingsKey.MAX_RUNTIME,
-                                type = PreferenceItemType.INT,
-                                supportingContent = {
-                                    maxRuntime?.let {
-                                        Text(it.coerceAtLeast(0).seconds.shortFormat())
-                                    }
-                                },
-                                indentation = 1,
-                            )
-                        } else {
-                            null
-                        },
-                    )
-                } else {
-                    emptyList()
-                } + if (hasWebsitesDescriptor) {
-                    listOf(
+                        )
+                    } else {
+                        null
+                    },
+                    if (hasWebsitesDescriptor && maxRuntimeEnabled) {
+                        SettingsItem(
+                            title = Res.string.Settings_Websites_MaxRuntime_New,
+                            key = SettingsKey.MAX_RUNTIME,
+                            type = PreferenceItemType.INT,
+                            supportingContent = {
+                                maxRuntime?.let {
+                                    Text(it.coerceAtLeast(0).seconds.shortFormat())
+                                }
+                            },
+                            indentation = 1,
+                        )
+                    } else {
+                        null
+                    },
+                    if (hasWebsitesDescriptor) {
                         SettingsCategoryItem(
                             title = Res.string.Settings_Websites_Categories_Label,
                             route = PreferenceCategoryKey.WEBSITES_CATEGORIES,
@@ -207,11 +204,11 @@ class GetSettings(
                                     ),
                                 )
                             },
-                        ),
-                    )
-                } else {
-                    emptyList()
-                },
+                        )
+                    } else {
+                        null
+                    },
+                ),
                 footerContent = {
                     SettingsDescription(
                         Res.string.Settings_AutomatedTesting_RunAutomatically_Footer,

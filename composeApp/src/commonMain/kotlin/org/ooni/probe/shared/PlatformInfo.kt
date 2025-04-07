@@ -8,6 +8,7 @@ data class PlatformInfo(
     val model: String,
     val requestNotificationsPermission: Boolean,
     val knownBatteryState: Boolean = true,
+    val knownNetworkType: Boolean = true,
     val sentryDsn: String,
 ) {
     val version get() = "$buildName ($buildNumber)"

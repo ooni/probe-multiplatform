@@ -95,10 +95,15 @@ class Engine(
             val sessionConfig = buildSessionConfig(taskOrigin, preferences)
             val session = session(sessionConfig)
             try {
+                val networkType = networkTypeFinder()
                 session.checkIn(
                     OonimkallBridge.CheckInConfig(
                         charging = isBatteryCharging(),
-                        onWiFi = networkTypeFinder() == NetworkType.Wifi,
+                        onWiFi = if (networkType !is NetworkType.Unknown) {
+                            networkType == NetworkType.Wifi
+                        } else {
+                            null
+                        },
                         platform = platformInfo.platform.value,
                         runType = taskOrigin.runType,
                         softwareName = sessionConfig.softwareName,

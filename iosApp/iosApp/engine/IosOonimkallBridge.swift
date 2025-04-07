@@ -166,7 +166,9 @@ extension OonimkallBridgeCheckInConfig {
     func toMk() -> OonimkallCheckInConfig {
         let config = OonimkallCheckInConfig()
         config.charging = charging
-        config.onWiFi = onWiFi
+        if onWiFi != nil {
+            config.onWiFi = onWiFi
+        }
         config.platform = platform
         config.runType = runType
         config.softwareName = softwareName

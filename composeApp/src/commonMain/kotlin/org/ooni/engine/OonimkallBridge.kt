@@ -58,7 +58,7 @@ interface OonimkallBridge {
 
     data class CheckInConfig(
         val charging: Boolean,
-        val onWiFi: Boolean,
+        val onWiFi: Boolean?,
         // "android" or "ios"
         val platform: String,
         // "timed"
