@@ -121,8 +121,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">Configuración</string>
-    <string name="Settings_Notifications_Label">Notificaciones</string>
-    <string name="Settings_Notifications_Enabled">Activado</string>
 
     <string name="Settings_TestOptions_Label">Opciones de la prueba</string>
     <string name="Settings_TestOptions_LongRunningTest">Prueba de larga duración</string>
@@ -264,6 +262,8 @@
     <string name="Onboarding_Crash_Title">Informes de error</string>
     <string name="Onboarding_Crash_Button_Yes">Si</string>
     <string name="Onboarding_Crash_Button_No">No</string>
+    <string name="Onboarding_Notifications_Ok">Aceptar</string>
+    <string name="Onboarding_Notifications_Skip">Omitir</string>
     <string name="Onboarding_DefaultSettings_Title">Configuración predeterminada</string>
     <string name="Onboarding_DefaultSettings_Header">Recopilamos y publicamos:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Código de país (ej. IT por Italia)</string>
@@ -312,8 +312,6 @@
     <string name="Modal_Error_CantDownloadURLs">Incapaz de descargar la lista de URL. Por favor intenta de nuevo.</string>
     <string name="Modal_CustomURL_Title_NotSaved">¿Estas seguro?</string>
     <string name="Modal_CustomURL_NotSaved">Tus URLs no serán guardadas cuando dejes esta pantalla. ¿Estás seguro de que quieres dejarla?</string>
-    <string name="Modal_EnableNotifications_Title">Obtiene actualizaciones sobre censura en Internet</string>
-
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Ejecutar</string>
