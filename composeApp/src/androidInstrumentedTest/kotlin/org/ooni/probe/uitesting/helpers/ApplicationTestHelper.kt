@@ -35,6 +35,3 @@ val isNewsMediaScan
 
 val isCrashReportingEnabled
     get() = dependencies.flavorConfig.isCrashReportingEnabled
-
-val isRemoteNotificationsEnabled
-    get() = dependencies.flavorConfig.isRemoteNotificationsEnabled

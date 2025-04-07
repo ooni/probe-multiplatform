@@ -13,9 +13,6 @@
     <string name="Onboarding_AutomatedTesting_Paragraph">To measure internet censorship every day, please enable automated testing so that OONI Probe can run tests periodically.\n\nDon\'t worry, we\'ll be mindful of battery usage. \n\nYou can disable automated testing from the settings at any time.</string>
     <string name="Onboarding_Crash_Paragraph">To improve OONI Probe we would like to collect anonymous crash reports when the app does not work properly.\n\nWould you like to opt-in to submitting crash reports to the OONI development team?</string>
 
-    <!-- Find proper fix for translation -->
-    <string name="Modal_EnableNotifications_Paragraph">Interested in running OONI Probe tests during emergent censorship events? Enable notifications to receive a message when we hear of internet censorship near you.</string>
-
     <string name="Dashboard_Websites_Card_Description">Test the blocking of websites</string>
     <string name="Dashboard_Websites_Overview_Paragraph">Check whether websites are blocked using OONI\'s [Web Connectivity test](https://ooni.org/nettest/web-connectivity/).\n\nEvery time you tap Run, you test different websites from the Citizen Lab\'s [global](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) and [country-specific](https://github.com/citizenlab/test-lists/tree/master/lists) test lists.\n\nTo test the sites of your choice, tap the Choose websites button or select categories of sites via the settings of this card. \n\nThis test measures whether websites are blocked by means of DNS tampering, TCP/IP blocking or by a transparent HTTP proxy.\n\nYour results will be published on [OONI Explorer](https://explorer.ooni.org/world/) and [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Performance_Card_Description">Test your network speed and performance</string>

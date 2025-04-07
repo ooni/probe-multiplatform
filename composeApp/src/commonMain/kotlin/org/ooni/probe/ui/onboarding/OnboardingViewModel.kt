@@ -32,7 +32,7 @@ class OnboardingViewModel(
         Step.HeadsUp,
         Step.AutomatedTesting(false),
         if (supportsCrashReporting) Step.CrashReporting else null,
-        if (platformInfo.needsToRequestNotificationsPermission) {
+        if (platformInfo.requestNotificationsPermission) {
             Step.RequestNotificationPermission
         } else {
             null
@@ -106,12 +106,11 @@ class OnboardingViewModel(
             }
             .launchIn(viewModelScope)
 
-        events
-            .filterIsInstance<Event.RequestNotificationsPermissionClicked>()
-            .onEach {
-                preferenceRepository.setValueByKey(SettingsKey.NOTIFICATIONS_ENABLED, true)
-                moveToNextStep()
-            }
+        merge(
+            events.filterIsInstance<Event.RequestNotificationsPermissionSkipped>(),
+            events.filterIsInstance<Event.RequestNotificationsPermissionDone>(),
+        )
+            .onEach { moveToNextStep() }
             .launchIn(viewModelScope)
 
         events
@@ -190,7 +189,9 @@ class OnboardingViewModel(
 
         data object CrashReportingNoClicked : Event
 
-        data object RequestNotificationsPermissionClicked : Event
+        data object RequestNotificationsPermissionDone : Event
+
+        data object RequestNotificationsPermissionSkipped : Event
 
         data object ChangeDefaultsClicked : Event
     }

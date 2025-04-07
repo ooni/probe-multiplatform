@@ -52,8 +52,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Modal_Autorun_BatteryOptimization_Onboarding
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
-import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Paragraph
-import ooniprobe.composeapp.generated.resources.Modal_EnableNotifications_Title
 import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Paragraph
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
@@ -69,6 +67,10 @@ import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Butto
 import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Header
 import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Paragraph
 import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_Notifications_Skip
+import ooniprobe.composeapp.generated.resources.Onboarding_Notifications_Ok
+import ooniprobe.composeapp.generated.resources.Onboarding_Notifications_Paragraph
+import ooniprobe.composeapp.generated.resources.Onboarding_Notifications_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Bullet_1
 import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Bullet_2
 import ooniprobe.composeapp.generated.resources.Onboarding_ThingsToKnow_Bullet_3
@@ -336,7 +338,7 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
     OnboardingImage(OrganizationConfig.onboardingImages.image3)
-    OnboardingTitle(Res.string.Modal_EnableNotifications_Title)
+    OnboardingTitle(Res.string.Onboarding_Notifications_Title)
 
     Column(
         modifier = Modifier
@@ -344,37 +346,38 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
             .weight(1f)
             .padding(bottom = 16.dp),
     ) {
-        OnboardingText(Res.string.Modal_EnableNotifications_Paragraph)
+        OnboardingText(Res.string.Onboarding_Notifications_Paragraph)
     }
 
     Row(modifier = Modifier.padding(horizontal = 8.dp)) {
         OnboardingMainOutlineButton(
-            text = Res.string.Onboarding_Crash_Button_No,
-            onClick = { onEvent(OnboardingViewModel.Event.NextClicked) },
+            text = Res.string.Onboarding_Notifications_Skip,
+            onClick = { onEvent(OnboardingViewModel.Event.RequestNotificationsPermissionSkipped) },
             modifier = Modifier
                 .padding(horizontal = 8.dp)
                 .weight(1f)
                 .testTag("No-Notifications"),
         )
         OnboardingMainButton(
-            text = Res.string.Onboarding_Crash_Button_Yes,
+            text = Res.string.Onboarding_Notifications_Ok,
             onClick = {
                 coroutineScope.launch {
                     try {
                         permissionsController.providePermission(Permission.RemoteNotification)
-                        onEvent(OnboardingViewModel.Event.RequestNotificationsPermissionClicked)
+                        Logger.i("Notifications permission accepted")
                     } catch (e: PermissionDeniedException) {
-                        Logger.i("Permission denied")
+                        Logger.i("Notifications permission denied")
                         onEvent(OnboardingViewModel.Event.NextClicked)
                     } catch (e: PermissionDeniedAlwaysException) {
-                        Logger.i("Permission already denied")
+                        Logger.i("Notifications permission already denied")
                         onEvent(OnboardingViewModel.Event.NextClicked)
                     } catch (e: PermissionRequestCanceledException) {
-                        Logger.i("Permission request cancelled")
+                        Logger.i("Notifications permission request cancelled")
                         // Nothing to do here
                     } catch (e: Exception) {
-                        Logger.e("Error requesting permission", e)
+                        Logger.e("Error requesting notifications permission", e)
                     }
+                    onEvent(OnboardingViewModel.Event.RequestNotificationsPermissionDone)
                 }
             },
             modifier = Modifier

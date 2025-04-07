@@ -51,10 +51,6 @@ class iosAppUITests: XCTestCase {
 
         app.buttons["Yes-CrashReporting"].firstMatch.tap()
 
-
-        snapshot("04-enable-notifications")
-        app.buttons["No-Notifications"].firstMatch.tap()
-
         snapshot("05-default-settings")
         app.buttons.firstMatch.tap()
 
@@ -96,11 +92,6 @@ class iosAppUITests: XCTestCase {
         snapshot("09-settings")
 
         sleep(1)
-
-        app.buttons["notifications"].coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
-        snapshot("10-notifications")
-
-        app.buttons.firstMatch.tap()
 
         app.buttons["test_options"].coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
         snapshot("11-test-options")

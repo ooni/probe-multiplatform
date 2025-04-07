@@ -58,8 +58,7 @@ private fun buildPlatformInfo() =
         platform = Platform.Desktop,
         osVersion = "1.0",
         model = "model",
-        needsToRequestNotificationsPermission = false,
-        supportsNotificationSettings = false,
+        requestNotificationsPermission = false,
         knownBatteryState = false,
         sentryDsn = "https://e33da707dc40ab9508198b62de9bc269@o155150.ingest.sentry.io/4509084408610816",
     )
@@ -118,7 +117,8 @@ fun openVpnSettings(): Boolean {
 fun shareText(action: PlatformAction.Share): Boolean {
     return try {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
-            val uri = URI.create("mailto:?body=${URLEncoder.encode(action.text, StandardCharsets.UTF_8)}")
+            val uri =
+                URI.create("mailto:?body=${URLEncoder.encode(action.text, StandardCharsets.UTF_8)}")
             Desktop.getDesktop().mail(uri)
             true
         } else {
@@ -132,7 +132,9 @@ fun shareText(action: PlatformAction.Share): Boolean {
 
 fun shareFile(action: PlatformAction.FileSharing): Boolean {
     return try {
-        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.APP_OPEN_FILE)) {
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop()
+                .isSupported(Desktop.Action.APP_OPEN_FILE)
+        ) {
             val file = projectDirectories.dataDir.toPath().resolve(action.filePath).toFile()
             if (!file.exists()) {
                 Logger.w("File to share does not exist: $file")
@@ -175,7 +177,8 @@ fun sendMail(action: PlatformAction.Mail): Boolean {
 
 private fun buildMailUri(action: PlatformAction.Mail): URI {
     val subject = URLEncoder.encode(action.subject, StandardCharsets.UTF_8).replace("+", "%20")
-    val body = URLEncoder.encode(action.body, StandardCharsets.UTF_8).replace("+", "%20").replace("%0A", "%0D%0A")
+    val body = URLEncoder.encode(action.body, StandardCharsets.UTF_8).replace("+", "%20")
+        .replace("%0A", "%0D%0A")
     return URI("mailto:${action.to}?subject=$subject&body=$body")
 }
 

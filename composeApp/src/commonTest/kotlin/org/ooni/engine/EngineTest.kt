@@ -79,7 +79,7 @@ class EngineTest {
                 platform = Platform.Ios,
                 osVersion = "1",
                 model = "test",
-                needsToRequestNotificationsPermission = false,
+                requestNotificationsPermission = false,
                 sentryDsn = "",
             ),
             getEnginePreferences = {
