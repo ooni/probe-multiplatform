@@ -29,7 +29,7 @@ conveyor = { id = "dev.hydraulic.conveyor", version = "1.12" }
 [libraries]
 
 # Kotlin
-kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.8.0" }
+kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.8.1" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.2" }
 
 # Java
