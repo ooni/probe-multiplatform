@@ -268,6 +268,7 @@
     <string name="Onboarding_Crash_Button_Yes">Oui</string>
     <string name="Onboarding_Crash_Button_No">Non</string>
     <string name="Onboarding_Notifications_Title">Activer les notifications</string>
+    <string name="Onboarding_Notifications_Paragraph">Une fois les tests lancés, vous pouvez fermer l’appli et ils se poursuivront en arrière-plan. Activez les notifications pour suivre les tests en cours ou arrêtez-les, sans avoir à ouvrir l’appli.</string>
     <string name="Onboarding_Notifications_Ok">Valider</string>
     <string name="Onboarding_Notifications_Skip">Ignorer</string>
     <string name="Onboarding_DefaultSettings_Title">Paramètres par défaut</string>
