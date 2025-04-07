@@ -26,7 +26,7 @@ class AboutViewModel(
         events.tryEmit(event)
     }
 
-    val softwareName = "${OrganizationConfig.baseSoftwareName}-${platformInfo.platform.value}"
+    val softwareName = "${OrganizationConfig.baseSoftwareName} ${platformInfo.platform.name}"
     val softwareVersion = platformInfo.version
 
     sealed interface Event {

@@ -14,16 +14,40 @@ data class PlatformInfo(
     val version get() = "$buildName ($buildNumber)"
 }
 
-enum class Platform {
-    Android,
-    Ios,
-    Desktop,
-    ;
+sealed interface Platform {
+    data object Android : Platform
 
-    val value
+    data object Ios : Platform
+
+    data class Desktop(
+        val osName: String,
+    ) : Platform {
+        val os get() = when {
+            osName.startsWith("Windows", ignoreCase = true) -> DesktopOS.Windows
+            osName.startsWith("Mac", ignoreCase = true) -> DesktopOS.Mac
+            osName.startsWith("Linux", ignoreCase = true) -> DesktopOS.Linux
+            else -> DesktopOS.Other
+        }
+    }
+
+    val engineName
         get() = when (this) {
             Android -> "android"
             Ios -> "ios"
-            Desktop -> "desktop"
+            is Desktop -> "desktop"
         }
+
+    val name
+        get() = when (this) {
+            Android -> "Android"
+            Ios -> "iOS"
+            is Desktop -> "Desktop ($osName)"
+        }
+}
+
+enum class DesktopOS {
+    Windows,
+    Mac,
+    Linux,
+    Other,
 }

@@ -3,6 +3,7 @@ package org.ooni.probe
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import co.touchlab.kermit.Logger
 import dev.dirs.ProjectDirectories
+import dev.hydraulic.conveyor.control.SoftwareUpdateController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -51,19 +52,25 @@ val dependencies = Dependencies(
     flavorConfig = DesktopFlavorConfig(),
 )
 
-// TODO: Desktop - PlatformInfo
-private fun buildPlatformInfo() =
-    PlatformInfo(
-        buildName = "1.0",
-        buildNumber = "1",
-        platform = Platform.Desktop,
-        osVersion = "1.0",
-        model = "model",
+private fun buildPlatformInfo(): PlatformInfo {
+    val osName = System.getProperty("os.name")
+    val osVersion = System.getProperty("os.version")
+    val conveyorVersion = SoftwareUpdateController.getInstance()?.currentVersion
+    val buildName = conveyorVersion?.version ?: System.getProperty("jpackage.app-version") ?: ""
+    val buildNumber = conveyorVersion?.revision?.toString() ?: ""
+
+    return PlatformInfo(
+        buildName = buildName,
+        buildNumber = buildNumber,
+        platform = Platform.Desktop(osName),
+        osVersion = "$osName $osVersion",
+        model = "",
         requestNotificationsPermission = false,
         knownBatteryState = false,
         knownNetworkType = false,
         sentryDsn = "https://e33da707dc40ab9508198b62de9bc269@o155150.ingest.sentry.io/4509084408610816",
     )
+}
 
 private fun readAssetFile(path: String): String {
     // Read asset is only needed for NewsMediaScan Android and iOS, not for Desktop
