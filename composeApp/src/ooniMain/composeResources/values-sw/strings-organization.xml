@@ -13,9 +13,6 @@
     <string name="Onboarding_AutomatedTesting_Paragraph">Ili kupima udhibiti wa mtandao kila siku, tafadhali wezesha upimaji wa kiotomatiki ili OONI Probe iweze kuendesha vipimo mara kwa mara.Usijali, tutazingatia matumizi ya betri. Unaweza kuzima upimaji wa kiotomatiki kutoka kwa mipangilio wakati wowote.</string>
     <string name="Onboarding_Crash_Paragraph">Ili kuboresha OONI Probe tungependa kukusanya ripoti zisizojulikana za marekebisho wakati programu haifanyi kazi vizuri.\n\nJe! Ungependa kuchagua kutuma ripoti za ajali kwa timu ya maendeleo ya OONI?</string>
 
-    <!-- Find proper fix for translation -->
-    <string name="Modal_EnableNotifications_Paragraph">Je! Unavutiwa na kufanya majaribio ya uchunguzi wa OONI wakati wa hafla za udhibitishaji? Washa arifa za kupokea ujumbe tunaposikia juu ya udhibiti wa mtandao karibu nawe. </string>
-
     <string name="Dashboard_Websites_Card_Description">Pima uzuiaji wa tovuti.</string>
     <string name="Dashboard_Websites_Overview_Paragraph">Angalia kama tovuti zimezuiwa kwa kutumia [Kipimo wa Kuunganishaa Wavuti](https://ooni.org/nettest/web-connectivity).\n\nKila unapoboyeza \"Anzisha\", unajaribu tovuti tofauti kutoka kwa Maabara ya Citizen [ya kimataifa](https://github.com/citizenlab/test-/blob/master/lists/global.csv) na [nchi maalum](https://github.com/citizenlab/test/tree/master/lists) orodha ya mtihani.\n\nIli kujaribu tovuti za chaguo lako, gusa kitufe cha Chagua tovuti au chagua makundi ya tovuti kupitia mipangilio ya kadi hii. \n\nMtihani huu unapima kama tovuti zimefungwa kwa njia ya DNS kutatiza, TCP/IP kuzuiwa au kwa mhimili wa HTTP wazi.\n\nMatokeo yako yatachapishwa kwenye [OONI Explorer](https://explorer.ooni.org/world/) na [OONI API](https://api.ooni.io/).\n</string>
     <string name="Dashboard_Performance_Card_Description">Pima kasi ya mtandao wako na utendaji</string>
