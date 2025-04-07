@@ -103,8 +103,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">ការកំណត់</string>
-    <string name="Settings_Notifications_Label">ការជូនដំណឹង</string>
-    <string name="Settings_Notifications_Enabled">បានបើក</string>
 
     <string name="Settings_TestOptions_Label">ជម្រើសតេស្ត</string>
     <string name="Settings_TestOptions_LongRunningTest">ដំណើរការតេស្តវែង</string>
@@ -233,6 +231,8 @@
     <string name="Onboarding_Crash_Title">របាយការណ៍មិនដំណើរការ</string>
     <string name="Onboarding_Crash_Button_Yes">បាទ​ ចាស</string>
     <string name="Onboarding_Crash_Button_No">ទេ</string>
+    <string name="Onboarding_Notifications_Ok">យល់ព្រម</string>
+    <string name="Onboarding_Notifications_Skip">រំលង</string>
     <string name="Onboarding_DefaultSettings_Title">កំណត់​ទៅលំនាំដើម</string>
     <string name="Onboarding_DefaultSettings_Header">យើងប្រមូល និងផ្សព្វផ្សាយ៖</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">លេខកូដប្រទេស (ឧ. ពត៌មានITប្រទេសអ៉ីតាលី)</string>
@@ -279,8 +279,6 @@
     <string name="Modal_Error_CantDownloadURLs">មិនអាចទាញយកបញ្ជី URL ទេ។ សូមព្យាយាមម្ដងទៀត។</string>
     <string name="Modal_CustomURL_Title_NotSaved">តើ​អ្នក​ប្រាកដ ​ឬទេ?</string>
     <string name="Modal_CustomURL_NotSaved">URLs របស់អ្នកនឹងមិនរក្សាទុកទេនៅពេលអ្នកចាកចេញពីអេក្រង់នេះ។ តើអ្នកច្បាស់ទេថាអ្នកចង់ចាកចេញពីអេក្រង់នេះ?</string>
-    <string name="Modal_EnableNotifications_Title">ទទួលបច្ចុប្បន្នភាពពីការរឹតត្បឹតអុីនធឺណិត</string>
-
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">ដំណើរការ</string>
