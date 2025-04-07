@@ -267,6 +267,8 @@
     <string name="Onboarding_Crash_Title">Relatar falhas</string>
     <string name="Onboarding_Crash_Button_Yes">Sim</string>
     <string name="Onboarding_Crash_Button_No">Não</string>
+    <string name="Onboarding_Notifications_Title">Ativar as Notificações</string>
+    <string name="Onboarding_Notifications_Paragraph">Após começar a executar os testes, pode fechar o aplicativo e eles vão continuar a executar em segundo plano. Ative as notificações para saber que testes estão executando, ou para os parar, sem ter que abrir o aplicativo.</string>
     <string name="Onboarding_Notifications_Ok">OK</string>
     <string name="Onboarding_Notifications_Skip">Pular</string>
     <string name="Onboarding_DefaultSettings_Title">Configurações-Padrão</string>
