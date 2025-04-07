@@ -82,8 +82,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">Thiết đặt</string>
-    <string name="Settings_Notifications_Label">Thông báo</string>
-    <string name="Settings_Notifications_Enabled">Được bật</string>
 
     <string name="Settings_TestOptions_Label">Tùy chọn kiểm tra</string>
     <string name="Settings_TestOptions_LongRunningTest">Bài kiểm tra dài</string>
@@ -210,6 +208,8 @@
     <string name="Onboarding_Crash_Title">Báo cáo sự cố</string>
     <string name="Onboarding_Crash_Button_Yes">Đồng ý</string>
     <string name="Onboarding_Crash_Button_No">Không</string>
+    <string name="Onboarding_Notifications_Ok">OK</string>
+    <string name="Onboarding_Notifications_Skip">Bỏ qua</string>
     <string name="Onboarding_DefaultSettings_Title">Thiết đặt mặc định</string>
     <string name="Onboarding_DefaultSettings_Header">Chúng tôi thu thập và công bố:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Mã quốc gia (ví dụ VN cho Việt Nam)</string>
@@ -248,8 +248,6 @@
     <string name="Modal_Error_CantDownloadURLs">Không thể tải danh sách URL. Vui lòng thử lại.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Bạn có chắc không?</string>
     <string name="Modal_CustomURL_NotSaved">URL của bạn sẽ không được lưu khi bạn rời khỏi màn hình này. Bạn có chắc chắn muốn rời khỏi màn hình này không?</string>
-    <string name="Modal_EnableNotifications_Title">Nhận thông tin cập nhật về kiểm duyệt internet</string>
-
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Chạy</string>
