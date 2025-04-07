@@ -61,7 +61,7 @@ private fun buildPlatformInfo() =
         needsToRequestNotificationsPermission = false,
         supportsNotificationSettings = false,
         knownBatteryState = false,
-        sentryDsn = "",
+        sentryDsn = "https://e33da707dc40ab9508198b62de9bc269@o155150.ingest.sentry.io/4509084408610816",
     )
 
 private fun readAssetFile(path: String): String {
