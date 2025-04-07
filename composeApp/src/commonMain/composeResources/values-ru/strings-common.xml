@@ -126,8 +126,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">Настройки</string>
-    <string name="Settings_Notifications_Label">Уведомления</string>
-    <string name="Settings_Notifications_Enabled">Вкл / выкл</string>
 
     <string name="Settings_TestOptions_Label">Варианты тестирования</string>
     <string name="Settings_TestOptions_LongRunningTest">Долгий тест</string>
@@ -269,6 +267,8 @@
     <string name="Onboarding_Crash_Title">Отчет об ошибке</string>
     <string name="Onboarding_Crash_Button_Yes">Да</string>
     <string name="Onboarding_Crash_Button_No">Нет</string>
+    <string name="Onboarding_Notifications_Ok">ОК</string>
+    <string name="Onboarding_Notifications_Skip">Пропустить</string>
     <string name="Onboarding_DefaultSettings_Title">Настройки по умолчанию</string>
     <string name="Onboarding_DefaultSettings_Header">Мы собираем и публикуем:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Код страны (например, IT для Италии)</string>
@@ -319,7 +319,6 @@
     <string name="Modal_CustomURL_NotSaved">Если вы закроете этот экран, адреса не сохранятся. Вы уверены, что хотите его закрыть?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Приложение не может запускать тесты в фоновом режиме без специального разрешения. Хотите попробовать снова\? </string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Приложению нужно разрешение, чтобы запускать тесты автоматически в фоновом режиме. </string>
-    <string name="Modal_EnableNotifications_Title">Получайте новости о случаях интернет-цензуры</string>
 
     <!-- Common / Others -->
 
