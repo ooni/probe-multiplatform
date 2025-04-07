@@ -430,7 +430,6 @@ class Dependencies(
             getAutoRunSpecification = getAutoRunSpecification::invoke,
             runDescriptors = runDescriptors::invoke,
             addRunCancelListener = runBackgroundStateManager::addCancelListener,
-            clearRunCancelListeners = runBackgroundStateManager::clearCancelListeners,
             setRunBackgroundState = runBackgroundStateManager::updateState,
             getRunBackgroundState = runBackgroundStateManager::observeState,
             getLatestResult = resultRepository::getLatest,

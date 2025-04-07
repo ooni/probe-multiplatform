@@ -14,6 +14,7 @@ import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.domain.CancelListenerCallback
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import kotlin.test.Test
@@ -91,7 +92,7 @@ class EngineTest {
                     maxRuntime = null,
                 )
             },
-            addRunCancelListener = {},
+            addRunCancelListener = { CancelListenerCallback {} },
             backgroundContext = Dispatchers.Unconfined,
         )
 }

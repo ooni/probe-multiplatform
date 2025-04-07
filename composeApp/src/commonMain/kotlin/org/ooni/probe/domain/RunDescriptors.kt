@@ -28,7 +28,7 @@ class RunDescriptors(
     private val getRunBackgroundState: Flow<RunBackgroundState>,
     private val setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
     private val runNetTest: suspend (RunNetTest.Specification) -> Unit,
-    private val addRunCancelListener: (() -> Unit) -> Unit,
+    private val addRunCancelListener: (() -> Unit) -> CancelListenerCallback,
     private val reportTestRunError: (TestRunError) -> Unit,
     private val getEnginePreferences: suspend () -> EnginePreferences,
     private val finishInProgressData: suspend () -> Unit,
@@ -67,7 +67,7 @@ class RunDescriptors(
         descriptors: List<Descriptor>,
         spec: RunSpecification.Full,
     ) {
-        addRunCancelListener {
+        val cancelListenerCallback = addRunCancelListener {
             setRunBackgroundState { RunBackgroundState.Stopping }
         }
 
@@ -76,6 +76,8 @@ class RunDescriptors(
             if (isRunStopped()) return@forEachIndexed
             runDescriptor(descriptor, index, spec.taskOrigin, spec.isRerun)
         }
+
+        cancelListenerCallback.dismiss()
     }
 
     private suspend fun List<Descriptor>.prepareInputs(taskOrigin: TaskOrigin) =
