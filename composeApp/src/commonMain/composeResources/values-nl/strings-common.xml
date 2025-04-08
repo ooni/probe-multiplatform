@@ -83,8 +83,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">Instellingen</string>
-    <string name="Settings_Notifications_Label">Meldingen</string>
-    <string name="Settings_Notifications_Enabled">Geactiveerd</string>
 
     <string name="Settings_TestOptions_Label">Testopties</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Tests automatisch uitvoeren</string>
@@ -208,6 +206,8 @@
     <string name="Onboarding_Crash_Title">Crashrapportage</string>
     <string name="Onboarding_Crash_Button_Yes">Ja</string>
     <string name="Onboarding_Crash_Button_No">Nee</string>
+    <string name="Onboarding_Notifications_Ok">Oke</string>
+    <string name="Onboarding_Notifications_Skip">Overslaan</string>
     <string name="Onboarding_DefaultSettings_Title">Standaardinstellingen</string>
     <string name="Onboarding_DefaultSettings_Header">We verzamelen en publiceren:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Landcode (bvb. IT voor Italië)</string>
@@ -246,8 +246,6 @@
     <string name="Modal_Error_CantDownloadURLs">Kan de URL-lijst niet downloaden. Probeer het opnieuw.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Weet je het zeker?</string>
     <string name="Modal_CustomURL_NotSaved">Uw URL’s worden niet opgeslagen wanneer u dit scherm verlaat. Weet je zeker dat je dit scherm wilt verlaten?</string>
-    <string name="Modal_EnableNotifications_Title">Ontvang updates over internetcensuur</string>
-
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Voer uit</string>

@@ -81,8 +81,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">การตั้งค่า</string>
-    <string name="Settings_Notifications_Label">การเเจ้งเตือน</string>
-    <string name="Settings_Notifications_Enabled">ถูกเปิดใช้</string>
 
     <string name="Settings_TestOptions_Label">ตัวเลือกการทดสอบ</string>
     <string name="Settings_TestOptions_LongRunningTest">การทดสอบที่ทำงานนาน</string>
@@ -209,6 +207,8 @@
     <string name="Onboarding_Crash_Title">รายงานแอปพัง</string>
     <string name="Onboarding_Crash_Button_Yes">ใช่</string>
     <string name="Onboarding_Crash_Button_No">ไม่</string>
+    <string name="Onboarding_Notifications_Ok">OK</string>
+    <string name="Onboarding_Notifications_Skip">ข้าม</string>
     <string name="Onboarding_DefaultSettings_Title">การตั้งค่าเริ่มต้น</string>
     <string name="Onboarding_DefaultSettings_Header">เราจัดเก็บรวบรวมเเละเผยเเพร่:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">รหัสประเทศ (เช่น IT สำหรับอิตาลี)</string>
@@ -247,8 +247,6 @@
     <string name="Modal_Error_CantDownloadURLs">ไม่สามารถดาวน์โหลดรายการที่อยู่เว็บได้ กรุณาลองอีกครั้ง</string>
     <string name="Modal_CustomURL_Title_NotSaved">คุณแน่ใจหรือไม่?</string>
     <string name="Modal_CustomURL_NotSaved">ที่อยู่ของคุณจะไม่ถูกบันทึกเมื่อคุณออกจากหน้าจอนี้ คุณแน่ใจหรือไม่ว่าต้องการจะออกจากหน้าจอนี้?</string>
-    <string name="Modal_EnableNotifications_Title">รับข่าวสารเกี่ยวกับการปิดกั้นอินเทอร์เน็ต</string>
-
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">เริ่มทดสอบ</string>

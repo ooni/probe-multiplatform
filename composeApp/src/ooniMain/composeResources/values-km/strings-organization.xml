@@ -13,9 +13,6 @@
     <string name="Onboarding_AutomatedTesting_Paragraph">ដើម្បីវាស់វែងការរាំងខ្ទប់អ៉ីនធឺណែតរៀងរាល់ថ្ងៃ សូមផ្តល់ការអនុញ្ញាតដល់ការតេស្តដោយស្វ័យប្រវត្តិដើម្បីឱ្យ OONI Probe អាចដំណើរការតេស្តដោយទៀងទាត់។\n\nកុំបារម្ភអី! ពួកយើងនឹងគិតគូរពីការប្រើប្រាស់ថ្មឧបករណ៍អ្នក។\n\nអ្នកអាចផ្អាកការតេស្តស្វ័យប្រវត្តិនៅក្នុងការកំណត់នាពេលណាក៏បាន។</string>
     <string name="Onboarding_Crash_Paragraph">ដើម្បីធ្វើឱ្យ OONI Probe ល្អប្រសើរឡើង ពួកយើងសូមប្រមូលរបាយការណ៍អនាមិកនៃការគាំងនៅពេលដែលកម្មវិធីដំណើរការមិនត្រឹមត្រូវ។\n\nតើអ្នកយល់ព្រមចូលរួមផ្ញើររបាយការណ៍ពេលគាំងទៅកាន់ក្រុមអ្នកបង្កើតកម្មវិធី OONI ឬទេ?</string>
 
-    <!-- Find proper fix for translation -->
-    <string name="Modal_EnableNotifications_Paragraph">តើអ្នកចាប់អារម្មណ៍ដំណើរការ OONI Probe កំឡុងពេលមានព្រឹត្តិការណ៍រឹតត្បឹតអុីនធឺណិតបន្ទាន់ដែល ឬទេ? អ្នកអាចបើកមុខងារសារជូនដំណឹង ដើម្បីទទួលបានសារនៅពេលក្រុមការងារយើងលឺអំពីការរឹតត្បិតដែលកើតមាននៅក្បែរអ្នក។</string>
-
     <string name="Dashboard_Websites_Card_Description">តេស្តវែបសាយដែលបានបិទ</string>
     <string name="Dashboard_Websites_Overview_Paragraph">ពិនិត្យមើលថាតើវែបសាយត្រូវបិទខ្ទប់ដោយប្រើ OONI [Web Connectivity test](https://ooni.org/nettest/web-connectivity/).\n\nគ្រប់ពេលអ្នកចុច ដំណើរការ អ្នកនឹងតេស្តវែបសាយនានាពីបញ្ជីរបស់ Citizen Lab [global](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) and [country-specific](https://github.com/citizenlab/test-lists/tree/master/lists)។\n\nដើម្បីតេស្តវែបសាយតាមជម្រើសរបស់អ្នក សូមចុចប៊ូតុង ជ្រើសរើសវែបសាយ ឬជ្រើសរើសផ្នែកផ្សេងៗនៃវែបសាយតាមរយៈការកំណត់នៃកាតនេះ។\n\nតេស្តនេះនឹងវាស់វែងថាតើវែបសាយណាដែលត្រូវបិទខ្ទប់ដោយការជ្រៀតចូល DNS ឬការបិទខ្ទប់ TCP/IP ឬតាមរយៈ HTTP Proxy\n\nលទ្ធផលរបស់អ្នកនឹងផ្សព្វផ្សាយនៅ [OONI Explorer](https://explorer.ooni.org/world/) និង [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Performance_Card_Description">តេស្តល្បឿន និងគុណភាពនៃបណ្តាញរបស់អ្នក</string>

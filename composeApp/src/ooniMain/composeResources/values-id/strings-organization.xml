@@ -13,9 +13,6 @@
     <string name="Onboarding_AutomatedTesting_Paragraph">Untuk mengukur sensor internet setiap hari, silakan aktifkan pengetesan otomatis sehingga OONI Probe dapat menjalankan tes secara berkala.\n\nJangan khawatir, kami akan memperhatikan penggunaan baterai.\n\nAnda dapat menonaktifkan pengetesan otomatis dari pengaturan kapan saja.</string>
     <string name="Onboarding_Crash_Paragraph">Untuk meningkatkan OONI Probe, kami ingin mengumpulkan laporan kerusakan secara anonim ketika aplikasi tidak berfungsi dengan baik. \n\nApakah Anda ingin ikut serta dalam mengirimkan laporan kerusakan ke tim pengembangan OONI?</string>
 
-    <!-- Find proper fix for translation -->
-    <string name="Modal_EnableNotifications_Paragraph">Tertarik menjalankan tes OONI Probe selama terjadinya sensor darurat? Aktifkan notifikasi untuk menerima pesan saat kami mendengar adanya sensor internet di dekat Anda.</string>
-
     <string name="Dashboard_Websites_Card_Description">Tes situs-situs web yang diblokir</string>
     <string name="Dashboard_Websites_Overview_Paragraph">Periksa apakah suatu situs web diblokir dengan [Tes Konektivitas Web](https://ooni.org/nettest/web-connectivity/) OONI.\n\nSetiap kali Anda mengetuk Jalankan, Anda mengetes situs web berbeda dari daftar tes [global](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) dan [khusus-negara](https://github.com/citizenlab/test-lists/tree/master/lists) Citizen Lab.\n\nUntuk mengetes situs pilihan Anda, ketuk tombol Pilih situs web atau pilih kategori situs melalui pengaturan kartu ini. \n\nTes ini mengukur apakah situs web diblokir melalui perusakan DNS, pemblokiran TCP/IP, atau proksi HTTP transparan.\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/world/) dan [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Performance_Card_Description">Tes kecepatan dan kinerja jaringan Anda.</string>

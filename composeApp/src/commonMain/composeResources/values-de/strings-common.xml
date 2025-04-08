@@ -126,8 +126,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">Einstellungen</string>
-    <string name="Settings_Notifications_Label">Benachrichtigungen</string>
-    <string name="Settings_Notifications_Enabled">Aktiv</string>
 
     <string name="Settings_TestOptions_Label">Testoptionen</string>
     <string name="Settings_TestOptions_LongRunningTest">Langzeittest</string>
@@ -269,6 +267,8 @@
     <string name="Onboarding_Crash_Title">Absturz-Berichterstattung</string>
     <string name="Onboarding_Crash_Button_Yes">Ja</string>
     <string name="Onboarding_Crash_Button_No">Nein</string>
+    <string name="Onboarding_Notifications_Ok">OK</string>
+    <string name="Onboarding_Notifications_Skip">Überspringen</string>
     <string name="Onboarding_DefaultSettings_Title">Vorgabeeinstellungen</string>
     <string name="Onboarding_DefaultSettings_Header">Wir sammeln und veröffentlichen:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Ländercode (z. B. DE für Deutschland)</string>
@@ -319,7 +319,6 @@
     <string name="Modal_CustomURL_NotSaved">Deine URLs werden nicht gespeichert, wenn du diesen Bildschirm verlässt. Möchtest du diesen Bildschirm wirklich verlassen?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Die Anwendung kann keine automatischen Tests ohne Hintergrundgenehmigung durchführen. Möchtest du es noch einmal versuchen\?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Die Anwendung benötigt die Erlaubnis, Tests automatisch im Hintergrund durchzuführen.</string>
-    <string name="Modal_EnableNotifications_Title">Aktuelle Informationen zur Internetzensur</string>
 
     <!-- Common / Others -->
 

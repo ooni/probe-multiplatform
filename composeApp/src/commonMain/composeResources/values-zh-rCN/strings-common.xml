@@ -126,8 +126,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">设置</string>
-    <string name="Settings_Notifications_Label">通知</string>
-    <string name="Settings_Notifications_Enabled">启用</string>
 
     <string name="Settings_TestOptions_Label">测试选项</string>
     <string name="Settings_TestOptions_LongRunningTest">长时间运行测试</string>
@@ -269,6 +267,10 @@
     <string name="Onboarding_Crash_Title">崩溃报告</string>
     <string name="Onboarding_Crash_Button_Yes">是</string>
     <string name="Onboarding_Crash_Button_No">否</string>
+    <string name="Onboarding_Notifications_Title">开启通知</string>
+    <string name="Onboarding_Notifications_Paragraph">开始运行测试后，你可以关闭应用，测试会继续在后台运行。开启通知这样你可以知道哪些测试正在运行，或停止它们，无需打开应用</string>
+    <string name="Onboarding_Notifications_Ok">正常</string>
+    <string name="Onboarding_Notifications_Skip">跳过</string>
     <string name="Onboarding_DefaultSettings_Title">默认设置</string>
     <string name="Onboarding_DefaultSettings_Header">我们收集并发布：</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">国家代码（例如，IT 指代意大利）</string>
@@ -319,7 +321,6 @@
     <string name="Modal_CustomURL_NotSaved">离开此屏幕将不会保存您的 URL。确定离开吗？</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">没有后台权限，本应用无法自动运行测试。你要再次尝试吗？</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">应用需要权限以在后台自动运行测试</string>
-    <string name="Modal_EnableNotifications_Title">获取网络审查的动态</string>
 
     <!-- Common / Others -->
 

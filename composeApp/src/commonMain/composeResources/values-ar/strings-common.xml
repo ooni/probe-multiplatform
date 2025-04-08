@@ -117,8 +117,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">الإعدادات</string>
-    <string name="Settings_Notifications_Label">التنبيهات</string>
-    <string name="Settings_Notifications_Enabled">‮مُفعّل</string>
 
     <string name="Settings_TestOptions_Label">اختيارات الاختبار</string>
     <string name="Settings_TestOptions_LongRunningTest">اشتغال الاختبار الطويل</string>
@@ -260,6 +258,8 @@
     <string name="Onboarding_Crash_Title">التبليغ عن التعطيلات </string>
     <string name="Onboarding_Crash_Button_Yes">‮نعم</string>
     <string name="Onboarding_Crash_Button_No">‮لا</string>
+    <string name="Onboarding_Notifications_Ok">موافق</string>
+    <string name="Onboarding_Notifications_Skip">تخطي</string>
     <string name="Onboarding_DefaultSettings_Title">الإعدادات الإفتراضية</string>
     <string name="Onboarding_DefaultSettings_Header">نقوم بجمع ونشر:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">رمز الدّولة (مثلاً IT لإيطاليا) </string>
@@ -308,8 +308,6 @@
     <string name="Modal_Error_CantDownloadURLs">التطبيق غير قادر على تحميل قائمة المواقع. من فضلك حاول مرة أخرى.</string>
     <string name="Modal_CustomURL_Title_NotSaved">هل أنت متأكد؟</string>
     <string name="Modal_CustomURL_NotSaved">المواقع لن تسجل اذا تركت هذه الواجهة. هل تريد ترك الواجهة؟</string>
-    <string name="Modal_EnableNotifications_Title">احصل.ي على تحديثات حول الرّقابة على الانترنت </string>
-
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">ابدأ</string>

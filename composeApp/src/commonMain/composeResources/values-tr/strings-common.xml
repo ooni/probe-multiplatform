@@ -126,8 +126,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">Ayarlar</string>
-    <string name="Settings_Notifications_Label">Bildirimler</string>
-    <string name="Settings_Notifications_Enabled">Açık</string>
 
     <string name="Settings_TestOptions_Label">Sınama seçenekleri</string>
     <string name="Settings_TestOptions_LongRunningTest">Uzun süreli sınama</string>
@@ -269,6 +267,8 @@
     <string name="Onboarding_Crash_Title">Sorun bildirimleri</string>
     <string name="Onboarding_Crash_Button_Yes">Evet</string>
     <string name="Onboarding_Crash_Button_No">Hayır</string>
+    <string name="Onboarding_Notifications_Ok">Tamam</string>
+    <string name="Onboarding_Notifications_Skip">Atla</string>
     <string name="Onboarding_DefaultSettings_Title">Varsayılan ayarlar</string>
     <string name="Onboarding_DefaultSettings_Header">Toplanan ve yayınlanan veriler şunlardır:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Ülke kodu (Örnek: Türkiye için TR)</string>
@@ -319,7 +319,6 @@
     <string name="Modal_CustomURL_NotSaved">Bu sayfadan ayrıldığınızda adresleriniz kaydedilmez. Bu sayfadan ayrılmak istediğinize emin misiniz?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Uygulama arka planda çalışma izni olmadan otomatik sınamaları yapamaz. Yeniden denemek ister misiniz\?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Uygulamanın otomatik sınamaları yapabilmesi için arka planda çalışmasına izin verilmedir.</string>
-    <string name="Modal_EnableNotifications_Title">İnternet sansürleri hakkında güncel bilgileri alın</string>
 
     <!-- Common / Others -->
 

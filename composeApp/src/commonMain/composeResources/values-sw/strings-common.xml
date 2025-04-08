@@ -101,8 +101,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">Mipangilio</string>
-    <string name="Settings_Notifications_Label">Arifa</string>
-    <string name="Settings_Notifications_Enabled">Imewezeshwa</string>
 
     <string name="Settings_TestOptions_Label">Chaguzi za mtihani </string>
     <string name="Settings_TestOptions_LongRunningTest">Majaribio ya muda mrefu</string>
@@ -231,6 +229,8 @@
     <string name="Onboarding_Crash_Title">Taarifa za Marekebisho</string>
     <string name="Onboarding_Crash_Button_Yes">Ndio</string>
     <string name="Onboarding_Crash_Button_No">Hapana</string>
+    <string name="Onboarding_Notifications_Ok">Sawa</string>
+    <string name="Onboarding_Notifications_Skip">Ruka</string>
     <string name="Onboarding_DefaultSettings_Title">Mipangilio chaguo-msingi</string>
     <string name="Onboarding_DefaultSettings_Header">Tunakusanya na kuchapisha:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Msimbo wa nchi (k.m. IT ya Italia)</string>
@@ -277,8 +277,6 @@
     <string name="Modal_Error_CantDownloadURLs">Imeshindwa kupakua orodha ya URL. Tafadhali jaribu tena.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Una uhakika?</string>
     <string name="Modal_CustomURL_NotSaved">URL zako hazitahifadhiwa ukiondoka kwenye skrini hii. Je! Una uhakika unataka kuondoka kwenye skrini hii?</string>
-    <string name="Modal_EnableNotifications_Title">Pata sasisho juu ya udhibiti wa mtandao</string>
-
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Endesha</string>

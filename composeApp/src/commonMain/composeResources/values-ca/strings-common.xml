@@ -76,8 +76,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">Configuració</string>
-    <string name="Settings_Notifications_Label">Notificacions</string>
-    <string name="Settings_Notifications_Enabled">Activat</string>
 
     <string name="Settings_TestOptions_Label">Opcions de la prova</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Executa proves automàticament</string>
@@ -192,6 +190,8 @@
     <string name="Onboarding_AutomatedTesting_Title">Prova automatitzada</string>
     <string name="Onboarding_Crash_Button_Yes">Sí</string>
     <string name="Onboarding_Crash_Button_No">No</string>
+    <string name="Onboarding_Notifications_Ok">Correcte</string>
+    <string name="Onboarding_Notifications_Skip">Omet</string>
     <string name="Onboarding_DefaultSettings_Title">Configuració per defecte</string>
     <string name="Onboarding_DefaultSettings_Header">Recopilem i publiquem:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Codi del país (p. ex. IT per a Itàlia)</string>
@@ -224,8 +224,6 @@
     <string name="Modal_Error_CantDownloadURLs">No s\'ha pogut baixar la llista d\'URL. Torneu-ho a provar.</string>
     <string name="Modal_CustomURL_Title_NotSaved">N’estàs segur?</string>
     <string name="Modal_CustomURL_NotSaved">Les vostres URL no es desaran quan surti d’aquesta pantalla. Esteu segur de voler sortir d’aquesta pantalla?</string>
-    <string name="Modal_EnableNotifications_Title">Obtingueu actualitzacions sobre la censura a Internet</string>
-
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Inicia</string>

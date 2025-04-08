@@ -83,8 +83,6 @@
     <!-- Settings -->
 
     <string name="Settings_Title">Ρυθμίσεις</string>
-    <string name="Settings_Notifications_Label">Ειδοποιήσεις</string>
-    <string name="Settings_Notifications_Enabled">Ενεργοποιημένο</string>
 
     <string name="Settings_TestOptions_Label">Επιλογές δοκιμής</string>
     <string name="Settings_TestOptions_LongRunningTest">Δοκιμή μεγάλης διάρκειας</string>
@@ -211,6 +209,8 @@
     <string name="Onboarding_Crash_Title">Αναφορά σφαλμάτων</string>
     <string name="Onboarding_Crash_Button_Yes">Ναι</string>
     <string name="Onboarding_Crash_Button_No">Όχι</string>
+    <string name="Onboarding_Notifications_Ok">ΟΚ</string>
+    <string name="Onboarding_Notifications_Skip">Παράβλεψη</string>
     <string name="Onboarding_DefaultSettings_Title">Προεπιλεγμένες ρυθμίσεις</string>
     <string name="Onboarding_DefaultSettings_Header">Συλλέγουμε και δημοσιεύουμε:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Κωδικό χώρας (π.χ. GR για την Ελλάδα)</string>
@@ -249,8 +249,6 @@
     <string name="Modal_Error_CantDownloadURLs">Δεν είναι δυνατή η λήψη της λίστας ιστοσελιδών. Παρακαλώ προσπάθησε ξανά.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Είστε σίγουροι;</string>
     <string name="Modal_CustomURL_NotSaved">Οι ιστοσελίδες σου δε θα αποθηκευτούν όταν φύγεις από αυτήν την οθόνη. Είσαι σίγουρος/η ότι θέλεις να φύγεις από αυτήν την οθόνη;</string>
-    <string name="Modal_EnableNotifications_Title">Ειδοποιήσεις για λογοκρισία στο διαδίκτυο</string>
-
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Εκτέλεση</string>
