@@ -2,6 +2,7 @@ package org.ooni.probe.domain.descriptors
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.RunSpecification
 
@@ -15,9 +16,10 @@ class GetTestDescriptorsBySpec(
             .filterNot { it.isExpired }
             .mapNotNull { descriptor ->
                 val specTest = spec.forDescriptor(descriptor) ?: return@mapNotNull null
+                val netTestsWithInputs = getNetTestsWithInputs(specTest, descriptor)
 
                 val specDescriptor = descriptor.copy(
-                    netTests = specTest.netTests,
+                    netTests = netTestsWithInputs,
                     // long running are already inside netTests
                     longRunningTests = emptyList(),
                 )
@@ -44,4 +46,26 @@ class GetTestDescriptorsBySpec(
                 }
             }
         }
+
+    /*
+     * If the list of web connectivity inputs (URLs) is empty, it may have been stripped.
+     * So we use the list of inputs from the installed database descriptor.
+     */
+    private fun getNetTestsWithInputs(
+        specTest: RunSpecification.Test,
+        descriptor: Descriptor,
+    ) = specTest.netTests.map { specNetTest ->
+        if (
+            specNetTest.test == TestType.WebConnectivity &&
+            specNetTest.inputs.isNullOrEmpty()
+        ) {
+            specNetTest.copy(
+                inputs = descriptor.netTests
+                    .firstOrNull { it.test == TestType.WebConnectivity }
+                    ?.inputs.orEmpty(),
+            )
+        } else {
+            specNetTest
+        }
+    }
 }

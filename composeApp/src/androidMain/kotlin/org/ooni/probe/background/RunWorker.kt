@@ -14,12 +14,12 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.work.CoroutineWorker
+import androidx.work.Data
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.serialization.encodeToString
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
@@ -260,6 +260,10 @@ class RunWorker(
         private const val DATA_KEY_SPEC = "spec"
         private const val ACTION_STOP_RUN = "stop_run"
 
-        fun buildWorkData(spec: RunSpecification) = workDataOf(DATA_KEY_SPEC to Dependencies.buildJson().encodeToString(spec))
+        fun buildWorkData(spec: RunSpecification): Data {
+            val specWithoutInstalledInputs = spec.stripInstalledInputs()
+            val specJson = Dependencies.buildJson().encodeToString(specWithoutInstalledInputs)
+            return workDataOf(DATA_KEY_SPEC to specJson)
+        }
     }
 }
