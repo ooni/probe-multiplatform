@@ -104,7 +104,7 @@ class Engine(
                         } else {
                             null
                         },
-                        platform = platformInfo.platform.value,
+                        platform = platformInfo.platform.engineName,
                         runType = taskOrigin.runType,
                         softwareName = sessionConfig.softwareName,
                         softwareVersion = sessionConfig.softwareVersion,
@@ -207,7 +207,7 @@ class Engine(
     private fun buildSoftwareName(taskOrigin: TaskOrigin) =
         OrganizationConfig.baseSoftwareName +
             "-" +
-            platformInfo.platform.value +
+            platformInfo.platform.engineName +
             (if (taskOrigin == TaskOrigin.AutoRun) "-" + "unattended" else "")
 
     private fun isBatteryCharging(): Boolean {

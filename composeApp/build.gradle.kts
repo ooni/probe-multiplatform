@@ -344,7 +344,6 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "ooni-probe"
             packageVersion = android.defaultConfig.versionName
-
             modules("java.sql", "jdk.unsupported")
 
             macOS {

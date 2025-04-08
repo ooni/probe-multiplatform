@@ -18,8 +18,8 @@ class SendSupportEmail(
         val subject = getString(Res.string.shareSubject, platformInfo.version)
         val chooserTitle = getString(Res.string.Settings_SendEmail_Label)
         val body = getString(Res.string.Settings_SendEmail_Message) + "\n\n\n" +
-            "PLATFORM: ${platformInfo.platform}\n" +
-            "MODEL: ${platformInfo.model}\n" +
+            "PLATFORM: ${platformInfo.platform.name}\n" +
+            (if (platformInfo.model.isNotBlank()) "MODEL: ${platformInfo.model}\n" else "") +
             "OS Version: ${platformInfo.osVersion}"
 
         launchAction(
