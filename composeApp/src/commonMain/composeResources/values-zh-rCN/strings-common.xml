@@ -267,6 +267,8 @@
     <string name="Onboarding_Crash_Title">崩溃报告</string>
     <string name="Onboarding_Crash_Button_Yes">是</string>
     <string name="Onboarding_Crash_Button_No">否</string>
+    <string name="Onboarding_Notifications_Title">开启通知</string>
+    <string name="Onboarding_Notifications_Paragraph">开始运行测试后，你可以关闭应用，测试会继续在后台运行。开启通知这样你可以知道哪些测试正在运行，或停止它们，无需打开应用</string>
     <string name="Onboarding_Notifications_Ok">正常</string>
     <string name="Onboarding_Notifications_Skip">跳过</string>
     <string name="Onboarding_DefaultSettings_Title">默认设置</string>
