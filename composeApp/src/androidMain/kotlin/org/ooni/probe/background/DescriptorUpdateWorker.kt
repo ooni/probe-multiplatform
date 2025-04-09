@@ -135,7 +135,7 @@ class DescriptorUpdateWorker(
         }
 
         private const val NOTIFICATION_CHANNEL_ID = "UPDATES"
-        private const val NOTIFICATION_ID = 1
+        private const val NOTIFICATION_ID = 2
         private const val DATA_KEY_DESCRIPTORS = "descriptors"
 
         val AutoUpdateWorkerName: String = DescriptorUpdateWorker::class.java.name
