@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import kotlinx.coroutines.delay
 import ooniprobe.composeapp.generated.resources.Modal_Error_CantDownloadURLs
+import ooniprobe.composeapp.generated.resources.Modal_Error_NoInternet
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.LocalSnackbarHostState
@@ -22,6 +23,7 @@ fun TestRunErrorMessages(
             getString(
                 when (error) {
                     TestRunError.DownloadUrlsFailed -> Res.string.Modal_Error_CantDownloadURLs
+                    TestRunError.NoInternet -> Res.string.Modal_Error_NoInternet
                 },
             ),
         )

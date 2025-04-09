@@ -381,6 +381,7 @@ class Dependencies(
             reportTestRunError = runBackgroundStateManager::reportError,
             getEnginePreferences = getEnginePreferences::invoke,
             finishInProgressData = finishInProgressData::invoke,
+            networkTypeFinder = networkTypeFinder::invoke,
         )
     }
     private val saveTestDescriptors by lazy {
