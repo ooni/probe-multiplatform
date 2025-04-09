@@ -15,6 +15,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.conveyor)
+    id("org.openjfx.javafxplugin").version("0.1.0")
 }
 
 val organization: String? by project
@@ -42,6 +43,11 @@ val appConfig = mapOf(
 )
 
 val config = appConfig[organization] ?: appConfig["ooni"]!!
+
+javafx {
+    version = "17"
+    modules = listOf("javafx.base", "javafx.graphics", "javafx.controls", "javafx.media", "javafx.web", "javafx.swing")
+}
 
 kotlin {
     androidTarget {
@@ -123,6 +129,13 @@ kotlin {
                 implementation(files("./src/desktopMain/libs/oonimkall.jar"))
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
+                implementation("org.openjfx:javafx-base:17:mac-aarch64")
+                implementation("org.openjfx:javafx-graphics:17:mac-aarch64")
+                implementation("org.openjfx:javafx-controls:17:mac-aarch64")
+                implementation("org.openjfx:javafx-media:17:mac-aarch64")
+                implementation("org.openjfx:javafx-web:17:mac-aarch64")
+                implementation("org.openjfx:javafx-swing:17:mac-aarch64")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.10.2")
             }
         }
         // Testing
