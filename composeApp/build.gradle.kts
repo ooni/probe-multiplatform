@@ -123,6 +123,9 @@ kotlin {
                 implementation(files("./src/desktopMain/libs/oonimkall.jar"))
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
+                implementation("com.github.winterreisender:webviewko:0.6.0")
+                implementation("com.github.winterreisender:webviewko-jvm:0.6.0")
+                implementation("com.github.winterreisender:webviewko-compose:0.6.0-SNAPSHOT")
             }
         }
         // Testing
@@ -339,6 +342,7 @@ tasks.register("runDebug", Exec::class) {
 compose.desktop {
     application {
         mainClass = "org.ooni.probe.MainKt"
+        jvmArgs += listOf("-XstartOnFirstThread")
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)

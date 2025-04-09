@@ -32,6 +32,7 @@ dependencyResolutionManagement {
         mavenCentral()
         // For compose-webview-multiplatform desktop
         maven("https://jogamp.org/deployment/maven")
+        maven("https://gitlab.com/api/v4/projects/38224197/packages/maven")
     }
 }
 
