@@ -7,7 +7,9 @@ import tk.pratanumandal.unique4j.Unique4j
 import tk.pratanumandal.unique4j.exception.Unique4jException
 import java.util.Date
 
+
 class DeepLinkHandler {
+
     private var unique: Unique4j? = null
     private val messageListeners = mutableListOf<(DeepLink.AddDescriptor?) -> Unit>()
 
@@ -47,7 +49,7 @@ class DeepLinkHandler {
                 }
 
                 override fun handleException(exception: Exception) {
-                    Logger.e(exception) { "Exception occurred" }
+                    Logger.e(exception) {"Exception occurred"}
                 }
 
                 override fun beforeExit() {
@@ -72,11 +74,10 @@ class DeepLinkHandler {
             }
 
             // Register shutdown hook to free the lock when application exits
-            Runtime.getRuntime().addShutdownHook(
-                Thread {
-                    unique?.freeLock()
-                },
-            )
+            Runtime.getRuntime().addShutdownHook(Thread {
+                unique?.freeLock()
+            })
+
         } catch (e: Unique4jException) {
             Logger.e(e) { "Failed to initialize Unique4j" }
         }
