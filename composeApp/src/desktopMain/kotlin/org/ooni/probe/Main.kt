@@ -41,17 +41,14 @@ import java.awt.Desktop
 
 val APP_ID = "org.openobservatory.ooniprobe"
 
-
 fun main(args: Array<String>) {
     val autoLaunch = AutoLaunch(appPackageName = APP_ID)
 
     val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
 
-
     // Initialize the deep link handler
     val deepLinkHandler = DeepLinkHandler()
     deepLinkHandler.initialize(args)
-
 
     if ((dependencies.platformInfo.platform as? Platform.Desktop)?.os == DesktopOS.Mac) {
         Desktop.getDesktop().setOpenURIHandler { event ->
