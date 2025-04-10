@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.EnginePreferences
+import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
@@ -32,6 +33,7 @@ class RunDescriptors(
     private val reportTestRunError: (TestRunError) -> Unit,
     private val getEnginePreferences: suspend () -> EnginePreferences,
     private val finishInProgressData: suspend () -> Unit,
+    private val networkTypeFinder: () -> NetworkType,
 ) {
     suspend operator fun invoke(spec: RunSpecification.Full) {
         Instrumentation.withTransaction(
@@ -50,6 +52,10 @@ class RunDescriptors(
 
             setRunBackgroundState {
                 RunBackgroundState.RunningTests(estimatedRuntimeOfDescriptors = estimatedRuntime)
+            }
+
+            if (networkTypeFinder() == NetworkType.NoInternet) {
+                reportTestRunError(TestRunError.NoInternet)
             }
 
             try {
