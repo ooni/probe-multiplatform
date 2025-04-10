@@ -9,9 +9,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.Date
 
-
 class DeepLinkHandler {
-
     private var unique: Unique4j? = null
     private val messageListeners = mutableListOf<(String?) -> Unit>()
 
@@ -53,7 +51,7 @@ class DeepLinkHandler {
                 }
 
                 override fun handleException(exception: Exception) {
-                    Logger.e(exception) {"Exception occurred"}
+                    Logger.e(exception) { "Exception occurred" }
                 }
 
                 override fun beforeExit() {
@@ -82,10 +80,11 @@ class DeepLinkHandler {
             }
 
             // Register shutdown hook to free the lock when application exits
-            Runtime.getRuntime().addShutdownHook(Thread {
-                unique?.freeLock()
-            })
-
+            Runtime.getRuntime().addShutdownHook(
+                Thread {
+                    unique?.freeLock()
+                },
+            )
         } catch (e: Unique4jException) {
             Logger.e(e) { "Failed to initialize Unique4j" }
         }
@@ -113,7 +112,10 @@ class DeepLinkHandler {
         return null
     }
 
-    private fun handleDeepLinkCommand(deepLink: String, params: Map<String, String>) {
+    private fun handleDeepLinkCommand(
+        deepLink: String,
+        params: Map<String, String>,
+    ) {
         // Handle different commands based on the deep link
         when (params["command"]) {
             "runv2" -> {
@@ -129,7 +131,7 @@ class DeepLinkHandler {
         unique?.freeLock()
     }
 
-    //TODO: Move this to conveyor
+    // TODO: Move this to conveyor
 
     // Register the application as a handler for ooni:// protocol
     private fun registerProtocolHandler() {
@@ -154,7 +156,7 @@ class DeepLinkHandler {
                     ".local",
                     "share",
                     "applications",
-                    "ooni-handler.desktop"
+                    "ooni-handler.desktop",
                 )
 
                 val desktopEntry = """
@@ -177,7 +179,10 @@ class DeepLinkHandler {
                 // Register the desktop entry as the handler for the ooni:// protocol
                 try {
                     val processBuilder = ProcessBuilder(
-                        "xdg-mime", "default", "ooni-handler.desktop", "x-scheme-handler/ooni"
+                        "xdg-mime",
+                        "default",
+                        "ooni-handler.desktop",
+                        "x-scheme-handler/ooni",
                     )
                     val process = processBuilder.start()
                     process.waitFor()
@@ -270,5 +275,4 @@ class DeepLinkHandler {
             return "java -cp ${System.getProperty("java.class.path")} MainKt"
         }
     }
-
 }
