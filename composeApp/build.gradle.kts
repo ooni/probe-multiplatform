@@ -135,7 +135,6 @@ kotlin {
                 implementation("org.openjfx:javafx-media:17:mac-aarch64")
                 implementation("org.openjfx:javafx-web:17:mac-aarch64")
                 implementation("org.openjfx:javafx-swing:17:mac-aarch64")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.10.2")
             }
         }
         // Testing
