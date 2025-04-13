@@ -267,6 +267,8 @@
     <string name="Onboarding_Crash_Title">Absturz-Berichterstattung</string>
     <string name="Onboarding_Crash_Button_Yes">Ja</string>
     <string name="Onboarding_Crash_Button_No">Nein</string>
+    <string name="Onboarding_Notifications_Title">Benachrichtigungen aktivieren</string>
+    <string name="Onboarding_Notifications_Paragraph">Nachdem du mit der Durchführung von Tests begonnen hast, kannst du die App schließen und sie laufen im Hintergrund weiter. Aktiviere Benachrichtigungen, damit du verfolgen kannst, welche Tests laufen, oder sie stoppen kannst, ohne die App öffnen zu müssen.</string>
     <string name="Onboarding_Notifications_Ok">OK</string>
     <string name="Onboarding_Notifications_Skip">Überspringen</string>
     <string name="Onboarding_DefaultSettings_Title">Vorgabeeinstellungen</string>
