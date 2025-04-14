@@ -317,6 +317,7 @@
     <string name="Modal_RunAnyway">Lancer quand même</string>
     <string name="Modal_AlwaysRun">Toujours exécuter</string>
     <string name="Modal_Error_CantDownloadURLs">Impossible de télécharger la liste des URL. Réessayez.</string>
+    <string name="Modal_Error_NoInternet">Aucune connexion à Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">Confirmez-vous?</string>
     <string name="Modal_CustomURL_NotSaved">Vos URL ne seront pas enregistrées si vous quittez cet écran. Voulez-vous vraiment le quitter?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">L’application ne peut pas effectuer des tests automatiquement sans l’autorisation de fonctionner en arrière-plan. Voulez-vous réessayer \?</string>
