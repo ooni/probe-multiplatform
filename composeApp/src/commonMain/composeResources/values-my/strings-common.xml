@@ -246,6 +246,7 @@
     <string name="Modal_RunAnyway">ဘာဖြစ်ဖြစ် စမ်းမည်</string>
     <string name="Modal_AlwaysRun">အမြဲတမ်း စမ်းမည်</string>
     <string name="Modal_Error_CantDownloadURLs">URL စာရင်းကို ဒေါင်းလုဒ်လုပ်၍ မရပါ။ ထပ်စမ်းကြည့်ပါ။</string>
+    <string name="Modal_Error_NoInternet">အင်တာနက်ချိတ်ဆက်မှု မရှိ</string>
     <string name="Modal_CustomURL_Title_NotSaved">သေချာပါသလား။</string>
     <string name="Modal_CustomURL_NotSaved">ဤဝဘ်စာမျက်နှာမှ ထွက်သည့်အခါ သင့် URL များကို သိမ်းဆည်းမည် မဟုတ်ပါ။ ဤစာမျက်နှာမှ ထွက်လိုသည်မှာ သေချာပါသလား။ </string>
     <!-- Common / Others -->
