@@ -1,9 +1,6 @@
 package org.ooni.probe.ui.shared
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.SwingPanel
 import javafx.application.Platform
@@ -13,6 +10,7 @@ import javafx.scene.Scene
 import javafx.scene.layout.StackPane
 import javafx.scene.web.WebView
 import java.net.URL
+import kotlin.io.encoding.Base64
 
 @Composable
 actual fun OoniWebView(
@@ -20,17 +18,21 @@ actual fun OoniWebView(
     modifier: Modifier,
     allowedDomains: List<String>,
 ) {
-    val onCreated = {}
-    val onDispose = {}
-    val currentOnDispose by rememberUpdatedState(onDispose)
     val event = controller.rememberNextEvent()
 
     SwingPanel(
         factory = {
+            controller.state = OoniWebViewController.State.Initializing
+
+            println("webview: factory")
             JFXPanel().apply {
+                Platform.setImplicitExit(false) // Otherwise, webView will not show the second time
                 Platform.runLater {
+                    println("webview: factory runLater")
+
                     val webView = WebView().apply {
                         isVisible = true
+                        @Suppress("SetJavaScriptEnabled")
                         engine.isJavaScriptEnabled = true
 
                         // Set up load listeners
@@ -39,18 +41,23 @@ actual fun OoniWebView(
                                 Worker.State.SCHEDULED -> {
                                     controller.state = OoniWebViewController.State.Loading(0f)
                                 }
+
                                 Worker.State.RUNNING -> {
                                     val progress = engine.loadWorker.progress
-                                    controller.state = OoniWebViewController.State.Loading(progress.toFloat())
+                                    controller.state =
+                                        OoniWebViewController.State.Loading(progress.toFloat())
                                 }
+
                                 Worker.State.SUCCEEDED -> {
                                     controller.state = OoniWebViewController.State.Successful
                                     controller.canGoBack = engine.history.currentIndex > 0
                                 }
+
                                 Worker.State.FAILED -> {
                                     controller.state = OoniWebViewController.State.Failure
                                     controller.canGoBack = engine.history.currentIndex > 0
                                 }
+
                                 else -> {}
                             }
                         }
@@ -71,45 +78,59 @@ actual fun OoniWebView(
                             }
                             controller.canGoBack = engine.history.currentIndex > 0
                         }
+
+                        val css = """
+                            body {
+                                -ms-overflow-style: none;  /* Internet Explorer 10+ */
+                                scrollbar-width: none;  /* Firefox */
+                            }
+                            body::-webkit-scrollbar {
+                                display: none;  /* Safari and Chrome */
+                            }
+                        """.trimIndent()
+                        val cssData = Base64.encode(css.encodeToByteArray())
+                        engine.userStyleSheetLocation =
+                            "data:text/css;charset=utf-8;base64,$cssData"
                     }
 
                     val root = StackPane()
                     root.children.add(webView)
                     this.scene = Scene(root)
-                    onCreated()
                 }
             }
         },
         modifier = modifier,
         update = { jfxPanel ->
+            println("webview: update")
             Platform.runLater {
-                val scene = jfxPanel.scene
-                val root = scene?.root as? StackPane
-                val webView = root?.children?.get(0) as? WebView
-                webView?.let {
-                    when (event) {
-                        is OoniWebViewController.Event.Load -> {
-                            webView.engine.load(event.url)
+                println("webview: update runLater")
+                val root = jfxPanel.scene?.root as? StackPane
+                val webView = (root?.children?.get(0) as? WebView) ?: return@runLater
+                when (event) {
+                    is OoniWebViewController.Event.Load -> {
+                        val headers = event.additionalHttpHeaders.entries.joinToString {
+                            "\n${it.key}: it.value"
                         }
-                        OoniWebViewController.Event.Reload -> {
-                            webView.engine.reload()
-                        }
-                        OoniWebViewController.Event.Back -> {
-                            if (webView.engine.history.currentIndex > 0) {
-                                webView.engine.history.go(-1)
-                            }
-                        }
-                        null -> Unit
+                        // Hack to send HTTP headers by taking advantage of userAgent
+                        webView.engine.userAgent = "ooni$headers"
+                        println("webview: Loading: ${event.url}")
+                        webView.engine.load(event.url)
                     }
+
+                    OoniWebViewController.Event.Reload -> {
+                        webView.engine.reload()
+                    }
+
+                    OoniWebViewController.Event.Back -> {
+                        if (webView.engine.history.currentIndex > 0) {
+                            webView.engine.history.go(-1)
+                        }
+                    }
+
+                    null -> Unit
                 }
+                event?.let(controller::onEventHandled)
             }
-            event?.let(controller::onEventHandled)
         },
     )
-
-    DisposableEffect(Unit) {
-        onDispose {
-            currentOnDispose()
-        }
-    }
 }
