@@ -214,6 +214,7 @@
     <string name="Onboarding_Crash_Title">崩潰報告</string>
     <string name="Onboarding_Crash_Button_Yes">是</string>
     <string name="Onboarding_Crash_Button_No">否</string>
+    <string name="Onboarding_Notifications_Title">开启通知</string>
     <string name="Onboarding_Notifications_Ok">正常</string>
     <string name="Onboarding_Notifications_Skip">跳過</string>
     <string name="Onboarding_DefaultSettings_Title">預設值</string>
