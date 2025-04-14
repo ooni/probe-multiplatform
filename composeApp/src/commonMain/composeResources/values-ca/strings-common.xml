@@ -222,6 +222,7 @@
     <string name="Modal_ReRun_Websites_Title">Esteu a punt de tornar a provar %1$s llocs web.</string>
     <string name="Modal_ReRun_Websites_Run">Inicia</string>
     <string name="Modal_Error_CantDownloadURLs">No s\'ha pogut baixar la llista d\'URL. Torneu-ho a provar.</string>
+    <string name="Modal_Error_NoInternet">No hi ha connexió a Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">N’estàs segur?</string>
     <string name="Modal_CustomURL_NotSaved">Les vostres URL no es desaran quan surti d’aquesta pantalla. Esteu segur de voler sortir d’aquesta pantalla?</string>
     <!-- Common / Others -->
