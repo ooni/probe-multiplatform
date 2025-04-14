@@ -306,6 +306,7 @@
     <string name="Modal_RunAnyway">شغِّل في كل الأحوال</string>
     <string name="Modal_AlwaysRun">شغِّل دائما</string>
     <string name="Modal_Error_CantDownloadURLs">التطبيق غير قادر على تحميل قائمة المواقع. من فضلك حاول مرة أخرى.</string>
+    <string name="Modal_Error_NoInternet">لا اتصال بالانترنت </string>
     <string name="Modal_CustomURL_Title_NotSaved">هل أنت متأكد؟</string>
     <string name="Modal_CustomURL_NotSaved">المواقع لن تسجل اذا تركت هذه الواجهة. هل تريد ترك الواجهة؟</string>
     <!-- Common / Others -->
