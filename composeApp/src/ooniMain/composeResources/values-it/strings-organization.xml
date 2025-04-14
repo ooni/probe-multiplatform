@@ -12,9 +12,6 @@
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Per aumentare la trasparenza sulla censura di internet, le misure di rete di OONI Probe sono pubblicate automaticamente (a meno che non sia disabilitato nelle impostazioni).</string>
     <string name="Onboarding_Crash_Paragraph">Per migliorare OONI Probe vorremo raccogliere segnalazioni di crash anonimi quando l’app non funziona correttamente.\n\nVuoi inviare le segnalazioni di crash al team di sviluppo di OONI?</string>
 
-    <!-- Find proper fix for translation -->
-    <string name="Modal_EnableNotifications_Paragraph">Interessato a fare i test di OONI Probe durante gli eventi di censura emergenti? Abilita le notifiche per ricevere un messaggio quando sentiamo parlare di censura di internet vicino a te!</string>
-
     <string name="Dashboard_Websites_Card_Description">Verifica il blocco di siti web</string>
     <string name="Dashboard_Websites_Overview_Paragraph">Controlla se i siti web sono bloccati usando il [test di Connettività Web](https://ooni.org/nettest/web-connectivity/) di OONI\n\nOgni volta che fai tap su Run, misurerai diversi siti web dalla [lista globale](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) e [specifica per il paese](https://github.com/citizenlab/test-lists/tree/master/lists) del Citizen Lab.\n\nPer misurare un sito a tua scelta, fai tap sul bottone Scegli siti o configura le categorie da testare nelle impostazioni di questa card.\n\nQuesto test misura se i siti web sono bloccati per mezzo di censura su base DNS, blocco TCP/IP o tramite un proxy HTTP trasparente.\n\nI risultati saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Performance_Card_Description">Misura la velocità e le prestazioni della tua rete</string>

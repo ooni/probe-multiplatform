@@ -13,9 +13,6 @@
     <string name="Onboarding_AutomatedTesting_Paragraph">為測量網際網路每日的審查狀況，請開啟自動測試以便讓 OONI Probe 可定期測試。\n\n別憺心，我們會小心注意電池用量。\n\n您也可以隨時關閉自動測試。</string>
     <string name="Onboarding_Crash_Paragraph">為改善 OONI Probe，假若應用程式無法正常運作，我們需要收集匿名的崩潰報告。\n\n您願意向 OONI 開發團隊提供崩潰報告嗎？</string>
 
-    <!-- Find proper fix for translation -->
-    <string name="Modal_EnableNotifications_Paragraph">有興趣在緊急事件期間執行 OONI Probe 測試嗎？開啟通知功能，當發現您週遭可能有網路審查狀況時，就會向您發送訊息。</string>
-
     <string name="Dashboard_Websites_Card_Description">測試遭封鎖的網站</string>
     <string name="Dashboard_Websites_Overview_Paragraph">檢查網站是否屏蔽 OONI 之使用 [Web Connectivity test](https://ooni.org/nettest/web-connectivity/).\n\n每當點擊執行時，將測試 Citizen Lab 提供的 [全球](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) 與 [特定國家](https://github.com/citizenlab/test-lists/tree/master/lists) 網站清單。\n\n欲測試所選的網站，請輕觸選取網站按鍵或是透由此卡的設置選取網站類別。\n\n測試會計量網站是否遭 DNS 纂改、 TCP/IP 封鎖或透明的 HTTP 代理等問題\n\n其結果會發佈於[OONI Explorer](https://explorer.ooni.org/world/) 與 [OONI API](https://api.ooni.io/)。</string>
     <string name="Dashboard_Performance_Card_Description">測試網路速度和效能</string>
