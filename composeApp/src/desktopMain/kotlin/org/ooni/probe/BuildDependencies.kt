@@ -57,7 +57,7 @@ private fun buildPlatformInfo(): PlatformInfo {
     val osVersion = System.getProperty("os.version")
     val conveyorVersion = SoftwareUpdateController.getInstance()?.currentVersion
     val buildName = conveyorVersion?.version
-        ?: System.getProperty("jpackage.app-version").ifBlank { null }
+        ?: System.getProperty("jpackage.app-version")?.ifBlank { null }
         ?: "test"
     val buildNumber = conveyorVersion?.revision?.toString() ?: "0"
 
