@@ -249,6 +249,7 @@
     <string name="Modal_RunAnyway">به هر حال اجرا کن</string>
     <string name="Modal_AlwaysRun">همیشه اجرا کن</string>
     <string name="Modal_Error_CantDownloadURLs">بارگیری لیست آدرس اینترنتی امکان‌پذیر نبود. لطفا  دوباره تلاش کنید.</string>
+    <string name="Modal_Error_NoInternet">ارتباط با اینترنت برقرار نیست</string>
     <string name="Modal_CustomURL_Title_NotSaved">آیا مطمئن هستید؟</string>
     <string name="Modal_CustomURL_NotSaved">آدرس‌های شما با ترک این صفحه، ذخیره نخواهند شد. آیا مطمئنید که می‌خواهید این صفحه را ترک کنید؟</string>
     <!-- Common / Others -->
