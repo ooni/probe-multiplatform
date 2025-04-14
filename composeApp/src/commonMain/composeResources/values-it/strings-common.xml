@@ -237,6 +237,7 @@
     <string name="Modal_ReRun_Websites_Title">Stai per ri-testare %1$s siti.</string>
     <string name="Modal_ReRun_Websites_Run">Esegui</string>
     <string name="Modal_Error_CantDownloadURLs">Non è stato possibile scaricare la lista di URL. Riprova.</string>
+    <string name="Modal_Error_NoInternet">Nessuna connessione internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">Sei sicuro?</string>
     <string name="Modal_CustomURL_NotSaved">Gli URL non saranno salvati quando lasci questa pagina. Sei sicuro di voler lasciare questa pagina?</string>
     <!-- Common / Others -->
