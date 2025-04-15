@@ -377,6 +377,7 @@ class Dependencies(
             getRunBackgroundState = runBackgroundStateManager.observeState(),
             setRunBackgroundState = runBackgroundStateManager::updateState,
             runNetTest = { runNetTest(it)() },
+            cancelRun = runBackgroundStateManager::cancel,
             addRunCancelListener = runBackgroundStateManager::addCancelListener,
             reportTestRunError = runBackgroundStateManager::reportError,
             getEnginePreferences = getEnginePreferences::invoke,
