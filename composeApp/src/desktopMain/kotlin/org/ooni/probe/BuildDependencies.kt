@@ -70,6 +70,7 @@ private fun buildPlatformInfo(): PlatformInfo {
         requestNotificationsPermission = false,
         knownBatteryState = false,
         knownNetworkType = false,
+        supportsInAppLanguage = false,
         sentryDsn = "https://e33da707dc40ab9508198b62de9bc269@o155150.ingest.sentry.io/4509084408610816",
     )
 }
@@ -119,15 +120,15 @@ private fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorMode
     }
 }
 
-private fun launchAction(action: PlatformAction): Boolean {
-    return when (action) {
+private fun launchAction(action: PlatformAction): Boolean =
+    when (action) {
         is PlatformAction.FileSharing -> shareFile(action)
         is PlatformAction.Mail -> sendMail(action)
         is PlatformAction.OpenUrl -> openUrl(action)
         is PlatformAction.Share -> shareText(action)
         PlatformAction.VpnSettings -> openVpnSettings()
+        PlatformAction.LanguageSettings -> false
     }
-}
 
 fun openVpnSettings(): Boolean {
     return false

@@ -30,6 +30,7 @@ import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAut
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_Description
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_Footer
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_WiFiOnly
+import ooniprobe.composeapp.generated.resources.Settings_Language_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_SendCrashReports
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
@@ -46,6 +47,7 @@ import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnab
 import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled_New
 import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntime_New
 import ooniprobe.composeapp.generated.resources.advanced
+import ooniprobe.composeapp.generated.resources.ic_language
 import ooniprobe.composeapp.generated.resources.ic_settings
 import ooniprobe.composeapp.generated.resources.outline_info
 import ooniprobe.composeapp.generated.resources.privacy
@@ -72,6 +74,7 @@ class GetSettings(
     private val supportsCrashReporting: Boolean,
     private val knownNetworkType: Boolean,
     private val knownBatteryState: Boolean,
+    private val supportsInAppLanguage: Boolean,
 ) {
     operator fun invoke(): Flow<List<SettingsCategoryItem>> {
         return combine(
@@ -240,12 +243,20 @@ class GetSettings(
                 title = Res.string.Settings_Proxy_Label,
                 route = PreferenceCategoryKey.PROXY,
             ),
+            if (supportsInAppLanguage) {
+                SettingsCategoryItem(
+                    icon = Res.drawable.ic_language,
+                    title = Res.string.Settings_Language_Label,
+                    route = PreferenceCategoryKey.LANGUAGE,
+                )
+            } else {
+                null
+            },
             SettingsCategoryItem(
                 icon = Res.drawable.advanced,
                 title = Res.string.Settings_Advanced_Label,
                 route = PreferenceCategoryKey.ADVANCED,
                 settings = listOf(
-                    // TODO(aanorbel) : Add language settings when in app language switcher can be implemented
                     SettingsCategoryItem(
                         title = Res.string.Settings_Advanced_RecentLogs,
                         route = PreferenceCategoryKey.SEE_RECENT_LOGS,

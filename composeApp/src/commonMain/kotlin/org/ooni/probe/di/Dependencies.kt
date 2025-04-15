@@ -322,6 +322,7 @@ class Dependencies(
             supportsCrashReporting = flavorConfig.isCrashReportingEnabled,
             knownNetworkType = platformInfo.knownNetworkType,
             knownBatteryState = platformInfo.knownBatteryState,
+            supportsInAppLanguage = platformInfo.supportsInAppLanguage,
         )
     }
 
@@ -644,6 +645,7 @@ class Dependencies(
         SettingsViewModel(
             goToSettingsForCategory = goToSettingsForCategory,
             sendSupportEmail = sendSupportEmail::invoke,
+            openAppLanguageSettings = { launchAction(PlatformAction.LanguageSettings) },
             getSettings = getSettings::invoke,
         )
 

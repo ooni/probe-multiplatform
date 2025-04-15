@@ -55,6 +55,7 @@ import platform.UIKit.UIActivityTypeAirDrop
 import platform.UIKit.UIActivityTypePostToFacebook
 import platform.UIKit.UIActivityViewController
 import platform.UIKit.UIApplication
+import platform.UIKit.UIApplicationOpenSettingsURLString
 import platform.UIKit.UIDevice
 import platform.UIKit.UIDeviceBatteryState
 import platform.UIKit.UIModalPresentationOverCurrentContext
@@ -119,11 +120,13 @@ class SetupDependencies(
         PlatformInfo(
             buildName = NSBundle.mainBundle.infoDictionary?.get("CFBundleShortVersionString") as? String
                 ?: "",
-            buildNumber = NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String ?: "",
+            buildNumber = NSBundle.mainBundle.infoDictionary?.get("CFBundleVersion") as? String
+                ?: "",
             platform = Platform.Ios,
             osVersion = with(UIDevice.currentDevice) { systemVersion },
             model = UIDevice.currentDevice.model,
             requestNotificationsPermission = false,
+            supportsInAppLanguage = true,
             sentryDsn = "https://a19b2c03b50acdad7d5635559a8e2cad@o155150.ingest.sentry.io/4508325650235392",
         )
 
@@ -176,6 +179,7 @@ class SetupDependencies(
             is PlatformAction.Share -> shareText(action)
             is PlatformAction.FileSharing -> shareFile(action)
             is PlatformAction.VpnSettings -> openVpnSettings()
+            is PlatformAction.LanguageSettings -> openLanguageSettings()
         }
     }
 
@@ -282,9 +286,12 @@ class SetupDependencies(
         )
     }
 
-    private fun openVpnSettings(): Boolean {
-        val url = "App-prefs:General&path=ManagedConfigurationList"
-        return NSURL.URLWithString(url)?.let {
+    private fun openVpnSettings() = openInternalUrl("App-prefs:General&path=ManagedConfigurationList")
+
+    private fun openLanguageSettings() = openInternalUrl(UIApplicationOpenSettingsURLString)
+
+    private fun openInternalUrl(url: String): Boolean =
+        NSURL.URLWithString(url)?.let {
             if (UIApplication.sharedApplication.canOpenURL(it)) {
                 UIApplication.sharedApplication.openURL(it)
                 return@let true
@@ -293,7 +300,6 @@ class SetupDependencies(
                 return@let false
             }
         } ?: false
-    }
 
     private fun cancelDescriptorAutoUpdate(): Boolean {
         Logger.d("Cancelling descriptor auto update")
