@@ -31,6 +31,7 @@ import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.MeasurementsFilter
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -54,6 +55,7 @@ import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetFirstRun
+import org.ooni.probe.domain.GetMeasurementsNotUploaded
 import org.ooni.probe.domain.GetProxySettings
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
@@ -315,6 +317,12 @@ class Dependencies(
         )
     }
 
+    private val getMeasurementsNotUploaded by lazy {
+        GetMeasurementsNotUploaded(
+            listMeasurementsNotUploaded = measurementRepository::listNotUploaded,
+            getMeasurementById = measurementRepository::getById,
+        )
+    }
     private val getSettings by lazy {
         GetSettings(
             preferencesRepository = preferenceRepository,
@@ -352,7 +360,6 @@ class Dependencies(
             getAutoRunSettings = getAutoRunSettings::invoke,
         )
     }
-
     val observeAndConfigureAutoUpdate by lazy {
         ObserveAndConfigureAutoUpdate(
             backgroundContext = backgroundContext,
@@ -362,7 +369,6 @@ class Dependencies(
             startDescriptorsUpdate = startDescriptorsUpdate,
         )
     }
-
     private val rejectDescriptorUpdate by lazy {
         RejectDescriptorUpdate(
             updateDescriptorRejectedRevision = testDescriptorRepository::updateRejectedRevision,
@@ -414,7 +420,7 @@ class Dependencies(
     }
     private val uploadMissingMeasurements by lazy {
         UploadMissingMeasurements(
-            getMeasurementsNotUploaded = measurementRepository::listNotUploaded,
+            getMeasurementsNotUploaded = getMeasurementsNotUploaded::invoke,
             submitMeasurement = engine::submitMeasurements,
             readFile = readFile,
             deleteFiles = deleteFiles,
@@ -662,10 +668,10 @@ class Dependencies(
         )
 
     fun uploadMeasurementsViewModel(
-        resultId: ResultModel.Id?,
+        filter: MeasurementsFilter,
         onClose: () -> Unit,
     ) = UploadMeasurementsViewModel(
-        resultId = resultId,
+        filter = filter,
         onClose = onClose,
         uploadMissingMeasurements = uploadMissingMeasurements::invoke,
     )

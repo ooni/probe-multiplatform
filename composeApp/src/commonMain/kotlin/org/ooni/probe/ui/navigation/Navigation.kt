@@ -20,6 +20,7 @@ import androidx.navigation.compose.dialog
 import org.ooni.probe.LocalSnackbarHostState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.MeasurementsFilter
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
@@ -288,7 +289,7 @@ fun Navigation(
                 ?.let(ResultModel::Id)
             val viewModel = viewModel {
                 dependencies.uploadMeasurementsViewModel(
-                    resultId = resultId,
+                    filter = resultId?.let(MeasurementsFilter::Result) ?: MeasurementsFilter.All,
                     onClose = { navController.goBack() },
                 )
             }

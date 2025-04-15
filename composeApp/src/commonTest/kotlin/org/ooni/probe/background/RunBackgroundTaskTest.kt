@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.TaskOrigin
+import org.ooni.probe.data.models.MeasurementsFilter
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
@@ -40,7 +41,7 @@ class RunBackgroundTaskTest {
 
     private fun buildSubject(
         getPreferenceValueByKey: (SettingsKey) -> Flow<Any?> = { flowOf(true) },
-        uploadMissingMeasurements: (ResultModel.Id?) -> Flow<UploadMissingMeasurements.State> = { emptyFlow() },
+        uploadMissingMeasurements: (MeasurementsFilter) -> Flow<UploadMissingMeasurements.State> = { emptyFlow() },
         checkAutoRunConstraints: suspend () -> Boolean = { false },
         getAutoRunSpecification: suspend () -> RunSpecification.Full = {
             RunSpecification.Full(
