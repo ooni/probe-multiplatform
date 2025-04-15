@@ -46,13 +46,16 @@ fun main(args: Array<String>) {
 
     val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
 
-    // Initialize the deep link handler
-    val deepLinkHandler = DeepLinkHandler()
-    deepLinkHandler.initialize(args)
+    var deepLinkHandler: DeepLinkHandler? = null
 
-    if ((dependencies.platformInfo.platform as? Platform.Desktop)?.os == DesktopOS.Mac) {
-        Desktop.getDesktop().setOpenURIHandler { event ->
-            deepLinkFlow.tryEmit(DeepLink.AddDescriptor(event.uri.path.split("/").last()))
+    dependencies.platformInfo.platform.let { platform ->
+        if (platform is Platform.Desktop && platform.os == DesktopOS.Mac) {
+            Desktop.getDesktop().setOpenURIHandler { event ->
+                deepLinkFlow.tryEmit(DeepLink.AddDescriptor(event.uri.path.split("/").last()))
+            }
+        } else {
+            deepLinkHandler = DeepLinkHandler()
+            deepLinkHandler.initialize(args)
         }
     }
 
@@ -70,10 +73,10 @@ fun main(args: Array<String>) {
         }
 
         LaunchedEffect(Unit) {
-            deepLinkHandler.addMessageListener { message ->
+            deepLinkHandler?.addMessageListener { message ->
                 message?.let { message ->
                     isWindowVisible = true
-                    deepLinkFlow.tryEmit(DeepLink.AddDescriptor(message.split("/").last()))
+                    deepLinkFlow.tryEmit(message)
                 }
             }
         }
@@ -120,7 +123,7 @@ fun main(args: Array<String>) {
                 Item(
                     "Exit",
                     onClick = {
-                        deepLinkHandler.shutdown()
+                        deepLinkHandler?.shutdown()
                         exitApplication()
                     },
                 )
