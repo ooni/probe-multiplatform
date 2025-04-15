@@ -2,6 +2,7 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOne
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -80,6 +81,13 @@ class MeasurementRepository(
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
     }
+
+    fun getById(measurementId: MeasurementModel.Id) =
+        database.measurementQueries
+            .getById(measurementId.value)
+            .asFlow()
+            .mapToOne(backgroundContext)
+            .map { it.toModel() }
 
     suspend fun createOrUpdate(model: MeasurementModel): MeasurementModel.Id =
         withContext(backgroundContext) {

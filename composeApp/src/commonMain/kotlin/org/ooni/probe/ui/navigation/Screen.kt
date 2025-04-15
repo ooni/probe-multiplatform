@@ -54,6 +54,17 @@ sealed class Screen(
         }
     }
 
+    data class MeasurementRaw(
+        val measurementId: MeasurementModel.Id,
+    ) : Screen("measurements/${measurementId.value}") {
+        companion object {
+            const val NAV_ROUTE = "measurements/{measurementId}"
+            val ARGUMENTS = listOf(
+                navArgument("measurementId") { type = NavType.LongType },
+            )
+        }
+    }
+
     data class SettingsCategory(
         val category: PreferenceCategoryKey,
     ) : Screen("settings/${category.value}") {

@@ -106,3 +106,6 @@ SELECT
 FROM Measurement
 JOIN Result ON Measurement.result_id = Result.id
 WHERE Measurement.result_id = :resultId;
+
+getById:
+SELECT * FROM Measurement WHERE Measurement.id = :measurementId;

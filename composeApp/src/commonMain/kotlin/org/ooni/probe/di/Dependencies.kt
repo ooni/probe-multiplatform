@@ -92,6 +92,7 @@ import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
 import org.ooni.probe.ui.log.LogViewModel
+import org.ooni.probe.ui.measurement.MeasurementRawViewModel
 import org.ooni.probe.ui.measurement.MeasurementViewModel
 import org.ooni.probe.ui.onboarding.OnboardingViewModel
 import org.ooni.probe.ui.result.ResultViewModel
@@ -589,12 +590,14 @@ class Dependencies(
         resultId: ResultModel.Id,
         onBack: () -> Unit,
         goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+        goToMeasurementRaw: (MeasurementModel.Id) -> Unit,
         goToUpload: () -> Unit,
         goToDashboard: () -> Unit,
     ) = ResultViewModel(
         resultId = resultId,
         onBack = onBack,
         goToMeasurement = goToMeasurement,
+        goToMeasurementRaw = goToMeasurementRaw,
         goToUpload = goToUpload,
         goToDashboard = goToDashboard,
         getResult = getResult::invoke,
@@ -614,6 +617,17 @@ class Dependencies(
         shareUrl = { launchAction(PlatformAction.Share(it)) },
         openUrl = { launchAction(PlatformAction.OpenUrl(it)) },
         isWebViewAvailable = isWebViewAvailable,
+    )
+
+    fun measurementRawViewModel(
+        measurementId: MeasurementModel.Id,
+        onBack: () -> Unit,
+    ) = MeasurementRawViewModel(
+        measurementId = measurementId,
+        onBack = onBack,
+        getMeasurement = measurementRepository::getById,
+        readFile = readFile,
+        shareFile = { launchAction(it) },
     )
 
     fun reviewUpdatesViewModel(

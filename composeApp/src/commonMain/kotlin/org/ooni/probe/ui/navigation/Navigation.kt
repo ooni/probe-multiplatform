@@ -30,6 +30,7 @@ import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.descriptor.add.AddDescriptorScreen
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesScreen
 import org.ooni.probe.ui.log.LogScreen
+import org.ooni.probe.ui.measurement.MeasurementRawScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
 import org.ooni.probe.ui.onboarding.OnboardingScreen
 import org.ooni.probe.ui.result.ResultScreen
@@ -130,9 +131,8 @@ fun Navigation(
                     goToMeasurement = { reportId, input ->
                         navController.safeNavigate(Screen.Measurement(reportId, input))
                     },
-                    goToUpload = {
-                        navController.safeNavigate(Screen.UploadMeasurements(resultId))
-                    },
+                    goToMeasurementRaw = { navController.safeNavigate(Screen.MeasurementRaw(it)) },
+                    goToUpload = { navController.safeNavigate(Screen.UploadMeasurements(resultId)) },
                     goToDashboard = {
                         navController.popBackStack(Screen.Dashboard.route, inclusive = false)
                     },
@@ -157,6 +157,21 @@ fun Navigation(
             }
             val state by viewModel.state.collectAsState()
             MeasurementScreen(state, viewModel::onEvent)
+        }
+
+        composable(
+            route = Screen.MeasurementRaw.NAV_ROUTE,
+            arguments = Screen.MeasurementRaw.ARGUMENTS,
+        ) { entry ->
+            val measurementId = entry.arguments?.getLong("measurementId") ?: return@composable
+            val viewModel = viewModel {
+                dependencies.measurementRawViewModel(
+                    measurementId = MeasurementModel.Id(measurementId),
+                    onBack = { navController.goBack() },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            MeasurementRawScreen(state, viewModel::onEvent)
         }
 
         composable(
