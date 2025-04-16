@@ -114,6 +114,8 @@
     <string name="Measurements_Anomaly">شذوذ</string>
     <string name="Measurements_Count_One">%1$d measurement</string>
     <string name="Measurements_Count_Other">%1$d measurement</string>
+    <string name="Measurement_Raw_Upload">رفع</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">الإعدادات</string>
