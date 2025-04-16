@@ -100,6 +100,8 @@
     <string name="Measurements_Failed">បរាជ័យ</string>
     <string name="Measurements_Ok">យល់ព្រម</string>
     <string name="Measurements_Anomaly">ខុសប្រក្រតី</string>
+    <string name="Measurement_Raw_Upload">បញ្ជូល</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">ការកំណត់</string>
