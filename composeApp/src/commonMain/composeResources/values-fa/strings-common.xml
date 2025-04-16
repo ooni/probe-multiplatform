@@ -112,6 +112,8 @@
     <string name="Settings_Proxy_Custom_Hostname">نام سرور</string>
     <string name="Settings_Proxy_Custom_Port">پورت</string>
 
+    <string name="Settings_Language_Label">زبان</string>
+
     <string name="Settings_Advanced_Label">پیشرفته </string>
     <string name="Settings_Advanced_DebugLogs">ثبت اشکال زدایی‌ها</string>
     <string name="Settings_Advanced_RecentLogs">مشاهده گزارش‌های اخیر</string>
