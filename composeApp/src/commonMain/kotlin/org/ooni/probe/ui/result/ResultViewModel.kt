@@ -29,6 +29,7 @@ class ResultViewModel(
     resultId: ResultModel.Id,
     onBack: () -> Unit,
     goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+    goToMeasurementRaw: (MeasurementModel.Id) -> Unit,
     goToUpload: () -> Unit,
     goToDashboard: () -> Unit,
     getResult: (ResultModel.Id) -> Flow<ResultItem?>,
@@ -89,7 +90,13 @@ class ResultViewModel(
 
         events
             .filterIsInstance<Event.MeasurementClicked>()
-            .onEach { goToMeasurement(it.measurementReportId, it.measurementInput) }
+            .onEach { event ->
+                if (event.item.measurement.reportId != null) {
+                    goToMeasurement(event.item.measurement.reportId, event.item.url?.url)
+                } else {
+                    event.item.measurement.id?.let { id -> goToMeasurementRaw(id) }
+                }
+            }
             .launchIn(viewModelScope)
 
         events
@@ -180,10 +187,7 @@ class ResultViewModel(
     sealed interface Event {
         data object BackClicked : Event
 
-        data class MeasurementClicked(
-            val measurementReportId: MeasurementModel.ReportId,
-            val measurementInput: String?,
-        ) : Event
+        data class MeasurementClicked(val item: MeasurementWithUrl) : Event
 
         data object UploadClicked : Event
 

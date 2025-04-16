@@ -36,7 +36,6 @@ import ooniprobe.composeapp.generated.resources.ic_measurement_ok
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
-import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
 
@@ -44,19 +43,18 @@ import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
 fun ResultMeasurementCell(
     item: MeasurementWithUrl,
     isResultDone: Boolean,
-    onClick: (MeasurementModel.ReportId, String?) -> Unit,
+    onClick: (MeasurementWithUrl) -> Unit,
 ) {
     val measurement = item.measurement
     val test = measurement.test
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth().run {
-            if (measurement.isDone && !measurement.isMissingUpload) {
-                clickable { onClick(measurement.reportId!!, item.url?.url) }
-            } else {
-                alpha(0.66f)
+        modifier = Modifier.fillMaxWidth()
+            .let {
+                if (measurement.isDone) it.clickable { onClick(item) } else it
             }
-        }.padding(16.dp),
+            .alpha(if (measurement.isDone && !measurement.isMissingUpload) 1f else 0.66f)
+            .padding(16.dp),
     ) {
         TestName(test, item, modifier = Modifier.weight(1f))
         if (isResultDone && measurement.isDoneAndMissingUpload) {
@@ -142,7 +140,7 @@ private fun TestName(
 fun ResultGroupMeasurementCell(
     item: Group,
     isResultDone: Boolean,
-    onClick: (MeasurementModel.ReportId, String?) -> Unit,
+    onClick: (MeasurementWithUrl) -> Unit,
     onDropdownToggled: () -> Unit,
 ) {
     Row(

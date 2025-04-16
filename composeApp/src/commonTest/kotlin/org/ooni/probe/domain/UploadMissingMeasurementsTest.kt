@@ -7,6 +7,7 @@ import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Success
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.MeasurementsFilter
 import org.ooni.testing.factories.MeasurementModelFactory
 import kotlin.math.absoluteValue
 import kotlin.random.Random
@@ -40,7 +41,7 @@ class UploadMissingMeasurementsTest {
             )
 
             val results = mutableListOf<UploadMissingMeasurements.State>()
-            subject().collect { results.add(it) }
+            subject(MeasurementsFilter.All).collect { results.add(it) }
 
             assertEquals(UploadMissingMeasurements.State.Starting, results[0])
             assertEquals(UploadMissingMeasurements.State.Uploading(0, 0, 1), results[1])
@@ -67,7 +68,7 @@ class UploadMissingMeasurementsTest {
             )
 
             val results = mutableListOf<UploadMissingMeasurements.State>()
-            subject().collect { results.add(it) }
+            subject(MeasurementsFilter.All).collect { results.add(it) }
 
             assertEquals(UploadMissingMeasurements.State.Starting, results[0])
             assertEquals(UploadMissingMeasurements.State.Uploading(0, 0, 1), results[1])
@@ -93,7 +94,7 @@ class UploadMissingMeasurementsTest {
             )
 
             val results = mutableListOf<UploadMissingMeasurements.State>()
-            subject().collect { results.add(it) }
+            subject(MeasurementsFilter.All).collect { results.add(it) }
 
             assertEquals(UploadMissingMeasurements.State.Starting, results[0])
             assertEquals(UploadMissingMeasurements.State.Uploading(0, 0, 1), results[1])

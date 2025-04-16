@@ -20,6 +20,7 @@ import androidx.navigation.compose.dialog
 import org.ooni.probe.LocalSnackbarHostState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.MeasurementsFilter
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
@@ -30,6 +31,7 @@ import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.descriptor.add.AddDescriptorScreen
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesScreen
 import org.ooni.probe.ui.log.LogScreen
+import org.ooni.probe.ui.measurement.MeasurementRawScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
 import org.ooni.probe.ui.onboarding.OnboardingScreen
 import org.ooni.probe.ui.result.ResultScreen
@@ -130,9 +132,8 @@ fun Navigation(
                     goToMeasurement = { reportId, input ->
                         navController.safeNavigate(Screen.Measurement(reportId, input))
                     },
-                    goToUpload = {
-                        navController.safeNavigate(Screen.UploadMeasurements(resultId))
-                    },
+                    goToMeasurementRaw = { navController.safeNavigate(Screen.MeasurementRaw(it)) },
+                    goToUpload = { navController.safeNavigate(Screen.UploadMeasurements(resultId)) },
                     goToDashboard = {
                         navController.popBackStack(Screen.Dashboard.route, inclusive = false)
                     },
@@ -157,6 +158,27 @@ fun Navigation(
             }
             val state by viewModel.state.collectAsState()
             MeasurementScreen(state, viewModel::onEvent)
+        }
+
+        composable(
+            route = Screen.MeasurementRaw.NAV_ROUTE,
+            arguments = Screen.MeasurementRaw.ARGUMENTS,
+        ) { entry ->
+            val measurementId = entry.arguments?.getLong("measurementId") ?: return@composable
+            val viewModel = viewModel {
+                dependencies.measurementRawViewModel(
+                    measurementId = MeasurementModel.Id(measurementId),
+                    onBack = { navController.goBack() },
+                    goToUpload = {
+                        navController.safeNavigate(Screen.UploadMeasurements(measurementId = it))
+                    },
+                    goToMeasurement = { reportId, input ->
+                        navController.goBackAndNavigate(Screen.Measurement(reportId, input))
+                    },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            MeasurementRawScreen(state, viewModel::onEvent)
         }
 
         composable(
@@ -271,9 +293,18 @@ fun Navigation(
         ) { entry ->
             val resultId = entry.arguments?.getString("resultId")?.toLongOrNull()
                 ?.let(ResultModel::Id)
+            val measurementId = entry.arguments?.getString("measurementId")?.toLongOrNull()
+                ?.let(MeasurementModel::Id)
+            val filter = if (resultId != null) {
+                MeasurementsFilter.Result(resultId)
+            } else if (measurementId != null) {
+                MeasurementsFilter.Measurement(measurementId)
+            } else {
+                MeasurementsFilter.All
+            }
             val viewModel = viewModel {
                 dependencies.uploadMeasurementsViewModel(
-                    resultId = resultId,
+                    filter = filter,
                     onClose = { navController.goBack() },
                 )
             }

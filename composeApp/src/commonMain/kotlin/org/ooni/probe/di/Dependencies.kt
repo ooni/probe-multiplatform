@@ -31,6 +31,7 @@ import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.MeasurementsFilter
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
@@ -54,6 +55,7 @@ import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetFirstRun
+import org.ooni.probe.domain.GetMeasurementsNotUploaded
 import org.ooni.probe.domain.GetProxySettings
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
@@ -92,6 +94,7 @@ import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
 import org.ooni.probe.ui.log.LogViewModel
+import org.ooni.probe.ui.measurement.MeasurementRawViewModel
 import org.ooni.probe.ui.measurement.MeasurementViewModel
 import org.ooni.probe.ui.onboarding.OnboardingViewModel
 import org.ooni.probe.ui.result.ResultViewModel
@@ -314,6 +317,12 @@ class Dependencies(
         )
     }
 
+    private val getMeasurementsNotUploaded by lazy {
+        GetMeasurementsNotUploaded(
+            listMeasurementsNotUploaded = measurementRepository::listNotUploaded,
+            getMeasurementById = measurementRepository::getById,
+        )
+    }
     private val getSettings by lazy {
         GetSettings(
             preferencesRepository = preferenceRepository,
@@ -352,7 +361,6 @@ class Dependencies(
             getAutoRunSettings = getAutoRunSettings::invoke,
         )
     }
-
     val observeAndConfigureAutoUpdate by lazy {
         ObserveAndConfigureAutoUpdate(
             backgroundContext = backgroundContext,
@@ -362,7 +370,6 @@ class Dependencies(
             startDescriptorsUpdate = startDescriptorsUpdate,
         )
     }
-
     private val rejectDescriptorUpdate by lazy {
         RejectDescriptorUpdate(
             updateDescriptorRejectedRevision = testDescriptorRepository::updateRejectedRevision,
@@ -415,7 +422,7 @@ class Dependencies(
     }
     private val uploadMissingMeasurements by lazy {
         UploadMissingMeasurements(
-            getMeasurementsNotUploaded = measurementRepository::listNotUploaded,
+            getMeasurementsNotUploaded = getMeasurementsNotUploaded::invoke,
             submitMeasurement = engine::submitMeasurements,
             readFile = readFile,
             deleteFiles = deleteFiles,
@@ -591,12 +598,14 @@ class Dependencies(
         resultId: ResultModel.Id,
         onBack: () -> Unit,
         goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+        goToMeasurementRaw: (MeasurementModel.Id) -> Unit,
         goToUpload: () -> Unit,
         goToDashboard: () -> Unit,
     ) = ResultViewModel(
         resultId = resultId,
         onBack = onBack,
         goToMeasurement = goToMeasurement,
+        goToMeasurementRaw = goToMeasurementRaw,
         goToUpload = goToUpload,
         goToDashboard = goToDashboard,
         getResult = getResult::invoke,
@@ -616,6 +625,21 @@ class Dependencies(
         shareUrl = { launchAction(PlatformAction.Share(it)) },
         openUrl = { launchAction(PlatformAction.OpenUrl(it)) },
         isWebViewAvailable = isWebViewAvailable,
+    )
+
+    fun measurementRawViewModel(
+        measurementId: MeasurementModel.Id,
+        onBack: () -> Unit,
+        goToUpload: (MeasurementModel.Id) -> Unit,
+        goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+    ) = MeasurementRawViewModel(
+        measurementId = measurementId,
+        onBack = onBack,
+        goToUpload = goToUpload,
+        goToMeasurement = goToMeasurement,
+        getMeasurement = measurementRepository::getById,
+        readFile = readFile,
+        shareFile = { launchAction(it) },
     )
 
     fun reviewUpdatesViewModel(
@@ -651,10 +675,10 @@ class Dependencies(
         )
 
     fun uploadMeasurementsViewModel(
-        resultId: ResultModel.Id?,
+        filter: MeasurementsFilter,
         onClose: () -> Unit,
     ) = UploadMeasurementsViewModel(
-        resultId = resultId,
+        filter = filter,
         onClose = onClose,
         uploadMissingMeasurements = uploadMissingMeasurements::invoke,
     )

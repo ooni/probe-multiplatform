@@ -110,7 +110,10 @@ fun ResultScreen(
                 Text(state.result?.descriptor?.title?.invoke().orEmpty())
             },
             navigationIcon = {
-                IconButton(onClick = { onEvent(ResultViewModel.Event.BackClicked) }, modifier = Modifier.testTag("Back")) {
+                IconButton(
+                    onClick = { onEvent(ResultViewModel.Event.BackClicked) },
+                    modifier = Modifier.testTag("Back"),
+                ) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(Res.string.Common_Back),
@@ -173,9 +176,7 @@ fun ResultScreen(
                         ResultGroupMeasurementCell(
                             item = item,
                             isResultDone = state.result.result.isDone,
-                            onClick = { reportId, input ->
-                                onEvent(ResultViewModel.Event.MeasurementClicked(reportId, input))
-                            },
+                            onClick = { onEvent(ResultViewModel.Event.MeasurementClicked(it)) },
                             onDropdownToggled = {
                                 onEvent(ResultViewModel.Event.MeasurementGroupToggled(item))
                             },
@@ -186,9 +187,7 @@ fun ResultScreen(
                         ResultMeasurementCell(
                             item = item.measurement,
                             isResultDone = state.result.result.isDone,
-                            onClick = { reportId, input ->
-                                onEvent(ResultViewModel.Event.MeasurementClicked(reportId, input))
-                            },
+                            onClick = { onEvent(ResultViewModel.Event.MeasurementClicked(it)) },
                         )
                     }
                 }
@@ -247,11 +246,13 @@ private val SummaryType.summaryPages: List<@Composable (ResultItem) -> Unit>
             { SummaryDetails(it) },
             { SummaryNetwork(it) },
         )
+
         SummaryType.Anomaly -> listOf(
             { SummaryStats(it) },
             { SummaryDetails(it) },
             { SummaryNetwork(it) },
         )
+
         SummaryType.Performance -> listOf(
             { SummaryPerformance(it) },
             { SummaryDetails(it) },

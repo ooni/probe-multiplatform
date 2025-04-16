@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
+import org.ooni.probe.data.models.MeasurementsFilter
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
@@ -25,7 +26,7 @@ import org.ooni.probe.shared.monitoring.Instrumentation
 
 class RunBackgroundTask(
     private val getPreferenceValueByKey: (SettingsKey) -> Flow<Any?>,
-    private val uploadMissingMeasurements: (ResultModel.Id?) -> Flow<UploadMissingMeasurements.State>,
+    private val uploadMissingMeasurements: (MeasurementsFilter) -> Flow<UploadMissingMeasurements.State>,
     private val checkAutoRunConstraints: suspend () -> Boolean,
     private val getAutoRunSpecification: suspend () -> RunSpecification.Full,
     private val runDescriptors: suspend (RunSpecification.Full) -> Unit,
@@ -54,7 +55,7 @@ class RunBackgroundTask(
                 if (isAutoRun && !checkAutoRunConstraints()) return@withTransaction
 
                 if (isAutoRun || spec is RunSpecification.OnlyUploadMissingResults) {
-                    val uploadCancelled = uploadMissingResults()
+                    val uploadCancelled = uploadMissingResults(MeasurementsFilter.All)
                     if (uploadCancelled) return@withTransaction
                 }
 
@@ -67,15 +68,15 @@ class RunBackgroundTask(
 
                 // When a test is cancelled, sometimes the last measurement isn't uploaded
 
-                getLatestResult().first()?.id.let { latestResultId ->
+                getLatestResult().first()?.id?.let { latestResultId ->
                     val idleState = getRunBackgroundState().first()
-                    uploadMissingResults(resultId = latestResultId)
+                    uploadMissingResults(MeasurementsFilter.Result(latestResultId))
                     updateState(idleState)
                 }
             }
         }
 
-    private suspend fun ProducerScope<RunBackgroundState>.uploadMissingResults(resultId: ResultModel.Id? = null): Boolean {
+    private suspend fun ProducerScope<RunBackgroundState>.uploadMissingResults(filter: MeasurementsFilter): Boolean {
         val autoUpload = getPreferenceValueByKey(SettingsKey.UPLOAD_RESULTS).first() == true
         if (!autoUpload) return false
 
@@ -84,7 +85,7 @@ class RunBackgroundTask(
 
         coroutineScope {
             val uploadJob = async {
-                uploadMissingMeasurements(resultId)
+                uploadMissingMeasurements(filter)
                     .collectLatest { uploadState ->
                         updateState(RunBackgroundState.UploadingMissingResults(uploadState))
                     }
@@ -101,7 +102,7 @@ class RunBackgroundTask(
             try {
                 uploadJob.await()
             } catch (e: CancellationException) {
-                Logger.i("Upload Missing Results (result=$resultId): cancelled")
+                Logger.i("Upload Missing Results (filter=$filter): cancelled")
             }
         }
 

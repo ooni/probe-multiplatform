@@ -194,7 +194,10 @@ fun UploadResults(onUploadClick: () -> Unit) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
         ) {
-            Text(stringResource(Res.string.Snackbar_ResultsSomeNotUploaded_Text))
+            Text(
+                stringResource(Res.string.Snackbar_ResultsSomeNotUploaded_Text),
+                modifier = Modifier.weight(1f),
+            )
             TextButton(onClick = onUploadClick) {
                 Text(stringResource(Res.string.Snackbar_ResultsSomeNotUploaded_UploadAll))
             }
