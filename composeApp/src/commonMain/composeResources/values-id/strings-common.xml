@@ -129,6 +129,8 @@
     <string name="Settings_Proxy_Custom_Hostname">Nama hos</string>
     <string name="Settings_Proxy_Custom_Port">Porta</string>
 
+    <string name="Settings_Language_Label">Bahasa</string>
+
     <string name="Settings_Advanced_Label">Lanjutan</string>
     <string name="Settings_Advanced_DebugLogs">Log Awakutu</string>
     <string name="Settings_Advanced_RecentLogs">Lihat log terbaru</string>
