@@ -1,4 +1,5 @@
 import com.android.build.api.variant.FilterConfiguration.FilterType.ABI
+import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -123,6 +124,14 @@ kotlin {
                 implementation(files("./src/desktopMain/libs/oonimkall.jar"))
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
+
+                // As JavaFX have platform-specific dependencies, we need to add them manually
+                val fxParts = listOf("base", "graphics", "controls", "media", "web", "swing")
+                val jvmVersion = 17
+                val fxSuffix = getJavaFxSuffix()
+                fxParts.forEach {
+                    implementation("org.openjfx:javafx-$it:$jvmVersion:$fxSuffix")
+                }
             }
         }
         // Testing
@@ -541,4 +550,15 @@ fun isFdroidTaskRequested(): Boolean {
 
 fun isDebugTaskRequested(): Boolean {
     return gradle.startParameter.taskRequests.flatMap { it.args }.any { it.contains("Debug") }
+}
+
+fun getJavaFxSuffix(): String {
+    val os = OperatingSystem.current()
+    val arch = System.getProperty("os.arch")
+    return when {
+        os.isMacOsX -> if (arch == "aarch64") "mac-aarch64" else "mac"
+        os.isWindows -> "win"
+        os.isLinux -> if (arch == "aarch64") "linux-aarch64" else "linux"
+        else -> throw IllegalStateException("Unknown OS: $os")
+    }
 }
