@@ -358,13 +358,20 @@ class SetupDependencies(
     }
 
     private fun openUrl(openUrl: PlatformAction.OpenUrl): Boolean {
-        val url = openUrl.url
-        return NSURL.URLWithString(url)?.let {
-            if (UIApplication.sharedApplication.canOpenURL(it)) {
-                UIApplication.sharedApplication.openURL(it)
+        val urlString = openUrl.url
+        return NSURL.URLWithString(urlString)?.let { nsUrlString ->
+            if (UIApplication.sharedApplication.canOpenURL(nsUrlString)) {
+                UIApplication.sharedApplication.openURL(url = nsUrlString, options = emptyMap<Any?, Any>(), completionHandler = {
+                        isSuccessfullyOpened ->
+                    if (isSuccessfullyOpened) {
+                        Logger.i { "Successfully opened URL: $urlString" }
+                    } else {
+                        Logger.e { "Failed to open URL: $urlString" }
+                    }
+                })
                 return@let true
             } else {
-                Logger.e { "Cannot open URL: $url" }
+                Logger.e { "Cannot open URL: $urlString" }
                 return@let false
             }
         } ?: false
