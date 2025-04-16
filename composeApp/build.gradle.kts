@@ -170,8 +170,8 @@ android {
         applicationId = config.appId
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 190 // Always increment by 10. See fdroid flavor below
-        versionName = "5.0.5"
+        versionCode = 200 // Always increment by 10. See fdroid flavor below
+        versionName = "5.0.6"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
         resValue(
