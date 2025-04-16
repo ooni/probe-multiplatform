@@ -79,6 +79,8 @@
     <string name="Measurements_Failed">Thất bại</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Bất thường</string>
+    <string name="Measurement_Raw_Upload">Tải lên</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">Thiết đặt</string>
