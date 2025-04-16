@@ -85,6 +85,8 @@
 
     <string name="Measurements_Failed">失敗</string>
     <string name="Measurements_Ok">正常</string>
+    <string name="Measurement_Raw_Upload">上傳</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">設定</string>
