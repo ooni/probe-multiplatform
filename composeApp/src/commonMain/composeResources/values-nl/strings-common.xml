@@ -80,6 +80,8 @@
 
     <string name="Measurements_Failed">Mislukt</string>
     <string name="Measurements_Ok">Oke</string>
+    <string name="Measurement_Raw_Upload">Uploaden</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">Instellingen</string>
