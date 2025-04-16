@@ -154,6 +154,8 @@
     <string name="Settings_Proxy_Custom_Hostname">主机名称</string>
     <string name="Settings_Proxy_Custom_Port">端口</string>
 
+    <string name="Settings_Language_Label">语言</string>
+
     <string name="Settings_Advanced_Label">高级</string>
     <string name="Settings_Advanced_DebugLogs">调试日志</string>
     <string name="Settings_Advanced_RecentLogs">查看近期日志</string>
