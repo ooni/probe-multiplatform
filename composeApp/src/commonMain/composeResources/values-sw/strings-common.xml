@@ -98,6 +98,8 @@
     <string name="Measurements_Failed">Imeshindwa</string>
     <string name="Measurements_Ok">Sawa</string>
     <string name="Measurements_Anomaly">haipo sawa</string>
+    <string name="Measurement_Raw_Upload">Pakia</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">Mipangilio</string>
