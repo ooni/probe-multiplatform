@@ -149,6 +149,8 @@
     <string name="Settings_Proxy_Custom_Hostname">Nombre del servidor </string>
     <string name="Settings_Proxy_Custom_Port">Puerto</string>
 
+    <string name="Settings_Language_Label">Idioma</string>
+
     <string name="Settings_Advanced_Label">Avanzado</string>
     <string name="Settings_Advanced_DebugLogs">Registros de depuración</string>
     <string name="Settings_Advanced_RecentLogs">Opción A: (Traducción literal)\n\nVer registros recientes\n\nOpción B: (más apegada a la estructura de OONI):\nVer logs recientes</string>
