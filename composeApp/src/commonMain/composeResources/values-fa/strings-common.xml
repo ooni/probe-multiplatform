@@ -82,6 +82,8 @@
     <string name="Measurements_Failed">ناموفق بود</string>
     <string name="Measurements_Ok">قابل قبول</string>
     <string name="Measurements_Anomaly">ناهنجاری</string>
+    <string name="Measurement_Raw_Upload">آپلود</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">تنظیمات</string>
