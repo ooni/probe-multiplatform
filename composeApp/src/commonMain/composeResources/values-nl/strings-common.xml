@@ -108,6 +108,8 @@
     <string name="Settings_Proxy_Custom_Hostname">Hostnaam</string>
     <string name="Settings_Proxy_Custom_Port">Poort</string>
 
+    <string name="Settings_Language_Label">Taal</string>
+
     <string name="Settings_Advanced_Label">Geavanceerd</string>
     <string name="Settings_Advanced_DebugLogs">Debug-logs</string>
     <string name="Settings_SendEmail_Label">Stuur een e-mail naar ondersteuning</string>
