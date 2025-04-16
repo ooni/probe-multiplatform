@@ -108,6 +108,8 @@
     <string name="Settings_Proxy_Custom_Hostname">ชื่อโฮสต์</string>
     <string name="Settings_Proxy_Custom_Port">พอร์ต</string>
 
+    <string name="Settings_Language_Label">ภาษา</string>
+
     <string name="Settings_Advanced_Label">ขั้นสูง</string>
     <string name="Settings_Advanced_DebugLogs">ปูมดีบัก</string>
     <string name="Settings_Advanced_RecentLogs">ดูปูมล่าสุด</string>
