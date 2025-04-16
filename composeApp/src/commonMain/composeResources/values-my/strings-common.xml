@@ -78,6 +78,8 @@
     <string name="Measurements_Failed">မအောင်မြင်ပါ</string>
     <string name="Measurements_Ok">အိုကေ</string>
     <string name="Measurements_Anomaly">မူမမှန်ချက်</string>
+    <string name="Measurement_Raw_Upload">အပ်လုဒ်</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">ဆက်တင်များ</string>
