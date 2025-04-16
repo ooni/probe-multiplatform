@@ -78,6 +78,8 @@
     <string name="Measurements_Failed">ล้มเหลว</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">ผิดปกติ</string>
+    <string name="Measurement_Raw_Upload">อัปโหลด</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">การตั้งค่า</string>
