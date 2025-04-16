@@ -61,6 +61,7 @@ enum class PreferenceCategoryKey(val value: String) {
     TEST_OPTIONS("test_options"),
     PRIVACY("privacy"),
     PROXY("proxy"),
+    LANGUAGE("language"),
     ADVANCED("advanced"),
     SEND_EMAIL("send_email"),
     ABOUT_OONI("about_ooni"),

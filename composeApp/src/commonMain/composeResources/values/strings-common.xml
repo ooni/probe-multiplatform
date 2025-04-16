@@ -154,6 +154,8 @@
     <string name="Settings_Proxy_Custom_Hostname">Hostname</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
 
+    <string name="Settings_Language_Label">Language</string>
+
     <string name="Settings_Advanced_Label">Advanced</string>
     <string name="Settings_Advanced_DebugLogs">Debug logs</string>
     <string name="Settings_Advanced_RecentLogs">See recent logs</string>

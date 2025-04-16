@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
 import android.os.LocaleList
@@ -86,6 +87,7 @@ class AndroidApplication : Application() {
             osVersion = Build.VERSION.SDK_INT.toString(),
             model = "${Build.MANUFACTURER} ${Build.MODEL}",
             requestNotificationsPermission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU,
+            supportsInAppLanguage = Build.VERSION.SDK_INT >= 33,
             sentryDsn =
                 "https://7a49ffedcb48b9b69705d1ac2c032c69@o155150.ingest.sentry.io/4508325642764288",
         )
@@ -123,6 +125,7 @@ class AndroidApplication : Application() {
             is PlatformAction.Share -> shareText(action)
             is PlatformAction.FileSharing -> shareFile(action)
             is PlatformAction.VpnSettings -> openVpnSettings()
+            is PlatformAction.LanguageSettings -> openLanguageSettings()
         }
     }
 
@@ -190,6 +193,18 @@ class AndroidApplication : Application() {
             true
         } catch (e: ActivityNotFoundException) {
             Logger.e("Could not open VPN Settings", e)
+            false
+        }
+
+    private fun openLanguageSettings() =
+        try {
+            startActivity(
+                Intent("android.settings.APP_LOCALE_SETTINGS", Uri.fromParts("package", packageName, null))
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            )
+            true
+        } catch (e: ActivityNotFoundException) {
+            Logger.e("Could not open Language Settings", e)
             false
         }
 
