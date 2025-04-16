@@ -154,6 +154,8 @@
     <string name="Settings_Proxy_Custom_Hostname">Nome do hospedeiro</string>
     <string name="Settings_Proxy_Custom_Port">Porta</string>
 
+    <string name="Settings_Language_Label">Idioma</string>
+
     <string name="Settings_Advanced_Label">Avançado</string>
     <string name="Settings_Advanced_DebugLogs">Registros de depuração</string>
     <string name="Settings_Advanced_RecentLogs">Ver logs recentes</string>
