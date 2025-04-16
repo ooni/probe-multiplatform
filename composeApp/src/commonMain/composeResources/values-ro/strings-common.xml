@@ -96,8 +96,6 @@
     <string name="Settings_Proxy_Custom_Hostname">Nume server </string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
 
-    <string name="Settings_Language_Label">Limbă</string>
-
     <string name="Settings_Advanced_Label">Avansat</string>
     <string name="Settings_Advanced_DebugLogs">Jurnale de depanare</string>
     <string name="Settings_SendEmail_Label">Trimitere e-mail pentru asistență</string>
