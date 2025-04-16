@@ -73,6 +73,8 @@
 
     <string name="Measurements_Failed">Error</string>
     <string name="Measurements_Ok">Correcte</string>
+    <string name="Measurement_Raw_Upload">Pujada</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">Configuració</string>
