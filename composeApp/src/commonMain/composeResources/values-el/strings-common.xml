@@ -80,6 +80,8 @@
 
     <string name="Measurements_Failed">Απέτυχε</string>
     <string name="Measurements_Ok">ΟΚ</string>
+    <string name="Measurement_Raw_Upload">Ανέβασμα</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">Ρυθμίσεις</string>
