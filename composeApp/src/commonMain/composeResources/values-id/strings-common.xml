@@ -99,6 +99,8 @@
     <string name="Measurements_Failed">Gagal</string>
     <string name="Measurements_Ok">Oke</string>
     <string name="Measurements_Anomaly">Anomali</string>
+    <string name="Measurement_Raw_Upload">Unggah</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">Setelan</string>
