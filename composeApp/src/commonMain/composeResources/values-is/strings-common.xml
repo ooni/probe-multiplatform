@@ -154,6 +154,8 @@
     <string name="Settings_Proxy_Custom_Hostname">Vélarheiti</string>
     <string name="Settings_Proxy_Custom_Port">Gátt</string>
 
+    <string name="Settings_Language_Label">Tungumál</string>
+
     <string name="Settings_Advanced_Label">Ítarlegra</string>
     <string name="Settings_Advanced_DebugLogs">Villuskrár</string>
     <string name="Settings_Advanced_RecentLogs">Skoða nýlegar atvikaskrár</string>
