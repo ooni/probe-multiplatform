@@ -115,6 +115,8 @@
     <string name="Settings_Proxy_Custom_Hostname">主機名</string>
     <string name="Settings_Proxy_Custom_Port">埠</string>
 
+    <string name="Settings_Language_Label">語言</string>
+
     <string name="Settings_Advanced_Label">進階的</string>
     <string name="Settings_Advanced_DebugLogs">調試記錄</string>
     <string name="Settings_Advanced_RecentLogs">查看近期活動記錄</string>
