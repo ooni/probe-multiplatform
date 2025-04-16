@@ -109,6 +109,8 @@
     <string name="Settings_Proxy_Custom_Hostname">Tên máy chủ</string>
     <string name="Settings_Proxy_Custom_Port">Cổng</string>
 
+    <string name="Settings_Language_Label">Ngôn ngữ</string>
+
     <string name="Settings_Advanced_Label">Nâng cao</string>
     <string name="Settings_Advanced_DebugLogs">Nhật ký gỡ lỗi</string>
     <string name="Settings_Advanced_RecentLogs">Xem nhật kí gần đây</string>
