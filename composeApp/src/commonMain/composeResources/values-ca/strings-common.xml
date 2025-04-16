@@ -95,6 +95,8 @@
     <string name="Settings_Proxy_Custom_Hostname">Domini</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
 
+    <string name="Settings_Language_Label">Llengua</string>
+
     <string name="Settings_Advanced_Label">Avançat</string>
     <string name="Settings_Advanced_DebugLogs">Registres de depuració</string>
     <string name="Settings_SendEmail_Label">Envia un correu per donar suport</string>
