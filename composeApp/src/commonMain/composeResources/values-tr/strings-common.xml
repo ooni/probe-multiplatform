@@ -154,6 +154,8 @@
     <string name="Settings_Proxy_Custom_Hostname">Sunucu adı</string>
     <string name="Settings_Proxy_Custom_Port">Bağlantı noktası</string>
 
+    <string name="Settings_Language_Label">Dil</string>
+
     <string name="Settings_Advanced_Label">Gelişmiş</string>
     <string name="Settings_Advanced_DebugLogs">Hata ayıklama günlükleri</string>
     <string name="Settings_Advanced_RecentLogs">Son günlükleri görüntüle</string>
