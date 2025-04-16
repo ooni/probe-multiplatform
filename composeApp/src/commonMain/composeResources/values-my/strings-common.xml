@@ -108,6 +108,8 @@
     <string name="Settings_Proxy_Custom_Hostname">အထိုင်နေရာ အမည်</string>
     <string name="Settings_Proxy_Custom_Port">ပေါ့တ်</string>
 
+    <string name="Settings_Language_Label">ဘာသာစကား</string>
+
     <string name="Settings_Advanced_Label">အဆင့်မြင့်</string>
     <string name="Settings_Advanced_DebugLogs">အမှားပြင်ဆင်မှု မှတ်တမ်းများ\n</string>
     <string name="Settings_Advanced_RecentLogs">လတ်တလော မှတ်တမ်းများကို ကြည့်ပါ</string>
