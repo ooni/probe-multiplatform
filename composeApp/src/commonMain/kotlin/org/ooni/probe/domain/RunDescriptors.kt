@@ -13,9 +13,9 @@ import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.TestRunError
-import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.now
@@ -29,6 +29,7 @@ class RunDescriptors(
     private val getRunBackgroundState: Flow<RunBackgroundState>,
     private val setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
     private val runNetTest: suspend (RunNetTest.Specification) -> Unit,
+    private val cancelRun: () -> Unit,
     private val addRunCancelListener: (() -> Unit) -> CancelListenerCallback,
     private val reportTestRunError: (TestRunError) -> Unit,
     private val getEnginePreferences: suspend () -> EnginePreferences,
@@ -77,10 +78,12 @@ class RunDescriptors(
             setRunBackgroundState { RunBackgroundState.Stopping }
         }
 
+        val noInternetWatcher = NoInternetWatcher()
+
         // Actually running the descriptors
         descriptors.forEachIndexed { index, descriptor ->
             if (isRunStopped()) return@forEachIndexed
-            runDescriptor(descriptor, index, spec.taskOrigin, spec.isRerun)
+            runDescriptor(descriptor, index, spec.taskOrigin, spec.isRerun, noInternetWatcher)
         }
 
         cancelListenerCallback.dismiss()
@@ -90,7 +93,10 @@ class RunDescriptors(
         map { descriptor ->
             descriptor.copy(
                 netTests = descriptor.netTests.downloadUrlsIfNeeded(taskOrigin, descriptor),
-                longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(taskOrigin, descriptor),
+                longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(
+                    taskOrigin,
+                    descriptor,
+                ),
             )
         }
             .filterNot { it.allTests.isEmpty() }
@@ -144,6 +150,7 @@ class RunDescriptors(
         index: Int,
         taskOrigin: TaskOrigin,
         isRerun: Boolean,
+        noInternetWatcher: NoInternetWatcher,
     ) {
         val result = ResultModel(
             descriptorName = descriptor.name,
@@ -166,10 +173,33 @@ class RunDescriptors(
                     testTotal = descriptor.allTests.size,
                 ),
             )
+
+            if (noInternetWatcher.checkIfShouldCancelDueToNoInternet()) {
+                cancelRun()
+                reportTestRunError(TestRunError.NoInternet)
+            }
         }
 
         markResultAsDone(resultId)
     }
 
     private suspend fun isRunStopped() = getRunBackgroundState.first() is RunBackgroundState.Stopping
+
+    inner class NoInternetWatcher {
+        private var noInternetCounter = 0
+
+        fun checkIfShouldCancelDueToNoInternet(): Boolean {
+            if (networkTypeFinder() == NetworkType.NoInternet) {
+                noInternetCounter += 1
+            } else {
+                noInternetCounter = 0
+            }
+            return noInternetCounter >= NO_INTERNET_CANCEL_THRESHOLD
+        }
+    }
+
+    companion object {
+        // Cancel run after this amount of tests without Internet
+        private const val NO_INTERNET_CANCEL_THRESHOLD = 3
+    }
 }
