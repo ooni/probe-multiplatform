@@ -128,6 +128,8 @@
     <string name="Settings_Proxy_Custom_Hostname">Jina la mwenyeji</string>
     <string name="Settings_Proxy_Custom_Port">Bandari</string>
 
+    <string name="Settings_Language_Label">Lugha</string>
+
     <string name="Settings_Advanced_Label">Iliyoboreshwa</string>
     <string name="Settings_Advanced_DebugLogs">Magogo ya utatuzi.</string>
     <string name="Settings_Advanced_RecentLogs">Tazama kumbukumbu za hivi majuzi</string>
