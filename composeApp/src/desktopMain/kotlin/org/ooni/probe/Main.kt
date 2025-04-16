@@ -21,16 +21,30 @@ import ooniprobe.composeapp.generated.resources.app_name
 import ooniprobe.composeapp.generated.resources.tray_icon
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.data.DeepLinkHandler
 import org.ooni.probe.data.models.DeepLink
+import org.ooni.probe.shared.DesktopOS
+import org.ooni.probe.shared.Platform
 import java.awt.Desktop
 
-fun main() {
-    val autoLaunch = AutoLaunch(appPackageName = "org.openobservatory.ooniprobe")
+val APP_ID = "org.openobservatory.ooniprobe"
+
+fun main(args: Array<String>) {
+    val autoLaunch = AutoLaunch(appPackageName = APP_ID)
 
     val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
 
-    Desktop.getDesktop().setOpenURIHandler { event ->
-        deepLinkFlow.tryEmit(DeepLink.AddDescriptor(event.uri.path.split("/").last()))
+    var deepLinkHandler: DeepLinkHandler? = null
+
+    dependencies.platformInfo.platform.let { platform ->
+        if (platform is Platform.Desktop && platform.os == DesktopOS.Mac) {
+            Desktop.getDesktop().setOpenURIHandler { event ->
+                deepLinkFlow.tryEmit(DeepLink.AddDescriptor(event.uri.path.split("/").last()))
+            }
+        } else {
+            deepLinkHandler = DeepLinkHandler()
+            deepLinkHandler.initialize(args)
+        }
     }
 
     application {
@@ -43,6 +57,15 @@ fun main() {
             while (true) {
                 delay(1000 * 60 * 60)
                 startSingleRun()
+            }
+        }
+
+        LaunchedEffect(Unit) {
+            deepLinkHandler?.addMessageListener { message ->
+                message?.let { message ->
+                    isWindowVisible = true
+                    deepLinkFlow.tryEmit(message)
+                }
             }
         }
 
@@ -86,7 +109,10 @@ fun main() {
                 Separator()
                 Item(
                     "Exit",
-                    onClick = ::exitApplication,
+                    onClick = {
+                        deepLinkHandler?.shutdown()
+                        exitApplication()
+                    },
                 )
             },
         )
