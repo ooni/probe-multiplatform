@@ -169,6 +169,12 @@ fun Navigation(
                 dependencies.measurementRawViewModel(
                     measurementId = MeasurementModel.Id(measurementId),
                     onBack = { navController.goBack() },
+                    goToUpload = {
+                        navController.safeNavigate(Screen.UploadMeasurements(measurementId = it))
+                    },
+                    goToMeasurement = { reportId, input ->
+                        navController.goBackAndNavigate(Screen.Measurement(reportId, input))
+                    },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -287,9 +293,18 @@ fun Navigation(
         ) { entry ->
             val resultId = entry.arguments?.getString("resultId")?.toLongOrNull()
                 ?.let(ResultModel::Id)
+            val measurementId = entry.arguments?.getString("measurementId")?.toLongOrNull()
+                ?.let(MeasurementModel::Id)
+            val filter = if (resultId != null) {
+                MeasurementsFilter.Result(resultId)
+            } else if (measurementId != null) {
+                MeasurementsFilter.Measurement(measurementId)
+            } else {
+                MeasurementsFilter.All
+            }
             val viewModel = viewModel {
                 dependencies.uploadMeasurementsViewModel(
-                    filter = resultId?.let(MeasurementsFilter::Result) ?: MeasurementsFilter.All,
+                    filter = filter,
                     onClose = { navController.goBack() },
                 )
             }

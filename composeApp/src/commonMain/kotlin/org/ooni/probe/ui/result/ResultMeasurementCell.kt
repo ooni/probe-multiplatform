@@ -50,7 +50,9 @@ fun ResultMeasurementCell(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
-            .clickable { onClick(item) }
+            .let {
+                if (measurement.isDone) it.clickable { onClick(item) } else it
+            }
             .alpha(if (measurement.isDone && !measurement.isMissingUpload) 1f else 0.66f)
             .padding(16.dp),
     ) {

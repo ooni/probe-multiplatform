@@ -6,7 +6,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
@@ -18,12 +20,15 @@ import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.data.models.PlatformAction
 
 class MeasurementRawViewModel(
     measurementId: MeasurementModel.Id,
     onBack: () -> Unit,
-    getMeasurement: (MeasurementModel.Id) -> Flow<MeasurementModel?>,
+    goToUpload: (MeasurementModel.Id) -> Unit,
+    goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+    getMeasurement: (MeasurementModel.Id) -> Flow<MeasurementWithUrl?>,
     readFile: ReadFile,
     shareFile: (PlatformAction.FileSharing) -> Unit,
 ) : ViewModel() {
@@ -33,16 +38,28 @@ class MeasurementRawViewModel(
     val state = _state.asStateFlow()
 
     init {
+        getMeasurement(measurementId)
+            .filter { it == null }
+            .take(1)
+            .onEach { onBack() }
+            .launchIn(viewModelScope)
 
         getMeasurement(measurementId)
+            .filterNotNull()
+            .filter { it.measurement.isDone && !it.measurement.isMissingUpload }
             .take(1)
-            .onEach { measurement ->
-                if (measurement == null) {
-                    onBack()
-                    return@onEach
+            .onEach { item ->
+                item.measurement.reportId?.let { reportId ->
+                    goToMeasurement(reportId, item.url?.url)
                 }
+            }
+            .launchIn(viewModelScope)
 
-                measurement.reportFilePath?.let { reportFilePath ->
+        getMeasurement(measurementId)
+            .filterNotNull()
+            .take(1)
+            .onEach { item ->
+                item.measurement.reportFilePath?.let { reportFilePath ->
                     val json = readFile(reportFilePath)
                     val jsonPretty = json?.let {
                         val jsonSerializer = Json { prettyPrint = true }
@@ -60,6 +77,10 @@ class MeasurementRawViewModel(
 
         events.filterIsInstance<Event.BackClicked>()
             .onEach { onBack() }
+            .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.UploadClicked>()
+            .onEach { goToUpload(measurementId) }
             .launchIn(viewModelScope)
 
         events.filterIsInstance<Event.ShareClicked>()
@@ -84,6 +105,8 @@ class MeasurementRawViewModel(
 
     sealed interface Event {
         data object BackClicked : Event
+
+        data object UploadClicked : Event
 
         data object ShareClicked : Event
     }

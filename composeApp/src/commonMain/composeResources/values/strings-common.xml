@@ -122,8 +122,9 @@
     <string name="Measurements_Count_Other">%1$d measured</string>
     <string name="Measurements_Failed_One">%1$d failed</string>
     <string name="Measurements_Failed_Other">%1$d failed</string>
-    <string name="Measurement_Raw_NotUploadedReasoning">Since this measurement was not uploaded, we're showing you only the raw data.</string>
+    <string name="Measurement_Raw_NotUploadedReasoning">This measurements was not uploaded. Upload it to view the analysis.</string>
     <string name="Measurement_Raw_Share">Share measurement data</string>
+    <string name="Measurement_Raw_Upload">Upload</string>
 
     <!-- Settings -->
 

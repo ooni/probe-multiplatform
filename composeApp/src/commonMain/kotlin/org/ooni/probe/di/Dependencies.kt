@@ -628,9 +628,13 @@ class Dependencies(
     fun measurementRawViewModel(
         measurementId: MeasurementModel.Id,
         onBack: () -> Unit,
+        goToUpload: (MeasurementModel.Id) -> Unit,
+        goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
     ) = MeasurementRawViewModel(
         measurementId = measurementId,
         onBack = onBack,
+        goToUpload = goToUpload,
+        goToMeasurement = goToMeasurement,
         getMeasurement = measurementRepository::getById,
         readFile = readFile,
         shareFile = { launchAction(it) },

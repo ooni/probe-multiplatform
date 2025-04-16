@@ -1,8 +1,11 @@
 package org.ooni.probe.ui.measurement
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -14,11 +17,14 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Measurement_Raw_NotUploadedReasoning
+import ooniprobe.composeapp.generated.resources.Measurement_Raw_Upload
 import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
@@ -57,13 +63,25 @@ fun MeasurementRawScreen(
         )
 
         Surface(
-            color = MaterialTheme.colorScheme.surfaceVariant,
-            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = MaterialTheme.colorScheme.surfaceContainer,
+            shadowElevation = 2.dp,
         ) {
-            Text(
-                text = stringResource(Res.string.Measurement_Raw_NotUploadedReasoning),
-                modifier = Modifier.padding(16.dp),
-            )
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+            ) {
+                Text(
+                    stringResource(Res.string.Measurement_Raw_NotUploadedReasoning),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.weight(1f).padding(horizontal = 16.dp),
+                )
+                TextButton(onClick = { onEvent(MeasurementRawViewModel.Event.UploadClicked) }) {
+                    Text(stringResource(Res.string.Measurement_Raw_Upload))
+                }
+            }
         }
 
         Text(

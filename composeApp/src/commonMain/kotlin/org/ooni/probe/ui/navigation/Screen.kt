@@ -80,11 +80,21 @@ sealed class Screen(
 
     data class UploadMeasurements(
         val resultId: ResultModel.Id? = null,
-    ) : Screen("upload?resultId=${resultId?.value?.toString().orEmpty()}") {
+        val measurementId: MeasurementModel.Id? = null,
+    ) : Screen(
+            "upload" +
+                "?resultId=${resultId?.value?.toString().orEmpty()}" +
+                "&measurementId=${measurementId?.value?.toString().orEmpty()}",
+        ) {
         companion object {
-            const val NAV_ROUTE = "upload?resultId={resultId}"
+            const val NAV_ROUTE = "upload?resultId={resultId}&measurementId={measurementId}"
             val ARGUMENTS = listOf(
                 navArgument("resultId") {
+                    type = NavType.StringType
+                    defaultValue = null
+                    nullable = true
+                },
+                navArgument("measurementId") {
                     type = NavType.StringType
                     defaultValue = null
                     nullable = true
