@@ -110,6 +110,8 @@
     <string name="Settings_Proxy_Custom_Hostname">Hostname</string>
     <string name="Settings_Proxy_Custom_Port">Θύρα</string>
 
+    <string name="Settings_Language_Label">Γλώσσα</string>
+
     <string name="Settings_Advanced_Label">Για προχωρημένους</string>
     <string name="Settings_Advanced_DebugLogs">Αρχεία καταγραφής σφαλμάτων</string>
     <string name="Settings_Advanced_RecentLogs">Εμφάνιση πρόσφατων αρχείων καταγραφής</string>
