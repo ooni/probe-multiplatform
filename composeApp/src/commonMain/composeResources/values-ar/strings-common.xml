@@ -145,6 +145,8 @@
     <string name="Settings_Proxy_Custom_Hostname">اسم المُضيف</string>
     <string name="Settings_Proxy_Custom_Port">منفذ</string>
 
+    <string name="Settings_Language_Label">اللغة</string>
+
     <string name="Settings_Advanced_Label">متقدم</string>
     <string name="Settings_Advanced_DebugLogs">أظهر سجلات التصحيح</string>
     <string name="Settings_Advanced_RecentLogs">الاطلاع على السجلات الأخيرة</string>
