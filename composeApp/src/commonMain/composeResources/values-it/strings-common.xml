@@ -107,6 +107,8 @@
     <string name="Settings_Proxy_Custom_Hostname">Nome host</string>
     <string name="Settings_Proxy_Custom_Port">Porta</string>
 
+    <string name="Settings_Language_Label">Lingua</string>
+
     <string name="Settings_Advanced_Label">Avanzate</string>
     <string name="Settings_Advanced_DebugLogs">Log di debug</string>
     <string name="Settings_SendEmail_Label">Invia email a supporto</string>
