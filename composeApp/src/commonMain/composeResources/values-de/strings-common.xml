@@ -122,6 +122,7 @@
     <string name="Measurements_Count_Other">%1$d gemessen</string>
     <string name="Measurements_Failed_One">%1$d fehlgeschlagen</string>
     <string name="Measurements_Failed_Other">%1$d fehlgeschlagen</string>
+    <string name="Measurement_Raw_Upload">Upload</string>
 
     <!-- Settings -->
 
@@ -153,6 +154,8 @@
     <string name="Settings_Proxy_Custom_Protocol">Protokoll</string>
     <string name="Settings_Proxy_Custom_Hostname">Hostname</string>
     <string name="Settings_Proxy_Custom_Port">Anschluss</string>
+
+    <string name="Settings_Language_Label">Sprache</string>
 
     <string name="Settings_Advanced_Label">Erweitert</string>
     <string name="Settings_Advanced_DebugLogs">Fehlerprotokolle</string>

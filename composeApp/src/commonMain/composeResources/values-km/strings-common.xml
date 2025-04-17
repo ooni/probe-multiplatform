@@ -100,6 +100,8 @@
     <string name="Measurements_Failed">បរាជ័យ</string>
     <string name="Measurements_Ok">យល់ព្រម</string>
     <string name="Measurements_Anomaly">ខុសប្រក្រតី</string>
+    <string name="Measurement_Raw_Upload">បញ្ជូល</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">ការកំណត់</string>
@@ -129,6 +131,8 @@
     <string name="Settings_Proxy_Custom_Protocol">ច្រក</string>
     <string name="Settings_Proxy_Custom_Hostname">ឈ្មោះម៉ាស៊ីន</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
+
+    <string name="Settings_Language_Label">ភាសា</string>
 
     <string name="Settings_Advanced_Label">កម្រិតខ្ពស់</string>
     <string name="Settings_Advanced_DebugLogs">កំណត់ហេតុ Debug</string>

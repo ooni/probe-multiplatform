@@ -99,6 +99,8 @@
     <string name="Measurements_Failed">Gagal</string>
     <string name="Measurements_Ok">Oke</string>
     <string name="Measurements_Anomaly">Anomali</string>
+    <string name="Measurement_Raw_Upload">Unggah</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">Setelan</string>
@@ -128,6 +130,8 @@
     <string name="Settings_Proxy_Custom_Protocol">Protokol</string>
     <string name="Settings_Proxy_Custom_Hostname">Nama hos</string>
     <string name="Settings_Proxy_Custom_Port">Porta</string>
+
+    <string name="Settings_Language_Label">Bahasa</string>
 
     <string name="Settings_Advanced_Label">Lanjutan</string>
     <string name="Settings_Advanced_DebugLogs">Log Awakutu</string>

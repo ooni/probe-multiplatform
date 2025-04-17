@@ -85,6 +85,8 @@
 
     <string name="Measurements_Failed">失敗</string>
     <string name="Measurements_Ok">正常</string>
+    <string name="Measurement_Raw_Upload">上傳</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">設定</string>
@@ -114,6 +116,8 @@
     <string name="Settings_Proxy_Custom_Protocol">協定</string>
     <string name="Settings_Proxy_Custom_Hostname">主機名</string>
     <string name="Settings_Proxy_Custom_Port">埠</string>
+
+    <string name="Settings_Language_Label">語言</string>
 
     <string name="Settings_Advanced_Label">進階的</string>
     <string name="Settings_Advanced_DebugLogs">調試記錄</string>
