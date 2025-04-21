@@ -114,6 +114,8 @@
     <string name="Measurements_Anomaly">شذوذ</string>
     <string name="Measurements_Count_One">%1$d measurement</string>
     <string name="Measurements_Count_Other">%1$d measurement</string>
+    <string name="Measurement_Raw_Upload">رفع</string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">الإعدادات</string>
@@ -144,6 +146,8 @@
     <string name="Settings_Proxy_Custom_Protocol">بروتوكل بروكسي مخصص </string>
     <string name="Settings_Proxy_Custom_Hostname">اسم المُضيف</string>
     <string name="Settings_Proxy_Custom_Port">منفذ</string>
+
+    <string name="Settings_Language_Label">اللغة</string>
 
     <string name="Settings_Advanced_Label">متقدم</string>
     <string name="Settings_Advanced_DebugLogs">أظهر سجلات التصحيح</string>

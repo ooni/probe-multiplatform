@@ -118,6 +118,8 @@
     <string name="Measurements_Anomaly">Anomalía</string>
     <string name="Measurements_Count_One">%1$d measured</string>
     <string name="Measurements_Count_Other">%1$d measured</string>
+    <string name="Measurement_Raw_Upload">Subida </string>
+
     <!-- Settings -->
 
     <string name="Settings_Title">Configuración</string>
@@ -148,6 +150,8 @@
     <string name="Settings_Proxy_Custom_Protocol">Protocolo de proxy personalizado</string>
     <string name="Settings_Proxy_Custom_Hostname">Nombre del servidor </string>
     <string name="Settings_Proxy_Custom_Port">Puerto</string>
+
+    <string name="Settings_Language_Label">Idioma</string>
 
     <string name="Settings_Advanced_Label">Avanzado</string>
     <string name="Settings_Advanced_DebugLogs">Registros de depuración</string>
