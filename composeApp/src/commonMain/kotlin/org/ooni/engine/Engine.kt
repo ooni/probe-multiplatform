@@ -86,7 +86,16 @@ class Engine(
     ): Result<SubmitMeasurementResults, MkException> =
         resultOf(backgroundContext) {
             val sessionConfig = buildSessionConfig(taskOrigin, getEnginePreferences())
-            session(sessionConfig).submitMeasurement(measurement)
+            val session = session(sessionConfig)
+            try {
+                session.submitMeasurement(measurement)
+            } finally {
+                try {
+                    session.close()
+                } catch (e: Exception) {
+                    Logger.w("Error closing session", e)
+                }
+            }
         }.mapError { MkException(it) }
 
     suspend fun checkIn(taskOrigin: TaskOrigin): Result<OonimkallBridge.CheckInResults, MkException> {
@@ -127,13 +136,22 @@ class Engine(
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
     ): Result<String?, MkException> =
         resultOf(backgroundContext) {
-            session(buildSessionConfig(taskOrigin, getEnginePreferences()))
-                .httpDo(
+            val sessionConfig = buildSessionConfig(taskOrigin, getEnginePreferences())
+            val session = session(sessionConfig)
+            try {
+                session.httpDo(
                     OonimkallBridge.HTTPRequest(
                         method = method,
                         url = url,
                     ),
                 ).body
+            } finally {
+                try {
+                    session.close()
+                } catch (e: Exception) {
+                    Logger.w("Error closing session", e)
+                }
+            }
         }.mapError {
             MkException(it)
         }
