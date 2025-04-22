@@ -22,6 +22,7 @@ import ooniprobe.composeapp.generated.resources.tray_icon
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.DeepLink
+import org.ooni.probe.data.models.RunBackgroundState
 import java.awt.Desktop
 
 fun main() {
@@ -38,6 +39,8 @@ fun main() {
 
         val deepLink by deepLinkFlow.collectAsState(null)
 
+        var trayIcon by remember { mutableStateOf(Res.drawable.tray_icon) }
+
         // start an hourly background task that calls startSingleRun
         LaunchedEffect(Unit) {
             while (true) {
@@ -48,6 +51,16 @@ fun main() {
 
         LaunchedEffect(Unit) {
             autoLaunch.enable()
+        }
+
+        LaunchedEffect(Unit) {
+            dependencies.runBackgroundStateManager.observeState().collect { state ->
+                trayIcon = when (state) {
+                    is RunBackgroundState.RunningTests -> Res.drawable.tray_icon
+                    // is RunBackgroundState.RunningTests -> state.descriptor?.icon ?: Res.drawable.tray_icon
+                    else -> Res.drawable.tray_icon
+                }
+            }
         }
 
         Window(
@@ -70,7 +83,7 @@ fun main() {
         }
 
         Tray(
-            icon = painterResource(Res.drawable.tray_icon),
+            icon = painterResource(trayIcon),
             tooltip = stringResource(Res.string.app_name),
             menu = {
                 Item(
