@@ -9,6 +9,8 @@ brew install cocoapods
 
 brew install ruby@3.3
 
+brew install getsentry/tools/sentry-cli
+
 echo 'export PATH="/usr/local/opt/ruby@3.3/bin:$PATH"' >> ~/.zshrc
 
 source ~/.zshrc
