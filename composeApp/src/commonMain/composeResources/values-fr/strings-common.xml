@@ -59,9 +59,9 @@
     <string name="Test_WebConnectivity_Fullname">Test de connectivité Web</string>
     <string name="Test_NDT_Fullname">Test de vitesse NDT</string>
     <string name="Test_Dash_Fullname">Test de diffusion en continu DASH</string>
-    <string name="Test_WhatsApp_Fullname">Test WhatsApp</string>
+    <string name="Test_WhatsApp_Fullname">Test de WhatsApp</string>
     <string name="Test_Telegram_Fullname">Test de Telegram</string>
-    <string name="Test_FacebookMessenger_Fullname">Test du Facebook Messenger</string>
+    <string name="Test_FacebookMessenger_Fullname">Test de Facebook Messenger</string>
     <string name="Test_Psiphon_Fullname">Test Psiphon</string>
     <string name="Test_Tor_Fullname">Test de Tor</string>
     <string name="Test_Signal_Fullname">Test de Signal</string>
