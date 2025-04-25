@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.isActive
 import kotlinx.serialization.json.Json
+import okio.use
 import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.NetworkType
@@ -86,15 +87,8 @@ class Engine(
     ): Result<SubmitMeasurementResults, MkException> =
         resultOf(backgroundContext) {
             val sessionConfig = buildSessionConfig(taskOrigin, getEnginePreferences())
-            val session = session(sessionConfig)
-            try {
-                session.submitMeasurement(measurement)
-            } finally {
-                try {
-                    session.close()
-                } catch (e: Exception) {
-                    Logger.w("Error closing session", e)
-                }
+            session(sessionConfig).use {
+                it.submitMeasurement(measurement)
             }
         }.mapError { MkException(it) }
 
@@ -102,10 +96,9 @@ class Engine(
         return resultOf(backgroundContext) {
             val preferences = getEnginePreferences()
             val sessionConfig = buildSessionConfig(taskOrigin, preferences)
-            val session = session(sessionConfig)
-            try {
+            session(sessionConfig).run {
                 val networkType = networkTypeFinder()
-                session.checkIn(
+                checkIn(
                     OonimkallBridge.CheckInConfig(
                         charging = isBatteryCharging(),
                         onWiFi = if (networkType !is NetworkType.Unknown) {
@@ -120,12 +113,6 @@ class Engine(
                         webConnectivityCategories = preferences.enabledWebCategories,
                     ),
                 )
-            } finally {
-                try {
-                    session.close()
-                } catch (e: Exception) {
-                    Logger.w("Error closing session", e)
-                }
             }
         }.mapError { MkException(it) }
     }
@@ -137,20 +124,13 @@ class Engine(
     ): Result<String?, MkException> =
         resultOf(backgroundContext) {
             val sessionConfig = buildSessionConfig(taskOrigin, getEnginePreferences())
-            val session = session(sessionConfig)
-            try {
-                session.httpDo(
+            session(sessionConfig).use {
+                it.httpDo(
                     OonimkallBridge.HTTPRequest(
                         method = method,
                         url = url,
                     ),
                 ).body
-            } finally {
-                try {
-                    session.close()
-                } catch (e: Exception) {
-                    Logger.w("Error closing session", e)
-                }
             }
         }.mapError {
             MkException(it)

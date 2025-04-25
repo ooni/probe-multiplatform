@@ -1,5 +1,7 @@
 package org.ooni.engine
 
+import okio.Closeable
+
 interface OonimkallBridge {
     @Throws(Exception::class)
     fun startTask(settingsSerialized: String): Task
@@ -36,7 +38,7 @@ interface OonimkallBridge {
         val verbose: Boolean,
     )
 
-    interface Session {
+    interface Session : Closeable {
         @Throws(Exception::class)
         fun submitMeasurement(measurement: String): SubmitMeasurementResults
 
@@ -47,8 +49,7 @@ interface OonimkallBridge {
         fun httpDo(request: HTTPRequest): HTTPResponse
 
         // Needs to be called after `checkIn`
-        @Throws(Exception::class)
-        fun close()
+        override fun close()
     }
 
     data class SubmitMeasurementResults(
