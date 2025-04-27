@@ -122,6 +122,8 @@
     <string name="Measurements_Count_Other">%1$d gemessen</string>
     <string name="Measurements_Failed_One">%1$d fehlgeschlagen</string>
     <string name="Measurements_Failed_Other">%1$d fehlgeschlagen</string>
+    <string name="Measurement_Raw_NotUploadedReasoning">Diese Messung wurde nicht hochgeladen. Lade sie hoch, um die Analyse zu sehen.</string>
+    <string name="Measurement_Raw_Share">Messdaten teilen</string>
     <string name="Measurement_Raw_Upload">Upload</string>
 
     <!-- Settings -->
