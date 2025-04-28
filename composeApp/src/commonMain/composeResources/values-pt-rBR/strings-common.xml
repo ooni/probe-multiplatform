@@ -122,7 +122,6 @@
     <string name="Measurements_Count_Other">%1$d medidos</string>
     <string name="Measurements_Failed_One">%1$d falhado</string>
     <string name="Measurements_Failed_Other">%1$d falhados</string>
-    <string name="Measurement_Raw_NotUploadedReasoning">Estas medições não foram carregadas. Carregue para visualizar a análise.</string>
     <string name="Measurement_Raw_Share">Compartilhar dados de medição</string>
     <string name="Measurement_Raw_Upload">Carregar</string>
 
