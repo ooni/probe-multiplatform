@@ -6,7 +6,7 @@ android-compileSdk = "35"
 android-minSdk = "24"
 android-targetSdk = "35"
 
-compose-plugin = "1.8.0-beta02"
+compose-plugin = "1.8.0-rc01"
 kotlin = "2.1.20"
 sqldelight = "2.0.2"
 dataStoreVersion = "1.1.4"
