@@ -122,7 +122,6 @@
     <string name="Measurements_Count_Other">%1$d mesuré</string>
     <string name="Measurements_Failed_One">%1$d en échec</string>
     <string name="Measurements_Failed_Other">%1$d en échec</string>
-    <string name="Measurement_Raw_NotUploadedReasoning">Cette mesure n’a pas été téléversée. Téléversez-la pour afficher l’analyse.</string>
     <string name="Measurement_Raw_Share">Partager les données de mesure</string>
     <string name="Measurement_Raw_Upload">Téléverser</string>
 
