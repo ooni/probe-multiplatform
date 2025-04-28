@@ -122,6 +122,7 @@
     <string name="Measurements_Count_Other">%1$d 已测量</string>
     <string name="Measurements_Failed_One">%1$d 失败了</string>
     <string name="Measurements_Failed_Other">%1$d 失败了</string>
+    <string name="Measurement_Raw_NotUploadedReasoning">此测量未在 OONI Explorer 上发布。请将其上传以查看分析。</string>
     <string name="Measurement_Raw_Share">分享测量数据</string>
     <string name="Measurement_Raw_Upload">上传</string>
 
