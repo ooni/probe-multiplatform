@@ -48,7 +48,6 @@ interface OonimkallBridge {
         @Throws(Exception::class)
         fun httpDo(request: HTTPRequest): HTTPResponse
 
-        // Needs to be called after `checkIn`
         override fun close()
     }
 

@@ -96,9 +96,9 @@ class Engine(
         return resultOf(backgroundContext) {
             val preferences = getEnginePreferences()
             val sessionConfig = buildSessionConfig(taskOrigin, preferences)
-            session(sessionConfig).run {
+            session(sessionConfig).use {
                 val networkType = networkTypeFinder()
-                checkIn(
+                it.checkIn(
                     OonimkallBridge.CheckInConfig(
                         charging = isBatteryCharging(),
                         onWiFi = if (networkType !is NetworkType.Unknown) {
