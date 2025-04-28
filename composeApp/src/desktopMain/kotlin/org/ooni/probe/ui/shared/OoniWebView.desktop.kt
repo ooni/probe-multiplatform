@@ -27,7 +27,6 @@ actual fun OoniWebView(
             JFXPanel().apply {
                 Platform.setImplicitExit(false) // Otherwise, webView will not show the second time
                 Platform.runLater {
-
                     val webView = WebView().apply {
                         isVisible = true
                         @Suppress("SetJavaScriptEnabled")
