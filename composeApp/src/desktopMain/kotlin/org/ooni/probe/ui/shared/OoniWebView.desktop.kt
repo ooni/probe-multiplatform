@@ -24,11 +24,9 @@ actual fun OoniWebView(
         factory = {
             controller.state = OoniWebViewController.State.Initializing
 
-            println("webview: factory")
             JFXPanel().apply {
                 Platform.setImplicitExit(false) // Otherwise, webView will not show the second time
                 Platform.runLater {
-                    println("webview: factory runLater")
 
                     val webView = WebView().apply {
                         isVisible = true
@@ -101,9 +99,7 @@ actual fun OoniWebView(
         },
         modifier = modifier,
         update = { jfxPanel ->
-            println("webview: update")
             Platform.runLater {
-                println("webview: update runLater")
                 val root = jfxPanel.scene?.root as? StackPane
                 val webView = (root?.children?.get(0) as? WebView) ?: return@runLater
                 when (event) {
@@ -113,7 +109,6 @@ actual fun OoniWebView(
                         }
                         // Hack to send HTTP headers by taking advantage of userAgent
                         webView.engine.userAgent = "ooni$headers"
-                        println("webview: Loading: ${event.url}")
                         webView.engine.load(event.url)
                     }
 
