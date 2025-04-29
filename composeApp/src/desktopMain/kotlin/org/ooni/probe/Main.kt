@@ -39,7 +39,7 @@ import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.Platform
 import java.awt.Desktop
 
-val APP_ID = "org.openobservatory.ooniprobe"
+val APP_ID = "org.ooni.probe" // needs to be thesame as conveyor `app.rdns-name`
 
 fun main(args: Array<String>) {
     val autoLaunch = AutoLaunch(appPackageName = APP_ID)
