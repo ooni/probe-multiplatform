@@ -348,7 +348,8 @@ compose.desktop {
 
             macOS {
                 minimumSystemVersion = "10.15.0"
-                jvmArgs("-Dapple.awt.enableTemplateImages=true")
+                jvmArgs("-Dapple.awt.enableTemplateImages=true") // MacOS tray template icon
+                jvmArgs("-Dapple.awt.application.appearance=system") // MacOS adaptive title bar
             }
         }
     }

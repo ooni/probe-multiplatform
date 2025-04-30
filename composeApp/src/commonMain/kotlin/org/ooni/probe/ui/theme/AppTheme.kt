@@ -1,14 +1,14 @@
 package org.ooni.probe.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import io.github.kdroidfilter.platformtools.darkmodedetector.isSystemInDarkMode
 import org.ooni.probe.ui.shared.LightStatusBars
 
 @Composable
 fun AppTheme(
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
+    useDarkTheme: Boolean = isSystemInDarkMode(),
     content: @Composable () -> Unit,
 ) {
     LightStatusBars(false)

@@ -1,6 +1,5 @@
 package org.ooni.probe
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -11,6 +10,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import io.github.kdroidfilter.platformtools.darkmodedetector.isSystemInDarkMode
+import io.github.kdroidfilter.platformtools.darkmodedetector.windows.setWindowsAdaptiveTitleBar
 import io.github.vinceglb.autolaunch.AutoLaunch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,11 +25,17 @@ import ooniprobe.composeapp.generated.resources.tray_icon_dark
 import ooniprobe.composeapp.generated.resources.tray_icon_dark_running
 import ooniprobe.composeapp.generated.resources.tray_icon_light
 import ooniprobe.composeapp.generated.resources.tray_icon_light_running
+import ooniprobe.composeapp.generated.resources.tray_icon_windows_dark
+import ooniprobe.composeapp.generated.resources.tray_icon_windows_dark_running
+import ooniprobe.composeapp.generated.resources.tray_icon_windows_light
+import ooniprobe.composeapp.generated.resources.tray_icon_windows_light_running
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.RunBackgroundState
+import org.ooni.probe.shared.DesktopOS
+import org.ooni.probe.shared.Platform
 import java.awt.Desktop
 
 fun main() {
@@ -65,6 +72,7 @@ fun main() {
             icon = painterResource(trayIcon()),
             title = stringResource(Res.string.app_name),
         ) {
+            window.setWindowsAdaptiveTitleBar()
             App(
                 dependencies = dependencies,
                 deepLink = deepLink,
@@ -102,16 +110,20 @@ fun main() {
 
 @Composable
 private fun trayIcon(): DrawableResource {
-    val isDarkTheme = isSystemInDarkTheme()
+    val isDarkTheme = isSystemInDarkMode()
+    val isWindows = (dependencies.platformInfo.platform as? Platform.Desktop)?.os == DesktopOS.Windows
     val runBackgroundState by dependencies.runBackgroundStateManager.observeState()
-        .collectAsState(RunBackgroundState.Idle())
+    .collectAsState(RunBackgroundState.Idle())
     val isRunning = runBackgroundState !is RunBackgroundState.Idle
-    return when (isDarkTheme) {
-        true ->
-            if (isRunning) Res.drawable.tray_icon_dark_running else Res.drawable.tray_icon_dark
-
-        false ->
-            if (isRunning) Res.drawable.tray_icon_light_running else Res.drawable.tray_icon_light
+    return when {
+        isDarkTheme && isWindows && isRunning -> Res.drawable.tray_icon_windows_dark_running
+        !isDarkTheme && isWindows && isRunning -> Res.drawable.tray_icon_windows_light_running
+        isDarkTheme && !isWindows && isRunning -> Res.drawable.tray_icon_dark_running
+        !isDarkTheme && !isWindows && isRunning -> Res.drawable.tray_icon_light_running
+        isDarkTheme && isWindows && !isRunning -> Res.drawable.tray_icon_windows_dark
+        !isDarkTheme && isWindows && !isRunning -> Res.drawable.tray_icon_windows_light
+        isDarkTheme && !isWindows && !isRunning -> Res.drawable.tray_icon_dark
+        else -> Res.drawable.tray_icon_light
     }
 }
 
