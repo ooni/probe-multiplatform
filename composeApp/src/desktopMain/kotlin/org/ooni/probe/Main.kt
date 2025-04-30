@@ -113,7 +113,7 @@ private fun trayIcon(): DrawableResource {
     val isDarkTheme = isSystemInDarkMode()
     val isWindows = (dependencies.platformInfo.platform as? Platform.Desktop)?.os == DesktopOS.Windows
     val runBackgroundState by dependencies.runBackgroundStateManager.observeState()
-    .collectAsState(RunBackgroundState.Idle())
+        .collectAsState(RunBackgroundState.Idle())
     val isRunning = runBackgroundState !is RunBackgroundState.Idle
     return when {
         isDarkTheme && isWindows && isRunning -> Res.drawable.tray_icon_windows_dark_running
