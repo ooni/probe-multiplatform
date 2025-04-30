@@ -148,7 +148,7 @@
     <string name="Settings_Privacy_Label">隐私</string>
     <string name="Settings_Privacy_SendCrashReports">发送崩溃报告</string>
 
-    <string name="Settings_Proxy_Label">OONI 后台代理</string>
+    <string name="Settings_Proxy_Label">OONI 后端代理</string>
     <string name="Settings_Proxy_Enabled">代理</string>
     <string name="Settings_Proxy_None">空</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
