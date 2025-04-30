@@ -1,5 +1,7 @@
 package org.ooni.probe
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,7 +20,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
-import ooniprobe.composeapp.generated.resources.tray_icon
+import ooniprobe.composeapp.generated.resources.tray_icon_dark
+import ooniprobe.composeapp.generated.resources.tray_icon_dark_running
+import ooniprobe.composeapp.generated.resources.tray_icon_light
+import ooniprobe.composeapp.generated.resources.tray_icon_light_running
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.DeepLink
@@ -39,8 +45,6 @@ fun main() {
 
         val deepLink by deepLinkFlow.collectAsState(null)
 
-        var trayIcon by remember { mutableStateOf(Res.drawable.tray_icon) }
-
         // start an hourly background task that calls startSingleRun
         LaunchedEffect(Unit) {
             while (true) {
@@ -53,22 +57,12 @@ fun main() {
             autoLaunch.enable()
         }
 
-        LaunchedEffect(Unit) {
-            dependencies.runBackgroundStateManager.observeState().collect { state ->
-                trayIcon = when (state) {
-                    is RunBackgroundState.RunningTests -> Res.drawable.tray_icon
-                    // is RunBackgroundState.RunningTests -> state.descriptor?.icon ?: Res.drawable.tray_icon
-                    else -> Res.drawable.tray_icon
-                }
-            }
-        }
-
         Window(
             onCloseRequest = {
                 isWindowVisible = false
             },
             visible = isWindowVisible,
-            icon = painterResource(Res.drawable.tray_icon),
+            icon = painterResource(trayIcon()),
             title = stringResource(Res.string.app_name),
         ) {
             App(
@@ -83,7 +77,7 @@ fun main() {
         }
 
         Tray(
-            icon = painterResource(trayIcon),
+            icon = painterResource(trayIcon()),
             tooltip = stringResource(Res.string.app_name),
             menu = {
                 Item(
@@ -103,6 +97,21 @@ fun main() {
                 )
             },
         )
+    }
+}
+
+@Composable
+private fun trayIcon(): DrawableResource {
+    val isDarkTheme = isSystemInDarkTheme()
+    val runBackgroundState by dependencies.runBackgroundStateManager.observeState()
+        .collectAsState(RunBackgroundState.Idle())
+    val isRunning = runBackgroundState !is RunBackgroundState.Idle
+    return when (isDarkTheme) {
+        true ->
+            if (isRunning) Res.drawable.tray_icon_dark_running else Res.drawable.tray_icon_dark
+
+        false ->
+            if (isRunning) Res.drawable.tray_icon_light_running else Res.drawable.tray_icon_light
     }
 }
 

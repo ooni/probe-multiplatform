@@ -348,6 +348,7 @@ compose.desktop {
 
             macOS {
                 minimumSystemVersion = "10.15.0"
+                jvmArgs("-Dapple.awt.enableTemplateImages=true")
             }
         }
     }
