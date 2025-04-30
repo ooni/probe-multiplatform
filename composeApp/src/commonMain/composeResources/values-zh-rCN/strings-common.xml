@@ -81,7 +81,7 @@
     <string name="TestResults_Overview_NoTestsHaveBeenRun">还没有进行过测试。试着运行一个吧！</string>
     <string name="TestResults_Summary_Hero_DateAndTime">日期和时间</string>
     <string name="TestResults_Summary_Hero_Network">网络</string>
-    <string name="TestResults_Summary_Hero_Country">国家</string>
+    <string name="TestResults_Summary_Hero_Country">国家/地区</string>
     <string name="TestResults_Summary_Hero_Runtime">总计用时</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">移动数据</string>
@@ -278,7 +278,7 @@
     <string name="Onboarding_Notifications_Skip">跳过</string>
     <string name="Onboarding_DefaultSettings_Title">默认设置</string>
     <string name="Onboarding_DefaultSettings_Header">我们收集并发布：</string>
-    <string name="Onboarding_DefaultSettings_Bullet_1">国家代码（例如，IT 指代意大利）</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">国家/地区代码（例如，IT 指代意大利）</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">网络信息（包含 ASN）</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">测试的日期和时间</string>
     <string name="Onboarding_DefaultSettings_Paragraph">我们尽最大努力不发布您的 IP 地址或任何其他潜在的个人身份信息。通过 [OONI 的数据政策] 了解更多信息(https://ooni.org/about/data-policy/)。</string>
@@ -317,7 +317,7 @@
     <string name="Modal_ReRun_Websites_Title">您即将重新测试 %1$s 个网站。</string>
     <string name="Modal_ReRun_Websites_Run">运行</string>
     <string name="Modal_DisableVPN_Title">请关闭您的 VPN 连接。</string>
-    <string name="Modal_DisableVPN_Message">如果您在启用 VPN 的情况下运行 OONI，测试结果将可能显示来自错误的国家。请关闭您的 VPN 连接。</string>
+    <string name="Modal_DisableVPN_Message">如果您在启用 VPN 的情况下运行 OONI，测试结果将可能显示来自错误的国家/地区。请关闭您的 VPN 连接。</string>
     <string name="Modal_DisableVPN">禁用VPN</string>
     <string name="Modal_RunAnyway">无论如何都要运行</string>
     <string name="Modal_AlwaysRun">始终运行</string>
