@@ -122,6 +122,7 @@
     <string name="Measurements_Count_Other">%1$d ölçüldü</string>
     <string name="Measurements_Failed_One">%1$d ölçülemedi</string>
     <string name="Measurements_Failed_Other">%1$d ölçülemedi</string>
+    <string name="Measurement_Raw_Share">Ölçüm verileri paylaşılsın</string>
     <string name="Measurement_Raw_Upload">Yükle</string>
 
     <!-- Settings -->
@@ -270,6 +271,8 @@
     <string name="Onboarding_Crash_Title">Sorun bildirimleri</string>
     <string name="Onboarding_Crash_Button_Yes">Evet</string>
     <string name="Onboarding_Crash_Button_No">Hayır</string>
+    <string name="Onboarding_Notifications_Title">Bildirimleri aç</string>
+    <string name="Onboarding_Notifications_Paragraph">Sınamaları başlattıktan sonra uygulamayı kapatabilirsiniz. Sınamalar arka planda sürdürülür. Bildirimleri açın. Böylece uygulamayı açmak zorunda kalmadan hangi sınamaların yapıldığını izleyebilir veya durdurabilirsiniz.</string>
     <string name="Onboarding_Notifications_Ok">Tamam</string>
     <string name="Onboarding_Notifications_Skip">Atla</string>
     <string name="Onboarding_DefaultSettings_Title">Varsayılan ayarlar</string>
