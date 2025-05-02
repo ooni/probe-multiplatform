@@ -357,6 +357,15 @@ compose.desktop {
 
             macOS {
                 minimumSystemVersion = "10.15.0"
+                // Hide dock icon
+                infoPlist {
+                    extraKeysRawXml = """
+                        <key>LSUIElement</key>
+                        <string>true</string>
+                    """.trimIndent()
+                }
+                jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
+                jvmArgs("-Dapple.awt.application.appearance=system") // adaptive title bar
             }
         }
     }
