@@ -45,169 +45,187 @@ fun RunBackgroundStateSection(
     onEvent: (DashboardViewModel.Event) -> Unit,
 ) {
     when (state) {
-        is RunBackgroundState.Idle -> {
-            OutlinedButton(
-                onClick = { onEvent(DashboardViewModel.Event.RunTestsClick) },
-                colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = MaterialTheme.colorScheme.primary,
-                    containerColor = MaterialTheme.colorScheme.onPrimary,
-                ),
-                border = ButtonDefaults.outlinedButtonBorder(true).copy(
-                    brush = SolidColor(MaterialTheme.colorScheme.primary),
-                ),
-                elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 4.dp),
-            ) {
+        is RunBackgroundState.Idle -> Idle(state, onEvent)
+        is RunBackgroundState.UploadingMissingResults -> UploadingMissingResults(state)
+        is RunBackgroundState.RunningTests -> RunningTests(state, onEvent)
+        RunBackgroundState.Stopping -> Stopping()
+    }
+}
+
+@Composable
+private fun Idle(
+    state: RunBackgroundState.Idle,
+    onEvent: (DashboardViewModel.Event) -> Unit,
+) {
+    OutlinedButton(
+        onClick = { onEvent(DashboardViewModel.Event.RunTestsClick) },
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = MaterialTheme.colorScheme.primary,
+            containerColor = MaterialTheme.colorScheme.onPrimary,
+        ),
+        border = ButtonDefaults.outlinedButtonBorder(true).copy(
+            brush = SolidColor(MaterialTheme.colorScheme.primary),
+        ),
+        elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 4.dp),
+    ) {
+        Text(
+            stringResource(Res.string.OONIRun_Run),
+            style = MaterialTheme.typography.titleLarge,
+        )
+        Icon(
+            painterResource(Res.drawable.ic_timer),
+            contentDescription = null,
+            modifier = Modifier.padding(start = 8.dp),
+        )
+    }
+    state.lastTestAt?.let { lastTestAt ->
+        Text(
+            text = stringResource(Res.string.Dashboard_Overview_LatestTest) + " " + lastTestAt.relativeDateTime(),
+            style = MaterialTheme.typography.labelLarge,
+            modifier = Modifier.padding(top = 4.dp),
+        )
+    }
+    if (state.justFinishedTest) {
+        Button(
+            onClick = { onEvent(DashboardViewModel.Event.SeeResultsClick) },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.customColors.success,
+                contentColor = MaterialTheme.customColors.onSuccess,
+            ),
+            modifier = Modifier.padding(top = 4.dp),
+        ) {
+            Text(stringResource(Res.string.Dashboard_RunV2_RunFinished))
+        }
+    }
+}
+
+@Composable
+private fun UploadingMissingResults(state: RunBackgroundState.UploadingMissingResults) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 32.dp, bottom = 8.dp),
+    ) {
+        val progressColor = MaterialTheme.colorScheme.primary
+        val progressTrackColor = MaterialTheme.colorScheme.onBackground
+        val progressModifier =
+            Modifier.fillMaxWidth().padding(vertical = 4.dp).height(8.dp)
+
+        when (val uploadState = state.state) {
+            is UploadMissingMeasurements.State.Uploading -> {
+                val progress = uploadState.uploaded + uploadState.failedToUpload + 1
                 Text(
-                    stringResource(Res.string.OONIRun_Run),
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                Icon(
-                    painterResource(Res.drawable.ic_timer),
-                    contentDescription = null,
-                    modifier = Modifier.padding(start = 8.dp),
-                )
-            }
-            state.lastTestAt?.let { lastTestAt ->
-                Text(
-                    text = stringResource(Res.string.Dashboard_Overview_LatestTest) + " " + lastTestAt.relativeDateTime(),
-                    style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.padding(top = 4.dp),
-                )
-            }
-            if (state.justFinishedTest) {
-                Button(
-                    onClick = { onEvent(DashboardViewModel.Event.SeeResultsClick) },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.customColors.success,
-                        contentColor = MaterialTheme.customColors.onSuccess,
+                    text = stringResource(
+                        Res.string.Results_UploadingMissing,
+                        "$progress/${uploadState.total}",
                     ),
-                    modifier = Modifier.padding(top = 4.dp),
-                ) {
-                    Text(stringResource(Res.string.Dashboard_RunV2_RunFinished))
-                }
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold,
+                )
+                LinearProgressIndicator(
+                    color = progressColor,
+                    trackColor = progressTrackColor,
+                    modifier = progressModifier,
+                )
+            }
+
+            UploadMissingMeasurements.State.Starting,
+            is UploadMissingMeasurements.State.Finished,
+            -> {
+                LinearProgressIndicator(
+                    color = progressColor,
+                    trackColor = progressTrackColor,
+                    modifier = progressModifier,
+                )
             }
         }
+    }
+}
 
-        is RunBackgroundState.UploadingMissingResults -> {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(top = 32.dp, bottom = 8.dp),
-            ) {
-                val progressColor = MaterialTheme.colorScheme.primary
-                val progressTrackColor = MaterialTheme.colorScheme.onBackground
-                val progressModifier = Modifier.fillMaxWidth().padding(vertical = 4.dp).height(8.dp)
+@Composable
+private fun Stopping() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 32.dp, bottom = 8.dp),
+    ) {
+        Text(
+            text = stringResource(Res.string.Dashboard_Running_Stopping_Title),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.titleMedium,
+        )
+        Text(
+            text = stringResource(Res.string.Dashboard_Running_Stopping_Notice),
+            textAlign = TextAlign.Center,
+        )
+    }
+}
 
-                when (val uploadState = state.state) {
-                    is UploadMissingMeasurements.State.Uploading -> {
-                        val progress = uploadState.uploaded + uploadState.failedToUpload + 1
-                        Text(
-                            text = stringResource(
-                                Res.string.Results_UploadingMissing,
-                                "$progress/${uploadState.total}",
-                            ),
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontWeight = FontWeight.Bold,
-                        )
-                        LinearProgressIndicator(
-                            color = progressColor,
-                            trackColor = progressTrackColor,
-                            modifier = progressModifier,
-                        )
-                    }
-                    UploadMissingMeasurements.State.Starting,
-                    is UploadMissingMeasurements.State.Finished,
-                    -> {
-                        LinearProgressIndicator(
-                            color = progressColor,
-                            trackColor = progressTrackColor,
-                            modifier = progressModifier,
-                        )
-                    }
-                }
-            }
-        }
-
-        is RunBackgroundState.RunningTests -> {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .clickable { onEvent(DashboardViewModel.Event.RunningTestClick) }
-                    .padding(horizontal = 16.dp)
-                    .padding(top = 32.dp, bottom = 8.dp),
-            ) {
-                Row {
-                    Text(
-                        text = stringResource(Res.string.Dashboard_Running_Running),
-                        style = MaterialTheme.typography.bodyLarge,
+@Composable
+private fun RunningTests(
+    state: RunBackgroundState.RunningTests,
+    onEvent: (DashboardViewModel.Event) -> Unit,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .clickable { onEvent(DashboardViewModel.Event.RunningTestClick) }
+            .padding(horizontal = 16.dp)
+            .padding(top = 32.dp, bottom = 8.dp),
+    ) {
+        Row {
+            Text(
+                text = stringResource(Res.string.Dashboard_Running_Running),
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            state.testType?.let { testType ->
+                testType.iconRes?.let {
+                    Icon(
+                        painterResource(it),
+                        contentDescription = null,
+                        modifier = Modifier.padding(horizontal = 4.dp).size(24.dp),
                     )
-                    state.testType?.let { testType ->
-                        testType.iconRes?.let {
-                            Icon(
-                                painterResource(it),
-                                contentDescription = null,
-                                modifier = Modifier.padding(horizontal = 4.dp).size(24.dp),
-                            )
-                        }
-                        Text(
-                            text = testType.displayName,
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontWeight = FontWeight.Bold,
-                        )
-                    }
                 }
-
-                state.progress.let { progress ->
-                    val color = MaterialTheme.colorScheme.primary
-                    val trackColor = MaterialTheme.colorScheme.onBackground
-                    val modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp).height(8.dp)
-
-                    if (progress == 0.0) {
-                        LinearProgressIndicator(
-                            color = color,
-                            trackColor = trackColor,
-                            modifier = modifier,
-                        )
-                    } else {
-                        LinearProgressIndicator(
-                            progress = { progress.toFloat() },
-                            color = color,
-                            trackColor = trackColor,
-                            modifier = modifier,
-                        )
-                    }
-                }
-
-                state.estimatedTimeLeft?.let { timeLeft ->
-                    Row {
-                        Text(
-                            text = stringResource(Res.string.Dashboard_Running_EstimatedTimeLeft),
-                        )
-                        Text(
-                            text = " " + timeLeft.shortFormat(),
-                            fontWeight = FontWeight.Bold,
-                        )
-                    }
-                }
+                Text(
+                    text = testType.displayName,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold,
+                )
             }
         }
 
-        RunBackgroundState.Stopping -> {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(top = 32.dp, bottom = 8.dp),
-            ) {
+        state.progress.let { progress ->
+            val color = MaterialTheme.colorScheme.primary
+            val trackColor = MaterialTheme.colorScheme.onBackground
+            val modifier =
+                Modifier.fillMaxWidth().padding(vertical = 4.dp).height(8.dp)
+
+            if (progress == 0.0) {
+                LinearProgressIndicator(
+                    color = color,
+                    trackColor = trackColor,
+                    modifier = modifier,
+                )
+            } else {
+                LinearProgressIndicator(
+                    progress = { progress.toFloat() },
+                    color = color,
+                    trackColor = trackColor,
+                    modifier = modifier,
+                )
+            }
+        }
+
+        state.estimatedTimeLeft?.let { timeLeft ->
+            Row {
                 Text(
-                    text = stringResource(Res.string.Dashboard_Running_Stopping_Title),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleMedium,
+                    text = stringResource(Res.string.Dashboard_Running_EstimatedTimeLeft),
                 )
                 Text(
-                    text = stringResource(Res.string.Dashboard_Running_Stopping_Notice),
-                    textAlign = TextAlign.Center,
+                    text = " " + timeLeft.shortFormat(),
+                    fontWeight = FontWeight.Bold,
                 )
             }
         }
