@@ -1,7 +1,6 @@
 package org.ooni.probe
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,7 +36,6 @@ import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.Platform
-import java.awt.Desktop
 import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.InstanceManager
 
