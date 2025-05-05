@@ -328,6 +328,10 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">The application cannot run tests automatically without background permission. Do you want to try again?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">The application needs permission to run tests automatically in the background.</string>
 
+    <!-- Desktop -->
+    <string name="Desktop_OpenApp">Open App</string>
+    <string name="Desktop_Quit">Quit</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Run</string>

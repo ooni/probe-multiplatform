@@ -175,7 +175,7 @@ class RunWorker(
                 setContentText(
                     getString(
                         Res.string.Results_UploadingMissing,
-                        "$progress/${state.total}",
+                        state.progressText,
                     ),
                 )
                     .setProgress(state.total, progress, false)
