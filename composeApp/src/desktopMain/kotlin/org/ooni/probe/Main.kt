@@ -1,7 +1,6 @@
 package org.ooni.probe
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
@@ -32,63 +32,46 @@ import ooniprobe.composeapp.generated.resources.tray_icon_windows_light_running
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.data.DeepLinkHandler
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.Platform
-import java.awt.Desktop
+import org.ooni.probe.shared.DeepLinkParser
+import org.ooni.probe.shared.InstanceManager
 
-val APP_ID = "org.ooni.probe" // needs to be thesame as conveyor `app.rdns-name`
+const val APP_ID = "org.ooni.probe" // needs to be the same as conveyor `app.rdns-name`
 
 fun main(args: Array<String>) {
     val autoLaunch = AutoLaunch(appPackageName = APP_ID)
-
+    val instanceManager = InstanceManager(dependencies.platformInfo)
     val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
 
-    var deepLinkHandler: DeepLinkHandler? = null
+    CoroutineScope(Dispatchers.IO).launch {
+        instanceManager.observeUrls().collectLatest {
+            deepLinkFlow.tryEmit(DeepLinkParser(it))
+        }
+    }
 
-    dependencies.platformInfo.platform.let { platform ->
-        if (platform is Platform.Desktop && platform.os == DesktopOS.Mac) {
-            Desktop.getDesktop().setOpenURIHandler { event ->
-                deepLinkFlow.tryEmit(DeepLink.AddDescriptor(event.uri.path.split("/").last()))
-            }
-        } else {
-            deepLinkHandler = DeepLinkHandler()
-            deepLinkHandler.initialize(args)
+    instanceManager.initialize(args)
+
+    CoroutineScope(Dispatchers.Default).launch {
+        autoLaunch.enable()
+    }
+
+    // start an hourly background task that calls startSingleRun
+    CoroutineScope(Dispatchers.IO).launch {
+        while (true) {
+            delay(1000 * 60 * 60)
+            startSingleRun()
         }
     }
 
     application {
         var isWindowVisible by remember { mutableStateOf(!autoLaunch.isStartedViaAutostart()) }
-
         val deepLink by deepLinkFlow.collectAsState(null)
 
-        // start an hourly background task that calls startSingleRun
-        LaunchedEffect(Unit) {
-            while (true) {
-                delay(1000 * 60 * 60)
-                startSingleRun()
-            }
-        }
-
-        LaunchedEffect(Unit) {
-            deepLinkHandler?.addMessageListener { message ->
-                message?.let { message ->
-                    isWindowVisible = true
-                    deepLinkFlow.tryEmit(message)
-                }
-            }
-        }
-
-        LaunchedEffect(Unit) {
-            autoLaunch.enable()
-        }
-
         Window(
-            onCloseRequest = {
-                isWindowVisible = false
-            },
+            onCloseRequest = { isWindowVisible = false },
             visible = isWindowVisible,
             icon = painterResource(trayIcon()),
             title = stringResource(Res.string.app_name),
@@ -123,8 +106,8 @@ fun main(args: Array<String>) {
                 Item(
                     "Exit",
                     onClick = {
-                        deepLinkHandler?.shutdown()
                         exitApplication()
+                        instanceManager.shutdown()
                     },
                 )
             },
