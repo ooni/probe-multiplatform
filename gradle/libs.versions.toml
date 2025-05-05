@@ -45,7 +45,7 @@ lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifec
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.9.0-alpha17" }
 window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "compose-plugin" }
 back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-plugin" }
-dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.2.7" }
+dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.2.9" }
 
 # Preferences
 androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStoreVersion" }
