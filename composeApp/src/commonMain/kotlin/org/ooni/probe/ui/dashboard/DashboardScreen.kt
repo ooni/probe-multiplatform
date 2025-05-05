@@ -2,7 +2,6 @@ package org.ooni.probe.ui.dashboard
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -63,42 +62,47 @@ fun DashboardScreen(
             )
             .background(MaterialTheme.colorScheme.background),
     ) {
-        // Colorful top background
-        Column(
-            verticalArrangement = Arrangement.Center,
-        ) {
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.primaryContainer)
-                    .height(if (isHeightCompact()) 80.dp else 144.dp)
-                    .padding(WindowInsets.statusBars.asPaddingValues()),
-            )
-            Image(
-                painterResource(Res.drawable.dashboard_arc),
-                contentDescription = null,
-                contentScale = ContentScale.FillWidth,
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primaryContainer),
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .padding(bottom = if (state.isRefreshing) 48.dp else 0.dp)
                 .fillMaxWidth(),
         ) {
-            Image(
-                painterResource(Res.drawable.logo_probe),
-                contentDescription = stringResource(Res.string.app_name),
-                modifier = Modifier
-                    .padding(vertical = if (isHeightCompact()) 4.dp else 20.dp)
-                    .padding(WindowInsets.statusBars.asPaddingValues())
-                    .height(if (isHeightCompact()) 48.dp else 72.dp),
-            )
+            // Colorful top background
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.primaryContainer)
+                    .height(if (isHeightCompact()) 80.dp else 144.dp)
+                    .padding(WindowInsets.statusBars.asPaddingValues()),
+            ) {
+                Image(
+                    painterResource(Res.drawable.logo_probe),
+                    contentDescription = stringResource(Res.string.app_name),
+                    modifier = Modifier
+                        .padding(vertical = if (isHeightCompact()) 4.dp else 20.dp)
+                        .padding(WindowInsets.statusBars.asPaddingValues())
+                        .align(Alignment.Center)
+                        .height(if (isHeightCompact()) 48.dp else 72.dp),
+                )
+            }
 
-            RunBackgroundStateSection(state.runBackgroundState, onEvent)
+            Box {
+                Image(
+                    painterResource(Res.drawable.dashboard_arc),
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds,
+                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primaryContainer),
+                    modifier = Modifier.fillMaxWidth().height(32.dp),
+                )
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    RunBackgroundStateSection(state.runBackgroundState, onEvent)
+                }
+            }
 
             if (state.showVpnWarning) {
                 VpnWarning()
