@@ -253,6 +253,8 @@
     <string name="Modal_Error_NoInternet">အင်တာနက်ချိတ်ဆက်မှု မရှိ</string>
     <string name="Modal_CustomURL_Title_NotSaved">သေချာပါသလား။</string>
     <string name="Modal_CustomURL_NotSaved">ဤဝဘ်စာမျက်နှာမှ ထွက်သည့်အခါ သင့် URL များကို သိမ်းဆည်းမည် မဟုတ်ပါ။ ဤစာမျက်နှာမှ ထွက်လိုသည်မှာ သေချာပါသလား။ </string>
+    <string name="Desktop_Quit">ထွက်မည်</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">စမ်းမည်</string>
