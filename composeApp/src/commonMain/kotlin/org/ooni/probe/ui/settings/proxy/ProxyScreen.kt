@@ -28,7 +28,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -58,9 +57,9 @@ fun ProxyScreen(
                 Text(stringResource(Res.string.Settings_Proxy_Enabled))
             },
             navigationIcon = {
-                IconButton(onClick = {
-                    onEvent(ProxyViewModel.Event.BackClicked)
-                }) {
+                IconButton(
+                    onClick = { onEvent(ProxyViewModel.Event.BackClicked) },
+                ) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(Res.string.Common_Back),
@@ -71,17 +70,17 @@ fun ProxyScreen(
         Column(Modifier.selectableGroup()) {
             ProxyType.entries.forEach { text ->
                 Row(
-                    Modifier.fillMaxWidth().height(56.dp).selectable(
-                        selected = (text == state.proxyType),
-                        onClick = {
-                            onEvent(
-                                ProxyViewModel.Event.ProtocolTypeSelected(
-                                    protocol = text,
-                                ),
-                            )
-                        },
-                        role = Role.RadioButton,
-                    ).padding(horizontal = 16.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .height(56.dp)
+                        .selectable(
+                            selected = text == state.proxyType,
+                            onClick = {
+                                onEvent(ProxyViewModel.Event.ProtocolTypeSelected(protocolType = text))
+                            },
+                            role = Role.RadioButton,
+                        )
+                        .padding(horizontal = 16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     RadioButton(
@@ -101,14 +100,13 @@ fun ProxyScreen(
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                var expanded by remember { mutableStateOf(false) }
-                var hostname by rememberSaveable { mutableStateOf(state.proxyHost ?: "") }
-                var port by rememberSaveable { mutableStateOf(state.proxyPort?.toString() ?: "") }
-                val protocols =
+                var protocolsDropdownExpanded by remember { mutableStateOf(false) }
+                val customProtocols =
                     listOf(ProxyProtocol.HTTP, ProxyProtocol.HTTPS, ProxyProtocol.SOCKS5)
+
                 OutlinedTextField(
                     value = state.proxyProtocol.toCustomProtocol(),
-                    onValueChange = { },
+                    onValueChange = {},
                     label = {
                         Text(
                             stringResource(Res.string.Settings_Proxy_Custom_Protocol),
@@ -122,7 +120,7 @@ fun ProxyScreen(
                             LaunchedEffect(interactionSource) {
                                 interactionSource.interactions.collect {
                                     if (it is PressInteraction.Release) {
-                                        expanded = true
+                                        protocolsDropdownExpanded = true
                                     }
                                 }
                             }
@@ -132,7 +130,7 @@ fun ProxyScreen(
                     isError = state.proxyProtocolError,
                     maxLines = 1,
                     trailingIcon = {
-                        IconButton(onClick = { expanded = true }) {
+                        IconButton(onClick = { protocolsDropdownExpanded = true }) {
                             Icon(
                                 Icons.Filled.ArrowDropDown,
                                 contentDescription = stringResource(Res.string.Settings_Proxy_Custom_Protocol),
@@ -140,25 +138,21 @@ fun ProxyScreen(
                         }
                     },
                 )
-                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                    protocols.forEach { protocol ->
+                DropdownMenu(
+                    expanded = protocolsDropdownExpanded,
+                    onDismissRequest = { protocolsDropdownExpanded = false },
+                ) {
+                    customProtocols.forEach { protocol ->
                         DropdownMenuItem(text = { Text(protocol.value) }, onClick = {
-                            expanded = false
+                            protocolsDropdownExpanded = false
                             onEvent(ProxyViewModel.Event.ProtocolChanged(protocol))
                         })
                     }
                 }
 
                 OutlinedTextField(
-                    value = hostname,
-                    onValueChange = {
-                        hostname = it
-                        onEvent(
-                            ProxyViewModel.Event.ProxyHostChanged(
-                                host = it,
-                            ),
-                        )
-                    },
+                    value = state.proxyHost.orEmpty(),
+                    onValueChange = { onEvent(ProxyViewModel.Event.ProxyHostChanged(host = it)) },
                     label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Hostname)) },
                     modifier = Modifier.weight(0.4f),
                     singleLine = true,
@@ -166,15 +160,8 @@ fun ProxyScreen(
                 )
 
                 OutlinedTextField(
-                    value = port,
-                    onValueChange = {
-                        port = it
-                        onEvent(
-                            ProxyViewModel.Event.ProxyPortChanged(
-                                port = port,
-                            ),
-                        )
-                    },
+                    value = state.proxyPort.orEmpty(),
+                    onValueChange = { onEvent(ProxyViewModel.Event.ProxyPortChanged(port = it)) },
                     label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Port)) },
                     modifier = Modifier.weight(0.2f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
