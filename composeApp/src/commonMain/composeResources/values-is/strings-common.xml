@@ -321,6 +321,8 @@
     <string name="Modal_Error_NoInternet">Engin internettenging</string>
     <string name="Modal_CustomURL_Title_NotSaved">Ertu viss?</string>
     <string name="Modal_CustomURL_NotSaved">Slóðirnar þínar verða ekki vistaðar þegar þú ferð af þessum skjá. Ertu viss um að þú viljir fara af skjánum?</string>
+    <string name="Desktop_Quit">Hætta</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Keyra</string>
