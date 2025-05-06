@@ -328,6 +328,8 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">A aplicação não pode executar os testes automaticamente sem permissão de segundo plano. Você quer tentar novamente?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">A aplicação precisa de permissão para executar os testes automaticamente em segundo plano.</string>
 
+    <!-- Desktop -->
+    <string name="Desktop_OpenApp">Abrir Aplicativo</string>
     <string name="Desktop_Quit">Fechar</string>
 
     <!-- Common / Others -->
