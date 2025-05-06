@@ -2,6 +2,7 @@ package org.ooni.probe.ui.shared
 
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 
 @Composable
@@ -11,4 +12,10 @@ expect fun calculateWindowSizeClass(): WindowSizeClass
 private fun heightSizeClass() = calculateWindowSizeClass().heightSizeClass
 
 @Composable
+private fun widthSizeClass() = calculateWindowSizeClass().widthSizeClass
+
+@Composable
 fun isHeightCompact() = heightSizeClass() == WindowHeightSizeClass.Compact
+
+@Composable
+fun isWidthCompact() = widthSizeClass() == WindowWidthSizeClass.Compact

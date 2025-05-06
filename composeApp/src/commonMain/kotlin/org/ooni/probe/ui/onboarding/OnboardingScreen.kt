@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSizeIn
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -93,6 +94,7 @@ import org.ooni.probe.ui.shared.PermissionDeniedException
 import org.ooni.probe.ui.shared.PermissionRequestCanceledException
 import org.ooni.probe.ui.shared.buildPermissionsController
 import org.ooni.probe.ui.shared.isHeightCompact
+import org.ooni.probe.ui.shared.isWidthCompact
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -431,8 +433,12 @@ private fun OnboardingImage(image: DrawableResource) {
         Image(
             painterResource(image),
             contentDescription = null,
-            contentScale = ContentScale.FillWidth,
-            modifier = Modifier.fillMaxWidth().padding(WindowInsets.statusBars.asPaddingValues()),
+            contentScale = if (isWidthCompact()) ContentScale.FillWidth else ContentScale.Inside,
+            modifier = Modifier.fillMaxWidth()
+                .padding(WindowInsets.statusBars.asPaddingValues())
+                .run {
+                    if (!isWidthCompact()) sizeIn(maxHeight = 400.dp) else this
+                },
         )
     }
 }
