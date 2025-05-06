@@ -48,7 +48,7 @@ val dependencies = Dependencies(
     startDescriptorsUpdate = ::startDescriptorsUpdate,
     launchAction = ::launchAction,
     batteryOptimization = object : BatteryOptimization {},
-    isWebViewAvailable = ::isWebViewAvailable,
+    isWebViewAvailable = { true },
     flavorConfig = DesktopFlavorConfig(),
 )
 
@@ -200,11 +200,6 @@ private fun buildMailUri(action: PlatformAction.Mail): URI {
     val body = URLEncoder.encode(action.body, StandardCharsets.UTF_8).replace("+", "%20")
         .replace("%0A", "%0D%0A")
     return URI("mailto:${action.to}?subject=$subject&body=$body")
-}
-
-private fun isWebViewAvailable(): Boolean {
-    // TODO: Desktop - isWebViewAvailable
-    return true
 }
 
 private class DesktopFlavorConfig : FlavorConfigInterface {
