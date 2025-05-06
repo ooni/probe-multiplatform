@@ -85,6 +85,7 @@ fun main(args: Array<String>) {
             title = stringResource(Res.string.app_name),
         ) {
             window.setWindowsAdaptiveTitleBar()
+            window.size = Dimension(480, 800)
             window.minimumSize = Dimension(320, 560)
             window.maximumSize = Dimension(1024, 1024)
             App(
