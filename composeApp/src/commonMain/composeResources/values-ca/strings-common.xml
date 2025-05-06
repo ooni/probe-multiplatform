@@ -229,6 +229,8 @@
     <string name="Modal_Error_NoInternet">No hi ha connexió a Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">N’estàs segur?</string>
     <string name="Modal_CustomURL_NotSaved">Les vostres URL no es desaran quan surti d’aquesta pantalla. Esteu segur de voler sortir d’aquesta pantalla?</string>
+    <string name="Desktop_Quit">Abandona</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Inicia</string>
