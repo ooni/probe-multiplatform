@@ -326,6 +326,8 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Приложение не может запускать тесты в фоновом режиме без специального разрешения. Хотите попробовать снова\? </string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Приложению нужно разрешение, чтобы запускать тесты автоматически в фоновом режиме. </string>
 
+    <string name="Desktop_Quit">Выход</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Запустить</string>
