@@ -328,6 +328,8 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">没有后台权限，本应用无法自动运行测试。你要再次尝试吗？</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">应用需要权限以在后台自动运行测试</string>
 
+    <string name="Desktop_Quit">退出</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">运行</string>
