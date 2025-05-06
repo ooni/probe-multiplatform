@@ -313,6 +313,8 @@
     <string name="Modal_Error_NoInternet">لا اتصال بالانترنت </string>
     <string name="Modal_CustomURL_Title_NotSaved">هل أنت متأكد؟</string>
     <string name="Modal_CustomURL_NotSaved">المواقع لن تسجل اذا تركت هذه الواجهة. هل تريد ترك الواجهة؟</string>
+    <string name="Desktop_Quit">خروج</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">ابدأ</string>
