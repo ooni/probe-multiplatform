@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.requiredSizeIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -93,7 +94,7 @@ import org.ooni.probe.ui.shared.PermissionDeniedException
 import org.ooni.probe.ui.shared.PermissionRequestCanceledException
 import org.ooni.probe.ui.shared.buildPermissionsController
 import org.ooni.probe.ui.shared.isHeightCompact
-import org.ooni.probe.ui.shared.isTabletLandscapeOrDesktop
+import org.ooni.probe.ui.shared.isWidthCompact
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -181,13 +182,12 @@ fun OnboardingScreen(
 }
 
 @Composable
-fun WhatIsStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    Box(modifier = Modifier.fillMaxHeight()) {
-        OnboardingImage(modifier = Modifier.align(alignment = Alignment.TopCenter), image = OrganizationConfig.onboardingImages.image1)
+fun ColumnScope.WhatIsStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
+    OnboardingImage(OrganizationConfig.onboardingImages.image1)
 
+    Box(modifier = Modifier.fillMaxHeight()) {
         Column(
             modifier = Modifier
-                .align(alignment = Alignment.Center)
                 .verticalScroll(rememberScrollState())
                 .padding(bottom = 16.dp),
         ) {
@@ -206,17 +206,16 @@ fun WhatIsStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
 }
 
 @Composable
-fun HeadsUpStep(
+fun ColumnScope.HeadsUpStep(
     onEvent: (OnboardingViewModel.Event) -> Unit,
     onShowQuiz: () -> Unit,
 ) {
-    Box(modifier = Modifier.fillMaxHeight()) {
-        OnboardingImage(modifier = Modifier.align(alignment = Alignment.TopCenter), image = OrganizationConfig.onboardingImages.image2)
+    OnboardingImage(OrganizationConfig.onboardingImages.image2)
 
+    Box(modifier = Modifier.fillMaxHeight()) {
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
-                .align(alignment = Alignment.Center)
                 .padding(bottom = 16.dp),
         ) {
             OnboardingTitle(Res.string.Onboarding_ThingsToKnow_Title)
@@ -249,16 +248,16 @@ fun HeadsUpStep(
 }
 
 @Composable
-fun AutomatedTestingStep(
+fun ColumnScope.AutomatedTestingStep(
     showBatteryOptimizationDialog: Boolean,
     onEvent: (OnboardingViewModel.Event) -> Unit,
 ) {
+    OnboardingImage(OrganizationConfig.onboardingImages.image3)
+
     Box(modifier = Modifier.fillMaxHeight()) {
-        OnboardingImage(modifier = Modifier.align(alignment = Alignment.TopCenter), image = OrganizationConfig.onboardingImages.image3)
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
-                .align(alignment = Alignment.Center)
                 .padding(bottom = 16.dp),
         ) {
             OnboardingTitle(Res.string.Onboarding_AutomatedTesting_Title)
@@ -313,14 +312,13 @@ fun AutomatedTestingStep(
 }
 
 @Composable
-fun CrashReportingStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    Box(modifier = Modifier.fillMaxHeight()) {
-        OnboardingImage(modifier = Modifier.align(alignment = Alignment.TopCenter), image = OrganizationConfig.onboardingImages.image3)
+fun ColumnScope.CrashReportingStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
+    OnboardingImage(OrganizationConfig.onboardingImages.image3)
 
+    Box(modifier = Modifier.fillMaxHeight()) {
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
-                .align(alignment = Alignment.Center)
                 .padding(bottom = 16.dp),
         ) {
             OnboardingTitle(Res.string.Onboarding_Crash_Title)
@@ -348,16 +346,14 @@ fun CrashReportingStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
 }
 
 @Composable
-fun RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
+fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
     val permissionsController = buildPermissionsController()
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
+    OnboardingImage(OrganizationConfig.onboardingImages.image3)
     Box(modifier = Modifier.fillMaxHeight()) {
-        OnboardingImage(OrganizationConfig.onboardingImages.image3)
-
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
-                .align(alignment = Alignment.Center)
                 .padding(bottom = 16.dp),
         ) {
             OnboardingTitle(Res.string.Onboarding_Notifications_Title)
@@ -405,13 +401,12 @@ fun RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
 
 @Composable
 fun ColumnScope.DefaultSettingsStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    Box(modifier = Modifier.fillMaxHeight()) {
-        OnboardingImage(modifier = Modifier.align(alignment = Alignment.TopCenter), image = OrganizationConfig.onboardingImages.image3)
+    OnboardingImage(OrganizationConfig.onboardingImages.image3)
 
+    Box(modifier = Modifier.fillMaxHeight()) {
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
-                .align(alignment = Alignment.Center)
                 .padding(bottom = 16.dp),
         ) {
             OnboardingTitle(Res.string.Onboarding_DefaultSettings_Title)
@@ -450,7 +445,7 @@ private fun OnboardingImage(
     image: DrawableResource,
     modifier: Modifier = Modifier,
 ) {
-    if (isHeightCompact() || isTabletLandscapeOrDesktop()) {
+    if (isHeightCompact()) {
         Spacer(
             modifier = modifier.padding(WindowInsets.statusBars.asPaddingValues()),
         )
@@ -458,8 +453,12 @@ private fun OnboardingImage(
         Image(
             painterResource(image),
             contentDescription = null,
-            contentScale = ContentScale.FillWidth,
-            modifier = modifier.fillMaxWidth().padding(WindowInsets.statusBars.asPaddingValues()),
+            contentScale = if (isWidthCompact()) ContentScale.FillWidth else ContentScale.Inside,
+            modifier = Modifier.fillMaxWidth()
+                .padding(WindowInsets.statusBars.asPaddingValues())
+                .run {
+                    if (!isWidthCompact()) sizeIn(maxHeight = 400.dp) else this
+                },
         )
     }
 }

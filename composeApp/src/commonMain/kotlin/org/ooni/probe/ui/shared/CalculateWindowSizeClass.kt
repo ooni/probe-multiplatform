@@ -15,8 +15,7 @@ private fun heightSizeClass() = calculateWindowSizeClass().heightSizeClass
 fun isHeightCompact() = heightSizeClass() == WindowHeightSizeClass.Compact
 
 @Composable
-fun isTabletLandscapeOrDesktop() =
-    calculateWindowSizeClass().let {
-        it.widthSizeClass == WindowWidthSizeClass.Expanded ||
-            it.widthSizeClass == WindowWidthSizeClass.Medium && it.heightSizeClass == WindowHeightSizeClass.Compact
-    }
+private fun widthSizeClass() = calculateWindowSizeClass().widthSizeClass
+
+@Composable
+fun isWidthCompact() = widthSizeClass() == WindowWidthSizeClass.Compact
