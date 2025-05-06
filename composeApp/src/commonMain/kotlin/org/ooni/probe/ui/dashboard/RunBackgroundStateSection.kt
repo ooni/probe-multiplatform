@@ -114,11 +114,10 @@ private fun UploadingMissingResults(state: RunBackgroundState.UploadingMissingRe
 
         when (val uploadState = state.state) {
             is UploadMissingMeasurements.State.Uploading -> {
-                val progress = uploadState.uploaded + uploadState.failedToUpload + 1
                 Text(
                     text = stringResource(
                         Res.string.Results_UploadingMissing,
-                        "$progress/${uploadState.total}",
+                        uploadState.progressText,
                     ),
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,

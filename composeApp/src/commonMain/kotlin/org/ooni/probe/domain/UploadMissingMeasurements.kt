@@ -97,7 +97,10 @@ class UploadMissingMeasurements(
             val uploaded: Int,
             val failedToUpload: Int,
             val total: Int,
-        ) : State
+        ) : State {
+            val progressText
+                get() = "${uploaded + failedToUpload + 1}/$total"
+        }
 
         data class Finished(
             val uploaded: Int,

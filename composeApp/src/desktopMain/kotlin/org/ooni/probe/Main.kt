@@ -19,7 +19,12 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
+import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
+import ooniprobe.composeapp.generated.resources.Desktop_OpenApp
+import ooniprobe.composeapp.generated.resources.Desktop_Quit
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Results_UploadingMissing
 import ooniprobe.composeapp.generated.resources.app_name
 import ooniprobe.composeapp.generated.resources.tray_icon_dark
 import ooniprobe.composeapp.generated.resources.tray_icon_dark_running
@@ -34,10 +39,11 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.RunBackgroundState
-import org.ooni.probe.shared.DesktopOS
-import org.ooni.probe.shared.Platform
+import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.DeepLinkParser
+import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.InstanceManager
+import org.ooni.probe.shared.Platform
 
 const val APP_ID = "org.ooni.probe" // needs to be the same as conveyor `app.rdns-name`
 
@@ -69,11 +75,12 @@ fun main(args: Array<String>) {
     application {
         var isWindowVisible by remember { mutableStateOf(!autoLaunch.isStartedViaAutostart()) }
         val deepLink by deepLinkFlow.collectAsState(null)
+        val trayIcon = trayIcon()
 
         Window(
             onCloseRequest = { isWindowVisible = false },
             visible = isWindowVisible,
-            icon = painterResource(trayIcon()),
+            icon = painterResource(trayIcon),
             title = stringResource(Res.string.app_name),
         ) {
             window.setWindowsAdaptiveTitleBar()
@@ -88,23 +95,30 @@ fun main(args: Array<String>) {
             )
         }
 
+        val runBackgroundState by dependencies.runBackgroundStateManager.observeState()
+            .collectAsState(RunBackgroundState.Idle())
+
         Tray(
-            icon = painterResource(trayIcon()),
+            icon = painterResource(trayIcon),
             tooltip = stringResource(Res.string.app_name),
             menu = {
+                if (runBackgroundState !is RunBackgroundState.Idle) {
+                    Item(
+                        text = runBackgroundState.text(),
+                        enabled = false,
+                        onClick = {},
+                    )
+                    Separator()
+                }
                 Item(
-                    "Show App",
+                    stringResource(Res.string.Desktop_OpenApp),
                     onClick = {
                         isWindowVisible = !isWindowVisible
                     },
                 )
-                Item(
-                    "Run Test",
-                    onClick = ::startSingleRun,
-                )
                 Separator()
                 Item(
-                    "Exit",
+                    stringResource(Res.string.Desktop_Quit),
                     onClick = {
                         exitApplication()
                         instanceManager.shutdown()
@@ -118,7 +132,8 @@ fun main(args: Array<String>) {
 @Composable
 private fun trayIcon(): DrawableResource {
     val isDarkTheme = isSystemInDarkMode()
-    val isWindows = (dependencies.platformInfo.platform as? Platform.Desktop)?.os == DesktopOS.Windows
+    val isWindows =
+        (dependencies.platformInfo.platform as? Platform.Desktop)?.os == DesktopOS.Windows
     val runBackgroundState by dependencies.runBackgroundStateManager.observeState()
         .collectAsState(RunBackgroundState.Idle())
     val isRunning = runBackgroundState !is RunBackgroundState.Idle
@@ -133,6 +148,25 @@ private fun trayIcon(): DrawableResource {
         else -> Res.drawable.tray_icon_light
     }
 }
+
+@Composable
+private fun RunBackgroundState.text(): String =
+    when (this) {
+        is RunBackgroundState.RunningTests ->
+            stringResource(Res.string.Dashboard_Running_Running) + " " + testType?.displayName
+
+        RunBackgroundState.Stopping ->
+            stringResource(Res.string.Dashboard_Running_Stopping_Title)
+
+        is RunBackgroundState.UploadingMissingResults ->
+            stringResource(
+                Res.string.Results_UploadingMissing,
+                (this.state as? UploadMissingMeasurements.State.Uploading)?.progressText.orEmpty(),
+            )
+
+        else ->
+            ""
+    }
 
 private fun startSingleRun() {
     CoroutineScope(Dispatchers.IO).launch {
