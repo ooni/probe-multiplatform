@@ -327,6 +327,8 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">L’application ne peut pas effectuer des tests automatiquement sans l’autorisation de fonctionner en arrière-plan. Voulez-vous réessayer \?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">L’application doit être autorisée à effectuer des tests automatiquement en arrière-plan.</string>
 
+    <string name="Desktop_Quit">Quitter</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Lancer</string>
