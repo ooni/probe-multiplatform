@@ -317,6 +317,8 @@
     <string name="Modal_Error_NoInternet">No hay conexión a Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">¿Estas seguro?</string>
     <string name="Modal_CustomURL_NotSaved">Tus URLs no serán guardadas cuando dejes esta pantalla. ¿Estás seguro de que quieres dejarla?</string>
+    <string name="Desktop_Quit">Salir</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Ejecutar</string>
