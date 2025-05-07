@@ -44,6 +44,7 @@ import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.InstanceManager
 import org.ooni.probe.shared.Platform
+import java.awt.Dimension
 
 const val APP_ID = "org.ooni.probe" // needs to be the same as conveyor `app.rdns-name`
 
@@ -84,6 +85,9 @@ fun main(args: Array<String>) {
             title = stringResource(Res.string.app_name),
         ) {
             window.setWindowsAdaptiveTitleBar()
+            window.size = Dimension(480, 800)
+            window.minimumSize = Dimension(320, 560)
+            window.maximumSize = Dimension(1024, 1024)
             App(
                 dependencies = dependencies,
                 deepLink = deepLink,
