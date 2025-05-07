@@ -122,6 +122,8 @@
     <string name="Measurements_Count_Other">%1$d измерены</string>
     <string name="Measurements_Failed_One">%1$d ошибок</string>
     <string name="Measurements_Failed_Other">%1$d ошибок</string>
+    <string name="Measurement_Raw_NotUploadedReasoning">Это измерение не было опубликовано в базе OONI Explorer. Загрузите его, чтобы увидеть результаты анализа. </string>
+    <string name="Measurement_Raw_Share">Поделиться данными измерения</string>
     <string name="Measurement_Raw_Upload">Загрузить</string>
 
     <!-- Settings -->
@@ -326,6 +328,8 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Приложение не может запускать тесты в фоновом режиме без специального разрешения. Хотите попробовать снова\? </string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Приложению нужно разрешение, чтобы запускать тесты автоматически в фоновом режиме. </string>
 
+    <!-- Desktop -->
+    <string name="Desktop_OpenApp">Открыть приложение</string>
     <string name="Desktop_Quit">Выход</string>
 
     <!-- Common / Others -->
