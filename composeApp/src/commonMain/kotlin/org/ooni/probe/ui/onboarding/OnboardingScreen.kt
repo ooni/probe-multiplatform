@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.requiredSizeIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -93,6 +94,7 @@ import org.ooni.probe.ui.shared.PermissionDeniedException
 import org.ooni.probe.ui.shared.PermissionRequestCanceledException
 import org.ooni.probe.ui.shared.buildPermissionsController
 import org.ooni.probe.ui.shared.isHeightCompact
+import org.ooni.probe.ui.shared.isWidthCompact
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -182,24 +184,25 @@ fun OnboardingScreen(
 @Composable
 fun ColumnScope.WhatIsStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
     OnboardingImage(OrganizationConfig.onboardingImages.image1)
-    OnboardingTitle(Res.string.Onboarding_WhatIsOONIProbe_Title)
 
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .weight(1f)
-            .padding(bottom = 16.dp),
-    ) {
-        OnboardingText(Res.string.Onboarding_WhatIsOONIProbe_Paragraph)
+    Box(modifier = Modifier.fillMaxHeight()) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = 16.dp),
+        ) {
+            OnboardingTitle(Res.string.Onboarding_WhatIsOONIProbe_Title)
+            OnboardingText(Res.string.Onboarding_WhatIsOONIProbe_Paragraph)
+        }
+        OnboardingMainButton(
+            text = Res.string.Onboarding_WhatIsOONIProbe_GotIt,
+            onClick = { onEvent(OnboardingViewModel.Event.NextClicked) },
+            modifier = Modifier
+                .align(alignment = Alignment.BottomCenter)
+                .fillMaxWidth()
+                .padding(horizontal = 64.dp),
+        )
     }
-
-    OnboardingMainButton(
-        text = Res.string.Onboarding_WhatIsOONIProbe_GotIt,
-        onClick = { onEvent(OnboardingViewModel.Event.NextClicked) },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 64.dp),
-    )
 }
 
 @Composable
@@ -208,33 +211,40 @@ fun ColumnScope.HeadsUpStep(
     onShowQuiz: () -> Unit,
 ) {
     OnboardingImage(OrganizationConfig.onboardingImages.image2)
-    OnboardingTitle(Res.string.Onboarding_ThingsToKnow_Title)
 
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .weight(1f)
-            .padding(bottom = 16.dp),
-    ) {
-        OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_1)
-        OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_2)
-        OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_3)
+    Box(modifier = Modifier.fillMaxHeight()) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = 16.dp),
+        ) {
+            OnboardingTitle(Res.string.Onboarding_ThingsToKnow_Title)
+
+            OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_1)
+            OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_2)
+            OnboardingBulletText(Res.string.Onboarding_ThingsToKnow_Bullet_3)
+        }
+
+        Column(
+            modifier = Modifier
+                .align(alignment = Alignment.BottomCenter),
+        ) {
+            OnboardingMainButton(
+                text = Res.string.Onboarding_ThingsToKnow_Button,
+                onClick = { onShowQuiz() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 64.dp),
+            )
+            OnboardingTextButton(
+                text = Res.string.Onboarding_ThingsToKnow_LearnMore,
+                onClick = { onEvent(OnboardingViewModel.Event.HeadsUpLearnMoreClicked) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 64.dp),
+            )
+        }
     }
-
-    OnboardingMainButton(
-        text = Res.string.Onboarding_ThingsToKnow_Button,
-        onClick = { onShowQuiz() },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 64.dp),
-    )
-    OnboardingTextButton(
-        text = Res.string.Onboarding_ThingsToKnow_LearnMore,
-        onClick = { onEvent(OnboardingViewModel.Event.HeadsUpLearnMoreClicked) },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 64.dp),
-    )
 }
 
 @Composable
@@ -243,32 +253,34 @@ fun ColumnScope.AutomatedTestingStep(
     onEvent: (OnboardingViewModel.Event) -> Unit,
 ) {
     OnboardingImage(OrganizationConfig.onboardingImages.image3)
-    OnboardingTitle(Res.string.Onboarding_AutomatedTesting_Title)
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .weight(1f)
-            .padding(bottom = 16.dp),
-    ) {
-        OnboardingText(Res.string.Onboarding_AutomatedTesting_Paragraph)
-    }
 
-    Row(modifier = Modifier.padding(horizontal = 8.dp)) {
-        OnboardingMainOutlineButton(
-            text = Res.string.Onboarding_Crash_Button_No,
-            onClick = { onEvent(OnboardingViewModel.Event.AutoTestNoClicked) },
+    Box(modifier = Modifier.fillMaxHeight()) {
+        Column(
             modifier = Modifier
-                .padding(horizontal = 8.dp)
-                .weight(1f)
-                .testTag("No-AutoTest"),
-        )
-        OnboardingMainButton(
-            text = Res.string.Onboarding_Crash_Button_Yes,
-            onClick = { onEvent(OnboardingViewModel.Event.AutoTestYesClicked) },
-            modifier = Modifier
-                .padding(horizontal = 8.dp)
-                .weight(1f),
-        )
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = 16.dp),
+        ) {
+            OnboardingTitle(Res.string.Onboarding_AutomatedTesting_Title)
+            OnboardingText(Res.string.Onboarding_AutomatedTesting_Paragraph)
+        }
+
+        Row(modifier = Modifier.padding(horizontal = 8.dp).align(alignment = Alignment.BottomCenter)) {
+            OnboardingMainOutlineButton(
+                text = Res.string.Onboarding_Crash_Button_No,
+                onClick = { onEvent(OnboardingViewModel.Event.AutoTestNoClicked) },
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .weight(1f)
+                    .testTag("No-AutoTest"),
+            )
+            OnboardingMainButton(
+                text = Res.string.Onboarding_Crash_Button_Yes,
+                onClick = { onEvent(OnboardingViewModel.Event.AutoTestYesClicked) },
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .weight(1f),
+            )
+        }
     }
 
     if (showBatteryOptimizationDialog) {
@@ -302,33 +314,34 @@ fun ColumnScope.AutomatedTestingStep(
 @Composable
 fun ColumnScope.CrashReportingStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
     OnboardingImage(OrganizationConfig.onboardingImages.image3)
-    OnboardingTitle(Res.string.Onboarding_Crash_Title)
 
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .weight(1f)
-            .padding(bottom = 16.dp),
-    ) {
-        OnboardingText(Res.string.Onboarding_Crash_Paragraph)
-    }
+    Box(modifier = Modifier.fillMaxHeight()) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = 16.dp),
+        ) {
+            OnboardingTitle(Res.string.Onboarding_Crash_Title)
+            OnboardingText(Res.string.Onboarding_Crash_Paragraph)
+        }
 
-    Row(modifier = Modifier.padding(horizontal = 8.dp)) {
-        OnboardingMainOutlineButton(
-            text = Res.string.Onboarding_Crash_Button_No,
-            onClick = { onEvent(OnboardingViewModel.Event.CrashReportingNoClicked) },
-            modifier = Modifier
-                .padding(horizontal = 8.dp)
-                .weight(1f),
-        )
-        OnboardingMainButton(
-            text = Res.string.Onboarding_Crash_Button_Yes,
-            onClick = { onEvent(OnboardingViewModel.Event.CrashReportingYesClicked) },
-            modifier = Modifier
-                .padding(horizontal = 8.dp)
-                .weight(1f)
-                .testTag("Yes-CrashReporting"),
-        )
+        Row(modifier = Modifier.padding(horizontal = 8.dp).align(alignment = Alignment.BottomCenter)) {
+            OnboardingMainOutlineButton(
+                text = Res.string.Onboarding_Crash_Button_No,
+                onClick = { onEvent(OnboardingViewModel.Event.CrashReportingNoClicked) },
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .weight(1f),
+            )
+            OnboardingMainButton(
+                text = Res.string.Onboarding_Crash_Button_Yes,
+                onClick = { onEvent(OnboardingViewModel.Event.CrashReportingYesClicked) },
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .weight(1f)
+                    .testTag("Yes-CrashReporting"),
+            )
+        }
     }
 }
 
@@ -336,103 +349,116 @@ fun ColumnScope.CrashReportingStep(onEvent: (OnboardingViewModel.Event) -> Unit)
 fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
     val permissionsController = buildPermissionsController()
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
-
     OnboardingImage(OrganizationConfig.onboardingImages.image3)
-    OnboardingTitle(Res.string.Onboarding_Notifications_Title)
-
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .weight(1f)
-            .padding(bottom = 16.dp),
-    ) {
-        OnboardingText(Res.string.Onboarding_Notifications_Paragraph)
-    }
-
-    Row(modifier = Modifier.padding(horizontal = 8.dp)) {
-        OnboardingMainOutlineButton(
-            text = Res.string.Onboarding_Notifications_Skip,
-            onClick = { onEvent(OnboardingViewModel.Event.RequestNotificationsPermissionSkipped) },
+    Box(modifier = Modifier.fillMaxHeight()) {
+        Column(
             modifier = Modifier
-                .padding(horizontal = 8.dp)
-                .weight(1f)
-                .testTag("No-Notifications"),
-        )
-        OnboardingMainButton(
-            text = Res.string.Onboarding_Notifications_Ok,
-            onClick = {
-                coroutineScope.launch {
-                    try {
-                        permissionsController.providePermission(Permission.RemoteNotification)
-                        Logger.i("Notifications permission accepted")
-                    } catch (e: PermissionDeniedException) {
-                        Logger.i("Notifications permission denied")
-                        onEvent(OnboardingViewModel.Event.NextClicked)
-                    } catch (e: PermissionDeniedAlwaysException) {
-                        Logger.i("Notifications permission already denied")
-                        onEvent(OnboardingViewModel.Event.NextClicked)
-                    } catch (e: PermissionRequestCanceledException) {
-                        Logger.i("Notifications permission request cancelled")
-                        // Nothing to do here
-                    } catch (e: Exception) {
-                        Logger.e("Error requesting notifications permission", e)
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = 16.dp),
+        ) {
+            OnboardingTitle(Res.string.Onboarding_Notifications_Title)
+            OnboardingText(Res.string.Onboarding_Notifications_Paragraph)
+        }
+
+        Row(modifier = Modifier.padding(horizontal = 8.dp).align(alignment = Alignment.BottomCenter)) {
+            OnboardingMainOutlineButton(
+                text = Res.string.Onboarding_Notifications_Skip,
+                onClick = { onEvent(OnboardingViewModel.Event.RequestNotificationsPermissionSkipped) },
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .weight(1f)
+                    .testTag("No-Notifications"),
+            )
+            OnboardingMainButton(
+                text = Res.string.Onboarding_Notifications_Ok,
+                onClick = {
+                    coroutineScope.launch {
+                        try {
+                            permissionsController.providePermission(Permission.RemoteNotification)
+                            Logger.i("Notifications permission accepted")
+                        } catch (e: PermissionDeniedException) {
+                            Logger.i("Notifications permission denied")
+                            onEvent(OnboardingViewModel.Event.NextClicked)
+                        } catch (e: PermissionDeniedAlwaysException) {
+                            Logger.i("Notifications permission already denied")
+                            onEvent(OnboardingViewModel.Event.NextClicked)
+                        } catch (e: PermissionRequestCanceledException) {
+                            Logger.i("Notifications permission request cancelled")
+                            // Nothing to do here
+                        } catch (e: Exception) {
+                            Logger.e("Error requesting notifications permission", e)
+                        }
+                        onEvent(OnboardingViewModel.Event.RequestNotificationsPermissionDone)
                     }
-                    onEvent(OnboardingViewModel.Event.RequestNotificationsPermissionDone)
-                }
-            },
-            modifier = Modifier
-                .padding(horizontal = 8.dp)
-                .weight(1f),
-        )
+                },
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .weight(1f),
+            )
+        }
     }
 }
 
 @Composable
 fun ColumnScope.DefaultSettingsStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
     OnboardingImage(OrganizationConfig.onboardingImages.image3)
-    OnboardingTitle(Res.string.Onboarding_DefaultSettings_Title)
 
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .weight(1f)
-            .padding(bottom = 16.dp),
-    ) {
-        OnboardingText(Res.string.Onboarding_DefaultSettings_Header)
-        OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_1)
-        OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_2)
-        OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_3)
-        OnboardingText(Res.string.Onboarding_DefaultSettings_Paragraph)
+    Box(modifier = Modifier.fillMaxHeight()) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = 16.dp),
+        ) {
+            OnboardingTitle(Res.string.Onboarding_DefaultSettings_Title)
+
+            OnboardingText(Res.string.Onboarding_DefaultSettings_Header)
+            OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_1)
+            OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_2)
+            OnboardingBulletText(Res.string.Onboarding_DefaultSettings_Bullet_3)
+            OnboardingText(Res.string.Onboarding_DefaultSettings_Paragraph)
+        }
+
+        Column(
+            modifier = Modifier
+                .align(alignment = Alignment.BottomCenter),
+        ) {
+            OnboardingMainButton(
+                text = Res.string.Onboarding_DefaultSettings_Button_Go,
+                onClick = { onEvent(OnboardingViewModel.Event.NextClicked) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 64.dp),
+            )
+            OnboardingTextButton(
+                text = Res.string.Onboarding_DefaultSettings_Button_Change,
+                onClick = { onEvent(OnboardingViewModel.Event.ChangeDefaultsClicked) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 64.dp),
+            )
+        }
     }
-
-    OnboardingMainButton(
-        text = Res.string.Onboarding_DefaultSettings_Button_Go,
-        onClick = { onEvent(OnboardingViewModel.Event.NextClicked) },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 64.dp),
-    )
-    OnboardingTextButton(
-        text = Res.string.Onboarding_DefaultSettings_Button_Change,
-        onClick = { onEvent(OnboardingViewModel.Event.ChangeDefaultsClicked) },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 64.dp),
-    )
 }
 
 @Composable
-private fun OnboardingImage(image: DrawableResource) {
+private fun OnboardingImage(
+    image: DrawableResource,
+    modifier: Modifier = Modifier,
+) {
     if (isHeightCompact()) {
         Spacer(
-            modifier = Modifier.padding(WindowInsets.statusBars.asPaddingValues()),
+            modifier = modifier.padding(WindowInsets.statusBars.asPaddingValues()),
         )
     } else {
         Image(
             painterResource(image),
             contentDescription = null,
-            contentScale = ContentScale.FillWidth,
-            modifier = Modifier.fillMaxWidth().padding(WindowInsets.statusBars.asPaddingValues()),
+            contentScale = if (isWidthCompact()) ContentScale.FillWidth else ContentScale.Inside,
+            modifier = Modifier.fillMaxWidth()
+                .padding(WindowInsets.statusBars.asPaddingValues())
+                .run {
+                    if (!isWidthCompact()) sizeIn(maxHeight = 400.dp) else this
+                },
         )
     }
 }
