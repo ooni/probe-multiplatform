@@ -14,9 +14,7 @@ import io.github.kdroidfilter.platformtools.darkmodedetector.windows.setWindowsA
 import io.github.vinceglb.autolaunch.AutoLaunch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
@@ -63,14 +61,6 @@ fun main(args: Array<String>) {
 
     CoroutineScope(Dispatchers.Default).launch {
         autoLaunch.enable()
-    }
-
-    // start an hourly background task that calls startSingleRun
-    CoroutineScope(Dispatchers.IO).launch {
-        while (true) {
-            delay(1000 * 60 * 60)
-            startSingleRun()
-        }
     }
 
     application {
@@ -171,9 +161,3 @@ private fun RunBackgroundState.text(): String =
         else ->
             ""
     }
-
-private fun startSingleRun() {
-    CoroutineScope(Dispatchers.IO).launch {
-        dependencies.runBackgroundTask(null).collect()
-    }
-}

@@ -4,22 +4,16 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import co.touchlab.kermit.Logger
 import dev.dirs.ProjectDirectories
 import dev.hydraulic.conveyor.control.SoftwareUpdateController
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import okio.Path.Companion.toPath
 import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.engine.models.NetworkType
+import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.FlavorConfigInterface
 import org.ooni.probe.config.OptionalFeature
 import org.ooni.probe.data.buildDatabaseDriver
-import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.BatteryState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.PlatformAction
-import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -31,6 +25,11 @@ import java.nio.charset.StandardCharsets
 
 private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
 
+private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager(
+    runBackgroundTaskProvider = { dependencies.runBackgroundTask },
+    getDescriptorUpdateProvider = { dependencies.getDescriptorUpdate },
+)
+
 val dependencies = Dependencies(
     platformInfo = buildPlatformInfo(),
     oonimkallBridge = DesktopOonimkallBridge(),
@@ -41,11 +40,11 @@ val dependencies = Dependencies(
     networkTypeFinder = ::networkTypeFinder,
     buildDataStore = ::buildDataStore,
     getBatteryState = { BatteryState.Unknown },
-    startSingleRunInner = ::startSingleRun,
-    configureAutoRun = ::configureAutoRun,
-    configureDescriptorAutoUpdate = ::configureDescriptorAutoUpdate,
-    cancelDescriptorAutoUpdate = ::cancelDescriptorAutoUpdate,
-    startDescriptorsUpdate = ::startDescriptorsUpdate,
+    startSingleRunInner = backgroundWorkManager::startSingleRun,
+    configureAutoRun = backgroundWorkManager::configureAutoRun,
+    configureDescriptorAutoUpdate = backgroundWorkManager::configureDescriptorAutoUpdate,
+    cancelDescriptorAutoUpdate = backgroundWorkManager::cancelDescriptorAutoUpdate,
+    startDescriptorsUpdate = backgroundWorkManager::startDescriptorsUpdate,
     launchAction = ::launchAction,
     batteryOptimization = object : BatteryOptimization {},
     isWebViewAvailable = { true },
@@ -86,39 +85,10 @@ private fun readAssetFile(path: String): String {
  */
 private fun networkTypeFinder() = NetworkType.Unknown("unknown")
 
-// TODO: Desktop - Confirm appropriate path and configuration
 private fun buildDataStore() =
     PreferenceDataStoreFactory.create {
         projectDirectories.dataDir.toPath().resolve("probe.preferences_pb").toFile()
     }
-
-private fun startSingleRun(spec: RunSpecification) {
-    // TODO: Desktop - background running
-    CoroutineScope(Dispatchers.IO).launch {
-        dependencies.runBackgroundTask(spec).collect()
-    }
-}
-
-private fun configureAutoRun(params: AutoRunParameters) {
-    // TODO: Desktop - background running
-}
-
-private fun configureDescriptorAutoUpdate(): Boolean {
-    // TODO: Desktop - background running
-    return true
-}
-
-private fun cancelDescriptorAutoUpdate(): Boolean {
-    // TODO: Desktop - background running
-    return true
-}
-
-private fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
-    // TODO: Desktop - background running
-    CoroutineScope(Dispatchers.IO).launch {
-        dependencies.getDescriptorUpdate(descriptors.orEmpty())
-    }
-}
 
 private fun launchAction(action: PlatformAction): Boolean =
     when (action) {
