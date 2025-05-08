@@ -122,6 +122,7 @@
     <string name="Measurements_Count_Other">%1$d mesuré</string>
     <string name="Measurements_Failed_One">%1$d en échec</string>
     <string name="Measurements_Failed_Other">%1$d en échec</string>
+    <string name="Measurement_Raw_NotUploadedReasoning">Cette mesure n’a pas été publiée dans l’Explorateur OONI. Téléversez-la pour afficher l’analyse.</string>
     <string name="Measurement_Raw_Share">Partager les données de mesure</string>
     <string name="Measurement_Raw_Upload">Téléverser</string>
 
@@ -326,6 +327,10 @@
     <string name="Modal_CustomURL_NotSaved">Vos URL ne seront pas enregistrées si vous quittez cet écran. Voulez-vous vraiment le quitter?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">L’application ne peut pas effectuer des tests automatiquement sans l’autorisation de fonctionner en arrière-plan. Voulez-vous réessayer \?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">L’application doit être autorisée à effectuer des tests automatiquement en arrière-plan.</string>
+
+    <!-- Desktop -->
+    <string name="Desktop_OpenApp">Ouvrir l’appli</string>
+    <string name="Desktop_Quit">Fermer</string>
 
     <!-- Common / Others -->
 

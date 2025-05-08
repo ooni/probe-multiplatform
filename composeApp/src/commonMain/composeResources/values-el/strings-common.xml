@@ -253,6 +253,8 @@
     <string name="Modal_Error_CantDownloadURLs">Δεν είναι δυνατή η λήψη της λίστας ιστοσελιδών. Παρακαλώ προσπάθησε ξανά.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Είστε σίγουροι;</string>
     <string name="Modal_CustomURL_NotSaved">Οι ιστοσελίδες σου δε θα αποθηκευτούν όταν φύγεις από αυτήν την οθόνη. Είσαι σίγουρος/η ότι θέλεις να φύγεις από αυτήν την οθόνη;</string>
+    <string name="Desktop_Quit">Έξοδος</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Εκτέλεση</string>

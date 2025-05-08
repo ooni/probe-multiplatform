@@ -283,6 +283,8 @@
     <string name="Modal_Error_NoInternet">Tidak ada koneksi Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">Anda yakin?</string>
     <string name="Modal_CustomURL_NotSaved">URL Anda tidak akan disimpan saat Anda meninggalkan layar ini. Anda yakin ingin meninggalkan layar ini?</string>
+    <string name="Desktop_Quit">Keluar</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Mulai</string>

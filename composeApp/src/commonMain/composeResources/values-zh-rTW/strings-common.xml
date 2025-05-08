@@ -259,6 +259,8 @@
     <string name="Modal_Error_CantDownloadURLs">無法下載 URL 清單，請再試一次。</string>
     <string name="Modal_CustomURL_Title_NotSaved">你確定嗎？</string>
     <string name="Modal_CustomURL_NotSaved">關閉此畫面後不會儲存 URL 記錄，確定要離開此畫面嗎？  </string>
+    <string name="Desktop_Quit">退出</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">執行</string>

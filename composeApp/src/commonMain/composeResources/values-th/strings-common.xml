@@ -252,6 +252,8 @@
     <string name="Modal_Error_NoInternet">ไม่มีการเชื่อมต่ออินเทอร์เน็ต</string>
     <string name="Modal_CustomURL_Title_NotSaved">คุณแน่ใจหรือไม่?</string>
     <string name="Modal_CustomURL_NotSaved">ที่อยู่ของคุณจะไม่ถูกบันทึกเมื่อคุณออกจากหน้าจอนี้ คุณแน่ใจหรือไม่ว่าต้องการจะออกจากหน้าจอนี้?</string>
+    <string name="Desktop_Quit">ออก</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">เริ่มทดสอบ</string>

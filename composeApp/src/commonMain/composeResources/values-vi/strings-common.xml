@@ -252,6 +252,8 @@
     <string name="Modal_Error_CantDownloadURLs">Không thể tải danh sách URL. Vui lòng thử lại.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Bạn có chắc không?</string>
     <string name="Modal_CustomURL_NotSaved">URL của bạn sẽ không được lưu khi bạn rời khỏi màn hình này. Bạn có chắc chắn muốn rời khỏi màn hình này không?</string>
+    <string name="Desktop_Quit">Rời</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Chạy</string>

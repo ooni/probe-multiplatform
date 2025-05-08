@@ -256,6 +256,8 @@
     <string name="Modal_Error_NoInternet">ارتباط با اینترنت برقرار نیست</string>
     <string name="Modal_CustomURL_Title_NotSaved">آیا مطمئن هستید؟</string>
     <string name="Modal_CustomURL_NotSaved">آدرس‌های شما با ترک این صفحه، ذخیره نخواهند شد. آیا مطمئنید که می‌خواهید این صفحه را ترک کنید؟</string>
+    <string name="Desktop_Quit">خروج</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">اجرا</string>

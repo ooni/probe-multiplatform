@@ -327,6 +327,8 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Uygulama arka planda çalışma izni olmadan otomatik sınamaları yapamaz. Yeniden denemek ister misiniz\?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Uygulamanın otomatik sınamaları yapabilmesi için arka planda çalışmasına izin verilmedir.</string>
 
+    <string name="Desktop_Quit">Çık</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Çalıştır</string>
