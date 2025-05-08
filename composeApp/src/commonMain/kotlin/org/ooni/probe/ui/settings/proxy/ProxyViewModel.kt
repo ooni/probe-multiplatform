@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.models.DOMAIN_NAME
 import org.ooni.probe.data.models.IPV6_ADDRESS
@@ -18,7 +20,7 @@ import org.ooni.probe.data.repositories.PreferenceRepository
 
 class ProxyViewModel(
     onBack: () -> Unit,
-    preferenceManager: PreferenceRepository,
+    private val preferenceManager: PreferenceRepository,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -32,122 +34,132 @@ class ProxyViewModel(
                 SettingsKey.PROXY_PORT,
                 SettingsKey.PROXY_PROTOCOL,
             ),
-        ).onEach { result ->
-            _state.update {
-                val proxyProtocol = ProxyProtocol.fromValue(
-                    result[SettingsKey.PROXY_PROTOCOL] as? String,
-                )
-                it.copy(
-                    proxyHost = result[SettingsKey.PROXY_HOSTNAME] as? String,
-                    proxyPort = result[SettingsKey.PROXY_PORT] as? Int,
-                    proxyProtocol = proxyProtocol,
-                    proxyType = proxyProtocol.proxyType(),
-                )
-            }
-        }.launchIn(viewModelScope)
-
-        events.onEach { event ->
-            when (event) {
-                is Event.BackClicked -> {
-                    state.value.run {
-                        preferenceManager.setValueByKey(
-                            key = SettingsKey.PROXY_PROTOCOL,
-                            value = proxyProtocol.value,
-                        )
-
-                        if (proxyType == ProxyType.CUSTOM) {
-                            if (isValidDomainNameOrIp(proxyHost ?: "")) {
-                                preferenceManager.setValueByKey(
-                                    key = SettingsKey.PROXY_HOSTNAME,
-                                    value = proxyHost,
-                                )
-                            } else {
-                                _state.update { it.copy(proxyHostError = true) }
-                            }
-
-                            if (isValidPort(proxyPort.toString())) {
-                                preferenceManager.setValueByKey(
-                                    key = SettingsKey.PROXY_PORT,
-                                    value = proxyPort,
-                                )
-                            } else {
-                                _state.update { it.copy(proxyPortError = true) }
-                            }
-                        }
-
-                        if (proxyType == ProxyType.CUSTOM &&
-                            (proxyPortError || proxyHostError || proxyProtocolError)
-                        ) {
-                            return@run
-                        } else {
-                            onBack()
-                        }
-                    }
-                }
-
-                is Event.ProtocolChanged -> {
-                    if (event.protocol.proxyType() == ProxyType.CUSTOM) {
-                        _state.update {
-                            it.copy(
-                                proxyHostError = it.proxyHost.isNullOrEmpty(),
-                                proxyPortError = it.proxyPort.toString().isEmpty(),
-                                proxyProtocolError = false,
-                                proxyProtocol = event.protocol,
-                            )
-                        }
-                    }
-                }
-
-                is Event.ProxyHostChanged -> {
-                    if (isValidDomainNameOrIp(event.host)) {
-                        _state.update {
-                            it.copy(proxyHost = event.host, proxyHostError = false)
-                        }
-                    } else {
-                        _state.update { it.copy(proxyHostError = true) }
-                    }
-                }
-
-                is Event.ProxyPortChanged -> {
-                    if (isValidPort(event.port)) {
-                        _state.update {
-                            it.copy(proxyPort = event.port.toInt(), proxyPortError = false)
-                        }
-                    } else {
-                        _state.update { it.copy(proxyPortError = true) }
-                    }
-                }
-
-                is Event.ProtocolTypeSelected -> {
-                    _state.update { it.copy(proxyType = event.protocol) }
-                    val protocolName = when (event.protocol) {
-                        ProxyType.NONE -> ProxyProtocol.NONE.value
-                        ProxyType.PSIPHON -> ProxyProtocol.PSIPHON.value
-                        ProxyType.CUSTOM -> state.value.proxyProtocol.value
-                    }
-                    preferenceManager.setValueByKey(
-                        key = SettingsKey.PROXY_PROTOCOL,
-                        value = protocolName,
+        )
+            .take(1)
+            .onEach { result ->
+                _state.update {
+                    val proxyProtocol = ProxyProtocol.fromValue(
+                        result[SettingsKey.PROXY_PROTOCOL] as? String,
                     )
-                    if (event.protocol != ProxyType.CUSTOM) {
-                        preferenceManager.remove(key = SettingsKey.PROXY_HOSTNAME)
-                        preferenceManager.remove(key = SettingsKey.PROXY_PORT)
-                        _state.update {
-                            it.copy(
-                                proxyHost = null,
-                                proxyPort = null,
-                                proxyHostError = false,
-                                proxyPortError = false,
-                            )
-                        }
-                    }
+                    it.copy(
+                        proxyHost = result[SettingsKey.PROXY_HOSTNAME] as? String,
+                        proxyPort = (result[SettingsKey.PROXY_PORT] as? Int)?.toString(),
+                        proxyProtocol = proxyProtocol,
+                        proxyType = proxyProtocol.proxyType(),
+                    )
                 }
             }
-        }.launchIn(viewModelScope)
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.ProtocolTypeSelected>()
+            .onEach { event ->
+                _state.update { state ->
+                    state.copy(
+                        proxyType = event.protocolType,
+                        proxyProtocol = when (event.protocolType) {
+                            ProxyType.NONE -> ProxyProtocol.NONE
+                            ProxyType.PSIPHON -> ProxyProtocol.PSIPHON
+                            ProxyType.CUSTOM ->
+                                if (state.proxyProtocol.proxyType() == ProxyType.CUSTOM) {
+                                    state.proxyProtocol
+                                } else {
+                                    ProxyProtocol.NONE
+                                }
+                        },
+                        proxyHost = if (event.protocolType == ProxyType.CUSTOM) {
+                            state.proxyHost
+                        } else {
+                            null
+                        },
+                        proxyPort = if (event.protocolType == ProxyType.CUSTOM) {
+                            state.proxyPort
+                        } else {
+                            null
+                        },
+                    )
+                }
+                validateStateAndSave()
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.ProtocolChanged>()
+            .onEach { event ->
+                _state.update { it.copy(proxyProtocol = event.protocol) }
+                validateStateAndSave()
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.ProxyHostChanged>()
+            .onEach { event ->
+                _state.update { it.copy(proxyHost = event.host) }
+                validateStateAndSave()
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.ProxyPortChanged>()
+            .onEach { event ->
+                _state.update { it.copy(proxyPort = event.port) }
+                validateStateAndSave()
+            }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.BackClicked>()
+            .onEach {
+                if (validateStateAndSave()) {
+                    onBack()
+                }
+            }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
         events.tryEmit(event)
+    }
+
+    private suspend fun validateStateAndSave(): Boolean {
+        val state = _state.value
+
+        val isValid = if (state.proxyType == ProxyType.CUSTOM) {
+            val isProtocolValid = state.proxyProtocol.proxyType() == state.proxyType
+            val isHostValid = state.proxyHost?.let(::isValidDomainNameOrIp) ?: false
+            val isPortValid = state.proxyPort?.let(::isValidPort) ?: false
+            _state.update {
+                it.copy(
+                    proxyProtocolError = !isProtocolValid,
+                    proxyHostError = !isHostValid,
+                    proxyPortError = !isPortValid,
+                )
+            }
+            isProtocolValid && isHostValid && isPortValid
+        } else {
+            true
+        }
+
+        if (isValid) {
+            preferenceManager.setValueByKey(
+                key = SettingsKey.PROXY_PROTOCOL,
+                value = state.proxyProtocol.value,
+            )
+            state.proxyHost?.let {
+                preferenceManager.setValueByKey(
+                    key = SettingsKey.PROXY_HOSTNAME,
+                    value = it,
+                )
+            } ?: preferenceManager.remove(SettingsKey.PROXY_HOSTNAME)
+            state.proxyPort?.toIntOrNull()?.let {
+                preferenceManager.setValueByKey(
+                    key = SettingsKey.PROXY_PORT,
+                    value = it,
+                )
+            } ?: preferenceManager.remove(SettingsKey.PROXY_PORT)
+        }
+
+        return isValid
     }
 
     private fun isValidPort(port: String): Boolean {
@@ -157,15 +169,15 @@ class ProxyViewModel(
     }
 
     private fun isValidDomainNameOrIp(host: String): Boolean {
-        return host.matches(IP_ADDRESS.toRegex()) || host.matches(IPV6_ADDRESS.toRegex()) || host.matches(
-            DOMAIN_NAME.toRegex(),
-        )
+        return host.matches(IP_ADDRESS.toRegex()) ||
+            host.matches(IPV6_ADDRESS.toRegex()) ||
+            host.matches(DOMAIN_NAME.toRegex())
     }
 
     data class State(
         val proxyHost: String? = null,
         val proxyHostError: Boolean = false,
-        val proxyPort: Int? = null,
+        val proxyPort: String? = null,
         val proxyPortError: Boolean = false,
         val proxyProtocol: ProxyProtocol,
         val proxyProtocolError: Boolean = false,
@@ -175,7 +187,7 @@ class ProxyViewModel(
     sealed interface Event {
         data object BackClicked : Event
 
-        data class ProtocolTypeSelected(val protocol: ProxyType) : Event
+        data class ProtocolTypeSelected(val protocolType: ProxyType) : Event
 
         data class ProtocolChanged(val protocol: ProxyProtocol) : Event
 
