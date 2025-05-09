@@ -5,7 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -37,6 +41,7 @@ import ooniprobe.composeapp.generated.resources.LoadingScreen_Runv2_Message
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.toDescriptor
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.run.TestItem
@@ -131,18 +136,37 @@ fun AddDescriptorScreen(
                         modifier = Modifier.weight(1f),
                     )
                 }
-                LazyColumn {
+            }
+
+            Box(
+                modifier = Modifier
+                    .padding(WindowInsets.navigationBars.asPaddingValues())
+                    .padding(horizontal = 16.dp).fillMaxSize(),
+            ) {
+                LazyColumn(modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 48.dp)) {
                     items(state.selectableItems) { selectableItem ->
                         TestItem(selectableItem, onChecked = { _ ->
                             onEvent(
                                 AddDescriptorViewModel.Event.SelectableItemClicked(selectableItem),
                             )
                         })
+
+                        if (state.selectableItems.size == 1 && selectableItem.item.test == TestType.WebConnectivity) {
+                            selectableItem.item.inputs.orEmpty().forEach { website ->
+                                Text(
+                                    text = website,
+                                    modifier = Modifier.padding(start = 64.dp, top = 4.dp),
+                                    maxLines = 1,
+                                )
+                            }
+                        }
                     }
                 }
+
                 Row(
                     modifier = Modifier
                         .padding(top = 32.dp)
+                        .align(Alignment.BottomCenter)
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
