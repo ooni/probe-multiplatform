@@ -328,6 +328,8 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Die Anwendung kann keine automatischen Tests ohne Hintergrundgenehmigung durchführen. Möchtest du es noch einmal versuchen\?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Die Anwendung benötigt die Erlaubnis, Tests automatisch im Hintergrund durchzuführen.</string>
 
+    <!-- Desktop -->
+    <string name="Desktop_OpenApp">App starten</string>
     <string name="Desktop_Quit">Beenden</string>
 
     <!-- Common / Others -->
