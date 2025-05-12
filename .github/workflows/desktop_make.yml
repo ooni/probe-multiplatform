@@ -1,5 +1,5 @@
 name: Desktop package apps
-on: [push, workflow_dispatch]
+on: workflow_dispatch
 
 jobs:
   package:
