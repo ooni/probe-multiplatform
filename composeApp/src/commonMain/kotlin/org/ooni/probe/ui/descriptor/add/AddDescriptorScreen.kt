@@ -150,15 +150,19 @@ fun AddDescriptorScreen(
                                 AddDescriptorViewModel.Event.SelectableItemClicked(selectableItem),
                             )
                         })
+                    }
 
-                        if (state.selectableItems.size == 1 && selectableItem.item.test == TestType.WebConnectivity) {
-                            selectableItem.item.inputs.orEmpty().forEach { website ->
-                                Text(
-                                    text = website,
-                                    modifier = Modifier.padding(start = 64.dp, top = 4.dp),
-                                    maxLines = 1,
-                                )
-                            }
+                    val firstItem = state.selectableItems.first()
+                    val isSingleWebConnectivityTest = state.selectableItems.size == 1 &&
+                        firstItem.item.test == TestType.WebConnectivity
+
+                    if (isSingleWebConnectivityTest) {
+                        items(firstItem.item.inputs.orEmpty(), key = { website -> website }) { website ->
+                            Text(
+                                text = website,
+                                modifier = Modifier.padding(start = 46.dp, top = 4.dp),
+                                maxLines = 1,
+                            )
                         }
                     }
                 }
