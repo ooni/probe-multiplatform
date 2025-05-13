@@ -77,23 +77,17 @@ press *Run Workflow*. Confirm both actions run successfully.
 
 Once the alpha versions have been approved for release, we can start publishing.
 
-#### 2.1 Tag & Create Release
+#### 2.1 Tag & Merge Release
 
-2.1.1 Tag the latest commit on the release branch:
+**2.1.1** Tag the latest commit on the release branch:
 
 ```
 git tag -s v[x.y.z] -f -m "[x.x.x] release"
 git push origin tag v[x.y.z]
 ```
 
-2.1.2 Merge the release branch PR into `main`, always through a merge commit! We don't want to lose
+**2.1.2** Merge the release branch PR into `main`, always through a merge commit! We don't want to lose
 our tagged commit.
-
-2.1.3 Create a new [Github release](https://github.com/ooni/probe-multiplatform/releases) based on
-the new tag and write the release notes.
-
-The new Github release should create new release on Sentry to help with error reporting, and publish
-an internal Slack message warning of the new incoming release.
 
 #### 2.2 Publish iOS Apps
 
@@ -102,27 +96,27 @@ press *Run Workflow*, use workflow from the new tag, pick both apps and press *R
 Confirm both actions run successfully. The updates will be reviewed by Apple, so we need to keep an
 eye if they pass.
 
-#### 2.2 Publish OONI Probe Android on F-Droid
+#### 2.3 Publish OONI Probe Android on F-Droid
 
 By pushing a new tag on Github, F-Droid bots will check if our app `versionCode` was updated. Since
 it was, they will trigger a new build and release it automatically. It should take around 3 days for
 the new release to be available [here](https://f-droid.org/en/packages/org.openobservatory.ooniprobe/)
 but sometimes it can take more time.
 
-#### 2.3 Publish OONI Probe Android on Huawei AppGallery
+#### 2.4 Publish OONI Probe Android on Huawei AppGallery
 
 Go to [Publish OONI Probe on Huawei AppGallery](https://github.com/ooni/probe-multiplatform/actions/workflows/publish_android_on_huawei.yml),
 press *Run Workflow*, use workflow from the new tag and press *Run Workflow*. Confirm the action ran
 successfully.
 
-#### 2.4 Promote News Media Scan Android
+#### 2.5 Promote News Media Scan Android
 
 Go to [Promote Android on Google Play](https://github.com/ooni/probe-multiplatform/actions/workflows/promote_android_on_google_play.yml),
 press *Run Workflow*, pick the Organization `dw`, the Current Track
 `alpha`, the Promote Track `production` and press *Run Workflow*. Confirm the action ran
 successfully.
 
-#### 2.5 Promote OONI Probe Android
+#### 2.6 Promote OONI Probe Android
 
 Since this is our app with the biggest amount of users, we take more steps to release it. First we
 promote from `alpha` to `beta`, and then from `beta` to `production` with a `0.2` (20%) rollout
@@ -130,6 +124,34 @@ value.
 
 Both steps are done at [Promote Android on Google Play](https://github.com/ooni/probe-multiplatform/actions/workflows/promote_android_on_google_play.yml) like on the previous step, but with the
 Organization as `ooni`.
+
+#### 2.7 Publish OONI Probe Desktop
+
+#### 2.7.1 Generate apps
+
+Go to [Desktop package apps](https://github.com/ooni/probe-multiplatform/actions/workflows/desktop_make.yml),
+press *Run Workflow*, use workflow from the new tag, and press *Run Workflow*. Confirm the action ran
+successfully and download the generated apps (zipped artifact).
+
+#### 2.7.2 Sign windows app
+
+We need to sign both the windows `.exe` and `.msix` files using our Extended Validation certificate.
+Follow the steps on our internal process to do so.
+
+### 2.8 Create Release
+
+**2.8.1** Create a new [Github release](https://github.com/ooni/probe-multiplatform/releases)
+based on the new tag.
+
+**2.8.2** Write our manual release notes and add at the bottom the automatic changelog using the
+`Generate release notes` button.
+
+**2.8.3** Upload all the desktop files downloaded during step *2.7.1*, except the `download.html`
+file, and swapping the windows `.exe` and `.msix` files for their signed versions (step *2.7.2*).
+
+**2.8.4** Publish release
+
+The new Github release post an internal Slack message warning of the new incoming release.
 
 ## Monitoring
 
