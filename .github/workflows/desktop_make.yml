@@ -13,7 +13,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Package app
-        run: ./gradlew copyBrandingToCommonResources package
+        run: ./gradlew copyBrandingToCommonResources package -Porganization=ooni
 
       - name: Conveyor make site
         uses: hydraulic-software/conveyor/actions/build@v18.0
