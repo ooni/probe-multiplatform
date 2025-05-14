@@ -92,7 +92,6 @@ class GetSettings(
                 WebConnectivityCategory.entries.count { preferences[it.settingsKey] == true }
             buildSettings(
                 hasWebsitesDescriptor = OrganizationConfig.hasWebsitesDescriptor,
-                uploadResultsEnabled = preferences[SettingsKey.UPLOAD_RESULTS] == true,
                 autoRunEnabled = preferences[SettingsKey.AUTOMATED_TESTING_ENABLED] == true,
                 enabledCategoriesCount = enabledCategoriesCount,
                 maxRuntimeEnabled = preferences[SettingsKey.MAX_RUNTIME_ENABLED] == true,
@@ -105,7 +104,6 @@ class GetSettings(
 
     private fun buildSettings(
         hasWebsitesDescriptor: Boolean,
-        uploadResultsEnabled: Boolean,
         autoRunEnabled: Boolean,
         enabledCategoriesCount: Int,
         maxRuntimeEnabled: Boolean,
@@ -134,7 +132,6 @@ class GetSettings(
                         title = Res.string.Settings_AutomatedTesting_RunAutomatically,
                         key = SettingsKey.AUTOMATED_TESTING_ENABLED,
                         type = PreferenceItemType.SWITCH,
-                        enabled = uploadResultsEnabled,
                         supportingContent = {
                             Text(
                                 stringResource(Res.string.Settings_AutomatedTesting_RunAutomatically_Description),
@@ -147,7 +144,7 @@ class GetSettings(
                             title = Res.string.Settings_AutomatedTesting_RunAutomatically_WiFiOnly,
                             key = SettingsKey.AUTOMATED_TESTING_WIFIONLY,
                             type = PreferenceItemType.SWITCH,
-                            enabled = autoRunEnabled && uploadResultsEnabled,
+                            enabled = autoRunEnabled,
                             indentation = 1,
                         )
                     } else {
@@ -158,7 +155,7 @@ class GetSettings(
                             title = Res.string.Settings_AutomatedTesting_RunAutomatically_ChargingOnly,
                             key = SettingsKey.AUTOMATED_TESTING_CHARGING,
                             type = PreferenceItemType.SWITCH,
-                            enabled = autoRunEnabled && uploadResultsEnabled,
+                            enabled = autoRunEnabled,
                             indentation = 1,
                         )
                     } else {

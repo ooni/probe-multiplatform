@@ -24,6 +24,8 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
+import org.ooni.probe.shared.monitoring.Instrumentation
+import org.ooni.probe.shared.monitoring.reportTransaction
 import org.ooni.probe.ui.shared.SelectableItem
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
@@ -85,6 +87,15 @@ class DescriptorViewModel(
                             },
                         )
                     }
+                }
+            }
+            .launchIn(viewModelScope)
+
+        preferenceRepository
+            .getValueByKey(SettingsKey.AUTOMATED_TESTING_ENABLED)
+            .onEach { enabled ->
+                _state.update {
+                    it.copy(isAutoRunEnabled = enabled == true)
                 }
             }
             .launchIn(viewModelScope)
@@ -185,6 +196,13 @@ class DescriptorViewModel(
         events.filterIsInstance<Event.ChooseWebsitesClicked>()
             .onEach { goToChooseWebsites() }
             .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.EnableAutoRunClicked>()
+            .onEach {
+                preferenceRepository.setValueByKey(SettingsKey.AUTOMATED_TESTING_ENABLED, true)
+                Instrumentation.reportTransaction("DescriptorEnableAutoRun")
+            }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -218,6 +236,7 @@ class DescriptorViewModel(
         val tests: List<SelectableItem<NetTest>> = emptyList(),
         val lastResult: ResultModel? = null,
         val updateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
+        val isAutoRunEnabled: Boolean = true,
     ) {
         val isRefreshing: Boolean
             get() = updateOperationState == DescriptorUpdateOperationState.FetchingUpdates
@@ -251,5 +270,7 @@ class DescriptorViewModel(
         data object UpdateDescriptor : Event
 
         data object ChooseWebsitesClicked : Event
+
+        data object EnableAutoRunClicked : Event
     }
 }

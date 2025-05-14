@@ -8,3 +8,9 @@ expect object Instrumentation {
         block: suspend () -> T,
     ): T
 }
+
+suspend fun Instrumentation.reportTransaction(
+    operation: String,
+    name: String? = null,
+    data: Map<String, Any> = emptyMap(),
+) = withTransaction(operation, name, data) {}

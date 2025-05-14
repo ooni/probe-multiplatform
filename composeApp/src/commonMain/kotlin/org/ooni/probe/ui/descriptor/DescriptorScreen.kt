@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.selection.triStateToggleable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -25,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
@@ -39,8 +41,10 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRun
+import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRunDisabled
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Settings
 import ooniprobe.composeapp.generated.resources.Common_Back
+import ooniprobe.composeapp.generated.resources.Common_Enable
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsites
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LastRun_Never
@@ -132,6 +136,7 @@ fun DescriptorScreen(
                 if (descriptor.source is Descriptor.Source.Installed) {
                     ConfigureUpdates(onEvent, descriptor.source.value.autoUpdate)
                 }
+
                 Text(
                     stringResource(Res.string.AddDescriptor_Settings),
                     style = MaterialTheme.typography.titleMedium,
@@ -139,6 +144,32 @@ fun DescriptorScreen(
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 16.dp),
                 )
+
+                if (!state.isAutoRunEnabled) {
+                    Surface(
+                        color = MaterialTheme.colorScheme.surfaceVariant,
+                        shape = RoundedCornerShape(4.dp),
+                        modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 8.dp),
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 8.dp),
+                        ) {
+                            Text(
+                                text = stringResource(Res.string.AddDescriptor_AutoRunDisabled),
+                                style = MaterialTheme.typography.labelLarge,
+                                modifier = Modifier.weight(1f).padding(end = 8.dp),
+                            )
+                            TextButton(
+                                onClick = { onEvent(DescriptorViewModel.Event.EnableAutoRunClicked) },
+                            ) {
+                                Text(stringResource(Res.string.Common_Enable))
+                            }
+                        }
+                    }
+                }
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -148,6 +179,7 @@ fun DescriptorScreen(
                             state = state.allState,
                             onClick = { onEvent(DescriptorViewModel.Event.AllChecked) },
                             role = Role.Checkbox,
+                            enabled = state.isAutoRunEnabled,
                         )
                         .padding(horizontal = 8.dp, vertical = 12.dp),
                 ) {
@@ -155,12 +187,19 @@ fun DescriptorScreen(
                         state = state.allState,
                         onClick = null,
                         modifier = Modifier.padding(start = 16.dp, end = 24.dp),
+                        enabled = state.isAutoRunEnabled,
                     )
                     Text(stringResource(Res.string.AddDescriptor_AutoRun))
                 }
 
                 when (OrganizationConfig.testDisplayMode) {
-                    TestDisplayMode.Regular -> TestItems(descriptor, state.tests, onEvent)
+                    TestDisplayMode.Regular -> TestItems(
+                        descriptor,
+                        state.tests,
+                        state.isAutoRunEnabled,
+                        onEvent,
+                    )
+
                     TestDisplayMode.WebsitesOnly -> WebsiteItems(state.tests)
                 }
 
@@ -286,6 +325,7 @@ private fun DescriptorDetails(
 private fun TestItems(
     descriptor: Descriptor,
     tests: List<SelectableItem<NetTest>>,
+    enabled: Boolean,
     onEvent: (DescriptorViewModel.Event) -> Unit,
 ) {
     tests.forEach { netTestItem ->
@@ -299,6 +339,7 @@ private fun TestItems(
                     value = netTestItem.isSelected,
                     onValueChange = { onEvent(DescriptorViewModel.Event.TestChecked(test, it)) },
                     role = Role.Checkbox,
+                    enabled = enabled,
                 )
                 .padding(horizontal = 16.dp)
                 .padding(vertical = 12.dp),
@@ -306,6 +347,7 @@ private fun TestItems(
             Checkbox(
                 checked = netTestItem.isSelected,
                 onCheckedChange = null,
+                enabled = enabled,
             )
             Icon(
                 painterResource(
