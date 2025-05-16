@@ -13,11 +13,22 @@
     <string name="Dashboard_Running_Stopping_Notice">完成當前該處理的測試，請稍等....</string>
     <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
 
+    <string name="Dashboard_RunTests_Title">執行測試</string>
+    <string name="Dashboard_RunTests_Description">選擇要執行的測試</string>
+    <string name="Dashboard_RunTests_SelectAll">選擇所有測試</string>
+    <string name="Dashboard_RunTests_SelectNone">取消選擇所有測試</string>
+    <string name="Dashboard_RunTests_RunButton_Label_One">執行 %1$d 個測試</string>
+    <string name="Dashboard_RunTests_RunButton_Label_Other">執行 %1$d 個測試</string>
+
     <string name="Dashboard_RunV2_Ooni_Title">OONI 測試</string>
+    <string name="Dashboard_RunV2_Title">OONI Run 連結</string>
+    <string name="Dashboard_RunV2_RunFinished">執行已結束。點擊查看結果。</string>
     <string name="Dashboard_Runv2_Overview_Description">建立者 %1$s 於 %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">移除安裝連結</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">過往版本</string>
+    <string name="Dashboard_Runv2_Overview_SeeMore">檢視更多</string>
     <string name="Dashboard_RunV2_ExpiredTag">已過期</string>
+    <string name="Dashboard_RunV2_UpdatedTag">已更新</string>
     <string name="Dashboard_RunV2_UpdateTag">更新</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">復原</string>
     <string name="Dashboard_Progress_ReviewLink_Action">複檢</string>
