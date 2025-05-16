@@ -30,6 +30,8 @@
     <string name="Dashboard_RunV2_ExpiredTag">已過期</string>
     <string name="Dashboard_RunV2_UpdatedTag">已更新</string>
     <string name="Dashboard_RunV2_UpdateTag">更新</string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated">最後更新 %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">已拒絕的更新</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">復原</string>
     <string name="Dashboard_Progress_ReviewLink_Action">複檢</string>
 
