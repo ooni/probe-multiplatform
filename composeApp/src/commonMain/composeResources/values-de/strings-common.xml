@@ -298,7 +298,6 @@
     <string name="LoadingScreen_Runv2_Failure">Fehler</string>
     <string name="LoadingScreen_Runv2_Canceled">Link-Installation abgebrochen</string>
     <string name="DescriptorUpdate_Updates">AKTUALISIERUNGEN</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Nicht hochgeladen</string>
@@ -344,6 +343,7 @@
     <string name="Common_Refresh">Aktualisieren</string>
     <string name="Common_Collapse">Einklappen</string>
     <string name="Common_Expand">Ausklappen</string>
+    <string name="Common_Enable">Aktivieren</string>
     <string name="Common_Ago">Vor %1$s</string>
     <string name="Common_Minutes_One">%1$d Minute</string>
     <string name="Common_Minutes_Other">%1$d Minuten</string>
