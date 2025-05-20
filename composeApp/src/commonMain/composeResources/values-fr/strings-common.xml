@@ -298,7 +298,6 @@
     <string name="LoadingScreen_Runv2_Failure">Erreur</string>
     <string name="LoadingScreen_Runv2_Canceled">L’installation du lien a été annulée</string>
     <string name="DescriptorUpdate_Updates">MISES À JOUR</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">N’a pas été téléversé</string>
@@ -344,6 +343,7 @@
     <string name="Common_Refresh">Actualiser</string>
     <string name="Common_Collapse">Réduire</string>
     <string name="Common_Expand">Développer</string>
+    <string name="Common_Enable">Activer</string>
     <string name="Common_Ago">il y a %1$s</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>
