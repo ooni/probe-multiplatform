@@ -298,7 +298,6 @@
     <string name="LoadingScreen_Runv2_Failure">错误</string>
     <string name="LoadingScreen_Runv2_Canceled">链接安装被取消了</string>
     <string name="DescriptorUpdate_Updates">更新</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">未上传</string>
@@ -344,6 +343,7 @@
     <string name="Common_Refresh">刷新</string>
     <string name="Common_Collapse">折叠</string>
     <string name="Common_Expand">展开</string>
+    <string name="Common_Enable">启用</string>
     <string name="Common_Ago">%1$s 前</string>
     <string name="Common_Minutes_One">%1$d 分钟 </string>
     <string name="Common_Minutes_Other">%1$d 分钟</string>
