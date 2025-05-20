@@ -1,5 +1,6 @@
 package org.ooni.probe.domain
 
+import androidx.annotation.VisibleForTesting
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -57,7 +58,8 @@ class CheckAutoRunConstraints(
     }
 
     companion object {
-        private const val NOT_UPLOADED_LIMIT = 10
+        @VisibleForTesting
+        const val NOT_UPLOADED_LIMIT = 50
     }
 }
 

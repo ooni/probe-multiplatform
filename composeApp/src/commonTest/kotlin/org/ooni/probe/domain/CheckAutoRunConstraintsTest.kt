@@ -38,8 +38,8 @@ class CheckAutoRunConstraintsTest {
                 )
             }
 
-            assertCheck(expected = false, count = 20)
-            assertCheck(expected = true, count = 5)
+            assertCheck(expected = false, count = CheckAutoRunConstraints.NOT_UPLOADED_LIMIT + 1L)
+            assertCheck(expected = true, count = CheckAutoRunConstraints.NOT_UPLOADED_LIMIT - 1L)
         }
 
     @Test

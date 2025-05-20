@@ -298,6 +298,7 @@
     <string name="LoadingScreen_Runv2_Failure">Error</string>
     <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
+    <string name="AddDescriptor_AutoRunDisabled">Auto-run is disabled. Please enable it to run tests automatically.</string>
 
     <!-- Modals / Toasts / Snackbar -->
 
@@ -344,6 +345,7 @@
     <string name="Common_Refresh">Refresh</string>
     <string name="Common_Collapse">Collapse</string>
     <string name="Common_Expand">Expand</string>
+    <string name="Common_Enable">Enable</string>
     <string name="Common_Ago">%1$s ago</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>
