@@ -255,7 +255,6 @@
     <string name="LoadingScreen_Runv2_Failure">Hitilafu</string>
     <string name="LoadingScreen_Runv2_Canceled">Usakinishaji wa kiungo umeghairiwa</string>
     <string name="DescriptorUpdate_Updates">MASASISHO</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Haijapakiwa</string>
@@ -294,5 +293,6 @@
     <string name="Common_Refresh">Fanyiza upya</string>
     <string name="Common_Collapse">Angusha</string>
     <string name="Common_Expand">Panua</string>
+    <string name="Common_Enable">Wezesha</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
