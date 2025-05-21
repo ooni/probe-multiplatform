@@ -298,6 +298,8 @@
     <string name="LoadingScreen_Runv2_Failure">错误</string>
     <string name="LoadingScreen_Runv2_Canceled">链接安装被取消了</string>
     <string name="DescriptorUpdate_Updates">更新</string>
+    <string name="AddDescriptor_AutoRunDisabled">自动运行被停用。请启用它来自动运行测试。</string>
+
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">未上传</string>
