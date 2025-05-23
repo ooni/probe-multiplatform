@@ -265,6 +265,7 @@
     <string name="Common_Refresh">Làm mới</string>
     <string name="Common_Collapse">Thu gọn</string>
     <string name="Common_Expand">Mở rộng</string>
+    <string name="Common_Enable">Bật</string>
     <string name="Common_Hour_Other">%1$d giờ</string>
     <string name="Common_Months_May">05</string>
     <string name="NetworkType_Vpn">VPN</string>

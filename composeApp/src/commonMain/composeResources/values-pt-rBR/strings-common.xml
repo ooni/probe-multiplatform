@@ -298,7 +298,6 @@
     <string name="LoadingScreen_Runv2_Failure">Erro</string>
     <string name="LoadingScreen_Runv2_Canceled">Instalação do link cancelada</string>
     <string name="DescriptorUpdate_Updates">ATUALIZAÇÕES</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Não Carregado</string>
@@ -344,6 +343,7 @@
     <string name="Common_Refresh">Atualizar</string>
     <string name="Common_Collapse">Colapsar</string>
     <string name="Common_Expand">Expandir</string>
+    <string name="Common_Enable">Habilitar</string>
     <string name="Common_Ago">%1$s atrás</string>
     <string name="Common_Minutes_One">%1$d minuto</string>
     <string name="Common_Minutes_Other">%1$d minutos</string>

@@ -257,7 +257,6 @@
     <string name="LoadingScreen_Runv2_Failure">កំហុស</string>
     <string name="LoadingScreen_Runv2_Canceled">ការដំឡើងតំណរភ្ជាប់ត្រូវបានបញ្ឈប់</string>
     <string name="DescriptorUpdate_Updates">បច្ចុប្បន្នភាព</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">មិនបានបញ្ជូល</string>
@@ -295,6 +294,7 @@
     <string name="Common_Refresh">ផ្ទុកឡើងវិញ</string>
     <string name="Common_Collapse">បង្រួម</string>
     <string name="Common_Expand">ពង្រីក</string>
+    <string name="Common_Enable">បើក</string>
     <string name="Common_Months_May">ឧសភា​</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
