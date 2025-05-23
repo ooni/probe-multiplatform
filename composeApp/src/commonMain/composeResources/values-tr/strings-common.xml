@@ -122,6 +122,7 @@
     <string name="Measurements_Count_Other">%1$d ölçüldü</string>
     <string name="Measurements_Failed_One">%1$d ölçülemedi</string>
     <string name="Measurements_Failed_Other">%1$d ölçülemedi</string>
+    <string name="Measurement_Raw_NotUploadedReasoning">Bu ölçüm OONI Explorer üzerinde yayınlanmamış. İncelemeyi görüntülemek için yükleyin.</string>
     <string name="Measurement_Raw_Share">Ölçüm verileri paylaşılsın</string>
     <string name="Measurement_Raw_Upload">Yükle</string>
 
@@ -297,6 +298,8 @@
     <string name="LoadingScreen_Runv2_Failure">Hata</string>
     <string name="LoadingScreen_Runv2_Canceled">Bağlantı kurulumu iptal edildi</string>
     <string name="DescriptorUpdate_Updates">GÜNCELLEMELER</string>
+    <string name="AddDescriptor_AutoRunDisabled">Otomatik çalıştırma kapalı. Sınamaları otomatik olarak çalıştırmak için açın.</string>
+
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Yüklenmemiş</string>
@@ -326,6 +329,8 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Uygulama arka planda çalışma izni olmadan otomatik sınamaları yapamaz. Yeniden denemek ister misiniz\?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Uygulamanın otomatik sınamaları yapabilmesi için arka planda çalışmasına izin verilmedir.</string>
 
+    <!-- Desktop -->
+    <string name="Desktop_OpenApp">Uygulamayı aç</string>
     <string name="Desktop_Quit">Çık</string>
 
     <!-- Common / Others -->
