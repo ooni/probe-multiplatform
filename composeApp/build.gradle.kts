@@ -427,10 +427,6 @@ val cleanLibrary by tasks.registering(Exec::class) {
     commandLine = listOf("make", "clean")
 }
 
-tasks.named("preBuild") {
-    dependsOn(makeLibrary)
-}
-
 tasks.named("clean") {
     dependsOn(cleanLibrary)
 }
@@ -486,10 +482,12 @@ tasks.register("cleanCopiedCommonResourcesToFlavor") {
  * NOTE: Current limitation is that multiple resources directories are not supported.
  */
 tasks.named("preBuild").configure {
+    dependsOn(makeLibrary)
     dependsOn("copyBrandingToCommonResources")
 }
 
 tasks.named("clean").configure {
+    dependsOn(makeLibrary)
     dependsOn("copyBrandingToCommonResources")
 }
 
