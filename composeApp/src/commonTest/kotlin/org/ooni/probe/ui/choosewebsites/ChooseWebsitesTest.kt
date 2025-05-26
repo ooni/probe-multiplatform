@@ -22,7 +22,7 @@ class ChooseWebsitesTest {
     )
 
     @Test
-    fun showTestDescriptors() =
+    fun addWebsites() =
         runComposeUiTest {
             setContent {
                 val state by viewModel.state.collectAsState()
