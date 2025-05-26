@@ -298,6 +298,8 @@
     <string name="LoadingScreen_Runv2_Failure">Erro</string>
     <string name="LoadingScreen_Runv2_Canceled">Instalação do link cancelada</string>
     <string name="DescriptorUpdate_Updates">ATUALIZAÇÕES</string>
+    <string name="AddDescriptor_AutoRunDisabled">Autoexecução desabilitada. Por favor, habilite-a para executar testes automaticamente.</string>
+
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Não Carregado</string>
@@ -315,9 +317,9 @@
     <string name="Modal_ReRun_Title">Repetir o teste</string>
     <string name="Modal_ReRun_Websites_Title">Você está prestes a testar novamente os sites %1$s.</string>
     <string name="Modal_ReRun_Websites_Run">Executar</string>
-    <string name="Modal_DisableVPN_Title">Por favor, desative sua conexão VPN.</string>
+    <string name="Modal_DisableVPN_Title">Por favor, desabilite sua conexão VPN.</string>
     <string name="Modal_DisableVPN_Message">Se você executar OONI Probe com uma VPN habilitada, os resultados do teste podem parecer que vêm do país errado. Por favor, desabilite sua conexão VPN.</string>
-    <string name="Modal_DisableVPN">Desativar VPN</string>
+    <string name="Modal_DisableVPN">Desabilitar VPN</string>
     <string name="Modal_RunAnyway">Execute mesmo assim</string>
     <string name="Modal_AlwaysRun">Sempre Executar</string>
     <string name="Modal_Error_CantDownloadURLs">Não foi possível baixar a lista de URL\'s. Por favor, tente novamente.</string>
