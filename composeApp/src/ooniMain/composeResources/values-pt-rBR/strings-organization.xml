@@ -10,7 +10,7 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe não é uma ferramenta de privacidade. Qualquer pessoa que monitore sua atividade na internet verá qual software você está executando.</string>
     <string name="Onboarding_PopQuiz_2_Question">Toda vez que eu executo o OONI Probe, os dados da rede que eu coleciono são automaticamente publicados.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Para aumentar a transparência sobre a censura na Internet, os dados de rede de todos os usuários do OONI Probe são publicados automaticamente (exceto se essa opção for desativada nas configurações).</string>
-    <string name="Onboarding_AutomatedTesting_Paragraph">Para medir a censura na Internet todos os dias, ative os testes automatizados para que o OONI Probe possa executar testes periodicamente.\n\nNão se preocupe, estaremos atentos ao uso da bateria. \n\nÉ possível desativar o teste automatizado nas configurações a qualquer momento.</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">Para medir a censura na Internet todos os dias, ative os testes automatizados para que o OONI Probe possa executar testes periodicamente.\n\nNão se preocupe, estaremos atentos ao uso da bateria. \n\nÉ possível desabilitar o teste automatizado nas configurações a qualquer momento.</string>
     <string name="Onboarding_Crash_Paragraph">Para melhorar o OONI Probe, gostaríamos de coletar relatórios de falhas anônimos quando o aplicativo não funciona corretamente.\n\nVocê gostaria de optar por enviar relatórios de falha para a equipe de desenvolvimento OONI?</string>
 
     <string name="Dashboard_Websites_Card_Description">Teste o bloqueio de sites</string>
