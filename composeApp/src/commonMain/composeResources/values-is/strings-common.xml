@@ -294,7 +294,6 @@
     <string name="LoadingScreen_Runv2_Failure">Villa</string>
     <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Ekki sent inn</string>
@@ -334,6 +333,7 @@
     <string name="Common_Refresh">refresh</string>
     <string name="Common_Collapse">Collapse</string>
     <string name="Common_Expand">Expand</string>
+    <string name="Common_Enable">Virkja</string>
     <string name="Common_Ago">%1$s ago</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>

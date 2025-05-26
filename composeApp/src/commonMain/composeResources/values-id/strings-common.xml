@@ -256,7 +256,6 @@
     <string name="LoadingScreen_Runv2_Failure">Galat</string>
     <string name="LoadingScreen_Runv2_Canceled">Pemasangan tautan dibatalkan</string>
     <string name="DescriptorUpdate_Updates">PEMBARUAN</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Tidak terunggah</string>
@@ -296,6 +295,7 @@
     <string name="Common_Refresh">Perbarui</string>
     <string name="Common_Collapse">Tutup</string>
     <string name="Common_Expand">Buka</string>
+    <string name="Common_Enable">Aktifkan</string>
     <string name="Common_Ago">%1$s yang lalu</string>
     <string name="Common_Minutes_Other">%1$d menit</string>
     <string name="Common_Hour_Other">%1$d jam</string>

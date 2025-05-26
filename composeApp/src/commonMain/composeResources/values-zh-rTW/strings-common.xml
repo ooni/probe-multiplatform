@@ -285,6 +285,7 @@
     <string name="Common_Refresh">更新</string>
     <string name="Common_Collapse">崩潰</string>
     <string name="Common_Expand"> 拓展</string>
+    <string name="Common_Enable">啟用</string>
     <string name="Common_Ago">%1$s 前</string>
     <string name="Common_Minutes_Other">%1$d 分钟</string>
     <string name="Common_Hour_One">%1$d 小時</string>
