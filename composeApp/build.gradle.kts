@@ -431,6 +431,13 @@ tasks.named("clean") {
     dependsOn(cleanLibrary)
 }
 
+tasks.withType<JavaExec> {
+    systemProperty(
+        "java.library.path",
+        "$projectDir/src/desktopMain/build/" + File.pathSeparator + System.getProperty("java.library.path"),
+    )
+}
+
 tasks.register("copyBrandingToCommonResources") {
     doLast {
         val projectDir = project.projectDir.absolutePath

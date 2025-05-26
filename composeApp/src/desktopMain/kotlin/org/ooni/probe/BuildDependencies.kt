@@ -79,7 +79,6 @@ private fun readAssetFile(path: String): String {
     throw NotImplementedError()
 }
 
-
 private fun buildDataStore() =
     PreferenceDataStoreFactory.create {
         projectDirectories.dataDir.toPath().resolve("probe.preferences_pb").toFile()

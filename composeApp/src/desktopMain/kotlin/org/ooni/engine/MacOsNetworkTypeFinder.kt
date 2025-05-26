@@ -33,12 +33,6 @@ class MacOsNetworkTypeFinder : NetworkTypeFinder {
             } else {
                 "unknown"
             }
-        } catch (e: UnsatisfiedLinkError) {
-            Logger.d("Failed to call native method: ${e.message}")
-            "unknown"
-        } catch (e: Exception) {
-            Logger.d("Exception in native method call: ${e.message}")
-            "unknown"
         } catch (e: Throwable) {
             Logger.d("Error in native method call: ${e.message}")
             "unknown"
