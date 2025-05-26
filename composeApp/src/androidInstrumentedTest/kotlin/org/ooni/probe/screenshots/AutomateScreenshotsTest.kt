@@ -28,7 +28,6 @@ import ooniprobe.composeapp.generated.resources.Onboarding_WhatIsOONIProbe_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_About_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
-import ooniprobe.composeapp.generated.resources.Settings_Notifications_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Enabled
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
@@ -226,14 +225,6 @@ class AutomateScreenshotsTest {
 
                 wait { onNodeWithText(Res.string.Settings_About_Label).isDisplayed() }
                 Screengrab.screenshot("09-settings")
-
-                clickOnText(Res.string.Settings_Notifications_Label)
-
-                wait { onNodeWithText(Res.string.Settings_Notifications_Label).isDisplayed() }
-                Screengrab.screenshot("10-notifications")
-
-                // back
-                clickOnContentDescription(Res.string.Common_Back)
 
                 wait { onNodeWithText(Res.string.Settings_About_Label).isDisplayed() }
 
