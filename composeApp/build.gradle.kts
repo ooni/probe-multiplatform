@@ -417,6 +417,24 @@ tasks {
     }
 }
 
+val makeLibrary by tasks.registering(Exec::class) {
+    workingDir = file("src/desktopMain")
+    commandLine = listOf("make", "library")
+}
+
+val cleanLibrary by tasks.registering(Exec::class) {
+    workingDir = file("src/desktopMain")
+    commandLine = listOf("make", "clean")
+}
+
+tasks.named("preBuild") {
+    dependsOn(makeLibrary)
+}
+
+tasks.named("clean") {
+    dependsOn(cleanLibrary)
+}
+
 tasks.register("copyBrandingToCommonResources") {
     doLast {
         val projectDir = project.projectDir.absolutePath
