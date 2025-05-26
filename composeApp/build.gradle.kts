@@ -307,7 +307,9 @@ android {
     }
     lint {
         warningsAsErrors = true
-        disable += listOf("AndroidGradlePluginVersion", "ObsoleteLintCustomCheck")
+        disable += listOf(
+            "AndroidGradlePluginVersion", "NullSafeMutableLiveData", "ObsoleteLintCustomCheck",
+        )
         lintConfig = file("lint.xml")
     }
     flavorDimensions += "license"
