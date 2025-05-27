@@ -98,8 +98,61 @@ const char* getNetworkTypeImpl() {
     }
 }
 #elif defined(_WIN32)
+
+#include <winsock2.h>
+#include <iphlpapi.h>
+#include <stdio.h>
+#pragma comment(lib, "iphlpapi.lib")
+#pragma comment(lib, "ws2_32.lib")
+
 const char* getNetworkTypeImpl() {
-    // TODO: Implement actual Windows network type detection
+    static char result[32] = "unknown";
+    IP_ADAPTER_ADDRESSES *adapters = NULL, *adapter = NULL;
+    ULONG outBufLen = 0;
+    DWORD dwRetVal = 0;
+    int found_vpn = 0, found_wifi = 0, found_wired = 0, found_mobile = 0;
+
+    // Get required buffer size
+    GetAdaptersAddresses(AF_UNSPEC, GAA_FLAG_INCLUDE_ALL_INTERFACES, NULL, adapters, &outBufLen);
+    adapters = (IP_ADAPTER_ADDRESSES*)malloc(outBufLen);
+    if (!adapters) return "unknown";
+    dwRetVal = GetAdaptersAddresses(AF_UNSPEC, GAA_FLAG_INCLUDE_ALL_INTERFACES, NULL, adapters, &outBufLen);
+    if (dwRetVal != NO_ERROR) {
+        free(adapters);
+        return "unknown";
+    }
+
+    for (adapter = adapters; adapter != NULL; adapter = adapter->Next) {
+        // Skip loopback and not up
+        if (adapter->OperStatus != IfOperStatusUp) continue;
+        if (adapter->IfType == IF_TYPE_SOFTWARE_LOOPBACK) continue;
+        // VPN detection: name or description contains VPN, TAP, TUN, PPP, WAN Miniport
+        if (adapter->IfType == IF_TYPE_PPP ||
+            strstr(adapter->Description, "VPN") || strstr(adapter->Description, "TAP") || strstr(adapter->Description, "TUN") ||
+            strstr(adapter->Description, "WAN Miniport") ||
+            strstr(adapter->FriendlyName, "VPN") || strstr(adapter->FriendlyName, "TAP") || strstr(adapter->FriendlyName, "TUN") ||
+            strstr(adapter->FriendlyName, "WAN Miniport")) {
+            found_vpn = 1;
+            break;
+        }
+        // Wi-Fi
+        if (adapter->IfType == IF_TYPE_IEEE80211) {
+            found_wifi = 1;
+        }
+        // Wired Ethernet
+        if (adapter->IfType == IF_TYPE_ETHERNET_CSMACD) {
+            found_wired = 1;
+        }
+        // Mobile (cellular)
+        if (adapter->IfType == IF_TYPE_WWANPP || adapter->IfType == IF_TYPE_WWANPP2) {
+            found_mobile = 1;
+        }
+    }
+    free(adapters);
+    if (found_vpn) return "vpn";
+    if (found_wifi) return "wifi";
+    if (found_mobile) return "mobile";
+    if (found_wired) return "wired_ethernet";
     return "unknown";
 }
 #elif defined(__linux__)
