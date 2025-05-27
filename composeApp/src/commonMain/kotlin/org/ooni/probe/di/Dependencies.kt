@@ -570,6 +570,7 @@ class Dependencies(
         getDescriptors = getTestDescriptors::latest,
         deleteAllResults = deleteAllResults::invoke,
         markJustFinishedTestAsSeen = markJustFinishedTestAsSeen::invoke,
+        markAllAsViewed = resultRepository::markAllAsViewed,
     )
 
     fun runningViewModel(

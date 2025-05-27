@@ -110,6 +110,8 @@
     <string name="Results_TaskOrigin_All">All Sources</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
+    <string name="Results_MarkAllAsViewed">Mark all as viewed</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Do you want to mark all results as viewed?</string>
 
     <!-- Measurements -->
 
@@ -346,6 +348,7 @@
     <string name="Common_Collapse">Collapse</string>
     <string name="Common_Expand">Expand</string>
     <string name="Common_Enable">Enable</string>
+    <string name="Common_Yes">Yes</string>
     <string name="Common_Ago">%1$s ago</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>

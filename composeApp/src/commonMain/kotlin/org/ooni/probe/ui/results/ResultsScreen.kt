@@ -42,11 +42,14 @@ import kotlinx.datetime.LocalDate.Companion.Format
 import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
+import ooniprobe.composeapp.generated.resources.Common_Yes
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Results_LimitedNotice
+import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed
+import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed_Confirmation
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_FilterTests
@@ -59,6 +62,7 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
 import ooniprobe.composeapp.generated.resources.ic_delete_all
 import ooniprobe.composeapp.generated.resources.ic_download
+import ooniprobe.composeapp.generated.resources.ic_mark_as_viewed
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
@@ -74,6 +78,7 @@ fun ResultsScreen(
     onEvent: (ResultsViewModel.Event) -> Unit,
 ) {
     var showDeleteConfirm by remember { mutableStateOf(false) }
+    var showMarkAsViewedConfirm by remember { mutableStateOf(false) }
 
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
@@ -81,6 +86,17 @@ fun ResultsScreen(
                 Text(stringResource(Res.string.TestResults_Overview_Title))
             },
             actions = {
+                if (!state.isLoading && state.results.any() && state.filter.isAll) {
+                    IconButton(
+                        onClick = { showMarkAsViewedConfirm = true },
+                        enabled = state.markAllAsViewedEnabled,
+                    ) {
+                        Icon(
+                            painterResource(Res.drawable.ic_mark_as_viewed),
+                            contentDescription = stringResource(Res.string.Results_MarkAllAsViewed),
+                        )
+                    }
+                }
                 if (!state.isLoading && state.results.any() && state.filter.isAll) {
                     IconButton(onClick = { showDeleteConfirm = true }) {
                         Icon(
@@ -172,6 +188,18 @@ fun ResultsScreen(
             },
             onDismiss = {
                 showDeleteConfirm = false
+            },
+        )
+    }
+
+    if (showMarkAsViewedConfirm) {
+        MarkAllAsViewedConfirmDialog(
+            onConfirm = {
+                onEvent(ResultsViewModel.Event.MarkAllAsViewedClick)
+                showMarkAsViewedConfirm = false
+            },
+            onDismiss = {
+                showMarkAsViewedConfirm = false
             },
         )
     }
@@ -352,6 +380,29 @@ private fun DeleteConfirmDialog(
                     stringResource(Res.string.Modal_Delete),
                     color = MaterialTheme.colorScheme.error,
                 )
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = { onDismiss() }) {
+                Text(stringResource(Res.string.Modal_Cancel))
+            }
+        },
+    )
+}
+
+@Composable
+private fun MarkAllAsViewedConfirmDialog(
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = { onDismiss() },
+        text = {
+            Text(stringResource(Res.string.Results_MarkAllAsViewed_Confirmation))
+        },
+        confirmButton = {
+            TextButton(onClick = { onConfirm() }) {
+                Text(stringResource(Res.string.Common_Yes))
             }
         },
         dismissButton = {
