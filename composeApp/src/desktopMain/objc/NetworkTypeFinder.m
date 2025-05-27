@@ -1,5 +1,4 @@
 #import <jni.h>
-
 #if defined(__APPLE__)
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
@@ -104,8 +103,131 @@ const char* getNetworkTypeImpl() {
     return "unknown";
 }
 #elif defined(__linux__)
+
+#include <string.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <net/if.h>
+#include <arpa/inet.h>
+#include <stdlib.h>
+
+// Helper to check if a given interface is a VPN
+static int is_vpn_iface(const char *iface) {
+    return strncmp(iface, "tun", 3) == 0 || strncmp(iface, "tap", 3) == 0 ||
+           strncmp(iface, "ppp", 3) == 0 || strncmp(iface, "wg", 2) == 0 ||
+           strncmp(iface, "ipsec", 5) == 0 || strncmp(iface, "utun", 4) == 0;
+}
+
+// Helper to check if interface is up and has an IP address
+static int iface_is_up_and_has_ip(const char *iface) {
+    char path[256];
+    snprintf(path, sizeof(path), "/sys/class/net/%s/operstate", iface);
+    FILE *fp = fopen(path, "r");
+    if (!fp) return 0;
+    char state[32] = "";
+    fgets(state, sizeof(state), fp);
+    fclose(fp);
+    if (strncmp(state, "up", 2) != 0) return 0;
+    // Check if has IP address
+    char cmd[256];
+    snprintf(cmd, sizeof(cmd), "ip addr show %s | grep 'inet ' > /dev/null", iface);
+    int ret = system(cmd);
+    return ret == 0;
+}
+
 const char* getNetworkTypeImpl() {
-    // TODO: Implement actual Linux network type detection
+    // 1. Check for VPN by looking for default route via VPN interface
+    FILE *route_fp = fopen("/proc/net/route", "r");
+    char line[512];
+    char vpn_iface[64] = "";
+    if (route_fp) {
+        // Skip header
+        fgets(line, sizeof(line), route_fp);
+        while (fgets(line, sizeof(line), route_fp)) {
+            char iface[64];
+            unsigned long dest, gw;
+            unsigned int flags, refcnt, use, metric, mask, mtu, win, irtt;
+            int n = sscanf(line, "%63s %lx %lx %X %u %u %u %x %u %u %u", iface, &dest, &gw, &flags, &refcnt, &use, &metric, &mask, &mtu, &win, &irtt);
+            if (n >= 11 && dest == 0) { // default route
+                if (is_vpn_iface(iface) && iface_is_up_and_has_ip(iface)) {
+                    strcpy(vpn_iface, iface);
+                    break;
+                }
+            }
+        }
+        fclose(route_fp);
+    }
+    if (vpn_iface[0]) return "vpn";
+
+    // 2. Check for active WireGuard tunnels
+    struct stat st;
+    if (stat("/proc/net/wireguard", &st) == 0) {
+        FILE *wg_fp = fopen("/proc/net/wireguard", "r");
+        if (wg_fp) {
+            char buf[256];
+            while (fgets(buf, sizeof(buf), wg_fp)) {
+                char *iface = strtok(buf, " ");
+                if (iface && iface_is_up_and_has_ip(iface)) {
+                    fclose(wg_fp);
+                    return "vpn";
+                }
+            }
+            fclose(wg_fp);
+        }
+    }
+
+    // 3. Check for active PPP connections
+    if (stat("/proc/net/ppp", &st) == 0) {
+        FILE *ppp_fp = fopen("/proc/net/ppp", "r");
+        if (ppp_fp) {
+            char buf[256];
+            // skip header
+            fgets(buf, sizeof(buf), ppp_fp);
+            while (fgets(buf, sizeof(buf), ppp_fp)) {
+                char *iface = strtok(buf, ":");
+                if (iface && iface_is_up_and_has_ip(iface)) {
+                    fclose(ppp_fp);
+                    return "vpn";
+                }
+            }
+            fclose(ppp_fp);
+        }
+    }
+
+    // 4. Fallback: check for VPN interfaces present and up
+    DIR *d = opendir("/sys/class/net/");
+    if (!d) return "unknown";
+    struct dirent *dir;
+    int found_vpn = 0, found_wifi = 0, found_wired = 0, found_mobile = 0;
+    while ((dir = readdir(d)) != NULL) {
+        if (dir->d_name[0] == '.') continue;
+        if (is_vpn_iface(dir->d_name) && iface_is_up_and_has_ip(dir->d_name)) {
+            found_vpn = 1;
+        }
+        // Mobile: wwan, ppp
+        if ((strncmp(dir->d_name, "wwan", 4) == 0 || strncmp(dir->d_name, "ppp", 3) == 0) && iface_is_up_and_has_ip(dir->d_name)) {
+            found_mobile = 1;
+        }
+        // Wi-Fi: has /sys/class/net/<iface>/wireless
+        char wireless_path[256];
+        snprintf(wireless_path, sizeof(wireless_path), "/sys/class/net/%s/wireless", dir->d_name);
+        if (access(wireless_path, F_OK) == 0 && iface_is_up_and_has_ip(dir->d_name)) {
+            found_wifi = 1;
+        }
+        // Wired: eth*, en*
+        if ((strncmp(dir->d_name, "eth", 3) == 0 || strncmp(dir->d_name, "en", 2) == 0) && iface_is_up_and_has_ip(dir->d_name)) {
+            found_wired = 1;
+        }
+    }
+    closedir(d);
+    if (found_vpn) return "vpn";
+    if (found_wifi) return "wifi";
+    if (found_mobile) return "mobile";
+    if (found_wired) return "wired_ethernet";
     return "unknown";
 }
 #else
