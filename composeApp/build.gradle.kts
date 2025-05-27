@@ -419,7 +419,7 @@ tasks {
 
 val makeLibrary by tasks.registering(Exec::class) {
     workingDir = file("src/desktopMain")
-    commandLine = listOf("make", "library")
+    commandLine = listOf("make", "all")
 }
 
 val cleanLibrary by tasks.registering(Exec::class) {

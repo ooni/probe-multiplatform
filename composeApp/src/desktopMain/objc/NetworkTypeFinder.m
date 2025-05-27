@@ -1,5 +1,7 @@
-#import <Foundation/Foundation.h>
 #import <jni.h>
+
+#if defined(__APPLE__)
+#import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <NetworkExtension/NetworkExtension.h>
 #import <Network/Network.h>
@@ -50,7 +52,7 @@
         return @"vpn";
     }
 
-    NSString *result = @"no_internet";
+    NSString *result = @"unknown";
 
     nw_path_t currentPath = _currentPath;
     if (currentPath && nw_path_get_status(currentPath) == nw_path_status_satisfied) {
@@ -84,16 +86,40 @@
 
     return NO;
 }
-
 @end
+#endif
 
-JNIEXPORT jstring JNICALL Java_org_ooni_engine_MacOsNetworkTypeFinder_getNetworkType(JNIEnv *env, jobject obj)
-{
+#if defined(__APPLE__)
+const char* getNetworkTypeImpl() {
     @autoreleasepool {
         NetworkTypeFinder *finder = [[NetworkTypeFinder alloc] init];
         NSString *networkType = [finder getNetworkType];
-        // Convert NSString to jstring
-        const char *cString = [networkType UTF8String];
-        return (*env)->NewStringUTF(env, cString);
+        // Return pointer valid for JNI lifetime, no need to free
+        return [networkType UTF8String];
     }
+}
+#elif defined(_WIN32)
+const char* getNetworkTypeImpl() {
+    // TODO: Implement actual Windows network type detection
+    return "unknown";
+}
+#elif defined(__linux__)
+const char* getNetworkTypeImpl() {
+    // TODO: Implement actual Linux network type detection
+    return "unknown";
+}
+#else
+const char* getNetworkTypeImpl() {
+    return "unknown";
+}
+#endif
+
+const char* getNetworkType() {
+    return getNetworkTypeImpl();
+}
+
+JNIEXPORT jstring JNICALL Java_org_ooni_engine_DesktopNetworkTypeFinder_getNetworkType(JNIEnv *env, jobject obj)
+{
+    const char* networkType = getNetworkType();
+    return (*env)->NewStringUTF(env, networkType);
 }

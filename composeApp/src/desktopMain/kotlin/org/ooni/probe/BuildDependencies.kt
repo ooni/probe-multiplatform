@@ -6,7 +6,7 @@ import dev.dirs.ProjectDirectories
 import dev.hydraulic.conveyor.control.SoftwareUpdateController
 import okio.Path.Companion.toPath
 import org.ooni.engine.DesktopOonimkallBridge
-import org.ooni.engine.MacOsNetworkTypeFinder
+import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.FlavorConfigInterface
@@ -37,7 +37,7 @@ val dependencies = Dependencies(
     cacheDir = projectDirectories.cacheDir.also { File(it).mkdirs() },
     readAssetFile = ::readAssetFile,
     databaseDriverFactory = { buildDatabaseDriver(projectDirectories.dataDir) },
-    networkTypeFinder = MacOsNetworkTypeFinder(),
+    networkTypeFinder = DesktopNetworkTypeFinder(),
     buildDataStore = ::buildDataStore,
     getBatteryState = { BatteryState.Unknown },
     startSingleRunInner = backgroundWorkManager::startSingleRun,

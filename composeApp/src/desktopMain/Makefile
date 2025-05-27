@@ -6,51 +6,76 @@ OBJC_FILES = objc/NetworkTypeFinder.m
 LIBRARY_NAME = networktypefinder
 LIBRARY_FILE_MAC = lib$(LIBRARY_NAME).dylib
 LIBRARY_FILE_LINUX = lib$(LIBRARY_NAME).so
-MODULE_NAME = NetworkTypeFinder
-KOTLIN_CLASS = org.ooni.engine.NetworkTypeFinderJNI
-KOTLIN_CLASSES_DIR = ../../build/classes/kotlin/jni/main
 JAVA_HOME ?= $(shell java -XshowSettings:properties -version 2>&1 > /dev/null | grep 'java.home' | awk '{print $$3}')
 
-# Default target
-all: library
+# Detect platform
+UNAME_S := $(shell uname -s)
 
-library:
-	@echo "Compiling Objective-C code to a dynamic library..."
-	@echo "Note: The IDE may show syntax errors for JNI macros, but the code should compile correctly with proper JNI headers"
+ifeq ($(UNAME_S),Darwin)
+PLATFORM_TARGET := macos
+LIBRARY_FILE := $(LIBRARY_FILE_MAC)
+else ifeq ($(UNAME_S),Linux)
+PLATFORM_TARGET := linux
+LIBRARY_FILE := $(LIBRARY_FILE_LINUX)
+else ifeq ($(OS),Windows_NT)
+PLATFORM_TARGET := windows
+LIBRARY_FILE := $(LIBRARY_NAME).dll
+else
+PLATFORM_TARGET := unknown
+LIBRARY_FILE :=
+endif
+
+# Default target: build only for detected platform
+all: $(PLATFORM_TARGET)
+
+macos:
+	@echo "Compiling Objective-C code to a dynamic library for macOS..."
 	@mkdir -p build
 	$(OBJC_COMPILER) -dynamiclib -o build/$(LIBRARY_FILE_MAC) $(OBJC_FILES) -framework Foundation -framework SystemConfiguration -framework CoreFoundation -framework Network -framework CFNetwork -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin
 	@echo "Library created at build/$(LIBRARY_FILE_MAC)"
 
+linux:
+	@echo "Compiling Objective-C code to a dynamic library for Linux..."
+	@mkdir -p build
+	$(OBJC_COMPILER) -shared -fPIC -o build/$(LIBRARY_FILE_LINUX) $(OBJC_FILES) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
+	@echo "Library created at build/$(LIBRARY_FILE_LINUX)"
+
+windows:
+	@echo "Compiling Objective-C code to a dynamic library for Windows..."
+	@mkdir -p build
+	$(OBJC_COMPILER) -shared -o build/$(LIBRARY_NAME).dll $(OBJC_FILES) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/win32
+	@echo "Library created at build/$(LIBRARY_NAME).dll"
+
 # Install the library to system path
-install: library
+install: all
 	@echo "Installing library to system path..."
-ifeq ($(shell uname), Darwin)
-	@echo "Installing for macOS..."
+ifeq ($(PLATFORM_TARGET),macos)
 	cp build/$(LIBRARY_FILE_MAC) $(HOME)/Library/Java/Extensions
-else
-	@echo "Installing for Linux..."
+else ifeq ($(PLATFORM_TARGET),linux)
 	sudo cp build/$(LIBRARY_FILE_LINUX) /usr/lib/
+else ifeq ($(PLATFORM_TARGET),windows)
+	copy build\\$(LIBRARY_NAME).dll %JAVA_HOME%\\bin
+else
+	@echo "Unknown platform, not installing."
 endif
 	@echo "Library installed"
 
 clean:
 	@echo "Cleaning build artifacts..."
 	rm -rf build
-	rm -f *.h
 	@echo "Clean complete"
 
-# Help target
 help:
 	@echo "NetworkTypeFinder JNI Bridge Makefile"
 	@echo ""
 	@echo "Targets:"
-	@echo "  all (default): Compile Swift code to a dynamic library"
-	@echo "  install: Install the library to system path"
+	@echo "  all (default): Compile Objective-C code to a dynamic library for the current platform"
+	@echo "  install: Install the library to system path for the current platform"
 	@echo "  clean: Clean build artifacts"
 	@echo "  help: Show this help message"
 	@echo ""
 	@echo "Example usage:"
-	@echo "  make all      # Compile the library"
-	@echo "  make install  # Install the library"
+	@echo "  make all      # Compile the library for your platform"
+	@echo "  make install  # Install the library for your platform"
 
-.PHONY: all library macos linux header install clean help
+.PHONY: all macos linux windows install clean help

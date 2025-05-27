@@ -3,11 +3,10 @@ package org.ooni.engine
 import co.touchlab.kermit.Logger
 import org.ooni.engine.models.NetworkType
 
-/**
- * MacOsNetworkTypeFinder is a class that implements the NetworkTypeFinder interface.
- * It uses a native library to determine the network type on macOS.
+/** * DesktopNetworkTypeFinder is a class that implements NetworkTypeFinder
+ * to determine the network type on desktop platforms.
  */
-class MacOsNetworkTypeFinder : NetworkTypeFinder {
+class DesktopNetworkTypeFinder : NetworkTypeFinder {
     companion object Companion {
         private var libraryLoaded = false
 
