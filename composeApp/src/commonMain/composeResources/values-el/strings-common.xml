@@ -267,6 +267,7 @@
     <string name="Common_Collapse">Σύμπτυξη</string>
     <string name="Common_Expand">Ανάπτυξη</string>
     <string name="Common_Enable">Ενεργοποίηση</string>
+    <string name="Common_Yes">Ναι</string>
     <string name="Common_Ago">%1$s πριν</string>
     <string name="Common_Minutes_One">%1$d λεπτό</string>
     <string name="Common_Minutes_Other">%1$d λεπτά</string>
