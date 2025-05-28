@@ -3,6 +3,7 @@ package org.ooni.probe.ui.measurement
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -59,7 +60,10 @@ fun MeasurementScreen(
                     Text(stringResource(Res.string.Measurement_Title))
                 },
                 navigationIcon = {
-                    IconButton(onClick = { onEvent(MeasurementViewModel.Event.BackClicked) }, modifier = Modifier.testTag("Back")) {
+                    IconButton(
+                        onClick = { onEvent(MeasurementViewModel.Event.BackClicked) },
+                        modifier = Modifier.testTag("Back"),
+                    ) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(Res.string.Common_Back),
@@ -100,19 +104,13 @@ fun MeasurementScreen(
                 },
             )
 
-            LinearProgressIndicator(
-                progress = {
-                    (controller.state as? OoniWebViewController.State.Loading)?.progress ?: 0f
-                },
-                color = MaterialTheme.colorScheme.onPrimary,
-                trackColor = Color.Transparent,
-                drawStopIndicator = {},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 2.dp)
-                    .height(2.dp),
-            )
+            if (controller.state is OoniWebViewController.State.Initializing ||
+                controller.state is OoniWebViewController.State.Loading
+            ) {
+                ProgressIndicator(
+                    (controller.state as? OoniWebViewController.State.Loading)?.progress ?: 0f,
+                )
+            }
         }
 
         if (state !is MeasurementViewModel.State.ShowMeasurement) return@Column
@@ -161,5 +159,32 @@ fun MeasurementScreen(
     val url = (state as? MeasurementViewModel.State.ShowMeasurement)?.url
     LaunchedEffect(url) {
         url?.let(controller::load)
+    }
+}
+
+@Composable
+private fun BoxScope.ProgressIndicator(progress: Float) {
+    val progressColor = MaterialTheme.colorScheme.onPrimary
+    val progressTrackColor = Color.Transparent
+    val progressModifier = Modifier
+        .fillMaxWidth()
+        .align(Alignment.BottomCenter)
+        .padding(bottom = 2.dp)
+        .height(2.dp)
+
+    if (progress == 0f) {
+        LinearProgressIndicator(
+            color = progressColor,
+            trackColor = progressTrackColor,
+            modifier = progressModifier,
+        )
+    } else {
+        LinearProgressIndicator(
+            progress = { progress },
+            color = progressColor,
+            trackColor = progressTrackColor,
+            drawStopIndicator = {},
+            modifier = progressModifier,
+        )
     }
 }
