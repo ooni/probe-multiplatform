@@ -43,7 +43,7 @@ linux:
 windows:
 	@echo "Compiling Objective-C code to a dynamic library for Windows..."
 	@mkdir -p build
-	$(COMPILER) -shared -m64 -o build\\$(LIBRARY_NAME).dll $(FILES) '-I$(JAVA_HOME)include' '-I$(JAVA_HOME)include\\win32' -lws2_32 -liphlpapi
+	$(COMPILER) -shared -m64 -o build\\$(LIBRARY_NAME).dll $(FILES) '-I$(JAVA_HOME)\\include' '-I$(JAVA_HOME)\\include\\win32' -lws2_32 -liphlpapi
 	@echo "Library created at build/$(LIBRARY_NAME).dll"
 
 # Install the library to system path
