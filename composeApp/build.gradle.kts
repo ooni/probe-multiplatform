@@ -419,6 +419,23 @@ tasks {
     }
 }
 
+val makeLibrary by tasks.registering(Exec::class) {
+    workingDir = file("src/desktopMain")
+    commandLine = listOf("make", "all")
+}
+
+val cleanLibrary by tasks.registering(Exec::class) {
+    workingDir = file("src/desktopMain")
+    commandLine = listOf("make", "clean")
+}
+
+tasks.withType<JavaExec> {
+    systemProperty(
+        "java.library.path",
+        "$projectDir/src/desktopMain/build/" + File.pathSeparator + System.getProperty("java.library.path"),
+    )
+}
+
 tasks.register("copyBrandingToCommonResources") {
     doLast {
         val projectDir = project.projectDir.absolutePath

@@ -6,7 +6,7 @@ import dev.dirs.ProjectDirectories
 import dev.hydraulic.conveyor.control.SoftwareUpdateController
 import okio.Path.Companion.toPath
 import org.ooni.engine.DesktopOonimkallBridge
-import org.ooni.engine.models.NetworkType
+import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.FlavorConfigInterface
@@ -37,7 +37,7 @@ val dependencies = Dependencies(
     cacheDir = projectDirectories.cacheDir.also { File(it).mkdirs() },
     readAssetFile = ::readAssetFile,
     databaseDriverFactory = { buildDatabaseDriver(projectDirectories.dataDir) },
-    networkTypeFinder = ::networkTypeFinder,
+    networkTypeFinder = DesktopNetworkTypeFinder(),
     buildDataStore = ::buildDataStore,
     getBatteryState = { BatteryState.Unknown },
     startSingleRunInner = backgroundWorkManager::startSingleRun,
@@ -78,12 +78,6 @@ private fun readAssetFile(path: String): String {
     // Read asset is only needed for NewsMediaScan Android and iOS, not for Desktop
     throw NotImplementedError()
 }
-
-/*
- * This is a dummy implementation for now.
- * In the future we can write a proper implement using native APIs.
- */
-private fun networkTypeFinder() = NetworkType.Unknown("unknown")
 
 private fun buildDataStore() =
     PreferenceDataStoreFactory.create {
