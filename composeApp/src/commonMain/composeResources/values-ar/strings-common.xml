@@ -105,7 +105,6 @@
     <string name="Results_TaskOrigin_All">All Sources</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
-
     <!-- Measurements -->
 
     <string name="Measurement_Title">Measurement</string>
@@ -326,6 +325,7 @@
     <string name="Common_Collapse">طي</string>
     <string name="Common_Expand">تمديد</string>
     <string name="Common_Enable">تفعيل</string>
+    <string name="Common_Yes">‮نعم</string>
     <string name="Common_Ago">%1$s ago</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>
