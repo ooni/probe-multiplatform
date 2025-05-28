@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.shared
 
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -32,5 +33,8 @@ fun MarkdownViewer(
                 .copy(color = MaterialTheme.colorScheme.primary),
         ),
         modifier = modifier,
+        loading = {
+            LinearProgressIndicator(modifier = modifier)
+        },
     )
 }
