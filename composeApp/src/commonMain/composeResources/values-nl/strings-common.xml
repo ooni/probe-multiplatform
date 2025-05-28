@@ -265,6 +265,7 @@
     <string name="Common_Collapse">Inklappen</string>
     <string name="Common_Expand">Uitklappen</string>
     <string name="Common_Enable">Inschakelen</string>
+    <string name="Common_Yes">Ja</string>
     <string name="Common_Ago">%1$s geleden</string>
     <string name="Common_Minutes_Other">%1$d minuten</string>
     <string name="Common_Hour_One">%1$d uur</string>
