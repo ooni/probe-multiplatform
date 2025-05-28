@@ -62,7 +62,7 @@
         } else if (nw_path_uses_interface_type(currentPath, nw_interface_type_wired)) {
             result = @"wired_ethernet";
         } else {
-            result = @"";
+            result = @"unknown";
         }
     }
 
@@ -165,24 +165,25 @@ const char* getNetworkTypeImpl() {
 #include <net/if.h>
 #include <arpa/inet.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 // Helper to check if a given interface is a VPN
-static int is_vpn_iface(const char *iface) {
+static bool is_vpn_iface(const char *iface) {
     return strncmp(iface, "tun", 3) == 0 || strncmp(iface, "tap", 3) == 0 ||
            strncmp(iface, "ppp", 3) == 0 || strncmp(iface, "wg", 2) == 0 ||
            strncmp(iface, "ipsec", 5) == 0 || strncmp(iface, "utun", 4) == 0;
 }
 
 // Helper to check if interface is up and has an IP address
-static int iface_is_up_and_has_ip(const char *iface) {
+static bool iface_is_up_and_has_ip(const char *iface) {
     char path[256];
     snprintf(path, sizeof(path), "/sys/class/net/%s/operstate", iface);
     FILE *fp = fopen(path, "r");
-    if (!fp) return 0;
+    if (!fp) return false;
     char state[32] = "";
     fgets(state, sizeof(state), fp);
     fclose(fp);
-    if (strncmp(state, "up", 2) != 0) return 0;
+    if (strncmp(state, "up", 2) != 0) return false;
     // Check if has IP address
     char cmd[256];
     snprintf(cmd, sizeof(cmd), "ip addr show %s | grep 'inet ' > /dev/null", iface);
