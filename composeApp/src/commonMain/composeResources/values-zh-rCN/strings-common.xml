@@ -110,6 +110,9 @@
     <string name="Results_TaskOrigin_All">所有来源</string>
     <string name="Results_LimitedNotice">只显示最后 %1$d 个结果</string>
     <string name="Results_UploadingMissing">上传缺失的结果 %1$s</string>
+    <string name="Results_MarkAllAsViewed">将所有内容标记为已查看</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">是否要将所有结果标记为已查看？</string>
+
     <!-- Measurements -->
 
     <string name="Measurement_Title">测量</string>
