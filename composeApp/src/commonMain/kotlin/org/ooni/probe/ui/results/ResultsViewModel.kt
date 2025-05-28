@@ -27,6 +27,7 @@ class ResultsViewModel(
     getDescriptors: () -> Flow<List<Descriptor>>,
     deleteAllResults: suspend () -> Unit,
     markJustFinishedTestAsSeen: () -> Unit,
+    markAllAsViewed: suspend () -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -40,11 +41,12 @@ class ResultsViewModel(
             .flatMapLatest { getResults(it) }
             .onEach { results ->
                 val groupedResults = results.groupBy { it.monthAndYear }
-                _state.update {
-                    it.copy(
+                _state.update { state ->
+                    state.copy(
                         results = groupedResults,
                         summary = results.toSummary(),
                         isLoading = false,
+                        markAllAsViewedEnabled = results.any { !it.result.isViewed },
                     )
                 }
             }
@@ -75,6 +77,11 @@ class ResultsViewModel(
         events
             .filterIsInstance<Event.UploadClick>()
             .onEach { goToUpload() }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.MarkAllAsViewedClick>()
+            .onEach { markAllAsViewed() }
             .launchIn(viewModelScope)
 
         events
@@ -119,6 +126,7 @@ class ResultsViewModel(
         val results: Map<LocalDate, List<ResultListItem>> = emptyMap(),
         val summary: Summary? = null,
         val isLoading: Boolean = true,
+        val markAllAsViewedEnabled: Boolean = false,
     ) {
         val anyMissingUpload
             get() = results.any { it.value.any { item -> !item.allMeasurementsUploaded } }
@@ -147,6 +155,8 @@ class ResultsViewModel(
         data class ResultClick(val result: ResultListItem) : Event
 
         data object UploadClick : Event
+
+        data object MarkAllAsViewedClick : Event
 
         data object DeleteAllClick : Event
 

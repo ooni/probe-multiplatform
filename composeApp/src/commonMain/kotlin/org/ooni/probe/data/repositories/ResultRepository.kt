@@ -109,6 +109,11 @@ class ResultRepository(
             database.resultQueries.markAsViewed(resultId.value)
         }
 
+    suspend fun markAllAsViewed() =
+        withContext(backgroundContext) {
+            database.resultQueries.markAllAsViewed()
+        }
+
     suspend fun markAsDone(resultId: ResultModel.Id) =
         withContext(backgroundContext) {
             database.resultQueries.markAsDone(resultId.value)

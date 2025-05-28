@@ -17,6 +17,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class ResultRepositoryTest {
     private lateinit var subject: ResultRepository
@@ -100,5 +101,26 @@ class ResultRepositoryTest {
                 ),
             )
             assertEquals(0, subject.countMissingUpload().first())
+        }
+
+    @Test
+    fun markAsViewed() =
+        runTest {
+            val model = ResultModelFactory.build(isViewed = false)
+            subject.createOrUpdate(model)
+
+            subject.markAsViewed(model.id!!)
+
+            assertTrue(subject.getById(model.id!!).first()!!.first.isViewed)
+        }
+
+    @Test
+    fun markAllAsViewed() =
+        runTest {
+            subject.createOrUpdate(ResultModelFactory.build(isViewed = false))
+
+            subject.markAllAsViewed()
+
+            assertTrue(subject.getLatest().first()!!.isViewed)
         }
 }
