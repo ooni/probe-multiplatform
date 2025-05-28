@@ -110,7 +110,6 @@
     <string name="Results_TaskOrigin_All">Toutes les sources</string>
     <string name="Results_LimitedNotice">Seuls les %1$d derniers résultats sont affichés</string>
     <string name="Results_UploadingMissing">Téléversements des résultats manquants %1$s</string>
-
     <!-- Measurements -->
 
     <string name="Measurement_Title">Mesure</string>
@@ -346,6 +345,7 @@
     <string name="Common_Collapse">Réduire</string>
     <string name="Common_Expand">Développer</string>
     <string name="Common_Enable">Activer</string>
+    <string name="Common_Yes">Oui</string>
     <string name="Common_Ago">il y a %1$s</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>
