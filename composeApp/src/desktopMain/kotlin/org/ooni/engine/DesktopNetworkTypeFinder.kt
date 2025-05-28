@@ -15,7 +15,7 @@ class DesktopNetworkTypeFinder : NetworkTypeFinder {
                 System.loadLibrary("networktypefinder")
                 libraryLoaded = true
             } catch (e: UnsatisfiedLinkError) {
-                Logger.d("Failed to load native library: ${e.message}")
+                Logger.w("Failed to load native library: ${e.message}")
                 libraryLoaded = false
             }
         }
@@ -33,7 +33,7 @@ class DesktopNetworkTypeFinder : NetworkTypeFinder {
                 "unknown"
             }
         } catch (e: Throwable) {
-            Logger.d("Error in native method call: ${e.message}")
+            Logger.w("Error in native method call: ${e.message}")
             "unknown"
         }
 

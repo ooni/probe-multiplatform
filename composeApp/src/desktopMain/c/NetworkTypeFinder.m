@@ -86,9 +86,7 @@
     return NO;
 }
 @end
-#endif
 
-#if defined(__APPLE__)
 const char* getNetworkTypeImpl() {
     @autoreleasepool {
         NetworkTypeFinder *finder = [[NetworkTypeFinder alloc] init];
