@@ -110,7 +110,6 @@
     <string name="Results_TaskOrigin_All">所有来源</string>
     <string name="Results_LimitedNotice">只显示最后 %1$d 个结果</string>
     <string name="Results_UploadingMissing">上传缺失的结果 %1$s</string>
-
     <!-- Measurements -->
 
     <string name="Measurement_Title">测量</string>
@@ -346,6 +345,7 @@
     <string name="Common_Collapse">折叠</string>
     <string name="Common_Expand">展开</string>
     <string name="Common_Enable">启用</string>
+    <string name="Common_Yes">是</string>
     <string name="Common_Ago">%1$s 前</string>
     <string name="Common_Minutes_One">%1$d 分钟 </string>
     <string name="Common_Minutes_Other">%1$d 分钟</string>
