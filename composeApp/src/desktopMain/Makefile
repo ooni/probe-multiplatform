@@ -1,8 +1,8 @@
 # Makefile for NetworkTypeFinder JNI Bridge
 
 # Variables
-OBJC_COMPILER = clang
-OBJC_FILES = objc/NetworkTypeFinder.m
+COMPILER = clang
+FILES = c/NetworkTypeFinder.m
 LIBRARY_NAME = networktypefinder
 LIBRARY_FILE_MAC = lib$(LIBRARY_NAME).dylib
 LIBRARY_FILE_LINUX = lib$(LIBRARY_NAME).so
@@ -31,19 +31,19 @@ all: $(PLATFORM_TARGET)
 macos:
 	@echo "Compiling Objective-C code to a dynamic library for macOS..."
 	@mkdir -p build
-	$(OBJC_COMPILER) -dynamiclib -o build/$(LIBRARY_FILE_MAC) $(OBJC_FILES) -framework Foundation -framework SystemConfiguration -framework CoreFoundation -framework Network -framework CFNetwork -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin
+	$(COMPILER) -dynamiclib -o build/$(LIBRARY_FILE_MAC) $(FILES) -framework Foundation -framework SystemConfiguration -framework CoreFoundation -framework Network -framework CFNetwork -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin
 	@echo "Library created at build/$(LIBRARY_FILE_MAC)"
 
 linux:
 	@echo "Compiling Objective-C code to a dynamic library for Linux..."
 	@mkdir -p build
-	$(OBJC_COMPILER) -shared -fPIC -o build/$(LIBRARY_FILE_LINUX) $(OBJC_FILES) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
+	$(COMPILER) -shared -fPIC -o build/$(LIBRARY_FILE_LINUX) $(FILES) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
 	@echo "Library created at build/$(LIBRARY_FILE_LINUX)"
 
 windows:
 	@echo "Compiling Objective-C code to a dynamic library for Windows..."
 	@mkdir -p build
-	$(OBJC_COMPILER) -shared -m64 -o build\\$(LIBRARY_NAME).dll $(OBJC_FILES) '-I$(JAVA_HOME)include' '-I$(JAVA_HOME)include\\win32' -lws2_32 -liphlpapi
+	$(COMPILER) -shared -m64 -o build\\$(LIBRARY_NAME).dll $(FILES) '-I$(JAVA_HOME)include' '-I$(JAVA_HOME)include\\win32' -lws2_32 -liphlpapi
 	@echo "Library created at build/$(LIBRARY_NAME).dll"
 
 # Install the library to system path

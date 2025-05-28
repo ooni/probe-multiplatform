@@ -1,0 +1,54 @@
+name: Build NetworkTypeFinder JNI Bridge
+
+on:
+  push:
+    paths:
+      - 'composeApp/src/desktopMain/c/**'
+      - '.github/workflows/build-networktypefinder.yml'
+      - 'composeApp/src/desktopMain/Makefile'
+  pull_request:
+    paths:
+      - 'composeApp/src/desktopMain/c/**'
+      - '.github/workflows/build-networktypefinder.yml'
+      - 'composeApp/src/desktopMain/Makefile'
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    defaults:
+      run:
+        working-directory: composeApp/src/desktopMain
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y clang make
+
+      - name: Install dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: brew install llvm make
+
+      - name: Install dependencies (Windows)
+        if: runner.os == 'Windows'
+        run: choco install llvm make
+
+      - name: Build NetworkTypeFinder
+        run: cd composeApp/src/desktopMain/ && make all
+
+      - name: Upload built library
+        uses: actions/upload-artifact@v4
+        with:
+          name: networktypefinder-${{ matrix.os }}
+          path: composeApp/src/desktopMain/build/
