@@ -110,7 +110,6 @@
     <string name="Results_TaskOrigin_All">Tüm kaynaklar</string>
     <string name="Results_LimitedNotice">Yalnızca son %1$d sonuç görüntüleniyor</string>
     <string name="Results_UploadingMissing">Eksik sonuçlar yükleniyor %1$s</string>
-
     <!-- Measurements -->
 
     <string name="Measurement_Title">Ölçüm</string>
@@ -346,6 +345,7 @@
     <string name="Common_Collapse">Daralt</string>
     <string name="Common_Expand">Genişlet</string>
     <string name="Common_Enable">Aç</string>
+    <string name="Common_Yes">Evet</string>
     <string name="Common_Ago">%1$s önce</string>
     <string name="Common_Minutes_One">%1$d dakika</string>
     <string name="Common_Minutes_Other">%1$d dakika</string>
