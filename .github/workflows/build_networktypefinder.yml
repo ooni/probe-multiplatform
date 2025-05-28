@@ -45,7 +45,7 @@ jobs:
         run: choco install llvm make
 
       - name: Build NetworkTypeFinder
-        run: cd composeApp/src/desktopMain/ && make all
+        run: ls && cd composeApp/src/desktopMain/ && make all
 
       - name: Upload built library
         uses: actions/upload-artifact@v4
