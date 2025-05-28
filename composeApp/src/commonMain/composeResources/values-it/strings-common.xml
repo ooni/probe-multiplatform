@@ -258,6 +258,7 @@
     <string name="Common_Collapse">Collassa</string>
     <string name="Common_Expand">Espandi</string>
     <string name="Common_Enable">Abilita</string>
+    <string name="Common_Yes">Sì</string>
     <string name="Common_Ago">%1$s fa</string>
     <string name="Common_Minutes_One">%1$d minuto</string>
     <string name="Common_Minutes_Other">%1$d minuti</string>
