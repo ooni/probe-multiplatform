@@ -88,7 +88,7 @@ fun AboutScreen(
         ) {
             MarkdownViewer(
                 markdown = stringResource(Res.string.Settings_About_Content_Paragraph),
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
             )
 
             Spacer(modifier = Modifier.height(16.dp))
