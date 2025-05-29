@@ -110,7 +110,6 @@
     <string name="Results_TaskOrigin_All">Все источники</string>
     <string name="Results_LimitedNotice">Показываются только последние %1$d результатов</string>
     <string name="Results_UploadingMissing">Загрузить результаты %1$s</string>
-
     <!-- Measurements -->
 
     <string name="Measurement_Title">Измерение</string>
@@ -344,6 +343,7 @@
     <string name="Common_Collapse">Закрыть</string>
     <string name="Common_Expand">Открыть</string>
     <string name="Common_Enable">Включить</string>
+    <string name="Common_Yes">Да</string>
     <string name="Common_Ago">%1$s назад</string>
     <string name="Common_Minutes_One">%1$d минуту</string>
     <string name="Common_Minutes_Other">%1$d минуты</string>

@@ -295,6 +295,7 @@
     <string name="Common_Collapse">បង្រួម</string>
     <string name="Common_Expand">ពង្រីក</string>
     <string name="Common_Enable">បើក</string>
+    <string name="Common_Yes">បាទ​/ចាស</string>
     <string name="Common_Months_May">ឧសភា​</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

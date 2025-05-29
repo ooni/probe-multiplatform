@@ -266,6 +266,7 @@
     <string name="Common_Collapse">ချုံ့မည်</string>
     <string name="Common_Expand">ချဲ့မည်</string>
     <string name="Common_Enable">ဖွင့်မည်</string>
+    <string name="Common_Yes">ပါဝင်သည်</string>
     <string name="Common_Minutes_Other">%1$d မိနစ်</string>
     <string name="Common_Hour_Other">%1$d နာရီ</string>
     <string name="NetworkType_Vpn">VPN</string>
