@@ -110,6 +110,9 @@
     <string name="Results_TaskOrigin_All">Alle Quellen</string>
     <string name="Results_LimitedNotice">Nur die letzten %1$d Resultate werden angezeigt</string>
     <string name="Results_UploadingMissing">Hochladen fehlender Ergebnisse %1$s</string>
+    <string name="Results_MarkAllAsViewed">Alle als gesehen markieren</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Möchtest du alle Ergebnisse als angesehen markieren\?</string>
+
     <!-- Measurements -->
 
     <string name="Measurement_Title">Messung</string>
