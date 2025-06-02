@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -39,6 +40,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRun
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRunDisabled
@@ -47,10 +49,9 @@ import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Common_Enable
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsites
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
-import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LastRun_Never
-import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LatestTest
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_ReviewUpdates
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
+import ooniprobe.composeapp.generated.resources.Descriptor_LastTestResult
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_timer
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
@@ -62,13 +63,13 @@ import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.UpdateStatus
+import org.ooni.probe.ui.results.ResultCell
 import org.ooni.probe.ui.shared.ExpiredChip
 import org.ooni.probe.ui.shared.MarkdownViewer
 import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.isHeightCompact
-import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
 import org.ooni.probe.ui.theme.LocalCustomColors
 
@@ -136,6 +137,28 @@ fun DescriptorScreen(
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 16.dp),
                 )
+
+                HorizontalDivider(Modifier.padding(bottom = 16.dp), thickness = Dp.Hairline)
+
+                state.lastResult?.let { lastResult ->
+                    Text(
+                        stringResource(Res.string.Descriptor_LastTestResult),
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .padding(bottom = 16.dp),
+                    )
+
+                    ResultCell(
+                        item = lastResult,
+                        onResultClick = {
+                            onEvent(DescriptorViewModel.Event.ResultClicked(lastResult))
+                        },
+                        modifier = Modifier.padding(bottom = 16.dp),
+                    )
+
+                    HorizontalDivider(Modifier.padding(bottom = 16.dp), thickness = Dp.Hairline)
+                }
 
                 if (descriptor.source is Descriptor.Source.Installed) {
                     ConfigureUpdates(onEvent, descriptor.source.value.autoUpdate)
@@ -279,17 +302,6 @@ private fun DescriptorDetails(
                         modifier = Modifier.padding(start = 8.dp),
                     )
                 }
-            }
-
-            Row {
-                Text(stringResource(Res.string.Dashboard_Overview_LatestTest))
-
-                Text(
-                    text = state.lastResult?.startTime?.relativeDateTime()
-                        ?: stringResource(Res.string.Dashboard_Overview_LastRun_Never),
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 8.dp),
-                )
             }
 
             Row(

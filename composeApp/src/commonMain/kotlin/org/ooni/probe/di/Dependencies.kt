@@ -55,6 +55,7 @@ import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetFirstRun
+import org.ooni.probe.domain.GetLastResultOfDescriptor
 import org.ooni.probe.domain.GetMeasurementsNotUploaded
 import org.ooni.probe.domain.GetProxySettings
 import org.ooni.probe.domain.GetResult
@@ -292,6 +293,12 @@ class Dependencies(
         )
     }
     private val getFirstRun by lazy { GetFirstRun(preferenceRepository) }
+    private val getLastResultOfDescriptor by lazy {
+        GetLastResultOfDescriptor(
+            getLastResultDoneByDescriptor = resultRepository::getLastDoneByDescriptor,
+            getResultById = getResult::invoke,
+        )
+    }
     private val getResults by lazy {
         GetResults(
             resultRepository::list,
@@ -521,14 +528,16 @@ class Dependencies(
         goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
         goToRun: (String) -> Unit,
         goToChooseWebsites: () -> Unit,
+        goToResult: (ResultModel.Id) -> Unit,
     ) = DescriptorViewModel(
         descriptorKey = descriptorKey,
         onBack = onBack,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         goToRun = goToRun,
         goToChooseWebsites = goToChooseWebsites,
+        goToResult = goToResult,
         getLatestTestDescriptors = getTestDescriptors::latest,
-        getDescriptorLastResult = resultRepository::getLatestByDescriptor,
+        getLastResultOfDescriptor = getLastResultOfDescriptor::invoke,
         preferenceRepository = preferenceRepository,
         launchUrl = { launchAction(PlatformAction.OpenUrl(it)) },
         deleteTestDescriptor = deleteTestDescriptor::invoke,

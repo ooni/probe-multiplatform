@@ -59,12 +59,12 @@ class ResultRepository(
             .mapToOneOrNull(backgroundContext)
             .map { it?.toModel() }
 
-    fun getLatestByDescriptor(descriptorKey: String): Flow<ResultModel?> =
+    fun getLastDoneByDescriptor(descriptorKey: String): Flow<ResultModel.Id?> =
         database.resultQueries
-            .selectLatestByDescriptor(descriptorKey)
+            .selectLastDoneByDescriptor(descriptorKey)
             .asFlow()
             .mapToOneOrNull(backgroundContext)
-            .map { it?.toModel() }
+            .map { it?.let(ResultModel::Id) }
 
     fun countMissingUpload(): Flow<Long> =
         database.resultQueries.countMissingUpload()

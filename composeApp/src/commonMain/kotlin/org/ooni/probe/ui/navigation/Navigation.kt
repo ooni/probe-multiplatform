@@ -295,6 +295,7 @@ fun Navigation(
                     },
                     goToRun = { navController.safeNavigate(Screen.RunTests(it)) },
                     goToChooseWebsites = { navController.safeNavigate(Screen.ChooseWebsites()) },
+                    goToResult = { navController.safeNavigate(Screen.Result(it.value)) },
                 )
             }
             val state by viewModel.state.collectAsState()
