@@ -110,6 +110,9 @@
     <string name="Results_TaskOrigin_All">Все источники</string>
     <string name="Results_LimitedNotice">Показываются только последние %1$d результатов</string>
     <string name="Results_UploadingMissing">Загрузить результаты %1$s</string>
+    <string name="Results_MarkAllAsViewed">Отметить все как просмотренные</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Хотите отметить все результаты тестов как просмотренные\?</string>
+
     <!-- Measurements -->
 
     <string name="Measurement_Title">Измерение</string>
@@ -297,6 +300,8 @@
     <string name="LoadingScreen_Runv2_Failure">Ошибка</string>
     <string name="LoadingScreen_Runv2_Canceled">Установка ссылки отменена</string>
     <string name="DescriptorUpdate_Updates">ОБНОВЛЕНИЯ</string>
+    <string name="AddDescriptor_AutoRunDisabled">Автоматическое тестирование отключено. Пожалуйста, включите его, чтобы проводить тесты автоматически.</string>
+
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Не загружено</string>
