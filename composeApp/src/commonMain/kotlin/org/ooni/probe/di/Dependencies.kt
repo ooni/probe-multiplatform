@@ -519,11 +519,13 @@ class Dependencies(
         descriptorKey: String,
         onBack: () -> Unit,
         goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
+        goToRun: (String) -> Unit,
         goToChooseWebsites: () -> Unit,
     ) = DescriptorViewModel(
         descriptorKey = descriptorKey,
         onBack = onBack,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
+        goToRun = goToRun,
         goToChooseWebsites = goToChooseWebsites,
         getLatestTestDescriptors = getTestDescriptors::latest,
         getDescriptorLastResult = resultRepository::getLatestByDescriptor,
@@ -585,15 +587,18 @@ class Dependencies(
         getProxySettings = getProxySettings::invoke,
     )
 
-    fun runViewModel(onBack: () -> Unit) =
-        RunViewModel(
-            onBack = onBack,
-            getTestDescriptors = getTestDescriptors::latest,
-            shouldShowVpnWarning = shouldShowVpnWarning::invoke,
-            preferenceRepository = preferenceRepository,
-            startBackgroundRun = startSingleRunInner,
-            openVpnSettings = launchAction,
-        )
+    fun runViewModel(
+        descriptorKey: String?,
+        onBack: () -> Unit,
+    ) = RunViewModel(
+        descriptorKey = descriptorKey,
+        onBack = onBack,
+        getTestDescriptors = getTestDescriptors::latest,
+        shouldShowVpnWarning = shouldShowVpnWarning::invoke,
+        preferenceRepository = preferenceRepository,
+        startBackgroundRun = startSingleRunInner,
+        openVpnSettings = launchAction,
+    )
 
     fun resultViewModel(
         resultId: ResultModel.Id,

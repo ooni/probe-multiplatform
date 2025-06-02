@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -76,7 +75,6 @@ import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.TopBar
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RunScreen(
     state: RunViewModel.State,
@@ -139,14 +137,14 @@ fun RunScreen(
                 val allSectionsHaveValues = state.list.entries.all { it.value.any() }
                 state.list.forEach { (type, descriptorsMap) ->
                     if (allSectionsHaveValues && descriptorsMap.isNotEmpty()) {
-                        item(type) {
+                        item(key = type) {
                             TestDescriptorSection(type)
                         }
                     }
 
                     descriptorsMap.forEach descriptorsMap@{ (descriptorItem, testItems) ->
                         val descriptor = descriptorItem.item
-                        item(descriptor.key) {
+                        item(key = descriptor.key) {
                             DescriptorItem(
                                 descriptorItem = descriptorItem,
                                 onDropdownToggled = {
