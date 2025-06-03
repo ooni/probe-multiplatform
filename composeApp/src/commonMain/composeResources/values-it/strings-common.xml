@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Ultimo test:</string>
     <string name="Dashboard_Overview_Estimated">Tempo stimato:</string>
-    <string name="Dashboard_Overview_LastRun_Never">Non valido</string>
     <string name="Dashboard_Overview_ChooseWebsites">Scegli i siti</string>
 
     <string name="Dashboard_Running_Running">Eseguendo:</string>
