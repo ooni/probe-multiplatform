@@ -46,12 +46,6 @@ fun App(
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    val bottomBarViewModel: BottomBarViewModel = viewModel {
-        dependencies.bottomBarViewModel()
-    }
-
-    val bottomBarState by bottomBarViewModel.state.collectAsState()
-
     val currentNavEntry by navController.currentBackStackEntryAsState()
     val isMainScreen = MAIN_NAVIGATION_SCREENS.any {
         currentNavEntry?.destination?.hasRoute(it::class) == true
@@ -72,6 +66,11 @@ fun App(
                     snackbarHost = { SnackbarHost(snackbarHostState) },
                     bottomBar = {
                         if (isMainScreen) {
+                            val bottomBarViewModel: BottomBarViewModel = viewModel {
+                                dependencies.bottomBarViewModel()
+                            }
+                            val bottomBarState by bottomBarViewModel.state.collectAsState()
+
                             BottomNavigationBar(
                                 state = bottomBarState,
                                 navController = navController,

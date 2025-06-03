@@ -694,7 +694,7 @@ class Dependencies(
 
     fun bottomBarViewModel(): BottomBarViewModel =
         BottomBarViewModel(
-            resultRepository,
+            resultRepository::countAllNotViewedFlow,
         )
 
     companion object {
