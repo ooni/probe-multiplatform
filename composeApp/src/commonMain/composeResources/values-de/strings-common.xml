@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Letzter Test:</string>
     <string name="Dashboard_Overview_Estimated">Voraussichtlich:</string>
-    <string name="Dashboard_Overview_LastRun_Never">Nicht verfügbar</string>
     <string name="Dashboard_Overview_ChooseWebsites">Wähle Webseiten</string>
 
     <string name="Dashboard_Running_Running">Laufend:</string>
@@ -301,7 +300,6 @@
     <string name="LoadingScreen_Runv2_Canceled">Link-Installation abgebrochen</string>
     <string name="DescriptorUpdate_Updates">AKTUALISIERUNGEN</string>
     <string name="AddDescriptor_AutoRunDisabled">Die automatische Ausführung ist deaktiviert. Bitte aktivieren Sie sie, um Tests automatisch auszuführen.</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Nicht hochgeladen</string>
