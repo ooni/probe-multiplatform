@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Son sınama:</string>
     <string name="Dashboard_Overview_Estimated">Yaklaşık:</string>
-    <string name="Dashboard_Overview_LastRun_Never">Yok</string>
     <string name="Dashboard_Overview_ChooseWebsites">Siteleri seçin</string>
 
     <string name="Dashboard_Running_Running">Çalışıyor:</string>
@@ -298,7 +297,6 @@
     <string name="LoadingScreen_Runv2_Canceled">Bağlantı kurulumu iptal edildi</string>
     <string name="DescriptorUpdate_Updates">GÜNCELLEMELER</string>
     <string name="AddDescriptor_AutoRunDisabled">Otomatik çalıştırma kapalı. Sınamaları otomatik olarak çalıştırmak için açın.</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Yüklenmemiş</string>
