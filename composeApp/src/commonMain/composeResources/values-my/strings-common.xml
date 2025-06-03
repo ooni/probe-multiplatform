@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">နောက်ဆုံး စမ်းသပ်မှု -</string>
     <string name="Dashboard_Overview_Estimated">ခန့်မှန်းထားသည် -</string>
-    <string name="Dashboard_Overview_LastRun_Never">မရရှိနိုင်ပါ</string>
     <string name="Dashboard_Overview_ChooseWebsites">ဝဘ်ဆိုဒ်များ ရွေးချယ်ရန်</string>
 
     <string name="Dashboard_Running_Running">စမ်းသပ်နေသည် - </string>
