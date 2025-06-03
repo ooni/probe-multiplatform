@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Dernier test :</string>
     <string name="Dashboard_Overview_Estimated">Estimation :</string>
-    <string name="Dashboard_Overview_LastRun_Never">ND</string>
     <string name="Dashboard_Overview_ChooseWebsites">Choisir des sites Web</string>
 
     <string name="Dashboard_Running_Running">En cours :</string>
@@ -110,6 +109,8 @@
     <string name="Results_TaskOrigin_All">Toutes les sources</string>
     <string name="Results_LimitedNotice">Seuls les %1$d derniers résultats sont affichés</string>
     <string name="Results_UploadingMissing">Téléversements des résultats manquants %1$s</string>
+    <string name="Results_MarkAllAsViewed">Tout marquer comme lu</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Voulez-vous marquer tous les résultats comme lus \?</string>
 
     <!-- Measurements -->
 
@@ -299,7 +300,6 @@
     <string name="LoadingScreen_Runv2_Canceled">L’installation du lien a été annulée</string>
     <string name="DescriptorUpdate_Updates">MISES À JOUR</string>
     <string name="AddDescriptor_AutoRunDisabled">Le lancement automatique est désactivé. Activez cette option pour lancer les tests automatiquement.</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">N’a pas été téléversé</string>
@@ -346,6 +346,7 @@
     <string name="Common_Collapse">Réduire</string>
     <string name="Common_Expand">Développer</string>
     <string name="Common_Enable">Activer</string>
+    <string name="Common_Yes">Oui</string>
     <string name="Common_Ago">il y a %1$s</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>

@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Prueba anterior:</string>
     <string name="Dashboard_Overview_Estimated">Estimado:</string>
-    <string name="Dashboard_Overview_LastRun_Never">N/D</string>
     <string name="Dashboard_Overview_ChooseWebsites">Elige sitios web</string>
 
     <string name="Dashboard_Running_Running">Ejecutando:</string>
@@ -109,7 +108,6 @@
     <string name="Results_TaskOrigin_All">All Sources</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
-
     <!-- Measurements -->
 
     <string name="Measurement_Title">Measurement</string>
@@ -331,6 +329,7 @@
     <string name="Common_Collapse">Contraer</string>
     <string name="Common_Expand">Expandir</string>
     <string name="Common_Enable">Activar</string>
+    <string name="Common_Yes">Si</string>
     <string name="Common_Ago">%1$s ago</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>

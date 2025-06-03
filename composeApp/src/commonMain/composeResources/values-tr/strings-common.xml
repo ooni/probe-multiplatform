@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Son sınama:</string>
     <string name="Dashboard_Overview_Estimated">Yaklaşık:</string>
-    <string name="Dashboard_Overview_LastRun_Never">Yok</string>
     <string name="Dashboard_Overview_ChooseWebsites">Siteleri seçin</string>
 
     <string name="Dashboard_Running_Running">Çalışıyor:</string>
@@ -110,7 +109,6 @@
     <string name="Results_TaskOrigin_All">Tüm kaynaklar</string>
     <string name="Results_LimitedNotice">Yalnızca son %1$d sonuç görüntüleniyor</string>
     <string name="Results_UploadingMissing">Eksik sonuçlar yükleniyor %1$s</string>
-
     <!-- Measurements -->
 
     <string name="Measurement_Title">Ölçüm</string>
@@ -299,7 +297,6 @@
     <string name="LoadingScreen_Runv2_Canceled">Bağlantı kurulumu iptal edildi</string>
     <string name="DescriptorUpdate_Updates">GÜNCELLEMELER</string>
     <string name="AddDescriptor_AutoRunDisabled">Otomatik çalıştırma kapalı. Sınamaları otomatik olarak çalıştırmak için açın.</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Yüklenmemiş</string>
@@ -346,6 +343,7 @@
     <string name="Common_Collapse">Daralt</string>
     <string name="Common_Expand">Genişlet</string>
     <string name="Common_Enable">Aç</string>
+    <string name="Common_Yes">Evet</string>
     <string name="Common_Ago">%1$s önce</string>
     <string name="Common_Minutes_One">%1$d dakika</string>
     <string name="Common_Minutes_Other">%1$d dakika</string>

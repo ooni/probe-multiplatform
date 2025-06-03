@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Tes terakhir:</string>
     <string name="Dashboard_Overview_Estimated">Estimasi:</string>
-    <string name="Dashboard_Overview_LastRun_Never">N/A</string>
     <string name="Dashboard_Overview_ChooseWebsites">Pilih situs web</string>
 
     <string name="Dashboard_Running_Running">Menjalankan:</string>
@@ -296,6 +295,7 @@
     <string name="Common_Collapse">Tutup</string>
     <string name="Common_Expand">Buka</string>
     <string name="Common_Enable">Aktifkan</string>
+    <string name="Common_Yes">Ya</string>
     <string name="Common_Ago">%1$s yang lalu</string>
     <string name="Common_Minutes_Other">%1$d menit</string>
     <string name="Common_Hour_Other">%1$d jam</string>

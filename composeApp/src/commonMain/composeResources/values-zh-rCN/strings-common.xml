@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">上次测试：</string>
     <string name="Dashboard_Overview_Estimated">预计：</string>
-    <string name="Dashboard_Overview_LastRun_Never">N/A</string>
     <string name="Dashboard_Overview_ChooseWebsites">选择网站</string>
 
     <string name="Dashboard_Running_Running">正在运行：</string>
@@ -110,6 +109,8 @@
     <string name="Results_TaskOrigin_All">所有来源</string>
     <string name="Results_LimitedNotice">只显示最后 %1$d 个结果</string>
     <string name="Results_UploadingMissing">上传缺失的结果 %1$s</string>
+    <string name="Results_MarkAllAsViewed">将所有内容标记为已查看</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">是否要将所有结果标记为已查看？</string>
 
     <!-- Measurements -->
 
@@ -299,7 +300,6 @@
     <string name="LoadingScreen_Runv2_Canceled">链接安装被取消了</string>
     <string name="DescriptorUpdate_Updates">更新</string>
     <string name="AddDescriptor_AutoRunDisabled">自动运行被停用。请启用它来自动运行测试。</string>
-
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">未上传</string>
@@ -346,6 +346,7 @@
     <string name="Common_Collapse">折叠</string>
     <string name="Common_Expand">展开</string>
     <string name="Common_Enable">启用</string>
+    <string name="Common_Yes">是</string>
     <string name="Common_Ago">%1$s 前</string>
     <string name="Common_Minutes_One">%1$d 分钟 </string>
     <string name="Common_Minutes_Other">%1$d 分钟</string>

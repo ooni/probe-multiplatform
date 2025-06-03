@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">ทดสอบล่าสุด:</string>
     <string name="Dashboard_Overview_Estimated">ประมาณ:</string>
-    <string name="Dashboard_Overview_LastRun_Never">ไม่มีข้อมูล</string>
     <string name="Dashboard_Overview_ChooseWebsites">เลือกเว็บไซต์</string>
 
     <string name="Dashboard_Running_Running">กำลังทำงาน:</string>
@@ -265,6 +264,7 @@
     <string name="Common_Collapse">ยุบ</string>
     <string name="Common_Expand">ขยาย</string>
     <string name="Common_Enable">เปิดใช้งาน</string>
+    <string name="Common_Yes">ใช่</string>
     <string name="Common_Minutes_Other">%1$d นาที</string>
     <string name="Common_Hour_Other">%1$d ชั่วโมง</string>
     <string name="Common_Months_May">พ.ค.</string>

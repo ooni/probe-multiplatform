@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Jaribio la mwisho:</string>
     <string name="Dashboard_Overview_Estimated">Inakadiriwa:</string>
-    <string name="Dashboard_Overview_LastRun_Never">N/A</string>
     <string name="Dashboard_Overview_ChooseWebsites">Chagua tovuti</string>
 
     <string name="Dashboard_Running_Running">Inaenda:</string>
@@ -294,5 +293,6 @@
     <string name="Common_Collapse">Angusha</string>
     <string name="Common_Expand">Panua</string>
     <string name="Common_Enable">Wezesha</string>
+    <string name="Common_Yes">Ndio</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">آخرین تست:</string>
     <string name="Dashboard_Overview_Estimated">تخمین:</string>
-    <string name="Dashboard_Overview_LastRun_Never">N/A</string>
     <string name="Dashboard_Overview_ChooseWebsites">انتخاب وبسایت‌ها</string>
 
     <string name="Dashboard_Running_Running">در حال اجرا:</string>
@@ -270,6 +269,7 @@
     <string name="Common_Collapse">بستن</string>
     <string name="Common_Expand">گسترش دادن</string>
     <string name="Common_Enable">فعال کنید</string>
+    <string name="Common_Yes">بله</string>
     <string name="Common_Ago">%1$s پیش</string>
     <string name="Common_Minutes_One">%1$d دقیقه</string>
     <string name="Common_Minutes_Other">%1$d دقیقه</string>

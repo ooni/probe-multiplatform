@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Último teste:</string>
     <string name="Dashboard_Overview_Estimated">Estimado:</string>
-    <string name="Dashboard_Overview_LastRun_Never">N/A</string>
     <string name="Dashboard_Overview_ChooseWebsites">Escolha sites</string>
 
     <string name="Dashboard_Running_Running">Executando:</string>
@@ -110,6 +109,8 @@
     <string name="Results_TaskOrigin_All">Todas as Fontes</string>
     <string name="Results_LimitedNotice">Somente os últimos%1$dresultados são mostrados</string>
     <string name="Results_UploadingMissing">Subindo resultados pendentes %1$s</string>
+    <string name="Results_MarkAllAsViewed">Marcar todos como vistos</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Deseja marcar todos os resultados como vistos?</string>
 
     <!-- Measurements -->
 
@@ -299,6 +300,7 @@
     <string name="LoadingScreen_Runv2_Canceled">Instalação do link cancelada</string>
     <string name="DescriptorUpdate_Updates">ATUALIZAÇÕES</string>
     <string name="AddDescriptor_AutoRunDisabled">Autoexecução desabilitada. Por favor, habilite-a para executar testes automaticamente.</string>
+    <string name="Descriptor_LastTestResult">Último Resultado do Teste</string>
 
     <!-- Modals / Toasts / Snackbar -->
 
@@ -346,6 +348,7 @@
     <string name="Common_Collapse">Colapsar</string>
     <string name="Common_Expand">Expandir</string>
     <string name="Common_Enable">Habilitar</string>
+    <string name="Common_Yes">Sim</string>
     <string name="Common_Ago">%1$s atrás</string>
     <string name="Common_Minutes_One">%1$d minuto</string>
     <string name="Common_Minutes_Other">%1$d minutos</string>

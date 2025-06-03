@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Lần kiểm tra chót:</string>
     <string name="Dashboard_Overview_Estimated">Ước lượng:</string>
-    <string name="Dashboard_Overview_LastRun_Never">Không có</string>
     <string name="Dashboard_Overview_ChooseWebsites">Chọn trang web</string>
 
     <string name="Dashboard_Running_Running">Đang chạy:</string>
@@ -266,6 +265,7 @@
     <string name="Common_Collapse">Thu gọn</string>
     <string name="Common_Expand">Mở rộng</string>
     <string name="Common_Enable">Bật</string>
+    <string name="Common_Yes">Đồng ý</string>
     <string name="Common_Hour_Other">%1$d giờ</string>
     <string name="Common_Months_May">05</string>
     <string name="NetworkType_Vpn">VPN</string>
