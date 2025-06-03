@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Laatste test:</string>
     <string name="Dashboard_Overview_Estimated">Geschat:</string>
-    <string name="Dashboard_Overview_LastRun_Never">n.v.t.</string>
     <string name="Dashboard_Overview_ChooseWebsites">Kies websites</string>
 
     <string name="Dashboard_Running_Running">Wordt uitgevoerd</string>
