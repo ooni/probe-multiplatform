@@ -12,13 +12,13 @@ import org.ooni.probe.data.models.TestKeysWithResultId
 class GetResults(
     private val getResults: (ResultFilter) -> Flow<List<ResultWithNetworkAndAggregates>>,
     private val getDescriptors: () -> Flow<List<Descriptor>>,
-    private val getTestKeys: (String?) -> Flow<List<TestKeysWithResultId>>,
+    private val getTestKeys: (List<Descriptor>) -> Flow<List<TestKeysWithResultId>>,
 ) {
     operator fun invoke(filter: ResultFilter): Flow<List<ResultListItem>> =
         combine(
             getResults(filter),
             getDescriptors(),
-            getTestKeys((filter.descriptor as? ResultFilter.Type.One)?.value?.key),
+            getTestKeys(filter.descriptors),
         ) { results, descriptors, testKeys ->
             results.mapNotNull { item ->
                 ResultListItem(
