@@ -241,7 +241,6 @@
     <string name="Common_Collapse">Plega</string>
     <string name="Common_Expand">Desplega</string>
     <string name="Common_Enable">Habilitar</string>
-    <string name="Common_Yes">Sí</string>
     <string name="Common_Ago">fa %1$s</string>
     <string name="Common_Minutes_One">%1$d minut</string>
     <string name="Common_Minutes_Other">%1$d hores</string>
