@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 
 class BottomBarViewModel(countAllNotViewedFlow: () -> Flow<Long>) : ViewModel() {
-
     private val _state = MutableStateFlow(State())
     val state: StateFlow<State> = _state.asStateFlow()
 
@@ -21,7 +20,6 @@ class BottomBarViewModel(countAllNotViewedFlow: () -> Flow<Long>) : ViewModel() 
                 _state.update { it.copy(notViewedCount = count) }
             }
             .launchIn(viewModelScope)
-
     }
 
     data class State(
