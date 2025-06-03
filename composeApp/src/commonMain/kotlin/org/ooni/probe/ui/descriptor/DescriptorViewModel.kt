@@ -34,6 +34,7 @@ class DescriptorViewModel(
     private val descriptorKey: String,
     onBack: () -> Unit,
     goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
+    goToRun: (String) -> Unit,
     goToChooseWebsites: () -> Unit,
     private val getLatestTestDescriptors: () -> Flow<List<Descriptor>>,
     getDescriptorLastResult: (String) -> Flow<ResultModel?>,
@@ -193,6 +194,13 @@ class DescriptorViewModel(
             }
             .launchIn(viewModelScope)
 
+        events.filterIsInstance<Event.RunClicked>()
+            .onEach {
+                onBack()
+                goToRun(descriptorKey)
+            }
+            .launchIn(viewModelScope)
+
         events.filterIsInstance<Event.ChooseWebsitesClicked>()
             .onEach { goToChooseWebsites() }
             .launchIn(viewModelScope)
@@ -268,6 +276,8 @@ class DescriptorViewModel(
         data object FetchUpdatedDescriptor : Event
 
         data object UpdateDescriptor : Event
+
+        data object RunClicked : Event
 
         data object ChooseWebsitesClicked : Event
 

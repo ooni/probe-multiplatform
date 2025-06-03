@@ -9,12 +9,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
@@ -30,6 +32,7 @@ import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
 
 class RunViewModel(
+    descriptorKey: String?,
     onBack: () -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     shouldShowVpnWarning: suspend () -> Boolean,
@@ -42,51 +45,65 @@ class RunViewModel(
     private val _state = MutableStateFlow(State(emptyMap()))
     val state = _state.asStateFlow()
 
+    private val allNetTests = MutableStateFlow(emptyList<Pair<Descriptor, NetTest>>())
     private val collapsedDescriptorsKeys = MutableStateFlow(emptyList<String>())
+    private val selectedTests = MutableStateFlow<List<Pair<Descriptor, NetTest>>?>(null)
 
     init {
-        combine(
-            getTestDescriptors(),
-            collapsedDescriptorsKeys,
-            ::Pair,
-        ).flatMapLatest { (descriptors, collapsedDescriptorsKeys) ->
-            preferenceRepository
-                .areNetTestsEnabled(descriptors.notExpired().toNetTestsList(), isAutoRun = false)
-                .map { preferences ->
-                    val descriptorsWithTests =
-                        descriptors
-                            .notExpired().associate { descriptor ->
-                                val tests = descriptor.allTests
-                                val selectedTestsCount =
-                                    tests.count { preferences[descriptor to it] == true }
-                                val containsKey = collapsedDescriptorsKeys.contains(descriptor.key)
+        // Initially selected tests based on the descriptor provided or the preferences
+        viewModelScope.launch {
+            val all = getTestDescriptors().first().notExpired().toNetTestsList()
+            allNetTests.value = all
 
-                                ParentSelectableItem(
-                                    item = descriptor,
-                                    state = when {
-                                        !descriptor.enabled || selectedTestsCount == 0 -> ToggleableState.Off
-                                        selectedTestsCount == tests.size -> ToggleableState.On
-                                        else -> ToggleableState.Indeterminate
-                                    },
-                                    isExpanded = when (OrganizationConfig.testDisplayMode) {
-                                        TestDisplayMode.Regular -> !containsKey
-                                        // Start with all descriptors collapsed
-                                        TestDisplayMode.WebsitesOnly -> containsKey
-                                    },
-                                ) to tests.map { test ->
-                                    SelectableItem(
-                                        item = test,
-                                        isSelected = descriptor.enabled && preferences[descriptor to test] == true,
-                                    )
-                                }
-                            }
-                    mapOf(
-                        DescriptorType.Default to descriptorsWithTests
-                            .filter { it.key.item.source is Descriptor.Source.Default },
-                        DescriptorType.Installed to descriptorsWithTests
-                            .filter { it.key.item.source is Descriptor.Source.Installed },
-                    )
-                }
+            if (descriptorKey != null) {
+                selectedTests.value = all.filter { it.first.key == descriptorKey }
+            } else {
+                val preferences = preferenceRepository
+                    .areNetTestsEnabled(all, isAutoRun = false)
+                    .first()
+                selectedTests.value = all.filter { preferences[it] == true }
+            }
+        }
+
+        combine(
+            allNetTests,
+            collapsedDescriptorsKeys,
+            selectedTests.filterNotNull(),
+            ::Triple,
+        ).map { (all, collapsedKeys, selectedTests) ->
+            val descriptorsWithTests = all
+                .groupBy(keySelector = { it.first }, valueTransform = { it.second })
+                .map { (descriptor, tests) ->
+                    val selectedTestsCount = selectedTests.count { it.first == descriptor }
+                    val containsCollapsedKey = collapsedKeys.contains(descriptor.key)
+
+                    ParentSelectableItem(
+                        item = descriptor,
+                        state = when {
+                            !descriptor.enabled || selectedTestsCount == 0 -> ToggleableState.Off
+                            selectedTestsCount == tests.size -> ToggleableState.On
+                            else -> ToggleableState.Indeterminate
+                        },
+                        isExpanded = when (OrganizationConfig.testDisplayMode) {
+                            TestDisplayMode.Regular -> !containsCollapsedKey
+                            // Start with all descriptors collapsed
+                            TestDisplayMode.WebsitesOnly -> containsCollapsedKey
+                        },
+                    ) to tests.map { test ->
+                        SelectableItem(
+                            item = test,
+                            isSelected = descriptor.enabled &&
+                                selectedTests.contains(descriptor to test),
+                        )
+                    }
+                }.toMap()
+
+            mapOf(
+                DescriptorType.Default to descriptorsWithTests
+                    .filter { it.key.item.source is Descriptor.Source.Default },
+                DescriptorType.Installed to descriptorsWithTests
+                    .filter { it.key.item.source is Descriptor.Source.Installed },
+            )
         }
             .onEach { list -> _state.update { it.copy(list = list) } }
             .launchIn(viewModelScope)
@@ -105,27 +122,40 @@ class RunViewModel(
 
         events
             .filterIsInstance<Event.SelectAllClicked>()
-            .onEach { setAllAreEnabled(true) }
+            .onEach {
+                selectedTests.value = allNetTests.value
+            }
             .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.DeselectAllClicked>()
-            .onEach { setAllAreEnabled(false) }
+            .onEach { selectedTests.value = emptyList() }
             .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.DescriptorChecked>()
-            .onEach {
-                setAreEnabled(
-                    it.descriptor.allTests.map { test -> it.descriptor to test },
-                    isEnabled = it.isChecked,
-                )
+            .onEach { event ->
+                selectedTests.update {
+                    if (event.isChecked) {
+                        (it.orEmpty() + event.descriptor.toNetTestsPairs()).distinct()
+                    } else {
+                        it.orEmpty() - event.descriptor.toNetTestsPairs().toSet()
+                    }
+                }
             }
             .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.NetTestChecked>()
-            .onEach { setIsEnabled(it.descriptor, it.netTest, isEnabled = it.isChecked) }
+            .onEach { event ->
+                selectedTests.update {
+                    if (event.isChecked) {
+                        (it.orEmpty() + (event.descriptor to event.netTest)).distinct()
+                    } else {
+                        it.orEmpty() - (event.descriptor to event.netTest)
+                    }
+                }
+            }
             .launchIn(viewModelScope)
 
         events
@@ -145,6 +175,7 @@ class RunViewModel(
         events
             .filterIsInstance<Event.RunClicked>()
             .onEach {
+                saveRunPreferences()
                 startBackgroundRun(buildRunSpecification())
                 onBack()
             }
@@ -178,25 +209,11 @@ class RunViewModel(
         events.tryEmit(event)
     }
 
-    private suspend fun setAllAreEnabled(isEnabled: Boolean) {
-        setAreEnabled(
-            _state.value.list.values
-                .flatMap { it.entries }
-                .flatMap { (descriptorItem, netTestItems) ->
-                    netTestItems.map { netTestItem ->
-                        descriptorItem.item to netTestItem.item
-                    }
-                },
-            isEnabled = isEnabled,
-        )
-    }
-
-    private suspend fun setIsEnabled(
-        descriptor: Descriptor,
-        test: NetTest,
-        isEnabled: Boolean,
-    ) {
-        setAreEnabled(listOf(descriptor to test), isEnabled)
+    private suspend fun saveRunPreferences() {
+        val all = _state.value.list.toNetTestsList()
+        val selected = selectedTests.value.orEmpty()
+        setAreEnabled(all - selected.toSet(), false)
+        setAreEnabled(selected.toList(), true)
     }
 
     private suspend fun setAreEnabled(
@@ -210,24 +227,21 @@ class RunViewModel(
         )
     }
 
-    private fun List<Descriptor>.toNetTestsList() =
-        flatMap { descriptor ->
-            descriptor.allTests.map { netTest ->
-                descriptor to netTest
-            }
+    private fun List<Descriptor>.toNetTestsList(): List<Pair<Descriptor, NetTest>> = flatMap { it.toNetTestsPairs() }
+
+    private fun Descriptor.toNetTestsPairs(): List<Pair<Descriptor, NetTest>> = allTests.map { this to it }
+
+    private fun Map<DescriptorType, Map<ParentSelectableItem<Descriptor>, List<SelectableItem<NetTest>>>>.toNetTestsList() =
+        flatMap { (_, map) ->
+            map.flatMap { entry -> entry.value.map { entry.key.item to it.item } }
         }
 
     private fun buildRunSpecification(): RunSpecification {
-        val selectedTests = state.value.list.values
-            .flatMap { it.entries }
-            .associate { (descriptorItem, netTestItems) ->
-                descriptorItem.item to netTestItems
-                    .filter { it.isSelected }
-                    .map { it.item }
-            }
         return RunSpecification.Full(
-            tests =
-                selectedTests.map { (descriptor, tests) ->
+            tests = selectedTests.value
+                .orEmpty()
+                .groupBy(keySelector = { it.first }, valueTransform = { it.second })
+                .map { (descriptor, tests) ->
                     RunSpecification.Test(
                         source =
                             when (descriptor.source) {

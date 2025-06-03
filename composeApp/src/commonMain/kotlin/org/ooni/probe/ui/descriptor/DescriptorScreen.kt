@@ -50,7 +50,9 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LastRun_Never
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LatestTest
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_ReviewUpdates
+import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.ic_timer
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -290,16 +292,45 @@ private fun DescriptorDetails(
                 )
             }
 
-            if (descriptor.name == "websites") {
+            Row(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 8.dp),
+            ) {
+                if (descriptor.name == "websites") {
+                    OutlinedButton(
+                        onClick = { onEvent(DescriptorViewModel.Event.ChooseWebsitesClicked) },
+                        border = ButtonDefaults
+                            .outlinedButtonBorder(enabled = true)
+                            .copy(brush = SolidColor(onDescriptorColor)),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = onDescriptorColor),
+                        modifier = Modifier
+                            .padding(end = 8.dp)
+                            .testTag("Choose-Websites"),
+                    ) {
+                        Text(stringResource(Res.string.Dashboard_Overview_ChooseWebsites))
+                    }
+                }
+
                 OutlinedButton(
-                    onClick = { onEvent(DescriptorViewModel.Event.ChooseWebsitesClicked) },
-                    border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
-                        brush = SolidColor(onDescriptorColor),
+                    onClick = { onEvent(DescriptorViewModel.Event.RunClicked) },
+                    border = ButtonDefaults
+                        .outlinedButtonBorder(enabled = true)
+                        .copy(brush = SolidColor(descriptorColor)),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = descriptorColor,
+                        containerColor = onDescriptorColor,
                     ),
-                    colors = ButtonDefaults.outlinedButtonColors(contentColor = onDescriptorColor),
-                    modifier = Modifier.padding(top = 8.dp).testTag("Choose-Websites"),
                 ) {
-                    Text(stringResource(Res.string.Dashboard_Overview_ChooseWebsites))
+                    Text(
+                        stringResource(Res.string.OONIRun_Run),
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    Icon(
+                        painterResource(Res.drawable.ic_timer),
+                        contentDescription = null,
+                        modifier = Modifier.padding(start = 8.dp),
+                    )
                 }
             }
 
