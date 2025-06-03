@@ -57,6 +57,7 @@ import org.ooni.probe.ui.theme.LocalCustomColors
 fun ResultCell(
     item: ResultListItem,
     onResultClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val hasError = item.result.isDone && item.measurementCounts.done == 0L
 
@@ -66,6 +67,7 @@ fun ResultCell(
         } else {
             MaterialTheme.colorScheme.surfaceVariant
         },
+        modifier = modifier,
     ) {
         Row(
             modifier = Modifier.fillMaxWidth()

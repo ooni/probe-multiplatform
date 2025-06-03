@@ -21,6 +21,7 @@ import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -36,8 +37,9 @@ class DescriptorViewModel(
     goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
     goToRun: (String) -> Unit,
     goToChooseWebsites: () -> Unit,
+    goToResult: (ResultModel.Id) -> Unit,
     private val getLatestTestDescriptors: () -> Flow<List<Descriptor>>,
-    getDescriptorLastResult: (String) -> Flow<ResultModel?>,
+    getLastResultOfDescriptor: (String) -> Flow<ResultListItem?>,
     private val preferenceRepository: PreferenceRepository,
     private val launchUrl: (String) -> Unit,
     deleteTestDescriptor: suspend (InstalledTestDescriptorModel) -> Unit,
@@ -101,7 +103,7 @@ class DescriptorViewModel(
             }
             .launchIn(viewModelScope)
 
-        getDescriptorLastResult(descriptorKey)
+        getLastResultOfDescriptor(descriptorKey)
             .onEach { lastResult ->
                 _state.update {
                     it.copy(lastResult = lastResult)
@@ -211,6 +213,10 @@ class DescriptorViewModel(
                 Instrumentation.reportTransaction("DescriptorEnableAutoRun")
             }
             .launchIn(viewModelScope)
+
+        events.filterIsInstance<Event.ResultClicked>()
+            .onEach { event -> event.resultListItem.result.id?.let { goToResult(it) } }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -242,7 +248,7 @@ class DescriptorViewModel(
         val descriptor: Descriptor? = null,
         val estimatedTime: Duration? = null,
         val tests: List<SelectableItem<NetTest>> = emptyList(),
-        val lastResult: ResultModel? = null,
+        val lastResult: ResultListItem? = null,
         val updateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
         val isAutoRunEnabled: Boolean = true,
     ) {
@@ -282,5 +288,7 @@ class DescriptorViewModel(
         data object ChooseWebsitesClicked : Event
 
         data object EnableAutoRunClicked : Event
+
+        data class ResultClicked(val resultListItem: ResultListItem) : Event
     }
 }

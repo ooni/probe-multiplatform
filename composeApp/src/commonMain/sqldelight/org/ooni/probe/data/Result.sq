@@ -113,9 +113,9 @@ SELECT * FROM Result
 ORDER BY start_time DESC
 LIMIT 1;
 
-selectLatestByDescriptor:
-SELECT * FROM Result
-WHERE Result.descriptor_name = ?1 OR Result.descriptor_runId = ?1
+selectLastDoneByDescriptor:
+SELECT Result.id FROM Result
+WHERE (Result.descriptor_name = ?1 OR Result.descriptor_runId = ?1) AND Result.is_done = 1
 ORDER BY start_time DESC
 LIMIT 1;
 
