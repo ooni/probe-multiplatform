@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">ทดสอบล่าสุด:</string>
     <string name="Dashboard_Overview_Estimated">ประมาณ:</string>
-    <string name="Dashboard_Overview_LastRun_Never">ไม่มีข้อมูล</string>
     <string name="Dashboard_Overview_ChooseWebsites">เลือกเว็บไซต์</string>
 
     <string name="Dashboard_Running_Running">กำลังทำงาน:</string>
