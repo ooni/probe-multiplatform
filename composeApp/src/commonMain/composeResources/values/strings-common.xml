@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Last test:</string>
     <string name="Dashboard_Overview_Estimated">Estimated:</string>
-    <string name="Dashboard_Overview_LastRun_Never">N/A</string>
     <string name="Dashboard_Overview_ChooseWebsites">Choose websites</string>
 
     <string name="Dashboard_Running_Running">Running:</string>
@@ -301,6 +300,7 @@
     <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
     <string name="AddDescriptor_AutoRunDisabled">Auto-run is disabled. Please enable it to run tests automatically.</string>
+    <string name="Descriptor_LastTestResult">Last Test Result</string>
 
     <!-- Modals / Toasts / Snackbar -->
 
