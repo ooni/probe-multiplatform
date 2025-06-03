@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Τελευταία δοκιμή:</string>
     <string name="Dashboard_Overview_Estimated">Εκτίμηση:</string>
-    <string name="Dashboard_Overview_LastRun_Never">Μη διαθέσιμο</string>
     <string name="Dashboard_Overview_ChooseWebsites">Επέλεξε ιστοσελίδες</string>
 
     <string name="Dashboard_Running_Running">Εκτελείται:</string>
