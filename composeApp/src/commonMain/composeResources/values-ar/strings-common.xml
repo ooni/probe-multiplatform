@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">الاختبار الأخير:</string>
     <string name="Dashboard_Overview_Estimated">التقدير:</string>
-    <string name="Dashboard_Overview_LastRun_Never">‮غير متاح</string>
     <string name="Dashboard_Overview_ChooseWebsites">اختر المواقع</string>
 
     <string name="Dashboard_Running_Running">جار التنفيذ:</string>
