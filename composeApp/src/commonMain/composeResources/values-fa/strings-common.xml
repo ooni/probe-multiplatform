@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">آخرین تست:</string>
     <string name="Dashboard_Overview_Estimated">تخمین:</string>
-    <string name="Dashboard_Overview_LastRun_Never">N/A</string>
     <string name="Dashboard_Overview_ChooseWebsites">انتخاب وبسایت‌ها</string>
 
     <string name="Dashboard_Running_Running">در حال اجرا:</string>
