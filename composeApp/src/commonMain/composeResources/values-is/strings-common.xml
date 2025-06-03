@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Síðasta prófun:</string>
     <string name="Dashboard_Overview_Estimated">Áætlað:</string>
-    <string name="Dashboard_Overview_LastRun_Never">Ekki tiltækt</string>
     <string name="Dashboard_Overview_ChooseWebsites">Veldu vefsvæði</string>
 
     <string name="Dashboard_Running_Running">Keyri: </string>
