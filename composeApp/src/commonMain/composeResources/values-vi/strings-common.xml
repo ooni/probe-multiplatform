@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Lần kiểm tra chót:</string>
     <string name="Dashboard_Overview_Estimated">Ước lượng:</string>
-    <string name="Dashboard_Overview_LastRun_Never">Không có</string>
     <string name="Dashboard_Overview_ChooseWebsites">Chọn trang web</string>
 
     <string name="Dashboard_Running_Running">Đang chạy:</string>
