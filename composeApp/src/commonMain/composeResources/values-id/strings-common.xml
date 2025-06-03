@@ -4,7 +4,6 @@
 
     <string name="Dashboard_Overview_LatestTest">Tes terakhir:</string>
     <string name="Dashboard_Overview_Estimated">Estimasi:</string>
-    <string name="Dashboard_Overview_LastRun_Never">N/A</string>
     <string name="Dashboard_Overview_ChooseWebsites">Pilih situs web</string>
 
     <string name="Dashboard_Running_Running">Menjalankan:</string>
