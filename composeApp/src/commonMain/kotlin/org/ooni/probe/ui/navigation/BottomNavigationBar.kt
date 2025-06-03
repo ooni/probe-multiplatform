@@ -1,6 +1,9 @@
 package org.ooni.probe.ui.navigation
 
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -29,7 +32,10 @@ import org.ooni.probe.MAIN_NAVIGATION_SCREENS
 import org.ooni.probe.ui.shared.isHeightCompact
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
+fun BottomNavigationBar(
+    state: BottomBarViewModel.State,
+    navController: NavController,
+) {
     val entry by navController.currentBackStackEntryAsState()
 
     val customMinHeightModifier =
@@ -41,10 +47,15 @@ fun BottomNavigationBar(navController: NavController) {
         MAIN_NAVIGATION_SCREENS.forEach { screen ->
             NavigationBarItem(
                 icon = {
-                    Icon(
-                        painterResource(screen.iconRes),
-                        contentDescription = stringResource(screen.titleRes),
-                    )
+                    NavigationBadgeBox(
+                        state = state,
+                        screen = screen,
+                    ) {
+                        Icon(
+                            painterResource(screen.iconRes),
+                            contentDescription = stringResource(screen.titleRes),
+                        )
+                    }
                 },
                 label = {
                     Text(
@@ -63,6 +74,24 @@ fun BottomNavigationBar(navController: NavController) {
             )
         }
     }
+}
+
+@Composable
+private fun NavigationBadgeBox(
+    state: BottomBarViewModel.State,
+    screen: Screen,
+    content: @Composable BoxScope.() -> Unit,
+) {
+    BadgedBox(
+        badge = {
+            if (state.notViewedCount > 0 && screen == Screen.Results) {
+                val badgeText =
+                    if (state.notViewedCount > 9) "9+" else state.notViewedCount.toString()
+                Badge { Text(badgeText) }
+            }
+        },
+        content = content,
+    )
 }
 
 private val Screen.titleRes

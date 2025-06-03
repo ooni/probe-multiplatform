@@ -114,6 +114,11 @@ class ResultRepository(
             database.resultQueries.markAllAsViewed()
         }
 
+    fun countAllNotViewedFlow(): Flow<Long> =
+        database.resultQueries.countAllNotViewed()
+            .asFlow()
+            .mapToOne(backgroundContext)
+
     suspend fun markAsDone(resultId: ResultModel.Id) =
         withContext(backgroundContext) {
             database.resultQueries.markAsDone(resultId.value)

@@ -41,6 +41,9 @@ UPDATE Result SET is_viewed = 1 WHERE id = ?;
 markAllAsViewed:
 UPDATE Result SET is_viewed = 1;
 
+countAllNotViewed:
+SELECT COUNT(*) FROM Result WHERE is_viewed = 0;
+
 markAsDone:
 UPDATE Result SET is_done = 1 WHERE id = ?;
 
