@@ -109,6 +109,9 @@
     <string name="Results_TaskOrigin_All">Tüm kaynaklar</string>
     <string name="Results_LimitedNotice">Yalnızca son %1$d sonuç görüntüleniyor</string>
     <string name="Results_UploadingMissing">Eksik sonuçlar yükleniyor %1$s</string>
+    <string name="Results_MarkAllAsViewed">Tümünü görülmüş olarak işaretle</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Tüm sonuçları görülmüş olarak işaretlemek istediğinize emin misiniz\?</string>
+
     <!-- Measurements -->
 
     <string name="Measurement_Title">Ölçüm</string>
@@ -297,6 +300,8 @@
     <string name="LoadingScreen_Runv2_Canceled">Bağlantı kurulumu iptal edildi</string>
     <string name="DescriptorUpdate_Updates">GÜNCELLEMELER</string>
     <string name="AddDescriptor_AutoRunDisabled">Otomatik çalıştırma kapalı. Sınamaları otomatik olarak çalıştırmak için açın.</string>
+    <string name="Descriptor_LastTestResult">Son sınama sonucu</string>
+
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Yüklenmemiş</string>

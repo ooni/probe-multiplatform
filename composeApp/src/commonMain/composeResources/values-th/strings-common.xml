@@ -268,4 +268,5 @@
     <string name="Common_Minutes_Other">%1$d นาที</string>
     <string name="Common_Hour_Other">%1$d ชั่วโมง</string>
     <string name="Common_Months_May">พ.ค.</string>
-    </resources>
+    <string name="NetworkType_Vpn">VPN</string>
+</resources>
