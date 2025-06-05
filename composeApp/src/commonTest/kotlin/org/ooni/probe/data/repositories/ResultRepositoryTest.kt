@@ -28,7 +28,11 @@ class ResultRepositoryTest {
     fun before() {
         val database = Dependencies.buildDatabase(::createTestDatabaseDriver)
         subject = ResultRepository(database, Dispatchers.Default)
-        measurementRepository = MeasurementRepository(database = database, backgroundContext = Dispatchers.Default, json = json)
+        measurementRepository = MeasurementRepository(
+            database = database,
+            backgroundContext = Dispatchers.Default,
+            json = json,
+        )
     }
 
     @Test
@@ -65,17 +69,17 @@ class ResultRepositoryTest {
 
             suspend fun assertResultSize(
                 expectedSize: Int,
-                filter: ResultFilter.Type<TaskOrigin>,
+                origin: TaskOrigin?,
             ) {
                 assertEquals(
                     expectedSize,
-                    subject.list(ResultFilter(taskOrigin = filter)).first().size,
+                    subject.list(ResultFilter(taskOrigin = origin)).first().size,
                 )
             }
 
-            assertResultSize(1, ResultFilter.Type.All)
-            assertResultSize(1, ResultFilter.Type.One(TaskOrigin.OoniRun))
-            assertResultSize(0, ResultFilter.Type.One(TaskOrigin.AutoRun))
+            assertResultSize(1, null)
+            assertResultSize(1, TaskOrigin.OoniRun)
+            assertResultSize(0, TaskOrigin.AutoRun)
         }
 
     @Test

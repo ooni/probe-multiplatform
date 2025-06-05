@@ -5,11 +5,14 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.todayIn
 
 fun LocalDateTime.toEpoch() = toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+
+fun LocalDate.toEpoch() = atStartOfDayIn(TimeZone.currentSystemDefault()).toEpochMilliseconds()
 
 fun Long.toLocalDateTime() = Instant.fromEpochMilliseconds(this).toLocalDateTime()
 

@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.LocalDate
-import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultListItem
@@ -55,11 +54,7 @@ class ResultsViewModel(
         getDescriptors()
             .onEach { descriptors ->
                 _state.update { state ->
-                    state.copy(
-                        descriptorFilters =
-                            listOf(ResultFilter.Type.All) +
-                                descriptors.map { ResultFilter.Type.One(it) },
-                    )
+                    state.copy(descriptors = descriptors)
                 }
             }
             .launchIn(viewModelScope)
@@ -90,17 +85,8 @@ class ResultsViewModel(
             .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.DescriptorFilterChanged>()
-            .onEach { event ->
-                _state.update { it.copy(filter = it.filter.copy(descriptor = event.filterType)) }
-            }
-            .launchIn(viewModelScope)
-
-        events
-            .filterIsInstance<Event.OriginFilterChanged>()
-            .onEach { event ->
-                _state.update { it.copy(filter = it.filter.copy(taskOrigin = event.filterType)) }
-            }
+            .filterIsInstance<Event.FilterChanged>()
+            .onEach { event -> _state.update { it.copy(filter = event.filter) } }
             .launchIn(viewModelScope)
     }
 
@@ -115,14 +101,7 @@ class ResultsViewModel(
 
     data class State(
         val filter: ResultFilter = ResultFilter(),
-        val descriptorFilters: List<ResultFilter.Type<Descriptor>> = listOf(
-            ResultFilter.Type.All,
-        ),
-        val originFilters: List<ResultFilter.Type<TaskOrigin>> = listOf(
-            ResultFilter.Type.All,
-            ResultFilter.Type.One(TaskOrigin.OoniRun),
-            ResultFilter.Type.One(TaskOrigin.AutoRun),
-        ),
+        val descriptors: List<Descriptor> = emptyList(),
         val results: Map<LocalDate, List<ResultListItem>> = emptyMap(),
         val summary: Summary? = null,
         val isLoading: Boolean = true,
@@ -160,8 +139,6 @@ class ResultsViewModel(
 
         data object DeleteAllClick : Event
 
-        data class DescriptorFilterChanged(val filterType: ResultFilter.Type<Descriptor>) : Event
-
-        data class OriginFilterChanged(val filterType: ResultFilter.Type<TaskOrigin>) : Event
+        data class FilterChanged(val filter: ResultFilter) : Event
     }
 }

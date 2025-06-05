@@ -52,7 +52,7 @@ import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed
 import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed_Confirmation
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_FilterTests
+import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Networks
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Tests
@@ -62,6 +62,7 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
 import ooniprobe.composeapp.generated.resources.ic_delete_all
 import ooniprobe.composeapp.generated.resources.ic_download
+import ooniprobe.composeapp.generated.resources.ic_filters
 import ooniprobe.composeapp.generated.resources.ic_mark_as_viewed
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
@@ -77,6 +78,7 @@ fun ResultsScreen(
     state: ResultsViewModel.State,
     onEvent: (ResultsViewModel.Event) -> Unit,
 ) {
+    var showFiltersDialog by remember { mutableStateOf(false) }
     var showDeleteConfirm by remember { mutableStateOf(false) }
     var showMarkAsViewedConfirm by remember { mutableStateOf(false) }
 
@@ -86,54 +88,50 @@ fun ResultsScreen(
                 Text(stringResource(Res.string.TestResults_Overview_Title))
             },
             actions = {
-                if (!state.isLoading && state.results.any() && state.filter.isAll) {
-                    IconButton(
-                        onClick = { showMarkAsViewedConfirm = true },
-                        enabled = state.markAllAsViewedEnabled,
-                    ) {
-                        Icon(
-                            painterResource(Res.drawable.ic_mark_as_viewed),
-                            contentDescription = stringResource(Res.string.Results_MarkAllAsViewed),
-                        )
-                    }
+                IconButton(onClick = { showFiltersDialog = true }) {
+                    Icon(
+                        painterResource(Res.drawable.ic_filters),
+                        contentDescription = stringResource(Res.string.TestResults_Filters_Title),
+                    )
                 }
-                if (!state.isLoading && state.results.any() && state.filter.isAll) {
-                    IconButton(onClick = { showDeleteConfirm = true }) {
-                        Icon(
-                            painterResource(Res.drawable.ic_delete_all),
-                            contentDescription = stringResource(Res.string.Modal_Delete),
-                        )
-                    }
+                IconButton(
+                    onClick = { showMarkAsViewedConfirm = true },
+                    enabled = state.markAllAsViewedEnabled && !state.isLoading && state.results.any() && state.filter.isAll,
+                ) {
+                    Icon(
+                        painterResource(Res.drawable.ic_mark_as_viewed),
+                        contentDescription = stringResource(Res.string.Results_MarkAllAsViewed),
+                    )
+                }
+                IconButton(
+                    onClick = { showDeleteConfirm = true },
+                    enabled = !state.isLoading && state.results.any() && state.filter.isAll,
+                ) {
+                    Icon(
+                        painterResource(Res.drawable.ic_delete_all),
+                        contentDescription = stringResource(Res.string.Modal_Delete),
+                    )
                 }
             },
         )
 
         Surface(color = MaterialTheme.colorScheme.primaryContainer) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-            ) {
-                Text(
-                    stringResource(Res.string.TestResults_Overview_FilterTests),
-                    modifier = Modifier.weight(2f),
-                )
+            ResultFiltersRow(
+                filter = state.filter,
+                onOpen = { showFiltersDialog = true },
+            )
+        }
 
-                DescriptorFilter(
-                    current = state.filter.descriptor,
-                    list = state.descriptorFilters,
-                    onFilterChanged = { onEvent(ResultsViewModel.Event.DescriptorFilterChanged(it)) },
-                    modifier = Modifier.weight(3f).padding(horizontal = 4.dp),
-                )
-
-                OriginFilter(
-                    current = state.filter.taskOrigin,
-                    list = state.originFilters,
-                    onFilterChanged = { onEvent(ResultsViewModel.Event.OriginFilterChanged(it)) },
-                    modifier = Modifier.weight(3f),
-                )
-            }
+        if (showFiltersDialog) {
+            ResultFiltersDialog(
+                initialFilter = state.filter,
+                descriptors = state.descriptors,
+                onSave = {
+                    onEvent(ResultsViewModel.Event.FilterChanged(it))
+                    showFiltersDialog = false
+                },
+                onDismiss = { showFiltersDialog = false },
+            )
         }
 
         if (state.isLoading) {

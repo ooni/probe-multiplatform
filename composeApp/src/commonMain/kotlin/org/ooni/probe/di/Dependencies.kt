@@ -304,7 +304,7 @@ class Dependencies(
         GetResults(
             resultRepository::list,
             getTestDescriptors::all,
-            measurementRepository::selectTestKeysByDescriptorKey,
+            measurementRepository::selectTestKeys,
         )
     }
     private val getResult by lazy {
