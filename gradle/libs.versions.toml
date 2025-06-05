@@ -37,9 +37,9 @@ android-desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version =
 
 # UI
 android-activity = { module = "androidx.activity:activity-ktx", version = "1.10.1" }
-android-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.7" }
+android-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.8" }
 android-work = { module = "androidx.work:work-runtime-ktx", version = "2.10.1" }
-android-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0" }
+android-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.1" }
 
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.9.0" }
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.9.0-beta02" }
