@@ -97,6 +97,7 @@ import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
 import org.ooni.probe.ui.log.LogViewModel
 import org.ooni.probe.ui.measurement.MeasurementRawViewModel
 import org.ooni.probe.ui.measurement.MeasurementViewModel
+import org.ooni.probe.ui.navigation.BottomBarViewModel
 import org.ooni.probe.ui.onboarding.OnboardingViewModel
 import org.ooni.probe.ui.result.ResultViewModel
 import org.ooni.probe.ui.results.ResultsViewModel
@@ -703,6 +704,11 @@ class Dependencies(
             onBack = onBack,
             getPreferencesByKeys = preferenceRepository::allSettings,
             setPreferenceValuesByKeys = preferenceRepository::setValuesByKey,
+        )
+
+    fun bottomBarViewModel(): BottomBarViewModel =
+        BottomBarViewModel(
+            resultRepository::countAllNotViewedFlow,
         )
 
     companion object {

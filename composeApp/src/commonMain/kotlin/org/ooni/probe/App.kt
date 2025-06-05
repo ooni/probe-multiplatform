@@ -11,11 +11,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -28,6 +30,7 @@ import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.PlatformInfo
+import org.ooni.probe.ui.navigation.BottomBarViewModel
 import org.ooni.probe.ui.navigation.BottomNavigationBar
 import org.ooni.probe.ui.navigation.Navigation
 import org.ooni.probe.ui.navigation.Screen
@@ -63,7 +66,15 @@ fun App(
                     snackbarHost = { SnackbarHost(snackbarHostState) },
                     bottomBar = {
                         if (isMainScreen) {
-                            BottomNavigationBar(navController)
+                            val bottomBarViewModel: BottomBarViewModel = viewModel {
+                                dependencies.bottomBarViewModel()
+                            }
+                            val bottomBarState by bottomBarViewModel.state.collectAsState()
+
+                            BottomNavigationBar(
+                                state = bottomBarState,
+                                navController = navController,
+                            )
                         }
                     },
                 ) { paddingValues ->
