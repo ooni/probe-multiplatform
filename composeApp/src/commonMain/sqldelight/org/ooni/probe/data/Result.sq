@@ -97,8 +97,14 @@ FROM (
     FROM Result
     LEFT JOIN Network ON Result.network_id = Network.id
     LEFT JOIN Measurement ON Measurement.result_id = Result.id
-    WHERE (:filterByDescriptors = 0 OR Result.descriptor_name IN :descriptorsKeys OR Result.descriptor_runId IN :descriptorsKeys)
-        AND (:filterByTaskOrigin = 0 OR Result.task_origin = :taskOrigin)
+    WHERE (
+        :filterByDescriptors = 0 OR
+        Result.descriptor_name IN :descriptorsKeys OR Result.descriptor_runId IN :descriptorsKeys
+    ) AND (
+        :filterByTaskOrigin = 0 OR Result.task_origin = :taskOrigin
+    ) AND (
+        Result.start_time >= :startFrom AND Result.start_time <= :startUntil
+    )
     GROUP BY Result.id
     ORDER BY Result.start_time DESC
     LIMIT :limit

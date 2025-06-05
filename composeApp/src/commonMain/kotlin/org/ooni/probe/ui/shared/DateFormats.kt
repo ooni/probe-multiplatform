@@ -81,3 +81,5 @@ fun Duration.shortFormat(): String =
             }
         )
     }.trimStart()
+
+fun LocalDate.isoFormat() = format(LocalDate.Formats.ISO)
