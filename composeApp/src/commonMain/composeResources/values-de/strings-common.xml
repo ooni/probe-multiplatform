@@ -300,6 +300,8 @@
     <string name="LoadingScreen_Runv2_Canceled">Link-Installation abgebrochen</string>
     <string name="DescriptorUpdate_Updates">AKTUALISIERUNGEN</string>
     <string name="AddDescriptor_AutoRunDisabled">Die automatische Ausführung ist deaktiviert. Bitte aktivieren Sie sie, um Tests automatisch auszuführen.</string>
+    <string name="Descriptor_LastTestResult">Letztes Testresultat</string>
+
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Nicht hochgeladen</string>
