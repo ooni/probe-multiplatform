@@ -82,7 +82,7 @@ sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.12.0" 
 markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.35.0" }
 
 # WebView
-web-view = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "1.9.40" }
+web-view = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "2.0.0" }
 
 # In-App Updates
 android-app-update = { module = "com.google.android.play:app-update-ktx", version = "2.1.0" }
