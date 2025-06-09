@@ -1,11 +1,16 @@
 package org.ooni.probe.ui.results
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.twotone.CheckCircle
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -57,12 +62,17 @@ import org.ooni.probe.ui.theme.LocalCustomColors
 fun ResultCell(
     item: ResultListItem,
     onResultClick: () -> Unit,
+    isSelectedEnabled: Boolean = false,
+    onSelectChange: ((Boolean) -> Unit) = {},
+    onLongPress: (() -> Unit) = {},
     modifier: Modifier = Modifier,
 ) {
     val hasError = item.result.isDone && item.measurementCounts.done == 0L
 
     Surface(
-        color = if (item.result.isViewed || hasError) {
+        color = if (isSelectedEnabled) {
+            MaterialTheme.colorScheme.primary.copy(alpha = 0.18f)
+        } else if (item.result.isViewed || hasError) {
             MaterialTheme.colorScheme.surface
         } else {
             MaterialTheme.colorScheme.surfaceVariant
@@ -70,18 +80,53 @@ fun ResultCell(
         modifier = modifier,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth()
-                .run { if (!hasError) clickable { onResultClick() } else this }
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .combinedClickable(
+                    onClick = {
+                        if (isSelectedEnabled) {
+                            onSelectChange(false)
+                        } else {
+                            onResultClick()
+                        }
+                    },
+                    onLongClick = {
+                        onSelectChange(true)
+                        onLongPress.invoke()
+                    },
+                )
                 .padding(horizontal = 16.dp, vertical = 8.dp)
                 .testTag(item.descriptor.key),
         ) {
             Column(
                 modifier = Modifier.weight(0.66f),
             ) {
-                TestDescriptorLabel(
-                    item.descriptor,
-                    modifier = if (hasError) Modifier.alpha(0.5f) else Modifier,
-                )
+                Box {
+                    TestDescriptorLabel(
+                        item.descriptor,
+                        modifier = if (hasError) Modifier.alpha(0.5f) else Modifier,
+                    )
+                    if (isSelectedEnabled) {
+                        Box(
+                            modifier = Modifier
+                                .size(24.dp)
+                                .background(
+                                    color = Color.White,
+                                    shape = MaterialTheme.shapes.small,
+                                ),
+                        ) {
+                            Icon(
+                                Icons.Filled.CheckCircle,
+                                tint = MaterialTheme.colorScheme.primary,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .align(Alignment.Center),
+                            )
+                        }
+                    }
+                }
 
                 item.network?.networkName?.let { networkName ->
                     Text(

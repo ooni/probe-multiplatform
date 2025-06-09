@@ -28,6 +28,7 @@ class ResultsViewModel(
     deleteAllResults: suspend () -> Unit,
     markJustFinishedTestAsSeen: () -> Unit,
     markAllAsViewed: suspend () -> Unit,
+    deleteResults: suspend (List<ResultModel.Id>) -> Unit = {},
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -42,11 +43,14 @@ class ResultsViewModel(
             .onEach { results ->
                 val groupedResults = results.groupBy { it.monthAndYear }
                 _state.update { state ->
+                    val allIds = results.map { it.idOrThrow }
+                    val selected = state.selectedResults.filter { it in allIds }.toSet()
                     state.copy(
                         results = groupedResults,
                         summary = results.toSummary(),
                         isLoading = false,
                         markAllAsViewedEnabled = results.any { !it.result.isViewed },
+                        selectedResults = selected,
                     )
                 }
             }
@@ -102,6 +106,48 @@ class ResultsViewModel(
                 _state.update { it.copy(filter = it.filter.copy(taskOrigin = event.filterType)) }
             }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.SelectResult>()
+            .onEach { event ->
+                _state.update { it.copy(selectedResults = it.selectedResults + event.id, selectionEnabled = true) }
+            }
+            .launchIn(viewModelScope)
+        events
+            .filterIsInstance<Event.CancelSelection>()
+            .onEach { event ->
+                _state.update { it.copy(selectionEnabled = false) }
+            }
+            .launchIn(viewModelScope)
+        events
+            .filterIsInstance<Event.DeselectResult>()
+            .onEach { event ->
+                _state.update { it.copy(selectedResults = it.selectedResults - event.id) }
+            }
+            .launchIn(viewModelScope)
+        events
+            .filterIsInstance<Event.ToggleSelection>()
+            .onEach {
+                val state = _state.value
+
+                if (state.isAllSelected) {
+                    _state.update { it.copy(selectedResults = emptySet()) }
+                } else {
+                    val allIds = state.results.values.flatten().map { it.idOrThrow }
+                    _state.update { it.copy(selectedResults = allIds.toSet()) }
+                }
+            }
+            .launchIn(viewModelScope)
+        events
+            .filterIsInstance<Event.DeleteSelectedResults>()
+            .onEach {
+                val ids = _state.value.selectedResults.toList()
+                if (ids.isNotEmpty()) {
+                    deleteResults(ids)
+                    _state.update { it.copy(selectedResults = emptySet(), selectionEnabled = false) }
+                }
+            }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -127,11 +173,15 @@ class ResultsViewModel(
         val summary: Summary? = null,
         val isLoading: Boolean = true,
         val markAllAsViewedEnabled: Boolean = false,
+        val selectedResults: Set<ResultModel.Id> = emptySet(),
+        val selectionEnabled: Boolean = false,
     ) {
         val anyMissingUpload
             get() = results.any { it.value.any { item -> !item.allMeasurementsUploaded } }
 
         val areResultsLimited get() = results.values.sumOf { it.size } >= ResultFilter.LIMIT
+        val isAllSelected get() = selectedResults.size == results.values.sumOf { it.size }
+        val isAnySelected get() = selectedResults.any()
     }
 
     data class Summary(
@@ -163,5 +213,15 @@ class ResultsViewModel(
         data class DescriptorFilterChanged(val filterType: ResultFilter.Type<Descriptor>) : Event
 
         data class OriginFilterChanged(val filterType: ResultFilter.Type<TaskOrigin>) : Event
+
+        data class SelectResult(val id: ResultModel.Id) : Event
+
+        data class DeselectResult(val id: ResultModel.Id) : Event
+
+        data object CancelSelection : Event
+
+        data object ToggleSelection : Event
+
+        data object DeleteSelectedResults : Event
     }
 }

@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -23,6 +25,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDate
@@ -43,9 +49,12 @@ import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import ooniprobe.composeapp.generated.resources.Common_Yes
+import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectAll
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
+import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteSomeTests
+import ooniprobe.composeapp.generated.resources.Modal_Selected
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Results_LimitedNotice
 import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed
@@ -81,58 +90,108 @@ fun ResultsScreen(
     var showMarkAsViewedConfirm by remember { mutableStateOf(false) }
 
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
-        TopBar(
-            title = {
-                Text(stringResource(Res.string.TestResults_Overview_Title))
-            },
-            actions = {
-                if (!state.isLoading && state.results.any() && state.filter.isAll) {
-                    IconButton(
-                        onClick = { showMarkAsViewedConfirm = true },
-                        enabled = state.markAllAsViewedEnabled,
-                    ) {
+        if (!state.selectionEnabled) {
+            TopBar(
+                title = {
+                    Text(stringResource(Res.string.TestResults_Overview_Title))
+                },
+                actions = {
+                    if (!state.isLoading && state.results.any() && state.filter.isAll) {
+                        IconButton(
+                            onClick = { showMarkAsViewedConfirm = true },
+                            enabled = state.markAllAsViewedEnabled,
+                        ) {
+                            Icon(
+                                painterResource(Res.drawable.ic_mark_as_viewed),
+                                contentDescription = stringResource(Res.string.Results_MarkAllAsViewed),
+                            )
+                        }
+                    }
+                    if (!state.isLoading && state.results.any() && state.filter.isAll) {
+                        IconButton(onClick = { showDeleteConfirm = true }) {
+                            Icon(
+                                painterResource(Res.drawable.ic_delete_all),
+                                contentDescription = stringResource(Res.string.Modal_Delete),
+                            )
+                        }
+                    }
+                },
+            )
+
+            Surface(color = MaterialTheme.colorScheme.primaryContainer) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                ) {
+                    Text(
+                        stringResource(Res.string.TestResults_Overview_FilterTests),
+                        modifier = Modifier.weight(2f),
+                    )
+
+                    DescriptorFilter(
+                        current = state.filter.descriptor,
+                        list = state.descriptorFilters,
+                        onFilterChanged = { onEvent(ResultsViewModel.Event.DescriptorFilterChanged(it)) },
+                        modifier = Modifier.weight(3f).padding(horizontal = 4.dp),
+                    )
+
+                    OriginFilter(
+                        current = state.filter.taskOrigin,
+                        list = state.originFilters,
+                        onFilterChanged = { onEvent(ResultsViewModel.Event.OriginFilterChanged(it)) },
+                        modifier = Modifier.weight(3f),
+                    )
+                }
+            }
+        } else {
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                ),
+                navigationIcon = {
+                    IconButton(onClick = { onEvent(ResultsViewModel.Event.CancelSelection) }) {
                         Icon(
-                            painterResource(Res.drawable.ic_mark_as_viewed),
-                            contentDescription = stringResource(Res.string.Results_MarkAllAsViewed),
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(Res.string.Modal_Cancel),
                         )
                     }
-                }
-                if (!state.isLoading && state.results.any() && state.filter.isAll) {
-                    IconButton(onClick = { showDeleteConfirm = true }) {
-                        Icon(
-                            painterResource(Res.drawable.ic_delete_all),
-                            contentDescription = stringResource(Res.string.Modal_Delete),
-                        )
+                },
+                title = {
+                    Text(stringResource(Res.string.Modal_Selected, state.selectedResults.size), modifier = Modifier.weight(1f))
+                },
+                actions = {
+                    if (state.isAnySelected) {
+                        IconButton(onClick = { showDeleteConfirm = true }) {
+                            Icon(
+                                painterResource(Res.drawable.ic_delete_all),
+                                contentDescription = stringResource(Res.string.Modal_Delete),
+                            )
+                        }
                     }
+                },
+            )
+            Surface(color = MaterialTheme.colorScheme.surfaceContainer) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                ) {
+                    TriStateCheckbox(
+                        state = if (state.isAllSelected) {
+                            ToggleableState.On
+                        } else if (state.isAnySelected) {
+                            ToggleableState.Indeterminate
+                        } else {
+                            ToggleableState.Off
+                        },
+                        onClick = {
+                            onEvent(ResultsViewModel.Event.ToggleSelection)
+                        },
+                    )
+                    Text(stringResource(Res.string.Dashboard_RunTests_SelectAll))
                 }
-            },
-        )
-
-        Surface(color = MaterialTheme.colorScheme.primaryContainer) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-            ) {
-                Text(
-                    stringResource(Res.string.TestResults_Overview_FilterTests),
-                    modifier = Modifier.weight(2f),
-                )
-
-                DescriptorFilter(
-                    current = state.filter.descriptor,
-                    list = state.descriptorFilters,
-                    onFilterChanged = { onEvent(ResultsViewModel.Event.DescriptorFilterChanged(it)) },
-                    modifier = Modifier.weight(3f).padding(horizontal = 4.dp),
-                )
-
-                OriginFilter(
-                    current = state.filter.taskOrigin,
-                    list = state.originFilters,
-                    onFilterChanged = { onEvent(ResultsViewModel.Event.OriginFilterChanged(it)) },
-                    modifier = Modifier.weight(3f),
-                )
             }
         }
 
@@ -141,7 +200,7 @@ fun ResultsScreen(
         } else if (state.results.isEmpty() && state.filter.isAll) {
             EmptyResults()
         } else {
-            if (!isHeightCompact()) {
+            if (!isHeightCompact() && !state.selectionEnabled) {
                 Summary(state.summary)
             }
 
@@ -155,9 +214,35 @@ fun ResultsScreen(
                         ResultDateHeader(date)
                     }
                     items(items = results) { result ->
+                        val isSelected = state.selectedResults.contains(result.idOrThrow)
                         ResultCell(
                             item = result,
-                            onResultClick = { onEvent(ResultsViewModel.Event.ResultClick(result)) },
+                            onResultClick = {
+                                if (state.selectionEnabled) {
+                                    if (isSelected) {
+                                        onEvent(
+                                            ResultsViewModel.Event.DeselectResult(
+                                                result.idOrThrow,
+                                            ),
+                                        )
+                                    } else {
+                                        onEvent(ResultsViewModel.Event.SelectResult(result.idOrThrow))
+                                    }
+                                } else {
+                                    onEvent(ResultsViewModel.Event.ResultClick(result))
+                                }
+                            },
+                            isSelectedEnabled = isSelected,
+                            onSelectChange = { checked ->
+                                if (checked) {
+                                    onEvent(ResultsViewModel.Event.SelectResult(result.idOrThrow))
+                                } else {
+                                    onEvent(ResultsViewModel.Event.DeselectResult(result.idOrThrow))
+                                }
+                            },
+                            onLongPress = {
+                                if (!isSelected) onEvent(ResultsViewModel.Event.SelectResult(result.idOrThrow))
+                            },
                         )
                         HorizontalDivider(thickness = with(LocalDensity.current) { 1.toDp() })
                     }
@@ -182,8 +267,17 @@ fun ResultsScreen(
 
     if (showDeleteConfirm) {
         DeleteConfirmDialog(
+            message = if (state.selectionEnabled) {
+                stringResource(Res.string.Modal_DoYouWantToDeleteSomeTests, state.selectedResults.size)
+            } else {
+                stringResource(Res.string.Modal_DoYouWantToDeleteAllTests)
+            },
             onConfirm = {
-                onEvent(ResultsViewModel.Event.DeleteAllClick)
+                if (state.selectionEnabled) {
+                    onEvent(ResultsViewModel.Event.DeleteSelectedResults)
+                } else {
+                    onEvent(ResultsViewModel.Event.DeleteAllClick)
+                }
                 showDeleteConfirm = false
             },
             onDismiss = {
@@ -368,11 +462,12 @@ private fun ResultDateHeader(date: LocalDate) {
 private fun DeleteConfirmDialog(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
+    message: String,
 ) {
     AlertDialog(
         onDismissRequest = { onDismiss() },
         text = {
-            Text(stringResource(Res.string.Modal_DoYouWantToDeleteAllTests))
+            Text(message)
         },
         confirmButton = {
             TextButton(onClick = { onConfirm() }) {
