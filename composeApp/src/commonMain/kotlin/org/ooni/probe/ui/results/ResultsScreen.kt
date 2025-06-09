@@ -50,8 +50,10 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Results_LimitedNotice
 import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed
 import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed_Confirmation
+import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed_Filtered_Confirmation
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
+import ooniprobe.composeapp.generated.resources.TestResults_Filter_DeleteConfirmation
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_NoTestsFound
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
@@ -101,8 +103,7 @@ fun ResultsScreen(
                 }
                 IconButton(
                     onClick = { showMarkAsViewedConfirm = true },
-                    enabled = state.markAllAsViewedEnabled && !state.isLoading &&
-                        state.results.any() && state.filter.isAll,
+                    enabled = state.markAllAsViewedEnabled && !state.isLoading && state.results.any(),
                 ) {
                     Icon(
                         painterResource(Res.drawable.ic_mark_as_viewed),
@@ -111,7 +112,7 @@ fun ResultsScreen(
                 }
                 IconButton(
                     onClick = { showDeleteConfirm = true },
-                    enabled = !state.isLoading && state.results.any() && state.filter.isAll,
+                    enabled = !state.isLoading && state.results.any(),
                 ) {
                     Icon(
                         painterResource(Res.drawable.ic_delete_all),
@@ -187,8 +188,9 @@ fun ResultsScreen(
 
     if (showDeleteConfirm) {
         DeleteConfirmDialog(
+            filter = state.filter,
             onConfirm = {
-                onEvent(ResultsViewModel.Event.DeleteAllClick)
+                onEvent(ResultsViewModel.Event.DeleteClick)
                 showDeleteConfirm = false
             },
             onDismiss = {
@@ -199,8 +201,9 @@ fun ResultsScreen(
 
     if (showMarkAsViewedConfirm) {
         MarkAllAsViewedConfirmDialog(
+            filter = state.filter,
             onConfirm = {
-                onEvent(ResultsViewModel.Event.MarkAllAsViewedClick)
+                onEvent(ResultsViewModel.Event.MarkAsViewedClick)
                 showMarkAsViewedConfirm = false
             },
             onDismiss = {
@@ -377,13 +380,22 @@ private fun ResultDateHeader(date: LocalDate) {
 
 @Composable
 private fun DeleteConfirmDialog(
+    filter: ResultFilter,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = { onDismiss() },
         text = {
-            Text(stringResource(Res.string.Modal_DoYouWantToDeleteAllTests))
+            Text(
+                stringResource(
+                    if (filter.isAll) {
+                        Res.string.Modal_DoYouWantToDeleteAllTests
+                    } else {
+                        Res.string.TestResults_Filter_DeleteConfirmation
+                    },
+                ),
+            )
         },
         confirmButton = {
             TextButton(onClick = { onConfirm() }) {
@@ -403,13 +415,22 @@ private fun DeleteConfirmDialog(
 
 @Composable
 private fun MarkAllAsViewedConfirmDialog(
+    filter: ResultFilter,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = { onDismiss() },
         text = {
-            Text(stringResource(Res.string.Results_MarkAllAsViewed_Confirmation))
+            Text(
+                stringResource(
+                    if (filter.isAll) {
+                        Res.string.Results_MarkAllAsViewed_Confirmation
+                    } else {
+                        Res.string.Results_MarkAllAsViewed_Filtered_Confirmation
+                    },
+                ),
+            )
         },
         confirmButton = {
             TextButton(onClick = { onConfirm() }) {

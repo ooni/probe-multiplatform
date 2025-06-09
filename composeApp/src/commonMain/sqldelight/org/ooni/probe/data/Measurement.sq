@@ -54,8 +54,8 @@ WHERE Measurement.result_id IN (
     WHERE Result.descriptor_runId = ?
 );
 
-deleteById:
-DELETE FROM Measurement WHERE Measurement.id = ?;
+deleteByIds:
+DELETE FROM Measurement WHERE Measurement.id IN ?;
 
 selectLastInsertedRowId:
 SELECT last_insert_rowid();
@@ -81,6 +81,14 @@ SELECT * FROM Measurement
 WHERE Measurement.result_id IN (
     SELECT Result.id FROM Result
     WHERE Result.descriptor_runId = ?
+);
+
+selectWithoutResult:
+SELECT * FROM Measurement
+WHERE Measurement.id IN (
+    SELECT Measurement.id FROM Measurement
+    LEFT JOIN Result ON Measurement.result_id = Result.id
+    WHERE Result.id IS NULL
 );
 
 selectTestKeysByDescriptorKey:

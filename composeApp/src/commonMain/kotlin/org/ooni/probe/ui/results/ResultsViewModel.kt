@@ -24,9 +24,9 @@ class ResultsViewModel(
     goToUpload: () -> Unit,
     getResults: (ResultFilter) -> Flow<List<ResultListItem>>,
     getDescriptors: () -> Flow<List<Descriptor>>,
-    deleteAllResults: suspend () -> Unit,
+    deleteResultsByFilter: suspend (ResultFilter) -> Unit,
     markJustFinishedTestAsSeen: () -> Unit,
-    markAllAsViewed: suspend () -> Unit,
+    markAsViewed: suspend (ResultFilter) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -75,13 +75,13 @@ class ResultsViewModel(
             .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.MarkAllAsViewedClick>()
-            .onEach { markAllAsViewed() }
+            .filterIsInstance<Event.MarkAsViewedClick>()
+            .onEach { markAsViewed(state.value.filter) }
             .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.DeleteAllClick>()
-            .onEach { deleteAllResults() }
+            .filterIsInstance<Event.DeleteClick>()
+            .onEach { deleteResultsByFilter(state.value.filter) }
             .launchIn(viewModelScope)
 
         events
@@ -135,9 +135,9 @@ class ResultsViewModel(
 
         data object UploadClick : Event
 
-        data object MarkAllAsViewedClick : Event
+        data object MarkAsViewedClick : Event
 
-        data object DeleteAllClick : Event
+        data object DeleteClick : Event
 
         data class FilterChanged(val filter: ResultFilter) : Event
     }

@@ -54,6 +54,11 @@ class NetworkRepository(
             .asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.map { it.toModel() } }
+
+    suspend fun deleteWithoutResult() =
+        withContext(backgroundContext) {
+            database.networkQueries.deleteWithoutResult()
+        }
 }
 
 fun Network.toModel(): NetworkModel =

@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
 import org.ooni.testing.createTestDatabaseDriver
 import org.ooni.testing.factories.DescriptorFactory
@@ -93,6 +94,27 @@ class MeasurementRepositoryTest {
             subject.deleteById(modelId)
 
             assertEquals(0, subject.list().first().size)
+        }
+
+    @Test
+    fun selectWithoutResult() =
+        runTest {
+            val resultId = resultRepository.createOrUpdate(ResultModelFactory.build())
+            val modelWithResult = MeasurementModelFactory.build(
+                id = MeasurementModel.Id(1L),
+                resultId = resultId,
+            )
+            subject.createOrUpdate(modelWithResult)
+            val modelWithoutResult = MeasurementModelFactory.build(
+                id = MeasurementModel.Id(2L),
+                resultId = ResultModel.Id(9L),
+            )
+            subject.createOrUpdate(modelWithoutResult)
+
+            val output = subject.listWithoutResult().first()
+
+            assertEquals(1, output.size)
+            assertEquals(modelWithoutResult.id, output.first().id)
         }
 
     @Test

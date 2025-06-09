@@ -158,7 +158,7 @@ class ResultRepositoryTest {
         runTest {
             subject.createOrUpdate(ResultModelFactory.build(isViewed = false))
 
-            subject.markAllAsViewed()
+            subject.markAllAsViewed(ResultFilter())
 
             assertTrue(subject.getLatest().first()!!.isViewed)
         }
