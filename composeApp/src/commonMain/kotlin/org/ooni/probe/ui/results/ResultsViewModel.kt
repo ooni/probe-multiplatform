@@ -116,7 +116,7 @@ class ResultsViewModel(
         events
             .filterIsInstance<Event.CancelSelection>()
             .onEach { event ->
-                _state.update { it.copy(selectionEnabled = false) }
+                _state.update { it.copy(selectedResults = emptySet(), selectionEnabled = false) }
             }
             .launchIn(viewModelScope)
         events
