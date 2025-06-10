@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.FilterChip
@@ -57,7 +58,6 @@ import ooniprobe.composeapp.generated.resources.TestResults_Filter_Tests
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_Tests_Multiple
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Short
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
-import ooniprobe.composeapp.generated.resources.ic_cancel
 import ooniprobe.composeapp.generated.resources.ic_check
 import ooniprobe.composeapp.generated.resources.ic_close
 import ooniprobe.composeapp.generated.resources.ic_date_range
@@ -77,7 +77,6 @@ import org.ooni.probe.ui.shared.isoFormat
 fun ResultFiltersRow(
     filter: ResultFilter,
     onOpen: () -> Unit,
-    onClear: () -> Unit,
 ) {
     if (filter.isAll) return
 
@@ -132,13 +131,6 @@ fun ResultFiltersRow(
                 )
             }
         }
-
-        IconButton(onClick = onClear) {
-            Icon(
-                painterResource(Res.drawable.ic_cancel),
-                contentDescription = stringResource(Res.string.Common_Clear),
-            )
-        }
     }
 }
 
@@ -177,7 +169,7 @@ fun ResultFiltersDialog(
                                 Text(stringResource(Res.string.Common_Clear))
                             }
                         }
-                        TextButton(onClick = { onSave(currentFilter) }) {
+                        Button(onClick = { onSave(currentFilter) }) {
                             Text(stringResource(Res.string.Common_Save))
                         }
                     },
