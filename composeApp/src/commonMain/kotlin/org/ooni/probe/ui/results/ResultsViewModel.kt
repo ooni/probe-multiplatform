@@ -89,8 +89,18 @@ class ResultsViewModel(
             .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.DeleteAllClick>()
-            .onEach { deleteAllResults() }
+            .filterIsInstance<Event.DeleteClick>()
+            .onEach {
+                if(!state.value.selectionEnabled) {
+                    deleteAllResults()
+                } else {
+                    val ids = _state.value.selectedResults.toList()
+                    if (ids.isNotEmpty()) {
+                        deleteResults(ids)
+                        _state.update { it.copy(selectedResults = emptySet(), selectionEnabled = false) }
+                    }
+                }
+            }
             .launchIn(viewModelScope)
 
         events
@@ -135,16 +145,6 @@ class ResultsViewModel(
                 } else {
                     val allIds = state.results.values.flatten().map { it.idOrThrow }
                     _state.update { it.copy(selectedResults = allIds.toSet()) }
-                }
-            }
-            .launchIn(viewModelScope)
-        events
-            .filterIsInstance<Event.DeleteSelectedResults>()
-            .onEach {
-                val ids = _state.value.selectedResults.toList()
-                if (ids.isNotEmpty()) {
-                    deleteResults(ids)
-                    _state.update { it.copy(selectedResults = emptySet(), selectionEnabled = false) }
                 }
             }
             .launchIn(viewModelScope)
@@ -208,7 +208,7 @@ class ResultsViewModel(
 
         data object MarkAllAsViewedClick : Event
 
-        data object DeleteAllClick : Event
+        data object DeleteClick : Event
 
         data class DescriptorFilterChanged(val filterType: ResultFilter.Type<Descriptor>) : Event
 
@@ -222,6 +222,5 @@ class ResultsViewModel(
 
         data object ToggleSelection : Event
 
-        data object DeleteSelectedResults : Event
     }
 }

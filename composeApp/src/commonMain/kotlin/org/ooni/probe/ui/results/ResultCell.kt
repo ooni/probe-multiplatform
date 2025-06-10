@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.twotone.CheckCircle
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -63,8 +62,8 @@ fun ResultCell(
     item: ResultListItem,
     onResultClick: () -> Unit,
     isSelectedEnabled: Boolean = false,
-    onSelectChange: ((Boolean) -> Unit) = {},
-    onLongPress: (() -> Unit) = {},
+    onSelectChange: ((Boolean) -> Unit)? = null,
+    onLongClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     val hasError = item.result.isDone && item.measurementCounts.done == 0L
@@ -86,14 +85,14 @@ fun ResultCell(
                 .combinedClickable(
                     onClick = {
                         if (isSelectedEnabled) {
-                            onSelectChange(false)
+                            onSelectChange?.invoke(false)
                         } else {
                             onResultClick()
                         }
                     },
                     onLongClick = {
-                        onSelectChange(true)
-                        onLongPress.invoke()
+                        onSelectChange?.invoke(true)
+                        onLongClick?.invoke()
                     },
                 )
                 .padding(horizontal = 16.dp, vertical = 8.dp)

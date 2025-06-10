@@ -204,7 +204,7 @@ fun ResultsScreen(
                 Summary(state.summary)
             }
 
-            if (state.anyMissingUpload && state.filter.isAll) {
+            if (state.anyMissingUpload && state.filter.isAll && !state.selectionEnabled) {
                 UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
             }
 
@@ -240,7 +240,7 @@ fun ResultsScreen(
                                     onEvent(ResultsViewModel.Event.DeselectResult(result.idOrThrow))
                                 }
                             },
-                            onLongPress = {
+                            onLongClick = {
                                 if (!isSelected) onEvent(ResultsViewModel.Event.SelectResult(result.idOrThrow))
                             },
                         )
@@ -273,11 +273,7 @@ fun ResultsScreen(
                 stringResource(Res.string.Modal_DoYouWantToDeleteAllTests)
             },
             onConfirm = {
-                if (state.selectionEnabled) {
-                    onEvent(ResultsViewModel.Event.DeleteSelectedResults)
-                } else {
-                    onEvent(ResultsViewModel.Event.DeleteAllClick)
-                }
+                onEvent(ResultsViewModel.Event.DeleteClick)
                 showDeleteConfirm = false
             },
             onDismiss = {
