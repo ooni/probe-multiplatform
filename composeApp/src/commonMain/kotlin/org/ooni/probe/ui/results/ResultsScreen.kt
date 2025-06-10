@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
@@ -40,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -50,6 +52,7 @@ import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import ooniprobe.composeapp.generated.resources.Common_Yes
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectAll
+import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectNone
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
@@ -159,7 +162,7 @@ fun ResultsScreen(
                     }
                 },
                 title = {
-                    Text(stringResource(Res.string.Modal_Selected, state.selectedResults.size), modifier = Modifier.weight(1f))
+                    Text(stringResource(Res.string.Modal_Selected, state.selectedResultsCount), modifier = Modifier.weight(1f))
                 },
                 actions = {
                     if (state.isAnySelected) {
@@ -173,24 +176,40 @@ fun ResultsScreen(
                 },
             )
             Surface(color = MaterialTheme.colorScheme.surfaceContainer) {
+                val toggleState = if (state.areAllSelected) {
+                    ToggleableState.On
+                } else if (state.isAnySelected) {
+                    ToggleableState.Indeterminate
+                } else {
+                    ToggleableState.Off
+                }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .triStateToggleable(
+                            state = toggleState,
+                            onClick = {
+                                onEvent(ResultsViewModel.Event.ToggleSelection)
+                            },
+                            role = Role.Checkbox,
+                        )
+                        .padding(8.dp),
                 ) {
                     TriStateCheckbox(
-                        state = if (state.isAllSelected) {
-                            ToggleableState.On
-                        } else if (state.isAnySelected) {
-                            ToggleableState.Indeterminate
-                        } else {
-                            ToggleableState.Off
-                        },
-                        onClick = {
-                            onEvent(ResultsViewModel.Event.ToggleSelection)
-                        },
+                        state = toggleState,
+                        onClick = null,
+                        modifier = Modifier.padding(horizontal = 8.dp),
                     )
-                    Text(stringResource(Res.string.Dashboard_RunTests_SelectAll))
+                    Text(
+                        stringResource(
+                            if (toggleState != ToggleableState.On) {
+                                Res.string.Dashboard_RunTests_SelectAll
+                            } else {
+                                Res.string.Dashboard_RunTests_SelectNone
+                            },
+                        ),
+                    )
                 }
             }
         }
@@ -214,34 +233,39 @@ fun ResultsScreen(
                         ResultDateHeader(date)
                     }
                     items(items = results) { result ->
-                        val isSelected = state.selectedResults.contains(result.idOrThrow)
+                        val isSelected = result.isSelected
                         ResultCell(
-                            item = result,
+                            item = result.item,
                             onResultClick = {
                                 if (state.selectionEnabled) {
-                                    if (isSelected) {
-                                        onEvent(
-                                            ResultsViewModel.Event.DeselectResult(
-                                                result.idOrThrow,
-                                            ),
-                                        )
-                                    } else {
-                                        onEvent(ResultsViewModel.Event.SelectResult(result.idOrThrow))
-                                    }
+                                    onEvent(
+                                        ResultsViewModel.Event.ToggleItemSelection(
+                                            result.item,
+                                            !isSelected,
+                                        ),
+                                    )
                                 } else {
-                                    onEvent(ResultsViewModel.Event.ResultClick(result))
+                                    onEvent(ResultsViewModel.Event.ResultClick(result.item))
                                 }
                             },
                             isSelectedEnabled = isSelected,
                             onSelectChange = { checked ->
-                                if (checked) {
-                                    onEvent(ResultsViewModel.Event.SelectResult(result.idOrThrow))
-                                } else {
-                                    onEvent(ResultsViewModel.Event.DeselectResult(result.idOrThrow))
-                                }
+                                onEvent(
+                                    ResultsViewModel.Event.ToggleItemSelection(
+                                        result.item,
+                                        checked,
+                                    ),
+                                )
                             },
                             onLongClick = {
-                                if (!isSelected) onEvent(ResultsViewModel.Event.SelectResult(result.idOrThrow))
+                                if (!isSelected) {
+                                    onEvent(
+                                        ResultsViewModel.Event.ToggleItemSelection(
+                                            result.item,
+                                            true,
+                                        ),
+                                    )
+                                }
                             },
                         )
                         HorizontalDivider(thickness = with(LocalDensity.current) { 1.toDp() })
@@ -268,7 +292,7 @@ fun ResultsScreen(
     if (showDeleteConfirm) {
         DeleteConfirmDialog(
             message = if (state.selectionEnabled) {
-                stringResource(Res.string.Modal_DoYouWantToDeleteSomeTests, state.selectedResults.size)
+                stringResource(Res.string.Modal_DoYouWantToDeleteSomeTests, state.selectedResultsCount)
             } else {
                 stringResource(Res.string.Modal_DoYouWantToDeleteAllTests)
             },
