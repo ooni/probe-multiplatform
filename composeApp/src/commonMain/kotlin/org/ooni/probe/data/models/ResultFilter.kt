@@ -9,7 +9,7 @@ import org.ooni.probe.shared.today
 data class ResultFilter(
     val descriptors: List<Descriptor> = emptyList(),
     val taskOrigin: TaskOrigin? = null,
-    val dates: Date = Date.Any,
+    val dates: Date = Date.AnyDate,
     val limit: Long = LIMIT,
 ) {
     val isAll get() = this == ResultFilter()
@@ -17,7 +17,7 @@ data class ResultFilter(
     sealed class Date(
         val range: ClosedRange<LocalDate>,
     ) {
-        data object Any :
+        data object AnyDate :
             Date(LocalDate(2000, 1, 1)..LocalDate.today())
 
         data object Today :

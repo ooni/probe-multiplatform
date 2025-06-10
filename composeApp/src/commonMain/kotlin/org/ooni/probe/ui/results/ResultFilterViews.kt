@@ -1,12 +1,16 @@
 package org.ooni.probe.ui.results
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -122,7 +126,7 @@ fun ResultFiltersRow(
                 )
             }
 
-            if (filter.dates != ResultFilter.Date.Any) {
+            if (filter.dates != ResultFilter.Date.AnyDate) {
                 InputChip(
                     selected = true,
                     onClick = onOpen,
@@ -169,20 +173,33 @@ fun ResultFiltersDialog(
                                 Text(stringResource(Res.string.Common_Clear))
                             }
                         }
-                        Button(onClick = { onSave(currentFilter) }) {
-                            Text(stringResource(Res.string.Common_Save))
-                        }
                     },
                     colors = TopAppBarDefaults.topAppBarColors().copy(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant,
                     ),
                 )
 
-                ResultsFiltersDialogContent(
-                    currentFilter,
-                    { currentFilter = it },
-                    descriptors,
-                )
+                Box(modifier = Modifier.fillMaxSize()) {
+                    ResultsFiltersDialogContent(
+                        currentFilter,
+                        { currentFilter = it },
+                        descriptors,
+                    )
+
+                    Button(
+                        onClick = { onSave(currentFilter) },
+                        enabled = initialFilter != currentFilter,
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(bottom = 16.dp)
+                            .padding(WindowInsets.navigationBars.asPaddingValues()),
+                    ) {
+                        Text(
+                            stringResource(Res.string.Common_Save),
+                            style = MaterialTheme.typography.titleLarge,
+                        )
+                    }
+                }
             }
         }
     }
@@ -197,7 +214,9 @@ private fun ResultsFiltersDialogContent(
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
-            .padding(vertical = 16.dp),
+            .padding(vertical = 16.dp)
+            // So content can scroll above the Save button
+            .padding(bottom = 64.dp),
     ) {
         TestsFilter(filter, updateFilter, descriptors)
         HorizontalDivider(Modifier.padding(vertical = 8.dp))
@@ -295,7 +314,7 @@ private fun DateFilter(
         modifier = Modifier.padding(start = 16.dp, end = 8.dp),
     ) {
         listOf(
-            ResultFilter.Date.Any,
+            ResultFilter.Date.AnyDate,
             ResultFilter.Date.Today,
             ResultFilter.Date.FromSevenDaysAgo,
             ResultFilter.Date.FromOneMonthAgo,
@@ -320,7 +339,7 @@ private fun DateFilter(
 
     if (showDatePicker) {
         val initialRange = (filter.dates as? ResultFilter.Date.Custom)?.customRange
-        val selectableRange = ResultFilter.Date.Any.range
+        val selectableRange = ResultFilter.Date.AnyDate.range
         val selectableYearRange = selectableRange.let { it.start.year..it.endInclusive.year }
 
         val dateRangePickerState = rememberDateRangePickerState(
@@ -390,7 +409,7 @@ private fun ResultFilter.Date.display() =
         ResultFilter.Date.FromOneMonthAgo ->
             stringResource(Res.string.TestResults_Filter_Date_FromOneMonthAgo)
 
-        ResultFilter.Date.Any ->
+        ResultFilter.Date.AnyDate ->
             stringResource(Res.string.TestResults_Filter_Date_Any)
 
         is ResultFilter.Date.Custom ->
