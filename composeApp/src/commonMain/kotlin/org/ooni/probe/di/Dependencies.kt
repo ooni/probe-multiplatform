@@ -706,9 +706,10 @@ class Dependencies(
             setPreferenceValuesByKeys = preferenceRepository::setValuesByKey,
         )
 
-    fun bottomBarViewModel(): BottomBarViewModel =
+    fun bottomBarViewModel() =
         BottomBarViewModel(
-            resultRepository::countAllNotViewedFlow,
+            countAllNotViewedFlow = resultRepository::countAllNotViewedFlow,
+            runBackgroundStateFlow = runBackgroundStateManager::observeState,
         )
 
     companion object {
