@@ -7,6 +7,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextReplacement
 import androidx.compose.ui.test.runComposeUiTest
+import kotlinx.coroutines.flow.flowOf
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.RunSpecification
@@ -19,6 +20,8 @@ class ChooseWebsitesTest {
         onBack = {},
         goToDashboard = {},
         startBackgroundRun = { runSpec = it },
+        getPreference = { flowOf(null) },
+        setPreference = { _, _ -> },
     )
 
     @Test

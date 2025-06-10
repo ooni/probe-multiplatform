@@ -19,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +33,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Common_Back
+import ooniprobe.composeapp.generated.resources.Common_Clear
 import ooniprobe.composeapp.generated.resources.CustomWebsites_Fab_Text
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_CustomURL_NotSaved
@@ -65,6 +67,18 @@ fun ChooseWebsitesScreen(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(Res.string.Common_Back),
                     )
+                }
+            },
+            actions = {
+                if (state.canClearUrls) {
+                    TextButton(
+                        onClick = { onEvent(ChooseWebsitesViewModel.Event.ClearClicked) },
+                        colors = ButtonDefaults.textButtonColors(
+                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        ),
+                    ) {
+                        Text(stringResource(Res.string.Common_Clear))
+                    }
                 }
             },
         )
@@ -122,6 +136,7 @@ fun ChooseWebsitesScreen(
                 item(key = "Add") {
                     TextButton(
                         onClick = { onEvent(ChooseWebsitesViewModel.Event.AddWebsiteClicked) },
+                        enabled = state.canAddUrls,
                         modifier = Modifier.padding(16.dp),
                     ) {
                         Icon(

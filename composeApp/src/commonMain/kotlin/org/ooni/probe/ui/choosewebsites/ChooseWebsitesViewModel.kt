@@ -2,43 +2,65 @@ package org.ooni.probe.ui.choosewebsites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.RunSpecification
+import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.ui.shared.isValidUrl
 
 class ChooseWebsitesViewModel(
+    initialUrl: String? = null,
     onBack: () -> Unit,
     goToDashboard: () -> Unit,
     startBackgroundRun: (RunSpecification) -> Unit,
-    initialUrl: String? = null,
+    getPreference: (SettingsKey) -> Flow<Any?>,
+    setPreference: suspend (SettingsKey, Any) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
     private val _state = MutableStateFlow(
         State(
             websites = listOf(
-                initialUrl?.let {
-                    WebsiteItem(url = it, hasError = !it.isValidUrl())
-                } ?: WebsiteItem(),
+                initialUrl
+                    ?.let { WebsiteItem(url = it, hasError = !it.isValidUrl()) }
+                    ?: WebsiteItem(),
             ),
         ),
     )
     val state = _state.asStateFlow()
 
+    private var lastChosenWebsites: List<WebsiteItem>? = null
+
     init {
+        viewModelScope.launch {
+            if (initialUrl != null) return@launch
+
+            @Suppress("UNCHECKED_CAST")
+            (getPreference(SettingsKey.CHOSEN_WEBSITES).first() as? Set<String>)
+                ?.let { lastUrls ->
+                    val websites = lastUrls.map { url ->
+                        WebsiteItem(url = url, hasError = !url.isValidUrl())
+                    }
+                    lastChosenWebsites = websites
+                    _state.update { it.copy(websites = websites) }
+                }
+        }
+
         events
             .filterIsInstance<Event.BackClicked>()
             .onEach {
-                if (_state.value == State()) {
+                if (_state.value == State() || _state.value.websites == lastChosenWebsites) {
                     onBack()
                 } else {
                     _state.update { it.copy(showBackConfirmation = true) }
@@ -58,7 +80,10 @@ class ChooseWebsitesViewModel(
 
         events
             .filterIsInstance<Event.AddWebsiteClicked>()
-            .onEach { _state.update { it.copy(websites = it.websites + WebsiteItem()) } }
+            .onEach {
+                if (_state.value.websites.size >= MAX_WEBSITES) return@onEach
+                _state.update { it.copy(websites = it.websites + WebsiteItem()) }
+            }
             .launchIn(viewModelScope)
 
         events
@@ -70,6 +95,11 @@ class ChooseWebsitesViewModel(
                     it.copy(websites = newList)
                 }
             }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.ClearClicked>()
+            .onEach { _state.update { it.copy(websites = listOf(WebsiteItem())) } }
             .launchIn(viewModelScope)
 
         events
@@ -100,6 +130,8 @@ class ChooseWebsitesViewModel(
                     return@onEach
                 }
 
+                val urls = items.map { it.url }.distinct()
+                setPreference(SettingsKey.CHOSEN_WEBSITES, urls.toSet())
                 startBackgroundRun(
                     RunSpecification.Full(
                         tests = listOf(
@@ -108,7 +140,7 @@ class ChooseWebsitesViewModel(
                                 netTests = listOf(
                                     NetTest(
                                         test = TestType.WebConnectivity,
-                                        inputs = items.map { it.url },
+                                        inputs = urls,
                                     ),
                                 ),
                             ),
@@ -135,7 +167,9 @@ class ChooseWebsitesViewModel(
         val websites: List<WebsiteItem> = listOf(WebsiteItem()),
         val showBackConfirmation: Boolean = false,
     ) {
+        val canAddUrls get() = websites.size < MAX_WEBSITES
         val canRemoveUrls get() = websites.size > 1
+        val canClearUrls get() = websites.isNotEmpty() && websites != listOf(WebsiteItem())
     }
 
     sealed interface Event {
@@ -151,6 +185,12 @@ class ChooseWebsitesViewModel(
 
         data object AddWebsiteClicked : Event
 
+        data object ClearClicked : Event
+
         data object RunClicked : Event
+    }
+
+    companion object {
+        private const val MAX_WEBSITES = 100
     }
 }

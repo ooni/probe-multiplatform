@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.firstOrNull
@@ -19,6 +20,9 @@ sealed class PreferenceKey<T>(val preferenceKey: Preferences.Key<T>) {
     class IntKey(preferenceKey: Preferences.Key<Int>) : PreferenceKey<Int>(preferenceKey)
 
     class StringKey(preferenceKey: Preferences.Key<String>) : PreferenceKey<String>(preferenceKey)
+
+    class StringSetKey(preferenceKey: Preferences.Key<Set<String>>) :
+        PreferenceKey<Set<String>>(preferenceKey)
 
     class BooleanKey(preferenceKey: Preferences.Key<Boolean>) :
         PreferenceKey<Boolean>(preferenceKey)
@@ -70,6 +74,9 @@ class PreferenceRepository(
             SettingsKey.LANGUAGE_SETTING,
             -> PreferenceKey.StringKey(stringPreferencesKey(preferenceKey))
 
+            SettingsKey.CHOSEN_WEBSITES,
+            -> PreferenceKey.StringSetKey(stringSetPreferencesKey(preferenceKey))
+
             else -> PreferenceKey.BooleanKey(booleanPreferencesKey(preferenceKey))
         }
     }
@@ -90,6 +97,7 @@ class PreferenceRepository(
             when (val preferenceKey = preferenceKeyFromSettingsKey(key)) {
                 is PreferenceKey.IntKey -> it[preferenceKey.preferenceKey]
                 is PreferenceKey.StringKey -> it[preferenceKey.preferenceKey]
+                is PreferenceKey.StringSetKey -> it[preferenceKey.preferenceKey]
                 is PreferenceKey.BooleanKey -> it[preferenceKey.preferenceKey]
                 is PreferenceKey.FloatKey -> it[preferenceKey.preferenceKey]
                 is PreferenceKey.LongKey -> it[preferenceKey.preferenceKey]
@@ -106,12 +114,16 @@ class PreferenceRepository(
     suspend fun setValuesByKey(pairs: List<Pair<SettingsKey, Any?>>) {
         dataStore.edit {
             pairs.forEach { (key, value) ->
+                @Suppress("UNCHECKED_CAST")
                 when (val preferenceKey = preferenceKeyFromSettingsKey(key)) {
                     is PreferenceKey.IntKey ->
                         it[preferenceKey.preferenceKey] = value as Int
 
                     is PreferenceKey.StringKey ->
                         it[preferenceKey.preferenceKey] = value as String
+
+                    is PreferenceKey.StringSetKey ->
+                        it[preferenceKey.preferenceKey] = value as Set<String>
 
                     is PreferenceKey.BooleanKey ->
                         it[preferenceKey.preferenceKey] = value as Boolean
@@ -132,7 +144,8 @@ class PreferenceRepository(
         isAutoRun: Boolean,
     ): Flow<Boolean> =
         dataStore.data.map {
-            it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] ?: netTest.defaultPreferenceValue(isAutoRun)
+            it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))]
+                ?: netTest.defaultPreferenceValue(isAutoRun)
         }.distinctUntilChanged()
 
     fun areNetTestsEnabled(
@@ -142,7 +155,8 @@ class PreferenceRepository(
         dataStore.data.map {
             list.associate { (descriptor, netTest) ->
                 Pair(descriptor, netTest) to (
-                    it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] ?: netTest.defaultPreferenceValue(isAutoRun)
+                    it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))]
+                        ?: netTest.defaultPreferenceValue(isAutoRun)
                 )
             }
         }.distinctUntilChanged()
@@ -165,7 +179,8 @@ class PreferenceRepository(
     ) {
         dataStore.edit {
             list.forEach { (descriptor, netTest) ->
-                it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] = netTest.defaultPreferenceValue(isAutoRun)
+                it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))] =
+                    netTest.defaultPreferenceValue(isAutoRun)
             }
         }
     }
