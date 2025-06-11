@@ -85,7 +85,8 @@ fun ChooseWebsitesScreen(
 
         Box(Modifier.fillMaxSize()) {
             LazyColumn(
-                modifier = Modifier.imePadding(),
+                modifier = Modifier.imePadding()
+                    .testTag("ChooseWebsites-List"),
                 contentPadding = PaddingValues(
                     bottom = WindowInsets.navigationBars.asPaddingValues()
                         .calculateBottomPadding() + 64.dp,
@@ -129,7 +130,7 @@ fun ChooseWebsitesScreen(
                         modifier = Modifier.fillMaxWidth()
                             .padding(horizontal = 16.dp)
                             .padding(top = 16.dp)
-                            .testTag("ChooseWebsite-UrlField"),
+                            .testTag("ChooseWebsites-UrlField"),
                     )
                 }
 

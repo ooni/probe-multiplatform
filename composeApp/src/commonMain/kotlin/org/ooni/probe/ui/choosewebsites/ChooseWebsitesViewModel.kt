@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.choosewebsites
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +21,7 @@ import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.ui.shared.isValidUrl
 
 class ChooseWebsitesViewModel(
-    initialUrl: String? = null,
+    initialUrl: String?,
     onBack: () -> Unit,
     goToDashboard: () -> Unit,
     startBackgroundRun: (RunSpecification) -> Unit,
@@ -191,6 +192,7 @@ class ChooseWebsitesViewModel(
     }
 
     companion object {
-        private const val MAX_WEBSITES = 100
+        @VisibleForTesting
+        const val MAX_WEBSITES = 100
     }
 }
