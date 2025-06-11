@@ -43,9 +43,16 @@ class ResultsViewModel(
             .onEach { results ->
                 val groupedResults = results.groupBy { it.monthAndYear }
                     .mapValues { entry ->
-                        entry.value.map { item ->
-                            // Use selectionEnabled to determine if selection is active, but default to false for all
-                            SelectableItem(item, false)
+                        val previouslySelectedIds = _state.value.results.values
+                            .asSequence()
+                            .flatten()
+                            .filter { it.isSelected }
+                            .map { it.item.idOrThrow }
+                            .toSet()
+
+                        entry.value.map { newItem ->
+                            val wasPreviouslySelected = newItem.idOrThrow in previouslySelectedIds
+                            SelectableItem(newItem, wasPreviouslySelected)
                         }
                     }
                 _state.update { state ->
@@ -93,19 +100,14 @@ class ResultsViewModel(
                 if (!state.value.selectionEnabled) {
                     deleteResultsByFilter(state.value.filter)
                 } else {
-
-                    val selectedIds = _state.value.results.values.flatMap { list -> // Suggestion 1.1
-                        list.filter { it.isSelected }.map { it.item.idOrThrow }
-                    }
+                    val selectedIds =
+                        _state.value.results.values.flatMap { list -> // Suggestion 1.1
+                            list.filter { it.isSelected }.map { it.item.idOrThrow }
+                        }
                     if (selectedIds.isNotEmpty()) {
                         deleteResults(selectedIds)
-                        // Deselect all after deletion
-                        _state.update {
-                            it.copy(
-                                results = it.results.mapValues {
-                                        (_, list) ->
-                                    list.map { item -> item.copy(isSelected = false) }
-                                },
+                        _state.update { state ->
+                            state.copy(
                                 selectionEnabled = false,
                             )
                         }
@@ -125,9 +127,18 @@ class ResultsViewModel(
                 _state.update { state ->
                     state.copy(
                         results = state.results.mapValues { (_, list) ->
-                            list.map { item ->
-                                if (item.item.idOrThrow == event.item.idOrThrow) item.copy(isSelected = event.selected) else item
-                            }
+                            list.firstOrNull { it.item.idOrThrow == event.item.idOrThrow && it.item.result.isDone }
+                                ?.let { found ->
+                                    list.map {
+                                        if (it.item.idOrThrow == found.item.idOrThrow) {
+                                            it.copy(
+                                                isSelected = event.selected,
+                                            )
+                                        } else {
+                                            it
+                                        }
+                                    }
+                                } ?: list
                         },
                         selectionEnabled = state.selectionEnabled || event.selected,
                     )
@@ -136,10 +147,16 @@ class ResultsViewModel(
             .launchIn(viewModelScope)
         events
             .filterIsInstance<Event.CancelSelection>()
-            .onEach { event ->
+            .onEach { _ ->
                 _state.update { state ->
                     state.copy(
-                        results = state.results.mapValues { (_, list) -> list.map { it.copy(isSelected = false) } },
+                        results = state.results.mapValues { (_, list) ->
+                            list.map {
+                                it.copy(
+                                    isSelected = false,
+                                )
+                            }
+                        },
                         selectionEnabled = false,
                     )
                 }
@@ -183,7 +200,9 @@ class ResultsViewModel(
             get() = results.any { it.value.any { item -> !item.item.allMeasurementsUploaded } }
 
         val areResultsLimited get() = results.values.sumOf { it.size } >= ResultFilter.LIMIT
-        val areAllSelected get() = results.values.flatten().all { it.isSelected } && results.values.flatten().isNotEmpty()
+        val areAllSelected
+            get() = results.values.flatten().all { it.isSelected } && results.values.flatten()
+                .isNotEmpty()
         val isAnySelected get() = results.values.flatten().any { it.isSelected }
         val selectedResultsCount get() = results.values.flatten().count { it.isSelected }
     }
