@@ -69,7 +69,6 @@
 
     <string name="TestResults_Overview_Title">Sınama sonuçları</string>
     <string name="TestResults_Overview_Tab_Label">Sınama sonuçları</string>
-    <string name="TestResults_Overview_FilterTests">Süzgeç sınamaları</string>
     <string name="TestResults_Overview_Hero_Tests">Sınamalar</string>
     <string name="TestResults_Overview_Hero_Networks">Ağ</string>
     <string name="TestResults_Overview_Hero_DataUsage">Veri kullanımı</string>
@@ -105,13 +104,15 @@
     <string name="TestResults_UnknownASN">Bilinmiyor</string>
     <string name="TestResults_NotAvailable">Yok</string>
 
-    <string name="Results_TestType_All">Tüm türler</string>
-    <string name="Results_TaskOrigin_All">Tüm kaynaklar</string>
+    <string name="TestResults_Filter_Tests">Sınamalar</string>
+    <string name="TestResults_Filter_Source">Kaynak</string>
+    <string name="TestResults_Filter_Date">Tarih</string>
+    <string name="TestResults_Filter_Date_Today">Bugün</string>
+    <string name="TestResults_Filter_Date_Custom">Özel</string>
     <string name="Results_LimitedNotice">Yalnızca son %1$d sonuç görüntüleniyor</string>
     <string name="Results_UploadingMissing">Eksik sonuçlar yükleniyor %1$s</string>
     <string name="Results_MarkAllAsViewed">Tümünü görülmüş olarak işaretle</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Tüm sonuçları görülmüş olarak işaretlemek istediğinize emin misiniz\?</string>
-
     <!-- Measurements -->
 
     <string name="Measurement_Title">Ölçüm</string>
@@ -344,11 +345,14 @@
     <string name="Notification_StopTest">Sınamayı durdur</string>
 
     <string name="Common_Back">Geri</string>
+    <string name="Common_Close">Kapat</string>
     <string name="Common_Refresh">Yenile</string>
     <string name="Common_Collapse">Daralt</string>
     <string name="Common_Expand">Genişlet</string>
     <string name="Common_Enable">Aç</string>
     <string name="Common_Yes">Evet</string>
+    <string name="Common_Save">Kaydet</string>
+    <string name="Common_Clear">Temizle</string>
     <string name="Common_Ago">%1$s önce</string>
     <string name="Common_Minutes_One">%1$d dakika</string>
     <string name="Common_Minutes_Other">%1$d dakika</string>
