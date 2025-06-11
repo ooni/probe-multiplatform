@@ -104,9 +104,13 @@
     <string name="TestResults_UnknownASN">Inconnu</string>
     <string name="TestResults_NotAvailable">ND</string>
 
+    <string name="TestResults_Filters_Title">Filtrer les résultats des tests</string>
+    <string name="TestResults_Filters_Short">Filtres :</string>
     <string name="TestResults_Filter_Tests">Tests</string>
+    <string name="TestResults_Filter_Tests_Multiple">%1$d tests</string>
     <string name="TestResults_Filter_Source">Source</string>
-    <string name="TestResults_Filter_Date">✔️</string>
+    <string name="TestResults_Filter_Date">Date</string>
+    <string name="TestResults_Filter_Date_Any">N’importe quelle date</string>
     <string name="TestResults_Filter_Date_Today">Aujourd’hui</string>
     <string name="TestResults_Filter_Date_Custom">Personnalisée</string>
     <string name="Results_LimitedNotice">Seuls les %1$d derniers résultats sont affichés</string>
