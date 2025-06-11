@@ -498,14 +498,16 @@ class Dependencies(
     )
 
     fun chooseWebsitesViewModel(
+        initialUrl: String?,
         onBack: () -> Unit,
         goToDashboard: () -> Unit,
-        initialUrl: String?,
     ) = ChooseWebsitesViewModel(
+        initialUrl = initialUrl,
         onBack = onBack,
         goToDashboard = goToDashboard,
         startBackgroundRun = startSingleRunInner,
-        initialUrl = initialUrl,
+        getPreference = preferenceRepository::getValueByKey,
+        setPreference = preferenceRepository::setValueByKey,
     )
 
     fun dashboardViewModel(
