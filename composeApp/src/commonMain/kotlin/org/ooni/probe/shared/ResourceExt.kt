@@ -23,6 +23,9 @@ import ooniprobe.composeapp.generated.resources.Measurements_Count_One
 import ooniprobe.composeapp.generated.resources.Measurements_Count_Other
 import ooniprobe.composeapp.generated.resources.Measurements_Failed_One
 import ooniprobe.composeapp.generated.resources.Measurements_Failed_Other
+import ooniprobe.composeapp.generated.resources.Modal_Selected_One
+import ooniprobe.composeapp.generated.resources.Modal_Selected_Other
+import ooniprobe.composeapp.generated.resources.Modal_Selected_Zero
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked_Plural
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked_Singular
@@ -121,4 +124,10 @@ private val stringMap = mapOf(
         to Res.string.TestResults_Summary_Websites_Hero_Reachable_Singular,
     "@string/TestResults_Summary_Websites_Hero_Reachable_Plural"
         to Res.string.TestResults_Summary_Websites_Hero_Reachable_Plural,
+    "@string/Modal_Selected_Zero"
+        to Res.string.Modal_Selected_Zero,
+    "@string/Modal_Selected_One"
+        to Res.string.Modal_Selected_One,
+    "@string/Modal_Selected_Other"
+        to Res.string.Modal_Selected_Other,
 )
