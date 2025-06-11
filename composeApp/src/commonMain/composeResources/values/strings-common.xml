@@ -120,7 +120,6 @@
     <string name="TestResults_Filter_NoTestsFound">No test results found for those filters.</string>
     <string name="TestResults_Filter_DeleteConfirmation">Do you want to delete all test results for the current filters?</string>
 
-    <string name="Results_PickDateRange">Pick a date range</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
     <string name="Results_MarkAllAsViewed">Mark all as viewed</string>
