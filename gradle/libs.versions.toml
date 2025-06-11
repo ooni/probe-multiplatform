@@ -2,9 +2,9 @@
 
 agp = "8.7.3" # Check compatibility https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
 
-android-compileSdk = "35"
+android-compileSdk = "36"
 android-minSdk = "24"
-android-targetSdk = "35"
+android-targetSdk = "36"
 
 compose-plugin = "1.8.1"
 kotlin = "2.1.21"
