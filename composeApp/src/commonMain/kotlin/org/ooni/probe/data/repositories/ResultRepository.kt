@@ -29,15 +29,12 @@ class ResultRepository(
     private val backgroundContext: CoroutineContext,
 ) {
     fun list(filter: ResultFilter = ResultFilter()): Flow<List<ResultWithNetworkAndAggregates>> {
-        val descriptorFilter = (filter.descriptor as? ResultFilter.Type.One)?.value
-        val originFilter = (filter.taskOrigin as? ResultFilter.Type.One)?.value
-
         return database.resultQueries
             .selectAllWithNetwork(
-                filterByDescriptor = if (descriptorFilter != null) 1 else 0,
-                descriptorKey = descriptorFilter?.key,
-                filterByTaskOrigin = if (originFilter != null) 1 else 0,
-                taskOrigin = originFilter?.value,
+                filterByDescriptors = if (filter.descriptors.any()) 1 else 0,
+                descriptorsKeys = filter.descriptors.map { it.key },
+                filterByTaskOrigin = if (filter.taskOrigin != null) 1 else 0,
+                taskOrigin = filter.taskOrigin?.value,
                 limit = filter.limit,
             )
             .asFlow()
