@@ -17,6 +17,7 @@ import org.ooni.probe.data.SelectByResultIdWithUrl
 import org.ooni.probe.data.SelectTestKeysByDescriptorKey
 import org.ooni.probe.data.SelectTestKeysByResultId
 import org.ooni.probe.data.Url
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
@@ -56,17 +57,25 @@ class MeasurementRepository(
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
-    fun selectByResultRunId(descriptorId: InstalledTestDescriptorModel.Id) =
+    fun listByResultRunId(descriptorId: InstalledTestDescriptorModel.Id) =
         database.measurementQueries
             .selectByResultRunId(descriptorId.value)
             .asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
-    fun selectTestKeysByDescriptorKey(descriptorKey: String?): Flow<List<TestKeysWithResultId>> {
+    fun listWithoutResult() =
+        database.measurementQueries
+            .selectWithoutResult()
+            .asFlow()
+            .mapToList(backgroundContext)
+            .map { list -> list.mapNotNull { it.toModel() } }
+
+    fun selectTestKeys(filterByDescriptors: List<Descriptor>): Flow<List<TestKeysWithResultId>> {
         return database.measurementQueries
             .selectTestKeysByDescriptorKey(
-                descriptorKey = descriptorKey,
+                filterByDescriptors = if (filterByDescriptors.any()) 1 else 0,
+                descriptorsKeys = filterByDescriptors.map { it.key },
             )
             .asFlow()
             .mapToList(backgroundContext)
@@ -125,9 +134,11 @@ class MeasurementRepository(
         }
     }
 
-    suspend fun deleteById(measurementId: MeasurementModel.Id) {
+    suspend fun deleteById(measurementId: MeasurementModel.Id) = deleteByIds(listOf(measurementId))
+
+    suspend fun deleteByIds(measurementIds: List<MeasurementModel.Id>) {
         withContext(backgroundContext) {
-            database.measurementQueries.deleteById(measurementId.value)
+            database.measurementQueries.deleteByIds(measurementIds.map { it.value })
         }
     }
 

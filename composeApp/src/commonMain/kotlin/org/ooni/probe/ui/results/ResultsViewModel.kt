@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.LocalDate
-import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultListItem
@@ -26,9 +25,9 @@ class ResultsViewModel(
     goToUpload: () -> Unit,
     getResults: (ResultFilter) -> Flow<List<ResultListItem>>,
     getDescriptors: () -> Flow<List<Descriptor>>,
-    deleteAllResults: suspend () -> Unit,
+    deleteResultsByFilter: suspend (ResultFilter) -> Unit,
     markJustFinishedTestAsSeen: () -> Unit,
-    markAllAsViewed: suspend () -> Unit,
+    markAsViewed: suspend (ResultFilter) -> Unit,
     deleteResults: suspend (List<ResultModel.Id>) -> Unit = {},
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -63,11 +62,7 @@ class ResultsViewModel(
         getDescriptors()
             .onEach { descriptors ->
                 _state.update { state ->
-                    state.copy(
-                        descriptorFilters =
-                            listOf(ResultFilter.Type.All) +
-                                descriptors.map { ResultFilter.Type.One(it) },
-                    )
+                    state.copy(descriptors = descriptors)
                 }
             }
             .launchIn(viewModelScope)
@@ -88,15 +83,15 @@ class ResultsViewModel(
             .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.MarkAllAsViewedClick>()
-            .onEach { markAllAsViewed() }
+            .filterIsInstance<Event.MarkAsViewedClick>()
+            .onEach { markAsViewed(state.value.filter) }
             .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.DeleteClick>()
             .onEach {
                 if (!state.value.selectionEnabled) {
-                    deleteAllResults()
+                    deleteResultsByFilter(state.value.filter)
                 } else {
 
                     val selectedIds = _state.value.results.values.flatMap { list -> // Suggestion 1.1
@@ -120,17 +115,8 @@ class ResultsViewModel(
             .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.DescriptorFilterChanged>()
-            .onEach { event ->
-                _state.update { it.copy(filter = it.filter.copy(descriptor = event.filterType)) }
-            }
-            .launchIn(viewModelScope)
-
-        events
-            .filterIsInstance<Event.OriginFilterChanged>()
-            .onEach { event ->
-                _state.update { it.copy(filter = it.filter.copy(taskOrigin = event.filterType)) }
-            }
+            .filterIsInstance<Event.FilterChanged>()
+            .onEach { event -> _state.update { it.copy(filter = event.filter) } }
             .launchIn(viewModelScope)
 
         events
@@ -186,14 +172,7 @@ class ResultsViewModel(
 
     data class State(
         val filter: ResultFilter = ResultFilter(),
-        val descriptorFilters: List<ResultFilter.Type<Descriptor>> = listOf(
-            ResultFilter.Type.All,
-        ),
-        val originFilters: List<ResultFilter.Type<TaskOrigin>> = listOf(
-            ResultFilter.Type.All,
-            ResultFilter.Type.One(TaskOrigin.OoniRun),
-            ResultFilter.Type.One(TaskOrigin.AutoRun),
-        ),
+        val descriptors: List<Descriptor> = emptyList(),
         val results: Map<LocalDate, List<SelectableItem<ResultListItem>>> = emptyMap(),
         val summary: Summary? = null,
         val isLoading: Boolean = true,
@@ -231,18 +210,16 @@ class ResultsViewModel(
 
         data object UploadClick : Event
 
-        data object MarkAllAsViewedClick : Event
+        data object MarkAsViewedClick : Event
 
         data object DeleteClick : Event
-
-        data class DescriptorFilterChanged(val filterType: ResultFilter.Type<Descriptor>) : Event
-
-        data class OriginFilterChanged(val filterType: ResultFilter.Type<TaskOrigin>) : Event
 
         data class ToggleItemSelection(val item: ResultListItem, val selected: Boolean) : Event
 
         data object CancelSelection : Event
 
         data object ToggleSelection : Event
+
+        data class FilterChanged(val filter: ResultFilter) : Event
     }
 }

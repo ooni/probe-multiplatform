@@ -69,7 +69,6 @@
 
     <string name="TestResults_Overview_Title">Test Results</string>
     <string name="TestResults_Overview_Tab_Label">Test Results</string>
-    <string name="TestResults_Overview_FilterTests">Filter Tests</string>
     <string name="TestResults_Overview_Hero_Tests">Tests</string>
     <string name="TestResults_Overview_Hero_Networks">Networks</string>
     <string name="TestResults_Overview_Hero_DataUsage">Data Usage</string>
@@ -105,12 +104,27 @@
     <string name="TestResults_UnknownASN">Unknown</string>
     <string name="TestResults_NotAvailable">N/A</string>
 
-    <string name="Results_TestType_All">All Types</string>
-    <string name="Results_TaskOrigin_All">All Sources</string>
+    <string name="TestResults_Filters_Title">Filter Test Results</string>
+    <string name="TestResults_Filters_Short">Filters:</string>
+    <string name="TestResults_Filter_Tests">Tests</string>
+    <string name="TestResults_Filter_Tests_Multiple">%1$d tests</string>
+    <string name="TestResults_Filter_Source">Source</string>
+    <string name="TestResults_Filter_Date">Date</string>
+    <string name="TestResults_Filter_Date_Any">Any date</string>
+    <string name="TestResults_Filter_Date_Today">Today</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">From 7 days ago</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">From 1 month ago</string>
+    <string name="TestResults_Filter_Date_Custom">Custom</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Custom: %1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Pick a date range</string>
+    <string name="TestResults_Filter_NoTestsFound">No test results found for those filters.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Do you want to delete all test results for the current filters?</string>
+
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
     <string name="Results_MarkAllAsViewed">Mark all as viewed</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Do you want to mark all results as viewed?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Do you want to mark all results as viewed for the current filters?</string>
 
     <!-- Measurements -->
 
@@ -348,11 +362,14 @@
     <string name="Notification_StopTest">Stop test</string>
 
     <string name="Common_Back">Back</string>
+    <string name="Common_Close">Close</string>
     <string name="Common_Refresh">Refresh</string>
     <string name="Common_Collapse">Collapse</string>
     <string name="Common_Expand">Expand</string>
     <string name="Common_Enable">Enable</string>
     <string name="Common_Yes">Yes</string>
+    <string name="Common_Save">Save</string>
+    <string name="Common_Clear">Clear</string>
     <string name="Common_Ago">%1$s ago</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>

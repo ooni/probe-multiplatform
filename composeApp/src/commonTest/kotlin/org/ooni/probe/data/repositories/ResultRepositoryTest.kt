@@ -3,11 +3,16 @@ package org.ooni.probe.data.repositories
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.atTime
+import kotlinx.datetime.minus
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.shared.today
 import org.ooni.testing.createTestDatabaseDriver
 import org.ooni.testing.factories.MeasurementModelFactory
 import org.ooni.testing.factories.ResultModelFactory
@@ -28,7 +33,11 @@ class ResultRepositoryTest {
     fun before() {
         val database = Dependencies.buildDatabase(::createTestDatabaseDriver)
         subject = ResultRepository(database, Dispatchers.Default)
-        measurementRepository = MeasurementRepository(database = database, backgroundContext = Dispatchers.Default, json = json)
+        measurementRepository = MeasurementRepository(
+            database = database,
+            backgroundContext = Dispatchers.Default,
+            json = json,
+        )
     }
 
     @Test
@@ -65,17 +74,47 @@ class ResultRepositoryTest {
 
             suspend fun assertResultSize(
                 expectedSize: Int,
-                filter: ResultFilter.Type<TaskOrigin>,
+                origin: TaskOrigin?,
             ) {
                 assertEquals(
                     expectedSize,
-                    subject.list(ResultFilter(taskOrigin = filter)).first().size,
+                    subject.list(ResultFilter(taskOrigin = origin)).first().size,
                 )
             }
 
-            assertResultSize(1, ResultFilter.Type.All)
-            assertResultSize(1, ResultFilter.Type.One(TaskOrigin.OoniRun))
-            assertResultSize(0, ResultFilter.Type.One(TaskOrigin.AutoRun))
+            assertResultSize(1, null)
+            assertResultSize(1, TaskOrigin.OoniRun)
+            assertResultSize(0, TaskOrigin.AutoRun)
+        }
+
+    @Test
+    fun filterByDate() =
+        runTest {
+            val today = LocalDate.today()
+            val yesterday = today.minus(DatePeriod(days = 1))
+            val modelToday = ResultModelFactory.build(
+                id = ResultModel.Id(Random.nextLong().absoluteValue),
+                startTime = today.atTime(5, 30, 0),
+            )
+            val modelYesterday = ResultModelFactory.build(
+                id = ResultModel.Id(Random.nextLong().absoluteValue),
+                startTime = yesterday.atTime(5, 30, 0),
+            )
+            subject.createOrUpdate(modelToday)
+            subject.createOrUpdate(modelYesterday)
+
+            assertEquals(
+                1,
+                subject.list(
+                    ResultFilter(dates = ResultFilter.Date.Custom(today..today)),
+                ).first().size,
+            )
+            assertEquals(
+                2,
+                subject.list(
+                    ResultFilter(dates = ResultFilter.Date.Custom(yesterday..today)),
+                ).first().size,
+            )
         }
 
     @Test
@@ -119,7 +158,7 @@ class ResultRepositoryTest {
         runTest {
             subject.createOrUpdate(ResultModelFactory.build(isViewed = false))
 
-            subject.markAllAsViewed()
+            subject.markAllAsViewed(ResultFilter())
 
             assertTrue(subject.getLatest().first()!!.isViewed)
         }

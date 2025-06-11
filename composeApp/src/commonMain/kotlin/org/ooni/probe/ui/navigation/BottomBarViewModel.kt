@@ -9,8 +9,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import org.ooni.probe.data.models.RunBackgroundState
 
-class BottomBarViewModel(countAllNotViewedFlow: () -> Flow<Long>) : ViewModel() {
+class BottomBarViewModel(
+    countAllNotViewedFlow: () -> Flow<Long>,
+    runBackgroundStateFlow: () -> Flow<RunBackgroundState>,
+) : ViewModel() {
     private val _state = MutableStateFlow(State())
     val state: StateFlow<State> = _state.asStateFlow()
 
@@ -20,9 +24,16 @@ class BottomBarViewModel(countAllNotViewedFlow: () -> Flow<Long>) : ViewModel() 
                 _state.update { it.copy(notViewedCount = count) }
             }
             .launchIn(viewModelScope)
+
+        runBackgroundStateFlow()
+            .onEach { runState ->
+                _state.update { it.copy(areTestsRunning = runState !is RunBackgroundState.Idle) }
+            }
+            .launchIn(viewModelScope)
     }
 
     data class State(
         val notViewedCount: Long = 0L,
+        val areTestsRunning: Boolean = false,
     )
 }

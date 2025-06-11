@@ -73,15 +73,14 @@ fun DashboardScreen(
                 Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.primaryContainer)
-                    .height(if (isHeightCompact()) 80.dp else 144.dp)
-                    .padding(WindowInsets.statusBars.asPaddingValues()),
+                    .padding(WindowInsets.statusBars.asPaddingValues())
+                    .height(if (isHeightCompact()) 64.dp else 112.dp),
             ) {
                 Image(
                     painterResource(Res.drawable.logo_probe),
                     contentDescription = stringResource(Res.string.app_name),
                     modifier = Modifier
                         .padding(vertical = if (isHeightCompact()) 4.dp else 20.dp)
-                        .padding(WindowInsets.statusBars.asPaddingValues())
                         .align(Alignment.Center)
                         .height(if (isHeightCompact()) 48.dp else 72.dp),
                 )

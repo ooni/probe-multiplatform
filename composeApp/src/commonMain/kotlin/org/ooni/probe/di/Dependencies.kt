@@ -46,7 +46,8 @@ import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapPreferences
 import org.ooni.probe.domain.CheckAutoRunConstraints
 import org.ooni.probe.domain.ClearStorage
-import org.ooni.probe.domain.DeleteAllResults
+import org.ooni.probe.domain.DeleteMeasurementsWithoutResult
+import org.ooni.probe.domain.DeleteResults
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
@@ -245,17 +246,27 @@ class Dependencies(
             resultRepository::countMissingUpload,
         )
     }
-    private val deleteAllResults by lazy {
-        DeleteAllResults(resultRepository::deleteAll, deleteFiles::invoke)
+    private val deleteMeasurementsWithoutResult by lazy {
+        DeleteMeasurementsWithoutResult(
+            getMeasurementsWithoutResult = measurementRepository::listWithoutResult,
+            deleteMeasurementsById = measurementRepository::deleteByIds,
+            deleteFile = deleteFiles::invoke,
+        )
+    }
+    private val deleteResults by lazy {
+        DeleteResults(
+            deleteResultsByFilter = resultRepository::deleteByFilter,
+            deleteMeasurementsWithoutResult = deleteMeasurementsWithoutResult::invoke,
+            deleteNetworksWithoutResult = networkRepository::deleteWithoutResult,
+            deleteAllResultsFromDatabase = resultRepository::deleteAll,
+            deleteFiles = deleteFiles::invoke,
+        )
     }
     private val deleteTestDescriptor by lazy {
         DeleteTestDescriptor(
             preferencesRepository = preferenceRepository,
-            deleteByRunId = testDescriptorRepository::deleteByRunId,
-            deleteMeasurementByResultRunId = measurementRepository::deleteByResultRunId,
-            selectMeasurementsByResultRunId = measurementRepository::selectByResultRunId,
-            deleteResultByRunId = resultRepository::deleteByRunId,
-            deleteFile = deleteFiles::invoke,
+            deleteDescriptorByRunId = testDescriptorRepository::deleteByRunId,
+            deleteResultsByFilter = deleteResults::byFilter,
         )
     }
     private val descriptorUpdateStateManager by lazy { DescriptorUpdateStateManager() }
@@ -304,7 +315,7 @@ class Dependencies(
         GetResults(
             resultRepository::list,
             getTestDescriptors::all,
-            measurementRepository::selectTestKeysByDescriptorKey,
+            measurementRepository::selectTestKeys,
         )
     }
     private val getResult by lazy {
@@ -318,7 +329,7 @@ class Dependencies(
     val clearStorage by lazy {
         ClearStorage(
             backgroundContext = backgroundContext,
-            deleteAllResults = deleteAllResults::invoke,
+            deleteAllResults = deleteResults::all,
             clearLogs = appLogger::clear,
             updateStorageUsed = getStorageUsed::update,
             clearPreferences = preferenceRepository::clear,
@@ -580,9 +591,9 @@ class Dependencies(
         goToUpload = goToUpload,
         getResults = getResults::invoke,
         getDescriptors = getTestDescriptors::latest,
-        deleteAllResults = deleteAllResults::invoke,
+        deleteResultsByFilter = deleteResults::byFilter,
         markJustFinishedTestAsSeen = markJustFinishedTestAsSeen::invoke,
-        markAllAsViewed = resultRepository::markAllAsViewed,
+        markAsViewed = resultRepository::markAllAsViewed,
     )
 
     fun runningViewModel(
@@ -706,9 +717,10 @@ class Dependencies(
             setPreferenceValuesByKeys = preferenceRepository::setValuesByKey,
         )
 
-    fun bottomBarViewModel(): BottomBarViewModel =
+    fun bottomBarViewModel() =
         BottomBarViewModel(
-            resultRepository::countAllNotViewedFlow,
+            countAllNotViewedFlow = resultRepository::countAllNotViewedFlow,
+            runBackgroundStateFlow = runBackgroundStateManager::observeState,
         )
 
     companion object {

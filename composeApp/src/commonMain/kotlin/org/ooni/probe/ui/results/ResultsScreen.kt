@@ -60,11 +60,14 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Results_LimitedNotice
 import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed
 import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed_Confirmation
+import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed_Filtered_Confirmation
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Selection_All
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Selection_None
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_FilterTests
+import ooniprobe.composeapp.generated.resources.TestResults_Filter_DeleteConfirmation
+import ooniprobe.composeapp.generated.resources.TestResults_Filter_NoTestsFound
+import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Networks
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Tests
@@ -74,11 +77,13 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
 import ooniprobe.composeapp.generated.resources.ic_delete_all
 import ooniprobe.composeapp.generated.resources.ic_download
+import ooniprobe.composeapp.generated.resources.ic_filters
 import ooniprobe.composeapp.generated.resources.ic_mark_as_viewed
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.ui.shared.TopBar
@@ -90,6 +95,7 @@ fun ResultsScreen(
     state: ResultsViewModel.State,
     onEvent: (ResultsViewModel.Event) -> Unit,
 ) {
+    var showFiltersDialog by remember { mutableStateOf(false) }
     var showDeleteConfirm by remember { mutableStateOf(false) }
     var showMarkAsViewedConfirm by remember { mutableStateOf(false) }
 
@@ -100,54 +106,41 @@ fun ResultsScreen(
                     Text(stringResource(Res.string.TestResults_Overview_Title))
                 },
                 actions = {
-                    if (!state.isLoading && state.results.any() && state.filter.isAll) {
-                        IconButton(
-                            onClick = { showMarkAsViewedConfirm = true },
-                            enabled = state.markAllAsViewedEnabled,
-                        ) {
-                            Icon(
-                                painterResource(Res.drawable.ic_mark_as_viewed),
-                                contentDescription = stringResource(Res.string.Results_MarkAllAsViewed),
-                            )
-                        }
+                    IconButton(
+                        onClick = { showFiltersDialog = true },
+                        enabled = state.results.any() || !state.filter.isAll,
+                    ) {
+                        Icon(
+                            painterResource(Res.drawable.ic_filters),
+                            contentDescription = stringResource(Res.string.TestResults_Filters_Title),
+                        )
                     }
-                    if (!state.isLoading && state.results.any() && state.filter.isAll) {
-                        IconButton(onClick = { showDeleteConfirm = true }) {
-                            Icon(
-                                painterResource(Res.drawable.ic_delete_all),
-                                contentDescription = stringResource(Res.string.Modal_Delete),
-                            )
-                        }
+                    IconButton(
+                        onClick = { showMarkAsViewedConfirm = true },
+                        enabled = state.markAllAsViewedEnabled && !state.isLoading && state.results.any(),
+                    ) {
+                        Icon(
+                            painterResource(Res.drawable.ic_mark_as_viewed),
+                            contentDescription = stringResource(Res.string.Results_MarkAllAsViewed),
+                        )
+                    }
+                    IconButton(
+                        onClick = { showDeleteConfirm = true },
+                        enabled = !state.isLoading && state.results.any(),
+                    ) {
+                        Icon(
+                            painterResource(Res.drawable.ic_delete_all),
+                            contentDescription = stringResource(Res.string.Modal_Delete),
+                        )
                     }
                 },
             )
 
             Surface(color = MaterialTheme.colorScheme.primaryContainer) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                ) {
-                    Text(
-                        stringResource(Res.string.TestResults_Overview_FilterTests),
-                        modifier = Modifier.weight(2f),
-                    )
-
-                    DescriptorFilter(
-                        current = state.filter.descriptor,
-                        list = state.descriptorFilters,
-                        onFilterChanged = { onEvent(ResultsViewModel.Event.DescriptorFilterChanged(it)) },
-                        modifier = Modifier.weight(3f).padding(horizontal = 4.dp),
-                    )
-
-                    OriginFilter(
-                        current = state.filter.taskOrigin,
-                        list = state.originFilters,
-                        onFilterChanged = { onEvent(ResultsViewModel.Event.OriginFilterChanged(it)) },
-                        modifier = Modifier.weight(3f),
-                    )
-                }
+                ResultFiltersRow(
+                    filter = state.filter,
+                    onOpen = { showFiltersDialog = true },
+                )
             }
         } else {
             TopAppBar(
@@ -217,11 +210,22 @@ fun ResultsScreen(
                 }
             }
         }
+        if (showFiltersDialog) {
+            ResultFiltersDialog(
+                initialFilter = state.filter,
+                descriptors = state.descriptors,
+                onSave = {
+                    onEvent(ResultsViewModel.Event.FilterChanged(it))
+                    showFiltersDialog = false
+                },
+                onDismiss = { showFiltersDialog = false },
+            )
+        }
 
         if (state.isLoading) {
             LoadingResults()
-        } else if (state.results.isEmpty() && state.filter.isAll) {
-            EmptyResults()
+        } else if (state.results.isEmpty()) {
+            EmptyResults(anyFilterSelected = !state.filter.isAll)
         } else {
             if (!isHeightCompact() && !state.selectionEnabled) {
                 Summary(state.summary)
@@ -297,8 +301,10 @@ fun ResultsScreen(
         DeleteConfirmDialog(
             message = if (state.selectionEnabled) {
                 stringResource(Res.string.Modal_DoYouWantToDeleteSomeTests, state.selectedResultsCount)
-            } else {
+            } else if (state.filter.isAll) {
                 stringResource(Res.string.Modal_DoYouWantToDeleteAllTests)
+            } else {
+                stringResource(Res.string.TestResults_Filter_DeleteConfirmation)
             },
             onConfirm = {
                 onEvent(ResultsViewModel.Event.DeleteClick)
@@ -312,8 +318,9 @@ fun ResultsScreen(
 
     if (showMarkAsViewedConfirm) {
         MarkAllAsViewedConfirmDialog(
+            filter = state.filter,
             onConfirm = {
-                onEvent(ResultsViewModel.Event.MarkAllAsViewedClick)
+                onEvent(ResultsViewModel.Event.MarkAsViewedClick)
                 showMarkAsViewedConfirm = false
             },
             onDismiss = {
@@ -362,7 +369,7 @@ private fun LoadingResults() {
 }
 
 @Composable
-private fun EmptyResults() {
+private fun EmptyResults(anyFilterSelected: Boolean) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -376,7 +383,13 @@ private fun EmptyResults() {
             contentDescription = null,
         )
         Text(
-            stringResource(Res.string.TestResults_Overview_NoTestsHaveBeenRun),
+            stringResource(
+                if (anyFilterSelected) {
+                    Res.string.TestResults_Filter_NoTestsFound
+                } else {
+                    Res.string.TestResults_Overview_NoTestsHaveBeenRun
+                },
+            ),
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 16.dp),
         )
@@ -511,13 +524,22 @@ private fun DeleteConfirmDialog(
 
 @Composable
 private fun MarkAllAsViewedConfirmDialog(
+    filter: ResultFilter,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = { onDismiss() },
         text = {
-            Text(stringResource(Res.string.Results_MarkAllAsViewed_Confirmation))
+            Text(
+                stringResource(
+                    if (filter.isAll) {
+                        Res.string.Results_MarkAllAsViewed_Confirmation
+                    } else {
+                        Res.string.Results_MarkAllAsViewed_Filtered_Confirmation
+                    },
+                ),
+            )
         },
         confirmButton = {
             TextButton(onClick = { onConfirm() }) {

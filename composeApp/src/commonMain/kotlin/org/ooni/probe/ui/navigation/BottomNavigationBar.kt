@@ -2,8 +2,11 @@ package org.ooni.probe.ui.navigation
 
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -45,16 +48,25 @@ fun BottomNavigationBar(
         modifier = customMinHeightModifier,
     ) {
         MAIN_NAVIGATION_SCREENS.forEach { screen ->
+            val isCurrentScreen = entry?.destination?.hasRoute(screen::class) == true
             NavigationBarItem(
                 icon = {
                     NavigationBadgeBox(
                         state = state,
                         screen = screen,
                     ) {
-                        Icon(
-                            painterResource(screen.iconRes),
-                            contentDescription = stringResource(screen.titleRes),
-                        )
+                        if (
+                            screen == Screen.Dashboard && !isCurrentScreen && state.areTestsRunning
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.padding(2.dp).size(20.dp),
+                            )
+                        } else {
+                            Icon(
+                                painterResource(screen.iconRes),
+                                contentDescription = stringResource(screen.titleRes),
+                            )
+                        }
                     }
                 },
                 label = {
@@ -63,7 +75,7 @@ fun BottomNavigationBar(
                         textAlign = TextAlign.Center,
                     )
                 },
-                selected = entry?.destination?.hasRoute(screen::class) == true,
+                selected = isCurrentScreen,
                 onClick = { navController.navigateToMainScreen(screen) },
                 colors = NavigationBarItemDefaults.colors(
                     indicatorColor = MaterialTheme.colorScheme.primaryContainer,
