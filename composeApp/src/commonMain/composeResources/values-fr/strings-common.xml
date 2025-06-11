@@ -112,6 +112,7 @@
     <string name="TestResults_Filter_Date">Date</string>
     <string name="TestResults_Filter_Date_Any">N’importe quelle date</string>
     <string name="TestResults_Filter_Date_Today">Aujourd’hui</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">Il y a 7 jours</string>
     <string name="TestResults_Filter_Date_Custom">Personnalisée</string>
     <string name="Results_LimitedNotice">Seuls les %1$d derniers résultats sont affichés</string>
     <string name="Results_UploadingMissing">Téléversements des résultats manquants %1$s</string>
