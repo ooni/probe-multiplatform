@@ -50,7 +50,7 @@ WHERE (
 );
 
 countAllNotViewed:
-SELECT COUNT(*) FROM Result WHERE is_done = 1 AND is_viewed = 0;
+SELECT COUNT(*) FROM Result WHERE is_done = 1 AND is_viewed = 0 AND (failure_msg IS NULL OR EXISTS (SELECT 1 FROM Measurement WHERE Measurement.result_id = Result.id AND Measurement.is_done = 1));
 
 markAsDone:
 UPDATE Result SET is_done = 1 WHERE id = ?;
