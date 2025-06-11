@@ -68,7 +68,6 @@
 
     <string name="TestResults_Overview_Title">Resultados de la prueba</string>
     <string name="TestResults_Overview_Tab_Label">Resultados de la prueba</string>
-    <string name="TestResults_Overview_FilterTests">Filtrar Pruebas</string>
     <string name="TestResults_Overview_Hero_Tests">Pruebas</string>
     <string name="TestResults_Overview_Hero_Networks">Redes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Uso de datos</string>
@@ -104,8 +103,11 @@
     <string name="TestResults_UnknownASN">Desconocido</string>
     <string name="TestResults_NotAvailable">N/D</string>
 
-    <string name="Results_TestType_All">All Types</string>
-    <string name="Results_TaskOrigin_All">All Sources</string>
+    <string name="TestResults_Filter_Tests">Pruebas</string>
+    <string name="TestResults_Filter_Source">Fuente</string>
+    <string name="TestResults_Filter_Date">Fecha de presentación</string>
+    <string name="TestResults_Filter_Date_Today">Hoy</string>
+    <string name="TestResults_Filter_Date_Custom">Personalizada</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
     <!-- Measurements -->
@@ -325,11 +327,14 @@
     <string name="Notification_StopTest">Detener la prueba</string>
 
     <string name="Common_Back">Volver</string>
+    <string name="Common_Close">Cerrar</string>
     <string name="Common_Refresh">refresh</string>
     <string name="Common_Collapse">Contraer</string>
     <string name="Common_Expand">Expandir</string>
     <string name="Common_Enable">Activar</string>
     <string name="Common_Yes">Si</string>
+    <string name="Common_Save">Guardar</string>
+    <string name="Common_Clear">Borrar</string>
     <string name="Common_Ago">%1$s ago</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>
