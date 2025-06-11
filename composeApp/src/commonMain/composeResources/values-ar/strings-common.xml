@@ -101,7 +101,7 @@
 
     <string name="TestResults_Filter_Tests">اختبارات</string>
     <string name="TestResults_Filter_Source">المصدر</string>
-    <string name="TestResults_Filter_Date">✔️</string>
+    <string name="TestResults_Filter_Date">تاريخ</string>
     <string name="TestResults_Filter_Date_Today">اليوم</string>
     <string name="TestResults_Filter_Date_Custom">مخصص</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
