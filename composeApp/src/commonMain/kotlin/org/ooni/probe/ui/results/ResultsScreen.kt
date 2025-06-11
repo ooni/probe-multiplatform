@@ -71,6 +71,7 @@ import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.formatDataUsage
