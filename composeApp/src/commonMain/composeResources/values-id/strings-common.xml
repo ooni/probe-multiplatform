@@ -59,7 +59,6 @@
 
     <string name="TestResults_Overview_Title">Hasil Tes</string>
     <string name="TestResults_Overview_Tab_Label">Hasil Tes</string>
-    <string name="TestResults_Overview_FilterTests">Tes Filter</string>
     <string name="TestResults_Overview_Hero_Tests">Tes</string>
     <string name="TestResults_Overview_Hero_Networks">Jaringan</string>
     <string name="TestResults_Overview_Hero_DataUsage">Penggunaan Data</string>
@@ -95,6 +94,11 @@
     <string name="TestResults_UnknownASN">Tidak diketahui</string>
     <string name="TestResults_NotAvailable">N/A</string>
 
+    <string name="TestResults_Filter_Tests">Tes</string>
+    <string name="TestResults_Filter_Source">Sumber</string>
+    <string name="TestResults_Filter_Date">Tanggal</string>
+    <string name="TestResults_Filter_Date_Today">Hari ini</string>
+    <string name="TestResults_Filter_Date_Custom">Kustom </string>
     <string name="Measurements_Failed">Gagal</string>
     <string name="Measurements_Ok">Oke</string>
     <string name="Measurements_Anomaly">Anomali</string>
@@ -291,11 +295,14 @@
     <string name="Notification_StopTest">Hentikan tes</string>
 
     <string name="Common_Back">Kembali</string>
+    <string name="Common_Close">Tutup</string>
     <string name="Common_Refresh">Perbarui</string>
     <string name="Common_Collapse">Tutup</string>
     <string name="Common_Expand">Buka</string>
     <string name="Common_Enable">Aktifkan</string>
     <string name="Common_Yes">Ya</string>
+    <string name="Common_Save">Simpan</string>
+    <string name="Common_Clear">Bersihkan</string>
     <string name="Common_Ago">%1$s yang lalu</string>
     <string name="Common_Minutes_Other">%1$d menit</string>
     <string name="Common_Hour_Other">%1$d jam</string>
