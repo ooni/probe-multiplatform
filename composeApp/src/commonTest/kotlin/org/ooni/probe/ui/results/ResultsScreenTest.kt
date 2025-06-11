@@ -103,7 +103,7 @@ class ResultsScreenTest {
             runTest {
                 onNodeWithContentDescription(getString(Res.string.Modal_Delete)).performClick()
                 onNodeWithText(getString(Res.string.Modal_Delete)).performClick()
-                assertEquals(ResultsViewModel.Event.DeleteAllClick, events.last())
+                assertEquals(ResultsViewModel.Event.DeleteClick, events.last())
             }
         }
 

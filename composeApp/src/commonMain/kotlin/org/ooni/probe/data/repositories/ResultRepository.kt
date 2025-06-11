@@ -29,20 +29,22 @@ class ResultRepository(
     private val database: Database,
     private val backgroundContext: CoroutineContext,
 ) {
-    fun list(filter: ResultFilter = ResultFilter()): Flow<List<ResultWithNetworkAndAggregates>> =
-        database.resultQueries
+    fun list(filter: ResultFilter = ResultFilter()): Flow<List<ResultWithNetworkAndAggregates>> {
+        val params = FilterParams.build(filter)
+        return database.resultQueries
             .selectAllWithNetwork(
-                filterByDescriptors = if (filter.descriptors.any()) 1 else 0,
-                descriptorsKeys = filter.descriptors.map { it.key },
-                filterByTaskOrigin = if (filter.taskOrigin != null) 1 else 0,
-                taskOrigin = filter.taskOrigin?.value,
-                startFrom = filter.dates.range.start.toEpoch(),
-                startUntil = filter.dates.range.endInclusive.atTime(23, 59, 59).toEpoch(),
-                limit = filter.limit,
+                filterByDescriptors = params.filterByDescriptors,
+                descriptorsKeys = params.descriptorsKeys,
+                filterByTaskOrigin = params.filterByTaskOrigin,
+                taskOrigin = params.taskOrigin,
+                startFrom = params.startFrom,
+                startUntil = params.startUntil,
+                limit = params.limit,
             )
             .asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
+    }
 
     fun getById(resultId: ResultModel.Id): Flow<Pair<ResultModel, NetworkModel?>?> =
         database.resultQueries
@@ -108,9 +110,17 @@ class ResultRepository(
             database.resultQueries.markAsViewed(resultId.value)
         }
 
-    suspend fun markAllAsViewed() =
+    suspend fun markAllAsViewed(filter: ResultFilter) =
         withContext(backgroundContext) {
-            database.resultQueries.markAllAsViewed()
+            val params = FilterParams.build(filter)
+            database.resultQueries.markAllAsViewed(
+                filterByDescriptors = params.filterByDescriptors,
+                descriptorsKeys = params.descriptorsKeys,
+                filterByTaskOrigin = params.filterByTaskOrigin,
+                taskOrigin = params.taskOrigin,
+                startFrom = params.startFrom,
+                startUntil = params.startUntil,
+            )
         }
 
     fun countAllNotViewedFlow(): Flow<Long> =
@@ -128,9 +138,17 @@ class ResultRepository(
             database.resultQueries.markAllAsDone()
         }
 
-    suspend fun deleteByRunId(descriptorId: InstalledTestDescriptorModel.Id) =
+    suspend fun deleteByFilter(filter: ResultFilter) =
         withContext(backgroundContext) {
-            database.resultQueries.deleteByRunId(descriptorId.value)
+            val params = FilterParams.build(filter)
+            database.resultQueries.deleteByFilter(
+                filterByDescriptors = params.filterByDescriptors,
+                descriptorsKeys = params.descriptorsKeys,
+                filterByTaskOrigin = params.filterByTaskOrigin,
+                taskOrigin = params.taskOrigin,
+                startFrom = params.startFrom,
+                startUntil = params.startUntil,
+            )
         }
 
     suspend fun deleteAll() {
@@ -227,5 +245,28 @@ class ResultRepository(
                 ).toModel()
             },
         )
+    }
+
+    data class FilterParams(
+        val filterByDescriptors: Long,
+        val descriptorsKeys: List<String>,
+        val filterByTaskOrigin: Long,
+        val taskOrigin: String?,
+        val startFrom: Long,
+        val startUntil: Long,
+        val limit: Long,
+    ) {
+        companion object {
+            fun build(filter: ResultFilter) =
+                FilterParams(
+                    filterByDescriptors = if (filter.descriptors.any()) 1 else 0,
+                    descriptorsKeys = filter.descriptors.map { it.key },
+                    filterByTaskOrigin = if (filter.taskOrigin != null) 1 else 0,
+                    taskOrigin = filter.taskOrigin?.value,
+                    startFrom = filter.dates.range.start.toEpoch(),
+                    startUntil = filter.dates.range.endInclusive.atTime(23, 59, 59).toEpoch(),
+                    limit = filter.limit,
+                )
+        }
     }
 }

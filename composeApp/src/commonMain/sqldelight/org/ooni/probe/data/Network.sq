@@ -18,6 +18,13 @@ INSERT OR REPLACE INTO Network (
 deleteAll:
 DELETE FROM Network;
 
+deleteWithoutResult:
+DELETE FROM Network WHERE Network.id IN (
+    SELECT DISTINCT(Network.id) FROM Network
+    LEFT JOIN Result ON Result.network_id = Network.id
+    WHERE Result.id IS NULL
+);
+
 selectLastInsertedRowId:
 SELECT last_insert_rowid();
 
