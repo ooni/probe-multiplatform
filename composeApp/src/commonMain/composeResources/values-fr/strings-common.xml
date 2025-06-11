@@ -113,11 +113,19 @@
     <string name="TestResults_Filter_Date_Any">N’importe quelle date</string>
     <string name="TestResults_Filter_Date_Today">Aujourd’hui</string>
     <string name="TestResults_Filter_Date_FromSevenDaysAgo">Il y a 7 jours</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">Il y a 1 mois</string>
     <string name="TestResults_Filter_Date_Custom">Personnalisée</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Personnalisé : %1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Choisir une plage de date</string>
+    <string name="TestResults_Filter_NoTestsFound">Aucun résultat de test n’a été trouvé pour ces filtres.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Voulez-vous supprimer tous les résultats des tests pour les filtres actuels \?</string>
+
     <string name="Results_LimitedNotice">Seuls les %1$d derniers résultats sont affichés</string>
     <string name="Results_UploadingMissing">Téléversements des résultats manquants %1$s</string>
     <string name="Results_MarkAllAsViewed">Tout marquer comme lu</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Voulez-vous marquer tous les résultats comme lus \?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Voulez-vous marquer tous les résultats comme lus pour les filtres actuels \?</string>
+
     <!-- Measurements -->
 
     <string name="Measurement_Title">Mesure</string>
