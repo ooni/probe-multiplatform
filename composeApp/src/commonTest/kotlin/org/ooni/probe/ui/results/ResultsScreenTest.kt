@@ -12,6 +12,7 @@ import ooniprobe.composeapp.generated.resources.TestResults_Overview_NoTestsHave
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.data.models.MeasurementCounts
 import org.ooni.probe.data.models.ResultListItem
+import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.testing.factories.DescriptorFactory
 import org.ooni.testing.factories.NetworkModelFactory
 import org.ooni.testing.factories.ResultModelFactory
@@ -50,12 +51,12 @@ class ResultsScreenTest {
                     onEvent = {},
                 )
 
-                title = item.descriptor.title()
+                title = item.item.descriptor.title()
             }
 
             onNodeWithText("January 2024").assertExists()
             onNodeWithText(title!!).assertExists()
-            onNodeWithText(item.network!!.networkName!!).assertExists()
+            onNodeWithText(item.item.network!!.networkName!!).assertExists()
         }
 
     @Test
@@ -76,11 +77,11 @@ class ResultsScreenTest {
                     onEvent = events::add,
                 )
 
-                title = item.descriptor.title()
+                title = item.item.descriptor.title()
             }
 
             onNodeWithText(title!!).performClick()
-            assertEquals(ResultsViewModel.Event.ResultClick(item), events.last())
+            assertEquals(ResultsViewModel.Event.ResultClick(item.item), events.last())
         }
 
     @Test
@@ -103,7 +104,7 @@ class ResultsScreenTest {
             runTest {
                 onNodeWithContentDescription(getString(Res.string.Modal_Delete)).performClick()
                 onNodeWithText(getString(Res.string.Modal_Delete)).performClick()
-                assertEquals(ResultsViewModel.Event.DeleteAllClick, events.last())
+                assertEquals(ResultsViewModel.Event.DeleteClick, events.last())
             }
         }
 
@@ -127,17 +128,20 @@ class ResultsScreenTest {
         }
 
     private fun buildItem() =
-        ResultListItem(
-            result = ResultModelFactory.build(),
-            descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
-            network = NetworkModelFactory.build(),
-            measurementCounts = MeasurementCounts(
-                done = 4,
-                failed = 0,
-                anomaly = 0,
+        SelectableItem<ResultListItem>(
+            item = ResultListItem(
+                result = ResultModelFactory.build(),
+                descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
+                network = NetworkModelFactory.build(),
+                measurementCounts = MeasurementCounts(
+                    done = 4,
+                    failed = 0,
+                    anomaly = 0,
+                ),
+                allMeasurementsUploaded = true,
+                anyMeasurementUploadFailed = false,
+                testKeys = emptyList(),
             ),
-            allMeasurementsUploaded = true,
-            anyMeasurementUploadFailed = false,
-            testKeys = emptyList(),
+            isSelected = false,
         )
 }

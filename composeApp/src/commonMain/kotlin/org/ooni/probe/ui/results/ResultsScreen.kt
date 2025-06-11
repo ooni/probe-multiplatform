@@ -51,8 +51,6 @@ import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import ooniprobe.composeapp.generated.resources.Common_Yes
-import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectAll
-import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectNone
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
@@ -62,6 +60,8 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Results_LimitedNotice
 import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed
 import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed_Confirmation
+import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Selection_All
+import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Selection_None
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_FilterTests
@@ -79,6 +79,7 @@ import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.formatDataUsage
@@ -162,7 +163,10 @@ fun ResultsScreen(
                     }
                 },
                 title = {
-                    Text(stringResource(Res.string.Modal_Selected, state.selectedResultsCount), modifier = Modifier.weight(1f))
+                    Text(
+                        pluralStringResourceItem(Res.plurals.Modal_Selected, state.selectedResultsCount, state.selectedResultsCount),
+                        modifier = Modifier.weight(1f),
+                    )
                 },
                 actions = {
                     if (state.isAnySelected) {
@@ -204,9 +208,9 @@ fun ResultsScreen(
                     Text(
                         stringResource(
                             if (toggleState != ToggleableState.On) {
-                                Res.string.Dashboard_RunTests_SelectAll
+                                Res.string.Settings_Websites_Categories_Selection_All
                             } else {
-                                Res.string.Dashboard_RunTests_SelectNone
+                                Res.string.Settings_Websites_Categories_Selection_None
                             },
                         ),
                     )
@@ -248,7 +252,7 @@ fun ResultsScreen(
                                     onEvent(ResultsViewModel.Event.ResultClick(result.item))
                                 }
                             },
-                            isSelectedEnabled = isSelected,
+                            isSelected = isSelected,
                             onSelectChange = { checked ->
                                 onEvent(
                                     ResultsViewModel.Event.ToggleItemSelection(

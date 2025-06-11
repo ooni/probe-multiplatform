@@ -64,4 +64,9 @@
         <item quantity="other">@string/TestResults_Summary_Websites_Hero_Reachable_Plural</item>
     </plurals>
 
+    <plurals name="Modal_Selected">
+        <item quantity="zero">@string/Modal_Selected_Zero</item>
+        <item quantity="one">@string/Modal_Selected_One</item>
+        <item quantity="other">@string/Modal_Selected_Other</item>
+    </plurals>
 </resources>

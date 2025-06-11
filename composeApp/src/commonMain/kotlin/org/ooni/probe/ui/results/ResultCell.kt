@@ -61,7 +61,7 @@ import org.ooni.probe.ui.theme.LocalCustomColors
 fun ResultCell(
     item: ResultListItem,
     onResultClick: () -> Unit,
-    isSelectedEnabled: Boolean = false,
+    isSelected: Boolean = false,
     onSelectChange: ((Boolean) -> Unit)? = null,
     onLongClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
@@ -69,7 +69,7 @@ fun ResultCell(
     val hasError = item.result.isDone && item.measurementCounts.done == 0L
 
     Surface(
-        color = if (isSelectedEnabled) {
+        color = if (isSelected) {
             MaterialTheme.colorScheme.primary.copy(alpha = 0.18f)
         } else if (item.result.isViewed || hasError) {
             MaterialTheme.colorScheme.surface
@@ -84,7 +84,7 @@ fun ResultCell(
                 .fillMaxWidth()
                 .combinedClickable(
                     onClick = {
-                        if (isSelectedEnabled) {
+                        if (isSelected) {
                             onSelectChange?.invoke(false)
                         } else {
                             onResultClick()
@@ -106,7 +106,7 @@ fun ResultCell(
                         item.descriptor,
                         modifier = if (hasError) Modifier.alpha(0.5f) else Modifier,
                     )
-                    if (isSelectedEnabled) {
+                    if (isSelected) {
                         Box(
                             modifier = Modifier
                                 .size(24.dp)

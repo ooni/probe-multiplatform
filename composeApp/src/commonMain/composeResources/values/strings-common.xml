@@ -316,7 +316,9 @@
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Do you want to delete all test results?</string>
     <string name="Modal_DoYouWantToDeleteSomeTests">Do you want to delete %1$s test result(s)?</string>
-    <string name="Modal_Selected">%1$s selected</string>
+    <string name="Modal_Selected_Zero">No item selected</string>
+    <string name="Modal_Selected_One">%1$d item selected</string>
+    <string name="Modal_Selected_Other">%1$d items selected</string>
     <string name="Modal_Delete">Delete</string>
     <string name="Modal_ReRun_Title">Re-run test</string>
     <string name="Modal_ReRun_Websites_Title">You are about to re-test %1$s websites.</string>
