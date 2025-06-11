@@ -104,15 +104,28 @@
     <string name="TestResults_UnknownASN">Desconhecida</string>
     <string name="TestResults_NotAvailable">N/A</string>
 
+    <string name="TestResults_Filters_Title">Filtrar Resultados</string>
+    <string name="TestResults_Filters_Short">Filtros:</string>
     <string name="TestResults_Filter_Tests">Testes</string>
+    <string name="TestResults_Filter_Tests_Multiple">%1$d testes</string>
     <string name="TestResults_Filter_Source">Fonte</string>
     <string name="TestResults_Filter_Date">Data</string>
+    <string name="TestResults_Filter_Date_Any">Qualquer data</string>
     <string name="TestResults_Filter_Date_Today">Hoje</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">Há menos de 7 dias</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">Há menos de 1 mês</string>
     <string name="TestResults_Filter_Date_Custom">Personalizado</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Personalizado: %1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Escolhe um intervalo de datas</string>
+    <string name="TestResults_Filter_NoTestsFound">Nenhum resultado encontrado para esses filtros.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Deseja apagar todos os resultados de teste para esses filtros\?</string>
+
     <string name="Results_LimitedNotice">Somente os últimos%1$dresultados são mostrados</string>
     <string name="Results_UploadingMissing">Subindo resultados pendentes %1$s</string>
     <string name="Results_MarkAllAsViewed">Marcar todos como vistos</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Deseja marcar todos os resultados como vistos?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Deseja marcar todos os resultados como vistos para os filtros atuais\?</string>
+
     <!-- Measurements -->
 
     <string name="Measurement_Title">Medição</string>
@@ -315,7 +328,7 @@
     <string name="Modal_Retry">Tentar novamente</string>
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">OK</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Deseja apagar todos os resultados do teste?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Deseja apagar todos os resultados de teste\?</string>
     <string name="Modal_Delete">Apagar</string>
     <string name="Modal_ReRun_Title">Repetir o teste</string>
     <string name="Modal_ReRun_Websites_Title">Você está prestes a testar novamente os sites %1$s.</string>
