@@ -108,7 +108,16 @@
     <string name="TestResults_Filters_Short">Filters:</string>
     <string name="TestResults_Filter_Tests">Tests</string>
     <string name="TestResults_Filter_Tests_Multiple">%1$d tests</string>
-    <string name="TestResults_Filter_Sources">Sources</string>
+    <string name="TestResults_Filter_Source">Source</string>
+    <string name="TestResults_Filter_Date">Date</string>
+    <string name="TestResults_Filter_Date_Any">Any date</string>
+    <string name="TestResults_Filter_Date_Today">Today</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">From 7 days ago</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">From 1 month ago</string>
+    <string name="TestResults_Filter_Date_Custom">Custom</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Custom: %1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Pick a date range</string>
+    <string name="TestResults_Filter_NoTestsFound">No test results found for those filters.</string>
 
     <string name="Results_PickDateRange">Pick a date range</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>

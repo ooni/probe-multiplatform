@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.atTime
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.Database
 import org.ooni.probe.data.Network
@@ -28,19 +29,20 @@ class ResultRepository(
     private val database: Database,
     private val backgroundContext: CoroutineContext,
 ) {
-    fun list(filter: ResultFilter = ResultFilter()): Flow<List<ResultWithNetworkAndAggregates>> {
-        return database.resultQueries
+    fun list(filter: ResultFilter = ResultFilter()): Flow<List<ResultWithNetworkAndAggregates>> =
+        database.resultQueries
             .selectAllWithNetwork(
                 filterByDescriptors = if (filter.descriptors.any()) 1 else 0,
                 descriptorsKeys = filter.descriptors.map { it.key },
                 filterByTaskOrigin = if (filter.taskOrigin != null) 1 else 0,
                 taskOrigin = filter.taskOrigin?.value,
+                startFrom = filter.dates.range.start.toEpoch(),
+                startUntil = filter.dates.range.endInclusive.atTime(23, 59, 59).toEpoch(),
                 limit = filter.limit,
             )
             .asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
-    }
 
     fun getById(resultId: ResultModel.Id): Flow<Pair<ResultModel, NetworkModel?>?> =
         database.resultQueries

@@ -52,6 +52,7 @@ import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed
 import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed_Confirmation
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
+import ooniprobe.composeapp.generated.resources.TestResults_Filter_NoTestsFound
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Networks
@@ -88,7 +89,10 @@ fun ResultsScreen(
                 Text(stringResource(Res.string.TestResults_Overview_Title))
             },
             actions = {
-                IconButton(onClick = { showFiltersDialog = true }) {
+                IconButton(
+                    onClick = { showFiltersDialog = true },
+                    enabled = state.results.any() || !state.filter.isAll,
+                ) {
                     Icon(
                         painterResource(Res.drawable.ic_filters),
                         contentDescription = stringResource(Res.string.TestResults_Filters_Title),
@@ -96,7 +100,8 @@ fun ResultsScreen(
                 }
                 IconButton(
                     onClick = { showMarkAsViewedConfirm = true },
-                    enabled = state.markAllAsViewedEnabled && !state.isLoading && state.results.any() && state.filter.isAll,
+                    enabled = state.markAllAsViewedEnabled && !state.isLoading &&
+                        state.results.any() && state.filter.isAll,
                 ) {
                     Icon(
                         painterResource(Res.drawable.ic_mark_as_viewed),
@@ -136,8 +141,8 @@ fun ResultsScreen(
 
         if (state.isLoading) {
             LoadingResults()
-        } else if (state.results.isEmpty() && state.filter.isAll) {
-            EmptyResults()
+        } else if (state.results.isEmpty()) {
+            EmptyResults(anyFilterSelected = !state.filter.isAll)
         } else {
             if (!isHeightCompact()) {
                 Summary(state.summary)
@@ -242,7 +247,7 @@ private fun LoadingResults() {
 }
 
 @Composable
-private fun EmptyResults() {
+private fun EmptyResults(anyFilterSelected: Boolean) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -256,7 +261,13 @@ private fun EmptyResults() {
             contentDescription = null,
         )
         Text(
-            stringResource(Res.string.TestResults_Overview_NoTestsHaveBeenRun),
+            stringResource(
+                if (anyFilterSelected) {
+                    Res.string.TestResults_Filter_NoTestsFound
+                } else {
+                    Res.string.TestResults_Overview_NoTestsHaveBeenRun
+                },
+            ),
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 16.dp),
         )

@@ -3,11 +3,16 @@ package org.ooni.probe.data.repositories
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.atTime
+import kotlinx.datetime.minus
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.shared.today
 import org.ooni.testing.createTestDatabaseDriver
 import org.ooni.testing.factories.MeasurementModelFactory
 import org.ooni.testing.factories.ResultModelFactory
@@ -80,6 +85,36 @@ class ResultRepositoryTest {
             assertResultSize(1, null)
             assertResultSize(1, TaskOrigin.OoniRun)
             assertResultSize(0, TaskOrigin.AutoRun)
+        }
+
+    @Test
+    fun filterByDate() =
+        runTest {
+            val today = LocalDate.today()
+            val yesterday = today.minus(DatePeriod(days = 1))
+            val modelToday = ResultModelFactory.build(
+                id = ResultModel.Id(Random.nextLong().absoluteValue),
+                startTime = today.atTime(5, 30, 0),
+            )
+            val modelYesterday = ResultModelFactory.build(
+                id = ResultModel.Id(Random.nextLong().absoluteValue),
+                startTime = yesterday.atTime(5, 30, 0),
+            )
+            subject.createOrUpdate(modelToday)
+            subject.createOrUpdate(modelYesterday)
+
+            assertEquals(
+                1,
+                subject.list(
+                    ResultFilter(dates = ResultFilter.Date.Custom(today..today)),
+                ).first().size,
+            )
+            assertEquals(
+                2,
+                subject.list(
+                    ResultFilter(dates = ResultFilter.Date.Custom(yesterday..today)),
+                ).first().size,
+            )
         }
 
     @Test
