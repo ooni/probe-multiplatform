@@ -104,15 +104,28 @@
     <string name="TestResults_UnknownASN">未知</string>
     <string name="TestResults_NotAvailable">N/A</string>
 
+    <string name="TestResults_Filters_Title">筛选测试结果</string>
+    <string name="TestResults_Filters_Short">筛选器：</string>
     <string name="TestResults_Filter_Tests">测试</string>
+    <string name="TestResults_Filter_Tests_Multiple">%1$d 次测试</string>
     <string name="TestResults_Filter_Source">源</string>
     <string name="TestResults_Filter_Date">日期</string>
+    <string name="TestResults_Filter_Date_Any">任意日期</string>
     <string name="TestResults_Filter_Date_Today">今天</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">7 天起</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">1 个月起</string>
     <string name="TestResults_Filter_Date_Custom">自定义</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">自定义：%1$s</string>
+    <string name="TestResults_Filter_Date_Picker">选择日期范围</string>
+    <string name="TestResults_Filter_NoTestsFound">没有找到这些筛选器的测试结果</string>
+    <string name="TestResults_Filter_DeleteConfirmation">要删除当前筛选器的所有测试结果吗？</string>
+
     <string name="Results_LimitedNotice">只显示最后 %1$d 个结果</string>
     <string name="Results_UploadingMissing">上传缺失的结果 %1$s</string>
     <string name="Results_MarkAllAsViewed">将所有内容标记为已查看</string>
     <string name="Results_MarkAllAsViewed_Confirmation">是否要将所有结果标记为已查看？</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">要将当前筛选器的所有结果标记为已查看吗？</string>
+
     <!-- Measurements -->
 
     <string name="Measurement_Title">测量</string>
