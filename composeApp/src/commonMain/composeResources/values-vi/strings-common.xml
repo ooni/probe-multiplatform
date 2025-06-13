@@ -39,7 +39,6 @@
 
     <string name="TestResults_Overview_Title">Kết quả kiểm tra</string>
     <string name="TestResults_Overview_Tab_Label">Kết quả kiểm tra</string>
-    <string name="TestResults_Overview_FilterTests">Sàng lọc Kiểm tra</string>
     <string name="TestResults_Overview_Hero_Tests">Các bài kiểm tra</string>
     <string name="TestResults_Overview_Hero_Networks">Mạng</string>
     <string name="TestResults_Overview_Hero_DataUsage">Lượng dữ liệu dùng</string>
@@ -75,6 +74,11 @@
     <string name="TestResults_UnknownASN">Không rõ</string>
     <string name="TestResults_NotAvailable">Không có</string>
 
+    <string name="TestResults_Filter_Tests">Các bài kiểm tra</string>
+    <string name="TestResults_Filter_Source">Nguồn</string>
+    <string name="TestResults_Filter_Date">Ngày</string>
+    <string name="TestResults_Filter_Date_Today">Hôm nay</string>
+    <string name="TestResults_Filter_Date_Custom">Tùy chỉnh</string>
     <string name="Measurements_Failed">Thất bại</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Bất thường</string>
@@ -261,11 +265,14 @@
     <string name="Notification_StopTest">Dừng kiểm tra</string>
 
     <string name="Common_Back">Lùi</string>
+    <string name="Common_Close">Đóng</string>
     <string name="Common_Refresh">Làm mới</string>
     <string name="Common_Collapse">Thu gọn</string>
     <string name="Common_Expand">Mở rộng</string>
     <string name="Common_Enable">Bật</string>
     <string name="Common_Yes">Đồng ý</string>
+    <string name="Common_Save">Lưu</string>
+    <string name="Common_Clear">Xoá</string>
     <string name="Common_Hour_Other">%1$d giờ</string>
     <string name="Common_Months_May">05</string>
     <string name="NetworkType_Vpn">VPN</string>

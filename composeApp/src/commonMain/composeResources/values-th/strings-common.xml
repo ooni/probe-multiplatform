@@ -38,7 +38,6 @@
 
     <string name="TestResults_Overview_Title">ผลทดสอบ</string>
     <string name="TestResults_Overview_Tab_Label">ผลทดสอบ</string>
-    <string name="TestResults_Overview_FilterTests">กรองการทดสอบ</string>
     <string name="TestResults_Overview_Hero_Tests">การทดสอบ</string>
     <string name="TestResults_Overview_Hero_Networks">เครือข่าย</string>
     <string name="TestResults_Overview_Hero_DataUsage">การใช้ข้อมูล</string>
@@ -74,6 +73,11 @@
     <string name="TestResults_UnknownASN">ไม่ทราบ</string>
     <string name="TestResults_NotAvailable">ไม่มีข้อมูล</string>
 
+    <string name="TestResults_Filter_Tests">การทดสอบ</string>
+    <string name="TestResults_Filter_Source">แหล่งข้อมูล</string>
+    <string name="TestResults_Filter_Date">วันที่</string>
+    <string name="TestResults_Filter_Date_Today">วันนี้</string>
+    <string name="TestResults_Filter_Date_Custom">กรอกเอง</string>
     <string name="Measurements_Failed">ล้มเหลว</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">ผิดปกติ</string>
@@ -260,11 +264,14 @@
     <string name="Notification_StopTest">หยุดทดสอบ</string>
 
     <string name="Common_Back">ย้อนกลับ</string>
+    <string name="Common_Close">ปิด</string>
     <string name="Common_Refresh">เรียกใหม่</string>
     <string name="Common_Collapse">ยุบ</string>
     <string name="Common_Expand">ขยาย</string>
     <string name="Common_Enable">เปิดใช้งาน</string>
     <string name="Common_Yes">ใช่</string>
+    <string name="Common_Save">บันทึก</string>
+    <string name="Common_Clear">ล้าง</string>
     <string name="Common_Minutes_Other">%1$d นาที</string>
     <string name="Common_Hour_Other">%1$d ชั่วโมง</string>
     <string name="Common_Months_May">พ.ค.</string>

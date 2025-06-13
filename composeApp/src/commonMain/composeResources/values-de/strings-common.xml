@@ -69,7 +69,6 @@
 
     <string name="TestResults_Overview_Title">Testergebnisse</string>
     <string name="TestResults_Overview_Tab_Label">Testergebnisse</string>
-    <string name="TestResults_Overview_FilterTests">Tests filtern</string>
     <string name="TestResults_Overview_Hero_Tests">Tests</string>
     <string name="TestResults_Overview_Hero_Networks">Netzwerke</string>
     <string name="TestResults_Overview_Hero_DataUsage">Datennutzung</string>
@@ -105,13 +104,15 @@
     <string name="TestResults_UnknownASN">Unbekannt</string>
     <string name="TestResults_NotAvailable">Nicht verfügbar</string>
 
-    <string name="Results_TestType_All">Alle Typen</string>
-    <string name="Results_TaskOrigin_All">Alle Quellen</string>
+    <string name="TestResults_Filter_Tests">Tests</string>
+    <string name="TestResults_Filter_Source">Quelle</string>
+    <string name="TestResults_Filter_Date">Datum</string>
+    <string name="TestResults_Filter_Date_Today">Heute</string>
+    <string name="TestResults_Filter_Date_Custom">Benutzerdefiniert</string>
     <string name="Results_LimitedNotice">Nur die letzten %1$d Resultate werden angezeigt</string>
     <string name="Results_UploadingMissing">Hochladen fehlender Ergebnisse %1$s</string>
     <string name="Results_MarkAllAsViewed">Alle als gesehen markieren</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Möchtest du alle Ergebnisse als angesehen markieren\?</string>
-
     <!-- Measurements -->
 
     <string name="Measurement_Title">Messung</string>
@@ -344,11 +345,14 @@
     <string name="Notification_StopTest">Test anhalten</string>
 
     <string name="Common_Back">Zurück</string>
+    <string name="Common_Close">Schließen</string>
     <string name="Common_Refresh">Aktualisieren</string>
     <string name="Common_Collapse">Einklappen</string>
     <string name="Common_Expand">Ausklappen</string>
     <string name="Common_Enable">Aktivieren</string>
     <string name="Common_Yes">Ja</string>
+    <string name="Common_Save">Speichern</string>
+    <string name="Common_Clear">Löschen</string>
     <string name="Common_Ago">Vor %1$s</string>
     <string name="Common_Minutes_One">%1$d Minute</string>
     <string name="Common_Minutes_Other">%1$d Minuten</string>

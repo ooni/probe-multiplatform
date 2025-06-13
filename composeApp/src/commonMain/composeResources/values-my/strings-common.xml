@@ -38,7 +38,6 @@
 
     <string name="TestResults_Overview_Title">စမ်းသပ်မှု ရလဒ်များ</string>
     <string name="TestResults_Overview_Tab_Label">စမ်းသပ်မှု ရလဒ်များ</string>
-    <string name="TestResults_Overview_FilterTests">စမ်းသပ်မှုများ</string>
     <string name="TestResults_Overview_Hero_Tests">စမ်းသပ်မှုများ</string>
     <string name="TestResults_Overview_Hero_Networks">ကွန်ရက်များ</string>
     <string name="TestResults_Overview_Hero_DataUsage">ဒေတာအသုံးပြုမှု</string>
@@ -74,6 +73,11 @@
     <string name="TestResults_UnknownASN">မသိ</string>
     <string name="TestResults_NotAvailable">မရရှိနိုင်ပါ</string>
 
+    <string name="TestResults_Filter_Tests">စမ်းသပ်မှုများ</string>
+    <string name="TestResults_Filter_Source">အရင်းအမြစ်</string>
+    <string name="TestResults_Filter_Date">နေ့စွဲ</string>
+    <string name="TestResults_Filter_Date_Today">ယနေ့</string>
+    <string name="TestResults_Filter_Date_Custom">စိတ်ကြိုက် </string>
     <string name="Measurements_Failed">မအောင်မြင်ပါ</string>
     <string name="Measurements_Ok">အိုကေ</string>
     <string name="Measurements_Anomaly">မူမမှန်ချက်</string>
@@ -261,11 +265,14 @@
     <string name="Notification_StopTest">စမ်းသပ်မှုကို ရပ်ပါ</string>
 
     <string name="Common_Back">နောက်သို့</string>
+    <string name="Common_Close">ပိတ်မည်</string>
     <string name="Common_Refresh">ရီဖရက်ရှ်လုပ်ရန်</string>
     <string name="Common_Collapse">ချုံ့မည်</string>
     <string name="Common_Expand">ချဲ့မည်</string>
     <string name="Common_Enable">ဖွင့်မည်</string>
     <string name="Common_Yes">ပါဝင်သည်</string>
+    <string name="Common_Save">သိမ်းရန်</string>
+    <string name="Common_Clear">ရှင်းမည်</string>
     <string name="Common_Minutes_Other">%1$d မိနစ်</string>
     <string name="Common_Hour_Other">%1$d နာရီ</string>
     <string name="NetworkType_Vpn">VPN</string>

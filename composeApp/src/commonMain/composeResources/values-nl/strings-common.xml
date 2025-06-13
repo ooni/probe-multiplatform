@@ -41,7 +41,6 @@
 
     <string name="TestResults_Overview_Title">Test Resultaten</string>
     <string name="TestResults_Overview_Tab_Label">Test Resultaten</string>
-    <string name="TestResults_Overview_FilterTests">Filtertests</string>
     <string name="TestResults_Overview_Hero_Tests">Testen</string>
     <string name="TestResults_Overview_Hero_Networks">Netwerken</string>
     <string name="TestResults_Overview_Hero_DataUsage">Gegevensgebruik</string>
@@ -77,6 +76,11 @@
     <string name="TestResults_UnknownASN">Onbekend</string>
     <string name="TestResults_NotAvailable">n.v.t.</string>
 
+    <string name="TestResults_Filter_Tests">Testen</string>
+    <string name="TestResults_Filter_Source">Bron</string>
+    <string name="TestResults_Filter_Date">Datum</string>
+    <string name="TestResults_Filter_Date_Today">Vandaag</string>
+    <string name="TestResults_Filter_Date_Custom">Aangepast</string>
     <string name="Measurements_Failed">Mislukt</string>
     <string name="Measurements_Ok">Oke</string>
     <string name="Measurement_Raw_Upload">Uploaden</string>
@@ -260,11 +264,14 @@
     <string name="Notification_StopTest">Stop de test</string>
 
     <string name="Common_Back">Terug</string>
+    <string name="Common_Close">Sluiten</string>
     <string name="Common_Refresh">Vernieuwen</string>
     <string name="Common_Collapse">Inklappen</string>
     <string name="Common_Expand">Uitklappen</string>
     <string name="Common_Enable">Inschakelen</string>
     <string name="Common_Yes">Ja</string>
+    <string name="Common_Save">Opslaan</string>
+    <string name="Common_Clear">Wissen</string>
     <string name="Common_Ago">%1$s geleden</string>
     <string name="Common_Minutes_Other">%1$d minuten</string>
     <string name="Common_Hour_One">%1$d uur</string>

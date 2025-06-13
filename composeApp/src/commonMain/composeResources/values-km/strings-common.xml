@@ -60,7 +60,6 @@
 
     <string name="TestResults_Overview_Title">លទ្ធផលតេស្ត</string>
     <string name="TestResults_Overview_Tab_Label">លទ្ធផលតេស្ត</string>
-    <string name="TestResults_Overview_FilterTests">សម្រាំងតេស្ត</string>
     <string name="TestResults_Overview_Hero_Tests">តេស្ត</string>
     <string name="TestResults_Overview_Hero_Networks">បណ្តាញជាច្រើន</string>
     <string name="TestResults_Overview_Hero_DataUsage">ទិន្នន័យប្រើប្រាស់</string>
@@ -96,6 +95,11 @@
     <string name="TestResults_UnknownASN">អត់ស្គាល់</string>
     <string name="TestResults_NotAvailable">ទទេ</string>
 
+    <string name="TestResults_Filter_Tests">តេស្ត</string>
+    <string name="TestResults_Filter_Source">ប្រភព</string>
+    <string name="TestResults_Filter_Date">កាលបរិច្ឆេទ</string>
+    <string name="TestResults_Filter_Date_Today">ថ្ងៃនេះ</string>
+    <string name="TestResults_Filter_Date_Custom">ផ្សេងៗ</string>
     <string name="Measurements_Failed">បរាជ័យ</string>
     <string name="Measurements_Ok">យល់ព្រម</string>
     <string name="Measurements_Anomaly">ខុសប្រក្រតី</string>
@@ -290,11 +294,14 @@
     <string name="Notification_StopTest">បញ្ឈប់តេស្ត</string>
 
     <string name="Common_Back">ត្រឡប់ក្រោយ</string>
+    <string name="Common_Close">បិទ</string>
     <string name="Common_Refresh">ផ្ទុកឡើងវិញ</string>
     <string name="Common_Collapse">បង្រួម</string>
     <string name="Common_Expand">ពង្រីក</string>
     <string name="Common_Enable">បើក</string>
     <string name="Common_Yes">បាទ​/ចាស</string>
+    <string name="Common_Save">រក្សាទុក</string>
+    <string name="Common_Clear">សំអាត</string>
     <string name="Common_Months_May">ឧសភា​</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
