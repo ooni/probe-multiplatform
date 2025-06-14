@@ -80,8 +80,9 @@ kotlin {
             binaryOption("bundleId", "composeApp")
         }
 
+        // See https://github.com/getsentry/sentry-kotlin-multiplatform?tab=readme-ov-file#cocoa-sdk-version-compatibility-table
         pod("Sentry") {
-            version = "~> 8.45.0"
+            version = "8.49.0"
             linkOnly = true
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
