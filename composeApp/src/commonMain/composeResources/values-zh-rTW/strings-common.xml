@@ -73,6 +73,7 @@
     <string name="TestResults_Summary_Hero_Runtime">全部執行時間</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">行動數據</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">藍牙</string>
     <string name="TestResults_Summary_Hero_NoInternet">無連網</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">已測試過</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">已測試過</string>
