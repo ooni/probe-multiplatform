@@ -83,6 +83,7 @@
     <string name="TestResults_Summary_Hero_Runtime">Tempo Total de Execução</string>
     <string name="TestResults_Summary_Hero_WiFi">Wi-Fi</string>
     <string name="TestResults_Summary_Hero_Mobile">Dados Móveis</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Sem internet</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Testadas</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Testadas</string>
