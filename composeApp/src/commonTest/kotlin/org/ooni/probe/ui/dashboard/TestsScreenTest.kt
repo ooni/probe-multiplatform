@@ -3,10 +3,12 @@ package org.ooni.probe.ui.dashboard
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
 import org.ooni.probe.data.models.DescriptorType
+import org.ooni.probe.ui.tests.TestsScreen
+import org.ooni.probe.ui.tests.TestsViewModel
 import org.ooni.testing.factories.DescriptorFactory
 import kotlin.test.Test
 
-class DashboardScreenTest {
+class TestsScreenTest {
     @Test
     fun showTestDescriptors() =
         runComposeUiTest {
@@ -14,9 +16,9 @@ class DashboardScreenTest {
             lateinit var title: String
 
             setContent {
-                DashboardScreen(
+                TestsScreen(
                     state =
-                        DashboardViewModel.State(
+                        TestsViewModel.State(
                             descriptors = mapOf(DescriptorType.Installed to listOf(descriptor)),
                         ),
                     onEvent = {},

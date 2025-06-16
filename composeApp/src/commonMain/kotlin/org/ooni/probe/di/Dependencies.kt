@@ -57,6 +57,7 @@ import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetFirstRun
 import org.ooni.probe.domain.GetLastResultOfDescriptor
+import org.ooni.probe.domain.GetMeasurementStats
 import org.ooni.probe.domain.GetMeasurementsNotUploaded
 import org.ooni.probe.domain.GetProxySettings
 import org.ooni.probe.domain.GetResult
@@ -109,6 +110,7 @@ import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
 import org.ooni.probe.ui.settings.proxy.ProxyViewModel
 import org.ooni.probe.ui.settings.webcategories.WebCategoriesViewModel
+import org.ooni.probe.ui.tests.TestsViewModel
 import org.ooni.probe.ui.upload.UploadMeasurementsViewModel
 import kotlin.coroutines.CoroutineContext
 
@@ -336,11 +338,17 @@ class Dependencies(
             clearPreferences = preferenceRepository::clear,
         )
     }
-
     private val getMeasurementsNotUploaded by lazy {
         GetMeasurementsNotUploaded(
             listMeasurementsNotUploaded = measurementRepository::listNotUploaded,
             getMeasurementById = measurementRepository::getById,
+        )
+    }
+    private val getMeasurementStats by lazy {
+        GetMeasurementStats(
+            countMeasurementsFromStartTime = measurementRepository::countFromStartTime,
+            countTotalNetworks = networkRepository::countTotal,
+            countTotalNetworkCountries = networkRepository::countCountries,
         )
     }
     private val getSettings by lazy {
@@ -522,26 +530,19 @@ class Dependencies(
         goToResults: () -> Unit,
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
-        goToDescriptor: (String) -> Unit,
-        goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
     ) = DashboardViewModel(
         goToOnboarding = goToOnboarding,
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
         goToRunTests = goToRunTests,
-        goToDescriptor = goToDescriptor,
         getFirstRun = getFirstRun::invoke,
-        goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
-        getTestDescriptors = getTestDescriptors::latest,
         observeRunBackgroundState = runBackgroundStateManager.observeState(),
         observeTestRunErrors = runBackgroundStateManager.observeErrors(),
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
-        startDescriptorsUpdates = startDescriptorsUpdate,
-        dismissDescriptorsUpdateNotice = dismissDescriptorReviewNotice::invoke,
-        observeDescriptorUpdateState = descriptorUpdateStateManager::observe,
         getAutoRunSettings = getAutoRunSettings::invoke,
         batteryOptimization = batteryOptimization,
-        canPullToRefresh = platformInfo.canPullToRefresh,
+        getMeasurementStats = getMeasurementStats::invoke,
+        setPreferenceByKey = preferenceRepository::setValueByKey,
     )
 
     fun descriptorViewModel(
@@ -711,6 +712,19 @@ class Dependencies(
             openAppLanguageSettings = { launchAction(PlatformAction.LanguageSettings) },
             getSettings = getSettings::invoke,
         )
+
+    fun testsViewModel(
+        goToDescriptor: (String) -> Unit,
+        goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
+    ) = TestsViewModel(
+        goToDescriptor = goToDescriptor,
+        goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
+        getTestDescriptors = getTestDescriptors::latest,
+        startDescriptorsUpdates = startDescriptorsUpdate,
+        dismissDescriptorsUpdateNotice = dismissDescriptorReviewNotice::invoke,
+        observeDescriptorUpdateState = descriptorUpdateStateManager::observe,
+        canPullToRefresh = platformInfo.canPullToRefresh,
+    )
 
     fun uploadMeasurementsViewModel(
         filter: MeasurementsFilter,

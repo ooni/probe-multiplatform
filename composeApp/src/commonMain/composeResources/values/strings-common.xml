@@ -48,8 +48,25 @@
     <string name="Dashboard_Update_Ready">The app update has just been downloaded</string>
     <string name="Dashboard_Update_Restart">Restart</string>
 
+    <string name="Dashboard_AutoRun_Title">Auto-Run</string>
+    <string name="Dashboard_AutoRun_Description">Tests run automatically every hour. This ensures the constant monitoring of state changes.</string>
+    <string name="Dashboard_AutoRun_Enabled">enabled</string>
+    <string name="Dashboard_AutoRun_Disabled">disabled</string>
+    <string name="Dashboard_Stats_Title">Your Measurements</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Network</item>
+        <item quantity="other">Networks</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">Country</item>
+        <item quantity="other">Countries</item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty">Start running tests to see your statistics here.</string>
+
     <!-- Test -->
 
+    <string name="Tests_Title">Tests</string>
+    <string name="Tests_Tab_Label">Tests</string>
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Instant Messaging</string>
     <string name="Test_Performance_Fullname">Performance</string>
@@ -70,7 +87,7 @@
     <!-- Test Results -->
 
     <string name="TestResults_Overview_Title">Test Results</string>
-    <string name="TestResults_Overview_Tab_Label">Test Results</string>
+    <string name="TestResults_Overview_Tab_Label">Results</string>
     <string name="TestResults_Overview_Hero_Tests">Tests</string>
     <string name="TestResults_Overview_Hero_Networks">Networks</string>
     <string name="TestResults_Overview_Hero_DataUsage">Data Usage</string>
@@ -415,6 +432,8 @@
 
     <string name="Common_Today">Today</string>
     <string name="Common_Yesterday">Yesterday</string>
+    <string name="Common_Week">Week</string>
+    <string name="Common_Month">Month</string>
     <string name="Common_Ago">%1$s ago</string>
     <plurals name="Common_Seconds">
         <item quantity="one">%1$d second</item>

@@ -165,4 +165,5 @@ private fun logAppStart(platformInfo: PlatformInfo) {
 
 val LocalSnackbarHostState = compositionLocalOf<SnackbarHostState?> { null }
 
-val MAIN_NAVIGATION_SCREENS = listOf(Screen.Dashboard, Screen.Results, Screen.Settings)
+val MAIN_NAVIGATION_SCREENS =
+    listOf(Screen.Dashboard, Screen.Tests, Screen.Results, Screen.Settings)

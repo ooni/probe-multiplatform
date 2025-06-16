@@ -42,6 +42,7 @@ import org.ooni.probe.ui.settings.donate.DonateScreen
 import org.ooni.probe.ui.settings.proxy.ProxyScreen
 import org.ooni.probe.ui.settings.support.SupportScreen
 import org.ooni.probe.ui.settings.webcategories.WebCategoriesScreen
+import org.ooni.probe.ui.tests.TestsScreen
 import org.ooni.probe.ui.upload.UploadMeasurementsDialog
 
 private val START_SCREEN = Screen.Dashboard
@@ -78,6 +79,15 @@ fun Navigation(
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.safeNavigate(Screen.RunningTest) },
                     goToRunTests = { navController.safeNavigate(Screen.RunTests()) },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            DashboardScreen(state, viewModel::onEvent)
+        }
+
+        composable<Screen.Tests> {
+            val viewModel = viewModel {
+                dependencies.testsViewModel(
                     goToDescriptor = { descriptorKey ->
                         navController.safeNavigate(Screen.Descriptor(descriptorKey))
                     },
@@ -87,7 +97,7 @@ fun Navigation(
                 )
             }
             val state by viewModel.state.collectAsState()
-            DashboardScreen(state, viewModel::onEvent)
+            TestsScreen(state, viewModel::onEvent)
         }
 
         composable<Screen.Results> {

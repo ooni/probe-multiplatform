@@ -7,18 +7,18 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.data.models.AutoRunParameters
-import org.ooni.probe.data.models.Descriptor
-import org.ooni.probe.data.models.DescriptorType
-import org.ooni.probe.data.models.DescriptorUpdateOperationState
-import org.ooni.probe.data.models.DescriptorsUpdateState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.MeasurementStats
 import org.ooni.probe.data.models.RunBackgroundState
+import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.TestRunError
 
 class DashboardViewModel(
@@ -26,23 +26,18 @@ class DashboardViewModel(
     goToResults: () -> Unit,
     goToRunningTest: () -> Unit,
     goToRunTests: () -> Unit,
-    goToDescriptor: (String) -> Unit,
     getFirstRun: () -> Flow<Boolean>,
-    goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
-    getTestDescriptors: () -> Flow<List<Descriptor>>,
     observeRunBackgroundState: Flow<RunBackgroundState>,
     observeTestRunErrors: Flow<TestRunError>,
     shouldShowVpnWarning: suspend () -> Boolean,
-    observeDescriptorUpdateState: () -> Flow<DescriptorsUpdateState>,
-    startDescriptorsUpdates: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
-    dismissDescriptorsUpdateNotice: () -> Unit,
     getAutoRunSettings: () -> Flow<AutoRunParameters>,
     batteryOptimization: BatteryOptimization,
-    canPullToRefresh: Boolean,
+    getMeasurementStats: () -> Flow<MeasurementStats>,
+    setPreferenceByKey: suspend (SettingsKey, Any?) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val _state = MutableStateFlow(State(canPullToRefresh = canPullToRefresh))
+    private val _state = MutableStateFlow(State())
     val state = _state.asStateFlow()
 
     init {
@@ -52,9 +47,14 @@ class DashboardViewModel(
             .launchIn(viewModelScope)
 
         getAutoRunSettings()
-            .take(1)
-            .onEach { autoRunParameters ->
-                if (autoRunParameters is AutoRunParameters.Enabled &&
+            .map { it is AutoRunParameters.Enabled }
+            .runningFold(
+                initial = null as Pair<Boolean?, Boolean?>?,
+            ) { accumulator, value -> Pair(accumulator?.second, value) }
+            .filterNotNull()
+            .onEach { (previousValue, currentValue) ->
+                if (previousValue != true &&
+                    currentValue == true &&
                     batteryOptimization.isSupported &&
                     !batteryOptimization.isIgnoring
                 ) {
@@ -62,30 +62,22 @@ class DashboardViewModel(
                 }
             }.launchIn(viewModelScope)
 
-        observeDescriptorUpdateState()
-            .onEach { updates ->
-                _state.update {
-                    it.copy(
-                        availableUpdates = updates.availableUpdates.toList(),
-                        descriptorsUpdateOperationState = updates.operationState,
-                    )
-                }
-            }.launchIn(viewModelScope)
-
-        getTestDescriptors()
-            .onEach { tests ->
-                _state.update { it.copy(descriptors = tests.groupByType()) }
+        getAutoRunSettings()
+            .onEach { params ->
+                _state.update { it.copy(isAutoRunEnabled = params is AutoRunParameters.Enabled) }
             }.launchIn(viewModelScope)
 
         observeRunBackgroundState
-            .onEach { testState ->
-                _state.update { it.copy(runBackgroundState = testState) }
-            }.launchIn(viewModelScope)
+            .onEach { testState -> _state.update { it.copy(runBackgroundState = testState) } }
+            .launchIn(viewModelScope)
 
         observeTestRunErrors
-            .onEach { error ->
-                _state.update { it.copy(testRunErrors = it.testRunErrors + error) }
-            }.launchIn(viewModelScope)
+            .onEach { error -> _state.update { it.copy(testRunErrors = it.testRunErrors + error) } }
+            .launchIn(viewModelScope)
+
+        getMeasurementStats()
+            .onEach { stats -> _state.update { it.copy(measurementStats = stats) } }
+            .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.RunTestsClick>()
@@ -109,43 +101,14 @@ class DashboardViewModel(
             }.launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.DescriptorClicked>()
-            .onEach { event -> goToDescriptor(event.descriptor.key) }
-            .launchIn(viewModelScope)
-
-        events
             .filterIsInstance<Event.Start>()
             .onEach {
                 _state.update { it.copy(showVpnWarning = shouldShowVpnWarning()) }
             }.launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.FetchUpdatedDescriptors>()
-            .onEach { startDescriptorsUpdates(null) }
-            .launchIn(viewModelScope)
-
-        events
-            .filterIsInstance<Event.ReviewUpdatesClicked>()
-            .onEach {
-                dismissDescriptorsUpdateNotice()
-                goToReviewDescriptorUpdates(null)
-            }.launchIn(viewModelScope)
-
-        events
-            .filterIsInstance<Event.UpdateDescriptorClicked>()
-            .onEach {
-                dismissDescriptorsUpdateNotice()
-                goToReviewDescriptorUpdates(
-                    listOf(
-                        (it.descriptor.source as? Descriptor.Source.Installed)?.value?.id
-                            ?: return@onEach,
-                    ),
-                )
-            }.launchIn(viewModelScope)
-
-        events
-            .filterIsInstance<Event.CancelUpdatesClicked>()
-            .onEach { dismissDescriptorsUpdateNotice() }
+            .filterIsInstance<Event.AutoRunEnabledChanged>()
+            .onEach { setPreferenceByKey(SettingsKey.AUTOMATED_TESTING_ENABLED, it.isEnabled) }
             .launchIn(viewModelScope)
 
         events
@@ -167,28 +130,14 @@ class DashboardViewModel(
         events.tryEmit(event)
     }
 
-    private fun List<Descriptor>.groupByType() =
-        mapOf(
-            DescriptorType.Default to filter { it.source is Descriptor.Source.Default },
-            DescriptorType.Installed to filter { it.source is Descriptor.Source.Installed },
-        )
-
     data class State(
-        val descriptors: Map<DescriptorType, List<Descriptor>> = emptyMap(),
         val runBackgroundState: RunBackgroundState = RunBackgroundState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
         val showVpnWarning: Boolean = false,
-        val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
-        val descriptorsUpdateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
         val showIgnoreBatteryOptimizationNotice: Boolean = false,
-        val canPullToRefresh: Boolean = true,
-    ) {
-        val isRefreshing: Boolean
-            get() = descriptorsUpdateOperationState == DescriptorUpdateOperationState.FetchingUpdates
-
-        val isRefreshEnabled: Boolean
-            get() = descriptors[DescriptorType.Installed]?.any() == true
-    }
+        val measurementStats: MeasurementStats? = null,
+        val isAutoRunEnabled: Boolean = true,
+    )
 
     sealed interface Event {
         data object Start : Event
@@ -203,19 +152,9 @@ class DashboardViewModel(
             val error: TestRunError,
         ) : Event
 
-        data class DescriptorClicked(
-            val descriptor: Descriptor,
+        data class AutoRunEnabledChanged(
+            val isEnabled: Boolean,
         ) : Event
-
-        data class UpdateDescriptorClicked(
-            val descriptor: Descriptor,
-        ) : Event
-
-        data object FetchUpdatedDescriptors : Event
-
-        data object ReviewUpdatesClicked : Event
-
-        data object CancelUpdatesClicked : Event
 
         data object IgnoreBatteryOptimizationAccepted : Event
 
