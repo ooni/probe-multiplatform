@@ -52,6 +52,7 @@
     <string name="TestResults_Summary_Hero_Runtime">เวลาทำงานรวม</string>
     <string name="TestResults_Summary_Hero_WiFi">ไวไฟ</string>
     <string name="TestResults_Summary_Hero_Mobile">ข้อมูลมือถือ</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">บลูทูธ</string>
     <string name="TestResults_Summary_Hero_NoInternet">ไม่พบอินเทอร์เน็ต</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">ทดสอบเเล้ว</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">ทดสอบเเล้ว</string>
