@@ -109,6 +109,7 @@ import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
 import org.ooni.probe.ui.settings.proxy.ProxyViewModel
 import org.ooni.probe.ui.settings.webcategories.WebCategoriesViewModel
+import org.ooni.probe.ui.tests.TestsViewModel
 import org.ooni.probe.ui.upload.UploadMeasurementsViewModel
 import kotlin.coroutines.CoroutineContext
 
@@ -522,16 +523,10 @@ class Dependencies(
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
         goToRunTests = goToRunTests,
-        goToDescriptor = goToDescriptor,
         getFirstRun = getFirstRun::invoke,
-        goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
-        getTestDescriptors = getTestDescriptors::latest,
         observeRunBackgroundState = runBackgroundStateManager.observeState(),
         observeTestRunErrors = runBackgroundStateManager.observeErrors(),
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
-        startDescriptorsUpdates = startDescriptorsUpdate,
-        dismissDescriptorsUpdateNotice = dismissDescriptorReviewNotice::invoke,
-        observeDescriptorUpdateState = descriptorUpdateStateManager::observe,
         getAutoRunSettings = getAutoRunSettings::invoke,
         batteryOptimization = batteryOptimization,
     )
@@ -702,6 +697,18 @@ class Dependencies(
             openAppLanguageSettings = { launchAction(PlatformAction.LanguageSettings) },
             getSettings = getSettings::invoke,
         )
+
+    fun testsViewModel(
+        goToDescriptor: (String) -> Unit,
+        goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
+    ) = TestsViewModel(
+        goToDescriptor = goToDescriptor,
+        goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
+        getTestDescriptors = getTestDescriptors::latest,
+        startDescriptorsUpdates = startDescriptorsUpdate,
+        dismissDescriptorsUpdateNotice = dismissDescriptorReviewNotice::invoke,
+        observeDescriptorUpdateState = descriptorUpdateStateManager::observe,
+    )
 
     fun uploadMeasurementsViewModel(
         filter: MeasurementsFilter,

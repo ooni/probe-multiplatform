@@ -26,9 +26,11 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Tab_Label
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Tab_Label
+import ooniprobe.composeapp.generated.resources.Tests_Tab_Label
 import ooniprobe.composeapp.generated.resources.ic_dashboard
 import ooniprobe.composeapp.generated.resources.ic_history
 import ooniprobe.composeapp.generated.resources.ic_settings
+import ooniprobe.composeapp.generated.resources.ic_tests
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.MAIN_NAVIGATION_SCREENS
@@ -47,8 +49,8 @@ fun BottomNavigationBar(
     NavigationBar(
         modifier = customMinHeightModifier,
     ) {
-        MAIN_NAVIGATION_SCREENS.forEach { screen ->
-            val screen = screen as Screen
+        MAIN_NAVIGATION_SCREENS.forEach { mainScreen ->
+            val screen = mainScreen as Screen
             val isCurrentScreen = entry?.destination?.hasRoute(screen::class) == true
             NavigationBarItem(
                 icon = {
@@ -111,6 +113,7 @@ private val Screen.titleRes
     get() =
         when (this) {
             Screen.Dashboard -> Res.string.Dashboard_Tab_Label
+            Screen.Tests -> Res.string.Tests_Tab_Label
             Screen.Results -> Res.string.TestResults_Overview_Tab_Label
             Screen.Settings -> Res.string.Settings_Title
             else -> throw IllegalArgumentException("Only main screens allowed in bottom navigation")
@@ -120,6 +123,7 @@ private val Screen.iconRes
     get() =
         when (this) {
             Screen.Dashboard -> Res.drawable.ic_dashboard
+            Screen.Tests -> Res.drawable.ic_tests
             Screen.Results -> Res.drawable.ic_history
             Screen.Settings -> Res.drawable.ic_settings
             else -> throw IllegalArgumentException("Only main screens allowed in bottom navigation")
