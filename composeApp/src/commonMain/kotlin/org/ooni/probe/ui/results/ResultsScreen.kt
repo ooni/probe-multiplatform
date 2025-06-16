@@ -13,6 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.triStateToggleable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -23,6 +26,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,7 +40,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDate
@@ -46,11 +55,15 @@ import ooniprobe.composeapp.generated.resources.Common_Yes
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
+import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteSomeTests
+import ooniprobe.composeapp.generated.resources.Modal_Selected
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Results_LimitedNotice
 import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed
 import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed_Confirmation
 import ooniprobe.composeapp.generated.resources.Results_MarkAllAsViewed_Filtered_Confirmation
+import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Selection_All
+import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Selection_None
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_DeleteConfirmation
@@ -72,7 +85,9 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultFilter
+import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.shared.stringMonthArrayResource
+import org.ooni.probe.ui.shared.LightStatusBars
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
@@ -82,53 +97,123 @@ fun ResultsScreen(
     state: ResultsViewModel.State,
     onEvent: (ResultsViewModel.Event) -> Unit,
 ) {
+    LightStatusBars(state.selectionEnabled && MaterialTheme.colorScheme.background.luminance() > 0.5f)
+
     var showFiltersDialog by remember { mutableStateOf(false) }
     var showDeleteConfirm by remember { mutableStateOf(false) }
     var showMarkAsViewedConfirm by remember { mutableStateOf(false) }
 
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
-        TopBar(
-            title = {
-                Text(stringResource(Res.string.TestResults_Overview_Title))
-            },
-            actions = {
-                IconButton(
-                    onClick = { showFiltersDialog = true },
-                    enabled = state.results.any() || !state.filter.isAll,
-                ) {
-                    Icon(
-                        painterResource(Res.drawable.ic_filters),
-                        contentDescription = stringResource(Res.string.TestResults_Filters_Title),
-                    )
-                }
-                IconButton(
-                    onClick = { showMarkAsViewedConfirm = true },
-                    enabled = state.markAllAsViewedEnabled && !state.isLoading && state.results.any(),
-                ) {
-                    Icon(
-                        painterResource(Res.drawable.ic_mark_as_viewed),
-                        contentDescription = stringResource(Res.string.Results_MarkAllAsViewed),
-                    )
-                }
-                IconButton(
-                    onClick = { showDeleteConfirm = true },
-                    enabled = !state.isLoading && state.results.any(),
-                ) {
-                    Icon(
-                        painterResource(Res.drawable.ic_delete_all),
-                        contentDescription = stringResource(Res.string.Modal_Delete),
-                    )
-                }
-            },
-        )
-
-        Surface(color = MaterialTheme.colorScheme.primaryContainer) {
-            ResultFiltersRow(
-                filter = state.filter,
-                onOpen = { showFiltersDialog = true },
+        if (!state.selectionEnabled) {
+            TopBar(
+                title = {
+                    Text(stringResource(Res.string.TestResults_Overview_Title))
+                },
+                actions = {
+                    IconButton(
+                        onClick = { showFiltersDialog = true },
+                        enabled = state.results.any() || !state.filter.isAll,
+                    ) {
+                        Icon(
+                            painterResource(Res.drawable.ic_filters),
+                            contentDescription = stringResource(Res.string.TestResults_Filters_Title),
+                        )
+                    }
+                    IconButton(
+                        onClick = { showMarkAsViewedConfirm = true },
+                        enabled = state.markAllAsViewedEnabled && !state.isLoading && state.results.any(),
+                    ) {
+                        Icon(
+                            painterResource(Res.drawable.ic_mark_as_viewed),
+                            contentDescription = stringResource(Res.string.Results_MarkAllAsViewed),
+                        )
+                    }
+                    IconButton(
+                        onClick = { showDeleteConfirm = true },
+                        enabled = !state.isLoading && state.results.any(),
+                    ) {
+                        Icon(
+                            painterResource(Res.drawable.ic_delete_all),
+                            contentDescription = stringResource(Res.string.Modal_Delete),
+                        )
+                    }
+                },
             )
-        }
 
+            Surface(color = MaterialTheme.colorScheme.primaryContainer) {
+                ResultFiltersRow(
+                    filter = state.filter,
+                    onOpen = { showFiltersDialog = true },
+                )
+            }
+        } else {
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                ),
+                navigationIcon = {
+                    IconButton(onClick = { onEvent(ResultsViewModel.Event.CancelSelection) }) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(Res.string.Modal_Cancel),
+                        )
+                    }
+                },
+                title = {
+                    Text(
+                        pluralStringResourceItem(Res.plurals.Modal_Selected, state.selectedResultsCount, state.selectedResultsCount),
+                        modifier = Modifier.weight(1f),
+                    )
+                },
+                actions = {
+                    if (state.isAnySelected) {
+                        IconButton(onClick = { showDeleteConfirm = true }) {
+                            Icon(
+                                painterResource(Res.drawable.ic_delete_all),
+                                contentDescription = stringResource(Res.string.Modal_Delete),
+                            )
+                        }
+                    }
+                },
+            )
+            Surface(color = MaterialTheme.colorScheme.surfaceContainer) {
+                val toggleState = if (state.areAllSelected) {
+                    ToggleableState.On
+                } else if (state.isAnySelected) {
+                    ToggleableState.Indeterminate
+                } else {
+                    ToggleableState.Off
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .triStateToggleable(
+                            state = toggleState,
+                            onClick = {
+                                onEvent(ResultsViewModel.Event.ToggleSelection)
+                            },
+                            role = Role.Checkbox,
+                        )
+                        .padding(8.dp),
+                ) {
+                    TriStateCheckbox(
+                        state = toggleState,
+                        onClick = null,
+                        modifier = Modifier.padding(horizontal = 8.dp),
+                    )
+                    Text(
+                        stringResource(
+                            if (toggleState != ToggleableState.On) {
+                                Res.string.Settings_Websites_Categories_Selection_All
+                            } else {
+                                Res.string.Settings_Websites_Categories_Selection_None
+                            },
+                        ),
+                    )
+                }
+            }
+        }
         if (showFiltersDialog) {
             ResultFiltersDialog(
                 initialFilter = state.filter,
@@ -146,11 +231,11 @@ fun ResultsScreen(
         } else if (state.results.isEmpty()) {
             EmptyResults(anyFilterSelected = !state.filter.isAll)
         } else {
-            if (!isHeightCompact()) {
+            if (!isHeightCompact() && !state.selectionEnabled) {
                 Summary(state.summary)
             }
 
-            if (state.anyMissingUpload && state.filter.isAll) {
+            if (state.anyMissingUpload && state.filter.isAll && !state.selectionEnabled) {
                 UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
             }
 
@@ -160,9 +245,40 @@ fun ResultsScreen(
                         ResultDateHeader(date)
                     }
                     items(items = results) { result ->
+                        val isSelected = result.isSelected
                         ResultCell(
-                            item = result,
-                            onResultClick = { onEvent(ResultsViewModel.Event.ResultClick(result)) },
+                            item = result.item,
+                            onResultClick = {
+                                if (state.selectionEnabled) {
+                                    onEvent(
+                                        ResultsViewModel.Event.ToggleItemSelection(
+                                            result.item,
+                                            !isSelected,
+                                        ),
+                                    )
+                                } else {
+                                    onEvent(ResultsViewModel.Event.ResultClick(result.item))
+                                }
+                            },
+                            isSelected = isSelected,
+                            onSelectChange = { checked ->
+                                onEvent(
+                                    ResultsViewModel.Event.ToggleItemSelection(
+                                        result.item,
+                                        checked,
+                                    ),
+                                )
+                            },
+                            onLongClick = {
+                                if (!isSelected) {
+                                    onEvent(
+                                        ResultsViewModel.Event.ToggleItemSelection(
+                                            result.item,
+                                            true,
+                                        ),
+                                    )
+                                }
+                            },
                         )
                         HorizontalDivider(thickness = with(LocalDensity.current) { 1.toDp() })
                     }
@@ -187,7 +303,13 @@ fun ResultsScreen(
 
     if (showDeleteConfirm) {
         DeleteConfirmDialog(
-            filter = state.filter,
+            message = if (state.selectionEnabled) {
+                stringResource(Res.string.Modal_DoYouWantToDeleteSomeTests, state.selectedResultsCount)
+            } else if (state.filter.isAll) {
+                stringResource(Res.string.Modal_DoYouWantToDeleteAllTests)
+            } else {
+                stringResource(Res.string.TestResults_Filter_DeleteConfirmation)
+            },
             onConfirm = {
                 onEvent(ResultsViewModel.Event.DeleteClick)
                 showDeleteConfirm = false
@@ -379,22 +501,14 @@ private fun ResultDateHeader(date: LocalDate) {
 
 @Composable
 private fun DeleteConfirmDialog(
-    filter: ResultFilter,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
+    message: String,
 ) {
     AlertDialog(
         onDismissRequest = { onDismiss() },
         text = {
-            Text(
-                stringResource(
-                    if (filter.isAll) {
-                        Res.string.Modal_DoYouWantToDeleteAllTests
-                    } else {
-                        Res.string.TestResults_Filter_DeleteConfirmation
-                    },
-                ),
-            )
+            Text(message)
         },
         confirmButton = {
             TextButton(onClick = { onConfirm() }) {

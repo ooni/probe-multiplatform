@@ -259,6 +259,7 @@ class Dependencies(
             deleteMeasurementsWithoutResult = deleteMeasurementsWithoutResult::invoke,
             deleteNetworksWithoutResult = networkRepository::deleteWithoutResult,
             deleteAllResultsFromDatabase = resultRepository::deleteAll,
+            deleteResultsByIdsFromDatabase = resultRepository::deleteByIds,
             deleteFiles = deleteFiles::invoke,
         )
     }
@@ -594,6 +595,7 @@ class Dependencies(
         getResults = getResults::invoke,
         getDescriptors = getTestDescriptors::latest,
         deleteResultsByFilter = deleteResults::byFilter,
+        deleteResults = deleteResults::byIds,
         markJustFinishedTestAsSeen = markJustFinishedTestAsSeen::invoke,
         markAsViewed = resultRepository::markAllAsViewed,
     )

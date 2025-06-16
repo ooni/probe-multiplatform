@@ -151,6 +151,13 @@ class ResultRepository(
             )
         }
 
+    suspend fun deleteByIds(ids: List<ResultModel.Id>) {
+        if (ids.isEmpty()) return
+        withContext(backgroundContext) {
+            database.resultQueries.deleteByIds(ids.map { it.value })
+        }
+    }
+
     suspend fun deleteAll() {
         withContext(backgroundContext) {
             database.transaction {
