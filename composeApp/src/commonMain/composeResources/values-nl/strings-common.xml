@@ -55,6 +55,7 @@
     <string name="TestResults_Summary_Hero_Runtime">Totaal Uitvoertijd</string>
     <string name="TestResults_Summary_Hero_WiFi">wifi</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobiele Data</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Geen internet</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Getest</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Getest</string>
