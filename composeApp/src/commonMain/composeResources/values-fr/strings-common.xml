@@ -84,6 +84,8 @@
     <string name="TestResults_Summary_Hero_WiFi">Wi-Fi</string>
     <string name="TestResults_Summary_Hero_Mobile">Données mobiles</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">Pas d’Internet</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Testés</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Testés</string>
@@ -330,6 +332,10 @@
     <string name="Modal_Cancel">Annuler</string>
     <string name="Modal_OK">Valider</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Voulez-vous supprimer tous les résultats de test?</string>
+    <string name="Modal_DoYouWantToDeleteSomeTests">Voulez-vous supprimer %1$s résultat(s) de test \?</string>
+    <string name="Modal_Selected_Zero">Aucun élément n’a été choisi</string>
+    <string name="Modal_Selected_One">%1$d élément choisi</string>
+    <string name="Modal_Selected_Other">%1$d éléments choisis</string>
     <string name="Modal_Delete">Supprimer</string>
     <string name="Modal_ReRun_Title">Relancer le test</string>
     <string name="Modal_ReRun_Websites_Title">Vous êtes sur le point de retester %1$s sites Web.</string>
