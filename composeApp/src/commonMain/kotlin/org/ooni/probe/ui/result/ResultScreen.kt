@@ -70,6 +70,7 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Reachable
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Tested
+import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.TestResults_ms
 import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_replay
@@ -578,6 +579,7 @@ private fun NetworkType.label(): String =
             NetworkType.VPN -> Res.string.NetworkType_Vpn
             NetworkType.Wifi -> Res.string.TestResults_Summary_Hero_WiFi
             is NetworkType.Unknown -> Res.string.TestResults_NotAvailable
+            else -> Res.string.TestResults_UnknownASN
         },
     )
 
