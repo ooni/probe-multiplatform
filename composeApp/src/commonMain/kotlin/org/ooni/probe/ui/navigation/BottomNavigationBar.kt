@@ -48,6 +48,7 @@ fun BottomNavigationBar(
         modifier = customMinHeightModifier,
     ) {
         MAIN_NAVIGATION_SCREENS.forEach { screen ->
+            val screen = screen as Screen
             val isCurrentScreen = entry?.destination?.hasRoute(screen::class) == true
             NavigationBarItem(
                 icon = {
