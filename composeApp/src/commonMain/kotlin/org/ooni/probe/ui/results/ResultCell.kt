@@ -90,10 +90,7 @@ fun ResultCell(
                             onResultClick()
                         }
                     },
-                    onLongClick = {
-                        onSelectChange?.invoke(true)
-                        onLongClick?.invoke()
-                    },
+                    onLongClick = onLongClick,
                 )
                 .padding(horizontal = 16.dp, vertical = 8.dp)
                 .testTag(item.descriptor.key),
@@ -229,6 +226,7 @@ private fun ResultCounts(item: ResultListItem) {
                     ),
                 )
             }
+
             SummaryType.Anomaly -> {
                 ResultCountItem(
                     icon = Res.drawable.ic_measurement_anomaly,
@@ -252,6 +250,7 @@ private fun ResultCounts(item: ResultListItem) {
                     ),
                 )
             }
+
             SummaryType.Performance -> {
                 item.testKeys?.downloadSpeed()?.let { (download, unit) ->
 
