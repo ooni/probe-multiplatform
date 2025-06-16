@@ -31,6 +31,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
@@ -86,6 +88,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.shared.stringMonthArrayResource
+import org.ooni.probe.ui.shared.LightStatusBars
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
@@ -95,6 +98,8 @@ fun ResultsScreen(
     state: ResultsViewModel.State,
     onEvent: (ResultsViewModel.Event) -> Unit,
 ) {
+    LightStatusBars(state.selectionEnabled && MaterialTheme.colorScheme.background.luminance() > 0.5f)
+
     var showFiltersDialog by remember { mutableStateOf(false) }
     var showDeleteConfirm by remember { mutableStateOf(false) }
     var showMarkAsViewedConfirm by remember { mutableStateOf(false) }
