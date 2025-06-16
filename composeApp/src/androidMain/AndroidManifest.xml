@@ -12,27 +12,30 @@
     <application
         android:name=".AndroidApplication"
         android:allowBackup="true"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+        tools:ignore="UnusedAttribute">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|mnc|colorMode|density|fontScale|fontWeightAdjustment|keyboard|layoutDirection|locale|mcc|navigation|smallestScreenSize|touchscreen|uiMode"
+            android:exported="true"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustNothing"
-            android:exported="true">
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity-alias
-            android:exported="true"
-            android:enabled="@string/ooni_run_enabled"
             android:name=".OONIRunActivity"
+            android:enabled="@string/ooni_run_enabled"
+            android:exported="true"
             android:targetActivity=".MainActivity">
 
             <intent-filter android:autoVerify="true">
@@ -61,9 +64,9 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:exported="true"
-            android:enabled="@string/ooni_run_enabled"
             android:name=".ShareRunActivity"
+            android:enabled="@string/ooni_run_enabled"
+            android:exported="true"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
