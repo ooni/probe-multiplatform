@@ -59,6 +59,7 @@ enum class SettingsKey(val value: String) {
     DELETE_UPLOADED_JSONS("deleteUploadedJsons"),
     IS_NOTIFICATION_DIALOG("isNotificationDialog"),
     FIRST_RUN("first_run"),
+    CHOSEN_WEBSITES("chosen_websites"),
 
     ROUTE("route"),
 }
