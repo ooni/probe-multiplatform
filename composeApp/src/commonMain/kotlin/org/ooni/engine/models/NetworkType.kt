@@ -23,6 +23,18 @@ sealed interface NetworkType {
         override val value = "mobile"
     }
 
+    data object Ethernet : NetworkType {
+        override val value = "wired_ethernet"
+    }
+
+    data object Bluetooth : NetworkType {
+        override val value = "bluetooth"
+    }
+
+    data object Usb : NetworkType {
+        override val value = "usb"
+    }
+
     data object NoInternet : NetworkType {
         override val value = "no_internet"
     }

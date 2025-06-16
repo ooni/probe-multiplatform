@@ -9,16 +9,19 @@ class AndroidNetworkTypeFinder(
 ) : NetworkTypeFinder {
     override fun invoke(): NetworkType {
         if (connectivityManager == null) return NetworkType.NoInternet
-
+        val network = connectivityManager.activeNetwork ?: return NetworkType.NoInternet
         val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            connectivityManager.getNetworkCapabilities(network)
                 ?: return NetworkType.NoInternet
 
         return when {
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> NetworkType.VPN
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> NetworkType.Wifi
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> NetworkType.Mobile
-            else -> NetworkType.NoInternet
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> NetworkType.Ethernet
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> NetworkType.Bluetooth
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_USB) -> NetworkType.Usb
+            else -> NetworkType.Unknown("unknown")
         }
     }
 }

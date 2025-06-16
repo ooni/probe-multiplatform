@@ -41,6 +41,7 @@ class DesktopNetworkTypeFinder : NetworkTypeFinder {
             "vpn" -> NetworkType.VPN
             "wifi" -> NetworkType.Wifi
             "mobile" -> NetworkType.Mobile
+            "wired_ethernet" -> NetworkType.Ethernet
             "no_internet" -> NetworkType.NoInternet
             else -> NetworkType.Unknown(networkTypeString)
         }

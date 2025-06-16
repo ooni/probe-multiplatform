@@ -83,6 +83,9 @@
     <string name="TestResults_Summary_Hero_Runtime">Total Runtime</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobile Data</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">No internet</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Tested</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Tested</string>

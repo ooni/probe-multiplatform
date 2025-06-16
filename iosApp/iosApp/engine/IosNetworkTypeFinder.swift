@@ -33,9 +33,9 @@ class IosNetworkTypeFinder : NetworkTypeFinder {
             } else if path.usesInterfaceType(.cellular) {
                 return NetworkTypeMobile()
             } else if path.usesInterfaceType(.wiredEthernet) {
-                return NetworkTypeUnknown(value: "wired_ethernet")
+                return NetworkTypeEthernet()
             } else {
-                return NetworkTypeUnknown(value: "")
+                return NetworkTypeUnknown(value: "unknown")
             }
         }
         return NetworkTypeNoInternet()
