@@ -83,6 +83,7 @@
     <string name="TestResults_Summary_Hero_Runtime">Heildarkeyrslutími</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Farsímagögn</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Engin internettenging</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Prófað</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Prófað</string>
