@@ -57,10 +57,13 @@ import ooniprobe.composeapp.generated.resources.TestResults_NotAvailable
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Country
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_DateAndTime
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Ethernet
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Mobile
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Network
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_NoInternet
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Runtime
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Usb
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Bluetooth
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_WiFi
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Ping
@@ -70,7 +73,6 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Reachable
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Tested
-import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.TestResults_ms
 import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_replay
@@ -579,7 +581,9 @@ private fun NetworkType.label(): String =
             NetworkType.VPN -> Res.string.NetworkType_Vpn
             NetworkType.Wifi -> Res.string.TestResults_Summary_Hero_WiFi
             is NetworkType.Unknown -> Res.string.TestResults_NotAvailable
-            else -> Res.string.TestResults_UnknownASN
+            NetworkType.Bluetooth -> Res.string.TestResults_Summary_Hero_Bluetooth
+            NetworkType.Ethernet -> Res.string.TestResults_Summary_Hero_Ethernet
+            NetworkType.Usb -> Res.string.TestResults_Summary_Hero_Usb
         },
     )
 
