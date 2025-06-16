@@ -50,6 +50,8 @@
 
     <!-- Test -->
 
+    <string name="Tests_Title">Tests</string>
+    <string name="Tests_Tab_Label">Tests</string>
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Instant Messaging</string>
     <string name="Test_Performance_Fullname">Performance</string>
@@ -70,7 +72,7 @@
     <!-- Test Results -->
 
     <string name="TestResults_Overview_Title">Test Results</string>
-    <string name="TestResults_Overview_Tab_Label">Test Results</string>
+    <string name="TestResults_Overview_Tab_Label">Results</string>
     <string name="TestResults_Overview_Hero_Tests">Tests</string>
     <string name="TestResults_Overview_Hero_Networks">Networks</string>
     <string name="TestResults_Overview_Hero_DataUsage">Data Usage</string>
