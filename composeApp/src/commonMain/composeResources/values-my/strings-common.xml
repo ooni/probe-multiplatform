@@ -52,6 +52,7 @@
     <string name="TestResults_Summary_Hero_Runtime">စုစုပေါင်း လုပ်ဆောင်ချိန်</string>
     <string name="TestResults_Summary_Hero_WiFi">ဝိုင်ဖိုင်</string>
     <string name="TestResults_Summary_Hero_Mobile">မိုဘိုင်းဒေတာ</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">ဘလူးတုသ်</string>
     <string name="TestResults_Summary_Hero_NoInternet">အင်တာနက်မရှိပါ</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">စမ်းသပ်ခဲ့သည်</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">စမ်းသပ်ခဲ့သည်</string>
