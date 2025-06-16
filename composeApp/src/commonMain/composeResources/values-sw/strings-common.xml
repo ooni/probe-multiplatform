@@ -72,6 +72,7 @@
     <string name="TestResults_Summary_Hero_Runtime">Jumla ya Muda wa Mbio</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Takwimu za simu </string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Hakuna mtandao</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Imejaribiwa</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Imejaribiwa</string>
