@@ -223,18 +223,21 @@ class ResultRepositoryTest {
                 "Count should be 1 after adding unviewed done result with done measurement",
             )
 
-            // Create an unviewed done result with an undone measurement (shouldn't be counted)
+            // Create an unviewed done result with an undone measurement (should be counted)
             val unviewedWithUndoneMeasurement = ResultModelFactory.build(
                 id = ResultModel.Id(Random.nextLong().absoluteValue),
                 isViewed = false,
                 isDone = true,
             )
             val resultId2 = subject.createOrUpdate(unviewedWithUndoneMeasurement)
-            val undoneMeasurement = MeasurementModelFactory.build(
+            measurementRepository.createOrUpdate(MeasurementModelFactory.build(
                 resultId = resultId2,
                 isDone = false,
-            )
-            measurementRepository.createOrUpdate(undoneMeasurement)
+            ))
+            measurementRepository.createOrUpdate(MeasurementModelFactory.build(
+                resultId = resultId2,
+                isDone = true,
+            ))
 
             // Still expect 1 since the last result has only undone measurements
             assertEquals(
