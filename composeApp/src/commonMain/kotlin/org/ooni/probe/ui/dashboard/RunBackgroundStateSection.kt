@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LatestTest
 import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_RunFinished
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_EstimatedTimeLeft
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
@@ -35,7 +34,6 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
-import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
 import org.ooni.probe.ui.theme.customColors
 
@@ -78,13 +76,15 @@ private fun Idle(
             modifier = Modifier.padding(start = 8.dp),
         )
     }
-    state.lastTestAt?.let { lastTestAt ->
-        Text(
-            text = stringResource(Res.string.Dashboard_Overview_LatestTest) + " " + lastTestAt.relativeDateTime(),
-            style = MaterialTheme.typography.labelLarge,
-            modifier = Modifier.padding(top = 4.dp),
-        )
-    }
+    /*
+        state.lastTestAt?.let { lastTestAt ->
+            Text(
+                text = stringResource(Res.string.Dashboard_Overview_LatestTest) + " " + lastTestAt.relativeDateTime(),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(top = 4.dp),
+            )
+        }
+     */
     if (state.justFinishedTest) {
         Button(
             onClick = { onEvent(DashboardViewModel.Event.SeeResultsClick) },
@@ -131,7 +131,7 @@ private fun UploadingMissingResults(state: RunBackgroundState.UploadingMissingRe
 
             UploadMissingMeasurements.State.Starting,
             is UploadMissingMeasurements.State.Finished,
-            -> {
+                -> {
                 LinearProgressIndicator(
                     color = progressColor,
                     trackColor = progressTrackColor,
