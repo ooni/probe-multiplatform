@@ -230,14 +230,18 @@ class ResultRepositoryTest {
                 isDone = true,
             )
             val resultId2 = subject.createOrUpdate(unviewedWithUndoneMeasurement)
-            measurementRepository.createOrUpdate(MeasurementModelFactory.build(
-                resultId = resultId2,
-                isDone = false,
-            ))
-            measurementRepository.createOrUpdate(MeasurementModelFactory.build(
-                resultId = resultId2,
-                isDone = true,
-            ))
+            measurementRepository.createOrUpdate(
+                MeasurementModelFactory.build(
+                    resultId = resultId2,
+                    isDone = false,
+                ),
+            )
+            measurementRepository.createOrUpdate(
+                MeasurementModelFactory.build(
+                    resultId = resultId2,
+                    isDone = true,
+                ),
+            )
 
             // Still expect 1 since the last result has only undone measurements
             assertEquals(
