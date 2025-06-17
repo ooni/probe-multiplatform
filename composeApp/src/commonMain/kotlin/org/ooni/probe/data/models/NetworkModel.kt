@@ -24,6 +24,8 @@ data class NetworkModel(
     )
 }
 
+fun NetworkModel.isValid() = asn != "AS0"
+
 object NetworkModelIdSerializer : KSerializer<NetworkModel.Id> {
     override val descriptor: SerialDescriptor =
         PrimitiveSerialDescriptor("org.ooni.probe.data.models.NetworkModel.Id", PrimitiveKind.LONG)

@@ -17,6 +17,7 @@ import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.UrlModel
+import org.ooni.probe.data.models.isValid
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.toLocalDateTime
 
@@ -217,8 +218,15 @@ class RunNetTest(
 
             is TaskEvent.MeasurementSubmissionSuccessful -> {
                 updateMeasurement(event.index) { measurement ->
-                    measurement.reportFilePath?.let { deleteFiles(it) }
-                    measurement.copy(isUploaded = true)
+                    return@updateMeasurement if (lastNetwork?.isValid() == true) {
+                        measurement.reportFilePath?.let { deleteFiles(it) }
+                        measurement.copy(isUploaded = true)
+                    } else {
+                        measurement.copy(
+                            isUploadFailed = true,
+                            uploadFailureMessage = "Network is not valid",
+                        )
+                    }
                 }
             }
 
