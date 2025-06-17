@@ -84,6 +84,7 @@ import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.SummaryType
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.data.models.downloadSpeed
+import org.ooni.probe.data.models.isValid
 import org.ooni.probe.data.models.ping
 import org.ooni.probe.data.models.uploadSpeed
 import org.ooni.probe.data.models.videoQuality
@@ -561,9 +562,13 @@ private fun SummaryNetwork(item: ResultItem) {
             )
             Text(
                 item.network?.let { network ->
+                    val asn = when {
+                        !item.network.isValid() -> stringResource(Res.string.TestResults_NotAvailable)
+                        else -> network.asn.orEmpty()
+                    }
                     """
                     ${network.networkName.orEmpty()}
-                    ${network.asn.orEmpty()} (${network.networkType?.label().orEmpty()})
+                    $asn (${network.networkType?.label().orEmpty()})
                     """.trimIndent()
                 } ?: stringResource(Res.string.TestResults_NotAvailable),
                 modifier = valueModifier,
