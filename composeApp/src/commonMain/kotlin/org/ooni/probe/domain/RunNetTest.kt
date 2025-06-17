@@ -223,8 +223,8 @@ class RunNetTest(
                         measurement.copy(isUploaded = true)
                     } else {
                         measurement.copy(
-                            isUploadFailed = true,
-                            uploadFailureMessage = "Network is not valid",
+                            isFailed = true,
+                            failureMessage = "Network is not valid",
                         )
                     }
                 }
