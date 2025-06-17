@@ -162,4 +162,96 @@ class ResultRepositoryTest {
 
             assertTrue(subject.getLatest().first()!!.isViewed)
         }
+
+    @Test
+    fun countAllNotViewed() =
+        runTest {
+            // Create a viewed result (shouldn't be counted)
+            val viewedResult = ResultModelFactory.build(
+                id = ResultModel.Id(Random.nextLong().absoluteValue),
+                isViewed = true,
+                isDone = true,
+            )
+            subject.createOrUpdate(viewedResult)
+
+            // Verify initial count is 0 since the only result is viewed
+            assertEquals(0, subject.countAllNotViewedFlow().first(), "Initial count should be 0 with only viewed results")
+
+            // Create an unviewed but not done result (shouldn't be counted)
+            val notDoneResult = ResultModelFactory.build(
+                id = ResultModel.Id(Random.nextLong().absoluteValue),
+                isViewed = false,
+                isDone = false,
+            )
+            subject.createOrUpdate(notDoneResult)
+
+            // Verify still 0 since we added an unviewed but not done result
+            assertEquals(0, subject.countAllNotViewedFlow().first(), "Count should still be 0 after adding undone result")
+
+            // Create an unviewed done result with no measurements (should not be counted)
+            val unviewedDoneResult = ResultModelFactory.build(
+                id = ResultModel.Id(Random.nextLong().absoluteValue),
+                isViewed = false,
+                isDone = true,
+            )
+            subject.createOrUpdate(unviewedDoneResult)
+
+            // Verify count is 0 after adding unviewed done result with no measurements
+            assertEquals(
+                0,
+                subject.countAllNotViewedFlow().first(),
+                "Count should be 1 after adding unviewed done result with no measurements",
+            )
+
+            // Create an unviewed done result with a done measurement (should be counted)
+            val unviewedWithMeasurement = ResultModelFactory.build(
+                id = ResultModel.Id(Random.nextLong().absoluteValue),
+                isViewed = false,
+                isDone = true,
+            )
+            val resultId = subject.createOrUpdate(unviewedWithMeasurement)
+            val measurement = MeasurementModelFactory.build(
+                resultId = resultId,
+                isDone = true,
+            )
+            measurementRepository.createOrUpdate(measurement)
+
+            // Verify count is 1 after adding unviewed done result with done measurement
+            assertEquals(
+                1,
+                subject.countAllNotViewedFlow().first(),
+                "Count should be 1 after adding unviewed done result with done measurement",
+            )
+
+            // Create an unviewed done result with an undone measurement (should be counted)
+            val unviewedWithUndoneMeasurement = ResultModelFactory.build(
+                id = ResultModel.Id(Random.nextLong().absoluteValue),
+                isViewed = false,
+                isDone = true,
+            )
+            val resultId2 = subject.createOrUpdate(unviewedWithUndoneMeasurement)
+            measurementRepository.createOrUpdate(
+                MeasurementModelFactory.build(
+                    resultId = resultId2,
+                    isDone = false,
+                ),
+            )
+            measurementRepository.createOrUpdate(
+                MeasurementModelFactory.build(
+                    resultId = resultId2,
+                    isDone = true,
+                ),
+            )
+
+            // Still expect 1 since the last result has only undone measurements
+            assertEquals(
+                2,
+                subject.countAllNotViewedFlow().first(),
+                "Count should still be 2 after adding result with only undone measurements",
+            )
+
+            // After marking one as viewed, count should decrease
+            subject.markAsViewed(unviewedWithUndoneMeasurement.id!!)
+            assertEquals(1, subject.countAllNotViewedFlow().first(), "Count should decrease to 1 after marking a result as viewed")
+        }
 }

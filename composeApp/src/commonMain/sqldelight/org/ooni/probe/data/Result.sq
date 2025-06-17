@@ -50,8 +50,12 @@ WHERE (
 );
 
 countAllNotViewed:
-SELECT COUNT(*) FROM Result WHERE is_done = 1 AND is_viewed = 0;
-
+SELECT COUNT(DISTINCT Result.id)
+FROM Result
+LEFT JOIN Measurement ON Measurement.result_id = Result.id
+WHERE Result.is_done = 1
+  AND Result.is_viewed = 0
+  AND Measurement.id IS NOT NULL AND Measurement.is_done = 1;
 markAsDone:
 UPDATE Result SET is_done = 1 WHERE id = ?;
 
