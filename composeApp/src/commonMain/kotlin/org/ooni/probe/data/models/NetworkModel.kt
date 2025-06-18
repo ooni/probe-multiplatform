@@ -22,9 +22,9 @@ data class NetworkModel(
     data class Id(
         val value: Long,
     )
-}
 
-fun NetworkModel.isValid() = asn != "AS0"
+    fun isValid() = asn != "AS0"
+}
 
 object NetworkModelIdSerializer : KSerializer<NetworkModel.Id> {
     override val descriptor: SerialDescriptor =
