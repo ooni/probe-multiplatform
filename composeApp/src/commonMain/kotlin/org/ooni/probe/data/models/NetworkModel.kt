@@ -22,6 +22,8 @@ data class NetworkModel(
     data class Id(
         val value: Long,
     )
+
+    fun isValid() = asn != "AS0"
 }
 
 object NetworkModelIdSerializer : KSerializer<NetworkModel.Id> {

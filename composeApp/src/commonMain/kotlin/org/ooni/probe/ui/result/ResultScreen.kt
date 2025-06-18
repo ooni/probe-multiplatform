@@ -561,9 +561,13 @@ private fun SummaryNetwork(item: ResultItem) {
             )
             Text(
                 item.network?.let { network ->
+                    val asn = when {
+                        !item.network.isValid() -> stringResource(Res.string.TestResults_NotAvailable)
+                        else -> network.asn.orEmpty()
+                    }
                     """
                     ${network.networkName.orEmpty()}
-                    ${network.asn.orEmpty()} (${network.networkType?.label().orEmpty()})
+                    $asn (${network.networkType?.label().orEmpty()})
                     """.trimIndent()
                 } ?: stringResource(Res.string.TestResults_NotAvailable),
                 modifier = valueModifier,

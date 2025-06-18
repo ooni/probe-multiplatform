@@ -217,8 +217,15 @@ class RunNetTest(
 
             is TaskEvent.MeasurementSubmissionSuccessful -> {
                 updateMeasurement(event.index) { measurement ->
-                    measurement.reportFilePath?.let { deleteFiles(it) }
-                    measurement.copy(isUploaded = true)
+                    return@updateMeasurement if (lastNetwork?.isValid() == true) {
+                        measurement.reportFilePath?.let { deleteFiles(it) }
+                        measurement.copy(isUploaded = true)
+                    } else {
+                        measurement.copy(
+                            isFailed = true,
+                            failureMessage = "Network is not valid",
+                        )
+                    }
                 }
             }
 

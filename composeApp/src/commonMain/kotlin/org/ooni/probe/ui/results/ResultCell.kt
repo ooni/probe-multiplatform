@@ -31,6 +31,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.TaskOrigin_AutoRun
 import ooniprobe.composeapp.generated.resources.TaskOrigin_Manual
+import ooniprobe.composeapp.generated.resources.TestResults_NotAvailable
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
@@ -140,7 +141,10 @@ fun ResultCell(
                         color = MaterialTheme.colorScheme.error,
                     )
                 } else {
-                    val asn = item.network?.asn ?: stringResource(Res.string.TestResults_UnknownASN)
+                    val asn = when {
+                        item.network?.isValid() == false -> stringResource(Res.string.TestResults_NotAvailable)
+                        else -> item.network?.asn ?: stringResource(Res.string.TestResults_UnknownASN)
+                    }
                     Text(
                         "($asn)",
                         style = MaterialTheme.typography.titleMedium,
