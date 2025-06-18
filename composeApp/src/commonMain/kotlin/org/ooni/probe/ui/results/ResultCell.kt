@@ -46,6 +46,7 @@ import ooniprobe.composeapp.generated.resources.twoParam
 import ooniprobe.composeapp.generated.resources.video_quality
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.SummaryType
 import org.ooni.engine.models.TaskOrigin
@@ -53,7 +54,6 @@ import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.downloadSpeed
 import org.ooni.probe.data.models.uploadSpeed
 import org.ooni.probe.data.models.videoQuality
-import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.theme.LocalCustomColors
@@ -143,7 +143,9 @@ fun ResultCell(
                 } else {
                     val asn = when {
                         item.network?.isValid() == false -> stringResource(Res.string.TestResults_NotAvailable)
-                        else -> item.network?.asn ?: stringResource(Res.string.TestResults_UnknownASN)
+                        else ->
+                            item.network?.asn
+                                ?: stringResource(Res.string.TestResults_UnknownASN)
                     }
                     Text(
                         "($asn)",
@@ -210,7 +212,7 @@ private fun ResultCounts(item: ResultListItem) {
         if (counts.failed > 0) {
             ResultCountItem(
                 icon = Res.drawable.ic_measurement_failed,
-                text = pluralStringResourceItem(
+                text = pluralStringResource(
                     Res.plurals.Measurements_Failed,
                     counts.failed.toInt(),
                     counts.failed,
@@ -223,7 +225,7 @@ private fun ResultCounts(item: ResultListItem) {
             SummaryType.Simple -> {
                 ResultCountItem(
                     icon = Res.drawable.ic_history,
-                    text = pluralStringResourceItem(
+                    text = pluralStringResource(
                         Res.plurals.Measurements_Count,
                         counts.done.toInt(),
                         counts.done,
@@ -234,7 +236,7 @@ private fun ResultCounts(item: ResultListItem) {
             SummaryType.Anomaly -> {
                 ResultCountItem(
                     icon = Res.drawable.ic_measurement_anomaly,
-                    text = pluralStringResourceItem(
+                    text = pluralStringResource(
                         Res.plurals.TestResults_Overview_Websites_Blocked,
                         counts.anomaly.toInt(),
                         counts.anomaly,
@@ -247,7 +249,7 @@ private fun ResultCounts(item: ResultListItem) {
                 )
                 ResultCountItem(
                     icon = Res.drawable.ic_world,
-                    text = pluralStringResourceItem(
+                    text = pluralStringResource(
                         Res.plurals.TestResults_Overview_Websites_Tested,
                         counts.tested.toInt(),
                         counts.tested,

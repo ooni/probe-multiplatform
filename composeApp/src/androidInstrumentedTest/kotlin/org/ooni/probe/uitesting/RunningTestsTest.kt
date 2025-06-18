@@ -24,13 +24,13 @@ import ooniprobe.composeapp.generated.resources.Test_InstantMessaging_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Performance_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Psiphon_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Signal_Fullname
+import org.jetbrains.compose.resources.getPluralString
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.shared.getPluralStringResourceItem
 import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
 import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnText
@@ -165,7 +165,7 @@ class RunningTestsTest {
 
     private suspend fun ComposeTestRule.clickOnRunButton(quantity: Int) {
         clickOnText(
-            getPluralStringResourceItem(
+            getPluralString(
                 Res.plurals.Dashboard_RunTests_RunButton_Label,
                 quantity,
                 quantity,

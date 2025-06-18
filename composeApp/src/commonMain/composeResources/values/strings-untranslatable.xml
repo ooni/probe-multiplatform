@@ -1,0 +1,19 @@
+<resources>
+    <string name="shareEmailTo" translatable="false">bugs@openobservatory.org</string>
+    <string name="shareSubject" translatable="false">[bug-report] OONI Probe %1$s</string>
+    <string name="version" translatable="false">%1$s: %2$s</string>
+
+    <string name="r240p" translatable="false">240p</string>
+    <string name="r360p" translatable="false">360p</string>
+    <string name="r480p" translatable="false">480p</string>
+    <string name="r720p" translatable="false">720p</string>
+    <string name="r720p_ext" translatable="false">720p (HD)</string>
+    <string name="r1080p" translatable="false">1080p</string>
+    <string name="r1080p_ext" translatable="false">1080p (full HD)</string>
+    <string name="r1440p" translatable="false">1440p</string>
+    <string name="r1440p_ext" translatable="false">1440p (2k)</string>
+    <string name="r2160p" translatable="false">2160p</string>
+    <string name="r2160p_ext" translatable="false">2160p (4k)</string>
+
+    <string name="twoParam" translatable="false">%1$s %2$s</string>
+</resources>
