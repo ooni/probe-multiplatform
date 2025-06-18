@@ -69,7 +69,6 @@
 
     <string name="TestResults_Overview_Title">测试结果</string>
     <string name="TestResults_Overview_Tab_Label">测试结果</string>
-    <string name="TestResults_Overview_FilterTests">筛选测试</string>
     <string name="TestResults_Overview_Hero_Tests">测试</string>
     <string name="TestResults_Overview_Hero_Networks">网络</string>
     <string name="TestResults_Overview_Hero_DataUsage">数据使用量</string>
@@ -84,6 +83,9 @@
     <string name="TestResults_Summary_Hero_Runtime">总计用时</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">移动数据</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">蓝牙</string>
+    <string name="TestResults_Summary_Hero_Ethernet">以太网</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">无网络</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">已测试</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">已测试</string>
@@ -105,12 +107,27 @@
     <string name="TestResults_UnknownASN">未知</string>
     <string name="TestResults_NotAvailable">N/A</string>
 
-    <string name="Results_TestType_All">所有类型</string>
-    <string name="Results_TaskOrigin_All">所有来源</string>
+    <string name="TestResults_Filters_Title">筛选测试结果</string>
+    <string name="TestResults_Filters_Short">筛选器：</string>
+    <string name="TestResults_Filter_Tests">测试</string>
+    <string name="TestResults_Filter_Tests_Multiple">%1$d 次测试</string>
+    <string name="TestResults_Filter_Source">源</string>
+    <string name="TestResults_Filter_Date">日期</string>
+    <string name="TestResults_Filter_Date_Any">任意日期</string>
+    <string name="TestResults_Filter_Date_Today">今天</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">7 天起</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">1 个月起</string>
+    <string name="TestResults_Filter_Date_Custom">自定义</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">自定义：%1$s</string>
+    <string name="TestResults_Filter_Date_Picker">选择日期范围</string>
+    <string name="TestResults_Filter_NoTestsFound">没有找到这些筛选器的测试结果</string>
+    <string name="TestResults_Filter_DeleteConfirmation">要删除当前筛选器的所有测试结果吗？</string>
+
     <string name="Results_LimitedNotice">只显示最后 %1$d 个结果</string>
     <string name="Results_UploadingMissing">上传缺失的结果 %1$s</string>
     <string name="Results_MarkAllAsViewed">将所有内容标记为已查看</string>
     <string name="Results_MarkAllAsViewed_Confirmation">是否要将所有结果标记为已查看？</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">要将当前筛选器的所有结果标记为已查看吗？</string>
 
     <!-- Measurements -->
 
@@ -315,6 +332,10 @@
     <string name="Modal_Cancel">取消</string>
     <string name="Modal_OK">正常</string>
     <string name="Modal_DoYouWantToDeleteAllTests">您要删除所有测试结果吗？</string>
+    <string name="Modal_DoYouWantToDeleteSomeTests">要删除 %1$s 个测试结果吗？</string>
+    <string name="Modal_Selected_Zero">未选中项目</string>
+    <string name="Modal_Selected_One">选中了 %1$d 个项目</string>
+    <string name="Modal_Selected_Other">选中了 %1$d 个项目</string>
     <string name="Modal_Delete">删除</string>
     <string name="Modal_ReRun_Title">重新运行测试</string>
     <string name="Modal_ReRun_Websites_Title">您即将重新测试 %1$s 个网站。</string>
@@ -344,11 +365,14 @@
     <string name="Notification_StopTest">停止测试</string>
 
     <string name="Common_Back">返回</string>
+    <string name="Common_Close">关闭</string>
     <string name="Common_Refresh">刷新</string>
     <string name="Common_Collapse">折叠</string>
     <string name="Common_Expand">展开</string>
     <string name="Common_Enable">启用</string>
     <string name="Common_Yes">是</string>
+    <string name="Common_Save">保存</string>
+    <string name="Common_Clear">清除键</string>
     <string name="Common_Ago">%1$s 前</string>
     <string name="Common_Minutes_One">%1$d 分钟 </string>
     <string name="Common_Minutes_Other">%1$d 分钟</string>

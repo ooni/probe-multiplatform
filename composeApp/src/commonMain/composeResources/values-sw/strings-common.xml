@@ -58,7 +58,6 @@
 
     <string name="TestResults_Overview_Title">Matokeo ya Mtihani</string>
     <string name="TestResults_Overview_Tab_Label">Matokeo ya Mtihani</string>
-    <string name="TestResults_Overview_FilterTests">Vichungi Uchunguzi</string>
     <string name="TestResults_Overview_Hero_Tests">Vipimo</string>
     <string name="TestResults_Overview_Hero_Networks">Mitandao</string>
     <string name="TestResults_Overview_Hero_DataUsage">matumizi ya data</string>
@@ -73,6 +72,7 @@
     <string name="TestResults_Summary_Hero_Runtime">Jumla ya Muda wa Mbio</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Takwimu za simu </string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Hakuna mtandao</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Imejaribiwa</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Imejaribiwa</string>
@@ -94,6 +94,10 @@
     <string name="TestResults_UnknownASN">Haijulikani</string>
     <string name="TestResults_NotAvailable">N/A</string>
 
+    <string name="TestResults_Filter_Tests">Vipimo</string>
+    <string name="TestResults_Filter_Date">Tarehe</string>
+    <string name="TestResults_Filter_Date_Today">Leo</string>
+    <string name="TestResults_Filter_Date_Custom">Fanya binafsi</string>
     <string name="Measurements_Failed">Imeshindwa</string>
     <string name="Measurements_Ok">Sawa</string>
     <string name="Measurements_Anomaly">haipo sawa</string>
@@ -289,10 +293,13 @@
     <string name="Notification_StopTest">Acha Jaribio</string>
 
     <string name="Common_Back">Nyuma</string>
+    <string name="Common_Close">Funga</string>
     <string name="Common_Refresh">Fanyiza upya</string>
     <string name="Common_Collapse">Angusha</string>
     <string name="Common_Expand">Panua</string>
     <string name="Common_Enable">Wezesha</string>
     <string name="Common_Yes">Ndio</string>
+    <string name="Common_Save">Hifadhi</string>
+    <string name="Common_Clear">Ondoa</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

@@ -41,7 +41,6 @@
 
     <string name="TestResults_Overview_Title">Risultati dei test</string>
     <string name="TestResults_Overview_Tab_Label">Risultati dei test</string>
-    <string name="TestResults_Overview_FilterTests">Filtra i test</string>
     <string name="TestResults_Overview_Hero_Tests">Test</string>
     <string name="TestResults_Overview_Hero_Networks">Reti</string>
     <string name="TestResults_Overview_Hero_DataUsage">Utilizzo dati</string>
@@ -56,6 +55,7 @@
     <string name="TestResults_Summary_Hero_Runtime">Tempo di esecuzione</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Traffico Dati Mobile</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Internet assente</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Testato</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Testato</string>
@@ -77,6 +77,11 @@
     <string name="TestResults_UnknownASN">Sconosciuto</string>
     <string name="TestResults_NotAvailable">Non valido</string>
 
+    <string name="TestResults_Filter_Tests">Test</string>
+    <string name="TestResults_Filter_Source">Sorgente</string>
+    <string name="TestResults_Filter_Date">Data</string>
+    <string name="TestResults_Filter_Date_Today">Oggi</string>
+    <string name="TestResults_Filter_Date_Custom">Personalizzata</string>
     <string name="Measurements_Failed">Fallito</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">Carica</string>
@@ -253,11 +258,14 @@
     <string name="Notification_StopTest">Ferma il test</string>
 
     <string name="Common_Back">Indietro</string>
+    <string name="Common_Close">Chiudi</string>
     <string name="Common_Refresh">Aggiorna</string>
     <string name="Common_Collapse">Collassa</string>
     <string name="Common_Expand">Espandi</string>
     <string name="Common_Enable">Abilita</string>
     <string name="Common_Yes">Sì</string>
+    <string name="Common_Save">Salva</string>
+    <string name="Common_Clear">Elimina</string>
     <string name="Common_Ago">%1$s fa</string>
     <string name="Common_Minutes_One">%1$d minuto</string>
     <string name="Common_Minutes_Other">%1$d minuti</string>

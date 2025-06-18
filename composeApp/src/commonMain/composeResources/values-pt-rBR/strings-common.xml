@@ -69,7 +69,6 @@
 
     <string name="TestResults_Overview_Title">Resultado dos testes</string>
     <string name="TestResults_Overview_Tab_Label">Resultados</string>
-    <string name="TestResults_Overview_FilterTests">Filtrar Testes</string>
     <string name="TestResults_Overview_Hero_Tests">Testes</string>
     <string name="TestResults_Overview_Hero_Networks">Redes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Uso de dados</string>
@@ -84,6 +83,9 @@
     <string name="TestResults_Summary_Hero_Runtime">Tempo Total de Execução</string>
     <string name="TestResults_Summary_Hero_WiFi">Wi-Fi</string>
     <string name="TestResults_Summary_Hero_Mobile">Dados Móveis</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">Sem internet</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Testadas</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Testadas</string>
@@ -105,12 +107,27 @@
     <string name="TestResults_UnknownASN">Desconhecida</string>
     <string name="TestResults_NotAvailable">N/A</string>
 
-    <string name="Results_TestType_All">Todos os Tipos</string>
-    <string name="Results_TaskOrigin_All">Todas as Fontes</string>
+    <string name="TestResults_Filters_Title">Filtrar Resultados</string>
+    <string name="TestResults_Filters_Short">Filtros:</string>
+    <string name="TestResults_Filter_Tests">Testes</string>
+    <string name="TestResults_Filter_Tests_Multiple">%1$d testes</string>
+    <string name="TestResults_Filter_Source">Fonte</string>
+    <string name="TestResults_Filter_Date">Data</string>
+    <string name="TestResults_Filter_Date_Any">Qualquer data</string>
+    <string name="TestResults_Filter_Date_Today">Hoje</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">Há menos de 7 dias</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">Há menos de 1 mês</string>
+    <string name="TestResults_Filter_Date_Custom">Personalizado</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Personalizado: %1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Escolhe um intervalo de datas</string>
+    <string name="TestResults_Filter_NoTestsFound">Nenhum resultado encontrado para esses filtros.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Deseja apagar todos os resultados de teste para esses filtros\?</string>
+
     <string name="Results_LimitedNotice">Somente os últimos%1$dresultados são mostrados</string>
     <string name="Results_UploadingMissing">Subindo resultados pendentes %1$s</string>
     <string name="Results_MarkAllAsViewed">Marcar todos como vistos</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Deseja marcar todos os resultados como vistos?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Deseja marcar todos os resultados como vistos para os filtros atuais\?</string>
 
     <!-- Measurements -->
 
@@ -314,7 +331,11 @@
     <string name="Modal_Retry">Tentar novamente</string>
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">OK</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Deseja apagar todos os resultados do teste?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Deseja apagar todos os resultados de teste\?</string>
+    <string name="Modal_DoYouWantToDeleteSomeTests">Deseja apagar %1$s resultado(s)?</string>
+    <string name="Modal_Selected_Zero">Nenhum item selecionado</string>
+    <string name="Modal_Selected_One">%1$d item selecionado</string>
+    <string name="Modal_Selected_Other">%1$d items selecionados</string>
     <string name="Modal_Delete">Apagar</string>
     <string name="Modal_ReRun_Title">Repetir o teste</string>
     <string name="Modal_ReRun_Websites_Title">Você está prestes a testar novamente os sites %1$s.</string>
@@ -344,11 +365,14 @@
     <string name="Notification_StopTest">Parar o teste</string>
 
     <string name="Common_Back">Voltar </string>
+    <string name="Common_Close">Fechar</string>
     <string name="Common_Refresh">Atualizar</string>
     <string name="Common_Collapse">Colapsar</string>
     <string name="Common_Expand">Expandir</string>
     <string name="Common_Enable">Habilitar</string>
     <string name="Common_Yes">Sim</string>
+    <string name="Common_Save">Salvar</string>
+    <string name="Common_Clear">Limpar</string>
     <string name="Common_Ago">%1$s atrás</string>
     <string name="Common_Minutes_One">%1$d minuto</string>
     <string name="Common_Minutes_Other">%1$d minutos</string>

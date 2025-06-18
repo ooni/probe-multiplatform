@@ -69,7 +69,6 @@
 
     <string name="TestResults_Overview_Title">Niðurstöður prófunar</string>
     <string name="TestResults_Overview_Tab_Label">Niðurstöður prófunar</string>
-    <string name="TestResults_Overview_FilterTests">Sía prófanir</string>
     <string name="TestResults_Overview_Hero_Tests">Prófanir</string>
     <string name="TestResults_Overview_Hero_Networks">Netkerfi</string>
     <string name="TestResults_Overview_Hero_DataUsage">Gagnanotkun</string>
@@ -84,6 +83,7 @@
     <string name="TestResults_Summary_Hero_Runtime">Heildarkeyrslutími</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Farsímagögn</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Engin internettenging</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Prófað</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Prófað</string>
@@ -105,8 +105,10 @@
     <string name="TestResults_UnknownASN">Óþekkt</string>
     <string name="TestResults_NotAvailable">Ekki tiltækt</string>
 
-    <string name="Results_TestType_All">All Types</string>
-    <string name="Results_TaskOrigin_All">All Sources</string>
+    <string name="TestResults_Filter_Tests">Prófanir</string>
+    <string name="TestResults_Filter_Date">Dagsetning</string>
+    <string name="TestResults_Filter_Date_Today">Í dag</string>
+    <string name="TestResults_Filter_Date_Custom">Sérsniðið</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
     <!-- Measurements -->
@@ -328,11 +330,14 @@
     <string name="Notification_StopTest">Stöðva prófun</string>
 
     <string name="Common_Back">Til baka</string>
+    <string name="Common_Close">Loka</string>
     <string name="Common_Refresh">refresh</string>
     <string name="Common_Collapse">Collapse</string>
     <string name="Common_Expand">Expand</string>
     <string name="Common_Enable">Virkja</string>
     <string name="Common_Yes">Já</string>
+    <string name="Common_Save">Vista</string>
+    <string name="Common_Clear">Hreinsa</string>
     <string name="Common_Ago">%1$s ago</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>

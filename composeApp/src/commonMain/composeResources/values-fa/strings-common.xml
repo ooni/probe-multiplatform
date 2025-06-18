@@ -42,7 +42,6 @@
 
     <string name="TestResults_Overview_Title">نتایج تست</string>
     <string name="TestResults_Overview_Tab_Label">نتایج تست</string>
-    <string name="TestResults_Overview_FilterTests">فیلتر تست‌ها</string>
     <string name="TestResults_Overview_Hero_Tests">تست‌‌ها</string>
     <string name="TestResults_Overview_Hero_Networks">شبکه ها</string>
     <string name="TestResults_Overview_Hero_DataUsage">مصرف داده</string>
@@ -57,6 +56,7 @@
     <string name="TestResults_Summary_Hero_Runtime">مجموع زمان اجرا</string>
     <string name="TestResults_Summary_Hero_WiFi">وای فای</string>
     <string name="TestResults_Summary_Hero_Mobile">داده موبایل</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">بلوتوث</string>
     <string name="TestResults_Summary_Hero_NoInternet">بدون اینترنت</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">تست شده</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">تست شده</string>
@@ -78,6 +78,11 @@
     <string name="TestResults_UnknownASN">نمی‌دانم</string>
     <string name="TestResults_NotAvailable">N/A</string>
 
+    <string name="TestResults_Filter_Tests">تست‌‌ها</string>
+    <string name="TestResults_Filter_Source">منبع</string>
+    <string name="TestResults_Filter_Date">تاریخ</string>
+    <string name="TestResults_Filter_Date_Today">امروز</string>
+    <string name="TestResults_Filter_Date_Custom">تنظیم خاص</string>
     <string name="Measurements_Failed">ناموفق بود</string>
     <string name="Measurements_Ok">قابل قبول</string>
     <string name="Measurements_Anomaly">ناهنجاری</string>
@@ -265,11 +270,14 @@
     <string name="Notification_StopTest">توفق آزمون</string>
 
     <string name="Common_Back">برگشت</string>
+    <string name="Common_Close">ببندید</string>
     <string name="Common_Refresh">تازه‌سازی</string>
     <string name="Common_Collapse">بستن</string>
     <string name="Common_Expand">گسترش دادن</string>
     <string name="Common_Enable">فعال کنید</string>
     <string name="Common_Yes">بله</string>
+    <string name="Common_Save">ذخیره‌سازی</string>
+    <string name="Common_Clear">پاک</string>
     <string name="Common_Ago">%1$s پیش</string>
     <string name="Common_Minutes_One">%1$d دقیقه</string>
     <string name="Common_Minutes_Other">%1$d دقیقه</string>

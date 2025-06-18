@@ -64,7 +64,6 @@
 
     <string name="TestResults_Overview_Title">نتائج الاختبار</string>
     <string name="TestResults_Overview_Tab_Label">نتائج الاختبار</string>
-    <string name="TestResults_Overview_FilterTests">ترشيح النتائج</string>
     <string name="TestResults_Overview_Hero_Tests">اختبارات</string>
     <string name="TestResults_Overview_Hero_Networks">الشبكات</string>
     <string name="TestResults_Overview_Hero_DataUsage">إستخدام البيانات</string>
@@ -79,6 +78,7 @@
     <string name="TestResults_Summary_Hero_Runtime">إجمالي زمن التشغيل</string>
     <string name="TestResults_Summary_Hero_WiFi">وايفاي</string>
     <string name="TestResults_Summary_Hero_Mobile">بيانات الخلوي</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">بلوتوث</string>
     <string name="TestResults_Summary_Hero_NoInternet">لا إنترنت</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Singular">تمّ اختبارها</string>
     <string name="TestResults_Summary_Websites_Hero_Tested_Plural">تمّ اختبارها</string>
@@ -100,8 +100,11 @@
     <string name="TestResults_UnknownASN">غير معروف</string>
     <string name="TestResults_NotAvailable">‮غير متاح</string>
 
-    <string name="Results_TestType_All">All Types</string>
-    <string name="Results_TaskOrigin_All">All Sources</string>
+    <string name="TestResults_Filter_Tests">اختبارات</string>
+    <string name="TestResults_Filter_Source">المصدر</string>
+    <string name="TestResults_Filter_Date">تاريخ</string>
+    <string name="TestResults_Filter_Date_Today">اليوم</string>
+    <string name="TestResults_Filter_Date_Custom">مخصص</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
     <!-- Measurements -->
@@ -320,11 +323,14 @@
     <string name="Notification_StopTest">إيقاف الاختبار</string>
 
     <string name="Common_Back">الرجوع</string>
+    <string name="Common_Close">إغلاق</string>
     <string name="Common_Refresh">refresh</string>
     <string name="Common_Collapse">طي</string>
     <string name="Common_Expand">تمديد</string>
     <string name="Common_Enable">تفعيل</string>
     <string name="Common_Yes">‮نعم</string>
+    <string name="Common_Save">حفظ</string>
+    <string name="Common_Clear">Clear</string>
     <string name="Common_Ago">%1$s ago</string>
     <string name="Common_Minutes_One">%1$d minute</string>
     <string name="Common_Minutes_Other">%1$d minutes</string>
