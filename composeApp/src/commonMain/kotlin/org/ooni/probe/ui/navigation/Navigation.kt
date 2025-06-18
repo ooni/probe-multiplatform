@@ -18,6 +18,7 @@ import androidx.navigation.toRoute
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementsFilter
+import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
@@ -37,6 +38,7 @@ import org.ooni.probe.ui.running.RunningScreen
 import org.ooni.probe.ui.settings.SettingsScreen
 import org.ooni.probe.ui.settings.about.AboutScreen
 import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
+import org.ooni.probe.ui.settings.donate.DonateScreen
 import org.ooni.probe.ui.settings.proxy.ProxyScreen
 import org.ooni.probe.ui.settings.webcategories.WebCategoriesScreen
 import org.ooni.probe.ui.upload.UploadMeasurementsDialog
@@ -183,6 +185,13 @@ fun Navigation(
                         onEvent = viewModel::onEvent,
                         softwareName = viewModel.softwareName,
                         softwareVersion = viewModel.softwareVersion,
+                    )
+                }
+
+                PreferenceCategoryKey.DONATE -> {
+                    DonateScreen(
+                        onBack = { navController.goBack() },
+                        openUrl = { dependencies.launchAction(PlatformAction.OpenUrl(it)) },
                     )
                 }
 

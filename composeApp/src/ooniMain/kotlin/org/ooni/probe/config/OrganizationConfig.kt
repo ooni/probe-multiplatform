@@ -16,4 +16,5 @@ object OrganizationConfig : OrganizationConfigInterface {
         image3 = Res.drawable.onboarding3,
     )
     override val hasWebsitesDescriptor = true
+    override val donateUrl = "https://ooni.org/donate"
 }

@@ -63,6 +63,7 @@ import org.ooni.probe.data.models.SettingsItem
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.ui.settings.category.SettingsDescription
+import org.ooni.probe.ui.settings.donate.DONATE_SETTINGS_ITEM
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.shortFormat
 import kotlin.time.Duration.Companion.seconds
@@ -309,6 +310,7 @@ class GetSettings(
                 title = Res.string.Settings_SendEmail_Label,
                 route = PreferenceCategoryKey.SEND_EMAIL,
             ),
+            DONATE_SETTINGS_ITEM,
             SettingsCategoryItem(
                 icon = Res.drawable.outline_info,
                 title = Res.string.Settings_About_Label,

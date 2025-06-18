@@ -130,7 +130,7 @@ class Dependencies(
     val startDescriptorsUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
     private val isWebViewAvailable: () -> Boolean,
-    private val launchAction: (PlatformAction) -> Boolean,
+    val launchAction: (PlatformAction) -> Boolean,
     private val batteryOptimization: BatteryOptimization,
     val flavorConfig: FlavorConfigInterface,
 ) {
