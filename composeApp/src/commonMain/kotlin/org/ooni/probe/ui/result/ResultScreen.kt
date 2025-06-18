@@ -84,7 +84,6 @@ import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.SummaryType
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.data.models.downloadSpeed
-import org.ooni.probe.data.models.isValid
 import org.ooni.probe.data.models.ping
 import org.ooni.probe.data.models.uploadSpeed
 import org.ooni.probe.data.models.videoQuality

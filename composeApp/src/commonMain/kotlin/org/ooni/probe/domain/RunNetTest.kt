@@ -17,7 +17,6 @@ import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.UrlModel
-import org.ooni.probe.data.models.isValid
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.toLocalDateTime
 

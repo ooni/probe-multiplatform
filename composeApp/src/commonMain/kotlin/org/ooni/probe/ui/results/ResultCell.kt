@@ -51,7 +51,6 @@ import org.ooni.engine.models.SummaryType
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.downloadSpeed
-import org.ooni.probe.data.models.isValid
 import org.ooni.probe.data.models.uploadSpeed
 import org.ooni.probe.data.models.videoQuality
 import org.ooni.probe.shared.pluralStringResourceItem
