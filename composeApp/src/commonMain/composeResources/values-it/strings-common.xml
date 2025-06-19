@@ -44,10 +44,6 @@
     <string name="TestResults_Overview_Hero_Tests">Test</string>
     <string name="TestResults_Overview_Hero_Networks">Reti</string>
     <string name="TestResults_Overview_Hero_DataUsage">Utilizzo dati</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s bloccati</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s bloccati</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s testati</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s testati</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Nessun test è stato eseguito. Prova ad eseguirne uno!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Data e Ora</string>
     <string name="TestResults_Summary_Hero_Network">Rete</string>
@@ -57,12 +53,6 @@
     <string name="TestResults_Summary_Hero_Mobile">Traffico Dati Mobile</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Internet assente</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Testato</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Testato</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Bloccati</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Bloccati</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Accessibili</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Accessibili</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Carica</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Scarica</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
@@ -266,11 +256,8 @@
     <string name="Common_Yes">Sì</string>
     <string name="Common_Save">Salva</string>
     <string name="Common_Clear">Elimina</string>
+
     <string name="Common_Ago">%1$s fa</string>
-    <string name="Common_Minutes_One">%1$d minuto</string>
-    <string name="Common_Minutes_Other">%1$d minuti</string>
-    <string name="Common_Hour_One">%1$d ora</string>
-    <string name="Common_Hour_Other">%1$d ore</string>
     <string name="Common_Months_January">Gennaio</string>
     <string name="Common_Months_February">Febbraio</string>
     <string name="Common_Months_March">Marzo</string>
