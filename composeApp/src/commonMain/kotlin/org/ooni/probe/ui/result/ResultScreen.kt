@@ -55,6 +55,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.TestResults_Kbps
 import ooniprobe.composeapp.generated.resources.TestResults_NotAvailable
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
+import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Bluetooth
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Country
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_DateAndTime
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Ethernet
@@ -63,7 +64,6 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Network
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_NoInternet
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Runtime
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Usb
-import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_Bluetooth
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Hero_WiFi
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Ping
@@ -79,6 +79,7 @@ import ooniprobe.composeapp.generated.resources.ic_replay
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ooni_bw
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.SummaryType
@@ -87,7 +88,6 @@ import org.ooni.probe.data.models.downloadSpeed
 import org.ooni.probe.data.models.ping
 import org.ooni.probe.data.models.uploadSpeed
 import org.ooni.probe.data.models.videoQuality
-import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Single
 import org.ooni.probe.ui.results.UploadResults
@@ -281,7 +281,7 @@ private fun SummaryStats(item: ResultItem) {
             )
 
             Text(
-                pluralStringResourceItem(
+                pluralStringResource(
                     Res.plurals.TestResults_Summary_Websites_Hero_Tested,
                     item.measurementCounts.total.toInt(),
                 ),
@@ -302,7 +302,7 @@ private fun SummaryStats(item: ResultItem) {
             )
 
             Text(
-                pluralStringResourceItem(
+                pluralStringResource(
                     Res.plurals.TestResults_Summary_Websites_Hero_Blocked,
                     item.measurementCounts.anomaly.toInt(),
                 ),
@@ -323,7 +323,7 @@ private fun SummaryStats(item: ResultItem) {
             )
 
             Text(
-                pluralStringResourceItem(
+                pluralStringResource(
                     Res.plurals.TestResults_Summary_Websites_Hero_Reachable,
                     item.measurementCounts.succeeded.toInt(),
                 ),

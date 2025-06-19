@@ -83,9 +83,9 @@ import ooniprobe.composeapp.generated.resources.ic_mark_as_viewed
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultFilter
-import org.ooni.probe.shared.pluralStringResourceItem
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.ui.shared.LightStatusBars
 import org.ooni.probe.ui.shared.TopBar
@@ -161,7 +161,11 @@ fun ResultsScreen(
                 },
                 title = {
                     Text(
-                        pluralStringResourceItem(Res.plurals.Modal_Selected, state.selectedResultsCount, state.selectedResultsCount),
+                        pluralStringResource(
+                            Res.plurals.Modal_Selected,
+                            state.selectedResultsCount,
+                            state.selectedResultsCount,
+                        ),
                         modifier = Modifier.weight(1f),
                     )
                 },
@@ -304,7 +308,11 @@ fun ResultsScreen(
     if (showDeleteConfirm) {
         DeleteConfirmDialog(
             message = if (state.selectionEnabled) {
-                stringResource(Res.string.Modal_DoYouWantToDeleteSomeTests, state.selectedResultsCount)
+                pluralStringResource(
+                    Res.plurals.Modal_DoYouWantToDeleteSomeTests,
+                    state.selectedResultsCount,
+                    state.selectedResultsCount,
+                )
             } else if (state.filter.isAll) {
                 stringResource(Res.string.Modal_DoYouWantToDeleteAllTests)
             } else {

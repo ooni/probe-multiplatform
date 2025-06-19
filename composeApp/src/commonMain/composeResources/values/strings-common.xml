@@ -16,8 +16,10 @@
     <string name="Dashboard_RunTests_Description">Select the tests to run</string>
     <string name="Dashboard_RunTests_SelectAll">Select all tests</string>
     <string name="Dashboard_RunTests_SelectNone">Deselect all tests</string>
-    <string name="Dashboard_RunTests_RunButton_Label_One">Run %1$d test</string>
-    <string name="Dashboard_RunTests_RunButton_Label_Other">Run %1$d tests</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Run %1$d test</item>
+        <item quantity="other">Run %1$d tests</item>
+    </plurals>
 
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
@@ -72,10 +74,14 @@
     <string name="TestResults_Overview_Hero_Tests">Tests</string>
     <string name="TestResults_Overview_Hero_Networks">Networks</string>
     <string name="TestResults_Overview_Hero_DataUsage">Data Usage</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s blocked</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s blocked</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s tested</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s tested</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s blocked</item>
+        <item quantity="other">%1$s blocked</item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested" translatable="false">
+        <item quantity="one">%1$s tested</item>
+        <item quantity="other">%1$s tested</item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">No tests have been run yet. Try running one!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Date &amp; Time</string>
     <string name="TestResults_Summary_Hero_Network">Network</string>
@@ -87,12 +93,18 @@
     <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
     <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">No internet</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Tested</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Tested</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Blocked</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Blocked</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Accessible</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Accessible</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested" translatable="false">
+        <item quantity="one">Tested</item>
+        <item quantity="other">Tested</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked" translatable="false">
+        <item quantity="one">Blocked</item>
+        <item quantity="other">Blocked</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable" translatable="false">
+        <item quantity="one">Accessible</item>
+        <item quantity="other">Accessible</item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Upload</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Download</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
@@ -136,10 +148,14 @@
     <string name="Measurements_Failed">Failed</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Anomaly</string>
-    <string name="Measurements_Count_One">%1$d measured</string>
-    <string name="Measurements_Count_Other">%1$d measured</string>
-    <string name="Measurements_Failed_One">%1$d failed</string>
-    <string name="Measurements_Failed_Other">%1$d failed</string>
+    <plurals name="Measurements_Count" translatable="false">
+        <item quantity="one">%1$d measured</item>
+        <item quantity="other">%1$d measured</item>
+    </plurals>
+    <plurals name="Measurements_Failed" translatable="false">
+        <item quantity="one">%1$d failed</item>
+        <item quantity="other">%1$d failed</item>
+    </plurals>
     <string name="Measurement_Raw_NotUploadedReasoning">This measurement was not published on OONI Explorer. Upload it to view the analysis.</string>
     <string name="Measurement_Raw_Share">Share measurement data</string>
     <string name="Measurement_Raw_Upload">Upload</string>
@@ -332,10 +348,14 @@
     <string name="Modal_Cancel">Cancel</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Do you want to delete all test results?</string>
-    <string name="Modal_DoYouWantToDeleteSomeTests">Do you want to delete %1$s test result(s)?</string>
-    <string name="Modal_Selected_Zero">No item selected</string>
-    <string name="Modal_Selected_One">%1$d item selected</string>
-    <string name="Modal_Selected_Other">%1$d items selected</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">Do you want to delete %1$s test result?</item>
+        <item quantity="other">Do you want to delete %1$s test results?</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one">%1$d item selected</item>
+        <item quantity="other">%1$d items selected</item>
+    </plurals>
     <string name="Modal_Delete">Delete</string>
     <string name="Modal_ReRun_Title">Re-run test</string>
     <string name="Modal_ReRun_Websites_Title">You are about to re-test %1$s websites.</string>
@@ -373,11 +393,16 @@
     <string name="Common_Yes">Yes</string>
     <string name="Common_Save">Save</string>
     <string name="Common_Clear">Clear</string>
+
     <string name="Common_Ago">%1$s ago</string>
-    <string name="Common_Minutes_One">%1$d minute</string>
-    <string name="Common_Minutes_Other">%1$d minutes</string>
-    <string name="Common_Hour_One">%1$d hour</string>
-    <string name="Common_Hour_Other">%1$d hours</string>
+    <plurals name="Common_Minutes">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d hour</item>
+        <item quantity="other">%1$d hours</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$dh</string>
     <string name="Common_Minutes_Abbreviated">%1$dm</string>
     <string name="Common_Seconds_Abbreviated">%1$ds</string>
