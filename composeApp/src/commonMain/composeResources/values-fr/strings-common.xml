@@ -16,9 +16,6 @@
     <string name="Dashboard_RunTests_Description">Choisissez les tests à exécuter</string>
     <string name="Dashboard_RunTests_SelectAll">Sélectionner tous les tests</string>
     <string name="Dashboard_RunTests_SelectNone">Dessélectionner tous les tests</string>
-    <string name="Dashboard_RunTests_RunButton_Label_One">Exécuter %1$d test</string>
-    <string name="Dashboard_RunTests_RunButton_Label_Other">Exécuter %1$d tests</string>
-
     <string name="Dashboard_RunV2_Ooni_Title">Tests OONI</string>
     <string name="Dashboard_RunV2_Title">Liens OONI Run</string>
     <string name="Dashboard_RunV2_RunFinished">L’exécution est terminée. Touchez pour afficher les résultats.</string>
@@ -72,10 +69,6 @@
     <string name="TestResults_Overview_Hero_Tests">Tests</string>
     <string name="TestResults_Overview_Hero_Networks">Réseaux</string>
     <string name="TestResults_Overview_Hero_DataUsage">Utilisation des données</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s bloqués</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s bloqués</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s testé</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s testé</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Aucun test n’a encore été effectué. Essayez d’en lancer un !</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Estampille temporelle</string>
     <string name="TestResults_Summary_Hero_Network">Réseau</string>
@@ -87,12 +80,6 @@
     <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
     <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">Pas d’Internet</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Testés</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Testés</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Bloqués</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Bloqués</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Accessible</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Accessible</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Téléversement</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Télécharger</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Sur Tella FOSS, les PDF doivent être exportés pour être ouverts.</string>
@@ -136,10 +123,6 @@
     <string name="Measurements_Failed">Échec</string>
     <string name="Measurements_Ok">Valider</string>
     <string name="Measurements_Anomaly">Anomalie</string>
-    <string name="Measurements_Count_One">%1$d mesuré</string>
-    <string name="Measurements_Count_Other">%1$d mesuré</string>
-    <string name="Measurements_Failed_One">%1$d en échec</string>
-    <string name="Measurements_Failed_Other">%1$d en échec</string>
     <string name="Measurement_Raw_NotUploadedReasoning">Cette mesure n’a pas été publiée dans l’Explorateur OONI. Téléversez-la pour afficher l’analyse.</string>
     <string name="Measurement_Raw_Share">Partager les données de mesure</string>
     <string name="Measurement_Raw_Upload">Téléverser</string>
@@ -332,10 +315,6 @@
     <string name="Modal_Cancel">Annuler</string>
     <string name="Modal_OK">Valider</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Voulez-vous supprimer tous les résultats de test?</string>
-    <string name="Modal_DoYouWantToDeleteSomeTests">Voulez-vous supprimer %1$s résultat(s) de test \?</string>
-    <string name="Modal_Selected_Zero">Aucun élément n’a été choisi</string>
-    <string name="Modal_Selected_One">%1$d élément choisi</string>
-    <string name="Modal_Selected_Other">%1$d éléments choisis</string>
     <string name="Modal_Delete">Supprimer</string>
     <string name="Modal_ReRun_Title">Relancer le test</string>
     <string name="Modal_ReRun_Websites_Title">Vous êtes sur le point de retester %1$s sites Web.</string>
@@ -373,11 +352,8 @@
     <string name="Common_Yes">Oui</string>
     <string name="Common_Save">Enregistrer</string>
     <string name="Common_Clear">Effacer</string>
+
     <string name="Common_Ago">il y a %1$s</string>
-    <string name="Common_Minutes_One">%1$d minute</string>
-    <string name="Common_Minutes_Other">%1$d minutes</string>
-    <string name="Common_Hour_One">%1$d heure</string>
-    <string name="Common_Hour_Other">%1$d heures</string>
     <string name="Common_Hours_Abbreviated">%1$d h</string>
     <string name="Common_Minutes_Abbreviated">%1$d min</string>
     <string name="Common_Seconds_Abbreviated">%1$d s</string>
