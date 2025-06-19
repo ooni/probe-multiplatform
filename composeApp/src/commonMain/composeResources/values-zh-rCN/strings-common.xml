@@ -16,9 +16,6 @@
     <string name="Dashboard_RunTests_Description">选择要运行的测试</string>
     <string name="Dashboard_RunTests_SelectAll">选择所有测试</string>
     <string name="Dashboard_RunTests_SelectNone">取消选择所有测试</string>
-    <string name="Dashboard_RunTests_RunButton_Label_One">运行 %1$d 个测试</string>
-    <string name="Dashboard_RunTests_RunButton_Label_Other">运行 %1$d 个测试</string>
-
     <string name="Dashboard_RunV2_Ooni_Title">OONI 测试</string>
     <string name="Dashboard_RunV2_Title">OONI 运行链接</string>
     <string name="Dashboard_RunV2_RunFinished">运行已完成。轻按查看结果。</string>
@@ -72,10 +69,6 @@
     <string name="TestResults_Overview_Hero_Tests">测试</string>
     <string name="TestResults_Overview_Hero_Networks">网络</string>
     <string name="TestResults_Overview_Hero_DataUsage">数据使用量</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s 个被屏蔽</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s 个被屏蔽</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s 个已测试</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s 个已测试</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">还没有进行过测试。试着运行一个吧！</string>
     <string name="TestResults_Summary_Hero_DateAndTime">日期和时间</string>
     <string name="TestResults_Summary_Hero_Network">网络</string>
@@ -87,12 +80,6 @@
     <string name="TestResults_Summary_Hero_Ethernet">以太网</string>
     <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">无网络</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">已测试</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">已测试</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">被屏蔽</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">被屏蔽</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">可访问</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">可访问</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">上传</string>
     <string name="TestResults_Summary_Performance_Hero_Download">下载</string>
     <string name="TestResults_Summary_Performance_Hero_Video">视频</string>
@@ -136,10 +123,6 @@
     <string name="Measurements_Failed">失败</string>
     <string name="Measurements_Ok">正常</string>
     <string name="Measurements_Anomaly">异常</string>
-    <string name="Measurements_Count_One">%1$d 已测量</string>
-    <string name="Measurements_Count_Other">%1$d 已测量</string>
-    <string name="Measurements_Failed_One">%1$d 失败了</string>
-    <string name="Measurements_Failed_Other">%1$d 失败了</string>
     <string name="Measurement_Raw_NotUploadedReasoning">此测量未在 OONI Explorer 上发布。请将其上传以查看分析。</string>
     <string name="Measurement_Raw_Share">分享测量数据</string>
     <string name="Measurement_Raw_Upload">上传</string>
@@ -332,10 +315,6 @@
     <string name="Modal_Cancel">取消</string>
     <string name="Modal_OK">正常</string>
     <string name="Modal_DoYouWantToDeleteAllTests">您要删除所有测试结果吗？</string>
-    <string name="Modal_DoYouWantToDeleteSomeTests">要删除 %1$s 个测试结果吗？</string>
-    <string name="Modal_Selected_Zero">未选中项目</string>
-    <string name="Modal_Selected_One">选中了 %1$d 个项目</string>
-    <string name="Modal_Selected_Other">选中了 %1$d 个项目</string>
     <string name="Modal_Delete">删除</string>
     <string name="Modal_ReRun_Title">重新运行测试</string>
     <string name="Modal_ReRun_Websites_Title">您即将重新测试 %1$s 个网站。</string>
@@ -373,11 +352,8 @@
     <string name="Common_Yes">是</string>
     <string name="Common_Save">保存</string>
     <string name="Common_Clear">清除键</string>
+
     <string name="Common_Ago">%1$s 前</string>
-    <string name="Common_Minutes_One">%1$d 分钟 </string>
-    <string name="Common_Minutes_Other">%1$d 分钟</string>
-    <string name="Common_Hour_One">%1$d 小时</string>
-    <string name="Common_Hour_Other">%1$d 小时</string>
     <string name="Common_Hours_Abbreviated">%1$d小时</string>
     <string name="Common_Minutes_Abbreviated">%1$d分钟</string>
     <string name="Common_Seconds_Abbreviated">%1$d秒</string>
