@@ -16,6 +16,12 @@
     <string name="Dashboard_RunTests_Description">Choisissez les tests à exécuter</string>
     <string name="Dashboard_RunTests_SelectAll">Sélectionner tous les tests</string>
     <string name="Dashboard_RunTests_SelectNone">Dessélectionner tous les tests</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Exécuter %1$d test</item>
+        <item quantity="many">Exécuter %1$d de tests</item>
+        <item quantity="other">Exécuter %1$d tests</item>
+    </plurals>
+
     <string name="Dashboard_RunV2_Ooni_Title">Tests OONI</string>
     <string name="Dashboard_RunV2_Title">Liens OONI Run</string>
     <string name="Dashboard_RunV2_RunFinished">L’exécution est terminée. Touchez pour afficher les résultats.</string>
@@ -69,6 +75,11 @@
     <string name="TestResults_Overview_Hero_Tests">Tests</string>
     <string name="TestResults_Overview_Hero_Networks">Réseaux</string>
     <string name="TestResults_Overview_Hero_DataUsage">Utilisation des données</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s bloqué</item>
+        <item quantity="many">%1$s bloqués</item>
+        <item quantity="other">%1$s bloqués</item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Aucun test n’a encore été effectué. Essayez d’en lancer un !</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Estampille temporelle</string>
     <string name="TestResults_Summary_Hero_Network">Réseau</string>
@@ -315,6 +326,16 @@
     <string name="Modal_Cancel">Annuler</string>
     <string name="Modal_OK">Valider</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Voulez-vous supprimer tous les résultats de test?</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">Voulez-vous supprimer %1$s résultat de test \?</item>
+        <item quantity="many">Voulez-vous supprimer %1$sde résultats de test \?</item>
+        <item quantity="other">Voulez-vous supprimer %1$s résultats de test \?</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one">%1$d élément choisi</item>
+        <item quantity="many">%1$d d’éléments choisis</item>
+        <item quantity="other">%1$d éléments choisis</item>
+    </plurals>
     <string name="Modal_Delete">Supprimer</string>
     <string name="Modal_ReRun_Title">Relancer le test</string>
     <string name="Modal_ReRun_Websites_Title">Vous êtes sur le point de retester %1$s sites Web.</string>
@@ -354,6 +375,16 @@
     <string name="Common_Clear">Effacer</string>
 
     <string name="Common_Ago">il y a %1$s</string>
+    <plurals name="Common_Minutes">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="many">%1$d de minutes</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d heure</item>
+        <item quantity="many">%1$d d’heures</item>
+        <item quantity="other">%1$d heures</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$d h</string>
     <string name="Common_Minutes_Abbreviated">%1$d min</string>
     <string name="Common_Seconds_Abbreviated">%1$d s</string>
