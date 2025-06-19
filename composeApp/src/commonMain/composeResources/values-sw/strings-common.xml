@@ -61,10 +61,6 @@
     <string name="TestResults_Overview_Hero_Tests">Vipimo</string>
     <string name="TestResults_Overview_Hero_Networks">Mitandao</string>
     <string name="TestResults_Overview_Hero_DataUsage">matumizi ya data</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s imezuiliwa</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s imezuiliwa</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s imejaribiwa</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s imejaribiwa</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Hakuna jaribio lililofanywa bado.  Tafadhali fanya jaribio moja!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Tarehe na muda</string>
     <string name="TestResults_Summary_Hero_Network">Mtandao</string>
@@ -74,12 +70,6 @@
     <string name="TestResults_Summary_Hero_Mobile">Takwimu za simu </string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Hakuna mtandao</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Imejaribiwa</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Imejaribiwa</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Imezuiwa.</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Imezuiwa.</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Inapatikana</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Inapatikana</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Pakia</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Pakua</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
@@ -301,5 +291,6 @@
     <string name="Common_Yes">Ndio</string>
     <string name="Common_Save">Hifadhi</string>
     <string name="Common_Clear">Ondoa</string>
+
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
