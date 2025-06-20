@@ -16,9 +16,6 @@
     <string name="Dashboard_RunTests_Description">Selecione os testes a executar</string>
     <string name="Dashboard_RunTests_SelectAll">Selecione todos os testes</string>
     <string name="Dashboard_RunTests_SelectNone">Desmarcar todos os testes</string>
-    <string name="Dashboard_RunTests_RunButton_Label_One">Executar %1$d teste</string>
-    <string name="Dashboard_RunTests_RunButton_Label_Other">Executar %1$d testes</string>
-
     <string name="Dashboard_RunV2_Ooni_Title">Testes OONI</string>
     <string name="Dashboard_RunV2_Title">Links de execução OONI</string>
     <string name="Dashboard_RunV2_RunFinished">Execução concluída. Toque para ver os resultados.</string>
@@ -72,10 +69,6 @@
     <string name="TestResults_Overview_Hero_Tests">Testes</string>
     <string name="TestResults_Overview_Hero_Networks">Redes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Uso de dados</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s bloqueado</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s bloqueados</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s testado</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s testado</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Nenhum teste foi executado ainda. Tente executar um!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Data e Hora</string>
     <string name="TestResults_Summary_Hero_Network">Rede</string>
@@ -87,12 +80,6 @@
     <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
     <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">Sem internet</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Testadas</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Testadas</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Bloqueado</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Bloqueados</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Acessível</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Acessível</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Carregar</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Baixar</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Vídeo</string>
@@ -136,10 +123,6 @@
     <string name="Measurements_Failed">Falhou</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Anomalia</string>
-    <string name="Measurements_Count_One">%1$d medido</string>
-    <string name="Measurements_Count_Other">%1$d medidos</string>
-    <string name="Measurements_Failed_One">%1$d falhado</string>
-    <string name="Measurements_Failed_Other">%1$d falhados</string>
     <string name="Measurement_Raw_NotUploadedReasoning">Esta medição não foi publicada no explorador do OONI. Carregue para visualizar a análise.</string>
     <string name="Measurement_Raw_Share">Compartilhar dados de medição</string>
     <string name="Measurement_Raw_Upload">Carregar</string>
@@ -332,10 +315,6 @@
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Deseja apagar todos os resultados de teste\?</string>
-    <string name="Modal_DoYouWantToDeleteSomeTests">Deseja apagar %1$s resultado(s)?</string>
-    <string name="Modal_Selected_Zero">Nenhum item selecionado</string>
-    <string name="Modal_Selected_One">%1$d item selecionado</string>
-    <string name="Modal_Selected_Other">%1$d items selecionados</string>
     <string name="Modal_Delete">Apagar</string>
     <string name="Modal_ReRun_Title">Repetir o teste</string>
     <string name="Modal_ReRun_Websites_Title">Você está prestes a testar novamente os sites %1$s.</string>
@@ -373,11 +352,8 @@
     <string name="Common_Yes">Sim</string>
     <string name="Common_Save">Salvar</string>
     <string name="Common_Clear">Limpar</string>
+
     <string name="Common_Ago">%1$s atrás</string>
-    <string name="Common_Minutes_One">%1$d minuto</string>
-    <string name="Common_Minutes_Other">%1$d minutos</string>
-    <string name="Common_Hour_One">%1$d hora</string>
-    <string name="Common_Hour_Other">%1$d horas</string>
     <string name="Common_Hours_Abbreviated">%1$dh</string>
     <string name="Common_Minutes_Abbreviated">%1$dm</string>
     <string name="Common_Seconds_Abbreviated">%1$ds</string>

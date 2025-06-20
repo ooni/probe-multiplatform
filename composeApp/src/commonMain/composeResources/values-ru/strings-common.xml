@@ -16,9 +16,6 @@
     <string name="Dashboard_RunTests_Description">Выберите тесты, которые вы хотите запустить</string>
     <string name="Dashboard_RunTests_SelectAll">Выбрать все тесты</string>
     <string name="Dashboard_RunTests_SelectNone">Отменить выбор всех тестов</string>
-    <string name="Dashboard_RunTests_RunButton_Label_One">Провести %1$d тест</string>
-    <string name="Dashboard_RunTests_RunButton_Label_Other">Провести %1$d тесты</string>
-
     <string name="Dashboard_RunV2_Ooni_Title">Тесты OONI</string>
     <string name="Dashboard_RunV2_Title">Ссылки OONI Run </string>
     <string name="Dashboard_RunV2_RunFinished">Тест закончен. Нажмите, чтобы узнать результаты.</string>
@@ -72,10 +69,6 @@
     <string name="TestResults_Overview_Hero_Tests">Тесты</string>
     <string name="TestResults_Overview_Hero_Networks">Сети</string>
     <string name="TestResults_Overview_Hero_DataUsage">Трафик</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">Заблокированы: %1$s</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">Заблокированы: %1$s</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">Протестированы: %1$s</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">Протестированы: %1$s</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Тесты еще не проводились. Попробуйте запустить первый!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Дата и время</string>
     <string name="TestResults_Summary_Hero_Network">Сеть</string>
@@ -85,12 +78,6 @@
     <string name="TestResults_Summary_Hero_Mobile">Мобильные данные</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Нет связи с интернетом</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Протестированы</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Протестированы</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Заблокированный</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Заблокированный</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Доступен</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Доступен</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Загрузить</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Скачать</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Видео</string>
@@ -121,10 +108,6 @@
     <string name="Measurements_Failed">Ошибка</string>
     <string name="Measurements_Ok">ОК</string>
     <string name="Measurements_Anomaly">Аномалия</string>
-    <string name="Measurements_Count_One">%1$d измерены</string>
-    <string name="Measurements_Count_Other">%1$d измерены</string>
-    <string name="Measurements_Failed_One">%1$d ошибок</string>
-    <string name="Measurements_Failed_Other">%1$d ошибок</string>
     <string name="Measurement_Raw_NotUploadedReasoning">Это измерение не было опубликовано в базе OONI Explorer. Загрузите его, чтобы увидеть результаты анализа. </string>
     <string name="Measurement_Raw_Share">Поделиться данными измерения</string>
     <string name="Measurement_Raw_Upload">Загрузить</string>
@@ -352,11 +335,8 @@
     <string name="Common_Yes">Да</string>
     <string name="Common_Save">Сохранить</string>
     <string name="Common_Clear">Очистить</string>
+
     <string name="Common_Ago">%1$s назад</string>
-    <string name="Common_Minutes_One">%1$d минуту</string>
-    <string name="Common_Minutes_Other">%1$d минуты</string>
-    <string name="Common_Hour_One">%1$d час</string>
-    <string name="Common_Hour_Other">%1$d часа</string>
     <string name="Common_Hours_Abbreviated">%1$dчас</string>
     <string name="Common_Minutes_Abbreviated">%1$dмин</string>
     <string name="Common_Seconds_Abbreviated">%1$dсек</string>

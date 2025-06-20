@@ -16,9 +16,6 @@
     <string name="Dashboard_RunTests_Description">選擇要執行的測試</string>
     <string name="Dashboard_RunTests_SelectAll">選擇所有測試</string>
     <string name="Dashboard_RunTests_SelectNone">取消選擇所有測試</string>
-    <string name="Dashboard_RunTests_RunButton_Label_One">執行 %1$d 個測試</string>
-    <string name="Dashboard_RunTests_RunButton_Label_Other">執行 %1$d 個測試</string>
-
     <string name="Dashboard_RunV2_Ooni_Title">OONI 測試</string>
     <string name="Dashboard_RunV2_Title">OONI Run 連結</string>
     <string name="Dashboard_RunV2_RunFinished">執行已結束。點擊查看結果。</string>
@@ -62,10 +59,6 @@
     <string name="TestResults_Overview_Hero_Tests">測試</string>
     <string name="TestResults_Overview_Hero_Networks">網路</string>
     <string name="TestResults_Overview_Hero_DataUsage">流量數據使用</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s 已被封鎖</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s 已被封鎖</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s 測試過</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s 測試過</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">尚未進行任何測試，請試試執行一次！</string>
     <string name="TestResults_Summary_Hero_DateAndTime">日期 &amp; 時間</string>
     <string name="TestResults_Summary_Hero_Network">網路</string>
@@ -75,12 +68,6 @@
     <string name="TestResults_Summary_Hero_Mobile">行動數據</string>
     <string name="TestResults_Summary_Hero_Bluetooth">藍牙</string>
     <string name="TestResults_Summary_Hero_NoInternet">無連網</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">已測試過</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">已測試過</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">被封鎖的</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">被封鎖的</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">可訪問的</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">可訪問的</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">上傳</string>
     <string name="TestResults_Summary_Performance_Hero_Download">下載</string>
     <string name="TestResults_Summary_Performance_Hero_Video">影片</string>
@@ -294,10 +281,8 @@
     <string name="Common_Yes">是</string>
     <string name="Common_Save">儲存</string>
     <string name="Common_Clear">清除</string>
+
     <string name="Common_Ago">%1$s 前</string>
-    <string name="Common_Minutes_Other">%1$d 分钟</string>
-    <string name="Common_Hour_One">%1$d 小時</string>
-    <string name="Common_Hour_Other">%1$d 小時</string>
     <string name="Common_Months_January">一月</string>
     <string name="Common_Months_February">二月</string>
     <string name="Common_Months_March">三月</string>
