@@ -322,6 +322,12 @@
     <string name="Modal_Cancel">取消</string>
     <string name="Modal_OK">正常</string>
     <string name="Modal_DoYouWantToDeleteAllTests">是否要删除所有测试结果？</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="other">是否要删除 %1$s 个测试结果？</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="other">已选择 %1$d 项</item>
+    </plurals>
     <string name="Modal_Delete">删除</string>
     <string name="Modal_ReRun_Title">重新运行测试</string>
     <string name="Modal_ReRun_Websites_Title">您即将重新测试 %1$s 个网站。</string>
@@ -361,6 +367,12 @@
     <string name="Common_Clear">清除键</string>
 
     <string name="Common_Ago">%1$s 前</string>
+    <plurals name="Common_Minutes">
+        <item quantity="other">%1$d 分钟</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="other">%1$d 小时</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$d小时</string>
     <string name="Common_Minutes_Abbreviated">%1$d分钟</string>
     <string name="Common_Seconds_Abbreviated">%1$d秒</string>
