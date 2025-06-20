@@ -37,6 +37,9 @@ val logInfoColor = Color(0xFF2b8a3e)
 val logWarnColor = Color(0xFFd9480f)
 val logErrorColor = Color(0xFFc92a2a)
 
+val donateBackgroundLight = Color(0xFFC9E8FF)
+val donateBackgroundDark = Color(0xFF054B72)
+
 data class CustomColors(
     val success: Color,
     val onSuccess: Color,
@@ -61,17 +64,20 @@ data class CustomColors(
     val logInfo: Color = logInfoColor,
     val logWarn: Color = logWarnColor,
     val logError: Color = logErrorColor,
+    val donateBackground: Color,
 )
 
 val customColorsLight = CustomColors(
     success = successColorLight,
     onSuccess = onSuccessColorLight,
     onDescriptor = onDescriptorColorLight,
+    donateBackground = donateBackgroundLight,
 )
 val customColorsDark = CustomColors(
     success = successColorDark,
     onSuccess = onSuccessColorDark,
     onDescriptor = onDescriptorColorDark,
+    donateBackground = donateBackgroundDark,
 )
 
 internal val LocalCustomColors = staticCompositionLocalOf { customColorsLight }

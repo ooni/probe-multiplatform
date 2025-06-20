@@ -14,4 +14,5 @@ object OrganizationConfig : OrganizationConfigInterface {
         image3 = Res.drawable.onboarding,
     )
     override val hasWebsitesDescriptor = false
+    override val donateUrl = null
 }

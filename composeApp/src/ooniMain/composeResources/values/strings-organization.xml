@@ -38,5 +38,17 @@
     <string name="Settings_About_Content_Reports">Reports</string>
     <string name="Settings_About_Content_DataPolicy">OONI Data Policy</string>
 
+    <string name="Settings_Donate_Title">Donate</string>
+    <string name="Settings_Donate_Heading">Donate now to support internet freedom</string>
+    <string name="Settings_Donate_SubHeading">As a non-profit, we rely on donations from people like you to defend a free and open internet for all.</string>
+    <string name="Settings_Donate_Support_Title">By donating to OONI, you support:</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">Free and open source software for detecting internet censorship</string>
+    <string name="Settings_Donate_Support_Item_Analysis">Real-time analysis of internet censorship around the world</string>
+    <string name="Settings_Donate_Support_Item_OpenData">Open data on internet censorship — supporting global research and advocacy efforts</string>
+    <string name="Settings_Donate_Support_Item_Research">Research on censorship events worldwide</string>
+    <string name="Settings_Donate_Action">Donate</string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">This will open an external browser window</string>
+    <string name="Settings_Donate_Action_Error">Error opening donation page. Please go to %1$s</string>
+
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
 </resources>
