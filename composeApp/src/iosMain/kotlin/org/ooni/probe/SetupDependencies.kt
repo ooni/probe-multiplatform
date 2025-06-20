@@ -66,6 +66,7 @@ import platform.UIKit.UI_USER_INTERFACE_IDIOM
 import platform.UIKit.popoverPresentationController
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
+import kotlin.to
 
 class SetupDependencies(
     bridge: OonimkallBridge,
@@ -99,6 +100,8 @@ class SetupDependencies(
     )
 
     private val operationsManager = OperationsManager(dependencies, backgroundRunner)
+
+    private var mailDelegate: MFMailComposeViewControllerDelegateProtocol? = null
 
     private fun localeDirection(): LayoutDirection {
         return if (NSLocale.characterDirectionForLanguage(Locale.current.language) == NSLocaleLanguageDirectionRightToLeft) {
@@ -184,31 +187,32 @@ class SetupDependencies(
     }
 
     private fun sendMail(action: PlatformAction.Mail): Boolean {
-        MFMailComposeViewController.canSendMail().let { canSendMail ->
-            if (canSendMail) {
-                MFMailComposeViewController().apply {
-                    mailComposeDelegate = object :
-                        NSObject(),
-                        MFMailComposeViewControllerDelegateProtocol {
-                        override fun mailComposeController(
-                            controller: MFMailComposeViewController,
-                            didFinishWithResult: MFMailComposeResult,
-                            error: NSError?,
-                        ) {
-                            controller.dismissViewControllerAnimated(true, null)
-                        }
-                    }
-                    setToRecipients(listOf(action.to))
-                    setSubject(action.subject)
-                    setMessageBody(action.body, isHTML = false)
-                }.let { mailComposer ->
-                    presentViewController(mailComposer)
+        if (MFMailComposeViewController.canSendMail()) {
+            val delegate = object :
+                NSObject(),
+                MFMailComposeViewControllerDelegateProtocol {
+                override fun mailComposeController(
+                    controller: MFMailComposeViewController,
+                    didFinishWithResult: MFMailComposeResult,
+                    error: NSError?,
+                ) {
+                    controller.dismissViewControllerAnimated(true, null)
+                    mailDelegate = null // Release after use
                 }
-                return true
-            } else {
-                UIPasteboard.generalPasteboard.string = action.to
-                return false
             }
+            mailDelegate = delegate
+            MFMailComposeViewController().apply {
+                mailComposeDelegate = delegate
+                setToRecipients(listOf(action.to))
+                setSubject(action.subject)
+                setMessageBody(action.body, isHTML = false)
+            }.let { mailComposer ->
+                presentViewController(mailComposer)
+            }
+            return true
+        } else {
+            UIPasteboard.generalPasteboard.string = action.to
+            return false
         }
     }
 
