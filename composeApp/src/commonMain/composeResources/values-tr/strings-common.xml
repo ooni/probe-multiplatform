@@ -16,6 +16,11 @@
     <string name="Dashboard_RunTests_Description">Çalıştırılacak sınamaları seçin</string>
     <string name="Dashboard_RunTests_SelectAll">Tüm sınamaları seç</string>
     <string name="Dashboard_RunTests_SelectNone">Tüm sınamaları bırak</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">%1$d sınamayı çalıştır</item>
+        <item quantity="other">%1$d sınamayı çalıştır</item>
+    </plurals>
+
     <string name="Dashboard_RunV2_Ooni_Title">OONI sınamaları</string>
     <string name="Dashboard_RunV2_Title">OONI çalıştırma bağlantıları</string>
     <string name="Dashboard_RunV2_RunFinished">Sınama tamamlandı. Sonuçları görüntülemek için dokunun.</string>
@@ -69,6 +74,10 @@
     <string name="TestResults_Overview_Hero_Tests">Sınamalar</string>
     <string name="TestResults_Overview_Hero_Networks">Ağ</string>
     <string name="TestResults_Overview_Hero_DataUsage">Veri kullanımı</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s engellenmiş</item>
+        <item quantity="other">%1$s engellenmiş</item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Henüz bir sınama yapılmamış. Birini deneyin!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Tarih ve saat</string>
     <string name="TestResults_Summary_Hero_Network">Ağ</string>
@@ -77,6 +86,8 @@
     <string name="TestResults_Summary_Hero_WiFi">Wi-Fi</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobil veri</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">İnternet yok</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Yükle</string>
     <string name="TestResults_Summary_Performance_Hero_Download">İndir</string>
@@ -92,8 +103,8 @@
     <string name="TestResults_UnknownASN">Bilinmiyor</string>
     <string name="TestResults_NotAvailable">Yok</string>
 
-    <string name="TestResults_Filters_Title">Sınama Sonuçlarını Filtrele</string>
-    <string name="TestResults_Filters_Short">Filtreler:</string>
+    <string name="TestResults_Filters_Title">Sınama sonuçlarını süz</string>
+    <string name="TestResults_Filters_Short">Süzgeçler:</string>
     <string name="TestResults_Filter_Tests">Sınamalar</string>
     <string name="TestResults_Filter_Tests_Multiple">%1$d sınama</string>
     <string name="TestResults_Filter_Source">Kaynak</string>
@@ -105,14 +116,14 @@
     <string name="TestResults_Filter_Date_Custom">Özel</string>
     <string name="TestResults_Filter_Date_Custom_Filled">Özel: %1$s</string>
     <string name="TestResults_Filter_Date_Picker">Bir tarih aralığı seçin</string>
-    <string name="TestResults_Filter_NoTestsFound">Bu filtrelere uygun sınama sonuçları bulunamadı.</string>
-    <string name="TestResults_Filter_DeleteConfirmation">Mevcut filtreler için tüm sınama sonuçlarını silmek istiyor musunuz\?</string>
+    <string name="TestResults_Filter_NoTestsFound">Bu süzgeçlere uygun sınama sonuçları bulunamadı.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Geçerli süzgeçler için tüm sınama sonuçlarını silmek istiyor musunuz\?</string>
 
     <string name="Results_LimitedNotice">Yalnızca son %1$d sonuç görüntüleniyor</string>
     <string name="Results_UploadingMissing">Eksik sonuçlar yükleniyor %1$s</string>
     <string name="Results_MarkAllAsViewed">Tümünü görülmüş olarak işaretle</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Tüm sonuçları görülmüş olarak işaretlemek istediğinize emin misiniz\?</string>
-    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Mevcut filtreler için tüm sonuçları okundu olarak işaretlemek istiyor musunuz\?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Geçerli süzgeçler için tüm sonuçları okunmuş olarak işaretlemek istiyor musunuz\?</string>
 
     <!-- Measurements -->
 
@@ -313,6 +324,14 @@
     <string name="Modal_Cancel">İptal</string>
     <string name="Modal_OK">Tamam</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Tüm sınama sonuçlarını silmek ister misiniz?</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">%1$s sınama sonucunu silmek istiyor musunuz\?</item>
+        <item quantity="other">%1$s sınama sonucunu silmek istiyor musunuz\?</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one">%1$d öge seçilmiş</item>
+        <item quantity="other">%1$d öge seçilmiş</item>
+    </plurals>
     <string name="Modal_Delete">Sil</string>
     <string name="Modal_ReRun_Title">Sınamayı yinele</string>
     <string name="Modal_ReRun_Websites_Title">%1$s siteyi yeniden sınamak üzeresiniz.</string>
@@ -352,6 +371,14 @@
     <string name="Common_Clear">Temizle</string>
 
     <string name="Common_Ago">%1$s önce</string>
+    <plurals name="Common_Minutes">
+        <item quantity="one">%1$d dakika</item>
+        <item quantity="other">%1$d dakika</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d saat</item>
+        <item quantity="other">%1$d saat</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$ds</string>
     <string name="Common_Minutes_Abbreviated">%1$dd</string>
     <string name="Common_Seconds_Abbreviated">%1$dsn</string>
