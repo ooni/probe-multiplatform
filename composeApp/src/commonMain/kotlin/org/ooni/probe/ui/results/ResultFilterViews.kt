@@ -59,7 +59,7 @@ import ooniprobe.composeapp.generated.resources.TestResults_Filter_Date_Picker
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_Date_Today
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_Source
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_Tests
-import ooniprobe.composeapp.generated.resources.TestResults_Filter_Tests_Multiple
+import ooniprobe.composeapp.generated.resources.TestResults_Filter_Tests_Count
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Short
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
 import ooniprobe.composeapp.generated.resources.ic_check
@@ -68,6 +68,7 @@ import ooniprobe.composeapp.generated.resources.ic_date_range
 import ooniprobe.composeapp.generated.resources.ic_tests
 import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.Descriptor
@@ -105,8 +106,8 @@ fun ResultFiltersRow(
                             if (filter.descriptors.size == 1) {
                                 filter.descriptors.first().title().ellipsize(20)
                             } else {
-                                stringResource(
-                                    Res.string.TestResults_Filter_Tests_Multiple,
+                                pluralStringResource(
+                                    Res.plurals.TestResults_Filter_Tests_Count,
                                     filter.descriptors.size,
                                     filter.descriptors.size,
                                 )
