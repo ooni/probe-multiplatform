@@ -106,7 +106,6 @@
     <string name="TestResults_Filters_Title">Sınama sonuçlarını süz</string>
     <string name="TestResults_Filters_Short">Süzgeçler:</string>
     <string name="TestResults_Filter_Tests">Sınamalar</string>
-    <string name="TestResults_Filter_Tests_Multiple">%1$d sınama</string>
     <string name="TestResults_Filter_Source">Kaynak</string>
     <string name="TestResults_Filter_Date">Tarih</string>
     <string name="TestResults_Filter_Date_Any">Herhangi bir tarih</string>
@@ -194,8 +193,6 @@
     <string name="Settings_Websites_CustomURL_URL">Adres</string>
     <string name="Settings_Websites_CustomURL_Run">Çalıştır</string>
     <string name="Settings_Websites_CustomURL_Add">Site ekle</string>
-    <string name="CustomWebsites_Fab_Text">%1$d adresi sına</string>
-
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Uyuşturucu ve alkol</string>
