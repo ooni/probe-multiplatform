@@ -170,8 +170,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Ausführen</string>
     <string name="Settings_Websites_CustomURL_Add"> Webseite hinzufügen</string>
-    <string name="CustomWebsites_Fab_Text">Teste %1$d URLs</string>
-
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Drogen &amp; Alkohol</string>
