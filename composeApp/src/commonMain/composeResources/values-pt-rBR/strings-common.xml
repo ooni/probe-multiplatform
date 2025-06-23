@@ -16,6 +16,12 @@
     <string name="Dashboard_RunTests_Description">Selecione os testes a executar</string>
     <string name="Dashboard_RunTests_SelectAll">Selecione todos os testes</string>
     <string name="Dashboard_RunTests_SelectNone">Desmarcar todos os testes</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Executar %1$d teste</item>
+        <item quantity="many">Executar %1$d de testes</item>
+        <item quantity="other">Executar %1$d testes</item>
+    </plurals>
+
     <string name="Dashboard_RunV2_Ooni_Title">Testes OONI</string>
     <string name="Dashboard_RunV2_Title">Links de execução OONI</string>
     <string name="Dashboard_RunV2_RunFinished">Execução concluída. Toque para ver os resultados.</string>
@@ -69,6 +75,11 @@
     <string name="TestResults_Overview_Hero_Tests">Testes</string>
     <string name="TestResults_Overview_Hero_Networks">Redes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Uso de dados</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s bloqueado</item>
+        <item quantity="many">%1$s de bloqueados</item>
+        <item quantity="other">%1$s bloqueados</item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Nenhum teste foi executado ainda. Tente executar um!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Data e Hora</string>
     <string name="TestResults_Summary_Hero_Network">Rede</string>
@@ -315,6 +326,11 @@
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Deseja apagar todos os resultados de teste\?</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">Deseja apagar %1$s resultado?</item>
+        <item quantity="many">Deseja apagar %1$s de resultados?</item>
+        <item quantity="other">Deseja apagar %1$s resultados?</item>
+    </plurals>
     <plurals name="Modal_Selected">
         <item quantity="one">%1$d item selecionado</item>
         <item quantity="many">%1$d de itens selecionados</item>
