@@ -35,6 +35,8 @@ class ResultRepository(
             .selectAllWithNetwork(
                 filterByDescriptors = params.filterByDescriptors,
                 descriptorsKeys = params.descriptorsKeys,
+                filterByNetworks = params.filterByNetworks,
+                networkIds = params.networkIds,
                 filterByTaskOrigin = params.filterByTaskOrigin,
                 taskOrigin = params.taskOrigin,
                 startFrom = params.startFrom,
@@ -116,6 +118,8 @@ class ResultRepository(
             database.resultQueries.markAllAsViewed(
                 filterByDescriptors = params.filterByDescriptors,
                 descriptorsKeys = params.descriptorsKeys,
+                filterByNetworks = params.filterByNetworks,
+                networkIds = params.networkIds,
                 filterByTaskOrigin = params.filterByTaskOrigin,
                 taskOrigin = params.taskOrigin,
                 startFrom = params.startFrom,
@@ -144,6 +148,8 @@ class ResultRepository(
             database.resultQueries.deleteByFilter(
                 filterByDescriptors = params.filterByDescriptors,
                 descriptorsKeys = params.descriptorsKeys,
+                filterByNetworks = params.filterByNetworks,
+                networkIds = params.networkIds,
                 filterByTaskOrigin = params.filterByTaskOrigin,
                 taskOrigin = params.taskOrigin,
                 startFrom = params.startFrom,
@@ -257,6 +263,8 @@ class ResultRepository(
     data class FilterParams(
         val filterByDescriptors: Long,
         val descriptorsKeys: List<String>,
+        val filterByNetworks: Long,
+        val networkIds: List<Long>,
         val filterByTaskOrigin: Long,
         val taskOrigin: String?,
         val startFrom: Long,
@@ -268,6 +276,8 @@ class ResultRepository(
                 FilterParams(
                     filterByDescriptors = if (filter.descriptors.any()) 1 else 0,
                     descriptorsKeys = filter.descriptors.map { it.key },
+                    filterByNetworks = if (filter.networks.any()) 1 else 0,
+                    networkIds = filter.networks.mapNotNull { it.id?.value },
                     filterByTaskOrigin = if (filter.taskOrigin != null) 1 else 0,
                     taskOrigin = filter.taskOrigin?.value,
                     startFrom = filter.dates.range.start.toEpoch(),

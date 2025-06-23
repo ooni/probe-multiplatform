@@ -222,6 +222,7 @@ fun ResultsScreen(
             ResultFiltersDialog(
                 initialFilter = state.filter,
                 descriptors = state.descriptors,
+                networks = state.networks,
                 onSave = {
                     onEvent(ResultsViewModel.Event.FilterChanged(it))
                     showFiltersDialog = false

@@ -594,6 +594,7 @@ class Dependencies(
         goToUpload = goToUpload,
         getResults = getResults::invoke,
         getDescriptors = getTestDescriptors::latest,
+        getNetworks = networkRepository::list,
         deleteResultsByFilter = deleteResults::byFilter,
         deleteResults = deleteResults::byIds,
         markJustFinishedTestAsSeen = markJustFinishedTestAsSeen::invoke,
