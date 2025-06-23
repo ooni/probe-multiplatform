@@ -34,4 +34,6 @@
     <string name="Settings_About_Content_Reports">Ripoti</string>
     <string name="Settings_About_Content_DataPolicy">Sera ya Takwimu ya OONI</string>
 
+    <string name="Settings_Donate_Title">Changia</string>
+    <string name="Settings_Donate_Action">Changia</string>
     </resources>
