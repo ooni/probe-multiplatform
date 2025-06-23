@@ -34,5 +34,7 @@
     <string name="Settings_About_Content_Reports">报告</string>
     <string name="Settings_About_Content_DataPolicy">OONI 数据政策</string>
 
+    <string name="Settings_Donate_Title">捐款</string>
+    <string name="Settings_Donate_Action">捐款</string>
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">你将只能从由创建者发送的原始链接那里再次安装此链接。来自此链接的测量数据将被删除，但仍可从 explorer 处访问。</string>
 </resources>
