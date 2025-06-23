@@ -48,6 +48,7 @@ import ooniprobe.composeapp.generated.resources.ic_add
 import ooniprobe.composeapp.generated.resources.ic_cancel
 import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.ui.shared.TopBar
 
@@ -164,7 +165,11 @@ fun ChooseWebsitesScreen(
                     modifier = Modifier.padding(end = 8.dp),
                 )
                 Text(
-                    stringResource(Res.string.CustomWebsites_Fab_Text, state.websites.size),
+                    pluralStringResource(
+                        Res.plurals.CustomWebsites_Fab_Text,
+                        state.websites.size,
+                        state.websites.size,
+                    ),
                     style = MaterialTheme.typography.bodyLarge,
                 )
             }
