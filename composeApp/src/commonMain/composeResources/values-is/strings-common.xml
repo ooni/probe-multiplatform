@@ -165,8 +165,6 @@
     <string name="Settings_Websites_CustomURL_URL">Slóð</string>
     <string name="Settings_Websites_CustomURL_Run">Keyra</string>
     <string name="Settings_Websites_CustomURL_Add">Bæta við vefsvæði</string>
-    <string name="CustomWebsites_Fab_Text">Test %1$d URLs</string>
-
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Áfengi og lyf</string>
