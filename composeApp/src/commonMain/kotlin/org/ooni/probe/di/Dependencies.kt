@@ -420,7 +420,13 @@ class Dependencies(
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
         )
     }
-    private val sendSupportEmail by lazy { SendSupportEmail(platformInfo, launchAction) }
+    val sendSupportEmail by lazy {
+        SendSupportEmail(
+            platformInfo = platformInfo,
+            launchAction = launchAction,
+            getAppLoggerFile = appLogger::getLogFilePath,
+        )
+    }
     private val shareLogFile by lazy { ShareLogFile(launchAction, appLogger::getLogFilePath) }
     val shouldShowAppReview by lazy {
         ShouldShowAppReview(
@@ -700,7 +706,6 @@ class Dependencies(
     fun settingsViewModel(goToSettingsForCategory: (PreferenceCategoryKey) -> Unit) =
         SettingsViewModel(
             goToSettingsForCategory = goToSettingsForCategory,
-            sendSupportEmail = sendSupportEmail::invoke,
             openAppLanguageSettings = { launchAction(PlatformAction.LanguageSettings) },
             getSettings = getSettings::invoke,
         )

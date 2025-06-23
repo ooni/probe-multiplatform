@@ -14,7 +14,6 @@ import org.ooni.probe.data.models.SettingsCategoryItem
 
 open class SettingsViewModel(
     goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
-    sendSupportEmail: suspend () -> Unit,
     openAppLanguageSettings: suspend () -> Unit,
     getSettings: () -> Flow<List<SettingsCategoryItem>>,
 ) : ViewModel() {
@@ -31,7 +30,6 @@ open class SettingsViewModel(
         events.filterIsInstance<Event.SettingsCategoryClick>()
             .onEach {
                 when (it.category) {
-                    PreferenceCategoryKey.SEND_EMAIL -> sendSupportEmail()
                     PreferenceCategoryKey.LANGUAGE -> openAppLanguageSettings()
                     else -> goToSettingsForCategory(it.category)
                 }

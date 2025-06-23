@@ -63,7 +63,7 @@ enum class PreferenceCategoryKey(val value: String) {
     PROXY("proxy"),
     LANGUAGE("language"),
     ADVANCED("advanced"),
-    SEND_EMAIL("send_email"),
+    SUPPORT("support"),
     DONATE("donate"),
     ABOUT_OONI("about_ooni"),
 
