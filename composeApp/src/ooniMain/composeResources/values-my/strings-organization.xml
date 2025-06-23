@@ -33,4 +33,6 @@
     <string name="Settings_About_Content_Reports">အစီရင်ခံစာများ</string>
     <string name="Settings_About_Content_DataPolicy">OONI ဒေတာမူဝါဒ</string>
 
+    <string name="Settings_Donate_Title">လှူဒါန်းရန်</string>
+    <string name="Settings_Donate_Action">လှူဒါန်းရန်</string>
     </resources>
