@@ -34,5 +34,7 @@
     <string name="Settings_About_Content_Reports">Отчеты</string>
     <string name="Settings_About_Content_DataPolicy">Политика данных OONI</string>
 
+    <string name="Settings_Donate_Title">Сделать пожертвование</string>
+    <string name="Settings_Donate_Action">Сделать пожертвование</string>
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Вы сможете установить эту ссылку снова только с помощью оригинальной ссылки, отправленной ее создателем. Измерения, собранные с помощью этой ссылки будут удалены, но останутся доступными в OONI Explorer. </string>
 </resources>
