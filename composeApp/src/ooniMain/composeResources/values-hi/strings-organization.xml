@@ -32,4 +32,6 @@
     <string name="Settings_About_Content_Blog">ब्लॉग</string>
     <string name="Settings_About_Content_DataPolicy">OONI डेटा नीति</string>
 
+    <string name="Settings_Donate_Title">दान करें</string>
+    <string name="Settings_Donate_Action">दान करें</string>
     </resources>
