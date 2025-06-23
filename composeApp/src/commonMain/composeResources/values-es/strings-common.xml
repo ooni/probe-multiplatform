@@ -16,6 +16,12 @@
     <string name="Dashboard_RunTests_Description">Seleccione las pruebas a ejecutar</string>
     <string name="Dashboard_RunTests_SelectAll">Seleccionar todas las pruebas</string>
     <string name="Dashboard_RunTests_SelectNone">Deseleccionar todas las pruebas</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Ejecutar %1$d prueba</item>
+        <item quantity="many">Ejecutar %1$d de pruebas</item>
+        <item quantity="other">Ejecutar %1$d pruebas</item>
+    </plurals>
+
     <string name="Dashboard_RunV2_Ooni_Title">Pruebas OONI</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <string name="Dashboard_RunV2_RunFinished">Run finished. Tap to view results.</string>
@@ -76,6 +82,8 @@
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Datos móviles</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">No hay Internet</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Subida </string>
     <string name="TestResults_Summary_Performance_Hero_Download">Descarga</string>
@@ -91,7 +99,9 @@
     <string name="TestResults_UnknownASN">Desconocido</string>
     <string name="TestResults_NotAvailable">N/D</string>
 
+    <string name="TestResults_Filters_Short">Filtros:</string>
     <string name="TestResults_Filter_Tests">Pruebas</string>
+    <string name="TestResults_Filter_Tests_Multiple">%1$d pruebas</string>
     <string name="TestResults_Filter_Source">Fuente</string>
     <string name="TestResults_Filter_Date">Fecha de presentación</string>
     <string name="TestResults_Filter_Date_Today">Hoy</string>
@@ -323,6 +333,16 @@
     <string name="Common_Clear">Borrar</string>
 
     <string name="Common_Ago">%1$s ago</string>
+    <plurals name="Common_Minutes">
+        <item quantity="one">%1$d minuto</item>
+        <item quantity="many">%1$d de minutos</item>
+        <item quantity="other">%1$d minutos</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d hora</item>
+        <item quantity="many">%1$d de horas</item>
+        <item quantity="other">%1$d horas</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$d h</string>
     <string name="Common_Minutes_Abbreviated">%1$d m</string>
     <string name="Common_Seconds_Abbreviated">%1$d s</string>
