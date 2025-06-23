@@ -315,6 +315,11 @@
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Deseja apagar todos os resultados de teste\?</string>
+    <plurals name="Modal_Selected">
+        <item quantity="one">%1$d item selecionado</item>
+        <item quantity="many">%1$d de itens selecionados</item>
+        <item quantity="other">%1$d itens selecionados</item>
+    </plurals>
     <string name="Modal_Delete">Apagar</string>
     <string name="Modal_ReRun_Title">Repetir o teste</string>
     <string name="Modal_ReRun_Websites_Title">Você está prestes a testar novamente os sites %1$s.</string>
@@ -354,6 +359,16 @@
     <string name="Common_Clear">Limpar</string>
 
     <string name="Common_Ago">%1$s atrás</string>
+    <plurals name="Common_Minutes">
+        <item quantity="one">%1$d minuto</item>
+        <item quantity="many">%1$d de minutos</item>
+        <item quantity="other">%1$d minutos</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d hora</item>
+        <item quantity="many">%1$d de horas</item>
+        <item quantity="other">%1$d horas</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$dh</string>
     <string name="Common_Minutes_Abbreviated">%1$dm</string>
     <string name="Common_Seconds_Abbreviated">%1$ds</string>
