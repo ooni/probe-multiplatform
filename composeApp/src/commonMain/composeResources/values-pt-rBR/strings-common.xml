@@ -108,7 +108,11 @@
     <string name="TestResults_Filters_Title">Filtrar Resultados</string>
     <string name="TestResults_Filters_Short">Filtros:</string>
     <string name="TestResults_Filter_Tests">Testes</string>
-    <string name="TestResults_Filter_Tests_Multiple">%1$d testes</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one">%1$d teste</item>
+        <item quantity="many">%1$d de testes</item>
+        <item quantity="other">%1$d testes</item>
+    </plurals>
     <string name="TestResults_Filter_Source">Fonte</string>
     <string name="TestResults_Filter_Date">Data</string>
     <string name="TestResults_Filter_Date_Any">Qualquer data</string>
@@ -196,7 +200,11 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Executar</string>
     <string name="Settings_Websites_CustomURL_Add">Adicionar website</string>
-    <string name="CustomWebsites_Fab_Text">Teste %1$d URLs</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one">Teste %1$d URL</item>
+        <item quantity="many">Teste %1$d de URLs</item>
+        <item quantity="other">Teste %1$d URLs</item>
+    </plurals>
 
     <!-- Website Categories -->
 
