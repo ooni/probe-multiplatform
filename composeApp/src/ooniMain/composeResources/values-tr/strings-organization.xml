@@ -34,5 +34,7 @@
     <string name="Settings_About_Content_Reports">Raporlar</string>
     <string name="Settings_About_Content_DataPolicy">OONI veri işleme ilkesi</string>
 
+    <string name="Settings_Donate_Title">Bağış Yap</string>
+    <string name="Settings_Donate_Action">Bağış Yap</string>
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Bu bağlantıyı yalnızca geliştiricisinin gönderdiği özgün bağlantıdan yeniden kurabilirsiniz. Bu bağlantıdaki ölçümler silinecek, ancak Explorer üzerinden erişilebilecek.</string>
 </resources>
