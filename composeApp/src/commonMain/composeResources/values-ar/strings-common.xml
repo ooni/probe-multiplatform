@@ -160,8 +160,6 @@
     <string name="Settings_Websites_CustomURL_URL">الرابط</string>
     <string name="Settings_Websites_CustomURL_Run">ابدأ</string>
     <string name="Settings_Websites_CustomURL_Add">أضف موقعًا</string>
-    <string name="CustomWebsites_Fab_Text">Test %1$d URLs</string>
-
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">المخدرات والكحول</string>
