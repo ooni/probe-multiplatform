@@ -106,6 +106,11 @@
 
     <string name="TestResults_Filters_Short">Filtros:</string>
     <string name="TestResults_Filter_Tests">Pruebas</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one">%1$d prueba</item>
+        <item quantity="many">%1$d de pruebas</item>
+        <item quantity="other">%1$d pruebas</item>
+    </plurals>
     <string name="TestResults_Filter_Source">Fuente</string>
     <string name="TestResults_Filter_Date">Fecha de presentación</string>
     <string name="TestResults_Filter_Date_Any">Cualquier fecha</string>
@@ -179,6 +184,12 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Ejecutar</string>
     <string name="Settings_Websites_CustomURL_Add">Añadir sitio web</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one">Probar %1$d URL</item>
+        <item quantity="many">Probar %1$d de URLs</item>
+        <item quantity="other">Probar %1$d URLs</item>
+    </plurals>
+
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Drogas y alcohol</string>
@@ -290,6 +301,8 @@
     <string name="LoadingScreen_Runv2_Failure">Error</string>
     <string name="LoadingScreen_Runv2_Canceled">Instalación del enlace cancelada</string>
     <string name="DescriptorUpdate_Updates">ACTUALIZACIONES</string>
+    <string name="Descriptor_LastTestResult">Último resultado</string>
+
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">No subido</string>
@@ -303,6 +316,11 @@
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">Aceptar</string>
     <string name="Modal_DoYouWantToDeleteAllTests">¿Deseas eliminar todos los resultados de las pruebas?</string>
+    <plurals name="Modal_Selected">
+        <item quantity="one">%1$d elemento seleccionado</item>
+        <item quantity="many">%1$d de elementos seleccionados</item>
+        <item quantity="other">%1$d elementos seleccionados</item>
+    </plurals>
     <string name="Modal_Delete">Eliminar</string>
     <string name="Modal_ReRun_Title">Volver a ejecutar prueba</string>
     <string name="Modal_ReRun_Websites_Title">Está a punto de volver a probar %1$s sitios web.</string>
