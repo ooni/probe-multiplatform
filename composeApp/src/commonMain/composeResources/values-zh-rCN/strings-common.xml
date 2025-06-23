@@ -104,6 +104,9 @@
     <string name="TestResults_Filters_Title">筛选测试结果</string>
     <string name="TestResults_Filters_Short">筛选器：</string>
     <string name="TestResults_Filter_Tests">测试</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="other">%1$d 个测试</item>
+    </plurals>
     <string name="TestResults_Filter_Source">源</string>
     <string name="TestResults_Filter_Date">日期</string>
     <string name="TestResults_Filter_Date_Any">任意日期</string>
@@ -191,6 +194,10 @@
     <string name="Settings_Websites_CustomURL_URL">网址</string>
     <string name="Settings_Websites_CustomURL_Run">运行</string>
     <string name="Settings_Websites_CustomURL_Add">添加网站</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="other">测试 %1$d 个 URL</item>
+    </plurals>
+
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">毒品和酒精</string>
