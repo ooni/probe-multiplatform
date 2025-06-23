@@ -142,8 +142,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Endesha</string>
     <string name="Settings_Websites_CustomURL_Add">Ongeza tovuti</string>
-    <string name="CustomWebsites_Fab_Text">Majaribio %1$d URLs</string>
-
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Madawa ya kulevya na Pombe</string>
