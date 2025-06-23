@@ -170,8 +170,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Запустить</string>
     <string name="Settings_Websites_CustomURL_Add">Добавить сайт</string>
-    <string name="CustomWebsites_Fab_Text">Протестировать %1$d ссылки</string>
-
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Наркотики и алкоголь</string>
