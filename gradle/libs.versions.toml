@@ -42,7 +42,7 @@ android-work = { module = "androidx.work:work-runtime-ktx", version = "2.10.2" }
 android-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.1" }
 
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.9.0" }
-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.9.0-beta02" }
+navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.9.0-beta03" }
 window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "compose-plugin" }
 back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-plugin" }
 material-icons = { module = "org.jetbrains.compose.material:material-icons-core", version = "1.7.3" }
