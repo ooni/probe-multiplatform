@@ -35,6 +35,10 @@
     <string name="Settings_About_Content_DataPolicy">OONI Politique sur les données</string>
 
     <string name="Settings_Donate_Title">Faire un don</string>
+    <string name="Settings_Donate_Heading">Faites un don maintenant et soutenez la liberté sur Internet.</string>
+    <string name="Settings_Donate_SubHeading">En tant qu’organisme sans but lucratif, nous dépendons des dons de personnes comme vous pour défendre un internet libre et ouvert pour tous.</string>
+    <string name="Settings_Donate_Support_Title">En faisant un don à l’OONI, vous soutenez financièrement :</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">Des logiciels gratuits et libres de détection de la censure sur Internet ;</string>
     <string name="Settings_Donate_Action">Faire un don</string>
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Vous ne pourrez réinstaller ce lien qu’à partir du lien original envoyé par la personne qui l’a créé. Les mesures de ce lien seront supprimées, mais seront accessibles dans l\'explorateur.</string>
 </resources>
