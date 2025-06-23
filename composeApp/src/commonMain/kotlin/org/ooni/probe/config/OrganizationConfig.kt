@@ -9,6 +9,7 @@ interface OrganizationConfigInterface {
     val onboardingImages: OnboardingImages
     val updateDescriptorTaskId: String
     val hasWebsitesDescriptor: Boolean
+    val donateUrl: String?
 
     val ooniApiBaseUrl get() = BuildTypeDefaults.ooniApiBaseUrl
     val ooniRunDomain get() = BuildTypeDefaults.ooniRunDomain
