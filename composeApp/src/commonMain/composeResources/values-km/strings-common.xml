@@ -144,8 +144,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">ដំណើរការ</string>
     <string name="Settings_Websites_CustomURL_Add">បន្ថែមវេបសាយ</string>
-    <string name="CustomWebsites_Fab_Text">តេស្ត URLs %1$d </string>
-
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">គ្រឿងញៀន &amp; គ្រឿងស្រវឹង</string>
