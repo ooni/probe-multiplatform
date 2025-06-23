@@ -34,5 +34,7 @@
     <string name="Settings_About_Content_Reports">Berichte</string>
     <string name="Settings_About_Content_DataPolicy">OONI Datenschutzbestimmungen</string>
 
+    <string name="Settings_Donate_Title">Spenden</string>
+    <string name="Settings_Donate_Action">Spenden</string>
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Du kannst diesen Link nur über den Original-Link installieren, den der Ersteller geschickt hat. Die Messungen über diesen Link werden gelöscht, sind aber über den Explorer weiterhin zugänglich.</string>
 </resources>
