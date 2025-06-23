@@ -74,6 +74,11 @@
     <string name="TestResults_Overview_Hero_Tests">Pruebas</string>
     <string name="TestResults_Overview_Hero_Networks">Redes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Uso de datos</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s bloqueado</item>
+        <item quantity="many">%1$s de bloqueados</item>
+        <item quantity="other">%1$s bloqueados</item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Ninguna prueba ha sido ejecutada aún. ¡Intenta ejecutar una!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Fecha y Hora</string>
     <string name="TestResults_Summary_Hero_Network">Red</string>
@@ -104,6 +109,7 @@
     <string name="TestResults_Filter_Tests_Multiple">%1$d pruebas</string>
     <string name="TestResults_Filter_Source">Fuente</string>
     <string name="TestResults_Filter_Date">Fecha de presentación</string>
+    <string name="TestResults_Filter_Date_Any">Cualquier fecha</string>
     <string name="TestResults_Filter_Date_Today">Hoy</string>
     <string name="TestResults_Filter_Date_Custom">Personalizada</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
@@ -262,6 +268,7 @@
     <string name="Onboarding_Crash_Title">Informes de error</string>
     <string name="Onboarding_Crash_Button_Yes">Si</string>
     <string name="Onboarding_Crash_Button_No">No</string>
+    <string name="Onboarding_Notifications_Title">Activar las notificaciones</string>
     <string name="Onboarding_Notifications_Ok">Aceptar</string>
     <string name="Onboarding_Notifications_Skip">Omitir</string>
     <string name="Onboarding_DefaultSettings_Title">Configuración predeterminada</string>
@@ -312,6 +319,8 @@
     <string name="Modal_Error_NoInternet">No hay conexión a Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">¿Estas seguro?</string>
     <string name="Modal_CustomURL_NotSaved">Tus URLs no serán guardadas cuando dejes esta pantalla. ¿Estás seguro de que quieres dejarla?</string>
+    <!-- Desktop -->
+    <string name="Desktop_OpenApp">Abrir Aplicación</string>
     <string name="Desktop_Quit">Salir</string>
 
     <!-- Common / Others -->
