@@ -108,7 +108,6 @@
     <string name="TestResults_Filters_Title">Filtrer les résultats des tests</string>
     <string name="TestResults_Filters_Short">Filtres :</string>
     <string name="TestResults_Filter_Tests">Tests</string>
-    <string name="TestResults_Filter_Tests_Multiple">%1$d tests</string>
     <string name="TestResults_Filter_Source">Source</string>
     <string name="TestResults_Filter_Date">Date</string>
     <string name="TestResults_Filter_Date_Any">N’importe quelle date</string>
@@ -196,8 +195,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Lancer</string>
     <string name="Settings_Websites_CustomURL_Add">Ajouter le site Web</string>
-    <string name="CustomWebsites_Fab_Text">Tester %1$d URL</string>
-
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Drogues et alcool</string>
