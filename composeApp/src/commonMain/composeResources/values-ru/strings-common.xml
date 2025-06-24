@@ -16,6 +16,13 @@
     <string name="Dashboard_RunTests_Description">Выберите тесты, которые вы хотите запустить</string>
     <string name="Dashboard_RunTests_SelectAll">Выбрать все тесты</string>
     <string name="Dashboard_RunTests_SelectNone">Отменить выбор всех тестов</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Провести %1$d тест</item>
+        <item quantity="few">Провести %1$d тестов</item>
+        <item quantity="many">Провести %1$d тестов</item>
+        <item quantity="other">Провести %1$d тестов</item>
+    </plurals>
+
     <string name="Dashboard_RunV2_Ooni_Title">Тесты OONI</string>
     <string name="Dashboard_RunV2_Title">Ссылки OONI Run </string>
     <string name="Dashboard_RunV2_RunFinished">Тест закончен. Нажмите, чтобы узнать результаты.</string>
@@ -69,6 +76,12 @@
     <string name="TestResults_Overview_Hero_Tests">Тесты</string>
     <string name="TestResults_Overview_Hero_Networks">Сети</string>
     <string name="TestResults_Overview_Hero_DataUsage">Трафик</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s заблокирован</item>
+        <item quantity="few">%1$s заблокированы</item>
+        <item quantity="many">%1$s заблокированы</item>
+        <item quantity="other">%1$s заблокированы</item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Тесты еще не проводились. Попробуйте запустить первый!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Дата и время</string>
     <string name="TestResults_Summary_Hero_Network">Сеть</string>
@@ -77,6 +90,8 @@
     <string name="TestResults_Summary_Hero_WiFi">Wi-fi</string>
     <string name="TestResults_Summary_Hero_Mobile">Мобильные данные</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">Нет связи с интернетом</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Загрузить</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Скачать</string>
@@ -92,15 +107,33 @@
     <string name="TestResults_UnknownASN">Неизвестно</string>
     <string name="TestResults_NotAvailable">Н/П</string>
 
+    <string name="TestResults_Filters_Title">Отфильтровать результаты тестов</string>
+    <string name="TestResults_Filters_Short">Фильтры:</string>
     <string name="TestResults_Filter_Tests">Тесты</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one">%1$d тест</item>
+        <item quantity="few">%1$d тестов</item>
+        <item quantity="many">%1$d тестов</item>
+        <item quantity="other">%1$d тестов</item>
+    </plurals>
     <string name="TestResults_Filter_Source">Объект</string>
     <string name="TestResults_Filter_Date">Дата</string>
+    <string name="TestResults_Filter_Date_Any">Любая дата</string>
     <string name="TestResults_Filter_Date_Today">Сегодня</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">7 дней назад</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">1 месяц назад</string>
     <string name="TestResults_Filter_Date_Custom">Пользовательский</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Выбрать период вручную: %1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Выбрать период</string>
+    <string name="TestResults_Filter_NoTestsFound">Нет результатов, соответствующих выставленным фильтрам.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Вы хотите удалить все отфильтрованные результаты\? </string>
+
     <string name="Results_LimitedNotice">Показываются только последние %1$d результатов</string>
     <string name="Results_UploadingMissing">Загрузить результаты %1$s</string>
     <string name="Results_MarkAllAsViewed">Отметить все как просмотренные</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Хотите отметить все результаты тестов как просмотренные\?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Вы хотите отметить все отфильтрованные результаты как просмотренные\? </string>
+
     <!-- Measurements -->
 
     <string name="Measurement_Title">Измерение</string>
@@ -170,6 +203,13 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Запустить</string>
     <string name="Settings_Websites_CustomURL_Add">Добавить сайт</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one">Протестировать %1$d ссылку</item>
+        <item quantity="few">Протестировать %1$d ссылок</item>
+        <item quantity="many">Протестировать %1$d ссылок</item>
+        <item quantity="other">Протестировать %1$d ссылок</item>
+    </plurals>
+
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Наркотики и алкоголь</string>
@@ -283,6 +323,8 @@
     <string name="LoadingScreen_Runv2_Canceled">Установка ссылки отменена</string>
     <string name="DescriptorUpdate_Updates">ОБНОВЛЕНИЯ</string>
     <string name="AddDescriptor_AutoRunDisabled">Автоматическое тестирование отключено. Пожалуйста, включите его, чтобы проводить тесты автоматически.</string>
+    <string name="Descriptor_LastTestResult">Результат последнего теста</string>
+
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Не загружено</string>
