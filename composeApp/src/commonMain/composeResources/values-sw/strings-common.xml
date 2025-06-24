@@ -85,6 +85,7 @@
     <string name="TestResults_NotAvailable">N/A</string>
 
     <string name="TestResults_Filter_Tests">Vipimo</string>
+    <string name="TestResults_Filter_Networks">Mitandao</string>
     <string name="TestResults_Filter_Date">Tarehe</string>
     <string name="TestResults_Filter_Date_Today">Leo</string>
     <string name="TestResults_Filter_Date_Custom">Fanya binafsi</string>
@@ -128,8 +129,11 @@
     <string name="Settings_Advanced_Label">Iliyoboreshwa</string>
     <string name="Settings_Advanced_DebugLogs">Magogo ya utatuzi.</string>
     <string name="Settings_Advanced_RecentLogs">Tazama kumbukumbu za hivi majuzi</string>
-    <string name="Settings_SendEmail_Label">Tuma barua pepe kwa msaada</string>
-    <string name="Settings_SendEmail_Message">Tafadhali eleza shida unayopata:</string>
+
+    <string name="Settings_Support_Label">saidia</string>
+    <string name="Settings_Support_SendEmail">Tuma barua pepe kwa msaada</string>
+    <string name="Settings_Support_Message">Tafadhali eleza shida unayopata:</string>
+    <string name="Settings_Support_Action">Tuma barua pepe</string>
 
     <string name="Settings_Storage_Label">Matumizi ya kuhifadhi</string>
     <string name="Settings_Storage_Delete">Futa</string>
