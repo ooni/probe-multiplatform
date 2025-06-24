@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.LocalDate
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
@@ -25,6 +26,7 @@ class ResultsViewModel(
     goToUpload: () -> Unit,
     getResults: (ResultFilter) -> Flow<List<ResultListItem>>,
     getDescriptors: () -> Flow<List<Descriptor>>,
+    getNetworks: () -> Flow<List<NetworkModel>>,
     deleteResultsByFilter: suspend (ResultFilter) -> Unit,
     markJustFinishedTestAsSeen: () -> Unit,
     markAsViewed: suspend (ResultFilter) -> Unit,
@@ -67,11 +69,11 @@ class ResultsViewModel(
             .launchIn(viewModelScope)
 
         getDescriptors()
-            .onEach { descriptors ->
-                _state.update { state ->
-                    state.copy(descriptors = descriptors)
-                }
-            }
+            .onEach { descriptors -> _state.update { it.copy(descriptors = descriptors) } }
+            .launchIn(viewModelScope)
+
+        getNetworks()
+            .onEach { networks -> _state.update { it.copy(networks = networks) } }
             .launchIn(viewModelScope)
 
         events
@@ -190,6 +192,7 @@ class ResultsViewModel(
     data class State(
         val filter: ResultFilter = ResultFilter(),
         val descriptors: List<Descriptor> = emptyList(),
+        val networks: List<NetworkModel> = emptyList(),
         val results: Map<LocalDate, List<SelectableItem<ResultListItem>>> = emptyMap(),
         val summary: Summary? = null,
         val isLoading: Boolean = true,

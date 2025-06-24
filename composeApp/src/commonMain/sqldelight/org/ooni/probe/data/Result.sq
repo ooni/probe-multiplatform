@@ -44,6 +44,8 @@ WHERE (
     :filterByDescriptors = 0 OR
     Result.descriptor_name IN :descriptorsKeys OR Result.descriptor_runId IN :descriptorsKeys
 ) AND (
+    :filterByNetworks = 0 OR Result.network_id IN :networkIds
+) AND (
     :filterByTaskOrigin = 0 OR Result.task_origin = :taskOrigin
 ) AND (
     Result.start_time >= :startFrom AND Result.start_time <= :startUntil
@@ -72,6 +74,8 @@ deleteByFilter:
 DELETE FROM Result WHERE (
     :filterByDescriptors = 0 OR
     Result.descriptor_name IN :descriptorsKeys OR Result.descriptor_runId IN :descriptorsKeys
+) AND (
+    :filterByNetworks = 0 OR Result.network_id IN :networkIds
 ) AND (
     :filterByTaskOrigin = 0 OR Result.task_origin = :taskOrigin
 ) AND (
@@ -125,6 +129,8 @@ FROM (
     WHERE (
         :filterByDescriptors = 0 OR
         Result.descriptor_name IN :descriptorsKeys OR Result.descriptor_runId IN :descriptorsKeys
+    ) AND (
+        :filterByNetworks = 0 OR Result.network_id IN :networkIds
     ) AND (
         :filterByTaskOrigin = 0 OR Result.task_origin = :taskOrigin
     ) AND (

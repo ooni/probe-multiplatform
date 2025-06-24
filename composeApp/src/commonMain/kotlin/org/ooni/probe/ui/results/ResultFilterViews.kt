@@ -57,14 +57,19 @@ import ooniprobe.composeapp.generated.resources.TestResults_Filter_Date_FromOneM
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_Date_FromSevenDaysAgo
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_Date_Picker
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_Date_Today
+import ooniprobe.composeapp.generated.resources.TestResults_Filter_Networks
+import ooniprobe.composeapp.generated.resources.TestResults_Filter_Networks_Count
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_Source
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_Tests
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_Tests_Count
+import ooniprobe.composeapp.generated.resources.TestResults_Filters_Count
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Short
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
+import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.ic_check
 import ooniprobe.composeapp.generated.resources.ic_close
 import ooniprobe.composeapp.generated.resources.ic_date_range
+import ooniprobe.composeapp.generated.resources.ic_network
 import ooniprobe.composeapp.generated.resources.ic_tests
 import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
@@ -72,6 +77,7 @@ import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.shared.toEpochInUTC
 import org.ooni.probe.shared.toLocalDateFromUtc
@@ -97,6 +103,24 @@ fun ResultFiltersRow(
         FlowRow(
             modifier = Modifier.weight(1f).fillMaxWidth(),
         ) {
+            if (filter.filterCount > 2) {
+                InputChip(
+                    selected = true,
+                    onClick = onOpen,
+                    label = {
+                        Text(
+                            pluralStringResource(
+                                Res.plurals.TestResults_Filters_Count,
+                                filter.filterCount,
+                                filter.filterCount,
+                            ),
+                        )
+                    },
+                    modifier = Modifier.padding(start = 8.dp),
+                )
+                return@FlowRow
+            }
+
             if (filter.descriptors.any()) {
                 InputChip(
                     selected = true,
@@ -110,6 +134,27 @@ fun ResultFiltersRow(
                                     Res.plurals.TestResults_Filter_Tests_Count,
                                     filter.descriptors.size,
                                     filter.descriptors.size,
+                                )
+                            },
+                        )
+                    },
+                    modifier = Modifier.padding(start = 8.dp),
+                )
+            }
+
+            if (filter.networks.any()) {
+                InputChip(
+                    selected = true,
+                    onClick = onOpen,
+                    label = {
+                        Text(
+                            if (filter.networks.size == 1) {
+                                filter.networks.first().name()
+                            } else {
+                                pluralStringResource(
+                                    Res.plurals.TestResults_Filter_Networks_Count,
+                                    filter.networks.size,
+                                    filter.networks.size,
                                 )
                             },
                         )
@@ -143,6 +188,7 @@ fun ResultFiltersRow(
 fun ResultFiltersDialog(
     initialFilter: ResultFilter,
     descriptors: List<Descriptor>,
+    networks: List<NetworkModel>,
     onSave: (ResultFilter) -> Unit,
     onDismiss: () -> Unit,
 ) {
@@ -185,6 +231,7 @@ fun ResultFiltersDialog(
                         currentFilter,
                         { currentFilter = it },
                         descriptors,
+                        networks,
                     )
 
                     Button(
@@ -211,6 +258,7 @@ private fun ResultsFiltersDialogContent(
     filter: ResultFilter,
     updateFilter: (ResultFilter) -> Unit,
     descriptors: List<Descriptor>,
+    networks: List<NetworkModel>,
 ) {
     Column(
         modifier = Modifier
@@ -219,11 +267,13 @@ private fun ResultsFiltersDialogContent(
             // So content can scroll above the Save button
             .padding(bottom = 64.dp),
     ) {
-        TestsFilter(filter, updateFilter, descriptors)
+        DateFilter(filter, updateFilter)
         HorizontalDivider(Modifier.padding(vertical = 8.dp))
         OriginFilter(filter, updateFilter)
         HorizontalDivider(Modifier.padding(vertical = 8.dp))
-        DateFilter(filter, updateFilter)
+        TestsFilter(filter, updateFilter, descriptors)
+        HorizontalDivider(Modifier.padding(vertical = 8.dp))
+        NetworksFilter(filter, updateFilter, networks)
     }
 }
 
@@ -420,6 +470,47 @@ private fun ResultFilter.Date.display() =
                 customRange.start.isoFormat() + " – " + customRange.endInclusive.isoFormat()
             }
     }
+
+@Composable
+private fun NetworksFilter(
+    filter: ResultFilter,
+    updateFilter: (ResultFilter) -> Unit,
+    networks: List<NetworkModel>,
+) {
+    FilterTitle(
+        stringResource(Res.string.TestResults_Filter_Networks),
+        painterResource(Res.drawable.ic_network),
+    )
+
+    FlowRow(
+        modifier = Modifier.padding(start = 16.dp, end = 8.dp),
+    ) {
+        networks.forEach { network ->
+            val isSelected = filter.networks.contains(network)
+            ResultFilterChip(
+                text = network.name(),
+                isSelected = isSelected,
+                onClick = {
+                    updateFilter(
+                        if (isSelected) {
+                            filter.copy(networks = filter.networks - network)
+                        } else {
+                            filter.copy(networks = filter.networks + network)
+                        },
+                    )
+                },
+            )
+        }
+    }
+}
+
+@Composable
+private fun NetworkModel.name(): String {
+    val name = networkName?.ellipsize(20)
+        ?: asn
+        ?: stringResource(Res.string.TestResults_UnknownASN)
+    return name + countryCode?.let { " ($it)" }
+}
 
 @Composable
 private fun FilterTitle(

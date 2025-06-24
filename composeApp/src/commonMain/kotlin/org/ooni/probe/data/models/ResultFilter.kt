@@ -8,11 +8,18 @@ import org.ooni.probe.shared.today
 
 data class ResultFilter(
     val descriptors: List<Descriptor> = emptyList(),
+    val networks: List<NetworkModel> = emptyList(),
     val taskOrigin: TaskOrigin? = null,
     val dates: Date = Date.AnyDate,
     val limit: Long = LIMIT,
 ) {
     val isAll get() = this == ResultFilter()
+
+    val filterCount
+        get() = descriptors.size +
+            networks.size +
+            (if (taskOrigin == ResultFilter().taskOrigin) 0 else 1) +
+            (if (dates == ResultFilter().dates) 0 else 1)
 
     sealed class Date(
         val range: ClosedRange<LocalDate>,
