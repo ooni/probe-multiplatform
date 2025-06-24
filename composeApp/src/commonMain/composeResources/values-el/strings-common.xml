@@ -68,6 +68,7 @@
     <string name="TestResults_NotAvailable">Μη διαθέσιμο</string>
 
     <string name="TestResults_Filter_Tests">Δοκιμές</string>
+    <string name="TestResults_Filter_Networks">Δίκτυα</string>
     <string name="TestResults_Filter_Source">Πηγή</string>
     <string name="TestResults_Filter_Date">Ημερομηνία</string>
     <string name="TestResults_Filter_Date_Today">Σήμερα</string>
@@ -111,8 +112,11 @@
     <string name="Settings_Advanced_Label">Για προχωρημένους</string>
     <string name="Settings_Advanced_DebugLogs">Αρχεία καταγραφής σφαλμάτων</string>
     <string name="Settings_Advanced_RecentLogs">Εμφάνιση πρόσφατων αρχείων καταγραφής</string>
-    <string name="Settings_SendEmail_Label">Αποστολή email στην υποστήριξη</string>
-    <string name="Settings_SendEmail_Message">Παρακαλούμε να περιγράψεις μας το πρόβλημα που αντιμετωπίζεις:</string>
+
+    <string name="Settings_Support_Label">Υποστήριξη</string>
+    <string name="Settings_Support_SendEmail">Αποστολή email στην υποστήριξη</string>
+    <string name="Settings_Support_Message">Παρακαλούμε να περιγράψεις μας το πρόβλημα που αντιμετωπίζεις:</string>
+    <string name="Settings_Support_Action">Αποστολή email</string>
 
     <string name="Settings_Storage_Label">Χρήση αποθηκευτικού χώρου</string>
     <string name="Settings_Storage_Delete">Διαγραφή</string>
