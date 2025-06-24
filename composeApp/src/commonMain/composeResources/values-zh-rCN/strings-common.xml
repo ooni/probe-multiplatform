@@ -107,6 +107,7 @@
     <plurals name="TestResults_Filter_Tests_Count">
         <item quantity="other">%1$d 个测试</item>
     </plurals>
+    <string name="TestResults_Filter_Networks">网络</string>
     <string name="TestResults_Filter_Source">源</string>
     <string name="TestResults_Filter_Date">日期</string>
     <string name="TestResults_Filter_Date_Any">任意日期</string>
@@ -172,8 +173,11 @@
     <string name="Settings_Advanced_Label">高级</string>
     <string name="Settings_Advanced_DebugLogs">调试日志</string>
     <string name="Settings_Advanced_RecentLogs">查看近期日志</string>
-    <string name="Settings_SendEmail_Label">发送邮件给支持团队</string>
-    <string name="Settings_SendEmail_Message">请描述您所遇到的问题：</string>
+
+    <string name="Settings_Support_Label">支持</string>
+    <string name="Settings_Support_SendEmail">发送邮件给支持团队</string>
+    <string name="Settings_Support_Message">请描述您所遇到的问题：</string>
+    <string name="Settings_Support_Action">发送邮件</string>
 
     <string name="Settings_Storage_Label">存储用量</string>
     <string name="Settings_Storage_Delete">删除</string>
