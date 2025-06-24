@@ -68,6 +68,7 @@
     <string name="TestResults_NotAvailable">Non valido</string>
 
     <string name="TestResults_Filter_Tests">Test</string>
+    <string name="TestResults_Filter_Networks">Reti</string>
     <string name="TestResults_Filter_Source">Sorgente</string>
     <string name="TestResults_Filter_Date">Data</string>
     <string name="TestResults_Filter_Date_Today">Oggi</string>
@@ -107,8 +108,10 @@
 
     <string name="Settings_Advanced_Label">Avanzate</string>
     <string name="Settings_Advanced_DebugLogs">Log di debug</string>
-    <string name="Settings_SendEmail_Label">Invia email a supporto</string>
-    <string name="Settings_SendEmail_Message">Per favore descrivi il problema:</string>
+    <string name="Settings_Support_Label">Supporto</string>
+    <string name="Settings_Support_SendEmail">Invia email a supporto</string>
+    <string name="Settings_Support_Message">Per favore descrivi il problema:</string>
+    <string name="Settings_Support_Action">Invia email</string>
 
     <string name="Settings_Storage_Label">Utilizzo spazio di archiviazione</string>
     <string name="Settings_Storage_Delete">Rimuovi</string>
