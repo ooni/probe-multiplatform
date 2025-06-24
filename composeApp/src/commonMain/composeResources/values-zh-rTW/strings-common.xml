@@ -83,6 +83,7 @@
     <string name="TestResults_NotAvailable">不適用</string>
 
     <string name="TestResults_Filter_Tests">測試</string>
+    <string name="TestResults_Filter_Networks">網路</string>
     <string name="TestResults_Filter_Source">來源</string>
     <string name="TestResults_Filter_Date">日期</string>
     <string name="TestResults_Filter_Date_Today">今天</string>
@@ -126,8 +127,11 @@
     <string name="Settings_Advanced_Label">進階的</string>
     <string name="Settings_Advanced_DebugLogs">調試記錄</string>
     <string name="Settings_Advanced_RecentLogs">查看近期活動記錄</string>
-    <string name="Settings_SendEmail_Label">寄求助郵件</string>
-    <string name="Settings_SendEmail_Message">請描述您所遇到的問題: </string>
+
+    <string name="Settings_Support_Label">支援</string>
+    <string name="Settings_Support_SendEmail">寄求助郵件</string>
+    <string name="Settings_Support_Message">請描述您所遇到的問題: </string>
+    <string name="Settings_Support_Action">發送電子郵件</string>
 
     <string name="Settings_Storage_Label">儲存用量</string>
     <string name="Settings_Storage_Delete">刪除</string>
