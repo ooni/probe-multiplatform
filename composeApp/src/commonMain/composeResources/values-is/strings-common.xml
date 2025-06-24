@@ -93,6 +93,7 @@
     <string name="TestResults_NotAvailable">Ekki tiltækt</string>
 
     <string name="TestResults_Filter_Tests">Prófanir</string>
+    <string name="TestResults_Filter_Networks">Netkerfi</string>
     <string name="TestResults_Filter_Date">Dagsetning</string>
     <string name="TestResults_Filter_Date_Today">Í dag</string>
     <string name="TestResults_Filter_Date_Custom">Sérsniðið</string>
@@ -143,9 +144,10 @@
     <string name="Settings_Advanced_Label">Ítarlegra</string>
     <string name="Settings_Advanced_DebugLogs">Villuskrár</string>
     <string name="Settings_Advanced_RecentLogs">Skoða nýlegar atvikaskrár</string>
-    <string name="Settings_SendEmail_Label">Senda tölvupóst til að fá aðstoð</string>
-    <string name="Settings_SendEmail_Message">Lýstu hvaða vandamál þú átt við að eiga:</string>
 
+    <string name="Settings_Support_Label">Aðstoð</string>
+    <string name="Settings_Support_SendEmail">Senda tölvupóst til að fá aðstoð</string>
+    <string name="Settings_Support_Message">Lýstu hvaða vandamál þú átt við að eiga:</string>
     <string name="Settings_Storage_Label">Notkun á geymsluplássi</string>
     <string name="Settings_Storage_Delete">Eyða</string>
     <string name="Settings_Storage_Clear">Hreinsa</string>
