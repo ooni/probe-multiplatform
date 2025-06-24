@@ -69,6 +69,7 @@
     <string name="TestResults_NotAvailable">N/A</string>
 
     <string name="TestResults_Filter_Tests">تست‌‌ها</string>
+    <string name="TestResults_Filter_Networks">شبکه ها</string>
     <string name="TestResults_Filter_Source">منبع</string>
     <string name="TestResults_Filter_Date">تاریخ</string>
     <string name="TestResults_Filter_Date_Today">امروز</string>
@@ -113,8 +114,11 @@
     <string name="Settings_Advanced_Label">پیشرفته </string>
     <string name="Settings_Advanced_DebugLogs">ثبت اشکال زدایی‌ها</string>
     <string name="Settings_Advanced_RecentLogs">مشاهده گزارش‌های اخیر</string>
-    <string name="Settings_SendEmail_Label">ارسال ایمیل به پشتیبانی</string>
-    <string name="Settings_SendEmail_Message">لطفا مشکل خود را توضیح دهید:</string>
+
+    <string name="Settings_Support_Label">پشتیبانی</string>
+    <string name="Settings_Support_SendEmail">ارسال ایمیل به پشتیبانی</string>
+    <string name="Settings_Support_Message">لطفا مشکل خود را توضیح دهید:</string>
+    <string name="Settings_Support_Action">ارسال ایمیل</string>
 
     <string name="Settings_Storage_Label">استفاده از حافظه</string>
     <string name="Settings_Storage_Delete">حذف کنید</string>
