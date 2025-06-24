@@ -68,6 +68,7 @@
     <string name="TestResults_NotAvailable">n.v.t.</string>
 
     <string name="TestResults_Filter_Tests">Testen</string>
+    <string name="TestResults_Filter_Networks">Netwerken</string>
     <string name="TestResults_Filter_Source">Bron</string>
     <string name="TestResults_Filter_Date">Datum</string>
     <string name="TestResults_Filter_Date_Today">Vandaag</string>
@@ -108,8 +109,10 @@
 
     <string name="Settings_Advanced_Label">Geavanceerd</string>
     <string name="Settings_Advanced_DebugLogs">Debug-logs</string>
-    <string name="Settings_SendEmail_Label">Stuur een e-mail naar ondersteuning</string>
-    <string name="Settings_SendEmail_Message">Beschrijf het probleem dat u ondervindt:</string>
+    <string name="Settings_Support_Label">Support</string>
+    <string name="Settings_Support_SendEmail">Stuur een e-mail naar ondersteuning</string>
+    <string name="Settings_Support_Message">Beschrijf het probleem dat u ondervindt:</string>
+    <string name="Settings_Support_Action">Verstuur email</string>
 
     <string name="Settings_Storage_Label">Opslaggebruik</string>
     <string name="Settings_Storage_Delete">Verwijderen</string>
