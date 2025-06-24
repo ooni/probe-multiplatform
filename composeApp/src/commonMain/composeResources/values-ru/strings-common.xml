@@ -116,6 +116,7 @@
         <item quantity="many">%1$d тестов</item>
         <item quantity="other">%1$d тестов</item>
     </plurals>
+    <string name="TestResults_Filter_Networks">Сети</string>
     <string name="TestResults_Filter_Source">Объект</string>
     <string name="TestResults_Filter_Date">Дата</string>
     <string name="TestResults_Filter_Date_Any">Любая дата</string>
@@ -181,8 +182,11 @@
     <string name="Settings_Advanced_Label">Дополнительно</string>
     <string name="Settings_Advanced_DebugLogs">Журналы отладки</string>
     <string name="Settings_Advanced_RecentLogs">Посмотреть последние логи</string>
-    <string name="Settings_SendEmail_Label">Отправить письмо поддержке</string>
-    <string name="Settings_SendEmail_Message">Пожалуйста, опишите проблему: </string>
+
+    <string name="Settings_Support_Label">Поддержка</string>
+    <string name="Settings_Support_SendEmail">Отправить письмо поддержке</string>
+    <string name="Settings_Support_Message">Пожалуйста, опишите проблему: </string>
+    <string name="Settings_Support_Action">Отправить письмо</string>
 
     <string name="Settings_Storage_Label">Использование хранилища</string>
     <string name="Settings_Storage_Delete">Удалить</string>
