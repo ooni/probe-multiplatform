@@ -106,6 +106,7 @@
     <string name="TestResults_Filters_Title">Sınama sonuçlarını süz</string>
     <string name="TestResults_Filters_Short">Süzgeçler:</string>
     <string name="TestResults_Filter_Tests">Sınamalar</string>
+    <string name="TestResults_Filter_Networks">Ağ</string>
     <string name="TestResults_Filter_Source">Kaynak</string>
     <string name="TestResults_Filter_Date">Tarih</string>
     <string name="TestResults_Filter_Date_Any">Herhangi bir tarih</string>
@@ -171,8 +172,11 @@
     <string name="Settings_Advanced_Label">Gelişmiş</string>
     <string name="Settings_Advanced_DebugLogs">Hata ayıklama günlükleri</string>
     <string name="Settings_Advanced_RecentLogs">Son günlükleri görüntüle</string>
-    <string name="Settings_SendEmail_Label">Destek ekibine e-posta gönder</string>
-    <string name="Settings_SendEmail_Message">Lütfen yaşadığınız sorunu anlatın:</string>
+
+    <string name="Settings_Support_Label">Destek</string>
+    <string name="Settings_Support_SendEmail">Destek ekibine e-posta gönder</string>
+    <string name="Settings_Support_Message">Lütfen yaşadığınız sorunu anlatın:</string>
+    <string name="Settings_Support_Action">E-posta gönder</string>
 
     <string name="Settings_Storage_Label">Depolama kullanımı</string>
     <string name="Settings_Storage_Delete">Sil</string>
