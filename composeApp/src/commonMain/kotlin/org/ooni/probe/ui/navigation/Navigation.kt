@@ -40,6 +40,7 @@ import org.ooni.probe.ui.settings.about.AboutScreen
 import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
 import org.ooni.probe.ui.settings.donate.DonateScreen
 import org.ooni.probe.ui.settings.proxy.ProxyScreen
+import org.ooni.probe.ui.settings.support.SupportScreen
 import org.ooni.probe.ui.settings.webcategories.WebCategoriesScreen
 import org.ooni.probe.ui.upload.UploadMeasurementsDialog
 
@@ -192,6 +193,13 @@ fun Navigation(
                     DonateScreen(
                         onBack = { navController.goBack() },
                         openUrl = { dependencies.launchAction(PlatformAction.OpenUrl(it)) },
+                    )
+                }
+
+                PreferenceCategoryKey.SUPPORT -> {
+                    SupportScreen(
+                        onBack = { navController.goBack() },
+                        sendSupportEmail = dependencies.sendSupportEmail::invoke,
                     )
                 }
 

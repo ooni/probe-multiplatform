@@ -25,6 +25,7 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
+import okio.Path
 import okio.Path.Companion.toPath
 import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
@@ -130,14 +131,24 @@ class AndroidApplication : Application() {
     }
 
     private fun sendMail(mail: PlatformAction.Mail): Boolean {
+        val attachmentUri = mail.attachment?.let(::getUriForFile)
+
         val intent = Intent.createChooser(
-            Intent(Intent.ACTION_SENDTO, "mailto:${mail.to}".toUri()).apply {
-                putExtra(Intent.EXTRA_EMAIL, arrayOf(mail.to))
-                putExtra(Intent.EXTRA_SUBJECT, mail.subject)
-                putExtra(Intent.EXTRA_TEXT, mail.body)
-            },
+            Intent(Intent.ACTION_SENDTO, "mailto:".toUri())
+                .putExtra(Intent.EXTRA_EMAIL, arrayOf(mail.to))
+                .putExtra(Intent.EXTRA_SUBJECT, mail.subject)
+                .putExtra(Intent.EXTRA_TEXT, mail.body)
+                .run {
+                    attachmentUri?.let {
+                        putExtra(Intent.EXTRA_STREAM, attachmentUri)
+                            // Avoid SecurityException
+                            .also { it.clipData = ClipData.newRawUri("", attachmentUri) }
+                            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    } ?: this
+                },
             mail.chooserTitle,
         ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
         return try {
             startActivity(intent)
             true
@@ -199,7 +210,10 @@ class AndroidApplication : Application() {
     private fun openLanguageSettings() =
         try {
             startActivity(
-                Intent("android.settings.APP_LOCALE_SETTINGS", Uri.fromParts("package", packageName, null))
+                Intent(
+                    "android.settings.APP_LOCALE_SETTINGS",
+                    Uri.fromParts("package", packageName, null),
+                )
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             )
             true
@@ -209,18 +223,7 @@ class AndroidApplication : Application() {
         }
 
     private fun shareFile(fileSharing: PlatformAction.FileSharing): Boolean {
-        val file = filesDir.absolutePath.toPath().resolve(fileSharing.filePath).toFile()
-        if (!file.exists()) {
-            Logger.w("File to share does not exist: $file")
-            return false
-        }
-
-        val uri = try {
-            FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", file)
-        } catch (e: IllegalArgumentException) {
-            Logger.w("Could not generate file uri to share", e)
-            return false
-        }
+        val uri = getUriForFile(fileSharing.filePath) ?: return false
 
         return try {
             startActivity(
@@ -238,6 +241,21 @@ class AndroidApplication : Application() {
         } catch (e: ActivityNotFoundException) {
             Logger.e("Could not share file", e)
             false
+        }
+    }
+
+    private fun getUriForFile(filePath: Path): Uri? {
+        val file = filesDir.absolutePath.toPath().resolve(filePath).toFile()
+        if (!file.exists()) {
+            Logger.w("File to share does not exist: $file")
+            return null
+        }
+
+        return try {
+            FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", file)
+        } catch (e: IllegalArgumentException) {
+            Logger.w("Could not generate file uri to share", e)
+            null
         }
     }
 

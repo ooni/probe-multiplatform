@@ -206,6 +206,19 @@ class SetupDependencies(
                 setToRecipients(listOf(action.to))
                 setSubject(action.subject)
                 setMessageBody(action.body, isHTML = false)
+                action.attachment?.let { attachment ->
+                    val filePath = filesDir() + "/" + attachment.toString()
+                    val fileManager = NSFileManager.defaultManager
+                    if (fileManager.fileExistsAtPath(filePath)) {
+                        fileManager.contentsAtPath(filePath)?.let { data ->
+                            addAttachmentData(
+                                attachment = data,
+                                mimeType = "application/text",
+                                fileName = attachment.name,
+                            )
+                        }
+                    }
+                }
             }.let { mailComposer ->
                 presentViewController(mailComposer)
             }

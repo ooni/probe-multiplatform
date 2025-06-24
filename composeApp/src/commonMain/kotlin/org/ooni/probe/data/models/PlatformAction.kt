@@ -8,6 +8,7 @@ sealed interface PlatformAction {
         val subject: String,
         val body: String,
         val chooserTitle: String? = null,
+        val attachment: Path? = null,
     ) : PlatformAction
 
     data class OpenUrl(val url: String) : PlatformAction

@@ -34,11 +34,11 @@ import ooniprobe.composeapp.generated.resources.Settings_Language_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_SendCrashReports
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
-import ooniprobe.composeapp.generated.resources.Settings_SendEmail_Label
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_Description
 import ooniprobe.composeapp.generated.resources.Settings_Storage_Clear
 import ooniprobe.composeapp.generated.resources.Settings_Storage_Label
+import ooniprobe.composeapp.generated.resources.Settings_Support_Label
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_WarmVPNInUse_Label
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Description
@@ -49,10 +49,10 @@ import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntime_New
 import ooniprobe.composeapp.generated.resources.advanced
 import ooniprobe.composeapp.generated.resources.ic_language
 import ooniprobe.composeapp.generated.resources.ic_settings
+import ooniprobe.composeapp.generated.resources.ic_support
 import ooniprobe.composeapp.generated.resources.outline_info
 import ooniprobe.composeapp.generated.resources.privacy
 import ooniprobe.composeapp.generated.resources.proxy
-import ooniprobe.composeapp.generated.resources.send_email
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.config.OrganizationConfig
@@ -306,9 +306,9 @@ class GetSettings(
                 ),
             ),
             SettingsCategoryItem(
-                icon = Res.drawable.send_email,
-                title = Res.string.Settings_SendEmail_Label,
-                route = PreferenceCategoryKey.SEND_EMAIL,
+                icon = Res.drawable.ic_support,
+                title = Res.string.Settings_Support_Label,
+                route = PreferenceCategoryKey.SUPPORT,
             ),
             DONATE_SETTINGS_ITEM,
             SettingsCategoryItem(
