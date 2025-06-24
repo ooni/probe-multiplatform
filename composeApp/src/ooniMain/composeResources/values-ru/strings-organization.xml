@@ -35,6 +35,16 @@
     <string name="Settings_About_Content_DataPolicy">Политика данных OONI</string>
 
     <string name="Settings_Donate_Title">Сделать пожертвование</string>
+    <string name="Settings_Donate_Heading">Поддержите нас и свободный интернет</string>
+    <string name="Settings_Donate_SubHeading">Как некоммерческая организация, мы полагаемся на поддержку людей, чтобы защищать свободный и независимый интернет.</string>
+    <string name="Settings_Donate_Support_Title">Поддерживая OONI, вы поддерживаете:</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">Свободное приложение с открытым кодом для мониторинга интернет-цензуры</string>
+    <string name="Settings_Donate_Support_Item_Analysis">Анализ интернет-цензуры по всему миру в реальном времени</string>
+    <string name="Settings_Donate_Support_Item_OpenData">Открытые данные об интернет-цензуре, которым пользуется международное сообщество исследователей и адвокатов</string>
+    <string name="Settings_Donate_Support_Item_Research">Исследование цензуры по всему миру</string>
     <string name="Settings_Donate_Action">Сделать пожертвование</string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">При нажатии на эту кнопку откроется страница во внешнем браузере</string>
+    <string name="Settings_Donate_Action_Error">Ошибка при открытии фандрайзинговой страницы. Пожалуйста, перейдите по ссылке: %1$s</string>
+
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Вы сможете установить эту ссылку снова только с помощью оригинальной ссылки, отправленной ее создателем. Измерения, собранные с помощью этой ссылки будут удалены, но останутся доступными в OONI Explorer. </string>
 </resources>
