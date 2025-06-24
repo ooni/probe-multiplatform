@@ -105,11 +105,22 @@
     <string name="TestResults_NotAvailable">N/D</string>
 
     <string name="TestResults_Filters_Short">Filtros:</string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one">%1$d filtro</item>
+        <item quantity="many">%1$d de filtros</item>
+        <item quantity="other">%1$d filtros</item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Pruebas</string>
     <plurals name="TestResults_Filter_Tests_Count">
         <item quantity="one">%1$d prueba</item>
         <item quantity="many">%1$d de pruebas</item>
         <item quantity="other">%1$d pruebas</item>
+    </plurals>
+    <string name="TestResults_Filter_Networks">Redes</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one">%1$d rede</item>
+        <item quantity="many">%1$d de redes</item>
+        <item quantity="other">%1$d redes</item>
     </plurals>
     <string name="TestResults_Filter_Source">Fuente</string>
     <string name="TestResults_Filter_Date">Fecha de presentación</string>
@@ -162,8 +173,13 @@
     <string name="Settings_Advanced_Label">Avanzado</string>
     <string name="Settings_Advanced_DebugLogs">Registros de depuración</string>
     <string name="Settings_Advanced_RecentLogs">Opción A: (Traducción literal)\n\nVer registros recientes\n\nOpción B: (más apegada a la estructura de OONI):\nVer logs recientes</string>
-    <string name="Settings_SendEmail_Label">Enviar correo electrónico al soporte</string>
-    <string name="Settings_SendEmail_Message">Por favor describe el problema que estás experimentando:</string>
+
+    <string name="Settings_Support_Label">Soporte</string>
+    <string name="Settings_Support_SendEmail">Enviar correo electrónico al soporte</string>
+    <string name="Settings_Support_Message">Por favor describe el problema que estás experimentando:</string>
+    <string name="Settings_Support_Message_Hint">Mensaje al equipo de soporte</string>
+    <string name="Settings_Support_IncludeLogs">Incluir registros de aplicación</string>
+    <string name="Settings_Support_Action">Enviar correo electrónico</string>
 
     <string name="Settings_Storage_Label">Uso de almacenamiento</string>
     <string name="Settings_Storage_Delete">Eliminar</string>
