@@ -23,7 +23,7 @@ data class NetworkModel(
         val value: Long,
     )
 
-    fun isValid() = asn != "AS0"
+    fun isValid() = asn != "AS0" && !countryCode.equals("ZZ", ignoreCase = true)
 }
 
 object NetworkModelIdSerializer : KSerializer<NetworkModel.Id> {
