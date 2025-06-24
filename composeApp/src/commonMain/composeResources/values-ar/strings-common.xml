@@ -88,6 +88,7 @@
     <string name="TestResults_NotAvailable">‮غير متاح</string>
 
     <string name="TestResults_Filter_Tests">اختبارات</string>
+    <string name="TestResults_Filter_Networks">الشبكات</string>
     <string name="TestResults_Filter_Source">المصدر</string>
     <string name="TestResults_Filter_Date">تاريخ</string>
     <string name="TestResults_Filter_Date_Today">اليوم</string>
@@ -138,8 +139,11 @@
     <string name="Settings_Advanced_Label">متقدم</string>
     <string name="Settings_Advanced_DebugLogs">أظهر سجلات التصحيح</string>
     <string name="Settings_Advanced_RecentLogs">الاطلاع على السجلات الأخيرة</string>
-    <string name="Settings_SendEmail_Label">إرسال إيميل لفريق الدعم </string>
-    <string name="Settings_SendEmail_Message">يرجى وصف المشكلة التي تواجهونها: </string>
+
+    <string name="Settings_Support_Label">الدعم</string>
+    <string name="Settings_Support_SendEmail">إرسال إيميل لفريق الدعم </string>
+    <string name="Settings_Support_Message">يرجى وصف المشكلة التي تواجهونها: </string>
+    <string name="Settings_Support_Action">إرسال البريد الإلكتروني</string>
 
     <string name="Settings_Storage_Label">استخدام سعة التخزين </string>
     <string name="Settings_Storage_Delete">حذف</string>
