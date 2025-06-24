@@ -31,6 +31,7 @@ class UploadMissingMeasurementsTest {
                         OonimkallBridge.SubmitMeasurementResults(
                             updatedMeasurement = "",
                             updatedReportId = "report_id",
+                            measurementUid = "12346",
                         ),
                     )
                 },

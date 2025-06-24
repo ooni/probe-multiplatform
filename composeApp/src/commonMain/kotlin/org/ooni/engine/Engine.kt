@@ -87,9 +87,13 @@ class Engine(
     ): Result<SubmitMeasurementResults, MkException> =
         resultOf(backgroundContext) {
             val sessionConfig = buildSessionConfig(taskOrigin, getEnginePreferences())
-            session(sessionConfig).use {
+            val results = session(sessionConfig).use {
                 it.submitMeasurement(measurement)
             }
+            if (results.measurementUid == null) {
+                throw SubmissionFailed("Missing measurement UID")
+            }
+            results
         }.mapError { MkException(it) }
 
     suspend fun checkIn(taskOrigin: TaskOrigin): Result<OonimkallBridge.CheckInResults, MkException> {
@@ -238,6 +242,8 @@ class Engine(
             TaskOrigin.AutoRun -> "timed"
             TaskOrigin.OoniRun -> "manual"
         }
+
+    class SubmissionFailed(cause: String) : Exception(cause)
 
     class MkException(t: Throwable) : Exception(t)
 }

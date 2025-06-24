@@ -40,6 +40,7 @@ sealed interface TaskEvent {
 
     data class MeasurementSubmissionSuccessful(
         val index: Int,
+        val measurementUid: String?,
     ) : TaskEvent
 
     data class MeasurementSubmissionFailure(

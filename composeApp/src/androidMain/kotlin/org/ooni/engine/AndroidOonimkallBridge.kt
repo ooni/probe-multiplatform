@@ -32,6 +32,7 @@ class AndroidOonimkallBridge : OonimkallBridge {
                 return OonimkallBridge.SubmitMeasurementResults(
                     updatedMeasurement = results.updatedMeasurement,
                     updatedReportId = results.updatedReportID,
+                    measurementUid = results.measurementUID,
                 )
             }
 

@@ -1,0 +1,1 @@
+ALTER TABLE Measurement ADD COLUMN uid TEXT;
