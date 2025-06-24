@@ -113,6 +113,7 @@
         <item quantity="many">%1$d de tests</item>
         <item quantity="other">%1$d tests</item>
     </plurals>
+    <string name="TestResults_Filter_Networks">Réseaux</string>
     <string name="TestResults_Filter_Source">Source</string>
     <string name="TestResults_Filter_Date">Date</string>
     <string name="TestResults_Filter_Date_Any">N’importe quelle date</string>
@@ -178,8 +179,11 @@
     <string name="Settings_Advanced_Label">Avancés</string>
     <string name="Settings_Advanced_DebugLogs">Journaux de débogage</string>
     <string name="Settings_Advanced_RecentLogs">Voir les journaux récents</string>
-    <string name="Settings_SendEmail_Label">Envoyer un courriel à l’assistance</string>
-    <string name="Settings_SendEmail_Message">Décrivez le problème que vous rencontrez :</string>
+
+    <string name="Settings_Support_Label">Assistance</string>
+    <string name="Settings_Support_SendEmail">Envoyer un courriel à l’assistance</string>
+    <string name="Settings_Support_Message">Décrivez le problème que vous rencontrez :</string>
+    <string name="Settings_Support_Action">Envoyer le courriel</string>
 
     <string name="Settings_Storage_Label">Utilisation de l’espace de stockage</string>
     <string name="Settings_Storage_Delete">Supprimer</string>
