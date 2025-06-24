@@ -62,7 +62,7 @@ class ResultViewModelTest {
     private fun buildViewModel(
         resultId: ResultModel.Id = ResultModel.Id(1234),
         onBack: () -> Unit = {},
-        goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit = { _, _ -> },
+        goToMeasurement: (MeasurementModel.Id) -> Unit = {},
         goToMeasurementRaw: (MeasurementModel.Id) -> Unit = {},
         getResult: (ResultModel.Id) -> Flow<ResultItem?> = { flowOf(null) },
         markResultAsViewed: (ResultModel.Id) -> Unit = {},

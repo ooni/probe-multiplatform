@@ -635,7 +635,7 @@ class Dependencies(
     fun resultViewModel(
         resultId: ResultModel.Id,
         onBack: () -> Unit,
-        goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+        goToMeasurement: (MeasurementModel.Id) -> Unit,
         goToMeasurementRaw: (MeasurementModel.Id) -> Unit,
         goToUpload: () -> Unit,
         goToDashboard: () -> Unit,
@@ -653,13 +653,12 @@ class Dependencies(
     )
 
     fun measurementViewModel(
-        reportId: MeasurementModel.ReportId,
-        input: String?,
+        measurementId: MeasurementModel.Id,
         onBack: () -> Unit,
     ) = MeasurementViewModel(
-        reportId = reportId,
-        input = input,
+        measurementId = measurementId,
         onBack = onBack,
+        getMeasurement = measurementRepository::getById,
         shareUrl = { launchAction(PlatformAction.Share(it)) },
         openUrl = { launchAction(PlatformAction.OpenUrl(it)) },
         isWebViewAvailable = isWebViewAvailable,
@@ -669,7 +668,7 @@ class Dependencies(
         measurementId: MeasurementModel.Id,
         onBack: () -> Unit,
         goToUpload: (MeasurementModel.Id) -> Unit,
-        goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+        goToMeasurement: (MeasurementModel.Id) -> Unit,
     ) = MeasurementRawViewModel(
         measurementId = measurementId,
         onBack = onBack,

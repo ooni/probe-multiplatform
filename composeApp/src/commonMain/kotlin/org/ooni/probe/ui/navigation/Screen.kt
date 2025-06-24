@@ -21,8 +21,7 @@ sealed interface Screen {
     ) : Screen
 
     @Serializable data class Measurement(
-        val measurementReportId: String,
-        val input: String?,
+        val measurementId: Long,
     ) : Screen
 
     @Serializable data class MeasurementRaw(

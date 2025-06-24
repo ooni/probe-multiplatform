@@ -2,20 +2,23 @@ package org.ooni.probe.ui.measurement
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.take
 import org.intellij.markdown.html.urlEncode
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.MeasurementWithUrl
 
 class MeasurementViewModel(
-    reportId: MeasurementModel.ReportId,
-    input: String?,
+    measurementId: MeasurementModel.Id,
     onBack: () -> Unit,
+    getMeasurement: (MeasurementModel.Id) -> Flow<MeasurementWithUrl?>,
     openUrl: (String) -> Unit,
     shareUrl: (String) -> Unit,
     isWebViewAvailable: () -> Boolean,
@@ -26,23 +29,37 @@ class MeasurementViewModel(
     val state = _state.asStateFlow()
 
     init {
-        val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
-        val url = "${OrganizationConfig.explorerUrl}/measurement/${reportId.value}$inputSuffix"
+        getMeasurement(measurementId)
+            .take(1)
+            .onEach { item ->
+                val m = item?.measurement
+                val input = item?.url?.url
+                val url = if (m?.uid != null) {
+                    "${OrganizationConfig.explorerUrl}/m/${m.uid.value}"
+                } else if (m?.reportId != null) {
+                    val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
+                    "${OrganizationConfig.explorerUrl}/measurement/${m.reportId.value}$inputSuffix"
+                } else {
+                    onBack()
+                    return@onEach
+                }
+
+                if (isWebViewAvailable()) {
+                    _state.value = State.ShowMeasurement(url)
+                } else {
+                    openUrl(url)
+                    onBack()
+                }
+            }
+            .launchIn(viewModelScope)
 
         events.filterIsInstance<Event.BackClicked>()
             .onEach { onBack() }
             .launchIn(viewModelScope)
 
         events.filterIsInstance<Event.ShareUrl>()
-            .onEach { shareUrl(url) }
+            .onEach { (_state.value as? State.ShowMeasurement)?.url?.let(shareUrl) }
             .launchIn(viewModelScope)
-
-        if (isWebViewAvailable()) {
-            _state.value = State.ShowMeasurement(url)
-        } else {
-            openUrl(url)
-            onBack()
-        }
     }
 
     fun onEvent(event: Event) {
