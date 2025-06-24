@@ -107,11 +107,22 @@
 
     <string name="TestResults_Filters_Title">Filtrar Resultados</string>
     <string name="TestResults_Filters_Short">Filtros:</string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one">%1$d filtro</item>
+        <item quantity="many">%1$d de filtros</item>
+        <item quantity="other">%1$d filtros</item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Testes</string>
     <plurals name="TestResults_Filter_Tests_Count">
         <item quantity="one">%1$d teste</item>
         <item quantity="many">%1$d de testes</item>
         <item quantity="other">%1$d testes</item>
+    </plurals>
+    <string name="TestResults_Filter_Networks">Redes</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one">%1$d rede</item>
+        <item quantity="many">%1$d de redes</item>
+        <item quantity="other">%1$d redes</item>
     </plurals>
     <string name="TestResults_Filter_Source">Fonte</string>
     <string name="TestResults_Filter_Date">Data</string>
@@ -176,10 +187,15 @@
     <string name="Settings_Language_Label">Idioma</string>
 
     <string name="Settings_Advanced_Label">Avançado</string>
-    <string name="Settings_Advanced_DebugLogs">Registros de depuração</string>
+    <string name="Settings_Advanced_DebugLogs">Logs de depuração</string>
     <string name="Settings_Advanced_RecentLogs">Ver logs recentes</string>
-    <string name="Settings_SendEmail_Label">Enviar e-mail para suporte</string>
-    <string name="Settings_SendEmail_Message">Descreva o problema que você está enfrentando:</string>
+
+    <string name="Settings_Support_Label">Suporte</string>
+    <string name="Settings_Support_SendEmail">Enviar e-mail para suporte</string>
+    <string name="Settings_Support_Message">Descreva o problema que você está enfrentando:</string>
+    <string name="Settings_Support_Message_Hint">Mensagem para a equipa de suporte</string>
+    <string name="Settings_Support_IncludeLogs">Incluir logs do aplicativo</string>
+    <string name="Settings_Support_Action">Enviar email</string>
 
     <string name="Settings_Storage_Label">Uso de armazenamento</string>
     <string name="Settings_Storage_Delete">Apagar</string>
