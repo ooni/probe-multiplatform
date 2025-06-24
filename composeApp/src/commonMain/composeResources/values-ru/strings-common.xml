@@ -338,6 +338,18 @@
     <string name="Modal_Cancel">Отмена</string>
     <string name="Modal_OK">ОК</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Удалить все результаты тестов?</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">Вы хотите удалить результат %1$s теста\?</item>
+        <item quantity="few">Вы хотите удалить результаты %1$s тестов\?</item>
+        <item quantity="many">Вы хотите удалить результаты %1$s тестов\?</item>
+        <item quantity="other">Вы хотите удалить результаты %1$s тестов\?</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one">выбран %1$d результат</item>
+        <item quantity="few">выбраны %1$d результатов</item>
+        <item quantity="many">выбраны %1$d результатов</item>
+        <item quantity="other">выбраны %1$d результатов</item>
+    </plurals>
     <string name="Modal_Delete">Удалить</string>
     <string name="Modal_ReRun_Title">Повторить тест</string>
     <string name="Modal_ReRun_Websites_Title">Вы собираетесь повторно протестировать %1$s сайтов.</string>
@@ -377,6 +389,18 @@
     <string name="Common_Clear">Очистить</string>
 
     <string name="Common_Ago">%1$s назад</string>
+    <plurals name="Common_Minutes">
+        <item quantity="one">%1$d минута</item>
+        <item quantity="few">%1$d минут</item>
+        <item quantity="many">%1$d минут</item>
+        <item quantity="other">%1$d минут</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d час</item>
+        <item quantity="few">%1$d часов</item>
+        <item quantity="many">%1$d часов</item>
+        <item quantity="other">%1$d часов</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$dчас</string>
     <string name="Common_Minutes_Abbreviated">%1$dмин</string>
     <string name="Common_Seconds_Abbreviated">%1$dсек</string>
