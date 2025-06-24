@@ -104,6 +104,7 @@
     <string name="TestResults_UnknownASN">Desconocido</string>
     <string name="TestResults_NotAvailable">N/D</string>
 
+    <string name="TestResults_Filters_Title">Filtrar resultados de teste</string>
     <string name="TestResults_Filters_Short">Filtros:</string>
     <plurals name="TestResults_Filters_Count">
         <item quantity="one">%1$d filtro</item>
@@ -126,7 +127,11 @@
     <string name="TestResults_Filter_Date">Fecha de presentación</string>
     <string name="TestResults_Filter_Date_Any">Cualquier fecha</string>
     <string name="TestResults_Filter_Date_Today">Hoy</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">Desde hace 7 días</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">Desde hace 1 mes</string>
     <string name="TestResults_Filter_Date_Custom">Personalizada</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Personalizado: %1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Seleccionar rango de fechas</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
     <!-- Measurements -->
