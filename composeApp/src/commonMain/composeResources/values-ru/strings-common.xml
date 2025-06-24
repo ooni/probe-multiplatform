@@ -109,6 +109,12 @@
 
     <string name="TestResults_Filters_Title">Отфильтровать результаты тестов</string>
     <string name="TestResults_Filters_Short">Фильтры:</string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one">%1$d фильтр</item>
+        <item quantity="few">%1$d фильтров</item>
+        <item quantity="many">%1$d фильтров</item>
+        <item quantity="other">%1$d фильтров</item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Тесты</string>
     <plurals name="TestResults_Filter_Tests_Count">
         <item quantity="one">%1$d тест</item>
@@ -117,6 +123,12 @@
         <item quantity="other">%1$d тестов</item>
     </plurals>
     <string name="TestResults_Filter_Networks">Сети</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one">%1$d сеть</item>
+        <item quantity="few">%1$d сетей</item>
+        <item quantity="many">%1$d сетей</item>
+        <item quantity="other">%1$d сетей</item>
+    </plurals>
     <string name="TestResults_Filter_Source">Объект</string>
     <string name="TestResults_Filter_Date">Дата</string>
     <string name="TestResults_Filter_Date_Any">Любая дата</string>
@@ -186,6 +198,8 @@
     <string name="Settings_Support_Label">Поддержка</string>
     <string name="Settings_Support_SendEmail">Отправить письмо поддержке</string>
     <string name="Settings_Support_Message">Пожалуйста, опишите проблему: </string>
+    <string name="Settings_Support_Message_Hint">Обратиться в поддержку</string>
+    <string name="Settings_Support_IncludeLogs">Включить логи приложения</string>
     <string name="Settings_Support_Action">Отправить письмо</string>
 
     <string name="Settings_Storage_Label">Использование хранилища</string>
