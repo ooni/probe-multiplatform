@@ -145,6 +145,7 @@
     <!-- Measurements -->
 
     <string name="Measurement_Title">Measurement</string>
+    <string name="Measurement_LoadingFailed">No se pudo cargar la información de medición</string>
     <string name="Measurements_Failed">Falló</string>
     <string name="Measurements_Ok">Aceptar</string>
     <string name="Measurements_Anomaly">Anomalía</string>
