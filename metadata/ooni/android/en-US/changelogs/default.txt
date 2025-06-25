@@ -1,4 +1,9 @@
-* Measurement engine synced with OONI Probe CLI v3.25.0.
-* Fix running OONI Run link tests with large amounts of URLs.
-* Dark-mode splash screen on Android.
-* Other bug fixes and improvements.
+* Measurement engine updated to OONI Probe CLI v3.26.0
+* Filter results by date and network
+* Mark multiple results as viewed
+* Delete results selectively
+* New contact screen, with the ability to include logs
+* Improved translation of plurals
+* Predictive back on Android
+* Chosen websites for testing are kept from the previous run
+* Various minor bug fixes and enhancements
