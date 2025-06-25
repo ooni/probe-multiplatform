@@ -46,6 +46,7 @@
     <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Reject">Rechazar Actualización</string>
 
+    <string name="Dashboard_Update_Ready">La actualización de la aplicación acaba de descargarse</string>
     <string name="Dashboard_Update_Restart">Reiniciar</string>
 
     <!-- Test -->
@@ -132,10 +133,15 @@
     <string name="TestResults_Filter_Date_Custom">Personalizada</string>
     <string name="TestResults_Filter_Date_Custom_Filled">Personalizado: %1$s</string>
     <string name="TestResults_Filter_Date_Picker">Seleccionar rango de fechas</string>
+    <string name="TestResults_Filter_NoTestsFound">No se encontró resultados de prueba para esos filtros.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">¿Desea eliminar todos los resultados de prueba para los filtros actuales?</string>
+
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
     <string name="Results_MarkAllAsViewed">Marcar todo como visto</string>
     <string name="Results_MarkAllAsViewed_Confirmation">¿Desea marcar todos los resultados como vistos?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">¿Desea marcar todos los resultados como vistos para los filtros actuales?</string>
+
     <!-- Measurements -->
 
     <string name="Measurement_Title">Measurement</string>
@@ -339,7 +345,7 @@
     <string name="Modal_Retry">Intentar de nuevo</string>
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">Aceptar</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">¿Deseas eliminar todos los resultados de las pruebas?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">¿Desea eliminar todos los resultados de prueba?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">¿Desea eliminar %1$s resultado de prueba?</item>
         <item quantity="many">¿Desea eliminar %1$s de resultados de prueba?</item>
