@@ -217,13 +217,21 @@ class RunNetTest(
 
             is TaskEvent.MeasurementSubmissionSuccessful -> {
                 updateMeasurement(event.index) { measurement ->
-                    return@updateMeasurement if (lastNetwork?.isValid() == true) {
-                        measurement.reportFilePath?.let { deleteFiles(it) }
-                        measurement.copy(isUploaded = true)
-                    } else {
+                    return@updateMeasurement if (lastNetwork?.isValid() != true) {
                         measurement.copy(
                             isFailed = true,
                             failureMessage = "Network is not valid",
+                        )
+                    } else if (event.measurementUid == null) {
+                        measurement.copy(
+                            isFailed = true,
+                            failureMessage = "Submission failed: missing measurement UID",
+                        )
+                    } else {
+                        measurement.reportFilePath?.let { deleteFiles(it) }
+                        measurement.copy(
+                            isUploaded = true,
+                            uid = MeasurementModel.Uid(event.measurementUid),
                         )
                     }
                 }

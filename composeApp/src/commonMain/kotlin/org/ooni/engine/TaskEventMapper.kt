@@ -109,7 +109,10 @@ class TaskEventMapper(
                 )
 
             "status.measurement_submission" ->
-                TaskEvent.MeasurementSubmissionSuccessful(index = value?.idx ?: 0)
+                TaskEvent.MeasurementSubmissionSuccessful(
+                    index = value?.idx ?: 0,
+                    measurementUid = value?.measurementUid,
+                )
 
             "status.progress" ->
                 value?.percentage?.let { progress ->

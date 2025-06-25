@@ -20,6 +20,7 @@ data class MeasurementModel(
     val isRerun: Boolean = false,
     val isAnomaly: Boolean = false,
     val reportId: ReportId?,
+    val uid: Uid? = null,
     val testKeys: String? = null,
     val rerunNetwork: String? = null,
     val urlId: UrlModel.Id?,
@@ -30,6 +31,10 @@ data class MeasurementModel(
     )
 
     data class ReportId(
+        val value: String,
+    )
+
+    data class Uid(
         val value: String,
     )
 

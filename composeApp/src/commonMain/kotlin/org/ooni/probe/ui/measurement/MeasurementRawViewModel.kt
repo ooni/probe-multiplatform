@@ -27,7 +27,7 @@ class MeasurementRawViewModel(
     measurementId: MeasurementModel.Id,
     onBack: () -> Unit,
     goToUpload: (MeasurementModel.Id) -> Unit,
-    goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+    goToMeasurement: (MeasurementModel.Id) -> Unit,
     getMeasurement: (MeasurementModel.Id) -> Flow<MeasurementWithUrl?>,
     readFile: ReadFile,
     shareFile: (PlatformAction.FileSharing) -> Unit,
@@ -48,11 +48,7 @@ class MeasurementRawViewModel(
             .filterNotNull()
             .filter { it.measurement.isDone && !it.measurement.isMissingUpload }
             .take(1)
-            .onEach { item ->
-                item.measurement.reportId?.let { reportId ->
-                    goToMeasurement(reportId, item.url?.url)
-                }
-            }
+            .onEach { it.measurement.id?.let(goToMeasurement) }
             .launchIn(viewModelScope)
 
         getMeasurement(measurementId)

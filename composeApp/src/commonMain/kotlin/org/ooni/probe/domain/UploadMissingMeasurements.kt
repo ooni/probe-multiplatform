@@ -69,7 +69,9 @@ class UploadMissingMeasurements(
                                     isUploaded = true,
                                     isUploadFailed = false,
                                     uploadFailureMessage = null,
-                                    reportId = MeasurementModel.ReportId(submitResult.updatedReportId),
+                                    reportId =
+                                        MeasurementModel.ReportId(submitResult.updatedReportId),
+                                    uid = submitResult.measurementUid?.let(MeasurementModel::Uid),
                                 ),
                             )
                             deleteFiles(reportFilePath)

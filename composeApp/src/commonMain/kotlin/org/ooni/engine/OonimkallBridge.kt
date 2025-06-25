@@ -54,6 +54,7 @@ interface OonimkallBridge {
     data class SubmitMeasurementResults(
         val updatedMeasurement: String?,
         val updatedReportId: String,
+        val measurementUid: String?,
     )
 
     data class CheckInConfig(

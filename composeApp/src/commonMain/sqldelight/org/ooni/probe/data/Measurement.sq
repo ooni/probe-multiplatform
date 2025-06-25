@@ -11,6 +11,7 @@ CREATE TABLE Measurement(
     upload_failure_msg TEXT,
     is_rerun INTEGER,
     report_id TEXT,
+    uid TEXT,
     is_anomaly INTEGER,
     test_keys TEXT,
     url_id INTEGER,
@@ -37,12 +38,13 @@ INSERT OR REPLACE INTO Measurement (
     upload_failure_msg,
     is_rerun,
     report_id,
+    uid,
     is_anomaly,
     test_keys,
     url_id,
     result_id,
     rerun_network
-) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 deleteAll:
 DELETE FROM Measurement;

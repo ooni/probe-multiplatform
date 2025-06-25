@@ -119,9 +119,7 @@ fun Navigation(
                 dependencies.resultViewModel(
                     resultId = ResultModel.Id(resultId),
                     onBack = { navController.goBack() },
-                    goToMeasurement = { reportId, input ->
-                        navController.safeNavigate(Screen.Measurement(reportId.value, input))
-                    },
+                    goToMeasurement = { navController.safeNavigate(Screen.Measurement(it.value)) },
                     goToMeasurementRaw = {
                         navController.safeNavigate(Screen.MeasurementRaw(it.value))
                     },
@@ -139,8 +137,7 @@ fun Navigation(
             val route = entry.toRoute<Screen.Measurement>()
             val viewModel = viewModel {
                 dependencies.measurementViewModel(
-                    reportId = MeasurementModel.ReportId(route.measurementReportId),
-                    input = route.input,
+                    measurementId = MeasurementModel.Id(route.measurementId),
                     onBack = { navController.goBack() },
                 )
             }
@@ -155,10 +152,12 @@ fun Navigation(
                     measurementId = MeasurementModel.Id(route.measurementId),
                     onBack = { navController.goBack() },
                     goToUpload = {
-                        navController.safeNavigate(Screen.UploadMeasurements(measurementId = it.value))
+                        navController.safeNavigate(
+                            Screen.UploadMeasurements(measurementId = it.value),
+                        )
                     },
-                    goToMeasurement = { reportId, input ->
-                        navController.goBackAndNavigate(Screen.Measurement(reportId.value, input))
+                    goToMeasurement = {
+                        navController.goBackAndNavigate(Screen.Measurement(it.value))
                     },
                 )
             }

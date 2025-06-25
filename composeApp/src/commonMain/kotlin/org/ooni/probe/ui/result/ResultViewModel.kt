@@ -28,7 +28,7 @@ import org.ooni.probe.data.models.RunSpecification
 class ResultViewModel(
     resultId: ResultModel.Id,
     onBack: () -> Unit,
-    goToMeasurement: (MeasurementModel.ReportId, String?) -> Unit,
+    goToMeasurement: (MeasurementModel.Id) -> Unit,
     goToMeasurementRaw: (MeasurementModel.Id) -> Unit,
     goToUpload: () -> Unit,
     goToDashboard: () -> Unit,
@@ -91,10 +91,13 @@ class ResultViewModel(
         events
             .filterIsInstance<Event.MeasurementClicked>()
             .onEach { event ->
-                if (event.item.measurement.reportId != null) {
-                    goToMeasurement(event.item.measurement.reportId, event.item.url?.url)
-                } else {
-                    event.item.measurement.id?.let { id -> goToMeasurementRaw(id) }
+                val measurement = event.item.measurement
+                measurement.id?.let { measurementId ->
+                    if (measurement.isMissingUpload) {
+                        goToMeasurementRaw(measurementId)
+                    } else {
+                        goToMeasurement(measurementId)
+                    }
                 }
             }
             .launchIn(viewModelScope)

@@ -32,6 +32,8 @@ class DesktopOonimkallBridge : OonimkallBridge {
                 return OonimkallBridge.SubmitMeasurementResults(
                     updatedMeasurement = results.updatedMeasurement,
                     updatedReportId = results.updatedReportID,
+                    // TODO: Missing measurementUID until we get the new engine
+                    measurementUid = "",
                 )
             }
 

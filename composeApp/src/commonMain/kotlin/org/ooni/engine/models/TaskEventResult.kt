@@ -44,5 +44,7 @@ data class TaskEventResult(
         var failure: String? = null,
         @SerialName("orig_key")
         var origKey: String? = null,
+        @SerialName("measurement_uid")
+        var measurementUid: String? = null,
     )
 }
