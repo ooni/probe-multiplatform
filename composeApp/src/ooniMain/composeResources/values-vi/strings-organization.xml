@@ -34,4 +34,6 @@
     <string name="Settings_About_Content_Reports">Báo cáo</string>
     <string name="Settings_About_Content_DataPolicy">Chính sách Dữ liệu của OONI</string>
 
+    <string name="Settings_Donate_Title">Donate</string>
+    <string name="Settings_Donate_Action">Donate</string>
     </resources>

@@ -33,4 +33,6 @@
     <string name="Settings_About_Content_Reports">Segnalazioni</string>
     <string name="Settings_About_Content_DataPolicy">La Policy sui dati di OONI</string>
 
+    <string name="Settings_Donate_Title">Donazioni</string>
+    <string name="Settings_Donate_Action">Donazioni</string>
     </resources>

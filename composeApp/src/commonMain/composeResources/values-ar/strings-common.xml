@@ -16,9 +16,6 @@
     <string name="Dashboard_RunTests_Description">Select the tests to run</string>
     <string name="Dashboard_RunTests_SelectAll">Select all tests</string>
     <string name="Dashboard_RunTests_SelectNone">Deselect all tests</string>
-    <string name="Dashboard_RunTests_RunButton_Label_One">Run %1$d test</string>
-    <string name="Dashboard_RunTests_RunButton_Label_Other">Run %1$d tests</string>
-
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <string name="Dashboard_RunV2_RunFinished">Run finished. Tap to view results.</string>
@@ -67,10 +64,6 @@
     <string name="TestResults_Overview_Hero_Tests">اختبارات</string>
     <string name="TestResults_Overview_Hero_Networks">الشبكات</string>
     <string name="TestResults_Overview_Hero_DataUsage">إستخدام البيانات</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s محجوبة </string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s محجوبة </string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s تمّ اختبارها</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s تمّ اختبارها</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">لم تجر أي اختبار حتى الآن. قم بتجربة أحد الاختبارات!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">التاريخ والوقت</string>
     <string name="TestResults_Summary_Hero_Network">الشبكة</string>
@@ -80,12 +73,6 @@
     <string name="TestResults_Summary_Hero_Mobile">بيانات الخلوي</string>
     <string name="TestResults_Summary_Hero_Bluetooth">بلوتوث</string>
     <string name="TestResults_Summary_Hero_NoInternet">لا إنترنت</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">تمّ اختبارها</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">تمّ اختبارها</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">محظور</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">محظور</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">مُتاح</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">مُتاح</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">رفع</string>
     <string name="TestResults_Summary_Performance_Hero_Download">تحميل</string>
     <string name="TestResults_Summary_Performance_Hero_Video">الفيديو</string>
@@ -101,6 +88,7 @@
     <string name="TestResults_NotAvailable">‮غير متاح</string>
 
     <string name="TestResults_Filter_Tests">اختبارات</string>
+    <string name="TestResults_Filter_Networks">الشبكات</string>
     <string name="TestResults_Filter_Source">المصدر</string>
     <string name="TestResults_Filter_Date">تاريخ</string>
     <string name="TestResults_Filter_Date_Today">اليوم</string>
@@ -113,8 +101,6 @@
     <string name="Measurements_Failed">فشل</string>
     <string name="Measurements_Ok">موافق</string>
     <string name="Measurements_Anomaly">شذوذ</string>
-    <string name="Measurements_Count_One">%1$d measurement</string>
-    <string name="Measurements_Count_Other">%1$d measurement</string>
     <string name="Measurement_Raw_Upload">رفع</string>
 
     <!-- Settings -->
@@ -153,8 +139,11 @@
     <string name="Settings_Advanced_Label">متقدم</string>
     <string name="Settings_Advanced_DebugLogs">أظهر سجلات التصحيح</string>
     <string name="Settings_Advanced_RecentLogs">الاطلاع على السجلات الأخيرة</string>
-    <string name="Settings_SendEmail_Label">إرسال إيميل لفريق الدعم </string>
-    <string name="Settings_SendEmail_Message">يرجى وصف المشكلة التي تواجهونها: </string>
+
+    <string name="Settings_Support_Label">الدعم</string>
+    <string name="Settings_Support_SendEmail">إرسال إيميل لفريق الدعم </string>
+    <string name="Settings_Support_Message">يرجى وصف المشكلة التي تواجهونها: </string>
+    <string name="Settings_Support_Action">إرسال البريد الإلكتروني</string>
 
     <string name="Settings_Storage_Label">استخدام سعة التخزين </string>
     <string name="Settings_Storage_Delete">حذف</string>
@@ -175,8 +164,6 @@
     <string name="Settings_Websites_CustomURL_URL">الرابط</string>
     <string name="Settings_Websites_CustomURL_Run">ابدأ</string>
     <string name="Settings_Websites_CustomURL_Add">أضف موقعًا</string>
-    <string name="CustomWebsites_Fab_Text">Test %1$d URLs</string>
-
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">المخدرات والكحول</string>
@@ -331,11 +318,8 @@
     <string name="Common_Yes">‮نعم</string>
     <string name="Common_Save">حفظ</string>
     <string name="Common_Clear">Clear</string>
+
     <string name="Common_Ago">%1$s ago</string>
-    <string name="Common_Minutes_One">%1$d minute</string>
-    <string name="Common_Minutes_Other">%1$d minutes</string>
-    <string name="Common_Hour_One">%1$d hour</string>
-    <string name="Common_Hour_Other">%1$d hours</string>
     <string name="Common_Hours_Abbreviated">%1$d h</string>
     <string name="Common_Minutes_Abbreviated">%1$d m</string>
     <string name="Common_Seconds_Abbreviated">%1$d s</string>

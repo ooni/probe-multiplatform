@@ -16,8 +16,9 @@
     <string name="Dashboard_RunTests_Description">选择要运行的测试</string>
     <string name="Dashboard_RunTests_SelectAll">选择所有测试</string>
     <string name="Dashboard_RunTests_SelectNone">取消选择所有测试</string>
-    <string name="Dashboard_RunTests_RunButton_Label_One">运行 %1$d 个测试</string>
-    <string name="Dashboard_RunTests_RunButton_Label_Other">运行 %1$d 个测试</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="other">运行 %1$d 个测试</item>
+    </plurals>
 
     <string name="Dashboard_RunV2_Ooni_Title">OONI 测试</string>
     <string name="Dashboard_RunV2_Title">OONI 运行链接</string>
@@ -72,10 +73,9 @@
     <string name="TestResults_Overview_Hero_Tests">测试</string>
     <string name="TestResults_Overview_Hero_Networks">网络</string>
     <string name="TestResults_Overview_Hero_DataUsage">数据使用量</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s 个被屏蔽</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s 个被屏蔽</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s 个已测试</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s 个已测试</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="other">%1$s 被屏蔽</item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">还没有进行过测试。试着运行一个吧！</string>
     <string name="TestResults_Summary_Hero_DateAndTime">日期和时间</string>
     <string name="TestResults_Summary_Hero_Network">网络</string>
@@ -87,12 +87,6 @@
     <string name="TestResults_Summary_Hero_Ethernet">以太网</string>
     <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">无网络</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">已测试</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">已测试</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">被屏蔽</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">被屏蔽</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">可访问</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">可访问</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">上传</string>
     <string name="TestResults_Summary_Performance_Hero_Download">下载</string>
     <string name="TestResults_Summary_Performance_Hero_Video">视频</string>
@@ -109,8 +103,17 @@
 
     <string name="TestResults_Filters_Title">筛选测试结果</string>
     <string name="TestResults_Filters_Short">筛选器：</string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="other">%1$d 个筛选器</item>
+    </plurals>
     <string name="TestResults_Filter_Tests">测试</string>
-    <string name="TestResults_Filter_Tests_Multiple">%1$d 次测试</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="other">%1$d 个测试</item>
+    </plurals>
+    <string name="TestResults_Filter_Networks">网络</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="other">%1$d个网络 </item>
+    </plurals>
     <string name="TestResults_Filter_Source">源</string>
     <string name="TestResults_Filter_Date">日期</string>
     <string name="TestResults_Filter_Date_Any">任意日期</string>
@@ -121,13 +124,13 @@
     <string name="TestResults_Filter_Date_Custom_Filled">自定义：%1$s</string>
     <string name="TestResults_Filter_Date_Picker">选择日期范围</string>
     <string name="TestResults_Filter_NoTestsFound">没有找到这些筛选器的测试结果</string>
-    <string name="TestResults_Filter_DeleteConfirmation">要删除当前筛选器的所有测试结果吗？</string>
+    <string name="TestResults_Filter_DeleteConfirmation">是否要删除当前筛选器的所有测试结果？</string>
 
     <string name="Results_LimitedNotice">只显示最后 %1$d 个结果</string>
     <string name="Results_UploadingMissing">上传缺失的结果 %1$s</string>
     <string name="Results_MarkAllAsViewed">将所有内容标记为已查看</string>
     <string name="Results_MarkAllAsViewed_Confirmation">是否要将所有结果标记为已查看？</string>
-    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">要将当前筛选器的所有结果标记为已查看吗？</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">是否要将当前筛选器的所有结果标记为已查看？</string>
 
     <!-- Measurements -->
 
@@ -136,10 +139,6 @@
     <string name="Measurements_Failed">失败</string>
     <string name="Measurements_Ok">正常</string>
     <string name="Measurements_Anomaly">异常</string>
-    <string name="Measurements_Count_One">%1$d 已测量</string>
-    <string name="Measurements_Count_Other">%1$d 已测量</string>
-    <string name="Measurements_Failed_One">%1$d 失败了</string>
-    <string name="Measurements_Failed_Other">%1$d 失败了</string>
     <string name="Measurement_Raw_NotUploadedReasoning">此测量未在 OONI Explorer 上发布。请将其上传以查看分析。</string>
     <string name="Measurement_Raw_Share">分享测量数据</string>
     <string name="Measurement_Raw_Upload">上传</string>
@@ -180,8 +179,13 @@
     <string name="Settings_Advanced_Label">高级</string>
     <string name="Settings_Advanced_DebugLogs">调试日志</string>
     <string name="Settings_Advanced_RecentLogs">查看近期日志</string>
-    <string name="Settings_SendEmail_Label">发送邮件给支持团队</string>
-    <string name="Settings_SendEmail_Message">请描述您所遇到的问题：</string>
+
+    <string name="Settings_Support_Label">支持</string>
+    <string name="Settings_Support_SendEmail">发送邮件给支持团队</string>
+    <string name="Settings_Support_Message">请描述您所遇到的问题：</string>
+    <string name="Settings_Support_Message_Hint">给支持团队的消息</string>
+    <string name="Settings_Support_IncludeLogs">包括程序日志</string>
+    <string name="Settings_Support_Action">发送邮件</string>
 
     <string name="Settings_Storage_Label">存储用量</string>
     <string name="Settings_Storage_Delete">删除</string>
@@ -202,7 +206,9 @@
     <string name="Settings_Websites_CustomURL_URL">网址</string>
     <string name="Settings_Websites_CustomURL_Run">运行</string>
     <string name="Settings_Websites_CustomURL_Add">添加网站</string>
-    <string name="CustomWebsites_Fab_Text">测试 %1$d 条 URL</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="other">测试 %1$d 个 URL</item>
+    </plurals>
 
     <!-- Website Categories -->
 
@@ -331,11 +337,13 @@
     <string name="Modal_Retry">重试</string>
     <string name="Modal_Cancel">取消</string>
     <string name="Modal_OK">正常</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">您要删除所有测试结果吗？</string>
-    <string name="Modal_DoYouWantToDeleteSomeTests">要删除 %1$s 个测试结果吗？</string>
-    <string name="Modal_Selected_Zero">未选中项目</string>
-    <string name="Modal_Selected_One">选中了 %1$d 个项目</string>
-    <string name="Modal_Selected_Other">选中了 %1$d 个项目</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">是否要删除所有测试结果？</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="other">是否要删除 %1$s 个测试结果？</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="other">已选择 %1$d 项</item>
+    </plurals>
     <string name="Modal_Delete">删除</string>
     <string name="Modal_ReRun_Title">重新运行测试</string>
     <string name="Modal_ReRun_Websites_Title">您即将重新测试 %1$s 个网站。</string>
@@ -349,7 +357,7 @@
     <string name="Modal_Error_NoInternet">没有互联网连接</string>
     <string name="Modal_CustomURL_Title_NotSaved">是否确定？</string>
     <string name="Modal_CustomURL_NotSaved">离开此屏幕将不会保存您的 URL。确定离开吗？</string>
-    <string name="Modal_Autorun_BatteryOptimization_Onboarding">没有后台权限，本应用无法自动运行测试。你要再次尝试吗？</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">没有后台权限，本应用无法自动运行测试。是否要重试？</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">应用需要权限以在后台自动运行测试</string>
 
     <!-- Desktop -->
@@ -373,11 +381,14 @@
     <string name="Common_Yes">是</string>
     <string name="Common_Save">保存</string>
     <string name="Common_Clear">清除键</string>
+
     <string name="Common_Ago">%1$s 前</string>
-    <string name="Common_Minutes_One">%1$d 分钟 </string>
-    <string name="Common_Minutes_Other">%1$d 分钟</string>
-    <string name="Common_Hour_One">%1$d 小时</string>
-    <string name="Common_Hour_Other">%1$d 小时</string>
+    <plurals name="Common_Minutes">
+        <item quantity="other">%1$d 分钟</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="other">%1$d 小时</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$d小时</string>
     <string name="Common_Minutes_Abbreviated">%1$d分钟</string>
     <string name="Common_Seconds_Abbreviated">%1$d秒</string>

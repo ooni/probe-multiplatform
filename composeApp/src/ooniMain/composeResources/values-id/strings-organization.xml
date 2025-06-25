@@ -34,4 +34,6 @@
     <string name="Settings_About_Content_Reports">Laporan</string>
     <string name="Settings_About_Content_DataPolicy">Kebijakan Data OONI</string>
 
+    <string name="Settings_Donate_Title">Donasi</string>
+    <string name="Settings_Donate_Action">Donasi</string>
     </resources>

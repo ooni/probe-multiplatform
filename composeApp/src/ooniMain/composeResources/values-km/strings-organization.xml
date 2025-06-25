@@ -34,4 +34,6 @@
     <string name="Settings_About_Content_Reports">របាយការណ៍</string>
     <string name="Settings_About_Content_DataPolicy">គោលការណ៍ទិន្នន័យ OONI</string>
 
+    <string name="Settings_Donate_Title">បរិច្ចាគ</string>
+    <string name="Settings_Donate_Action">បរិច្ចាគ</string>
     </resources>

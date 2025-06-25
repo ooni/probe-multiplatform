@@ -34,4 +34,6 @@
     <string name="Settings_About_Content_Reports">التقارير</string>
     <string name="Settings_About_Content_DataPolicy">سياسة OONI في البيانات   </string>
 
+    <string name="Settings_Donate_Title">تبرَّع</string>
+    <string name="Settings_Donate_Action">تبرَّع</string>
     </resources>

@@ -16,8 +16,11 @@
     <string name="Dashboard_RunTests_Description">Seleccione las pruebas a ejecutar</string>
     <string name="Dashboard_RunTests_SelectAll">Seleccionar todas las pruebas</string>
     <string name="Dashboard_RunTests_SelectNone">Deseleccionar todas las pruebas</string>
-    <string name="Dashboard_RunTests_RunButton_Label_One">Run %1$d test</string>
-    <string name="Dashboard_RunTests_RunButton_Label_Other">Run %1$d tests</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Ejecutar %1$d prueba</item>
+        <item quantity="many">Ejecutar %1$d de pruebas</item>
+        <item quantity="other">Ejecutar %1$d pruebas</item>
+    </plurals>
 
     <string name="Dashboard_RunV2_Ooni_Title">Pruebas OONI</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
@@ -43,6 +46,7 @@
     <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Reject">Rechazar Actualización</string>
 
+    <string name="Dashboard_Update_Ready">La actualización de la aplicación acaba de descargarse</string>
     <string name="Dashboard_Update_Restart">Reiniciar</string>
 
     <!-- Test -->
@@ -71,10 +75,11 @@
     <string name="TestResults_Overview_Hero_Tests">Pruebas</string>
     <string name="TestResults_Overview_Hero_Networks">Redes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Uso de datos</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s bloqueado</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s bloqueados</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s probado</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s probados</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s bloqueado</item>
+        <item quantity="many">%1$s de bloqueados</item>
+        <item quantity="other">%1$s bloqueados</item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Ninguna prueba ha sido ejecutada aún. ¡Intenta ejecutar una!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Fecha y Hora</string>
     <string name="TestResults_Summary_Hero_Network">Red</string>
@@ -83,13 +88,9 @@
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Datos móviles</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">No hay Internet</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Probado</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Probados</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Bloqueado</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Bloqueados</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Accesible</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Accesibles</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Subida </string>
     <string name="TestResults_Summary_Performance_Hero_Download">Descarga</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Vídeo</string>
@@ -104,21 +105,51 @@
     <string name="TestResults_UnknownASN">Desconocido</string>
     <string name="TestResults_NotAvailable">N/D</string>
 
+    <string name="TestResults_Filters_Title">Filtrar resultados de teste</string>
+    <string name="TestResults_Filters_Short">Filtros:</string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one">%1$d filtro</item>
+        <item quantity="many">%1$d de filtros</item>
+        <item quantity="other">%1$d filtros</item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Pruebas</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one">%1$d prueba</item>
+        <item quantity="many">%1$d de pruebas</item>
+        <item quantity="other">%1$d pruebas</item>
+    </plurals>
+    <string name="TestResults_Filter_Networks">Redes</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one">%1$d rede</item>
+        <item quantity="many">%1$d de redes</item>
+        <item quantity="other">%1$d redes</item>
+    </plurals>
     <string name="TestResults_Filter_Source">Fuente</string>
     <string name="TestResults_Filter_Date">Fecha de presentación</string>
+    <string name="TestResults_Filter_Date_Any">Cualquier fecha</string>
     <string name="TestResults_Filter_Date_Today">Hoy</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">Desde hace 7 días</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">Desde hace 1 mes</string>
     <string name="TestResults_Filter_Date_Custom">Personalizada</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Personalizado: %1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Seleccionar rango de fechas</string>
+    <string name="TestResults_Filter_NoTestsFound">No se encontró resultados de prueba para esos filtros.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">¿Desea eliminar todos los resultados de prueba para los filtros actuales?</string>
+
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
+    <string name="Results_MarkAllAsViewed">Marcar todo como visto</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">¿Desea marcar todos los resultados como vistos?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">¿Desea marcar todos los resultados como vistos para los filtros actuales?</string>
+
     <!-- Measurements -->
 
     <string name="Measurement_Title">Measurement</string>
+    <string name="Measurement_LoadingFailed">No se pudo cargar la información de medición</string>
     <string name="Measurements_Failed">Falló</string>
     <string name="Measurements_Ok">Aceptar</string>
     <string name="Measurements_Anomaly">Anomalía</string>
-    <string name="Measurements_Count_One">%1$d measured</string>
-    <string name="Measurements_Count_Other">%1$d measured</string>
+    <string name="Measurement_Raw_Share">Compartir datos de medición</string>
     <string name="Measurement_Raw_Upload">Subida </string>
 
     <!-- Settings -->
@@ -157,8 +188,13 @@
     <string name="Settings_Advanced_Label">Avanzado</string>
     <string name="Settings_Advanced_DebugLogs">Registros de depuración</string>
     <string name="Settings_Advanced_RecentLogs">Opción A: (Traducción literal)\n\nVer registros recientes\n\nOpción B: (más apegada a la estructura de OONI):\nVer logs recientes</string>
-    <string name="Settings_SendEmail_Label">Enviar correo electrónico al soporte</string>
-    <string name="Settings_SendEmail_Message">Por favor describe el problema que estás experimentando:</string>
+
+    <string name="Settings_Support_Label">Soporte</string>
+    <string name="Settings_Support_SendEmail">Enviar correo electrónico al soporte</string>
+    <string name="Settings_Support_Message">Por favor describe el problema que estás experimentando:</string>
+    <string name="Settings_Support_Message_Hint">Mensaje al equipo de soporte</string>
+    <string name="Settings_Support_IncludeLogs">Incluir registros de aplicación</string>
+    <string name="Settings_Support_Action">Enviar correo electrónico</string>
 
     <string name="Settings_Storage_Label">Uso de almacenamiento</string>
     <string name="Settings_Storage_Delete">Eliminar</string>
@@ -179,7 +215,11 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Ejecutar</string>
     <string name="Settings_Websites_CustomURL_Add">Añadir sitio web</string>
-    <string name="CustomWebsites_Fab_Text">Probar %1$d URLs</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one">Probar %1$d URL</item>
+        <item quantity="many">Probar %1$d de URLs</item>
+        <item quantity="other">Probar %1$d URLs</item>
+    </plurals>
 
     <!-- Website Categories -->
 
@@ -267,6 +307,7 @@
     <string name="Onboarding_Crash_Title">Informes de error</string>
     <string name="Onboarding_Crash_Button_Yes">Si</string>
     <string name="Onboarding_Crash_Button_No">No</string>
+    <string name="Onboarding_Notifications_Title">Activar las notificaciones</string>
     <string name="Onboarding_Notifications_Ok">Aceptar</string>
     <string name="Onboarding_Notifications_Skip">Omitir</string>
     <string name="Onboarding_DefaultSettings_Title">Configuración predeterminada</string>
@@ -291,6 +332,8 @@
     <string name="LoadingScreen_Runv2_Failure">Error</string>
     <string name="LoadingScreen_Runv2_Canceled">Instalación del enlace cancelada</string>
     <string name="DescriptorUpdate_Updates">ACTUALIZACIONES</string>
+    <string name="Descriptor_LastTestResult">Último resultado</string>
+
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">No subido</string>
@@ -303,7 +346,17 @@
     <string name="Modal_Retry">Intentar de nuevo</string>
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">Aceptar</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">¿Deseas eliminar todos los resultados de las pruebas?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">¿Desea eliminar todos los resultados de prueba?</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">¿Desea eliminar %1$s resultado de prueba?</item>
+        <item quantity="many">¿Desea eliminar %1$s de resultados de prueba?</item>
+        <item quantity="other">¿Desea eliminar %1$s resultados de prueba?</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one">%1$d elemento seleccionado</item>
+        <item quantity="many">%1$d de elementos seleccionados</item>
+        <item quantity="other">%1$d elementos seleccionados</item>
+    </plurals>
     <string name="Modal_Delete">Eliminar</string>
     <string name="Modal_ReRun_Title">Volver a ejecutar prueba</string>
     <string name="Modal_ReRun_Websites_Title">Está a punto de volver a probar %1$s sitios web.</string>
@@ -317,6 +370,8 @@
     <string name="Modal_Error_NoInternet">No hay conexión a Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">¿Estas seguro?</string>
     <string name="Modal_CustomURL_NotSaved">Tus URLs no serán guardadas cuando dejes esta pantalla. ¿Estás seguro de que quieres dejarla?</string>
+    <!-- Desktop -->
+    <string name="Desktop_OpenApp">Abrir Aplicación</string>
     <string name="Desktop_Quit">Salir</string>
 
     <!-- Common / Others -->
@@ -336,11 +391,18 @@
     <string name="Common_Yes">Si</string>
     <string name="Common_Save">Guardar</string>
     <string name="Common_Clear">Borrar</string>
+
     <string name="Common_Ago">%1$s ago</string>
-    <string name="Common_Minutes_One">%1$d minute</string>
-    <string name="Common_Minutes_Other">%1$d minutes</string>
-    <string name="Common_Hour_One">%1$d hour</string>
-    <string name="Common_Hour_Other">%1$d hours</string>
+    <plurals name="Common_Minutes">
+        <item quantity="one">%1$d minuto</item>
+        <item quantity="many">%1$d de minutos</item>
+        <item quantity="other">%1$d minutos</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d hora</item>
+        <item quantity="many">%1$d de horas</item>
+        <item quantity="other">%1$d horas</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$d h</string>
     <string name="Common_Minutes_Abbreviated">%1$d m</string>
     <string name="Common_Seconds_Abbreviated">%1$d s</string>

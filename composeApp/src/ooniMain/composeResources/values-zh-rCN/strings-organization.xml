@@ -34,5 +34,17 @@
     <string name="Settings_About_Content_Reports">报告</string>
     <string name="Settings_About_Content_DataPolicy">OONI 数据政策</string>
 
+    <string name="Settings_Donate_Title">捐款</string>
+    <string name="Settings_Donate_Heading">立即捐款支持互联网自由</string>
+    <string name="Settings_Donate_SubHeading">作为一家非营利组织，我们依靠像您这样的人的捐款来捍卫人人享有的自由开放的互联网。</string>
+    <string name="Settings_Donate_Support_Title">通过向 OONI 捐款，您支持：</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">用于检测互联网审查的自由及开放源代码软件</string>
+    <string name="Settings_Donate_Support_Item_Analysis">世界各地互联网审查的实时分析</string>
+    <string name="Settings_Donate_Support_Item_OpenData">开放互联网审查数据——支持全球研究和倡导工作</string>
+    <string name="Settings_Donate_Support_Item_Research">对全球审查事件的研究</string>
+    <string name="Settings_Donate_Action">捐款</string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">这将打开外部浏览器窗口</string>
+    <string name="Settings_Donate_Action_Error">打开捐款页面出错。请转到 %1$s</string>
+
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">你将只能从由创建者发送的原始链接那里再次安装此链接。来自此链接的测量数据将被删除，但仍可从 explorer 处访问。</string>
 </resources>
