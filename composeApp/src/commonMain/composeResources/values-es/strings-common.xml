@@ -134,12 +134,15 @@
     <string name="TestResults_Filter_Date_Picker">Seleccionar rango de fechas</string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
+    <string name="Results_MarkAllAsViewed">Marcar todo como visto</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">¿Desea marcar todos los resultados como vistos?</string>
     <!-- Measurements -->
 
     <string name="Measurement_Title">Measurement</string>
     <string name="Measurements_Failed">Falló</string>
     <string name="Measurements_Ok">Aceptar</string>
     <string name="Measurements_Anomaly">Anomalía</string>
+    <string name="Measurement_Raw_Share">Compartir datos de medición</string>
     <string name="Measurement_Raw_Upload">Subida </string>
 
     <!-- Settings -->
@@ -337,6 +340,11 @@
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">Aceptar</string>
     <string name="Modal_DoYouWantToDeleteAllTests">¿Deseas eliminar todos los resultados de las pruebas?</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">¿Desea eliminar %1$s resultado de prueba?</item>
+        <item quantity="many">¿Desea eliminar %1$s de resultados de prueba?</item>
+        <item quantity="other">¿Desea eliminar %1$s resultados de prueba?</item>
+    </plurals>
     <plurals name="Modal_Selected">
         <item quantity="one">%1$d elemento seleccionado</item>
         <item quantity="many">%1$d de elementos seleccionados</item>
