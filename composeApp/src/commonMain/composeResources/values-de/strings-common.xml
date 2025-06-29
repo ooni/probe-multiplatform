@@ -111,7 +111,7 @@
     </plurals>
     <string name="TestResults_Filter_Tests">Tests</string>
     <plurals name="TestResults_Filter_Tests_Count">
-        <item quantity="one">%1$d Tests</item>
+        <item quantity="one">%1$d Test</item>
         <item quantity="other">%1$d Tests</item>
     </plurals>
     <string name="TestResults_Filter_Networks">Netzwerke</string>
@@ -190,7 +190,7 @@
     <string name="Settings_Support_Message">Beschreibe bitte das Problem, das bei dir auftritt:</string>
     <string name="Settings_Support_Message_Hint">Nachricht an das Support-Team</string>
     <string name="Settings_Support_IncludeLogs">Anwendungsprotokolle einbeziehen</string>
-    <string name="Settings_Support_Action">E-Mail verschicken</string>
+    <string name="Settings_Support_Action">E-Mail senden</string>
 
     <string name="Settings_Storage_Label">Speicherplatz-Nutzung</string>
     <string name="Settings_Storage_Delete">Löschen</string>
@@ -345,11 +345,11 @@
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Möchtest du alle Testergebnisse löschen?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
-        <item quantity="one">Do you want to delete %1$s test result\?</item>
+        <item quantity="one">Willst du %1$s Testresultat löschen\?</item>
         <item quantity="other">Willst du %1$s Testresultate löschen\?</item>
     </plurals>
     <plurals name="Modal_Selected">
-        <item quantity="one">%1$d ausgewählte Artikel</item>
+        <item quantity="one">%1$d ausgewählter Artikel</item>
         <item quantity="other">%1$d ausgewählte Artikel</item>
     </plurals>
     <string name="Modal_Delete">Löschen</string>
@@ -396,7 +396,7 @@
         <item quantity="other">%1$d Minuten</item>
     </plurals>
     <plurals name="Common_Hours">
-        <item quantity="one">%1$d Stunden</item>
+        <item quantity="one">%1$d Stunde</item>
         <item quantity="other">%1$d Stunden</item>
     </plurals>
     <string name="Common_Hours_Abbreviated">%1$dStd</string>
