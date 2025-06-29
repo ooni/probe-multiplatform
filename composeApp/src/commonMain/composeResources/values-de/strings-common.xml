@@ -117,12 +117,22 @@
     <string name="TestResults_Filter_Networks">Netzwerke</string>
     <string name="TestResults_Filter_Source">Quelle</string>
     <string name="TestResults_Filter_Date">Datum</string>
+    <string name="TestResults_Filter_Date_Any">Beliebiges Datum</string>
     <string name="TestResults_Filter_Date_Today">Heute</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">Von vor 7 Tagen</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">Von vor 1 Monat</string>
     <string name="TestResults_Filter_Date_Custom">Benutzerdefiniert</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Benutzerdefiniert: %1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Wähle einen Datumsbereich</string>
+    <string name="TestResults_Filter_NoTestsFound">Für diese Filter wurden keine Testergebnisse gefunden.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Möchtest du alle Testergebnisse für die aktuellen Filter löschen\?</string>
+
     <string name="Results_LimitedNotice">Nur die letzten %1$d Resultate werden angezeigt</string>
     <string name="Results_UploadingMissing">Hochladen fehlender Ergebnisse %1$s</string>
     <string name="Results_MarkAllAsViewed">Alle als gesehen markieren</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Möchtest du alle Ergebnisse als angesehen markieren\?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Möchtest du alle Ergebnisse für die aktuellen Filter als angesehen markieren\?</string>
+
     <!-- Measurements -->
 
     <string name="Measurement_Title">Messung</string>
@@ -174,6 +184,8 @@
     <string name="Settings_Support_Label">Support</string>
     <string name="Settings_Support_SendEmail">E-Mail an den Support senden</string>
     <string name="Settings_Support_Message">Beschreibe bitte das Problem, das bei dir auftritt:</string>
+    <string name="Settings_Support_Message_Hint">Nachricht an das Support-Team</string>
+    <string name="Settings_Support_IncludeLogs">Anwendungsprotokolle einbeziehen</string>
     <string name="Settings_Support_Action">E-Mail verschicken</string>
 
     <string name="Settings_Storage_Label">Speicherplatz-Nutzung</string>
@@ -195,6 +207,11 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Ausführen</string>
     <string name="Settings_Websites_CustomURL_Add"> Webseite hinzufügen</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one">Teste %1$d URL</item>
+        <item quantity="other">Teste %1$d URLs</item>
+    </plurals>
+
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Drogen &amp; Alkohol</string>
