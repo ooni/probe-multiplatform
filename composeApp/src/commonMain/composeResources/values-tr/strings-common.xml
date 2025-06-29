@@ -105,8 +105,20 @@
 
     <string name="TestResults_Filters_Title">Sınama sonuçlarını süz</string>
     <string name="TestResults_Filters_Short">Süzgeçler:</string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one">%1$d süzgeç</item>
+        <item quantity="other">%1$d süzgeç</item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Sınamalar</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one">%1$d sınama</item>
+        <item quantity="other">%1$d sınama</item>
+    </plurals>
     <string name="TestResults_Filter_Networks">Ağ</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one">%1$d ağ</item>
+        <item quantity="other">%1$d ağ</item>
+    </plurals>
     <string name="TestResults_Filter_Source">Kaynak</string>
     <string name="TestResults_Filter_Date">Tarih</string>
     <string name="TestResults_Filter_Date_Any">Herhangi bir tarih</string>
@@ -176,6 +188,8 @@
     <string name="Settings_Support_Label">Destek</string>
     <string name="Settings_Support_SendEmail">Destek ekibine e-posta gönder</string>
     <string name="Settings_Support_Message">Lütfen yaşadığınız sorunu anlatın:</string>
+    <string name="Settings_Support_Message_Hint">Destek ekibine ileti</string>
+    <string name="Settings_Support_IncludeLogs">Uygulama günlüğü kayıtları eklensin</string>
     <string name="Settings_Support_Action">E-posta gönder</string>
 
     <string name="Settings_Storage_Label">Depolama kullanımı</string>
@@ -197,6 +211,11 @@
     <string name="Settings_Websites_CustomURL_URL">Adres</string>
     <string name="Settings_Websites_CustomURL_Run">Çalıştır</string>
     <string name="Settings_Websites_CustomURL_Add">Site ekle</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one">%1$d adresi sına</item>
+        <item quantity="other">%1$d adresi sına</item>
+    </plurals>
+
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Uyuşturucu ve alkol</string>
