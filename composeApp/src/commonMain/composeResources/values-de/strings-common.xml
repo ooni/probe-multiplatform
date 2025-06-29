@@ -115,6 +115,10 @@
         <item quantity="other">%1$d Tests</item>
     </plurals>
     <string name="TestResults_Filter_Networks">Netzwerke</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one">%1$d Netzwerk</item>
+        <item quantity="other">%1$d Netzwerke</item>
+    </plurals>
     <string name="TestResults_Filter_Source">Quelle</string>
     <string name="TestResults_Filter_Date">Datum</string>
     <string name="TestResults_Filter_Date_Any">Beliebiges Datum</string>
@@ -340,6 +344,14 @@
     <string name="Modal_Cancel">Abbrechen</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Möchtest du alle Testergebnisse löschen?</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">Do you want to delete %1$s test result\?</item>
+        <item quantity="other">Willst du %1$s Testresultate löschen\?</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one">%1$d ausgewählte Artikel</item>
+        <item quantity="other">%1$d ausgewählte Artikel</item>
+    </plurals>
     <string name="Modal_Delete">Löschen</string>
     <string name="Modal_ReRun_Title">Wiederhole Test</string>
     <string name="Modal_ReRun_Websites_Title">Sie sind dabei, %1$s Websites erneut zu testen.</string>
@@ -379,6 +391,14 @@
     <string name="Common_Clear">Löschen</string>
 
     <string name="Common_Ago">Vor %1$s</string>
+    <plurals name="Common_Minutes">
+        <item quantity="one">%1$d Minute</item>
+        <item quantity="other">%1$d Minuten</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d Stunden</item>
+        <item quantity="other">%1$d Stunden</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$dStd</string>
     <string name="Common_Minutes_Abbreviated">%1$dMin</string>
     <string name="Common_Seconds_Abbreviated">%1$dSek</string>
