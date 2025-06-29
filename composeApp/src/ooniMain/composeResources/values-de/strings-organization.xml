@@ -35,6 +35,16 @@
     <string name="Settings_About_Content_DataPolicy">OONI Datenschutzbestimmungen</string>
 
     <string name="Settings_Donate_Title">Spenden</string>
+    <string name="Settings_Donate_Heading">Spende jetzt zur Unterstützung der Internetfreiheit</string>
+    <string name="Settings_Donate_SubHeading">Als gemeinnützige Organisation sind wir auf Spenden von Menschen wie dir angewiesen, um ein freies und offenes Internet für alle zu verteidigen.</string>
+    <string name="Settings_Donate_Support_Title">Mit einer Spende an OONI unterstützt du:</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">Freie und quelloffene Software zur Erkennung von Internetzensur</string>
+    <string name="Settings_Donate_Support_Item_Analysis">Echtzeit-Analyse der Internet-Zensur in aller Welt</string>
+    <string name="Settings_Donate_Support_Item_OpenData">Offene Daten zur Internetzensur — Unterstützung globaler Forschungsarbeit und Rechtsvertretung</string>
+    <string name="Settings_Donate_Support_Item_Research">Recherche über Zensurmaßnahmen weltweit</string>
     <string name="Settings_Donate_Action">Spenden</string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">Dadurch wird ein externes Browserfenster geöffnet</string>
+    <string name="Settings_Donate_Action_Error">Fehler beim Öffnen der Spendenseite. Bitte gehe zu %1$s</string>
+
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Du kannst diesen Link nur über den Original-Link installieren, den der Ersteller geschickt hat. Die Messungen über diesen Link werden gelöscht, sind aber über den Explorer weiterhin zugänglich.</string>
 </resources>
