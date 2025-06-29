@@ -16,6 +16,11 @@
     <string name="Dashboard_RunTests_Description">Wähle den auszuführenden Test</string>
     <string name="Dashboard_RunTests_SelectAll">Alle Tests auswählen</string>
     <string name="Dashboard_RunTests_SelectNone">Alle Tests abwählen</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Führe %1$d Test aus</item>
+        <item quantity="other">Führe %1$d Tests aus</item>
+    </plurals>
+
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <string name="Dashboard_RunV2_RunFinished">Ausführung beendet. Tippe, um die Ergebnisse anzuzeigen.</string>
@@ -69,6 +74,10 @@
     <string name="TestResults_Overview_Hero_Tests">Tests</string>
     <string name="TestResults_Overview_Hero_Networks">Netzwerke</string>
     <string name="TestResults_Overview_Hero_DataUsage">Datennutzung</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s blockiert</item>
+        <item quantity="other">%1$s blockiert</item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Es wurden noch keine Tests durchgeführt. Probiere, einen auszuführen!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Datum &amp; Zeit</string>
     <string name="TestResults_Summary_Hero_Network">Netzwerk</string>
@@ -77,6 +86,8 @@
     <string name="TestResults_Summary_Hero_WiFi">WLAN</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobile Daten</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">Kein Internet</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Upload</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Herunterladen</string>
@@ -92,7 +103,17 @@
     <string name="TestResults_UnknownASN">Unbekannt</string>
     <string name="TestResults_NotAvailable">Nicht verfügbar</string>
 
+    <string name="TestResults_Filters_Title">Testresultate filtern</string>
+    <string name="TestResults_Filters_Short">Filter:</string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one">%1$d Filter</item>
+        <item quantity="other">%1$d Filter</item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Tests</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one">%1$d Tests</item>
+        <item quantity="other">%1$d Tests</item>
+    </plurals>
     <string name="TestResults_Filter_Networks">Netzwerke</string>
     <string name="TestResults_Filter_Source">Quelle</string>
     <string name="TestResults_Filter_Date">Datum</string>
