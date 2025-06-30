@@ -33,10 +33,12 @@ import ooniprobe.composeapp.generated.resources.Results_UploadingMissing
 import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.shortFormat
+import org.ooni.probe.ui.theme.AppTheme
 import org.ooni.probe.ui.theme.customColors
 
 @Composable
@@ -228,5 +230,51 @@ private fun RunningTests(
                 )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun RunBackgroundIdlePreview() {
+    AppTheme {
+        Idle(
+            state = RunBackgroundState.Idle(),
+            onEvent = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+fun RunBackgroundUploadingMissingResultsPreview() {
+    AppTheme {
+        UploadingMissingResults(
+            state = RunBackgroundState.UploadingMissingResults(
+                UploadMissingMeasurements.State.Uploading(
+                    uploaded = 2,
+                    failedToUpload = 1,
+                    total = 10,
+                ),
+            ),
+        )
+    }
+}
+
+@Preview
+@Composable
+fun RunBackgroundRunningTestsPreview() {
+    AppTheme {
+        RunningTests(
+            state = RunBackgroundState.RunningTests(),
+            onEvent = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+fun RunBackgroundStoppingPreview() {
+    AppTheme {
+        Stopping()
     }
 }
