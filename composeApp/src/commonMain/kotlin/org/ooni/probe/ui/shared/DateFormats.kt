@@ -1,7 +1,6 @@
 package org.ooni.probe.ui.shared
 
 import androidx.compose.runtime.Composable
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -18,6 +17,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.shared.today
+import kotlin.time.Clock
 import kotlin.time.Duration
 
 private val longDateTimeFormat = LocalDateTime.Format {

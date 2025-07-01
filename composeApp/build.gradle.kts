@@ -153,6 +153,7 @@ kotlin {
             languageSettings {
                 optIn("kotlin.ExperimentalStdlibApi")
                 optIn("kotlin.io.encoding.ExperimentalEncodingApi")
+                optIn("kotlin.time.ExperimentalTime")
                 optIn("kotlinx.cinterop.BetaInteropApi")
                 optIn("kotlinx.cinterop.ExperimentalForeignApi")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")

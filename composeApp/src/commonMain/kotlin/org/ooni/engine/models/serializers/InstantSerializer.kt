@@ -1,12 +1,13 @@
 package org.ooni.engine.models.serializers
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeComponents
 import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.datetime.format.char
+import kotlinx.datetime.parse
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
@@ -23,7 +24,7 @@ object InstantSerializer : KSerializer<Instant> {
                     char('-')
                     monthNumber()
                     char('-')
-                    dayOfMonth()
+                    day()
                 },
             )
             char(' ')
@@ -39,7 +40,7 @@ object InstantSerializer : KSerializer<Instant> {
         }
 
     override val descriptor: SerialDescriptor =
-        PrimitiveSerialDescriptor("kotlinx.datetime.Instant", PrimitiveKind.STRING)
+        PrimitiveSerialDescriptor("kotlin.time.Instant for TaskEvent Measurement", PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): Instant = Instant.parse(decoder.decodeString(), format = format)
 
