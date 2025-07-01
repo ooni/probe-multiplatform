@@ -50,7 +50,9 @@ import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.ui.shared.TopBar
+import org.ooni.probe.ui.theme.AppTheme
 
 @Composable
 fun ChooseWebsitesScreen(
@@ -204,4 +206,15 @@ private fun BackConfirmationDialog(
             }
         },
     )
+}
+
+@Preview
+@Composable
+fun ChooseWebsitesScreenPreview() {
+    AppTheme {
+        ChooseWebsitesScreen(
+            state = ChooseWebsitesViewModel.State(),
+            onEvent = {},
+        )
+    }
 }

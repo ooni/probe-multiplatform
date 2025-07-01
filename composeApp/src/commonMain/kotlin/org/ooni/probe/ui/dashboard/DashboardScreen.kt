@@ -195,3 +195,11 @@ fun DashboardScreenPreview() {
         )
     }
 }
+
+@Preview
+@Composable
+fun VpnWarningPreview() {
+    AppTheme {
+        VpnWarning()
+    }
+}
