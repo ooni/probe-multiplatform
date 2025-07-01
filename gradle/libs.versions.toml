@@ -30,7 +30,7 @@ conveyor = { id = "dev.hydraulic.conveyor", version = "1.12" }
 
 # Kotlin
 kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.9.0" }
-kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.2" }
+kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.7.0-0.6.x-compat" }
 
 # Java
 android-desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.5" }
