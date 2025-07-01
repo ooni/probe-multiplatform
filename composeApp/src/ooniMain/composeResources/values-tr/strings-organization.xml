@@ -34,7 +34,17 @@
     <string name="Settings_About_Content_Reports">Raporlar</string>
     <string name="Settings_About_Content_DataPolicy">OONI veri işleme ilkesi</string>
 
-    <string name="Settings_Donate_Title">Bağış Yap</string>
-    <string name="Settings_Donate_Action">Bağış Yap</string>
+    <string name="Settings_Donate_Title">Bağış yapın</string>
+    <string name="Settings_Donate_Heading">İnternet özgürlüğünü desteklemek için bağış yapın</string>
+    <string name="Settings_Donate_SubHeading">Kar amacı gütmeyen bir kuruluş olarak, herkesin kullanabileceği özgür ve açık bir interneti savunmak için sizin gibi insanların bağışlarından destek alıyoruz.</string>
+    <string name="Settings_Donate_Support_Title">OONI için bağış yaparak şunları desteklemiş olursunuz:</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">İnternet sansürünü belirlemek için ücretsiz ve açık kaynaklı yazılım</string>
+    <string name="Settings_Donate_Support_Item_Analysis">Dünya çapında gerçek zamanlı internet sansürü ölçümü</string>
+    <string name="Settings_Donate_Support_Item_OpenData">İnternet sansürü ile ilgili açık veri. Küresel araştırma ve savunuculuk çabalarını desteklemek</string>
+    <string name="Settings_Donate_Support_Item_Research">Dünya çapında sansür olayları üzerine araştırma</string>
+    <string name="Settings_Donate_Action">Bağış yapın</string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">Bunun için ayrı bir tarayıcı penceresi açılacak</string>
+    <string name="Settings_Donate_Action_Error">Bağış sayfası açılamadı. Lütfen şuraya gidin: %1$s</string>
+
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Bu bağlantıyı yalnızca geliştiricisinin gönderdiği özgün bağlantıdan yeniden kurabilirsiniz. Bu bağlantıdaki ölçümler silinecek, ancak Explorer üzerinden erişilebilecek.</string>
 </resources>

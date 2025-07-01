@@ -16,6 +16,11 @@
     <string name="Dashboard_RunTests_Description">Wähle den auszuführenden Test</string>
     <string name="Dashboard_RunTests_SelectAll">Alle Tests auswählen</string>
     <string name="Dashboard_RunTests_SelectNone">Alle Tests abwählen</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Führe %1$d Test aus</item>
+        <item quantity="other">Führe %1$d Tests aus</item>
+    </plurals>
+
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <string name="Dashboard_RunV2_RunFinished">Ausführung beendet. Tippe, um die Ergebnisse anzuzeigen.</string>
@@ -69,6 +74,10 @@
     <string name="TestResults_Overview_Hero_Tests">Tests</string>
     <string name="TestResults_Overview_Hero_Networks">Netzwerke</string>
     <string name="TestResults_Overview_Hero_DataUsage">Datennutzung</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s blockiert</item>
+        <item quantity="other">%1$s blockiert</item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Es wurden noch keine Tests durchgeführt. Probiere, einen auszuführen!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Datum &amp; Zeit</string>
     <string name="TestResults_Summary_Hero_Network">Netzwerk</string>
@@ -77,6 +86,8 @@
     <string name="TestResults_Summary_Hero_WiFi">WLAN</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobile Daten</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">Kein Internet</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Upload</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Herunterladen</string>
@@ -92,16 +103,40 @@
     <string name="TestResults_UnknownASN">Unbekannt</string>
     <string name="TestResults_NotAvailable">Nicht verfügbar</string>
 
+    <string name="TestResults_Filters_Title">Testresultate filtern</string>
+    <string name="TestResults_Filters_Short">Filter:</string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one">%1$d Filter</item>
+        <item quantity="other">%1$d Filter</item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Tests</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one">%1$d Test</item>
+        <item quantity="other">%1$d Tests</item>
+    </plurals>
     <string name="TestResults_Filter_Networks">Netzwerke</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one">%1$d Netzwerk</item>
+        <item quantity="other">%1$d Netzwerke</item>
+    </plurals>
     <string name="TestResults_Filter_Source">Quelle</string>
     <string name="TestResults_Filter_Date">Datum</string>
+    <string name="TestResults_Filter_Date_Any">Beliebiges Datum</string>
     <string name="TestResults_Filter_Date_Today">Heute</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">Von vor 7 Tagen</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">Von vor 1 Monat</string>
     <string name="TestResults_Filter_Date_Custom">Benutzerdefiniert</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Benutzerdefiniert: %1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Wähle einen Datumsbereich</string>
+    <string name="TestResults_Filter_NoTestsFound">Für diese Filter wurden keine Testergebnisse gefunden.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Möchtest du alle Testergebnisse für die aktuellen Filter löschen\?</string>
+
     <string name="Results_LimitedNotice">Nur die letzten %1$d Resultate werden angezeigt</string>
     <string name="Results_UploadingMissing">Hochladen fehlender Ergebnisse %1$s</string>
     <string name="Results_MarkAllAsViewed">Alle als gesehen markieren</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Möchtest du alle Ergebnisse als angesehen markieren\?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Möchtest du alle Ergebnisse für die aktuellen Filter als angesehen markieren\?</string>
+
     <!-- Measurements -->
 
     <string name="Measurement_Title">Messung</string>
@@ -153,7 +188,9 @@
     <string name="Settings_Support_Label">Support</string>
     <string name="Settings_Support_SendEmail">E-Mail an den Support senden</string>
     <string name="Settings_Support_Message">Beschreibe bitte das Problem, das bei dir auftritt:</string>
-    <string name="Settings_Support_Action">E-Mail verschicken</string>
+    <string name="Settings_Support_Message_Hint">Nachricht an das Support-Team</string>
+    <string name="Settings_Support_IncludeLogs">Anwendungsprotokolle einbeziehen</string>
+    <string name="Settings_Support_Action">E-Mail senden</string>
 
     <string name="Settings_Storage_Label">Speicherplatz-Nutzung</string>
     <string name="Settings_Storage_Delete">Löschen</string>
@@ -174,6 +211,11 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Ausführen</string>
     <string name="Settings_Websites_CustomURL_Add"> Webseite hinzufügen</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one">Teste %1$d URL</item>
+        <item quantity="other">Teste %1$d URLs</item>
+    </plurals>
+
     <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Drogen &amp; Alkohol</string>
@@ -302,6 +344,14 @@
     <string name="Modal_Cancel">Abbrechen</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Möchtest du alle Testergebnisse löschen?</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">Willst du %1$s Testresultat löschen\?</item>
+        <item quantity="other">Willst du %1$s Testresultate löschen\?</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one">%1$d ausgewählter Artikel</item>
+        <item quantity="other">%1$d ausgewählte Artikel</item>
+    </plurals>
     <string name="Modal_Delete">Löschen</string>
     <string name="Modal_ReRun_Title">Wiederhole Test</string>
     <string name="Modal_ReRun_Websites_Title">Sie sind dabei, %1$s Websites erneut zu testen.</string>
@@ -341,6 +391,14 @@
     <string name="Common_Clear">Löschen</string>
 
     <string name="Common_Ago">Vor %1$s</string>
+    <plurals name="Common_Minutes">
+        <item quantity="one">%1$d Minute</item>
+        <item quantity="other">%1$d Minuten</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d Stunde</item>
+        <item quantity="other">%1$d Stunden</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$dStd</string>
     <string name="Common_Minutes_Abbreviated">%1$dMin</string>
     <string name="Common_Seconds_Abbreviated">%1$dSek</string>
