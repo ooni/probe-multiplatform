@@ -108,6 +108,7 @@ conveyor = { module = "dev.hydraulic.conveyor:conveyor-control", version = "1.1"
 auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.6.0"}
 directories = { module = "dev.dirs:directories", version = "26" }
 pratanumandal-unique = { module = "tk.pratanumandal:unique4j", version = "1.4" }
+desktop-oonimkall = { module = "org.ooni:oonimkall", version = "2025.07.01-140014-desktop" }
 
 [bundles]
 
@@ -151,7 +152,8 @@ desktop = [
     "conveyor",
     "directories",
     "auto-launch",
-    "pratanumandal-unique"
+    "pratanumandal-unique",
+    "desktop-oonimkall"
 ]
 full = [
     "sentry",

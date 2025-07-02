@@ -123,7 +123,6 @@ kotlin {
         }
         val desktopMain by getting {
             dependencies {
-                implementation(files("./src/desktopMain/libs/oonimkall.jar"))
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
 
