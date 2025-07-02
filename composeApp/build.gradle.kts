@@ -359,7 +359,7 @@ compose.desktop {
             modules("java.sql", "jdk.unsupported")
 
             macOS {
-                minimumSystemVersion = "10.15.0"
+                minimumSystemVersion = "13.0.0"
                 // Hide dock icon
                 infoPlist {
                     extraKeysRawXml = """
