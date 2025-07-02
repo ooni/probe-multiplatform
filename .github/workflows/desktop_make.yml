@@ -16,7 +16,7 @@ jobs:
         run: ./gradlew copyBrandingToCommonResources package -Porganization=ooni
 
       - name: Conveyor make site
-        uses: hydraulic-software/conveyor/actions/build@v18.0
+        uses: hydraulic-software/conveyor/actions/build@v18.1
         env:
           APPLE_ASP: ${{ secrets.APPLE_ASP }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
