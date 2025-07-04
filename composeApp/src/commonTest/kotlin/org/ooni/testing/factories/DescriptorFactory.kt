@@ -1,8 +1,8 @@
 package org.ooni.testing.factories
 
 import androidx.compose.ui.graphics.Color
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.DrawableResource
 import org.ooni.engine.models.SummaryType
