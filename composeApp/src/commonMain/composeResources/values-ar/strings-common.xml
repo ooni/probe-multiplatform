@@ -25,6 +25,7 @@
     <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
     <string name="Dashboard_RunV2_ExpiredTag">منتهي الصلاحية</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
+    <string name="Dashboard_RunV2_UpdateTag">تحديث</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">تراجع</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Review Updates</string>
