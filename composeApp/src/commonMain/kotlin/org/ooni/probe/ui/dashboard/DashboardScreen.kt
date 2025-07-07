@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -31,6 +33,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.DescriptorUpdate_CheckUpdates
 import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
@@ -40,6 +43,7 @@ import ooniprobe.composeapp.generated.resources.logo_probe
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TestRunErrorMessages
@@ -60,7 +64,7 @@ fun DashboardScreen(
                 isRefreshing = state.isRefreshing,
                 onRefresh = { onEvent(DashboardViewModel.Event.FetchUpdatedDescriptors) },
                 state = pullRefreshState,
-                enabled = state.isRefreshEnabled,
+                enabled = state.isRefreshEnabled && state.canPullToRefresh,
             )
             .background(MaterialTheme.colorScheme.background),
     ) {
@@ -112,7 +116,8 @@ fun DashboardScreen(
             Box {
                 val lazyListState = rememberLazyListState()
                 LazyColumn(
-                    modifier = Modifier.padding(top = if (isHeightCompact()) 8.dp else 24.dp)
+                    modifier = Modifier
+                        .padding(top = if (isHeightCompact()) 8.dp else 24.dp)
                         .testTag("Dashboard-List"),
                     contentPadding = PaddingValues(bottom = 16.dp),
                     state = lazyListState,
@@ -121,7 +126,21 @@ fun DashboardScreen(
                     state.descriptors.forEach { (type, items) ->
                         if (allSectionsHaveValues && items.isNotEmpty()) {
                             item(type) {
-                                TestDescriptorSection(type)
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 16.dp)
+                                        .padding(top = 16.dp, bottom = 4.dp),
+                                ) {
+                                    TestDescriptorSection(type, modifier = Modifier.weight(1f))
+                                    if (type == DescriptorType.Installed && !state.canPullToRefresh) {
+                                        CheckUpdatesButton(
+                                            enabled = !state.isRefreshing,
+                                            onEvent = onEvent,
+                                        )
+                                    }
+                                }
                             }
                         }
                         items(items, key = { it.key }) { descriptor ->
@@ -131,7 +150,9 @@ fun DashboardScreen(
                                     onEvent(DashboardViewModel.Event.DescriptorClicked(descriptor))
                                 },
                                 onUpdateClick = {
-                                    onEvent(DashboardViewModel.Event.UpdateDescriptorClicked(descriptor))
+                                    onEvent(
+                                        DashboardViewModel.Event.UpdateDescriptorClicked(descriptor),
+                                    )
                                 },
                             )
                         }
@@ -192,6 +213,27 @@ private fun VpnWarning() {
             )
             Text(stringResource(Res.string.Modal_DisableVPN_Title))
         }
+    }
+}
+
+@Composable
+private fun CheckUpdatesButton(
+    enabled: Boolean,
+    onEvent: (DashboardViewModel.Event) -> Unit,
+) {
+    TextButton(
+        onClick = { onEvent(DashboardViewModel.Event.FetchUpdatedDescriptors) },
+        enabled = enabled,
+        contentPadding = PaddingValues(
+            horizontal = 8.dp,
+            vertical = 4.dp,
+        ),
+        modifier = Modifier.defaultMinSize(minHeight = 32.dp),
+    ) {
+        Text(
+            stringResource(Res.string.DescriptorUpdate_CheckUpdates),
+            style = MaterialTheme.typography.labelMedium,
+        )
     }
 }
 

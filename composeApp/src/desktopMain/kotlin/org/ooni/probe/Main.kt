@@ -6,9 +6,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
 import io.github.kdroidfilter.platformtools.darkmodedetector.isSystemInDarkMode
 import io.github.kdroidfilter.platformtools.darkmodedetector.windows.setWindowsAdaptiveTitleBar
 import io.github.vinceglb.autolaunch.AutoLaunch
@@ -73,9 +76,11 @@ fun main(args: Array<String>) {
             visible = isWindowVisible,
             icon = painterResource(trayIcon),
             title = stringResource(Res.string.app_name),
+            state = rememberWindowState(
+                size = DpSize(480.dp, 800.dp),
+            ),
         ) {
             window.setWindowsAdaptiveTitleBar()
-            window.size = Dimension(480, 800)
             window.minimumSize = Dimension(320, 560)
             window.maximumSize = Dimension(1024, 1024)
             App(

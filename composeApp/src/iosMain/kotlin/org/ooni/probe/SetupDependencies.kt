@@ -130,6 +130,7 @@ class SetupDependencies(
             model = UIDevice.currentDevice.model,
             requestNotificationsPermission = false,
             supportsInAppLanguage = true,
+            canPullToRefresh = true,
             sentryDsn = "https://a19b2c03b50acdad7d5635559a8e2cad@o155150.ingest.sentry.io/4508325650235392",
         )
 

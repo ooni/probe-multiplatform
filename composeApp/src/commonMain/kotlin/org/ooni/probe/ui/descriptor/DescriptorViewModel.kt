@@ -48,10 +48,11 @@ class DescriptorViewModel(
     observeDescriptorsUpdateState: () -> Flow<DescriptorsUpdateState>,
     dismissDescriptorReviewNotice: () -> Unit,
     undoRejectedDescriptorUpdate: suspend (InstalledTestDescriptorModel.Id) -> Unit,
+    canPullToRefresh: Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val _state = MutableStateFlow(State())
+    private val _state = MutableStateFlow(State(canPullToRefresh = canPullToRefresh))
     val state = _state.asStateFlow()
 
     init {
@@ -251,6 +252,7 @@ class DescriptorViewModel(
         val lastResult: ResultListItem? = null,
         val updateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
         val isAutoRunEnabled: Boolean = true,
+        val canPullToRefresh: Boolean = true,
     ) {
         val isRefreshing: Boolean
             get() = updateOperationState == DescriptorUpdateOperationState.FetchingUpdates
@@ -260,6 +262,7 @@ class DescriptorViewModel(
                 tests.size -> ToggleableState.On
                 else -> ToggleableState.Indeterminate
             }
+        val isRefreshEnabled get() = descriptor?.source is Descriptor.Source.Installed
     }
 
     sealed interface Event {

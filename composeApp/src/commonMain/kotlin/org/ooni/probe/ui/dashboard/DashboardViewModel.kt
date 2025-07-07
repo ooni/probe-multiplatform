@@ -38,10 +38,11 @@ class DashboardViewModel(
     dismissDescriptorsUpdateNotice: () -> Unit,
     getAutoRunSettings: () -> Flow<AutoRunParameters>,
     batteryOptimization: BatteryOptimization,
+    canPullToRefresh: Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val _state = MutableStateFlow(State())
+    private val _state = MutableStateFlow(State(canPullToRefresh = canPullToRefresh))
     val state = _state.asStateFlow()
 
     init {
@@ -190,6 +191,7 @@ class DashboardViewModel(
         val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
         val descriptorsUpdateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
         val showIgnoreBatteryOptimizationNotice: Boolean = false,
+        val canPullToRefresh: Boolean = true,
     ) {
         val isRefreshing: Boolean
             get() = descriptorsUpdateOperationState == DescriptorUpdateOperationState.FetchingUpdates

@@ -6,9 +6,9 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import org.ooni.engine.Engine
 import org.ooni.engine.models.Result
+import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
-import org.ooni.probe.data.models.DescriptorUpdateOperationState
 
 class FetchDescriptorsUpdates(
     private val fetchDescriptor: suspend (descriptorId: String) -> Result<InstalledTestDescriptorModel?, Engine.MkException>,
