@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.material.icons.Icons
@@ -74,6 +75,7 @@ import org.ooni.probe.ui.dashboard.TestDescriptorSection
 import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.TopBar
+import org.ooni.probe.ui.shared.VerticalScrollbar
 
 @Composable
 fun RunScreen(
@@ -123,6 +125,7 @@ fun RunScreen(
         }
 
         Box {
+            val lazyListState = rememberLazyListState()
             LazyColumn(
                 contentPadding = PaddingValues(
                     start = 8.dp,
@@ -132,6 +135,7 @@ fun RunScreen(
                         WindowInsets.navigationBars.asPaddingValues()
                             .calculateBottomPadding() + 64.dp,
                 ),
+                state = lazyListState,
                 modifier = Modifier.fillMaxSize()
                     .testTag("Run-DescriptorsList"),
             ) {
@@ -169,6 +173,8 @@ fun RunScreen(
                     }
                 }
             }
+
+            VerticalScrollbar(state = lazyListState, modifier = Modifier.align(Alignment.CenterEnd))
 
             val selectedTestsCount = state.list.values.sumOf {
                 it.values.sumOf { items -> items.count { item -> item.isSelected } }

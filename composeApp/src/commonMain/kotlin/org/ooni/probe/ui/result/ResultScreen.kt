@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -92,6 +93,7 @@ import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Single
 import org.ooni.probe.ui.results.UploadResults
 import org.ooni.probe.ui.shared.TopBar
+import org.ooni.probe.ui.shared.VerticalScrollbar
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.longFormat
@@ -148,53 +150,61 @@ fun ResultScreen(
         if (state.result == null) return@Column
         val showSummary = !isHeightCompact()
 
-        LazyColumn(
-            contentPadding = WindowInsets.navigationBars.asPaddingValues(),
-        ) {
-            if (showSummary) {
-                item("summary") {
-                    Surface(
-                        color = descriptorColor,
-                        contentColor = onDescriptorColor,
-                    ) {
-                        Summary(state.result)
+        Box {
+            val lazyListState = rememberLazyListState()
+            LazyColumn(
+                contentPadding = WindowInsets.navigationBars.asPaddingValues(),
+                state = lazyListState,
+            ) {
+                if (showSummary) {
+                    item("summary") {
+                        Surface(
+                            color = descriptorColor,
+                            contentColor = onDescriptorColor,
+                        ) {
+                            Summary(state.result)
+                        }
+                    }
+                }
+
+                if (state.result.anyMeasurementMissingUpload) {
+                    stickyHeader("upload_results") {
+                        UploadResults(onUploadClick = { onEvent(ResultViewModel.Event.UploadClicked) })
+                    }
+                }
+
+                items(state.groupedMeasurements, key = { item ->
+                    when (item) {
+                        is Group -> item.test.name
+                        is Single -> item.measurement.measurement.idOrThrow.value
+                    }
+                }) { item ->
+                    when (item) {
+                        is Group -> {
+                            ResultGroupMeasurementCell(
+                                item = item,
+                                isResultDone = state.result.result.isDone,
+                                onClick = { onEvent(ResultViewModel.Event.MeasurementClicked(it)) },
+                                onDropdownToggled = {
+                                    onEvent(ResultViewModel.Event.MeasurementGroupToggled(item))
+                                },
+                            )
+                        }
+
+                        is Single -> {
+                            ResultMeasurementCell(
+                                item = item.measurement,
+                                isResultDone = state.result.result.isDone,
+                                onClick = { onEvent(ResultViewModel.Event.MeasurementClicked(it)) },
+                            )
+                        }
                     }
                 }
             }
-
-            if (state.result.anyMeasurementMissingUpload) {
-                stickyHeader("upload_results") {
-                    UploadResults(onUploadClick = { onEvent(ResultViewModel.Event.UploadClicked) })
-                }
-            }
-
-            items(state.groupedMeasurements, key = { item ->
-                when (item) {
-                    is Group -> item.test.name
-                    is Single -> item.measurement.measurement.idOrThrow.value
-                }
-            }) { item ->
-                when (item) {
-                    is Group -> {
-                        ResultGroupMeasurementCell(
-                            item = item,
-                            isResultDone = state.result.result.isDone,
-                            onClick = { onEvent(ResultViewModel.Event.MeasurementClicked(it)) },
-                            onDropdownToggled = {
-                                onEvent(ResultViewModel.Event.MeasurementGroupToggled(item))
-                            },
-                        )
-                    }
-
-                    is Single -> {
-                        ResultMeasurementCell(
-                            item = item.measurement,
-                            isResultDone = state.result.result.isDone,
-                            onClick = { onEvent(ResultViewModel.Event.MeasurementClicked(it)) },
-                        )
-                    }
-                }
-            }
+            VerticalScrollbar(
+                state = lazyListState,
+                modifier = Modifier.align(Alignment.CenterEnd),
+            )
         }
     }
 

@@ -170,6 +170,8 @@ kotlin {
     compilerOptions {
         // Common compiler options applied to all Kotlin source sets
         freeCompilerArgs.add("-Xexpect-actual-classes")
+        // Switch to future default rule: https://youtrack.jetbrains.com/issue/KT-73255
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
     }
 }
 

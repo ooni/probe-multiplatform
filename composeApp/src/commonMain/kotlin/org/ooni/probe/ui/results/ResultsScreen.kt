@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -89,6 +90,7 @@ import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.ui.shared.LightStatusBars
 import org.ooni.probe.ui.shared.TopBar
+import org.ooni.probe.ui.shared.VerticalScrollbar
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
 
@@ -244,64 +246,71 @@ fun ResultsScreen(
                 UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
             }
 
-            LazyColumn {
-                state.results.forEach { (date, results) ->
-                    stickyHeader(key = date.toString()) {
-                        ResultDateHeader(date)
-                    }
-                    items(items = results) { result ->
-                        val isSelected = result.isSelected
-                        ResultCell(
-                            item = result.item,
-                            onResultClick = {
-                                if (state.selectionEnabled) {
+            Box {
+                val lazyListState = rememberLazyListState()
+                LazyColumn(state = lazyListState) {
+                    state.results.forEach { (date, results) ->
+                        stickyHeader(key = date.toString()) {
+                            ResultDateHeader(date)
+                        }
+                        items(items = results) { result ->
+                            val isSelected = result.isSelected
+                            ResultCell(
+                                item = result.item,
+                                onResultClick = {
+                                    if (state.selectionEnabled) {
+                                        onEvent(
+                                            ResultsViewModel.Event.ToggleItemSelection(
+                                                result.item,
+                                                !isSelected,
+                                            ),
+                                        )
+                                    } else {
+                                        onEvent(ResultsViewModel.Event.ResultClick(result.item))
+                                    }
+                                },
+                                isSelected = isSelected,
+                                onSelectChange = { checked ->
                                     onEvent(
                                         ResultsViewModel.Event.ToggleItemSelection(
                                             result.item,
-                                            !isSelected,
+                                            checked,
                                         ),
                                     )
-                                } else {
-                                    onEvent(ResultsViewModel.Event.ResultClick(result.item))
-                                }
-                            },
-                            isSelected = isSelected,
-                            onSelectChange = { checked ->
-                                onEvent(
-                                    ResultsViewModel.Event.ToggleItemSelection(
-                                        result.item,
-                                        checked,
-                                    ),
-                                )
-                            },
-                            onLongClick = {
-                                if (!isSelected) {
-                                    onEvent(
-                                        ResultsViewModel.Event.ToggleItemSelection(
-                                            result.item,
-                                            true,
-                                        ),
-                                    )
-                                }
-                            },
-                        )
-                        HorizontalDivider(thickness = with(LocalDensity.current) { 1.toDp() })
+                                },
+                                onLongClick = {
+                                    if (!isSelected) {
+                                        onEvent(
+                                            ResultsViewModel.Event.ToggleItemSelection(
+                                                result.item,
+                                                true,
+                                            ),
+                                        )
+                                    }
+                                },
+                            )
+                            HorizontalDivider(thickness = with(LocalDensity.current) { 1.toDp() })
+                        }
+                    }
+                    if (state.areResultsLimited) {
+                        item("limited") {
+                            Text(
+                                text = stringResource(
+                                    Res.string.Results_LimitedNotice,
+                                    state.filter.limit,
+                                ),
+                                style = MaterialTheme.typography.labelLarge,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+                                    .padding(horizontal = 16.dp, vertical = 24.dp),
+                            )
+                        }
                     }
                 }
-                if (state.areResultsLimited) {
-                    item("limited") {
-                        Text(
-                            text = stringResource(
-                                Res.string.Results_LimitedNotice,
-                                state.filter.limit,
-                            ),
-                            style = MaterialTheme.typography.labelLarge,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 24.dp),
-                        )
-                    }
-                }
+                VerticalScrollbar(
+                    state = lazyListState,
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                )
             }
         }
     }

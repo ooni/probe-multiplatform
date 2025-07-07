@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -43,6 +44,7 @@ import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.UpdateProgressStatus
+import org.ooni.probe.ui.shared.VerticalScrollbar
 import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.theme.AppTheme
 
@@ -107,30 +109,38 @@ fun DashboardScreen(
                 VpnWarning()
             }
 
-            LazyColumn(
-                modifier = Modifier.padding(top = if (isHeightCompact()) 8.dp else 24.dp)
-                    .testTag("Dashboard-List"),
-                contentPadding = PaddingValues(bottom = 16.dp),
-            ) {
-                val allSectionsHaveValues = state.descriptors.entries.all { it.value.any() }
-                state.descriptors.forEach { (type, items) ->
-                    if (allSectionsHaveValues && items.isNotEmpty()) {
-                        item(type) {
-                            TestDescriptorSection(type)
+            Box {
+                val lazyListState = rememberLazyListState()
+                LazyColumn(
+                    modifier = Modifier.padding(top = if (isHeightCompact()) 8.dp else 24.dp)
+                        .testTag("Dashboard-List"),
+                    contentPadding = PaddingValues(bottom = 16.dp),
+                    state = lazyListState,
+                ) {
+                    val allSectionsHaveValues = state.descriptors.entries.all { it.value.any() }
+                    state.descriptors.forEach { (type, items) ->
+                        if (allSectionsHaveValues && items.isNotEmpty()) {
+                            item(type) {
+                                TestDescriptorSection(type)
+                            }
+                        }
+                        items(items, key = { it.key }) { descriptor ->
+                            TestDescriptorItem(
+                                descriptor = descriptor,
+                                onClick = {
+                                    onEvent(DashboardViewModel.Event.DescriptorClicked(descriptor))
+                                },
+                                onUpdateClick = {
+                                    onEvent(DashboardViewModel.Event.UpdateDescriptorClicked(descriptor))
+                                },
+                            )
                         }
                     }
-                    items(items, key = { it.key }) { descriptor ->
-                        TestDescriptorItem(
-                            descriptor = descriptor,
-                            onClick = {
-                                onEvent(DashboardViewModel.Event.DescriptorClicked(descriptor))
-                            },
-                            onUpdateClick = {
-                                onEvent(DashboardViewModel.Event.UpdateDescriptorClicked(descriptor))
-                            },
-                        )
-                    }
                 }
+                VerticalScrollbar(
+                    state = lazyListState,
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                )
             }
         }
 

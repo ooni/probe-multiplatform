@@ -1,12 +1,14 @@
 package org.ooni.probe.ui.settings.webcategories
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -14,6 +16,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
@@ -28,6 +31,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.ui.settings.category.SwitchSettingsView
 import org.ooni.probe.ui.shared.TopBar
+import org.ooni.probe.ui.shared.VerticalScrollbar
 
 @Composable
 fun WebCategoriesScreen(
@@ -74,22 +78,30 @@ fun WebCategoriesScreen(
             },
         )
 
-        LazyColumn(
-            contentPadding = WindowInsets.navigationBars.asPaddingValues(),
-        ) {
-            items(state.items, key = { it.item.settingsKey!! }) { item ->
-                SwitchSettingsView(
-                    icon = item.item.icon,
-                    title = item.item.title,
-                    key = item.item.settingsKey!!,
-                    checked = item.isSelected,
-                    enabled = true,
-                    supportingContent = { Text(stringResource(item.item.description)) },
-                    onCheckedChange = { _, value ->
-                        onEvent(WebCategoriesViewModel.Event.PreferenceChanged(item.item, value))
-                    },
-                )
+        Box {
+            val lazyListState = rememberLazyListState()
+            LazyColumn(
+                contentPadding = WindowInsets.navigationBars.asPaddingValues(),
+                state = lazyListState,
+            ) {
+                items(state.items, key = { it.item.settingsKey!! }) { item ->
+                    SwitchSettingsView(
+                        icon = item.item.icon,
+                        title = item.item.title,
+                        key = item.item.settingsKey!!,
+                        checked = item.isSelected,
+                        enabled = true,
+                        supportingContent = { Text(stringResource(item.item.description)) },
+                        onCheckedChange = { _, value ->
+                            onEvent(WebCategoriesViewModel.Event.PreferenceChanged(item.item, value))
+                        },
+                    )
+                }
             }
+            VerticalScrollbar(
+                state = lazyListState,
+                modifier = Modifier.align(Alignment.CenterEnd),
+            )
         }
     }
 }
