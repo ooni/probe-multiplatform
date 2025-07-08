@@ -27,9 +27,10 @@ class FetchDescriptorsUpdates(
         }
 
         val fetchResults = coroutineScope {
-            descriptors.map { descriptor ->
-                async { descriptor to fetchDescriptor(descriptor.id.value) }
-            }.awaitAll()
+            descriptors
+                .map { descriptor ->
+                    async { descriptor to fetchDescriptor(descriptor.id.value) }
+                }.awaitAll()
         }
 
         val minorUpdates = mutableListOf<InstalledTestDescriptorModel>()
@@ -37,16 +38,18 @@ class FetchDescriptorsUpdates(
         val autoUpdates = mutableListOf<InstalledTestDescriptorModel>()
 
         fetchResults.forEach { (descriptor, fetchResult) ->
-            val newDescriptor = fetchResult.get()
+            val newDescriptor = fetchResult
+                .get()
                 ?.copy(autoUpdate = descriptor.autoUpdate)
                 ?: run {
                     Logger.w("Failed to fetch update", fetchResult.getError())
                     return@forEach
                 }
 
-            val newUpdate = newDescriptor.dateUpdated != null && (
-                descriptor.dateUpdated == null || descriptor.dateUpdated < newDescriptor.dateUpdated
-            )
+            val newUpdate = newDescriptor.dateUpdated != null &&
+                (
+                    descriptor.dateUpdated == null || descriptor.dateUpdated < newDescriptor.dateUpdated
+                )
             if (!newUpdate) return@forEach
 
             if (newDescriptor.revision > descriptor.revision) {

@@ -82,7 +82,10 @@ private fun readAssetFile(path: String): String {
 
 private fun buildDataStore() =
     PreferenceDataStoreFactory.create {
-        projectDirectories.dataDir.toPath().resolve("probe.preferences_pb").toFile()
+        projectDirectories.dataDir
+            .toPath()
+            .resolve("probe.preferences_pb")
+            .toFile()
     }
 
 private fun launchAction(action: PlatformAction): Boolean =
@@ -95,12 +98,10 @@ private fun launchAction(action: PlatformAction): Boolean =
         PlatformAction.LanguageSettings -> false
     }
 
-fun openVpnSettings(): Boolean {
-    return false
-}
+fun openVpnSettings(): Boolean = false
 
-fun shareText(action: PlatformAction.Share): Boolean {
-    return try {
+fun shareText(action: PlatformAction.Share): Boolean =
+    try {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
             val uri =
                 URI.create("mailto:?body=${URLEncoder.encode(action.text, StandardCharsets.UTF_8)}")
@@ -113,14 +114,18 @@ fun shareText(action: PlatformAction.Share): Boolean {
         Logger.e(e) { "Failed to share text" }
         false
     }
-}
 
 fun shareFile(action: PlatformAction.FileSharing): Boolean {
     return try {
-        if (Desktop.isDesktopSupported() && Desktop.getDesktop()
+        if (Desktop.isDesktopSupported() &&
+            Desktop
+                .getDesktop()
                 .isSupported(Desktop.Action.APP_OPEN_FILE)
         ) {
-            val file = projectDirectories.dataDir.toPath().resolve(action.filePath).toFile()
+            val file = projectDirectories.dataDir
+                .toPath()
+                .resolve(action.filePath)
+                .toFile()
             if (!file.exists()) {
                 Logger.w("File to share does not exist: $file")
                 return false
@@ -145,8 +150,8 @@ fun openUrl(action: PlatformAction.OpenUrl): Boolean {
     }
 }
 
-fun sendMail(action: PlatformAction.Mail): Boolean {
-    return try {
+fun sendMail(action: PlatformAction.Mail): Boolean =
+    try {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
             val mailUri = buildMailUri(action)
             Desktop.getDesktop().mail(mailUri)
@@ -158,11 +163,12 @@ fun sendMail(action: PlatformAction.Mail): Boolean {
         Logger.e(e) { "Failed to send mail" }
         false
     }
-}
 
 private fun buildMailUri(action: PlatformAction.Mail): URI {
     val subject = URLEncoder.encode(action.subject, StandardCharsets.UTF_8).replace("+", "%20")
-    val body = URLEncoder.encode(action.body, StandardCharsets.UTF_8).replace("+", "%20")
+    val body = URLEncoder
+        .encode(action.body, StandardCharsets.UTF_8)
+        .replace("+", "%20")
         .replace("%0A", "%0D%0A")
     return URI("mailto:${action.to}?subject=$subject&body=$body")
 }

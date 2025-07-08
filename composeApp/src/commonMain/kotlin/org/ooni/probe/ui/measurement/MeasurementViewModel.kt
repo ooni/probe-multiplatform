@@ -50,14 +50,15 @@ class MeasurementViewModel(
                     openUrl(url)
                     onBack()
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.BackClicked>()
+        events
+            .filterIsInstance<Event.BackClicked>()
             .onEach { onBack() }
             .launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.ShareUrl>()
+        events
+            .filterIsInstance<Event.ShareUrl>()
             .onEach { (_state.value as? State.ShowMeasurement)?.url?.let(shareUrl) }
             .launchIn(viewModelScope)
     }
@@ -69,7 +70,9 @@ class MeasurementViewModel(
     sealed interface State {
         data object CheckingWebViewAvailability : State
 
-        data class ShowMeasurement(val url: String) : State
+        data class ShowMeasurement(
+            val url: String,
+        ) : State
     }
 
     sealed interface Event {

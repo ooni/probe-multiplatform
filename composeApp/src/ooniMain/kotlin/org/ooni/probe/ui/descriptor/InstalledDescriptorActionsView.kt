@@ -163,8 +163,7 @@ fun ConfigureUpdates(
                 value = autoUpdate,
                 onValueChange = { onEvent(DescriptorViewModel.Event.AutoUpdateChanged(it)) },
                 role = Role.Switch,
-            )
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            ).padding(horizontal = 16.dp, vertical = 8.dp),
     ) {
         Text(
             stringResource(Res.string.AddDescriptor_AutoUpdate),

@@ -104,15 +104,13 @@ class RunViewModel(
                 DescriptorType.Installed to descriptorsWithTests
                     .filter { it.key.item.source is Descriptor.Source.Installed },
             )
-        }
-            .onEach { list -> _state.update { it.copy(list = list) } }
+        }.onEach { list -> _state.update { it.copy(list = list) } }
             .launchIn(viewModelScope)
 
         merge(
             events.filterIsInstance<Event.Start>(),
             events.filterIsInstance<Event.DisableVpnInstructionsDismissed>(),
-        )
-            .onEach { _state.update { it.copy(showVpnWarning = shouldShowVpnWarning()) } }
+        ).onEach { _state.update { it.copy(showVpnWarning = shouldShowVpnWarning()) } }
             .launchIn(viewModelScope)
 
         events
@@ -124,8 +122,7 @@ class RunViewModel(
             .filterIsInstance<Event.SelectAllClicked>()
             .onEach {
                 selectedTests.value = allNetTests.value
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.DeselectAllClicked>()
@@ -142,8 +139,7 @@ class RunViewModel(
                         it.orEmpty() - event.descriptor.toNetTestsPairs().toSet()
                     }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.NetTestChecked>()
@@ -155,8 +151,7 @@ class RunViewModel(
                         it.orEmpty() - (event.descriptor to event.netTest)
                     }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.DescriptorDropdownToggled>()
@@ -169,8 +164,7 @@ class RunViewModel(
                         keys + key
                     }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.RunClicked>()
@@ -178,8 +172,7 @@ class RunViewModel(
                 saveRunPreferences()
                 startBackgroundRun(buildRunSpecification())
                 onBack()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.RunAlwaysClicked>()
@@ -187,8 +180,7 @@ class RunViewModel(
                 preferenceRepository.setValueByKey(SettingsKey.WARN_VPN_IN_USE, false)
                 startBackgroundRun(buildRunSpecification())
                 onBack()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.DisableVpnClicked>()
@@ -196,8 +188,7 @@ class RunViewModel(
                 if (!openVpnSettings(PlatformAction.VpnSettings)) {
                     _state.update { it.copy(showDisableVpnInstructions = true) }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.DisableVpnInstructionsDismissed>()
@@ -236,8 +227,8 @@ class RunViewModel(
             map.flatMap { entry -> entry.value.map { entry.key.item to it.item } }
         }
 
-    private fun buildRunSpecification(): RunSpecification {
-        return RunSpecification.Full(
+    private fun buildRunSpecification(): RunSpecification =
+        RunSpecification.Full(
             tests = selectedTests.value
                 .orEmpty()
                 .groupBy(keySelector = { it.first }, valueTransform = { it.second })
@@ -257,7 +248,6 @@ class RunViewModel(
             taskOrigin = TaskOrigin.OoniRun,
             isRerun = false,
         )
-    }
 
     data class State(
         val list: Map<DescriptorType, Map<ParentSelectableItem<Descriptor>, List<SelectableItem<NetTest>>>>,
@@ -274,9 +264,14 @@ class RunViewModel(
 
         data object DeselectAllClicked : Event
 
-        data class DescriptorChecked(val descriptor: Descriptor, val isChecked: Boolean) : Event
+        data class DescriptorChecked(
+            val descriptor: Descriptor,
+            val isChecked: Boolean,
+        ) : Event
 
-        data class DescriptorDropdownToggled(val descriptor: Descriptor) : Event
+        data class DescriptorDropdownToggled(
+            val descriptor: Descriptor,
+        ) : Event
 
         data class NetTestChecked(
             val descriptor: Descriptor,

@@ -63,25 +63,23 @@ class OnboardingViewModel(
         merge(
             events.filterIsInstance<Event.AutoTestYesClicked>(),
             events.filterIsInstance<Event.AutoTestNoClicked>(),
-        )
-            .onEach { event ->
-                val enableAutoTest = event == Event.AutoTestYesClicked
+        ).onEach { event ->
+            val enableAutoTest = event == Event.AutoTestYesClicked
 
-                preferenceRepository.setValueByKey(
-                    SettingsKey.AUTOMATED_TESTING_ENABLED,
-                    enableAutoTest,
-                )
+            preferenceRepository.setValueByKey(
+                SettingsKey.AUTOMATED_TESTING_ENABLED,
+                enableAutoTest,
+            )
 
-                if (enableAutoTest &&
-                    batteryOptimization.isSupported &&
-                    !batteryOptimization.isIgnoring
-                ) {
-                    requestIgnoreBatteryOptimization()
-                } else {
-                    moveToNextStep()
-                }
+            if (enableAutoTest &&
+                batteryOptimization.isSupported &&
+                !batteryOptimization.isIgnoring
+            ) {
+                requestIgnoreBatteryOptimization()
+            } else {
+                moveToNextStep()
             }
-            .launchIn(viewModelScope)
+        }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.BatteryOptimizationOkClicked>()
@@ -96,21 +94,18 @@ class OnboardingViewModel(
         merge(
             events.filterIsInstance<Event.CrashReportingYesClicked>(),
             events.filterIsInstance<Event.CrashReportingNoClicked>(),
-        )
-            .onEach { event ->
-                preferenceRepository.setValueByKey(
-                    SettingsKey.SEND_CRASH,
-                    event == Event.CrashReportingYesClicked,
-                )
-                moveToNextStep()
-            }
-            .launchIn(viewModelScope)
+        ).onEach { event ->
+            preferenceRepository.setValueByKey(
+                SettingsKey.SEND_CRASH,
+                event == Event.CrashReportingYesClicked,
+            )
+            moveToNextStep()
+        }.launchIn(viewModelScope)
 
         merge(
             events.filterIsInstance<Event.RequestNotificationsPermissionSkipped>(),
             events.filterIsInstance<Event.RequestNotificationsPermissionDone>(),
-        )
-            .onEach { moveToNextStep() }
+        ).onEach { moveToNextStep() }
             .launchIn(viewModelScope)
 
         events
@@ -118,8 +113,7 @@ class OnboardingViewModel(
             .onEach {
                 preferenceRepository.setValueByKey(SettingsKey.FIRST_RUN, false)
                 goToSettings()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -163,7 +157,9 @@ class OnboardingViewModel(
 
         data object HeadsUp : Step
 
-        data class AutomatedTesting(val showBatteryOptimizationDialog: Boolean) : Step
+        data class AutomatedTesting(
+            val showBatteryOptimizationDialog: Boolean,
+        ) : Step
 
         data object CrashReporting : Step
 

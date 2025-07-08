@@ -42,8 +42,7 @@ class ResultRepository(
                 startFrom = params.startFrom,
                 startUntil = params.startUntil,
                 limit = params.limit,
-            )
-            .asFlow()
+            ).asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
     }
@@ -70,7 +69,8 @@ class ResultRepository(
             .map { it?.let(ResultModel::Id) }
 
     fun countMissingUpload(): Flow<Long> =
-        database.resultQueries.countMissingUpload()
+        database.resultQueries
+            .countMissingUpload()
             .asFlow()
             .mapToOne(backgroundContext)
 
@@ -128,7 +128,8 @@ class ResultRepository(
         }
 
     fun countAllNotViewedFlow(): Flow<Long> =
-        database.resultQueries.countAllNotViewed()
+        database.resultQueries
+            .countAllNotViewed()
             .asFlow()
             .mapToOne(backgroundContext)
 
@@ -280,8 +281,11 @@ class ResultRepository(
                     networkIds = filter.networks.mapNotNull { it.id?.value },
                     filterByTaskOrigin = if (filter.taskOrigin != null) 1 else 0,
                     taskOrigin = filter.taskOrigin?.value,
-                    startFrom = filter.dates.range.start.toEpoch(),
-                    startUntil = filter.dates.range.endInclusive.atTime(23, 59, 59).toEpoch(),
+                    startFrom = filter.dates.range.start
+                        .toEpoch(),
+                    startUntil = filter.dates.range.endInclusive
+                        .atTime(23, 59, 59)
+                        .toEpoch(),
                     limit = filter.limit,
                 )
         }

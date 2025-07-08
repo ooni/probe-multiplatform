@@ -51,7 +51,13 @@ fun List<TestKeysWithResultId>.downloadSpeed() =
         }
     }
 
-fun List<TestKeysWithResultId>.ping() = this.firstOrNull { TestType.Ndt.name == it.testName }?.testKeys?.summary?.ping?.format(1)
+fun List<TestKeysWithResultId>.ping() =
+    this
+        .firstOrNull { TestType.Ndt.name == it.testName }
+        ?.testKeys
+        ?.summary
+        ?.ping
+        ?.format(1)
 
 fun TestKeys.getVideoQuality(extended: Boolean): StringResource {
     return simple?.medianBitrate?.let {
@@ -62,8 +68,8 @@ fun TestKeys.getVideoQuality(extended: Boolean): StringResource {
 private fun minimumBitrateForVideo(
     videoQuality: Double,
     extended: Boolean,
-): StringResource {
-    return if (videoQuality < 600) {
+): StringResource =
+    if (videoQuality < 600) {
         Res.string.r240p
     } else if (videoQuality < 1000) {
         Res.string.r360p
@@ -92,21 +98,17 @@ private fun minimumBitrateForVideo(
     } else {
         Res.string.r2160p
     }
-}
 
-fun getScaledValue(value: Double): Double {
-    return if (value < 1000) {
+fun getScaledValue(value: Double): Double =
+    if (value < 1000) {
         value
     } else if (value < 1000 * 1000) {
         value / 1000
     } else {
         value / 1000 * 1000
     }
-}
 
-fun setFractionalDigits(value: Double): String {
-    return if (value < 10) value.format(1) else value.format(2)
-}
+fun setFractionalDigits(value: Double): String = if (value < 10) value.format(1) else value.format(2)
 
 fun getUnit(value: Double): StringResource {
     // We assume there is no Tbit/s (for now!)

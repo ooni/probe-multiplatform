@@ -200,8 +200,7 @@ fun ResultsScreen(
                                 onEvent(ResultsViewModel.Event.ToggleSelection)
                             },
                             role = Role.Checkbox,
-                        )
-                        .padding(8.dp),
+                        ).padding(8.dp),
                 ) {
                     TriStateCheckbox(
                         state = toggleState,
@@ -301,7 +300,8 @@ fun ResultsScreen(
                                 ),
                                 style = MaterialTheme.typography.labelLarge,
                                 textAlign = TextAlign.Center,
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier
+                                    .fillMaxWidth()
                                     .padding(horizontal = 16.dp, vertical = 24.dp),
                             )
                         }

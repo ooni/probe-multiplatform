@@ -65,8 +65,7 @@ fun DashboardScreen(
                 onRefresh = { onEvent(DashboardViewModel.Event.FetchUpdatedDescriptors) },
                 state = pullRefreshState,
                 enabled = state.isRefreshEnabled && state.canPullToRefresh,
-            )
-            .background(MaterialTheme.colorScheme.background),
+            ).background(MaterialTheme.colorScheme.background),
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

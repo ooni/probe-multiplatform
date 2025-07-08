@@ -132,11 +132,13 @@ fun RunScreen(
                     end = 16.dp,
                     // Insets + Run tests button
                     bottom =
-                        WindowInsets.navigationBars.asPaddingValues()
+                        WindowInsets.navigationBars
+                            .asPaddingValues()
                             .calculateBottomPadding() + 64.dp,
                 ),
                 state = lazyListState,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .testTag("Run-DescriptorsList"),
             ) {
                 val allSectionsHaveValues = state.list.entries.all { it.value.any() }
@@ -273,14 +275,14 @@ private fun DescriptorItem(
     val descriptor = descriptorItem.item
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .triStateToggleable(
                 state = descriptorItem.state,
                 onClick = { onChecked(descriptorItem.state != ToggleableState.On) },
                 role = Role.Checkbox,
                 enabled = descriptor.enabled,
-            )
-            .padding(horizontal = 16.dp),
+            ).padding(horizontal = 16.dp),
     ) {
         TriStateCheckbox(
             state = descriptorItem.state,
@@ -320,15 +322,15 @@ fun TestItem(
     val test = testItem.item
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(start = 32.dp)
             .toggleable(
                 value = testItem.isSelected,
                 onValueChange = { onChecked(it) },
                 role = Role.Checkbox,
                 enabled = enabled,
-            )
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            ).padding(horizontal = 16.dp, vertical = 12.dp),
     ) {
         Checkbox(
             checked = testItem.isSelected,

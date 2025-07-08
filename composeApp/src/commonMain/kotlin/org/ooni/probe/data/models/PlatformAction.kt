@@ -11,11 +11,18 @@ sealed interface PlatformAction {
         val attachment: Path? = null,
     ) : PlatformAction
 
-    data class OpenUrl(val url: String) : PlatformAction
+    data class OpenUrl(
+        val url: String,
+    ) : PlatformAction
 
-    data class Share(val text: String) : PlatformAction
+    data class Share(
+        val text: String,
+    ) : PlatformAction
 
-    data class FileSharing(val title: String, val filePath: Path) : PlatformAction
+    data class FileSharing(
+        val title: String,
+        val filePath: Path,
+    ) : PlatformAction
 
     data object VpnSettings : PlatformAction
 

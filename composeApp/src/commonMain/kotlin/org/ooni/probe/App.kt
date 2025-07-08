@@ -52,7 +52,9 @@ fun App(
     }
 
     CompositionLocalProvider(
-        values = dependencies.localeDirection?.invoke()?.let { LocalLayoutDirection provides it }
+        values = dependencies.localeDirection
+            ?.invoke()
+            ?.let { LocalLayoutDirection provides it }
             ?.let {
                 arrayOf(LocalSnackbarHostState provides snackbarHostState, it)
             } ?: arrayOf(LocalSnackbarHostState provides snackbarHostState),

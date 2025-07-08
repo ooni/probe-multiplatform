@@ -105,15 +105,19 @@ class ResultRepositoryTest {
 
             assertEquals(
                 1,
-                subject.list(
-                    ResultFilter(dates = ResultFilter.Date.Custom(today..today)),
-                ).first().size,
+                subject
+                    .list(
+                        ResultFilter(dates = ResultFilter.Date.Custom(today..today)),
+                    ).first()
+                    .size,
             )
             assertEquals(
                 2,
-                subject.list(
-                    ResultFilter(dates = ResultFilter.Date.Custom(yesterday..today)),
-                ).first().size,
+                subject
+                    .list(
+                        ResultFilter(dates = ResultFilter.Date.Custom(yesterday..today)),
+                    ).first()
+                    .size,
             )
         }
 
@@ -150,7 +154,12 @@ class ResultRepositoryTest {
 
             subject.markAsViewed(model.id!!)
 
-            assertTrue(subject.getById(model.id!!).first()!!.first.isViewed)
+            assertTrue(
+                subject
+                    .getById(model.id!!)
+                    .first()!!
+                    .first.isViewed,
+            )
         }
 
     @Test

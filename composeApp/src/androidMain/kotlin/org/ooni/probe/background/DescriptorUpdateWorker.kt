@@ -115,24 +115,25 @@ class DescriptorUpdateWorker(
         }
     }
 
-    private suspend fun buildNotification(): Notification {
-        return NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
+    private suspend fun buildNotification(): Notification =
+        NotificationCompat
+            .Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.notification_icon)
             .setContentTitle(getString(Res.string.Dashboard_Progress_UpdateLink_Label))
             .setAutoCancel(false)
             .build()
-    }
 
     class ForegroundServiceRestriction : Exception()
 
-    class EarlyStop(reason: Int?) : EarlyStopWorkerException(reason)
+    class EarlyStop(
+        reason: Int?,
+    ) : EarlyStopWorkerException(reason)
 
     companion object {
-        fun buildWorkData(descriptors: List<InstalledTestDescriptorModel.Id>): Data {
-            return workDataOf(
+        fun buildWorkData(descriptors: List<InstalledTestDescriptorModel.Id>): Data =
+            workDataOf(
                 DATA_KEY_DESCRIPTORS to Dependencies.buildJson().encodeToString(descriptors),
             )
-        }
 
         private const val NOTIFICATION_CHANNEL_ID = "UPDATES"
         private const val NOTIFICATION_ID = 2

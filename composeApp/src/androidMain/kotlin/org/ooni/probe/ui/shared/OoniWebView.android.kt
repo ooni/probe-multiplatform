@@ -48,8 +48,8 @@ actual fun OoniWebView(
                 override fun shouldInterceptRequest(
                     view: WebView,
                     request: WebResourceRequest,
-                ): WebResourceResponse? {
-                    return if (isRequestAllowed(request)) {
+                ): WebResourceResponse? =
+                    if (isRequestAllowed(request)) {
                         super.shouldInterceptRequest(view, request)
                     } else {
                         WebResourceResponse(
@@ -61,7 +61,6 @@ actual fun OoniWebView(
                             "".byteInputStream(),
                         )
                     }
-                }
 
                 override fun shouldOverrideUrlLoading(
                     view: WebView,

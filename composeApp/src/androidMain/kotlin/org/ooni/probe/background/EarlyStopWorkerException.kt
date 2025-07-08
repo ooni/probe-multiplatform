@@ -2,8 +2,9 @@ package org.ooni.probe.background
 
 import androidx.work.WorkInfo
 
-open class EarlyStopWorkerException(reason: Int?) :
-    Exception("Early stop due to ${reasonToString(reason)}") {
+open class EarlyStopWorkerException(
+    reason: Int?,
+) : Exception("Early stop due to ${reasonToString(reason)}") {
     companion object {
         private fun reasonToString(reason: Int?) =
             when (reason) {

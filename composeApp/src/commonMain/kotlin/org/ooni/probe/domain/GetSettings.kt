@@ -78,8 +78,8 @@ class GetSettings(
     private val knownBatteryState: Boolean,
     private val supportsInAppLanguage: Boolean,
 ) {
-    operator fun invoke(): Flow<List<SettingsCategoryItem>> {
-        return combine(
+    operator fun invoke(): Flow<List<SettingsCategoryItem>> =
+        combine(
             preferencesRepository.allSettings(
                 WebConnectivityCategory.entries.mapNotNull { it.settingsKey } + listOf(
                     SettingsKey.UPLOAD_RESULTS,
@@ -102,7 +102,6 @@ class GetSettings(
                 supportsCrashReporting = supportsCrashReporting,
             )
         }
-    }
 
     private fun buildSettings(
         hasWebsitesDescriptor: Boolean,
@@ -112,8 +111,8 @@ class GetSettings(
         maxRuntime: Int?,
         storageUsed: Long,
         supportsCrashReporting: Boolean = false,
-    ): List<SettingsCategoryItem> {
-        return listOfNotNull(
+    ): List<SettingsCategoryItem> =
+        listOfNotNull(
             SettingsCategoryItem(
                 icon = Res.drawable.ic_settings,
                 title = Res.string.Settings_TestOptions_Label,
@@ -321,7 +320,6 @@ class GetSettings(
                 route = PreferenceCategoryKey.ABOUT_OONI,
             ),
         )
-    }
 
     @Composable
     private fun ClearStorageDialog(

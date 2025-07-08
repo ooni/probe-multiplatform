@@ -62,7 +62,8 @@ class GetTestDescriptorsBySpec(
             specNetTest.copy(
                 inputs = descriptor.netTests
                     .firstOrNull { it.test == TestType.WebConnectivity }
-                    ?.inputs.orEmpty(),
+                    ?.inputs
+                    .orEmpty(),
             )
         } else {
             specNetTest

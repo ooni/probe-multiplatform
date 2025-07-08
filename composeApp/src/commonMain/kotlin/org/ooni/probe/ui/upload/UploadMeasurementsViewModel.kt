@@ -37,8 +37,7 @@ class UploadMeasurementsViewModel(
                 uploadJob = uploadMissingMeasurements(filter)
                     .onEach { _state.value = it }
                     .launchIn(viewModelScope)
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         state
             .filter { it is UploadMissingMeasurements.State.Finished && it.failedToUpload == 0 }
@@ -52,8 +51,7 @@ class UploadMeasurementsViewModel(
             .onEach {
                 uploadJob?.cancel()
                 onClose()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.CloseClick>()

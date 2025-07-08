@@ -42,22 +42,20 @@ class SettingsCategoryViewModel(
                     // Include categories one tree-level down
                     rootCategories
                         .flatMap { it.settings.orEmpty().filterIsInstance<SettingsCategoryItem>() }
-            }
-            .map { it.firstOrNull { categoryItem -> categoryItem.route.value == categoryKey } }
+            }.map { it.firstOrNull { categoryItem -> categoryItem.route.value == categoryKey } }
             .onEach { if (it == null) onBack() }
             .filterNotNull()
             .flatMapLatest { category ->
 
                 _state.update { it.copy(category = category) }
 
-                preferenceRepository.allSettings(
-                    category.settings.orEmpty().map { it.key },
-                )
-                    .onEach { preferences ->
+                preferenceRepository
+                    .allSettings(
+                        category.settings.orEmpty().map { it.key },
+                    ).onEach { preferences ->
                         _state.update { it.copy(preferences = preferences) }
                     }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         // When auto-run is switch to enabled, check if we're ignoring battery optimization
         preferenceRepository
@@ -68,27 +66,32 @@ class SettingsCategoryViewModel(
             .filterNotNull()
             .drop(1) // We only care about the first change of values
             .onEach { (previousValue, currentValue) ->
-                if (previousValue != true && currentValue == true &&
-                    batteryOptimization.isSupported && !batteryOptimization.isIgnoring
+                if (previousValue != true &&
+                    currentValue == true &&
+                    batteryOptimization.isSupported &&
+                    !batteryOptimization.isIgnoring
                 ) {
                     _state.update { it.copy(showIgnoreBatteryOptimizationNotice = true) }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.SettingsCategoryClick>()
+        events
+            .filterIsInstance<Event.SettingsCategoryClick>()
             .onEach { goToSettingsForCategory(it.category) }
             .launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.CheckedChangeClick>()
+        events
+            .filterIsInstance<Event.CheckedChangeClick>()
             .onEach { preferenceRepository.setValueByKey(it.key, it.value) }
             .launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.IntChanged>()
+        events
+            .filterIsInstance<Event.IntChanged>()
             .onEach { preferenceRepository.setValueByKey(it.key, it.value) }
             .launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.BackClicked>()
+        events
+            .filterIsInstance<Event.BackClicked>()
             .onEach { onBack() }
             .launchIn(viewModelScope)
 
@@ -99,8 +102,7 @@ class SettingsCategoryViewModel(
                 if (batteryOptimization.isSupported && !batteryOptimization.isIgnoring) {
                     batteryOptimization.requestIgnore()
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.IgnoreBatteryOptimizationDismissed>()
@@ -119,11 +121,19 @@ class SettingsCategoryViewModel(
     )
 
     sealed interface Event {
-        data class SettingsCategoryClick(val category: PreferenceCategoryKey) : Event
+        data class SettingsCategoryClick(
+            val category: PreferenceCategoryKey,
+        ) : Event
 
-        data class CheckedChangeClick(val key: SettingsKey, val value: Boolean) : Event
+        data class CheckedChangeClick(
+            val key: SettingsKey,
+            val value: Boolean,
+        ) : Event
 
-        data class IntChanged(val key: SettingsKey, val value: Int?) : Event
+        data class IntChanged(
+            val key: SettingsKey,
+            val value: Int?,
+        ) : Event
 
         data object BackClicked : Event
 

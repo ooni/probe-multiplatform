@@ -36,8 +36,7 @@ class AppLogger(
                 if (log.value.isEmpty()) {
                     log.value = readFile(FILE_PATH).orEmpty().lines()
                 }
-            }
-            .map { lines ->
+            }.map { lines ->
                 if (severity == null) {
                     lines
                 } else {

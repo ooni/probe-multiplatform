@@ -98,8 +98,7 @@ class RunDescriptors(
                     descriptor,
                 ),
             )
-        }
-            .filterNot { it.allTests.isEmpty() }
+        }.filterNot { it.allTests.isEmpty() }
 
     private suspend fun List<NetTest>.downloadUrlsIfNeeded(
         taskOrigin: TaskOrigin,
@@ -108,8 +107,7 @@ class RunDescriptors(
         map { test ->
             val urls = test.inputsOrDownloadUrls(taskOrigin, descriptor)
             test.copy(inputs = urls, callCheckIn = test.inputs != urls)
-        }
-            .filterNot { it.test is TestType.WebConnectivity && it.inputs?.any() != true }
+        }.filterNot { it.test is TestType.WebConnectivity && it.inputs?.any() != true }
 
     private suspend fun NetTest.inputsOrDownloadUrls(
         taskOrigin: TaskOrigin,

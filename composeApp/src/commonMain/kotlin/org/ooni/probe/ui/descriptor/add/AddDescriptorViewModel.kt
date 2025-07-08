@@ -33,72 +33,77 @@ class AddDescriptorViewModel(
 
     init {
         viewModelScope.launch {
-            fetchDescriptor().map { descriptor ->
-                descriptor?.let {
-                    _state.value = State(
-                        descriptor = it,
-                        selectableItems = it.netTests?.map { nettest ->
-                            SelectableItem(
-                                item = nettest,
-                                isSelected = true,
-                            )
-                        }.orEmpty(),
-                    )
+            fetchDescriptor()
+                .map { descriptor ->
+                    descriptor?.let {
+                        _state.value = State(
+                            descriptor = it,
+                            selectableItems = it.netTests
+                                ?.map { nettest ->
+                                    SelectableItem(
+                                        item = nettest,
+                                        isSelected = true,
+                                    )
+                                }.orEmpty(),
+                        )
+                    }
+                }.onFailure { error ->
+                    Logger.e(error) { "Failed to fetch descriptor" }
+                    _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorFailed) }
+                    onBack()
                 }
-            }.onFailure { error ->
-                Logger.e(error) { "Failed to fetch descriptor" }
-                _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorFailed) }
-                onBack()
-            }
         }
 
-        events.onEach { event ->
-            when (event) {
-                is Event.SelectableItemClicked -> {
-                    val newItems = state.value.selectableItems.map { item ->
-                        if (item == event.item) {
-                            item.copy(isSelected = !item.isSelected)
-                        } else {
-                            item
+        events
+            .onEach { event ->
+                when (event) {
+                    is Event.SelectableItemClicked -> {
+                        val newItems = state.value.selectableItems.map { item ->
+                            if (item == event.item) {
+                                item.copy(isSelected = !item.isSelected)
+                            } else {
+                                item
+                            }
                         }
+                        _state.value = state.value.copy(selectableItems = newItems)
                     }
-                    _state.value = state.value.copy(selectableItems = newItems)
-                }
 
-                is Event.AutoUpdateChanged -> {
-                    _state.value = state.value.copy(autoUpdate = event.autoUpdate)
-                }
-
-                is Event.AutoRunChanged -> {
-                    _state.value =
-                        state.value.copy(
-                            selectableItems = state.value.selectableItems.map { item ->
-                                item.copy(isSelected = event.autoRun)
-                            },
-                        )
-                }
-
-                is Event.CancelClicked -> {
-                    _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorCancel) }
-                    onBack()
-                }
-
-                is Event.InstallDescriptorClicked -> {
-                    val descriptor = state.value.descriptor ?: return@onEach
-                    val selectedTests =
-                        state.value.selectableItems.filter { it.isSelected }.map { it.item }
-                    installDescriptor(descriptor, selectedTests)
-                    _state.update {
-                        it.copy(messages = it.messages + SnackBarMessage.AddDescriptorSuccess)
+                    is Event.AutoUpdateChanged -> {
+                        _state.value = state.value.copy(autoUpdate = event.autoUpdate)
                     }
-                    onBack()
-                }
 
-                is Event.MessageDisplayed -> {
-                    _state.update { it.copy(messages = state.value.messages - event.message) }
+                    is Event.AutoRunChanged -> {
+                        _state.value =
+                            state.value.copy(
+                                selectableItems = state.value.selectableItems.map { item ->
+                                    item.copy(isSelected = event.autoRun)
+                                },
+                            )
+                    }
+
+                    is Event.CancelClicked -> {
+                        _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorCancel) }
+                        onBack()
+                    }
+
+                    is Event.InstallDescriptorClicked -> {
+                        val descriptor = state.value.descriptor ?: return@onEach
+                        val selectedTests =
+                            state.value.selectableItems
+                                .filter { it.isSelected }
+                                .map { it.item }
+                        installDescriptor(descriptor, selectedTests)
+                        _state.update {
+                            it.copy(messages = it.messages + SnackBarMessage.AddDescriptorSuccess)
+                        }
+                        onBack()
+                    }
+
+                    is Event.MessageDisplayed -> {
+                        _state.update { it.copy(messages = state.value.messages - event.message) }
+                    }
                 }
-            }
-        }.launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -142,13 +147,21 @@ class AddDescriptorViewModel(
 
         data object InstallDescriptorClicked : Event
 
-        data class SelectableItemClicked(val item: SelectableItem<NetTest>) : Event
+        data class SelectableItemClicked(
+            val item: SelectableItem<NetTest>,
+        ) : Event
 
-        data class AutoUpdateChanged(val autoUpdate: Boolean) : Event
+        data class AutoUpdateChanged(
+            val autoUpdate: Boolean,
+        ) : Event
 
-        data class AutoRunChanged(val autoRun: Boolean) : Event
+        data class AutoRunChanged(
+            val autoRun: Boolean,
+        ) : Event
 
-        data class MessageDisplayed(val message: SnackBarMessage) : Event
+        data class MessageDisplayed(
+            val message: SnackBarMessage,
+        ) : Event
     }
 
     sealed interface SnackBarMessage {

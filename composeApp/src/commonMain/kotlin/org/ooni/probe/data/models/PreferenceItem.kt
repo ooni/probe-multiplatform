@@ -58,7 +58,9 @@ enum class PreferenceItemType {
     ROUTE,
 }
 
-enum class PreferenceCategoryKey(val value: String) {
+enum class PreferenceCategoryKey(
+    val value: String,
+) {
     TEST_OPTIONS("test_options"),
     PRIVACY("privacy"),
     PROXY("proxy"),

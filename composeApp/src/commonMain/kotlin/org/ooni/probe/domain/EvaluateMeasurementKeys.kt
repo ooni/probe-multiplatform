@@ -64,16 +64,19 @@ fun evaluateMeasurementKeys(
                     isAnomaly = (
                         (keys.dirPortAccessible ?: 0) <= 0 &&
                             (keys.dirPortTotal ?: 0) > 0
-                    ) || (
-                        (keys.obfs4Accessible ?: 0) <= 0 &&
-                            (keys.obfs4Total ?: 0) > 0
-                    ) || (
-                        (keys.orPortDirauthAccessible ?: 0) <= 0 &&
-                            (keys.orPortDirauthTotal ?: 0) > 0
-                    ) || (
-                        (keys.orPortAccessible ?: 0) <= 0 &&
-                            (keys.orPortTotal ?: 0) > 0
-                    ),
+                    ) ||
+                        (
+                            (keys.obfs4Accessible ?: 0) <= 0 &&
+                                (keys.obfs4Total ?: 0) > 0
+                        ) ||
+                        (
+                            (keys.orPortDirauthAccessible ?: 0) <= 0 &&
+                                (keys.orPortDirauthTotal ?: 0) > 0
+                        ) ||
+                        (
+                            (keys.orPortAccessible ?: 0) <= 0 &&
+                                (keys.orPortTotal ?: 0) > 0
+                        ),
                 )
             }
 
@@ -96,8 +99,8 @@ fun evaluateMeasurementKeys(
 private val String?.isBlocked
     get() = equals(TestKeys.BLOCKED_VALUE, ignoreCase = true)
 
-fun extractTestKeysPropertiesToJson(testKeys: TestKeys): Map<String, Map<String, Double?>?> {
-    return mapOf(
+fun extractTestKeysPropertiesToJson(testKeys: TestKeys): Map<String, Map<String, Double?>?> =
+    mapOf(
         "simple" to testKeys.simple?.let { simple ->
             mapOf(
                 "median_bitrate" to simple.medianBitrate,
@@ -113,4 +116,3 @@ fun extractTestKeysPropertiesToJson(testKeys: TestKeys): Map<String, Map<String,
             ).filter { it.value != null }
         },
     ).filter { it.value != null }
-}

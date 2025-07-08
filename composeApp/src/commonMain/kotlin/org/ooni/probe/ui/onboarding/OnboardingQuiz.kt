@@ -133,7 +133,8 @@ private fun Quiz(
                 text = stringResource(question.question),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier
+                    .padding(16.dp)
                     .padding(bottom = 16.dp),
             )
 
@@ -239,7 +240,8 @@ private fun Warning(
                 text = stringResource(question.wrongText),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier
+                    .padding(16.dp)
                     .padding(bottom = 16.dp),
             )
 

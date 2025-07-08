@@ -81,9 +81,11 @@ class SettingsTest {
                 clickOnText(Res.string.Settings_AutomatedTesting_RunAutomatically_ChargingOnly)
 
                 wait {
-                    preferences.getValueByKey(SettingsKey.AUTOMATED_TESTING_WIFIONLY)
+                    preferences
+                        .getValueByKey(SettingsKey.AUTOMATED_TESTING_WIFIONLY)
                         .first() == true &&
-                        preferences.getValueByKey(SettingsKey.AUTOMATED_TESTING_CHARGING)
+                        preferences
+                            .getValueByKey(SettingsKey.AUTOMATED_TESTING_CHARGING)
                             .first() == true
                 }
             }
@@ -114,7 +116,8 @@ class SettingsTest {
                     .assertIsDisplayed()
 
                 wait {
-                    preferences.getValueByKey(WebConnectivityCategory.ANON.settingsKey!!)
+                    preferences
+                        .getValueByKey(WebConnectivityCategory.ANON.settingsKey!!)
                         .first() == true
                 }
             }
@@ -157,7 +160,8 @@ class SettingsTest {
                 clickOnText(Res.string.Settings_Proxy_Psiphon)
 
                 wait {
-                    preferences.getValueByKey(SettingsKey.PROXY_PROTOCOL)
+                    preferences
+                        .getValueByKey(SettingsKey.PROXY_PROTOCOL)
                         .first() == ProxyProtocol.PSIPHON.value
                 }
             }

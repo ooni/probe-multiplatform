@@ -28,14 +28,14 @@ class ProxyViewModel(
     val state = _state.asStateFlow()
 
     init {
-        preferenceManager.allSettings(
-            listOf(
-                SettingsKey.PROXY_HOSTNAME,
-                SettingsKey.PROXY_PORT,
-                SettingsKey.PROXY_PROTOCOL,
-            ),
-        )
-            .take(1)
+        preferenceManager
+            .allSettings(
+                listOf(
+                    SettingsKey.PROXY_HOSTNAME,
+                    SettingsKey.PROXY_PORT,
+                    SettingsKey.PROXY_PROTOCOL,
+                ),
+            ).take(1)
             .onEach { result ->
                 _state.update {
                     val proxyProtocol = ProxyProtocol.fromValue(
@@ -48,8 +48,7 @@ class ProxyViewModel(
                         proxyType = proxyProtocol.proxyType(),
                     )
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ProtocolTypeSelected>()
@@ -80,32 +79,28 @@ class ProxyViewModel(
                     )
                 }
                 validateStateAndSave()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ProtocolChanged>()
             .onEach { event ->
                 _state.update { it.copy(proxyProtocol = event.protocol) }
                 validateStateAndSave()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ProxyHostChanged>()
             .onEach { event ->
                 _state.update { it.copy(proxyHost = event.host) }
                 validateStateAndSave()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ProxyPortChanged>()
             .onEach { event ->
                 _state.update { it.copy(proxyPort = event.port) }
                 validateStateAndSave()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.BackClicked>()
@@ -113,8 +108,7 @@ class ProxyViewModel(
                 if (validateStateAndSave()) {
                     onBack()
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -168,11 +162,10 @@ class ProxyViewModel(
         return portInt in 1..65535
     }
 
-    private fun isValidDomainNameOrIp(host: String): Boolean {
-        return host.matches(IP_ADDRESS.toRegex()) ||
+    private fun isValidDomainNameOrIp(host: String): Boolean =
+        host.matches(IP_ADDRESS.toRegex()) ||
             host.matches(IPV6_ADDRESS.toRegex()) ||
             host.matches(DOMAIN_NAME.toRegex())
-    }
 
     data class State(
         val proxyHost: String? = null,
@@ -187,12 +180,20 @@ class ProxyViewModel(
     sealed interface Event {
         data object BackClicked : Event
 
-        data class ProtocolTypeSelected(val protocolType: ProxyType) : Event
+        data class ProtocolTypeSelected(
+            val protocolType: ProxyType,
+        ) : Event
 
-        data class ProtocolChanged(val protocol: ProxyProtocol) : Event
+        data class ProtocolChanged(
+            val protocol: ProxyProtocol,
+        ) : Event
 
-        data class ProxyHostChanged(val host: String) : Event
+        data class ProxyHostChanged(
+            val host: String,
+        ) : Event
 
-        data class ProxyPortChanged(val port: String) : Event
+        data class ProxyPortChanged(
+            val port: String,
+        ) : Event
     }
 }

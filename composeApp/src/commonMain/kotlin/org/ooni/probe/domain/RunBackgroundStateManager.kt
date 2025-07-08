@@ -22,7 +22,8 @@ class RunBackgroundStateManager(
     // State
 
     fun observeState() =
-        state.asStateFlow()
+        state
+            .asStateFlow()
             .onStart {
                 state.update { value ->
                     if (value !is RunBackgroundState.Idle || value.lastTestAt != null) return@update value

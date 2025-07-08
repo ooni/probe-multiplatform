@@ -17,11 +17,11 @@ object PreferenceMigration : DataMigration<Preferences> {
         NSBundle.mainBundle.bundleIdentifier?.let { NSUserDefaults.standardUserDefaults.removePersistentDomainForName(it) }
     }
 
-    override suspend fun shouldMigrate(currentData: Preferences): Boolean {
-        return NSUserDefaults.standardUserDefaults.dictionaryRepresentation().containsKey(
+    override suspend fun shouldMigrate(currentData: Preferences): Boolean =
+        NSUserDefaults.standardUserDefaults.dictionaryRepresentation().containsKey(
             SettingsKey.FIRST_RUN.value,
-        ) && currentData.asMap().isEmpty()
-    }
+        ) &&
+            currentData.asMap().isEmpty()
 
     override suspend fun migrate(currentData: Preferences): Preferences {
         val newPreferences = currentData.toMutablePreferences()
@@ -52,7 +52,8 @@ object PreferenceMigration : DataMigration<Preferences> {
             }
         }
 
-        NSUserDefaults.standardUserDefaults.arrayForKey("categories_disabled")
+        NSUserDefaults.standardUserDefaults
+            .arrayForKey("categories_disabled")
             ?.let { disabledCategories ->
                 disabledCategories.mapNotNull { it as? String }.forEach { category ->
                     newPreferences[booleanPreferencesKey(category)] = false

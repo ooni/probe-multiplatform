@@ -58,7 +58,8 @@ fun InfoBackground(modifier: Modifier = Modifier) {
     Image(
         painter = painterResource(Res.drawable.ooni_logo),
         contentDescription = null,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
             .heightIn(max = if (isHeightCompact()) 48.dp else Dp.Unspecified),
     )
 }

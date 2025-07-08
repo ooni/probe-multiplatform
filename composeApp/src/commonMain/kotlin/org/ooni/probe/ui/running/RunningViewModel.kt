@@ -44,14 +44,12 @@ class RunningViewModel(
                     return@onEach
                 }
                 _state.update { it.copy(runBackgroundState = testRunState) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         observeTestRunErrors
             .onEach { error ->
                 _state.update { it.copy(testRunErrors = it.testRunErrors + error) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.BackClicked>()
@@ -67,8 +65,7 @@ class RunningViewModel(
             .filterIsInstance<Event.ErrorDisplayed>()
             .onEach { event ->
                 _state.update { it.copy(testRunErrors = it.testRunErrors - event.error) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -86,6 +83,8 @@ class RunningViewModel(
 
         data object StopTestClicked : Event
 
-        data class ErrorDisplayed(val error: TestRunError) : Event
+        data class ErrorDisplayed(
+            val error: TestRunError,
+        ) : Event
     }
 }

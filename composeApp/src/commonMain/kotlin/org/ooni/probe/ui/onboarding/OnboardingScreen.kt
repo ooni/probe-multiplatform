@@ -454,7 +454,8 @@ private fun OnboardingImage(
             painterResource(image),
             contentDescription = null,
             contentScale = if (isWidthCompact()) ContentScale.FillWidth else ContentScale.Inside,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(WindowInsets.statusBars.asPaddingValues())
                 .run {
                     if (!isWidthCompact()) sizeIn(maxHeight = 400.dp) else this

@@ -8,6 +8,7 @@ class GetFirstRun(
     private val preferenceRepository: PreferenceRepository,
 ) {
     operator fun invoke() =
-        preferenceRepository.getValueByKey(SettingsKey.FIRST_RUN)
+        preferenceRepository
+            .getValueByKey(SettingsKey.FIRST_RUN)
             .map { it != false }
 }

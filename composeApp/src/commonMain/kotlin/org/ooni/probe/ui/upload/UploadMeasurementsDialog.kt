@@ -51,7 +51,8 @@ fun UploadMeasurementsDialog(
                     )
                     LinearProgressIndicator(
                         progress = { progress / state.total.toFloat() },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .padding(top = 16.dp)
                             .height(8.dp),
                     )

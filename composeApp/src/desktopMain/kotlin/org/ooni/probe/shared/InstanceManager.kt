@@ -85,7 +85,8 @@ class InstanceManager(
         args.forEach { arg ->
             val sanitizedArg =
                 // Windows can sometimes add extra slashes
-                arg.replace(":////", "://")
+                arg
+                    .replace(":////", "://")
                     .replace(":/\\", "://")
 
             try {

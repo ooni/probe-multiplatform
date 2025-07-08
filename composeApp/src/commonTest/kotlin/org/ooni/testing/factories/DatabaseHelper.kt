@@ -10,7 +10,9 @@ import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.di.Dependencies
 import kotlin.concurrent.Volatile
 
-class DatabaseHelper private constructor(private val dependency: Dependencies) {
+class DatabaseHelper private constructor(
+    private val dependency: Dependencies,
+) {
     companion object {
         @Volatile
         private var instance: DatabaseHelper? = null

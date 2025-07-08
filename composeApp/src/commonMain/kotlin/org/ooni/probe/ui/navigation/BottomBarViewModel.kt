@@ -22,14 +22,12 @@ class BottomBarViewModel(
         countAllNotViewedFlow()
             .onEach { count ->
                 _state.update { it.copy(notViewedCount = count) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         runBackgroundStateFlow()
             .onEach { runState ->
                 _state.update { it.copy(areTestsRunning = runState !is RunBackgroundState.Idle) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     data class State(

@@ -112,7 +112,13 @@ fun ResultScreen(
         val onDescriptorColor = LocalCustomColors.current.onDescriptor
         TopBar(
             title = {
-                Text(state.result?.descriptor?.title?.invoke().orEmpty())
+                Text(
+                    state.result
+                        ?.descriptor
+                        ?.title
+                        ?.invoke()
+                        .orEmpty(),
+                )
             },
             navigationIcon = {
                 IconButton(
@@ -227,21 +233,29 @@ private fun Summary(item: ResultItem) {
         HorizontalPager(
             state = pagerState,
             verticalAlignment = Alignment.Top,
-            modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
+            modifier = Modifier
+                .padding(top = 8.dp, bottom = 16.dp)
                 .defaultMinSize(minHeight = 128.dp),
         ) { pageIndex ->
             pages[pageIndex](item)
         }
         Row(
-            Modifier.wrapContentHeight().fillMaxWidth().align(Alignment.BottomCenter)
+            Modifier
+                .wrapContentHeight()
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
                 .padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.Center,
         ) {
             repeat(pagerState.pageCount) { index ->
                 Box(
-                    modifier = Modifier.padding(horizontal = 8.dp).padding(bottom = 8.dp)
-                        .alpha(if (pagerState.currentPage == index) 1f else 0.33f).clip(CircleShape)
-                        .background(LocalContentColor.current).size(12.dp),
+                    modifier = Modifier
+                        .padding(horizontal = 8.dp)
+                        .padding(bottom = 8.dp)
+                        .alpha(if (pagerState.currentPage == index) 1f else 0.33f)
+                        .clip(CircleShape)
+                        .background(LocalContentColor.current)
+                        .size(12.dp),
                 )
             }
         }

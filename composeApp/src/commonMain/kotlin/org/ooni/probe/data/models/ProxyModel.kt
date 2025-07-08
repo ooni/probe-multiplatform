@@ -33,13 +33,17 @@ const val IPV6_ADDRESS =
 
 const val DOMAIN_NAME = ("((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}")
 
-enum class ProxyType(val label: StringResource) {
+enum class ProxyType(
+    val label: StringResource,
+) {
     NONE(label = Res.string.Settings_Proxy_None),
     PSIPHON(label = Res.string.Settings_Proxy_Psiphon),
     CUSTOM(label = Res.string.Settings_Proxy_Custom),
 }
 
-enum class ProxyProtocol(val value: String) {
+enum class ProxyProtocol(
+    val value: String,
+) {
     NONE("none"),
     HTTP("http"),
     HTTPS("https"),
@@ -47,20 +51,18 @@ enum class ProxyProtocol(val value: String) {
     PSIPHON("psiphon"),
     ;
 
-    fun proxyType(): ProxyType {
-        return when (this) {
+    fun proxyType(): ProxyType =
+        when (this) {
             NONE -> ProxyType.NONE
             PSIPHON -> ProxyType.PSIPHON
             else -> ProxyType.CUSTOM
         }
-    }
 
-    fun toCustomProtocol(): String {
-        return when (this) {
+    fun toCustomProtocol(): String =
+        when (this) {
             PSIPHON, NONE -> ""
             else -> this.value
         }
-    }
 
     companion object {
         fun fromValue(value: String?) = value?.let { entries.firstOrNull { it.value == value } } ?: NONE
@@ -96,9 +98,7 @@ sealed interface ProxySettings {
             return "${protocol.value}://$formattedHost:$port/"
         }
 
-        private fun isIPv6(hostname: String): Boolean {
-            return IPV6_ADDRESS.toRegex().matches(hostname)
-        }
+        private fun isIPv6(hostname: String): Boolean = IPV6_ADDRESS.toRegex().matches(hostname)
     }
 
     companion object {

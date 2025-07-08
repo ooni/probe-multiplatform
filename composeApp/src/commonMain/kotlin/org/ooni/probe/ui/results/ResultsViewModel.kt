@@ -43,7 +43,8 @@ class ResultsViewModel(
             .distinctUntilChanged()
             .flatMapLatest { getResults(it) }
             .onEach { results ->
-                val groupedResults = results.groupBy { it.monthAndYear }
+                val groupedResults = results
+                    .groupBy { it.monthAndYear }
                     .mapValues { entry ->
                         val previouslySelectedIds = _state.value.results.values
                             .asSequence()
@@ -65,8 +66,7 @@ class ResultsViewModel(
                         markAllAsViewedEnabled = results.any { !it.result.isViewed },
                     )
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         getDescriptors()
             .onEach { descriptors -> _state.update { it.copy(descriptors = descriptors) } }
@@ -103,7 +103,8 @@ class ResultsViewModel(
                     deleteResultsByFilter(state.value.filter)
                 } else {
                     val selectedIds =
-                        _state.value.results.values.flatMap { list -> // Suggestion 1.1
+                        _state.value.results.values.flatMap { list ->
+                            // Suggestion 1.1
                             list.filter { it.isSelected }.map { it.item.idOrThrow }
                         }
                     if (selectedIds.isNotEmpty()) {
@@ -115,8 +116,7 @@ class ResultsViewModel(
                         }
                     }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.FilterChanged>()
@@ -129,7 +129,8 @@ class ResultsViewModel(
                 _state.update { state ->
                     state.copy(
                         results = state.results.mapValues { (_, list) ->
-                            list.firstOrNull { it.item.idOrThrow == event.item.idOrThrow && it.item.result.isDone }
+                            list
+                                .firstOrNull { it.item.idOrThrow == event.item.idOrThrow && it.item.result.isDone }
                                 ?.let { found ->
                                     list.map {
                                         if (it.item.idOrThrow == found.item.idOrThrow) {
@@ -145,8 +146,7 @@ class ResultsViewModel(
                         selectionEnabled = state.selectionEnabled || event.selected,
                     )
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
         events
             .filterIsInstance<Event.CancelSelection>()
             .onEach { _ ->
@@ -162,8 +162,7 @@ class ResultsViewModel(
                         selectionEnabled = false,
                     )
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
         events
             .filterIsInstance<Event.ToggleSelection>()
             .onEach {
@@ -176,8 +175,7 @@ class ResultsViewModel(
                         },
                     )
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -204,8 +202,10 @@ class ResultsViewModel(
 
         val areResultsLimited get() = results.values.sumOf { it.size } >= ResultFilter.LIMIT
         val areAllSelected
-            get() = results.values.flatten().all { it.isSelected } && results.values.flatten()
-                .isNotEmpty()
+            get() = results.values.flatten().all { it.isSelected } &&
+                results.values
+                    .flatten()
+                    .isNotEmpty()
         val isAnySelected get() = results.values.flatten().any { it.isSelected }
         val selectedResultsCount get() = results.values.flatten().count { it.isSelected }
     }
@@ -228,7 +228,9 @@ class ResultsViewModel(
     sealed interface Event {
         data object Start : Event
 
-        data class ResultClick(val result: ResultListItem) : Event
+        data class ResultClick(
+            val result: ResultListItem,
+        ) : Event
 
         data object UploadClick : Event
 
@@ -236,12 +238,17 @@ class ResultsViewModel(
 
         data object DeleteClick : Event
 
-        data class ToggleItemSelection(val item: ResultListItem, val selected: Boolean) : Event
+        data class ToggleItemSelection(
+            val item: ResultListItem,
+            val selected: Boolean,
+        ) : Event
 
         data object CancelSelection : Event
 
         data object ToggleSelection : Event
 
-        data class FilterChanged(val filter: ResultFilter) : Event
+        data class FilterChanged(
+            val filter: ResultFilter,
+        ) : Event
     }
 }
