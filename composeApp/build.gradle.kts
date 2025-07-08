@@ -225,9 +225,11 @@ android {
             "supported_languages",
             config.supportedLanguages.joinToString(separator = ","),
         )
-        resourceConfigurations += config.supportedLanguages
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["clearPackageData"] = "true"
+    }
+    androidResources {
+        localeFilters += config.supportedLanguages
     }
     packaging {
         resources {
@@ -348,6 +350,7 @@ android {
             "AndroidGradlePluginVersion",
             "NullSafeMutableLiveData",
             "ObsoleteLintCustomCheck",
+            "Aligned16KB",
         )
         lintConfig = file("lint.xml")
     }
@@ -427,6 +430,7 @@ configurations.all {
         attribute(Attribute.of("ui", String::class.java), "awt")
     }
 }
+// endregion
 
 version = android.defaultConfig.versionName ?: ""
 
