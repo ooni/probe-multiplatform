@@ -1,6 +1,6 @@
 [versions]
 
-agp = "8.7.3" # Check compatibility https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
+agp = "8.10.0" # Check compatibility https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
 
 android-compileSdk = "36"
 android-minSdk = "24"
@@ -22,7 +22,7 @@ jetbrainsComposeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "12.3.0" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "13.0.0" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 conveyor = { id = "dev.hydraulic.conveyor", version = "1.12" }
 
@@ -30,7 +30,7 @@ conveyor = { id = "dev.hydraulic.conveyor", version = "1.12" }
 
 # Kotlin
 kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.9.0" }
-kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.7.0" }
+kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.7.1" }
 
 # Java
 android-desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.5" }
