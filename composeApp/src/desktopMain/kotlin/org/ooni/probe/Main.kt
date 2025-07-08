@@ -82,6 +82,9 @@ fun main(args: Array<String>) {
                 dependencies = dependencies,
                 deepLink = deepLink,
                 onDeeplinkHandled = {
+                    if (!isWindowVisible) {
+                        isWindowVisible = true
+                    }
                     deepLink?.let {
                         deepLinkFlow.tryEmit(null)
                     }
@@ -96,14 +99,19 @@ fun main(args: Array<String>) {
             icon = painterResource(trayIcon),
             tooltip = stringResource(Res.string.app_name),
             menu = {
+                Item(
+                    text = stringResource(Res.string.app_name),
+                    enabled = false,
+                    onClick = {},
+                )
                 if (runBackgroundState !is RunBackgroundState.Idle) {
                     Item(
                         text = runBackgroundState.text(),
                         enabled = false,
                         onClick = {},
                     )
-                    Separator()
                 }
+                Separator()
                 Item(
                     stringResource(Res.string.Desktop_OpenApp),
                     onClick = {
