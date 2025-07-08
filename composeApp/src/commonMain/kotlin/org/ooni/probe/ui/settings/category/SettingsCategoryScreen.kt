@@ -31,6 +31,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.testTag
@@ -51,6 +52,7 @@ import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TopBar
+import org.ooni.probe.ui.shared.VerticalScrollbar
 
 @Composable
 fun SettingsCategoryScreen(
@@ -71,13 +73,13 @@ fun SettingsCategoryScreen(
                 }
             },
         )
+
         Box(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(WindowInsets.navigationBars.asPaddingValues()),
+            modifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
         ) {
+            val scrollState = rememberScrollState()
             val category = state.category ?: return
-            Column {
+            Column(Modifier.verticalScroll(scrollState)) {
                 category.settings?.forEach { preferenceItem ->
                     Box(
                         modifier = Modifier.padding(start = 32.dp * preferenceItem.indentation),
@@ -153,6 +155,7 @@ fun SettingsCategoryScreen(
                     it.invoke()
                 }
             }
+            VerticalScrollbar(state = scrollState, modifier = Modifier.align(Alignment.CenterEnd))
         }
     }
 

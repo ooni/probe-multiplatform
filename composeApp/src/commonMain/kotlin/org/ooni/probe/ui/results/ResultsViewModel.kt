@@ -186,7 +186,7 @@ class ResultsViewModel(
 
     private val ResultListItem.monthAndYear
         get() = result.startTime.let { startTime ->
-            LocalDate(year = startTime.year, month = startTime.month, dayOfMonth = 1)
+            LocalDate(year = startTime.year, month = startTime.month, day = 1)
         }
 
     data class State(

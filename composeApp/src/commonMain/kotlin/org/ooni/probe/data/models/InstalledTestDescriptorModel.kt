@@ -108,7 +108,7 @@ private fun dateTimeFormat(monthNames: List<String>) =
     Format {
         monthName(MonthNames(monthNames))
         char(' ')
-        dayOfMonth()
+        day()
         chars(", ")
         year()
     }
