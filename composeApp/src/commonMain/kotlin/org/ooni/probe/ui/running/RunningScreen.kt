@@ -50,7 +50,7 @@ import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.ui.shared.LottieAnimation
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.TopBar
-import org.ooni.probe.ui.shared.shortFormat
+import org.ooni.probe.ui.shared.format
 import org.ooni.probe.ui.theme.customColors
 
 @Composable
@@ -196,7 +196,7 @@ private fun TestRunning(
                     text = stringResource(Res.string.Dashboard_Running_EstimatedTimeLeft),
                 )
                 Text(
-                    text = timeLeft.shortFormat(),
+                    text = timeLeft.format(),
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
                 )

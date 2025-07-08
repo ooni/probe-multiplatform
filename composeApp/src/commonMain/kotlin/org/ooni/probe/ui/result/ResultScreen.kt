@@ -97,7 +97,7 @@ import org.ooni.probe.ui.shared.VerticalScrollbar
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.longFormat
-import org.ooni.probe.ui.shared.shortFormat
+import org.ooni.probe.ui.shared.format
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -391,7 +391,7 @@ private fun SummaryDetails(item: ResultItem) {
                 modifier = labelModifier,
             )
             Text(
-                item.totalRuntime.shortFormat(),
+                item.totalRuntime.format(),
                 modifier = valueModifier,
             )
         }

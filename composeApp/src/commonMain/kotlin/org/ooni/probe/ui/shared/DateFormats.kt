@@ -12,6 +12,7 @@ import ooniprobe.composeapp.generated.resources.Common_Hours
 import ooniprobe.composeapp.generated.resources.Common_Hours_Abbreviated
 import ooniprobe.composeapp.generated.resources.Common_Minutes
 import ooniprobe.composeapp.generated.resources.Common_Minutes_Abbreviated
+import ooniprobe.composeapp.generated.resources.Common_Seconds
 import ooniprobe.composeapp.generated.resources.Common_Seconds_Abbreviated
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.pluralStringResource
@@ -59,27 +60,38 @@ fun LocalDateTime.longFormat(): String = format(longDateTimeFormat)
 fun LocalDateTime.logFormat(): String = format(logDateTimeFormat)
 
 @Composable
-fun Duration.shortFormat(): String =
+fun Duration.format(abbreviated: Boolean = true): String =
     toComponents { hours, minutes, seconds, _ ->
-        (
+        listOfNotNull(
             if (hours > 0) {
-                stringResource(Res.string.Common_Hours_Abbreviated, hours.toInt())
+                val value = hours.toInt()
+                if (abbreviated) {
+                    stringResource(Res.string.Common_Hours_Abbreviated, value)
+                } else {
+                    pluralStringResource(Res.plurals.Common_Hours, value, value)
+                }
             } else {
-                ""
-            }
-        ) + " " + (
+                null
+            },
             if (minutes > 0) {
-                stringResource(Res.string.Common_Minutes_Abbreviated, minutes)
+                if (abbreviated) {
+                    stringResource(Res.string.Common_Minutes_Abbreviated, minutes)
+                } else {
+                    pluralStringResource(Res.plurals.Common_Minutes, minutes, minutes)
+                }
             } else {
-                ""
-            }
-        ) + " " + (
+                null
+            },
             if (seconds > 0) {
-                stringResource(Res.string.Common_Seconds_Abbreviated, seconds)
+                if (abbreviated) {
+                    stringResource(Res.string.Common_Seconds_Abbreviated, seconds)
+                } else {
+                    pluralStringResource(Res.plurals.Common_Seconds, seconds, seconds)
+                }
             } else {
-                ""
-            }
-        )
-    }.trimStart()
+                null
+            },
+        ).joinToString(" ")
+    }
 
 fun LocalDate.isoFormat() = format(LocalDate.Formats.ISO)

@@ -70,7 +70,7 @@ import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.isHeightCompact
-import org.ooni.probe.ui.shared.shortFormat
+import org.ooni.probe.ui.shared.format
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -297,7 +297,7 @@ private fun DescriptorDetails(
 
                 state.estimatedTime?.let { time ->
                     Text(
-                        text = "~ ${time.shortFormat()}",
+                        text = "~ ${time.format()}",
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(start = 8.dp),
                     )

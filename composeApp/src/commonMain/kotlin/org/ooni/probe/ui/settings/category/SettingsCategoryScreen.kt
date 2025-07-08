@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
@@ -49,6 +50,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.PreferenceItemType
 import org.ooni.probe.data.models.SettingsCategoryItem
+import org.ooni.probe.data.models.SettingsItem
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TopBar
@@ -107,6 +109,8 @@ fun SettingsCategoryScreen(
                                 NumberPickerItem(
                                     title = preferenceItem.title,
                                     supportingContent = preferenceItem.supportingContent,
+                                    valuePickerSupportContent =
+                                        (preferenceItem as? SettingsItem)?.valuePickerSupportContent,
                                     enabled = preferenceItem.enabled,
                                     value = state.preferences[preferenceItem.key] as? Int,
                                     onChanged = {
@@ -244,6 +248,7 @@ fun SettingsDescription(description: StringResource) {
 fun NumberPickerItem(
     title: StringResource,
     supportingContent: @Composable (() -> Unit)? = null,
+    valuePickerSupportContent: @Composable (() -> Unit)? = null,
     enabled: Boolean,
     value: Int?,
     onChanged: (Int?) -> Unit,
@@ -270,7 +275,7 @@ fun NumberPickerItem(
 
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text(stringResource(title)) },
+            title = { Text(stringResource(title), style = MaterialTheme.typography.headlineSmall) },
             text = {
                 OutlinedTextField(
                     value = fieldValue,
@@ -282,7 +287,8 @@ fun NumberPickerItem(
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Number,
                     ),
-                    modifier = Modifier.testTag("NumberPickerField"),
+                    supportingText = valuePickerSupportContent,
+                    modifier = Modifier.fillMaxWidth().testTag("NumberPickerField"),
                 )
             },
             confirmButton = {
