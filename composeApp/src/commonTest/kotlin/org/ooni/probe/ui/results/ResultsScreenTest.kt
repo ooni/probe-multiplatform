@@ -54,7 +54,7 @@ class ResultsScreenTest {
                 title = item.item.descriptor.title()
             }
 
-            onNodeWithText("January 2024").assertExists()
+            onNodeWithText("1 January 2024").assertExists()
             onNodeWithText(title!!).assertExists()
             onNodeWithText(item.item.network!!.networkName!!).assertExists()
         }

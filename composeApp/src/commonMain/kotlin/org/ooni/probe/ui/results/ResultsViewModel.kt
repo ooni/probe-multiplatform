@@ -44,7 +44,7 @@ class ResultsViewModel(
             .flatMapLatest { getResults(it) }
             .onEach { results ->
                 val groupedResults = results
-                    .groupBy { it.monthAndYear }
+                    .groupBy { it.result.startTime.date }
                     .mapValues { entry ->
                         val previouslySelectedIds = _state.value.results.values
                             .asSequence()
@@ -181,11 +181,6 @@ class ResultsViewModel(
     fun onEvent(event: Event) {
         events.tryEmit(event)
     }
-
-    private val ResultListItem.monthAndYear
-        get() = result.startTime.let { startTime ->
-            LocalDate(year = startTime.year, month = startTime.month, day = 1)
-        }
 
     data class State(
         val filter: ResultFilter = ResultFilter(),
