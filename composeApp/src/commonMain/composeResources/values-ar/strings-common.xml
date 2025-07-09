@@ -117,9 +117,8 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">عند تفعيل الاختبار التلقائي، سيشغل OONI Probe الاختبارات تلقائيا عدة مرات في اليوم. سوف ينشر OONI Explorer نتائج اختباراتك تلقائيا : https://explorer.ooni.org/\n\nهام : إذا كان عندك VPN مُفعَّل، فلن يشغل OONI Probe الاختبارات تلقائيا. يُرجى إيقاف اتصالك بـ VPN لتمكين OONI Probe للقيام بالاختبار التلقائي. للتعرف على المزيد : https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run in the background</string>
     <string name="Settings_Sharing_UploadResults">نشر النتائج أوتوماتيكيّاً </string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">قيّد مدة الاختبار</string>
-    <string name="Settings_Websites_MaxRuntime">مدة الاختبار</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Limit Websites test duration</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
     <string name="Settings_Websites_Categories_Label">أقسام المواقع للاختبار</string>
     <string name="Settings_Websites_Categories_Description">%1$s قسمًا مفعل</string>
 
@@ -156,9 +155,6 @@
     <string name="Settings_ShareLogs_Error">Error sharing logs</string>
     <string name="Settings_FilterLogs">Filter Logs</string>
     <string name="Settings_Sharing_UploadResults_Description">Results are automatically uploaded to OONI explorer</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_New">Limit Websites test duration</string>
-    <string name="Settings_Websites_MaxRuntime_New">Maximum Websites test duration</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
     <string name="Settings_Websites_Categories_Selection_None">إزالة الاختيار عن الكل </string>
     <string name="Settings_Websites_Categories_Selection_All">حدد الكل</string>
     <string name="Settings_Websites_CustomURL_Title">اختيار المواقع للاختبار</string>
@@ -275,6 +271,7 @@
     <string name="LoadingScreen_Runv2_Failure">خطأ</string>
     <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
+    <string name="DescriptorUpdate_CheckUpdates">بحث عن الترقية</string>
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">لم يتمّ الرفع</string>
