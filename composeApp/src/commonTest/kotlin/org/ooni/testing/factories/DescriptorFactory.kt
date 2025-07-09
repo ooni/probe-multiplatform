@@ -90,7 +90,8 @@ object DescriptorFactory {
     // Remove nanoseconds from timestamp, because we're going to lose them
     // when storing in the database in milliseconds
     private fun now() =
-        Instant.fromEpochMilliseconds(
-            Clock.System.now().toEpochMilliseconds(),
-        ).toLocalDateTime()
+        Instant
+            .fromEpochMilliseconds(
+                Clock.System.now().toEpochMilliseconds(),
+            ).toLocalDateTime()
 }

@@ -97,7 +97,8 @@ fun main(args: Array<String>) {
             )
         }
 
-        val runBackgroundState by dependencies.runBackgroundStateManager.observeState()
+        val runBackgroundState by dependencies.runBackgroundStateManager
+            .observeState()
             .collectAsState(RunBackgroundState.Idle())
 
         Tray(
@@ -141,7 +142,8 @@ private fun trayIcon(): DrawableResource {
     val isDarkTheme = isSystemInDarkMode()
     val isWindows =
         (dependencies.platformInfo.platform as? Platform.Desktop)?.os == DesktopOS.Windows
-    val runBackgroundState by dependencies.runBackgroundStateManager.observeState()
+    val runBackgroundState by dependencies.runBackgroundStateManager
+        .observeState()
         .collectAsState(RunBackgroundState.Idle())
     val isRunning = runBackgroundState !is RunBackgroundState.Idle
     return when {

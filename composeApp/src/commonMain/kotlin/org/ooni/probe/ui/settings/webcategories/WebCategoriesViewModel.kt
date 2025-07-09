@@ -39,34 +39,34 @@ class WebCategoriesViewModel(
                         },
                     )
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.PreferenceChanged>()
+        events
+            .filterIsInstance<Event.PreferenceChanged>()
             .onEach {
                 setPreferenceValuesByKeys(
                     listOf((it.category.settingsKey ?: return@onEach) to it.value),
                 )
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.SelectAllClicked>()
+        events
+            .filterIsInstance<Event.SelectAllClicked>()
             .onEach {
                 setPreferenceValuesByKeys(
                     categories.map { (it.settingsKey ?: return@onEach) to true },
                 )
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.DeselectAllClicked>()
+        events
+            .filterIsInstance<Event.DeselectAllClicked>()
             .onEach {
                 setPreferenceValuesByKeys(
                     categories.map { (it.settingsKey ?: return@onEach) to false },
                 )
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.BackClicked>()
+        events
+            .filterIsInstance<Event.BackClicked>()
             .onEach { onBack() }
             .launchIn(viewModelScope)
     }

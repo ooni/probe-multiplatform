@@ -54,8 +54,22 @@ class ChooseWebsitesTest {
             assertEquals(false, spec.isRerun)
             assertEquals(TaskOrigin.OoniRun, spec.taskOrigin)
             assertEquals(1, spec.tests.size)
-            assertEquals(TestType.WebConnectivity, spec.tests.first().netTests.first().test)
-            assertEquals(websites, spec.tests.first().netTests.first().inputs)
+            assertEquals(
+                TestType.WebConnectivity,
+                spec.tests
+                    .first()
+                    .netTests
+                    .first()
+                    .test,
+            )
+            assertEquals(
+                websites,
+                spec.tests
+                    .first()
+                    .netTests
+                    .first()
+                    .inputs,
+            )
         }
 
     @Test

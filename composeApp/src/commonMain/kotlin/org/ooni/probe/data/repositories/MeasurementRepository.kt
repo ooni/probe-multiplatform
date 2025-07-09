@@ -52,8 +52,7 @@ class MeasurementRepository(
             .selectAllNotUploaded(
                 filterByResultId = if (resultId != null) 1 else 0,
                 resultId = resultId?.value,
-            )
-            .asFlow()
+            ).asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
@@ -71,26 +70,22 @@ class MeasurementRepository(
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
-    fun selectTestKeys(filterByDescriptors: List<Descriptor>): Flow<List<TestKeysWithResultId>> {
-        return database.measurementQueries
+    fun selectTestKeys(filterByDescriptors: List<Descriptor>): Flow<List<TestKeysWithResultId>> =
+        database.measurementQueries
             .selectTestKeysByDescriptorKey(
                 filterByDescriptors = if (filterByDescriptors.any()) 1 else 0,
                 descriptorsKeys = filterByDescriptors.map { it.key },
-            )
-            .asFlow()
+            ).asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
-    }
 
-    fun selectTestKeysByResultId(resultId: ResultModel.Id): Flow<List<TestKeysWithResultId>> {
-        return database.measurementQueries
+    fun selectTestKeysByResultId(resultId: ResultModel.Id): Flow<List<TestKeysWithResultId>> =
+        database.measurementQueries
             .selectTestKeysByResultId(
                 resultId = resultId.value,
-            )
-            .asFlow()
+            ).asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
-    }
 
     fun getById(measurementId: MeasurementModel.Id) =
         database.measurementQueries

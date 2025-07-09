@@ -64,7 +64,12 @@ fun SettingsCategoryScreen(
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
             title = {
-                Text(state.category?.title?.let { stringResource(it) }.orEmpty())
+                Text(
+                    state.category
+                        ?.title
+                        ?.let { stringResource(it) }
+                        .orEmpty(),
+                )
             },
             navigationIcon = {
                 IconButton(onClick = { onEvent(SettingsCategoryViewModel.Event.BackClicked) }) {
@@ -213,8 +218,7 @@ fun SwitchSettingsView(
                 onValueChange = { onCheckedChange(key, it) },
                 enabled = enabled,
                 role = Role.Switch,
-            )
-            .padding(vertical = 2.dp),
+            ).padding(vertical = 2.dp),
     )
 }
 

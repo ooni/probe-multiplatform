@@ -14,7 +14,10 @@ import platform.Foundation.NSOperationQueue
 import platform.Foundation.timeIntervalSinceDate
 import platform.UIKit.UIApplication
 
-class OperationsManager(private val dependencies: Dependencies, private val backgroundRunner: BackgroundRunner) {
+class OperationsManager(
+    private val dependencies: Dependencies,
+    private val backgroundRunner: BackgroundRunner,
+) {
     // https://developer.apple.com/documentation/foundation/nsdate/1410206-timeintervalsince
     fun startSingleRun(spec: RunSpecification) {
         val startDateTime = NSDate()

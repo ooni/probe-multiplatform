@@ -96,8 +96,8 @@ class Engine(
             results
         }.mapError { MkException(it) }
 
-    suspend fun checkIn(taskOrigin: TaskOrigin): Result<OonimkallBridge.CheckInResults, MkException> {
-        return resultOf(backgroundContext) {
+    suspend fun checkIn(taskOrigin: TaskOrigin): Result<OonimkallBridge.CheckInResults, MkException> =
+        resultOf(backgroundContext) {
             val preferences = getEnginePreferences()
             val sessionConfig = buildSessionConfig(taskOrigin, preferences)
             session(sessionConfig).use {
@@ -119,7 +119,6 @@ class Engine(
                 )
             }
         }.mapError { MkException(it) }
-    }
 
     suspend fun httpDo(
         method: String,
@@ -129,12 +128,13 @@ class Engine(
         resultOf(backgroundContext) {
             val sessionConfig = buildSessionConfig(taskOrigin, getEnginePreferences())
             session(sessionConfig).use {
-                it.httpDo(
-                    OonimkallBridge.HTTPRequest(
-                        method = method,
-                        url = url,
-                    ),
-                ).body
+                it
+                    .httpDo(
+                        OonimkallBridge.HTTPRequest(
+                            method = method,
+                            url = url,
+                        ),
+                    ).body
             }
         }.mapError {
             MkException(it)
@@ -212,14 +212,13 @@ class Engine(
             platformInfo.platform.engineName +
             (if (taskOrigin == TaskOrigin.AutoRun) "-" + "unattended" else "")
 
-    private fun isBatteryCharging(): Boolean {
-        return when (getBatteryState()) {
+    private fun isBatteryCharging(): Boolean =
+        when (getBatteryState()) {
             BatteryState.NotCharging -> false
             BatteryState.Charging,
             BatteryState.Unknown,
             -> true
         }
-    }
 
     private val oonimkallLogger by lazy {
         object : OonimkallBridge.Logger {
@@ -243,7 +242,11 @@ class Engine(
             TaskOrigin.OoniRun -> "manual"
         }
 
-    class SubmissionFailed(cause: String) : Exception(cause)
+    class SubmissionFailed(
+        cause: String,
+    ) : Exception(cause)
 
-    class MkException(t: Throwable) : Exception(t)
+    class MkException(
+        t: Throwable,
+    ) : Exception(t)
 }

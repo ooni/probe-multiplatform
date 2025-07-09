@@ -43,9 +43,13 @@ sealed class Result<out S, out F> {
     fun getError(): F? = (this as? Failure)?.reason
 }
 
-data class Success<out S>(val value: S) : Result<S, Nothing>()
+data class Success<out S>(
+    val value: S,
+) : Result<S, Nothing>()
 
-data class Failure<out F>(val reason: F) : Result<Nothing, F>()
+data class Failure<out F>(
+    val reason: F,
+) : Result<Nothing, F>()
 
 suspend fun <S> resultOf(
     coroutineContext: CoroutineContext? = null,

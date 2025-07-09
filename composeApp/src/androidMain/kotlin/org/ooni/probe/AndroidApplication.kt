@@ -120,8 +120,8 @@ class AndroidApplication : Application() {
         return if (isCharging) BatteryState.Charging else BatteryState.NotCharging
     }
 
-    private fun launchAction(action: PlatformAction): Boolean {
-        return when (action) {
+    private fun launchAction(action: PlatformAction): Boolean =
+        when (action) {
             is PlatformAction.Mail -> sendMail(action)
             is PlatformAction.OpenUrl -> openUrl(action)
             is PlatformAction.Share -> shareText(action)
@@ -129,26 +129,26 @@ class AndroidApplication : Application() {
             is PlatformAction.VpnSettings -> openVpnSettings()
             is PlatformAction.LanguageSettings -> openLanguageSettings()
         }
-    }
 
     private fun sendMail(mail: PlatformAction.Mail): Boolean {
         val attachmentUri = mail.attachment?.let(::getUriForFile)
 
-        val intent = Intent.createChooser(
-            Intent(Intent.ACTION_SENDTO, "mailto:".toUri())
-                .putExtra(Intent.EXTRA_EMAIL, arrayOf(mail.to))
-                .putExtra(Intent.EXTRA_SUBJECT, mail.subject)
-                .putExtra(Intent.EXTRA_TEXT, mail.body)
-                .run {
-                    attachmentUri?.let {
-                        putExtra(Intent.EXTRA_STREAM, attachmentUri)
-                            // Avoid SecurityException
-                            .also { it.clipData = ClipData.newRawUri("", attachmentUri) }
-                            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    } ?: this
-                },
-            mail.chooserTitle,
-        ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        val intent = Intent
+            .createChooser(
+                Intent(Intent.ACTION_SENDTO, "mailto:".toUri())
+                    .putExtra(Intent.EXTRA_EMAIL, arrayOf(mail.to))
+                    .putExtra(Intent.EXTRA_SUBJECT, mail.subject)
+                    .putExtra(Intent.EXTRA_TEXT, mail.body)
+                    .run {
+                        attachmentUri?.let {
+                            putExtra(Intent.EXTRA_STREAM, attachmentUri)
+                                // Avoid SecurityException
+                                .also { it.clipData = ClipData.newRawUri("", attachmentUri) }
+                                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        } ?: this
+                    },
+                mail.chooserTitle,
+            ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
         return try {
             startActivity(intent)
@@ -214,8 +214,7 @@ class AndroidApplication : Application() {
                 Intent(
                     "android.settings.APP_LOCALE_SETTINGS",
                     Uri.fromParts("package", packageName, null),
-                )
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             )
             true
         } catch (e: ActivityNotFoundException) {
@@ -228,15 +227,16 @@ class AndroidApplication : Application() {
 
         return try {
             startActivity(
-                Intent.createChooser(
-                    Intent(Intent.ACTION_SEND)
-                        .setType("*/*")
-                        // Avoid SecurityException
-                        .also { it.clipData = ClipData.newRawUri("", uri) }
-                        .putExtra(Intent.EXTRA_STREAM, uri)
-                        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),
-                    fileSharing.title,
-                ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                Intent
+                    .createChooser(
+                        Intent(Intent.ACTION_SEND)
+                            .setType("*/*")
+                            // Avoid SecurityException
+                            .also { it.clipData = ClipData.newRawUri("", uri) }
+                            .putExtra(Intent.EXTRA_STREAM, uri)
+                            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION),
+                        fileSharing.title,
+                    ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             )
             true
         } catch (e: ActivityNotFoundException) {
@@ -246,7 +246,10 @@ class AndroidApplication : Application() {
     }
 
     private fun getUriForFile(filePath: Path): Uri? {
-        val file = filesDir.absolutePath.toPath().resolve(filePath).toFile()
+        val file = filesDir.absolutePath
+            .toPath()
+            .resolve(filePath)
+            .toFile()
         if (!file.exists()) {
             Logger.w("File to share does not exist: $file")
             return null
@@ -260,22 +263,22 @@ class AndroidApplication : Application() {
         }
     }
 
-    private fun shareText(share: PlatformAction.Share): Boolean {
-        return try {
+    private fun shareText(share: PlatformAction.Share): Boolean =
+        try {
             startActivity(
-                Intent.createChooser(
-                    Intent(Intent.ACTION_SEND)
-                        .setType("text/plain")
-                        .putExtra(Intent.EXTRA_TEXT, share.text),
-                    null,
-                ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                Intent
+                    .createChooser(
+                        Intent(Intent.ACTION_SEND)
+                            .setType("text/plain")
+                            .putExtra(Intent.EXTRA_TEXT, share.text),
+                        null,
+                    ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             )
             true
         } catch (e: ActivityNotFoundException) {
             Logger.e("Could not share file", e)
             false
         }
-    }
 
     private fun isWebViewAvailable() = WebViewCompat.getCurrentWebViewPackage(this) != null
 

@@ -41,8 +41,7 @@ class ReviewUpdatesViewModel(
                 _state.update { state ->
                     state.copy(descriptors = descriptorsToReview)
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.BackClicked>()
@@ -55,8 +54,7 @@ class ReviewUpdatesViewModel(
                 val descriptor = _state.value.currentInstalledDescriptor ?: return@onEach
                 acceptDescriptorUpdate(descriptor)
                 navigateToNextItemOrClose()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.RejectClicked>()
@@ -64,8 +62,7 @@ class ReviewUpdatesViewModel(
                 val descriptor = _state.value.currentInstalledDescriptor ?: return@onEach
                 rejectDescriptorUpdate(descriptor)
                 navigateToNextItemOrClose()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     private fun navigateToNextItemOrClose() {

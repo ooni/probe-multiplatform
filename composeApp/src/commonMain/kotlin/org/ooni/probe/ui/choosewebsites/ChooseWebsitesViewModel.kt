@@ -66,8 +66,7 @@ class ChooseWebsitesViewModel(
                 } else {
                     _state.update { it.copy(showBackConfirmation = true) }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.BackCancelled>()
@@ -84,8 +83,7 @@ class ChooseWebsitesViewModel(
             .onEach {
                 if (_state.value.websites.size >= MAX_WEBSITES) return@onEach
                 _state.update { it.copy(websites = it.websites + WebsiteItem()) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.DeleteWebsiteClicked>()
@@ -95,8 +93,7 @@ class ChooseWebsitesViewModel(
                     val newList = it.websites.filterIndexed { index, _ -> index != event.index }
                     it.copy(websites = newList)
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ClearClicked>()
@@ -108,16 +105,15 @@ class ChooseWebsitesViewModel(
             .onEach { event ->
                 _state.update {
                     it.copy(
-                        websites = it.websites.toMutableList()
+                        websites = it.websites
+                            .toMutableList()
                             .also { list ->
                                 list[event.index] = list[event.index]
                                     .copy(url = event.url, hasError = false)
-                            }
-                            .toList(),
+                            }.toList(),
                     )
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.RunClicked>()
@@ -151,8 +147,7 @@ class ChooseWebsitesViewModel(
                     ),
                 )
                 goToDashboard()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -180,9 +175,14 @@ class ChooseWebsitesViewModel(
 
         data object BackCancelled : Event
 
-        data class UrlChanged(val index: Int, val url: String) : Event
+        data class UrlChanged(
+            val index: Int,
+            val url: String,
+        ) : Event
 
-        data class DeleteWebsiteClicked(val index: Int) : Event
+        data class DeleteWebsiteClicked(
+            val index: Int,
+        ) : Event
 
         data object AddWebsiteClicked : Event
 

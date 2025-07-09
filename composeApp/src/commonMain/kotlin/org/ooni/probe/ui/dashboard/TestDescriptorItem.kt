@@ -42,8 +42,7 @@ fun TestDescriptorItem(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = CardDefaults.shape,
-            )
-            .padding(vertical = 8.dp, horizontal = 12.dp),
+            ).padding(vertical = 8.dp, horizontal = 12.dp),
     ) {
         Column(
             modifier = Modifier.weight(1f),

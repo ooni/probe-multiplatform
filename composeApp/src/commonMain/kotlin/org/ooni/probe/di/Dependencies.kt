@@ -759,11 +759,11 @@ class Dependencies(
             if (::dataStore.isInitialized) {
                 dataStore
             } else {
-                PreferenceDataStoreFactory.createWithPath(
-                    produceFile = { producePath().toPath() },
-                    migrations = migrations,
-                )
-                    .also { dataStore = it }
+                PreferenceDataStoreFactory
+                    .createWithPath(
+                        produceFile = { producePath().toPath() },
+                        migrations = migrations,
+                    ).also { dataStore = it }
             }
     }
 }

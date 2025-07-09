@@ -92,8 +92,7 @@ fun ResultCell(
                         }
                     },
                     onLongClick = onLongClick,
-                )
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+                ).padding(horizontal = 16.dp, vertical = 8.dp)
                 .testTag(item.descriptor.key),
         ) {
             Column(
@@ -136,7 +135,9 @@ fun ResultCell(
 
                 if (hasError && !item.result.failureMessage.isNullOrEmpty()) {
                     Text(
-                        item.result.failureMessage.lines().first(),
+                        item.result.failureMessage
+                            .lines()
+                            .first(),
                         maxLines = 2,
                         color = MaterialTheme.colorScheme.error,
                     )

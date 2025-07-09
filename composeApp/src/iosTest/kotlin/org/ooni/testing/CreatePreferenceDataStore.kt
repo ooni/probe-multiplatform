@@ -8,8 +8,8 @@ import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 
-internal actual fun createPreferenceDataStore(): DataStore<Preferences> {
-    return Dependencies.getDataStore(
+internal actual fun createPreferenceDataStore(): DataStore<Preferences> =
+    Dependencies.getDataStore(
         producePath = {
             val documentDirectory: NSURL? =
                 NSFileManager.defaultManager.URLForDirectory(
@@ -22,4 +22,3 @@ internal actual fun createPreferenceDataStore(): DataStore<Preferences> {
             requireNotNull(documentDirectory).path + "/test.${Dependencies.Companion.DATA_STORE_FILE_NAME}"
         },
     )
-}

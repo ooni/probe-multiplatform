@@ -27,9 +27,13 @@ data class Descriptor(
     val summaryType: SummaryType,
 ) {
     sealed interface Source {
-        data class Default(val value: DefaultTestDescriptor) : Source
+        data class Default(
+            val value: DefaultTestDescriptor,
+        ) : Source
 
-        data class Installed(val value: InstalledTestDescriptorModel) : Source
+        data class Installed(
+            val value: InstalledTestDescriptorModel,
+        ) : Source
     }
 
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()

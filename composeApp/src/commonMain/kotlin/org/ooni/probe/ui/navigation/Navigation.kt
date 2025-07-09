@@ -315,7 +315,9 @@ fun Navigation(
         composable<Screen.ReviewUpdates> { entry ->
             val viewModel = viewModel {
                 dependencies.reviewUpdatesViewModel(
-                    descriptorIds = entry.toRoute<Screen.ReviewUpdates>().descriptorIds
+                    descriptorIds = entry
+                        .toRoute<Screen.ReviewUpdates>()
+                        .descriptorIds
                         ?.map(InstalledTestDescriptorModel::Id),
                     onBack = { navController.goBack() },
                 )

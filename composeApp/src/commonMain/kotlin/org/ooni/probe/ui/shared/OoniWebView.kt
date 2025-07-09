@@ -60,7 +60,9 @@ class OoniWebViewController {
     sealed interface State {
         data object Initializing : State
 
-        data class Loading(val progress: Float) : State
+        data class Loading(
+            val progress: Float,
+        ) : State
 
         data object Failure : State
 

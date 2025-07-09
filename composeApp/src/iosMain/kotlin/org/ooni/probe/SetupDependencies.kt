@@ -103,13 +103,12 @@ class SetupDependencies(
 
     private var mailDelegate: MFMailComposeViewControllerDelegateProtocol? = null
 
-    private fun localeDirection(): LayoutDirection {
-        return if (NSLocale.characterDirectionForLanguage(Locale.current.language) == NSLocaleLanguageDirectionRightToLeft) {
+    private fun localeDirection(): LayoutDirection =
+        if (NSLocale.characterDirectionForLanguage(Locale.current.language) == NSLocaleLanguageDirectionRightToLeft) {
             LayoutDirection.Rtl
         } else {
             LayoutDirection.Ltr
         }
-    }
 
     fun startSingleRun(spec: RunSpecification) {
         operationsManager.startSingleRun(spec)
@@ -176,8 +175,8 @@ class SetupDependencies(
             migrations = listOf(PreferenceMigration),
         )
 
-    private fun launchAction(action: PlatformAction): Boolean {
-        return when (action) {
+    private fun launchAction(action: PlatformAction): Boolean =
+        when (action) {
             is PlatformAction.Mail -> sendMail(action)
             is PlatformAction.OpenUrl -> openUrl(action)
             is PlatformAction.Share -> shareText(action)
@@ -185,7 +184,6 @@ class SetupDependencies(
             is PlatformAction.VpnSettings -> openVpnSettings()
             is PlatformAction.LanguageSettings -> openLanguageSettings()
         }
-    }
 
     private fun sendMail(action: PlatformAction.Mail): Boolean {
         if (MFMailComposeViewController.canSendMail()) {
@@ -202,27 +200,28 @@ class SetupDependencies(
                 }
             }
             mailDelegate = delegate
-            MFMailComposeViewController().apply {
-                mailComposeDelegate = delegate
-                setToRecipients(listOf(action.to))
-                setSubject(action.subject)
-                setMessageBody(action.body, isHTML = false)
-                action.attachment?.let { attachment ->
-                    val filePath = filesDir() + "/" + attachment.toString()
-                    val fileManager = NSFileManager.defaultManager
-                    if (fileManager.fileExistsAtPath(filePath)) {
-                        fileManager.contentsAtPath(filePath)?.let { data ->
-                            addAttachmentData(
-                                attachment = data,
-                                mimeType = "application/text",
-                                fileName = attachment.name,
-                            )
+            MFMailComposeViewController()
+                .apply {
+                    mailComposeDelegate = delegate
+                    setToRecipients(listOf(action.to))
+                    setSubject(action.subject)
+                    setMessageBody(action.body, isHTML = false)
+                    action.attachment?.let { attachment ->
+                        val filePath = filesDir() + "/" + attachment.toString()
+                        val fileManager = NSFileManager.defaultManager
+                        if (fileManager.fileExistsAtPath(filePath)) {
+                            fileManager.contentsAtPath(filePath)?.let { data ->
+                                addAttachmentData(
+                                    attachment = data,
+                                    mimeType = "application/text",
+                                    fileName = attachment.name,
+                                )
+                            }
                         }
                     }
+                }.let { mailComposer ->
+                    presentViewController(mailComposer)
                 }
-            }.let { mailComposer ->
-                presentViewController(mailComposer)
-            }
             return true
         } else {
             UIPasteboard.generalPasteboard.string = action.to
@@ -230,8 +229,8 @@ class SetupDependencies(
         }
     }
 
-    private fun presentViewController(uiViewController: UIViewController): Boolean {
-        return findCurrentViewController()?.let { viewController ->
+    private fun presentViewController(uiViewController: UIViewController): Boolean =
+        findCurrentViewController()?.let { viewController ->
 
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
                 uiViewController.popoverPresentationController?.sourceView = viewController.view
@@ -251,7 +250,6 @@ class SetupDependencies(
             Logger.e { "Cannot find current view controller" }
             false
         }
-    }
 
     fun registerTaskHandlers() {
         Logger.d { "Registering task handlers" }
@@ -293,8 +291,8 @@ class SetupDependencies(
         scheduleAutorun(params)
     }
 
-    fun scheduleAutorun(params: AutoRunParameters.Enabled? = null): Boolean {
-        return BGTaskScheduler.sharedScheduler.submitTaskRequest(
+    fun scheduleAutorun(params: AutoRunParameters.Enabled? = null): Boolean =
+        BGTaskScheduler.sharedScheduler.submitTaskRequest(
             taskRequest = BGProcessingTaskRequest(OrganizationConfig.autorunTaskId).apply {
                 earliestBeginDate = NSDate().dateByAddingTimeInterval(60.0 * 60.0)
                 requiresNetworkConnectivity = true
@@ -302,7 +300,6 @@ class SetupDependencies(
             },
             error = null,
         )
-    }
 
     private fun openVpnSettings() = openInternalUrl("App-prefs:General&path=ManagedConfigurationList")
 
@@ -311,14 +308,17 @@ class SetupDependencies(
     private fun openInternalUrl(urlString: String): Boolean =
         NSURL.URLWithString(urlString)?.let { nsUrlString ->
             if (UIApplication.sharedApplication.canOpenURL(nsUrlString)) {
-                UIApplication.sharedApplication.openURL(url = nsUrlString, options = emptyMap<Any?, Any>(), completionHandler = {
-                        isSuccessfullyOpened ->
-                    if (isSuccessfullyOpened) {
-                        Logger.i { "Successfully opened URL: $urlString" }
-                    } else {
-                        Logger.e { "Failed to open URL: $urlString" }
-                    }
-                })
+                UIApplication.sharedApplication.openURL(
+                    url = nsUrlString,
+                    options = emptyMap<Any?, Any>(),
+                    completionHandler = { isSuccessfullyOpened ->
+                        if (isSuccessfullyOpened) {
+                            Logger.i { "Successfully opened URL: $urlString" }
+                        } else {
+                            Logger.e { "Failed to open URL: $urlString" }
+                        }
+                    },
+                )
                 return@let true
             } else {
                 Logger.e { "Cannot open URL: $urlString" }
@@ -329,7 +329,8 @@ class SetupDependencies(
     private fun cancelDescriptorAutoUpdate(): Boolean {
         Logger.d("Cancelling descriptor auto update")
         return try {
-            BGTaskScheduler.sharedScheduler.cancelTaskRequestWithIdentifier(OrganizationConfig.updateDescriptorTaskId)
+            BGTaskScheduler.sharedScheduler
+                .cancelTaskRequestWithIdentifier(OrganizationConfig.updateDescriptorTaskId)
             true
         } catch (e: Exception) {
             Logger.e(e) { "Failed to cancel descriptor auto update" }
@@ -379,14 +380,17 @@ class SetupDependencies(
         val urlString = openUrl.url
         return NSURL.URLWithString(urlString)?.let { nsUrlString ->
             if (UIApplication.sharedApplication.canOpenURL(nsUrlString)) {
-                UIApplication.sharedApplication.openURL(url = nsUrlString, options = emptyMap<Any?, Any>(), completionHandler = {
-                        isSuccessfullyOpened ->
-                    if (isSuccessfullyOpened) {
-                        Logger.i { "Successfully opened URL: $urlString" }
-                    } else {
-                        Logger.e { "Failed to open URL: $urlString" }
-                    }
-                })
+                UIApplication.sharedApplication.openURL(
+                    url = nsUrlString,
+                    options = emptyMap<Any?, Any>(),
+                    completionHandler = { isSuccessfullyOpened ->
+                        if (isSuccessfullyOpened) {
+                            Logger.i { "Successfully opened URL: $urlString" }
+                        } else {
+                            Logger.e { "Failed to open URL: $urlString" }
+                        }
+                    },
+                )
                 return@let true
             } else {
                 Logger.e { "Cannot open URL: $urlString" }
@@ -395,13 +399,12 @@ class SetupDependencies(
         } ?: false
     }
 
-    private fun baseFileDir(): String {
-        return NSSearchPathForDirectoriesInDomains(
+    private fun baseFileDir(): String =
+        NSSearchPathForDirectoriesInDomains(
             NSDocumentDirectory,
             NSUserDomainMask,
             true,
         ).first().toString()
-    }
 
     private fun filesDir(): String? {
         val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
@@ -415,7 +418,5 @@ class SetupDependencies(
         return requireNotNull(documentDirectory).path
     }
 
-    private fun findCurrentViewController(): UIViewController? {
-        return UIApplication.sharedApplication.keyWindow?.rootViewController
-    }
+    private fun findCurrentViewController(): UIViewController? = UIApplication.sharedApplication.keyWindow?.rootViewController
 }

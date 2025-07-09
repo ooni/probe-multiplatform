@@ -57,8 +57,7 @@ class ResultViewModel(
             if (result?.result?.isViewed == false) {
                 markResultAsViewed(resultId)
             }
-        }
-            .launchIn(viewModelScope)
+        }.launchIn(viewModelScope)
 
         combine(
             state.map { it.result }.distinctUntilChanged(),
@@ -69,8 +68,7 @@ class ResultViewModel(
                     rerunEnabled = resultItem?.canBeRerun == true && testState is RunBackgroundState.Idle,
                 )
             }
-        }
-            .launchIn(viewModelScope)
+        }.launchIn(viewModelScope)
 
         _state
             .map { it.result }
@@ -80,8 +78,7 @@ class ResultViewModel(
                 if (!it.result.isViewed) {
                     markResultAsViewed(resultId)
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.BackClicked>()
@@ -99,8 +96,7 @@ class ResultViewModel(
                         goToMeasurement(measurementId)
                     }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.UploadClicked>()
@@ -112,8 +108,7 @@ class ResultViewModel(
             .onEach {
                 startBackgroundRun(getRerunSpecification() ?: return@onEach)
                 goToDashboard()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.MeasurementGroupToggled>()
@@ -126,8 +121,7 @@ class ResultViewModel(
                         keys + key
                     }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -137,23 +131,25 @@ class ResultViewModel(
     private fun groupMeasurements(
         result: ResultItem?,
         expandedDescriptorsKeys: List<TestType>,
-    ) = result?.measurements?.let { measurements ->
-        measurements
-            .groupBy { it.measurement.test }
-            .flatMap { (key, itemList) ->
-                if (itemList.size == 1 || itemList.size == measurements.size) {
-                    itemList.sort().map { MeasurementGroupItem.Single(it) }
-                } else {
-                    listOf(
-                        MeasurementGroupItem.Group(
-                            test = key,
-                            measurements = itemList.sort(),
-                            isExpanded = expandedDescriptorsKeys.contains(key),
-                        ),
-                    )
+    ) = result
+        ?.measurements
+        ?.let { measurements ->
+            measurements
+                .groupBy { it.measurement.test }
+                .flatMap { (key, itemList) ->
+                    if (itemList.size == 1 || itemList.size == measurements.size) {
+                        itemList.sort().map { MeasurementGroupItem.Single(it) }
+                    } else {
+                        listOf(
+                            MeasurementGroupItem.Group(
+                                test = key,
+                                measurements = itemList.sort(),
+                                isExpanded = expandedDescriptorsKeys.contains(key),
+                            ),
+                        )
+                    }
                 }
-            }
-    }.orEmpty()
+        }.orEmpty()
 
     private fun List<MeasurementWithUrl>.sort() =
         sortedWith(
@@ -190,17 +186,23 @@ class ResultViewModel(
     sealed interface Event {
         data object BackClicked : Event
 
-        data class MeasurementClicked(val item: MeasurementWithUrl) : Event
+        data class MeasurementClicked(
+            val item: MeasurementWithUrl,
+        ) : Event
 
         data object UploadClicked : Event
 
         data object RerunClicked : Event
 
-        data class MeasurementGroupToggled(val measurementGroup: MeasurementGroupItem.Group) : Event
+        data class MeasurementGroupToggled(
+            val measurementGroup: MeasurementGroupItem.Group,
+        ) : Event
     }
 
     sealed class MeasurementGroupItem {
-        data class Single(val measurement: MeasurementWithUrl) : MeasurementGroupItem()
+        data class Single(
+            val measurement: MeasurementWithUrl,
+        ) : MeasurementGroupItem()
 
         data class Group(
             val test: TestType,

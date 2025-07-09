@@ -9,7 +9,8 @@ import java.util.UUID
 
 internal actual fun createPreferenceDataStore(): DataStore<Preferences> =
     PreferenceDataStoreFactory.create {
-        dependencies.cacheDir.toPath()
+        dependencies.cacheDir
+            .toPath()
             .resolve("probe-${UUID.randomUUID()}.preferences_pb")
             .toFile()
     }

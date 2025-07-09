@@ -27,6 +27,5 @@ class ObserveAndConfigureAutoUpdate(
                 } else {
                     cancelDescriptorAutoUpdate()
                 }
-            }
-            .launchIn(CoroutineScope(backgroundContext))
+            }.launchIn(CoroutineScope(backgroundContext))
 }

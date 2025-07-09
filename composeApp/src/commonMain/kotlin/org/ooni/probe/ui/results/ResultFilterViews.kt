@@ -128,7 +128,10 @@ fun ResultFiltersRow(
                     label = {
                         Text(
                             if (filter.descriptors.size == 1) {
-                                filter.descriptors.first().title().ellipsize(20)
+                                filter.descriptors
+                                    .first()
+                                    .title()
+                                    .ellipsize(20)
                             } else {
                                 pluralStringResource(
                                     Res.plurals.TestResults_Filter_Tests_Count,

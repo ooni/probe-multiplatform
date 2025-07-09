@@ -74,7 +74,8 @@ class AndroidUpdateMonitoring : UpdateMonitoring {
     // Update is downloaded but not installed, we need to ask the user to complete the update
     private fun AppUpdateManager.showInstallDownloadedUpdateMessage(activity: Activity) {
         CoroutineScope(Dispatchers.Main).launch {
-            AlertDialog.Builder(activity)
+            AlertDialog
+                .Builder(activity)
                 .setMessage(getString(Res.string.Dashboard_Update_Ready))
                 .setPositiveButton(
                     getString(Res.string.Dashboard_Update_Restart),

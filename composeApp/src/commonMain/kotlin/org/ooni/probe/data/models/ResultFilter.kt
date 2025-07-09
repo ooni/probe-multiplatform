@@ -36,7 +36,9 @@ data class ResultFilter(
         data object FromOneMonthAgo :
             Date(LocalDate.today().minus(DatePeriod(months = 1))..LocalDate.today())
 
-        data class Custom(val customRange: ClosedRange<LocalDate>) : Date(customRange)
+        data class Custom(
+            val customRange: ClosedRange<LocalDate>,
+        ) : Date(customRange)
     }
 
     companion object {

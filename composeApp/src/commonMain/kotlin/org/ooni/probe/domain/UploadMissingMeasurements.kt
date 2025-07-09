@@ -75,8 +75,7 @@ class UploadMissingMeasurements(
                                 ),
                             )
                             deleteFiles(reportFilePath)
-                        }
-                        .onFailure { exception ->
+                        }.onFailure { exception ->
                             failedToUpload++
                             updateMeasurement(
                                 measurement.copy(

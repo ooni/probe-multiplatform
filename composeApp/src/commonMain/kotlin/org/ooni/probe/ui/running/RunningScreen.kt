@@ -169,7 +169,8 @@ private fun TestRunning(
         }
 
         val progressTrackColor = contentColor.copy(alpha = 0.5f)
-        val progressModifier = Modifier.fillMaxWidth()
+        val progressModifier = Modifier
+            .fillMaxWidth()
             .height(16.dp)
             .clip(RoundedCornerShape(32.dp))
 
@@ -212,7 +213,8 @@ private fun TestRunning(
 
         OutlinedButton(
             onClick = { onEvent(RunningViewModel.Event.StopTestClicked) },
-            border = ButtonDefaults.outlinedButtonBorder(enabled = true)
+            border = ButtonDefaults
+                .outlinedButtonBorder(enabled = true)
                 .copy(brush = SolidColor(contentColor)),
             colors = ButtonDefaults.outlinedButtonColors(contentColor = contentColor),
         ) {

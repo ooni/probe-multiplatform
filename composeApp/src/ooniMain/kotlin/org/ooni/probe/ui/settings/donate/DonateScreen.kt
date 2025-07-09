@@ -189,7 +189,8 @@ fun DonateScreen(
                         }
                     },
                     colors = ButtonDefaults.buttonColors(),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .defaultMinSize(minHeight = 88.dp)
                         .padding(horizontal = 16.dp)
                         .padding(vertical = 16.dp),

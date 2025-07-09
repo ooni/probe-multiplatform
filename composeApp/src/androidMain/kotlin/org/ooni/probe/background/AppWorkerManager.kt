@@ -53,27 +53,25 @@ class AppWorkerManager(
         }
     }
 
-    suspend fun cancelDescriptorAutoUpdate(): Boolean {
-        return withContext(backgroundDispatcher) {
+    suspend fun cancelDescriptorAutoUpdate(): Boolean =
+        withContext(backgroundDispatcher) {
             workManager.cancelUniqueWork(DescriptorUpdateWorker.AutoUpdateWorkerName)
             true
         }
-    }
 
-    suspend fun configureDescriptorAutoUpdate(): Boolean {
-        return withContext(backgroundDispatcher) {
+    suspend fun configureDescriptorAutoUpdate(): Boolean =
+        withContext(backgroundDispatcher) {
             val request = PeriodicWorkRequestBuilder<DescriptorUpdateWorker>(
                 // 1 day + 30 minutes, to avoid starting together with the RunWorker
                 60 * 24 + 30,
                 TimeUnit.MINUTES,
-            )
-                .setInitialDelay(1, TimeUnit.DAYS) // avoid immediate start
+            ).setInitialDelay(1, TimeUnit.DAYS) // avoid immediate start
                 .setConstraints(
-                    Constraints.Builder()
+                    Constraints
+                        .Builder()
                         .setRequiredNetworkType(NetworkType.CONNECTED)
                         .build(),
-                )
-                .build()
+                ).build()
             workManager.enqueueUniquePeriodicWork(
                 DescriptorUpdateWorker.AutoUpdateWorkerName,
                 ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
@@ -81,7 +79,6 @@ class AppWorkerManager(
             )
             true
         }
-    }
 
     suspend fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
         withContext(backgroundDispatcher) {
@@ -96,8 +93,7 @@ class AppWorkerManager(
                                     it.map { descriptor -> descriptor.id },
                                 )
                             } ?: Data.EMPTY,
-                        )
-                        .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                        ).setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
                         .build(),
                 )
         }

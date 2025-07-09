@@ -1,6 +1,8 @@
 package org.ooni.probe.data.models
 
-enum class Animation(val fileName: String) {
+enum class Animation(
+    val fileName: String,
+) {
     QuizCorrect("checkMark"),
     QuizIncorrect("crossMark"),
     Circumvention("circumvention"),

@@ -87,7 +87,8 @@ fun MeasurementRawScreen(
         Text(
             text = state.json.orEmpty(),
             style = MaterialTheme.typography.labelMedium,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(16.dp),
         )

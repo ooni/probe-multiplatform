@@ -86,15 +86,19 @@ fun DescriptorScreen(
                 onRefresh = { onEvent(DescriptorViewModel.Event.FetchUpdatedDescriptor) },
                 state = pullRefreshState,
                 enabled = state.isRefreshEnabled && state.canPullToRefresh,
-            )
-            .background(MaterialTheme.colorScheme.background),
+            ).background(MaterialTheme.colorScheme.background),
     ) {
         Column {
             val descriptorColor = state.descriptor?.color ?: MaterialTheme.colorScheme.primary
             val onDescriptorColor = LocalCustomColors.current.onDescriptor
             TopBar(
                 title = {
-                    Text(state.descriptor?.title?.invoke().orEmpty())
+                    Text(
+                        state.descriptor
+                            ?.title
+                            ?.invoke()
+                            .orEmpty(),
+                    )
                 },
                 navigationIcon = {
                     IconButton(onClick = { onEvent(DescriptorViewModel.Event.BackClicked) }) {
@@ -207,8 +211,7 @@ fun DescriptorScreen(
                             onClick = { onEvent(DescriptorViewModel.Event.AllChecked) },
                             role = Role.Checkbox,
                             enabled = state.isAutoRunEnabled,
-                        )
-                        .padding(horizontal = 8.dp, vertical = 12.dp),
+                        ).padding(horizontal = 8.dp, vertical = 12.dp),
                 ) {
                     TriStateCheckbox(
                         state = state.allState,
@@ -271,7 +274,8 @@ private fun DescriptorDetails(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(8.dp),
         ) {
             if (!isHeightCompact()) {
@@ -386,8 +390,7 @@ private fun TestItems(
                     onValueChange = { onEvent(DescriptorViewModel.Event.TestChecked(test, it)) },
                     role = Role.Checkbox,
                     enabled = enabled,
-                )
-                .padding(horizontal = 16.dp)
+                ).padding(horizontal = 16.dp)
                 .padding(vertical = 12.dp),
         ) {
             Checkbox(

@@ -27,7 +27,12 @@ val appConfig = mapOf(
         folder = "dwMain",
         supportsOoniRun = false,
         supportedLanguages = listOf(
-            "de", "es", "fr", "pt-rBR", "ru", "tr",
+            "de",
+            "es",
+            "fr",
+            "pt-rBR",
+            "ru",
+            "tr",
         ),
     ),
     "ooni" to AppConfig(
@@ -36,8 +41,30 @@ val appConfig = mapOf(
         folder = "ooniMain",
         supportsOoniRun = true,
         supportedLanguages = listOf(
-            "ar", "ca", "de", "el", "es", "fa", "fr", "hi", "id", "is", "it", "my", "nl", "pt-rBR",
-            "ro", "ru", "sk", "sq", "sw", "th", "tr", "vi", "zh-rCN", "zh-rTW",
+            "ar",
+            "ca",
+            "de",
+            "el",
+            "es",
+            "fa",
+            "fr",
+            "hi",
+            "id",
+            "is",
+            "it",
+            "my",
+            "nl",
+            "pt-rBR",
+            "ro",
+            "ru",
+            "sk",
+            "sq",
+            "sw",
+            "th",
+            "tr",
+            "vi",
+            "zh-rCN",
+            "zh-rTW",
         ),
     ),
 )
@@ -177,12 +204,18 @@ kotlin {
 
 android {
     namespace = "org.ooni.probe"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = libs.versions.android.compileSdk
+        .get()
+        .toInt()
 
     defaultConfig {
         applicationId = config.appId
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk
+            .get()
+            .toInt()
+        targetSdk = libs.versions.android.targetSdk
+            .get()
+            .toInt()
         versionCode = 210 // Always increment by 10. See fdroid flavor below
         versionName = "5.1.0"
         resValue("string", "app_name", config.appName)
@@ -192,9 +225,11 @@ android {
             "supported_languages",
             config.supportedLanguages.joinToString(separator = ","),
         )
-        resourceConfigurations += config.supportedLanguages
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["clearPackageData"] = "true"
+    }
+    androidResources {
+        localeFilters += config.supportedLanguages
     }
     packaging {
         resources {
@@ -312,7 +347,10 @@ android {
     lint {
         warningsAsErrors = true
         disable += listOf(
-            "AndroidGradlePluginVersion", "NullSafeMutableLiveData", "ObsoleteLintCustomCheck",
+            "AndroidGradlePluginVersion",
+            "NullSafeMutableLiveData",
+            "ObsoleteLintCustomCheck",
+            "Aligned16KB",
         )
         lintConfig = file("lint.xml")
     }
@@ -392,6 +430,7 @@ configurations.all {
         attribute(Attribute.of("ui", String::class.java), "awt")
     }
 }
+// endregion
 
 version = android.defaultConfig.versionName ?: ""
 
@@ -576,13 +615,15 @@ data class AppConfig(
     val supportedLanguages: List<String>,
 )
 
-fun isFdroidTaskRequested(): Boolean {
-    return gradle.startParameter.taskRequests.flatMap { it.args }.any { it.contains("Fdroid") }
-}
+fun isFdroidTaskRequested(): Boolean =
+    gradle.startParameter.taskRequests
+        .flatMap { it.args }
+        .any { it.contains("Fdroid") }
 
-fun isDebugTaskRequested(): Boolean {
-    return gradle.startParameter.taskRequests.flatMap { it.args }.any { it.contains("Debug") }
-}
+fun isDebugTaskRequested(): Boolean =
+    gradle.startParameter.taskRequests
+        .flatMap { it.args }
+        .any { it.contains("Debug") }
 
 fun getJavaFxSuffix(): String {
     val os = OperatingSystem.current()

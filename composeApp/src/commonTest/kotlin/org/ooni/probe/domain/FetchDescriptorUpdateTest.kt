@@ -41,7 +41,10 @@ class FetchDescriptorUpdateTest {
         runTest {
             val oldDescriptor = DescriptorFactory.buildInstalledModel(
                 autoUpdate = true,
-                dateUpdated = Clock.System.now().minus(1.days).toLocalDateTime(),
+                dateUpdated = Clock.System
+                    .now()
+                    .minus(1.days)
+                    .toLocalDateTime(),
             )
             val newDescriptor = oldDescriptor.copy(
                 revision = 2,
@@ -67,7 +70,10 @@ class FetchDescriptorUpdateTest {
         runTest {
             val oldDescriptor = DescriptorFactory.buildInstalledModel(
                 autoUpdate = false,
-                dateUpdated = Clock.System.now().minus(1.days).toLocalDateTime(),
+                dateUpdated = Clock.System
+                    .now()
+                    .minus(1.days)
+                    .toLocalDateTime(),
             )
             val newDescriptor = oldDescriptor.copy(
                 dateUpdated = LocalDateTime.now(),
