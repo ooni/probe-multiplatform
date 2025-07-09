@@ -37,7 +37,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.ui.shared.relativeDateTime
-import org.ooni.probe.ui.shared.shortFormat
+import org.ooni.probe.ui.shared.format
 import org.ooni.probe.ui.theme.AppTheme
 import org.ooni.probe.ui.theme.customColors
 
@@ -225,7 +225,7 @@ private fun RunningTests(
                     text = stringResource(Res.string.Dashboard_Running_EstimatedTimeLeft),
                 )
                 Text(
-                    text = " " + timeLeft.shortFormat(),
+                    text = " " + timeLeft.format(),
                     fontWeight = FontWeight.Bold,
                 )
             }

@@ -43,9 +43,10 @@ import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_WarmVPNInUse_Label
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Description
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
+import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeDuration
+import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeDuration_Unit
+import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled
 import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled_Description
-import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled_New
-import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntime_New
 import ooniprobe.composeapp.generated.resources.advanced
 import ooniprobe.composeapp.generated.resources.ic_language
 import ooniprobe.composeapp.generated.resources.ic_settings
@@ -65,7 +66,7 @@ import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.ui.settings.category.SettingsDescription
 import org.ooni.probe.ui.settings.donate.DONATE_SETTINGS_ITEM
 import org.ooni.probe.ui.shared.formatDataUsage
-import org.ooni.probe.ui.shared.shortFormat
+import org.ooni.probe.ui.shared.format
 import kotlin.time.Duration.Companion.seconds
 
 class GetSettings(
@@ -164,7 +165,7 @@ class GetSettings(
                     },
                     if (hasWebsitesDescriptor) {
                         SettingsItem(
-                            title = Res.string.Settings_Websites_MaxRuntimeEnabled_New,
+                            title = Res.string.Settings_Websites_MaxRuntimeEnabled,
                             key = SettingsKey.MAX_RUNTIME_ENABLED,
                             type = PreferenceItemType.SWITCH,
                             supportingContent = {
@@ -180,15 +181,18 @@ class GetSettings(
                     },
                     if (hasWebsitesDescriptor && maxRuntimeEnabled) {
                         SettingsItem(
-                            title = Res.string.Settings_Websites_MaxRuntime_New,
+                            title = Res.string.Settings_Websites_MaxRuntimeDuration,
                             key = SettingsKey.MAX_RUNTIME,
                             type = PreferenceItemType.INT,
                             supportingContent = {
                                 maxRuntime?.let {
-                                    Text(it.coerceAtLeast(0).seconds.shortFormat())
+                                    Text(it.coerceAtLeast(0).seconds.format(abbreviated = false))
                                 }
                             },
                             indentation = 1,
+                            valuePickerSupportContent = {
+                                Text(stringResource(Res.string.Settings_Websites_MaxRuntimeDuration_Unit))
+                            },
                         )
                     } else {
                         null

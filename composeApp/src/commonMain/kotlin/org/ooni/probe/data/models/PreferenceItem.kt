@@ -24,6 +24,7 @@ data class SettingsItem(
     override val trailingContent: @Composable (() -> Unit)? = null,
     override val enabled: Boolean = true,
     override val indentation: Int = 0,
+    val valuePickerSupportContent: @Composable (() -> Unit)? = null,
 ) : PreferenceItem(
         title = title,
         icon = icon,
