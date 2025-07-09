@@ -185,9 +185,10 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">By enabling automatic testing, OONI Probe tests will run automatically multiple times per day. Your test results will automatically get published on OONI Explorer: https://explorer.ooni.org/ \n\nImportant: If you have a VPN enabled, OONI Probe will not run tests automatically. Please turn off your VPN for automated OONI Probe testing. Learn more: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run every hour in the background</string>
     <string name="Settings_Sharing_UploadResults">Automatically Publish Results</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Limit test duration</string>
-    <string name="Settings_Websites_MaxRuntime">Test duration</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Limit Websites test duration</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">Maximum duration of a full Websites test run</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">Enter the number of seconds</string>
     <string name="Settings_Websites_Categories_Label">Website categories to test</string>
     <string name="Settings_Websites_Categories_Description">%1$s categories enabled</string>
 
@@ -226,9 +227,6 @@
     <string name="Settings_ShareLogs_Error">Error sharing logs</string>
     <string name="Settings_FilterLogs">Filter Logs</string>
     <string name="Settings_Sharing_UploadResults_Description">Results are automatically uploaded to OONI explorer</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_New">Limit Websites test duration</string>
-    <string name="Settings_Websites_MaxRuntime_New">Maximum Websites test duration</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
     <string name="Settings_Websites_Categories_Selection_None">Deselect All</string>
     <string name="Settings_Websites_Categories_Selection_All">Select All</string>
     <string name="Settings_Websites_CustomURL_Title">Choose websites to test</string>
@@ -352,6 +350,7 @@
     <string name="LoadingScreen_Runv2_Failure">Error</string>
     <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
+    <string name="DescriptorUpdate_CheckUpdates">Check for Updates</string>
     <string name="AddDescriptor_AutoRunDisabled">Auto-run is disabled. Please enable it to run tests automatically.</string>
     <string name="Descriptor_LastTestResult">Last Test Result</string>
 
@@ -415,6 +414,10 @@
     <string name="Common_Clear">Clear</string>
 
     <string name="Common_Ago">%1$s ago</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one">%1$d second</item>
+        <item quantity="other">%1$d seconds</item>
+    </plurals>
     <plurals name="Common_Minutes">
         <item quantity="one">%1$d minute</item>
         <item quantity="other">%1$d minutes</item>
