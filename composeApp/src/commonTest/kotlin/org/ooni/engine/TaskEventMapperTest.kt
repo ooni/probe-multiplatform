@@ -121,7 +121,7 @@ class TaskEventMapperTest {
                 // 2024-08-05 13:22:31
                 assertEquals(2024, year)
                 assertEquals(Month.AUGUST, month)
-                assertEquals(5, dayOfMonth)
+                assertEquals(5, day)
                 assertEquals(13, hour)
                 assertEquals(22, minute)
                 assertEquals(31, second)

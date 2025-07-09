@@ -413,6 +413,8 @@
     <string name="Common_Save">Save</string>
     <string name="Common_Clear">Clear</string>
 
+    <string name="Common_Today">Today</string>
+    <string name="Common_Yesterday">Yesterday</string>
     <string name="Common_Ago">%1$s ago</string>
     <plurals name="Common_Seconds">
         <item quantity="one">%1$d second</item>
@@ -425,6 +427,10 @@
     <plurals name="Common_Hours">
         <item quantity="one">%1$d hour</item>
         <item quantity="other">%1$d hours</item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
     </plurals>
     <string name="Common_Hours_Abbreviated">%1$dh</string>
     <string name="Common_Minutes_Abbreviated">%1$dm</string>

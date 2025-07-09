@@ -42,17 +42,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.luminance
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDate.Companion.Format
 import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
+import kotlinx.datetime.format.Padding
 import kotlinx.datetime.format.char
+import kotlinx.datetime.minus
+import ooniprobe.composeapp.generated.resources.Common_Ago
+import ooniprobe.composeapp.generated.resources.Common_Days
+import ooniprobe.composeapp.generated.resources.Common_Today
 import ooniprobe.composeapp.generated.resources.Common_Yes
+import ooniprobe.composeapp.generated.resources.Common_Yesterday
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
@@ -88,6 +95,7 @@ import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.shared.stringMonthArrayResource
+import org.ooni.probe.shared.today
 import org.ooni.probe.ui.shared.LightStatusBars
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
@@ -251,6 +259,7 @@ fun ResultsScreen(
                     state.results.forEach { (date, results) ->
                         stickyHeader(key = date.toString()) {
                             ResultDateHeader(date)
+                            HorizontalDivider(thickness = Dp.Hairline)
                         }
                         items(items = results) { result ->
                             val isSelected = result.isSelected
@@ -288,7 +297,7 @@ fun ResultsScreen(
                                     }
                                 },
                             )
-                            HorizontalDivider(thickness = with(LocalDensity.current) { 1.toDp() })
+                            HorizontalDivider(thickness = Dp.Hairline)
                         }
                     }
                     if (state.areResultsLimited) {
@@ -501,13 +510,32 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
 private fun ResultDateHeader(date: LocalDate) {
     val monthNames = stringMonthArrayResource()
     Text(
-        date.format(
-            Format {
-                monthName(MonthNames(monthNames))
-                char(' ')
-                year()
-            },
-        ),
+        when {
+            date == LocalDate.today() ->
+                stringResource(Res.string.Common_Today)
+
+            date == LocalDate.today().minus(1, DateTimeUnit.DAY) ->
+                stringResource(Res.string.Common_Yesterday)
+
+            date >= LocalDate.today().minus(5, DateTimeUnit.DAY) -> {
+                val daysDiff = (date - LocalDate.today().minus(5, DateTimeUnit.DAY)).days
+                stringResource(
+                    Res.string.Common_Ago,
+                    pluralStringResource(Res.plurals.Common_Days, daysDiff, daysDiff),
+                )
+            }
+
+            else ->
+                date.format(
+                    Format {
+                        day(Padding.NONE)
+                        char(' ')
+                        monthName(MonthNames(monthNames))
+                        char(' ')
+                        year()
+                    },
+                )
+        },
         style = MaterialTheme.typography.labelLarge,
         modifier = Modifier
             .fillMaxWidth()
