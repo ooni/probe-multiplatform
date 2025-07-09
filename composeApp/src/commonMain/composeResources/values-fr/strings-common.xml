@@ -166,9 +166,8 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">En activant les tests automatiques, les tests d’OONI Probe auront lieu automatiquement plusieurs fois par jour. Les résultats de vos tests seront publiés automatiquement sur l’Explorateur OONI : https://explorer.ooni.org/ (site en anglais)\n\nImportant : Si vous utilisez un RPV et qu’il est activé, OONI Probe n’effectuera pas de test automatique. Afin que les tests automatisés d’OONI Probe aient lieu, désactivez votre RPV. Apprenez-en davantage : https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn (site en anglais)</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Les tests s’exécuteront toutes les heures en arrière-plan</string>
     <string name="Settings_Sharing_UploadResults">Publier automatiquement les résultats</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Limiter la durée du test</string>
-    <string name="Settings_Websites_MaxRuntime">Durée du test</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Limiter la durée de test des sites Web</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Seulement pour les exécutions manuelles</string>
     <string name="Settings_Websites_Categories_Label">Catégories de sites Web à tester</string>
     <string name="Settings_Websites_Categories_Description">%1$s catégories sont activées</string>
 
@@ -207,9 +206,6 @@
     <string name="Settings_ShareLogs_Error">Erreur de partage des journaux</string>
     <string name="Settings_FilterLogs">Filtrer les journaux</string>
     <string name="Settings_Sharing_UploadResults_Description">Les résultats sont téléversés automatiquement vers l’Explorateur OONI</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_New">Limiter la durée de test des sites Web</string>
-    <string name="Settings_Websites_MaxRuntime_New">Durée maximale de test des sites Web</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Seulement pour les exécutions manuelles</string>
     <string name="Settings_Websites_Categories_Selection_None">Tout dessélectionner</string>
     <string name="Settings_Websites_Categories_Selection_All">Tout sélectionner</string>
     <string name="Settings_Websites_CustomURL_Title">Choisir les sites Web à tester</string>
@@ -334,6 +330,7 @@
     <string name="LoadingScreen_Runv2_Failure">Erreur</string>
     <string name="LoadingScreen_Runv2_Canceled">L’installation du lien a été annulée</string>
     <string name="DescriptorUpdate_Updates">MISES À JOUR</string>
+    <string name="DescriptorUpdate_CheckUpdates">Vérifier la présence de mises à jour</string>
     <string name="AddDescriptor_AutoRunDisabled">Le lancement automatique est désactivé. Activez cette option pour lancer les tests automatiquement.</string>
     <string name="Descriptor_LastTestResult">Dernier résultat de test</string>
 
