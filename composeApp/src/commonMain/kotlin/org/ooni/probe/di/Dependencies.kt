@@ -120,7 +120,7 @@ class Dependencies(
     private val readAssetFile: (String) -> String,
     private val databaseDriverFactory: () -> SqlDriver,
     private val networkTypeFinder: NetworkTypeFinder,
-    @VisibleForTesting
+    @get:VisibleForTesting
     val buildDataStore: () -> DataStore<Preferences>,
     private val getBatteryState: () -> BatteryState,
     val startSingleRunInner: (RunSpecification) -> Unit,
@@ -541,6 +541,7 @@ class Dependencies(
         observeDescriptorUpdateState = descriptorUpdateStateManager::observe,
         getAutoRunSettings = getAutoRunSettings::invoke,
         batteryOptimization = batteryOptimization,
+        canPullToRefresh = platformInfo.canPullToRefresh,
     )
 
     fun descriptorViewModel(
@@ -567,6 +568,7 @@ class Dependencies(
         observeDescriptorsUpdateState = descriptorUpdateStateManager::observe,
         dismissDescriptorReviewNotice = dismissDescriptorReviewNotice::invoke,
         undoRejectedDescriptorUpdate = undoRejectedDescriptorUpdate::invoke,
+        canPullToRefresh = platformInfo.canPullToRefresh,
     )
 
     fun logViewModel(onBack: () -> Unit) =

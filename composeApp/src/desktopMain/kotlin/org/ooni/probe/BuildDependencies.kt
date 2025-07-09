@@ -70,6 +70,7 @@ private fun buildPlatformInfo(): PlatformInfo {
         knownBatteryState = false,
         knownNetworkType = false,
         supportsInAppLanguage = false,
+        canPullToRefresh = false,
         sentryDsn = "https://e33da707dc40ab9508198b62de9bc269@o155150.ingest.sentry.io/4509084408610816",
     )
 }

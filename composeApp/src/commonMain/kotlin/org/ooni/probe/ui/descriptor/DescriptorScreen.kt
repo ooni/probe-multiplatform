@@ -50,8 +50,8 @@ import ooniprobe.composeapp.generated.resources.Common_Enable
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsites
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_ReviewUpdates
-import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Descriptor_LastTestResult
+import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_timer
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
@@ -85,7 +85,7 @@ fun DescriptorScreen(
                 isRefreshing = state.isRefreshing,
                 onRefresh = { onEvent(DescriptorViewModel.Event.FetchUpdatedDescriptor) },
                 state = pullRefreshState,
-                enabled = state.descriptor?.source is Descriptor.Source.Installed,
+                enabled = state.isRefreshEnabled && state.canPullToRefresh,
             )
             .background(MaterialTheme.colorScheme.background),
     ) {
@@ -118,7 +118,7 @@ fun DescriptorScreen(
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
                     .padding(WindowInsets.navigationBars.asPaddingValues())
-                    .padding(bottom = 32.dp),
+                    .padding(bottom = 64.dp),
             ) {
                 val descriptor = state.descriptor ?: return
 
@@ -233,6 +233,7 @@ fun DescriptorScreen(
                 if (descriptor.source is Descriptor.Source.Installed) {
                     InstalledDescriptorActionsView(
                         descriptor = descriptor.source.value,
+                        showCheckUpdatesButton = !state.canPullToRefresh,
                         onEvent = onEvent,
                         modifier = Modifier.padding(horizontal = 16.dp),
                     )
@@ -304,50 +305,50 @@ private fun DescriptorDetails(
                 }
             }
 
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(top = 8.dp),
-            ) {
-                if (descriptor.name == "websites") {
-                    OutlinedButton(
-                        onClick = { onEvent(DescriptorViewModel.Event.ChooseWebsitesClicked) },
-                        border = ButtonDefaults
-                            .outlinedButtonBorder(enabled = true)
-                            .copy(brush = SolidColor(onDescriptorColor)),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = onDescriptorColor),
-                        modifier = Modifier
-                            .padding(end = 8.dp)
-                            .testTag("Choose-Websites"),
-                    ) {
-                        Text(stringResource(Res.string.Dashboard_Overview_ChooseWebsites))
-                    }
-                }
-
-                OutlinedButton(
-                    onClick = { onEvent(DescriptorViewModel.Event.RunClicked) },
-                    border = ButtonDefaults
-                        .outlinedButtonBorder(enabled = true)
-                        .copy(brush = SolidColor(descriptorColor)),
-                    colors = ButtonDefaults.outlinedButtonColors(
-                        contentColor = descriptorColor,
-                        containerColor = onDescriptorColor,
-                    ),
-                ) {
-                    Text(
-                        stringResource(Res.string.OONIRun_Run),
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-                    Icon(
-                        painterResource(Res.drawable.ic_timer),
-                        contentDescription = null,
-                        modifier = Modifier.padding(start = 8.dp),
-                    )
-                }
-            }
-
             if (descriptor.isExpired) {
                 ExpiredChip()
+            } else {
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 8.dp),
+                ) {
+                    if (descriptor.name == "websites") {
+                        OutlinedButton(
+                            onClick = { onEvent(DescriptorViewModel.Event.ChooseWebsitesClicked) },
+                            border = ButtonDefaults
+                                .outlinedButtonBorder(enabled = true)
+                                .copy(brush = SolidColor(onDescriptorColor)),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = onDescriptorColor),
+                            modifier = Modifier
+                                .padding(end = 8.dp)
+                                .testTag("Choose-Websites"),
+                        ) {
+                            Text(stringResource(Res.string.Dashboard_Overview_ChooseWebsites))
+                        }
+                    }
+
+                    OutlinedButton(
+                        onClick = { onEvent(DescriptorViewModel.Event.RunClicked) },
+                        border = ButtonDefaults
+                            .outlinedButtonBorder(enabled = true)
+                            .copy(brush = SolidColor(descriptorColor)),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = descriptorColor,
+                            containerColor = onDescriptorColor,
+                        ),
+                    ) {
+                        Text(
+                            stringResource(Res.string.OONIRun_Run),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        Icon(
+                            painterResource(Res.drawable.ic_timer),
+                            contentDescription = null,
+                            modifier = Modifier.padding(start = 8.dp),
+                        )
+                    }
+                }
             }
 
             if (descriptor.updateStatus is UpdateStatus.Updatable) {

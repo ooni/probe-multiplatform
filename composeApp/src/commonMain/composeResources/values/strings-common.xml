@@ -352,6 +352,7 @@
     <string name="LoadingScreen_Runv2_Failure">Error</string>
     <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
+    <string name="DescriptorUpdate_CheckUpdates">Check for Updates</string>
     <string name="AddDescriptor_AutoRunDisabled">Auto-run is disabled. Please enable it to run tests automatically.</string>
     <string name="Descriptor_LastTestResult">Last Test Result</string>
 
