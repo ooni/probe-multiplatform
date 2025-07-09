@@ -166,8 +166,10 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Ao permitir testes automáticos, os testes OONI Probe serão executados automaticamente várias vezes por dia. Os resultados de seus testes serão publicados automaticamente no OONI Explorer: https://explorer.ooni.org/ \n\nImportante: Se você tiver uma VPN habilitada, a OONI Probe não executará testes automaticamente. Por favor, desligue sua VPN para os testes automatizados da OONI Probe. Saiba mais: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Testes serão executados a cada hora em segundo plano</string>
     <string name="Settings_Sharing_UploadResults">Publicar os resultados automaticamente</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled">Limitar a duração de testes de Websites</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Limitar a duração do teste de Websites</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Somente para execuções manuais</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">Duração máxima de uma execução completa do teste de Websites</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">Insira a quantidade de segundos</string>
     <string name="Settings_Websites_Categories_Label">Categorias de sites para testar</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorias habilitadas</string>
 
@@ -330,7 +332,7 @@
     <string name="LoadingScreen_Runv2_Failure">Erro</string>
     <string name="LoadingScreen_Runv2_Canceled">Instalação do link cancelada</string>
     <string name="DescriptorUpdate_Updates">ATUALIZAÇÕES</string>
-    <string name="DescriptorUpdate_CheckUpdates">Verificar atualizações</string>
+    <string name="DescriptorUpdate_CheckUpdates">Verificar Atualizações</string>
     <string name="AddDescriptor_AutoRunDisabled">Autoexecução desabilitada. Por favor, habilite-a para executar testes automaticamente.</string>
     <string name="Descriptor_LastTestResult">Último Resultado do Teste</string>
 
@@ -396,6 +398,11 @@
     <string name="Common_Clear">Limpar</string>
 
     <string name="Common_Ago">%1$s atrás</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one">%1$d segundo</item>
+        <item quantity="many">%1$d de segundos</item>
+        <item quantity="other">%1$d segundos</item>
+    </plurals>
     <plurals name="Common_Minutes">
         <item quantity="one">%1$d minuto</item>
         <item quantity="many">%1$d de minutos</item>
