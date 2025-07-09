@@ -91,9 +91,6 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">تنها در هنگام شارژ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">با فعالسازی تست خودکار، تست‌های OONI Probe به طور خودکار چند بار در روز اجرا خواهند شد. نتایج تست شما به صورت خودکار در OONI Explorer منتشر خواهند شد: https://explorer.ooni.org/\n\nمهم: اگر VPN شما متصل باشد، OONI Probe تست‌ها را به صورت خودکار اجرا نخواهد کرد. لطفا برای اجرای تست‌های خودکار OONI Probe، اتصال VPN خود را خاموش کنید. اطلاعات بیشتر: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">انتشار خودکار نتایج</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">کرانمند‌سازی مدت آزمون</string>
-    <string name="Settings_Websites_MaxRuntime">مدت تست</string>
     <string name="Settings_Websites_Categories_Label">دسته‌بندی‌های وبسایت برای تست</string>
     <string name="Settings_Websites_Categories_Description">%1$s دسته بندی فعال است</string>
 
@@ -228,6 +225,7 @@
     <string name="AddDescriptor_Settings">تنظیمات آزمودن  </string>
     <string name="AddDescriptor_AutoRun">اجرای خودکار آزمایش‌ها</string>
     <string name="LoadingScreen_Runv2_Failure">خطا</string>
+    <string name="DescriptorUpdate_CheckUpdates">به‌روز رسانی‌ها را بررسی کنید</string>
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">بارگذاری نشدند</string>
