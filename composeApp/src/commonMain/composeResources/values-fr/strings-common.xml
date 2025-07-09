@@ -166,9 +166,9 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">En activant les tests automatiques, les tests d’OONI Probe auront lieu automatiquement plusieurs fois par jour. Les résultats de vos tests seront publiés automatiquement sur l’Explorateur OONI : https://explorer.ooni.org/ (site en anglais)\n\nImportant : Si vous utilisez un RPV et qu’il est activé, OONI Probe n’effectuera pas de test automatique. Afin que les tests automatisés d’OONI Probe aient lieu, désactivez votre RPV. Apprenez-en davantage : https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn (site en anglais)</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Les tests s’exécuteront toutes les heures en arrière-plan</string>
     <string name="Settings_Sharing_UploadResults">Publier automatiquement les résultats</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled">Limiter la durée de test des sites Web</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Limiter la durée du test Sites Web</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Seulement pour les exécutions manuelles</string>
-    <string name="Settings_Websites_MaxRuntimeDuration">Durée maximale d’un test complet de sites Web</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">Durée maximale d’un test complet Sites Web</string>
     <string name="Settings_Websites_MaxRuntimeDuration_Unit">Saisissez le nombre de secondes</string>
     <string name="Settings_Websites_Categories_Label">Catégories de sites Web à tester</string>
     <string name="Settings_Websites_Categories_Description">%1$s catégories sont activées</string>
