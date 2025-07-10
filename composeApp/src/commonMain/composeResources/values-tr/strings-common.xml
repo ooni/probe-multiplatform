@@ -161,9 +161,8 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Otomatik sınama açıldığında, OONI Probe sınamaları günde birkaç kez otomatik olarak çalışır. Sınama sonuçlarınız otomatik olarak OONI Explorer üzerinde yayınlanır: https://explorer.ooni.org/\n\nÖnemli: Etkin bir VPN bağlantınız varsa, OONI Probe sınamaları otomatik olarak çalıştırmaz. Otomatik OONI Probe sınaması için lütfen VPN bağlantınızı kapatın. Ayrıntılı bilgi almak için https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn adresine bakabilirsiniz</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Sınamalar saatte bir arka planda yapılacak</string>
     <string name="Settings_Sharing_UploadResults">Sonuçlar otomatik olarak yayınlansın</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Sınama süresi sınırlansın</string>
-    <string name="Settings_Websites_MaxRuntime">Sınama süresi</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Site sınama süresi sınırlansın</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Yalnızca el ile çalıştırmalar için</string>
     <string name="Settings_Websites_Categories_Label">Sınanacak site kategorileri</string>
     <string name="Settings_Websites_Categories_Description">%1$s kategori açık</string>
 
@@ -202,9 +201,6 @@
     <string name="Settings_ShareLogs_Error">Günlük paylaşılırken sorun çıktı</string>
     <string name="Settings_FilterLogs">Günlüğü süz</string>
     <string name="Settings_Sharing_UploadResults_Description">Sonuçlar OONI explorer üzerine otomatik olarak yüklenir</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_New">Site sınama süresi sınırlansın</string>
-    <string name="Settings_Websites_MaxRuntime_New">En uzun site sınama süresi</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Yalnızca el ile çalıştırmalar için</string>
     <string name="Settings_Websites_Categories_Selection_None">Tümünü bırak</string>
     <string name="Settings_Websites_Categories_Selection_All">Tümünü seç</string>
     <string name="Settings_Websites_CustomURL_Title">Sınanacak siteleri seçin</string>
@@ -328,6 +324,7 @@
     <string name="LoadingScreen_Runv2_Failure">Hata</string>
     <string name="LoadingScreen_Runv2_Canceled">Bağlantı kurulumu iptal edildi</string>
     <string name="DescriptorUpdate_Updates">GÜNCELLEMELER</string>
+    <string name="DescriptorUpdate_CheckUpdates">Güncelleme denetimi</string>
     <string name="AddDescriptor_AutoRunDisabled">Otomatik çalıştırma kapalı. Sınamaları otomatik olarak çalıştırmak için açın.</string>
     <string name="Descriptor_LastTestResult">Son sınama sonucu</string>
 

@@ -108,9 +108,6 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Hanya ketika mengisi daya</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Dengan mengaktifkan pengetesan otomatis, tes OONI Probe akan berjalan secara otomatis beberapa kali per hari. Hasil tes Anda akan secara otomatis dipublikasikan di OONI Explorer: https://explorer.ooni.org/ \n\nPenting: Jika Anda mengaktifkan VPN, OONI Probe tidak akan menjalankan tes secara otomatis. Silakan nonaktifkan VPN Anda untuk pengetesan OONI Probe secara otomatis. Pelajari lebih lanjut: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">Publikasikan Hasil Secara Otomatis</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Batas durasi tes</string>
-    <string name="Settings_Websites_MaxRuntime">Durasi tes</string>
     <string name="Settings_Websites_Categories_Label">Kategori situs web untuk dites</string>
     <string name="Settings_Websites_Categories_Description">%1$s kategori diaktifkan</string>
 
@@ -252,6 +249,7 @@
     <string name="LoadingScreen_Runv2_Failure">Galat</string>
     <string name="LoadingScreen_Runv2_Canceled">Pemasangan tautan dibatalkan</string>
     <string name="DescriptorUpdate_Updates">PEMBARUAN</string>
+    <string name="DescriptorUpdate_CheckUpdates">Periksa Pembaruan</string>
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Tidak terunggah</string>

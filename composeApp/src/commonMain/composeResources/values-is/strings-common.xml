@@ -121,9 +121,8 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Þegar sjálfvirkar prófanir eru virkjaðar, munu OONI Probe prófanir keyra sjálfkrafa nokkrum sinnum á dag. Prófunarniðurstöður þínar verða birtar á OONI Explorer https://explorer.ooni.org/\n\nMikilvægt: Ef þú hefur virkjað VPN, verða OONI Probe prófanir ekki keyra sjálfkrafa. Slökktu á VPN til að keyra sjálfvirkar OONI Probe prófanir. Kannaðu nánar: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run in the background</string>
     <string name="Settings_Sharing_UploadResults">Sjálfvirk birting niðurstaðna</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Takmarka tímalengd prófunar</string>
-    <string name="Settings_Websites_MaxRuntime">Tímalengd prófunar</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Limit Websites test duration</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
     <string name="Settings_Websites_Categories_Label">Flokkar vefsvæða sem á að prófa</string>
     <string name="Settings_Websites_Categories_Description">%1$s flokkar virkir</string>
 
@@ -158,9 +157,6 @@
     <string name="Settings_ShareLogs_Error">Error sharing logs</string>
     <string name="Settings_FilterLogs">Filter Logs</string>
     <string name="Settings_Sharing_UploadResults_Description">Results are automatically uploaded to OONI explorer</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_New">Limit Websites test duration</string>
-    <string name="Settings_Websites_MaxRuntime_New">Maximum Websites test duration</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
     <string name="Settings_Websites_Categories_Selection_None">Afvelja allt</string>
     <string name="Settings_Websites_Categories_Selection_All">Velja allt</string>
     <string name="Settings_Websites_CustomURL_Title">Veldu vefsvæði til að prófa</string>
@@ -277,6 +273,7 @@
     <string name="LoadingScreen_Runv2_Failure">Villa</string>
     <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
+    <string name="DescriptorUpdate_CheckUpdates">Athuga með uppfærslur</string>
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Ekki sent inn</string>
