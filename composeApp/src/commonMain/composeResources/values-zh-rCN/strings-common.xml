@@ -158,6 +158,8 @@
     <string name="Settings_Sharing_UploadResults">自动发布结果</string>
     <string name="Settings_Websites_MaxRuntimeEnabled">限制网站测试持续时间</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">仅手动运行</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">完整网站测试运行的最长持续时间</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">输入秒数</string>
     <string name="Settings_Websites_Categories_Label">要测试的网站类别</string>
     <string name="Settings_Websites_Categories_Description">已启用 %1$s 个分类</string>
 
@@ -380,6 +382,9 @@
     <string name="Common_Clear">清除键</string>
 
     <string name="Common_Ago">%1$s 前</string>
+    <plurals name="Common_Seconds">
+        <item quantity="other">%1$d 秒</item>
+    </plurals>
     <plurals name="Common_Minutes">
         <item quantity="other">%1$d 分钟</item>
     </plurals>
