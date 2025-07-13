@@ -163,6 +163,8 @@
     <string name="Settings_Sharing_UploadResults">Ergebnisse automatisch veröffentlichen</string>
     <string name="Settings_Websites_MaxRuntimeEnabled">Testdauer der Websites begrenzen</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Nur für manuelle Ausführungen</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">Maximale Dauer eines Testlaufs für eine vollständige Website</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">Gib die Anzahl der Sekunden ein</string>
     <string name="Settings_Websites_Categories_Label">Zu testende Webseiten-Kategorien</string>
     <string name="Settings_Websites_Categories_Description">%1$s aktivierte Kategorien</string>
 
@@ -388,6 +390,10 @@
     <string name="Common_Clear">Löschen</string>
 
     <string name="Common_Ago">Vor %1$s</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one">%1$d Sekunde</item>
+        <item quantity="other">%1$d Sekunden</item>
+    </plurals>
     <plurals name="Common_Minutes">
         <item quantity="one">%1$d Minute</item>
         <item quantity="other">%1$d Minuten</item>
