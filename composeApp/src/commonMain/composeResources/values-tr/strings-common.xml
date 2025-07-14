@@ -387,6 +387,8 @@
     <string name="Common_Save">Kaydet</string>
     <string name="Common_Clear">Temizle</string>
 
+    <string name="Common_Today">Bugün</string>
+    <string name="Common_Yesterday">Dün</string>
     <string name="Common_Ago">%1$s önce</string>
     <plurals name="Common_Minutes">
         <item quantity="one">%1$d dakika</item>
