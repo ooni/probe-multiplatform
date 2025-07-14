@@ -317,6 +317,8 @@
     <string name="Common_Save">حفظ</string>
     <string name="Common_Clear">Clear</string>
 
+    <string name="Common_Today">اليوم</string>
+    <string name="Common_Yesterday">أمس</string>
     <string name="Common_Ago">%1$s ago</string>
     <string name="Common_Hours_Abbreviated">%1$d h</string>
     <string name="Common_Minutes_Abbreviated">%1$d m</string>
