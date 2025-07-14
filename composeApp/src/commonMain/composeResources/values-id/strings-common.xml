@@ -295,6 +295,8 @@
     <string name="Common_Save">Simpan</string>
     <string name="Common_Clear">Bersihkan</string>
 
+    <string name="Common_Today">Hari ini</string>
+    <string name="Common_Yesterday">Kemarin</string>
     <string name="Common_Ago">%1$s yang lalu</string>
     <string name="Common_Months_January">Januari</string>
     <string name="Common_Months_February">Februari</string>
