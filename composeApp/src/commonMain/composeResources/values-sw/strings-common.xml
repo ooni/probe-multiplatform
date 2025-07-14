@@ -291,5 +291,7 @@
     <string name="Common_Save">Hifadhi</string>
     <string name="Common_Clear">Ondoa</string>
 
+    <string name="Common_Today">Leo</string>
+    <string name="Common_Yesterday">Jana</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
