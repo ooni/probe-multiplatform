@@ -271,6 +271,8 @@
     <string name="Common_Save">ذخیره‌سازی</string>
     <string name="Common_Clear">پاک</string>
 
+    <string name="Common_Today">امروز</string>
+    <string name="Common_Yesterday">دیروز</string>
     <string name="Common_Ago">%1$s پیش</string>
     <string name="Common_Months_January">ژانویه</string>
     <string name="Common_Months_February">فوریه</string>
