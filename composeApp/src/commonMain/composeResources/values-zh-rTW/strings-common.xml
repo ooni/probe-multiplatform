@@ -284,6 +284,8 @@
     <string name="Common_Save">儲存</string>
     <string name="Common_Clear">清除</string>
 
+    <string name="Common_Today">今天</string>
+    <string name="Common_Yesterday">昨天</string>
     <string name="Common_Ago">%1$s 前</string>
     <string name="Common_Months_January">一月</string>
     <string name="Common_Months_February">二月</string>
