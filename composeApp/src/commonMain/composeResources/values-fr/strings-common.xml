@@ -415,6 +415,11 @@
         <item quantity="many">%1$d d’heures</item>
         <item quantity="other">%1$d heures</item>
     </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d jour</item>
+        <item quantity="many">%1$d de jours</item>
+        <item quantity="other">%1$d jours</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$d h</string>
     <string name="Common_Minutes_Abbreviated">%1$d min</string>
     <string name="Common_Seconds_Abbreviated">%1$d s</string>
