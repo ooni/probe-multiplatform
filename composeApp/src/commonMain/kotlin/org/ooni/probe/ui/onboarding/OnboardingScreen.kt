@@ -51,14 +51,11 @@ import androidx.compose.ui.window.DialogProperties
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import ooniprobe.composeapp.generated.resources.Common_Clear
 import ooniprobe.composeapp.generated.resources.Modal_Autorun_BatteryOptimization_Onboarding
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Paragraph
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
-import ooniprobe.composeapp.generated.resources.Onboarding_CleanUp_Paragraph
-import ooniprobe.composeapp.generated.resources.Onboarding_CleanUp_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Button_No
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Button_Yes
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Paragraph
@@ -406,30 +403,6 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
 }
 
 @Composable
-fun ColumnScope.CleanUpStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
-    OnboardingImage(OrganizationConfig.onboardingImages.image1)
-
-    Box(modifier = Modifier.fillMaxHeight()) {
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(bottom = 16.dp),
-        ) {
-            OnboardingTitle(Res.string.Onboarding_CleanUp_Title)
-            OnboardingText(Res.string.Onboarding_CleanUp_Paragraph)
-        }
-        OnboardingMainButton(
-            text = Res.string.Common_Clear,
-            onClick = { onEvent(OnboardingViewModel.Event.NextClicked) },
-            modifier = Modifier
-                .align(alignment = Alignment.BottomCenter)
-                .fillMaxWidth()
-                .padding(horizontal = 64.dp),
-        )
-    }
-}
-
-@Composable
 fun ColumnScope.DefaultSettingsStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
     OnboardingImage(OrganizationConfig.onboardingImages.image3)
 
@@ -471,7 +444,7 @@ fun ColumnScope.DefaultSettingsStep(onEvent: (OnboardingViewModel.Event) -> Unit
 }
 
 @Composable
-private fun OnboardingImage(
+fun OnboardingImage(
     image: DrawableResource,
     modifier: Modifier = Modifier,
 ) {
@@ -495,7 +468,7 @@ private fun OnboardingImage(
 }
 
 @Composable
-private fun OnboardingTitle(text: StringResource) {
+fun OnboardingTitle(text: StringResource) {
     Text(
         stringResource(text),
         style = MaterialTheme.typography.headlineSmall,
@@ -508,7 +481,7 @@ private fun OnboardingTitle(text: StringResource) {
 }
 
 @Composable
-private fun OnboardingText(text: StringResource) {
+fun OnboardingText(text: StringResource) {
     MarkdownViewer(
         markdown = stringResource(text),
         modifier = Modifier
@@ -536,7 +509,7 @@ private fun OnboardingBulletText(text: StringResource) {
 }
 
 @Composable
-private fun OnboardingMainButton(
+fun OnboardingMainButton(
     text: StringResource,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
