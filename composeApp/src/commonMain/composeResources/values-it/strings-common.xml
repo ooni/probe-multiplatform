@@ -258,6 +258,8 @@
     <string name="Common_Save">Salva</string>
     <string name="Common_Clear">Elimina</string>
 
+    <string name="Common_Today">Oggi</string>
+    <string name="Common_Yesterday">Ieri</string>
     <string name="Common_Ago">%1$s fa</string>
     <string name="Common_Months_January">Gennaio</string>
     <string name="Common_Months_February">Febbraio</string>
