@@ -381,6 +381,7 @@
     <string name="Common_Save">保存</string>
     <string name="Common_Clear">清除键</string>
 
+    <string name="Common_Today">今天</string>
     <string name="Common_Ago">%1$s 前</string>
     <plurals name="Common_Seconds">
         <item quantity="other">%1$d 秒</item>
