@@ -397,6 +397,8 @@
     <string name="Common_Save">Enregistrer</string>
     <string name="Common_Clear">Effacer</string>
 
+    <string name="Common_Today">Aujourd’hui</string>
+    <string name="Common_Yesterday">Hier</string>
     <string name="Common_Ago">il y a %1$s</string>
     <plurals name="Common_Seconds">
         <item quantity="one">%1$d seconde</item>
