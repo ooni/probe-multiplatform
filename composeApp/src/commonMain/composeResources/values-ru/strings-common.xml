@@ -403,6 +403,8 @@
     <string name="Common_Save">Сохранить</string>
     <string name="Common_Clear">Очистить</string>
 
+    <string name="Common_Today">Сегодня</string>
+    <string name="Common_Yesterday">Вчера</string>
     <string name="Common_Ago">%1$s назад</string>
     <plurals name="Common_Minutes">
         <item quantity="one">%1$d минута</item>
