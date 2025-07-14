@@ -24,6 +24,7 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
+private val oldProjectDirectories = ProjectDirectories.fromPath("OONI Probe")
 
 private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager(
     runBackgroundTaskProvider = { dependencies.runBackgroundTask },
@@ -48,6 +49,8 @@ val dependencies = Dependencies(
     launchAction = ::launchAction,
     batteryOptimization = object : BatteryOptimization {},
     isWebViewAvailable = { true },
+    isCleanUpRequired = ::hasLegacyDirectories,
+    cleanupLegacyDirectories = ::cleanupLegacyDirectories,
     flavorConfig = DesktopFlavorConfig(),
 )
 
@@ -171,6 +174,82 @@ private fun buildMailUri(action: PlatformAction.Mail): URI {
         .replace("+", "%20")
         .replace("%0A", "%0D%0A")
     return URI("mailto:${action.to}?subject=$subject&body=$body")
+}
+
+fun hasLegacyDirectories(): Boolean {
+    val directoriesToCheck = listOf(
+        oldProjectDirectories.cacheDir,
+        oldProjectDirectories.dataDir,
+        oldProjectDirectories.configDir,
+        oldProjectDirectories.dataLocalDir,
+        oldProjectDirectories.preferenceDir,
+    )
+
+    return directoriesToCheck
+        .associateWith { path ->
+            val file = File(path)
+            if (file.exists() && file.isDirectory) {
+                val subFiles = file.listFiles()
+                subFiles?.any { it.isDirectory } ?: false
+            } else {
+                false
+            }
+        }.values
+        .any { it }
+}
+
+suspend fun cleanupLegacyDirectories(): Boolean {
+    val directoriesToCleanup = listOf(
+        oldProjectDirectories.cacheDir,
+        oldProjectDirectories.dataDir,
+        oldProjectDirectories.configDir,
+        oldProjectDirectories.dataLocalDir,
+        oldProjectDirectories.preferenceDir,
+        System.getProperty("user.home") + "/Library/LaunchAgents/org.ooni.probe-desktop.plist",
+    )
+
+    Logger.i { "Starting cleanup of legacy directories..." }
+
+    val results = directoriesToCleanup.map { dirPath ->
+        val targetFile = File(dirPath)
+        if (targetFile.exists()) {
+            if (targetFile.isDirectory) {
+                Logger.i { "Attempting to delete directory: ${targetFile.absolutePath}" }
+                try {
+                    // deleteRecursively() will delete the directory and all its contents.
+                    // Returns true if the directory was successfully deleted, false otherwise.
+                    if (targetFile.deleteRecursively()) {
+                        Logger.i { "Successfully deleted directory: ${targetFile.absolutePath}" }
+                        true
+                    } else {
+                        Logger.w { "Failed to delete directory (or some of its contents): ${targetFile.absolutePath}" }
+                        // You might want to investigate why deletion failed here.
+                        // It could be due to permissions, files being in use, etc.
+                        false
+                    }
+                } catch (e: SecurityException) {
+                    Logger.e(e) { "SecurityException: Permission denied while trying to delete ${targetFile.absolutePath}" }
+                    false
+                } catch (e: Exception) {
+                    Logger.e(e) { "Exception while trying to delete ${targetFile.absolutePath}" }
+                    false
+                }
+            } else {
+                val deleted = targetFile.delete()
+                if (deleted) {
+                    Logger.i { "Successfully deleted file: ${targetFile.absolutePath}" }
+                } else {
+                    Logger.w { "Failed to delete file: ${targetFile.absolutePath}" }
+                }
+                deleted
+            }
+        } else {
+            Logger.i { "Directory does not exist, no cleanup needed: $dirPath" }
+            true // Considered success as there's nothing to clean
+        }
+    }
+    Logger.i { "Legacy directory cleanup process finished." }
+    return results.all { it }
 }
 
 private class DesktopFlavorConfig : FlavorConfigInterface {

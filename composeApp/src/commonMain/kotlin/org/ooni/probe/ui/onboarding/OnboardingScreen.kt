@@ -51,11 +51,14 @@ import androidx.compose.ui.window.DialogProperties
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import ooniprobe.composeapp.generated.resources.Common_Clear
 import ooniprobe.composeapp.generated.resources.Modal_Autorun_BatteryOptimization_Onboarding
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Paragraph
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
+import ooniprobe.composeapp.generated.resources.Onboarding_CleanUp_Paragraph
+import ooniprobe.composeapp.generated.resources.Onboarding_CleanUp_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Button_No
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Button_Yes
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Paragraph
@@ -133,6 +136,9 @@ fun OnboardingScreen(
 
                     OnboardingViewModel.Step.RequestNotificationPermission ->
                         RequestPermissionStep(onEvent)
+
+                    OnboardingViewModel.Step.ClearDanglingResources ->
+                        CleanUpStep(onEvent)
 
                     OnboardingViewModel.Step.DefaultSettings ->
                         DefaultSettingsStep(onEvent)
@@ -396,6 +402,30 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
                     .weight(1f),
             )
         }
+    }
+}
+
+@Composable
+fun ColumnScope.CleanUpStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
+    OnboardingImage(OrganizationConfig.onboardingImages.image1)
+
+    Box(modifier = Modifier.fillMaxHeight()) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = 16.dp),
+        ) {
+            OnboardingTitle(Res.string.Onboarding_CleanUp_Title)
+            OnboardingText(Res.string.Onboarding_CleanUp_Paragraph)
+        }
+        OnboardingMainButton(
+            text = Res.string.Common_Clear,
+            onClick = { onEvent(OnboardingViewModel.Event.NextClicked) },
+            modifier = Modifier
+                .align(alignment = Alignment.BottomCenter)
+                .fillMaxWidth()
+                .padding(horizontal = 64.dp),
+        )
     }
 }
 
