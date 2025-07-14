@@ -264,6 +264,8 @@
     <string name="Common_Save">Opslaan</string>
     <string name="Common_Clear">Wissen</string>
 
+    <string name="Common_Today">Vandaag</string>
+    <string name="Common_Yesterday">Gisteren</string>
     <string name="Common_Ago">%1$s geleden</string>
     <string name="Common_Months_January">januari</string>
     <string name="Common_Months_February">februari</string>
