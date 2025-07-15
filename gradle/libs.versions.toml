@@ -25,6 +25,7 @@ cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotli
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "13.0.0" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 conveyor = { id = "dev.hydraulic.conveyor", version = "1.12" }
+javafx = { id = "org.openjfx.javafxplugin", version = "0.1.0" }
 
 [libraries]
 

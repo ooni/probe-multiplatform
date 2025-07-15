@@ -16,6 +16,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.conveyor)
+    alias(libs.plugins.javafx)
 }
 
 val organization: String? by project
@@ -70,6 +71,9 @@ val appConfig = mapOf(
 )
 
 val config = appConfig[organization] ?: appConfig["ooni"]!!
+
+val javaFxParts = listOf("base", "graphics", "controls", "media", "web", "swing")
+val javaFxVersion = "17"
 
 kotlin {
     androidTarget {
@@ -154,11 +158,9 @@ kotlin {
                 implementation(libs.bundles.desktop)
 
                 // As JavaFX have platform-specific dependencies, we need to add them manually
-                val fxParts = listOf("base", "graphics", "controls", "media", "web", "swing")
-                val jvmVersion = 17
                 val fxSuffix = getJavaFxSuffix()
-                fxParts.forEach {
-                    implementation("org.openjfx:javafx-$it:$jvmVersion:$fxSuffix")
+                javaFxParts.forEach {
+                    implementation("org.openjfx:javafx-$it:$javaFxVersion:$fxSuffix")
                 }
             }
         }
@@ -200,6 +202,11 @@ kotlin {
         // Switch to future default rule: https://youtrack.jetbrains.com/issue/KT-73255
         freeCompilerArgs.add("-Xannotation-default-target=param-property")
     }
+}
+
+javafx {
+    version = javaFxVersion
+    modules = javaFxParts.map { "javafx.$it" }
 }
 
 android {
