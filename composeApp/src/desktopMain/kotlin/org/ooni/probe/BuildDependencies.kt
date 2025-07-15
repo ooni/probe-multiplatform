@@ -185,17 +185,10 @@ fun hasLegacyDirectories(): Boolean {
         oldProjectDirectories.preferenceDir,
     )
 
-    return directoriesToCheck
-        .associateWith { path ->
-            val file = File(path)
-            if (file.exists() && file.isDirectory) {
-                val subFiles = file.listFiles()
-                subFiles?.any { it.isDirectory } ?: false
-            } else {
-                false
-            }
-        }.values
-        .any { it }
+    return directoriesToCheck.any { path ->
+        val file = File(path)
+        file.exists() && file.isDirectory && file.listFiles().any()
+    }
 }
 
 suspend fun cleanupLegacyDirectories(): Boolean {
@@ -211,45 +204,39 @@ suspend fun cleanupLegacyDirectories(): Boolean {
     Logger.i { "Starting cleanup of legacy directories..." }
 
     val results = directoriesToCleanup.map { dirPath ->
-        val targetFile = File(dirPath)
-        if (targetFile.exists()) {
-            if (targetFile.isDirectory) {
-                Logger.i { "Attempting to delete directory: ${targetFile.absolutePath}" }
-                try {
-                    // deleteRecursively() will delete the directory and all its contents.
-                    // Returns true if the directory was successfully deleted, false otherwise.
-                    if (targetFile.deleteRecursively()) {
-                        Logger.i { "Successfully deleted directory: ${targetFile.absolutePath}" }
-                        true
-                    } else {
-                        Logger.w { "Failed to delete directory (or some of its contents): ${targetFile.absolutePath}" }
-                        // You might want to investigate why deletion failed here.
-                        // It could be due to permissions, files being in use, etc.
-                        false
-                    }
-                } catch (e: SecurityException) {
-                    Logger.e(e) { "SecurityException: Permission denied while trying to delete ${targetFile.absolutePath}" }
-                    false
-                } catch (e: Exception) {
-                    Logger.e(e) { "Exception while trying to delete ${targetFile.absolutePath}" }
-                    false
-                }
+        Logger.i { "Attempting to clean up legacy path: $dirPath" }
+        deletePath(dirPath).also {
+            if (it) {
+                Logger.i { "Successfully cleaned up legacy path: $dirPath" }
             } else {
-                val deleted = targetFile.delete()
-                if (deleted) {
-                    Logger.i { "Successfully deleted file: ${targetFile.absolutePath}" }
-                } else {
-                    Logger.w { "Failed to delete file: ${targetFile.absolutePath}" }
-                }
-                deleted
+                Logger.w { "Failed to clean up legacy path: $dirPath" }
             }
-        } else {
-            Logger.i { "Directory does not exist, no cleanup needed: $dirPath" }
-            true // Considered success as there's nothing to clean
         }
     }
     Logger.i { "Legacy directory cleanup process finished." }
     return results.all { it }
+}
+
+private fun deletePath(path: String): Boolean {
+    val target = File(path)
+    return try {
+        if (target.exists()) {
+            if (target.isDirectory) {
+                target.deleteRecursively()
+            } else {
+                target.delete()
+            }
+        } else {
+            Logger.i { "Path does not exist, no cleanup needed: $path" }
+            true
+        }
+    } catch (e: SecurityException) {
+        Logger.e(e) { "SecurityException: Permission denied while trying to delete ${target.absolutePath}" }
+        false
+    } catch (e: Exception) {
+        Logger.e(e) { "Exception while trying to delete ${target.absolutePath}: ${e.message}" }
+        false
+    }
 }
 
 private class DesktopFlavorConfig : FlavorConfigInterface {

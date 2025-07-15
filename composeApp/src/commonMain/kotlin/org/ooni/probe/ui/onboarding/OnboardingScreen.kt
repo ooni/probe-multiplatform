@@ -530,7 +530,7 @@ fun OnboardingMainButton(
 }
 
 @Composable
-private fun OnboardingMainOutlineButton(
+fun OnboardingMainOutlineButton(
     text: StringResource,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
