@@ -15,6 +15,7 @@ import org.ooni.probe.data.buildDatabaseDriver
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import java.awt.Desktop
@@ -25,6 +26,30 @@ import java.nio.charset.StandardCharsets
 
 private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
 private val oldProjectDirectories = ProjectDirectories.fromPath("OONI Probe")
+private val osName = System.getProperty("os.name")
+private val platform = Platform.Desktop(osName)
+
+val legacyPaths = when (platform.os) {
+    DesktopOS.Mac -> listOf(
+        oldProjectDirectories.cacheDir,
+        oldProjectDirectories.dataDir,
+        oldProjectDirectories.configDir,
+        oldProjectDirectories.dataLocalDir,
+        oldProjectDirectories.preferenceDir,
+        System.getProperty("user.home") + "/Library/LaunchAgents/org.ooni.probe-desktop.plist",
+    )
+    DesktopOS.Windows -> listOf(
+        oldProjectDirectories.cacheDir
+            .toPath()
+            .parent
+            .toString(),
+        oldProjectDirectories.dataDir
+            .toPath()
+            .parent
+            .toString(),
+    )
+    else -> emptyList()
+}
 
 private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager(
     runBackgroundTaskProvider = { dependencies.runBackgroundTask },
@@ -55,7 +80,6 @@ val dependencies = Dependencies(
 )
 
 private fun buildPlatformInfo(): PlatformInfo {
-    val osName = System.getProperty("os.name")
     val osVersion = System.getProperty("os.version")
     val conveyorVersion = SoftwareUpdateController.getInstance()?.currentVersion
     val buildName = conveyorVersion?.version
@@ -66,7 +90,7 @@ private fun buildPlatformInfo(): PlatformInfo {
     return PlatformInfo(
         buildName = buildName,
         buildNumber = buildNumber,
-        platform = Platform.Desktop(osName),
+        platform = platform,
         osVersion = "$osName $osVersion",
         model = "",
         requestNotificationsPermission = false,
@@ -176,34 +200,16 @@ private fun buildMailUri(action: PlatformAction.Mail): URI {
     return URI("mailto:${action.to}?subject=$subject&body=$body")
 }
 
-fun hasLegacyDirectories(): Boolean {
-    val directoriesToCheck = listOf(
-        oldProjectDirectories.cacheDir,
-        oldProjectDirectories.dataDir,
-        oldProjectDirectories.configDir,
-        oldProjectDirectories.dataLocalDir,
-        oldProjectDirectories.preferenceDir,
-    )
-
-    return directoriesToCheck.any { path ->
+fun hasLegacyDirectories(): Boolean =
+    legacyPaths.any { path ->
         val file = File(path)
         file.exists() && file.isDirectory && file.listFiles().any()
     }
-}
 
 suspend fun cleanupLegacyDirectories(): Boolean {
-    val directoriesToCleanup = listOf(
-        oldProjectDirectories.cacheDir,
-        oldProjectDirectories.dataDir,
-        oldProjectDirectories.configDir,
-        oldProjectDirectories.dataLocalDir,
-        oldProjectDirectories.preferenceDir,
-        System.getProperty("user.home") + "/Library/LaunchAgents/org.ooni.probe-desktop.plist",
-    )
-
     Logger.i { "Starting cleanup of legacy directories..." }
 
-    val results = directoriesToCleanup.map { dirPath ->
+    val results = legacyPaths.map { dirPath ->
         Logger.i { "Attempting to clean up legacy path: $dirPath" }
         deletePath(dirPath).also {
             if (it) {
