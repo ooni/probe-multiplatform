@@ -382,6 +382,7 @@
     <string name="Common_Clear">清除键</string>
 
     <string name="Common_Today">今天</string>
+    <string name="Common_Yesterday">昨天</string>
     <string name="Common_Ago">%1$s 前</string>
     <plurals name="Common_Seconds">
         <item quantity="other">%1$d 秒</item>
@@ -391,6 +392,9 @@
     </plurals>
     <plurals name="Common_Hours">
         <item quantity="other">%1$d 小时</item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="other">%1$d 天</item>
     </plurals>
     <string name="Common_Hours_Abbreviated">%1$d小时</string>
     <string name="Common_Minutes_Abbreviated">%1$d分钟</string>
