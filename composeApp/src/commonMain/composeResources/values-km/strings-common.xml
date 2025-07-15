@@ -108,9 +108,6 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">ពេលកំពុងសាកថ្មប៉ុណ្ណោះ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">OONI Probe នឹងដំណើរការតេស្តស្វ័យប្រវត្តិពីរ ទៅបីដងក្នុងមួយថ្ងៃ នៅពេលអ្នកបើកដំណើរការតេស្តស្វ័យប្រវត្តិ។ លទ្ធផលតេស្តរបស់អ្នកនឹងផ្សព្វផ្សាយដោយស្វ័យប្រវតិ្តនៅក្នុង OONI Explorer៖ https://explorer.ooni.org/ \n\nចំនុចសំខាន់៖ ប្រសិនបើអ្នកបើក VPN នោះOONI Probeនឹងមិនដំណើរការតេស្តជាស្វ័យប្រវតិ្តទេ។ សូមបិទ VPN របស់អ្នកដើម្បីដំណើរការតេស្ត OONI Probe ស្វ័យប្រវត្តិ។ ស្វែងយល់បន្ថែម៖ https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">ផ្សព្វផ្សាយលទ្ធផលស្វ័យប្រវត្តិ</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">កំណត់ថេរវេលាតេស្ត</string>
-    <string name="Settings_Websites_MaxRuntime">ថេរវេលាតេស្ត</string>
     <string name="Settings_Websites_Categories_Label">ប្រភេទនៃវែបសាយដើម្បីតេស្ត</string>
     <string name="Settings_Websites_Categories_Description">%1$s ប្រភេទផ្សេងៗត្រូវបានបើក</string>
 
@@ -295,6 +292,8 @@
     <string name="Common_Save">រក្សាទុក</string>
     <string name="Common_Clear">សំអាត</string>
 
+    <string name="Common_Today">ថ្ងៃនេះ</string>
+    <string name="Common_Yesterday">ម្សិលមិញ</string>
     <string name="Common_Months_May">ឧសភា​</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
