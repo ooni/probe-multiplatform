@@ -22,6 +22,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
+import co.touchlab.kermit.Severity
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Unsupported_Url
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
@@ -101,6 +102,7 @@ fun App(
     }
 
     LaunchedEffect(Unit) {
+        Logger.setMinSeverity(Severity.Verbose)
         Logger.addLogWriter(dependencies.crashMonitoring.logWriter)
         Logger.addLogWriter(dependencies.appLogger.logWriter)
         logAppStart(dependencies.platformInfo)
