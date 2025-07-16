@@ -45,6 +45,7 @@ import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.InstanceManager
 import org.ooni.probe.shared.Platform
+import java.awt.Desktop
 import java.awt.Dimension
 
 const val APP_ID = "org.ooni.probe" // needs to be the same as conveyor `app.rdns-name`
@@ -68,8 +69,16 @@ fun main(args: Array<String>) {
 
     application {
         var isWindowVisible by remember { mutableStateOf(!autoLaunch.isStartedViaAutostart()) }
-        val deepLink by deepLinkFlow.collectAsState(null)
         val trayIcon = trayIcon()
+        val deepLink by deepLinkFlow.collectAsState(null)
+        val runBackgroundState by dependencies.runBackgroundStateManager
+            .observeState()
+            .collectAsState(RunBackgroundState.Idle())
+
+        fun showWindow() {
+            isWindowVisible = true
+            Desktop.getDesktop().requestForeground(true)
+        }
 
         Window(
             onCloseRequest = { isWindowVisible = false },
@@ -83,23 +92,18 @@ fun main(args: Array<String>) {
             window.setWindowsAdaptiveTitleBar()
             window.minimumSize = Dimension(320, 560)
             window.maximumSize = Dimension(1024, 1024)
+
             App(
                 dependencies = dependencies,
                 deepLink = deepLink,
                 onDeeplinkHandled = {
-                    if (!isWindowVisible) {
-                        isWindowVisible = true
-                    }
+                    showWindow()
                     deepLink?.let {
                         deepLinkFlow.tryEmit(null)
                     }
                 },
             )
         }
-
-        val runBackgroundState by dependencies.runBackgroundStateManager
-            .observeState()
-            .collectAsState(RunBackgroundState.Idle())
 
         Tray(
             icon = painterResource(trayIcon),
@@ -120,9 +124,7 @@ fun main(args: Array<String>) {
                 Separator()
                 Item(
                     stringResource(Res.string.Desktop_OpenApp),
-                    onClick = {
-                        isWindowVisible = !isWindowVisible
-                    },
+                    onClick = { showWindow() },
                 )
                 Separator()
                 Item(
