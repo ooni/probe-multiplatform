@@ -9,6 +9,7 @@ import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
+import org.ooni.probe.config.DesktopProxyConfig
 import org.ooni.probe.config.FlavorConfigInterface
 import org.ooni.probe.config.OptionalFeature
 import org.ooni.probe.data.buildDatabaseDriver
@@ -49,6 +50,7 @@ val dependencies = Dependencies(
     batteryOptimization = object : BatteryOptimization {},
     isWebViewAvailable = { true },
     flavorConfig = DesktopFlavorConfig(),
+    proxyConfig = DesktopProxyConfig(),
 )
 
 private fun buildPlatformInfo(): PlatformInfo {

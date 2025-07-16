@@ -68,7 +68,7 @@ fun ProxyScreen(
             },
         )
         Column(Modifier.selectableGroup()) {
-            ProxyType.entries.forEach { text ->
+            state.supportedProxyTypes.forEach { text ->
                 Row(
                     Modifier
                         .fillMaxWidth()
