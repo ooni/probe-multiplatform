@@ -36,7 +36,7 @@ fun ColumnScope.CleanUpStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
         Row(modifier = Modifier.padding(horizontal = 8.dp).align(alignment = Alignment.BottomCenter)) {
             OnboardingMainOutlineButton(
                 text = Res.string.Onboarding_Crash_Button_No,
-                onClick = { onEvent(OnboardingViewModel.Event.NextClicked) },
+                onClick = { onEvent(OnboardingViewModel.Event.SkipCleanupClicked) },
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
                     .weight(1f),

@@ -29,19 +29,22 @@ class OnboardingViewModel(
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val stepList = listOfNotNull(
-        Step.WhatIs,
-        Step.HeadsUp,
-        Step.AutomatedTesting(false),
-        if (supportsCrashReporting) Step.CrashReporting else null,
-        if (platformInfo.requestNotificationsPermission) {
-            Step.RequestNotificationPermission
-        } else {
-            null
-        },
-        if (isCleanUpRequired()) Step.ClearDanglingResources else null,
-        Step.DefaultSettings,
-    )
+    private val stepList = if (isCleanUpRequired()) {
+        listOf(Step.ClearDanglingResources)
+    } else {
+        listOfNotNull(
+            Step.WhatIs,
+            Step.HeadsUp,
+            Step.AutomatedTesting(false),
+            if (supportsCrashReporting) Step.CrashReporting else null,
+            if (platformInfo.requestNotificationsPermission) {
+                Step.RequestNotificationPermission
+            } else {
+                null
+            },
+            Step.DefaultSettings,
+        )
+    }
 
     private val _state = MutableStateFlow(
         State(
@@ -115,6 +118,16 @@ class OnboardingViewModel(
             .filterIsInstance<Event.CleanupClicked>()
             .onEach {
                 cleanupLegacyDirectories?.invoke()
+
+                defaultPreferences()
+
+                moveToNextStep()
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.SkipCleanupClicked>()
+            .onEach {
+                defaultPreferences()
                 moveToNextStep()
             }.launchIn(viewModelScope)
 
@@ -124,6 +137,18 @@ class OnboardingViewModel(
                 preferenceRepository.setValueByKey(SettingsKey.FIRST_RUN, false)
                 goToSettings()
             }.launchIn(viewModelScope)
+    }
+
+    private suspend fun defaultPreferences() {
+        preferenceRepository.setValueByKey(
+            SettingsKey.AUTOMATED_TESTING_ENABLED,
+            true,
+        )
+
+        preferenceRepository.setValueByKey(
+            SettingsKey.SEND_CRASH,
+            true,
+        )
     }
 
     fun onEvent(event: Event) {
@@ -200,6 +225,8 @@ class OnboardingViewModel(
         data object RequestNotificationsPermissionDone : Event
 
         data object RequestNotificationsPermissionSkipped : Event
+
+        data object SkipCleanupClicked : Event
 
         data object CleanupClicked : Event
 
