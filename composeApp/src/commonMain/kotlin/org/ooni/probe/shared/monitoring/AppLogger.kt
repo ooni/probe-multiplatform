@@ -31,20 +31,15 @@ class AppLogger(
     private val log = MutableStateFlow(emptyList<String>())
 
     fun read(severity: Severity?): Flow<List<String>> =
-        log
-            .onStart {
-                if (log.value.isEmpty()) {
-                    log.value = readFile(FILE_PATH).orEmpty().lines()
-                }
-            }.map { lines ->
-                if (severity == null) {
-                    lines
-                } else {
-                    lines.filter { line ->
-                        line.contains(": ${severity.name.uppercase()} :")
-                    }
+        log.map { lines ->
+            if (severity == null) {
+                lines
+            } else {
+                lines.filter { line ->
+                    line.contains(": ${severity.name.uppercase()} :")
                 }
             }
+        }
 
     suspend fun clear() {
         withContext(backgroundContext) {
@@ -61,7 +56,11 @@ class AppLogger(
     suspend fun writeLogsToFile() {
         withContext(backgroundContext) {
             log
-                .debounce(5.seconds)
+                .onStart {
+                    if (log.value.isEmpty()) {
+                        log.value = readFile(FILE_PATH).orEmpty().lines()
+                    }
+                }.debounce(5.seconds)
                 .collectLatest { lines ->
                     writeFile(FILE_PATH, lines.joinToString("\n"), append = false)
                 }
