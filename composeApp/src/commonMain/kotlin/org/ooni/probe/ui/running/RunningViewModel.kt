@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.ooni.probe.data.models.ProxySettings
@@ -33,17 +34,20 @@ class RunningViewModel(
             val proxy = getProxySettings().getProxyString()
             _state.update { it.copy(hasProxy = proxy.isNotEmpty()) }
         }
+
         observeRunBackgroundState
+            .onEach { testRunState -> _state.update { it.copy(runBackgroundState = testRunState) } }
+            .launchIn(viewModelScope)
+
+        observeRunBackgroundState
+            .filterIsInstance<RunBackgroundState.Idle>()
+            .take(1)
             .onEach { testRunState ->
-                if (testRunState is RunBackgroundState.Idle) {
-                    if (testRunState.justFinishedTest) {
-                        goToResults()
-                    } else {
-                        onBack()
-                    }
-                    return@onEach
+                if (testRunState.justFinishedTest) {
+                    goToResults()
+                } else {
+                    onBack()
                 }
-                _state.update { it.copy(runBackgroundState = testRunState) }
             }.launchIn(viewModelScope)
 
         observeTestRunErrors
