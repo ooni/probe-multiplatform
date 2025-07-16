@@ -1,6 +1,7 @@
 package org.ooni.probe.ui.result
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
@@ -24,6 +26,8 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,6 +42,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +51,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Common_Back
+import ooniprobe.composeapp.generated.resources.Common_Next
+import ooniprobe.composeapp.generated.resources.Common_Previous
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_ReRun_Title
 import ooniprobe.composeapp.generated.resources.Modal_ReRun_Websites_Run
@@ -94,10 +102,10 @@ import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Single
 import org.ooni.probe.ui.results.UploadResults
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
+import org.ooni.probe.ui.shared.format
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.longFormat
-import org.ooni.probe.ui.shared.format
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -228,13 +236,19 @@ private fun Summary(item: ResultItem) {
     val summaryType = item.descriptor.summaryType
     val pages = summaryType.summaryPages
     val pagerState = rememberPagerState(pageCount = pages::size)
+    val coroutineScope = rememberCoroutineScope()
 
     Box {
+        Icon(
+            painterResource(Res.drawable.ooni_bw),
+            contentDescription = null,
+            modifier = Modifier.align(Alignment.BottomEnd).offset(x = 18.dp, y = 18.dp),
+        )
         HorizontalPager(
             state = pagerState,
             verticalAlignment = Alignment.Top,
             modifier = Modifier
-                .padding(top = 8.dp, bottom = 16.dp)
+                .padding(vertical = 8.dp)
                 .defaultMinSize(minHeight = 128.dp),
         ) { pageIndex ->
             pages[pageIndex](item)
@@ -243,15 +257,17 @@ private fun Summary(item: ResultItem) {
             Modifier
                 .wrapContentHeight()
                 .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 8.dp),
+                .align(Alignment.BottomCenter),
             horizontalArrangement = Arrangement.Center,
         ) {
             repeat(pagerState.pageCount) { index ->
                 Box(
                     modifier = Modifier
-                        .padding(horizontal = 8.dp)
-                        .padding(bottom = 8.dp)
+                        .clickable {
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(index)
+                            }
+                        }.padding(16.dp)
                         .alpha(if (pagerState.currentPage == index) 1f else 0.33f)
                         .clip(CircleShape)
                         .background(LocalContentColor.current)
@@ -259,11 +275,38 @@ private fun Summary(item: ResultItem) {
                 )
             }
         }
-        Icon(
-            painterResource(Res.drawable.ooni_bw),
-            contentDescription = null,
-            modifier = Modifier.align(Alignment.BottomEnd).offset(x = 18.dp, y = 18.dp),
-        )
+        IconButton(
+            onClick = {
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(
+                        (pagerState.currentPage - 1).coerceAtLeast(0),
+                    )
+                }
+            },
+            enabled = pagerState.currentPage != 0,
+            modifier = Modifier.fillMaxHeight().align(Alignment.BottomStart),
+        ) {
+            Icon(
+                Icons.AutoMirrored.Default.KeyboardArrowLeft,
+                contentDescription = stringResource(Res.string.Common_Previous),
+            )
+        }
+        IconButton(
+            onClick = {
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(
+                        (pagerState.currentPage + 1).coerceAtMost(pagerState.pageCount - 1),
+                    )
+                }
+            },
+            enabled = pagerState.currentPage != pagerState.pageCount - 1,
+            modifier = Modifier.fillMaxHeight().align(Alignment.BottomEnd),
+        ) {
+            Icon(
+                Icons.AutoMirrored.Default.KeyboardArrowRight,
+                contentDescription = stringResource(Res.string.Common_Next),
+            )
+        }
     }
 }
 
