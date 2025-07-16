@@ -407,7 +407,7 @@ compose.desktop {
             modules("java.sql", "jdk.unsupported")
 
             macOS {
-                minimumSystemVersion = "13.0.0"
+                minimumSystemVersion = "12.0.0"
                 // Hide dock icon
                 infoPlist {
                     extraKeysRawXml = """
