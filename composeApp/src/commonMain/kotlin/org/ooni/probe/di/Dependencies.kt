@@ -130,7 +130,9 @@ class Dependencies(
     val startDescriptorsUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
     private val isWebViewAvailable: () -> Boolean,
+    private val isCleanUpRequired: () -> Boolean = { false },
     val launchAction: (PlatformAction) -> Boolean,
+    val cleanupLegacyDirectories: (suspend () -> Boolean)? = null,
     private val batteryOptimization: BatteryOptimization,
     val flavorConfig: FlavorConfigInterface,
 ) {
@@ -590,6 +592,8 @@ class Dependencies(
         launchUrl = { launchAction(PlatformAction.OpenUrl(it)) },
         batteryOptimization = batteryOptimization,
         supportsCrashReporting = flavorConfig.isCrashReportingEnabled,
+        isCleanUpRequired = isCleanUpRequired,
+        cleanupLegacyDirectories = cleanupLegacyDirectories,
     )
 
     fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)

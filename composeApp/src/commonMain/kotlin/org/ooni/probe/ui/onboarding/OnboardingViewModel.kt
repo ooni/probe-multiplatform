@@ -24,6 +24,8 @@ class OnboardingViewModel(
     private val launchUrl: (String) -> Unit,
     private val batteryOptimization: BatteryOptimization,
     supportsCrashReporting: Boolean,
+    isCleanUpRequired: () -> Boolean,
+    cleanupLegacyDirectories: (suspend () -> Boolean)?,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -37,6 +39,7 @@ class OnboardingViewModel(
         } else {
             null
         },
+        if (isCleanUpRequired()) Step.ClearDanglingResources else null,
         Step.DefaultSettings,
     )
 
@@ -109,11 +112,40 @@ class OnboardingViewModel(
             .launchIn(viewModelScope)
 
         events
+            .filterIsInstance<Event.CleanupClicked>()
+            .onEach {
+                cleanupLegacyDirectories?.invoke()
+
+                defaultPreferences()
+
+                moveToNextStep()
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.SkipCleanupClicked>()
+            .onEach {
+                defaultPreferences()
+                moveToNextStep()
+            }.launchIn(viewModelScope)
+
+        events
             .filterIsInstance<Event.ChangeDefaultsClicked>()
             .onEach {
                 preferenceRepository.setValueByKey(SettingsKey.FIRST_RUN, false)
                 goToSettings()
             }.launchIn(viewModelScope)
+    }
+
+    private suspend fun defaultPreferences() {
+        preferenceRepository.setValueByKey(
+            SettingsKey.AUTOMATED_TESTING_ENABLED,
+            true,
+        )
+
+        preferenceRepository.setValueByKey(
+            SettingsKey.SEND_CRASH,
+            true,
+        )
     }
 
     fun onEvent(event: Event) {
@@ -165,6 +197,8 @@ class OnboardingViewModel(
 
         data object RequestNotificationPermission : Step
 
+        data object ClearDanglingResources : Step
+
         data object DefaultSettings : Step
     }
 
@@ -188,6 +222,10 @@ class OnboardingViewModel(
         data object RequestNotificationsPermissionDone : Event
 
         data object RequestNotificationsPermissionSkipped : Event
+
+        data object SkipCleanupClicked : Event
+
+        data object CleanupClicked : Event
 
         data object ChangeDefaultsClicked : Event
     }

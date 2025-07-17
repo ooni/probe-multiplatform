@@ -134,6 +134,9 @@ fun OnboardingScreen(
                     OnboardingViewModel.Step.RequestNotificationPermission ->
                         RequestPermissionStep(onEvent)
 
+                    OnboardingViewModel.Step.ClearDanglingResources ->
+                        CleanUpStep(onEvent)
+
                     OnboardingViewModel.Step.DefaultSettings ->
                         DefaultSettingsStep(onEvent)
                 }
@@ -441,7 +444,7 @@ fun ColumnScope.DefaultSettingsStep(onEvent: (OnboardingViewModel.Event) -> Unit
 }
 
 @Composable
-private fun OnboardingImage(
+fun OnboardingImage(
     image: DrawableResource,
     modifier: Modifier = Modifier,
 ) {
@@ -465,7 +468,7 @@ private fun OnboardingImage(
 }
 
 @Composable
-private fun OnboardingTitle(text: StringResource) {
+fun OnboardingTitle(text: StringResource) {
     Text(
         stringResource(text),
         style = MaterialTheme.typography.headlineSmall,
@@ -478,7 +481,7 @@ private fun OnboardingTitle(text: StringResource) {
 }
 
 @Composable
-private fun OnboardingText(text: StringResource) {
+fun OnboardingText(text: StringResource) {
     MarkdownViewer(
         markdown = stringResource(text),
         modifier = Modifier
@@ -506,7 +509,7 @@ private fun OnboardingBulletText(text: StringResource) {
 }
 
 @Composable
-private fun OnboardingMainButton(
+fun OnboardingMainButton(
     text: StringResource,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -527,7 +530,7 @@ private fun OnboardingMainButton(
 }
 
 @Composable
-private fun OnboardingMainOutlineButton(
+fun OnboardingMainOutlineButton(
     text: StringResource,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
