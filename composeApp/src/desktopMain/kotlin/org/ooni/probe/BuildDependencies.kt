@@ -15,7 +15,7 @@ import org.ooni.probe.data.buildDatabaseDriver
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
-import org.ooni.probe.shared.DesktopOS
+import org.ooni.probe.shared.LegacyDirectoryManager
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import java.awt.Desktop
@@ -25,31 +25,10 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
-private val oldProjectDirectories = ProjectDirectories.fromPath("OONI Probe")
 private val osName = System.getProperty("os.name")
 private val platform = Platform.Desktop(osName)
 
-val legacyPaths = when (platform.os) {
-    DesktopOS.Mac -> listOf(
-        oldProjectDirectories.cacheDir,
-        oldProjectDirectories.dataDir,
-        oldProjectDirectories.configDir,
-        oldProjectDirectories.dataLocalDir,
-        oldProjectDirectories.preferenceDir,
-        System.getProperty("user.home") + "/Library/LaunchAgents/org.ooni.probe-desktop.plist",
-    )
-    DesktopOS.Windows -> listOf(
-        oldProjectDirectories.cacheDir
-            .toPath()
-            .parent
-            .toString(),
-        oldProjectDirectories.dataDir
-            .toPath()
-            .parent
-            .toString(),
-    )
-    else -> emptyList()
-}
+private val legacyDirectoryManager = LegacyDirectoryManager(platform.os)
 
 private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager(
     runBackgroundTaskProvider = { dependencies.runBackgroundTask },
@@ -74,8 +53,8 @@ val dependencies = Dependencies(
     launchAction = ::launchAction,
     batteryOptimization = object : BatteryOptimization {},
     isWebViewAvailable = { true },
-    isCleanUpRequired = ::hasLegacyDirectories,
-    cleanupLegacyDirectories = ::cleanupLegacyDirectories,
+    isCleanUpRequired = legacyDirectoryManager::hasLegacyDirectories,
+    cleanupLegacyDirectories = legacyDirectoryManager::cleanupLegacyDirectories,
     flavorConfig = DesktopFlavorConfig(),
 )
 
@@ -198,51 +177,6 @@ private fun buildMailUri(action: PlatformAction.Mail): URI {
         .replace("+", "%20")
         .replace("%0A", "%0D%0A")
     return URI("mailto:${action.to}?subject=$subject&body=$body")
-}
-
-fun hasLegacyDirectories(): Boolean =
-    legacyPaths.any { path ->
-        val file = File(path)
-        file.exists() && file.isDirectory && file.listFiles().any()
-    }
-
-suspend fun cleanupLegacyDirectories(): Boolean {
-    Logger.i { "Starting cleanup of legacy directories..." }
-
-    val results = legacyPaths.map { dirPath ->
-        Logger.i { "Attempting to clean up legacy path: $dirPath" }
-        deletePath(dirPath).also {
-            if (it) {
-                Logger.i { "Successfully cleaned up legacy path: $dirPath" }
-            } else {
-                Logger.w { "Failed to clean up legacy path: $dirPath" }
-            }
-        }
-    }
-    Logger.i { "Legacy directory cleanup process finished." }
-    return results.all { it }
-}
-
-private fun deletePath(path: String): Boolean {
-    val target = File(path)
-    return try {
-        if (target.exists()) {
-            if (target.isDirectory) {
-                target.deleteRecursively()
-            } else {
-                target.delete()
-            }
-        } else {
-            Logger.i { "Path does not exist, no cleanup needed: $path" }
-            true
-        }
-    } catch (e: SecurityException) {
-        Logger.e(e) { "SecurityException: Permission denied while trying to delete ${target.absolutePath}" }
-        false
-    } catch (e: Exception) {
-        Logger.e(e) { "Exception while trying to delete ${target.absolutePath}: ${e.message}" }
-        false
-    }
 }
 
 private class DesktopFlavorConfig : FlavorConfigInterface {

@@ -29,22 +29,19 @@ class OnboardingViewModel(
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val stepList = if (isCleanUpRequired()) {
-        listOf(Step.ClearDanglingResources)
-    } else {
-        listOfNotNull(
-            Step.WhatIs,
-            Step.HeadsUp,
-            Step.AutomatedTesting(false),
-            if (supportsCrashReporting) Step.CrashReporting else null,
-            if (platformInfo.requestNotificationsPermission) {
-                Step.RequestNotificationPermission
-            } else {
-                null
-            },
-            Step.DefaultSettings,
-        )
-    }
+    private val stepList = listOfNotNull(
+        Step.WhatIs,
+        Step.HeadsUp,
+        Step.AutomatedTesting(false),
+        if (supportsCrashReporting) Step.CrashReporting else null,
+        if (platformInfo.requestNotificationsPermission) {
+            Step.RequestNotificationPermission
+        } else {
+            null
+        },
+        if (isCleanUpRequired()) Step.ClearDanglingResources else null,
+        Step.DefaultSettings,
+    )
 
     private val _state = MutableStateFlow(
         State(
