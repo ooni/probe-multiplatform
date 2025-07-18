@@ -134,7 +134,15 @@ class MeasurementRepository(
 
     suspend fun deleteByIds(measurementIds: List<MeasurementModel.Id>) {
         withContext(backgroundContext) {
-            database.measurementQueries.deleteByIds(measurementIds.map { it.value })
+            database.transaction {
+                val chunkSize = 300 // Configurable chunk size for batch deletion
+                measurementIds
+                    .map { it.value }
+                    .chunked(chunkSize)
+                    .forEach { chunk ->
+                        database.measurementQueries.deleteByIds(chunk)
+                    }
+            }
         }
     }
 
