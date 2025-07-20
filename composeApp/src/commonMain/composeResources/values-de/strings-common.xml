@@ -404,6 +404,10 @@
         <item quantity="one">%1$d Stunde</item>
         <item quantity="other">%1$d Stunden</item>
     </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d Tag</item>
+        <item quantity="other">%1$d Tage</item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$dStd</string>
     <string name="Common_Minutes_Abbreviated">%1$dMin</string>
     <string name="Common_Seconds_Abbreviated">%1$dSek</string>
