@@ -257,6 +257,8 @@
     <string name="Common_Yes">Sì</string>
     <string name="Common_Save">Salva</string>
     <string name="Common_Clear">Elimina</string>
+    <string name="Common_Next">Successivo</string>
+    <string name="Common_Previous">Precedente</string>
 
     <string name="Common_Today">Oggi</string>
     <string name="Common_Yesterday">Ieri</string>
