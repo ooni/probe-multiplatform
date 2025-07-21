@@ -386,6 +386,8 @@
     <string name="Common_Yes">Evet</string>
     <string name="Common_Save">Kaydet</string>
     <string name="Common_Clear">Temizle</string>
+    <string name="Common_Next">İleri</string>
+    <string name="Common_Previous">Önceki</string>
 
     <string name="Common_Today">Bugün</string>
     <string name="Common_Yesterday">Dün</string>
