@@ -402,6 +402,8 @@
     <string name="Common_Yes">Да</string>
     <string name="Common_Save">Сохранить</string>
     <string name="Common_Clear">Очистить</string>
+    <string name="Common_Next">Далее</string>
+    <string name="Common_Previous">Предыдущий раздел</string>
 
     <string name="Common_Today">Сегодня</string>
     <string name="Common_Yesterday">Вчера</string>
