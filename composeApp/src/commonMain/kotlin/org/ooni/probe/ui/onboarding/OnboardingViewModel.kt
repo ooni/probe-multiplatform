@@ -116,15 +116,12 @@ class OnboardingViewModel(
             .onEach {
                 cleanupLegacyDirectories?.invoke()
 
-                defaultPreferences()
-
                 moveToNextStep()
             }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.SkipCleanupClicked>()
             .onEach {
-                defaultPreferences()
                 moveToNextStep()
             }.launchIn(viewModelScope)
 
@@ -134,18 +131,6 @@ class OnboardingViewModel(
                 preferenceRepository.setValueByKey(SettingsKey.FIRST_RUN, false)
                 goToSettings()
             }.launchIn(viewModelScope)
-    }
-
-    private suspend fun defaultPreferences() {
-        preferenceRepository.setValueByKey(
-            SettingsKey.AUTOMATED_TESTING_ENABLED,
-            true,
-        )
-
-        preferenceRepository.setValueByKey(
-            SettingsKey.SEND_CRASH,
-            true,
-        )
     }
 
     fun onEvent(event: Event) {

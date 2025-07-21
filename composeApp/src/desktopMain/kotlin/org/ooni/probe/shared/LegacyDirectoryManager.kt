@@ -3,6 +3,7 @@ package org.ooni.probe.shared
 import co.touchlab.kermit.Logger
 import dev.dirs.ProjectDirectories
 import okio.Path.Companion.toPath
+import kotlinx.coroutines.withContext
 import java.io.File
 
 class LegacyDirectoryManager(
@@ -43,13 +44,15 @@ class LegacyDirectoryManager(
     suspend fun cleanupLegacyDirectories(): Boolean {
         Logger.i { "Starting cleanup of legacy directories..." }
 
-        val results = legacyPaths.map { dirPath ->
-            Logger.i { "Attempting to clean up legacy path: $dirPath" }
-            deletePath(dirPath).also {
-                if (it) {
-                    Logger.i { "Successfully cleaned up legacy path: $dirPath" }
-                } else {
-                    Logger.w { "Failed to clean up legacy path: $dirPath" }
+        val results = withContext(kotlinx.coroutines.Dispatchers.IO) {
+            legacyPaths.map { dirPath ->
+                Logger.i { "Attempting to clean up legacy path: $dirPath" }
+                deletePath(dirPath).also {
+                    if (it) {
+                        Logger.i { "Successfully cleaned up legacy path: $dirPath" }
+                    } else {
+                        Logger.w { "Failed to clean up legacy path: $dirPath" }
+                    }
                 }
             }
         }
