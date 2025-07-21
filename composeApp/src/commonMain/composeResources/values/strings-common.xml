@@ -412,6 +412,8 @@
     <string name="Common_Yes">Yes</string>
     <string name="Common_Save">Save</string>
     <string name="Common_Clear">Clear</string>
+    <string name="Common_Next">Next</string>
+    <string name="Common_Previous">Previous</string>
 
     <string name="Common_Today">Today</string>
     <string name="Common_Yesterday">Yesterday</string>
