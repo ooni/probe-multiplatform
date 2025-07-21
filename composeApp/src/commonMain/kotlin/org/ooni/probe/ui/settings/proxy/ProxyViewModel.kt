@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
+import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.models.DOMAIN_NAME
 import org.ooni.probe.data.models.IPV6_ADDRESS
 import org.ooni.probe.data.models.IP_ADDRESS
@@ -21,10 +22,16 @@ import org.ooni.probe.data.repositories.PreferenceRepository
 class ProxyViewModel(
     onBack: () -> Unit,
     private val preferenceManager: PreferenceRepository,
+    private val proxyConfig: ProxyConfig,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val _state = MutableStateFlow(State(proxyProtocol = ProxyProtocol.NONE))
+    private val _state = MutableStateFlow(
+        State(
+            proxyProtocol = ProxyProtocol.NONE,
+            supportedProxyTypes = proxyConfig.getSupportedProxyTypes(),
+        ),
+    )
     val state = _state.asStateFlow()
 
     init {
@@ -175,6 +182,7 @@ class ProxyViewModel(
         val proxyProtocol: ProxyProtocol,
         val proxyProtocolError: Boolean = false,
         val proxyType: ProxyType = proxyProtocol.proxyType(),
+        val supportedProxyTypes: List<ProxyType> = ProxyType.entries,
     )
 
     sealed interface Event {
