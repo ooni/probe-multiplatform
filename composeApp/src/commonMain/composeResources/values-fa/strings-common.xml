@@ -270,6 +270,8 @@
     <string name="Common_Yes">بله</string>
     <string name="Common_Save">ذخیره‌سازی</string>
     <string name="Common_Clear">پاک</string>
+    <string name="Common_Next">بعدی</string>
+    <string name="Common_Previous">قبلی</string>
 
     <string name="Common_Today">امروز</string>
     <string name="Common_Yesterday">دیروز</string>
