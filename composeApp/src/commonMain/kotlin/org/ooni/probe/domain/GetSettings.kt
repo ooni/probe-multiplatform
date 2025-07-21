@@ -1,6 +1,5 @@
 package org.ooni.probe.domain
 
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -13,7 +12,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -272,21 +270,7 @@ class GetSettings(
                         key = SettingsKey.STORAGE_SIZE,
                         type = PreferenceItemType.BUTTON,
                         supportingContent = {
-                            var showDialog by remember { mutableStateOf(false) }
-                            if (showDialog) {
-                                ClearStorageDialog(
-                                    onClose = { showDialog = false },
-                                    fullReset = true,
-                                )
-                            }
-
-                            Text(
-                                storageUsed.formatDataUsage(),
-                                modifier = Modifier.combinedClickable(
-                                    onClick = {},
-                                    onLongClick = { showDialog = true },
-                                ),
-                            )
+                            Text(storageUsed.formatDataUsage())
                         },
                         trailingContent = {
                             var showDialog by remember { mutableStateOf(false) }
