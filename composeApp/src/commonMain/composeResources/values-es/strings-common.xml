@@ -388,6 +388,8 @@
     <string name="Common_Yes">Si</string>
     <string name="Common_Save">Guardar</string>
     <string name="Common_Clear">Borrar</string>
+    <string name="Common_Next">Seguir</string>
+    <string name="Common_Previous">Anterior</string>
 
     <string name="Common_Today">Hoy</string>
     <string name="Common_Yesterday">Ayer</string>
