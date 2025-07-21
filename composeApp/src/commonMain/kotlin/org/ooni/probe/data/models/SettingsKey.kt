@@ -64,4 +64,6 @@ enum class SettingsKey(
     CHOSEN_WEBSITES("chosen_websites"),
 
     ROUTE("route"),
+
+    CLEAR_LEGACY_DIRECTORIES("clear_legacy_directories"),
 }

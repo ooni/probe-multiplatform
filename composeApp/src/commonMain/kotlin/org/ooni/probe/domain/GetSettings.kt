@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
+import ooniprobe.composeapp.generated.resources.Modal_Clear_Legacy_Directories
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
 import ooniprobe.composeapp.generated.resources.Res
@@ -31,6 +32,7 @@ import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAut
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_Footer
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_WiFiOnly
 import ooniprobe.composeapp.generated.resources.Settings_Language_Label
+import ooniprobe.composeapp.generated.resources.Settings_Legacy_Storage
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_SendCrashReports
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
@@ -58,6 +60,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.PreferenceCategoryKey
+import org.ooni.probe.data.models.PreferenceItem
 import org.ooni.probe.data.models.PreferenceItemType
 import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.models.SettingsItem
@@ -77,6 +80,8 @@ class GetSettings(
     private val knownNetworkType: Boolean,
     private val knownBatteryState: Boolean,
     private val supportsInAppLanguage: Boolean,
+    private val isCleanUpRequired: () -> Boolean = { false },
+    private val cleanupLegacyDirectories: (suspend () -> Boolean)? = null,
 ) {
     operator fun invoke(): Flow<List<SettingsCategoryItem>> =
         combine(
@@ -257,7 +262,7 @@ class GetSettings(
                 icon = Res.drawable.advanced,
                 title = Res.string.Settings_Advanced_Label,
                 route = PreferenceCategoryKey.ADVANCED,
-                settings = listOf(
+                settings = mutableSetOf<PreferenceItem>(
                     SettingsCategoryItem(
                         title = Res.string.Settings_Advanced_RecentLogs,
                         route = PreferenceCategoryKey.SEE_RECENT_LOGS,
@@ -306,7 +311,28 @@ class GetSettings(
                         key = SettingsKey.WARN_VPN_IN_USE,
                         type = PreferenceItemType.SWITCH,
                     ),
-                ),
+                ).apply {
+                    if (isCleanUpRequired() && cleanupLegacyDirectories != null) {
+                        add(
+                            SettingsItem(
+                                title = Res.string.Settings_Legacy_Storage,
+                                key = SettingsKey.CLEAR_LEGACY_DIRECTORIES,
+                                type = PreferenceItemType.BUTTON,
+                                trailingContent = {
+                                    var showDialog by remember { mutableStateOf(false) }
+                                    if (showDialog) {
+                                        ClearLegacyDirectoriesDialog(onClose = { showDialog = false })
+                                    }
+                                    Button(
+                                        onClick = { showDialog = true },
+                                    ) {
+                                        Text(stringResource(Res.string.Settings_Storage_Clear))
+                                    }
+                                },
+                            ),
+                        )
+                    }
+                }.toList(),
             ),
             SettingsCategoryItem(
                 icon = Res.drawable.ic_support,
@@ -348,6 +374,41 @@ class GetSettings(
                     },
                 ) {
                     Text(stringResource(Res.string.Modal_Delete))
+                }
+            },
+            dismissButton = {
+                OutlinedButton(
+                    onClick = { onClose() },
+                ) {
+                    Text(stringResource(Res.string.Modal_Cancel))
+                }
+            },
+        )
+    }
+
+    @Composable
+    private fun ClearLegacyDirectoriesDialog(onClose: () -> Unit) {
+        val coroutine = rememberCoroutineScope()
+        AlertDialog(
+            onDismissRequest = { onClose() },
+            text = { Text(stringResource(Res.string.Modal_Clear_Legacy_Directories)) },
+            confirmButton = {
+                var enabled by remember { mutableStateOf(true) }
+                Button(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error,
+                        contentColor = MaterialTheme.colorScheme.onError,
+                    ),
+                    enabled = enabled,
+                    onClick = {
+                        enabled = false
+                        coroutine.launch {
+                            cleanupLegacyDirectories?.invoke()
+                            onClose()
+                        }
+                    },
+                ) {
+                    Text(stringResource(Res.string.Settings_Storage_Clear))
                 }
             },
             dismissButton = {
