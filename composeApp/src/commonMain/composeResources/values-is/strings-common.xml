@@ -318,6 +318,8 @@
     <string name="Common_Yes">Já</string>
     <string name="Common_Save">Vista</string>
     <string name="Common_Clear">Hreinsa</string>
+    <string name="Common_Next">Næsti</string>
+    <string name="Common_Previous">Fyrri</string>
 
     <string name="Common_Today">Í dag</string>
     <string name="Common_Ago">%1$s ago</string>
