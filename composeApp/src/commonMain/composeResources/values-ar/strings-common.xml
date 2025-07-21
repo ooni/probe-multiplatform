@@ -316,6 +316,8 @@
     <string name="Common_Yes">‮نعم</string>
     <string name="Common_Save">حفظ</string>
     <string name="Common_Clear">Clear</string>
+    <string name="Common_Next">التالي</string>
+    <string name="Common_Previous">السابق</string>
 
     <string name="Common_Today">اليوم</string>
     <string name="Common_Yesterday">أمس</string>
