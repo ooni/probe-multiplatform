@@ -263,6 +263,8 @@
     <string name="Common_Yes">Ja</string>
     <string name="Common_Save">Opslaan</string>
     <string name="Common_Clear">Wissen</string>
+    <string name="Common_Next">Volgende</string>
+    <string name="Common_Previous">Vorige</string>
 
     <string name="Common_Today">Vandaag</string>
     <string name="Common_Yesterday">Gisteren</string>
