@@ -267,6 +267,8 @@
     <string name="Common_Yes">Ναι</string>
     <string name="Common_Save">Αποθήκευση</string>
     <string name="Common_Clear">Εκκαθάριση</string>
+    <string name="Common_Next">Επόμενο</string>
+    <string name="Common_Previous">Προηγούμενο </string>
 
     <string name="Common_Today">Σήμερα</string>
     <string name="Common_Ago">%1$s πριν</string>
