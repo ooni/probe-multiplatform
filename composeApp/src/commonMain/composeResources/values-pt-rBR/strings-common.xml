@@ -201,6 +201,7 @@
     <string name="Settings_Storage_Label">Uso de armazenamento</string>
     <string name="Settings_Storage_Delete">Apagar</string>
     <string name="Settings_Storage_Clear">Limpar</string>
+    <string name="Settings_Legacy_Storage">Limpar ficheiros de versão anterior</string>
     <string name="Settings_WarmVPNInUse_Label">Avise quando a VPN estiver em uso</string>
     <string name="Settings_DisableVpnInstructions">Vá para Configurações &gt; Geral &gt; VPN e desconecte da sua VPN.</string>
     <string name="Settings_Logs">Logs</string>
@@ -349,6 +350,7 @@
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Deseja apagar todos os resultados de teste\?</string>
+    <string name="Modal_Clear_Legacy_Directories">Deseja limpar as pastas antigas\?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">Deseja apagar %1$s resultado?</item>
         <item quantity="many">Deseja apagar %1$s de resultados?</item>
