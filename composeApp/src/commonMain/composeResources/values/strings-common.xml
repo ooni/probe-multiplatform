@@ -220,7 +220,7 @@
     <string name="Settings_Storage_Label">Storage usage</string>
     <string name="Settings_Storage_Delete">Delete</string>
     <string name="Settings_Storage_Clear">Clear</string>
-    <string name="Settings_Legacy_Storage">Legacy directories exist</string>
+    <string name="Settings_Legacy_Storage">Clear files from previous version</string>
     <string name="Settings_WarmVPNInUse_Label">Warn when VPN is in use</string>
     <string name="Settings_DisableVpnInstructions">Go to Settings > General > VPN and disconnect from your VPN.</string>
     <string name="Settings_Logs">Logs</string>

@@ -262,7 +262,7 @@ class GetSettings(
                 icon = Res.drawable.advanced,
                 title = Res.string.Settings_Advanced_Label,
                 route = PreferenceCategoryKey.ADVANCED,
-                settings = mutableSetOf<PreferenceItem>(
+                settings = listOfNotNull<PreferenceItem>(
                     SettingsCategoryItem(
                         title = Res.string.Settings_Advanced_RecentLogs,
                         route = PreferenceCategoryKey.SEE_RECENT_LOGS,
@@ -311,28 +311,27 @@ class GetSettings(
                         key = SettingsKey.WARN_VPN_IN_USE,
                         type = PreferenceItemType.SWITCH,
                     ),
-                ).apply {
                     if (isCleanUpRequired() && cleanupLegacyDirectories != null) {
-                        add(
-                            SettingsItem(
-                                title = Res.string.Settings_Legacy_Storage,
-                                key = SettingsKey.CLEAR_LEGACY_DIRECTORIES,
-                                type = PreferenceItemType.BUTTON,
-                                trailingContent = {
-                                    var showDialog by remember { mutableStateOf(false) }
-                                    if (showDialog) {
-                                        ClearLegacyDirectoriesDialog(onClose = { showDialog = false })
-                                    }
-                                    Button(
-                                        onClick = { showDialog = true },
-                                    ) {
-                                        Text(stringResource(Res.string.Settings_Storage_Clear))
-                                    }
-                                },
-                            ),
+                        SettingsItem(
+                            title = Res.string.Settings_Legacy_Storage,
+                            key = SettingsKey.CLEAR_LEGACY_DIRECTORIES,
+                            type = PreferenceItemType.BUTTON,
+                            trailingContent = {
+                                var showDialog by remember { mutableStateOf(false) }
+                                if (showDialog) {
+                                    ClearLegacyDirectoriesDialog(onClose = { showDialog = false })
+                                }
+                                Button(
+                                    onClick = { showDialog = true },
+                                ) {
+                                    Text(stringResource(Res.string.Settings_Storage_Clear))
+                                }
+                            },
                         )
-                    }
-                }.toList(),
+                    } else {
+                        null
+                    },
+                ),
             ),
             SettingsCategoryItem(
                 icon = Res.drawable.ic_support,
