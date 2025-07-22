@@ -86,6 +86,9 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Solo su WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Solo durante il caricamento</string>
     <string name="Settings_Sharing_UploadResults">Risultati Pubblicati Automaticamente</string>
+
+    <string name="Settings_Websites_MaxRuntimeEnabled">Limita la durata del test</string>
+    <string name="Settings_Websites_MaxRuntime">Durata del test</string>
     <string name="Settings_Websites_Categories_Label">Categorie di siti web da misurare</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorie abilitate</string>
 
@@ -217,7 +220,6 @@
     <string name="AddDescriptor_Settings">Fai un test delle impostazioni</string>
     <string name="AddDescriptor_AutoRun">Esegui test automaticamente</string>
     <string name="LoadingScreen_Runv2_Failure">Errore</string>
-    <string name="DescriptorUpdate_CheckUpdates">Cerca aggiornamenti</string>
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Non caricati</string>
@@ -257,11 +259,7 @@
     <string name="Common_Yes">Sì</string>
     <string name="Common_Save">Salva</string>
     <string name="Common_Clear">Elimina</string>
-    <string name="Common_Next">Successivo</string>
-    <string name="Common_Previous">Precedente</string>
 
-    <string name="Common_Today">Oggi</string>
-    <string name="Common_Yesterday">Ieri</string>
     <string name="Common_Ago">%1$s fa</string>
     <string name="Common_Months_January">Gennaio</string>
     <string name="Common_Months_February">Febbraio</string>
