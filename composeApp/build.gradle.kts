@@ -95,7 +95,7 @@ kotlin {
     jvm("desktop")
     jvmToolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
-        vendor.set(JvmVendorSpec.JETBRAINS)
+        // vendor.set(JvmVendorSpec.JETBRAINS)
     }
 
     cocoapods {
