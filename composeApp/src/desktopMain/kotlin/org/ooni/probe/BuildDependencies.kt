@@ -16,6 +16,7 @@ import org.ooni.probe.data.buildDatabaseDriver
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.shared.LegacyDirectoryManager
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import java.awt.Desktop
@@ -25,6 +26,10 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
+private val osName = System.getProperty("os.name")
+private val platform = Platform.Desktop(osName)
+
+private val legacyDirectoryManager = LegacyDirectoryManager(platform.os)
 
 private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager(
     runBackgroundTaskProvider = { dependencies.runBackgroundTask },
@@ -49,12 +54,13 @@ val dependencies = Dependencies(
     launchAction = ::launchAction,
     batteryOptimization = object : BatteryOptimization {},
     isWebViewAvailable = { true },
+    isCleanUpRequired = legacyDirectoryManager::hasLegacyDirectories,
+    cleanupLegacyDirectories = legacyDirectoryManager::cleanupLegacyDirectories,
     flavorConfig = DesktopFlavorConfig(),
     proxyConfig = DesktopProxyConfig(),
 )
 
 private fun buildPlatformInfo(): PlatformInfo {
-    val osName = System.getProperty("os.name")
     val osVersion = System.getProperty("os.version")
     val conveyorVersion = SoftwareUpdateController.getInstance()?.currentVersion
     val buildName = conveyorVersion?.version
@@ -65,7 +71,7 @@ private fun buildPlatformInfo(): PlatformInfo {
     return PlatformInfo(
         buildName = buildName,
         buildNumber = buildNumber,
-        platform = Platform.Desktop(osName),
+        platform = platform,
         osVersion = "$osName $osVersion",
         model = "",
         requestNotificationsPermission = false,
