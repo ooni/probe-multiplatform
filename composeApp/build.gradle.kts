@@ -114,7 +114,6 @@ kotlin {
         // See https://github.com/getsentry/sentry-kotlin-multiplatform?tab=readme-ov-file#cocoa-sdk-version-compatibility-table
         pod("Sentry") {
             version = "8.53.2"
-            linkOnly = true
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
 
@@ -182,7 +181,6 @@ kotlin {
                 optIn("kotlin.ExperimentalStdlibApi")
                 optIn("kotlin.io.encoding.ExperimentalEncodingApi")
                 optIn("kotlin.time.ExperimentalTime")
-                optIn("kotlinx.cinterop.BetaInteropApi")
                 optIn("kotlinx.cinterop.ExperimentalForeignApi")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 optIn("kotlinx.coroutines.FlowPreview")
@@ -594,14 +592,12 @@ fun copyRecursive(
             } else {
                 val destinationFile = File(to, file.name)
                 if (destinationFile.exists()) {
-                    println("Overwriting $destinationFile")
                     destinationFile.delete()
                 }
                 if (!destinationFile.parentFile.exists()) {
                     destinationFile.parentFile.mkdirs()
                 }
                 file.copyTo(destinationFile).also {
-                    println("Ignoring ${it.name}")
                     ignoreCopiedFileIfNotIgnored(
                         to.absolutePath + "/.gitignore",
                         it.name,
