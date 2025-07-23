@@ -201,7 +201,7 @@
     <string name="Settings_Storage_Label">Utilisation de l’espace de stockage</string>
     <string name="Settings_Storage_Delete">Supprimer</string>
     <string name="Settings_Storage_Clear">Effacer</string>
-    <string name="Settings_Legacy_Storage">Effacer les fichiers de la version précédente</string>
+    <string name="Settings_Legacy_Storage">Supprimer les fichiers de la version précédente</string>
     <string name="Settings_WarmVPNInUse_Label">Avertir quand un RPV est utilisé</string>
     <string name="Settings_DisableVpnInstructions">Accédez à Réglages &gt; Général &gt; VPN et déconnectez-vous de votre RPV.</string>
     <string name="Settings_Logs">Journaux</string>
@@ -350,7 +350,7 @@
     <string name="Modal_Cancel">Annuler</string>
     <string name="Modal_OK">Valider</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Voulez-vous supprimer tous les résultats de test?</string>
-    <string name="Modal_Clear_Legacy_Directories">Voulez-vous effacer les dossiers hérités \?</string>
+    <string name="Modal_Clear_Legacy_Directories">Voulez-vous supprimer les dossiers hérités \?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">Voulez-vous supprimer %1$s résultat de test \?</item>
         <item quantity="many">Voulez-vous supprimer %1$sde résultats de test \?</item>
