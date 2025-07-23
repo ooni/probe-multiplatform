@@ -220,7 +220,7 @@
     <string name="Settings_Storage_Label">Storage usage</string>
     <string name="Settings_Storage_Delete">Delete</string>
     <string name="Settings_Storage_Clear">Clear</string>
-    <string name="Settings_Legacy_Storage">Clear files from previous version</string>
+    <string name="Settings_Legacy_Storage">Delete files from previous version</string>
     <string name="Settings_WarmVPNInUse_Label">Warn when VPN is in use</string>
     <string name="Settings_DisableVpnInstructions">Go to Settings > General > VPN and disconnect from your VPN.</string>
     <string name="Settings_Logs">Logs</string>
@@ -368,7 +368,7 @@
     <string name="Modal_Cancel">Cancel</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Do you want to delete all test results?</string>
-    <string name="Modal_Clear_Legacy_Directories">Do you want to clear legacy directories?</string>
+    <string name="Modal_Clear_Legacy_Directories">Do you want to delete legacy folders\?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">Do you want to delete %1$s test result?</item>
         <item quantity="other">Do you want to delete %1$s test results?</item>
