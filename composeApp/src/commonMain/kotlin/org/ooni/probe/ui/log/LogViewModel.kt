@@ -48,8 +48,7 @@ class LogViewModel(
                 if (!shareLogFile()) {
                     _state.update { it.copy(errors = it.errors + Error.Share) }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.FilterChanged>()
@@ -79,9 +78,13 @@ class LogViewModel(
 
         data object ShareClicked : Event
 
-        data class FilterChanged(val severity: Severity?) : Event
+        data class FilterChanged(
+            val severity: Severity?,
+        ) : Event
 
-        data class ErrorShown(val error: Error) : Event
+        data class ErrorShown(
+            val error: Error,
+        ) : Event
     }
 
     enum class Error { Share }

@@ -153,8 +153,8 @@ class RunWorker(
         }
     }
 
-    private fun buildForegroundInfo(notification: Notification): ForegroundInfo {
-        return if (Build.VERSION.SDK_INT >= 29) {
+    private fun buildForegroundInfo(notification: Notification): ForegroundInfo =
+        if (Build.VERSION.SDK_INT >= 29) {
             ForegroundInfo(
                 NOTIFICATION_ID,
                 notification,
@@ -166,7 +166,6 @@ class RunWorker(
                 notification,
             )
         }
-    }
 
     private suspend fun buildNotification(state: UploadMissingMeasurements.State) =
         buildNotification {
@@ -177,8 +176,7 @@ class RunWorker(
                         Res.string.Results_UploadingMissing,
                         state.progressText,
                     ),
-                )
-                    .setProgress(state.total, progress, false)
+                ).setProgress(state.total, progress, false)
                     .addAction(buildNotificationStopAction())
             } else {
                 setProgress(1, 0, true)
@@ -200,9 +198,10 @@ class RunWorker(
                 .setProgress(1, 0, true)
         }
 
-    private suspend fun buildNotification(build: suspend NotificationCompat.Builder.() -> NotificationCompat.Builder): Notification {
-        return build(
-            NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
+    private suspend fun buildNotification(build: suspend NotificationCompat.Builder.() -> NotificationCompat.Builder): Notification =
+        build(
+            NotificationCompat
+                .Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle(getString(Res.string.Dashboard_Running_Running))
                 .setAutoCancel(false)
@@ -215,14 +214,14 @@ class RunWorker(
                 .setColor(primaryLight.toArgb())
                 .setContentIntent(openAppIntent),
         ).build()
-    }
 
     private suspend fun buildNotificationStopAction() =
-        NotificationCompat.Action.Builder(
-            null,
-            getString(Res.string.Notification_StopTest),
-            stopRunIntent,
-        ).build()
+        NotificationCompat.Action
+            .Builder(
+                null,
+                getString(Res.string.Notification_StopTest),
+                stopRunIntent,
+            ).build()
 
     private val openAppIntent
         get() = PendingIntent.getActivity(
@@ -252,7 +251,9 @@ class RunWorker(
 
     class ForegroundServiceRestriction : Exception()
 
-    class EarlyStop(reason: Int?) : EarlyStopWorkerException(reason)
+    class EarlyStop(
+        reason: Int?,
+    ) : EarlyStopWorkerException(reason)
 
     companion object {
         private const val NOTIFICATION_CHANNEL_ID = "RUN"

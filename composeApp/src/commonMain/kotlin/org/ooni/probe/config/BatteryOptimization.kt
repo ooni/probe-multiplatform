@@ -6,7 +6,5 @@ interface BatteryOptimization {
     val isIgnoring: Boolean
         get() = throw IllegalStateException("Battery Optimization not supported")
 
-    fun requestIgnore(onResponse: (Boolean) -> Unit = {}) {
-        throw IllegalStateException("Battery Optimization not supported")
-    }
+    fun requestIgnore(onResponse: (Boolean) -> Unit = {}): Unit = throw IllegalStateException("Battery Optimization not supported")
 }

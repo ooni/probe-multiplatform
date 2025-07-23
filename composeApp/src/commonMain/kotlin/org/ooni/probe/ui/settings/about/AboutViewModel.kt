@@ -18,7 +18,9 @@ class AboutViewModel(
 
     init {
         events.filterIsInstance<Event.BackClicked>().onEach { onBack() }.launchIn(viewModelScope)
-        events.filterIsInstance<Event.LaunchUrlClicked>().onEach { url -> launchUrl(url.url) }
+        events
+            .filterIsInstance<Event.LaunchUrlClicked>()
+            .onEach { url -> launchUrl(url.url) }
             .launchIn(viewModelScope)
     }
 
@@ -32,6 +34,8 @@ class AboutViewModel(
     sealed interface Event {
         data object BackClicked : Event
 
-        data class LaunchUrlClicked(val url: String) : Event
+        data class LaunchUrlClicked(
+            val url: String,
+        ) : Event
     }
 }

@@ -6,9 +6,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
 import io.github.kdroidfilter.platformtools.darkmodedetector.isSystemInDarkMode
 import io.github.kdroidfilter.platformtools.darkmodedetector.windows.setWindowsAdaptiveTitleBar
 import io.github.vinceglb.autolaunch.AutoLaunch
@@ -42,6 +45,7 @@ import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.InstanceManager
 import org.ooni.probe.shared.Platform
+import java.awt.Desktop
 import java.awt.Dimension
 
 const val APP_ID = "org.ooni.probe" // needs to be the same as conveyor `app.rdns-name`
@@ -65,23 +69,35 @@ fun main(args: Array<String>) {
 
     application {
         var isWindowVisible by remember { mutableStateOf(!autoLaunch.isStartedViaAutostart()) }
-        val deepLink by deepLinkFlow.collectAsState(null)
         val trayIcon = trayIcon()
+        val deepLink by deepLinkFlow.collectAsState(null)
+        val runBackgroundState by dependencies.runBackgroundStateManager
+            .observeState()
+            .collectAsState(RunBackgroundState.Idle())
+
+        fun showWindow() {
+            isWindowVisible = true
+            Desktop.getDesktop().requestForeground(true)
+        }
 
         Window(
             onCloseRequest = { isWindowVisible = false },
             visible = isWindowVisible,
             icon = painterResource(trayIcon),
             title = stringResource(Res.string.app_name),
+            state = rememberWindowState(
+                size = DpSize(480.dp, 800.dp),
+            ),
         ) {
             window.setWindowsAdaptiveTitleBar()
-            window.size = Dimension(480, 800)
             window.minimumSize = Dimension(320, 560)
             window.maximumSize = Dimension(1024, 1024)
+
             App(
                 dependencies = dependencies,
                 deepLink = deepLink,
                 onDeeplinkHandled = {
+                    showWindow()
                     deepLink?.let {
                         deepLinkFlow.tryEmit(null)
                     }
@@ -89,26 +105,26 @@ fun main(args: Array<String>) {
             )
         }
 
-        val runBackgroundState by dependencies.runBackgroundStateManager.observeState()
-            .collectAsState(RunBackgroundState.Idle())
-
         Tray(
             icon = painterResource(trayIcon),
             tooltip = stringResource(Res.string.app_name),
             menu = {
+                Item(
+                    text = stringResource(Res.string.app_name),
+                    enabled = false,
+                    onClick = {},
+                )
                 if (runBackgroundState !is RunBackgroundState.Idle) {
                     Item(
                         text = runBackgroundState.text(),
                         enabled = false,
                         onClick = {},
                     )
-                    Separator()
                 }
+                Separator()
                 Item(
                     stringResource(Res.string.Desktop_OpenApp),
-                    onClick = {
-                        isWindowVisible = !isWindowVisible
-                    },
+                    onClick = { showWindow() },
                 )
                 Separator()
                 Item(
@@ -128,7 +144,8 @@ private fun trayIcon(): DrawableResource {
     val isDarkTheme = isSystemInDarkMode()
     val isWindows =
         (dependencies.platformInfo.platform as? Platform.Desktop)?.os == DesktopOS.Windows
-    val runBackgroundState by dependencies.runBackgroundStateManager.observeState()
+    val runBackgroundState by dependencies.runBackgroundStateManager
+        .observeState()
         .collectAsState(RunBackgroundState.Idle())
     val isRunning = runBackgroundState !is RunBackgroundState.Idle
     return when {

@@ -32,14 +32,15 @@ class EngineTest {
             bridge.addNextEvents("""{"key":"status.started","value":{}}""")
             val engine = buildEngine(bridge)
 
-            val events = engine.startTask(
-                NetTest(
-                    test = TestType.WebConnectivity,
-                    inputs = listOf("https://ooni.org"),
-                ),
-                taskOrigin = TaskOrigin.OoniRun,
-                descriptorId = null,
-            ).toList()
+            val events = engine
+                .startTask(
+                    NetTest(
+                        test = TestType.WebConnectivity,
+                        inputs = listOf("https://ooni.org"),
+                    ),
+                    taskOrigin = TaskOrigin.OoniRun,
+                    descriptorId = null,
+                ).toList()
 
             assertEquals(1, events.size)
             assertEquals(TaskEvent.Started, events.first())

@@ -38,10 +38,11 @@ class DashboardViewModel(
     dismissDescriptorsUpdateNotice: () -> Unit,
     getAutoRunSettings: () -> Flow<AutoRunParameters>,
     batteryOptimization: BatteryOptimization,
+    canPullToRefresh: Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val _state = MutableStateFlow(State())
+    private val _state = MutableStateFlow(State(canPullToRefresh = canPullToRefresh))
     val state = _state.asStateFlow()
 
     init {
@@ -59,8 +60,7 @@ class DashboardViewModel(
                 ) {
                     _state.update { it.copy(showIgnoreBatteryOptimizationNotice = true) }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         observeDescriptorUpdateState()
             .onEach { updates ->
@@ -70,26 +70,22 @@ class DashboardViewModel(
                         descriptorsUpdateOperationState = updates.operationState,
                     )
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         getTestDescriptors()
             .onEach { tests ->
                 _state.update { it.copy(descriptors = tests.groupByType()) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         observeRunBackgroundState
             .onEach { testState ->
                 _state.update { it.copy(runBackgroundState = testState) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         observeTestRunErrors
             .onEach { error ->
                 _state.update { it.copy(testRunErrors = it.testRunErrors + error) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.RunTestsClick>()
@@ -110,8 +106,7 @@ class DashboardViewModel(
             .filterIsInstance<Event.ErrorDisplayed>()
             .onEach { event ->
                 _state.update { it.copy(testRunErrors = it.testRunErrors - event.error) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.DescriptorClicked>()
@@ -122,8 +117,7 @@ class DashboardViewModel(
             .filterIsInstance<Event.Start>()
             .onEach {
                 _state.update { it.copy(showVpnWarning = shouldShowVpnWarning()) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.FetchUpdatedDescriptors>()
@@ -135,8 +129,7 @@ class DashboardViewModel(
             .onEach {
                 dismissDescriptorsUpdateNotice()
                 goToReviewDescriptorUpdates(null)
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.UpdateDescriptorClicked>()
@@ -148,8 +141,7 @@ class DashboardViewModel(
                             ?: return@onEach,
                     ),
                 )
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.CancelUpdatesClicked>()
@@ -163,8 +155,7 @@ class DashboardViewModel(
                 if (batteryOptimization.isSupported && !batteryOptimization.isIgnoring) {
                     batteryOptimization.requestIgnore()
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.IgnoreBatteryOptimizationDismissed>()
@@ -190,6 +181,7 @@ class DashboardViewModel(
         val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
         val descriptorsUpdateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
         val showIgnoreBatteryOptimizationNotice: Boolean = false,
+        val canPullToRefresh: Boolean = true,
     ) {
         val isRefreshing: Boolean
             get() = descriptorsUpdateOperationState == DescriptorUpdateOperationState.FetchingUpdates
@@ -207,11 +199,17 @@ class DashboardViewModel(
 
         data object SeeResultsClick : Event
 
-        data class ErrorDisplayed(val error: TestRunError) : Event
+        data class ErrorDisplayed(
+            val error: TestRunError,
+        ) : Event
 
-        data class DescriptorClicked(val descriptor: Descriptor) : Event
+        data class DescriptorClicked(
+            val descriptor: Descriptor,
+        ) : Event
 
-        data class UpdateDescriptorClicked(val descriptor: Descriptor) : Event
+        data class UpdateDescriptorClicked(
+            val descriptor: Descriptor,
+        ) : Event
 
         data object FetchUpdatedDescriptors : Event
 

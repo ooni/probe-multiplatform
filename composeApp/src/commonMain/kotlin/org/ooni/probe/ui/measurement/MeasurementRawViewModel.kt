@@ -68,26 +68,27 @@ class MeasurementRawViewModel(
                         )
                     }
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.BackClicked>()
+        events
+            .filterIsInstance<Event.BackClicked>()
             .onEach { onBack() }
             .launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.UploadClicked>()
+        events
+            .filterIsInstance<Event.UploadClicked>()
             .onEach { goToUpload(measurementId) }
             .launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.ShareClicked>()
+        events
+            .filterIsInstance<Event.ShareClicked>()
             .onEach {
                 _state.value.reportFilePath?.let {
                     shareFile(
                         PlatformAction.FileSharing(getString(Res.string.Measurement_Raw_Share), it),
                     )
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {

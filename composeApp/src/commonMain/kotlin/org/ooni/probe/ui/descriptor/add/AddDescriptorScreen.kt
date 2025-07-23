@@ -91,15 +91,15 @@ fun AddDescriptorScreen(
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .toggleable(
                             value = state.autoUpdate,
                             onValueChange = {
                                 onEvent(AddDescriptorViewModel.Event.AutoUpdateChanged(it))
                             },
                             role = Role.Switch,
-                        )
-                        .padding(vertical = 8.dp),
+                        ).padding(vertical = 8.dp),
                 ) {
                     Text(
                         stringResource(Res.string.AddDescriptor_AutoUpdate),
@@ -112,7 +112,8 @@ fun AddDescriptorScreen(
                 }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .triStateToggleable(
                             state = state.allTestsSelected(),
                             onClick = {
@@ -122,8 +123,7 @@ fun AddDescriptorScreen(
                                     ),
                                 )
                             },
-                        )
-                        .padding(start = 16.dp)
+                        ).padding(start = 16.dp)
                         .padding(vertical = 12.dp),
                 ) {
                     TriStateCheckbox(
@@ -141,7 +141,8 @@ fun AddDescriptorScreen(
             Box(
                 modifier = Modifier
                     .padding(WindowInsets.navigationBars.asPaddingValues())
-                    .padding(horizontal = 16.dp).fillMaxSize(),
+                    .padding(horizontal = 16.dp)
+                    .fillMaxSize(),
             ) {
                 LazyColumn(modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 48.dp)) {
                     items(state.selectableItems) { selectableItem ->

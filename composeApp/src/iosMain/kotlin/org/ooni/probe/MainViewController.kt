@@ -15,8 +15,8 @@ import platform.UIKit.UIViewController
 fun mainViewController(
     dependencies: Dependencies,
     deepLinkFlow: MutableSharedFlow<DeepLink?>,
-): UIViewController {
-    return ComposeUIViewController {
+): UIViewController =
+    ComposeUIViewController {
         val deepLink by deepLinkFlow.collectAsState(null)
         App(
             dependencies = dependencies,
@@ -35,4 +35,3 @@ fun mainViewController(
             }
         }
     }
-}

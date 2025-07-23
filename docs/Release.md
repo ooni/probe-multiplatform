@@ -25,7 +25,7 @@ Here are the steps required to release a new app version across all platforms.
 
 ### 1. Prepare Release
 
-### 1.1 Create release branch
+#### 1.1 Create release branch
 
 Create a new release branch named `releases/NEW_VERSION` where `NEW_VERSION` in the new version to
 be released.
@@ -127,18 +127,18 @@ Organization as `ooni`.
 
 #### 2.7 Publish OONI Probe Desktop
 
-#### 2.7.1 Generate apps
+##### 2.7.1 Generate apps
 
 Go to [Desktop package apps](https://github.com/ooni/probe-multiplatform/actions/workflows/desktop_make.yml),
 press *Run Workflow*, use workflow from the new tag, and press *Run Workflow*. Confirm the action ran
 successfully and download the generated apps (zipped artifact).
 
-#### 2.7.2 Sign windows app
+##### 2.7.2 Sign windows app
 
 We need to sign both the windows `.exe` and `.msix` files using our Extended Validation certificate.
 Follow the steps on our internal process to do so.
 
-### 2.8 Create Release
+#### 2.8 Create Release
 
 **2.8.1** Create a new [Github release](https://github.com/ooni/probe-multiplatform/releases)
 based on the new tag.

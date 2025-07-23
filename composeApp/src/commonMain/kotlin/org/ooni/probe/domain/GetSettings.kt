@@ -1,6 +1,5 @@
 package org.ooni.probe.domain
 
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -13,11 +12,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
+import ooniprobe.composeapp.generated.resources.Modal_Clear_Legacy_Directories
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
 import ooniprobe.composeapp.generated.resources.Res
@@ -31,6 +30,7 @@ import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAut
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_Footer
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_WiFiOnly
 import ooniprobe.composeapp.generated.resources.Settings_Language_Label
+import ooniprobe.composeapp.generated.resources.Settings_Legacy_Storage
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_SendCrashReports
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
@@ -43,9 +43,10 @@ import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_WarmVPNInUse_Label
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Description
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
+import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeDuration
+import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeDuration_Unit
+import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled
 import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled_Description
-import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnabled_New
-import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntime_New
 import ooniprobe.composeapp.generated.resources.advanced
 import ooniprobe.composeapp.generated.resources.ic_language
 import ooniprobe.composeapp.generated.resources.ic_settings
@@ -57,6 +58,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.PreferenceCategoryKey
+import org.ooni.probe.data.models.PreferenceItem
 import org.ooni.probe.data.models.PreferenceItemType
 import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.models.SettingsItem
@@ -65,7 +67,7 @@ import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.ui.settings.category.SettingsDescription
 import org.ooni.probe.ui.settings.donate.DONATE_SETTINGS_ITEM
 import org.ooni.probe.ui.shared.formatDataUsage
-import org.ooni.probe.ui.shared.shortFormat
+import org.ooni.probe.ui.shared.format
 import kotlin.time.Duration.Companion.seconds
 
 class GetSettings(
@@ -76,9 +78,11 @@ class GetSettings(
     private val knownNetworkType: Boolean,
     private val knownBatteryState: Boolean,
     private val supportsInAppLanguage: Boolean,
+    private val isCleanUpRequired: () -> Boolean = { false },
+    private val cleanupLegacyDirectories: (suspend () -> Boolean)? = null,
 ) {
-    operator fun invoke(): Flow<List<SettingsCategoryItem>> {
-        return combine(
+    operator fun invoke(): Flow<List<SettingsCategoryItem>> =
+        combine(
             preferencesRepository.allSettings(
                 WebConnectivityCategory.entries.mapNotNull { it.settingsKey } + listOf(
                     SettingsKey.UPLOAD_RESULTS,
@@ -101,7 +105,6 @@ class GetSettings(
                 supportsCrashReporting = supportsCrashReporting,
             )
         }
-    }
 
     private fun buildSettings(
         hasWebsitesDescriptor: Boolean,
@@ -111,8 +114,8 @@ class GetSettings(
         maxRuntime: Int?,
         storageUsed: Long,
         supportsCrashReporting: Boolean = false,
-    ): List<SettingsCategoryItem> {
-        return listOfNotNull(
+    ): List<SettingsCategoryItem> =
+        listOfNotNull(
             SettingsCategoryItem(
                 icon = Res.drawable.ic_settings,
                 title = Res.string.Settings_TestOptions_Label,
@@ -164,7 +167,7 @@ class GetSettings(
                     },
                     if (hasWebsitesDescriptor) {
                         SettingsItem(
-                            title = Res.string.Settings_Websites_MaxRuntimeEnabled_New,
+                            title = Res.string.Settings_Websites_MaxRuntimeEnabled,
                             key = SettingsKey.MAX_RUNTIME_ENABLED,
                             type = PreferenceItemType.SWITCH,
                             supportingContent = {
@@ -180,15 +183,18 @@ class GetSettings(
                     },
                     if (hasWebsitesDescriptor && maxRuntimeEnabled) {
                         SettingsItem(
-                            title = Res.string.Settings_Websites_MaxRuntime_New,
+                            title = Res.string.Settings_Websites_MaxRuntimeDuration,
                             key = SettingsKey.MAX_RUNTIME,
                             type = PreferenceItemType.INT,
                             supportingContent = {
                                 maxRuntime?.let {
-                                    Text(it.coerceAtLeast(0).seconds.shortFormat())
+                                    Text(it.coerceAtLeast(0).seconds.format(abbreviated = false))
                                 }
                             },
                             indentation = 1,
+                            valuePickerSupportContent = {
+                                Text(stringResource(Res.string.Settings_Websites_MaxRuntimeDuration_Unit))
+                            },
                         )
                     } else {
                         null
@@ -254,7 +260,7 @@ class GetSettings(
                 icon = Res.drawable.advanced,
                 title = Res.string.Settings_Advanced_Label,
                 route = PreferenceCategoryKey.ADVANCED,
-                settings = listOf(
+                settings = listOfNotNull<PreferenceItem>(
                     SettingsCategoryItem(
                         title = Res.string.Settings_Advanced_RecentLogs,
                         route = PreferenceCategoryKey.SEE_RECENT_LOGS,
@@ -269,21 +275,7 @@ class GetSettings(
                         key = SettingsKey.STORAGE_SIZE,
                         type = PreferenceItemType.BUTTON,
                         supportingContent = {
-                            var showDialog by remember { mutableStateOf(false) }
-                            if (showDialog) {
-                                ClearStorageDialog(
-                                    onClose = { showDialog = false },
-                                    fullReset = true,
-                                )
-                            }
-
-                            Text(
-                                storageUsed.formatDataUsage(),
-                                modifier = Modifier.combinedClickable(
-                                    onClick = {},
-                                    onLongClick = { showDialog = true },
-                                ),
-                            )
+                            Text(storageUsed.formatDataUsage())
                         },
                         trailingContent = {
                             var showDialog by remember { mutableStateOf(false) }
@@ -303,6 +295,26 @@ class GetSettings(
                         key = SettingsKey.WARN_VPN_IN_USE,
                         type = PreferenceItemType.SWITCH,
                     ),
+                    if (isCleanUpRequired() && cleanupLegacyDirectories != null) {
+                        SettingsItem(
+                            title = Res.string.Settings_Legacy_Storage,
+                            key = SettingsKey.CLEAR_LEGACY_DIRECTORIES,
+                            type = PreferenceItemType.BUTTON,
+                            trailingContent = {
+                                var showDialog by remember { mutableStateOf(false) }
+                                if (showDialog) {
+                                    ClearLegacyDirectoriesDialog(onClose = { showDialog = false })
+                                }
+                                Button(
+                                    onClick = { showDialog = true },
+                                ) {
+                                    Text(stringResource(Res.string.Settings_Storage_Clear))
+                                }
+                            },
+                        )
+                    } else {
+                        null
+                    },
                 ),
             ),
             SettingsCategoryItem(
@@ -317,7 +329,6 @@ class GetSettings(
                 route = PreferenceCategoryKey.ABOUT_OONI,
             ),
         )
-    }
 
     @Composable
     private fun ClearStorageDialog(
@@ -346,6 +357,41 @@ class GetSettings(
                     },
                 ) {
                     Text(stringResource(Res.string.Modal_Delete))
+                }
+            },
+            dismissButton = {
+                OutlinedButton(
+                    onClick = { onClose() },
+                ) {
+                    Text(stringResource(Res.string.Modal_Cancel))
+                }
+            },
+        )
+    }
+
+    @Composable
+    private fun ClearLegacyDirectoriesDialog(onClose: () -> Unit) {
+        val coroutine = rememberCoroutineScope()
+        AlertDialog(
+            onDismissRequest = { onClose() },
+            text = { Text(stringResource(Res.string.Modal_Clear_Legacy_Directories)) },
+            confirmButton = {
+                var enabled by remember { mutableStateOf(true) }
+                Button(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error,
+                        contentColor = MaterialTheme.colorScheme.onError,
+                    ),
+                    enabled = enabled,
+                    onClick = {
+                        enabled = false
+                        coroutine.launch {
+                            cleanupLegacyDirectories?.invoke()
+                            onClose()
+                        }
+                    },
+                ) {
+                    Text(stringResource(Res.string.Settings_Storage_Clear))
                 }
             },
             dismissButton = {

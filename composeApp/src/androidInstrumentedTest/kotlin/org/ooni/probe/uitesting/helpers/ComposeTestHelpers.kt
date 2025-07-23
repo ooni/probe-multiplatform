@@ -86,8 +86,7 @@ fun ComposeTestRule.checkSummaryInsideWebView(text: String) {
         onWebView()
             .withElement(
                 findElement(Locator.CSS_SELECTOR, "*[data-test-id=\"common-summary\"]"),
-            )
-            .check(webMatches(getText(), containsString(text)))
+            ).check(webMatches(getText(), containsString(text)))
     }
 }
 

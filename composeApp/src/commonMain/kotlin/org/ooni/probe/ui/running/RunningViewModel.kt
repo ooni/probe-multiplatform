@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.ooni.probe.data.models.ProxySettings
@@ -33,25 +34,26 @@ class RunningViewModel(
             val proxy = getProxySettings().getProxyString()
             _state.update { it.copy(hasProxy = proxy.isNotEmpty()) }
         }
+
         observeRunBackgroundState
-            .onEach { testRunState ->
-                if (testRunState is RunBackgroundState.Idle) {
-                    if (testRunState.justFinishedTest) {
-                        goToResults()
-                    } else {
-                        onBack()
-                    }
-                    return@onEach
-                }
-                _state.update { it.copy(runBackgroundState = testRunState) }
-            }
+            .onEach { testRunState -> _state.update { it.copy(runBackgroundState = testRunState) } }
             .launchIn(viewModelScope)
+
+        observeRunBackgroundState
+            .filterIsInstance<RunBackgroundState.Idle>()
+            .take(1)
+            .onEach { testRunState ->
+                if (testRunState.justFinishedTest) {
+                    goToResults()
+                } else {
+                    onBack()
+                }
+            }.launchIn(viewModelScope)
 
         observeTestRunErrors
             .onEach { error ->
                 _state.update { it.copy(testRunErrors = it.testRunErrors + error) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.BackClicked>()
@@ -67,8 +69,7 @@ class RunningViewModel(
             .filterIsInstance<Event.ErrorDisplayed>()
             .onEach { event ->
                 _state.update { it.copy(testRunErrors = it.testRunErrors - event.error) }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -86,6 +87,8 @@ class RunningViewModel(
 
         data object StopTestClicked : Event
 
-        data class ErrorDisplayed(val error: TestRunError) : Event
+        data class ErrorDisplayed(
+            val error: TestRunError,
+        ) : Event
     }
 }

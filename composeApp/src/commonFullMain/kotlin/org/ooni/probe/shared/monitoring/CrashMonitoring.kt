@@ -16,7 +16,8 @@ class CrashMonitoring(
     private val platformInfo: PlatformInfo,
 ) {
     suspend fun setup() {
-        preferencesRepository.getValueByKey(SettingsKey.SEND_CRASH)
+        preferencesRepository
+            .getValueByKey(SettingsKey.SEND_CRASH)
             .onEach { sendCrash ->
                 if (sendCrash == true) {
                     Sentry.init {
@@ -27,8 +28,7 @@ class CrashMonitoring(
                 } else {
                     Sentry.close()
                 }
-            }
-            .collect()
+            }.collect()
     }
 
     val logWriter = object : LogWriter() {

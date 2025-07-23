@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
+import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.models.DOMAIN_NAME
 import org.ooni.probe.data.models.IPV6_ADDRESS
 import org.ooni.probe.data.models.IP_ADDRESS
@@ -21,21 +22,27 @@ import org.ooni.probe.data.repositories.PreferenceRepository
 class ProxyViewModel(
     onBack: () -> Unit,
     private val preferenceManager: PreferenceRepository,
+    private val proxyConfig: ProxyConfig,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val _state = MutableStateFlow(State(proxyProtocol = ProxyProtocol.NONE))
+    private val _state = MutableStateFlow(
+        State(
+            proxyProtocol = ProxyProtocol.NONE,
+            supportedProxyTypes = proxyConfig.getSupportedProxyTypes(),
+        ),
+    )
     val state = _state.asStateFlow()
 
     init {
-        preferenceManager.allSettings(
-            listOf(
-                SettingsKey.PROXY_HOSTNAME,
-                SettingsKey.PROXY_PORT,
-                SettingsKey.PROXY_PROTOCOL,
-            ),
-        )
-            .take(1)
+        preferenceManager
+            .allSettings(
+                listOf(
+                    SettingsKey.PROXY_HOSTNAME,
+                    SettingsKey.PROXY_PORT,
+                    SettingsKey.PROXY_PROTOCOL,
+                ),
+            ).take(1)
             .onEach { result ->
                 _state.update {
                     val proxyProtocol = ProxyProtocol.fromValue(
@@ -48,8 +55,7 @@ class ProxyViewModel(
                         proxyType = proxyProtocol.proxyType(),
                     )
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ProtocolTypeSelected>()
@@ -80,32 +86,28 @@ class ProxyViewModel(
                     )
                 }
                 validateStateAndSave()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ProtocolChanged>()
             .onEach { event ->
                 _state.update { it.copy(proxyProtocol = event.protocol) }
                 validateStateAndSave()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ProxyHostChanged>()
             .onEach { event ->
                 _state.update { it.copy(proxyHost = event.host) }
                 validateStateAndSave()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ProxyPortChanged>()
             .onEach { event ->
                 _state.update { it.copy(proxyPort = event.port) }
                 validateStateAndSave()
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.BackClicked>()
@@ -113,8 +115,7 @@ class ProxyViewModel(
                 if (validateStateAndSave()) {
                     onBack()
                 }
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -168,11 +169,10 @@ class ProxyViewModel(
         return portInt in 1..65535
     }
 
-    private fun isValidDomainNameOrIp(host: String): Boolean {
-        return host.matches(IP_ADDRESS.toRegex()) ||
+    private fun isValidDomainNameOrIp(host: String): Boolean =
+        host.matches(IP_ADDRESS.toRegex()) ||
             host.matches(IPV6_ADDRESS.toRegex()) ||
             host.matches(DOMAIN_NAME.toRegex())
-    }
 
     data class State(
         val proxyHost: String? = null,
@@ -182,17 +182,26 @@ class ProxyViewModel(
         val proxyProtocol: ProxyProtocol,
         val proxyProtocolError: Boolean = false,
         val proxyType: ProxyType = proxyProtocol.proxyType(),
+        val supportedProxyTypes: List<ProxyType> = ProxyType.entries,
     )
 
     sealed interface Event {
         data object BackClicked : Event
 
-        data class ProtocolTypeSelected(val protocolType: ProxyType) : Event
+        data class ProtocolTypeSelected(
+            val protocolType: ProxyType,
+        ) : Event
 
-        data class ProtocolChanged(val protocol: ProxyProtocol) : Event
+        data class ProtocolChanged(
+            val protocol: ProxyProtocol,
+        ) : Event
 
-        data class ProxyHostChanged(val host: String) : Event
+        data class ProxyHostChanged(
+            val host: String,
+        ) : Event
 
-        data class ProxyPortChanged(val port: String) : Event
+        data class ProxyPortChanged(
+            val port: String,
+        ) : Event
     }
 }

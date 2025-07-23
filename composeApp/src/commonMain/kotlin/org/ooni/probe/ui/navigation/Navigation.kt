@@ -315,7 +315,9 @@ fun Navigation(
         composable<Screen.ReviewUpdates> { entry ->
             val viewModel = viewModel {
                 dependencies.reviewUpdatesViewModel(
-                    descriptorIds = entry.toRoute<Screen.ReviewUpdates>().descriptorIds
+                    descriptorIds = entry
+                        .toRoute<Screen.ReviewUpdates>()
+                        .descriptorIds
                         ?.map(InstalledTestDescriptorModel::Id),
                     onBack = { navController.goBack() },
                 )
@@ -345,7 +347,7 @@ fun Navigation(
 private fun NavController.goBack() {
     if (!isStarted()) return
     if (!popBackStack()) {
-        navigateToMainScreen(START_SCREEN)
+        navigateToMainScreenUnchecked(START_SCREEN)
     }
 }
 
@@ -355,7 +357,7 @@ private fun NavController.goBackTo(
 ) {
     if (!isStarted()) return
     if (!popBackStack(screen, inclusive = inclusive)) {
-        navigateToMainScreen(START_SCREEN)
+        navigateToMainScreenUnchecked(START_SCREEN)
     }
 }
 
@@ -368,7 +370,7 @@ private fun NavController.goBackAndNavigate(screen: Screen) {
 private fun NavController.goBackAndNavigateToMain(screen: Screen) {
     if (!isStarted()) return
     popBackStack()
-    navigateToMainScreen(screen)
+    navigateToMainScreenUnchecked(screen)
 }
 
 fun NavController.safeNavigate(screen: Screen) {
@@ -377,10 +379,18 @@ fun NavController.safeNavigate(screen: Screen) {
 }
 
 private fun NavController.isStarted() =
-    setOf(Lifecycle.State.STARTED, Lifecycle.State.RESUMED)
-        .contains(currentBackStackEntry?.lifecycle?.currentState)
+    currentBackStackEntry.let {
+        it == null ||
+            setOf(Lifecycle.State.STARTED, Lifecycle.State.RESUMED)
+                .contains(it.lifecycle.currentState)
+    }
 
 fun NavController.navigateToMainScreen(screen: Screen) {
+    if (!isStarted()) return
+    navigateToMainScreenUnchecked(screen)
+}
+
+private fun NavController.navigateToMainScreenUnchecked(screen: Screen) {
     navigate(screen) {
         // Pop up to the start destination of the graph to
         // avoid building up a large stack of destinations

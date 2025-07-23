@@ -68,7 +68,7 @@ fun ProxyScreen(
             },
         )
         Column(Modifier.selectableGroup()) {
-            ProxyType.entries.forEach { text ->
+            state.supportedProxyTypes.forEach { text ->
                 Row(
                     Modifier
                         .fillMaxWidth()
@@ -79,8 +79,7 @@ fun ProxyScreen(
                                 onEvent(ProxyViewModel.Event.ProtocolTypeSelected(protocolType = text))
                             },
                             role = Role.RadioButton,
-                        )
-                        .padding(horizontal = 16.dp),
+                        ).padding(horizontal = 16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     RadioButton(

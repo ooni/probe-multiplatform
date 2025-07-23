@@ -9,4 +9,5 @@ plugins {
     alias(libs.plugins.cocoapods) apply false
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.conveyor) apply false
+    alias(libs.plugins.javafx) apply false
 }

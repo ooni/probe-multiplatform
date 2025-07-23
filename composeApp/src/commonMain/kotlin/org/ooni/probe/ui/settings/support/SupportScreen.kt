@@ -102,8 +102,7 @@ fun SupportScreen(
                         value = includeLogs,
                         onValueChange = { includeLogs = it },
                         role = Role.Switch,
-                    )
-                    .padding(vertical = 8.dp),
+                    ).padding(vertical = 8.dp),
             ) {
                 Text(
                     stringResource(Res.string.Settings_Support_IncludeLogs),
@@ -125,7 +124,8 @@ fun SupportScreen(
                     }
                 },
                 enabled = text.isNotBlank(),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(top = 16.dp)
                     .defaultMinSize(minHeight = 48.dp),
             ) {

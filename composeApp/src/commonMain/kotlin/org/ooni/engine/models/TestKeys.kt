@@ -94,8 +94,12 @@ data class TestKeys(
         val total: Boolean = false,
     ) {
         val value
-            get() = headerFieldName || headerFieldNumber || headerFieldValue ||
-                headerNameCapitalization || requestLineCapitalization || total
+            get() = headerFieldName ||
+                headerFieldNumber ||
+                headerFieldValue ||
+                headerNameCapitalization ||
+                requestLineCapitalization ||
+                total
     }
 
     companion object {
@@ -112,7 +116,8 @@ object TamperingSerializer : KSerializer<TestKeys.Tampering> {
                 TestKeys.Tampering(element.booleanOrNull == true)
 
             is JsonObject -> {
-                val keys = Dependencies.buildJson()
+                val keys = Dependencies
+                    .buildJson()
                     .decodeFromJsonElement<TestKeys.TamperingKeys>(element)
                 TestKeys.Tampering(keys.value)
             }

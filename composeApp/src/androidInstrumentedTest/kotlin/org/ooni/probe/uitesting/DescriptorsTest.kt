@@ -86,7 +86,10 @@ class DescriptorsTest {
                     .performScrollToNode(hasText("Android instrumented tests"))
                 onNodeWithText("Testing").assertIsDisplayed()
 
-                val descriptor = dependencies.getTestDescriptors.latest().first().last()
+                val descriptor = dependencies.getTestDescriptors
+                    .latest()
+                    .first()
+                    .last()
                 assertEquals("Testing", descriptor.name)
 
                 val test = descriptor.netTests.first()
@@ -95,7 +98,8 @@ class DescriptorsTest {
                 clickOnText("Android instrumented tests")
                 clickOnText(Res.string.Dashboard_Runv2_Overview_UninstallLink)
 
-                onAllNodesWithText(Res.string.Dashboard_Runv2_Overview_UninstallLink).onLast()
+                onAllNodesWithText(Res.string.Dashboard_Runv2_Overview_UninstallLink)
+                    .onLast()
                     .performClick()
 
                 onNodeWithText("Testing").assertIsNotDisplayed()

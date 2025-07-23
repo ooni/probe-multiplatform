@@ -27,7 +27,8 @@ open class SettingsViewModel(
             .onEach { _state.value = State(it) }
             .launchIn(viewModelScope)
 
-        events.filterIsInstance<Event.SettingsCategoryClick>()
+        events
+            .filterIsInstance<Event.SettingsCategoryClick>()
             .onEach {
                 when (it.category) {
                     PreferenceCategoryKey.LANGUAGE -> openAppLanguageSettings()
@@ -45,6 +46,8 @@ open class SettingsViewModel(
     )
 
     sealed interface Event {
-        data class SettingsCategoryClick(val category: PreferenceCategoryKey) : Event
+        data class SettingsCategoryClick(
+            val category: PreferenceCategoryKey,
+        ) : Event
     }
 }

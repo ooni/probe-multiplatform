@@ -1,6 +1,7 @@
 package org.ooni.probe.ui.result
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
@@ -18,11 +20,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,6 +42,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,7 +51,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Common_Back
+import ooniprobe.composeapp.generated.resources.Common_Next
+import ooniprobe.composeapp.generated.resources.Common_Previous
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_ReRun_Title
 import ooniprobe.composeapp.generated.resources.Modal_ReRun_Websites_Run
@@ -92,10 +101,11 @@ import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Single
 import org.ooni.probe.ui.results.UploadResults
 import org.ooni.probe.ui.shared.TopBar
+import org.ooni.probe.ui.shared.VerticalScrollbar
+import org.ooni.probe.ui.shared.format
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.longFormat
-import org.ooni.probe.ui.shared.shortFormat
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -110,7 +120,13 @@ fun ResultScreen(
         val onDescriptorColor = LocalCustomColors.current.onDescriptor
         TopBar(
             title = {
-                Text(state.result?.descriptor?.title?.invoke().orEmpty())
+                Text(
+                    state.result
+                        ?.descriptor
+                        ?.title
+                        ?.invoke()
+                        .orEmpty(),
+                )
             },
             navigationIcon = {
                 IconButton(
@@ -148,53 +164,61 @@ fun ResultScreen(
         if (state.result == null) return@Column
         val showSummary = !isHeightCompact()
 
-        LazyColumn(
-            contentPadding = WindowInsets.navigationBars.asPaddingValues(),
-        ) {
-            if (showSummary) {
-                item("summary") {
-                    Surface(
-                        color = descriptorColor,
-                        contentColor = onDescriptorColor,
-                    ) {
-                        Summary(state.result)
+        Box {
+            val lazyListState = rememberLazyListState()
+            LazyColumn(
+                contentPadding = WindowInsets.navigationBars.asPaddingValues(),
+                state = lazyListState,
+            ) {
+                if (showSummary) {
+                    item("summary") {
+                        Surface(
+                            color = descriptorColor,
+                            contentColor = onDescriptorColor,
+                        ) {
+                            Summary(state.result)
+                        }
+                    }
+                }
+
+                if (state.result.anyMeasurementMissingUpload) {
+                    stickyHeader("upload_results") {
+                        UploadResults(onUploadClick = { onEvent(ResultViewModel.Event.UploadClicked) })
+                    }
+                }
+
+                items(state.groupedMeasurements, key = { item ->
+                    when (item) {
+                        is Group -> item.test.name
+                        is Single -> item.measurement.measurement.idOrThrow.value
+                    }
+                }) { item ->
+                    when (item) {
+                        is Group -> {
+                            ResultGroupMeasurementCell(
+                                item = item,
+                                isResultDone = state.result.result.isDone,
+                                onClick = { onEvent(ResultViewModel.Event.MeasurementClicked(it)) },
+                                onDropdownToggled = {
+                                    onEvent(ResultViewModel.Event.MeasurementGroupToggled(item))
+                                },
+                            )
+                        }
+
+                        is Single -> {
+                            ResultMeasurementCell(
+                                item = item.measurement,
+                                isResultDone = state.result.result.isDone,
+                                onClick = { onEvent(ResultViewModel.Event.MeasurementClicked(it)) },
+                            )
+                        }
                     }
                 }
             }
-
-            if (state.result.anyMeasurementMissingUpload) {
-                stickyHeader("upload_results") {
-                    UploadResults(onUploadClick = { onEvent(ResultViewModel.Event.UploadClicked) })
-                }
-            }
-
-            items(state.groupedMeasurements, key = { item ->
-                when (item) {
-                    is Group -> item.test.name
-                    is Single -> item.measurement.measurement.idOrThrow.value
-                }
-            }) { item ->
-                when (item) {
-                    is Group -> {
-                        ResultGroupMeasurementCell(
-                            item = item,
-                            isResultDone = state.result.result.isDone,
-                            onClick = { onEvent(ResultViewModel.Event.MeasurementClicked(it)) },
-                            onDropdownToggled = {
-                                onEvent(ResultViewModel.Event.MeasurementGroupToggled(item))
-                            },
-                        )
-                    }
-
-                    is Single -> {
-                        ResultMeasurementCell(
-                            item = item.measurement,
-                            isResultDone = state.result.result.isDone,
-                            onClick = { onEvent(ResultViewModel.Event.MeasurementClicked(it)) },
-                        )
-                    }
-                }
-            }
+            VerticalScrollbar(
+                state = lazyListState,
+                modifier = Modifier.align(Alignment.CenterEnd),
+            )
         }
     }
 
@@ -212,34 +236,77 @@ private fun Summary(item: ResultItem) {
     val summaryType = item.descriptor.summaryType
     val pages = summaryType.summaryPages
     val pagerState = rememberPagerState(pageCount = pages::size)
+    val coroutineScope = rememberCoroutineScope()
 
     Box {
-        HorizontalPager(
-            state = pagerState,
-            verticalAlignment = Alignment.Top,
-            modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
-                .defaultMinSize(minHeight = 128.dp),
-        ) { pageIndex ->
-            pages[pageIndex](item)
-        }
-        Row(
-            Modifier.wrapContentHeight().fillMaxWidth().align(Alignment.BottomCenter)
-                .padding(bottom = 8.dp),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            repeat(pagerState.pageCount) { index ->
-                Box(
-                    modifier = Modifier.padding(horizontal = 8.dp).padding(bottom = 8.dp)
-                        .alpha(if (pagerState.currentPage == index) 1f else 0.33f).clip(CircleShape)
-                        .background(LocalContentColor.current).size(12.dp),
-                )
-            }
-        }
         Icon(
             painterResource(Res.drawable.ooni_bw),
             contentDescription = null,
             modifier = Modifier.align(Alignment.BottomEnd).offset(x = 18.dp, y = 18.dp),
         )
+        HorizontalPager(
+            state = pagerState,
+            verticalAlignment = Alignment.Top,
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .defaultMinSize(minHeight = 128.dp),
+        ) { pageIndex ->
+            pages[pageIndex](item)
+        }
+        Row(
+            Modifier
+                .wrapContentHeight()
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter),
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            repeat(pagerState.pageCount) { index ->
+                Box(
+                    modifier = Modifier
+                        .clickable {
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(index)
+                            }
+                        }.padding(16.dp)
+                        .alpha(if (pagerState.currentPage == index) 1f else 0.33f)
+                        .clip(CircleShape)
+                        .background(LocalContentColor.current)
+                        .size(12.dp),
+                )
+            }
+        }
+        IconButton(
+            onClick = {
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(
+                        (pagerState.currentPage - 1).coerceAtLeast(0),
+                    )
+                }
+            },
+            enabled = pagerState.currentPage != 0,
+            modifier = Modifier.fillMaxHeight().align(Alignment.BottomStart),
+        ) {
+            Icon(
+                Icons.AutoMirrored.Default.KeyboardArrowLeft,
+                contentDescription = stringResource(Res.string.Common_Previous),
+            )
+        }
+        IconButton(
+            onClick = {
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(
+                        (pagerState.currentPage + 1).coerceAtMost(pagerState.pageCount - 1),
+                    )
+                }
+            },
+            enabled = pagerState.currentPage != pagerState.pageCount - 1,
+            modifier = Modifier.fillMaxHeight().align(Alignment.BottomEnd),
+        ) {
+            Icon(
+                Icons.AutoMirrored.Default.KeyboardArrowRight,
+                contentDescription = stringResource(Res.string.Common_Next),
+            )
+        }
     }
 }
 
@@ -381,7 +448,7 @@ private fun SummaryDetails(item: ResultItem) {
                 modifier = labelModifier,
             )
             Text(
-                item.totalRuntime.shortFormat(),
+                item.totalRuntime.format(),
                 modifier = valueModifier,
             )
         }

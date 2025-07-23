@@ -1,6 +1,8 @@
 package org.ooni.probe.data.models
 
-enum class SettingsKey(val value: String) {
+enum class SettingsKey(
+    val value: String,
+) {
     // Test Options
     AUTOMATED_TESTING_ENABLED("automated_testing_enabled"),
     AUTOMATED_TESTING_WIFIONLY("automated_testing_wifionly"),
@@ -62,4 +64,6 @@ enum class SettingsKey(val value: String) {
     CHOSEN_WEBSITES("chosen_websites"),
 
     ROUTE("route"),
+
+    CLEAR_LEGACY_DIRECTORIES("clear_legacy_directories"),
 }

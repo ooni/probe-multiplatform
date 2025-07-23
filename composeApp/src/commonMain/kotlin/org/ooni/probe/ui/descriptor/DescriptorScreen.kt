@@ -50,8 +50,8 @@ import ooniprobe.composeapp.generated.resources.Common_Enable
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsites
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_ReviewUpdates
-import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Descriptor_LastTestResult
+import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_timer
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
@@ -70,7 +70,7 @@ import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.isHeightCompact
-import org.ooni.probe.ui.shared.shortFormat
+import org.ooni.probe.ui.shared.format
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -85,16 +85,20 @@ fun DescriptorScreen(
                 isRefreshing = state.isRefreshing,
                 onRefresh = { onEvent(DescriptorViewModel.Event.FetchUpdatedDescriptor) },
                 state = pullRefreshState,
-                enabled = state.descriptor?.source is Descriptor.Source.Installed,
-            )
-            .background(MaterialTheme.colorScheme.background),
+                enabled = state.isRefreshEnabled && state.canPullToRefresh,
+            ).background(MaterialTheme.colorScheme.background),
     ) {
         Column {
             val descriptorColor = state.descriptor?.color ?: MaterialTheme.colorScheme.primary
             val onDescriptorColor = LocalCustomColors.current.onDescriptor
             TopBar(
                 title = {
-                    Text(state.descriptor?.title?.invoke().orEmpty())
+                    Text(
+                        state.descriptor
+                            ?.title
+                            ?.invoke()
+                            .orEmpty(),
+                    )
                 },
                 navigationIcon = {
                     IconButton(onClick = { onEvent(DescriptorViewModel.Event.BackClicked) }) {
@@ -118,7 +122,7 @@ fun DescriptorScreen(
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
                     .padding(WindowInsets.navigationBars.asPaddingValues())
-                    .padding(bottom = 32.dp),
+                    .padding(bottom = 64.dp),
             ) {
                 val descriptor = state.descriptor ?: return
 
@@ -207,8 +211,7 @@ fun DescriptorScreen(
                             onClick = { onEvent(DescriptorViewModel.Event.AllChecked) },
                             role = Role.Checkbox,
                             enabled = state.isAutoRunEnabled,
-                        )
-                        .padding(horizontal = 8.dp, vertical = 12.dp),
+                        ).padding(horizontal = 8.dp, vertical = 12.dp),
                 ) {
                     TriStateCheckbox(
                         state = state.allState,
@@ -233,6 +236,7 @@ fun DescriptorScreen(
                 if (descriptor.source is Descriptor.Source.Installed) {
                     InstalledDescriptorActionsView(
                         descriptor = descriptor.source.value,
+                        showCheckUpdatesButton = !state.canPullToRefresh,
                         onEvent = onEvent,
                         modifier = Modifier.padding(horizontal = 16.dp),
                     )
@@ -270,7 +274,8 @@ private fun DescriptorDetails(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(8.dp),
         ) {
             if (!isHeightCompact()) {
@@ -297,50 +302,8 @@ private fun DescriptorDetails(
 
                 state.estimatedTime?.let { time ->
                     Text(
-                        text = "~ ${time.shortFormat()}",
+                        text = "~ ${time.format()}",
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(start = 8.dp),
-                    )
-                }
-            }
-
-            Row(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(top = 8.dp),
-            ) {
-                if (descriptor.name == "websites") {
-                    OutlinedButton(
-                        onClick = { onEvent(DescriptorViewModel.Event.ChooseWebsitesClicked) },
-                        border = ButtonDefaults
-                            .outlinedButtonBorder(enabled = true)
-                            .copy(brush = SolidColor(onDescriptorColor)),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = onDescriptorColor),
-                        modifier = Modifier
-                            .padding(end = 8.dp)
-                            .testTag("Choose-Websites"),
-                    ) {
-                        Text(stringResource(Res.string.Dashboard_Overview_ChooseWebsites))
-                    }
-                }
-
-                OutlinedButton(
-                    onClick = { onEvent(DescriptorViewModel.Event.RunClicked) },
-                    border = ButtonDefaults
-                        .outlinedButtonBorder(enabled = true)
-                        .copy(brush = SolidColor(descriptorColor)),
-                    colors = ButtonDefaults.outlinedButtonColors(
-                        contentColor = descriptorColor,
-                        containerColor = onDescriptorColor,
-                    ),
-                ) {
-                    Text(
-                        stringResource(Res.string.OONIRun_Run),
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-                    Icon(
-                        painterResource(Res.drawable.ic_timer),
-                        contentDescription = null,
                         modifier = Modifier.padding(start = 8.dp),
                     )
                 }
@@ -348,6 +311,48 @@ private fun DescriptorDetails(
 
             if (descriptor.isExpired) {
                 ExpiredChip()
+            } else {
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 8.dp),
+                ) {
+                    if (descriptor.name == "websites") {
+                        OutlinedButton(
+                            onClick = { onEvent(DescriptorViewModel.Event.ChooseWebsitesClicked) },
+                            border = ButtonDefaults
+                                .outlinedButtonBorder(enabled = true)
+                                .copy(brush = SolidColor(onDescriptorColor)),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = onDescriptorColor),
+                            modifier = Modifier
+                                .padding(end = 8.dp)
+                                .testTag("Choose-Websites"),
+                        ) {
+                            Text(stringResource(Res.string.Dashboard_Overview_ChooseWebsites))
+                        }
+                    }
+
+                    OutlinedButton(
+                        onClick = { onEvent(DescriptorViewModel.Event.RunClicked) },
+                        border = ButtonDefaults
+                            .outlinedButtonBorder(enabled = true)
+                            .copy(brush = SolidColor(descriptorColor)),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = descriptorColor,
+                            containerColor = onDescriptorColor,
+                        ),
+                    ) {
+                        Text(
+                            stringResource(Res.string.OONIRun_Run),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        Icon(
+                            painterResource(Res.drawable.ic_timer),
+                            contentDescription = null,
+                            modifier = Modifier.padding(start = 8.dp),
+                        )
+                    }
+                }
             }
 
             if (descriptor.updateStatus is UpdateStatus.Updatable) {
@@ -385,8 +390,7 @@ private fun TestItems(
                     onValueChange = { onEvent(DescriptorViewModel.Event.TestChecked(test, it)) },
                     role = Role.Checkbox,
                     enabled = enabled,
-                )
-                .padding(horizontal = 16.dp)
+                ).padding(horizontal = 16.dp)
                 .padding(vertical = 12.dp),
         ) {
             Checkbox(

@@ -19,8 +19,7 @@ class GetLastResultOfDescriptor(
                 lastResultId
                     ?.let(getResultById::invoke)
                     ?: flowOf(null)
-            }
-            .map { it?.toListItem() }
+            }.map { it?.toListItem() }
 
     private fun ResultItem.toListItem() =
         ResultListItem(

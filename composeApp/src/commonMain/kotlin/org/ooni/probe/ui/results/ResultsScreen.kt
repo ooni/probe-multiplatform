@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -41,17 +42,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.luminance
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDate.Companion.Format
 import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
+import kotlinx.datetime.format.Padding
 import kotlinx.datetime.format.char
+import kotlinx.datetime.minus
+import ooniprobe.composeapp.generated.resources.Common_Ago
+import ooniprobe.composeapp.generated.resources.Common_Days
+import ooniprobe.composeapp.generated.resources.Common_Today
 import ooniprobe.composeapp.generated.resources.Common_Yes
+import ooniprobe.composeapp.generated.resources.Common_Yesterday
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
@@ -87,8 +95,10 @@ import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.shared.stringMonthArrayResource
+import org.ooni.probe.shared.today
 import org.ooni.probe.ui.shared.LightStatusBars
 import org.ooni.probe.ui.shared.TopBar
+import org.ooni.probe.ui.shared.VerticalScrollbar
 import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
 
@@ -198,8 +208,7 @@ fun ResultsScreen(
                                 onEvent(ResultsViewModel.Event.ToggleSelection)
                             },
                             role = Role.Checkbox,
-                        )
-                        .padding(8.dp),
+                        ).padding(8.dp),
                 ) {
                     TriStateCheckbox(
                         state = toggleState,
@@ -244,64 +253,73 @@ fun ResultsScreen(
                 UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
             }
 
-            LazyColumn {
-                state.results.forEach { (date, results) ->
-                    stickyHeader(key = date.toString()) {
-                        ResultDateHeader(date)
-                    }
-                    items(items = results) { result ->
-                        val isSelected = result.isSelected
-                        ResultCell(
-                            item = result.item,
-                            onResultClick = {
-                                if (state.selectionEnabled) {
+            Box {
+                val lazyListState = rememberLazyListState()
+                LazyColumn(state = lazyListState) {
+                    state.results.forEach { (date, results) ->
+                        stickyHeader(key = date.toString()) {
+                            ResultDateHeader(date)
+                            HorizontalDivider(thickness = Dp.Hairline)
+                        }
+                        items(items = results) { result ->
+                            val isSelected = result.isSelected
+                            ResultCell(
+                                item = result.item,
+                                onResultClick = {
+                                    if (state.selectionEnabled) {
+                                        onEvent(
+                                            ResultsViewModel.Event.ToggleItemSelection(
+                                                result.item,
+                                                !isSelected,
+                                            ),
+                                        )
+                                    } else {
+                                        onEvent(ResultsViewModel.Event.ResultClick(result.item))
+                                    }
+                                },
+                                isSelected = isSelected,
+                                onSelectChange = { checked ->
                                     onEvent(
                                         ResultsViewModel.Event.ToggleItemSelection(
                                             result.item,
-                                            !isSelected,
+                                            checked,
                                         ),
                                     )
-                                } else {
-                                    onEvent(ResultsViewModel.Event.ResultClick(result.item))
-                                }
-                            },
-                            isSelected = isSelected,
-                            onSelectChange = { checked ->
-                                onEvent(
-                                    ResultsViewModel.Event.ToggleItemSelection(
-                                        result.item,
-                                        checked,
-                                    ),
-                                )
-                            },
-                            onLongClick = {
-                                if (!isSelected) {
-                                    onEvent(
-                                        ResultsViewModel.Event.ToggleItemSelection(
-                                            result.item,
-                                            true,
-                                        ),
-                                    )
-                                }
-                            },
-                        )
-                        HorizontalDivider(thickness = with(LocalDensity.current) { 1.toDp() })
+                                },
+                                onLongClick = {
+                                    if (!isSelected) {
+                                        onEvent(
+                                            ResultsViewModel.Event.ToggleItemSelection(
+                                                result.item,
+                                                true,
+                                            ),
+                                        )
+                                    }
+                                },
+                            )
+                            HorizontalDivider(thickness = Dp.Hairline)
+                        }
+                    }
+                    if (state.areResultsLimited) {
+                        item("limited") {
+                            Text(
+                                text = stringResource(
+                                    Res.string.Results_LimitedNotice,
+                                    state.filter.limit,
+                                ),
+                                style = MaterialTheme.typography.labelLarge,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp, vertical = 24.dp),
+                            )
+                        }
                     }
                 }
-                if (state.areResultsLimited) {
-                    item("limited") {
-                        Text(
-                            text = stringResource(
-                                Res.string.Results_LimitedNotice,
-                                state.filter.limit,
-                            ),
-                            style = MaterialTheme.typography.labelLarge,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 24.dp),
-                        )
-                    }
-                }
+                VerticalScrollbar(
+                    state = lazyListState,
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                )
             }
         }
     }
@@ -492,13 +510,32 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
 private fun ResultDateHeader(date: LocalDate) {
     val monthNames = stringMonthArrayResource()
     Text(
-        date.format(
-            Format {
-                monthName(MonthNames(monthNames))
-                char(' ')
-                year()
-            },
-        ),
+        when {
+            date == LocalDate.today() ->
+                stringResource(Res.string.Common_Today)
+
+            date == LocalDate.today().minus(1, DateTimeUnit.DAY) ->
+                stringResource(Res.string.Common_Yesterday)
+
+            date >= LocalDate.today().minus(5, DateTimeUnit.DAY) -> {
+                val daysDiff = (date - LocalDate.today().minus(5, DateTimeUnit.DAY)).days
+                stringResource(
+                    Res.string.Common_Ago,
+                    pluralStringResource(Res.plurals.Common_Days, daysDiff, daysDiff),
+                )
+            }
+
+            else ->
+                date.format(
+                    Format {
+                        day(Padding.NONE)
+                        char(' ')
+                        monthName(MonthNames(monthNames))
+                        char(' ')
+                        year()
+                    },
+                )
+        },
         style = MaterialTheme.typography.labelLarge,
         modifier = Modifier
             .fillMaxWidth()

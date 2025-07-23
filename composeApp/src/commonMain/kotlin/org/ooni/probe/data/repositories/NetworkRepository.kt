@@ -23,13 +23,13 @@ class NetworkRepository(
         withContext(backgroundContext) {
             database.transactionWithResult {
                 if (model.id == null) {
-                    database.networkQueries.selectByValues(
-                        network_name = model.networkName,
-                        asn = model.asn,
-                        country_code = model.countryCode,
-                        network_type = model.networkType?.value,
-                    )
-                        .executeAsOneOrNull()
+                    database.networkQueries
+                        .selectByValues(
+                            network_name = model.networkName,
+                            asn = model.asn,
+                            country_code = model.countryCode,
+                            network_type = model.networkType?.value,
+                        ).executeAsOneOrNull()
                         ?.let { return@transactionWithResult NetworkModel.Id(it.id) }
                 }
 

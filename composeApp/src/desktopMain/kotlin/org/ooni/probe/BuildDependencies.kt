@@ -9,12 +9,14 @@ import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
+import org.ooni.probe.config.DesktopProxyConfig
 import org.ooni.probe.config.FlavorConfigInterface
 import org.ooni.probe.config.OptionalFeature
 import org.ooni.probe.data.buildDatabaseDriver
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.shared.LegacyDirectoryManager
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import java.awt.Desktop
@@ -24,6 +26,10 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
+private val osName = System.getProperty("os.name")
+private val platform = Platform.Desktop(osName)
+
+private val legacyDirectoryManager = LegacyDirectoryManager(platform.os)
 
 private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager(
     runBackgroundTaskProvider = { dependencies.runBackgroundTask },
@@ -48,11 +54,13 @@ val dependencies = Dependencies(
     launchAction = ::launchAction,
     batteryOptimization = object : BatteryOptimization {},
     isWebViewAvailable = { true },
+    isCleanUpRequired = legacyDirectoryManager::hasLegacyDirectories,
+    cleanupLegacyDirectories = legacyDirectoryManager::cleanupLegacyDirectories,
     flavorConfig = DesktopFlavorConfig(),
+    proxyConfig = DesktopProxyConfig(),
 )
 
 private fun buildPlatformInfo(): PlatformInfo {
-    val osName = System.getProperty("os.name")
     val osVersion = System.getProperty("os.version")
     val conveyorVersion = SoftwareUpdateController.getInstance()?.currentVersion
     val buildName = conveyorVersion?.version
@@ -63,13 +71,14 @@ private fun buildPlatformInfo(): PlatformInfo {
     return PlatformInfo(
         buildName = buildName,
         buildNumber = buildNumber,
-        platform = Platform.Desktop(osName),
+        platform = platform,
         osVersion = "$osName $osVersion",
         model = "",
         requestNotificationsPermission = false,
         knownBatteryState = false,
         knownNetworkType = false,
         supportsInAppLanguage = false,
+        canPullToRefresh = false,
         sentryDsn = "https://e33da707dc40ab9508198b62de9bc269@o155150.ingest.sentry.io/4509084408610816",
     )
 }
@@ -81,7 +90,10 @@ private fun readAssetFile(path: String): String {
 
 private fun buildDataStore() =
     PreferenceDataStoreFactory.create {
-        projectDirectories.dataDir.toPath().resolve("probe.preferences_pb").toFile()
+        projectDirectories.dataDir
+            .toPath()
+            .resolve("probe.preferences_pb")
+            .toFile()
     }
 
 private fun launchAction(action: PlatformAction): Boolean =
@@ -94,12 +106,10 @@ private fun launchAction(action: PlatformAction): Boolean =
         PlatformAction.LanguageSettings -> false
     }
 
-fun openVpnSettings(): Boolean {
-    return false
-}
+fun openVpnSettings(): Boolean = false
 
-fun shareText(action: PlatformAction.Share): Boolean {
-    return try {
+fun shareText(action: PlatformAction.Share): Boolean =
+    try {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
             val uri =
                 URI.create("mailto:?body=${URLEncoder.encode(action.text, StandardCharsets.UTF_8)}")
@@ -112,14 +122,18 @@ fun shareText(action: PlatformAction.Share): Boolean {
         Logger.e(e) { "Failed to share text" }
         false
     }
-}
 
 fun shareFile(action: PlatformAction.FileSharing): Boolean {
     return try {
-        if (Desktop.isDesktopSupported() && Desktop.getDesktop()
+        if (Desktop.isDesktopSupported() &&
+            Desktop
+                .getDesktop()
                 .isSupported(Desktop.Action.APP_OPEN_FILE)
         ) {
-            val file = projectDirectories.dataDir.toPath().resolve(action.filePath).toFile()
+            val file = projectDirectories.dataDir
+                .toPath()
+                .resolve(action.filePath)
+                .toFile()
             if (!file.exists()) {
                 Logger.w("File to share does not exist: $file")
                 return false
@@ -144,8 +158,8 @@ fun openUrl(action: PlatformAction.OpenUrl): Boolean {
     }
 }
 
-fun sendMail(action: PlatformAction.Mail): Boolean {
-    return try {
+fun sendMail(action: PlatformAction.Mail): Boolean =
+    try {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
             val mailUri = buildMailUri(action)
             Desktop.getDesktop().mail(mailUri)
@@ -157,11 +171,12 @@ fun sendMail(action: PlatformAction.Mail): Boolean {
         Logger.e(e) { "Failed to send mail" }
         false
     }
-}
 
 private fun buildMailUri(action: PlatformAction.Mail): URI {
     val subject = URLEncoder.encode(action.subject, StandardCharsets.UTF_8).replace("+", "%20")
-    val body = URLEncoder.encode(action.body, StandardCharsets.UTF_8).replace("+", "%20")
+    val body = URLEncoder
+        .encode(action.body, StandardCharsets.UTF_8)
+        .replace("+", "%20")
         .replace("%0A", "%0D%0A")
     return URI("mailto:${action.to}?subject=$subject&body=$body")
 }

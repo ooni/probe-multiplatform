@@ -20,7 +20,8 @@ class GetStorageUsed(
     private val storageUsed = MutableStateFlow<Long>(0)
 
     fun observe(): Flow<Long> =
-        storageUsed.asStateFlow()
+        storageUsed
+            .asStateFlow()
             .onStart { update() }
 
     suspend fun update(): Long {

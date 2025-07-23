@@ -74,8 +74,7 @@ class RunNetTest(
                 spec.netTest,
                 spec.taskOrigin,
                 installedDescriptorId,
-            )
-                .collect(::onEvent)
+            ).collect(::onEvent)
         }
     }
 
@@ -350,7 +349,10 @@ class RunNetTest(
         if (
             message.startsWith("cannot submit measurement") &&
             listOf(
-                "interrupted", "generic_timeout_error", "connection_aborted", "connection_reset",
+                "interrupted",
+                "generic_timeout_error",
+                "connection_aborted",
+                "connection_reset",
                 "eof_error",
             ).none { message.contains(it) }
         ) {
@@ -361,16 +363,24 @@ class RunNetTest(
             null
         }
 
-    open inner class Failure(message: String?, value: TaskEventResult.Value?) :
-        Exception(message ?: value?.let(json::encodeToString))
+    open inner class Failure(
+        message: String?,
+        value: TaskEventResult.Value?,
+    ) : Exception(message ?: value?.let(json::encodeToString))
 
-    inner class StartupFailure(message: String?, value: TaskEventResult.Value?) :
-        Failure(message, value)
+    inner class StartupFailure(
+        message: String?,
+        value: TaskEventResult.Value?,
+    ) : Failure(message, value)
 
-    inner class ResolverLookupFailure(message: String?, value: TaskEventResult.Value?) :
-        Failure(message, value)
+    inner class ResolverLookupFailure(
+        message: String?,
+        value: TaskEventResult.Value?,
+    ) : Failure(message, value)
 
-    inner class BugJsonDump(value: TaskEventResult.Value?) : Failure(null, value)
+    inner class BugJsonDump(
+        value: TaskEventResult.Value?,
+    ) : Failure(null, value)
 
     inner class CannotSubmitMeasurement : Failure(null, null)
 

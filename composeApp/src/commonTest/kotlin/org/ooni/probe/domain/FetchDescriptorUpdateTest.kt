@@ -1,7 +1,6 @@
 package org.ooni.probe.domain
 
 import kotlinx.coroutines.test.runTest
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.models.Success
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
@@ -14,6 +13,7 @@ import org.ooni.testing.factories.DescriptorFactory
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
 
 class FetchDescriptorUpdateTest {
@@ -41,7 +41,10 @@ class FetchDescriptorUpdateTest {
         runTest {
             val oldDescriptor = DescriptorFactory.buildInstalledModel(
                 autoUpdate = true,
-                dateUpdated = Clock.System.now().minus(1.days).toLocalDateTime(),
+                dateUpdated = Clock.System
+                    .now()
+                    .minus(1.days)
+                    .toLocalDateTime(),
             )
             val newDescriptor = oldDescriptor.copy(
                 revision = 2,
@@ -67,7 +70,10 @@ class FetchDescriptorUpdateTest {
         runTest {
             val oldDescriptor = DescriptorFactory.buildInstalledModel(
                 autoUpdate = false,
-                dateUpdated = Clock.System.now().minus(1.days).toLocalDateTime(),
+                dateUpdated = Clock.System
+                    .now()
+                    .minus(1.days)
+                    .toLocalDateTime(),
             )
             val newDescriptor = oldDescriptor.copy(
                 dateUpdated = LocalDateTime.now(),

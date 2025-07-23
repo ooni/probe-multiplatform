@@ -63,4 +63,6 @@ class CheckAutoRunConstraints(
     }
 }
 
-class SkipAutoRunException(message: String) : Exception(message)
+class SkipAutoRunException(
+    message: String,
+) : Exception(message)

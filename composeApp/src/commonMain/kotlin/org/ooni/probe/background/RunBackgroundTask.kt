@@ -129,13 +129,11 @@ class RunBackgroundTask(
                         state is RunBackgroundState.UploadingMissingResults ||
                         state is RunBackgroundState.Stopping ||
                         (state is RunBackgroundState.Idle && !testStarted)
-                }
-                .onEach { state ->
+                }.onEach { state ->
                     if (state is RunBackgroundState.Idle) return@onEach
                     testStarted = true
                     send(state)
-                }
-                .collect()
+                }.collect()
 
             runJob.await()
         }

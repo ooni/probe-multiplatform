@@ -20,7 +20,9 @@ import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
 import org.ooni.probe.background.RunBackgroundTask
 import org.ooni.probe.config.BatteryOptimization
+import org.ooni.probe.config.DefaultProxyConfig
 import org.ooni.probe.config.FlavorConfigInterface
+import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.DeleteFilesOkio
 import org.ooni.probe.data.disk.ReadFile
@@ -120,7 +122,7 @@ class Dependencies(
     private val readAssetFile: (String) -> String,
     private val databaseDriverFactory: () -> SqlDriver,
     private val networkTypeFinder: NetworkTypeFinder,
-    @VisibleForTesting
+    @get:VisibleForTesting
     val buildDataStore: () -> DataStore<Preferences>,
     private val getBatteryState: () -> BatteryState,
     val startSingleRunInner: (RunSpecification) -> Unit,
@@ -130,9 +132,12 @@ class Dependencies(
     val startDescriptorsUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
     private val isWebViewAvailable: () -> Boolean,
+    private val isCleanUpRequired: () -> Boolean = { false },
     val launchAction: (PlatformAction) -> Boolean,
+    val cleanupLegacyDirectories: (suspend () -> Boolean)? = null,
     private val batteryOptimization: BatteryOptimization,
     val flavorConfig: FlavorConfigInterface,
+    val proxyConfig: ProxyConfig = DefaultProxyConfig(),
 ) {
     // Common
 
@@ -352,6 +357,8 @@ class Dependencies(
             knownNetworkType = platformInfo.knownNetworkType,
             knownBatteryState = platformInfo.knownBatteryState,
             supportsInAppLanguage = platformInfo.supportsInAppLanguage,
+            isCleanUpRequired = isCleanUpRequired,
+            cleanupLegacyDirectories = cleanupLegacyDirectories,
         )
     }
 
@@ -541,6 +548,7 @@ class Dependencies(
         observeDescriptorUpdateState = descriptorUpdateStateManager::observe,
         getAutoRunSettings = getAutoRunSettings::invoke,
         batteryOptimization = batteryOptimization,
+        canPullToRefresh = platformInfo.canPullToRefresh,
     )
 
     fun descriptorViewModel(
@@ -567,6 +575,7 @@ class Dependencies(
         observeDescriptorsUpdateState = descriptorUpdateStateManager::observe,
         dismissDescriptorReviewNotice = dismissDescriptorReviewNotice::invoke,
         undoRejectedDescriptorUpdate = undoRejectedDescriptorUpdate::invoke,
+        canPullToRefresh = platformInfo.canPullToRefresh,
     )
 
     fun logViewModel(onBack: () -> Unit) =
@@ -588,9 +597,16 @@ class Dependencies(
         launchUrl = { launchAction(PlatformAction.OpenUrl(it)) },
         batteryOptimization = batteryOptimization,
         supportsCrashReporting = flavorConfig.isCrashReportingEnabled,
+        isCleanUpRequired = isCleanUpRequired,
+        cleanupLegacyDirectories = cleanupLegacyDirectories,
     )
 
-    fun proxyViewModel(onBack: () -> Unit) = ProxyViewModel(onBack, preferenceRepository)
+    fun proxyViewModel(onBack: () -> Unit) =
+        ProxyViewModel(
+            onBack = onBack,
+            preferenceManager = preferenceRepository,
+            proxyConfig = proxyConfig,
+        )
 
     fun resultsViewModel(
         goToResult: (ResultModel.Id) -> Unit,
@@ -757,11 +773,11 @@ class Dependencies(
             if (::dataStore.isInitialized) {
                 dataStore
             } else {
-                PreferenceDataStoreFactory.createWithPath(
-                    produceFile = { producePath().toPath() },
-                    migrations = migrations,
-                )
-                    .also { dataStore = it }
+                PreferenceDataStoreFactory
+                    .createWithPath(
+                        produceFile = { producePath().toPath() },
+                        migrations = migrations,
+                    ).also { dataStore = it }
             }
     }
 }

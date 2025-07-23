@@ -370,7 +370,9 @@ class AutomateScreenshotsTest {
             dependencies.bootstrapTestDescriptors()
             DatabaseHelper.setup()
 
-            val trustedDescriptor = dependencies.testDescriptorRepository.listLatest().first()
+            val trustedDescriptor = dependencies.testDescriptorRepository
+                .listLatest()
+                .first()
                 .first { it.id.value == "10004" }
             val trustedName = with(trustedDescriptor) { nameIntl?.getCurrent() ?: name }
 

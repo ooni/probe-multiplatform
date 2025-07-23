@@ -16,20 +16,32 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.SettingsKey
 
-sealed class PreferenceKey<T>(val preferenceKey: Preferences.Key<T>) {
-    class IntKey(preferenceKey: Preferences.Key<Int>) : PreferenceKey<Int>(preferenceKey)
+sealed class PreferenceKey<T>(
+    val preferenceKey: Preferences.Key<T>,
+) {
+    class IntKey(
+        preferenceKey: Preferences.Key<Int>,
+    ) : PreferenceKey<Int>(preferenceKey)
 
-    class StringKey(preferenceKey: Preferences.Key<String>) : PreferenceKey<String>(preferenceKey)
+    class StringKey(
+        preferenceKey: Preferences.Key<String>,
+    ) : PreferenceKey<String>(preferenceKey)
 
-    class StringSetKey(preferenceKey: Preferences.Key<Set<String>>) :
-        PreferenceKey<Set<String>>(preferenceKey)
+    class StringSetKey(
+        preferenceKey: Preferences.Key<Set<String>>,
+    ) : PreferenceKey<Set<String>>(preferenceKey)
 
-    class BooleanKey(preferenceKey: Preferences.Key<Boolean>) :
-        PreferenceKey<Boolean>(preferenceKey)
+    class BooleanKey(
+        preferenceKey: Preferences.Key<Boolean>,
+    ) : PreferenceKey<Boolean>(preferenceKey)
 
-    class FloatKey(preferenceKey: Preferences.Key<Float>) : PreferenceKey<Float>(preferenceKey)
+    class FloatKey(
+        preferenceKey: Preferences.Key<Float>,
+    ) : PreferenceKey<Float>(preferenceKey)
 
-    class LongKey(preferenceKey: Preferences.Key<Long>) : PreferenceKey<Long>(preferenceKey)
+    class LongKey(
+        preferenceKey: Preferences.Key<Long>,
+    ) : PreferenceKey<Long>(preferenceKey)
 }
 
 class PreferenceRepository(
@@ -54,9 +66,7 @@ class PreferenceRepository(
         name: String,
         prefix: String? = null,
         autoRun: Boolean = false,
-    ): String {
-        return "${prefix?.let { "${it}_" } ?: ""}${if (autoRun) "autorun_" else ""}$name"
-    }
+    ): String = "${prefix?.let { "${it}_" } ?: ""}${if (autoRun) "autorun_" else ""}$name"
 
     private fun preferenceKeyFromSettingsKey(
         key: SettingsKey,
@@ -86,23 +96,25 @@ class PreferenceRepository(
         prefix: String? = null,
         autoRun: Boolean = false,
     ): Flow<Map<SettingsKey, Any?>> =
-        dataStore.data.map {
-            keys.associateWith { key ->
-                it[preferenceKeyFromSettingsKey(key, prefix, autoRun).preferenceKey]
-            }
-        }.distinctUntilChanged()
+        dataStore.data
+            .map {
+                keys.associateWith { key ->
+                    it[preferenceKeyFromSettingsKey(key, prefix, autoRun).preferenceKey]
+                }
+            }.distinctUntilChanged()
 
     fun getValueByKey(key: SettingsKey): Flow<Any?> =
-        dataStore.data.map {
-            when (val preferenceKey = preferenceKeyFromSettingsKey(key)) {
-                is PreferenceKey.IntKey -> it[preferenceKey.preferenceKey]
-                is PreferenceKey.StringKey -> it[preferenceKey.preferenceKey]
-                is PreferenceKey.StringSetKey -> it[preferenceKey.preferenceKey]
-                is PreferenceKey.BooleanKey -> it[preferenceKey.preferenceKey]
-                is PreferenceKey.FloatKey -> it[preferenceKey.preferenceKey]
-                is PreferenceKey.LongKey -> it[preferenceKey.preferenceKey]
-            }
-        }.distinctUntilChanged()
+        dataStore.data
+            .map {
+                when (val preferenceKey = preferenceKeyFromSettingsKey(key)) {
+                    is PreferenceKey.IntKey -> it[preferenceKey.preferenceKey]
+                    is PreferenceKey.StringKey -> it[preferenceKey.preferenceKey]
+                    is PreferenceKey.StringSetKey -> it[preferenceKey.preferenceKey]
+                    is PreferenceKey.BooleanKey -> it[preferenceKey.preferenceKey]
+                    is PreferenceKey.FloatKey -> it[preferenceKey.preferenceKey]
+                    is PreferenceKey.LongKey -> it[preferenceKey.preferenceKey]
+                }
+            }.distinctUntilChanged()
 
     suspend fun setValueByKey(
         key: SettingsKey,
@@ -143,23 +155,25 @@ class PreferenceRepository(
         netTest: NetTest,
         isAutoRun: Boolean,
     ): Flow<Boolean> =
-        dataStore.data.map {
-            it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))]
-                ?: netTest.defaultPreferenceValue(isAutoRun)
-        }.distinctUntilChanged()
+        dataStore.data
+            .map {
+                it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))]
+                    ?: netTest.defaultPreferenceValue(isAutoRun)
+            }.distinctUntilChanged()
 
     fun areNetTestsEnabled(
         list: List<Pair<Descriptor, NetTest>>,
         isAutoRun: Boolean,
     ): Flow<Map<Pair<Descriptor, NetTest>, Boolean>> =
-        dataStore.data.map {
-            list.associate { (descriptor, netTest) ->
-                Pair(descriptor, netTest) to (
-                    it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))]
-                        ?: netTest.defaultPreferenceValue(isAutoRun)
-                )
-            }
-        }.distinctUntilChanged()
+        dataStore.data
+            .map {
+                list.associate { (descriptor, netTest) ->
+                    Pair(descriptor, netTest) to (
+                        it[booleanPreferencesKey(getNetTestKey(descriptor, netTest, isAutoRun))]
+                            ?: netTest.defaultPreferenceValue(isAutoRun)
+                    )
+                }
+            }.distinctUntilChanged()
 
     suspend fun setAreNetTestsEnabled(
         list: List<Pair<Descriptor, NetTest>>,
@@ -192,7 +206,10 @@ class PreferenceRepository(
     ) = getPreferenceKey(
         name = netTest.test.preferenceKey,
         prefix = (descriptor.source as? Descriptor.Source.Installed)
-            ?.value?.id?.value?.toString(),
+            ?.value
+            ?.id
+            ?.value
+            ?.toString(),
         autoRun = isAutoRun,
     )
 
@@ -217,12 +234,11 @@ class PreferenceRepository(
         dataStore.edit { it.remove(preferenceKeyFromSettingsKey(key).preferenceKey) }
     }
 
-    suspend fun contains(key: SettingsKey): Boolean {
-        return dataStore.data.map { it.contains(preferenceKeyFromSettingsKey(key).preferenceKey) }
+    suspend fun contains(key: SettingsKey): Boolean =
+        dataStore.data
+            .map { it.contains(preferenceKeyFromSettingsKey(key).preferenceKey) }
             .firstOrNull() ?: false
-    }
 
-    private fun NetTest.defaultPreferenceValue(isAutoRun: Boolean): Boolean {
-        return if (isAutoRun) test.isBackgroundRunEnabled else test.isManualRunEnabled
-    }
+    private fun NetTest.defaultPreferenceValue(isAutoRun: Boolean): Boolean =
+        if (isAutoRun) test.isBackgroundRunEnabled else test.isManualRunEnabled
 }

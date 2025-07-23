@@ -15,8 +15,8 @@ class FetchDescriptor(
     private val engineHttpDo: suspend (method: String, url: String, taskOrigin: TaskOrigin) -> Result<String?, MkException>,
     private val json: Json,
 ) {
-    suspend operator fun invoke(descriptorId: String): Result<InstalledTestDescriptorModel?, MkException> {
-        return engineHttpDo(
+    suspend operator fun invoke(descriptorId: String): Result<InstalledTestDescriptorModel?, MkException> =
+        engineHttpDo(
             "GET",
             "${OrganizationConfig.ooniApiBaseUrl}/api/v2/oonirun/links/$descriptorId",
             TaskOrigin.OoniRun,
@@ -33,5 +33,4 @@ class FetchDescriptor(
                 }
             } ?: throw MkException(Throwable("Failed to fetch descriptor"))
         }
-    }
 }

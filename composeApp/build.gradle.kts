@@ -16,6 +16,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.conveyor)
+    alias(libs.plugins.javafx)
 }
 
 val organization: String? by project
@@ -27,7 +28,12 @@ val appConfig = mapOf(
         folder = "dwMain",
         supportsOoniRun = false,
         supportedLanguages = listOf(
-            "de", "es", "fr", "pt-rBR", "ru", "tr",
+            "de",
+            "es",
+            "fr",
+            "pt-rBR",
+            "ru",
+            "tr",
         ),
     ),
     "ooni" to AppConfig(
@@ -36,13 +42,38 @@ val appConfig = mapOf(
         folder = "ooniMain",
         supportsOoniRun = true,
         supportedLanguages = listOf(
-            "ar", "ca", "de", "el", "es", "fa", "fr", "hi", "id", "is", "it", "my", "nl", "pt-rBR",
-            "ro", "ru", "sk", "sq", "sw", "th", "tr", "vi", "zh-rCN", "zh-rTW",
+            "ar",
+            "ca",
+            "de",
+            "el",
+            "es",
+            "fa",
+            "fr",
+            "hi",
+            "id",
+            "is",
+            "it",
+            "my",
+            "nl",
+            "pt-rBR",
+            "ro",
+            "ru",
+            "sk",
+            "sq",
+            "sw",
+            "th",
+            "tr",
+            "vi",
+            "zh-rCN",
+            "zh-rTW",
         ),
     ),
 )
 
 val config = appConfig[organization] ?: appConfig["ooni"]!!
+
+val javaFxParts = listOf("base", "graphics", "controls", "media", "web", "swing")
+val javaFxVersion = "17"
 
 kotlin {
     androidTarget {
@@ -64,7 +95,7 @@ kotlin {
     jvm("desktop")
     jvmToolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
-        vendor.set(JvmVendorSpec.JETBRAINS)
+        // vendor.set(JvmVendorSpec.JETBRAINS)
     }
 
     cocoapods {
@@ -82,8 +113,7 @@ kotlin {
 
         // See https://github.com/getsentry/sentry-kotlin-multiplatform?tab=readme-ov-file#cocoa-sdk-version-compatibility-table
         pod("Sentry") {
-            version = "8.49.0"
-            linkOnly = true
+            version = "8.53.2"
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
 
@@ -123,16 +153,13 @@ kotlin {
         }
         val desktopMain by getting {
             dependencies {
-                implementation(files("./src/desktopMain/libs/oonimkall.jar"))
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
 
                 // As JavaFX have platform-specific dependencies, we need to add them manually
-                val fxParts = listOf("base", "graphics", "controls", "media", "web", "swing")
-                val jvmVersion = 17
                 val fxSuffix = getJavaFxSuffix()
-                fxParts.forEach {
-                    implementation("org.openjfx:javafx-$it:$jvmVersion:$fxSuffix")
+                javaFxParts.forEach {
+                    implementation("org.openjfx:javafx-$it:$javaFxVersion:$fxSuffix")
                 }
             }
         }
@@ -153,7 +180,7 @@ kotlin {
             languageSettings {
                 optIn("kotlin.ExperimentalStdlibApi")
                 optIn("kotlin.io.encoding.ExperimentalEncodingApi")
-                optIn("kotlinx.cinterop.BetaInteropApi")
+                optIn("kotlin.time.ExperimentalTime")
                 optIn("kotlinx.cinterop.ExperimentalForeignApi")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 optIn("kotlinx.coroutines.FlowPreview")
@@ -170,17 +197,30 @@ kotlin {
     compilerOptions {
         // Common compiler options applied to all Kotlin source sets
         freeCompilerArgs.add("-Xexpect-actual-classes")
+        // Switch to future default rule: https://youtrack.jetbrains.com/issue/KT-73255
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
     }
+}
+
+javafx {
+    version = javaFxVersion
+    modules = javaFxParts.map { "javafx.$it" }
 }
 
 android {
     namespace = "org.ooni.probe"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = libs.versions.android.compileSdk
+        .get()
+        .toInt()
 
     defaultConfig {
         applicationId = config.appId
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk
+            .get()
+            .toInt()
+        targetSdk = libs.versions.android.targetSdk
+            .get()
+            .toInt()
         versionCode = 210 // Always increment by 10. See fdroid flavor below
         versionName = "5.1.0"
         resValue("string", "app_name", config.appName)
@@ -190,9 +230,11 @@ android {
             "supported_languages",
             config.supportedLanguages.joinToString(separator = ","),
         )
-        resourceConfigurations += config.supportedLanguages
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["clearPackageData"] = "true"
+    }
+    androidResources {
+        localeFilters += config.supportedLanguages
     }
     packaging {
         resources {
@@ -310,7 +352,10 @@ android {
     lint {
         warningsAsErrors = true
         disable += listOf(
-            "AndroidGradlePluginVersion", "NullSafeMutableLiveData", "ObsoleteLintCustomCheck",
+            "AndroidGradlePluginVersion",
+            "NullSafeMutableLiveData",
+            "ObsoleteLintCustomCheck",
+            "Aligned16KB",
         )
         lintConfig = file("lint.xml")
     }
@@ -360,7 +405,7 @@ compose.desktop {
             modules("java.sql", "jdk.unsupported")
 
             macOS {
-                minimumSystemVersion = "10.15.0"
+                minimumSystemVersion = "12.0.0"
                 // Hide dock icon
                 infoPlist {
                     extraKeysRawXml = """
@@ -390,6 +435,7 @@ configurations.all {
         attribute(Attribute.of("ui", String::class.java), "awt")
     }
 }
+// endregion
 
 version = android.defaultConfig.versionName ?: ""
 
@@ -546,14 +592,12 @@ fun copyRecursive(
             } else {
                 val destinationFile = File(to, file.name)
                 if (destinationFile.exists()) {
-                    println("Overwriting $destinationFile")
                     destinationFile.delete()
                 }
                 if (!destinationFile.parentFile.exists()) {
                     destinationFile.parentFile.mkdirs()
                 }
                 file.copyTo(destinationFile).also {
-                    println("Ignoring ${it.name}")
                     ignoreCopiedFileIfNotIgnored(
                         to.absolutePath + "/.gitignore",
                         it.name,
@@ -574,13 +618,15 @@ data class AppConfig(
     val supportedLanguages: List<String>,
 )
 
-fun isFdroidTaskRequested(): Boolean {
-    return gradle.startParameter.taskRequests.flatMap { it.args }.any { it.contains("Fdroid") }
-}
+fun isFdroidTaskRequested(): Boolean =
+    gradle.startParameter.taskRequests
+        .flatMap { it.args }
+        .any { it.contains("Fdroid") }
 
-fun isDebugTaskRequested(): Boolean {
-    return gradle.startParameter.taskRequests.flatMap { it.args }.any { it.contains("Debug") }
-}
+fun isDebugTaskRequested(): Boolean =
+    gradle.startParameter.taskRequests
+        .flatMap { it.args }
+        .any { it.contains("Debug") }
 
 fun getJavaFxSuffix(): String {
     val os = OperatingSystem.current()

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
@@ -31,6 +32,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.testTag
@@ -48,9 +50,11 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.PreferenceItemType
 import org.ooni.probe.data.models.SettingsCategoryItem
+import org.ooni.probe.data.models.SettingsItem
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TopBar
+import org.ooni.probe.ui.shared.VerticalScrollbar
 
 @Composable
 fun SettingsCategoryScreen(
@@ -60,7 +64,12 @@ fun SettingsCategoryScreen(
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
             title = {
-                Text(state.category?.title?.let { stringResource(it) }.orEmpty())
+                Text(
+                    state.category
+                        ?.title
+                        ?.let { stringResource(it) }
+                        .orEmpty(),
+                )
             },
             navigationIcon = {
                 IconButton(onClick = { onEvent(SettingsCategoryViewModel.Event.BackClicked) }) {
@@ -71,13 +80,13 @@ fun SettingsCategoryScreen(
                 }
             },
         )
+
         Box(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(WindowInsets.navigationBars.asPaddingValues()),
+            modifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
         ) {
+            val scrollState = rememberScrollState()
             val category = state.category ?: return
-            Column {
+            Column(Modifier.verticalScroll(scrollState)) {
                 category.settings?.forEach { preferenceItem ->
                     Box(
                         modifier = Modifier.padding(start = 32.dp * preferenceItem.indentation),
@@ -105,6 +114,8 @@ fun SettingsCategoryScreen(
                                 NumberPickerItem(
                                     title = preferenceItem.title,
                                     supportingContent = preferenceItem.supportingContent,
+                                    valuePickerSupportContent =
+                                        (preferenceItem as? SettingsItem)?.valuePickerSupportContent,
                                     enabled = preferenceItem.enabled,
                                     value = state.preferences[preferenceItem.key] as? Int,
                                     onChanged = {
@@ -153,6 +164,7 @@ fun SettingsCategoryScreen(
                     it.invoke()
                 }
             }
+            VerticalScrollbar(state = scrollState, modifier = Modifier.align(Alignment.CenterEnd))
         }
     }
 
@@ -206,8 +218,7 @@ fun SwitchSettingsView(
                 onValueChange = { onCheckedChange(key, it) },
                 enabled = enabled,
                 role = Role.Switch,
-            )
-            .padding(vertical = 2.dp),
+            ).padding(vertical = 2.dp),
     )
 }
 
@@ -241,6 +252,7 @@ fun SettingsDescription(description: StringResource) {
 fun NumberPickerItem(
     title: StringResource,
     supportingContent: @Composable (() -> Unit)? = null,
+    valuePickerSupportContent: @Composable (() -> Unit)? = null,
     enabled: Boolean,
     value: Int?,
     onChanged: (Int?) -> Unit,
@@ -267,7 +279,7 @@ fun NumberPickerItem(
 
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text(stringResource(title)) },
+            title = { Text(stringResource(title), style = MaterialTheme.typography.headlineSmall) },
             text = {
                 OutlinedTextField(
                     value = fieldValue,
@@ -279,7 +291,8 @@ fun NumberPickerItem(
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Number,
                     ),
-                    modifier = Modifier.testTag("NumberPickerField"),
+                    supportingText = valuePickerSupportContent,
+                    modifier = Modifier.fillMaxWidth().testTag("NumberPickerField"),
                 )
             },
             confirmButton = {

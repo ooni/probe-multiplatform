@@ -1,6 +1,7 @@
 package org.ooni.probe.ui.log
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
@@ -48,6 +50,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.LocalSnackbarHostState
 import org.ooni.probe.ui.shared.CustomFilterChip
 import org.ooni.probe.ui.shared.TopBar
+import org.ooni.probe.ui.shared.VerticalScrollbar
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -100,26 +103,31 @@ fun LogScreen(
             )
         }
 
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(
-                start = 16.dp,
-                end = 16.dp,
-                bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
-            ),
-        ) {
-            items(state.log) { line ->
-                Text(
-                    line,
-                    style = MaterialTheme.typography.labelMedium,
-                    color = when {
-                        line.contains(": WARN : ") -> LocalCustomColors.current.logWarn
-                        line.contains(": ERROR : ") -> LocalCustomColors.current.logError
-                        line.contains(": INFO : ") -> LocalCustomColors.current.logInfo
-                        else -> LocalCustomColors.current.logDebug
-                    },
-                )
+        Box {
+            val lazyStateList = rememberLazyListState()
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(
+                    start = 16.dp,
+                    end = 16.dp,
+                    bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
+                ),
+                state = lazyStateList,
+            ) {
+                items(state.log) { line ->
+                    Text(
+                        line,
+                        style = MaterialTheme.typography.labelMedium,
+                        color = when {
+                            line.contains(": WARN : ") -> LocalCustomColors.current.logWarn
+                            line.contains(": ERROR : ") -> LocalCustomColors.current.logError
+                            line.contains(": INFO : ") -> LocalCustomColors.current.logInfo
+                            else -> LocalCustomColors.current.logDebug
+                        },
+                    )
+                }
             }
+            VerticalScrollbar(state = lazyStateList, modifier = Modifier.align(Alignment.CenterEnd))
         }
     }
 

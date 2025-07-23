@@ -49,15 +49,15 @@ fun ResultMeasurementCell(
     val test = measurement.test
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .let {
                 if (measurement.isDone && !measurement.isFailed) {
                     it.clickable { onClick(item) }
                 } else {
                     it
                 }
-            }
-            .alpha(if (measurement.isDone && !measurement.isMissingUpload) 1f else 0.66f)
+            }.alpha(if (measurement.isDone && !measurement.isMissingUpload) 1f else 0.66f)
             .padding(16.dp),
     ) {
         TestName(test, item, modifier = Modifier.weight(1f))
@@ -118,7 +118,10 @@ private fun TestName(
         else -> test.iconRes
     }
 
-    val contentDescription = item.url?.category?.title?.let { stringResource(it) } ?: ""
+    val contentDescription = item.url
+        ?.category
+        ?.title
+        ?.let { stringResource(it) } ?: ""
     iconResource?.let { resource ->
         Icon(
             painterResource(resource),
@@ -149,7 +152,8 @@ fun ResultGroupMeasurementCell(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .clickable { onDropdownToggled() }
             .padding(horizontal = 16.dp, vertical = 4.dp),
     ) {
