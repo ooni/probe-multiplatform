@@ -165,9 +165,8 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Al habilitar pruebas automáticas, OONI Probe las ejecutará automáticamente múltiples veces por día. Los resultados de tus pruebas serán automáticamente publicados en el Explorador OONI: https://explorer.ooni.org/\n\nImportante: Si tienes una VPN habilitada, OONI Probe no ejecutará pruebas automáticamente. Por favor desactiva tu VPN para efectuar pruebas automatizadas con OONI Probe. Aprende más: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run in the background</string>
     <string name="Settings_Sharing_UploadResults">Publicar resultados automáticamente</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Limite la duración de la prueba</string>
-    <string name="Settings_Websites_MaxRuntime">Duración de la prueba</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Limit Websites test duration</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
     <string name="Settings_Websites_Categories_Label">Categorías de sitios web a probar</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorías habilitadas</string>
 
@@ -206,9 +205,6 @@
     <string name="Settings_ShareLogs_Error">Error sharing logs</string>
     <string name="Settings_FilterLogs">Filter Logs</string>
     <string name="Settings_Sharing_UploadResults_Description">Results are automatically uploaded to OONI explorer</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_New">Limit Websites test duration</string>
-    <string name="Settings_Websites_MaxRuntime_New">Maximum Websites test duration</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
     <string name="Settings_Websites_Categories_Selection_None">Deseleccionar Todo</string>
     <string name="Settings_Websites_Categories_Selection_All">Seleccionar todos</string>
     <string name="Settings_Websites_CustomURL_Title">Elige sitios web a probar</string>
@@ -332,6 +328,7 @@
     <string name="LoadingScreen_Runv2_Failure">Error</string>
     <string name="LoadingScreen_Runv2_Canceled">Instalación del enlace cancelada</string>
     <string name="DescriptorUpdate_Updates">ACTUALIZACIONES</string>
+    <string name="DescriptorUpdate_CheckUpdates">Buscar actualizaciones</string>
     <string name="Descriptor_LastTestResult">Último resultado</string>
 
     <!-- Modals / Toasts / Snackbar -->
@@ -391,7 +388,11 @@
     <string name="Common_Yes">Si</string>
     <string name="Common_Save">Guardar</string>
     <string name="Common_Clear">Borrar</string>
+    <string name="Common_Next">Seguir</string>
+    <string name="Common_Previous">Anterior</string>
 
+    <string name="Common_Today">Hoy</string>
+    <string name="Common_Yesterday">Ayer</string>
     <string name="Common_Ago">%1$s ago</string>
     <plurals name="Common_Minutes">
         <item quantity="one">%1$d minuto</item>

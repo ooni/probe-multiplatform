@@ -166,9 +166,10 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Ao permitir testes automáticos, os testes OONI Probe serão executados automaticamente várias vezes por dia. Os resultados de seus testes serão publicados automaticamente no OONI Explorer: https://explorer.ooni.org/ \n\nImportante: Se você tiver uma VPN habilitada, a OONI Probe não executará testes automaticamente. Por favor, desligue sua VPN para os testes automatizados da OONI Probe. Saiba mais: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Testes serão executados a cada hora em segundo plano</string>
     <string name="Settings_Sharing_UploadResults">Publicar os resultados automaticamente</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Limitar a duração do teste</string>
-    <string name="Settings_Websites_MaxRuntime">Duração do teste</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Limitar a duração do teste de Websites</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Somente para execuções manuais</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">Duração máxima de uma execução completa do teste de Websites</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">Insira a quantidade de segundos</string>
     <string name="Settings_Websites_Categories_Label">Categorias de sites para testar</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorias habilitadas</string>
 
@@ -200,6 +201,7 @@
     <string name="Settings_Storage_Label">Uso de armazenamento</string>
     <string name="Settings_Storage_Delete">Apagar</string>
     <string name="Settings_Storage_Clear">Limpar</string>
+    <string name="Settings_Legacy_Storage">Limpar ficheiros de versão anterior</string>
     <string name="Settings_WarmVPNInUse_Label">Avise quando a VPN estiver em uso</string>
     <string name="Settings_DisableVpnInstructions">Vá para Configurações &gt; Geral &gt; VPN e desconecte da sua VPN.</string>
     <string name="Settings_Logs">Logs</string>
@@ -207,9 +209,6 @@
     <string name="Settings_ShareLogs_Error">Erro ao compartilhar logs</string>
     <string name="Settings_FilterLogs">Filtrar Logs</string>
     <string name="Settings_Sharing_UploadResults_Description">Resultados são automaticamente subidos para o explorador do OONI.</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_New">Limitar a duração de testes de Websites</string>
-    <string name="Settings_Websites_MaxRuntime_New">Duração máxima do teste de Websites</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Somente para execuções manuais</string>
     <string name="Settings_Websites_Categories_Selection_None">Desmarcar todos</string>
     <string name="Settings_Websites_Categories_Selection_All">Selecionar todos</string>
     <string name="Settings_Websites_CustomURL_Title">Escolha sites para testar</string>
@@ -334,6 +333,7 @@
     <string name="LoadingScreen_Runv2_Failure">Erro</string>
     <string name="LoadingScreen_Runv2_Canceled">Instalação do link cancelada</string>
     <string name="DescriptorUpdate_Updates">ATUALIZAÇÕES</string>
+    <string name="DescriptorUpdate_CheckUpdates">Verificar Atualizações</string>
     <string name="AddDescriptor_AutoRunDisabled">Autoexecução desabilitada. Por favor, habilite-a para executar testes automaticamente.</string>
     <string name="Descriptor_LastTestResult">Último Resultado do Teste</string>
 
@@ -350,6 +350,7 @@
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Deseja apagar todos os resultados de teste\?</string>
+    <string name="Modal_Clear_Legacy_Directories">Deseja limpar as pastas antigas\?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">Deseja apagar %1$s resultado?</item>
         <item quantity="many">Deseja apagar %1$s de resultados?</item>
@@ -397,8 +398,17 @@
     <string name="Common_Yes">Sim</string>
     <string name="Common_Save">Salvar</string>
     <string name="Common_Clear">Limpar</string>
+    <string name="Common_Next">Seguinte</string>
+    <string name="Common_Previous">Anterior</string>
 
+    <string name="Common_Today">Hoje</string>
+    <string name="Common_Yesterday">Ontem</string>
     <string name="Common_Ago">%1$s atrás</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one">%1$d segundo</item>
+        <item quantity="many">%1$d de segundos</item>
+        <item quantity="other">%1$d segundos</item>
+    </plurals>
     <plurals name="Common_Minutes">
         <item quantity="one">%1$d minuto</item>
         <item quantity="many">%1$d de minutos</item>
@@ -408,6 +418,11 @@
         <item quantity="one">%1$d hora</item>
         <item quantity="many">%1$d de horas</item>
         <item quantity="other">%1$d horas</item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d dia</item>
+        <item quantity="many">%1$d de dias</item>
+        <item quantity="other">%1$d dias</item>
     </plurals>
     <string name="Common_Hours_Abbreviated">%1$dh</string>
     <string name="Common_Minutes_Abbreviated">%1$dm</string>

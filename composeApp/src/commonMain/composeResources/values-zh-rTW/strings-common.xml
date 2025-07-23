@@ -104,9 +104,6 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">僅在充電時執行</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">開啟自動測試， OONI Probe 會每天執行多次測試且其結果會自動發佈到 OONI Explorer: https://explorer.ooni.org/ \n\n重要：如果打開 VPN 則 OONI Probe 將無法自動執行，請關閉 VPN 以便自動執行 OONI Probe，了解詳情請看: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">自動發佈結果</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">限制測時持續時間</string>
-    <string name="Settings_Websites_MaxRuntime">測試期間</string>
     <string name="Settings_Websites_Categories_Label">測試的網站類別</string>
     <string name="Settings_Websites_Categories_Description">%1$s 啟用的分類</string>
 
@@ -242,6 +239,7 @@
     <string name="AddDescriptor_Settings">測試設定</string>
     <string name="AddDescriptor_AutoRun">自動進行測試</string>
     <string name="LoadingScreen_Runv2_Failure">錯誤</string>
+    <string name="DescriptorUpdate_CheckUpdates">檢查更新</string>
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">未上傳的</string>
@@ -285,7 +283,11 @@
     <string name="Common_Yes">是</string>
     <string name="Common_Save">儲存</string>
     <string name="Common_Clear">清除</string>
+    <string name="Common_Next">下一個</string>
+    <string name="Common_Previous">前一個</string>
 
+    <string name="Common_Today">今天</string>
+    <string name="Common_Yesterday">昨天</string>
     <string name="Common_Ago">%1$s 前</string>
     <string name="Common_Months_January">一月</string>
     <string name="Common_Months_February">二月</string>

@@ -87,9 +87,6 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Alleen tijdens het opladen</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Door automatisch testen in te schakelen, worden OONI Probe-tests automatisch meerdere keren per dag uitgevoerd. Uw testresultaten worden automatisch gepubliceerd in OONI Explorer: https://explorer.ooni.org/\n\nBelangrijk: als je een VPN hebt ingeschakeld, voert OONI Probe niet automatisch tests uit. Schakel uw VPN uit voor geautomatiseerde OONI Probe-tests. Meer informatie: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">Resultaten Automatisch Publiceren</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Testduur beperken</string>
-    <string name="Settings_Websites_MaxRuntime">Test tijdsduur</string>
     <string name="Settings_Websites_Categories_Label">Website categorieën om te testen</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorieën ingeschakeld</string>
 
@@ -266,7 +263,11 @@
     <string name="Common_Yes">Ja</string>
     <string name="Common_Save">Opslaan</string>
     <string name="Common_Clear">Wissen</string>
+    <string name="Common_Next">Volgende</string>
+    <string name="Common_Previous">Vorige</string>
 
+    <string name="Common_Today">Vandaag</string>
+    <string name="Common_Yesterday">Gisteren</string>
     <string name="Common_Ago">%1$s geleden</string>
     <string name="Common_Months_January">januari</string>
     <string name="Common_Months_February">februari</string>

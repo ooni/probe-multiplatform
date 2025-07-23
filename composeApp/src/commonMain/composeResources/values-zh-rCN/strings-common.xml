@@ -156,9 +156,10 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">通过启用自动测试， OONI Probe 测试将每天自动运行多次。您的测试结果将自动在 OONI Explorer 上公布：https://explorer.ooni.org/\n\n重要提示：如果您启用了VPN， OONI Probe 将不会自动运行测试。请关闭您的 VPN ，以便进行 OONI Probe 自动测试。了解更多：https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">每小时在后台运行测试</string>
     <string name="Settings_Sharing_UploadResults">自动发布结果</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">限制测试持续时间</string>
-    <string name="Settings_Websites_MaxRuntime">测试用时</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">限制网站测试持续时间</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">仅手动运行</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">完整网站测试运行的最长持续时间</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">输入秒数</string>
     <string name="Settings_Websites_Categories_Label">要测试的网站类别</string>
     <string name="Settings_Websites_Categories_Description">已启用 %1$s 个分类</string>
 
@@ -197,9 +198,6 @@
     <string name="Settings_ShareLogs_Error">分享日志出错</string>
     <string name="Settings_FilterLogs">过滤日志</string>
     <string name="Settings_Sharing_UploadResults_Description">结果自动上传到 OONI explorer</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_New">限制网站测试持续时间</string>
-    <string name="Settings_Websites_MaxRuntime_New">最大化网站测试持续时间</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">仅手动运行</string>
     <string name="Settings_Websites_Categories_Selection_None">取消全选</string>
     <string name="Settings_Websites_Categories_Selection_All">选择全部</string>
     <string name="Settings_Websites_CustomURL_Title">选择要测试的网站</string>
@@ -322,6 +320,7 @@
     <string name="LoadingScreen_Runv2_Failure">错误</string>
     <string name="LoadingScreen_Runv2_Canceled">链接安装被取消了</string>
     <string name="DescriptorUpdate_Updates">更新</string>
+    <string name="DescriptorUpdate_CheckUpdates">检查更新</string>
     <string name="AddDescriptor_AutoRunDisabled">自动运行被停用。请启用它来自动运行测试。</string>
     <string name="Descriptor_LastTestResult">上次测试结果</string>
 
@@ -381,13 +380,23 @@
     <string name="Common_Yes">是</string>
     <string name="Common_Save">保存</string>
     <string name="Common_Clear">清除键</string>
+    <string name="Common_Next">下一页</string>
+    <string name="Common_Previous">上一步</string>
 
+    <string name="Common_Today">今天</string>
+    <string name="Common_Yesterday">昨天</string>
     <string name="Common_Ago">%1$s 前</string>
+    <plurals name="Common_Seconds">
+        <item quantity="other">%1$d 秒</item>
+    </plurals>
     <plurals name="Common_Minutes">
         <item quantity="other">%1$d 分钟</item>
     </plurals>
     <plurals name="Common_Hours">
         <item quantity="other">%1$d 小时</item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="other">%1$d 天</item>
     </plurals>
     <string name="Common_Hours_Abbreviated">%1$d小时</string>
     <string name="Common_Minutes_Abbreviated">%1$d分钟</string>

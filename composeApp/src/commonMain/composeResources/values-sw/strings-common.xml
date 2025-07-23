@@ -106,9 +106,6 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Wakati wa kuchaji tu</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Kwa kuwezesha upimaji wa kiotomatiki, vipimo vya OONI Probe vitaendesha moja kwa moja mara nyingi kwa siku. Matokeo yako ya jaribio yatachapishwa kiotomatiki kwenye OONI Explorer: https://explorer.ooni.org/. Muhimu: Ikiwa umewezeshwa na VPN, OONI Probe haitaendesha vipimo kiotomatiki. Tafadhali zima VPN yako kwa upimaji wa kiotomatiki wa OONI Probe. Jifunze zaidi: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">Chapisha Matokeo Moja kwa Moja</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Punguza muda wa kujaribu  </string>
-    <string name="Settings_Websites_MaxRuntime">Muda wa jaribio</string>
     <string name="Settings_Websites_Categories_Label">Vikundi vya wavuti kujaribu</string>
     <string name="Settings_Websites_Categories_Description">Aina %1$s zimewezeshwa</string>
 
@@ -293,6 +290,10 @@
     <string name="Common_Yes">Ndio</string>
     <string name="Common_Save">Hifadhi</string>
     <string name="Common_Clear">Ondoa</string>
+    <string name="Common_Next">Inayofuata</string>
+    <string name="Common_Previous">Iliyopita</string>
 
+    <string name="Common_Today">Leo</string>
+    <string name="Common_Yesterday">Jana</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

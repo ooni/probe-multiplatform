@@ -89,9 +89,6 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Μόνο όταν φορτίζει</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Ενεργοποιώντας τις αυτόματες δοκιμές, οι δοκιμές του OONI Probe θα εκτελούνται αυτόματα πολλαπλές φορές ανά ημέρα. Τα αποτελέσματα των δοκιμών θα δημοσιεύονται αυτόματα στο OONI Explorer: https://explorer.ooni.org/ \n\nΣημαντικό: Αν έχεις ενεργοποιημένο κάποιο VPN, τότε το OONI Probe δεν θα εκτελεί τις δοκιμές αυτόματα. Παρακαλούμε απενεργοποίησε το VPN για αυτοματοποιημένες δοκιμές του OONI Probe. Μάθε περισσότερα: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">Αυτόματη δημοσίευση αποτελεσμάτων</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Περιορισμός διάρκειας δοκιμής</string>
-    <string name="Settings_Websites_MaxRuntime">Διάρκεια δοκιμής</string>
     <string name="Settings_Websites_Categories_Label">Κατηγορίες ιστοσελιδών για δοκιμή</string>
     <string name="Settings_Websites_Categories_Description">%1$s ενεργοποιημένες κατηγορίες</string>
 
@@ -226,6 +223,7 @@
     <string name="AddDescriptor_Settings">Έλεγχος ρυθμίσεων</string>
     <string name="AddDescriptor_AutoRun">Αυτόματη εκτελή δοκιμών</string>
     <string name="LoadingScreen_Runv2_Failure">Σφάλμα</string>
+    <string name="DescriptorUpdate_CheckUpdates">Έλεγχος για ενημερώσεις</string>
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Δεν ανέβηκαν</string>
@@ -269,7 +267,10 @@
     <string name="Common_Yes">Ναι</string>
     <string name="Common_Save">Αποθήκευση</string>
     <string name="Common_Clear">Εκκαθάριση</string>
+    <string name="Common_Next">Επόμενο</string>
+    <string name="Common_Previous">Προηγούμενο </string>
 
+    <string name="Common_Today">Σήμερα</string>
     <string name="Common_Ago">%1$s πριν</string>
     <string name="Common_Months_January">Ιανουάριος</string>
     <string name="Common_Months_February">Φεβρουάριος</string>

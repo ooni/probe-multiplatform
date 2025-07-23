@@ -12,6 +12,8 @@
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">为提升网络审查的透明度，所有 OONI Probe 用户的网络数据都将自动发布（除非在设置中选择退出）。</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">为了测量每天的网络审查，请启用自动测试，以便 OONI 可以定期运行测试。别担心，我们会注意电池的使用。您可以在任何时候从设置中禁用自动测试。</string>
     <string name="Onboarding_Crash_Paragraph">为了改进 OONI Probe，我们希望在应用程序无法正常工作时收集匿名的崩溃报告。\n\n您愿意选择向 OONI 开发团队提交崩溃报告吗?</string>
+    <string name="Onboarding_CleanUp_Title">清理</string>
+    <string name="Onboarding_CleanUp_Paragraph">我们检测到先前安装的残留文件。继续安装前请清理这些资源。</string>
 
     <string name="Dashboard_Websites_Card_Description">测试网站的屏蔽情况</string>
     <string name="Dashboard_Websites_Overview_Paragraph">使用 OONI 的[网页连通性测试](https://ooni.org/nettest/web-connectivity/)检查网站是否被屏蔽。\n\n每次您点击“运行”时，都会测试公民实验室的[全球](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv)和[特定国家/地区](https://github.com/citizenlab/test-lists/tree/master/lists)列表中的一些网站。\n\n如要测试您自选的网站，点击“选择网站”按钮或通过本卡片的设置选择网站类别。\n\n此测试测量网站是否遭受 DNS 篡改、TCP/IP 封锁或透明 HTTP 代理的屏蔽。\n\n您的测试结果会被发布在 [OONI Explorer](https://explorer.ooni.org/world/) 和 [OONI API](https://api.ooni.io/)。</string>

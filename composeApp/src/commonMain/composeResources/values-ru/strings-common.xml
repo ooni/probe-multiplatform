@@ -171,9 +171,8 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Если вы включите автоматическое тестирование в OONI Probe, тесты будут проводиться несколько раз в день. Результаты будут автоматически публиковаться в OONI Explorer: https://explorer.ooni.org/\n\nВажно:  Если у вас включен VPN, OONI Probe тесты не будут производиться автоматически. Пожалуйста, выключите VPN для автоматических тестов. Узнать больше: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn </string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Тесты будут проводиться в фоновом режиме каждый час</string>
     <string name="Settings_Sharing_UploadResults">Автоматически публиковать результаты</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Ограничить продолжительность теста</string>
-    <string name="Settings_Websites_MaxRuntime">Продолжительность теста</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Ограничить длительность тестирования сайтов</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Только для тестов запущенных вручную</string>
     <string name="Settings_Websites_Categories_Label">Категории сайтов для тестирования</string>
     <string name="Settings_Websites_Categories_Description">Выбрано категорий: %1$s</string>
 
@@ -212,9 +211,6 @@
     <string name="Settings_ShareLogs_Error">Не получилось поделиться логами</string>
     <string name="Settings_FilterLogs">Отфильтровать логи</string>
     <string name="Settings_Sharing_UploadResults_Description">Результаты автоматически загружаются в OONI Explorer</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_New">Ограничить длительность тестирования сайтов</string>
-    <string name="Settings_Websites_MaxRuntime_New">Максимальная длительность тестирования сайтов</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Только для тестов запущенных вручную</string>
     <string name="Settings_Websites_Categories_Selection_None">Отменить выбор</string>
     <string name="Settings_Websites_Categories_Selection_All">Выбрать все</string>
     <string name="Settings_Websites_CustomURL_Title">Выберите сайты для тестирования</string>
@@ -340,6 +336,7 @@
     <string name="LoadingScreen_Runv2_Failure">Ошибка</string>
     <string name="LoadingScreen_Runv2_Canceled">Установка ссылки отменена</string>
     <string name="DescriptorUpdate_Updates">ОБНОВЛЕНИЯ</string>
+    <string name="DescriptorUpdate_CheckUpdates">Проверить наличие обновлений</string>
     <string name="AddDescriptor_AutoRunDisabled">Автоматическое тестирование отключено. Пожалуйста, включите его, чтобы проводить тесты автоматически.</string>
     <string name="Descriptor_LastTestResult">Результат последнего теста</string>
 
@@ -405,7 +402,11 @@
     <string name="Common_Yes">Да</string>
     <string name="Common_Save">Сохранить</string>
     <string name="Common_Clear">Очистить</string>
+    <string name="Common_Next">Далее</string>
+    <string name="Common_Previous">Предыдущий раздел</string>
 
+    <string name="Common_Today">Сегодня</string>
+    <string name="Common_Yesterday">Вчера</string>
     <string name="Common_Ago">%1$s назад</string>
     <plurals name="Common_Minutes">
         <item quantity="one">%1$d минута</item>

@@ -166,9 +166,10 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">En activant les tests automatiques, les tests d’OONI Probe auront lieu automatiquement plusieurs fois par jour. Les résultats de vos tests seront publiés automatiquement sur l’Explorateur OONI : https://explorer.ooni.org/ (site en anglais)\n\nImportant : Si vous utilisez un RPV et qu’il est activé, OONI Probe n’effectuera pas de test automatique. Afin que les tests automatisés d’OONI Probe aient lieu, désactivez votre RPV. Apprenez-en davantage : https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn (site en anglais)</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Les tests s’exécuteront toutes les heures en arrière-plan</string>
     <string name="Settings_Sharing_UploadResults">Publier automatiquement les résultats</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Limiter la durée du test</string>
-    <string name="Settings_Websites_MaxRuntime">Durée du test</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Limiter la durée du test Sites Web</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Seulement pour les exécutions manuelles</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">Durée maximale d’un test complet Sites Web</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">Saisissez le nombre de secondes</string>
     <string name="Settings_Websites_Categories_Label">Catégories de sites Web à tester</string>
     <string name="Settings_Websites_Categories_Description">%1$s catégories sont activées</string>
 
@@ -200,6 +201,7 @@
     <string name="Settings_Storage_Label">Utilisation de l’espace de stockage</string>
     <string name="Settings_Storage_Delete">Supprimer</string>
     <string name="Settings_Storage_Clear">Effacer</string>
+    <string name="Settings_Legacy_Storage">Effacer les fichiers de la version précédente</string>
     <string name="Settings_WarmVPNInUse_Label">Avertir quand un RPV est utilisé</string>
     <string name="Settings_DisableVpnInstructions">Accédez à Réglages &gt; Général &gt; VPN et déconnectez-vous de votre RPV.</string>
     <string name="Settings_Logs">Journaux</string>
@@ -207,9 +209,6 @@
     <string name="Settings_ShareLogs_Error">Erreur de partage des journaux</string>
     <string name="Settings_FilterLogs">Filtrer les journaux</string>
     <string name="Settings_Sharing_UploadResults_Description">Les résultats sont téléversés automatiquement vers l’Explorateur OONI</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_New">Limiter la durée de test des sites Web</string>
-    <string name="Settings_Websites_MaxRuntime_New">Durée maximale de test des sites Web</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Seulement pour les exécutions manuelles</string>
     <string name="Settings_Websites_Categories_Selection_None">Tout dessélectionner</string>
     <string name="Settings_Websites_Categories_Selection_All">Tout sélectionner</string>
     <string name="Settings_Websites_CustomURL_Title">Choisir les sites Web à tester</string>
@@ -334,6 +333,7 @@
     <string name="LoadingScreen_Runv2_Failure">Erreur</string>
     <string name="LoadingScreen_Runv2_Canceled">L’installation du lien a été annulée</string>
     <string name="DescriptorUpdate_Updates">MISES À JOUR</string>
+    <string name="DescriptorUpdate_CheckUpdates">Vérifier la présence de mises à jour</string>
     <string name="AddDescriptor_AutoRunDisabled">Le lancement automatique est désactivé. Activez cette option pour lancer les tests automatiquement.</string>
     <string name="Descriptor_LastTestResult">Dernier résultat de test</string>
 
@@ -350,6 +350,7 @@
     <string name="Modal_Cancel">Annuler</string>
     <string name="Modal_OK">Valider</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Voulez-vous supprimer tous les résultats de test?</string>
+    <string name="Modal_Clear_Legacy_Directories">Voulez-vous effacer les dossiers hérités \?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">Voulez-vous supprimer %1$s résultat de test \?</item>
         <item quantity="many">Voulez-vous supprimer %1$sde résultats de test \?</item>
@@ -397,8 +398,17 @@
     <string name="Common_Yes">Oui</string>
     <string name="Common_Save">Enregistrer</string>
     <string name="Common_Clear">Effacer</string>
+    <string name="Common_Next">Suivant</string>
+    <string name="Common_Previous">Précédent</string>
 
+    <string name="Common_Today">Aujourd’hui</string>
+    <string name="Common_Yesterday">Hier</string>
     <string name="Common_Ago">il y a %1$s</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one">%1$d seconde</item>
+        <item quantity="many">%1$d de secondes</item>
+        <item quantity="other">%1$d secondes</item>
+    </plurals>
     <plurals name="Common_Minutes">
         <item quantity="one">%1$d minute</item>
         <item quantity="many">%1$d de minutes</item>
@@ -408,6 +418,11 @@
         <item quantity="one">%1$d heure</item>
         <item quantity="many">%1$d d’heures</item>
         <item quantity="other">%1$d heures</item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d jour</item>
+        <item quantity="many">%1$d de jours</item>
+        <item quantity="other">%1$d jours</item>
     </plurals>
     <string name="Common_Hours_Abbreviated">%1$d h</string>
     <string name="Common_Minutes_Abbreviated">%1$d min</string>
