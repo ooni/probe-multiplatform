@@ -368,7 +368,7 @@
     <string name="Modal_Cancel">Cancel</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Do you want to delete all test results?</string>
-    <string name="Modal_Clear_Legacy_Directories">Do you want to delete legacy folders\?</string>
+    <string name="Modal_Clear_Legacy_Directories">Do you want to delete legacy folders?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">Do you want to delete %1$s test result?</item>
         <item quantity="other">Do you want to delete %1$s test results?</item>
