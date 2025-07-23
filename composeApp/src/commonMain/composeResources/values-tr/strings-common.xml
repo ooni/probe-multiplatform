@@ -129,13 +129,13 @@
     <string name="TestResults_Filter_Date_Custom_Filled">Özel: %1$s</string>
     <string name="TestResults_Filter_Date_Picker">Bir tarih aralığı seçin</string>
     <string name="TestResults_Filter_NoTestsFound">Bu süzgeçlere uygun sınama sonuçları bulunamadı.</string>
-    <string name="TestResults_Filter_DeleteConfirmation">Geçerli süzgeçler için tüm sınama sonuçlarını silmek istiyor musunuz\?</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Geçerli süzgeçler için tüm sınama sonuçlarını silmek istiyor musunuz?</string>
 
     <string name="Results_LimitedNotice">Yalnızca son %1$d sonuç görüntüleniyor</string>
     <string name="Results_UploadingMissing">Eksik sonuçlar yükleniyor %1$s</string>
     <string name="Results_MarkAllAsViewed">Tümünü görülmüş olarak işaretle</string>
-    <string name="Results_MarkAllAsViewed_Confirmation">Tüm sonuçları görülmüş olarak işaretlemek istediğinize emin misiniz\?</string>
-    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Geçerli süzgeçler için tüm sonuçları okunmuş olarak işaretlemek istiyor musunuz\?</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Tüm sonuçları görülmüş olarak işaretlemek istediğinize emin misiniz?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Geçerli süzgeçler için tüm sonuçları okunmuş olarak işaretlemek istiyor musunuz?</string>
 
     <!-- Measurements -->
 
@@ -344,10 +344,10 @@
     <string name="Modal_Cancel">İptal</string>
     <string name="Modal_OK">Tamam</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Tüm sınama sonuçlarını silmek ister misiniz?</string>
-    <string name="Modal_Clear_Legacy_Directories">Eski klasörleri silmek istiyor musunuz\?</string>
+    <string name="Modal_Clear_Legacy_Directories">Eski klasörleri silmek istiyor musunuz?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">%1$s sınama sonucunu silmek istiyor musunuz\?</item>
-        <item quantity="other">%1$s sınama sonucunu silmek istiyor musunuz\?</item>
+        <item quantity="other">%1$s sınama sonucunu silmek istiyor musunuz?</item>
     </plurals>
     <plurals name="Modal_Selected">
         <item quantity="one">%1$d öge seçilmiş</item>
@@ -366,7 +366,7 @@
     <string name="Modal_Error_NoInternet">İnternet bağlantısı yok</string>
     <string name="Modal_CustomURL_Title_NotSaved">Emin misiniz?</string>
     <string name="Modal_CustomURL_NotSaved">Bu sayfadan ayrıldığınızda adresleriniz kaydedilmez. Bu sayfadan ayrılmak istediğinize emin misiniz?</string>
-    <string name="Modal_Autorun_BatteryOptimization_Onboarding">Uygulama arka planda çalışma izni olmadan otomatik sınamaları yapamaz. Yeniden denemek ister misiniz\?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">Uygulama arka planda çalışma izni olmadan otomatik sınamaları yapamaz. Yeniden denemek ister misiniz?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Uygulamanın otomatik sınamaları yapabilmesi için arka planda çalışmasına izin verilmedir.</string>
 
     <!-- Desktop -->
