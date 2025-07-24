@@ -191,6 +191,7 @@
     <string name="Settings_Storage_Label">存储用量</string>
     <string name="Settings_Storage_Delete">删除</string>
     <string name="Settings_Storage_Clear">清除键</string>
+    <string name="Settings_Legacy_Storage">删除来自之前版本的文件</string>
     <string name="Settings_WarmVPNInUse_Label">在使用VPN时发出警告</string>
     <string name="Settings_DisableVpnInstructions">转到设置 &gt; 常规  &gt; VPN 并断开 VPN 连接</string>
     <string name="Settings_Logs">日志</string>
@@ -337,6 +338,7 @@
     <string name="Modal_Cancel">取消</string>
     <string name="Modal_OK">正常</string>
     <string name="Modal_DoYouWantToDeleteAllTests">是否要删除所有测试结果？</string>
+    <string name="Modal_Clear_Legacy_Directories">要删除旧文件夹吗？</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="other">是否要删除 %1$s 个测试结果？</item>
     </plurals>
