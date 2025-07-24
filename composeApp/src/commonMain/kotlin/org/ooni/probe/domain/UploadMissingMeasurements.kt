@@ -39,6 +39,7 @@ class UploadMissingMeasurements(
                 val total = measurements.size
                 var uploaded = 0
                 var failedToUpload = 0
+                var subsequentFailures = 0
 
                 if (total > 0) {
                     Logger.i("Uploading missing measurements: $total")
@@ -47,16 +48,24 @@ class UploadMissingMeasurements(
                 measurements.forEach { measurement ->
                     if (!isActive) return@withTransaction // Check is coroutine was cancelled
 
+                    if (subsequentFailures >= MAX_SUBSEQUENT_FAILURES) {
+                        Logger.i("Aborting upload due to too many subsequent failures")
+                        send(State.Finished(uploaded, failedToUpload, total))
+                        return@withTransaction
+                    }
+
                     send(State.Uploading(uploaded, failedToUpload, total))
 
                     val reportFilePath = measurement.reportFilePath ?: run {
                         failedToUpload++
+                        subsequentFailures++
                         return@forEach
                     }
                     val report = readFile(reportFilePath)
                     if (report.isNullOrBlank()) {
                         Logger.w("Missing or empty measurement report file")
                         failedToUpload++
+                        subsequentFailures++
                         measurement.id?.let { deleteMeasurementById(it) }
                         return@forEach
                     }
@@ -64,6 +73,7 @@ class UploadMissingMeasurements(
                     submitMeasurement(report)
                         .onSuccess { submitResult ->
                             uploaded++
+                            subsequentFailures = 0
                             updateMeasurement(
                                 measurement.copy(
                                     isUploaded = true,
@@ -77,13 +87,14 @@ class UploadMissingMeasurements(
                             deleteFiles(reportFilePath)
                         }.onFailure { exception ->
                             failedToUpload++
+                            subsequentFailures++
                             updateMeasurement(
                                 measurement.copy(
                                     isUploadFailed = true,
                                     uploadFailureMessage = exception.cause?.message,
                                 ),
                             )
-                            Logger.w("Failed to submit measurement", exception)
+                            Logger.w("Failed to submit measurement", SubmitFailed(exception))
                         }
                 }
 
@@ -108,5 +119,13 @@ class UploadMissingMeasurements(
             val failedToUpload: Int,
             val total: Int,
         ) : State
+    }
+
+    class SubmitFailed(
+        cause: Exception,
+    ) : Exception(cause)
+
+    companion object {
+        private const val MAX_SUBSEQUENT_FAILURES = 5
     }
 }
