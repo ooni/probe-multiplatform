@@ -167,6 +167,7 @@
     <string name="Settings_Sharing_UploadResults">Publicar resultados automáticamente</string>
     <string name="Settings_Websites_MaxRuntimeEnabled">Limit Websites test duration</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">Introducir el número de segundos</string>
     <string name="Settings_Websites_Categories_Label">Categorías de sitios web a probar</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorías habilitadas</string>
 
@@ -198,6 +199,7 @@
     <string name="Settings_Storage_Label">Uso de almacenamiento</string>
     <string name="Settings_Storage_Delete">Eliminar</string>
     <string name="Settings_Storage_Clear">Borrar</string>
+    <string name="Settings_Legacy_Storage">Eliminar archivos de la versión anterior</string>
     <string name="Settings_WarmVPNInUse_Label">Avisar cuando la VPN está en uso</string>
     <string name="Settings_DisableVpnInstructions">Go to Settings &gt; General &gt; VPN and disconnect from your VPN.</string>
     <string name="Settings_Logs">Registros</string>
@@ -394,6 +396,11 @@
     <string name="Common_Today">Hoy</string>
     <string name="Common_Yesterday">Ayer</string>
     <string name="Common_Ago">%1$s ago</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one">%1$d segundo</item>
+        <item quantity="many">%1$d de segundos</item>
+        <item quantity="other">%1$d segundos</item>
+    </plurals>
     <plurals name="Common_Minutes">
         <item quantity="one">%1$d minuto</item>
         <item quantity="many">%1$d de minutos</item>
@@ -403,6 +410,11 @@
         <item quantity="one">%1$d hora</item>
         <item quantity="many">%1$d de horas</item>
         <item quantity="other">%1$d horas</item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d día</item>
+        <item quantity="many">%1$d de días</item>
+        <item quantity="other">%1$d días</item>
     </plurals>
     <string name="Common_Hours_Abbreviated">%1$d h</string>
     <string name="Common_Minutes_Abbreviated">%1$d m</string>

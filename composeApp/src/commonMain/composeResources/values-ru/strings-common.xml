@@ -139,13 +139,13 @@
     <string name="TestResults_Filter_Date_Custom_Filled">Выбрать период вручную: %1$s</string>
     <string name="TestResults_Filter_Date_Picker">Выбрать период</string>
     <string name="TestResults_Filter_NoTestsFound">Нет результатов, соответствующих выставленным фильтрам.</string>
-    <string name="TestResults_Filter_DeleteConfirmation">Вы хотите удалить все отфильтрованные результаты\? </string>
+    <string name="TestResults_Filter_DeleteConfirmation">Вы хотите удалить все отфильтрованные результаты? </string>
 
     <string name="Results_LimitedNotice">Показываются только последние %1$d результатов</string>
     <string name="Results_UploadingMissing">Загрузить результаты %1$s</string>
     <string name="Results_MarkAllAsViewed">Отметить все как просмотренные</string>
-    <string name="Results_MarkAllAsViewed_Confirmation">Хотите отметить все результаты тестов как просмотренные\?</string>
-    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Вы хотите отметить все отфильтрованные результаты как просмотренные\? </string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Хотите отметить все результаты тестов как просмотренные?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Вы хотите отметить все отфильтрованные результаты как просмотренные? </string>
 
     <!-- Measurements -->
 
@@ -354,10 +354,10 @@
     <string name="Modal_OK">ОК</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Удалить все результаты тестов?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
-        <item quantity="one">Вы хотите удалить результат %1$s теста\?</item>
-        <item quantity="few">Вы хотите удалить результаты %1$s тестов\?</item>
-        <item quantity="many">Вы хотите удалить результаты %1$s тестов\?</item>
-        <item quantity="other">Вы хотите удалить результаты %1$s тестов\?</item>
+        <item quantity="one">Вы хотите удалить результат %1$s теста?</item>
+        <item quantity="few">Вы хотите удалить результаты %1$s тестов?</item>
+        <item quantity="many">Вы хотите удалить результаты %1$s тестов?</item>
+        <item quantity="other">Вы хотите удалить результаты %1$s тестов?</item>
     </plurals>
     <plurals name="Modal_Selected">
         <item quantity="one">выбран %1$d результат</item>
@@ -378,7 +378,7 @@
     <string name="Modal_Error_NoInternet">Подключение к интернету отсутствует</string>
     <string name="Modal_CustomURL_Title_NotSaved">Вы уверены?</string>
     <string name="Modal_CustomURL_NotSaved">Если вы закроете этот экран, адреса не сохранятся. Вы уверены, что хотите его закрыть?</string>
-    <string name="Modal_Autorun_BatteryOptimization_Onboarding">Приложение не может запускать тесты в фоновом режиме без специального разрешения. Хотите попробовать снова\? </string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">Приложение не может запускать тесты в фоновом режиме без специального разрешения. Хотите попробовать снова? </string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Приложению нужно разрешение, чтобы запускать тесты автоматически в фоновом режиме. </string>
 
     <!-- Desktop -->
