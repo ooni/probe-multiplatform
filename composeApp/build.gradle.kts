@@ -399,9 +399,15 @@ compose.desktop {
         mainClass = "org.ooni.probe.MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "ooni-probe"
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe, TargetFormat.Deb)
+            packageName = "OONI Probe"
             packageVersion = android.defaultConfig.versionName
+            description =
+                "OONI Probe is a free and open source software designed to measure internet censorship and other forms of network interference."
+            copyright = "© 2024 OONI. All rights reserved."
+            vendor = "Open Observatory of Network Interference (OONI)"
+            // licenseFile.set(project.file("LICENSE.txt"))
+
             modules("java.sql", "jdk.unsupported")
 
             macOS {
@@ -415,6 +421,16 @@ compose.desktop {
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
                 jvmArgs("-Dapple.awt.application.appearance=system") // adaptive title bar
+                iconFile.set(rootProject.file("icons/app.svg"))
+            }
+            windows {
+                iconFile.set(rootProject.file("icons/app.ico"))
+                dirChooser = true
+                shortcut = true
+                menu = true
+            }
+            linux {
+                iconFile.set(rootProject.file("icons/app.png"))
             }
         }
     }
