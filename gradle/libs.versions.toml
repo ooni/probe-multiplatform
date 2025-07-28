@@ -77,7 +77,7 @@ moko-permissions-compose = { module ="dev.icerock.moko:permissions-compose", ver
 moko-permissions-notifications = { module ="dev.icerock.moko:permissions-notifications", version.ref = "mokoPermissions" }
 
 # Crash Reporting
-sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.16.0" }
+sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.17.1" }
 
 # Markdown
 markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.35.0" }
