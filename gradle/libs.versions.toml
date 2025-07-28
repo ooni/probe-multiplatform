@@ -47,7 +47,7 @@ navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", 
 window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "compose-plugin" }
 back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-plugin" }
 material-icons = { module = "org.jetbrains.compose.material:material-icons-core", version = "1.7.3" }
-dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.4.0" }
+dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.5.0" }
 
 # Preferences
 androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStoreVersion" }
