@@ -413,7 +413,9 @@ compose.desktop {
             // Include native libraries
             includeAllModules = true
 
-            appResourcesRootDir.set(project.layout.projectDirectory.dir("src/desktopMain/build"))
+            val appResource = project.layout.projectDirectory.dir("src/desktopMain/build/")
+            println(" Project directory: ${appResource}")
+            appResourcesRootDir.set(appResource)
 
             macOS {
                 minimumSystemVersion = "12.0.0"

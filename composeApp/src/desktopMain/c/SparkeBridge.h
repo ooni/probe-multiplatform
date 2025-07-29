@@ -16,25 +16,29 @@ int sparkle_init(const char* appcast_url, const char* public_key);
 /**
  * Check for updates
  * @param show_ui Whether to show the update UI dialog
+ * @return 0 on success, non-zero on error
  */
-void sparkle_check_for_updates(int show_ui);
+int sparkle_check_for_updates(int show_ui);
 
 /**
  * Set whether automatic update checks are enabled
  * @param enabled 1 to enable, 0 to disable
+ * @return 0 on success, non-zero on error
  */
-void sparkle_set_automatic_check_enabled(int enabled);
+int sparkle_set_automatic_check_enabled(int enabled);
 
 /**
  * Set the update check interval
  * @param hours Interval in hours between automatic checks
+ * @return 0 on success, non-zero on error
  */
-void sparkle_set_update_check_interval(int hours);
+int sparkle_set_update_check_interval(int hours);
 
 /**
  * Cleanup Sparkle resources
+ * @return 0 on success, non-zero on error
  */
-void sparkle_cleanup(void);
+int sparkle_cleanup(void);
 
 #ifdef __cplusplus
 }
