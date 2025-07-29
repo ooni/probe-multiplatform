@@ -67,66 +67,101 @@ int winsparkle_init(const char* appcast_url) {
     return 0;
 }
 
-void winsparkle_check_for_updates(int show_ui) {
+int winsparkle_check_for_updates(int show_ui) {
     if (winsparkle_dll == NULL) {
         printf("WinSparkleHelper: WinSparkle not initialized\n");
-        return;
+        return -1;
     }
     
-    if (show_ui) {
-        ws_check_update_with_ui();
-    } else {
-        ws_check_update_without_ui();
+    __try {
+        if (show_ui) {
+            ws_check_update_with_ui();
+        } else {
+            ws_check_update_without_ui();
+        }
+        return 0;
+    } __except(EXCEPTION_EXECUTE_HANDLER) {
+        printf("WinSparkleHelper: Exception occurred while checking for updates\n");
+        return -2;
     }
 }
 
-void winsparkle_set_automatic_check_enabled(int enabled) {
+int winsparkle_set_automatic_check_enabled(int enabled) {
     if (winsparkle_dll == NULL) {
         printf("WinSparkleHelper: WinSparkle not initialized\n");
-        return;
+        return -1;
     }
     
-    ws_set_automatic_check(enabled);
+    __try {
+        ws_set_automatic_check(enabled);
+        return 0;
+    } __except(EXCEPTION_EXECUTE_HANDLER) {
+        printf("WinSparkleHelper: Exception occurred while setting automatic check\n");
+        return -2;
+    }
 }
 
-void winsparkle_set_update_check_interval(int hours) {
+int winsparkle_set_update_check_interval(int hours) {
     if (winsparkle_dll == NULL) {
         printf("WinSparkleHelper: WinSparkle not initialized\n");
-        return;
+        return -1;
     }
     
-    int seconds = hours * 3600;
-    ws_set_update_interval(seconds);
+    __try {
+        int seconds = hours * 3600;
+        ws_set_update_interval(seconds);
+        return 0;
+    } __except(EXCEPTION_EXECUTE_HANDLER) {
+        printf("WinSparkleHelper: Exception occurred while setting update interval\n");
+        return -2;
+    }
 }
 
-void winsparkle_set_app_details(const char* company_name, const char* app_name, const char* app_version) {
+int winsparkle_set_app_details(const char* company_name, const char* app_name, const char* app_version) {
     if (winsparkle_dll == NULL) {
         printf("WinSparkleHelper: WinSparkle not initialized\n");
-        return;
+        return -1;
     }
     
     if (ws_set_app_details == NULL) {
         printf("WinSparkleHelper: win_sparkle_set_app_details not available\n");
-        return;
+        return -3;
     }
     
-    // Convert UTF-8 to wide strings
-    wchar_t company_wide[256];
-    wchar_t app_wide[256];
-    wchar_t version_wide[256];
-    
-    MultiByteToWideChar(CP_UTF8, 0, company_name, -1, company_wide, 256);
-    MultiByteToWideChar(CP_UTF8, 0, app_name, -1, app_wide, 256);
-    MultiByteToWideChar(CP_UTF8, 0, app_version, -1, version_wide, 256);
-    
-    ws_set_app_details(company_wide, app_wide, version_wide);
+    __try {
+        // Convert UTF-8 to wide strings
+        wchar_t company_wide[256];
+        wchar_t app_wide[256];
+        wchar_t version_wide[256];
+        
+        if (MultiByteToWideChar(CP_UTF8, 0, company_name, -1, company_wide, 256) == 0 ||
+            MultiByteToWideChar(CP_UTF8, 0, app_name, -1, app_wide, 256) == 0 ||
+            MultiByteToWideChar(CP_UTF8, 0, app_version, -1, version_wide, 256) == 0) {
+            printf("WinSparkleHelper: Failed to convert strings to wide chars\n");
+            return -4;
+        }
+        
+        ws_set_app_details(company_wide, app_wide, version_wide);
+        return 0;
+    } __except(EXCEPTION_EXECUTE_HANDLER) {
+        printf("WinSparkleHelper: Exception occurred while setting app details\n");
+        return -2;
+    }
 }
 
-void winsparkle_cleanup(void) {
+int winsparkle_cleanup(void) {
     if (winsparkle_dll != NULL) {
         printf("WinSparkleHelper: Cleaning up\n");
-        ws_cleanup();
-        FreeLibrary(winsparkle_dll);
-        winsparkle_dll = NULL;
+        __try {
+            ws_cleanup();
+            FreeLibrary(winsparkle_dll);
+            winsparkle_dll = NULL;
+            return 0;
+        } __except(EXCEPTION_EXECUTE_HANDLER) {
+            printf("WinSparkleHelper: Exception occurred during cleanup\n");
+            winsparkle_dll = NULL;
+            return -2;
+        }
     }
+    return 0;
 }

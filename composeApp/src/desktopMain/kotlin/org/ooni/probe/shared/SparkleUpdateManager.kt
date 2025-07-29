@@ -1,6 +1,7 @@
 package org.ooni.probe.shared
 
 import co.touchlab.kermit.Logger
+import java.util.Base64
 
 class SparkleUpdateManager : UpdateManager {
     private external fun nativeInit(
@@ -8,13 +9,44 @@ class SparkleUpdateManager : UpdateManager {
         publicKey: String?,
     ): Int
 
-    private external fun nativeCheckForUpdates(showUI: Boolean)
+    private external fun nativeCheckForUpdates(showUI: Boolean): Int
 
-    private external fun nativeSetAutomaticCheckEnabled(enabled: Boolean)
+    private external fun nativeSetAutomaticCheckEnabled(enabled: Boolean): Int
 
-    private external fun nativeSetUpdateCheckInterval(hours: Int)
+    private external fun nativeSetUpdateCheckInterval(hours: Int): Int
 
-    private external fun nativeCleanup()
+    private external fun nativeSetUpdateCallback(callback: Long): Int
+
+    private external fun nativeSetErrorCallback(callback: Long): Int
+
+    private external fun nativeCleanup(): Int
+
+    // Native callback methods - called from C code
+    @Suppress("unused")
+    private fun onUpdateFound(version: String, description: String) {
+        Logger.i("Update found: $version")
+        updateState(UpdateState.UPDATE_AVAILABLE)
+    }
+
+    @Suppress("unused") 
+    private fun onUpdateNotFound() {
+        Logger.i("No updates available")
+        updateState(UpdateState.NO_UPDATE_AVAILABLE)
+    }
+
+    @Suppress("unused")
+    private fun onUpdateError(errorCode: Int, errorMessage: String) {
+        reportError(errorCode, errorMessage, "updateCheck")
+    }
+
+    // State management
+    private var lastError: UpdateError? = null
+    private var currentState: UpdateState = UpdateState.IDLE
+    private var errorCallback: UpdateErrorCallback? = null
+    private var stateCallback: UpdateStateCallback? = null
+    private var lastOperation: (() -> Unit)? = null
+    private var lastAppcastUrl: String? = null
+    private var lastPublicKey: String? = null
 
     companion object {
         init {
@@ -24,31 +56,163 @@ class SparkleUpdateManager : UpdateManager {
                 Logger.e("Failed to load updatebridge library:", e)
             }
         }
+        
+        /**
+         * Validates that a public key is properly formatted for Sparkle EdDSA verification
+         * @param publicKey The base64-encoded public key string
+         * @return true if the key is valid, false otherwise
+         */
+        private fun validatePublicKey(publicKey: String?): Boolean {
+            if (publicKey.isNullOrBlank()) return true // null/empty is allowed
+            
+            return try {
+                val decoded = Base64.getDecoder().decode(publicKey)
+                if (decoded.size != 32) {
+                    Logger.w("Public key has incorrect length: ${decoded.size} bytes (expected 32)")
+                    return false
+                }
+                true
+            } catch (e: IllegalArgumentException) {
+                Logger.w("Public key is not valid base64: $e")
+                false
+            }
+        }
+    }
+
+    private fun updateState(newState: UpdateState) {
+        currentState = newState
+        stateCallback?.invoke(newState)
+    }
+
+    private fun reportError(code: Int, message: String, operation: String) {
+        val error = UpdateError(code, message, operation)
+        lastError = error
+        updateState(UpdateState.ERROR)
+        errorCallback?.invoke(error)
+        Logger.e("UpdateManager Error [$operation]: $message (code: $code)")
     }
 
     override fun initialize(
         appcastUrl: String,
         publicKey: String?,
     ) {
+        updateState(UpdateState.INITIALIZING)
+        lastAppcastUrl = appcastUrl
+        lastPublicKey = publicKey
+        lastOperation = { initialize(appcastUrl, publicKey) }
+        
+        // Validate public key format before passing to native code
+        if (!validatePublicKey(publicKey)) {
+            reportError(-999, "Invalid public key format - initialization aborted", "initialize")
+            return
+        }
+        
         val result = nativeInit(appcastUrl, publicKey)
-        if (result != 0) {
-            Logger.e("Failed to initialize Sparkle updater: $result")
+        when (result) {
+            0 -> {
+                Logger.d("Sparkle updater initialized successfully")
+                updateState(UpdateState.IDLE)
+            }
+            -1 -> reportError(result, "Invalid appcast URL", "initialize")
+            -2 -> reportError(result, "Failed to create updater controller", "initialize")
+            -3 -> reportError(result, "Invalid base64 encoding for public key (check for missing padding like '=')", "initialize")
+            -4 -> reportError(result, "Invalid key length (expected 32 bytes for EdDSA)", "initialize")
+            -5 -> reportError(result, "Exception occurred during initialization", "initialize")
+            else -> reportError(result, "Unknown error occurred", "initialize")
         }
     }
 
     override fun checkForUpdates(showUI: Boolean) {
-        nativeCheckForUpdates(showUI)
+        if (currentState == UpdateState.ERROR && !isHealthy()) {
+            Logger.w("Cannot check for updates: UpdateManager is in error state")
+            return
+        }
+        
+        updateState(UpdateState.CHECKING_FOR_UPDATES)
+        lastOperation = { checkForUpdates(showUI) }
+        
+        val result = nativeCheckForUpdates(showUI)
+        when (result) {
+            0 -> {
+                Logger.d("Update check completed successfully")
+                updateState(UpdateState.NO_UPDATE_AVAILABLE) // Will be updated by delegate if update is found
+            }
+            -1 -> reportError(result, "Updater not initialized", "checkForUpdates")
+            -2 -> reportError(result, "Exception occurred during update check", "checkForUpdates")
+            else -> reportError(result, "Unknown error occurred during update check", "checkForUpdates")
+        }
     }
 
     override fun setAutomaticUpdatesEnabled(enabled: Boolean) {
-        nativeSetAutomaticCheckEnabled(enabled)
+        lastOperation = { setAutomaticUpdatesEnabled(enabled) }
+        
+        val result = nativeSetAutomaticCheckEnabled(enabled)
+        when (result) {
+            0 -> Logger.d("Automatic updates ${if (enabled) "enabled" else "disabled"}")
+            -1 -> reportError(result, "Updater not initialized", "setAutomaticUpdatesEnabled")
+            -2 -> reportError(result, "Exception occurred while setting automatic updates", "setAutomaticUpdatesEnabled")
+            else -> reportError(result, "Unknown error occurred", "setAutomaticUpdatesEnabled")
+        }
     }
 
     override fun setUpdateCheckInterval(hours: Int) {
-        nativeSetUpdateCheckInterval(hours)
+        lastOperation = { setUpdateCheckInterval(hours) }
+        
+        val result = nativeSetUpdateCheckInterval(hours)
+        when (result) {
+            0 -> Logger.d("Update check interval set to $hours hours")
+            -1 -> reportError(result, "Updater not initialized", "setUpdateCheckInterval")
+            -2 -> reportError(result, "Exception occurred while setting update interval", "setUpdateCheckInterval")
+            else -> reportError(result, "Unknown error occurred", "setUpdateCheckInterval")
+        }
     }
 
     override fun cleanup() {
-        nativeCleanup()
+        lastOperation = { cleanup() }
+        
+        val result = nativeCleanup()
+        when (result) {
+            0 -> {
+                Logger.d("Sparkle updater cleaned up successfully")
+                updateState(UpdateState.IDLE)
+            }
+            -2 -> reportError(result, "Exception occurred during cleanup", "cleanup")
+            else -> reportError(result, "Unknown error occurred during cleanup", "cleanup")
+        }
+    }
+
+    // Error and state management implementation
+    override fun setErrorCallback(callback: UpdateErrorCallback?) {
+        errorCallback = callback
+    }
+
+    override fun setStateCallback(callback: UpdateStateCallback?) {
+        stateCallback = callback
+    }
+
+    override fun getLastError(): UpdateError? = lastError
+
+    override fun getCurrentState(): UpdateState = currentState
+
+    override fun retryLastOperation() {
+        val operation = lastOperation
+        if (operation != null) {
+            Logger.i("Retrying last operation")
+            lastError = null
+            operation.invoke()
+        } else {
+            Logger.w("No operation to retry")
+        }
+    }
+
+    override fun isHealthy(): Boolean {
+        return when (currentState) {
+            UpdateState.ERROR -> {
+                val error = lastError
+                // Consider recoverable if it's a network issue or temporary problem
+                error?.code in listOf(-1, -2) // Initialization errors might be recoverable
+            }
+            else -> true
+        }
     }
 }

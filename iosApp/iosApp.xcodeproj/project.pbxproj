@@ -107,7 +107,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		7746A3DD2D7D895200C007B6 /* iosAppUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = iosAppUITests; sourceTree = "<group>"; };
+		7746A3DD2D7D895200C007B6 /* iosAppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = iosAppUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,7 +316,6 @@
 				B92378962B6B1156000C7307 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
 				93E977732C4FE022009CCABC /* ShellScript */,
-				F57E468EACCE9B29FB4C68FC /* [CP] Copy Pods Resources */,
 				11F17E981064A71B74C323DA /* [CP] Embed Pods Frameworks */,
 				795E37802CD5053900086360 /* Embed Foundation Extensions */,
 				79851F9B2D08ADC0002E0951 /* Sentry Upload Symbols Script */,
@@ -330,7 +339,6 @@
 				7746A3D92D7D895200C007B6 /* Frameworks */,
 				7746A3DA2D7D895200C007B6 /* Resources */,
 				9214FA9AC1E4A8135AB7BFD0 /* [CP] Embed Pods Frameworks */,
-				33128707484B6D3E17E3E650 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -354,7 +362,6 @@
 				7746A4702D80383D00C007B6 /* Frameworks */,
 				7746A4712D80383D00C007B6 /* Resources */,
 				2CBE8B4CC1AE3141C0649C31 /* [CP] Embed Pods Frameworks */,
-				4F427154CB927DC7095DDB8B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -396,7 +403,6 @@
 				79FBD0102C5A70AF004E041C /* Frameworks */,
 				79FBD0122C5A70AF004E041C /* Resources */,
 				79FBD0152C5A70AF004E041C /* ShellScript */,
-				06E00FBBFEA4B57236F98854 /* [CP] Copy Pods Resources */,
 				3A3900471DFA31082B6AA60E /* [CP] Embed Pods Frameworks */,
 				79851F9C2D08B0BB002E0951 /* Sentry Upload Symbols Script */,
 			);
@@ -500,23 +506,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		06E00FBBFEA4B57236F98854 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		11F17E981064A71B74C323DA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -617,23 +606,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		33128707484B6D3E17E3E650 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3A3900471DFA31082B6AA60E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -649,23 +621,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4F427154CB927DC7095DDB8B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		79851F9B2D08ADC0002E0951 /* Sentry Upload Symbols Script */ = {
@@ -792,23 +747,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew copyBrandingToCommonResources :composeApp:embedAndSignAppleFrameworkForXcode -Porganization=ooni\n";
-		};
-		F57E468EACCE9B29FB4C68FC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		FE1F9784B605FCA7F4C56923 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

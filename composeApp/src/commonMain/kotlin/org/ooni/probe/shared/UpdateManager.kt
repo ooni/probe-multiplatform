@@ -1,5 +1,24 @@
 package org.ooni.probe.shared
 
+data class UpdateError(
+    val code: Int,
+    val message: String,
+    val operation: String,
+    val timestamp: Long = System.currentTimeMillis()
+)
+
+enum class UpdateState {
+    IDLE,
+    INITIALIZING,
+    CHECKING_FOR_UPDATES,
+    ERROR,
+    UPDATE_AVAILABLE,
+    NO_UPDATE_AVAILABLE
+}
+
+typealias UpdateErrorCallback = (UpdateError) -> Unit
+typealias UpdateStateCallback = (UpdateState) -> Unit
+
 interface UpdateManager {
     fun initialize(
         appcastUrl: String,
@@ -13,11 +32,24 @@ interface UpdateManager {
     fun setUpdateCheckInterval(hours: Int)
 
     fun cleanup()
+    
+    // Error and state management
+    fun setErrorCallback(callback: UpdateErrorCallback?)
+    fun setStateCallback(callback: UpdateStateCallback?)
+    fun getLastError(): UpdateError?
+    fun getCurrentState(): UpdateState
+    fun retryLastOperation()
+    fun isHealthy(): Boolean
 }
 
 expect fun createUpdateManager(platform: Platform): UpdateManager
 
 class NoOpUpdateManager : UpdateManager {
+    private var lastError: UpdateError? = null
+    private var currentState: UpdateState = UpdateState.IDLE
+    private var errorCallback: UpdateErrorCallback? = null
+    private var stateCallback: UpdateStateCallback? = null
+
     override fun initialize(
         appcastUrl: String,
         publicKey: String?,
@@ -30,4 +62,20 @@ class NoOpUpdateManager : UpdateManager {
     override fun setUpdateCheckInterval(hours: Int) {}
 
     override fun cleanup() {}
+    
+    override fun setErrorCallback(callback: UpdateErrorCallback?) {
+        errorCallback = callback
+    }
+    
+    override fun setStateCallback(callback: UpdateStateCallback?) {
+        stateCallback = callback
+    }
+    
+    override fun getLastError(): UpdateError? = lastError
+    
+    override fun getCurrentState(): UpdateState = currentState
+    
+    override fun retryLastOperation() {}
+    
+    override fun isHealthy(): Boolean = true
 }

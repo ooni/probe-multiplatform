@@ -33,24 +33,24 @@ Java_org_ooni_probe_shared_SparkleUpdateManager_nativeInit(JNIEnv* env, jobject 
     return result;
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_SparkleUpdateManager_nativeCheckForUpdates(JNIEnv* env, jobject obj, jboolean showUI) {
-    sparkle_check_for_updates(showUI ? 1 : 0);
+    return sparkle_check_for_updates(showUI ? 1 : 0);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_SparkleUpdateManager_nativeSetAutomaticCheckEnabled(JNIEnv* env, jobject obj, jboolean enabled) {
-    sparkle_set_automatic_check_enabled(enabled ? 1 : 0);
+    return sparkle_set_automatic_check_enabled(enabled ? 1 : 0);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_SparkleUpdateManager_nativeSetUpdateCheckInterval(JNIEnv* env, jobject obj, jint hours) {
-    sparkle_set_update_check_interval(hours);
+    return sparkle_set_update_check_interval(hours);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_SparkleUpdateManager_nativeCleanup(JNIEnv* env, jobject obj) {
-    sparkle_cleanup();
+    return sparkle_cleanup();
 }
 
 #endif
@@ -66,22 +66,22 @@ Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeInit(JNIEnv* env, jobje
     return result;
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeCheckForUpdates(JNIEnv* env, jobject obj, jboolean showUI) {
-    winsparkle_check_for_updates(showUI ? 1 : 0);
+    return winsparkle_check_for_updates(showUI ? 1 : 0);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetAutomaticCheckEnabled(JNIEnv* env, jobject obj, jboolean enabled) {
-    winsparkle_set_automatic_check_enabled(enabled ? 1 : 0);
+    return winsparkle_set_automatic_check_enabled(enabled ? 1 : 0);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetUpdateCheckInterval(JNIEnv* env, jobject obj, jint hours) {
-    winsparkle_set_update_check_interval(hours);
+    return winsparkle_set_update_check_interval(hours);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetAppDetails(JNIEnv* env, jobject obj, 
                                                                          jstring companyName, 
                                                                          jstring appName, 
@@ -90,16 +90,18 @@ Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetAppDetails(JNIEnv* e
     const char* app = jstring_to_cstring(env, appName);
     const char* version = jstring_to_cstring(env, appVersion);
     
-    winsparkle_set_app_details(company, app, version);
+    int result = winsparkle_set_app_details(company, app, version);
     
     release_cstring(env, companyName, company);
     release_cstring(env, appName, app);
     release_cstring(env, appVersion, version);
+    
+    return result;
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeCleanup(JNIEnv* env, jobject obj) {
-    winsparkle_cleanup();
+    return winsparkle_cleanup();
 }
 
 #endif

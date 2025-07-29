@@ -15,33 +15,38 @@ int winsparkle_init(const char* appcast_url);
 /**
  * Check for updates
  * @param show_ui Whether to show the update UI dialog
+ * @return 0 on success, non-zero on error
  */
-void winsparkle_check_for_updates(int show_ui);
+int winsparkle_check_for_updates(int show_ui);
 
 /**
  * Set whether automatic update checks are enabled
  * @param enabled 1 to enable, 0 to disable
+ * @return 0 on success, non-zero on error
  */
-void winsparkle_set_automatic_check_enabled(int enabled);
+int winsparkle_set_automatic_check_enabled(int enabled);
 
 /**
  * Set the update check interval
  * @param hours Interval in hours between automatic checks
+ * @return 0 on success, non-zero on error
  */
-void winsparkle_set_update_check_interval(int hours);
+int winsparkle_set_update_check_interval(int hours);
 
 /**
  * Set application details manually (alternative to VERSIONINFO resources)
  * @param company_name Company name
  * @param app_name Application name
  * @param app_version Application version
+ * @return 0 on success, non-zero on error
  */
-void winsparkle_set_app_details(const char* company_name, const char* app_name, const char* app_version);
+int winsparkle_set_app_details(const char* company_name, const char* app_name, const char* app_version);
 
 /**
  * Cleanup WinSparkle resources
+ * @return 0 on success, non-zero on error
  */
-void winsparkle_cleanup(void);
+int winsparkle_cleanup(void);
 
 #ifdef __cplusplus
 }
