@@ -410,6 +410,11 @@ compose.desktop {
 
             modules("java.sql", "jdk.unsupported")
 
+            // Include native libraries
+            includeAllModules = true
+
+            appResourcesRootDir.set(project.layout.projectDirectory.dir("src/desktopMain/build"))
+
             macOS {
                 minimumSystemVersion = "12.0.0"
                 // Hide dock icon
@@ -417,6 +422,10 @@ compose.desktop {
                     extraKeysRawXml = """
                         <key>LSUIElement</key>
                         <string>true</string>
+                        <key>SUFeedURL</key>
+                        <string>http://10.0.247.73:8000/appcast-aarch64.rss</string>
+                        <key>SUPublicEDKey</key>
+                        <string>pfIShU4dEXqPd5ObYNfDBiQWcXozk7estwzTnF9BamQ=</string>
                     """.trimIndent()
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
@@ -486,11 +495,18 @@ tasks {
 val makeLibrary by tasks.registering(Exec::class) {
     workingDir = file("src/desktopMain")
     commandLine = listOf("make", "all")
+    description = "Build native libraries (NetworkTypeFinder and UpdateBridge)"
 }
 
 val cleanLibrary by tasks.registering(Exec::class) {
     workingDir = file("src/desktopMain")
     commandLine = listOf("make", "clean")
+    description = "Clean native library build artifacts"
+}
+
+// Ensure native libraries are built before desktop compilation
+tasks.named("compileKotlinDesktop").configure {
+    // dependsOn(makeLibrary)
 }
 
 tasks.withType<JavaExec> {
