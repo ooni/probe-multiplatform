@@ -22,3 +22,5 @@ output
 !composeApp/src/desktopMain/build/libnetworktypefinder.dylib
 !composeApp/src/desktopMain/build/libnetworktypefinder.so
 !composeApp/src/desktopMain/build/networktypefinder.dll
+
+/composeApp/src/desktopMain/frameworks/

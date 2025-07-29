@@ -45,15 +45,19 @@ import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.InstanceManager
 import org.ooni.probe.shared.Platform
+import org.ooni.probe.shared.createUpdateManager
 import java.awt.Desktop
 import java.awt.Dimension
 
 const val APP_ID = "org.ooni.probe" // needs to be the same as conveyor `app.rdns-name`
+const val APPCAST_URL = "http://10.0.247.73:8000/appcast-aarch64.rss"
+const val SPARKLE_PUBLIC_KEY = "pfIShU4dEXqPd5ObYNfDBiQWcXozk7estwzTnF9BamQ="
 
 fun main(args: Array<String>) {
     val autoLaunch = AutoLaunch(appPackageName = APP_ID)
     val instanceManager = InstanceManager(dependencies.platformInfo)
     val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
+    val updateManager = createUpdateManager(dependencies.platformInfo.platform)
 
     CoroutineScope(Dispatchers.IO).launch {
         instanceManager.observeUrls().collectLatest {
@@ -65,6 +69,13 @@ fun main(args: Array<String>) {
 
     CoroutineScope(Dispatchers.Default).launch {
         autoLaunch.enable()
+    }
+
+    // Initialize update manager
+    CoroutineScope(Dispatchers.Default).launch {
+        updateManager.initialize(APPCAST_URL, SPARKLE_PUBLIC_KEY)
+        updateManager.setAutomaticUpdatesEnabled(true)
+        updateManager.setUpdateCheckInterval(24) // Check every 24 hours
     }
 
     application {
@@ -126,10 +137,15 @@ fun main(args: Array<String>) {
                     stringResource(Res.string.Desktop_OpenApp),
                     onClick = { showWindow() },
                 )
+                Item(
+                    "Check for Updates...",
+                    onClick = { updateManager.checkForUpdates(showUI = true) },
+                )
                 Separator()
                 Item(
                     stringResource(Res.string.Desktop_Quit),
                     onClick = {
+                        updateManager.cleanup()
                         exitApplication()
                         instanceManager.shutdown()
                     },

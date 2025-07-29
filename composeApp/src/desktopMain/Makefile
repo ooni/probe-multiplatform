@@ -1,11 +1,16 @@
-# Makefile for NetworkTypeFinder JNI Bridge
+# Makefile for NetworkTypeFinder and UpdateBridge JNI Bridges
 
 # Variables
 COMPILER = clang
-FILES = c/NetworkTypeFinder.m
-LIBRARY_NAME = networktypefinder
-LIBRARY_FILE_MAC = lib$(LIBRARY_NAME).dylib
-LIBRARY_FILE_LINUX = lib$(LIBRARY_NAME).so
+NETWORK_FILES = c/NetworkTypeFinder.m
+UPDATE_FILES_MAC = c/UpdateBridge.c c/SparkeBridge.m
+UPDATE_FILES_WIN = c/UpdateBridge.c c/WinSparkleBridge.c
+NETWORK_LIBRARY_NAME = networktypefinder
+UPDATE_LIBRARY_NAME = updatebridge
+NETWORK_LIBRARY_FILE_MAC = lib$(NETWORK_LIBRARY_NAME).dylib
+NETWORK_LIBRARY_FILE_LINUX = lib$(NETWORK_LIBRARY_NAME).so
+UPDATE_LIBRARY_FILE_MAC = lib$(UPDATE_LIBRARY_NAME).dylib
+UPDATE_LIBRARY_FILE_WIN = $(UPDATE_LIBRARY_NAME).dll
 JAVA_HOME ?= $(shell java -XshowSettings:properties -version 2>&1 > /dev/null | grep 'java.home' | awk '{print $$3}')
 
 # Detect platform
@@ -13,52 +18,78 @@ UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S),Darwin)
 PLATFORM_TARGET := macos
-LIBRARY_FILE := $(LIBRARY_FILE_MAC)
+NETWORK_LIBRARY_FILE := $(NETWORK_LIBRARY_FILE_MAC)
+UPDATE_LIBRARY_FILE := $(UPDATE_LIBRARY_FILE_MAC)
 else ifeq ($(UNAME_S),Linux)
 PLATFORM_TARGET := linux
-LIBRARY_FILE := $(LIBRARY_FILE_LINUX)
+NETWORK_LIBRARY_FILE := $(NETWORK_LIBRARY_FILE_LINUX)
+UPDATE_LIBRARY_FILE := 
 else ifeq ($(OS),Windows_NT)
 PLATFORM_TARGET := windows
-LIBRARY_FILE := $(LIBRARY_NAME).dll
+NETWORK_LIBRARY_FILE := $(NETWORK_LIBRARY_NAME).dll
+UPDATE_LIBRARY_FILE := $(UPDATE_LIBRARY_FILE_WIN)
 else
 PLATFORM_TARGET := unknown
-LIBRARY_FILE :=
+NETWORK_LIBRARY_FILE :=
+UPDATE_LIBRARY_FILE :=
 endif
 
 # Default target: build only for detected platform
 all: $(PLATFORM_TARGET)
 
 macos:
-	@echo "Compiling Objective-C code to a dynamic library for macOS..."
+	@echo "Compiling NetworkTypeFinder for macOS..."
 	@mkdir -p build
-	$(COMPILER) -dynamiclib -o build/$(LIBRARY_FILE_MAC) $(FILES) -framework Foundation -framework SystemConfiguration -framework CoreFoundation -framework Network -framework CFNetwork -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin
-	@echo "Library created at build/$(LIBRARY_FILE_MAC)"
+	$(COMPILER) -dynamiclib -o build/$(NETWORK_LIBRARY_FILE_MAC) $(NETWORK_FILES) -framework Foundation -framework SystemConfiguration -framework CoreFoundation -framework Network -framework CFNetwork -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin
+	@echo "NetworkTypeFinder library created at build/$(NETWORK_LIBRARY_FILE_MAC)"
+	@echo "Compiling UpdateBridge for macOS..."
+	@mkdir -p build
+	# Copy Sparkle framework to build directory
+	cp -r frameworks/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework build/
+	$(COMPILER) -dynamiclib -o build/$(UPDATE_LIBRARY_FILE_MAC) $(UPDATE_FILES_MAC) \
+		-framework Foundation \
+		-F frameworks/Sparkle.xcframework/macos-arm64_x86_64 \
+		-framework Sparkle \
+		-I$(JAVA_HOME)/include \
+		-I$(JAVA_HOME)/include/darwin \
+		-I frameworks/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Headers \
+		-install_name @loader_path/lib$(UPDATE_LIBRARY_NAME).dylib \
+		-Wl,-rpath,@loader_path
+	# Fix Sparkle framework reference to use @loader_path
+	install_name_tool -change "@rpath/Sparkle.framework/Versions/B/Sparkle" "@loader_path/Sparkle.framework/Versions/B/Sparkle" build/$(UPDATE_LIBRARY_FILE_MAC)
+	@echo "UpdateBridge library created at build/$(UPDATE_LIBRARY_FILE_MAC)"
 
 linux:
-	@echo "Compiling Objective-C code to a dynamic library for Linux..."
+	@echo "Compiling NetworkTypeFinder for Linux..."
 	@mkdir -p build
-	$(COMPILER) -shared -fPIC -o build/$(LIBRARY_FILE_LINUX) $(FILES) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
-	@echo "Library created at build/$(LIBRARY_FILE_LINUX)"
+	$(COMPILER) -shared -fPIC -o build/$(NETWORK_LIBRARY_FILE_LINUX) $(NETWORK_FILES) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
+	@echo "NetworkTypeFinder library created at build/$(NETWORK_LIBRARY_FILE_LINUX)"
+	@echo "UpdateBridge not supported on Linux"
 
 windows:
-	@echo "Compiling Objective-C code to a dynamic library for Windows..."
+	@echo "Compiling NetworkTypeFinder for Windows..."
 	@mkdir -p build
-	$(COMPILER) -shared -m64 -o build\\$(LIBRARY_NAME).dll $(FILES) '-I$(JAVA_HOME)\\include' '-I$(JAVA_HOME)\\include\\win32' -lws2_32 -liphlpapi
-	@echo "Library created at build/$(LIBRARY_NAME).dll"
+	$(COMPILER) -shared -m64 -o build\\$(NETWORK_LIBRARY_NAME).dll $(NETWORK_FILES) '-I$(JAVA_HOME)\\include' '-I$(JAVA_HOME)\\include\\win32' -lws2_32 -liphlpapi
+	@echo "NetworkTypeFinder library created at build/$(NETWORK_LIBRARY_NAME).dll"
+	@echo "Compiling UpdateBridge for Windows..."
+	$(COMPILER) -shared -m64 -o build\\$(UPDATE_LIBRARY_FILE_WIN) $(UPDATE_FILES_WIN) '-I$(JAVA_HOME)\\include' '-I$(JAVA_HOME)\\include\\win32'
+	@echo "UpdateBridge library created at build/$(UPDATE_LIBRARY_FILE_WIN)"
 
 # Install the library to system path
 install: all
-	@echo "Installing library to system path..."
+	@echo "Installing libraries to system path..."
 ifeq ($(PLATFORM_TARGET),macos)
-	cp build/$(LIBRARY_FILE_MAC) $(HOME)/Library/Java/Extensions
+	cp build/$(NETWORK_LIBRARY_FILE_MAC) $(HOME)/Library/Java/Extensions
+	cp build/$(UPDATE_LIBRARY_FILE_MAC) $(HOME)/Library/Java/Extensions
 else ifeq ($(PLATFORM_TARGET),linux)
-	sudo cp build/$(LIBRARY_FILE_LINUX) /usr/lib/
+	sudo cp build/$(NETWORK_LIBRARY_FILE_LINUX) /usr/lib/
 else ifeq ($(PLATFORM_TARGET),windows)
-	copy build\\$(LIBRARY_NAME).dll %JAVA_HOME%\\bin
+	copy build\\$(NETWORK_LIBRARY_NAME).dll %JAVA_HOME%\\bin
+	copy build\\$(UPDATE_LIBRARY_FILE_WIN) %JAVA_HOME%\\bin
 else
 	@echo "Unknown platform, not installing."
 endif
-	@echo "Library installed"
+	@echo "Libraries installed"
 
 clean:
 	@echo "Cleaning build artifacts..."
@@ -66,16 +97,20 @@ clean:
 	@echo "Clean complete"
 
 help:
-	@echo "NetworkTypeFinder JNI Bridge Makefile"
+	@echo "NetworkTypeFinder and UpdateBridge JNI Bridges Makefile"
 	@echo ""
 	@echo "Targets:"
-	@echo "  all (default): Compile Objective-C code to a dynamic library for the current platform"
-	@echo "  install: Install the library to system path for the current platform"
+	@echo "  all (default): Compile both libraries for the current platform"
+	@echo "  install: Install the libraries to system path for the current platform"
 	@echo "  clean: Clean build artifacts"
 	@echo "  help: Show this help message"
 	@echo ""
+	@echo "Libraries built:"
+	@echo "  NetworkTypeFinder: Network type detection"
+	@echo "  UpdateBridge: Sparkle (macOS) / WinSparkle (Windows) integration"
+	@echo ""
 	@echo "Example usage:"
-	@echo "  make all      # Compile the library for your platform"
-	@echo "  make install  # Install the library for your platform"
+	@echo "  make all      # Compile the libraries for your platform"
+	@echo "  make install  # Install the libraries for your platform"
 
 .PHONY: all macos linux windows install clean help
