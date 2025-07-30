@@ -438,7 +438,7 @@ compose.desktop {
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
                 jvmArgs("-Dapple.awt.application.appearance=system") // adaptive title bar
-                iconFile.set(rootProject.file("icons/app.svg"))
+                iconFile.set(rootProject.file("icons/app.icns"))
             }
             windows {
                 iconFile.set(rootProject.file("icons/app.ico"))
