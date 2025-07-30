@@ -499,6 +499,12 @@ val makeLibrary by tasks.registering(Exec::class) {
     workingDir = file("src/desktopMain")
     commandLine = listOf("make", "all")
     description = "Build native libraries (NetworkTypeFinder and UpdateBridge)"
+    doFirst {
+        println("🔨 Building native libraries...")
+    }
+    doLast {
+        println("✅ Native libraries built successfully")
+    }
 }
 
 val cleanLibrary by tasks.registering(Exec::class) {

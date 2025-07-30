@@ -45,15 +45,13 @@ macos:
 	@echo "NetworkTypeFinder library created at $(RESOURCES_BASE_DIR)/macos/$(NETWORK_LIBRARY_FILE_MAC)"
 	@echo "Compiling UpdateBridge for macOS..."
 	@mkdir -p $(RESOURCES_BASE_DIR)/macos
-	# Copy Sparkle framework to resources directory
-	cp -r frameworks/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework $(RESOURCES_BASE_DIR)/macos/
 	$(COMPILER) -dynamiclib -o $(RESOURCES_BASE_DIR)/macos/$(UPDATE_LIBRARY_FILE_MAC) $(UPDATE_FILES_MAC) \
 		-framework Foundation \
-		-F frameworks/Sparkle.xcframework/macos-arm64_x86_64 \
+		-F $(RESOURCES_BASE_DIR)/macos \
 		-framework Sparkle \
 		-I$(JAVA_HOME)/include \
 		-I$(JAVA_HOME)/include/darwin \
-		-I frameworks/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Headers \
+		-I $(RESOURCES_BASE_DIR)/macos/Sparkle.framework/Headers \
 		-install_name @loader_path/lib$(UPDATE_LIBRARY_NAME).dylib \
 		-Wl,-rpath,@loader_path
 	# Fix Sparkle framework reference to use @loader_path
@@ -94,7 +92,16 @@ endif
 
 clean:
 	@echo "Cleaning build artifacts..."
+	# Preserve Sparkle framework during clean
+	@if [ -d "$(RESOURCES_BASE_DIR)/macos/Sparkle.framework" ]; then \
+		cp -R $(RESOURCES_BASE_DIR)/macos/Sparkle.framework /tmp/sparkle-backup; \
+	fi
 	rm -rf $(RESOURCES_BASE_DIR)
+	@if [ -d "/tmp/sparkle-backup" ]; then \
+		mkdir -p $(RESOURCES_BASE_DIR)/macos; \
+		cp -R /tmp/sparkle-backup $(RESOURCES_BASE_DIR)/macos/Sparkle.framework; \
+		rm -rf /tmp/sparkle-backup; \
+	fi
 	@echo "Clean complete"
 
 help:
