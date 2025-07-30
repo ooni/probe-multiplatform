@@ -24,4 +24,3 @@ output
 !composeApp/src/desktopMain/resources/windows/*.dll
 
 /composeApp/src/desktopMain/frameworks/
-composeApp/src/desktopMain/resources/macos/Sparkle.framework
