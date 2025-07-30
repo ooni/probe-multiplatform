@@ -3,7 +3,7 @@ package org.ooni.probe.shared
 import co.touchlab.kermit.Logger
 import java.util.Base64
 
-class SparkleUpdateManager(
+class MacSparkleUpdateManager(
     private val os: DesktopOS,
 ) : UpdateManager {
     init {
@@ -79,7 +79,7 @@ class SparkleUpdateManager(
                     // Load from resources directory
                     val libraryPath = when (os) {
                         DesktopOS.Mac -> "$resourcesPath/libupdatebridge.dylib"
-                        DesktopOS.Windows -> "$resourcesPath\\updatebridge.dll"
+                        DesktopOS.Windows -> "$resourcesPath/updatebridge.dll"
                         else -> "$resourcesPath/libupdatebridge.so"
                     }
                     try {

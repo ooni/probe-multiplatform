@@ -55,7 +55,7 @@ import java.awt.Desktop
 import java.awt.Dimension
 
 const val APP_ID = "org.ooni.probe" // needs to be the same as conveyor `app.rdns-name`
-const val APPCAST_URL = "https://25taexi16x.sharedwithexpose.com/appcast-aarch64.rss"
+const val APPCAST_URL = "https://tezwyxhofq.sharedwithexpose.com/appcast-amd64.rss"
 const val SPARKLE_PUBLIC_KEY = "pfIShU4dEXqPd5ObYNfDBiQWcXozk7estwzTnF9BamQ="
 
 fun main(args: Array<String>) {
