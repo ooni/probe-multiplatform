@@ -12,8 +12,32 @@ class DesktopNetworkTypeFinder : NetworkTypeFinder {
 
         init {
             try {
-                System.loadLibrary("networktypefinder")
-                libraryLoaded = true
+                val resourcesPath = System.getProperty("compose.application.resources.dir")
+                if (resourcesPath != null) {
+                    // Load from resources directory
+                    val libraryPath = when {
+                        System.getProperty("os.name").contains("Windows", ignoreCase = true) -> 
+                            "$resourcesPath\\networktypefinder.dll"
+                        System.getProperty("os.name").contains("Mac", ignoreCase = true) -> 
+                            "$resourcesPath/libnetworktypefinder.dylib"
+                        else -> 
+                            "$resourcesPath/libnetworktypefinder.so"
+                    }
+                    try {
+                        System.load(libraryPath)
+                        Logger.d("Successfully loaded networktypefinder library from resources: $libraryPath")
+                        libraryLoaded = true
+                    } catch (e: UnsatisfiedLinkError) {
+                        Logger.w("Failed to load networktypefinder library from resources ($libraryPath), trying system library path:", e)
+                        System.loadLibrary("networktypefinder")
+                        libraryLoaded = true
+                    }
+                } else {
+                    // Fallback to system library path
+                    Logger.d("compose.application.resources.dir not set, using system library path")
+                    System.loadLibrary("networktypefinder")
+                    libraryLoaded = true
+                }
             } catch (e: UnsatisfiedLinkError) {
                 Logger.w("Failed to load native library: ${e.message}")
                 libraryLoaded = false
