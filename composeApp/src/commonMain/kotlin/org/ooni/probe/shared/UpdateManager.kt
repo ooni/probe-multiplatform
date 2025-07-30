@@ -4,7 +4,7 @@ data class UpdateError(
     val code: Int,
     val message: String,
     val operation: String,
-    val timestamp: Long = System.currentTimeMillis()
+    val timestamp: Long = System.currentTimeMillis(),
 )
 
 enum class UpdateState {
@@ -13,7 +13,7 @@ enum class UpdateState {
     CHECKING_FOR_UPDATES,
     ERROR,
     UPDATE_AVAILABLE,
-    NO_UPDATE_AVAILABLE
+    NO_UPDATE_AVAILABLE,
 }
 
 typealias UpdateErrorCallback = (UpdateError) -> Unit
@@ -32,13 +32,18 @@ interface UpdateManager {
     fun setUpdateCheckInterval(hours: Int)
 
     fun cleanup()
-    
+
     // Error and state management
     fun setErrorCallback(callback: UpdateErrorCallback?)
+
     fun setStateCallback(callback: UpdateStateCallback?)
+
     fun getLastError(): UpdateError?
+
     fun getCurrentState(): UpdateState
+
     fun retryLastOperation()
+
     fun isHealthy(): Boolean
 }
 
@@ -62,20 +67,20 @@ class NoOpUpdateManager : UpdateManager {
     override fun setUpdateCheckInterval(hours: Int) {}
 
     override fun cleanup() {}
-    
+
     override fun setErrorCallback(callback: UpdateErrorCallback?) {
         errorCallback = callback
     }
-    
+
     override fun setStateCallback(callback: UpdateStateCallback?) {
         stateCallback = callback
     }
-    
+
     override fun getLastError(): UpdateError? = lastError
-    
+
     override fun getCurrentState(): UpdateState = currentState
-    
+
     override fun retryLastOperation() {}
-    
+
     override fun isHealthy(): Boolean = true
 }
