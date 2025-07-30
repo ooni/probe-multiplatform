@@ -3,7 +3,9 @@ package org.ooni.probe.shared
 import co.touchlab.kermit.Logger
 import java.util.Base64
 
-class SparkleUpdateManager(private val os: DesktopOS) : UpdateManager {
+class SparkleUpdateManager(
+    private val os: DesktopOS,
+) : UpdateManager {
     init {
         loadLibrary(os)
     }
@@ -25,9 +27,19 @@ class SparkleUpdateManager(private val os: DesktopOS) : UpdateManager {
 
     private external fun nativeCleanup(): Int
 
+    // Windows-specific native methods
+    private external fun nativeSetAppDetails(
+        companyName: String,
+        appName: String,
+        appVersion: String,
+    ): Int
+
     // Native callback methods - called from C code
     @Suppress("unused")
-    private fun onUpdateFound(version: String, description: String) {
+    private fun onUpdateFound(
+        version: String,
+        description: String,
+    ) {
         Logger.i("Update found: $version")
         updateState(UpdateState.UPDATE_AVAILABLE)
     }
@@ -39,7 +51,10 @@ class SparkleUpdateManager(private val os: DesktopOS) : UpdateManager {
     }
 
     @Suppress("unused")
-    private fun onUpdateError(errorCode: Int, errorMessage: String) {
+    private fun onUpdateError(
+        errorCode: Int,
+        errorMessage: String,
+    ) {
         reportError(errorCode, errorMessage, "updateCheck")
     }
 
@@ -65,8 +80,7 @@ class SparkleUpdateManager(private val os: DesktopOS) : UpdateManager {
                     val libraryPath = when (os) {
                         DesktopOS.Mac -> "$resourcesPath/libupdatebridge.dylib"
                         DesktopOS.Windows -> "$resourcesPath/updatebridge.dll"
-                        DesktopOS.Linux -> "$resourcesPath/libupdatebridge.so"
-                        else -> throw UnsatisfiedLinkError("Unsupported OS: $os")
+                        else -> "$resourcesPath/libupdatebridge.so"
                     }
                     try {
                         System.load(libraryPath)
@@ -115,7 +129,11 @@ class SparkleUpdateManager(private val os: DesktopOS) : UpdateManager {
         stateCallback?.invoke(newState)
     }
 
-    private fun reportError(code: Int, message: String, operation: String) {
+    private fun reportError(
+        code: Int,
+        message: String,
+        operation: String,
+    ) {
         val error = UpdateError(code, message, operation)
         lastError = error
         updateState(UpdateState.ERROR)
@@ -132,24 +150,54 @@ class SparkleUpdateManager(private val os: DesktopOS) : UpdateManager {
         lastPublicKey = publicKey
         lastOperation = { initialize(appcastUrl, publicKey) }
 
-        // Validate public key format before passing to native code
-        if (!validatePublicKey(publicKey)) {
-            reportError(-999, "Invalid public key format - initialization aborted", "initialize")
-            return
-        }
+        when (os) {
+            DesktopOS.Windows -> {
+                // Windows-specific initialization: Set app details first
+                val appDetailsResult = nativeSetAppDetails("OONI", "OONI Probe", "5.1.0")
+                if (appDetailsResult != 0) {
+                    when (appDetailsResult) {
+                        -1 -> reportError(appDetailsResult, "WinSparkle not initialized for app details", "setAppDetails")
+                        -2 -> reportError(appDetailsResult, "Exception occurred while setting app details", "setAppDetails")
+                        -3 -> reportError(appDetailsResult, "win_sparkle_set_app_details function not available", "setAppDetails")
+                        -4 -> reportError(appDetailsResult, "Failed to convert strings to wide characters", "setAppDetails")
+                        else -> reportError(appDetailsResult, "Unknown error setting app details", "setAppDetails")
+                    }
+                    return
+                }
 
-        val result = nativeInit(appcastUrl, publicKey)
-        when (result) {
-            0 -> {
-                Logger.d("Sparkle updater initialized successfully")
-                updateState(UpdateState.IDLE)
+                // Windows doesn't use public key validation
+                val result = nativeInit(appcastUrl, null)
+                when (result) {
+                    0 -> {
+                        Logger.d("WinSparkle updater initialized successfully")
+                        updateState(UpdateState.IDLE)
+                    }
+                    -1 -> reportError(result, "Failed to load WinSparkle.dll", "initialize")
+                    -2 -> reportError(result, "Failed to load required WinSparkle functions", "initialize")
+                    else -> reportError(result, "Unknown error occurred", "initialize")
+                }
             }
-            -1 -> reportError(result, "Invalid appcast URL", "initialize")
-            -2 -> reportError(result, "Failed to create updater controller", "initialize")
-            -3 -> reportError(result, "Invalid base64 encoding for public key (check for missing padding like '=')", "initialize")
-            -4 -> reportError(result, "Invalid key length (expected 32 bytes for EdDSA)", "initialize")
-            -5 -> reportError(result, "Exception occurred during initialization", "initialize")
-            else -> reportError(result, "Unknown error occurred", "initialize")
+            else -> {
+                // Mac/Linux: Validate public key format before passing to native code
+                if (!validatePublicKey(publicKey)) {
+                    reportError(-999, "Invalid public key format - initialization aborted", "initialize")
+                    return
+                }
+
+                val result = nativeInit(appcastUrl, publicKey)
+                when (result) {
+                    0 -> {
+                        Logger.d("Sparkle updater initialized successfully")
+                        updateState(UpdateState.IDLE)
+                    }
+                    -1 -> reportError(result, "Invalid appcast URL", "initialize")
+                    -2 -> reportError(result, "Failed to create updater controller", "initialize")
+                    -3 -> reportError(result, "Invalid base64 encoding for public key (check for missing padding like '=')", "initialize")
+                    -4 -> reportError(result, "Invalid key length (expected 32 bytes for EdDSA)", "initialize")
+                    -5 -> reportError(result, "Exception occurred during initialization", "initialize")
+                    else -> reportError(result, "Unknown error occurred", "initialize")
+                }
+            }
         }
     }
 
@@ -236,8 +284,8 @@ class SparkleUpdateManager(private val os: DesktopOS) : UpdateManager {
         }
     }
 
-    override fun isHealthy(): Boolean {
-        return when (currentState) {
+    override fun isHealthy(): Boolean =
+        when (currentState) {
             UpdateState.ERROR -> {
                 val error = lastError
                 // Consider recoverable if it's a network issue or temporary problem
@@ -245,5 +293,4 @@ class SparkleUpdateManager(private val os: DesktopOS) : UpdateManager {
             }
             else -> true
         }
-    }
 }

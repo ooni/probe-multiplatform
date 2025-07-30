@@ -12,14 +12,14 @@ data class UpdateDiagnostics(
     val lastSuccessfulCheck: Long?,
     val environmentInfo: EnvironmentInfo,
     val networkConnectivity: Boolean,
-    val recommendedActions: List<String>
+    val recommendedActions: List<String>,
 )
 
 data class UpdateErrorInfo(
     val code: Int,
     val message: String,
     val operation: String,
-    val timestamp: Long
+    val timestamp: Long,
 )
 
 data class EnvironmentInfo(
@@ -27,7 +27,7 @@ data class EnvironmentInfo(
     val osVersion: String,
     val sparkleVersion: String?,
     val winsparkleAvailable: Boolean,
-    val requiredLibrariesPresent: List<String>
+    val requiredLibrariesPresent: List<String>,
 )
 
 /**
@@ -38,41 +38,41 @@ class UpdateDiagnosticsCollector {
     private var initializationAttempts = 0
     private var updateCheckAttempts = 0
     private var lastSuccessfulCheck: Long? = null
-    
+
     fun collectDiagnostics(updateManager: UpdateManager): UpdateDiagnostics {
         Logger.d("Collecting update diagnostics...")
-        
+
         val platform = detectPlatform()
         val lastError = updateManager.getLastError()
-        
+
         return UpdateDiagnostics(
             platform = platform,
             libraryLoaded = checkLibraryLoaded(),
             currentState = updateManager.getCurrentState().name,
-            lastError = lastError?.let { 
-                UpdateErrorInfo(it.code, it.message, it.operation, it.timestamp) 
+            lastError = lastError?.let {
+                UpdateErrorInfo(it.code, it.message, it.operation, it.timestamp)
             },
             initializationAttempts = initializationAttempts,
             updateCheckAttempts = updateCheckAttempts,
             lastSuccessfulCheck = lastSuccessfulCheck,
             environmentInfo = collectEnvironmentInfo(platform),
             networkConnectivity = checkNetworkConnectivity(),
-            recommendedActions = generateRecommendations(updateManager, platform)
+            recommendedActions = generateRecommendations(updateManager, platform),
         )
     }
-    
+
     fun trackInitializationAttempt() {
         initializationAttempts++
     }
-    
+
     fun trackUpdateCheckAttempt() {
         updateCheckAttempts++
     }
-    
+
     fun recordSuccessfulCheck() {
         lastSuccessfulCheck = System.currentTimeMillis()
     }
-    
+
     private fun detectPlatform(): String {
         val osName = System.getProperty("os.name", "unknown").lowercase()
         return when {
@@ -82,39 +82,37 @@ class UpdateDiagnosticsCollector {
             else -> osName
         }
     }
-    
-    private fun checkLibraryLoaded(): Boolean {
-        return try {
+
+    private fun checkLibraryLoaded(): Boolean =
+        try {
             // This is a basic check - in practice you might want to call a simple native function
             System.getProperty("java.library.path") != null
         } catch (e: Exception) {
             false
         }
-    }
-    
-    private fun collectEnvironmentInfo(platform: String): EnvironmentInfo {
-        return EnvironmentInfo(
+
+    private fun collectEnvironmentInfo(platform: String): EnvironmentInfo =
+        EnvironmentInfo(
             osName = System.getProperty("os.name", "unknown"),
             osVersion = System.getProperty("os.version", "unknown"),
             sparkleVersion = if (platform == "macOS") detectSparkleVersion() else null,
             winsparkleAvailable = if (platform == "Windows") checkWinSparkleAvailable() else false,
-            requiredLibrariesPresent = checkRequiredLibraries(platform)
+            requiredLibrariesPresent = checkRequiredLibraries(platform),
         )
-    }
-    
+
     private fun detectSparkleVersion(): String? {
         // In practice, you might read this from the Sparkle framework
         return "2.5.2" // This would be detected dynamically
     }
-    
+
     private fun checkWinSparkleAvailable(): Boolean {
         // This would check for WinSparkle.dll availability
         return true // Placeholder
     }
-    
+
     private fun checkRequiredLibraries(platform: String): List<String> {
         val libraries = mutableListOf<String>()
-        
+
         when (platform) {
             "macOS" -> {
                 libraries.add("Sparkle.framework")
@@ -125,12 +123,12 @@ class UpdateDiagnosticsCollector {
                 libraries.add("updatebridge")
             }
         }
-        
+
         return libraries
     }
-    
-    private fun checkNetworkConnectivity(): Boolean {
-        return try {
+
+    private fun checkNetworkConnectivity(): Boolean =
+        try {
             // Basic connectivity check - you might want to ping the appcast URL
             val runtime = Runtime.getRuntime()
             val process = runtime.exec("ping -c 1 google.com")
@@ -139,13 +137,15 @@ class UpdateDiagnosticsCollector {
             Logger.w("Network connectivity check failed: $e")
             false
         }
-    }
-    
-    private fun generateRecommendations(updateManager: UpdateManager, platform: String): List<String> {
+
+    private fun generateRecommendations(
+        updateManager: UpdateManager,
+        platform: String,
+    ): List<String> {
         val recommendations = mutableListOf<String>()
         val lastError = updateManager.getLastError()
         val state = updateManager.getCurrentState()
-        
+
         when (state) {
             UpdateState.ERROR -> {
                 lastError?.let { error ->
@@ -168,7 +168,7 @@ class UpdateDiagnosticsCollector {
                 }
             }
         }
-        
+
         when (platform) {
             "macOS" -> {
                 recommendations.add("Ensure Sparkle.framework is properly embedded")
@@ -179,14 +179,14 @@ class UpdateDiagnosticsCollector {
                 recommendations.add("Check Windows Defender exclusions if needed")
             }
         }
-        
+
         if (!checkNetworkConnectivity()) {
             recommendations.add("Network connectivity issues detected - check internet connection")
         }
-        
+
         return recommendations.distinct()
     }
-    
+
     fun exportDiagnosticsJson(updateManager: UpdateManager): String {
         val diagnostics = collectDiagnostics(updateManager)
         // Simple JSON-like string representation
@@ -208,10 +208,10 @@ class UpdateDiagnosticsCollector {
             append("}")
         }
     }
-    
+
     fun logDiagnosticsSummary(updateManager: UpdateManager) {
         val diagnostics = collectDiagnostics(updateManager)
-        
+
         Logger.i("=== Update System Diagnostics ===")
         Logger.i("Platform: ${diagnostics.platform}")
         Logger.i("Library Loaded: ${diagnostics.libraryLoaded}")
@@ -220,14 +220,14 @@ class UpdateDiagnosticsCollector {
         Logger.i("Initialization Attempts: ${diagnostics.initializationAttempts}")
         Logger.i("Update Check Attempts: ${diagnostics.updateCheckAttempts}")
         Logger.i("Network Connectivity: ${diagnostics.networkConnectivity}")
-        
+
         if (diagnostics.recommendedActions.isNotEmpty()) {
             Logger.i("Recommended Actions:")
             diagnostics.recommendedActions.forEach { action ->
                 Logger.i("  - $action")
             }
         }
-        
+
         Logger.i("=== End Diagnostics ===")
     }
 }

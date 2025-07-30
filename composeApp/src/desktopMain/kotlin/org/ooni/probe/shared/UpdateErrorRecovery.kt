@@ -1,7 +1,12 @@
 package org.ooni.probe.shared
 
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * Automated error recovery system for UpdateManager
@@ -9,22 +14,22 @@ import kotlinx.coroutines.*
  */
 class UpdateErrorRecovery(
     private val updateManager: UpdateManager,
-    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
 ) {
     private var retryJob: Job? = null
     private var retryCount = 0
     private val maxRetries = 3
     private val baseDelayMs = 1000L
-    
+
     init {
         updateManager.setErrorCallback { error ->
             handleError(error)
         }
     }
-    
+
     private fun handleError(error: UpdateError) {
         Logger.w("UpdateErrorRecovery: Handling error ${error.code} in ${error.operation}")
-        
+
         when {
             isNetworkError(error) -> scheduleNetworkRetry(error)
             isInitializationError(error) -> scheduleInitializationRetry(error)
@@ -35,30 +40,27 @@ class UpdateErrorRecovery(
             }
         }
     }
-    
-    private fun isNetworkError(error: UpdateError): Boolean {
-        return error.operation == "checkForUpdates" && 
-               error.message.contains("network", ignoreCase = true)
-    }
-    
-    private fun isInitializationError(error: UpdateError): Boolean {
-        return error.operation == "initialize" && error.code in listOf(-1, -2, -5)
-    }
-    
+
+    private fun isNetworkError(error: UpdateError): Boolean =
+        error.operation == "checkForUpdates" &&
+            error.message.contains("network", ignoreCase = true)
+
+    private fun isInitializationError(error: UpdateError): Boolean = error.operation == "initialize" && error.code in listOf(-1, -2, -5)
+
     private fun isTransientError(error: UpdateError): Boolean {
         return error.code == -2 // Exception errors might be transient
     }
-    
+
     private fun scheduleNetworkRetry(error: UpdateError) {
         if (retryCount >= maxRetries) {
             Logger.e("UpdateErrorRecovery: Max network retries exceeded")
             resetRetryCount()
             return
         }
-        
+
         val delay = calculateBackoffDelay()
         Logger.i("UpdateErrorRecovery: Scheduling network retry $retryCount/$maxRetries in ${delay}ms")
-        
+
         retryJob?.cancel()
         retryJob = scope.launch {
             delay(delay)
@@ -67,17 +69,17 @@ class UpdateErrorRecovery(
             retryCount++
         }
     }
-    
+
     private fun scheduleInitializationRetry(error: UpdateError) {
         if (retryCount >= maxRetries) {
             Logger.e("UpdateErrorRecovery: Max initialization retries exceeded")
             resetRetryCount()
             return
         }
-        
+
         val delay = calculateBackoffDelay()
         Logger.i("UpdateErrorRecovery: Scheduling initialization retry $retryCount/$maxRetries in ${delay}ms")
-        
+
         retryJob?.cancel()
         retryJob = scope.launch {
             delay(delay)
@@ -86,16 +88,16 @@ class UpdateErrorRecovery(
             retryCount++
         }
     }
-    
+
     private fun scheduleTransientRetry(error: UpdateError) {
         if (retryCount >= 1) { // Only one retry for transient errors
             Logger.w("UpdateErrorRecovery: Transient error retry limit reached")
             resetRetryCount()
             return
         }
-        
+
         Logger.i("UpdateErrorRecovery: Scheduling transient error retry")
-        
+
         retryJob?.cancel()
         retryJob = scope.launch {
             delay(2000L) // Short delay for transient errors
@@ -104,17 +106,17 @@ class UpdateErrorRecovery(
             retryCount++
         }
     }
-    
+
     private fun calculateBackoffDelay(): Long {
         return baseDelayMs * (1 shl retryCount) // Exponential backoff: 1s, 2s, 4s
     }
-    
+
     private fun resetRetryCount() {
         retryCount = 0
         retryJob?.cancel()
         retryJob = null
     }
-    
+
     /**
      * Cancel any pending retry operations
      */
@@ -122,7 +124,7 @@ class UpdateErrorRecovery(
         retryJob?.cancel()
         resetRetryCount()
     }
-    
+
     /**
      * Force an immediate retry if possible
      */
@@ -134,12 +136,12 @@ class UpdateErrorRecovery(
             updateManager.retryLastOperation()
         }
     }
-    
+
     /**
      * Check if the system is currently attempting recovery
      */
     fun isRecovering(): Boolean = retryJob?.isActive == true
-    
+
     /**
      * Get current retry statistics
      */

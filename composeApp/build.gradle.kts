@@ -5,7 +5,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
-import java.io.File  // For File.pathSeparator
+import java.io.File // For File.pathSeparator
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -415,7 +415,7 @@ compose.desktop {
             includeAllModules = true
 
             val appResource = project.layout.projectDirectory.dir("src/desktopMain/build/")
-            println(" Project directory: ${appResource}")
+            println(" Project directory: $appResource")
             appResourcesRootDir.set(appResource)
 
             macOS {
