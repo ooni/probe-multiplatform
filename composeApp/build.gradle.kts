@@ -222,8 +222,8 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 210 // Always increment by 10. See fdroid flavor below
-        versionName = "5.1.0"
+        versionCode = 200 // Always increment by 10. See fdroid flavor below
+        versionName = "5.0.0"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
         resValue(
@@ -426,9 +426,14 @@ compose.desktop {
                         <key>LSUIElement</key>
                         <string>true</string>
                         <key>SUFeedURL</key>
-                        <string>http://10.0.247.73:8000/appcast-aarch64.rss</string>
+                        <string>http://127.0.0.1:9999/appcast-aarch64.rss</string>
                         <key>SUPublicEDKey</key>
-                        <string>pfIShU4dEXqPd5ObYNfDBiQWcXozk7estwzTnF9BamQ=</string>
+                        <string>NSSMAR1POATrcPOX+UGVPB58phK2XyVSyUEEX4IzCzU=</string>
+                        <key>SUAllowedURLSchemes</key>
+                        <array>
+                            <string>https</string>
+                            <string>http</string>
+                        </array>
                     """.trimIndent()
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
@@ -521,7 +526,13 @@ tasks.named("compileKotlinDesktop").configure {
 tasks.withType<JavaExec> {
     systemProperty(
         "java.library.path",
-        "$projectDir/src/desktopMain/resources" + File.pathSeparator + System.getProperty("java.library.path"),
+        "$projectDir/src/desktopMain/resources/macos" +
+            File.pathSeparator +
+            "$projectDir/src/desktopMain/resources/windows" +
+            File.pathSeparator +
+            "$projectDir/src/desktopMain/resources/linux" +
+            File.pathSeparator +
+            System.getProperty("java.library.path"),
     )
 }
 
