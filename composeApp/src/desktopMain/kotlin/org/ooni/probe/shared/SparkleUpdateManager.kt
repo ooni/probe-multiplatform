@@ -3,7 +3,11 @@ package org.ooni.probe.shared
 import co.touchlab.kermit.Logger
 import java.util.Base64
 
-class SparkleUpdateManager : UpdateManager {
+class SparkleUpdateManager(private val os: DesktopOS) : UpdateManager {
+    init {
+        loadLibrary(os)
+    }
+
     private external fun nativeInit(
         appcastUrl: String,
         publicKey: String?,
@@ -28,7 +32,7 @@ class SparkleUpdateManager : UpdateManager {
         updateState(UpdateState.UPDATE_AVAILABLE)
     }
 
-    @Suppress("unused") 
+    @Suppress("unused")
     private fun onUpdateNotFound() {
         Logger.i("No updates available")
         updateState(UpdateState.NO_UPDATE_AVAILABLE)
@@ -49,14 +53,41 @@ class SparkleUpdateManager : UpdateManager {
     private var lastPublicKey: String? = null
 
     companion object {
-        init {
+        private var isLibraryLoaded = false
+
+        private fun loadLibrary(os: DesktopOS) {
+            if (isLibraryLoaded) return
+
             try {
-                System.loadLibrary("updatebridge")
+                val resourcesPath = System.getProperty("compose.application.resources.dir")
+                if (resourcesPath != null) {
+                    // Load from resources directory
+                    val libraryPath = when (os) {
+                        DesktopOS.Mac -> "$resourcesPath/libupdatebridge.dylib"
+                        DesktopOS.Windows -> "$resourcesPath/updatebridge.dll"
+                        DesktopOS.Linux -> "$resourcesPath/libupdatebridge.so"
+                        else -> throw UnsatisfiedLinkError("Unsupported OS: $os")
+                    }
+                    try {
+                        System.load(libraryPath)
+                        Logger.d("Successfully loaded updatebridge library from resources: $libraryPath")
+                        isLibraryLoaded = true
+                    } catch (e: UnsatisfiedLinkError) {
+                        Logger.w("Failed to load updatebridge library from resources ($libraryPath), trying system library path:", e)
+                        System.loadLibrary("updatebridge")
+                        isLibraryLoaded = true
+                    }
+                } else {
+                    // Fallback to system library path
+                    Logger.d("compose.application.resources.dir not set, using system library path")
+                    System.loadLibrary("updatebridge")
+                    isLibraryLoaded = true
+                }
             } catch (e: UnsatisfiedLinkError) {
                 Logger.e("Failed to load updatebridge library:", e)
             }
         }
-        
+
         /**
          * Validates that a public key is properly formatted for Sparkle EdDSA verification
          * @param publicKey The base64-encoded public key string
@@ -64,7 +95,7 @@ class SparkleUpdateManager : UpdateManager {
          */
         private fun validatePublicKey(publicKey: String?): Boolean {
             if (publicKey.isNullOrBlank()) return true // null/empty is allowed
-            
+
             return try {
                 val decoded = Base64.getDecoder().decode(publicKey)
                 if (decoded.size != 32) {
@@ -100,13 +131,13 @@ class SparkleUpdateManager : UpdateManager {
         lastAppcastUrl = appcastUrl
         lastPublicKey = publicKey
         lastOperation = { initialize(appcastUrl, publicKey) }
-        
+
         // Validate public key format before passing to native code
         if (!validatePublicKey(publicKey)) {
             reportError(-999, "Invalid public key format - initialization aborted", "initialize")
             return
         }
-        
+
         val result = nativeInit(appcastUrl, publicKey)
         when (result) {
             0 -> {
@@ -127,10 +158,10 @@ class SparkleUpdateManager : UpdateManager {
             Logger.w("Cannot check for updates: UpdateManager is in error state")
             return
         }
-        
+
         updateState(UpdateState.CHECKING_FOR_UPDATES)
         lastOperation = { checkForUpdates(showUI) }
-        
+
         val result = nativeCheckForUpdates(showUI)
         when (result) {
             0 -> {
@@ -145,7 +176,7 @@ class SparkleUpdateManager : UpdateManager {
 
     override fun setAutomaticUpdatesEnabled(enabled: Boolean) {
         lastOperation = { setAutomaticUpdatesEnabled(enabled) }
-        
+
         val result = nativeSetAutomaticCheckEnabled(enabled)
         when (result) {
             0 -> Logger.d("Automatic updates ${if (enabled) "enabled" else "disabled"}")
@@ -157,7 +188,7 @@ class SparkleUpdateManager : UpdateManager {
 
     override fun setUpdateCheckInterval(hours: Int) {
         lastOperation = { setUpdateCheckInterval(hours) }
-        
+
         val result = nativeSetUpdateCheckInterval(hours)
         when (result) {
             0 -> Logger.d("Update check interval set to $hours hours")
@@ -169,7 +200,7 @@ class SparkleUpdateManager : UpdateManager {
 
     override fun cleanup() {
         lastOperation = { cleanup() }
-        
+
         val result = nativeCleanup()
         when (result) {
             0 -> {
