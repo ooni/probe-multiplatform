@@ -414,7 +414,7 @@ compose.desktop {
             // Include native libraries
             includeAllModules = true
 
-            val appResource = project.layout.projectDirectory.dir("src/desktopMain/build/")
+            val appResource = project.layout.projectDirectory.dir("src/desktopMain/resources/")
             println(" Project directory: $appResource")
             appResourcesRootDir.set(appResource)
 
@@ -515,7 +515,7 @@ tasks.named("compileKotlinDesktop").configure {
 tasks.withType<JavaExec> {
     systemProperty(
         "java.library.path",
-        "$projectDir/src/desktopMain/build/" + File.pathSeparator + System.getProperty("java.library.path"),
+        "$projectDir/src/desktopMain/resources" + File.pathSeparator + System.getProperty("java.library.path"),
     )
 }
 
