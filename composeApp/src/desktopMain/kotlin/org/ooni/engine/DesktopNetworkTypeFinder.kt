@@ -16,11 +16,11 @@ class DesktopNetworkTypeFinder : NetworkTypeFinder {
                 if (resourcesPath != null) {
                     // Load from resources directory
                     val libraryPath = when {
-                        System.getProperty("os.name").contains("Windows", ignoreCase = true) -> 
+                        System.getProperty("os.name").contains("Windows", ignoreCase = true) ->
                             "$resourcesPath\\networktypefinder.dll"
-                        System.getProperty("os.name").contains("Mac", ignoreCase = true) -> 
+                        System.getProperty("os.name").contains("Mac", ignoreCase = true) ->
                             "$resourcesPath/libnetworktypefinder.dylib"
-                        else -> 
+                        else ->
                             "$resourcesPath/libnetworktypefinder.so"
                     }
                     try {

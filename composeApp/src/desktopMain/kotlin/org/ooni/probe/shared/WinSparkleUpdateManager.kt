@@ -2,12 +2,12 @@ package org.ooni.probe.shared
 
 import co.touchlab.kermit.Logger
 
-class WinSparkleUpdateManager (    private val os: DesktopOS,
+class WinSparkleUpdateManager(
+    private val os: DesktopOS,
 ) : UpdateManager {
     init {
         loadLibrary(os)
     }
-
 
     private fun loadLibrary(os: DesktopOS) {
         try {
@@ -69,7 +69,11 @@ class WinSparkleUpdateManager (    private val os: DesktopOS,
         stateCallback?.invoke(newState)
     }
 
-    private fun reportError(code: Int, message: String, operation: String) {
+    private fun reportError(
+        code: Int,
+        message: String,
+        operation: String,
+    ) {
         val error = UpdateError(code, message, operation)
         lastError = error
         updateState(UpdateState.ERROR)
@@ -193,8 +197,8 @@ class WinSparkleUpdateManager (    private val os: DesktopOS,
         }
     }
 
-    override fun isHealthy(): Boolean {
-        return when (currentState) {
+    override fun isHealthy(): Boolean =
+        when (currentState) {
             UpdateState.ERROR -> {
                 val error = lastError
                 // Consider recoverable if it's a network issue or temporary problem
@@ -202,5 +206,4 @@ class WinSparkleUpdateManager (    private val os: DesktopOS,
             }
             else -> true
         }
-    }
 }
