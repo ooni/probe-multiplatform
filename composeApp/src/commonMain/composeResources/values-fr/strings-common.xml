@@ -134,13 +134,13 @@
     <string name="TestResults_Filter_Date_Custom_Filled">Personnalisé : %1$s</string>
     <string name="TestResults_Filter_Date_Picker">Choisir une plage de date</string>
     <string name="TestResults_Filter_NoTestsFound">Aucun résultat de test n’a été trouvé pour ces filtres.</string>
-    <string name="TestResults_Filter_DeleteConfirmation">Voulez-vous supprimer tous les résultats des tests pour les filtres actuels \?</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Voulez-vous supprimer tous les résultats des tests pour les filtres actuels?</string>
 
     <string name="Results_LimitedNotice">Seuls les %1$d derniers résultats sont affichés</string>
     <string name="Results_UploadingMissing">Téléversements des résultats manquants %1$s</string>
     <string name="Results_MarkAllAsViewed">Tout marquer comme lu</string>
-    <string name="Results_MarkAllAsViewed_Confirmation">Voulez-vous marquer tous les résultats comme lus \?</string>
-    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Voulez-vous marquer tous les résultats comme lus pour les filtres actuels \?</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Voulez-vous marquer tous les résultats comme lus?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Voulez-vous marquer tous les résultats comme lus pour les filtres actuels?</string>
 
     <!-- Measurements -->
 
@@ -201,7 +201,7 @@
     <string name="Settings_Storage_Label">Utilisation de l’espace de stockage</string>
     <string name="Settings_Storage_Delete">Supprimer</string>
     <string name="Settings_Storage_Clear">Effacer</string>
-    <string name="Settings_Legacy_Storage">Effacer les fichiers de la version précédente</string>
+    <string name="Settings_Legacy_Storage">Supprimer les fichiers de la version précédente</string>
     <string name="Settings_WarmVPNInUse_Label">Avertir quand un RPV est utilisé</string>
     <string name="Settings_DisableVpnInstructions">Accédez à Réglages &gt; Général &gt; VPN et déconnectez-vous de votre RPV.</string>
     <string name="Settings_Logs">Journaux</string>
@@ -350,11 +350,11 @@
     <string name="Modal_Cancel">Annuler</string>
     <string name="Modal_OK">Valider</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Voulez-vous supprimer tous les résultats de test?</string>
-    <string name="Modal_Clear_Legacy_Directories">Voulez-vous effacer les dossiers hérités \?</string>
+    <string name="Modal_Clear_Legacy_Directories">Voulez-vous supprimer les dossiers hérités?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">Voulez-vous supprimer %1$s résultat de test \?</item>
         <item quantity="many">Voulez-vous supprimer %1$sde résultats de test \?</item>
-        <item quantity="other">Voulez-vous supprimer %1$s résultats de test \?</item>
+        <item quantity="other">Voulez-vous supprimer %1$s résultats de test?</item>
     </plurals>
     <plurals name="Modal_Selected">
         <item quantity="one">%1$d élément choisi</item>
@@ -374,7 +374,7 @@
     <string name="Modal_Error_NoInternet">Aucune connexion à Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">Confirmez-vous?</string>
     <string name="Modal_CustomURL_NotSaved">Vos URL ne seront pas enregistrées si vous quittez cet écran. Voulez-vous vraiment le quitter?</string>
-    <string name="Modal_Autorun_BatteryOptimization_Onboarding">L’application ne peut pas effectuer des tests automatiquement sans l’autorisation de fonctionner en arrière-plan. Voulez-vous réessayer \?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">L’application ne peut pas effectuer des tests automatiquement sans l’autorisation de fonctionner en arrière-plan. Voulez-vous réessayer?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">L’application doit être autorisée à effectuer des tests automatiquement en arrière-plan.</string>
 
     <!-- Desktop -->
