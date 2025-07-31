@@ -50,13 +50,12 @@ import org.ooni.probe.shared.InstanceManager
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateError
 import org.ooni.probe.shared.UpdateState
+import org.ooni.probe.config.UpdateConfig
 import co.touchlab.kermit.Logger
 import java.awt.Desktop
 import java.awt.Dimension
 
 const val APP_ID = "org.ooni.probe" // needs to be the same as conveyor `app.rdns-name`
-const val APPCAST_URL = "http://127.0.0.1:9999/appcast-aarch64.rss"
-const val SPARKLE_PUBLIC_KEY = "NSSMAR1POATrcPOX+UGVPB58phK2XyVSyUEEX4IzCzU="
 
 fun main(args: Array<String>) {
     val autoLaunch = AutoLaunch(appPackageName = APP_ID)
@@ -292,12 +291,12 @@ private suspend fun setupUpdateManager(
         when (error.code) {
             -3, -4 -> {
                 Logger.e("EdDSA key validation failed. Please check SPARKLE_PUBLIC_KEY configuration.")
-                Logger.e("Current key: ${SPARKLE_PUBLIC_KEY.take(20)}...")
+                Logger.e("Current key: ${UpdateConfig.PUBLIC_KEY.take(20)}...")
                 // In production, you might want to show a user notification
             }
             -1 -> {
                 Logger.w("Network or URL error. Update check will be retried automatically.")
-                Logger.w("Appcast URL: $APPCAST_URL")
+                Logger.w("Appcast URL: ${UpdateConfig.URL}")
             }
             -999 -> {
                 Logger.e("Update system setup or validation error: ${error.message}")
@@ -317,10 +316,10 @@ private suspend fun setupUpdateManager(
 
     // Initialize the update system
     Logger.i("Initializing update system...")
-    Logger.i("Appcast URL: $APPCAST_URL")
-    Logger.i("Public key configured: ${SPARKLE_PUBLIC_KEY.isNotEmpty()}")
+    Logger.i("Appcast URL: ${UpdateConfig.URL}")
+    Logger.i("Public key configured: ${UpdateConfig.PUBLIC_KEY.isNotEmpty()}")
 
-    updateManager.initialize(APPCAST_URL, SPARKLE_PUBLIC_KEY)
+    updateManager.initialize(UpdateConfig.URL, UpdateConfig.PUBLIC_KEY)
 
     // Configure automatic updates
     updateManager.setAutomaticUpdatesEnabled(true)

@@ -47,8 +47,6 @@ interface UpdateManager {
     fun isHealthy(): Boolean
 }
 
-expect fun createUpdateManager(platform: Platform): UpdateManager
-
 class NoOpUpdateManager : UpdateManager {
     private var lastError: UpdateError? = null
     private var currentState: UpdateState = UpdateState.IDLE
