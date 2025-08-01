@@ -50,7 +50,11 @@ class WinSparkleUpdateManager(
 
     // Callback from native code for log messages
     @Suppress("unused")
-    fun onLog(level: Int, operation: String, message: String) {
+    fun onLog(
+        level: Int,
+        operation: String,
+        message: String,
+    ) {
         val logLevel = UpdateLogLevel.values().find { it.value == level } ?: UpdateLogLevel.INFO
         val logMessage = UpdateLogMessage(logLevel, operation, message)
         logCallback?.invoke(logMessage)
@@ -100,19 +104,6 @@ class WinSparkleUpdateManager(
         lastAppcastUrl = appcastUrl
         lastOperation = { initialize(appcastUrl, publicKey) }
 
-        // Set app details from build config first
-        /*val appDetailsResult = nativeSetAppDetails("OONI", "OONI Probe", "5.1.0")
-        if (appDetailsResult != 0) {
-            when (appDetailsResult) {
-                -1 -> logErrorAndUpdateState(appDetailsResult, "WinSparkle not initialized for app details", "setAppDetails")
-                -2 -> logErrorAndUpdateState(appDetailsResult, "Exception occurred while setting app details", "setAppDetails")
-                -3 -> logErrorAndUpdateState(appDetailsResult, "win_sparkle_set_app_details function not available", "setAppDetails")
-                -4 -> logErrorAndUpdateState(appDetailsResult, "Failed to convert strings to wide characters", "setAppDetails")
-                else -> logErrorAndUpdateState(appDetailsResult, "Unknown error setting app details", "setAppDetails")
-            }
-            return
-        }*/
-
         val result = nativeInit(appcastUrl)
         when (result) {
             0 -> {
@@ -123,11 +114,26 @@ class WinSparkleUpdateManager(
             -2 -> logErrorAndUpdateState(result, "Failed to load required WinSparkle functions", "initialize")
             else -> logErrorAndUpdateState(result, "Unknown error occurred", "initialize")
         }
+
+        // Set app details from build config first
+        val appDetailsResult = nativeSetAppDetails("OONI", "OONI Probe", "5.1.0")
+        if (appDetailsResult != 0) {
+            when (appDetailsResult) {
+                -1 -> logErrorAndUpdateState(appDetailsResult, "WinSparkle not initialized for app details", "setAppDetails")
+                -2 -> logErrorAndUpdateState(appDetailsResult, "Exception occurred while setting app details", "setAppDetails")
+                -3 -> logErrorAndUpdateState(appDetailsResult, "win_sparkle_set_app_details function not available", "setAppDetails")
+                -4 -> logErrorAndUpdateState(appDetailsResult, "Failed to convert strings to wide characters", "setAppDetails")
+                else -> logErrorAndUpdateState(appDetailsResult, "Unknown error setting app details", "setAppDetails")
+            }
+            return
+        }
     }
 
     override fun checkForUpdates(showUI: Boolean) {
         if (currentState == UpdateState.ERROR && !isHealthy()) {
-            logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.WARN, "checkForUpdates", "Cannot check for updates: WinSparkle is in error state"))
+            logCallback?.invoke(
+                UpdateLogMessage(UpdateLogLevel.WARN, "checkForUpdates", "Cannot check for updates: WinSparkle is in error state"),
+            )
             return
         }
 
@@ -151,7 +157,13 @@ class WinSparkleUpdateManager(
 
         val result = nativeSetAutomaticCheckEnabled(enabled)
         when (result) {
-            0 -> logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "setAutomaticUpdatesEnabled", "Automatic updates ${if (enabled) "enabled" else "disabled"}"))
+            0 -> logCallback?.invoke(
+                UpdateLogMessage(
+                    UpdateLogLevel.INFO,
+                    "setAutomaticUpdatesEnabled",
+                    "Automatic updates ${if (enabled) "enabled" else "disabled"}",
+                ),
+            )
             -1 -> logErrorAndUpdateState(result, "WinSparkle not initialized", "setAutomaticUpdatesEnabled")
             -2 -> logErrorAndUpdateState(result, "Exception occurred while setting automatic updates", "setAutomaticUpdatesEnabled")
             else -> logErrorAndUpdateState(result, "Unknown error occurred", "setAutomaticUpdatesEnabled")
@@ -163,7 +175,9 @@ class WinSparkleUpdateManager(
 
         val result = nativeSetUpdateCheckInterval(hours)
         when (result) {
-            0 -> logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "setUpdateCheckInterval", "Update check interval set to $hours hours"))
+            0 -> logCallback?.invoke(
+                UpdateLogMessage(UpdateLogLevel.INFO, "setUpdateCheckInterval", "Update check interval set to $hours hours"),
+            )
             -1 -> logErrorAndUpdateState(result, "WinSparkle not initialized", "setUpdateCheckInterval")
             -2 -> logErrorAndUpdateState(result, "Exception occurred while setting update interval", "setUpdateCheckInterval")
             else -> logErrorAndUpdateState(result, "Unknown error occurred", "setUpdateCheckInterval")

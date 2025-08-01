@@ -16,11 +16,13 @@ enum class UpdateState {
     NO_UPDATE_AVAILABLE,
 }
 
-enum class UpdateLogLevel(val value: Int) {
+enum class UpdateLogLevel(
+    val value: Int,
+) {
     DEBUG(0),
     INFO(1),
     WARN(2),
-    ERROR(3)
+    ERROR(3),
 }
 
 data class UpdateLogMessage(

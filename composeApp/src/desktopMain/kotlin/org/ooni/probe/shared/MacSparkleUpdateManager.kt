@@ -58,7 +58,11 @@ class MacSparkleUpdateManager(
 
     // Callback from native code for log messages
     @Suppress("unused")
-    fun onLog(level: Int, operation: String, message: String) {
+    fun onLog(
+        level: Int,
+        operation: String,
+        message: String,
+    ) {
         val logLevel = UpdateLogLevel.values().find { it.value == level } ?: UpdateLogLevel.INFO
         val logMessage = UpdateLogMessage(logLevel, operation, message)
         logCallback?.invoke(logMessage)
@@ -165,7 +169,11 @@ class MacSparkleUpdateManager(
                     when (appDetailsResult) {
                         -1 -> logErrorAndUpdateState(appDetailsResult, "WinSparkle not initialized for app details", "setAppDetails")
                         -2 -> logErrorAndUpdateState(appDetailsResult, "Exception occurred while setting app details", "setAppDetails")
-                        -3 -> logErrorAndUpdateState(appDetailsResult, "win_sparkle_set_app_details function not available", "setAppDetails")
+                        -3 -> logErrorAndUpdateState(
+                            appDetailsResult,
+                            "win_sparkle_set_app_details function not available",
+                            "setAppDetails",
+                        )
                         -4 -> logErrorAndUpdateState(appDetailsResult, "Failed to convert strings to wide characters", "setAppDetails")
                         else -> logErrorAndUpdateState(appDetailsResult, "Unknown error setting app details", "setAppDetails")
                     }
@@ -176,7 +184,9 @@ class MacSparkleUpdateManager(
                 val result = nativeInit(appcastUrl, null)
                 when (result) {
                     0 -> {
-                        logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "initialize", "WinSparkle updater initialized successfully"))
+                        logCallback?.invoke(
+                            UpdateLogMessage(UpdateLogLevel.INFO, "initialize", "WinSparkle updater initialized successfully"),
+                        )
                         updateState(UpdateState.IDLE)
                     }
                     -1 -> logErrorAndUpdateState(result, "Failed to load WinSparkle.dll", "initialize")
@@ -199,7 +209,11 @@ class MacSparkleUpdateManager(
                     }
                     -1 -> logErrorAndUpdateState(result, "Invalid appcast URL", "initialize")
                     -2 -> logErrorAndUpdateState(result, "Failed to create updater controller", "initialize")
-                    -3 -> logErrorAndUpdateState(result, "Invalid base64 encoding for public key (check for missing padding like '=')", "initialize")
+                    -3 -> logErrorAndUpdateState(
+                        result,
+                        "Invalid base64 encoding for public key (check for missing padding like '=')",
+                        "initialize",
+                    )
                     -4 -> logErrorAndUpdateState(result, "Invalid key length (expected 32 bytes for EdDSA)", "initialize")
                     -5 -> logErrorAndUpdateState(result, "Exception occurred during initialization", "initialize")
                     else -> logErrorAndUpdateState(result, "Unknown error occurred", "initialize")
@@ -210,7 +224,9 @@ class MacSparkleUpdateManager(
 
     override fun checkForUpdates(showUI: Boolean) {
         if (currentState == UpdateState.ERROR && !isHealthy()) {
-            logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.WARN, "checkForUpdates", "Cannot check for updates: UpdateManager is in error state"))
+            logCallback?.invoke(
+                UpdateLogMessage(UpdateLogLevel.WARN, "checkForUpdates", "Cannot check for updates: UpdateManager is in error state"),
+            )
             return
         }
 
@@ -234,7 +250,13 @@ class MacSparkleUpdateManager(
 
         val result = nativeSetAutomaticCheckEnabled(enabled)
         when (result) {
-            0 -> logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "setAutomaticUpdatesEnabled", "Automatic updates ${if (enabled) "enabled" else "disabled"}"))
+            0 -> logCallback?.invoke(
+                UpdateLogMessage(
+                    UpdateLogLevel.INFO,
+                    "setAutomaticUpdatesEnabled",
+                    "Automatic updates ${if (enabled) "enabled" else "disabled"}",
+                ),
+            )
             -1 -> logErrorAndUpdateState(result, "Updater not initialized", "setAutomaticUpdatesEnabled")
             -2 -> logErrorAndUpdateState(result, "Exception occurred while setting automatic updates", "setAutomaticUpdatesEnabled")
             else -> logErrorAndUpdateState(result, "Unknown error occurred", "setAutomaticUpdatesEnabled")
@@ -246,7 +268,9 @@ class MacSparkleUpdateManager(
 
         val result = nativeSetUpdateCheckInterval(hours)
         when (result) {
-            0 -> logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "setUpdateCheckInterval", "Update check interval set to $hours hours"))
+            0 -> logCallback?.invoke(
+                UpdateLogMessage(UpdateLogLevel.INFO, "setUpdateCheckInterval", "Update check interval set to $hours hours"),
+            )
             -1 -> logErrorAndUpdateState(result, "Updater not initialized", "setUpdateCheckInterval")
             -2 -> logErrorAndUpdateState(result, "Exception occurred while setting update interval", "setUpdateCheckInterval")
             else -> logErrorAndUpdateState(result, "Unknown error occurred", "setUpdateCheckInterval")
