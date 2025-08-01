@@ -6,6 +6,30 @@ extern "C" {
 #endif
 
 /**
+ * Log levels for callback logging
+ */
+typedef enum {
+    SPARKLE_LOG_DEBUG = 0,
+    SPARKLE_LOG_INFO = 1,
+    SPARKLE_LOG_WARN = 2,
+    SPARKLE_LOG_ERROR = 3
+} SparkleLogLevel;
+
+/**
+ * Log callback function type
+ * @param level The log level
+ * @param operation The operation being performed (e.g., "init", "check_updates", "cleanup")
+ * @param message The log message
+ */
+typedef void (*SparkleLogCallback)(SparkleLogLevel level, const char* operation, const char* message);
+
+/**
+ * Set log callback for receiving log messages
+ * @param callback Function pointer to log callback, or NULL to disable
+ */
+void sparkle_set_log_callback(SparkleLogCallback callback);
+
+/**
  * Initialize Sparkle updater with appcast URL and optional public key
  * @param appcast_url The URL to the appcast feed (UTF-8 encoded)
  * @param public_key The EdDSA public key for signature verification (UTF-8 encoded, can be NULL)

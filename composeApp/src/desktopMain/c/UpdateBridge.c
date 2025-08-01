@@ -7,6 +7,11 @@
 #include "WinSparkleBridge.h"
 #endif
 
+// Global JVM and callback references
+static JavaVM* g_jvm = NULL;
+static jobject g_logCallbackObject = NULL;
+static jmethodID g_logCallbackMethod = NULL;
+
 // Helper function to convert jstring to C string
 static const char* jstring_to_cstring(JNIEnv* env, jstring jstr) {
     if (jstr == NULL) return NULL;
@@ -18,6 +23,92 @@ static void release_cstring(JNIEnv* env, jstring jstr, const char* cstr) {
     if (cstr != NULL) {
         (*env)->ReleaseStringUTFChars(env, jstr, cstr);
     }
+}
+
+// Log callback function that forwards to Java
+#ifdef __APPLE__
+static void native_log_callback(SparkleLogLevel level, const char* operation, const char* message) {
+#else
+static void native_log_callback(WinSparkleLogLevel level, const char* operation, const char* message) {
+#endif
+    if (g_jvm == NULL || g_logCallbackObject == NULL || g_logCallbackMethod == NULL) {
+        return;
+    }
+    
+    JNIEnv* env = NULL;
+    if ((*g_jvm)->AttachCurrentThread(g_jvm, (void**)&env, NULL) != JNI_OK) {
+        return;
+    }
+    
+    // Create Java strings
+    jstring jOperation = (*env)->NewStringUTF(env, operation);
+    jstring jMessage = (*env)->NewStringUTF(env, message);
+    
+    if (jOperation != NULL && jMessage != NULL) {
+        // Call Java callback method
+        (*env)->CallVoidMethod(env, g_logCallbackObject, g_logCallbackMethod, 
+                               (jint)level, jOperation, jMessage);
+    }
+    
+    // Clean up local references
+    if (jOperation != NULL) (*env)->DeleteLocalRef(env, jOperation);
+    if (jMessage != NULL) (*env)->DeleteLocalRef(env, jMessage);
+    
+    (*g_jvm)->DetachCurrentThread(g_jvm);
+}
+
+// JNI function to set log callback
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_UpdateManagerBase_nativeSetLogCallback(JNIEnv* env, jobject obj, jobject callback) {
+    // Get JavaVM for later use
+    if (g_jvm == NULL) {
+        if ((*env)->GetJavaVM(env, &g_jvm) != JNI_OK) {
+            return -1;
+        }
+    }
+    
+    // Clear existing callback
+    if (g_logCallbackObject != NULL) {
+        (*env)->DeleteGlobalRef(env, g_logCallbackObject);
+        g_logCallbackObject = NULL;
+        g_logCallbackMethod = NULL;
+    }
+    
+    if (callback == NULL) {
+        // Disable callback
+#ifdef __APPLE__
+        sparkle_set_log_callback(NULL);
+#else
+        winsparkle_set_log_callback(NULL);
+#endif
+        return 0;
+    }
+    
+    // Create global reference to callback object
+    g_logCallbackObject = (*env)->NewGlobalRef(env, callback);
+    if (g_logCallbackObject == NULL) {
+        return -2;
+    }
+    
+    // Get the callback method
+    jclass callbackClass = (*env)->GetObjectClass(env, callback);
+    g_logCallbackMethod = (*env)->GetMethodID(env, callbackClass, "onLog", "(ILjava/lang/String;Ljava/lang/String;)V");
+    (*env)->DeleteLocalRef(env, callbackClass);
+    
+    if (g_logCallbackMethod == NULL) {
+        (*env)->DeleteGlobalRef(env, g_logCallbackObject);
+        g_logCallbackObject = NULL;
+        return -3;
+    }
+    
+    // Set native callback
+#ifdef __APPLE__
+    sparkle_set_log_callback(native_log_callback);
+#else
+    winsparkle_set_log_callback(native_log_callback);
+#endif
+    
+    return 0;
 }
 
 // Sparkle JNI implementations (macOS)

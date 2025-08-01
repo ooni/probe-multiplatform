@@ -16,8 +16,23 @@ enum class UpdateState {
     NO_UPDATE_AVAILABLE,
 }
 
+enum class UpdateLogLevel(val value: Int) {
+    DEBUG(0),
+    INFO(1),
+    WARN(2),
+    ERROR(3)
+}
+
+data class UpdateLogMessage(
+    val level: UpdateLogLevel,
+    val operation: String,
+    val message: String,
+    val timestamp: Long = System.currentTimeMillis(),
+)
+
 typealias UpdateErrorCallback = (UpdateError) -> Unit
 typealias UpdateStateCallback = (UpdateState) -> Unit
+typealias UpdateLogCallback = (UpdateLogMessage) -> Unit
 
 interface UpdateManager {
     fun initialize(
@@ -45,6 +60,9 @@ interface UpdateManager {
     fun retryLastOperation()
 
     fun isHealthy(): Boolean
+
+    // Logging functionality
+    fun setLogCallback(callback: UpdateLogCallback?)
 }
 
 class NoOpUpdateManager : UpdateManager {
@@ -52,6 +70,7 @@ class NoOpUpdateManager : UpdateManager {
     private var currentState: UpdateState = UpdateState.IDLE
     private var errorCallback: UpdateErrorCallback? = null
     private var stateCallback: UpdateStateCallback? = null
+    private var logCallback: UpdateLogCallback? = null
 
     override fun initialize(
         appcastUrl: String,
@@ -81,4 +100,8 @@ class NoOpUpdateManager : UpdateManager {
     override fun retryLastOperation() {}
 
     override fun isHealthy(): Boolean = true
+
+    override fun setLogCallback(callback: UpdateLogCallback?) {
+        logCallback = callback
+    }
 }
