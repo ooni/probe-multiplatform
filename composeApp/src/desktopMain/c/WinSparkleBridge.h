@@ -6,6 +6,30 @@ extern "C" {
 #endif
 
 /**
+ * Log levels for callback logging
+ */
+typedef enum {
+    WINSPARKLE_LOG_DEBUG = 0,
+    WINSPARKLE_LOG_INFO = 1,
+    WINSPARKLE_LOG_WARN = 2,
+    WINSPARKLE_LOG_ERROR = 3
+} WinSparkleLogLevel;
+
+/**
+ * Log callback function type
+ * @param level The log level
+ * @param operation The operation being performed (e.g., "init", "check_updates", "cleanup")
+ * @param message The log message
+ */
+typedef void (*WinSparkleLogCallback)(WinSparkleLogLevel level, const char* operation, const char* message);
+
+/**
+ * Set log callback for receiving log messages
+ * @param callback Function pointer to log callback, or NULL to disable
+ */
+void winsparkle_set_log_callback(WinSparkleLogCallback callback);
+
+/**
  * Initialize WinSparkle updater with appcast URL
  * @param appcast_url The URL to the appcast feed (UTF-8 encoded)
  * @return 0 on success, non-zero on error
