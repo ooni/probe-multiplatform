@@ -101,7 +101,7 @@ class WinSparkleUpdateManager(
         lastOperation = { initialize(appcastUrl, publicKey) }
 
         // Set app details from build config first
-        val appDetailsResult = nativeSetAppDetails("OONI", "OONI Probe", "5.1.0")
+        /*val appDetailsResult = nativeSetAppDetails("OONI", "OONI Probe", "5.1.0")
         if (appDetailsResult != 0) {
             when (appDetailsResult) {
                 -1 -> logErrorAndUpdateState(appDetailsResult, "WinSparkle not initialized for app details", "setAppDetails")
@@ -111,7 +111,7 @@ class WinSparkleUpdateManager(
                 else -> logErrorAndUpdateState(appDetailsResult, "Unknown error setting app details", "setAppDetails")
             }
             return
-        }
+        }*/
 
         val result = nativeInit(appcastUrl)
         when (result) {
