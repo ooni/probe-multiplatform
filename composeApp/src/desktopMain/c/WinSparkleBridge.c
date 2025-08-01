@@ -79,12 +79,52 @@ static int load_winsparkle_dll() {
         return 0; // Already loaded
     }
     
-    winsparkle_log(WINSPARKLE_LOG_INFO, "dll_load", "Loading WinSparkle.dll");
+    // Detect system architecture and try loading the appropriate DLL
+    SYSTEM_INFO sysInfo;
+    GetNativeSystemInfo(&sysInfo);
     
-    winsparkle_dll = LoadLibraryA("WinSparkle.dll");
+    const char* dllNames[] = {NULL, NULL, NULL}; // Will hold up to 3 DLL names to try
+    int dllCount = 0;
+    
+    switch (sysInfo.wProcessorArchitecture) {
+        case PROCESSOR_ARCHITECTURE_AMD64:
+            winsparkle_log(WINSPARKLE_LOG_INFO, "dll_load", "Detected x64 architecture");
+            dllNames[dllCount++] = "WinSparkle-x64.dll";
+            dllNames[dllCount++] = "WinSparkle.dll"; // fallback
+            break;
+        case PROCESSOR_ARCHITECTURE_ARM64:
+            winsparkle_log(WINSPARKLE_LOG_INFO, "dll_load", "Detected ARM64 architecture");
+            dllNames[dllCount++] = "WinSparkle-ARM64.dll";
+            dllNames[dllCount++] = "WinSparkle-x64.dll"; // fallback
+            dllNames[dllCount++] = "WinSparkle.dll"; // fallback
+            break;
+        case PROCESSOR_ARCHITECTURE_INTEL:
+            winsparkle_log(WINSPARKLE_LOG_INFO, "dll_load", "Detected x86 architecture");
+            dllNames[dllCount++] = "WinSparkle.dll";
+            break;
+        default:
+            winsparkle_log(WINSPARKLE_LOG_WARN, "dll_load", "Unknown architecture (%d), trying default DLL", sysInfo.wProcessorArchitecture);
+            dllNames[dllCount++] = "WinSparkle-x64.dll"; // most common fallback
+            dllNames[dllCount++] = "WinSparkle.dll";
+            break;
+    }
+    
+    // Try loading DLLs in order of preference
+    DWORD lastError = 0;
+    for (int i = 0; i < dllCount && dllNames[i] != NULL; i++) {
+        winsparkle_log(WINSPARKLE_LOG_INFO, "dll_load", "Attempting to load %s", dllNames[i]);
+        winsparkle_dll = LoadLibraryA(dllNames[i]);
+        if (winsparkle_dll != NULL) {
+            winsparkle_log(WINSPARKLE_LOG_INFO, "dll_load", "Successfully loaded %s", dllNames[i]);
+            break;
+        } else {
+            lastError = GetLastError();
+            winsparkle_log(WINSPARKLE_LOG_WARN, "dll_load", "Failed to load %s (error %lu)", dllNames[i], lastError);
+        }
+    }
+    
     if (winsparkle_dll == NULL) {
-        DWORD error = GetLastError();
-        winsparkle_log(WINSPARKLE_LOG_ERROR, "dll_load", "Failed to load WinSparkle.dll (error %lu)", error);
+        winsparkle_log(WINSPARKLE_LOG_ERROR, "dll_load", "Failed to load any WinSparkle DLL (last error %lu)", lastError);
         return -1;
     }
     
