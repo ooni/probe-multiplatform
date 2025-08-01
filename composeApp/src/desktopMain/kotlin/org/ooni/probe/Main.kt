@@ -151,34 +151,37 @@ fun main(args: Array<String>) {
                     stringResource(Res.string.Desktop_OpenApp),
                     onClick = { showWindow() },
                 )
-                Item(
-                    text = getUpdateMenuText(updateSystemState, updateSystemError),
-                    enabled = updateSystemState != UpdateState.CHECKING_FOR_UPDATES,
-                    onClick = {
-                        when {
-                            updateSystemError != null -> {
-                                Logger.i("Retrying update check after error")
-                                updateManager.retryLastOperation()
-                            }
-                            updateManager.isHealthy() -> {
-                                updateManager.checkForUpdates(showUI = true)
-                            }
-                            else -> {
-                                Logger.w("Update system unhealthy, checking for updates anyway")
-                                updateManager.checkForUpdates(showUI = true)
-                            }
-                        }
-                    },
-                )
-                // Show retry option when there are errors
-                if (updateSystemError != null) {
+                // Only show update UI on Mac and Windows platforms
+                if ((dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Mac, DesktopOS.Windows)) {
                     Item(
-                        "Retry Update Check",
+                        text = getUpdateMenuText(updateSystemState, updateSystemError),
+                        enabled = updateSystemState != UpdateState.CHECKING_FOR_UPDATES,
                         onClick = {
-                            Logger.i("Manual retry requested")
-                            updateManager.retryLastOperation()
+                            when {
+                                updateSystemError != null -> {
+                                    Logger.i("Retrying update check after error")
+                                    updateManager.retryLastOperation()
+                                }
+                                updateManager.isHealthy() -> {
+                                    updateManager.checkForUpdates(showUI = true)
+                                }
+                                else -> {
+                                    Logger.w("Update system unhealthy, checking for updates anyway")
+                                    updateManager.checkForUpdates(showUI = true)
+                                }
+                            }
                         },
                     )
+                    // Show retry option when there are errors
+                    if (updateSystemError != null) {
+                        Item(
+                            "Retry Update Check",
+                            onClick = {
+                                Logger.i("Manual retry requested")
+                                updateManager.retryLastOperation()
+                            },
+                        )
+                    }
                 }
                 Separator()
                 Item(
