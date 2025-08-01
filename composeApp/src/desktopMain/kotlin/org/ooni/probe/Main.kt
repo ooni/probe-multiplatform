@@ -17,8 +17,6 @@ import io.github.kdroidfilter.platformtools.darkmodedetector.windows.setWindowsA
 import io.github.vinceglb.autolaunch.AutoLaunch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
