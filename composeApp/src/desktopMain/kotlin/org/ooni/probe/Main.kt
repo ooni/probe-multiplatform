@@ -45,7 +45,7 @@ import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.DesktopOS
-import org.ooni.probe.shared.EnhancedUpdateManagerFactory
+import org.ooni.probe.shared.createUpdateManager
 import org.ooni.probe.shared.InstanceManager
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateError
@@ -62,14 +62,8 @@ fun main(args: Array<String>) {
     val instanceManager = InstanceManager(dependencies.platformInfo)
     val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
 
-    // Create enhanced update manager with comprehensive error handling
-    val updateManagerScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-    val updateManager = EnhancedUpdateManagerFactory.createWithErrorHandling(
-        platform = dependencies.platformInfo.platform,
-        scope = updateManagerScope,
-        enableAutoRecovery = true,
-        enableDiagnostics = true,
-    )
+    // Create update manager
+    val updateManager = createUpdateManager(dependencies.platformInfo.platform)
 
     // State for update system
     var updateSystemError by mutableStateOf<UpdateError?>(null)
@@ -166,45 +160,27 @@ fun main(args: Array<String>) {
                         when {
                             updateSystemError != null -> {
                                 Logger.i("Retrying update check after error")
-                                updateManager.forceRetryWithRecovery()
+                                updateManager.retryLastOperation()
                             }
                             updateManager.isHealthy() -> {
                                 updateManager.checkForUpdates(showUI = true)
                             }
                             else -> {
-                                Logger.w("Update system unhealthy, performing health check")
-                                val health = updateManager.performHealthCheck()
-                                Logger.i("Health check: healthy=${health.isHealthy}, recovering=${health.isRecovering}")
-                                if (health.isHealthy) {
-                                    updateManager.checkForUpdates(showUI = true)
-                                }
+                                Logger.w("Update system unhealthy, checking for updates anyway")
+                                updateManager.checkForUpdates(showUI = true)
                             }
                         }
                     },
                 )
-                // Advanced update options (only show when there are issues)
-                if (updateSystemError != null || !updateManager.isHealthy()) {
+                // Show retry option when there are errors
+                if (updateSystemError != null) {
                     Item(
-                        "Update System Diagnostics",
+                        "Retry Update Check",
                         onClick = {
-                            Logger.i("=== Update System Diagnostics ===")
-                            updateManager.logDiagnostics()
-                            val health = updateManager.performHealthCheck()
-                            Logger.i("Health: ${health.isHealthy}, Recovering: ${health.isRecovering}")
-                            health.recommendations.forEach { rec ->
-                                Logger.i("Recommendation: $rec")
-                            }
-                            Logger.i("=== End Diagnostics ===")
+                            Logger.i("Manual retry requested")
+                            updateManager.retryLastOperation()
                         },
                     )
-                    if (updateManager.isRecovering()) {
-                        val (current, max) = updateManager.getRecoveryStats() ?: (0 to 0)
-                        Item(
-                            text = "Recovery in Progress ($current/$max)",
-                            enabled = false,
-                            onClick = {},
-                        )
-                    }
                 }
                 Separator()
                 Item(
@@ -212,14 +188,10 @@ fun main(args: Array<String>) {
                     onClick = {
                         Logger.i("Application shutdown initiated")
 
-                        // Cleanup update manager with diagnostics
+                        // Cleanup update manager
                         CoroutineScope(Dispatchers.IO).launch {
                             try {
-                                val health = updateManager.performHealthCheck()
-                                Logger.i("Final health check: healthy=${health.isHealthy}")
-
                                 updateManager.cleanup()
-                                updateManagerScope.cancel()
                                 Logger.i("Update manager cleaned up successfully")
                             } catch (e: Exception) {
                                 Logger.e("Error during update manager cleanup: $e")
@@ -276,10 +248,10 @@ private fun RunBackgroundState.text(): String =
     }
 
 /**
- * Sets up the update manager with comprehensive error handling and monitoring
+ * Sets up the update manager with basic error handling
  */
 private suspend fun setupUpdateManager(
-    updateManager: org.ooni.probe.shared.EnhancedUpdateManager,
+    updateManager: org.ooni.probe.shared.UpdateManager,
     onStateChanged: (UpdateError?, UpdateState) -> Unit,
 ) {
     // Set up error callback
@@ -292,7 +264,6 @@ private suspend fun setupUpdateManager(
             -3, -4 -> {
                 Logger.e("EdDSA key validation failed. Please check SPARKLE_PUBLIC_KEY configuration.")
                 Logger.e("Current key: ${UpdateConfig.PUBLIC_KEY.take(20)}...")
-                // In production, you might want to show a user notification
             }
             -1 -> {
                 Logger.w("Network or URL error. Update check will be retried automatically.")
@@ -303,7 +274,6 @@ private suspend fun setupUpdateManager(
             }
             else -> {
                 Logger.w("General update error (${error.code}): ${error.message}")
-                Logger.w("Automatic recovery will be attempted if possible.")
             }
         }
     }
@@ -324,23 +294,6 @@ private suspend fun setupUpdateManager(
     // Configure automatic updates
     updateManager.setAutomaticUpdatesEnabled(true)
     updateManager.setUpdateCheckInterval(24) // Check every 24 hours
-
-    // Perform initial health check
-    val initialHealth = updateManager.performHealthCheck()
-    Logger.i("Initial health check: healthy=${initialHealth.isHealthy}, state=${initialHealth.currentState}")
-
-    if (!initialHealth.isHealthy) {
-        Logger.w("Update system is not healthy:")
-        initialHealth.recommendations.forEach { recommendation ->
-            Logger.w("  - $recommendation")
-        }
-
-        // Export diagnostics for debugging
-        val diagnostics = updateManager.exportDiagnosticsJson()
-        diagnostics?.let { json ->
-            Logger.d("Update diagnostics: $json")
-        }
-    }
 }
 
 /**
