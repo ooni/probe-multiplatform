@@ -5,6 +5,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import java.io.File // For File.pathSeparator
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -221,8 +222,8 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 210 // Always increment by 10. See fdroid flavor below
-        versionName = "5.1.0"
+        versionCode = 200 // Always increment by 10. See fdroid flavor below
+        versionName = "5.0.0"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
         resValue(
@@ -410,6 +411,13 @@ compose.desktop {
 
             modules("java.sql", "jdk.unsupported")
 
+            // Include native libraries
+            includeAllModules = true
+
+            val appResource = project.layout.projectDirectory.dir("src/desktopMain/resources/")
+            println(" Project directory: $appResource")
+            appResourcesRootDir.set(appResource)
+
             macOS {
                 minimumSystemVersion = "12.0.0"
                 // Hide dock icon
@@ -417,11 +425,20 @@ compose.desktop {
                     extraKeysRawXml = """
                         <key>LSUIElement</key>
                         <string>true</string>
+                        <key>SUFeedURL</key>
+                        <string>http://127.0.0.1:9999/appcast-aarch64.rss</string>
+                        <key>SUPublicEDKey</key>
+                        <string>NSSMAR1POATrcPOX+UGVPB58phK2XyVSyUEEX4IzCzU=</string>
+                        <key>SUAllowedURLSchemes</key>
+                        <array>
+                            <string>https</string>
+                            <string>http</string>
+                        </array>
                     """.trimIndent()
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
                 jvmArgs("-Dapple.awt.application.appearance=system") // adaptive title bar
-                iconFile.set(rootProject.file("icons/app.svg"))
+                iconFile.set(rootProject.file("icons/app.icns"))
             }
             windows {
                 iconFile.set(rootProject.file("icons/app.ico"))
@@ -486,17 +503,36 @@ tasks {
 val makeLibrary by tasks.registering(Exec::class) {
     workingDir = file("src/desktopMain")
     commandLine = listOf("make", "all")
+    description = "Build native libraries (NetworkTypeFinder and UpdateBridge)"
+    doFirst {
+        println("🔨 Building native libraries...")
+    }
+    doLast {
+        println("✅ Native libraries built successfully")
+    }
 }
 
 val cleanLibrary by tasks.registering(Exec::class) {
     workingDir = file("src/desktopMain")
     commandLine = listOf("make", "clean")
+    description = "Clean native library build artifacts"
+}
+
+// Ensure native libraries are built before desktop compilation
+tasks.named("compileKotlinDesktop").configure {
+    // dependsOn(makeLibrary)
 }
 
 tasks.withType<JavaExec> {
     systemProperty(
         "java.library.path",
-        "$projectDir/src/desktopMain/build/" + File.pathSeparator + System.getProperty("java.library.path"),
+        "$projectDir/src/desktopMain/resources/macos" +
+            File.pathSeparator +
+            "$projectDir/src/desktopMain/resources/windows" +
+            File.pathSeparator +
+            "$projectDir/src/desktopMain/resources/linux" +
+            File.pathSeparator +
+            System.getProperty("java.library.path"),
     )
 }
 
