@@ -425,10 +425,6 @@ compose.desktop {
                     extraKeysRawXml = """
                         <key>LSUIElement</key>
                         <string>true</string>
-                        <key>SUFeedURL</key>
-                        <string>http://127.0.0.1:9999/appcast-aarch64.rss</string>
-                        <key>SUPublicEDKey</key>
-                        <string>NSSMAR1POATrcPOX+UGVPB58phK2XyVSyUEEX4IzCzU=</string>
                         <key>SUAllowedURLSchemes</key>
                         <array>
                             <string>https</string>
