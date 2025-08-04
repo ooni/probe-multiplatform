@@ -1,11 +1,11 @@
 import com.android.build.api.variant.FilterConfiguration.FilterType.ABI
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
-import java.io.File // For File.pathSeparator
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -533,6 +533,10 @@ tasks.withType<JavaExec> {
             "$projectDir/src/desktopMain/resources/linux" +
             File.pathSeparator +
             System.getProperty("java.library.path"),
+    )
+    systemProperty(
+        "desktopUpdatesPublicKey",
+        gradleLocalProperties(rootDir, providers).getProperty("desktopUpdatesPublicKey")
     )
 }
 
