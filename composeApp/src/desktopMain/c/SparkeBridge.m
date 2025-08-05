@@ -4,6 +4,7 @@
 
 static SPUStandardUpdaterController* updaterController = nil;
 static SparkleLogCallback logCallback = NULL;
+static SparkleShutdownCallback shutdownCallback = NULL;
 
 // Internal logging function that handles both NSLog and callback
 static void sparkle_log(SparkleLogLevel level, const char* operation, const char* format, ...) {
@@ -45,6 +46,12 @@ static void sparkle_log(SparkleLogLevel level, const char* operation, const char
 
 - (void)updater:(SPUUpdater *)updater willInstallUpdate:(SUAppcastItem *)item {
     sparkle_log(SPARKLE_LOG_INFO, "update_lifecycle", "Will install update version %s", [item.displayVersionString UTF8String]);
+    
+    // Trigger application shutdown for update installation
+    if (shutdownCallback != NULL) {
+        sparkle_log(SPARKLE_LOG_INFO, "update_lifecycle", "Requesting application shutdown for update installation");
+        shutdownCallback();
+    }
 }
 
 - (void)updater:(SPUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast {
@@ -64,6 +71,12 @@ static void sparkle_log(SparkleLogLevel level, const char* operation, const char
 - (void)updater:(SPUUpdater *)updater willInstallUpdateOnQuit:(SUAppcastItem *)item immediateInstallationInvoked:(BOOL)immediateInstallation {
     sparkle_log(SPARKLE_LOG_INFO, "update_lifecycle", "Will install update on quit: %s (immediate: %s)", 
                [item.displayVersionString UTF8String], immediateInstallation ? "yes" : "no");
+    
+    // If immediate installation, trigger shutdown
+    if (immediateInstallation && shutdownCallback != NULL) {
+        sparkle_log(SPARKLE_LOG_INFO, "update_lifecycle", "Requesting immediate application shutdown for update installation");
+        shutdownCallback();
+    }
 }
 
 - (void)updater:(SPUUpdater *)updater didAbortWithError:(NSError *)error {
@@ -78,6 +91,11 @@ static OONIUpdaterDelegate* updaterDelegate = nil;
 void sparkle_set_log_callback(SparkleLogCallback callback) {
     logCallback = callback;
     sparkle_log(SPARKLE_LOG_INFO, "callback", "Log callback %s", callback ? "enabled" : "disabled");
+}
+
+void sparkle_set_shutdown_callback(SparkleShutdownCallback callback) {
+    shutdownCallback = callback;
+    sparkle_log(SPARKLE_LOG_INFO, "callback", "Shutdown callback %s", callback ? "enabled" : "disabled");
 }
 
 int sparkle_init(const char* appcast_url, const char* public_key) {
