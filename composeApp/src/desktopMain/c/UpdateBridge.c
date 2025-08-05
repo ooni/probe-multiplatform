@@ -11,6 +11,8 @@
 static JavaVM* g_jvm = NULL;
 static jobject g_logCallbackObject = NULL;
 static jmethodID g_logCallbackMethod = NULL;
+static jobject g_shutdownCallbackObject = NULL;
+static jmethodID g_shutdownCallbackMethod = NULL;
 
 // Helper function to convert jstring to C string
 static const char* jstring_to_cstring(JNIEnv* env, jstring jstr) {
@@ -53,6 +55,23 @@ static void native_log_callback(WinSparkleLogLevel level, const char* operation,
     // Clean up local references
     if (jOperation != NULL) (*env)->DeleteLocalRef(env, jOperation);
     if (jMessage != NULL) (*env)->DeleteLocalRef(env, jMessage);
+    
+    (*g_jvm)->DetachCurrentThread(g_jvm);
+}
+
+// Shutdown callback function that forwards to Java
+static void native_shutdown_callback(void) {
+    if (g_jvm == NULL || g_shutdownCallbackObject == NULL || g_shutdownCallbackMethod == NULL) {
+        return;
+    }
+    
+    JNIEnv* env = NULL;
+    if ((*g_jvm)->AttachCurrentThread(g_jvm, (void**)&env, NULL) != JNI_OK) {
+        return;
+    }
+    
+    // Call Java shutdown callback method
+    (*env)->CallVoidMethod(env, g_shutdownCallbackObject, g_shutdownCallbackMethod);
     
     (*g_jvm)->DetachCurrentThread(g_jvm);
 }
@@ -106,6 +125,56 @@ Java_org_ooni_probe_shared_UpdateManagerBase_nativeSetLogCallback(JNIEnv* env, j
     sparkle_set_log_callback(native_log_callback);
 #else
     winsparkle_set_log_callback(native_log_callback);
+#endif
+    
+    return 0;
+}
+
+// JNI function to set shutdown callback
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetShutdownCallback(JNIEnv* env, jobject obj, jobject callback) {
+    // Get JavaVM for later use
+    if (g_jvm == NULL) {
+        if ((*env)->GetJavaVM(env, &g_jvm) != JNI_OK) {
+            return -1;
+        }
+    }
+    
+    // Clear existing callback
+    if (g_shutdownCallbackObject != NULL) {
+        (*env)->DeleteGlobalRef(env, g_shutdownCallbackObject);
+        g_shutdownCallbackObject = NULL;
+        g_shutdownCallbackMethod = NULL;
+    }
+    
+    if (callback == NULL) {
+        // Disable callback
+#ifdef _WIN32
+        winsparkle_set_shutdown_callback(NULL);
+#endif
+        return 0;
+    }
+    
+    // Create global reference to callback object
+    g_shutdownCallbackObject = (*env)->NewGlobalRef(env, callback);
+    if (g_shutdownCallbackObject == NULL) {
+        return -2;
+    }
+    
+    // Get the callback method
+    jclass callbackClass = (*env)->GetObjectClass(env, callback);
+    g_shutdownCallbackMethod = (*env)->GetMethodID(env, callbackClass, "onShutdownRequested", "()V");
+    (*env)->DeleteLocalRef(env, callbackClass);
+    
+    if (g_shutdownCallbackMethod == NULL) {
+        (*env)->DeleteGlobalRef(env, g_shutdownCallbackObject);
+        g_shutdownCallbackObject = NULL;
+        return -3;
+    }
+    
+    // Set native callback
+#ifdef _WIN32
+    winsparkle_set_shutdown_callback(native_shutdown_callback);
 #endif
     
     return 0;

@@ -17,6 +17,7 @@ typedef void (__stdcall *win_sparkle_set_shutdown_request_callback_func)(void (_
 
 static HMODULE winsparkle_dll = NULL;
 static WinSparkleLogCallback logCallback = NULL;
+static WinSparkleShutdownCallback shutdownCallback = NULL;
 
 // Function pointers
 static win_sparkle_init_func ws_init = NULL;
@@ -66,11 +67,22 @@ static int __stdcall can_shutdown_callback(void) {
 
 static void __stdcall shutdown_request_callback(void) {
     winsparkle_log(WINSPARKLE_LOG_INFO, "update_lifecycle", "Shutdown requested for update installation");
+    
+    // Call the shutdown callback if set
+    if (shutdownCallback != NULL) {
+        winsparkle_log(WINSPARKLE_LOG_INFO, "update_lifecycle", "Calling application shutdown callback");
+        shutdownCallback();
+    }
 }
 
 void winsparkle_set_log_callback(WinSparkleLogCallback callback) {
     logCallback = callback;
     winsparkle_log(WINSPARKLE_LOG_INFO, "callback", "Log callback %s", callback ? "enabled" : "disabled");
+}
+
+void winsparkle_set_shutdown_callback(WinSparkleShutdownCallback callback) {
+    shutdownCallback = callback;
+    winsparkle_log(WINSPARKLE_LOG_INFO, "callback", "Shutdown callback %s", callback ? "enabled" : "disabled");
 }
 
 static int load_winsparkle_dll() {
