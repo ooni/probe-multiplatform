@@ -1,13 +1,35 @@
 package org.ooni.probe.shared
 
 import co.touchlab.kermit.Logger
+import org.ooni.probe.platform
+import org.ooni.shared.loadNativeLibrary
 import java.util.Base64
 
-class SparkleUpdateManager(
-    private val os: DesktopOS,
-) : UpdateManager {
-    init {
-        loadLibrary(os)
+class SparkleUpdateManager : UpdateManager {
+    companion object {
+        var isLibraryLoaded = loadNativeLibrary("updatebridge")
+            private set
+
+        /**
+         * Validates that a public key is properly formatted for Sparkle EdDSA verification
+         * @param publicKey The base64-encoded public key string
+         * @return true if the key is valid, false otherwise
+         */
+        private fun validatePublicKey(publicKey: String?): Boolean {
+            if (publicKey.isNullOrBlank()) return true // null/empty is allowed
+
+            return try {
+                val decoded = Base64.getDecoder().decode(publicKey)
+                if (decoded.size != 32) {
+                    Logger.w("Public key has incorrect length: ${decoded.size} bytes (expected 32)")
+                    return false
+                }
+                true
+            } catch (e: IllegalArgumentException) {
+                Logger.w("Public key is not valid base64: $e")
+                false
+            }
+        }
     }
 
     private external fun nativeInit(
@@ -88,63 +110,6 @@ class SparkleUpdateManager(
     private var lastAppcastUrl: String? = null
     private var lastPublicKey: String? = null
 
-    companion object {
-        private var isLibraryLoaded = false
-
-        private fun loadLibrary(os: DesktopOS) {
-            if (isLibraryLoaded) return
-
-            try {
-                val resourcesPath = System.getProperty("compose.application.resources.dir")
-                if (resourcesPath != null) {
-                    // Load from resources directory
-                    val libraryPath = when (os) {
-                        DesktopOS.Mac -> "$resourcesPath/libupdatebridge.dylib"
-                        DesktopOS.Windows -> "$resourcesPath\\updatebridge.dll"
-                        else -> "$resourcesPath/libupdatebridge.so"
-                    }
-                    try {
-                        System.load(libraryPath)
-                        Logger.d("Successfully loaded updatebridge library from resources: $libraryPath")
-                        isLibraryLoaded = true
-                    } catch (e: UnsatisfiedLinkError) {
-                        Logger.w("Failed to load updatebridge library from resources ($libraryPath), trying system library path:", e)
-                        System.loadLibrary("updatebridge")
-                        isLibraryLoaded = true
-                    }
-                } else {
-                    // Fallback to system library path
-                    Logger.d("compose.application.resources.dir not set, using system library path")
-                    System.loadLibrary("updatebridge")
-                    isLibraryLoaded = true
-                }
-            } catch (e: UnsatisfiedLinkError) {
-                Logger.e("Failed to load updatebridge library:", e)
-            }
-        }
-
-        /**
-         * Validates that a public key is properly formatted for Sparkle EdDSA verification
-         * @param publicKey The base64-encoded public key string
-         * @return true if the key is valid, false otherwise
-         */
-        private fun validatePublicKey(publicKey: String?): Boolean {
-            if (publicKey.isNullOrBlank()) return true // null/empty is allowed
-
-            return try {
-                val decoded = Base64.getDecoder().decode(publicKey)
-                if (decoded.size != 32) {
-                    Logger.w("Public key has incorrect length: ${decoded.size} bytes (expected 32)")
-                    return false
-                }
-                true
-            } catch (e: IllegalArgumentException) {
-                Logger.w("Public key is not valid base64: $e")
-                false
-            }
-        }
-    }
-
     private fun updateState(newState: UpdateState) {
         currentState = newState
         stateCallback?.invoke(newState)
@@ -171,7 +136,7 @@ class SparkleUpdateManager(
         lastPublicKey = publicKey
         lastOperation = { initialize(appcastUrl, publicKey) }
 
-        when (os) {
+        when (platform.os) {
             DesktopOS.Windows -> {
                 // Windows-specific initialization: Set app details first
                 val appDetailsResult = nativeSetAppDetails("OONI", "OONI Probe", "5.1.0")

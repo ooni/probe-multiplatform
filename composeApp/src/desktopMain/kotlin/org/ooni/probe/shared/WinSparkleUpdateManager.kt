@@ -1,33 +1,11 @@
 package org.ooni.probe.shared
 
-import co.touchlab.kermit.Logger
+import org.ooni.shared.loadNativeLibrary
 
-class WinSparkleUpdateManager(
-    private val os: DesktopOS,
-) : UpdateManager {
-    init {
-        loadLibrary(os)
-    }
-
-    private fun loadLibrary(os: DesktopOS) {
-        try {
-            val resourcesPath = System.getProperty("compose.application.resources.dir")
-            // Load from resources directory
-            val libraryPath = when (os) {
-                DesktopOS.Mac -> "$resourcesPath/libupdatebridge.dylib"
-                DesktopOS.Windows -> "$resourcesPath\\updatebridge.dll"
-                else -> "$resourcesPath/libupdatebridge.so"
-            }
-            try {
-                System.load(libraryPath)
-                Logger.d("Successfully loaded updatebridge library from resources: $libraryPath")
-            } catch (e: UnsatisfiedLinkError) {
-                Logger.w("Failed to load updatebridge library from resources ($libraryPath), trying system library path:", e)
-                System.loadLibrary("updatebridge")
-            }
-        } catch (e: UnsatisfiedLinkError) {
-            Logger.e("Failed to load updatebridge library:", e)
-        }
+class WinSparkleUpdateManager : UpdateManager {
+    companion object {
+        var isLibraryLoaded = loadNativeLibrary("updatebridge")
+            private set
     }
 
     private external fun nativeInit(appcastUrl: String): Int
@@ -78,16 +56,6 @@ class WinSparkleUpdateManager(
     private var shutdownCallback: (() -> Unit)? = null
     private var lastOperation: (() -> Unit)? = null
     private var lastAppcastUrl: String? = null
-
-    companion object {
-        init {
-            try {
-                System.loadLibrary("updatebridge")
-            } catch (e: UnsatisfiedLinkError) {
-                Logger.e("Failed to load updatebridge library: ", e)
-            }
-        }
-    }
 
     private fun updateState(newState: UpdateState) {
         currentState = newState
