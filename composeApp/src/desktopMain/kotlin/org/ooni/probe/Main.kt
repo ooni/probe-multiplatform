@@ -95,10 +95,20 @@ fun main(args: Array<String>) {
     application {
 
         // Set shutdown callback for update installation (Windows only)
-        if (updateManager is org.ooni.probe.shared.WinSparkleUpdateManager) {
-            updateManager.setShutdownCallback {
-                Logger.i("WinSparkle requested application shutdown for update installation")
-                exitApplication()
+
+        // Set shutdown callback for update installation (Windows and macOS)
+        when (updateManager) {
+            is org.ooni.probe.shared.WinSparkleUpdateManager -> {
+                updateManager.setShutdownCallback {
+                    Logger.i("WinSparkle requested application shutdown for update installation")
+                    exitApplication()
+                }
+            }
+            is org.ooni.probe.shared.SparkleUpdateManager -> {
+                updateManager.setShutdownCallback {
+                    Logger.i("Sparkle requested application shutdown for update installation")
+                    exitApplication()
+                }
             }
         }
         var isWindowVisible by remember { mutableStateOf(!autoLaunch.isStartedViaAutostart()) }

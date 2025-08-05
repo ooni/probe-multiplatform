@@ -24,10 +24,22 @@ typedef enum {
 typedef void (*SparkleLogCallback)(SparkleLogLevel level, const char* operation, const char* message);
 
 /**
+ * Shutdown callback function type for update installation
+ * Called when Sparkle needs the application to shut down for update installation
+ */
+typedef void (*SparkleShutdownCallback)(void);
+
+/**
  * Set log callback for receiving log messages
  * @param callback Function pointer to log callback, or NULL to disable
  */
 void sparkle_set_log_callback(SparkleLogCallback callback);
+
+/**
+ * Set shutdown callback for receiving shutdown requests during update installation
+ * @param callback Function pointer to shutdown callback, or NULL to disable
+ */
+void sparkle_set_shutdown_callback(SparkleShutdownCallback callback);
 
 /**
  * Initialize Sparkle updater with appcast URL and optional public key
