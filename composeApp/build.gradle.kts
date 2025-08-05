@@ -1,6 +1,8 @@
 import com.android.build.api.variant.FilterConfiguration.FilterType.ABI
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import java.time.LocalDate
 import org.gradle.internal.os.OperatingSystem
+import org.gradle.kotlin.dsl.java
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -405,9 +407,9 @@ compose.desktop {
             packageVersion = android.defaultConfig.versionName
             description =
                 "OONI Probe is a free and open source software designed to measure internet censorship and other forms of network interference."
-            copyright = "© 2024 OONI. All rights reserved."
+            copyright = "© ${LocalDate.now().year} OONI. All rights reserved."
             vendor = "Open Observatory of Network Interference (OONI)"
-            // licenseFile.set(project.file("LICENSE.txt"))
+            licenseFile = rootProject.file("LICENSE")
 
             modules("java.sql", "jdk.unsupported")
 
@@ -425,11 +427,6 @@ compose.desktop {
                     extraKeysRawXml = """
                         <key>LSUIElement</key>
                         <string>true</string>
-                        <key>SUAllowedURLSchemes</key>
-                        <array>
-                            <string>https</string>
-                            <string>http</string>
-                        </array>
                     """.trimIndent()
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
