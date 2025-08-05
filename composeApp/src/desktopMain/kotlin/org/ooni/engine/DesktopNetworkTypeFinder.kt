@@ -9,8 +9,7 @@ import org.ooni.shared.loadNativeLibrary
  */
 class DesktopNetworkTypeFinder : NetworkTypeFinder {
     companion object {
-        var isLibraryLoaded = loadNativeLibrary("networktypefinder")
-            private set
+        private val isLibraryLoaded = loadNativeLibrary("networktypefinder")
     }
 
     private external fun getNetworkType(): String

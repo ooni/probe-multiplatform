@@ -7,8 +7,7 @@ import java.util.Base64
 
 class SparkleUpdateManager : UpdateManager {
     companion object {
-        var isLibraryLoaded = loadNativeLibrary("updatebridge")
-            private set
+        private val isLibraryLoaded = loadNativeLibrary("updatebridge")
 
         /**
          * Validates that a public key is properly formatted for Sparkle EdDSA verification
