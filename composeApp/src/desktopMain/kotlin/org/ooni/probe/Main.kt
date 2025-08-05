@@ -93,7 +93,6 @@ fun main(args: Array<String>) {
     }
 
     application {
-
         // Set shutdown callback for update installation (Windows only)
 
         // Set shutdown callback for update installation (Windows and macOS)

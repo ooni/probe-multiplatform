@@ -529,7 +529,7 @@ tasks.withType<JavaExec> {
     )
     systemProperty(
         "desktopUpdatesPublicKey",
-        gradleLocalProperties(rootDir, providers).getProperty("desktopUpdatesPublicKey")
+        gradleLocalProperties(rootDir, providers).getProperty("desktopUpdatesPublicKey"),
     )
 }
 
