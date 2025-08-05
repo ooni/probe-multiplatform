@@ -4,8 +4,7 @@ import org.ooni.shared.loadNativeLibrary
 
 class WinSparkleUpdateManager : UpdateManager {
     companion object {
-        var isLibraryLoaded = loadNativeLibrary("updatebridge")
-            private set
+        private val isLibraryLoaded = loadNativeLibrary("updatebridge")
     }
 
     private external fun nativeInit(appcastUrl: String): Int
