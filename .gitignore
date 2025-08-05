@@ -19,6 +19,8 @@ captures
 .kotlin
 Gemfile.lock
 output
-!composeApp/src/desktopMain/build/libnetworktypefinder.dylib
-!composeApp/src/desktopMain/build/libnetworktypefinder.so
-!composeApp/src/desktopMain/build/networktypefinder.dll
+!composeApp/src/desktopMain/resources/macos/*.dylib
+!composeApp/src/desktopMain/resources/linux/*.so
+!composeApp/src/desktopMain/resources/windows/*.dll
+
+/composeApp/src/desktopMain/frameworks/
