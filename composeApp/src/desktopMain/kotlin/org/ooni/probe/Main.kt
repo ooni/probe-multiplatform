@@ -93,6 +93,14 @@ fun main(args: Array<String>) {
     }
 
     application {
+
+        // Set shutdown callback for update installation (Windows only)
+        if (updateManager is org.ooni.probe.shared.WinSparkleUpdateManager) {
+            updateManager.setShutdownCallback {
+                Logger.i("WinSparkle requested application shutdown for update installation")
+                exitApplication()
+            }
+        }
         var isWindowVisible by remember { mutableStateOf(!autoLaunch.isStartedViaAutostart()) }
         val trayIcon = trayIcon()
         val deepLink by deepLinkFlow.collectAsState(null)

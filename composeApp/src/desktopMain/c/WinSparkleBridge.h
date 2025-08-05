@@ -24,10 +24,22 @@ typedef enum {
 typedef void (*WinSparkleLogCallback)(WinSparkleLogLevel level, const char* operation, const char* message);
 
 /**
+ * Shutdown callback function type for update installation
+ * Called when WinSparkle needs the application to shut down for update installation
+ */
+typedef void (*WinSparkleShutdownCallback)(void);
+
+/**
  * Set log callback for receiving log messages
  * @param callback Function pointer to log callback, or NULL to disable
  */
 void winsparkle_set_log_callback(WinSparkleLogCallback callback);
+
+/**
+ * Set shutdown callback for receiving shutdown requests during update installation
+ * @param callback Function pointer to shutdown callback, or NULL to disable
+ */
+void winsparkle_set_shutdown_callback(WinSparkleShutdownCallback callback);
 
 /**
  * Initialize WinSparkle updater with appcast URL

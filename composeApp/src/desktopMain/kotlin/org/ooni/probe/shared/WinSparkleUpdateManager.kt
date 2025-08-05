@@ -46,6 +46,8 @@ class WinSparkleUpdateManager(
 
     private external fun nativeSetLogCallback(callback: Any?): Int
 
+    private external fun nativeSetShutdownCallback(callback: Any?): Int
+
     private external fun nativeCleanup(): Int
 
     // Callback from native code for log messages
@@ -60,12 +62,20 @@ class WinSparkleUpdateManager(
         logCallback?.invoke(logMessage)
     }
 
+    // Callback from native code for shutdown requests
+    @Suppress("unused")
+    fun onShutdownRequested() {
+        logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "shutdown", "Application shutdown requested by WinSparkle"))
+        shutdownCallback?.invoke()
+    }
+
     // State management
     private var lastError: UpdateError? = null
     private var currentState: UpdateState = UpdateState.IDLE
     private var errorCallback: UpdateErrorCallback? = null
     private var stateCallback: UpdateStateCallback? = null
     private var logCallback: UpdateLogCallback? = null
+    private var shutdownCallback: (() -> Unit)? = null
     private var lastOperation: (() -> Unit)? = null
     private var lastAppcastUrl: String? = null
 
@@ -211,6 +221,12 @@ class WinSparkleUpdateManager(
         logCallback = callback
         // Set native callback - pass this object so native code can call onLog
         nativeSetLogCallback(if (callback != null) this else null)
+    }
+
+    fun setShutdownCallback(callback: (() -> Unit)?) {
+        shutdownCallback = callback
+        // Set native shutdown callback - pass this object so native code can call onShutdownRequested
+        nativeSetShutdownCallback(if (callback != null) this else null)
     }
 
     override fun getLastError(): UpdateError? = lastError
