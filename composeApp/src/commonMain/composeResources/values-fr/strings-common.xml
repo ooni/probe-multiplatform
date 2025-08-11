@@ -132,7 +132,7 @@
     <string name="TestResults_Filter_Date_FromOneMonthAgo">Il y a 1 mois</string>
     <string name="TestResults_Filter_Date_Custom">Personnalisée</string>
     <string name="TestResults_Filter_Date_Custom_Filled">Personnalisé : %1$s</string>
-    <string name="TestResults_Filter_Date_Picker">Choisir une plage de date</string>
+    <string name="TestResults_Filter_Date_Picker">Choisir une plage de dates</string>
     <string name="TestResults_Filter_NoTestsFound">Aucun résultat de test n’a été trouvé pour ces filtres.</string>
     <string name="TestResults_Filter_DeleteConfirmation">Voulez-vous supprimer tous les résultats des tests pour les filtres actuels?</string>
 
