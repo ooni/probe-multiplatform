@@ -27,7 +27,7 @@ import java.nio.charset.StandardCharsets
 
 private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
 private val osName = System.getProperty("os.name")
-private val platform = Platform.Desktop(osName)
+val platform = Platform.Desktop(osName)
 
 private val legacyDirectoryManager = LegacyDirectoryManager(platform.os)
 
