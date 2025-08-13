@@ -409,7 +409,7 @@ compose.desktop {
                 "OONI Probe is a free and open source software designed to measure internet censorship and other forms of network interference."
             copyright = "© ${LocalDate.now().year} OONI. All rights reserved."
             vendor = "Open Observatory of Network Interference (OONI)"
-            licenseFile = rootProject.file("LICENSE")
+            //licenseFile = rootProject.file("LICENSE")
 
             modules("java.sql", "jdk.unsupported")
 
@@ -422,9 +422,51 @@ compose.desktop {
 
             macOS {
                 minimumSystemVersion = "12.0.0"
-                // Hide dock icon
+                bundleID = "org.ooni.probe"
                 infoPlist {
                     extraKeysRawXml = """
+                        <key>SUPublicEDKey</key>
+                        <string>1k8nI6WCqVly863R06ZaeSnxR/7oU5VAAnehA0Zfp/8=</string>
+                        <key>SUEnableInstallerLauncherService</key>
+                        <true/>
+                        <key>SUAllowsAutomaticUpdates</key>
+                        <false/>
+                        <key>SUEnableAutomaticChecks</key>
+                        <false/>
+                        <key>SUEnableSystemProfiling</key>
+                        <false/>
+                        <key>com.apple.security.app-sandbox</key>
+                        <true/>
+                        <key>com.apple.security.cs.allow-jit</key>
+                        <true/>
+                        <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+                        <true/>
+                        <key>com.apple.security.cs.disable-library-validation</key>
+                        <true/>
+                        <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+                        <true/>
+                        <key>com.apple.security.cs.debugger</key>
+                        <true/>
+                        <key>com.apple.security.files.user-selected.read-write</key>
+                        <true/>
+                        <key>com.apple.security.files.downloads.read-write</key>
+                        <true/>
+                        <key>com.apple.security.network.client</key>
+                        <true/>
+                        <key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+                        <array>
+                            <string>org.sparkle-project.InstallerLauncher</string>
+                            <string>org.sparkle-project.DownloaderService</string>
+                            <string>org.ooni.probe-spks</string>
+                            <string>org.ooni.probe-spki</string>
+                        </array>
+                        <key>com.apple.security.temporary-exception.shared-preference.read-write</key>
+                        <array>
+                            <string>org.sparkle-project.Downloader</string>
+                            <string>org.sparkle-project.InstallerLauncher</string>
+                            <string>org.ooni.probe-spks</string>
+                            <string>org.ooni.probe-spki</string>
+                        </array>
                         <key>LSUIElement</key>
                         <string>true</string>
                     """.trimIndent()
