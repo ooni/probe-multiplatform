@@ -276,6 +276,10 @@
     <string name="Common_Today">امروز</string>
     <string name="Common_Yesterday">دیروز</string>
     <string name="Common_Ago">%1$s پیش</string>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d روز</item>
+        <item quantity="other">%1$d روز</item>
+    </plurals>
     <string name="Common_Months_January">ژانویه</string>
     <string name="Common_Months_February">فوریه</string>
     <string name="Common_Months_March">مارچ</string>
