@@ -429,12 +429,16 @@ compose.desktop {
                         <string>1k8nI6WCqVly863R06ZaeSnxR/7oU5VAAnehA0Zfp/8=</string>
                         <key>SUEnableInstallerLauncherService</key>
                         <true/>
+                        <key>SUEnableUpdateOnQuit</key>
+                        <true/>
+                        <key>SUEnableAutomaticTermination</key>
+                        <true/>
                         <key>SUAllowsAutomaticUpdates</key>
-                        <false/>
+                        <true/>
                         <key>SUEnableAutomaticChecks</key>
-                        <false/>
+                        <true/>
                         <key>SUEnableSystemProfiling</key>
-                        <false/>
+                        <true/>
                         <key>com.apple.security.app-sandbox</key>
                         <true/>
                         <key>com.apple.security.cs.allow-jit</key>
