@@ -1,5 +1,8 @@
 import com.android.build.api.variant.FilterConfiguration.FilterType.ABI
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import java.time.LocalDate
 import org.gradle.internal.os.OperatingSystem
+import org.gradle.kotlin.dsl.java
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -221,8 +224,8 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 210 // Always increment by 10. See fdroid flavor below
-        versionName = "5.1.0"
+        versionCode = 200 // Always increment by 10. See fdroid flavor below
+        versionName = "5.0.0"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
         resValue(
@@ -404,24 +407,77 @@ compose.desktop {
             packageVersion = android.defaultConfig.versionName
             description =
                 "OONI Probe is a free and open source software designed to measure internet censorship and other forms of network interference."
-            copyright = "© 2024 OONI. All rights reserved."
+            copyright = "© ${LocalDate.now().year} OONI. All rights reserved."
             vendor = "Open Observatory of Network Interference (OONI)"
-            // licenseFile.set(project.file("LICENSE.txt"))
+            //licenseFile = rootProject.file("LICENSE")
 
             modules("java.sql", "jdk.unsupported")
 
+            // Include native libraries
+            includeAllModules = true
+
+            val appResource = project.layout.projectDirectory.dir("src/desktopMain/resources/")
+            println(" Project directory: $appResource")
+            appResourcesRootDir.set(appResource)
+
             macOS {
                 minimumSystemVersion = "12.0.0"
-                // Hide dock icon
+                bundleID = "org.ooni.probe"
                 infoPlist {
                     extraKeysRawXml = """
+                        <key>SUPublicEDKey</key>
+                        <string>1k8nI6WCqVly863R06ZaeSnxR/7oU5VAAnehA0Zfp/8=</string>
+                        <key>SUEnableInstallerLauncherService</key>
+                        <true/>
+                        <key>SUEnableUpdateOnQuit</key>
+                        <true/>
+                        <key>SUEnableAutomaticTermination</key>
+                        <true/>
+                        <key>SUAllowsAutomaticUpdates</key>
+                        <true/>
+                        <key>SUEnableAutomaticChecks</key>
+                        <true/>
+                        <key>SUEnableSystemProfiling</key>
+                        <true/>
+                        <key>com.apple.security.app-sandbox</key>
+                        <true/>
+                        <key>com.apple.security.cs.allow-jit</key>
+                        <true/>
+                        <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+                        <true/>
+                        <key>com.apple.security.cs.disable-library-validation</key>
+                        <true/>
+                        <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+                        <true/>
+                        <key>com.apple.security.cs.debugger</key>
+                        <true/>
+                        <key>com.apple.security.files.user-selected.read-write</key>
+                        <true/>
+                        <key>com.apple.security.files.downloads.read-write</key>
+                        <true/>
+                        <key>com.apple.security.network.client</key>
+                        <true/>
+                        <key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+                        <array>
+                            <string>org.sparkle-project.InstallerLauncher</string>
+                            <string>org.sparkle-project.DownloaderService</string>
+                            <string>org.ooni.probe-spks</string>
+                            <string>org.ooni.probe-spki</string>
+                        </array>
+                        <key>com.apple.security.temporary-exception.shared-preference.read-write</key>
+                        <array>
+                            <string>org.sparkle-project.Downloader</string>
+                            <string>org.sparkle-project.InstallerLauncher</string>
+                            <string>org.ooni.probe-spks</string>
+                            <string>org.ooni.probe-spki</string>
+                        </array>
                         <key>LSUIElement</key>
                         <string>true</string>
                     """.trimIndent()
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
                 jvmArgs("-Dapple.awt.application.appearance=system") // adaptive title bar
-                iconFile.set(rootProject.file("icons/app.svg"))
+                iconFile.set(rootProject.file("icons/app.icns"))
             }
             windows {
                 iconFile.set(rootProject.file("icons/app.ico"))
@@ -486,17 +542,40 @@ tasks {
 val makeLibrary by tasks.registering(Exec::class) {
     workingDir = file("src/desktopMain")
     commandLine = listOf("make", "all")
+    description = "Build native libraries (NetworkTypeFinder and UpdateBridge)"
+    doFirst {
+        println("🔨 Building native libraries...")
+    }
+    doLast {
+        println("✅ Native libraries built successfully")
+    }
 }
 
 val cleanLibrary by tasks.registering(Exec::class) {
     workingDir = file("src/desktopMain")
     commandLine = listOf("make", "clean")
+    description = "Clean native library build artifacts"
+}
+
+// Ensure native libraries are built before desktop compilation
+tasks.named("compileKotlinDesktop").configure {
+    // dependsOn(makeLibrary)
 }
 
 tasks.withType<JavaExec> {
     systemProperty(
         "java.library.path",
-        "$projectDir/src/desktopMain/build/" + File.pathSeparator + System.getProperty("java.library.path"),
+        "$projectDir/src/desktopMain/resources/macos" +
+            File.pathSeparator +
+            "$projectDir/src/desktopMain/resources/windows" +
+            File.pathSeparator +
+            "$projectDir/src/desktopMain/resources/linux" +
+            File.pathSeparator +
+            System.getProperty("java.library.path"),
+    )
+    systemProperty(
+        "desktopUpdatesPublicKey",
+        gradleLocalProperties(rootDir, providers).getProperty("desktopUpdatesPublicKey"),
     )
 }
 
