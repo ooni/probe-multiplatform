@@ -173,6 +173,8 @@
     <string name="Settings_Sharing_UploadResults">Автоматически публиковать результаты</string>
     <string name="Settings_Websites_MaxRuntimeEnabled">Ограничить длительность тестирования сайтов</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Только для тестов запущенных вручную</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">Максимальная длительность полного теста сайтов</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">Введите количество секунд</string>
     <string name="Settings_Websites_Categories_Label">Категории сайтов для тестирования</string>
     <string name="Settings_Websites_Categories_Description">Выбрано категорий: %1$s</string>
 
@@ -204,6 +206,7 @@
     <string name="Settings_Storage_Label">Использование хранилища</string>
     <string name="Settings_Storage_Delete">Удалить</string>
     <string name="Settings_Storage_Clear">Очистить</string>
+    <string name="Settings_Legacy_Storage">Удалить файлы из предыдущей версии</string>
     <string name="Settings_WarmVPNInUse_Label">Предупреждать когда VPN подключен </string>
     <string name="Settings_DisableVpnInstructions">Зайдите в Настройки &gt; Общие &gt; VPN и отключите ваш VPN. </string>
     <string name="Settings_Logs">Журналы</string>
@@ -353,6 +356,7 @@
     <string name="Modal_Cancel">Отмена</string>
     <string name="Modal_OK">ОК</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Удалить все результаты тестов?</string>
+    <string name="Modal_Clear_Legacy_Directories">Хотите удалить старые папки\?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">Вы хотите удалить результат %1$s теста?</item>
         <item quantity="few">Вы хотите удалить результаты %1$s тестов?</item>
@@ -408,6 +412,12 @@
     <string name="Common_Today">Сегодня</string>
     <string name="Common_Yesterday">Вчера</string>
     <string name="Common_Ago">%1$s назад</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one">%1$d секунда</item>
+        <item quantity="few">%1$d секунд</item>
+        <item quantity="many">%1$d секунд</item>
+        <item quantity="other">%1$d секунд</item>
+    </plurals>
     <plurals name="Common_Minutes">
         <item quantity="one">%1$d минута</item>
         <item quantity="few">%1$d минут</item>
@@ -419,6 +429,12 @@
         <item quantity="few">%1$d часов</item>
         <item quantity="many">%1$d часов</item>
         <item quantity="other">%1$d часов</item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дня</item>
+        <item quantity="many">%1$d дней</item>
+        <item quantity="other">%1$d дней</item>
     </plurals>
     <string name="Common_Hours_Abbreviated">%1$dчас</string>
     <string name="Common_Minutes_Abbreviated">%1$dмин</string>
