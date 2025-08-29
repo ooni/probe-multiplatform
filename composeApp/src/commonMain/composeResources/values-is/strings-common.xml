@@ -323,6 +323,10 @@
 
     <string name="Common_Today">Í dag</string>
     <string name="Common_Ago">%1$s ago</string>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d klukkustund</item>
+        <item quantity="other">%1$d klukkustundir</item>
+    </plurals>
     <plurals name="Common_Days">
         <item quantity="one">%1$d dag</item>
         <item quantity="other">%1$d daga</item>
