@@ -42,5 +42,10 @@
     <string name="Settings_Donate_Support_Title">Al hacer donaciones a OONI, estarás apoyando:</string>
     <string name="Settings_Donate_Support_Item_OpenSource">Software libre y de código abierto para detectar censura en internet</string>
     <string name="Settings_Donate_Support_Item_Analysis">Análisis en tiempo real de censura de internet alrededor del mundo</string>
+    <string name="Settings_Donate_Support_Item_Research">Investigación sobre eventos de censura alrededor del mundo</string>
     <string name="Settings_Donate_Action">Dona</string>
-    </resources>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">Esto abrirá el navegador en una nueva ventana</string>
+    <string name="Settings_Donate_Action_Error">Hubo un error abriendo la página de donaciones. Por favor ve a %1$s</string>
+
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Podrás instalar este enlace de nuevo solo con el enlace original enviado por el creador. Las mediciones de este enlace se eliminarán, pero serán accesibles desde el explorador</string>
+</resources>
