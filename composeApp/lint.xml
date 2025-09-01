@@ -5,5 +5,7 @@
         <ignore regexp="jetbrains.kotlin" />
         <ignore regexp="androidx.datastore" />
         <ignore regexp="org.jetbrains.compose" />
+        <ignore regexp="lifecycle-viewmodel-compose" /> <!-- 2.9.3 is failing to build -->
+        <ignore regexp="org.jetbrains.androidx.navigation" /> <!-- 2.9.0-rc01 is failing to UI tests -->
     </issue>
 </lint>
