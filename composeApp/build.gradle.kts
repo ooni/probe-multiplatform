@@ -415,13 +415,24 @@ compose.desktop {
                 // Hide dock icon
                 infoPlist {
                     extraKeysRawXml = """
-                        <key>LSUIElement</key>
-                        <string>true</string>
+                    <key>LSUIElement</key>
+                    <string>true</string>
+                    <key>CFBundleURLTypes</key>
+                    <array>
+                        <dict>
+                            <key>CFBundleURLName</key>
+                            <string>ooni</string>
+                            <key>CFBundleURLSchemes</key>
+                            <array>
+                                <string>ooni</string>
+                            </array>
+                        </dict>
+                    </array>
                     """.trimIndent()
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
                 jvmArgs("-Dapple.awt.application.appearance=system") // adaptive title bar
-                iconFile.set(rootProject.file("icons/app.svg"))
+                iconFile.set(rootProject.file("icons/app.icns"))
             }
             windows {
                 iconFile.set(rootProject.file("icons/app.ico"))
