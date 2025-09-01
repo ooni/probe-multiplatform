@@ -39,5 +39,8 @@
     <string name="Settings_Donate_Title">Dona</string>
     <string name="Settings_Donate_Heading">Dona ahora para apoyar la libertad de internet</string>
     <string name="Settings_Donate_SubHeading">Como una organización sin ánimo de lucro, dependemos de las donaciones de gente como tú para defender un internet libre y abierto para todos.</string>
+    <string name="Settings_Donate_Support_Title">Al hacer donaciones a OONI, estarás apoyando:</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">Software libre y de código abierto para detectar censura en internet</string>
+    <string name="Settings_Donate_Support_Item_Analysis">Análisis en tiempo real de censura de internet alrededor del mundo</string>
     <string name="Settings_Donate_Action">Dona</string>
     </resources>
