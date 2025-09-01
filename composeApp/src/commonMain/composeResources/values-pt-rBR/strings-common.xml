@@ -14,8 +14,8 @@
 
     <string name="Dashboard_RunTests_Title">Executar testes</string>
     <string name="Dashboard_RunTests_Description">Selecione os testes a executar</string>
-    <string name="Dashboard_RunTests_SelectAll">Selecione todos os testes</string>
-    <string name="Dashboard_RunTests_SelectNone">Desmarcar todos os testes</string>
+    <string name="Dashboard_RunTests_SelectAll">Selecione todos</string>
+    <string name="Dashboard_RunTests_SelectNone">Desmarcar todos</string>
     <plurals name="Dashboard_RunTests_RunButton_Label">
         <item quantity="one">Executar %1$d teste</item>
         <item quantity="many">Executar %1$d de testes</item>
