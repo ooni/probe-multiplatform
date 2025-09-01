@@ -11,7 +11,7 @@ kotlin = "2.2.0"
 sqldelight = "2.1.0"
 dataStoreVersion = "1.1.4"
 junitKtx = "1.3.0"
-mokoPermissions = "0.20.0"
+mokoPermissions = "0.20.1"
 
 [plugins]
 
