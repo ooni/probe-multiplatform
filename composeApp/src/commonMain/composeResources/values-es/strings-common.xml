@@ -350,6 +350,7 @@
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">Aceptar</string>
     <string name="Modal_DoYouWantToDeleteAllTests">¿Desea eliminar todos los resultados de prueba?</string>
+    <string name="Modal_Clear_Legacy_Directories">Quieres eliminar las carpetas antiguas\?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">¿Desea eliminar %1$s resultado de prueba?</item>
         <item quantity="many">¿Desea eliminar %1$s de resultados de prueba?</item>
@@ -373,6 +374,9 @@
     <string name="Modal_Error_NoInternet">No hay conexión a Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">¿Estas seguro?</string>
     <string name="Modal_CustomURL_NotSaved">Tus URLs no serán guardadas cuando dejes esta pantalla. ¿Estás seguro de que quieres dejarla?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">La aplicación no puede correr pruebas automáticamente sin permiso de ejecución en segundo plano. Quieres intentar de nuevo\?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder">La aplicación necesita permiso para ejecutar tests automáticamente en segundo plano</string>
+
     <!-- Desktop -->
     <string name="Desktop_OpenApp">Abrir Aplicación</string>
     <string name="Desktop_Quit">Salir</string>
