@@ -308,6 +308,7 @@
     <string name="Onboarding_Crash_Button_Yes">Si</string>
     <string name="Onboarding_Crash_Button_No">No</string>
     <string name="Onboarding_Notifications_Title">Activar las notificaciones</string>
+    <string name="Onboarding_Notifications_Paragraph">Luego de iniciar las pruebas, podrás cerrar la aplicación y seguirán corriendo en segundo plano. Activa las notificaciones para que puedas ver qué pruebas están corriendo, o detenerlas sin abrir la aplicación. </string>
     <string name="Onboarding_Notifications_Ok">Aceptar</string>
     <string name="Onboarding_Notifications_Skip">Omitir</string>
     <string name="Onboarding_DefaultSettings_Title">Configuración predeterminada</string>
@@ -333,6 +334,7 @@
     <string name="LoadingScreen_Runv2_Canceled">Instalación del enlace cancelada</string>
     <string name="DescriptorUpdate_Updates">ACTUALIZACIONES</string>
     <string name="DescriptorUpdate_CheckUpdates">Buscar actualizaciones</string>
+    <string name="AddDescriptor_AutoRunDisabled">La ejecución automática está desactivada. Por favor actívala para ejecutar las pruebas automáticamente.</string>
     <string name="Descriptor_LastTestResult">Último resultado</string>
 
     <!-- Modals / Toasts / Snackbar -->
