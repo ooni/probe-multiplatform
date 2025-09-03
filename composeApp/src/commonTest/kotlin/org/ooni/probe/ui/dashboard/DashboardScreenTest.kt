@@ -1,8 +1,12 @@
 package org.ooni.probe.ui.dashboard
 
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import org.ooni.probe.data.models.DescriptorType
+import org.ooni.testing.TestLifecycleOwner
 import org.ooni.testing.factories.DescriptorFactory
 import kotlin.test.Test
 
@@ -14,14 +18,16 @@ class DashboardScreenTest {
             lateinit var title: String
 
             setContent {
-                DashboardScreen(
-                    state =
-                        DashboardViewModel.State(
-                            descriptors = mapOf(DescriptorType.Installed to listOf(descriptor)),
-                        ),
-                    onEvent = {},
-                )
-                title = descriptor.title()
+                CompositionLocalProvider(LocalLifecycleOwner provides TestLifecycleOwner(Lifecycle.State.RESUMED)) {
+                    DashboardScreen(
+                        state =
+                            DashboardViewModel.State(
+                                descriptors = mapOf(DescriptorType.Installed to listOf(descriptor)),
+                            ),
+                        onEvent = {},
+                    )
+                    title = descriptor.title()
+                }
             }
 
             onNodeWithText(title).assertExists()

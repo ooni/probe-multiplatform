@@ -6,8 +6,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
@@ -20,6 +23,8 @@ import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.TestRunError
+import org.ooni.probe.shared.tickerFlow
+import kotlin.time.Duration.Companion.seconds
 
 class DashboardViewModel(
     goToOnboarding: () -> Unit,
@@ -113,11 +118,18 @@ class DashboardViewModel(
             .onEach { event -> goToDescriptor(event.descriptor.key) }
             .launchIn(viewModelScope)
 
-        events
-            .filterIsInstance<Event.Start>()
-            .onEach {
-                _state.update { it.copy(showVpnWarning = shouldShowVpnWarning()) }
-            }.launchIn(viewModelScope)
+        merge(
+            events.filterIsInstance<Event.Resumed>(),
+            events.filterIsInstance<Event.Paused>(),
+        ).flatMapLatest {
+            if (it is Event.Resumed) {
+                tickerFlow(CHECK_VPN_WARNING_INTERVAL)
+            } else {
+                emptyFlow()
+            }
+        }.onEach {
+            _state.update { it.copy(showVpnWarning = shouldShowVpnWarning()) }
+        }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.FetchUpdatedDescriptors>()
@@ -191,7 +203,9 @@ class DashboardViewModel(
     }
 
     sealed interface Event {
-        data object Start : Event
+        data object Resumed : Event
+
+        data object Paused : Event
 
         data object RunTestsClick : Event
 
@@ -220,5 +234,9 @@ class DashboardViewModel(
         data object IgnoreBatteryOptimizationAccepted : Event
 
         data object IgnoreBatteryOptimizationDismissed : Event
+    }
+
+    companion object {
+        private val CHECK_VPN_WARNING_INTERVAL = 5.seconds
     }
 }
