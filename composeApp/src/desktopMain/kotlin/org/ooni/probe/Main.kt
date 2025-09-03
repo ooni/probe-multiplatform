@@ -148,25 +148,65 @@ fun main(args: Array<String>) {
         LaunchedEffect(Unit) {
             if (platform.os == DesktopOS.Windows) {
                 val exePath = ProcessHandle.current().info().command().orElse("unknown")
+                val baseKey = "HKCU\\Software\\Classes\\ooni"
+                val commandKey = "$baseKey\\shell\\open\\command"
 
-                val commands = listOf(
-                    """reg add "HKCU\Software\Classes\ooni" /ve /d "OONI Run" /f""",
-                    """reg add "HKCU\Software\Classes\ooni" /v "URL Protocol" /f""",
-                    """reg add "HKCU\Software\Classes\ooni\shell" /f""",
-                    """reg add "HKCU\Software\Classes\ooni\shell\open" /f""",
-                    """reg add "HKCU\Software\Classes\ooni\shell\open\command" /ve /d "\"$exePath\" \"%1\"" /f"""
-                )
-
-                for (cmd in commands) {
+                fun run(cmd: String) {
                     val process = Runtime.getRuntime().exec(cmd)
                     process.waitFor()
                     if (process.exitValue() != 0) {
                         Logger.d("Command failed: $cmd")
-                        process.errorStream.bufferedReader()
-                            .use { it.lines().forEach { line -> Logger.d(line) } }
+                        process.errorStream.bufferedReader().use { br ->
+                            br.lines().forEach { line -> Logger.d(line) }
+                        }
                     } else {
                         Logger.d("Command succeeded: $cmd")
                     }
+                }
+
+                fun keyExists(key: String): Boolean {
+                    return try {
+                        val p = Runtime.getRuntime().exec("reg query \"$key\"")
+                        p.waitFor()
+                        p.exitValue() == 0
+                    } catch (t: Throwable) {
+                        Logger.d("keyExists exception for $key: ${t.message}")
+                        false
+                    }
+                }
+
+                fun defaultValue(key: String): String {
+                    return try {
+                        val p = Runtime.getRuntime().exec("reg query \"$key\" /ve")
+                        p.waitFor()
+                        if (p.exitValue() != 0) return ""
+                        p.inputStream.bufferedReader().use { it.readText() }
+                    } catch (t: Throwable) {
+                        Logger.d("defaultValue exception for $key: ${t.message}")
+                        ""
+                    }
+                }
+
+                val needsFullRegistration = !keyExists(baseKey)
+                val currentCommandValue = defaultValue(commandKey)
+                val expectedCommandSubstring = exePath
+                val commandMatches = currentCommandValue.contains(expectedCommandSubstring)
+
+                if (needsFullRegistration) {
+                    Logger.d("Custom URL protocol 'ooni' not found. Creating registry keys.")
+                    val commands = listOf(
+                        """reg add \"$baseKey\" /ve /d \"OONI Run\" /f""",
+                        """reg add \"$baseKey\" /v \"URL Protocol\" /f""",
+                        """reg add \"$baseKey\\shell\" /f""",
+                        """reg add \"$baseKey\\shell\\open\" /f""",
+                        """reg add \"$commandKey\" /ve /d \"\\\"$exePath\\\" \\\"%1\\\"\" /f"""
+                    )
+                    commands.forEach { run(it) }
+                } else if (!commandMatches) {
+                    Logger.d("Updating 'ooni' protocol command value to current executable path.")
+                    run("""reg add \"$commandKey\" /ve /d \"\\\"$exePath\\\" \\\"%1\\\"\" /f""")
+                } else {
+                    Logger.d("'ooni' custom protocol already correctly registered. No changes made.")
                 }
             }
         }
