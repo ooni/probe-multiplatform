@@ -1,6 +1,7 @@
 package org.ooni.probe
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,6 +13,7 @@ import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import co.touchlab.kermit.Logger
 import io.github.kdroidfilter.platformtools.darkmodedetector.isSystemInDarkMode
 import io.github.kdroidfilter.platformtools.darkmodedetector.windows.setWindowsAdaptiveTitleBar
 import io.github.vinceglb.autolaunch.AutoLaunch
@@ -142,6 +144,32 @@ fun main(args: Array<String>) {
                 )
             },
         )
+
+        LaunchedEffect(Unit) {
+            if (platform.os == DesktopOS.Windows) {
+                val exePath = ProcessHandle.current().info().command().orElse("unknown")
+
+                val commands = listOf(
+                    """reg add "HKCU\Software\Classes\ooni" /ve /d "OONI Run" /f""",
+                    """reg add "HKCU\Software\Classes\ooni" /v "URL Protocol" /f""",
+                    """reg add "HKCU\Software\Classes\ooni\shell" /f""",
+                    """reg add "HKCU\Software\Classes\ooni\shell\open" /f""",
+                    """reg add "HKCU\Software\Classes\ooni\shell\open\command" /ve /d "\"$exePath\" \"%1\"" /f"""
+                )
+
+                for (cmd in commands) {
+                    val process = Runtime.getRuntime().exec(cmd)
+                    process.waitFor()
+                    if (process.exitValue() != 0) {
+                        Logger.d("Command failed: $cmd")
+                        process.errorStream.bufferedReader()
+                            .use { it.lines().forEach { line -> Logger.d(line) } }
+                    } else {
+                        Logger.d("Command succeeded: $cmd")
+                    }
+                }
+            }
+        }
     }
 }
 
