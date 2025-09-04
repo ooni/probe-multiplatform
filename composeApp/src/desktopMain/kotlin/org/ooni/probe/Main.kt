@@ -147,14 +147,18 @@ fun main(args: Array<String>) {
 
         LaunchedEffect(Unit) {
             if (platform.os == DesktopOS.Windows) {
-                val exePath = ProcessHandle.current().info().command().orElse("unknown")
+                val exePath = ProcessHandle
+                    .current()
+                    .info()
+                    .command()
+                    .orElse("unknown")
 
                 val commands = listOf(
                     """reg add "HKCU\Software\Classes\ooni" /ve /d "OONI Run" /f""",
                     """reg add "HKCU\Software\Classes\ooni" /v "URL Protocol" /f""",
                     """reg add "HKCU\Software\Classes\ooni\shell" /f""",
                     """reg add "HKCU\Software\Classes\ooni\shell\open" /f""",
-                    """reg add "HKCU\Software\Classes\ooni\shell\open\command" /ve /d "\"$exePath\" \"%1\"" /f"""
+                    """reg add "HKCU\Software\Classes\ooni\shell\open\command" /ve /d "\"$exePath\" \"%1\"" /f""",
                 )
 
                 for (cmd in commands) {
@@ -162,7 +166,8 @@ fun main(args: Array<String>) {
                     process.waitFor()
                     if (process.exitValue() != 0) {
                         Logger.d("Command failed: $cmd")
-                        process.errorStream.bufferedReader()
+                        process.errorStream
+                            .bufferedReader()
                             .use { it.lines().forEach { line -> Logger.d(line) } }
                     } else {
                         Logger.d("Command succeeded: $cmd")
