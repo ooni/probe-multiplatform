@@ -93,10 +93,6 @@ kotlin {
     iosSimulatorArm64()
 
     jvm("desktop")
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-        // vendor.set(JvmVendorSpec.JETBRAINS)
-    }
 
     cocoapods {
         ios.deploymentTarget = "14.0"
@@ -458,8 +454,6 @@ compose.resources {
     packageOfResClass = "ooniprobe.composeapp.generated.resources"
     generateResClass = always
 }
-
-// Conveyor
 
 // region Work around temporary Compose bugs.
 configurations.all {
