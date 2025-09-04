@@ -15,7 +15,7 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
-    alias(libs.plugins.conveyor)
+
     alias(libs.plugins.javafx)
 }
 
@@ -444,6 +444,12 @@ compose.desktop {
                 iconFile.set(rootProject.file("icons/app.png"))
             }
         }
+
+        // Pass properties to the JVM when running from Gradle
+        jvmArgs += listOf(
+            "-Dapp.version.name=${android.defaultConfig.versionName}",
+            "-Dapp.version.code=${android.defaultConfig.versionCode}",
+        )
     }
 }
 
@@ -468,12 +474,6 @@ version = android.defaultConfig.versionName ?: ""
 
 dependencies {
     debugImplementation(compose.uiTooling)
-
-    // Use the configurations created by the Conveyor plugin to tell Gradle/Conveyor where to find the artifacts for each platform.
-    linuxAmd64(compose.desktop.linux_x64)
-    macAmd64(compose.desktop.macos_x64)
-    macAarch64(compose.desktop.macos_arm64)
-    windowsAmd64(compose.desktop.windows_x64)
 }
 
 // Resources

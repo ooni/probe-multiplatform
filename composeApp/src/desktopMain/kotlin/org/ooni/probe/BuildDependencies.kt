@@ -3,7 +3,6 @@ package org.ooni.probe
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import co.touchlab.kermit.Logger
 import dev.dirs.ProjectDirectories
-import dev.hydraulic.conveyor.control.SoftwareUpdateController
 import okio.Path.Companion.toPath
 import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.engine.DesktopNetworkTypeFinder
@@ -62,11 +61,8 @@ val dependencies = Dependencies(
 
 private fun buildPlatformInfo(): PlatformInfo {
     val osVersion = System.getProperty("os.version")
-    val conveyorVersion = SoftwareUpdateController.getInstance()?.currentVersion
-    val buildName = conveyorVersion?.version
-        ?: System.getProperty("jpackage.app-version")?.ifBlank { null }
-        ?: "test"
-    val buildNumber = conveyorVersion?.revision?.toString() ?: "0"
+    val buildName = System.getProperty("app.version.name")?.ifBlank { null } ?: "1.0.0"
+    val buildNumber = System.getProperty("app.version.code")?.ifBlank { null } ?: "0"
 
     return PlatformInfo(
         buildName = buildName,
