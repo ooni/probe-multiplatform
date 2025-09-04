@@ -166,21 +166,17 @@ class RunViewModel(
                 }
             }.launchIn(viewModelScope)
 
-        events
-            .filterIsInstance<Event.RunClicked>()
-            .onEach {
-                saveRunPreferences()
-                startBackgroundRun(buildRunSpecification())
-                onBack()
-            }.launchIn(viewModelScope)
-
-        events
-            .filterIsInstance<Event.RunAlwaysClicked>()
-            .onEach {
+        merge(
+            events.filterIsInstance<Event.RunClicked>(),
+            events.filterIsInstance<Event.RunAlwaysClicked>(),
+        ).onEach {
+            if (it is Event.RunAlwaysClicked) {
                 preferenceRepository.setValueByKey(SettingsKey.WARN_VPN_IN_USE, false)
-                startBackgroundRun(buildRunSpecification())
-                onBack()
-            }.launchIn(viewModelScope)
+            }
+            saveRunPreferences()
+            startBackgroundRun(buildRunSpecification())
+            onBack()
+        }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.DisableVpnClicked>()
