@@ -15,20 +15,8 @@ jobs:
       - name: Package app
         run: ./gradlew copyBrandingToCommonResources package -Porganization=ooni
 
-      - name: Conveyor make site
-        uses: hydraulic-software/conveyor/actions/build@v18.1
-        env:
-          APPLE_ASP: ${{ secrets.APPLE_ASP }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-        with:
-          command: make site
-          signing_key: ${{ secrets.CONVEYOR_SIGNING_KEY }}
-          extra_flags: -f ci.conveyor.conf
-          agree_to_license: 1
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: desktopApps
-          path: output
+          path: composeApp/build/compose/binaries

@@ -48,7 +48,7 @@ import org.ooni.probe.shared.Platform
 import java.awt.Desktop
 import java.awt.Dimension
 
-const val APP_ID = "org.ooni.probe" // needs to be the same as conveyor `app.rdns-name`
+const val APP_ID = "org.ooni.probe"
 
 fun main(args: Array<String>) {
     val autoLaunch = AutoLaunch(appPackageName = APP_ID)
