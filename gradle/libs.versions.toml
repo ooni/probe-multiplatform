@@ -55,8 +55,7 @@ androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore
 androidx-datastore-core-jvm = { group = "androidx.datastore", name = "datastore-core-jvm", version.ref = "dataStoreVersion" }
 androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStoreVersion" }
 
-# Engine
-android-oonimkall = { module = "org.ooni:oonimkall", version = "2025.06.13-091228" }
+# android-oonimkall = { module = "org.ooni:oonimkall", version = "v3.27.0-android:android@aar" }
 
 # Logging
 kermit = { module = "co.touchlab:kermit", version = "2.0.8" }
@@ -110,7 +109,7 @@ conveyor = { module = "dev.hydraulic.conveyor:conveyor-control", version = "1.1"
 auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.7.0"}
 directories = { module = "dev.dirs:directories", version = "26" }
 pratanumandal-unique = { module = "tk.pratanumandal:unique4j", version = "1.4" }
-desktop-oonimkall = { module = "org.ooni:oonimkall", version = "2025.07.01-140014-desktop" }
+# desktop-oonimkall = { module = "org.ooni:oonimkall", version = "v3.27.0-desktop:desktop@jar" }
 
 [bundles]
 
@@ -138,7 +137,7 @@ tooling = [
     "web-view",
 ]
 android = [
-    "android-oonimkall",
+#    "android-oonimkall",
     "android-activity",
     "android-fragment",
     "android-work",
@@ -156,7 +155,7 @@ desktop = [
     "directories",
     "auto-launch",
     "pratanumandal-unique",
-    "desktop-oonimkall"
+#    "desktop-oonimkall"
 ]
 full = [
     "sentry",
