@@ -32,7 +32,7 @@ jobs:
           restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.organization }}-
 
       - name: Build Android
-        run: ./gradlew copyBrandingToCommonResources assemble${{ matrix.type }} -Porganization=${{ matrix.organization }}
+        run: ./gradlew copyBrandingToCommonResources assembleFull${{ matrix.type }} -Porganization=${{ matrix.organization }}
 
       - name: Build iOS App
         run: bundle exec fastlane ios build organization:${{ matrix.organization }}

@@ -298,6 +298,9 @@ android {
         create("full") {
             dimension = "license"
         }
+        create("xperimental") {
+            dimension = "license"
+        }
         create("fdroid") {
             dimension = "license"
             // Our APK is too large and F-Droid asked for a split by ABI
@@ -338,6 +341,9 @@ android {
         coreLibraryDesugaring(libs.android.desugar.jdk)
         debugImplementation(compose.uiTooling)
         "fullImplementation"(libs.bundles.full.android)
+        "fullImplementation"(libs.android.oonimkall)
+        "fdroidImplementation"(libs.android.oonimkall)
+        "xperimentalImplementation"(files("libs/android-oonimkall.aar"))
         androidTestUtil(libs.android.orchestrator)
     }
     dependenciesInfo {

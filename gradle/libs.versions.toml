@@ -138,7 +138,6 @@ tooling = [
     "web-view",
 ]
 android = [
-    "android-oonimkall",
     "android-activity",
     "android-fragment",
     "android-work",
