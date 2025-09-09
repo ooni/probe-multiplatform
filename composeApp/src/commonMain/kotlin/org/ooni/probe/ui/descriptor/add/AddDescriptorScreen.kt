@@ -41,9 +41,9 @@ import ooniprobe.composeapp.generated.resources.LoadingScreen_Runv2_Message
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.toDescriptor
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
+import org.ooni.probe.ui.descriptor.isSingleWebConnectivityTest
 import org.ooni.probe.ui.run.TestItem
 import org.ooni.probe.ui.shared.NotificationMessages
 import org.ooni.probe.ui.shared.TopBar
@@ -154,10 +154,8 @@ fun AddDescriptorScreen(
                     }
 
                     val firstItem = state.selectableItems.first()
-                    val isSingleWebConnectivityTest = state.selectableItems.size == 1 &&
-                        firstItem.item.test == TestType.WebConnectivity
 
-                    if (isSingleWebConnectivityTest) {
+                    if (state.selectableItems.isSingleWebConnectivityTest()) {
                         items(firstItem.item.inputs.orEmpty(), key = { website -> website }) { website ->
                             Text(
                                 text = website,

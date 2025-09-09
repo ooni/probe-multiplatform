@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
@@ -308,3 +309,6 @@ class DescriptorViewModel(
         ) : Event
     }
 }
+
+fun List<SelectableItem<NetTest>>.isSingleWebConnectivityTest(): Boolean =
+    size == 1 && firstOrNull()?.item?.test == TestType.WebConnectivity
