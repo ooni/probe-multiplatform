@@ -124,6 +124,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.bundles.android)
+            implementation("org.ooni:oonimkall:3.27.0-android:@aar")
             implementation(libs.bundles.mobile)
         }
         commonMain {
@@ -356,6 +357,7 @@ android {
             "NullSafeMutableLiveData",
             "ObsoleteLintCustomCheck",
             "Aligned16KB",
+            "UseTomlInstead", // We are using this until the classifier issue is resolved in https://github.com/ooni/probe-cli/issues/1739
         )
         lintConfig = file("lint.xml")
     }
