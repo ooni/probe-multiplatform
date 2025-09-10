@@ -1,12 +1,12 @@
 PODS:
   - composeApp (1.0.0):
     - Sentry (= 8.53.2)
-  - libcrypto (2025.09.06-051839)
-  - libevent (2025.09.06-051839)
-  - libssl (2025.09.06-051839)
-  - libtor (2025.09.06-051839)
-  - libz (2025.09.06-051839)
-  - oonimkall (2025.09.06-051839)
+  - libcrypto (2025.09.09-110535)
+  - libevent (2025.09.09-110535)
+  - libssl (2025.09.09-110535)
+  - libtor (2025.09.09-110535)
+  - libz (2025.09.09-110535)
+  - oonimkall (2025.09.09-110535)
   - Sentry (8.53.2):
     - Sentry/Core (= 8.53.2)
   - Sentry/Core (8.53.2)
@@ -50,12 +50,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   composeApp: d6ffaab10d64ae941321376308fdaad2ed621d93
-  libcrypto: ad902b6bb91787d3f13abf363adf130a230a09b9
-  libevent: babc5afca52a312250dee1abfb6333bbfe8fd5c7
-  libssl: b8e84707f4c09d3be6b5ba76781600876ecd0a58
-  libtor: 8cd3a676177d66e7b085fa7c408d058087366ae9
-  libz: 33aad63947684b2dc4b173d51a8102558b1cddaa
-  oonimkall: b99ca9e622635ea75cbfef3be1ccb0e32d81f2a8
+  libcrypto: 6fe6cdcad3c473ed4b3ccfe12a95f30840de48e7
+  libevent: c8df42a11d8217584f940cdfe4aed60fd056572e
+  libssl: 7d9f469af78e11cb2b207211b85bcd415d903ae8
+  libtor: 08056abb8cd5fa1c7c7e5cd21e22e4436b699b73
+  libz: d695d2d4082e5b71e6a988188eb8b5b2b18b43fc
+  oonimkall: 9d00aecca34685d6fd6252139703be7793bb6ba8
   Sentry: 59993bffde4a1ac297ba6d268dc4bbce068d7c1b
   Siren: c0f6012f61196b73455202db07730f6454a4beb0
   sqlite3: f163dbbb7aa3339ad8fc622782c2d9d7b72f7e9c
