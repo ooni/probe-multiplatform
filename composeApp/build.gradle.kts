@@ -124,7 +124,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.bundles.android)
-            implementation("org.ooni:oonimkall:v3.27.0-android:android@aar")
+            implementation("org.ooni:oonimkall:3.27.0-android:@aar")
             implementation(libs.bundles.mobile)
         }
         commonMain {
@@ -156,7 +156,6 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
-                implementation("org.ooni:oonimkall:v3.27.0-desktop:desktop@jar")
 
                 // As JavaFX have platform-specific dependencies, we need to add them manually
                 val fxSuffix = getJavaFxSuffix()
