@@ -222,8 +222,8 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 210 // Always increment by 10. See fdroid flavor below
-        versionName = "5.1.0"
+        versionCode = 220 // Always increment by 10. See fdroid flavor below
+        versionName = "5.2.0"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
         resValue(
