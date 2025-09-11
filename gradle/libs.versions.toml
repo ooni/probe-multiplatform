@@ -99,7 +99,7 @@ android-orchestrator = { module = "androidx.test:orchestrator", version = "1.6.1
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 android-test-runner = { module = "androidx.test:runner", version = "1.7.0" }
 android-test-rules = { module = "androidx.test:rules", version = "1.7.0" }
-androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "compose-plugin" }
+androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.9.0" }
 androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.7.0" }
 fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" }
 
