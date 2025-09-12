@@ -77,7 +77,13 @@ fun main(args: Array<String>) {
 
         fun showWindow() {
             isWindowVisible = true
-            Desktop.getDesktop().requestForeground(true)
+            if (Desktop.isDesktopSupported() &&
+                Desktop
+                    .getDesktop()
+                    .isSupported(Desktop.Action.APP_REQUEST_FOREGROUND)
+            ) {
+                Desktop.getDesktop().requestForeground(true)
+            }
         }
 
         Window(
