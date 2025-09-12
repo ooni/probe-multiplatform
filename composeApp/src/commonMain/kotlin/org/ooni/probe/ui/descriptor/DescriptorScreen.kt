@@ -223,17 +223,25 @@ fun DescriptorScreen(
                 }
 
                 when (OrganizationConfig.testDisplayMode) {
-                    TestDisplayMode.Regular -> TestItems(
-                        descriptor,
-                        state.tests,
-                        state.isAutoRunEnabled,
-                        onEvent,
-                    )
+                    TestDisplayMode.Regular -> {
+                        if (!state.tests.isSingleWebConnectivityTest() || descriptor.source is Descriptor.Source.Default) {
+                            TestItems(
+                                descriptor,
+                                state.tests,
+                                state.isAutoRunEnabled,
+                                onEvent,
+                            )
+                        }
+                    }
 
                     TestDisplayMode.WebsitesOnly -> WebsiteItems(state.tests)
                 }
 
                 if (descriptor.source is Descriptor.Source.Installed) {
+                    if (state.tests.isSingleWebConnectivityTest()) {
+                        WebsiteItems(state.tests)
+                    }
+
                     InstalledDescriptorActionsView(
                         descriptor = descriptor.source.value,
                         showCheckUpdatesButton = !state.canPullToRefresh,
