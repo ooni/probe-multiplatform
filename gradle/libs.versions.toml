@@ -37,9 +37,9 @@ kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version =
 android-desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.5" }
 
 # UI
-android-activity = { module = "androidx.activity:activity-ktx", version = "1.10.1" }
+android-activity = { module = "androidx.activity:activity-ktx", version = "1.11.0" }
 android-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.9" }
-android-work = { module = "androidx.work:work-runtime-ktx", version = "2.10.3" }
+android-work = { module = "androidx.work:work-runtime-ktx", version = "2.10.4" }
 android-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.1" }
 
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.9.3" }
@@ -99,7 +99,7 @@ android-orchestrator = { module = "androidx.test:orchestrator", version = "1.6.1
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 android-test-runner = { module = "androidx.test:runner", version = "1.7.0" }
 android-test-rules = { module = "androidx.test:rules", version = "1.7.0" }
-androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.9.0" }
+androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.9.1" }
 androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.7.0" }
 fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" }
 
