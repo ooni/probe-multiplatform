@@ -1,9 +1,2 @@
-* Measurement engine updated to OONI Probe CLI v3.26.0
-* Filter results by date and network
-* Mark multiple results as viewed
-* Delete results selectively
-* New contact screen, with the ability to include logs
-* Improved translation of plurals
-* Predictive back on Android
-* Chosen websites for testing are kept from the previous run
+* Measurement engine updated to OONI Probe CLI v3.27.0
 * Various minor bug fixes and enhancements
