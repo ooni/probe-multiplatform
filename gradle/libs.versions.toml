@@ -24,7 +24,6 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "13.1.0" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
-conveyor = { id = "dev.hydraulic.conveyor", version = "1.12" }
 javafx = { id = "org.openjfx.javafxplugin", version = "0.1.0" }
 
 [libraries]
@@ -55,6 +54,7 @@ androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore
 androidx-datastore-core-jvm = { group = "androidx.datastore", name = "datastore-core-jvm", version.ref = "dataStoreVersion" }
 androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStoreVersion" }
 
+# Engine
 # android-oonimkall = { module = "org.ooni:oonimkall", version = "3.27.0-android:@aar" }
 
 # Logging
@@ -106,7 +106,6 @@ fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" 
 
 # Desktop
 
-conveyor = { module = "dev.hydraulic.conveyor:conveyor-control", version = "1.1" }
 auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.7.0"}
 directories = { module = "dev.dirs:directories", version = "26" }
 pratanumandal-unique = { module = "tk.pratanumandal:unique4j", version = "1.4" }
@@ -152,7 +151,6 @@ mobile = [
 desktop = [
     "sqldelight-jvm",
     "androidx-datastore-core-jvm",
-    "conveyor",
     "directories",
     "auto-launch",
     "pratanumandal-unique",
