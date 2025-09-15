@@ -120,7 +120,6 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.bundles.android)
-            implementation("org.ooni:oonimkall:3.27.0-android:@aar")
             implementation(libs.bundles.mobile)
         }
         commonMain {
@@ -338,8 +337,8 @@ android {
         coreLibraryDesugaring(libs.android.desugar.jdk)
         debugImplementation(compose.uiTooling)
         "fullImplementation"(libs.bundles.full.android)
-        "fullImplementation"(libs.android.oonimkall)
-        "fdroidImplementation"(libs.android.oonimkall)
+        "fullImplementation"("org.ooni:oonimkall:3.27.0-android:@aar")
+        "fdroidImplementation"("org.ooni:oonimkall:3.27.0-android:@aar")
         "xperimentalImplementation"(files("libs/android-oonimkall.aar"))
         androidTestUtil(libs.android.orchestrator)
     }
