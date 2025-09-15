@@ -136,7 +136,7 @@
     <string name="TestResults_Filter_NoTestsFound">Nenhum resultado encontrado para esses filtros.</string>
     <string name="TestResults_Filter_DeleteConfirmation">Deseja apagar todos os resultados de teste para esses filtros?</string>
 
-    <string name="Results_LimitedNotice">Somente os últimos%1$dresultados são mostrados</string>
+    <string name="Results_LimitedNotice">Somente os últimos %1$d resultados são mostrados</string>
     <string name="Results_UploadingMissing">Subindo resultados pendentes %1$s</string>
     <string name="Results_MarkAllAsViewed">Marcar todos como vistos</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Deseja marcar todos os resultados como vistos?</string>
