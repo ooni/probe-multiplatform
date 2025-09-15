@@ -205,6 +205,8 @@ platform :ios do
     desc " * **`organization`**: ooni, dw"
     desc ""
     lane :build do |options|
+        setup_ci if ENV['CI']
+
         organization = organization!(options)
 
         scheme = scheme!(organization)
