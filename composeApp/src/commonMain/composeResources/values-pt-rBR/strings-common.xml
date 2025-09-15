@@ -32,7 +32,7 @@
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRADO</string>
     <string name="Dashboard_RunV2_UpdatedTag">ATUALIZADO</string>
     <string name="Dashboard_RunV2_UpdateTag">ATUALIZAÇÃO</string>
-    <string name="Dashboard_Runv2_Overview_LastUpdated">Última atualização%1$s</string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated">Última atualização %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Atualização rejeitada</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Desfazer</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Revisar Atualizações</string>
