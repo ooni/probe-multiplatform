@@ -8,4 +8,7 @@
         <ignore regexp="org.jetbrains.androidx.lifecycle" /> <!-- 2.9.3 is failing to build -->
         <ignore regexp="org.jetbrains.androidx.navigation" /> <!-- 2.9.0-rc01 is failing to UI tests -->
     </issue>
+    <issue id="NewerVersionAvailable">
+        <ignore regexp="org.ooni" /> <!-- we update the engine manually -->
+    </issue>
 </lint>
