@@ -36,7 +36,6 @@ jobs:
 
       - name: Build iOS App
         run: bundle exec fastlane ios build organization:${{ matrix.organization }}
-        shell: bash
         continue-on-error: false
 
       - name: Uploads artifacts
