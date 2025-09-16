@@ -18,8 +18,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.ooni.engine.models.TaskOrigin
-import org.ooni.probe.config.OrganizationConfig
-import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.NetTest
@@ -46,7 +44,7 @@ class RunViewModel(
     val state = _state.asStateFlow()
 
     private val allNetTests = MutableStateFlow(emptyList<Pair<Descriptor, NetTest>>())
-    private val collapsedDescriptorsKeys = MutableStateFlow(emptyList<String>())
+    private val expandedDescriptorsKeys = MutableStateFlow(emptyList<String>())
     private val selectedTests = MutableStateFlow<List<Pair<Descriptor, NetTest>>?>(null)
 
     init {
@@ -67,15 +65,15 @@ class RunViewModel(
 
         combine(
             allNetTests,
-            collapsedDescriptorsKeys,
+            expandedDescriptorsKeys,
             selectedTests.filterNotNull(),
             ::Triple,
-        ).map { (all, collapsedKeys, selectedTests) ->
+        ).map { (all, expandedKeys, selectedTests) ->
             val descriptorsWithTests = all
                 .groupBy(keySelector = { it.first }, valueTransform = { it.second })
                 .map { (descriptor, tests) ->
                     val selectedTestsCount = selectedTests.count { it.first == descriptor }
-                    val containsCollapsedKey = collapsedKeys.contains(descriptor.key)
+                    val containsExpandedKey = expandedKeys.contains(descriptor.key)
 
                     ParentSelectableItem(
                         item = descriptor,
@@ -84,11 +82,7 @@ class RunViewModel(
                             selectedTestsCount == tests.size -> ToggleableState.On
                             else -> ToggleableState.Indeterminate
                         },
-                        isExpanded = when (OrganizationConfig.testDisplayMode) {
-                            TestDisplayMode.Regular -> !containsCollapsedKey
-                            // Start with all descriptors collapsed
-                            TestDisplayMode.WebsitesOnly -> containsCollapsedKey
-                        },
+                        isExpanded = containsExpandedKey,
                     ) to tests.map { test ->
                         SelectableItem(
                             item = test,
@@ -156,7 +150,7 @@ class RunViewModel(
         events
             .filterIsInstance<Event.DescriptorDropdownToggled>()
             .onEach { event ->
-                collapsedDescriptorsKeys.update { keys ->
+                expandedDescriptorsKeys.update { keys ->
                     val key = event.descriptor.key
                     if (keys.contains(key)) {
                         keys - key

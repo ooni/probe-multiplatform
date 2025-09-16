@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
@@ -128,13 +130,11 @@ fun RunScreen(
             val lazyListState = rememberLazyListState()
             LazyColumn(
                 contentPadding = PaddingValues(
-                    start = 8.dp,
-                    end = 16.dp,
                     // Insets + Run tests button
                     bottom =
                         WindowInsets.navigationBars
                             .asPaddingValues()
-                            .calculateBottomPadding() + 64.dp,
+                            .calculateBottomPadding() + 72.dp,
                 ),
                 state = lazyListState,
                 modifier = Modifier
@@ -145,7 +145,11 @@ fun RunScreen(
                 state.list.forEach { (type, descriptorsMap) ->
                     if (allSectionsHaveValues && descriptorsMap.isNotEmpty()) {
                         item(key = type) {
-                            TestDescriptorSection(type)
+                            TestDescriptorSection(
+                                type = type,
+                                modifier = Modifier
+                                    .padding(top = 8.dp, start = 16.dp, bottom = 4.dp),
+                            )
                         }
                     }
 
@@ -154,6 +158,7 @@ fun RunScreen(
                         item(key = descriptor.key) {
                             DescriptorItem(
                                 descriptorItem = descriptorItem,
+                                isExpandable = !testItems.isSingleWebConnectivityTest(),
                                 onDropdownToggled = {
                                     onEvent(RunViewModel.Event.DescriptorDropdownToggled(descriptor))
                                 },
@@ -249,6 +254,8 @@ private fun LazyListScope.regularTestItems(
     testItems: List<SelectableItem<NetTest>>,
     onEvent: (RunViewModel.Event) -> Unit,
 ) {
+    if (testItems.isSingleWebConnectivityTest()) return
+
     items(testItems, key = { "${descriptor.key}_${it.item.test.name}" }) { testItem ->
         TestItem(
             testItem = testItem,
@@ -266,9 +273,12 @@ private fun LazyListScope.regularTestItems(
     }
 }
 
+private fun List<SelectableItem<NetTest>>.isSingleWebConnectivityTest() = size == 1 && first().item.test == TestType.WebConnectivity
+
 @Composable
 private fun DescriptorItem(
     descriptorItem: ParentSelectableItem<Descriptor>,
+    isExpandable: Boolean,
     onDropdownToggled: () -> Unit,
     onChecked: (Boolean) -> Unit,
 ) {
@@ -282,33 +292,40 @@ private fun DescriptorItem(
                 onClick = { onChecked(descriptorItem.state != ToggleableState.On) },
                 role = Role.Checkbox,
                 enabled = descriptor.enabled,
-            ).padding(horizontal = 16.dp),
+            ).defaultMinSize(minHeight = 48.dp),
     ) {
         TriStateCheckbox(
             state = descriptorItem.state,
             enabled = descriptor.enabled,
             onClick = null,
-            modifier = Modifier.padding(end = 24.dp),
+            modifier = Modifier.padding(start = 24.dp, end = 16.dp),
         )
+
         TestDescriptorLabel(descriptor, modifier = Modifier.weight(1f))
-        IconButton(onClick = { onDropdownToggled() }) {
-            Icon(
-                painterResource(
-                    if (descriptorItem.isExpanded) {
-                        Res.drawable.ic_keyboard_arrow_up
-                    } else {
-                        Res.drawable.ic_keyboard_arrow_down
-                    },
-                ),
-                contentDescription = stringResource(
-                    if (descriptorItem.isExpanded) {
-                        Res.string.Common_Collapse
-                    } else {
-                        Res.string.Common_Expand
-                    },
-                ) + " " + descriptor.title(),
-                modifier = Modifier.padding(2.dp),
-            )
+
+        if (isExpandable) {
+            IconButton(
+                onClick = { onDropdownToggled() },
+                modifier = Modifier.size(width = 64.dp, height = 48.dp),
+            ) {
+                Icon(
+                    painterResource(
+                        if (descriptorItem.isExpanded) {
+                            Res.drawable.ic_keyboard_arrow_up
+                        } else {
+                            Res.drawable.ic_keyboard_arrow_down
+                        },
+                    ),
+                    contentDescription = stringResource(
+                        if (descriptorItem.isExpanded) {
+                            Res.string.Common_Collapse
+                        } else {
+                            Res.string.Common_Expand
+                        },
+                    ) + " " + descriptor.title(),
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                )
+            }
         }
     }
 }
