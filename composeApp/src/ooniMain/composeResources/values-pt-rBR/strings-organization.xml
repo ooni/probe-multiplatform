@@ -22,7 +22,7 @@
     <string name="Dashboard_Middleboxes_Card_Description">Detectar caixas intermediárias na sua rede</string>
     <string name="Dashboard_Middleboxes_Overview_Paragraph">Os provedores de serviços de Internet geralmente utilizam aparelhos de rede (caixas intermediárias) para vários fins de rede (como o armazenamento em cache). Algumas vezes, essas caixas intermediárias são usadas para implementar censura e/ou vigilância na Internet.\n\nEncontre caixas intermediárias em sua rede usando o OONI [HTTP Linha de Solicitação Inválida](https://ooni.org/nettest/http-invalid-request-line/) e testes [HTTP Header Field Manipulation](https://ooni.org/nettest/http-header-field-manipulation/).\n\nSeus resultados serão publicados no [Explorador OONI](https://explorer.ooni.org/world/) e na [API OONI](https://api.ooni.io/).</string>
     <string name="Dashboard_InstantMessaging_Card_Description">Teste o bloqueio de aplicativos de mensagens instantâneas</string>
-    <string name="Dashboard_InstantMessaging_Overview_Paragraph">Verifique se [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), e [Signal](https://ooni.org/nettest/signal) estão bloqueados.\n\nSeus resultados serão publicados no no [Explorador OONI](https://explorer.ooni.org/world/) e na [API OONI](https://api.ooni.io/).</string>
+    <string name="Dashboard_InstantMessaging_Overview_Paragraph">Verifique se [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), e [Signal](https://ooni.org/nettest/signal) estão bloqueados.\n\nSeus resultados serão publicados no [Explorador OONI](https://explorer.ooni.org/world/) e na [API OONI](https://api.ooni.io/).</string>
     <string name="Dashboard_Circumvention_Card_Description">Testar o bloqueio de ferramentas de evasão à censura</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">Verifique se [Psiphon](https://ooni.org/nettest/psiphon/) ou [Tor](https://ooni.org/nettest/tor/) estão bloqueados.\n\nSeus resultados serão publicados no [Explorador OONI](https://explorer.ooni.org/world/) e na [API OONI](https://api.ooni.io/).</string>
     <string name="Dashboard_Experimental_Card_Description">Executar novos testes experimentais</string>
@@ -40,7 +40,7 @@
     <string name="Settings_Donate_Heading">Faça uma doação agora para apoiar a liberdade na Internet</string>
     <string name="Settings_Donate_SubHeading">Como uma organização sem fins lucrativos, dependemos de doações de pessoas como você para defender uma Internet livre e aberta para todos.</string>
     <string name="Settings_Donate_Support_Title">Ao doar para o OONI, suporta:</string>
-    <string name="Settings_Donate_Support_Item_OpenSource">Software livre e de código aberto para detecção de censura na Internet</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">Software livre e de código aberto para deteção de censura na Internet</string>
     <string name="Settings_Donate_Support_Item_Analysis">Análise em tempo-real de censura na Internet no mundo</string>
     <string name="Settings_Donate_Support_Item_OpenData">Dados abertos sobre censura na Internet — apoiando esforços globais de pesquisa e advocacia</string>
     <string name="Settings_Donate_Support_Item_Research">Pesquisa sobre eventos de censura mundiais</string>
