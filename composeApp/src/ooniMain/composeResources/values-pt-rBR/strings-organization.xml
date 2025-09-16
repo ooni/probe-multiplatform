@@ -2,14 +2,14 @@
     <string name="app_name">OONI Probe</string>
 
     <string name="Onboarding_WhatIsOONIProbe_Title">O que é o OONI Probe?</string>
-    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Seu aplicativo para medir a censura na internet.\n\nOs sites e aplicativos de mídia social estão bloqueados? Sua conexão com a internet é estranhamente lenta?\n\nExecute o OONI Probe para descobrir por quê!</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Seu aplicativo para medir a censura na internet.\n\nOs sites e aplicativos de mídia social estão bloqueados? Sua conexão com a internet é estranhamente lenta?\n\nExecute o OONI Probe para descobrir o porquê!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Os dados do OONI são publicados abertamente e incluirão as informações da sua rede.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Qualquer pessoa que estiver monitorando sua atividade na Internet (por exemplo, governo ou ISP) verá que você está executando o OONI Probe.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">Você pode testar sites proibidos (mas pode escolher quais sites testar).</string>
     <string name="Onboarding_PopQuiz_1_Question">Se alguém estiver monitorando minha atividade na Internet, eles verão que estou executando o OONI Probe.</string>
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe não é uma ferramenta de privacidade. Qualquer pessoa que monitore sua atividade na internet verá qual software você está executando.</string>
     <string name="Onboarding_PopQuiz_2_Question">Toda vez que eu executo o OONI Probe, os dados da rede que eu coleciono são automaticamente publicados.</string>
-    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Para aumentar a transparência sobre a censura na Internet, os dados de rede de todos os usuários do OONI Probe são publicados automaticamente (exceto se essa opção for desativada nas configurações).</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Para aumentar a transparência sobre a censura na Internet, os dados de rede de todos os usuários do OONI Probe são publicados automaticamente (exceto se essa opção for desabilitada nas configurações).</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">Para medir a censura na Internet todos os dias, ative os testes automatizados para que o OONI Probe possa executar testes periodicamente.\n\nNão se preocupe, estaremos atentos ao uso da bateria. \n\nÉ possível desabilitar o teste automatizado nas configurações a qualquer momento.</string>
     <string name="Onboarding_Crash_Paragraph">Para melhorar o OONI Probe, gostaríamos de coletar relatórios de falhas anônimos quando o aplicativo não funciona corretamente.\n\nVocê gostaria de optar por enviar relatórios de falha para a equipe de desenvolvimento OONI?</string>
     <string name="Onboarding_CleanUp_Title">Limpar</string>
@@ -22,7 +22,7 @@
     <string name="Dashboard_Middleboxes_Card_Description">Detectar caixas intermediárias na sua rede</string>
     <string name="Dashboard_Middleboxes_Overview_Paragraph">Os provedores de serviços de Internet geralmente utilizam aparelhos de rede (caixas intermediárias) para vários fins de rede (como o armazenamento em cache). Algumas vezes, essas caixas intermediárias são usadas para implementar censura e/ou vigilância na Internet.\n\nEncontre caixas intermediárias em sua rede usando o OONI [HTTP Linha de Solicitação Inválida](https://ooni.org/nettest/http-invalid-request-line/) e testes [HTTP Header Field Manipulation](https://ooni.org/nettest/http-header-field-manipulation/).\n\nSeus resultados serão publicados no [Explorador OONI](https://explorer.ooni.org/world/) e na [API OONI](https://api.ooni.io/).</string>
     <string name="Dashboard_InstantMessaging_Card_Description">Teste o bloqueio de aplicativos de mensagens instantâneas</string>
-    <string name="Dashboard_InstantMessaging_Overview_Paragraph">Verifique se [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), e [Signal](https://ooni.org/nettest/signal) estão bloqueados.\n\nSeus resultados serão publicados no no [Explorador OONI](https://explorer.ooni.org/world/) e na [API OONI](https://api.ooni.io/).</string>
+    <string name="Dashboard_InstantMessaging_Overview_Paragraph">Verifique se [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), e [Signal](https://ooni.org/nettest/signal) estão bloqueados.\n\nSeus resultados serão publicados no [Explorador OONI](https://explorer.ooni.org/world/) e na [API OONI](https://api.ooni.io/).</string>
     <string name="Dashboard_Circumvention_Card_Description">Testar o bloqueio de ferramentas de evasão à censura</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">Verifique se [Psiphon](https://ooni.org/nettest/psiphon/) ou [Tor](https://ooni.org/nettest/tor/) estão bloqueados.\n\nSeus resultados serão publicados no [Explorador OONI](https://explorer.ooni.org/world/) e na [API OONI](https://api.ooni.io/).</string>
     <string name="Dashboard_Experimental_Card_Description">Executar novos testes experimentais</string>
@@ -40,7 +40,7 @@
     <string name="Settings_Donate_Heading">Faça uma doação agora para apoiar a liberdade na Internet</string>
     <string name="Settings_Donate_SubHeading">Como uma organização sem fins lucrativos, dependemos de doações de pessoas como você para defender uma Internet livre e aberta para todos.</string>
     <string name="Settings_Donate_Support_Title">Ao doar para o OONI, suporta:</string>
-    <string name="Settings_Donate_Support_Item_OpenSource">Software livre e de código aberto para detecção de censura na Internet</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">Software livre e de código aberto para deteção de censura na Internet</string>
     <string name="Settings_Donate_Support_Item_Analysis">Análise em tempo-real de censura na Internet no mundo</string>
     <string name="Settings_Donate_Support_Item_OpenData">Dados abertos sobre censura na Internet — apoiando esforços globais de pesquisa e advocacia</string>
     <string name="Settings_Donate_Support_Item_Research">Pesquisa sobre eventos de censura mundiais</string>
