@@ -344,7 +344,7 @@
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Carregar Todos</string>
     <string name="Modal_ResultsNotUploaded_Uploading">Fazendo upload de %1$s ...</string>
     <string name="Toast_ResultsUploaded">Carregamento bem-sucedido</string>
-    <string name="Modal_UploadFailed_Title">Falha ao enviar</string>
+    <string name="Modal_UploadFailed_Title">Falha ao carregar</string>
     <string name="Modal_UploadFailed_Paragraph">Falha ao carregar %1$s/%2$s medidas. O log de falhas foi compartilhado com as pessoas que desenvolvem o OONI.</string>
     <string name="Modal_Retry">Tentar novamente</string>
     <string name="Modal_Cancel">Cancelar</string>
@@ -369,8 +369,8 @@
     <string name="Modal_DisableVPN_Message">Se você executar OONI Probe com uma VPN habilitada, os resultados do teste podem parecer que vêm do país errado. Por favor, desabilite sua conexão VPN.</string>
     <string name="Modal_DisableVPN">Desabilitar VPN</string>
     <string name="Modal_RunAnyway">Execute mesmo assim</string>
-    <string name="Modal_AlwaysRun">Sempre Executar</string>
-    <string name="Modal_Error_CantDownloadURLs">Não foi possível baixar a lista de URL\'s. Por favor, tente novamente.</string>
+    <string name="Modal_AlwaysRun">Executar Sempre</string>
+    <string name="Modal_Error_CantDownloadURLs">Não foi possível baixar a lista de URLs. Por favor, tente novamente.</string>
     <string name="Modal_Error_NoInternet">Sem conexão à Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">Você tem a certeza?</string>
     <string name="Modal_CustomURL_NotSaved">Suas URLs não serão salvas quando você sair desta tela. Tem certeza de que deseja sair desta tela?</string>
