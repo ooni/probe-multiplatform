@@ -109,7 +109,7 @@ kotlin {
 
         // See https://github.com/getsentry/sentry-kotlin-multiplatform?tab=readme-ov-file#cocoa-sdk-version-compatibility-table
         pod("Sentry") {
-            version = "8.53.2"
+            version = "8.55.1"
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
 
@@ -120,7 +120,6 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.bundles.android)
-            implementation("org.ooni:oonimkall:3.27.0-android:@aar")
             implementation(libs.bundles.mobile)
         }
         commonMain {
@@ -295,6 +294,9 @@ android {
         create("full") {
             dimension = "license"
         }
+        create("xperimental") {
+            dimension = "license"
+        }
         create("fdroid") {
             dimension = "license"
             // Our APK is too large and F-Droid asked for a split by ABI
@@ -335,6 +337,9 @@ android {
         coreLibraryDesugaring(libs.android.desugar.jdk)
         debugImplementation(compose.uiTooling)
         "fullImplementation"(libs.bundles.full.android)
+        "fullImplementation"("org.ooni:oonimkall:3.27.0-android:@aar")
+        "fdroidImplementation"("org.ooni:oonimkall:3.27.0-android:@aar")
+        "xperimentalImplementation"(files("libs/android-oonimkall.aar"))
         androidTestUtil(libs.android.orchestrator)
     }
     dependenciesInfo {
