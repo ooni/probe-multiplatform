@@ -313,10 +313,10 @@
     <string name="Onboarding_Notifications_Skip">Pular</string>
     <string name="Onboarding_DefaultSettings_Title">Configurações-Padrão</string>
     <string name="Onboarding_DefaultSettings_Header">Nós coletamos e publicamos:</string>
-    <string name="Onboarding_DefaultSettings_Bullet_1">Código do país (por exemplo, IT para Italy)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_2">Informações de rede (incluindo o Número do Sistema Autônomo)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">Código do país (por exemplo, IT para Itália)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">Informações de rede (incluindo o Número de Sistema Autônomo)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Hora e data do teste</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">Fazemos o possível para não publicar seu endereço IP ou qualquer outra informação que identifique você pessoalmente.\n\nAprenda mais através da [política de dados da OONI](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">Fazemos o possível para não publicar seu endereço IP ou qualquer outra informação que identifique você pessoalmente.\n\nAprenda mais através da [política de dados do OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Go">Vamos lá</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Alterar padrões</string>
 
@@ -334,12 +334,12 @@
     <string name="LoadingScreen_Runv2_Canceled">Instalação do link cancelada</string>
     <string name="DescriptorUpdate_Updates">ATUALIZAÇÕES</string>
     <string name="DescriptorUpdate_CheckUpdates">Verificar Atualizações</string>
-    <string name="AddDescriptor_AutoRunDisabled">Autoexecução desabilitada. Por favor, habilite-a para executar testes automaticamente.</string>
+    <string name="AddDescriptor_AutoRunDisabled">Auto-execução desabilitada. Por favor, habilite-a para executar testes automaticamente.</string>
     <string name="Descriptor_LastTestResult">Último Resultado do Teste</string>
 
     <!-- Modals / Toasts / Snackbar -->
 
-    <string name="Snackbar_ResultsNotUploaded_Text">Não Carregado</string>
+    <string name="Snackbar_ResultsNotUploaded_Text">Não carregado</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Alguns items não carregaram</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Carregar Todos</string>
     <string name="Modal_ResultsNotUploaded_Uploading">Fazendo upload de %1$s ...</string>
