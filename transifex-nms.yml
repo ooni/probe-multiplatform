@@ -45,5 +45,6 @@ git:
       translations/dw/<br_unique_id>
     language_mapping:
       pt_BR: pt-rBR
+      pt_PT: pt-rPT
       zh_CN: zh-rCN
       zh_TW: zh-rTW
