@@ -6,6 +6,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextLinkStyles
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
 import com.mikepenz.markdown.m3.markdownTypography
@@ -22,19 +23,17 @@ fun MarkdownViewer(
             .replace("\\n", "\n")
             .replace("\\\'", "'"),
         // Colors fail to work just with typography
-        colors = @Suppress("DEPRECATION") markdownColor(
-            text = textColor,
-            linkText = linkColor,
-        ),
+        colors = markdownColor(text = textColor),
         typography = markdownTypography(
             text = MaterialTheme.typography.bodyLarge
                 .copy(color = textColor),
-            link = MaterialTheme.typography.bodyLarge
-                .copy(color = MaterialTheme.colorScheme.primary),
+            textLink = TextLinkStyles(
+                MaterialTheme.typography.bodyLarge
+                    .copy(color = linkColor)
+                    .toSpanStyle(),
+            ),
         ),
         modifier = modifier,
-        loading = {
-            LinearProgressIndicator(modifier = modifier)
-        },
+        loading = { LinearProgressIndicator(modifier = modifier) },
     )
 }
