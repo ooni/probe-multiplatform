@@ -137,7 +137,7 @@
     <string name="TestResults_Filter_DeleteConfirmation">Deseja apagar todos os resultados de teste para esses filtros?</string>
 
     <string name="Results_LimitedNotice">Apenas os últimos %1$d resultados são mostrados</string>
-    <string name="Results_UploadingMissing">A carregar resultados pendentes %1$s</string>
+    <string name="Results_UploadingMissing">A enviar resultados pendentes %1$s</string>
     <string name="Results_MarkAllAsViewed">Marcar todos como vistos</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Deseja marcar todos os resultados como vistos?</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Deseja marcar todos os resultados como vistos para os filtros atuais?</string>
@@ -149,7 +149,7 @@
     <string name="Measurements_Failed">Falhou</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Anomalia</string>
-    <string name="Measurement_Raw_NotUploadedReasoning">Esta medição não foi publicada no explorador do OONI. Carregue para visualizar a análise.</string>
+    <string name="Measurement_Raw_NotUploadedReasoning">Esta medição não foi publicada no explorador do OONI. Envie para visualizar a análise.</string>
     <string name="Measurement_Raw_Share">Partilhar dados de medição</string>
     <string name="Measurement_Raw_Upload">Enviar</string>
 
@@ -272,6 +272,7 @@
     <string name="CategoryCode_GRP_Description">Ferramentas e plataformas de redes sociais online</string>
     <string name="CategoryCode_LGBT_Description">Comunidades LGBTQ+ discutindo questões relacionadas (excluindo pornografia)</string>
     <string name="CategoryCode_FILE_Description">Partilhar de ficheiros, incluindo alojamento de ficheiros baseado na nuvem, torrents e P2P</string>
+    <string name="CategoryCode_HACK_Description">Ferramentas e notícias de segurança da informática</string>
     <string name="CategoryCode_COMT_Description">Ferramentas de comunicação individuais e em grupo, incluindo VoIP, mensagens e webmail</string>
     <string name="CategoryCode_MMED_Description">Vídeo, áudio e partilha de fotos</string>
     <string name="CategoryCode_HOST_Description">Alojamento na web, blogs e outras publicações online</string>
@@ -311,8 +312,34 @@
     <string name="Onboarding_Notifications_Ok">OK</string>
     <string name="Onboarding_Notifications_Skip">Ignorar</string>
     <string name="Onboarding_DefaultSettings_Title">Definições Predefinidas</string>
+    <string name="Onboarding_DefaultSettings_Header">Nós guardamos e publicamos:</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">Código do país (por exemplo, IT para Itália)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">Informações de rede (incluindo o Número de Sistema Autónomo)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">Hora e data do teste</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">Fazemos o possível para não publicar o seu endereço IP ou qualquer outra informação que o identifique pessoalmente.\n\nAprenda mais através da [política de dados do OONI](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">Vamos lá</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">Alterar padrões</string>
+
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">Configurações de Testes</string>
+    <string name="AddDescriptor_Title">Instalar o novo Link</string>
+    <string name="AddDescriptor_AutoUpdate">Instalar atualizações automaticamente</string>
     <string name="AddDescriptor_AutoRun">Executar testes automaticamente</string>
+    <string name="AddDescriptor_Toasts_Installed">Link instalado</string>
+    <string name="AddDescriptor_Action">Instalar Link</string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url">URL não suportado</string>
+    <string name="LoadingScreen_Runv2_Message">A carregar Link</string>
     <string name="LoadingScreen_Runv2_Failure">Erro</string>
+    <string name="LoadingScreen_Runv2_Canceled">Instalação do Link cancelada</string>
+    <string name="DescriptorUpdate_Updates">ATUALIZAÇÕES</string>
+    <string name="DescriptorUpdate_CheckUpdates">Verificar Atualizações</string>
+    <string name="AddDescriptor_AutoRunDisabled">Auto-execução desativada. Por favor, ative-a para executar testes automaticamente.</string>
+    <string name="Descriptor_LastTestResult">Último Resultado de Teste</string>
+
+    <!-- Modals / Toasts / Snackbar -->
+
+    <string name="Snackbar_ResultsNotUploaded_Text">Não enviado</string>
     <string name="Modal_UploadFailed_Title">O envio falhou</string>
     <string name="Modal_Retry">Repita</string>
     <string name="Modal_Cancel">Cancelar</string>
