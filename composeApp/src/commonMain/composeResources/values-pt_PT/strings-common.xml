@@ -279,16 +279,35 @@
     <string name="CategoryCode_GAME_Description">Jogos online e plataformas de jogos (excluindo sites de jogos de azar)</string>
     <string name="CategoryCode_CULTR_Description">Entretenimento, incluindo história, literatura, música, cinema, sátira e humor</string>
     <string name="CategoryCode_ECON_Description">Desenvolvimento económico geral e pobreza</string>
+    <string name="CategoryCode_GOVT_Description">Sites geridos pelo governo, inclusive militares</string>
+    <string name="CategoryCode_COMM_Description">Serviços e produtos comerciais</string>
+    <string name="CategoryCode_CTRL_Description">Conteúdo benigno ou inócuo usado para controlo</string>
+    <string name="CategoryCode_IGO_Description">Organizações intergovernamentais, incluindo as Nações Unidas</string>
+    <string name="CategoryCode_MISC_Description">Sites que ainda não foram categorizados</string>
+
+    <!-- Onboarding -->
+
+    <string name="Onboarding_QuizAnswer_Correct">Resposta correta</string>
+    <string name="Onboarding_QuizAnswer_Incorrect">Resposta incorreta</string>
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">Entendido</string>
+    <string name="Onboarding_ThingsToKnow_Title">Atenção!</string>
     <string name="Onboarding_ThingsToKnow_Button">Eu compreendo</string>
     <string name="Onboarding_ThingsToKnow_LearnMore">Saber mais</string>
+    <string name="Onboarding_PopQuiz_Title">Questionário Rápido</string>
     <string name="Onboarding_PopQuiz_True">Verdadeiro</string>
     <string name="Onboarding_PopQuiz_False">Falso</string>
     <string name="Onboarding_PopQuiz_Wrong_Button_Back">Voltar</string>
     <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Continuar</string>
+    <string name="Onboarding_PopQuiz_1_Title">Questão 1/2</string>
     <string name="Onboarding_PopQuiz_1_Wrong_Title">Aviso</string>
+    <string name="Onboarding_PopQuiz_2_Title">Questão 2/2</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Title">Aviso</string>
+    <string name="Onboarding_AutomatedTesting_Title">Teste automatizado</string>
+    <string name="Onboarding_Crash_Title">Reportar falhas</string>
     <string name="Onboarding_Crash_Button_Yes">Sim</string>
     <string name="Onboarding_Crash_Button_No">Não</string>
+    <string name="Onboarding_Notifications_Title">Ativar as Notificações</string>
+    <string name="Onboarding_Notifications_Paragraph">Após começar a executar os testes, pode fechar a aplicação e eles irão continuar a executar em segundo plano. Ative as notificações para saber que testes estão a executar, ou para os parar, sem ter que abrir a aplicação.</string>
     <string name="Onboarding_Notifications_Ok">OK</string>
     <string name="Onboarding_Notifications_Skip">Ignorar</string>
     <string name="Onboarding_DefaultSettings_Title">Definições Predefinidas</string>
