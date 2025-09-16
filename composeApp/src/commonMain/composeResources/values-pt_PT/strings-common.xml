@@ -340,12 +340,37 @@
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Não enviado</string>
+    <string name="Snackbar_ResultsSomeNotUploaded_Text">Alguns resultados não foram enviados</string>
+    <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Enviar Todos</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Enviando de %1$s ...</string>
+    <string name="Toast_ResultsUploaded">Envio bem-sucedido</string>
     <string name="Modal_UploadFailed_Title">O envio falhou</string>
+    <string name="Modal_UploadFailed_Paragraph">Falha ao enviar %1$s/%2$s medições. O log de falhas foi partilhado com os programadores do OONI.</string>
     <string name="Modal_Retry">Repita</string>
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">OK</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Deseja apagar todos os resultados de teste?</string>
+    <string name="Modal_Clear_Legacy_Directories">Deseja apagar as pastas antigas?</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">Deseja apagar %1$s resultado?</item>
+        <item quantity="many">Deseja apagar %1$s resultados?</item>
+        <item quantity="other">Deseja apagar %1$s resultados?</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one">%1$d itens selecionado</item>
+        <item quantity="many">%1$d itens selecionados</item>
+        <item quantity="other">%1$d itens selecionados</item>
+    </plurals>
     <string name="Modal_Delete">Eliminar</string>
+    <string name="Modal_ReRun_Title">Repetir teste</string>
+    <string name="Modal_ReRun_Websites_Title">Está prestes a testar novamente os sites %1$s.</string>
     <string name="Modal_ReRun_Websites_Run">Executar</string>
+    <string name="Modal_DisableVPN_Title">Por favor, desligue a sua conexão VPN.</string>
+    <string name="Modal_DisableVPN_Message">Se executar a OONI Probe com uma VPN ligada, os resultados do teste podem parecer que vêm do país errado. Por favor, desligue a sua conexão VPN.</string>
+    <string name="Modal_DisableVPN">Desligar VPN</string>
+    <string name="Modal_RunAnyway">Executar mesmo assim</string>
+    <string name="Modal_AlwaysRun">Executar Sempre</string>
+    <string name="Modal_Error_CantDownloadURLs">Não foi possível transferir a lista de URLs. Por favor, tente novamente.</string>
     <string name="Modal_Error_NoInternet">Sem conexão à Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">Tem a certeza?</string>
     <string name="Desktop_Quit">Sair</string>
