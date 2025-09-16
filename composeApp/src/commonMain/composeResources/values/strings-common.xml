@@ -78,7 +78,7 @@
         <item quantity="one">%1$s blocked</item>
         <item quantity="other">%1$s blocked</item>
     </plurals>
-    <plurals name="TestResults_Overview_Websites_Tested" translatable="false">
+    <plurals name="TestResults_Overview_Websites_Tested">
         <item quantity="one">%1$s tested</item>
         <item quantity="other">%1$s tested</item>
     </plurals>
@@ -93,15 +93,15 @@
     <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
     <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">No internet</string>
-    <plurals name="TestResults_Summary_Websites_Hero_Tested" translatable="false">
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
         <item quantity="one">Tested</item>
         <item quantity="other">Tested</item>
     </plurals>
-    <plurals name="TestResults_Summary_Websites_Hero_Blocked" translatable="false">
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
         <item quantity="one">Blocked</item>
         <item quantity="other">Blocked</item>
     </plurals>
-    <plurals name="TestResults_Summary_Websites_Hero_Reachable" translatable="false">
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
         <item quantity="one">Accessible</item>
         <item quantity="other">Accessible</item>
     </plurals>
@@ -160,11 +160,11 @@
     <string name="Measurements_Failed">Failed</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Anomaly</string>
-    <plurals name="Measurements_Count" translatable="false">
+    <plurals name="Measurements_Count">
         <item quantity="one">%1$d measured</item>
         <item quantity="other">%1$d measured</item>
     </plurals>
-    <plurals name="Measurements_Failed" translatable="false">
+    <plurals name="Measurements_Failed">
         <item quantity="one">%1$d failed</item>
         <item quantity="other">%1$d failed</item>
     </plurals>
