@@ -10,9 +10,8 @@ class AndroidNetworkTypeFinder(
     override fun invoke(): NetworkType {
         if (connectivityManager == null) return NetworkType.NoInternet
         val network = connectivityManager.activeNetwork ?: return NetworkType.NoInternet
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(network)
-                ?: return NetworkType.NoInternet
+        val capabilities = connectivityManager.getNetworkCapabilities(network)
+            ?: return NetworkType.NoInternet
 
         return when {
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> NetworkType.VPN

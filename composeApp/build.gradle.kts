@@ -18,7 +18,7 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
-    alias(libs.plugins.conveyor)
+
     alias(libs.plugins.javafx)
 }
 
@@ -96,10 +96,6 @@ kotlin {
     iosSimulatorArm64()
 
     jvm("desktop")
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-        // vendor.set(JvmVendorSpec.JETBRAINS)
-    }
 
     cocoapods {
         ios.deploymentTarget = "14.0"
@@ -116,7 +112,7 @@ kotlin {
 
         // See https://github.com/getsentry/sentry-kotlin-multiplatform?tab=readme-ov-file#cocoa-sdk-version-compatibility-table
         pod("Sentry") {
-            version = "8.53.2"
+            version = "8.55.1"
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
 
@@ -224,8 +220,8 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 200 // Always increment by 10. See fdroid flavor below
-        versionName = "5.0.0"
+        versionCode = 230 // Always increment by 10. See fdroid flavor below
+        versionName = "5.2.1"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
         resValue(
@@ -301,6 +297,9 @@ android {
         create("full") {
             dimension = "license"
         }
+        create("xperimental") {
+            dimension = "license"
+        }
         create("fdroid") {
             dimension = "license"
             // Our APK is too large and F-Droid asked for a split by ABI
@@ -341,6 +340,9 @@ android {
         coreLibraryDesugaring(libs.android.desugar.jdk)
         debugImplementation(compose.uiTooling)
         "fullImplementation"(libs.bundles.full.android)
+        "fullImplementation"("org.ooni:oonimkall:3.27.0-android:@aar")
+        "fdroidImplementation"("org.ooni:oonimkall:3.27.0-android:@aar")
+        "xperimentalImplementation"(files("libs/android-oonimkall.aar"))
         androidTestUtil(libs.android.orchestrator)
     }
     dependenciesInfo {
@@ -359,6 +361,7 @@ android {
             "NullSafeMutableLiveData",
             "ObsoleteLintCustomCheck",
             "Aligned16KB",
+            "UseTomlInstead", // We are using this until the classifier issue is resolved in https://github.com/ooni/probe-cli/issues/1739
         )
         lintConfig = file("lint.xml")
     }
@@ -409,7 +412,7 @@ compose.desktop {
                 "OONI Probe is a free and open source software designed to measure internet censorship and other forms of network interference."
             copyright = "© ${LocalDate.now().year} OONI. All rights reserved."
             vendor = "Open Observatory of Network Interference (OONI)"
-            //licenseFile = rootProject.file("LICENSE")
+            // licenseFile = rootProject.file("LICENSE")
 
             modules("java.sql", "jdk.unsupported")
 
@@ -425,6 +428,19 @@ compose.desktop {
                 bundleID = "org.ooni.probe"
                 infoPlist {
                     extraKeysRawXml = """
+                        <key>LSUIElement</key>
+                        <string>true</string>
+                        <key>CFBundleURLTypes</key>
+                        <array>
+                            <dict>
+                                <key>CFBundleURLName</key>
+                                <string>ooni</string>
+                                <key>CFBundleURLSchemes</key>
+                                <array>
+                                    <string>ooni</string>
+                                </array>
+                            </dict>
+                        </array>
                         <key>SUPublicEDKey</key>
                         <string>1k8nI6WCqVly863R06ZaeSnxR/7oU5VAAnehA0Zfp/8=</string>
                         <key>SUEnableInstallerLauncherService</key>
@@ -471,8 +487,6 @@ compose.desktop {
                             <string>org.ooni.probe-spks</string>
                             <string>org.ooni.probe-spki</string>
                         </array>
-                        <key>LSUIElement</key>
-                        <string>true</string>
                     """.trimIndent()
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
@@ -489,6 +503,12 @@ compose.desktop {
                 iconFile.set(rootProject.file("icons/app.png"))
             }
         }
+
+        // Pass properties to the JVM when running from Gradle
+        jvmArgs += listOf(
+            "-Dapp.version.name=${android.defaultConfig.versionName}",
+            "-Dapp.version.code=${android.defaultConfig.versionCode}",
+        )
     }
 }
 
@@ -497,8 +517,6 @@ compose.resources {
     packageOfResClass = "ooniprobe.composeapp.generated.resources"
     generateResClass = always
 }
-
-// Conveyor
 
 // region Work around temporary Compose bugs.
 configurations.all {
@@ -513,12 +531,6 @@ version = android.defaultConfig.versionName ?: ""
 
 dependencies {
     debugImplementation(compose.uiTooling)
-
-    // Use the configurations created by the Conveyor plugin to tell Gradle/Conveyor where to find the artifacts for each platform.
-    linuxAmd64(compose.desktop.linux_x64)
-    macAmd64(compose.desktop.macos_x64)
-    macAarch64(compose.desktop.macos_arm64)
-    windowsAmd64(compose.desktop.windows_x64)
 }
 
 // Resources

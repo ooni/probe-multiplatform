@@ -11,7 +11,7 @@ actual object Instrumentation {
     ): T {
         if (!SentrySDK.isEnabled()) return block()
 
-        val span = SentrySDK.span
+        val span = SentrySDK.span()
         return if (span == null) {
             val transaction = SentrySDK.startTransactionWithName(
                 name = name ?: operation,

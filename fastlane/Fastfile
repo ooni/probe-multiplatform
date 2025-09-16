@@ -205,6 +205,8 @@ platform :ios do
     desc " * **`organization`**: ooni, dw"
     desc ""
     lane :build do |options|
+        setup_ci if ENV['CI']
+
         organization = organization!(options)
 
         scheme = scheme!(organization)
@@ -214,7 +216,7 @@ platform :ios do
 
         puts "Building #{scheme}"
         sh "cd .. && echo \"organization=#{organization}\" >> gradle.properties"
-        sh "cd .. && xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme '#{scheme}' -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED='NO' -archivePath iosApp/build/#{scheme}.xcarchive | xcpretty"
+        sh "set -o pipefail && cd .. && xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme '#{scheme}' -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED='NO' -archivePath iosApp/build/#{scheme}.xcarchive | xcpretty"
         # sh "cd .. && xcodebuild -exportArchive -archivePath iosApp/build/#{scheme}.xcarchive  -exportPath iosApp/build/#{scheme}.ipa -exportOptionsPlist iosApp/#{scheme}.exportOptions.plist"
     end
 

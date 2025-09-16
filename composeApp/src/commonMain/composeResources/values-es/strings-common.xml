@@ -149,6 +149,7 @@
     <string name="Measurements_Failed">Falló</string>
     <string name="Measurements_Ok">Aceptar</string>
     <string name="Measurements_Anomaly">Anomalía</string>
+    <string name="Measurement_Raw_NotUploadedReasoning">Esta medición no fue publicada en el Explorador OONI. Súbela para ver el análisis</string>
     <string name="Measurement_Raw_Share">Compartir datos de medición</string>
     <string name="Measurement_Raw_Upload">Subida </string>
 
@@ -167,6 +168,8 @@
     <string name="Settings_Sharing_UploadResults">Publicar resultados automáticamente</string>
     <string name="Settings_Websites_MaxRuntimeEnabled">Limit Websites test duration</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">Tiempo de ejecución máximo de una prueba completa de páginas web</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">Introducir el número de segundos</string>
     <string name="Settings_Websites_Categories_Label">Categorías de sitios web a probar</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorías habilitadas</string>
 
@@ -198,6 +201,7 @@
     <string name="Settings_Storage_Label">Uso de almacenamiento</string>
     <string name="Settings_Storage_Delete">Eliminar</string>
     <string name="Settings_Storage_Clear">Borrar</string>
+    <string name="Settings_Legacy_Storage">Eliminar archivos de la versión anterior</string>
     <string name="Settings_WarmVPNInUse_Label">Avisar cuando la VPN está en uso</string>
     <string name="Settings_DisableVpnInstructions">Go to Settings &gt; General &gt; VPN and disconnect from your VPN.</string>
     <string name="Settings_Logs">Registros</string>
@@ -304,6 +308,7 @@
     <string name="Onboarding_Crash_Button_Yes">Si</string>
     <string name="Onboarding_Crash_Button_No">No</string>
     <string name="Onboarding_Notifications_Title">Activar las notificaciones</string>
+    <string name="Onboarding_Notifications_Paragraph">Luego de iniciar las pruebas, podrás cerrar la aplicación y seguirán corriendo en segundo plano. Activa las notificaciones para que puedas ver qué pruebas están corriendo, o detenerlas sin abrir la aplicación. </string>
     <string name="Onboarding_Notifications_Ok">Aceptar</string>
     <string name="Onboarding_Notifications_Skip">Omitir</string>
     <string name="Onboarding_DefaultSettings_Title">Configuración predeterminada</string>
@@ -329,6 +334,7 @@
     <string name="LoadingScreen_Runv2_Canceled">Instalación del enlace cancelada</string>
     <string name="DescriptorUpdate_Updates">ACTUALIZACIONES</string>
     <string name="DescriptorUpdate_CheckUpdates">Buscar actualizaciones</string>
+    <string name="AddDescriptor_AutoRunDisabled">La ejecución automática está desactivada. Por favor actívala para ejecutar las pruebas automáticamente.</string>
     <string name="Descriptor_LastTestResult">Último resultado</string>
 
     <!-- Modals / Toasts / Snackbar -->
@@ -344,6 +350,7 @@
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">Aceptar</string>
     <string name="Modal_DoYouWantToDeleteAllTests">¿Desea eliminar todos los resultados de prueba?</string>
+    <string name="Modal_Clear_Legacy_Directories">Quieres eliminar las carpetas antiguas\?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">¿Desea eliminar %1$s resultado de prueba?</item>
         <item quantity="many">¿Desea eliminar %1$s de resultados de prueba?</item>
@@ -367,6 +374,9 @@
     <string name="Modal_Error_NoInternet">No hay conexión a Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">¿Estas seguro?</string>
     <string name="Modal_CustomURL_NotSaved">Tus URLs no serán guardadas cuando dejes esta pantalla. ¿Estás seguro de que quieres dejarla?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">La aplicación no puede correr pruebas automáticamente sin permiso de ejecución en segundo plano. Quieres intentar de nuevo\?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder">La aplicación necesita permiso para ejecutar tests automáticamente en segundo plano</string>
+
     <!-- Desktop -->
     <string name="Desktop_OpenApp">Abrir Aplicación</string>
     <string name="Desktop_Quit">Salir</string>
@@ -394,6 +404,11 @@
     <string name="Common_Today">Hoy</string>
     <string name="Common_Yesterday">Ayer</string>
     <string name="Common_Ago">%1$s ago</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one">%1$d segundo</item>
+        <item quantity="many">%1$d de segundos</item>
+        <item quantity="other">%1$d segundos</item>
+    </plurals>
     <plurals name="Common_Minutes">
         <item quantity="one">%1$d minuto</item>
         <item quantity="many">%1$d de minutos</item>
@@ -403,6 +418,11 @@
         <item quantity="one">%1$d hora</item>
         <item quantity="many">%1$d de horas</item>
         <item quantity="other">%1$d horas</item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d día</item>
+        <item quantity="many">%1$d de días</item>
+        <item quantity="other">%1$d días</item>
     </plurals>
     <string name="Common_Hours_Abbreviated">%1$d h</string>
     <string name="Common_Minutes_Abbreviated">%1$d m</string>

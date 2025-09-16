@@ -132,15 +132,15 @@
     <string name="TestResults_Filter_Date_FromOneMonthAgo">Il y a 1 mois</string>
     <string name="TestResults_Filter_Date_Custom">Personnalisée</string>
     <string name="TestResults_Filter_Date_Custom_Filled">Personnalisé : %1$s</string>
-    <string name="TestResults_Filter_Date_Picker">Choisir une plage de date</string>
+    <string name="TestResults_Filter_Date_Picker">Choisir une plage de dates</string>
     <string name="TestResults_Filter_NoTestsFound">Aucun résultat de test n’a été trouvé pour ces filtres.</string>
-    <string name="TestResults_Filter_DeleteConfirmation">Voulez-vous supprimer tous les résultats des tests pour les filtres actuels \?</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Voulez-vous supprimer tous les résultats des tests pour les filtres actuels?</string>
 
     <string name="Results_LimitedNotice">Seuls les %1$d derniers résultats sont affichés</string>
     <string name="Results_UploadingMissing">Téléversements des résultats manquants %1$s</string>
     <string name="Results_MarkAllAsViewed">Tout marquer comme lu</string>
-    <string name="Results_MarkAllAsViewed_Confirmation">Voulez-vous marquer tous les résultats comme lus \?</string>
-    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Voulez-vous marquer tous les résultats comme lus pour les filtres actuels \?</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Voulez-vous marquer tous les résultats comme lus?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Voulez-vous marquer tous les résultats comme lus pour les filtres actuels?</string>
 
     <!-- Measurements -->
 
@@ -163,7 +163,7 @@
     <string name="Settings_AutomatedTesting_RunAutomatically">Lancer les tests automatiquement</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Seulement par Wi-Fi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Seulement pendant la charge</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">En activant les tests automatiques, les tests d’OONI Probe auront lieu automatiquement plusieurs fois par jour. Les résultats de vos tests seront publiés automatiquement sur l’Explorateur OONI : https://explorer.ooni.org/ (site en anglais)\n\nImportant : Si vous utilisez un RPV et qu’il est activé, OONI Probe n’effectuera pas de test automatique. Afin que les tests automatisés d’OONI Probe aient lieu, désactivez votre RPV. Apprenez-en davantage : https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn (site en anglais)</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">En activant les tests automatiques, les tests d’OONI Probe auront lieu automatiquement plusieurs fois par jour. Les résultats de vos tests seront publiés automatiquement sur l’Explorateur OONI : https://explorer.ooni.org/ (site en anglais)\n\nImportant : Si vous utilisez un RPV/VPN et qu’il est activé, OONI Probe n’effectuera pas de test automatique. Afin que les tests automatisés d’OONI Probe aient lieu, désactivez votre RPV/VPN. Apprenez-en davantage : https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn (site en anglais)</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Les tests s’exécuteront toutes les heures en arrière-plan</string>
     <string name="Settings_Sharing_UploadResults">Publier automatiquement les résultats</string>
     <string name="Settings_Websites_MaxRuntimeEnabled">Limiter la durée du test Sites Web</string>
@@ -201,9 +201,9 @@
     <string name="Settings_Storage_Label">Utilisation de l’espace de stockage</string>
     <string name="Settings_Storage_Delete">Supprimer</string>
     <string name="Settings_Storage_Clear">Effacer</string>
-    <string name="Settings_Legacy_Storage">Effacer les fichiers de la version précédente</string>
-    <string name="Settings_WarmVPNInUse_Label">Avertir quand un RPV est utilisé</string>
-    <string name="Settings_DisableVpnInstructions">Accédez à Réglages &gt; Général &gt; VPN et déconnectez-vous de votre RPV.</string>
+    <string name="Settings_Legacy_Storage">Supprimer les fichiers de la version précédente</string>
+    <string name="Settings_WarmVPNInUse_Label">Avertir quand un RPV/VPN est utilisé</string>
+    <string name="Settings_DisableVpnInstructions">Accédez à Réglages &gt; Général &gt; VPN et déconnectez-vous de votre RPV/VPN.</string>
     <string name="Settings_Logs">Journaux</string>
     <string name="Settings_ShareLogs">Partager les journaux </string>
     <string name="Settings_ShareLogs_Error">Erreur de partage des journaux</string>
@@ -350,11 +350,11 @@
     <string name="Modal_Cancel">Annuler</string>
     <string name="Modal_OK">Valider</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Voulez-vous supprimer tous les résultats de test?</string>
-    <string name="Modal_Clear_Legacy_Directories">Voulez-vous effacer les dossiers hérités \?</string>
+    <string name="Modal_Clear_Legacy_Directories">Voulez-vous supprimer les dossiers hérités?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">Voulez-vous supprimer %1$s résultat de test \?</item>
         <item quantity="many">Voulez-vous supprimer %1$sde résultats de test \?</item>
-        <item quantity="other">Voulez-vous supprimer %1$s résultats de test \?</item>
+        <item quantity="other">Voulez-vous supprimer %1$s résultats de test?</item>
     </plurals>
     <plurals name="Modal_Selected">
         <item quantity="one">%1$d élément choisi</item>
@@ -365,16 +365,16 @@
     <string name="Modal_ReRun_Title">Relancer le test</string>
     <string name="Modal_ReRun_Websites_Title">Vous êtes sur le point de retester %1$s sites Web.</string>
     <string name="Modal_ReRun_Websites_Run">Lancer</string>
-    <string name="Modal_DisableVPN_Title">Désactivez votre connexion RPV.</string>
-    <string name="Modal_DisableVPN_Message">Si vous exécutez OONI Probe alors qu’un RPV (réseau privé virtuel) est activé, les résultats des tests pourraient sembler provenir du mauvais pays. Désactivez votre connexion RPV.</string>
-    <string name="Modal_DisableVPN">Désactiver le RPV</string>
+    <string name="Modal_DisableVPN_Title">Désactivez votre connexion RPV/VPN.</string>
+    <string name="Modal_DisableVPN_Message">Si vous exécutez OONI Probe alors qu’un RPV/VPN (réseau privé virtuel) est activé, les résultats des tests pourraient sembler provenir du mauvais pays. Désactivez votre connexion RPV/VPN.</string>
+    <string name="Modal_DisableVPN">Désactiver le RPV/VPN</string>
     <string name="Modal_RunAnyway">Lancer quand même</string>
     <string name="Modal_AlwaysRun">Toujours exécuter</string>
     <string name="Modal_Error_CantDownloadURLs">Impossible de télécharger la liste des URL. Réessayez.</string>
     <string name="Modal_Error_NoInternet">Aucune connexion à Internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">Confirmez-vous?</string>
     <string name="Modal_CustomURL_NotSaved">Vos URL ne seront pas enregistrées si vous quittez cet écran. Voulez-vous vraiment le quitter?</string>
-    <string name="Modal_Autorun_BatteryOptimization_Onboarding">L’application ne peut pas effectuer des tests automatiquement sans l’autorisation de fonctionner en arrière-plan. Voulez-vous réessayer \?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">L’application ne peut pas effectuer des tests automatiquement sans l’autorisation de fonctionner en arrière-plan. Voulez-vous réessayer?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">L’application doit être autorisée à effectuer des tests automatiquement en arrière-plan.</string>
 
     <!-- Desktop -->
@@ -443,5 +443,5 @@
 
     <string name="TaskOrigin_Manual">Exécution manuelle</string>
     <string name="TaskOrigin_AutoRun">Exécution automatique</string>
-    <string name="NetworkType_Vpn">RPV</string>
+    <string name="NetworkType_Vpn">RPV/VPN</string>
 </resources>

@@ -29,6 +29,7 @@ class BootstrapPreferences(
                 SettingsKey.UPLOAD_RESULTS to true,
                 SettingsKey.AUTOMATED_TESTING_WIFIONLY to true,
                 SettingsKey.AUTOMATED_TESTING_CHARGING to true,
+                SettingsKey.WARN_VPN_IN_USE to true,
             ) +
                 organizationPreferenceDefaults(),
         )

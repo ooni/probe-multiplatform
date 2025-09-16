@@ -14,8 +14,8 @@
 
     <string name="Dashboard_RunTests_Title">Executar testes</string>
     <string name="Dashboard_RunTests_Description">Selecione os testes a executar</string>
-    <string name="Dashboard_RunTests_SelectAll">Selecione todos os testes</string>
-    <string name="Dashboard_RunTests_SelectNone">Desmarcar todos os testes</string>
+    <string name="Dashboard_RunTests_SelectAll">Selecione todos</string>
+    <string name="Dashboard_RunTests_SelectNone">Desmarcar todos</string>
     <plurals name="Dashboard_RunTests_RunButton_Label">
         <item quantity="one">Executar %1$d teste</item>
         <item quantity="many">Executar %1$d de testes</item>
@@ -134,13 +134,13 @@
     <string name="TestResults_Filter_Date_Custom_Filled">Personalizado: %1$s</string>
     <string name="TestResults_Filter_Date_Picker">Escolhe um intervalo de datas</string>
     <string name="TestResults_Filter_NoTestsFound">Nenhum resultado encontrado para esses filtros.</string>
-    <string name="TestResults_Filter_DeleteConfirmation">Deseja apagar todos os resultados de teste para esses filtros\?</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Deseja apagar todos os resultados de teste para esses filtros?</string>
 
     <string name="Results_LimitedNotice">Somente os últimos%1$dresultados são mostrados</string>
     <string name="Results_UploadingMissing">Subindo resultados pendentes %1$s</string>
     <string name="Results_MarkAllAsViewed">Marcar todos como vistos</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Deseja marcar todos os resultados como vistos?</string>
-    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Deseja marcar todos os resultados como vistos para os filtros atuais\?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Deseja marcar todos os resultados como vistos para os filtros atuais?</string>
 
     <!-- Measurements -->
 
@@ -349,8 +349,8 @@
     <string name="Modal_Retry">Tentar novamente</string>
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Modal_OK">OK</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Deseja apagar todos os resultados de teste\?</string>
-    <string name="Modal_Clear_Legacy_Directories">Deseja limpar as pastas antigas\?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Deseja apagar todos os resultados de teste?</string>
+    <string name="Modal_Clear_Legacy_Directories">Deseja limpar as pastas antigas?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">Deseja apagar %1$s resultado?</item>
         <item quantity="many">Deseja apagar %1$s de resultados?</item>
