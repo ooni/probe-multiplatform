@@ -253,7 +253,7 @@
     <string name="CategoryCode_COMM_Name">Comércio Eletrônico</string>
     <string name="CategoryCode_CTRL_Name">Controle de conteúdo</string>
     <string name="CategoryCode_IGO_Name">Organizações Intergovernamentais</string>
-    <string name="CategoryCode_MISC_Name">Conteúdo Diversos</string>
+    <string name="CategoryCode_MISC_Name">Conteúdo Diverso</string>
     <string name="CategoryCode_ALDR_Description">Uso e venda de drogas e álcool</string>
     <string name="CategoryCode_REL_Description">Questões religiosas, tanto de apoio como críticas</string>
     <string name="CategoryCode_PORN_Description">Pornografia leve e pesada</string>
