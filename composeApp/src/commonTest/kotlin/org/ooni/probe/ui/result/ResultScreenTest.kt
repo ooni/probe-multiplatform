@@ -9,7 +9,9 @@ import ooniprobe.composeapp.generated.resources.Modal_ReRun_Title
 import ooniprobe.composeapp.generated.resources.Modal_ReRun_Websites_Run
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
+import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.testing.factories.DescriptorFactory
 import org.ooni.testing.factories.MeasurementModelFactory
@@ -51,7 +53,10 @@ class ResultScreenTest {
             val item = ResultItem(
                 result = ResultModelFactory.build(isDone = true),
                 network = null,
-                descriptor = DescriptorFactory.buildDescriptorWithInstalled(name = "websites"),
+                descriptor = DescriptorFactory.buildDescriptorWithInstalled(
+                    name = "websites",
+                    netTests = listOf(NetTest(TestType.WebConnectivity)),
+                ),
                 measurements = listOf(
                     MeasurementModelFactory.buildWithUrl(
                         measurement = MeasurementModelFactory.build(
