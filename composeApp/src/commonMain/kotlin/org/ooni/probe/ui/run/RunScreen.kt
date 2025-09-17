@@ -23,7 +23,6 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
@@ -31,7 +30,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -53,14 +51,7 @@ import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_RunButton_Lab
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectAll
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectNone
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_Title
-import ooniprobe.composeapp.generated.resources.Modal_AlwaysRun
-import ooniprobe.composeapp.generated.resources.Modal_DisableVPN
-import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Message
-import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
-import ooniprobe.composeapp.generated.resources.Modal_OK
-import ooniprobe.composeapp.generated.resources.Modal_RunAnyway
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.Settings_DisableVpnInstructions
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_down
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_up
 import ooniprobe.composeapp.generated.resources.ic_timer
@@ -74,10 +65,12 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.dashboard.TestDescriptorSection
+import org.ooni.probe.ui.shared.DisableVpnInstructionsDialog
 import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
+import org.ooni.probe.ui.shared.VpnWarningDialog
 
 @Composable
 fun RunScreen(
@@ -375,45 +368,4 @@ private fun LazyListScope.websiteItems(testItems: List<SelectableItem<NetTest>>)
                 .padding(start = 48.dp, top = 4.dp),
         )
     }
-}
-
-@Composable
-private fun VpnWarningDialog(
-    onDismiss: () -> Unit,
-    onRunAnyway: () -> Unit,
-    onRunAlways: () -> Unit,
-    onDisableVpn: () -> Unit,
-) {
-    AlertDialog(
-        onDismissRequest = { onDismiss() },
-        title = { Text(stringResource(Res.string.Modal_DisableVPN_Title)) },
-        text = { Text(stringResource(Res.string.Modal_DisableVPN_Message)) },
-        confirmButton = {
-            Row {
-                TextButton(onClick = { onRunAlways() }, Modifier.weight(1f)) {
-                    Text(stringResource(Res.string.Modal_AlwaysRun))
-                }
-                TextButton(onClick = { onRunAnyway() }, Modifier.weight(1f)) {
-                    Text(stringResource(Res.string.Modal_RunAnyway))
-                }
-                TextButton(onClick = { onDisableVpn() }, Modifier.weight(1f)) {
-                    Text(stringResource(Res.string.Modal_DisableVPN))
-                }
-            }
-        },
-    )
-}
-
-@Composable
-private fun DisableVpnInstructionsDialog(onDismiss: () -> Unit) {
-    AlertDialog(
-        onDismissRequest = { onDismiss() },
-        title = { Text(stringResource(Res.string.Modal_DisableVPN)) },
-        text = { Text(stringResource(Res.string.Settings_DisableVpnInstructions)) },
-        confirmButton = {
-            TextButton(onClick = { onDismiss() }) {
-                Text(stringResource(Res.string.Modal_OK))
-            }
-        },
-    )
 }

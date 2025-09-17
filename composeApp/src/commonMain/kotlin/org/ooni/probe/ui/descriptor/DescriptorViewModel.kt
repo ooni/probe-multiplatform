@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Descriptor
@@ -22,8 +23,10 @@ import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.shared.monitoring.Instrumentation
@@ -34,21 +37,22 @@ import kotlin.time.Duration.Companion.seconds
 
 class DescriptorViewModel(
     private val descriptorKey: String,
-    onBack: () -> Unit,
+    private val onBack: () -> Unit,
     goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
-    goToRun: (String) -> Unit,
     goToChooseWebsites: () -> Unit,
     goToResult: (ResultModel.Id) -> Unit,
     private val getLatestTestDescriptors: () -> Flow<List<Descriptor>>,
     getLastResultOfDescriptor: (String) -> Flow<ResultListItem?>,
     private val preferenceRepository: PreferenceRepository,
-    private val launchUrl: (String) -> Unit,
+    private val launchAction: (PlatformAction) -> Boolean,
+    shouldShowVpnWarning: suspend () -> Boolean,
     deleteTestDescriptor: suspend (InstalledTestDescriptorModel) -> Unit,
     startDescriptorsUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     setAutoUpdate: suspend (InstalledTestDescriptorModel.Id, Boolean) -> Unit,
     observeDescriptorsUpdateState: () -> Flow<DescriptorsUpdateState>,
     dismissDescriptorReviewNotice: () -> Unit,
     undoRejectedDescriptorUpdate: suspend (InstalledTestDescriptorModel.Id) -> Unit,
+    private val startBackgroundRun: (RunSpecification) -> Unit,
     canPullToRefresh: Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -146,16 +150,20 @@ class DescriptorViewModel(
         events
             .filterIsInstance<Event.RevisionClicked>()
             .onEach {
-                launchUrl(
-                    "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorKey?revision=${it.revision}",
+                launchAction(
+                    PlatformAction.OpenUrl(
+                        "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorKey?revision=${it.revision}",
+                    ),
                 )
             }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.SeeMoreRevisionsClicked>()
             .onEach {
-                launchUrl(
-                    "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorKey",
+                launchAction(
+                    PlatformAction.OpenUrl(
+                        "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorKey",
+                    ),
                 )
             }.launchIn(viewModelScope)
 
@@ -198,8 +206,46 @@ class DescriptorViewModel(
         events
             .filterIsInstance<Event.RunClicked>()
             .onEach {
-                onBack()
-                goToRun(descriptorKey)
+                if (shouldShowVpnWarning()) {
+                    _state.update { it.copy(showVpnWarning = true) }
+                } else {
+                    startTest()
+                }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.RunAnywaysClicked>()
+            .onEach { startTest() }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.RunAlwaysClicked>()
+            .onEach {
+                preferenceRepository.setValueByKey(SettingsKey.WARN_VPN_IN_USE, false)
+                startTest()
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.DisableVpnClicked>()
+            .onEach {
+                if (!launchAction(PlatformAction.VpnSettings)) {
+                    _state.update {
+                        it.copy(showVpnWarning = false, showDisableVpnInstructions = true)
+                    }
+                }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.VpnWarningDismissed>()
+            .onEach { _state.update { it.copy(showVpnWarning = false) } }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.DisableVpnInstructionsDismissed>()
+            .onEach {
+                _state.update {
+                    it.copy(showVpnWarning = false, showDisableVpnInstructions = false)
+                }
             }.launchIn(viewModelScope)
 
         events
@@ -248,6 +294,33 @@ class DescriptorViewModel(
                 }
             }
 
+    private fun startTest() {
+        buildRunSpecification()?.let {
+            startBackgroundRun(it)
+            onBack()
+        }
+    }
+
+    private fun buildRunSpecification(): RunSpecification? =
+        state.value.descriptor?.let { descriptor ->
+            RunSpecification.Full(
+                tests = listOf(
+                    RunSpecification.Test(
+                        source = when (descriptor.source) {
+                            is Descriptor.Source.Default ->
+                                RunSpecification.Test.Source.Default(descriptor.name)
+
+                            is Descriptor.Source.Installed ->
+                                RunSpecification.Test.Source.Installed(descriptor.source.value.id)
+                        },
+                        netTests = descriptor.allTests,
+                    ),
+                ),
+                taskOrigin = TaskOrigin.OoniRun,
+                isRerun = false,
+            )
+        }
+
     data class State(
         val descriptor: Descriptor? = null,
         val estimatedTime: Duration? = null,
@@ -256,6 +329,8 @@ class DescriptorViewModel(
         val updateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
         val isAutoRunEnabled: Boolean = true,
         val canPullToRefresh: Boolean = true,
+        val showVpnWarning: Boolean = false,
+        val showDisableVpnInstructions: Boolean = false,
     ) {
         val isRefreshing: Boolean
             get() = updateOperationState == DescriptorUpdateOperationState.FetchingUpdates
@@ -299,6 +374,16 @@ class DescriptorViewModel(
         data object UpdateDescriptor : Event
 
         data object RunClicked : Event
+
+        data object RunAnywaysClicked : Event
+
+        data object RunAlwaysClicked : Event
+
+        data object VpnWarningDismissed : Event
+
+        data object DisableVpnClicked : Event
+
+        data object DisableVpnInstructionsDismissed : Event
 
         data object ChooseWebsitesClicked : Event
 

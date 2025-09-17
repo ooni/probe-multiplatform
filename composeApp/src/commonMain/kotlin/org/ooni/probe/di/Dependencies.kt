@@ -555,26 +555,26 @@ class Dependencies(
         descriptorKey: String,
         onBack: () -> Unit,
         goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
-        goToRun: (String) -> Unit,
         goToChooseWebsites: () -> Unit,
         goToResult: (ResultModel.Id) -> Unit,
     ) = DescriptorViewModel(
         descriptorKey = descriptorKey,
         onBack = onBack,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
-        goToRun = goToRun,
         goToChooseWebsites = goToChooseWebsites,
         goToResult = goToResult,
         getLatestTestDescriptors = getTestDescriptors::latest,
         getLastResultOfDescriptor = getLastResultOfDescriptor::invoke,
         preferenceRepository = preferenceRepository,
-        launchUrl = { launchAction(PlatformAction.OpenUrl(it)) },
+        launchAction = launchAction::invoke,
+        shouldShowVpnWarning = shouldShowVpnWarning::invoke,
         deleteTestDescriptor = deleteTestDescriptor::invoke,
         startDescriptorsUpdate = startDescriptorsUpdate,
         setAutoUpdate = testDescriptorRepository::setAutoUpdate,
         observeDescriptorsUpdateState = descriptorUpdateStateManager::observe,
         dismissDescriptorReviewNotice = dismissDescriptorReviewNotice::invoke,
         undoRejectedDescriptorUpdate = undoRejectedDescriptorUpdate::invoke,
+        startBackgroundRun = startSingleRunInner::invoke,
         canPullToRefresh = platformInfo.canPullToRefresh,
     )
 
@@ -635,18 +635,15 @@ class Dependencies(
         getProxySettings = getProxySettings::invoke,
     )
 
-    fun runViewModel(
-        descriptorKey: String?,
-        onBack: () -> Unit,
-    ) = RunViewModel(
-        descriptorKey = descriptorKey,
-        onBack = onBack,
-        getTestDescriptors = getTestDescriptors::latest,
-        shouldShowVpnWarning = shouldShowVpnWarning::invoke,
-        preferenceRepository = preferenceRepository,
-        startBackgroundRun = startSingleRunInner,
-        openVpnSettings = launchAction,
-    )
+    fun runViewModel(onBack: () -> Unit) =
+        RunViewModel(
+            onBack = onBack,
+            getTestDescriptors = getTestDescriptors::latest,
+            shouldShowVpnWarning = shouldShowVpnWarning::invoke,
+            preferenceRepository = preferenceRepository,
+            startBackgroundRun = startSingleRunInner,
+            openVpnSettings = launchAction,
+        )
 
     fun resultViewModel(
         resultId: ResultModel.Id,
