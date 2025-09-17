@@ -80,6 +80,11 @@
         <item quantity="many">%1$s bloqués</item>
         <item quantity="other">%1$s bloqués</item>
     </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one">%1$s testé</item>
+        <item quantity="many">%1$s testés</item>
+        <item quantity="other">%1$s testés</item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Aucun test n’a encore été effectué. Essayez d’en lancer un !</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Estampille temporelle</string>
     <string name="TestResults_Summary_Hero_Network">Réseau</string>
@@ -91,6 +96,21 @@
     <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
     <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">Pas d’Internet</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one">testé</item>
+        <item quantity="many">testés</item>
+        <item quantity="other">testés</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one">bloqué</item>
+        <item quantity="many">bloqués</item>
+        <item quantity="other">bloqués</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one">accessible</item>
+        <item quantity="many">accessibles</item>
+        <item quantity="other">accessibles</item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Téléversement</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Télécharger</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Sur Tella FOSS, les PDF doivent être exportés pour être ouverts.</string>
@@ -149,6 +169,16 @@
     <string name="Measurements_Failed">Échec</string>
     <string name="Measurements_Ok">Valider</string>
     <string name="Measurements_Anomaly">Anomalie</string>
+    <plurals name="Measurements_Count">
+        <item quantity="one">%1$d mesuré</item>
+        <item quantity="many">%1$d mesurés</item>
+        <item quantity="other">%1$d mesurés</item>
+    </plurals>
+    <plurals name="Measurements_Failed">
+        <item quantity="one">%1$d en échec</item>
+        <item quantity="many">%1$d en échec</item>
+        <item quantity="other">%1$d en échec</item>
+    </plurals>
     <string name="Measurement_Raw_NotUploadedReasoning">Cette mesure n’a pas été publiée dans l’Explorateur OONI. Téléversez-la pour afficher l’analyse.</string>
     <string name="Measurement_Raw_Share">Partager les données de mesure</string>
     <string name="Measurement_Raw_Upload">Téléverser</string>
