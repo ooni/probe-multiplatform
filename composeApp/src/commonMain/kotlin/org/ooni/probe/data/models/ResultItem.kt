@@ -20,7 +20,7 @@ data class ResultItem(
 
     val totalRuntime get() = measurements.sumOf { it.measurement.runtime ?: 0.0 }.seconds
 
-    val canBeRerun get() = descriptor.name == "websites" && result.isDone && urlCount > 0
+    val canBeRerun get() = descriptor.isWebConnectivityOnly && result.isDone && urlCount > 0
 
     val urlCount get() = measurements.count { it.url != null }
 
