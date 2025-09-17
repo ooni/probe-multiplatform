@@ -77,7 +77,7 @@ fun Navigation(
                     goToOnboarding = { navController.goBackAndNavigate(Screen.Onboarding) },
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.safeNavigate(Screen.RunningTest) },
-                    goToRunTests = { navController.safeNavigate(Screen.RunTests()) },
+                    goToRunTests = { navController.safeNavigate(Screen.RunTests) },
                     goToDescriptor = { descriptorKey ->
                         navController.safeNavigate(Screen.Descriptor(descriptorKey))
                     },
@@ -235,12 +235,8 @@ fun Navigation(
         }
 
         composable<Screen.RunTests> { entry ->
-            val descriptorKey = entry.toRoute<Screen.RunTests>().descriptorKey
             val viewModel = viewModel {
-                dependencies.runViewModel(
-                    descriptorKey = descriptorKey,
-                    onBack = { navController.goBack() },
-                )
+                dependencies.runViewModel(onBack = { navController.goBack() })
             }
             val state by viewModel.state.collectAsState()
             RunScreen(state, viewModel::onEvent)
@@ -303,7 +299,6 @@ fun Navigation(
                     goToReviewDescriptorUpdates = { list ->
                         navController.safeNavigate(Screen.ReviewUpdates(list?.map { it.value }))
                     },
-                    goToRun = { navController.safeNavigate(Screen.RunTests(it)) },
                     goToChooseWebsites = { navController.safeNavigate(Screen.ChooseWebsites()) },
                     goToResult = { navController.safeNavigate(Screen.Result(it.value)) },
                 )

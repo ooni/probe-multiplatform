@@ -116,7 +116,7 @@ fun DashboardScreen(
                 val lazyListState = rememberLazyListState()
                 LazyColumn(
                     modifier = Modifier
-                        .padding(top = if (isHeightCompact()) 8.dp else 24.dp)
+                        .padding(top = if (isHeightCompact()) 8.dp else 16.dp)
                         .testTag("Dashboard-List"),
                     contentPadding = PaddingValues(bottom = 16.dp),
                     state = lazyListState,

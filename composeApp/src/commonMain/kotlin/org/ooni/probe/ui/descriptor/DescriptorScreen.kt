@@ -64,11 +64,13 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.ui.results.ResultCell
+import org.ooni.probe.ui.shared.DisableVpnInstructionsDialog
 import org.ooni.probe.ui.shared.ExpiredChip
 import org.ooni.probe.ui.shared.MarkdownViewer
 import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.UpdateProgressStatus
+import org.ooni.probe.ui.shared.VpnWarningDialog
 import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.format
 import org.ooni.probe.ui.theme.LocalCustomColors
@@ -263,6 +265,21 @@ fun DescriptorScreen(
             modifier = Modifier.align(Alignment.TopCenter),
             isRefreshing = state.isRefreshing,
             state = pullRefreshState,
+        )
+    }
+
+    if (state.showVpnWarning) {
+        VpnWarningDialog(
+            onDismiss = { onEvent(DescriptorViewModel.Event.VpnWarningDismissed) },
+            onRunAnyway = { onEvent(DescriptorViewModel.Event.RunAnywaysClicked) },
+            onRunAlways = { onEvent(DescriptorViewModel.Event.RunAlwaysClicked) },
+            onDisableVpn = { onEvent(DescriptorViewModel.Event.DisableVpnClicked) },
+        )
+    }
+
+    if (state.showDisableVpnInstructions) {
+        DisableVpnInstructionsDialog(
+            onDismiss = { onEvent(DescriptorViewModel.Event.DisableVpnInstructionsDismissed) },
         )
     }
 }

@@ -32,9 +32,7 @@ sealed interface Screen {
         val category: String,
     ) : Screen
 
-    @Serializable data class RunTests(
-        val descriptorKey: String? = null,
-    ) : Screen
+    @Serializable data object RunTests : Screen
 
     @Serializable data object RunningTest : Screen
 
