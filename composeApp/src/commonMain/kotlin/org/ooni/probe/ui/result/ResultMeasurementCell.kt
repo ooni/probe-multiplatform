@@ -52,7 +52,7 @@ fun ResultMeasurementCell(
         modifier = Modifier
             .fillMaxWidth()
             .let {
-                if (measurement.isDone && !measurement.isFailed) {
+                if (measurement.isDone && !measurement.isMissingUpload) {
                     it.clickable { onClick(item) }
                 } else {
                     it
