@@ -1,15 +1,15 @@
-name: Build NetworkTypeFinder JNI Bridge
+name: Build Native Libraries
 
 on:
   push:
     paths:
       - 'composeApp/src/desktopMain/c/**'
-      - '.github/workflows/build-networktypefinder.yml'
+      - '.github/workflows/build_native_libraries.yml'
       - 'composeApp/src/desktopMain/Makefile'
   pull_request:
     paths:
       - 'composeApp/src/desktopMain/c/**'
-      - '.github/workflows/build-networktypefinder.yml'
+      - '.github/workflows/build_native_libraries.yml'
       - 'composeApp/src/desktopMain/Makefile'
 
 jobs:
@@ -44,11 +44,11 @@ jobs:
         if: runner.os == 'Windows'
         run: choco install llvm make
 
-      - name: Build NetworkTypeFinder
+      - name: Build Native Libraries
         run: make all
 
       - name: Upload built library
         uses: actions/upload-artifact@v4
         with:
           name: networktypefinder-${{ matrix.os }}
-          path: composeApp/src/desktopMain/build/
+          path: composeApp/src/desktopMain/resources/
