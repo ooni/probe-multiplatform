@@ -3,7 +3,7 @@
 # Variables
 COMPILER = clang
 NETWORK_FILES = c/NetworkTypeFinder.m
-UPDATE_FILES_MAC = c/UpdateBridge.c c/SparkeBridge.m
+UPDATE_FILES_MAC = c/UpdateBridge.c
 UPDATE_FILES_WIN = c/UpdateBridge.c c/WinSparkleBridge.c
 NETWORK_LIBRARY_NAME = networktypefinder
 UPDATE_LIBRARY_NAME = updatebridge
@@ -47,15 +47,10 @@ macos:
 	@mkdir -p $(RESOURCES_BASE_DIR)/macos
 	$(COMPILER) -dynamiclib -o $(RESOURCES_BASE_DIR)/macos/$(UPDATE_LIBRARY_FILE_MAC) $(UPDATE_FILES_MAC) \
 		-framework Foundation \
-		-F $(RESOURCES_BASE_DIR)/macos \
-		-framework Sparkle \
 		-I$(JAVA_HOME)/include \
 		-I$(JAVA_HOME)/include/darwin \
-		-I $(RESOURCES_BASE_DIR)/macos/Sparkle.framework/Headers \
 		-install_name @loader_path/lib$(UPDATE_LIBRARY_NAME).dylib \
 		-Wl,-rpath,@loader_path
-	# Fix Sparkle framework reference to use @loader_path
-	install_name_tool -change "@rpath/Sparkle.framework/Versions/B/Sparkle" "@loader_path/Sparkle.framework/Versions/B/Sparkle" $(RESOURCES_BASE_DIR)/macos/$(UPDATE_LIBRARY_FILE_MAC)
 	@echo "UpdateBridge library created at $(RESOURCES_BASE_DIR)/macos/$(UPDATE_LIBRARY_FILE_MAC)"
 
 linux:
@@ -92,16 +87,7 @@ endif
 
 clean:
 	@echo "Cleaning build artifacts..."
-	# Preserve Sparkle framework during clean
-	@if [ -d "$(RESOURCES_BASE_DIR)/macos/Sparkle.framework" ]; then \
-		cp -R $(RESOURCES_BASE_DIR)/macos/Sparkle.framework /tmp/sparkle-backup; \
-	fi
 	rm -rf $(RESOURCES_BASE_DIR)
-	@if [ -d "/tmp/sparkle-backup" ]; then \
-		mkdir -p $(RESOURCES_BASE_DIR)/macos; \
-		cp -R /tmp/sparkle-backup $(RESOURCES_BASE_DIR)/macos/Sparkle.framework; \
-		rm -rf /tmp/sparkle-backup; \
-	fi
 	@echo "Clean complete"
 
 help:

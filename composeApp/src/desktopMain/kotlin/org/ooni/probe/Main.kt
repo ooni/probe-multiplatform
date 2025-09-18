@@ -170,7 +170,7 @@ fun main(args: Array<String>) {
                     onClick = { showWindow() },
                 )
                 // Only show update UI on Mac and Windows platforms
-                if ((dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Mac, DesktopOS.Windows)) {
+                if ((dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Windows)) {
                     Item(
                         text = getUpdateMenuText(updateSystemState, updateSystemError),
                         enabled = updateSystemState != UpdateState.CHECKING_FOR_UPDATES,
