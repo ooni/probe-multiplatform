@@ -3,6 +3,9 @@
 
 #include "WinSparkleBridge.h"
 
+static const char* jstring_to_cstring(JNIEnv* env, jstring jstr);
+static void release_cstring(JNIEnv* env, jstring jstr, const char* cstr);
+
 // Global JVM and callback references
 static JavaVM* g_jvm = NULL;
 static jobject g_logCallbackObject = NULL;
@@ -194,6 +197,13 @@ Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetAppDetails(JNIEnv* e
     release_cstring(env, appVersion, version);
 
     return result;
+}
+
+JNIEXPORT void JNICALL
+Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetDllRoot(JNIEnv* env, jobject obj, jstring rootPath) {
+    const char* root_utf8 = jstring_to_cstring(env, rootPath);
+    winsparkle_set_dll_root(root_utf8);
+    release_cstring(env, rootPath, root_utf8);
 }
 
 JNIEXPORT jint JNICALL

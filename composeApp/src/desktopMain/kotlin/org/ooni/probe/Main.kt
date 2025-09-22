@@ -50,6 +50,7 @@ import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateError
 import org.ooni.probe.shared.UpdateState
 import org.ooni.probe.config.UpdateConfig
+import org.ooni.probe.shared.WinSparkleUpdateManager
 import java.io.IOException
 import java.awt.Desktop
 import java.awt.Dimension
@@ -63,7 +64,9 @@ fun main(args: Array<String>) {
 
     // Create update manager
     val updateManager = createUpdateManager(dependencies.platformInfo.platform)
-
+    if (updateManager is WinSparkleUpdateManager){
+        updateManager.setDllRoot(System.getProperty("compose.application.resources.dir") ?: "")
+    }
     // State for update system
     var updateSystemError by mutableStateOf<UpdateError?>(null)
     var updateSystemState by mutableStateOf(UpdateState.IDLE)
