@@ -97,6 +97,7 @@ import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
+import org.ooni.probe.ui.descriptor.websites.DescriptorWebsitesViewModel
 import org.ooni.probe.ui.log.LogViewModel
 import org.ooni.probe.ui.measurement.MeasurementRawViewModel
 import org.ooni.probe.ui.measurement.MeasurementViewModel
@@ -557,13 +558,15 @@ class Dependencies(
         goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
         goToChooseWebsites: () -> Unit,
         goToResult: (ResultModel.Id) -> Unit,
+        goToDescriptorWebsites: (InstalledTestDescriptorModel.Id) -> Unit,
     ) = DescriptorViewModel(
         descriptorKey = descriptorKey,
         onBack = onBack,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         goToChooseWebsites = goToChooseWebsites,
         goToResult = goToResult,
-        getLatestTestDescriptors = getTestDescriptors::latest,
+        goToDescriptorWebsites = goToDescriptorWebsites,
+        getTestDescriptor = getTestDescriptors::single,
         getLastResultOfDescriptor = getLastResultOfDescriptor::invoke,
         preferenceRepository = preferenceRepository,
         launchAction = launchAction::invoke,
@@ -576,6 +579,15 @@ class Dependencies(
         undoRejectedDescriptorUpdate = undoRejectedDescriptorUpdate::invoke,
         startBackgroundRun = startSingleRunInner::invoke,
         canPullToRefresh = platformInfo.canPullToRefresh,
+    )
+
+    fun descriptorWebsitesViewModel(
+        descriptorId: InstalledTestDescriptorModel.Id,
+        onBack: () -> Unit,
+    ) = DescriptorWebsitesViewModel(
+        descriptorId = descriptorId,
+        onBack = onBack,
+        getTestDescriptor = getTestDescriptors::single,
     )
 
     fun logViewModel(onBack: () -> Unit) =

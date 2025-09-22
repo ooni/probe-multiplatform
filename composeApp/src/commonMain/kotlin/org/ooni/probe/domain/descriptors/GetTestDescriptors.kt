@@ -29,6 +29,11 @@ class GetTestDescriptors(
 
     fun latest(): Flow<List<Descriptor>> = get(listLatestInstalledTestDescriptors)
 
+    fun single(key: String) =
+        latest().map { list ->
+            list.firstOrNull { it.key == key }
+        }
+
     private fun get(installedDescriptorFlow: () -> Flow<List<InstalledTestDescriptorModel>>): Flow<List<Descriptor>> {
         return combine(
             installedDescriptorFlow(),

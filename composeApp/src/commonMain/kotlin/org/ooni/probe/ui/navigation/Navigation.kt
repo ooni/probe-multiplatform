@@ -27,6 +27,7 @@ import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.descriptor.add.AddDescriptorScreen
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesScreen
+import org.ooni.probe.ui.descriptor.websites.DescriptorWebsitesViewModel
 import org.ooni.probe.ui.log.LogScreen
 import org.ooni.probe.ui.measurement.MeasurementRawScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
@@ -301,10 +302,26 @@ fun Navigation(
                     },
                     goToChooseWebsites = { navController.safeNavigate(Screen.ChooseWebsites()) },
                     goToResult = { navController.safeNavigate(Screen.Result(it.value)) },
+                    goToDescriptorWebsites = {
+                        navController.safeNavigate(Screen.DescriptorWebsites(it.value))
+                    },
                 )
             }
             val state by viewModel.state.collectAsState()
             DescriptorScreen(state, viewModel::onEvent)
+        }
+
+        composable<Screen.DescriptorWebsites> { entry ->
+            val viewModel = viewModel {
+                dependencies.descriptorWebsitesViewModel(
+                    descriptorId = InstalledTestDescriptorModel.Id(
+                        entry.toRoute<Screen.DescriptorWebsites>().descriptorId,
+                    ),
+                    onBack = { navController.goBack() },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            DescriptorWebsitesViewModel(state, viewModel::onEvent)
         }
 
         composable<Screen.ReviewUpdates> { entry ->

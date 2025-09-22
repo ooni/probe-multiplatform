@@ -50,6 +50,7 @@ import ooniprobe.composeapp.generated.resources.Common_Enable
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsites
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_ReviewUpdates
+import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Websites_SeeAll
 import ooniprobe.composeapp.generated.resources.Descriptor_LastTestResult
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
@@ -71,8 +72,8 @@ import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.VpnWarningDialog
-import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.format
+import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -226,24 +227,32 @@ fun DescriptorScreen(
 
                 when (OrganizationConfig.testDisplayMode) {
                     TestDisplayMode.Regular -> {
-                        if (!state.tests.isSingleWebConnectivityTest() || descriptor.source is Descriptor.Source.Default) {
+                        if (descriptor.source is Descriptor.Source.Default || !state.tests.isSingleWebConnectivityTest()) {
                             TestItems(
                                 descriptor,
                                 state.tests,
                                 state.isAutoRunEnabled,
                                 onEvent,
                             )
+                        } else if (state.tests.isSingleWebConnectivityTest()) {
+                            WebsiteItems(
+                                tests = state.tests,
+                                onSeeMoreClick = {
+                                    onEvent(DescriptorViewModel.Event.SeeMoreWebsitesClicked)
+                                },
+                            )
                         }
                     }
 
-                    TestDisplayMode.WebsitesOnly -> WebsiteItems(state.tests)
+                    TestDisplayMode.WebsitesOnly -> WebsiteItems(
+                        tests = state.tests,
+                        onSeeMoreClick = {
+                            onEvent(DescriptorViewModel.Event.SeeMoreWebsitesClicked)
+                        },
+                    )
                 }
 
                 if (descriptor.source is Descriptor.Source.Installed) {
-                    if (state.tests.isSingleWebConnectivityTest()) {
-                        WebsiteItems(state.tests)
-                    }
-
                     InstalledDescriptorActionsView(
                         descriptor = descriptor.source.value,
                         showCheckUpdatesButton = !state.canPullToRefresh,
@@ -444,16 +453,32 @@ private fun TestItems(
 }
 
 @Composable
-private fun WebsiteItems(tests: List<SelectableItem<NetTest>>) {
+private fun WebsiteItems(
+    tests: List<SelectableItem<NetTest>>,
+    onSeeMoreClick: () -> Unit,
+) {
     val websites = tests
         .map { it.item }
         .filter { it.test is TestType.WebConnectivity }
         .flatMap { it.inputs.orEmpty() }
 
-    websites.forEach { website ->
-        Text(
-            website,
-            Modifier.padding(start = 48.dp, top = 4.dp),
-        )
+    websites
+        .take(MAX_WEBSITES_TO_SHOW)
+        .forEach { website ->
+            Text(
+                website,
+                modifier = Modifier.padding(start = 48.dp, top = 4.dp),
+            )
+        }
+
+    if (websites.size > MAX_WEBSITES_TO_SHOW) {
+        TextButton(
+            onClick = onSeeMoreClick,
+            modifier = Modifier.padding(start = 48.dp, top = 4.dp),
+        ) {
+            Text(stringResource(Res.string.Dashboard_Runv2_Websites_SeeAll, websites.size))
+        }
     }
 }
+
+private const val MAX_WEBSITES_TO_SHOW = 10

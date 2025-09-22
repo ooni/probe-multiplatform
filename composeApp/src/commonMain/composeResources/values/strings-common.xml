@@ -28,6 +28,7 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
+    <string name="Dashboard_Runv2_Websites_SeeAll">See all %1$d websites</string>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">UPDATE</string>
