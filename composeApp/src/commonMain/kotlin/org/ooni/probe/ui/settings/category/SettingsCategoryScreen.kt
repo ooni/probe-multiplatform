@@ -15,12 +15,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -40,7 +37,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Res
@@ -53,6 +49,7 @@ import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.models.SettingsItem
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
 
@@ -72,12 +69,7 @@ fun SettingsCategoryScreen(
                 )
             },
             navigationIcon = {
-                IconButton(onClick = { onEvent(SettingsCategoryViewModel.Event.BackClicked) }) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.Common_Back),
-                    )
-                }
+                NavigationBackButton({ onEvent(SettingsCategoryViewModel.Event.BackClicked) })
             },
         )
 

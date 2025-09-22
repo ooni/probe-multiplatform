@@ -11,13 +11,10 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -34,7 +31,6 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_EstimatedTimeLeft
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_ProxyInUse
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
@@ -48,6 +44,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.ui.shared.LottieAnimation
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.format
@@ -70,12 +67,7 @@ fun RunningScreen(
             TopBar(
                 title = {},
                 navigationIcon = {
-                    IconButton(onClick = { onEvent(RunningViewModel.Event.BackClicked) }) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(Res.string.Common_Back),
-                        )
-                    }
+                    NavigationBackButton({ onEvent(RunningViewModel.Event.BackClicked) })
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent,

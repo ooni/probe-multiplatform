@@ -14,14 +14,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Donate_Action
 import ooniprobe.composeapp.generated.resources.Settings_Donate_Action_Error
@@ -55,6 +51,7 @@ import org.ooni.probe.LocalSnackbarHostState
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.SettingsCategoryItem
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.theme.LocalCustomColors
 
@@ -77,14 +74,7 @@ fun DonateScreen(
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
             title = { Text(stringResource(Res.string.Settings_Donate_Title)) },
-            navigationIcon = {
-                IconButton(onClick = onBack) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.Common_Back),
-                    )
-                }
-            },
+            navigationIcon = { NavigationBackButton(onBack) },
         )
 
         Box(

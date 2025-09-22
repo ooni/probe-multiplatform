@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.CircularProgressIndicator
@@ -31,10 +30,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Common_Refresh
 import ooniprobe.composeapp.generated.resources.Measurement_LoadingFailed
 import ooniprobe.composeapp.generated.resources.Measurement_Title
@@ -42,6 +39,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.OoniWebView
 import org.ooni.probe.ui.shared.OoniWebViewController
 import org.ooni.probe.ui.shared.TopBar
@@ -60,15 +58,7 @@ fun MeasurementScreen(
                     Text(stringResource(Res.string.Measurement_Title))
                 },
                 navigationIcon = {
-                    IconButton(
-                        onClick = { onEvent(MeasurementViewModel.Event.BackClicked) },
-                        modifier = Modifier.testTag("Back"),
-                    ) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(Res.string.Common_Back),
-                        )
-                    }
+                    NavigationBackButton({ onEvent(MeasurementViewModel.Event.BackClicked) })
                 },
                 actions = {
                     IconButton(

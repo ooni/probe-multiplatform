@@ -16,13 +16,10 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
@@ -45,7 +42,6 @@ import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRun
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRunDisabled
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Settings
-import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Common_Enable
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsites
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
@@ -68,6 +64,7 @@ import org.ooni.probe.ui.results.ResultCell
 import org.ooni.probe.ui.shared.DisableVpnInstructionsDialog
 import org.ooni.probe.ui.shared.ExpiredChip
 import org.ooni.probe.ui.shared.MarkdownViewer
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.UpdateProgressStatus
@@ -104,12 +101,7 @@ fun DescriptorScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { onEvent(DescriptorViewModel.Event.BackClicked) }) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(Res.string.Common_Back),
-                        )
-                    }
+                    NavigationBackButton({ onEvent(DescriptorViewModel.Event.BackClicked) })
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = descriptorColor,

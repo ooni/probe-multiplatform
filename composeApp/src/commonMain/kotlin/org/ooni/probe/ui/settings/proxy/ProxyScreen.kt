@@ -13,7 +13,6 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -35,7 +34,6 @@ import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Hostname
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Port
@@ -44,6 +42,7 @@ import ooniprobe.composeapp.generated.resources.Settings_Proxy_Enabled
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ProxyProtocol
 import org.ooni.probe.data.models.ProxyType
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 
 @Composable
@@ -57,14 +56,7 @@ fun ProxyScreen(
                 Text(stringResource(Res.string.Settings_Proxy_Enabled))
             },
             navigationIcon = {
-                IconButton(
-                    onClick = { onEvent(ProxyViewModel.Event.BackClicked) },
-                ) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.Common_Back),
-                    )
-                }
+                NavigationBackButton({ onEvent(ProxyViewModel.Event.BackClicked) })
             },
         )
         Column(Modifier.selectableGroup()) {

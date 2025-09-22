@@ -12,10 +12,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -27,12 +23,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_About_Content_Paragraph
 import ooniprobe.composeapp.generated.resources.version
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.ui.shared.MarkdownViewer
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.isHeightCompact
 
@@ -55,12 +51,7 @@ fun AboutScreen(
                 TopBar(
                     title = {},
                     navigationIcon = {
-                        IconButton(onClick = { onEvent(AboutViewModel.Event.BackClicked) }) {
-                            Icon(
-                                Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(Res.string.Common_Back),
-                            )
-                        }
+                        NavigationBackButton({ onEvent(AboutViewModel.Event.BackClicked) })
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = Color.Transparent,

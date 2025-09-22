@@ -13,11 +13,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
@@ -34,7 +32,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Support_Action
 import ooniprobe.composeapp.generated.resources.Settings_Support_IncludeLogs
@@ -44,6 +41,7 @@ import ooniprobe.composeapp.generated.resources.Settings_Support_Message_Hint
 import ooniprobe.composeapp.generated.resources.Settings_Support_SendEmail
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.domain.SendSupportEmail
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 
 @Composable
@@ -57,17 +55,8 @@ fun SupportScreen(
 
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
-            title = {
-                Text(stringResource(Res.string.Settings_Support_Label))
-            },
-            navigationIcon = {
-                IconButton(onClick = onBack) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.Common_Back),
-                    )
-                }
-            },
+            title = { Text(stringResource(Res.string.Settings_Support_Label)) },
+            navigationIcon = { NavigationBackButton(onBack) },
         )
         Column(
             Modifier
