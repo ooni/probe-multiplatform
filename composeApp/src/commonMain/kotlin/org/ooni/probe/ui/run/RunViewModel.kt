@@ -30,7 +30,6 @@ import org.ooni.probe.ui.shared.ParentSelectableItem
 import org.ooni.probe.ui.shared.SelectableItem
 
 class RunViewModel(
-    descriptorKey: String?,
     onBack: () -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     shouldShowVpnWarning: suspend () -> Boolean,
@@ -53,14 +52,10 @@ class RunViewModel(
             val all = getTestDescriptors().first().notExpired().toNetTestsList()
             allNetTests.value = all
 
-            if (descriptorKey != null) {
-                selectedTests.value = all.filter { it.first.key == descriptorKey }
-            } else {
-                val preferences = preferenceRepository
-                    .areNetTestsEnabled(all, isAutoRun = false)
-                    .first()
-                selectedTests.value = all.filter { preferences[it] == true }
-            }
+            val preferences = preferenceRepository
+                .areNetTestsEnabled(all, isAutoRun = false)
+                .first()
+            selectedTests.value = all.filter { preferences[it] == true }
         }
 
         combine(
