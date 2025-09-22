@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.DrawableResource
 import org.ooni.engine.models.SummaryType
+import org.ooni.engine.models.TestType
 import org.ooni.probe.shared.now
 import kotlin.time.Duration.Companion.seconds
 
@@ -53,6 +54,9 @@ data class Descriptor(
         get() = allTests
             .sumOf { it.test.runtime(it.inputs).inWholeSeconds }
             .seconds
+
+    val isWebConnectivityOnly get() =
+        allTests.size == 1 && allTests.first().test == TestType.WebConnectivity
 }
 
 fun List<Descriptor>.notExpired() = filter { !it.isExpired }
