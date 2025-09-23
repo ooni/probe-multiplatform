@@ -211,12 +211,12 @@ class DashboardViewModel(
         listOf(
             DescriptorSection(
                 type = DescriptorType.Installed,
-                descriptors = filter { it.source is Descriptor.Source.Installed },
+                descriptors = filter { it.isInstalledNonDefaultDescriptor() },
                 isCollapsed = collapsedSections.contains(DescriptorType.Installed),
             ),
             DescriptorSection(
                 type = DescriptorType.Default,
-                descriptors = filter { it.source is Descriptor.Source.Default },
+                descriptors = filter { it.isDefaultDescriptor() },
                 isCollapsed = collapsedSections.contains(DescriptorType.Default),
             ),
         )

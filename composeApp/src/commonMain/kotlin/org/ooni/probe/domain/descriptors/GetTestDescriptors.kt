@@ -3,22 +3,18 @@ package org.ooni.probe.domain.descriptors
 import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_LongRunningTest
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.WebConnectivityCategory
-import org.ooni.probe.data.models.DefaultTestDescriptor
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.data.models.toDescriptor
 
 class GetTestDescriptors(
-    private val getDefaultTestDescriptors: () -> List<DefaultTestDescriptor>,
     private val listAllInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
     private val listLatestInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
     private val observeDescriptorsUpdateState: () -> Flow<DescriptorsUpdateState>,
@@ -38,47 +34,20 @@ class GetTestDescriptors(
         return combine(
             installedDescriptorFlow(),
             observeDescriptorsUpdateState(),
-            flowOf(getDefaultTestDescriptors()),
             isWebsitesDescriptorEnabled(),
-        ) { installedDescriptors, descriptorUpdates, defaultDescriptors, isWebsitesEnabled ->
+        ) { installedDescriptors, descriptorUpdates, isWebsitesEnabled ->
             val updatedDescriptors = installedDescriptors.map { item ->
                 item.toDescriptor(updateStatus = descriptorUpdates.getStatusOf(item.id))
             }
-            val allDescriptors = defaultDescriptors.map { it.toDescriptor() } + updatedDescriptors
-            return@combine allDescriptors
-                .map {
-                    it.copy(enabled = it.name != "websites" || isWebsitesEnabled)
-                }.sortedWith(Descriptor.SORT_COMPARATOR)
+            return@combine updatedDescriptors.map {
+                it.copy(enabled = it.name != "websites" || isWebsitesEnabled)
+            }
         }
     }
 
     private fun isWebsitesDescriptorEnabled() =
         getPreferenceValues(WebConnectivityCategory.entries.mapNotNull { it.settingsKey })
             .map { preferences -> preferences.any { it.value == true } }
-
-    private fun DefaultTestDescriptor.toDescriptor() =
-        Descriptor(
-            name = label,
-            title = { stringResource(title) },
-            shortDescription = { stringResource(shortDescription) },
-            description = {
-                if (label == "experimental") {
-                    stringResource(description, experimentalLinks())
-                } else {
-                    stringResource(description)
-                }
-            },
-            icon = icon,
-            color = color,
-            animation = animation,
-            dataUsage = { stringResource(dataUsage) },
-            expirationDate = null,
-            netTests = netTests,
-            longRunningTests = longRunningTests,
-            source = Descriptor.Source.Default(this),
-            updateStatus = UpdateStatus.NotApplicable,
-            summaryType = summaryType,
-        )
 
     @Composable
     private fun experimentalLinks() =
