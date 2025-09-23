@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -32,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Common_Clear
 import ooniprobe.composeapp.generated.resources.CustomWebsites_Fab_Text
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
@@ -51,6 +48,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.theme.AppTheme
 
@@ -65,12 +63,7 @@ fun ChooseWebsitesScreen(
         TopBar(
             title = { Text(stringResource(Res.string.Settings_Websites_CustomURL_Title)) },
             navigationIcon = {
-                IconButton(onClick = { onEvent(ChooseWebsitesViewModel.Event.BackClicked) }) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.Common_Back),
-                    )
-                }
+                NavigationBackButton({ onEvent(ChooseWebsitesViewModel.Event.BackClicked) })
             },
             actions = {
                 if (state.canClearUrls) {

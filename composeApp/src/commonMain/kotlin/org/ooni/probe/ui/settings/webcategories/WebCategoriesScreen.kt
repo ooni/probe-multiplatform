@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -20,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
-import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Selection_All
@@ -30,6 +27,7 @@ import ooniprobe.composeapp.generated.resources.ic_select_all
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.ui.settings.category.SwitchSettingsView
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
 
@@ -49,12 +47,7 @@ fun WebCategoriesScreen(
                 )
             },
             navigationIcon = {
-                IconButton(onClick = { onEvent(WebCategoriesViewModel.Event.BackClicked) }) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.Common_Back),
-                    )
-                }
+                NavigationBackButton({ onEvent(WebCategoriesViewModel.Event.BackClicked) })
             },
             actions = {
                 IconButton(

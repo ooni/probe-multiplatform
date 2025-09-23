@@ -17,7 +17,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -36,7 +35,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Severity
-import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_FilterLogs
 import ooniprobe.composeapp.generated.resources.Settings_Logs
@@ -49,6 +47,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.LocalSnackbarHostState
 import org.ooni.probe.ui.shared.CustomFilterChip
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
 import org.ooni.probe.ui.theme.LocalCustomColors
@@ -62,12 +61,7 @@ fun LogScreen(
         TopBar(
             title = { Text(stringResource(Res.string.Settings_Logs)) },
             navigationIcon = {
-                IconButton(onClick = { onEvent(LogViewModel.Event.BackClicked) }) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.Common_Back),
-                    )
-                }
+                NavigationBackButton({ onEvent(LogViewModel.Event.BackClicked) })
             },
             actions = {
                 IconButton(onClick = { onEvent(LogViewModel.Event.ClearClicked) }) {

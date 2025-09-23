@@ -41,7 +41,8 @@ class DescriptorViewModel(
     goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
     goToChooseWebsites: () -> Unit,
     goToResult: (ResultModel.Id) -> Unit,
-    private val getLatestTestDescriptors: () -> Flow<List<Descriptor>>,
+    goToDescriptorWebsites: (InstalledTestDescriptorModel.Id) -> Unit,
+    getTestDescriptor: (String) -> Flow<Descriptor?>,
     getLastResultOfDescriptor: (String) -> Flow<ResultListItem?>,
     private val preferenceRepository: PreferenceRepository,
     private val launchAction: (PlatformAction) -> Boolean,
@@ -70,7 +71,7 @@ class DescriptorViewModel(
                 }
             }.launchIn(viewModelScope)
 
-        getDescriptor()
+        getTestDescriptor(descriptorKey)
             .onEach { if (it == null) onBack() }
             .filterNotNull()
             .flatMapLatest { descriptor ->
@@ -266,16 +267,18 @@ class DescriptorViewModel(
                 event.resultListItem.result.id
                     ?.let { goToResult(it) }
             }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.SeeMoreWebsitesClicked>()
+            .onEach {
+                (state.value.descriptor?.source as? Descriptor.Source.Installed)
+                    ?.let { descriptor -> goToDescriptorWebsites(descriptor.value.id) }
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
         events.tryEmit(event)
     }
-
-    private fun getDescriptor() =
-        getLatestTestDescriptors().map { list ->
-            list.firstOrNull { it.key == descriptorKey }
-        }
 
     private fun getMaxRuntime(): Flow<Duration?> =
         preferenceRepository
@@ -392,6 +395,8 @@ class DescriptorViewModel(
         data class ResultClicked(
             val resultListItem: ResultListItem,
         ) : Event
+
+        data object SeeMoreWebsitesClicked : Event
     }
 }
 

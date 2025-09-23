@@ -25,7 +25,6 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.AlertDialog
@@ -48,11 +47,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Common_Next
 import ooniprobe.composeapp.generated.resources.Common_Previous
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
@@ -100,6 +97,7 @@ import org.ooni.probe.data.models.videoQuality
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Single
 import org.ooni.probe.ui.results.UploadResults
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
 import org.ooni.probe.ui.shared.format
@@ -129,15 +127,7 @@ fun ResultScreen(
                 )
             },
             navigationIcon = {
-                IconButton(
-                    onClick = { onEvent(ResultViewModel.Event.BackClicked) },
-                    modifier = Modifier.testTag("Back"),
-                ) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.Common_Back),
-                    )
-                }
+                NavigationBackButton({ onEvent(ResultViewModel.Event.BackClicked) })
             },
             actions = {
                 if (state.result?.canBeRerun == true) {

@@ -49,6 +49,10 @@ sealed interface Screen {
         val descriptorKey: String,
     ) : Screen
 
+    @Serializable data class DescriptorWebsites(
+        val descriptorId: String,
+    ) : Screen
+
     @Serializable data class ReviewUpdates(
         val descriptorIds: List<String>? = null,
     ) : Screen

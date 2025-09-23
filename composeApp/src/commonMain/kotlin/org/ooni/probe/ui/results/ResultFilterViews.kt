@@ -20,7 +20,6 @@ import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SelectableDates
@@ -42,7 +41,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import ooniprobe.composeapp.generated.resources.Common_Clear
-import ooniprobe.composeapp.generated.resources.Common_Close
 import ooniprobe.composeapp.generated.resources.Common_Save
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_OK
@@ -67,7 +65,6 @@ import ooniprobe.composeapp.generated.resources.TestResults_Filters_Short
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.ic_check
-import ooniprobe.composeapp.generated.resources.ic_close
 import ooniprobe.composeapp.generated.resources.ic_date_range
 import ooniprobe.composeapp.generated.resources.ic_network
 import ooniprobe.composeapp.generated.resources.ic_tests
@@ -81,6 +78,7 @@ import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.shared.toEpochInUTC
 import org.ooni.probe.shared.toLocalDateFromUtc
+import org.ooni.probe.ui.shared.NavigationCloseButton
 import org.ooni.probe.ui.shared.ellipsize
 import org.ooni.probe.ui.shared.isoFormat
 
@@ -209,14 +207,7 @@ fun ResultFiltersDialog(
             ) {
                 TopAppBar(
                     title = { Text(stringResource(Res.string.TestResults_Filters_Title)) },
-                    navigationIcon = {
-                        IconButton(onClick = onDismiss) {
-                            Icon(
-                                painterResource(Res.drawable.ic_close),
-                                contentDescription = stringResource(Res.string.Common_Close),
-                            )
-                        }
-                    },
+                    navigationIcon = { NavigationCloseButton(onDismiss) },
                     actions = {
                         if (!currentFilter.isAll) {
                             TextButton(onClick = { currentFilter = ResultFilter() }) {
