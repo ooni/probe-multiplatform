@@ -59,6 +59,7 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.ui.results.ResultCell
 import org.ooni.probe.ui.shared.DisableVpnInstructionsDialog
@@ -219,7 +220,7 @@ fun DescriptorScreen(
 
                 when (OrganizationConfig.testDisplayMode) {
                     TestDisplayMode.Regular -> {
-                        if (descriptor.source is Descriptor.Source.Default || !state.tests.isSingleWebConnectivityTest()) {
+                        if (!state.tests.isSingleWebConnectivityTest() || descriptor.source is Descriptor.Source.Default) {
                             TestItems(
                                 descriptor,
                                 state.tests,
@@ -343,7 +344,7 @@ private fun DescriptorDetails(
                         .align(Alignment.CenterHorizontally)
                         .padding(top = 8.dp),
                 ) {
-                    if (descriptor.name == "websites") {
+                    if (descriptor.key == OoniTest.WEBSITES.id.toString()) {
                         OutlinedButton(
                             onClick = { onEvent(DescriptorViewModel.Event.ChooseWebsitesClicked) },
                             border = ButtonDefaults
