@@ -16,7 +16,6 @@ class GetBootstrapTestDescriptors(
 ) {
     suspend operator fun invoke(): List<InstalledTestDescriptorModel> =
         withContext(backgroundContext) {
-
             val descriptorsJson = Res.readBytes("files/assets/descriptors.json").decodeToString()
             val descriptors =
                 try {

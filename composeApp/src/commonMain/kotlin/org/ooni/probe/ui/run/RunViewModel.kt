@@ -89,9 +89,9 @@ class RunViewModel(
 
             mapOf(
                 DescriptorType.Installed to descriptorsWithTests
-                    .filter { it.key.item.source is Descriptor.Source.Installed },
+                    .filter { it.key.item.isInstalledNonDefaultDescriptor() },
                 DescriptorType.Default to descriptorsWithTests
-                    .filter { it.key.item.source is Descriptor.Source.Default },
+                    .filter { it.key.item.isDefaultDescriptor() },
             )
         }.onEach { list -> _state.update { it.copy(list = list) } }
             .launchIn(viewModelScope)
@@ -219,14 +219,7 @@ class RunViewModel(
                 .groupBy(keySelector = { it.first }, valueTransform = { it.second })
                 .map { (descriptor, tests) ->
                     RunSpecification.Test(
-                        source =
-                            when (descriptor.source) {
-                                is Descriptor.Source.Default ->
-                                    RunSpecification.Test.Source.Default(descriptor.name)
-
-                                is Descriptor.Source.Installed ->
-                                    RunSpecification.Test.Source.Installed(descriptor.source.value.id)
-                            },
+                        source = RunSpecification.Test.Source.fromDescriptor(descriptor),
                         netTests = tests,
                     )
                 },
