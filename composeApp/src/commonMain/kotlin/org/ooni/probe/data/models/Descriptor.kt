@@ -45,7 +45,7 @@ data class Descriptor(
     val key: String
         get() = when (source) {
             is Source.Default -> name
-            is Source.Installed -> source.value.id.value
+            is Source.Installed -> source.value.key.id.value
         }
 
     val allTests get() = netTests + longRunningTests
@@ -60,6 +60,25 @@ data class Descriptor(
             allTests.size == 1 && allTests.first().test == TestType.WebConnectivity
 
     val runLink get() = (source as? Source.Installed)?.value?.runLink
+
+    val settingsPrefix: String?
+        get() = when (isDefaultDescriptor()) {
+            true -> null
+            else -> (source as Source.Installed)
+                .value.id.value
+        }
+
+    fun isDefaultDescriptor(): Boolean =
+        when (source) {
+            is Source.Default -> true
+            is Source.Installed -> source.value.isDefaultTestDescriptor
+        }
+
+    fun isInstalledNonDefaultDescriptor(): Boolean =
+        when (source) {
+            is Source.Installed -> !source.value.isDefaultTestDescriptor
+            else -> false
+        }
 
     companion object {
         val SORT_COMPARATOR =
