@@ -18,6 +18,7 @@ import org.ooni.probe.background.OperationsManager
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.FlavorConfig
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.DeepLink
@@ -66,7 +67,6 @@ import platform.UIKit.UI_USER_INTERFACE_IDIOM
 import platform.UIKit.popoverPresentationController
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
-import kotlin.to
 
 class SetupDependencies(
     bridge: OonimkallBridge,
@@ -97,6 +97,7 @@ class SetupDependencies(
         batteryOptimization = object : BatteryOptimization {},
         isWebViewAvailable = { true },
         flavorConfig = FlavorConfig(),
+        proxyConfig = ProxyConfig(isPsiphonSupported = true),
     )
 
     private val operationsManager = OperationsManager(dependencies, backgroundRunner)

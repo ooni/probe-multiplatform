@@ -32,6 +32,8 @@ sealed interface Screen {
         val category: String,
     ) : Screen
 
+    @Serializable data object AddProxy : Screen
+
     @Serializable data object RunTests : Screen
 
     @Serializable data object RunningTest : Screen
