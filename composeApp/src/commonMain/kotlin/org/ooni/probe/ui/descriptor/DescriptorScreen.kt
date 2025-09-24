@@ -53,6 +53,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_timer
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
@@ -468,7 +469,13 @@ private fun WebsiteItems(
             onClick = onSeeMoreClick,
             modifier = Modifier.padding(start = 48.dp, top = 4.dp),
         ) {
-            Text(stringResource(Res.string.Dashboard_Runv2_Websites_SeeAll, websites.size))
+            Text(
+                pluralStringResource(
+                    Res.plurals.Dashboard_Runv2_Websites_SeeAll,
+                    websites.size,
+                    websites.size,
+                ),
+            )
         }
     }
 }
