@@ -8,6 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.ApplicationScope
 import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
@@ -39,19 +40,18 @@ import ooniprobe.composeapp.generated.resources.tray_icon_windows_light_running
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.background.registerWindowsUrlScheme
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.DesktopOS
-import org.ooni.probe.shared.createUpdateManager
 import org.ooni.probe.shared.InstanceManager
 import org.ooni.probe.shared.Platform
-import org.ooni.probe.shared.UpdateError
 import org.ooni.probe.shared.UpdateState
-import org.ooni.probe.config.UpdateConfig
 import org.ooni.probe.shared.WinSparkleUpdateManager
-import java.io.IOException
+import org.ooni.probe.shared.createUpdateManager
+import org.ooni.probe.update.DesktopUpdateController
 import java.awt.Desktop
 import java.awt.Dimension
 
@@ -62,14 +62,12 @@ fun main(args: Array<String>) {
     val instanceManager = InstanceManager(dependencies.platformInfo)
     val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
 
-    // Create update manager
+    // Create update manager and controller
     val updateManager = createUpdateManager(dependencies.platformInfo.platform)
-    if (updateManager is WinSparkleUpdateManager){
+    if (updateManager is WinSparkleUpdateManager) {
         updateManager.setDllRoot(System.getProperty("compose.application.resources.dir") ?: "")
     }
-    // State for update system
-    var updateSystemError by mutableStateOf<UpdateError?>(null)
-    var updateSystemState by mutableStateOf(UpdateState.IDLE)
+    val updateController = DesktopUpdateController(updateManager)
 
     CoroutineScope(Dispatchers.IO).launch {
         instanceManager.observeUrls().collectLatest {
@@ -83,37 +81,23 @@ fun main(args: Array<String>) {
         autoLaunch.enable()
     }
 
-    // Initialize update manager with comprehensive error handling
-    CoroutineScope(Dispatchers.Default).launch {
-        try {
-            setupUpdateManager(updateManager) { error, state ->
-                updateSystemError = error
-                updateSystemState = state
-            }
-        } catch (e: Exception) {
-            Logger.e("Failed to setup update manager: $e")
-            updateSystemError = UpdateError(-999, "Setup failed: ${e.message}", "setup")
-        }
-    }
+    // Initialize update controller
+    updateController.initialize(CoroutineScope(Dispatchers.Default))
 
     application {
-        // Set shutdown callback for update installation (Windows only)
+        // Register shutdown callback for update installation when applicable
+        updateController.registerShutdownHandler(this)
 
-        // Set shutdown callback for update installation (Windows and macOS)
-        when (updateManager) {
-            is org.ooni.probe.shared.WinSparkleUpdateManager -> {
-                updateManager.setShutdownCallback {
-                    Logger.i("WinSparkle requested application shutdown for update installation")
-                    exitApplication()
-                }
-            }
-        }
         var isWindowVisible by remember { mutableStateOf(!autoLaunch.isStartedViaAutostart()) }
         val trayIcon = trayIcon()
         val deepLink by deepLinkFlow.collectAsState(null)
         val runBackgroundState by dependencies.runBackgroundStateManager
             .observeState()
             .collectAsState(RunBackgroundState.Idle())
+
+        // Observe update state for UI
+        val updateState by updateController.state.collectAsState(UpdateState.IDLE)
+        val updateError by updateController.error.collectAsState(null)
 
         fun showWindow() {
             isWindowVisible = true
@@ -172,57 +156,25 @@ fun main(args: Array<String>) {
                     stringResource(Res.string.Desktop_OpenApp),
                     onClick = { showWindow() },
                 )
-                // Only show update UI on Mac and Windows platforms
+                // Only show update UI on Windows platforms
                 if ((dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Windows)) {
                     Item(
-                        text = getUpdateMenuText(updateSystemState, updateSystemError),
-                        enabled = updateSystemState != UpdateState.CHECKING_FOR_UPDATES,
-                        onClick = {
-                            when {
-                                updateSystemError != null -> {
-                                    Logger.i("Retrying update check after error")
-                                    updateManager.retryLastOperation()
-                                }
-                                updateManager.isHealthy() -> {
-                                    updateManager.checkForUpdates(showUI = true)
-                                }
-                                else -> {
-                                    Logger.w("Update system unhealthy, checking for updates anyway")
-                                    updateManager.checkForUpdates(showUI = true)
-                                }
-                            }
-                        },
+                        text = updateController.getMenuText(),
+                        enabled = updateState != UpdateState.CHECKING_FOR_UPDATES,
+                        onClick = { updateController.checkNow() },
                     )
                     // Show retry option when there are errors
-                    if (updateSystemError != null) {
+                    if (updateError != null) {
                         Item(
                             "Retry Update Check",
-                            onClick = {
-                                Logger.i("Manual retry requested")
-                                updateManager.retryLastOperation()
-                            },
+                            onClick = { updateController.retryLastOperation() },
                         )
                     }
                 }
                 Separator()
                 Item(
                     stringResource(Res.string.Desktop_Quit),
-                    onClick = {
-                        Logger.i("Application shutdown initiated")
-
-                        // Cleanup update manager
-                        CoroutineScope(Dispatchers.IO).launch {
-                            try {
-                                updateManager.cleanup()
-                                Logger.i("Update manager cleaned up successfully")
-                            } catch (e: Exception) {
-                                Logger.e("Error during update manager cleanup: $e")
-                            }
-
-                            exitApplication()
-                            instanceManager.shutdown()
-                        }
-                    },
+                    onClick = onQuitApplicationClicked(updateController, instanceManager),
                 )
             },
         )
@@ -232,6 +184,23 @@ fun main(args: Array<String>) {
         }
     }
 }
+
+private fun ApplicationScope.onQuitApplicationClicked(
+    updateController: DesktopUpdateController,
+    instanceManager: InstanceManager,
+): () -> Unit =
+    {
+        Logger.i("Application shutdown initiated")
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                updateController.cleanup()
+            } catch (e: Exception) {
+                Logger.e("Error during update manager cleanup: $e")
+            }
+            exitApplication()
+            instanceManager.shutdown()
+        }
+    }
 
 @Composable
 private fun trayIcon(): DrawableResource {
@@ -271,122 +240,4 @@ private fun RunBackgroundState.text(): String =
 
         else ->
             ""
-    }
-
-private fun registerWindowsUrlScheme() {
-    if (platform.os != DesktopOS.Windows) return
-
-    val exePath = ProcessHandle
-        .current()
-        .info()
-        .command()
-        .orElse("unknown")
-
-    val keyPath = """HKCU\Software\Classes\ooni"""
-    val checkCommand = """reg query "$keyPath" /ve"""
-
-    try {
-        // Check if the key already exists to avoid unnecessary writes
-        val checkProcess = Runtime.getRuntime().exec(checkCommand)
-        if (checkProcess.waitFor() == 0) {
-            Logger.d("OONI URL scheme already registered.")
-            return
-        }
-    } catch (e: IOException) {
-        Logger.e("Failed to check registry key", e)
-        // Proceed to attempt registration anyway
-    }
-
-    val commands = listOf(
-        """reg add "$keyPath" /ve /d "OONI Run" /f""",
-        """reg add "$keyPath" /v "URL Protocol" /f""",
-        """reg add "$keyPath\shell" /f""",
-        """reg add "$keyPath\shell\open" /f""",
-        """reg add "$keyPath\shell\open\command" /ve /d "\"$exePath\" \"%1\"" /f""",
-    )
-
-    Logger.d("Registering OONI URL scheme...")
-    for (cmd in commands) {
-        try {
-            val process = Runtime.getRuntime().exec(cmd)
-            process.waitFor()
-            if (process.exitValue() != 0) {
-                Logger.d("Command failed: $cmd")
-                process.errorStream
-                    .bufferedReader()
-                    .use { it.lines().forEach { line -> Logger.d(line) } }
-            } else {
-                Logger.d("Command succeeded: $cmd")
-            }
-            Logger.d("Executed command: $cmd")
-        } catch (e: IOException) {
-            Logger.e("Failed to execute command: $cmd", e)
-        }
-    }
-}
-
-/**
- * Sets up the update manager with basic error handling
- */
-private suspend fun setupUpdateManager(
-    updateManager: org.ooni.probe.shared.UpdateManager,
-    onStateChanged: (UpdateError?, UpdateState) -> Unit,
-) {
-    // Set up error callback
-    updateManager.setErrorCallback { error ->
-        Logger.e("Update system error: ${error.message} (code: ${error.code})")
-        onStateChanged(error, updateManager.getCurrentState())
-
-        // Handle specific error types
-        when (error.code) {
-            -3, -4 -> {
-                Logger.e("EdDSA key validation failed. Please check SPARKLE_PUBLIC_KEY configuration.")
-                Logger.e("Current key: ${UpdateConfig.PUBLIC_KEY.take(20)}...")
-            }
-            -1 -> {
-                Logger.w("Network or URL error. Update check will be retried automatically.")
-                Logger.w("Appcast URL: ${UpdateConfig.URL}")
-            }
-            -999 -> {
-                Logger.e("Update system setup or validation error: ${error.message}")
-            }
-            else -> {
-                Logger.w("General update error (${error.code}): ${error.message}")
-            }
-        }
-    }
-
-    // Set up state callback
-    updateManager.setStateCallback { state ->
-        Logger.d("Update system state: $state")
-        onStateChanged(updateManager.getLastError(), state)
-    }
-
-    // Initialize the update system
-    Logger.i("Initializing update system...")
-    Logger.i("Appcast URL: ${UpdateConfig.URL}")
-    Logger.i("Public key configured: ${UpdateConfig.PUBLIC_KEY.isNotEmpty()}")
-
-    updateManager.initialize(UpdateConfig.URL, UpdateConfig.PUBLIC_KEY)
-
-    // Configure automatic updates
-    updateManager.setAutomaticUpdatesEnabled(true)
-    updateManager.setUpdateCheckInterval(24) // Check every 24 hours
-}
-
-/**
- * Generates appropriate menu text based on update system state
- */
-private fun getUpdateMenuText(
-    state: UpdateState,
-    error: UpdateError?,
-): String =
-    when {
-        error != null -> "Retry Update Check (Error: ${error.code})"
-        state == UpdateState.CHECKING_FOR_UPDATES -> "Checking for Updates..."
-        state == UpdateState.UPDATE_AVAILABLE -> "Update Available!"
-        state == UpdateState.NO_UPDATE_AVAILABLE -> "Check for Updates (Up to date)"
-        state == UpdateState.INITIALIZING -> "Initializing Updates..."
-        state == UpdateState.ERROR -> "Update System Error - Retry"
-        else -> "Check for Updates..."
     }
