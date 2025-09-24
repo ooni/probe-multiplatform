@@ -47,9 +47,11 @@ enum class SettingsKey(
     SEND_CRASH("send_crash"),
 
     // Proxy
-    PROXY_HOSTNAME("proxy_hostname"),
-    PROXY_PORT("proxy_port"),
-    PROXY_PROTOCOL("proxy_protocol"),
+    LEGACY_PROXY_HOSTNAME("proxy_hostname"),
+    LEGACY_PROXY_PORT("proxy_port"),
+    LEGACY_PROXY_PROTOCOL("proxy_protocol"),
+    PROXIES_CUSTOM("proxies_custom"),
+    PROXY_SELECTED("proxy_selected"),
 
     // Advanced
     LANGUAGE_SETTING("language_setting"),

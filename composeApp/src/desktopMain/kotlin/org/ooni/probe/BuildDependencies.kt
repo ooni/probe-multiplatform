@@ -4,13 +4,13 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import co.touchlab.kermit.Logger
 import dev.dirs.ProjectDirectories
 import okio.Path.Companion.toPath
-import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.engine.DesktopNetworkTypeFinder
+import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
-import org.ooni.probe.config.DesktopProxyConfig
 import org.ooni.probe.config.FlavorConfigInterface
 import org.ooni.probe.config.OptionalFeature
+import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.buildDatabaseDriver
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
@@ -56,7 +56,7 @@ val dependencies = Dependencies(
     isCleanUpRequired = legacyDirectoryManager::hasLegacyDirectories,
     cleanupLegacyDirectories = legacyDirectoryManager::cleanupLegacyDirectories,
     flavorConfig = DesktopFlavorConfig(),
-    proxyConfig = DesktopProxyConfig(),
+    proxyConfig = ProxyConfig(isPsiphonSupported = false),
 )
 
 private fun buildPlatformInfo(): PlatformInfo {

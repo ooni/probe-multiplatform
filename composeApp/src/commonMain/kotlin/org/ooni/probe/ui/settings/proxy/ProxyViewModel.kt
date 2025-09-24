@@ -2,206 +2,113 @@ package org.ooni.probe.ui.settings.proxy
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
-import org.ooni.probe.config.ProxyConfig
-import org.ooni.probe.data.models.DOMAIN_NAME
-import org.ooni.probe.data.models.IPV6_ADDRESS
-import org.ooni.probe.data.models.IP_ADDRESS
-import org.ooni.probe.data.models.ProxyProtocol
-import org.ooni.probe.data.models.ProxyType
-import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.data.repositories.PreferenceRepository
+import org.ooni.probe.data.models.ProxyOption
+import org.ooni.probe.domain.proxy.TestProxy
+import org.ooni.probe.ui.shared.SelectableItem
 
 class ProxyViewModel(
     onBack: () -> Unit,
-    private val preferenceManager: PreferenceRepository,
-    private val proxyConfig: ProxyConfig,
+    goToAddProxy: () -> Unit,
+    getProxyOptions: () -> Flow<List<SelectableItem<ProxyOption>>>,
+    private val selectProxyOption: suspend (ProxyOption) -> Unit,
+    private val deleteProxyOption: suspend (ProxyOption.Custom) -> Unit,
+    private val testProxy: (ProxyOption.Custom) -> Flow<TestProxy.State>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val _state = MutableStateFlow(
-        State(
-            proxyProtocol = ProxyProtocol.NONE,
-            supportedProxyTypes = proxyConfig.getSupportedProxyTypes(),
-        ),
-    )
+    private val _state = MutableStateFlow(State())
     val state = _state.asStateFlow()
 
     init {
-        preferenceManager
-            .allSettings(
-                listOf(
-                    SettingsKey.PROXY_HOSTNAME,
-                    SettingsKey.PROXY_PORT,
-                    SettingsKey.PROXY_PROTOCOL,
-                ),
-            ).take(1)
-            .onEach { result ->
-                _state.update {
-                    val proxyProtocol = ProxyProtocol.fromValue(
-                        result[SettingsKey.PROXY_PROTOCOL] as? String,
-                    )
-                    it.copy(
-                        proxyHost = result[SettingsKey.PROXY_HOSTNAME] as? String,
-                        proxyPort = (result[SettingsKey.PROXY_PORT] as? Int)?.toString(),
-                        proxyProtocol = proxyProtocol,
-                        proxyType = proxyProtocol.proxyType(),
-                    )
-                }
-            }.launchIn(viewModelScope)
-
-        events
-            .filterIsInstance<Event.ProtocolTypeSelected>()
-            .onEach { event ->
+        getProxyOptions()
+            .onEach { options ->
                 _state.update { state ->
                     state.copy(
-                        proxyType = event.protocolType,
-                        proxyProtocol = when (event.protocolType) {
-                            ProxyType.NONE -> ProxyProtocol.NONE
-                            ProxyType.PSIPHON -> ProxyProtocol.PSIPHON
-                            ProxyType.CUSTOM ->
-                                if (state.proxyProtocol.proxyType() == ProxyType.CUSTOM) {
-                                    state.proxyProtocol
-                                } else {
-                                    ProxyProtocol.NONE
-                                }
-                        },
-                        proxyHost = if (event.protocolType == ProxyType.CUSTOM) {
-                            state.proxyHost
-                        } else {
-                            null
-                        },
-                        proxyPort = if (event.protocolType == ProxyType.CUSTOM) {
-                            state.proxyPort
-                        } else {
-                            null
+                        items = options.map {
+                            Item(
+                                option = it.item,
+                                isSelected = it.isSelected,
+                                // Keep existing state, if there's any
+                                testState = state.items
+                                    .firstOrNull { stateItem -> stateItem.option == it.item }
+                                    ?.testState,
+                            )
                         },
                     )
                 }
-                validateStateAndSave()
+                val selectedOption = options.firstOrNull { it.isSelected }?.item
+                if (selectedOption is ProxyOption.Custom) {
+                    testProxy(selectedOption)
+                        .onEach { testState ->
+                            _state.update { state ->
+                                state.copy(
+                                    items = state.items.map {
+                                        if (it.option == selectedOption) {
+                                            it.copy(testState = testState)
+                                        } else {
+                                            it
+                                        }
+                                    },
+                                )
+                            }
+                        }.launchIn(viewModelScope)
+                }
             }.launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.ProtocolChanged>()
-            .onEach { event ->
-                _state.update { it.copy(proxyProtocol = event.protocol) }
-                validateStateAndSave()
-            }.launchIn(viewModelScope)
+            .filterIsInstance<Event.AddCustomClicked>()
+            .onEach { goToAddProxy() }
+            .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.ProxyHostChanged>()
-            .onEach { event ->
-                _state.update { it.copy(proxyHost = event.host) }
-                validateStateAndSave()
-            }.launchIn(viewModelScope)
+            .filterIsInstance<Event.DeleteCustomClicked>()
+            .onEach { deleteProxyOption(it.option) }
+            .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.ProxyPortChanged>()
-            .onEach { event ->
-                _state.update { it.copy(proxyPort = event.port) }
-                validateStateAndSave()
-            }.launchIn(viewModelScope)
+            .filterIsInstance<Event.OptionSelected>()
+            .onEach { selectProxyOption(it.option) }
+            .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.BackClicked>()
-            .onEach {
-                if (validateStateAndSave()) {
-                    onBack()
-                }
-            }.launchIn(viewModelScope)
+            .onEach { onBack() }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
         events.tryEmit(event)
     }
 
-    private suspend fun validateStateAndSave(): Boolean {
-        val state = _state.value
-
-        val isValid = if (state.proxyType == ProxyType.CUSTOM) {
-            val isProtocolValid = state.proxyProtocol.proxyType() == state.proxyType
-            val isHostValid = state.proxyHost?.let(::isValidDomainNameOrIp) ?: false
-            val isPortValid = state.proxyPort?.let(::isValidPort) ?: false
-            _state.update {
-                it.copy(
-                    proxyProtocolError = !isProtocolValid,
-                    proxyHostError = !isHostValid,
-                    proxyPortError = !isPortValid,
-                )
-            }
-            isProtocolValid && isHostValid && isPortValid
-        } else {
-            true
-        }
-
-        if (isValid) {
-            preferenceManager.setValueByKey(
-                key = SettingsKey.PROXY_PROTOCOL,
-                value = state.proxyProtocol.value,
-            )
-            state.proxyHost?.let {
-                preferenceManager.setValueByKey(
-                    key = SettingsKey.PROXY_HOSTNAME,
-                    value = it,
-                )
-            } ?: preferenceManager.remove(SettingsKey.PROXY_HOSTNAME)
-            state.proxyPort?.toIntOrNull()?.let {
-                preferenceManager.setValueByKey(
-                    key = SettingsKey.PROXY_PORT,
-                    value = it,
-                )
-            } ?: preferenceManager.remove(SettingsKey.PROXY_PORT)
-        }
-
-        return isValid
-    }
-
-    private fun isValidPort(port: String): Boolean {
-        val portInt = port.toIntOrNull() ?: return false
-
-        return portInt in 1..65535
-    }
-
-    private fun isValidDomainNameOrIp(host: String): Boolean =
-        host.matches(IP_ADDRESS.toRegex()) ||
-            host.matches(IPV6_ADDRESS.toRegex()) ||
-            host.matches(DOMAIN_NAME.toRegex())
-
     data class State(
-        val proxyHost: String? = null,
-        val proxyHostError: Boolean = false,
-        val proxyPort: String? = null,
-        val proxyPortError: Boolean = false,
-        val proxyProtocol: ProxyProtocol,
-        val proxyProtocolError: Boolean = false,
-        val proxyType: ProxyType = proxyProtocol.proxyType(),
-        val supportedProxyTypes: List<ProxyType> = ProxyType.entries,
+        val items: List<Item> = emptyList(),
     )
 
     sealed interface Event {
         data object BackClicked : Event
 
-        data class ProtocolTypeSelected(
-            val protocolType: ProxyType,
+        data class OptionSelected(
+            val option: ProxyOption,
         ) : Event
 
-        data class ProtocolChanged(
-            val protocol: ProxyProtocol,
-        ) : Event
+        data object AddCustomClicked : Event
 
-        data class ProxyHostChanged(
-            val host: String,
-        ) : Event
-
-        data class ProxyPortChanged(
-            val port: String,
+        data class DeleteCustomClicked(
+            val option: ProxyOption.Custom,
         ) : Event
     }
+
+    data class Item(
+        val option: ProxyOption,
+        val isSelected: Boolean,
+        val testState: TestProxy.State?,
+    )
 }

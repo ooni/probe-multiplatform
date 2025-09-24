@@ -40,6 +40,7 @@ import org.ooni.probe.ui.settings.SettingsScreen
 import org.ooni.probe.ui.settings.about.AboutScreen
 import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
 import org.ooni.probe.ui.settings.donate.DonateScreen
+import org.ooni.probe.ui.settings.proxy.AddProxyScreen
 import org.ooni.probe.ui.settings.proxy.ProxyScreen
 import org.ooni.probe.ui.settings.support.SupportScreen
 import org.ooni.probe.ui.settings.webcategories.WebCategoriesScreen
@@ -205,7 +206,10 @@ fun Navigation(
 
                 PreferenceCategoryKey.PROXY -> {
                     val viewModel = viewModel {
-                        dependencies.proxyViewModel(onBack = { navController.goBack() })
+                        dependencies.proxyViewModel(
+                            onBack = { navController.goBack() },
+                            goToAddProxy = { navController.safeNavigate(Screen.AddProxy) },
+                        )
                     }
                     val state by viewModel.state.collectAsState()
                     ProxyScreen(state, viewModel::onEvent)
@@ -233,6 +237,14 @@ fun Navigation(
                     SettingsCategoryScreen(state, viewModel::onEvent)
                 }
             }
+        }
+
+        composable<Screen.AddProxy> {
+            val viewModel = viewModel {
+                dependencies.addProxyViewModel(onBack = { navController.goBack() })
+            }
+            val state by viewModel.state.collectAsState()
+            AddProxyScreen(state, viewModel::onEvent)
         }
 
         composable<Screen.RunTests> { entry ->

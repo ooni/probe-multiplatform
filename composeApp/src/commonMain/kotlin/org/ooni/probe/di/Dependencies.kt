@@ -20,7 +20,6 @@ import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
 import org.ooni.probe.background.RunBackgroundTask
 import org.ooni.probe.config.BatteryOptimization
-import org.ooni.probe.config.DefaultProxyConfig
 import org.ooni.probe.config.FlavorConfigInterface
 import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.disk.DeleteFiles
@@ -60,7 +59,6 @@ import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetFirstRun
 import org.ooni.probe.domain.GetLastResultOfDescriptor
 import org.ooni.probe.domain.GetMeasurementsNotUploaded
-import org.ooni.probe.domain.GetProxySettings
 import org.ooni.probe.domain.GetResult
 import org.ooni.probe.domain.GetResults
 import org.ooni.probe.domain.GetSettings
@@ -89,6 +87,8 @@ import org.ooni.probe.domain.descriptors.GetTestDescriptorsBySpec
 import org.ooni.probe.domain.descriptors.RejectDescriptorUpdate
 import org.ooni.probe.domain.descriptors.SaveTestDescriptors
 import org.ooni.probe.domain.descriptors.UndoRejectedDescriptorUpdate
+import org.ooni.probe.domain.proxy.ProxyManager
+import org.ooni.probe.domain.proxy.TestProxy
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.shared.monitoring.AppLogger
 import org.ooni.probe.shared.monitoring.CrashMonitoring
@@ -110,6 +110,7 @@ import org.ooni.probe.ui.running.RunningViewModel
 import org.ooni.probe.ui.settings.SettingsViewModel
 import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
+import org.ooni.probe.ui.settings.proxy.AddProxyViewModel
 import org.ooni.probe.ui.settings.proxy.ProxyViewModel
 import org.ooni.probe.ui.settings.webcategories.WebCategoriesViewModel
 import org.ooni.probe.ui.upload.UploadMeasurementsViewModel
@@ -138,7 +139,7 @@ class Dependencies(
     val cleanupLegacyDirectories: (suspend () -> Boolean)? = null,
     private val batteryOptimization: BatteryOptimization,
     val flavorConfig: FlavorConfigInterface,
-    val proxyConfig: ProxyConfig = DefaultProxyConfig(),
+    val proxyConfig: ProxyConfig,
 ) {
     // Common
 
@@ -304,11 +305,10 @@ class Dependencies(
         GetBootstrapTestDescriptors(readAssetFile, json, backgroundContext)
     }
     private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
-    private val getProxySettings by lazy { GetProxySettings(preferenceRepository) }
     private val getEnginePreferences by lazy {
         GetEnginePreferences(
             preferencesRepository = preferenceRepository,
-            getProxySettings = getProxySettings::invoke,
+            getProxyOption = proxyManager::selected,
         )
     }
     private val getFirstRun by lazy { GetFirstRun(preferenceRepository) }
@@ -398,6 +398,14 @@ class Dependencies(
             startDescriptorsUpdate = startDescriptorsUpdate,
         )
     }
+    private val proxyManager by lazy {
+        ProxyManager(
+            getPreference = preferenceRepository::getValueByKey,
+            setPreference = preferenceRepository::setValueByKey,
+            removePreference = preferenceRepository::remove,
+            proxyConfig = proxyConfig,
+        )
+    }
     private val rejectDescriptorUpdate by lazy {
         RejectDescriptorUpdate(
             updateDescriptorRejectedRevision = testDescriptorRepository::updateRejectedRevision,
@@ -454,16 +462,6 @@ class Dependencies(
             updateDescriptorRejectedRevision = testDescriptorRepository::updateRejectedRevision,
         )
     }
-    private val uploadMissingMeasurements by lazy {
-        UploadMissingMeasurements(
-            getMeasurementsNotUploaded = getMeasurementsNotUploaded::invoke,
-            submitMeasurement = engine::submitMeasurements,
-            readFile = readFile,
-            deleteFiles = deleteFiles,
-            updateMeasurement = measurementRepository::createOrUpdate,
-            deleteMeasurementById = measurementRepository::deleteById,
-        )
-    }
 
     private fun runNetTest(spec: RunNetTest.Specification) =
         RunNetTest(
@@ -478,6 +476,23 @@ class Dependencies(
             json = json,
             spec = spec,
         )
+
+    private val uploadMissingMeasurements by lazy {
+        UploadMissingMeasurements(
+            getMeasurementsNotUploaded = getMeasurementsNotUploaded::invoke,
+            submitMeasurement = engine::submitMeasurements,
+            readFile = readFile,
+            deleteFiles = deleteFiles,
+            updateMeasurement = measurementRepository::createOrUpdate,
+            deleteMeasurementById = measurementRepository::deleteById,
+        )
+    }
+    private val testProxy by lazy {
+        TestProxy(
+            httpDo = engine::httpDo,
+            backgroundContext = backgroundContext,
+        )
+    }
 
     // Background
 
@@ -501,6 +516,12 @@ class Dependencies(
         AboutViewModel(onBack = onBack, launchUrl = {
             launchAction(PlatformAction.OpenUrl(it))
         }, platformInfo = platformInfo)
+
+    fun addProxyViewModel(onBack: () -> Unit) =
+        AddProxyViewModel(
+            onBack = onBack,
+            addCustomProxy = proxyManager::addCustom,
+        )
 
     fun addDescriptorViewModel(
         descriptorId: String,
@@ -613,12 +634,17 @@ class Dependencies(
         cleanupLegacyDirectories = cleanupLegacyDirectories,
     )
 
-    fun proxyViewModel(onBack: () -> Unit) =
-        ProxyViewModel(
-            onBack = onBack,
-            preferenceManager = preferenceRepository,
-            proxyConfig = proxyConfig,
-        )
+    fun proxyViewModel(
+        onBack: () -> Unit,
+        goToAddProxy: () -> Unit,
+    ) = ProxyViewModel(
+        onBack = onBack,
+        goToAddProxy = goToAddProxy,
+        getProxyOptions = proxyManager::all,
+        selectProxyOption = proxyManager::select,
+        deleteProxyOption = proxyManager::deleteCustom,
+        testProxy = testProxy::invoke,
+    )
 
     fun resultsViewModel(
         goToResult: (ResultModel.Id) -> Unit,
@@ -644,7 +670,7 @@ class Dependencies(
         observeRunBackgroundState = runBackgroundStateManager.observeState(),
         observeTestRunErrors = runBackgroundStateManager.observeErrors(),
         cancelTestRun = runBackgroundStateManager::cancel,
-        getProxySettings = getProxySettings::invoke,
+        getProxyOption = proxyManager::selected,
     )
 
     fun runViewModel(onBack: () -> Unit) =

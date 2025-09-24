@@ -32,6 +32,7 @@ import org.ooni.engine.AndroidOonimkallBridge
 import org.ooni.probe.background.AppWorkerManager
 import org.ooni.probe.config.AndroidBatteryOptimization
 import org.ooni.probe.config.FlavorConfig
+import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
@@ -63,6 +64,7 @@ class AndroidApplication : Application() {
             batteryOptimization = batteryOptimization,
             isWebViewAvailable = ::isWebViewAvailable,
             flavorConfig = FlavorConfig(),
+            proxyConfig = ProxyConfig(isPsiphonSupported = true),
         )
     }
 
