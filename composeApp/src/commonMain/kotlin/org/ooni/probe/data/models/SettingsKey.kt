@@ -9,6 +9,8 @@ enum class SettingsKey(
     AUTOMATED_TESTING_CHARGING("automated_testing_charging"),
     MAX_RUNTIME_ENABLED("max_runtime_enabled"),
     MAX_RUNTIME("max_runtime"),
+    DELETE_OLD_RESULTS("delete_old_results"),
+    DELETE_OLD_RESULTS_THRESHOLD("delete_old_results_threshold"),
 
     // Website categories
     SRCH("SRCH"),

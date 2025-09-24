@@ -34,6 +34,10 @@ import ooniprobe.composeapp.generated.resources.Settings_Legacy_Storage
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_SendCrashReports
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
+import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResults
+import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResultsThreshold
+import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResultsThreshold_Description
+import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResultsThreshold_Unit
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_Description
 import ooniprobe.composeapp.generated.resources.Settings_Storage_Clear
@@ -54,6 +58,7 @@ import ooniprobe.composeapp.generated.resources.ic_support
 import ooniprobe.composeapp.generated.resources.outline_info
 import ooniprobe.composeapp.generated.resources.privacy
 import ooniprobe.composeapp.generated.resources.proxy
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.config.OrganizationConfig
@@ -66,8 +71,8 @@ import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.ui.settings.category.SettingsDescription
 import org.ooni.probe.ui.settings.donate.DONATE_SETTINGS_ITEM
-import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.format
+import org.ooni.probe.ui.shared.formatDataUsage
 import kotlin.time.Duration.Companion.seconds
 
 class GetSettings(
@@ -89,6 +94,8 @@ class GetSettings(
                     SettingsKey.AUTOMATED_TESTING_ENABLED,
                     SettingsKey.MAX_RUNTIME_ENABLED,
                     SettingsKey.MAX_RUNTIME,
+                    SettingsKey.DELETE_OLD_RESULTS,
+                    SettingsKey.DELETE_OLD_RESULTS_THRESHOLD,
                 ),
             ),
             observeStorageUsed(),
@@ -101,6 +108,8 @@ class GetSettings(
                 enabledCategoriesCount = enabledCategoriesCount,
                 maxRuntimeEnabled = preferences[SettingsKey.MAX_RUNTIME_ENABLED] == true,
                 maxRuntime = preferences[SettingsKey.MAX_RUNTIME] as? Int,
+                deleteOldResults = preferences[SettingsKey.DELETE_OLD_RESULTS] == true,
+                deleteOldResultsThreshold = preferences[SettingsKey.DELETE_OLD_RESULTS_THRESHOLD] as? Int,
                 storageUsed = storageUsed,
                 supportsCrashReporting = supportsCrashReporting,
             )
@@ -112,6 +121,8 @@ class GetSettings(
         enabledCategoriesCount: Int,
         maxRuntimeEnabled: Boolean,
         maxRuntime: Int?,
+        deleteOldResults: Boolean,
+        deleteOldResultsThreshold: Int?,
         storageUsed: Long,
         supportsCrashReporting: Boolean = false,
     ): List<SettingsCategoryItem> =
@@ -176,7 +187,6 @@ class GetSettings(
                                     style = MaterialTheme.typography.labelLarge,
                                 )
                             },
-                            indentation = 0,
                         )
                     } else {
                         null
@@ -295,6 +305,37 @@ class GetSettings(
                         key = SettingsKey.WARN_VPN_IN_USE,
                         type = PreferenceItemType.SWITCH,
                     ),
+                    SettingsItem(
+                        title = Res.string.Settings_Results_DeleteOldResults,
+                        key = SettingsKey.DELETE_OLD_RESULTS,
+                        type = PreferenceItemType.SWITCH,
+                    ),
+                    if (deleteOldResults) {
+                        SettingsItem(
+                            title = Res.string.Settings_Results_DeleteOldResultsThreshold,
+                            key = SettingsKey.DELETE_OLD_RESULTS_THRESHOLD,
+                            type = PreferenceItemType.INT,
+                            supportingContent = {
+                                val value = (
+                                    deleteOldResultsThreshold
+                                        ?: DeleteOldResults.DELETE_OLD_RESULTS_THRESHOLD_DEFAULT_IN_MONTHS
+                                ).coerceAtLeast(1)
+                                Text(
+                                    pluralStringResource(
+                                        Res.plurals.Settings_Results_DeleteOldResultsThreshold_Description,
+                                        value,
+                                        value,
+                                    ),
+                                )
+                            },
+                            valuePickerSupportContent = {
+                                Text(stringResource(Res.string.Settings_Results_DeleteOldResultsThreshold_Unit))
+                            },
+                            indentation = 1,
+                        )
+                    } else {
+                        null
+                    },
                     if (isCleanUpRequired() && cleanupLegacyDirectories != null) {
                         SettingsItem(
                             title = Res.string.Settings_Legacy_Storage,

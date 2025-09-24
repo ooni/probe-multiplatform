@@ -2,12 +2,15 @@ package org.ooni.probe.uitesting
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.CategoryCode_ANON_Name
 import ooniprobe.composeapp.generated.resources.Common_Back
+import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_DebugLogs
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
@@ -18,6 +21,8 @@ import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_SendCrashReports
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Psiphon
+import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResults
+import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResultsThreshold
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_Title
@@ -30,7 +35,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.engine.models.WebConnectivityCategory
-import org.ooni.probe.data.models.ProxyProtocol
+import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.clickOnContentDescription
 import org.ooni.probe.uitesting.helpers.clickOnText
@@ -149,9 +154,7 @@ class SettingsTest {
     fun proxy() =
         runTest {
             preferences.setValuesByKey(
-                listOf(
-                    SettingsKey.PROXY_PROTOCOL to "NONE",
-                ),
+                listOf(SettingsKey.PROXY_SELECTED to ProxyOption.None.value),
             )
 
             with(compose) {
@@ -161,8 +164,8 @@ class SettingsTest {
 
                 wait {
                     preferences
-                        .getValueByKey(SettingsKey.PROXY_PROTOCOL)
-                        .first() == ProxyProtocol.PSIPHON.value
+                        .getValueByKey(SettingsKey.PROXY_SELECTED)
+                        .first() == ProxyOption.Psiphon.value
                 }
             }
         }
@@ -186,6 +189,14 @@ class SettingsTest {
 
                 clickOnText(Res.string.Settings_WarmVPNInUse_Label)
                 wait { preferences.getValueByKey(SettingsKey.WARN_VPN_IN_USE).first() == true }
+
+                clickOnText(Res.string.Settings_Results_DeleteOldResults)
+                wait { preferences.getValueByKey(SettingsKey.DELETE_OLD_RESULTS).first() == true }
+
+                clickOnText(Res.string.Settings_Results_DeleteOldResultsThreshold)
+                onNodeWithTag("NumberPickerField").performTextInput("8")
+                clickOnText(Res.string.Modal_OK)
+                wait { preferences.getValueByKey(SettingsKey.DELETE_OLD_RESULTS_THRESHOLD).first() == 8 }
             }
         }
 }

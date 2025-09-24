@@ -30,6 +30,9 @@ class BootstrapPreferences(
                 SettingsKey.AUTOMATED_TESTING_WIFIONLY to true,
                 SettingsKey.AUTOMATED_TESTING_CHARGING to true,
                 SettingsKey.WARN_VPN_IN_USE to true,
+                SettingsKey.DELETE_OLD_RESULTS to true,
+                SettingsKey.DELETE_OLD_RESULTS_THRESHOLD to
+                    DeleteOldResults.DELETE_OLD_RESULTS_THRESHOLD_DEFAULT_IN_MONTHS,
             ) +
                 organizationPreferenceDefaults(),
         )
