@@ -412,7 +412,7 @@ compose.desktop {
                 "OONI Probe is a free and open source software designed to measure internet censorship and other forms of network interference."
             copyright = "© ${LocalDate.now().year} OONI. All rights reserved."
             vendor = "Open Observatory of Network Interference (OONI)"
-            // licenseFile = rootProject.file("LICENSE")
+            licenseFile = rootProject.file("LICENSE")
 
             modules("java.sql", "jdk.unsupported")
 

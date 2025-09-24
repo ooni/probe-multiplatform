@@ -17,6 +17,8 @@ fun registerWindowsUrlScheme() {
     val keyPath = """HKCU\Software\Classes\ooni"""
     val checkCommand = """reg query "$keyPath" /ve"""
 
+    /*
+
     try {
         // Check if the key already exists to avoid unnecessary writes
         val checkProcess = Runtime.getRuntime().exec(checkCommand)
@@ -28,6 +30,8 @@ fun registerWindowsUrlScheme() {
         Logger.e("Failed to check registry key", e)
         // Proceed to attempt registration anyway
     }
+
+    */
 
     val commands = listOf(
         """reg add "$keyPath" /ve /d "OONI Run" /f""",
