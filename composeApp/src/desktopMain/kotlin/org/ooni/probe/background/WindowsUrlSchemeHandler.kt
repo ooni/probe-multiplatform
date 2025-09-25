@@ -31,7 +31,7 @@ fun registerWindowsUrlScheme() {
         // Proceed to attempt registration anyway
     }
 
-    */
+     */
 
     val commands = listOf(
         """reg add "$keyPath" /ve /d "OONI Run" /f""",
