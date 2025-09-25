@@ -3,7 +3,6 @@ package org.ooni.probe.data.repositories
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
@@ -121,7 +120,7 @@ class MeasurementRepositoryTest {
     fun selectTestKeys() =
         runTest {
             val descriptor = DescriptorFactory.buildDescriptorWithInstalled()
-            val installedDescriptor = (descriptor.source as Descriptor.Source.Installed).value
+            val installedDescriptor = descriptor.source!!
             val resultId1 = resultRepository.createOrUpdate(
                 ResultModelFactory.build(id = null, descriptorKey = installedDescriptor.key),
             )

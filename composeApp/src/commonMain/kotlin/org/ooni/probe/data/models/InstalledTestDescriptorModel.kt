@@ -24,7 +24,6 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.SummaryType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.TestDescriptor
-import org.ooni.probe.data.models.Descriptor.Source
 import org.ooni.probe.shared.InstalledDescriptorIcons
 import org.ooni.probe.shared.hexToColor
 import org.ooni.probe.shared.now
@@ -122,7 +121,7 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
         dataUsage = { if (isDefaultTestDescriptor) stringResource(getDataUsage()) else null },
         expirationDate = expirationDate,
         netTests = netTests.orEmpty(),
-        source = Descriptor.Source.Installed(this),
+        source = this,
         updateStatus = updateStatus,
         // In the future, this will become a DB field with a value provided by the back-end
         summaryType = SummaryType.Anomaly,
