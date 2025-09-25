@@ -22,31 +22,18 @@ data class Descriptor(
     val expirationDate: LocalDateTime?,
     val netTests: List<NetTest>,
     val longRunningTests: List<NetTest> = emptyList(),
-    val source: Source,
+    val source: InstalledTestDescriptorModel,
     val updateStatus: UpdateStatus,
     val enabled: Boolean = true,
     val summaryType: SummaryType,
 ) {
-    sealed interface Source {
-        data class Default(
-            val value: DefaultTestDescriptor,
-        ) : Source
-
-        data class Installed(
-            val value: InstalledTestDescriptorModel,
-        ) : Source
-    }
-
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 
     val updatedDescriptor
         get() = (updateStatus as? UpdateStatus.Updatable)?.updatedDescriptor
 
     val key: String
-        get() = when (source) {
-            is Source.Default -> name
-            is Source.Installed -> source.value.id.value
-        }
+        get() = source.key.id.value
 
     val allTests get() = netTests + longRunningTests
 
@@ -57,6 +44,11 @@ data class Descriptor(
 
     val isWebConnectivityOnly get() =
         allTests.size == 1 && allTests.first().test == TestType.WebConnectivity
+
+    val settingsPrefix: String?
+        get() = source.id.value
+
+    fun isDefault(): Boolean = source.isDefaultTestDescriptor
 }
 
 fun List<Descriptor>.notExpired() = filter { !it.isExpired }
