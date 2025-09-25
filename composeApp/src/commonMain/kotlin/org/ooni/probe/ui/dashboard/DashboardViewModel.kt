@@ -162,7 +162,7 @@ class DashboardViewModel(
                 dismissDescriptorsUpdateNotice()
                 goToReviewDescriptorUpdates(
                     listOf(
-                        (it.descriptor.source as? Descriptor.Source.Installed)?.value?.id
+                        it.descriptor.source?.id
                             ?: return@onEach,
                     ),
                 )
@@ -211,12 +211,12 @@ class DashboardViewModel(
         listOf(
             DescriptorSection(
                 type = DescriptorType.Installed,
-                descriptors = filter { it.isInstalledNonDefaultDescriptor() },
+                descriptors = filter { !it.isDefault() },
                 isCollapsed = collapsedSections.contains(DescriptorType.Installed),
             ),
             DescriptorSection(
                 type = DescriptorType.Default,
-                descriptors = filter { it.isDefaultDescriptor() },
+                descriptors = filter { it.isDefault() },
                 isCollapsed = collapsedSections.contains(DescriptorType.Default),
             ),
         )

@@ -67,8 +67,7 @@ class RunNetTest(
                     testTotal = spec.testTotal,
                 )
             }
-            val installedDescriptorId =
-                (spec.descriptor.source as? Descriptor.Source.Installed)?.value?.id
+            val installedDescriptorId = spec.descriptor.source?.id
 
             try {
                 startTest(

@@ -22,31 +22,18 @@ data class Descriptor(
     val expirationDate: LocalDateTime?,
     val netTests: List<NetTest>,
     val longRunningTests: List<NetTest> = emptyList(),
-    val source: Source,
+    val source: InstalledTestDescriptorModel,
     val updateStatus: UpdateStatus,
     val enabled: Boolean = true,
     val summaryType: SummaryType,
 ) {
-    sealed interface Source {
-        data class Default(
-            val value: DefaultTestDescriptor,
-        ) : Source
-
-        data class Installed(
-            val value: InstalledTestDescriptorModel,
-        ) : Source
-    }
-
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 
     val updatedDescriptor
         get() = (updateStatus as? UpdateStatus.Updatable)?.updatedDescriptor
 
     val key: String
-        get() = when (source) {
-            is Source.Default -> name
-            is Source.Installed -> source.value.key.id.value
-        }
+        get() = source.key.id.value
 
     val allTests get() = netTests + longRunningTests
 
@@ -59,33 +46,19 @@ data class Descriptor(
         get() =
             allTests.size == 1 && allTests.first().test == TestType.WebConnectivity
 
-    val runLink get() = (source as? Source.Installed)?.value?.runLink
+    val runLink get() = source.runLink
 
-    val settingsPrefix: String?
-        get() = when (isDefaultDescriptor()) {
-            true -> null
-            else -> (source as Source.Installed)
-                .value.id.value
-        }
+    val settingsPrefix: String
+        get() = source.id.value
 
-    fun isDefaultDescriptor(): Boolean =
-        when (source) {
-            is Source.Default -> true
-            is Source.Installed -> source.value.isDefaultTestDescriptor
-        }
-
-    fun isInstalledNonDefaultDescriptor(): Boolean =
-        when (source) {
-            is Source.Installed -> !source.value.isDefaultTestDescriptor
-            else -> false
-        }
+    fun isDefault(): Boolean = source.isDefaultTestDescriptor
 
     companion object {
         val SORT_COMPARATOR =
-            compareByDescending<Descriptor> { it.source is Source.Installed }
+            compareByDescending<Descriptor> { it.isDefault() }
                 .thenBy { it.isExpired }
-                .thenByDescending { (it.source as? Source.Installed)?.value?.dateInstalled }
-                .thenByDescending { (it.source as? Source.Installed)?.value?.id?.value }
+                .thenByDescending { it.source.dateInstalled }
+                .thenByDescending { it.source.id.value }
     }
 }
 
