@@ -35,9 +35,10 @@ sealed interface RunSpecification {
 
             companion object {
                 fun fromDescriptor(descriptor: Descriptor) =
-                    when (descriptor.source) {
-                        is Descriptor.Source.Default -> Default(descriptor.name)
-                        is Descriptor.Source.Installed -> Installed(descriptor.source.value.id)
+                    if (descriptor.isDefault()) {
+                        Default(descriptor.name)
+                    } else {
+                        Installed(descriptor.source.id)
                     }
             }
         }

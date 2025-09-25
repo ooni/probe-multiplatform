@@ -89,9 +89,13 @@ class RunViewModel(
 
             mapOf(
                 DescriptorType.Default to descriptorsWithTests
-                    .filter { it.key.item.isDefaultDescriptor() },
+                    .filter { it.key.item.isDefault() },
                 DescriptorType.Installed to descriptorsWithTests
-                    .filter { it.key.item.isInstalledNonDefaultDescriptor() },
+                    .filter {
+                        it.key.item
+                            .isDefault()
+                            .not()
+                    },
             )
         }.onEach { list -> _state.update { it.copy(list = list) } }
             .launchIn(viewModelScope)

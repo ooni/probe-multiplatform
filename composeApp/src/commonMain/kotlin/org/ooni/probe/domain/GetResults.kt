@@ -38,9 +38,7 @@ fun List<Descriptor>.forResult(result: ResultModel): Descriptor? =
     result.descriptorKey
         ?.let { key ->
             firstOrNull {
-                it.source is Descriptor.Source.Installed &&
-                    it.source.value.key
-                        .toString() == key.toString()
+                it.source?.key?.toString() == key.toString()
             }
         }
         ?: firstOrNull { it.name == result.descriptorName }

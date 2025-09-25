@@ -149,7 +149,7 @@ class DashboardViewModel(
                 dismissDescriptorsUpdateNotice()
                 goToReviewDescriptorUpdates(
                     listOf(
-                        (it.descriptor.source as? Descriptor.Source.Installed)?.value?.id
+                        it.descriptor.source?.id
                             ?: return@onEach,
                     ),
                 )
@@ -181,8 +181,8 @@ class DashboardViewModel(
 
     private fun List<Descriptor>.groupByType() =
         mapOf(
-            DescriptorType.Default to filter { it.isDefaultDescriptor() },
-            DescriptorType.Installed to filter { it.isInstalledNonDefaultDescriptor() },
+            DescriptorType.Default to filter { it.isDefault() },
+            DescriptorType.Installed to filter { it.isDefault().not() },
         )
 
     data class State(

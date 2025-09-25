@@ -152,7 +152,7 @@ class RunDescriptors(
     ) {
         val result = ResultModel(
             descriptorName = descriptor.name,
-            descriptorKey = (descriptor.source as? Descriptor.Source.Installed)?.value?.key,
+            descriptorKey = descriptor.source?.key,
             taskOrigin = taskOrigin,
         )
         val resultId = storeResult(result)
