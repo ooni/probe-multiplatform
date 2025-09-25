@@ -172,8 +172,7 @@ class DescriptorViewModel(
             .filterIsInstance<Event.AutoUpdateChanged>()
             .onEach {
                 val descriptor = state.value.descriptor ?: return@onEach
-                if (descriptor.source !is Descriptor.Source.Installed) return@onEach
-                setAutoUpdate(descriptor.source.value.id, it.value)
+                setAutoUpdate(descriptor.source.id, it.value)
             }.launchIn(viewModelScope)
 
         events
@@ -182,8 +181,7 @@ class DescriptorViewModel(
                 if (state.value.isRefreshing) return@onEach
                 val descriptor = state.value.descriptor ?: return@onEach
 
-                if (descriptor.source !is Descriptor.Source.Installed) return@onEach
-                startDescriptorsUpdate(listOf(descriptor.source.value))
+                startDescriptorsUpdate(listOf(descriptor.source))
             }.launchIn(viewModelScope)
 
         events
@@ -198,7 +196,7 @@ class DescriptorViewModel(
             .filterIsInstance<Event.UndoRejectedRevisionClicked>()
             .onEach {
                 val descriptor =
-                    (state.value.descriptor?.source as? Descriptor.Source.Installed)?.value
+                    state.value.descriptor?.source
                         ?: return@onEach
                 undoRejectedDescriptorUpdate(descriptor.id)
                 startDescriptorsUpdate(listOf(descriptor))
@@ -271,15 +269,16 @@ class DescriptorViewModel(
         events
             .filterIsInstance<Event.SeeMoreWebsitesClicked>()
             .onEach {
-                (state.value.descriptor?.source as? Descriptor.Source.Installed)
-                    ?.let { descriptor -> goToDescriptorWebsites(descriptor.value.id) }
+                state.value.descriptor
+                    ?.source
+                    ?.let { installed -> goToDescriptorWebsites(installed.id) }
             }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ShareClicked>()
             .onEach {
                 val descriptor = state.value.descriptor ?: return@onEach
-                val runLink = descriptor.runLink ?: return@onEach
+                val runLink = descriptor.runLink
                 launchAction(PlatformAction.Share("${descriptor.name} $runLink"))
             }.launchIn(viewModelScope)
     }
@@ -316,12 +315,10 @@ class DescriptorViewModel(
             RunSpecification.Full(
                 tests = listOf(
                     RunSpecification.Test(
-                        source = when (descriptor.source) {
-                            is Descriptor.Source.Default ->
-                                RunSpecification.Test.Source.Default(descriptor.name)
-
-                            is Descriptor.Source.Installed ->
-                                RunSpecification.Test.Source.Installed(descriptor.source.value.id)
+                        source = if (descriptor.source == null) {
+                            RunSpecification.Test.Source.Default(descriptor.name)
+                        } else {
+                            RunSpecification.Test.Source.Installed(descriptor.source.id)
                         },
                         netTests = descriptor.allTests,
                     ),
@@ -350,7 +347,7 @@ class DescriptorViewModel(
                 tests.size -> ToggleableState.On
                 else -> ToggleableState.Indeterminate
             }
-        val isRefreshEnabled get() = descriptor?.source is Descriptor.Source.Installed
+        val isRefreshEnabled get() = descriptor?.source != null
     }
 
     sealed interface Event {

@@ -35,12 +35,12 @@ class GetTestDescriptorsBySpec(
     private fun RunSpecification.Full.forDescriptor(descriptor: Descriptor) =
         tests.firstOrNull { specTest ->
             when (val source = descriptor.source) {
-                is Descriptor.Source.Default ->
+                null ->
                     specTest.source is RunSpecification.Test.Source.Default &&
-                        specTest.source.name == source.value.label
-                is Descriptor.Source.Installed ->
+                        specTest.source.name == descriptor.name
+                else ->
                     specTest.source is RunSpecification.Test.Source.Installed &&
-                        specTest.source.id == source.value.id
+                        specTest.source.id == source.id
             }
         }
 

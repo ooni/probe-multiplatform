@@ -176,8 +176,8 @@ fun DescriptorScreen(
                     HorizontalDivider(Modifier.padding(bottom = 16.dp), thickness = Dp.Hairline)
                 }
 
-                if (descriptor.source is Descriptor.Source.Installed) {
-                    ConfigureUpdates(onEvent, descriptor.source.value.autoUpdate)
+                if (descriptor.source != null) {
+                    ConfigureUpdates(onEvent, descriptor.source?.autoUpdate == true)
                 }
 
                 Text(
@@ -236,7 +236,7 @@ fun DescriptorScreen(
 
                 when (OrganizationConfig.testDisplayMode) {
                     TestDisplayMode.Regular -> {
-                        if (!state.tests.isSingleWebConnectivityTest() || descriptor.source is Descriptor.Source.Default) {
+                        if (!state.tests.isSingleWebConnectivityTest() || descriptor.isDefault()) {
                             TestItems(
                                 descriptor,
                                 state.tests,
@@ -261,9 +261,9 @@ fun DescriptorScreen(
                     )
                 }
 
-                if (descriptor.source is Descriptor.Source.Installed) {
+                descriptor.source?.let { installed ->
                     InstalledDescriptorActionsView(
-                        descriptor = descriptor.source.value,
+                        descriptor = installed,
                         showCheckUpdatesButton = !state.canPullToRefresh,
                         onEvent = onEvent,
                         modifier = Modifier.padding(horizontal = 16.dp),

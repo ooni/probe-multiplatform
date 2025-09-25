@@ -35,9 +35,10 @@ sealed interface RunSpecification {
 
             companion object {
                 fun fromDescriptor(descriptor: Descriptor) =
-                    when (descriptor.source) {
-                        is Descriptor.Source.Default -> Default(descriptor.name)
-                        is Descriptor.Source.Installed -> Installed(descriptor.source.value.id)
+                    if (descriptor.isDefault()) {
+                        Installed(descriptor.source.id)
+                    } else {
+                        Installed(descriptor.source.id)
                     }
             }
         }
@@ -80,13 +81,7 @@ sealed interface RunSpecification {
         ) = Full(
             tests = listOf(
                 Test(
-                    source = when (descriptor.source) {
-                        is Descriptor.Source.Default ->
-                            Test.Source.Default(descriptor.name)
-
-                        is Descriptor.Source.Installed ->
-                            Test.Source.Installed(descriptor.source.value.id)
-                    },
+                    source = Test.Source.Installed(descriptor.source.id),
                     netTests = descriptor.allTests,
                 ),
             ),

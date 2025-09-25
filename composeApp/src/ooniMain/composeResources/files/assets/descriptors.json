@@ -490,23 +490,47 @@
                 "inputs": [],
                 "options": {},
                 "backend_options": {},
-                "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true
             },
             {
                 "test_name": "openvpn",
                 "inputs": [],
                 "options": {},
                 "backend_options": {},
-                "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true
+            },
+            {
+                "test_name": "echcheck",
+                "inputs": [],
+                "options": {},
+                "backend_options": {},
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true
+            },
+            {
+                "test_name": "dnscheck",
+                "inputs": [],
+                "options": {},
+                "backend_options": {},
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true
+            },
+            {
+                "test_name": "torsf",
+                "inputs": [],
+                "options": {},
+                "backend_options": {},
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true
             },
             {
                 "test_name": "vanilla_tor",
                 "inputs": [],
                 "options": {},
                 "backend_options": {},
-                "is_background_run_enabled_default": false,
+                "is_background_run_enabled_default": true,
                 "is_manual_run_enabled_default": false
             }
         ],
