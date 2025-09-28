@@ -28,6 +28,7 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Link deinstallieren</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Frühere Überarbeitungen</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Weitere Informationen</string>
+    <string name="Dashboard_Runv2_Websites_SeeAll">Alle %1$d Websites anzeigen</string>
     <string name="Dashboard_RunV2_ExpiredTag">ABGELAUFEN</string>
     <string name="Dashboard_RunV2_UpdatedTag">AKTUALISIERT</string>
     <string name="Dashboard_RunV2_UpdateTag">AKTUALISIERUNG</string>
@@ -78,6 +79,10 @@
         <item quantity="one">%1$s blockiert</item>
         <item quantity="other">%1$s blockiert</item>
     </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one">%1$s getested</item>
+        <item quantity="other">%1$s getestet</item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Es wurden noch keine Tests durchgeführt. Probiere, einen auszuführen!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Datum &amp; Zeit</string>
     <string name="TestResults_Summary_Hero_Network">Netzwerk</string>
@@ -89,6 +94,18 @@
     <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
     <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">Kein Internet</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one">Getestet</item>
+        <item quantity="other">Getestet</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one">Blockiert</item>
+        <item quantity="other">Blockiert</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one">Verfügbar</item>
+        <item quantity="other">Verfügbar</item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Upload</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Herunterladen</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
@@ -144,6 +161,14 @@
     <string name="Measurements_Failed">Fehlgeschlagen</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Anomalie</string>
+    <plurals name="Measurements_Count">
+        <item quantity="one">%1$d gemessen</item>
+        <item quantity="other">%1$d gemessen</item>
+    </plurals>
+    <plurals name="Measurements_Failed">
+        <item quantity="one">%1$d fehlgeschlagen</item>
+        <item quantity="other">%1$d fehlgeschlagen</item>
+    </plurals>
     <string name="Measurement_Raw_NotUploadedReasoning">Diese Messung wurde nicht im OONI Explorer veröffentlicht. Lade sie hoch, um die Analyse zu sehen.</string>
     <string name="Measurement_Raw_Share">Messdaten teilen</string>
     <string name="Measurement_Raw_Upload">Upload</string>
