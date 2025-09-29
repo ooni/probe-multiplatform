@@ -113,14 +113,14 @@
     <string name="Settings_Privacy_SendCrashReports">Tuma ripoti za ajali</string>
 
     <string name="Settings_Proxy_Label">Wakala wa nyuma wa OONI</string>
-    <string name="Settings_Proxy_Enabled">Wakala</string>
+    <string name="Settings_Proxy">Wakala</string>
     <string name="Settings_Proxy_None">Hakuna</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Wakala wa Desturi</string>
     <string name="Settings_Proxy_Custom_Protocol">Itifaki</string>
     <string name="Settings_Proxy_Custom_Hostname">Jina la mwenyeji</string>
     <string name="Settings_Proxy_Custom_Port">Bandari</string>
-
+    <string name="Settings_Proxy_Custom_Available">Kinapatikana</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Haipo</string>
     <string name="Settings_Language_Label">Lugha</string>
 
     <string name="Settings_Advanced_Label">Iliyoboreshwa</string>
