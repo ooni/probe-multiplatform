@@ -69,7 +69,6 @@ static int __stdcall can_shutdown_callback(void) {
 
 static void __stdcall shutdown_request_callback(void) {
     winsparkle_log(WINSPARKLE_LOG_INFO, "update_lifecycle", "Shutdown requested for update installation");
-
     // Call the shutdown callback if set
     if (shutdownCallback != NULL) {
         winsparkle_log(WINSPARKLE_LOG_INFO, "update_lifecycle", "Calling application shutdown callback");
@@ -231,7 +230,6 @@ int winsparkle_init(const char* appcast_url) {
 
         ws_init();
         winsparkle_log(WINSPARKLE_LOG_INFO, "init", "Successfully initialized WinSparkle");
-
         return 0;
     } __except(EXCEPTION_EXECUTE_HANDLER) {
         winsparkle_log(WINSPARKLE_LOG_ERROR, "init", "Exception occurred during initialization");
