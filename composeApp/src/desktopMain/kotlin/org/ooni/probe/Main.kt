@@ -151,7 +151,7 @@ fun main(args: Array<String>) {
                     stringResource(Res.string.Desktop_OpenApp),
                     onClick = { showWindow() },
                 )
-                // Only show update UI on Windows platforms
+                // Only show update UI on Mac and Windows platforms
                 if (updateController.supportsUpdates()) {
                     Item(
                         text = updateController.getMenuText(),

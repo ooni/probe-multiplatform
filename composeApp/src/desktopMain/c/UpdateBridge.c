@@ -1,7 +1,11 @@
 #include <jni.h>
 #include <string.h>
 
+#ifdef __APPLE__
+#include "SparkeBridge.h"
+#else
 #include "WinSparkleBridge.h"
+#endif
 
 static const char* jstring_to_cstring(JNIEnv* env, jstring jstr);
 static void release_cstring(JNIEnv* env, jstring jstr, const char* cstr);
@@ -26,8 +30,12 @@ static void release_cstring(JNIEnv* env, jstring jstr, const char* cstr) {
     }
 }
 
-// Log callback function that forwards to Java (WinSparkle only retained)
+// Log callback function that forwards to Java
+#ifdef __APPLE__
+static void native_log_callback(SparkleLogLevel level, const char* operation, const char* message) {
+#else
 static void native_log_callback(WinSparkleLogLevel level, const char* operation, const char* message) {
+#endif
     if (g_jvm == NULL || g_logCallbackObject == NULL || g_logCallbackMethod == NULL) {
         return;
     }
@@ -37,21 +45,24 @@ static void native_log_callback(WinSparkleLogLevel level, const char* operation,
         return;
     }
 
+    // Create Java strings
     jstring jOperation = (*env)->NewStringUTF(env, operation);
     jstring jMessage = (*env)->NewStringUTF(env, message);
 
     if (jOperation != NULL && jMessage != NULL) {
+        // Call Java callback method
         (*env)->CallVoidMethod(env, g_logCallbackObject, g_logCallbackMethod,
-                               (jint)level, jOperation, jMessage);
+                (jint)level, jOperation, jMessage);
     }
 
+    // Clean up local references
     if (jOperation != NULL) (*env)->DeleteLocalRef(env, jOperation);
     if (jMessage != NULL) (*env)->DeleteLocalRef(env, jMessage);
 
     (*g_jvm)->DetachCurrentThread(g_jvm);
 }
 
-// Shutdown callback function that forwards to Java (Windows only usage)
+// Shutdown callback function that forwards to Java
 static void native_shutdown_callback(void) {
     if (g_jvm == NULL || g_shutdownCallbackObject == NULL || g_shutdownCallbackMethod == NULL) {
         return;
@@ -62,6 +73,7 @@ static void native_shutdown_callback(void) {
         return;
     }
 
+    // Call Java shutdown callback method
     (*env)->CallVoidMethod(env, g_shutdownCallbackObject, g_shutdownCallbackMethod);
 
     (*g_jvm)->DetachCurrentThread(g_jvm);
@@ -70,12 +82,14 @@ static void native_shutdown_callback(void) {
 // JNI function to set log callback
 JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_UpdateManagerBase_nativeSetLogCallback(JNIEnv* env, jobject obj, jobject callback) {
+    // Get JavaVM for later use
     if (g_jvm == NULL) {
         if ((*env)->GetJavaVM(env, &g_jvm) != JNI_OK) {
             return -1;
         }
     }
 
+    // Clear existing callback
     if (g_logCallbackObject != NULL) {
         (*env)->DeleteGlobalRef(env, g_logCallbackObject);
         g_logCallbackObject = NULL;
@@ -83,17 +97,22 @@ Java_org_ooni_probe_shared_UpdateManagerBase_nativeSetLogCallback(JNIEnv* env, j
     }
 
     if (callback == NULL) {
-#ifdef _WIN32
+        // Disable callback
+#ifdef __APPLE__
+        sparkle_set_log_callback(NULL);
+#else
         winsparkle_set_log_callback(NULL);
 #endif
         return 0;
     }
 
+    // Create global reference to callback object
     g_logCallbackObject = (*env)->NewGlobalRef(env, callback);
     if (g_logCallbackObject == NULL) {
         return -2;
     }
 
+    // Get the callback method
     jclass callbackClass = (*env)->GetObjectClass(env, callback);
     g_logCallbackMethod = (*env)->GetMethodID(env, callbackClass, "onLog", "(ILjava/lang/String;Ljava/lang/String;)V");
     (*env)->DeleteLocalRef(env, callbackClass);
@@ -104,22 +123,27 @@ Java_org_ooni_probe_shared_UpdateManagerBase_nativeSetLogCallback(JNIEnv* env, j
         return -3;
     }
 
-#ifdef _WIN32
+    // Set native callback
+#ifdef __APPLE__
+    sparkle_set_log_callback(native_log_callback);
+#else
     winsparkle_set_log_callback(native_log_callback);
 #endif
 
     return 0;
 }
 
-// JNI function to set shutdown callback (Windows only)
+// JNI function to set shutdown callback
 JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetShutdownCallback(JNIEnv* env, jobject obj, jobject callback) {
+    // Get JavaVM for later use
     if (g_jvm == NULL) {
         if ((*env)->GetJavaVM(env, &g_jvm) != JNI_OK) {
             return -1;
         }
     }
 
+    // Clear existing callback
     if (g_shutdownCallbackObject != NULL) {
         (*env)->DeleteGlobalRef(env, g_shutdownCallbackObject);
         g_shutdownCallbackObject = NULL;
@@ -127,17 +151,20 @@ Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetShutdownCallback(JNI
     }
 
     if (callback == NULL) {
+        // Disable callback
 #ifdef _WIN32
         winsparkle_set_shutdown_callback(NULL);
 #endif
         return 0;
     }
 
+    // Create global reference to callback object
     g_shutdownCallbackObject = (*env)->NewGlobalRef(env, callback);
     if (g_shutdownCallbackObject == NULL) {
         return -2;
     }
 
+    // Get the callback method
     jclass callbackClass = (*env)->GetObjectClass(env, callback);
     g_shutdownCallbackMethod = (*env)->GetMethodID(env, callbackClass, "onShutdownRequested", "()V");
     (*env)->DeleteLocalRef(env, callbackClass);
@@ -148,12 +175,93 @@ Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetShutdownCallback(JNI
         return -3;
     }
 
+    // Set native callback
 #ifdef _WIN32
     winsparkle_set_shutdown_callback(native_shutdown_callback);
 #endif
 
     return 0;
 }
+
+// Sparkle JNI implementations (macOS)
+#ifdef __APPLE__
+
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_SparkleUpdateManager_nativeInit(JNIEnv* env, jobject obj, jstring appcastUrl, jstring publicKey) {
+    const char* url = jstring_to_cstring(env, appcastUrl);
+    const char* key = jstring_to_cstring(env, publicKey);
+    int result = sparkle_init(url, key);
+    release_cstring(env, appcastUrl, url);
+    release_cstring(env, publicKey, key);
+    return result;
+}
+
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_SparkleUpdateManager_nativeCheckForUpdates(JNIEnv* env, jobject obj, jboolean showUI) {
+    return sparkle_check_for_updates(showUI ? 1 : 0);
+}
+
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_SparkleUpdateManager_nativeSetAutomaticCheckEnabled(JNIEnv* env, jobject obj, jboolean enabled) {
+    return sparkle_set_automatic_check_enabled(enabled ? 1 : 0);
+}
+
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_SparkleUpdateManager_nativeSetUpdateCheckInterval(JNIEnv* env, jobject obj, jint hours) {
+    return sparkle_set_update_check_interval(hours);
+}
+
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_SparkleUpdateManager_nativeCleanup(JNIEnv* env, jobject obj) {
+    return sparkle_cleanup();
+}
+
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_SparkleUpdateManager_nativeSetShutdownCallback(JNIEnv* env, jobject obj, jobject callback) {
+    // Get JavaVM for later use
+    if (g_jvm == NULL) {
+        if ((*env)->GetJavaVM(env, &g_jvm) != JNI_OK) {
+            return -1;
+        }
+    }
+
+    // Clear existing shutdown callback
+    if (g_shutdownCallbackObject != NULL) {
+        (*env)->DeleteGlobalRef(env, g_shutdownCallbackObject);
+        g_shutdownCallbackObject = NULL;
+        g_shutdownCallbackMethod = NULL;
+    }
+
+    if (callback == NULL) {
+        // Disable callback
+        sparkle_set_shutdown_callback(NULL);
+        return 0;
+    }
+
+    // Create global reference to callback object
+    g_shutdownCallbackObject = (*env)->NewGlobalRef(env, callback);
+    if (g_shutdownCallbackObject == NULL) {
+        return -2;
+    }
+
+    // Get the callback method
+    jclass callbackClass = (*env)->GetObjectClass(env, callback);
+    g_shutdownCallbackMethod = (*env)->GetMethodID(env, callbackClass, "onShutdownRequested", "()V");
+    (*env)->DeleteLocalRef(env, callbackClass);
+
+    if (g_shutdownCallbackMethod == NULL) {
+        (*env)->DeleteGlobalRef(env, g_shutdownCallbackObject);
+        g_shutdownCallbackObject = NULL;
+        return -3;
+    }
+
+    // Set native callback
+    sparkle_set_shutdown_callback(native_shutdown_callback);
+
+    return 0;
+}
+
+#endif
 
 // WinSparkle JNI implementations (Windows)
 #ifdef _WIN32
