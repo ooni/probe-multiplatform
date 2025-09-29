@@ -28,7 +28,6 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Link deinstallieren</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Frühere Überarbeitungen</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Weitere Informationen</string>
-    <string name="Dashboard_Runv2_Websites_SeeAll">Alle %1$d Websites anzeigen</string>
     <string name="Dashboard_RunV2_ExpiredTag">ABGELAUFEN</string>
     <string name="Dashboard_RunV2_UpdatedTag">AKTUALISIERT</string>
     <string name="Dashboard_RunV2_UpdateTag">AKTUALISIERUNG</string>
