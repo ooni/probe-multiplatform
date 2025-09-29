@@ -123,6 +123,7 @@ fun App(
     }
     LaunchedEffect(Unit) {
         dependencies.finishInProgressData()
+        dependencies.deleteOldResults()
     }
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()

@@ -77,6 +77,7 @@ class PreferenceRepository(
         return when (key) {
             SettingsKey.MAX_RUNTIME,
             SettingsKey.LEGACY_PROXY_PORT,
+            SettingsKey.DELETE_OLD_RESULTS_THRESHOLD,
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
 
             SettingsKey.LEGACY_PROXY_HOSTNAME,
@@ -210,8 +211,7 @@ class PreferenceRepository(
         prefix = (descriptor.source as? Descriptor.Source.Installed)
             ?.value
             ?.id
-            ?.value
-            ?.toString(),
+            ?.value,
         autoRun = isAutoRun,
     )
 

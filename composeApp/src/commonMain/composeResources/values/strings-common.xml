@@ -220,6 +220,14 @@
     <string name="Settings_Advanced_DebugLogs">Debug logs</string>
     <string name="Settings_Advanced_RecentLogs">See recent logs</string>
 
+    <string name="Settings_Results_DeleteOldResults">Delete old results</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold">Delete results older than</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">%1$d month</item>
+        <item quantity="other">%1$d months</item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Enter the number of months</string>
+
     <string name="Settings_Support_Label">Support</string>
     <string name="Settings_Support_SendEmail">Send email to support</string>
     <string name="Settings_Support_Message">Please describe the problem you are experiencing:</string>

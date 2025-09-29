@@ -48,6 +48,7 @@ import org.ooni.probe.domain.BootstrapPreferences
 import org.ooni.probe.domain.CheckAutoRunConstraints
 import org.ooni.probe.domain.ClearStorage
 import org.ooni.probe.domain.DeleteMeasurementsWithoutResult
+import org.ooni.probe.domain.DeleteOldResults
 import org.ooni.probe.domain.DeleteResults
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FinishInProgressData
@@ -258,6 +259,12 @@ class Dependencies(
             getMeasurementsWithoutResult = measurementRepository::listWithoutResult,
             deleteMeasurementsById = measurementRepository::deleteByIds,
             deleteFile = deleteFiles::invoke,
+        )
+    }
+    val deleteOldResults by lazy {
+        DeleteOldResults(
+            getPreferenceByKey = preferenceRepository::getValueByKey,
+            deleteResultsByFilter = deleteResults::byFilter,
         )
     }
     private val deleteResults by lazy {
