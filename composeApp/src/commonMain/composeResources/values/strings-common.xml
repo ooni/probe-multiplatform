@@ -28,7 +28,10 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
-    <string name="Dashboard_Runv2_Websites_SeeAll">See all %1$d websites</string>
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one">See %1$d website</item>
+        <item quantity="other">See all %1$d websites</item>
+    </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">UPDATE</string>
@@ -197,13 +200,19 @@
     <string name="Settings_Privacy_SendCrashReports">Send crash reports</string>
 
     <string name="Settings_Proxy_Label">OONI backend proxy</string>
-    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">None</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Custom Proxy</string>
+    <string name="Settings_Proxy_Custom_Add">Add custom proxy</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
     <string name="Settings_Proxy_Custom_Hostname">Hostname</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid">Hostname is invalid</string>
+    <string name="Settings_Proxy_Custom_PortInvalid">Port is invalid</string>
+    <string name="Settings_Proxy_Custom_Testing">Testing</string>
+    <string name="Settings_Proxy_Custom_Available">Available</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Unavailable</string>
+    <string name="Settings_Proxy_Delete_Confirmation">Are you sure you want to delete the %1$s proxy?</string>
 
     <string name="Settings_Language_Label">Language</string>
 
