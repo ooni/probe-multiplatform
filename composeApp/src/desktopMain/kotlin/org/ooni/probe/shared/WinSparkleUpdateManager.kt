@@ -6,7 +6,6 @@ class WinSparkleUpdateManager : UpdateManager {
     fun setDllRoot(path: String) {
         nativeSetDllRoot(path)
     }
-
     companion object {
         private val isLibraryLoaded = loadNativeLibrary("updatebridge")
     }
@@ -30,7 +29,6 @@ class WinSparkleUpdateManager : UpdateManager {
     private external fun nativeSetShutdownCallback(callback: Any?): Int
 
     private external fun nativeSetDllRoot(rootPath: String)
-
     private external fun nativeCleanup(): Int
 
     // Callback from native code for log messages

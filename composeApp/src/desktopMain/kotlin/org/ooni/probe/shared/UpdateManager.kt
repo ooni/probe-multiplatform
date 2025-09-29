@@ -101,7 +101,7 @@ class NoOpUpdateManager : UpdateManager {
 
     override fun retryLastOperation() {}
 
-    override fun isHealthy(): Boolean = false
+    override fun isHealthy(): Boolean = true
 
     override fun setLogCallback(callback: UpdateLogCallback?) {
         logCallback = callback

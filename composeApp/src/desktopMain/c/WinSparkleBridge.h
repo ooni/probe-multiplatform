@@ -1,15 +1,15 @@
 #ifndef WINSPARKLE_BRIDGE_H
 #define WINSPARKLE_BRIDGE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * Optionally set a root directory to search for WinSparkle DLLs.
  * Pass UTF-8 path or NULL to clear.
  */
 void winsparkle_set_dll_root(const char* root_utf8);
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /**
  * Log levels for callback logging

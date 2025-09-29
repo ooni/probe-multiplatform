@@ -3,9 +3,6 @@
 
 #include "WinSparkleBridge.h"
 
-static const char* jstring_to_cstring(JNIEnv* env, jstring jstr);
-static void release_cstring(JNIEnv* env, jstring jstr, const char* cstr);
-
 // Global JVM and callback references
 static JavaVM* g_jvm = NULL;
 static jobject g_logCallbackObject = NULL;
