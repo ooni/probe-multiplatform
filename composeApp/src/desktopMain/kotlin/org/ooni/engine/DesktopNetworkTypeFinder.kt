@@ -2,32 +2,21 @@ package org.ooni.engine
 
 import co.touchlab.kermit.Logger
 import org.ooni.engine.models.NetworkType
+import org.ooni.shared.loadNativeLibrary
 
 /** * DesktopNetworkTypeFinder is a class that implements NetworkTypeFinder
  * to determine the network type on desktop platforms.
  */
 class DesktopNetworkTypeFinder : NetworkTypeFinder {
-    companion object Companion {
-        private var libraryLoaded = false
-
-        init {
-            try {
-                System.loadLibrary("networktypefinder")
-                libraryLoaded = true
-            } catch (e: UnsatisfiedLinkError) {
-                Logger.w("Failed to load native library: ${e.message}")
-                libraryLoaded = false
-            }
-        }
-
-        fun isLibraryLoaded(): Boolean = libraryLoaded
+    companion object {
+        private val isLibraryLoaded = loadNativeLibrary("networktypefinder")
     }
 
     private external fun getNetworkType(): String
 
     override fun invoke(): NetworkType {
         val networkTypeString = try {
-            if (isLibraryLoaded()) {
+            if (isLibraryLoaded) {
                 getNetworkType()
             } else {
                 "unknown"
