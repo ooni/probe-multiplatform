@@ -182,14 +182,15 @@
     <string name="Settings_Privacy_SendCrashReports">Отправить отчет об ошибке</string>
 
     <string name="Settings_Proxy_Label">OONI серверный прокси</string>
-    <string name="Settings_Proxy_Enabled">Прокси</string>
+    <string name="Settings_Proxy">Прокси</string>
     <string name="Settings_Proxy_None">Нет</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Пользовательский прокси</string>
     <string name="Settings_Proxy_Custom_Protocol">Протокол</string>
     <string name="Settings_Proxy_Custom_Hostname">Имя хоста</string>
     <string name="Settings_Proxy_Custom_Port">Порт</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Проверка</string>
+    <string name="Settings_Proxy_Custom_Available">Доступен</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Недоступно</string>
     <string name="Settings_Language_Label">Язык</string>
 
     <string name="Settings_Advanced_Label">Дополнительно</string>
