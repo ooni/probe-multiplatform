@@ -196,14 +196,15 @@
     <string name="Settings_Privacy_SendCrashReports">Sende Absturzberichte</string>
 
     <string name="Settings_Proxy_Label">OONI Backend Proxy</string>
-    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Keine</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Benutzerdefinierter Proxy</string>
     <string name="Settings_Proxy_Custom_Protocol">Protokoll</string>
     <string name="Settings_Proxy_Custom_Hostname">Hostname</string>
     <string name="Settings_Proxy_Custom_Port">Anschluss</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Testvorgang</string>
+    <string name="Settings_Proxy_Custom_Available">Erreichbar</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Nicht erreichbar</string>
     <string name="Settings_Language_Label">Sprache</string>
 
     <string name="Settings_Advanced_Label">Erweitert</string>
