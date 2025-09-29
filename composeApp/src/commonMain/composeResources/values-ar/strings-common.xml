@@ -126,14 +126,15 @@
     <string name="Settings_Privacy_SendCrashReports">أرسل تقارير حول تعطل التطبيق</string>
 
     <string name="Settings_Proxy_Label">بروكسي في خلفيّة OONI </string>
-    <string name="Settings_Proxy_Enabled">بروكسي</string>
+    <string name="Settings_Proxy">بروكسي</string>
     <string name="Settings_Proxy_None">لا شيء</string>
     <string name="Settings_Proxy_Psiphon">سايفون </string>
-    <string name="Settings_Proxy_Custom">بروكسي مخصص </string>
     <string name="Settings_Proxy_Custom_Protocol">بروتوكل بروكسي مخصص </string>
     <string name="Settings_Proxy_Custom_Hostname">اسم المُضيف</string>
     <string name="Settings_Proxy_Custom_Port">منفذ</string>
-
+    <string name="Settings_Proxy_Custom_Testing">جاري التجريب</string>
+    <string name="Settings_Proxy_Custom_Available">متاح</string>
+    <string name="Settings_Proxy_Custom_Unavailable">غير متاح</string>
     <string name="Settings_Language_Label">اللغة</string>
 
     <string name="Settings_Advanced_Label">متقدم</string>
