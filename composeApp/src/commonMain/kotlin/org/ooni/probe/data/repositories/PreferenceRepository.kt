@@ -76,15 +76,17 @@ class PreferenceRepository(
         val preferenceKey = getPreferenceKey(name = key.value, prefix = prefix, autoRun = autoRun)
         return when (key) {
             SettingsKey.MAX_RUNTIME,
-            SettingsKey.PROXY_PORT,
+            SettingsKey.LEGACY_PROXY_PORT,
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
 
-            SettingsKey.PROXY_HOSTNAME,
-            SettingsKey.PROXY_PROTOCOL,
+            SettingsKey.LEGACY_PROXY_HOSTNAME,
+            SettingsKey.LEGACY_PROXY_PROTOCOL,
+            SettingsKey.PROXY_SELECTED,
             SettingsKey.LANGUAGE_SETTING,
             -> PreferenceKey.StringKey(stringPreferencesKey(preferenceKey))
 
             SettingsKey.CHOSEN_WEBSITES,
+            SettingsKey.PROXIES_CUSTOM,
             -> PreferenceKey.StringSetKey(stringSetPreferencesKey(preferenceKey))
 
             else -> PreferenceKey.BooleanKey(booleanPreferencesKey(preferenceKey))

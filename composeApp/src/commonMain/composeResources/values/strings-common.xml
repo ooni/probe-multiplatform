@@ -200,13 +200,19 @@
     <string name="Settings_Privacy_SendCrashReports">Send crash reports</string>
 
     <string name="Settings_Proxy_Label">OONI backend proxy</string>
-    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">None</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Custom Proxy</string>
+    <string name="Settings_Proxy_Custom_Add">Add custom proxy</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
     <string name="Settings_Proxy_Custom_Hostname">Hostname</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid">Hostname is invalid</string>
+    <string name="Settings_Proxy_Custom_PortInvalid">Port is invalid</string>
+    <string name="Settings_Proxy_Custom_Testing">Testing</string>
+    <string name="Settings_Proxy_Custom_Available">Available</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Unavailable</string>
+    <string name="Settings_Proxy_Delete_Confirmation">Are you sure you want to delete the %1$s proxy?</string>
 
     <string name="Settings_Language_Label">Language</string>
 

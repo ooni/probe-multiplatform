@@ -1,17 +1,18 @@
 package org.ooni.probe.domain
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.TaskLogLevel
 import org.ooni.engine.models.WebConnectivityCategory
-import org.ooni.probe.data.models.ProxySettings
+import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import kotlin.time.Duration.Companion.seconds
 
 class GetEnginePreferences(
     private val preferencesRepository: PreferenceRepository,
-    private val getProxySettings: suspend () -> ProxySettings,
+    private val getProxyOption: () -> Flow<ProxyOption>,
 ) {
     suspend operator fun invoke() =
         EnginePreferences(
@@ -27,7 +28,7 @@ class GetEnginePreferences(
             } else {
                 null
             },
-            proxy = getProxySettings().getProxyString(),
+            proxy = getProxyOption().first().value,
         )
 
     private suspend fun getEnabledCategories(): List<String> {
