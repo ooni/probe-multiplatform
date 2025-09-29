@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
@@ -39,7 +40,11 @@ fun AddProxyScreen(
     state: AddProxyViewModel.State,
     onEvent: (AddProxyViewModel.Event) -> Unit,
 ) {
-    Column(Modifier.background(MaterialTheme.colorScheme.surfaceVariant)) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.surfaceVariant),
+    ) {
         TopBar(
             title = {
                 Text(stringResource(Res.string.Settings_Proxy_Custom_Add))

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -77,7 +78,7 @@ fun ProxyScreen(
                 NavigationBackButton({ onEvent(ProxyViewModel.Event.BackClicked) })
             },
         )
-        Box {
+        Box(Modifier.fillMaxSize()) {
             val lazyListState = rememberLazyListState()
             LazyColumn(
                 state = lazyListState,

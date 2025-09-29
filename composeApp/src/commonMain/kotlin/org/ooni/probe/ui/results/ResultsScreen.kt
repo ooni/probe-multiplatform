@@ -113,7 +113,11 @@ fun ResultsScreen(
     var showDeleteConfirm by remember { mutableStateOf(false) }
     var showMarkAsViewedConfirm by remember { mutableStateOf(false) }
 
-    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background),
+    ) {
         if (!state.selectionEnabled) {
             TopBar(
                 title = {
