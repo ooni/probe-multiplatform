@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
@@ -154,7 +155,7 @@ fun ResultScreen(
         if (state.result == null) return@Column
         val showSummary = !isHeightCompact()
 
-        Box {
+        Box(Modifier.fillMaxSize()) {
             val lazyListState = rememberLazyListState()
             LazyColumn(
                 contentPadding = WindowInsets.navigationBars.asPaddingValues(),
