@@ -27,7 +27,6 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">卸载链接</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">上次修改</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">查看更多</string>
-    <string name="Dashboard_Runv2_Websites_SeeAll">查看所有 %1$d 个网站</string>
     <string name="Dashboard_RunV2_ExpiredTag">已到期</string>
     <string name="Dashboard_RunV2_UpdatedTag">已更新</string>
     <string name="Dashboard_RunV2_UpdateTag">更新</string>
