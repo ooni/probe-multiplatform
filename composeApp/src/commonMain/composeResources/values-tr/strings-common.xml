@@ -172,14 +172,15 @@
     <string name="Settings_Privacy_SendCrashReports">Çökme bildirimleri gönderilsin</string>
 
     <string name="Settings_Proxy_Label">OONI arka uç vekil sunucusu</string>
-    <string name="Settings_Proxy_Enabled">Vekil sunucu</string>
+    <string name="Settings_Proxy">Vekil sunucu</string>
     <string name="Settings_Proxy_None">Hiçbiri</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Özel vekil sunucu</string>
     <string name="Settings_Proxy_Custom_Protocol">İletişim kuralı</string>
     <string name="Settings_Proxy_Custom_Hostname">Sunucu adı</string>
     <string name="Settings_Proxy_Custom_Port">Bağlantı noktası</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Sınanıyor</string>
+    <string name="Settings_Proxy_Custom_Available">Uygun</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Kullanılamaz</string>
     <string name="Settings_Language_Label">Dil</string>
 
     <string name="Settings_Advanced_Label">Gelişmiş</string>

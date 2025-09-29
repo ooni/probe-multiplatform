@@ -29,6 +29,11 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Desinstalar Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Revisões anteriores</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Ver Mais</string>
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one">Ver %1$d website</item>
+        <item quantity="many">Ver todos os %1$d de websites</item>
+        <item quantity="other">Ver todos os %1$d websites</item>
+    </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRADO</string>
     <string name="Dashboard_RunV2_UpdatedTag">ATUALIZADO</string>
     <string name="Dashboard_RunV2_UpdateTag">ATUALIZAÇÃO</string>
@@ -207,13 +212,19 @@
     <string name="Settings_Privacy_SendCrashReports">Enviar relatórios de erros</string>
 
     <string name="Settings_Proxy_Label">Proxy de back-end do OONI</string>
-    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Nenhum</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Proxy personalizado</string>
+    <string name="Settings_Proxy_Custom_Add">Adicionar proxy personalizado</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocolo</string>
     <string name="Settings_Proxy_Custom_Hostname">Nome do alojamento</string>
     <string name="Settings_Proxy_Custom_Port">Porta</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid">Nome de hospedeiro inválido</string>
+    <string name="Settings_Proxy_Custom_PortInvalid">Porta inválida</string>
+    <string name="Settings_Proxy_Custom_Testing">A testar</string>
+    <string name="Settings_Proxy_Custom_Available">Disponível</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Indisponível</string>
+    <string name="Settings_Proxy_Delete_Confirmation">Tem a certeza que quer apagar o proxy “%1$s”?</string>
 
     <string name="Settings_Language_Label">Idioma</string>
 

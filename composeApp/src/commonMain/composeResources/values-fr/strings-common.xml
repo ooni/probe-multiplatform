@@ -207,14 +207,15 @@
     <string name="Settings_Privacy_SendCrashReports">Envoyer des relevés de plantage</string>
 
     <string name="Settings_Proxy_Label">Mandataire vers la dorsale d’OONI</string>
-    <string name="Settings_Proxy_Enabled">Mandataire</string>
+    <string name="Settings_Proxy">Mandataire</string>
     <string name="Settings_Proxy_None">Aucun</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Mandataire personnalisé</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
     <string name="Settings_Proxy_Custom_Hostname">Nom d’hôte</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Test</string>
+    <string name="Settings_Proxy_Custom_Available">Disponible</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Indisponible</string>
     <string name="Settings_Language_Label">Langue</string>
 
     <string name="Settings_Advanced_Label">Avancés</string>

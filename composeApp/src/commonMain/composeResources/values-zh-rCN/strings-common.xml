@@ -185,14 +185,15 @@
     <string name="Settings_Privacy_SendCrashReports">发送崩溃报告</string>
 
     <string name="Settings_Proxy_Label">OONI 后端代理</string>
-    <string name="Settings_Proxy_Enabled">代理</string>
+    <string name="Settings_Proxy">代理</string>
     <string name="Settings_Proxy_None">空</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">自定义代理</string>
     <string name="Settings_Proxy_Custom_Protocol">协议</string>
     <string name="Settings_Proxy_Custom_Hostname">主机名称</string>
     <string name="Settings_Proxy_Custom_Port">端口</string>
-
+    <string name="Settings_Proxy_Custom_Testing">测试中</string>
+    <string name="Settings_Proxy_Custom_Available">在线</string>
+    <string name="Settings_Proxy_Custom_Unavailable">不可用</string>
     <string name="Settings_Language_Label">语言</string>
 
     <string name="Settings_Advanced_Label">高级</string>

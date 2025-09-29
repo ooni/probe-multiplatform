@@ -115,14 +115,15 @@
     <string name="Settings_Privacy_SendCrashReports">Kirim laporan kerusakan</string>
 
     <string name="Settings_Proxy_Label">Proksi belakang OONI</string>
-    <string name="Settings_Proxy_Enabled">Proksi</string>
+    <string name="Settings_Proxy">Proksi</string>
     <string name="Settings_Proxy_None">Tidak ada</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Proksi Ubah Suaian</string>
     <string name="Settings_Proxy_Custom_Protocol">Protokol</string>
     <string name="Settings_Proxy_Custom_Hostname">Nama hos</string>
     <string name="Settings_Proxy_Custom_Port">Porta</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Menguji</string>
+    <string name="Settings_Proxy_Custom_Available">Tersedia</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Tidak tersedia</string>
     <string name="Settings_Language_Label">Bahasa</string>
 
     <string name="Settings_Advanced_Label">Lanjutan</string>

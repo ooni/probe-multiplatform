@@ -130,14 +130,14 @@
     <string name="Settings_Privacy_SendCrashReports">Senda hrunskýrslur</string>
 
     <string name="Settings_Proxy_Label">Milliþjónn OONI-bakenda</string>
-    <string name="Settings_Proxy_Enabled">Milliþjónn</string>
+    <string name="Settings_Proxy">Milliþjónn</string>
     <string name="Settings_Proxy_None">Engin</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Sérsniðinn milliþjónn</string>
     <string name="Settings_Proxy_Custom_Protocol">Sésniðinn samskiptamáti milliþjóns</string>
     <string name="Settings_Proxy_Custom_Hostname">Vélarheiti</string>
     <string name="Settings_Proxy_Custom_Port">Gátt</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Prófun</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Ófáanlegt</string>
     <string name="Settings_Language_Label">Tungumál</string>
 
     <string name="Settings_Advanced_Label">Ítarlegra</string>

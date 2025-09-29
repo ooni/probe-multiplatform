@@ -98,14 +98,15 @@
     <string name="Settings_Privacy_SendCrashReports">ارسال گزارش درباره‌ی متوقف شدن برنامه </string>
 
     <string name="Settings_Proxy_Label">پروکسی بک اند OONI</string>
-    <string name="Settings_Proxy_Enabled">پروکسی</string>
+    <string name="Settings_Proxy">پروکسی</string>
     <string name="Settings_Proxy_None">هیچ</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">پروکسی سفارشی</string>
     <string name="Settings_Proxy_Custom_Protocol">پروتکل</string>
     <string name="Settings_Proxy_Custom_Hostname">نام سرور</string>
     <string name="Settings_Proxy_Custom_Port">پورت</string>
-
+    <string name="Settings_Proxy_Custom_Testing">در حال تست</string>
+    <string name="Settings_Proxy_Custom_Available">در دسترس</string>
+    <string name="Settings_Proxy_Custom_Unavailable">در دسترس نیست</string>
     <string name="Settings_Language_Label">زبان</string>
 
     <string name="Settings_Advanced_Label">پیشرفته </string>

@@ -115,14 +115,14 @@
     <string name="Settings_Privacy_SendCrashReports">ផ្ញើរបាយការណ៍ដែលមិនដំណើរការ</string>
 
     <string name="Settings_Proxy_Label">ប្រុកសុី OONI ខាងក្រោយ</string>
-    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">គ្មាន</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">ប្រុកសុី ផ្ទាល់ខ្លួន</string>
     <string name="Settings_Proxy_Custom_Protocol">ច្រក</string>
     <string name="Settings_Proxy_Custom_Hostname">ឈ្មោះម៉ាស៊ីន</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
-
+    <string name="Settings_Proxy_Custom_Available">ទំនេរ</string>
+    <string name="Settings_Proxy_Custom_Unavailable">មិនអាចប្រើបាន</string>
     <string name="Settings_Language_Label">ភាសា</string>
 
     <string name="Settings_Advanced_Label">កម្រិតខ្ពស់</string>
