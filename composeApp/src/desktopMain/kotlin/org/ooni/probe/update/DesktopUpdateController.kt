@@ -14,6 +14,7 @@ import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateError
 import org.ooni.probe.shared.UpdateManager
 import org.ooni.probe.shared.UpdateState
+import org.ooni.probe.shared.SparkleUpdateManager
 import org.ooni.probe.shared.WinSparkleUpdateManager
 import kotlin.collections.contains
 
@@ -85,9 +86,13 @@ class DesktopUpdateController(
     }
 
     fun registerShutdownHandler(appScope: ApplicationScope) {
-        if (updateManager is WinSparkleUpdateManager) {
-            updateManager.setShutdownCallback {
+        when (updateManager) {
+            is WinSparkleUpdateManager -> updateManager.setShutdownCallback {
                 Logger.i("WinSparkle requested application shutdown for update installation")
+                appScope.exitApplication()
+            }
+            is SparkleUpdateManager -> updateManager.setShutdownCallback {
+                Logger.i("Sparkle requested application shutdown for update installation")
                 appScope.exitApplication()
             }
         }
@@ -131,5 +136,5 @@ class DesktopUpdateController(
     }
 
     fun supportsUpdates(): Boolean =
-        (dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Windows) && updateManager.isHealthy()
+        (dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Mac, DesktopOS.Windows) && updateManager.isHealthy()
 }
