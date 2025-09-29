@@ -111,14 +111,15 @@
     <string name="Settings_Privacy_SendCrashReports">送出出錯崩潰報告</string>
 
     <string name="Settings_Proxy_Label">OONI 後端代理</string>
-    <string name="Settings_Proxy_Enabled">代理伺服器</string>
+    <string name="Settings_Proxy">代理伺服器</string>
     <string name="Settings_Proxy_None">無</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">自定代理</string>
     <string name="Settings_Proxy_Custom_Protocol">協定</string>
     <string name="Settings_Proxy_Custom_Hostname">主機名</string>
     <string name="Settings_Proxy_Custom_Port">埠</string>
-
+    <string name="Settings_Proxy_Custom_Testing">測試中</string>
+    <string name="Settings_Proxy_Custom_Available">可用</string>
+    <string name="Settings_Proxy_Custom_Unavailable">不可用</string>
     <string name="Settings_Language_Label">語言</string>
 
     <string name="Settings_Advanced_Label">進階的</string>
