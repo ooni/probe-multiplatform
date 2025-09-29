@@ -8,10 +8,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.ooni.probe.config.UpdateConfig
+import org.ooni.probe.dependencies
+import org.ooni.probe.shared.DesktopOS
+import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateError
 import org.ooni.probe.shared.UpdateManager
 import org.ooni.probe.shared.UpdateState
 import org.ooni.probe.shared.WinSparkleUpdateManager
+import kotlin.collections.contains
 
 /**
  * DesktopUpdateController encapsulates update logic for desktop targets.
@@ -30,6 +34,10 @@ class DesktopUpdateController(
      * Initialize update manager and set callbacks. Safe to call multiple times.
      */
     fun initialize(scope: CoroutineScope) {
+        if (updateManager is WinSparkleUpdateManager) {
+            updateManager.setDllRoot(System.getProperty("compose.application.resources.dir") ?: "")
+        }
+
         scope.launch(Dispatchers.Default) {
             try {
                 updateManager.setErrorCallback { error ->
@@ -105,15 +113,12 @@ class DesktopUpdateController(
         updateManager.retryLastOperation()
     }
 
+    // TODO: add translations after macOS has been finalized
     fun getMenuText(): String =
-        when {
-            _error.value != null -> "Retry Update Check (Error: ${_error.value?.code})"
-            _state.value == UpdateState.CHECKING_FOR_UPDATES -> "Checking for Updates..."
-            _state.value == UpdateState.UPDATE_AVAILABLE -> "Update Available!"
-            _state.value == UpdateState.NO_UPDATE_AVAILABLE -> "Check for Updates (Up to date)"
-            _state.value == UpdateState.INITIALIZING -> "Initializing Updates..."
-            _state.value == UpdateState.ERROR -> "Update System Error - Retry"
-            else -> "Check for Updates..."
+        when (_state.value) {
+            UpdateState.CHECKING_FOR_UPDATES -> "Checking for Updates..."
+            UpdateState.UPDATE_AVAILABLE -> "Update Available!"
+            else -> "Check for Updates"
         }
 
     suspend fun cleanup() {
@@ -122,7 +127,9 @@ class DesktopUpdateController(
             Logger.i("Update manager cleaned up successfully")
         } catch (e: Exception) {
             Logger.e("Error during update manager cleanup: $e")
-            throw e
         }
     }
+
+    fun supportsUpdates(): Boolean =
+        (dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Windows) && updateManager.isHealthy()
 }

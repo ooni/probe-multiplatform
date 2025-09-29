@@ -218,13 +218,5 @@ class WinSparkleUpdateManager : UpdateManager {
         }
     }
 
-    override fun isHealthy(): Boolean =
-        when (currentState) {
-            UpdateState.ERROR -> {
-                val error = lastError
-                // Consider recoverable if it's a network issue or temporary problem
-                error?.code in listOf(-1, -2) // Some initialization errors might be recoverable
-            }
-            else -> true
-        }
+    override fun isHealthy(): Boolean = currentState != UpdateState.ERROR
 }

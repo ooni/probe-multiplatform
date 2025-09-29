@@ -49,7 +49,6 @@ import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.InstanceManager
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateState
-import org.ooni.probe.shared.WinSparkleUpdateManager
 import org.ooni.probe.shared.createUpdateManager
 import org.ooni.probe.update.DesktopUpdateController
 import java.awt.Desktop
@@ -64,9 +63,6 @@ fun main(args: Array<String>) {
 
     // Create update manager and controller
     val updateManager = createUpdateManager(dependencies.platformInfo.platform)
-    if (updateManager is WinSparkleUpdateManager) {
-        updateManager.setDllRoot(System.getProperty("compose.application.resources.dir") ?: "")
-    }
     val updateController = DesktopUpdateController(updateManager)
 
     CoroutineScope(Dispatchers.IO).launch {
@@ -157,19 +153,12 @@ fun main(args: Array<String>) {
                     onClick = { showWindow() },
                 )
                 // Only show update UI on Windows platforms
-                if ((dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Windows)) {
+                if (updateController.supportsUpdates()) {
                     Item(
                         text = updateController.getMenuText(),
                         enabled = updateState != UpdateState.CHECKING_FOR_UPDATES,
                         onClick = { updateController.checkNow() },
                     )
-                    // Show retry option when there are errors
-                    if (updateError != null) {
-                        Item(
-                            "Retry Update Check",
-                            onClick = { updateController.retryLastOperation() },
-                        )
-                    }
                 }
                 Separator()
                 Item(
@@ -192,11 +181,7 @@ private fun ApplicationScope.onQuitApplicationClicked(
     {
         Logger.i("Application shutdown initiated")
         CoroutineScope(Dispatchers.IO).launch {
-            try {
-                updateController.cleanup()
-            } catch (e: Exception) {
-                Logger.e("Error during update manager cleanup: $e")
-            }
+            updateController.cleanup()
             exitApplication()
             instanceManager.shutdown()
         }
