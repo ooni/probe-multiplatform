@@ -224,11 +224,22 @@
     <string name="Settings_Proxy_Custom_Testing">Test</string>
     <string name="Settings_Proxy_Custom_Available">Accessible</string>
     <string name="Settings_Proxy_Custom_Unavailable">Inaccessible</string>
+    <string name="Settings_Proxy_Delete_Confirmation">Voulez-vous supprimer le mandataire %1$s \?</string>
+
     <string name="Settings_Language_Label">Langue</string>
 
     <string name="Settings_Advanced_Label">Avancés</string>
     <string name="Settings_Advanced_DebugLogs">Journaux de débogage</string>
     <string name="Settings_Advanced_RecentLogs">Voir les journaux récents</string>
+
+    <string name="Settings_Results_DeleteOldResults">Supprimer les anciens résultats</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold">Supprimer les résultats datant de plus de</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">%1$d mois</item>
+        <item quantity="many">%1$d mois</item>
+        <item quantity="other">%1$d mois</item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Saisissez le nombre de mois</string>
 
     <string name="Settings_Support_Label">Assistance</string>
     <string name="Settings_Support_SendEmail">Envoyer un courriel à l’assistance</string>
