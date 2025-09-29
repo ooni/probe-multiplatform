@@ -177,14 +177,15 @@
     <string name="Settings_Privacy_SendCrashReports">Enviar informes de errores</string>
 
     <string name="Settings_Proxy_Label">Proxy de trabajo de OONI</string>
-    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Ninguno</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Proxy personalizado</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocolo de proxy personalizado</string>
     <string name="Settings_Proxy_Custom_Hostname">Nombre del servidor </string>
     <string name="Settings_Proxy_Custom_Port">Puerto</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Probando</string>
+    <string name="Settings_Proxy_Custom_Available">Disponible</string>
+    <string name="Settings_Proxy_Custom_Unavailable">No disponible</string>
     <string name="Settings_Language_Label">Idioma</string>
 
     <string name="Settings_Advanced_Label">Avanzado</string>
