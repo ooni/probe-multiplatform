@@ -88,10 +88,10 @@ class RunViewModel(
                 }.toMap()
 
             mapOf(
-                DescriptorType.Default to descriptorsWithTests
-                    .filter { it.key.item.source is Descriptor.Source.Default },
                 DescriptorType.Installed to descriptorsWithTests
                     .filter { it.key.item.source is Descriptor.Source.Installed },
+                DescriptorType.Default to descriptorsWithTests
+                    .filter { it.key.item.source is Descriptor.Source.Default },
             )
         }.onEach { list -> _state.update { it.copy(list = list) } }
             .launchIn(viewModelScope)

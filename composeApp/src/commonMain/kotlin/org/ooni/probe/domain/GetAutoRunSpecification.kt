@@ -14,7 +14,10 @@ class GetAutoRunSpecification(
     private val preferenceRepository: PreferenceRepository,
 ) {
     suspend operator fun invoke(): RunSpecification.Full {
-        val descriptors = getLatestDescriptors().first().filterForAutoRun().notExpired()
+        val descriptors = getLatestDescriptors()
+            .first()
+            .filterForAutoRun()
+            .notExpired()
 
         return RunSpecification.Full(
             tests = descriptors.map { descriptor ->

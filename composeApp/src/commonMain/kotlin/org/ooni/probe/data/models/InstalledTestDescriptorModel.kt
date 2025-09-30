@@ -42,6 +42,7 @@ data class InstalledTestDescriptorModel(
     val expirationDate: LocalDateTime?,
     val dateCreated: LocalDateTime?,
     val dateUpdated: LocalDateTime?,
+    val dateInstalled: LocalDateTime?,
     val rejectedRevision: Long? = null,
     val autoUpdate: Boolean,
 ) {
@@ -133,6 +134,7 @@ fun InstalledTestDescriptorModel.toDb(json: Json) =
         expiration_date = expirationDate?.toEpoch(),
         date_created = dateCreated?.toEpoch(),
         date_updated = dateUpdated?.toEpoch(),
+        date_installed = dateInstalled?.toEpoch(),
         auto_update = if (autoUpdate) 1 else 0,
         rejected_revision = rejectedRevision,
     )

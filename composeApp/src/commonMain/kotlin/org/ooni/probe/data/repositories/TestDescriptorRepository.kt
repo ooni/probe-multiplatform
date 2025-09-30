@@ -70,6 +70,7 @@ class TestDescriptorRepository(
                         expiration_date = installedModel.expiration_date,
                         date_created = installedModel.date_created,
                         date_updated = installedModel.date_updated,
+                        date_installed = installedModel.date_installed,
                         auto_update = installedModel.auto_update,
                         rejected_revision = installedModel.rejected_revision,
                     )
@@ -100,6 +101,7 @@ class TestDescriptorRepository(
                         expiration_date = installedModel.expiration_date,
                         date_created = installedModel.date_created,
                         date_updated = installedModel.date_updated,
+                        date_installed = installedModel.date_installed,
                         auto_update = installedModel.auto_update,
                         rejected_revision = installedModel.rejected_revision,
                     )
@@ -162,6 +164,7 @@ class TestDescriptorRepository(
             expirationDate = expiration_date?.toLocalDateTime(),
             dateCreated = date_created?.toLocalDateTime(),
             dateUpdated = date_updated?.toLocalDateTime(),
+            dateInstalled = date_installed?.toLocalDateTime(),
             autoUpdate = auto_update == 1L,
             rejectedRevision = rejected_revision,
         )

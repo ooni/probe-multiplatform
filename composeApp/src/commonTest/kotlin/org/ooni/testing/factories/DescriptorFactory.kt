@@ -66,6 +66,7 @@ object DescriptorFactory {
         expirationDate: LocalDateTime? = null,
         dateCreated: LocalDateTime? = now(),
         dateUpdated: LocalDateTime? = now(),
+        dateInstalled: LocalDateTime? = now(),
         autoUpdate: Boolean = false,
     ) = InstalledTestDescriptorModel(
         id = id,
@@ -84,6 +85,7 @@ object DescriptorFactory {
         expirationDate = expirationDate,
         dateCreated = dateCreated,
         dateUpdated = dateUpdated,
+        dateInstalled = dateInstalled,
         autoUpdate = autoUpdate,
     )
 

@@ -40,7 +40,10 @@ class FetchDescriptorsUpdates(
         fetchResults.forEach { (descriptor, fetchResult) ->
             val newDescriptor = fetchResult
                 .get()
-                ?.copy(autoUpdate = descriptor.autoUpdate)
+                ?.copy(
+                    autoUpdate = descriptor.autoUpdate,
+                    dateInstalled = descriptor.dateInstalled,
+                )
                 ?: run {
                     Logger.w("Failed to fetch update", fetchResult.getError())
                     return@forEach

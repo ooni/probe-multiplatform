@@ -15,6 +15,7 @@ CREATE TABLE TestDescriptor (
   expiration_date INTEGER,
   date_created INTEGER,
   date_updated INTEGER,
+  date_installed INTEGER,
   auto_update INTEGER,
   rejected_revision INTEGER,
   PRIMARY KEY(`runId`, `revision`)
@@ -38,9 +39,10 @@ INSERT OR IGNORE INTO TestDescriptor (
   expiration_date,
   date_created,
   date_updated,
+  date_installed,
   auto_update,
   rejected_revision
-) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 createOrUpdate:
 INSERT OR REPLACE INTO TestDescriptor (
@@ -60,9 +62,10 @@ INSERT OR REPLACE INTO TestDescriptor (
   expiration_date,
   date_created,
   date_updated,
+  date_installed,
   auto_update,
   rejected_revision
-) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 setAutoUpdate:
 UPDATE TestDescriptor SET auto_update = ? WHERE runId = ?;

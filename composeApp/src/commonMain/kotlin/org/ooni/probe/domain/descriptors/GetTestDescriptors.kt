@@ -45,9 +45,10 @@ class GetTestDescriptors(
                 item.toDescriptor(updateStatus = descriptorUpdates.getStatusOf(item.id))
             }
             val allDescriptors = defaultDescriptors.map { it.toDescriptor() } + updatedDescriptors
-            return@combine allDescriptors.map {
-                it.copy(enabled = it.name != "websites" || isWebsitesEnabled)
-            }
+            return@combine allDescriptors
+                .map {
+                    it.copy(enabled = it.name != "websites" || isWebsitesEnabled)
+                }.sortedWith(Descriptor.SORT_COMPARATOR)
         }
     }
 

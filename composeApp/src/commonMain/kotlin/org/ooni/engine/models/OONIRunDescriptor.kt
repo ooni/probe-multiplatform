@@ -51,5 +51,6 @@ fun OONIRunDescriptor.toModel() =
         expirationDate = expirationDate.toLocalDateTime(),
         dateCreated = dateCreated.toLocalDateTime(),
         dateUpdated = dateUpdated.toLocalDateTime(),
+        dateInstalled = null, // Needs to be set on installation, or copied during update
         autoUpdate = true,
     )

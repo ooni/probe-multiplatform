@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.Engine
 import org.ooni.engine.models.Result
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
@@ -18,6 +19,7 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.toDescriptor
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.domain.descriptors.SaveTestDescriptors
+import org.ooni.probe.shared.now
 import org.ooni.probe.ui.shared.SelectableItem
 
 class AddDescriptorViewModel(
@@ -115,7 +117,12 @@ class AddDescriptorViewModel(
         selectedTests: List<NetTest>,
     ) {
         saveTestDescriptors(
-            listOf(descriptor.copy(autoUpdate = state.value.autoUpdate)),
+            listOf(
+                descriptor.copy(
+                    autoUpdate = state.value.autoUpdate,
+                    dateInstalled = LocalDateTime.now(),
+                ),
+            ),
             SaveTestDescriptors.Mode.CreateOrUpdate,
         )
         preferenceRepository.setAreNetTestsEnabled(
