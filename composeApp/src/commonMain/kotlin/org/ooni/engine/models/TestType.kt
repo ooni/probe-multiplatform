@@ -31,6 +31,7 @@ import ooniprobe.composeapp.generated.resources.test_websites
 import ooniprobe.composeapp.generated.resources.test_whatsapp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
@@ -50,6 +51,8 @@ sealed class TestType {
     val displayName: String
         @Composable
         get() = (if (this is Experimental) name else stringResource(labelRes))
+
+    suspend fun displayNameSuspended() = (if (this is Experimental) name else getString(labelRes))
 
     open val preferenceKey: String
         get() = name

@@ -185,7 +185,7 @@ class RunWorker(
 
     private suspend fun buildNotification(state: RunBackgroundState.RunningTests) =
         buildNotification {
-            setContentText(state.testType?.labelRes?.let { labelRes -> getString(labelRes) })
+            setContentText(state.testType?.displayNameSuspended())
                 .setColor(state.descriptor?.color?.toArgb() ?: primaryLight.toArgb())
                 .setProgress(1000, (state.progress * 1000).roundToInt(), false)
                 .addAction(buildNotificationStopAction())
