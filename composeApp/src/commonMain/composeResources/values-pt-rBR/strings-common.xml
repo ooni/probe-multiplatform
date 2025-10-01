@@ -232,6 +232,15 @@
     <string name="Settings_Advanced_DebugLogs">Logs de depuração</string>
     <string name="Settings_Advanced_RecentLogs">Ver logs recentes</string>
 
+    <string name="Settings_Results_DeleteOldResults">Excluir resultados antigos</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold">Excluir resultados mais antigos que</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">%1$d meses</item>
+        <item quantity="many">%1$d meses</item>
+        <item quantity="other">%1$d meses</item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Digite o número de meses</string>
+
     <string name="Settings_Support_Label">Suporte</string>
     <string name="Settings_Support_SendEmail">Enviar e-mail para suporte</string>
     <string name="Settings_Support_Message">Descreva o problema que você está enfrentando:</string>
