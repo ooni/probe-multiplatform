@@ -540,6 +540,7 @@ class Dependencies(
         saveTestDescriptors = saveTestDescriptors::invoke,
         fetchDescriptor = { fetchDescriptor(descriptorId) },
         preferenceRepository = preferenceRepository,
+        startBackgroundRun = startSingleRunInner,
     )
 
     fun chooseWebsitesViewModel(
@@ -609,7 +610,7 @@ class Dependencies(
         observeDescriptorsUpdateState = descriptorUpdateStateManager::observe,
         dismissDescriptorReviewNotice = dismissDescriptorReviewNotice::invoke,
         undoRejectedDescriptorUpdate = undoRejectedDescriptorUpdate::invoke,
-        startBackgroundRun = startSingleRunInner::invoke,
+        startBackgroundRun = startSingleRunInner,
         canPullToRefresh = platformInfo.canPullToRefresh,
     )
 
