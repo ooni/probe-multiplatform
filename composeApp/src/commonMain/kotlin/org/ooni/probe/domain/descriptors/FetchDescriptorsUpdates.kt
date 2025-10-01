@@ -4,6 +4,8 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import org.ooni.engine.Engine
 import org.ooni.engine.models.Result
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
@@ -11,14 +13,13 @@ import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 
 class FetchDescriptorsUpdates(
+    private val getLatestTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
     private val fetchDescriptor: suspend (descriptorId: String) -> Result<InstalledTestDescriptorModel?, Engine.MkException>,
     private val saveTestDescriptors: suspend (List<InstalledTestDescriptorModel>, SaveTestDescriptors.Mode) -> Unit,
     private val updateState: ((DescriptorsUpdateState) -> DescriptorsUpdateState) -> Unit,
 ) {
-    suspend operator fun invoke(descriptors: List<InstalledTestDescriptorModel>) {
-        if (descriptors.isEmpty()) {
-            Logger.i("Skipping, no descriptors to update")
-        }
+    suspend operator fun invoke(descriptorsProvided: List<InstalledTestDescriptorModel>) {
+        val descriptors = descriptorsProvided.ifEmpty { getLatestTestDescriptors().first() }
 
         updateState {
             DescriptorsUpdateState(

@@ -2,16 +2,19 @@ package org.ooni.probe.ui.dashboard
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -33,11 +36,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleResumeEffect
+import ooniprobe.composeapp.generated.resources.Common_Collapse
+import ooniprobe.composeapp.generated.resources.Common_Expand
 import ooniprobe.composeapp.generated.resources.DescriptorUpdate_CheckUpdates
 import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
 import ooniprobe.composeapp.generated.resources.dashboard_arc
+import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_down
+import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_up
 import ooniprobe.composeapp.generated.resources.ic_warning
 import ooniprobe.composeapp.generated.resources.logo_probe
 import org.jetbrains.compose.resources.painterResource
@@ -121,32 +128,26 @@ fun DashboardScreen(
                     contentPadding = PaddingValues(bottom = 16.dp),
                     state = lazyListState,
                 ) {
-                    val allSectionsHaveValues = state.descriptors.entries.all { it.value.any() }
-                    state.descriptors.forEach { (type, items) ->
-                        if (allSectionsHaveValues && items.isNotEmpty()) {
+                    val allSectionsHaveValues = state.sections.all { it.descriptors.any() }
+                    state.sections.forEach { (type, descriptors, isCollapsed) ->
+                        if (allSectionsHaveValues && descriptors.isNotEmpty()) {
                             item(type) {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 16.dp)
-                                        .padding(top = 16.dp, bottom = 4.dp),
-                                ) {
-                                    TestDescriptorSection(type, modifier = Modifier.weight(1f))
-                                    if (type == DescriptorType.Installed && !state.canPullToRefresh) {
-                                        CheckUpdatesButton(
-                                            enabled = !state.isRefreshing,
-                                            onEvent = onEvent,
-                                        )
-                                    }
-                                }
+                                TestDescriptorSectionTitle(
+                                    type = type,
+                                    isCollapsed = isCollapsed,
+                                    state = state,
+                                    onEvent = onEvent,
+                                )
                             }
                         }
-                        items(items, key = { it.key }) { descriptor ->
+                        if (isCollapsed) return@forEach
+                        items(descriptors, key = { it.key }) { descriptor ->
                             TestDescriptorItem(
                                 descriptor = descriptor,
                                 onClick = {
-                                    onEvent(DashboardViewModel.Event.DescriptorClicked(descriptor))
+                                    onEvent(
+                                        DashboardViewModel.Event.DescriptorClicked(descriptor),
+                                    )
                                 },
                                 onUpdateClick = {
                                     onEvent(
@@ -196,6 +197,53 @@ fun DashboardScreen(
         onEvent(DashboardViewModel.Event.Resumed)
         onPauseOrDispose {
             onEvent(DashboardViewModel.Event.Paused)
+        }
+    }
+}
+
+@Composable
+private fun TestDescriptorSectionTitle(
+    type: DescriptorType,
+    isCollapsed: Boolean,
+    state: DashboardViewModel.State,
+    onEvent: (DashboardViewModel.Event) -> Unit,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp)
+            .clickable { onEvent(DashboardViewModel.Event.ToggleSection(type)) }
+            .padding(horizontal = 16.dp)
+            .defaultMinSize(minHeight = 40.dp)
+            .padding(vertical = 1.dp),
+    ) {
+        TestDescriptorTypeTitle(type)
+        Icon(
+            painterResource(
+                if (isCollapsed) {
+                    Res.drawable.ic_keyboard_arrow_down
+                } else {
+                    Res.drawable.ic_keyboard_arrow_up
+                },
+            ),
+            contentDescription = stringResource(
+                if (isCollapsed) {
+                    Res.string.Common_Expand
+                } else {
+                    Res.string.Common_Collapse
+                },
+            ) + " " + stringResource(type.title),
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .size(16.dp),
+        )
+        Spacer(Modifier.weight(1f))
+        if (type == DescriptorType.Installed && !state.canPullToRefresh) {
+            CheckUpdatesButton(
+                enabled = !state.isRefreshing,
+                onEvent = onEvent,
+            )
         }
     }
 }

@@ -32,7 +32,7 @@ private val legacyDirectoryManager = LegacyDirectoryManager(platform.os)
 
 private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager(
     runBackgroundTaskProvider = { dependencies.runBackgroundTask },
-    getDescriptorUpdateProvider = { dependencies.getDescriptorUpdate },
+    getDescriptorUpdateProvider = { dependencies.fetchDescriptorsUpdates },
 )
 
 val dependencies = Dependencies(

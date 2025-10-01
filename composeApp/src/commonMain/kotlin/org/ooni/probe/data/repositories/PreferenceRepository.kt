@@ -88,6 +88,7 @@ class PreferenceRepository(
 
             SettingsKey.CHOSEN_WEBSITES,
             SettingsKey.PROXIES_CUSTOM,
+            SettingsKey.DESCRIPTOR_SECTIONS_COLLAPSED,
             -> PreferenceKey.StringSetKey(stringSetPreferencesKey(preferenceKey))
 
             else -> PreferenceKey.BooleanKey(booleanPreferencesKey(preferenceKey))

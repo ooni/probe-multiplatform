@@ -22,7 +22,12 @@ class DashboardScreenTest {
                     DashboardScreen(
                         state =
                             DashboardViewModel.State(
-                                descriptors = mapOf(DescriptorType.Installed to listOf(descriptor)),
+                                sections = listOf(
+                                    DashboardViewModel.DescriptorSection(
+                                        type = DescriptorType.Installed,
+                                        descriptors = listOf(descriptor),
+                                    ),
+                                ),
                             ),
                         onEvent = {},
                     )

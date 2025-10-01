@@ -10,7 +10,7 @@ object DeepLinkParser {
         val uri = try {
             URI.create(url)
         } catch (e: Exception) {
-            Logger.w("Invalid deep link: $url")
+            Logger.w("Invalid deep link: $url", e)
             return DeepLink.Error
         }
 
