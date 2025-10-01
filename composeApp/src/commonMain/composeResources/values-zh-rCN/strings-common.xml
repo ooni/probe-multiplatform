@@ -209,7 +209,12 @@
     <string name="Settings_Advanced_RecentLogs">查看近期日志</string>
 
     <string name="Settings_Results_DeleteOldResults">删除旧结果</string>
-    <string name="Settings_Results_DeleteOldResultsThreshold">删除生成于</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold">删除生成时间</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="other">超过 %1$d 个月的结果</item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit">输入月份数</string>
+
     <string name="Settings_Support_Label">支持</string>
     <string name="Settings_Support_SendEmail">发送邮件给支持团队</string>
     <string name="Settings_Support_Message">请描述您所遇到的问题：</string>
