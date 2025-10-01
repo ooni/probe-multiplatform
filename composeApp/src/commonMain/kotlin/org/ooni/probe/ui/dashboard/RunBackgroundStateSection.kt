@@ -34,10 +34,11 @@ import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
-import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.shared.format
+import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.theme.AppTheme
 import org.ooni.probe.ui.theme.customColors
 
@@ -181,16 +182,16 @@ private fun RunningTests(
                 text = stringResource(Res.string.Dashboard_Running_Running),
                 style = MaterialTheme.typography.bodyLarge,
             )
-            state.testType?.let { testType ->
-                testType.iconRes?.let {
+            state.testName()?.let { testName ->
+                state.testIcon()?.let { testIcon ->
                     Icon(
-                        painterResource(it),
+                        painterResource(testIcon),
                         contentDescription = null,
                         modifier = Modifier.padding(horizontal = 4.dp).size(24.dp),
                     )
                 }
                 Text(
-                    text = testType.displayName,
+                    text = testName,
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
                 )
@@ -233,6 +234,19 @@ private fun RunningTests(
     }
 }
 
+@Composable
+private fun RunBackgroundState.RunningTests.testName() =
+    if (descriptor?.isWebConnectivityOnly == true) {
+        descriptor.title()
+    } else {
+        testType?.displayName
+    }
+
+@Composable
+private fun RunBackgroundState.RunningTests.testIcon() =
+    (if (descriptor?.isWebConnectivityOnly == true) descriptor.icon else null)
+        ?: testType?.iconRes
+
 @Preview
 @Composable
 fun RunBackgroundIdlePreview() {
@@ -265,7 +279,9 @@ fun RunBackgroundUploadingMissingResultsPreview() {
 fun RunBackgroundRunningTestsPreview() {
     AppTheme {
         RunningTests(
-            state = RunBackgroundState.RunningTests(),
+            state = RunBackgroundState.RunningTests(
+                testType = TestType.Whatsapp,
+            ),
             onEvent = {},
         )
     }

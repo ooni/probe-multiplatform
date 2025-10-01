@@ -104,7 +104,7 @@ private fun TestRunning(
             .fillMaxSize()
             .padding(32.dp),
     ) {
-        state.testType?.let { testType ->
+        state.descriptor?.let { descriptor ->
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -113,10 +113,16 @@ private fun TestRunning(
                     style = MaterialTheme.typography.bodyLarge,
                 )
                 Text(
-                    text = testType.displayName,
+                    text = descriptor.title(),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                 )
+                state.testType?.let {
+                    Text(
+                        text = it.displayName,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                }
                 if (hasProxy) {
                     AssistChip(
                         onClick = { },
