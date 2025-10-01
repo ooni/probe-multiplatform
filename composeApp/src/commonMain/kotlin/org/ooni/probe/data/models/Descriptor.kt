@@ -57,6 +57,14 @@ data class Descriptor(
 
     val isWebConnectivityOnly get() =
         allTests.size == 1 && allTests.first().test == TestType.WebConnectivity
+
+    companion object {
+        val SORT_COMPARATOR =
+            compareByDescending<Descriptor> { it.source is Source.Installed }
+                .thenBy { it.isExpired }
+                .thenByDescending { (it.source as? Source.Installed)?.value?.dateInstalled }
+                .thenByDescending { (it.source as? Source.Installed)?.value?.id?.value }
+    }
 }
 
 fun List<Descriptor>.notExpired() = filter { !it.isExpired }

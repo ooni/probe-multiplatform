@@ -181,8 +181,8 @@ class DashboardViewModel(
 
     private fun List<Descriptor>.groupByType() =
         mapOf(
-            DescriptorType.Default to filter { it.source is Descriptor.Source.Default },
             DescriptorType.Installed to filter { it.source is Descriptor.Source.Installed },
+            DescriptorType.Default to filter { it.source is Descriptor.Source.Default },
         )
 
     data class State(
