@@ -172,7 +172,6 @@ class DescriptorViewModel(
             .filterIsInstance<Event.AutoUpdateChanged>()
             .onEach {
                 val descriptor = state.value.descriptor ?: return@onEach
-                if (descriptor.source == null) return@onEach
                 setAutoUpdate(descriptor.source.id, it.value)
             }.launchIn(viewModelScope)
 
@@ -182,7 +181,6 @@ class DescriptorViewModel(
                 if (state.value.isRefreshing) return@onEach
                 val descriptor = state.value.descriptor ?: return@onEach
 
-                if (descriptor.source == null) return@onEach
                 startDescriptorsUpdate(listOf(descriptor.source))
             }.launchIn(viewModelScope)
 
@@ -310,11 +308,7 @@ class DescriptorViewModel(
             RunSpecification.Full(
                 tests = listOf(
                     RunSpecification.Test(
-                        source = if (descriptor.source == null) {
-                            RunSpecification.Test.Source.Default(descriptor.name)
-                        } else {
-                            RunSpecification.Test.Source.Installed(descriptor.source.id)
-                        },
+                        source = descriptor.source.id,
                         netTests = descriptor.allTests,
                     ),
                 ),

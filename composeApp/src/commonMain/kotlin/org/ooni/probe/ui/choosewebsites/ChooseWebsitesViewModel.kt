@@ -135,9 +135,7 @@ class ChooseWebsitesViewModel(
                     RunSpecification.Full(
                         tests = listOf(
                             RunSpecification.Test(
-                                source = RunSpecification.Test.Source.Installed(
-                                    InstalledTestDescriptorModel.Id(OoniTest.WEBSITES.key),
-                                ),
+                                source = InstalledTestDescriptorModel.Id(OoniTest.WEBSITES.id.toString()),
                                 netTests = listOf(
                                     NetTest(
                                         test = TestType.WebConnectivity,

@@ -33,8 +33,14 @@ data class Descriptor(
         get() = (updateStatus as? UpdateStatus.Updatable)?.updatedDescriptor
 
     val key: String
-        get() = source.key.id.value
-
+        get() {
+            val descriptorId = source.id.value
+            return if (isDefault()) {
+                OoniTest.fromId(descriptorId.toLong())?.key ?: descriptorId
+            } else {
+                descriptorId
+            }
+        }
     val allTests get() = netTests + longRunningTests
 
     val estimatedDuration
@@ -46,7 +52,7 @@ data class Descriptor(
         allTests.size == 1 && allTests.first().test == TestType.WebConnectivity
 
     val settingsPrefix: String?
-        get() = source.id.value
+        get() = if (isDefault()) null else source.id.value
 
     fun isDefault(): Boolean = source.isDefaultTestDescriptor
 }
