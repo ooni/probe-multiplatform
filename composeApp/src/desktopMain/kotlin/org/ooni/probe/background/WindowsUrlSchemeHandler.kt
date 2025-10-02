@@ -15,23 +15,34 @@ fun registerWindowsUrlScheme() {
         .orElse("unknown")
 
     val keyPath = """HKCU\Software\Classes\ooni"""
-    val checkCommand = """reg query "$keyPath" /ve"""
-
-    /*
+    // Query for the default value of the key itself, and also the command key specifically.
+    // We are most interested in the command key: $keyPath\shell\open\command
+    val checkCommand = """reg query "$keyPath\shell\open\command" /ve"""
 
     try {
-        // Check if the key already exists to avoid unnecessary writes
+        // Check if the key already exists and value is equal to the current executable path
+        Logger.d("Checking if OONI URL scheme is already registered...")
         val checkProcess = Runtime.getRuntime().exec(checkCommand)
         if (checkProcess.waitFor() == 0) {
-            Logger.d("OONI URL scheme already registered.")
-            return
+            val output = checkProcess.inputStream.bufferedReader().readText()
+            val expectedCommand = """"$exePath" "%1""""
+            if (output.contains(expectedCommand)) {
+                Logger.d("OONI URL scheme is already registered and points to the correct executable: $exePath")
+                return // Scheme is correctly registered
+            } else {
+                Logger.d(
+                    "OONI URL scheme is registered but points to a different command: '$output'. Expected: '$expectedCommand'. Will update.",
+                )
+            }
+        } else {
+            // This means the "HKCU\Software\Classes\ooni\shell\open\command" key likely doesn't exist or query failed.
+            val errorOutput = checkProcess.errorStream.bufferedReader().readText()
+            Logger.d("OONI URL scheme command key not found or query failed. Error: $errorOutput. Proceeding with registration.")
         }
     } catch (e: IOException) {
         Logger.e("Failed to check registry key", e)
         // Proceed to attempt registration anyway
     }
-
-     */
 
     val commands = listOf(
         """reg add "$keyPath" /ve /d "OONI Run" /f""",
