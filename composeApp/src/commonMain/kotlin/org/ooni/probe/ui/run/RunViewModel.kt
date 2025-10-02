@@ -223,7 +223,7 @@ class RunViewModel(
                 .groupBy(keySelector = { it.first }, valueTransform = { it.second })
                 .map { (descriptor, tests) ->
                     RunSpecification.Test(
-                        source = RunSpecification.Test.Source.fromDescriptor(descriptor),
+                        source = descriptor.source.id,
                         netTests = tests,
                     )
                 },

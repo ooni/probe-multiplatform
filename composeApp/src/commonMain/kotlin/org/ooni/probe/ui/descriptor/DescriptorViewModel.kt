@@ -315,11 +315,7 @@ class DescriptorViewModel(
             RunSpecification.Full(
                 tests = listOf(
                     RunSpecification.Test(
-                        source = if (descriptor.source == null) {
-                            RunSpecification.Test.Source.Default(descriptor.name)
-                        } else {
-                            RunSpecification.Test.Source.Installed(descriptor.source.id)
-                        },
+                        source = descriptor.source.id,
                         netTests = descriptor.allTests,
                     ),
                 ),
