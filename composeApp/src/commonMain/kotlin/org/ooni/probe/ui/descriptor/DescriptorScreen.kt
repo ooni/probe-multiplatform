@@ -176,9 +176,7 @@ fun DescriptorScreen(
                     HorizontalDivider(Modifier.padding(bottom = 16.dp), thickness = Dp.Hairline)
                 }
 
-                if (descriptor.source != null) {
-                    ConfigureUpdates(onEvent, descriptor.source?.autoUpdate == true)
-                }
+                ConfigureUpdates(onEvent, descriptor.source.autoUpdate)
 
                 Text(
                     stringResource(Res.string.AddDescriptor_Settings),
@@ -360,7 +358,7 @@ private fun DescriptorDetails(
                         .align(Alignment.CenterHorizontally)
                         .padding(top = 8.dp),
                 ) {
-                    if (descriptor.key == OoniTest.WEBSITES.id.toString()) {
+                    if (descriptor.key == OoniTest.WEBSITES.key) {
                         OutlinedButton(
                             onClick = { onEvent(DescriptorViewModel.Event.ChooseWebsitesClicked) },
                             border = ButtonDefaults
