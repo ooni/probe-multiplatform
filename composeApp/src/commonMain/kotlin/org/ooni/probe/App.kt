@@ -120,6 +120,10 @@ fun App(
         // dependencies.startSingleRunInner(RunSpecification.OnlyUploadMissingResults)
     }
     LaunchedEffect(Unit) {
+        // Check for GeoIP DB updates in the background
+        runCatching { dependencies.fetchGeoIpDbUpdates() }
+    }
+    LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoUpdate()
     }
     LaunchedEffect(Unit) {
