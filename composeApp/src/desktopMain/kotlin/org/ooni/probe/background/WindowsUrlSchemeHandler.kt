@@ -15,8 +15,6 @@ fun registerWindowsUrlScheme() {
         .orElse("unknown")
 
     val keyPath = """HKCU\Software\Classes\ooni"""
-    // Query for the default value of the key itself, and also the command key specifically.
-    // We are most interested in the command key: $keyPath\shell\open\command
     val checkCommand = """reg query "$keyPath\shell\open\command" /ve"""
 
     try {
