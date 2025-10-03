@@ -31,6 +31,7 @@ interface OonimkallBridge {
         val proxy: String?,
         val probeServicesURL: String?,
         val assetsDir: String,
+        val geoIpDB: String?,
         val stateDir: String,
         val tempDir: String,
         val tunnelDir: String,

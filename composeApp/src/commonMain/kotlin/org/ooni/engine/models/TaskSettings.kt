@@ -15,6 +15,7 @@ data class TaskSettings(
     @SerialName("temp_dir") val tempDir: String,
     @SerialName("tunnel_dir") val tunnelDir: String,
     @SerialName("assets_dir") val assetsDir: String,
+    @SerialName("geoip_db") val geoIpDB: String?,
     @SerialName("options") val options: Options,
     @SerialName("annotations") val annotations: Annotations,
     // Optional

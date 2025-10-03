@@ -27,5 +27,6 @@ composeApp/src/desktopMain/resources/macos/Sparkle.framework
 
 /composeApp/src/desktopMain/frameworks/
 composeApp/macos-appcast.xml
+*.mmdb
 
 certificates/*.pem

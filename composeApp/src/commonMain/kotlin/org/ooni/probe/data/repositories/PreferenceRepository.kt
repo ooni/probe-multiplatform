@@ -75,11 +75,13 @@ class PreferenceRepository(
     ): PreferenceKey<*> {
         val preferenceKey = getPreferenceKey(name = key.value, prefix = prefix, autoRun = autoRun)
         return when (key) {
+            SettingsKey.MMDB_LAST_CHECK,
             SettingsKey.MAX_RUNTIME,
             SettingsKey.LEGACY_PROXY_PORT,
             SettingsKey.DELETE_OLD_RESULTS_THRESHOLD,
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
 
+            SettingsKey.MMDB_VERSION,
             SettingsKey.LEGACY_PROXY_HOSTNAME,
             SettingsKey.LEGACY_PROXY_PROTOCOL,
             SettingsKey.PROXY_SELECTED,

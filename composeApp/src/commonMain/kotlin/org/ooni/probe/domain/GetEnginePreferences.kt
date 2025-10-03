@@ -29,6 +29,7 @@ class GetEnginePreferences(
                 null
             },
             proxy = getProxyOption().first().value,
+            geoipDbVersion = getValueForKey(SettingsKey.MMDB_VERSION) as String?,
         )
 
     private suspend fun getEnabledCategories(): List<String> {

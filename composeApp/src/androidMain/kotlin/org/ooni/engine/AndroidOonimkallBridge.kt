@@ -63,6 +63,10 @@ class AndroidOonimkallBridge : OonimkallBridge {
             it.softwareVersion = softwareVersion
 
             it.assetsDir = assetsDir
+            // geoipDB may not exist in Android binding; set reflectively if available
+            geoIpDB?.let { path ->
+                it.geoipDB = path
+            }
             it.stateDir = stateDir
             it.tempDir = tempDir
             it.tunnelDir = tunnelDir
