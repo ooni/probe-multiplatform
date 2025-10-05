@@ -28,6 +28,10 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Link deinstallieren</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Frühere Überarbeitungen</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Weitere Informationen</string>
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one">Zeige %1$d Website an</item>
+        <item quantity="other">Alle %1$d Websites anzeigen</item>
+    </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">ABGELAUFEN</string>
     <string name="Dashboard_RunV2_UpdatedTag">AKTUALISIERT</string>
     <string name="Dashboard_RunV2_UpdateTag">AKTUALISIERUNG</string>
@@ -199,6 +203,7 @@
     <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Keine</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Add">Benutzerdefinierten Proxy hinzufügen</string>
     <string name="Settings_Proxy_Custom_Protocol">Protokoll</string>
     <string name="Settings_Proxy_Custom_Hostname">Hostname</string>
     <string name="Settings_Proxy_Custom_Port">Anschluss</string>
