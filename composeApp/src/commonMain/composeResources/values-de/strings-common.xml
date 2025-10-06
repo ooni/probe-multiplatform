@@ -363,7 +363,6 @@
     <string name="AddDescriptor_AutoUpdate">Installiere Aktualisierungen automatisch</string>
     <string name="AddDescriptor_AutoRun">Tests automatisch ausführen</string>
     <string name="AddDescriptor_Toasts_Installed">Link installiert</string>
-    <string name="AddDescriptor_Action">Installiere Link</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Nicht unterstützte URL</string>
     <string name="LoadingScreen_Runv2_Message">Lade Link</string>
     <string name="LoadingScreen_Runv2_Failure">Fehler</string>
