@@ -7,6 +7,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
@@ -16,6 +17,7 @@ import org.ooni.engine.Engine
 import org.ooni.engine.models.Result
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.toDescriptor
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.domain.descriptors.SaveTestDescriptors
@@ -27,6 +29,7 @@ class AddDescriptorViewModel(
     fetchDescriptor: suspend () -> Result<InstalledTestDescriptorModel?, Engine.MkException>,
     private val saveTestDescriptors: suspend (List<InstalledTestDescriptorModel>, SaveTestDescriptors.Mode) -> Unit,
     private val preferenceRepository: PreferenceRepository,
+    private val startBackgroundRun: (RunSpecification) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -36,75 +39,95 @@ class AddDescriptorViewModel(
     init {
         viewModelScope.launch {
             fetchDescriptor()
-                .map { descriptor ->
-                    descriptor?.let {
-                        _state.value = State(
-                            descriptor = it,
-                            selectableItems = it.netTests
-                                ?.map { nettest ->
-                                    SelectableItem(
-                                        item = nettest,
-                                        isSelected = true,
-                                    )
-                                }.orEmpty(),
-                        )
-                    }
+                .onSuccess { descriptor ->
+                    val descriptor = descriptor ?: return@onSuccess
+                    _state.value = State(
+                        descriptor = descriptor,
+                        selectableItems = descriptor.netTests
+                            ?.map { nettest ->
+                                SelectableItem(
+                                    item = nettest,
+                                    isSelected = true,
+                                )
+                            }.orEmpty(),
+                    )
                 }.onFailure { error ->
-                    Logger.e(error) { "Failed to fetch descriptor" }
-                    _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorFailed) }
+                    Logger.e("Failed to fetch descriptor", error)
+                    _state.update {
+                        it.copy(messages = it.messages + SnackBarMessage.AddDescriptorFailed)
+                    }
                     onBack()
                 }
         }
 
         events
+            .filterIsInstance<Event.SelectableItemClicked>()
             .onEach { event ->
-                when (event) {
-                    is Event.SelectableItemClicked -> {
-                        val newItems = state.value.selectableItems.map { item ->
-                            if (item == event.item) {
-                                item.copy(isSelected = !item.isSelected)
-                            } else {
-                                item
-                            }
+                _state.update { state ->
+                    val newItems = state.selectableItems.map { item ->
+                        if (item == event.item) {
+                            item.copy(isSelected = !item.isSelected)
+                        } else {
+                            item
                         }
-                        _state.value = state.value.copy(selectableItems = newItems)
                     }
-
-                    is Event.AutoUpdateChanged -> {
-                        _state.value = state.value.copy(autoUpdate = event.autoUpdate)
-                    }
-
-                    is Event.AutoRunChanged -> {
-                        _state.value =
-                            state.value.copy(
-                                selectableItems = state.value.selectableItems.map { item ->
-                                    item.copy(isSelected = event.autoRun)
-                                },
-                            )
-                    }
-
-                    is Event.CancelClicked -> {
-                        _state.update { it.copy(messages = it.messages + SnackBarMessage.AddDescriptorCancel) }
-                        onBack()
-                    }
-
-                    is Event.InstallDescriptorClicked -> {
-                        val descriptor = state.value.descriptor ?: return@onEach
-                        val selectedTests =
-                            state.value.selectableItems
-                                .filter { it.isSelected }
-                                .map { it.item }
-                        installDescriptor(descriptor, selectedTests)
-                        _state.update {
-                            it.copy(messages = it.messages + SnackBarMessage.AddDescriptorSuccess)
-                        }
-                        onBack()
-                    }
-
-                    is Event.MessageDisplayed -> {
-                        _state.update { it.copy(messages = state.value.messages - event.message) }
-                    }
+                    state.copy(selectableItems = newItems)
                 }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.AutoUpdateChanged>()
+            .onEach { event -> _state.update { it.copy(autoUpdate = event.autoUpdate) } }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.AutoRunChanged>()
+            .onEach { event ->
+                _state.update {
+                    it.copy(
+                        selectableItems = state.value.selectableItems
+                            .map { item -> item.copy(isSelected = event.autoRun) },
+                    )
+                }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.CancelClicked>()
+            .onEach { event ->
+                _state.update {
+                    it.copy(messages = it.messages + SnackBarMessage.AddDescriptorCancel)
+                }
+                onBack()
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.InstallClicked>()
+            .onEach { event ->
+                installDescriptorAndSavePreferences()
+                _state.update {
+                    it.copy(messages = it.messages + SnackBarMessage.AddDescriptorSuccess)
+                }
+                onBack()
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.RunClicked>()
+            .onEach { event ->
+                val installedDescriptor = state.value.descriptor ?: return@onEach
+                installDescriptorAndSavePreferences()
+                startBackgroundRun(
+                    RunSpecification.buildForDescriptor(installedDescriptor.toDescriptor()),
+                )
+                _state.update {
+                    it.copy(messages = it.messages + SnackBarMessage.AddDescriptorSuccess)
+                }
+                onBack()
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.MessageDisplayed>()
+            .onEach { event ->
+                _state.update { it.copy(messages = state.value.messages - event.message) }
             }.launchIn(viewModelScope)
     }
 
@@ -112,10 +135,8 @@ class AddDescriptorViewModel(
         events.tryEmit(event)
     }
 
-    private suspend fun installDescriptor(
-        descriptor: InstalledTestDescriptorModel,
-        selectedTests: List<NetTest>,
-    ) {
+    private suspend fun installDescriptorAndSavePreferences() {
+        val descriptor = state.value.descriptor ?: return
         saveTestDescriptors(
             listOf(
                 descriptor.copy(
@@ -125,6 +146,10 @@ class AddDescriptorViewModel(
             ),
             SaveTestDescriptors.Mode.CreateOrUpdate,
         )
+
+        val selectedTests = state.value.selectableItems
+            .filter { it.isSelected }
+            .map { it.item }
         preferenceRepository.setAreNetTestsEnabled(
             selectedTests.map { test -> descriptor.toDescriptor() to test },
             isAutoRun = true,
@@ -152,7 +177,9 @@ class AddDescriptorViewModel(
     sealed interface Event {
         data object CancelClicked : Event
 
-        data object InstallDescriptorClicked : Event
+        data object InstallClicked : Event
+
+        data object RunClicked : Event
 
         data class SelectableItemClicked(
             val item: SelectableItem<NetTest>,

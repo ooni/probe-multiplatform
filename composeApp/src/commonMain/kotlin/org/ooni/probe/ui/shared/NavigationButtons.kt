@@ -11,6 +11,7 @@ import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Common_Close
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_close
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -34,6 +35,7 @@ fun NavigationBackButton(
 fun NavigationCloseButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    contentDescription: StringResource = Res.string.Common_Close,
 ) {
     IconButton(
         onClick = onClick,
@@ -41,7 +43,7 @@ fun NavigationCloseButton(
     ) {
         Icon(
             painterResource(Res.drawable.ic_close),
-            contentDescription = stringResource(Res.string.Common_Close),
+            contentDescription = stringResource(contentDescription),
         )
     }
 }

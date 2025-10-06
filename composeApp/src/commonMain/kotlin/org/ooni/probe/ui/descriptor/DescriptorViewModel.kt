@@ -298,10 +298,9 @@ class DescriptorViewModel(
             }
 
     private fun startTest() {
-        buildRunSpecification()?.let {
-            startBackgroundRun(it)
-            onBack()
-        }
+        val descriptor = state.value.descriptor ?: return
+        startBackgroundRun(RunSpecification.buildForDescriptor(descriptor))
+        onBack()
     }
 
     private fun buildRunSpecification(): RunSpecification? =

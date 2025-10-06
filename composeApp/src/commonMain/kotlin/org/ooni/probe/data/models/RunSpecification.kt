@@ -71,4 +71,27 @@ sealed interface RunSpecification {
 
     private val Test.isWebsites
         get() = (source as? Test.Source.Default)?.name == "websites"
+
+    companion object {
+        fun buildForDescriptor(
+            descriptor: Descriptor,
+            taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
+            isRerun: Boolean = false,
+        ) = Full(
+            tests = listOf(
+                Test(
+                    source = when (descriptor.source) {
+                        is Descriptor.Source.Default ->
+                            Test.Source.Default(descriptor.name)
+
+                        is Descriptor.Source.Installed ->
+                            Test.Source.Installed(descriptor.source.value.id)
+                    },
+                    netTests = descriptor.allTests,
+                ),
+            ),
+            taskOrigin = taskOrigin,
+            isRerun = isRerun,
+        )
+    }
 }
