@@ -221,8 +221,8 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 230 // Always increment by 10. See fdroid flavor below
-        versionName = "5.2.1"
+        versionCode = 200 // Always increment by 10. See fdroid flavor below
+        versionName = "5.0.0"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
         resValue(
@@ -423,10 +423,11 @@ compose.desktop {
             val appResource = project.layout.projectDirectory.dir("src/desktopMain/resources/")
             println(" Project directory: $appResource")
             appResourcesRootDir.set(appResource)
+            val appId = "org.ooni.probe"
 
             macOS {
                 minimumSystemVersion = "12.0.0"
-                bundleID = "org.ooni.probe"
+                bundleID = appId
                 infoPlist {
                     extraKeysRawXml = """
                         <key>LSUIElement</key>
@@ -444,22 +445,19 @@ compose.desktop {
                         </array>
                         <key>com.apple.security.app-sandbox</key>
                         <true/>
-                        <key>com.apple.security.cs.allow-jit</key>
-                        <true/>
-                        <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
-                        <true/>
-                        <key>com.apple.security.cs.disable-library-validation</key>
-                        <true/>
-                        <key>com.apple.security.cs.allow-dyld-environment-variables</key>
-                        <true/>
-                        <key>com.apple.security.cs.debugger</key>
-                        <true/>
-                        <key>com.apple.security.files.user-selected.read-write</key>
-                        <true/>
-                        <key>com.apple.security.files.downloads.read-write</key>
+                        <key>com.apple.security.network.server</key>
                         <true/>
                         <key>com.apple.security.network.client</key>
                         <true/>
+                        <key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+                        <array>
+                            <string>$appId-spks</string>
+                            <string>$appId-spki</string>
+                        </array>
+                        <key>com.apple.security.temporary-exception.shared-preference.read-write</key>
+                        <array>
+                            <string>$appId</string>
+                        </array>
                     """.trimIndent()
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
