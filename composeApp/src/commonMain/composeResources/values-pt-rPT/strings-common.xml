@@ -232,6 +232,15 @@
     <string name="Settings_Advanced_DebugLogs">Logs de depuração</string>
     <string name="Settings_Advanced_RecentLogs">Ver logs recentes</string>
 
+    <string name="Settings_Results_DeleteOldResults">Apagar resultados antigos</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold">Apagar resultados mais antigos que</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">%1$d mês</item>
+        <item quantity="many">%1$d de meses</item>
+        <item quantity="other">%1$d meses</item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Insira a quantidade de meses</string>
+
     <string name="Settings_Support_Label">Apoio</string>
     <string name="Settings_Support_SendEmail">Enviar e-mail para suporte</string>
     <string name="Settings_Support_Message">Por favor, descreva o problema que experiencia:</string>
@@ -368,6 +377,8 @@
     <string name="AddDescriptor_AutoUpdate">Instalar atualizações automaticamente</string>
     <string name="AddDescriptor_AutoRun">Executar testes automaticamente</string>
     <string name="AddDescriptor_Toasts_Installed">Link instalado</string>
+    <string name="AddDescriptor_InstallForLater">Instalar para depois</string>
+    <string name="AddDescriptor_InstallAndRun">Instalar &amp; Executar</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">URL não suportado</string>
     <string name="LoadingScreen_Runv2_Message">A carregar Link</string>
     <string name="LoadingScreen_Runv2_Failure">Erro</string>
