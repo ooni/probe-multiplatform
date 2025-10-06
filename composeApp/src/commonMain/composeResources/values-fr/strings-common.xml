@@ -29,6 +29,11 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Désinstaller le lien</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Révisions précédentes</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Afficher plus</string>
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one">Afficher %1$d site Web</item>
+        <item quantity="many">Afficher les %1$d sites Web</item>
+        <item quantity="other">Afficher les %1$d sites Web</item>
+    </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRÉ</string>
     <string name="Dashboard_RunV2_UpdatedTag">MIS À JOUR</string>
     <string name="Dashboard_RunV2_UpdateTag">MISE À JOUR</string>
@@ -207,20 +212,34 @@
     <string name="Settings_Privacy_SendCrashReports">Envoyer des relevés de plantage</string>
 
     <string name="Settings_Proxy_Label">Mandataire vers la dorsale d’OONI</string>
-    <string name="Settings_Proxy">Mandataire</string>
+    <string name="Settings_Proxy">Inaccessible</string>
     <string name="Settings_Proxy_None">Aucun</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Add">Ajouter un mandataire personnalisé</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
     <string name="Settings_Proxy_Custom_Hostname">Nom d’hôte</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid">Le nom d’hôte est invalide</string>
+    <string name="Settings_Proxy_Custom_PortInvalid">Le port est invalide</string>
     <string name="Settings_Proxy_Custom_Testing">Test</string>
-    <string name="Settings_Proxy_Custom_Available">Disponible</string>
-    <string name="Settings_Proxy_Custom_Unavailable">Indisponible</string>
+    <string name="Settings_Proxy_Custom_Available">Accessible</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Inaccessible</string>
+    <string name="Settings_Proxy_Delete_Confirmation">Voulez-vous supprimer le mandataire %1$s \?</string>
+
     <string name="Settings_Language_Label">Langue</string>
 
     <string name="Settings_Advanced_Label">Avancés</string>
     <string name="Settings_Advanced_DebugLogs">Journaux de débogage</string>
     <string name="Settings_Advanced_RecentLogs">Voir les journaux récents</string>
+
+    <string name="Settings_Results_DeleteOldResults">Supprimer les anciens résultats</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold">Supprimer les résultats datant de plus de</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">%1$d mois</item>
+        <item quantity="many">%1$d mois</item>
+        <item quantity="other">%1$d mois</item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Saisissez le nombre de mois</string>
 
     <string name="Settings_Support_Label">Assistance</string>
     <string name="Settings_Support_SendEmail">Envoyer un courriel à l’assistance</string>

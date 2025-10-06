@@ -27,6 +27,9 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">卸载链接</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">上次修改</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">查看更多</string>
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="other">查看全部 %1$d 个网站</item>
+    </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">已到期</string>
     <string name="Dashboard_RunV2_UpdatedTag">已更新</string>
     <string name="Dashboard_RunV2_UpdateTag">更新</string>
@@ -188,17 +191,29 @@
     <string name="Settings_Proxy">代理</string>
     <string name="Settings_Proxy_None">空</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Add">添加自定义代理</string>
     <string name="Settings_Proxy_Custom_Protocol">协议</string>
     <string name="Settings_Proxy_Custom_Hostname">主机名称</string>
     <string name="Settings_Proxy_Custom_Port">端口</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid">主机名无效</string>
+    <string name="Settings_Proxy_Custom_PortInvalid">端口无效</string>
     <string name="Settings_Proxy_Custom_Testing">测试中</string>
     <string name="Settings_Proxy_Custom_Available">在线</string>
     <string name="Settings_Proxy_Custom_Unavailable">不可用</string>
+    <string name="Settings_Proxy_Delete_Confirmation">确定要删除 %1$s 代理吗？</string>
+
     <string name="Settings_Language_Label">语言</string>
 
     <string name="Settings_Advanced_Label">高级</string>
     <string name="Settings_Advanced_DebugLogs">调试日志</string>
     <string name="Settings_Advanced_RecentLogs">查看近期日志</string>
+
+    <string name="Settings_Results_DeleteOldResults">删除旧结果</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold">删除生成时间</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="other">超过 %1$d 个月的结果</item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit">输入月份数</string>
 
     <string name="Settings_Support_Label">支持</string>
     <string name="Settings_Support_SendEmail">发送邮件给支持团队</string>
