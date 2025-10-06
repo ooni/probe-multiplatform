@@ -245,7 +245,6 @@
     <string name="AddDescriptor_AutoUpdate">Pasang pembaruan secara otomatis</string>
     <string name="AddDescriptor_AutoRun">Jalankan tes secara otomatis</string>
     <string name="AddDescriptor_Toasts_Installed">Tautan terpasang</string>
-    <string name="AddDescriptor_Action">Pasang Tautan</string>
     <string name="LoadingScreen_Runv2_Message">Memuat Tautan</string>
     <string name="LoadingScreen_Runv2_Failure">Galat</string>
     <string name="LoadingScreen_Runv2_Canceled">Pemasangan tautan dibatalkan</string>
