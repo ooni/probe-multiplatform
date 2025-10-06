@@ -68,7 +68,7 @@ class DescriptorUpdateWorker(
 
         return try {
             val descriptors = getDescriptors() ?: return Result.failure()
-            dependencies.getDescriptorUpdate.invoke(descriptors)
+            dependencies.fetchDescriptorsUpdates(descriptors)
             Result.success(buildWorkData(descriptors.map { it.id }))
         } catch (e: CancellationException) {
             if (isStopped) {
@@ -99,8 +99,9 @@ class DescriptorUpdateWorker(
                 Logger.w("Could not start update worker: invalid configuration", e)
                 return null
             }
+        } else {
+            return emptyList() // FetchDescriptorsUpdates will update them all
         }
-        return testDescriptorRepository.listLatest().first()
     }
 
     private suspend fun buildNotificationChannelIfNeeded() {

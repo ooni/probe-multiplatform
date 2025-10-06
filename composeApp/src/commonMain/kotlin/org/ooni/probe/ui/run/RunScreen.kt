@@ -61,7 +61,7 @@ import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
-import org.ooni.probe.ui.dashboard.TestDescriptorSection
+import org.ooni.probe.ui.dashboard.TestDescriptorTypeTitle
 import org.ooni.probe.ui.shared.DisableVpnInstructionsDialog
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.ParentSelectableItem
@@ -131,7 +131,7 @@ fun RunScreen(
                 state.list.forEach { (type, descriptorsMap) ->
                     if (allSectionsHaveValues && descriptorsMap.isNotEmpty()) {
                         item(key = type) {
-                            TestDescriptorSection(
+                            TestDescriptorTypeTitle(
                                 type = type,
                                 modifier = Modifier
                                     .padding(top = 8.dp, start = 16.dp, bottom = 4.dp),

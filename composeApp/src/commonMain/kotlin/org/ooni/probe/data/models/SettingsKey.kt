@@ -66,6 +66,7 @@ enum class SettingsKey(
     IS_NOTIFICATION_DIALOG("isNotificationDialog"),
     FIRST_RUN("first_run"),
     CHOSEN_WEBSITES("chosen_websites"),
+    DESCRIPTOR_SECTIONS_COLLAPSED("descriptor_sections_collapsed"),
 
     ROUTE("route"),
 

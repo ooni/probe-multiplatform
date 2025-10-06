@@ -167,6 +167,7 @@ class Dependencies(
 
     @VisibleForTesting
     val resultRepository by lazy { ResultRepository(database, backgroundContext) }
+
     val testDescriptorRepository by lazy {
         TestDescriptorRepository(database, json, backgroundContext)
     }
@@ -297,8 +298,9 @@ class Dependencies(
         )
     }
     val finishInProgressData by lazy { FinishInProgressData(resultRepository::markAllAsDone) }
-    val getDescriptorUpdate by lazy {
+    val fetchDescriptorsUpdates by lazy {
         FetchDescriptorsUpdates(
+            getLatestTestDescriptors = testDescriptorRepository::listLatest,
             fetchDescriptor = fetchDescriptor::invoke,
             saveTestDescriptors = saveTestDescriptors::invoke,
             updateState = descriptorUpdateStateManager::update,
@@ -578,6 +580,8 @@ class Dependencies(
         getAutoRunSettings = getAutoRunSettings::invoke,
         batteryOptimization = batteryOptimization,
         canPullToRefresh = platformInfo.canPullToRefresh,
+        getPreference = preferenceRepository::getValueByKey,
+        setPreference = preferenceRepository::setValueByKey,
     )
 
     fun descriptorViewModel(

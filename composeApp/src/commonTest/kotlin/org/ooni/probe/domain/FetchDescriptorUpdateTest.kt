@@ -1,5 +1,6 @@
 package org.ooni.probe.domain
 
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.models.Success
@@ -24,6 +25,7 @@ class FetchDescriptorUpdateTest {
             var saveDescriptors: List<InstalledTestDescriptorModel>? = null
             var state: DescriptorsUpdateState? = null
             val subject = FetchDescriptorsUpdates(
+                getLatestTestDescriptors = { emptyFlow() },
                 fetchDescriptor = { Success(oldDescriptor) },
                 saveTestDescriptors = { list, _ -> saveDescriptors = list },
                 updateState = { state = it(state ?: DescriptorsUpdateState()) },
@@ -32,7 +34,7 @@ class FetchDescriptorUpdateTest {
             subject(listOf(oldDescriptor))
 
             assertEquals(0, state!!.autoUpdated.size)
-            assertEquals(DescriptorUpdateOperationState.Idle, state!!.operationState)
+            assertEquals(DescriptorUpdateOperationState.Idle, state.operationState)
             assertTrue(saveDescriptors.isNullOrEmpty())
         }
 
@@ -53,6 +55,7 @@ class FetchDescriptorUpdateTest {
             var saveDescriptors: List<InstalledTestDescriptorModel>? = null
             var state: DescriptorsUpdateState? = null
             val subject = FetchDescriptorsUpdates(
+                getLatestTestDescriptors = { emptyFlow() },
                 fetchDescriptor = { Success(newDescriptor) },
                 saveTestDescriptors = { list, _ -> saveDescriptors = list },
                 updateState = { state = it(state ?: DescriptorsUpdateState()) },
@@ -61,7 +64,7 @@ class FetchDescriptorUpdateTest {
             subject(listOf(oldDescriptor))
 
             assertEquals(1, state!!.autoUpdated.size)
-            assertEquals(DescriptorUpdateOperationState.Idle, state!!.operationState)
+            assertEquals(DescriptorUpdateOperationState.Idle, state.operationState)
             assertEquals(listOf(newDescriptor), saveDescriptors)
         }
 
@@ -81,6 +84,7 @@ class FetchDescriptorUpdateTest {
             var saveDescriptors: List<InstalledTestDescriptorModel>? = null
             var state: DescriptorsUpdateState? = null
             val subject = FetchDescriptorsUpdates(
+                getLatestTestDescriptors = { emptyFlow() },
                 fetchDescriptor = { Success(newDescriptor) },
                 saveTestDescriptors = { list, _ -> saveDescriptors = list },
                 updateState = { state = it(state ?: DescriptorsUpdateState()) },
@@ -89,8 +93,8 @@ class FetchDescriptorUpdateTest {
             subject(listOf(oldDescriptor))
 
             assertEquals(0, state!!.availableUpdates.size)
-            assertEquals(0, state!!.autoUpdated.size)
-            assertEquals(DescriptorUpdateOperationState.Idle, state!!.operationState)
+            assertEquals(0, state.autoUpdated.size)
+            assertEquals(DescriptorUpdateOperationState.Idle, state.operationState)
             assertEquals(listOf(newDescriptor), saveDescriptors)
         }
 }

@@ -3,8 +3,8 @@ package org.ooni.probe.background
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collect
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
@@ -71,14 +71,12 @@ class OperationsManager(
     }
 
     fun handleUpdateDescriptorTask(task: BGProcessingTask) {
-        val testDescriptorRepository by lazy { dependencies.testDescriptorRepository }
         Logger.d { "Handling update descriptor task" }
         val operationQueue = NSOperationQueue()
 
-        val getDescriptorUpdate by lazy { dependencies.getDescriptorUpdate }
+        val fetchDescriptorsUpdates by lazy { dependencies.fetchDescriptorsUpdates }
         val operation = DescriptorUpdateOperation(
-            testDescriptorRepository = testDescriptorRepository,
-            fetchDescriptorsUpdates = getDescriptorUpdate,
+            fetchDescriptorsUpdates = fetchDescriptorsUpdates::invoke,
         )
 
         task.expirationHandler = { operation.cancel() }
@@ -89,12 +87,10 @@ class OperationsManager(
     fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
         Logger.d("Fetching descriptor update")
         val operationQueue = NSOperationQueue()
-        val getDescriptorUpdate by lazy { dependencies.getDescriptorUpdate }
-        val testDescriptorRepository by lazy { dependencies.testDescriptorRepository }
+        val fetchDescriptorsUpdates by lazy { dependencies.fetchDescriptorsUpdates }
         val operation = DescriptorUpdateOperation(
             descriptors = descriptors,
-            fetchDescriptorsUpdates = getDescriptorUpdate,
-            testDescriptorRepository = testDescriptorRepository,
+            fetchDescriptorsUpdates = fetchDescriptorsUpdates::invoke,
         )
         val identifier = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler {
             operation.cancel()

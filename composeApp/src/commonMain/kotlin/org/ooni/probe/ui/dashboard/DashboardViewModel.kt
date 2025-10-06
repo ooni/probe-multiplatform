@@ -6,8 +6,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.merge
@@ -22,6 +24,7 @@ import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.RunBackgroundState
+import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.shared.tickerFlow
 import kotlin.time.Duration.Companion.seconds
@@ -44,6 +47,8 @@ class DashboardViewModel(
     getAutoRunSettings: () -> Flow<AutoRunParameters>,
     batteryOptimization: BatteryOptimization,
     canPullToRefresh: Boolean,
+    private val getPreference: (SettingsKey) -> Flow<Any?>,
+    private val setPreference: suspend (SettingsKey, Any?) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -77,10 +82,13 @@ class DashboardViewModel(
                 }
             }.launchIn(viewModelScope)
 
-        getTestDescriptors()
-            .onEach { tests ->
-                _state.update { it.copy(descriptors = tests.groupByType()) }
-            }.launchIn(viewModelScope)
+        combine(
+            getTestDescriptors(),
+            getPreference(SettingsKey.DESCRIPTOR_SECTIONS_COLLAPSED),
+        ) { tests, collapsedSectionsPreference ->
+            val collapsedSections = collapsedSectionsPreference.toCollapsedSections()
+            _state.update { it.copy(sections = tests.groupByType(collapsedSections)) }
+        }.launchIn(viewModelScope)
 
         observeRunBackgroundState
             .onEach { testState ->
@@ -132,6 +140,11 @@ class DashboardViewModel(
         }.launchIn(viewModelScope)
 
         events
+            .filterIsInstance<Event.ToggleSection>()
+            .onEach { (type) -> toggleSection(type) }
+            .launchIn(viewModelScope)
+
+        events
             .filterIsInstance<Event.FetchUpdatedDescriptors>()
             .onEach { startDescriptorsUpdates(null) }
             .launchIn(viewModelScope)
@@ -179,14 +192,41 @@ class DashboardViewModel(
         events.tryEmit(event)
     }
 
-    private fun List<Descriptor>.groupByType() =
-        mapOf(
-            DescriptorType.Installed to filter { it.source is Descriptor.Source.Installed },
-            DescriptorType.Default to filter { it.source is Descriptor.Source.Default },
+    private suspend fun toggleSection(type: DescriptorType) {
+        val collapsedSections = getPreference(SettingsKey.DESCRIPTOR_SECTIONS_COLLAPSED)
+            .first()
+            .toCollapsedSections()
+        val newCollapsedSections = if (collapsedSections.contains(type)) {
+            collapsedSections - type
+        } else {
+            collapsedSections + type
+        }
+        setPreference(
+            SettingsKey.DESCRIPTOR_SECTIONS_COLLAPSED,
+            newCollapsedSections.map { it.key }.toSet(),
+        )
+    }
+
+    private fun List<Descriptor>.groupByType(collapsedSections: List<DescriptorType>) =
+        listOf(
+            DescriptorSection(
+                type = DescriptorType.Installed,
+                descriptors = filter { it.source is Descriptor.Source.Installed },
+                isCollapsed = collapsedSections.contains(DescriptorType.Installed),
+            ),
+            DescriptorSection(
+                type = DescriptorType.Default,
+                descriptors = filter { it.source is Descriptor.Source.Default },
+                isCollapsed = collapsedSections.contains(DescriptorType.Default),
+            ),
         )
 
+    private fun Any?.toCollapsedSections() =
+        @Suppress("UNCHECKED_CAST")
+        (this as? Set<String>)?.mapNotNull { DescriptorType.fromKey(it) }.orEmpty()
+
     data class State(
-        val descriptors: Map<DescriptorType, List<Descriptor>> = emptyMap(),
+        val sections: List<DescriptorSection> = emptyList(),
         val runBackgroundState: RunBackgroundState = RunBackgroundState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
         val showVpnWarning: Boolean = false,
@@ -199,7 +239,10 @@ class DashboardViewModel(
             get() = descriptorsUpdateOperationState == DescriptorUpdateOperationState.FetchingUpdates
 
         val isRefreshEnabled: Boolean
-            get() = descriptors[DescriptorType.Installed]?.any() == true
+            get() = sections
+                .firstOrNull { it.type == DescriptorType.Installed }
+                ?.descriptors
+                ?.any() == true
     }
 
     sealed interface Event {
@@ -221,6 +264,10 @@ class DashboardViewModel(
             val descriptor: Descriptor,
         ) : Event
 
+        data class ToggleSection(
+            val type: DescriptorType,
+        ) : Event
+
         data class UpdateDescriptorClicked(
             val descriptor: Descriptor,
         ) : Event
@@ -235,6 +282,12 @@ class DashboardViewModel(
 
         data object IgnoreBatteryOptimizationDismissed : Event
     }
+
+    data class DescriptorSection(
+        val type: DescriptorType,
+        val descriptors: List<Descriptor>,
+        val isCollapsed: Boolean = false,
+    )
 
     companion object {
         private val CHECK_VPN_WARNING_INTERVAL = 5.seconds
