@@ -119,7 +119,7 @@ class RunningTestsTest {
 
     @Test
     fun stunReachability() =
-        runTest {
+        runTest(timeout = TEST_WAIT_TIMEOUT) {
             if (!isOoni) return@runTest
             with(compose) {
                 clickOnText(Res.string.OONIRun_Run)
