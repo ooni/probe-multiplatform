@@ -334,7 +334,6 @@
     <string name="AddDescriptor_AutoUpdate">Устанавливать обновления автоматически</string>
     <string name="AddDescriptor_AutoRun">Запускать тесты автоматически</string>
     <string name="AddDescriptor_Toasts_Installed">Ссылка установлена</string>
-    <string name="AddDescriptor_Action">Установить ссылку</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Неподдерживаемый URL</string>
     <string name="LoadingScreen_Runv2_Message">Ссылка загружается</string>
     <string name="LoadingScreen_Runv2_Failure">Ошибка</string>
