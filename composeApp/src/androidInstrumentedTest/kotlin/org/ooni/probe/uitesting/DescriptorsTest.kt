@@ -11,18 +11,19 @@ import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeDown
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import ooniprobe.composeapp.generated.resources.AddDescriptor_Action
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoUpdate
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Title
 import ooniprobe.composeapp.generated.resources.Dashboard_Progress_ReviewLink_Action
 import ooniprobe.composeapp.generated.resources.Dashboard_ReviewDescriptor_Button_Last
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_UninstallLink
+import ooniprobe.composeapp.generated.resources.AddDescriptor_InstallAndRun
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.junit.Assert.assertEquals
@@ -77,7 +78,7 @@ class DescriptorsTest {
                 onNodeWithText("Android instrumented tests").assertIsDisplayed()
                 onNodeWithText("Web Connectivity Test").assertIsDisplayed()
 
-                clickOnText("Install Link")
+                clickOnText(Res.string.AddDescriptor_InstallAndRun)
 
                 Thread.sleep(2000)
 
@@ -89,13 +90,15 @@ class DescriptorsTest {
                 val descriptor = dependencies.getTestDescriptors
                     .latest()
                     .first()
-                    .last()
+                    .first()
                 assertEquals("Testing", descriptor.name)
 
                 val test = descriptor.netTests.first()
                 assertTrue(preferences.isNetTestEnabled(descriptor, test, isAutoRun = true).first())
 
                 clickOnText("Android instrumented tests")
+                onNodeWithText(getString(Res.string.Dashboard_Runv2_Overview_UninstallLink))
+                    .performScrollTo()
                 clickOnText(Res.string.Dashboard_Runv2_Overview_UninstallLink)
 
                 onAllNodesWithText(Res.string.Dashboard_Runv2_Overview_UninstallLink)
@@ -123,7 +126,7 @@ class DescriptorsTest {
                     onNodeWithText(Res.string.AddDescriptor_Title).isDisplayed()
                 }
                 clickOnText(Res.string.AddDescriptor_AutoUpdate)
-                clickOnText(Res.string.AddDescriptor_Action)
+                clickOnText(Res.string.AddDescriptor_InstallAndRun)
 
                 Thread.sleep(2000)
 

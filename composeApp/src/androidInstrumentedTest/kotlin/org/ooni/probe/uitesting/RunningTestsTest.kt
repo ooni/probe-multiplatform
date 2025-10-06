@@ -1,17 +1,13 @@
 package org.ooni.probe.uitesting
 
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performScrollToNode
-import androidx.compose.ui.test.performTouchInput
-import androidx.compose.ui.test.swipeUp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.test.runTest
+import ooniprobe.composeapp.generated.resources.Common_Expand
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_RunButton_Label
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectNone
 import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_RunFinished
@@ -25,6 +21,7 @@ import ooniprobe.composeapp.generated.resources.Test_Performance_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Psiphon_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Signal_Fullname
 import org.jetbrains.compose.resources.getPluralString
+import org.jetbrains.compose.resources.getString
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
@@ -33,6 +30,7 @@ import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
 import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
+import org.ooni.probe.uitesting.helpers.clickOnContentDescription
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
@@ -64,6 +62,7 @@ class RunningTestsTest {
                 clickOnText(Res.string.OONIRun_Run)
 
                 clickOnText(Res.string.Dashboard_RunTests_SelectNone)
+                clickOnContentDescription(getString(Res.string.Common_Expand) + " " + getString(Res.string.Test_InstantMessaging_Fullname))
                 clickOnText(Res.string.Test_Signal_Fullname)
                 clickOnRunButton(1)
 
@@ -84,6 +83,7 @@ class RunningTestsTest {
                 clickOnText(Res.string.OONIRun_Run)
 
                 clickOnText(Res.string.Dashboard_RunTests_SelectNone)
+                clickOnContentDescription(getString(Res.string.Common_Expand) + " " + getString(Res.string.Test_Circumvention_Fullname))
                 clickOnText(Res.string.Test_Psiphon_Fullname)
                 clickOnRunButton(1)
 
@@ -104,9 +104,7 @@ class RunningTestsTest {
                 clickOnText(Res.string.OONIRun_Run)
 
                 clickOnText(Res.string.Dashboard_RunTests_SelectNone)
-                onNodeWithTag("Run-DescriptorsList")
-                    .performScrollToNode(hasText("HTTP Header", substring = true))
-                    .performTouchInput { swipeUp() }
+                clickOnContentDescription(getString(Res.string.Common_Expand) + " " + getString(Res.string.Test_Performance_Fullname))
                 clickOnText("HTTP Header", substring = true)
                 clickOnRunButton(1)
 
@@ -127,9 +125,7 @@ class RunningTestsTest {
                 clickOnText(Res.string.OONIRun_Run)
 
                 clickOnText(Res.string.Dashboard_RunTests_SelectNone)
-                onNodeWithTag("Run-DescriptorsList")
-                    .performScrollToNode(hasText("stunreachability"))
-                    .performTouchInput { swipeUp() }
+                clickOnContentDescription(getString(Res.string.Common_Expand) + " " + getString(Res.string.Test_Experimental_Fullname))
                 clickOnText("stunreachability", substring = true)
                 clickOnRunButton(1)
 
