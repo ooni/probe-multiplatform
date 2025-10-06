@@ -349,7 +349,6 @@
     <string name="AddDescriptor_AutoUpdate">自动安装更新</string>
     <string name="AddDescriptor_AutoRun">自动运行测试</string>
     <string name="AddDescriptor_Toasts_Installed">链接已安装</string>
-    <string name="AddDescriptor_Action">安装链接</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">不支持的 URL</string>
     <string name="LoadingScreen_Runv2_Message">链接加载</string>
     <string name="LoadingScreen_Runv2_Failure">错误</string>
