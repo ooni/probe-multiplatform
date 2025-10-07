@@ -363,6 +363,8 @@
     <string name="AddDescriptor_AutoUpdate">Güncellemeler otomatik olarak kurulsun</string>
     <string name="AddDescriptor_AutoRun">Sınamalar otomatik olarak çalıştırılsın</string>
     <string name="AddDescriptor_Toasts_Installed">Bağlantı kuruldu</string>
+    <string name="AddDescriptor_InstallForLater">Daha sonra kur</string>
+    <string name="AddDescriptor_InstallAndRun">Kur ve çalıştır</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Adres desteklenmiyor</string>
     <string name="LoadingScreen_Runv2_Message">Bağlantı yükleniyor</string>
     <string name="LoadingScreen_Runv2_Failure">Hata</string>
