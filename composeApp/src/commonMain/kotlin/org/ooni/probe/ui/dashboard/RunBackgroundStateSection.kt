@@ -1,8 +1,11 @@
 package org.ooni.probe.ui.dashboard
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,12 +16,16 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_EstimatedTimeLeft
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
@@ -27,6 +34,7 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Results_UploadingMissing
+import ooniprobe.composeapp.generated.resources.ic_auto_run
 import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -35,6 +43,7 @@ import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.ui.shared.format
 import org.ooni.probe.ui.theme.AppTheme
+import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
 fun RunBackgroundStateSection(
@@ -74,6 +83,32 @@ private fun Idle(
             contentDescription = null,
             modifier = Modifier.padding(start = 8.dp),
         )
+    }
+    TextButton(
+        onClick = {},
+        colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onSurface),
+        contentPadding = PaddingValues(4.dp),
+        modifier = Modifier.defaultMinSize(minHeight = 24.dp),
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painterResource(Res.drawable.ic_auto_run),
+                contentDescription = null,
+                modifier = Modifier.padding(end = 2.dp).size(16.dp)
+            )
+            Text(
+                buildAnnotatedString {
+                    append("Auto-run is ")
+                    withStyle(SpanStyle(LocalCustomColors.current.success)) {
+                        append("enabled")
+                    }
+                },
+                style = MaterialTheme.typography.labelLarge
+            )
+        }
     }
     /*
         state.lastTestAt?.let { lastTestAt ->
@@ -130,7 +165,7 @@ private fun UploadingMissingResults(state: RunBackgroundState.UploadingMissingRe
 
             UploadMissingMeasurements.State.Starting,
             is UploadMissingMeasurements.State.Finished,
-            -> {
+                -> {
                 LinearProgressIndicator(
                     color = progressColor,
                     trackColor = progressTrackColor,

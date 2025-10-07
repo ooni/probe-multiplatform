@@ -72,6 +72,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
 import ooniprobe.composeapp.generated.resources.dashboard_arc
 import ooniprobe.composeapp.generated.resources.donate_octopus_1
+import ooniprobe.composeapp.generated.resources.donate_octopus_2
 import ooniprobe.composeapp.generated.resources.ic_auto_run
 import ooniprobe.composeapp.generated.resources.ic_close
 import ooniprobe.composeapp.generated.resources.ic_heart
@@ -79,6 +80,7 @@ import ooniprobe.composeapp.generated.resources.ic_history
 import ooniprobe.composeapp.generated.resources.ic_measurement_anomaly
 import ooniprobe.composeapp.generated.resources.ic_measurement_failed
 import ooniprobe.composeapp.generated.resources.ic_settings
+import ooniprobe.composeapp.generated.resources.ic_tests
 import ooniprobe.composeapp.generated.resources.ic_warning
 import ooniprobe.composeapp.generated.resources.ic_world
 import ooniprobe.composeapp.generated.resources.logo_probe
@@ -145,14 +147,13 @@ fun DashboardScreen(
             // AutoRunCard()
 
             // Spacer(Modifier.height(24.dp))
-            // LastResultCard()
-            Spacer(Modifier.height(24.dp))
             // HorizontalDivider(thickness = Dp.Hairline, modifier = Modifier.padding(vertical = 24.dp))
-            AutoRunSwitch2(state.isAutoRunEnabled, onEvent)
-            HorizontalDivider(
-                thickness = Dp.Hairline,
-                modifier = Modifier.padding(vertical = 24.dp),
-            )
+            // AutoRunSwitch2(state.isAutoRunEnabled, onEvent)
+            Spacer(Modifier.height(16.dp))
+            // LastResultCard()
+            TestsCard()
+            // HorizontalDivider(thickness = Dp.Hairline, modifier = Modifier.padding(vertical = 24.dp),)
+            Spacer(Modifier.height(24.dp))
             StatsSection2(state.measurementStats)
             HorizontalDivider(
                 thickness = Dp.Hairline,
@@ -313,7 +314,7 @@ private fun StatsSection2(stats: MeasurementStats?) {
     }
 
     FlowRow(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
     ) {
         if (stats?.isEmpty == true) {
             Text(stringResource(Res.string.Dashboard_Stats_Empty))
@@ -585,7 +586,7 @@ private fun LastResultCard() {
             Icon(
                 painterResource(Res.drawable.ic_history),
                 contentDescription = null,
-                tint = LocalCustomColors.current.success.copy(alpha = 0.05f),
+                tint = LocalContentColor.current.copy(alpha = 0.1f),
                 modifier = Modifier.size(96.dp).align(Alignment.TopEnd).padding(top = 8.dp),
             )
             Column {
@@ -903,13 +904,71 @@ private fun LastResultCardPrimary() {
 }
 
 @Composable
+private fun TestsCard() {
+    ElevatedCard(
+        colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surface),
+        modifier = Modifier.padding(horizontal = 16.dp),
+        onClick = {},
+    ) {
+        Box {
+            Icon(
+                painterResource(Res.drawable.ic_tests),
+                contentDescription = null,
+                tint = LocalContentColor.current.copy(alpha = 0.075f),
+                modifier = Modifier.size(80.dp).align(Alignment.TopEnd).padding(top = 8.dp),
+            )
+            Column {
+                Row(
+                    verticalAlignment = Alignment.Bottom,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 16.dp, bottom = 4.dp),
+                ) {
+                    Text(
+                        "Tests",
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            fontSize = 18.sp,
+                            lineHeight = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                        ),
+                    )
+                }
+                Text(
+                    "Your tests moved to a new tab. You can reach them through the navigation bar below.",
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+                Row(
+                    horizontalArrangement = Arrangement.End,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 0.dp)
+                        .padding(horizontal = 8.dp),
+                ) {
+                    TextButton(onClick = {}) {
+                        Text(
+                            "Dismiss",
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.66f),
+                        )
+                    }
+                    Spacer(Modifier.weight(1f))
+                    TextButton(onClick = {}) {
+                        Text("See tests")
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
 private fun ColumnScope.BlogSection() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(horizontal = 16.dp),
     ) {
         Text(
-            "OONI Updates",
+            "OONI News, Reports and Findings",
             style = MaterialTheme.typography.titleMedium.copy(
                 fontSize = 20.sp,
                 lineHeight = 28.sp,
@@ -933,14 +992,49 @@ private fun ColumnScope.BlogSection() {
                     .padding(horizontal = 16.dp, vertical = 8.dp),
             ) {
                 Text(
-                    text = "Launch: New OONI Explorer thematic censorship pages",
+                    text = "Information Controls in India and Pakistan During the May 2025 Conflict",
                     style = MaterialTheme.typography.titleMedium,
-                    maxLines = 3,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.padding(bottom = 2.dp),
                 )
                 Text(
                     text = "3 days ago",
+                    style = MaterialTheme.typography.labelLarge,
+                )
+            }
+            Image(
+                painterResource(Res.drawable.donate_octopus_2),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(96.dp).background(Color(0xffbbdaf2)),
+            )
+        }
+    }
+
+    OutlinedCard(
+        onClick = {},
+        modifier = Modifier.padding(top = 16.dp).padding(horizontal = 16.dp),
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.height(IntrinsicSize.Min),
+        ) {
+            Column(
+                Modifier
+                    .weight(1f)
+                    .height(IntrinsicSize.Min)
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+            ) {
+                Text(
+                    text = "Launch: New OONI Explorer thematic censorship pages",
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(bottom = 2.dp),
+                )
+                Text(
+                    text = "15 September, 2025",
                     style = MaterialTheme.typography.labelLarge,
                 )
             }
@@ -957,7 +1051,7 @@ private fun ColumnScope.BlogSection() {
         onClick = {},
         modifier = Modifier.align(Alignment.End).padding(top = 8.dp, end = 16.dp),
     ) {
-        Text("More Updates")
+        Text("Read More")
     }
 }
 
