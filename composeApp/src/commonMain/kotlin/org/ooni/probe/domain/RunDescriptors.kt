@@ -1,8 +1,11 @@
 package org.ooni.probe.domain
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.EnginePreferences
@@ -17,6 +20,7 @@ import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.UrlModel
+import org.ooni.probe.domain.proxy.TestProxy
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.now
 import kotlin.time.Duration
@@ -35,6 +39,7 @@ class RunDescriptors(
     private val getEnginePreferences: suspend () -> EnginePreferences,
     private val finishInProgressData: suspend () -> Unit,
     private val networkTypeFinder: () -> NetworkType,
+    private val testProxy: () -> Flow<TestProxy.State>,
 ) {
     suspend operator fun invoke(spec: RunSpecification.Full) {
         Instrumentation.withTransaction(
@@ -57,6 +62,14 @@ class RunDescriptors(
 
             if (networkTypeFinder() == NetworkType.NoInternet) {
                 reportTestRunError(TestRunError.NoInternet)
+            } else {
+                coroutineScope {
+                    launch {
+                        if (testProxy().last() == TestProxy.State.Unavailable) {
+                            reportTestRunError(TestRunError.ProxyUnavailable)
+                        }
+                    }
+                }
             }
 
             try {

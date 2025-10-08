@@ -21,6 +21,7 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.domain.CancelListenerCallback
 import org.ooni.probe.shared.PlatformInfo
 import kotlin.coroutines.CoroutineContext
@@ -124,9 +125,14 @@ class Engine(
         method: String,
         url: String,
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
+        proxy: ProxyOption? = null,
     ): Result<String?, MkException> =
         resultOf(backgroundContext) {
-            val sessionConfig = buildSessionConfig(taskOrigin, getEnginePreferences())
+            var enginePreferences = getEnginePreferences()
+            if (proxy != null) {
+                enginePreferences = enginePreferences.copy(proxy = proxy.value)
+            }
+            val sessionConfig = buildSessionConfig(taskOrigin, enginePreferences)
             session(sessionConfig).use {
                 it
                     .httpDo(

@@ -437,6 +437,7 @@ class Dependencies(
             getEnginePreferences = getEnginePreferences::invoke,
             finishInProgressData = finishInProgressData::invoke,
             networkTypeFinder = networkTypeFinder::invoke,
+            testProxy = testProxy::invoke,
         )
     }
     private val saveTestDescriptors by lazy {
@@ -500,6 +501,7 @@ class Dependencies(
     private val testProxy by lazy {
         TestProxy(
             httpDo = engine::httpDo,
+            getProxyOption = proxyManager::selected,
             backgroundContext = backgroundContext,
         )
     }
