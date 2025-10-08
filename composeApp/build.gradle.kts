@@ -8,6 +8,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import java.io.File  // For File.pathSeparator
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -220,8 +221,8 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 230 // Always increment by 10. See fdroid flavor below
-        versionName = "5.2.1"
+        versionCode = 200 // Always increment by 10. See fdroid flavor below
+        versionName = "5.0.0"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
         resValue(
@@ -422,10 +423,12 @@ compose.desktop {
             val appResource = project.layout.projectDirectory.dir("src/desktopMain/resources/")
             println(" Project directory: $appResource")
             appResourcesRootDir.set(appResource)
+            val appId = "org.ooni.probe"
 
             macOS {
                 minimumSystemVersion = "12.0.0"
-                bundleID = "org.ooni.probe"
+                bundleID = appId
+                entitlementsFile.set(project.file("OONIProbe.entitlements"))
                 infoPlist {
                     extraKeysRawXml = """
                         <key>LSUIElement</key>
@@ -442,7 +445,7 @@ compose.desktop {
                             </dict>
                         </array>
                         <key>com.apple.security.app-sandbox</key>
-                        <true/>
+                        <false/>
                         <key>com.apple.security.cs.allow-jit</key>
                         <true/>
                         <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
@@ -453,12 +456,64 @@ compose.desktop {
                         <true/>
                         <key>com.apple.security.cs.debugger</key>
                         <true/>
+                        <key>com.apple.security.network.server</key>
+                        <true/>
+                        <key>com.apple.security.network.client</key>
+                        <true/>
                         <key>com.apple.security.files.user-selected.read-write</key>
                         <true/>
                         <key>com.apple.security.files.downloads.read-write</key>
                         <true/>
-                        <key>com.apple.security.network.client</key>
+                        <key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+                        <array>
+                            <string>$appId-spks</string>
+                            <string>$appId-spki</string>
+                            <string>org.sparkle-project.InstallerLauncher</string>
+                            <string>org.sparkle-project.InstallerConnection</string>
+                            <string>org.sparkle-project.InstallerStatus</string>
+                            <string>org.sparkle-project.Downloader</string>
+                            <string>com.apple.WebKit.WebContent</string>
+                            <string>com.apple.WebKit.GPU</string>
+                            <string>com.apple.WebKit.Networking</string>
+
+                            <string>com.apple.installer.installer</string>
+                            <string>com.apple.installer.installer.helper</string>
+                        </array>
+                        <key>com.apple.security.temporary-exception.mach-register.global-name</key>
+                        <array>
+                            <string>$appId-spks</string>
+                            <string>$appId-spki</string>
+                            <string>org.sparkle-project.InstallerLauncher</string>
+                            <string>org.sparkle-project.InstallerConnection</string>
+                            <string>org.sparkle-project.InstallerStatus</string>
+                            <string>org.sparkle-project.Downloader</string>
+                            <string>com.apple.WebKit.WebContent</string>
+                            <string>com.apple.WebKit.GPU</string>
+                            <string>com.apple.WebKit.Networking</string>
+
+                            <string>com.apple.installer.installer</string>
+                            <string>com.apple.installer.installer.helper</string>
+                        </array>
+                        <key>com.apple.security.temporary-exception.shared-preference.read-write</key>
+                        <array>
+                            <string>$appId</string>
+                        </array>
+                        <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
                         <true/>
+                        <key>com.apple.security.cs.disable-library-validation</key>
+                        <true/>
+                        <key>SUPublicEDKey</key>
+                        <string>p1lTWmqHCTBhhCEtLT7sf/5pwS21mV3ZrvUudGnECLo=</string>
+                        <key>SUEnableAutomaticChecks</key>
+                        <false/>
+                        <key>SUScheduledCheckInterval</key>
+                        <integer>0</integer>
+                        <key>SUAllowsAutomaticUpdates</key>
+                        <false/>
+                        <key>SUEnableInstallerLauncherService</key>
+                    	<true/>
+                        <key>com.apple.runningboard.assertions.webkit</key>
+                    	<true/>
                     """.trimIndent()
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
