@@ -428,6 +428,7 @@ compose.desktop {
             macOS {
                 minimumSystemVersion = "12.0.0"
                 bundleID = appId
+                entitlementsFile.set(project.file("OONIProbe.entitlements"))
                 infoPlist {
                     extraKeysRawXml = """
                         <key>LSUIElement</key>
@@ -443,6 +444,18 @@ compose.desktop {
                                 </array>
                             </dict>
                         </array>
+                        <key>com.apple.security.app-sandbox</key>
+                        <false/>
+                        <key>com.apple.security.cs.allow-jit</key>
+                        <true/>
+                        <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+                        <true/>
+                        <key>com.apple.security.cs.disable-library-validation</key>
+                        <true/>
+                        <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+                        <true/>
+                        <key>com.apple.security.cs.debugger</key>
+                        <true/>
                         <key>com.apple.security.network.server</key>
                         <true/>
                         <key>com.apple.security.network.client</key>
@@ -462,11 +475,24 @@ compose.desktop {
                             <string>com.apple.WebKit.WebContent</string>
                             <string>com.apple.WebKit.GPU</string>
                             <string>com.apple.WebKit.Networking</string>
+
+                            <string>com.apple.installer.installer</string>
+                            <string>com.apple.installer.installer.helper</string>
                         </array>
                         <key>com.apple.security.temporary-exception.mach-register.global-name</key>
                         <array>
+                            <string>$appId-spks</string>
+                            <string>$appId-spki</string>
+                            <string>org.sparkle-project.InstallerLauncher</string>
                             <string>org.sparkle-project.InstallerConnection</string>
                             <string>org.sparkle-project.InstallerStatus</string>
+                            <string>org.sparkle-project.Downloader</string>
+                            <string>com.apple.WebKit.WebContent</string>
+                            <string>com.apple.WebKit.GPU</string>
+                            <string>com.apple.WebKit.Networking</string>
+
+                            <string>com.apple.installer.installer</string>
+                            <string>com.apple.installer.installer.helper</string>
                         </array>
                         <key>com.apple.security.temporary-exception.shared-preference.read-write</key>
                         <array>
@@ -484,8 +510,10 @@ compose.desktop {
                         <integer>0</integer>
                         <key>SUAllowsAutomaticUpdates</key>
                         <false/>
+                        <key>SUEnableInstallerLauncherService</key>
+                    	<true/>
                         <key>com.apple.runningboard.assertions.webkit</key>
-                        <true/>
+                    	<true/>
                     """.trimIndent()
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
