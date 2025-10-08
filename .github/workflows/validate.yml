@@ -31,6 +31,23 @@ jobs:
           key: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.organization }}-${{ github.sha }}
           restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.organization }}-
 
+      - name: Kotlin Native Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.konan
+          key: kotlin-native-${{ hashFiles('**/libs.versions.toml') }}
+
+      - name: CocoaPods Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            Pods
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+          key: pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: pods-
+
       - name: Build Android
         run: ./gradlew copyBrandingToCommonResources assembleFull${{ matrix.type }} -Porganization=${{ matrix.organization }}
 
