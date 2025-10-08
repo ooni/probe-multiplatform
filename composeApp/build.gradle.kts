@@ -384,21 +384,49 @@ compose.desktop {
                                 </array>
                             </dict>
                         </array>
-                        <key>com.apple.security.app-sandbox</key>
-                        <true/>
                         <key>com.apple.security.network.server</key>
                         <true/>
                         <key>com.apple.security.network.client</key>
+                        <true/>
+                        <key>com.apple.security.files.user-selected.read-write</key>
+                        <true/>
+                        <key>com.apple.security.files.downloads.read-write</key>
                         <true/>
                         <key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
                         <array>
                             <string>$appId-spks</string>
                             <string>$appId-spki</string>
+                            <string>org.sparkle-project.InstallerLauncher</string>
+                            <string>org.sparkle-project.InstallerConnection</string>
+                            <string>org.sparkle-project.InstallerStatus</string>
+                            <string>org.sparkle-project.Downloader</string>
+                            <string>com.apple.WebKit.WebContent</string>
+                            <string>com.apple.WebKit.GPU</string>
+                            <string>com.apple.WebKit.Networking</string>
+                        </array>
+                        <key>com.apple.security.temporary-exception.mach-register.global-name</key>
+                        <array>
+                            <string>org.sparkle-project.InstallerConnection</string>
+                            <string>org.sparkle-project.InstallerStatus</string>
                         </array>
                         <key>com.apple.security.temporary-exception.shared-preference.read-write</key>
                         <array>
                             <string>$appId</string>
                         </array>
+                        <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+                        <true/>
+                        <key>com.apple.security.cs.disable-library-validation</key>
+                        <true/>
+                        <key>SUPublicEDKey</key>
+                        <string>p1lTWmqHCTBhhCEtLT7sf/5pwS21mV3ZrvUudGnECLo=</string>
+                        <key>SUEnableAutomaticChecks</key>
+                        <false/>
+                        <key>SUScheduledCheckInterval</key>
+                        <integer>0</integer>
+                        <key>SUAllowsAutomaticUpdates</key>
+                        <false/>
+                        <key>com.apple.runningboard.assertions.webkit</key>
+                        <true/>
                     """.trimIndent()
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon

@@ -24,3 +24,5 @@ output
 !composeApp/src/desktopMain/resources/windows/*.dll
 
 /composeApp/src/desktopMain/frameworks/
+
+certificates/*.pem
