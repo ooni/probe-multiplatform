@@ -407,6 +407,7 @@
     <string name="Modal_AlwaysRun">Always Run</string>
     <string name="Modal_Error_CantDownloadURLs">Unable to download URL list. Please try again.</string>
     <string name="Modal_Error_NoInternet">No Internet connection</string>
+    <string name="Modal_Error_ProxyUnavailable">The selected proxy may be unavailable</string>
     <string name="Modal_CustomURL_Title_NotSaved">Are you sure?</string>
     <string name="Modal_CustomURL_NotSaved">Your URLs will not be saved when you leave this screen. Are you sure you want to leave this screen?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">The application cannot run tests automatically without background permission. Do you want to try again?</string>
