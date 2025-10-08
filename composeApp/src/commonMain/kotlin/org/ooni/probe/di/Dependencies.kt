@@ -357,6 +357,7 @@ class Dependencies(
             knownNetworkType = platformInfo.knownNetworkType,
             knownBatteryState = platformInfo.knownBatteryState,
             supportsInAppLanguage = platformInfo.supportsInAppLanguage,
+            hasDonations = platformInfo.hasDonations,
             isCleanUpRequired = isCleanUpRequired,
             cleanupLegacyDirectories = cleanupLegacyDirectories,
         )

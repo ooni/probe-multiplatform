@@ -58,7 +58,6 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.PreferenceCategoryKey
-import org.ooni.probe.data.models.PreferenceItem
 import org.ooni.probe.data.models.PreferenceItemType
 import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.models.SettingsItem
@@ -78,6 +77,7 @@ class GetSettings(
     private val knownNetworkType: Boolean,
     private val knownBatteryState: Boolean,
     private val supportsInAppLanguage: Boolean,
+    private val hasDonations: Boolean,
     private val isCleanUpRequired: () -> Boolean = { false },
     private val cleanupLegacyDirectories: (suspend () -> Boolean)? = null,
 ) {
@@ -103,6 +103,7 @@ class GetSettings(
                 maxRuntime = preferences[SettingsKey.MAX_RUNTIME] as? Int,
                 storageUsed = storageUsed,
                 supportsCrashReporting = supportsCrashReporting,
+                hasDonations = hasDonations,
             )
         }
 
@@ -113,7 +114,8 @@ class GetSettings(
         maxRuntimeEnabled: Boolean,
         maxRuntime: Int?,
         storageUsed: Long,
-        supportsCrashReporting: Boolean = false,
+        supportsCrashReporting: Boolean,
+        hasDonations: Boolean,
     ): List<SettingsCategoryItem> =
         listOfNotNull(
             SettingsCategoryItem(
@@ -260,7 +262,7 @@ class GetSettings(
                 icon = Res.drawable.advanced,
                 title = Res.string.Settings_Advanced_Label,
                 route = PreferenceCategoryKey.ADVANCED,
-                settings = listOfNotNull<PreferenceItem>(
+                settings = listOfNotNull(
                     SettingsCategoryItem(
                         title = Res.string.Settings_Advanced_RecentLogs,
                         route = PreferenceCategoryKey.SEE_RECENT_LOGS,
@@ -322,7 +324,7 @@ class GetSettings(
                 title = Res.string.Settings_Support_Label,
                 route = PreferenceCategoryKey.SUPPORT,
             ),
-            DONATE_SETTINGS_ITEM,
+            if (hasDonations) DONATE_SETTINGS_ITEM else null,
             SettingsCategoryItem(
                 icon = Res.drawable.outline_info,
                 title = Res.string.Settings_About_Label,
