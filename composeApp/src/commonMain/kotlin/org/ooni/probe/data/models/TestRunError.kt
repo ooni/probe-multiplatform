@@ -4,4 +4,6 @@ sealed interface TestRunError {
     data object DownloadUrlsFailed : TestRunError
 
     data object NoInternet : TestRunError
+
+    data object ProxyUnavailable : TestRunError
 }
