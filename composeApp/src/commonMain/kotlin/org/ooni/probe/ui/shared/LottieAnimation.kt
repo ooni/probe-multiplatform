@@ -2,9 +2,12 @@ package org.ooni.probe.ui.shared
 
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import io.github.alexzhirkevich.compottie.Compottie
 import io.github.alexzhirkevich.compottie.LottieAnimationState
@@ -44,9 +47,14 @@ fun LottieAnimation(
     )
 
     val currentOnFinish by rememberUpdatedState(onFinish)
-
-    LaunchedEffect(progress.isPlaying, progress.isAtEnd, restartOnPlay) {
-        if (!restartOnPlay && !progress.isPlaying && progress.isAtEnd) {
+    var hasStartedPlaying by remember { mutableStateOf(false) }
+    LaunchedEffect(progress.isPlaying) {
+        if (progress.isPlaying) {
+            hasStartedPlaying = true
+        }
+    }
+    LaunchedEffect(hasStartedPlaying, progress.isAtEnd, restartOnPlay) {
+        if (hasStartedPlaying && progress.isAtEnd && !restartOnPlay) {
             currentOnFinish?.invoke()
         }
     }
