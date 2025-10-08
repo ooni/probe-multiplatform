@@ -28,7 +28,7 @@ fun loadNativeLibrary(libraryName: String): Boolean {
     }
 
     try {
-        System.loadLibrary("name")
+        System.loadLibrary(libraryName)
         return true
     } catch (e: UnsatisfiedLinkError) {
         Logger.w("Failed to load native library $libraryName", e)
