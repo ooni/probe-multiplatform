@@ -377,7 +377,6 @@
     <string name="AddDescriptor_AutoUpdate">Installer les mises à jour automatiquement</string>
     <string name="AddDescriptor_AutoRun">Lancer les tests automatiquement</string>
     <string name="AddDescriptor_Toasts_Installed">Le lien a été installé</string>
-    <string name="AddDescriptor_Action">Installer le lien</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Cette URL n’est pas prise en charge</string>
     <string name="LoadingScreen_Runv2_Message">Chargement du lien</string>
     <string name="LoadingScreen_Runv2_Failure">Erreur</string>
