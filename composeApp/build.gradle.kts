@@ -1,8 +1,5 @@
 import com.android.build.api.variant.FilterConfiguration.FilterType.ABI
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import java.time.LocalDate
-import org.gradle.internal.os.OperatingSystem
-import org.gradle.kotlin.dsl.java
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -20,60 +17,13 @@ plugins {
     alias(libs.plugins.sqldelight)
 
     alias(libs.plugins.javafx)
+
+    id("ooni.common")
 }
 
 val organization: String? by project
 
-val appConfig = mapOf(
-    "dw" to AppConfig(
-        appId = "com.dw.ooniprobe",
-        appName = "News Media Scan",
-        folder = "dwMain",
-        supportsOoniRun = false,
-        supportedLanguages = listOf(
-            "de",
-            "es",
-            "fr",
-            "pt-rBR",
-            "ru",
-            "tr",
-        ),
-    ),
-    "ooni" to AppConfig(
-        appId = "org.openobservatory.ooniprobe",
-        appName = "OONI Probe",
-        folder = "ooniMain",
-        supportsOoniRun = true,
-        supportedLanguages = listOf(
-            "ar",
-            "ca",
-            "de",
-            "el",
-            "es",
-            "fa",
-            "fr",
-            "hi",
-            "id",
-            "is",
-            "it",
-            "my",
-            "nl",
-            "pt-rBR",
-            "ro",
-            "ru",
-            "sk",
-            "sq",
-            "sw",
-            "th",
-            "tr",
-            "vi",
-            "zh-rCN",
-            "zh-rTW",
-        ),
-    ),
-)
-
-val config = appConfig[organization] ?: appConfig["ooni"]!!
+val config = Organization.fromKey(organization).config
 
 val javaFxParts = listOf("base", "graphics", "controls", "media", "web", "swing")
 val javaFxVersion = "17"
@@ -386,18 +336,6 @@ ktlint {
     additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
 }
 
-tasks.register("runDebug", Exec::class) {
-    dependsOn("clean", "installFullDebug")
-    commandLine(
-        "adb",
-        "shell",
-        "am",
-        "start",
-        "-n",
-        "${config.appId}.dev/org.ooni.probe.MainActivity",
-    )
-}
-
 // Desktop
 
 compose.desktop {
@@ -503,217 +441,4 @@ version = android.defaultConfig.versionName ?: ""
 
 dependencies {
     debugImplementation(compose.uiTooling)
-}
-
-// Resources
-
-// Fix to exclude sqldelight generated files
-tasks {
-    listOf(
-        runKtlintFormatOverCommonMainSourceSet,
-        runKtlintCheckOverCommonMainSourceSet,
-    ).forEach {
-        it {
-            setSource(
-                kotlin.sourceSets.commonMain.map {
-                    it.kotlin.filter { file -> !file.absolutePath.contains("generated") }
-                },
-            )
-        }
-    }
-}
-
-val makeLibrary by tasks.registering(Exec::class) {
-    workingDir = file("src/desktopMain")
-    commandLine = listOf("make", "all")
-    description = "Build native libraries (NetworkTypeFinder and UpdateBridge)"
-    doFirst {
-        println("🔨 Building native libraries...")
-    }
-    doLast {
-        println("✅ Native libraries built successfully")
-    }
-}
-
-val cleanLibrary by tasks.registering(Exec::class) {
-    workingDir = file("src/desktopMain")
-    commandLine = listOf("make", "clean")
-    description = "Clean native library build artifacts"
-}
-
-// Ensure native libraries are built before desktop compilation
-tasks.named("compileKotlinDesktop").configure {
-    // dependsOn(makeLibrary)
-}
-
-tasks.withType<JavaExec> {
-    systemProperty(
-        "java.library.path",
-        "$projectDir/src/desktopMain/resources/macos" +
-            File.pathSeparator +
-            "$projectDir/src/desktopMain/resources/windows" +
-            File.pathSeparator +
-            "$projectDir/src/desktopMain/resources/linux" +
-            File.pathSeparator +
-            System.getProperty("java.library.path"),
-    )
-    systemProperty(
-        "desktopUpdatesPublicKey",
-        gradleLocalProperties(rootDir, providers).getProperty("desktopUpdatesPublicKey"),
-    )
-}
-
-tasks.register("copyBrandingToCommonResources") {
-    doLast {
-        val projectDir = project.projectDir.absolutePath
-        copyRecursive(
-            from = File(projectDir, "src/${config.folder}/res"),
-            to = File(projectDir, "src/commonMain/res"),
-        )
-        copyRecursive(
-            from = File(projectDir, "src/${config.folder}/composeResources"),
-            to = File(projectDir, "src/commonMain/composeResources"),
-        )
-    }
-}
-
-tasks.register("cleanCopiedCommonResourcesToFlavor") {
-    doLast {
-        val projectDir = project.projectDir.absolutePath
-
-        fun deleteFilesFromGitIgnore(folderPath: String) {
-            val destinationFile = File(projectDir, folderPath)
-            destinationFile.listFiles()?.forEach { folder ->
-                folder.listFiles()?.forEach { file ->
-                    if (file.name == ".gitignore") {
-                        file
-                            .readText()
-                            .lines()
-                            .forEach { line ->
-                                if (line.isNotEmpty()) {
-                                    println("Removing $line")
-                                    File(folder, line).deleteRecursively()
-                                }
-                            }.also {
-                                file.delete()
-                            }
-                    }
-                }
-            }
-        }
-        deleteFilesFromGitIgnore("src/commonMain/res")
-        deleteFilesFromGitIgnore("src/commonMain/resources")
-        deleteFilesFromGitIgnore("src/commonMain/composeResources")
-    }
-}
-
-/**
- * Configure the prepareComposeResourcesTaskForCommonMain task to depend on the copyBrandingToCommonResources task.
- * This will ensure that the common resources are copied to the correct location before the task is executed.
- *
- * NOTE: Current limitation is that multiple resources directories are not supported.
- */
-tasks.named("preBuild").configure {
-    dependsOn("copyBrandingToCommonResources")
-}
-
-tasks.named("clean").configure {
-    dependsOn("copyBrandingToCommonResources")
-}
-
-tasks.named("clean").configure {
-    dependsOn("cleanCopiedCommonResourcesToFlavor")
-}
-
-/**
- * Ignore the copied file if it is not already ignored.
- *
- * @param filePath The path to the file to ignore.
- * @param lineToAdd The line to add to the file.
- */
-fun ignoreCopiedFileIfNotIgnored(
-    filePath: String,
-    lineToAdd: String,
-) {
-    val file = File(filePath)
-
-    if (!file.exists()) {
-        file.createNewFile()
-    }
-
-    val fileContents = file.readText()
-
-    if (!fileContents.contains(lineToAdd)) {
-        file.appendText("\n$lineToAdd")
-    }
-}
-
-/**
- * Copy files from one directory to another.
- *
- * @param from The source directory.
- * @param to The destination directory.
- */
-fun copyRecursive(
-    from: File,
-    to: File,
-) {
-    if (!from.exists()) {
-        println("Source directory does not exist: $from")
-        return
-    }
-    from.listFiles()?.forEach { file ->
-        if (file.name != ".DS_Store") {
-            if (file.isDirectory) {
-                val newDir = File(to, file.name)
-                newDir.mkdir()
-                copyRecursive(file, newDir)
-            } else {
-                val destinationFile = File(to, file.name)
-                if (destinationFile.exists()) {
-                    destinationFile.delete()
-                }
-                if (!destinationFile.parentFile.exists()) {
-                    destinationFile.parentFile.mkdirs()
-                }
-                file.copyTo(destinationFile).also {
-                    ignoreCopiedFileIfNotIgnored(
-                        to.absolutePath + "/.gitignore",
-                        it.name,
-                    )
-                }
-            }
-        }
-    }
-}
-
-// Helpers
-
-data class AppConfig(
-    val appId: String,
-    val appName: String,
-    val folder: String,
-    val supportsOoniRun: Boolean = false,
-    val supportedLanguages: List<String>,
-)
-
-fun isFdroidTaskRequested(): Boolean =
-    gradle.startParameter.taskRequests
-        .flatMap { it.args }
-        .any { it.contains("Fdroid") }
-
-fun isDebugTaskRequested(): Boolean =
-    gradle.startParameter.taskRequests
-        .flatMap { it.args }
-        .any { it.contains("Debug") }
-
-fun getJavaFxSuffix(): String {
-    val os = OperatingSystem.current()
-    val arch = System.getProperty("os.arch")
-    return when {
-        os.isMacOsX -> if (arch == "aarch64") "mac-aarch64" else "mac"
-        os.isWindows -> "win"
-        os.isLinux -> if (arch == "aarch64") "linux-aarch64" else "linux"
-        else -> throw IllegalStateException("Unknown OS: $os")
-    }
 }
