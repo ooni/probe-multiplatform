@@ -330,7 +330,10 @@ sqldelight {
 
 ktlint {
     filter {
-        exclude("**/generated/**")
+        exclude {
+            val p = it.file.path.replace('\\', '/')
+            p.contains("/build/generated/")
+        }
         include("**/kotlin/**")
     }
     additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
