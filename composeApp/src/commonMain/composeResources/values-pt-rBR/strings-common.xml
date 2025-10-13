@@ -423,6 +423,7 @@
     <string name="Modal_AlwaysRun">Executar Sempre</string>
     <string name="Modal_Error_CantDownloadURLs">Não foi possível baixar a lista de URLs. Por favor, tente novamente.</string>
     <string name="Modal_Error_NoInternet">Sem conexão à Internet</string>
+    <string name="Modal_Error_ProxyUnavailable">O proxy selecionado pode estar indisponível</string>
     <string name="Modal_CustomURL_Title_NotSaved">Você tem a certeza?</string>
     <string name="Modal_CustomURL_NotSaved">Suas URLs não serão salvas quando você sair desta tela. Tem certeza de que deseja sair desta tela?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">O aplicativo não pode executar os testes automaticamente sem permissão de segundo plano. Você quer tentar novamente?</string>
