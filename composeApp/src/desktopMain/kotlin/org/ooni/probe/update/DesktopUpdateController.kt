@@ -136,5 +136,6 @@ class DesktopUpdateController(
     }
 
     fun supportsUpdates(): Boolean =
-        (dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Mac, DesktopOS.Windows) && updateManager.isHealthy()
+        (dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Mac, DesktopOS.Windows) &&
+            updateManager.isHealthy()
 }

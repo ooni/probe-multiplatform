@@ -41,6 +41,12 @@ all: $(PLATFORM_TARGET)
 macos:
 	@echo "Compiling NetworkTypeFinder for macOS..."
 	@mkdir -p $(RESOURCES_BASE_DIR)/macos
+	# Ensure Sparkle.framework exists in the processed resources location
+	@if [ ! -d "../../build/processedResources/desktop/main/macos/Sparkle.framework" ]; then \
+		echo "❌ Sparkle.framework not found in build/processedResources/desktop/main/macos"; \
+		echo "   Run: ./gradlew :composeApp:setupSparkle"; \
+		exit 1; \
+	fi
 	$(COMPILER) -dynamiclib -o $(RESOURCES_BASE_DIR)/macos/$(NETWORK_LIBRARY_FILE_MAC) $(NETWORK_FILES) -framework Foundation -framework SystemConfiguration -framework CoreFoundation -framework Network -framework CFNetwork -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin
 	@echo "NetworkTypeFinder library created at $(RESOURCES_BASE_DIR)/macos/$(NETWORK_LIBRARY_FILE_MAC)"
 	@echo "Compiling UpdateBridge for macOS..."
@@ -48,10 +54,11 @@ macos:
 	$(COMPILER) -dynamiclib -o $(RESOURCES_BASE_DIR)/macos/$(UPDATE_LIBRARY_FILE_MAC) $(UPDATE_FILES_MAC) \
 		-framework Foundation \
 		-F $(RESOURCES_BASE_DIR)/macos \
+		-F ../../build/processedResources/desktop/main/macos \
 		-framework Sparkle \
 		-I$(JAVA_HOME)/include \
 		-I$(JAVA_HOME)/include/darwin \
-		-I $(RESOURCES_BASE_DIR)/macos/Sparkle.framework/Headers \
+		-I ../../build/processedResources/desktop/main/macos/Sparkle.framework/Headers \
 		-install_name @loader_path/lib$(UPDATE_LIBRARY_NAME).dylib \
 		-Wl,-rpath,@loader_path
 	# Fix Sparkle framework reference to use @loader_path

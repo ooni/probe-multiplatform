@@ -5,7 +5,6 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
-import java.io.File  // For File.pathSeparator
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -171,8 +170,8 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 240 // Always increment by 10. See fdroid flavor below
-        versionName = "5.2.2"
+        versionCode = 200 // Always increment by 10. See fdroid flavor below
+        versionName = "5.0.0"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
         resValue(
@@ -416,7 +415,6 @@ compose.desktop {
                             <string>com.apple.WebKit.WebContent</string>
                             <string>com.apple.WebKit.GPU</string>
                             <string>com.apple.WebKit.Networking</string>
-
                             <string>com.apple.installer.installer</string>
                             <string>com.apple.installer.installer.helper</string>
                         </array>
@@ -431,7 +429,6 @@ compose.desktop {
                             <string>com.apple.WebKit.WebContent</string>
                             <string>com.apple.WebKit.GPU</string>
                             <string>com.apple.WebKit.Networking</string>
-
                             <string>com.apple.installer.installer</string>
                             <string>com.apple.installer.installer.helper</string>
                         </array>
@@ -452,9 +449,9 @@ compose.desktop {
                         <key>SUAllowsAutomaticUpdates</key>
                         <false/>
                         <key>SUEnableInstallerLauncherService</key>
-                    	<true/>
+                        <true/>
                         <key>com.apple.runningboard.assertions.webkit</key>
-                    	<true/>
+                        <true/>
                     """.trimIndent()
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
