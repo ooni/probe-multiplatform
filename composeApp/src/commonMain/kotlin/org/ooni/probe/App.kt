@@ -28,7 +28,6 @@ import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.DeepLink
-import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.navigation.BottomBarViewModel
@@ -116,7 +115,9 @@ fun App(
     LaunchedEffect(Unit) {
         dependencies.bootstrapTestDescriptors()
         dependencies.bootstrapPreferences()
-        dependencies.startSingleRunInner(RunSpecification.OnlyUploadMissingResults)
+        // Disabling starting a RunWorker at app start to check if it fixes the
+        // ForegroundServiceDidNotStartInTimeException some users are getting
+        // dependencies.startSingleRunInner(RunSpecification.OnlyUploadMissingResults)
     }
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoUpdate()
