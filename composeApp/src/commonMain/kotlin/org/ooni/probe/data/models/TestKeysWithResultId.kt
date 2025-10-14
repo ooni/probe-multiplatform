@@ -19,7 +19,8 @@ import ooniprobe.composeapp.generated.resources.r720p_ext
 import org.jetbrains.compose.resources.StringResource
 import org.ooni.engine.models.TestKeys
 import org.ooni.engine.models.TestType
-import org.ooni.probe.ui.shared.format
+import org.ooni.probe.shared.format
+import org.ooni.probe.shared.withFractionalDigits
 
 data class TestKeysWithResultId(
     val id: MeasurementModel.Id,
@@ -36,7 +37,7 @@ fun List<TestKeysWithResultId>.videoQuality() =
 fun List<TestKeysWithResultId>.uploadSpeed() =
     this.firstOrNull { TestType.Ndt.name == it.testName }?.testKeys?.let { testKey ->
         return@let testKey.summary?.upload?.let {
-            val upload = setFractionalDigits(getScaledValue(it))
+            val upload = getScaledValue(it).withFractionalDigits()
             val unit = getUnit(it)
             upload to unit
         }
@@ -45,7 +46,7 @@ fun List<TestKeysWithResultId>.uploadSpeed() =
 fun List<TestKeysWithResultId>.downloadSpeed() =
     this.firstOrNull { TestType.Ndt.name == it.testName }?.testKeys?.let { testKey ->
         return@let testKey.summary?.download?.let {
-            val download = setFractionalDigits(getScaledValue(it))
+            val download = getScaledValue(it).withFractionalDigits()
             val unit = getUnit(it)
             download to unit
         }
@@ -59,11 +60,11 @@ fun List<TestKeysWithResultId>.ping() =
         ?.ping
         ?.format(1)
 
-fun TestKeys.getVideoQuality(extended: Boolean): StringResource {
-    return simple?.medianBitrate?.let {
-        return minimumBitrateForVideo(it, extended)
-    } ?: Res.string.TestResults_NotAvailable
-}
+fun TestKeys.getVideoQuality(extended: Boolean): StringResource =
+    simple
+        ?.medianBitrate
+        ?.let { minimumBitrateForVideo(it, extended) }
+        ?: Res.string.TestResults_NotAvailable
 
 private fun minimumBitrateForVideo(
     videoQuality: Double,
@@ -107,8 +108,6 @@ fun getScaledValue(value: Double): Double =
     } else {
         value / 1000 * 1000
     }
-
-fun setFractionalDigits(value: Double): String = if (value < 10) value.format(2) else value.format(1)
 
 fun getUnit(value: Double): StringResource {
     // We assume there is no Tbit/s (for now!)

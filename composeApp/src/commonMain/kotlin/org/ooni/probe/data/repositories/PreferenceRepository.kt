@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import kotlinx.coroutines.flow.Flow
@@ -80,10 +81,14 @@ class PreferenceRepository(
             SettingsKey.DELETE_OLD_RESULTS_THRESHOLD,
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
 
+            SettingsKey.LAST_ARTICLES_REFRESH,
+            -> PreferenceKey.LongKey(longPreferencesKey(preferenceKey))
+
             SettingsKey.LEGACY_PROXY_HOSTNAME,
             SettingsKey.LEGACY_PROXY_PROTOCOL,
             SettingsKey.PROXY_SELECTED,
             SettingsKey.LANGUAGE_SETTING,
+            SettingsKey.LAST_RUN_DISMISSED,
             -> PreferenceKey.StringKey(stringPreferencesKey(preferenceKey))
 
             SettingsKey.CHOSEN_WEBSITES,

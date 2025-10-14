@@ -169,7 +169,12 @@ class ResultRepositoryTest {
 
             subject.markAllAsViewed(ResultFilter())
 
-            assertTrue(subject.getLatest().first()!!.isViewed)
+            assertTrue(
+                subject
+                    .getLatest()
+                    .first()!!
+                    .result.isViewed,
+            )
         }
 
     @Test

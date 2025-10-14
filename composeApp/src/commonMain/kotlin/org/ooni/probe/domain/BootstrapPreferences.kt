@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.first
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
+import org.ooni.probe.domain.results.DeleteOldResults
 
 class BootstrapPreferences(
     private val preferencesRepository: PreferenceRepository,
@@ -33,6 +34,7 @@ class BootstrapPreferences(
                 SettingsKey.DELETE_OLD_RESULTS to true,
                 SettingsKey.DELETE_OLD_RESULTS_THRESHOLD to
                     DeleteOldResults.DELETE_OLD_RESULTS_THRESHOLD_DEFAULT_IN_MONTHS,
+                SettingsKey.TESTS_MOVED_NOTICE to true,
             ) +
                 organizationPreferenceDefaults(),
         )
