@@ -8,6 +8,8 @@ sealed interface Screen {
 
     @Serializable data object Dashboard : Screen
 
+    @Serializable data object Descriptors : Screen
+
     @Serializable data object Results : Screen
 
     @Serializable data object Settings : Screen

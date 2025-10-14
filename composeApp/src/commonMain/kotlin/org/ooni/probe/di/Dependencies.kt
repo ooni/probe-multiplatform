@@ -99,6 +99,7 @@ import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
 import org.ooni.probe.ui.descriptor.websites.DescriptorWebsitesViewModel
+import org.ooni.probe.ui.descriptors.DescriptorsViewModel
 import org.ooni.probe.ui.log.LogViewModel
 import org.ooni.probe.ui.measurement.MeasurementRawViewModel
 import org.ooni.probe.ui.measurement.MeasurementViewModel
@@ -564,25 +565,33 @@ class Dependencies(
         goToResults: () -> Unit,
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
-        goToDescriptor: (String) -> Unit,
-        goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
     ) = DashboardViewModel(
         goToOnboarding = goToOnboarding,
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
         goToRunTests = goToRunTests,
-        goToDescriptor = goToDescriptor,
         getFirstRun = getFirstRun::invoke,
-        goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
-        getTestDescriptors = getTestDescriptors::latest,
         observeRunBackgroundState = runBackgroundStateManager.observeState(),
         observeTestRunErrors = runBackgroundStateManager.observeErrors(),
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
+        getAutoRunSettings = getAutoRunSettings::invoke,
+        batteryOptimization = batteryOptimization,
+    )
+
+    fun descriptorsViewModel(
+        goToOnboarding: () -> Unit,
+        goToResults: () -> Unit,
+        goToRunningTest: () -> Unit,
+        goToRunTests: () -> Unit,
+        goToDescriptor: (String) -> Unit,
+        goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
+    ) = DescriptorsViewModel(
+        goToDescriptor = goToDescriptor,
+        goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
+        getTestDescriptors = getTestDescriptors::latest,
         startDescriptorsUpdates = startDescriptorsUpdate,
         dismissDescriptorsUpdateNotice = dismissDescriptorReviewNotice::invoke,
         observeDescriptorUpdateState = descriptorUpdateStateManager::observe,
-        getAutoRunSettings = getAutoRunSettings::invoke,
-        batteryOptimization = batteryOptimization,
         canPullToRefresh = platformInfo.canPullToRefresh,
         getPreference = preferenceRepository::getValueByKey,
         setPreference = preferenceRepository::setValueByKey,
@@ -796,6 +805,7 @@ class Dependencies(
         BottomBarViewModel(
             countAllNotViewedFlow = resultRepository::countAllNotViewedFlow,
             runBackgroundStateFlow = runBackgroundStateManager::observeState,
+            observeDescriptorUpdateState = descriptorUpdateStateManager::observe,
         )
 
     companion object {

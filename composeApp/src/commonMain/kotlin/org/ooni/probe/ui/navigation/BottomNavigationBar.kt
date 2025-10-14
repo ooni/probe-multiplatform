@@ -26,9 +26,11 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Tab_Label
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Tab_Label
+import ooniprobe.composeapp.generated.resources.Tests_Title
 import ooniprobe.composeapp.generated.resources.ic_dashboard
 import ooniprobe.composeapp.generated.resources.ic_history
 import ooniprobe.composeapp.generated.resources.ic_settings
+import ooniprobe.composeapp.generated.resources.ic_tests
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.MAIN_NAVIGATION_SCREENS
@@ -48,7 +50,6 @@ fun BottomNavigationBar(
         modifier = customMinHeightModifier,
     ) {
         MAIN_NAVIGATION_SCREENS.forEach { screen ->
-            val screen = screen as Screen
             val isCurrentScreen = entry?.destination?.hasRoute(screen::class) == true
             NavigationBarItem(
                 icon = {
@@ -97,10 +98,12 @@ private fun NavigationBadgeBox(
 ) {
     BadgedBox(
         badge = {
-            if (state.notViewedCount > 0 && screen == Screen.Results) {
+            if (screen == Screen.Results && state.notViewedCount > 0) {
                 val badgeText =
                     if (state.notViewedCount > 9) "9+" else state.notViewedCount.toString()
                 Badge { Text(badgeText) }
+            } else if (screen == Screen.Descriptors && state.isDescriptorsReviewNecessary) {
+                Badge()
             }
         },
         content = content,
@@ -111,6 +114,7 @@ private val Screen.titleRes
     get() =
         when (this) {
             Screen.Dashboard -> Res.string.Dashboard_Tab_Label
+            Screen.Descriptors -> Res.string.Tests_Title
             Screen.Results -> Res.string.TestResults_Overview_Tab_Label
             Screen.Settings -> Res.string.Settings_Title
             else -> throw IllegalArgumentException("Only main screens allowed in bottom navigation")
@@ -120,6 +124,7 @@ private val Screen.iconRes
     get() =
         when (this) {
             Screen.Dashboard -> Res.drawable.ic_dashboard
+            Screen.Descriptors -> Res.drawable.ic_tests
             Screen.Results -> Res.drawable.ic_history
             Screen.Settings -> Res.drawable.ic_settings
             else -> throw IllegalArgumentException("Only main screens allowed in bottom navigation")
