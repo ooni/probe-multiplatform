@@ -22,6 +22,6 @@ object UpdateConfig {
 
     val PUBLIC_KEY by lazy {
         System.getProperty("desktopUpdatesPublicKey")
-            ?: "1k8nI6WCqVly863R06ZaeSnxR/7oU5VAAnehA0Zfp/8="
+            ?: "p1lTWmqHCTBhhCEtLT7sf/5pwS21mV3ZrvUudGnECLo="
     }
 }

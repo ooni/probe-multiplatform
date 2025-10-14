@@ -5,6 +5,9 @@ import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
 import java.io.File
 import kotlin.let
+import ooni.sparkle.SetupSparkleTask
+
+private fun isMac() = System.getProperty("os.name").lowercase().contains("mac")
 
 /**
  * Registers all custom tasks for the project
@@ -13,6 +16,7 @@ fun Project.registerTasks(config: AppConfig) {
     registerAndroidTasks(config)
     registerDesktopTasks()
     registerResourceTasks(config)
+    registerSparkleTask()
     configureTaskDependencies()
 }
 
@@ -36,6 +40,7 @@ private fun Project.registerDesktopTasks() {
     tasks.register("makeLibrary", Exec::class) {
         group = "ooni"
         description = "Build native libraries (NetworkTypeFinder and UpdateBridge)"
+        dependsOn("setupSparkle")
         workingDir = file("src/desktopMain")
         commandLine = listOf("make", "all")
         doFirst {
@@ -51,6 +56,70 @@ private fun Project.registerDesktopTasks() {
         description = "Clean native library build artifacts"
         workingDir = file("src/desktopMain")
         commandLine = listOf("make", "clean")
+    }
+}
+
+private fun Project.registerSparkleTask() {
+    tasks.register("setupSparkle", SetupSparkleTask::class) {
+        group = "setup"
+        description =
+            "Downloads Sparkle and extracts Sparkle.framework to the destination directory"
+        onlyIf { isMac() }
+        sparkleVersion.set(providers.gradleProperty("sparkleVersion").orElse("2.8.0"))
+        destDir.set(
+            providers.gradleProperty("sparkleExtractDir")
+                .map { layout.projectDirectory.dir(it) }
+                .orElse(layout.buildDirectory.dir("processedResources/desktop/main/macos/")),
+        )
+    }
+
+    tasks.register("createOONIDistributable") {
+        group = "build"
+        description = "Processes the createDistributable output (e.g., zip it or sign it)"
+        dependsOn("createDistributable")
+        onlyIf { isMac() }
+        doLast {
+            // Get the task reference
+            val distributableTask = tasks.named("createDistributable").get()
+
+
+            // Access the output directory path
+            val outputDir: File = distributableTask.outputs.files.singleFile
+
+            // find a .app in output dir
+            val appDirs = outputDir.listFiles { file ->
+                file.isDirectory && file.name.endsWith(".app")
+            } ?: emptyArray()
+
+            if (appDirs.isNotEmpty()) {
+                project.logger.lifecycle("Found .app: ${appDirs.joinToString { it.absolutePath }}")
+            } else {
+                project.logger.error("No .app found in ${outputDir.absolutePath}")
+                // end task
+                return@doLast
+            }
+
+            val sparkleFramework =
+                layout.buildDirectory.dir("processedResources/desktop/main/macos/Sparkle.framework")
+                    .get()
+            val appSparkleLocation = appDirs.first().resolve("Contents/app/resources")
+
+            project.logger.lifecycle("Sparkle.framework location: ${sparkleFramework.asFile.absolutePath}")
+            project.logger.lifecycle("Desired Sparkle.framework location: ${appSparkleLocation.absolutePath}")
+
+            project.exec {
+                commandLine(
+                    "cp",
+                    "-a",
+                    sparkleFramework.asFile.absolutePath,
+                    appSparkleLocation.absolutePath
+                )
+            }
+
+
+            project.logger.lifecycle("Distributable output directory: ${outputDir.absolutePath}")
+
+        }
     }
 }
 
@@ -91,7 +160,35 @@ private fun Project.configureTaskDependencies() {
 
         tasks.findByName("preBuild")?.dependsOn("copyBrandingToCommonResources")
 
-        tasks.findByName("clean")?.dependsOn("copyBrandingToCommonResources", "cleanCopiedCommonResourcesToFlavor")
+        tasks.findByName("clean")
+            ?.dependsOn("copyBrandingToCommonResources", "cleanCopiedCommonResourcesToFlavor")
+
+        // Ensure Sparkle.framework is prepared before packaging desktop apps
+        val sparkleConsumers = setOf(
+            "createDistributable",
+            "packageDistributionForCurrentOS",
+            "packageDmg"
+        )
+        tasks.matching { it.name in sparkleConsumers }.configureEach {
+            dependsOn("setupSparkle")
+        }
+
+        // Prefer running setupSparkle after desktop resource processing to avoid overwrites
+        tasks.findByName("setupSparkle")?.let { setup ->
+            val desktopRes = tasks.matching {
+                it.name.contains(
+                    "processResources",
+                    ignoreCase = true
+                ) && it.name.contains("desktop", ignoreCase = true)
+            }
+            setup.mustRunAfter(desktopRes)
+        }
+
+        // Ensure createOONIDistributable runs after createDistributable and before any other task that depends on it
+        val ooniDistributableTask = tasks.named("createOONIDistributable")
+        tasks.findByName("packageDmg")?.dependsOn(ooniDistributableTask)
+        tasks.findByName("packageDistributionForCurrentOS")?.dependsOn(ooniDistributableTask)
+        tasks.findByName("runDistributable")?.dependsOn(ooniDistributableTask)
     }
 }
 

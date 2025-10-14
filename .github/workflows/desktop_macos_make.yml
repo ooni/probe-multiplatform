@@ -4,7 +4,7 @@ on: workflow_dispatch
 jobs:
   package:
     name: Package desktop apps
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -13,7 +13,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Package app
-        run: ./gradlew copyBrandingToCommonResources package -Porganization=ooni
+        run: ./gradlew copyBrandingToCommonResources packageDmg -Porganization=ooni
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

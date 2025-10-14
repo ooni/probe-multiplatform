@@ -46,10 +46,10 @@ import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.DesktopOS
+import org.ooni.probe.shared.createUpdateManager
 import org.ooni.probe.shared.InstanceManager
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateState
-import org.ooni.probe.shared.createUpdateManager
 import org.ooni.probe.update.DesktopUpdateController
 import java.awt.Desktop
 import java.awt.Dimension
@@ -83,7 +83,6 @@ fun main(args: Array<String>) {
     application {
         // Register shutdown callback for update installation when applicable
         updateController.registerShutdownHandler(this)
-
         var isWindowVisible by remember { mutableStateOf(!autoLaunch.isStartedViaAutostart()) }
         val trayIcon = trayIcon()
         val deepLink by deepLinkFlow.collectAsState(null)
@@ -152,7 +151,7 @@ fun main(args: Array<String>) {
                     stringResource(Res.string.Desktop_OpenApp),
                     onClick = { showWindow() },
                 )
-                // Only show update UI on Windows platforms
+                // Only show update UI on Mac and Windows platforms
                 if (updateController.supportsUpdates()) {
                     Item(
                         text = updateController.getMenuText(),
