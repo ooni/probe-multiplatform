@@ -26,11 +26,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
+      - name: Setup
+        uses: ./.github/actions/setup
 
       - name: Install dependencies (Linux)
         if: runner.os == 'Linux'
@@ -45,7 +42,7 @@ jobs:
         run: choco install llvm make
 
       - name: Build Native Libraries
-        run: make all
+        run: ./gradlew makeLibrary
 
       - name: Upload built library
         uses: actions/upload-artifact@v4

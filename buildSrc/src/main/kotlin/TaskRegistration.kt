@@ -7,6 +7,8 @@ import java.io.File
 import kotlin.let
 import ooni.sparkle.SetupSparkleTask
 
+private fun isMac() = System.getProperty("os.name").lowercase().contains("mac")
+
 /**
  * Registers all custom tasks for the project
  */
@@ -62,6 +64,7 @@ private fun Project.registerSparkleTask() {
         group = "setup"
         description =
             "Downloads Sparkle and extracts Sparkle.framework to the destination directory"
+        onlyIf { isMac() }
         sparkleVersion.set(providers.gradleProperty("sparkleVersion").orElse("2.8.0"))
         destDir.set(
             providers.gradleProperty("sparkleExtractDir")
@@ -74,6 +77,7 @@ private fun Project.registerSparkleTask() {
         group = "build"
         description = "Processes the createDistributable output (e.g., zip it or sign it)"
         dependsOn("createDistributable")
+        onlyIf { isMac() }
         doLast {
             // Get the task reference
             val distributableTask = tasks.named("createDistributable").get()
