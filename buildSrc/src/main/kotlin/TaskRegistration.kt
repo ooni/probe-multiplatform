@@ -177,6 +177,12 @@ private fun Project.configureTaskDependencies() {
             }
             setup.mustRunAfter(desktopRes)
         }
+
+        // Ensure createOONIDistributable runs after createDistributable and before any other task that depends on it
+        val ooniDistributableTask = tasks.named("createOONIDistributable")
+        tasks.findByName("packageDmg")?.dependsOn(ooniDistributableTask)
+        tasks.findByName("packageDistributionForCurrentOS")?.dependsOn(ooniDistributableTask)
+        tasks.findByName("runDistributable")?.dependsOn(ooniDistributableTask)
     }
 }
 
