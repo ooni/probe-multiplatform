@@ -1,4 +1,4 @@
-package org.ooni.probe.domain
+package org.ooni.probe.domain.results
 
 import okio.Path
 import okio.Path.Companion.toPath
