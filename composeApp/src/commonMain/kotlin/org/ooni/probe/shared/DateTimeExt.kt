@@ -16,6 +16,8 @@ fun LocalDate.toEpoch() = atStartOfDayIn(TimeZone.currentSystemDefault()).toEpoc
 
 fun LocalDate.toEpochInUTC() = atStartOfDayIn(TimeZone.UTC).toEpochMilliseconds()
 
+fun LocalDate.toDateTime() = atStartOfDayIn(TimeZone.currentSystemDefault()).toLocalDateTime()
+
 fun Long.toLocalDateTime() = Instant.fromEpochMilliseconds(this).toLocalDateTime()
 
 fun Long.toLocalDateFromUtc() = Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.UTC).date
