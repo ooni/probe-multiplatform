@@ -25,6 +25,7 @@ import ooniprobe.composeapp.generated.resources.Dashboard_ReviewDescriptor_Butto
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_UninstallLink
 import ooniprobe.composeapp.generated.resources.AddDescriptor_InstallForLater
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Tests_Title
 import org.jetbrains.compose.resources.getString
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -82,8 +83,9 @@ class DescriptorsTest {
 
                 Thread.sleep(2000)
 
-                wait { onNodeWithTag("Dashboard-List").isDisplayed() }
-                onNodeWithTag("Dashboard-List")
+                clickOnText(Res.string.Tests_Title)
+                wait { onNodeWithTag("Descriptors-List").isDisplayed() }
+                onNodeWithTag("Descriptors-List")
                     .performScrollToNode(hasText("Android instrumented tests"))
                 onNodeWithText("Testing").assertIsDisplayed()
 
@@ -132,9 +134,10 @@ class DescriptorsTest {
 
                 setupTestEngine()
 
-                wait { onNodeWithTag("Dashboard-List").isDisplayed() }
+                clickOnText(Res.string.Tests_Title)
+                wait { onNodeWithTag("Descriptors-List").isDisplayed() }
                 // Pull down to refresh
-                onNodeWithTag("Dashboard-List").performTouchInput { swipeDown() }
+                onNodeWithTag("Descriptors-List").performTouchInput { swipeDown() }
 
                 clickOnText(
                     Res.string.Dashboard_Progress_ReviewLink_Action,
@@ -145,7 +148,7 @@ class DescriptorsTest {
 
                 clickOnText(getString(Res.string.Dashboard_ReviewDescriptor_Button_Last, 1, 1))
 
-                onNodeWithTag("Dashboard-List")
+                onNodeWithTag("Descriptors-List")
                     .performScrollToNode(hasText("Android instrumented tests"))
                 onNodeWithText("Testing 2").assertIsDisplayed()
             }
