@@ -349,6 +349,8 @@
     <string name="AddDescriptor_AutoUpdate">自动安装更新</string>
     <string name="AddDescriptor_AutoRun">自动运行测试</string>
     <string name="AddDescriptor_Toasts_Installed">链接已安装</string>
+    <string name="AddDescriptor_InstallForLater">稍后安装</string>
+    <string name="AddDescriptor_InstallAndRun">安装并运行</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">不支持的 URL</string>
     <string name="LoadingScreen_Runv2_Message">链接加载</string>
     <string name="LoadingScreen_Runv2_Failure">错误</string>
@@ -389,6 +391,7 @@
     <string name="Modal_AlwaysRun">始终运行</string>
     <string name="Modal_Error_CantDownloadURLs">无法下载 URL 列表。请重试。</string>
     <string name="Modal_Error_NoInternet">没有互联网连接</string>
+    <string name="Modal_Error_ProxyUnavailable">所选代理可能不可用</string>
     <string name="Modal_CustomURL_Title_NotSaved">是否确定？</string>
     <string name="Modal_CustomURL_NotSaved">离开此屏幕将不会保存您的 URL。确定离开吗？</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">没有后台权限，本应用无法自动运行测试。是否要重试？</string>
