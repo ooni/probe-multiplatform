@@ -79,7 +79,7 @@ import ooniprobe.composeapp.generated.resources.TestResults_Filter_NoTestsFound
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Networks
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Tests
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Results
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_NoTestsHaveBeenRun
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
@@ -446,7 +446,7 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    stringResource(Res.string.TestResults_Overview_Hero_Tests),
+                    stringResource(Res.string.TestResults_Overview_Hero_Results),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 8.dp),
                 )

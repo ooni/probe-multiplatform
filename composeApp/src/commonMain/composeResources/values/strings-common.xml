@@ -52,8 +52,9 @@
     <string name="Dashboard_Update_Ready">The app update has just been downloaded</string>
     <string name="Dashboard_Update_Restart">Restart</string>
 
-    <!-- Test -->
+    <!-- Tests -->
 
+    <string name="Tests_Title">Tests</string>
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Instant Messaging</string>
     <string name="Test_Performance_Fullname">Performance</string>
@@ -75,7 +76,7 @@
 
     <string name="TestResults_Overview_Title">Test Results</string>
     <string name="TestResults_Overview_Tab_Label">Test Results</string>
-    <string name="TestResults_Overview_Hero_Tests">Tests</string>
+    <string name="TestResults_Overview_Hero_Results">Results</string>
     <string name="TestResults_Overview_Hero_Networks">Networks</string>
     <string name="TestResults_Overview_Hero_DataUsage">Data Usage</string>
     <plurals name="TestResults_Overview_Websites_Blocked">
