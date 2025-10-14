@@ -95,6 +95,8 @@ private fun Project.registerSparkleTask() {
                 project.logger.lifecycle("Found .app: ${appDirs.joinToString { it.absolutePath }}")
             } else {
                 project.logger.error("No .app found in ${outputDir.absolutePath}")
+                // end task
+                return@doLast
             }
 
             val sparkleFramework =

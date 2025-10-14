@@ -19,9 +19,6 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-    defaults:
-      run:
-        working-directory: composeApp/src/desktopMain
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
