@@ -575,12 +575,14 @@ class Dependencies(
         goToResults: () -> Unit,
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
+        goToTests: () -> Unit,
         goToTestSettings: () -> Unit,
     ) = DashboardViewModel(
         goToOnboarding = goToOnboarding,
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
         goToRunTests = goToRunTests,
+        goToTests = goToTests,
         goToTestSettings = goToTestSettings,
         getFirstRun = getFirstRun::invoke,
         observeRunBackgroundState = runBackgroundStateManager::observeState,
@@ -589,6 +591,8 @@ class Dependencies(
         getAutoRunSettings = getAutoRunSettings::invoke,
         getLastRun = getLastRun::invoke,
         dismissLastRun = dismissLastRun::invoke,
+        getPreference = preferenceRepository::getValueByKey,
+        setPreference = preferenceRepository::setValueByKey,
         batteryOptimization = batteryOptimization,
     )
 
