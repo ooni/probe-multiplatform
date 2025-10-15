@@ -48,8 +48,6 @@ import org.ooni.probe.domain.BootstrapPreferences
 import org.ooni.probe.domain.CheckAutoRunConstraints
 import org.ooni.probe.domain.ClearStorage
 import org.ooni.probe.domain.DeleteMeasurementsWithoutResult
-import org.ooni.probe.domain.DeleteOldResults
-import org.ooni.probe.domain.DeleteResults
 import org.ooni.probe.domain.DownloadUrls
 import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
@@ -60,11 +58,8 @@ import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetFirstRun
 import org.ooni.probe.domain.GetLastResultOfDescriptor
 import org.ooni.probe.domain.GetMeasurementsNotUploaded
-import org.ooni.probe.domain.GetResult
-import org.ooni.probe.domain.GetResults
 import org.ooni.probe.domain.GetSettings
 import org.ooni.probe.domain.GetStorageUsed
-import org.ooni.probe.domain.MarkJustFinishedTestAsSeen
 import org.ooni.probe.domain.ObserveAndConfigureAutoRun
 import org.ooni.probe.domain.ObserveAndConfigureAutoUpdate
 import org.ooni.probe.domain.RunBackgroundStateManager
@@ -90,6 +85,12 @@ import org.ooni.probe.domain.descriptors.SaveTestDescriptors
 import org.ooni.probe.domain.descriptors.UndoRejectedDescriptorUpdate
 import org.ooni.probe.domain.proxy.ProxyManager
 import org.ooni.probe.domain.proxy.TestProxy
+import org.ooni.probe.domain.results.DeleteOldResults
+import org.ooni.probe.domain.results.DeleteResults
+import org.ooni.probe.domain.results.DismissLastRun
+import org.ooni.probe.domain.results.GetLastRun
+import org.ooni.probe.domain.results.GetResult
+import org.ooni.probe.domain.results.GetResults
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.shared.monitoring.AppLogger
 import org.ooni.probe.shared.monitoring.CrashMonitoring
@@ -292,6 +293,12 @@ class Dependencies(
             updateState = descriptorUpdateStateManager::update,
         )
     }
+    private val dismissLastRun by lazy {
+        DismissLastRun(
+            getLastRun = getLastRun::invoke,
+            setPreference = preferenceRepository::setValueByKey,
+        )
+    }
     private val fetchDescriptor by lazy {
         FetchDescriptor(
             engineHttpDo = engine::httpDo,
@@ -326,6 +333,12 @@ class Dependencies(
         GetLastResultOfDescriptor(
             getLastResultDoneByDescriptor = resultRepository::getLastDoneByDescriptor,
             getResultById = getResult::invoke,
+        )
+    }
+    private val getLastRun by lazy {
+        GetLastRun(
+            getLastResults = resultRepository::getLast,
+            getPreference = preferenceRepository::getValueByKey,
         )
     }
     private val getResults by lazy {
@@ -389,9 +402,6 @@ class Dependencies(
     }
     val markAppReviewAsShown by lazy {
         MarkAppReviewAsShown(setShownAt = appReviewRepository::setShownAt)
-    }
-    private val markJustFinishedTestAsSeen by lazy {
-        MarkJustFinishedTestAsSeen(setRunBackgroundState = runBackgroundStateManager::updateState)
     }
     val observeAndConfigureAutoRun by lazy {
         ObserveAndConfigureAutoRun(
@@ -468,7 +478,7 @@ class Dependencies(
     private val shouldShowVpnWarning by lazy {
         ShouldShowVpnWarning(preferenceRepository, networkTypeFinder::invoke)
     }
-    val runBackgroundStateManager by lazy { RunBackgroundStateManager(resultRepository.getLatest()) }
+    val runBackgroundStateManager by lazy { RunBackgroundStateManager() }
     private val undoRejectedDescriptorUpdate by lazy {
         UndoRejectedDescriptorUpdate(
             updateDescriptorRejectedRevision = testDescriptorRepository::updateRejectedRevision,
@@ -573,18 +583,16 @@ class Dependencies(
         goToRunTests = goToRunTests,
         goToTestSettings = goToTestSettings,
         getFirstRun = getFirstRun::invoke,
-        observeRunBackgroundState = runBackgroundStateManager.observeState(),
-        observeTestRunErrors = runBackgroundStateManager.observeErrors(),
+        observeRunBackgroundState = runBackgroundStateManager::observeState,
+        observeTestRunErrors = runBackgroundStateManager::observeErrors,
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
         getAutoRunSettings = getAutoRunSettings::invoke,
+        getLastRun = getLastRun::invoke,
+        dismissLastRun = dismissLastRun::invoke,
         batteryOptimization = batteryOptimization,
     )
 
     fun descriptorsViewModel(
-        goToOnboarding: () -> Unit,
-        goToResults: () -> Unit,
-        goToRunningTest: () -> Unit,
-        goToRunTests: () -> Unit,
         goToDescriptor: (String) -> Unit,
         goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
     ) = DescriptorsViewModel(
@@ -683,7 +691,6 @@ class Dependencies(
         getNetworks = networkRepository::list,
         deleteResultsByFilter = deleteResults::byFilter,
         deleteResults = deleteResults::byIds,
-        markJustFinishedTestAsSeen = markJustFinishedTestAsSeen::invoke,
         markAsViewed = resultRepository::markAllAsViewed,
     )
 

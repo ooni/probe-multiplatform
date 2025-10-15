@@ -95,10 +95,6 @@ fun Navigation(
         composable<Screen.Descriptors> {
             val viewModel = viewModel {
                 dependencies.descriptorsViewModel(
-                    goToOnboarding = { navController.goBackAndNavigate(Screen.Onboarding) },
-                    goToResults = { navController.navigateToMainScreen(Screen.Results) },
-                    goToRunningTest = { navController.safeNavigate(Screen.RunningTest) },
-                    goToRunTests = { navController.safeNavigate(Screen.RunTests) },
                     goToDescriptor = { descriptorKey ->
                         navController.safeNavigate(Screen.Descriptor(descriptorKey))
                     },

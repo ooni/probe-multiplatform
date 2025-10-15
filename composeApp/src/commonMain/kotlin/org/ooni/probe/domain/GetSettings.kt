@@ -68,6 +68,7 @@ import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.models.SettingsItem
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
+import org.ooni.probe.domain.results.DeleteOldResults
 import org.ooni.probe.ui.settings.category.SettingsDescription
 import org.ooni.probe.ui.settings.donate.DONATE_SETTINGS_ITEM
 import org.ooni.probe.ui.shared.format
