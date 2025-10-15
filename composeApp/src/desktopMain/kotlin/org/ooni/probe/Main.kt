@@ -89,7 +89,7 @@ fun main(args: Array<String>) {
         val deepLink by deepLinkFlow.collectAsState(null)
         val runBackgroundState by dependencies.runBackgroundStateManager
             .observeState()
-            .collectAsState(RunBackgroundState.Idle())
+            .collectAsState(RunBackgroundState.Idle)
 
         // Observe update state for UI
         val updateState by updateController.state.collectAsState(UpdateState.IDLE)
@@ -194,7 +194,7 @@ private fun trayIcon(): DrawableResource {
         (dependencies.platformInfo.platform as? Platform.Desktop)?.os == DesktopOS.Windows
     val runBackgroundState by dependencies.runBackgroundStateManager
         .observeState()
-        .collectAsState(RunBackgroundState.Idle())
+        .collectAsState(RunBackgroundState.Idle)
     val isRunning = runBackgroundState !is RunBackgroundState.Idle
     return when {
         isDarkTheme && isWindows && isRunning -> Res.drawable.tray_icon_windows_dark_running

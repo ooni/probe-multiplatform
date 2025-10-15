@@ -23,14 +23,14 @@ class RunBackgroundTaskTest {
     fun skipIfFailedAutoRunConstraints() =
         runTest {
             var wasRunDescriptorsCalled = false
-            val state = MutableStateFlow<RunBackgroundState>(RunBackgroundState.Idle())
+            val state = MutableStateFlow<RunBackgroundState>(RunBackgroundState.Idle)
             val subject = buildSubject(
                 checkAutoRunConstraints = { false },
                 runDescriptors = {
                     wasRunDescriptorsCalled = true
                     state.value = RunBackgroundState.RunningTests()
                     delay(100)
-                    state.value = RunBackgroundState.Idle()
+                    state.value = RunBackgroundState.Idle
                 },
             )
 
@@ -52,7 +52,7 @@ class RunBackgroundTaskTest {
         },
         runDescriptors: suspend (RunSpecification) -> Unit = {},
         setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit = {},
-        getRunBackgroundState: () -> Flow<RunBackgroundState> = { flowOf(RunBackgroundState.Idle()) },
+        getRunBackgroundState: () -> Flow<RunBackgroundState> = { flowOf(RunBackgroundState.Idle) },
         addRunCancelListener: (() -> Unit) -> CancelListenerCallback = { CancelListenerCallback {} },
         getLatestResult: () -> Flow<ResultModel?> = { flowOf(null) },
     ) = RunBackgroundTask(
