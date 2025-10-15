@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.first
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
+import org.ooni.probe.domain.results.DeleteOldResults
 
 class BootstrapPreferences(
     private val preferencesRepository: PreferenceRepository,

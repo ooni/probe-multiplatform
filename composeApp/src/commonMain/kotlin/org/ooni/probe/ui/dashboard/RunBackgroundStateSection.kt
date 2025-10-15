@@ -228,7 +228,7 @@ private fun RunBackgroundState.RunningTests.testIcon() =
 fun RunBackgroundIdlePreview() {
     AppTheme {
         Idle(
-            state = RunBackgroundState.Idle(),
+            state = RunBackgroundState.Idle,
             onEvent = {},
         )
     }
