@@ -40,9 +40,14 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.LifecycleResumeEffect
+import ooniprobe.composeapp.generated.resources.Common_Dismiss
 import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Disabled
 import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Enabled
 import ooniprobe.composeapp.generated.resources.Dashboard_LastResults
+import ooniprobe.composeapp.generated.resources.Dashboard_LastResults_SeeResults
+import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Action
+import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Description
+import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Title
 import ooniprobe.composeapp.generated.resources.Measurements_Failed
 import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
 import ooniprobe.composeapp.generated.resources.Res
@@ -54,6 +59,7 @@ import ooniprobe.composeapp.generated.resources.ic_auto_run
 import ooniprobe.composeapp.generated.resources.ic_history
 import ooniprobe.composeapp.generated.resources.ic_measurement_anomaly
 import ooniprobe.composeapp.generated.resources.ic_measurement_failed
+import ooniprobe.composeapp.generated.resources.ic_tests
 import ooniprobe.composeapp.generated.resources.ic_warning
 import ooniprobe.composeapp.generated.resources.ic_world
 import ooniprobe.composeapp.generated.resources.logo_probe
@@ -122,6 +128,7 @@ fun DashboardScreen(
             }
         }
 
+        // Scrollable Content
         Box(Modifier.fillMaxSize()) {
             val scrollState = rememberScrollState()
             Column(
@@ -137,6 +144,10 @@ fun DashboardScreen(
 
                 if (state.runBackgroundState is RunBackgroundState.Idle && state.lastRun != null) {
                     LastRun(state.lastRun, onEvent)
+                }
+
+                if (state.showTestsMovedNotice) {
+                    TestsMoved(onEvent)
                 }
             }
             VerticalScrollbar(state = scrollState, modifier = Modifier.align(Alignment.CenterEnd))
@@ -291,14 +302,14 @@ private fun LastRun(
         startActions = {
             TextButton(onClick = { onEvent(DashboardViewModel.Event.DismissResultsClicked) }) {
                 Text(
-                    "Dismiss",
+                    stringResource(Res.string.Common_Dismiss),
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.66f),
                 )
             }
         },
         endActions = {
             TextButton(onClick = { onEvent(DashboardViewModel.Event.SeeResultsClicked) }) {
-                Text("See results")
+                Text(stringResource(Res.string.Dashboard_LastResults_SeeResults))
             }
         },
         icon = painterResource(Res.drawable.ic_history),
@@ -331,6 +342,39 @@ fun ResultChip(
         ),
         border = AssistChipDefaults.assistChipBorder(true),
         modifier = modifier,
+    )
+}
+
+@Composable
+private fun TestsMoved(onEvent: (DashboardViewModel.Event) -> Unit) {
+    DashboardCard(
+        title = {
+            Text(
+                stringResource(Res.string.Dashboard_TestsMoved_Title),
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontSize = 18.sp,
+                    lineHeight = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                ),
+            )
+        },
+        content = {
+            Text(stringResource(Res.string.Dashboard_TestsMoved_Description))
+        },
+        startActions = {
+            TextButton(onClick = { onEvent(DashboardViewModel.Event.DismissTestsMovedClicked) }) {
+                Text(
+                    stringResource(Res.string.Common_Dismiss),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.66f),
+                )
+            }
+        },
+        endActions = {
+            TextButton(onClick = { onEvent(DashboardViewModel.Event.SeeTestsClicked) }) {
+                Text(stringResource(Res.string.Dashboard_TestsMoved_Action))
+            }
+        },
+        icon = painterResource(Res.drawable.ic_tests),
     )
 }
 
