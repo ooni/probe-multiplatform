@@ -33,7 +33,7 @@ fun DashboardCard(
             disabledContainerColor = MaterialTheme.colorScheme.surface,
             disabledContentColor = MaterialTheme.colorScheme.onSurface,
         ),
-        modifier = modifier.padding(16.dp),
+        modifier = modifier.padding(horizontal = 16.dp, vertical = 4.dp),
         onClick = {},
         enabled = false,
     ) {
