@@ -18,6 +18,7 @@ import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.Run
 import org.ooni.probe.data.models.RunBackgroundState
+import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.shared.tickerFlow
 import kotlin.time.Duration.Companion.seconds
@@ -27,6 +28,7 @@ class DashboardViewModel(
     goToResults: () -> Unit,
     goToRunningTest: () -> Unit,
     goToRunTests: () -> Unit,
+    goToTests: () -> Unit,
     goToTestSettings: () -> Unit,
     getFirstRun: () -> Flow<Boolean>,
     observeRunBackgroundState: () -> Flow<RunBackgroundState>,
@@ -35,6 +37,8 @@ class DashboardViewModel(
     getAutoRunSettings: () -> Flow<AutoRunParameters>,
     getLastRun: () -> Flow<Run?>,
     dismissLastRun: suspend () -> Unit,
+    getPreference: (SettingsKey) -> Flow<Any?>,
+    setPreference: suspend (SettingsKey, Any) -> Unit,
     batteryOptimization: BatteryOptimization,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -83,6 +87,11 @@ class DashboardViewModel(
                 _state.update { it.copy(lastRun = run) }
             }.launchIn(viewModelScope)
 
+        getPreference(SettingsKey.TESTS_MOVED_NOTICE)
+            .onEach { preference ->
+                _state.update { it.copy(showTestsMovedNotice = preference != true) }
+            }.launchIn(viewModelScope)
+
         events
             .filterIsInstance<Event.RunTestsClicked>()
             .onEach { goToRunTests() }
@@ -106,6 +115,16 @@ class DashboardViewModel(
         events
             .filterIsInstance<Event.DismissResultsClicked>()
             .onEach { dismissLastRun() }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.SeeTestsClicked>()
+            .onEach { goToTests() }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.DismissTestsMovedClicked>()
+            .onEach { setPreference(SettingsKey.TESTS_MOVED_NOTICE, true) }
             .launchIn(viewModelScope)
 
         events
@@ -153,6 +172,7 @@ class DashboardViewModel(
         val showVpnWarning: Boolean = false,
         val lastRun: Run? = null,
         val showIgnoreBatteryOptimizationNotice: Boolean = false,
+        val showTestsMovedNotice: Boolean = false,
     )
 
     sealed interface Event {
@@ -169,6 +189,10 @@ class DashboardViewModel(
         data object SeeResultsClicked : Event
 
         data object DismissResultsClicked : Event
+
+        data object SeeTestsClicked : Event
+
+        data object DismissTestsMovedClicked : Event
 
         data class ErrorDisplayed(
             val error: TestRunError,

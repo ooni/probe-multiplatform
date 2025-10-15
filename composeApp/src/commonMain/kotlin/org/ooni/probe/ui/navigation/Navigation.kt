@@ -81,6 +81,7 @@ fun Navigation(
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.safeNavigate(Screen.RunningTest) },
                     goToRunTests = { navController.safeNavigate(Screen.RunTests) },
+                    goToTests = { navController.navigateToMainScreen(Screen.Descriptors) },
                     goToTestSettings = {
                         navController.safeNavigate(
                             Screen.SettingsCategory(PreferenceCategoryKey.TEST_OPTIONS.value),
