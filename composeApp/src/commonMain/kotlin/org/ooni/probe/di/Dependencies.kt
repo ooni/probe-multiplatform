@@ -565,11 +565,13 @@ class Dependencies(
         goToResults: () -> Unit,
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
+        goToTestSettings: () -> Unit,
     ) = DashboardViewModel(
         goToOnboarding = goToOnboarding,
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
         goToRunTests = goToRunTests,
+        goToTestSettings = goToTestSettings,
         getFirstRun = getFirstRun::invoke,
         observeRunBackgroundState = runBackgroundStateManager.observeState(),
         observeTestRunErrors = runBackgroundStateManager.observeErrors(),

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -21,8 +20,6 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LatestTest
-import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_RunFinished
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_EstimatedTimeLeft
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notice
@@ -38,9 +35,7 @@ import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.ui.shared.format
-import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.theme.AppTheme
-import org.ooni.probe.ui.theme.customColors
 
 @Composable
 fun RunBackgroundStateSection(
@@ -61,7 +56,7 @@ private fun Idle(
     onEvent: (DashboardViewModel.Event) -> Unit,
 ) {
     OutlinedButton(
-        onClick = { onEvent(DashboardViewModel.Event.RunTestsClick) },
+        onClick = { onEvent(DashboardViewModel.Event.RunTestsClicked) },
         colors = ButtonDefaults.outlinedButtonColors(
             contentColor = MaterialTheme.colorScheme.primary,
             containerColor = MaterialTheme.colorScheme.onPrimary,
@@ -80,25 +75,6 @@ private fun Idle(
             contentDescription = null,
             modifier = Modifier.padding(start = 8.dp),
         )
-    }
-    state.lastTestAt?.let { lastTestAt ->
-        Text(
-            text = stringResource(Res.string.Dashboard_Overview_LatestTest) + " " + lastTestAt.relativeDateTime(),
-            style = MaterialTheme.typography.labelLarge,
-            modifier = Modifier.padding(top = 4.dp),
-        )
-    }
-    if (state.justFinishedTest) {
-        Button(
-            onClick = { onEvent(DashboardViewModel.Event.SeeResultsClick) },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.customColors.success,
-                contentColor = MaterialTheme.customColors.onSuccess,
-            ),
-            modifier = Modifier.padding(top = 4.dp),
-        ) {
-            Text(stringResource(Res.string.Dashboard_RunV2_RunFinished))
-        }
     }
 }
 
@@ -173,7 +149,7 @@ private fun RunningTests(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .clickable { onEvent(DashboardViewModel.Event.RunningTestClick) }
+            .clickable { onEvent(DashboardViewModel.Event.RunningTestClicked) }
             .padding(horizontal = 16.dp)
             .padding(top = 32.dp, bottom = 8.dp),
     ) {

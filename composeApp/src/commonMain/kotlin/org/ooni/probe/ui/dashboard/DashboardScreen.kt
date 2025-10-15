@@ -11,35 +11,52 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleResumeEffect
+import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Disabled
+import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Enabled
+import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LatestTest
+import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_RunFinished
 import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
 import ooniprobe.composeapp.generated.resources.dashboard_arc
+import ooniprobe.composeapp.generated.resources.ic_auto_run
 import ooniprobe.composeapp.generated.resources.ic_warning
 import ooniprobe.composeapp.generated.resources.logo_probe
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.VerticalScrollbar
 import org.ooni.probe.ui.shared.isHeightCompact
+import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.theme.AppTheme
+import org.ooni.probe.ui.theme.LocalCustomColors
+import org.ooni.probe.ui.theme.customColors
 
 @Composable
 fun DashboardScreen(
@@ -84,6 +101,8 @@ fun DashboardScreen(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 RunBackgroundStateSection(state.runBackgroundState, onEvent)
+
+                AutoRunButton(isAutoRunEnabled = state.isAutoRunEnabled, onEvent)
             }
         }
 
@@ -96,6 +115,28 @@ fun DashboardScreen(
                     .verticalScroll(scrollState)
                     .fillMaxSize(),
             ) {
+                if (state.runBackgroundState is RunBackgroundState.Idle) {
+                    state.runBackgroundState.lastTestAt?.let { lastTestAt ->
+                        Text(
+                            text = stringResource(Res.string.Dashboard_Overview_LatestTest) + " " + lastTestAt.relativeDateTime(),
+                            style = MaterialTheme.typography.labelLarge,
+                            modifier = Modifier.padding(top = 4.dp),
+                        )
+                    }
+                    if (state.runBackgroundState.justFinishedTest) {
+                        Button(
+                            onClick = { onEvent(DashboardViewModel.Event.SeeResultsClicked) },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.customColors.success,
+                                contentColor = MaterialTheme.customColors.onSuccess,
+                            ),
+                            modifier = Modifier.padding(top = 4.dp),
+                        ) {
+                            Text(stringResource(Res.string.Dashboard_RunV2_RunFinished))
+                        }
+                    }
+                }
+
                 if (state.showVpnWarning) {
                     VpnWarning()
                 }
@@ -121,6 +162,59 @@ fun DashboardScreen(
     LifecycleResumeEffect(Unit) {
         onEvent(DashboardViewModel.Event.Resumed)
         onPauseOrDispose { onEvent(DashboardViewModel.Event.Paused) }
+    }
+}
+
+@Composable
+private fun AutoRunButton(
+    isAutoRunEnabled: Boolean,
+    onEvent: (DashboardViewModel.Event) -> Unit,
+) {
+    TextButton(
+        onClick = { onEvent(DashboardViewModel.Event.AutoRunClicked) },
+        colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onSurface),
+        modifier = Modifier.padding(top = 4.dp),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                painterResource(Res.drawable.ic_auto_run),
+                contentDescription = null,
+                modifier = Modifier.padding(end = 8.dp).size(16.dp),
+            )
+            Text(
+                text = autoRunText(isAutoRunEnabled),
+                style = MaterialTheme.typography.labelLarge,
+            )
+        }
+    }
+}
+
+@Composable
+private fun autoRunText(isAutoRunEnabled: Boolean): AnnotatedString {
+    val baseString = stringResource(
+        if (isAutoRunEnabled) {
+            Res.string.Dashboard_AutoRun_Enabled
+        } else {
+            Res.string.Dashboard_AutoRun_Disabled
+        },
+    )
+    val startSection = baseString.indexOf("<i>")
+    val endSection = baseString.indexOf("</i>")
+    val sectionColor = if (isAutoRunEnabled) {
+        LocalCustomColors.current.success
+    } else {
+        MaterialTheme.colorScheme.error
+    }
+    return if (startSection != -1 && endSection != -1 && startSection + 3 < endSection) {
+        buildAnnotatedString {
+            append(baseString.substring(0, startSection))
+            withStyle(style = SpanStyle(color = sectionColor)) {
+                append(baseString.substring(startSection + 3, endSection))
+            }
+            append(baseString.substring(endSection + 4, baseString.length))
+        }
+    } else {
+        buildAnnotatedString { append(baseString) }
     }
 }
 

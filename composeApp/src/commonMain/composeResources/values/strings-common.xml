@@ -23,6 +23,8 @@
 
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>enabled</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Auto-run is <i>disabled</i>]]></string>
     <string name="Dashboard_RunV2_RunFinished">Run finished. Tap to view results.</string>
     <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
