@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -16,9 +17,11 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,28 +29,40 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Disabled
 import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Enabled
-import ooniprobe.composeapp.generated.resources.Dashboard_Overview_LatestTest
-import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_RunFinished
+import ooniprobe.composeapp.generated.resources.Dashboard_LastResults
+import ooniprobe.composeapp.generated.resources.Measurements_Failed
 import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested
 import ooniprobe.composeapp.generated.resources.app_name
 import ooniprobe.composeapp.generated.resources.dashboard_arc
 import ooniprobe.composeapp.generated.resources.ic_auto_run
+import ooniprobe.composeapp.generated.resources.ic_history
+import ooniprobe.composeapp.generated.resources.ic_measurement_anomaly
+import ooniprobe.composeapp.generated.resources.ic_measurement_failed
 import ooniprobe.composeapp.generated.resources.ic_warning
+import ooniprobe.composeapp.generated.resources.ic_world
 import ooniprobe.composeapp.generated.resources.logo_probe
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ooni.probe.data.models.Run
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TestRunErrorMessages
@@ -56,7 +71,6 @@ import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.theme.AppTheme
 import org.ooni.probe.ui.theme.LocalCustomColors
-import org.ooni.probe.ui.theme.customColors
 
 @Composable
 fun DashboardScreen(
@@ -102,7 +116,9 @@ fun DashboardScreen(
             ) {
                 RunBackgroundStateSection(state.runBackgroundState, onEvent)
 
-                AutoRunButton(isAutoRunEnabled = state.isAutoRunEnabled, onEvent)
+                if (state.runBackgroundState is RunBackgroundState.Idle) {
+                    AutoRunButton(isAutoRunEnabled = state.isAutoRunEnabled, onEvent)
+                }
             }
         }
 
@@ -115,33 +131,13 @@ fun DashboardScreen(
                     .verticalScroll(scrollState)
                     .fillMaxSize(),
             ) {
-                if (state.runBackgroundState is RunBackgroundState.Idle) {
-                    state.runBackgroundState.lastTestAt?.let { lastTestAt ->
-                        Text(
-                            text = stringResource(Res.string.Dashboard_Overview_LatestTest) + " " + lastTestAt.relativeDateTime(),
-                            style = MaterialTheme.typography.labelLarge,
-                            modifier = Modifier.padding(top = 4.dp),
-                        )
-                    }
-                    if (state.runBackgroundState.justFinishedTest) {
-                        Button(
-                            onClick = { onEvent(DashboardViewModel.Event.SeeResultsClicked) },
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.customColors.success,
-                                contentColor = MaterialTheme.customColors.onSuccess,
-                            ),
-                            modifier = Modifier.padding(top = 4.dp),
-                        ) {
-                            Text(stringResource(Res.string.Dashboard_RunV2_RunFinished))
-                        }
-                    }
-                }
-
                 if (state.showVpnWarning) {
                     VpnWarning()
                 }
 
-                // TODO: Rest of the content here
+                if (state.runBackgroundState is RunBackgroundState.Idle && state.lastRun != null) {
+                    LastRun(state.lastRun, onEvent)
+                }
             }
             VerticalScrollbar(state = scrollState, modifier = Modifier.align(Alignment.CenterEnd))
         }
@@ -234,6 +230,108 @@ private fun VpnWarning() {
             Text(stringResource(Res.string.Modal_DisableVPN_Title))
         }
     }
+}
+
+@Composable
+private fun LastRun(
+    run: Run,
+    onEvent: (DashboardViewModel.Event) -> Unit,
+) {
+    DashboardCard(
+        title = {
+            Text(
+                stringResource(Res.string.Dashboard_LastResults),
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontSize = 18.sp,
+                    lineHeight = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                ),
+            )
+            Text(
+                run.startTime.relativeDateTime(),
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(start = 8.dp, bottom = 2.dp),
+            )
+        },
+        content = {
+            FlowRow {
+                ResultChip(
+                    text = pluralStringResource(
+                        Res.plurals.TestResults_Overview_Websites_Tested,
+                        run.measurementCounts.tested.toInt(),
+                        run.measurementCounts.tested,
+                    ),
+                    icon = Res.drawable.ic_world,
+                    modifier = Modifier.padding(end = 2.dp),
+                )
+
+                ResultChip(
+                    text = pluralStringResource(
+                        Res.plurals.TestResults_Overview_Websites_Blocked,
+                        run.measurementCounts.anomaly.toInt(),
+                        run.measurementCounts.anomaly,
+                    ),
+                    icon = Res.drawable.ic_measurement_anomaly,
+                    iconTint = LocalCustomColors.current.logWarn,
+                    modifier = Modifier.padding(end = 2.dp),
+                )
+
+                ResultChip(
+                    text = pluralStringResource(
+                        Res.plurals.Measurements_Failed,
+                        run.measurementCounts.failed.toInt(),
+                        run.measurementCounts.failed,
+                    ),
+                    icon = Res.drawable.ic_measurement_failed,
+                    iconTint = MaterialTheme.colorScheme.error,
+                    modifier = Modifier,
+                )
+            }
+        },
+        startActions = {
+            TextButton(onClick = { onEvent(DashboardViewModel.Event.DismissResultsClicked) }) {
+                Text(
+                    "Dismiss",
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.66f),
+                )
+            }
+        },
+        endActions = {
+            TextButton(onClick = { onEvent(DashboardViewModel.Event.SeeResultsClicked) }) {
+                Text("See results")
+            }
+        },
+        icon = painterResource(Res.drawable.ic_history),
+    )
+}
+
+@Composable
+fun ResultChip(
+    text: String,
+    icon: DrawableResource,
+    modifier: Modifier = Modifier,
+    iconTint: Color? = null,
+) {
+    AssistChip(
+        onClick = {},
+        enabled = false,
+        label = { Text(text = text) },
+        leadingIcon = {
+            Icon(
+                painterResource(icon),
+                contentDescription = null,
+                tint = iconTint ?: LocalContentColor.current,
+                modifier = Modifier.size(AssistChipDefaults.IconSize),
+            )
+        },
+        colors = AssistChipDefaults.assistChipColors(
+            disabledContainerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
+            disabledLabelColor = LocalContentColor.current,
+            disabledLeadingIconContentColor = LocalContentColor.current,
+        ),
+        border = AssistChipDefaults.assistChipBorder(true),
+        modifier = modifier,
+    )
 }
 
 @Preview
