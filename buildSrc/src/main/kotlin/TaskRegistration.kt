@@ -156,7 +156,7 @@ private fun Project.registerResourceTasks(config: AppConfig) {
 private fun Project.configureTaskDependencies() {
     // Configure existing tasks with dependencies after evaluation
     afterEvaluate {
-        tasks.findByName("compileKotlinDesktop")?.dependsOn?.add("makeLibrary")
+        // tasks.findByName("compileKotlinDesktop")?.dependsOn?.add("makeLibrary")
 
         tasks.findByName("preBuild")?.dependsOn("copyBrandingToCommonResources")
 
@@ -165,9 +165,11 @@ private fun Project.configureTaskDependencies() {
 
         // Ensure Sparkle.framework is prepared before packaging desktop apps
         val sparkleConsumers = setOf(
+            "runDistributable",
             "createDistributable",
             "packageDistributionForCurrentOS",
-            "packageDmg"
+            "packageDmg",
+            "desktopJar"
         )
         tasks.matching { it.name in sparkleConsumers }.configureEach {
             dependsOn("setupSparkle")
@@ -203,9 +205,11 @@ private fun Project.configureJavaExecTasks() {
     tasks.withType<JavaExec> {
         systemProperty(
             "java.library.path",
-            "$projectDir/src/desktopMain/resources/macos" +
+            "${layout.buildDirectory.dir("processedResources/desktop/main/macos").get().asFile.absolutePath}" +
                 File.pathSeparator +
                 "$projectDir/src/desktopMain/resources/windows" +
+                File.pathSeparator +
+                "$projectDir/src/desktopMain/resources/macos" +
                 File.pathSeparator +
                 "$projectDir/src/desktopMain/resources/linux" +
                 File.pathSeparator +
