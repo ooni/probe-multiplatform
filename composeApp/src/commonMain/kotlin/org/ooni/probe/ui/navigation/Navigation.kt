@@ -81,6 +81,11 @@ fun Navigation(
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.safeNavigate(Screen.RunningTest) },
                     goToRunTests = { navController.safeNavigate(Screen.RunTests) },
+                    goToTestSettings = {
+                        navController.safeNavigate(
+                            Screen.SettingsCategory(PreferenceCategoryKey.TEST_OPTIONS.value),
+                        )
+                    },
                 )
             }
             val state by viewModel.state.collectAsState()
