@@ -43,13 +43,8 @@ class RunningViewModel(
         observeRunBackgroundState
             .filterIsInstance<RunBackgroundState.Idle>()
             .take(1)
-            .onEach { testRunState ->
-                if (testRunState.justFinishedTest) {
-                    goToResults()
-                } else {
-                    onBack()
-                }
-            }.launchIn(viewModelScope)
+            .onEach { goToResults() }
+            .launchIn(viewModelScope)
 
         observeTestRunErrors
             .onEach { error ->

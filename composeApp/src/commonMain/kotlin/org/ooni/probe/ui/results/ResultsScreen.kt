@@ -32,7 +32,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -79,7 +78,7 @@ import ooniprobe.composeapp.generated.resources.TestResults_Filter_NoTestsFound
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Networks
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Tests
+import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Results
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_NoTestsHaveBeenRun
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
@@ -363,10 +362,6 @@ fun ResultsScreen(
             },
         )
     }
-
-    LaunchedEffect(Unit) {
-        onEvent(ResultsViewModel.Event.Start)
-    }
 }
 
 @Composable
@@ -446,7 +441,7 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    stringResource(Res.string.TestResults_Overview_Hero_Tests),
+                    stringResource(Res.string.TestResults_Overview_Hero_Results),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 8.dp),
                 )

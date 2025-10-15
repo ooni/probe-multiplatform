@@ -28,6 +28,7 @@ import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.descriptor.add.AddDescriptorScreen
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesScreen
 import org.ooni.probe.ui.descriptor.websites.DescriptorWebsitesViewModel
+import org.ooni.probe.ui.descriptors.DescriptorsScreen
 import org.ooni.probe.ui.log.LogScreen
 import org.ooni.probe.ui.measurement.MeasurementRawScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
@@ -80,6 +81,21 @@ fun Navigation(
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.safeNavigate(Screen.RunningTest) },
                     goToRunTests = { navController.safeNavigate(Screen.RunTests) },
+                    goToTests = { navController.navigateToMainScreen(Screen.Descriptors) },
+                    goToTestSettings = {
+                        navController.safeNavigate(
+                            Screen.SettingsCategory(PreferenceCategoryKey.TEST_OPTIONS.value),
+                        )
+                    },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            DashboardScreen(state, viewModel::onEvent)
+        }
+
+        composable<Screen.Descriptors> {
+            val viewModel = viewModel {
+                dependencies.descriptorsViewModel(
                     goToDescriptor = { descriptorKey ->
                         navController.safeNavigate(Screen.Descriptor(descriptorKey))
                     },
@@ -89,7 +105,7 @@ fun Navigation(
                 )
             }
             val state by viewModel.state.collectAsState()
-            DashboardScreen(state, viewModel::onEvent)
+            DescriptorsScreen(state, viewModel::onEvent)
         }
 
         composable<Screen.Results> {
