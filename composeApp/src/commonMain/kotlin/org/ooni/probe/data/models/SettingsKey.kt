@@ -67,6 +67,7 @@ enum class SettingsKey(
     FIRST_RUN("first_run"),
     CHOSEN_WEBSITES("chosen_websites"),
     DESCRIPTOR_SECTIONS_COLLAPSED("descriptor_sections_collapsed"),
+    LAST_RUN_DISMISSED("last_run_dismissed"),
 
     ROUTE("route"),
 

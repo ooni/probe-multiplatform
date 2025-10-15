@@ -2,7 +2,7 @@
     <!-- Dashboard -->
     <string name="Dashboard_Tab_Label">Dashboard</string>
 
-    <string name="Dashboard_Overview_LatestTest">Last test:</string>
+
     <string name="Dashboard_Overview_Estimated">Estimated:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Choose websites</string>
 
@@ -11,6 +11,12 @@
     <string name="Dashboard_Running_Stopping_Title">Stopping test…</string>
     <string name="Dashboard_Running_Stopping_Notice">Finishing the currently pending tests, please wait…</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in use</string>
+
+    <string name="Dashboard_LastResults">Last Results</string>
+    <string name="Dashboard_LastResults_SeeResults">See results</string>
+
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>enabled</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Auto-run is <i>disabled</i>]]></string>
 
     <string name="Dashboard_RunTests_Title">Run tests</string>
     <string name="Dashboard_RunTests_Description">Select the tests to run</string>
@@ -23,9 +29,6 @@
 
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
-    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>enabled</i>]]></string>
-    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Auto-run is <i>disabled</i>]]></string>
-    <string name="Dashboard_RunV2_RunFinished">Run finished. Tap to view results.</string>
     <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
@@ -439,6 +442,7 @@
     <string name="Common_Clear">Clear</string>
     <string name="Common_Next">Next</string>
     <string name="Common_Previous">Previous</string>
+    <string name="Common_Dismiss">Dismiss</string>
 
     <string name="Common_Today">Today</string>
     <string name="Common_Yesterday">Yesterday</string>

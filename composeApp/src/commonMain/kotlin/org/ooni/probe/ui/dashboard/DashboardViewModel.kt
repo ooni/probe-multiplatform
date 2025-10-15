@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.data.models.AutoRunParameters
+import org.ooni.probe.data.models.Run
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.shared.tickerFlow
@@ -28,10 +29,12 @@ class DashboardViewModel(
     goToRunTests: () -> Unit,
     goToTestSettings: () -> Unit,
     getFirstRun: () -> Flow<Boolean>,
-    observeRunBackgroundState: Flow<RunBackgroundState>,
-    observeTestRunErrors: Flow<TestRunError>,
+    observeRunBackgroundState: () -> Flow<RunBackgroundState>,
+    observeTestRunErrors: () -> Flow<TestRunError>,
     shouldShowVpnWarning: suspend () -> Boolean,
     getAutoRunSettings: () -> Flow<AutoRunParameters>,
+    getLastRun: () -> Flow<Run?>,
+    dismissLastRun: suspend () -> Unit,
     batteryOptimization: BatteryOptimization,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -65,14 +68,19 @@ class DashboardViewModel(
                 }
             }.launchIn(viewModelScope)
 
-        observeRunBackgroundState
+        observeRunBackgroundState()
             .onEach { testState ->
                 _state.update { it.copy(runBackgroundState = testState) }
             }.launchIn(viewModelScope)
 
-        observeTestRunErrors
+        observeTestRunErrors()
             .onEach { error ->
                 _state.update { it.copy(testRunErrors = it.testRunErrors + error) }
+            }.launchIn(viewModelScope)
+
+        getLastRun()
+            .onEach { run ->
+                _state.update { it.copy(lastRun = run) }
             }.launchIn(viewModelScope)
 
         events
@@ -93,6 +101,11 @@ class DashboardViewModel(
         events
             .filterIsInstance<Event.SeeResultsClicked>()
             .onEach { goToResults() }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.DismissResultsClicked>()
+            .onEach { dismissLastRun() }
             .launchIn(viewModelScope)
 
         events
@@ -134,10 +147,11 @@ class DashboardViewModel(
     }
 
     data class State(
-        val runBackgroundState: RunBackgroundState = RunBackgroundState.Idle(),
+        val runBackgroundState: RunBackgroundState = RunBackgroundState.Idle,
         val isAutoRunEnabled: Boolean = false,
         val testRunErrors: List<TestRunError> = emptyList(),
         val showVpnWarning: Boolean = false,
+        val lastRun: Run? = null,
         val showIgnoreBatteryOptimizationNotice: Boolean = false,
     )
 
@@ -153,6 +167,8 @@ class DashboardViewModel(
         data object AutoRunClicked : Event
 
         data object SeeResultsClicked : Event
+
+        data object DismissResultsClicked : Event
 
         data class ErrorDisplayed(
             val error: TestRunError,
