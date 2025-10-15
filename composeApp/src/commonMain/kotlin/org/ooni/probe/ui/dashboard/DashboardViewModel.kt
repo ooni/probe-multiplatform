@@ -26,6 +26,7 @@ class DashboardViewModel(
     goToResults: () -> Unit,
     goToRunningTest: () -> Unit,
     goToRunTests: () -> Unit,
+    goToTestSettings: () -> Unit,
     getFirstRun: () -> Flow<Boolean>,
     observeRunBackgroundState: Flow<RunBackgroundState>,
     observeTestRunErrors: Flow<TestRunError>,
@@ -45,13 +46,22 @@ class DashboardViewModel(
             .launchIn(viewModelScope)
 
         getAutoRunSettings()
+            .onEach { autoRunParameters ->
+                _state.update {
+                    it.copy(isAutoRunEnabled = autoRunParameters is AutoRunParameters.Enabled)
+                }
+            }.launchIn(viewModelScope)
+
+        getAutoRunSettings()
             .take(1)
             .onEach { autoRunParameters ->
-                if (autoRunParameters is AutoRunParameters.Enabled &&
-                    batteryOptimization.isSupported &&
-                    !batteryOptimization.isIgnoring
-                ) {
-                    _state.update { it.copy(showIgnoreBatteryOptimizationNotice = true) }
+                _state.update {
+                    it.copy(
+                        showIgnoreBatteryOptimizationNotice =
+                            autoRunParameters is AutoRunParameters.Enabled &&
+                                batteryOptimization.isSupported &&
+                                !batteryOptimization.isIgnoring,
+                    )
                 }
             }.launchIn(viewModelScope)
 
@@ -66,17 +76,22 @@ class DashboardViewModel(
             }.launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.RunTestsClick>()
+            .filterIsInstance<Event.RunTestsClicked>()
             .onEach { goToRunTests() }
             .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.RunningTestClick>()
+            .filterIsInstance<Event.RunningTestClicked>()
             .onEach { goToRunningTest() }
             .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.SeeResultsClick>()
+            .filterIsInstance<Event.AutoRunClicked>()
+            .onEach { goToTestSettings() }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.SeeResultsClicked>()
             .onEach { goToResults() }
             .launchIn(viewModelScope)
 
@@ -120,6 +135,7 @@ class DashboardViewModel(
 
     data class State(
         val runBackgroundState: RunBackgroundState = RunBackgroundState.Idle(),
+        val isAutoRunEnabled: Boolean = false,
         val testRunErrors: List<TestRunError> = emptyList(),
         val showVpnWarning: Boolean = false,
         val showIgnoreBatteryOptimizationNotice: Boolean = false,
@@ -130,11 +146,13 @@ class DashboardViewModel(
 
         data object Paused : Event
 
-        data object RunTestsClick : Event
+        data object RunTestsClicked : Event
 
-        data object RunningTestClick : Event
+        data object RunningTestClicked : Event
 
-        data object SeeResultsClick : Event
+        data object AutoRunClicked : Event
+
+        data object SeeResultsClicked : Event
 
         data class ErrorDisplayed(
             val error: TestRunError,
