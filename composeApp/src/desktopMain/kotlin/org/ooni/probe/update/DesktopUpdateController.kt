@@ -7,6 +7,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Tray_Notification_Check_Updates
+import ooniprobe.composeapp.generated.resources.Tray_Notification_Checking_Updates
+import ooniprobe.composeapp.generated.resources.Tray_Notification_Updates_Available
+import org.jetbrains.compose.resources.StringResource
 import org.ooni.probe.config.UpdateConfig
 import org.ooni.probe.dependencies
 import org.ooni.probe.shared.DesktopOS
@@ -118,12 +123,11 @@ class DesktopUpdateController(
         updateManager.retryLastOperation()
     }
 
-    // TODO: add translations after macOS has been finalized
-    fun getMenuText(): String =
+    fun getMenuText(): StringResource =
         when (_state.value) {
-            UpdateState.CHECKING_FOR_UPDATES -> "Checking for Updates..."
-            UpdateState.UPDATE_AVAILABLE -> "Update Available!"
-            else -> "Check for Updates"
+            UpdateState.CHECKING_FOR_UPDATES -> Res.string.Tray_Notification_Checking_Updates
+            UpdateState.UPDATE_AVAILABLE -> Res.string.Tray_Notification_Updates_Available
+            else -> Res.string.Tray_Notification_Check_Updates
         }
 
     suspend fun cleanup() {
