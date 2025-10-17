@@ -8,7 +8,7 @@ object UpdateConfig {
     private const val MAC_URL =
         "https://github.com/aanorbel/oomplt-test/releases/latest/download/feed-mac.rss"
     private const val WINDOWS_URL =
-        "https://ooniprobe.s3.eu-central-1.amazonaws.com/desktop/feed-windows.rss"
+        "https://github.com/aanorbel/oomplt-test/releases/latest/download/feed-windows.rss"
 
     val URL = when (dependencies.platformInfo.platform) {
         is Platform.Desktop -> when (dependencies.platformInfo.platform.os) {

@@ -6,6 +6,7 @@ import org.gradle.kotlin.dsl.withType
 import java.io.File
 import kotlin.let
 import ooni.sparkle.SetupSparkleTask
+import ooni.sparkle.WinSparkleSetupTask
 
 private fun isMac() = System.getProperty("os.name").lowercase().contains("mac")
 
@@ -17,6 +18,8 @@ fun Project.registerTasks(config: AppConfig) {
     registerDesktopTasks()
     registerResourceTasks(config)
     registerSparkleTask()
+    registerWinSparkleTask()
+    registerOONIDistributableTask()
     configureTaskDependencies()
 }
 
@@ -72,7 +75,23 @@ private fun Project.registerSparkleTask() {
                 .orElse(layout.buildDirectory.dir("processedResources/desktop/main/macos/")),
         )
     }
+}
 
+private fun Project.registerWinSparkleTask() {
+    tasks.register("setupWinSparkle", WinSparkleSetupTask::class) {
+        group = "setup"
+        description = "Downloads WinSparkle and extracts WinSparkle.dll to the destination directory"
+        onlyIf { System.getProperty("os.name").lowercase().contains("win") }
+        winSparkleVersion.set(providers.gradleProperty("winSparkleVersion").orElse("0.9.1"))
+        destDir.set(
+            providers.gradleProperty("winSparkleExtractDir")
+                .map { layout.projectDirectory.dir(it) }
+                .orElse(layout.projectDirectory.dir("src/desktopMain/resources/windows/")),
+        )
+    }
+}
+
+private fun Project.registerOONIDistributableTask() {
     tasks.register("createOONIDistributable") {
         group = "build"
         description = "Processes the createDistributable output (e.g., zip it or sign it)"
