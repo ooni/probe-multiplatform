@@ -377,7 +377,8 @@
     <string name="AddDescriptor_AutoUpdate">Instalar atualizações automaticamente</string>
     <string name="AddDescriptor_AutoRun">Executar testes automaticamente</string>
     <string name="AddDescriptor_Toasts_Installed">Link instalado</string>
-    <string name="AddDescriptor_Action">Instalar Link</string>
+    <string name="AddDescriptor_InstallForLater">Instalar para depois</string>
+    <string name="AddDescriptor_InstallAndRun">Instalar &amp; Executar</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">URL sem suporte</string>
     <string name="LoadingScreen_Runv2_Message">Carregando Link</string>
     <string name="LoadingScreen_Runv2_Failure">Erro</string>
@@ -422,6 +423,7 @@
     <string name="Modal_AlwaysRun">Executar Sempre</string>
     <string name="Modal_Error_CantDownloadURLs">Não foi possível baixar a lista de URLs. Por favor, tente novamente.</string>
     <string name="Modal_Error_NoInternet">Sem conexão à Internet</string>
+    <string name="Modal_Error_ProxyUnavailable">O proxy selecionado pode estar indisponível</string>
     <string name="Modal_CustomURL_Title_NotSaved">Você tem a certeza?</string>
     <string name="Modal_CustomURL_NotSaved">Suas URLs não serão salvas quando você sair desta tela. Tem certeza de que deseja sair desta tela?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">O aplicativo não pode executar os testes automaticamente sem permissão de segundo plano. Você quer tentar novamente?</string>

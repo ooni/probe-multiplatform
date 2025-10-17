@@ -267,7 +267,6 @@
     <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
     <string name="AddDescriptor_AutoRun">Keyra prófanir sjálfvirkt</string>
     <string name="AddDescriptor_Toasts_Installed">Link installed</string>
-    <string name="AddDescriptor_Action">Install Link</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
     <string name="LoadingScreen_Runv2_Message">Link Loading</string>
     <string name="LoadingScreen_Runv2_Failure">Villa</string>
