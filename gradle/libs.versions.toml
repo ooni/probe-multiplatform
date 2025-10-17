@@ -6,7 +6,7 @@ android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
 
-compose-plugin = "1.9.0"
+compose-plugin = "1.9.1"
 kotlin = "2.2.20"
 sqldelight = "2.1.0"
 dataStoreVersion = "1.1.4"
@@ -41,10 +41,10 @@ android-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.9
 android-work = { module = "androidx.work:work-runtime-ktx", version = "2.10.5" }
 android-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.1" }
 
-lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.9.4" }
-lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version = "2.9.4" }
-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.9.0" }
-window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version = "1.9.0-beta06" }
+lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.9.5" }
+lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version = "2.9.5" }
+navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.9.1" }
+window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version = "1.9.0" }
 back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-plugin" }
 material-icons = { module = "org.jetbrains.compose.material:material-icons-core", version = "1.7.3" }
 dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.7.3" }
@@ -64,10 +64,10 @@ sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref 
 sqldelight-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 
 # Files
-okio = { module = "com.squareup.okio:okio", version = "3.16.1" }
+okio = { module = "com.squareup.okio:okio", version = "3.16.2" }
 
 # Lottie animations
-kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.1" }
+kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.2" }
 
 # Permissions
 moko-permissions-compose = { module ="dev.icerock.moko:permissions-compose", version.ref = "mokoPermissions" }
