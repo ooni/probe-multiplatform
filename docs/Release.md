@@ -153,6 +153,37 @@ file, and swapping the windows `.exe` and `.msix` files for their signed version
 
 The new Github release post an internal Slack message warning of the new incoming release.
 
+### 2.4 Publish Desktop (macOS) App
+
+#### 2.4.1 Package the App
+
+Run the following command to package the macOS app into a DMG file:
+
+```
+./gradlew packageDmg
+```
+
+This will generate the DMG and Application file in the `composeApp/build/compose/binaries/main/{dmg,app}` directory.
+
+#### 2.4.2 Set Up Sparkle Updates
+
+To enable Sparkle updates for the macOS app, use the scripts provided in the Sparkle framework. These scripts are located in `composeApp/build/sparkle/extracted-<version>/bin`.
+
+- Sign the appcast file:
+   ```
+   ./composeApp/build/sparkle/extracted-<version>/bin/sign_update <path-to-dmg> --ed-key-file certificates/sparkle_eddsa_private.pem
+   ```
+   Replace `<version>` with the sparkle version.
+   Replace `<path-to-dmg>` with the path to the generated DMG file.
+
+- Using the `sparkle:edSignature` output from the previous command, create the appcast XML file.
+
+- Upload the signed appcast file and the DMG to github release.
+
+- Ensure the app is configured to check for updates using the Sparkle framework. Verify that the appcast URL is correctly set in the app's configuration.
+
+Once these steps are complete, the macOS app will be ready for distribution with Sparkle updates enabled.
+
 ## Monitoring
 
 We use Sentry to monitor for crashes and handled errors. We have specific views for:
