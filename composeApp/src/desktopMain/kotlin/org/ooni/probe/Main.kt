@@ -154,7 +154,7 @@ fun main(args: Array<String>) {
                 // Only show update UI on Mac and Windows platforms
                 if (updateController.supportsUpdates()) {
                     Item(
-                        text = updateController.getMenuText(),
+                        text = stringResource(updateController.getMenuText()),
                         enabled = updateState != UpdateState.CHECKING_FOR_UPDATES,
                         onClick = { updateController.checkNow() },
                     )
