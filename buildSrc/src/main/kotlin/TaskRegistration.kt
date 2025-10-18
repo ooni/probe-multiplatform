@@ -7,8 +7,11 @@ import java.io.File
 import kotlin.let
 import ooni.sparkle.SetupSparkleTask
 import ooni.sparkle.WinSparkleSetupTask
+import ooni.appimage.PackageAppImageTask
 
 private fun isMac() = System.getProperty("os.name").lowercase().contains("mac")
+
+private fun isLinux() = System.getProperty("os.name").lowercase().contains("linux")
 
 /**
  * Registers all custom tasks for the project
@@ -20,6 +23,7 @@ fun Project.registerTasks(config: AppConfig) {
     registerSparkleTask()
     registerWinSparkleTask()
     registerOONIDistributableTask()
+    registerAppImageTask()
     configureTaskDependencies()
 }
 
@@ -87,6 +91,31 @@ private fun Project.registerWinSparkleTask() {
             providers.gradleProperty("winSparkleExtractDir")
                 .map { layout.projectDirectory.dir(it) }
                 .orElse(layout.projectDirectory.dir("src/desktopMain/resources/windows/")),
+        )
+    }
+}
+
+private fun Project.registerAppImageTask() {
+    tasks.register("packageAppImage", PackageAppImageTask::class) {
+        group = "distribution"
+        description = "Creates an AppImage for OONI Probe desktop application on Linux"
+        onlyIf { isLinux() }
+
+        // Depend on createDistributable to ensure the app is built first
+        dependsOn("createDistributable")
+
+
+        // Set script location relative to root project
+        scriptFile.set(rootProject.layout.projectDirectory.file("scripts/create-appimage.sh"))
+
+        // Set project directory to root project
+        projectDir.set(rootProject.layout.projectDirectory)
+
+        // Set default output location - the actual version will be determined at execution time
+        outputDir.set(
+            rootProject.layout.projectDirectory.dir(
+                "composeApp/build/compose/binaries/main/appimage-workspace/"
+            )
         )
     }
 }
