@@ -12,6 +12,9 @@
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">İnternet sansürü şeffaflığını sağlamak için tüm OONI Probe kullanıcılarının ağ verileri otomatik olarak yayınlanır (ayarlardan kapatılmadıkça).</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">Lütfen İnternet sansürünün OONI Probe tarafından günlük olarak ölçülebilmesi için otomatik sınamayı açın.\n\nEndişelenmeyin, pil kullanımına dikkat edeceğiz.\n\nOtomatik sınamayı istediğiniz zaman ayarlardan kapatabilirsiniz.</string>
     <string name="Onboarding_Crash_Paragraph">OONI Probe uygulamasını iyileştirmek için, sorun çıktığında kişisel veri içermeyen anonim çökme bildirimleri almak istiyoruz.\n\nÇökme bildirimlerinin OONI geliştirme ekibine gönderilmesini ister misiniz?</string>
+    <string name="Onboarding_CleanUp_Title">Temizle</string>
+    <string name="Onboarding_CleanUp_Paragraph">Önceki kurulumdan kalmış bazı dosyalar bulduk. Kurulumu sürdürmeden önce lütfen bu dosyaları temizleyin.</string>
+
     <string name="Dashboard_Websites_Card_Description">Site engellemelerini sınayın</string>
     <string name="Dashboard_Websites_Overview_Paragraph">OONI [site bağlantısı sınaması](https://ooni.org/nettest/web-connectivity/) özelliğini kullanarak sitelerin engellenip engellenmediğini denetleyebilirsiniz.\n\nÇalıştır üzerine her tıkladığınızda, Citizen Lab [küresel](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) ve [ülkeye özel](https://github.com/citizenlab/test-lists/tree/master/lists) sınama listelerindeki çeşitli siteler denetlenir.\n\nBelirli siteleri sınamak için siteleri seçin düğmesine tıklayın ya da bu kartın ayarlarından kategoriyi ya da siteleri seçin. \n\nBu sınama sitelerin DNS müdahalesi, TCP/IP engelleme ya da görünmez vekil sunucu ile engellenip engellenmediğini ortaya çıkarır.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
     <string name="Dashboard_Performance_Card_Description">Ağınızın hızını ve başarımını ölçün</string>
@@ -46,4 +49,7 @@
     <string name="Settings_Donate_Action_Error">Bağış sayfası açılamadı. Lütfen şuraya gidin: %1$s</string>
 
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Bu bağlantıyı yalnızca geliştiricisinin gönderdiği özgün bağlantıdan yeniden kurabilirsiniz. Bu bağlantıdaki ölçümler silinecek, ancak Explorer üzerinden erişilebilecek.</string>
+    <string name="Tray_Notification_Check_Updates">Güncelleme denetimi</string>
+    <string name="Tray_Notification_Updates_Available">Güncelleme yayınlanmış!</string>
+    <string name="Tray_Notification_Checking_Updates">Güncellemeler denetleniyor...</string>
 </resources>
