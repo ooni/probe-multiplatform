@@ -242,7 +242,6 @@
     <string name="AddDescriptor_AutoUpdate">Sakinisha masasisho kiotomatiki</string>
     <string name="AddDescriptor_AutoRun">Endesha vipimo kiatomati</string>
     <string name="AddDescriptor_Toasts_Installed">Kiungo kimesakinishwa</string>
-    <string name="AddDescriptor_Action">Sakinisha Kiungo</string>
     <string name="LoadingScreen_Runv2_Message">Kiungo kinapakia</string>
     <string name="LoadingScreen_Runv2_Failure">Hitilafu</string>
     <string name="LoadingScreen_Runv2_Canceled">Usakinishaji wa kiungo umeghairiwa</string>

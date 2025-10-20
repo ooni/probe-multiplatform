@@ -244,7 +244,6 @@
     <string name="AddDescriptor_AutoUpdate">ដំឡើងបច្ចុប្បន្នភាពស្វ័យប្រវត្តិ</string>
     <string name="AddDescriptor_AutoRun">ដំណើរការតេស្តដោយស្វ័យប្រវត្តិ</string>
     <string name="AddDescriptor_Toasts_Installed">តំណរភ្ជាប់ដែលបានតំឡើង</string>
-    <string name="AddDescriptor_Action">ដំឡើងតំណរភ្ជាប់</string>
     <string name="LoadingScreen_Runv2_Message">តំណរភ្ជាប់កំពុងបញ្ជូនបន្ត</string>
     <string name="LoadingScreen_Runv2_Failure">កំហុស</string>
     <string name="LoadingScreen_Runv2_Canceled">ការដំឡើងតំណរភ្ជាប់ត្រូវបានបញ្ឈប់</string>

@@ -363,7 +363,8 @@
     <string name="AddDescriptor_AutoUpdate">Güncellemeler otomatik olarak kurulsun</string>
     <string name="AddDescriptor_AutoRun">Sınamalar otomatik olarak çalıştırılsın</string>
     <string name="AddDescriptor_Toasts_Installed">Bağlantı kuruldu</string>
-    <string name="AddDescriptor_Action">Kurulum bağlantısı</string>
+    <string name="AddDescriptor_InstallForLater">Daha sonra kur</string>
+    <string name="AddDescriptor_InstallAndRun">Kur ve çalıştır</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Adres desteklenmiyor</string>
     <string name="LoadingScreen_Runv2_Message">Bağlantı yükleniyor</string>
     <string name="LoadingScreen_Runv2_Failure">Hata</string>
@@ -406,6 +407,7 @@
     <string name="Modal_AlwaysRun">Her zaman çalışsın</string>
     <string name="Modal_Error_CantDownloadURLs">Adres listesi indirilemedi. Lütfen yeniden deneyin.</string>
     <string name="Modal_Error_NoInternet">İnternet bağlantısı yok</string>
+    <string name="Modal_Error_ProxyUnavailable">Seçilmiş vekil sunucu kullanılamıyor olabilir.</string>
     <string name="Modal_CustomURL_Title_NotSaved">Emin misiniz?</string>
     <string name="Modal_CustomURL_NotSaved">Bu sayfadan ayrıldığınızda adresleriniz kaydedilmez. Bu sayfadan ayrılmak istediğinize emin misiniz?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Uygulama arka planda çalışma izni olmadan otomatik sınamaları yapamaz. Yeniden denemek ister misiniz?</string>
