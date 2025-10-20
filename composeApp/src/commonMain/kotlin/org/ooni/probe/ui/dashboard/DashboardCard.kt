@@ -43,7 +43,10 @@ fun DashboardCard(
                     icon,
                     contentDescription = null,
                     tint = LocalContentColor.current.copy(alpha = 0.075f),
-                    modifier = Modifier.size(88.dp).align(Alignment.TopEnd).padding(top = 4.dp),
+                    modifier = Modifier
+                        .size(88.dp)
+                        .align(Alignment.TopEnd)
+                        .padding(top = 4.dp),
                 )
             }
             Column {

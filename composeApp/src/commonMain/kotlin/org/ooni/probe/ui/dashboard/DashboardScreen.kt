@@ -35,16 +35,23 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import ooniprobe.composeapp.generated.resources.Common_Dismiss
+import ooniprobe.composeapp.generated.resources.Common_Month
+import ooniprobe.composeapp.generated.resources.Common_Today
+import ooniprobe.composeapp.generated.resources.Common_Total
+import ooniprobe.composeapp.generated.resources.Common_Week
 import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Disabled
 import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Enabled
 import ooniprobe.composeapp.generated.resources.Dashboard_LastResults
 import ooniprobe.composeapp.generated.resources.Dashboard_LastResults_SeeResults
+import ooniprobe.composeapp.generated.resources.Dashboard_Stats_Countries
+import ooniprobe.composeapp.generated.resources.Dashboard_Stats_Empty
+import ooniprobe.composeapp.generated.resources.Dashboard_Stats_Networks
+import ooniprobe.composeapp.generated.resources.Dashboard_Stats_Title
 import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Action
 import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Description
 import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Title
@@ -56,6 +63,7 @@ import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Te
 import ooniprobe.composeapp.generated.resources.app_name
 import ooniprobe.composeapp.generated.resources.dashboard_arc
 import ooniprobe.composeapp.generated.resources.ic_auto_run
+import ooniprobe.composeapp.generated.resources.ic_heart
 import ooniprobe.composeapp.generated.resources.ic_history
 import ooniprobe.composeapp.generated.resources.ic_measurement_anomaly
 import ooniprobe.composeapp.generated.resources.ic_measurement_failed
@@ -68,8 +76,10 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ooni.probe.data.models.MeasurementStats
 import org.ooni.probe.data.models.Run
 import org.ooni.probe.data.models.RunBackgroundState
+import org.ooni.probe.shared.largeNumberShort
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.VerticalScrollbar
@@ -77,6 +87,8 @@ import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.theme.AppTheme
 import org.ooni.probe.ui.theme.LocalCustomColors
+import org.ooni.probe.ui.theme.cardTitle
+import org.ooni.probe.ui.theme.dashboardSectionTitle
 
 @Composable
 fun DashboardScreen(
@@ -149,6 +161,8 @@ fun DashboardScreen(
                 if (state.showTestsMovedNotice) {
                     TestsMoved(onEvent)
                 }
+
+                StatsSection(state.stats)
             }
             VerticalScrollbar(state = scrollState, modifier = Modifier.align(Alignment.CenterEnd))
         }
@@ -252,11 +266,7 @@ private fun LastRun(
         title = {
             Text(
                 stringResource(Res.string.Dashboard_LastResults),
-                style = MaterialTheme.typography.titleMedium.copy(
-                    fontSize = 18.sp,
-                    lineHeight = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                ),
+                style = MaterialTheme.typography.cardTitle,
             )
             Text(
                 run.startTime.relativeDateTime(),
@@ -351,11 +361,7 @@ private fun TestsMoved(onEvent: (DashboardViewModel.Event) -> Unit) {
         title = {
             Text(
                 stringResource(Res.string.Dashboard_TestsMoved_Title),
-                style = MaterialTheme.typography.titleMedium.copy(
-                    fontSize = 18.sp,
-                    lineHeight = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                ),
+                style = MaterialTheme.typography.cardTitle,
             )
         },
         content = {
@@ -376,6 +382,75 @@ private fun TestsMoved(onEvent: (DashboardViewModel.Event) -> Unit) {
         },
         icon = painterResource(Res.drawable.ic_tests),
     )
+}
+
+@Composable
+private fun StatsSection(stats: MeasurementStats?) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp)
+            .padding(horizontal = 16.dp),
+    ) {
+        Text(
+            stringResource(Res.string.Dashboard_Stats_Title),
+            style = MaterialTheme.typography.dashboardSectionTitle,
+        )
+        Icon(
+            painterResource(Res.drawable.ic_heart),
+            contentDescription = null,
+            modifier = Modifier.padding(start = 8.dp).size(16.dp),
+        )
+    }
+
+    @Composable
+    fun StatsEntry(
+        key: String,
+        value: Long?,
+    ) {
+        Row(
+            verticalAlignment = Alignment.Bottom,
+            modifier = Modifier.padding(horizontal = 8.dp).padding(top = 8.dp),
+        ) {
+            Text(
+                value?.largeNumberShort().orEmpty(),
+                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 24.sp),
+            )
+            Text(
+                key.uppercase(),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(start = 4.dp, bottom = 2.dp),
+            )
+        }
+    }
+
+    FlowRow(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+    ) {
+        if (stats?.measurementsTotal == 0L) {
+            Text(stringResource(Res.string.Dashboard_Stats_Empty))
+        } else {
+            StatsEntry(stringResource(Res.string.Common_Today), stats?.measurementsToday)
+            StatsEntry(stringResource(Res.string.Common_Week), stats?.measurementsWeek)
+            StatsEntry(stringResource(Res.string.Common_Month), stats?.measurementsMonth)
+            StatsEntry(stringResource(Res.string.Common_Total), stats?.measurementsTotal)
+            StatsEntry(
+                pluralStringResource(
+                    Res.plurals.Dashboard_Stats_Networks,
+                    stats?.networks?.toInt() ?: 0,
+                ),
+                stats?.networks,
+            )
+            StatsEntry(
+                pluralStringResource(
+                    Res.plurals.Dashboard_Stats_Countries,
+                    stats?.countries?.toInt() ?: 0,
+                ),
+                stats?.countries,
+            )
+        }
+    }
 }
 
 @Preview
