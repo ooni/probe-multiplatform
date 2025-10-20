@@ -35,4 +35,5 @@
 
     <string name="Settings_Donate_Title">Styrkja</string>
     <string name="Settings_Donate_Action">Styrkja</string>
+    <string name="Tray_Notification_Check_Updates">Athuga með uppfærslur</string>
     </resources>
