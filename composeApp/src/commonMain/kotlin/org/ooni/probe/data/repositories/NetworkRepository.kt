@@ -2,6 +2,8 @@ package org.ooni.probe.data.repositories
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOne
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.ooni.engine.models.NetworkType
@@ -54,6 +56,18 @@ class NetworkRepository(
             .asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.map { it.toModel() } }
+
+    fun countAsns(): Flow<Long> =
+        database.networkQueries
+            .countAsns()
+            .asFlow()
+            .mapToOne(backgroundContext)
+
+    fun countCountries(): Flow<Long> =
+        database.networkQueries
+            .countCountries()
+            .asFlow()
+            .mapToOne(backgroundContext)
 
     suspend fun deleteWithoutResult() =
         withContext(backgroundContext) {

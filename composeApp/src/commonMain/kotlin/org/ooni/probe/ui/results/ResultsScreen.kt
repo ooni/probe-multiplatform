@@ -93,12 +93,12 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultFilter
+import org.ooni.probe.shared.formatDataUsage
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.shared.today
 import org.ooni.probe.ui.shared.LightStatusBars
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
-import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
 
 @Composable
