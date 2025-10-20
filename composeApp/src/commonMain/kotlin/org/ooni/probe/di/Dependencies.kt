@@ -59,6 +59,7 @@ import org.ooni.probe.domain.GetFirstRun
 import org.ooni.probe.domain.GetLastResultOfDescriptor
 import org.ooni.probe.domain.GetMeasurementsNotUploaded
 import org.ooni.probe.domain.GetSettings
+import org.ooni.probe.domain.GetStats
 import org.ooni.probe.domain.GetStorageUsed
 import org.ooni.probe.domain.ObserveAndConfigureAutoRun
 import org.ooni.probe.domain.ObserveAndConfigureAutoUpdate
@@ -386,6 +387,13 @@ class Dependencies(
             cleanupLegacyDirectories = cleanupLegacyDirectories,
         )
     }
+    private val getStats by lazy {
+        GetStats(
+            countMeasurementsFromStartTime = measurementRepository::countFromStartTime,
+            countNetworkAsns = networkRepository::countAsns,
+            countNetworkCountries = networkRepository::countCountries,
+        )
+    }
 
     @VisibleForTesting
     val getTestDescriptors by lazy {
@@ -593,6 +601,7 @@ class Dependencies(
         dismissLastRun = dismissLastRun::invoke,
         getPreference = preferenceRepository::getValueByKey,
         setPreference = preferenceRepository::setValueByKey,
+        getStats = getStats::invoke,
         batteryOptimization = batteryOptimization,
     )
 

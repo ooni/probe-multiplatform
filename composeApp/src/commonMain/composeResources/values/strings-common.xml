@@ -31,6 +31,17 @@
         <item quantity="other">Run %1$d tests</item>
     </plurals>
 
+    <string name="Dashboard_Stats_Title">Your Measurements</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Network</item>
+        <item quantity="other">Networks</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">Country</item>
+        <item quantity="other">Countries</item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty">Start running tests to see your statistics here.</string>
+
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
@@ -450,6 +461,9 @@
 
     <string name="Common_Today">Today</string>
     <string name="Common_Yesterday">Yesterday</string>
+    <string name="Common_Week">Week</string>
+    <string name="Common_Month">Month</string>
+    <string name="Common_Total">Total</string>
     <string name="Common_Ago">%1$s ago</string>
     <plurals name="Common_Seconds">
         <item quantity="one">%1$d second</item>

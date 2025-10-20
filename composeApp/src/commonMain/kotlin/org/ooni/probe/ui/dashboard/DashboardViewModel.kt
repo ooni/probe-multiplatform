@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.data.models.AutoRunParameters
+import org.ooni.probe.data.models.MeasurementStats
 import org.ooni.probe.data.models.Run
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.SettingsKey
@@ -39,6 +40,7 @@ class DashboardViewModel(
     dismissLastRun: suspend () -> Unit,
     getPreference: (SettingsKey) -> Flow<Any?>,
     setPreference: suspend (SettingsKey, Any) -> Unit,
+    getStats: () -> Flow<MeasurementStats>,
     batteryOptimization: BatteryOptimization,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -90,6 +92,11 @@ class DashboardViewModel(
         getPreference(SettingsKey.TESTS_MOVED_NOTICE)
             .onEach { preference ->
                 _state.update { it.copy(showTestsMovedNotice = preference != true) }
+            }.launchIn(viewModelScope)
+
+        getStats()
+            .onEach { stats ->
+                _state.update { it.copy(stats = stats) }
             }.launchIn(viewModelScope)
 
         events
@@ -168,6 +175,7 @@ class DashboardViewModel(
     data class State(
         val runBackgroundState: RunBackgroundState = RunBackgroundState.Idle,
         val isAutoRunEnabled: Boolean = false,
+        val stats: MeasurementStats? = null,
         val testRunErrors: List<TestRunError> = emptyList(),
         val showVpnWarning: Boolean = false,
         val lastRun: Run? = null,
