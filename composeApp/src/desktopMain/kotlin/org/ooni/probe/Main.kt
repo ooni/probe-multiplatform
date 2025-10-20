@@ -29,6 +29,7 @@ import ooniprobe.composeapp.generated.resources.Desktop_Quit
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Results_UploadingMissing
 import ooniprobe.composeapp.generated.resources.app_name
+import ooniprobe.composeapp.generated.resources.ooni_colored_logo
 import ooniprobe.composeapp.generated.resources.tray_icon_dark
 import ooniprobe.composeapp.generated.resources.tray_icon_dark_running
 import ooniprobe.composeapp.generated.resources.tray_icon_light
@@ -108,7 +109,7 @@ fun main(args: Array<String>) {
         Window(
             onCloseRequest = { isWindowVisible = false },
             visible = isWindowVisible,
-            icon = painterResource(trayIcon),
+            icon = painterResource(Res.drawable.ooni_colored_logo),
             title = stringResource(Res.string.app_name),
             state = rememberWindowState(
                 size = DpSize(480.dp, 800.dp),
