@@ -52,8 +52,8 @@
     }
 
     NSString *result = @"unknown";
-
     nw_path_t currentPath = _currentPath;
+    
     if (currentPath && nw_path_get_status(currentPath) == nw_path_status_satisfied) {
         if (nw_path_uses_interface_type(currentPath, nw_interface_type_wifi)) {
             result = @"wifi";
@@ -61,12 +61,57 @@
             result = @"mobile";
         } else if (nw_path_uses_interface_type(currentPath, nw_interface_type_wired)) {
             result = @"wired_ethernet";
+        } else if (nw_path_uses_interface_type(currentPath, nw_interface_type_loopback)) {
+            result = [self getNetworkTypeFallback];
         } else {
-            result = @"unknown";
+            result = [self getNetworkTypeFallback];
         }
+    } else {
+        result = [self getNetworkTypeFallback];
     }
 
     return result;
+}
+
+- (NSString *)getNetworkTypeFallback {
+    SCDynamicStoreRef store = SCDynamicStoreCreate(NULL, CFSTR("NetworkTypeFinder"), NULL, NULL);
+    if (!store) return @"unknown";
+    
+    CFStringRef primaryService = SCDynamicStoreKeyCreateNetworkGlobalEntity(NULL, kSCDynamicStoreDomainState, kSCEntNetIPv4);
+    CFDictionaryRef globalIPv4 = SCDynamicStoreCopyValue(store, primaryService);
+    CFRelease(primaryService);
+    
+    if (globalIPv4) {
+        CFStringRef serviceID = CFDictionaryGetValue(globalIPv4, kSCDynamicStorePropNetPrimaryService);
+        if (serviceID) {
+            CFStringRef interfaceKey = SCDynamicStoreKeyCreateNetworkServiceEntity(NULL, kSCDynamicStoreDomainSetup, serviceID, kSCEntNetInterface);
+            CFDictionaryRef interface = SCDynamicStoreCopyValue(store, interfaceKey);
+            CFRelease(interfaceKey);
+            
+            if (interface) {
+                CFStringRef hardwareType = CFDictionaryGetValue(interface, kSCPropNetInterfaceHardware);
+                NSString *result = @"unknown";
+                if (hardwareType) {
+                    if (CFEqual(hardwareType, kSCEntNetAirPort)) {
+                        result = @"wifi";
+                    } else if (CFEqual(hardwareType, kSCEntNetEthernet)) {
+                        result = @"wired_ethernet";
+                    } else if (CFEqual(hardwareType, kSCEntNetModem)) {
+                        result = @"mobile";
+                    }
+                }
+                CFRelease(interface);
+                CFRelease(globalIPv4);
+                CFRelease(store);
+                return result;
+            }
+            CFRelease(globalIPv4);
+        } else {
+            CFRelease(globalIPv4);
+        }
+    }
+    CFRelease(store);
+    return @"unknown";
 }
 
 - (BOOL)isVpnActive {
@@ -82,17 +127,42 @@
             }
         }
     }
+    
+    SCDynamicStoreRef store = SCDynamicStoreCreate(NULL, CFSTR("VPNCheck"), NULL, NULL);
+    if (!store) return NO;
+    
+    CFPropertyListRef globalIPv4 = SCDynamicStoreCopyValue(store, CFSTR("State:/Network/Global/IPv4"));
+    if (globalIPv4) {
+        CFStringRef primaryService = CFDictionaryGetValue(globalIPv4, kSCDynamicStorePropNetPrimaryService);
+        if (primaryService) {
+            CFStringRef vpnKey = CFStringCreateWithFormat(NULL, NULL, CFSTR("State:/Network/Service/%@/VPN"), primaryService);
+            CFPropertyListRef vpnSettings = SCDynamicStoreCopyValue(store, vpnKey);
+            CFRelease(vpnKey);
+            if (vpnSettings) {
+                CFRelease(vpnSettings);
+                CFRelease(globalIPv4);
+                CFRelease(store);
+                return YES;
+            }
+        }
+        CFRelease(globalIPv4);
+    }
+    CFRelease(store);
 
     return NO;
 }
 @end
 
+static NetworkTypeFinder *sharedFinder = nil;
+
 const char* getNetworkTypeImpl() {
     @autoreleasepool {
-        NetworkTypeFinder *finder = [[NetworkTypeFinder alloc] init];
-        NSString *networkType = [finder getNetworkType];
-        // Return pointer valid for JNI lifetime, no need to free
-        return [networkType UTF8String];
+        if (!sharedFinder) {
+            sharedFinder = [[NetworkTypeFinder alloc] init];
+            usleep(100000);
+        }
+        NSString *networkType = [sharedFinder getNetworkType];
+        return strdup([networkType UTF8String]);
     }
 }
 #elif defined(_WIN32)
