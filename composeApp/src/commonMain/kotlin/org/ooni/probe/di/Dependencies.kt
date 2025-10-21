@@ -28,6 +28,7 @@ import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.disk.ReadFileOkio
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.disk.WriteFileOkio
+import org.ooni.probe.data.models.ArticleModel
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
@@ -38,6 +39,7 @@ import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.repositories.AppReviewRepository
+import org.ooni.probe.data.repositories.ArticleRepository
 import org.ooni.probe.data.repositories.MeasurementRepository
 import org.ooni.probe.data.repositories.NetworkRepository
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -72,6 +74,8 @@ import org.ooni.probe.domain.ShouldShowVpnWarning
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.domain.appreview.MarkAppReviewAsShown
 import org.ooni.probe.domain.appreview.ShouldShowAppReview
+import org.ooni.probe.domain.articles.GetArticles
+import org.ooni.probe.domain.articles.RefreshArticles
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
 import org.ooni.probe.domain.descriptors.BootstrapTestDescriptors
 import org.ooni.probe.domain.descriptors.DeleteTestDescriptor
@@ -95,6 +99,8 @@ import org.ooni.probe.domain.results.GetResults
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.shared.monitoring.AppLogger
 import org.ooni.probe.shared.monitoring.CrashMonitoring
+import org.ooni.probe.ui.articles.ArticleViewModel
+import org.ooni.probe.ui.articles.ArticlesViewModel
 import org.ooni.probe.ui.choosewebsites.ChooseWebsitesViewModel
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
@@ -156,6 +162,9 @@ class Dependencies(
     private val database by lazy { buildDatabase(databaseDriverFactory) }
 
     private val appReviewRepository by lazy { AppReviewRepository(dataStore) }
+
+    @VisibleForTesting
+    val articleRepository by lazy { ArticleRepository(database, backgroundContext) }
 
     @VisibleForTesting
     val measurementRepository by lazy {
@@ -314,6 +323,9 @@ class Dependencies(
             saveTestDescriptors = saveTestDescriptors::invoke,
             updateState = descriptorUpdateStateManager::update,
         )
+    }
+    private val getArticles by lazy {
+        GetArticles(articleRepository::list)
     }
     val getAutoRunSettings by lazy { GetAutoRunSettings(preferenceRepository::allSettings) }
     private val getAutoRunSpecification by lazy {
@@ -486,6 +498,12 @@ class Dependencies(
     private val shouldShowVpnWarning by lazy {
         ShouldShowVpnWarning(preferenceRepository, networkTypeFinder::invoke)
     }
+    val refreshArticles by lazy {
+        RefreshArticles(
+            httpDo = engine::httpDo,
+            refreshArticlesInDatabase = articleRepository::refresh,
+        )
+    }
     val runBackgroundStateManager by lazy { RunBackgroundStateManager() }
     private val undoRejectedDescriptorUpdate by lazy {
         UndoRejectedDescriptorUpdate(
@@ -565,6 +583,27 @@ class Dependencies(
         startBackgroundRun = startSingleRunInner,
     )
 
+    fun articleViewModel(
+        url: ArticleModel.Url,
+        onBack: () -> Unit,
+    ) = ArticleViewModel(
+        url = url,
+        onBack = onBack,
+        launchAction = launchAction::invoke,
+        isWebViewAvailable = isWebViewAvailable,
+    )
+
+    fun articlesViewModel(
+        onBack: () -> Unit,
+        goToArticle: (ArticleModel.Url) -> Unit,
+    ) = ArticlesViewModel(
+        onBack = onBack,
+        goToArticle = goToArticle,
+        getArticles = getArticles::invoke,
+        refreshArticles = refreshArticles::invoke,
+        canPullToRefresh = platformInfo.canPullToRefresh,
+    )
+
     fun chooseWebsitesViewModel(
         initialUrl: String?,
         onBack: () -> Unit,
@@ -585,6 +624,8 @@ class Dependencies(
         goToRunTests: () -> Unit,
         goToTests: () -> Unit,
         goToTestSettings: () -> Unit,
+        goToArticles: () -> Unit,
+        goToArticle: (ArticleModel.Url) -> Unit,
     ) = DashboardViewModel(
         goToOnboarding = goToOnboarding,
         goToResults = goToResults,
@@ -592,6 +633,8 @@ class Dependencies(
         goToRunTests = goToRunTests,
         goToTests = goToTests,
         goToTestSettings = goToTestSettings,
+        goToArticles = goToArticles,
+        goToArticle = goToArticle,
         getFirstRun = getFirstRun::invoke,
         observeRunBackgroundState = runBackgroundStateManager::observeState,
         observeTestRunErrors = runBackgroundStateManager::observeErrors,
@@ -602,6 +645,7 @@ class Dependencies(
         getPreference = preferenceRepository::getValueByKey,
         setPreference = preferenceRepository::setValueByKey,
         getStats = getStats::invoke,
+        getArticles = getArticles::invoke,
         batteryOptimization = batteryOptimization,
     )
 

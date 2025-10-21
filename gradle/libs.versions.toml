@@ -29,7 +29,8 @@ javafx = { id = "org.openjfx.javafxplugin", version = "0.1.0" }
 [libraries]
 
 # Kotlin
-kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.9.0" }
+kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.9.0" }
+kotlin-serialization-xml = { module = "io.github.pdvrieze.xmlutil:serialization", version = "0.91.2" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.7.1" }
 
 # Java
@@ -111,7 +112,8 @@ desktop-oonimkall = { module = "org.ooni:oonimkall", version = "3.27.0-desktop" 
 [bundles]
 
 kotlin = [
-    "kotlin-serialization",
+    "kotlin-serialization-json",
+    "kotlin-serialization-xml",
     "kotlin-datetime",
 ]
 ui = [

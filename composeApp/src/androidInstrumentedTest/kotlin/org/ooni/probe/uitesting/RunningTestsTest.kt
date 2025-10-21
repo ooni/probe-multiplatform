@@ -8,9 +8,10 @@ import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Common_Expand
+import ooniprobe.composeapp.generated.resources.Dashboard_LastResults_SeeResults
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_RunButton_Label
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectNone
-import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_RunFinished
+import ooniprobe.composeapp.generated.resources.Dashboard_LastResults_SeeResults
 import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
@@ -66,7 +67,7 @@ class RunningTestsTest {
                 clickOnText(Res.string.Test_Signal_Fullname)
                 clickOnRunButton(1)
 
-                clickOnText(Res.string.Dashboard_RunV2_RunFinished, timeout = TEST_WAIT_TIMEOUT)
+                clickOnText(Res.string.Dashboard_LastResults_SeeResults, timeout = TEST_WAIT_TIMEOUT)
 
                 clickOnText(Res.string.Test_InstantMessaging_Fullname)
                 clickOnText(Res.string.Test_Signal_Fullname)
@@ -87,7 +88,7 @@ class RunningTestsTest {
                 clickOnText(Res.string.Test_Psiphon_Fullname)
                 clickOnRunButton(1)
 
-                clickOnText(Res.string.Dashboard_RunV2_RunFinished, timeout = TEST_WAIT_TIMEOUT)
+                clickOnText(Res.string.Dashboard_LastResults_SeeResults, timeout = TEST_WAIT_TIMEOUT)
 
                 clickOnText(Res.string.Test_Circumvention_Fullname)
                 clickOnText(Res.string.Test_Psiphon_Fullname)
@@ -108,7 +109,7 @@ class RunningTestsTest {
                 clickOnText("HTTP Header", substring = true)
                 clickOnRunButton(1)
 
-                clickOnText(Res.string.Dashboard_RunV2_RunFinished, timeout = TEST_WAIT_TIMEOUT)
+                clickOnText(Res.string.Dashboard_LastResults_SeeResults, timeout = TEST_WAIT_TIMEOUT)
 
                 clickOnText(Res.string.Test_Performance_Fullname)
                 clickOnText("HTTP Header", substring = true)
@@ -129,7 +130,7 @@ class RunningTestsTest {
                 clickOnText("stunreachability", substring = true)
                 clickOnRunButton(1)
 
-                clickOnText(Res.string.Dashboard_RunV2_RunFinished, timeout = TEST_WAIT_TIMEOUT)
+                clickOnText(Res.string.Dashboard_LastResults_SeeResults, timeout = TEST_WAIT_TIMEOUT)
 
                 clickOnText(Res.string.Test_Experimental_Fullname)
                 compose.onAllNodesWithText("stunreachability")[0].performClick()
@@ -150,7 +151,7 @@ class RunningTestsTest {
                 clickOnText("Trusted International Media")
                 clickOnRunButton(1)
 
-                clickOnText(Res.string.Dashboard_RunV2_RunFinished, timeout = TEST_WAIT_TIMEOUT)
+                clickOnText(Res.string.Dashboard_LastResults_SeeResults, timeout = TEST_WAIT_TIMEOUT)
 
                 clickOnText("Trusted International Media")
                 clickOnText("https://www.dw.com")

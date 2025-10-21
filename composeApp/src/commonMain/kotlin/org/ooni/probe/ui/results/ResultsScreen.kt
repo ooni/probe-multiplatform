@@ -73,14 +73,13 @@ import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Sel
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Selection_None
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
+import ooniprobe.composeapp.generated.resources.TestResults
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_DeleteConfirmation
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_NoTestsFound
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Networks
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Results
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_NoTestsHaveBeenRun
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
 import ooniprobe.composeapp.generated.resources.ic_delete_all
@@ -120,7 +119,7 @@ fun ResultsScreen(
         if (!state.selectionEnabled) {
             TopBar(
                 title = {
-                    Text(stringResource(Res.string.TestResults_Overview_Title))
+                    Text(stringResource(Res.string.TestResults))
                 },
                 actions = {
                     IconButton(
@@ -441,7 +440,7 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    stringResource(Res.string.TestResults_Overview_Hero_Results),
+                    stringResource(Res.string.TestResults),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 8.dp),
                 )

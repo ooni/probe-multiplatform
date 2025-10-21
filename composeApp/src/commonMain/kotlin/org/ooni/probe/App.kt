@@ -125,6 +125,7 @@ fun App(
     LaunchedEffect(Unit) {
         dependencies.finishInProgressData()
         dependencies.deleteOldResults()
+        dependencies.refreshArticles()
     }
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()
