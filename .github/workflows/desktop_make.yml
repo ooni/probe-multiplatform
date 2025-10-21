@@ -46,14 +46,16 @@ jobs:
         if: matrix.platform == 'linux'
         run: ./gradlew copyBrandingToCommonResources packageDeb -Porganization=${{ env.ORGANIZATION }}
 
+      - name: Install libfuse2 (Linux)
+        if: matrix.platform == 'linux'
+        run: |
+          sudo add-apt-repository universe
+          sudo apt-get update
+          sudo apt-get install -y libfuse2
+
       - name: Package AppImage (Linux)
         if: matrix.platform == 'linux'
         run: ./gradlew copyBrandingToCommonResources packageAppImage -Porganization=${{ env.ORGANIZATION }}
-
-      - name: Verify artifacts
-        run: |
-          echo "Contents of composeApp/build/compose/binaries:"
-          ls -la composeApp/build/compose/binaries || true
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
