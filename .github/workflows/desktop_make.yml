@@ -61,5 +61,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: desktopApps-${{ matrix.platform }}-${{ github.run_id }}
-          path: composeApp/build/compose/binaries/**
+          path: |
+            composeApp/build/compose/binaries/main/exe/OONI Probe-*.exe
+            composeApp/build/compose/binaries/main/dmg/OONI Probe-*.dmg
+            composeApp/build/compose/binaries/main/app/OONI Probe.app
+            composeApp/build/compose/binaries/main/deb/ooni-probe_*_amd64.deb
+            composeApp/build/compose/binaries/main/appimage-workspace/OONI-Probe-*-x86_64.AppImage
           retention-days: 7
