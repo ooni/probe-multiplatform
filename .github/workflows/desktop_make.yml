@@ -33,6 +33,28 @@ jobs:
       - name: Setup (repo action)
         uses: ./.github/actions/setup
 
+      - name: Cache Gradle (Linux/macOS)
+        if: matrix.platform != 'windows'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/gradle.properties','**/*.gradle','**/*.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Cache Gradle (Windows)
+        if: matrix.platform == 'windows'
+        uses: actions/cache@v4
+        with:
+          path: |
+            %USERPROFILE%\\.gradle\\caches
+            %USERPROFILE%\\.gradle\\wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/gradle.properties','**/*.gradle','**/*.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Package app (macOS)
         if: matrix.platform == 'macos'
         run: ./gradlew copyBrandingToCommonResources packageDmg -Porganization=${{ env.ORGANIZATION }}
