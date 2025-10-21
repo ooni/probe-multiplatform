@@ -24,7 +24,7 @@ jobs:
 
       - name: Package Exe(Linux)
         if: runner.os == 'Linux'
-        run: ./gradlew copyBrandingToCommonResources packageDeb -Porganization=ooni
+        run: ./gradlew copyBrandingToCommonResources packageDeb packageAppImage -Porganization=ooni
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
