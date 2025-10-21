@@ -1,0 +1,63 @@
+name: Desktop package apps
+on:
+  workflow_dispatch:
+  push:
+
+concurrency:
+  group: desktop-packaging-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    name: Package desktop apps
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            platform: linux
+            organization: ooni
+          - runner: macos-latest
+            platform: macos
+            organization: ooni
+          - runner: windows-latest
+            platform: windows
+            organization: ooni
+    env:
+      ORGANIZATION: ${{ matrix.organization }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup (repo action)
+        uses: ./.github/actions/setup
+
+      - name: Package app (macOS)
+        if: matrix.platform == 'macos'
+        run: ./gradlew copyBrandingToCommonResources packageDmg -Porganization=${{ env.ORGANIZATION }}
+
+      - name: Package Exe (Windows)
+        if: matrix.platform == 'windows'
+        shell: pwsh
+        run: .\gradlew.bat copyBrandingToCommonResources packageExe -Porganization=${{ env.ORGANIZATION }}
+
+      - name: Package Deb(Linux)
+        if: matrix.platform == 'linux'
+        run: ./gradlew copyBrandingToCommonResources packageDeb -Porganization=${{ env.ORGANIZATION }}
+
+      - name: Package AppImage (Linux)
+        if: matrix.platform == 'linux'
+        run: ./gradlew copyBrandingToCommonResources packageAppImage -Porganization=${{ env.ORGANIZATION }}
+
+      - name: Verify artifacts
+        run: |
+          echo "Contents of composeApp/build/compose/binaries:"
+          ls -la composeApp/build/compose/binaries || true
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktopApps-${{ matrix.platform }}-${{ github.run_id }}
+          path: composeApp/build/compose/binaries/**
+          retention-days: 7
