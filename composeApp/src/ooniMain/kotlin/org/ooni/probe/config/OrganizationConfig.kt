@@ -17,4 +17,5 @@ object OrganizationConfig : OrganizationConfigInterface {
     )
     override val hasWebsitesDescriptor = true
     override val donateUrl = "https://ooni.org/donate"
+    override val hasOoniNews = true
 }

@@ -1,0 +1,7 @@
+CREATE TABLE Article(
+    url TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    source TEXT NOT NULL,
+    description TEXT,
+    time INTEGER NOT NULL
+);

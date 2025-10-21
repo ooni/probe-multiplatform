@@ -4,7 +4,12 @@ import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.domain.organizationPreferenceDefaults
 
 suspend fun skipOnboarding() {
-    preferences.setValueByKey(SettingsKey.FIRST_RUN, false)
+    preferences.setValuesByKey(
+        listOf(
+            SettingsKey.FIRST_RUN to false,
+            SettingsKey.TESTS_MOVED_NOTICE to true,
+        )
+    )
 }
 
 suspend fun defaultSettings() {
