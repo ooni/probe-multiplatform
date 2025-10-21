@@ -42,6 +42,13 @@
     </plurals>
     <string name="Dashboard_Stats_Empty">Start running tests to see your statistics here.</string>
 
+    <string name="Dashboard_Articles_Title">OONI News</string>
+    <string name="Dashboard_Articles_Blog">Blog Post</string>
+    <string name="Dashboard_Articles_Finding">Finding</string>
+    <string name="Dashboard_Articles_Report">Report</string>
+    <string name="Dashboard_Articles_ReadMore">Read More</string>
+    <string name="Dashboard_Articles_Recent">Recent</string>
+
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
@@ -92,11 +99,9 @@
     <string name="Test_Tor_Fullname">Tor Test</string>
     <string name="Test_Signal_Fullname">Signal Test</string>
 
-    <!-- Test Results -->
+    <!-- Results -->
 
-    <string name="TestResults_Overview_Title">Test Results</string>
-    <string name="TestResults_Overview_Tab_Label">Test Results</string>
-    <string name="TestResults_Overview_Hero_Results">Results</string>
+    <string name="TestResults">Results</string>
     <string name="TestResults_Overview_Hero_Networks">Networks</string>
     <string name="TestResults_Overview_Hero_DataUsage">Data Usage</string>
     <plurals name="TestResults_Overview_Websites_Blocked">

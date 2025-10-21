@@ -1,4 +1,4 @@
-package org.ooni.probe.ui.measurement
+package org.ooni.probe.ui.articles
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,8 +29,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Common_Refresh
+import ooniprobe.composeapp.generated.resources.Dashboard_Articles_Title
 import ooniprobe.composeapp.generated.resources.Measurement_LoadingFailed
-import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
 import org.jetbrains.compose.resources.painterResource
@@ -42,9 +42,9 @@ import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.WebViewProgressIndicator
 
 @Composable
-fun MeasurementScreen(
-    state: MeasurementViewModel.State,
-    onEvent: (MeasurementViewModel.Event) -> Unit,
+fun ArticleScreen(
+    state: ArticleViewModel.State,
+    onEvent: (ArticleViewModel.Event) -> Unit,
 ) {
     val controller = remember { OoniWebViewController() }
 
@@ -52,13 +52,13 @@ fun MeasurementScreen(
         Box {
             TopBar(
                 title = {
-                    Text(stringResource(Res.string.Measurement_Title))
+                    Text(stringResource(Res.string.Dashboard_Articles_Title))
                 },
                 navigationIcon = {
-                    NavigationBackButton({ onEvent(MeasurementViewModel.Event.BackClicked) })
+                    NavigationBackButton({ onEvent(ArticleViewModel.Event.BackClicked) })
                 },
                 actions = {
-                    IconButton(onClick = { onEvent(MeasurementViewModel.Event.ShareUrl) }) {
+                    IconButton(onClick = { onEvent(ArticleViewModel.Event.ShareUrl) }) {
                         Icon(
                             Icons.Default.Share,
                             contentDescription = null,
@@ -96,7 +96,7 @@ fun MeasurementScreen(
             }
         }
 
-        if (state !is MeasurementViewModel.State.ShowMeasurement) return@Column
+        if (state !is ArticleViewModel.State.Show) return@Column
 
         Box(modifier = Modifier.fillMaxSize()) {
             val isFailure = controller.state is OoniWebViewController.State.Failure
@@ -139,7 +139,7 @@ fun MeasurementScreen(
         }
     }
 
-    val url = (state as? MeasurementViewModel.State.ShowMeasurement)?.url
+    val url = (state as? ArticleViewModel.State.Show)?.url
     LaunchedEffect(url) {
         url?.let(controller::load)
     }

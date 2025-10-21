@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
+import org.ooni.probe.data.models.ArticleModel
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementsFilter
@@ -22,6 +23,8 @@ import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.ui.articles.ArticleScreen
+import org.ooni.probe.ui.articles.ArticlesScreen
 import org.ooni.probe.ui.choosewebsites.ChooseWebsitesScreen
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.descriptor.DescriptorScreen
@@ -87,6 +90,8 @@ fun Navigation(
                             Screen.SettingsCategory(PreferenceCategoryKey.TEST_OPTIONS.value),
                         )
                     },
+                    goToArticles = { navController.safeNavigate(Screen.Articles) },
+                    goToArticle = { navController.safeNavigate(Screen.Article(it.value)) },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -378,6 +383,28 @@ fun Navigation(
             }
             val state by viewModel.state.collectAsState()
             ChooseWebsitesScreen(state, viewModel::onEvent)
+        }
+
+        composable<Screen.Articles> { entry ->
+            val viewModel = viewModel {
+                dependencies.articlesViewModel(
+                    onBack = { navController.goBack() },
+                    goToArticle = { navController.safeNavigate(Screen.Article(it.value)) },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            ArticlesScreen(state, viewModel::onEvent)
+        }
+
+        composable<Screen.Article> { entry ->
+            val viewModel = viewModel {
+                dependencies.articleViewModel(
+                    url = ArticleModel.Url(entry.toRoute<Screen.Article>().url),
+                    onBack = { navController.goBack() },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            ArticleScreen(state, viewModel::onEvent)
         }
     }
 }
