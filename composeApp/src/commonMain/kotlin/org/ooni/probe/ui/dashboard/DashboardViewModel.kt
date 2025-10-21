@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.config.BatteryOptimization
+import org.ooni.probe.data.models.ArticleModel
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.MeasurementStats
 import org.ooni.probe.data.models.Run
@@ -31,6 +32,8 @@ class DashboardViewModel(
     goToRunTests: () -> Unit,
     goToTests: () -> Unit,
     goToTestSettings: () -> Unit,
+    goToArticles: () -> Unit,
+    goToArticle: (ArticleModel.Url) -> Unit,
     getFirstRun: () -> Flow<Boolean>,
     observeRunBackgroundState: () -> Flow<RunBackgroundState>,
     observeTestRunErrors: () -> Flow<TestRunError>,
@@ -41,6 +44,7 @@ class DashboardViewModel(
     getPreference: (SettingsKey) -> Flow<Any?>,
     setPreference: suspend (SettingsKey, Any) -> Unit,
     getStats: () -> Flow<MeasurementStats>,
+    getArticles: () -> Flow<List<ArticleModel>>,
     batteryOptimization: BatteryOptimization,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -99,6 +103,16 @@ class DashboardViewModel(
                 _state.update { it.copy(stats = stats) }
             }.launchIn(viewModelScope)
 
+        getArticles()
+            .onEach { articles ->
+                _state.update {
+                    it.copy(
+                        articles = articles.take(ARTICLES_TO_SHOW),
+                        showReadMoreArticles = articles.size > ARTICLES_TO_SHOW,
+                    )
+                }
+            }.launchIn(viewModelScope)
+
         events
             .filterIsInstance<Event.RunTestsClicked>()
             .onEach { goToRunTests() }
@@ -132,6 +146,16 @@ class DashboardViewModel(
         events
             .filterIsInstance<Event.DismissTestsMovedClicked>()
             .onEach { setPreference(SettingsKey.TESTS_MOVED_NOTICE, true) }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.ArticleClicked>()
+            .onEach { goToArticle(it.article.url) }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.ReadMoreArticlesClicked>()
+            .onEach { goToArticles() }
             .launchIn(viewModelScope)
 
         events
@@ -176,6 +200,8 @@ class DashboardViewModel(
         val runBackgroundState: RunBackgroundState = RunBackgroundState.Idle,
         val isAutoRunEnabled: Boolean = false,
         val stats: MeasurementStats? = null,
+        val articles: List<ArticleModel> = emptyList(),
+        val showReadMoreArticles: Boolean = false,
         val testRunErrors: List<TestRunError> = emptyList(),
         val showVpnWarning: Boolean = false,
         val lastRun: Run? = null,
@@ -202,6 +228,12 @@ class DashboardViewModel(
 
         data object DismissTestsMovedClicked : Event
 
+        data class ArticleClicked(
+            val article: ArticleModel,
+        ) : Event
+
+        data object ReadMoreArticlesClicked : Event
+
         data class ErrorDisplayed(
             val error: TestRunError,
         ) : Event
@@ -213,5 +245,6 @@ class DashboardViewModel(
 
     companion object {
         private val CHECK_VPN_WARNING_INTERVAL = 5.seconds
+        private const val ARTICLES_TO_SHOW = 3
     }
 }

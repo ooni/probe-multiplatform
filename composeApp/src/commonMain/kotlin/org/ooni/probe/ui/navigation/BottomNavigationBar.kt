@@ -25,7 +25,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import ooniprobe.composeapp.generated.resources.Dashboard_Tab_Label
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Title
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Tab_Label
+import ooniprobe.composeapp.generated.resources.TestResults
 import ooniprobe.composeapp.generated.resources.Tests_Title
 import ooniprobe.composeapp.generated.resources.ic_dashboard
 import ooniprobe.composeapp.generated.resources.ic_history
@@ -115,7 +115,7 @@ private val Screen.titleRes
         when (this) {
             Screen.Dashboard -> Res.string.Dashboard_Tab_Label
             Screen.Descriptors -> Res.string.Tests_Title
-            Screen.Results -> Res.string.TestResults_Overview_Tab_Label
+            Screen.Results -> Res.string.TestResults
             Screen.Settings -> Res.string.Settings_Title
             else -> throw IllegalArgumentException("Only main screens allowed in bottom navigation")
         }

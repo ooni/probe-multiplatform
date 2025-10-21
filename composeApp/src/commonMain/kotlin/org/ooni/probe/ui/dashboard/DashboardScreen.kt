@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -35,7 +36,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.LifecycleResumeEffect
@@ -44,6 +47,8 @@ import ooniprobe.composeapp.generated.resources.Common_Month
 import ooniprobe.composeapp.generated.resources.Common_Today
 import ooniprobe.composeapp.generated.resources.Common_Total
 import ooniprobe.composeapp.generated.resources.Common_Week
+import ooniprobe.composeapp.generated.resources.Dashboard_Articles_ReadMore
+import ooniprobe.composeapp.generated.resources.Dashboard_Articles_Title
 import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Disabled
 import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Enabled
 import ooniprobe.composeapp.generated.resources.Dashboard_LastResults
@@ -76,10 +81,13 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.ArticleModel
 import org.ooni.probe.data.models.MeasurementStats
 import org.ooni.probe.data.models.Run
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.shared.largeNumberShort
+import org.ooni.probe.ui.articles.ArticleCell
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.VerticalScrollbar
@@ -148,6 +156,7 @@ fun DashboardScreen(
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
                     .verticalScroll(scrollState)
+                    .padding(bottom = 16.dp)
                     .fillMaxSize(),
             ) {
                 if (state.showVpnWarning) {
@@ -163,6 +172,7 @@ fun DashboardScreen(
                 }
 
                 StatsSection(state.stats)
+                ArticlesSection(state.articles, state.showReadMoreArticles, onEvent)
             }
             VerticalScrollbar(state = scrollState, modifier = Modifier.align(Alignment.CenterEnd))
         }
@@ -448,6 +458,49 @@ private fun StatsSection(stats: MeasurementStats?) {
                     stats?.countries?.toInt() ?: 0,
                 ),
                 stats?.countries,
+            )
+        }
+    }
+}
+
+@Composable
+private fun ArticlesSection(
+    articles: List<ArticleModel>,
+    showReadMore: Boolean,
+    onEvent: (DashboardViewModel.Event) -> Unit,
+) {
+    if (!OrganizationConfig.hasOoniNews) return
+
+    HorizontalDivider(
+        thickness = Dp.Hairline,
+        modifier = Modifier.padding(vertical = 16.dp),
+    )
+
+    Text(
+        stringResource(Res.string.Dashboard_Articles_Title),
+        style = MaterialTheme.typography.dashboardSectionTitle,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 16.dp),
+    )
+
+    articles.forEach { article ->
+        ArticleCell(
+            article = article,
+            onClick = { onEvent(DashboardViewModel.Event.ArticleClicked(article)) },
+        )
+    }
+
+    if (showReadMore) {
+        TextButton(
+            onClick = { onEvent(DashboardViewModel.Event.ReadMoreArticlesClicked) },
+            modifier = Modifier.padding(horizontal = 16.dp),
+        ) {
+            Text(
+                text = stringResource(Res.string.Dashboard_Articles_ReadMore),
+                textAlign = TextAlign.End,
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }

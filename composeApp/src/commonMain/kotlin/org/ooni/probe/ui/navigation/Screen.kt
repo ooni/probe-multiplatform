@@ -4,60 +4,86 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface Screen {
-    @Serializable data object Onboarding : Screen
+    @Serializable
+    data object Onboarding : Screen
 
-    @Serializable data object Dashboard : Screen
+    @Serializable
+    data object Dashboard : Screen
 
-    @Serializable data object Descriptors : Screen
+    @Serializable
+    data object Descriptors : Screen
 
-    @Serializable data object Results : Screen
+    @Serializable
+    data object Results : Screen
 
-    @Serializable data object Settings : Screen
+    @Serializable
+    data object Settings : Screen
 
-    @Serializable data class Result(
+    @Serializable
+    data class Result(
         val resultId: Long,
     ) : Screen
 
-    @Serializable data class AddDescriptor(
+    @Serializable
+    data class AddDescriptor(
         val runId: Long,
     ) : Screen
 
-    @Serializable data class Measurement(
+    @Serializable
+    data class Measurement(
         val measurementId: Long,
     ) : Screen
 
-    @Serializable data class MeasurementRaw(
+    @Serializable
+    data class MeasurementRaw(
         val measurementId: Long,
     ) : Screen
 
-    @Serializable data class SettingsCategory(
+    @Serializable
+    data class SettingsCategory(
         val category: String,
     ) : Screen
 
-    @Serializable data object AddProxy : Screen
+    @Serializable
+    data object AddProxy : Screen
 
-    @Serializable data object RunTests : Screen
+    @Serializable
+    data object RunTests : Screen
 
-    @Serializable data object RunningTest : Screen
+    @Serializable
+    data object RunningTest : Screen
 
-    @Serializable data class UploadMeasurements(
+    @Serializable
+    data class UploadMeasurements(
         val resultId: Long? = null,
         val measurementId: Long? = null,
     ) : Screen
 
-    @Serializable data class ChooseWebsites(
+    @Serializable
+    data class ChooseWebsites(
         val url: String? = null,
     ) : Screen
 
-    @Serializable data class Descriptor(
+    @Serializable
+    data class Descriptor(
         val descriptorKey: String,
     ) : Screen
 
-    @Serializable data class DescriptorWebsites(
+    @Serializable
+    data class DescriptorWebsites(
         val descriptorId: String,
     ) : Screen
 
-    @Serializable data class ReviewUpdates(
+    @Serializable
+    data class ReviewUpdates(
         val descriptorIds: List<String>? = null,
+    ) : Screen
+
+    @Serializable
+    data object Articles : Screen
+
+    @Serializable
+    data class Article(
+        val url: String,
     ) : Screen
 }
