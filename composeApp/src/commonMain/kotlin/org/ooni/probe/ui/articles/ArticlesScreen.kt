@@ -77,7 +77,7 @@ fun ArticlesScreen(
                     ),
                     state = lazyListState,
                 ) {
-                    items(state.articles, key = { it.url }) { article ->
+                    items(state.articles, key = { it.url.value }) { article ->
                         ArticleCell(
                             article = article,
                             onClick = { onEvent(ArticlesViewModel.Event.ArticleClicked(article)) },
