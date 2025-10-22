@@ -469,7 +469,7 @@ private fun ArticlesSection(
     showReadMore: Boolean,
     onEvent: (DashboardViewModel.Event) -> Unit,
 ) {
-    if (!OrganizationConfig.hasOoniNews) return
+    if (!OrganizationConfig.hasOoniNews || articles.isEmpty()) return
 
     HorizontalDivider(
         thickness = Dp.Hairline,
