@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
+import org.ooni.probe.data.models.ArticleModel
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementsFilter
@@ -22,12 +23,15 @@ import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.ui.articles.ArticleScreen
+import org.ooni.probe.ui.articles.ArticlesScreen
 import org.ooni.probe.ui.choosewebsites.ChooseWebsitesScreen
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.descriptor.add.AddDescriptorScreen
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesScreen
 import org.ooni.probe.ui.descriptor.websites.DescriptorWebsitesViewModel
+import org.ooni.probe.ui.descriptors.DescriptorsScreen
 import org.ooni.probe.ui.log.LogScreen
 import org.ooni.probe.ui.measurement.MeasurementRawScreen
 import org.ooni.probe.ui.measurement.MeasurementScreen
@@ -80,6 +84,23 @@ fun Navigation(
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.safeNavigate(Screen.RunningTest) },
                     goToRunTests = { navController.safeNavigate(Screen.RunTests) },
+                    goToTests = { navController.navigateToMainScreen(Screen.Descriptors) },
+                    goToTestSettings = {
+                        navController.safeNavigate(
+                            Screen.SettingsCategory(PreferenceCategoryKey.TEST_OPTIONS.value),
+                        )
+                    },
+                    goToArticles = { navController.safeNavigate(Screen.Articles) },
+                    goToArticle = { navController.safeNavigate(Screen.Article(it.value)) },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            DashboardScreen(state, viewModel::onEvent)
+        }
+
+        composable<Screen.Descriptors> {
+            val viewModel = viewModel {
+                dependencies.descriptorsViewModel(
                     goToDescriptor = { descriptorKey ->
                         navController.safeNavigate(Screen.Descriptor(descriptorKey))
                     },
@@ -89,7 +110,7 @@ fun Navigation(
                 )
             }
             val state by viewModel.state.collectAsState()
-            DashboardScreen(state, viewModel::onEvent)
+            DescriptorsScreen(state, viewModel::onEvent)
         }
 
         composable<Screen.Results> {
@@ -362,6 +383,28 @@ fun Navigation(
             }
             val state by viewModel.state.collectAsState()
             ChooseWebsitesScreen(state, viewModel::onEvent)
+        }
+
+        composable<Screen.Articles> { entry ->
+            val viewModel = viewModel {
+                dependencies.articlesViewModel(
+                    onBack = { navController.goBack() },
+                    goToArticle = { navController.safeNavigate(Screen.Article(it.value)) },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            ArticlesScreen(state, viewModel::onEvent)
+        }
+
+        composable<Screen.Article> { entry ->
+            val viewModel = viewModel {
+                dependencies.articleViewModel(
+                    url = ArticleModel.Url(entry.toRoute<Screen.Article>().url),
+                    onBack = { navController.goBack() },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            ArticleScreen(state, viewModel::onEvent)
         }
     }
 }

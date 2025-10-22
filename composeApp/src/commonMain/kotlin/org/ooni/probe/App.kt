@@ -125,6 +125,7 @@ fun App(
     LaunchedEffect(Unit) {
         dependencies.finishInProgressData()
         dependencies.deleteOldResults()
+        dependencies.refreshArticles()
     }
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()
@@ -169,4 +170,5 @@ private fun logAppStart(platformInfo: PlatformInfo) {
 
 val LocalSnackbarHostState = compositionLocalOf<SnackbarHostState?> { null }
 
-val MAIN_NAVIGATION_SCREENS = listOf(Screen.Dashboard, Screen.Results, Screen.Settings)
+val MAIN_NAVIGATION_SCREENS =
+    listOf(Screen.Dashboard, Screen.Descriptors, Screen.Results, Screen.Settings)
