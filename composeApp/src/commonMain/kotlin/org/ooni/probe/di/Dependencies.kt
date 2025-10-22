@@ -74,7 +74,6 @@ import org.ooni.probe.domain.ShouldShowVpnWarning
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.domain.appreview.MarkAppReviewAsShown
 import org.ooni.probe.domain.appreview.ShouldShowAppReview
-import org.ooni.probe.domain.articles.GetArticles
 import org.ooni.probe.domain.articles.RefreshArticles
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
 import org.ooni.probe.domain.descriptors.BootstrapTestDescriptors
@@ -324,9 +323,6 @@ class Dependencies(
             updateState = descriptorUpdateStateManager::update,
         )
     }
-    private val getArticles by lazy {
-        GetArticles(articleRepository::list)
-    }
     val getAutoRunSettings by lazy { GetAutoRunSettings(preferenceRepository::allSettings) }
     private val getAutoRunSpecification by lazy {
         GetAutoRunSpecification(getTestDescriptors::latest, preferenceRepository)
@@ -501,6 +497,7 @@ class Dependencies(
     val refreshArticles by lazy {
         RefreshArticles(
             httpDo = engine::httpDo,
+            json = json,
             refreshArticlesInDatabase = articleRepository::refresh,
         )
     }
@@ -599,7 +596,7 @@ class Dependencies(
     ) = ArticlesViewModel(
         onBack = onBack,
         goToArticle = goToArticle,
-        getArticles = getArticles::invoke,
+        getArticles = articleRepository::list,
         refreshArticles = refreshArticles::invoke,
         canPullToRefresh = platformInfo.canPullToRefresh,
     )
@@ -645,7 +642,7 @@ class Dependencies(
         getPreference = preferenceRepository::getValueByKey,
         setPreference = preferenceRepository::setValueByKey,
         getStats = getStats::invoke,
-        getArticles = getArticles::invoke,
+        getArticles = articleRepository::list,
         batteryOptimization = batteryOptimization,
     )
 
