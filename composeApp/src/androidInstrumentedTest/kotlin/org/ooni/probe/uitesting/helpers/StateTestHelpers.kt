@@ -8,7 +8,7 @@ suspend fun skipOnboarding() {
         listOf(
             SettingsKey.FIRST_RUN to false,
             SettingsKey.TESTS_MOVED_NOTICE to true,
-        )
+        ),
     )
 }
 
