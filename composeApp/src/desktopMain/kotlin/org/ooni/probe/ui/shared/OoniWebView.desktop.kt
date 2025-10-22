@@ -17,6 +17,7 @@ actual fun OoniWebView(
     controller: OoniWebViewController,
     modifier: Modifier,
     allowedDomains: List<String>,
+    onDisallowedUrl: (String) -> Unit,
 ) {
     val event = controller.rememberNextEvent()
 
@@ -68,7 +69,9 @@ actual fun OoniWebView(
                                 }
 
                                 if (!allowed) {
-                                    engine.load("about:blank")
+                                    engine.history.go(-1) // go back
+                                    // engine.load("about:blank")
+                                    onDisallowedUrl(newLocation)
                                 }
                             } catch (e: Exception) {
                                 // Invalid URL, ignore

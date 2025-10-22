@@ -107,6 +107,7 @@ fun ArticleScreen(
                     .fillMaxSize()
                     .alpha(if (isFailure) 0f else 1f)
                     .padding(WindowInsets.navigationBars.asPaddingValues()),
+                onDisallowedUrl = { onEvent(ArticleViewModel.Event.OutsideLinkClicked(it)) },
             )
 
             if (isFailure) {
