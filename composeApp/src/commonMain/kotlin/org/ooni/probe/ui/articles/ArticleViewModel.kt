@@ -26,7 +26,7 @@ class ArticleViewModel(
     init {
         viewModelScope.launch {
             if (isWebViewAvailable()) {
-                _state.value = State.Show(url.value)
+                _state.value = State.Show(url.value + "?enable-embedded-view=true")
             } else {
                 launchAction(PlatformAction.OpenUrl(url.value))
                 onBack()
@@ -41,6 +41,11 @@ class ArticleViewModel(
         events
             .filterIsInstance<Event.ShareUrl>()
             .onEach { launchAction(PlatformAction.Share(url.value)) }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.OutsideLinkClicked>()
+            .onEach { launchAction(PlatformAction.OpenUrl(it.url)) }
             .launchIn(viewModelScope)
     }
 
@@ -60,5 +65,9 @@ class ArticleViewModel(
         data object BackClicked : Event
 
         data object ShareUrl : Event
+
+        data class OutsideLinkClicked(
+            val url: String,
+        ) : Event
     }
 }
