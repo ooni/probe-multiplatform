@@ -16,6 +16,7 @@ import kotlin.time.Instant
 
 class GetFindings(
     val httpDo: suspend (String, String, TaskOrigin) -> Result<String?, MkException>,
+    val json: Json,
 ) : RefreshArticles.Source {
     override suspend operator fun invoke(): Result<List<ArticleModel>, Exception> {
         return httpDo("GET", "https://api.ooni.org/api/v1/incidents/search", TaskOrigin.OoniRun)
@@ -24,7 +25,7 @@ class GetFindings(
                 if (response.isNullOrBlank()) return@flatMap Failure(Exception("Empty response"))
 
                 val wrapper = try {
-                    Json.decodeFromString<Wrapper>(response)
+                    json.decodeFromString<Wrapper>(response)
                 } catch (e: Exception) {
                     return@flatMap Failure(Exception("Could not parse indidents API response", e))
                 }
@@ -47,14 +48,6 @@ class GetFindings(
 
     @OptIn(FormatStringsInDatetimeFormats::class)
     private fun String.toLocalDateTime(): LocalDateTime? = Instant.parse(this).toLocalDateTime()
-
-    companion object {
-        private val Json by lazy {
-            Json {
-                ignoreUnknownKeys = true
-            }
-        }
-    }
 
     @Serializable
     data class Wrapper(

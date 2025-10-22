@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.serialization.json.Json
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
@@ -13,6 +14,7 @@ import org.ooni.probe.data.models.ArticleModel
 
 class RefreshArticles(
     val httpDo: suspend (String, String, TaskOrigin) -> Result<String?, MkException>,
+    val json: Json,
     val refreshArticlesInDatabase: suspend (List<ArticleModel>) -> Unit,
 ) {
     fun interface Source {
@@ -25,7 +27,7 @@ class RefreshArticles(
         val sources = listOf(
             GetRSSFeed(httpDo, "https://ooni.org/blog/index.xml", ArticleModel.Source.Blog),
             GetRSSFeed(httpDo, "https://ooni.org/reports/index.xml", ArticleModel.Source.Report),
-            GetFindings(httpDo),
+            GetFindings(httpDo, json),
         )
 
         val responses = sources
