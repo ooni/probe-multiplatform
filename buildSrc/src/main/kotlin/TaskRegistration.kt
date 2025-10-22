@@ -1,13 +1,13 @@
+import ooni.appimage.PackageAppImageTask
+import ooni.sparkle.GenerateSparkleAppCastTask
+import ooni.sparkle.SetupSparkleTask
+import ooni.sparkle.WinSparkleSetupTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.JavaExec
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
 import java.io.File
-import kotlin.let
-import ooni.sparkle.SetupSparkleTask
-import ooni.sparkle.WinSparkleSetupTask
-import ooni.appimage.PackageAppImageTask
 
 private fun isMac() = System.getProperty("os.name").lowercase().contains("mac")
 
@@ -78,6 +78,19 @@ private fun Project.registerSparkleTask() {
                 .map { layout.projectDirectory.dir(it) }
                 .orElse(layout.buildDirectory.dir("processedResources/desktop/main/macos/")),
         )
+    }
+
+    tasks.register("generateSparkleAppCast", GenerateSparkleAppCastTask::class) {
+        group = "setup"
+        description = "Generates Sparkle appcast using the specified DMG file."
+        onlyIf { isMac() }
+        dependsOn("setupSparkle")
+
+        sparkleVersion.set(providers.gradleProperty("sparkleVersion").orElse("2.8.0"))
+        edKeyFile.set(rootProject.file("certificates/sparkle_eddsa_private.pem"))
+        appCastFile.set("macos-appcast.xml")
+        downloadUrlPrefix.set("https://distribution.ooni.org")
+
     }
 }
 
