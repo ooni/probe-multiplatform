@@ -135,39 +135,8 @@ successfully and download the generated apps (zipped artifact).
 
 ##### 2.7.2 Sign windows app
 
-We need to sign both the windows `.exe` and `.msix` files using our Extended Validation certificate.
-Follow the steps on our internal process to do so.
-
-### Publish Desktop (macOS) App
-
-#### Package the App
-
-Run the following command to package the macOS app into a DMG file:
-
-```
-./gradlew packageDmg
-```
-
-This will generate the DMG and Application file in the `composeApp/build/compose/binaries/main/{dmg,app}` directory.
-
-#### Set Up Sparkle Updates
-
-To enable Sparkle updates for the macOS app, use the scripts provided in the Sparkle framework. These scripts are located in `composeApp/build/sparkle/extracted-<version>/bin`.
-
-- Sign the appcast file:
-   ```
-   ./composeApp/build/sparkle/extracted-<version>/bin/sign_update <path-to-dmg> --ed-key-file certificates/sparkle_eddsa_private.pem
-   ```
-   Replace `<version>` with the sparkle version.
-   Replace `<path-to-dmg>` with the path to the generated DMG file.
-
-- Using the `sparkle:edSignature` output from the previous command, create the appcast XML file.
-
-- Upload the signed appcast file and the DMG to github release.
-
-- Ensure the app is configured to check for updates using the Sparkle framework. Verify that the appcast URL is correctly set in the app's configuration.
-
-Once these steps are complete, the macOS app will be ready for distribution with Sparkle updates enabled.
+- We need to sign the windows `.exe` file using our Extended Validation certificate. Follow the steps on our internal process to do so.
+- Generate the WinSparkle appcast for the signed `.exe` file.
 
 #### 2.8 Create Release
 
@@ -177,12 +146,12 @@ based on the new tag.
 **2.8.2** Write our manual release notes and add at the bottom the automatic changelog using the
 `Generate release notes` button.
 
-**2.8.3** Upload all the desktop files downloaded during step *2.7.1*, except the `download.html`
-file, and swapping the windows `.exe` and `.msix` files for their signed versions (step *2.7.2*).
+**2.8.3** Upload all the desktop files downloaded during step *2.7.1*, and swapping the windows `.exe` files for their signed versions (step *2.7.2*).
 
 **2.8.4** Publish release
 
 The new Github release post an internal Slack message warning of the new incoming release.
+
 ## Monitoring
 
 We use Sentry to monitor for crashes and handled errors. We have specific views for:

@@ -8,24 +8,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  package:
-    name: Package desktop apps
-    runs-on: ${{ matrix.runner }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - runner: ubuntu-latest
-            platform: linux
-            organization: ooni
-          - runner: macos-latest
-            platform: macos
-            organization: ooni
-          - runner: windows-latest
-            platform: windows
-            organization: ooni
+  package-macos:
+    name: Package macOS app
+    runs-on: macos-latest
     env:
-      ORGANIZATION: ${{ matrix.organization }}
+      ORGANIZATION: ooni
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,8 +20,7 @@ jobs:
       - name: Setup (repo action)
         uses: ./.github/actions/setup
 
-      - name: Cache Gradle (Linux/macOS)
-        if: matrix.platform != 'windows'
+      - name: Cache Gradle
         uses: actions/cache@v4
         with:
           path: |
@@ -44,8 +30,39 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Cache Gradle (Windows)
-        if: matrix.platform == 'windows'
+      - name: Setup signing and notarization
+        run: |
+          echo "Details are not clear" # Placeholder for actual setup steps
+
+      - name: Package DMG
+        run: ./gradlew copyBrandingToCommonResources packageDmg -Porganization=${{ env.ORGANIZATION }}
+
+      - name: Sparkle appcast generation
+        run: ./gradlew generateSparkleAppCast -Porganization=${{ env.ORGANIZATION }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktopApps-macos-${{ github.run_id }}
+          path: |
+            composeApp/build/compose/binaries/main/dmg/OONI Probe-*.dmg
+            composeApp/build/compose/binaries/main/app/OONI Probe.app
+            composeApp/macos-appcast.xml
+          retention-days: 7
+
+  package-windows:
+    name: Package Windows app
+    runs-on: windows-latest
+    env:
+      ORGANIZATION: ooni
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup (repo action)
+        uses: ./.github/actions/setup
+
+      - name: Cache Gradle
         uses: actions/cache@v4
         with:
           path: |
@@ -55,38 +72,57 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Package app (macOS)
-        if: matrix.platform == 'macos'
-        run: ./gradlew copyBrandingToCommonResources packageDmg -Porganization=${{ env.ORGANIZATION }}
-
-      - name: Package Exe (Windows)
-        if: matrix.platform == 'windows'
+      - name: Package Exe
         shell: pwsh
         run: .\gradlew.bat copyBrandingToCommonResources packageExe -Porganization=${{ env.ORGANIZATION }}
 
-      - name: Package Deb(Linux)
-        if: matrix.platform == 'linux'
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktopApps-windows-${{ github.run_id }}
+          path: |
+            composeApp/build/compose/binaries/main/exe/OONI Probe-*.exe
+          retention-days: 7
+
+  package-linux:
+    name: Package Linux app
+    runs-on: ubuntu-latest
+    env:
+      ORGANIZATION: ooni
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup (repo action)
+        uses: ./.github/actions/setup
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/gradle.properties','**/*.gradle','**/*.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Package Deb
         run: ./gradlew copyBrandingToCommonResources packageDeb -Porganization=${{ env.ORGANIZATION }}
 
-      - name: Install libfuse2 (Linux)
-        if: matrix.platform == 'linux'
+      - name: Install libfuse2
         run: |
           sudo add-apt-repository universe
           sudo apt-get update
           sudo apt-get install -y libfuse2
 
-      - name: Package AppImage (Linux)
-        if: matrix.platform == 'linux'
+      - name: Package AppImage
         run: ./gradlew copyBrandingToCommonResources packageAppImage -Porganization=${{ env.ORGANIZATION }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: desktopApps-${{ matrix.platform }}-${{ github.run_id }}
+          name: desktopApps-linux-${{ github.run_id }}
           path: |
-            composeApp/build/compose/binaries/main/exe/OONI Probe-*.exe
-            composeApp/build/compose/binaries/main/dmg/OONI Probe-*.dmg
-            composeApp/build/compose/binaries/main/app/OONI Probe.app
             composeApp/build/compose/binaries/main/deb/ooni-probe_*_amd64.deb
             composeApp/build/compose/binaries/main/appimage-workspace/OONI-Probe-*-x86_64.AppImage
           retention-days: 7

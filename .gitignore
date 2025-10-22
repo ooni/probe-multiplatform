@@ -25,5 +25,6 @@ output
 composeApp/src/desktopMain/resources/windows/WinSparkle.*
 
 /composeApp/src/desktopMain/frameworks/
+composeApp/macos-appcast.xml
 
 certificates/*.pem
