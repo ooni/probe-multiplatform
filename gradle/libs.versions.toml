@@ -106,7 +106,7 @@ fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" 
 auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.7.0"}
 directories = { module = "dev.dirs:directories", version = "26" }
 pratanumandal-unique = { module = "tk.pratanumandal:unique4j", version = "1.4" }
-desktop-oonimkall = { module = "org.ooni:oonimkall", version = "3.27.0-desktop" }
+desktop-oonimkall = { module = "org.ooni:oonimkall", version = "3.28.0-alpha-desktop" }
 
 [bundles]
 
