@@ -40,6 +40,19 @@ object ResultModelFactory {
         descriptorKey = descriptorKey,
     )
 
+    fun buildWithNetworkAndAggregates(
+        result: ResultModel = build(),
+        network: NetworkModel = NetworkModelFactory.build(),
+        measurementCounts: MeasurementCounts = MeasurementCounts(0, 0, 0),
+        allMeasurementsUploaded: Boolean = false,
+        anyMeasurementUploadFailed: Boolean = false,
+    ) = ResultWithNetworkAndAggregates(
+        result = result,
+        network = network,
+        measurementCounts = measurementCounts,
+        allMeasurementsUploaded = allMeasurementsUploaded,
+        anyMeasurementUploadFailed = anyMeasurementUploadFailed,
+    )
 }
 
 private fun LocalDateTime.Companion.nowWithoutNanoseconds(): LocalDateTime {
