@@ -382,7 +382,7 @@
     <string name="LoadingScreen_Runv2_Failure">Erreur</string>
     <string name="LoadingScreen_Runv2_Canceled">L’installation du lien a été annulée</string>
     <string name="DescriptorUpdate_Updates">MISES À JOUR</string>
-    <string name="DescriptorUpdate_CheckUpdates">Vérifier la présence de mises à jour</string>
+    <string name="DescriptorUpdate_CheckUpdates">Chercher des mises à jour</string>
     <string name="AddDescriptor_AutoRunDisabled">Le lancement automatique est désactivé. Activez cette option pour lancer les tests automatiquement.</string>
     <string name="Descriptor_LastTestResult">Dernier résultat de test</string>
 
