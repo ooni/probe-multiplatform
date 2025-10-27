@@ -135,8 +135,8 @@ successfully and download the generated apps (zipped artifact).
 
 ##### 2.7.2 Sign windows app
 
-We need to sign both the windows `.exe` and `.msix` files using our Extended Validation certificate.
-Follow the steps on our internal process to do so.
+- We need to sign the windows `.exe` file using our Extended Validation certificate. Follow the steps on our internal process to do so.
+- Generate the WinSparkle appcast for the signed `.exe` file.
 
 #### 2.8 Create Release
 
@@ -146,8 +146,7 @@ based on the new tag.
 **2.8.2** Write our manual release notes and add at the bottom the automatic changelog using the
 `Generate release notes` button.
 
-**2.8.3** Upload all the desktop files downloaded during step *2.7.1*, except the `download.html`
-file, and swapping the windows `.exe` and `.msix` files for their signed versions (step *2.7.2*).
+**2.8.3** Upload all the desktop files downloaded during step *2.7.1*, and swapping the windows `.exe` files for their signed versions (step *2.7.2*).
 
 **2.8.4** Publish release
 
