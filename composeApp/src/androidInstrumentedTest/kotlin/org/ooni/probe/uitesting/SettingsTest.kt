@@ -39,6 +39,7 @@ import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.clickOnContentDescription
 import org.ooni.probe.uitesting.helpers.clickOnText
+import org.ooni.probe.uitesting.helpers.disableRefreshArticles
 import org.ooni.probe.uitesting.helpers.isCrashReportingEnabled
 import org.ooni.probe.uitesting.helpers.isOoni
 import org.ooni.probe.uitesting.helpers.preferences
@@ -55,6 +56,7 @@ class SettingsTest {
     fun setUp() =
         runTest {
             skipOnboarding()
+            disableRefreshArticles()
             start()
         }
 
