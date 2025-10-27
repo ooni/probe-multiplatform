@@ -26,6 +26,7 @@ import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnText
+import org.ooni.probe.uitesting.helpers.disableRefreshArticles
 import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
 import org.ooni.probe.uitesting.helpers.onNodeWithText
@@ -45,6 +46,7 @@ class UploadResultTest {
     fun setUp() =
         runTest {
             skipOnboarding()
+            disableRefreshArticles()
             preferences.setValueByKey(SettingsKey.UPLOAD_RESULTS, false)
             start()
         }
