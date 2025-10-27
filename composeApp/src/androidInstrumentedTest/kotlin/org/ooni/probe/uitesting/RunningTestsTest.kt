@@ -32,6 +32,7 @@ import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
 import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnContentDescription
 import org.ooni.probe.uitesting.helpers.clickOnText
+import org.ooni.probe.uitesting.helpers.disableRefreshArticles
 import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
 import org.ooni.probe.uitesting.helpers.onNodeWithText
@@ -50,6 +51,7 @@ class RunningTestsTest {
     fun setUp() =
         runTest {
             skipOnboarding()
+            disableRefreshArticles()
             preferences.setValueByKey(SettingsKey.UPLOAD_RESULTS, true)
             start()
         }

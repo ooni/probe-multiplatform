@@ -74,6 +74,8 @@ import org.ooni.probe.domain.ShouldShowVpnWarning
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.domain.appreview.MarkAppReviewAsShown
 import org.ooni.probe.domain.appreview.ShouldShowAppReview
+import org.ooni.probe.domain.articles.GetFindings
+import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
 import org.ooni.probe.domain.descriptors.BootstrapTestDescriptors
@@ -496,9 +498,22 @@ class Dependencies(
     }
     val refreshArticles by lazy {
         RefreshArticles(
-            httpDo = engine::httpDo,
-            json = json,
+            sources = listOf(
+                GetRSSFeed(
+                    engine::httpDo,
+                    "https://ooni.org/blog/index.xml",
+                    ArticleModel.Source.Blog,
+                ),
+                GetRSSFeed(
+                    engine::httpDo,
+                    "https://ooni.org/reports/index.xml",
+                    ArticleModel.Source.Report,
+                ),
+                GetFindings(engine::httpDo, json),
+            ),
             refreshArticlesInDatabase = articleRepository::refresh,
+            getPreference = preferenceRepository::getValueByKey,
+            setPreference = preferenceRepository::setValueByKey,
         )
     }
     val runBackgroundStateManager by lazy { RunBackgroundStateManager() }

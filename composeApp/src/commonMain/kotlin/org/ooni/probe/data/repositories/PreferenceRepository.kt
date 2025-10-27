@@ -82,6 +82,7 @@ class PreferenceRepository(
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
 
             SettingsKey.LAST_RUN_DISMISSED,
+            SettingsKey.LAST_ARTICLES_REFRESH,
             -> PreferenceKey.LongKey(longPreferencesKey(preferenceKey))
 
             SettingsKey.LEGACY_PROXY_HOSTNAME,

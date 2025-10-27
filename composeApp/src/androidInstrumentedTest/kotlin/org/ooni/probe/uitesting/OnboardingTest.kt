@@ -26,6 +26,7 @@ import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.clickOnTag
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.dependencies
+import org.ooni.probe.uitesting.helpers.disableRefreshArticles
 import org.ooni.probe.uitesting.helpers.isCrashReportingEnabled
 import org.ooni.probe.uitesting.helpers.onNodeWithContentDescription
 import org.ooni.probe.uitesting.helpers.onNodeWithText
@@ -41,6 +42,7 @@ class OnboardingTest {
     @Before
     fun setUp() =
         runTest {
+            disableRefreshArticles()
             start()
         }
 
