@@ -69,6 +69,7 @@ enum class SettingsKey(
     DESCRIPTOR_SECTIONS_COLLAPSED("descriptor_sections_collapsed"),
     LAST_RUN_DISMISSED("last_run_dismissed"),
     TESTS_MOVED_NOTICE("tests_moved_notice"),
+    LAST_ARTICLES_REFRESH("last_articles_refresh"),
 
     ROUTE("route"),
 

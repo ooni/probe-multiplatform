@@ -39,6 +39,7 @@ import org.ooni.probe.MainActivity
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.context
 import org.ooni.probe.uitesting.helpers.dependencies
+import org.ooni.probe.uitesting.helpers.disableRefreshArticles
 import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.onAllNodesWithText
 import org.ooni.probe.uitesting.helpers.onNodeWithText
@@ -57,6 +58,7 @@ class DescriptorsTest {
     fun setUp() =
         runTest {
             skipOnboarding()
+            disableRefreshArticles()
         }
 
     @Test
