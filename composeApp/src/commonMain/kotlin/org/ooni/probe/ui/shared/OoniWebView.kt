@@ -13,6 +13,7 @@ expect fun OoniWebView(
     controller: OoniWebViewController,
     modifier: Modifier = Modifier,
     allowedDomains: List<String> = listOf("ooni.org"),
+    onDisallowedUrl: (String) -> Unit = {},
 )
 
 class OoniWebViewController {
