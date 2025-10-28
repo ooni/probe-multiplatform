@@ -16,7 +16,7 @@ class ArticlesViewModel(
     onBack: () -> Unit,
     goToArticle: (ArticleModel.Url) -> Unit,
     getArticles: () -> Flow<List<ArticleModel>>,
-    refreshArticles: suspend () -> Unit,
+    refreshArticles: suspend (Boolean) -> Unit,
     canPullToRefresh: Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -44,7 +44,7 @@ class ArticlesViewModel(
             .onEach {
                 if (state.value.isRefreshing) return@onEach
                 _state.update { it.copy(isRefreshing = true) }
-                refreshArticles()
+                refreshArticles(true)
                 _state.update { it.copy(isRefreshing = false) }
             }.launchIn(viewModelScope)
     }
