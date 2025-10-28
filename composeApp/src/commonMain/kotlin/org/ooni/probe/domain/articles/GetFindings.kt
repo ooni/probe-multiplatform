@@ -10,6 +10,7 @@ import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
 import org.ooni.engine.models.TaskOrigin
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.ArticleModel
 import org.ooni.probe.shared.toLocalDateTime
 import kotlin.time.Instant
@@ -19,8 +20,11 @@ class GetFindings(
     val json: Json,
 ) : RefreshArticles.Source {
     override suspend operator fun invoke(): Result<List<ArticleModel>, Exception> {
-        return httpDo("GET", "https://api.ooni.org/api/v1/incidents/search", TaskOrigin.OoniRun)
-            .mapError { Exception("Failed to get findings", it) }
+        return httpDo(
+            "GET",
+            "${OrganizationConfig.ooniApiBaseUrl}/api/v1/incidents/search",
+            TaskOrigin.OoniRun,
+        ).mapError { Exception("Failed to get findings", it) }
             .flatMap { response ->
                 if (response.isNullOrBlank()) return@flatMap Failure(Exception("Empty response"))
 
@@ -37,7 +41,7 @@ class GetFindings(
     private fun Wrapper.Incident.toArticle() =
         run {
             ArticleModel(
-                url = id?.let { ArticleModel.Url("https://explorer.ooni.org/findings/$it") }
+                url = id?.let { ArticleModel.Url("${OrganizationConfig.explorerUrl}/findings/$it") }
                     ?: return@run null,
                 title = title ?: return@run null,
                 source = ArticleModel.Source.Finding,

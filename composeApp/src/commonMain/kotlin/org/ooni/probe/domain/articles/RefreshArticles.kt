@@ -25,12 +25,18 @@ class RefreshArticles(
         suspend operator fun invoke(): Result<List<ArticleModel>, Exception>
     }
 
-    suspend operator fun invoke() {
+    suspend operator fun invoke(skipIntervalCheck: Boolean = false) {
         if (!OrganizationConfig.hasOoniNews) return
 
         val lastCheck = (getPreference(SettingsKey.LAST_ARTICLES_REFRESH).first() as? Long)
             ?.let { Instant.fromEpochSeconds(it) }
-        if (lastCheck != null && Clock.System.now() - lastCheck < MIN_INTERVAL) return
+        if (
+            !skipIntervalCheck &&
+            lastCheck != null &&
+            Clock.System.now() - lastCheck < MIN_INTERVAL
+        ) {
+            return
+        }
 
         val responses = sources
             .map {
