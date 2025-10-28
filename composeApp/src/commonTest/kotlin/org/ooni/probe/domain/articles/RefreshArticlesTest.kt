@@ -53,6 +53,27 @@ class RefreshArticlesTest {
         }
 
     @Test
+    fun refreshSoonerIfSkip() =
+        runTest {
+            var sourceCalled = false
+            val subject = RefreshArticles(
+                sources = listOf(
+                    RefreshArticles.Source {
+                        sourceCalled = true
+                        Failure(Exception())
+                    },
+                ),
+                refreshArticlesInDatabase = { },
+                getPreference = { flowOf(Clock.System.now().epochSeconds) },
+                setPreference = { _, _ -> },
+            )
+
+            subject(skipIntervalCheck = true)
+
+            assertTrue(sourceCalled)
+        }
+
+    @Test
     fun success() =
         runTest {
             var refreshDbValue: List<ArticleModel>? = null
