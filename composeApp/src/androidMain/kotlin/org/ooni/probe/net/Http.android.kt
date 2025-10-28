@@ -2,10 +2,14 @@ package org.ooni.probe.net
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.ooni.engine.models.Failure
+import org.ooni.engine.models.Result
+import org.ooni.engine.models.Success
+import org.ooni.probe.data.models.GetBytesException
 import java.net.HttpURLConnection
 import java.net.URL
 
-actual suspend fun httpGetBytes(url: String): ByteArray =
+actual suspend fun httpGetBytes(url: String): Result<ByteArray, GetBytesException> =
     withContext(Dispatchers.IO) {
         val connection = (URL(url).openConnection() as HttpURLConnection)
         connection.requestMethod = "GET"
@@ -16,8 +20,13 @@ actual suspend fun httpGetBytes(url: String): ByteArray =
             val code = connection.responseCode
             val stream = if (code in 200..299) connection.inputStream else connection.errorStream
             val bytes = stream?.use { it.readBytes() } ?: ByteArray(0)
-            if (code !in 200..299) throw RuntimeException("HTTP $code while GET $url: ${String(bytes)}")
-            bytes
+            if (code !in 200..299) {
+                Failure(GetBytesException(RuntimeException("HTTP $code while GET $url: ${String(bytes)}")))
+            } else {
+                Success(bytes)
+            }
+        } catch (e: Throwable) {
+            Failure(GetBytesException(e))
         } finally {
             connection.disconnect()
         }

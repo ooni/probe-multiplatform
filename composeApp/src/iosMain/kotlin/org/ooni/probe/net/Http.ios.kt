@@ -3,31 +3,34 @@ package org.ooni.probe.net
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.usePinned
+import org.ooni.engine.models.Failure
+import org.ooni.engine.models.Result
+import org.ooni.engine.models.Success
+import org.ooni.probe.data.models.GetBytesException
 import platform.Foundation.NSData
 import platform.Foundation.NSURL
 import platform.Foundation.NSURLSession
 import platform.Foundation.dataTaskWithURL
 import platform.posix.memcpy
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
-actual suspend fun httpGetBytes(url: String): ByteArray =
+actual suspend fun httpGetBytes(url: String): Result<ByteArray, GetBytesException> =
     suspendCancellableCoroutine { cont ->
         val nsurl = NSURL.URLWithString(url)!!
         val task = NSURLSession.sharedSession.dataTaskWithURL(nsurl) { data, response, error ->
             when {
-                error != null -> cont.resumeWithException(RuntimeException(error.localizedDescription))
+                error != null -> cont.resume(Failure(GetBytesException(RuntimeException(error.localizedDescription))))
                 data != null -> {
                     // If we have an HTTP response, check status code
                     val http = response as? platform.Foundation.NSHTTPURLResponse
                     val status = http?.statusCode?.toInt() ?: 200
                     if (status in 200..299) {
-                        cont.resume((data as NSData).toByteArray())
+                        cont.resume(Success((data as NSData).toByteArray()))
                     } else {
-                        cont.resumeWithException(RuntimeException("HTTP $status while GET $url"))
+                        cont.resume(Failure(GetBytesException(RuntimeException("HTTP $status while GET $url"))))
                     }
                 }
-                else -> cont.resume(ByteArray(0))
+                else -> cont.resume(Success(ByteArray(0)))
             }
         }
         cont.invokeOnCancellation { task.cancel() }
