@@ -148,7 +148,7 @@ class Engine(
 
     private fun session(sessionConfig: OonimkallBridge.SessionConfig): OonimkallBridge.Session = bridge.newSession(sessionConfig)
 
-    private fun buildTaskSettings(
+    private suspend fun buildTaskSettings(
         netTest: NetTest,
         taskOrigin: TaskOrigin,
         preferences: EnginePreferences,
@@ -166,6 +166,7 @@ class Engine(
         tunnelDir = "$baseFilePath/tunnel",
         tempDir = cacheDir,
         assetsDir = "$baseFilePath/assets",
+        geoIpDB = preferences.geoipDbVersion?.let { "$cacheDir/$it.mmdb" },
         options = TaskSettings.Options(
             noCollector = !preferences.uploadResults,
             softwareName = buildSoftwareName(taskOrigin),
@@ -208,6 +209,7 @@ class Engine(
         tunnelDir = "$baseFilePath/tunnel",
         tempDir = cacheDir,
         assetsDir = "$baseFilePath/assets",
+        geoIpDB = preferences.geoipDbVersion?.let { "$cacheDir/$it.mmdb" },
         logger = oonimkallLogger,
         verbose = false,
     )
