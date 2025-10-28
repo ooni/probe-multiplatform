@@ -42,3 +42,4 @@ generate_doc 1 "probe-multiplatform/architecture" "docs/Architecture.md" "01-arc
 generate_doc 2 "probe-multiplatform/database" "docs/Database.md" "02-database.md" "Database" "Database documentation"
 generate_doc 3 "probe-multiplatform/background-work" "docs/BackgroundWork.md" "03-background-work.md" "Background Work" "Background Work documentation"
 generate_doc 4 "probe-multiplatform/release" "docs/Release.md" "04-release.md" "Release Process" "App distribution documentation"
+generate_doc 4 "probe-multiplatform/api-usage" "docs/ApiUsage.md" "05-api-usage.md" "API Usage" "Back-end usage documentation"
