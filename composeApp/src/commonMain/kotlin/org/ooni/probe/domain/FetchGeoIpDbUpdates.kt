@@ -1,14 +1,17 @@
 package org.ooni.probe.domain
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import okio.Path
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.engine_mmdb_version
 import org.jetbrains.compose.resources.getString
 import org.ooni.engine.Engine
+import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
@@ -38,8 +41,14 @@ class FetchGeoIpDbUpdates(
 
                     downloadFile(url, target)
                         .onSuccess { downloadedPath ->
-                            preferencesRepository.setValueByKey(SettingsKey.MMDB_VERSION, versionName)
-                            preferencesRepository.setValueByKey(SettingsKey.MMDB_LAST_CHECK, Clock.System.now().toEpochMilliseconds())
+                            preferencesRepository.setValueByKey(
+                                SettingsKey.MMDB_VERSION,
+                                versionName,
+                            )
+                            preferencesRepository.setValueByKey(
+                                SettingsKey.MMDB_LAST_CHECK,
+                                Clock.System.now().toEpochMilliseconds(),
+                            )
                             return Success(downloadedPath)
                         }.onFailure { downloadError ->
                             return Failure(Engine.MkException(downloadError))
@@ -56,17 +65,33 @@ class FetchGeoIpDbUpdates(
      */
     private suspend fun isGeoIpDbLatest(latestVersion: String): Triple<Boolean, String, String> {
         val currentGeoIpDbVersion: String =
-            (preferencesRepository.getValueByKey(SettingsKey.MMDB_VERSION).first() ?: getString(Res.string.engine_mmdb_version)) as String
+            (
+                preferencesRepository.getValueByKey(SettingsKey.MMDB_VERSION).first()
+                    ?: getString(Res.string.engine_mmdb_version)
+            ) as String
 
-        return Triple(normalize(currentGeoIpDbVersion) >= normalize(latestVersion), currentGeoIpDbVersion, latestVersion)
+        return Triple(
+            normalize(currentGeoIpDbVersion) >= normalize(latestVersion),
+            currentGeoIpDbVersion,
+            latestVersion,
+        )
     }
 
-    private suspend fun getLatestEngineVersion(): Result<String, Engine.MkException> {
+    private suspend fun getLatestEngineVersion(): Result<String, MkException> {
         val url = "https://api.github.com/repos/aanorbel/oomplt-mmdb/releases/latest"
 
         return engineHttpDo("GET", url, TaskOrigin.OoniRun).map { payload ->
-            val jsonStr = payload ?: throw Engine.MkException(Throwable("Empty body"))
-            json.decodeFromString(GhRelease.serializer(), jsonStr).tag
+            payload?.let {
+                try {
+                    json.decodeFromString(GhRelease.serializer(), payload).tag
+                } catch (e: SerializationException) {
+                    Logger.e(e) { "Failed to decode release info" }
+                    null
+                } catch (e: IllegalArgumentException) {
+                    Logger.e(e) { "Failed to decode  release info" }
+                    null
+                }
+            } ?: throw MkException(Throwable("Failed to fetch latest version"))
         }
     }
 

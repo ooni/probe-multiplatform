@@ -202,7 +202,7 @@ class Engine(
         MAX_RUNTIME_DISABLED
     }
 
-    private suspend fun buildSessionConfig(
+    private fun buildSessionConfig(
         taskOrigin: TaskOrigin,
         preferences: EnginePreferences,
     ) = OonimkallBridge.SessionConfig(

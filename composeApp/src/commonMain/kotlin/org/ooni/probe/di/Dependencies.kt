@@ -210,7 +210,7 @@ class Dependencies(
     private val downloader by lazy {
         DownloadFile(
             fileSystem = FileSystem.SYSTEM,
-            fetchBytes = { url -> httpGetBytes(url) },
+            fetchBytes = ::httpGetBytes,
         )
     }
 

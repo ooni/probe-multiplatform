@@ -101,7 +101,7 @@ class TaskEventMapper(
                 )
 
             "status.resolver_lookup" -> value?.geoIpdb?.let {
-                println(it)
+                Logger.d("GeoIP DB info in resolver lookup: $it")
                 null
             }
 
