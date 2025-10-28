@@ -16,31 +16,42 @@ import kotlin.coroutines.resume
 
 actual suspend fun httpGetBytes(url: String): Result<ByteArray, GetBytesException> =
     suspendCancellableCoroutine { cont ->
-        val nsurl = NSURL.URLWithString(url)!!
+        val nsurl = NSURL.URLWithString(url) ?: run {
+            cont.resume(Failure(GetBytesException(RuntimeException("Invalid URL: $url"))))
+            return@suspendCancellableCoroutine
+        }
         val task = NSURLSession.sharedSession.dataTaskWithURL(nsurl) { data, response, error ->
-            when {
-                error != null -> cont.resume(Failure(GetBytesException(RuntimeException(error.localizedDescription))))
-                data != null -> {
-                    // If we have an HTTP response, check status code
-                    val http = response as? platform.Foundation.NSHTTPURLResponse
-                    val status = http?.statusCode?.toInt() ?: 200
-                    if (status in 200..299) {
-                        cont.resume(Success((data as NSData).toByteArray()))
+            if (error != null) {
+                cont.resume(Failure(GetBytesException(RuntimeException(error.toString()))))
+                return@dataTaskWithURL
+            }
+
+            when (val r = response) {
+                is platform.Foundation.NSHTTPURLResponse -> {
+                    val statusCode = r.statusCode
+                    if (statusCode in 200..299) {
+                        cont.resume(Success(data?.toByteArray() ?: ByteArray(0)))
                     } else {
-                        cont.resume(Failure(GetBytesException(RuntimeException("HTTP $status while GET $url"))))
+                        cont.resume(Failure(GetBytesException(RuntimeException("HTTP $statusCode while GET $url"))))
                     }
                 }
-                else -> cont.resume(Success(ByteArray(0)))
+                else -> {
+                    // This could be for non-HTTP responses (e.g. file://) or an invalid state
+                    if (data != null) {
+                        cont.resume(Success(data.toByteArray()))
+                    } else {
+                        cont.resume(Failure(GetBytesException(RuntimeException("Request to $url returned no data and no error"))))
+                    }
+                }
             }
         }
         cont.invokeOnCancellation { task.cancel() }
         task.resume()
     }
 
-private fun NSData.toByteArray(): ByteArray {
-    val result = ByteArray(length.toInt())
-    result.usePinned {
-        memcpy(it.addressOf(0), this.bytes, this.length)
+private fun NSData.toByteArray(): ByteArray =
+    ByteArray(length.toInt()).apply {
+        usePinned {
+            memcpy(it.addressOf(0), bytes, length)
+        }
     }
-    return result
-}
