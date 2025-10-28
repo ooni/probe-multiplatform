@@ -8,6 +8,7 @@ import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
 import org.ooni.engine.models.TaskOrigin
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.ProxyOption
 import kotlin.coroutines.CoroutineContext
 
@@ -27,7 +28,7 @@ class TestProxy(
             }
 
             if (
-                httpDo("GET", "https://api.ooni.org/health", TaskOrigin.OoniRun, proxy) is Success
+                httpDo("GET", "${OrganizationConfig.ooniApiBaseUrl}/health", TaskOrigin.OoniRun, proxy) is Success
             ) {
                 send(State.Available)
             } else {
