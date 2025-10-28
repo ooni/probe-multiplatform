@@ -63,6 +63,7 @@ class RunDescriptors(
             if (networkTypeFinder() == NetworkType.NoInternet) {
                 reportTestRunError(TestRunError.NoInternet)
             } else {
+                // Test the proxy asynchronously so that tests don't wait for it
                 coroutineScope {
                     launch {
                         if (testProxy().last() == TestProxy.State.Unavailable) {
@@ -74,7 +75,7 @@ class RunDescriptors(
 
             try {
                 runDescriptorsCancellable(descriptorsWithFinalInputs, spec)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // Exceptions were logged in the Engine
             } finally {
                 setRunBackgroundState { RunBackgroundState.Idle(LocalDateTime.now(), true) }

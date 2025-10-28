@@ -70,11 +70,15 @@ class RunNetTest(
             val installedDescriptorId =
                 (spec.descriptor.source as? Descriptor.Source.Installed)?.value?.id
 
-            startTest(
-                spec.netTest,
-                spec.taskOrigin,
-                installedDescriptorId,
-            ).collect(::onEvent)
+            try {
+                startTest(
+                    spec.netTest,
+                    spec.taskOrigin,
+                    installedDescriptorId,
+                ).collect(::onEvent)
+            } catch (_: Exception) {
+                // Exceptions were logged in the Engine
+            }
         }
     }
 
