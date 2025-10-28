@@ -66,7 +66,7 @@ class DesktopOonimkallBridge : OonimkallBridge {
             it.assetsDir = assetsDir
             // geoipDB may or may not exist in this binding; set via reflection when available
             geoIpDB?.let { path ->
-                // it.geoipDB = path
+                it.geoipDB = path
             }
             it.stateDir = stateDir
             it.tempDir = tempDir
