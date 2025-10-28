@@ -5,7 +5,9 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.serialization.json.Json
 import okio.use
 import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
@@ -46,8 +48,9 @@ class Engine(
         netTest: NetTest,
         taskOrigin: TaskOrigin,
         descriptorId: InstalledTestDescriptorModel.Id?,
-    ): Flow<TaskEvent> =
-        channelFlow {
+    ): Flow<TaskEvent> {
+        val context = newSingleThreadContext("engine-start-task")
+        return channelFlow {
             val preferences = getEnginePreferences()
             val taskSettings =
                 buildTaskSettings(netTest, taskOrigin, preferences, descriptorId)
@@ -80,7 +83,9 @@ class Engine(
                 }
                 cancelListener?.dismiss()
             }
-        }.flowOn(backgroundContext)
+        }.flowOn(context)
+            .onCompletion { context.close() }
+    }
 
     suspend fun submitMeasurements(
         measurement: String,
