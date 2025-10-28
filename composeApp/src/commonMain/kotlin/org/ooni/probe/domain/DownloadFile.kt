@@ -5,6 +5,8 @@ import okio.Path
 import okio.Path.Companion.toPath
 import okio.buffer
 import okio.use
+import org.ooni.engine.models.Result
+import org.ooni.probe.data.models.GetBytesException
 
 /**
  * Downloads binary content to a target absolute path using the provided fetcher.
@@ -13,20 +15,19 @@ import okio.use
  */
 class DownloadFile(
     private val fileSystem: FileSystem,
-    private val fetchBytes: suspend (url: String) -> ByteArray,
+    private val fetchBytes: suspend (url: String) -> Result<ByteArray, GetBytesException>,
 ) {
     suspend operator fun invoke(
         url: String,
         absoluteTargetPath: String,
-    ): Path {
+    ): Result<Path, GetBytesException> {
         val target = absoluteTargetPath.toPath()
         target.parent?.let { parent ->
             if (fileSystem.metadataOrNull(parent) == null) fileSystem.createDirectories(parent)
         }
-        val bytes = fetchBytes(url)
-        val existing = fileSystem.metadataOrNull(target)
-        if (existing?.size == bytes.size.toLong()) return target
-        fileSystem.sink(target).buffer().use { sink -> sink.write(bytes) }
-        return target
+        return fetchBytes(url).map { bytes ->
+            fileSystem.sink(target).buffer().use { sink -> sink.write(bytes) }
+            target
+        }
     }
 }
