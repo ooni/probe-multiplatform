@@ -47,7 +47,6 @@ import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.descriptor.isSingleWebConnectivityTest
 import org.ooni.probe.ui.run.TestItem
 import org.ooni.probe.ui.shared.NavigationCloseButton
-import org.ooni.probe.ui.shared.NotificationMessages
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
 
@@ -217,11 +216,9 @@ fun AddDescriptorScreen(
         }
     } ?: LoadingDescriptor()
 
-    NotificationMessages(
-        message = state.messages,
-        onMessageDisplayed = {
-            onEvent(AddDescriptorViewModel.Event.MessageDisplayed(it))
-        },
+    AddDescriptorMessage(
+        message = state.messages.firstOrNull(),
+        onMessageDisplayed = { onEvent(AddDescriptorViewModel.Event.MessageDisplayed(it)) },
     )
 }
 

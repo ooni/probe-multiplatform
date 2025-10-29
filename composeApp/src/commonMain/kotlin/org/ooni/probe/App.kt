@@ -134,9 +134,7 @@ fun App(
     LaunchedEffect(deepLink) {
         when (deepLink) {
             is DeepLink.AddDescriptor -> {
-                navController.navigate(
-                    Screen.AddDescriptor(deepLink.id.toLongOrNull() ?: return@LaunchedEffect),
-                )
+                navController.navigate(Screen.AddDescriptor(deepLink.id))
                 onDeeplinkHandled()
             }
 

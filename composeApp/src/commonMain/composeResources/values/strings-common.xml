@@ -384,6 +384,8 @@
 
     <!-- Descriptors -->
 
+    <string name="AddDescriptor_EnterURL">Enter a OONI Run Link URL</string>
+    <string name="AddDescriptor_URLInvalid">The URL is not a valid OONI Run Link</string>
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="AddDescriptor_Title">Install New Link</string>
     <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
@@ -393,8 +395,7 @@
     <string name="AddDescriptor_InstallAndRun">Install &amp; Run</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
     <string name="LoadingScreen_Runv2_Message">Link Loading</string>
-    <string name="LoadingScreen_Runv2_Failure">Error</string>
-    <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
+    <string name="LoadingScreen_Runv2_Failure">Error loading link</string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
     <string name="DescriptorUpdate_CheckUpdates">Check for Updates</string>
     <string name="AddDescriptor_AutoRunDisabled">Auto-run is disabled. Please enable it to run tests automatically.</string>
