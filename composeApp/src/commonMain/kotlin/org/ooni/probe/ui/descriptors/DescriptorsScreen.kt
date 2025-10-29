@@ -7,34 +7,49 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.backhandler.BackHandler
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Title
+import ooniprobe.composeapp.generated.resources.Common_Clear
 import ooniprobe.composeapp.generated.resources.Common_Collapse
 import ooniprobe.composeapp.generated.resources.Common_Expand
+import ooniprobe.composeapp.generated.resources.Common_Search
 import ooniprobe.composeapp.generated.resources.DescriptorUpdate_CheckUpdates
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Tests_Search
 import ooniprobe.composeapp.generated.resources.Tests_Title
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_down
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_up
@@ -42,8 +57,11 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
+import org.ooni.probe.ui.shared.ColorDefaults
+import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.VerticalScrollbar
@@ -66,19 +84,74 @@ fun DescriptorsScreen(
             .fillMaxSize(),
     ) {
         Column(Modifier.fillMaxSize()) {
-            TopBar(
-                title = { Text(stringResource(Res.string.Tests_Title)) },
-                actions = {
-                    if (OrganizationConfig.canInstallDescriptors) {
-                        IconButton(onClick = { onEvent(DescriptorsViewModel.Event.AddClicked) }) {
-                            Icon(
-                                Icons.Default.Add,
-                                contentDescription = stringResource(Res.string.AddDescriptor_Title),
-                            )
-                        }
+            if (state.isFiltering) {
+                Surface(
+                    color = ColorDefaults.topAppBar().containerColor,
+                    contentColor = ColorDefaults.topAppBar().titleContentColor,
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .padding(WindowInsets.statusBars.asPaddingValues())
+                            .defaultMinSize(minHeight = TopAppBarDefaults.TopAppBarExpandedHeight),
+                    ) {
+                        NavigationBackButton(onClick = { onEvent(DescriptorsViewModel.Event.CloseFilterClicked) })
+
+                        OutlinedTextField(
+                            value = state.filterText.orEmpty(),
+                            onValueChange = {
+                                onEvent(DescriptorsViewModel.Event.FilterTextChanged(it))
+                            },
+                            placeholder = { Text(stringResource(Res.string.Tests_Search)) },
+                            trailingIcon = {
+                                IconButton(
+                                    onClick = {
+                                        onEvent(DescriptorsViewModel.Event.FilterTextChanged(""))
+                                    },
+                                    enabled = !state.filterText.isNullOrEmpty(),
+                                ) {
+                                    Icon(
+                                        Icons.Default.Clear,
+                                        contentDescription = stringResource(Res.string.Common_Clear),
+                                    )
+                                }
+                            },
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color.Transparent,
+                                unfocusedBorderColor = Color.Transparent,
+                                focusedTextColor = LocalContentColor.current,
+                                unfocusedTextColor = LocalContentColor.current,
+                                focusedPlaceholderColor = LocalContentColor.current.copy(alpha = 0.7f),
+                                unfocusedPlaceholderColor = LocalContentColor.current.copy(alpha = 0.7f),
+                                focusedTrailingIconColor = LocalContentColor.current,
+                                unfocusedTrailingIconColor = LocalContentColor.current,
+                                cursorColor = LocalContentColor.current,
+                            ),
+                            modifier = Modifier.fillMaxWidth(),
+                        )
                     }
-                },
-            )
+                }
+            } else {
+                TopBar(
+                    title = { Text(stringResource(Res.string.Tests_Title)) },
+                    actions = {
+                        if (OrganizationConfig.canInstallDescriptors) {
+                            IconButton(onClick = { onEvent(DescriptorsViewModel.Event.FilterClicked) }) {
+                                Icon(
+                                    Icons.Default.Search,
+                                    contentDescription = stringResource(Res.string.Common_Search),
+                                )
+                            }
+                            IconButton(onClick = { onEvent(DescriptorsViewModel.Event.AddClicked) }) {
+                                Icon(
+                                    Icons.Default.Add,
+                                    contentDescription = stringResource(Res.string.AddDescriptor_Title),
+                                )
+                            }
+                        }
+                    },
+                )
+            }
 
             Box {
                 val lazyListState = rememberLazyListState()
@@ -89,7 +162,7 @@ fun DescriptorsScreen(
                 ) {
                     val allSectionsHaveValues = state.sections.all { it.descriptors.any() }
                     state.sections.forEach { (type, descriptors, isCollapsed) ->
-                        if (allSectionsHaveValues && descriptors.isNotEmpty()) {
+                        if (!state.isFiltering && allSectionsHaveValues && descriptors.isNotEmpty()) {
                             item(type) {
                                 TestDescriptorSectionTitle(
                                     type = type,
@@ -99,23 +172,25 @@ fun DescriptorsScreen(
                                 )
                             }
                         }
-                        if (isCollapsed) return@forEach
+                        if (isCollapsed && !state.isFiltering) return@forEach
                         items(descriptors, key = { it.key }) { descriptor ->
-                            TestDescriptorItem(
-                                descriptor = descriptor,
-                                onClick = {
-                                    onEvent(
-                                        DescriptorsViewModel.Event.DescriptorClicked(descriptor),
-                                    )
-                                },
-                                onUpdateClick = {
-                                    onEvent(
-                                        DescriptorsViewModel.Event.UpdateDescriptorClicked(
-                                            descriptor,
-                                        ),
-                                    )
-                                },
-                            )
+                            if (descriptor.matches(state.filterText)) {
+                                TestDescriptorItem(
+                                    descriptor = descriptor,
+                                    onClick = {
+                                        onEvent(
+                                            DescriptorsViewModel.Event.DescriptorClicked(descriptor),
+                                        )
+                                    },
+                                    onUpdateClick = {
+                                        onEvent(
+                                            DescriptorsViewModel.Event.UpdateDescriptorClicked(
+                                                descriptor,
+                                            ),
+                                        )
+                                    },
+                                )
+                            }
                         }
                     }
                 }
@@ -140,6 +215,10 @@ fun DescriptorsScreen(
             isRefreshing = state.isRefreshing,
             state = pullRefreshState,
         )
+    }
+
+    BackHandler(enabled = state.isFiltering) {
+        onEvent(DescriptorsViewModel.Event.CloseFilterClicked)
     }
 }
 
@@ -210,6 +289,12 @@ private fun CheckUpdatesButton(
         )
     }
 }
+
+@Composable
+private fun Descriptor.matches(filter: String?) =
+    filter == null ||
+        title().contains(filter, ignoreCase = true) ||
+        shortDescription()?.contains(filter, ignoreCase = true) == true
 
 @Preview
 @Composable
