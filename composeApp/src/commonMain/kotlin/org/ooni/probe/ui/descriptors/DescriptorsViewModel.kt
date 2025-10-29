@@ -22,6 +22,7 @@ import org.ooni.probe.data.models.SettingsKey
 class DescriptorsViewModel(
     goToDescriptor: (String) -> Unit,
     goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
+    goToAddDescriptorUrl: () -> Unit,
     getTestDescriptors: () -> Flow<List<Descriptor>>,
     observeDescriptorUpdateState: () -> Flow<DescriptorsUpdateState>,
     startDescriptorsUpdates: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
@@ -91,6 +92,11 @@ class DescriptorsViewModel(
         events
             .filterIsInstance<Event.CancelUpdatesClicked>()
             .onEach { dismissDescriptorsUpdateNotice() }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.AddClicked>()
+            .onEach { goToAddDescriptorUrl() }
             .launchIn(viewModelScope)
     }
 
@@ -165,6 +171,8 @@ class DescriptorsViewModel(
         data object ReviewUpdatesClicked : Event
 
         data object CancelUpdatesClicked : Event
+
+        data object AddClicked : Event
     }
 
     data class DescriptorSection(

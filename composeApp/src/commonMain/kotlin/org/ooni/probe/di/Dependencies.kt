@@ -105,6 +105,7 @@ import org.ooni.probe.ui.articles.ArticlesViewModel
 import org.ooni.probe.ui.choosewebsites.ChooseWebsitesViewModel
 import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
+import org.ooni.probe.ui.descriptor.add.AddDescriptorUrlViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
 import org.ooni.probe.ui.descriptor.websites.DescriptorWebsitesViewModel
@@ -595,6 +596,14 @@ class Dependencies(
         startBackgroundRun = startSingleRunInner,
     )
 
+    fun addDescriptorUrlViewModel(
+        onClose: () -> Unit,
+        goToAddDescriptor: (InstalledTestDescriptorModel.Id) -> Unit,
+    ) = AddDescriptorUrlViewModel(
+        onClose = onClose,
+        goToAddDescriptor = goToAddDescriptor,
+    )
+
     fun articleViewModel(
         url: ArticleModel.Url,
         onBack: () -> Unit,
@@ -664,9 +673,11 @@ class Dependencies(
     fun descriptorsViewModel(
         goToDescriptor: (String) -> Unit,
         goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
+        goToAddDescriptorUrl: () -> Unit,
     ) = DescriptorsViewModel(
         goToDescriptor = goToDescriptor,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
+        goToAddDescriptorUrl = goToAddDescriptorUrl,
         getTestDescriptors = getTestDescriptors::latest,
         startDescriptorsUpdates = startDescriptorsUpdate,
         dismissDescriptorsUpdateNotice = dismissDescriptorReviewNotice::invoke,
