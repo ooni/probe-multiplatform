@@ -82,6 +82,7 @@
     <!-- Tests -->
 
     <string name="Tests_Title">Tests</string>
+    <string name="Tests_Search">Search tests</string>
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Instant Messaging</string>
     <string name="Test_Performance_Fullname">Performance</string>
@@ -464,6 +465,7 @@
     <string name="Common_Next">Next</string>
     <string name="Common_Previous">Previous</string>
     <string name="Common_Dismiss">Dismiss</string>
+    <string name="Common_Search">Search</string>
 
     <string name="Common_Today">Today</string>
     <string name="Common_Yesterday">Yesterday</string>

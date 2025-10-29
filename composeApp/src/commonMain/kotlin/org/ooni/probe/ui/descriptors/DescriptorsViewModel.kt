@@ -98,6 +98,21 @@ class DescriptorsViewModel(
             .filterIsInstance<Event.AddClicked>()
             .onEach { goToAddDescriptorUrl() }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.FilterClicked>()
+            .onEach { _state.update { it.copy(filterText = "") } }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.FilterTextChanged>()
+            .onEach { event -> _state.update { it.copy(filterText = event.text) } }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.CloseFilterClicked>()
+            .onEach { _state.update { it.copy(filterText = null) } }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -142,6 +157,7 @@ class DescriptorsViewModel(
         val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
         val descriptorsUpdateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
         val canPullToRefresh: Boolean = true,
+        val filterText: String? = null,
     ) {
         val isRefreshing: Boolean
             get() = descriptorsUpdateOperationState == DescriptorUpdateOperationState.FetchingUpdates
@@ -151,6 +167,8 @@ class DescriptorsViewModel(
                 .firstOrNull { it.type == DescriptorType.Installed }
                 ?.descriptors
                 ?.any() == true
+
+        val isFiltering get() = filterText != null
     }
 
     sealed interface Event {
@@ -173,6 +191,14 @@ class DescriptorsViewModel(
         data object CancelUpdatesClicked : Event
 
         data object AddClicked : Event
+
+        data object FilterClicked : Event
+
+        data class FilterTextChanged(
+            val text: String,
+        ) : Event
+
+        data object CloseFilterClicked : Event
     }
 
     data class DescriptorSection(
