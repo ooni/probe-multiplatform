@@ -15,7 +15,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -27,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import ooniprobe.composeapp.generated.resources.AddDescriptor_Title
 import ooniprobe.composeapp.generated.resources.Common_Collapse
 import ooniprobe.composeapp.generated.resources.Common_Expand
 import ooniprobe.composeapp.generated.resources.DescriptorUpdate_CheckUpdates
@@ -37,6 +41,7 @@ import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_up
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.ui.shared.TopBar
@@ -63,13 +68,23 @@ fun DescriptorsScreen(
         Column(Modifier.fillMaxSize()) {
             TopBar(
                 title = { Text(stringResource(Res.string.Tests_Title)) },
+                actions = {
+                    if (OrganizationConfig.canInstallDescriptors) {
+                        IconButton(onClick = { onEvent(DescriptorsViewModel.Event.AddClicked) }) {
+                            Icon(
+                                Icons.Default.Add,
+                                contentDescription = stringResource(Res.string.AddDescriptor_Title),
+                            )
+                        }
+                    }
+                },
             )
 
             Box {
                 val lazyListState = rememberLazyListState()
                 LazyColumn(
                     modifier = Modifier.testTag("Descriptors-List"),
-                    contentPadding = PaddingValues(top = 8.dp, bottom = 16.dp),
+                    contentPadding = PaddingValues(vertical = 16.dp),
                     state = lazyListState,
                 ) {
                     val allSectionsHaveValues = state.sections.all { it.descriptors.any() }
