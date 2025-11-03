@@ -1,7 +1,6 @@
 name: Desktop package apps
 on:
   workflow_dispatch:
-  push:
 
 concurrency:
   group: desktop-packaging-${{ github.ref }}

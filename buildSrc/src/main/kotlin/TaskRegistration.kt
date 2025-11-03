@@ -83,7 +83,18 @@ private fun Project.registerSparkleTask() {
     tasks.register("generateSparkleAppCast", GenerateSparkleAppCastTask::class) {
         group = "setup"
         description = "Generates Sparkle appcast using the specified DMG file."
-        onlyIf { isMac() }
+        onlyIf { 
+            val privateKeyFile = rootProject.file("certificates/sparkle_eddsa_private.pem")
+            if (!isMac()) {
+                logger.info("Skipping generateSparkleAppCast: Not running on macOS")
+                return@onlyIf false
+            }
+            if (!privateKeyFile.exists()) {
+                logger.error("Cannot generate Sparkle appcast: Private key file not found at ${privateKeyFile.absolutePath}")
+                return@onlyIf false
+            }
+            true
+        }
         dependsOn("setupSparkle")
 
         sparkleVersion.set(providers.gradleProperty("sparkleVersion").orElse("2.8.0"))
