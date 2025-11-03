@@ -11,13 +11,15 @@ object ArticleModelFactory {
     fun build(
         url: ArticleModel.Url = ArticleModel.Url("https://example.org/${Random.nextInt()}"),
         title: String = "Title",
-        description: String? = null,
         time: LocalDateTime = LocalDate.today().atTime(0, 0),
+        description: String? = null,
+        imageUrl: String? = null,
         source: ArticleModel.Source = ArticleModel.Source.Blog,
     ) = ArticleModel(
         url = url,
         title = title,
         description = description,
+        imageUrl = imageUrl,
         time = time,
         source = source,
     )

@@ -87,7 +87,7 @@ import org.ooni.probe.data.models.MeasurementStats
 import org.ooni.probe.data.models.Run
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.shared.largeNumberShort
-import org.ooni.probe.ui.articles.ArticleCell
+import org.ooni.probe.ui.articles.ArticleCard
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.VerticalScrollbar
@@ -486,7 +486,7 @@ private fun ArticlesSection(
     )
 
     articles.forEach { article ->
-        ArticleCell(
+        ArticleCard(
             article = article,
             onClick = { onEvent(DashboardViewModel.Event.ArticleClicked(article)) },
         )
