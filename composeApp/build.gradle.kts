@@ -99,6 +99,7 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.sqldelight.native)
             implementation(libs.bundles.mobile)
+            implementation(libs.bundles.ios)
         }
         val desktopMain by getting {
             dependencies {

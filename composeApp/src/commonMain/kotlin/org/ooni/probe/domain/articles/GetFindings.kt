@@ -46,6 +46,7 @@ class GetFindings(
                 title = title ?: return@run null,
                 source = ArticleModel.Source.Finding,
                 description = shortDescription,
+                imageUrl = null,
                 time = createTime?.toLocalDateTime() ?: return@run null,
             )
         }

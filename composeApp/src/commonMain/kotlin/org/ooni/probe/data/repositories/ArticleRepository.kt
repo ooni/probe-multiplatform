@@ -23,8 +23,9 @@ class ArticleRepository(
                     database.articleQueries.insertOrReplace(
                         url = model.url.value,
                         title = model.title,
-                        description = model.description,
                         source = model.source.value,
+                        description = model.description,
+                        image_url = model.imageUrl,
                         time = model.time.toEpoch(),
                     )
                 }
@@ -45,8 +46,9 @@ class ArticleRepository(
             ArticleModel(
                 url = ArticleModel.Url(url),
                 title = title,
-                description = description,
                 source = ArticleModel.Source.fromValue(source) ?: return@run null,
+                description = description,
+                imageUrl = image_url,
                 time = time.toLocalDateTime(),
             )
         }
