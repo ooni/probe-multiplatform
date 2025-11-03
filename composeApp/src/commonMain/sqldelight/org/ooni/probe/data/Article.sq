@@ -3,6 +3,7 @@ CREATE TABLE Article(
     title TEXT NOT NULL,
     source TEXT NOT NULL,
     description TEXT,
+    image_url TEXT,
     time INTEGER NOT NULL
 );
 
@@ -10,10 +11,11 @@ insertOrReplace:
 INSERT OR REPLACE INTO Article (
     url,
     title,
-    description,
     source,
+    description,
+    image_url,
     time
-) VALUES (?,?,?,?,?);
+) VALUES (?,?,?,?,?,?);
 
 selectAll:
 SELECT * FROM Article ORDER BY time DESC;

@@ -9,8 +9,9 @@ import org.ooni.probe.shared.today
 data class ArticleModel(
     val url: Url,
     val title: String,
-    val description: String?,
     val source: Source,
+    val description: String?,
+    val imageUrl: String?,
     val time: LocalDateTime,
 ) {
     data class Url(

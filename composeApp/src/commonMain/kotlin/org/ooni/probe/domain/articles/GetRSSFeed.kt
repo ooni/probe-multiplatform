@@ -9,8 +9,6 @@ import kotlinx.datetime.format.byUnicodePattern
 import kotlinx.datetime.parse
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
-import nl.adaptivity.xmlutil.ExperimentalXmlUtilApi
-import nl.adaptivity.xmlutil.serialization.UnknownChildHandler
 import nl.adaptivity.xmlutil.serialization.XML
 import nl.adaptivity.xmlutil.serialization.XmlElement
 import nl.adaptivity.xmlutil.serialization.XmlSerialName
@@ -56,6 +54,7 @@ class GetRSSFeed(
                 title = title ?: return@run null,
                 source = source,
                 description = description,
+                imageUrl = content?.url,
                 time = pubDate?.toLocalDateTime() ?: return@run null,
             )
         }
@@ -80,8 +79,7 @@ class GetRSSFeed(
         private val Xml by lazy {
             XML {
                 defaultPolicy {
-                    @OptIn(ExperimentalXmlUtilApi::class)
-                    unknownChildHandler = UnknownChildHandler { _, _, _, _, _ -> emptyList() }
+                    ignoreUnknownChildren()
                 }
             }
         }
@@ -115,6 +113,16 @@ class GetRSSFeed(
             @XmlSerialName("pubDate")
             @XmlElement
             val pubDate: String?,
+            @XmlSerialName("content", namespace = "http://search.yahoo.com/mrss/")
+            @XmlElement
+            val content: MediaContent?,
+        )
+
+        @Serializable
+        data class MediaContent(
+            @XmlSerialName("url")
+            @XmlElement(false)
+            val url: String?,
         )
     }
 }

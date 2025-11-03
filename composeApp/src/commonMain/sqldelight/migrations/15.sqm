@@ -3,5 +3,6 @@ CREATE TABLE Article(
     title TEXT NOT NULL,
     source TEXT NOT NULL,
     description TEXT,
+    image_url TEXT,
     time INTEGER NOT NULL
 );
