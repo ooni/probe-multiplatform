@@ -39,6 +39,11 @@ class ArticleViewModel(
             .launchIn(viewModelScope)
 
         events
+            .filterIsInstance<Event.OpenExternal>()
+            .onEach { launchAction(PlatformAction.OpenUrl(url.value)) }
+            .launchIn(viewModelScope)
+
+        events
             .filterIsInstance<Event.ShareUrl>()
             .onEach { launchAction(PlatformAction.Share(url.value)) }
             .launchIn(viewModelScope)
@@ -63,6 +68,8 @@ class ArticleViewModel(
 
     sealed interface Event {
         data object BackClicked : Event
+
+        data object OpenExternal : Event
 
         data object ShareUrl : Event
 
