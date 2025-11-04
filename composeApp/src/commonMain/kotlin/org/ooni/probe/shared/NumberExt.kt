@@ -17,11 +17,12 @@ fun Double.format(decimalChars: Int = 2): String {
     return if (decimalValue == 0) absoluteValue.toString() else "$absoluteValue.$decimalValue"
 }
 
-fun Long.largeNumberShort(): String {
-    if (this <= 0) return "0"
+fun Number.largeNumberShort(): String {
+    val number = toLong()
+    if (number <= 0) return "0"
     val units = arrayOf("", "K", "M")
-    val digitGroups = (log10(this.toDouble()) / log10(1000.0)).toInt()
-    return (this / 1000.0.pow(digitGroups.toDouble())).withFractionalDigits() + units[digitGroups]
+    val digitGroups = (log10(toDouble()) / log10(1000.0)).toInt()
+    return (number / 1000.0.pow(digitGroups.toDouble())).withFractionalDigits() + units[digitGroups]
 }
 
 fun Double.withFractionalDigits(): String = if (this < 10) format(2) else format(1)

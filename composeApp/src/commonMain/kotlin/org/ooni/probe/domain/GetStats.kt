@@ -14,28 +14,33 @@ import org.ooni.probe.shared.today
 class GetStats(
     private val countMeasurementsFromStartTime: (LocalDateTime) -> Flow<Long>,
     private val countNetworkAsns: () -> Flow<Long>,
-    private val countNetworkCountries: () -> Flow<Long>,
+    private val getNetworkCountries: () -> Flow<List<String>>,
+    private val getCountryNameByCode: (String) -> String,
 ) {
     operator fun invoke(): Flow<MeasurementStats> {
         val today = LocalDate.today()
         val startOfWeek = today.minus(today.dayOfWeek.isoDayNumber - 1, DateTimeUnit.DAY)
         val startOfMonth = today.minus(today.day - 1, DateTimeUnit.DAY)
         val startOfTotal = LocalDate.fromEpochDays(0)
-        return combine<Long, MeasurementStats>(
-            countMeasurementsFromStartTime(today.toDateTime()),
-            countMeasurementsFromStartTime(startOfWeek.toDateTime()),
-            countMeasurementsFromStartTime(startOfMonth.toDateTime()),
-            countMeasurementsFromStartTime(startOfTotal.toDateTime()),
-            countNetworkAsns(),
-            countNetworkCountries(),
-        ) { values ->
+        return combine(
+            combine(
+                countMeasurementsFromStartTime(today.toDateTime()),
+                countMeasurementsFromStartTime(startOfWeek.toDateTime()),
+                countMeasurementsFromStartTime(startOfMonth.toDateTime()),
+                countMeasurementsFromStartTime(startOfTotal.toDateTime()),
+                countNetworkAsns(),
+            ) { it },
+            getNetworkCountries(),
+        ) { values, countries ->
             MeasurementStats(
-                values[0],
-                values[1],
-                values[2],
-                values[3],
-                values[4],
-                values[5],
+                measurementsToday = values[0],
+                measurementsWeek = values[1],
+                measurementsMonth = values[2],
+                measurementsTotal = values[3],
+                networks = values[4],
+                countries = countries
+                    .map { getCountryNameByCode(it) }
+                    .sorted(),
             )
         }
     }
