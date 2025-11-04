@@ -152,6 +152,7 @@ class Dependencies(
     private val batteryOptimization: BatteryOptimization,
     val flavorConfig: FlavorConfigInterface,
     val proxyConfig: ProxyConfig,
+    val getCountryNameByCode: (String) -> String,
 ) {
     // Common
 
@@ -402,7 +403,8 @@ class Dependencies(
         GetStats(
             countMeasurementsFromStartTime = measurementRepository::countFromStartTime,
             countNetworkAsns = networkRepository::countAsns,
-            countNetworkCountries = networkRepository::countCountries,
+            getNetworkCountries = networkRepository::listCountries,
+            getCountryNameByCode = getCountryNameByCode,
         )
     }
 
