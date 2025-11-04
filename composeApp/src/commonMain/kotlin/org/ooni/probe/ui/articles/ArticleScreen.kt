@@ -33,6 +33,7 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Articles_Title
 import ooniprobe.composeapp.generated.resources.Measurement_LoadingFailed
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
+import ooniprobe.composeapp.generated.resources.ic_open_external
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.ui.shared.NavigationBackButton
@@ -58,6 +59,12 @@ fun ArticleScreen(
                     NavigationBackButton({ onEvent(ArticleViewModel.Event.BackClicked) })
                 },
                 actions = {
+                    IconButton(onClick = { onEvent(ArticleViewModel.Event.OpenExternal) }) {
+                        Icon(
+                            painterResource(Res.drawable.ic_open_external),
+                            contentDescription = null,
+                        )
+                    }
                     IconButton(onClick = { onEvent(ArticleViewModel.Event.ShareUrl) }) {
                         Icon(
                             Icons.Default.Share,
