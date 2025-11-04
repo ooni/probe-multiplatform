@@ -6,5 +6,5 @@ data class MeasurementStats(
     val measurementsMonth: Long,
     val measurementsTotal: Long,
     val networks: Long,
-    val countries: Long,
+    val countries: List<String>,
 )
