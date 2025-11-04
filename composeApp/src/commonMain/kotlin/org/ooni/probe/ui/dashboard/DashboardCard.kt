@@ -13,6 +13,7 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,9 +29,9 @@ fun DashboardCard(
     endActions: @Composable () -> Unit = {},
     icon: Painter? = null,
 ) {
-    ElevatedCard(
-        colors = CardDefaults.elevatedCardColors(
-            disabledContainerColor = MaterialTheme.colorScheme.surface,
+    OutlinedCard(
+        colors = CardDefaults.outlinedCardColors(
+            disabledContainerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
             disabledContentColor = MaterialTheme.colorScheme.onSurface,
         ),
         modifier = modifier.padding(horizontal = 16.dp, vertical = 4.dp),
