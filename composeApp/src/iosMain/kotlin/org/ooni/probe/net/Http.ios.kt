@@ -26,9 +26,9 @@ actual suspend fun httpGetBytes(url: String): Result<ByteArray, GetBytesExceptio
                 return@dataTaskWithURL
             }
 
-            when (val r = response) {
+            when (response) {
                 is platform.Foundation.NSHTTPURLResponse -> {
-                    val statusCode = r.statusCode
+                    val statusCode = response.statusCode
                     if (statusCode in 200..299) {
                         cont.resume(Success(data?.toByteArray() ?: ByteArray(0)))
                     } else {
