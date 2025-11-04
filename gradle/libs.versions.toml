@@ -6,7 +6,7 @@ android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
 
-compose-plugin = "1.9.1"
+compose-plugin = "1.9.2"
 kotlin = "2.2.21"
 sqldelight = "2.1.0"
 dataStoreVersion = "1.1.4"
@@ -74,10 +74,10 @@ moko-permissions-compose = { module ="dev.icerock.moko:permissions-compose", ver
 moko-permissions-notifications = { module ="dev.icerock.moko:permissions-notifications", version.ref = "mokoPermissions" }
 
 # Crash Reporting
-sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.19.0" }
+sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.20.0" }
 
 # Markdown
-markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.37.0" }
+markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.38.1" }
 
 # WebView
 web-view = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "2.0.3" }
