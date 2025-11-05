@@ -338,6 +338,7 @@ class Dependencies(
         GetEnginePreferences(
             preferencesRepository = preferenceRepository,
             getProxyOption = proxyManager::selected,
+            cacheDir = cacheDir,
         )
     }
     private val getFirstRun by lazy { GetFirstRun(preferenceRepository) }

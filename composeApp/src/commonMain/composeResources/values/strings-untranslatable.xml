@@ -16,5 +16,4 @@
     <string name="r2160p_ext" translatable="false">2160p (4k)</string>
 
     <string name="twoParam" translatable="false">%1$s %2$s</string>
-    <string name="engine_mmdb_version" translatable="false">20250801</string>
 </resources>
