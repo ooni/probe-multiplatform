@@ -13,6 +13,7 @@ import kotlin.time.Duration.Companion.seconds
 class GetEnginePreferences(
     private val preferencesRepository: PreferenceRepository,
     private val getProxyOption: () -> Flow<ProxyOption>,
+    private val cacheDir: String,
 ) {
     suspend operator fun invoke() =
         EnginePreferences(
@@ -29,7 +30,7 @@ class GetEnginePreferences(
                 null
             },
             proxy = getProxyOption().first().value,
-            geoipDbVersion = getValueForKey(SettingsKey.MMDB_VERSION) as String?,
+            geoipDbPath = (getValueForKey(SettingsKey.MMDB_VERSION) as String?)?.let { "$cacheDir/$it.mmdb" },
         )
 
     private suspend fun getEnabledCategories(): List<String> {

@@ -7,6 +7,6 @@ data class EnginePreferences(
     val taskLogLevel: TaskLogLevel,
     val uploadResults: Boolean,
     val proxy: String?,
-    val geoipDbVersion: String?,
+    val geoipDbPath: String?,
     val maxRuntime: Duration?,
 )

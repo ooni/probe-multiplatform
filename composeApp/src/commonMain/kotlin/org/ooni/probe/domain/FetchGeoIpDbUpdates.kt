@@ -7,9 +7,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import okio.Path
-import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.engine_mmdb_version
-import org.jetbrains.compose.resources.getString
 import org.ooni.engine.Engine
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.Failure
@@ -28,22 +25,26 @@ class FetchGeoIpDbUpdates(
     private val preferencesRepository: PreferenceRepository,
     private val json: Json,
 ) {
+    companion object {
+        const val GEOIP_DB_VERSION_DEFAULT: String = "20250801"
+        const val GEOIP_DB_REPO: String = "aanorbel/oomplt-mmdb"
+    }
+
     suspend operator fun invoke(): Result<Path?, Engine.MkException> =
         getLatestEngineVersion()
             .onSuccess { version ->
-                val (isLatest, _, latestVersion) = isGeoIpDbLatest(version)
+                val (isLatest, latestVersion) = isGeoIpDbLatest(version)
                 if (isLatest) {
                     return Success(null)
                 } else {
-                    val versionName = latestVersion
-                    val url = buildGeoIpDbUrl(versionName)
-                    val target = "$cacheDir/$versionName.mmdb"
+                    val url = buildGeoIpDbUrl(latestVersion)
+                    val target = "$cacheDir/$latestVersion.mmdb"
 
                     downloadFile(url, target)
                         .onSuccess { downloadedPath ->
                             preferencesRepository.setValueByKey(
                                 SettingsKey.MMDB_VERSION,
-                                versionName,
+                                latestVersion,
                             )
                             preferencesRepository.setValueByKey(
                                 SettingsKey.MMDB_LAST_CHECK,
@@ -60,25 +61,24 @@ class FetchGeoIpDbUpdates(
 
     /**
      * Compare latest and current version integers and return pair of latest state and actual version number
-     * @return Triple<Boolean, String, String> where the first element is true if the DB is the latest,
+     * @return Pair<Boolean, String> where the first element is true if the DB is the latest,
      * the second is the current version and the third is the latest version.
      */
-    private suspend fun isGeoIpDbLatest(latestVersion: String): Triple<Boolean, String, String> {
+    private suspend fun isGeoIpDbLatest(latestVersion: String): Pair<Boolean, String> {
         val currentGeoIpDbVersion: String =
             (
                 preferencesRepository.getValueByKey(SettingsKey.MMDB_VERSION).first()
-                    ?: getString(Res.string.engine_mmdb_version)
+                    ?: GEOIP_DB_VERSION_DEFAULT
             ) as String
 
-        return Triple(
+        return Pair(
             normalize(currentGeoIpDbVersion) >= normalize(latestVersion),
-            currentGeoIpDbVersion,
             latestVersion,
         )
     }
 
     private suspend fun getLatestEngineVersion(): Result<String, MkException> {
-        val url = "https://api.github.com/repos/aanorbel/oomplt-mmdb/releases/latest"
+        val url = "https://api.github.com/repos/${GEOIP_DB_REPO}/releases/latest"
 
         return engineHttpDo("GET", url, TaskOrigin.OoniRun).map { payload ->
             payload?.let {
@@ -96,7 +96,7 @@ class FetchGeoIpDbUpdates(
     }
 
     private fun buildGeoIpDbUrl(version: String): String =
-        "https://github.com/aanorbel/oomplt-mmdb/releases/download/$version/$version-ip2country_as.mmdb"
+        "https://github.com/${GEOIP_DB_REPO}/releases/download/$version/$version-ip2country_as.mmdb"
 
     private fun normalize(tag: String): Int = tag.removePrefix("v").trim().toInt()
 
