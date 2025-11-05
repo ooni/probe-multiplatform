@@ -153,7 +153,7 @@ class Engine(
 
     private fun session(sessionConfig: OonimkallBridge.SessionConfig): OonimkallBridge.Session = bridge.newSession(sessionConfig)
 
-    private suspend fun buildTaskSettings(
+    private fun buildTaskSettings(
         netTest: NetTest,
         taskOrigin: TaskOrigin,
         preferences: EnginePreferences,
