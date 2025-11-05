@@ -64,7 +64,6 @@ class DesktopOonimkallBridge : OonimkallBridge {
             it.softwareVersion = softwareVersion
 
             it.assetsDir = assetsDir
-            // geoipDB may or may not exist in this binding; set via reflection when available
             geoIpDB?.let { path ->
                 it.geoipDB = path
             }
