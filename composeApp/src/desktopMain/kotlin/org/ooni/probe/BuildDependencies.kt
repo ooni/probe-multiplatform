@@ -171,7 +171,13 @@ fun sendMail(action: PlatformAction.Mail): Boolean =
         false
     }
 
-private fun getCountryNameByCode(countryCode: String) = Locale("", countryCode).displayCountry.ifEmpty { countryCode }
+private fun getCountryNameByCode(countryCode: String) =
+    Locale
+        .Builder()
+        .setRegion(countryCode)
+        .build()
+        .displayCountry
+        .ifEmpty { countryCode }
 
 private fun buildMailUri(action: PlatformAction.Mail): URI {
     val subject = URLEncoder.encode(action.subject, StandardCharsets.UTF_8).replace("+", "%20")

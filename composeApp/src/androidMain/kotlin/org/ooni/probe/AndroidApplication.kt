@@ -299,6 +299,10 @@ class AndroidApplication : Application() {
     }
 
     private fun getCountryNameByCode(countryCode: String) =
-        @Suppress("DEPRECATION")
-        Locale("", countryCode).displayCountry.ifEmpty { countryCode }
+        Locale
+            .Builder()
+            .setRegion(countryCode)
+            .build()
+            .displayCountry
+            .ifEmpty { countryCode }
 }
