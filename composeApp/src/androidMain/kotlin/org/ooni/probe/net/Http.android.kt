@@ -11,9 +11,8 @@ import java.net.URL
 
 actual suspend fun httpGetBytes(url: String): Result<ByteArray, GetBytesException> =
     withContext(Dispatchers.IO) {
-        val connection: HttpURLConnection
-        try {
-            connection = URL(url).openConnection() as HttpURLConnection
+        val  connection = try {
+            URL(url).openConnection() as HttpURLConnection
         } catch (e: Throwable) {
             return@withContext Failure(GetBytesException(e))
         }
@@ -27,7 +26,7 @@ actual suspend fun httpGetBytes(url: String): Result<ByteArray, GetBytesExceptio
             val stream = if (code in 200..299) connection.inputStream else connection.errorStream
             val bytes = stream?.use { it.readBytes() } ?: ByteArray(0)
             if (code !in 200..299) {
-                Failure(GetBytesException(RuntimeException("HTTP $code while GET $url: ${String(bytes)}")))
+                Failure(GetBytesException(Exception("HTTP $code while GET $url: ${String(bytes)}")))
             } else {
                 Success(bytes)
             }
