@@ -9,7 +9,6 @@ import kotlinx.serialization.json.Json
 import okio.Path
 import org.ooni.engine.Engine
 import org.ooni.engine.Engine.MkException
-import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
 import org.ooni.engine.models.TaskOrigin
@@ -26,22 +25,22 @@ class FetchGeoIpDbUpdates(
     private val json: Json,
 ) {
     companion object {
-        const val GEOIP_DB_VERSION_DEFAULT: String = "20250801"
-        const val GEOIP_DB_REPO: String = "aanorbel/oomplt-mmdb"
+        private const val GEOIP_DB_VERSION_DEFAULT: String = "20250801"
+        private const val GEOIP_DB_REPO: String = "aanorbel/oomplt-mmdb"
     }
 
-    suspend operator fun invoke(): Result<Path?, Engine.MkException> =
+    suspend operator fun invoke(): Result<Path?, MkException> =
         getLatestEngineVersion()
-            .onSuccess { version ->
+            .flatMap { version ->
                 val (isLatest, latestVersion) = isGeoIpDbLatest(version)
                 if (isLatest) {
-                    return Success(null)
+                    Success(null)
                 } else {
                     val url = buildGeoIpDbUrl(latestVersion)
                     val target = "$cacheDir/$latestVersion.mmdb"
 
                     downloadFile(url, target)
-                        .onSuccess { downloadedPath ->
+                        .flatMap { downloadedPath ->
                             preferencesRepository.setValueByKey(
                                 SettingsKey.MMDB_VERSION,
                                 latestVersion,
@@ -50,14 +49,12 @@ class FetchGeoIpDbUpdates(
                                 SettingsKey.MMDB_LAST_CHECK,
                                 Clock.System.now().toEpochMilliseconds(),
                             )
-                            return Success(downloadedPath)
-                        }.onFailure { downloadError ->
-                            return Failure(Engine.MkException(downloadError))
+                            Success(downloadedPath)
+                        }.mapError { downloadError ->
+                            MkException(downloadError)
                         }
                 }
-            }.onFailure { versionError ->
-                return Failure(versionError)
-            }.let { Failure(Engine.MkException(Throwable("Unexpected state"))) }
+            }
 
     /**
      * Compare latest and current version integers and return pair of latest state and actual version number
@@ -83,7 +80,7 @@ class FetchGeoIpDbUpdates(
         return engineHttpDo("GET", url, TaskOrigin.OoniRun).map { payload ->
             payload?.let {
                 try {
-                    json.decodeFromString(GhRelease.serializer(), payload).tag
+                    json.decodeFromString<GhRelease>(payload).tag
                 } catch (e: SerializationException) {
                     Logger.e(e) { "Failed to decode release info" }
                     null
