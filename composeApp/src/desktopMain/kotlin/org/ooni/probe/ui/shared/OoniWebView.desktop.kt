@@ -3,13 +3,14 @@ package org.ooni.probe.ui.shared
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.SwingPanel
+import co.touchlab.kermit.Logger
 import javafx.application.Platform
 import javafx.concurrent.Worker
 import javafx.embed.swing.JFXPanel
 import javafx.scene.Scene
 import javafx.scene.layout.StackPane
 import javafx.scene.web.WebView
-import java.net.URL
+import java.net.URI
 import kotlin.io.encoding.Base64
 
 @Composable
@@ -63,18 +64,21 @@ actual fun OoniWebView(
                         // Domain restriction
                         engine.locationProperty().addListener { _, _, newLocation ->
                             try {
-                                val host = URL(newLocation).host
+                                val host = URI.create(newLocation).host
                                 val allowed = allowedDomains.any { domain ->
                                     host.matches(Regex("^(.*\\.)?$domain$"))
                                 }
 
                                 if (!allowed) {
-                                    engine.history.go(-1) // go back
-                                    // engine.load("about:blank")
                                     onDisallowedUrl(newLocation)
+                                    // Go back to the initial URL
+                                    engine.history.entries
+                                        .firstOrNull()
+                                        ?.let { engine.load(it.url) }
+                                        ?: engine.load("about:blank")
                                 }
                             } catch (e: Exception) {
-                                // Invalid URL, ignore
+                                Logger.w("Invalid URL $newLocation, ignoring", e)
                             }
                             controller.canGoBack = engine.history.currentIndex > 0
                         }
