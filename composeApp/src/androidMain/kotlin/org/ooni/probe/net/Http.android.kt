@@ -11,7 +11,7 @@ import java.net.URL
 
 actual suspend fun httpGetBytes(url: String): Result<ByteArray, GetBytesException> =
     withContext(Dispatchers.IO) {
-        val  connection = try {
+        val connection = try {
             URL(url).openConnection() as HttpURLConnection
         } catch (e: Throwable) {
             return@withContext Failure(GetBytesException(e))

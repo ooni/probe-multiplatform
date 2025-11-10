@@ -9,6 +9,7 @@ import kotlinx.serialization.json.Json
 import okio.Path
 import org.ooni.engine.Engine
 import org.ooni.engine.Engine.MkException
+import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
 import org.ooni.engine.models.TaskOrigin
@@ -32,7 +33,9 @@ class FetchGeoIpDbUpdates(
     suspend operator fun invoke(): Result<Path?, MkException> =
         getLatestEngineVersion()
             .flatMap { version ->
-                val (isLatest, latestVersion) = isGeoIpDbLatest(version)
+                val latest: String =
+                    version ?: return@flatMap Failure(MkException(IllegalStateException("Failed to fetch latest GeoIP DB release")))
+                val (isLatest, latestVersion) = isGeoIpDbLatest(latest)
                 if (isLatest) {
                     Success(null)
                 } else {
@@ -74,7 +77,7 @@ class FetchGeoIpDbUpdates(
         )
     }
 
-    private suspend fun getLatestEngineVersion(): Result<String, MkException> {
+    private suspend fun getLatestEngineVersion(): Result<String?, MkException> {
         val url = "https://api.github.com/repos/${GEOIP_DB_REPO}/releases/latest"
 
         return engineHttpDo("GET", url, TaskOrigin.OoniRun).map { payload ->
@@ -88,7 +91,7 @@ class FetchGeoIpDbUpdates(
                     Logger.e(e) { "Failed to decode  release info" }
                     null
                 }
-            } ?: throw MkException(Throwable("Failed to fetch latest version"))
+            }
         }
     }
 
