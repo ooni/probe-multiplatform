@@ -157,7 +157,7 @@ fun DescriptorsScreen(
                 val lazyListState = rememberLazyListState()
                 LazyColumn(
                     modifier = Modifier.testTag("Descriptors-List"),
-                    contentPadding = PaddingValues(vertical = 16.dp),
+                    contentPadding = PaddingValues(top = 8.dp, bottom = 16.dp),
                     state = lazyListState,
                 ) {
                     val allSectionsHaveValues = state.sections.all { it.descriptors.any() }
@@ -293,8 +293,8 @@ private fun CheckUpdatesButton(
 @Composable
 private fun Descriptor.matches(filter: String?) =
     filter == null ||
-        title().contains(filter, ignoreCase = true) ||
-        shortDescription()?.contains(filter, ignoreCase = true) == true
+        title().contains(filter.trim(), ignoreCase = true) ||
+        shortDescription()?.contains(filter.trim(), ignoreCase = true) == true
 
 @Preview
 @Composable
