@@ -30,13 +30,31 @@ class FetchGeoIpDbUpdates(
         private const val GEOIP_DB_REPO: String = "aanorbel/oomplt-mmdb"
     }
 
-    suspend operator fun invoke(): Result<Path?, MkException> =
-        getLatestEngineVersion()
+    suspend operator fun invoke(): Result<Path?, MkException> {
+        // Check if we've already checked today
+        val lastCheckMillis = preferencesRepository.getValueByKey(SettingsKey.MMDB_LAST_CHECK).first() as? Long
+        if (lastCheckMillis != null) {
+            val currentTimeMillis = Clock.System.now().toEpochMilliseconds()
+            val oneDayInMillis = 24 * 60 * 60 * 1000L
+            val timeSinceLastCheck = currentTimeMillis - lastCheckMillis
+
+            if (timeSinceLastCheck < oneDayInMillis) {
+                // Less than a day has passed, skip the check
+                return Success(null)
+            }
+        }
+
+        return getLatestEngineVersion()
             .flatMap { version ->
                 val latest: String =
                     version ?: return@flatMap Failure(MkException(IllegalStateException("Failed to fetch latest GeoIP DB release")))
                 val (isLatest, latestVersion) = isGeoIpDbLatest(latest)
                 if (isLatest) {
+                    // Update last check time even when already at latest version
+                    preferencesRepository.setValueByKey(
+                        SettingsKey.MMDB_LAST_CHECK,
+                        Clock.System.now().toEpochMilliseconds(),
+                    )
                     Success(null)
                 } else {
                     val url = buildGeoIpDbUrl(latestVersion)
@@ -58,6 +76,7 @@ class FetchGeoIpDbUpdates(
                         }
                 }
             }
+    }
 
     /**
      * Compare latest and current version integers and return pair of latest state and actual version number
