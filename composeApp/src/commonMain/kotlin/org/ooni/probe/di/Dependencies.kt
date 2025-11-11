@@ -17,7 +17,6 @@ import org.ooni.engine.Engine
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.TaskEventMapper
-import org.ooni.probe.net.httpGetBytes
 import org.ooni.probe.Database
 import org.ooni.probe.background.RunBackgroundTask
 import org.ooni.probe.config.BatteryOptimization
@@ -210,7 +209,6 @@ class Dependencies(
     private val downloader by lazy {
         DownloadFile(
             fileSystem = FileSystem.SYSTEM,
-            fetchBytes = ::httpGetBytes,
         )
     }
 
