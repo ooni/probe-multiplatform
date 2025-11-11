@@ -1,6 +1,19 @@
 name: Desktop package apps
 on:
   workflow_dispatch:
+    inputs:
+      macOS:
+        description: 'MacOS'
+        required: false
+        type: boolean
+      windows:
+        description: 'Windows'
+        required: false
+        type: boolean
+      linux:
+        description: 'Linux'
+        required: false
+        type: boolean
 
 concurrency:
   group: desktop-packaging-${{ github.ref }}
@@ -9,6 +22,7 @@ concurrency:
 jobs:
   package-macos:
     name: Package macOS app
+    if: ${{ inputs.macOS }}
     runs-on: macos-latest
     env:
       ORGANIZATION: ooni
@@ -51,6 +65,7 @@ jobs:
 
   package-windows:
     name: Package Windows app
+    if: ${{ inputs.windows }}
     runs-on: windows-latest
     env:
       ORGANIZATION: ooni
@@ -85,6 +100,7 @@ jobs:
 
   package-linux:
     name: Package Linux app
+    if: ${{ inputs.linux }}
     runs-on: ubuntu-latest
     env:
       ORGANIZATION: ooni
