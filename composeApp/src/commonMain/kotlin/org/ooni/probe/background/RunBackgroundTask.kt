@@ -60,7 +60,7 @@ class RunBackgroundTask(
                 }
 
                 if (spec is RunSpecification.OnlyUploadMissingResults) {
-                    setRunBackgroundState { RunBackgroundState.Idle() }
+                    setRunBackgroundState { RunBackgroundState.Idle }
                     return@withTransaction
                 }
 
@@ -109,7 +109,7 @@ class RunBackgroundTask(
         cancelListenerCallback?.dismiss()
 
         if (isCancelled) {
-            updateState(RunBackgroundState.Idle())
+            updateState(RunBackgroundState.Idle)
             return true
         }
 
