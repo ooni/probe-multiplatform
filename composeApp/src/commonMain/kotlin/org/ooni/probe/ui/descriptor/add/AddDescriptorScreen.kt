@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRun
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoUpdate
@@ -174,26 +175,43 @@ fun AddDescriptorScreen(
                     .padding(horizontal = 16.dp)
                     .padding(WindowInsets.navigationBars.asPaddingValues())
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement =
+                    if (!descriptor.isExpired) Arrangement.SpaceBetween else Arrangement.Center,
             ) {
-                TextButton(
-                    onClick = { onEvent(AddDescriptorViewModel.Event.InstallClicked) },
-                ) {
-                    Text(stringResource(Res.string.AddDescriptor_InstallForLater))
-                }
+                if (!descriptor.isExpired) {
+                    TextButton(
+                        onClick = { onEvent(AddDescriptorViewModel.Event.InstallClicked) },
+                    ) {
+                        Text(
+                            stringResource(Res.string.AddDescriptor_InstallForLater),
+                            textAlign = TextAlign.Center,
+                        )
+                    }
 
-                Button(
-                    onClick = { onEvent(AddDescriptorViewModel.Event.RunClicked) },
-                ) {
-                    Text(
-                        stringResource(Res.string.AddDescriptor_InstallAndRun),
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                    Icon(
-                        painterResource(Res.drawable.ic_timer),
-                        contentDescription = null,
-                        modifier = Modifier.padding(start = 8.dp),
-                    )
+                    Button(
+                        onClick = { onEvent(AddDescriptorViewModel.Event.RunClicked) },
+                    ) {
+                        Text(
+                            stringResource(Res.string.AddDescriptor_InstallAndRun),
+                            style = MaterialTheme.typography.titleLarge,
+                            textAlign = TextAlign.Center,
+                        )
+                        Icon(
+                            painterResource(Res.drawable.ic_timer),
+                            contentDescription = null,
+                            modifier = Modifier.padding(start = 8.dp),
+                        )
+                    }
+                } else {
+                    Button(
+                        onClick = { onEvent(AddDescriptorViewModel.Event.InstallClicked) },
+                    ) {
+                        Text(
+                            stringResource(Res.string.AddDescriptor_InstallForLater),
+                            style = MaterialTheme.typography.titleLarge,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
                 }
             }
         }
