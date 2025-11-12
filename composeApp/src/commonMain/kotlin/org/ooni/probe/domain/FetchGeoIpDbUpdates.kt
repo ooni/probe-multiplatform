@@ -2,11 +2,14 @@ package org.ooni.probe.domain
 
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
+import okio.FileSystem
 import okio.Path
+import okio.Path.Companion.toPath
 import org.ooni.engine.Engine
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.Failure
@@ -16,6 +19,7 @@ import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.GetBytesException
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
+import kotlin.coroutines.CoroutineContext
 import kotlin.time.Clock
 
 class FetchGeoIpDbUpdates(
@@ -24,7 +28,9 @@ class FetchGeoIpDbUpdates(
     private val engineHttpDo: suspend (method: String, url: String, taskOrigin: TaskOrigin) -> Result<String?, Engine.MkException>,
     private val preferencesRepository: PreferenceRepository,
     private val json: Json,
-) {
+    private val fileSystem: FileSystem,
+    private val backgroundContext: CoroutineContext,
+    ) {
     companion object {
         private const val GEOIP_DB_VERSION_DEFAULT: String = "20250801"
         private const val GEOIP_DB_REPO: String = "aanorbel/oomplt-mmdb"
@@ -62,6 +68,10 @@ class FetchGeoIpDbUpdates(
 
                     downloadFile(url, target)
                         .flatMap { downloadedPath ->
+                            withContext(backgroundContext){
+                                // Cleanup other mmdb files other than the latest
+                                cleanupOldMmdbFiles(latestVersion)
+                            }
                             preferencesRepository.setValueByKey(
                                 SettingsKey.MMDB_VERSION,
                                 latestVersion,
@@ -118,6 +128,36 @@ class FetchGeoIpDbUpdates(
         "https://github.com/${GEOIP_DB_REPO}/releases/download/$version/$version-ip2country_as.mmdb"
 
     private fun normalize(tag: String): Int = tag.removePrefix("v").trim().toInt()
+
+    /**
+     * Delete all .mmdb files in the cache directory except for the specified version.
+     * @param keepVersion The version of the mmdb file to keep (e.g., "20250801")
+     */
+    private fun cleanupOldMmdbFiles(keepVersion: String) {
+        try {
+            val cacheDirPath = cacheDir.toPath()
+            if (!fileSystem.exists(cacheDirPath)) {
+                return
+            }
+
+            val files = fileSystem.list(cacheDirPath)
+            val keepFileName = "$keepVersion.mmdb"
+
+            files.forEach { filePath ->
+                val fileName = filePath.name
+                if (fileName.endsWith(".mmdb") && fileName != keepFileName) {
+                    try {
+                        fileSystem.delete(filePath)
+                        Logger.d { "Deleted old MMDB file: $fileName" }
+                    } catch (e: Exception) {
+                        Logger.e(e) { "Failed to delete old MMDB file: $fileName" }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Logger.e(e) { "Failed to cleanup old MMDB files" }
+        }
+    }
 
     @Serializable
     data class GhRelease(

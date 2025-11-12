@@ -219,6 +219,8 @@ class Dependencies(
             engineHttpDo = engine::httpDo,
             json = json,
             preferencesRepository = preferenceRepository,
+            fileSystem = FileSystem.SYSTEM,
+            backgroundContext = backgroundContext
         )
     }
 
