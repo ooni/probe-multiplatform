@@ -30,7 +30,7 @@ class FetchGeoIpDbUpdates(
     private val json: Json,
     private val fileSystem: FileSystem,
     private val backgroundContext: CoroutineContext,
-    ) {
+) {
     companion object {
         private const val GEOIP_DB_VERSION_DEFAULT: String = "20250801"
         private const val GEOIP_DB_REPO: String = "aanorbel/oomplt-mmdb"
@@ -68,7 +68,7 @@ class FetchGeoIpDbUpdates(
 
                     downloadFile(url, target)
                         .flatMap { downloadedPath ->
-                            withContext(backgroundContext){
+                            withContext(backgroundContext) {
                                 // Cleanup other mmdb files other than the latest
                                 cleanupOldMmdbFiles(latestVersion)
                             }
