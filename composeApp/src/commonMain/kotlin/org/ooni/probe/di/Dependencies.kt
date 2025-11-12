@@ -220,7 +220,7 @@ class Dependencies(
             json = json,
             preferencesRepository = preferenceRepository,
             fileSystem = FileSystem.SYSTEM,
-            backgroundContext = backgroundContext
+            backgroundContext = backgroundContext,
         )
     }
 
