@@ -1,12 +1,18 @@
 name: 'Setup'
 description: 'Setup Java, checkout and setup gradle'
+
+inputs:
+  java_version:
+    required: false
+    default: '17'
+
 runs:
   using: "composite"
   steps:
-    - name: Set up JDK 17
+    - name: Set up JDK
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: ${{ inputs.java_version }}
         distribution: 'temurin'
 
     - name: Gradle cache
