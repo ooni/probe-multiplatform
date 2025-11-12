@@ -36,13 +36,12 @@ class DownloadFile(
         }
     }
 
-
     /**
      * Perform a simple HTTP GET and return the raw response body bytes.
      * Uses Ktor HttpClient for cross-platform HTTP operations.
      */
     suspend fun fetchBytes(url: String): Result<ByteArray, GetBytesException> {
-         val client: HttpClient = HttpClient()
+        val client = HttpClient()
 
         return try {
             val response = client.get(url)
@@ -53,8 +52,8 @@ class DownloadFile(
             } else {
                 Failure(
                     GetBytesException(
-                        Exception("HTTP ${response.status.value} while GET $url: ${bytes.decodeToString()}")
-                    )
+                        Exception("HTTP ${response.status.value} while GET $url: ${bytes.decodeToString()}"),
+                    ),
                 )
             }
         } catch (e: Throwable) {
