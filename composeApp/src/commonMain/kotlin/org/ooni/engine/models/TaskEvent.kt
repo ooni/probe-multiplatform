@@ -15,6 +15,7 @@ sealed interface TaskEvent {
         val ip: String?,
         val asn: String?,
         val countryCode: String?,
+        val geoIpdb: String?,
         val networkType: NetworkType,
     ) : TaskEvent
 

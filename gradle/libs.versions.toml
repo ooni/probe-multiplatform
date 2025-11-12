@@ -12,6 +12,7 @@ sqldelight = "2.1.0"
 dataStoreVersion = "1.1.4"
 junitKtx = "1.3.0"
 mokoPermissions = "0.20.1"
+ktor = "3.3.1"
 
 [plugins]
 
@@ -48,6 +49,10 @@ window-size = { module = "org.jetbrains.compose.material3:material3-window-size-
 back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-plugin" }
 material-icons = { module = "org.jetbrains.compose.material:material-icons-core", version = "1.7.3" }
 dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.7.4" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-jvm = { module = "io.ktor:ktor-client-java", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 
 # Preferences
 androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStoreVersion" }
@@ -106,7 +111,7 @@ fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" 
 auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.7.0"}
 directories = { module = "dev.dirs:directories", version = "26" }
 pratanumandal-unique = { module = "tk.pratanumandal:unique4j", version = "1.4" }
-desktop-oonimkall = { module = "org.ooni:oonimkall", version = "3.27.0-desktop" }
+desktop-oonimkall = { module = "org.ooni:oonimkall", version = "3.28.0-alpha-desktop" }
 
 [bundles]
 
@@ -132,6 +137,7 @@ tooling = [
     "markdown",
     "kottie",
     "web-view",
+    "ktor-client-core",
 ]
 android = [
 #    "android-oonimkall",
@@ -140,6 +146,10 @@ android = [
     "android-work",
     "sqldelight-android",
     "android-appcompat",
+    "ktor-client-okhttp",
+]
+ios = [
+    "ktor-client-darwin"
 ]
 mobile = [
     "moko-permissions-compose",
@@ -151,7 +161,8 @@ desktop = [
     "directories",
     "auto-launch",
     "pratanumandal-unique",
-    "desktop-oonimkall"
+    "desktop-oonimkall",
+    "ktor-client-jvm",
 ]
 full = [
     "sentry",

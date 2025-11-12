@@ -99,6 +99,7 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.sqldelight.native)
             implementation(libs.bundles.mobile)
+            implementation(libs.bundles.ios)
         }
         val desktopMain by getting {
             dependencies {
@@ -290,8 +291,8 @@ android {
         coreLibraryDesugaring(libs.android.desugar.jdk)
         debugImplementation(compose.uiTooling)
         "fullImplementation"(libs.bundles.full.android)
-        "fullImplementation"("org.ooni:oonimkall:3.27.0-android:@aar")
-        "fdroidImplementation"("org.ooni:oonimkall:3.27.0-android:@aar")
+        "fullImplementation"("org.ooni:oonimkall:3.28.0-alpha-android:@aar")
+        "fdroidImplementation"("org.ooni:oonimkall:3.28.0-alpha-android:@aar")
         "xperimentalImplementation"(files("libs/android-oonimkall.aar"))
         androidTestUtil(libs.android.orchestrator)
     }
