@@ -2,6 +2,7 @@ package org.ooni.probe.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import okio.Path.Companion.toPath
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.TaskLogLevel
 import org.ooni.engine.models.WebConnectivityCategory
@@ -30,7 +31,7 @@ class GetEnginePreferences(
                 null
             },
             proxy = getProxyOption().first().value,
-            geoipDbPath = (getValueForKey(SettingsKey.MMDB_VERSION) as String?)?.let { "$cacheDir/$it.mmdb" },
+            geoipDbPath = (getValueForKey(SettingsKey.MMDB_VERSION) as? String)?.let { cacheDir.toPath().resolve("$it.mmdb").toString() },
         )
 
     private suspend fun getEnabledCategories(): List<String> {
