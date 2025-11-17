@@ -64,8 +64,13 @@ class FetchGeoIpDbUpdates(
                     Success(null)
                 } else {
                     val url = buildGeoIpDbUrl(latestVersion)
-                    val target = "$cacheDir/$latestVersion.mmdb"
-
+                    val target = run {
+                        val cacheDirPath = cacheDir.toPath()
+                        if (!fileSystem.exists(cacheDirPath)) {
+                            fileSystem.createDirectories(cacheDirPath)
+                        }
+                        cacheDirPath.resolve("$latestVersion.mmdb").toString()
+                    }
                     downloadFile(url, target)
                         .flatMap { downloadedPath ->
                             withContext(backgroundContext) {
