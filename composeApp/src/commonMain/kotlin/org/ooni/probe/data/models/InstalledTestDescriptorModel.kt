@@ -21,6 +21,7 @@ import org.ooni.engine.models.SummaryType
 import org.ooni.probe.data.TestDescriptor
 import org.ooni.probe.shared.InstalledDescriptorIcons
 import org.ooni.probe.shared.hexToColor
+import org.ooni.probe.shared.now
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.shared.toEpoch
 
@@ -61,6 +62,8 @@ data class InstalledTestDescriptorModel(
 
     val previousRevisions
         get() = if (revision <= 1) emptyList() else (1 until revision).toList().reversed()
+
+    val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 }
 
 fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = UpdateStatus.Unknown) =
