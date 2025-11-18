@@ -2,6 +2,7 @@ import com.android.build.api.variant.FilterConfiguration.FilterType.ABI
 import java.time.LocalDate
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.compose.desktop.application.tasks.AbstractJPackageTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
@@ -474,6 +475,13 @@ compose.desktop {
             "-Dapp.version.name=${android.defaultConfig.versionName}",
             "-Dapp.version.code=${android.defaultConfig.versionCode}",
         )
+    }
+}
+
+// Set macOS DMG volume icon
+tasks.withType<AbstractJPackageTask>().all {
+    if (targetFormat == TargetFormat.Dmg) {
+        freeArgs.addAll("--icon", rootProject.file("icons/app.icns").absolutePath)
     }
 }
 
