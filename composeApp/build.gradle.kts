@@ -131,6 +131,7 @@ kotlin {
                 optIn("kotlin.io.encoding.ExperimentalEncodingApi")
                 optIn("kotlin.time.ExperimentalTime")
                 optIn("kotlinx.cinterop.ExperimentalForeignApi")
+                optIn("kotlinx.coroutines.DelicateCoroutinesApi")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 optIn("kotlinx.coroutines.FlowPreview")
                 optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
