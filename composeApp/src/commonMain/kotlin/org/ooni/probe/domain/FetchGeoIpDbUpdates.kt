@@ -21,6 +21,8 @@ import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Clock
+import kotlin.time.Duration.Companion.days
+import kotlin.time.Instant
 
 class FetchGeoIpDbUpdates(
     private val downloadFile: suspend (url: String, absoluteTargetPath: String) -> Result<Path, GetBytesException>,
@@ -40,11 +42,7 @@ class FetchGeoIpDbUpdates(
         // Check if we've already checked today
         val lastCheckMillis = preferencesRepository.getValueByKey(SettingsKey.MMDB_LAST_CHECK).first() as? Long
         if (lastCheckMillis != null) {
-            val currentTimeMillis = Clock.System.now().toEpochMilliseconds()
-            val oneDayInMillis = 24 * 60 * 60 * 1000L
-            val timeSinceLastCheck = currentTimeMillis - lastCheckMillis
-
-            if (timeSinceLastCheck < oneDayInMillis) {
+            if (Clock.System.now() - Instant.fromEpochMilliseconds(lastCheckMillis) < 1.days) {
                 // Less than a day has passed, skip the check
                 return Success(null)
             }
