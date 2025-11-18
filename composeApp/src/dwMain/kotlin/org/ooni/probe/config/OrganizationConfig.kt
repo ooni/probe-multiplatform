@@ -15,4 +15,6 @@ object OrganizationConfig : OrganizationConfigInterface {
     )
     override val hasWebsitesDescriptor = false
     override val donateUrl = null
+    override val hasOoniNews = false
+    override val canInstallDescriptors = false
 }

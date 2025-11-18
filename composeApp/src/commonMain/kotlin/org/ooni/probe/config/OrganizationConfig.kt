@@ -10,6 +10,8 @@ interface OrganizationConfigInterface {
     val updateDescriptorTaskId: String
     val hasWebsitesDescriptor: Boolean
     val donateUrl: String?
+    val hasOoniNews: Boolean
+    val canInstallDescriptors: Boolean
 
     val ooniApiBaseUrl get() = BuildTypeDefaults.ooniApiBaseUrl
     val ooniRunDomain get() = BuildTypeDefaults.ooniRunDomain

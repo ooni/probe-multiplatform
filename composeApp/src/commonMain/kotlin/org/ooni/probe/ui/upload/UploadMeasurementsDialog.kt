@@ -33,7 +33,7 @@ fun UploadMeasurementsDialog(
     state: UploadMissingMeasurements.State,
     onEvent: (UploadMeasurementsViewModel.Event) -> Unit,
 ) {
-    Surface {
+    Surface(shape = MaterialTheme.shapes.medium) {
         Column(
             modifier = Modifier
                 .padding(16.dp)

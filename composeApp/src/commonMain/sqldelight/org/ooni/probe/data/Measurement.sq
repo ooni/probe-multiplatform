@@ -123,3 +123,7 @@ SELECT * FROM Measurement
 LEFT JOIN Url ON Measurement.url_id = Url.id
 WHERE Measurement.id = :measurementId
 LIMIT 1;
+
+countFromStartTime:
+SELECT COUNT(*) FROM Measurement
+WHERE Measurement.start_time > :fromStartTime AND Measurement.is_done = 1;
