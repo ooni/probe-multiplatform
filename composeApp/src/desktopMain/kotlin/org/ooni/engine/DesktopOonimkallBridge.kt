@@ -64,6 +64,9 @@ class DesktopOonimkallBridge : OonimkallBridge {
             it.softwareVersion = softwareVersion
 
             it.assetsDir = assetsDir
+            geoIpDB?.let { path ->
+                it.geoipDB = path
+            }
             it.stateDir = stateDir
             it.tempDir = tempDir
             it.tunnelDir = tunnelDir

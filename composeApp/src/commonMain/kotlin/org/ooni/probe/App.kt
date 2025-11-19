@@ -120,6 +120,9 @@ fun App(
         // dependencies.startSingleRunInner(RunSpecification.OnlyUploadMissingResults)
     }
     LaunchedEffect(Unit) {
+        dependencies.fetchGeoIpDbUpdates()
+    }
+    LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoUpdate()
     }
     LaunchedEffect(Unit) {

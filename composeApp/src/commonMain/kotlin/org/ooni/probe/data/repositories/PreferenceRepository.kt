@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import kotlinx.coroutines.flow.Flow
@@ -80,6 +81,10 @@ class PreferenceRepository(
             SettingsKey.DELETE_OLD_RESULTS_THRESHOLD,
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
 
+            SettingsKey.MMDB_LAST_CHECK,
+            -> PreferenceKey.LongKey(longPreferencesKey(preferenceKey))
+
+            SettingsKey.MMDB_VERSION,
             SettingsKey.LEGACY_PROXY_HOSTNAME,
             SettingsKey.LEGACY_PROXY_PROTOCOL,
             SettingsKey.PROXY_SELECTED,
