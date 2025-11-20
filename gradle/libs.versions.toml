@@ -36,7 +36,7 @@ kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version =
 android-desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.5" }
 
 # UI
-android-activity = { module = "androidx.activity:activity-ktx", version = "1.11.0" }
+android-activity = { module = "androidx.activity:activity-ktx", version = "1.12.0" }
 android-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.9" }
 android-work = { module = "androidx.work:work-runtime-ktx", version = "2.11.0" }
 android-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.1" }
@@ -97,8 +97,8 @@ android-orchestrator = { module = "androidx.test:orchestrator", version = "1.6.1
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 android-test-runner = { module = "androidx.test:runner", version = "1.7.0" }
 android-test-rules = { module = "androidx.test:rules", version = "1.7.0" }
-androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test", version = "1.9.4" }
-androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.9.4" }
+androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test", version = "1.9.5" }
+androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.9.5" }
 androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.7.0" }
 fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" }
 
@@ -106,7 +106,7 @@ fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" 
 auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.7.0"}
 directories = { module = "dev.dirs:directories", version = "26" }
 pratanumandal-unique = { module = "tk.pratanumandal:unique4j", version = "1.4" }
-desktop-oonimkall = { module = "org.ooni:oonimkall", version = "3.27.0-desktop" }
+desktop-oonimkall = { module = "org.ooni:oonimkall", version = "3.28.0-desktop" }
 
 [bundles]
 
