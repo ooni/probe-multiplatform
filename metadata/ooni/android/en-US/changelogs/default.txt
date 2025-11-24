@@ -1,2 +1,3 @@
-* Measurement engine updated to OONI Probe CLI v3.27.0
+* Measurement engine updated to OONI Probe CLI v3.28.0
+* Usability improvements for OONI Run Links
 * Various minor bug fixes and enhancements
