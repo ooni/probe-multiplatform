@@ -105,7 +105,7 @@ fun MeasurementScreen(
 
         if (state !is MeasurementViewModel.State.ShowMeasurement) return@Column
 
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize().background(Color.White)) {
             val isFailure = controller.state is OoniWebViewController.State.Failure
 
             OoniWebView(
@@ -113,6 +113,7 @@ fun MeasurementScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .alpha(if (isFailure) 0f else 1f)
+                    .background(Color.White)
                     .padding(WindowInsets.navigationBars.asPaddingValues()),
             )
 
