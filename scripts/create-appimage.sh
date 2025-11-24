@@ -53,7 +53,7 @@ log.highlight() {
 
 # Configuration
 APP_NAME="OONI Probe"
-APP_ID="org.ooni.probe"
+APP_ID="org.ooni.probe-desktop"
 DESKTOP_FILE_NAME="ooniprobe"
 BUILD_DIR="${PROJECT_ROOT}/composeApp/build/compose/binaries/main/app"
 DIST_DIR="${BUILD_DIR}/${APP_NAME}"
