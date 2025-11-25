@@ -76,14 +76,14 @@ private fun Project.registerSparkleTask() {
         destDir.set(
             providers.gradleProperty("sparkleExtractDir")
                 .map { layout.projectDirectory.dir(it) }
-                .orElse(layout.buildDirectory.dir("processedResources/desktop/main/macos/")),
+                .orElse(layout.buildDirectory.dir("tmp/desktop/main/macos/")),
         )
     }
 
     tasks.register("generateSparkleAppCast", GenerateSparkleAppCastTask::class) {
         group = "setup"
         description = "Generates Sparkle appcast using the specified DMG file."
-        onlyIf { 
+        onlyIf {
             val privateKeyFile = rootProject.file("certificates/sparkle_eddsa_private.pem")
             if (!isMac()) {
                 logger.info("Skipping generateSparkleAppCast: Not running on macOS")
@@ -108,7 +108,8 @@ private fun Project.registerSparkleTask() {
 private fun Project.registerWinSparkleTask() {
     tasks.register("setupWinSparkle", WinSparkleSetupTask::class) {
         group = "setup"
-        description = "Downloads WinSparkle and extracts WinSparkle.dll to the destination directory"
+        description =
+            "Downloads WinSparkle and extracts WinSparkle.dll to the destination directory"
         onlyIf { System.getProperty("os.name").lowercase().contains("win") }
         winSparkleVersion.set(providers.gradleProperty("winSparkleVersion").orElse("0.9.1"))
         destDir.set(
@@ -172,26 +173,61 @@ private fun Project.registerOONIDistributableTask() {
             }
 
             val sparkleFramework =
-                layout.buildDirectory.dir("processedResources/desktop/main/macos/Sparkle.framework")
-                    .get()
+                layout.buildDirectory.dir("tmp/desktop/main/macos/Sparkle.framework").get().asFile
             val appSparkleLocation = appDirs.first().resolve("Contents/app/resources")
 
-            project.logger.lifecycle("Sparkle.framework location: ${sparkleFramework.asFile.absolutePath}")
+            project.logger.lifecycle("Sparkle.framework location: ${sparkleFramework.absolutePath}")
             project.logger.lifecycle("Desired Sparkle.framework location: ${appSparkleLocation.absolutePath}")
+
+            // Sign the Sparkle framework
+            fun signSparkle(path: String) {
+                macOsCodeSign(sparkleFramework.resolve(path).absolutePath)
+            }
+            signSparkle("Versions/B/XPCServices/Installer.xpc")
+            signSparkle("Versions/B/XPCServices/Downloader.xpc")
+            signSparkle("Versions/B/Autoupdate")
+            signSparkle("Versions/B/Updater.app")
+            signSparkle("") // root folder
 
             project.exec {
                 commandLine(
                     "cp",
                     "-a",
-                    sparkleFramework.asFile.absolutePath,
+                    sparkleFramework.absolutePath,
                     appSparkleLocation.absolutePath
                 )
             }
 
+            // Sign the .app file
+            macOsCodeSign(appDirs.first().absolutePath)
 
             project.logger.lifecycle("Distributable output directory: ${outputDir.absolutePath}")
-
         }
+    }
+}
+
+private fun Project.macOsCodeSign(path: String) {
+    val sign = project.property("compose.desktop.mac.sign")
+    if (sign != true && sign != "true") return
+    val identity = project.property("compose.desktop.mac.signing.identity") ?: run {
+        project.logger.warn("Missing signing identity")
+        return
+    }
+
+    project.logger.debug("Signing $path")
+    project.exec {
+        commandLine(
+            "codesign",
+            "-f",
+            "-s",
+            identity,
+            "-o",
+            "runtime",
+            "--timestamp",
+            "--deep",
+            "--preserve-metadata=entitlements",
+            path
+        )
     }
 }
 
@@ -277,7 +313,10 @@ private fun Project.configureJavaExecTasks() {
     tasks.withType<JavaExec> {
         systemProperty(
             "java.library.path",
-            "${layout.buildDirectory.dir("processedResources/desktop/main/macos").get().asFile.absolutePath}" +
+            "${
+                layout.buildDirectory.dir("processedResources/desktop/main/macos")
+                    .get().asFile.absolutePath
+            }" +
                 File.pathSeparator +
                 "$projectDir/src/desktopMain/resources/windows" +
                 File.pathSeparator +

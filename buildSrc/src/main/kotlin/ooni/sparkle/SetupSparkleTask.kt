@@ -69,10 +69,6 @@ abstract class SetupSparkleTask : DefaultTask() {
         project.exec {
             commandLine("cp", "-a", frameworkDir.absolutePath, dest.absolutePath)
         }
-        /*project.copy {
-            from(frameworkDir)
-            into(dest)
-        }*/
 
         versionMarker.writeText(versionStr)
         project.logger.lifecycle("Sparkle.framework is ready at ${dest.absolutePath}")
