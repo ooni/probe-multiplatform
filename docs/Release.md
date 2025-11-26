@@ -52,11 +52,11 @@ For Android and Desktop, update the `versionCode` and `versionName` at
 For iOS, update the `BUNDLE_VERSION` to match `versionCode` and `APP_VERSION` to match `versionName`
 at `iosApp/Configuration/Config.xcconfig`.
 
-- Run the Xcode Cloud workflow if not triggered automatically to ensure all iOS related actions for release are able to run.
-    It may fail due to differences in Xcode versions, macOS versions, or CI configuration.
-    Use the build logs to diagnose and fix any issues, then re-run the build.
+##### 1.2.1 Run Xcode Cloud workflow
 
-- Once the build passes, update the build number under **Xcode Cloud > CI/CD > Settings** to match your release versioning.
+Run the Xcode Cloud workflow if not triggered automatically to ensure all iOS related actions for release are able to run. It may fail due to differences in Xcode versions, macOS versions, or CI configuration. Use the build logs to diagnose and fix any issues, then re-run the build.
+
+Once the build passes, update the build number under [**Xcode Cloud > CI/CD > Settings**](https://developer.apple.com/documentation/xcode/setting-the-next-build-number-for-xcode-cloud-builds#Set-the-next-build-number-to-a-custom-value) to match your release versioning.
 
 #### 1.3 Release notes
 
