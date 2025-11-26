@@ -94,6 +94,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultFilter
+import org.ooni.probe.data.models.ResultsStats
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.shared.today
 import org.ooni.probe.ui.shared.LightStatusBars
@@ -250,7 +251,7 @@ fun ResultsScreen(
             EmptyResults(anyFilterSelected = !state.filter.isAll)
         } else {
             if (!isHeightCompact() && !state.selectionEnabled) {
-                Summary(state.summary)
+                Stats(state.stats)
             }
 
             if (state.anyMissingUpload && state.filter.isAll && !state.selectionEnabled) {
@@ -432,8 +433,8 @@ private fun EmptyResults(anyFilterSelected: Boolean) {
 }
 
 @Composable
-private fun Summary(summary: ResultsViewModel.Summary?) {
-    if (summary == null) return
+private fun Stats(stats: ResultsStats?) {
+    if (stats == null) return
     Surface(color = MaterialTheme.colorScheme.primaryContainer) {
         Row(
             modifier = Modifier
@@ -451,7 +452,7 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
                     modifier = Modifier.padding(bottom = 8.dp),
                 )
                 Text(
-                    summary.resultsCount.toString(),
+                    stats.total.toString(),
                     style = MaterialTheme.typography.headlineMedium,
                 )
             }
@@ -468,7 +469,7 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
                     modifier = Modifier.padding(bottom = 8.dp),
                 )
                 Text(
-                    summary.networksCount.toString(),
+                    stats.networks.toString(),
                     style = MaterialTheme.typography.headlineMedium,
                 )
             }
@@ -492,7 +493,7 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
                         contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Download),
                         modifier = Modifier.size(16.dp).padding(end = 4.dp),
                     )
-                    Text(summary.dataUsageDown.formatDataUsage())
+                    Text(stats.dataUsageDown.formatDataUsage())
                 }
                 Row(
                     modifier = Modifier.padding(top = 2.dp),
@@ -503,7 +504,7 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
                         contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Upload),
                         modifier = Modifier.size(16.dp).padding(end = 4.dp),
                     )
-                    Text(summary.dataUsageUp.formatDataUsage())
+                    Text(stats.dataUsageUp.formatDataUsage())
                 }
             }
         }
