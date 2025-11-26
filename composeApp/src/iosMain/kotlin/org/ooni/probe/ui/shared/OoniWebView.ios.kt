@@ -8,6 +8,7 @@ import com.multiplatform.webview.web.LoadingState
 import com.multiplatform.webview.web.WebView
 import com.multiplatform.webview.web.rememberWebViewNavigator
 import com.multiplatform.webview.web.rememberWebViewState
+import platform.UIKit.UIColor
 import platform.WebKit.WKContentRuleListStore
 
 @Composable
@@ -39,6 +40,7 @@ actual fun OoniWebView(
         captureBackPresses = true,
         modifier = modifier,
         onCreated = {
+            it.backgroundColor = UIColor.whiteColor
             val blockRules = """
             [{
                 "trigger": {
@@ -59,7 +61,7 @@ actual fun OoniWebView(
                     Logger.w("Error compiling WKWebView content block rules: ${error?.localizedDescription()}")
                     return@compileContentRuleListForIdentifier
                 }
-
+                state.nativeWebView.backgroundColor = UIColor.whiteColor
                 state.nativeWebView.configuration.userContentController.addContentRuleList(
                     contentRuleList,
                 )
