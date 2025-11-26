@@ -365,7 +365,7 @@ compose.desktop {
             val appResource = project.layout.projectDirectory.dir("src/desktopMain/resources/")
             println(" Project directory: $appResource")
             appResourcesRootDir.set(appResource)
-            val appId = "org.ooni.probe"
+            val appId = "org.ooni.probe-desktop"
 
             macOS {
                 minimumSystemVersion = "12.0.0"

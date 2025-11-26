@@ -29,8 +29,8 @@
 		<string>com.apple.WebKit.GPU</string>
 		<string>com.apple.WebKit.Networking</string>
 		<!-- App-specific -->
-		<string>org.ooni.probe-spks</string>
-		<string>org.ooni.probe-spki</string>
+		<string>org.ooni.probe-desktop-spks</string>
+		<string>org.ooni.probe-desktop-spki</string>
 
 		<string>com.apple.installer.installer</string>
 		<string>com.apple.installer.installer.helper</string>
@@ -52,8 +52,8 @@
 		<string>com.apple.WebKit.GPU</string>
 		<string>com.apple.WebKit.Networking</string>
 		<!-- App-specific -->
-		<string>org.ooni.probe-spks</string>
-		<string>org.ooni.probe-spki</string>
+		<string>org.ooni.probe-desktop-spks</string>
+		<string>org.ooni.probe-desktop-spki</string>
 
 		<string>com.apple.installer.installer</string>
 		<string>com.apple.installer.installer.helper</string>
@@ -62,7 +62,7 @@
 	<!-- Shared Preferences -->
 	<key>com.apple.security.temporary-exception.shared-preference.read-write</key>
 	<array>
-		<string>org.ooni.probe</string>
+		<string>org.ooni.probe-desktop</string>
 	</array>
 
 	<!-- Code Signing Exceptions -->
