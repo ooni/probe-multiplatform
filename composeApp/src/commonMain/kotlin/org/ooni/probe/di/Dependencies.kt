@@ -668,6 +668,7 @@ class Dependencies(
         goToResult = goToResult,
         goToUpload = goToUpload,
         getResults = getResults::invoke,
+        getResultsStats = resultRepository::countByFilter,
         getDescriptors = getTestDescriptors::latest,
         getNetworks = networkRepository::list,
         deleteResultsByFilter = deleteResults::byFilter,
