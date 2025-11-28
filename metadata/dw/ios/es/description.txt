@@ -1,0 +1,5 @@
+Descubra si puede acceder a los sitios de noticias que necesita o si están bloqueados
+
+News Media Scan de DW le ofrece la transparencia que necesita. Además, contribuirá valiosamente a la comunidad global de "Libertad en Internet" al ayudar a desenmascarar la censura en todo el mundo.
+
+Esta aplicación es el producto de una estrecha cooperación entre Deutsche Welle (DW) y OONI.
