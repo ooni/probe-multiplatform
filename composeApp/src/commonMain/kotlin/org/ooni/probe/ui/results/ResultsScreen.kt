@@ -32,7 +32,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -74,14 +73,13 @@ import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Sel
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Selection_None
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
+import ooniprobe.composeapp.generated.resources.TestResults
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_DeleteConfirmation
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_NoTestsFound
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Networks
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Tests
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_NoTestsHaveBeenRun
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
 import ooniprobe.composeapp.generated.resources.ic_delete_all
@@ -94,12 +92,12 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultFilter
+import org.ooni.probe.shared.formatDataUsage
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.shared.today
 import org.ooni.probe.ui.shared.LightStatusBars
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
-import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
 
 @Composable
@@ -121,7 +119,7 @@ fun ResultsScreen(
         if (!state.selectionEnabled) {
             TopBar(
                 title = {
-                    Text(stringResource(Res.string.TestResults_Overview_Title))
+                    Text(stringResource(Res.string.TestResults))
                 },
                 actions = {
                     IconButton(
@@ -363,10 +361,6 @@ fun ResultsScreen(
             },
         )
     }
-
-    LaunchedEffect(Unit) {
-        onEvent(ResultsViewModel.Event.Start)
-    }
 }
 
 @Composable
@@ -446,7 +440,7 @@ private fun Summary(summary: ResultsViewModel.Summary?) {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    stringResource(Res.string.TestResults_Overview_Hero_Tests),
+                    stringResource(Res.string.TestResults),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 8.dp),
                 )

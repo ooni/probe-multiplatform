@@ -3,13 +3,10 @@ package org.ooni.probe.ui.measurement
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -19,7 +16,6 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -43,6 +39,7 @@ import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.OoniWebView
 import org.ooni.probe.ui.shared.OoniWebViewController
 import org.ooni.probe.ui.shared.TopBar
+import org.ooni.probe.ui.shared.WebViewProgressIndicator
 
 @Composable
 fun MeasurementScreen(
@@ -61,11 +58,7 @@ fun MeasurementScreen(
                     NavigationBackButton({ onEvent(MeasurementViewModel.Event.BackClicked) })
                 },
                 actions = {
-                    IconButton(
-                        onClick = {
-                            onEvent(MeasurementViewModel.Event.ShareUrl)
-                        },
-                    ) {
+                    IconButton(onClick = { onEvent(MeasurementViewModel.Event.ShareUrl) }) {
                         Icon(
                             Icons.Default.Share,
                             contentDescription = null,
@@ -97,7 +90,7 @@ fun MeasurementScreen(
             if (controller.state is OoniWebViewController.State.Initializing ||
                 controller.state is OoniWebViewController.State.Loading
             ) {
-                ProgressIndicator(
+                WebViewProgressIndicator(
                     (controller.state as? OoniWebViewController.State.Loading)?.progress ?: 0f,
                 )
             }
@@ -150,32 +143,5 @@ fun MeasurementScreen(
     val url = (state as? MeasurementViewModel.State.ShowMeasurement)?.url
     LaunchedEffect(url) {
         url?.let(controller::load)
-    }
-}
-
-@Composable
-private fun BoxScope.ProgressIndicator(progress: Float) {
-    val progressColor = MaterialTheme.colorScheme.onPrimary
-    val progressTrackColor = Color.Transparent
-    val progressModifier = Modifier
-        .fillMaxWidth()
-        .align(Alignment.BottomCenter)
-        .padding(bottom = 2.dp)
-        .height(2.dp)
-
-    if (progress == 0f) {
-        LinearProgressIndicator(
-            color = progressColor,
-            trackColor = progressTrackColor,
-            modifier = progressModifier,
-        )
-    } else {
-        LinearProgressIndicator(
-            progress = { progress },
-            color = progressColor,
-            trackColor = progressTrackColor,
-            drawStopIndicator = {},
-            modifier = progressModifier,
-        )
     }
 }

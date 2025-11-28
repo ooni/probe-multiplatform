@@ -7,6 +7,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.TestKeys
 import org.ooni.engine.models.TestType
@@ -93,6 +94,12 @@ class MeasurementRepository(
             .asFlow()
             .mapToOne(backgroundContext)
             .map { it.toModel() }
+
+    fun countFromStartTime(startTime: LocalDateTime): Flow<Long> =
+        database.measurementQueries
+            .countFromStartTime(startTime.toEpoch())
+            .asFlow()
+            .mapToOne(backgroundContext)
 
     suspend fun createOrUpdate(model: MeasurementModel): MeasurementModel.Id =
         withContext(backgroundContext) {
