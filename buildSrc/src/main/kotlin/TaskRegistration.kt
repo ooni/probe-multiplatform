@@ -207,9 +207,9 @@ private fun Project.registerOONIDistributableTask() {
 }
 
 private fun Project.macOsCodeSign(path: String) {
-    val sign = project.property("compose.desktop.mac.sign")
+    val sign = project.findProperty("compose.desktop.mac.sign")
     if (sign != true && sign != "true") return
-    val identity = project.property("compose.desktop.mac.signing.identity") ?: run {
+    val identity = project.findProperty("compose.desktop.mac.signing.identity") ?: run {
         project.logger.warn("Missing signing identity")
         return
     }
@@ -313,10 +313,10 @@ private fun Project.configureJavaExecTasks() {
     tasks.withType<JavaExec> {
         systemProperty(
             "java.library.path",
-            "${
-                layout.buildDirectory.dir("processedResources/desktop/main/macos")
-                    .get().asFile.absolutePath
-            }" +
+            layout.buildDirectory.dir("processedResources/desktop/main/macos")
+                .get().asFile.absolutePath +
+                layout.buildDirectory.dir("tmp/desktop/main/macos")
+                    .get().asFile.absolutePath +
                 File.pathSeparator +
                 "$projectDir/src/desktopMain/resources/windows" +
                 File.pathSeparator +
