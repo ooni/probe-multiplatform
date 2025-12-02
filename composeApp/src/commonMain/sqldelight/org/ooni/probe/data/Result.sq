@@ -170,3 +170,21 @@ FROM (
     AND Measurement.result_id = Result.id
     GROUP BY Result.id
 );
+
+countByFilter:
+SELECT
+    COUNT(Result.id) AS total,
+    COUNT(DISTINCT Result.network_id) AS networks,
+    SUM(Result.data_usage_up) AS data_usage_up,
+    SUM(Result.data_usage_down) AS data_usage_down
+FROM Result
+WHERE (
+    :filterByDescriptors = 0 OR
+    descriptor_name IN :descriptorsKeys OR descriptor_runId IN :descriptorsKeys
+) AND (
+    :filterByNetworks = 0 OR network_id IN :networkIds
+) AND (
+    :filterByTaskOrigin = 0 OR task_origin = :taskOrigin
+) AND (
+    start_time >= :startFrom AND start_time <= :startUntil
+);

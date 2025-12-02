@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flatMapLatest
@@ -19,12 +20,14 @@ import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.models.ResultsStats
 import org.ooni.probe.ui.shared.SelectableItem
 
 class ResultsViewModel(
     goToResult: (ResultModel.Id) -> Unit,
     goToUpload: () -> Unit,
     getResults: (ResultFilter) -> Flow<List<ResultListItem>>,
+    getResultsStats: (ResultFilter) -> Flow<ResultsStats>,
     getDescriptors: () -> Flow<List<Descriptor>>,
     getNetworks: () -> Flow<List<NetworkModel>>,
     deleteResultsByFilter: suspend (ResultFilter) -> Unit,
@@ -41,8 +44,13 @@ class ResultsViewModel(
         state
             .map { it.filter }
             .distinctUntilChanged()
-            .flatMapLatest { getResults(it) }
-            .onEach { results ->
+            .flatMapLatest {
+                combine(
+                    getResults(it),
+                    getResultsStats(it),
+                    ::Pair,
+                )
+            }.onEach { (results, stats) ->
                 val groupedResults = results
                     .groupBy { it.result.startTime.date }
                     .mapValues { entry ->
@@ -61,7 +69,7 @@ class ResultsViewModel(
                 _state.update { state ->
                     state.copy(
                         results = groupedResults,
-                        summary = results.toSummary(),
+                        stats = stats,
                         isLoading = false,
                         markAllAsViewedEnabled = results.any { !it.result.isViewed },
                     )
@@ -187,7 +195,7 @@ class ResultsViewModel(
         val descriptors: List<Descriptor> = emptyList(),
         val networks: List<NetworkModel> = emptyList(),
         val results: Map<LocalDate, List<SelectableItem<ResultListItem>>> = emptyMap(),
-        val summary: Summary? = null,
+        val stats: ResultsStats? = null,
         val isLoading: Boolean = true,
         val markAllAsViewedEnabled: Boolean = false,
         val selectionEnabled: Boolean = false,
@@ -204,21 +212,6 @@ class ResultsViewModel(
         val isAnySelected get() = results.values.flatten().any { it.isSelected }
         val selectedResultsCount get() = results.values.flatten().count { it.isSelected }
     }
-
-    data class Summary(
-        val resultsCount: Int,
-        val networksCount: Int,
-        val dataUsageUp: Long,
-        val dataUsageDown: Long,
-    )
-
-    private fun List<ResultListItem>.toSummary() =
-        Summary(
-            resultsCount = size,
-            networksCount = mapNotNull { it.network }.distinct().size,
-            dataUsageUp = sumOf { it.result.dataUsageUp },
-            dataUsageDown = sumOf { it.result.dataUsageDown },
-        )
 
     sealed interface Event {
         data object Start : Event

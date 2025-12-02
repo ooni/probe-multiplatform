@@ -21,9 +21,11 @@ import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
+import org.ooni.probe.data.models.ResultsStats
 import org.ooni.probe.shared.toEpoch
 import org.ooni.probe.shared.toLocalDateTime
 import kotlin.coroutines.CoroutineContext
+import kotlin.math.roundToLong
 
 class ResultRepository(
     private val database: Database,
@@ -73,6 +75,30 @@ class ResultRepository(
             .countMissingUpload()
             .asFlow()
             .mapToOne(backgroundContext)
+
+    fun countByFilter(filter: ResultFilter): Flow<ResultsStats> {
+        val params = FilterParams.build(filter)
+        return database.resultQueries
+            .countByFilter(
+                filterByDescriptors = params.filterByDescriptors,
+                descriptorsKeys = params.descriptorsKeys,
+                filterByNetworks = params.filterByNetworks,
+                networkIds = params.networkIds,
+                filterByTaskOrigin = params.filterByTaskOrigin,
+                taskOrigin = params.taskOrigin,
+                startFrom = params.startFrom,
+                startUntil = params.startUntil,
+            ).asFlow()
+            .mapToOne(backgroundContext)
+            .map {
+                ResultsStats(
+                    total = it.total,
+                    networks = it.networks,
+                    dataUsageUp = it.data_usage_up?.roundToLong() ?: 0L,
+                    dataUsageDown = it.data_usage_down?.roundToLong() ?: 0L,
+                )
+            }
+    }
 
     suspend fun createOrUpdate(model: ResultModel): ResultModel.Id =
         withContext(backgroundContext) {
