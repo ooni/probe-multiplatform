@@ -10,7 +10,6 @@ import javafx.scene.Scene
 import javafx.scene.layout.StackPane
 import javafx.scene.web.WebView
 import java.net.URI
-import java.net.URL
 import kotlin.io.encoding.Base64
 
 @Composable

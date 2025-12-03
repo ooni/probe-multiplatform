@@ -43,7 +43,7 @@ fun registerWindowsUrlScheme() {
     }
 
     val commands = listOf(
-        arrayOf("reg", "add", """"$keyPath\"""", "/ve" ,"/d", "\"OONI Run\"", "/f"),
+        arrayOf("reg", "add", """"$keyPath\"""", "/ve", "/d", "\"OONI Run\"", "/f"),
         arrayOf("reg", "add", """"$keyPath"""", "/v", "\"URL Protocol\"", "/f"),
         arrayOf("reg", "add", """"$keyPath\shell"""", "/f"),
         arrayOf("reg", "add", """"$keyPath\shell\open"""", "/f"),
