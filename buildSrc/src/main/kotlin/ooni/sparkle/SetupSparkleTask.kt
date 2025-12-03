@@ -7,7 +7,9 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.gradle.process.ExecOperations
 import java.io.File
+import java.net.URI
 import java.net.URL
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
@@ -43,7 +45,7 @@ abstract class SetupSparkleTask : DefaultTask() {
 
         if (!archiveFile.exists()) {
             project.logger.lifecycle("Downloading Sparkle $versionStr from $url …")
-            URL(url).openStream().use { input ->
+            URI.create(url).toURL().openStream().use { input ->
                 Files.copy(input, archiveFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
             }
         } else {
@@ -51,9 +53,9 @@ abstract class SetupSparkleTask : DefaultTask() {
         }
 
         project.logger.lifecycle("Extracting archive to ${extractTmpDir.absolutePath} …")
-        project.exec {
+        project.providers.exec {
             commandLine("tar", "-xJf", archiveFile.absolutePath, "-C", extractTmpDir.absolutePath)
-        }
+        }.result.get()
 
         val frameworkDir = File(extractTmpDir, "Sparkle.framework")
         if (!frameworkDir.exists()) {
@@ -66,9 +68,9 @@ abstract class SetupSparkleTask : DefaultTask() {
         }
 
         project.logger.lifecycle("Copying Sparkle.framework from ${frameworkDir.absolutePath} to ${dest.absolutePath} …")
-        project.exec {
+        project.providers.exec {
             commandLine("cp", "-a", frameworkDir.absolutePath, dest.absolutePath)
-        }
+        }.result.get()
 
         versionMarker.writeText(versionStr)
         project.logger.lifecycle("Sparkle.framework is ready at ${dest.absolutePath}")
