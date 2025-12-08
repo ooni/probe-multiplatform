@@ -64,7 +64,7 @@ class AndroidApplication : Application() {
             batteryOptimization = batteryOptimization,
             isWebViewAvailable = ::isWebViewAvailable,
             flavorConfig = FlavorConfig(),
-            proxyConfig = ProxyConfig(isPsiphonSupported = true),
+            proxyConfig = ProxyConfig(isPsiphonSupported = false),
         )
     }
 
