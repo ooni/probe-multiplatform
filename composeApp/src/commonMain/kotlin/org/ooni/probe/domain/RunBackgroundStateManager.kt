@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.RunBackgroundState
+import org.ooni.probe.data.models.TestRunError
 
 class RunBackgroundStateManager(
     private val getLatestResult: Flow<ResultModel?>,

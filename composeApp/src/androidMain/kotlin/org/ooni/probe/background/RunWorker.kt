@@ -124,7 +124,7 @@ class RunWorker(
             applicationContext,
             stopRunReceiver,
             IntentFilter(ACTION_STOP_RUN),
-            ContextCompat.RECEIVER_NOT_EXPORTED,
+            ContextCompat.RECEIVER_EXPORTED,
         )
     }
 
