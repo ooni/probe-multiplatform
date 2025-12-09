@@ -20,6 +20,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
@@ -43,6 +44,7 @@ import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRun
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoRunDisabled
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Settings
 import ooniprobe.composeapp.generated.resources.Common_Enable
+import ooniprobe.composeapp.generated.resources.Common_Share
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsites
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_ReviewUpdates
@@ -50,6 +52,7 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Websites_SeeAll
 import ooniprobe.composeapp.generated.resources.Descriptor_LastTestResult
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.ic_share
 import ooniprobe.composeapp.generated.resources.ic_timer
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
@@ -103,6 +106,18 @@ fun DescriptorScreen(
                 },
                 navigationIcon = {
                     NavigationBackButton({ onEvent(DescriptorViewModel.Event.BackClicked) })
+                },
+                actions = {
+                    if (state.descriptor?.runLink != null) {
+                        IconButton(
+                            onClick = { onEvent(DescriptorViewModel.Event.ShareClicked) },
+                        ) {
+                            Icon(
+                                painterResource(Res.drawable.ic_share),
+                                contentDescription = stringResource(Res.string.Common_Share),
+                            )
+                        }
+                    }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = descriptorColor,

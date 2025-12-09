@@ -18,7 +18,9 @@ import ooniprobe.composeapp.generated.resources.test_performance
 import ooniprobe.composeapp.generated.resources.test_websites
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.SummaryType
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.TestDescriptor
+import org.ooni.probe.data.models.Descriptor.Source
 import org.ooni.probe.shared.InstalledDescriptorIcons
 import org.ooni.probe.shared.hexToColor
 import org.ooni.probe.shared.now
@@ -64,6 +66,8 @@ data class InstalledTestDescriptorModel(
         get() = if (revision <= 1) emptyList() else (1 until revision).toList().reversed()
 
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
+
+    val runLink get() = "${OrganizationConfig.ooniRunDashboardUrl}/v2/${id.value}"
 }
 
 fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = UpdateStatus.Unknown) =
