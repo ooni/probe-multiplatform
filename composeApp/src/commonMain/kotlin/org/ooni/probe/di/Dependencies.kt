@@ -800,7 +800,6 @@ class Dependencies(
         )
 
     companion object {
-        @VisibleForTesting
         fun buildJson() =
             Json {
                 encodeDefaults = true
