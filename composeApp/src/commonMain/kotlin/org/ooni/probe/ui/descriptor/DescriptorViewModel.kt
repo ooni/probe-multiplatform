@@ -274,6 +274,14 @@ class DescriptorViewModel(
                 (state.value.descriptor?.source as? Descriptor.Source.Installed)
                     ?.let { descriptor -> goToDescriptorWebsites(descriptor.value.id) }
             }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.ShareClicked>()
+            .onEach {
+                val descriptor = state.value.descriptor ?: return@onEach
+                val runLink = descriptor.runLink ?: return@onEach
+                launchAction(PlatformAction.Share("${descriptor.name} $runLink"))
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -396,6 +404,8 @@ class DescriptorViewModel(
         ) : Event
 
         data object SeeMoreWebsitesClicked : Event
+
+        data object ShareClicked : Event
     }
 }
 

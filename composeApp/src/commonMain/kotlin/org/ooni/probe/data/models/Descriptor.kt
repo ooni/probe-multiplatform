@@ -55,8 +55,11 @@ data class Descriptor(
             .sumOf { it.test.runtime(it.inputs).inWholeSeconds }
             .seconds
 
-    val isWebConnectivityOnly get() =
-        allTests.size == 1 && allTests.first().test == TestType.WebConnectivity
+    val isWebConnectivityOnly
+        get() =
+            allTests.size == 1 && allTests.first().test == TestType.WebConnectivity
+
+    val runLink get() = (source as? Source.Installed)?.value?.runLink
 
     companion object {
         val SORT_COMPARATOR =
