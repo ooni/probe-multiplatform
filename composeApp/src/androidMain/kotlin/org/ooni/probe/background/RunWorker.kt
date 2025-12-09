@@ -20,6 +20,7 @@ import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.sample
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
@@ -38,6 +39,7 @@ import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.ui.primaryLight
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.math.roundToInt
+import kotlin.time.Duration.Companion.milliseconds
 
 class RunWorker(
     appContext: Context,
@@ -106,6 +108,7 @@ class RunWorker(
         }
 
         runBackgroundTask(getSpecification())
+            .sample(500.milliseconds) // Avoid too many notification updates
             .collectLatest { state ->
                 val notification = when (state) {
                     is RunBackgroundState.Idle -> null
