@@ -235,6 +235,10 @@
     <string name="Settings_Support_IncludeLogs">Include application logs</string>
     <string name="Settings_Support_Action">Send email</string>
 
+    <string name="Settings_ShareApp">Share App</string>
+    <string name="Settings_ShareApp_Description">Share the %1$s app with someone else</string>
+    <string name="Settings_ShareApp_ShareMessage">Install %1$s at %2$s</string>
+
     <string name="Settings_Storage_Label">Storage usage</string>
     <string name="Settings_Storage_Delete">Delete</string>
     <string name="Settings_Storage_Clear">Clear</string>
