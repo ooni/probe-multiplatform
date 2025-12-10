@@ -1,0 +1,1 @@
+-dontwarn io.sentry.android.replay.SessionReplayOptionsKt
