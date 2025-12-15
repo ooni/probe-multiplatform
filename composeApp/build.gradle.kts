@@ -1,4 +1,5 @@
 import com.android.build.api.variant.FilterConfiguration.FilterType.ABI
+import org.gradle.kotlin.dsl.exclude
 import java.time.LocalDate
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
@@ -215,13 +216,18 @@ android {
             sourceSets["debug"].manifest.srcFile("src/androidDebug/AndroidManifest.xml")
         }
         getByName("release") {
-            isMinifyEnabled = false
             resValue("string", "run_v2_domain", "run.ooni.org")
             signingConfig = if (System.getenv("ANDROID_KEYSTORE_FILE") != null) {
                 signingConfigs.getByName("release")
             } else {
                 signingConfigs.getByName("debug")
             }
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     buildFeatures {
@@ -505,4 +511,10 @@ version = android.defaultConfig.versionName ?: ""
 
 dependencies {
     debugImplementation(compose.uiTooling)
+}
+
+// Remove Sentry
+configurations.all {
+    exclude(group = "io.sentry", module = "sentry-android-ndk")
+    exclude(group = "io.sentry", module = "sentry-android-replay")
 }
