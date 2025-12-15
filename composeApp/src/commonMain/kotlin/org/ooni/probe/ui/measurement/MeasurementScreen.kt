@@ -13,9 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,6 +34,8 @@ import ooniprobe.composeapp.generated.resources.Measurement_LoadingFailed
 import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
+import ooniprobe.composeapp.generated.resources.ic_share
+import ooniprobe.composeapp.generated.resources.ic_refresh
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.ui.shared.NavigationBackButton
@@ -67,7 +66,7 @@ fun MeasurementScreen(
                         },
                     ) {
                         Icon(
-                            Icons.Default.Share,
+                            painterResource(Res.drawable.ic_share),
                             contentDescription = null,
                         )
                     }
@@ -86,7 +85,7 @@ fun MeasurementScreen(
                             enabled = controller.state.isFinished,
                         ) {
                             Icon(
-                                Icons.Default.Refresh,
+                                painterResource(Res.drawable.ic_refresh),
                                 contentDescription = stringResource(Res.string.Common_Refresh),
                             )
                         }

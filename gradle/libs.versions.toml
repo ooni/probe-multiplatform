@@ -46,7 +46,6 @@ lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecyc
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.9.1" }
 window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version = "1.9.0" }
 back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-plugin" }
-material-icons = { module = "org.jetbrains.compose.material:material-icons-core", version = "1.7.3" }
 dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.7.4" }
 
 # Preferences
@@ -121,7 +120,6 @@ ui = [
     "window-size",
     "back-handler",
     "dark-mode-detector",
-    "material-icons",
 ]
 tooling = [
     "kermit",

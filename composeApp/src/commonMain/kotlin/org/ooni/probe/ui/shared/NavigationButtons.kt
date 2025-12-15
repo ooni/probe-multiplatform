@@ -1,7 +1,5 @@
 package org.ooni.probe.ui.shared
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -11,6 +9,7 @@ import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Common_Close
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_close
+import ooniprobe.composeapp.generated.resources.ic_back
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -25,7 +24,7 @@ fun NavigationBackButton(
         modifier = modifier.testTag("Back"),
     ) {
         Icon(
-            Icons.AutoMirrored.Filled.ArrowBack,
+            painterResource(Res.drawable.ic_back),
             contentDescription = stringResource(Res.string.Common_Back),
         )
     }
