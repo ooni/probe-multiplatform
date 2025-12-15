@@ -15,7 +15,7 @@ fun registerWindowsUrlScheme() {
         .orElse("unknown")
 
     val keyPath = """HKCU\Software\Classes\ooni"""
-    val checkCommand = arrayOf("reg", "query", """"$keyPath\shell\open\command\"""", "/ve")
+    val checkCommand = arrayOf("reg", "query", """"$keyPath\shell\open\command"""", "/ve")
 
     try {
         // Check if the key already exists and value is equal to the current executable path
@@ -43,11 +43,11 @@ fun registerWindowsUrlScheme() {
     }
 
     val commands = listOf(
-        arrayOf("reg", "add", """"$keyPath\"""", "/ve", "/d", "\"OONI Run\"", "/f"),
+        arrayOf("reg", "add", """"$keyPath"""", "/ve", "/d", "\"OONI Run\"", "/f"),
         arrayOf("reg", "add", """"$keyPath"""", "/v", "\"URL Protocol\"", "/f"),
         arrayOf("reg", "add", """"$keyPath\shell"""", "/f"),
         arrayOf("reg", "add", """"$keyPath\shell\open"""", "/f"),
-        arrayOf("reg", "add", """"$keyPath\shell\open\command"""", "/ve", "/d", "\"$exePath\"", "\"%1\"", "/f"),
+        arrayOf("reg", "add", """"$keyPath\shell\open\command"""", "/ve", "/d", """"\"$exePath\" \"%1\""""", "/f"),
     )
 
     Logger.d("Registering OONI URL scheme...")
