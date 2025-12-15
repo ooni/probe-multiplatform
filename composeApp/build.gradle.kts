@@ -369,7 +369,6 @@ compose.desktop {
             includeAllModules = true
 
             val appResource = project.layout.projectDirectory.dir("src/desktopMain/resources/")
-            println(" Project directory: $appResource")
             appResourcesRootDir.set(appResource)
             val appId = "org.ooni.probe-desktop"
 

@@ -9,7 +9,7 @@ import javafx.embed.swing.JFXPanel
 import javafx.scene.Scene
 import javafx.scene.layout.StackPane
 import javafx.scene.web.WebView
-import java.net.URL
+import java.net.URI
 import kotlin.io.encoding.Base64
 
 @Composable
@@ -62,7 +62,7 @@ actual fun OoniWebView(
                         // Domain restriction
                         engine.locationProperty().addListener { _, _, newLocation ->
                             try {
-                                val host = URL(newLocation).host
+                                val host = URI.create(newLocation).host
                                 val allowed = allowedDomains.any { domain ->
                                     host.matches(Regex("^(.*\\.)?$domain$"))
                                 }
