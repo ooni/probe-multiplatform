@@ -61,7 +61,7 @@ data class Descriptor(
 
     companion object {
         val SORT_COMPARATOR =
-            compareByDescending<Descriptor> { it.isDefault() }
+            compareByDescending<Descriptor> { !it.isDefault() }
                 .thenBy { it.isExpired }
                 .thenByDescending { it.source.dateInstalled }
                 .thenByDescending { it.source.id.value }
