@@ -2,14 +2,18 @@ package org.ooni.probe.uitesting
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performTextReplacement
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.CategoryCode_ANON_Name
 import ooniprobe.composeapp.generated.resources.Common_Back
+import ooniprobe.composeapp.generated.resources.Common_Save
 import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_DebugLogs
@@ -19,8 +23,8 @@ import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAut
 import ooniprobe.composeapp.generated.resources.Settings_AutomatedTesting_RunAutomatically_WiFiOnly
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_SendCrashReports
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Add
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
-import ooniprobe.composeapp.generated.resources.Settings_Proxy_Psiphon
 import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResults
 import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResultsThreshold
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults
@@ -45,6 +49,7 @@ import org.ooni.probe.uitesting.helpers.preferences
 import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
 import org.ooni.probe.uitesting.helpers.wait
+import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 class SettingsTest {
@@ -160,12 +165,24 @@ class SettingsTest {
             with(compose) {
                 clickOnText(Res.string.Settings_Title)
                 clickOnText(Res.string.Settings_Proxy_Label)
-                clickOnText(Res.string.Settings_Proxy_Psiphon)
+                clickOnText(Res.string.Settings_Proxy_Custom_Add)
 
-                wait {
+                onNodeWithText(getString(Res.string.Settings_Proxy_Custom_Add))
+                    .assertIsDisplayed()
+
+                onNodeWithText(getString(Res.string.Common_Save))
+                    .assertIsDisplayed()
+
+                onAllNodesWithTag("AddProxy-HostField")
+                    .onFirst()
+                    .performTextReplacement("127.0.0.1")
+
+                clickOnText(Res.string.Common_Save)
+
+                wait(10.seconds) {
                     preferences
                         .getValueByKey(SettingsKey.PROXY_SELECTED)
-                        .first() == ProxyOption.Psiphon.value
+                        .first() != ProxyOption.None
                 }
             }
         }
