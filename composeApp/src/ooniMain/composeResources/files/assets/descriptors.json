@@ -9,9 +9,10 @@
                 "test_name": "web_connectivity",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             }
         ],
         "name_intl": {
@@ -74,8 +75,8 @@
             "de": "Prüfe mit dem [Webverbindungstest](https://ooni.org/nettest/web-connectivity/) von OONI, ob Websites blockiert sind.\n\nJedes Mal, wenn du auf Ausführen tippst, testest du verschiedene Websites aus den [globalen](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) und [länderspezifischen](https://github.com/citizenlab/test-lists/tree/master/lists) Testlisten des Citizen Labs.\n\nUm die Websites deiner Wahl zu testen, tippst du auf die Schaltfläche Websites auswählen oder wählst Kategorien von Websites über die Einstellungen dieser Karte aus.\n\nDieser Test misst, ob Websites durch DNS-Manipulation, TCP/IP-Blockierung oder durch einen transparenten HTTP-Proxy blockiert werden.\n\nDeine Ergebnisse werden auf dem [OONI Explorer](https://explorer.ooni.org/world/) und [OONI API](https://api.ooni.io/) veröffentlicht.",
             "el": "Δες αν έχουν μπλοκαριστεί ιστοσελίδες, χρησιμοποιώντας τη δοκιμή [Web Connectivity](https://ooni.org/nettest/web-connectivity/) του OONI.\n\nΚάθε φορά που πατάς Εκτέλεση, ελέγχεις διαφορετικές ιστοσελίδες από την [παγκόσμια](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) και τις [εθνικές](https://github.com/citizenlab/test-lists/tree/master/lists) λίστες του Citizen Lab.\n\nΓια να ελέγξεις όποιες ιστοσελίδες θες, πάτα το κουμπί \"Επέλεξε ιστοσελίδες\" ή διάλεξε κατηγορίες ιστοσελιδών μέσω των ρυθμίσεων αυτής της κάρτας.\n\nΑυτή η δοκιμή εξετάζει αν ιστοσελίδες έχουν μπλοκαριστεί μέσω τροποποίησης του DNS, μπλοκάρισμα σε επίπεδο TCP/IP ή μέσω διάφανου HTTP proxy.\n\nΤα αποτελέσματα των δοκιμών σου θα δημοσιευτούν στο [OONI Explorer](https://explorer.ooni.org/world/) και στο [OONI API](https://api.ooni.io/).",
             "es": "Comprobar si los sitios web están bloqueados usando la [prueba conectividad de la Web] de OONI (https://ooni.org/nettest/web-connectivity/).\n\nCada vez que pulsas Ejecutar, pruebas diferentes sitios web incluidos en las listas de pruebas de Citizen Lab [global](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) y [específicas por país](https://github.com/citizenlab/test-lists/tree/master/lists).\n\nPara probar los sitios de tu elección, pulsa el botón Elegir sitios web o selecciona categorías de sitios vía los ajustes de ésta tarjeta.\n\nEsta prueba mide si los sitios web están bloqueados por medio de manipulación de DNS, bloqueo de TCP/IP o por un proxy transparente HTTP.\n\nTus resultados serán publicados en el [Explorador OONI](https://explorer.ooni.org/world/) y la [API OONI](https://api.ooni.io/).",
-            "fa": "با استفاده از[تست اتصال وب](https://ooni.org/nettest/web-connectivity/) OONI بررسی کنید که آیا وبسایت ها مسدود شده اند یا خیر.\n\n هر بار که بر روی اجرا می زنید، وبسایت‌های مختلفی از لیست‌های تست [جهانی](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) و [کشوری](https://github.com/citizenlab/test-lists/tree/master/lists) از Citizen Lab را تست می‌کنید.\n\nبرای تست سایت‌‌های انتخابی خودتان، بر روی گزینه‌ی انتخاب وبسایت‌ها بزنید و یا دسته‌بندی سایت‌های مورد تست را در تنظیمات این کارت، انتخاب کنید.\n\nاین تست اندازه گیری می کند که سایت‌ها با چه روشی از دستکاری DNS، مسدود شدن TCP/IP و یا به وسیله یک پراکسی شفاف HTTP مسدود شده اند.\n\nنتایج تست های شما بر روی [OONI Explorer](https://explorer.ooni.org/world/) و [OONI API](https://api.ooni.io/) منتشر خواهند شد.",
-            "fr": "Vérifiez le blocage des sites Web grâce au [Test de connectivité Web](https://ooni.org/nettest/web-connectivity/) de l’OONI (page en anglais).\n\nChaque fois que vous touchez Lancer, vous testez différents sites Web provenant des listes de tests [mondiale](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) et [propre à un pays](https://github.com/citizenlab/test-lists/tree/master/lists) du « Citizen Lab » (site en anglais).\n\nPour tester les sites de votre choix, touchez le bouton « Choisir des sites Web » ou sélectionnez des catégories de sites dans les paramètres de cette carte. \n\nCe test mesure si les sites Web sont bloqués par une manipulation DNS, par un blocage TCP/IP ou par un mandataire HTTP transparent.\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/world/) et l’[API d’OONI](https://api.ooni.io/) (site en anglais).",
+            "fa": "با استفاده از[تست اتصال وب](https://ooni.org/nettest/web-connectivity/) OONI بررسی کنید که آیا وبسایت ها مسدود شده اند یا خیر.\n\n هر بار که بر روی اجرا می زنید، وبسایت‌های مختلفی از لیست‌های تست [جهانی](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) و [کشوری](https://github.com/citizenlab/test-lists/tree/master/lists) از Citizen Lab را تست می‌کنید.\n\nبرای تست سایت‌‌های انتخابی خودتان، بر روی گزینه‌ی انتخاب وبسایت‌ها بزنید و یا دسته‌بندی سایت‌های مورد تست را در تنظیمات این کارت، انتخاب کنید.\n\nاین تست اندازه گیری می کند که سایت‌ها با چه روشی از دستکاری DNS، مسدود شدن TCP/IP و یا به وسیله یک پراکسی شفاف HTTP مسدود شده اند.\n\nنتایج تست های شما بر روی [OONI Explorer](https://explorer.ooni.org/world/) و [OONI API](https://api.ooni.io/) منتشر خواهند شد.",
+            "fr": "Vérifiez le blocage des sites Web grâce au [Test de connectivité Web](https://ooni.org/nettest/web-connectivity/) de l’OONI (page en anglais).\n\nChaque fois que vous touchez Lancer, vous testez différents sites Web provenant des listes de tests [mondiale](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) et [propre à un pays](https://github.com/citizenlab/test-lists/tree/master/lists) du « Citizen Lab » (site en anglais).\n\nPour tester les sites de votre choix, touchez le bouton « Choisir des sites Web » ou sélectionnez des catégories de sites dans les paramètres de cette carte. \n\nCe test mesure si les sites Web sont bloqués par une manipulation DNS, par un blocage TCP/IP ou par un mandataire HTTP transparent.\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/world/) et l’[API d’OONI](https://api.ooni.io/) (site en anglais).",
             "hi": "OONI के [वेब कनेक्टिविटी परीक्षण](https://ooni.org/nettest/web-connectivity/) का उपयोग करके जांचें कि क्या वेबसाइटों को अवरुद्ध किया गया है।\n\nहर बार जब आप रन पर टैप करते हैं, तो आप सिटीजन लैब की [दुनिया भर](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) की और [देश-विशिष्ट](https://github.com/citizenlab/test-lists/tree/master/lists) परीक्षण सूचियों से विभिन्न वेबसाइटों का परीक्षण करते हैं।\n\nअपनी पसंद की वेबसाइटों का परीक्षण करने के लिए, इस कार्ड की सेटिंग के माध्यम से वेबसाइट चुनें बटन पर टैप करें या साइटों की श्रेणियों का चयन करें।\n\nयह परीक्षण मापता है अगर वेबसाइटों को DNS छेड़छाड़, टीसीपी/आईपी ब्लॉकिंग या पारदर्शी HTTP प्रॉक्सी द्वारा अवरुद्ध किया गया है या नहीं।\n\nआपके परिणाम [OONI एक्सप्लोरर](https://explorer.ooni.org/world/) और [OONI API](https://api.ooni.io/) पर प्रकाशित किए जाएंगे।",
             "id": "Periksa apakah suatu situs web diblokir dengan [Tes Konektivitas Web](https://ooni.org/nettest/web-connectivity/) OONI.\n\nSetiap kali Anda mengetuk Jalankan, Anda mengetes situs web berbeda dari daftar tes [global](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) dan [khusus-negara](https://github.com/citizenlab/test-lists/tree/master/lists) Citizen Lab.\n\nUntuk mengetes situs pilihan Anda, ketuk tombol Pilih situs web atau pilih kategori situs melalui pengaturan kartu ini. \n\nTes ini mengukur apakah situs web diblokir melalui perusakan DNS, pemblokiran TCP/IP, atau proksi HTTP transparan.\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/world/) dan [OONI API](https://api.ooni.io/).",
             "is": "Athugaðu hvort lokað sé á vefsvæði með því að nota [prófun veftenginga](https://ooni.org/nettest/web-connectivity/) hjá OONI.\n\nÍ hvert skipti sem þú ýtir á 'Keyra' muntu prófa þau vefsvæði sem innifalin eru í [almennu](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) og [lands-sértæku](https://github.com/citizenlab/test-lists/tree/master/lists) prófunarlistunum hjá Citizen Lab.\n\nTil að prófa vefsvæði að eigin vali, skaltu ýta á hnappinn til að velja vefsvæði eða velja flokka vefsvæða í gegnum stillingar þessa spjalds. \n\nÞetta prófar hvort lokað sé á vefi með því að fikta við DNS, lokun með TCP/IP eða með gegnsæum HTTP-milliþjónum (proxy).\n\nNiðurstöðurnar þínar verða birtar í [OONI Explorer](https://explorer.ooni.org/world/) og [OONI API](https://api.ooni.io/).",
@@ -98,7 +99,7 @@
         "icon": "OoniWebsites",
         "color": "#4c6ef5",
         "expiration_date": "4000-01-01T00:00:00.000000Z",
-        "oonirun_link_id": "10470",
+        "oonirun_link_id": "00104",
         "date_created": "2024-11-06T14:58:41.000000Z",
         "date_updated": "2024-11-06T14:58:41.000000Z",
         "revision": "1",
@@ -115,33 +116,37 @@
                 "test_name": "whatsapp",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             },
             {
                 "test_name": "telegram",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             },
             {
                 "test_name": "facebook_messenger",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             },
             {
                 "test_name": "signal",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             }
         ],
         "name_intl": {
@@ -205,7 +210,7 @@
             "el": "Δες αν το [WhatsApp](https://ooni.org/nettest/whatsapp/), το [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), το [Telegram](https://ooni.org/nettest/telegram/) και το [Signal](https://ooni.org/nettest/signal) έχουν μπλοκαριστεί.\n\nΤα αποτελέσματα των δοκιμών σου θα δημοσιευτούν στο [OONI Explorer](https://explorer.ooni.org/world/) και στο [OONI API](https://api.ooni.io/).",
             "es": "Comprueba si [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) y [Signal](https://ooni.org/nettest/signal) están bloqueados.\n\nTus resultados serán publicados en el [Explorador OONI](https://explorer.ooni.org/world/) y la [API OONI](https://api.ooni.io/).",
             "fa": "بررسی کنید که آیا [واتس‌اپ](https://ooni.org/nettest/whatsapp/)، [پیام‌رسان فیسبوک](https://ooni.org/nettest/facebook-messenger/)، [تلگرام](https://ooni.org/nettest/telegram/) و [سیگنال](https://ooni.org/nettest/signal) مسدود هستند و یا خیر.\n\nنتایج تست های شما بر روی [OONI Explorer](https://explorer.ooni.org/world/) و [OONI API](https://api.ooni.io/) منتشر خواهند شد.",
-            "fr": "Vérifiez si [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook  Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) ou [Signal](https://ooni.org/nettest/signal) sont bloqués (site en anglais)..\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/world/) et [l’API d’OONI](https://api.ooni.io/) (site en anglais).",
+            "fr": "Vérifiez si [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook  Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) ou [Signal](https://ooni.org/nettest/signal) sont bloqués (site en anglais)..\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/world/) et [l’API d’OONI](https://api.ooni.io/) (site en anglais).",
             "hi": "जांचें कि क्या [WhatsApp] (https://ooni.org/nettest/whatsapp/), [Facebook Messenger] (https://ooni.org/nettest/facebook-messenger/), [Telegram] (https://ooni.org/nettest/telegram/), और [Signal](https://ooni.org/nettest/signal) अवरुद्ध हैं।\n\nआपके परिणाम [OONI एक्सप्लोरर](https://explorer.ooni.org/world/) और [OONI API](https://api.ooni.io/) पर प्रकाशित किए जाएंगे।",
             "id": "Periksa apakah [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), dan [Signal](https://ooni.org/nettest/signal) diblokir.\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/world/) dan [OONI API](https://api.ooni.io/).",
             "is": "Athugaðu hvort [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), og [Signal](https://ooni.org/nettest/signal) verði fyrir hindrunum.\n\nNiðurstöðurnar þínar verða birtar í [OONI Explorer](https://explorer.ooni.org/world/) og [OONI API](https://api.ooni.io/).",
@@ -228,7 +233,7 @@
         "icon": "OoniInstantMessaging",
         "color": "#15aabf",
         "expiration_date": "4000-01-01T00:00:00.000000Z",
-        "oonirun_link_id": "10471",
+        "oonirun_link_id": "00105",
         "date_created": "2024-11-06T14:58:42.000000Z",
         "date_updated": "2024-11-06T14:58:42.000000Z",
         "revision": "1",
@@ -245,17 +250,19 @@
                 "test_name": "psiphon",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             },
             {
                 "test_name": "tor",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             }
         ],
         "name_intl": {
@@ -319,7 +326,7 @@
             "el": "Δες αν το [Psiphon](https://ooni.org/nettest/psiphon/), το [Tor](https://ooni.org/nettest/tor/) ή το [RiseupVPN](https://ooni.org/nettest/riseupvpn/) έχουν μπλοκαριστεί.\n\nΤα αποτελέσματα θα δημοσιευτούν στο [OONI Explorer] (https://explorer.ooni.org/) και στο [OONI API] (https://api.ooni.io/).",
             "es": "Comprueba si [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) o [RiseupVPN](https://ooni.org/nettest/riseupvpn/) están bloqueados.\n\nTus resultados serán publicados en [Explorador OONI] (https://explorer.ooni.org/) y [OONI API](https://api.ooni.io/).",
             "fa": "بررسی کنید که آیا [Psiphon](https://ooni.org/nettest/psiphon/)،  [Tor](https://ooni.org/nettest/tor/) و یا [RiseupVPN](https://ooni.org/nettest/riseupvpn/) مسدود هستند یا خیر.\n\nنتایج تست های شما در [OONI Explorer](https://explorer.ooni.org/) و [OONI API](https://api.ooni.io/) منتشر خواهند شد.",
-            "fr": "Vérifiez si [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) ou [RiseupVPN](https://ooni.org/nettest/riseupvpn/) sont bloqués (site en anglais).\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/) et l’[API d’OONI](https://api.ooni.io/) (site en anglais).",
+            "fr": "Vérifiez si [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) ou [RiseupVPN](https://ooni.org/nettest/riseupvpn/) sont bloqués (site en anglais).\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/) et l’[API d’OONI](https://api.ooni.io/) (site en anglais).",
             "hi": "जांचें कि क्या [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) या [RiseupVPN](https://ooni.org/nettest/riseupvpn/) अवरुद्ध हैं।\n\nआपके परिणाम [OONI एक्सप्लोरर](https://explorer.ooni.org/) और [OONI API](https://api.ooni.io/) पर प्रकाशित किए जाएंगे।",
             "id": "Periksa apakah [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) atau [RiseupVPN](https://ooni.org/nettest/riseupvpn/) diblokir.\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/) dan [OONI API](https://api.ooni.io/).",
             "is": "Athugaðu hvort [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) eða [RiseupVPN](https://ooni.org/nettest/riseupvpn/) verði fyrir hindrunum.\n\nNiðurstöðurnar þínar verða birtar í [OONI Explorer](https://explorer.ooni.org/) og [OONI API](https://api.ooni.io/).",
@@ -342,7 +349,7 @@
         "icon": "OoniCircumvention",
         "color": "#e64980",
         "expiration_date": "4000-01-01T00:00:00.000000Z",
-        "oonirun_link_id": "10472",
+        "oonirun_link_id": "00106",
         "date_created": "2024-11-06T14:58:43.000000Z",
         "date_updated": "2024-11-06T14:58:43.000000Z",
         "revision": "1",
@@ -359,33 +366,37 @@
                 "test_name": "ndt",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             },
             {
                 "test_name": "dash",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             },
             {
                 "test_name": "http_header_field_manipulation",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             },
             {
                 "test_name": "http_invalid_request_line",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             }
         ],
         "name_intl": {
@@ -449,7 +460,7 @@
             "el": "Έλεγξε την ταχύτητα και την απόδοση του δικτύου σου, χρησιμοποιώντας τη δοκιμή [NDT](https://ooni.org/nettest/ndt/).\n\nΜέτρησε την απόδοση ροής βίντεο, χρησιμοποιώντας τη δοκιμή [DASH](https://ooni.org/nettest/dash/).\n\nΑυτές οι δοκιμές καταναλώνουν δεδομένα ανάλογα με την ταχύτητα του δικτύου σου.\n\nΤα αποτελέσματα των δοκιμών σου θα δημοσιευτούν στο [OONI Explorer](https://explorer.ooni.org/world/) και στο [OONI API](https://api.ooni.io/).\n\nΠροσοχή: Αυτές οι δοκιμές βασίζονται σε διακομιστές τρίτων. Επομένως, δεν μπορούμε να εγγυηθούμε ότι η διεύθυνση IP σου δε θα συλλεχθεί.",
             "es": "Mide la velocidad y rendimiento de tu red usando la prueba [NDT](https://ooni.org/nettest/ndt/).\n\nMide el rendimiento del streaming de vídeo usando la prueba [DASH](https://ooni.org/nettest/dash/).\n\nEstas pruebas consumen datos dependiendo de la velocidad de tu red.\n\nTus resultados serán publicados en el [Explorador OONI](https://explorer.ooni.org/world/) y la [API OONI](https://api.ooni.io/).\n\nDescargo: Estas pruebas dependen de servidores de terceros. Por lo tanto, no podemos garantizar que tu dirección IP no será recopilada.",
             "fa": "سرعت و کارایی شبکه خود را با استفاده از تست [NDT](https://ooni.org/nettest/ndt/) اندازه گیری کنید.\n\nکارایی پخش زنده ویدیویی را با استفاده از تست [DASH](https://ooni.org/nettest/dash/) اندازه گیری کنید.\n\nاین تست‌‌ها با توجه به سرعت شبکه‌ی  شما، داده مصرف می‌کنند.\n\nنتایج تست های شما بر روی [OONI Explorer](https://explorer.ooni.org/world/) و [OONI API](https://api.ooni.io/) منتشر خواهند شد.\n\nسلب مسئولیت: این تست‌ها وابسته به سرورهای ثالث هستند. بنابراین ما نمی توانیم تضمین کنیم که آدرس IP شما جمع آوری نخواهد شد.",
-            "fr": "Mesurez la vitesse et les performances de votre réseau grâce au test [NDT](https://ooni.org/nettest/ndt/) (page en anglais).\n\nMesurez les performances de la diffusion en continu de vidéos grâce au test [DASH](https://ooni.org/nettest/dash/) (page en anglais).\n\nCes tests consomment des données selon la vitesse de votre réseau.\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/world/) et l’[API d’OONI](https://api.ooni.io/) (site en anglais).\n\nAvis : Ces tests reposent sur des serveurs tiers. Nous ne pouvons donc pas garantir que votre adresse IP ne sera pas recueillie.",
+            "fr": "Mesurez la vitesse et les performances de votre réseau grâce au test [NDT](https://ooni.org/nettest/ndt/) (page en anglais).\n\nMesurez les performances de la diffusion en continu de vidéos grâce au test [DASH](https://ooni.org/nettest/dash/) (page en anglais).\n\nCes tests consomment des données selon la vitesse de votre réseau.\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/world/) et l’[API d’OONI](https://api.ooni.io/) (site en anglais).\n\nAvis : Ces tests reposent sur des serveurs tiers. Nous ne pouvons donc pas garantir que votre adresse IP ne sera pas recueillie.",
             "hi": "[NDT](https://ooni.org/nettest/ndt/) परीक्षण का उपयोग कर अपने नेटवर्क की गति और प्रदर्शन को मापें।\n\n[DASH](https://ooni.org/nettest/dash/) परीक्षण का उपयोग कर वीडियो स्ट्रीमिंग के प्रदर्शन को मापें।\n\nये परीक्षण आपके नेटवर्क की गति के आधार पर डेटा की खपत करते हैं।\n\nआपके परिणाम [OONI एक्सप्लोरर](https://explorer.ooni.org/world/) और [OONI API](https://api.ooni.io/) पर प्रकाशित किए जाएंगे।\n\nअस्वीकरण: ये परीक्षण तीसरे पक्ष के सर्वर पर निर्भर करते हैं। इसलिए हम गारंटी नहीं दे सकते कि आपका आईपी पता एकत्र नहीं किया जाएगा।",
             "id": "Ukur kecepatan dan kinerja jaringan Anda menggunakan tes [NDT](https://ooni.org/nettest/ndt/).\n\nUkur kinerja aliran video menggunakan tes [DASH](https://ooni.org/nettest/dash/).\n\nPengetesan ini menggunakan data tergantung pada kecepatan jaringan Anda.\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/world/) dan [OONI API](https://api.ooni.io/).\n\nPenafian: Pengetesan ini bergantung pada peladen pihak ketiga. Oleh karena itu, kami tidak dapat menjamin bahwa alamat IP Anda tidak akan dikumpulkan.",
             "is": "Mældu hraða og afköst netkerfisins þíns með [NDT](https://ooni.org/nettest/ndt/) prófun.\n\nMældu afköst myndstreymis með [DASH](https://ooni.org/nettest/dash/) prófun.\n\nÞessar prófanir nota gagnamagn í samræmi við hraða netkerfisins.\n\nNiðurstöðurnar þínar verða birtar í [OONI Explorer](https://explorer.ooni.org/world/) og [OONI API](https://api.ooni.io/).\n\nFyrirvari: Þessar prófanir reiða sig á vefþjóna utanaðkomandi aðila. Við getum því ekki ábyrgst að IP-vistföngum sé ekki safnað.",
@@ -472,7 +483,7 @@
         "icon": "OoniPerformance",
         "color": "#be4bdb",
         "expiration_date": "4000-01-01T00:00:00.000000Z",
-        "oonirun_link_id": "10473",
+        "oonirun_link_id": "00107",
         "date_created": "2024-11-06T14:58:44.000000Z",
         "date_updated": "2024-11-06T14:58:44.000000Z",
         "revision": "1",
@@ -489,49 +500,28 @@
                 "test_name": "stunreachability",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": true,
-                "is_manual_run_enabled_default": true
+                "is_manual_run_enabled_default": true,
+                "targets_name": null,
+                "inputs_extra": null
             },
             {
                 "test_name": "openvpn",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
-                "is_background_run_enabled_default": true,
-                "is_manual_run_enabled_default": true
-            },
-            {
-                "test_name": "echcheck",
-                "inputs": [],
-                "options": {},
-                "backend_options": {},
-                "is_background_run_enabled_default": true,
-                "is_manual_run_enabled_default": true
-            },
-            {
-                "test_name": "dnscheck",
-                "inputs": [],
-                "options": {},
-                "backend_options": {},
-                "is_background_run_enabled_default": true,
-                "is_manual_run_enabled_default": true
-            },
-            {
-                "test_name": "torsf",
-                "inputs": [],
-                "options": {},
-                "backend_options": {},
-                "is_background_run_enabled_default": true,
-                "is_manual_run_enabled_default": true
+                "is_background_run_enabled_default": false,
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             },
             {
                 "test_name": "vanilla_tor",
                 "inputs": [],
                 "options": {},
-                "backend_options": {},
                 "is_background_run_enabled_default": true,
-                "is_manual_run_enabled_default": false
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
             }
         ],
         "name_intl": {
@@ -595,7 +585,7 @@
             "el": "Εκτέλεσε τις παρακάτω νέες πειραματικές δοκιμές που αναπτύχθηκαν από την ομάδα του OONI:\n{experimental_test_list}\n\nΤα αποτελέσματά σου θα δημοσιευθούν στο [OONI Explorer](https://explorer.ooni.org/) και στο [OONI API](https://api.ooni.io/).",
             "es": "Ejecutar las siguientes nuevas pruebas experimentales desarrolladas por el equipo OONI:\n{experimental_test_list}\n\nTus resultados serán publicados en el [Explorador OONI](https://explorer.ooni.org/) y el [API OONI](https://api.ooni.io/).",
             "fa": "این تست‌های آزمایشی جدید توسعه یافته توسط تیم OONI را اجرا کنید:\n{experimental_test_list}\n\nنتایج شما بر روی [OONI Explorer](https://explorer.ooni.org/) و [OONI API](https://api.ooni.io/) منتشر خواهند شد.",
-            "fr": "Effectuer les nouveaux tests expérimentaux suivants conçus par l’équipe d’OONI :\n{experimental_test_list}\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/) et l’[API d’OONI](https://api.ooni.io/) (site en anglais).",
+            "fr": "Effectuer les nouveaux tests expérimentaux suivants conçus par l’équipe d’OONI :\n{experimental_test_list}\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/) et l’[API d’OONI](https://api.ooni.io/) (site en anglais).",
             "hi": "OONI टीम द्वारा विकसित निम्नलिखित नए प्रयोगात्मक परीक्षण चलाएँ:\n{experimental_test_list}\n\nआपके परिणाम [OONI Explorer](https://explorer.ooni.org/) और [OONI API](https://api.ooni.io/) पर प्रकाशित किए जाएंगे। ",
             "id": "Jalankan tes eksperimental baru berikut yang dikembangkan oleh tim OONI:\n{experimental_test_list}\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/) dan [OONI API](https://api.ooni.io/).",
             "is": "Keyrðu eftirfarandi tilraunaprófanir sem þróaðar hafa verið af OONI-teyminu:\n{experimental_test_list}\n\nNiðurstöðurnar þínar verða birtar í [OONI Explorer](https://explorer.ooni.org/) og [OONI API](https://api.ooni.io/).",
@@ -618,7 +608,7 @@
         "icon": "OoniExperimental",
         "color": "#495057",
         "expiration_date": "4000-01-01T00:00:00.000000Z",
-        "oonirun_link_id": "10474",
+        "oonirun_link_id": "00108",
         "date_created": "2024-11-06T14:58:44.000000Z",
         "date_updated": "2024-11-06T14:58:44.000000Z",
         "revision": "1",

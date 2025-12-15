@@ -34,11 +34,11 @@ enum class OoniTest(
     val id: Long,
     val key: String,
 ) {
-    WEBSITES(10470L, "websites"),
-    INSTANT_MESSAGING(10471L, "instant_messaging"),
-    CIRCUMVENTION(10472L, "circumvention"),
-    PERFORMANCE(10473L, "performance"),
-    EXPERIMENTAL(10474L, "experimental"),
+    WEBSITES(104L, "websites"),
+    INSTANT_MESSAGING(105L, "instant_messaging"),
+    CIRCUMVENTION(106L, "circumvention"),
+    PERFORMANCE(107L, "performance"),
+    EXPERIMENTAL(108L, "experimental"),
     ;
 
     companion object {
