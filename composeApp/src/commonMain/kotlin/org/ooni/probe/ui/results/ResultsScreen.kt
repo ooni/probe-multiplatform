@@ -87,7 +87,6 @@ import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_back
 import ooniprobe.composeapp.generated.resources.ic_filters
 import ooniprobe.composeapp.generated.resources.ic_mark_as_viewed
-import ooniprobe.composeapp.generated.resources.ic_share
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource

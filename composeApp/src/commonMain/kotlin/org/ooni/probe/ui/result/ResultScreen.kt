@@ -79,7 +79,6 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Her
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Tested
 import ooniprobe.composeapp.generated.resources.TestResults_ms
 import ooniprobe.composeapp.generated.resources.ic_download
-import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_up
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_left
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_right
 import ooniprobe.composeapp.generated.resources.ic_replay
