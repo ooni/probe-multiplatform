@@ -29,9 +29,13 @@ class FetchDescriptorsUpdates(
 
         val fetchResults = coroutineScope {
             descriptors
-                .map { descriptor ->
-                    async { descriptor to fetchDescriptor(descriptor.id.value) }
-                }.awaitAll()
+                .chunked(MAX_FETCH_CONCURRENCY)
+                .flatMap { descriptorsBatch ->
+                    descriptorsBatch
+                        .map { descriptor ->
+                            async { descriptor to fetchDescriptor(descriptor.id.value) }
+                        }.awaitAll()
+                }
         }
 
         val minorUpdates = mutableListOf<InstalledTestDescriptorModel>()
@@ -83,5 +87,9 @@ class FetchDescriptorsUpdates(
                 },
             )
         }
+    }
+
+    companion object {
+        private const val MAX_FETCH_CONCURRENCY = 4
     }
 }
