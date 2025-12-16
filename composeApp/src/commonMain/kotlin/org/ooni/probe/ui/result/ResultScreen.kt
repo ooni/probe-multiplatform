@@ -25,9 +25,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -82,6 +79,8 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Her
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Websites_Hero_Tested
 import ooniprobe.composeapp.generated.resources.TestResults_ms
 import ooniprobe.composeapp.generated.resources.ic_download
+import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_left
+import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_right
 import ooniprobe.composeapp.generated.resources.ic_replay
 import ooniprobe.composeapp.generated.resources.ic_upload
 import ooniprobe.composeapp.generated.resources.ooni_bw
@@ -278,7 +277,7 @@ private fun Summary(item: ResultItem) {
             modifier = Modifier.fillMaxHeight().align(Alignment.BottomStart),
         ) {
             Icon(
-                Icons.AutoMirrored.Default.KeyboardArrowLeft,
+                painterResource(Res.drawable.ic_keyboard_arrow_left),
                 contentDescription = stringResource(Res.string.Common_Previous),
             )
         }
@@ -294,7 +293,7 @@ private fun Summary(item: ResultItem) {
             modifier = Modifier.fillMaxHeight().align(Alignment.BottomEnd),
         ) {
             Icon(
-                Icons.AutoMirrored.Default.KeyboardArrowRight,
+                painterResource(Res.drawable.ic_keyboard_arrow_right),
                 contentDescription = stringResource(Res.string.Common_Next),
             )
         }

@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -31,6 +29,8 @@ import ooniprobe.composeapp.generated.resources.Dashboard_ReviewDescriptor_Rejec
 import ooniprobe.composeapp.generated.resources.DescriptorUpdate_Updates
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.ic_close
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.Descriptor
@@ -66,7 +66,7 @@ fun ReviewUpdatesScreen(
                     },
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.Close,
+                        painter = painterResource(Res.drawable.ic_close),
                         contentDescription = stringResource(Res.string.Modal_Cancel),
                     )
                 }

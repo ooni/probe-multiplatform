@@ -15,8 +15,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.triStateToggleable
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -86,6 +84,7 @@ import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
 import ooniprobe.composeapp.generated.resources.ic_delete_all
 import ooniprobe.composeapp.generated.resources.ic_download
+import ooniprobe.composeapp.generated.resources.ic_back
 import ooniprobe.composeapp.generated.resources.ic_filters
 import ooniprobe.composeapp.generated.resources.ic_mark_as_viewed
 import ooniprobe.composeapp.generated.resources.ic_upload
@@ -169,7 +168,7 @@ fun ResultsScreen(
                 navigationIcon = {
                     IconButton(onClick = { onEvent(ResultsViewModel.Event.CancelSelection) }) {
                         Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
+                            painterResource(Res.drawable.ic_back),
                             contentDescription = stringResource(Res.string.Modal_Cancel),
                         )
                     }
