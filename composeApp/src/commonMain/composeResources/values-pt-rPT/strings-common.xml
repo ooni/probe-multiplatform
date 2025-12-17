@@ -248,6 +248,10 @@
     <string name="Settings_Support_IncludeLogs">Incluir logs da aplicação</string>
     <string name="Settings_Support_Action">Enviar e-mail</string>
 
+    <string name="Settings_ShareApp">Partilhar Aplicação</string>
+    <string name="Settings_ShareApp_Description">Partilha a aplicação %1$s com outra pessoa</string>
+    <string name="Settings_ShareApp_ShareMessage">Instala %1$s em %2$s</string>
+
     <string name="Settings_Storage_Label">Utilização de armazenamento</string>
     <string name="Settings_Storage_Delete">Eliminar</string>
     <string name="Settings_Storage_Clear">Limpar</string>
