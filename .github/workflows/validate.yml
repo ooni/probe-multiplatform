@@ -151,7 +151,7 @@ jobs:
 
   common-tests:
     name: Common Tests
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: [build-android]
 
     strategy:
