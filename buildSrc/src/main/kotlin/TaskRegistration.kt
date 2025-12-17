@@ -189,6 +189,15 @@ private fun Project.registerOONIDistributableTask() {
             signSparkle("Versions/B/Updater.app")
             signSparkle("") // root folder
 
+            // Remove existing Sparkle.framework in destination if there's already one
+            project.providers.exec {
+                commandLine(
+                    "rm",
+                    "-R",
+                    appSparkleLocation.resolve("Sparkle.framework").absolutePath
+                )
+            }.result.get()
+            // Copy to destination
             project.providers.exec {
                 commandLine(
                     "cp",
