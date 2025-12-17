@@ -97,6 +97,10 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Set Xcode version
+        run: |
+          sudo xcode-select -switch /Applications/Xcode_26.0.app
+
       - name: Xcode Cache
         uses: irgaly/xcode-cache@v1
         with:
