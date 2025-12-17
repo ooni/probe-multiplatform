@@ -12,16 +12,6 @@ runs:
     - name: Gradle cache
       uses: gradle/actions/setup-gradle@v3
 
-    - name: Cache Gradle dependencies
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/gradle.properties','**/*.gradle','**/*.gradle.kts') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
-
     - name: Set up ruby env
       uses: ruby/setup-ruby@v1
       with:
