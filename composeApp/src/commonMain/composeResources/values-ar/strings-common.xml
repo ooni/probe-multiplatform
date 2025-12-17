@@ -300,6 +300,9 @@
     <string name="Modal_CustomURL_NotSaved">المواقع لن تسجل اذا تركت هذه الواجهة. هل تريد ترك الواجهة؟</string>
     <string name="Desktop_Quit">خروج</string>
 
+    <string name="Tray_Notification_Check_Updates">بحث عن الترقية</string>
+    <string name="Tray_Notification_Checking_Updates">جاري التحقق من وجود التحديثات</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">ابدأ</string>

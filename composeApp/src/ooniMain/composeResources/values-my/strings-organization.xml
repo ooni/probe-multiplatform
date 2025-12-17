@@ -34,6 +34,5 @@
 
     <string name="Settings_Donate_Title">လှူဒါန်းရန်</string>
     <string name="Settings_Donate_Action">လှူဒါန်းရန်</string>
-    <string name="Tray_Notification_Check_Updates">အပ်ဒိတ် ရပြီလားကြည့်ပါ။</string>
-    <string name="Tray_Notification_Checking_Updates">မွမ်းမံချက်များကို စစ်ဆေးနေသည်...</string>
+
 </resources>

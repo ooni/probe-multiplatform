@@ -247,6 +247,10 @@
     <string name="Modal_CustomURL_NotSaved">Uw URL’s worden niet opgeslagen wanneer u dit scherm verlaat. Weet je zeker dat je dit scherm wilt verlaten?</string>
     <string name="Desktop_Quit">Stoppen</string>
 
+
+    <string name="Tray_Notification_Updates_Available">Update Available!</string>
+    <string name="Tray_Notification_Checking_Updates">Bezig met controleren op updates...</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Voer uit</string>

@@ -35,6 +35,5 @@
 
     <string name="Settings_Donate_Title">همیاری کنید</string>
     <string name="Settings_Donate_Action">همیاری کنید</string>
-    <string name="Tray_Notification_Check_Updates">به‌روز رسانی‌ها را بررسی کنید</string>
-    <string name="Tray_Notification_Checking_Updates">بررسی برای بروزرسانی...</string>
+
 </resources>

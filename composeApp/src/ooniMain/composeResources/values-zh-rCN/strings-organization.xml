@@ -49,7 +49,5 @@
     <string name="Settings_Donate_Action_Error">打开捐款页面出错。请转到 %1$s</string>
 
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">你将只能从由创建者发送的原始链接那里再次安装此链接。来自此链接的测量数据将被删除，但仍可从 explorer 处访问。</string>
-    <string name="Tray_Notification_Check_Updates">检查更新</string>
-    <string name="Tray_Notification_Updates_Available">有更新可用！</string>
-    <string name="Tray_Notification_Checking_Updates">正在检查更新...</string>
+
 </resources>

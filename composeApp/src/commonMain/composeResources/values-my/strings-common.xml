@@ -254,6 +254,9 @@
     <string name="Modal_CustomURL_NotSaved">ဤဝဘ်စာမျက်နှာမှ ထွက်သည့်အခါ သင့် URL များကို သိမ်းဆည်းမည် မဟုတ်ပါ။ ဤစာမျက်နှာမှ ထွက်လိုသည်မှာ သေချာပါသလား။ </string>
     <string name="Desktop_Quit">ထွက်မည်</string>
 
+
+    <string name="Tray_Notification_Check_Updates">အပ်ဒိတ် ရပြီလားကြည့်ပါ။</string>
+    <string name="Tray_Notification_Checking_Updates">မွမ်းမံချက်များကို စစ်ဆေးနေသည်...</string>
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">စမ်းမည်</string>

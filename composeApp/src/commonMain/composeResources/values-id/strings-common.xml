@@ -278,6 +278,9 @@
     <string name="Modal_CustomURL_NotSaved">URL Anda tidak akan disimpan saat Anda meninggalkan layar ini. Anda yakin ingin meninggalkan layar ini?</string>
     <string name="Desktop_Quit">Keluar</string>
 
+    <string name="Tray_Notification_Check_Updates">Periksa Pembaruan</string>
+    <string name="Tray_Notification_Checking_Updates">Memeriksa update ...</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Mulai</string>

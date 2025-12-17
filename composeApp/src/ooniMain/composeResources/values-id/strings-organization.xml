@@ -35,6 +35,5 @@
 
     <string name="Settings_Donate_Title">Donasi</string>
     <string name="Settings_Donate_Action">Donasi</string>
-    <string name="Tray_Notification_Check_Updates">Periksa Pembaruan</string>
-    <string name="Tray_Notification_Checking_Updates">Memeriksa update ...</string>
+
 </resources>

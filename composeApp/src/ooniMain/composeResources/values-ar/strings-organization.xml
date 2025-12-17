@@ -35,6 +35,5 @@
 
     <string name="Settings_Donate_Title">تبرَّع</string>
     <string name="Settings_Donate_Action">تبرَّع</string>
-    <string name="Tray_Notification_Check_Updates">بحث عن الترقية</string>
-    <string name="Tray_Notification_Checking_Updates">جاري التحقق من وجود التحديثات</string>
+
 </resources>
