@@ -235,6 +235,7 @@
     <string name="Settings_Support_IncludeLogs">Uygulama günlüğü kayıtları eklensin</string>
     <string name="Settings_Support_Action">E-posta gönder</string>
 
+    <string name="Settings_ShareApp">Uygulamayı Paylaş</string>
     <string name="Settings_Storage_Label">Depolama kullanımı</string>
     <string name="Settings_Storage_Delete">Sil</string>
     <string name="Settings_Storage_Clear">Temizle</string>
