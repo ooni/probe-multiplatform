@@ -249,6 +249,7 @@
     <string name="Settings_Support_Action">Envoyer le courriel</string>
 
     <string name="Settings_ShareApp">Partager l’appli</string>
+    <string name="Settings_ShareApp_Description">Partagez l’appli %1$s avec quelqu’un</string>
     <string name="Settings_Storage_Label">Utilisation de l’espace de stockage</string>
     <string name="Settings_Storage_Delete">Supprimer</string>
     <string name="Settings_Storage_Clear">Effacer</string>
