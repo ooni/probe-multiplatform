@@ -69,6 +69,7 @@ enum class PreferenceCategoryKey(
     SUPPORT("support"),
     DONATE("donate"),
     ABOUT_OONI("about_ooni"),
+    SHARE("share"),
 
     WEBSITES_CATEGORIES("websites_categories"),
     SEE_RECENT_LOGS("see_recent_logs"),

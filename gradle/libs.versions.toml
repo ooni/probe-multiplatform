@@ -69,8 +69,8 @@ okio = { module = "com.squareup.okio:okio", version = "3.16.4" }
 kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.2" }
 
 # Permissions
-moko-permissions-compose = { module ="dev.icerock.moko:permissions-compose", version.ref = "mokoPermissions" }
-moko-permissions-notifications = { module ="dev.icerock.moko:permissions-notifications", version.ref = "mokoPermissions" }
+moko-permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "mokoPermissions" }
+moko-permissions-notifications = { module = "dev.icerock.moko:permissions-notifications", version.ref = "mokoPermissions" }
 
 # Crash Reporting
 # See https://github.com/getsentry/sentry-kotlin-multiplatform?tab=readme-ov-file#cocoa-sdk-version-compatibility-table
@@ -102,7 +102,7 @@ androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", versio
 fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" }
 
 # Desktop
-auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.7.0"}
+auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.7.0" }
 directories = { module = "dev.dirs:directories", version = "26" }
 pratanumandal-unique = { module = "tk.pratanumandal:unique4j", version = "1.4" }
 desktop-oonimkall = { module = "org.ooni:oonimkall", version = "3.28.0-desktop" }
@@ -132,7 +132,7 @@ tooling = [
     "web-view",
 ]
 android = [
-#    "android-oonimkall",
+    #    "android-oonimkall",
     "android-activity",
     "android-fragment",
     "android-work",
