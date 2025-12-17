@@ -222,6 +222,7 @@
     <string name="Settings_Support_IncludeLogs">包括程序日志</string>
     <string name="Settings_Support_Action">发送邮件</string>
 
+    <string name="Settings_ShareApp">分享应用</string>
     <string name="Settings_Storage_Label">存储用量</string>
     <string name="Settings_Storage_Delete">删除</string>
     <string name="Settings_Storage_Clear">清除键</string>
