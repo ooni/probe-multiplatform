@@ -12,6 +12,7 @@ concurrency:
 jobs:
   android-lint:
     name: Android Lint ${{ matrix.variant }}
+    if: ${{ always() }}
     runs-on: ubuntu-latest
 
     strategy:
