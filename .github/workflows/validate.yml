@@ -12,6 +12,7 @@ concurrency:
 jobs:
   android-lint:
     name: Android Lint ${{ matrix.variant }}
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     continue-on-error: true
 
@@ -57,10 +58,34 @@ jobs:
           path: composeApp/build/reports/ktlint/
           retention-days: 7
 
+  common-tests:
+    name: Common Tests
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        organization: [ ooni, dw ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Run common tests
+        run: ./gradlew copyBrandingToCommonResources :composeApp:desktopTest -Porganization=${{ matrix.organization }}
+
+      - name: Uploads test reports
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: common-tests-report-${{ matrix.organization }}
+          path: composeApp/build/reports/tests/desktopTest/
+          retention-days: 7
+
   build-android:
     name: Build Android
     runs-on: ubuntu-latest
-    needs: [android-lint, kotlin-lint]
 
     strategy:
       matrix:
@@ -85,7 +110,6 @@ jobs:
   build-ios:
     name: Build iOS
     runs-on: macos-latest
-    needs: [kotlin-lint]
 
     strategy:
       matrix:
@@ -131,7 +155,6 @@ jobs:
   build-desktop:
     name: Build Desktop
     runs-on: macos-latest
-    needs: [kotlin-lint]
 
     steps:
       - uses: actions/checkout@v4
@@ -147,32 +170,6 @@ jobs:
         with:
           name: DesktopApp
           path: composeApp/build/compose/binaries/**/**/*
-          retention-days: 7
-
-  common-tests:
-    name: Common Tests
-    runs-on: macos-latest
-    needs: [build-android]
-
-    strategy:
-      matrix:
-        organization: [ ooni, dw ]
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Run common tests
-        run: ./gradlew copyBrandingToCommonResources :composeApp:desktopTest -Porganization=${{ matrix.organization }}
-
-      - name: Uploads test reports
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: common-tests-report-${{ matrix.organization }}
-          path: composeApp/build/reports/tests/desktopTest/
           retention-days: 7
 
   distribute:
