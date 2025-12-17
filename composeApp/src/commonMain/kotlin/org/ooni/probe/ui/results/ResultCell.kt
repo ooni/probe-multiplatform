@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -35,6 +33,7 @@ import ooniprobe.composeapp.generated.resources.TestResults_NotAvailable
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested
 import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
+import ooniprobe.composeapp.generated.resources.ic_check_circle
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
 import ooniprobe.composeapp.generated.resources.ic_download
 import ooniprobe.composeapp.generated.resources.ic_history
@@ -113,7 +112,7 @@ fun ResultCell(
                                 ),
                         ) {
                             Icon(
-                                Icons.Filled.CheckCircle,
+                                painter = painterResource(Res.drawable.ic_check_circle),
                                 tint = MaterialTheme.colorScheme.primary,
                                 contentDescription = null,
                                 modifier = Modifier

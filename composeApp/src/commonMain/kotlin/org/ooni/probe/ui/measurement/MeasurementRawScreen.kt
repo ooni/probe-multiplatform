@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +23,8 @@ import ooniprobe.composeapp.generated.resources.Measurement_Raw_NotUploadedReaso
 import ooniprobe.composeapp.generated.resources.Measurement_Raw_Upload
 import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.ic_share
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
@@ -49,7 +49,7 @@ fun MeasurementRawScreen(
                     },
                 ) {
                     Icon(
-                        Icons.Default.Share,
+                        painterResource(Res.drawable.ic_share),
                         contentDescription = null,
                     )
                 }

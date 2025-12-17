@@ -1,15 +1,15 @@
 PODS:
   - composeApp (1.0.0):
-    - Sentry (= 8.57.1)
+    - Sentry (= 8.57.3)
   - libcrypto (2025.11.19-113902)
   - libevent (2025.11.19-113902)
   - libssl (2025.11.19-113902)
   - libtor (2025.11.19-113902)
   - libz (2025.11.19-113902)
   - oonimkall (2025.11.19-113902)
-  - Sentry (8.57.1):
-    - Sentry/Core (= 8.57.1)
-  - Sentry/Core (8.57.1)
+  - Sentry (8.57.3):
+    - Sentry/Core (= 8.57.3)
+  - Sentry/Core (8.57.3)
   - Siren (6.1.3)
   - sqlite3 (3.42.0):
     - sqlite3/common (= 3.42.0)
@@ -49,14 +49,14 @@ EXTERNAL SOURCES:
     :podspec: https://github.com/ooni/probe-cli/releases/download/v3.28.0/oonimkall.podspec
 
 SPEC CHECKSUMS:
-  composeApp: 0b72cf4bde51c9ebb294a14f00036b83c0459b41
+  composeApp: 1d29243065d160717e83e0cb2bd603ca223a2bd2
   libcrypto: 2de3fbdf904df86b118205f87b8532d5f34ac0b0
   libevent: efbece867a0ed0e42514f5d18defb92bf4143eee
   libssl: 7daf30bb8c693000c28034fe362243f7a69e7c3f
   libtor: 76587bdde0951e9b4675ac86806cc9bb1dbe4cb5
   libz: 82070aaaae595f41996c6fd9f478e36a5041a53b
   oonimkall: 3323cdd95dfd9ecabc3fe79824ab8d4c5d2edc65
-  Sentry: ea4ca7cd1a46c77dcc8123804ce36d8f5603a841
+  Sentry: c643eb180df401dd8c734c5036ddd9dd9218daa6
   Siren: c0f6012f61196b73455202db07730f6454a4beb0
   sqlite3: f163dbbb7aa3339ad8fc622782c2d9d7b72f7e9c
 

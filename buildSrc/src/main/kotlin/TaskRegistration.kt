@@ -189,14 +189,14 @@ private fun Project.registerOONIDistributableTask() {
             signSparkle("Versions/B/Updater.app")
             signSparkle("") // root folder
 
-            project.exec {
+            project.providers.exec {
                 commandLine(
                     "cp",
                     "-a",
                     sparkleFramework.absolutePath,
                     appSparkleLocation.absolutePath
                 )
-            }
+            }.result.get()
 
             // Sign the .app file
             macOsCodeSign(appDirs.first().absolutePath)
@@ -215,7 +215,7 @@ private fun Project.macOsCodeSign(path: String) {
     }
 
     project.logger.debug("Signing $path")
-    project.exec {
+    project.providers.exec {
         commandLine(
             "codesign",
             "-f",
@@ -228,7 +228,7 @@ private fun Project.macOsCodeSign(path: String) {
             "--preserve-metadata=entitlements",
             path
         )
-    }
+    }.result.get()
 }
 
 private fun Project.registerResourceTasks(config: AppConfig) {
@@ -313,10 +313,10 @@ private fun Project.configureJavaExecTasks() {
     tasks.withType<JavaExec> {
         systemProperty(
             "java.library.path",
-            "${
-                layout.buildDirectory.dir("processedResources/desktop/main/macos")
-                    .get().asFile.absolutePath
-            }" +
+            layout.buildDirectory.dir("processedResources/desktop/main/macos")
+                .get().asFile.absolutePath +
+                layout.buildDirectory.dir("tmp/desktop/main/macos")
+                    .get().asFile.absolutePath +
                 File.pathSeparator +
                 "$projectDir/src/desktopMain/resources/windows" +
                 File.pathSeparator +

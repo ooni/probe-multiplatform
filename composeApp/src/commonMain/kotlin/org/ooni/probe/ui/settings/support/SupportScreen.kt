@@ -13,8 +13,6 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -40,6 +38,8 @@ import ooniprobe.composeapp.generated.resources.Settings_Support_Label
 import ooniprobe.composeapp.generated.resources.Settings_Support_Message
 import ooniprobe.composeapp.generated.resources.Settings_Support_Message_Hint
 import ooniprobe.composeapp.generated.resources.Settings_Support_SendEmail
+import ooniprobe.composeapp.generated.resources.ic_send
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.domain.SendSupportEmail
 import org.ooni.probe.ui.shared.NavigationBackButton
@@ -126,7 +126,7 @@ fun SupportScreen(
                     modifier = Modifier.padding(end = 16.dp),
                 )
 
-                Icon(Icons.AutoMirrored.Default.Send, contentDescription = null)
+                Icon(painterResource(Res.drawable.ic_send), contentDescription = null)
             }
         }
     }

@@ -440,6 +440,7 @@
     <string name="Common_Clear">Clear</string>
     <string name="Common_Next">Next</string>
     <string name="Common_Previous">Previous</string>
+    <string name="Common_Share">Share</string>
 
     <string name="Common_Today">Today</string>
     <string name="Common_Yesterday">Yesterday</string>

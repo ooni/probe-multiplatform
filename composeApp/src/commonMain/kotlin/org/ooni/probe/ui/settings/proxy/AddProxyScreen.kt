@@ -19,6 +19,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -122,7 +123,10 @@ fun AddProxyScreen(
                         Text(stringResource(Res.string.Settings_Proxy_Custom_HostnameInvalid))
                     }
                 },
-                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp)
+                    .testTag("AddProxy-HostField"),
             )
 
             OutlinedTextField(
@@ -138,7 +142,9 @@ fun AddProxyScreen(
                         Text(stringResource(Res.string.Settings_Proxy_Custom_PortInvalid))
                     }
                 },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("AddProxy-PortField"),
             )
         }
     }

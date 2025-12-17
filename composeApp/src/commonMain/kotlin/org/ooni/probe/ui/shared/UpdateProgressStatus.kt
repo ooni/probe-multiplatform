@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,6 +21,8 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Progress_ReviewLink_La
 import ooniprobe.composeapp.generated.resources.Dashboard_Progress_UpdateLink_Label
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.ic_close
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 
@@ -61,7 +61,7 @@ fun UpdateProgressStatus(
                     }
                     IconButton(onClick = onCancelClicked) {
                         Icon(
-                            imageVector = Icons.Filled.Close,
+                            painter = painterResource(Res.drawable.ic_close),
                             contentDescription = stringResource(Res.string.Modal_Cancel),
                         )
                     }

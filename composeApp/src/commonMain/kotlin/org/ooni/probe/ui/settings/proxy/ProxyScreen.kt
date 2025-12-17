@@ -14,8 +14,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -49,6 +47,7 @@ import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Unavailabl
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Delete_Confirmation
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_None
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Psiphon
+import ooniprobe.composeapp.generated.resources.ic_add
 import ooniprobe.composeapp.generated.resources.ic_check
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
 import ooniprobe.composeapp.generated.resources.ic_delete
@@ -141,7 +140,7 @@ fun ProxyScreen(
                             modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
                         ) {
                             Icon(
-                                Icons.Default.Add,
+                                painterResource(Res.drawable.ic_add),
                                 contentDescription = null,
                                 modifier = Modifier.padding(start = 4.dp, end = 16.dp),
                             )

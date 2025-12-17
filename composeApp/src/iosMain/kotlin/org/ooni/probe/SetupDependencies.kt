@@ -97,7 +97,7 @@ class SetupDependencies(
         batteryOptimization = object : BatteryOptimization {},
         isWebViewAvailable = { true },
         flavorConfig = FlavorConfig(),
-        proxyConfig = ProxyConfig(isPsiphonSupported = true),
+        proxyConfig = ProxyConfig(isPsiphonSupported = false),
     )
 
     private val operationsManager = OperationsManager(dependencies, backgroundRunner)

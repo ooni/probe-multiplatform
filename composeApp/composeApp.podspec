@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.vendored_frameworks      = 'build/cocoapods/framework/composeApp.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target    = '14.0'
-    spec.dependency 'Sentry', '8.57.1'
+    spec.dependency 'Sentry', '8.57.3'
                 
     if !Dir.exist?('build/cocoapods/framework/composeApp.framework') || Dir.empty?('build/cocoapods/framework/composeApp.framework')
         raise "
