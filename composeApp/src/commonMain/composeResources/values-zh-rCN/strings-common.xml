@@ -402,6 +402,10 @@
     <string name="Desktop_OpenApp">打开应用</string>
     <string name="Desktop_Quit">退出</string>
 
+    <string name="Tray_Notification_Check_Updates">检查更新</string>
+    <string name="Tray_Notification_Updates_Available">有更新可用！</string>
+    <string name="Tray_Notification_Checking_Updates">正在检查更新...</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">运行</string>
