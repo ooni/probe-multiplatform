@@ -49,7 +49,7 @@ EXTERNAL SOURCES:
     :podspec: https://github.com/ooni/probe-cli/releases/download/v3.28.0/oonimkall.podspec
 
 SPEC CHECKSUMS:
-  composeApp: 1d29243065d160717e83e0cb2bd603ca223a2bd2
+  composeApp: 3d04e7b0630769af6dc0c75d0568e58f942df7a1
   libcrypto: 2de3fbdf904df86b118205f87b8532d5f34ac0b0
   libevent: efbece867a0ed0e42514f5d18defb92bf4143eee
   libssl: 7daf30bb8c693000c28034fe362243f7a69e7c3f
