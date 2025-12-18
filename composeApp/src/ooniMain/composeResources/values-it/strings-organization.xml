@@ -34,7 +34,4 @@
 
     <string name="Settings_Donate_Title">Donazioni</string>
     <string name="Settings_Donate_Action">Donazioni</string>
-    <string name="Tray_Notification_Check_Updates">Cerca aggiornamenti</string>
-    <string name="Tray_Notification_Updates_Available">Aggiornamento Disponibile!</string>
-    <string name="Tray_Notification_Checking_Updates">Controllo gli aggiornamenti...</string>
-</resources>
+    </resources>
