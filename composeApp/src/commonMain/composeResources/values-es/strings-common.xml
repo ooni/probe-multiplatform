@@ -199,6 +199,7 @@
     <string name="Settings_Support_IncludeLogs">Incluir registros de aplicación</string>
     <string name="Settings_Support_Action">Enviar correo electrónico</string>
 
+    <string name="Settings_ShareApp">Aplicación de compartición</string>
     <string name="Settings_Storage_Label">Uso de almacenamiento</string>
     <string name="Settings_Storage_Delete">Eliminar</string>
     <string name="Settings_Storage_Clear">Borrar</string>

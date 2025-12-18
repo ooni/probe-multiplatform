@@ -204,6 +204,7 @@
     <string name="Settings_Support_IncludeLogs">Включить логи приложения</string>
     <string name="Settings_Support_Action">Отправить письмо</string>
 
+    <string name="Settings_ShareApp">Поделиться приложением</string>
     <string name="Settings_Storage_Label">Использование хранилища</string>
     <string name="Settings_Storage_Delete">Удалить</string>
     <string name="Settings_Storage_Clear">Очистить</string>

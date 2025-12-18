@@ -235,6 +235,7 @@
     <string name="Settings_Support_IncludeLogs">Anwendungsprotokolle einbeziehen</string>
     <string name="Settings_Support_Action">E-Mail senden</string>
 
+    <string name="Settings_ShareApp">App teilen</string>
     <string name="Settings_Storage_Label">Speicherplatz-Nutzung</string>
     <string name="Settings_Storage_Delete">Löschen</string>
     <string name="Settings_Storage_Clear">Löschen</string>
