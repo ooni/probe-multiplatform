@@ -36,7 +36,7 @@ kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version =
 android-desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.5" }
 
 # UI
-android-activity = { module = "androidx.activity:activity-ktx", version = "1.12.1" }
+android-activity = { module = "androidx.activity:activity-ktx", version = "1.12.2" }
 android-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.9" }
 android-work = { module = "androidx.work:work-runtime-ktx", version = "2.11.0" }
 android-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.1" }
