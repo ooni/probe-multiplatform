@@ -49,7 +49,4 @@
     <string name="Settings_Donate_Action_Error">Ошибка при открытии фандрайзинговой страницы. Пожалуйста, перейдите по ссылке: %1$s</string>
 
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Вы сможете установить эту ссылку снова только с помощью оригинальной ссылки, отправленной ее создателем. Измерения, собранные с помощью этой ссылки будут удалены, но останутся доступными в OONI Explorer. </string>
-    <string name="Tray_Notification_Check_Updates">Проверить наличие обновлений</string>
-    <string name="Tray_Notification_Updates_Available">Доступно обновление!</string>
-    <string name="Tray_Notification_Checking_Updates">Проверка обновлений ...</string>
 </resources>
