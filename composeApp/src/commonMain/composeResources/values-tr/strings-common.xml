@@ -235,7 +235,10 @@
     <string name="Settings_Support_IncludeLogs">Uygulama günlüğü kayıtları eklensin</string>
     <string name="Settings_Support_Action">E-posta gönder</string>
 
-    <string name="Settings_ShareApp">Uygulamayı Paylaş</string>
+    <string name="Settings_ShareApp">Uygulamayı paylaş</string>
+    <string name="Settings_ShareApp_Description">%1$s uygulamasını başka biri ile paylaşın</string>
+    <string name="Settings_ShareApp_ShareMessage">%2$s üzerinden %1$s kur</string>
+
     <string name="Settings_Storage_Label">Depolama kullanımı</string>
     <string name="Settings_Storage_Delete">Sil</string>
     <string name="Settings_Storage_Clear">Temizle</string>
@@ -418,7 +421,7 @@
     <string name="Desktop_OpenApp">Uygulamayı aç</string>
     <string name="Desktop_Quit">Çık</string>
 
-    <string name="Tray_Notification_Check_Updates">Güncelleme denetimi</string>
+    <string name="Tray_Notification_Check_Updates">Güncellemeleri denetle</string>
     <string name="Tray_Notification_Updates_Available">Güncelleme yayınlanmış!</string>
     <string name="Tray_Notification_Checking_Updates">Güncellemeler denetleniyor...</string>
 
