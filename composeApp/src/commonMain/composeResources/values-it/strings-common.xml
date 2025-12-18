@@ -243,6 +243,9 @@
     <string name="Modal_CustomURL_NotSaved">Gli URL non saranno salvati quando lasci questa pagina. Sei sicuro di voler lasciare questa pagina?</string>
     <string name="Desktop_Quit">Esci</string>
 
+    <string name="Tray_Notification_Check_Updates">Cerca aggiornamenti</string>
+    <string name="Tray_Notification_Updates_Available">Aggiornamento Disponibile!</string>
+    <string name="Tray_Notification_Checking_Updates">Controllo gli aggiornamenti...</string>
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Esegui</string>

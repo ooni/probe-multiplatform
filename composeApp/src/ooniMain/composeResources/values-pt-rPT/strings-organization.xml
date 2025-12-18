@@ -49,7 +49,5 @@
     <string name="Settings_Donate_Action_Error">Erro ao abrir a página de doações. Por favor, vá até %1$s</string>
 
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Só poderá voltar a instalar este link novamente a partir do link original enviado pelo criador. As medições deste link serão apagadas, mas continuaram acessíveis através do explorador.</string>
-    <string name="Tray_Notification_Check_Updates">Verificar Atualizações</string>
-    <string name="Tray_Notification_Updates_Available">Atualização Disponível!</string>
-    <string name="Tray_Notification_Checking_Updates">A verificar se há atualizações…</string>
+
 </resources>

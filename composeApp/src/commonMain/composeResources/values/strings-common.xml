@@ -421,6 +421,10 @@
     <string name="Desktop_OpenApp">Open App</string>
     <string name="Desktop_Quit">Quit</string>
 
+    <string name="Tray_Notification_Check_Updates">Check for Updates</string>
+    <string name="Tray_Notification_Updates_Available">Update Available!</string>
+    <string name="Tray_Notification_Checking_Updates">Checking for updates...</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Run</string>

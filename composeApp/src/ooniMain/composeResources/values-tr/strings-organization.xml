@@ -49,7 +49,5 @@
     <string name="Settings_Donate_Action_Error">Bağış sayfası açılamadı. Lütfen şuraya gidin: %1$s</string>
 
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Bu bağlantıyı yalnızca geliştiricisinin gönderdiği özgün bağlantıdan yeniden kurabilirsiniz. Bu bağlantıdaki ölçümler silinecek, ancak Explorer üzerinden erişilebilecek.</string>
-    <string name="Tray_Notification_Check_Updates">Güncelleme denetimi</string>
-    <string name="Tray_Notification_Updates_Available">Güncelleme yayınlanmış!</string>
-    <string name="Tray_Notification_Checking_Updates">Güncellemeler denetleniyor...</string>
+
 </resources>

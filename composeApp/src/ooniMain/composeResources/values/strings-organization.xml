@@ -53,7 +53,4 @@
     <string name="Settings_Donate_Action_Error">Error opening donation page. Please go to %1$s</string>
 
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">You will be able to install this link again only from the original link sent by the creator. Measurements from this link will be deleted, but will be accessible from explorer.</string>
-    <string name="Tray_Notification_Check_Updates">Check for Updates</string>
-    <string name="Tray_Notification_Updates_Available">Update Available!</string>
-    <string name="Tray_Notification_Checking_Updates">Checking for updates...</string>
 </resources>

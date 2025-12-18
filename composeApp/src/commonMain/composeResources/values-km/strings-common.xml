@@ -275,6 +275,8 @@
     <string name="Modal_CustomURL_NotSaved">URLs របស់អ្នកនឹងមិនរក្សាទុកទេនៅពេលអ្នកចាកចេញពីអេក្រង់នេះ។ តើអ្នកច្បាស់ទេថាអ្នកចង់ចាកចេញពីអេក្រង់នេះ?</string>
     <string name="Desktop_Quit">ចាកចេញ</string>
 
+    <string name="Tray_Notification_Checking_Updates">កំពុងពិនិត្យមើលបច្ចុប្បន្នភាព...</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">ដំណើរការ</string>

@@ -255,6 +255,9 @@
     <string name="Modal_CustomURL_NotSaved">آدرس‌های شما با ترک این صفحه، ذخیره نخواهند شد. آیا مطمئنید که می‌خواهید این صفحه را ترک کنید؟</string>
     <string name="Desktop_Quit">خروج</string>
 
+    <string name="Tray_Notification_Check_Updates">به‌روز رسانی‌ها را بررسی کنید</string>
+    <string name="Tray_Notification_Checking_Updates">بررسی برای بروزرسانی...</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">اجرا</string>

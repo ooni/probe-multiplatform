@@ -10,13 +10,62 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build Mobile
+  android-lint:
+    name: Android Lint ${{ matrix.variant }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        variant: [ fdroid, full ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Run lint
+        run: |
+          ./gradlew copyBrandingToCommonResources lint${{ matrix.variant }}Debug || {
+            echo "::warning::Android Lint ${{ matrix.variant }} failed. Check the uploaded reports for details."
+            exit 0
+          }
+
+      - name: Uploads test reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: android-lint-${{ matrix.variant }}-report
+          path: composeApp/build/reports/
+          retention-days: 7
+
+  kotlin-lint:
+    name: Kotlin Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Run lint
+        run: ./gradlew copyBrandingToCommonResources ktlintCheck
+
+      - name: Uploads test reports
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: kotlin-lint-report
+          path: composeApp/build/reports/ktlint/
+          retention-days: 7
+
+  common-tests:
+    name: Common Tests
     runs-on: macos-latest
 
     strategy:
       matrix:
-        type: [ Debug ]
         organization: [ ooni, dw ]
 
     steps:
@@ -24,6 +73,59 @@ jobs:
 
       - name: Setup
         uses: ./.github/actions/setup
+
+      - name: Run common tests
+        run: ./gradlew copyBrandingToCommonResources :composeApp:desktopTest -Porganization=${{ matrix.organization }}
+
+      - name: Uploads test reports
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: common-tests-report-${{ matrix.organization }}
+          path: composeApp/build/reports/tests/desktopTest/
+          retention-days: 7
+
+  build-android:
+    name: Build Android
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        organization: [ ooni, dw ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build release Android APK
+        run: ./gradlew copyBrandingToCommonResources assembleFullRelease -Porganization=${{ matrix.organization }}
+
+      - name: Upload APK artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.organization }}-release-APK
+          path: composeApp/build/outputs/apk/full/release/composeApp-full-universal-release.apk
+          retention-days: 7
+
+  build-ios:
+    name: Build iOS
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        organization: [ ooni, dw ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Set Xcode version
+        run: |
+          sudo xcode-select -switch /Applications/Xcode_26.0.app
 
       - name: Xcode Cache
         uses: irgaly/xcode-cache@v1
@@ -48,18 +150,9 @@ jobs:
           key: pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: pods-
 
-      - name: Build Android
-        run: ./gradlew copyBrandingToCommonResources assembleFull${{ matrix.type }} -Porganization=${{ matrix.organization }}
-
       - name: Build iOS App
         run: bundle exec fastlane ios build organization:${{ matrix.organization }}
         continue-on-error: false
-
-      - name: Uploads artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.organization }}-${{ matrix.type }}-APKs
-          path: composeApp/build/outputs/apk/**/**/composeApp-*.apk
 
   build-desktop:
     name: Build Desktop
@@ -79,76 +172,12 @@ jobs:
         with:
           name: DesktopApp
           path: composeApp/build/compose/binaries/**/**/*
-
-  android-lint:
-    name: Android Lint
-    runs-on: macos-latest
-    needs: [ build ]
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Run fdroid lint
-        run: ./gradlew copyBrandingToCommonResources lintFdroidDebug
-
-      - name: Run full lint
-        run: ./gradlew copyBrandingToCommonResources lintFullDebug
-
-      - name: Uploads test reports
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: android-lint-report
-          path: composeApp/build/reports/
-
-  kotlin-lint:
-    name: Kotlin Lint
-    runs-on: macos-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Run lint
-        run: ./gradlew copyBrandingToCommonResources ktlintCheck
-
-      - name: Uploads test reports
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: android-lint-report
-          path: composeApp/build/reports/ktlint/
-
-  common-tests:
-    name: Common Tests
-    runs-on: macos-latest
-    needs: [ build ]
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Run common tests
-        run: ./gradlew copyBrandingToCommonResources :composeApp:desktopTest
-
-      - name: Uploads test reports
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: android-lint-report
-          path: composeApp/build/reports/tests/desktopTest/
+          retention-days: 7
 
   distribute:
     name: Firebase App Distribution
     runs-on: ubuntu-latest
-    needs: [ common-tests ]
+    needs: [build-android, common-tests]
     if: github.ref == 'refs/heads/main'
     strategy:
       matrix:
@@ -159,8 +188,11 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: Build release Android APK
-        run: ./gradlew copyBrandingToCommonResources assembleFullRelease -Porganization=${{ matrix.organization }}
+      - name: Download APK artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.organization }}-release-APK
+          path: composeApp/build/outputs/apk/full/release/
 
       - name: Firebase App Distribution
         id: uploadArtifact

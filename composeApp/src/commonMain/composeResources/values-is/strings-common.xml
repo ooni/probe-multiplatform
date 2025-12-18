@@ -300,6 +300,7 @@
     <string name="Modal_CustomURL_Title_NotSaved">Ertu viss?</string>
     <string name="Modal_CustomURL_NotSaved">Slóðirnar þínar verða ekki vistaðar þegar þú ferð af þessum skjá. Ertu viss um að þú viljir fara af skjánum?</string>
     <string name="Desktop_Quit">Hætta</string>
+    <string name="Tray_Notification_Check_Updates">Athuga með uppfærslur</string>
 
     <!-- Common / Others -->
 
