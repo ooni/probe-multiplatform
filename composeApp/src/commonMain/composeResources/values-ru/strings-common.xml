@@ -390,6 +390,10 @@
     <string name="Desktop_OpenApp">Открыть приложение</string>
     <string name="Desktop_Quit">Выход</string>
 
+    <string name="Tray_Notification_Check_Updates">Проверить наличие обновлений</string>
+    <string name="Tray_Notification_Updates_Available">Доступно обновление!</string>
+    <string name="Tray_Notification_Checking_Updates">Проверка обновлений ...</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Запустить</string>
