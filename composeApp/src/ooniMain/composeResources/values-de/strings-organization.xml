@@ -49,7 +49,4 @@
     <string name="Settings_Donate_Action_Error">Fehler beim Öffnen der Spendenseite. Bitte gehe zu %1$s</string>
 
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Du kannst diesen Link nur über den Original-Link installieren, den der Ersteller geschickt hat. Die Messungen über diesen Link werden gelöscht, sind aber über den Explorer weiterhin zugänglich.</string>
-    <string name="Tray_Notification_Check_Updates">Auf Aktualisierungen prüfen</string>
-    <string name="Tray_Notification_Updates_Available">Aktualisierung verfügbar!</string>
-    <string name="Tray_Notification_Checking_Updates">Suche nach Updates...</string>
 </resources>
