@@ -12,9 +12,7 @@ concurrency:
 jobs:
   android-lint:
     name: Android Lint ${{ matrix.variant }}
-    if: ${{ always() }}
     runs-on: ubuntu-latest
-    continue-on-error: true
 
     strategy:
       matrix:
@@ -27,11 +25,15 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Run lint
-        run: ./gradlew copyBrandingToCommonResources lint${{ matrix.variant }}Debug
+        run: |
+          ./gradlew copyBrandingToCommonResources lint${{ matrix.variant }}Debug || {
+            echo "::warning::Android Lint ${{ matrix.variant }} failed. Check the uploaded reports for details."
+            exit 0
+          }
 
       - name: Uploads test reports
         uses: actions/upload-artifact@v4
-        if: failure()
+        if: always()
         with:
           name: android-lint-${{ matrix.variant }}-report
           path: composeApp/build/reports/
