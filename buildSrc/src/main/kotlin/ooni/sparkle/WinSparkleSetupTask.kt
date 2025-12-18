@@ -8,6 +8,7 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import java.io.File
+import java.net.URI
 import java.net.URL
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
@@ -21,6 +22,7 @@ abstract class WinSparkleSetupTask : DefaultTask() {
     abstract val destDir: DirectoryProperty
 
     @TaskAction
+    @Suppress("NewApi")
     fun run() {
         val versionStr = winSparkleVersion.get()
         val url = "https://github.com/vslavik/winsparkle/releases/download/v$versionStr/WinSparkle-$versionStr.zip"
@@ -41,7 +43,7 @@ abstract class WinSparkleSetupTask : DefaultTask() {
 
         if (!archiveFile.exists()) {
             project.logger.lifecycle("Downloading WinSparkle $versionStr from $url …")
-            URL(url).openStream().use { input ->
+            URI(url).toURL().openStream().use { input ->
                 Files.copy(input, archiveFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
             }
         } else {

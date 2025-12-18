@@ -1,12 +1,11 @@
 import com.android.build.api.variant.FilterConfiguration.FilterType.ABI
-import org.gradle.kotlin.dsl.exclude
-import java.time.LocalDate
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.compose.desktop.application.tasks.AbstractJPackageTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import java.time.LocalDate
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -192,6 +191,14 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+        // Unable to strip the following libraries, packaging them as they are:
+        jniLibs.keepDebugSymbols.addAll(
+            listOf(
+                "**/libandroidx.graphics.path.so",
+                "**/libdatastore_shared_counter.so",
+                "**/libgojni.so",
+            ),
+        )
     }
 
     signingConfigs {
@@ -496,15 +503,6 @@ compose.resources {
     packageOfResClass = "ooniprobe.composeapp.generated.resources"
     generateResClass = always
 }
-
-// region Work around temporary Compose bugs.
-configurations.all {
-    attributes {
-        // https://github.com/JetBrains/compose-jb/issues/1404#issuecomment-1146894731
-        attribute(Attribute.of("ui", String::class.java), "awt")
-    }
-}
-// endregion
 
 version = android.defaultConfig.versionName ?: ""
 
