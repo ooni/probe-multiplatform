@@ -223,6 +223,9 @@
     <string name="Settings_Support_Action">发送邮件</string>
 
     <string name="Settings_ShareApp">分享应用</string>
+    <string name="Settings_ShareApp_Description">与别人分享 %1$s 应用</string>
+    <string name="Settings_ShareApp_ShareMessage">在 %2$s 安装 %1$s</string>
+
     <string name="Settings_Storage_Label">存储用量</string>
     <string name="Settings_Storage_Delete">删除</string>
     <string name="Settings_Storage_Clear">清除键</string>
