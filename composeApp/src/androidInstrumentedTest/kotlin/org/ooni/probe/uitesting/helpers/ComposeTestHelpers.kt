@@ -4,6 +4,7 @@ import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -31,8 +32,8 @@ fun ComposeTestRule.clickOnText(
     substring: Boolean = false,
     timeout: Duration = DEFAULT_WAIT_TIMEOUT,
 ): SemanticsNodeInteraction {
-    wait(timeout) { onNodeWithText(text, substring = substring).isDisplayed() }
-    return onNodeWithText(text, substring = substring).performClick()
+    wait(timeout) { onAllNodesWithText(text, substring = substring).onFirst().isDisplayed() }
+    return onAllNodesWithText(text, substring = substring).onFirst().performClick()
 }
 
 suspend fun ComposeTestRule.clickOnContentDescription(stringRes: StringResource) = clickOnContentDescription(getString(stringRes))

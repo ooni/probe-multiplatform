@@ -117,7 +117,7 @@ class TaskEventMapperTest {
                 assertEquals("PT", probeCountryCode)
                 assertEquals("", reportId)
             }
-            with(event.result?.measurementStartTime?.toLocalDateTime(TimeZone.UTC)!!) {
+            with(event.result.measurementStartTime?.toLocalDateTime(TimeZone.UTC)!!) {
                 // 2024-08-05 13:22:31
                 assertEquals(2024, year)
                 assertEquals(Month.AUGUST, month)
@@ -126,7 +126,7 @@ class TaskEventMapperTest {
                 assertEquals(22, minute)
                 assertEquals(31, second)
             }
-            assertEquals("https://www.reddit.com/", event.result?.input)
+            assertEquals("https://www.reddit.com/", event.result.input)
         }
     }
 
