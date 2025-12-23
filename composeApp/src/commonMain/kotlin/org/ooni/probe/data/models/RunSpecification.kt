@@ -18,30 +18,9 @@ sealed interface RunSpecification {
 
     @Serializable
     data class Test(
-        val source: Source,
+        val source: InstalledTestDescriptorModel.Id,
         val netTests: List<NetTest>,
-    ) {
-        @Serializable
-        sealed interface Source {
-            @Serializable
-            data class Default(
-                val name: String,
-            ) : Source
-
-            @Serializable
-            data class Installed(
-                val id: InstalledTestDescriptorModel.Id,
-            ) : Source
-
-            companion object {
-                fun fromDescriptor(descriptor: Descriptor) =
-                    when (descriptor.source) {
-                        is Descriptor.Source.Default -> Default(descriptor.name)
-                        is Descriptor.Source.Installed -> Installed(descriptor.source.value.id)
-                    }
-            }
-        }
-    }
+    )
 
     /*
      * Remove the URL inputs from the spec if we already have them in our database,
@@ -70,7 +49,7 @@ sealed interface RunSpecification {
         }
 
     private val Test.isWebsites
-        get() = (source as? Test.Source.Default)?.name == "websites"
+        get() = source.value == OoniTest.WEBSITES.id.toString()
 
     companion object {
         fun buildForDescriptor(
@@ -80,13 +59,7 @@ sealed interface RunSpecification {
         ) = Full(
             tests = listOf(
                 Test(
-                    source = when (descriptor.source) {
-                        is Descriptor.Source.Default ->
-                            Test.Source.Default(descriptor.name)
-
-                        is Descriptor.Source.Installed ->
-                            Test.Source.Installed(descriptor.source.value.id)
-                    },
+                    source = descriptor.source.id,
                     netTests = descriptor.allTests,
                 ),
             ),

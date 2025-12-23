@@ -22,32 +22,25 @@ data class Descriptor(
     val expirationDate: LocalDateTime?,
     val netTests: List<NetTest>,
     val longRunningTests: List<NetTest> = emptyList(),
-    val source: Source,
+    val source: InstalledTestDescriptorModel,
     val updateStatus: UpdateStatus,
     val enabled: Boolean = true,
     val summaryType: SummaryType,
 ) {
-    sealed interface Source {
-        data class Default(
-            val value: DefaultTestDescriptor,
-        ) : Source
-
-        data class Installed(
-            val value: InstalledTestDescriptorModel,
-        ) : Source
-    }
-
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 
     val updatedDescriptor
         get() = (updateStatus as? UpdateStatus.Updatable)?.updatedDescriptor
 
     val key: String
-        get() = when (source) {
-            is Source.Default -> name
-            is Source.Installed -> source.value.id.value
+        get() {
+            val descriptorId = source.id.value
+            return if (isDefault()) {
+                OoniTest.fromId(descriptorId.toLong())?.key ?: descriptorId
+            } else {
+                descriptorId
+            }
         }
-
     val allTests get() = netTests + longRunningTests
 
     val estimatedDuration
@@ -59,14 +52,19 @@ data class Descriptor(
         get() =
             allTests.size == 1 && allTests.first().test == TestType.WebConnectivity
 
-    val runLink get() = (source as? Source.Installed)?.value?.runLink
+    val runLink get() = source.runLink
+
+    val settingsPrefix: String?
+        get() = if (isDefault()) null else source.id.value
+
+    fun isDefault(): Boolean = source.isDefaultTestDescriptor
 
     companion object {
         val SORT_COMPARATOR =
-            compareByDescending<Descriptor> { it.source is Source.Installed }
+            compareByDescending<Descriptor> { !it.isDefault() }
                 .thenBy { it.isExpired }
-                .thenByDescending { (it.source as? Source.Installed)?.value?.dateInstalled }
-                .thenByDescending { (it.source as? Source.Installed)?.value?.id?.value }
+                .thenByDescending { it.source.dateInstalled }
+                .thenByDescending { it.source.id.value }
     }
 }
 

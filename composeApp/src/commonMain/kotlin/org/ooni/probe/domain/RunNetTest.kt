@@ -67,8 +67,8 @@ class RunNetTest(
                     testTotal = spec.testTotal,
                 )
             }
-            val installedDescriptorId =
-                (spec.descriptor.source as? Descriptor.Source.Installed)?.value?.id
+            // Ensure descriptor id is not available for ooni descriptors
+            val installedDescriptorId = if (spec.descriptor.isDefault()) null else spec.descriptor.source.id
 
             try {
                 startTest(

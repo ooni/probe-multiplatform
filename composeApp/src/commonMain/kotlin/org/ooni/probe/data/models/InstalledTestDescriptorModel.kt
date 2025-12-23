@@ -6,26 +6,49 @@ import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_Description
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_LastUpdated
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.TestResults_NotAvailable
+import ooniprobe.composeapp.generated.resources.performance_datausage
+import ooniprobe.composeapp.generated.resources.small_datausage
 import ooniprobe.composeapp.generated.resources.test_circumvention
 import ooniprobe.composeapp.generated.resources.test_experimental
 import ooniprobe.composeapp.generated.resources.test_instant_messaging
 import ooniprobe.composeapp.generated.resources.test_performance
 import ooniprobe.composeapp.generated.resources.test_websites
+import ooniprobe.composeapp.generated.resources.websites_datausage
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.SummaryType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.TestDescriptor
-import org.ooni.probe.data.models.Descriptor.Source
 import org.ooni.probe.shared.InstalledDescriptorIcons
 import org.ooni.probe.shared.hexToColor
 import org.ooni.probe.shared.now
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.shared.toEpoch
+
+enum class OoniTest(
+    val id: Long,
+    val key: String,
+) {
+    WEBSITES(104L, "websites"),
+    INSTANT_MESSAGING(105L, "instant_messaging"),
+    CIRCUMVENTION(106L, "circumvention"),
+    PERFORMANCE(107L, "performance"),
+    EXPERIMENTAL(108L, "experimental"),
+    ;
+
+    companion object {
+        private val map = entries.associateBy(OoniTest::id)
+
+        fun fromId(id: Long) = map[id]
+
+        fun isValidId(id: Long): Boolean = entries.any { it.id == id }
+    }
+}
 
 @Serializable
 data class InstalledTestDescriptorModel(
@@ -60,6 +83,8 @@ data class InstalledTestDescriptorModel(
         val revision: Long,
     )
 
+    val isDefaultTestDescriptor get() = OoniTest.isValidId(id.value.toLongOrNull() ?: -1L)
+
     val key get() = Key(id, revision)
 
     val previousRevisions
@@ -93,14 +118,30 @@ fun InstalledTestDescriptorModel.toDescriptor(updateStatus: UpdateStatus = Updat
         icon = icon?.let(InstalledDescriptorIcons::getIconFromValue),
         color = color?.hexToColor(),
         animation = icon?.let { determineAnimation(it) } ?: animation?.let(Animation::fromFileName),
-        dataUsage = { null },
+        dataUsage = { if (isDefaultTestDescriptor) stringResource(getDataUsage()) else null },
         expirationDate = expirationDate,
         netTests = netTests.orEmpty(),
-        source = Descriptor.Source.Installed(this),
+        source = this,
         updateStatus = updateStatus,
         // In the future, this will become a DB field with a value provided by the back-end
         summaryType = SummaryType.Anomaly,
     )
+
+fun InstalledTestDescriptorModel.getDataUsage(): StringResource =
+    when (
+        OoniTest
+            .fromId(
+                this.key.id.value
+                    .toLong(),
+            )?.key
+    ) {
+        OoniTest.WEBSITES.key -> Res.string.websites_datausage
+        OoniTest.INSTANT_MESSAGING.key -> Res.string.small_datausage
+        OoniTest.CIRCUMVENTION.key -> Res.string.small_datausage
+        OoniTest.PERFORMANCE.key -> Res.string.performance_datausage
+        OoniTest.EXPERIMENTAL.key -> Res.string.TestResults_NotAvailable
+        else -> Res.string.TestResults_NotAvailable
+    }
 
 private val iconAnimationMap = mapOf(
     Res.drawable.test_websites to Animation.Websites,

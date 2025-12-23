@@ -22,7 +22,7 @@ class GetAutoRunSpecification(
         return RunSpecification.Full(
             tests = descriptors.map { descriptor ->
                 RunSpecification.Test(
-                    source = RunSpecification.Test.Source.fromDescriptor(descriptor),
+                    source = descriptor.source.id,
                     netTests = descriptor.netTests,
                 )
             },
