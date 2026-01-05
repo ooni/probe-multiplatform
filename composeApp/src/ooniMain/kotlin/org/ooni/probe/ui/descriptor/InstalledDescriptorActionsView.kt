@@ -137,7 +137,7 @@ fun InstalledDescriptorActionsView(
                     Text(stringResource(Res.string.DescriptorUpdate_CheckUpdates))
                 }
             }
-            if (descriptor.isDefaultTestDescriptor.not()) {
+            if (descriptor.isOoniDescriptor.not()) {
                 Button(
                     onClick = { showDialog = true },
                     colors = ButtonDefaults.buttonColors(
