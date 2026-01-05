@@ -49,7 +49,7 @@ sealed interface RunSpecification {
         }
 
     private val Test.isWebsites
-        get() = source.value == OoniTest.WEBSITES.id.toString()
+        get() = source.value == OoniTest.Websites.id
 
     companion object {
         fun buildForDescriptor(

@@ -358,7 +358,7 @@ private fun DescriptorDetails(
                         .align(Alignment.CenterHorizontally)
                         .padding(top = 8.dp),
                 ) {
-                    if (descriptor.key == OoniTest.WEBSITES.key) {
+                    if (descriptor.key == OoniTest.Websites.key) {
                         OutlinedButton(
                             onClick = { onEvent(DescriptorViewModel.Event.ChooseWebsitesClicked) },
                             border = ButtonDefaults
