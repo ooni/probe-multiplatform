@@ -42,7 +42,7 @@ class GetTestDescriptors(
             }
             return@combine updatedDescriptors.map {
                 it.copy(enabled = it.name != OoniTest.Websites.key || isWebsitesEnabled)
-            }
+            }.sortedWith(Descriptor.SORT_COMPARATOR)
         }
     }
 

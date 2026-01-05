@@ -1,20 +1,24 @@
 package org.ooni.probe.data.models
 
-enum class OoniTest(
+sealed class OoniTest(
     val id: String,
-    val key: String,
+    val key: String
 ) {
-    Websites("00104", "websites"),
-    InstantMessaging("00105", "instant_messaging"),
-    Circumvention("00106", "circumvention"),
-    Performance("00107", "performance"),
-    Experimental("00108", "experimental"),
-    ;
+    object Websites : OoniTest("00104", "websites")
+    object InstantMessaging : OoniTest("00105", "instant_messaging")
+    object Circumvention : OoniTest("00106", "circumvention")
+    object Performance : OoniTest("00107", "performance")
+    object Experimental : OoniTest("00108", "experimental")
 
     companion object {
-        private val map = entries.associateBy(OoniTest::id)
-
-        fun fromId(id: String) = map[id]
+        fun fromId(id: String): OoniTest? = when (id) {
+            Websites.id -> Websites
+            InstantMessaging.id -> InstantMessaging
+            Circumvention.id -> Circumvention
+            Performance.id -> Performance
+            Experimental.id -> Experimental
+            else -> null
+        }
 
         fun isValidId(id: String): Boolean = fromId(id) != null
     }
