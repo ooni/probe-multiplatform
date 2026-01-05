@@ -11,6 +11,7 @@ import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.toDescriptor
 
@@ -40,7 +41,7 @@ class GetTestDescriptors(
                 item.toDescriptor(updateStatus = descriptorUpdates.getStatusOf(item.id))
             }
             return@combine updatedDescriptors.map {
-                it.copy(enabled = it.name != "websites" || isWebsitesEnabled)
+                it.copy(enabled = it.name != OoniTest.Websites.key || isWebsitesEnabled)
             }
         }
     }

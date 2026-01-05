@@ -36,7 +36,7 @@ data class Descriptor(
         get() {
             val descriptorId = source.id.value
             return if (isDefault()) {
-                OoniTest.fromId(descriptorId.toLong())?.key ?: descriptorId
+                OoniTest.fromId(descriptorId)?.key ?: descriptorId
             } else {
                 descriptorId
             }
@@ -57,7 +57,7 @@ data class Descriptor(
     val settingsPrefix: String?
         get() = if (isDefault()) null else source.id.value
 
-    fun isDefault(): Boolean = source.isDefaultTestDescriptor
+    fun isDefault(): Boolean = source.isOoniDescriptor
 
     companion object {
         val SORT_COMPARATOR =
