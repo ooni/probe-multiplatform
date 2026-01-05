@@ -64,7 +64,7 @@ data class Descriptor(
             compareByDescending<Descriptor> { !it.isDefault() }
                 .thenBy { it.isExpired }
                 .thenByDescending { it.source.dateInstalled }
-                .thenByDescending { it.source.id.value }
+                .thenBy { it.source.id.value }
     }
 }
 
