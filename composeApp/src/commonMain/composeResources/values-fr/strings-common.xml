@@ -436,9 +436,6 @@
     <!-- Desktop -->
     <string name="Desktop_OpenApp">Ouvrir l’appli</string>
     <string name="Desktop_Quit">Fermer</string>
-    <string name="Tray_Notification_Check_Updates">Chercher des mises à jour</string>
-    <string name="Tray_Notification_Updates_Available">Une mise à jour est proposée</string>
-    <string name="Tray_Notification_Checking_Updates">Recherche des mises à jour...</string>
 
     <string name="Tray_Notification_Check_Updates">Chercher des mises à jour</string>
     <string name="Tray_Notification_Updates_Available">Une mise à jour est proposée</string>

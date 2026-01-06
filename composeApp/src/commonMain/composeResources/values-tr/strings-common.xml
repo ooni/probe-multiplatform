@@ -420,9 +420,6 @@
     <!-- Desktop -->
     <string name="Desktop_OpenApp">Uygulamayı aç</string>
     <string name="Desktop_Quit">Çık</string>
-    <string name="Tray_Notification_Check_Updates">Güncelleme denetimi</string>
-    <string name="Tray_Notification_Updates_Available">Güncelleme yayınlanmış!</string>
-    <string name="Tray_Notification_Checking_Updates">Güncellemeler denetleniyor...</string>
 
     <string name="Tray_Notification_Check_Updates">Güncellemeleri denetle</string>
     <string name="Tray_Notification_Updates_Available">Güncelleme yayınlanmış!</string>

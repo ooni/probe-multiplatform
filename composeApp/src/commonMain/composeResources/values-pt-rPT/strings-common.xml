@@ -436,9 +436,6 @@
     <!-- Desktop -->
     <string name="Desktop_OpenApp">Abrir Aplicação</string>
     <string name="Desktop_Quit">Sair</string>
-    <string name="Tray_Notification_Check_Updates">Verificar Atualizações</string>
-    <string name="Tray_Notification_Updates_Available">Atualização Disponível!</string>
-    <string name="Tray_Notification_Checking_Updates">A verificar se há atualizações…</string>
 
     <string name="Tray_Notification_Check_Updates">Verificar Atualizações</string>
     <string name="Tray_Notification_Updates_Available">Atualização Disponível!</string>

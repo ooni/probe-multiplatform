@@ -381,9 +381,6 @@
     <!-- Desktop -->
     <string name="Desktop_OpenApp">Abrir Aplicación</string>
     <string name="Desktop_Quit">Salir</string>
-    <string name="Tray_Notification_Check_Updates">Buscar actualizaciones</string>
-    <string name="Tray_Notification_Updates_Available">¡Actualización disponible!</string>
-    <string name="Tray_Notification_Checking_Updates">Comprobando si hay actualizaciones...</string>
 
     <string name="Tray_Notification_Check_Updates">Buscar actualizaciones</string>
     <string name="Tray_Notification_Updates_Available">¡Actualización disponible!</string>
