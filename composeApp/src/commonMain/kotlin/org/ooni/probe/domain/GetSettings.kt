@@ -38,6 +38,7 @@ import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResult
 import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResultsThreshold
 import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResultsThreshold_Description
 import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResultsThreshold_Unit
+import ooniprobe.composeapp.generated.resources.Settings_ShareApp
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_Description
 import ooniprobe.composeapp.generated.resources.Settings_Storage_Clear
@@ -54,6 +55,7 @@ import ooniprobe.composeapp.generated.resources.Settings_Websites_MaxRuntimeEnab
 import ooniprobe.composeapp.generated.resources.advanced
 import ooniprobe.composeapp.generated.resources.ic_language
 import ooniprobe.composeapp.generated.resources.ic_settings
+import ooniprobe.composeapp.generated.resources.ic_share
 import ooniprobe.composeapp.generated.resources.ic_support
 import ooniprobe.composeapp.generated.resources.outline_info
 import ooniprobe.composeapp.generated.resources.privacy
@@ -371,6 +373,15 @@ class GetSettings(
                 title = Res.string.Settings_About_Label,
                 route = PreferenceCategoryKey.ABOUT_OONI,
             ),
+            if (OrganizationConfig.installUrl != null) {
+                SettingsCategoryItem(
+                    icon = Res.drawable.ic_share,
+                    title = Res.string.Settings_ShareApp,
+                    route = PreferenceCategoryKey.SHARE,
+                )
+            } else {
+                null
+            },
         )
 
     @Composable

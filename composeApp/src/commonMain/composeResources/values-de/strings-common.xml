@@ -420,6 +420,9 @@
     <!-- Desktop -->
     <string name="Desktop_OpenApp">App starten</string>
     <string name="Desktop_Quit">Beenden</string>
+    <string name="Tray_Notification_Check_Updates">Auf Aktualisierungen prüfen</string>
+    <string name="Tray_Notification_Updates_Available">Aktualisierung verfügbar!</string>
+    <string name="Tray_Notification_Checking_Updates">Suche nach Updates...</string>
 
     <string name="Tray_Notification_Check_Updates">Auf Aktualisierungen prüfen</string>
     <string name="Tray_Notification_Updates_Available">Aktualisierung verfügbar!</string>

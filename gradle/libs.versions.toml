@@ -1,13 +1,13 @@
 [versions]
 
-agp = "8.11.1" # Check compatibility https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
+agp = "8.11.2" # Check compatibility https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
 
 android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
 
 compose-plugin = "1.9.3"
-kotlin = "2.2.21"
+kotlin = "2.3.0"
 sqldelight = "2.2.1"
 dataStoreVersion = "1.1.4"
 junitKtx = "1.3.0"
@@ -36,7 +36,7 @@ kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version =
 android-desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.5" }
 
 # UI
-android-activity = { module = "androidx.activity:activity-ktx", version = "1.12.1" }
+android-activity = { module = "androidx.activity:activity-ktx", version = "1.12.2" }
 android-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.9" }
 android-work = { module = "androidx.work:work-runtime-ktx", version = "2.11.0" }
 android-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.1" }
@@ -46,7 +46,6 @@ lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecyc
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.9.1" }
 window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version = "1.9.0" }
 back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-plugin" }
-material-icons = { module = "org.jetbrains.compose.material:material-icons-core", version = "1.7.3" }
 dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.7.4" }
 
 # Preferences
@@ -70,8 +69,8 @@ okio = { module = "com.squareup.okio:okio", version = "3.16.4" }
 kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.2" }
 
 # Permissions
-moko-permissions-compose = { module ="dev.icerock.moko:permissions-compose", version.ref = "mokoPermissions" }
-moko-permissions-notifications = { module ="dev.icerock.moko:permissions-notifications", version.ref = "mokoPermissions" }
+moko-permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "mokoPermissions" }
+moko-permissions-notifications = { module = "dev.icerock.moko:permissions-notifications", version.ref = "mokoPermissions" }
 
 # Crash Reporting
 # See https://github.com/getsentry/sentry-kotlin-multiplatform?tab=readme-ov-file#cocoa-sdk-version-compatibility-table
@@ -103,7 +102,7 @@ androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", versio
 fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" }
 
 # Desktop
-auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.7.0"}
+auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.7.0" }
 directories = { module = "dev.dirs:directories", version = "26" }
 pratanumandal-unique = { module = "tk.pratanumandal:unique4j", version = "1.4" }
 desktop-oonimkall = { module = "org.ooni:oonimkall", version = "3.28.0-desktop" }
@@ -121,7 +120,6 @@ ui = [
     "window-size",
     "back-handler",
     "dark-mode-detector",
-    "material-icons",
 ]
 tooling = [
     "kermit",
@@ -134,7 +132,7 @@ tooling = [
     "web-view",
 ]
 android = [
-#    "android-oonimkall",
+    #    "android-oonimkall",
     "android-activity",
     "android-fragment",
     "android-work",

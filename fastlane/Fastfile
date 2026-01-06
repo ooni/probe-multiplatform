@@ -211,7 +211,7 @@ platform :ios do
 
         scheme = scheme!(organization)
 
-        gradle(task: "podInstall -Porganization=#{organization}")
+        gradle(task: "copyBrandingToCommonResources podInstall -Porganization=#{organization}")
         cocoapods(podfile: "./iosApp/Podfile")
 
         puts "Building #{scheme}"
