@@ -248,6 +248,10 @@
     <string name="Settings_Support_IncludeLogs">Inclure les journaux de l’application</string>
     <string name="Settings_Support_Action">Envoyer le courriel</string>
 
+    <string name="Settings_ShareApp">Partager l’appli</string>
+    <string name="Settings_ShareApp_Description">Partagez l’appli %1$s avec quelqu’un</string>
+    <string name="Settings_ShareApp_ShareMessage">Installer %1$s sur %2$s</string>
+
     <string name="Settings_Storage_Label">Utilisation de l’espace de stockage</string>
     <string name="Settings_Storage_Delete">Supprimer</string>
     <string name="Settings_Storage_Clear">Effacer</string>
@@ -377,6 +381,8 @@
     <string name="AddDescriptor_AutoUpdate">Installer les mises à jour automatiquement</string>
     <string name="AddDescriptor_AutoRun">Lancer les tests automatiquement</string>
     <string name="AddDescriptor_Toasts_Installed">Le lien a été installé</string>
+    <string name="AddDescriptor_InstallForLater">Installer pour usage ultérieur</string>
+    <string name="AddDescriptor_InstallAndRun">Installer et lancer</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Cette URL n’est pas prise en charge</string>
     <string name="LoadingScreen_Runv2_Message">Chargement du lien</string>
     <string name="LoadingScreen_Runv2_Failure">Erreur</string>
@@ -421,6 +427,7 @@
     <string name="Modal_AlwaysRun">Toujours exécuter</string>
     <string name="Modal_Error_CantDownloadURLs">Impossible de télécharger la liste des URL. Réessayez.</string>
     <string name="Modal_Error_NoInternet">Aucune connexion à Internet</string>
+    <string name="Modal_Error_ProxyUnavailable">Le mandataire choisi est peut-être inaccessible</string>
     <string name="Modal_CustomURL_Title_NotSaved">Confirmez-vous?</string>
     <string name="Modal_CustomURL_NotSaved">Vos URL ne seront pas enregistrées si vous quittez cet écran. Voulez-vous vraiment le quitter?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">L’application ne peut pas effectuer des tests automatiquement sans l’autorisation de fonctionner en arrière-plan. Voulez-vous réessayer?</string>
@@ -429,9 +436,10 @@
     <!-- Desktop -->
     <string name="Desktop_OpenApp">Ouvrir l’appli</string>
     <string name="Desktop_Quit">Fermer</string>
+
     <string name="Tray_Notification_Check_Updates">Chercher des mises à jour</string>
     <string name="Tray_Notification_Updates_Available">Une mise à jour est proposée</string>
-    <string name="Tray_Notification_Checking_Updates">Recherche des mises à jour...</string>
+    <string name="Tray_Notification_Checking_Updates">Recherche de mises à jour…</string>
 
     <!-- Common / Others -->
 

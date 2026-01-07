@@ -30,6 +30,12 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Удалить ссылку</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Предыдущие изменения</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Узнать больше</string>
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one">Посмотреть сайт</item>
+        <item quantity="few">Посмотреть сайты</item>
+        <item quantity="many">Посмотреть сайты</item>
+        <item quantity="other">Посмотреть сайты</item>
+    </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">УСТАРЕЛА</string>
     <string name="Dashboard_RunV2_UpdatedTag">ОБНОВЛЕНА</string>
     <string name="Dashboard_RunV2_UpdateTag">ОБНОВИТЬ</string>
@@ -204,6 +210,7 @@
     <string name="Settings_Support_IncludeLogs">Включить логи приложения</string>
     <string name="Settings_Support_Action">Отправить письмо</string>
 
+    <string name="Settings_ShareApp">Поделиться приложением</string>
     <string name="Settings_Storage_Label">Использование хранилища</string>
     <string name="Settings_Storage_Delete">Удалить</string>
     <string name="Settings_Storage_Clear">Очистить</string>
@@ -388,6 +395,7 @@
     <!-- Desktop -->
     <string name="Desktop_OpenApp">Открыть приложение</string>
     <string name="Desktop_Quit">Выход</string>
+
     <string name="Tray_Notification_Check_Updates">Проверить наличие обновлений</string>
     <string name="Tray_Notification_Updates_Available">Доступно обновление!</string>
     <string name="Tray_Notification_Checking_Updates">Проверка обновлений ...</string>

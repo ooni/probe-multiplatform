@@ -49,5 +49,4 @@
     <string name="Settings_Donate_Action_Error">Hubo un error abriendo la página de donaciones. Por favor ve a %1$s</string>
 
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Podrás instalar este enlace de nuevo solo con el enlace original enviado por el creador. Las mediciones de este enlace se eliminarán, pero serán accesibles desde el explorador</string>
-
 </resources>

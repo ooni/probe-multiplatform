@@ -222,6 +222,10 @@
     <string name="Settings_Support_IncludeLogs">包括程序日志</string>
     <string name="Settings_Support_Action">发送邮件</string>
 
+    <string name="Settings_ShareApp">分享应用</string>
+    <string name="Settings_ShareApp_Description">与别人分享 %1$s 应用</string>
+    <string name="Settings_ShareApp_ShareMessage">在 %2$s 安装 %1$s</string>
+
     <string name="Settings_Storage_Label">存储用量</string>
     <string name="Settings_Storage_Delete">删除</string>
     <string name="Settings_Storage_Clear">清除键</string>
@@ -400,6 +404,7 @@
     <!-- Desktop -->
     <string name="Desktop_OpenApp">打开应用</string>
     <string name="Desktop_Quit">退出</string>
+
     <string name="Tray_Notification_Check_Updates">检查更新</string>
     <string name="Tray_Notification_Updates_Available">有更新可用！</string>
     <string name="Tray_Notification_Checking_Updates">正在检查更新...</string>

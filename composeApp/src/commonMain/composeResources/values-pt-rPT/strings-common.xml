@@ -248,6 +248,10 @@
     <string name="Settings_Support_IncludeLogs">Incluir logs da aplicação</string>
     <string name="Settings_Support_Action">Enviar e-mail</string>
 
+    <string name="Settings_ShareApp">Partilhar Aplicação</string>
+    <string name="Settings_ShareApp_Description">Partilha a aplicação %1$s com outra pessoa</string>
+    <string name="Settings_ShareApp_ShareMessage">Instala %1$s em %2$s</string>
+
     <string name="Settings_Storage_Label">Utilização de armazenamento</string>
     <string name="Settings_Storage_Delete">Eliminar</string>
     <string name="Settings_Storage_Clear">Limpar</string>
@@ -432,6 +436,7 @@
     <!-- Desktop -->
     <string name="Desktop_OpenApp">Abrir Aplicação</string>
     <string name="Desktop_Quit">Sair</string>
+
     <string name="Tray_Notification_Check_Updates">Verificar Atualizações</string>
     <string name="Tray_Notification_Updates_Available">Atualização Disponível!</string>
     <string name="Tray_Notification_Checking_Updates">A verificar se há atualizações…</string>

@@ -131,6 +131,7 @@
     <string name="Settings_Support_Message">請描述您所遇到的問題: </string>
     <string name="Settings_Support_Action">發送電子郵件</string>
 
+    <string name="Settings_ShareApp">分享應用程式</string>
     <string name="Settings_Storage_Label">儲存用量</string>
     <string name="Settings_Storage_Delete">刪除</string>
     <string name="Settings_Storage_Clear">清除</string>

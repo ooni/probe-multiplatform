@@ -199,6 +199,7 @@
     <string name="Settings_Support_IncludeLogs">Incluir registros de aplicación</string>
     <string name="Settings_Support_Action">Enviar correo electrónico</string>
 
+    <string name="Settings_ShareApp">Aplicación de compartición</string>
     <string name="Settings_Storage_Label">Uso de almacenamiento</string>
     <string name="Settings_Storage_Delete">Eliminar</string>
     <string name="Settings_Storage_Clear">Borrar</string>
@@ -380,6 +381,7 @@
     <!-- Desktop -->
     <string name="Desktop_OpenApp">Abrir Aplicación</string>
     <string name="Desktop_Quit">Salir</string>
+
     <string name="Tray_Notification_Check_Updates">Buscar actualizaciones</string>
     <string name="Tray_Notification_Updates_Available">¡Actualización disponible!</string>
     <string name="Tray_Notification_Checking_Updates">Comprobando si hay actualizaciones...</string>
