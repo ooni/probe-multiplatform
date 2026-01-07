@@ -35,3 +35,10 @@ selectByValues:
 SELECT * FROM Network
 WHERE network_name = ? AND asn = ? AND country_code = ? AND network_type = ?
 LIMIT 1;
+
+countAsns:
+SELECT COUNT(DISTINCT Network.asn) FROM Network;
+
+selectCountries:
+SELECT DISTINCT Network.country_code FROM Network
+WHERE Network.country_code IS NOT NULL OR Network.country_code <> '';
