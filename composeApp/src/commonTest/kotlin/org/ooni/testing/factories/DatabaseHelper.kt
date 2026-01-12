@@ -4,6 +4,7 @@ import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.di.Dependencies
