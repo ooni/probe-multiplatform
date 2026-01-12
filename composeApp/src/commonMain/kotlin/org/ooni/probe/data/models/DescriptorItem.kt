@@ -146,8 +146,7 @@ private val iconAnimationMap = mapOf(
     Res.drawable.test_experimental to Animation.Experimental,
 )
 
-private fun determineAnimation(icon: String): Animation? =
-    iconAnimationMap[InstalledDescriptorIcons.getIconFromValue(icon)]
+private fun determineAnimation(icon: String): Animation? = iconAnimationMap[InstalledDescriptorIcons.getIconFromValue(icon)]
 
 private fun dateTimeFormat(monthNames: List<String>) =
     Format {

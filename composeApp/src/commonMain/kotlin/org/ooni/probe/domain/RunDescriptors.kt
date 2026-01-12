@@ -104,17 +104,17 @@ class RunDescriptors(
     }
 
     private suspend fun List<DescriptorItem>.prepareInputs(taskOrigin: TaskOrigin): List<DescriptorItem> =
-    map { descriptor ->
-        descriptor.copy(
-            source = descriptor.source.copy(
-                netTests = descriptor.netTests.downloadUrlsIfNeeded(taskOrigin, descriptor),
-                longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(
-                    taskOrigin,
-                    descriptor,
+        map { descriptor ->
+            descriptor.copy(
+                source = descriptor.source.copy(
+                    netTests = descriptor.netTests.downloadUrlsIfNeeded(taskOrigin, descriptor),
+                    longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(
+                        taskOrigin,
+                        descriptor,
+                    ),
                 ),
             )
-        )
-    }.filterNot { it.allTests.isEmpty() }
+        }.filterNot { it.allTests.isEmpty() }
 
     private suspend fun List<NetTest>.downloadUrlsIfNeeded(
         taskOrigin: TaskOrigin,

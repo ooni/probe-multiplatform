@@ -154,7 +154,8 @@ class TestDescriptorRepository(
             author = author,
             netTests = nettests
                 ?.let { json.decodeFromString<List<OONINetTest>>(it) }
-                ?.map { NetTest.fromOONI(it) }.orEmpty(),
+                ?.map { NetTest.fromOONI(it) }
+                .orEmpty(),
             nameIntl = name_intl?.let(json::decodeFromString),
             shortDescriptionIntl = short_description_intl?.let(json::decodeFromString),
             descriptionIntl = description_intl?.let(json::decodeFromString),
