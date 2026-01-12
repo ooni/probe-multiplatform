@@ -6,7 +6,7 @@ import kotlinx.serialization.json.Json
 import ooniprobe.composeapp.generated.resources.Res
 import org.ooni.engine.models.OONIRunDescriptor
 import org.ooni.engine.models.toModel
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import kotlin.coroutines.CoroutineContext
 
 class GetBootstrapTestDescriptors(
@@ -14,7 +14,7 @@ class GetBootstrapTestDescriptors(
     private val json: Json,
     private val backgroundContext: CoroutineContext,
 ) {
-    suspend operator fun invoke(): List<InstalledTestDescriptorModel> =
+    suspend operator fun invoke(): List<Descriptor> =
         withContext(backgroundContext) {
             val descriptorsJson = Res.readBytes("files/assets/descriptors.json").decodeToString()
             val descriptors =

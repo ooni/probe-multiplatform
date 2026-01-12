@@ -4,7 +4,6 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.atTime
 import org.ooni.engine.models.TaskOrigin
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.shared.today
@@ -21,7 +20,7 @@ object ResultModelFactory {
         failureMessage: String? = null,
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
         networkId: NetworkModel.Id? = null,
-        descriptorKey: InstalledTestDescriptorModel.Key? = null,
+        descriptorKey: Descriptor.Key? = null,
     ) = ResultModel(
         id = id,
         descriptorName = descriptorName,

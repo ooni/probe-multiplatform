@@ -42,7 +42,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.data.models.toDescriptor
+import org.ooni.probe.data.models.toDescriptorItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.descriptor.isSingleWebConnectivityTest
 import org.ooni.probe.ui.run.TestItem
@@ -77,9 +77,9 @@ fun AddDescriptorScreen(
                         .padding(bottom = 36.dp),
                 ) {
                     Box(modifier = Modifier.padding(vertical = 24.dp)) {
-                        TestDescriptorLabel(descriptor.toDescriptor())
+                        TestDescriptorLabel(descriptor.toDescriptorItem())
                     }
-                    descriptor.toDescriptor().shortDescription()?.let { shortDescription ->
+                    descriptor.toDescriptorItem().shortDescription()?.let { shortDescription ->
                         Text(shortDescription)
                     }
                     Text(

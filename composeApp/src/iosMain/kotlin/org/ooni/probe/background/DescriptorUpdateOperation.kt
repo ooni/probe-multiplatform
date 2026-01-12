@@ -5,12 +5,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.DescriptorItem
 import platform.Foundation.NSOperation
 
 class DescriptorUpdateOperation(
-    private val descriptors: List<InstalledTestDescriptorModel>? = null,
-    private val fetchDescriptorsUpdates: suspend (List<InstalledTestDescriptorModel>) -> Unit,
+    private val descriptors: List<DescriptorItem>? = null,
+    private val fetchDescriptorsUpdates: suspend (List<DescriptorItem>) -> Unit,
 ) : NSOperation() {
     override fun main() {
         super.main()

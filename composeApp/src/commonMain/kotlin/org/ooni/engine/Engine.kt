@@ -21,7 +21,7 @@ import org.ooni.engine.models.TaskSettings
 import org.ooni.engine.models.resultOf
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.BatteryState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.domain.CancelListenerCallback
@@ -47,7 +47,7 @@ class Engine(
     fun startTask(
         netTest: NetTest,
         taskOrigin: TaskOrigin,
-        descriptorId: InstalledTestDescriptorModel.Id?,
+        descriptorId: Descriptor.Id?,
     ): Flow<TaskEvent> {
         val context = newSingleThreadContext("engine-start-task")
         return channelFlow {
@@ -157,7 +157,7 @@ class Engine(
         netTest: NetTest,
         taskOrigin: TaskOrigin,
         preferences: EnginePreferences,
-        descriptorId: InstalledTestDescriptorModel.Id?,
+        descriptorId: Descriptor.Id?,
     ) = TaskSettings(
         name = netTest.test.name,
         inputs = netTest.inputs.orEmpty(),

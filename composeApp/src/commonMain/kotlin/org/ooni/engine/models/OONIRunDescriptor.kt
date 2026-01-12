@@ -3,7 +3,7 @@ package org.ooni.engine.models
 import kotlin.time.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.shared.toLocalDateTime
 
@@ -34,8 +34,8 @@ data class OONIRunDescriptor(
 )
 
 fun OONIRunDescriptor.toModel() =
-    InstalledTestDescriptorModel(
-        id = InstalledTestDescriptorModel.Id(oonirunLinkId),
+    Descriptor(
+        id = Descriptor.Id(oonirunLinkId),
         revision = revision,
         name = name,
         shortDescription = shortDescription,

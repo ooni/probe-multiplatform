@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.RunSpecification
@@ -135,7 +135,7 @@ class ChooseWebsitesViewModel(
                     RunSpecification.Full(
                         tests = listOf(
                             RunSpecification.Test(
-                                source = InstalledTestDescriptorModel.Id(OoniTest.Websites.id),
+                                source = Descriptor.Id(OoniTest.Websites.id),
                                 netTests = listOf(
                                     NetTest(
                                         test = TestType.WebConnectivity,

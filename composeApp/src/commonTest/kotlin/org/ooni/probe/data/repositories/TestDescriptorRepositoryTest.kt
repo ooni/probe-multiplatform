@@ -6,7 +6,6 @@ import kotlinx.coroutines.test.runTest
 import kotlin.time.Clock
 import kotlin.time.Instant
 import org.ooni.engine.models.TestType
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.now
@@ -51,7 +50,7 @@ class TestDescriptorRepositoryTest {
     fun createDuplicatedIsIgnored() =
         runTest {
             val model = DescriptorFactory.buildInstalledModel(
-                id = InstalledTestDescriptorModel.Id("ABC"),
+                id = Descriptor.Id("ABC"),
                 revision = 1,
             )
             subject.createOrIgnore(listOf(model, model))
@@ -64,7 +63,7 @@ class TestDescriptorRepositoryTest {
     fun createOrUpdateClearsOldNetTests() =
         runTest {
             val oldModel = DescriptorFactory.buildInstalledModel(
-                id = InstalledTestDescriptorModel.Id("ABC"),
+                id = Descriptor.Id("ABC"),
                 revision = 1,
                 netTests = listOf(NetTest(TestType.FacebookMessenger)),
             )
@@ -82,22 +81,22 @@ class TestDescriptorRepositoryTest {
     fun listAllAndLatest() =
         runTest {
             val modelA1 = DescriptorFactory.buildInstalledModel(
-                id = InstalledTestDescriptorModel.Id("A"),
+                id = Descriptor.Id("A"),
                 revision = 1,
                 dateUpdated = now().minus(1.days).toLocalDateTime(),
             )
             val modelA2 = DescriptorFactory.buildInstalledModel(
-                id = InstalledTestDescriptorModel.Id("A"),
+                id = Descriptor.Id("A"),
                 revision = 2,
                 dateUpdated = now().toLocalDateTime(),
             )
             val modelB1 = DescriptorFactory.buildInstalledModel(
-                id = InstalledTestDescriptorModel.Id("B"),
+                id = Descriptor.Id("B"),
                 revision = 1,
                 dateUpdated = now().minus(1.days).toLocalDateTime(),
             )
             val modelB2 = DescriptorFactory.buildInstalledModel(
-                id = InstalledTestDescriptorModel.Id("B"),
+                id = Descriptor.Id("B"),
                 revision = 2,
                 dateUpdated = now().toLocalDateTime(),
             )
@@ -116,7 +115,7 @@ class TestDescriptorRepositoryTest {
     fun listLatestWithSameDateUpdated() =
         runTest {
             val model1 = DescriptorFactory.buildInstalledModel(
-                id = InstalledTestDescriptorModel.Id("A"),
+                id = Descriptor.Id("A"),
                 revision = 0,
                 dateUpdated = now().toLocalDateTime(),
             )
@@ -132,17 +131,17 @@ class TestDescriptorRepositoryTest {
     fun listLatestByRunIds() =
         runTest {
             val modelA1 = DescriptorFactory.buildInstalledModel(
-                id = InstalledTestDescriptorModel.Id("A"),
+                id = Descriptor.Id("A"),
                 revision = 1,
                 dateUpdated = now().minus(1.days).toLocalDateTime(),
             )
             val modelA2 = DescriptorFactory.buildInstalledModel(
-                id = InstalledTestDescriptorModel.Id("A"),
+                id = Descriptor.Id("A"),
                 revision = 2,
                 dateUpdated = now().toLocalDateTime(),
             )
             val modelB1 = DescriptorFactory.buildInstalledModel(
-                id = InstalledTestDescriptorModel.Id("B"),
+                id = Descriptor.Id("B"),
                 revision = 1,
                 dateUpdated = now().toLocalDateTime(),
             )

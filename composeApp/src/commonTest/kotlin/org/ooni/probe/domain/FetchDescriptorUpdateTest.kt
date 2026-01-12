@@ -6,7 +6,7 @@ import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.models.Success
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.domain.descriptors.FetchDescriptorsUpdates
 import org.ooni.probe.shared.now
 import org.ooni.probe.shared.toLocalDateTime
@@ -22,7 +22,7 @@ class FetchDescriptorUpdateTest {
     fun noUpdate() =
         runTest {
             val oldDescriptor = DescriptorFactory.buildInstalledModel(autoUpdate = true)
-            var saveDescriptors: List<InstalledTestDescriptorModel>? = null
+            var saveDescriptors: List<DescriptorItem>? = null
             var state: DescriptorsUpdateState? = null
             val subject = FetchDescriptorsUpdates(
                 getLatestTestDescriptors = { emptyFlow() },
@@ -52,7 +52,7 @@ class FetchDescriptorUpdateTest {
                 revision = 2,
                 dateUpdated = LocalDateTime.now(),
             )
-            var saveDescriptors: List<InstalledTestDescriptorModel>? = null
+            var saveDescriptors: List<DescriptorItem>? = null
             var state: DescriptorsUpdateState? = null
             val subject = FetchDescriptorsUpdates(
                 getLatestTestDescriptors = { emptyFlow() },
@@ -81,7 +81,7 @@ class FetchDescriptorUpdateTest {
             val newDescriptor = oldDescriptor.copy(
                 dateUpdated = LocalDateTime.now(),
             )
-            var saveDescriptors: List<InstalledTestDescriptorModel>? = null
+            var saveDescriptors: List<DescriptorItem>? = null
             var state: DescriptorsUpdateState? = null
             val subject = FetchDescriptorsUpdates(
                 getLatestTestDescriptors = { emptyFlow() },

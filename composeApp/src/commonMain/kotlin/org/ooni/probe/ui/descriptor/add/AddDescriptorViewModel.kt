@@ -15,10 +15,10 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.Engine
 import org.ooni.engine.models.Result
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.RunSpecification
-import org.ooni.probe.data.models.toDescriptor
+import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.toDescriptorItem
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.domain.descriptors.SaveTestDescriptors
 import org.ooni.probe.shared.now
@@ -26,8 +26,8 @@ import org.ooni.probe.ui.shared.SelectableItem
 
 class AddDescriptorViewModel(
     onBack: () -> Unit,
-    fetchDescriptor: suspend () -> Result<InstalledTestDescriptorModel?, Engine.MkException>,
-    private val saveTestDescriptors: suspend (List<InstalledTestDescriptorModel>, SaveTestDescriptors.Mode) -> Unit,
+    fetchDescriptor: suspend () -> Result<Descriptor?, Engine.MkException>,
+    private val saveTestDescriptors: suspend (List<Descriptor>, SaveTestDescriptors.Mode) -> Unit,
     private val preferenceRepository: PreferenceRepository,
     private val startBackgroundRun: (RunSpecification) -> Unit,
 ) : ViewModel() {
@@ -116,7 +116,7 @@ class AddDescriptorViewModel(
                 val installedDescriptor = state.value.descriptor ?: return@onEach
                 installDescriptorAndSavePreferences()
                 startBackgroundRun(
-                    RunSpecification.buildForDescriptor(installedDescriptor.toDescriptor()),
+                    RunSpecification.buildForDescriptor(installedDescriptor.toDescriptorItem()),
                 )
                 _state.update {
                     it.copy(messages = it.messages + SnackBarMessage.AddDescriptorSuccess)
@@ -151,14 +151,14 @@ class AddDescriptorViewModel(
             .filter { it.isSelected }
             .map { it.item }
         preferenceRepository.setAreNetTestsEnabled(
-            selectedTests.map { test -> descriptor.toDescriptor() to test },
+            selectedTests.map { test -> descriptor.toDescriptorItem() to test },
             isAutoRun = true,
             isEnabled = true,
         )
     }
 
     data class State(
-        val descriptor: InstalledTestDescriptorModel? = null,
+        val descriptor: Descriptor? = null,
         val selectableItems: List<SelectableItem<NetTest>> = emptyList(),
         val messages: List<SnackBarMessage> = emptyList(),
         val autoUpdate: Boolean = true,

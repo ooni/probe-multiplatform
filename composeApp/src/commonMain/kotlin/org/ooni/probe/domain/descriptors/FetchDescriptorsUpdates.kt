@@ -10,15 +10,15 @@ import org.ooni.engine.Engine
 import org.ooni.engine.models.Result
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 
 class FetchDescriptorsUpdates(
-    private val getLatestTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
-    private val fetchDescriptor: suspend (descriptorId: String) -> Result<InstalledTestDescriptorModel?, Engine.MkException>,
-    private val saveTestDescriptors: suspend (List<InstalledTestDescriptorModel>, SaveTestDescriptors.Mode) -> Unit,
+    private val getLatestTestDescriptors: () -> Flow<List<Descriptor>>,
+    private val fetchDescriptor: suspend (descriptorId: String) -> Result<Descriptor?, Engine.MkException>,
+    private val saveTestDescriptors: suspend (List<Descriptor>, SaveTestDescriptors.Mode) -> Unit,
     private val updateState: ((DescriptorsUpdateState) -> DescriptorsUpdateState) -> Unit,
 ) {
-    suspend operator fun invoke(descriptorsProvided: List<InstalledTestDescriptorModel>) {
+    suspend operator fun invoke(descriptorsProvided: List<Descriptor>) {
         val descriptors = descriptorsProvided.ifEmpty { getLatestTestDescriptors().first() }
 
         updateState {
@@ -34,9 +34,9 @@ class FetchDescriptorsUpdates(
                 }.awaitAll()
         }
 
-        val minorUpdates = mutableListOf<InstalledTestDescriptorModel>()
-        val updatesToReview = mutableListOf<InstalledTestDescriptorModel>()
-        val autoUpdates = mutableListOf<InstalledTestDescriptorModel>()
+        val minorUpdates = mutableListOf<Descriptor>()
+        val updatesToReview = mutableListOf<Descriptor>()
+        val autoUpdates = mutableListOf<Descriptor>()
 
         fetchResults.forEach { (descriptor, fetchResult) ->
             val newDescriptor = fetchResult

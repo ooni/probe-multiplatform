@@ -7,8 +7,6 @@ import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.DrawableResource
 import org.ooni.engine.models.SummaryType
 import org.ooni.probe.data.models.Animation
-import org.ooni.probe.data.models.Descriptor
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.LocalizationString
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.UpdateStatus
@@ -29,7 +27,7 @@ object DescriptorFactory {
         expirationDate: LocalDateTime? = null,
         netTests: List<NetTest> = emptyList(),
         longRunningTests: List<NetTest> = emptyList(),
-        installedTestDescriptorModel: InstalledTestDescriptorModel = buildInstalledModel(),
+        installedTestDescriptorModel: Descriptor = buildInstalledModel(),
         summaryType: SummaryType = SummaryType.Simple,
     ) = Descriptor(
         name = name,
@@ -49,8 +47,8 @@ object DescriptorFactory {
     )
 
     fun buildInstalledModel(
-        id: InstalledTestDescriptorModel.Id =
-            InstalledTestDescriptorModel.Id(Random.nextLong().absoluteValue.toString()),
+        id: Descriptor.Id =
+            Descriptor.Id(Random.nextLong().absoluteValue.toString()),
         revision: Long = 1,
         name: String = "Test",
         shortDescription: String? = null,
@@ -68,7 +66,7 @@ object DescriptorFactory {
         dateUpdated: LocalDateTime? = now(),
         dateInstalled: LocalDateTime? = now(),
         autoUpdate: Boolean = false,
-    ) = InstalledTestDescriptorModel(
+    ) = Descriptor(
         id = id,
         revision = revision,
         name = name,

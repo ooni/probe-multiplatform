@@ -10,39 +10,36 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorsUpdateState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
-import org.ooni.probe.data.models.OoniTest
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.data.models.toDescriptor
+import org.ooni.probe.data.models.toDescriptorItem
 
 class GetTestDescriptors(
-    private val listAllInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
-    private val listLatestInstalledTestDescriptors: () -> Flow<List<InstalledTestDescriptorModel>>,
+    private val listAllInstalledTestDescriptors: () -> Flow<List<Descriptor>>,
+    private val listLatestInstalledTestDescriptors: () -> Flow<List<Descriptor>>,
     private val observeDescriptorsUpdateState: () -> Flow<DescriptorsUpdateState>,
     private val getPreferenceValues: (List<SettingsKey>) -> Flow<Map<SettingsKey, Any?>>,
 ) {
     // Warning: this list will bring duplicated descriptors of different revisions
-    fun all(): Flow<List<Descriptor>> = get(listAllInstalledTestDescriptors)
+    fun all(): Flow<List<DescriptorItem>> = get(listAllInstalledTestDescriptors)
 
-    fun latest(): Flow<List<Descriptor>> = get(listLatestInstalledTestDescriptors)
+    fun latest(): Flow<List<DescriptorItem>> = get(listLatestInstalledTestDescriptors)
 
-    fun single(key: String) =
+    fun single(key: String): Flow<DescriptorItem?> =
         latest().map { list ->
             list.firstOrNull { it.key == key }
         }
 
-    private fun get(installedDescriptorFlow: () -> Flow<List<InstalledTestDescriptorModel>>): Flow<List<Descriptor>> {
+    private fun get(installedDescriptorFlow: () -> Flow<List<Descriptor>>): Flow<List<DescriptorItem>> {
         return combine(
             installedDescriptorFlow(),
             observeDescriptorsUpdateState(),
             isWebsitesDescriptorEnabled(),
         ) { installedDescriptors, descriptorUpdates, isWebsitesEnabled ->
             val updatedDescriptors = installedDescriptors.map { item ->
-                item.toDescriptor(updateStatus = descriptorUpdates.getStatusOf(item.id))
+                item.toDescriptorItem(updateStatus = descriptorUpdates.getStatusOf(item.id))
             }
-            return@combine updatedDescriptors.map {
-                it.copy(enabled = it.name != OoniTest.Websites.key || isWebsitesEnabled)
-            }.sortedWith(Descriptor.SORT_COMPARATOR)
+            return@combine updatedDescriptors.sortedWith(DescriptorItem.SORT_COMPARATOR)
         }
     }
 

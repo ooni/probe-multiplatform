@@ -5,7 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import platform.BackgroundTasks.BGProcessingTask
@@ -84,7 +84,7 @@ class OperationsManager(
         operationQueue.addOperation(operation)
     }
 
-    fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
+    fun startDescriptorsUpdate(descriptors: List<DescriptorItem>?) {
         Logger.d("Fetching descriptor update")
         val operationQueue = NSOperationQueue()
         val fetchDescriptorsUpdates by lazy { dependencies.fetchDescriptorsUpdates }
