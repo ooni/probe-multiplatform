@@ -30,6 +30,7 @@ import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.monitoring.reportTransaction
+import org.ooni.probe.ui.results.RunListItem
 import org.ooni.probe.ui.shared.SelectableItem
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
@@ -108,8 +109,12 @@ class DescriptorViewModel(
 
         getLastResultOfDescriptor(descriptorKey)
             .onEach { lastResult ->
-                _state.update {
-                    it.copy(lastResult = lastResult)
+                _state.update { state ->
+                    state.copy(
+                        lastResult = lastResult
+                            ?.let { RunListItem.aggregateResults(listOf(it)) }
+                            ?.firstOrNull(),
+                    )
                 }
             }.launchIn(viewModelScope)
 
@@ -323,7 +328,7 @@ class DescriptorViewModel(
         val descriptor: Descriptor? = null,
         val estimatedTime: Duration? = null,
         val tests: List<SelectableItem<NetTest>> = emptyList(),
-        val lastResult: ResultListItem? = null,
+        val lastResult: RunListItem? = null,
         val updateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
         val isAutoRunEnabled: Boolean = true,
         val canPullToRefresh: Boolean = true,

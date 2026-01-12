@@ -66,6 +66,7 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.ui.results.ResultCell
+import org.ooni.probe.ui.results.RunCell
 import org.ooni.probe.ui.shared.DisableVpnInstructionsDialog
 import org.ooni.probe.ui.shared.ExpiredChip
 import org.ooni.probe.ui.shared.LocalClipboardActions
@@ -167,13 +168,16 @@ fun DescriptorScreen(
                             .padding(bottom = 16.dp),
                     )
 
-                    ResultCell(
-                        item = lastResult,
-                        onResultClick = {
-                            onEvent(DescriptorViewModel.Event.ResultClicked(lastResult))
-                        },
-                        modifier = Modifier.padding(bottom = 16.dp),
-                    )
+                    RunCell(lastResult)
+                    lastResult.results.firstOrNull()?.item?.let { result ->
+                        ResultCell(
+                            item = result,
+                            onResultClick = {
+                                onEvent(DescriptorViewModel.Event.ResultClicked(result))
+                            },
+                            modifier = Modifier.padding(bottom = 16.dp),
+                        )
+                    }
 
                     HorizontalDivider(Modifier.padding(bottom = 16.dp), thickness = Dp.Hairline)
                 }

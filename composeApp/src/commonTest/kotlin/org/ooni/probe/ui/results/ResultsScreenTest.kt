@@ -12,7 +12,6 @@ import ooniprobe.composeapp.generated.resources.TestResults_Overview_NoTestsHave
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.data.models.MeasurementCounts
 import org.ooni.probe.data.models.ResultListItem
-import org.ooni.probe.ui.shared.SelectableItem
 import org.ooni.testing.factories.DescriptorFactory
 import org.ooni.testing.factories.NetworkModelFactory
 import org.ooni.testing.factories.ResultModelFactory
@@ -38,6 +37,7 @@ class ResultsScreenTest {
     fun showResults() =
         runComposeUiTest {
             val item = buildItem()
+            val result = item.results.first().item
             var title: String? = null
 
             setContent {
@@ -51,12 +51,12 @@ class ResultsScreenTest {
                     onEvent = {},
                 )
 
-                title = item.item.descriptor.title()
+                title = result.descriptor.title()
             }
 
             onNodeWithText("1 January 2024").assertExists()
             onNodeWithText(title!!).assertExists()
-            onNodeWithText(item.item.network!!.networkName!!).assertExists()
+            onNodeWithText(result.network!!.networkName!!, substring = true).assertExists()
         }
 
     @Test
@@ -64,6 +64,7 @@ class ResultsScreenTest {
         runComposeUiTest {
             val events = mutableListOf<ResultsViewModel.Event>()
             val item = buildItem()
+            val result = item.results.first().item
             var title: String? = null
 
             setContent {
@@ -77,11 +78,11 @@ class ResultsScreenTest {
                     onEvent = events::add,
                 )
 
-                title = item.item.descriptor.title()
+                title = result.descriptor.title()
             }
 
             onNodeWithText(title!!).performClick()
-            assertEquals(ResultsViewModel.Event.ResultClick(item.item), events.last())
+            assertEquals(ResultsViewModel.Event.ResultClick(result), events.last())
         }
 
     @Test
@@ -128,20 +129,22 @@ class ResultsScreenTest {
         }
 
     private fun buildItem() =
-        SelectableItem<ResultListItem>(
-            item = ResultListItem(
-                result = ResultModelFactory.build(),
-                descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
-                network = NetworkModelFactory.build(),
-                measurementCounts = MeasurementCounts(
-                    done = 4,
-                    failed = 0,
-                    anomaly = 0,
+        RunListItem
+            .aggregateResults(
+                listOf(
+                    ResultListItem(
+                        result = ResultModelFactory.build(),
+                        descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
+                        network = NetworkModelFactory.build(),
+                        measurementCounts = MeasurementCounts(
+                            done = 4,
+                            failed = 0,
+                            anomaly = 0,
+                        ),
+                        allMeasurementsUploaded = true,
+                        anyMeasurementUploadFailed = false,
+                        testKeys = emptyList(),
+                    ),
                 ),
-                allMeasurementsUploaded = true,
-                anyMeasurementUploadFailed = false,
-                testKeys = emptyList(),
-            ),
-            isSelected = false,
-        )
+            ).first()
 }
