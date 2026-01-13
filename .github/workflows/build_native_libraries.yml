@@ -23,8 +23,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup
-        uses: ./.github/actions/setup
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
       - name: Install dependencies (Linux)
         if: runner.os == 'Linux'

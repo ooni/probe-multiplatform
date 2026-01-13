@@ -50,12 +50,10 @@ private fun Project.registerDesktopTasks() {
         dependsOn("setupSparkle")
         workingDir = file("src/desktopMain")
         commandLine = listOf("make", "all")
-        doFirst {
-            println("🔨 Building native libraries...")
-        }
-        doLast {
-            println("✅ Native libraries built successfully")
-        }
+
+        inputs.files(fileTree("src/desktopMain/c") {
+            include("*.m", "*.c")
+        })
     }
 
     tasks.register("cleanLibrary", Exec::class) {

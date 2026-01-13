@@ -385,8 +385,6 @@ compose.desktop {
                 entitlementsFile.set(project.file("OONIProbe.entitlements"))
                 infoPlist {
                     extraKeysRawXml = """
-                        <key>LSUIElement</key>
-                        <string>true</string>
                         <key>CFBundleURLTypes</key>
                         <array>
                             <dict>

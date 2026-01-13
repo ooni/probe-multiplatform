@@ -1,16 +1,19 @@
-# Makefile for NetworkTypeFinder and UpdateBridge JNI Bridges
+# Makefile for NetworkTypeFinder, UpdateBridge, and MacDockVisibility JNI Bridges
 
 # Variables
 COMPILER = clang
 NETWORK_FILES = c/NetworkTypeFinder.m
 UPDATE_FILES_MAC = c/UpdateBridge.c c/SparkeBridge.m
 UPDATE_FILES_WIN = c/UpdateBridge.c c/WinSparkleBridge.c
+MACDOCK_FILES = c/MacDockVisibility.m
 NETWORK_LIBRARY_NAME = networktypefinder
 UPDATE_LIBRARY_NAME = updatebridge
+MACDOCK_LIBRARY_NAME = macdockvisibility
 NETWORK_LIBRARY_FILE_MAC = lib$(NETWORK_LIBRARY_NAME).dylib
 NETWORK_LIBRARY_FILE_LINUX = lib$(NETWORK_LIBRARY_NAME).so
 UPDATE_LIBRARY_FILE_MAC = lib$(UPDATE_LIBRARY_NAME).dylib
 UPDATE_LIBRARY_FILE_WIN = $(UPDATE_LIBRARY_NAME).dll
+MACDOCK_LIBRARY_FILE_MAC = lib$(MACDOCK_LIBRARY_NAME).dylib
 JAVA_HOME ?= $(shell java -XshowSettings:properties -version 2>&1 > /dev/null | grep 'java.home' | awk '{print $$3}')
 RESOURCES_BASE_DIR = resources
 
@@ -64,6 +67,14 @@ macos:
 	# Fix Sparkle framework reference to use @loader_path
 	install_name_tool -change "@rpath/Sparkle.framework/Versions/B/Sparkle" "@loader_path/Sparkle.framework/Versions/B/Sparkle" $(RESOURCES_BASE_DIR)/macos/$(UPDATE_LIBRARY_FILE_MAC)
 	@echo "UpdateBridge library created at $(RESOURCES_BASE_DIR)/macos/$(UPDATE_LIBRARY_FILE_MAC)"
+	@echo "Compiling MacDockVisibility for macOS..."
+	@mkdir -p $(RESOURCES_BASE_DIR)/macos
+	$(COMPILER) -dynamiclib -o $(RESOURCES_BASE_DIR)/macos/$(MACDOCK_LIBRARY_FILE_MAC) $(MACDOCK_FILES) \
+		-framework Cocoa \
+		-framework Foundation \
+		-I$(JAVA_HOME)/include \
+		-I$(JAVA_HOME)/include/darwin
+	@echo "MacDockVisibility library created at $(RESOURCES_BASE_DIR)/macos/$(MACDOCK_LIBRARY_FILE_MAC)"
 
 linux:
 	@echo "Compiling NetworkTypeFinder for Linux..."
@@ -71,6 +82,7 @@ linux:
 	$(COMPILER) -shared -fPIC -o $(RESOURCES_BASE_DIR)/linux/$(NETWORK_LIBRARY_FILE_LINUX) $(NETWORK_FILES) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
 	@echo "NetworkTypeFinder library created at $(RESOURCES_BASE_DIR)/linux/$(NETWORK_LIBRARY_FILE_LINUX)"
 	@echo "UpdateBridge not supported on Linux"
+	@echo "MacDockVisibility not supported on Linux"
 
 windows:
 	@echo "Compiling NetworkTypeFinder for Windows..."
@@ -80,6 +92,7 @@ windows:
 	@echo "Compiling UpdateBridge for Windows..."
 	$(COMPILER) -shared -m64 -o $(RESOURCES_BASE_DIR)/windows/$(UPDATE_LIBRARY_FILE_WIN) $(UPDATE_FILES_WIN) '-I$(JAVA_HOME)\\include' '-I$(JAVA_HOME)\\include\\win32'
 	@echo "UpdateBridge library created at $(RESOURCES_BASE_DIR)/windows/$(UPDATE_LIBRARY_FILE_WIN)"
+	@echo "MacDockVisibility not supported on Windows"
 
 # Install the library to system path
 install: all
@@ -87,6 +100,7 @@ install: all
 ifeq ($(PLATFORM_TARGET),macos)
 	cp $(RESOURCES_BASE_DIR)/macos/$(NETWORK_LIBRARY_FILE_MAC) $(HOME)/Library/Java/Extensions
 	cp $(RESOURCES_BASE_DIR)/macos/$(UPDATE_LIBRARY_FILE_MAC) $(HOME)/Library/Java/Extensions
+	cp $(RESOURCES_BASE_DIR)/macos/$(MACDOCK_LIBRARY_FILE_MAC) $(HOME)/Library/Java/Extensions
 else ifeq ($(PLATFORM_TARGET),linux)
 	sudo cp $(RESOURCES_BASE_DIR)/linux/$(NETWORK_LIBRARY_FILE_LINUX) /usr/lib/
 else ifeq ($(PLATFORM_TARGET),windows)
@@ -112,10 +126,10 @@ clean:
 	@echo "Clean complete"
 
 help:
-	@echo "NetworkTypeFinder and UpdateBridge JNI Bridges Makefile"
+	@echo "NetworkTypeFinder, UpdateBridge, and MacDockVisibility JNI Bridges Makefile"
 	@echo ""
 	@echo "Targets:"
-	@echo "  all (default): Compile both libraries for the current platform"
+	@echo "  all (default): Compile all libraries for the current platform"
 	@echo "  install: Install the libraries to system path for the current platform"
 	@echo "  clean: Clean build artifacts"
 	@echo "  help: Show this help message"
@@ -123,6 +137,7 @@ help:
 	@echo "Libraries built:"
 	@echo "  NetworkTypeFinder: Network type detection"
 	@echo "  UpdateBridge: Sparkle (macOS) / WinSparkle (Windows) integration"
+	@echo "  MacDockVisibility: macOS dock icon visibility control"
 	@echo ""
 	@echo "Example usage:"
 	@echo "  make all      # Compile the libraries for your platform"

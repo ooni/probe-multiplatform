@@ -49,6 +49,7 @@ import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.createUpdateManager
 import org.ooni.probe.shared.InstanceManager
+import org.ooni.probe.shared.MacDockVisibility
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateState
 import org.ooni.probe.update.DesktopUpdateController
@@ -85,6 +86,9 @@ fun main(args: Array<String>) {
         // Register shutdown callback for update installation when applicable
         updateController.registerShutdownHandler(this)
         var isWindowVisible by remember { mutableStateOf(!autoLaunch.isStartedViaAutostart()) }
+
+        // Set initial dock visibility based on window visibility
+        MacDockVisibility.setDockIconVisible(isWindowVisible)
         val trayIcon = trayIcon()
         val deepLink by deepLinkFlow.collectAsState(null)
         val runBackgroundState by dependencies.runBackgroundStateManager
@@ -97,6 +101,7 @@ fun main(args: Array<String>) {
 
         fun showWindow() {
             isWindowVisible = true
+            MacDockVisibility.showDockIcon()
             if (Desktop.isDesktopSupported() &&
                 Desktop
                     .getDesktop()
@@ -107,7 +112,10 @@ fun main(args: Array<String>) {
         }
 
         Window(
-            onCloseRequest = { isWindowVisible = false },
+            onCloseRequest = {
+                isWindowVisible = false
+                MacDockVisibility.hideDockIcon()
+            },
             visible = isWindowVisible,
             icon = painterResource(Res.drawable.ooni_colored_logo),
             title = stringResource(Res.string.app_name),
