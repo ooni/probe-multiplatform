@@ -192,6 +192,11 @@
     <string name="Settings_Advanced_DebugLogs">Registros de depuración</string>
     <string name="Settings_Advanced_RecentLogs">Opción A: (Traducción literal)\n\nVer registros recientes\n\nOpción B: (más apegada a la estructura de OONI):\nVer logs recientes</string>
 
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">%1$d mes</item>
+        <item quantity="many">%1$d meses</item>
+        <item quantity="other">%1$d meses</item>
+    </plurals>
     <string name="Settings_Support_Label">Soporte</string>
     <string name="Settings_Support_SendEmail">Enviar correo electrónico al soporte</string>
     <string name="Settings_Support_Message">Por favor describe el problema que estás experimentando:</string>
