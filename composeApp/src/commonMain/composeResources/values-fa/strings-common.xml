@@ -113,11 +113,16 @@
     <string name="Settings_Advanced_DebugLogs">ثبت اشکال زدایی‌ها</string>
     <string name="Settings_Advanced_RecentLogs">مشاهده گزارش‌های اخیر</string>
 
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">%1$d ماه</item>
+        <item quantity="other">%1$d ماه</item>
+    </plurals>
     <string name="Settings_Support_Label">پشتیبانی</string>
     <string name="Settings_Support_SendEmail">ارسال ایمیل به پشتیبانی</string>
     <string name="Settings_Support_Message">لطفا مشکل خود را توضیح دهید:</string>
     <string name="Settings_Support_Action">ارسال ایمیل</string>
 
+    <string name="Settings_ShareApp">هم‌رسانی اپلیکیشن</string>
     <string name="Settings_Storage_Label">استفاده از حافظه</string>
     <string name="Settings_Storage_Delete">حذف کنید</string>
     <string name="Settings_Storage_Clear">پاک</string>
