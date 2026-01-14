@@ -27,7 +27,9 @@ fun RunCell(item: RunListItem) {
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 8.dp),
     ) {
         Column(modifier = Modifier.weight(1f)) {
             val asn = if (network?.isValid() == false) {

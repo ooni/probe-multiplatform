@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.material3.AlertDialog
@@ -381,8 +381,10 @@ private fun Results(
                     item(runItem.run.id.value) {
                         RunCell(runItem)
                     }
-                    items(items = runItem.results) { result ->
-                        HorizontalDivider(thickness = Dp.Hairline)
+                    itemsIndexed(items = runItem.results) { index, result ->
+                        if (index != 0) {
+                            HorizontalDivider(thickness = Dp.Hairline)
+                        }
                         val isSelected = result.isSelected
                         ResultCell(
                             item = result.item,
@@ -420,7 +422,7 @@ private fun Results(
                         )
                     }
                     item {
-                        HorizontalDivider(thickness = 1.dp)
+                        HorizontalDivider(thickness = 1.dp, modifier = Modifier.padding(top = 4.dp))
                     }
                 }
             }
@@ -455,7 +457,7 @@ private fun Stats(stats: ResultsStats?) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(IntrinsicSize.Min) // So VerticalDividers don't expand to the whole screen
-                .padding(16.dp),
+                .padding(8.dp),
         ) {
             Column(
                 modifier = Modifier.weight(1f),
@@ -464,7 +466,7 @@ private fun Stats(stats: ResultsStats?) {
                 Text(
                     stringResource(Res.string.TestResults_Overview_Hero_Tests),
                     style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.padding(bottom = 8.dp),
+                    modifier = Modifier.padding(bottom = 4.dp),
                 )
                 Text(
                     stats.total.toString(),
@@ -481,7 +483,7 @@ private fun Stats(stats: ResultsStats?) {
                 Text(
                     stringResource(Res.string.TestResults_Overview_Hero_Networks),
                     style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.padding(bottom = 8.dp),
+                    modifier = Modifier.padding(bottom = 4.dp),
                 )
                 Text(
                     stats.networks.toString(),
@@ -511,7 +513,6 @@ private fun Stats(stats: ResultsStats?) {
                     Text(stats.dataUsageDown.formatDataUsage())
                 }
                 Row(
-                    modifier = Modifier.padding(top = 2.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Icon(
