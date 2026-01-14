@@ -17,6 +17,7 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
+import org.ooni.probe.data.models.RunModel
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.UrlModel
@@ -95,9 +96,10 @@ class RunDescriptors(
         val noInternetWatcher = NoInternetWatcher()
 
         // Actually running the descriptors
+        val runId = RunModel.Id.generateNew()
         descriptors.forEachIndexed { index, descriptor ->
             if (isRunStopped()) return@forEachIndexed
-            runDescriptor(descriptor, index, spec.taskOrigin, spec.isRerun, noInternetWatcher)
+            runDescriptor(runId, descriptor, index, spec.taskOrigin, spec.isRerun, noInternetWatcher)
         }
 
         cancelListenerCallback.dismiss()
@@ -158,6 +160,7 @@ class RunDescriptors(
     }
 
     private suspend fun runDescriptor(
+        runId: RunModel.Id,
         descriptor: Descriptor,
         index: Int,
         taskOrigin: TaskOrigin,
@@ -165,6 +168,7 @@ class RunDescriptors(
         noInternetWatcher: NoInternetWatcher,
     ) {
         val result = ResultModel(
+            runId = runId,
             descriptorName = descriptor.name,
             descriptorKey = (descriptor.source as? Descriptor.Source.Installed)?.value?.key,
             taskOrigin = taskOrigin,

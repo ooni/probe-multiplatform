@@ -108,7 +108,7 @@ fun getScaledValue(value: Double): Double =
         value / 1000 * 1000
     }
 
-fun setFractionalDigits(value: Double): String = if (value < 10) value.format(1) else value.format(2)
+fun setFractionalDigits(value: Double): String = if (value < 10) value.format(2) else value.format(1)
 
 fun getUnit(value: Double): StringResource {
     // We assume there is no Tbit/s (for now!)
