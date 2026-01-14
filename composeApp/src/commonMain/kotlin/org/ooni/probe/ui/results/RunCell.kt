@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.TaskOrigin_AutoRun
 import ooniprobe.composeapp.generated.resources.TaskOrigin_Manual
@@ -27,7 +28,9 @@ fun RunCell(item: RunListItem) {
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 8.dp),
     ) {
         Column(modifier = Modifier.weight(1f)) {
             val asn = if (network?.isValid() == false) {
@@ -38,7 +41,7 @@ fun RunCell(item: RunListItem) {
             val networkText = network?.networkName?.let { "$it " } + "($asn)"
             Text(
                 networkText,
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleMedium.copy(fontSize = 16.sp),
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )

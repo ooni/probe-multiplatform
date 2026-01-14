@@ -1,6 +1,7 @@
 package org.ooni.probe.ui.results
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -85,12 +87,12 @@ fun ResultCell(
                         }
                     },
                     onLongClick = onLongClick,
-                ).padding(start = 24.dp, end = 16.dp)
-                .padding(vertical = 8.dp)
+                ).padding(start = 16.dp, end = 4.dp)
+                .padding(vertical = 12.dp)
                 .testTag(item.descriptor.key),
         ) {
             Column(
-                modifier = Modifier.weight(0.6f),
+                modifier = Modifier.padding(end = 4.dp).weight(0.6f),
             ) {
                 Box {
                     TestDescriptorLabel(
@@ -145,9 +147,9 @@ fun ResultCell(
                 }
             }
             FlowRow(
-                horizontalArrangement = Arrangement.Start,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(start = 8.dp).weight(0.4f),
+                horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.Start),
+                verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.Top),
+                modifier = Modifier.weight(0.4f).padding(end = 4.dp),
             ) {
                 if (!hasError) {
                     ResultCounts(item)
@@ -239,17 +241,17 @@ private fun ResultCountItem(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(bottom = 2.dp, end = 4.dp),
+        modifier = Modifier.metricChip(color),
     ) {
         Icon(
             painter = painterResource(icon),
             tint = color.copy(alpha = 0.66f),
             contentDescription = null,
-            modifier = Modifier.padding(end = 2.dp).size(16.dp),
+            modifier = Modifier.padding(end = 2.dp).size(12.dp),
         )
         Text(
             text = text,
-            style = MaterialTheme.typography.labelLarge,
+            style = MaterialTheme.typography.labelMedium,
             color = color,
         )
     }
@@ -261,22 +263,31 @@ private fun PerformanceMetric(
     text: String?,
     color: Color = LocalContentColor.current,
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(bottom = 2.dp, end = 4.dp),
-    ) {
-        text?.let {
+    text?.let {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.metricChip(color),
+        ) {
             Icon(
                 painter = painterResource(icon),
                 tint = color.copy(alpha = 0.66f),
                 contentDescription = null,
-                modifier = Modifier.padding(end = 2.dp).size(16.dp),
+                modifier = Modifier.padding(end = 2.dp).size(12.dp),
             )
             Text(
                 text = text,
-                style = MaterialTheme.typography.labelLarge,
+                style = MaterialTheme.typography.labelMedium,
                 color = color,
             )
         }
     }
 }
+
+@Composable
+private fun Modifier.metricChip(color: Color = LocalContentColor.current) =
+    this
+        .border(
+            width = 0.5.dp,
+            color = color.copy(alpha = 0.5f),
+            shape = RoundedCornerShape(4.dp),
+        ).padding(horizontal = 4.dp, vertical = 2.dp)
