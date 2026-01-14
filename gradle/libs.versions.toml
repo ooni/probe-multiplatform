@@ -1,12 +1,12 @@
 [versions]
 
-agp = "8.11.2" # Check compatibility https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
+agp = "8.13.0" # Check compatibility https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
 
 android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
 
-compose-plugin = "1.9.3"
+compose-plugin = "1.10.0"
 kotlin = "2.3.0"
 sqldelight = "2.2.1"
 dataStoreVersion = "1.1.4"
@@ -77,7 +77,7 @@ moko-permissions-notifications = { module = "dev.icerock.moko:permissions-notifi
 sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.23.0" }
 
 # Markdown
-markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.38.1" }
+markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.39.1" }
 
 # WebView
 web-view = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "2.0.3" }
