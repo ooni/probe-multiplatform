@@ -19,10 +19,11 @@ import kotlinx.coroutines.flow.update
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.toDescriptorItem
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.TestRunError
@@ -36,13 +37,13 @@ class DashboardViewModel(
     goToRunTests: () -> Unit,
     goToDescriptor: (String) -> Unit,
     getFirstRun: () -> Flow<Boolean>,
-    goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
-    getTestDescriptors: () -> Flow<List<Descriptor>>,
+    goToReviewDescriptorUpdates: (List<Descriptor.Id>?) -> Unit,
+    getTestDescriptors: () -> Flow<List<DescriptorItem>>,
     observeRunBackgroundState: Flow<RunBackgroundState>,
     observeTestRunErrors: Flow<TestRunError>,
     shouldShowVpnWarning: suspend () -> Boolean,
     observeDescriptorUpdateState: () -> Flow<DescriptorsUpdateState>,
-    startDescriptorsUpdates: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
+    startDescriptorsUpdates: suspend (List<Descriptor>?) -> Unit,
     dismissDescriptorsUpdateNotice: () -> Unit,
     getAutoRunSettings: () -> Flow<AutoRunParameters>,
     batteryOptimization: BatteryOptimization,
@@ -76,7 +77,7 @@ class DashboardViewModel(
             .onEach { updates ->
                 _state.update {
                     it.copy(
-                        availableUpdates = updates.availableUpdates.toList(),
+                        availableUpdates = updates.availableUpdates.map { it.toDescriptorItem() },
                         descriptorsUpdateOperationState = updates.operationState,
                     )
                 }
@@ -162,7 +163,7 @@ class DashboardViewModel(
                 dismissDescriptorsUpdateNotice()
                 goToReviewDescriptorUpdates(
                     listOf(
-                        it.descriptor.source?.id
+                        it.descriptor.descriptor?.id
                             ?: return@onEach,
                     ),
                 )
@@ -207,7 +208,7 @@ class DashboardViewModel(
         )
     }
 
-    private fun List<Descriptor>.groupByType(collapsedSections: List<DescriptorType>) =
+    private fun List<DescriptorItem>.groupByType(collapsedSections: List<DescriptorType>) =
         listOf(
             DescriptorSection(
                 type = DescriptorType.Installed,
@@ -230,7 +231,7 @@ class DashboardViewModel(
         val runBackgroundState: RunBackgroundState = RunBackgroundState.Idle(),
         val testRunErrors: List<TestRunError> = emptyList(),
         val showVpnWarning: Boolean = false,
-        val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
+        val availableUpdates: List<DescriptorItem> = emptyList(),
         val descriptorsUpdateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
         val showIgnoreBatteryOptimizationNotice: Boolean = false,
         val canPullToRefresh: Boolean = true,
@@ -261,7 +262,7 @@ class DashboardViewModel(
         ) : Event
 
         data class DescriptorClicked(
-            val descriptor: Descriptor,
+            val descriptor: DescriptorItem,
         ) : Event
 
         data class ToggleSection(
@@ -269,7 +270,7 @@ class DashboardViewModel(
         ) : Event
 
         data class UpdateDescriptorClicked(
-            val descriptor: Descriptor,
+            val descriptor: DescriptorItem,
         ) : Event
 
         data object FetchUpdatedDescriptors : Event
@@ -285,7 +286,7 @@ class DashboardViewModel(
 
     data class DescriptorSection(
         val type: DescriptorType,
-        val descriptors: List<Descriptor>,
+        val descriptors: List<DescriptorItem>,
         val isCollapsed: Boolean = false,
     )
 

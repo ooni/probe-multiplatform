@@ -8,7 +8,7 @@ import kotlinx.serialization.json.Json
 import org.ooni.engine.models.OONINetTest
 import org.ooni.probe.Database
 import org.ooni.probe.data.TestDescriptor
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.toDb
 import org.ooni.probe.shared.toLocalDateTime
@@ -41,14 +41,14 @@ class TestDescriptorRepository(
             .mapToList(backgroundContext)
             .map { list -> list.map { it.toModel() } }
 
-    fun listLatestByRunIds(ids: List<InstalledTestDescriptorModel.Id>) =
+    fun listLatestByRunIds(ids: List<Descriptor.Id>) =
         database.testDescriptorQueries
             .selectLatestByRunIds(ids.map { it.value })
             .asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.map { it.toModel() } }
 
-    suspend fun createOrIgnore(models: List<InstalledTestDescriptorModel>) {
+    suspend fun createOrIgnore(models: List<Descriptor>) {
         withContext(backgroundContext) {
             database.transaction {
                 models.forEach { model ->
@@ -79,7 +79,7 @@ class TestDescriptorRepository(
         }
     }
 
-    suspend fun createOrUpdate(models: List<InstalledTestDescriptorModel>) {
+    suspend fun createOrUpdate(models: List<Descriptor>) {
         withContext(backgroundContext) {
             database.transaction {
                 models.forEach { model ->
@@ -115,7 +115,7 @@ class TestDescriptorRepository(
     }
 
     suspend fun setAutoUpdate(
-        runId: InstalledTestDescriptorModel.Id,
+        runId: Descriptor.Id,
         autoUpdate: Boolean,
     ) {
         withContext(backgroundContext) {
@@ -127,7 +127,7 @@ class TestDescriptorRepository(
     }
 
     suspend fun updateRejectedRevision(
-        runId: InstalledTestDescriptorModel.Id,
+        runId: Descriptor.Id,
         rejectedRevision: Long?,
     ) {
         withContext(backgroundContext) {
@@ -138,15 +138,15 @@ class TestDescriptorRepository(
         }
     }
 
-    suspend fun deleteByRunId(runId: InstalledTestDescriptorModel.Id) {
+    suspend fun deleteByRunId(runId: Descriptor.Id) {
         withContext(backgroundContext) {
             database.testDescriptorQueries.deleteByRunId(runId.value)
         }
     }
 
     private fun TestDescriptor.toModel() =
-        InstalledTestDescriptorModel(
-            id = InstalledTestDescriptorModel.Id(runId),
+        Descriptor(
+            id = Descriptor.Id(runId),
             revision = revision,
             name = name.orEmpty(),
             shortDescription = short_description,
@@ -154,7 +154,8 @@ class TestDescriptorRepository(
             author = author,
             netTests = nettests
                 ?.let { json.decodeFromString<List<OONINetTest>>(it) }
-                ?.map { NetTest.fromOONI(it) },
+                ?.map { NetTest.fromOONI(it) }
+                .orEmpty(),
             nameIntl = name_intl?.let(json::decodeFromString),
             shortDescriptionIntl = short_description_intl?.let(json::decodeFromString),
             descriptionIntl = description_intl?.let(json::decodeFromString),

@@ -19,14 +19,14 @@ import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ic_chevron_right
 import org.jetbrains.compose.resources.painterResource
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.ui.shared.ExpiredChip
 import org.ooni.probe.ui.shared.UpdatesChip
 
 @Composable
 fun TestDescriptorItem(
-    descriptor: Descriptor,
+    descriptor: DescriptorItem,
     onClick: () -> Unit,
     onUpdateClick: () -> Unit,
 ) {

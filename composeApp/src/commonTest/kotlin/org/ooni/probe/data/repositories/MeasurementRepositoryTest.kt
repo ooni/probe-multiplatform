@@ -120,7 +120,7 @@ class MeasurementRepositoryTest {
     fun selectTestKeys() =
         runTest {
             val descriptor = DescriptorFactory.buildDescriptorWithInstalled()
-            val installedDescriptor = descriptor.source
+            val installedDescriptor = descriptor.descriptor
             val resultId1 = resultRepository.createOrUpdate(
                 ResultModelFactory.build(id = null, descriptorKey = installedDescriptor.key),
             )

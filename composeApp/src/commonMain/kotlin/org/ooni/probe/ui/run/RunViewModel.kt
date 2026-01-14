@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.ooni.engine.models.TaskOrigin
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.PlatformAction
@@ -31,7 +31,7 @@ import org.ooni.probe.ui.shared.SelectableItem
 
 class RunViewModel(
     onBack: () -> Unit,
-    getTestDescriptors: () -> Flow<List<Descriptor>>,
+    getTestDescriptors: () -> Flow<List<DescriptorItem>>,
     shouldShowVpnWarning: suspend () -> Boolean,
     private val preferenceRepository: PreferenceRepository,
     startBackgroundRun: (RunSpecification) -> Unit,
@@ -42,9 +42,9 @@ class RunViewModel(
     private val _state = MutableStateFlow(State(emptyMap()))
     val state = _state.asStateFlow()
 
-    private val allNetTests = MutableStateFlow(emptyList<Pair<Descriptor, NetTest>>())
+    private val allNetTests = MutableStateFlow(emptyList<Pair<DescriptorItem, NetTest>>())
     private val expandedDescriptorsKeys = MutableStateFlow(emptyList<String>())
-    private val selectedTests = MutableStateFlow<List<Pair<Descriptor, NetTest>>?>(null)
+    private val selectedTests = MutableStateFlow<List<Pair<DescriptorItem, NetTest>>?>(null)
 
     init {
         // Initially selected tests based on the descriptor provided or the preferences
@@ -197,7 +197,7 @@ class RunViewModel(
     }
 
     private suspend fun setAreEnabled(
-        list: List<Pair<Descriptor, NetTest>>,
+        list: List<Pair<DescriptorItem, NetTest>>,
         isEnabled: Boolean,
     ) {
         preferenceRepository.setAreNetTestsEnabled(
@@ -207,11 +207,11 @@ class RunViewModel(
         )
     }
 
-    private fun List<Descriptor>.toNetTestsList(): List<Pair<Descriptor, NetTest>> = flatMap { it.toNetTestsPairs() }
+    private fun List<DescriptorItem>.toNetTestsList(): List<Pair<DescriptorItem, NetTest>> = flatMap { it.toNetTestsPairs() }
 
-    private fun Descriptor.toNetTestsPairs(): List<Pair<Descriptor, NetTest>> = allTests.map { this to it }
+    private fun DescriptorItem.toNetTestsPairs(): List<Pair<DescriptorItem, NetTest>> = allTests.map { this to it }
 
-    private fun Map<DescriptorType, Map<ParentSelectableItem<Descriptor>, List<SelectableItem<NetTest>>>>.toNetTestsList() =
+    private fun Map<DescriptorType, Map<ParentSelectableItem<DescriptorItem>, List<SelectableItem<NetTest>>>>.toNetTestsList() =
         flatMap { (_, map) ->
             map.flatMap { entry -> entry.value.map { entry.key.item to it.item } }
         }
@@ -223,7 +223,7 @@ class RunViewModel(
                 .groupBy(keySelector = { it.first }, valueTransform = { it.second })
                 .map { (descriptor, tests) ->
                     RunSpecification.Test(
-                        source = descriptor.source.id,
+                        descriptorId = descriptor.descriptor.id,
                         netTests = tests,
                     )
                 },
@@ -232,7 +232,7 @@ class RunViewModel(
         )
 
     data class State(
-        val list: Map<DescriptorType, Map<ParentSelectableItem<Descriptor>, List<SelectableItem<NetTest>>>>,
+        val list: Map<DescriptorType, Map<ParentSelectableItem<DescriptorItem>, List<SelectableItem<NetTest>>>>,
         val showVpnWarning: Boolean = false,
         val showDisableVpnInstructions: Boolean = false,
     )
@@ -247,16 +247,16 @@ class RunViewModel(
         data object DeselectAllClicked : Event
 
         data class DescriptorChecked(
-            val descriptor: Descriptor,
+            val descriptor: DescriptorItem,
             val isChecked: Boolean,
         ) : Event
 
         data class DescriptorDropdownToggled(
-            val descriptor: Descriptor,
+            val descriptor: DescriptorItem,
         ) : Event
 
         data class NetTestChecked(
-            val descriptor: Descriptor,
+            val descriptor: DescriptorItem,
             val netTest: NetTest,
             val isChecked: Boolean,
         ) : Event

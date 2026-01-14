@@ -61,7 +61,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.UpdateStatus
@@ -176,7 +176,7 @@ fun DescriptorScreen(
                     HorizontalDivider(Modifier.padding(bottom = 16.dp), thickness = Dp.Hairline)
                 }
 
-                ConfigureUpdates(onEvent, descriptor.source.autoUpdate)
+                ConfigureUpdates(onEvent, descriptor.descriptor.autoUpdate)
 
                 Text(
                     stringResource(Res.string.AddDescriptor_Settings),
@@ -259,7 +259,7 @@ fun DescriptorScreen(
                     )
                 }
 
-                descriptor.source?.let { installed ->
+                descriptor.descriptor?.let { installed ->
                     InstalledDescriptorActionsView(
                         descriptor = installed,
                         showCheckUpdatesButton = !state.canPullToRefresh,
@@ -414,7 +414,7 @@ private fun DescriptorDetails(
 
 @Composable
 private fun TestItems(
-    descriptor: Descriptor,
+    descriptor: DescriptorItem,
     tests: List<SelectableItem<NetTest>>,
     enabled: Boolean,
     onEvent: (DescriptorViewModel.Event) -> Unit,

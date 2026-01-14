@@ -34,11 +34,11 @@ import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_CustomURL_Title_NotSaved
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 
 @Composable
 fun InstalledDescriptorActionsView(
-    descriptor: InstalledTestDescriptorModel,
+    descriptor: Descriptor,
     showCheckUpdatesButton: Boolean,
     onEvent: (DescriptorViewModel.Event) -> Unit,
     modifier: Modifier,

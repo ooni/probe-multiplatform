@@ -15,7 +15,7 @@ import org.ooni.probe.data.Network
 import org.ooni.probe.data.Result
 import org.ooni.probe.data.SelectAllWithNetwork
 import org.ooni.probe.data.SelectByIdWithNetwork
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.MeasurementCounts
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultFilter
@@ -215,8 +215,8 @@ class ResultRepository(
             networkId = network_id?.let(NetworkModel::Id),
             descriptorKey = descriptor_runId?.let {
                 descriptor_revision?.let {
-                    InstalledTestDescriptorModel.Key(
-                        id = InstalledTestDescriptorModel.Id(descriptor_runId),
+                    Descriptor.Key(
+                        id = Descriptor.Id(descriptor_runId),
                         revision = descriptor_revision,
                     )
                 }
