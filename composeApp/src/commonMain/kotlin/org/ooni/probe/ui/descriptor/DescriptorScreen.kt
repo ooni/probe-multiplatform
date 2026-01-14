@@ -165,8 +165,11 @@ fun DescriptorScreen(
                             .padding(bottom = 16.dp),
                     )
 
-                    RunCell(lastResult)
                     lastResult.results.firstOrNull()?.item?.let { result ->
+                        RunCell(
+                            item = lastResult,
+                            onClick = { onEvent(DescriptorViewModel.Event.ResultClicked(result)) }
+                        )
                         ResultCell(
                             item = result,
                             onResultClick = {

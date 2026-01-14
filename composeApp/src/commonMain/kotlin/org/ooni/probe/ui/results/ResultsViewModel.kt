@@ -151,6 +151,26 @@ class ResultsViewModel(
                     )
                 }
             }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.RunClick>()
+            .onEach { event ->
+                _state.update { state ->
+                    state.copy(
+                        results = state.results.mapValues { (_, runs) ->
+                            runs.map { run ->
+                                run.copy(
+                                    isExpanded = if (event.item == run) {
+                                        !run.isExpanded
+                                    } else {
+                                        run.isExpanded
+                                    }
+                                )
+                            }
+                        },
+                    )
+                }
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -180,6 +200,8 @@ class ResultsViewModel(
 
     sealed interface Event {
         data object Start : Event
+
+        data class RunClick(val item: RunListItem) : Event
 
         data class ResultClick(
             val result: ResultListItem,

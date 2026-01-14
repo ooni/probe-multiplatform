@@ -233,7 +233,7 @@ private fun ResultCounts(item: ResultListItem) {
 }
 
 @Composable
-private fun ResultCountItem(
+fun ResultCountItem(
     icon: DrawableResource,
     text: String,
     color: Color = LocalContentColor.current,

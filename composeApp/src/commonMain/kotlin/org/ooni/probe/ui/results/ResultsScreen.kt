@@ -379,45 +379,50 @@ private fun Results(
                 }
                 runs.forEach { runItem ->
                     item(runItem.run.id.value) {
-                        RunCell(runItem)
-                    }
-                    items(items = runItem.results) { result ->
-                        HorizontalDivider(thickness = Dp.Hairline)
-                        val isSelected = result.isSelected
-                        ResultCell(
-                            item = result.item,
-                            onResultClick = {
-                                if (state.selectionEnabled) {
-                                    onEvent(
-                                        ResultsViewModel.Event.ChangeItemSelection(
-                                            result.item,
-                                            !isSelected,
-                                        ),
-                                    )
-                                } else {
-                                    onEvent(ResultsViewModel.Event.ResultClick(result.item))
-                                }
-                            },
-                            isSelected = isSelected,
-                            onSelectChange = { checked ->
-                                onEvent(
-                                    ResultsViewModel.Event.ChangeItemSelection(
-                                        result.item,
-                                        checked,
-                                    ),
-                                )
-                            },
-                            onLongClick = {
-                                if (!isSelected) {
-                                    onEvent(
-                                        ResultsViewModel.Event.ChangeItemSelection(
-                                            result.item,
-                                            true,
-                                        ),
-                                    )
-                                }
-                            },
+                        RunCell(
+                            item = runItem,
+                            onClick = { onEvent(ResultsViewModel.Event.RunClick(runItem)) }
                         )
+                    }
+                    if (runItem.isExpanded) {
+                        items(items = runItem.results) { result ->
+                            HorizontalDivider(thickness = Dp.Hairline)
+                            val isSelected = result.isSelected
+                            ResultCell(
+                                item = result.item,
+                                onResultClick = {
+                                    if (state.selectionEnabled) {
+                                        onEvent(
+                                            ResultsViewModel.Event.ChangeItemSelection(
+                                                result.item,
+                                                !isSelected,
+                                            ),
+                                        )
+                                    } else {
+                                        onEvent(ResultsViewModel.Event.ResultClick(result.item))
+                                    }
+                                },
+                                isSelected = isSelected,
+                                onSelectChange = { checked ->
+                                    onEvent(
+                                        ResultsViewModel.Event.ChangeItemSelection(
+                                            result.item,
+                                            checked,
+                                        ),
+                                    )
+                                },
+                                onLongClick = {
+                                    if (!isSelected) {
+                                        onEvent(
+                                            ResultsViewModel.Event.ChangeItemSelection(
+                                                result.item,
+                                                true,
+                                            ),
+                                        )
+                                    }
+                                },
+                            )
+                        }
                     }
                     item {
                         HorizontalDivider(thickness = 1.dp)
