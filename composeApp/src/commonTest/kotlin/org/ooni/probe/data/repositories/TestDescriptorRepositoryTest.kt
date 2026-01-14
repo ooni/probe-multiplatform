@@ -3,12 +3,10 @@ package org.ooni.probe.data.repositories
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import kotlin.time.Clock
-import kotlin.time.Instant
 import org.ooni.engine.models.TestType
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.di.Dependencies
-import org.ooni.probe.shared.now
 import org.ooni.probe.shared.toLocalDateTime
 import org.ooni.testing.createTestDatabaseDriver
 import org.ooni.testing.factories.DescriptorFactory
@@ -16,8 +14,9 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
+import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
+import kotlin.time.Instant
 
 class TestDescriptorRepositoryTest {
     private lateinit var subject: TestDescriptorRepository
@@ -73,7 +72,7 @@ class TestDescriptorRepositoryTest {
 
             val result = subject.listAll().first()
             assertEquals(2, result.size)
-            assertNull(result.first { it.revision == 1L }.netTests)
+            assertEquals(result.first { it.revision == 1L }.netTests.size, 0)
             assertEquals(newModel.netTests, result.first { it.revision == 2L }.netTests)
         }
 
