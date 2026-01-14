@@ -68,7 +68,7 @@ class RunNetTest(
                 )
             }
             // Ensure descriptor id is not available for ooni descriptors
-            val installedDescriptorId = if (spec.descriptor.isDefault()) null else spec.descriptor.source.id
+            val installedDescriptorId = if (spec.descriptor.isDefault()) null else spec.descriptor.descriptor.id
 
             try {
                 startTest(

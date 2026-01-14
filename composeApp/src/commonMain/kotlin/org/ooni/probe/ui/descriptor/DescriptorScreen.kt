@@ -176,7 +176,7 @@ fun DescriptorScreen(
                     HorizontalDivider(Modifier.padding(bottom = 16.dp), thickness = Dp.Hairline)
                 }
 
-                ConfigureUpdates(onEvent, descriptor.source.autoUpdate)
+                ConfigureUpdates(onEvent, descriptor.descriptor.autoUpdate)
 
                 Text(
                     stringResource(Res.string.AddDescriptor_Settings),
@@ -259,7 +259,7 @@ fun DescriptorScreen(
                     )
                 }
 
-                descriptor.source?.let { installed ->
+                descriptor.descriptor?.let { installed ->
                     InstalledDescriptorActionsView(
                         descriptor = installed,
                         showCheckUpdatesButton = !state.canPullToRefresh,

@@ -106,7 +106,7 @@ class RunDescriptors(
     private suspend fun List<DescriptorItem>.prepareInputs(taskOrigin: TaskOrigin): List<DescriptorItem> =
         map { descriptor ->
             descriptor.copy(
-                source = descriptor.source.copy(
+                descriptor = descriptor.descriptor.copy(
                     netTests = descriptor.netTests.downloadUrlsIfNeeded(taskOrigin, descriptor),
                     longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(
                         taskOrigin,
@@ -169,8 +169,8 @@ class RunDescriptors(
         val result = ResultModel(
             descriptorName = descriptor.name,
             descriptorKey = org.ooni.probe.data.models.Descriptor.Key(
-                id = descriptor.source.id,
-                revision = descriptor.source.revision,
+                id = descriptor.descriptor.id,
+                revision = descriptor.descriptor.revision,
             ),
             taskOrigin = taskOrigin,
         )

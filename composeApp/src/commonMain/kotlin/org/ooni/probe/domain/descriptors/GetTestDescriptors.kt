@@ -11,6 +11,7 @@ import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.DescriptorItem
+import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.toDescriptorItem
 
@@ -39,7 +40,10 @@ class GetTestDescriptors(
             val updatedDescriptors = installedDescriptors.map { item ->
                 item.toDescriptorItem(updateStatus = descriptorUpdates.getStatusOf(item.id))
             }
-            return@combine updatedDescriptors.sortedWith(DescriptorItem.SORT_COMPARATOR)
+            return@combine updatedDescriptors
+                .map {
+                    it.copy(enabled = it.name != OoniTest.Websites.key || isWebsitesEnabled)
+                }.sortedWith(DescriptorItem.SORT_COMPARATOR)
         }
     }
 

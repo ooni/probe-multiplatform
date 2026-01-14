@@ -59,7 +59,7 @@ sealed interface RunSpecification {
         ) = Full(
             tests = listOf(
                 Test(
-                    source = descriptor.source.id,
+                    source = descriptor.descriptor.id,
                     netTests = descriptor.allTests,
                 ),
             ),

@@ -163,7 +163,7 @@ class DashboardViewModel(
                 dismissDescriptorsUpdateNotice()
                 goToReviewDescriptorUpdates(
                     listOf(
-                        it.descriptor.source?.id
+                        it.descriptor.descriptor?.id
                             ?: return@onEach,
                     ),
                 )

@@ -31,57 +31,57 @@ import org.ooni.probe.shared.stringMonthArrayResource
 import kotlin.time.Duration.Companion.seconds
 
 data class DescriptorItem(
-    val source: Descriptor,
+    val descriptor: Descriptor,
     val updateStatus: UpdateStatus,
+    val enabled: Boolean = true,
 ) {
     val name: String
-        get() = source.name
+        get() = descriptor.name
     val title: @Composable () -> String
-        get() = { source.nameIntl?.getCurrent() ?: source.name }
+        get() = { descriptor.nameIntl?.getCurrent() ?: descriptor.name }
     val shortDescription: @Composable () -> String?
-        get() = { source.shortDescriptionIntl?.getCurrent() ?: source.shortDescription }
+        get() = { descriptor.shortDescriptionIntl?.getCurrent() ?: descriptor.shortDescription }
     val description: @Composable () -> String?
-        get() = { source.descriptionIntl?.getCurrent() ?: source.description }
+        get() = { descriptor.descriptionIntl?.getCurrent() ?: descriptor.description }
     val metadata: @Composable () -> String? = {
         val monthNames = stringMonthArrayResource()
         val formattedDate = { date: LocalDateTime? -> date?.format(dateTimeFormat(monthNames)) }
-        formattedDate(source.dateCreated)?.let { formattedDateCreated ->
+        formattedDate(descriptor.dateCreated)?.let { formattedDateCreated ->
             stringResource(
                 Res.string.Dashboard_Runv2_Overview_Description,
-                source.author.orEmpty(),
+                descriptor.author.orEmpty(),
                 formattedDateCreated,
             ) + ". " +
-                formattedDate(source.dateUpdated)?.let {
+                formattedDate(descriptor.dateUpdated)?.let {
                     stringResource(Res.string.Dashboard_Runv2_Overview_LastUpdated, it)
                 }
         }
     }
     val icon: DrawableResource?
-        get() = source.icon?.let(InstalledDescriptorIcons::getIconFromValue)
+        get() = descriptor.icon?.let(InstalledDescriptorIcons::getIconFromValue)
     val color: Color?
-        get() = source.color?.hexToColor()
+        get() = descriptor.color?.hexToColor()
     val animation: Animation?
-        get() = source.icon?.let { determineAnimation(it) }
-            ?: source.animation?.let(Animation::fromFileName)
+        get() = descriptor.icon?.let { determineAnimation(it) }
+            ?: descriptor.animation?.let(Animation::fromFileName)
     val dataUsage: @Composable () -> String?
-        get() = { if (source.isOoniDescriptor) stringResource(source.getDataUsage()) else null }
+        get() = { if (descriptor.isOoniDescriptor) stringResource(descriptor.getDataUsage()) else null }
 
     val netTests: List<NetTest>
-        get() = source.netTests
+        get() = descriptor.netTests
     val longRunningTests: List<NetTest>
-        get() = source.longRunningTests
-    val enabled: Boolean = true
+        get() = descriptor.longRunningTests
     val summaryType: SummaryType = SummaryType.Anomaly
 
     val isExpired
-        get() = source.expirationDate != null && source.expirationDate < LocalDateTime.now()
+        get() = descriptor.expirationDate != null && descriptor.expirationDate < LocalDateTime.now()
 
     val updatedDescriptor
         get() = (updateStatus as? UpdateStatus.Updatable)?.updatedDescriptor
 
     val key: String
         get() {
-            val descriptorId = source.id.value
+            val descriptorId = descriptor.id.value
             return if (isDefault()) {
                 OoniTest.fromId(descriptorId)?.key ?: descriptorId
             } else {
@@ -101,19 +101,19 @@ data class DescriptorItem(
             allTests.size == 1 && allTests.first().test == TestType.WebConnectivity
 
     val runLink: String
-        get() = source.runLink
+        get() = descriptor.runLink
 
     val settingsPrefix: String?
-        get() = if (isDefault()) null else source.id.value
+        get() = if (isDefault()) null else descriptor.id.value
 
-    fun isDefault(): Boolean = source.isOoniDescriptor
+    fun isDefault(): Boolean = descriptor.isOoniDescriptor
 
     companion object {
         val SORT_COMPARATOR =
             compareByDescending<DescriptorItem> { !it.isDefault() }
                 .thenBy { it.isExpired }
-                .thenByDescending { it.source.dateInstalled }
-                .thenBy { it.source.id.value }
+                .thenByDescending { it.descriptor.dateInstalled }
+                .thenBy { it.descriptor.id.value }
     }
 }
 
@@ -122,7 +122,7 @@ fun List<DescriptorItem>.notExpired() = filter { !it.isExpired }
 // Extension function to convert the new Descriptor (formerly Descriptor) to DescriptorItem
 fun Descriptor.toDescriptorItem(updateStatus: UpdateStatus = UpdateStatus.Unknown) =
     DescriptorItem(
-        source = this,
+        descriptor = this,
         updateStatus = updateStatus,
     )
 

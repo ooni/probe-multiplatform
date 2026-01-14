@@ -19,7 +19,7 @@ class GetTestDescriptorsBySpec(
                 val netTestsWithInputs = getNetTestsWithInputs(specTest, descriptor)
 
                 val specDescriptor = descriptor.copy(
-                    source = descriptor.source.copy(
+                    descriptor = descriptor.descriptor.copy(
                         netTests = netTestsWithInputs,
                         // long running are already inside netTests
                         longRunningTests = emptyList(),
@@ -36,7 +36,7 @@ class GetTestDescriptorsBySpec(
     // Is this descriptor contained in the RunSpecification's list of tests
     private fun RunSpecification.Full.forDescriptor(descriptor: DescriptorItem) =
         tests.firstOrNull { specTest ->
-            specTest.source == descriptor.source.id
+            specTest.source == descriptor.descriptor.id
         }
 
     /*
@@ -52,7 +52,7 @@ class GetTestDescriptorsBySpec(
             specNetTest.inputs.isNullOrEmpty()
         ) {
             specNetTest.copy(
-                inputs = descriptor.source.netTests
+                inputs = descriptor.descriptor.netTests
                     .firstOrNull { it.test == TestType.WebConnectivity }
                     ?.inputs
                     .orEmpty(),

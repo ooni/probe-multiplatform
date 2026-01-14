@@ -30,7 +30,7 @@ class GetAutoRunSpecification(
 
                 if (allEnabledTests.isNotEmpty()) {
                     RunSpecification.Test(
-                        source = descriptor.source.id,
+                        source = descriptor.descriptor.id,
                         netTests = allEnabledTests,
                     )
                 } else {
@@ -42,7 +42,7 @@ class GetAutoRunSpecification(
         )
     }
 
-    private suspend fun List<DescriptorItem>.filterForAutoRun() = filter { it.enabled }
+    private fun List<DescriptorItem>.filterForAutoRun() = filter { it.enabled }
 
     private suspend fun DescriptorItem.isEnabledForAutoRun(netTest: NetTest) =
         preferenceRepository.isNetTestEnabled(this, netTest, isAutoRun = true).first()

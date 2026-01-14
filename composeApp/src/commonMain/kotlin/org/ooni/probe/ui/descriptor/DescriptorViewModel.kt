@@ -172,7 +172,7 @@ class DescriptorViewModel(
             .filterIsInstance<Event.AutoUpdateChanged>()
             .onEach {
                 val descriptor = state.value.descriptor ?: return@onEach
-                setAutoUpdate(descriptor.source.id, it.value)
+                setAutoUpdate(descriptor.descriptor.id, it.value)
             }.launchIn(viewModelScope)
 
         events
@@ -181,7 +181,7 @@ class DescriptorViewModel(
                 if (state.value.isRefreshing) return@onEach
                 val descriptor = state.value.descriptor ?: return@onEach
 
-                startDescriptorsUpdate(listOf(descriptor.source))
+                startDescriptorsUpdate(listOf(descriptor.descriptor))
             }.launchIn(viewModelScope)
 
         events
@@ -196,7 +196,7 @@ class DescriptorViewModel(
             .filterIsInstance<Event.UndoRejectedRevisionClicked>()
             .onEach {
                 val descriptor =
-                    state.value.descriptor?.source
+                    state.value.descriptor?.descriptor
                         ?: return@onEach
                 undoRejectedDescriptorUpdate(descriptor.id)
                 startDescriptorsUpdate(listOf(descriptor))
@@ -270,7 +270,7 @@ class DescriptorViewModel(
             .filterIsInstance<Event.SeeMoreWebsitesClicked>()
             .onEach {
                 state.value.descriptor
-                    ?.source
+                    ?.descriptor
                     ?.let { installed -> goToDescriptorWebsites(installed.id) }
             }.launchIn(viewModelScope)
 
@@ -315,7 +315,7 @@ class DescriptorViewModel(
             RunSpecification.Full(
                 tests = listOf(
                     RunSpecification.Test(
-                        source = descriptor.source.id,
+                        source = descriptor.descriptor.id,
                         netTests = descriptor.allTests,
                     ),
                 ),
@@ -343,7 +343,7 @@ class DescriptorViewModel(
                 tests.size -> ToggleableState.On
                 else -> ToggleableState.Indeterminate
             }
-        val isRefreshEnabled get() = descriptor?.source != null
+        val isRefreshEnabled get() = descriptor?.descriptor != null
     }
 
     sealed interface Event {

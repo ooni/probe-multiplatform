@@ -38,10 +38,10 @@ fun List<DescriptorItem>.forResult(result: ResultModel): DescriptorItem? =
     result.descriptorKey
         ?.let { key ->
             firstOrNull {
-                it.source.key.id == key.id
+                it.descriptor.key.id == key.id
             }
         }
-        ?: firstOrNull { it.source.name == result.descriptorName }
+        ?: firstOrNull { it.descriptor.name == result.descriptorName }
 
 fun List<TestKeysWithResultId>.forResult(result: ResultModel): List<TestKeysWithResultId>? =
     result.id
