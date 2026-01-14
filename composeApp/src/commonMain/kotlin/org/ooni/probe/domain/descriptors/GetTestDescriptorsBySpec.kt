@@ -36,7 +36,7 @@ class GetTestDescriptorsBySpec(
     // Is this descriptor contained in the RunSpecification's list of tests
     private fun RunSpecification.Full.forDescriptor(descriptor: DescriptorItem) =
         tests.firstOrNull { specTest ->
-            specTest.source == descriptor.descriptor.id
+            specTest.descriptorId == descriptor.descriptor.id
         }
 
     /*

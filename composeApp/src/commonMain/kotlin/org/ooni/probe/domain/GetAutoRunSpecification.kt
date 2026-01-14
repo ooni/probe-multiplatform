@@ -30,7 +30,7 @@ class GetAutoRunSpecification(
 
                 if (allEnabledTests.isNotEmpty()) {
                     RunSpecification.Test(
-                        source = descriptor.descriptor.id,
+                        descriptorId = descriptor.descriptor.id,
                         netTests = allEnabledTests,
                     )
                 } else {

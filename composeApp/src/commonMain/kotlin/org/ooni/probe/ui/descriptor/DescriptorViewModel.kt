@@ -315,7 +315,7 @@ class DescriptorViewModel(
             RunSpecification.Full(
                 tests = listOf(
                     RunSpecification.Test(
-                        source = descriptor.descriptor.id,
+                        descriptorId = descriptor.descriptor.id,
                         netTests = descriptor.allTests,
                     ),
                 ),
