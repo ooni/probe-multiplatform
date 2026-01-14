@@ -13,7 +13,7 @@ import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
@@ -26,7 +26,7 @@ import org.ooni.probe.shared.now
 import kotlin.time.Duration
 
 class RunDescriptors(
-    private val getTestDescriptorsBySpec: suspend (RunSpecification.Full) -> List<Descriptor>,
+    private val getTestDescriptorsBySpec: suspend (RunSpecification.Full) -> List<DescriptorItem>,
     private val downloadUrls: suspend (TaskOrigin) -> Result<List<UrlModel>, MkException>,
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
     private val markResultAsDone: suspend (ResultModel.Id) -> Unit,
@@ -85,7 +85,7 @@ class RunDescriptors(
     }
 
     private suspend fun runDescriptorsCancellable(
-        descriptors: List<Descriptor>,
+        descriptors: List<DescriptorItem>,
         spec: RunSpecification.Full,
     ) {
         val cancelListenerCallback = addRunCancelListener {
@@ -103,20 +103,22 @@ class RunDescriptors(
         cancelListenerCallback.dismiss()
     }
 
-    private suspend fun List<Descriptor>.prepareInputs(taskOrigin: TaskOrigin) =
+    private suspend fun List<DescriptorItem>.prepareInputs(taskOrigin: TaskOrigin): List<DescriptorItem> =
         map { descriptor ->
             descriptor.copy(
-                netTests = descriptor.netTests.downloadUrlsIfNeeded(taskOrigin, descriptor),
-                longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(
-                    taskOrigin,
-                    descriptor,
+                descriptor = descriptor.descriptor.copy(
+                    netTests = descriptor.netTests.downloadUrlsIfNeeded(taskOrigin, descriptor),
+                    longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(
+                        taskOrigin,
+                        descriptor,
+                    ),
                 ),
             )
         }.filterNot { it.allTests.isEmpty() }
 
     private suspend fun List<NetTest>.downloadUrlsIfNeeded(
         taskOrigin: TaskOrigin,
-        descriptor: Descriptor,
+        descriptor: DescriptorItem,
     ): List<NetTest> =
         map { test ->
             val urls = test.inputsOrDownloadUrls(taskOrigin, descriptor)
@@ -125,7 +127,7 @@ class RunDescriptors(
 
     private suspend fun NetTest.inputsOrDownloadUrls(
         taskOrigin: TaskOrigin,
-        descriptor: Descriptor,
+        descriptor: DescriptorItem,
     ): List<String>? {
         if (!inputs.isNullOrEmpty() || test !is TestType.WebConnectivity) return inputs
 
@@ -150,7 +152,7 @@ class RunDescriptors(
         return urls
     }
 
-    private suspend fun List<Descriptor>.getEstimatedRuntime(): List<Duration> {
+    private suspend fun List<DescriptorItem>.getEstimatedRuntime(): List<Duration> {
         val maxRuntime = getEnginePreferences().maxRuntime
         return map { descriptor ->
             descriptor.estimatedDuration.coerceAtMost(maxRuntime ?: Duration.INFINITE)
@@ -158,7 +160,7 @@ class RunDescriptors(
     }
 
     private suspend fun runDescriptor(
-        descriptor: Descriptor,
+        descriptor: DescriptorItem,
         index: Int,
         taskOrigin: TaskOrigin,
         isRerun: Boolean,
@@ -166,7 +168,10 @@ class RunDescriptors(
     ) {
         val result = ResultModel(
             descriptorName = descriptor.name,
-            descriptorKey = descriptor.source?.key,
+            descriptorKey = org.ooni.probe.data.models.Descriptor.Key(
+                id = descriptor.descriptor.id,
+                revision = descriptor.descriptor.revision,
+            ),
             taskOrigin = taskOrigin,
         )
         val resultId = storeResult(result)

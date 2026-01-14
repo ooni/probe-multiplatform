@@ -10,7 +10,7 @@ data class ResultCount(
 
 data class ResultItem(
     val result: ResultModel,
-    val descriptor: Descriptor,
+    val descriptor: DescriptorItem,
     val network: NetworkModel?,
     val measurements: List<MeasurementWithUrl>,
     val testKeys: List<TestKeysWithResultId>?,

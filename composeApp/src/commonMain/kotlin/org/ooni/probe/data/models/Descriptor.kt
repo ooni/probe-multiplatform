@@ -1,71 +1,80 @@
 package org.ooni.probe.data.models
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import kotlinx.datetime.LocalDateTime
-import org.jetbrains.compose.resources.DrawableResource
-import org.ooni.engine.models.SummaryType
-import org.ooni.engine.models.TestType
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.TestDescriptor
 import org.ooni.probe.shared.now
-import kotlin.time.Duration.Companion.seconds
+import org.ooni.probe.shared.toEpoch
 
+@Serializable
 data class Descriptor(
+    val id: Id,
+    val revision: Long,
     val name: String,
-    val title: @Composable () -> String,
-    val shortDescription: @Composable () -> String?,
-    val description: @Composable () -> String?,
-    val metadata: @Composable () -> String? = { null },
-    val icon: DrawableResource?,
-    val color: Color?,
-    val animation: Animation?,
-    val dataUsage: @Composable () -> String?,
-    val expirationDate: LocalDateTime?,
+    val shortDescription: String?,
+    val description: String?,
+    val author: String?,
     val netTests: List<NetTest>,
     val longRunningTests: List<NetTest> = emptyList(),
-    val source: InstalledTestDescriptorModel,
-    val updateStatus: UpdateStatus,
-    val enabled: Boolean = true,
-    val summaryType: SummaryType,
+    val nameIntl: LocalizationString?,
+    val shortDescriptionIntl: LocalizationString?,
+    val descriptionIntl: LocalizationString?,
+    val icon: String?,
+    val color: String?,
+    val animation: String?,
+    val expirationDate: LocalDateTime?,
+    val dateCreated: LocalDateTime?,
+    val dateUpdated: LocalDateTime?,
+    val dateInstalled: LocalDateTime?,
+    val rejectedRevision: Long? = null,
+    val autoUpdate: Boolean,
 ) {
+    @Serializable
+    data class Id(
+        val value: String,
+    )
+
+    @Serializable
+    data class Key(
+        val id: Id,
+        val revision: Long,
+    )
+
+    val isOoniDescriptor get() = OoniTest.isValidId(id.value)
+
+    val key get() = Key(id, revision)
+
+    val previousRevisions
+        get() = if (revision <= 1) emptyList() else (1 until revision).toList().reversed()
+
     val isExpired get() = expirationDate != null && expirationDate < LocalDateTime.now()
 
-    val updatedDescriptor
-        get() = (updateStatus as? UpdateStatus.Updatable)?.updatedDescriptor
-
-    val key: String
-        get() {
-            val descriptorId = source.id.value
-            return if (isDefault()) {
-                OoniTest.fromId(descriptorId)?.key ?: descriptorId
-            } else {
-                descriptorId
-            }
-        }
-    val allTests get() = netTests + longRunningTests
-
-    val estimatedDuration
-        get() = allTests
-            .sumOf { it.test.runtime(it.inputs).inWholeSeconds }
-            .seconds
-
-    val isWebConnectivityOnly
-        get() =
-            allTests.size == 1 && allTests.first().test == TestType.WebConnectivity
-
-    val runLink get() = source.runLink
-
-    val settingsPrefix: String?
-        get() = if (isDefault()) null else source.id.value
-
-    fun isDefault(): Boolean = source.isOoniDescriptor
-
-    companion object {
-        val SORT_COMPARATOR =
-            compareByDescending<Descriptor> { !it.isDefault() }
-                .thenBy { it.isExpired }
-                .thenByDescending { it.source.dateInstalled }
-                .thenBy { it.source.id.value }
-    }
+    val runLink get() = "${OrganizationConfig.ooniRunDashboardUrl}/v2/${id.value}"
 }
 
-fun List<Descriptor>.notExpired() = filter { !it.isExpired }
+fun Descriptor.toDb(json: Json) =
+    TestDescriptor(
+        runId = id.value,
+        revision = revision,
+        name = name,
+        short_description = shortDescription,
+        description = description,
+        author = author,
+        nettests = netTests
+            .map { it.toOONI() }
+            .let { json.encodeToString(it) },
+        name_intl = json.encodeToString(nameIntl),
+        short_description_intl = json.encodeToString(shortDescriptionIntl),
+        description_intl = json.encodeToString(descriptionIntl),
+        icon = icon,
+        color = color,
+        animation = animation,
+        expiration_date = expirationDate?.toEpoch(),
+        date_created = dateCreated?.toEpoch(),
+        date_updated = dateUpdated?.toEpoch(),
+        date_installed = dateInstalled?.toEpoch(),
+        auto_update = if (autoUpdate) 1 else 0,
+        rejected_revision = rejectedRevision,
+    )

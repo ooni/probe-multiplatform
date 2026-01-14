@@ -15,7 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementsFilter
 import org.ooni.probe.data.models.PlatformAction
@@ -334,7 +334,7 @@ fun Navigation(
         composable<Screen.DescriptorWebsites> { entry ->
             val viewModel = viewModel {
                 dependencies.descriptorWebsitesViewModel(
-                    descriptorId = InstalledTestDescriptorModel.Id(
+                    descriptorId = Descriptor.Id(
                         entry.toRoute<Screen.DescriptorWebsites>().descriptorId,
                     ),
                     onBack = { navController.goBack() },
@@ -350,7 +350,7 @@ fun Navigation(
                     descriptorIds = entry
                         .toRoute<Screen.ReviewUpdates>()
                         .descriptorIds
-                        ?.map(InstalledTestDescriptorModel::Id),
+                        ?.map(Descriptor::Id),
                     onBack = { navController.goBack() },
                 )
             }

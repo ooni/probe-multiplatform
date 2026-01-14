@@ -18,7 +18,7 @@ sealed interface RunSpecification {
 
     @Serializable
     data class Test(
-        val source: InstalledTestDescriptorModel.Id,
+        val descriptorId: Descriptor.Id,
         val netTests: List<NetTest>,
     )
 
@@ -49,17 +49,17 @@ sealed interface RunSpecification {
         }
 
     private val Test.isWebsites
-        get() = source.value == OoniTest.Websites.id
+        get() = descriptorId.value == OoniTest.Websites.id
 
     companion object {
         fun buildForDescriptor(
-            descriptor: Descriptor,
+            descriptor: DescriptorItem,
             taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
             isRerun: Boolean = false,
         ) = Full(
             tests = listOf(
                 Test(
-                    source = descriptor.source.id,
+                    descriptorId = descriptor.descriptor.id,
                     netTests = descriptor.allTests,
                 ),
             ),

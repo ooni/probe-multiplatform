@@ -33,7 +33,7 @@ import ooniprobe.composeapp.generated.resources.ic_close
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.shared.TopBar
 
@@ -122,7 +122,7 @@ fun ReviewUpdatesScreen(
 }
 
 @Composable
-fun ReviewItem(currentDescriptor: Descriptor) {
+fun ReviewItem(currentDescriptor: DescriptorItem) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         TestDescriptorLabel(currentDescriptor)
 

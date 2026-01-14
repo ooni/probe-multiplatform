@@ -42,6 +42,7 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import ooniprobe.composeapp.generated.resources.test_circumvention
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.data.models.Animation
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.ui.shared.LottieAnimation
 import org.ooni.probe.ui.shared.NavigationBackButton
@@ -152,9 +153,10 @@ private fun TestRunning(
             }
         }
 
-        if (state.descriptor?.animation != null) {
+        val animation = state.descriptor?.animation
+        if (animation is Animation) {
             LottieAnimation(
-                state.descriptor.animation,
+                animation,
                 contentDescription = null,
                 modifier = Modifier.size(160.dp),
             )
