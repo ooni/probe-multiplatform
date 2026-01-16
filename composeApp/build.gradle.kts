@@ -270,8 +270,17 @@ android {
             // Our APK is too large and F-Droid asked for a split by ABI
             splits {
                 abi {
-                    isEnable = true
-                    // Resets the list of ABIs for Gradle to create APKs for to none.
+                    // Detect app bundle and conditionally disable split abis
+                    // This is needed due to a "Sequence contains more than one matching element" error
+                    // present since AGP 8.9.0, for more info see:
+                    // https://issuetracker.google.com/issues/402800800
+
+                    // AppBundle tasks usually contain "bundle" in their name
+                    val isBuildingBundle = gradle.startParameter.taskNames.any { it.lowercase().contains("bundle") }
+
+                    // Disable split abis when building appBundle
+                    isEnable = !isBuildingBundle
+
                     reset()
                     // Specifies a list of ABIs supported by probe-engine.
                     include("x86", "x86_64", "armeabi-v7a", "arm64-v8a")
