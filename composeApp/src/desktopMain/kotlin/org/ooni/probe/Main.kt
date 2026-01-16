@@ -1,6 +1,7 @@
 package org.ooni.probe
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +18,9 @@ import co.touchlab.kermit.Logger
 import io.github.kdroidfilter.platformtools.darkmodedetector.isSystemInDarkMode
 import io.github.kdroidfilter.platformtools.darkmodedetector.windows.setWindowsAdaptiveTitleBar
 import io.github.vinceglb.autolaunch.AutoLaunch
+import java.awt.Desktop
+import java.awt.desktop.AppReopenedListener
+import java.awt.Dimension
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -53,8 +57,6 @@ import org.ooni.probe.shared.MacDockVisibility
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateState
 import org.ooni.probe.update.DesktopUpdateController
-import java.awt.Desktop
-import java.awt.Dimension
 
 const val APP_ID = "org.ooni.probe"
 
@@ -178,6 +180,19 @@ fun main(args: Array<String>) {
 
         CoroutineScope(Dispatchers.Default).launch {
             registerWindowsUrlScheme()
+        }
+
+        LaunchedEffect(Unit) {
+            if (Desktop.isDesktopSupported()) {
+                runCatching {
+                    val desktop = Desktop.getDesktop()
+                    if (desktop.isSupported(Desktop.Action.APP_EVENT_FOREGROUND)) {
+                        desktop.addAppEventListener(AppReopenedListener { showWindow() })
+                    }
+                }.onFailure {
+                    Logger.w("Failed to register dock reopen listener", it)
+                }
+            }
         }
     }
 }
