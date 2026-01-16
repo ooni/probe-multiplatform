@@ -2,6 +2,7 @@ name: Publish OONI Probe on Huawei AppGallery
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   publish:
