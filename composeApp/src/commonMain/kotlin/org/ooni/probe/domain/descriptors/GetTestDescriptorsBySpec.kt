@@ -3,14 +3,14 @@ package org.ooni.probe.domain.descriptors
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import org.ooni.engine.models.TestType
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.RunSpecification
 
 // Filter TestDescriptors and netTests based on the specification provided
 class GetTestDescriptorsBySpec(
-    private val getTestDescriptors: () -> Flow<List<Descriptor>>,
+    private val getTestDescriptors: () -> Flow<List<DescriptorItem>>,
 ) {
-    suspend operator fun invoke(spec: RunSpecification.Full): List<Descriptor> =
+    suspend operator fun invoke(spec: RunSpecification.Full): List<DescriptorItem> =
         getTestDescriptors()
             .first()
             .filterNot { it.isExpired }
@@ -19,9 +19,11 @@ class GetTestDescriptorsBySpec(
                 val netTestsWithInputs = getNetTestsWithInputs(specTest, descriptor)
 
                 val specDescriptor = descriptor.copy(
-                    netTests = netTestsWithInputs,
-                    // long running are already inside netTests
-                    longRunningTests = emptyList(),
+                    descriptor = descriptor.descriptor.copy(
+                        netTests = netTestsWithInputs,
+                        // long running are already inside netTests
+                        longRunningTests = emptyList(),
+                    ),
                 )
 
                 if (specDescriptor.netTests.isEmpty() && specDescriptor.longRunningTests.isEmpty()) {
@@ -32,19 +34,9 @@ class GetTestDescriptorsBySpec(
             }
 
     // Is this descriptor contained in the RunSpecification's list of tests
-    private fun RunSpecification.Full.forDescriptor(descriptor: Descriptor) =
+    private fun RunSpecification.Full.forDescriptor(descriptor: DescriptorItem) =
         tests.firstOrNull { specTest ->
-            when (descriptor.source) {
-                is Descriptor.Source.Default -> {
-                    specTest.source is RunSpecification.Test.Source.Default &&
-                        specTest.source.name == descriptor.name
-                }
-
-                is Descriptor.Source.Installed -> {
-                    specTest.source is RunSpecification.Test.Source.Installed &&
-                        specTest.source.id == descriptor.source.value.id
-                }
-            }
+            specTest.descriptorId == descriptor.descriptor.id
         }
 
     /*
@@ -53,14 +45,14 @@ class GetTestDescriptorsBySpec(
      */
     private fun getNetTestsWithInputs(
         specTest: RunSpecification.Test,
-        descriptor: Descriptor,
+        descriptor: DescriptorItem,
     ) = specTest.netTests.map { specNetTest ->
         if (
             specNetTest.test == TestType.WebConnectivity &&
             specNetTest.inputs.isNullOrEmpty()
         ) {
             specNetTest.copy(
-                inputs = descriptor.netTests
+                inputs = descriptor.descriptor.netTests
                     .firstOrNull { it.test == TestType.WebConnectivity }
                     ?.inputs
                     .orEmpty(),

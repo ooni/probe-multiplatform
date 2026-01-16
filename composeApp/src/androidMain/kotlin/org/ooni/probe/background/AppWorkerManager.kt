@@ -12,7 +12,7 @@ import androidx.work.WorkManager
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.ooni.probe.data.models.AutoRunParameters
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.RunSpecification
 import java.util.concurrent.TimeUnit
 
@@ -80,7 +80,7 @@ class AppWorkerManager(
             true
         }
 
-    suspend fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
+    suspend fun startDescriptorsUpdate(descriptors: List<Descriptor>?) {
         withContext(backgroundDispatcher) {
             workManager
                 .enqueueUniqueWork(
