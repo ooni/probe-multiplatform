@@ -2,19 +2,15 @@ package org.ooni.probe.shared
 
 import co.touchlab.kermit.Logger
 import org.ooni.probe.platform
-import org.ooni.shared.loadNativeLibrary
+import org.ooni.shared.DesktopBridgeLoader
 
 /**
  * Utility for controlling macOS dock icon visibility using JNI.
  * Calls native macOS functions through NSApp.setActivationPolicy.
  */
 object MacDockVisibility {
-    private var isNativeLibraryLoaded = false
-
-    init {
-        if (isMacOS()) {
-            loadNativeLibrary()
-        }
+    private val isNativeLibraryLoaded: Boolean by lazy {
+        isMacOS() && DesktopBridgeLoader.ensureLoaded()
     }
 
     /**
@@ -75,20 +71,6 @@ object MacDockVisibility {
     }
 
     private fun isMacOS(): Boolean = platform.os == DesktopOS.Mac
-
-    private fun loadNativeLibrary() {
-        try {
-            isNativeLibraryLoaded = loadNativeLibrary("macdockvisibility")
-            if (isNativeLibraryLoaded) {
-                Logger.d("MacDockVisibility: Successfully loaded native library")
-            } else {
-                Logger.w("MacDockVisibility: Failed to load native library")
-            }
-        } catch (e: Exception) {
-            Logger.w("MacDockVisibility: Exception while loading native library", e)
-            isNativeLibraryLoaded = false
-        }
-    }
 
     // JNI native method declarations
     @JvmStatic
