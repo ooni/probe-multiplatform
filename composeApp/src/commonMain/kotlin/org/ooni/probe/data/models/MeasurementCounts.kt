@@ -6,5 +6,4 @@ data class MeasurementCounts(
     val anomaly: Long,
 ) {
     val success get() = done - failed - anomaly
-    val tested get() = done - failed
 }

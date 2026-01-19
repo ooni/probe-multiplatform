@@ -251,28 +251,25 @@ private fun ResultCounts(item: ResultListItem) {
                     icon = Res.drawable.ic_world,
                     text = pluralStringResource(
                         Res.plurals.TestResults_Overview_Websites_Tested,
-                        counts.tested.toInt(),
-                        counts.tested,
+                        counts.done.toInt(),
+                        counts.done,
                     ),
                 )
             }
 
             SummaryType.Performance -> {
                 item.testKeys?.downloadSpeed()?.let { (download, unit) ->
-
                     PerformanceMetric(
                         icon = Res.drawable.ic_download,
                         text = stringResource(Res.string.twoParam, download, stringResource(unit)),
                     )
                 }
                 item.testKeys?.uploadSpeed()?.let { (upload, unit) ->
-
                     PerformanceMetric(
                         icon = Res.drawable.ic_upload,
                         text = stringResource(Res.string.twoParam, upload, stringResource(unit)),
                     )
                 }
-
                 PerformanceMetric(
                     icon = Res.drawable.video_quality,
                     text = item.testKeys?.videoQuality()?.let {
