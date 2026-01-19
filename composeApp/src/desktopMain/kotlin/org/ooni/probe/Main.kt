@@ -183,15 +183,13 @@ fun main(args: Array<String>) {
         }
 
         LaunchedEffect(Unit) {
-            if (Desktop.isDesktopSupported()) {
-                runCatching {
-                    val desktop = Desktop.getDesktop()
-                    if (desktop.isSupported(Desktop.Action.APP_EVENT_FOREGROUND)) {
-                        desktop.addAppEventListener(AppReopenedListener { showWindow() })
-                    }
-                }.onFailure {
-                    Logger.w("Failed to register dock reopen listener", it)
+            runCatching {
+                val desktop = Desktop.getDesktop()
+                if (desktop.isSupported(Desktop.Action.APP_EVENT_FOREGROUND)) {
+                    desktop.addAppEventListener(AppReopenedListener { showWindow() })
                 }
+            }.onFailure {
+                Logger.w("Failed to register dock reopen listener", it)
             }
         }
     }
