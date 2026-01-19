@@ -156,7 +156,7 @@ class ResultRepositoryTest {
 
             assertTrue(
                 subject
-                    .getById(model.id!!)
+                    .getById(model.id)
                     .first()!!
                     .first.isViewed,
             )

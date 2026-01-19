@@ -48,8 +48,8 @@ class UploadMissingMeasurementsTest {
             assertEquals(UploadMissingMeasurements.State.Uploading(0, 0, 1), results[1])
             assertEquals(UploadMissingMeasurements.State.Finished(1, 0, 1), results[2])
             assertTrue(newModel!!.isUploaded)
-            assertFalse(newModel!!.isUploadFailed)
-            assertEquals("report_id", newModel!!.reportId!!.value)
+            assertFalse(newModel.isUploadFailed)
+            assertEquals("report_id", newModel.reportId!!.value)
         }
 
     @Test

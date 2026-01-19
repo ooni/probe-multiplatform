@@ -579,7 +579,7 @@ private fun SummaryPerformance(item: ResultItem) {
             )
 
             Text(
-                item.testKeys?.ping()?.toString()
+                item.testKeys?.ping()
                     ?: stringResource(Res.string.TestResults_NotAvailable),
                 style = MaterialTheme.typography.headlineSmall,
                 maxLines = 1,

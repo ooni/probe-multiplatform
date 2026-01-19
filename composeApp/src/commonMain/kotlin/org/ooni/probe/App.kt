@@ -26,7 +26,6 @@ import co.touchlab.kermit.Severity
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Unsupported_Url
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.PlatformInfo
@@ -37,7 +36,6 @@ import org.ooni.probe.ui.navigation.Screen
 import org.ooni.probe.ui.theme.AppTheme
 
 @Composable
-@Preview
 fun App(
     dependencies: Dependencies,
     deepLink: DeepLink?,
