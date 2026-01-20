@@ -96,8 +96,8 @@ android-orchestrator = { module = "androidx.test:orchestrator", version = "1.6.1
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 android-test-runner = { module = "androidx.test:runner", version = "1.7.0" }
 android-test-rules = { module = "androidx.test:rules", version = "1.7.0" }
-androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test", version = "1.10.0" }
-androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.10.0" }
+androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test", version = "1.10.1" }
+androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.10.1" }
 androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.7.0" }
 fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" }
 
@@ -132,7 +132,6 @@ tooling = [
     "web-view",
 ]
 android = [
-    #    "android-oonimkall",
     "android-activity",
     "android-fragment",
     "android-work",
