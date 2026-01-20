@@ -50,7 +50,7 @@ import ooniprobe.composeapp.generated.resources.ic_warning
 import ooniprobe.composeapp.generated.resources.logo_probe
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog

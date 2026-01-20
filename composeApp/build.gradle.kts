@@ -1,5 +1,4 @@
-import com.android.build.api.variant.FilterConfiguration.FilterType.ABI
-import org.jetbrains.compose.ExperimentalComposeLibrary
+import com.android.build.api.variant.FilterConfiguration
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.compose.desktop.application.tasks.AbstractJPackageTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -72,18 +71,18 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
-            implementation(compose.preview)
+            implementation(libs.compose.ui.tooling.preview)
             implementation(libs.bundles.android)
             implementation(libs.bundles.mobile)
         }
         commonMain {
             dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material3)
-                implementation(compose.ui)
-                implementation(compose.components.resources)
-                implementation(compose.components.uiToolingPreview)
+                implementation(libs.compose.runtime)
+                implementation(libs.compose.foundation)
+                implementation(libs.compose.material3)
+                implementation(libs.compose.ui)
+                implementation(libs.compose.components)
+                implementation(libs.compose.ui.tooling.preview)
                 implementation(libs.bundles.kotlin)
                 implementation(libs.bundles.ui)
                 implementation(libs.bundles.tooling)
@@ -116,8 +115,7 @@ kotlin {
         // Testing
         commonTest.dependencies {
             implementation(kotlin("test"))
-            @OptIn(ExperimentalComposeLibrary::class)
-            implementation(compose.uiTest)
+            implementation(libs.compose.ui.test)
         }
         androidUnitTest.dependencies {
             implementation(kotlin("test-junit"))
@@ -296,7 +294,7 @@ android {
             androidComponents {
                 onVariants { variant ->
                     variant.outputs.forEach { output ->
-                        val name = output.filters.find { it.filterType == ABI }?.identifier
+                        val name = output.filters.find { it.filterType == FilterConfiguration.FilterType.ABI }?.identifier
 
                         val baseAbiCode = abiCodes[name]
 
@@ -312,7 +310,8 @@ android {
     }
     dependencies {
         coreLibraryDesugaring(libs.android.desugar.jdk)
-        debugImplementation(compose.uiTooling)
+        debugImplementation(libs.compose.ui.tooling)
+        debugImplementation(libs.ui.tooling.preview)
         "fullImplementation"(libs.bundles.full.android)
         "fullImplementation"("org.ooni:oonimkall:3.28.0-android:@aar")
         "fdroidImplementation"("org.ooni:oonimkall:3.28.0-android:@aar")
@@ -514,7 +513,8 @@ compose.resources {
 version = android.defaultConfig.versionName ?: ""
 
 dependencies {
-    debugImplementation(compose.uiTooling)
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.ui.tooling.preview)
 }
 
 // Remove Sentry
