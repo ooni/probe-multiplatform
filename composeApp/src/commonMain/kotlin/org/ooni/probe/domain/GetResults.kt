@@ -23,7 +23,7 @@ class GetResults(
             results.mapNotNull { item ->
                 ResultListItem(
                     result = item.result,
-                    descriptor = descriptors.forResult(item.result) ?: return@mapNotNull null,
+                    descriptor = descriptors.forResult(item.result.id) ?: return@mapNotNull null,
                     network = item.network,
                     measurementCounts = item.measurementCounts,
                     allMeasurementsUploaded = item.allMeasurementsUploaded,
@@ -34,14 +34,14 @@ class GetResults(
         }
 }
 
-fun List<DescriptorItem>.forResult(result: ResultModel): DescriptorItem? =
-    result.descriptorKey
+fun List<DescriptorItem>.forResult(resultId: ResultModel.Id?): DescriptorItem? =
+    resultId
         ?.let { key ->
             firstOrNull {
-                it.descriptor.key.id == key.id
+                it.descriptor.key.id == key
             }
         }
-        ?: firstOrNull { it.descriptor.name == result.descriptorName }
+        ?: firstOrNull { it.descriptor.name == resultId?.value.toString() }
 
 fun List<TestKeysWithResultId>.forResult(result: ResultModel): List<TestKeysWithResultId>? =
     result.id

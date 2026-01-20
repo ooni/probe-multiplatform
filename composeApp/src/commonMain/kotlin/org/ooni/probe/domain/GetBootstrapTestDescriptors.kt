@@ -10,7 +10,6 @@ import org.ooni.probe.data.models.Descriptor
 import kotlin.coroutines.CoroutineContext
 
 class GetBootstrapTestDescriptors(
-    private val readAssetFile: (String) -> String,
     private val json: Json,
     private val backgroundContext: CoroutineContext,
 ) {

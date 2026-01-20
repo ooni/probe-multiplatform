@@ -241,9 +241,8 @@ class DashboardViewModel(
 
         val isRefreshEnabled: Boolean
             get() = sections
-                .firstOrNull { it.type == DescriptorType.Installed }
-                ?.descriptors
-                ?.any() == true
+                .flatMap { it.descriptors }
+                .isNotEmpty()
     }
 
     sealed interface Event {

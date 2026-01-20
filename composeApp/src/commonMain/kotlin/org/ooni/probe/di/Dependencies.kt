@@ -310,7 +310,7 @@ class Dependencies(
         GetAutoRunSpecification(getTestDescriptors::latest, preferenceRepository)
     }
     private val getBootstrapTestDescriptors by lazy {
-        GetBootstrapTestDescriptors(readAssetFile, json, backgroundContext)
+        GetBootstrapTestDescriptors(json, backgroundContext)
     }
     private val getEnginePreferences by lazy {
         GetEnginePreferences(

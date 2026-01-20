@@ -13,6 +13,7 @@ import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
@@ -168,7 +169,7 @@ class RunDescriptors(
     ) {
         val result = ResultModel(
             descriptorName = descriptor.name,
-            descriptorKey = org.ooni.probe.data.models.Descriptor.Key(
+            descriptorKey = Descriptor.Key(
                 id = descriptor.descriptor.id,
                 revision = descriptor.descriptor.revision,
             ),
