@@ -311,7 +311,7 @@ android {
     dependencies {
         coreLibraryDesugaring(libs.android.desugar.jdk)
         debugImplementation(libs.compose.ui.tooling)
-        debugImplementation(libs.ui.tooling.preview)
+        debugImplementation(libs.androidx.ui.tooling.preview)
         "fullImplementation"(libs.bundles.full.android)
         "fullImplementation"("org.ooni:oonimkall:3.28.0-android:@aar")
         "fdroidImplementation"("org.ooni:oonimkall:3.28.0-android:@aar")
@@ -514,7 +514,7 @@ version = android.defaultConfig.versionName ?: ""
 
 dependencies {
     debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(libs.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling.preview)
 }
 
 // Remove Sentry
