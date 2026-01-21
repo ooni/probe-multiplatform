@@ -16,6 +16,7 @@ import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
@@ -161,34 +162,38 @@ class RunDescriptors(
     }
 
     private suspend fun runDescriptor(
-        descriptor: DescriptorItem,
+        descriptorItem: DescriptorItem,
         index: Int,
         taskOrigin: TaskOrigin,
         isRerun: Boolean,
         noInternetWatcher: NoInternetWatcher,
     ) {
         val result = ResultModel(
-            descriptorName = descriptor.name,
+            descriptorName = if (descriptorItem.isDefault()) {
+                OoniTest.fromId(descriptorItem.descriptor.id.value)?.key
+            } else {
+                descriptorItem.descriptor.id.value
+            },
             descriptorKey = Descriptor.Key(
-                id = descriptor.descriptor.id,
-                revision = descriptor.descriptor.revision,
+                id = descriptorItem.descriptor.id,
+                revision = descriptorItem.descriptor.revision,
             ),
             taskOrigin = taskOrigin,
         )
         val resultId = storeResult(result)
 
-        descriptor.allTests.forEachIndexed { testIndex, netTest ->
+        descriptorItem.allTests.forEachIndexed { testIndex, netTest ->
             if (isRunStopped()) return@forEachIndexed
             runNetTest(
                 RunNetTest.Specification(
-                    descriptor = descriptor,
+                    descriptor = descriptorItem,
                     descriptorIndex = index,
                     netTest = netTest,
                     taskOrigin = taskOrigin,
                     isRerun = isRerun,
                     resultId = resultId,
                     testIndex = testIndex,
-                    testTotal = descriptor.allTests.size,
+                    testTotal = descriptorItem.allTests.size,
                 ),
             )
 

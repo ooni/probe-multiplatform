@@ -89,11 +89,7 @@ class RunViewModel(
 
             mapOf(
                 DescriptorType.Installed to descriptorsWithTests
-                    .filter {
-                        it.key.item
-                            .isDefault()
-                            .not()
-                    },
+                    .filterNot { it.key.item.isDefault() },
                 DescriptorType.Default to descriptorsWithTests
                     .filter { it.key.item.isDefault() },
             )

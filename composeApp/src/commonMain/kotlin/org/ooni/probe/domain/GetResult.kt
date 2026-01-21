@@ -25,7 +25,7 @@ class GetResult(
             val result = resultWithNetwork?.first ?: return@combine null
             ResultItem(
                 result = result,
-                descriptor = descriptors.forResult(result.id) ?: return@combine null,
+                descriptor = descriptors.forResult(result) ?: return@combine null,
                 network = resultWithNetwork.second,
                 measurements = measurements,
                 testKeys = testKeys,
