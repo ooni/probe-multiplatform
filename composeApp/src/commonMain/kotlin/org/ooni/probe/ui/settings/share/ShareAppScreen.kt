@@ -31,7 +31,7 @@ import ooniprobe.composeapp.generated.resources.ooni_install_qrcode
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.ui.shared.NavigationBackButton

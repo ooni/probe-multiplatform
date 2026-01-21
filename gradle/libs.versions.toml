@@ -41,6 +41,18 @@ android-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.9
 android-work = { module = "androidx.work:work-runtime-ktx", version = "2.11.0" }
 android-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.1" }
 
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version = "1.10.1" }
+
+# JetBrains Compose (plugin-provided artifacts)
+compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose-plugin" }
+compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-plugin" }
+compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose-plugin" }
+compose-components = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose-plugin" }
+compose-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose-plugin" }
+compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "compose-plugin" }
+compose-ui-test = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "compose-plugin" }
+compose-material3 = { module = "org.jetbrains.compose.material3:material3", version = "1.9.0" }
+
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.9.6" }
 lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version = "2.9.6" }
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.9.1" }
