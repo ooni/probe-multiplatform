@@ -1,14 +1,23 @@
-package org.ooni.probe.shared
+package org.ooni.probe.config
 
 import co.touchlab.kermit.Logger
 import dev.dirs.ProjectDirectories
-import okio.Path.Companion.toPath
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
+import okio.Path.Companion.toPath
+import org.ooni.probe.shared.DesktopOS
 import java.io.File
+import kotlin.coroutines.CoroutineContext
 
-class LegacyDirectoryManager(
+class DesktopLegacyDirectoryManager(
     os: DesktopOS,
-) {
+    private val backgroundContext: CoroutineContext = Dispatchers.IO,
+) : LegacyDirectoryManager {
+    private val cleanUpDone = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
     private val oldProjectDirectories = ProjectDirectories.fromPath("OONI Probe")
 
     private val legacyPaths = when (os) {
@@ -22,30 +31,29 @@ class LegacyDirectoryManager(
         )
 
         DesktopOS.Windows -> listOf(
-            oldProjectDirectories.cacheDir
-                .toPath()
-                .parent
-                .toString(),
-            oldProjectDirectories.dataDir
-                .toPath()
-                .parent
-                .toString(),
-        )
+            oldProjectDirectories.cacheDir,
+            oldProjectDirectories.dataDir,
+        ).map { it.toPath().parent.toString() }
 
         else -> emptyList()
     }
 
-    fun hasLegacyDirectories(): Boolean =
-        legacyPaths.any { path ->
-            val file = File(path)
-            file.exists() && file.isDirectory && file.listFiles().any()
+    override val isCleanUpRequired: Flow<Boolean>
+        get() = cleanUpDone.onStart { emit(Unit) }.map { hasLegacyDirectories() }
+
+    private suspend fun hasLegacyDirectories(): Boolean =
+        withContext(backgroundContext) {
+            legacyPaths.any { path ->
+                val file = File(path)
+                file.exists() && file.isDirectory && file.listFiles().any()
+            }
         }
 
-    suspend fun cleanupLegacyDirectories(): Boolean {
-        Logger.i { "Starting cleanup of legacy directories..." }
+    override suspend fun cleanUp(): Boolean =
+        withContext(backgroundContext) {
+            Logger.i { "Starting cleanup of legacy directories..." }
 
-        val results = withContext(kotlinx.coroutines.Dispatchers.IO) {
-            legacyPaths.map { dirPath ->
+            val results = legacyPaths.map { dirPath ->
                 Logger.i { "Attempting to clean up legacy path: $dirPath" }
                 deletePath(dirPath).also {
                     if (it) {
@@ -55,10 +63,11 @@ class LegacyDirectoryManager(
                     }
                 }
             }
+
+            Logger.i { "Legacy directory cleanup process finished." }
+            cleanUpDone.tryEmit(Unit)
+            return@withContext results.all { it }
         }
-        Logger.i { "Legacy directory cleanup process finished." }
-        return results.all { it }
-    }
 
     private fun deletePath(path: String): Boolean {
         val target = File(path)

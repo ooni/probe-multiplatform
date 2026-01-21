@@ -21,6 +21,7 @@ import org.ooni.probe.Database
 import org.ooni.probe.background.RunBackgroundTask
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.FlavorConfigInterface
+import org.ooni.probe.config.LegacyDirectoryManager
 import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.DeleteFilesOkio
@@ -135,9 +136,8 @@ class Dependencies(
     val startDescriptorsUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
     private val isWebViewAvailable: () -> Boolean,
-    private val isCleanUpRequired: () -> Boolean = { false },
     val launchAction: (PlatformAction) -> Boolean,
-    val cleanupLegacyDirectories: (suspend () -> Boolean)? = null,
+    private val legacyDirectoryManager: LegacyDirectoryManager = object : LegacyDirectoryManager {},
     private val batteryOptimization: BatteryOptimization,
     val flavorConfig: FlavorConfigInterface,
     val proxyConfig: ProxyConfig,
@@ -368,8 +368,8 @@ class Dependencies(
             knownBatteryState = platformInfo.knownBatteryState,
             supportsInAppLanguage = platformInfo.supportsInAppLanguage,
             hasDonations = platformInfo.hasDonations,
-            isCleanUpRequired = isCleanUpRequired,
-            cleanupLegacyDirectories = cleanupLegacyDirectories,
+            isCleanUpRequired = legacyDirectoryManager::isCleanUpRequired,
+            cleanupLegacyDirectories = legacyDirectoryManager::cleanUp,
         )
     }
 
@@ -645,8 +645,8 @@ class Dependencies(
         launchUrl = { launchAction(PlatformAction.OpenUrl(it)) },
         batteryOptimization = batteryOptimization,
         supportsCrashReporting = flavorConfig.isCrashReportingEnabled,
-        isCleanUpRequired = isCleanUpRequired,
-        cleanupLegacyDirectories = cleanupLegacyDirectories,
+        isCleanUpRequired = legacyDirectoryManager::isCleanUpRequired,
+        cleanupLegacyDirectories = legacyDirectoryManager::cleanUp,
     )
 
     fun proxyViewModel(

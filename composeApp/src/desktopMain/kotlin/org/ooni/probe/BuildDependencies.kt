@@ -8,6 +8,7 @@ import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
+import org.ooni.probe.config.DesktopLegacyDirectoryManager
 import org.ooni.probe.config.FlavorConfigInterface
 import org.ooni.probe.config.OptionalFeature
 import org.ooni.probe.config.ProxyConfig
@@ -15,7 +16,6 @@ import org.ooni.probe.data.buildDatabaseDriver
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
-import org.ooni.probe.shared.LegacyDirectoryManager
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import java.awt.Desktop
@@ -27,8 +27,6 @@ import java.nio.charset.StandardCharsets
 private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
 private val osName = System.getProperty("os.name")
 val platform = Platform.Desktop(osName)
-
-private val legacyDirectoryManager = LegacyDirectoryManager(platform.os)
 
 private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager(
     runBackgroundTaskProvider = { dependencies.runBackgroundTask },
@@ -53,8 +51,7 @@ val dependencies = Dependencies(
     launchAction = ::launchAction,
     batteryOptimization = object : BatteryOptimization {},
     isWebViewAvailable = { true },
-    isCleanUpRequired = legacyDirectoryManager::hasLegacyDirectories,
-    cleanupLegacyDirectories = legacyDirectoryManager::cleanupLegacyDirectories,
+    legacyDirectoryManager = DesktopLegacyDirectoryManager(platform.os),
     flavorConfig = DesktopFlavorConfig(),
     proxyConfig = ProxyConfig(isPsiphonSupported = false),
 )

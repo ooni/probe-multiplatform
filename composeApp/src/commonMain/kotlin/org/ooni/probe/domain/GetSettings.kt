@@ -85,8 +85,8 @@ class GetSettings(
     private val knownBatteryState: Boolean,
     private val supportsInAppLanguage: Boolean,
     private val hasDonations: Boolean,
-    private val isCleanUpRequired: () -> Boolean = { false },
-    private val cleanupLegacyDirectories: (suspend () -> Boolean)? = null,
+    private val isCleanUpRequired: () -> Flow<Boolean>,
+    private val cleanupLegacyDirectories: (suspend () -> Boolean),
 ) {
     operator fun invoke(): Flow<List<SettingsCategoryItem>> =
         combine(
@@ -101,7 +101,8 @@ class GetSettings(
                 ),
             ),
             observeStorageUsed(),
-        ) { preferences, storageUsed ->
+            isCleanUpRequired(),
+        ) { preferences, storageUsed, isCleanUpRequired ->
             val enabledCategoriesCount =
                 WebConnectivityCategory.entries.count { preferences[it.settingsKey] == true }
             buildSettings(
@@ -115,6 +116,7 @@ class GetSettings(
                 storageUsed = storageUsed,
                 supportsCrashReporting = supportsCrashReporting,
                 hasDonations = hasDonations,
+                isCleanUpRequired = isCleanUpRequired,
             )
         }
 
@@ -129,6 +131,7 @@ class GetSettings(
         storageUsed: Long,
         supportsCrashReporting: Boolean,
         hasDonations: Boolean,
+        isCleanUpRequired: Boolean,
     ): List<SettingsCategoryItem> =
         listOfNotNull(
             SettingsCategoryItem(
@@ -340,7 +343,7 @@ class GetSettings(
                     } else {
                         null
                     },
-                    if (isCleanUpRequired() && cleanupLegacyDirectories != null) {
+                    if (isCleanUpRequired) {
                         SettingsItem(
                             title = Res.string.Settings_Legacy_Storage,
                             key = SettingsKey.CLEAR_LEGACY_DIRECTORIES,
@@ -440,7 +443,7 @@ class GetSettings(
                     onClick = {
                         enabled = false
                         coroutine.launch {
-                            cleanupLegacyDirectories?.invoke()
+                            cleanupLegacyDirectories()
                             onClose()
                         }
                     },
