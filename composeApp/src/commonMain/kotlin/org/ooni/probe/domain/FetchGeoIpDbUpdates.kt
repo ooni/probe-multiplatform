@@ -35,7 +35,7 @@ class FetchGeoIpDbUpdates(
 ) {
     companion object {
         private const val GEOIP_DB_VERSION_DEFAULT: String = "20250801"
-        private const val GEOIP_DB_REPO: String = "aanorbel/oomplt-mmdb"
+        private const val GEOIP_DB_REPO: String = "ooni/historical-geoip"
     }
 
     suspend operator fun invoke(): Result<Path?, MkException> {
