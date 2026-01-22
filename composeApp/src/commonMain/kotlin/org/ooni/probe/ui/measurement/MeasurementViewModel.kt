@@ -35,10 +35,11 @@ class MeasurementViewModel(
                 val m = item?.measurement
                 val input = item?.url?.url
                 val url = if (m?.uid != null) {
-                    "${OrganizationConfig.explorerUrl}/m/${m.uid.value}"
+                    "${OrganizationConfig.explorerUrl}/m/${m.uid.value}?webview=true"
                 } else if (m?.reportId != null) {
                     val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
-                    "${OrganizationConfig.explorerUrl}/measurement/${m.reportId.value}$inputSuffix"
+                    val separator = if (inputSuffix.isEmpty()) "?" else "&"
+                    "${OrganizationConfig.explorerUrl}/measurement/${m.reportId.value}$inputSuffix${separator}webview=true"
                 } else {
                     onBack()
                     return@onEach
