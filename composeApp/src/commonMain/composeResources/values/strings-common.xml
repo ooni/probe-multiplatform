@@ -397,7 +397,7 @@
 
     <string name="Modal_Hide">Hide</string>
     <string name="Modal_Quite_Prompt">Quit OONI Probe?</string>
-    <string name="Modal_Quite_Description">Choose Quit to exit or Hide to keep running in the tray.</string>
+    <string name="Modal_Quite_Description">If you quit the app it won't be able to run automated tests in the background. Choose Quit to exit or Hide to keep running in the background.</string>
 
     <string name="OONIRun_Run">Run</string>
     <!-- Android notification channel name. -->

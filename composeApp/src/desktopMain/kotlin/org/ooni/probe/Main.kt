@@ -109,7 +109,6 @@ fun main(args: Array<String>) {
         updateController.registerShutdownHandler(this)
         var isWindowVisible by remember { mutableStateOf(!autoLaunch.isStartedViaAutostart()) }
         var showQuitPrompt by remember { mutableStateOf(false) }
-        var pendingQuitResponse by remember { mutableStateOf<QuitResponse?>(null) }
 
         // Set initial dock visibility based on window visibility
         MacDockVisibility.setDockIconVisible(isWindowVisible)
@@ -167,21 +166,15 @@ fun main(args: Array<String>) {
                     AppTheme {
                         QuitPromptDialog(
                             onQuit = {
-                                pendingQuitResponse?.cancelQuit()
-                                pendingQuitResponse = null
                                 showQuitPrompt = false
                                 onQuitApplicationClicked(updateController, instanceManager).invoke()
                             },
                             onHide = {
-                                pendingQuitResponse?.cancelQuit()
-                                pendingQuitResponse = null
                                 showQuitPrompt = false
                                 isWindowVisible = false
                                 MacDockVisibility.hideDockIcon()
                             },
                             onDismiss = {
-                                pendingQuitResponse?.cancelQuit()
-                                pendingQuitResponse = null
                                 showQuitPrompt = false
                             },
                         )
@@ -222,7 +215,10 @@ fun main(args: Array<String>) {
                 Separator()
                 Item(
                     stringResource(Res.string.Desktop_Quit),
-                    onClick = onQuitApplicationClicked(updateController, instanceManager),
+                    onClick = {
+                        showQuitPrompt = true
+                        showWindow()
+                    },
                 )
             },
         )
@@ -240,9 +236,7 @@ fun main(args: Array<String>) {
                 if (desktop.isSupported(Desktop.Action.APP_QUIT_HANDLER)) {
                     desktop.setQuitHandler { _: QuitEvent?, response: QuitResponse ->
                         appScope.launch {
-                            pendingQuitResponse = response
-                            showQuitPrompt = true
-                            showWindow()
+                            isWindowVisible = false
                         }
                     }
                 }
