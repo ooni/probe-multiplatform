@@ -34,11 +34,11 @@ import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_CustomURL_Title_NotSaved
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 
 @Composable
 fun InstalledDescriptorActionsView(
-    descriptor: InstalledTestDescriptorModel,
+    descriptor: Descriptor,
     showCheckUpdatesButton: Boolean,
     onEvent: (DescriptorViewModel.Event) -> Unit,
     modifier: Modifier,
@@ -137,14 +137,16 @@ fun InstalledDescriptorActionsView(
                     Text(stringResource(Res.string.DescriptorUpdate_CheckUpdates))
                 }
             }
-            Button(
-                onClick = { showDialog = true },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.error,
-                    contentColor = Color.White,
-                ),
-            ) {
-                Text(text = stringResource(Res.string.Dashboard_Runv2_Overview_UninstallLink))
+            if (descriptor.isOoniDescriptor.not()) {
+                Button(
+                    onClick = { showDialog = true },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error,
+                        contentColor = Color.White,
+                    ),
+                ) {
+                    Text(text = stringResource(Res.string.Dashboard_Runv2_Overview_UninstallLink))
+                }
             }
         }
     }

@@ -22,7 +22,7 @@ import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.DeepLink
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
@@ -351,7 +351,7 @@ class SetupDependencies(
         )
     }
 
-    fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
+    fun startDescriptorsUpdate(descriptors: List<Descriptor>?) {
         operationsManager.startDescriptorsUpdate(descriptors)
     }
 

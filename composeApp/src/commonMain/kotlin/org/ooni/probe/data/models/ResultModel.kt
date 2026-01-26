@@ -15,7 +15,7 @@ data class ResultModel(
     val taskOrigin: TaskOrigin,
     val networkId: NetworkModel.Id? = null,
     val descriptorName: String?,
-    val descriptorKey: InstalledTestDescriptorModel.Key?,
+    val descriptorKey: Descriptor.Key?,
 ) {
     data class Id(
         val value: Long,

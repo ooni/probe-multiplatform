@@ -22,7 +22,7 @@ import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.AndroidApplication
 import org.ooni.probe.R
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.di.Dependencies
 
 class DescriptorUpdateWorker(
@@ -85,12 +85,12 @@ class DescriptorUpdateWorker(
         }
     }
 
-    private suspend fun getDescriptors(): List<InstalledTestDescriptorModel>? {
+    private suspend fun getDescriptors(): List<Descriptor>? {
         val descriptorsJson = inputData.getString(DATA_KEY_DESCRIPTORS)
         if (descriptorsJson != null) {
             try {
                 val ids =
-                    json.decodeFromString<List<InstalledTestDescriptorModel.Id>>(descriptorsJson)
+                    json.decodeFromString<List<Descriptor.Id>>(descriptorsJson)
                 return testDescriptorRepository.listLatestByRunIds(ids).first()
             } catch (e: SerializationException) {
                 Logger.w("Could not start update worker: invalid configuration", e)
@@ -131,7 +131,7 @@ class DescriptorUpdateWorker(
     ) : EarlyStopWorkerException(reason)
 
     companion object {
-        fun buildWorkData(descriptors: List<InstalledTestDescriptorModel.Id>): Data =
+        fun buildWorkData(descriptors: List<Descriptor.Id>): Data =
             workDataOf(
                 DATA_KEY_DESCRIPTORS to Dependencies.buildJson().encodeToString(descriptors),
             )

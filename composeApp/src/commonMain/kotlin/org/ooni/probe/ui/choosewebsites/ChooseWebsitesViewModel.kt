@@ -15,7 +15,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.ui.shared.isValidUrl
@@ -133,7 +135,7 @@ class ChooseWebsitesViewModel(
                     RunSpecification.Full(
                         tests = listOf(
                             RunSpecification.Test(
-                                source = RunSpecification.Test.Source.Default("websites"),
+                                descriptorId = Descriptor.Id(OoniTest.Websites.id),
                                 netTests = listOf(
                                     NetTest(
                                         test = TestType.WebConnectivity,

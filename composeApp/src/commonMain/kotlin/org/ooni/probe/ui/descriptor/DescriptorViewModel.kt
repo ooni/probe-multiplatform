@@ -19,9 +19,9 @@ import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.ResultListItem
@@ -38,21 +38,21 @@ import kotlin.time.Duration.Companion.seconds
 class DescriptorViewModel(
     private val descriptorKey: String,
     private val onBack: () -> Unit,
-    goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
+    goToReviewDescriptorUpdates: (List<Descriptor.Id>?) -> Unit,
     goToChooseWebsites: () -> Unit,
     goToResult: (ResultModel.Id) -> Unit,
-    goToDescriptorWebsites: (InstalledTestDescriptorModel.Id) -> Unit,
-    getTestDescriptor: (String) -> Flow<Descriptor?>,
+    goToDescriptorWebsites: (Descriptor.Id) -> Unit,
+    getTestDescriptor: (String) -> Flow<DescriptorItem?>,
     getLastResultOfDescriptor: (String) -> Flow<ResultListItem?>,
     private val preferenceRepository: PreferenceRepository,
     private val launchAction: (PlatformAction) -> Boolean,
     shouldShowVpnWarning: suspend () -> Boolean,
-    deleteTestDescriptor: suspend (InstalledTestDescriptorModel) -> Unit,
-    startDescriptorsUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
-    setAutoUpdate: suspend (InstalledTestDescriptorModel.Id, Boolean) -> Unit,
+    deleteTestDescriptor: suspend (Descriptor) -> Unit,
+    startDescriptorsUpdate: suspend (List<Descriptor>?) -> Unit,
+    setAutoUpdate: suspend (Descriptor.Id, Boolean) -> Unit,
     observeDescriptorsUpdateState: () -> Flow<DescriptorsUpdateState>,
     dismissDescriptorReviewNotice: () -> Unit,
-    undoRejectedDescriptorUpdate: suspend (InstalledTestDescriptorModel.Id) -> Unit,
+    undoRejectedDescriptorUpdate: suspend (Descriptor.Id) -> Unit,
     private val startBackgroundRun: (RunSpecification) -> Unit,
     canPullToRefresh: Boolean,
 ) : ViewModel() {
@@ -172,8 +172,7 @@ class DescriptorViewModel(
             .filterIsInstance<Event.AutoUpdateChanged>()
             .onEach {
                 val descriptor = state.value.descriptor ?: return@onEach
-                if (descriptor.source !is Descriptor.Source.Installed) return@onEach
-                setAutoUpdate(descriptor.source.value.id, it.value)
+                setAutoUpdate(descriptor.descriptor.id, it.value)
             }.launchIn(viewModelScope)
 
         events
@@ -182,8 +181,7 @@ class DescriptorViewModel(
                 if (state.value.isRefreshing) return@onEach
                 val descriptor = state.value.descriptor ?: return@onEach
 
-                if (descriptor.source !is Descriptor.Source.Installed) return@onEach
-                startDescriptorsUpdate(listOf(descriptor.source.value))
+                startDescriptorsUpdate(listOf(descriptor.descriptor))
             }.launchIn(viewModelScope)
 
         events
@@ -198,7 +196,7 @@ class DescriptorViewModel(
             .filterIsInstance<Event.UndoRejectedRevisionClicked>()
             .onEach {
                 val descriptor =
-                    (state.value.descriptor?.source as? Descriptor.Source.Installed)?.value
+                    state.value.descriptor?.descriptor
                         ?: return@onEach
                 undoRejectedDescriptorUpdate(descriptor.id)
                 startDescriptorsUpdate(listOf(descriptor))
@@ -271,15 +269,16 @@ class DescriptorViewModel(
         events
             .filterIsInstance<Event.SeeMoreWebsitesClicked>()
             .onEach {
-                (state.value.descriptor?.source as? Descriptor.Source.Installed)
-                    ?.let { descriptor -> goToDescriptorWebsites(descriptor.value.id) }
+                state.value.descriptor
+                    ?.descriptor
+                    ?.let { installed -> goToDescriptorWebsites(installed.id) }
             }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ShareClicked>()
             .onEach {
                 val descriptor = state.value.descriptor ?: return@onEach
-                val runLink = descriptor.runLink ?: return@onEach
+                val runLink = descriptor.runLink
                 launchAction(PlatformAction.Share("${descriptor.name} $runLink"))
             }.launchIn(viewModelScope)
     }
@@ -316,13 +315,7 @@ class DescriptorViewModel(
             RunSpecification.Full(
                 tests = listOf(
                     RunSpecification.Test(
-                        source = when (descriptor.source) {
-                            is Descriptor.Source.Default ->
-                                RunSpecification.Test.Source.Default(descriptor.name)
-
-                            is Descriptor.Source.Installed ->
-                                RunSpecification.Test.Source.Installed(descriptor.source.value.id)
-                        },
+                        descriptorId = descriptor.descriptor.id,
                         netTests = descriptor.allTests,
                     ),
                 ),
@@ -332,7 +325,7 @@ class DescriptorViewModel(
         }
 
     data class State(
-        val descriptor: Descriptor? = null,
+        val descriptor: DescriptorItem? = null,
         val estimatedTime: Duration? = null,
         val tests: List<SelectableItem<NetTest>> = emptyList(),
         val lastResult: ResultListItem? = null,
@@ -350,7 +343,7 @@ class DescriptorViewModel(
                 tests.size -> ToggleableState.On
                 else -> ToggleableState.Indeterminate
             }
-        val isRefreshEnabled get() = descriptor?.source is Descriptor.Source.Installed
+        val isRefreshEnabled get() = descriptor?.descriptor != null
     }
 
     sealed interface Event {
@@ -364,7 +357,7 @@ class DescriptorViewModel(
         ) : Event
 
         data class UninstallClicked(
-            val value: InstalledTestDescriptorModel,
+            val value: Descriptor,
         ) : Event
 
         data class RevisionClicked(

@@ -31,7 +31,7 @@ import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.disk.WriteFileOkio
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.BatteryState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementsFilter
 import org.ooni.probe.data.models.PlatformAction
@@ -56,7 +56,6 @@ import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
-import org.ooni.probe.domain.GetDefaultTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetFirstRun
 import org.ooni.probe.domain.GetLastResultOfDescriptor
@@ -133,7 +132,7 @@ class Dependencies(
     private val configureAutoRun: suspend (AutoRunParameters) -> Unit,
     val configureDescriptorAutoUpdate: suspend () -> Boolean,
     val cancelDescriptorAutoUpdate: suspend () -> Boolean,
-    val startDescriptorsUpdate: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
+    val startDescriptorsUpdate: suspend (List<Descriptor>?) -> Unit,
     val localeDirection: (() -> LayoutDirection)? = null,
     private val isWebViewAvailable: () -> Boolean,
     val launchAction: (PlatformAction) -> Boolean,
@@ -311,9 +310,8 @@ class Dependencies(
         GetAutoRunSpecification(getTestDescriptors::latest, preferenceRepository)
     }
     private val getBootstrapTestDescriptors by lazy {
-        GetBootstrapTestDescriptors(readAssetFile, json, backgroundContext)
+        GetBootstrapTestDescriptors(json, backgroundContext)
     }
-    private val getDefaultTestDescriptors by lazy { GetDefaultTestDescriptors() }
     private val getEnginePreferences by lazy {
         GetEnginePreferences(
             preferencesRepository = preferenceRepository,
@@ -376,7 +374,6 @@ class Dependencies(
     @VisibleForTesting
     val getTestDescriptors by lazy {
         GetTestDescriptors(
-            getDefaultTestDescriptors = getDefaultTestDescriptors::invoke,
             listAllInstalledTestDescriptors = testDescriptorRepository::listAll,
             listLatestInstalledTestDescriptors = testDescriptorRepository::listLatest,
             observeDescriptorsUpdateState = descriptorUpdateStateManager::observe,
@@ -565,7 +562,7 @@ class Dependencies(
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
         goToDescriptor: (String) -> Unit,
-        goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
+        goToReviewDescriptorUpdates: (List<Descriptor.Id>?) -> Unit,
     ) = DashboardViewModel(
         goToOnboarding = goToOnboarding,
         goToResults = goToResults,
@@ -591,10 +588,10 @@ class Dependencies(
     fun descriptorViewModel(
         descriptorKey: String,
         onBack: () -> Unit,
-        goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
+        goToReviewDescriptorUpdates: (List<Descriptor.Id>?) -> Unit,
         goToChooseWebsites: () -> Unit,
         goToResult: (ResultModel.Id) -> Unit,
-        goToDescriptorWebsites: (InstalledTestDescriptorModel.Id) -> Unit,
+        goToDescriptorWebsites: (Descriptor.Id) -> Unit,
     ) = DescriptorViewModel(
         descriptorKey = descriptorKey,
         onBack = onBack,
@@ -618,7 +615,7 @@ class Dependencies(
     )
 
     fun descriptorWebsitesViewModel(
-        descriptorId: InstalledTestDescriptorModel.Id,
+        descriptorId: Descriptor.Id,
         onBack: () -> Unit,
     ) = DescriptorWebsitesViewModel(
         descriptorId = descriptorId,
@@ -747,7 +744,7 @@ class Dependencies(
     )
 
     fun reviewUpdatesViewModel(
-        descriptorIds: List<InstalledTestDescriptorModel.Id>?,
+        descriptorIds: List<Descriptor.Id>?,
         onBack: () -> Unit,
     ) = ReviewUpdatesViewModel(
         ids = descriptorIds,
