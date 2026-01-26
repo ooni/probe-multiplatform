@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
-    <issue id="GradleDependency">
-        <!-- Kotlin 2.0.20 is the max supported version by KMM for now -->
-        <ignore regexp="jetbrains.kotlin" />
-        <ignore regexp="androidx.datastore" />
-        <ignore regexp="org.jetbrains.compose" />
-        <ignore regexp="org.jetbrains.androidx.lifecycle" /> <!-- 2.9.3 is failing to build -->
-        <ignore regexp="org.jetbrains.androidx.navigation" /> <!-- 2.9.0-rc01 is failing to UI tests -->
-    </issue>
-    <issue id="NewerVersionAvailable">
-        <ignore regexp="org.ooni" /> <!-- we update the engine manually -->
-    </issue>
+    <issue id="NewerVersionAvailable" severity="informational" />
+    <issue id="GradleDependency" severity="informational" />
 </lint>
