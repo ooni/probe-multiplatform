@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ApplicationScope
@@ -20,6 +21,8 @@ import io.github.kdroidfilter.platformtools.darkmodedetector.windows.setWindowsA
 import io.github.vinceglb.autolaunch.AutoLaunch
 import java.awt.Desktop
 import java.awt.desktop.AppReopenedListener
+import java.awt.desktop.QuitEvent
+import java.awt.desktop.QuitResponse
 import java.awt.Dimension
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -57,6 +60,18 @@ import org.ooni.probe.shared.MacDockVisibility
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateState
 import org.ooni.probe.update.DesktopUpdateController
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
+import androidx.compose.ui.Modifier
+import ooniprobe.composeapp.generated.resources.Modal_Cancel
+import ooniprobe.composeapp.generated.resources.Modal_Hide
+import ooniprobe.composeapp.generated.resources.Modal_Quite_Description
+import ooniprobe.composeapp.generated.resources.Modal_Quite_Prompt
+import org.ooni.probe.ui.theme.AppTheme
 
 const val APP_ID = "org.ooni.probe"
 
@@ -89,9 +104,12 @@ fun main(args: Array<String>) {
     updateController.initialize(CoroutineScope(Dispatchers.Default))
 
     application {
+        val appScope = rememberCoroutineScope()
         // Register shutdown callback for update installation when applicable
         updateController.registerShutdownHandler(this)
         var isWindowVisible by remember { mutableStateOf(!autoLaunch.isStartedViaAutostart()) }
+        var showQuitPrompt by remember { mutableStateOf(false) }
+        var pendingQuitResponse by remember { mutableStateOf<QuitResponse?>(null) }
 
         // Set initial dock visibility based on window visibility
         MacDockVisibility.setDockIconVisible(isWindowVisible)
@@ -133,16 +151,43 @@ fun main(args: Array<String>) {
             window.minimumSize = Dimension(320, 560)
             window.maximumSize = Dimension(1024, 1024)
 
-            App(
-                dependencies = dependencies,
-                deepLink = deepLink,
-                onDeeplinkHandled = {
-                    showWindow()
-                    deepLink?.let {
-                        deepLinkFlow.tryEmit(null)
+            AppTheme {
+                App(
+                    dependencies = dependencies,
+                    deepLink = deepLink,
+                    onDeeplinkHandled = {
+                        showWindow()
+                        deepLink?.let {
+                            deepLinkFlow.tryEmit(null)
+                        }
+                    },
+                )
+
+                if (showQuitPrompt) {
+                    AppTheme {
+                        QuitPromptDialog(
+                            onQuit = {
+                                pendingQuitResponse?.cancelQuit()
+                                pendingQuitResponse = null
+                                showQuitPrompt = false
+                                onQuitApplicationClicked(updateController, instanceManager).invoke()
+                            },
+                            onHide = {
+                                pendingQuitResponse?.cancelQuit()
+                                pendingQuitResponse = null
+                                showQuitPrompt = false
+                                isWindowVisible = false
+                                MacDockVisibility.hideDockIcon()
+                            },
+                            onDismiss = {
+                                pendingQuitResponse?.cancelQuit()
+                                pendingQuitResponse = null
+                                showQuitPrompt = false
+                            },
+                        )
                     }
-                },
-            )
+                }
+            }
         }
 
         Tray(
@@ -191,6 +236,15 @@ fun main(args: Array<String>) {
                 val desktop = Desktop.getDesktop()
                 if (desktop.isSupported(Desktop.Action.APP_EVENT_FOREGROUND)) {
                     desktop.addAppEventListener(AppReopenedListener { showWindow() })
+                }
+                if (desktop.isSupported(Desktop.Action.APP_QUIT_HANDLER)) {
+                    desktop.setQuitHandler { _: QuitEvent?, response: QuitResponse ->
+                        appScope.launch {
+                            pendingQuitResponse = response
+                            showQuitPrompt = true
+                            showWindow()
+                        }
+                    }
                 }
             }.onFailure {
                 Logger.w("Failed to register dock reopen listener", it)
@@ -251,3 +305,26 @@ private fun RunBackgroundState.text(): String =
         else ->
             ""
     }
+
+@Composable
+private fun QuitPromptDialog(
+    onQuit: () -> Unit,
+    onHide: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(Res.string.Modal_Quite_Prompt)) },
+        text = { Text(stringResource(Res.string.Modal_Quite_Description)) },
+        confirmButton = {
+            TextButton(onClick = onQuit) { Text(stringResource(Res.string.Desktop_Quit)) }
+        },
+        dismissButton = {
+            Row {
+                TextButton(onClick = onHide) { Text(stringResource(Res.string.Modal_Hide)) }
+                Spacer(modifier = Modifier.width(8.dp))
+                TextButton(onClick = onDismiss) { Text(stringResource(Res.string.Modal_Cancel)) }
+            }
+        },
+    )
+}
