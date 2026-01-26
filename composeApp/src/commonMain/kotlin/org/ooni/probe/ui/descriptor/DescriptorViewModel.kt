@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Descriptor
@@ -280,7 +279,16 @@ class DescriptorViewModel(
             .onEach {
                 val descriptor = state.value.descriptor ?: return@onEach
                 val runLink = descriptor.runLink ?: return@onEach
-                launchAction(PlatformAction.Share("${descriptor.name} $runLink"))
+                val message = "${descriptor.name} $runLink"
+                if (!launchAction(PlatformAction.Share(message))) {
+                    _state.update { state -> state.copy(copyMessageToClipboard = message) }
+                }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.MessageCopied>()
+            .onEach {
+                _state.update { state -> state.copy(copyMessageToClipboard = null) }
             }.launchIn(viewModelScope)
     }
 
@@ -311,26 +319,6 @@ class DescriptorViewModel(
         onBack()
     }
 
-    private fun buildRunSpecification(): RunSpecification? =
-        state.value.descriptor?.let { descriptor ->
-            RunSpecification.Full(
-                tests = listOf(
-                    RunSpecification.Test(
-                        source = when (descriptor.source) {
-                            is Descriptor.Source.Default ->
-                                RunSpecification.Test.Source.Default(descriptor.name)
-
-                            is Descriptor.Source.Installed ->
-                                RunSpecification.Test.Source.Installed(descriptor.source.value.id)
-                        },
-                        netTests = descriptor.allTests,
-                    ),
-                ),
-                taskOrigin = TaskOrigin.OoniRun,
-                isRerun = false,
-            )
-        }
-
     data class State(
         val descriptor: Descriptor? = null,
         val estimatedTime: Duration? = null,
@@ -341,6 +329,7 @@ class DescriptorViewModel(
         val canPullToRefresh: Boolean = true,
         val showVpnWarning: Boolean = false,
         val showDisableVpnInstructions: Boolean = false,
+        val copyMessageToClipboard: String? = null,
     ) {
         val isRefreshing: Boolean
             get() = updateOperationState == DescriptorUpdateOperationState.FetchingUpdates
@@ -406,6 +395,8 @@ class DescriptorViewModel(
         data object SeeMoreWebsitesClicked : Event
 
         data object ShareClicked : Event
+
+        data object MessageCopied : Event
     }
 }
 

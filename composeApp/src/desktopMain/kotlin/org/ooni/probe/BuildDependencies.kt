@@ -95,27 +95,12 @@ private fun launchAction(action: PlatformAction): Boolean =
         is PlatformAction.FileSharing -> shareFile(action)
         is PlatformAction.Mail -> sendMail(action)
         is PlatformAction.OpenUrl -> openUrl(action)
-        is PlatformAction.Share -> shareText(action)
+        is PlatformAction.Share -> false
         PlatformAction.VpnSettings -> openVpnSettings()
         PlatformAction.LanguageSettings -> false
     }
 
 fun openVpnSettings(): Boolean = false
-
-fun shareText(action: PlatformAction.Share): Boolean =
-    try {
-        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
-            val uri =
-                URI.create("mailto:?body=${URLEncoder.encode(action.text, StandardCharsets.UTF_8)}")
-            Desktop.getDesktop().mail(uri)
-            true
-        } else {
-            false
-        }
-    } catch (e: Exception) {
-        Logger.e(e) { "Failed to share text" }
-        false
-    }
 
 fun shareFile(action: PlatformAction.FileSharing): Boolean {
     return try {

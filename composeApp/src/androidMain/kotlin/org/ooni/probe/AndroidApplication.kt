@@ -5,7 +5,6 @@ import android.app.LocaleConfig
 import android.app.LocaleManager
 import android.content.ActivityNotFoundException
 import android.content.ClipData
-import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
@@ -172,23 +171,6 @@ class AndroidApplication : Application() {
         } catch (e: ActivityNotFoundException) {
             Logger.e("Could not open url", e)
             false
-        }
-    }
-
-    /**
-     * From https://developer.android.com/training/monitoring-device-state/battery-monitoring#DetermineChargeState
-     *
-     * Influences auto-run behavior. https://github.com/ooni/probe-android/blob/366c5cffc913362243df20b5b0477b7ea7d35b16/app/src/main/java/org/openobservatory/ooniprobe/domain/GenerateAutoRunServiceSuite.java#L35-L37
-     */
-    fun getChargingLevel(context: Context): Float {
-        val ifilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
-        context.registerReceiver(null, ifilter)?.let { batteryStatus ->
-            val level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
-            val scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-            val batteryPct = level * 100 / scale.toFloat()
-            return batteryPct
-        } ?: run {
-            return 0.0f
         }
     }
 

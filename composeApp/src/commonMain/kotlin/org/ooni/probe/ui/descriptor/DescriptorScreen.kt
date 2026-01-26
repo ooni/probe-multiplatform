@@ -32,6 +32,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
@@ -67,6 +68,7 @@ import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.ui.results.ResultCell
 import org.ooni.probe.ui.shared.DisableVpnInstructionsDialog
 import org.ooni.probe.ui.shared.ExpiredChip
+import org.ooni.probe.ui.shared.LocalClipboardActions
 import org.ooni.probe.ui.shared.MarkdownViewer
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.SelectableItem
@@ -82,6 +84,7 @@ fun DescriptorScreen(
     state: DescriptorViewModel.State,
     onEvent: (DescriptorViewModel.Event) -> Unit,
 ) {
+    val clipboardActions = LocalClipboardActions.current
     val pullRefreshState = rememberPullToRefreshState()
     Box(
         Modifier
@@ -298,6 +301,13 @@ fun DescriptorScreen(
         DisableVpnInstructionsDialog(
             onDismiss = { onEvent(DescriptorViewModel.Event.DisableVpnInstructionsDismissed) },
         )
+    }
+
+    state.copyMessageToClipboard?.let {
+        LaunchedEffect(it) {
+            clipboardActions?.copyToClipboard(it)
+            onEvent(DescriptorViewModel.Event.MessageCopied)
+        }
     }
 }
 

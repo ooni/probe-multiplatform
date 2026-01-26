@@ -38,6 +38,7 @@ import ooniprobe.composeapp.generated.resources.ic_share
 import ooniprobe.composeapp.generated.resources.ic_refresh
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.ui.shared.LocalClipboardActions
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.OoniWebView
 import org.ooni.probe.ui.shared.OoniWebViewController
@@ -49,6 +50,7 @@ fun MeasurementScreen(
     onEvent: (MeasurementViewModel.Event) -> Unit,
 ) {
     val controller = remember { OoniWebViewController() }
+    val clipboardActions = LocalClipboardActions.current
 
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         Box {
@@ -146,9 +148,15 @@ fun MeasurementScreen(
         }
     }
 
-    val url = (state as? MeasurementViewModel.State.ShowMeasurement)?.url
-    LaunchedEffect(url) {
-        url?.let(controller::load)
+    val showState = state as? MeasurementViewModel.State.ShowMeasurement ?: return
+    LaunchedEffect(showState.url) {
+        controller.load(showState.url)
+    }
+    LaunchedEffect(showState.copyMessageToClipboard) {
+        showState.copyMessageToClipboard?.let {
+            clipboardActions?.copyToClipboard(it)
+            onEvent(MeasurementViewModel.Event.MessageCopied)
+        }
     }
 }
 

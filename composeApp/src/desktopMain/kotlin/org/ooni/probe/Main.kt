@@ -77,6 +77,10 @@ fun main(args: Array<String>) {
 
     instanceManager.initialize(args)
 
+    // Allow views above SwingPanel for the webview
+    // https://github.com/JetBrains/compose-multiplatform-core/pull/915
+    System.setProperty("compose.interop.blending", "true")
+
     CoroutineScope(Dispatchers.Default).launch {
         autoLaunch.enable()
     }

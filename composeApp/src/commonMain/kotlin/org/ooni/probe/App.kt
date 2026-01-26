@@ -16,6 +16,7 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hasRoute
@@ -33,6 +34,8 @@ import org.ooni.probe.ui.navigation.BottomBarViewModel
 import org.ooni.probe.ui.navigation.BottomNavigationBar
 import org.ooni.probe.ui.navigation.Navigation
 import org.ooni.probe.ui.navigation.Screen
+import org.ooni.probe.ui.shared.ClipboardActions
+import org.ooni.probe.ui.shared.LocalClipboardActions
 import org.ooni.probe.ui.theme.AppTheme
 
 @Composable
@@ -43,6 +46,7 @@ fun App(
 ) {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
+    val clipboard = LocalClipboard.current
 
     val currentNavEntry by navController.currentBackStackEntryAsState()
     val isMainScreen = MAIN_NAVIGATION_SCREENS.any {
@@ -50,12 +54,11 @@ fun App(
     }
 
     CompositionLocalProvider(
-        values = dependencies.localeDirection
-            ?.invoke()
-            ?.let { LocalLayoutDirection provides it }
-            ?.let {
-                arrayOf(LocalSnackbarHostState provides snackbarHostState, it)
-            } ?: arrayOf(LocalSnackbarHostState provides snackbarHostState),
+        values = listOfNotNull(
+            LocalSnackbarHostState provides snackbarHostState,
+            LocalClipboardActions provides ClipboardActions(snackbarHostState, clipboard),
+            dependencies.localeDirection?.invoke()?.let { LocalLayoutDirection provides it },
+        ).toTypedArray(),
     ) {
         AppTheme {
             Surface(
