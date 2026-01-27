@@ -34,11 +34,13 @@ import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.backhandler.BackHandler
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Title
 import ooniprobe.composeapp.generated.resources.Common_Clear
 import ooniprobe.composeapp.generated.resources.Common_Collapse
@@ -216,9 +218,11 @@ fun DescriptorsScreen(
         )
     }
 
-    BackHandler(enabled = state.isFiltering) {
-        onEvent(DescriptorsViewModel.Event.CloseFilterClicked)
-    }
+    NavigationBackHandler(
+        state = rememberNavigationEventState(NavigationEventInfo.None),
+        isBackEnabled = state.isFiltering,
+        onBackCompleted = { onEvent(DescriptorsViewModel.Event.CloseFilterClicked) },
+    )
 }
 
 @Composable
