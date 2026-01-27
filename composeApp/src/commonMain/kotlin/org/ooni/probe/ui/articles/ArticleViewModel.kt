@@ -15,7 +15,7 @@ import org.ooni.probe.data.models.PlatformAction
 class ArticleViewModel(
     url: ArticleModel.Url,
     onBack: () -> Unit,
-    launchAction: (PlatformAction) -> Unit,
+    launchAction: (PlatformAction) -> Boolean,
     isWebViewAvailable: () -> Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -45,8 +45,19 @@ class ArticleViewModel(
 
         events
             .filterIsInstance<Event.ShareUrl>()
-            .onEach { launchAction(PlatformAction.Share(url.value)) }
-            .launchIn(viewModelScope)
+            .onEach {
+                val state = _state.value as? State.Show ?: return@onEach
+                if (!launchAction(PlatformAction.Share(url.value))) {
+                    _state.value = state.copy(copyMessageToClipboard = url.value)
+                }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.MessageCopied>()
+            .onEach {
+                val state = _state.value as? State.Show ?: return@onEach
+                _state.value = state.copy(copyMessageToClipboard = null)
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.OutsideLinkClicked>()
@@ -63,6 +74,7 @@ class ArticleViewModel(
 
         data class Show(
             val url: String,
+            val copyMessageToClipboard: String? = null,
         ) : State
     }
 
@@ -72,6 +84,8 @@ class ArticleViewModel(
         data object OpenExternal : Event
 
         data object ShareUrl : Event
+
+        data object MessageCopied : Event
 
         data class OutsideLinkClicked(
             val url: String,

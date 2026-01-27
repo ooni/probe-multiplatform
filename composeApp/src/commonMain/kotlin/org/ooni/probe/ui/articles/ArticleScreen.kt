@@ -35,6 +35,7 @@ import ooniprobe.composeapp.generated.resources.ic_refresh
 import ooniprobe.composeapp.generated.resources.ic_share
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.ui.shared.LocalClipboardActions
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.OoniWebView
 import org.ooni.probe.ui.shared.OoniWebViewController
@@ -46,6 +47,7 @@ fun ArticleScreen(
     state: ArticleViewModel.State,
     onEvent: (ArticleViewModel.Event) -> Unit,
 ) {
+    val clipboardActions = LocalClipboardActions.current
     val controller = remember { OoniWebViewController() }
 
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
@@ -149,5 +151,12 @@ fun ArticleScreen(
     val url = (state as? ArticleViewModel.State.Show)?.url
     LaunchedEffect(url) {
         url?.let(controller::load)
+    }
+
+    (state as? ArticleViewModel.State.Show)?.copyMessageToClipboard?.let {
+        LaunchedEffect(it) {
+            clipboardActions?.copyToClipboard(it)
+            onEvent(ArticleViewModel.Event.MessageCopied)
+        }
     }
 }
