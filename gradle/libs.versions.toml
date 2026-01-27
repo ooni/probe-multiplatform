@@ -12,6 +12,8 @@ sqldelight = "2.2.1"
 dataStoreVersion = "1.1.4"
 junitKtx = "1.3.0"
 mokoPermissions = "0.20.1"
+ktor = "3.3.2"
+coil = "3.3.0"
 
 [plugins]
 
@@ -29,7 +31,8 @@ javafx = { id = "org.openjfx.javafxplugin", version = "0.1.0" }
 [libraries]
 
 # Kotlin
-kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.10.0" }
+kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.10.0" }
+kotlin-serialization-xml = { module = "io.github.pdvrieze.xmlutil:serialization", version = "0.91.3" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.7.1" }
 
 # Java
@@ -56,9 +59,15 @@ compose-material3 = { module = "org.jetbrains.compose.material3:material3", vers
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.9.6" }
 lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version = "2.9.6" }
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.9.1" }
+navigation-event = { module = "org.jetbrains.androidx.navigationevent:navigationevent-compose", version = "1.0.0" }
 window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version = "1.9.0" }
 back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-plugin" }
 dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.7.4" }
+coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
+coil-network-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+coil-network-ios = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+coil-network-jvm = { module = "io.ktor:ktor-client-java", version.ref = "ktor" }
 
 # Preferences
 androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "dataStoreVersion" }
@@ -122,13 +131,15 @@ desktop-oonimkall = { module = "org.ooni:oonimkall", version = "3.28.0-desktop" 
 [bundles]
 
 kotlin = [
-    "kotlin-serialization",
+    "kotlin-serialization-json",
+    "kotlin-serialization-xml",
     "kotlin-datetime",
 ]
 ui = [
     "lifecycle-viewmodel-compose",
     "lifecycle-runtime-compose",
     "navigation",
+    "navigation-event",
     "window-size",
     "back-handler",
     "dark-mode-detector",
@@ -142,6 +153,8 @@ tooling = [
     "markdown",
     "kottie",
     "web-view",
+    "coil",
+    "coil-network",
 ]
 android = [
     "android-activity",
@@ -149,10 +162,14 @@ android = [
     "android-work",
     "sqldelight-android",
     "android-appcompat",
+    "coil-network-android",
 ]
 mobile = [
     "moko-permissions-compose",
     "moko-permissions-notifications",
+]
+ios = [
+    "coil-network-ios",
 ]
 desktop = [
     "sqldelight-jvm",
@@ -160,7 +177,8 @@ desktop = [
     "directories",
     "auto-launch",
     "pratanumandal-unique",
-    "desktop-oonimkall"
+    "desktop-oonimkall",
+    "coil-network-jvm",
 ]
 full = [
     "sentry",

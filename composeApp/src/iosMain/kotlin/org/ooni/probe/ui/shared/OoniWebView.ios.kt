@@ -16,6 +16,7 @@ actual fun OoniWebView(
     controller: OoniWebViewController,
     modifier: Modifier,
     allowedDomains: List<String>,
+    onDisallowedUrl: (String) -> Unit, // TODO
 ) {
     val event = controller.rememberNextEvent()
     val state = rememberWebViewState("about:blank")

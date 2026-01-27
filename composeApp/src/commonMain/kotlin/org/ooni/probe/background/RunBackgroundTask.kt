@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
 import org.ooni.probe.data.models.MeasurementsFilter
-import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
@@ -33,7 +33,7 @@ class RunBackgroundTask(
     private val setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
     private val getRunBackgroundState: () -> Flow<RunBackgroundState>,
     private val addRunCancelListener: (() -> Unit) -> CancelListenerCallback,
-    private val getLatestResult: () -> Flow<ResultModel?>,
+    private val getLatestResult: () -> Flow<ResultWithNetworkAndAggregates?>,
 ) {
     operator fun invoke(spec: RunSpecification?): Flow<RunBackgroundState> =
         channelFlow {
@@ -60,7 +60,7 @@ class RunBackgroundTask(
                 }
 
                 if (spec is RunSpecification.OnlyUploadMissingResults) {
-                    setRunBackgroundState { RunBackgroundState.Idle() }
+                    setRunBackgroundState { RunBackgroundState.Idle }
                     return@withTransaction
                 }
 
@@ -68,7 +68,7 @@ class RunBackgroundTask(
 
                 // When a test is cancelled, sometimes the last measurement isn't uploaded
 
-                getLatestResult().first()?.id?.let { latestResultId ->
+                getLatestResult().first()?.result?.id?.let { latestResultId ->
                     val idleState = getRunBackgroundState().first()
                     uploadMissingResults(MeasurementsFilter.Result(latestResultId))
                     updateState(idleState)
@@ -109,7 +109,7 @@ class RunBackgroundTask(
         cancelListenerCallback?.dismiss()
 
         if (isCancelled) {
-            updateState(RunBackgroundState.Idle())
+            updateState(RunBackgroundState.Idle)
             return true
         }
 

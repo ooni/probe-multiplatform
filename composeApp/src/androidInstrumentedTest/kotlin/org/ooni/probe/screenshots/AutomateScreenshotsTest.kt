@@ -29,17 +29,19 @@ import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_About_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
-import ooniprobe.composeapp.generated.resources.Settings_Proxy_Enabled
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Psiphon
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_Description
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
 import ooniprobe.composeapp.generated.resources.Settings_Websites_CustomURL_Title
+import ooniprobe.composeapp.generated.resources.TestResults
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Tab_Label
 import ooniprobe.composeapp.generated.resources.Test_Dash_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Performance_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Websites_Fullname
+import ooniprobe.composeapp.generated.resources.Tests_Title
 import ooniprobe.composeapp.generated.resources.app_name
 import org.junit.AfterClass
 import org.junit.Before
@@ -106,6 +108,7 @@ class AutomateScreenshotsTest {
         runTest {
             if (!isOoni) return@runTest
             preferences.setValueByKey(SettingsKey.FIRST_RUN, true)
+            preferences.setValueByKey(SettingsKey.TESTS_MOVED_NOTICE, true)
             start()
 
             with(compose) {
@@ -150,6 +153,32 @@ class AutomateScreenshotsTest {
 
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
                 Screengrab.screenshot("1_" + locale())
+            }
+        }
+
+    @Test
+    fun tests() =
+        runTest {
+            if (!isOoni) return@runTest
+            skipOnboarding()
+            defaultSettings()
+            start()
+
+            with(compose) {
+                wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
+
+                wait(timeout = 30.seconds) {
+                    onNodeWithText(Res.string.Dashboard_Progress_UpdateLink_Label)
+                        .isNotDisplayed()
+                }
+
+                clickOnText(Res.string.Tests_Title)
+
+                wait {
+                    onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed()
+                }
+                Screengrab.screenshot("2_" + locale())
+                Screengrab.screenshot("22-tests")
             }
         }
 
@@ -257,17 +286,15 @@ class AutomateScreenshotsTest {
 
                 // back
                 clickOnContentDescription(Res.string.Common_Back)
-
                 wait { onNodeWithText(Res.string.Settings_About_Label).isDisplayed() }
 
                 clickOnText(Res.string.Settings_Proxy_Label)
-                wait { onNodeWithText(Res.string.Settings_Proxy_Enabled).isDisplayed() }
+                wait { onNodeWithText(Res.string.Settings_Proxy_Psiphon).isDisplayed() }
 
                 Screengrab.screenshot("14-proxy")
 
                 // back
                 clickOnContentDescription(Res.string.Common_Back)
-
                 wait { onNodeWithText(Res.string.Settings_About_Label).isDisplayed() }
 
                 clickOnText(Res.string.Settings_Advanced_Label)
@@ -298,14 +325,14 @@ class AutomateScreenshotsTest {
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
 
-                clickOnText(Res.string.TestResults_Overview_Tab_Label)
+                clickOnText(Res.string.TestResults)
 
                 wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
 
                 Screengrab.screenshot("17-results")
 
                 Thread.sleep(3000)
-                Screengrab.screenshot("2_" + locale())
+                Screengrab.screenshot("3_" + locale())
 
                 clickOnText(Res.string.Test_Websites_Fullname)
 
@@ -320,7 +347,7 @@ class AutomateScreenshotsTest {
                 checkTextAnywhereInsideWebView("https://z-lib.org/")
 
                 Screengrab.screenshot("19-website-measurement-anomaly")
-                Screengrab.screenshot("3_" + locale())
+                Screengrab.screenshot("4_" + locale())
 
                 clickOnContentDescription(Res.string.Common_Back)
                 wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
@@ -335,7 +362,7 @@ class AutomateScreenshotsTest {
                 Screengrab.screenshot("20-dash-measurement")
 
                 Thread.sleep(3000)
-                Screengrab.screenshot("4_" + locale())
+                Screengrab.screenshot("5_" + locale())
             }
         }
 
@@ -353,12 +380,13 @@ class AutomateScreenshotsTest {
                         .isNotDisplayed()
                 }
 
+                clickOnText(Res.string.Tests_Title)
                 clickOnText(Res.string.Test_Websites_Fullname)
                 wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
                 clickOnText(Res.string.Dashboard_Overview_ChooseWebsites)
                 wait { onNodeWithText(Res.string.Settings_Websites_CustomURL_Title).isDisplayed() }
                 Screengrab.screenshot("21-choose-websites")
-                Screengrab.screenshot("5_" + locale())
+                Screengrab.screenshot("6_" + locale())
             }
         }
 
@@ -387,6 +415,10 @@ class AutomateScreenshotsTest {
 
                 Screengrab.screenshot("1_${locale()}")
 
+                clickOnText(Res.string.Tests_Title)
+                wait { onNodeWithContentDescription(Res.string.Test_Websites_Fullname).isDisplayed() }
+                Screengrab.screenshot("2_${locale()}")
+
                 clickOnText(Res.string.Settings_Title)
 
                 wait { onNodeWithContentDescription(Res.string.Settings_About_Label).isDisplayed() }
@@ -394,7 +426,7 @@ class AutomateScreenshotsTest {
                 clickOnText(Res.string.Settings_About_Label)
 
                 wait { onNodeWithTag("AboutScreen").isDisplayed() }
-                Screengrab.screenshot("5_${locale()}")
+                Screengrab.screenshot("6_${locale()}")
 
                 clickOnContentDescription(Res.string.Common_Back)
 
@@ -403,7 +435,7 @@ class AutomateScreenshotsTest {
                 wait { onNodeWithText(trustedName).isDisplayed() }
 
                 Thread.sleep(3000)
-                Screengrab.screenshot("2_${locale()}")
+                Screengrab.screenshot("3_${locale()}")
 
                 clickOnText(trustedName)
 
@@ -411,13 +443,13 @@ class AutomateScreenshotsTest {
 
                 // Screenshot was coming up empty, so we need to explicitly sleep here
                 Thread.sleep(3000)
-                Screengrab.screenshot("3_${locale()}")
+                Screengrab.screenshot("4_${locale()}")
 
                 clickOnText("https://www.dw.com")
 
                 checkTextAnywhereInsideWebView("https://www.dw.com")
 
-                Screengrab.screenshot("4_${locale()}")
+                Screengrab.screenshot("5_${locale()}")
             }
         }
 

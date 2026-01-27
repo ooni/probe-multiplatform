@@ -23,6 +23,7 @@ import java.io.File
 import java.net.URI
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
+import java.util.Locale
 
 private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
 private val osName = System.getProperty("os.name")
@@ -54,6 +55,7 @@ val dependencies = Dependencies(
     legacyDirectoryManager = DesktopLegacyDirectoryManager(platform.os),
     flavorConfig = DesktopFlavorConfig(),
     proxyConfig = ProxyConfig(isPsiphonSupported = false),
+    getCountryNameByCode = ::getCountryNameByCode,
 )
 
 private fun buildPlatformInfo(): PlatformInfo {
@@ -150,6 +152,14 @@ fun sendMail(action: PlatformAction.Mail): Boolean =
         Logger.e(e) { "Failed to send mail" }
         false
     }
+
+private fun getCountryNameByCode(countryCode: String) =
+    Locale
+        .Builder()
+        .setRegion(countryCode)
+        .build()
+        .displayCountry
+        .ifEmpty { countryCode }
 
 private fun buildMailUri(action: PlatformAction.Mail): URI {
     val subject = URLEncoder.encode(action.subject, StandardCharsets.UTF_8).replace("+", "%20")
