@@ -1,4 +1,5 @@
 <resources>
+
     <string name="Test_Performance_Fullname">Эфектыўнасць</string>
     <string name="TestResults_Summary_Hero_Country">Краіна</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
@@ -12,10 +13,8 @@
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">Загрузіць</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Налады</string>
-
     <string name="Settings_Privacy_Label">Канфідэнцыйнасць</string>
     <string name="Settings_Proxy">Проксі</string>
     <string name="Settings_Proxy_None">Не</string>
@@ -24,11 +23,9 @@
     <string name="Settings_Proxy_Custom_Hostname">Назва вузла</string>
     <string name="Settings_Proxy_Custom_Port">Порт</string>
     <string name="Settings_Language_Label">Мова</string>
-
     <string name="Settings_Advanced_Label">Пашыраны</string>
     <string name="Settings_Support_Label">Падтрымка</string>
     <string name="Settings_Support_Action">Адправіць ліст</string>
-
     <string name="Settings_Storage_Delete">Выдаліць</string>
     <string name="Settings_Storage_Clear">Ачысціць</string>
     <string name="Settings_Logs">Журналы</string>
@@ -43,8 +40,6 @@
     <string name="Onboarding_Crash_Button_No">Не</string>
     <string name="Onboarding_Notifications_Ok">OK</string>
     <string name="Onboarding_Notifications_Skip">Прапусціць</string>
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="LoadingScreen_Runv2_Failure">Памылка</string>
     <string name="Modal_Retry">Паспрабуйце яшчэ раз</string>
@@ -53,7 +48,6 @@
     <string name="Modal_Delete">Выдаліць</string>
     <string name="Modal_CustomURL_Title_NotSaved">Упэўненыя?</string>
     <string name="Desktop_Quit">Выхад</string>
-
     <string name="Common_Back">Вярнуцца і адрэдагаваць</string>
     <string name="Common_Close">Зачыніць</string>
     <string name="Common_Refresh">Абнавіць</string>
@@ -66,7 +60,6 @@
     <string name="Common_Next">Наступная частка</string>
     <string name="Common_Previous">Папярэдняя частка</string>
     <string name="Common_Share">Падзяліцца</string>
-
     <string name="Common_Today">Сёння</string>
     <string name="Common_Yesterday">Учора</string>
     <string name="NetworkType_Vpn">VPN</string>
