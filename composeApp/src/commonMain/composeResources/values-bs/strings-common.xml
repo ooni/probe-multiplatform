@@ -1,0 +1,63 @@
+<resources>
+    <string name="TestResults_Overview_Hero_Networks">Mreže</string>
+    <string name="TestResults_Summary_Hero_Country">zemlja</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">Postavi</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Preuzimanje</string>
+    <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
+    <string name="TestResults_UnknownASN">Nepoznato</string>
+    <string name="TestResults_Filter_Networks">Mreže</string>
+    <string name="TestResults_Filter_Date">Datum</string>
+    <string name="TestResults_Filter_Date_Custom">Prilagođeno</string>
+    <string name="Measurements_Failed">Failed</string>
+    <string name="Measurements_Ok">OK</string>
+    <string name="Measurement_Raw_Upload">Postavi</string>
+
+    <!-- Settings -->
+
+    <string name="Settings_Title">Podešavanja</string>
+
+    <string name="Settings_Privacy_Label">Privatnost</string>
+    <string name="Settings_Proxy">Proxy</string>
+    <string name="Settings_Proxy_None">Ništa</string>
+    <string name="Settings_Proxy_Custom_Hostname">Hostname</string>
+    <string name="Settings_Proxy_Custom_Port">Port</string>
+    <string name="Settings_Proxy_Custom_Available">Dostupno</string>
+    <string name="Settings_Language_Label">Jezik</string>
+
+    <string name="Settings_Advanced_Label">Napredni</string>
+    <string name="Settings_Support_Label">Podrška</string>
+    <string name="Settings_Storage_Delete">Obriši</string>
+    <string name="Settings_Websites_Categories_Selection_All">Označi sve</string>
+    <string name="CategoryCode_GRP_Name">Drustvene mreže</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Saznajte više</string>
+    <string name="Onboarding_PopQuiz_True">Istinito</string>
+    <string name="Onboarding_PopQuiz_False">Lažno</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Nastavi</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Upozorenje</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Upozorenje</string>
+    <string name="Onboarding_Crash_Button_Yes">Da</string>
+    <string name="Onboarding_Crash_Button_No">Ne</string>
+    <string name="Onboarding_Notifications_Ok">OK</string>
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">Test Settings</string>
+    <string name="Modal_Retry">Ponovi</string>
+    <string name="Modal_Cancel">Odustanite</string>
+    <string name="Modal_OK">OK</string>
+    <string name="Modal_Delete">Obriši</string>
+    <string name="Modal_Error_NoInternet">Nema konekcije na internet</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Jeste li sigurni?</string>
+    <string name="Common_Back">Nazad</string>
+    <string name="Common_Close">Zatvorite</string>
+    <string name="Common_Refresh">Osvježi</string>
+    <string name="Common_Collapse">Collapse</string>
+    <string name="Common_Expand">Expand</string>
+    <string name="Common_Enable">Omogućite</string>
+    <string name="Common_Yes">Da</string>
+    <string name="Common_Save">Sačuvaj</string>
+    <string name="Common_Next">Naprijed</string>
+    <string name="Common_Previous">Prethodno</string>
+    <string name="Common_Share">Podijeli</string>
+
+    </resources>
