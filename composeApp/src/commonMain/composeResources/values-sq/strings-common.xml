@@ -1,19 +1,15 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Paneli kryesor</string>
 
+    <string name="Dashboard_Tab_Label">Paneli kryesor</string>
     <string name="Dashboard_Overview_LatestTest">Testimi fundit:</string>
     <string name="Dashboard_Overview_Estimated">Përllogaritur:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Zgjidhni faqet</string>
-
     <string name="Dashboard_Running_Running">Duke përdorur:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Koha që ka mbetur me përafërsi:</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Zhbëje</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Shqyrtoni</string>
-
     <string name="Dashboard_Update_Restart">Rihap</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Faqe</string>
     <string name="Test_InstantMessaging_Fullname">Mesazhe</string>
@@ -29,8 +25,6 @@
     <string name="Test_FacebookMessenger_Fullname">Testim Facebook Messenger</string>
     <string name="Test_Psiphon_Fullname">Testim i Psiphon</string>
     <string name="Test_Tor_Fullname">Testimi i Tor</string>
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Rezultatet e testit</string>
     <string name="TestResults_Overview_Tab_Label">Rezultatet e testit</string>
     <string name="TestResults_Overview_Hero_Tests">Testet</string>
@@ -50,15 +44,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Cilësia</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_Gbps">Gbit/s</string>
     <string name="TestResults_Mbps">Mbit/s</string>
     <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">I panjohur</string>
     <string name="TestResults_NotAvailable">Jo e disponueshme</string>
-
     <string name="TestResults_Filter_Tests">Testet</string>
     <string name="TestResults_Filter_Networks">Rrjete</string>
     <string name="TestResults_Filter_Date">Datë</string>
@@ -67,18 +58,14 @@
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">Ngarkoje</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Rregullime</string>
-
     <string name="Settings_TestOptions_Label">Mundësitë e testimit</string>
     <string name="Settings_Sharing_UploadResults">Publiko rezultatet automatikisht</string>
     <string name="Settings_Websites_Categories_Label">Kategori faqjesh për të testuar</string>
     <string name="Settings_Websites_Categories_Description">%1$s shtete të aktivizuara</string>
-
     <string name="Settings_Privacy_Label">Privatësi</string>
     <string name="Settings_Privacy_SendCrashReports">Dërgo raportime dështimi</string>
-
     <string name="Settings_Proxy">Ndërmjetës</string>
     <string name="Settings_Proxy_None">Asnjë</string>
     <string name="Settings_Proxy_Custom_Protocol">Protokolli</string>
@@ -88,7 +75,6 @@
     <string name="Settings_Proxy_Custom_Available">Të gatshme</string>
     <string name="Settings_Proxy_Custom_Unavailable">I padisponueshëm</string>
     <string name="Settings_Language_Label">Gjuhë</string>
-
     <string name="Settings_Advanced_Label">Të mëtejshme</string>
     <string name="Settings_Advanced_DebugLogs">Kontrollo regjistrat për gabime</string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
@@ -105,8 +91,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Përdor</string>
     <string name="Settings_Websites_CustomURL_Add">Shto faqe</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">Drogë &amp; alkool</string>
     <string name="CategoryCode_REL_Name">Fe</string>
     <string name="CategoryCode_PORN_Name">Fotografi</string>
@@ -193,13 +177,10 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Ora dhe data e testimit</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Ndysho të parazgjedhurat</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Provoni Konfigurimin</string>
     <string name="LoadingScreen_Runv2_Failure">Gabim</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Kontrollo për Përditësime</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">Nuk është ngarkuar</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Disa nuk janë ngarkuar</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Ngarkoji të gjitha</string>
@@ -218,12 +199,9 @@
     <string name="Modal_CustomURL_Title_NotSaved">Jeni i sigurt?</string>
     <string name="Modal_CustomURL_NotSaved">URL-të nuk do ruhen pasi të largoheni nga ky ekran. Jeni të sigurt që doni të largoheni nga ky ekran?</string>
     <string name="Desktop_Quit">Dilni</string>
-
     <string name="Tray_Notification_Check_Updates">Kontrollo për Përditësime</string>
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Përdor</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testim</string>
     <string name="Common_Back">Mbrapa</string>
     <string name="Common_Close">Mbylle</string>
@@ -237,7 +215,6 @@
     <string name="Common_Next">Pasuesi</string>
     <string name="Common_Previous">I mëparshmi</string>
     <string name="Common_Share">Shpërndaj</string>
-
     <plurals name="Common_Days">
         <item quantity="one">%1$d dite</item>
         <item quantity="other">%1$d ditësh</item>
