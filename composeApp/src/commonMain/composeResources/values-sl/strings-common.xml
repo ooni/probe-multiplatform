@@ -1,0 +1,140 @@
+<resources>
+    <string name="Dashboard_Overview_LatestTest">Zadnji test:</string>
+    <string name="Dashboard_Overview_Estimated">Ocenjeno:</string>
+    <string name="Dashboard_Overview_ChooseWebsites">Izberite spletna mesta</string>
+
+    <string name="Dashboard_Running_Running">V teku:</string>
+    <string name="Dashboard_Running_EstimatedTimeLeft">Ocena časa do konca:</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Razveljavi</string>
+    <string name="Dashboard_Update_Restart">Znova zaženi</string>
+
+    <!-- Test -->
+
+    <string name="Test_Websites_Fullname">Spletne strani</string>
+    <!-- Test Results -->
+
+    <string name="TestResults_Overview_Title">Rezultati testov</string>
+    <string name="TestResults_Overview_Tab_Label">Rezultati testov</string>
+    <string name="TestResults_Overview_Hero_Tests">Testov</string>
+    <string name="TestResults_Overview_Hero_Networks">Omrežja</string>
+    <string name="TestResults_Overview_Hero_DataUsage">Prenešeno</string>
+    <string name="TestResults_Summary_Hero_DateAndTime">Datum in ura</string>
+    <string name="TestResults_Summary_Hero_Network">Omrežje</string>
+    <string name="TestResults_Summary_Hero_Country">Država</string>
+    <string name="TestResults_Summary_Hero_Runtime">Skupen čas</string>
+    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_Mobile">Mobilno omrežje</string>
+    <string name="TestResults_Summary_Hero_NoInternet">Brez povezave</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">Naloži</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Prenesi</string>
+    <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
+    <string name="TestResults_Gbps">Gbit/s</string>
+    <string name="TestResults_Mbps">Mbit/s</string>
+    <string name="TestResults_Kbps">kbit/s</string>
+    <string name="TestResults_ms">ms</string>
+
+    <string name="TestResults_UnknownASN">Neznano</string>
+    <string name="TestResults_NotAvailable">Ni omogočeno/na voljo</string>
+
+    <string name="TestResults_Filter_Tests">Testov</string>
+    <string name="TestResults_Filter_Networks">Omrežja</string>
+    <string name="TestResults_Filter_Source">Vir</string>
+    <string name="TestResults_Filter_Date">Date</string>
+    <string name="TestResults_Filter_Date_Custom">Prilagojeno</string>
+    <string name="Measurements_Failed">Spodletelo</string>
+    <string name="Measurements_Ok">V redu</string>
+    <string name="Measurements_Anomaly">Anomalija</string>
+    <string name="Measurement_Raw_Upload">Naloži</string>
+
+    <!-- Settings -->
+
+    <string name="Settings_Title">Nastavitve</string>
+
+    <string name="Settings_Privacy_Label">Zasebnost</string>
+    <string name="Settings_Proxy">Proxy</string>
+    <string name="Settings_Proxy_None">Nič</string>
+    <string name="Settings_Proxy_Custom_Hostname">Ime gostitelja</string>
+    <string name="Settings_Proxy_Custom_Port">Vrata</string>
+    <string name="Settings_Proxy_Custom_Testing">Preizkušanje</string>
+    <string name="Settings_Language_Label">Jezik</string>
+
+    <string name="Settings_Advanced_Label">Napredno</string>
+    <string name="Settings_Support_Label">Podpora</string>
+    <string name="Settings_Storage_Delete">Izbris</string>
+    <string name="Settings_Storage_Clear">Čisto</string>
+    <string name="Settings_Logs">Dnevniške datoteke</string>
+    <string name="Settings_Websites_Categories_Selection_All">Izberite vse</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="Settings_Websites_CustomURL_Run">Poženi</string>
+    <string name="CategoryCode_PUBH_Name">Javno zdravstvo</string>
+    <string name="CategoryCode_GMB_Name">Igralništvo</string>
+    <string name="CategoryCode_DATE_Name">Spletni zmenki</string>
+    <string name="CategoryCode_GRP_Name">Družabna omrežja</string>
+    <string name="CategoryCode_CULTR_Name">Kultura</string>
+    <string name="CategoryCode_ECON_Name">Ekonomija</string>
+    <string name="CategoryCode_GOVT_Name">Vlada</string>
+    <string name="CategoryCode_COMM_Name">Spletno trgovanje</string>
+    <string name="CategoryCode_IGO_Name">Medvladne organizacije</string>
+    <string name="CategoryCode_MISC_Name">Razna vsebina</string>
+    <string name="CategoryCode_PORN_Description">Trda in mehka pornografija</string>
+    <string name="CategoryCode_POLR_Description">Kritična politična stališča</string>
+    <string name="CategoryCode_HUMR_Description">Varstvo človekovih pravic</string>
+    <string name="CategoryCode_ENV_Description">Razprave o okoljski problematiki</string>
+    <string name="CategoryCode_MILX_Description">Terorizem, nasilni militarizem ali odcepitvena gibanja</string>
+    <string name="CategoryCode_GMB_Description">Spletne igralnice in stavnice</string>
+    <string name="CategoryCode_DATE_Description">Spletni zmenki</string>
+    <string name="CategoryCode_GRP_Description">Spletna družabna omrežja, orodja in platforme</string>
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">Razumem</string>
+    <string name="Onboarding_ThingsToKnow_Title">Pa začnimo!</string>
+    <string name="Onboarding_ThingsToKnow_Button">Razumem</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Več o tem</string>
+    <string name="Onboarding_PopQuiz_Title">Hitri kviz</string>
+    <string name="Onboarding_PopQuiz_True">Drži</string>
+    <string name="Onboarding_PopQuiz_False">Ne drži</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Nazaj</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Naprej</string>
+    <string name="Onboarding_PopQuiz_1_Title">Vprašanje 1/2</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Opozorilo</string>
+    <string name="Onboarding_PopQuiz_2_Title">Vprašanje 2/2</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Opozorilo</string>
+    <string name="Onboarding_Crash_Button_Yes">Da</string>
+    <string name="Onboarding_Crash_Button_No">Ne</string>
+    <string name="Onboarding_Notifications_Ok">V redu</string>
+    <string name="Onboarding_Notifications_Skip">Preskoči</string>
+    <string name="Onboarding_DefaultSettings_Title">Privzete nastavitve</string>
+    <string name="Onboarding_DefaultSettings_Header">Zbiramo in objavljamo:</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">Kodo države (npr. IT za Italijo)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">Podatek o omrežju (vključno z ASN, Autonomous System Number)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">Ura in datum testiranja</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">Prilagodi nastavitve</string>
+
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">Testiranje nastavitev</string>
+    <string name="LoadingScreen_Runv2_Failure">Napaka</string>
+    <string name="Modal_Retry">Ponovi</string>
+    <string name="Modal_Cancel">Prekliči</string>
+    <string name="Modal_OK">V redu</string>
+    <string name="Modal_Delete">Izbris</string>
+    <string name="Modal_ReRun_Websites_Run">Poženi</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Ste prepričani?</string>
+    <string name="Desktop_Quit">Opusti</string>
+
+    <!-- Common / Others -->
+
+    <string name="OONIRun_Run">Poženi</string>
+
+    <string name="Notification_ChannelName">Preizkušanje</string>
+    <string name="Common_Back">Nazaj</string>
+    <string name="Common_Close">Zapri</string>
+    <string name="Common_Refresh">Osveži</string>
+    <string name="Common_Enable">Omogoči</string>
+    <string name="Common_Yes">Da</string>
+    <string name="Common_Save">Shrani</string>
+    <string name="Common_Clear">Čisto</string>
+    <string name="Common_Next">Naprej</string>
+    <string name="Common_Previous">Nazaj</string>
+    <string name="Common_Share">Deli</string>
+
+    <string name="NetworkType_Vpn">VPN</string>
+</resources>
