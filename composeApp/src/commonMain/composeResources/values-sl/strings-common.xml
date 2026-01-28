@@ -1,18 +1,15 @@
 <resources>
+
     <string name="Dashboard_Overview_LatestTest">Zadnji test:</string>
     <string name="Dashboard_Overview_Estimated">Ocenjeno:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Izberite spletna mesta</string>
-
     <string name="Dashboard_Running_Running">V teku:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Ocena časa do konca:</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Razveljavi</string>
     <string name="Dashboard_Update_Restart">Znova zaženi</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Spletne strani</string>
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Rezultati testov</string>
     <string name="TestResults_Overview_Tab_Label">Rezultati testov</string>
     <string name="TestResults_Overview_Hero_Tests">Testov</string>
@@ -32,10 +29,8 @@
     <string name="TestResults_Mbps">Mbit/s</string>
     <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">Neznano</string>
     <string name="TestResults_NotAvailable">Ni omogočeno/na voljo</string>
-
     <string name="TestResults_Filter_Tests">Testov</string>
     <string name="TestResults_Filter_Networks">Omrežja</string>
     <string name="TestResults_Filter_Source">Vir</string>
@@ -46,10 +41,8 @@
     <string name="Measurements_Anomaly">Anomalija</string>
     <string name="Measurement_Raw_Upload">Naloži</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Nastavitve</string>
-
     <string name="Settings_Privacy_Label">Zasebnost</string>
     <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Nič</string>
@@ -57,7 +50,6 @@
     <string name="Settings_Proxy_Custom_Port">Vrata</string>
     <string name="Settings_Proxy_Custom_Testing">Preizkušanje</string>
     <string name="Settings_Language_Label">Jezik</string>
-
     <string name="Settings_Advanced_Label">Napredno</string>
     <string name="Settings_Support_Label">Podpora</string>
     <string name="Settings_Storage_Delete">Izbris</string>
@@ -108,8 +100,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Ura in datum testiranja</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Prilagodi nastavitve</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Testiranje nastavitev</string>
     <string name="LoadingScreen_Runv2_Failure">Napaka</string>
     <string name="Modal_Retry">Ponovi</string>
@@ -119,11 +109,8 @@
     <string name="Modal_ReRun_Websites_Run">Poženi</string>
     <string name="Modal_CustomURL_Title_NotSaved">Ste prepričani?</string>
     <string name="Desktop_Quit">Opusti</string>
-
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Poženi</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Preizkušanje</string>
     <string name="Common_Back">Nazaj</string>
     <string name="Common_Close">Zapri</string>
@@ -135,6 +122,5 @@
     <string name="Common_Next">Naprej</string>
     <string name="Common_Previous">Nazaj</string>
     <string name="Common_Share">Deli</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
