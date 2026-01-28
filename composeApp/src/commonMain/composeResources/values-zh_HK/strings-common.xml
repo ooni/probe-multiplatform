@@ -1,0 +1,89 @@
+<resources>
+    <!-- Dashboard -->
+    <string name="Dashboard_Tab_Label">仪表板</string>
+
+    <string name="Dashboard_RunV2_UpdateTag">更新</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">復原</string>
+    <string name="Dashboard_Update_Restart">重新啟動</string>
+
+    <!-- Test -->
+
+    <string name="Test_Websites_Fullname">網站</string>
+    <string name="TestResults_Summary_Hero_Network">网络</string>
+    <string name="TestResults_Summary_Hero_Country">國家／地區</string>
+    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">上傳</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">下載</string>
+    <string name="TestResults_Summary_Performance_Hero_Video">影片</string>
+    <string name="TestResults_UnknownASN">未知</string>
+    <string name="TestResults_NotAvailable">N/A</string>
+
+    <string name="TestResults_Filter_Source">源代碼</string>
+    <string name="TestResults_Filter_Date">建立日期</string>
+    <string name="TestResults_Filter_Date_Custom">自訂</string>
+    <string name="Measurements_Failed">失敗</string>
+    <string name="Measurements_Ok">確定</string>
+    <string name="Measurement_Raw_Upload">上傳</string>
+
+    <!-- Settings -->
+
+    <string name="Settings_Title">設置</string>
+
+    <string name="Settings_Privacy_Label">隱私政策</string>
+    <string name="Settings_Proxy">代理伺服器</string>
+    <string name="Settings_Proxy_None">無</string>
+    <string name="Settings_Proxy_Custom_Protocol">協定</string>
+    <string name="Settings_Proxy_Custom_Hostname">主機名稱</string>
+    <string name="Settings_Proxy_Custom_Port">連接埠</string>
+    <string name="Settings_Proxy_Custom_Available">可用</string>
+    <string name="Settings_Proxy_Custom_Unavailable">唔可以揀</string>
+    <string name="Settings_Language_Label">語言</string>
+
+    <string name="Settings_Advanced_Label">高级</string>
+    <string name="Settings_Support_Label">支援</string>
+    <string name="Settings_Storage_Delete">刪除</string>
+    <string name="Settings_Storage_Clear">Clear</string>
+    <string name="Settings_Websites_Categories_Selection_None">取消全選</string>
+    <string name="Settings_Websites_Categories_Selection_All">選擇全部</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="Onboarding_ThingsToKnow_Button">我明白</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">更多</string>
+    <string name="Onboarding_PopQuiz_True">True</string>
+    <string name="Onboarding_PopQuiz_False">False</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">繼續</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">警告</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">警告</string>
+    <string name="Onboarding_Crash_Button_Yes">是</string>
+    <string name="Onboarding_Crash_Button_No">否</string>
+    <string name="Onboarding_Notifications_Title">开启通知</string>
+    <string name="Onboarding_Notifications_Ok">確定</string>
+    <string name="Onboarding_Notifications_Skip">跳過</string>
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">測試設定</string>
+    <string name="LoadingScreen_Runv2_Failure">錯誤</string>
+    <string name="DescriptorUpdate_CheckUpdates">檢查更新</string>
+    <string name="Modal_Retry">重试</string>
+    <string name="Modal_Cancel">取消</string>
+    <string name="Modal_OK">確定</string>
+    <string name="Modal_Delete">刪除</string>
+    <string name="Modal_CustomURL_Title_NotSaved">您確定嗎？</string>
+    <string name="Desktop_Quit">離開</string>
+
+    <string name="Tray_Notification_Check_Updates">檢查更新</string>
+    <string name="Common_Back">返回</string>
+    <string name="Common_Close">關閉</string>
+    <string name="Common_Refresh">重新整理</string>
+    <string name="Common_Collapse">收起</string>
+    <string name="Common_Expand">展開</string>
+    <string name="Common_Enable">啟用</string>
+    <string name="Common_Yes">是</string>
+    <string name="Common_Save">儲存</string>
+    <string name="Common_Clear">Clear</string>
+    <string name="Common_Next">下一步</string>
+    <string name="Common_Previous">上一頁</string>
+    <string name="Common_Share">分享</string>
+
+    <string name="Common_Months_May">五月</string>
+    <string name="NetworkType_Vpn">VPN</string>
+</resources>
