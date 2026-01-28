@@ -1,0 +1,68 @@
+<resources>
+    <string name="Dashboard_Runv2_Overview_Description">Kroueet gant %1$s war %2$s</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Dizober</string>
+    <string name="Dashboard_Update_Restart">Adstagañ ganti</string>
+
+    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">Uskargañ</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Pellgargañ</string>
+    <string name="TestResults_UnknownASN">Dianav</string>
+    <string name="TestResults_NotAvailable">N/A</string>
+
+    <string name="TestResults_Filter_Date">Deiziad</string>
+    <string name="TestResults_Filter_Date_Custom">Personelaet</string>
+    <string name="Measurements_Failed">C\'hwitet</string>
+    <string name="Measurements_Ok">MAT EO</string>
+    <string name="Measurement_Raw_Upload">Uskargañ</string>
+
+    <!-- Settings -->
+
+    <string name="Settings_Title">Arventennoù</string>
+
+    <string name="Settings_Proxy">Proksi</string>
+    <string name="Settings_Proxy_None">Hini ebet</string>
+    <string name="Settings_Proxy_Custom_Port">Porzh</string>
+    <string name="Settings_Proxy_Custom_Testing">O testiñ</string>
+    <string name="Settings_Language_Label">Yezh</string>
+
+    <string name="Settings_Advanced_Label">Araokaet</string>
+    <string name="Settings_Support_Label">Skoret</string>
+    <string name="Settings_ShareApp">Rannañ an arload</string>
+    <string name="Settings_Storage_Delete">Dilemel</string>
+    <string name="Settings_Storage_Clear">Diweredekaat</string>
+    <string name="Settings_Logs">Marilhoù</string>
+    <string name="Settings_Websites_Categories_Selection_All">Diuziñ an holl</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Gouzout hiroc\'h</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Kenderc\'hel</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Diwallit</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Diwallit</string>
+    <string name="Onboarding_Crash_Button_Yes">Ya</string>
+    <string name="Onboarding_Crash_Button_No">Ket</string>
+    <string name="Onboarding_Notifications_Ok">MAT EO</string>
+    <string name="Onboarding_Notifications_Skip">Tremen</string>
+    <string name="Onboarding_DefaultSettings_Title">Arventennoù dre ziouer</string>
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">Test Settings</string>
+    <string name="LoadingScreen_Runv2_Failure">Fazi</string>
+    <string name="Modal_Retry">Adklask</string>
+    <string name="Modal_Cancel">Nullañ</string>
+    <string name="Modal_OK">MAT EO</string>
+    <string name="Modal_Delete">Dilemel</string>
+    <string name="Desktop_Quit">Kuitaat</string>
+
+    <string name="Notification_ChannelName">O testiñ</string>
+    <string name="Common_Back">Kent</string>
+    <string name="Common_Close">Serriñ</string>
+    <string name="Common_Refresh">Refresh</string>
+    <string name="Common_Enable">Enaouiñ</string>
+    <string name="Common_Yes">Ya</string>
+    <string name="Common_Save">Enrollañ</string>
+    <string name="Common_Clear">Diweredekaat</string>
+    <string name="Common_Next">Da-heul</string>
+    <string name="Common_Share">Rannañ</string>
+
+    <string name="NetworkType_Vpn">VPN</string>
+</resources>
