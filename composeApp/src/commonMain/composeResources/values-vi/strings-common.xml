@@ -39,14 +39,9 @@
 
     <string name="TestResults_Overview_Title">Kết quả kiểm tra</string>
     <string name="TestResults_Overview_Tab_Label">Kết quả kiểm tra</string>
-    <string name="TestResults_Overview_FilterTests">Sàng lọc Kiểm tra</string>
     <string name="TestResults_Overview_Hero_Tests">Các bài kiểm tra</string>
     <string name="TestResults_Overview_Hero_Networks">Mạng</string>
     <string name="TestResults_Overview_Hero_DataUsage">Lượng dữ liệu dùng</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s đã bị chặn</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s đã bị chặn</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s đã được kiểm tra</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s đã được kiểm tra</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Chưa có bài kiểm tra nào được chạy. Hãy chạy thử một bài kiểm tra!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Ngày &amp; Giờ</string>
     <string name="TestResults_Summary_Hero_Network">Mạng</string>
@@ -55,12 +50,6 @@
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Dữ liệu di động</string>
     <string name="TestResults_Summary_Hero_NoInternet">Không có internet</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Đã kiểm tra</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Đã kiểm tra</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Đã chặn</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Đã chặn</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Truy cập được</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Truy cập được</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Tải lên</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Tải về</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Các biểu mẫu yêu thích, dành cho người dùng được kết nối với máy chủ ODK 📝</string>
@@ -75,6 +64,12 @@
     <string name="TestResults_UnknownASN">Không rõ</string>
     <string name="TestResults_NotAvailable">Không có</string>
 
+    <string name="TestResults_Filter_Tests">Các bài kiểm tra</string>
+    <string name="TestResults_Filter_Networks">Mạng</string>
+    <string name="TestResults_Filter_Source">Nguồn</string>
+    <string name="TestResults_Filter_Date">Ngày</string>
+    <string name="TestResults_Filter_Date_Today">Hôm nay</string>
+    <string name="TestResults_Filter_Date_Custom">Tùy chỉnh</string>
     <string name="Measurements_Failed">Thất bại</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Bất thường</string>
@@ -92,9 +87,6 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Chỉ khi đang sạc</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Khi bật kiểm tra tự động, các bài kiểm tra OONI Probe sẽ tự động chạy nhiều lần mỗi ngày. Kết quả kiểm tra của bạn sẽ tự động được xuất bản trên OONI Explorer: https://explorer.ooni.org/\n\nQuan trọng: Nếu bạn bật VPN, OONI Probe sẽ không tự động chạy kiểm tra. Vui lòng tắt VPN của bạn để kiểm tra OONI Probe tự động. Tìm hiểu thêm: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">Tự động công bố các kết quả</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Giới hạn thời lượng kiểm tra</string>
-    <string name="Settings_Websites_MaxRuntime">Thời lượng kiểm tra </string>
     <string name="Settings_Websites_Categories_Label">Thể loại web để kiểm tra</string>
     <string name="Settings_Websites_Categories_Description">%1$s thể loại đã bật mở</string>
 
@@ -102,21 +94,25 @@
     <string name="Settings_Privacy_SendCrashReports">Gửi báo cáo sự cố</string>
 
     <string name="Settings_Proxy_Label">Backend proxy của OONI</string>
-    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Không có</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Proxy tùy chỉnh</string>
     <string name="Settings_Proxy_Custom_Protocol">Giao thức</string>
     <string name="Settings_Proxy_Custom_Hostname">Tên máy chủ</string>
     <string name="Settings_Proxy_Custom_Port">Cổng</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Đang thử</string>
+    <string name="Settings_Proxy_Custom_Available">Có sẵn</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Không có</string>
     <string name="Settings_Language_Label">Ngôn ngữ</string>
 
     <string name="Settings_Advanced_Label">Nâng cao</string>
     <string name="Settings_Advanced_DebugLogs">Nhật ký gỡ lỗi</string>
     <string name="Settings_Advanced_RecentLogs">Xem nhật kí gần đây</string>
-    <string name="Settings_SendEmail_Label">Gửi email đến hỗ trợ</string>
-    <string name="Settings_SendEmail_Message">Vui lòng mô tả vấn đề bạn đang gặp phải:</string>
+
+    <string name="Settings_Support_Label">Hỗ trợ</string>
+    <string name="Settings_Support_SendEmail">Gửi email đến hỗ trợ</string>
+    <string name="Settings_Support_Message">Vui lòng mô tả vấn đề bạn đang gặp phải:</string>
+    <string name="Settings_Support_Action">Gửi email</string>
 
     <string name="Settings_Storage_Label">Lượng lưu trữ sử dụng</string>
     <string name="Settings_Storage_Delete">Xóa</string>
@@ -261,12 +257,20 @@
     <string name="Notification_StopTest">Dừng kiểm tra</string>
 
     <string name="Common_Back">Lùi</string>
+    <string name="Common_Close">Đóng</string>
     <string name="Common_Refresh">Làm mới</string>
     <string name="Common_Collapse">Thu gọn</string>
     <string name="Common_Expand">Mở rộng</string>
     <string name="Common_Enable">Bật</string>
     <string name="Common_Yes">Đồng ý</string>
-    <string name="Common_Hour_Other">%1$d giờ</string>
+    <string name="Common_Save">Lưu</string>
+    <string name="Common_Clear">Xoá</string>
+    <string name="Common_Next">Tiếp theo</string>
+    <string name="Common_Previous">Trước</string>
+    <string name="Common_Share">Chia sẻ</string>
+
+    <string name="Common_Today">Hôm nay</string>
+    <string name="Common_Yesterday">Hôm qua</string>
     <string name="Common_Months_May">05</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
