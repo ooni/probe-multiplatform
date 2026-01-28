@@ -1,0 +1,129 @@
+<resources>
+    <string name="Dashboard_Running_EstimatedTimeLeft">Pozostało czasu: </string>
+    <string name="Dashboard_Runv2_Overview_Description">Utworzone przez %1$s, %2$s</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Cofnij</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">Przegląd</string>
+
+    <string name="Dashboard_Update_Restart">Restart</string>
+
+    <!-- Test -->
+
+    <string name="Test_Websites_Fullname">Strony</string>
+    <string name="Test_Performance_Fullname">Wydajność</string>
+    <string name="Test_Circumvention_Fullname">Omijanie blokad</string>
+    <string name="Test_Experimental_Fullname">Eksperymentalny</string>
+    <string name="TestResults_Overview_Hero_Networks">Sieci</string>
+    <string name="TestResults_Summary_Hero_Network">Sieć</string>
+    <string name="TestResults_Summary_Hero_Country">Państwo</string>
+    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">Wyślij</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Pobierz</string>
+    <string name="TestResults_Summary_Performance_Hero_Video">Wideo</string>
+    <string name="TestResults_UnknownASN">Nieznane</string>
+    <string name="TestResults_NotAvailable">niedostępny</string>
+
+    <string name="TestResults_Filter_Networks">Sieci</string>
+    <string name="TestResults_Filter_Source">Źródło</string>
+    <string name="TestResults_Filter_Date">Data</string>
+    <string name="TestResults_Filter_Date_Today">Dzisiaj</string>
+    <string name="TestResults_Filter_Date_Custom">Dowolne</string>
+    <string name="Measurements_Failed">Nieudane</string>
+    <string name="Measurements_Ok">OK</string>
+    <string name="Measurement_Raw_Upload">Wyślij</string>
+
+    <!-- Settings -->
+
+    <string name="Settings_Title">Ustawienia</string>
+
+    <string name="Settings_Privacy_Label">Prywatność</string>
+    <string name="Settings_Proxy">Proxy</string>
+    <string name="Settings_Proxy_None">Brak</string>
+    <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Protocol">Protokuł</string>
+    <string name="Settings_Proxy_Custom_Hostname">Nazwa hosta</string>
+    <string name="Settings_Proxy_Custom_Port">Port</string>
+    <string name="Settings_Proxy_Custom_Testing">Testuję</string>
+    <string name="Settings_Proxy_Custom_Available">Dostępny</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Niedostępny</string>
+    <string name="Settings_Language_Label">Język</string>
+
+    <string name="Settings_Advanced_Label">Zaawansowane</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">%1$d miesiąc</item>
+        <item quantity="few">%1$d miesiące</item>
+        <item quantity="many">%1$d miesiące</item>
+        <item quantity="other">%1$d miesiące</item>
+    </plurals>
+    <string name="Settings_Support_Label">Pomoc</string>
+    <string name="Settings_Support_Action">Wyślij email</string>
+
+    <string name="Settings_Storage_Delete">Usuń</string>
+    <string name="Settings_Storage_Clear">Wyczyść</string>
+    <string name="Settings_Logs">Dziennik</string>
+    <string name="Settings_Websites_Categories_Selection_All">Zaznacz wszystko</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="CategoryCode_SRCH_Name">Wyszukiwarki</string>
+    <string name="Onboarding_ThingsToKnow_Button">Tak, rozumiem</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Dowiedz się więcej</string>
+    <string name="Onboarding_PopQuiz_True">Prawda</string>
+    <string name="Onboarding_PopQuiz_False">Fałsz</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Powrót</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Kontynuuj</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Ostrzeżenie</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Ostrzeżenie</string>
+    <string name="Onboarding_Crash_Button_Yes">Tak</string>
+    <string name="Onboarding_Crash_Button_No">Nie</string>
+    <string name="Onboarding_Notifications_Ok">OK</string>
+    <string name="Onboarding_Notifications_Skip">Pomiń</string>
+    <string name="Onboarding_DefaultSettings_Title">Ustawienia Domyślne</string>
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">Testuj ustawienia</string>
+    <string name="LoadingScreen_Runv2_Failure">Błąd</string>
+    <string name="DescriptorUpdate_CheckUpdates">Sprawdź aktualizacje</string>
+    <string name="Modal_UploadFailed_Title">Wysyłanie nieudane.</string>
+    <string name="Modal_Retry">Ponów</string>
+    <string name="Modal_Cancel">Anuluj</string>
+    <string name="Modal_OK">OK</string>
+    <string name="Modal_Delete">Usuń</string>
+    <string name="Modal_Error_NoInternet">Brak połączenia z Internetem</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Jesteś pewien?</string>
+    <string name="Desktop_Quit">Zamknij</string>
+
+    <string name="Tray_Notification_Check_Updates">Sprawdź aktualizacje</string>
+    <string name="Tray_Notification_Updates_Available">Update Available!</string>
+    <string name="Tray_Notification_Checking_Updates">Sprawdzanie aktualizacji...</string>
+
+    <string name="Notification_ChannelName">Testuję</string>
+    <string name="Common_Back">Wstecz</string>
+    <string name="Common_Close">Zamknij</string>
+    <string name="Common_Refresh">Odśwież</string>
+    <string name="Common_Collapse">Zwiń</string>
+    <string name="Common_Expand">Rozwiń</string>
+    <string name="Common_Enable">Włącz</string>
+    <string name="Common_Yes">Tak</string>
+    <string name="Common_Save">Zapisz</string>
+    <string name="Common_Clear">Wyczyść</string>
+    <string name="Common_Next">Następny</string>
+    <string name="Common_Previous">Poprzednie</string>
+    <string name="Common_Share">Udostępnij</string>
+
+    <string name="Common_Today">Dzisiaj</string>
+    <string name="Common_Yesterday">Wczoraj</string>
+    <string name="Common_Ago">%1$s temu</string>
+    <string name="Common_Months_January">styczeń</string>
+    <string name="Common_Months_February">luty</string>
+    <string name="Common_Months_March">marzec</string>
+    <string name="Common_Months_April">kwiecień</string>
+    <string name="Common_Months_May">maj</string>
+    <string name="Common_Months_June">czerwiec</string>
+    <string name="Common_Months_July">lipiec</string>
+    <string name="Common_Months_August">sierpień</string>
+    <string name="Common_Months_September">wrzesień</string>
+    <string name="Common_Months_October">październik</string>
+    <string name="Common_Months_November">listopad</string>
+    <string name="Common_Months_December">grudzień</string>
+
+    <string name="NetworkType_Vpn">VPN</string>
+</resources>
