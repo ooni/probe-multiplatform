@@ -1,20 +1,16 @@
 <resources>
+
     <string name="Dashboard_Overview_LatestTest">Ujian terakhir</string>
     <string name="Dashboard_Overview_Estimated">Anggaran:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Pilih tapak web:</string>
-
     <string name="Dashboard_Running_Running">Sedang dijalankan:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Anggaran baki masa:</string>
     <string name="Dashboard_Running_Stopping_Title">Menghentikan ujian...</string>
     <string name="Dashboard_Running_Stopping_Notice">Menghabiskan ujian yang sedang dijalankan, sila tunggu...</string>
-    <!-- Test -->
-
     <string name="Test_Websites_Fullname">Tapak-tapak web</string>
     <string name="Test_InstantMessaging_Fullname">Pemesejan Segera</string>
     <string name="Test_Performance_Fullname">Prestasi</string>
     <string name="Test_Experimental_Fullname">Eksperimen</string>
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Hasil Ujian</string>
     <string name="TestResults_Overview_Tab_Label">Hasil Ujian</string>
     <string name="TestResults_Overview_Hero_Tests">Ujian-ujian</string>
@@ -38,21 +34,17 @@
     <string name="Measurements_Ok">Baiklah</string>
     <string name="Measurement_Raw_Upload">Muat naik</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Aturan</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Semasa menggunakan WiFi sahaja</string>
     <string name="Settings_Privacy_Label">Privasi</string>
     <string name="Settings_Privacy_SendCrashReports">Hantar laporan ranap sistem</string>
-
     <string name="Settings_Proxy_None">Tiada</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
     <string name="Settings_Proxy_Custom_Hostname">Nama hos</string>
     <string name="Settings_Proxy_Custom_Port">Port proksi tersuai</string>
     <string name="Settings_Proxy_Custom_Available">Tersedia</string>
     <string name="Settings_Language_Label">Bahasa</string>
-
     <string name="Settings_Advanced_Label">Lanjutan</string>
     <string name="Settings_Storage_Delete">Padam</string>
     <string name="Settings_Logs">Log</string>
@@ -93,8 +85,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Masa &amp; tarikh ujian</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Tukar pengesetan asal</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="LoadingScreen_Runv2_Failure">Ralat</string>
     <string name="Toast_ResultsUploaded">Muat naik berjaya</string>
@@ -108,12 +98,8 @@
     <string name="Modal_AlwaysRun">Sentiasa berjalan</string>
     <string name="Modal_CustomURL_Title_NotSaved">Adakah anda pasti?</string>
     <string name="Desktop_Quit">Keluar</string>
-
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Mula</string>
-
     <string name="Common_Back">Kembali</string>
     <string name="Common_Close">Balas</string>
     <string name="Common_Refresh">Segar semula</string>
