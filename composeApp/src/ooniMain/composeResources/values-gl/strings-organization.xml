@@ -1,0 +1,8 @@
+<resources>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Que é OONI Probe?</string>
+    <string name="Onboarding_PopQuiz_1_Question">Se alguén está monitoreando a miña actividade na Internet, verá que estou a executar OONI Probe</string>
+    <string name="Settings_About_Content_LearnMore">Aprender máis</string>
+    <string name="Settings_About_Content_Blog">Blogue</string>
+    <string name="Settings_Donate_Title">Donar</string>
+    <string name="Settings_Donate_Action">Donar</string>
+    </resources>
