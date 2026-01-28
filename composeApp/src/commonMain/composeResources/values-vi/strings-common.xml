@@ -1,22 +1,17 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Bảng tóm tắt</string>
 
+    <string name="Dashboard_Tab_Label">Bảng tóm tắt</string>
     <string name="Dashboard_Overview_LatestTest">Lần kiểm tra chót:</string>
     <string name="Dashboard_Overview_Estimated">Ước lượng:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Chọn trang web</string>
-
     <string name="Dashboard_Running_Running">Đang chạy:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Ước lượng thời gian còn lại:</string>
     <string name="Dashboard_Running_Stopping_Title">Dừng kiểm tra</string>
     <string name="Dashboard_Running_Stopping_Notice">Đang hoàn tất các bài kiểm tra dở dang, vui lòng chờ đợi....</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy đang sử dụng</string>
-
     <string name="Dashboard_Progress_ReviewLink_Action">Duyệt xem</string>
-
     <string name="Dashboard_Update_Restart">Khởi động lại</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Trang web</string>
     <string name="Test_InstantMessaging_Fullname">Tin Nhắn Nhanh</string>
@@ -34,9 +29,6 @@
     <string name="Test_Psiphon_Fullname">Kiểm tra Psiphon</string>
     <string name="Test_Tor_Fullname">Kiểm tra Tor</string>
     <string name="Test_Signal_Fullname">Kiểm tra Signal</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Kết quả kiểm tra</string>
     <string name="TestResults_Overview_Tab_Label">Kết quả kiểm tra</string>
     <string name="TestResults_Overview_Hero_Tests">Các bài kiểm tra</string>
@@ -55,15 +47,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Các biểu mẫu yêu thích, dành cho người dùng được kết nối với máy chủ ODK 📝</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Chất lượng</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_Gbps">Gbit/giây</string>
     <string name="TestResults_Mbps">Mbit/giây</string>
     <string name="TestResults_Kbps">kbit/giây</string>
     <string name="TestResults_ms">mili giây</string>
-
     <string name="TestResults_UnknownASN">Không rõ</string>
     <string name="TestResults_NotAvailable">Không có</string>
-
     <string name="TestResults_Filter_Tests">Các bài kiểm tra</string>
     <string name="TestResults_Filter_Networks">Mạng</string>
     <string name="TestResults_Filter_Source">Nguồn</string>
@@ -75,13 +64,10 @@
     <string name="Measurements_Anomaly">Bất thường</string>
     <string name="Measurement_Raw_Upload">Tải lên</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Thiết đặt</string>
-
     <string name="Settings_TestOptions_Label">Tùy chọn kiểm tra</string>
     <string name="Settings_TestOptions_LongRunningTest">Bài kiểm tra dài</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically">Chạy kiểm tra tự động</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Chỉ khi có WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Chỉ khi đang sạc</string>
@@ -89,10 +75,8 @@
     <string name="Settings_Sharing_UploadResults">Tự động công bố các kết quả</string>
     <string name="Settings_Websites_Categories_Label">Thể loại web để kiểm tra</string>
     <string name="Settings_Websites_Categories_Description">%1$s thể loại đã bật mở</string>
-
     <string name="Settings_Privacy_Label">Riêng tư</string>
     <string name="Settings_Privacy_SendCrashReports">Gửi báo cáo sự cố</string>
-
     <string name="Settings_Proxy_Label">Backend proxy của OONI</string>
     <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Không có</string>
@@ -104,16 +88,13 @@
     <string name="Settings_Proxy_Custom_Available">Có sẵn</string>
     <string name="Settings_Proxy_Custom_Unavailable">Không có</string>
     <string name="Settings_Language_Label">Ngôn ngữ</string>
-
     <string name="Settings_Advanced_Label">Nâng cao</string>
     <string name="Settings_Advanced_DebugLogs">Nhật ký gỡ lỗi</string>
     <string name="Settings_Advanced_RecentLogs">Xem nhật kí gần đây</string>
-
     <string name="Settings_Support_Label">Hỗ trợ</string>
     <string name="Settings_Support_SendEmail">Gửi email đến hỗ trợ</string>
     <string name="Settings_Support_Message">Vui lòng mô tả vấn đề bạn đang gặp phải:</string>
     <string name="Settings_Support_Action">Gửi email</string>
-
     <string name="Settings_Storage_Label">Lượng lưu trữ sử dụng</string>
     <string name="Settings_Storage_Delete">Xóa</string>
     <string name="Settings_Storage_Clear">Xoá</string>
@@ -125,8 +106,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Chạy</string>
     <string name="Settings_Websites_CustomURL_Add">Thêm trang web</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">Ma túy và Rượu</string>
     <string name="CategoryCode_REL_Name">Tôn giáo</string>
     <string name="CategoryCode_PORN_Name">Nội dung khiêu dâm</string>
@@ -217,13 +196,9 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Chúng tôi luôn cố gắng để không công bố địa chỉ IP của bạn hay bất kỳ thông tin nào khác có thể nhận dạng cá nhân.\n\nTìm hiểu thêm thông qua [Chính sách dữ liệu của OONI] (https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Thay đổi mặc định</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Thiết lập Thử nghiệm</string>
     <string name="AddDescriptor_AutoRun">Chạy kiểm tra tự động</string>
     <string name="LoadingScreen_Runv2_Failure">Lỗi</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">Chưa được tải lên</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Một số chưa được tải lên</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Tải lên tất cả</string>
@@ -248,11 +223,8 @@
     <string name="Modal_CustomURL_Title_NotSaved">Bạn có chắc không?</string>
     <string name="Modal_CustomURL_NotSaved">URL của bạn sẽ không được lưu khi bạn rời khỏi màn hình này. Bạn có chắc chắn muốn rời khỏi màn hình này không?</string>
     <string name="Desktop_Quit">Rời</string>
-
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Chạy</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Đang thử</string>
     <string name="Notification_StopTest">Dừng kiểm tra</string>
 
@@ -268,7 +240,6 @@
     <string name="Common_Next">Tiếp theo</string>
     <string name="Common_Previous">Trước</string>
     <string name="Common_Share">Chia sẻ</string>
-
     <string name="Common_Today">Hôm nay</string>
     <string name="Common_Yesterday">Hôm qua</string>
     <string name="Common_Months_May">05</string>
