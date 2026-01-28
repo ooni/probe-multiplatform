@@ -1,13 +1,12 @@
 <resources>
+
     <string name="Dashboard_Overview_Estimated">Estimado:</string>
     <string name="Dashboard_Running_Running">Executando</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Tempo restante estimado:</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Desfacer</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Revisión</string>
-
     <string name="Dashboard_Update_Restart">Reiniciar</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Sitios web</string>
     <string name="Test_InstantMessaging_Fullname">Mensaxería Instantánea</string>
@@ -23,12 +22,9 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Calidade</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">Descoñecido</string>
     <string name="TestResults_NotAvailable">N/A</string>
-
     <string name="TestResults_Filter_Networks">Redes</string>
     <string name="TestResults_Filter_Date">Data</string>
     <string name="TestResults_Filter_Date_Custom">Personalizada</string>
@@ -36,13 +32,10 @@
     <string name="Measurements_Ok">Aceptar</string>
     <string name="Measurement_Raw_Upload">Cargar</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Axustes</string>
-
     <string name="Settings_Privacy_Label">Privacidade</string>
     <string name="Settings_Privacy_SendCrashReports">Enviar informe de erro</string>
-
     <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Nada</string>
     <string name="Settings_Proxy_Custom_Hostname">Nome do servidor</string>
@@ -50,7 +43,6 @@
     <string name="Settings_Proxy_Custom_Testing">A probar...</string>
     <string name="Settings_Proxy_Custom_Available">Dispoñible</string>
     <string name="Settings_Language_Label">Lingua</string>
-
     <string name="Settings_Advanced_Label">Avanzados</string>
     <string name="Settings_Advanced_DebugLogs">Logs de depuración</string>
     <string name="Settings_Support_Label">Soporte</string>
@@ -60,8 +52,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Seleccionar todo</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Executar</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">Drogas e Alcohol</string>
     <string name="CategoryCode_REL_Name">Relixión</string>
     <string name="CategoryCode_PORN_Name">Pornografía</string>
@@ -95,12 +85,8 @@
     <string name="Onboarding_Crash_Button_No">Non</string>
     <string name="Onboarding_Notifications_Ok">Aceptar</string>
     <string name="Onboarding_DefaultSettings_Title">Axustes por defecto</string>
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="LoadingScreen_Runv2_Failure">Erro</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">Non cargado</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Todo cargado</string>
     <string name="Modal_UploadFailed_Title">Fallou a subida</string>
@@ -115,13 +101,10 @@
     <string name="Modal_Error_NoInternet">Sen conexión a internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">Estás seguro?</string>
     <string name="Desktop_Quit">Abandoar</string>
-
     <string name="Tray_Notification_Checking_Updates">Buscando actualizacións ...</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Executar</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">A probar...</string>
     <string name="Common_Back">Anterior</string>
     <string name="Common_Close">Pechar</string>
@@ -134,6 +117,5 @@
     <string name="Common_Clear">Limpar</string>
     <string name="Common_Next">Seguinte</string>
     <string name="Common_Share">Compartir</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
