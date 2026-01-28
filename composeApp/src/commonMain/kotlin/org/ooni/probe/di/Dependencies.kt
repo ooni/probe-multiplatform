@@ -51,7 +51,9 @@ import org.ooni.probe.domain.ClearStorage
 import org.ooni.probe.domain.DeleteMeasurementsWithoutResult
 import org.ooni.probe.domain.DeleteOldResults
 import org.ooni.probe.domain.DeleteResults
+import org.ooni.probe.domain.DownloadFile
 import org.ooni.probe.domain.DownloadUrls
+import org.ooni.probe.domain.FetchGeoIpDbUpdates
 import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.GetAutoRunSpecification
@@ -117,6 +119,7 @@ import org.ooni.probe.ui.settings.proxy.ProxyViewModel
 import org.ooni.probe.ui.settings.webcategories.WebCategoriesViewModel
 import org.ooni.probe.ui.upload.UploadMeasurementsViewModel
 import kotlin.coroutines.CoroutineContext
+import kotlin.getValue
 
 class Dependencies(
     val platformInfo: PlatformInfo,
@@ -201,8 +204,25 @@ class Dependencies(
     }
 
     // Engine
-
     private val taskEventMapper by lazy { TaskEventMapper(networkTypeFinder, json) }
+
+    private val downloader by lazy {
+        DownloadFile(
+            fileSystem = FileSystem.SYSTEM,
+        )
+    }
+
+    val fetchGeoIpDbUpdates by lazy {
+        FetchGeoIpDbUpdates(
+            downloadFile = downloader::invoke,
+            cacheDir = cacheDir,
+            engineHttpDo = engine::httpDo,
+            json = json,
+            preferencesRepository = preferenceRepository,
+            fileSystem = FileSystem.SYSTEM,
+            backgroundContext = backgroundContext,
+        )
+    }
 
     @VisibleForTesting
     val engine by lazy {
@@ -318,6 +338,7 @@ class Dependencies(
         GetEnginePreferences(
             preferencesRepository = preferenceRepository,
             getProxyOption = proxyManager::selected,
+            cacheDir = cacheDir,
         )
     }
     private val getFirstRun by lazy { GetFirstRun(preferenceRepository) }
