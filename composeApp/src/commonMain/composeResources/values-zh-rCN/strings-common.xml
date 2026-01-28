@@ -1,17 +1,14 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">面板</string>
 
+    <string name="Dashboard_Tab_Label">面板</string>
     <string name="Dashboard_Overview_LatestTest">上次测试：</string>
     <string name="Dashboard_Overview_Estimated">预计：</string>
     <string name="Dashboard_Overview_ChooseWebsites">选择网站</string>
-
     <string name="Dashboard_Running_Running">正在运行：</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">预计剩余时间：</string>
     <string name="Dashboard_Running_Stopping_Title">正在停止测试…</string>
     <string name="Dashboard_Running_Stopping_Notice">正在结束当前待处理的测试，请稍候...</string>
     <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
-
     <string name="Dashboard_RunTests_Title">运行测试</string>
     <string name="Dashboard_RunTests_Description">选择要运行的测试</string>
     <string name="Dashboard_RunTests_SelectAll">选择所有测试</string>
@@ -19,7 +16,6 @@
     <plurals name="Dashboard_RunTests_RunButton_Label">
         <item quantity="other">运行 %1$d 个测试</item>
     </plurals>
-
     <string name="Dashboard_RunV2_Ooni_Title">OONI 测试</string>
     <string name="Dashboard_RunV2_Title">OONI 运行链接</string>
     <string name="Dashboard_RunV2_RunFinished">运行已完成。轻按查看结果。</string>
@@ -27,6 +23,7 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">卸载链接</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">上次修改</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">查看更多</string>
+    <!-- This only applies when there are more than 10 websites to show. -->
     <plurals name="Dashboard_Runv2_Websites_SeeAll">
         <item quantity="other">查看全部 %1$d 个网站</item>
     </plurals>
@@ -37,20 +34,17 @@
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">拒绝了更新</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">撤销</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">查看更新</string>
-
     <string name="Dashboard_Progress_UpdateLink_Label">正在加载链接更新</string>
     <string name="Dashboard_Progress_ReviewLink_Label">链接更新已就绪</string>
     <string name="Dashboard_Progress_ReviewLink_Action">审查</string>
-
     <string name="Dashboard_ReviewDescriptor_Label">链接更新(%1$s，共 %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">更新并完成(%1$s，共%2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">更新(%1$s，共 %2$s)</string>
+    <!-- Button to reject a link update during review -->
     <string name="Dashboard_ReviewDescriptor_Reject">拒绝更新</string>
-
     <string name="Dashboard_Update_Ready">刚下载了应用更新</string>
     <string name="Dashboard_Update_Restart">重新启动</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">网站</string>
     <string name="Test_InstantMessaging_Fullname">即时通讯</string>
@@ -68,9 +62,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon 测试</string>
     <string name="Test_Tor_Fullname">Tor 测试</string>
     <string name="Test_Signal_Fullname">Signal 测试</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">测试结果</string>
     <string name="TestResults_Overview_Tab_Label">测试结果</string>
     <string name="TestResults_Overview_Hero_Tests">测试</string>
@@ -107,15 +98,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">视频</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">质量</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">延迟</string>
-
     <string name="TestResults_Gbps">Gbit/s</string>
     <string name="TestResults_Mbps">Mbit/s</string>
     <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">未知</string>
     <string name="TestResults_NotAvailable">N/A</string>
-
     <string name="TestResults_Filters_Title">筛选测试结果</string>
     <string name="TestResults_Filters_Short">筛选器：</string>
     <plurals name="TestResults_Filters_Count">
@@ -140,14 +128,13 @@
     <string name="TestResults_Filter_Date_Picker">选择日期范围</string>
     <string name="TestResults_Filter_NoTestsFound">没有找到这些筛选器的测试结果</string>
     <string name="TestResults_Filter_DeleteConfirmation">是否要删除当前筛选器的所有测试结果？</string>
-
     <string name="Results_LimitedNotice">只显示最后 %1$d 个结果</string>
     <string name="Results_UploadingMissing">上传缺失的结果 %1$s</string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
     <string name="Results_MarkAllAsViewed">将所有内容标记为已查看</string>
     <string name="Results_MarkAllAsViewed_Confirmation">是否要将所有结果标记为已查看？</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">是否要将当前筛选器的所有结果标记为已查看？</string>
 
-    <!-- Measurements -->
 
     <string name="Measurement_Title">测量</string>
     <string name="Measurement_LoadingFailed">加载测量信息失败</string>
@@ -157,36 +144,33 @@
     <plurals name="Measurements_Count">
         <item quantity="other">已测量 %1$d 个</item>
     </plurals>
-    <plurals name="Measurements_Failed">
+    <plurals name="Measurements_Failed_Count">
         <item quantity="other">%1$d 失败了</item>
     </plurals>
     <string name="Measurement_Raw_NotUploadedReasoning">此测量未在 OONI Explorer 上发布。请将其上传以查看分析。</string>
     <string name="Measurement_Raw_Share">分享测量数据</string>
     <string name="Measurement_Raw_Upload">上传</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">设置</string>
-
     <string name="Settings_TestOptions_Label">测试选项</string>
     <string name="Settings_TestOptions_LongRunningTest">长时间运行测试</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically">自动运行测试</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">仅在连接至 WIFI 时</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">仅在充电时</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">通过启用自动测试， OONI Probe 测试将每天自动运行多次。您的测试结果将自动在 OONI Explorer 上公布：https://explorer.ooni.org/\n\n重要提示：如果您启用了VPN， OONI Probe 将不会自动运行测试。请关闭您的 VPN ，以便进行 OONI Probe 自动测试。了解更多：https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">每小时在后台运行测试</string>
     <string name="Settings_Sharing_UploadResults">自动发布结果</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeEnabled">限制网站测试持续时间</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">仅手动运行</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeDuration">完整网站测试运行的最长持续时间</string>
     <string name="Settings_Websites_MaxRuntimeDuration_Unit">输入秒数</string>
     <string name="Settings_Websites_Categories_Label">要测试的网站类别</string>
     <string name="Settings_Websites_Categories_Description">已启用 %1$s 个分类</string>
-
     <string name="Settings_Privacy_Label">隐私</string>
     <string name="Settings_Privacy_SendCrashReports">发送崩溃报告</string>
-
     <string name="Settings_Proxy_Label">OONI 后端代理</string>
     <string name="Settings_Proxy">代理</string>
     <string name="Settings_Proxy_None">空</string>
@@ -201,31 +185,26 @@
     <string name="Settings_Proxy_Custom_Available">在线</string>
     <string name="Settings_Proxy_Custom_Unavailable">不可用</string>
     <string name="Settings_Proxy_Delete_Confirmation">确定要删除 %1$s 代理吗？</string>
-
     <string name="Settings_Language_Label">语言</string>
-
     <string name="Settings_Advanced_Label">高级</string>
     <string name="Settings_Advanced_DebugLogs">调试日志</string>
     <string name="Settings_Advanced_RecentLogs">查看近期日志</string>
-
     <string name="Settings_Results_DeleteOldResults">删除旧结果</string>
     <string name="Settings_Results_DeleteOldResultsThreshold">删除生成时间</string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
         <item quantity="other">超过 %1$d 个月的结果</item>
     </plurals>
     <string name="Settings_Results_DeleteOldResultsThreshold_Unit">输入月份数</string>
-
     <string name="Settings_Support_Label">支持</string>
     <string name="Settings_Support_SendEmail">发送邮件给支持团队</string>
     <string name="Settings_Support_Message">请描述您所遇到的问题：</string>
     <string name="Settings_Support_Message_Hint">给支持团队的消息</string>
     <string name="Settings_Support_IncludeLogs">包括程序日志</string>
     <string name="Settings_Support_Action">发送邮件</string>
-
     <string name="Settings_ShareApp">分享应用</string>
     <string name="Settings_ShareApp_Description">与别人分享 %1$s 应用</string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
     <string name="Settings_ShareApp_ShareMessage">在 %2$s 安装 %1$s</string>
-
     <string name="Settings_Storage_Label">存储用量</string>
     <string name="Settings_Storage_Delete">删除</string>
     <string name="Settings_Storage_Clear">清除键</string>
@@ -246,8 +225,6 @@
     <plurals name="CustomWebsites_Fab_Text">
         <item quantity="other">测试 %1$d 个 URL</item>
     </plurals>
-
-    <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">毒品和酒精</string>
     <string name="CategoryCode_REL_Name">宗教</string>
@@ -312,8 +289,6 @@
     <string name="CategoryCode_IGO_Description">政府间组织，例如联合国</string>
     <string name="CategoryCode_MISC_Description">尚未分类的网站</string>
 
-    <!-- Onboarding -->
-
     <string name="Onboarding_QuizAnswer_Correct">正确答案</string>
     <string name="Onboarding_QuizAnswer_Incorrect">不正确答案</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">知道了</string>
@@ -346,8 +321,6 @@
     <string name="Onboarding_DefaultSettings_Button_Go">开始吧</string>
     <string name="Onboarding_DefaultSettings_Button_Change">更改默认值</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">测试代理设置</string>
     <string name="AddDescriptor_Title">安装新链接</string>
     <string name="AddDescriptor_AutoUpdate">自动安装更新</string>
@@ -360,11 +333,10 @@
     <string name="LoadingScreen_Runv2_Failure">错误</string>
     <string name="LoadingScreen_Runv2_Canceled">链接安装被取消了</string>
     <string name="DescriptorUpdate_Updates">更新</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">检查更新</string>
     <string name="AddDescriptor_AutoRunDisabled">自动运行被停用。请启用它来自动运行测试。</string>
     <string name="Descriptor_LastTestResult">上次测试结果</string>
-
-    <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">未上传</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">部分未上传</string>
@@ -401,19 +373,16 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">没有后台权限，本应用无法自动运行测试。是否要重试？</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">应用需要权限以在后台自动运行测试</string>
 
-    <!-- Desktop -->
     <string name="Desktop_OpenApp">打开应用</string>
     <string name="Desktop_Quit">退出</string>
-
     <string name="Tray_Notification_Check_Updates">检查更新</string>
     <string name="Tray_Notification_Updates_Available">有更新可用！</string>
     <string name="Tray_Notification_Checking_Updates">正在检查更新...</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">运行</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">测试中</string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
     <string name="Notification_UpdateChannelName">链接更新</string>
     <string name="Notification_StopTest">停止测试</string>
 
@@ -429,7 +398,6 @@
     <string name="Common_Next">下一页</string>
     <string name="Common_Previous">上一步</string>
     <string name="Common_Share">分享</string>
-
     <string name="Common_Today">今天</string>
     <string name="Common_Yesterday">昨天</string>
     <string name="Common_Ago">%1$s 前</string>
@@ -448,7 +416,6 @@
     <string name="Common_Hours_Abbreviated">%1$d小时</string>
     <string name="Common_Minutes_Abbreviated">%1$d分钟</string>
     <string name="Common_Seconds_Abbreviated">%1$d秒</string>
-
     <string name="Common_Months_January">一月</string>
     <string name="Common_Months_February">二月</string>
     <string name="Common_Months_March">三月</string>
