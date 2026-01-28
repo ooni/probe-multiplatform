@@ -1,0 +1,44 @@
+<resources>
+    <string name="Dashboard_Overview_LatestTest">eyokugcina </string>
+    <string name="Dashboard_Overview_Estimated">ukudlambisela </string>
+    <string name="Dashboard_Overview_ChooseWebsites">ketha iwebusit</string>
+
+    <string name="Dashboard_Running_Running">gijimisa   </string>
+    <string name="Dashboard_Running_EstimatedTimeLeft">hlawumbisela isikhathi esisele </string>
+    <string name="Dashboard_Running_Stopping_Title">ukuhlowa kuyamiswa \nukumeswa kokuhlolwa</string>
+    <string name="Dashboard_Running_Stopping_Notice">Sisaqedela ukuhlola, sisacela ulinde sisalende umphumelo</string>
+    <string name="TestResults_NotAvailable">Akungeni </string>
+
+    <string name="Settings_Websites_CustomURL_Run">Gijima</string>
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">Ngiy\'tholile</string>
+    <string name="Onboarding_ThingsToKnow_Title">Qhaphela!</string>
+    <string name="Onboarding_ThingsToKnow_Button">Ngiyaqonda</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Funda okunye</string>
+    <string name="Onboarding_PopQuiz_Title">Imibuzo ye-Pop</string>
+    <string name="Onboarding_PopQuiz_True">Iqiniso</string>
+    <string name="Onboarding_PopQuiz_False">Amanga</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Phinda emuva</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Qhubeka </string>
+    <string name="Onboarding_PopQuiz_1_Title">Umbuzo 1/2</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Isixwayiso</string>
+    <string name="Onboarding_PopQuiz_2_Title">Umbuzo 2/2</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Isixwayiso</string>
+    <string name="Onboarding_AutomatedTesting_Title">Ukuhlola okuzenzakalelayo</string>
+    <string name="Onboarding_Crash_Title">Ukubika kokusaphazeka</string>
+    <string name="Onboarding_Crash_Button_Yes">Yebo</string>
+    <string name="Onboarding_Crash_Button_No">Cha</string>
+    <string name="Onboarding_DefaultSettings_Title">Ama-Settings amisiwe</string>
+    <string name="Onboarding_DefaultSettings_Header">Siyaqoqa futhi siyashicilela:</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">Ikhodi yezwe (Isbn IT mawukhuluma ngeItaly)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">Ulwazi lenethiwekhi (Kuhlanganiswa ne-Autonomous System Number)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">Isikhathi nosuku lokuhlolwa </string>
+    <string name="Onboarding_DefaultSettings_Paragraph">Senza konke okusemandleni ethu ukuthi singashicileli ikheli lakho le-IP noma yiluphi olunye ulwazi olubonakalayo.\n\nFunda  okunye [Kwidatha policy ka-Ooni] (https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">Shintsha ukuma</string>
+
+    <string name="Modal_ReRun_Websites_Run">Gijima</string>
+    <!-- Common / Others -->
+
+    <string name="OONIRun_Run">Gijima</string>
+
+    <string name="Common_Yes">Yebo</string>
+    </resources>
