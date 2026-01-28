@@ -1,7 +1,6 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">ڈیش بورڈ</string>
 
+    <string name="Dashboard_Tab_Label">ڈیش بورڈ</string>
     <string name="TestResults_Summary_Hero_Network">نیٹ ورک </string>
     <string name="TestResults_Summary_Hero_Country">ملک</string>
     <string name="TestResults_Summary_Hero_WiFi">وائی فائی</string>
@@ -17,10 +16,8 @@
     <string name="Measurements_Ok">ٹھیک ہے</string>
     <string name="Measurement_Raw_Upload">اپ لوڈ کریں</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">سیٹَنگز</string>
-
     <string name="Settings_Privacy_Label">رازداری</string>
     <string name="Settings_Proxy">پراکسی</string>
     <string name="Settings_Proxy_None">کچھ نہیں</string>
@@ -30,11 +27,9 @@
     <string name="Settings_Proxy_Custom_Available">دستیاب</string>
     <string name="Settings_Proxy_Custom_Unavailable">غیر دستیاب</string>
     <string name="Settings_Language_Label">زبان</string>
-
     <string name="Settings_Advanced_Label">ترقی یافتہ</string>
     <string name="Settings_Support_Label">حمایت کیجئے</string>
     <string name="Settings_Support_Action">ای میل بھیجئے</string>
-
     <string name="Settings_Storage_Delete">حذف کریں</string>
     <string name="Settings_Storage_Clear">صاف کریں</string>
     <string name="Settings_Logs">لاگز</string>
@@ -52,8 +47,6 @@
     <string name="Onboarding_Crash_Button_No">نہیں</string>
     <string name="Onboarding_Notifications_Ok">ٹھیک ہے</string>
     <string name="Onboarding_Notifications_Skip">چھوڑیں</string>
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="LoadingScreen_Runv2_Failure">خرابی</string>
     <string name="Modal_Retry">دوباره  کوشش کیجیے</string>
@@ -62,7 +55,6 @@
     <string name="Modal_Delete">حذف کریں</string>
     <string name="Modal_CustomURL_Title_NotSaved">کیا آپ کو یقین ہے؟</string>
     <string name="Desktop_Quit">چھوڑدیجیے (Quit)</string>
-
     <string name="Tray_Notification_Checking_Updates">اپڈیٹ کے لیے پڑتال ہو رہی ہے ۔۔۔</string>
 
     <string name="Common_Back">پیچھے</string>
@@ -77,7 +69,6 @@
     <string name="Common_Next">اگلا</string>
     <string name="Common_Previous">پچھلا</string>
     <string name="Common_Share">شیئر کریں</string>
-
     <string name="Common_Today">آج</string>
     <string name="Common_Yesterday">گزرا ہوا کل</string>
     <string name="NetworkType_Vpn">VPN</string>
