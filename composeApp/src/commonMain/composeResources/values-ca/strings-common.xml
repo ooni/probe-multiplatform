@@ -1,20 +1,16 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Tauler</string>
 
+    <string name="Dashboard_Tab_Label">Tauler</string>
     <string name="Dashboard_Overview_LatestTest">Última prova:</string>
     <string name="Dashboard_Overview_Estimated">Estimat:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Trieu llocs web</string>
-
     <string name="Dashboard_Running_Running">S\'està executant:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Temps restant estimat:</string>
     <string name="Dashboard_Runv2_Overview_Description">Creat per %1$s a les %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Desfés</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Revisa</string>
-
     <string name="Dashboard_Update_Restart">Reinicia</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Llocs web</string>
     <string name="Test_InstantMessaging_Fullname">Missatgeria instantània</string>
@@ -30,8 +26,6 @@
     <string name="Test_FacebookMessenger_Fullname">Prova de Facebook Messenger</string>
     <string name="Test_Psiphon_Fullname">Prova del Psiphon</string>
     <string name="Test_Tor_Fullname">Prova del Tor</string>
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Resultats de la prova</string>
     <string name="TestResults_Overview_Tab_Label">Resultats de la prova</string>
     <string name="TestResults_Overview_Hero_Tests">Proves</string>
@@ -51,15 +45,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Vídeo</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Qualitat</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_Gbps">Gbit/s</string>
     <string name="TestResults_Mbps">Mbit/s</string>
     <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">Desconegut</string>
     <string name="TestResults_NotAvailable">N/D</string>
-
     <string name="TestResults_Filter_Tests">Proves</string>
     <string name="TestResults_Filter_Networks">Xarxes</string>
     <string name="TestResults_Filter_Source">Font</string>
@@ -70,19 +61,15 @@
     <string name="Measurements_Ok">Correcte</string>
     <string name="Measurement_Raw_Upload">Pujada</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Configuració</string>
-
     <string name="Settings_TestOptions_Label">Opcions de la prova</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Executa proves automàticament</string>
     <string name="Settings_Sharing_UploadResults">Publica automàticament els resultats</string>
     <string name="Settings_Websites_Categories_Label">Categories de lloc web per provar</string>
     <string name="Settings_Websites_Categories_Description">%1$s categories activades</string>
-
     <string name="Settings_Privacy_Label">Privadesa</string>
     <string name="Settings_Privacy_SendCrashReports">Envia informes d\'errors</string>
-
     <string name="Settings_Proxy">Servidor intermediari</string>
     <string name="Settings_Proxy_None">Cap</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
@@ -92,7 +79,6 @@
     <string name="Settings_Proxy_Custom_Available">Disponible</string>
     <string name="Settings_Proxy_Custom_Unavailable">No Disponible</string>
     <string name="Settings_Language_Label">Llengua</string>
-
     <string name="Settings_Advanced_Label">Avançat</string>
     <string name="Settings_Advanced_DebugLogs">Registres de depuració</string>
     <string name="Settings_Support_Label">Assistència</string>
@@ -106,8 +92,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Inicia</string>
     <string name="Settings_Websites_CustomURL_Add">Afegeix lloc web</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">Drogues i alcohol</string>
     <string name="CategoryCode_REL_Name">Religió</string>
     <string name="CategoryCode_PORN_Name">Pornografia</string>
@@ -196,14 +180,11 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Hora i data de la prova</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Canvia valors</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Test de configuració</string>
     <string name="AddDescriptor_AutoRun">Executa proves automàticament</string>
     <string name="LoadingScreen_Runv2_Failure">Error</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Comprovar si hi ha actualitzacions</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">No s\'ha pujat</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Alguns no s\'han pujat</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Puja-ho tot</string>
@@ -224,13 +205,10 @@
     <string name="Modal_CustomURL_Title_NotSaved">N’estàs segur?</string>
     <string name="Modal_CustomURL_NotSaved">Les vostres URL no es desaran quan surti d’aquesta pantalla. Esteu segur de voler sortir d’aquesta pantalla?</string>
     <string name="Desktop_Quit">Abandona</string>
-
     <string name="Tray_Notification_Check_Updates">Comprovar si hi ha actualitzacions</string>
     <string name="Tray_Notification_Updates_Available">Hi ha una actualització disponible!</string>
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Inicia</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Provant</string>
     <string name="Common_Back">Enrera</string>
     <string name="Common_Close">Tanca</string>
@@ -244,7 +222,6 @@
     <string name="Common_Next">Endavant</string>
     <string name="Common_Previous">Anterior</string>
     <string name="Common_Share">Comparteix</string>
-
     <string name="Common_Today">Avui</string>
     <string name="Common_Yesterday">Ahir</string>
     <string name="Common_Ago">fa %1$s</string>
