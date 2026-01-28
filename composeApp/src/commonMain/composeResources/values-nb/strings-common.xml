@@ -1,0 +1,154 @@
+<resources>
+    <!-- Dashboard -->
+    <string name="Dashboard_Tab_Label">Oversikt</string>
+
+    <string name="Dashboard_Overview_LatestTest">Siste test:</string>
+    <string name="Dashboard_Overview_Estimated">Estimert:</string>
+    <string name="Dashboard_Overview_ChooseWebsites">Velg nettsteder</string>
+
+    <string name="Dashboard_Running_Running">Kjører:</string>
+    <string name="Dashboard_Running_EstimatedTimeLeft">Beregnet tid som gjenstår:</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Angre</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">Ettergå</string>
+
+    <string name="Dashboard_Update_Restart">Start på nytt</string>
+
+    <!-- Test -->
+
+    <string name="Test_Websites_Fullname">Nettsider</string>
+    <string name="Test_InstantMessaging_Fullname">Lynmeldinger</string>
+    <string name="Test_Performance_Fullname">Ytelse</string>
+    <string name="Test_Circumvention_Fullname">Omgåelse</string>
+    <string name="Test_Experimental_Fullname">Eksperimentelt</string>
+    <string name="Test_NDT_Fullname">NDT-hastighetstest</string>
+    <string name="Test_Dash_Fullname">DASH-strømmetest</string>
+    <!-- Test Results -->
+
+    <string name="TestResults_Overview_Title">Testresultater</string>
+    <string name="TestResults_Overview_Tab_Label">Testresultater</string>
+    <string name="TestResults_Overview_Hero_Tests">Tester</string>
+    <string name="TestResults_Overview_Hero_Networks">Nettverk</string>
+    <string name="TestResults_Overview_Hero_DataUsage">Databruk</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">Ingen tester har blitt kjørt ennå. Prøv å kjøre en!</string>
+    <string name="TestResults_Summary_Hero_DateAndTime">Dato og tid</string>
+    <string name="TestResults_Summary_Hero_Network">Nettverk</string>
+    <string name="TestResults_Summary_Hero_Country">Land</string>
+    <string name="TestResults_Summary_Hero_Runtime">Total Kjøretid</string>
+    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_Mobile">Mobildata</string>
+    <string name="TestResults_Summary_Hero_NoInternet">Ingen internett</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">Last opp</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Nedlasting</string>
+    <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
+    <string name="TestResults_Summary_Performance_Hero_Video_Quality">Kvalitet</string>
+    <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
+
+    <string name="TestResults_ms">ms</string>
+
+    <string name="TestResults_UnknownASN">Ukjent</string>
+    <string name="TestResults_NotAvailable">N/A</string>
+
+    <string name="TestResults_Filter_Tests">Tester</string>
+    <string name="TestResults_Filter_Networks">Nettverk</string>
+    <string name="TestResults_Filter_Source">Kilde</string>
+    <string name="TestResults_Filter_Date">Dato</string>
+    <string name="TestResults_Filter_Date_Custom">Egendefinert</string>
+    <string name="Measurements_Failed">Mislyktes</string>
+    <string name="Measurements_Ok">OK</string>
+    <string name="Measurement_Raw_Upload">Last opp</string>
+
+    <!-- Settings -->
+
+    <string name="Settings_Title">Innstillinger</string>
+
+    <string name="Settings_Privacy_Label">Personvern</string>
+    <string name="Settings_Privacy_SendCrashReports">Send kræsjrapporter</string>
+
+    <string name="Settings_Proxy">Mellomtjener</string>
+    <string name="Settings_Proxy_None">Ingen</string>
+    <string name="Settings_Proxy_Custom_Protocol">Protokoll</string>
+    <string name="Settings_Proxy_Custom_Hostname">Vertsnavn</string>
+    <string name="Settings_Proxy_Custom_Port">Port</string>
+    <string name="Settings_Proxy_Custom_Testing">Tester</string>
+    <string name="Settings_Proxy_Custom_Available">Tilgjengelig</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Utilgjengelig</string>
+    <string name="Settings_Language_Label">Språk</string>
+
+    <string name="Settings_Advanced_Label">Avansert</string>
+    <string name="Settings_Support_Label">Støtte</string>
+    <string name="Settings_Support_Action">Send e-post</string>
+
+    <string name="Settings_Storage_Delete">Slett</string>
+    <string name="Settings_Storage_Clear">Tøm</string>
+    <string name="Settings_Logs">Logger</string>
+    <string name="Settings_Websites_Categories_Selection_All">Velg alt</string>
+    <string name="Settings_Websites_CustomURL_URL">Nettadresse</string>
+    <string name="Settings_Websites_CustomURL_Run">Kjør</string>
+    <!-- Website Categories -->
+
+    <string name="CategoryCode_ALDR_Name">Narkotika og alkohol</string>
+    <string name="CategoryCode_REL_Name">Religion</string>
+    <string name="CategoryCode_PORN_Name">Pornografi</string>
+    <string name="CategoryCode_ENV_Name">Miljø</string>
+    <string name="CategoryCode_MILX_Name">Terrorisme og Militanter</string>
+    <string name="CategoryCode_PUBH_Name">Folkehelse</string>
+    <string name="CategoryCode_FILE_Name">Fildeling</string>
+    <string name="CategoryCode_SRCH_Name">Søkemotorer</string>
+    <string name="CategoryCode_SRCH_Description">Søkemotorer og portaler</string>
+    <string name="CategoryCode_MISC_Description">Nettsteder som ikke er kategorisert ennå</string>
+
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">Har det</string>
+    <string name="Onboarding_ThingsToKnow_Button">Jeg forstår</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Lær mer</string>
+    <string name="Onboarding_PopQuiz_True">Sant</string>
+    <string name="Onboarding_PopQuiz_False">Usant</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Gå tilbake</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Fortsett</string>
+    <string name="Onboarding_PopQuiz_1_Title">Spørsmål 1/2</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Advarsel</string>
+    <string name="Onboarding_PopQuiz_2_Title">Spørsmål 2/2</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Advarsel</string>
+    <string name="Onboarding_Crash_Button_Yes">Ja</string>
+    <string name="Onboarding_Crash_Button_No">Nei</string>
+    <string name="Onboarding_Notifications_Ok">OK</string>
+    <string name="Onboarding_Notifications_Skip">Hopp over</string>
+    <string name="Onboarding_DefaultSettings_Title">Forvalgte innstillinger</string>
+    <string name="Onboarding_DefaultSettings_Header">Vi samler og publiserer:</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">Landskode (f.eks. IT for Italia)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">Nettverksinformasjon (inkludert autonome systemnummer)</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">Endre standardinnstilling</string>
+
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">Test innstillinger</string>
+    <string name="LoadingScreen_Runv2_Failure">Feil</string>
+    <string name="Modal_UploadFailed_Title">Opplasting mislyktes</string>
+    <string name="Modal_Retry">Prøv igjen</string>
+    <string name="Modal_Cancel">Avbryt</string>
+    <string name="Modal_OK">OK</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Ønsker du å slette alle testresultater?</string>
+    <string name="Modal_Delete">Slett</string>
+    <string name="Modal_ReRun_Websites_Run">Kjør</string>
+    <string name="Desktop_Quit">Avslutt</string>
+
+    <string name="Tray_Notification_Checking_Updates">Sjekker for oppdateringer...</string>
+
+    <!-- Common / Others -->
+
+    <string name="OONIRun_Run">Kjør</string>
+
+    <string name="Notification_ChannelName">Tester</string>
+    <string name="Common_Back">Tilbake</string>
+    <string name="Common_Close">Lukk</string>
+    <string name="Common_Refresh">Oppdater</string>
+    <string name="Common_Enable">Slå på</string>
+    <string name="Common_Yes">Ja</string>
+    <string name="Common_Save">Lagre</string>
+    <string name="Common_Clear">Tøm</string>
+    <string name="Common_Next">Neste</string>
+    <string name="Common_Previous">Forrige</string>
+    <string name="Common_Share">Del</string>
+
+    <string name="Common_Ago">%1$s siden</string>
+    <string name="NetworkType_Vpn">VPN</string>
+</resources>
