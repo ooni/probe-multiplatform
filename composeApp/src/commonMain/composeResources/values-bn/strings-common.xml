@@ -1,17 +1,14 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">ড্যাশবোর্ড</string>
 
+    <string name="Dashboard_Tab_Label">ড্যাশবোর্ড</string>
     <string name="Dashboard_Overview_LatestTest">সর্বশেষ পরীক্ষা:</string>
     <string name="Dashboard_Overview_Estimated">আনুমানিক:</string>
     <string name="Dashboard_Overview_ChooseWebsites">ওয়েবসাইট নির্বাচন করুন</string>
-
     <string name="Dashboard_Running_Running">চলছে:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">আনুমানিক সময় বাকি:</string>
     <string name="Dashboard_Running_Stopping_Title">পরীক্ষা বন্ধ করা হচ্ছে...</string>
     <string name="Dashboard_Running_Stopping_Notice">অপেক্ষমান পরীক্ষাগুলো সম্পন্ন করা হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন…</string>
     <string name="Dashboard_Running_ProxyInUse">প্রক্সি ব্যবহার করা হচ্ছে</string>
-
     <string name="Dashboard_RunTests_Title">পরীক্ষা চালান</string>
     <string name="Dashboard_RunTests_Description">চালানোর জন্য পরীক্ষাগুলো নির্বাচন করুন</string>
     <string name="Dashboard_RunTests_SelectAll">সবগুলো পরীক্ষা নির্বাচন করুন</string>
@@ -30,27 +27,22 @@
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">অনুনোমোদিত আপডেট</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">ফেরত আনুন</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">আপডেটগুলো পর্যালোচনা করুন</string>
-
     <string name="Dashboard_Progress_UpdateLink_Label">লিঙ্ক আপডেট লোড হচ্ছে</string>
     <string name="Dashboard_Progress_ReviewLink_Label">লিঙ্ক আপডেট তৈরি</string>
     <string name="Dashboard_Progress_ReviewLink_Action">পর্যালোচনা</string>
-
     <string name="Dashboard_ReviewDescriptor_Label">লিঙ্ক আপডেট (%1$sএর %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">আপডেট এবং সমাপ্ত (%1$sএর%2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">আপডেট (%1$sএর %2$s)</string>
+    <!-- Button to reject a link update during review -->
     <string name="Dashboard_ReviewDescriptor_Reject">আপডেট প্রত্যাখান করুন</string>
-
     <string name="Dashboard_Update_Ready">অ্যাপ আপডেটটি সবেমাত্র ডাউনলোড করা হয়েছে</string>
     <string name="Dashboard_Update_Restart">পুনরায় চালু করুন</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">ওয়েবসাইট গুলো</string>
     <string name="Test_InstantMessaging_Fullname">তাৎক্ষনিক বার্তাপ্রদান</string>
     <string name="Test_Performance_Fullname">কর্মক্ষমতা</string>
     <string name="Test_Circumvention_Fullname">ঘুরপথে চলা</string>
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">পরীক্ষার ফলাফল</string>
     <string name="TestResults_Overview_Tab_Label">পরীক্ষার ফলাফল</string>
     <string name="TestResults_Overview_Hero_Tests">পরীক্ষাসমূহ</string>
@@ -70,12 +62,9 @@
     <string name="TestResults_Summary_Performance_Hero_Video">ভিডিও</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">গুণমান</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">পিং</string>
-
     <string name="TestResults_ms">মাইক্রো সেকেন্ড</string>
-
     <string name="TestResults_UnknownASN">অজানা</string>
     <string name="TestResults_NotAvailable">N/A</string>
-
     <string name="TestResults_Filter_Tests">পরীক্ষাসমূহ</string>
     <string name="TestResults_Filter_Networks">নেটওয়ার্ক</string>
     <string name="TestResults_Filter_Source">উৎস</string>
@@ -86,10 +75,8 @@
     <string name="Measurements_Ok">ঠিক আছে</string>
     <string name="Measurement_Raw_Upload">আপলোড</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">সেটিংস</string>
-
     <string name="Settings_Privacy_Label">গোপনীয়তা</string>
     <string name="Settings_Proxy">প্রক্সি</string>
     <string name="Settings_Proxy_None">না</string>
@@ -99,11 +86,9 @@
     <string name="Settings_Proxy_Custom_Port">বন্দর</string>
     <string name="Settings_Proxy_Custom_Available">উপলব্ধ</string>
     <string name="Settings_Language_Label">ভাষা</string>
-
     <string name="Settings_Advanced_Label">অগ্রবর্তী</string>
     <string name="Settings_Support_Label">সহায়তা</string>
     <string name="Settings_Support_Action">ইমেইল পাঠান</string>
-
     <string name="Settings_Storage_Delete">মুছে ফেলুন</string>
     <string name="Settings_Storage_Clear">সুস্পষ্ট করা</string>
     <string name="Settings_Logs">লগ</string>
@@ -140,8 +125,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">পরীক্ষার সময় এবং তারিখ</string>
     <string name="Onboarding_DefaultSettings_Button_Change">ডিফল্ট পরিবর্তন করুন</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="LoadingScreen_Runv2_Failure">ভুল</string>
     <string name="Modal_Retry">পূনরায় চেষ্টা করুন</string>
@@ -152,13 +135,9 @@
     <string name="Modal_Error_NoInternet">ইন্টারনেট সংযোগ নেই!</string>
     <string name="Modal_CustomURL_Title_NotSaved">আপনি কি নিশ্চিত?</string>
     <string name="Desktop_Quit">বন্ধ</string>
-
     <string name="Tray_Notification_Checking_Updates">আপডেট আছে কিনা দেখা হচ্ছে...</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">চালনা</string>
-
     <string name="Common_Back">পেছনে</string>
     <string name="Common_Close">বন্ধ করুন</string>
     <string name="Common_Refresh">রিফ্রেশ করুন</string>
@@ -171,7 +150,6 @@
     <string name="Common_Next">পরবর্তী</string>
     <string name="Common_Previous">পূর্ববর্তী</string>
     <string name="Common_Share">শেয়ার করুন</string>
-
     <string name="Common_Today">আজ</string>
     <string name="Common_Yesterday">গতকাল</string>
     <plurals name="Common_Days">
