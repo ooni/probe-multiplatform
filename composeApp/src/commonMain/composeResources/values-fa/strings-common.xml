@@ -1,25 +1,20 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">پنل</string>
 
+    <string name="Dashboard_Tab_Label">پنل</string>
     <string name="Dashboard_Overview_LatestTest">آخرین تست:</string>
     <string name="Dashboard_Overview_Estimated">تخمین:</string>
     <string name="Dashboard_Overview_ChooseWebsites">انتخاب وبسایت‌ها</string>
-
     <string name="Dashboard_Running_Running">در حال اجرا:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">زمان تخمینی باقی‌مانده:</string>
     <string name="Dashboard_Running_Stopping_Title">در حال توقف تست...</string>
     <string name="Dashboard_Running_Stopping_Notice">در حال اتمام تست‌های در حال انتظار. لطفا صبر کنید...</string>
     <string name="Dashboard_Running_ProxyInUse">پروکسی در حال استفاده</string>
-
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">بازنگری‌های قبلی</string>
     <string name="Dashboard_RunV2_ExpiredTag">منقضی شد</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">واگرد</string>
     <string name="Dashboard_Progress_ReviewLink_Action">مرور کنید.</string>
-
     <string name="Dashboard_Update_Restart">شروع دوباره</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">وب‌سایت</string>
     <string name="Test_InstantMessaging_Fullname">پیام‌رسان</string>
@@ -37,9 +32,6 @@
     <string name="Test_Psiphon_Fullname">تست سایفون</string>
     <string name="Test_Tor_Fullname">تست تور</string>
     <string name="Test_Signal_Fullname">تست سیگنال</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">نتایج تست</string>
     <string name="TestResults_Overview_Tab_Label">نتایج تست</string>
     <string name="TestResults_Overview_Hero_Tests">تست‌‌ها</string>
@@ -59,15 +51,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">ویدیو</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">کیفیت</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">پینگ</string>
-
     <string name="TestResults_Gbps">گیگابیت بر ثانیه</string>
     <string name="TestResults_Mbps">مگابیت بر ثانیه</string>
     <string name="TestResults_Kbps">کیلوبیت بر ثانیه</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">نمی‌دانم</string>
     <string name="TestResults_NotAvailable">N/A</string>
-
     <string name="TestResults_Filter_Tests">تست‌‌ها</string>
     <string name="TestResults_Filter_Networks">شبکه ها</string>
     <string name="TestResults_Filter_Source">منبع</string>
@@ -79,13 +68,10 @@
     <string name="Measurements_Anomaly">ناهنجاری</string>
     <string name="Measurement_Raw_Upload">آپلود</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">تنظیمات</string>
-
     <string name="Settings_TestOptions_Label">گزینه‌های آزمون</string>
     <string name="Settings_TestOptions_LongRunningTest">آزمون طولانی مدت</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically">اجرای خودکار آزمایش‌ها</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">تنها از طریق WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">تنها در هنگام شارژ</string>
@@ -93,10 +79,8 @@
     <string name="Settings_Sharing_UploadResults">انتشار خودکار نتایج</string>
     <string name="Settings_Websites_Categories_Label">دسته‌بندی‌های وبسایت برای تست</string>
     <string name="Settings_Websites_Categories_Description">%1$s دسته بندی فعال است</string>
-
     <string name="Settings_Privacy_Label">حریم خصوصی</string>
     <string name="Settings_Privacy_SendCrashReports">ارسال گزارش درباره‌ی متوقف شدن برنامه </string>
-
     <string name="Settings_Proxy_Label">پروکسی بک اند OONI</string>
     <string name="Settings_Proxy">پروکسی</string>
     <string name="Settings_Proxy_None">هیچ</string>
@@ -108,11 +92,9 @@
     <string name="Settings_Proxy_Custom_Available">در دسترس</string>
     <string name="Settings_Proxy_Custom_Unavailable">در دسترس نیست</string>
     <string name="Settings_Language_Label">زبان</string>
-
     <string name="Settings_Advanced_Label">پیشرفته </string>
     <string name="Settings_Advanced_DebugLogs">ثبت اشکال زدایی‌ها</string>
     <string name="Settings_Advanced_RecentLogs">مشاهده گزارش‌های اخیر</string>
-
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
         <item quantity="one">%1$d ماه</item>
         <item quantity="other">%1$d ماه</item>
@@ -121,7 +103,6 @@
     <string name="Settings_Support_SendEmail">ارسال ایمیل به پشتیبانی</string>
     <string name="Settings_Support_Message">لطفا مشکل خود را توضیح دهید:</string>
     <string name="Settings_Support_Action">ارسال ایمیل</string>
-
     <string name="Settings_ShareApp">هم‌رسانی اپلیکیشن</string>
     <string name="Settings_Storage_Label">استفاده از حافظه</string>
     <string name="Settings_Storage_Delete">حذف کنید</string>
@@ -134,8 +115,6 @@
     <string name="Settings_Websites_CustomURL_URL">آدرس اینترنتی</string>
     <string name="Settings_Websites_CustomURL_Run">اجرا</string>
     <string name="Settings_Websites_CustomURL_Add">افزودن وبسایت</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">الکل و مواد مخدر</string>
     <string name="CategoryCode_REL_Name">دین</string>
     <string name="CategoryCode_PORN_Name">پورنوگرافی</string>
@@ -226,14 +205,11 @@
     <string name="Onboarding_DefaultSettings_Paragraph">ما همه‌ی تلاش خود را می‌‌کنیم تا آدرس IP ی شما یا هر اطلاعات قابل شناسایی شخصی بالقوه‌ی دیگر را منتشر نکنیم.\n\nدر [سیاست‌ داده‌ی OONI](https://ooni.org/about/data-policy/) بیشتر بخوانید.</string>
     <string name="Onboarding_DefaultSettings_Button_Change">تغییر پیشفرض‌ها</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">تنظیمات آزمودن  </string>
     <string name="AddDescriptor_AutoRun">اجرای خودکار آزمایش‌ها</string>
     <string name="LoadingScreen_Runv2_Failure">خطا</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">به‌روز رسانی‌ها را بررسی کنید</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">بارگذاری نشدند</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">برخی بارگذاری نشدند</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">بارگذاری همه</string>
@@ -259,14 +235,11 @@
     <string name="Modal_CustomURL_Title_NotSaved">آیا مطمئن هستید؟</string>
     <string name="Modal_CustomURL_NotSaved">آدرس‌های شما با ترک این صفحه، ذخیره نخواهند شد. آیا مطمئنید که می‌خواهید این صفحه را ترک کنید؟</string>
     <string name="Desktop_Quit">خروج</string>
-
     <string name="Tray_Notification_Check_Updates">به‌روز رسانی‌ها را بررسی کنید</string>
     <string name="Tray_Notification_Checking_Updates">بررسی برای بروزرسانی...</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">اجرا</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">در حال تست</string>
     <string name="Notification_StopTest">توفق آزمون</string>
 
@@ -282,7 +255,6 @@
     <string name="Common_Next">بعدی</string>
     <string name="Common_Previous">قبلی</string>
     <string name="Common_Share">هم‌رسانی</string>
-
     <string name="Common_Today">امروز</string>
     <string name="Common_Yesterday">دیروز</string>
     <string name="Common_Ago">%1$s پیش</string>
