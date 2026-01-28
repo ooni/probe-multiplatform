@@ -94,23 +94,29 @@
     <string name="Settings_Privacy_SendCrashReports">Crashrapporten versturen</string>
 
     <string name="Settings_Proxy_Label">OONI-backend-proxy</string>
-    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Geen</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Aangepaste Proxy</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
     <string name="Settings_Proxy_Custom_Hostname">Hostnaam</string>
     <string name="Settings_Proxy_Custom_Port">Poort</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Testen </string>
+    <string name="Settings_Proxy_Custom_Available">Beschikbaar</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Niet beschikbaar</string>
     <string name="Settings_Language_Label">Taal</string>
 
     <string name="Settings_Advanced_Label">Geavanceerd</string>
     <string name="Settings_Advanced_DebugLogs">Debug-logs</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">1 maand</item>
+        <item quantity="other">%1$d maand</item>
+    </plurals>
     <string name="Settings_Support_Label">Support</string>
     <string name="Settings_Support_SendEmail">Stuur een e-mail naar ondersteuning</string>
     <string name="Settings_Support_Message">Beschrijf het probleem dat u ondervindt:</string>
     <string name="Settings_Support_Action">Verstuur email</string>
 
+    <string name="Settings_ShareApp">App delen</string>
     <string name="Settings_Storage_Label">Opslaggebruik</string>
     <string name="Settings_Storage_Delete">Verwijderen</string>
     <string name="Settings_Storage_Clear">Wissen</string>
@@ -247,7 +253,6 @@
     <string name="Modal_CustomURL_NotSaved">Uw URL’s worden niet opgeslagen wanneer u dit scherm verlaat. Weet je zeker dat je dit scherm wilt verlaten?</string>
     <string name="Desktop_Quit">Stoppen</string>
 
-
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
     <string name="Tray_Notification_Checking_Updates">Bezig met controleren op updates...</string>
 
@@ -269,6 +274,7 @@
     <string name="Common_Clear">Wissen</string>
     <string name="Common_Next">Volgende</string>
     <string name="Common_Previous">Vorige</string>
+    <string name="Common_Share">Delen</string>
 
     <string name="Common_Today">Vandaag</string>
     <string name="Common_Yesterday">Gisteren</string>
