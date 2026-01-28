@@ -1,24 +1,19 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Kojelauta</string>
 
+    <string name="Dashboard_Tab_Label">Kojelauta</string>
     <string name="Dashboard_Overview_LatestTest">Edellinen testi:</string>
     <string name="Dashboard_Overview_Estimated">Arvioitu:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Valitse verkkosivut</string>
-
     <string name="Dashboard_Running_Running">Suoritetaan:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Arvioitu jäljellä oleva aika:</string>
     <string name="Dashboard_Running_Stopping_Title">Pysäytetään testiä...</string>
     <string name="Dashboard_Running_Stopping_Notice">Lopetetaan keskeneräisiä testejä, odota...</string>
     <string name="Dashboard_Running_ProxyInUse">Välityspalvelin käytössä</string>
-
     <string name="Dashboard_Runv2_Overview_Description">Käyttäjä: %1$s luotu %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Kumoa</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Tarkista</string>
-
     <string name="Dashboard_Update_Restart">Käynnistä uudelleen</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Verkkosivustot</string>
     <string name="Test_InstantMessaging_Fullname">Pikaviestintä</string>
@@ -34,9 +29,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon-testi</string>
     <string name="Test_Tor_Fullname">Tor-testi</string>
     <string name="Test_Signal_Fullname">Signal-testi</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Testin tulokset</string>
     <string name="TestResults_Overview_Tab_Label">Testin tulokset</string>
     <string name="TestResults_Overview_Hero_Tests">Testit</string>
@@ -56,15 +48,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Laatu</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_Gbps">Gb/s</string>
     <string name="TestResults_Mbps">Mb/s</string>
     <string name="TestResults_Kbps">kb/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">Tuntematon</string>
     <string name="TestResults_NotAvailable">N/A</string>
-
     <string name="TestResults_Filter_Tests">Testit</string>
     <string name="TestResults_Filter_Networks">Verkot</string>
     <string name="TestResults_Filter_Source">Lähde</string>
@@ -74,10 +63,8 @@
     <string name="Measurements_Ok">Valmis</string>
     <string name="Measurement_Raw_Upload">Kopioi palvelimelle</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Asetukset</string>
-
     <string name="Settings_TestOptions_Label">Testausvalinnat</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Suorita testit automaattisesti</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Vain WiFi:ssä</string>
@@ -85,10 +72,8 @@
     <string name="Settings_Sharing_UploadResults">Julkaise tulokset automaattisesti</string>
     <string name="Settings_Websites_Categories_Label">Testattavat verkkosivujen kategoriat</string>
     <string name="Settings_Websites_Categories_Description">%1$s kategoriaa valittu</string>
-
     <string name="Settings_Privacy_Label">Yksityisyys</string>
     <string name="Settings_Privacy_SendCrashReports">Lähetä kaatumisraportit</string>
-
     <string name="Settings_Proxy">Välityspalvelin</string>
     <string name="Settings_Proxy_None">Ei mitään</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
@@ -99,14 +84,12 @@
     <string name="Settings_Proxy_Custom_Available">Tavoitettavissa</string>
     <string name="Settings_Proxy_Custom_Unavailable">Ei ole tavoitettavissa</string>
     <string name="Settings_Language_Label">Kieli</string>
-
     <string name="Settings_Advanced_Label">Lisätiedot</string>
     <string name="Settings_Advanced_DebugLogs">Vianjäljityslokit</string>
     <string name="Settings_Support_Label">Tuki</string>
     <string name="Settings_Support_SendEmail">Lähetä sähköposti tukeen</string>
     <string name="Settings_Support_Message">Kuvaile kohtaamaasi ongelmaa:</string>
     <string name="Settings_Support_Action">Lähetä sähköposti</string>
-
     <string name="Settings_ShareApp">Jaa sovellus</string>
     <string name="Settings_Storage_Label">Tallennustilan käyttö</string>
     <string name="Settings_Storage_Delete">Poista</string>
@@ -118,8 +101,6 @@
     <string name="Settings_Websites_CustomURL_URL">Verkko-osoite</string>
     <string name="Settings_Websites_CustomURL_Run">Suorita</string>
     <string name="Settings_Websites_CustomURL_Add">Lisää verkkosivu</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">Huumeet ja alkoholi</string>
     <string name="CategoryCode_REL_Name">Uskonto</string>
     <string name="CategoryCode_PORN_Name">Pornografia</string>
@@ -177,13 +158,9 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Testaamisen aika ja päivämäärä</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Muuta oletuksia</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Testausasetukset</string>
     <string name="AddDescriptor_AutoRun">Suorita testit automaattisesti</string>
     <string name="LoadingScreen_Runv2_Failure">Virhe</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">Ei lähetetty</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Joitakin ei lähetetty</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Lähetä kaikki</string>
@@ -205,13 +182,10 @@
     <string name="Modal_CustomURL_Title_NotSaved">Oletko varma?</string>
     <string name="Modal_CustomURL_NotSaved">URL-osoitteesi eivät tallennu, kun suljet tämän näkymän. Oletko varma, että haluat sulkea tämän näkymän?</string>
     <string name="Desktop_Quit">Poistu</string>
-
     <string name="Tray_Notification_Checking_Updates">Selvitetään päivityksiä…</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Suorita</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testataan</string>
     <string name="Notification_StopTest">Pysäytä testi</string>
 
@@ -227,7 +201,6 @@
     <string name="Common_Next">Seuraava</string>
     <string name="Common_Previous">Edellinen</string>
     <string name="Common_Share">Jaa</string>
-
     <string name="Common_Ago">%1$s sitten</string>
     <string name="Common_Months_January">Tammikuu</string>
     <string name="Common_Months_February">Helmikuu</string>
