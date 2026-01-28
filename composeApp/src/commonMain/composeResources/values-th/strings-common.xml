@@ -1,21 +1,17 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">หน้าปัด</string>
 
+    <string name="Dashboard_Tab_Label">หน้าปัด</string>
     <string name="Dashboard_Overview_LatestTest">ทดสอบล่าสุด:</string>
     <string name="Dashboard_Overview_Estimated">ประมาณ:</string>
     <string name="Dashboard_Overview_ChooseWebsites">เลือกเว็บไซต์</string>
-
     <string name="Dashboard_Running_Running">กำลังทำงาน:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">เวลาที่เหลือโดยประมาณ:</string>
     <string name="Dashboard_Running_Stopping_Title">กำลังหยุดทดสอบ...</string>
     <string name="Dashboard_Running_Stopping_Notice">กำลังทำการทดสอบที่ค้างอยู่ให้เสร็จ กรุณารอสักครู่...</string>
     <string name="Dashboard_Running_ProxyInUse">พร็อกซีที่ใช้อยู่</string>
-
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">เลิกทำ</string>
     <string name="Dashboard_Update_Restart">เริ่มทำงานใหม่</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">เว็บไซต์</string>
     <string name="Test_InstantMessaging_Fullname">แอปแชต</string>
@@ -33,9 +29,6 @@
     <string name="Test_Psiphon_Fullname">ทดสอบ Psiphon</string>
     <string name="Test_Tor_Fullname">ทดสอบ Tor</string>
     <string name="Test_Signal_Fullname">ทดสอบ Signal</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">ผลทดสอบ</string>
     <string name="TestResults_Overview_Tab_Label">ผลทดสอบ</string>
     <string name="TestResults_Overview_Hero_Tests">การทดสอบ</string>
@@ -55,15 +48,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">วิดีโอ</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">คุณภาพ</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">ปิง</string>
-
     <string name="TestResults_Gbps">จิกะบิต/วิ</string>
     <string name="TestResults_Mbps">เมกะบิต/วิ</string>
     <string name="TestResults_Kbps">กิโลบิต/วิ</string>
     <string name="TestResults_ms">มิลลิวินาที</string>
-
     <string name="TestResults_UnknownASN">ไม่ทราบ</string>
     <string name="TestResults_NotAvailable">ไม่มีข้อมูล</string>
-
     <string name="TestResults_Filter_Tests">การทดสอบ</string>
     <string name="TestResults_Filter_Networks">เครือข่าย</string>
     <string name="TestResults_Filter_Source">แหล่งข้อมูล</string>
@@ -75,13 +65,10 @@
     <string name="Measurements_Anomaly">ผิดปกติ</string>
     <string name="Measurement_Raw_Upload">อัปโหลด</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">การตั้งค่า</string>
-
     <string name="Settings_TestOptions_Label">ตัวเลือกการทดสอบ</string>
     <string name="Settings_TestOptions_LongRunningTest">การทดสอบที่ทำงานนาน</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically">เริ่มทดสอบอัตโนมัติ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">เฉพาะบนไวไฟ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">เฉพาะเมื่อชาร์จอยู่</string>
@@ -89,10 +76,8 @@
     <string name="Settings_Sharing_UploadResults">เผยแพร่ผลโดยอัตโนมัติ</string>
     <string name="Settings_Websites_Categories_Label">ประเภทเว็บไซต์ที่จะทดสอบ</string>
     <string name="Settings_Websites_Categories_Description">%1$s หมวดหมู่เปิดใช้งาน</string>
-
     <string name="Settings_Privacy_Label">ความเป็นส่วนตัว</string>
     <string name="Settings_Privacy_SendCrashReports">ส่งรายงานการพังของแอป</string>
-
     <string name="Settings_Proxy_Label">พร็อกซีหลังบ้าน OONI</string>
     <string name="Settings_Proxy">พร็อกซี</string>
     <string name="Settings_Proxy_None">ไม่มี</string>
@@ -103,11 +88,9 @@
     <string name="Settings_Proxy_Custom_Available">สามารถใช้ได้</string>
     <string name="Settings_Proxy_Custom_Unavailable">ไม่มีที่ใช้ได้</string>
     <string name="Settings_Language_Label">ภาษา</string>
-
     <string name="Settings_Advanced_Label">ขั้นสูง</string>
     <string name="Settings_Advanced_DebugLogs">ปูมดีบัก</string>
     <string name="Settings_Advanced_RecentLogs">ดูปูมล่าสุด</string>
-
     <string name="Settings_Support_Label">บริการช่วยเหลือ</string>
     <string name="Settings_Support_SendEmail">ส่งอีเมลขอความช่วยเหลือ</string>
     <string name="Settings_Support_Message">โปรดอธิบายปัญหาที่คุณประสบอยู่:</string>
@@ -122,8 +105,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">เริ่มทดสอบ</string>
     <string name="Settings_Websites_CustomURL_Add">เพิ่มเว็บไซต์</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">ยาเสพติดและแอลกอฮอล์</string>
     <string name="CategoryCode_REL_Name">ศาสนา</string>
     <string name="CategoryCode_PORN_Name">ภาพโป๊เปลือย</string>
@@ -214,13 +195,9 @@
     <string name="Onboarding_DefaultSettings_Paragraph">เราทำดีที่สุดเพื่อจะไม่เผยแพร่ที่อยู่ไอพีหรือข้อมูลอื่นใดของคุณ ที่อาจใช้ระบุบุคคลได้\n\nเรียนรู้เพิ่มเติมใน [นโยบายข้อมูลของ OONI](https://ooni.org/about/data-policy/)</string>
     <string name="Onboarding_DefaultSettings_Button_Change">เปลี่ยนค่าเริ่มต้น</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="AddDescriptor_AutoRun">เริ่มทดสอบอัตโนมัติ</string>
     <string name="LoadingScreen_Runv2_Failure">ผิดพลาด</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">ไม่ถูกอัปโหลด</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">บางส่วนไม่ได้ถูกอัปโหลด</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">อัปโหลดทั้งหมด</string>
@@ -246,11 +223,7 @@
     <string name="Modal_CustomURL_Title_NotSaved">คุณแน่ใจหรือไม่?</string>
     <string name="Modal_CustomURL_NotSaved">ที่อยู่ของคุณจะไม่ถูกบันทึกเมื่อคุณออกจากหน้าจอนี้ คุณแน่ใจหรือไม่ว่าต้องการจะออกจากหน้าจอนี้?</string>
     <string name="Desktop_Quit">ออก</string>
-
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">เริ่มทดสอบ</string>
-
     <string name="Notification_StopTest">หยุดทดสอบ</string>
 
     <string name="Common_Back">ย้อนกลับ</string>
@@ -265,7 +238,6 @@
     <string name="Common_Next">ถัดไป</string>
     <string name="Common_Previous">ก่อนหน้า</string>
     <string name="Common_Share">แบ่งปัน</string>
-
     <string name="Common_Today">วันนี้</string>
     <string name="Common_Months_May">พ.ค.</string>
     <string name="NetworkType_Vpn">VPN</string>
