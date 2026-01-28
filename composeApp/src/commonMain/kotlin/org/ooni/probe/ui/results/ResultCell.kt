@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Measurements_Count
-import ooniprobe.composeapp.generated.resources.Measurements_Failed
+import ooniprobe.composeapp.generated.resources.Measurements_Failed_Count
 import ooniprobe.composeapp.generated.resources.Modal_UploadFailed_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
@@ -168,7 +168,7 @@ private fun ResultCounts(item: ResultListItem) {
         ResultCountItem(
             icon = Res.drawable.ic_measurement_failed,
             text = pluralStringResource(
-                Res.plurals.Measurements_Failed,
+                Res.plurals.Measurements_Failed_Count,
                 counts.failed.toInt(),
                 counts.failed,
             ),
