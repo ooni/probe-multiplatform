@@ -1,8 +1,9 @@
 <resources>
+
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Врати назад</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Прегледај</string>
-
     <string name="Dashboard_Update_Restart">Повторно стартувај</string>
+
 
     <string name="Test_Circumvention_Fullname">Заобиколување</string>
     <string name="TestResults_Overview_Hero_Networks">Мрежи</string>
@@ -22,10 +23,8 @@
     <string name="Measurements_Ok">ОК</string>
     <string name="Measurement_Raw_Upload">Прикачи</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Поставки</string>
-
     <string name="Settings_Privacy_Label">Приватност</string>
     <string name="Settings_Proxy">Прокси</string>
     <string name="Settings_Proxy_None">Ништо</string>
@@ -34,7 +33,6 @@
     <string name="Settings_Proxy_Custom_Port">Порта</string>
     <string name="Settings_Proxy_Custom_Available">Достапно </string>
     <string name="Settings_Language_Label">Јазик</string>
-
     <string name="Settings_Advanced_Label">Напредно</string>
     <string name="Settings_Support_Label">Поддршка</string>
     <string name="Settings_Storage_Delete">Избриши</string>
@@ -53,10 +51,9 @@
     <string name="Onboarding_Notifications_Ok">ОК</string>
     <string name="Onboarding_Notifications_Skip">Прескокни</string>
     <string name="Onboarding_DefaultSettings_Title">Основни поставки</string>
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Тестирај ги подесувањата</string>
     <string name="LoadingScreen_Runv2_Failure">Грешка</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Провери за Ажурирања</string>
     <string name="Modal_Retry">Обидете се пак</string>
     <string name="Modal_Cancel">Откажи</string>
@@ -65,7 +62,6 @@
     <string name="Modal_Error_NoInternet">Нема Интернет врска</string>
     <string name="Modal_CustomURL_Title_NotSaved">Дали сте сигурни?</string>
     <string name="Desktop_Quit">Прекини</string>
-
     <string name="Tray_Notification_Check_Updates">Провери за Ажурирања</string>
     <string name="Common_Back">Назад</string>
     <string name="Common_Close">Затвори</string>
@@ -79,7 +75,6 @@
     <string name="Common_Next">Следно</string>
     <string name="Common_Previous">Претходно</string>
     <string name="Common_Share">Сподели</string>
-
     <string name="Common_Today">Денес</string>
     <string name="Common_Yesterday">Вчера</string>
     <string name="Common_Months_January">Јануари</string>
