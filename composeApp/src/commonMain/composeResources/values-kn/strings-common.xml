@@ -1,20 +1,18 @@
 <resources>
+
     <string name="TestResults_Summary_Performance_Hero_Upload">ಅಪ್‌ಲೋಡ್</string>
     <string name="TestResults_Summary_Performance_Hero_Download">ಡೌನ್‌ಲೋಡ್</string>
     <string name="TestResults_Summary_Performance_Hero_Video">ವಿಡಿಯೋ</string>
     <string name="Measurements_Ok">ಸರಿ</string>
     <string name="Measurement_Raw_Upload">ಅಪ್‌ಲೋಡ್</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">ಸಿದ್ಧತೆಗಳು</string>
-
     <string name="Settings_Proxy">ಪ್ರಾಕ್ಸಿ</string>
     <string name="Settings_Proxy_None">ಎನೂ ಇಲ್ಲ</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
     <string name="Settings_Proxy_Custom_Port">ಪೋರ್ಟ್</string>
     <string name="Settings_Language_Label">ಭಾಷೆ</string>
-
     <string name="Settings_Advanced_Label">ಮುಂದುವರೆದ</string>
     <string name="Settings_Storage_Delete">ಅಳಿಸು</string>
     <string name="Settings_Storage_Clear">ತೆರವುಗೊಳಿಸಿ</string>
@@ -25,8 +23,6 @@
     <string name="Onboarding_Crash_Button_No">ಇಲ್ಲ</string>
     <string name="Onboarding_Notifications_Ok">ಸರಿ</string>
     <string name="Onboarding_Notifications_Skip">ಬಿಟ್ಟುಬಿಡಿ</string>
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="LoadingScreen_Runv2_Failure">ದೋಷ</string>
     <string name="Modal_Retry">ಮರಳಿ ಯತ್ನವ ಮಾಡಿ</string>
@@ -41,6 +37,5 @@
     <string name="Common_Next">ಮುಂದೆ</string>
     <string name="Common_Previous">ಹಿಂದಿನ</string>
     <string name="Common_Share">ಹಂಚು</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
