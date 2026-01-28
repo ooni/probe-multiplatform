@@ -1,0 +1,182 @@
+<resources>
+    <!-- Dashboard -->
+    <string name="Dashboard_Tab_Label">ড্যাশবোর্ড</string>
+
+    <string name="Dashboard_Overview_LatestTest">সর্বশেষ পরীক্ষা:</string>
+    <string name="Dashboard_Overview_Estimated">আনুমানিক:</string>
+    <string name="Dashboard_Overview_ChooseWebsites">ওয়েবসাইট নির্বাচন করুন</string>
+
+    <string name="Dashboard_Running_Running">চলছে:</string>
+    <string name="Dashboard_Running_EstimatedTimeLeft">আনুমানিক সময় বাকি:</string>
+    <string name="Dashboard_Running_Stopping_Title">পরীক্ষা বন্ধ করা হচ্ছে...</string>
+    <string name="Dashboard_Running_Stopping_Notice">অপেক্ষমান পরীক্ষাগুলো সম্পন্ন করা হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন…</string>
+    <string name="Dashboard_Running_ProxyInUse">প্রক্সি ব্যবহার করা হচ্ছে</string>
+
+    <string name="Dashboard_RunTests_Title">পরীক্ষা চালান</string>
+    <string name="Dashboard_RunTests_Description">চালানোর জন্য পরীক্ষাগুলো নির্বাচন করুন</string>
+    <string name="Dashboard_RunTests_SelectAll">সবগুলো পরীক্ষা নির্বাচন করুন</string>
+    <string name="Dashboard_RunTests_SelectNone">সবগুলো পরীক্ষা নির্বাচন বাতিল করুন</string>
+    <string name="Dashboard_RunV2_Ooni_Title">OONI পরীক্ষা</string>
+    <string name="Dashboard_RunV2_Title">OONI চালানোর লিংকসমূহ</string>
+    <string name="Dashboard_RunV2_RunFinished">চালানো সম্পন্ন হয়েছে। ফলাফল দেখতে ট্যাপ করুন।</string>
+    <string name="Dashboard_Runv2_Overview_Description">%1$s দ্বারা %2$s নির্মিত </string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink">লিঙ্ক আনইনস্টল করুন</string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions">আগের সংশোধনী</string>
+    <string name="Dashboard_Runv2_Overview_SeeMore">আরও দেখুন</string>
+    <string name="Dashboard_RunV2_ExpiredTag">মেয়াদোত্তীর্ণ</string>
+    <string name="Dashboard_RunV2_UpdatedTag">হালনাগাদকৃত</string>
+    <string name="Dashboard_RunV2_UpdateTag">আপডেট</string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated">সর্বশেষ হালনাগাদ %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">অনুনোমোদিত আপডেট</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">ফেরত আনুন</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates">আপডেটগুলো পর্যালোচনা করুন</string>
+
+    <string name="Dashboard_Progress_UpdateLink_Label">লিঙ্ক আপডেট লোড হচ্ছে</string>
+    <string name="Dashboard_Progress_ReviewLink_Label">লিঙ্ক আপডেট তৈরি</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">পর্যালোচনা</string>
+
+    <string name="Dashboard_ReviewDescriptor_Label">লিঙ্ক আপডেট (%1$sএর %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last">আপডেট এবং সমাপ্ত (%1$sএর%2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default">আপডেট (%1$sএর %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">আপডেট প্রত্যাখান করুন</string>
+
+    <string name="Dashboard_Update_Ready">অ্যাপ আপডেটটি সবেমাত্র ডাউনলোড করা হয়েছে</string>
+    <string name="Dashboard_Update_Restart">পুনরায় চালু করুন</string>
+
+    <!-- Test -->
+
+    <string name="Test_Websites_Fullname">ওয়েবসাইট গুলো</string>
+    <string name="Test_InstantMessaging_Fullname">তাৎক্ষনিক বার্তাপ্রদান</string>
+    <string name="Test_Performance_Fullname">কর্মক্ষমতা</string>
+    <string name="Test_Circumvention_Fullname">ঘুরপথে চলা</string>
+    <!-- Test Results -->
+
+    <string name="TestResults_Overview_Title">পরীক্ষার ফলাফল</string>
+    <string name="TestResults_Overview_Tab_Label">পরীক্ষার ফলাফল</string>
+    <string name="TestResults_Overview_Hero_Tests">পরীক্ষাসমূহ</string>
+    <string name="TestResults_Overview_Hero_Networks">নেটওয়ার্ক</string>
+    <string name="TestResults_Overview_Hero_DataUsage">ব্যবহৃত ডাটা</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">কোন পরীক্ষা এখনো চালানো হয়নি। একটি চালানোর চেষ্টা করুন!</string>
+    <string name="TestResults_Summary_Hero_DateAndTime">তারিখ ও সময়</string>
+    <string name="TestResults_Summary_Hero_Network">নেটওয়ার্ক</string>
+    <string name="TestResults_Summary_Hero_Country">দেশ</string>
+    <string name="TestResults_Summary_Hero_Runtime">মোট সক্রিয় সময়</string>
+    <string name="TestResults_Summary_Hero_WiFi">ওয়াইফাই</string>
+    <string name="TestResults_Summary_Hero_Mobile">মোবাইল ডাটা</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">ব্লুটুথ</string>
+    <string name="TestResults_Summary_Hero_NoInternet">কোন ইন্টারনেট নেই</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">আপলোড</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">ডাউনলোড</string>
+    <string name="TestResults_Summary_Performance_Hero_Video">ভিডিও</string>
+    <string name="TestResults_Summary_Performance_Hero_Video_Quality">গুণমান</string>
+    <string name="TestResults_Summary_Performance_Hero_Ping">পিং</string>
+
+    <string name="TestResults_ms">মাইক্রো সেকেন্ড</string>
+
+    <string name="TestResults_UnknownASN">অজানা</string>
+    <string name="TestResults_NotAvailable">N/A</string>
+
+    <string name="TestResults_Filter_Tests">পরীক্ষাসমূহ</string>
+    <string name="TestResults_Filter_Networks">নেটওয়ার্ক</string>
+    <string name="TestResults_Filter_Source">উৎস</string>
+    <string name="TestResults_Filter_Date">তারিখ</string>
+    <string name="TestResults_Filter_Date_Today">আজ</string>
+    <string name="TestResults_Filter_Date_Custom">কাস্টম</string>
+    <string name="Measurements_Failed">ব্যর্থ হয়েছে</string>
+    <string name="Measurements_Ok">ঠিক আছে</string>
+    <string name="Measurement_Raw_Upload">আপলোড</string>
+
+    <!-- Settings -->
+
+    <string name="Settings_Title">সেটিংস</string>
+
+    <string name="Settings_Privacy_Label">গোপনীয়তা</string>
+    <string name="Settings_Proxy">প্রক্সি</string>
+    <string name="Settings_Proxy_None">না</string>
+    <string name="Settings_Proxy_Psiphon">শুধুমাত্র সাইফন ব্রাউজার ব্যবহার করুন</string>
+    <string name="Settings_Proxy_Custom_Protocol">প্রোটোকল</string>
+    <string name="Settings_Proxy_Custom_Hostname">হোস্টনেম</string>
+    <string name="Settings_Proxy_Custom_Port">বন্দর</string>
+    <string name="Settings_Proxy_Custom_Available">উপলব্ধ</string>
+    <string name="Settings_Language_Label">ভাষা</string>
+
+    <string name="Settings_Advanced_Label">অগ্রবর্তী</string>
+    <string name="Settings_Support_Label">সহায়তা</string>
+    <string name="Settings_Support_Action">ইমেইল পাঠান</string>
+
+    <string name="Settings_Storage_Delete">মুছে ফেলুন</string>
+    <string name="Settings_Storage_Clear">সুস্পষ্ট করা</string>
+    <string name="Settings_Logs">লগ</string>
+    <string name="Settings_Websites_Categories_Selection_All">সব নির্বাচন করুন</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="Settings_Websites_CustomURL_Run">চালনা</string>
+    <string name="Settings_Websites_CustomURL_Add">ওয়েবসাইট যোগ করুন</string>
+    <string name="CategoryCode_COMM_Name">ই-কমার্স</string>
+    <string name="CategoryCode_MISC_Name">বিবিধ বিষয়বস্তু</string>
+    <string name="CategoryCode_HUMR_Description">মানবাধিকার সংক্রান্ত সমস্যা</string>
+    <string name="CategoryCode_DATE_Description">অনলাইন ডেটিং সাইট</string>
+    <string name="CategoryCode_MMED_Description">ভিডিও, অডিও এবং ছবি শেয়ারিং</string>
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">বুঝেছি</string>
+    <string name="Onboarding_ThingsToKnow_Title">চমৎকার!</string>
+    <string name="Onboarding_ThingsToKnow_Button">আমি বুঝেছি</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">আরও জানুন</string>
+    <string name="Onboarding_PopQuiz_Title">কুইজ খেলা যাক</string>
+    <string name="Onboarding_PopQuiz_True">সত্য</string>
+    <string name="Onboarding_PopQuiz_False">মিথ্যা</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">ফিরে যান</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">চালিয়ে যান</string>
+    <string name="Onboarding_PopQuiz_1_Title">প্রশ্ন ১/২</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">সতর্কতা</string>
+    <string name="Onboarding_PopQuiz_2_Title">প্রশ্ন ২/২</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">সতর্কতা</string>
+    <string name="Onboarding_Crash_Button_Yes">হ্যাঁ</string>
+    <string name="Onboarding_Crash_Button_No">না</string>
+    <string name="Onboarding_Notifications_Ok">ঠিক আছে</string>
+    <string name="Onboarding_Notifications_Skip">বাদ দিন</string>
+    <string name="Onboarding_DefaultSettings_Title">ডিফল্ট সেটিংস</string>
+    <string name="Onboarding_DefaultSettings_Header">আমরা সংগ্রহ এবং প্রকাশ করি:</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">দেশের কোড (যেমন বাংলাদেশের জন্য BD)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">নেটওয়ার্ক তথ্য (অজ্ঞাত সিস্টেম নম্বর সহ)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">পরীক্ষার সময় এবং তারিখ</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">ডিফল্ট পরিবর্তন করুন</string>
+
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">Test Settings</string>
+    <string name="LoadingScreen_Runv2_Failure">ভুল</string>
+    <string name="Modal_Retry">পূনরায় চেষ্টা করুন</string>
+    <string name="Modal_Cancel">বাতিল</string>
+    <string name="Modal_OK">ঠিক আছে</string>
+    <string name="Modal_Delete">মুছে ফেলুন</string>
+    <string name="Modal_ReRun_Websites_Run">চালনা</string>
+    <string name="Modal_Error_NoInternet">ইন্টারনেট সংযোগ নেই!</string>
+    <string name="Modal_CustomURL_Title_NotSaved">আপনি কি নিশ্চিত?</string>
+    <string name="Desktop_Quit">বন্ধ</string>
+
+    <string name="Tray_Notification_Checking_Updates">আপডেট আছে কিনা দেখা হচ্ছে...</string>
+
+    <!-- Common / Others -->
+
+    <string name="OONIRun_Run">চালনা</string>
+
+    <string name="Common_Back">পেছনে</string>
+    <string name="Common_Close">বন্ধ করুন</string>
+    <string name="Common_Refresh">রিফ্রেশ করুন</string>
+    <string name="Common_Collapse">সঙ্কুচিত</string>
+    <string name="Common_Expand">প্রসারিত</string>
+    <string name="Common_Enable">সচল</string>
+    <string name="Common_Yes">হ্যাঁ</string>
+    <string name="Common_Save">সংরক্ষণ</string>
+    <string name="Common_Clear">সুস্পষ্ট করা</string>
+    <string name="Common_Next">পরবর্তী</string>
+    <string name="Common_Previous">পূর্ববর্তী</string>
+    <string name="Common_Share">শেয়ার করুন</string>
+
+    <string name="Common_Today">আজ</string>
+    <string name="Common_Yesterday">গতকাল</string>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d দিন</item>
+        <item quantity="other">%1$d দিন</item>
+    </plurals>
+    <string name="NetworkType_Vpn">ভিপিএন</string>
+</resources>
