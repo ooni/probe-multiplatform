@@ -86,9 +86,6 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Solo su WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Solo durante il caricamento</string>
     <string name="Settings_Sharing_UploadResults">Risultati Pubblicati Automaticamente</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Limita la durata del test</string>
-    <string name="Settings_Websites_MaxRuntime">Durata del test</string>
     <string name="Settings_Websites_Categories_Label">Categorie di siti web da misurare</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorie abilitate</string>
 
@@ -96,23 +93,30 @@
     <string name="Settings_Privacy_SendCrashReports">Manda rapporto sui crash</string>
 
     <string name="Settings_Proxy_Label">Proxy backend OONI</string>
-    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Nessuno</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Proxy personalizzato</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocollo</string>
     <string name="Settings_Proxy_Custom_Hostname">Nome host</string>
     <string name="Settings_Proxy_Custom_Port">Porta</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Verifica in corso</string>
+    <string name="Settings_Proxy_Custom_Available">Disponibile</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Non disponibile</string>
     <string name="Settings_Language_Label">Lingua</string>
 
     <string name="Settings_Advanced_Label">Avanzate</string>
     <string name="Settings_Advanced_DebugLogs">Log di debug</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">%1$d mese</item>
+        <item quantity="many">%1$d mesi</item>
+        <item quantity="other">%1$d mesi</item>
+    </plurals>
     <string name="Settings_Support_Label">Supporto</string>
     <string name="Settings_Support_SendEmail">Invia email a supporto</string>
     <string name="Settings_Support_Message">Per favore descrivi il problema:</string>
     <string name="Settings_Support_Action">Invia email</string>
 
+    <string name="Settings_ShareApp">Condividi App</string>
     <string name="Settings_Storage_Label">Utilizzo spazio di archiviazione</string>
     <string name="Settings_Storage_Delete">Rimuovi</string>
     <string name="Settings_Storage_Clear">Elimina</string>
@@ -220,6 +224,7 @@
     <string name="AddDescriptor_Settings">Fai un test delle impostazioni</string>
     <string name="AddDescriptor_AutoRun">Esegui test automaticamente</string>
     <string name="LoadingScreen_Runv2_Failure">Errore</string>
+    <string name="DescriptorUpdate_CheckUpdates">Cerca aggiornamenti</string>
     <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Non caricati</string>
@@ -246,6 +251,7 @@
     <string name="Tray_Notification_Check_Updates">Cerca aggiornamenti</string>
     <string name="Tray_Notification_Updates_Available">Aggiornamento Disponibile!</string>
     <string name="Tray_Notification_Checking_Updates">Controllo gli aggiornamenti...</string>
+
     <!-- Common / Others -->
 
     <string name="OONIRun_Run">Esegui</string>
@@ -262,7 +268,12 @@
     <string name="Common_Yes">Sì</string>
     <string name="Common_Save">Salva</string>
     <string name="Common_Clear">Elimina</string>
+    <string name="Common_Next">Successivo</string>
+    <string name="Common_Previous">Precedente</string>
+    <string name="Common_Share">Condividi</string>
 
+    <string name="Common_Today">Oggi</string>
+    <string name="Common_Yesterday">Ieri</string>
     <string name="Common_Ago">%1$s fa</string>
     <string name="Common_Months_January">Gennaio</string>
     <string name="Common_Months_February">Febbraio</string>
