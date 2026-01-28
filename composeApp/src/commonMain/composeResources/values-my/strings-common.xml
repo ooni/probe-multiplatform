@@ -1,21 +1,17 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">ဒက်ရှ်ဘုတ်</string>
 
+    <string name="Dashboard_Tab_Label">ဒက်ရှ်ဘုတ်</string>
     <string name="Dashboard_Overview_LatestTest">နောက်ဆုံး စမ်းသပ်မှု -</string>
     <string name="Dashboard_Overview_Estimated">ခန့်မှန်းထားသည် -</string>
     <string name="Dashboard_Overview_ChooseWebsites">ဝဘ်ဆိုဒ်များ ရွေးချယ်ရန်</string>
-
     <string name="Dashboard_Running_Running">စမ်းသပ်နေသည် - </string>
     <string name="Dashboard_Running_EstimatedTimeLeft">ခန့်မှန်း ကျန်ရှိချိန် -</string>
     <string name="Dashboard_Running_Stopping_Title">စမ်းသပ်မှုကို ရပ်နေသည်...</string>
     <string name="Dashboard_Running_Stopping_Notice">လက်ရှိ စောင့်ဆိုင်းနေသော စမ်းသပ်မှုများကို အပြီးသတ်နေသည်၊ ကျေးဇူးပြု၍ စောင့်ပါ...</string>
     <string name="Dashboard_Running_ProxyInUse">အသုံးပြုနေသော ပရောက်စီ</string>
-
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">ပြန်ပြင်ရန်</string>
     <string name="Dashboard_Update_Restart">စက်ပြန်ဖွင့်ရန်</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">ဝဘ်ဆိုဒ်များ</string>
     <string name="Test_InstantMessaging_Fullname">ချက်ခြင်း စာတိုပေးပို့ခြင်း\n</string>
@@ -33,9 +29,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon စမ်းသပ်မှု</string>
     <string name="Test_Tor_Fullname">Tor စမ်းသပ်မှု</string>
     <string name="Test_Signal_Fullname">Signal စမ်းသပ်မှု</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">စမ်းသပ်မှု ရလဒ်များ</string>
     <string name="TestResults_Overview_Tab_Label">စမ်းသပ်မှု ရလဒ်များ</string>
     <string name="TestResults_Overview_Hero_Tests">စမ်းသပ်မှုများ</string>
@@ -55,15 +48,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">ယခုချိန်တွင် Apple App Store ရှိ ကန့်သတ်ချက်များကြောင့် Tella Android တွင် ရရှိနိုင်သည့် အသွင်ပြောင်းထားသော အင်္ဂါရပ်များကို  iOS အတွက် ပံ့ပိုးမထားပါ။</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">အရည်အသွေး</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">ပို့ပါ</string>
-
     <string name="TestResults_Gbps">ဂစ်ဂါဘစ်/စက္ကန့်</string>
     <string name="TestResults_Mbps">မဂ္ဂါဘစ်/စက္ကန့်</string>
     <string name="TestResults_Kbps">ကီလိုဘစ်/စက္ကန့်</string>
     <string name="TestResults_ms">မီလီစက္ကန့်</string>
-
     <string name="TestResults_UnknownASN">မသိ</string>
     <string name="TestResults_NotAvailable">မရရှိနိုင်ပါ</string>
-
     <string name="TestResults_Filter_Tests">စမ်းသပ်မှုများ</string>
     <string name="TestResults_Filter_Networks">ကွန်ရက်များ</string>
     <string name="TestResults_Filter_Source">အရင်းအမြစ်</string>
@@ -75,13 +65,10 @@
     <string name="Measurements_Anomaly">မူမမှန်ချက်</string>
     <string name="Measurement_Raw_Upload">အပ်လုဒ်</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">ဆက်တင်များ</string>
-
     <string name="Settings_TestOptions_Label">စမ်းသပ်ရွေးချယ်မှုများ</string>
     <string name="Settings_TestOptions_LongRunningTest">တာရှည်စမ်းသပ်မှု</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically">စမ်းသပ်မှုများကို အလိုအလျောက် လုပ်ဆောင်ပါ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">WiFi နှင့် သာ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">အားသွင်းနေစဉ်သာ</string>
@@ -89,10 +76,8 @@
     <string name="Settings_Sharing_UploadResults">အလိုအလျောက် ထုတ်ပြန်သော ရလဒ်များ</string>
     <string name="Settings_Websites_Categories_Label">စမ်းသပ်ရန် ဝဘ်ဆိုဒ် အမျိုးအစားများ</string>
     <string name="Settings_Websites_Categories_Description">အမျိုးအစား %1$s ခု ကို ဖွင့်ထားသည်</string>
-
     <string name="Settings_Privacy_Label">ကိုယ်ရေးလုံခြုံမှု</string>
     <string name="Settings_Privacy_SendCrashReports">ပျက်စီးမှု အစီရင်ခံစာများ ပေးပို့မည်</string>
-
     <string name="Settings_Proxy_Label">OONI နောက်ခံ ပရောက်စီ</string>
     <string name="Settings_Proxy">ကြားခံ အင်တာနက်စနစ်</string>
     <string name="Settings_Proxy_None">မရှိ</string>
@@ -103,16 +88,13 @@
     <string name="Settings_Proxy_Custom_Available">ရရှိနိုင်သော</string>
     <string name="Settings_Proxy_Custom_Unavailable">မရရှိနိုင်ပါ။</string>
     <string name="Settings_Language_Label">ဘာသာစကား</string>
-
     <string name="Settings_Advanced_Label">အဆင့်မြင့်</string>
     <string name="Settings_Advanced_DebugLogs">အမှားပြင်ဆင်မှု မှတ်တမ်းများ\n</string>
     <string name="Settings_Advanced_RecentLogs">လတ်တလော မှတ်တမ်းများကို ကြည့်ပါ</string>
-
     <string name="Settings_Support_Label">အထောက်အကူ</string>
     <string name="Settings_Support_SendEmail">ပံ့ပိုးကူညီရန် အီးမေးလ် ပို့ပါ</string>
     <string name="Settings_Support_Message">သင်ကြုံတွေ့နေရသော ပြဿနာကို ကျေးဇူးပြု၍ ဖော်ပြပါ -</string>
     <string name="Settings_Support_Action">အီးမေးလ်ပို့ရန်</string>
-
     <string name="Settings_Storage_Label">သိုလှောင်မှုအား အသုံးပြုမှု</string>
     <string name="Settings_Storage_Delete">ဖျက်မည်</string>
     <string name="Settings_Storage_Clear">ရှင်းမည်</string>
@@ -124,8 +106,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">စမ်းမည်</string>
     <string name="Settings_Websites_CustomURL_Add">ဝဘ်ဆိုဒ်ထည့်ရန်</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">မူးယစ်ဆေးဝါးနှင့် အရက်</string>
     <string name="CategoryCode_REL_Name">ဘာသာတရား</string>
     <string name="CategoryCode_PORN_Name">ညစ်ညမ်းရုပ်ပုံ</string>
@@ -217,14 +197,11 @@
     <string name="Onboarding_DefaultSettings_Paragraph">သင်၏ IP လိပ်စာ သို့မဟုတ် အခြားသော ပုဂ္ဂိုလ်ရေးအရ ခွဲခြား သိမြင်နိုင်သော အချက်အလက်များကို ထုတ်ဝေခြင်းမပြုရန် ကျွန်ုပ်တို့ အကောင်းဆုံး လုပ်ဆောင်ပါသည်။ [OONI ၏ ဒေတာမူဝါဒ](https://ooni.org/about/data-policy/) တွင် ပိုမိုလေ့လာပါ။</string>
     <string name="Onboarding_DefaultSettings_Button_Change">နဂိုမူလများကို ပြောင်းမည်</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">စစ်ဆေးမှု ချိန်ညှိချက်များ</string>
     <string name="AddDescriptor_AutoRun">စမ်းသပ်မှုများကို အလိုအလျောက် လုပ်ဆောင်ပါ</string>
     <string name="LoadingScreen_Runv2_Failure">ပြဿနာ</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">အပ်ဒိတ် ရပြီလားကြည့်ပါ။</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">အပ်လုဒ် မလုပ်ပါ</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">အချို့ကို အပ်လုဒ်မလုပ်ခဲ့ပါ</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">အားလုံးကို အပ်လုဒ်လုပ်ပါ</string>
@@ -250,14 +227,10 @@
     <string name="Modal_CustomURL_Title_NotSaved">သေချာပါသလား။</string>
     <string name="Modal_CustomURL_NotSaved">ဤဝဘ်စာမျက်နှာမှ ထွက်သည့်အခါ သင့် URL များကို သိမ်းဆည်းမည် မဟုတ်ပါ။ ဤစာမျက်နှာမှ ထွက်လိုသည်မှာ သေချာပါသလား။ </string>
     <string name="Desktop_Quit">ထွက်မည်</string>
-
     <string name="Tray_Notification_Check_Updates">အပ်ဒိတ် ရပြီလားကြည့်ပါ။</string>
     <string name="Tray_Notification_Checking_Updates">မွမ်းမံချက်များကို စစ်ဆေးနေသည်...</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">စမ်းမည်</string>
-
     <string name="Notification_StopTest">စမ်းသပ်မှုကို ရပ်ပါ</string>
 
     <string name="Common_Back">နောက်သို့</string>
@@ -272,7 +245,6 @@
     <string name="Common_Next">ရှေ့သို့</string>
     <string name="Common_Previous">လွန်ခဲ့သော</string>
     <string name="Common_Share">ဝေမျှမယ်</string>
-
     <string name="Common_Today">ယနေ့</string>
     <string name="Common_Yesterday">ယမန်နေ့</string>
     <plurals name="Common_Days">
