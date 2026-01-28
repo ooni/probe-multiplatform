@@ -38,14 +38,9 @@
 
     <string name="TestResults_Overview_Title">ผลทดสอบ</string>
     <string name="TestResults_Overview_Tab_Label">ผลทดสอบ</string>
-    <string name="TestResults_Overview_FilterTests">กรองการทดสอบ</string>
     <string name="TestResults_Overview_Hero_Tests">การทดสอบ</string>
     <string name="TestResults_Overview_Hero_Networks">เครือข่าย</string>
     <string name="TestResults_Overview_Hero_DataUsage">การใช้ข้อมูล</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s ถูกปิดกั้น</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s ถูกปิดกั้น</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s ถูกทดสอบ</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s ถูกทดสอบ</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">ไม่มีการทดสอบ. เริ่มต้นสักอันไหม!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">วันและเวลา</string>
     <string name="TestResults_Summary_Hero_Network">เครือข่าย</string>
@@ -53,13 +48,8 @@
     <string name="TestResults_Summary_Hero_Runtime">เวลาทำงานรวม</string>
     <string name="TestResults_Summary_Hero_WiFi">ไวไฟ</string>
     <string name="TestResults_Summary_Hero_Mobile">ข้อมูลมือถือ</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">บลูทูธ</string>
     <string name="TestResults_Summary_Hero_NoInternet">ไม่พบอินเทอร์เน็ต</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">ทดสอบเเล้ว</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">ทดสอบเเล้ว</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">ถูกปิดกั้น</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">ถูกปิดกั้น</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">เข้าถึงได้</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">เข้าถึงได้</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">อัปโหลด</string>
     <string name="TestResults_Summary_Performance_Hero_Download">ดาวน์โหลด</string>
     <string name="TestResults_Summary_Performance_Hero_Video">วิดีโอ</string>
@@ -74,6 +64,12 @@
     <string name="TestResults_UnknownASN">ไม่ทราบ</string>
     <string name="TestResults_NotAvailable">ไม่มีข้อมูล</string>
 
+    <string name="TestResults_Filter_Tests">การทดสอบ</string>
+    <string name="TestResults_Filter_Networks">เครือข่าย</string>
+    <string name="TestResults_Filter_Source">แหล่งข้อมูล</string>
+    <string name="TestResults_Filter_Date">วันที่</string>
+    <string name="TestResults_Filter_Date_Today">วันนี้</string>
+    <string name="TestResults_Filter_Date_Custom">กรอกเอง</string>
     <string name="Measurements_Failed">ล้มเหลว</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">ผิดปกติ</string>
@@ -91,9 +87,6 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">เฉพาะเมื่อชาร์จอยู่</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">เมื่อเปิดใช้การทดสอบอัตโนมัติ การทดสอบของ OONI Probe จะทำงานหลายครั้งต่อวันโดยอัตโนมัติ ผลทดสอบของคุณจะถูกเผยแพร่อัตโนมัติบน OONI Explorer: https://explorer.ooni.org/ \n\nสำคัญ: ถ้าคุณเปิดใช้ VPN อยู่ OONI Probe จะไม่ทดสอบโดยอัตโนมัติ กรุณาปิด VPN ของคุณเพื่อให้ OONI Probe ทดสอบโดยอัตโนมัติได้ เรียนรู้เพิ่มเติม: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">เผยแพร่ผลโดยอัตโนมัติ</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">จำกัดระยะเวลาทดสอบ</string>
-    <string name="Settings_Websites_MaxRuntime">ระยะเวลาทดสอบ</string>
     <string name="Settings_Websites_Categories_Label">ประเภทเว็บไซต์ที่จะทดสอบ</string>
     <string name="Settings_Websites_Categories_Description">%1$s หมวดหมู่เปิดใช้งาน</string>
 
@@ -101,22 +94,23 @@
     <string name="Settings_Privacy_SendCrashReports">ส่งรายงานการพังของแอป</string>
 
     <string name="Settings_Proxy_Label">พร็อกซีหลังบ้าน OONI</string>
-    <string name="Settings_Proxy_Enabled">พร็อกซี</string>
+    <string name="Settings_Proxy">พร็อกซี</string>
     <string name="Settings_Proxy_None">ไม่มี</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">พร็อกซีกำหนดเอง</string>
     <string name="Settings_Proxy_Custom_Protocol">โปรโตคอล</string>
     <string name="Settings_Proxy_Custom_Hostname">ชื่อโฮสต์</string>
     <string name="Settings_Proxy_Custom_Port">พอร์ต</string>
-
+    <string name="Settings_Proxy_Custom_Available">สามารถใช้ได้</string>
+    <string name="Settings_Proxy_Custom_Unavailable">ไม่มีที่ใช้ได้</string>
     <string name="Settings_Language_Label">ภาษา</string>
 
     <string name="Settings_Advanced_Label">ขั้นสูง</string>
     <string name="Settings_Advanced_DebugLogs">ปูมดีบัก</string>
     <string name="Settings_Advanced_RecentLogs">ดูปูมล่าสุด</string>
-    <string name="Settings_SendEmail_Label">ส่งอีเมลขอความช่วยเหลือ</string>
-    <string name="Settings_SendEmail_Message">โปรดอธิบายปัญหาที่คุณประสบอยู่:</string>
 
+    <string name="Settings_Support_Label">บริการช่วยเหลือ</string>
+    <string name="Settings_Support_SendEmail">ส่งอีเมลขอความช่วยเหลือ</string>
+    <string name="Settings_Support_Message">โปรดอธิบายปัญหาที่คุณประสบอยู่:</string>
     <string name="Settings_Storage_Label">หน่วยความจำที่ใช้ไป</string>
     <string name="Settings_Storage_Delete">ลบ</string>
     <string name="Settings_Storage_Clear">ล้าง</string>
@@ -260,13 +254,19 @@
     <string name="Notification_StopTest">หยุดทดสอบ</string>
 
     <string name="Common_Back">ย้อนกลับ</string>
+    <string name="Common_Close">ปิด</string>
     <string name="Common_Refresh">เรียกใหม่</string>
     <string name="Common_Collapse">ยุบ</string>
     <string name="Common_Expand">ขยาย</string>
     <string name="Common_Enable">เปิดใช้งาน</string>
     <string name="Common_Yes">ใช่</string>
-    <string name="Common_Minutes_Other">%1$d นาที</string>
-    <string name="Common_Hour_Other">%1$d ชั่วโมง</string>
+    <string name="Common_Save">บันทึก</string>
+    <string name="Common_Clear">ล้าง</string>
+    <string name="Common_Next">ถัดไป</string>
+    <string name="Common_Previous">ก่อนหน้า</string>
+    <string name="Common_Share">แบ่งปัน</string>
+
+    <string name="Common_Today">วันนี้</string>
     <string name="Common_Months_May">พ.ค.</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
