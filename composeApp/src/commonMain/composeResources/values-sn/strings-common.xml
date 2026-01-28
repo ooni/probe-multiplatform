@@ -1,16 +1,13 @@
 <resources>
+
     <string name="Dashboard_Overview_LatestTest">Ongororo yapedzisira kuitwa</string>
     <string name="Dashboard_Overview_Estimated">Yafungidzirwa:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Sarudza mawebsites</string>
-
     <string name="Dashboard_Running_Running">Irikushanda</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Nguva inofungidzirwa kuti yasara:</string>
     <string name="Dashboard_Running_Stopping_Title">Mira ongororo...</string>
     <string name="Dashboard_Running_Stopping_Notice">Kupedzisa ongororo iripo yanga isati yapera, mirira...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy irikushandiswa</string>
-
-    <!-- Test -->
-
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_Performance_Fullname">Mashandiro</string>
     <string name="TestResults_Overview_Hero_Tests">Ongororo</string>
@@ -19,10 +16,8 @@
     <string name="TestResults_Summary_Performance_Hero_Upload">Turika</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Tutunura</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_UnknownASN">Ishingazivikanwe</string>
     <string name="TestResults_NotAvailable">N/A</string>
-
     <string name="TestResults_Filter_Tests">Ongororo</string>
     <string name="TestResults_Filter_Date">Musi</string>
     <string name="TestResults_Filter_Date_Today">Nhasi</string>
@@ -30,17 +25,13 @@
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">Turika</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Gadziro </string>
-
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
     <string name="Settings_Language_Label">Mutauro</string>
-
     <string name="Settings_Advanced_Label">Zvakaomarara</string>
     <string name="Settings_Support_Action">Tumira tsamba mbozha</string>
-
     <string name="Settings_ShareApp">Gova Apu</string>
     <string name="Settings_Storage_Delete">Dzima</string>
     <string name="Settings_Logs">Matarwa emakare</string>
@@ -70,18 +61,13 @@
     <string name="Modal_DisableVPN_Title">Ndapota dzimai VPN yenyu.</string>
     <string name="Modal_DisableVPN">Dzima VPN</string>
     <string name="Desktop_Quit">Regedza</string>
-
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Shandisa</string>
-
     <string name="Common_Back">Dzokera shure</string>
     <string name="Common_Close">Vhara</string>
     <string name="Common_Enable">Bvumidza</string>
     <string name="Common_Yes">Hongu</string>
     <string name="Common_Next">Tevedza</string>
     <string name="Common_Share">Gova</string>
-
     <string name="Common_Today">Nhasi</string>
     <string name="Common_Yesterday">Nezuro</string>
     <string name="NetworkType_Vpn">VPN</string>
