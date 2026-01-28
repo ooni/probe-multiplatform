@@ -1,18 +1,15 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Dashboard</string>
 
+    <string name="Dashboard_Tab_Label">Dashboard</string>
     <string name="Dashboard_Overview_LatestTest">Senaste test:</string>
     <string name="Dashboard_Overview_Estimated">Beräknat:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Välj webbsidor</string>
-
     <string name="Dashboard_Running_Running">Körs:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Beräknad tid kvar:</string>
     <string name="Dashboard_Runv2_Overview_Description">Skapades av %1$s den %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ångra</string>
     <string name="Dashboard_Update_Restart">Starta om</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Webbsidor</string>
     <string name="Test_InstantMessaging_Fullname">Direkt meddelanden</string>
@@ -26,8 +23,6 @@
     <string name="Test_WhatsApp_Fullname">Test av WhatsApp</string>
     <string name="Test_Telegram_Fullname">Test av Telegram</string>
     <string name="Test_FacebookMessenger_Fullname">Test av Facebook Messenger</string>
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Test resultat</string>
     <string name="TestResults_Overview_Tab_Label">Test resultat</string>
     <string name="TestResults_Overview_Hero_Tests">Tester</string>
@@ -47,12 +42,9 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Kvalitet</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Pinga</string>
-
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">Okänt</string>
     <string name="TestResults_NotAvailable">N/A</string>
-
     <string name="TestResults_Filter_Tests">Tester</string>
     <string name="TestResults_Filter_Networks">Nätverk</string>
     <string name="TestResults_Filter_Source">Källa</string>
@@ -62,17 +54,13 @@
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">Ladda upp</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Inställningar</string>
-
     <string name="Settings_Sharing_UploadResults">Publisera resultat automatiskt</string>
     <string name="Settings_Websites_Categories_Label">Webside-kategorier att testa</string>
     <string name="Settings_Websites_Categories_Description">%1$s kategorier aktiverade</string>
-
     <string name="Settings_Privacy_Label">Integritet</string>
     <string name="Settings_Privacy_SendCrashReports">Skicka kraschrapporter</string>
-
     <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Inget</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
@@ -82,7 +70,6 @@
     <string name="Settings_Proxy_Custom_Available">Tillgänglig</string>
     <string name="Settings_Proxy_Custom_Unavailable">Otillgänglig</string>
     <string name="Settings_Language_Label">Språk</string>
-
     <string name="Settings_Advanced_Label">Avancerat</string>
     <string name="Settings_Advanced_DebugLogs">Felsöningsloggar</string>
     <string name="Settings_Support_Label">Support</string>
@@ -120,13 +107,10 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Tid och datum för test</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Ändra standard</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Testa inställningar</string>
     <string name="LoadingScreen_Runv2_Failure">Fel</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Sök efter uppdateringar</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">Ej uppladdad</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Vissa ej uppladdade</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Ladda upp alla</string>
@@ -144,15 +128,11 @@
     <string name="Modal_Error_NoInternet">Ingen Internetanslutning</string>
     <string name="Modal_CustomURL_Title_NotSaved">Är du säker?</string>
     <string name="Desktop_Quit">Avsluta</string>
-
     <string name="Tray_Notification_Check_Updates">Sök efter uppdateringar</string>
     <string name="Tray_Notification_Updates_Available">Uppdatering tillgänglig!</string>
     <string name="Tray_Notification_Checking_Updates">Söker efter uppdateringar ...</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Kör</string>
-
     <string name="Common_Back">Tillbaka</string>
     <string name="Common_Close">Stäng</string>
     <string name="Common_Refresh">Ladda om sidan</string>
@@ -165,7 +145,6 @@
     <string name="Common_Next">Nästa</string>
     <string name="Common_Previous">Föregående</string>
     <string name="Common_Share">Dela</string>
-
     <plurals name="Common_Days">
         <item quantity="one">%1$d dag</item>
         <item quantity="other">%1$d dagar</item>
