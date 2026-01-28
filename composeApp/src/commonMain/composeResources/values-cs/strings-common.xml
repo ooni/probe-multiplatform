@@ -1,14 +1,11 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Přehled</string>
 
+    <string name="Dashboard_Tab_Label">Přehled</string>
     <string name="Dashboard_Runv2_Overview_Description">Vytvořeno uživatelem %1$s v %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Zpět</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Náhled</string>
-
     <string name="Dashboard_Update_Restart">Restart</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Webové stránky</string>
     <string name="Test_Performance_Fullname">Výkon</string>
@@ -24,7 +21,6 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
     <string name="TestResults_UnknownASN">Neznámý</string>
     <string name="TestResults_NotAvailable">nedostupné</string>
-
     <string name="TestResults_Filter_Networks">Sítě</string>
     <string name="TestResults_Filter_Source">Zdrojový kód</string>
     <string name="TestResults_Filter_Date">Datum</string>
@@ -33,10 +29,8 @@
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">Nahrát</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Nastavení</string>
-
     <string name="Settings_Privacy_Label">Soukromí</string>
     <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Žádný</string>
@@ -48,7 +42,6 @@
     <string name="Settings_Proxy_Custom_Available">K dispozici</string>
     <string name="Settings_Proxy_Custom_Unavailable">Nedostupný</string>
     <string name="Settings_Language_Label">Jazyk</string>
-
     <string name="Settings_Advanced_Label">Rozšířené</string>
     <string name="Settings_Support_Label">Podpořit</string>
     <string name="Settings_Storage_Delete">Smazat</string>
@@ -69,10 +62,9 @@
     <string name="Onboarding_Notifications_Ok">OK</string>
     <string name="Onboarding_Notifications_Skip">Přeskočit</string>
     <string name="Onboarding_DefaultSettings_Title">Výchozí nastavení</string>
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Test nastavení</string>
     <string name="LoadingScreen_Runv2_Failure">Chyba</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Zkontrolovat aktualizace</string>
     <string name="Modal_UploadFailed_Title">Nahrávání selhalo</string>
     <string name="Modal_Retry">Retry</string>
@@ -82,11 +74,11 @@
     <string name="Modal_Error_NoInternet">Žádné internetové připojení</string>
     <string name="Modal_CustomURL_Title_NotSaved">Jste si jistý?</string>
     <string name="Desktop_Quit">Ukončit</string>
-
     <string name="Tray_Notification_Check_Updates">Zkontrolovat aktualizace</string>
     <string name="Tray_Notification_Updates_Available">Dostupná aktualizace!</string>
     <string name="Tray_Notification_Checking_Updates">Zjišťuji aktualizace</string>
 
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testování</string>
     <string name="Common_Back">Zpět</string>
     <string name="Common_Close">Zavřít</string>
@@ -100,7 +92,6 @@
     <string name="Common_Next">Další</string>
     <string name="Common_Previous">Předchozí</string>
     <string name="Common_Share">Sdílet</string>
-
     <string name="Common_Ago">před %1$s</string>
     <string name="Common_Months_January">Leden</string>
     <string name="Common_Months_February">Únor</string>
