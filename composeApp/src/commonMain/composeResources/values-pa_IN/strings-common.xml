@@ -1,0 +1,31 @@
+<resources>
+    <!-- Dashboard -->
+    <string name="Dashboard_Tab_Label">ਡੈਸ਼ਬੋਰਡ</string>
+
+    <string name="Settings_Websites_CustomURL_Run">ਚਲਾਓ</string>
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">ਸਮਝ ਗਏ</string>
+    <string name="Onboarding_ThingsToKnow_Title">ਸਾਵਧਾਨ!</string>
+    <string name="Onboarding_ThingsToKnow_Button">ਸਮਝ ਗਏ</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">ਹੋਰ ਸਿੱਖੋ</string>
+    <string name="Onboarding_PopQuiz_Title">ਸਵਾਲ</string>
+    <string name="Onboarding_PopQuiz_True">ਸਹੀ</string>
+    <string name="Onboarding_PopQuiz_False">ਗਲਤ</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">ਪਿੱਛੇ ਜਾਓ</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">ਜਾਰੀ ਰੱਖੋ</string>
+    <string name="Onboarding_PopQuiz_1_Title">ਸਵਾਲ 1/2</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">ਸਾਵਾਧਾਨ</string>
+    <string name="Onboarding_PopQuiz_2_Title">ਸਵਾਲ 2/2</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">ਸਾਵਾਧਾਨ</string>
+    <string name="Onboarding_DefaultSettings_Title">ਮੂਲ ਸੈਟਿੰਗਾਂ</string>
+    <string name="Onboarding_DefaultSettings_Header">ਅਸੀਂ ਇਕੱਤਰ ਤੇ ਪ੍ਰਕਾਸ਼ਿਤ ਕਰਦੇ ਹਾਂ:</string>
+    <string name="Onboarding_DefaultSettings_Bullet_1">ਦੇਸ਼ ਦਾ ਕੋਡ (ਜਿਵੇਂ ਭਾਰਤ ਲਈ IN)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">ਨੈੱਟਵਰਕ ਜਾਣਕਾਰੀ (ਸੁਤੰਤਰ ਸਿਸਟਮ ਨੰਬਰ ਸਮੇਤ)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">ਟੈਸਟ ਕਰਨ ਦਾ ਵੇਲਾ ਤੇ ਤਾਰੀਖ</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">ਮੂਲ ਸੈਟਿੰਗਾਂ ਬਦਲੋ</string>
+
+    <string name="Modal_ReRun_Websites_Run">ਚਲਾਓ</string>
+    <!-- Common / Others -->
+
+    <string name="OONIRun_Run">ਚਲਾਓ</string>
+
+    </resources>
