@@ -1,0 +1,98 @@
+<resources>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Врати назад</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">Прегледај</string>
+
+    <string name="Dashboard_Update_Restart">Повторно стартувај</string>
+
+    <string name="Test_Circumvention_Fullname">Заобиколување</string>
+    <string name="TestResults_Overview_Hero_Networks">Мрежи</string>
+    <string name="TestResults_Summary_Hero_Network">Мрежа</string>
+    <string name="TestResults_Summary_Hero_Country">Земја</string>
+    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">Прикачи</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Преземете</string>
+    <string name="TestResults_Summary_Performance_Hero_Video">Видео</string>
+    <string name="TestResults_UnknownASN">Непознато</string>
+    <string name="TestResults_Filter_Networks">Мрежи</string>
+    <string name="TestResults_Filter_Date">Датум</string>
+    <string name="TestResults_Filter_Date_Today">Денес</string>
+    <string name="TestResults_Filter_Date_Custom">Прилагодено</string>
+    <string name="Measurements_Failed">Не успеа</string>
+    <string name="Measurements_Ok">ОК</string>
+    <string name="Measurement_Raw_Upload">Прикачи</string>
+
+    <!-- Settings -->
+
+    <string name="Settings_Title">Поставки</string>
+
+    <string name="Settings_Privacy_Label">Приватност</string>
+    <string name="Settings_Proxy">Прокси</string>
+    <string name="Settings_Proxy_None">Ништо</string>
+    <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Hostname">Име на домаќин (Host)</string>
+    <string name="Settings_Proxy_Custom_Port">Порта</string>
+    <string name="Settings_Proxy_Custom_Available">Достапно </string>
+    <string name="Settings_Language_Label">Јазик</string>
+
+    <string name="Settings_Advanced_Label">Напредно</string>
+    <string name="Settings_Support_Label">Поддршка</string>
+    <string name="Settings_Storage_Delete">Избриши</string>
+    <string name="Settings_Storage_Clear">Избриши</string>
+    <string name="Settings_Websites_Categories_Selection_All">Одбери се</string>
+    <string name="Onboarding_ThingsToKnow_Button">Разбирам</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Научете повеќе</string>
+    <string name="Onboarding_PopQuiz_True">Вистинско </string>
+    <string name="Onboarding_PopQuiz_False">Лажно </string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">Назад</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Продолжи</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Внимание</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Внимание</string>
+    <string name="Onboarding_Crash_Button_Yes">Да</string>
+    <string name="Onboarding_Crash_Button_No">Не</string>
+    <string name="Onboarding_Notifications_Ok">ОК</string>
+    <string name="Onboarding_Notifications_Skip">Прескокни</string>
+    <string name="Onboarding_DefaultSettings_Title">Основни поставки</string>
+    <!-- Descriptors -->
+
+    <string name="AddDescriptor_Settings">Тестирај ги подесувањата</string>
+    <string name="LoadingScreen_Runv2_Failure">Грешка</string>
+    <string name="DescriptorUpdate_CheckUpdates">Провери за Ажурирања</string>
+    <string name="Modal_Retry">Обидете се пак</string>
+    <string name="Modal_Cancel">Откажи</string>
+    <string name="Modal_OK">ОК</string>
+    <string name="Modal_Delete">Избриши</string>
+    <string name="Modal_Error_NoInternet">Нема Интернет врска</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Дали сте сигурни?</string>
+    <string name="Desktop_Quit">Прекини</string>
+
+    <string name="Tray_Notification_Check_Updates">Провери за Ажурирања</string>
+    <string name="Common_Back">Назад</string>
+    <string name="Common_Close">Затвори</string>
+    <string name="Common_Refresh">Освежи</string>
+    <string name="Common_Collapse">Колапс</string>
+    <string name="Common_Expand">Прошири</string>
+    <string name="Common_Enable">Овозможи</string>
+    <string name="Common_Yes">Да</string>
+    <string name="Common_Save">Зачувај</string>
+    <string name="Common_Clear">Избриши</string>
+    <string name="Common_Next">Следно</string>
+    <string name="Common_Previous">Претходно</string>
+    <string name="Common_Share">Сподели</string>
+
+    <string name="Common_Today">Денес</string>
+    <string name="Common_Yesterday">Вчера</string>
+    <string name="Common_Months_January">Јануари</string>
+    <string name="Common_Months_February">Февруари</string>
+    <string name="Common_Months_March">Март</string>
+    <string name="Common_Months_April">Април</string>
+    <string name="Common_Months_May">Мај</string>
+    <string name="Common_Months_June">Јуни</string>
+    <string name="Common_Months_July">Јули</string>
+    <string name="Common_Months_August">Август</string>
+    <string name="Common_Months_September">Септември</string>
+    <string name="Common_Months_October">Октомври</string>
+    <string name="Common_Months_November">Ноември</string>
+    <string name="Common_Months_December">Декември</string>
+
+    </resources>
