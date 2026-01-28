@@ -1,7 +1,6 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Ideshibhodi</string>
 
+    <string name="Dashboard_Tab_Label">Ideshibhodi</string>
     <string name="Dashboard_Overview_LatestTest">Luhlolo lwekugcina</string>
     <string name="Dashboard_Overview_Estimated">Lokulinganisiwe</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Silinganiso sesikhathi lesisele</string>
@@ -27,9 +26,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">IKhodi yelive (kubekisa, Swaziland ngu SZ)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Sikhatsi nelusuku lweluhlolo</string>
     <string name="Modal_ReRun_Websites_Run">Gijima</string>
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Gijima</string>
-
     <string name="Common_Yes">Yebo</string>
     </resources>
