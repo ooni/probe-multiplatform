@@ -1,17 +1,14 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Главное меню</string>
 
+    <string name="Dashboard_Tab_Label">Главное меню</string>
     <string name="Dashboard_Overview_LatestTest">Последний тест:</string>
     <string name="Dashboard_Overview_Estimated">Примерно:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Выберите сайты</string>
-
     <string name="Dashboard_Running_Running">Процесс:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Осталось примерно:</string>
     <string name="Dashboard_Running_Stopping_Title">Останавливаем тест...</string>
     <string name="Dashboard_Running_Stopping_Notice">Заканчиваем текущее тесты, пожалуйста подождите....</string>
     <string name="Dashboard_Running_ProxyInUse">Используется прокси</string>
-
     <string name="Dashboard_RunTests_Title">Протестировать</string>
     <string name="Dashboard_RunTests_Description">Выберите тесты, которые вы хотите запустить</string>
     <string name="Dashboard_RunTests_SelectAll">Выбрать все тесты</string>
@@ -22,7 +19,6 @@
         <item quantity="many">Провести %1$d тестов</item>
         <item quantity="other">Провести %1$d тестов</item>
     </plurals>
-
     <string name="Dashboard_RunV2_Ooni_Title">Тесты OONI</string>
     <string name="Dashboard_RunV2_Title">Ссылки OONI Run </string>
     <string name="Dashboard_RunV2_RunFinished">Тест закончен. Нажмите, чтобы узнать результаты.</string>
@@ -30,6 +26,7 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Удалить ссылку</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Предыдущие изменения</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Узнать больше</string>
+    <!-- This only applies when there are more than 10 websites to show. -->
     <plurals name="Dashboard_Runv2_Websites_SeeAll">
         <item quantity="one">Посмотреть сайт</item>
         <item quantity="few">Посмотреть сайты</item>
@@ -43,20 +40,17 @@
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Отмененное обновление</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Отменить</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Просмотреть обновления</string>
-
     <string name="Dashboard_Progress_UpdateLink_Label">Обновления ссылки загружаются</string>
     <string name="Dashboard_Progress_ReviewLink_Label">Обновления ссылки готовы</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Просмотреть</string>
-
     <string name="Dashboard_ReviewDescriptor_Label">Обновлены ссылки (%1$s из %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">ОБНОВИТЬ И ЗАВЕРШИТЬ (%1$s из %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">ОБНОВИТЬ (%1$s из %2$s)</string>
+    <!-- Button to reject a link update during review -->
     <string name="Dashboard_ReviewDescriptor_Reject">Отменить обновление</string>
-
     <string name="Dashboard_Update_Ready">Скачано обновление для приложения</string>
     <string name="Dashboard_Update_Restart">Перезапуск</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Сайты</string>
     <string name="Test_InstantMessaging_Fullname">Мессенджеры</string>
@@ -74,9 +68,6 @@
     <string name="Test_Psiphon_Fullname">Тест Psiphon</string>
     <string name="Test_Tor_Fullname">Тест Tor</string>
     <string name="Test_Signal_Fullname">Тест Signal </string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Результаты тестов</string>
     <string name="TestResults_Overview_Tab_Label">Результаты тестов</string>
     <string name="TestResults_Overview_Hero_Tests">Тесты</string>
@@ -104,15 +95,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Видео</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Качество</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Пинг</string>
-
     <string name="TestResults_Gbps">Гбит/с</string>
     <string name="TestResults_Mbps">Мбит/с</string>
     <string name="TestResults_Kbps">кбит/с</string>
     <string name="TestResults_ms">мс</string>
-
     <string name="TestResults_UnknownASN">Неизвестно</string>
     <string name="TestResults_NotAvailable">Н/П</string>
-
     <string name="TestResults_Filters_Title">Отфильтровать результаты тестов</string>
     <string name="TestResults_Filters_Short">Фильтры:</string>
     <plurals name="TestResults_Filters_Count">
@@ -146,14 +134,13 @@
     <string name="TestResults_Filter_Date_Picker">Выбрать период</string>
     <string name="TestResults_Filter_NoTestsFound">Нет результатов, соответствующих выставленным фильтрам.</string>
     <string name="TestResults_Filter_DeleteConfirmation">Вы хотите удалить все отфильтрованные результаты? </string>
-
     <string name="Results_LimitedNotice">Показываются только последние %1$d результатов</string>
     <string name="Results_UploadingMissing">Загрузить результаты %1$s</string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
     <string name="Results_MarkAllAsViewed">Отметить все как просмотренные</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Хотите отметить все результаты тестов как просмотренные?</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Вы хотите отметить все отфильтрованные результаты как просмотренные? </string>
 
-    <!-- Measurements -->
 
     <string name="Measurement_Title">Измерение</string>
     <string name="Measurement_LoadingFailed">Не получилось загрузить информацию об измерении</string>
@@ -164,29 +151,26 @@
     <string name="Measurement_Raw_Share">Поделиться данными измерения</string>
     <string name="Measurement_Raw_Upload">Загрузить</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Настройки</string>
-
     <string name="Settings_TestOptions_Label">Варианты тестирования</string>
     <string name="Settings_TestOptions_LongRunningTest">Долгий тест</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically">Запускать тесты автоматически</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Только на Wi-Fi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Только во время зарядки</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Если вы включите автоматическое тестирование в OONI Probe, тесты будут проводиться несколько раз в день. Результаты будут автоматически публиковаться в OONI Explorer: https://explorer.ooni.org/\n\nВажно:  Если у вас включен VPN, OONI Probe тесты не будут производиться автоматически. Пожалуйста, выключите VPN для автоматических тестов. Узнать больше: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn </string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Тесты будут проводиться в фоновом режиме каждый час</string>
     <string name="Settings_Sharing_UploadResults">Автоматически публиковать результаты</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeEnabled">Ограничить длительность тестирования сайтов</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Только для тестов запущенных вручную</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeDuration">Максимальная длительность полного теста сайтов</string>
     <string name="Settings_Websites_MaxRuntimeDuration_Unit">Введите количество секунд</string>
     <string name="Settings_Websites_Categories_Label">Категории сайтов для тестирования</string>
     <string name="Settings_Websites_Categories_Description">Выбрано категорий: %1$s</string>
-
     <string name="Settings_Privacy_Label">Приватность</string>
     <string name="Settings_Privacy_SendCrashReports">Отправить отчет об ошибке</string>
-
     <string name="Settings_Proxy_Label">OONI серверный прокси</string>
     <string name="Settings_Proxy">Прокси</string>
     <string name="Settings_Proxy_None">Нет</string>
@@ -198,18 +182,15 @@
     <string name="Settings_Proxy_Custom_Available">Доступен</string>
     <string name="Settings_Proxy_Custom_Unavailable">Недоступно</string>
     <string name="Settings_Language_Label">Язык</string>
-
     <string name="Settings_Advanced_Label">Дополнительно</string>
     <string name="Settings_Advanced_DebugLogs">Журналы отладки</string>
     <string name="Settings_Advanced_RecentLogs">Посмотреть последние логи</string>
-
     <string name="Settings_Support_Label">Поддержка</string>
     <string name="Settings_Support_SendEmail">Отправить письмо поддержке</string>
     <string name="Settings_Support_Message">Пожалуйста, опишите проблему: </string>
     <string name="Settings_Support_Message_Hint">Обратиться в поддержку</string>
     <string name="Settings_Support_IncludeLogs">Включить логи приложения</string>
     <string name="Settings_Support_Action">Отправить письмо</string>
-
     <string name="Settings_ShareApp">Поделиться приложением</string>
     <string name="Settings_Storage_Label">Использование хранилища</string>
     <string name="Settings_Storage_Delete">Удалить</string>
@@ -234,8 +215,6 @@
         <item quantity="many">Протестировать %1$d ссылок</item>
         <item quantity="other">Протестировать %1$d ссылок</item>
     </plurals>
-
-    <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Наркотики и алкоголь</string>
     <string name="CategoryCode_REL_Name">Религия</string>
@@ -300,8 +279,6 @@
     <string name="CategoryCode_IGO_Description">Межправительственные организации, включая ООН</string>
     <string name="CategoryCode_MISC_Description">Сайты, не вошедшие ни в одну категорию</string>
 
-    <!-- Onboarding -->
-
     <string name="Onboarding_QuizAnswer_Correct">Правильный ответ</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Неправильный ответ</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">ОК</string>
@@ -334,8 +311,6 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Начнем</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Изменить настройки</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Проверить настройки</string>
     <string name="AddDescriptor_Title">Установить новую ссылку</string>
     <string name="AddDescriptor_AutoUpdate">Устанавливать обновления автоматически</string>
@@ -346,11 +321,10 @@
     <string name="LoadingScreen_Runv2_Failure">Ошибка</string>
     <string name="LoadingScreen_Runv2_Canceled">Установка ссылки отменена</string>
     <string name="DescriptorUpdate_Updates">ОБНОВЛЕНИЯ</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Проверить наличие обновлений</string>
     <string name="AddDescriptor_AutoRunDisabled">Автоматическое тестирование отключено. Пожалуйста, включите его, чтобы проводить тесты автоматически.</string>
     <string name="Descriptor_LastTestResult">Результат последнего теста</string>
-
-    <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Не загружено</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Загружено частично</string>
@@ -392,19 +366,16 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Приложение не может запускать тесты в фоновом режиме без специального разрешения. Хотите попробовать снова? </string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Приложению нужно разрешение, чтобы запускать тесты автоматически в фоновом режиме. </string>
 
-    <!-- Desktop -->
     <string name="Desktop_OpenApp">Открыть приложение</string>
     <string name="Desktop_Quit">Выход</string>
-
     <string name="Tray_Notification_Check_Updates">Проверить наличие обновлений</string>
     <string name="Tray_Notification_Updates_Available">Доступно обновление!</string>
     <string name="Tray_Notification_Checking_Updates">Проверка обновлений ...</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Запустить</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Проверка</string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
     <string name="Notification_UpdateChannelName">Обновление ссылок</string>
     <string name="Notification_StopTest">Прекратить тест </string>
 
@@ -420,7 +391,6 @@
     <string name="Common_Next">Далее</string>
     <string name="Common_Previous">Предыдущий раздел</string>
     <string name="Common_Share">Поделиться</string>
-
     <string name="Common_Today">Сегодня</string>
     <string name="Common_Yesterday">Вчера</string>
     <string name="Common_Ago">%1$s назад</string>
@@ -451,7 +421,6 @@
     <string name="Common_Hours_Abbreviated">%1$dчас</string>
     <string name="Common_Minutes_Abbreviated">%1$dмин</string>
     <string name="Common_Seconds_Abbreviated">%1$dсек</string>
-
     <string name="Common_Months_January">Январь</string>
     <string name="Common_Months_February">Февраль</string>
     <string name="Common_Months_March">Март</string>

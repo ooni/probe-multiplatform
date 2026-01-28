@@ -1,17 +1,14 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">ក្ដារព័ត៌មាន</string>
 
+    <string name="Dashboard_Tab_Label">ក្ដារព័ត៌មាន</string>
     <string name="Dashboard_Overview_LatestTest">តេស្តចុងក្រោយ៖</string>
     <string name="Dashboard_Overview_Estimated">ប៉ាន់ស្មាន៖</string>
     <string name="Dashboard_Overview_ChooseWebsites">ជ្រើសរើសវែបសាយ</string>
-
     <string name="Dashboard_Running_Running">កំពុងដំណើរការ៖</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">ពេលវេលាប៉ាន់ស្មាននៅសល់៖</string>
     <string name="Dashboard_Running_Stopping_Title">បញ្ចប់ការធ្វើតេស្ត</string>
     <string name="Dashboard_Running_Stopping_Notice">បញ្ចប់ការសាកល្បងមិនដំណើរការ។ សូមរង់ចាំ</string>
     <string name="Dashboard_Running_ProxyInUse">Proxyកំពុងដំណើរការ</string>
-
     <string name="Dashboard_RunTests_Title">ដំណើរការតេស្ត</string>
     <string name="Dashboard_RunTests_Description">ជ្រើសរើសតេស្តដើម្បីដំណើរការ</string>
     <string name="Dashboard_RunTests_SelectAll">ជ្រើសរើសតេស្តទាំងអស់</string>
@@ -27,17 +24,14 @@
     <string name="Dashboard_RunV2_UpdateTag">បច្ចុប្បន្នភាព</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">លែងធ្វើវិញ</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">ពិនិត្យមើលបច្ចុប្បន្នភាព</string>
-
     <string name="Dashboard_Progress_UpdateLink_Label">បច្ចុប្បន្នភាពតំណរភ្ជាប់កំពុងបញ្ជូន</string>
     <string name="Dashboard_Progress_ReviewLink_Label">បច្ចុប្បន្នភាពតំណរភ្ជាប់រួចរាល់</string>
     <string name="Dashboard_Progress_ReviewLink_Action">ពិនិត្យ</string>
-
     <string name="Dashboard_ReviewDescriptor_Label">បច្ចុប្បន្នភាព (%1$s នៃ %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">បច្ចុប្បន្នភាព និងបញ្ចប់ (%1$s នៃ %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">បច្ចុប្បន្នភាព (%1$s នៃ %2$s)</string>
     <string name="Dashboard_Update_Restart">ផ្ដើមឡើងវិញ</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">វេបសាយ</string>
     <string name="Test_InstantMessaging_Fullname">សាររហ័ស</string>
@@ -55,9 +49,6 @@
     <string name="Test_Psiphon_Fullname">តេស្ត Psiphon</string>
     <string name="Test_Tor_Fullname">តេស្ត Tor</string>
     <string name="Test_Signal_Fullname">តេស្ត Signal</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">លទ្ធផលតេស្ត</string>
     <string name="TestResults_Overview_Tab_Label">លទ្ធផលតេស្ត</string>
     <string name="TestResults_Overview_Hero_Tests">តេស្ត</string>
@@ -76,15 +67,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">វីដេអូ</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">គុណភាព</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_Gbps">Gbit/s</string>
     <string name="TestResults_Mbps">Mbit/s</string>
     <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">អត់ស្គាល់</string>
     <string name="TestResults_NotAvailable">ទទេ</string>
-
     <string name="TestResults_Filter_Tests">តេស្ត</string>
     <string name="TestResults_Filter_Networks">បណ្តាញជាច្រើន</string>
     <string name="TestResults_Filter_Source">ប្រភព</string>
@@ -96,13 +84,10 @@
     <string name="Measurements_Anomaly">ខុសប្រក្រតី</string>
     <string name="Measurement_Raw_Upload">បញ្ជូល</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">ការកំណត់</string>
-
     <string name="Settings_TestOptions_Label">ជម្រើសតេស្ត</string>
     <string name="Settings_TestOptions_LongRunningTest">ដំណើរការតេស្តវែង</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically">ដំណើរការតេស្តដោយស្វ័យប្រវត្តិ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">ពេលមាន Wifi ប៉ុណ្ណោះ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">ពេលកំពុងសាកថ្មប៉ុណ្ណោះ</string>
@@ -110,10 +95,8 @@
     <string name="Settings_Sharing_UploadResults">ផ្សព្វផ្សាយលទ្ធផលស្វ័យប្រវត្តិ</string>
     <string name="Settings_Websites_Categories_Label">ប្រភេទនៃវែបសាយដើម្បីតេស្ត</string>
     <string name="Settings_Websites_Categories_Description">%1$s ប្រភេទផ្សេងៗត្រូវបានបើក</string>
-
     <string name="Settings_Privacy_Label">ឯកជនភាព</string>
     <string name="Settings_Privacy_SendCrashReports">ផ្ញើរបាយការណ៍ដែលមិនដំណើរការ</string>
-
     <string name="Settings_Proxy_Label">ប្រុកសុី OONI ខាងក្រោយ</string>
     <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">គ្មាន</string>
@@ -124,16 +107,13 @@
     <string name="Settings_Proxy_Custom_Available">ទំនេរ</string>
     <string name="Settings_Proxy_Custom_Unavailable">មិនអាចប្រើបាន</string>
     <string name="Settings_Language_Label">ភាសា</string>
-
     <string name="Settings_Advanced_Label">កម្រិតខ្ពស់</string>
     <string name="Settings_Advanced_DebugLogs">កំណត់ហេតុ Debug</string>
     <string name="Settings_Advanced_RecentLogs">មើលកំណត់ហេតុថ្មីៗ</string>
-
     <string name="Settings_Support_Label">ការគាំទ្រ</string>
     <string name="Settings_Support_SendEmail">ផ្ញើអុីម៉ែលទៅកាន់អ្នកជំនួយបច្ចេកទេស</string>
     <string name="Settings_Support_Message">សូមពិពណ៌នាបញ្ហាដែលអ្នកជួបប្រទះ៖</string>
     <string name="Settings_Support_Action">ផ្ញើសារអេឡិចត្រូនិច</string>
-
     <string name="Settings_Storage_Label">ការប្រើប្រាស់កន្លែងផ្ទុក</string>
     <string name="Settings_Storage_Delete">លុប</string>
     <string name="Settings_Storage_Clear">សំអាត</string>
@@ -145,8 +125,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">ដំណើរការ</string>
     <string name="Settings_Websites_CustomURL_Add">បន្ថែមវេបសាយ</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">គ្រឿងញៀន &amp; គ្រឿងស្រវឹង</string>
     <string name="CategoryCode_REL_Name">សាសនា</string>
     <string name="CategoryCode_PORN_Name">រឿងអាសអាភាស</string>
@@ -237,8 +215,6 @@
     <string name="Onboarding_DefaultSettings_Paragraph">ពួកយើងប្រឹងប្រែងអស់ពីលទ្ធភាពក្នុងការមិនបង្ហាញអាសយដ្ឋាន IP របស់អ្នក ឬព័ត៌មានដទៃទៀតដែលអាចឱ្យគេកំណត់អត្តសញ្ញាណរបស់អ្នកបាន។\n\nស្វែងយល់បន្ថែមតាមរយៈ [គោលនយោបាយទិន្នន័យរបស់ OONI] (https://ooni.org/about/data-policy/)</string>
     <string name="Onboarding_DefaultSettings_Button_Change">ផ្លាស់ប្តូរលំនាំដើម</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">តេស្ត​ការ​កំណត់នានា</string>
     <string name="AddDescriptor_Title">ដំឡើងតំណរភ្ជាប់ថ្មី</string>
     <string name="AddDescriptor_AutoUpdate">ដំឡើងបច្ចុប្បន្នភាពស្វ័យប្រវត្តិ</string>
@@ -248,8 +224,6 @@
     <string name="LoadingScreen_Runv2_Failure">កំហុស</string>
     <string name="LoadingScreen_Runv2_Canceled">ការដំឡើងតំណរភ្ជាប់ត្រូវបានបញ្ឈប់</string>
     <string name="DescriptorUpdate_Updates">បច្ចុប្បន្នភាព</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">មិនបានបញ្ជូល</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">មិនបានបញ្ជូលមួយចំនួន</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">បញ្ជូលទាំងអស់</string>
@@ -274,13 +248,9 @@
     <string name="Modal_CustomURL_Title_NotSaved">តើ​អ្នក​ប្រាកដ ​ឬទេ?</string>
     <string name="Modal_CustomURL_NotSaved">URLs របស់អ្នកនឹងមិនរក្សាទុកទេនៅពេលអ្នកចាកចេញពីអេក្រង់នេះ។ តើអ្នកច្បាស់ទេថាអ្នកចង់ចាកចេញពីអេក្រង់នេះ?</string>
     <string name="Desktop_Quit">ចាកចេញ</string>
-
     <string name="Tray_Notification_Checking_Updates">កំពុងពិនិត្យមើលបច្ចុប្បន្នភាព...</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">ដំណើរការ</string>
-
     <string name="Notification_StopTest">បញ្ឈប់តេស្ត</string>
 
     <string name="Common_Back">ត្រឡប់ក្រោយ</string>
@@ -295,7 +265,6 @@
     <string name="Common_Next">បន្ទាប់</string>
     <string name="Common_Previous">មុន</string>
     <string name="Common_Share">ចែករំលែក</string>
-
     <string name="Common_Today">ថ្ងៃនេះ</string>
     <string name="Common_Yesterday">ម្សិលមិញ</string>
     <string name="Common_Months_May">ឧសភា​</string>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="Settings_About_Content_LearnMore">Дізнатися більше</string>
+    <string name="Settings_About_Content_Blog">Блог</string>
+    <string name="Settings_About_Content_Reports">Звіти</string>
+    <string name="Settings_Donate_Title">Пожертва</string>
+    <string name="Settings_Donate_Action">Пожертва</string>
+    </resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="Settings_About_Content_LearnMore">Zjistit více</string>
+    <string name="Settings_About_Content_Blog">Blog</string>
+    <string name="Settings_About_Content_Reports">Podání</string>
+    <string name="Settings_Donate_Title">Darovat</string>
+    <string name="Settings_Donate_Action">Darovat</string>
+    </resources>

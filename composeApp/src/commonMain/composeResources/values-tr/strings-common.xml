@@ -1,17 +1,14 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Pano</string>
 
+    <string name="Dashboard_Tab_Label">Pano</string>
     <string name="Dashboard_Overview_LatestTest">Son sınama:</string>
     <string name="Dashboard_Overview_Estimated">Yaklaşık:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Siteleri seçin</string>
-
     <string name="Dashboard_Running_Running">Çalışıyor:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Yaklaşık kalan süre:</string>
     <string name="Dashboard_Running_Stopping_Title">Sınama durduruluyor…</string>
     <string name="Dashboard_Running_Stopping_Notice">Bekleyen sınamalar tamamlanıyor. Lütfen bekleyin…</string>
     <string name="Dashboard_Running_ProxyInUse">Kullanılan vekil sunucu</string>
-
     <string name="Dashboard_RunTests_Title">Sınamaları çalıştır</string>
     <string name="Dashboard_RunTests_Description">Çalıştırılacak sınamaları seçin</string>
     <string name="Dashboard_RunTests_SelectAll">Tüm sınamaları seç</string>
@@ -20,7 +17,6 @@
         <item quantity="one">%1$d sınamayı çalıştır</item>
         <item quantity="other">%1$d sınamayı çalıştır</item>
     </plurals>
-
     <string name="Dashboard_RunV2_Ooni_Title">OONI sınamaları</string>
     <string name="Dashboard_RunV2_Title">OONI çalıştırma bağlantıları</string>
     <string name="Dashboard_RunV2_RunFinished">Sınama tamamlandı. Sonuçları görüntülemek için dokunun.</string>
@@ -28,6 +24,7 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Kaldırma bağlantısı</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Önceki sürümler</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Ayrıntıları görüntüle</string>
+    <!-- This only applies when there are more than 10 websites to show. -->
     <plurals name="Dashboard_Runv2_Websites_SeeAll">
         <item quantity="one">%1$d siteyi görüntüle</item>
         <item quantity="other">%1$d sitenin tümünü görüntüle</item>
@@ -39,20 +36,17 @@
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Güncelleme reddedildi</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Geri al</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Güncellemeleri değerlendirin</string>
-
     <string name="Dashboard_Progress_UpdateLink_Label">Bağlantı güncellemeleri yükleniyor</string>
     <string name="Dashboard_Progress_ReviewLink_Label">Bağlantı güncellemeleri hazır</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Gözden geçir</string>
-
     <string name="Dashboard_ReviewDescriptor_Label">Bağlantı güncellemesi (%1$s / %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">GÜNCELLE VE TAMAMLA (%1$s / %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">GÜNCELLE (%1$s of %2$s)</string>
+    <!-- Button to reject a link update during review -->
     <string name="Dashboard_ReviewDescriptor_Reject">Güncellemeyi reddet</string>
-
     <string name="Dashboard_Update_Ready">Uygulama güncellemesi indirildi</string>
     <string name="Dashboard_Update_Restart">Yeniden başlat</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Siteler</string>
     <string name="Test_InstantMessaging_Fullname">Anlık ileti</string>
@@ -70,9 +64,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon sınaması</string>
     <string name="Test_Tor_Fullname">Tor sınaması</string>
     <string name="Test_Signal_Fullname">Signal sınaması</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Sınama sonuçları</string>
     <string name="TestResults_Overview_Tab_Label">Sınama sonuçları</string>
     <string name="TestResults_Overview_Hero_Tests">Sınamalar</string>
@@ -114,15 +105,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Görüntü</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Kalite</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_Gbps">Gbit/s</string>
     <string name="TestResults_Mbps">Mbit/s</string>
     <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">Bilinmiyor</string>
     <string name="TestResults_NotAvailable">Yok</string>
-
     <string name="TestResults_Filters_Title">Sınama sonuçlarını süz</string>
     <string name="TestResults_Filters_Short">Süzgeçler:</string>
     <plurals name="TestResults_Filters_Count">
@@ -150,14 +138,13 @@
     <string name="TestResults_Filter_Date_Picker">Bir tarih aralığı seçin</string>
     <string name="TestResults_Filter_NoTestsFound">Bu süzgeçlere uygun sınama sonuçları bulunamadı.</string>
     <string name="TestResults_Filter_DeleteConfirmation">Geçerli süzgeçler için tüm sınama sonuçlarını silmek istiyor musunuz?</string>
-
     <string name="Results_LimitedNotice">Yalnızca son %1$d sonuç görüntüleniyor</string>
     <string name="Results_UploadingMissing">Eksik sonuçlar yükleniyor %1$s</string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
     <string name="Results_MarkAllAsViewed">Tümünü görülmüş olarak işaretle</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Tüm sonuçları görülmüş olarak işaretlemek istediğinize emin misiniz?</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Geçerli süzgeçler için tüm sonuçları okunmuş olarak işaretlemek istiyor musunuz?</string>
 
-    <!-- Measurements -->
 
     <string name="Measurement_Title">Ölçüm</string>
     <string name="Measurement_LoadingFailed">Ölçüm bilgileri yüklenemedi</string>
@@ -168,7 +155,7 @@
         <item quantity="one">%1$d ölçülmüş</item>
         <item quantity="other">%1$d ölçülmüş</item>
     </plurals>
-    <plurals name="Measurements_Failed">
+    <plurals name="Measurements_Failed_Count">
         <item quantity="one">%1$d ölçülememiş</item>
         <item quantity="other">%1$d ölçülememiş</item>
     </plurals>
@@ -176,29 +163,26 @@
     <string name="Measurement_Raw_Share">Ölçüm verileri paylaşılsın</string>
     <string name="Measurement_Raw_Upload">Yükle</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Ayarlar</string>
-
     <string name="Settings_TestOptions_Label">Sınama seçenekleri</string>
     <string name="Settings_TestOptions_LongRunningTest">Uzun süreli sınama</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically">Sınamalar otomatik olarak çalıştırılsın</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Yalnızca Wi-Fi kullanılırken</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Yalnızca şarj edilirken</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Otomatik sınama açıldığında, OONI Probe sınamaları günde birkaç kez otomatik olarak çalışır. Sınama sonuçlarınız otomatik olarak OONI Explorer üzerinde yayınlanır: https://explorer.ooni.org/\n\nÖnemli: Etkin bir VPN bağlantınız varsa, OONI Probe sınamaları otomatik olarak çalıştırmaz. Otomatik OONI Probe sınaması için lütfen VPN bağlantınızı kapatın. Ayrıntılı bilgi almak için https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn adresine bakabilirsiniz</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Sınamalar saatte bir arka planda yapılacak</string>
     <string name="Settings_Sharing_UploadResults">Sonuçlar otomatik olarak yayınlansın</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeEnabled">Site sınama süresi sınırlansın</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Yalnızca el ile çalıştırmalar için</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeDuration">En uzun site sınaması süresi </string>
     <string name="Settings_Websites_MaxRuntimeDuration_Unit">Saniye olarak süreyi yazın</string>
     <string name="Settings_Websites_Categories_Label">Sınanacak site kategorileri</string>
     <string name="Settings_Websites_Categories_Description">%1$s kategori açık</string>
-
     <string name="Settings_Privacy_Label">Gizlilik</string>
     <string name="Settings_Privacy_SendCrashReports">Çökme bildirimleri gönderilsin</string>
-
     <string name="Settings_Proxy_Label">OONI arka uç vekil sunucusu</string>
     <string name="Settings_Proxy">Vekil sunucu</string>
     <string name="Settings_Proxy_None">Hiçbiri</string>
@@ -213,13 +197,10 @@
     <string name="Settings_Proxy_Custom_Available">Kullanılabilir</string>
     <string name="Settings_Proxy_Custom_Unavailable">Kullanılamaz</string>
     <string name="Settings_Proxy_Delete_Confirmation">%1$s vekil sunucusunu silmek istediğinize emin misiniz\?</string>
-
     <string name="Settings_Language_Label">Dil</string>
-
     <string name="Settings_Advanced_Label">Gelişmiş</string>
     <string name="Settings_Advanced_DebugLogs">Hata ayıklama günlükleri</string>
     <string name="Settings_Advanced_RecentLogs">Son günlükleri görüntüle</string>
-
     <string name="Settings_Results_DeleteOldResults">Eski sonuçları sil</string>
     <string name="Settings_Results_DeleteOldResultsThreshold">Şundan eski sonuçları sil</string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
@@ -227,18 +208,16 @@
         <item quantity="other">%1$d ay</item>
     </plurals>
     <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Ay sayısını yazın</string>
-
     <string name="Settings_Support_Label">Destek</string>
     <string name="Settings_Support_SendEmail">Destek ekibine e-posta gönder</string>
     <string name="Settings_Support_Message">Lütfen yaşadığınız sorunu anlatın:</string>
     <string name="Settings_Support_Message_Hint">Destek ekibine ileti</string>
     <string name="Settings_Support_IncludeLogs">Uygulama günlüğü kayıtları eklensin</string>
     <string name="Settings_Support_Action">E-posta gönder</string>
-
     <string name="Settings_ShareApp">Uygulamayı paylaş</string>
     <string name="Settings_ShareApp_Description">%1$s uygulamasını başka biri ile paylaşın</string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
     <string name="Settings_ShareApp_ShareMessage">%2$s üzerinden %1$s kur</string>
-
     <string name="Settings_Storage_Label">Depolama kullanımı</string>
     <string name="Settings_Storage_Delete">Sil</string>
     <string name="Settings_Storage_Clear">Temizle</string>
@@ -260,8 +239,6 @@
         <item quantity="one">%1$d adresi sına</item>
         <item quantity="other">%1$d adresi sına</item>
     </plurals>
-
-    <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Uyuşturucu ve alkol</string>
     <string name="CategoryCode_REL_Name">Din</string>
@@ -326,8 +303,6 @@
     <string name="CategoryCode_IGO_Description">Birleşmiş Milletler gibi hükümetlerarası kuruluşlar</string>
     <string name="CategoryCode_MISC_Description">Henüz kategorize edilmemiş siteler</string>
 
-    <!-- Onboarding -->
-
     <string name="Onboarding_QuizAnswer_Correct">Doğru yanıt</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Yanlış yanıt</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Anladım</string>
@@ -360,8 +335,6 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Başlayalım</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Varsayılanları değiştir</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Ayarları sına</string>
     <string name="AddDescriptor_Title">Yeni bağlantı kur</string>
     <string name="AddDescriptor_AutoUpdate">Güncellemeler otomatik olarak kurulsun</string>
@@ -374,11 +347,10 @@
     <string name="LoadingScreen_Runv2_Failure">Hata</string>
     <string name="LoadingScreen_Runv2_Canceled">Bağlantı kurulumu iptal edildi</string>
     <string name="DescriptorUpdate_Updates">GÜNCELLEMELER</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Güncelleme denetimi</string>
     <string name="AddDescriptor_AutoRunDisabled">Otomatik çalıştırma kapalı. Sınamaları otomatik olarak çalıştırmak için açın.</string>
     <string name="Descriptor_LastTestResult">Son sınama sonucu</string>
-
-    <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">Yüklenmemiş</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Bazıları yüklenmemiş</string>
@@ -417,19 +389,16 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Uygulama arka planda çalışma izni olmadan otomatik sınamaları yapamaz. Yeniden denemek ister misiniz?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Uygulamanın otomatik sınamaları yapabilmesi için arka planda çalışmasına izin verilmedir.</string>
 
-    <!-- Desktop -->
     <string name="Desktop_OpenApp">Uygulamayı aç</string>
     <string name="Desktop_Quit">Çık</string>
-
     <string name="Tray_Notification_Check_Updates">Güncellemeleri denetle</string>
     <string name="Tray_Notification_Updates_Available">Güncelleme yayınlanmış!</string>
     <string name="Tray_Notification_Checking_Updates">Güncellemeler denetleniyor...</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Çalıştır</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Sınanıyor</string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
     <string name="Notification_UpdateChannelName">Bağlantı güncellemeleri</string>
     <string name="Notification_StopTest">Sınamayı durdur</string>
 
@@ -445,7 +414,6 @@
     <string name="Common_Next">İleri</string>
     <string name="Common_Previous">Önceki</string>
     <string name="Common_Share">Paylaş</string>
-
     <string name="Common_Today">Bugün</string>
     <string name="Common_Yesterday">Dün</string>
     <string name="Common_Ago">%1$s önce</string>
@@ -468,7 +436,6 @@
     <string name="Common_Hours_Abbreviated">%1$ds</string>
     <string name="Common_Minutes_Abbreviated">%1$dd</string>
     <string name="Common_Seconds_Abbreviated">%1$dsn</string>
-
     <string name="Common_Months_January">Ocak</string>
     <string name="Common_Months_February">Şubat</string>
     <string name="Common_Months_March">Mart</string>

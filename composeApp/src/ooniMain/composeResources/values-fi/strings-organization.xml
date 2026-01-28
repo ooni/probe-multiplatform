@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">OONI Probe</string>
+
+    <string name="Onboarding_WhatIsOONIProbe_Title">Mikä on OONI Probe?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Sovelluksesi internetin sensuurin mittaamiseen.\n\nOnko verkkosivut ja sosiaalisen median sovellukset estetty? Onko verkkosi normaalia hitaampi?\n\nSelvitä se käyttämällä OONI Probea!</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">OONI-tietoaineisto on avoimesti julkaistu ja tulee sisältämään verkkotietojasi.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">Kuka tahansa, joka valvoo internet-aktiivisuuttasi (esim. viranomaiset tai internet-palvelutarjoaja) näkee, että käytät OONI Probea.</string>
+    <string name="Onboarding_PopQuiz_1_Question">Jos joku valvoo internet-aktiivisuuttasi, hän näkee, että käytät OONI Probea.</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe ei ole yksityisyystyökalu. Kuka tahansa, joka valvoo internet-aktiivisuuttasi, näkee mitä ohjelmistoja käytät.</string>
+    <string name="Onboarding_PopQuiz_2_Question">Joka kerta kun käytän OONI Probea, keräämäni verkkotiedot julkaistaan automaattisesti.</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Lisätäkseen internetin sensuurin läpinäkyvyyttä, kaikkien OONI Proben käyttäjien verkkotiedot julkaistaan automaattisesti (ellei sitä estetä asetuksissa).</string>
+    <string name="Dashboard_Websites_Card_Description">Testaa verkkosivujen estot</string>
+    <string name="Dashboard_Performance_Card_Description">Testaa verkkosi nopeus ja suorituskyky</string>
+    <string name="Dashboard_Middleboxes_Card_Description">Havaitse middleboxit verkossasi</string>
+    <string name="Dashboard_InstantMessaging_Card_Description">Testaa pikaviestisovellusten esto</string>
+    <string name="Dashboard_Circumvention_Card_Description">Testaa sensuurin kiertämistyökalujen estot</string>
+    <string name="Dashboard_Experimental_Card_Description">Suorita uudet koekäytössä olevat testit</string>
+    <string name="Settings_About_Label">OONI:sta</string>
+    <string name="Settings_About_Content_LearnMore">Lue lisää</string>
+    <string name="Settings_About_Content_Blog">Blogi</string>
+    <string name="Settings_About_Content_Reports">Ilmoitukset</string>
+    <string name="Settings_Donate_Title">Lahjoita</string>
+    <string name="Settings_Donate_Action">Lahjoita</string>
+    </resources>

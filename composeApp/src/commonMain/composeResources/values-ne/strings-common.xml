@@ -1,0 +1,30 @@
+<resources>
+
+    <string name="TestResults_Summary_Performance_Hero_Upload">उर्ध्वभरण गर्ने</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">डाउनलोड गर्ने</string>
+    <string name="TestResults_Summary_Performance_Hero_Video">भिडियो</string>
+    <string name="TestResults_Filter_Date">मिति</string>
+    <string name="Measurement_Raw_Upload">उर्ध्वभरण गर्ने</string>
+
+
+    <string name="Settings_Title">मेरो अभिरुचिहरू</string>
+    <string name="Settings_Proxy_None">कुनै पनि होइन</string>
+    <string name="Settings_Advanced_Label">उन्नत</string>
+    <string name="Settings_Storage_Delete">मेटाउनुहाेस्</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">चेतावनी</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">चेतावनी</string>
+    <string name="Onboarding_Crash_Button_Yes">हो</string>
+    <string name="Onboarding_Crash_Button_No">होइन</string>
+    <string name="AddDescriptor_Settings">Test Settings</string>
+    <string name="Modal_Cancel">रद्द गर्नुहोस्</string>
+    <string name="Modal_Delete">मेटाउनुहाेस्</string>
+    <string name="Desktop_Quit">बन्द गर्नुहोस</string>
+    <string name="Common_Close">बन्द गर्नुहोस्</string>
+    <string name="Common_Refresh">ताजा गर्नुहोस्</string>
+    <string name="Common_Collapse">खुम्च्याउने</string>
+    <string name="Common_Expand">फैलाउने</string>
+    <string name="Common_Yes">हो</string>
+    <string name="Common_Save">सङ्ग्रह गर्ने</string>
+    <string name="Common_Next">अर्को</string>
+    <string name="Common_Previous">पहिलेको</string>
+    </resources>

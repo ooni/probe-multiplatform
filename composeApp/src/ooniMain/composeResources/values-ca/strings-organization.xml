@@ -24,4 +24,6 @@
     <string name="Settings_About_Content_Reports">Informes</string>
     <string name="Settings_About_Content_DataPolicy">Política de dades d\'OONI</string>
 
+    <string name="Settings_Donate_Title">Donacions</string>
+    <string name="Settings_Donate_Action">Donacions</string>
     </resources>
