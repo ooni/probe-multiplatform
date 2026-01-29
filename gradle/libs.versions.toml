@@ -86,7 +86,7 @@ moko-permissions-notifications = { module = "dev.icerock.moko:permissions-notifi
 
 # Crash Reporting
 # See https://github.com/getsentry/sentry-kotlin-multiplatform?tab=readme-ov-file#cocoa-sdk-version-compatibility-table
-sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.23.0" }
+sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.23.1" }
 
 # Markdown
 markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.38.0" }
