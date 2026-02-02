@@ -126,6 +126,7 @@ fun App(
     LaunchedEffect(Unit) {
         dependencies.finishInProgressData()
         dependencies.deleteOldResults()
+        dependencies.refreshArticles()
     }
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()
@@ -134,9 +135,7 @@ fun App(
     LaunchedEffect(deepLink) {
         when (deepLink) {
             is DeepLink.AddDescriptor -> {
-                navController.navigate(
-                    Screen.AddDescriptor(deepLink.id.toLongOrNull() ?: return@LaunchedEffect),
-                )
+                navController.navigate(Screen.AddDescriptor(deepLink.id))
                 onDeeplinkHandled()
             }
 
@@ -170,4 +169,5 @@ private fun logAppStart(platformInfo: PlatformInfo) {
 
 val LocalSnackbarHostState = compositionLocalOf<SnackbarHostState?> { null }
 
-val MAIN_NAVIGATION_SCREENS = listOf(Screen.Dashboard, Screen.Results, Screen.Settings)
+val MAIN_NAVIGATION_SCREENS =
+    listOf(Screen.Dashboard, Screen.Descriptors, Screen.Results, Screen.Settings)

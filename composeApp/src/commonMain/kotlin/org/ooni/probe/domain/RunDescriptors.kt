@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.NetworkType
@@ -23,7 +22,6 @@ import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.domain.proxy.TestProxy
 import org.ooni.probe.shared.monitoring.Instrumentation
-import org.ooni.probe.shared.now
 import kotlin.time.Duration
 
 class RunDescriptors(
@@ -79,7 +77,7 @@ class RunDescriptors(
             } catch (_: Exception) {
                 // Exceptions were logged in the Engine
             } finally {
-                setRunBackgroundState { RunBackgroundState.Idle(LocalDateTime.now(), true) }
+                setRunBackgroundState { RunBackgroundState.Idle }
                 finishInProgressData()
             }
         }

@@ -13,7 +13,6 @@ import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.Database
 import org.ooni.probe.data.Network
 import org.ooni.probe.data.Result
-import org.ooni.probe.data.SelectAllWithNetwork
 import org.ooni.probe.data.SelectByIdWithNetwork
 import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.MeasurementCounts
@@ -57,12 +56,19 @@ class ResultRepository(
             .mapToOneOrNull(backgroundContext)
             .map { it?.toModel() }
 
-    fun getLatest(): Flow<ResultModel?> =
+    fun getLatest(): Flow<ResultWithNetworkAndAggregates?> =
         database.resultQueries
             .selectLatest()
             .asFlow()
             .mapToOneOrNull(backgroundContext)
             .map { it?.toModel() }
+
+    fun getLastRunResults(): Flow<List<ResultWithNetworkAndAggregates>> =
+        database.resultQueries
+            .selectLastRun()
+            .asFlow()
+            .mapToList(backgroundContext)
+            .map { list -> list.mapNotNull { it.toModel() } }
 
     fun getLastDoneByDescriptor(descriptorKey: String): Flow<ResultModel.Id?> =
         database.resultQueries
@@ -227,7 +233,7 @@ class ResultRepository(
         )
     }
 
-    private fun SelectAllWithNetwork.toModel(): ResultWithNetworkAndAggregates? {
+    private fun org.ooni.probe.data.ResultWithNetworkAndAggregates.toModel(): ResultWithNetworkAndAggregates? {
         return ResultWithNetworkAndAggregates(
             result = Result(
                 id = id ?: return null,

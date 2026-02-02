@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.MeasurementsFilter
-import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
@@ -23,14 +23,14 @@ class RunBackgroundTaskTest {
     fun skipIfFailedAutoRunConstraints() =
         runTest {
             var wasRunDescriptorsCalled = false
-            val state = MutableStateFlow<RunBackgroundState>(RunBackgroundState.Idle())
+            val state = MutableStateFlow<RunBackgroundState>(RunBackgroundState.Idle)
             val subject = buildSubject(
                 checkAutoRunConstraints = { false },
                 runDescriptors = {
                     wasRunDescriptorsCalled = true
                     state.value = RunBackgroundState.RunningTests()
                     delay(100)
-                    state.value = RunBackgroundState.Idle()
+                    state.value = RunBackgroundState.Idle
                 },
             )
 
@@ -52,9 +52,9 @@ class RunBackgroundTaskTest {
         },
         runDescriptors: suspend (RunSpecification) -> Unit = {},
         setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit = {},
-        getRunBackgroundState: () -> Flow<RunBackgroundState> = { flowOf(RunBackgroundState.Idle()) },
+        getRunBackgroundState: () -> Flow<RunBackgroundState> = { flowOf(RunBackgroundState.Idle) },
         addRunCancelListener: (() -> Unit) -> CancelListenerCallback = { CancelListenerCallback {} },
-        getLatestResult: () -> Flow<ResultModel?> = { flowOf(null) },
+        getLatestResult: () -> Flow<ResultWithNetworkAndAggregates?> = { flowOf(null) },
     ) = RunBackgroundTask(
         getPreferenceValueByKey = getPreferenceValueByKey,
         uploadMissingMeasurements = uploadMissingMeasurements,

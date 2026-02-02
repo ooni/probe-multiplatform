@@ -30,7 +30,6 @@ class ResultsViewModel(
     getDescriptors: () -> Flow<List<Descriptor>>,
     getNetworks: () -> Flow<List<NetworkModel>>,
     deleteResultsByFilter: suspend (ResultFilter) -> Unit,
-    markJustFinishedTestAsSeen: () -> Unit,
     markAsViewed: suspend (ResultFilter) -> Unit,
     deleteResults: suspend (List<ResultModel.Id>) -> Unit = {},
 ) : ViewModel() {
@@ -70,11 +69,6 @@ class ResultsViewModel(
 
         getNetworks()
             .onEach { networks -> _state.update { it.copy(networks = networks) } }
-            .launchIn(viewModelScope)
-
-        events
-            .filterIsInstance<Event.Start>()
-            .onEach { markJustFinishedTestAsSeen() }
             .launchIn(viewModelScope)
 
         events
@@ -179,8 +173,6 @@ class ResultsViewModel(
     }
 
     sealed interface Event {
-        data object Start : Event
-
         data class ResultClick(
             val result: ResultListItem,
         ) : Event

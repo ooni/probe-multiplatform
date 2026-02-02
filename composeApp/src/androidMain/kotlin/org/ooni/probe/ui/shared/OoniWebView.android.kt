@@ -20,6 +20,7 @@ actual fun OoniWebView(
     controller: OoniWebViewController,
     modifier: Modifier,
     allowedDomains: List<String>,
+    onDisallowedUrl: (String) -> Unit,
 ) {
     fun isRequestAllowed(request: WebResourceRequest) =
         allowedDomains.any { domain ->
@@ -65,7 +66,11 @@ actual fun OoniWebView(
                 override fun shouldOverrideUrlLoading(
                     view: WebView,
                     request: WebResourceRequest,
-                ) = !isRequestAllowed(request)
+                ): Boolean {
+                    val isAllowed = isRequestAllowed(request)
+                    if (!isAllowed) onDisallowedUrl(request.url.toString())
+                    return !isAllowed
+                }
 
                 override fun onPageStarted(
                     view: WebView,

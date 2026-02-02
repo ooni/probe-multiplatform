@@ -1,16 +1,12 @@
 package org.ooni.probe.data.models
 
-import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.models.TestType
 import org.ooni.probe.domain.UploadMissingMeasurements
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 sealed interface RunBackgroundState {
-    data class Idle(
-        val lastTestAt: LocalDateTime? = null,
-        val justFinishedTest: Boolean = false,
-    ) : RunBackgroundState
+    data object Idle : RunBackgroundState
 
     data class UploadingMissingResults(
         val state: UploadMissingMeasurements.State,

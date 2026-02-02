@@ -70,10 +70,11 @@ import org.ooni.probe.data.models.SettingsCategoryItem
 import org.ooni.probe.data.models.SettingsItem
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
+import org.ooni.probe.domain.results.DeleteOldResults
+import org.ooni.probe.shared.formatDataUsage
 import org.ooni.probe.ui.settings.category.SettingsDescription
 import org.ooni.probe.ui.settings.donate.DONATE_SETTINGS_ITEM
 import org.ooni.probe.ui.shared.format
-import org.ooni.probe.ui.shared.formatDataUsage
 import kotlin.time.Duration.Companion.seconds
 
 class GetSettings(

@@ -37,6 +37,7 @@ import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
+import java.util.Locale
 
 /**
  * See link for `baseFileDir` https://github.com/ooni/probe-android/blob/5a11d1a36ec952aa1f355ba8db4129146139a5cc/engine/src/main/java/org/openobservatory/engine/Engine.java#L52
@@ -64,6 +65,7 @@ class AndroidApplication : Application() {
             isWebViewAvailable = ::isWebViewAvailable,
             flavorConfig = FlavorConfig(),
             proxyConfig = ProxyConfig(isPsiphonSupported = false),
+            getCountryNameByCode = ::getCountryNameByCode,
         )
     }
 
@@ -276,4 +278,12 @@ class AndroidApplication : Application() {
             },
         )
     }
+
+    private fun getCountryNameByCode(countryCode: String) =
+        Locale
+            .Builder()
+            .setRegion(countryCode)
+            .build()
+            .displayCountry
+            .ifEmpty { countryCode }
 }

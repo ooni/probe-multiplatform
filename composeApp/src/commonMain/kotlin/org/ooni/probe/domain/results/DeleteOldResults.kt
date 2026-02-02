@@ -1,4 +1,4 @@
-package org.ooni.probe.domain
+package org.ooni.probe.domain.results
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
