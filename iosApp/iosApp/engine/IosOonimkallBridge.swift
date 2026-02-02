@@ -155,8 +155,7 @@ extension OonimkallBridgeSessionConfig {
         }
         // Problem setting logger
         if let logger = logger {
-            let applicationLogger = IosLogger(logger: logger)
-            // config.logger = applicationLogger
+            config.logger = IosLogger(logger: logger)
         }
         config.verbose = verbose
         return config
@@ -192,28 +191,23 @@ extension OonimkallBridgeHTTPRequest {
 }
 
 @objc
-class IosLogger: OonimkallLogger {
+class IosLogger: NSObject, OonimkallLoggerProtocol {
     private let logger: OonimkallBridgeLogger?
-
-    override init(ref: Any) {
-        self.logger = 0 as? any OonimkallBridgeLogger
-        super.init(ref: ref)
-    }
 
     init(logger: OonimkallBridgeLogger) {
         self.logger = logger
         super.init()
     }
 
-    override func debug(_ msg: String?) {
+    func debug(_ msg: String?) {
         logger?.debug(msg: msg)
     }
 
-    override func info(_ msg: String?) {
+    func info(_ msg: String?) {
         logger?.info(msg: msg)
     }
 
-    override func warn(_ msg: String?) {
+    func warn(_ msg: String?) {
         logger?.warn(msg: msg)
     }
 }
