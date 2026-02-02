@@ -395,6 +395,10 @@
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
     <string name="Tray_Notification_Checking_Updates">Checking for updates...</string>
 
+    <string name="Modal_Hide">Hide</string>
+    <string name="Modal_Quite_Prompt">Quit OONI Probe?</string>
+    <string name="Modal_Quite_Description">If you quit the app it won't be able to run automated tests in the background. Choose Quit to exit or Hide to keep running in the background.</string>
+
     <string name="OONIRun_Run">Run</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testing</string>
