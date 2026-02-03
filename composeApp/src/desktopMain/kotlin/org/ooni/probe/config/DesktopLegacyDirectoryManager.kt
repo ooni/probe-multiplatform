@@ -15,7 +15,7 @@ import java.io.File
 import kotlin.coroutines.CoroutineContext
 
 class DesktopLegacyDirectoryManager(
-    os: DesktopOS,
+    private val os: DesktopOS,
     private val backgroundContext: CoroutineContext = Dispatchers.IO,
 ) : LegacyDirectoryManager {
     private val cleanUpDone = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
@@ -40,7 +40,7 @@ class DesktopLegacyDirectoryManager(
         DesktopOS.Windows -> listOf(
             oldProjectDirectories.cacheDir,
             oldProjectDirectories.dataDir,
-            legacyUpdateDir
+            legacyUpdateDir,
         ).map { it.toPath().parent.toString() }.toMutableList()
 
         else -> emptyList()
@@ -61,7 +61,9 @@ class DesktopLegacyDirectoryManager(
         withContext(backgroundContext) {
             Logger.i { "Starting cleanup of legacy directories..." }
 
-            uninstallLegacyApp()
+            if (os == DesktopOS.Windows) {
+                uninstallLegacyApp()
+            }
 
             val results = legacyPaths.map { dirPath ->
                 Logger.i { "Attempting to clean up legacy path: $dirPath" }
@@ -79,7 +81,7 @@ class DesktopLegacyDirectoryManager(
             return@withContext results.all { it }
         }
 
-    suspend fun uninstallLegacyApp() {
+    fun uninstallLegacyApp() {
         val legacyInstallDir = "$localAppData\\Programs\\ooniprobe-desktop"
         // find exe with word uninstall in name in the folder `legacyInstallDir`
         val legacyUnInstallExe = File(legacyInstallDir).walkTopDown().firstOrNull {
