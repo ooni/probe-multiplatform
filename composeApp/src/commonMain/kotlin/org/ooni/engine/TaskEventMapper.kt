@@ -96,8 +96,14 @@ class TaskEventMapper(
                     asn = value?.probeAsn,
                     ip = value?.probeIp,
                     countryCode = value?.probeCc,
+                    geoIpdb = value?.geoIpdb,
                     networkType = networkTypeFinder(),
                 )
+
+            "status.resolver_lookup" -> value?.geoIpdb?.let {
+                Logger.d("GeoIP DB info in resolver lookup: $it")
+                null
+            }
 
             "status.measurement_done" ->
                 TaskEvent.MeasurementDone(index = value?.idx ?: 0)

@@ -81,9 +81,11 @@ class PreferenceRepository(
             SettingsKey.DELETE_OLD_RESULTS_THRESHOLD,
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
 
+            SettingsKey.MMDB_LAST_CHECK,
             SettingsKey.LAST_ARTICLES_REFRESH,
             -> PreferenceKey.LongKey(longPreferencesKey(preferenceKey))
 
+            SettingsKey.MMDB_VERSION,
             SettingsKey.LEGACY_PROXY_HOSTNAME,
             SettingsKey.LEGACY_PROXY_PROTOCOL,
             SettingsKey.PROXY_SELECTED,

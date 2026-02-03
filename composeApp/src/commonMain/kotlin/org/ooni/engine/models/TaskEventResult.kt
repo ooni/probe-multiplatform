@@ -26,6 +26,8 @@ data class TaskEventResult(
         var idx: Int = 0,
         @SerialName("report_id")
         var reportId: String? = null,
+        @SerialName("geoip_db")
+        var geoIpdb: String? = null,
         @SerialName("probe_ip")
         var probeIp: String? = null,
         @SerialName("probe_asn")

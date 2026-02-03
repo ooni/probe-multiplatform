@@ -147,6 +147,9 @@ extension OonimkallBridgeSessionConfig {
         config.stateDir = stateDir
         config.tempDir = tempDir
         config.tunnelDir = tunnelDir
+        if let geoIpDB = geoIpDB {
+            config.geoipDB = geoIpDB
+        }
         if let probeServicesURL = probeServicesURL {
             config.probeServicesURL = probeServicesURL
         }

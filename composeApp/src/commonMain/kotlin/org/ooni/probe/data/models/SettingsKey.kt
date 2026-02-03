@@ -65,6 +65,8 @@ enum class SettingsKey(
     DELETE_UPLOADED_JSONS("deleteUploadedJsons"),
     IS_NOTIFICATION_DIALOG("isNotificationDialog"),
     FIRST_RUN("first_run"),
+    MMDB_VERSION("mmdb_version"),
+    MMDB_LAST_CHECK("mmdb_last_check"),
     CHOSEN_WEBSITES("chosen_websites"),
     DESCRIPTOR_SECTIONS_COLLAPSED("descriptor_sections_collapsed"),
     LAST_RUN_DISMISSED("last_run_dismissed"),
