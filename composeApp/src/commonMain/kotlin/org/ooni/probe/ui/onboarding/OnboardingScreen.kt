@@ -27,6 +27,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -137,9 +138,10 @@ fun OnboardingScreen(
                         RequestPermissionStep(onEvent)
 
                     OnboardingViewModel.Step.ClearDanglingResources ->
-                        CleanUpStep(onEvent)
+                        CleanUpStep(state.isCleanupInProgress, onEvent)
 
                     OnboardingViewModel.Step.DefaultSettings ->
+
                         DefaultSettingsStep(onEvent)
                 }
             }
@@ -521,6 +523,7 @@ fun OnboardingMainButton(
     text: StringResource,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    progress: Boolean = false,
 ) {
     Button(
         onClick = onClick,
@@ -530,10 +533,16 @@ fun OnboardingMainButton(
         ),
         modifier = modifier.requiredSizeIn(minHeight = if (isHeightCompact()) 48.dp else 60.dp),
     ) {
-        Text(
-            stringResource(text),
-            style = MaterialTheme.typography.bodyLarge,
-        )
+        if (!progress) {
+            Text(
+                stringResource(text),
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        } else {
+            CircularProgressIndicator(
+                modifier = Modifier.size(32.dp),
+            )
+        }
     }
 }
 
@@ -542,9 +551,11 @@ fun OnboardingMainOutlineButton(
     text: StringResource,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
 ) {
     OutlinedButton(
         onClick = onClick,
+        enabled = enabled,
         colors = ButtonDefaults.outlinedButtonColors(contentColor = LocalContentColor.current),
         border = BorderStroke(width = 2.dp, color = LocalContentColor.current),
         modifier = modifier.requiredSizeIn(minHeight = if (isHeightCompact()) 48.dp else 60.dp),
@@ -576,7 +587,7 @@ private fun OnboardingTextButton(
     }
 }
 
-private val OnboardingViewModel.Step.surfaceColor
+val OnboardingViewModel.Step.surfaceColor
     @Composable get() = when (this) {
         OnboardingViewModel.Step.WhatIs -> LocalCustomColors.current.onboarding1
         OnboardingViewModel.Step.HeadsUp -> LocalCustomColors.current.onboarding2

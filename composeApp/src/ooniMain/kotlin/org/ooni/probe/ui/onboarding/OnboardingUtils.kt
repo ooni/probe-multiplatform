@@ -10,6 +10,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Common_Clear
@@ -21,7 +22,10 @@ import ooniprobe.composeapp.generated.resources.Onboarding_CleanUp_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Button_No
 
 @Composable
-fun ColumnScope.CleanUpStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
+fun ColumnScope.CleanUpStep(
+    isCleanupInProgress: Boolean,
+    onEvent: (OnboardingViewModel.Event) -> Unit,
+) {
     OnboardingImage(OrganizationConfig.onboardingImages.image1)
 
     Box(modifier = Modifier.fillMaxHeight()) {
@@ -37,6 +41,7 @@ fun ColumnScope.CleanUpStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
             OnboardingMainOutlineButton(
                 text = Res.string.Onboarding_Crash_Button_No,
                 onClick = { onEvent(OnboardingViewModel.Event.SkipCleanupClicked) },
+                enabled = !isCleanupInProgress,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
                     .weight(1f),
@@ -48,6 +53,7 @@ fun ColumnScope.CleanUpStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
                     .weight(1f),
+                progress = isCleanupInProgress,
             )
         }
     }
