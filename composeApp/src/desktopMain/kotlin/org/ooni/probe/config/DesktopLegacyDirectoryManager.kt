@@ -21,6 +21,12 @@ class DesktopLegacyDirectoryManager(
     private val cleanUpDone = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
     private val oldProjectDirectories = ProjectDirectories.fromPath("OONI Probe")
 
+    val localAppData = oldProjectDirectories.cacheDir
+        .replace("cache", "")
+        .replace("OONI Probe", "")
+        .replace("\\\\", "\\")
+    val legacyUpdateDir = "$localAppData\\ooniprobe-desktop-updater\\pending"
+
     private val legacyPaths = when (os) {
         DesktopOS.Mac -> listOf(
             oldProjectDirectories.cacheDir,
@@ -34,7 +40,8 @@ class DesktopLegacyDirectoryManager(
         DesktopOS.Windows -> listOf(
             oldProjectDirectories.cacheDir,
             oldProjectDirectories.dataDir,
-        ).map { it.toPath().parent.toString() }
+            legacyUpdateDir
+        ).map { it.toPath().parent.toString() }.toMutableList()
 
         else -> emptyList()
     }
@@ -73,10 +80,6 @@ class DesktopLegacyDirectoryManager(
         }
 
     suspend fun uninstallLegacyApp() {
-        val localAppData = oldProjectDirectories.cacheDir
-            .replace("cache", "")
-            .replace("OONI Probe", "")
-            .replace("\\\\", "\\")
         val legacyInstallDir = "$localAppData\\Programs\\ooniprobe-desktop"
         // find exe with word uninstall in name in the folder `legacyInstallDir`
         val legacyUnInstallExe = File(legacyInstallDir).walkTopDown().firstOrNull {
