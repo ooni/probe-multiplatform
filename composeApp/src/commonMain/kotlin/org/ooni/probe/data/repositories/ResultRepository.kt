@@ -22,6 +22,7 @@ import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
 import org.ooni.probe.data.models.ResultsStats
+import org.ooni.probe.data.models.RunModel
 import org.ooni.probe.shared.toEpoch
 import org.ooni.probe.shared.toLocalDateTime
 import kotlin.coroutines.CoroutineContext
@@ -116,6 +117,7 @@ class ResultRepository(
                     network_id = model.networkId?.value,
                     descriptor_runId = model.descriptorKey?.id?.value,
                     descriptor_revision = model.descriptorKey?.revision,
+                    run_id = model.runId?.value,
                 )
                 model.id
                     ?: ResultModel.Id(
@@ -221,6 +223,7 @@ class ResultRepository(
                     )
                 }
             },
+            runId = run_id?.let(RunModel::Id),
         )
     }
 
@@ -239,6 +242,7 @@ class ResultRepository(
                 network_id = network_id,
                 descriptor_runId = descriptor_runId,
                 descriptor_revision = descriptor_revision,
+                run_id = run_id,
             ).toModel() ?: return null,
             network = network_id_inner?.let { networkId ->
                 Network(
@@ -274,6 +278,7 @@ class ResultRepository(
                 network_id = network_id,
                 descriptor_runId = descriptor_runId,
                 descriptor_revision = descriptor_revision,
+                run_id = run_id,
             ).toModel() ?: return null,
             id_?.let { networkId ->
                 Network(

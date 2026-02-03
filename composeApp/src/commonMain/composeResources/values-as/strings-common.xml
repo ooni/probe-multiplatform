@@ -1,0 +1,35 @@
+<resources>
+
+    <string name="Settings_Storage_Delete">মচক</string>
+    <string name="CategoryCode_ENV_Description">পৰিৱেশগত সমস্যাৰ ওপৰত আলোচনা</string>
+    <string name="CategoryCode_MILX_Description">সন্ত্ৰাসবাদ, হিংসাত্মক উগ্ৰপন্থী বা বিচ্ছিন্নতাবাদী আন্দোলন</string>
+    <string name="CategoryCode_NEWS_Description">প্ৰধান সংবাদ ৱেবছাইট, আঞ্চলিক সংবাদ মাধ্যম আৰু স্বতন্ত্ৰ মিডিয়া</string>
+    <string name="CategoryCode_XED_Description">গৰ্ভনিৰোধক, STD, ধৰ্ষণ প্ৰতিৰোধ আৰু গৰ্ভপাতকে ধৰি যৌন স্বাস্থ্যৰ সমস্যা</string>
+    <string name="CategoryCode_PUBH_Description">জনস্বাস্থ্যৰ সমস্যা, যেনে COVID-19, HIV/AIDS, ইব\'লা</string>
+    <string name="CategoryCode_GMB_Description">অনলাইন জুৱা আৰু বাজি লগোৱা</string>
+    <string name="CategoryCode_DATE_Description">অনলাইন ডেটিং ছাইটসমূহ</string>
+    <string name="CategoryCode_GRP_Description">অনলাইন ছ\'চিয়েল নেটৱৰ্কিং সা-সঁজুলি আৰু প্লেটফৰ্ম</string>
+    <string name="CategoryCode_LGBT_Description">LGBTQ+ সম্প্ৰদায় আলোচনা সম্পৰ্কীয় বিষয় (প\'ৰ্ণ\'গ্ৰাফী বাদ দি)</string>
+    <string name="CategoryCode_FILE_Description">ক্লাউড-আধাৰিত ফাইল সংৰক্ষণ, ট\'ৰেণ্ট আৰু P2Pকে ধৰি ফাইল ভাগ-বতৰা</string>
+    <string name="CategoryCode_HACK_Description">কম্পিউটাৰ সুৰক্ষাৰ সঁজুলি আৰু বাতৰি</string>
+    <string name="CategoryCode_COMT_Description">VoIP, বাৰ্তা আৰু ৱেবমেইলকে ধৰি আছুতীয়া আৰু সমূহীয়া যোগাযোগৰ সঁজুলি</string>
+    <string name="CategoryCode_MMED_Description">ভিডিঅ\', অডিঅ\' আৰু ফটো ভাগ-বতৰা</string>
+    <string name="CategoryCode_HOST_Description">ৱেব হ\'ষ্টিং, ব্লগিং আৰু অন্যান্য অনলাইন প্ৰকাশন</string>
+    <string name="CategoryCode_SRCH_Description">ছাৰ্চ ইঞ্জিন আৰু প\'ৰ্টেলসমূহ</string>
+    <string name="CategoryCode_GAME_Description">অনলাইন গেম আৰু গেমিং প্লেটফৰ্ম (জুৱা ছাইটসমূহক বাদ দি)</string>
+    <string name="CategoryCode_CULTR_Description">ইতিহাস, সাহিত্য, সংগীত, চিনেমা, ব্যংগ আৰু হাস্যকৰ সহ মনোৰঞ্জন</string>
+    <string name="CategoryCode_ECON_Description">সাধাৰণ অৰ্থনৈতিক বিকাশ আৰু দৰিদ্ৰতা</string>
+    <string name="CategoryCode_GOVT_Description">সামৰিক সহ চৰকাৰ দ্বাৰা পৰিচালিত ৱেবছাইটসমূহ</string>
+    <string name="CategoryCode_COMM_Description">বাণিজ্যিক সেৱা আৰু সামগ্ৰীসমূহ</string>
+    <string name="CategoryCode_CTRL_Description">নিয়ন্ত্ৰণৰ বাবে ব্যৱহাৰ কৰা কৃপাময় বা অনপকাৰী সমল</string>
+    <string name="CategoryCode_IGO_Description">ৰাষ্ট্ৰসংঘকে ধৰি আন্তৰ্চৰকাৰী সংগঠনসমূহ</string>
+    <string name="CategoryCode_MISC_Description">এতিয়ালৈ শ্ৰেণীবদ্ধ নোহোৱা ছাইটসমূহ </string>
+
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">বুজিলোঁ</string>
+    <string name="Onboarding_ThingsToKnow_Button">বুজি পাইছোঁ</string>
+    <string name="LoadingScreen_Runv2_Failure">ত্ৰুটি</string>
+    <string name="Modal_Retry">পুনৰ চেষ্টা কৰক</string>
+    <string name="Modal_Cancel">বাতিল কৰক</string>
+    <string name="Modal_Delete">মচক</string>
+    <string name="Common_Close">বন্ধ কৰক</string>
+    </resources>

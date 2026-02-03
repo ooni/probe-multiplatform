@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">OONI Probe</string>
+
+    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe কী?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">ইন্টারনেট সেন্সরশিপ পরিমাপ করার অ্যাপ্লিকেশন।\n\nওয়েবসাইট এবং সোশ্যাল মিডিয়া অ্যাপগুলি কি ব্লক করা হয়েছে? আপনার ইন্টারনেট সংযোগ অস্বাভাবিক ধীর?\n\nখুঁজে বের করতে OONI অনুসন্ধান চালান!</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">OONI তথ্য মুক্ত ভাবে প্রকাশিত এবং আপনার নেটওয়ার্ক তথ্য অন্তর্ভুক্ত করা হবে।</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">যে কেউ আপনার ইন্টারনেট কার্যকলাপ পর্যবেক্ষণ করে (যেমনঃ সরকার বা আইএসপি) তবে সে দেখবে যে আপনি OONI Probe চালাচ্ছেন।</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">আপনি নিষিদ্ধ ওয়েবসাইট পরীক্ষা করতে পারেন (তবে আপনি কোন সাইটগুলি পরীক্ষা করতে চান তা নির্বাচন করতে পারেন)।</string>
+    <string name="Onboarding_PopQuiz_1_Question">কেউ যদি আমার ইন্টারনেট কার্যকলাপ পর্যবেক্ষণ করছে, তবে তারা দেখতে পাবে যে আমি OONI Probe চালাচ্ছি।</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe একটি গোপনীয়তার হাতিয়ার নয়। যে কেউ আপনার ইন্টারনেট ক্রিয়াকলাপ পর্যবেক্ষণ করছে সে কোন সফটওয়্যারটি চলছে তা দেখতে পাবে।</string>
+    <string name="Onboarding_PopQuiz_2_Question">প্রতিবার আমি OONI Probe চালালে, আমার সংগৃহীত নেটওয়ার্ক ডেটা স্বয়ংক্রিয়ভাবে প্রকাশিত হবে।</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">ইন্টারনেট সেন্সরশিপের স্বচ্ছতা বাড়ানোর জন্য, সমস্ত OONI Probe ব্যবহারকারীদের নেটওয়ার্ক ডেটা স্বয়ংক্রিয়ভাবে প্রকাশিত হয় (যতক্ষণ না তারা সেটিংসে সেটা বন্ধ করে)।</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">প্রতিদিন ইন্টারনেট সেন্সরশিপ পরিমাপ করতে, অনুগ্রহ করে স্বয়ংক্রিয় পরীক্ষা চালু করুন যাতে OONI Probe নিয়মিতভাবে পরীক্ষা চালাতে পারে।\n\nচিন্তা প্রয়োজন নেই, আমরা ব্যাটারি ব্যবহারের বিষয়ে সচেতন থাকব।\n\nআপনি যেকোনো সময় সেটিংস থেকে স্বয়ংক্রিয় পরীক্ষা বন্ধ করতে পারেন।</string>
+    <string name="Onboarding_Crash_Paragraph">OONI Probe উন্নত করার জন্য, আমরা অ্যাপটি সঠিকভাবে কাজ না করলে গোপনীয় ক্র্যাশ রিপোর্ট সংগ্রহ করতে চাই।\n\nআপনি কি OONI ডেভেলপমেন্ট টিমকে ক্র্যাশ রিপোর্ট পাঠানোর জন্য অংশগ্রহণ করতে চান\?</string>
+    <string name="Dashboard_Websites_Card_Description">ওয়েবসাইট ব্লকিং পরীক্ষা</string>
+    <string name="Dashboard_Performance_Card_Description">আপনার নেটওয়ার্ক গতি এবং কর্মক্ষমতা পরীক্ষা করুন</string>
+    <string name="Dashboard_Middleboxes_Card_Description">আপনার নেটওয়ার্কে মধ্যবাক্স সনাক্ত করুন</string>
+    <string name="Dashboard_InstantMessaging_Card_Description">ইনস্ট্যান্ট মেসেজিং অ্যাপ্লিকেশনের ব্লকিং পরীক্ষা করুন</string>
+    <string name="Settings_About_Content_LearnMore">আরও জানুন</string>
+    <string name="Settings_About_Content_Blog">ব্লগ</string>
+    <string name="Settings_About_Content_Reports">রিপোর্টগুলি</string>
+    <string name="Settings_About_Content_DataPolicy">OONI ডেটা পলিসি</string>
+
+    <string name="Settings_Donate_Title">অনুদান</string>
+    <string name="Settings_Donate_Action">অনুদান</string>
+    </resources>

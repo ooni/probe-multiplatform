@@ -103,9 +103,8 @@ actual fun OoniWebView(
                 val webView = (root?.children?.get(0) as? WebView) ?: return@runLater
                 when (event) {
                     is OoniWebViewController.Event.Load -> {
-                        val headers = event.additionalHttpHeaders.entries.joinToString {
-                            "\n${it.key}: it.value"
-                        }
+                        val headers = event.additionalHttpHeaders.entries
+                            .joinToString("") { (key, value) -> "\n$key: $value" }
                         // Hack to send HTTP headers by taking advantage of userAgent
                         webView.engine.userAgent = "ooni$headers"
                         webView.engine.load(event.url)

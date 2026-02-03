@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">OONI Probe</string>
+
+    <string name="Onboarding_WhatIsOONIProbe_Title">Uyini OONI Probe?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Le app lena yeku kala kuvimbeleka ne kugcindzetela kusebentisa kwemubane wetekuchuma.\n\nngabe likhasi lemoya lelinemininingwane kanye netekuchumana emoyeni tivinjiwe yini? ngabe umbane wemoya uhamba kancane ngendlela lecakile yini? \n\n Vula OONI Probe kutokwati kabanti!</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">Imininingwane ya OONI isakateka ngalokusebaleni futsi itofaka ekhatsi imininingwane yakho yetekuchumana emoyeni.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">Noma ngabe ngubani lolandzelela tindlela takho tekuchumana emoyeni (kungaba ngu hulumende noma labaphetse tona tekuchumana emoyeni eveni lakho) batawubona kutsi wena usebentisa OONI Probe.  </string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">Ungawahlola emakhasi emoya lanemininingwane lavinjiwe (kepha ungakhetsa kutsi ngumaphi lamakhasi lofuna kuwahlola).</string>
+    <string name="Onboarding_PopQuiz_1_Question">Uma ngabe ukhona lolandzelela kusebenta kwembane wami wetekuchumana, utawubona kutsi ngisebentisa OONI Probe.</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe akasilo lithulusi langansense noma leliyimfihlo. Noma ngubani lolandzelela kusebenta kwetindlela takho tekuchumana emoyeni utawukhona kubona kutsi usebentisa luphi luhlobo lwetebucwephesha</string>
+    <string name="Onboarding_PopQuiz_2_Question">Ngaso sonkhe sikhatsi uma ngisebentisa OONI Probe, imininingwane yetekuchumana lengiyikolekako itawuvele isakateke ngephandle kwekuvuma nome kuphika kwami.</string>
+    <string name="Settings_About_Content_LearnMore">Fundza kabanti</string>
+    </resources>

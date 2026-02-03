@@ -1,24 +1,19 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Ταμπλό</string>
 
+    <string name="Dashboard_Tab_Label">Ταμπλό</string>
     <string name="Dashboard_Overview_LatestTest">Τελευταία δοκιμή:</string>
     <string name="Dashboard_Overview_Estimated">Εκτίμηση:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Επέλεξε ιστοσελίδες</string>
-
     <string name="Dashboard_Running_Running">Εκτελείται:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Εκτιμώμενος χρόνος που απομένει:</string>
     <string name="Dashboard_Running_Stopping_Title">Η δοκιμή σταματάει...</string>
     <string name="Dashboard_Running_Stopping_Notice">Τελειώνουμε τις δοκιμές που εκκρεμούν, παρακαλώ περίμενε...</string>
     <string name="Dashboard_Running_ProxyInUse">Χρησιμοποιείται proxy</string>
-
     <string name="Dashboard_Runv2_Overview_Description">Δημιουργήθηκε από %1$s στις %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ακύρωση</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Ανασκόπηση</string>
-
     <string name="Dashboard_Update_Restart">Επανεκκίνηση </string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Ιστοσελίδες</string>
     <string name="Test_InstantMessaging_Fullname">Εφαρμογές συνομιλιών</string>
@@ -36,9 +31,6 @@
     <string name="Test_Psiphon_Fullname">Δοκιμή Psiphon</string>
     <string name="Test_Tor_Fullname">Δοκιμή Tor</string>
     <string name="Test_Signal_Fullname">Δοκιμή Signal</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Αποτελέσματα δοκιμών</string>
     <string name="TestResults_Overview_Tab_Label">Αποτελέσματα δοκιμών</string>
     <string name="TestResults_Overview_Hero_Tests">Δοκιμές</string>
@@ -58,15 +50,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Βίντεο</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Ποιότητα</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_Gbps">Gbit/s</string>
     <string name="TestResults_Mbps">Mbit/s</string>
     <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">Άγνωστο </string>
     <string name="TestResults_NotAvailable">Μη διαθέσιμο</string>
-
     <string name="TestResults_Filter_Tests">Δοκιμές</string>
     <string name="TestResults_Filter_Networks">Δίκτυα</string>
     <string name="TestResults_Filter_Source">Πηγή</string>
@@ -77,13 +66,10 @@
     <string name="Measurements_Ok">ΟΚ</string>
     <string name="Measurement_Raw_Upload">Ανέβασμα</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Ρυθμίσεις</string>
-
     <string name="Settings_TestOptions_Label">Επιλογές δοκιμής</string>
     <string name="Settings_TestOptions_LongRunningTest">Δοκιμή μεγάλης διάρκειας</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically">Αυτόματη εκτελή δοκιμών</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Μόνο μέσω WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Μόνο όταν φορτίζει</string>
@@ -91,30 +77,30 @@
     <string name="Settings_Sharing_UploadResults">Αυτόματη δημοσίευση αποτελεσμάτων</string>
     <string name="Settings_Websites_Categories_Label">Κατηγορίες ιστοσελιδών για δοκιμή</string>
     <string name="Settings_Websites_Categories_Description">%1$s ενεργοποιημένες κατηγορίες</string>
-
     <string name="Settings_Privacy_Label">Απόρρητο</string>
     <string name="Settings_Privacy_SendCrashReports">Αποστολή αναφορών σφαλμάτων</string>
-
     <string name="Settings_Proxy_Label">Backend proxy του OONI</string>
-    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Κανένας</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Προσαρμοσμένο Proxy</string>
     <string name="Settings_Proxy_Custom_Protocol">Πρωτόκολλο </string>
     <string name="Settings_Proxy_Custom_Hostname">Hostname</string>
     <string name="Settings_Proxy_Custom_Port">Θύρα</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Δοκιμάζει</string>
+    <string name="Settings_Proxy_Custom_Available">Διαθέσιμος/η</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Μη διαθέσιμος/η</string>
     <string name="Settings_Language_Label">Γλώσσα</string>
-
     <string name="Settings_Advanced_Label">Για προχωρημένους</string>
     <string name="Settings_Advanced_DebugLogs">Αρχεία καταγραφής σφαλμάτων</string>
     <string name="Settings_Advanced_RecentLogs">Εμφάνιση πρόσφατων αρχείων καταγραφής</string>
-
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">%1$d μήνας</item>
+        <item quantity="other">%1$d μήνες</item>
+    </plurals>
     <string name="Settings_Support_Label">Υποστήριξη</string>
     <string name="Settings_Support_SendEmail">Αποστολή email στην υποστήριξη</string>
     <string name="Settings_Support_Message">Παρακαλούμε να περιγράψεις μας το πρόβλημα που αντιμετωπίζεις:</string>
     <string name="Settings_Support_Action">Αποστολή email</string>
-
     <string name="Settings_Storage_Label">Χρήση αποθηκευτικού χώρου</string>
     <string name="Settings_Storage_Delete">Διαγραφή</string>
     <string name="Settings_Storage_Clear">Εκκαθάριση</string>
@@ -126,8 +112,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Εκτέλεση</string>
     <string name="Settings_Websites_CustomURL_Add">Προσθήκη ιστοσελίδας</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">Ναρκωτικά &amp; αλκοόλ</string>
     <string name="CategoryCode_REL_Name">Θρησκεία</string>
     <string name="CategoryCode_PORN_Name">Πορνογραφία</string>
@@ -218,14 +202,11 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Κάνουμε ό,τι μπορούμε ώστε να μη δημοσιευτεί η διεύθυνση IP ή άλλα δεδομένα που δυνητικά μπορεί να σε ταυτοποιήσουν.\n\nΜάθε περισσότερα διαβάζοντας την [Πολιτική Δεδομένων του OONI](https://ooni.io/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Αλλαγή ρυθμίσεων</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Έλεγχος ρυθμίσεων</string>
     <string name="AddDescriptor_AutoRun">Αυτόματη εκτελή δοκιμών</string>
     <string name="LoadingScreen_Runv2_Failure">Σφάλμα</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Έλεγχος για ενημερώσεις</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">Δεν ανέβηκαν</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Μερικά δεν ανέβηκαν</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Ανέβασμα όλων</string>
@@ -250,13 +231,11 @@
     <string name="Modal_CustomURL_Title_NotSaved">Είστε σίγουροι;</string>
     <string name="Modal_CustomURL_NotSaved">Οι ιστοσελίδες σου δε θα αποθηκευτούν όταν φύγεις από αυτήν την οθόνη. Είσαι σίγουρος/η ότι θέλεις να φύγεις από αυτήν την οθόνη;</string>
     <string name="Desktop_Quit">Έξοδος</string>
-
     <string name="Tray_Notification_Check_Updates">Έλεγχος για ενημερώσεις</string>
     <string name="Tray_Notification_Checking_Updates">Έλεγχος για ενημερώσεις...</string>
-    <!-- Common / Others -->
 
     <string name="OONIRun_Run">Εκτέλεση</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Δοκιμάζει</string>
     <string name="Notification_StopTest">Τερματισμός δοκιμής</string>
 
@@ -271,7 +250,7 @@
     <string name="Common_Clear">Εκκαθάριση</string>
     <string name="Common_Next">Επόμενο</string>
     <string name="Common_Previous">Προηγούμενο </string>
-
+    <string name="Common_Share">Κοινή χρήση</string>
     <string name="Common_Today">Σήμερα</string>
     <string name="Common_Ago">%1$s πριν</string>
     <string name="Common_Months_January">Ιανουάριος</string>

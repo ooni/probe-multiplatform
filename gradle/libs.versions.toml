@@ -9,10 +9,11 @@ android-targetSdk = "36"
 compose-plugin = "1.10.0"
 kotlin = "2.3.0"
 sqldelight = "2.2.1"
-dataStoreVersion = "1.1.4"
+dataStoreVersion = "1.2.0"
 junitKtx = "1.3.0"
 mokoPermissions = "0.20.1"
 ktor = "3.4.0"
+compose-ui = "1.10.2" # Checkout https://developer.android.com/jetpack/androidx/releases/compose-ui
 
 [plugins]
 
@@ -37,12 +38,12 @@ kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version =
 android-desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.5" }
 
 # UI
-android-activity = { module = "androidx.activity:activity-ktx", version = "1.12.2" }
+android-activity = { module = "androidx.activity:activity-ktx", version = "1.12.3" }
 android-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.9" }
-android-work = { module = "androidx.work:work-runtime-ktx", version = "2.11.0" }
+android-work = { module = "androidx.work:work-runtime-ktx", version = "2.11.1" }
 android-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.1" }
 
-androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version = "1.10.1" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose-ui" }
 
 # JetBrains Compose (plugin-provided artifacts)
 compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose-plugin" }
@@ -59,7 +60,7 @@ lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecyc
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.9.1" }
 window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version = "1.9.0" }
 back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-plugin" }
-dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.7.4" }
+dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.7.5" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-jvm = { module = "io.ktor:ktor-client-java", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
@@ -91,10 +92,10 @@ moko-permissions-notifications = { module = "dev.icerock.moko:permissions-notifi
 
 # Crash Reporting
 # See https://github.com/getsentry/sentry-kotlin-multiplatform?tab=readme-ov-file#cocoa-sdk-version-compatibility-table
-sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.23.0" }
+sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.23.1" }
 
 # Markdown
-markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.39.1" }
+markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.39.2" }
 
 # WebView
 web-view = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "2.0.3" }
@@ -113,8 +114,8 @@ android-orchestrator = { module = "androidx.test:orchestrator", version = "1.6.1
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 android-test-runner = { module = "androidx.test:runner", version = "1.7.0" }
 android-test-rules = { module = "androidx.test:rules", version = "1.7.0" }
-androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test", version = "1.10.1" }
-androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version = "1.10.1" }
+androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test", version.ref = "compose-ui" }
+androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "compose-ui" }
 androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.7.0" }
 fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" }
 

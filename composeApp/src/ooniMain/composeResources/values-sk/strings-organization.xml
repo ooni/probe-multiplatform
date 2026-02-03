@@ -24,4 +24,6 @@
     <string name="Settings_About_Content_Reports">Podania</string>
     <string name="Settings_About_Content_DataPolicy">Dátová politika OONI</string>
 
+    <string name="Settings_Donate_Title">Darovať</string>
+    <string name="Settings_Donate_Action">Darovať</string>
     </resources>

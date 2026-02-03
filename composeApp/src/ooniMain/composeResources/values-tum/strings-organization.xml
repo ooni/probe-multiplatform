@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Kafukufuku wa OONI </string>
+
+    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe ni vichi?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Iyi ni apulikeshoni yakutivwira kupima umo wathu akutondekela ku gwirisya ntchito makina ya intaneti. \n\nKasi ma webusayiti na ma apulikeshoni wamu ntchezyo ngaku kanizgika? Kasi intanenti yinu ikuwa njakusuzgilapo? \n\nGwirisyani ntchito OONI Probe kuti mumanye vinandi!</string>
+    <string name="Settings_About_Content_LearnMore">Sambilani vinandi</string>
+    </resources>

@@ -1,14 +1,17 @@
 package org.ooni.probe.ui.results
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -20,19 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Measurements_Count
-import ooniprobe.composeapp.generated.resources.Measurements_Failed
+import ooniprobe.composeapp.generated.resources.Measurements_Failed_Count
 import ooniprobe.composeapp.generated.resources.Modal_UploadFailed_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
-import ooniprobe.composeapp.generated.resources.TaskOrigin_AutoRun
-import ooniprobe.composeapp.generated.resources.TaskOrigin_Manual
-import ooniprobe.composeapp.generated.resources.TestResults_NotAvailable
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested
-import ooniprobe.composeapp.generated.resources.TestResults_UnknownASN
 import ooniprobe.composeapp.generated.resources.ic_check_circle
 import ooniprobe.composeapp.generated.resources.ic_cloud_off
 import ooniprobe.composeapp.generated.resources.ic_download
@@ -48,13 +46,11 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.SummaryType
-import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.downloadSpeed
 import org.ooni.probe.data.models.uploadSpeed
 import org.ooni.probe.data.models.videoQuality
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
-import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
@@ -91,11 +87,12 @@ fun ResultCell(
                         }
                     },
                     onLongClick = onLongClick,
-                ).padding(horizontal = 16.dp, vertical = 8.dp)
+                ).padding(start = 16.dp, end = 4.dp)
+                .padding(vertical = 12.dp)
                 .testTag(item.descriptor.key),
         ) {
             Column(
-                modifier = Modifier.weight(0.66f),
+                modifier = Modifier.padding(end = 4.dp).weight(0.6f),
             ) {
                 Box {
                     TestDescriptorLabel(
@@ -121,56 +118,6 @@ fun ResultCell(
                             )
                         }
                     }
-                }
-
-                item.network?.networkName?.let { networkName ->
-                    Text(
-                        networkName,
-                        style = MaterialTheme.typography.titleMedium,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                }
-
-                if (hasError && !item.result.failureMessage.isNullOrEmpty()) {
-                    Text(
-                        item.result.failureMessage
-                            .lines()
-                            .first(),
-                        maxLines = 2,
-                        color = MaterialTheme.colorScheme.error,
-                    )
-                } else {
-                    val asn = when {
-                        item.network?.isValid() == false -> stringResource(Res.string.TestResults_NotAvailable)
-                        else ->
-                            item.network?.asn
-                                ?: stringResource(Res.string.TestResults_UnknownASN)
-                    }
-                    Text(
-                        "($asn)",
-                        style = MaterialTheme.typography.titleMedium,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                }
-
-                Text(
-                    item.result.startTime.relativeDateTime() + " – " + item.sourceText,
-                    style = MaterialTheme.typography.labelMedium,
-                )
-            }
-            Column(
-                horizontalAlignment = Alignment.Start,
-                modifier = Modifier.padding(start = 8.dp, top = 24.dp).weight(0.35f),
-            ) {
-                if (!item.result.isDone) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.padding(bottom = 4.dp).size(24.dp),
-                    )
-                }
-                if (!hasError) {
-                    ResultCounts(item)
                 }
                 if (!item.allMeasurementsUploaded) {
                     Row(
@@ -199,6 +146,15 @@ fun ResultCell(
                     }
                 }
             }
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.Start),
+                verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.Top),
+                modifier = Modifier.weight(0.4f).padding(end = 4.dp),
+            ) {
+                if (!hasError) {
+                    ResultCounts(item)
+                }
+            }
         }
     }
 }
@@ -208,32 +164,32 @@ private fun ResultCounts(item: ResultListItem) {
     val summaryType = item.descriptor.summaryType
     val counts = item.measurementCounts
 
-    Column {
-        if (counts.failed > 0) {
+    if (counts.failed > 0) {
+        ResultCountItem(
+            icon = Res.drawable.ic_measurement_failed,
+            text = pluralStringResource(
+                Res.plurals.Measurements_Failed_Count,
+                counts.failed.toInt(),
+                counts.failed,
+            ),
+            color = MaterialTheme.colorScheme.error,
+        )
+    }
+
+    when (summaryType) {
+        SummaryType.Simple -> {
             ResultCountItem(
-                icon = Res.drawable.ic_measurement_failed,
+                icon = Res.drawable.ic_history,
                 text = pluralStringResource(
-                    Res.plurals.Measurements_Failed,
-                    counts.failed.toInt(),
-                    counts.failed,
+                    Res.plurals.Measurements_Count,
+                    counts.done.toInt(),
+                    counts.done,
                 ),
-                color = MaterialTheme.colorScheme.error,
             )
         }
 
-        when (summaryType) {
-            SummaryType.Simple -> {
-                ResultCountItem(
-                    icon = Res.drawable.ic_history,
-                    text = pluralStringResource(
-                        Res.plurals.Measurements_Count,
-                        counts.done.toInt(),
-                        counts.done,
-                    ),
-                )
-            }
-
-            SummaryType.Anomaly -> {
+        SummaryType.Anomaly -> {
+            if (counts.anomaly > 0) {
                 ResultCountItem(
                     icon = Res.drawable.ic_measurement_anomaly,
                     text = pluralStringResource(
@@ -241,42 +197,38 @@ private fun ResultCounts(item: ResultListItem) {
                         counts.anomaly.toInt(),
                         counts.anomaly,
                     ),
-                    color = if (counts.anomaly > 0) {
-                        LocalCustomColors.current.logWarn
-                    } else {
-                        LocalContentColor.current
-                    },
-                )
-                ResultCountItem(
-                    icon = Res.drawable.ic_world,
-                    text = pluralStringResource(
-                        Res.plurals.TestResults_Overview_Websites_Tested,
-                        counts.done.toInt(),
-                        counts.done,
-                    ),
+                    color = LocalCustomColors.current.logWarn,
                 )
             }
+            ResultCountItem(
+                icon = Res.drawable.ic_world,
+                text = pluralStringResource(
+                    Res.plurals.TestResults_Overview_Websites_Tested,
+                    counts.done.toInt(),
+                    counts.done,
+                ),
+            )
+        }
 
-            SummaryType.Performance -> {
-                item.testKeys?.downloadSpeed()?.let { (download, unit) ->
-                    PerformanceMetric(
-                        icon = Res.drawable.ic_download,
-                        text = stringResource(Res.string.twoParam, download, stringResource(unit)),
-                    )
-                }
-                item.testKeys?.uploadSpeed()?.let { (upload, unit) ->
-                    PerformanceMetric(
-                        icon = Res.drawable.ic_upload,
-                        text = stringResource(Res.string.twoParam, upload, stringResource(unit)),
-                    )
-                }
+        SummaryType.Performance -> {
+            item.testKeys?.downloadSpeed()?.let { (download, unit) ->
                 PerformanceMetric(
-                    icon = Res.drawable.video_quality,
-                    text = item.testKeys?.videoQuality()?.let {
-                        stringResource(it)
-                    },
+                    icon = Res.drawable.ic_download,
+                    text = stringResource(Res.string.twoParam, download, stringResource(unit)),
                 )
             }
+            item.testKeys?.uploadSpeed()?.let { (upload, unit) ->
+                PerformanceMetric(
+                    icon = Res.drawable.ic_upload,
+                    text = stringResource(Res.string.twoParam, upload, stringResource(unit)),
+                )
+            }
+            PerformanceMetric(
+                icon = Res.drawable.video_quality,
+                text = item.testKeys?.videoQuality()?.let {
+                    stringResource(it)
+                },
+            )
         }
     }
 }
@@ -289,17 +241,17 @@ private fun ResultCountItem(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(bottom = 2.dp),
+        modifier = Modifier.metricChip(color),
     ) {
         Icon(
             painter = painterResource(icon),
             tint = color.copy(alpha = 0.66f),
             contentDescription = null,
-            modifier = Modifier.padding(end = 2.dp).size(16.dp),
+            modifier = Modifier.padding(end = 2.dp).size(12.dp),
         )
         Text(
             text = text,
-            style = MaterialTheme.typography.labelLarge,
+            style = MaterialTheme.typography.labelMedium,
             color = color,
         )
     }
@@ -311,31 +263,31 @@ private fun PerformanceMetric(
     text: String?,
     color: Color = LocalContentColor.current,
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(bottom = 2.dp),
-    ) {
-        text?.let {
+    text?.let {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.metricChip(color),
+        ) {
             Icon(
                 painter = painterResource(icon),
                 tint = color.copy(alpha = 0.66f),
                 contentDescription = null,
-                modifier = Modifier.padding(end = 2.dp).size(16.dp),
+                modifier = Modifier.padding(end = 2.dp).size(12.dp),
             )
             Text(
                 text = text,
-                style = MaterialTheme.typography.labelLarge,
+                style = MaterialTheme.typography.labelMedium,
                 color = color,
             )
         }
     }
 }
 
-private val ResultListItem.sourceText
-    @Composable
-    get() = stringResource(
-        when (result.taskOrigin) {
-            TaskOrigin.AutoRun -> Res.string.TaskOrigin_AutoRun
-            TaskOrigin.OoniRun -> Res.string.TaskOrigin_Manual
-        },
-    )
+@Composable
+private fun Modifier.metricChip(color: Color = LocalContentColor.current) =
+    this
+        .border(
+            width = 0.5.dp,
+            color = color.copy(alpha = 0.5f),
+            shape = RoundedCornerShape(4.dp),
+        ).padding(horizontal = 4.dp, vertical = 2.dp)

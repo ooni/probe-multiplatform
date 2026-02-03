@@ -1,0 +1,117 @@
+<resources>
+
+    <string name="Dashboard_Tab_Label">Панель управління</string>
+    <string name="Dashboard_RunV2_UpdateTag">ОНОВИТИ</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Скасувати</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">Огляд</string>
+    <string name="Dashboard_Update_Restart">Перезавантажити</string>
+
+
+    <string name="Test_Websites_Fullname">Вебсайти</string>
+    <string name="Test_Performance_Fullname">Продуктивність</string>
+    <string name="Test_Circumvention_Fullname">Обхід блокування</string>
+    <string name="TestResults_Overview_Hero_Networks">Мережі</string>
+    <string name="TestResults_Overview_Hero_DataUsage">Використання даних</string>
+    <string name="TestResults_Summary_Hero_Network">Мережа</string>
+    <string name="TestResults_Summary_Hero_Country">Країна</string>
+    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">Вивантажити</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">Завантажити</string>
+    <string name="TestResults_Summary_Performance_Hero_Video">Відео</string>
+    <string name="TestResults_Summary_Performance_Hero_Ping">Пінг</string>
+    <string name="TestResults_UnknownASN">Невідомо</string>
+    <string name="TestResults_NotAvailable">Н/П</string>
+    <string name="TestResults_Filter_Networks">Мережі</string>
+    <string name="TestResults_Filter_Source">Джерело</string>
+    <string name="TestResults_Filter_Date">Дата</string>
+    <string name="TestResults_Filter_Date_Today">Сьогодні</string>
+    <string name="TestResults_Filter_Date_Custom">Користувацький</string>
+    <string name="Measurements_Failed">Невдало</string>
+    <string name="Measurements_Ok">Гаразд</string>
+    <string name="Measurement_Raw_Upload">Вивантажити</string>
+
+
+    <string name="Settings_Title">Налаштування</string>
+    <string name="Settings_Privacy_Label">Приватність</string>
+    <string name="Settings_Proxy">Проксі</string>
+    <string name="Settings_Proxy_None">Нічого</string>
+    <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Protocol">Протокол</string>
+    <string name="Settings_Proxy_Custom_Hostname">Назва вузла</string>
+    <string name="Settings_Proxy_Custom_Port">Порт</string>
+    <string name="Settings_Proxy_Custom_Available">Доступний</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Недоступний</string>
+    <string name="Settings_Language_Label">Мова</string>
+    <string name="Settings_Advanced_Label">Розширений</string>
+    <string name="Settings_Support_Label">Підтримка</string>
+    <string name="Settings_Support_Action">Надіслати лист</string>
+    <string name="Settings_ShareApp">Поділитися Додатком</string>
+    <string name="Settings_Storage_Delete">Видалити</string>
+    <string name="Settings_Storage_Clear">Очистити</string>
+    <string name="Settings_Logs">Логи</string>
+    <string name="Settings_Websites_Categories_Selection_None">Зняти вибір з усіх</string>
+    <string name="Settings_Websites_Categories_Selection_All">Вибрати всі</string>
+    <string name="Settings_Websites_CustomURL_URL">URL-адреса</string>
+    <string name="Settings_Websites_CustomURL_Add">Додати сайт</string>
+    <string name="Onboarding_ThingsToKnow_Button">Я розумію</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">Дізнатися більше</string>
+    <string name="Onboarding_PopQuiz_True">Вірно</string>
+    <string name="Onboarding_PopQuiz_False">Невірно</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">Продовжити</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">Увага!</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">Увага!</string>
+    <string name="Onboarding_Crash_Button_Yes">Так</string>
+    <string name="Onboarding_Crash_Button_No">Ні</string>
+    <string name="Onboarding_Notifications_Title">Дозволити сповіщення</string>
+    <string name="Onboarding_Notifications_Ok">Гаразд</string>
+    <string name="Onboarding_Notifications_Skip">Пропустити</string>
+    <string name="Onboarding_DefaultSettings_Title">Налаштування за промовчанням</string>
+    <string name="AddDescriptor_Settings">Перевірити Настройки</string>
+    <string name="LoadingScreen_Runv2_Failure">Помилка</string>
+    <!-- Only used for the desktop version of the app for now -->
+    <string name="DescriptorUpdate_CheckUpdates">Перевірити на оновлення</string>
+    <string name="Modal_UploadFailed_Title">Завантаження невдалося</string>
+    <string name="Modal_Retry">Повторити</string>
+    <string name="Modal_Cancel">Скасувати</string>
+    <string name="Modal_OK">Гаразд</string>
+    <string name="Modal_Delete">Видалити</string>
+    <string name="Modal_Error_NoInternet">Відсутнє з\'єднання з інтернетом</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Ви впевнені?</string>
+    <string name="Desktop_Quit">Вийти</string>
+    <string name="Tray_Notification_Check_Updates">Перевірити на оновлення</string>
+    <string name="Common_Back">Назад</string>
+    <string name="Common_Close">Закрити</string>
+    <string name="Common_Refresh">Оновити</string>
+    <string name="Common_Collapse">Закрити</string>
+    <string name="Common_Expand">Відкрити</string>
+    <string name="Common_Enable">Увімкнути</string>
+    <string name="Common_Yes">Так</string>
+    <string name="Common_Save">Зберегти</string>
+    <string name="Common_Clear">Очистити</string>
+    <string name="Common_Next">Вперед</string>
+    <string name="Common_Previous">Попередній</string>
+    <string name="Common_Share">Поділитися</string>
+    <string name="Common_Today">Сьогодні</string>
+    <string name="Common_Yesterday">Вчора</string>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дні</item>
+        <item quantity="many">%1$d днів</item>
+        <item quantity="other">%1$d днів</item>
+    </plurals>
+    <string name="Common_Months_January">Січень</string>
+    <string name="Common_Months_February">Лютий</string>
+    <string name="Common_Months_March">Березень</string>
+    <string name="Common_Months_April">Квітень</string>
+    <string name="Common_Months_May">Травень</string>
+    <string name="Common_Months_June">Червень</string>
+    <string name="Common_Months_July">Липень</string>
+    <string name="Common_Months_August">Серпень</string>
+    <string name="Common_Months_September">Вересень</string>
+    <string name="Common_Months_October">Жовтень</string>
+    <string name="Common_Months_November">Листопад</string>
+    <string name="Common_Months_December">Грудень</string>
+
+    <string name="NetworkType_Vpn">VPN</string>
+</resources>

@@ -1,17 +1,14 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Dasbor</string>
 
+    <string name="Dashboard_Tab_Label">Dasbor</string>
     <string name="Dashboard_Overview_LatestTest">Tes terakhir:</string>
     <string name="Dashboard_Overview_Estimated">Estimasi:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Pilih situs web</string>
-
     <string name="Dashboard_Running_Running">Menjalankan:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Estimasi waktu tersisa:</string>
     <string name="Dashboard_Running_Stopping_Title">Menghentikan tes...</string>
     <string name="Dashboard_Running_Stopping_Notice">Menyelesaikan tes yang saat ini tertunda, silakan tunggu...</string>
     <string name="Dashboard_Running_ProxyInUse">Proksi yang digunakan</string>
-
     <string name="Dashboard_RunTests_Title">Jalankan tes</string>
     <string name="Dashboard_RunTests_Description">Pilih tes untuk dijalankan</string>
     <string name="Dashboard_RunTests_SelectAll">Pilih semua tes</string>
@@ -26,17 +23,14 @@
     <string name="Dashboard_RunV2_UpdatedTag">DIPERBARUI</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Undo</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Tinjau Pembaruan</string>
-
     <string name="Dashboard_Progress_UpdateLink_Label">Memuat pembaruan tautan</string>
     <string name="Dashboard_Progress_ReviewLink_Label">Pembaruan tautan sudah siap</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Tinjau</string>
-
     <string name="Dashboard_ReviewDescriptor_Label">Pembaruan Tautan (%1$s dari %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">PERBARUI DAN SELESAI (%1$s dari %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">PERBARUI (%1$s dari %2$s)</string>
     <string name="Dashboard_Update_Restart">Mulai ulang</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Situs web</string>
     <string name="Test_InstantMessaging_Fullname">Perpesanan Instan</string>
@@ -54,9 +48,6 @@
     <string name="Test_Psiphon_Fullname">Tes Psiphon</string>
     <string name="Test_Tor_Fullname">Tes Tor</string>
     <string name="Test_Signal_Fullname">Tes Signal</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Hasil Tes</string>
     <string name="TestResults_Overview_Tab_Label">Hasil Tes</string>
     <string name="TestResults_Overview_Hero_Tests">Tes</string>
@@ -76,15 +67,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Video </string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Kualitas</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_Gbps">Gbit/s</string>
     <string name="TestResults_Mbps">Mbit/s</string>
     <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">Tidak diketahui</string>
     <string name="TestResults_NotAvailable">N/A</string>
-
     <string name="TestResults_Filter_Tests">Tes</string>
     <string name="TestResults_Filter_Networks">Jaringan</string>
     <string name="TestResults_Filter_Source">Sumber</string>
@@ -96,13 +84,10 @@
     <string name="Measurements_Anomaly">Anomali</string>
     <string name="Measurement_Raw_Upload">Unggah</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Setelan</string>
-
     <string name="Settings_TestOptions_Label">Opsi tes</string>
     <string name="Settings_TestOptions_LongRunningTest">Tes jangka panjang</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically">Jalankan tes secara otomatis</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Hanya melalui WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Hanya ketika mengisi daya</string>
@@ -110,10 +95,8 @@
     <string name="Settings_Sharing_UploadResults">Publikasikan Hasil Secara Otomatis</string>
     <string name="Settings_Websites_Categories_Label">Kategori situs web untuk dites</string>
     <string name="Settings_Websites_Categories_Description">%1$s kategori diaktifkan</string>
-
     <string name="Settings_Privacy_Label">Privasi</string>
     <string name="Settings_Privacy_SendCrashReports">Kirim laporan kerusakan</string>
-
     <string name="Settings_Proxy_Label">Proksi belakang OONI</string>
     <string name="Settings_Proxy">Proksi</string>
     <string name="Settings_Proxy_None">Tidak ada</string>
@@ -125,11 +108,9 @@
     <string name="Settings_Proxy_Custom_Available">Tersedia</string>
     <string name="Settings_Proxy_Custom_Unavailable">Tidak tersedia</string>
     <string name="Settings_Language_Label">Bahasa</string>
-
     <string name="Settings_Advanced_Label">Lanjutan</string>
     <string name="Settings_Advanced_DebugLogs">Log Awakutu</string>
     <string name="Settings_Advanced_RecentLogs">Lihat log terbaru</string>
-
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
         <item quantity="other">%1$d bulan</item>
     </plurals>
@@ -137,7 +118,6 @@
     <string name="Settings_Support_SendEmail">Kirim surel ke dukungan</string>
     <string name="Settings_Support_Message">Silakan deskripsikan masalah yang Anda alami:</string>
     <string name="Settings_Support_Action">Kirim email</string>
-
     <string name="Settings_Storage_Label">Penggunaan penyimpanan</string>
     <string name="Settings_Storage_Delete">Delete</string>
     <string name="Settings_Storage_Clear">Bersihkan</string>
@@ -149,8 +129,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL </string>
     <string name="Settings_Websites_CustomURL_Run">Mulai</string>
     <string name="Settings_Websites_CustomURL_Add">Tambahkan situs web</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">Narkoba &amp; Alkohol</string>
     <string name="CategoryCode_REL_Name">Agama</string>
     <string name="CategoryCode_PORN_Name">Pornografi</string>
@@ -241,8 +219,6 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Kami melakukan yang terbaik untuk tidak memublikasikan alamat IP atau hal lain yang berpotensi sebagai informasi identitas pribadi Anda.\n\nPelajari lebih lanjut melalui [Kebijakan Data OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Ubah bawaan</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Pengaturan Tes</string>
     <string name="AddDescriptor_Title">Pasang Tautan Baru</string>
     <string name="AddDescriptor_AutoUpdate">Pasang pembaruan secara otomatis</string>
@@ -252,9 +228,8 @@
     <string name="LoadingScreen_Runv2_Failure">Galat</string>
     <string name="LoadingScreen_Runv2_Canceled">Pemasangan tautan dibatalkan</string>
     <string name="DescriptorUpdate_Updates">PEMBARUAN</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Periksa Pembaruan</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">Tidak terunggah</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Beberapa tidak terunggah</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Unggah Semua</string>
@@ -280,14 +255,11 @@
     <string name="Modal_CustomURL_Title_NotSaved">Anda yakin?</string>
     <string name="Modal_CustomURL_NotSaved">URL Anda tidak akan disimpan saat Anda meninggalkan layar ini. Anda yakin ingin meninggalkan layar ini?</string>
     <string name="Desktop_Quit">Keluar</string>
-
     <string name="Tray_Notification_Check_Updates">Periksa Pembaruan</string>
     <string name="Tray_Notification_Checking_Updates">Memeriksa update ...</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Mulai</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Menguji</string>
     <string name="Notification_StopTest">Hentikan tes</string>
 
@@ -303,7 +275,6 @@
     <string name="Common_Next">Berikutnya</string>
     <string name="Common_Previous">Kembali</string>
     <string name="Common_Share">Bagikan</string>
-
     <string name="Common_Today">Hari ini</string>
     <string name="Common_Yesterday">Kemarin</string>
     <string name="Common_Ago">%1$s yang lalu</string>

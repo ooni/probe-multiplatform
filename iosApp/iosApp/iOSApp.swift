@@ -54,7 +54,7 @@ struct iOSApp: App {
             DatabaseHelper.companion.initialize(dependency: appDependencies.dependencies)
 
             Task { [self] in
-                try await self.initDatabase()
+                await self.initDatabase()
             }
 
         }
@@ -116,3 +116,4 @@ struct iOSApp: App {
         }
     }
 }
+

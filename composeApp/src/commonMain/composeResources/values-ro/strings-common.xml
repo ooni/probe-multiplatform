@@ -1,21 +1,16 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Tablou bord</string>
 
+    <string name="Dashboard_Tab_Label">Tablou bord</string>
     <string name="Dashboard_Overview_LatestTest">Ultimul test:</string>
     <string name="Dashboard_Overview_Estimated">Estimare:</string>
-    <string name="Dashboard_Overview_LastRun_Never">N/A</string>
     <string name="Dashboard_Overview_ChooseWebsites">Alegeți site-urile web</string>
-
     <string name="Dashboard_Running_Running">Se execută:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Timp estimat rămas:</string>
     <string name="Dashboard_Runv2_Overview_Description">Creat de %1$s la %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Anulează</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Revizuire</string>
-
     <string name="Dashboard_Update_Restart">Restart</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Site-uri</string>
     <string name="Test_InstantMessaging_Fullname">Mesagerie instant</string>
@@ -32,18 +27,11 @@
     <string name="Test_FacebookMessenger_Fullname">Test Facebook Messenger</string>
     <string name="Test_Psiphon_Fullname">Test Psiphon</string>
     <string name="Test_Tor_Fullname">Test Tor</string>
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Rezultatele testului</string>
     <string name="TestResults_Overview_Tab_Label">Rezultatele testului</string>
-    <string name="TestResults_Overview_FilterTests">Teste de filtrare</string>
     <string name="TestResults_Overview_Hero_Tests">Teste</string>
     <string name="TestResults_Overview_Hero_Networks">Rețele</string>
     <string name="TestResults_Overview_Hero_DataUsage">Utilizarea de date</string>
-    <string name="TestResults_Overview_Websites_Blocked_Singular">%1$s blocat</string>
-    <string name="TestResults_Overview_Websites_Blocked_Plural">%1$s blocat</string>
-    <string name="TestResults_Overview_Websites_Tested_Singular">%1$s testat</string>
-    <string name="TestResults_Overview_Websites_Tested_Plural">%1$s testat</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Nu s-au efectuat încă teste. Încercați să rulați unul!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Data și ora</string>
     <string name="TestResults_Summary_Hero_Network">Reţea</string>
@@ -51,54 +39,56 @@
     <string name="TestResults_Summary_Hero_Runtime">Timp total de execuție</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Date mobile</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Fără Internet</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Singular">Testat</string>
-    <string name="TestResults_Summary_Websites_Hero_Tested_Plural">Testat</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Singular">Blocat</string>
-    <string name="TestResults_Summary_Websites_Hero_Blocked_Plural">Blocat</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Singular">Accesibil</string>
-    <string name="TestResults_Summary_Websites_Hero_Reachable_Plural">Accesibil</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Încărcați</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Descărcă</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Calitate</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_Gbps">Gbit/s</string>
     <string name="TestResults_Mbps">Mbit/s</string>
     <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">Necunoscut</string>
     <string name="TestResults_NotAvailable">N/A</string>
-
+    <string name="TestResults_Filter_Tests">Teste</string>
+    <string name="TestResults_Filter_Networks">Rețele</string>
+    <string name="TestResults_Filter_Source">Sursă</string>
+    <string name="TestResults_Filter_Date">Dată</string>
+    <string name="TestResults_Filter_Date_Custom">Personalizat</string>
     <string name="Measurements_Failed">Acţiunea a eşuat</string>
     <string name="Measurements_Ok">OK</string>
-    <!-- Settings -->
+    <string name="Measurement_Raw_Upload">Încărcați</string>
+
 
     <string name="Settings_Title">Setări</string>
-
     <string name="Settings_TestOptions_Label">Opțiuni de testare</string>
     <string name="Settings_Sharing_UploadResults">Publicare automată a rezultatelor</string>
-
-    <string name="Settings_Websites_MaxRuntimeEnabled">Limitarea duratei testului</string>
-    <string name="Settings_Websites_MaxRuntime">Durata testului</string>
     <string name="Settings_Websites_Categories_Label">Categorii de site-uri web de testat</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorii activate</string>
-
     <string name="Settings_Privacy_Label">Confidențialitate</string>
     <string name="Settings_Privacy_SendCrashReports">Trimitere rapoarte de avarie</string>
-
-    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Nici unul</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
     <string name="Settings_Proxy_Custom_Hostname">Nume server </string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Testare</string>
+    <string name="Settings_Proxy_Custom_Available">Disponibil</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Indisponibil</string>
+    <string name="Settings_Language_Label">Limbă</string>
     <string name="Settings_Advanced_Label">Avansat</string>
     <string name="Settings_Advanced_DebugLogs">Jurnale de depanare</string>
-    <string name="Settings_SendEmail_Label">Trimitere e-mail pentru asistență</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">%1$d luna </item>
+        <item quantity="few">%1$d luni</item>
+        <item quantity="other">%1$d luni</item>
+    </plurals>
+    <string name="Settings_Support_Label">Asistență</string>
+    <string name="Settings_Support_SendEmail">Trimitere e-mail pentru asistență</string>
+    <string name="Settings_Support_Action">Trimite email</string>
     <string name="Settings_Storage_Delete">Ștergeți</string>
     <string name="Settings_Storage_Clear">Clear</string>
     <string name="Settings_Logs">Jurnale</string>
@@ -107,10 +97,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Executare</string>
     <string name="Settings_Websites_CustomURL_Add">Adăugare website</string>
-    <string name="CustomWebsites_Fab_Text">Test %1$d URLs</string>
-
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">Droguri și alcool</string>
     <string name="CategoryCode_REL_Name">Religie</string>
     <string name="CategoryCode_PORN_Name">Pornografie</string>
@@ -197,12 +183,10 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Ora și data testării</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Modific valori implicite</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Setările pentru testări</string>
     <string name="LoadingScreen_Runv2_Failure">Eroare</string>
-    <!-- Modals / Toasts / Snackbar -->
-
+    <!-- Only used for the desktop version of the app for now -->
+    <string name="DescriptorUpdate_CheckUpdates">Verificați pentru actualizări</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Nu s-a încărcat</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Unele nu s-au încărcat</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Încărcarei toate</string>
@@ -222,20 +206,26 @@
     <string name="Modal_Error_NoInternet">Nu este conexiune la internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">Ești sigur(ă)?</string>
     <string name="Modal_CustomURL_NotSaved">URL-urile dvs. nu vor fi salvate când părăsiți acest ecran. Sigur doriți să părăsiți acest ecran?</string>
-    <!-- Common / Others -->
+    <string name="Desktop_Quit">Quit</string>
+    <string name="Tray_Notification_Check_Updates">Verificați pentru actualizări</string>
+    <string name="Tray_Notification_Checking_Updates">Verific pentru actualizări...</string>
 
     <string name="OONIRun_Run">Executare</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testare</string>
     <string name="Common_Back">Înapoi</string>
+    <string name="Common_Close">Închide</string>
     <string name="Common_Refresh">Actualizează</string>
     <string name="Common_Collapse">Restrânge</string>
     <string name="Common_Expand">Extinde</string>
+    <string name="Common_Enable">Activează:</string>
+    <string name="Common_Yes">Da</string>
+    <string name="Common_Save">Salvare</string>
+    <string name="Common_Clear">Clear</string>
+    <string name="Common_Next">Înainte</string>
+    <string name="Common_Previous">Anterior</string>
+    <string name="Common_Share">Partajează</string>
     <string name="Common_Ago">%1$s în urmă</string>
-    <string name="Common_Minutes_One">%1$d minut</string>
-    <string name="Common_Minutes_Other">%1$d minute</string>
-    <string name="Common_Hour_One">%1$d hour</string>
-    <string name="Common_Hour_Other">%1$d ore</string>
     <string name="Common_Months_January">Ianuarie</string>
     <string name="Common_Months_February">Februarie</string>
     <string name="Common_Months_March">Martie</string>

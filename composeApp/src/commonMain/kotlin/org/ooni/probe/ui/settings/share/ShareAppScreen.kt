@@ -34,6 +34,7 @@ import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.PlatformAction
+import org.ooni.probe.ui.shared.LocalClipboardActions
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.isHeightCompact
@@ -45,6 +46,7 @@ fun ShareAppScreen(
     launchAction: (PlatformAction) -> Boolean,
 ) {
     val coroutineScope = rememberCoroutineScope()
+    val clipboardActions = LocalClipboardActions.current
 
     Column(Modifier.background(MaterialTheme.colorScheme.background)) {
         TopBar(
@@ -79,15 +81,14 @@ fun ShareAppScreen(
             Button(
                 onClick = {
                     coroutineScope.launch {
-                        launchAction(
-                            PlatformAction.Share(
-                                getString(
-                                    Res.string.Settings_ShareApp_ShareMessage,
-                                    getString(Res.string.app_name),
-                                    OrganizationConfig.installUrl.orEmpty(),
-                                ),
-                            ),
+                        val message = getString(
+                            Res.string.Settings_ShareApp_ShareMessage,
+                            getString(Res.string.app_name),
+                            OrganizationConfig.installUrl.orEmpty(),
                         )
+                        if (!launchAction(PlatformAction.Share(message))) {
+                            clipboardActions?.copyToClipboard(message)
+                        }
                     }
                 },
             ) {

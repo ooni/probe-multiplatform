@@ -1,0 +1,7 @@
+<resources>
+    <string name="Settings_About_Content_LearnMore">더 알아보기</string>
+    <string name="Settings_About_Content_Blog">블로그</string>
+    <string name="Settings_About_Content_Reports">보고서</string>
+    <string name="Settings_Donate_Title">후원하기</string>
+    <string name="Settings_Donate_Action">후원하기</string>
+    </resources>

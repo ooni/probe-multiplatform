@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.measurement
 
+import androidx.compose.ui.text.intl.Locale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +21,7 @@ class MeasurementViewModel(
     onBack: () -> Unit,
     getMeasurement: (MeasurementModel.Id) -> Flow<MeasurementWithUrl?>,
     openUrl: (String) -> Unit,
-    shareUrl: (String) -> Unit,
+    shareUrl: (String) -> Boolean,
     isWebViewAvailable: () -> Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
@@ -35,10 +36,11 @@ class MeasurementViewModel(
                 val m = item?.measurement
                 val input = item?.url?.url
                 val url = if (m?.uid != null) {
-                    "${OrganizationConfig.explorerUrl}/m/${m.uid.value}"
+                    "${OrganizationConfig.explorerUrl}/m/${m.uid.value}?webview=true&language=${Locale.current.toLanguageTag()}"
                 } else if (m?.reportId != null) {
                     val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
-                    "${OrganizationConfig.explorerUrl}/measurement/${m.reportId.value}$inputSuffix"
+                    val separator = if (inputSuffix.isEmpty()) "?" else "&"
+                    "${OrganizationConfig.explorerUrl}/measurement/${m.reportId.value}$inputSuffix${separator}webview=true&language=${Locale.current.toLanguageTag()}"
                 } else {
                     onBack()
                     return@onEach
@@ -59,8 +61,19 @@ class MeasurementViewModel(
 
         events
             .filterIsInstance<Event.ShareUrl>()
-            .onEach { (_state.value as? State.ShowMeasurement)?.url?.let(shareUrl) }
-            .launchIn(viewModelScope)
+            .onEach {
+                val state = _state.value as? State.ShowMeasurement ?: return@onEach
+                if (!shareUrl(state.url)) {
+                    _state.value = state.copy(copyMessageToClipboard = state.url)
+                }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.MessageCopied>()
+            .onEach {
+                val state = _state.value as? State.ShowMeasurement ?: return@onEach
+                _state.value = state.copy(copyMessageToClipboard = null)
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -72,6 +85,7 @@ class MeasurementViewModel(
 
         data class ShowMeasurement(
             val url: String,
+            val copyMessageToClipboard: String? = null,
         ) : State
     }
 
@@ -79,5 +93,7 @@ class MeasurementViewModel(
         data object BackClicked : Event
 
         data object ShareUrl : Event
+
+        data object MessageCopied : Event
     }
 }

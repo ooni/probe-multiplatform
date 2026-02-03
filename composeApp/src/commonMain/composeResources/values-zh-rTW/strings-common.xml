@@ -1,17 +1,14 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">儀表板</string>
 
+    <string name="Dashboard_Tab_Label">儀表板</string>
     <string name="Dashboard_Overview_LatestTest">上回測試：</string>
     <string name="Dashboard_Overview_Estimated">預估：</string>
     <string name="Dashboard_Overview_ChooseWebsites">選擇網站</string>
-
     <string name="Dashboard_Running_Running">執行:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">預估剩餘時間:</string>
     <string name="Dashboard_Running_Stopping_Title">停止測試...</string>
     <string name="Dashboard_Running_Stopping_Notice">完成當前該處理的測試，請稍等....</string>
     <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
-
     <string name="Dashboard_RunTests_Title">執行測試</string>
     <string name="Dashboard_RunTests_Description">選擇要執行的測試</string>
     <string name="Dashboard_RunTests_SelectAll">選擇所有測試</string>
@@ -30,10 +27,8 @@
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">已拒絕的更新</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">復原</string>
     <string name="Dashboard_Progress_ReviewLink_Action">複檢</string>
-
     <string name="Dashboard_Update_Restart">重新啟動</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">網站</string>
     <string name="Test_InstantMessaging_Fullname">即時通訊</string>
@@ -51,9 +46,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon 測試</string>
     <string name="Test_Tor_Fullname">Tor 測試</string>
     <string name="Test_Signal_Fullname">Signal 測試</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">測試結果</string>
     <string name="TestResults_Overview_Tab_Label">測試結果</string>
     <string name="TestResults_Overview_Hero_Tests">測試</string>
@@ -73,15 +65,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">影片</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">品質</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_Gbps">Gbit/s</string>
     <string name="TestResults_Mbps">Mbit/s</string>
     <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">未知</string>
     <string name="TestResults_NotAvailable">不適用</string>
-
     <string name="TestResults_Filter_Tests">測試</string>
     <string name="TestResults_Filter_Networks">網路</string>
     <string name="TestResults_Filter_Source">來源</string>
@@ -92,13 +81,10 @@
     <string name="Measurements_Ok">正常</string>
     <string name="Measurement_Raw_Upload">上傳</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">設定</string>
-
     <string name="Settings_TestOptions_Label">測試選項</string>
     <string name="Settings_TestOptions_LongRunningTest">長時間運行測試</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically">自動進行測試</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">僅在 WiFi 執行</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">僅在充電時執行</string>
@@ -106,10 +92,8 @@
     <string name="Settings_Sharing_UploadResults">自動發佈結果</string>
     <string name="Settings_Websites_Categories_Label">測試的網站類別</string>
     <string name="Settings_Websites_Categories_Description">%1$s 啟用的分類</string>
-
     <string name="Settings_Privacy_Label">隱私</string>
     <string name="Settings_Privacy_SendCrashReports">送出出錯崩潰報告</string>
-
     <string name="Settings_Proxy_Label">OONI 後端代理</string>
     <string name="Settings_Proxy">代理伺服器</string>
     <string name="Settings_Proxy_None">無</string>
@@ -121,16 +105,13 @@
     <string name="Settings_Proxy_Custom_Available">可用</string>
     <string name="Settings_Proxy_Custom_Unavailable">不可用</string>
     <string name="Settings_Language_Label">語言</string>
-
     <string name="Settings_Advanced_Label">進階的</string>
     <string name="Settings_Advanced_DebugLogs">調試記錄</string>
     <string name="Settings_Advanced_RecentLogs">查看近期活動記錄</string>
-
     <string name="Settings_Support_Label">支援</string>
     <string name="Settings_Support_SendEmail">寄求助郵件</string>
     <string name="Settings_Support_Message">請描述您所遇到的問題: </string>
     <string name="Settings_Support_Action">發送電子郵件</string>
-
     <string name="Settings_ShareApp">分享應用程式</string>
     <string name="Settings_Storage_Label">儲存用量</string>
     <string name="Settings_Storage_Delete">刪除</string>
@@ -143,8 +124,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">執行</string>
     <string name="Settings_Websites_CustomURL_Add">新增網站</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">藥物 &amp; 酒精</string>
     <string name="CategoryCode_REL_Name">宗教</string>
     <string name="CategoryCode_PORN_Name">色情</string>
@@ -236,14 +215,11 @@
     <string name="Onboarding_DefaultSettings_Paragraph">我們盡量不會發佈用戶 IP 位置或是其它可能辨識個人資料的資訊。\n\n可進一步了解[ONNI 資料政策](https://ooni.io/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">變更預設</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">測試設定</string>
     <string name="AddDescriptor_AutoRun">自動進行測試</string>
     <string name="LoadingScreen_Runv2_Failure">錯誤</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">檢查更新</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">未上傳的</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">部份未上傳的</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">上傳全部</string>
@@ -268,14 +244,11 @@
     <string name="Modal_CustomURL_Title_NotSaved">你確定嗎？</string>
     <string name="Modal_CustomURL_NotSaved">關閉此畫面後不會儲存 URL 記錄，確定要離開此畫面嗎？  </string>
     <string name="Desktop_Quit">退出</string>
-
     <string name="Tray_Notification_Check_Updates">檢查更新</string>
     <string name="Tray_Notification_Checking_Updates">正在檢查更新...</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">執行</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">測試中</string>
     <string name="Notification_StopTest">停止測試</string>
 
@@ -291,7 +264,6 @@
     <string name="Common_Next">下一個</string>
     <string name="Common_Previous">前一個</string>
     <string name="Common_Share">分享</string>
-
     <string name="Common_Today">今天</string>
     <string name="Common_Yesterday">昨天</string>
     <string name="Common_Ago">%1$s 前</string>
