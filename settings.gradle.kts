@@ -25,8 +25,6 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
-        // For compose-webview-multiplatform desktop
-        maven("https://jogamp.org/deployment/maven")
     }
 }
 

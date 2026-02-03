@@ -47,7 +47,9 @@ import platform.Foundation.NSURL
 import platform.Foundation.NSUTF8StringEncoding
 import platform.Foundation.NSUserDomainMask
 import platform.Foundation.characterDirectionForLanguage
+import platform.Foundation.currentLocale
 import platform.Foundation.dateByAddingTimeInterval
+import platform.Foundation.localizedStringForCountryCode
 import platform.Foundation.stringWithContentsOfFile
 import platform.MessageUI.MFMailComposeResult
 import platform.MessageUI.MFMailComposeViewController
@@ -98,6 +100,7 @@ class SetupDependencies(
         isWebViewAvailable = { true },
         flavorConfig = FlavorConfig(),
         proxyConfig = ProxyConfig(isPsiphonSupported = false),
+        getCountryNameByCode = ::getCountryNameByCode,
     )
 
     private val operationsManager = OperationsManager(dependencies, backgroundRunner)
@@ -421,4 +424,11 @@ class SetupDependencies(
     }
 
     private fun findCurrentViewController(): UIViewController? = UIApplication.sharedApplication.keyWindow?.rootViewController
+
+    private fun getCountryNameByCode(countryCode: String) =
+        NSLocale
+            .currentLocale()
+            .localizedStringForCountryCode(countryCode)
+            ?.ifEmpty { null }
+            ?: countryCode
 }

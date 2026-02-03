@@ -1,0 +1,25 @@
+CREATE TABLE Article(
+    url TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    source TEXT NOT NULL,
+    description TEXT,
+    image_url TEXT,
+    time INTEGER NOT NULL
+);
+
+insertOrReplace:
+INSERT OR REPLACE INTO Article (
+    url,
+    title,
+    source,
+    description,
+    image_url,
+    time
+) VALUES (?,?,?,?,?,?);
+
+selectAll:
+SELECT * FROM Article ORDER BY time DESC;
+
+deleteExceptUrls:
+DELETE FROM Article WHERE Article.url NOT IN ?;
+
