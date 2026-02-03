@@ -5,5 +5,8 @@ import androidx.compose.runtime.Composable
 
 
 @Composable
-fun ColumnScope.CleanUpStep(onEvent: (OnboardingViewModel.Event) -> Unit) {
+fun ColumnScope.CleanUpStep(
+    isCleanupInProgress: Boolean,
+    onEvent: (OnboardingViewModel.Event) -> Unit
+) {
 }

@@ -114,6 +114,10 @@ class OnboardingViewModel(
         events
             .filterIsInstance<Event.CleanupClicked>()
             .onEach {
+                val state = _state.value as? State.Ready ?: return@onEach
+                _state.update {
+                    state.copy(isCleanupInProgress = true)
+                }
                 cleanupLegacyDirectories?.invoke()
 
                 moveToNextStep()
@@ -167,6 +171,7 @@ class OnboardingViewModel(
             val stepIndex: Int,
             private val steps: List<Step>,
             val showBatteryOptimizationDialog: Boolean = false,
+            val isCleanupInProgress: Boolean = false,
         ) : State {
             val step get() = steps[stepIndex]
             val totalSteps get() = steps.size
@@ -176,6 +181,7 @@ class OnboardingViewModel(
                 copy(
                     stepIndex = stepIndex + 1,
                     showBatteryOptimizationDialog = false,
+                    isCleanupInProgress = false,
                 )
         }
 

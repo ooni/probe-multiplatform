@@ -9,16 +9,23 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
 import okio.Path.Companion.toPath
+import org.ooni.probe.background.runCommand
 import org.ooni.probe.shared.DesktopOS
 import java.io.File
 import kotlin.coroutines.CoroutineContext
 
 class DesktopLegacyDirectoryManager(
-    os: DesktopOS,
+    private val os: DesktopOS,
     private val backgroundContext: CoroutineContext = Dispatchers.IO,
 ) : LegacyDirectoryManager {
     private val cleanUpDone = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
     private val oldProjectDirectories = ProjectDirectories.fromPath("OONI Probe")
+
+    val localAppData = oldProjectDirectories.cacheDir
+        .replace("cache", "")
+        .replace("OONI Probe", "")
+        .replace("\\\\", "\\")
+    val legacyUpdateDir = "$localAppData\\ooniprobe-desktop-updater\\pending"
 
     private val legacyPaths = when (os) {
         DesktopOS.Mac -> listOf(
@@ -33,7 +40,8 @@ class DesktopLegacyDirectoryManager(
         DesktopOS.Windows -> listOf(
             oldProjectDirectories.cacheDir,
             oldProjectDirectories.dataDir,
-        ).map { it.toPath().parent.toString() }
+            legacyUpdateDir,
+        ).map { it.toPath().parent.toString() }.toMutableList()
 
         else -> emptyList()
     }
@@ -53,6 +61,10 @@ class DesktopLegacyDirectoryManager(
         withContext(backgroundContext) {
             Logger.i { "Starting cleanup of legacy directories..." }
 
+            if (os == DesktopOS.Windows) {
+                uninstallLegacyApp()
+            }
+
             val results = legacyPaths.map { dirPath ->
                 Logger.i { "Attempting to clean up legacy path: $dirPath" }
                 deletePath(dirPath).also {
@@ -68,6 +80,18 @@ class DesktopLegacyDirectoryManager(
             cleanUpDone.tryEmit(Unit)
             return@withContext results.all { it }
         }
+
+    fun uninstallLegacyApp() {
+        val legacyInstallDir = "$localAppData\\Programs\\ooniprobe-desktop"
+        // find exe with word uninstall in name in the folder `legacyInstallDir`
+        val legacyUnInstallExe = File(legacyInstallDir).walkTopDown().firstOrNull {
+            it.isFile && it.name.contains("uninstall", ignoreCase = true)
+        }
+        if (legacyUnInstallExe != null) {
+            Logger.i { "Found legacy uninstall executable: ${legacyUnInstallExe.absolutePath}" }
+            runCommand(arrayOf(legacyUnInstallExe.absolutePath, "/S"))
+        }
+    }
 
     private fun deletePath(path: String): Boolean {
         val target = File(path)
