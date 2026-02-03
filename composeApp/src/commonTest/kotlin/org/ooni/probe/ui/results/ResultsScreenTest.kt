@@ -20,20 +20,6 @@ import kotlin.test.assertEquals
 
 class ResultsScreenTest {
     @Test
-    fun start() =
-        runComposeUiTest {
-            val events = mutableListOf<ResultsViewModel.Event>()
-            setContent {
-                ResultsScreen(
-                    state = ResultsViewModel.State(results = emptyMap(), isLoading = true),
-                    onEvent = events::add,
-                )
-            }
-
-            assertEquals(ResultsViewModel.Event.Start, events.last())
-        }
-
-    @Test
     fun showResults() =
         runComposeUiTest {
             val item = buildItem()

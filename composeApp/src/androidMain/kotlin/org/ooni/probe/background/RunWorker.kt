@@ -90,7 +90,7 @@ class RunWorker(
             } else {
                 Logger.i("Run Worker: cancelled")
             }
-            setRunBackgroundState { RunBackgroundState.Idle() }
+            setRunBackgroundState { RunBackgroundState.Idle }
         } finally {
             notificationManager.cancel(NOTIFICATION_ID)
             unregisterReceiver()

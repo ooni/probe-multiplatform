@@ -21,12 +21,14 @@ data class RunModel(
     }
 
     companion object {
-        fun fromResult(item: ResultListItem) =
-            RunModel(
-                id = item.result.runId ?: Id.generateForSingleResult(item.result),
-                network = item.network,
-                startTime = item.result.startTime,
-                taskOrigin = item.result.taskOrigin,
-            )
+        fun fromResultAndNetwork(
+            result: ResultModel,
+            network: NetworkModel?,
+        ) = RunModel(
+            id = result.runId ?: Id.generateForSingleResult(result),
+            network = network,
+            startTime = result.startTime,
+            taskOrigin = result.taskOrigin,
+        )
     }
 }

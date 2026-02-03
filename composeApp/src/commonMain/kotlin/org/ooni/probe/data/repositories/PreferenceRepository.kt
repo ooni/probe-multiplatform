@@ -82,6 +82,7 @@ class PreferenceRepository(
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
 
             SettingsKey.MMDB_LAST_CHECK,
+            SettingsKey.LAST_ARTICLES_REFRESH,
             -> PreferenceKey.LongKey(longPreferencesKey(preferenceKey))
 
             SettingsKey.MMDB_VERSION,
@@ -89,6 +90,7 @@ class PreferenceRepository(
             SettingsKey.LEGACY_PROXY_PROTOCOL,
             SettingsKey.PROXY_SELECTED,
             SettingsKey.LANGUAGE_SETTING,
+            SettingsKey.LAST_RUN_DISMISSED,
             -> PreferenceKey.StringKey(stringPreferencesKey(preferenceKey))
 
             SettingsKey.CHOSEN_WEBSITES,

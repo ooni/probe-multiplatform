@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Dashboard</string>
-    <string name="Dashboard_Overview_LatestTest">Last test:</string>
     <string name="Dashboard_Overview_Estimated">Estimated:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Choose websites</string>
     <string name="Dashboard_Running_Running">Running:</string>
@@ -9,6 +8,13 @@
     <string name="Dashboard_Running_Stopping_Title">Stopping test…</string>
     <string name="Dashboard_Running_Stopping_Notice">Finishing the currently pending tests, please wait…</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in use</string>
+    <string name="Dashboard_LastResults">Last Results</string>
+    <string name="Dashboard_LastResults_SeeResults">See results</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>enabled</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Auto-run is <i>disabled</i>]]></string>
+    <string name="Dashboard_TestsMoved_Title">Tests</string>
+    <string name="Dashboard_TestsMoved_Description">Your tests moved to a new tab. You can reach them throw the navigation bar below.</string>
+    <string name="Dashboard_TestsMoved_Action">See tests</string>
     <string name="Dashboard_RunTests_Title">Run tests</string>
     <string name="Dashboard_RunTests_Description">Select the tests to run</string>
     <string name="Dashboard_RunTests_SelectAll">Select all tests</string>
@@ -17,9 +23,25 @@
         <item quantity="one">Run %1$d test</item>
         <item quantity="other">Run %1$d tests</item>
     </plurals>
+    <string name="Dashboard_Stats_Title">Your Measurements</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Network</item>
+        <item quantity="other">Networks</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">Country</item>
+        <item quantity="other">Countries</item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty">Start running tests to see your statistics here.</string>
+
+    <string name="Dashboard_Articles_Title">OONI News</string>
+    <string name="Dashboard_Articles_Blog">Blog Post</string>
+    <string name="Dashboard_Articles_Finding">Finding</string>
+    <string name="Dashboard_Articles_Report">Report</string>
+    <string name="Dashboard_Articles_ReadMore">Read More</string>
+    <string name="Dashboard_Articles_Recent">Recent</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
-    <string name="Dashboard_RunV2_RunFinished">Run finished. Tap to view results.</string>
     <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
@@ -48,6 +70,8 @@
     <string name="Dashboard_Update_Restart">Restart</string>
 
 
+    <string name="Tests_Title">Tests</string>
+    <string name="Tests_Search">Search tests</string>
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Instant Messaging</string>
     <string name="Test_Performance_Fullname">Performance</string>
@@ -64,9 +88,9 @@
     <string name="Test_Psiphon_Fullname">Psiphon Test</string>
     <string name="Test_Tor_Fullname">Tor Test</string>
     <string name="Test_Signal_Fullname">Signal Test</string>
-    <string name="TestResults_Overview_Title">Test Results</string>
-    <string name="TestResults_Overview_Tab_Label">Test Results</string>
-    <string name="TestResults_Overview_Hero_Tests">Tests</string>
+
+
+    <string name="TestResults">Results</string>
     <string name="TestResults_Overview_Hero_Networks">Networks</string>
     <string name="TestResults_Overview_Hero_DataUsage">Data Usage</string>
     <plurals name="TestResults_Overview_Websites_Blocked">
@@ -335,6 +359,9 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Let’s go</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Change defaults</string>
 
+
+    <string name="AddDescriptor_EnterURL">Enter a OONI Run Link URL</string>
+    <string name="AddDescriptor_URLInvalid">The URL is not a valid OONI Run Link</string>
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="AddDescriptor_Title">Install New Link</string>
     <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
@@ -344,8 +371,7 @@
     <string name="AddDescriptor_InstallAndRun">Install &amp; Run</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
     <string name="LoadingScreen_Runv2_Message">Link Loading</string>
-    <string name="LoadingScreen_Runv2_Failure">Error</string>
-    <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
+    <string name="LoadingScreen_Runv2_Failure">Error loading link</string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Check for Updates</string>
@@ -418,8 +444,13 @@
     <string name="Common_Next">Next</string>
     <string name="Common_Previous">Previous</string>
     <string name="Common_Share">Share</string>
+    <string name="Common_Dismiss">Dismiss</string>
+    <string name="Common_Search">Search</string>
     <string name="Common_Today">Today</string>
     <string name="Common_Yesterday">Yesterday</string>
+    <string name="Common_Week">Week</string>
+    <string name="Common_Month">Month</string>
+    <string name="Common_Total">Total</string>
     <string name="Common_Ago">%1$s ago</string>
     <plurals name="Common_Seconds">
         <item quantity="one">%1$d second</item>

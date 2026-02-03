@@ -46,7 +46,7 @@ data class RunListItem(
         ): RunListItem? {
             val first = results.minByOrNull { it.result.startTime } ?: return null
             return RunListItem(
-                run = RunModel.fromResult(first),
+                run = RunModel.fromResultAndNetwork(first.result, first.network),
                 results = results
                     .sortedBy { it.result.startTime }
                     .map { result ->
