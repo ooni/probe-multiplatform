@@ -16,7 +16,6 @@
 		793F99462CE646DE0094FAFC /* IosBackgroundRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */; };
 		793F99472CE646DE0094FAFC /* IosBackgroundRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */; };
 		795E37782CD5053900086360 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E37772CD5053900086360 /* ShareViewController.swift */; };
-		795E377B2CD5053900086360 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 795E377A2CD5053900086360 /* Base */; };
 		795E377F2CD5053900086360 /* share.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 795E37752CD5053900086360 /* share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		79B9D19A2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */; };
 		79B9D19B2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */; };
@@ -86,7 +85,6 @@
 		793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IosBackgroundRunner.swift; path = background/IosBackgroundRunner.swift; sourceTree = "<group>"; };
 		795E37752CD5053900086360 /* share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		795E37772CD5053900086360 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		795E377A2CD5053900086360 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		795E377C2CD5053900086360 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79A29BC42C9045A80052C9D0 /* OONIProbe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OONIProbe.entitlements; sourceTree = "<group>"; };
 		79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosNetworkTypeFinder.swift; sourceTree = "<group>"; };
@@ -246,7 +244,6 @@
 			isa = PBXGroup;
 			children = (
 				795E37772CD5053900086360 /* ShareViewController.swift */,
-				795E37792CD5053900086360 /* MainInterface.storyboard */,
 				795E377C2CD5053900086360 /* Info.plist */,
 			);
 			path = share;
@@ -494,7 +491,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				795E377B2CD5053900086360 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -910,17 +906,6 @@
 			targetProxy = 795E377D2CD5053900086360 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		795E37792CD5053900086360 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				795E377A2CD5053900086360 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7555FFA3242A565B00829871 /* Debug */ = {
