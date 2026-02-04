@@ -8,9 +8,10 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.launch
 import org.intellij.markdown.html.urlEncode
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.MeasurementModel
@@ -30,29 +31,20 @@ class MeasurementViewModel(
     val state = _state.asStateFlow()
 
     init {
-        getMeasurement(measurementId)
-            .take(1)
-            .onEach { item ->
-                val m = item?.measurement
-                val input = item?.url?.url
-                val url = if (m?.uid != null) {
-                    "${OrganizationConfig.explorerUrl}/m/${m.uid.value}?webview=true&language=${Locale.current.toLanguageTag()}"
-                } else if (m?.reportId != null) {
-                    val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
-                    val separator = if (inputSuffix.isEmpty()) "?" else "&"
-                    "${OrganizationConfig.explorerUrl}/measurement/${m.reportId.value}$inputSuffix${separator}webview=true&language=${Locale.current.toLanguageTag()}"
-                } else {
-                    onBack()
-                    return@onEach
-                }
+        viewModelScope.launch {
+            val measurement = getMeasurement(measurementId).first()
+            val url = measurement?.getWebViewUrl() ?: run {
+                onBack()
+                return@launch
+            }
 
-                if (isWebViewAvailable()) {
-                    _state.value = State.ShowMeasurement(url)
-                } else {
-                    openUrl(url)
-                    onBack()
-                }
-            }.launchIn(viewModelScope)
+            if (isWebViewAvailable()) {
+                _state.value = State.ShowMeasurement(url)
+            } else {
+                openUrl(url)
+                onBack()
+            }
+        }
 
         events
             .filterIsInstance<Event.BackClicked>()
@@ -78,6 +70,20 @@ class MeasurementViewModel(
 
     fun onEvent(event: Event) {
         events.tryEmit(event)
+    }
+
+    private fun MeasurementWithUrl.getWebViewUrl(): String? {
+        val m = measurement
+        val input = url?.url
+        return if (m.uid != null) {
+            "${OrganizationConfig.explorerUrl}/m/${m.uid.value}?webview=true&language=${Locale.current.language}"
+        } else if (m.reportId != null) {
+            val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
+            val separator = if (inputSuffix.isEmpty()) "?" else "&"
+            "${OrganizationConfig.explorerUrl}/measurement/${m.reportId.value}$inputSuffix${separator}webview=true&language=${Locale.current.language}"
+        } else {
+            null
+        }
     }
 
     sealed interface State {

@@ -14,6 +14,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.disableRefreshArticles
+import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.onNodeWithText
 import org.ooni.probe.uitesting.helpers.preferences
 import org.ooni.probe.uitesting.helpers.skipOnboarding
@@ -47,6 +48,8 @@ class DashboardTest {
     @Test
     fun news() =
         runTest {
+            if (isNewsMediaScan) return@runTest
+
             preferences.setValueByKey(SettingsKey.LAST_ARTICLES_REFRESH, 0L)
             start()
 
