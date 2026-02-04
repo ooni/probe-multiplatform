@@ -6,25 +6,22 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
-import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetTest
-import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
+import org.ooni.probe.data.models.RunModel
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.domain.proxy.TestProxy
 import org.ooni.probe.shared.monitoring.Instrumentation
-import org.ooni.probe.shared.now
 import kotlin.time.Duration
 
 class RunDescriptors(
@@ -80,7 +77,7 @@ class RunDescriptors(
             } catch (_: Exception) {
                 // Exceptions were logged in the Engine
             } finally {
-                setRunBackgroundState { RunBackgroundState.Idle(LocalDateTime.now(), true) }
+                setRunBackgroundState { RunBackgroundState.Idle }
                 finishInProgressData()
             }
         }
@@ -97,9 +94,17 @@ class RunDescriptors(
         val noInternetWatcher = NoInternetWatcher()
 
         // Actually running the descriptors
+        val runId = RunModel.Id.generateNew()
         descriptors.forEachIndexed { index, descriptor ->
             if (isRunStopped()) return@forEachIndexed
-            runDescriptor(descriptor, index, spec.taskOrigin, spec.isRerun, noInternetWatcher)
+            runDescriptor(
+                runId,
+                descriptor,
+                index,
+                spec.taskOrigin,
+                spec.isRerun,
+                noInternetWatcher,
+            )
         }
 
         cancelListenerCallback.dismiss()
@@ -162,6 +167,7 @@ class RunDescriptors(
     }
 
     private suspend fun runDescriptor(
+        runId: RunModel.Id,
         descriptorItem: DescriptorItem,
         index: Int,
         taskOrigin: TaskOrigin,
@@ -169,15 +175,9 @@ class RunDescriptors(
         noInternetWatcher: NoInternetWatcher,
     ) {
         val result = ResultModel(
-            descriptorName = if (descriptorItem.isDefault()) {
-                OoniTest.fromId(descriptorItem.descriptor.id.value)?.key
-            } else {
-                descriptorItem.descriptor.id.value
-            },
-            descriptorKey = Descriptor.Key(
-                id = descriptorItem.descriptor.id,
-                revision = descriptorItem.descriptor.revision,
-            ),
+            runId = runId,
+            descriptorName = if (descriptorItem.isDefault()) descriptorItem.key else null,
+            descriptorKey = descriptorItem.descriptor.key,
             taskOrigin = taskOrigin,
         )
         val resultId = storeResult(result)

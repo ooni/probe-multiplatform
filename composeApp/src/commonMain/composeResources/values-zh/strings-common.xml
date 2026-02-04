@@ -1,0 +1,99 @@
+<resources>
+
+    <string name="Dashboard_Tab_Label">仪表板</string>
+    <string name="Dashboard_Overview_LatestTest">上次测试：</string>
+    <string name="Dashboard_Overview_Estimated">预计：</string>
+    <string name="Dashboard_Overview_ChooseWebsites">选择网站</string>
+    <string name="Dashboard_Running_Running">正在运行：</string>
+    <string name="Dashboard_Running_EstimatedTimeLeft">预计剩余时间：</string>
+    <string name="Dashboard_Running_Stopping_Title">停止測試...</string>
+    <string name="Dashboard_Running_Stopping_Notice">电脑测试正在操作将快结束，请稍候...</string>
+    <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
+    <string name="Dashboard_RunTests_Title">运行测试</string>
+    <string name="Dashboard_RunTests_Description">选择要运行的测试</string>
+    <string name="Dashboard_RunTests_SelectAll">选择所有测试</string>
+    <string name="Dashboard_RunTests_SelectNone">取消选择所有测试</string>
+    <string name="Dashboard_RunV2_Ooni_Title">OONI 测试</string>
+    <string name="Dashboard_RunV2_Title">OONI 运行链接</string>
+    <string name="Dashboard_RunV2_RunFinished">运行已完成。轻按查看结果。</string>
+    <string name="Dashboard_Runv2_Overview_Description">由 %1$s 于 %2$s 创建</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink">卸载链接</string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions">先前更改</string>
+    <string name="Dashboard_Runv2_Overview_SeeMore">查看更多</string>
+    <string name="Dashboard_RunV2_ExpiredTag">已到期</string>
+    <string name="Dashboard_RunV2_UpdatedTag">已更新</string>
+    <string name="Dashboard_RunV2_UpdateTag">更新</string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated">上次更新 %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">拒绝了更新</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">復原</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates">查看更新</string>
+    <string name="Dashboard_Progress_UpdateLink_Label">正在加载链接更新</string>
+    <string name="Dashboard_Progress_ReviewLink_Label">链接更新已就绪</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">审查</string>
+    <string name="Dashboard_ReviewDescriptor_Label">链接更新(%1$s，共 %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last">更新并完成(%1$s，共%2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default">更新(%1$s，共 %2$s)</string>
+    <!-- Button to reject a link update during review -->
+    <string name="Dashboard_ReviewDescriptor_Reject">拒绝更新</string>
+    <string name="Dashboard_Update_Ready">刚下载了应用更新</string>
+    <string name="Dashboard_Update_Restart">重新启动</string>
+
+
+    <string name="Test_Websites_Fullname">网站</string>
+    <string name="Test_InstantMessaging_Fullname">即时通讯</string>
+    <string name="Test_Performance_Fullname">执行</string>
+    <string name="Test_Circumvention_Fullname">规避</string>
+    <string name="Test_Experimental_Fullname">实验性</string>
+    <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP 无效请求行测试</string>
+    <string name="Test_HTTPHeaderFieldManipulation_Fullname">HTTP 头字段操控测试</string>
+    <string name="Test_WebConnectivity_Fullname">网页连通性测试</string>
+    <string name="Test_NDT_Fullname">NDT速度測試</string>
+    <string name="Test_Dash_Fullname">DASH 流测试</string>
+    <string name="Test_WhatsApp_Fullname">WhatsApp 测试</string>
+    <string name="TestResults_Overview_Hero_Networks">网络</string>
+    <string name="TestResults_Overview_Hero_DataUsage">数据使用量</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">蓝牙</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">上传</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">下载</string>
+    <string name="TestResults_NotAvailable">不可用</string>
+    <string name="TestResults_Filter_Networks">网络</string>
+    <string name="TestResults_Filter_Date_Custom">自定义</string>
+    <string name="Measurements_Ok">确定</string>
+    <string name="Measurement_Raw_Upload">上传</string>
+
+
+    <string name="Settings_Title">设置</string>
+    <string name="Settings_Proxy_None">无</string>
+    <string name="Settings_Proxy_Custom_Protocol">协议</string>
+    <string name="Settings_Proxy_Custom_Available">可用</string>
+    <string name="Settings_Language_Label">语言</string>
+    <string name="Settings_Storage_Delete">删除</string>
+    <string name="Settings_Websites_Categories_Selection_None">取消全選</string>
+    <string name="Settings_Websites_Categories_Selection_All">全选</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">了解更多</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">继续</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">警告</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">警告</string>
+    <string name="Onboarding_Crash_Button_Yes">是</string>
+    <string name="Onboarding_Crash_Button_No">否</string>
+    <string name="Onboarding_Notifications_Ok">确定</string>
+    <string name="Onboarding_Notifications_Skip">跳过</string>
+    <string name="LoadingScreen_Runv2_Failure">错误</string>
+    <string name="Modal_Retry">重试</string>
+    <string name="Modal_Cancel">取消</string>
+    <string name="Modal_OK">确定</string>
+    <string name="Modal_Delete">删除</string>
+    <string name="Modal_Error_NoInternet">无网络连接</string>
+    <string name="Modal_CustomURL_Title_NotSaved">你確定嗎？</string>
+    <string name="Common_Back">返回</string>
+    <string name="Common_Close">关闭</string>
+    <string name="Common_Refresh">更新</string>
+    <string name="Common_Expand"> 拓展</string>
+    <string name="Common_Yes">是</string>
+    <string name="Common_Save">保存</string>
+    <string name="Common_Next">下一步</string>
+    <string name="Common_Share">分享</string>
+    <plurals name="Common_Days">
+        <item quantity="other">%1$d天</item>
+    </plurals>
+    </resources>

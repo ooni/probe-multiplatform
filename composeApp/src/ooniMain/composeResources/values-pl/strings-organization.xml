@@ -1,0 +1,7 @@
+<resources>
+    <string name="Settings_About_Content_LearnMore">Dowiedz się więcej</string>
+    <string name="Settings_About_Content_Blog">Blog</string>
+    <string name="Settings_About_Content_Reports">Raporty</string>
+    <string name="Settings_Donate_Title">Darowizna</string>
+    <string name="Settings_Donate_Action">Darowizna</string>
+    </resources>

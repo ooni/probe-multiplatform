@@ -81,8 +81,9 @@ class ChooseWebsitesTest {
                 ChooseWebsitesScreen(state, viewModel::onEvent)
             }
 
+            ChooseWebsitesViewModel.maxWebsites = 3
             // We already start with 1 website so -1
-            repeat(ChooseWebsitesViewModel.MAX_WEBSITES - 1) {
+            repeat(ChooseWebsitesViewModel.maxWebsites - 1) {
                 onNodeWithText("Add website")
                     .performScrollTo()
                     .performClick()

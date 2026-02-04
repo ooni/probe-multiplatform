@@ -11,6 +11,7 @@ CREATE TABLE Result(
     failure_msg TEXT,
     network_id INTEGER,
     task_origin TEXT DEFAULT 'ooni-run',
+    run_id TEXT,
     FOREIGN KEY(`network_id`) REFERENCES Network(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
     FOREIGN KEY(`descriptor_runId`, `descriptor_revision`) REFERENCES TestDescriptor(`runId`, `revision`) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
@@ -18,6 +19,52 @@ CREATE TABLE Result(
 CREATE INDEX idx_result_start_time ON Result (start_time);
 CREATE INDEX idx_result_descriptor_name ON Result (descriptor_name);
 CREATE INDEX idx_result_task_origin ON Result (task_origin);
+
+CREATE VIEW ResultWithNetworkAndAggregates AS
+SELECT *,
+    notUploadedMeasurements == 0 AS allMeasurementsUploaded,
+    uploadFailCount > 0 AS anyMeasurementUploadFailed
+FROM (
+    SELECT
+        MAX(Result.id) AS id,
+        MAX(Result.descriptor_name) AS descriptor_name,
+        MAX(Result.start_time) AS start_time,
+        MAX(Result.is_viewed) AS is_viewed,
+        MAX(Result.is_done) AS is_done,
+        MAX(Result.data_usage_up) AS data_usage_up,
+        MAX(Result.data_usage_down) AS data_usage_down,
+        MAX(Result.failure_msg) AS failure_msg,
+        MAX(Result.task_origin) AS task_origin,
+        MAX(Result.network_id) AS network_id,
+        MAX(Result.descriptor_runId) AS descriptor_runId,
+        MAX(Result.descriptor_revision) AS descriptor_revision,
+        MAX(Result.run_id) AS run_id,
+        MAX(Network.id) AS network_id_inner,
+        MAX(Network.network_name) AS network_name,
+        MAX(Network.asn) AS asn,
+        MAX(Network.country_code) AS country_code,
+        MAX(Network.network_type) AS network_type,
+        COUNT(Measurement.id) AS measurementsCount,
+        SUM(
+            CASE WHEN Measurement.is_done = 1
+                    AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
+                    AND Measurement.is_upload_failed = 1
+                    THEN 1 ELSE 0 END
+        ) AS uploadFailCount,
+        SUM(
+            CASE WHEN Measurement.is_done = 1
+                      AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
+                    THEN 1 ELSE 0 END
+        ) AS notUploadedMeasurements,
+        SUM(CASE WHEN Measurement.is_done = 1 THEN 1 ELSE 0 END) AS doneMeasurementsCount,
+        SUM(CASE WHEN Measurement.is_failed = 1 THEN 1 ELSE 0 END) AS failedMeasurementsCount,
+        SUM(CASE WHEN Measurement.is_anomaly = 1 THEN 1 ELSE 0 END) AS anomalyMeasurementsCount
+    FROM Result
+    LEFT JOIN Network ON Result.network_id = Network.id
+    LEFT JOIN Measurement ON Measurement.result_id = Result.id
+    GROUP BY Result.id
+    ORDER BY Result.start_time DESC
+);
 
 insertOrReplace:
 INSERT OR REPLACE INTO Result (
@@ -32,8 +79,9 @@ INSERT OR REPLACE INTO Result (
     task_origin,
     network_id,
     descriptor_runId,
-    descriptor_revision
-) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);
+    descriptor_revision,
+    run_id
+) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 markAsViewed:
 UPDATE Result SET is_viewed = 1 WHERE id = ?;
@@ -86,60 +134,19 @@ selectLastInsertedRowId:
 SELECT last_insert_rowid();
 
 selectAllWithNetwork:
-SELECT *,
-    notUploadedMeasurements == 0 AS allMeasurementsUploaded,
-    uploadFailCount > 0 AS anyMeasurementUploadFailed
-FROM (
-    SELECT
-        MAX(Result.id) AS id,
-        MAX(Result.descriptor_name) AS descriptor_name,
-        MAX(Result.start_time) AS start_time,
-        MAX(Result.is_viewed) AS is_viewed,
-        MAX(Result.is_done) AS is_done,
-        MAX(Result.data_usage_up) AS data_usage_up,
-        MAX(Result.data_usage_down) AS data_usage_down,
-        MAX(Result.failure_msg) AS failure_msg,
-        MAX(Result.task_origin) AS task_origin,
-        MAX(Result.network_id) AS network_id,
-        MAX(Result.descriptor_runId) AS descriptor_runId,
-        MAX(Result.descriptor_revision) AS descriptor_revision,
-        MAX(Network.id) AS network_id_inner,
-        MAX(Network.network_name) AS network_name,
-        MAX(Network.asn) AS asn,
-        MAX(Network.country_code) AS country_code,
-        MAX(Network.network_type) AS network_type,
-        COUNT(Measurement.id) AS measurementsCount,
-        SUM(
-            CASE WHEN Measurement.is_done = 1
-                    AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
-                    AND Measurement.is_upload_failed = 1
-                    THEN 1 ELSE 0 END
-        ) AS uploadFailCount,
-        SUM(
-            CASE WHEN Measurement.is_done = 1
-                      AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
-                    THEN 1 ELSE 0 END
-        ) AS notUploadedMeasurements,
-        SUM(CASE WHEN Measurement.is_done = 1 THEN 1 ELSE 0 END) AS doneMeasurementsCount,
-        SUM(CASE WHEN Measurement.is_failed = 1 THEN 1 ELSE 0 END) AS failedMeasurementsCount,
-        SUM(CASE WHEN Measurement.is_anomaly = 1 THEN 1 ELSE 0 END) AS anomalyMeasurementsCount
-    FROM Result
-    LEFT JOIN Network ON Result.network_id = Network.id
-    LEFT JOIN Measurement ON Measurement.result_id = Result.id
-    WHERE (
-        :filterByDescriptors = 0 OR
-        Result.descriptor_name IN :descriptorsKeys OR Result.descriptor_runId IN :descriptorsKeys
-    ) AND (
-        :filterByNetworks = 0 OR Result.network_id IN :networkIds
-    ) AND (
-        :filterByTaskOrigin = 0 OR Result.task_origin = :taskOrigin
-    ) AND (
-        Result.start_time >= :startFrom AND Result.start_time <= :startUntil
-    )
-    GROUP BY Result.id
-    ORDER BY Result.start_time DESC
-    LIMIT :limit
-);
+SELECT *
+FROM ResultWithNetworkAndAggregates
+WHERE (
+    :filterByDescriptors = 0 OR
+    descriptor_name IN :descriptorsKeys OR descriptor_runId IN :descriptorsKeys
+) AND (
+    :filterByNetworks = 0 OR network_id IN :networkIds
+) AND (
+    :filterByTaskOrigin = 0 OR task_origin = :taskOrigin
+) AND (
+    start_time >= :startFrom AND start_time <= :startUntil
+)
+LIMIT :limit;
 
 selectByIdWithNetwork:
 SELECT Result.*, Network.*
@@ -149,9 +156,16 @@ WHERE Result.id = ?
 LIMIT 1;
 
 selectLatest:
-SELECT * FROM Result
+SELECT * FROM ResultWithNetworkAndAggregates
 ORDER BY start_time DESC
 LIMIT 1;
+
+selectLastRun:
+SELECT * FROM ResultWithNetworkAndAggregates
+WHERE run_id = (
+    SELECT Result.run_id FROM Result WHERE Result.run_id IS NOT NULL ORDER BY Result.start_time DESC LIMIT 1
+)
+ORDER BY start_time DESC;
 
 selectLastDoneByDescriptor:
 SELECT Result.id FROM Result

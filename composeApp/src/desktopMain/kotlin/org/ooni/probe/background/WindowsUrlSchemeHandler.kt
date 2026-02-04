@@ -3,7 +3,6 @@ package org.ooni.probe.background
 import co.touchlab.kermit.Logger
 import org.ooni.probe.platform
 import org.ooni.probe.shared.DesktopOS
-import java.io.IOException
 
 fun registerWindowsUrlScheme() {
     if (platform.os != DesktopOS.Windows) return
@@ -17,29 +16,18 @@ fun registerWindowsUrlScheme() {
     val keyPath = """HKCU\Software\Classes\ooni"""
     val checkCommand = arrayOf("reg", "query", """"$keyPath\shell\open\command"""", "/ve")
 
-    try {
-        // Check if the key already exists and value is equal to the current executable path
-        Logger.d("Checking if OONI URL scheme is already registered...")
-        val checkProcess = Runtime.getRuntime().exec(checkCommand)
-        if (checkProcess.waitFor() == 0) {
-            val output = checkProcess.inputStream.bufferedReader().readText()
-            val expectedCommand = """"$exePath" "%1""""
-            if (output.contains(expectedCommand)) {
-                Logger.d("OONI URL scheme is already registered and points to the correct executable: $exePath")
-                return // Scheme is correctly registered
-            } else {
-                Logger.d(
-                    "OONI URL scheme is registered but points to a different command: '$output'. Expected: '$expectedCommand'. Will update.",
-                )
-            }
+    Logger.d("Checking if OONI URL scheme is already registered...")
+    val result = runCommand(checkCommand)
+    if (result.success) {
+        val expectedCommand = """"$exePath" "%1""""
+        if (result.output.contains(expectedCommand)) {
+            Logger.d("OONI URL scheme is already registered and points to the correct executable: $exePath")
+            return // Scheme is correctly registered
         } else {
-            // This means the "HKCU\Software\Classes\ooni\shell\open\command" key likely doesn't exist or query failed.
-            val errorOutput = checkProcess.errorStream.bufferedReader().readText()
-            Logger.d("OONI URL scheme command key not found or query failed. Error: $errorOutput. Proceeding with registration.")
+            Logger.d(
+                "OONI URL scheme is registered but points to a different command. Expected: '$expectedCommand'. Will update.",
+            )
         }
-    } catch (e: IOException) {
-        Logger.e("Failed to check registry key", e)
-        // Proceed to attempt registration anyway
     }
 
     val commands = listOf(
@@ -52,20 +40,29 @@ fun registerWindowsUrlScheme() {
 
     Logger.d("Registering OONI URL scheme...")
     for (cmd in commands) {
-        try {
-            val process = Runtime.getRuntime().exec(cmd)
-            process.waitFor()
-            if (process.exitValue() != 0) {
-                Logger.d("Command failed: $cmd")
-                process.errorStream
-                    .bufferedReader()
-                    .use { it.lines().forEach { line -> Logger.d(line) } }
-            } else {
-                Logger.d("Command succeeded: $cmd")
-            }
-            Logger.d("Executed command: $cmd")
-        } catch (e: IOException) {
-            Logger.e("Failed to execute command: $cmd", e)
-        }
+        runCommand(cmd)
     }
 }
+
+data class CommandResult(
+    val success: Boolean,
+    val output: String,
+)
+
+fun runCommand(command: Array<String>): CommandResult =
+    try {
+        val process = Runtime.getRuntime().exec(command)
+        val output = process.inputStream.bufferedReader().use { it.readText() }
+        val errorOutput = process.errorStream.bufferedReader().use { it.readText() }
+        val exitCode = process.waitFor()
+        if (exitCode == 0) {
+            Logger.d("Command succeeded: ${command.joinToString(" ")}")
+            CommandResult(true, output)
+        } else {
+            Logger.d("Command failed: ${command.joinToString(" ")}. Error: $errorOutput")
+            CommandResult(false, errorOutput)
+        }
+    } catch (e: Exception) {
+        Logger.e("Failed to execute command: ${command.joinToString(" ")}", e)
+        CommandResult(false, e.message ?: "Unknown error")
+    }

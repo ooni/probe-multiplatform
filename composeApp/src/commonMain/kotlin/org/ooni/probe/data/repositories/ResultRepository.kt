@@ -13,7 +13,6 @@ import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.Database
 import org.ooni.probe.data.Network
 import org.ooni.probe.data.Result
-import org.ooni.probe.data.SelectAllWithNetwork
 import org.ooni.probe.data.SelectByIdWithNetwork
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.MeasurementCounts
@@ -22,6 +21,7 @@ import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
 import org.ooni.probe.data.models.ResultsStats
+import org.ooni.probe.data.models.RunModel
 import org.ooni.probe.shared.toEpoch
 import org.ooni.probe.shared.toLocalDateTime
 import kotlin.coroutines.CoroutineContext
@@ -56,12 +56,19 @@ class ResultRepository(
             .mapToOneOrNull(backgroundContext)
             .map { it?.toModel() }
 
-    fun getLatest(): Flow<ResultModel?> =
+    fun getLatest(): Flow<ResultWithNetworkAndAggregates?> =
         database.resultQueries
             .selectLatest()
             .asFlow()
             .mapToOneOrNull(backgroundContext)
             .map { it?.toModel() }
+
+    fun getLastRunResults(): Flow<List<ResultWithNetworkAndAggregates>> =
+        database.resultQueries
+            .selectLastRun()
+            .asFlow()
+            .mapToList(backgroundContext)
+            .map { list -> list.mapNotNull { it.toModel() } }
 
     fun getLastDoneByDescriptor(descriptorKey: String): Flow<ResultModel.Id?> =
         database.resultQueries
@@ -116,6 +123,7 @@ class ResultRepository(
                     network_id = model.networkId?.value,
                     descriptor_runId = model.descriptorKey?.id?.value,
                     descriptor_revision = model.descriptorKey?.revision,
+                    run_id = model.runId?.value,
                 )
                 model.id
                     ?: ResultModel.Id(
@@ -221,10 +229,11 @@ class ResultRepository(
                     )
                 }
             },
+            runId = run_id?.let(RunModel::Id),
         )
     }
 
-    private fun SelectAllWithNetwork.toModel(): ResultWithNetworkAndAggregates? {
+    private fun org.ooni.probe.data.ResultWithNetworkAndAggregates.toModel(): ResultWithNetworkAndAggregates? {
         return ResultWithNetworkAndAggregates(
             result = Result(
                 id = id ?: return null,
@@ -239,6 +248,7 @@ class ResultRepository(
                 network_id = network_id,
                 descriptor_runId = descriptor_runId,
                 descriptor_revision = descriptor_revision,
+                run_id = run_id,
             ).toModel() ?: return null,
             network = network_id_inner?.let { networkId ->
                 Network(
@@ -274,6 +284,7 @@ class ResultRepository(
                 network_id = network_id,
                 descriptor_runId = descriptor_runId,
                 descriptor_revision = descriptor_revision,
+                run_id = run_id,
             ).toModel() ?: return null,
             id_?.let { networkId ->
                 Network(

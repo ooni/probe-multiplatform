@@ -1,17 +1,14 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Tableau de bord</string>
 
+    <string name="Dashboard_Tab_Label">Tableau de bord</string>
     <string name="Dashboard_Overview_LatestTest">Dernier test :</string>
     <string name="Dashboard_Overview_Estimated">Estimation :</string>
     <string name="Dashboard_Overview_ChooseWebsites">Choisir des sites Web</string>
-
     <string name="Dashboard_Running_Running">En cours :</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Temps restant estimé :</string>
     <string name="Dashboard_Running_Stopping_Title">Arrêt du test…</string>
     <string name="Dashboard_Running_Stopping_Notice">Achèvement des tests en attente, patientez…</string>
     <string name="Dashboard_Running_ProxyInUse">Le mandataire est en fonction</string>
-
     <string name="Dashboard_RunTests_Title">Exécuter les tests</string>
     <string name="Dashboard_RunTests_Description">Choisissez les tests à exécuter</string>
     <string name="Dashboard_RunTests_SelectAll">Sélectionner tous les tests</string>
@@ -21,7 +18,6 @@
         <item quantity="many">Exécuter %1$d de tests</item>
         <item quantity="other">Exécuter %1$d tests</item>
     </plurals>
-
     <string name="Dashboard_RunV2_Ooni_Title">Tests OONI</string>
     <string name="Dashboard_RunV2_Title">Liens OONI Run</string>
     <string name="Dashboard_RunV2_RunFinished">L’exécution est terminée. Touchez pour afficher les résultats.</string>
@@ -29,6 +25,7 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Désinstaller le lien</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Révisions précédentes</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Afficher plus</string>
+    <!-- This only applies when there are more than 10 websites to show. -->
     <plurals name="Dashboard_Runv2_Websites_SeeAll">
         <item quantity="one">Afficher %1$d site Web</item>
         <item quantity="many">Afficher les %1$d sites Web</item>
@@ -41,20 +38,17 @@
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Mise à jour refusée</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Rétablir</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Mise à jour des révisions</string>
-
     <string name="Dashboard_Progress_UpdateLink_Label">Chargement des mises à jour des liens</string>
     <string name="Dashboard_Progress_ReviewLink_Label">Les mises à jour des liens sont prêtes</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Révision</string>
-
     <string name="Dashboard_ReviewDescriptor_Label">Mise à jour des liens (%1$s de %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">METTRE À JOUR ET TERMINER (%1$s de %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">METTRE À JOUR (%1$s de %2$s)</string>
+    <!-- Button to reject a link update during review -->
     <string name="Dashboard_ReviewDescriptor_Reject">Refuser la mise à jour</string>
-
     <string name="Dashboard_Update_Ready">La mise à jour de l’appli vient d’être téléchargée</string>
     <string name="Dashboard_Update_Restart">Redémarrer</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Sites Web</string>
     <string name="Test_InstantMessaging_Fullname">Messagerie instantanée</string>
@@ -72,9 +66,6 @@
     <string name="Test_Psiphon_Fullname">Test Psiphon</string>
     <string name="Test_Tor_Fullname">Test de Tor</string>
     <string name="Test_Signal_Fullname">Test de Signal</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Résultats des tests</string>
     <string name="TestResults_Overview_Tab_Label">Résultats des tests</string>
     <string name="TestResults_Overview_Hero_Tests">Tests</string>
@@ -121,15 +112,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Sur Tella FOSS, les PDF doivent être exportés pour être ouverts.</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Qualité</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_Gbps">Gbit/s</string>
     <string name="TestResults_Mbps">Mbit/s</string>
     <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">Inconnu</string>
     <string name="TestResults_NotAvailable">ND</string>
-
     <string name="TestResults_Filters_Title">Filtrer les résultats des tests</string>
     <string name="TestResults_Filters_Short">Filtres :</string>
     <plurals name="TestResults_Filters_Count">
@@ -160,14 +148,13 @@
     <string name="TestResults_Filter_Date_Picker">Choisir une plage de dates</string>
     <string name="TestResults_Filter_NoTestsFound">Aucun résultat de test n’a été trouvé pour ces filtres.</string>
     <string name="TestResults_Filter_DeleteConfirmation">Voulez-vous supprimer tous les résultats des tests pour les filtres actuels?</string>
-
     <string name="Results_LimitedNotice">Seuls les %1$d derniers résultats sont affichés</string>
     <string name="Results_UploadingMissing">Téléversements des résultats manquants %1$s</string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
     <string name="Results_MarkAllAsViewed">Tout marquer comme lu</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Voulez-vous marquer tous les résultats comme lus?</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Voulez-vous marquer tous les résultats comme lus pour les filtres actuels?</string>
 
-    <!-- Measurements -->
 
     <string name="Measurement_Title">Mesure</string>
     <string name="Measurement_LoadingFailed">Échec de chargement des renseignements relatifs aux mesures</string>
@@ -179,7 +166,7 @@
         <item quantity="many">%1$d mesurés</item>
         <item quantity="other">%1$d mesurés</item>
     </plurals>
-    <plurals name="Measurements_Failed">
+    <plurals name="Measurements_Failed_Count">
         <item quantity="one">%1$d en échec</item>
         <item quantity="many">%1$d en échec</item>
         <item quantity="other">%1$d en échec</item>
@@ -188,29 +175,26 @@
     <string name="Measurement_Raw_Share">Partager les données de mesure</string>
     <string name="Measurement_Raw_Upload">Téléverser</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Paramètres</string>
-
     <string name="Settings_TestOptions_Label">Options de test</string>
     <string name="Settings_TestOptions_LongRunningTest">Test long</string>
-
     <string name="Settings_AutomatedTesting_RunAutomatically">Lancer les tests automatiquement</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Seulement par Wi-Fi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Seulement pendant la charge</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">En activant les tests automatiques, les tests d’OONI Probe auront lieu automatiquement plusieurs fois par jour. Les résultats de vos tests seront publiés automatiquement sur l’Explorateur OONI : https://explorer.ooni.org/ (site en anglais)\n\nImportant : Si vous utilisez un RPV/VPN et qu’il est activé, OONI Probe n’effectuera pas de test automatique. Afin que les tests automatisés d’OONI Probe aient lieu, désactivez votre RPV/VPN. Apprenez-en davantage : https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn (site en anglais)</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Les tests s’exécuteront toutes les heures en arrière-plan</string>
     <string name="Settings_Sharing_UploadResults">Publier automatiquement les résultats</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeEnabled">Limiter la durée du test Sites Web</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Seulement pour les exécutions manuelles</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeDuration">Durée maximale d’un test complet Sites Web</string>
     <string name="Settings_Websites_MaxRuntimeDuration_Unit">Saisissez le nombre de secondes</string>
     <string name="Settings_Websites_Categories_Label">Catégories de sites Web à tester</string>
     <string name="Settings_Websites_Categories_Description">%1$s catégories sont activées</string>
-
     <string name="Settings_Privacy_Label">Confidentialité</string>
     <string name="Settings_Privacy_SendCrashReports">Envoyer des relevés de plantage</string>
-
     <string name="Settings_Proxy_Label">Mandataire vers la dorsale d’OONI</string>
     <string name="Settings_Proxy">Inaccessible</string>
     <string name="Settings_Proxy_None">Aucun</string>
@@ -225,13 +209,10 @@
     <string name="Settings_Proxy_Custom_Available">Accessible</string>
     <string name="Settings_Proxy_Custom_Unavailable">Inaccessible</string>
     <string name="Settings_Proxy_Delete_Confirmation">Voulez-vous supprimer le mandataire %1$s \?</string>
-
     <string name="Settings_Language_Label">Langue</string>
-
     <string name="Settings_Advanced_Label">Avancés</string>
     <string name="Settings_Advanced_DebugLogs">Journaux de débogage</string>
     <string name="Settings_Advanced_RecentLogs">Voir les journaux récents</string>
-
     <string name="Settings_Results_DeleteOldResults">Supprimer les anciens résultats</string>
     <string name="Settings_Results_DeleteOldResultsThreshold">Supprimer les résultats datant de plus de</string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
@@ -240,18 +221,16 @@
         <item quantity="other">%1$d mois</item>
     </plurals>
     <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Saisissez le nombre de mois</string>
-
     <string name="Settings_Support_Label">Assistance</string>
     <string name="Settings_Support_SendEmail">Envoyer un courriel à l’assistance</string>
     <string name="Settings_Support_Message">Décrivez le problème que vous rencontrez :</string>
     <string name="Settings_Support_Message_Hint">Message pour l’équipe d’assistance</string>
     <string name="Settings_Support_IncludeLogs">Inclure les journaux de l’application</string>
     <string name="Settings_Support_Action">Envoyer le courriel</string>
-
     <string name="Settings_ShareApp">Partager l’appli</string>
     <string name="Settings_ShareApp_Description">Partagez l’appli %1$s avec quelqu’un</string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
     <string name="Settings_ShareApp_ShareMessage">Installer %1$s sur %2$s</string>
-
     <string name="Settings_Storage_Label">Utilisation de l’espace de stockage</string>
     <string name="Settings_Storage_Delete">Supprimer</string>
     <string name="Settings_Storage_Clear">Effacer</string>
@@ -274,8 +253,6 @@
         <item quantity="many">Tester %1$d d’URL</item>
         <item quantity="other">Tester %1$d URL</item>
     </plurals>
-
-    <!-- Website Categories -->
 
     <string name="CategoryCode_ALDR_Name">Drogues et alcool</string>
     <string name="CategoryCode_REL_Name">Religion</string>
@@ -340,8 +317,6 @@
     <string name="CategoryCode_IGO_Description">Organisations intergouvernementales, dont les Nations Unies</string>
     <string name="CategoryCode_MISC_Description">Sites qui n’ont pas encore été catégorisés</string>
 
-    <!-- Onboarding -->
-
     <string name="Onboarding_QuizAnswer_Correct">Bonne réponse</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Mauvaise réponse</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Compris</string>
@@ -374,8 +349,6 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Allons-y</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Modifier les paramètres</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Tester les paramètres</string>
     <string name="AddDescriptor_Title">Installer un nouveau lien</string>
     <string name="AddDescriptor_AutoUpdate">Installer les mises à jour automatiquement</string>
@@ -388,11 +361,10 @@
     <string name="LoadingScreen_Runv2_Failure">Erreur</string>
     <string name="LoadingScreen_Runv2_Canceled">L’installation du lien a été annulée</string>
     <string name="DescriptorUpdate_Updates">MISES À JOUR</string>
+    <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Chercher des mises à jour</string>
     <string name="AddDescriptor_AutoRunDisabled">Le lancement automatique est désactivé. Activez cette option pour lancer les tests automatiquement.</string>
     <string name="Descriptor_LastTestResult">Dernier résultat de test</string>
-
-    <!-- Modals / Toasts / Snackbar -->
 
     <string name="Snackbar_ResultsNotUploaded_Text">N’a pas été téléversé</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Tout n’a pas été téléversé</string>
@@ -433,19 +405,16 @@
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">L’application ne peut pas effectuer des tests automatiquement sans l’autorisation de fonctionner en arrière-plan. Voulez-vous réessayer?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">L’application doit être autorisée à effectuer des tests automatiquement en arrière-plan.</string>
 
-    <!-- Desktop -->
     <string name="Desktop_OpenApp">Ouvrir l’appli</string>
     <string name="Desktop_Quit">Fermer</string>
-
     <string name="Tray_Notification_Check_Updates">Chercher des mises à jour</string>
     <string name="Tray_Notification_Updates_Available">Une mise à jour est proposée</string>
     <string name="Tray_Notification_Checking_Updates">Recherche de mises à jour…</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Lancer</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Test</string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
     <string name="Notification_UpdateChannelName">Mises à jour des liens</string>
     <string name="Notification_StopTest">Arrêter le test</string>
 
@@ -461,7 +430,6 @@
     <string name="Common_Next">Suivant</string>
     <string name="Common_Previous">Précédent</string>
     <string name="Common_Share">Partager</string>
-
     <string name="Common_Today">Aujourd’hui</string>
     <string name="Common_Yesterday">Hier</string>
     <string name="Common_Ago">il y a %1$s</string>
@@ -488,7 +456,6 @@
     <string name="Common_Hours_Abbreviated">%1$d h</string>
     <string name="Common_Minutes_Abbreviated">%1$d min</string>
     <string name="Common_Seconds_Abbreviated">%1$d s</string>
-
     <string name="Common_Months_January">janvier</string>
     <string name="Common_Months_February">février</string>
     <string name="Common_Months_March">mars</string>

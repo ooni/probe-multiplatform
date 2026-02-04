@@ -1,0 +1,13 @@
+<resources>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Kaj je OONI Probe?</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">Podatki OONI so javno objavljeni in bodo vključujevali podatke o vašem omrežju.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">Vsakdo, ki nadzira vaš promet po omrežju (npr. vlada ali internetni ponudnik) bo zaznal, da poganjate OONI Probe.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">Morda boste testirali prepovedane spletne strani (lahko izberete katere želite testirati).</string>
+    <string name="Onboarding_PopQuiz_1_Question">Če kdo nadzira moje spletne dejavnosti, bo lahko videl, da poganjam OONI Probe.</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe ni orodje za zagotavljanje zasebnosti. Če kdo spremlja vašo aktivnost na omrežju, bo videl katere programe poganjate.</string>
+    <string name="Onboarding_PopQuiz_2_Question">Vsakič ko poženem OONI Probe, se bodo zbrani podatki o testih samodejno objavili.</string>
+    <string name="Settings_About_Content_LearnMore">Več o tem</string>
+    <string name="Settings_About_Content_Blog">Blog</string>
+    <string name="Settings_Donate_Title">Doniraj</string>
+    <string name="Settings_Donate_Action">Doniraj</string>
+    </resources>

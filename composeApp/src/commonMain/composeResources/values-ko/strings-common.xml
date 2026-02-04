@@ -1,0 +1,111 @@
+<resources>
+
+    <string name="Dashboard_Tab_Label">대시보드</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">실행 취소</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">리뷰</string>
+    <string name="Dashboard_Update_Restart">재시작</string>
+
+
+    <string name="Test_Websites_Fullname">웹사이트</string>
+    <string name="Test_Performance_Fullname">성능</string>
+    <string name="Test_Circumvention_Fullname">우회</string>
+    <string name="Test_Experimental_Fullname">실험적</string>
+    <string name="TestResults_Overview_Hero_Networks">네트워크</string>
+    <string name="TestResults_Summary_Hero_Network">네트워크</string>
+    <string name="TestResults_Summary_Hero_Country">국가</string>
+    <string name="TestResults_Summary_Hero_WiFi">와이파이</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">블루투스</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">올리기</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">다운로드</string>
+    <string name="TestResults_Summary_Performance_Hero_Video">동영상</string>
+    <string name="TestResults_UnknownASN">알려지지 않음</string>
+    <string name="TestResults_NotAvailable">N/A</string>
+    <string name="TestResults_Filter_Networks">네트워크</string>
+    <string name="TestResults_Filter_Source">출저</string>
+    <string name="TestResults_Filter_Date">날짜</string>
+    <string name="TestResults_Filter_Date_Today">오늘</string>
+    <string name="TestResults_Filter_Date_Custom">사용자 맞춤</string>
+    <string name="Measurements_Failed">실패</string>
+    <string name="Measurements_Ok">OK</string>
+    <string name="Measurement_Raw_Upload">올리기</string>
+
+
+    <string name="Settings_Title">설정</string>
+    <string name="Settings_Privacy_Label">개인정보</string>
+    <string name="Settings_Proxy">프록시</string>
+    <string name="Settings_Proxy_None">없음</string>
+    <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Protocol">프로토콜</string>
+    <string name="Settings_Proxy_Custom_Hostname">호스트 이름</string>
+    <string name="Settings_Proxy_Custom_Port">포트</string>
+    <string name="Settings_Proxy_Custom_Testing">시험중</string>
+    <string name="Settings_Proxy_Custom_Available">온라인</string>
+    <string name="Settings_Language_Label">언어</string>
+    <string name="Settings_Advanced_Label">고급</string>
+    <string name="Settings_Support_Label">지원</string>
+    <string name="Settings_Support_Action">이메일 보내기</string>
+    <string name="Settings_Storage_Delete">삭제</string>
+    <string name="Settings_Storage_Clear">지우기</string>
+    <string name="Settings_Logs">로그</string>
+    <string name="Settings_Websites_Categories_Selection_All">모두 고르기</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="CategoryCode_SRCH_Name">검색 엔진</string>
+    <string name="Onboarding_ThingsToKnow_Button">이해했습니다.</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">더 알아보기</string>
+    <string name="Onboarding_PopQuiz_True">참된</string>
+    <string name="Onboarding_PopQuiz_False">그릇된</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">계속하기</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">경고</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">경고</string>
+    <string name="Onboarding_Crash_Button_Yes">네</string>
+    <string name="Onboarding_Crash_Button_No">아니요</string>
+    <string name="Onboarding_Notifications_Ok">OK</string>
+    <string name="Onboarding_Notifications_Skip">건너뛰기</string>
+    <string name="Onboarding_DefaultSettings_Title">기본 설정</string>
+    <string name="AddDescriptor_Settings">설정 테스트</string>
+    <string name="LoadingScreen_Runv2_Failure">오류</string>
+    <!-- Only used for the desktop version of the app for now -->
+    <string name="DescriptorUpdate_CheckUpdates">업데이트 확인</string>
+    <string name="Modal_Retry">다시 시도</string>
+    <string name="Modal_Cancel">취소</string>
+    <string name="Modal_OK">OK</string>
+    <string name="Modal_Delete">삭제</string>
+    <string name="Modal_Error_NoInternet">인터넷에 연결되지 않음</string>
+    <string name="Modal_CustomURL_Title_NotSaved">계속하시겠습니까?</string>
+    <string name="Desktop_Quit">연결 끝내기</string>
+    <string name="Tray_Notification_Check_Updates">업데이트 확인</string>
+    <string name="Tray_Notification_Updates_Available">Update Available!</string>
+    <string name="Tray_Notification_Checking_Updates">업데이트 확인 중...</string>
+
+    <!-- Android notification channel name. -->
+    <string name="Notification_ChannelName">시험중</string>
+    <string name="Common_Back">뒤로</string>
+    <string name="Common_Close">닫기</string>
+    <string name="Common_Refresh">새로 고침</string>
+    <string name="Common_Collapse">축소</string>
+    <string name="Common_Expand">확장</string>
+    <string name="Common_Enable">허용</string>
+    <string name="Common_Yes">네</string>
+    <string name="Common_Save">저장</string>
+    <string name="Common_Clear">지우기</string>
+    <string name="Common_Next">다음</string>
+    <string name="Common_Previous">전</string>
+    <string name="Common_Share">공유</string>
+    <string name="Common_Today">오늘</string>
+    <string name="Common_Yesterday">어제</string>
+    <string name="Common_Ago">%1$s 전</string>
+    <string name="Common_Months_January">1월</string>
+    <string name="Common_Months_February">2월</string>
+    <string name="Common_Months_March">3월</string>
+    <string name="Common_Months_April">4월</string>
+    <string name="Common_Months_May">5월</string>
+    <string name="Common_Months_June">6월</string>
+    <string name="Common_Months_July">7월</string>
+    <string name="Common_Months_August">8월</string>
+    <string name="Common_Months_September">9월</string>
+    <string name="Common_Months_October">10월</string>
+    <string name="Common_Months_November">11월</string>
+    <string name="Common_Months_December">12월</string>
+
+    <string name="NetworkType_Vpn">VPN</string>
+</resources>

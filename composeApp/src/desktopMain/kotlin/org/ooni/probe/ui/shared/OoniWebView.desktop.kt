@@ -17,6 +17,7 @@ actual fun OoniWebView(
     controller: OoniWebViewController,
     modifier: Modifier,
     allowedDomains: List<String>,
+    onDisallowedUrl: (String) -> Unit,
 ) {
     val event = controller.rememberNextEvent()
 
@@ -68,7 +69,9 @@ actual fun OoniWebView(
                                 }
 
                                 if (!allowed) {
-                                    engine.load("about:blank")
+                                    engine.history.go(-1) // go back
+                                    // engine.load("about:blank")
+                                    onDisallowedUrl(newLocation)
                                 }
                             } catch (e: Exception) {
                                 // Invalid URL, ignore
@@ -103,9 +106,8 @@ actual fun OoniWebView(
                 val webView = (root?.children?.get(0) as? WebView) ?: return@runLater
                 when (event) {
                     is OoniWebViewController.Event.Load -> {
-                        val headers = event.additionalHttpHeaders.entries.joinToString {
-                            "\n${it.key}: it.value"
-                        }
+                        val headers = event.additionalHttpHeaders.entries
+                            .joinToString("") { (key, value) -> "\n$key: $value" }
                         // Hack to send HTTP headers by taking advantage of userAgent
                         webView.engine.userAgent = "ooni$headers"
                         webView.engine.load(event.url)

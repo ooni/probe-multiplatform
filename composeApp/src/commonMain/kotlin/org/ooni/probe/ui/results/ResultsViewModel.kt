@@ -21,7 +21,6 @@ import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.ResultsStats
-import org.ooni.probe.ui.shared.SelectableItem
 
 class ResultsViewModel(
     goToResult: (ResultModel.Id) -> Unit,
@@ -31,7 +30,6 @@ class ResultsViewModel(
     getDescriptors: () -> Flow<List<DescriptorItem>>,
     getNetworks: () -> Flow<List<NetworkModel>>,
     deleteResultsByFilter: suspend (ResultFilter) -> Unit,
-    markJustFinishedTestAsSeen: () -> Unit,
     markAsViewed: suspend (ResultFilter) -> Unit,
     deleteResults: suspend (List<ResultModel.Id>) -> Unit = {},
 ) : ViewModel() {
@@ -51,24 +49,13 @@ class ResultsViewModel(
                     ::Pair,
                 )
             }.onEach { (results, stats) ->
-                val groupedResults = results
-                    .groupBy { it.result.startTime.date }
-                    .mapValues { entry ->
-                        val previouslySelectedIds = _state.value.results.values
-                            .asSequence()
-                            .flatten()
-                            .filter { it.isSelected }
-                            .map { it.item.idOrThrow }
-                            .toSet()
-
-                        entry.value.map { newItem ->
-                            val wasPreviouslySelected = newItem.idOrThrow in previouslySelectedIds
-                            SelectableItem(newItem, wasPreviouslySelected)
-                        }
-                    }
+                val previousRuns = _state.value.results.values
+                    .flatten()
+                val newRuns = previousRuns.updateWithNewResults(results)
+                val newRunsByDate = newRuns.groupBy { it.run.startTime.date }
                 _state.update { state ->
                     state.copy(
-                        results = groupedResults,
+                        results = newRunsByDate,
                         stats = stats,
                         isLoading = false,
                         markAllAsViewedEnabled = results.any { !it.result.isViewed },
@@ -82,11 +69,6 @@ class ResultsViewModel(
 
         getNetworks()
             .onEach { networks -> _state.update { it.copy(networks = networks) } }
-            .launchIn(viewModelScope)
-
-        events
-            .filterIsInstance<Event.Start>()
-            .onEach { markJustFinishedTestAsSeen() }
             .launchIn(viewModelScope)
 
         events
@@ -110,17 +92,11 @@ class ResultsViewModel(
                 if (!state.value.selectionEnabled) {
                     deleteResultsByFilter(state.value.filter)
                 } else {
-                    val selectedIds =
-                        _state.value.results.values.flatMap { list ->
-                            // Suggestion 1.1
-                            list.filter { it.isSelected }.map { it.item.idOrThrow }
-                        }
+                    val selectedIds = _state.value.selectedResultsIds
                     if (selectedIds.isNotEmpty()) {
                         deleteResults(selectedIds)
                         _state.update { state ->
-                            state.copy(
-                                selectionEnabled = false,
-                            )
+                            state.copy(selectionEnabled = false)
                         }
                     }
                 }
@@ -132,54 +108,39 @@ class ResultsViewModel(
             .launchIn(viewModelScope)
 
         events
-            .filterIsInstance<Event.ToggleItemSelection>()
+            .filterIsInstance<Event.ChangeItemSelection>()
             .onEach { event ->
                 _state.update { state ->
                     state.copy(
-                        results = state.results.mapValues { (_, list) ->
-                            list
-                                .firstOrNull { it.item.idOrThrow == event.item.idOrThrow && it.item.result.isDone }
-                                ?.let { found ->
-                                    list.map {
-                                        if (it.item.idOrThrow == found.item.idOrThrow) {
-                                            it.copy(
-                                                isSelected = event.selected,
-                                            )
-                                        } else {
-                                            it
-                                        }
-                                    }
-                                } ?: list
+                        results = state.results.mapValues { (_, runs) ->
+                            runs.map { it.changeSelection(event.item, event.isSelected) }
                         },
-                        selectionEnabled = state.selectionEnabled || event.selected,
+                        selectionEnabled = true,
                     )
                 }
             }.launchIn(viewModelScope)
+
         events
             .filterIsInstance<Event.CancelSelection>()
             .onEach { _ ->
                 _state.update { state ->
                     state.copy(
-                        results = state.results.mapValues { (_, list) ->
-                            list.map {
-                                it.copy(
-                                    isSelected = false,
-                                )
-                            }
+                        results = state.results.mapValues { (_, runs) ->
+                            runs.map { it.changeAllSelections(false) }
                         },
                         selectionEnabled = false,
                     )
                 }
             }.launchIn(viewModelScope)
+
         events
             .filterIsInstance<Event.ToggleSelection>()
             .onEach {
-                val state = _state.value
-                val allSelected = state.areAllSelected
-                _state.update { s ->
-                    s.copy(
-                        results = s.results.mapValues { (_, list) ->
-                            list.map { item -> item.copy(isSelected = !allSelected) }
+                _state.update { state ->
+                    val allSelected = state.areAllSelected
+                    state.copy(
+                        results = state.results.mapValues { (_, runs) ->
+                            runs.map { it.changeAllSelections(!allSelected) }
                         },
                     )
                 }
@@ -194,28 +155,24 @@ class ResultsViewModel(
         val filter: ResultFilter = ResultFilter(),
         val descriptors: List<DescriptorItem> = emptyList(),
         val networks: List<NetworkModel> = emptyList(),
-        val results: Map<LocalDate, List<SelectableItem<ResultListItem>>> = emptyMap(),
+        val results: Map<LocalDate, List<RunListItem>> = emptyMap(),
         val stats: ResultsStats? = null,
         val isLoading: Boolean = true,
         val markAllAsViewedEnabled: Boolean = false,
         val selectionEnabled: Boolean = false,
     ) {
-        val anyMissingUpload
-            get() = results.any { it.value.any { item -> !item.item.allMeasurementsUploaded } }
-
-        val areResultsLimited get() = results.values.sumOf { it.size } >= ResultFilter.LIMIT
-        val areAllSelected
-            get() = results.values.flatten().all { it.isSelected } &&
-                results.values
-                    .flatten()
-                    .isNotEmpty()
-        val isAnySelected get() = results.values.flatten().any { it.isSelected }
-        val selectedResultsCount get() = results.values.flatten().count { it.isSelected }
+        private val allRuns get() = results.values.flatten()
+        private val allResultItems get() = allRuns.flatMap { it.results }
+        val areResultsLimited get() = allResultItems.size >= ResultFilter.LIMIT
+        val anyMissingUpload get() = allResultItems.any { it.item.anyMeasurementUploadFailed }
+        val areAllSelected get() = allResultItems.all { it.isSelected }
+        val isAnySelected get() = allResultItems.any { it.isSelected }
+        val selectedResultsCount get() = allResultItems.count { it.isSelected }
+        val selectedResultsIds
+            get() = allResultItems.filter { it.isSelected }.map { it.item.idOrThrow }
     }
 
     sealed interface Event {
-        data object Start : Event
-
         data class ResultClick(
             val result: ResultListItem,
         ) : Event
@@ -226,9 +183,9 @@ class ResultsViewModel(
 
         data object DeleteClick : Event
 
-        data class ToggleItemSelection(
+        data class ChangeItemSelection(
             val item: ResultListItem,
-            val selected: Boolean,
+            val isSelected: Boolean,
         ) : Event
 
         data object CancelSelection : Event

@@ -94,6 +94,7 @@ import org.ooni.probe.data.models.downloadSpeed
 import org.ooni.probe.data.models.ping
 import org.ooni.probe.data.models.uploadSpeed
 import org.ooni.probe.data.models.videoQuality
+import org.ooni.probe.shared.formatDataUsage
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Single
 import org.ooni.probe.ui.results.UploadResults
@@ -101,7 +102,6 @@ import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
 import org.ooni.probe.ui.shared.format
-import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.longFormat
 import org.ooni.probe.ui.theme.LocalCustomColors
@@ -579,7 +579,7 @@ private fun SummaryPerformance(item: ResultItem) {
             )
 
             Text(
-                item.testKeys?.ping()?.toString()
+                item.testKeys?.ping()
                     ?: stringResource(Res.string.TestResults_NotAvailable),
                 style = MaterialTheme.typography.headlineSmall,
                 maxLines = 1,

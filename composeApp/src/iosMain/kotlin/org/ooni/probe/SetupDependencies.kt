@@ -41,14 +41,13 @@ import platform.Foundation.NSFileManager
 import platform.Foundation.NSLocale
 import platform.Foundation.NSLocaleLanguageDirectionRightToLeft
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
-import platform.Foundation.NSString
 import platform.Foundation.NSTemporaryDirectory
 import platform.Foundation.NSURL
-import platform.Foundation.NSUTF8StringEncoding
 import platform.Foundation.NSUserDomainMask
 import platform.Foundation.characterDirectionForLanguage
+import platform.Foundation.currentLocale
 import platform.Foundation.dateByAddingTimeInterval
-import platform.Foundation.stringWithContentsOfFile
+import platform.Foundation.localizedStringForCountryCode
 import platform.MessageUI.MFMailComposeResult
 import platform.MessageUI.MFMailComposeViewController
 import platform.MessageUI.MFMailComposeViewControllerDelegateProtocol
@@ -82,7 +81,6 @@ class SetupDependencies(
         oonimkallBridge = bridge,
         baseFileDir = baseFileDir(),
         cacheDir = NSTemporaryDirectory(),
-        readAssetFile = ::readAssetFile,
         databaseDriverFactory = ::buildDatabaseDriver,
         networkTypeFinder = networkTypeFinder,
         buildDataStore = ::buildDataStore,
@@ -98,6 +96,7 @@ class SetupDependencies(
         isWebViewAvailable = { true },
         flavorConfig = FlavorConfig(),
         proxyConfig = ProxyConfig(isPsiphonSupported = false),
+        getCountryNameByCode = ::getCountryNameByCode,
     )
 
     private val operationsManager = OperationsManager(dependencies, backgroundRunner)
@@ -136,27 +135,6 @@ class SetupDependencies(
         )
 
     private fun buildDatabaseDriver() = NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")
-
-    /**
-     * New asset files need to be added to the iOS project using xCode:
-     * - Right click iosApp where you want it and select "Add Files to..."
-     * - Pick `src/commonMain/resources`
-     * - Deselect "Copy items if needed" and select "Create groups"
-     * - Pick both targets OONIProbe and NewsMediaScan
-     */
-    private fun readAssetFile(path: String): String {
-        val fileName = path.split(".").first()
-        val type = path.split(".").last()
-        val resource = NSBundle.bundleForClass(BundleMarker).pathForResource(fileName, type)
-        return resource?.let {
-            NSString.stringWithContentsOfFile(
-                resource,
-                NSUTF8StringEncoding,
-                null,
-            )
-        }
-            ?: error("Couldn't read asset file: $path")
-    }
 
     private class BundleMarker : NSObject() {
         companion object : NSObjectMeta()
@@ -421,4 +399,11 @@ class SetupDependencies(
     }
 
     private fun findCurrentViewController(): UIViewController? = UIApplication.sharedApplication.keyWindow?.rootViewController
+
+    private fun getCountryNameByCode(countryCode: String) =
+        NSLocale
+            .currentLocale()
+            .localizedStringForCountryCode(countryCode)
+            ?.ifEmpty { null }
+            ?: countryCode
 }

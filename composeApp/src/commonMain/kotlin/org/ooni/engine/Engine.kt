@@ -171,6 +171,7 @@ class Engine(
         tunnelDir = "$baseFilePath/tunnel",
         tempDir = cacheDir,
         assetsDir = "$baseFilePath/assets",
+        geoIpDB = preferences.geoipDbPath,
         options = TaskSettings.Options(
             noCollector = !preferences.uploadResults,
             softwareName = buildSoftwareName(taskOrigin),
@@ -213,6 +214,7 @@ class Engine(
         tunnelDir = "$baseFilePath/tunnel",
         tempDir = cacheDir,
         assetsDir = "$baseFilePath/assets",
+        geoIpDB = preferences.geoipDbPath,
         logger = oonimkallLogger,
         verbose = false,
     )

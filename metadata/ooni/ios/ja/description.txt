@@ -1,0 +1,24 @@
+ウェブサイトやソーシャルメディアのアプリがブロックされていますか? ネットワークが異常に遅いですか? OONI Probe を実行して調べてください!
+
+このアプリで、ウェブサイトやインスタントメッセージアプリケーションのブロックを調べ、ネットワークの速度やパフォーマンスを測定し、検閲と監視に関与するシステムがネットワークにあるかどうかをチェックします。
+
+OONI Probe は、世界中のインターネット検閲を明らかにするためのフリーソフトウェアプロジェクト (The Tor Project の下で) the Open Observatory of Network Interference (OONI) によって開発されました。
+
+2012 年以来、OONI のグローバルコミュニティは、200 を超える国々から数百万のネットワーク測定値を収集し、複数のネットワーク干渉のケースを明らかにしています。
+
+▶ Collect evidence of internet censorship
+ウェブサイトやインスタントメッセージングのアプリがブロックされているかどうか、どのようにブロックされているかを確認できます。 収集するネットワーク測定データは、インターネット検閲の証拠となります。
+
+▶ Detect systems responsible for censorship and surveillance
+OONI Probe 検査は、検閲と監視に関与するシステム (ミドルボックス) の存在を明らかにするためにも設計されています。
+
+▶ Measure the speed and performance of your network
+You can measure the speed and performance of your network by running OONI's implementation of the Network Diagnostic Test (NDT). You can also measure video streaming performance with the Dynamic Adaptive Streaming over HTTP (DASH) test.
+
+▶ Open data
+OONI publishes network measurement data because open data allows third parties to verify OONI findings, conduct independent studies, and answer other research questions. Openly publishing OONI data also helps increase transparency of internet censorship around the world. You can explore and download OONI data here: https://ooni.io/data/
+
+▶ Free software
+All OONI Probe tests (including our NDT and DASH implementations), are based on free and open source software. You can find OONI software projects on GitHub: https://github.com/ooni. Curious to learn how OONI Probe tests work? Learn more: https://ooni.io/nettest/
+
+To receive updates from the OONI-verse, follow us on Twitter: https://twitter.com/OpenObservatory

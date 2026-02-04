@@ -1,0 +1,119 @@
+<resources>
+
+    <string name="Dashboard_Tab_Label">ダッシュボード</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">戻す</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">レビュー</string>
+    <string name="Dashboard_Update_Restart">再起動</string>
+
+
+    <string name="Test_Websites_Fullname">ウェブサイト</string>
+    <string name="Test_InstantMessaging_Fullname">インスタント メッセージング</string>
+    <string name="Test_Performance_Fullname">パフォーマンス</string>
+    <string name="Test_Circumvention_Fullname">検問を回避</string>
+    <string name="Test_Experimental_Fullname">実験的</string>
+    <string name="Test_NDT_Fullname">NDT スピードテスト</string>
+    <string name="Test_Dash_Fullname">DASH ストリーミングテスト</string>
+    <string name="TestResults_Overview_Hero_Networks">ネットワーク</string>
+    <string name="TestResults_Summary_Hero_Network">ネットワーク</string>
+    <string name="TestResults_Summary_Hero_Country">国</string>
+    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Performance_Hero_Upload">アップロード</string>
+    <string name="TestResults_Summary_Performance_Hero_Download">ダウンロード</string>
+    <string name="TestResults_Summary_Performance_Hero_Video">ビデオ</string>
+    <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
+    <string name="TestResults_UnknownASN">不明</string>
+    <string name="TestResults_NotAvailable">N/A</string>
+    <string name="TestResults_Filter_Networks">ネットワーク</string>
+    <string name="TestResults_Filter_Source">ソース</string>
+    <string name="TestResults_Filter_Date">日時</string>
+    <string name="TestResults_Filter_Date_Custom">カスタム</string>
+    <string name="Measurements_Failed">失敗しました</string>
+    <string name="Measurements_Ok">OK</string>
+    <string name="Measurement_Raw_Upload">アップロード</string>
+
+
+    <string name="Settings_Title">設定</string>
+    <string name="Settings_Privacy_Label">プライバシー</string>
+    <string name="Settings_Privacy_SendCrashReports">クラッシュレポートを送信</string>
+    <string name="Settings_Proxy">プロキシ設定</string>
+    <string name="Settings_Proxy_None">なし</string>
+    <string name="Settings_Proxy_Custom_Protocol">プロトコル</string>
+    <string name="Settings_Proxy_Custom_Hostname">ホスト名</string>
+    <string name="Settings_Proxy_Custom_Port">ポート</string>
+    <string name="Settings_Proxy_Custom_Testing">テスト中</string>
+    <string name="Settings_Proxy_Custom_Available">コンタクト可</string>
+    <string name="Settings_Proxy_Custom_Unavailable">コンタクト不可</string>
+    <string name="Settings_Language_Label">言語</string>
+    <string name="Settings_Advanced_Label">詳細</string>
+    <string name="Settings_Support_Label">サポート</string>
+    <string name="Settings_ShareApp">アプリを共有</string>
+    <string name="Settings_Storage_Delete">削除</string>
+    <string name="Settings_Storage_Clear">Clear</string>
+    <string name="Settings_Logs">ログ</string>
+    <string name="Settings_Websites_Categories_Selection_All">すべて選択</string>
+    <string name="Settings_Websites_CustomURL_URL">URL</string>
+    <string name="Settings_Websites_CustomURL_Run">実行</string>
+    <string name="CategoryCode_SRCH_Name">検索エンジン</string>
+    <string name="Onboarding_ThingsToKnow_Button">了解します</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">さらに知る</string>
+    <string name="Onboarding_PopQuiz_True">はい</string>
+    <string name="Onboarding_PopQuiz_False">いいえ</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Back">戻る</string>
+    <string name="Onboarding_PopQuiz_Wrong_Button_Continue">続ける</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Title">警告</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Title">警告</string>
+    <string name="Onboarding_Crash_Button_Yes">はい</string>
+    <string name="Onboarding_Crash_Button_No">いいえ</string>
+    <string name="Onboarding_Notifications_Ok">OK</string>
+    <string name="Onboarding_Notifications_Skip">スキップ</string>
+    <string name="Onboarding_DefaultSettings_Title">デフォルト設定</string>
+    <string name="AddDescriptor_Settings">設定をテストする</string>
+    <string name="LoadingScreen_Runv2_Failure">エラー</string>
+    <!-- Only used for the desktop version of the app for now -->
+    <string name="DescriptorUpdate_CheckUpdates">更新を確認</string>
+    <string name="Modal_UploadFailed_Title">アップロード失敗</string>
+    <string name="Modal_Retry">再試行</string>
+    <string name="Modal_Cancel">キャンセル</string>
+    <string name="Modal_OK">OK</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">すべてのテスト結果を削除しますか?</string>
+    <string name="Modal_Delete">削除</string>
+    <string name="Modal_ReRun_Websites_Run">実行</string>
+    <string name="Modal_Error_NoInternet">インターネット接続なし</string>
+    <string name="Modal_CustomURL_Title_NotSaved">よろしいですか?</string>
+    <string name="Desktop_Quit">終了</string>
+    <string name="Tray_Notification_Check_Updates">更新を確認</string>
+    <string name="Tray_Notification_Updates_Available">更新利用可能です！</string>
+    <string name="Tray_Notification_Checking_Updates">アップデートを確認中...</string>
+
+    <string name="OONIRun_Run">実行</string>
+    <!-- Android notification channel name. -->
+    <string name="Notification_ChannelName">テスト中</string>
+    <string name="Common_Back">戻る</string>
+    <string name="Common_Close">閉じる</string>
+    <string name="Common_Refresh">更新</string>
+    <string name="Common_Collapse">折りたたむ</string>
+    <string name="Common_Expand">展開する</string>
+    <string name="Common_Enable">有効</string>
+    <string name="Common_Yes">はい</string>
+    <string name="Common_Save">保存</string>
+    <string name="Common_Clear">Clear</string>
+    <string name="Common_Next">次へ</string>
+    <string name="Common_Previous">前へ</string>
+    <string name="Common_Share">共有</string>
+    <string name="Common_Ago">%1$s 前</string>
+    <string name="Common_Months_January">1 月</string>
+    <string name="Common_Months_February">2 月</string>
+    <string name="Common_Months_March">3 月</string>
+    <string name="Common_Months_April">4 月</string>
+    <string name="Common_Months_May">5 月</string>
+    <string name="Common_Months_June">6 月</string>
+    <string name="Common_Months_July">7 月</string>
+    <string name="Common_Months_August">8 月</string>
+    <string name="Common_Months_September">9 月</string>
+    <string name="Common_Months_October">10 月</string>
+    <string name="Common_Months_November">11 月</string>
+    <string name="Common_Months_December">12 月</string>
+
+    <string name="NetworkType_Vpn">VPN</string>
+</resources>

@@ -18,4 +18,6 @@ object OrganizationConfig : OrganizationConfigInterface {
     override val hasWebsitesDescriptor = true
     override val donateUrl = "https://ooni.org/donate"
     override val installUrl: String? = "https://ooni.org/install/mobile"
+    override val hasOoniNews = true
+    override val canInstallDescriptors = true
 }

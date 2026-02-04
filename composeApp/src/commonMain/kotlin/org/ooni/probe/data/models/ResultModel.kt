@@ -16,6 +16,7 @@ data class ResultModel(
     val networkId: NetworkModel.Id? = null,
     val descriptorName: String?,
     val descriptorKey: Descriptor.Key?,
+    val runId: RunModel.Id?,
 ) {
     data class Id(
         val value: Long,

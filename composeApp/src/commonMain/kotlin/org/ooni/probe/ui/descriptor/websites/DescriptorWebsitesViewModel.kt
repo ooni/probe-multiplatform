@@ -18,7 +18,7 @@ import org.ooni.probe.data.models.DescriptorItem
 class DescriptorWebsitesViewModel(
     descriptorId: Descriptor.Id,
     onBack: () -> Unit,
-    getTestDescriptor: (String) -> Flow<DescriptorItem?>,
+    getTestDescriptor: (Descriptor.Id) -> Flow<DescriptorItem?>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -26,7 +26,7 @@ class DescriptorWebsitesViewModel(
     val state = _state.asStateFlow()
 
     init {
-        getTestDescriptor(descriptorId.value)
+        getTestDescriptor(descriptorId)
             .onEach { descriptor ->
                 val websites = descriptor
                     ?.allTests

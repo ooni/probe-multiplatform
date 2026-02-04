@@ -8,6 +8,7 @@ import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
+import org.ooni.probe.config.DesktopLegacyDirectoryManager
 import org.ooni.probe.config.FlavorConfigInterface
 import org.ooni.probe.config.OptionalFeature
 import org.ooni.probe.config.ProxyConfig
@@ -15,7 +16,6 @@ import org.ooni.probe.data.buildDatabaseDriver
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
-import org.ooni.probe.shared.LegacyDirectoryManager
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import java.awt.Desktop
@@ -23,12 +23,11 @@ import java.io.File
 import java.net.URI
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
+import java.util.Locale
 
 private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
 private val osName = System.getProperty("os.name")
 val platform = Platform.Desktop(osName)
-
-private val legacyDirectoryManager = LegacyDirectoryManager(platform.os)
 
 private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager(
     runBackgroundTaskProvider = { dependencies.runBackgroundTask },
@@ -40,7 +39,6 @@ val dependencies = Dependencies(
     oonimkallBridge = DesktopOonimkallBridge(),
     baseFileDir = projectDirectories.dataDir.also { File(it).mkdirs() },
     cacheDir = projectDirectories.cacheDir.also { File(it).mkdirs() },
-    readAssetFile = ::readAssetFile,
     databaseDriverFactory = { buildDatabaseDriver(projectDirectories.dataDir) },
     networkTypeFinder = DesktopNetworkTypeFinder(),
     buildDataStore = ::buildDataStore,
@@ -53,10 +51,10 @@ val dependencies = Dependencies(
     launchAction = ::launchAction,
     batteryOptimization = object : BatteryOptimization {},
     isWebViewAvailable = { true },
-    isCleanUpRequired = legacyDirectoryManager::hasLegacyDirectories,
-    cleanupLegacyDirectories = legacyDirectoryManager::cleanupLegacyDirectories,
+    legacyDirectoryManager = DesktopLegacyDirectoryManager(platform.os),
     flavorConfig = DesktopFlavorConfig(),
     proxyConfig = ProxyConfig(isPsiphonSupported = false),
+    getCountryNameByCode = ::getCountryNameByCode,
 )
 
 private fun buildPlatformInfo(): PlatformInfo {
@@ -80,11 +78,6 @@ private fun buildPlatformInfo(): PlatformInfo {
     )
 }
 
-private fun readAssetFile(path: String): String {
-    // Read asset is only needed for NewsMediaScan Android and iOS, not for Desktop
-    throw NotImplementedError()
-}
-
 private fun buildDataStore() =
     PreferenceDataStoreFactory.create {
         projectDirectories.dataDir
@@ -98,27 +91,12 @@ private fun launchAction(action: PlatformAction): Boolean =
         is PlatformAction.FileSharing -> shareFile(action)
         is PlatformAction.Mail -> sendMail(action)
         is PlatformAction.OpenUrl -> openUrl(action)
-        is PlatformAction.Share -> shareText(action)
+        is PlatformAction.Share -> false
         PlatformAction.VpnSettings -> openVpnSettings()
         PlatformAction.LanguageSettings -> false
     }
 
 fun openVpnSettings(): Boolean = false
-
-fun shareText(action: PlatformAction.Share): Boolean =
-    try {
-        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
-            val uri =
-                URI.create("mailto:?body=${URLEncoder.encode(action.text, StandardCharsets.UTF_8)}")
-            Desktop.getDesktop().mail(uri)
-            true
-        } else {
-            false
-        }
-    } catch (e: Exception) {
-        Logger.e(e) { "Failed to share text" }
-        false
-    }
 
 fun shareFile(action: PlatformAction.FileSharing): Boolean {
     return try {
@@ -168,6 +146,14 @@ fun sendMail(action: PlatformAction.Mail): Boolean =
         Logger.e(e) { "Failed to send mail" }
         false
     }
+
+private fun getCountryNameByCode(countryCode: String) =
+    Locale
+        .Builder()
+        .setRegion(countryCode)
+        .build()
+        .displayCountry
+        .ifEmpty { countryCode }
 
 private fun buildMailUri(action: PlatformAction.Mail): URI {
     val subject = URLEncoder.encode(action.subject, StandardCharsets.UTF_8).replace("+", "%20")

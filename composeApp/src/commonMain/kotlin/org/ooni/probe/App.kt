@@ -16,6 +16,7 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hasRoute
@@ -26,7 +27,6 @@ import co.touchlab.kermit.Severity
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Unsupported_Url
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.PlatformInfo
@@ -34,10 +34,11 @@ import org.ooni.probe.ui.navigation.BottomBarViewModel
 import org.ooni.probe.ui.navigation.BottomNavigationBar
 import org.ooni.probe.ui.navigation.Navigation
 import org.ooni.probe.ui.navigation.Screen
+import org.ooni.probe.ui.shared.ClipboardActions
+import org.ooni.probe.ui.shared.LocalClipboardActions
 import org.ooni.probe.ui.theme.AppTheme
 
 @Composable
-@Preview
 fun App(
     dependencies: Dependencies,
     deepLink: DeepLink?,
@@ -45,6 +46,7 @@ fun App(
 ) {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
+    val clipboard = LocalClipboard.current
 
     val currentNavEntry by navController.currentBackStackEntryAsState()
     val isMainScreen = MAIN_NAVIGATION_SCREENS.any {
@@ -52,12 +54,11 @@ fun App(
     }
 
     CompositionLocalProvider(
-        values = dependencies.localeDirection
-            ?.invoke()
-            ?.let { LocalLayoutDirection provides it }
-            ?.let {
-                arrayOf(LocalSnackbarHostState provides snackbarHostState, it)
-            } ?: arrayOf(LocalSnackbarHostState provides snackbarHostState),
+        values = listOfNotNull(
+            LocalSnackbarHostState provides snackbarHostState,
+            LocalClipboardActions provides ClipboardActions(snackbarHostState, clipboard),
+            dependencies.localeDirection?.invoke()?.let { LocalLayoutDirection provides it },
+        ).toTypedArray(),
     ) {
         AppTheme {
             Surface(
@@ -120,11 +121,15 @@ fun App(
         // dependencies.startSingleRunInner(RunSpecification.OnlyUploadMissingResults)
     }
     LaunchedEffect(Unit) {
+        dependencies.fetchGeoIpDbUpdates()
+    }
+    LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoUpdate()
     }
     LaunchedEffect(Unit) {
         dependencies.finishInProgressData()
         dependencies.deleteOldResults()
+        dependencies.refreshArticles()
     }
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()
@@ -133,9 +138,7 @@ fun App(
     LaunchedEffect(deepLink) {
         when (deepLink) {
             is DeepLink.AddDescriptor -> {
-                navController.navigate(
-                    Screen.AddDescriptor(deepLink.id.toLongOrNull() ?: return@LaunchedEffect),
-                )
+                navController.navigate(Screen.AddDescriptor(deepLink.id))
                 onDeeplinkHandled()
             }
 
@@ -169,4 +172,5 @@ private fun logAppStart(platformInfo: PlatformInfo) {
 
 val LocalSnackbarHostState = compositionLocalOf<SnackbarHostState?> { null }
 
-val MAIN_NAVIGATION_SCREENS = listOf(Screen.Dashboard, Screen.Results, Screen.Settings)
+val MAIN_NAVIGATION_SCREENS =
+    listOf(Screen.Dashboard, Screen.Descriptors, Screen.Results, Screen.Settings)

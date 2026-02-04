@@ -156,7 +156,7 @@ class ResultRepositoryTest {
 
             assertTrue(
                 subject
-                    .getById(model.id!!)
+                    .getById(model.id)
                     .first()!!
                     .first.isViewed,
             )
@@ -169,7 +169,12 @@ class ResultRepositoryTest {
 
             subject.markAllAsViewed(ResultFilter())
 
-            assertTrue(subject.getLatest().first()!!.isViewed)
+            assertTrue(
+                subject
+                    .getLatest()
+                    .first()!!
+                    .result.isViewed,
+            )
         }
 
     @Test

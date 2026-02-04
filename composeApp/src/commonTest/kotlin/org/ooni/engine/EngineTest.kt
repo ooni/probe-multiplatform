@@ -91,6 +91,7 @@ class EngineTest {
                     uploadResults = false,
                     proxy = null,
                     maxRuntime = null,
+                    geoipDbPath = null,
                 )
             },
             addRunCancelListener = { CancelListenerCallback {} },

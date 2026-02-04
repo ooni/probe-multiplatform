@@ -1,9 +1,14 @@
 # Please see the documentation for all configuration options:
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 version: 2
+registries:
+   maven-google:
+     type: maven-repository
+     url: "https://dl.google.com/dl/android/maven2/"
 updates:
   - package-ecosystem: gradle
     directory: "/"
+    registries: "*"
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10

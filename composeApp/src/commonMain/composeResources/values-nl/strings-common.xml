@@ -1,24 +1,19 @@
 <resources>
-    <!-- Dashboard -->
-    <string name="Dashboard_Tab_Label">Dashboard</string>
 
+    <string name="Dashboard_Tab_Label">Dashboard</string>
     <string name="Dashboard_Overview_LatestTest">Laatste test:</string>
     <string name="Dashboard_Overview_Estimated">Geschat:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Kies websites</string>
-
     <string name="Dashboard_Running_Running">Wordt uitgevoerd</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Schatting resterende tijd:</string>
     <string name="Dashboard_Running_Stopping_Title">Stoppen met testen…</string>
     <string name="Dashboard_Running_Stopping_Notice">De momenteel lopende tests worden voltooid, een ogenblik geduld...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in gebruik</string>
-
     <string name="Dashboard_Runv2_Overview_Description">Gemaakt door %1$s op %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ongedaan maken</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Beoordeling</string>
-
     <string name="Dashboard_Update_Restart">Herstarten</string>
 
-    <!-- Test -->
 
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Chatprogramma’s</string>
@@ -36,9 +31,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon-test</string>
     <string name="Test_Tor_Fullname">Tor-test</string>
     <string name="Test_Signal_Fullname">Signal-test</string>
-
-    <!-- Test Results -->
-
     <string name="TestResults_Overview_Title">Test Resultaten</string>
     <string name="TestResults_Overview_Tab_Label">Test Resultaten</string>
     <string name="TestResults_Overview_Hero_Tests">Testen</string>
@@ -58,15 +50,12 @@
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Kwaliteit</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
-
     <string name="TestResults_Gbps">Gbit/s</string>
     <string name="TestResults_Mbps">Mbit/s</string>
     <string name="TestResults_Kbps">kbit/s</string>
     <string name="TestResults_ms">ms</string>
-
     <string name="TestResults_UnknownASN">Onbekend</string>
     <string name="TestResults_NotAvailable">n.v.t.</string>
-
     <string name="TestResults_Filter_Tests">Testen</string>
     <string name="TestResults_Filter_Networks">Netwerken</string>
     <string name="TestResults_Filter_Source">Bron</string>
@@ -77,10 +66,8 @@
     <string name="Measurements_Ok">Oke</string>
     <string name="Measurement_Raw_Upload">Uploaden</string>
 
-    <!-- Settings -->
 
     <string name="Settings_Title">Instellingen</string>
-
     <string name="Settings_TestOptions_Label">Testopties</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Tests automatisch uitvoeren</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Alleen op WiFi</string>
@@ -89,28 +76,30 @@
     <string name="Settings_Sharing_UploadResults">Resultaten Automatisch Publiceren</string>
     <string name="Settings_Websites_Categories_Label">Website categorieën om te testen</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorieën ingeschakeld</string>
-
     <string name="Settings_Privacy_Label">Privacy</string>
     <string name="Settings_Privacy_SendCrashReports">Crashrapporten versturen</string>
-
     <string name="Settings_Proxy_Label">OONI-backend-proxy</string>
-    <string name="Settings_Proxy_Enabled">Proxy</string>
+    <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Geen</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
-    <string name="Settings_Proxy_Custom">Aangepaste Proxy</string>
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
     <string name="Settings_Proxy_Custom_Hostname">Hostnaam</string>
     <string name="Settings_Proxy_Custom_Port">Poort</string>
-
+    <string name="Settings_Proxy_Custom_Testing">Testen </string>
+    <string name="Settings_Proxy_Custom_Available">Beschikbaar</string>
+    <string name="Settings_Proxy_Custom_Unavailable">Niet beschikbaar</string>
     <string name="Settings_Language_Label">Taal</string>
-
     <string name="Settings_Advanced_Label">Geavanceerd</string>
     <string name="Settings_Advanced_DebugLogs">Debug-logs</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">1 maand</item>
+        <item quantity="other">%1$d maand</item>
+    </plurals>
     <string name="Settings_Support_Label">Support</string>
     <string name="Settings_Support_SendEmail">Stuur een e-mail naar ondersteuning</string>
     <string name="Settings_Support_Message">Beschrijf het probleem dat u ondervindt:</string>
     <string name="Settings_Support_Action">Verstuur email</string>
-
+    <string name="Settings_ShareApp">App delen</string>
     <string name="Settings_Storage_Label">Opslaggebruik</string>
     <string name="Settings_Storage_Delete">Verwijderen</string>
     <string name="Settings_Storage_Clear">Wissen</string>
@@ -122,8 +111,6 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Voer uit</string>
     <string name="Settings_Websites_CustomURL_Add">Website toevoegen</string>
-    <!-- Website Categories -->
-
     <string name="CategoryCode_ALDR_Name">Drugs &amp; Alcohol</string>
     <string name="CategoryCode_REL_Name">Religie</string>
     <string name="CategoryCode_PORN_Name">Pornografie</string>
@@ -214,13 +201,9 @@
     <string name="Onboarding_DefaultSettings_Paragraph">We doen ons best om uw IP-adres of andere mogelijk persoonlijk identificeerbare informatie niet te publiceren.\n\nLees meer via [OONI\'s gegevensbeleid](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Standaard-inst. wijzigen</string>
 
-    <!-- Descriptors -->
-
     <string name="AddDescriptor_Settings">Testen van de instellingen</string>
     <string name="AddDescriptor_AutoRun">Tests automatisch uitvoeren</string>
     <string name="LoadingScreen_Runv2_Failure">Fout</string>
-    <!-- Modals / Toasts / Snackbar -->
-
     <string name="Snackbar_ResultsNotUploaded_Text">Niet geüpload</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Sommige zijn niet geüpload</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Alles Uploaden</string>
@@ -246,15 +229,11 @@
     <string name="Modal_CustomURL_Title_NotSaved">Weet je het zeker?</string>
     <string name="Modal_CustomURL_NotSaved">Uw URL’s worden niet opgeslagen wanneer u dit scherm verlaat. Weet je zeker dat je dit scherm wilt verlaten?</string>
     <string name="Desktop_Quit">Stoppen</string>
-
-
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
     <string name="Tray_Notification_Checking_Updates">Bezig met controleren op updates...</string>
 
-    <!-- Common / Others -->
-
     <string name="OONIRun_Run">Voer uit</string>
-
+    <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testen </string>
     <string name="Notification_StopTest">Stop de test</string>
 
@@ -269,7 +248,7 @@
     <string name="Common_Clear">Wissen</string>
     <string name="Common_Next">Volgende</string>
     <string name="Common_Previous">Vorige</string>
-
+    <string name="Common_Share">Delen</string>
     <string name="Common_Today">Vandaag</string>
     <string name="Common_Yesterday">Gisteren</string>
     <string name="Common_Ago">%1$s geleden</string>

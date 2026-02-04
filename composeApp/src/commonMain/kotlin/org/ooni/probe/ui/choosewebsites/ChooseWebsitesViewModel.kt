@@ -83,7 +83,7 @@ class ChooseWebsitesViewModel(
         events
             .filterIsInstance<Event.AddWebsiteClicked>()
             .onEach {
-                if (_state.value.websites.size >= MAX_WEBSITES) return@onEach
+                if (_state.value.websites.size >= maxWebsites) return@onEach
                 _state.update { it.copy(websites = it.websites + WebsiteItem()) }
             }.launchIn(viewModelScope)
 
@@ -165,7 +165,7 @@ class ChooseWebsitesViewModel(
         val websites: List<WebsiteItem> = listOf(WebsiteItem()),
         val showBackConfirmation: Boolean = false,
     ) {
-        val canAddUrls get() = websites.size < MAX_WEBSITES
+        val canAddUrls get() = websites.size < maxWebsites
         val canRemoveUrls get() = websites.size > 1
         val canClearUrls get() = websites.isNotEmpty() && websites != listOf(WebsiteItem())
     }
@@ -194,7 +194,8 @@ class ChooseWebsitesViewModel(
     }
 
     companion object {
+        // Mutable only for testing purposes
         @VisibleForTesting
-        const val MAX_WEBSITES = 100
+        var maxWebsites = 100
     }
 }

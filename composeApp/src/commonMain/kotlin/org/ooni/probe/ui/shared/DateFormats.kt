@@ -5,6 +5,8 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
+import kotlinx.datetime.format.MonthNames
+import kotlinx.datetime.format.Padding
 import kotlinx.datetime.format.char
 import kotlinx.datetime.toInstant
 import ooniprobe.composeapp.generated.resources.Common_Ago
@@ -17,6 +19,7 @@ import ooniprobe.composeapp.generated.resources.Common_Seconds_Abbreviated
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.shared.today
 import kotlin.time.Clock
 import kotlin.time.Duration
@@ -58,6 +61,19 @@ fun LocalDateTime.relativeDateTime(): String =
 fun LocalDateTime.longFormat(): String = format(longDateTimeFormat)
 
 fun LocalDateTime.logFormat(): String = format(logDateTimeFormat)
+
+@Composable
+fun LocalDateTime.articleFormat(): String {
+    val monthNames = stringMonthArrayResource()
+    return LocalDateTime
+        .Format {
+            day(Padding.NONE)
+            char(' ')
+            monthName(MonthNames(monthNames))
+            char(' ')
+            year()
+        }.format(this)
+}
 
 @Composable
 fun Duration.format(abbreviated: Boolean = true): String =

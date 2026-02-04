@@ -51,7 +51,7 @@ object MeasurementModelFactory {
     )
 
     fun buildWithUrl(
-        measurement: MeasurementModel = MeasurementModelFactory.build(),
+        measurement: MeasurementModel = build(),
         url: UrlModel = UrlModelFactory.build(),
     ) = MeasurementWithUrl(
         measurement = measurement,

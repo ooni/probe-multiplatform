@@ -1,0 +1,24 @@
+Blokkeres nettsteder og sosiale medier apper? Er nettverket uvanlig sakte? Kjør OONI Probe for å finne det ut!
+
+Med denne appen vil du undersøke blokkering av nettsteder og direktemeldingsapper, måle nettverkets hastighet og ytelse, og kontrollere om systemer som kan være ansvarlige for sensur og overvåkning, er i nettverket ditt.
+
+OONI Probe er utviklet av Open Observatory of Network Interference (OONI), et gratis programvareprosjekt (under The Tor Project) som tar sikte på å avdekke internettsensur rundt om i verden.
+
+Siden 2012 har OONIs globale samfunn samlet inn millioner av nettverksmålinger fra mer enn 200 land, og kaster lys over flere tilfeller av nettverksinnblanding.
+
+▶ Collect evidence of internet censorship
+Du kan sjekke om og hvordan nettsteder og direktemeldingsapper blokkeres. Nettverksmålingdataene du samler kan tjene som bevis på internettsensur.
+
+▶ Detect systems responsible for censorship and surveillance
+OONI Probe tester er også designet for å avdekke tilstedeværelse av systemer (middleboxes) som kan være ansvarlig for sensur og overvåking.
+
+▶ Measure the speed and performance of your network
+Du kan måle hastigheten og ytelsen til nettverket ditt ved å kjøre OONIs gjennomføring av Network Diagnostic Test (NDT). Du kan også måle video Strømme ytelse med Dynamic Adaptive Streaming over HTTP (DASH) test.
+
+▶ Open data
+OONI publiserer nettverksmålingsdata fordi åpne data tillater tredjeparter å verifisere OONI-funn, gjennomføre uavhengige studier og svare på andre forskningsspørsmål. Åpen publisering av OONI-data bidrar også til å øke gjennomsiktigheten av internettsensur rundt om i verden. Du kan utforske og laste ned OONI data her: https://ooni.io/data/
+
+▶ Free software
+Alle OONI Probe-testene (inkludert våre NDT- og DASH-implementeringer), er basert på fri programvare og åpen kildekode. Du finner OONI-programvareprosjekter på GitHub: https://github.com/ooni. Er du nysgjerrig på å lære hvordan OONI Probe tester fungerer? Lær mer: https://ooni.io/nettest/
+
+For å motta oppdateringer fra OONI-verset, følg oss på Twitter: https://twitter.com/OpenObservatory

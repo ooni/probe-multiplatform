@@ -2,10 +2,12 @@ package org.ooni.probe.ui.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
@@ -15,6 +17,7 @@ import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.shared.PlatformInfo
+import kotlin.text.compareTo
 
 class OnboardingViewModel(
     private val goToDashboard: () -> Unit,
@@ -24,35 +27,32 @@ class OnboardingViewModel(
     private val launchUrl: (String) -> Unit,
     private val batteryOptimization: BatteryOptimization,
     supportsCrashReporting: Boolean,
-    isCleanUpRequired: () -> Boolean,
+    isCleanUpRequired: () -> Flow<Boolean>,
     cleanupLegacyDirectories: (suspend () -> Boolean)?,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
-    private val stepList = listOfNotNull(
-        Step.WhatIs,
-        Step.HeadsUp,
-        Step.AutomatedTesting(false),
-        if (supportsCrashReporting) Step.CrashReporting else null,
-        if (platformInfo.requestNotificationsPermission) {
-            Step.RequestNotificationPermission
-        } else {
-            null
-        },
-        if (isCleanUpRequired()) Step.ClearDanglingResources else null,
-        Step.DefaultSettings,
-    )
-
-    private val _state = MutableStateFlow(
-        State(
-            step = stepList[0],
-            stepIndex = 0,
-            totalSteps = stepList.size,
-        ),
-    )
+    private val _state = MutableStateFlow<State>(State.BuildingSteps)
     val state = _state.asStateFlow()
 
     init {
+        viewModelScope.launch {
+            val steps = listOfNotNull(
+                Step.WhatIs,
+                Step.HeadsUp,
+                Step.AutomatedTesting,
+                if (supportsCrashReporting) Step.CrashReporting else null,
+                if (platformInfo.requestNotificationsPermission) {
+                    Step.RequestNotificationPermission
+                } else {
+                    null
+                },
+                if (isCleanUpRequired().first()) Step.ClearDanglingResources else null,
+                Step.DefaultSettings,
+            )
+            _state.value = State.start(steps)
+        }
+
         events
             .filterIsInstance<Event.NextClicked>()
             .onEach { moveToNextStep() }
@@ -114,6 +114,10 @@ class OnboardingViewModel(
         events
             .filterIsInstance<Event.CleanupClicked>()
             .onEach {
+                val state = _state.value as? State.Ready ?: return@onEach
+                _state.update {
+                    state.copy(isCleanupInProgress = true)
+                }
                 cleanupLegacyDirectories?.invoke()
 
                 moveToNextStep()
@@ -138,13 +142,9 @@ class OnboardingViewModel(
     }
 
     private suspend fun moveToNextStep() {
-        val state = _state.value
-        if (state.stepIndex < stepList.size - 1) {
-            val newIndex = state.stepIndex + 1
-            _state.value = state.copy(
-                step = stepList[newIndex],
-                stepIndex = newIndex,
-            )
+        val state = _state.value as? State.Ready ?: return
+        if (!state.isLastStep) {
+            _state.value = state.nextStep()
         } else {
             preferenceRepository.setValueByKey(SettingsKey.FIRST_RUN, false)
             goToDashboard()
@@ -152,39 +152,56 @@ class OnboardingViewModel(
     }
 
     private fun requestIgnoreBatteryOptimization() {
+        val state = _state.value as? State.Ready ?: return
         batteryOptimization.requestIgnore { isIgnoring ->
             if (isIgnoring) {
                 viewModelScope.launch { moveToNextStep() }
             } else {
                 _state.update {
-                    it.copy(step = Step.AutomatedTesting(true))
+                    state.copy(showBatteryOptimizationDialog = true)
                 }
             }
         }
     }
 
-    data class State(
-        val step: Step,
-        val stepIndex: Int,
-        val totalSteps: Int,
-    )
+    sealed interface State {
+        data object BuildingSteps : State
 
-    sealed interface Step {
-        data object WhatIs : Step
+        data class Ready(
+            val stepIndex: Int,
+            private val steps: List<Step>,
+            val showBatteryOptimizationDialog: Boolean = false,
+            val isCleanupInProgress: Boolean = false,
+        ) : State {
+            val step get() = steps[stepIndex]
+            val totalSteps get() = steps.size
+            val isLastStep get() = stepIndex == totalSteps - 1
 
-        data object HeadsUp : Step
+            fun nextStep() =
+                copy(
+                    stepIndex = stepIndex + 1,
+                    showBatteryOptimizationDialog = false,
+                    isCleanupInProgress = false,
+                )
+        }
 
-        data class AutomatedTesting(
-            val showBatteryOptimizationDialog: Boolean,
-        ) : Step
+        companion object {
+            fun start(steps: List<Step>) =
+                Ready(
+                    stepIndex = 0,
+                    steps = steps,
+                )
+        }
+    }
 
-        data object CrashReporting : Step
-
-        data object RequestNotificationPermission : Step
-
-        data object ClearDanglingResources : Step
-
-        data object DefaultSettings : Step
+    enum class Step {
+        WhatIs,
+        HeadsUp,
+        AutomatedTesting,
+        CrashReporting,
+        RequestNotificationPermission,
+        ClearDanglingResources,
+        DefaultSettings,
     }
 
     sealed interface Event {

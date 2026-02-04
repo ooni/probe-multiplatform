@@ -14,8 +14,8 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
-import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Descriptor
@@ -31,18 +31,19 @@ import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.monitoring.reportTransaction
+import org.ooni.probe.ui.results.RunListItem
 import org.ooni.probe.ui.shared.SelectableItem
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 class DescriptorViewModel(
-    private val descriptorKey: String,
+    private val descriptorId: Descriptor.Id,
     private val onBack: () -> Unit,
     goToReviewDescriptorUpdates: (List<Descriptor.Id>?) -> Unit,
     goToChooseWebsites: () -> Unit,
     goToResult: (ResultModel.Id) -> Unit,
     goToDescriptorWebsites: (Descriptor.Id) -> Unit,
-    getTestDescriptor: (String) -> Flow<DescriptorItem?>,
+    getTestDescriptor: (Descriptor.Id) -> Flow<DescriptorItem?>,
     getLastResultOfDescriptor: (String) -> Flow<ResultListItem?>,
     private val preferenceRepository: PreferenceRepository,
     private val launchAction: (PlatformAction) -> Boolean,
@@ -71,7 +72,7 @@ class DescriptorViewModel(
                 }
             }.launchIn(viewModelScope)
 
-        getTestDescriptor(descriptorKey)
+        getTestDescriptor(descriptorId)
             .onEach { if (it == null) onBack() }
             .filterNotNull()
             .flatMapLatest { descriptor ->
@@ -107,10 +108,18 @@ class DescriptorViewModel(
                 }
             }.launchIn(viewModelScope)
 
-        getLastResultOfDescriptor(descriptorKey)
+        state
+            .map { it.descriptor }
+            .filterNotNull()
+            .take(1)
+            .flatMapLatest { getLastResultOfDescriptor(it.key) }
             .onEach { lastResult ->
-                _state.update {
-                    it.copy(lastResult = lastResult)
+                _state.update { state ->
+                    state.copy(
+                        lastResult = lastResult
+                            ?.let { RunListItem.aggregateResults(listOf(it)) }
+                            ?.firstOrNull(),
+                    )
                 }
             }.launchIn(viewModelScope)
 
@@ -153,7 +162,7 @@ class DescriptorViewModel(
             .onEach {
                 launchAction(
                     PlatformAction.OpenUrl(
-                        "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorKey?revision=${it.revision}",
+                        "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorId?revision=${it.revision}",
                     ),
                 )
             }.launchIn(viewModelScope)
@@ -163,7 +172,7 @@ class DescriptorViewModel(
             .onEach {
                 launchAction(
                     PlatformAction.OpenUrl(
-                        "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorKey",
+                        "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorId",
                     ),
                 )
             }.launchIn(viewModelScope)
@@ -278,8 +287,16 @@ class DescriptorViewModel(
             .filterIsInstance<Event.ShareClicked>()
             .onEach {
                 val descriptor = state.value.descriptor ?: return@onEach
-                val runLink = descriptor.runLink
-                launchAction(PlatformAction.Share("${descriptor.name} $runLink"))
+                val message = "${descriptor.name} ${descriptor.runLink}"
+                if (!launchAction(PlatformAction.Share(message))) {
+                    _state.update { state -> state.copy(copyMessageToClipboard = message) }
+                }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.MessageCopied>()
+            .onEach {
+                _state.update { state -> state.copy(copyMessageToClipboard = null) }
             }.launchIn(viewModelScope)
     }
 
@@ -310,30 +327,17 @@ class DescriptorViewModel(
         onBack()
     }
 
-    private fun buildRunSpecification(): RunSpecification? =
-        state.value.descriptor?.let { descriptor ->
-            RunSpecification.Full(
-                tests = listOf(
-                    RunSpecification.Test(
-                        descriptorId = descriptor.descriptor.id,
-                        netTests = descriptor.allTests,
-                    ),
-                ),
-                taskOrigin = TaskOrigin.OoniRun,
-                isRerun = false,
-            )
-        }
-
     data class State(
         val descriptor: DescriptorItem? = null,
         val estimatedTime: Duration? = null,
         val tests: List<SelectableItem<NetTest>> = emptyList(),
-        val lastResult: ResultListItem? = null,
+        val lastResult: RunListItem? = null,
         val updateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
         val isAutoRunEnabled: Boolean = true,
         val canPullToRefresh: Boolean = true,
         val showVpnWarning: Boolean = false,
         val showDisableVpnInstructions: Boolean = false,
+        val copyMessageToClipboard: String? = null,
     ) {
         val isRefreshing: Boolean
             get() = updateOperationState == DescriptorUpdateOperationState.FetchingUpdates
@@ -399,6 +403,8 @@ class DescriptorViewModel(
         data object SeeMoreWebsitesClicked : Event
 
         data object ShareClicked : Event
+
+        data object MessageCopied : Event
     }
 }
 

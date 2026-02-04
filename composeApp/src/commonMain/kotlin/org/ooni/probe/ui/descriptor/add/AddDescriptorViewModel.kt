@@ -52,9 +52,9 @@ class AddDescriptorViewModel(
                             }.orEmpty(),
                     )
                 }.onFailure { error ->
-                    Logger.e("Failed to fetch descriptor", error)
+                    Logger.i("Failed to fetch descriptor", error)
                     _state.update {
-                        it.copy(messages = it.messages + SnackBarMessage.AddDescriptorFailed)
+                        it.copy(messages = it.messages + Message.FailedToFetch)
                     }
                     onBack()
                 }
@@ -93,19 +93,15 @@ class AddDescriptorViewModel(
 
         events
             .filterIsInstance<Event.CancelClicked>()
-            .onEach { event ->
-                _state.update {
-                    it.copy(messages = it.messages + SnackBarMessage.AddDescriptorCancel)
-                }
-                onBack()
-            }.launchIn(viewModelScope)
+            .onEach { onBack() }
+            .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.InstallClicked>()
             .onEach { event ->
                 installDescriptorAndSavePreferences()
                 _state.update {
-                    it.copy(messages = it.messages + SnackBarMessage.AddDescriptorSuccess)
+                    it.copy(messages = it.messages + Message.AddDescriptorSuccess)
                 }
                 onBack()
             }.launchIn(viewModelScope)
@@ -119,7 +115,7 @@ class AddDescriptorViewModel(
                     RunSpecification.buildForDescriptor(installedDescriptor.toDescriptorItem()),
                 )
                 _state.update {
-                    it.copy(messages = it.messages + SnackBarMessage.AddDescriptorSuccess)
+                    it.copy(messages = it.messages + Message.AddDescriptorSuccess)
                 }
                 onBack()
             }.launchIn(viewModelScope)
@@ -160,7 +156,7 @@ class AddDescriptorViewModel(
     data class State(
         val descriptor: Descriptor? = null,
         val selectableItems: List<SelectableItem<NetTest>> = emptyList(),
-        val messages: List<SnackBarMessage> = emptyList(),
+        val messages: List<Message> = emptyList(),
         val autoUpdate: Boolean = true,
     ) {
         fun allTestsSelected(): ToggleableState {
@@ -194,15 +190,12 @@ class AddDescriptorViewModel(
         ) : Event
 
         data class MessageDisplayed(
-            val message: SnackBarMessage,
+            val message: Message,
         ) : Event
     }
 
-    sealed interface SnackBarMessage {
-        data object AddDescriptorFailed : SnackBarMessage
-
-        data object AddDescriptorCancel : SnackBarMessage
-
-        data object AddDescriptorSuccess : SnackBarMessage
+    enum class Message {
+        FailedToFetch,
+        AddDescriptorSuccess,
     }
 }

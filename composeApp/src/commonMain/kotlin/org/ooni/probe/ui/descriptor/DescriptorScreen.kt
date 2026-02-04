@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.selection.triStateToggleable
@@ -32,6 +33,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
@@ -66,8 +68,10 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.ui.results.ResultCell
+import org.ooni.probe.ui.results.RunCell
 import org.ooni.probe.ui.shared.DisableVpnInstructionsDialog
 import org.ooni.probe.ui.shared.ExpiredChip
+import org.ooni.probe.ui.shared.LocalClipboardActions
 import org.ooni.probe.ui.shared.MarkdownViewer
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.SelectableItem
@@ -83,6 +87,7 @@ fun DescriptorScreen(
     state: DescriptorViewModel.State,
     onEvent: (DescriptorViewModel.Event) -> Unit,
 ) {
+    val clipboardActions = LocalClipboardActions.current
     val pullRefreshState = rememberPullToRefreshState()
     Box(
         Modifier
@@ -168,13 +173,16 @@ fun DescriptorScreen(
                             .padding(bottom = 16.dp),
                     )
 
-                    ResultCell(
-                        item = lastResult,
-                        onResultClick = {
-                            onEvent(DescriptorViewModel.Event.ResultClicked(lastResult))
-                        },
-                        modifier = Modifier.padding(bottom = 16.dp),
-                    )
+                    RunCell(lastResult)
+                    lastResult.results.firstOrNull()?.item?.let { result ->
+                        ResultCell(
+                            item = result,
+                            onResultClick = {
+                                onEvent(DescriptorViewModel.Event.ResultClicked(result))
+                            },
+                            modifier = Modifier.padding(bottom = 16.dp),
+                        )
+                    }
 
                     HorizontalDivider(Modifier.padding(bottom = 16.dp), thickness = Dp.Hairline)
                 }
@@ -262,19 +270,19 @@ fun DescriptorScreen(
                     )
                 }
 
-                descriptor.descriptor?.let { installed ->
-                    InstalledDescriptorActionsView(
-                        descriptor = installed,
-                        showCheckUpdatesButton = !state.canPullToRefresh,
-                        onEvent = onEvent,
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                    )
-                }
+                InstalledDescriptorActionsView(
+                    descriptor = descriptor.descriptor,
+                    showCheckUpdatesButton = !state.canPullToRefresh,
+                    onEvent = onEvent,
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                )
             }
         }
         if (state.isRefreshing) {
             UpdateProgressStatus(
-                modifier = Modifier.align(Alignment.BottomCenter),
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .padding(WindowInsets.statusBars.asPaddingValues()),
                 contentModifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
                 type = state.updateOperationState,
             )
@@ -300,6 +308,13 @@ fun DescriptorScreen(
         DisableVpnInstructionsDialog(
             onDismiss = { onEvent(DescriptorViewModel.Event.DisableVpnInstructionsDismissed) },
         )
+    }
+
+    state.copyMessageToClipboard?.let {
+        LaunchedEffect(it) {
+            clipboardActions?.copyToClipboard(it)
+            onEvent(DescriptorViewModel.Event.MessageCopied)
+        }
     }
 }
 

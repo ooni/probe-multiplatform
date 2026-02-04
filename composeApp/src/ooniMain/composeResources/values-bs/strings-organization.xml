@@ -1,0 +1,7 @@
+<resources>
+    <string name="Settings_About_Content_LearnMore">Saznajte više</string>
+    <string name="Settings_About_Content_Blog">Blog</string>
+    <string name="Settings_About_Content_Reports">Izvještaji</string>
+    <string name="Settings_Donate_Title">Doniraj</string>
+    <string name="Settings_Donate_Action">Doniraj</string>
+    </resources>

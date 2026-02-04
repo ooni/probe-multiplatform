@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.material3.AlertDialog
@@ -30,7 +30,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -72,19 +71,18 @@ import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Sel
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Selection_None
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
+import ooniprobe.composeapp.generated.resources.TestResults
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_DeleteConfirmation
 import ooniprobe.composeapp.generated.resources.TestResults_Filter_NoTestsFound
 import ooniprobe.composeapp.generated.resources.TestResults_Filters_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_DataUsage
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Networks
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Hero_Tests
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_NoTestsHaveBeenRun
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Title
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Download
 import ooniprobe.composeapp.generated.resources.TestResults_Summary_Performance_Hero_Upload
+import ooniprobe.composeapp.generated.resources.ic_back
 import ooniprobe.composeapp.generated.resources.ic_delete_all
 import ooniprobe.composeapp.generated.resources.ic_download
-import ooniprobe.composeapp.generated.resources.ic_back
 import ooniprobe.composeapp.generated.resources.ic_filters
 import ooniprobe.composeapp.generated.resources.ic_mark_as_viewed
 import ooniprobe.composeapp.generated.resources.ic_upload
@@ -94,12 +92,12 @@ import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultsStats
+import org.ooni.probe.shared.formatDataUsage
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.shared.today
 import org.ooni.probe.ui.shared.LightStatusBars
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
-import org.ooni.probe.ui.shared.formatDataUsage
 import org.ooni.probe.ui.shared.isHeightCompact
 
 @Composable
@@ -121,7 +119,7 @@ fun ResultsScreen(
         if (!state.selectionEnabled) {
             TopBar(
                 title = {
-                    Text(stringResource(Res.string.TestResults_Overview_Title))
+                    Text(stringResource(Res.string.TestResults))
                 },
                 actions = {
                     IconButton(
@@ -249,82 +247,7 @@ fun ResultsScreen(
         } else if (state.results.isEmpty()) {
             EmptyResults(anyFilterSelected = !state.filter.isAll)
         } else {
-            if (!isHeightCompact() && !state.selectionEnabled) {
-                Stats(state.stats)
-            }
-
-            if (state.anyMissingUpload && state.filter.isAll && !state.selectionEnabled) {
-                UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
-            }
-
-            Box {
-                val lazyListState = rememberLazyListState()
-                LazyColumn(state = lazyListState) {
-                    state.results.forEach { (date, results) ->
-                        stickyHeader(key = date.toString()) {
-                            ResultDateHeader(date)
-                            HorizontalDivider(thickness = Dp.Hairline)
-                        }
-                        items(items = results) { result ->
-                            val isSelected = result.isSelected
-                            ResultCell(
-                                item = result.item,
-                                onResultClick = {
-                                    if (state.selectionEnabled) {
-                                        onEvent(
-                                            ResultsViewModel.Event.ToggleItemSelection(
-                                                result.item,
-                                                !isSelected,
-                                            ),
-                                        )
-                                    } else {
-                                        onEvent(ResultsViewModel.Event.ResultClick(result.item))
-                                    }
-                                },
-                                isSelected = isSelected,
-                                onSelectChange = { checked ->
-                                    onEvent(
-                                        ResultsViewModel.Event.ToggleItemSelection(
-                                            result.item,
-                                            checked,
-                                        ),
-                                    )
-                                },
-                                onLongClick = {
-                                    if (!isSelected) {
-                                        onEvent(
-                                            ResultsViewModel.Event.ToggleItemSelection(
-                                                result.item,
-                                                true,
-                                            ),
-                                        )
-                                    }
-                                },
-                            )
-                            HorizontalDivider(thickness = Dp.Hairline)
-                        }
-                    }
-                    if (state.areResultsLimited) {
-                        item("limited") {
-                            Text(
-                                text = stringResource(
-                                    Res.string.Results_LimitedNotice,
-                                    state.filter.limit,
-                                ),
-                                style = MaterialTheme.typography.labelLarge,
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp, vertical = 24.dp),
-                            )
-                        }
-                    }
-                }
-                VerticalScrollbar(
-                    state = lazyListState,
-                    modifier = Modifier.align(Alignment.CenterEnd),
-                )
-            }
+            Results(state, onEvent)
         }
     }
 
@@ -362,10 +285,6 @@ fun ResultsScreen(
                 showMarkAsViewedConfirm = false
             },
         )
-    }
-
-    LaunchedEffect(Unit) {
-        onEvent(ResultsViewModel.Event.Start)
     }
 }
 
@@ -432,6 +351,99 @@ private fun EmptyResults(anyFilterSelected: Boolean) {
 }
 
 @Composable
+private fun Results(
+    state: ResultsViewModel.State,
+    onEvent: (ResultsViewModel.Event) -> Unit,
+) {
+    if (!isHeightCompact() && !state.selectionEnabled) {
+        Stats(state.stats)
+    }
+
+    if (state.anyMissingUpload && state.filter.isAll && !state.selectionEnabled) {
+        UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
+    }
+
+    Box {
+        val lazyListState = rememberLazyListState()
+        LazyColumn(state = lazyListState) {
+            state.results.forEach { (date, runs) ->
+                stickyHeader(key = date.toString()) {
+                    ResultDateHeader(date)
+                    HorizontalDivider(thickness = Dp.Hairline)
+                }
+                runs.forEach { runItem ->
+                    item(runItem.run.id.value) {
+                        RunCell(runItem)
+                    }
+                    itemsIndexed(items = runItem.results) { index, result ->
+                        if (index != 0) {
+                            HorizontalDivider(thickness = Dp.Hairline)
+                        }
+                        val isSelected = result.isSelected
+                        ResultCell(
+                            item = result.item,
+                            onResultClick = {
+                                if (state.selectionEnabled) {
+                                    onEvent(
+                                        ResultsViewModel.Event.ChangeItemSelection(
+                                            result.item,
+                                            !isSelected,
+                                        ),
+                                    )
+                                } else {
+                                    onEvent(ResultsViewModel.Event.ResultClick(result.item))
+                                }
+                            },
+                            isSelected = isSelected,
+                            onSelectChange = { checked ->
+                                onEvent(
+                                    ResultsViewModel.Event.ChangeItemSelection(
+                                        result.item,
+                                        checked,
+                                    ),
+                                )
+                            },
+                            onLongClick = {
+                                if (!isSelected) {
+                                    onEvent(
+                                        ResultsViewModel.Event.ChangeItemSelection(
+                                            result.item,
+                                            true,
+                                        ),
+                                    )
+                                }
+                            },
+                        )
+                    }
+                    item {
+                        HorizontalDivider(thickness = 1.dp, modifier = Modifier.padding(top = 4.dp))
+                    }
+                }
+            }
+            if (state.areResultsLimited) {
+                item("limited") {
+                    Text(
+                        text = stringResource(
+                            Res.string.Results_LimitedNotice,
+                            state.filter.limit,
+                        ),
+                        style = MaterialTheme.typography.labelLarge,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 24.dp),
+                    )
+                }
+            }
+        }
+        VerticalScrollbar(
+            state = lazyListState,
+            modifier = Modifier.align(Alignment.CenterEnd),
+        )
+    }
+}
+
+@Composable
 private fun Stats(stats: ResultsStats?) {
     if (stats == null) return
     Surface(color = MaterialTheme.colorScheme.primaryContainer) {
@@ -439,16 +451,16 @@ private fun Stats(stats: ResultsStats?) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(IntrinsicSize.Min) // So VerticalDividers don't expand to the whole screen
-                .padding(16.dp),
+                .padding(8.dp),
         ) {
             Column(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    stringResource(Res.string.TestResults_Overview_Hero_Tests),
+                    stringResource(Res.string.TestResults),
                     style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.padding(bottom = 8.dp),
+                    modifier = Modifier.padding(bottom = 4.dp),
                 )
                 Text(
                     stats.total.toString(),
@@ -465,7 +477,7 @@ private fun Stats(stats: ResultsStats?) {
                 Text(
                     stringResource(Res.string.TestResults_Overview_Hero_Networks),
                     style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.padding(bottom = 8.dp),
+                    modifier = Modifier.padding(bottom = 4.dp),
                 )
                 Text(
                     stats.networks.toString(),
@@ -495,7 +507,6 @@ private fun Stats(stats: ResultsStats?) {
                     Text(stats.dataUsageDown.formatDataUsage())
                 }
                 Row(
-                    modifier = Modifier.padding(top = 2.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Icon(
@@ -522,7 +533,7 @@ private fun ResultDateHeader(date: LocalDate) {
                 stringResource(Res.string.Common_Yesterday)
 
             date >= LocalDate.today().minus(5, DateTimeUnit.DAY) -> {
-                val daysDiff = (date - LocalDate.today().minus(5, DateTimeUnit.DAY)).days
+                val daysDiff = (LocalDate.today() - date).days
                 stringResource(
                     Res.string.Common_Ago,
                     pluralStringResource(Res.plurals.Common_Days, daysDiff, daysDiff),
