@@ -86,7 +86,7 @@ fun ComposeTestRule.checkSummaryInsideWebView(text: String) {
     waitAssertion(WEBSITE_WAIT_TIMEOUT) {
         onWebView()
             .withElement(
-                findElement(Locator.CSS_SELECTOR, "*[data-test-id=\"common-summary\"]"),
+                findElement(Locator.CSS_SELECTOR, "*[data-testid=\"common-summary\"]"),
             ).check(webMatches(getText(), containsString(text)))
     }
 }
