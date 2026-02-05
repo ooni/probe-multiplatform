@@ -50,7 +50,6 @@ class AndroidApplication : Application() {
             oonimkallBridge = AndroidOonimkallBridge(),
             baseFileDir = filesDir.absolutePath,
             cacheDir = cacheDir.absolutePath,
-            readAssetFile = ::readAssetFile,
             databaseDriverFactory = ::buildDatabaseDriver,
             networkTypeFinder = AndroidNetworkTypeFinder(connectivityManager),
             buildDataStore = ::buildDataStore,
@@ -99,8 +98,6 @@ class AndroidApplication : Application() {
         )
     }
 
-    private fun readAssetFile(path: String) = assets.open(path).bufferedReader().use { it.readText() }
-
     private val connectivityManager get() = getSystemService(ConnectivityManager::class.java)
 
     private fun buildDatabaseDriver(): SqlDriver = AndroidSqliteDriver(Database.Schema, this, "v2.db")
@@ -108,7 +105,7 @@ class AndroidApplication : Application() {
     private fun buildDataStore(): DataStore<Preferences> =
         Dependencies.getDataStore(
             producePath = {
-                filesDir.resolve(Dependencies.Companion.DATA_STORE_FILE_NAME).absolutePath
+                filesDir.resolve(Dependencies.DATA_STORE_FILE_NAME).absolutePath
             },
             migrations = listOf(
                 SharedPreferencesMigration(this, "${packageName}_preferences"),

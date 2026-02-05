@@ -12,15 +12,16 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.models.DescriptorsUpdateState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
-import org.ooni.probe.data.models.toDescriptor
+import org.ooni.probe.data.models.DescriptorItem
+import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.toDescriptorItem
 
 class ReviewUpdatesViewModel(
-    private val ids: List<InstalledTestDescriptorModel.Id>?,
+    private val ids: List<Descriptor.Id>?,
     private val onBack: () -> Unit,
     observeDescriptorsUpdateState: () -> Flow<DescriptorsUpdateState>,
-    acceptDescriptorUpdate: suspend (InstalledTestDescriptorModel) -> Unit,
-    rejectDescriptorUpdate: suspend (InstalledTestDescriptorModel) -> Unit,
+    acceptDescriptorUpdate: suspend (Descriptor) -> Unit,
+    rejectDescriptorUpdate: suspend (Descriptor) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -79,13 +80,13 @@ class ReviewUpdatesViewModel(
     }
 
     data class State(
-        val descriptors: List<InstalledTestDescriptorModel> = emptyList(),
+        val descriptors: List<Descriptor> = emptyList(),
         val index: Int = 0,
     ) {
-        val currentInstalledDescriptor: InstalledTestDescriptorModel?
+        val currentInstalledDescriptor: Descriptor?
             get() = descriptors.getOrNull(index)
-        val currentDescriptor
-            get() = currentInstalledDescriptor?.toDescriptor()
+        val currentDescriptor: DescriptorItem?
+            get() = descriptors.getOrNull(index)?.toDescriptorItem()
     }
 
     sealed interface Event {

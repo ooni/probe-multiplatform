@@ -58,7 +58,7 @@ import ooniprobe.composeapp.generated.resources.ic_search
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.config.OrganizationConfig
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.ui.shared.ColorDefaults
@@ -80,7 +80,7 @@ fun DescriptorsScreen(
                 isRefreshing = state.isRefreshing,
                 onRefresh = { onEvent(DescriptorsViewModel.Event.FetchUpdatedDescriptors) },
                 state = pullRefreshState,
-                enabled = state.isRefreshEnabled && state.canPullToRefresh,
+                enabled = state.canPullToRefresh,
             ).background(MaterialTheme.colorScheme.background)
             .fillMaxSize(),
     ) {
@@ -174,10 +174,10 @@ fun DescriptorsScreen(
                             }
                         }
                         if (isCollapsed && !state.isFiltering) return@forEach
-                        items(descriptors, key = { it.key }) { descriptor ->
+                        items(descriptors, key = { it.descriptor.id.value }) { descriptor ->
                             if (descriptor.matches(state.filterText)) {
                                 TestDescriptorItem(
-                                    descriptor = descriptor,
+                                    item = descriptor,
                                     onClick = {
                                         onEvent(
                                             DescriptorsViewModel.Event.DescriptorClicked(descriptor),
@@ -212,7 +212,9 @@ fun DescriptorsScreen(
         }
 
         PullToRefreshDefaults.Indicator(
-            modifier = Modifier.align(Alignment.TopCenter),
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .padding(WindowInsets.statusBars.asPaddingValues()),
             isRefreshing = state.isRefreshing,
             state = pullRefreshState,
         )
@@ -294,7 +296,7 @@ private fun CheckUpdatesButton(
 }
 
 @Composable
-private fun Descriptor.matches(filter: String?) =
+private fun DescriptorItem.matches(filter: String?) =
     filter == null ||
         title().contains(filter.trim(), ignoreCase = true) ||
         shortDescription()?.contains(filter.trim(), ignoreCase = true) == true

@@ -17,11 +17,11 @@ import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 
 @Composable
 fun TestDescriptorLabel(
-    descriptor: Descriptor,
+    descriptor: DescriptorItem,
     modifier: Modifier = Modifier,
 ) {
     Row(

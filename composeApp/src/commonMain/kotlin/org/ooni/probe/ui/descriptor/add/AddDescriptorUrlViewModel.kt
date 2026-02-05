@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.config.OrganizationConfig
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 
 class AddDescriptorUrlViewModel(
     onClose: () -> Unit,
-    goToAddDescriptor: (InstalledTestDescriptorModel.Id) -> Unit,
+    goToAddDescriptor: (Descriptor.Id) -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -47,11 +47,7 @@ class AddDescriptorUrlViewModel(
                     return@onEach
                 }
 
-                goToAddDescriptor(
-                    InstalledTestDescriptorModel.Id(
-                        input.removePrefix(RUN_LINK_PREFIX),
-                    ),
-                )
+                goToAddDescriptor(Descriptor.Id(input.removePrefix(RUN_LINK_PREFIX)))
             }.launchIn(viewModelScope)
     }
 

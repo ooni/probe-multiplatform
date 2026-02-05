@@ -19,7 +19,7 @@ import org.ooni.probe.data.SelectTestKeysByDescriptorKey
 import org.ooni.probe.data.SelectTestKeysByResultId
 import org.ooni.probe.data.Url
 import org.ooni.probe.data.models.Descriptor
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.data.models.ResultModel
@@ -57,7 +57,7 @@ class MeasurementRepository(
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
-    fun listByResultRunId(descriptorId: InstalledTestDescriptorModel.Id) =
+    fun listByResultRunId(descriptorId: Descriptor.Id) =
         database.measurementQueries
             .selectByResultRunId(descriptorId.value)
             .asFlow()
@@ -71,7 +71,7 @@ class MeasurementRepository(
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
-    fun selectTestKeys(filterByDescriptors: List<Descriptor>): Flow<List<TestKeysWithResultId>> =
+    fun selectTestKeys(filterByDescriptors: List<DescriptorItem>): Flow<List<TestKeysWithResultId>> =
         database.measurementQueries
             .selectTestKeysByDescriptorKey(
                 filterByDescriptors = if (filterByDescriptors.any()) 1 else 0,
@@ -131,7 +131,7 @@ class MeasurementRepository(
             }
         }
 
-    suspend fun deleteByResultRunId(descriptorId: InstalledTestDescriptorModel.Id) {
+    suspend fun deleteByResultRunId(descriptorId: Descriptor.Id) {
         withContext(backgroundContext) {
             database.measurementQueries.deleteByResultRunId(descriptorId.value)
         }
@@ -249,7 +249,7 @@ class MeasurementRepository(
             testName = test_name,
             testKeys = test_keys?.let(::decodeTestKeys),
             descriptorName = descriptor_name,
-            descriptorRunId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
+            descriptorRunId = descriptor_runId?.let(Descriptor::Id),
         )
     }
 
@@ -260,7 +260,7 @@ class MeasurementRepository(
             testName = test_name,
             testKeys = test_keys?.let(::decodeTestKeys),
             descriptorName = descriptor_name,
-            descriptorRunId = descriptor_runId?.let(InstalledTestDescriptorModel::Id),
+            descriptorRunId = descriptor_runId?.let(Descriptor::Id),
         )
     }
 
