@@ -5,6 +5,29 @@
 #include "SparkeBridge.h"
 #else
 #include "WinSparkleBridge.h"
+#include <windows.h>
+#endif
+
+#ifdef _WIN32
+// DllMain to set DLL search directory when the DLL is loaded
+// This ensures that libwinpthread-1.dll and other dependencies can be found
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
+    if (fdwReason == DLL_PROCESS_ATTACH) {
+        // Get the directory where this DLL is located
+        char dllPath[MAX_PATH];
+        if (GetModuleFileNameA(hinstDLL, dllPath, MAX_PATH) > 0) {
+            // Extract directory path by removing the filename
+            char* lastSlash = strrchr(dllPath, '\\');
+            if (lastSlash != NULL) {
+                *lastSlash = '\0'; // Null-terminate at the last backslash
+                // Set this directory as the DLL search directory
+                // This allows Windows to find libwinpthread-1.dll and other dependencies
+                SetDllDirectoryA(dllPath);
+            }
+        }
+    }
+    return TRUE;
+}
 #endif
 
 static const char* jstring_to_cstring(JNIEnv* env, jstring jstr);
