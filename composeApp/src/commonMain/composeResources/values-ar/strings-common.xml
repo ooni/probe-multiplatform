@@ -1,7 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">لوحة التحكم</string>
-    <string name="Dashboard_Overview_LatestTest">الاختبار الأخير:</string>
     <string name="Dashboard_Overview_Estimated">التقدير:</string>
     <string name="Dashboard_Overview_ChooseWebsites">اختر المواقع</string>
     <string name="Dashboard_Running_Running">جار التنفيذ:</string>
@@ -15,7 +14,6 @@
     <string name="Dashboard_RunTests_SelectNone">Deselect all tests</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
-    <string name="Dashboard_RunV2_RunFinished">Run finished. Tap to view results.</string>
     <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">المراجعات السابقة</string>
@@ -33,8 +31,6 @@
     <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE AND FINISH (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
     <string name="Dashboard_Update_Restart">أعد التشغيل</string>
-
-
     <string name="Test_Websites_Fullname">المواقع</string>
     <string name="Test_InstantMessaging_Fullname">المراسلة الفورية</string>
     <string name="Test_Performance_Fullname">الأداء</string>
@@ -51,9 +47,6 @@
     <string name="Test_Psiphon_Fullname">اختبار Psiphon</string>
     <string name="Test_Tor_Fullname">اختبار تور</string>
     <string name="Test_Signal_Fullname">اختبار Signal </string>
-    <string name="TestResults_Overview_Title">نتائج الاختبار</string>
-    <string name="TestResults_Overview_Tab_Label">نتائج الاختبار</string>
-    <string name="TestResults_Overview_Hero_Tests">اختبارات</string>
     <string name="TestResults_Overview_Hero_Networks">الشبكات</string>
     <string name="TestResults_Overview_Hero_DataUsage">إستخدام البيانات</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">لم تجر أي اختبار حتى الآن. قم بتجربة أحد الاختبارات!</string>
@@ -89,8 +82,6 @@
     <string name="Measurements_Ok">موافق</string>
     <string name="Measurements_Anomaly">شذوذ</string>
     <string name="Measurement_Raw_Upload">رفع</string>
-
-
     <string name="Settings_Title">الإعدادات</string>
     <string name="Settings_TestOptions_Label">اختيارات الاختبار</string>
     <string name="Settings_TestOptions_LongRunningTest">اشتغال الاختبار الطويل</string>
@@ -204,7 +195,6 @@
     <string name="CategoryCode_CTRL_Description">محتوى حميد أو غير ضار يستخدم للتحكّم</string>
     <string name="CategoryCode_IGO_Description">منظّّمات بين حكوميّة دوليّة بما في ذلك الأمم المتحدة</string>
     <string name="CategoryCode_MISC_Description">مواقع لم يتم تصنيفها</string>
-
     <string name="Onboarding_QuizAnswer_Correct">Correct answer</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Incorrect answer</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">فهمت</string>
@@ -234,7 +224,6 @@
     <string name="Onboarding_DefaultSettings_Paragraph">نعمل ما في وسعنا لعدم نشر عنوان بروتوكل الانترنت (IP) أو أي بيانات أخرى قد تساعد  في تحديد هويّتك الشّخصيّة. \n\nتعلّم أكثر عبر [سياسة البيانات في OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Go">فلننطلق!</string>
     <string name="Onboarding_DefaultSettings_Button_Change">تغيير الافتراضي</string>
-
     <string name="AddDescriptor_Settings">فحص الإعدادات</string>
     <string name="AddDescriptor_Title">Install New Link</string>
     <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
@@ -243,7 +232,6 @@
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
     <string name="LoadingScreen_Runv2_Message">Link Loading</string>
     <string name="LoadingScreen_Runv2_Failure">خطأ</string>
-    <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">بحث عن الترقية</string>
@@ -274,12 +262,10 @@
     <string name="Desktop_Quit">خروج</string>
     <string name="Tray_Notification_Check_Updates">بحث عن الترقية</string>
     <string name="Tray_Notification_Checking_Updates">جاري التحقق من وجود التحديثات</string>
-
     <string name="OONIRun_Run">ابدأ</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">جاري التجريب</string>
     <string name="Notification_StopTest">إيقاف الاختبار</string>
-
     <string name="Common_Back">الرجوع</string>
     <string name="Common_Close">إغلاق</string>
     <string name="Common_Refresh">refresh</string>
@@ -310,7 +296,6 @@
     <string name="Common_Months_October">أكتوبر</string>
     <string name="Common_Months_November">نوفمبر</string>
     <string name="Common_Months_December">ديسمبر</string>
-
     <string name="TaskOrigin_Manual">Manual Run</string>
     <string name="TaskOrigin_AutoRun">Auto Run</string>
     <string name="NetworkType_Vpn">الشبكة الافتراضية الخاصة</string>

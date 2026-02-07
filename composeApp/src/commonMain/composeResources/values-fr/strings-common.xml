@@ -1,7 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Tableau de bord</string>
-    <string name="Dashboard_Overview_LatestTest">Dernier test :</string>
     <string name="Dashboard_Overview_Estimated">Estimation :</string>
     <string name="Dashboard_Overview_ChooseWebsites">Choisir des sites Web</string>
     <string name="Dashboard_Running_Running">En cours :</string>
@@ -20,7 +19,6 @@
     </plurals>
     <string name="Dashboard_RunV2_Ooni_Title">Tests OONI</string>
     <string name="Dashboard_RunV2_Title">Liens OONI Run</string>
-    <string name="Dashboard_RunV2_RunFinished">L’exécution est terminée. Touchez pour afficher les résultats.</string>
     <string name="Dashboard_Runv2_Overview_Description">Créé par %1$s à %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Désinstaller le lien</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Révisions précédentes</string>
@@ -48,8 +46,6 @@
     <string name="Dashboard_ReviewDescriptor_Reject">Refuser la mise à jour</string>
     <string name="Dashboard_Update_Ready">La mise à jour de l’appli vient d’être téléchargée</string>
     <string name="Dashboard_Update_Restart">Redémarrer</string>
-
-
     <string name="Test_Websites_Fullname">Sites Web</string>
     <string name="Test_InstantMessaging_Fullname">Messagerie instantanée</string>
     <string name="Test_Performance_Fullname">Réduire le nombre de requêtes récurrentes sur Quad9, économiser de la bande passante et offrir une expérience plus rapide à l\'utilisateur final lorsque ses requêtes sont déjà dans le cache des forwarders.</string>
@@ -66,9 +62,6 @@
     <string name="Test_Psiphon_Fullname">Test Psiphon</string>
     <string name="Test_Tor_Fullname">Test de Tor</string>
     <string name="Test_Signal_Fullname">Test de Signal</string>
-    <string name="TestResults_Overview_Title">Résultats des tests</string>
-    <string name="TestResults_Overview_Tab_Label">Résultats des tests</string>
-    <string name="TestResults_Overview_Hero_Tests">Tests</string>
     <string name="TestResults_Overview_Hero_Networks">Réseaux</string>
     <string name="TestResults_Overview_Hero_DataUsage">Utilisation des données</string>
     <plurals name="TestResults_Overview_Websites_Blocked">
@@ -154,8 +147,6 @@
     <string name="Results_MarkAllAsViewed">Tout marquer comme lu</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Voulez-vous marquer tous les résultats comme lus?</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Voulez-vous marquer tous les résultats comme lus pour les filtres actuels?</string>
-
-
     <string name="Measurement_Title">Mesure</string>
     <string name="Measurement_LoadingFailed">Échec de chargement des renseignements relatifs aux mesures</string>
     <string name="Measurements_Failed">Échec</string>
@@ -174,8 +165,6 @@
     <string name="Measurement_Raw_NotUploadedReasoning">Cette mesure n’a pas été publiée dans l’Explorateur OONI. Téléversez-la pour afficher l’analyse.</string>
     <string name="Measurement_Raw_Share">Partager les données de mesure</string>
     <string name="Measurement_Raw_Upload">Téléverser</string>
-
-
     <string name="Settings_Title">Paramètres</string>
     <string name="Settings_TestOptions_Label">Options de test</string>
     <string name="Settings_TestOptions_LongRunningTest">Test long</string>
@@ -253,7 +242,6 @@
         <item quantity="many">Tester %1$d d’URL</item>
         <item quantity="other">Tester %1$d URL</item>
     </plurals>
-
     <string name="CategoryCode_ALDR_Name">Drogues et alcool</string>
     <string name="CategoryCode_REL_Name">Religion</string>
     <string name="CategoryCode_PORN_Name">Pornographie</string>
@@ -316,7 +304,6 @@
     <string name="CategoryCode_CTRL_Description">Contenu bénin ou inoffensif utilisé pour le contrôle</string>
     <string name="CategoryCode_IGO_Description">Organisations intergouvernementales, dont les Nations Unies</string>
     <string name="CategoryCode_MISC_Description">Sites qui n’ont pas encore été catégorisés</string>
-
     <string name="Onboarding_QuizAnswer_Correct">Bonne réponse</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Mauvaise réponse</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Compris</string>
@@ -348,7 +335,6 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Nous faisons de notre mieux pour ne publier ni votre adresse IP ni aucun autre renseignement qui pourrait vous identifier.\n\nApprenez-en davantage dans la [Politique sur les données de l’OONI](https://ooni.org/about/data-policy/) (page en anglais).</string>
     <string name="Onboarding_DefaultSettings_Button_Go">Allons-y</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Modifier les paramètres</string>
-
     <string name="AddDescriptor_Settings">Tester les paramètres</string>
     <string name="AddDescriptor_Title">Installer un nouveau lien</string>
     <string name="AddDescriptor_AutoUpdate">Installer les mises à jour automatiquement</string>
@@ -359,13 +345,11 @@
     <string name="AddDescriptor_Toasts_Unsupported_Url">Cette URL n’est pas prise en charge</string>
     <string name="LoadingScreen_Runv2_Message">Chargement du lien</string>
     <string name="LoadingScreen_Runv2_Failure">Erreur</string>
-    <string name="LoadingScreen_Runv2_Canceled">L’installation du lien a été annulée</string>
     <string name="DescriptorUpdate_Updates">MISES À JOUR</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Chercher des mises à jour</string>
     <string name="AddDescriptor_AutoRunDisabled">Le lancement automatique est désactivé. Activez cette option pour lancer les tests automatiquement.</string>
     <string name="Descriptor_LastTestResult">Dernier résultat de test</string>
-
     <string name="Snackbar_ResultsNotUploaded_Text">N’a pas été téléversé</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Tout n’a pas été téléversé</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Tout téléverser</string>
@@ -404,20 +388,17 @@
     <string name="Modal_CustomURL_NotSaved">Vos URL ne seront pas enregistrées si vous quittez cet écran. Voulez-vous vraiment le quitter?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">L’application ne peut pas effectuer des tests automatiquement sans l’autorisation de fonctionner en arrière-plan. Voulez-vous réessayer?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">L’application doit être autorisée à effectuer des tests automatiquement en arrière-plan.</string>
-
     <string name="Desktop_OpenApp">Ouvrir l’appli</string>
     <string name="Desktop_Quit">Fermer</string>
     <string name="Tray_Notification_Check_Updates">Chercher des mises à jour</string>
     <string name="Tray_Notification_Updates_Available">Une mise à jour est proposée</string>
     <string name="Tray_Notification_Checking_Updates">Recherche de mises à jour…</string>
-
     <string name="OONIRun_Run">Lancer</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Test</string>
     <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
     <string name="Notification_UpdateChannelName">Mises à jour des liens</string>
     <string name="Notification_StopTest">Arrêter le test</string>
-
     <string name="Common_Back">Retour</string>
     <string name="Common_Close">Fermer</string>
     <string name="Common_Refresh">Actualiser</string>
@@ -468,7 +449,6 @@
     <string name="Common_Months_October">octobre</string>
     <string name="Common_Months_November">novembre</string>
     <string name="Common_Months_December">décembre</string>
-
     <string name="TaskOrigin_Manual">Exécution manuelle</string>
     <string name="TaskOrigin_AutoRun">Exécution automatique</string>
     <string name="NetworkType_Vpn">RPV/VPN</string>

@@ -1,7 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Pano</string>
-    <string name="Dashboard_Overview_LatestTest">Son sınama:</string>
     <string name="Dashboard_Overview_Estimated">Yaklaşık:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Siteleri seçin</string>
     <string name="Dashboard_Running_Running">Çalışıyor:</string>
@@ -19,7 +18,6 @@
     </plurals>
     <string name="Dashboard_RunV2_Ooni_Title">OONI sınamaları</string>
     <string name="Dashboard_RunV2_Title">OONI çalıştırma bağlantıları</string>
-    <string name="Dashboard_RunV2_RunFinished">Sınama tamamlandı. Sonuçları görüntülemek için dokunun.</string>
     <string name="Dashboard_Runv2_Overview_Description">%2$s tarihinde %1$s tarafından oluşturuldu</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Kaldırma bağlantısı</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Önceki sürümler</string>
@@ -46,8 +44,6 @@
     <string name="Dashboard_ReviewDescriptor_Reject">Güncellemeyi reddet</string>
     <string name="Dashboard_Update_Ready">Uygulama güncellemesi indirildi</string>
     <string name="Dashboard_Update_Restart">Yeniden başlat</string>
-
-
     <string name="Test_Websites_Fullname">Siteler</string>
     <string name="Test_InstantMessaging_Fullname">Anlık ileti</string>
     <string name="Test_Performance_Fullname">Başarım</string>
@@ -64,9 +60,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon sınaması</string>
     <string name="Test_Tor_Fullname">Tor sınaması</string>
     <string name="Test_Signal_Fullname">Signal sınaması</string>
-    <string name="TestResults_Overview_Title">Sınama sonuçları</string>
-    <string name="TestResults_Overview_Tab_Label">Sınama sonuçları</string>
-    <string name="TestResults_Overview_Hero_Tests">Sınamalar</string>
     <string name="TestResults_Overview_Hero_Networks">Ağ</string>
     <string name="TestResults_Overview_Hero_DataUsage">Veri kullanımı</string>
     <plurals name="TestResults_Overview_Websites_Blocked">
@@ -144,8 +137,6 @@
     <string name="Results_MarkAllAsViewed">Tümünü görülmüş olarak işaretle</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Tüm sonuçları görülmüş olarak işaretlemek istediğinize emin misiniz?</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Geçerli süzgeçler için tüm sonuçları okunmuş olarak işaretlemek istiyor musunuz?</string>
-
-
     <string name="Measurement_Title">Ölçüm</string>
     <string name="Measurement_LoadingFailed">Ölçüm bilgileri yüklenemedi</string>
     <string name="Measurements_Failed">Tamamlanamadı</string>
@@ -162,8 +153,6 @@
     <string name="Measurement_Raw_NotUploadedReasoning">Bu ölçüm OONI Explorer üzerinde yayınlanmamış. İncelemeyi görüntülemek için yükleyin.</string>
     <string name="Measurement_Raw_Share">Ölçüm verileri paylaşılsın</string>
     <string name="Measurement_Raw_Upload">Yükle</string>
-
-
     <string name="Settings_Title">Ayarlar</string>
     <string name="Settings_TestOptions_Label">Sınama seçenekleri</string>
     <string name="Settings_TestOptions_LongRunningTest">Uzun süreli sınama</string>
@@ -239,7 +228,6 @@
         <item quantity="one">%1$d adresi sına</item>
         <item quantity="other">%1$d adresi sına</item>
     </plurals>
-
     <string name="CategoryCode_ALDR_Name">Uyuşturucu ve alkol</string>
     <string name="CategoryCode_REL_Name">Din</string>
     <string name="CategoryCode_PORN_Name">Porno</string>
@@ -302,7 +290,6 @@
     <string name="CategoryCode_CTRL_Description">Denetim için kullanılan iyi niyetli ya da bilinçsiz içerik</string>
     <string name="CategoryCode_IGO_Description">Birleşmiş Milletler gibi hükümetlerarası kuruluşlar</string>
     <string name="CategoryCode_MISC_Description">Henüz kategorize edilmemiş siteler</string>
-
     <string name="Onboarding_QuizAnswer_Correct">Doğru yanıt</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Yanlış yanıt</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Anladım</string>
@@ -334,7 +321,6 @@
     <string name="Onboarding_DefaultSettings_Paragraph">IP adresinizi ya da kim olduğunuzu ortaya çıkarabilecek bilgileri yayınlamamak için elimizden geleni yapıyoruz.\n\nAyrıntılı bilgi almak için [OONI veri işleme ilkesi](https://ooni.io/about/data-policy/) bölümüne bakabilirsiniz.</string>
     <string name="Onboarding_DefaultSettings_Button_Go">Başlayalım</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Varsayılanları değiştir</string>
-
     <string name="AddDescriptor_Settings">Ayarları sına</string>
     <string name="AddDescriptor_Title">Yeni bağlantı kur</string>
     <string name="AddDescriptor_AutoUpdate">Güncellemeler otomatik olarak kurulsun</string>
@@ -345,13 +331,11 @@
     <string name="AddDescriptor_Toasts_Unsupported_Url">Adres desteklenmiyor</string>
     <string name="LoadingScreen_Runv2_Message">Bağlantı yükleniyor</string>
     <string name="LoadingScreen_Runv2_Failure">Hata</string>
-    <string name="LoadingScreen_Runv2_Canceled">Bağlantı kurulumu iptal edildi</string>
     <string name="DescriptorUpdate_Updates">GÜNCELLEMELER</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Güncelleme denetimi</string>
     <string name="AddDescriptor_AutoRunDisabled">Otomatik çalıştırma kapalı. Sınamaları otomatik olarak çalıştırmak için açın.</string>
     <string name="Descriptor_LastTestResult">Son sınama sonucu</string>
-
     <string name="Snackbar_ResultsNotUploaded_Text">Yüklenmemiş</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Bazıları yüklenmemiş</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Tümünü yükle</string>
@@ -388,20 +372,17 @@
     <string name="Modal_CustomURL_NotSaved">Bu sayfadan ayrıldığınızda adresleriniz kaydedilmez. Bu sayfadan ayrılmak istediğinize emin misiniz?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Uygulama arka planda çalışma izni olmadan otomatik sınamaları yapamaz. Yeniden denemek ister misiniz?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Uygulamanın otomatik sınamaları yapabilmesi için arka planda çalışmasına izin verilmedir.</string>
-
     <string name="Desktop_OpenApp">Uygulamayı aç</string>
     <string name="Desktop_Quit">Çık</string>
     <string name="Tray_Notification_Check_Updates">Güncellemeleri denetle</string>
     <string name="Tray_Notification_Updates_Available">Güncelleme yayınlanmış!</string>
     <string name="Tray_Notification_Checking_Updates">Güncellemeler denetleniyor...</string>
-
     <string name="OONIRun_Run">Çalıştır</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Sınanıyor</string>
     <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
     <string name="Notification_UpdateChannelName">Bağlantı güncellemeleri</string>
     <string name="Notification_StopTest">Sınamayı durdur</string>
-
     <string name="Common_Back">Geri</string>
     <string name="Common_Close">Kapat</string>
     <string name="Common_Refresh">Yenile</string>
@@ -448,7 +429,6 @@
     <string name="Common_Months_October">Ekim</string>
     <string name="Common_Months_November">Kasım</string>
     <string name="Common_Months_December">Aralık</string>
-
     <string name="TaskOrigin_Manual">El ile çalıştırma</string>
     <string name="TaskOrigin_AutoRun">Otomatik çalıştırma</string>
     <string name="NetworkType_Vpn">VPN</string>

@@ -1,7 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Ideshibhodi</string>
-    <string name="Dashboard_Overview_LatestTest">Luhlolo lwekugcina</string>
     <string name="Dashboard_Overview_Estimated">Lokulinganisiwe</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Silinganiso sesikhathi lesisele</string>
     <string name="Settings_Websites_CustomURL_Run">Gijima</string>
@@ -28,4 +27,4 @@
     <string name="Modal_ReRun_Websites_Run">Gijima</string>
     <string name="OONIRun_Run">Gijima</string>
     <string name="Common_Yes">Yebo</string>
-    </resources>
+</resources>

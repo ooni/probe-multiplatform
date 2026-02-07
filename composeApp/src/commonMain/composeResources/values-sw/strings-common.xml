@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Dashboard_Tab_Label">Dashibodi</string>
-    <string name="Dashboard_Overview_LatestTest">Jaribio la mwisho:</string>
     <string name="Dashboard_Overview_Estimated">Inakadiriwa:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Chagua tovuti</string>
     <string name="Dashboard_Running_Running">Inaenda:</string>
@@ -15,7 +14,6 @@
     <string name="Dashboard_RunTests_SelectNone">Acha kuchagua majaribio yote</string>
     <string name="Dashboard_RunV2_Ooni_Title">Uchunguzi wa OONI</string>
     <string name="Dashboard_RunV2_Title">Viungo vya OONI Run</string>
-    <string name="Dashboard_RunV2_RunFinished">Uchunguzi umekamilika. Gusa ili kuona matokeo.</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Sanidua Kiungo</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Marekebisho ya awali</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Tazama Zaidi</string>
@@ -45,9 +43,6 @@
     <string name="Test_Psiphon_Fullname">Kipimo cha Psiphon</string>
     <string name="Test_Tor_Fullname">Kipimo cha tor</string>
     <string name="Test_Signal_Fullname">Kipimo cha Signal</string>
-    <string name="TestResults_Overview_Title">Matokeo ya Mtihani</string>
-    <string name="TestResults_Overview_Tab_Label">Matokeo ya Mtihani</string>
-    <string name="TestResults_Overview_Hero_Tests">Vipimo</string>
     <string name="TestResults_Overview_Hero_Networks">Mitandao</string>
     <string name="TestResults_Overview_Hero_DataUsage">matumizi ya data</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Hakuna jaribio lililofanywa bado.  Tafadhali fanya jaribio moja!</string>
@@ -213,7 +208,6 @@
     <string name="AddDescriptor_Toasts_Installed">Kiungo kimesakinishwa</string>
     <string name="LoadingScreen_Runv2_Message">Kiungo kinapakia</string>
     <string name="LoadingScreen_Runv2_Failure">Hitilafu</string>
-    <string name="LoadingScreen_Runv2_Canceled">Usakinishaji wa kiungo umeghairiwa</string>
     <string name="DescriptorUpdate_Updates">MASASISHO</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Haijapakiwa</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Baadhi hayajapakiwa</string>
