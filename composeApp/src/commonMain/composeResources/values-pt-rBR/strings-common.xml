@@ -8,7 +8,13 @@
     <string name="Dashboard_Running_Stopping_Title">Parando o teste…</string>
     <string name="Dashboard_Running_Stopping_Notice">Concluindo os testes atualmente pendentes, por favor aguarde...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy em uso</string>
+    <string name="Dashboard_LastResults">Últimos Resultados</string>
+    <string name="Dashboard_LastResults_SeeResults">Ver resultados</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-execução está <i>ligada</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Auto-execução está <i>desligada</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">Testes</string>
+    <string name="Dashboard_TestsMoved_Description">Os seus testes foram movidos para uma nova aba. Pode acedê-los através da barra de navegação abaixo.</string>
+    <string name="Dashboard_TestsMoved_Action">Ver testes</string>
     <string name="Dashboard_RunTests_Title">Executar testes</string>
     <string name="Dashboard_RunTests_Description">Selecione os testes a executar</string>
     <string name="Dashboard_RunTests_SelectAll">Selecione todos</string>
@@ -18,6 +24,18 @@
         <item quantity="many">Executar %1$d de testes</item>
         <item quantity="other">Executar %1$d testes</item>
     </plurals>
+    <string name="Dashboard_Stats_Title">As Suas Medições</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Rede</item>
+        <item quantity="many">Redes</item>
+        <item quantity="other">Redes</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">País</item>
+        <item quantity="many">Países</item>
+        <item quantity="other">Países</item>
+    </plurals>
+    <string name="Dashboard_Articles_Title">Notícias OONI</string>
     <string name="Dashboard_Articles_Report">Relatório</string>
     <string name="Dashboard_Articles_ReadMore">Leia Mais</string>
     <string name="Dashboard_RunV2_Ooni_Title">Testes OONI</string>
@@ -364,7 +382,7 @@
     <string name="DescriptorUpdate_Updates">ATUALIZAÇÕES</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Verificar Atualizações</string>
-    <string name="AddDescriptor_AutoRunDisabled">Auto-execução desabilitada. Por favor, habilite-a para executar testes automaticamente.</string>
+    <string name="AddDescriptor_AutoRunDisabled">Auto-execução desligada. Por favor, habilite-a para executar testes automaticamente.</string>
     <string name="Descriptor_LastTestResult">Último Resultado do Teste</string>
 
     <string name="Snackbar_ResultsNotUploaded_Text">Não carregado</string>
