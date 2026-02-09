@@ -75,6 +75,7 @@
 
 
     <string name="Tests_Title">Testes</string>
+    <string name="Tests_Search">Procurar testes</string>
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Mensagens Instantâneas</string>
     <string name="Test_Performance_Fullname">Desempenho</string>
