@@ -267,7 +267,7 @@
     <string name="Settings_ShareLogs">Compartilhar Logs</string>
     <string name="Settings_ShareLogs_Error">Erro ao compartilhar logs</string>
     <string name="Settings_FilterLogs">Filtrar Logs</string>
-    <string name="Settings_Sharing_UploadResults_Description">Resultados são automaticamente subidos para o explorador do OONI.</string>
+    <string name="Settings_Sharing_UploadResults_Description">Resultados são automaticamente subidos para o explorador do OONI</string>
     <string name="Settings_Websites_Categories_Selection_None">Desmarcar todos</string>
     <string name="Settings_Websites_Categories_Selection_All">Selecionar todos</string>
     <string name="Settings_Websites_CustomURL_Title">Escolha sites para testar</string>
