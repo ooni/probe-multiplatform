@@ -1,17 +1,19 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Ovlád. panel</string>
-    <string name="Dashboard_Overview_LatestTest">Posledný test:</string>
     <string name="Dashboard_Overview_Estimated">Odhad:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Vybrať webové stránky</string>
     <string name="Dashboard_Running_Running">Prebieha:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Odhadovaný zostávajúci čas:</string>
+    <string name="Dashboard_TestsMoved_Title">Testy</string>
+    <string name="Dashboard_Articles_Report">Nahlásiť</string>
     <string name="Dashboard_Runv2_Overview_Description">Vytvorený používateľom %1$s, %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Späť</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Preveriť</string>
     <string name="Dashboard_Update_Restart">Reštartovať</string>
 
 
+    <string name="Tests_Title">Testy</string>
     <string name="Test_Websites_Fullname">Webové stránky</string>
     <string name="Test_InstantMessaging_Fullname">Výmena okamžitých správ</string>
     <string name="Test_Performance_Fullname">Výkon</string>
@@ -26,9 +28,6 @@
     <string name="Test_FacebookMessenger_Fullname">Test Facebook Messengera</string>
     <string name="Test_Psiphon_Fullname">Psiphon Test</string>
     <string name="Test_Tor_Fullname">Test siete Tor</string>
-    <string name="TestResults_Overview_Title">Výsledky testov</string>
-    <string name="TestResults_Overview_Tab_Label">Výsledky testov</string>
-    <string name="TestResults_Overview_Hero_Tests">Testy</string>
     <string name="TestResults_Overview_Hero_Networks">Siete</string>
     <string name="TestResults_Overview_Hero_DataUsage">Využitie dát</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Zatiaľ neboli spustené žiadne testy. Skús jeden spustiť!</string>
@@ -175,8 +174,8 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Čas a dátum testu</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Zmeniť predvolené</string>
 
+
     <string name="AddDescriptor_Settings">Skontrolovať nastavenia</string>
-    <string name="LoadingScreen_Runv2_Failure">Chyba</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Nenahrané</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Niektoré nenahrané</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Nahrať všetky</string>
@@ -199,6 +198,7 @@
     <string name="Desktop_Quit">Ukončiť</string>
     <string name="Tray_Notification_Checking_Updates">Vyhľadať aktualizácie...</string>
 
+    <string name="Modal_Hide">Skryť</string>
     <string name="OONIRun_Run">Spustiť</string>
     <string name="Common_Back">Späť</string>
     <string name="Common_Close">Zatvoriť</string>
@@ -212,8 +212,11 @@
     <string name="Common_Next">Ďalej</string>
     <string name="Common_Previous">Predchádzajúce</string>
     <string name="Common_Share">Zdieľať</string>
+    <string name="Common_Dismiss">Odmietnuť</string>
+    <string name="Common_Search">Hľadať</string>
     <string name="Common_Today">Dnes</string>
     <string name="Common_Yesterday">Včera</string>
+    <string name="Common_Total">Spolu</string>
     <string name="Common_Months_January">Január</string>
     <string name="Common_Months_February">Február</string>
     <string name="NetworkType_Vpn">VPN</string>
