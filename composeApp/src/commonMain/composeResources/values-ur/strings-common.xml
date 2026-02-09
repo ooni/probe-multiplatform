@@ -55,8 +55,6 @@
     <string name="Modal_Delete">حذف کریں</string>
     <string name="Modal_CustomURL_Title_NotSaved">کیا آپ کو یقین ہے؟</string>
     <string name="Desktop_Quit">چھوڑدیجیے (Quit)</string>
-    <string name="Tray_Notification_Checking_Updates">اپڈیٹ کے لیے پڑتال ہو رہی ہے ۔۔۔</string>
-
     <string name="Modal_Hide">چھپائیے</string>
     <string name="Common_Back">پیچھے</string>
     <string name="Common_Close">بند کریں</string>
