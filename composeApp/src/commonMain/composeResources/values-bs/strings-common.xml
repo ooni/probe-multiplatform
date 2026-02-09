@@ -1,5 +1,7 @@
 <resources>
 
+    <string name="Dashboard_Articles_Report">Prijava</string>
+    <string name="TestResults">Results</string>
     <string name="TestResults_Overview_Hero_Networks">Mreže</string>
     <string name="TestResults_Summary_Hero_Country">zemlja</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
@@ -44,6 +46,7 @@
     <string name="Modal_Delete">Obriši</string>
     <string name="Modal_Error_NoInternet">Nema konekcije na internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">Jeste li sigurni?</string>
+    <string name="Modal_Hide">Sakrijte</string>
     <string name="Common_Back">Nazad</string>
     <string name="Common_Close">Zatvorite</string>
     <string name="Common_Refresh">Osvježi</string>
@@ -55,4 +58,6 @@
     <string name="Common_Next">Naprijed</string>
     <string name="Common_Previous">Prethodno</string>
     <string name="Common_Share">Podijeli</string>
+    <string name="Common_Dismiss">Obustavi</string>
+    <string name="Common_Search">Pretraga</string>
     </resources>
