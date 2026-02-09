@@ -1,6 +1,7 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">ダッシュボード</string>
+    <string name="Dashboard_Articles_Report">報告</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">戻す</string>
     <string name="Dashboard_Progress_ReviewLink_Action">レビュー</string>
     <string name="Dashboard_Update_Restart">再起動</string>
@@ -13,6 +14,7 @@
     <string name="Test_Experimental_Fullname">実験的</string>
     <string name="Test_NDT_Fullname">NDT スピードテスト</string>
     <string name="Test_Dash_Fullname">DASH ストリーミングテスト</string>
+    <string name="TestResults">結果</string>
     <string name="TestResults_Overview_Hero_Networks">ネットワーク</string>
     <string name="TestResults_Summary_Hero_Network">ネットワーク</string>
     <string name="TestResults_Summary_Hero_Country">国</string>
@@ -69,7 +71,6 @@
     <string name="Onboarding_Notifications_Skip">スキップ</string>
     <string name="Onboarding_DefaultSettings_Title">デフォルト設定</string>
     <string name="AddDescriptor_Settings">設定をテストする</string>
-    <string name="LoadingScreen_Runv2_Failure">エラー</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">更新を確認</string>
     <string name="Modal_UploadFailed_Title">アップロード失敗</string>
@@ -86,6 +87,7 @@
     <string name="Tray_Notification_Updates_Available">更新利用可能です！</string>
     <string name="Tray_Notification_Checking_Updates">アップデートを確認中...</string>
 
+    <string name="Modal_Hide">非表示</string>
     <string name="OONIRun_Run">実行</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">テスト中</string>
@@ -101,6 +103,9 @@
     <string name="Common_Next">次へ</string>
     <string name="Common_Previous">前へ</string>
     <string name="Common_Share">共有</string>
+    <string name="Common_Dismiss">断る</string>
+    <string name="Common_Search">検索</string>
+    <string name="Common_Total">合計</string>
     <string name="Common_Ago">%1$s 前</string>
     <string name="Common_Months_January">1 月</string>
     <string name="Common_Months_February">2 月</string>
