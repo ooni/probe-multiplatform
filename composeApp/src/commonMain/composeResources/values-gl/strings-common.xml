@@ -86,7 +86,6 @@
     <string name="Onboarding_Notifications_Ok">Aceptar</string>
     <string name="Onboarding_DefaultSettings_Title">Axustes por defecto</string>
     <string name="AddDescriptor_Settings">Test Settings</string>
-    <string name="LoadingScreen_Runv2_Failure">Erro</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Non cargado</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Todo cargado</string>
     <string name="Modal_UploadFailed_Title">Fallou a subida</string>
@@ -103,6 +102,7 @@
     <string name="Desktop_Quit">Abandoar</string>
     <string name="Tray_Notification_Checking_Updates">Buscando actualizacións ...</string>
 
+    <string name="Modal_Hide">Agochar</string>
     <string name="OONIRun_Run">Executar</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">A probar...</string>
@@ -117,5 +117,7 @@
     <string name="Common_Clear">Limpar</string>
     <string name="Common_Next">Seguinte</string>
     <string name="Common_Share">Compartir</string>
+    <string name="Common_Dismiss">Desbotar</string>
+    <string name="Common_Search">Busca</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
