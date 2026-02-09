@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">หน้าปัด</string>
-    <string name="Dashboard_Overview_LatestTest">ทดสอบล่าสุด:</string>
     <string name="Dashboard_Overview_Estimated">ประมาณ:</string>
     <string name="Dashboard_Overview_ChooseWebsites">เลือกเว็บไซต์</string>
     <string name="Dashboard_Running_Running">กำลังทำงาน:</string>
@@ -9,10 +8,13 @@
     <string name="Dashboard_Running_Stopping_Title">กำลังหยุดทดสอบ...</string>
     <string name="Dashboard_Running_Stopping_Notice">กำลังทำการทดสอบที่ค้างอยู่ให้เสร็จ กรุณารอสักครู่...</string>
     <string name="Dashboard_Running_ProxyInUse">พร็อกซีที่ใช้อยู่</string>
+    <string name="Dashboard_TestsMoved_Title">การทดสอบ</string>
+    <string name="Dashboard_Articles_Report">รายงาน</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">เลิกทำ</string>
     <string name="Dashboard_Update_Restart">เริ่มทำงานใหม่</string>
 
 
+    <string name="Tests_Title">การทดสอบ</string>
     <string name="Test_Websites_Fullname">เว็บไซต์</string>
     <string name="Test_InstantMessaging_Fullname">แอปแชต</string>
     <string name="Test_Performance_Fullname">ประสิทธิภาพ</string>
@@ -29,9 +31,9 @@
     <string name="Test_Psiphon_Fullname">ทดสอบ Psiphon</string>
     <string name="Test_Tor_Fullname">ทดสอบ Tor</string>
     <string name="Test_Signal_Fullname">ทดสอบ Signal</string>
-    <string name="TestResults_Overview_Title">ผลทดสอบ</string>
-    <string name="TestResults_Overview_Tab_Label">ผลทดสอบ</string>
-    <string name="TestResults_Overview_Hero_Tests">การทดสอบ</string>
+
+
+    <string name="TestResults">ผลลัพธ์</string>
     <string name="TestResults_Overview_Hero_Networks">เครือข่าย</string>
     <string name="TestResults_Overview_Hero_DataUsage">การใช้ข้อมูล</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">ไม่มีการทดสอบ. เริ่มต้นสักอันไหม!</string>
@@ -195,9 +197,9 @@
     <string name="Onboarding_DefaultSettings_Paragraph">เราทำดีที่สุดเพื่อจะไม่เผยแพร่ที่อยู่ไอพีหรือข้อมูลอื่นใดของคุณ ที่อาจใช้ระบุบุคคลได้\n\nเรียนรู้เพิ่มเติมใน [นโยบายข้อมูลของ OONI](https://ooni.org/about/data-policy/)</string>
     <string name="Onboarding_DefaultSettings_Button_Change">เปลี่ยนค่าเริ่มต้น</string>
 
+
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="AddDescriptor_AutoRun">เริ่มทดสอบอัตโนมัติ</string>
-    <string name="LoadingScreen_Runv2_Failure">ผิดพลาด</string>
     <string name="Snackbar_ResultsNotUploaded_Text">ไม่ถูกอัปโหลด</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">บางส่วนไม่ได้ถูกอัปโหลด</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">อัปโหลดทั้งหมด</string>
@@ -223,6 +225,7 @@
     <string name="Modal_CustomURL_Title_NotSaved">คุณแน่ใจหรือไม่?</string>
     <string name="Modal_CustomURL_NotSaved">ที่อยู่ของคุณจะไม่ถูกบันทึกเมื่อคุณออกจากหน้าจอนี้ คุณแน่ใจหรือไม่ว่าต้องการจะออกจากหน้าจอนี้?</string>
     <string name="Desktop_Quit">ออก</string>
+    <string name="Modal_Hide">ซ่อน</string>
     <string name="OONIRun_Run">เริ่มทดสอบ</string>
     <string name="Notification_StopTest">หยุดทดสอบ</string>
 
@@ -238,7 +241,11 @@
     <string name="Common_Next">ถัดไป</string>
     <string name="Common_Previous">ก่อนหน้า</string>
     <string name="Common_Share">แบ่งปัน</string>
+    <string name="Common_Dismiss">ปิด</string>
+    <string name="Common_Search">ค้นหา</string>
     <string name="Common_Today">วันนี้</string>
+    <string name="Common_Week">สัปดาห์</string>
+    <string name="Common_Month">เดือน</string>
     <string name="Common_Months_May">พ.ค.</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
