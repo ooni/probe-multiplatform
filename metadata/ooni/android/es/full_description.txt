@@ -19,6 +19,6 @@ Datos abiertos
 OONI publica datos de mediciones de red porque al colocar los datos en el dominio público permite que terceros verifiquen los hallazgos de OONI, conduzcan estudios independientes, y contesten otras preguntas de investigación. La publicación abierta de datos de OONI también ayuda a aumentar la transparencia acerca de la censura de Internet alrededor del mundo. Puedes explorar y descargar datos de OONI desde aquí: https://ooni.io/data/
 
 Software libre
-Todas las pruebas de OONI Probe (incluyendo nuestras implementaciones de NDT  y DASH), están basadas en software libre y de código abierto. Puedes encontrar proyectos de software de OONI en GitHub: https://github.com/ooni. ¿Sientes curiosidad acerca de cómo funcionan las pruebas de OONI Probe? Conoce más en: https://ooni.io/nettest/
+Todas las pruebas de OONI Probe (incluyendo nuestras implementaciones de NDT y DASH), están basadas en software libre y de código abierto. Puedes encontrar proyectos de software de OONI en GitHub: https://github.com/ooni. ¿Sientes curiosidad acerca de cómo funcionan las pruebas de OONI Probe? Conoce más en: https://ooni.io/nettest/
 
 Para recibir actualizaciones del OONI-verso, síguenos en Twitter: https://twitter.com/OpenObservatory

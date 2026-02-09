@@ -16,7 +16,7 @@
 
     <string name="Tests_Title">စမ်းသပ်မှုများ</string>
     <string name="Test_Websites_Fullname">ဝဘ်ဆိုဒ်များ</string>
-    <string name="Test_InstantMessaging_Fullname">ချက်ခြင်း စာတိုပေးပို့ခြင်း\n</string>
+    <string name="Test_InstantMessaging_Fullname">ချက်ခြင်း စာတိုပေးပို့ခြင်း</string>
     <string name="Test_Performance_Fullname">စွမ်းဆောင်ရည်</string>
     <string name="Test_Circumvention_Fullname">ရှောင်တိမ်းခြင်း</string>
     <string name="Test_Experimental_Fullname">စမ်းသပ် လေ့လာနေဆဲ</string>
@@ -91,7 +91,7 @@
     <string name="Settings_Proxy_Custom_Unavailable">မရရှိနိုင်ပါ။</string>
     <string name="Settings_Language_Label">ဘာသာစကား</string>
     <string name="Settings_Advanced_Label">အဆင့်မြင့်</string>
-    <string name="Settings_Advanced_DebugLogs">အမှားပြင်ဆင်မှု မှတ်တမ်းများ\n</string>
+    <string name="Settings_Advanced_DebugLogs">အမှားပြင်ဆင်မှု မှတ်တမ်းများ</string>
     <string name="Settings_Advanced_RecentLogs">လတ်တလော မှတ်တမ်းများကို ကြည့်ပါ</string>
     <string name="Settings_Support_Label">အထောက်အကူ</string>
     <string name="Settings_Support_SendEmail">ပံ့ပိုးကူညီရန် အီးမေးလ် ပို့ပါ</string>
@@ -102,8 +102,8 @@
     <string name="Settings_Storage_Clear">ရှင်းမည်</string>
     <string name="Settings_WarmVPNInUse_Label">VPN အသုံးပြုနေချိန်တွင် သတိပေးပါ</string>
     <string name="Settings_Logs">မှတ်တမ်းများ</string>
-    <string name="Settings_Websites_Categories_Selection_None">အားလုံးကို မရွေးချယ်ရန်\n</string>
-    <string name="Settings_Websites_Categories_Selection_All">အားလုံးကို ရွေးချယ်မည်\n</string>
+    <string name="Settings_Websites_Categories_Selection_None">အားလုံးကို မရွေးချယ်ရန်</string>
+    <string name="Settings_Websites_Categories_Selection_All">အားလုံးကို ရွေးချယ်မည်</string>
     <string name="Settings_Websites_CustomURL_Title">စမ်းသပ်မည့် ဝဘ်ဆိုဒ်များ ရွေးချယ်ရန်</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">စမ်းမည်</string>
@@ -156,14 +156,14 @@
     <string name="CategoryCode_DATE_Description">အွန်လိုင်းချိန်းတွေ့ ဆိုဒ်များ</string>
     <string name="CategoryCode_GRP_Description">အွန်လိုင်း လူမှုကွန်ရက် ကိရိယာများနှင့် ပလက်ဖောင်းများ</string>
     <string name="CategoryCode_LGBT_Description">(ညစ်ညမ်းရုပ်ပုံစာပေ မပါဝင်ဘဲ) သက်ဆိုင်ရာ ကိစ္စများကို ဆွေးနွေးသည့် LGBTQ+ အသိုင်းအဝိုင်း</string>
-    <string name="CategoryCode_FILE_Description">cloud-based ဖိုင်သိုလှောင်မှု၊ torrents နှင့် P2P အပါအဝင် ဖိုင်မျှဝေခြင်း\n</string>
+    <string name="CategoryCode_FILE_Description">cloud-based ဖိုင်သိုလှောင်မှု၊ torrents နှင့် P2P အပါအဝင် ဖိုင်မျှဝေခြင်း</string>
     <string name="CategoryCode_HACK_Description">ကွန်ပျူတာ လုံခြုံရေး ကိရိယာများနှင့် သတင်းများ</string>
     <string name="CategoryCode_COMT_Description">VoIP၊ စာတို ပေးပို့ခြင်းနှင့် ဝဘ်မေးလ် အပါအဝင် တစ်ဦးချင်းနှင့် အဖွဲ့လိုက် ဆက်သွယ်ရေး ကိရိယာများ</string>
     <string name="CategoryCode_MMED_Description">ဗီဒီယို၊ အသံနှင့် ဓာတ်ပုံ မျှဝေခြင်း</string>
     <string name="CategoryCode_HOST_Description">ဝဘ်ဆိုဒ် အထိုင်နေရာ၊ ဘလော့ဂ်ရေးသားခြင်း နှင့် အခြား အွန်လိုင်းထုတ်ဝေမှု</string>
     <string name="CategoryCode_SRCH_Description">ရှာဖွေရေးအင်ဂျင်များနှင့် ပေါ်တယ်လ်များ</string>
-    <string name="CategoryCode_GAME_Description">အွန်လိုင်း ဂိမ်းများနှင့် ဂိမ်းပလက်ဖောင်းများ (လောင်းကစားဆိုဒ်များ မပါ)\n</string>
-    <string name="CategoryCode_CULTR_Description">သမိုင်း၊ စာပေ၊ ဂီတ၊ ရုပ်ရှင်၊ သရော်စာနှင့် ဟာသများ အပါအဝင် ဖျော်ဖြေမှု\n</string>
+    <string name="CategoryCode_GAME_Description">အွန်လိုင်း ဂိမ်းများနှင့် ဂိမ်းပလက်ဖောင်းများ (လောင်းကစားဆိုဒ်များ မပါ)</string>
+    <string name="CategoryCode_CULTR_Description">သမိုင်း၊ စာပေ၊ ဂီတ၊ ရုပ်ရှင်၊ သရော်စာနှင့် ဟာသများ အပါအဝင် ဖျော်ဖြေမှု</string>
     <string name="CategoryCode_ECON_Description">အထွေထွေ စီးပွားရေးဖွံ့ဖြိုးတိုးတက်မှုနှင့် ဆင်းရဲမွဲတေမှု</string>
     <string name="CategoryCode_GOVT_Description">စစ်တပ်အပါအဝင် အစိုးရပိုင် ဝက်ဘ်ဆိုက်များ</string>
     <string name="CategoryCode_COMM_Description">စီးပွားဖြစ် ဝန်ဆောင်မှုများနှင့် ထုတ်ကုန်များ</string>
