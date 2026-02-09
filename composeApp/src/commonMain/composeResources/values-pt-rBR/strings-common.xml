@@ -38,6 +38,7 @@
     <string name="Dashboard_Stats_Empty">Comece a executar testes para ver as suas estatísticas aqui.</string>
 
     <string name="Dashboard_Articles_Title">Notícias OONI</string>
+    <string name="Dashboard_Articles_Blog">Artigo</string>
     <string name="Dashboard_Articles_Report">Relatório</string>
     <string name="Dashboard_Articles_ReadMore">Leia Mais</string>
     <string name="Dashboard_RunV2_Ooni_Title">Testes OONI</string>
