@@ -39,8 +39,10 @@
 
     <string name="Dashboard_Articles_Title">Notícias OONI</string>
     <string name="Dashboard_Articles_Blog">Artigo</string>
+    <string name="Dashboard_Articles_Finding">Descoberta</string>
     <string name="Dashboard_Articles_Report">Relatório</string>
     <string name="Dashboard_Articles_ReadMore">Leia Mais</string>
+    <string name="Dashboard_Articles_Recent">Recente</string>
     <string name="Dashboard_RunV2_Ooni_Title">Testes OONI</string>
     <string name="Dashboard_RunV2_Title">Links de execução OONI</string>
     <string name="Dashboard_Runv2_Overview_Description">Criado por %1$s em %2$s</string>
