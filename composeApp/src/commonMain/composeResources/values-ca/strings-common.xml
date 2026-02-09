@@ -1,17 +1,19 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Tauler</string>
-    <string name="Dashboard_Overview_LatestTest">Última prova:</string>
     <string name="Dashboard_Overview_Estimated">Estimat:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Trieu llocs web</string>
     <string name="Dashboard_Running_Running">S\'està executant:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Temps restant estimat:</string>
+    <string name="Dashboard_TestsMoved_Title">Proves</string>
+    <string name="Dashboard_Articles_Report">Informe</string>
     <string name="Dashboard_Runv2_Overview_Description">Creat per %1$s a les %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Desfés</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Revisa</string>
     <string name="Dashboard_Update_Restart">Reinicia</string>
 
 
+    <string name="Tests_Title">Proves</string>
     <string name="Test_Websites_Fullname">Llocs web</string>
     <string name="Test_InstantMessaging_Fullname">Missatgeria instantània</string>
     <string name="Test_Performance_Fullname">Rendiment</string>
@@ -26,9 +28,7 @@
     <string name="Test_FacebookMessenger_Fullname">Prova de Facebook Messenger</string>
     <string name="Test_Psiphon_Fullname">Prova del Psiphon</string>
     <string name="Test_Tor_Fullname">Prova del Tor</string>
-    <string name="TestResults_Overview_Title">Resultats de la prova</string>
-    <string name="TestResults_Overview_Tab_Label">Resultats de la prova</string>
-    <string name="TestResults_Overview_Hero_Tests">Proves</string>
+    <string name="TestResults">Results</string>
     <string name="TestResults_Overview_Hero_Networks">Xarxes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Ús de dades</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Encara no s\'han executat proves. Proveu a executar una!</string>
@@ -180,9 +180,9 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Hora i data de la prova</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Canvia valors</string>
 
+
     <string name="AddDescriptor_Settings">Test de configuració</string>
     <string name="AddDescriptor_AutoRun">Executa proves automàticament</string>
-    <string name="LoadingScreen_Runv2_Failure">Error</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Comprovar si hi ha actualitzacions</string>
     <string name="Snackbar_ResultsNotUploaded_Text">No s\'ha pujat</string>
@@ -207,6 +207,7 @@
     <string name="Desktop_Quit">Abandona</string>
     <string name="Tray_Notification_Check_Updates">Comprovar si hi ha actualitzacions</string>
     <string name="Tray_Notification_Updates_Available">Hi ha una actualització disponible!</string>
+    <string name="Modal_Hide">Oculta</string>
     <string name="OONIRun_Run">Inicia</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Provant</string>
@@ -222,8 +223,11 @@
     <string name="Common_Next">Endavant</string>
     <string name="Common_Previous">Anterior</string>
     <string name="Common_Share">Comparteix</string>
+    <string name="Common_Dismiss">Descarta</string>
+    <string name="Common_Search">Cerca</string>
     <string name="Common_Today">Avui</string>
     <string name="Common_Yesterday">Ahir</string>
+    <string name="Common_Total">Total</string>
     <string name="Common_Ago">fa %1$s</string>
     <string name="Common_Months_January">gener</string>
     <string name="Common_Months_February">febrer</string>

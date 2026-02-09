@@ -5,6 +5,7 @@
     <string name="Dashboard_Update_Restart">Adstagañ ganti</string>
 
 
+    <string name="TestResults">Disoc\'hoù</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Uskargañ</string>
@@ -42,12 +43,12 @@
     <string name="Onboarding_Notifications_Skip">Tremen</string>
     <string name="Onboarding_DefaultSettings_Title">Arventennoù dre ziouer</string>
     <string name="AddDescriptor_Settings">Test Settings</string>
-    <string name="LoadingScreen_Runv2_Failure">Fazi</string>
     <string name="Modal_Retry">Adklask</string>
     <string name="Modal_Cancel">Nullañ</string>
     <string name="Modal_OK">MAT EO</string>
     <string name="Modal_Delete">Dilemel</string>
     <string name="Desktop_Quit">Kuitaat</string>
+    <string name="Modal_Hide">Kuzhaat</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">O testiñ</string>
     <string name="Common_Back">Kent</string>
@@ -59,5 +60,6 @@
     <string name="Common_Clear">Diweredekaat</string>
     <string name="Common_Next">Da-heul</string>
     <string name="Common_Share">Rannañ</string>
+    <string name="Common_Search">Enklask</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

@@ -1,16 +1,18 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Dashboard</string>
-    <string name="Dashboard_Overview_LatestTest">Senaste test:</string>
     <string name="Dashboard_Overview_Estimated">Beräknat:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Välj webbsidor</string>
     <string name="Dashboard_Running_Running">Körs:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Beräknad tid kvar:</string>
+    <string name="Dashboard_TestsMoved_Title">Tester</string>
+    <string name="Dashboard_Articles_Report">Rapport</string>
     <string name="Dashboard_Runv2_Overview_Description">Skapades av %1$s den %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ångra</string>
     <string name="Dashboard_Update_Restart">Starta om</string>
 
 
+    <string name="Tests_Title">Tester</string>
     <string name="Test_Websites_Fullname">Webbsidor</string>
     <string name="Test_InstantMessaging_Fullname">Direkt meddelanden</string>
     <string name="Test_Performance_Fullname">Prestanda</string>
@@ -23,9 +25,6 @@
     <string name="Test_WhatsApp_Fullname">Test av WhatsApp</string>
     <string name="Test_Telegram_Fullname">Test av Telegram</string>
     <string name="Test_FacebookMessenger_Fullname">Test av Facebook Messenger</string>
-    <string name="TestResults_Overview_Title">Test resultat</string>
-    <string name="TestResults_Overview_Tab_Label">Test resultat</string>
-    <string name="TestResults_Overview_Hero_Tests">Tester</string>
     <string name="TestResults_Overview_Hero_Networks">Nätverk</string>
     <string name="TestResults_Overview_Hero_DataUsage">Dataanvändning</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Inga tester har körts ännu. Testa att köra ett test!</string>
@@ -107,8 +106,8 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Tid och datum för test</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Ändra standard</string>
 
+
     <string name="AddDescriptor_Settings">Testa inställningar</string>
-    <string name="LoadingScreen_Runv2_Failure">Fel</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Sök efter uppdateringar</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Ej uppladdad</string>
@@ -132,6 +131,7 @@
     <string name="Tray_Notification_Updates_Available">Uppdatering tillgänglig!</string>
     <string name="Tray_Notification_Checking_Updates">Söker efter uppdateringar ...</string>
 
+    <string name="Modal_Hide">Göm</string>
     <string name="OONIRun_Run">Kör</string>
     <string name="Common_Back">Tillbaka</string>
     <string name="Common_Close">Stäng</string>
@@ -145,6 +145,10 @@
     <string name="Common_Next">Nästa</string>
     <string name="Common_Previous">Föregående</string>
     <string name="Common_Share">Dela</string>
+    <string name="Common_Dismiss">Stäng</string>
+    <string name="Common_Search">Sök</string>
+    <string name="Common_Month">Månad</string>
+    <string name="Common_Total">Total</string>
     <plurals name="Common_Days">
         <item quantity="one">%1$d dag</item>
         <item quantity="other">%1$d dagar</item>

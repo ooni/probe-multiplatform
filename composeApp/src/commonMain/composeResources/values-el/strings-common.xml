@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Ταμπλό</string>
-    <string name="Dashboard_Overview_LatestTest">Τελευταία δοκιμή:</string>
     <string name="Dashboard_Overview_Estimated">Εκτίμηση:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Επέλεξε ιστοσελίδες</string>
     <string name="Dashboard_Running_Running">Εκτελείται:</string>
@@ -9,12 +8,15 @@
     <string name="Dashboard_Running_Stopping_Title">Η δοκιμή σταματάει...</string>
     <string name="Dashboard_Running_Stopping_Notice">Τελειώνουμε τις δοκιμές που εκκρεμούν, παρακαλώ περίμενε...</string>
     <string name="Dashboard_Running_ProxyInUse">Χρησιμοποιείται proxy</string>
+    <string name="Dashboard_TestsMoved_Title">Δοκιμές</string>
+    <string name="Dashboard_Articles_Report">Αναφορά</string>
     <string name="Dashboard_Runv2_Overview_Description">Δημιουργήθηκε από %1$s στις %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ακύρωση</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Ανασκόπηση</string>
     <string name="Dashboard_Update_Restart">Επανεκκίνηση </string>
 
 
+    <string name="Tests_Title">Δοκιμές</string>
     <string name="Test_Websites_Fullname">Ιστοσελίδες</string>
     <string name="Test_InstantMessaging_Fullname">Εφαρμογές συνομιλιών</string>
     <string name="Test_Performance_Fullname">Απόδοση δικτύου</string>
@@ -31,9 +33,9 @@
     <string name="Test_Psiphon_Fullname">Δοκιμή Psiphon</string>
     <string name="Test_Tor_Fullname">Δοκιμή Tor</string>
     <string name="Test_Signal_Fullname">Δοκιμή Signal</string>
-    <string name="TestResults_Overview_Title">Αποτελέσματα δοκιμών</string>
-    <string name="TestResults_Overview_Tab_Label">Αποτελέσματα δοκιμών</string>
-    <string name="TestResults_Overview_Hero_Tests">Δοκιμές</string>
+
+
+    <string name="TestResults">Αποτελέσματα</string>
     <string name="TestResults_Overview_Hero_Networks">Δίκτυα</string>
     <string name="TestResults_Overview_Hero_DataUsage">Χρήση δεδομένων</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Δεν έχουν εκτελεστεί ακόμα δοκιμές. Τρέξε μια!</string>
@@ -202,9 +204,9 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Κάνουμε ό,τι μπορούμε ώστε να μη δημοσιευτεί η διεύθυνση IP ή άλλα δεδομένα που δυνητικά μπορεί να σε ταυτοποιήσουν.\n\nΜάθε περισσότερα διαβάζοντας την [Πολιτική Δεδομένων του OONI](https://ooni.io/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Αλλαγή ρυθμίσεων</string>
 
+
     <string name="AddDescriptor_Settings">Έλεγχος ρυθμίσεων</string>
     <string name="AddDescriptor_AutoRun">Αυτόματη εκτελή δοκιμών</string>
-    <string name="LoadingScreen_Runv2_Failure">Σφάλμα</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Έλεγχος για ενημερώσεις</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Δεν ανέβηκαν</string>
@@ -234,6 +236,7 @@
     <string name="Tray_Notification_Check_Updates">Έλεγχος για ενημερώσεις</string>
     <string name="Tray_Notification_Checking_Updates">Έλεγχος για ενημερώσεις...</string>
 
+    <string name="Modal_Hide">Απόκρυψη</string>
     <string name="OONIRun_Run">Εκτέλεση</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Δοκιμάζει</string>
@@ -251,7 +254,11 @@
     <string name="Common_Next">Επόμενο</string>
     <string name="Common_Previous">Προηγούμενο </string>
     <string name="Common_Share">Κοινή χρήση</string>
+    <string name="Common_Dismiss">Απόρριψη</string>
+    <string name="Common_Search">Αναζήτηση</string>
     <string name="Common_Today">Σήμερα</string>
+    <string name="Common_Month">Μήνας</string>
+    <string name="Common_Total">Σύνολο</string>
     <string name="Common_Ago">%1$s πριν</string>
     <string name="Common_Months_January">Ιανουάριος</string>
     <string name="Common_Months_February">Φεβρουάριος</string>

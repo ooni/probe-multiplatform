@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Tableau de bord</string>
-    <string name="Dashboard_Overview_LatestTest">Dernier test :</string>
     <string name="Dashboard_Overview_Estimated">Estimation :</string>
     <string name="Dashboard_Overview_ChooseWebsites">Choisir des sites Web</string>
     <string name="Dashboard_Running_Running">En cours :</string>
@@ -9,6 +8,7 @@
     <string name="Dashboard_Running_Stopping_Title">Arrêt du test…</string>
     <string name="Dashboard_Running_Stopping_Notice">Achèvement des tests en attente, patientez…</string>
     <string name="Dashboard_Running_ProxyInUse">Le mandataire est en fonction</string>
+    <string name="Dashboard_TestsMoved_Title">Tests</string>
     <string name="Dashboard_RunTests_Title">Exécuter les tests</string>
     <string name="Dashboard_RunTests_Description">Choisissez les tests à exécuter</string>
     <string name="Dashboard_RunTests_SelectAll">Sélectionner tous les tests</string>
@@ -18,9 +18,10 @@
         <item quantity="many">Exécuter %1$d de tests</item>
         <item quantity="other">Exécuter %1$d tests</item>
     </plurals>
+    <string name="Dashboard_Articles_Report">Signalement</string>
+    <string name="Dashboard_Articles_ReadMore">En savoir plus</string>
     <string name="Dashboard_RunV2_Ooni_Title">Tests OONI</string>
     <string name="Dashboard_RunV2_Title">Liens OONI Run</string>
-    <string name="Dashboard_RunV2_RunFinished">L’exécution est terminée. Touchez pour afficher les résultats.</string>
     <string name="Dashboard_Runv2_Overview_Description">Créé par %1$s à %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Désinstaller le lien</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Révisions précédentes</string>
@@ -50,6 +51,7 @@
     <string name="Dashboard_Update_Restart">Redémarrer</string>
 
 
+    <string name="Tests_Title">Tests</string>
     <string name="Test_Websites_Fullname">Sites Web</string>
     <string name="Test_InstantMessaging_Fullname">Messagerie instantanée</string>
     <string name="Test_Performance_Fullname">Réduire le nombre de requêtes récurrentes sur Quad9, économiser de la bande passante et offrir une expérience plus rapide à l\'utilisateur final lorsque ses requêtes sont déjà dans le cache des forwarders.</string>
@@ -66,9 +68,9 @@
     <string name="Test_Psiphon_Fullname">Test Psiphon</string>
     <string name="Test_Tor_Fullname">Test de Tor</string>
     <string name="Test_Signal_Fullname">Test de Signal</string>
-    <string name="TestResults_Overview_Title">Résultats des tests</string>
-    <string name="TestResults_Overview_Tab_Label">Résultats des tests</string>
-    <string name="TestResults_Overview_Hero_Tests">Tests</string>
+
+
+    <string name="TestResults">Résultats</string>
     <string name="TestResults_Overview_Hero_Networks">Réseaux</string>
     <string name="TestResults_Overview_Hero_DataUsage">Utilisation des données</string>
     <plurals name="TestResults_Overview_Websites_Blocked">
@@ -349,6 +351,7 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Allons-y</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Modifier les paramètres</string>
 
+
     <string name="AddDescriptor_Settings">Tester les paramètres</string>
     <string name="AddDescriptor_Title">Installer un nouveau lien</string>
     <string name="AddDescriptor_AutoUpdate">Installer les mises à jour automatiquement</string>
@@ -358,8 +361,6 @@
     <string name="AddDescriptor_InstallAndRun">Installer et lancer</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Cette URL n’est pas prise en charge</string>
     <string name="LoadingScreen_Runv2_Message">Chargement du lien</string>
-    <string name="LoadingScreen_Runv2_Failure">Erreur</string>
-    <string name="LoadingScreen_Runv2_Canceled">L’installation du lien a été annulée</string>
     <string name="DescriptorUpdate_Updates">MISES À JOUR</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Chercher des mises à jour</string>
@@ -411,6 +412,7 @@
     <string name="Tray_Notification_Updates_Available">Une mise à jour est proposée</string>
     <string name="Tray_Notification_Checking_Updates">Recherche de mises à jour…</string>
 
+    <string name="Modal_Hide">Cacher</string>
     <string name="OONIRun_Run">Lancer</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Test</string>
@@ -430,8 +432,13 @@
     <string name="Common_Next">Suivant</string>
     <string name="Common_Previous">Précédent</string>
     <string name="Common_Share">Partager</string>
+    <string name="Common_Dismiss">Fermer</string>
+    <string name="Common_Search">Chercher</string>
     <string name="Common_Today">Aujourd’hui</string>
     <string name="Common_Yesterday">Hier</string>
+    <string name="Common_Week">Semaine</string>
+    <string name="Common_Month">Mois</string>
+    <string name="Common_Total">Total</string>
     <string name="Common_Ago">il y a %1$s</string>
     <plurals name="Common_Seconds">
         <item quantity="one">%1$d seconde</item>

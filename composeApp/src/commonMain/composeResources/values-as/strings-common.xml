@@ -27,7 +27,6 @@
 
     <string name="Onboarding_WhatIsOONIProbe_GotIt">বুজিলোঁ</string>
     <string name="Onboarding_ThingsToKnow_Button">বুজি পাইছোঁ</string>
-    <string name="LoadingScreen_Runv2_Failure">ত্ৰুটি</string>
     <string name="Modal_Retry">পুনৰ চেষ্টা কৰক</string>
     <string name="Modal_Cancel">বাতিল কৰক</string>
     <string name="Modal_Delete">মচক</string>

@@ -52,7 +52,6 @@
     <string name="Onboarding_Notifications_Skip">Прескокни</string>
     <string name="Onboarding_DefaultSettings_Title">Основни поставки</string>
     <string name="AddDescriptor_Settings">Тестирај ги подесувањата</string>
-    <string name="LoadingScreen_Runv2_Failure">Грешка</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Провери за Ажурирања</string>
     <string name="Modal_Retry">Обидете се пак</string>
@@ -63,6 +62,7 @@
     <string name="Modal_CustomURL_Title_NotSaved">Дали сте сигурни?</string>
     <string name="Desktop_Quit">Прекини</string>
     <string name="Tray_Notification_Check_Updates">Провери за Ажурирања</string>
+    <string name="Modal_Hide">Сокриј</string>
     <string name="Common_Back">Назад</string>
     <string name="Common_Close">Затвори</string>
     <string name="Common_Refresh">Освежи</string>
@@ -75,6 +75,8 @@
     <string name="Common_Next">Следно</string>
     <string name="Common_Previous">Претходно</string>
     <string name="Common_Share">Сподели</string>
+    <string name="Common_Dismiss">Напушти</string>
+    <string name="Common_Search">Пребарај</string>
     <string name="Common_Today">Денес</string>
     <string name="Common_Yesterday">Вчера</string>
     <string name="Common_Months_January">Јануари</string>

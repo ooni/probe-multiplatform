@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Painel Principal</string>
-    <string name="Dashboard_Overview_LatestTest">Último teste:</string>
     <string name="Dashboard_Overview_Estimated">Estimado:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Escolha sites</string>
     <string name="Dashboard_Running_Running">A executar:</string>
@@ -9,6 +8,7 @@
     <string name="Dashboard_Running_Stopping_Title">A parar o teste…</string>
     <string name="Dashboard_Running_Stopping_Notice">Concluindo os testes atualmente pendentes, por favor aguarde…</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy em utilização</string>
+    <string name="Dashboard_TestsMoved_Title">Testes</string>
     <string name="Dashboard_RunTests_Title">Executar testes</string>
     <string name="Dashboard_RunTests_Description">Selecione os testes a executar</string>
     <string name="Dashboard_RunTests_SelectAll">Selecionar todos</string>
@@ -18,9 +18,9 @@
         <item quantity="many">Executar %1$d testes</item>
         <item quantity="other">Executar %1$d testes</item>
     </plurals>
+    <string name="Dashboard_Articles_Report">Submissão</string>
     <string name="Dashboard_RunV2_Ooni_Title">Testes OONI</string>
     <string name="Dashboard_RunV2_Title">Links de execução OONI</string>
-    <string name="Dashboard_RunV2_RunFinished">Execução concluída. Toque para ver os resultados.</string>
     <string name="Dashboard_Runv2_Overview_Description">Criado por %1$s às %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Desinstalar Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Revisões anteriores</string>
@@ -50,6 +50,7 @@
     <string name="Dashboard_Update_Restart">Reiniciar</string>
 
 
+    <string name="Tests_Title">Testes</string>
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Mensagens Instantâneas</string>
     <string name="Test_Performance_Fullname">Desempenho</string>
@@ -66,9 +67,9 @@
     <string name="Test_Psiphon_Fullname">Teste do Psiphon</string>
     <string name="Test_Tor_Fullname">Teste do Tor</string>
     <string name="Test_Signal_Fullname">Teste do Signal</string>
-    <string name="TestResults_Overview_Title">Resultado dos testes</string>
-    <string name="TestResults_Overview_Tab_Label">Resultados</string>
-    <string name="TestResults_Overview_Hero_Tests">Testes</string>
+
+
+    <string name="TestResults">Resultados</string>
     <string name="TestResults_Overview_Hero_Networks">Redes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Utilização de Dados</string>
     <plurals name="TestResults_Overview_Websites_Blocked">
@@ -349,6 +350,7 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Vamos lá</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Alterar padrões</string>
 
+
     <string name="AddDescriptor_Settings">Configurações de Testes</string>
     <string name="AddDescriptor_Title">Instalar o novo Link</string>
     <string name="AddDescriptor_AutoUpdate">Instalar atualizações automaticamente</string>
@@ -358,8 +360,6 @@
     <string name="AddDescriptor_InstallAndRun">Instalar &amp; Executar</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">URL não suportado</string>
     <string name="LoadingScreen_Runv2_Message">A carregar Link</string>
-    <string name="LoadingScreen_Runv2_Failure">Erro</string>
-    <string name="LoadingScreen_Runv2_Canceled">Instalação do Link cancelada</string>
     <string name="DescriptorUpdate_Updates">ATUALIZAÇÕES</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Verificar Atualizações</string>
@@ -411,6 +411,7 @@
     <string name="Tray_Notification_Updates_Available">Atualização Disponível!</string>
     <string name="Tray_Notification_Checking_Updates">A verificar se há atualizações…</string>
 
+    <string name="Modal_Hide">Ocultar</string>
     <string name="OONIRun_Run">Executar</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">A testar</string>
@@ -430,8 +431,12 @@
     <string name="Common_Next">Seguinte</string>
     <string name="Common_Previous">Anterior</string>
     <string name="Common_Share">Partilhar</string>
+    <string name="Common_Dismiss">Ignorar</string>
+    <string name="Common_Search">Procurar</string>
     <string name="Common_Today">Hoje</string>
     <string name="Common_Yesterday">Ontem</string>
+    <string name="Common_Month">Mês</string>
+    <string name="Common_Total">Total</string>
     <string name="Common_Ago">%1$s atrás</string>
     <plurals name="Common_Seconds">
         <item quantity="one">%1$d segundo</item>

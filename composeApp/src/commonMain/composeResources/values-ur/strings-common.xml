@@ -1,6 +1,7 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">ڈیش بورڈ</string>
+    <string name="Dashboard_Articles_Report">رپورٹ</string>
     <string name="TestResults_Summary_Hero_Network">نیٹ ورک </string>
     <string name="TestResults_Summary_Hero_Country">ملک</string>
     <string name="TestResults_Summary_Hero_WiFi">وائی فائی</string>
@@ -48,7 +49,6 @@
     <string name="Onboarding_Notifications_Ok">ٹھیک ہے</string>
     <string name="Onboarding_Notifications_Skip">چھوڑیں</string>
     <string name="AddDescriptor_Settings">Test Settings</string>
-    <string name="LoadingScreen_Runv2_Failure">خرابی</string>
     <string name="Modal_Retry">دوباره  کوشش کیجیے</string>
     <string name="Modal_Cancel">منسوخ کریں</string>
     <string name="Modal_OK">ٹھیک ہے</string>
@@ -57,6 +57,7 @@
     <string name="Desktop_Quit">چھوڑدیجیے (Quit)</string>
     <string name="Tray_Notification_Checking_Updates">اپڈیٹ کے لیے پڑتال ہو رہی ہے ۔۔۔</string>
 
+    <string name="Modal_Hide">چھپائیے</string>
     <string name="Common_Back">پیچھے</string>
     <string name="Common_Close">بند کریں</string>
     <string name="Common_Refresh">تازہ کرنا</string>
@@ -69,6 +70,8 @@
     <string name="Common_Next">اگلا</string>
     <string name="Common_Previous">پچھلا</string>
     <string name="Common_Share">شیئر کریں</string>
+    <string name="Common_Dismiss">برخاست کریں</string>
+    <string name="Common_Search">ڈھونڈیں </string>
     <string name="Common_Today">آج</string>
     <string name="Common_Yesterday">گزرا ہوا کل</string>
     <string name="NetworkType_Vpn">VPN</string>

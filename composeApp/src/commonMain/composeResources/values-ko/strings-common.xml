@@ -63,7 +63,6 @@
     <string name="Onboarding_Notifications_Skip">건너뛰기</string>
     <string name="Onboarding_DefaultSettings_Title">기본 설정</string>
     <string name="AddDescriptor_Settings">설정 테스트</string>
-    <string name="LoadingScreen_Runv2_Failure">오류</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">업데이트 확인</string>
     <string name="Modal_Retry">다시 시도</string>
@@ -77,6 +76,7 @@
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
     <string name="Tray_Notification_Checking_Updates">업데이트 확인 중...</string>
 
+    <string name="Modal_Hide">숨기기</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">시험중</string>
     <string name="Common_Back">뒤로</string>
@@ -91,8 +91,11 @@
     <string name="Common_Next">다음</string>
     <string name="Common_Previous">전</string>
     <string name="Common_Share">공유</string>
+    <string name="Common_Dismiss">그만 보기</string>
+    <string name="Common_Search">찾기</string>
     <string name="Common_Today">오늘</string>
     <string name="Common_Yesterday">어제</string>
+    <string name="Common_Total">총</string>
     <string name="Common_Ago">%1$s 전</string>
     <string name="Common_Months_January">1월</string>
     <string name="Common_Months_February">2월</string>

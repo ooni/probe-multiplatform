@@ -1,5 +1,6 @@
 <resources>
 
+    <string name="Dashboard_Articles_Report">रिपोेर्ट गर्नुहोस्</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">उर्ध्वभरण गर्ने</string>
     <string name="TestResults_Summary_Performance_Hero_Download">डाउनलोड गर्ने</string>
     <string name="TestResults_Summary_Performance_Hero_Video">भिडियो</string>
@@ -27,4 +28,5 @@
     <string name="Common_Save">सङ्ग्रह गर्ने</string>
     <string name="Common_Next">अर्को</string>
     <string name="Common_Previous">पहिलेको</string>
+    <string name="Common_Search">खाेज्नुहाेस्</string>
     </resources>

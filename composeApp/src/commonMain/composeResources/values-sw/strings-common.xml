@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Dashibodi</string>
-    <string name="Dashboard_Overview_LatestTest">Jaribio la mwisho:</string>
     <string name="Dashboard_Overview_Estimated">Inakadiriwa:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Chagua tovuti</string>
     <string name="Dashboard_Running_Running">Inaenda:</string>
@@ -9,13 +8,14 @@
     <string name="Dashboard_Running_Stopping_Title">Inasimamisha majaribio…</string>
     <string name="Dashboard_Running_Stopping_Notice">Majaribio yanayoshughulikiwa yanakamilishwa, tafadhali subiri…</string>
     <string name="Dashboard_Running_ProxyInUse">Wakala inatumika</string>
+    <string name="Dashboard_TestsMoved_Title">Vipimo</string>
     <string name="Dashboard_RunTests_Title"> Endesha majaribio</string>
     <string name="Dashboard_RunTests_Description">Chagua majaribio ya kufanya</string>
     <string name="Dashboard_RunTests_SelectAll">Chagua majaribio yote</string>
     <string name="Dashboard_RunTests_SelectNone">Acha kuchagua majaribio yote</string>
+    <string name="Dashboard_Articles_ReadMore">Soma Zaidi</string>
     <string name="Dashboard_RunV2_Ooni_Title">Uchunguzi wa OONI</string>
     <string name="Dashboard_RunV2_Title">Viungo vya OONI Run</string>
-    <string name="Dashboard_RunV2_RunFinished">Uchunguzi umekamilika. Gusa ili kuona matokeo.</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Sanidua Kiungo</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Marekebisho ya awali</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Tazama Zaidi</string>
@@ -31,6 +31,7 @@
     <string name="Dashboard_Update_Restart">Anzisha tena</string>
 
 
+    <string name="Tests_Title">Vipimo</string>
     <string name="Test_Websites_Fullname">Tovuti.</string>
     <string name="Test_InstantMessaging_Fullname">Ujumbe wa papo kwa papo</string>
     <string name="Test_Performance_Fullname">Utendaji</string>
@@ -47,9 +48,9 @@
     <string name="Test_Psiphon_Fullname">Kipimo cha Psiphon</string>
     <string name="Test_Tor_Fullname">Kipimo cha tor</string>
     <string name="Test_Signal_Fullname">Kipimo cha Signal</string>
-    <string name="TestResults_Overview_Title">Matokeo ya Mtihani</string>
-    <string name="TestResults_Overview_Tab_Label">Matokeo ya Mtihani</string>
-    <string name="TestResults_Overview_Hero_Tests">Vipimo</string>
+
+
+    <string name="TestResults">Matokeo</string>
     <string name="TestResults_Overview_Hero_Networks">Mitandao</string>
     <string name="TestResults_Overview_Hero_DataUsage">matumizi ya data</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Hakuna jaribio lililofanywa bado.  Tafadhali fanya jaribio moja!</string>
@@ -213,14 +214,13 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Tunafanya bidii kutokuchapisha anwani yako ya IP au habari zingine zozote zinayoweza kujitambulisha kibinafsi.\n\nJifunze zaidi kupitia [Sera ya Takwimu ya OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Badilisha chaguo-msingi</string>
 
+
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="AddDescriptor_Title">Sakinisha Kiungo Kipya</string>
     <string name="AddDescriptor_AutoUpdate">Sakinisha masasisho kiotomatiki</string>
     <string name="AddDescriptor_AutoRun">Endesha vipimo kiatomati</string>
     <string name="AddDescriptor_Toasts_Installed">Kiungo kimesakinishwa</string>
     <string name="LoadingScreen_Runv2_Message">Kiungo kinapakia</string>
-    <string name="LoadingScreen_Runv2_Failure">Hitilafu</string>
-    <string name="LoadingScreen_Runv2_Canceled">Usakinishaji wa kiungo umeghairiwa</string>
     <string name="DescriptorUpdate_Updates">MASASISHO</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Haijapakiwa</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Baadhi hayajapakiwa</string>
@@ -247,6 +247,7 @@
     <string name="Modal_CustomURL_Title_NotSaved">Una uhakika?</string>
     <string name="Modal_CustomURL_NotSaved">URL zako hazitahifadhiwa ukiondoka kwenye skrini hii. Je! Una uhakika unataka kuondoka kwenye skrini hii?</string>
     <string name="Desktop_Quit">Ondoka</string>
+    <string name="Modal_Hide">Ficha</string>
     <string name="OONIRun_Run">Endesha</string>
     <string name="Notification_StopTest">Acha Jaribio</string>
 
@@ -262,7 +263,11 @@
     <string name="Common_Next">Inayofuata</string>
     <string name="Common_Previous">Iliyopita</string>
     <string name="Common_Share">Kushiriki </string>
+    <string name="Common_Dismiss">Puuza</string>
+    <string name="Common_Search">Tafuta</string>
     <string name="Common_Today">Leo</string>
     <string name="Common_Yesterday">Jana</string>
+    <string name="Common_Week">Juma</string>
+    <string name="Common_Month">Mwezi</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

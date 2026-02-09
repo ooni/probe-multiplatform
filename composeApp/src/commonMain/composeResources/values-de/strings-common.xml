@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Übersicht</string>
-    <string name="Dashboard_Overview_LatestTest">Letzter Test:</string>
     <string name="Dashboard_Overview_Estimated">Voraussichtlich:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Wähle Webseiten</string>
     <string name="Dashboard_Running_Running">Laufend:</string>
@@ -9,6 +8,7 @@
     <string name="Dashboard_Running_Stopping_Title">Test wird gestoppt …</string>
     <string name="Dashboard_Running_Stopping_Notice">Fertigstellung der aktuell ausstehenden Tests, bitte warten ...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in Verwendung</string>
+    <string name="Dashboard_TestsMoved_Title">Tests</string>
     <string name="Dashboard_RunTests_Title">Führe Tests aus</string>
     <string name="Dashboard_RunTests_Description">Wähle den auszuführenden Test</string>
     <string name="Dashboard_RunTests_SelectAll">Alle Tests auswählen</string>
@@ -17,9 +17,11 @@
         <item quantity="one">Führe %1$d Test aus</item>
         <item quantity="other">Führe %1$d Tests aus</item>
     </plurals>
+    <string name="Dashboard_Articles_Report">Bericht</string>
+    <string name="Dashboard_Articles_ReadMore">Mehr lesen</string>
+    <string name="Dashboard_Articles_Recent">Kürzlich</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
-    <string name="Dashboard_RunV2_RunFinished">Ausführung beendet. Tippe, um die Ergebnisse anzuzeigen.</string>
     <string name="Dashboard_Runv2_Overview_Description">Erstellt von %1$s um %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Link deinstallieren</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Frühere Überarbeitungen</string>
@@ -48,6 +50,7 @@
     <string name="Dashboard_Update_Restart">Neustart</string>
 
 
+    <string name="Tests_Title">Tests</string>
     <string name="Test_Websites_Fullname">Webseiten</string>
     <string name="Test_InstantMessaging_Fullname">Instant Messaging</string>
     <string name="Test_Performance_Fullname">Leistung</string>
@@ -64,9 +67,9 @@
     <string name="Test_Psiphon_Fullname">Psiphon Test</string>
     <string name="Test_Tor_Fullname">Tor Test</string>
     <string name="Test_Signal_Fullname">Signal-Test</string>
-    <string name="TestResults_Overview_Title">Testergebnisse</string>
-    <string name="TestResults_Overview_Tab_Label">Testergebnisse</string>
-    <string name="TestResults_Overview_Hero_Tests">Tests</string>
+
+
+    <string name="TestResults">Ergebnisse</string>
     <string name="TestResults_Overview_Hero_Networks">Netzwerke</string>
     <string name="TestResults_Overview_Hero_DataUsage">Datennutzung</string>
     <plurals name="TestResults_Overview_Websites_Blocked">
@@ -335,6 +338,7 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Los geht\'s</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Defaults ändern</string>
 
+
     <string name="AddDescriptor_Settings">Einstellungen testen</string>
     <string name="AddDescriptor_Title">Installiere neuen Link</string>
     <string name="AddDescriptor_AutoUpdate">Installiere Aktualisierungen automatisch</string>
@@ -344,8 +348,6 @@
     <string name="AddDescriptor_InstallAndRun">Installieren &amp; Ausführen</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Nicht unterstützte URL</string>
     <string name="LoadingScreen_Runv2_Message">Lade Link</string>
-    <string name="LoadingScreen_Runv2_Failure">Fehler</string>
-    <string name="LoadingScreen_Runv2_Canceled">Link-Installation abgebrochen</string>
     <string name="DescriptorUpdate_Updates">AKTUALISIERUNGEN</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Auf Aktualisierungen prüfen</string>
@@ -395,6 +397,7 @@
     <string name="Tray_Notification_Updates_Available">Aktualisierung verfügbar!</string>
     <string name="Tray_Notification_Checking_Updates">Suche nach Updates...</string>
 
+    <string name="Modal_Hide">Verstecken</string>
     <string name="OONIRun_Run">Ausführen</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testvorgang</string>
@@ -414,8 +417,13 @@
     <string name="Common_Next">Weiter</string>
     <string name="Common_Previous">Vorherige</string>
     <string name="Common_Share">Teilen</string>
+    <string name="Common_Dismiss">Verwerfen</string>
+    <string name="Common_Search">Suche</string>
     <string name="Common_Today">Heute</string>
     <string name="Common_Yesterday">Gestern</string>
+    <string name="Common_Week">Woche</string>
+    <string name="Common_Month">Monat</string>
+    <string name="Common_Total">Gesamt</string>
     <string name="Common_Ago">Vor %1$s</string>
     <plurals name="Common_Seconds">
         <item quantity="one">%1$d Sekunde</item>

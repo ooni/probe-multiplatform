@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Dasbor</string>
-    <string name="Dashboard_Overview_LatestTest">Tes terakhir:</string>
     <string name="Dashboard_Overview_Estimated">Estimasi:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Pilih situs web</string>
     <string name="Dashboard_Running_Running">Menjalankan:</string>
@@ -9,13 +8,14 @@
     <string name="Dashboard_Running_Stopping_Title">Menghentikan tes...</string>
     <string name="Dashboard_Running_Stopping_Notice">Menyelesaikan tes yang saat ini tertunda, silakan tunggu...</string>
     <string name="Dashboard_Running_ProxyInUse">Proksi yang digunakan</string>
+    <string name="Dashboard_TestsMoved_Title">Tes</string>
     <string name="Dashboard_RunTests_Title">Jalankan tes</string>
     <string name="Dashboard_RunTests_Description">Pilih tes untuk dijalankan</string>
     <string name="Dashboard_RunTests_SelectAll">Pilih semua tes</string>
     <string name="Dashboard_RunTests_SelectNone">Batal pilih semua tes</string>
+    <string name="Dashboard_Articles_Report">Laporan</string>
     <string name="Dashboard_RunV2_Ooni_Title">Tes OONI</string>
     <string name="Dashboard_RunV2_Title">Tautan OONI Run</string>
-    <string name="Dashboard_RunV2_RunFinished">Tes selesai dijalankan. Ketuk untuk melihat hasilnya.</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Copot Tautan</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Revisi sebelumnya</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Lihat Lebih Lanjut</string>
@@ -32,6 +32,7 @@
     <string name="Dashboard_Update_Restart">Mulai ulang</string>
 
 
+    <string name="Tests_Title">Tes</string>
     <string name="Test_Websites_Fullname">Situs web</string>
     <string name="Test_InstantMessaging_Fullname">Perpesanan Instan</string>
     <string name="Test_Performance_Fullname">Kinerja</string>
@@ -48,9 +49,9 @@
     <string name="Test_Psiphon_Fullname">Tes Psiphon</string>
     <string name="Test_Tor_Fullname">Tes Tor</string>
     <string name="Test_Signal_Fullname">Tes Signal</string>
-    <string name="TestResults_Overview_Title">Hasil Tes</string>
-    <string name="TestResults_Overview_Tab_Label">Hasil Tes</string>
-    <string name="TestResults_Overview_Hero_Tests">Tes</string>
+
+
+    <string name="TestResults">Hasil</string>
     <string name="TestResults_Overview_Hero_Networks">Jaringan</string>
     <string name="TestResults_Overview_Hero_DataUsage">Penggunaan Data</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Belum ada tes yang dijalankan. Coba jalankan satu!</string>
@@ -219,14 +220,13 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Kami melakukan yang terbaik untuk tidak memublikasikan alamat IP atau hal lain yang berpotensi sebagai informasi identitas pribadi Anda.\n\nPelajari lebih lanjut melalui [Kebijakan Data OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Ubah bawaan</string>
 
+
     <string name="AddDescriptor_Settings">Pengaturan Tes</string>
     <string name="AddDescriptor_Title">Pasang Tautan Baru</string>
     <string name="AddDescriptor_AutoUpdate">Pasang pembaruan secara otomatis</string>
     <string name="AddDescriptor_AutoRun">Jalankan tes secara otomatis</string>
     <string name="AddDescriptor_Toasts_Installed">Tautan terpasang</string>
     <string name="LoadingScreen_Runv2_Message">Memuat Tautan</string>
-    <string name="LoadingScreen_Runv2_Failure">Galat</string>
-    <string name="LoadingScreen_Runv2_Canceled">Pemasangan tautan dibatalkan</string>
     <string name="DescriptorUpdate_Updates">PEMBARUAN</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Periksa Pembaruan</string>
@@ -258,6 +258,7 @@
     <string name="Tray_Notification_Check_Updates">Periksa Pembaruan</string>
     <string name="Tray_Notification_Checking_Updates">Memeriksa update ...</string>
 
+    <string name="Modal_Hide">Sembunyikan</string>
     <string name="OONIRun_Run">Mulai</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Menguji</string>
@@ -275,8 +276,11 @@
     <string name="Common_Next">Berikutnya</string>
     <string name="Common_Previous">Kembali</string>
     <string name="Common_Share">Bagikan</string>
+    <string name="Common_Dismiss">Tutup</string>
+    <string name="Common_Search">Cari</string>
     <string name="Common_Today">Hari ini</string>
     <string name="Common_Yesterday">Kemarin</string>
+    <string name="Common_Total">Total </string>
     <string name="Common_Ago">%1$s yang lalu</string>
     <string name="Common_Months_January">Januari</string>
     <string name="Common_Months_February">Februari</string>

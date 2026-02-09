@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Pano</string>
-    <string name="Dashboard_Overview_LatestTest">Son sınama:</string>
     <string name="Dashboard_Overview_Estimated">Yaklaşık:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Siteleri seçin</string>
     <string name="Dashboard_Running_Running">Çalışıyor:</string>
@@ -9,6 +8,7 @@
     <string name="Dashboard_Running_Stopping_Title">Sınama durduruluyor…</string>
     <string name="Dashboard_Running_Stopping_Notice">Bekleyen sınamalar tamamlanıyor. Lütfen bekleyin…</string>
     <string name="Dashboard_Running_ProxyInUse">Kullanılan vekil sunucu</string>
+    <string name="Dashboard_TestsMoved_Title">Sınamalar</string>
     <string name="Dashboard_RunTests_Title">Sınamaları çalıştır</string>
     <string name="Dashboard_RunTests_Description">Çalıştırılacak sınamaları seçin</string>
     <string name="Dashboard_RunTests_SelectAll">Tüm sınamaları seç</string>
@@ -17,9 +17,11 @@
         <item quantity="one">%1$d sınamayı çalıştır</item>
         <item quantity="other">%1$d sınamayı çalıştır</item>
     </plurals>
+    <string name="Dashboard_Articles_Report">İhbar</string>
+    <string name="Dashboard_Articles_ReadMore">Ayrıntılı bilgi</string>
+    <string name="Dashboard_Articles_Recent">Geçmiş</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI sınamaları</string>
     <string name="Dashboard_RunV2_Title">OONI çalıştırma bağlantıları</string>
-    <string name="Dashboard_RunV2_RunFinished">Sınama tamamlandı. Sonuçları görüntülemek için dokunun.</string>
     <string name="Dashboard_Runv2_Overview_Description">%2$s tarihinde %1$s tarafından oluşturuldu</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Kaldırma bağlantısı</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Önceki sürümler</string>
@@ -48,6 +50,7 @@
     <string name="Dashboard_Update_Restart">Yeniden başlat</string>
 
 
+    <string name="Tests_Title">Sınamalar</string>
     <string name="Test_Websites_Fullname">Siteler</string>
     <string name="Test_InstantMessaging_Fullname">Anlık ileti</string>
     <string name="Test_Performance_Fullname">Başarım</string>
@@ -64,9 +67,9 @@
     <string name="Test_Psiphon_Fullname">Psiphon sınaması</string>
     <string name="Test_Tor_Fullname">Tor sınaması</string>
     <string name="Test_Signal_Fullname">Signal sınaması</string>
-    <string name="TestResults_Overview_Title">Sınama sonuçları</string>
-    <string name="TestResults_Overview_Tab_Label">Sınama sonuçları</string>
-    <string name="TestResults_Overview_Hero_Tests">Sınamalar</string>
+
+
+    <string name="TestResults">Sonuçlar</string>
     <string name="TestResults_Overview_Hero_Networks">Ağ</string>
     <string name="TestResults_Overview_Hero_DataUsage">Veri kullanımı</string>
     <plurals name="TestResults_Overview_Websites_Blocked">
@@ -335,6 +338,7 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Başlayalım</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Varsayılanları değiştir</string>
 
+
     <string name="AddDescriptor_Settings">Ayarları sına</string>
     <string name="AddDescriptor_Title">Yeni bağlantı kur</string>
     <string name="AddDescriptor_AutoUpdate">Güncellemeler otomatik olarak kurulsun</string>
@@ -344,8 +348,6 @@
     <string name="AddDescriptor_InstallAndRun">Kur ve çalıştır</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Adres desteklenmiyor</string>
     <string name="LoadingScreen_Runv2_Message">Bağlantı yükleniyor</string>
-    <string name="LoadingScreen_Runv2_Failure">Hata</string>
-    <string name="LoadingScreen_Runv2_Canceled">Bağlantı kurulumu iptal edildi</string>
     <string name="DescriptorUpdate_Updates">GÜNCELLEMELER</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Güncelleme denetimi</string>
@@ -395,6 +397,7 @@
     <string name="Tray_Notification_Updates_Available">Güncelleme yayınlanmış!</string>
     <string name="Tray_Notification_Checking_Updates">Güncellemeler denetleniyor...</string>
 
+    <string name="Modal_Hide">Gizle</string>
     <string name="OONIRun_Run">Çalıştır</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Sınanıyor</string>
@@ -414,8 +417,13 @@
     <string name="Common_Next">İleri</string>
     <string name="Common_Previous">Önceki</string>
     <string name="Common_Share">Paylaş</string>
+    <string name="Common_Dismiss">Yok say</string>
+    <string name="Common_Search">Arama</string>
     <string name="Common_Today">Bugün</string>
     <string name="Common_Yesterday">Dün</string>
+    <string name="Common_Week">Hafta</string>
+    <string name="Common_Month">Ay</string>
+    <string name="Common_Total">Toplam</string>
     <string name="Common_Ago">%1$s önce</string>
     <plurals name="Common_Seconds">
         <item quantity="one">%1$d saniye</item>

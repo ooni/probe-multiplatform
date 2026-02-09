@@ -1,6 +1,5 @@
 <resources>
 
-    <string name="Dashboard_Overview_LatestTest">eyokugcina </string>
     <string name="Dashboard_Overview_Estimated">ukudlambisela </string>
     <string name="Dashboard_Overview_ChooseWebsites">ketha iwebusit</string>
     <string name="Dashboard_Running_Running">gijimisa   </string>
@@ -33,6 +32,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Isikhathi nosuku lokuhlolwa </string>
     <string name="Onboarding_DefaultSettings_Paragraph">Senza konke okusemandleni ethu ukuthi singashicileli ikheli lakho le-IP noma yiluphi olunye ulwazi olubonakalayo.\n\nFunda  okunye [Kwidatha policy ka-Ooni] (https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Shintsha ukuma</string>
+
 
     <string name="Modal_ReRun_Websites_Run">Gijima</string>
     <string name="OONIRun_Run">Gijima</string>

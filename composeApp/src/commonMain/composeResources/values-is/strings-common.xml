@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Stjórnborð</string>
-    <string name="Dashboard_Overview_LatestTest">Síðasta prófun:</string>
     <string name="Dashboard_Overview_Estimated">Áætlað:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Veldu vefsvæði</string>
     <string name="Dashboard_Running_Running">Keyri: </string>
@@ -9,13 +8,14 @@
     <string name="Dashboard_Running_Stopping_Title">Stöðva prófun…</string>
     <string name="Dashboard_Running_Stopping_Notice">Lýk þeim prófunum sem eru í gangi, bíddu aðeins…</string>
     <string name="Dashboard_Running_ProxyInUse">Milliþjónn í notkun</string>
+    <string name="Dashboard_TestsMoved_Title">Prófanir</string>
     <string name="Dashboard_RunTests_Title">Run tests</string>
     <string name="Dashboard_RunTests_Description">Select the tests to run</string>
     <string name="Dashboard_RunTests_SelectAll">Select all tests</string>
     <string name="Dashboard_RunTests_SelectNone">Deselect all tests</string>
+    <string name="Dashboard_Articles_ReadMore">Kanna nánar</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
-    <string name="Dashboard_RunV2_RunFinished">Run finished. Tap to view results.</string>
     <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
@@ -39,6 +39,7 @@
     <string name="Dashboard_Update_Restart">Endurræsa</string>
 
 
+    <string name="Tests_Title">Prófanir</string>
     <string name="Test_Websites_Fullname">Vefsvæði</string>
     <string name="Test_InstantMessaging_Fullname">Snarskilaboð</string>
     <string name="Test_Performance_Fullname">Afköst</string>
@@ -55,9 +56,9 @@
     <string name="Test_Psiphon_Fullname">Prófun Psiphon</string>
     <string name="Test_Tor_Fullname">Prófun Tor</string>
     <string name="Test_Signal_Fullname">Prófun merkis</string>
-    <string name="TestResults_Overview_Title">Niðurstöður prófunar</string>
-    <string name="TestResults_Overview_Tab_Label">Niðurstöður prófunar</string>
-    <string name="TestResults_Overview_Hero_Tests">Prófanir</string>
+
+
+    <string name="TestResults">Útkoma</string>
     <string name="TestResults_Overview_Hero_Networks">Netkerfi</string>
     <string name="TestResults_Overview_Hero_DataUsage">Gagnanotkun</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Engar prófanir hafa verið keyrðar ennþá. Prófaðu að keyra eina!</string>
@@ -236,6 +237,7 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Hefjumst handa</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Breyta sjálfgefnum gildum</string>
 
+
     <string name="AddDescriptor_Settings">Prófa stillingar</string>
     <string name="AddDescriptor_Title">Install New Link</string>
     <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
@@ -243,8 +245,6 @@
     <string name="AddDescriptor_Toasts_Installed">Link installed</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
     <string name="LoadingScreen_Runv2_Message">Link Loading</string>
-    <string name="LoadingScreen_Runv2_Failure">Villa</string>
-    <string name="LoadingScreen_Runv2_Canceled">Link installation cancelled</string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Athuga með uppfærslur</string>
@@ -274,6 +274,7 @@
     <string name="Modal_CustomURL_NotSaved">Slóðirnar þínar verða ekki vistaðar þegar þú ferð af þessum skjá. Ertu viss um að þú viljir fara af skjánum?</string>
     <string name="Desktop_Quit">Hætta</string>
     <string name="Tray_Notification_Check_Updates">Athuga með uppfærslur</string>
+    <string name="Modal_Hide">Fela</string>
     <string name="OONIRun_Run">Keyra</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testing</string>
@@ -291,7 +292,12 @@
     <string name="Common_Next">Næsti</string>
     <string name="Common_Previous">Fyrri</string>
     <string name="Common_Share">Deila</string>
+    <string name="Common_Dismiss">Hafna</string>
+    <string name="Common_Search">Leita</string>
     <string name="Common_Today">Í dag</string>
+    <string name="Common_Week">Vika</string>
+    <string name="Common_Month">Mánuður</string>
+    <string name="Common_Total">Samtals</string>
     <string name="Common_Ago">%1$s ago</string>
     <plurals name="Common_Hours">
         <item quantity="one">%1$d klukkustund</item>

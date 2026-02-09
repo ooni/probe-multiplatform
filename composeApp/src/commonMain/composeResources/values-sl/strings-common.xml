@@ -1,18 +1,17 @@
 <resources>
 
-    <string name="Dashboard_Overview_LatestTest">Zadnji test:</string>
     <string name="Dashboard_Overview_Estimated">Ocenjeno:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Izberite spletna mesta</string>
     <string name="Dashboard_Running_Running">V teku:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Ocena časa do konca:</string>
+    <string name="Dashboard_TestsMoved_Title">Testov</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Razveljavi</string>
     <string name="Dashboard_Update_Restart">Znova zaženi</string>
 
 
+    <string name="Tests_Title">Testov</string>
     <string name="Test_Websites_Fullname">Spletne strani</string>
-    <string name="TestResults_Overview_Title">Rezultati testov</string>
-    <string name="TestResults_Overview_Tab_Label">Rezultati testov</string>
-    <string name="TestResults_Overview_Hero_Tests">Testov</string>
+    <string name="TestResults">Rezultati</string>
     <string name="TestResults_Overview_Hero_Networks">Omrežja</string>
     <string name="TestResults_Overview_Hero_DataUsage">Prenešeno</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Datum in ura</string>
@@ -100,8 +99,8 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Ura in datum testiranja</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Prilagodi nastavitve</string>
 
+
     <string name="AddDescriptor_Settings">Testiranje nastavitev</string>
-    <string name="LoadingScreen_Runv2_Failure">Napaka</string>
     <string name="Modal_Retry">Ponovi</string>
     <string name="Modal_Cancel">Prekliči</string>
     <string name="Modal_OK">V redu</string>
@@ -122,5 +121,9 @@
     <string name="Common_Next">Naprej</string>
     <string name="Common_Previous">Nazaj</string>
     <string name="Common_Share">Deli</string>
+    <string name="Common_Search">Iskanje</string>
+    <string name="Common_Week">Teden</string>
+    <string name="Common_Month">Mesec</string>
+    <string name="Common_Total">Skupno</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

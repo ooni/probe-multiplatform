@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">儀表板</string>
-    <string name="Dashboard_Overview_LatestTest">上回測試：</string>
     <string name="Dashboard_Overview_Estimated">預估：</string>
     <string name="Dashboard_Overview_ChooseWebsites">選擇網站</string>
     <string name="Dashboard_Running_Running">執行:</string>
@@ -9,13 +8,15 @@
     <string name="Dashboard_Running_Stopping_Title">停止測試...</string>
     <string name="Dashboard_Running_Stopping_Notice">完成當前該處理的測試，請稍等....</string>
     <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
+    <string name="Dashboard_TestsMoved_Title">測試</string>
     <string name="Dashboard_RunTests_Title">執行測試</string>
     <string name="Dashboard_RunTests_Description">選擇要執行的測試</string>
     <string name="Dashboard_RunTests_SelectAll">選擇所有測試</string>
     <string name="Dashboard_RunTests_SelectNone">取消選擇所有測試</string>
+    <string name="Dashboard_Articles_Report">報告</string>
+    <string name="Dashboard_Articles_Recent">近期</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI 測試</string>
     <string name="Dashboard_RunV2_Title">OONI Run 連結</string>
-    <string name="Dashboard_RunV2_RunFinished">執行已結束。點擊查看結果。</string>
     <string name="Dashboard_Runv2_Overview_Description">建立者 %1$s 於 %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">移除安裝連結</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">過往版本</string>
@@ -30,6 +31,7 @@
     <string name="Dashboard_Update_Restart">重新啟動</string>
 
 
+    <string name="Tests_Title">測試</string>
     <string name="Test_Websites_Fullname">網站</string>
     <string name="Test_InstantMessaging_Fullname">即時通訊</string>
     <string name="Test_Performance_Fullname">效能</string>
@@ -46,9 +48,9 @@
     <string name="Test_Psiphon_Fullname">Psiphon 測試</string>
     <string name="Test_Tor_Fullname">Tor 測試</string>
     <string name="Test_Signal_Fullname">Signal 測試</string>
-    <string name="TestResults_Overview_Title">測試結果</string>
-    <string name="TestResults_Overview_Tab_Label">測試結果</string>
-    <string name="TestResults_Overview_Hero_Tests">測試</string>
+
+
+    <string name="TestResults">Results</string>
     <string name="TestResults_Overview_Hero_Networks">網路</string>
     <string name="TestResults_Overview_Hero_DataUsage">流量數據使用</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">尚未進行任何測試，請試試執行一次！</string>
@@ -215,9 +217,9 @@
     <string name="Onboarding_DefaultSettings_Paragraph">我們盡量不會發佈用戶 IP 位置或是其它可能辨識個人資料的資訊。\n\n可進一步了解[ONNI 資料政策](https://ooni.io/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">變更預設</string>
 
+
     <string name="AddDescriptor_Settings">測試設定</string>
     <string name="AddDescriptor_AutoRun">自動進行測試</string>
-    <string name="LoadingScreen_Runv2_Failure">錯誤</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">檢查更新</string>
     <string name="Snackbar_ResultsNotUploaded_Text">未上傳的</string>
@@ -247,6 +249,7 @@
     <string name="Tray_Notification_Check_Updates">檢查更新</string>
     <string name="Tray_Notification_Checking_Updates">正在檢查更新...</string>
 
+    <string name="Modal_Hide">隱藏</string>
     <string name="OONIRun_Run">執行</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">測試中</string>
@@ -264,8 +267,11 @@
     <string name="Common_Next">下一個</string>
     <string name="Common_Previous">前一個</string>
     <string name="Common_Share">分享</string>
+    <string name="Common_Dismiss">退訂</string>
+    <string name="Common_Search">搜尋</string>
     <string name="Common_Today">今天</string>
     <string name="Common_Yesterday">昨天</string>
+    <string name="Common_Total">總計</string>
     <string name="Common_Ago">%1$s 前</string>
     <string name="Common_Months_January">一月</string>
     <string name="Common_Months_February">二月</string>

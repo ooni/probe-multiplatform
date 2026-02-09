@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Dashboard</string>
-    <string name="Dashboard_Overview_LatestTest">Laatste test:</string>
     <string name="Dashboard_Overview_Estimated">Geschat:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Kies websites</string>
     <string name="Dashboard_Running_Running">Wordt uitgevoerd</string>
@@ -9,12 +8,15 @@
     <string name="Dashboard_Running_Stopping_Title">Stoppen met testen…</string>
     <string name="Dashboard_Running_Stopping_Notice">De momenteel lopende tests worden voltooid, een ogenblik geduld...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in gebruik</string>
+    <string name="Dashboard_TestsMoved_Title">Testen</string>
+    <string name="Dashboard_Articles_Report">Inzending</string>
     <string name="Dashboard_Runv2_Overview_Description">Gemaakt door %1$s op %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ongedaan maken</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Beoordeling</string>
     <string name="Dashboard_Update_Restart">Herstarten</string>
 
 
+    <string name="Tests_Title">Testen</string>
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Chatprogramma’s</string>
     <string name="Test_Performance_Fullname">Prestaties</string>
@@ -31,9 +33,9 @@
     <string name="Test_Psiphon_Fullname">Psiphon-test</string>
     <string name="Test_Tor_Fullname">Tor-test</string>
     <string name="Test_Signal_Fullname">Signal-test</string>
-    <string name="TestResults_Overview_Title">Test Resultaten</string>
-    <string name="TestResults_Overview_Tab_Label">Test Resultaten</string>
-    <string name="TestResults_Overview_Hero_Tests">Testen</string>
+
+
+    <string name="TestResults">Resultaten</string>
     <string name="TestResults_Overview_Hero_Networks">Netwerken</string>
     <string name="TestResults_Overview_Hero_DataUsage">Gegevensgebruik</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Er zijn nog geen tests uitgevoerd. Probeer er een te draaien!</string>
@@ -201,9 +203,9 @@
     <string name="Onboarding_DefaultSettings_Paragraph">We doen ons best om uw IP-adres of andere mogelijk persoonlijk identificeerbare informatie niet te publiceren.\n\nLees meer via [OONI\'s gegevensbeleid](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Standaard-inst. wijzigen</string>
 
+
     <string name="AddDescriptor_Settings">Testen van de instellingen</string>
     <string name="AddDescriptor_AutoRun">Tests automatisch uitvoeren</string>
-    <string name="LoadingScreen_Runv2_Failure">Fout</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Niet geüpload</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Sommige zijn niet geüpload</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Alles Uploaden</string>
@@ -232,6 +234,7 @@
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
     <string name="Tray_Notification_Checking_Updates">Bezig met controleren op updates...</string>
 
+    <string name="Modal_Hide">Verberg</string>
     <string name="OONIRun_Run">Voer uit</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testen </string>
@@ -249,8 +252,12 @@
     <string name="Common_Next">Volgende</string>
     <string name="Common_Previous">Vorige</string>
     <string name="Common_Share">Delen</string>
+    <string name="Common_Dismiss">Afwijzen</string>
+    <string name="Common_Search">Zoeken</string>
     <string name="Common_Today">Vandaag</string>
     <string name="Common_Yesterday">Gisteren</string>
+    <string name="Common_Month">maand</string>
+    <string name="Common_Total">Totaal</string>
     <string name="Common_Ago">%1$s geleden</string>
     <string name="Common_Months_January">januari</string>
     <string name="Common_Months_February">februari</string>
