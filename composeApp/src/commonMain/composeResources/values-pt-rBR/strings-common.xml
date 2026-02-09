@@ -376,7 +376,8 @@
     <string name="Onboarding_DefaultSettings_Button_Change">Alterar padrões</string>
 
 
-    <string name="AddDescriptor_EnterURL">Inserir um URL de OONI Run Link</string>
+    <string name="AddDescriptor_EnterURL">Inserir o URL de um Link de execução OONI</string>
+    <string name="AddDescriptor_URLInvalid">O URL não é de um Link de execução OONI válido</string>
     <string name="AddDescriptor_Settings">Configurações de Testes</string>
     <string name="AddDescriptor_Title">Instale o novo Link</string>
     <string name="AddDescriptor_AutoUpdate">Instalar atualizações automaticamente</string>
@@ -386,6 +387,7 @@
     <string name="AddDescriptor_InstallAndRun">Instalar &amp; Executar</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">URL sem suporte</string>
     <string name="LoadingScreen_Runv2_Message">Carregando Link</string>
+    <string name="LoadingScreen_Runv2_Failure">Erro ao carregar link</string>
     <string name="DescriptorUpdate_Updates">ATUALIZAÇÕES</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Verificar Atualizações</string>
@@ -395,6 +397,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Não carregado</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Alguns items não carregaram</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Carregar Todos</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">A carregar %1$s …</string>
     <string name="Toast_ResultsUploaded">Carregamento bem-sucedido</string>
     <string name="Modal_UploadFailed_Title">Falha ao carregar</string>
     <string name="Modal_UploadFailed_Paragraph">Falha ao carregar %1$s/%2$s medidas. O log de falhas foi compartilhado com as pessoas que desenvolvem o OONI.</string>
@@ -434,7 +437,10 @@
     <string name="Desktop_Quit">Fechar</string>
     <string name="Tray_Notification_Check_Updates">Verificar Atualizações</string>
     <string name="Tray_Notification_Updates_Available">Atualização Disponível!</string>
+    <string name="Tray_Notification_Checking_Updates">Procurando por atualizações…</string>
+
     <string name="Modal_Hide">Esconder</string>
+    <string name="Modal_Quite_Prompt">Sair do OONI Probe?</string>
     <string name="OONIRun_Run">Executar</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testando</string>
