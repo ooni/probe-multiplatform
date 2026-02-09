@@ -251,7 +251,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Ekki sent inn</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Sumt var ekki sent inn</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Senda inn allt</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Sendi inn… %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Sendi inn… %1$s …</string>
     <string name="Toast_ResultsUploaded">Innsending tókst</string>
     <string name="Modal_UploadFailed_Title">Innsending mistókst</string>
     <string name="Modal_UploadFailed_Paragraph">Ekki tókst að senda inn %1$s/%2$s mælingar. Atvikaskránni með því sem brást hefur verið deilt til forritara OONI.</string>

@@ -5,8 +5,8 @@
     <string name="Dashboard_Overview_ChooseWebsites">Выберите сайты</string>
     <string name="Dashboard_Running_Running">Процесс:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Осталось примерно:</string>
-    <string name="Dashboard_Running_Stopping_Title">Останавливаем тест...</string>
-    <string name="Dashboard_Running_Stopping_Notice">Заканчиваем текущее тесты, пожалуйста подождите....</string>
+    <string name="Dashboard_Running_Stopping_Title">Останавливаем тест…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Заканчиваем текущее тесты, пожалуйста подождите….</string>
     <string name="Dashboard_Running_ProxyInUse">Используется прокси</string>
     <string name="Dashboard_TestsMoved_Title">Тесты</string>
     <string name="Dashboard_RunTests_Title">Протестировать</string>
@@ -330,7 +330,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Не загружено</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Загружено частично</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Загрузить все</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Загружаем %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Загружаем %1$s …</string>
     <string name="Toast_ResultsUploaded">Загрузка успешно завершена</string>
     <string name="Modal_UploadFailed_Title">Не удалось загрузить</string>
     <string name="Modal_UploadFailed_Paragraph">Нам не удалось загрузить измерения %1$s/%2$s. Журнал сбоев был передан разработчикам OONI.</string>
@@ -371,7 +371,7 @@
     <string name="Desktop_Quit">Выход</string>
     <string name="Tray_Notification_Check_Updates">Проверить наличие обновлений</string>
     <string name="Tray_Notification_Updates_Available">Доступно обновление!</string>
-    <string name="Tray_Notification_Checking_Updates">Проверка обновлений ...</string>
+    <string name="Tray_Notification_Checking_Updates">Проверка обновлений …</string>
 
     <string name="Modal_Hide">Скрыть</string>
     <string name="OONIRun_Run">Запустить</string>

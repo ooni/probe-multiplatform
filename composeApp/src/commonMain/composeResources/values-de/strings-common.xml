@@ -6,7 +6,7 @@
     <string name="Dashboard_Running_Running">Laufend:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Voraussichtliche Restzeit:</string>
     <string name="Dashboard_Running_Stopping_Title">Test wird gestoppt …</string>
-    <string name="Dashboard_Running_Stopping_Notice">Fertigstellung der aktuell ausstehenden Tests, bitte warten ...</string>
+    <string name="Dashboard_Running_Stopping_Notice">Fertigstellung der aktuell ausstehenden Tests, bitte warten …</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in Verwendung</string>
     <string name="Dashboard_TestsMoved_Title">Tests</string>
     <string name="Dashboard_RunTests_Title">Führe Tests aus</string>
@@ -357,7 +357,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Nicht hochgeladen</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Manche nicht hochgeladen</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Alle hochladen</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Hochladen von %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Hochladen von %1$s …</string>
     <string name="Toast_ResultsUploaded">Hochladen war erfolgreich</string>
     <string name="Modal_UploadFailed_Title">Hochladen fehlgeschlagen</string>
     <string name="Modal_UploadFailed_Paragraph">Wir haben es nicht geschafft, %1$s/%2$s Messungen hochzuladen. Das Fehlerprotokoll wurde den OONI-Entwicklern zur Verfügung gestellt.</string>
@@ -395,7 +395,7 @@
     <string name="Desktop_Quit">Beenden</string>
     <string name="Tray_Notification_Check_Updates">Auf Aktualisierungen prüfen</string>
     <string name="Tray_Notification_Updates_Available">Aktualisierung verfügbar!</string>
-    <string name="Tray_Notification_Checking_Updates">Suche nach Updates...</string>
+    <string name="Tray_Notification_Checking_Updates">Suche nach Updates…</string>
 
     <string name="Modal_Hide">Verstecken</string>
     <string name="OONIRun_Run">Ausführen</string>

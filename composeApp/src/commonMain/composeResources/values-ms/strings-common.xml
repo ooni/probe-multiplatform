@@ -1,11 +1,11 @@
 <resources>
 
     <string name="Dashboard_Overview_Estimated">Anggaran:</string>
-    <string name="Dashboard_Overview_ChooseWebsites">Pilih tapak web:</string>
+    <string name="Dashboard_Overview_ChooseWebsites">Pilih tapak web</string>
     <string name="Dashboard_Running_Running">Sedang dijalankan:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Anggaran baki masa:</string>
-    <string name="Dashboard_Running_Stopping_Title">Menghentikan ujian...</string>
-    <string name="Dashboard_Running_Stopping_Notice">Menghabiskan ujian yang sedang dijalankan, sila tunggu...</string>
+    <string name="Dashboard_Running_Stopping_Title">Menghentikan ujian…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Menghabiskan ujian yang sedang dijalankan, sila tunggu…</string>
     <string name="Dashboard_TestsMoved_Title">Ujian-ujian</string>
     <string name="Tests_Title">Ujian-ujian</string>
     <string name="Test_Websites_Fullname">Tapak-tapak web</string>

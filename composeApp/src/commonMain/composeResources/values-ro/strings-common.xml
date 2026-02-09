@@ -190,7 +190,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Nu s-a încărcat</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Unele nu s-au încărcat</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Încărcarei toate</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Se încarcă %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Se încarcă %1$s …</string>
     <string name="Toast_ResultsUploaded">Încărcare realizată cu succes</string>
     <string name="Modal_UploadFailed_Title">Incărcare eșuată</string>
     <string name="Modal_UploadFailed_Paragraph">Nu am reușit să încărcăm măsurările %1$s / %2$s. Jurnalul de erori a fost partajat cu dezvoltatorii OONI.</string>
@@ -200,7 +200,7 @@
     <string name="Modal_DoYouWantToDeleteAllTests">Doriți să ștergeți toate rezultatele testelor?</string>
     <string name="Modal_Delete">Ștergeți</string>
     <string name="Modal_ReRun_Title">Reexecutați testul</string>
-    <string name="Modal_ReRun_Websites_Title">Sunteți pe cale să testați site-urile {websNumber}.</string>
+    <string name="Modal_ReRun_Websites_Title">Sunteți pe cale să testați site-urile %1$s.</string>
     <string name="Modal_ReRun_Websites_Run">Executare</string>
     <string name="Modal_Error_CantDownloadURLs">Imposibil de descărcat lista URL. Vă rugăm să încercați din nou.</string>
     <string name="Modal_Error_NoInternet">Nu este conexiune la internet</string>
@@ -208,7 +208,7 @@
     <string name="Modal_CustomURL_NotSaved">URL-urile dvs. nu vor fi salvate când părăsiți acest ecran. Sigur doriți să părăsiți acest ecran?</string>
     <string name="Desktop_Quit">Quit</string>
     <string name="Tray_Notification_Check_Updates">Verificați pentru actualizări</string>
-    <string name="Tray_Notification_Checking_Updates">Verific pentru actualizări...</string>
+    <string name="Tray_Notification_Checking_Updates">Verific pentru actualizări…</string>
 
     <string name="Modal_Hide">Ascunde</string>
     <string name="OONIRun_Run">Executare</string>
@@ -219,7 +219,7 @@
     <string name="Common_Refresh">Actualizează</string>
     <string name="Common_Collapse">Restrânge</string>
     <string name="Common_Expand">Extinde</string>
-    <string name="Common_Enable">Activează:</string>
+    <string name="Common_Enable">Activează</string>
     <string name="Common_Yes">Da</string>
     <string name="Common_Save">Salvare</string>
     <string name="Common_Clear">Clear</string>

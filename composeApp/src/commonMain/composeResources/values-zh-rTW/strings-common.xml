@@ -5,8 +5,8 @@
     <string name="Dashboard_Overview_ChooseWebsites">選擇網站</string>
     <string name="Dashboard_Running_Running">執行:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">預估剩餘時間:</string>
-    <string name="Dashboard_Running_Stopping_Title">停止測試...</string>
-    <string name="Dashboard_Running_Stopping_Notice">完成當前該處理的測試，請稍等....</string>
+    <string name="Dashboard_Running_Stopping_Title">停止測試…</string>
+    <string name="Dashboard_Running_Stopping_Notice">完成當前該處理的測試，請稍等….</string>
     <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
     <string name="Dashboard_TestsMoved_Title">測試</string>
     <string name="Dashboard_RunTests_Title">執行測試</string>
@@ -167,7 +167,7 @@
     <string name="CategoryCode_MILX_Description">恐怖主義、暴力激進或分離運動</string>
     <string name="CategoryCode_HATE_Description">因種族，性別，性別認同或其他特徵而詆毀特定群體</string>
     <string name="CategoryCode_NEWS_Description">主要新聞網站、地區新聞媒體和獨立媒體</string>
-    <string name="CategoryCode_XED_Description">性敎育議題，包括避孕、性病、強暴防制與墮胎\n</string>
+    <string name="CategoryCode_XED_Description">性敎育議題，包括避孕、性病、強暴防制與墮胎</string>
     <string name="CategoryCode_PUBH_Description">公共衛生議題，例如新冠肺炎、HIV/愛滋病, Ebol</string>
     <string name="CategoryCode_GMB_Description">線上賭博與下注</string>
     <string name="CategoryCode_ANON_Description">匿名化，審查規避和加密</string>
@@ -225,7 +225,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">未上傳的</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">部份未上傳的</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">上傳全部</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">上傳 %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">上傳 %1$s …</string>
     <string name="Toast_ResultsUploaded">成功上傳</string>
     <string name="Modal_UploadFailed_Title">上傳失敗</string>
     <string name="Modal_UploadFailed_Paragraph">無法上傳 %1$s/%2$s 測量，錯誤記錄已分享給 OONI 開發者。</string>
@@ -247,7 +247,7 @@
     <string name="Modal_CustomURL_NotSaved">關閉此畫面後不會儲存 URL 記錄，確定要離開此畫面嗎？  </string>
     <string name="Desktop_Quit">退出</string>
     <string name="Tray_Notification_Check_Updates">檢查更新</string>
-    <string name="Tray_Notification_Checking_Updates">正在檢查更新...</string>
+    <string name="Tray_Notification_Checking_Updates">正在檢查更新…</string>
 
     <string name="Modal_Hide">隱藏</string>
     <string name="OONIRun_Run">執行</string>

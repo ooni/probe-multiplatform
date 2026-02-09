@@ -381,7 +381,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Not uploaded</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Some not uploaded</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Upload All</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Uploading %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Uploading %1$s …</string>
     <string name="Toast_ResultsUploaded">Upload successful</string>
     <string name="Modal_UploadFailed_Title">Upload failed</string>
     <string name="Modal_UploadFailed_Paragraph">We have failed to upload %1$s/%2$s measurements. The failure log has been shared with OONI developers.</string>
@@ -419,7 +419,7 @@
     <string name="Desktop_Quit">Quit</string>
     <string name="Tray_Notification_Check_Updates">Check for Updates</string>
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
-    <string name="Tray_Notification_Checking_Updates">Checking for updates...</string>
+    <string name="Tray_Notification_Checking_Updates">Checking for updates…</string>
 
     <string name="Modal_Hide">Hide</string>
     <string name="Modal_Quite_Prompt">Quit OONI Probe?</string>

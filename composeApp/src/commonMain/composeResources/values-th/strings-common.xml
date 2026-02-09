@@ -5,8 +5,8 @@
     <string name="Dashboard_Overview_ChooseWebsites">เลือกเว็บไซต์</string>
     <string name="Dashboard_Running_Running">กำลังทำงาน:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">เวลาที่เหลือโดยประมาณ:</string>
-    <string name="Dashboard_Running_Stopping_Title">กำลังหยุดทดสอบ...</string>
-    <string name="Dashboard_Running_Stopping_Notice">กำลังทำการทดสอบที่ค้างอยู่ให้เสร็จ กรุณารอสักครู่...</string>
+    <string name="Dashboard_Running_Stopping_Title">กำลังหยุดทดสอบ…</string>
+    <string name="Dashboard_Running_Stopping_Notice">กำลังทำการทดสอบที่ค้างอยู่ให้เสร็จ กรุณารอสักครู่…</string>
     <string name="Dashboard_Running_ProxyInUse">พร็อกซีที่ใช้อยู่</string>
     <string name="Dashboard_TestsMoved_Title">การทดสอบ</string>
     <string name="Dashboard_Articles_Report">รายงาน</string>
@@ -203,7 +203,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">ไม่ถูกอัปโหลด</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">บางส่วนไม่ได้ถูกอัปโหลด</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">อัปโหลดทั้งหมด</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">กำลังอัปโหลด %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">กำลังอัปโหลด %1$s …</string>
     <string name="Toast_ResultsUploaded">อัปโหลดสำเร็จ</string>
     <string name="Modal_UploadFailed_Title">อัปโหลดไม่สำเร็จ</string>
     <string name="Modal_UploadFailed_Paragraph">เราอัปโหลดการตรวจวัด %1$s/%2$s ไม่สำเร็จ ปูมความล้มเหลวได้ถูกส่งให้กับทีมพัฒนา OONI แล้ว</string>

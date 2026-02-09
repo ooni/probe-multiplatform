@@ -5,8 +5,8 @@
     <string name="Dashboard_Overview_ChooseWebsites">Valitse verkkosivut</string>
     <string name="Dashboard_Running_Running">Suoritetaan:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Arvioitu jäljellä oleva aika:</string>
-    <string name="Dashboard_Running_Stopping_Title">Pysäytetään testiä...</string>
-    <string name="Dashboard_Running_Stopping_Notice">Lopetetaan keskeneräisiä testejä, odota...</string>
+    <string name="Dashboard_Running_Stopping_Title">Pysäytetään testiä…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Lopetetaan keskeneräisiä testejä, odota…</string>
     <string name="Dashboard_Running_ProxyInUse">Välityspalvelin käytössä</string>
     <string name="Dashboard_TestsMoved_Title">Testit</string>
     <string name="Dashboard_Articles_Report">ilmoitus</string>
@@ -165,7 +165,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Ei lähetetty</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Joitakin ei lähetetty</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Lähetä kaikki</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Lähetetään %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Lähetetään %1$s …</string>
     <string name="Toast_ResultsUploaded">Lähetys onnistui</string>
     <string name="Modal_UploadFailed_Title">Lähetys epäonnistui</string>
     <string name="Modal_UploadFailed_Paragraph">Epäonnistuimme %1$s/%2$s mittauksen lähetyksessä. Vikaantumisloki on jaettu OONI-kehittäjien kanssa.</string>

@@ -194,7 +194,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">अपलोड नहीं किया गया</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">कुछ अपलोड नहीं किए गए</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">सभी अपलोड करें</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">अपलोड कर रहे हें %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">अपलोड कर रहे हें %1$s …</string>
     <string name="Toast_ResultsUploaded">अपलोड सफल रहा।</string>
     <string name="Modal_UploadFailed_Title">अपलोड विफ़ल रहा।</string>
     <string name="Modal_UploadFailed_Paragraph">हम %1$s / %2$s माप अपलोड करने में विफल रहे हैं। विफलता लॉग OONI डेवलपर्स के साथ साझा किया गया है।</string>

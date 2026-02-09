@@ -86,7 +86,7 @@
     <string name="Desktop_Quit">Zamknij</string>
     <string name="Tray_Notification_Check_Updates">Sprawdź aktualizacje</string>
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
-    <string name="Tray_Notification_Checking_Updates">Sprawdzanie aktualizacji...</string>
+    <string name="Tray_Notification_Checking_Updates">Sprawdzanie aktualizacji…</string>
 
     <string name="Modal_Hide">Ukryj</string>
     <!-- Android notification channel name. -->

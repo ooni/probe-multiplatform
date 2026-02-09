@@ -6,7 +6,7 @@
     <string name="Dashboard_Running_Running">Đang chạy:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Ước lượng thời gian còn lại:</string>
     <string name="Dashboard_Running_Stopping_Title">Dừng kiểm tra</string>
-    <string name="Dashboard_Running_Stopping_Notice">Đang hoàn tất các bài kiểm tra dở dang, vui lòng chờ đợi....</string>
+    <string name="Dashboard_Running_Stopping_Notice">Đang hoàn tất các bài kiểm tra dở dang, vui lòng chờ đợi….</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy đang sử dụng</string>
     <string name="Dashboard_TestsMoved_Title">Các bài kiểm tra</string>
     <string name="Dashboard_Articles_Report">Báo cáo</string>
@@ -204,7 +204,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Chưa được tải lên</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Một số chưa được tải lên</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Tải lên tất cả</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Đang tải lên %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Đang tải lên %1$s …</string>
     <string name="Toast_ResultsUploaded">Tải lên thành công</string>
     <string name="Modal_UploadFailed_Title">Tải lên thất bại</string>
     <string name="Modal_UploadFailed_Paragraph">Chúng tôi không thể tải lên %1$s / %2$s kết quả đo lường. Nhật ký lỗi đã được chia sẻ với các nhà phát triển OONI.</string>
