@@ -1,16 +1,18 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Paneli kryesor</string>
-    <string name="Dashboard_Overview_LatestTest">Testimi fundit:</string>
     <string name="Dashboard_Overview_Estimated">Përllogaritur:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Zgjidhni faqet</string>
     <string name="Dashboard_Running_Running">Duke përdorur:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Koha që ka mbetur me përafërsi:</string>
+    <string name="Dashboard_TestsMoved_Title">Testet</string>
+    <string name="Dashboard_Articles_Report">Raportim</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Zhbëje</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Shqyrtoni</string>
     <string name="Dashboard_Update_Restart">Rihap</string>
 
 
+    <string name="Tests_Title">Testet</string>
     <string name="Test_Websites_Fullname">Faqe</string>
     <string name="Test_InstantMessaging_Fullname">Mesazhe</string>
     <string name="Test_Performance_Fullname">Suksesshmëri</string>
@@ -25,9 +27,7 @@
     <string name="Test_FacebookMessenger_Fullname">Testim Facebook Messenger</string>
     <string name="Test_Psiphon_Fullname">Testim i Psiphon</string>
     <string name="Test_Tor_Fullname">Testimi i Tor</string>
-    <string name="TestResults_Overview_Title">Rezultatet e testit</string>
-    <string name="TestResults_Overview_Tab_Label">Rezultatet e testit</string>
-    <string name="TestResults_Overview_Hero_Tests">Testet</string>
+    <string name="TestResults">Përfundime</string>
     <string name="TestResults_Overview_Hero_Networks">Rrjete</string>
     <string name="TestResults_Overview_Hero_DataUsage">Përdorimi i të dhënave</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Asnjë test nuk është kryer deri tani. Bëj një test tani!</string>
@@ -177,8 +177,8 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Ora dhe data e testimit</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Ndysho të parazgjedhurat</string>
 
+
     <string name="AddDescriptor_Settings">Provoni Konfigurimin</string>
-    <string name="LoadingScreen_Runv2_Failure">Gabim</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Kontrollo për Përditësime</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Nuk është ngarkuar</string>
@@ -200,6 +200,7 @@
     <string name="Modal_CustomURL_NotSaved">URL-të nuk do ruhen pasi të largoheni nga ky ekran. Jeni të sigurt që doni të largoheni nga ky ekran?</string>
     <string name="Desktop_Quit">Dilni</string>
     <string name="Tray_Notification_Check_Updates">Kontrollo për Përditësime</string>
+    <string name="Modal_Hide">Fshihe</string>
     <string name="OONIRun_Run">Përdor</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testim</string>
@@ -215,6 +216,10 @@
     <string name="Common_Next">Pasuesi</string>
     <string name="Common_Previous">I mëparshmi</string>
     <string name="Common_Share">Shpërndaj</string>
+    <string name="Common_Dismiss">Hidhe tej</string>
+    <string name="Common_Search">Kërko</string>
+    <string name="Common_Month">Muaji</string>
+    <string name="Common_Total">Gjithsej</string>
     <plurals name="Common_Days">
         <item quantity="one">%1$d dite</item>
         <item quantity="other">%1$d ditësh</item>
