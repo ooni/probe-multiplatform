@@ -5,8 +5,8 @@
     <string name="Dashboard_Overview_ChooseWebsites">Επέλεξε ιστοσελίδες</string>
     <string name="Dashboard_Running_Running">Εκτελείται:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Εκτιμώμενος χρόνος που απομένει:</string>
-    <string name="Dashboard_Running_Stopping_Title">Η δοκιμή σταματάει…</string>
-    <string name="Dashboard_Running_Stopping_Notice">Τελειώνουμε τις δοκιμές που εκκρεμούν, παρακαλώ περίμενε…</string>
+    <string name="Dashboard_Running_Stopping_Title">Η δοκιμή σταματάει...</string>
+    <string name="Dashboard_Running_Stopping_Notice">Τελειώνουμε τις δοκιμές που εκκρεμούν, παρακαλώ περίμενε...</string>
     <string name="Dashboard_Running_ProxyInUse">Χρησιμοποιείται proxy</string>
     <string name="Dashboard_TestsMoved_Title">Δοκιμές</string>
     <string name="Dashboard_Articles_Report">Αναφορά</string>
@@ -178,7 +178,7 @@
     <string name="CategoryCode_MISC_Description">Ιστοσελίδες που δεν έχουν κατηγοριοποιηθεί ακόμα</string>
 
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Συνέχεια</string>
-    <string name="Onboarding_ThingsToKnow_Title">Έχε υπόψιν σου ότι…</string>
+    <string name="Onboarding_ThingsToKnow_Title">Έχε υπόψιν σου ότι...</string>
     <string name="Onboarding_ThingsToKnow_Button">Κατάλαβα</string>
     <string name="Onboarding_ThingsToKnow_LearnMore">Μάθετε περισσότερα</string>
     <string name="Onboarding_PopQuiz_Title">Κουίζ</string>
@@ -212,7 +212,6 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Δεν ανέβηκαν</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Μερικά δεν ανέβηκαν</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Ανέβασμα όλων</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Ανεβαίνει το %1$s …</string>
     <string name="Toast_ResultsUploaded">Επιτυχές ανέβασμα</string>
     <string name="Modal_UploadFailed_Title">Αποτυχία ανεβάσματος</string>
     <string name="Modal_UploadFailed_Paragraph">Αποτύχαμε να ανεβάσουμε %1$s/%2$s μετρήσεις. Το αρχείο καταγραφής αποτυχιών έχει μοιραστεί με τους προγραμματιστές/τριες του OONI.</string>
@@ -234,8 +233,6 @@
     <string name="Modal_CustomURL_NotSaved">Οι ιστοσελίδες σου δε θα αποθηκευτούν όταν φύγεις από αυτήν την οθόνη. Είσαι σίγουρος/η ότι θέλεις να φύγεις από αυτήν την οθόνη;</string>
     <string name="Desktop_Quit">Έξοδος</string>
     <string name="Tray_Notification_Check_Updates">Έλεγχος για ενημερώσεις</string>
-    <string name="Tray_Notification_Checking_Updates">Έλεγχος για ενημερώσεις…</string>
-
     <string name="Modal_Hide">Απόκρυψη</string>
     <string name="OONIRun_Run">Εκτέλεση</string>
     <!-- Android notification channel name. -->
