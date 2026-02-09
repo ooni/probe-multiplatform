@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Dashboard</string>
-    <string name="Dashboard_Overview_LatestTest">Ultimo test:</string>
     <string name="Dashboard_Overview_Estimated">Tempo stimato:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Scegli i siti</string>
     <string name="Dashboard_Running_Running">Eseguendo:</string>
@@ -9,12 +8,15 @@
     <string name="Dashboard_Running_Stopping_Title">Interrompendo il test…</string>
     <string name="Dashboard_Running_Stopping_Notice">Finendo di eseguire i test in corso, attendere prego…</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in uso</string>
+    <string name="Dashboard_TestsMoved_Title">Test</string>
+    <string name="Dashboard_Articles_Report">Segnalazione</string>
     <string name="Dashboard_Runv2_Overview_Description">Creata da %1$s il {%time}</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Annulla</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Rivedi</string>
     <string name="Dashboard_Update_Restart">Riavvia</string>
 
 
+    <string name="Tests_Title">Test</string>
     <string name="Test_Websites_Fullname">Siti web</string>
     <string name="Test_InstantMessaging_Fullname">Messaggistica istantanea</string>
     <string name="Test_Performance_Fullname">Prestazioni</string>
@@ -31,9 +33,9 @@
     <string name="Test_Psiphon_Fullname">Test Psiphon</string>
     <string name="Test_Tor_Fullname">Test Tor</string>
     <string name="Test_Signal_Fullname">Test di Signal</string>
-    <string name="TestResults_Overview_Title">Risultati dei test</string>
-    <string name="TestResults_Overview_Tab_Label">Risultati dei test</string>
-    <string name="TestResults_Overview_Hero_Tests">Test</string>
+
+
+    <string name="TestResults">Risultati</string>
     <string name="TestResults_Overview_Hero_Networks">Reti</string>
     <string name="TestResults_Overview_Hero_DataUsage">Utilizzo dati</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Nessun test è stato eseguito. Prova ad eseguirne uno!</string>
@@ -200,9 +202,9 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Facciamo del nostro meglio per evitare di pubblicare il tuo indirizzo IP o altre informazioni personali.\n\nPer maggiori informazioni vedi la [Data Policy di OONI](https://ooni.org/about/data-policy/)</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Cambia i default</string>
 
+
     <string name="AddDescriptor_Settings">Fai un test delle impostazioni</string>
     <string name="AddDescriptor_AutoRun">Esegui test automaticamente</string>
-    <string name="LoadingScreen_Runv2_Failure">Errore</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Cerca aggiornamenti</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Non caricati</string>
@@ -229,6 +231,7 @@
     <string name="Tray_Notification_Updates_Available">Aggiornamento Disponibile!</string>
     <string name="Tray_Notification_Checking_Updates">Controllo gli aggiornamenti...</string>
 
+    <string name="Modal_Hide">Nascosto</string>
     <string name="OONIRun_Run">Esegui</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Verifica in corso</string>
@@ -246,8 +249,12 @@
     <string name="Common_Next">Successivo</string>
     <string name="Common_Previous">Precedente</string>
     <string name="Common_Share">Condividi</string>
+    <string name="Common_Dismiss">Ignora</string>
+    <string name="Common_Search">Cerca</string>
     <string name="Common_Today">Oggi</string>
     <string name="Common_Yesterday">Ieri</string>
+    <string name="Common_Month">Mese</string>
+    <string name="Common_Total">Totale</string>
     <string name="Common_Ago">%1$s fa</string>
     <string name="Common_Months_January">Gennaio</string>
     <string name="Common_Months_February">Febbraio</string>
