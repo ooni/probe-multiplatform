@@ -1,16 +1,17 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Oversikt</string>
-    <string name="Dashboard_Overview_LatestTest">Siste test:</string>
     <string name="Dashboard_Overview_Estimated">Estimert:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Velg nettsteder</string>
     <string name="Dashboard_Running_Running">Kjører:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Beregnet tid som gjenstår:</string>
+    <string name="Dashboard_TestsMoved_Title">Tester</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Angre</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Ettergå</string>
     <string name="Dashboard_Update_Restart">Start på nytt</string>
 
 
+    <string name="Tests_Title">Tester</string>
     <string name="Test_Websites_Fullname">Nettsider</string>
     <string name="Test_InstantMessaging_Fullname">Lynmeldinger</string>
     <string name="Test_Performance_Fullname">Ytelse</string>
@@ -18,9 +19,6 @@
     <string name="Test_Experimental_Fullname">Eksperimentelt</string>
     <string name="Test_NDT_Fullname">NDT-hastighetstest</string>
     <string name="Test_Dash_Fullname">DASH-strømmetest</string>
-    <string name="TestResults_Overview_Title">Testresultater</string>
-    <string name="TestResults_Overview_Tab_Label">Testresultater</string>
-    <string name="TestResults_Overview_Hero_Tests">Tester</string>
     <string name="TestResults_Overview_Hero_Networks">Nettverk</string>
     <string name="TestResults_Overview_Hero_DataUsage">Databruk</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Ingen tester har blitt kjørt ennå. Prøv å kjøre en!</string>
@@ -102,8 +100,8 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Nettverksinformasjon (inkludert autonome systemnummer)</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Endre standardinnstilling</string>
 
+
     <string name="AddDescriptor_Settings">Test innstillinger</string>
-    <string name="LoadingScreen_Runv2_Failure">Feil</string>
     <string name="Modal_UploadFailed_Title">Opplasting mislyktes</string>
     <string name="Modal_Retry">Prøv igjen</string>
     <string name="Modal_Cancel">Avbryt</string>
@@ -114,6 +112,7 @@
     <string name="Desktop_Quit">Avslutt</string>
     <string name="Tray_Notification_Checking_Updates">Sjekker for oppdateringer...</string>
 
+    <string name="Modal_Hide">Gjem</string>
     <string name="OONIRun_Run">Kjør</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Tester</string>
@@ -127,6 +126,8 @@
     <string name="Common_Next">Neste</string>
     <string name="Common_Previous">Forrige</string>
     <string name="Common_Share">Del</string>
+    <string name="Common_Search">Søk</string>
+    <string name="Common_Total">Total</string>
     <string name="Common_Ago">%1$s siden</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
