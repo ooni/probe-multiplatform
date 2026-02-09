@@ -1,6 +1,7 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Панель управління</string>
+    <string name="Dashboard_Articles_Report">Звіт</string>
     <string name="Dashboard_RunV2_UpdateTag">ОНОВИТИ</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Скасувати</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Огляд</string>
@@ -68,7 +69,6 @@
     <string name="Onboarding_Notifications_Skip">Пропустити</string>
     <string name="Onboarding_DefaultSettings_Title">Налаштування за промовчанням</string>
     <string name="AddDescriptor_Settings">Перевірити Настройки</string>
-    <string name="LoadingScreen_Runv2_Failure">Помилка</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Перевірити на оновлення</string>
     <string name="Modal_UploadFailed_Title">Завантаження невдалося</string>
@@ -80,6 +80,7 @@
     <string name="Modal_CustomURL_Title_NotSaved">Ви впевнені?</string>
     <string name="Desktop_Quit">Вийти</string>
     <string name="Tray_Notification_Check_Updates">Перевірити на оновлення</string>
+    <string name="Modal_Hide">Приховати</string>
     <string name="Common_Back">Назад</string>
     <string name="Common_Close">Закрити</string>
     <string name="Common_Refresh">Оновити</string>
@@ -92,8 +93,12 @@
     <string name="Common_Next">Вперед</string>
     <string name="Common_Previous">Попередній</string>
     <string name="Common_Share">Поділитися</string>
+    <string name="Common_Dismiss">Відхилити</string>
+    <string name="Common_Search">Пошук</string>
     <string name="Common_Today">Сьогодні</string>
     <string name="Common_Yesterday">Вчора</string>
+    <string name="Common_Month">Місяць</string>
+    <string name="Common_Total">Усього</string>
     <plurals name="Common_Days">
         <item quantity="one">%1$d день</item>
         <item quantity="few">%1$d дні</item>
