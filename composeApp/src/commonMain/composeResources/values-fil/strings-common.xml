@@ -1,6 +1,7 @@
 <resources>
 
     <string name="Dashboard_Progress_ReviewLink_Action">Review</string>
+    <string name="TestResults">Results</string>
     <string name="TestResults_Overview_Hero_DataUsage">Paggamit ng datos</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Upload</string>
@@ -28,7 +29,6 @@
     <string name="Onboarding_Crash_Button_Yes">Oo</string>
     <string name="Onboarding_Crash_Button_No">Wala</string>
     <string name="AddDescriptor_Settings">Test Settings</string>
-    <string name="LoadingScreen_Runv2_Failure">Error</string>
     <string name="Modal_Retry">Subukang Muli</string>
     <string name="Modal_Cancel">Kanselahin</string>
     <string name="Modal_Delete">Burahin</string>
@@ -42,4 +42,6 @@
     <string name="Common_Next">Susunod</string>
     <string name="Common_Previous">Previous</string>
     <string name="Common_Share">Share</string>
+    <string name="Common_Search">Maghanap</string>
+    <string name="Common_Total">Total</string>
     </resources>
