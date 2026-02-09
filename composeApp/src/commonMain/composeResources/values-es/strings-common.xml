@@ -5,8 +5,8 @@
     <string name="Dashboard_Overview_ChooseWebsites">Elige sitios web</string>
     <string name="Dashboard_Running_Running">Ejecutando:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Tiempo restante estimado:</string>
-    <string name="Dashboard_Running_Stopping_Title">Deteniendo prueba...</string>
-    <string name="Dashboard_Running_Stopping_Notice">Finalizando las pruebas actualmente pendientes, por favor espera...</string>
+    <string name="Dashboard_Running_Stopping_Title">Deteniendo prueba…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Finalizando las pruebas actualmente pendientes, por favor espera…</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy en uso</string>
     <string name="Dashboard_TestsMoved_Title">Pruebas</string>
     <string name="Dashboard_RunTests_Title">Ejecutar pruebas</string>
@@ -175,7 +175,7 @@
     <string name="Settings_Language_Label">Idioma</string>
     <string name="Settings_Advanced_Label">Avanzado</string>
     <string name="Settings_Advanced_DebugLogs">Registros de depuración</string>
-    <string name="Settings_Advanced_RecentLogs">Opción A: (Traducción literal)\n\nVer registros recientes\n\nOpción B: (más apegada a la estructura de OONI):\nVer logs recientes</string>
+    <string name="Settings_Advanced_RecentLogs">Ver logs recientes</string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
         <item quantity="one">%1$d mes</item>
         <item quantity="many">%1$d meses</item>
@@ -323,7 +323,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">No subido</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Algunos no subidos</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Subir todo</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Subiendo %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Subiendo %1$s …</string>
     <string name="Toast_ResultsUploaded">Subida exitosa</string>
     <string name="Modal_UploadFailed_Title">La subida falló</string>
     <string name="Modal_UploadFailed_Paragraph">No hemos podido subir las medidas %1$s/%2$s. El registro de fallas ha sido compartido con los desarrolladores de OONI.</string>
@@ -362,7 +362,7 @@
     <string name="Desktop_Quit">Salir</string>
     <string name="Tray_Notification_Check_Updates">Buscar actualizaciones</string>
     <string name="Tray_Notification_Updates_Available">¡Actualización disponible!</string>
-    <string name="Tray_Notification_Checking_Updates">Comprobando si hay actualizaciones...</string>
+    <string name="Tray_Notification_Checking_Updates">Comprobando si hay actualizaciones…</string>
 
     <string name="Modal_Hide">Ocultar</string>
     <string name="OONIRun_Run">Ejecutar</string>

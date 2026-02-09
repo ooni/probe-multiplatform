@@ -369,7 +369,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Não enviado</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Alguns resultados não foram enviados</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Enviar Todos</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Enviando de %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Enviando de %1$s …</string>
     <string name="Toast_ResultsUploaded">Envio bem-sucedido</string>
     <string name="Modal_UploadFailed_Title">O envio falhou</string>
     <string name="Modal_UploadFailed_Paragraph">Falha ao enviar %1$s/%2$s medições. O log de falhas foi partilhado com os programadores do OONI.</string>

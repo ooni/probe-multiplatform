@@ -1,10 +1,10 @@
 <resources>
 
-    <string name="Dashboard_Overview_Estimated">ukudlambisela </string>
+    <string name="Dashboard_Overview_Estimated">ukudlambisela:</string>
     <string name="Dashboard_Overview_ChooseWebsites">ketha iwebusit</string>
-    <string name="Dashboard_Running_Running">gijimisa   </string>
-    <string name="Dashboard_Running_EstimatedTimeLeft">hlawumbisela isikhathi esisele </string>
-    <string name="Dashboard_Running_Stopping_Title">ukuhlowa kuyamiswa \nukumeswa kokuhlolwa</string>
+    <string name="Dashboard_Running_Running">gijimisa:</string>
+    <string name="Dashboard_Running_EstimatedTimeLeft">hlawumbisela isikhathi esisele:</string>
+    <string name="Dashboard_Running_Stopping_Title">ukumeswa kokuhlolwa</string>
     <string name="Dashboard_Running_Stopping_Notice">Sisaqedela ukuhlola, sisacela ulinde sisalende umphumelo</string>
     <string name="TestResults_NotAvailable">Akungeni </string>
     <string name="Settings_Websites_CustomURL_Run">Gijima</string>

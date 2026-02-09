@@ -5,7 +5,7 @@
     <string name="Dashboard_Overview_ChooseWebsites">ওয়েবসাইট নির্বাচন করুন</string>
     <string name="Dashboard_Running_Running">চলছে:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">আনুমানিক সময় বাকি:</string>
-    <string name="Dashboard_Running_Stopping_Title">পরীক্ষা বন্ধ করা হচ্ছে...</string>
+    <string name="Dashboard_Running_Stopping_Title">পরীক্ষা বন্ধ করা হচ্ছে…</string>
     <string name="Dashboard_Running_Stopping_Notice">অপেক্ষমান পরীক্ষাগুলো সম্পন্ন করা হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন…</string>
     <string name="Dashboard_Running_ProxyInUse">প্রক্সি ব্যবহার করা হচ্ছে</string>
     <string name="Dashboard_TestsMoved_Title">পরীক্ষাসমূহ</string>
@@ -133,7 +133,7 @@
     <string name="Modal_Error_NoInternet">ইন্টারনেট সংযোগ নেই!</string>
     <string name="Modal_CustomURL_Title_NotSaved">আপনি কি নিশ্চিত?</string>
     <string name="Desktop_Quit">বন্ধ</string>
-    <string name="Tray_Notification_Checking_Updates">আপডেট আছে কিনা দেখা হচ্ছে...</string>
+    <string name="Tray_Notification_Checking_Updates">আপডেট আছে কিনা দেখা হচ্ছে…</string>
 
     <string name="Modal_Hide">লুকান</string>
     <string name="OONIRun_Run">চালনা</string>

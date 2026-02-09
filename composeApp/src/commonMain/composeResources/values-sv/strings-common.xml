@@ -129,7 +129,7 @@
     <string name="Desktop_Quit">Avsluta</string>
     <string name="Tray_Notification_Check_Updates">Sök efter uppdateringar</string>
     <string name="Tray_Notification_Updates_Available">Uppdatering tillgänglig!</string>
-    <string name="Tray_Notification_Checking_Updates">Söker efter uppdateringar ...</string>
+    <string name="Tray_Notification_Checking_Updates">Söker efter uppdateringar …</string>
 
     <string name="Modal_Hide">Göm</string>
     <string name="OONIRun_Run">Kör</string>

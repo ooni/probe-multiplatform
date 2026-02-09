@@ -3,10 +3,10 @@
     <string name="Dashboard_Tab_Label">Dashboard</string>
     <string name="Dashboard_Overview_Estimated">Geschat:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Kies websites</string>
-    <string name="Dashboard_Running_Running">Wordt uitgevoerd</string>
+    <string name="Dashboard_Running_Running">Wordt uitgevoerd:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Schatting resterende tijd:</string>
     <string name="Dashboard_Running_Stopping_Title">Stoppen met testen…</string>
-    <string name="Dashboard_Running_Stopping_Notice">De momenteel lopende tests worden voltooid, een ogenblik geduld...</string>
+    <string name="Dashboard_Running_Stopping_Notice">De momenteel lopende tests worden voltooid, een ogenblik geduld…</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in gebruik</string>
     <string name="Dashboard_TestsMoved_Title">Testen</string>
     <string name="Dashboard_Articles_Report">Inzending</string>
@@ -209,7 +209,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Niet geüpload</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Sommige zijn niet geüpload</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Alles Uploaden</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">%1$s uploaden...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">%1$s uploaden…</string>
     <string name="Toast_ResultsUploaded">Succesvol geupload</string>
     <string name="Modal_UploadFailed_Title">Uploaden mislukt</string>
     <string name="Modal_UploadFailed_Paragraph">Het is ons niet gelukt om %1$s/%2$s metingen te uploaden. Het storingslogboek is gedeeld met OONI-ontwikkelaars.</string>
@@ -232,7 +232,7 @@
     <string name="Modal_CustomURL_NotSaved">Uw URL’s worden niet opgeslagen wanneer u dit scherm verlaat. Weet je zeker dat je dit scherm wilt verlaten?</string>
     <string name="Desktop_Quit">Stoppen</string>
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
-    <string name="Tray_Notification_Checking_Updates">Bezig met controleren op updates...</string>
+    <string name="Tray_Notification_Checking_Updates">Bezig met controleren op updates…</string>
 
     <string name="Modal_Hide">Verberg</string>
     <string name="OONIRun_Run">Voer uit</string>

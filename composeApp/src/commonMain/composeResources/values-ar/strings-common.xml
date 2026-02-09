@@ -5,7 +5,7 @@
     <string name="Dashboard_Overview_ChooseWebsites">اختر المواقع</string>
     <string name="Dashboard_Running_Running">جار التنفيذ:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">تقدير الوقت الباقي:</string>
-    <string name="Dashboard_Running_Stopping_Title">إيقاف الاختبار جار ... </string>
+    <string name="Dashboard_Running_Stopping_Title">إيقاف الاختبار جار … </string>
     <string name="Dashboard_Running_Stopping_Notice">يرجى الانتظار حتى الانتهاء من الاختبارات الجارية حاليّاً</string>
     <string name="Dashboard_Running_ProxyInUse">الوسيط يعمل</string>
     <string name="Dashboard_TestsMoved_Title">اختبارات</string>
@@ -251,7 +251,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">لم يتمّ الرفع</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">لم يتمّ رفع البعض</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">رفع الجميع</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">جارٍ تحميل %1$s ...</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">جارٍ تحميل %1$s …</string>
     <string name="Toast_ResultsUploaded">تم التحميل بنجاح</string>
     <string name="Modal_UploadFailed_Title">فَشِلتْ عملية الرفع</string>
     <string name="Modal_UploadFailed_Paragraph">أخفقنا في رفع %1$s من %2$s قياسا. تم مشاركة سجل الإخفاق مع مطوري OONI.</string>
