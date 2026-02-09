@@ -397,7 +397,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Não carregado</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Alguns items não carregaram</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Carregar Todos</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">A carregar %1$s …</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Carregando %1$s …</string>
     <string name="Toast_ResultsUploaded">Carregamento bem-sucedido</string>
     <string name="Modal_UploadFailed_Title">Falha ao carregar</string>
     <string name="Modal_UploadFailed_Paragraph">Falha ao carregar %1$s/%2$s medidas. O log de falhas foi compartilhado com as pessoas que desenvolvem o OONI.</string>
@@ -441,6 +441,8 @@
 
     <string name="Modal_Hide">Esconder</string>
     <string name="Modal_Quite_Prompt">Sair do OONI Probe?</string>
+    <string name="Modal_Quite_Description">Se sair do aplicativo não irá poder executar testes automaticamente em segundo plano. Escolha Sair para terminar ou Esconder para continuar a correr em segundo plano.</string>
+
     <string name="OONIRun_Run">Executar</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testando</string>
