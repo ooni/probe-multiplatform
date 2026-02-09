@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">डैशबोर्ड</string>
-    <string name="Dashboard_Overview_LatestTest">अंतिम परीक्षण:</string>
     <string name="Dashboard_Overview_Estimated">अनुमानित:</string>
     <string name="Dashboard_Overview_ChooseWebsites">वेबसाइट चुनें</string>
     <string name="Dashboard_Running_Running">चल रहा है:</string>
@@ -9,10 +8,12 @@
     <string name="Dashboard_Running_Stopping_Title">परीक्षण रोका जा रहा है…</string>
     <string name="Dashboard_Running_Stopping_Notice">वर्तमान में अपूर्ण परीक्षणों को पूर्ण किया जा रहा है, कृपया प्रतीक्षा करें…</string>
     <string name="Dashboard_Running_ProxyInUse">प्रॉक्सी उपयोग में है</string>
+    <string name="Dashboard_TestsMoved_Title">टेस्ट</string>
     <string name="Dashboard_Runv2_Overview_Description">%1$sके द्वारा बनाई गई %2$sपर </string>
     <string name="Dashboard_Update_Restart">पुनः आरंभ करें</string>
 
 
+    <string name="Tests_Title">टेस्ट</string>
     <string name="Test_Websites_Fullname">वेबसाइटें</string>
     <string name="Test_InstantMessaging_Fullname">तात्कालिक संदेशन</string>
     <string name="Test_Performance_Fullname">प्रदर्शन</string>
@@ -29,9 +30,9 @@
     <string name="Test_Psiphon_Fullname">Psiphon परीक्षा</string>
     <string name="Test_Tor_Fullname">Tor परीक्षा</string>
     <string name="Test_Signal_Fullname">Signal परीक्षण</string>
-    <string name="TestResults_Overview_Title">परीक्षण के परिणाम</string>
-    <string name="TestResults_Overview_Tab_Label">परीक्षण के परिणाम</string>
-    <string name="TestResults_Overview_Hero_Tests">टेस्ट</string>
+
+
+    <string name="TestResults">परिणाम</string>
     <string name="TestResults_Overview_Hero_Networks">नेटवर्क</string>
     <string name="TestResults_Overview_Hero_DataUsage">डेटा उपयोग</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">अभी तक कोई परीक्षण नहीं चला है। एक चलाने की कोशिश करो!</string>
@@ -187,9 +188,9 @@
     <string name="Onboarding_DefaultSettings_Paragraph">हम आपके आईपी पते या किसी अन्य जानकारी को प्रकाशित न करने की पूरी कोशिश करते हैं जिससे संभावित रूप से आपकी व्यक्तिगत पहचान हो सके।\n\n[OONI की डेटा नीति](https://ooni.org/about/data-policy/) के माध्यम से और जानें।</string>
     <string name="Onboarding_DefaultSettings_Button_Change">डिफ़ॉल्ट बदलें</string>
 
+
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="AddDescriptor_AutoRun">परीक्षण स्वचालित रूप से चलाएँ</string>
-    <string name="LoadingScreen_Runv2_Failure">त्रुटि</string>
     <string name="Snackbar_ResultsNotUploaded_Text">अपलोड नहीं किया गया</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">कुछ अपलोड नहीं किए गए</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">सभी अपलोड करें</string>
@@ -212,6 +213,7 @@
     <string name="Modal_Error_NoInternet">कोई इंटरनेट कनेक्शन नहीं</string>
     <string name="Modal_CustomURL_NotSaved">जब आप यह स्क्रीन छोड़ते हैं तो आपके URL सहेजे नहीं जाएंगे। क्या आप वाकई इस स्क्रीन को छोड़ना चाहते हैं?</string>
     <string name="Desktop_Quit">छोड़ें</string>
+    <string name="Modal_Hide">छिपाना</string>
     <string name="OONIRun_Run">चलाना</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">परिक्षण</string>
@@ -227,5 +229,7 @@
     <string name="Common_Next">अगला</string>
     <string name="Common_Previous">पिछला</string>
     <string name="Common_Share">शेयर</string>
+    <string name="Common_Dismiss">खारिज करना</string>
+    <string name="Common_Search">खोज</string>
     <string name="NetworkType_Vpn">वीपीएन</string>
 </resources>
