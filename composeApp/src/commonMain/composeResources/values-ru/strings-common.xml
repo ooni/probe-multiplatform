@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Главное меню</string>
-    <string name="Dashboard_Overview_LatestTest">Последний тест:</string>
     <string name="Dashboard_Overview_Estimated">Примерно:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Выберите сайты</string>
     <string name="Dashboard_Running_Running">Процесс:</string>
@@ -9,6 +8,7 @@
     <string name="Dashboard_Running_Stopping_Title">Останавливаем тест...</string>
     <string name="Dashboard_Running_Stopping_Notice">Заканчиваем текущее тесты, пожалуйста подождите....</string>
     <string name="Dashboard_Running_ProxyInUse">Используется прокси</string>
+    <string name="Dashboard_TestsMoved_Title">Тесты</string>
     <string name="Dashboard_RunTests_Title">Протестировать</string>
     <string name="Dashboard_RunTests_Description">Выберите тесты, которые вы хотите запустить</string>
     <string name="Dashboard_RunTests_SelectAll">Выбрать все тесты</string>
@@ -19,9 +19,10 @@
         <item quantity="many">Провести %1$d тестов</item>
         <item quantity="other">Провести %1$d тестов</item>
     </plurals>
+    <string name="Dashboard_Articles_Report">Отчет</string>
+    <string name="Dashboard_Articles_ReadMore">Узнать больше</string>
     <string name="Dashboard_RunV2_Ooni_Title">Тесты OONI</string>
     <string name="Dashboard_RunV2_Title">Ссылки OONI Run </string>
-    <string name="Dashboard_RunV2_RunFinished">Тест закончен. Нажмите, чтобы узнать результаты.</string>
     <string name="Dashboard_Runv2_Overview_Description">Создал(а) %1$s в %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Удалить ссылку</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Предыдущие изменения</string>
@@ -52,6 +53,7 @@
     <string name="Dashboard_Update_Restart">Перезапуск</string>
 
 
+    <string name="Tests_Title">Тесты</string>
     <string name="Test_Websites_Fullname">Сайты</string>
     <string name="Test_InstantMessaging_Fullname">Мессенджеры</string>
     <string name="Test_Performance_Fullname">Производительность</string>
@@ -68,9 +70,9 @@
     <string name="Test_Psiphon_Fullname">Тест Psiphon</string>
     <string name="Test_Tor_Fullname">Тест Tor</string>
     <string name="Test_Signal_Fullname">Тест Signal </string>
-    <string name="TestResults_Overview_Title">Результаты тестов</string>
-    <string name="TestResults_Overview_Tab_Label">Результаты тестов</string>
-    <string name="TestResults_Overview_Hero_Tests">Тесты</string>
+
+
+    <string name="TestResults">Результаты</string>
     <string name="TestResults_Overview_Hero_Networks">Сети</string>
     <string name="TestResults_Overview_Hero_DataUsage">Трафик</string>
     <plurals name="TestResults_Overview_Websites_Blocked">
@@ -311,6 +313,7 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Начнем</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Изменить настройки</string>
 
+
     <string name="AddDescriptor_Settings">Проверить настройки</string>
     <string name="AddDescriptor_Title">Установить новую ссылку</string>
     <string name="AddDescriptor_AutoUpdate">Устанавливать обновления автоматически</string>
@@ -318,8 +321,6 @@
     <string name="AddDescriptor_Toasts_Installed">Ссылка установлена</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Неподдерживаемый URL</string>
     <string name="LoadingScreen_Runv2_Message">Ссылка загружается</string>
-    <string name="LoadingScreen_Runv2_Failure">Ошибка</string>
-    <string name="LoadingScreen_Runv2_Canceled">Установка ссылки отменена</string>
     <string name="DescriptorUpdate_Updates">ОБНОВЛЕНИЯ</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Проверить наличие обновлений</string>
@@ -372,6 +373,7 @@
     <string name="Tray_Notification_Updates_Available">Доступно обновление!</string>
     <string name="Tray_Notification_Checking_Updates">Проверка обновлений ...</string>
 
+    <string name="Modal_Hide">Скрыть</string>
     <string name="OONIRun_Run">Запустить</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Проверка</string>
@@ -391,8 +393,12 @@
     <string name="Common_Next">Далее</string>
     <string name="Common_Previous">Предыдущий раздел</string>
     <string name="Common_Share">Поделиться</string>
+    <string name="Common_Dismiss">Закрыть</string>
+    <string name="Common_Search">Поиск</string>
     <string name="Common_Today">Сегодня</string>
     <string name="Common_Yesterday">Вчера</string>
+    <string name="Common_Week">Неделя</string>
+    <string name="Common_Month">Месяц</string>
     <string name="Common_Ago">%1$s назад</string>
     <plurals name="Common_Seconds">
         <item quantity="one">%1$d секунда</item>
