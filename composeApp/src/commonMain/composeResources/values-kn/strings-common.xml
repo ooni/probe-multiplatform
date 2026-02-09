@@ -24,11 +24,11 @@
     <string name="Onboarding_Notifications_Ok">ಸರಿ</string>
     <string name="Onboarding_Notifications_Skip">ಬಿಟ್ಟುಬಿಡಿ</string>
     <string name="AddDescriptor_Settings">Test Settings</string>
-    <string name="LoadingScreen_Runv2_Failure">ದೋಷ</string>
     <string name="Modal_Retry">ಮರಳಿ ಯತ್ನವ ಮಾಡಿ</string>
     <string name="Modal_Cancel">ರದ್ದುಮಾಡಿ</string>
     <string name="Modal_OK">ಸರಿ</string>
     <string name="Modal_Delete">ಅಳಿಸು</string>
+    <string name="Modal_Hide">ಹಡಗಿಸಿ</string>
     <string name="Common_Back">ಹಿಂದೆ</string>
     <string name="Common_Close">ಮುಚ್ಚಿ</string>
     <string name="Common_Yes">ಹೌದು</string>
@@ -37,5 +37,6 @@
     <string name="Common_Next">ಮುಂದೆ</string>
     <string name="Common_Previous">ಹಿಂದಿನ</string>
     <string name="Common_Share">ಹಂಚು</string>
+    <string name="Common_Dismiss">ವಜಾಗೊಳಿಸಿ</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
