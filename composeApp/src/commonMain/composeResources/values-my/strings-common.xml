@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">ဒက်ရှ်ဘုတ်</string>
-    <string name="Dashboard_Overview_LatestTest">နောက်ဆုံး စမ်းသပ်မှု -</string>
     <string name="Dashboard_Overview_Estimated">ခန့်မှန်းထားသည် -</string>
     <string name="Dashboard_Overview_ChooseWebsites">ဝဘ်ဆိုဒ်များ ရွေးချယ်ရန်</string>
     <string name="Dashboard_Running_Running">စမ်းသပ်နေသည် - </string>
@@ -9,10 +8,13 @@
     <string name="Dashboard_Running_Stopping_Title">စမ်းသပ်မှုကို ရပ်နေသည်...</string>
     <string name="Dashboard_Running_Stopping_Notice">လက်ရှိ စောင့်ဆိုင်းနေသော စမ်းသပ်မှုများကို အပြီးသတ်နေသည်၊ ကျေးဇူးပြု၍ စောင့်ပါ...</string>
     <string name="Dashboard_Running_ProxyInUse">အသုံးပြုနေသော ပရောက်စီ</string>
+    <string name="Dashboard_TestsMoved_Title">စမ်းသပ်မှုများ</string>
+    <string name="Dashboard_Articles_Recent">လတ်တလော</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">ပြန်ပြင်ရန်</string>
     <string name="Dashboard_Update_Restart">စက်ပြန်ဖွင့်ရန်</string>
 
 
+    <string name="Tests_Title">စမ်းသပ်မှုများ</string>
     <string name="Test_Websites_Fullname">ဝဘ်ဆိုဒ်များ</string>
     <string name="Test_InstantMessaging_Fullname">ချက်ခြင်း စာတိုပေးပို့ခြင်း\n</string>
     <string name="Test_Performance_Fullname">စွမ်းဆောင်ရည်</string>
@@ -29,9 +31,9 @@
     <string name="Test_Psiphon_Fullname">Psiphon စမ်းသပ်မှု</string>
     <string name="Test_Tor_Fullname">Tor စမ်းသပ်မှု</string>
     <string name="Test_Signal_Fullname">Signal စမ်းသပ်မှု</string>
-    <string name="TestResults_Overview_Title">စမ်းသပ်မှု ရလဒ်များ</string>
-    <string name="TestResults_Overview_Tab_Label">စမ်းသပ်မှု ရလဒ်များ</string>
-    <string name="TestResults_Overview_Hero_Tests">စမ်းသပ်မှုများ</string>
+
+
+    <string name="TestResults">ရလဒ်များ</string>
     <string name="TestResults_Overview_Hero_Networks">ကွန်ရက်များ</string>
     <string name="TestResults_Overview_Hero_DataUsage">ဒေတာအသုံးပြုမှု</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">စမ်းသပ်မှု မရှိသေးပါ။ စမ်းသပ်မှုတစ်ခုကို လုပ်ဆောင် ကြည့်လိုက်ပါ။</string>
@@ -197,9 +199,9 @@
     <string name="Onboarding_DefaultSettings_Paragraph">သင်၏ IP လိပ်စာ သို့မဟုတ် အခြားသော ပုဂ္ဂိုလ်ရေးအရ ခွဲခြား သိမြင်နိုင်သော အချက်အလက်များကို ထုတ်ဝေခြင်းမပြုရန် ကျွန်ုပ်တို့ အကောင်းဆုံး လုပ်ဆောင်ပါသည်။ [OONI ၏ ဒေတာမူဝါဒ](https://ooni.org/about/data-policy/) တွင် ပိုမိုလေ့လာပါ။</string>
     <string name="Onboarding_DefaultSettings_Button_Change">နဂိုမူလများကို ပြောင်းမည်</string>
 
+
     <string name="AddDescriptor_Settings">စစ်ဆေးမှု ချိန်ညှိချက်များ</string>
     <string name="AddDescriptor_AutoRun">စမ်းသပ်မှုများကို အလိုအလျောက် လုပ်ဆောင်ပါ</string>
-    <string name="LoadingScreen_Runv2_Failure">ပြဿနာ</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">အပ်ဒိတ် ရပြီလားကြည့်ပါ။</string>
     <string name="Snackbar_ResultsNotUploaded_Text">အပ်လုဒ် မလုပ်ပါ</string>
@@ -230,6 +232,7 @@
     <string name="Tray_Notification_Check_Updates">အပ်ဒိတ် ရပြီလားကြည့်ပါ။</string>
     <string name="Tray_Notification_Checking_Updates">မွမ်းမံချက်များကို စစ်ဆေးနေသည်...</string>
 
+    <string name="Modal_Hide">ဝှက်ထားရန်</string>
     <string name="OONIRun_Run">စမ်းမည်</string>
     <string name="Notification_StopTest">စမ်းသပ်မှုကို ရပ်ပါ</string>
 
@@ -245,8 +248,12 @@
     <string name="Common_Next">ရှေ့သို့</string>
     <string name="Common_Previous">လွန်ခဲ့သော</string>
     <string name="Common_Share">ဝေမျှမယ်</string>
+    <string name="Common_Dismiss">ဖြုတ်မည်</string>
+    <string name="Common_Search">ရှာဖွေရန်</string>
     <string name="Common_Today">ယနေ့</string>
     <string name="Common_Yesterday">ယမန်နေ့</string>
+    <string name="Common_Week">ရက်သတ္တပတ်</string>
+    <string name="Common_Month">လ</string>
     <plurals name="Common_Days">
         <item quantity="other">%1$d ရက်</item>
     </plurals>
