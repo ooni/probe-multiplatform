@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Kojelauta</string>
-    <string name="Dashboard_Overview_LatestTest">Edellinen testi:</string>
     <string name="Dashboard_Overview_Estimated">Arvioitu:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Valitse verkkosivut</string>
     <string name="Dashboard_Running_Running">Suoritetaan:</string>
@@ -9,12 +8,15 @@
     <string name="Dashboard_Running_Stopping_Title">Pysäytetään testiä...</string>
     <string name="Dashboard_Running_Stopping_Notice">Lopetetaan keskeneräisiä testejä, odota...</string>
     <string name="Dashboard_Running_ProxyInUse">Välityspalvelin käytössä</string>
+    <string name="Dashboard_TestsMoved_Title">Testit</string>
+    <string name="Dashboard_Articles_Report">ilmoitus</string>
     <string name="Dashboard_Runv2_Overview_Description">Käyttäjä: %1$s luotu %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Kumoa</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Tarkista</string>
     <string name="Dashboard_Update_Restart">Käynnistä uudelleen</string>
 
 
+    <string name="Tests_Title">Testit</string>
     <string name="Test_Websites_Fullname">Verkkosivustot</string>
     <string name="Test_InstantMessaging_Fullname">Pikaviestintä</string>
     <string name="Test_Performance_Fullname">Suorituskyky</string>
@@ -29,9 +31,8 @@
     <string name="Test_Psiphon_Fullname">Psiphon-testi</string>
     <string name="Test_Tor_Fullname">Tor-testi</string>
     <string name="Test_Signal_Fullname">Signal-testi</string>
-    <string name="TestResults_Overview_Title">Testin tulokset</string>
-    <string name="TestResults_Overview_Tab_Label">Testin tulokset</string>
-    <string name="TestResults_Overview_Hero_Tests">Testit</string>
+
+
     <string name="TestResults_Overview_Hero_Networks">Verkot</string>
     <string name="TestResults_Overview_Hero_DataUsage">Datankäyttö</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Ei vielä suoritettuja testejä. Kokeile suorittamista!</string>
@@ -158,9 +159,9 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Testaamisen aika ja päivämäärä</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Muuta oletuksia</string>
 
+
     <string name="AddDescriptor_Settings">Testausasetukset</string>
     <string name="AddDescriptor_AutoRun">Suorita testit automaattisesti</string>
-    <string name="LoadingScreen_Runv2_Failure">Virhe</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Ei lähetetty</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Joitakin ei lähetetty</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Lähetä kaikki</string>
@@ -184,6 +185,7 @@
     <string name="Desktop_Quit">Poistu</string>
     <string name="Tray_Notification_Checking_Updates">Selvitetään päivityksiä…</string>
 
+    <string name="Modal_Hide">Piilota</string>
     <string name="OONIRun_Run">Suorita</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testataan</string>
@@ -201,6 +203,9 @@
     <string name="Common_Next">Seuraava</string>
     <string name="Common_Previous">Edellinen</string>
     <string name="Common_Share">Jaa</string>
+    <string name="Common_Dismiss">Hylkää</string>
+    <string name="Common_Search">Etsi</string>
+    <string name="Common_Total">Yhteensä</string>
     <string name="Common_Ago">%1$s sitten</string>
     <string name="Common_Months_January">Tammikuu</string>
     <string name="Common_Months_February">Helmikuu</string>
