@@ -6,7 +6,7 @@
     <string name="Dashboard_Running_Running">Executando:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Tempo restante estimado:</string>
     <string name="Dashboard_Running_Stopping_Title">Parando o teste…</string>
-    <string name="Dashboard_Running_Stopping_Notice">Concluindo os testes atualmente pendentes, por favor aguarde…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Concluindo os testes atualmente pendentes, por favor aguarde...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy em uso</string>
     <string name="Dashboard_TestsMoved_Title">Testes</string>
     <string name="Dashboard_RunTests_Title">Executar testes</string>
@@ -219,7 +219,7 @@
     <string name="Settings_Results_DeleteOldResultsThreshold">Excluir resultados mais antigos que</string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
         <item quantity="one">%1$d meses</item>
-        <item quantity="many">%1$d de meses</item>
+        <item quantity="many">%1$d meses</item>
         <item quantity="other">%1$d meses</item>
     </plurals>
     <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Digite o número de meses</string>
@@ -370,7 +370,6 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Não carregado</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Alguns items não carregaram</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Carregar Todos</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Fazendo upload de %1$s …</string>
     <string name="Toast_ResultsUploaded">Carregamento bem-sucedido</string>
     <string name="Modal_UploadFailed_Title">Falha ao carregar</string>
     <string name="Modal_UploadFailed_Paragraph">Falha ao carregar %1$s/%2$s medidas. O log de falhas foi compartilhado com as pessoas que desenvolvem o OONI.</string>
@@ -410,8 +409,6 @@
     <string name="Desktop_Quit">Fechar</string>
     <string name="Tray_Notification_Check_Updates">Verificar Atualizações</string>
     <string name="Tray_Notification_Updates_Available">Atualização Disponível!</string>
-    <string name="Tray_Notification_Checking_Updates">Procurando por atualizações…</string>
-
     <string name="Modal_Hide">Esconder</string>
     <string name="OONIRun_Run">Executar</string>
     <!-- Android notification channel name. -->
