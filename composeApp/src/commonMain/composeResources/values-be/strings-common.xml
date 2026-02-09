@@ -1,5 +1,6 @@
 <resources>
 
+    <string name="Dashboard_Articles_Report">Справаздача</string>
     <string name="Test_Performance_Fullname">Эфектыўнасць</string>
     <string name="TestResults_Summary_Hero_Country">Краіна</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
@@ -41,13 +42,13 @@
     <string name="Onboarding_Notifications_Ok">OK</string>
     <string name="Onboarding_Notifications_Skip">Прапусціць</string>
     <string name="AddDescriptor_Settings">Test Settings</string>
-    <string name="LoadingScreen_Runv2_Failure">Памылка</string>
     <string name="Modal_Retry">Паспрабуйце яшчэ раз</string>
     <string name="Modal_Cancel">Скасаваць</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_Delete">Выдаліць</string>
     <string name="Modal_CustomURL_Title_NotSaved">Упэўненыя?</string>
     <string name="Desktop_Quit">Выхад</string>
+    <string name="Modal_Hide">Схаваць</string>
     <string name="Common_Back">Вярнуцца і адрэдагаваць</string>
     <string name="Common_Close">Зачыніць</string>
     <string name="Common_Refresh">Абнавіць</string>
@@ -60,6 +61,8 @@
     <string name="Common_Next">Наступная частка</string>
     <string name="Common_Previous">Папярэдняя частка</string>
     <string name="Common_Share">Падзяліцца</string>
+    <string name="Common_Dismiss">Адхіліць</string>
+    <string name="Common_Search">Пошук</string>
     <string name="Common_Today">Сёння</string>
     <string name="Common_Yesterday">Учора</string>
     <string name="NetworkType_Vpn">VPN</string>
