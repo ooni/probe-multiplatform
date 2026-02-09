@@ -1,6 +1,7 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">仪表板</string>
+    <string name="Dashboard_Articles_Report">报告</string>
     <string name="Dashboard_RunV2_UpdateTag">更新</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">復原</string>
     <string name="Dashboard_Update_Restart">重新啟動</string>
@@ -53,7 +54,6 @@
     <string name="Onboarding_Notifications_Ok">確定</string>
     <string name="Onboarding_Notifications_Skip">跳過</string>
     <string name="AddDescriptor_Settings">測試設定</string>
-    <string name="LoadingScreen_Runv2_Failure">錯誤</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">檢查更新</string>
     <string name="Modal_Retry">重试</string>
@@ -63,6 +63,7 @@
     <string name="Modal_CustomURL_Title_NotSaved">您確定嗎？</string>
     <string name="Desktop_Quit">離開</string>
     <string name="Tray_Notification_Check_Updates">檢查更新</string>
+    <string name="Modal_Hide">隱藏</string>
     <string name="Common_Back">返回</string>
     <string name="Common_Close">關閉</string>
     <string name="Common_Refresh">重新整理</string>
@@ -75,6 +76,8 @@
     <string name="Common_Next">下一步</string>
     <string name="Common_Previous">上一頁</string>
     <string name="Common_Share">分享</string>
+    <string name="Common_Search">搜尋</string>
+    <string name="Common_Month">月份</string>
     <string name="Common_Months_May">五月</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
