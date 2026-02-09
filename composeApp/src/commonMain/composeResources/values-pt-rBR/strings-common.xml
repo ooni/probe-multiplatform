@@ -376,6 +376,7 @@
     <string name="Onboarding_DefaultSettings_Button_Change">Alterar padrões</string>
 
 
+    <string name="AddDescriptor_EnterURL">Inserir um URL de OONI Run Link</string>
     <string name="AddDescriptor_Settings">Configurações de Testes</string>
     <string name="AddDescriptor_Title">Instale o novo Link</string>
     <string name="AddDescriptor_AutoUpdate">Instalar atualizações automaticamente</string>
