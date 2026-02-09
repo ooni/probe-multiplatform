@@ -1,6 +1,7 @@
 <resources>
 
     <string name="Dashboard_Running_EstimatedTimeLeft">Pozostało czasu: </string>
+    <string name="Dashboard_Articles_Report">Wysłanie</string>
     <string name="Dashboard_Runv2_Overview_Description">Utworzone przez %1$s, %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Cofnij</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Przegląd</string>
@@ -11,6 +12,7 @@
     <string name="Test_Performance_Fullname">Wydajność</string>
     <string name="Test_Circumvention_Fullname">Omijanie blokad</string>
     <string name="Test_Experimental_Fullname">Eksperymentalny</string>
+    <string name="TestResults">Wyniki</string>
     <string name="TestResults_Overview_Hero_Networks">Sieci</string>
     <string name="TestResults_Summary_Hero_Network">Sieć</string>
     <string name="TestResults_Summary_Hero_Country">Państwo</string>
@@ -72,7 +74,6 @@
     <string name="Onboarding_Notifications_Skip">Pomiń</string>
     <string name="Onboarding_DefaultSettings_Title">Ustawienia Domyślne</string>
     <string name="AddDescriptor_Settings">Testuj ustawienia</string>
-    <string name="LoadingScreen_Runv2_Failure">Błąd</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Sprawdź aktualizacje</string>
     <string name="Modal_UploadFailed_Title">Wysyłanie nieudane.</string>
@@ -87,6 +88,7 @@
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
     <string name="Tray_Notification_Checking_Updates">Sprawdzanie aktualizacji...</string>
 
+    <string name="Modal_Hide">Ukryj</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testuję</string>
     <string name="Common_Back">Wstecz</string>
@@ -101,8 +103,12 @@
     <string name="Common_Next">Następny</string>
     <string name="Common_Previous">Poprzednie</string>
     <string name="Common_Share">Udostępnij</string>
+    <string name="Common_Dismiss">Odrzuć</string>
+    <string name="Common_Search">Szukaj</string>
     <string name="Common_Today">Dzisiaj</string>
     <string name="Common_Yesterday">Wczoraj</string>
+    <string name="Common_Month">Miesiąc</string>
+    <string name="Common_Total">Łącznie</string>
     <string name="Common_Ago">%1$s temu</string>
     <string name="Common_Months_January">styczeń</string>
     <string name="Common_Months_February">luty</string>
