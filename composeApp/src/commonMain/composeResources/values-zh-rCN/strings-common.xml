@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">面板</string>
-    <string name="Dashboard_Overview_LatestTest">上次测试：</string>
     <string name="Dashboard_Overview_Estimated">预计：</string>
     <string name="Dashboard_Overview_ChooseWebsites">选择网站</string>
     <string name="Dashboard_Running_Running">正在运行：</string>
@@ -9,6 +8,7 @@
     <string name="Dashboard_Running_Stopping_Title">正在停止测试…</string>
     <string name="Dashboard_Running_Stopping_Notice">正在结束当前待处理的测试，请稍候...</string>
     <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
+    <string name="Dashboard_TestsMoved_Title">测试</string>
     <string name="Dashboard_RunTests_Title">运行测试</string>
     <string name="Dashboard_RunTests_Description">选择要运行的测试</string>
     <string name="Dashboard_RunTests_SelectAll">选择所有测试</string>
@@ -16,9 +16,10 @@
     <plurals name="Dashboard_RunTests_RunButton_Label">
         <item quantity="other">运行 %1$d 个测试</item>
     </plurals>
+    <string name="Dashboard_Articles_Report">报告</string>
+    <string name="Dashboard_Articles_ReadMore">详细了解</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI 测试</string>
     <string name="Dashboard_RunV2_Title">OONI 运行链接</string>
-    <string name="Dashboard_RunV2_RunFinished">运行已完成。轻按查看结果。</string>
     <string name="Dashboard_Runv2_Overview_Description">由 %1$s 于 %2$s 创建</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">卸载链接</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">上次修改</string>
@@ -46,6 +47,7 @@
     <string name="Dashboard_Update_Restart">重新启动</string>
 
 
+    <string name="Tests_Title">测试</string>
     <string name="Test_Websites_Fullname">网站</string>
     <string name="Test_InstantMessaging_Fullname">即时通讯</string>
     <string name="Test_Performance_Fullname">性能</string>
@@ -62,9 +64,9 @@
     <string name="Test_Psiphon_Fullname">Psiphon 测试</string>
     <string name="Test_Tor_Fullname">Tor 测试</string>
     <string name="Test_Signal_Fullname">Signal 测试</string>
-    <string name="TestResults_Overview_Title">测试结果</string>
-    <string name="TestResults_Overview_Tab_Label">测试结果</string>
-    <string name="TestResults_Overview_Hero_Tests">测试</string>
+
+
+    <string name="TestResults">结果</string>
     <string name="TestResults_Overview_Hero_Networks">网络</string>
     <string name="TestResults_Overview_Hero_DataUsage">数据使用量</string>
     <plurals name="TestResults_Overview_Websites_Blocked">
@@ -321,6 +323,7 @@
     <string name="Onboarding_DefaultSettings_Button_Go">开始吧</string>
     <string name="Onboarding_DefaultSettings_Button_Change">更改默认值</string>
 
+
     <string name="AddDescriptor_Settings">测试代理设置</string>
     <string name="AddDescriptor_Title">安装新链接</string>
     <string name="AddDescriptor_AutoUpdate">自动安装更新</string>
@@ -330,8 +333,6 @@
     <string name="AddDescriptor_InstallAndRun">安装并运行</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">不支持的 URL</string>
     <string name="LoadingScreen_Runv2_Message">链接加载</string>
-    <string name="LoadingScreen_Runv2_Failure">错误</string>
-    <string name="LoadingScreen_Runv2_Canceled">链接安装被取消了</string>
     <string name="DescriptorUpdate_Updates">更新</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">检查更新</string>
@@ -379,6 +380,7 @@
     <string name="Tray_Notification_Updates_Available">有更新可用！</string>
     <string name="Tray_Notification_Checking_Updates">正在检查更新...</string>
 
+    <string name="Modal_Hide">隐藏</string>
     <string name="OONIRun_Run">运行</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">测试中</string>
@@ -398,8 +400,12 @@
     <string name="Common_Next">下一页</string>
     <string name="Common_Previous">上一步</string>
     <string name="Common_Share">分享</string>
+    <string name="Common_Search">搜索</string>
     <string name="Common_Today">今天</string>
     <string name="Common_Yesterday">昨天</string>
+    <string name="Common_Week">周</string>
+    <string name="Common_Month">月</string>
+    <string name="Common_Total">总计</string>
     <string name="Common_Ago">%1$s 前</string>
     <plurals name="Common_Seconds">
         <item quantity="other">%1$d 秒</item>
