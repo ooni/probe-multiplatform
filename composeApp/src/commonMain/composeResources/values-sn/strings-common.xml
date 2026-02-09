@@ -1,6 +1,5 @@
 <resources>
 
-    <string name="Dashboard_Overview_LatestTest">Ongororo yapedzisira kuitwa</string>
     <string name="Dashboard_Overview_Estimated">Yafungidzirwa:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Sarudza mawebsites</string>
     <string name="Dashboard_Running_Running">Irikushanda</string>
@@ -8,9 +7,10 @@
     <string name="Dashboard_Running_Stopping_Title">Mira ongororo...</string>
     <string name="Dashboard_Running_Stopping_Notice">Kupedzisa ongororo iripo yanga isati yapera, mirira...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy irikushandiswa</string>
+    <string name="Dashboard_TestsMoved_Title">Ongororo</string>
+    <string name="Tests_Title">Ongororo</string>
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_Performance_Fullname">Mashandiro</string>
-    <string name="TestResults_Overview_Hero_Tests">Ongororo</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Musi nenguva</string>
     <string name="TestResults_Summary_Hero_Country">Nyika</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">Turika</string>
@@ -52,7 +52,6 @@
     <string name="Onboarding_Notifications_Ok">OK</string>
     <string name="Onboarding_Notifications_Skip">Svetuka</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Nguva ne zuva zveongororo</string>
-    <string name="LoadingScreen_Runv2_Failure">Paita kanganiso</string>
     <string name="Modal_Retry">Dzokorodza</string>
     <string name="Modal_Cancel">Kanzura</string>
     <string name="Modal_OK">OK</string>
@@ -68,6 +67,8 @@
     <string name="Common_Yes">Hongu</string>
     <string name="Common_Next">Tevedza</string>
     <string name="Common_Share">Gova</string>
+    <string name="Common_Dismiss">Rasa</string>
+    <string name="Common_Search">Tsvaga</string>
     <string name="Common_Today">Nhasi</string>
     <string name="Common_Yesterday">Nezuro</string>
     <string name="NetworkType_Vpn">VPN</string>
