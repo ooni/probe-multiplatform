@@ -16,8 +16,6 @@
     <string name="Onboarding_Notifications_Skip">Ignorar</string>
     <string name="Modal_Cancel">Cancelar</string>
     <string name="Desktop_Quit">Sair</string>
-    <string name="Tray_Notification_Checking_Updates">A verificar se há actualizações…</string>
-
     <string name="Common_Back">Voltar</string>
     <string name="Common_Close">Fechar</string>
     <string name="Common_Yes">Sim</string>

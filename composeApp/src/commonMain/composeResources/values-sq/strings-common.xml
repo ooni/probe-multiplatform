@@ -184,7 +184,6 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Nuk është ngarkuar</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Disa nuk janë ngarkuar</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Ngarkoji të gjitha</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Në ngarkim %1$s …</string>
     <string name="Toast_ResultsUploaded">Ngarkimi i sukseshëm</string>
     <string name="Modal_UploadFailed_Title">Ngarkimi dështoi</string>
     <string name="Modal_Retry">Riprovo</string>

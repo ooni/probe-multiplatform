@@ -13,7 +13,7 @@
     <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>enabled</i>]]></string>
     <string name="Dashboard_AutoRun_Disabled"><![CDATA[Auto-run is <i>disabled</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">Tests</string>
-    <string name="Dashboard_TestsMoved_Description">Your tests moved to a new tab. You can reach them throw the navigation bar below.</string>
+    <string name="Dashboard_TestsMoved_Description">Your tests moved to a new tab. You can reach them through the navigation bar below.</string>
     <string name="Dashboard_TestsMoved_Action">See tests</string>
     <string name="Dashboard_RunTests_Title">Run tests</string>
     <string name="Dashboard_RunTests_Description">Select the tests to run</string>

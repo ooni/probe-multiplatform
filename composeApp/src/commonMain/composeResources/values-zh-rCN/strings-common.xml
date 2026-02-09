@@ -6,7 +6,7 @@
     <string name="Dashboard_Running_Running">正在运行：</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">预计剩余时间：</string>
     <string name="Dashboard_Running_Stopping_Title">正在停止测试…</string>
-    <string name="Dashboard_Running_Stopping_Notice">正在结束当前待处理的测试，请稍候…</string>
+    <string name="Dashboard_Running_Stopping_Notice">正在结束当前待处理的测试，请稍候...</string>
     <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
     <string name="Dashboard_TestsMoved_Title">测试</string>
     <string name="Dashboard_RunTests_Title">运行测试</string>
@@ -342,7 +342,6 @@
     <string name="Snackbar_ResultsNotUploaded_Text">未上传</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">部分未上传</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">全部上传</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">正在上传测试 %1$s …</string>
     <string name="Toast_ResultsUploaded">上传成功</string>
     <string name="Modal_UploadFailed_Title">上传失败</string>
     <string name="Modal_UploadFailed_Paragraph">%1$s/%2$s 测量结果上传失败。日志已经分享给 OONI 开发者。</string>
@@ -378,8 +377,6 @@
     <string name="Desktop_Quit">退出</string>
     <string name="Tray_Notification_Check_Updates">检查更新</string>
     <string name="Tray_Notification_Updates_Available">有更新可用！</string>
-    <string name="Tray_Notification_Checking_Updates">正在检查更新…</string>
-
     <string name="Modal_Hide">隐藏</string>
     <string name="OONIRun_Run">运行</string>
     <!-- Android notification channel name. -->

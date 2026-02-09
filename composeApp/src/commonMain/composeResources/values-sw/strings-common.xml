@@ -190,7 +190,7 @@
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Nimekupata</string>
     <string name="Onboarding_ThingsToKnow_Title">Tahadhari!</string>
     <string name="Onboarding_ThingsToKnow_Button">Ninaelewa</string>
-    <string name="Onboarding_ThingsToKnow_LearnMore">jifunze zaidi</string>
+    <string name="Onboarding_ThingsToKnow_LearnMore">jifunze zaidi.</string>
     <string name="Onboarding_PopQuiz_Title">Jaribio la chapchap</string>
     <string name="Onboarding_PopQuiz_True">Kweli</string>
     <string name="Onboarding_PopQuiz_False">Uwongo</string>
@@ -225,7 +225,6 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Haijapakiwa</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Baadhi hayajapakiwa</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Pakia Zote</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Inapakia %1$s .. </string>
     <string name="Toast_ResultsUploaded">Kupakia kumefanikiwa </string>
     <string name="Modal_UploadFailed_Title">Imeshindwa kupakia</string>
     <string name="Modal_UploadFailed_Paragraph">Tumeshindwa kupakia vipimo vya %1$s / %2$s. Lebo ya kutofaulu imeshirikiwa na watengenezaji wa OONI.</string>

@@ -10,7 +10,7 @@
     <string name="Dashboard_Running_ProxyInUse">Proxy in uso</string>
     <string name="Dashboard_TestsMoved_Title">Test</string>
     <string name="Dashboard_Articles_Report">Segnalazione</string>
-    <string name="Dashboard_Runv2_Overview_Description">Creata da %1$s il %2$s</string>
+    <string name="Dashboard_Runv2_Overview_Description">Creata da %1$s il {%time}</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Annulla</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Rivedi</string>
     <string name="Dashboard_Update_Restart">Riavvia</string>
@@ -210,7 +210,6 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Non caricati</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Alcuni non caricati</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Carica tutti</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Caricamento %1$s …</string>
     <string name="Toast_ResultsUploaded">Caricamento riuscito</string>
     <string name="Modal_UploadFailed_Title">Invio fallito</string>
     <string name="Modal_UploadFailed_Paragraph">Non siamo riusciti a caricare %1$s/%2$s misurazioni. Il log degli errori è stato condiviso con gli sviluppatori di OONI.</string>
@@ -229,8 +228,6 @@
     <string name="Desktop_Quit">Esci</string>
     <string name="Tray_Notification_Check_Updates">Cerca aggiornamenti</string>
     <string name="Tray_Notification_Updates_Available">Aggiornamento Disponibile!</string>
-    <string name="Tray_Notification_Checking_Updates">Controllo gli aggiornamenti…</string>
-
     <string name="Modal_Hide">Nascosto</string>
     <string name="OONIRun_Run">Esegui</string>
     <!-- Android notification channel name. -->

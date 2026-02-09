@@ -228,17 +228,16 @@
     <string name="Snackbar_ResultsNotUploaded_Text">មិនបានបញ្ជូល</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">មិនបានបញ្ជូលមួយចំនួន</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">បញ្ជូលទាំងអស់</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">កំពុងបញ្ជូល %1$s …</string>
     <string name="Toast_ResultsUploaded">បញ្ជូលបានជោគជ័យ</string>
     <string name="Modal_UploadFailed_Title">បញ្ជូលបានបរាជ័យ</string>
-    <string name="Modal_UploadFailed_Paragraph">ពួកយើងបានបរាជ័យក្នុងការបញ្ជូលការវាស់វែង %1$s/%2$s។ កំណត់ហេតុបរាជ័យត្រូវបានចែករំលែកជាមួយអ្នកអភិវឌ្ឍរបស់ OONI ។</string>
+    <string name="Modal_UploadFailed_Paragraph">ពួកយើងបានបរាជ័យក្នុងការបញ្ជូលការវាស់វែង {ចំនួនដែលបរាជ័យ}/{ចំននួសរុបការបញ្ជូល}។ កំណត់ហេតុបរាជ័យត្រូវបានចែករំលែកជាមួយអ្នកអភិវឌ្ឍរបស់ OONI ។</string>
     <string name="Modal_Retry">សាកម្តងទៀត</string>
     <string name="Modal_Cancel">បោះបង់</string>
     <string name="Modal_OK">យល់ព្រម</string>
     <string name="Modal_DoYouWantToDeleteAllTests">តើអ្នកចង់លុបលទ្ធផលតេស្តទាំងអស់មែនទេ?</string>
     <string name="Modal_Delete">លុប</string>
     <string name="Modal_ReRun_Title">ដំណើរការតេស្តម្តងទៀត</string>
-    <string name="Modal_ReRun_Websites_Title">អ្នកនឹងតេស្តវែបសាយ %1$s ម្តងទៀត។</string>
+    <string name="Modal_ReRun_Websites_Title">អ្នកនឹងតេស្តវែបសាយ {ចំនួនវែបសាយ} ម្តងទៀត។</string>
     <string name="Modal_ReRun_Websites_Run">ដំណើរការ</string>
     <string name="Modal_DisableVPN_Title">សូមបិទ VPN របស់អ្នក</string>
     <string name="Modal_DisableVPN_Message">ប្រសិនបើអ្នកដំណើរការ​OONI Probe និង VPN ពេលជាមួយគ្នា នោះលទ្ធផលនឹងបង្ហាញពីប្រទេសផ្សេង។ ដូច្នេះសូមបិទ VPN។</string>
@@ -249,8 +248,6 @@
     <string name="Modal_CustomURL_Title_NotSaved">តើ​អ្នក​ប្រាកដ ​ឬទេ?</string>
     <string name="Modal_CustomURL_NotSaved">URLs របស់អ្នកនឹងមិនរក្សាទុកទេនៅពេលអ្នកចាកចេញពីអេក្រង់នេះ។ តើអ្នកច្បាស់ទេថាអ្នកចង់ចាកចេញពីអេក្រង់នេះ?</string>
     <string name="Desktop_Quit">ចាកចេញ</string>
-    <string name="Tray_Notification_Checking_Updates">កំពុងពិនិត្យមើលបច្ចុប្បន្នភាព…</string>
-
     <string name="Modal_Hide">លាក់</string>
     <string name="OONIRun_Run">ដំណើរការ</string>
     <string name="Notification_StopTest">បញ្ឈប់តេស្ត</string>

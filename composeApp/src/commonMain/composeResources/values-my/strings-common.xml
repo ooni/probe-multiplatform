@@ -5,8 +5,8 @@
     <string name="Dashboard_Overview_ChooseWebsites">ဝဘ်ဆိုဒ်များ ရွေးချယ်ရန်</string>
     <string name="Dashboard_Running_Running">စမ်းသပ်နေသည် - </string>
     <string name="Dashboard_Running_EstimatedTimeLeft">ခန့်မှန်း ကျန်ရှိချိန် -</string>
-    <string name="Dashboard_Running_Stopping_Title">စမ်းသပ်မှုကို ရပ်နေသည်…</string>
-    <string name="Dashboard_Running_Stopping_Notice">လက်ရှိ စောင့်ဆိုင်းနေသော စမ်းသပ်မှုများကို အပြီးသတ်နေသည်၊ ကျေးဇူးပြု၍ စောင့်ပါ…</string>
+    <string name="Dashboard_Running_Stopping_Title">စမ်းသပ်မှုကို ရပ်နေသည်...</string>
+    <string name="Dashboard_Running_Stopping_Notice">လက်ရှိ စောင့်ဆိုင်းနေသော စမ်းသပ်မှုများကို အပြီးသတ်နေသည်၊ ကျေးဇူးပြု၍ စောင့်ပါ...</string>
     <string name="Dashboard_Running_ProxyInUse">အသုံးပြုနေသော ပရောက်စီ</string>
     <string name="Dashboard_TestsMoved_Title">စမ်းသပ်မှုများ</string>
     <string name="Dashboard_Articles_Recent">လတ်တလော</string>
@@ -207,7 +207,6 @@
     <string name="Snackbar_ResultsNotUploaded_Text">အပ်လုဒ် မလုပ်ပါ</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">အချို့ကို အပ်လုဒ်မလုပ်ခဲ့ပါ</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">အားလုံးကို အပ်လုဒ်လုပ်ပါ</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">%1$s ကို အပ်လုဒ်လုပ်နေသည်…</string>
     <string name="Toast_ResultsUploaded">အပ်လုဒ်လုပ်ခြင်း အောင်မြင်သည်</string>
     <string name="Modal_UploadFailed_Title">အပ်လုဒ်လုပ်ခြင်း မအောင်မြင်ပါ</string>
     <string name="Modal_UploadFailed_Paragraph">ကျွန်ုပ်တို့သည် အတိုင်းအတာများကို %1$s/%2$s အပ်လုဒ်လုပ်၍ မရပါ။ မအောင်မြင်ခြင်း မှတ်တမ်းကို OONI developer များနှင့် မျှဝေထားပါသည်။</string>
@@ -230,8 +229,6 @@
     <string name="Modal_CustomURL_NotSaved">ဤဝဘ်စာမျက်နှာမှ ထွက်သည့်အခါ သင့် URL များကို သိမ်းဆည်းမည် မဟုတ်ပါ။ ဤစာမျက်နှာမှ ထွက်လိုသည်မှာ သေချာပါသလား။ </string>
     <string name="Desktop_Quit">ထွက်မည်</string>
     <string name="Tray_Notification_Check_Updates">အပ်ဒိတ် ရပြီလားကြည့်ပါ။</string>
-    <string name="Tray_Notification_Checking_Updates">မွမ်းမံချက်များကို စစ်ဆေးနေသည်…</string>
-
     <string name="Modal_Hide">ဝှက်ထားရန်</string>
     <string name="OONIRun_Run">စမ်းမည်</string>
     <string name="Notification_StopTest">စမ်းသပ်မှုကို ရပ်ပါ</string>

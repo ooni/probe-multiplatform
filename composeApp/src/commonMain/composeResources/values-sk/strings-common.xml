@@ -179,7 +179,6 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Nenahrané</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Niektoré nenahrané</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Nahrať všetky</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Nahráva sa %1$s …</string>
     <string name="Toast_ResultsUploaded">Nahrávanie prebehlo úspešne</string>
     <string name="Modal_UploadFailed_Title">Nahrávanie zlyhalo</string>
     <string name="Modal_UploadFailed_Paragraph">Nepodarilo sa nám nahrať %1$s/%2$s meraní. Denník zlyhaní sa zdieľa s vývojarmi OONI.</string>
@@ -196,8 +195,6 @@
     <string name="Modal_CustomURL_Title_NotSaved">Ste si istý?</string>
     <string name="Modal_CustomURL_NotSaved">Ak opustíš túto obrazovku, tvoje URL adresy sa neuložia. Si si istý/istá, že chceš opustiť túto obrazovku?</string>
     <string name="Desktop_Quit">Ukončiť</string>
-    <string name="Tray_Notification_Checking_Updates">Vyhľadať aktualizácie…</string>
-
     <string name="Modal_Hide">Skryť</string>
     <string name="OONIRun_Run">Spustiť</string>
     <string name="Common_Back">Späť</string>

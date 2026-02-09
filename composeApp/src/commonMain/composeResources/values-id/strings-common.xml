@@ -5,8 +5,8 @@
     <string name="Dashboard_Overview_ChooseWebsites">Pilih situs web</string>
     <string name="Dashboard_Running_Running">Menjalankan:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Estimasi waktu tersisa:</string>
-    <string name="Dashboard_Running_Stopping_Title">Menghentikan tes…</string>
-    <string name="Dashboard_Running_Stopping_Notice">Menyelesaikan tes yang saat ini tertunda, silakan tunggu…</string>
+    <string name="Dashboard_Running_Stopping_Title">Menghentikan tes...</string>
+    <string name="Dashboard_Running_Stopping_Notice">Menyelesaikan tes yang saat ini tertunda, silakan tunggu...</string>
     <string name="Dashboard_Running_ProxyInUse">Proksi yang digunakan</string>
     <string name="Dashboard_TestsMoved_Title">Tes</string>
     <string name="Dashboard_RunTests_Title">Jalankan tes</string>
@@ -233,7 +233,6 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Tidak terunggah</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Beberapa tidak terunggah</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Unggah Semua</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Mengunggah %1$s …</string>
     <string name="Toast_ResultsUploaded">Pengunggahan berhasil</string>
     <string name="Modal_UploadFailed_Title">Gagal mengunggah</string>
     <string name="Modal_UploadFailed_Paragraph">Kami gagal mengunggah %1$s/%2$s pengukuran. Log kegagalan telah dibagikan dengan pengembang OONI.</string>
@@ -256,8 +255,6 @@
     <string name="Modal_CustomURL_NotSaved">URL Anda tidak akan disimpan saat Anda meninggalkan layar ini. Anda yakin ingin meninggalkan layar ini?</string>
     <string name="Desktop_Quit">Keluar</string>
     <string name="Tray_Notification_Check_Updates">Periksa Pembaruan</string>
-    <string name="Tray_Notification_Checking_Updates">Memeriksa update …</string>
-
     <string name="Modal_Hide">Sembunyikan</string>
     <string name="OONIRun_Run">Mulai</string>
     <!-- Android notification channel name. -->

@@ -6,9 +6,15 @@
     <string name="Dashboard_Running_Running">Executando:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Tempo restante estimado:</string>
     <string name="Dashboard_Running_Stopping_Title">Parando o teste…</string>
-    <string name="Dashboard_Running_Stopping_Notice">Concluindo os testes atualmente pendentes, por favor aguarde…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Concluindo os testes atualmente pendentes, por favor aguarde...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy em uso</string>
+    <string name="Dashboard_LastResults">Últimos Resultados</string>
+    <string name="Dashboard_LastResults_SeeResults">Ver resultados</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-execução está <i>ligada</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Auto-execução está <i>desligada</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">Testes</string>
+    <string name="Dashboard_TestsMoved_Description">Os seus testes foram movidos para uma nova aba. Pode acedê-los através da barra de navegação abaixo.</string>
+    <string name="Dashboard_TestsMoved_Action">Ver testes</string>
     <string name="Dashboard_RunTests_Title">Executar testes</string>
     <string name="Dashboard_RunTests_Description">Selecione os testes a executar</string>
     <string name="Dashboard_RunTests_SelectAll">Selecione todos</string>
@@ -18,8 +24,25 @@
         <item quantity="many">Executar %1$d de testes</item>
         <item quantity="other">Executar %1$d testes</item>
     </plurals>
+    <string name="Dashboard_Stats_Title">As Suas Medições</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Rede</item>
+        <item quantity="many">Redes</item>
+        <item quantity="other">Redes</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">País</item>
+        <item quantity="many">Países</item>
+        <item quantity="other">Países</item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty">Comece a executar testes para ver as suas estatísticas aqui.</string>
+
+    <string name="Dashboard_Articles_Title">Notícias OONI</string>
+    <string name="Dashboard_Articles_Blog">Artigo</string>
+    <string name="Dashboard_Articles_Finding">Descoberta</string>
     <string name="Dashboard_Articles_Report">Relatório</string>
     <string name="Dashboard_Articles_ReadMore">Leia Mais</string>
+    <string name="Dashboard_Articles_Recent">Recente</string>
     <string name="Dashboard_RunV2_Ooni_Title">Testes OONI</string>
     <string name="Dashboard_RunV2_Title">Links de execução OONI</string>
     <string name="Dashboard_Runv2_Overview_Description">Criado por %1$s em %2$s</string>
@@ -52,6 +75,7 @@
 
 
     <string name="Tests_Title">Testes</string>
+    <string name="Tests_Search">Procurar testes</string>
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Mensagens Instantâneas</string>
     <string name="Test_Performance_Fullname">Desempenho</string>
@@ -219,7 +243,7 @@
     <string name="Settings_Results_DeleteOldResultsThreshold">Excluir resultados mais antigos que</string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
         <item quantity="one">%1$d meses</item>
-        <item quantity="many">%1$d de meses</item>
+        <item quantity="many">%1$d meses</item>
         <item quantity="other">%1$d meses</item>
     </plurals>
     <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Digite o número de meses</string>
@@ -243,7 +267,7 @@
     <string name="Settings_ShareLogs">Compartilhar Logs</string>
     <string name="Settings_ShareLogs_Error">Erro ao compartilhar logs</string>
     <string name="Settings_FilterLogs">Filtrar Logs</string>
-    <string name="Settings_Sharing_UploadResults_Description">Resultados são automaticamente subidos para o explorador do OONI.</string>
+    <string name="Settings_Sharing_UploadResults_Description">Resultados são automaticamente subidos para o explorador do OONI</string>
     <string name="Settings_Websites_Categories_Selection_None">Desmarcar todos</string>
     <string name="Settings_Websites_Categories_Selection_All">Selecionar todos</string>
     <string name="Settings_Websites_CustomURL_Title">Escolha sites para testar</string>
@@ -352,6 +376,8 @@
     <string name="Onboarding_DefaultSettings_Button_Change">Alterar padrões</string>
 
 
+    <string name="AddDescriptor_EnterURL">Inserir o URL de um Link de execução OONI</string>
+    <string name="AddDescriptor_URLInvalid">O URL não é de um Link de execução OONI válido</string>
     <string name="AddDescriptor_Settings">Configurações de Testes</string>
     <string name="AddDescriptor_Title">Instale o novo Link</string>
     <string name="AddDescriptor_AutoUpdate">Instalar atualizações automaticamente</string>
@@ -361,16 +387,17 @@
     <string name="AddDescriptor_InstallAndRun">Instalar &amp; Executar</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">URL sem suporte</string>
     <string name="LoadingScreen_Runv2_Message">Carregando Link</string>
+    <string name="LoadingScreen_Runv2_Failure">Erro ao carregar link</string>
     <string name="DescriptorUpdate_Updates">ATUALIZAÇÕES</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Verificar Atualizações</string>
-    <string name="AddDescriptor_AutoRunDisabled">Auto-execução desabilitada. Por favor, habilite-a para executar testes automaticamente.</string>
+    <string name="AddDescriptor_AutoRunDisabled">Auto-execução desligada. Por favor, habilite-a para executar testes automaticamente.</string>
     <string name="Descriptor_LastTestResult">Último Resultado do Teste</string>
 
     <string name="Snackbar_ResultsNotUploaded_Text">Não carregado</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Alguns items não carregaram</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Carregar Todos</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Fazendo upload de %1$s …</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Carregando %1$s …</string>
     <string name="Toast_ResultsUploaded">Carregamento bem-sucedido</string>
     <string name="Modal_UploadFailed_Title">Falha ao carregar</string>
     <string name="Modal_UploadFailed_Paragraph">Falha ao carregar %1$s/%2$s medidas. O log de falhas foi compartilhado com as pessoas que desenvolvem o OONI.</string>
@@ -413,6 +440,9 @@
     <string name="Tray_Notification_Checking_Updates">Procurando por atualizações…</string>
 
     <string name="Modal_Hide">Esconder</string>
+    <string name="Modal_Quite_Prompt">Sair do OONI Probe?</string>
+    <string name="Modal_Quite_Description">Se sair do aplicativo não irá poder executar testes automaticamente em segundo plano. Escolha Sair para terminar ou Esconder para continuar a correr em segundo plano.</string>
+
     <string name="OONIRun_Run">Executar</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testando</string>

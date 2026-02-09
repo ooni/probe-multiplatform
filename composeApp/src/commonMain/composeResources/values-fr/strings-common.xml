@@ -370,7 +370,6 @@
     <string name="Snackbar_ResultsNotUploaded_Text">N’a pas été téléversé</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Tout n’a pas été téléversé</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Tout téléverser</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Téléversement de %1$s…</string>
     <string name="Toast_ResultsUploaded">Le téléversement est réussi</string>
     <string name="Modal_UploadFailed_Title">Échec de téléversement</string>
     <string name="Modal_UploadFailed_Paragraph">Nous n’avons pas réussi à téléverser %1$s mesures sur %2$s. Le journal des échecs a été partagé avec les développeurs d’OONI.</string>
@@ -410,8 +409,6 @@
     <string name="Desktop_Quit">Fermer</string>
     <string name="Tray_Notification_Check_Updates">Chercher des mises à jour</string>
     <string name="Tray_Notification_Updates_Available">Une mise à jour est proposée</string>
-    <string name="Tray_Notification_Checking_Updates">Recherche de mises à jour…</string>
-
     <string name="Modal_Hide">Cacher</string>
     <string name="OONIRun_Run">Lancer</string>
     <!-- Android notification channel name. -->

@@ -74,8 +74,6 @@
     <string name="Desktop_Quit">연결 끝내기</string>
     <string name="Tray_Notification_Check_Updates">업데이트 확인</string>
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
-    <string name="Tray_Notification_Checking_Updates">업데이트 확인 중…</string>
-
     <string name="Modal_Hide">숨기기</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">시험중</string>

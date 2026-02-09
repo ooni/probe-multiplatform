@@ -77,8 +77,6 @@
     <string name="Desktop_Quit">Ukončit</string>
     <string name="Tray_Notification_Check_Updates">Zkontrolovat aktualizace</string>
     <string name="Tray_Notification_Updates_Available">Dostupná aktualizace!</string>
-    <string name="Tray_Notification_Checking_Updates">Zjišťuji aktualizace</string>
-
     <string name="Modal_Hide">Skrýt</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testování</string>

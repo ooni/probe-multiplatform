@@ -85,8 +85,6 @@
     <string name="Desktop_Quit">終了</string>
     <string name="Tray_Notification_Check_Updates">更新を確認</string>
     <string name="Tray_Notification_Updates_Available">更新利用可能です！</string>
-    <string name="Tray_Notification_Checking_Updates">アップデートを確認中…</string>
-
     <string name="Modal_Hide">非表示</string>
     <string name="OONIRun_Run">実行</string>
     <!-- Android notification channel name. -->

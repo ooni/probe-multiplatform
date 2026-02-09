@@ -113,7 +113,6 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Ej uppladdad</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Vissa ej uppladdade</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Ladda upp alla</string>
-    <string name="Modal_ResultsNotUploaded_Uploading">Laddar upp %1$s…</string>
     <string name="Toast_ResultsUploaded">Uppladdning lyckades</string>
     <string name="Modal_UploadFailed_Title">Överföringen misslyckades</string>
     <string name="Modal_Retry">Försök igen</string>
@@ -129,8 +128,6 @@
     <string name="Desktop_Quit">Avsluta</string>
     <string name="Tray_Notification_Check_Updates">Sök efter uppdateringar</string>
     <string name="Tray_Notification_Updates_Available">Uppdatering tillgänglig!</string>
-    <string name="Tray_Notification_Checking_Updates">Söker efter uppdateringar …</string>
-
     <string name="Modal_Hide">Göm</string>
     <string name="OONIRun_Run">Kör</string>
     <string name="Common_Back">Tillbaka</string>
