@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">Bảng tóm tắt</string>
-    <string name="Dashboard_Overview_LatestTest">Lần kiểm tra chót:</string>
     <string name="Dashboard_Overview_Estimated">Ước lượng:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Chọn trang web</string>
     <string name="Dashboard_Running_Running">Đang chạy:</string>
@@ -9,10 +8,13 @@
     <string name="Dashboard_Running_Stopping_Title">Dừng kiểm tra</string>
     <string name="Dashboard_Running_Stopping_Notice">Đang hoàn tất các bài kiểm tra dở dang, vui lòng chờ đợi....</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy đang sử dụng</string>
+    <string name="Dashboard_TestsMoved_Title">Các bài kiểm tra</string>
+    <string name="Dashboard_Articles_Report">Báo cáo</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Duyệt xem</string>
     <string name="Dashboard_Update_Restart">Khởi động lại</string>
 
 
+    <string name="Tests_Title">Các bài kiểm tra</string>
     <string name="Test_Websites_Fullname">Trang web</string>
     <string name="Test_InstantMessaging_Fullname">Tin Nhắn Nhanh</string>
     <string name="Test_Performance_Fullname">Hiệu suất</string>
@@ -29,9 +31,9 @@
     <string name="Test_Psiphon_Fullname">Kiểm tra Psiphon</string>
     <string name="Test_Tor_Fullname">Kiểm tra Tor</string>
     <string name="Test_Signal_Fullname">Kiểm tra Signal</string>
-    <string name="TestResults_Overview_Title">Kết quả kiểm tra</string>
-    <string name="TestResults_Overview_Tab_Label">Kết quả kiểm tra</string>
-    <string name="TestResults_Overview_Hero_Tests">Các bài kiểm tra</string>
+
+
+    <string name="TestResults">Kết quả</string>
     <string name="TestResults_Overview_Hero_Networks">Mạng</string>
     <string name="TestResults_Overview_Hero_DataUsage">Lượng dữ liệu dùng</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Chưa có bài kiểm tra nào được chạy. Hãy chạy thử một bài kiểm tra!</string>
@@ -196,9 +198,9 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Chúng tôi luôn cố gắng để không công bố địa chỉ IP của bạn hay bất kỳ thông tin nào khác có thể nhận dạng cá nhân.\n\nTìm hiểu thêm thông qua [Chính sách dữ liệu của OONI] (https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Thay đổi mặc định</string>
 
+
     <string name="AddDescriptor_Settings">Thiết lập Thử nghiệm</string>
     <string name="AddDescriptor_AutoRun">Chạy kiểm tra tự động</string>
-    <string name="LoadingScreen_Runv2_Failure">Lỗi</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Chưa được tải lên</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Một số chưa được tải lên</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Tải lên tất cả</string>
@@ -223,6 +225,7 @@
     <string name="Modal_CustomURL_Title_NotSaved">Bạn có chắc không?</string>
     <string name="Modal_CustomURL_NotSaved">URL của bạn sẽ không được lưu khi bạn rời khỏi màn hình này. Bạn có chắc chắn muốn rời khỏi màn hình này không?</string>
     <string name="Desktop_Quit">Rời</string>
+    <string name="Modal_Hide">Dấu</string>
     <string name="OONIRun_Run">Chạy</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Đang thử</string>
@@ -240,8 +243,13 @@
     <string name="Common_Next">Tiếp theo</string>
     <string name="Common_Previous">Trước</string>
     <string name="Common_Share">Chia sẻ</string>
+    <string name="Common_Dismiss">Đóng</string>
+    <string name="Common_Search">Tìm kiếm</string>
     <string name="Common_Today">Hôm nay</string>
     <string name="Common_Yesterday">Hôm qua</string>
+    <string name="Common_Week">Tuần</string>
+    <string name="Common_Month">Tháng</string>
+    <string name="Common_Total">Tổng cộng</string>
     <string name="Common_Months_May">05</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
