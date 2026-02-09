@@ -35,6 +35,8 @@
         <item quantity="many">Países</item>
         <item quantity="other">Países</item>
     </plurals>
+    <string name="Dashboard_Stats_Empty">Comece a executar testes para ver as suas estatísticas aqui.</string>
+
     <string name="Dashboard_Articles_Title">Notícias OONI</string>
     <string name="Dashboard_Articles_Report">Relatório</string>
     <string name="Dashboard_Articles_ReadMore">Leia Mais</string>
