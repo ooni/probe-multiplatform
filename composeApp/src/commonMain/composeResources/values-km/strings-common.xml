@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">ក្ដារព័ត៌មាន</string>
-    <string name="Dashboard_Overview_LatestTest">តេស្តចុងក្រោយ៖</string>
     <string name="Dashboard_Overview_Estimated">ប៉ាន់ស្មាន៖</string>
     <string name="Dashboard_Overview_ChooseWebsites">ជ្រើសរើសវែបសាយ</string>
     <string name="Dashboard_Running_Running">កំពុងដំណើរការ៖</string>
@@ -9,13 +8,15 @@
     <string name="Dashboard_Running_Stopping_Title">បញ្ចប់ការធ្វើតេស្ត</string>
     <string name="Dashboard_Running_Stopping_Notice">បញ្ចប់ការសាកល្បងមិនដំណើរការ។ សូមរង់ចាំ</string>
     <string name="Dashboard_Running_ProxyInUse">Proxyកំពុងដំណើរការ</string>
+    <string name="Dashboard_TestsMoved_Title">តេស្ត</string>
     <string name="Dashboard_RunTests_Title">ដំណើរការតេស្ត</string>
     <string name="Dashboard_RunTests_Description">ជ្រើសរើសតេស្តដើម្បីដំណើរការ</string>
     <string name="Dashboard_RunTests_SelectAll">ជ្រើសរើសតេស្តទាំងអស់</string>
     <string name="Dashboard_RunTests_SelectNone">ដកការជ្រើសរើសតេស្តទាំងអស់</string>
+    <string name="Dashboard_Articles_Report">រាយការណ៍</string>
+    <string name="Dashboard_Articles_ReadMore">អានបន្ថែម</string>
     <string name="Dashboard_RunV2_Ooni_Title">តេស្ត OONI</string>
     <string name="Dashboard_RunV2_Title">តំណរភ្ជាប់ OONI Run</string>
-    <string name="Dashboard_RunV2_RunFinished">ដំណើរការបានបញ្ចប់។ ចុចដើម្បីមើលលទ្ធផល</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">លុបតំណរភ្ជាប់</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">ការត្រួតពិនិត្យលើកមុន</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">មើលបន្ថែម</string>
@@ -33,6 +34,7 @@
     <string name="Dashboard_Update_Restart">ផ្ដើមឡើងវិញ</string>
 
 
+    <string name="Tests_Title">តេស្ត</string>
     <string name="Test_Websites_Fullname">វេបសាយ</string>
     <string name="Test_InstantMessaging_Fullname">សាររហ័ស</string>
     <string name="Test_Performance_Fullname">គុណភាព</string>
@@ -49,9 +51,9 @@
     <string name="Test_Psiphon_Fullname">តេស្ត Psiphon</string>
     <string name="Test_Tor_Fullname">តេស្ត Tor</string>
     <string name="Test_Signal_Fullname">តេស្ត Signal</string>
-    <string name="TestResults_Overview_Title">លទ្ធផលតេស្ត</string>
-    <string name="TestResults_Overview_Tab_Label">លទ្ធផលតេស្ត</string>
-    <string name="TestResults_Overview_Hero_Tests">តេស្ត</string>
+
+
+    <string name="TestResults">លទ្ធផល</string>
     <string name="TestResults_Overview_Hero_Networks">បណ្តាញជាច្រើន</string>
     <string name="TestResults_Overview_Hero_DataUsage">ទិន្នន័យប្រើប្រាស់</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">មិនទាន់មានតេស្តដំណើរការទេ។ សូមសាកដំណើរការតេស្ត!</string>
@@ -215,14 +217,13 @@
     <string name="Onboarding_DefaultSettings_Paragraph">ពួកយើងប្រឹងប្រែងអស់ពីលទ្ធភាពក្នុងការមិនបង្ហាញអាសយដ្ឋាន IP របស់អ្នក ឬព័ត៌មានដទៃទៀតដែលអាចឱ្យគេកំណត់អត្តសញ្ញាណរបស់អ្នកបាន។\n\nស្វែងយល់បន្ថែមតាមរយៈ [គោលនយោបាយទិន្នន័យរបស់ OONI] (https://ooni.org/about/data-policy/)</string>
     <string name="Onboarding_DefaultSettings_Button_Change">ផ្លាស់ប្តូរលំនាំដើម</string>
 
+
     <string name="AddDescriptor_Settings">តេស្ត​ការ​កំណត់នានា</string>
     <string name="AddDescriptor_Title">ដំឡើងតំណរភ្ជាប់ថ្មី</string>
     <string name="AddDescriptor_AutoUpdate">ដំឡើងបច្ចុប្បន្នភាពស្វ័យប្រវត្តិ</string>
     <string name="AddDescriptor_AutoRun">ដំណើរការតេស្តដោយស្វ័យប្រវត្តិ</string>
     <string name="AddDescriptor_Toasts_Installed">តំណរភ្ជាប់ដែលបានតំឡើង</string>
     <string name="LoadingScreen_Runv2_Message">តំណរភ្ជាប់កំពុងបញ្ជូនបន្ត</string>
-    <string name="LoadingScreen_Runv2_Failure">កំហុស</string>
-    <string name="LoadingScreen_Runv2_Canceled">ការដំឡើងតំណរភ្ជាប់ត្រូវបានបញ្ឈប់</string>
     <string name="DescriptorUpdate_Updates">បច្ចុប្បន្នភាព</string>
     <string name="Snackbar_ResultsNotUploaded_Text">មិនបានបញ្ជូល</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">មិនបានបញ្ជូលមួយចំនួន</string>
@@ -250,6 +251,7 @@
     <string name="Desktop_Quit">ចាកចេញ</string>
     <string name="Tray_Notification_Checking_Updates">កំពុងពិនិត្យមើលបច្ចុប្បន្នភាព...</string>
 
+    <string name="Modal_Hide">លាក់</string>
     <string name="OONIRun_Run">ដំណើរការ</string>
     <string name="Notification_StopTest">បញ្ឈប់តេស្ត</string>
 
@@ -265,8 +267,12 @@
     <string name="Common_Next">បន្ទាប់</string>
     <string name="Common_Previous">មុន</string>
     <string name="Common_Share">ចែករំលែក</string>
+    <string name="Common_Dismiss">ច្រានចោល</string>
+    <string name="Common_Search">ស្វែងរក</string>
     <string name="Common_Today">ថ្ងៃនេះ</string>
     <string name="Common_Yesterday">ម្សិលមិញ</string>
+    <string name="Common_Week">សប្ដាហ៍</string>
+    <string name="Common_Month">ខែ</string>
     <string name="Common_Months_May">ឧសភា​</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
