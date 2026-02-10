@@ -17,11 +17,10 @@
     <string name="Dashboard_Circumvention_Card_Description">Prova el blocatge d\'eines d\'elusió de la censura</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">Comproveu si [Psiphon](https://ooni.io/nettest/psiphon/) i [Tor](https://ooni.io/nettest/tor/) estan blocats.\n\nEls vostres resultats es publicaran a l\'[OONI Explorer](https://explorer.ooni.org/) i a l\'[API d\'OONI](https://api.ooni.io/).</string>
     <string name="Settings_About_Label">Quant a l\'OONI</string>
-    <string name="Settings_About_Content_Paragraph">L\\'Open Observatory of Network Interference (OONI) és un projecte de programari lliure en el marc del Projecte Tor que té com a objectiu augmentar la transparència de la censura d\\'Internet a tot el món.\n\nDes de 2012, la comunitat global d\\'OONI ha estat mesurant xarxes en més de 200 països. Algunes d\\'aquestes mesures serveixen com a evidència de la censura d\\'Internet.</string>
     <string name="Settings_About_Content_LearnMore">Apreneu-ne més</string>
     <string name="Settings_About_Content_Blog">Blog</string>
     <string name="Settings_About_Content_Reports">Informes</string>
     <string name="Settings_About_Content_DataPolicy">Política de dades d\'OONI</string>
     <string name="Settings_Donate_Title">Donacions</string>
     <string name="Settings_Donate_Action">Donacions</string>
-</resources>
+    </resources>
