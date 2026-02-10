@@ -22,23 +22,17 @@
     <string name="Dashboard_Articles_ReadMore">Leer más</string>
     <string name="Dashboard_Articles_Recent">Reciente</string>
     <string name="Dashboard_RunV2_Ooni_Title">Pruebas OONI</string>
-    <string name="Dashboard_RunV2_Title">OONI Run Links</string>
-    <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Enlace de Desinstalación</string>
-    <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Ver más</string>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">ACTUALIZACIÓN</string>
-    <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Actualización rechazada</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Deshacer</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Revisar Actualizaciones</string>
     <string name="Dashboard_Progress_UpdateLink_Label">Cargando actualizaciones de enlaces</string>
-    <string name="Dashboard_Progress_ReviewLink_Label">Link updates ready</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Revisar</string>
     <string name="Dashboard_ReviewDescriptor_Label">Link Update (%1$s of %2$s)</string>
-    <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE AND FINISH (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
     <!-- Button to reject a link update during review -->
     <string name="Dashboard_ReviewDescriptor_Reject">Rechazar Actualización</string>
@@ -121,13 +115,10 @@
     <string name="TestResults_Filter_Date_Picker">Seleccionar rango de fechas</string>
     <string name="TestResults_Filter_NoTestsFound">No se encontró resultados de prueba para esos filtros.</string>
     <string name="TestResults_Filter_DeleteConfirmation">¿Desea eliminar todos los resultados de prueba para los filtros actuales?</string>
-    <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
-    <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
     <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
     <string name="Results_MarkAllAsViewed">Marcar todo como visto</string>
     <string name="Results_MarkAllAsViewed_Confirmation">¿Desea marcar todos los resultados como vistos?</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">¿Desea marcar todos los resultados como vistos para los filtros actuales?</string>
-    <string name="Measurement_Title">Measurement</string>
     <string name="Measurement_LoadingFailed">No se pudo cargar la información de medición</string>
     <string name="Measurements_Failed">Falló</string>
     <string name="Measurements_Ok">Aceptar</string>
@@ -144,9 +135,6 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Al habilitar pruebas automáticas, OONI Probe las ejecutará automáticamente múltiples veces por día. Los resultados de tus pruebas serán automáticamente publicados en el Explorador OONI: https://explorer.ooni.org/\n\nImportante: Si tienes una VPN habilitada, OONI Probe no ejecutará pruebas automáticamente. Por favor desactiva tu VPN para efectuar pruebas automatizadas con OONI Probe. Aprende más: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run in the background</string>
     <string name="Settings_Sharing_UploadResults">Publicar resultados automáticamente</string>
-    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
-    <string name="Settings_Websites_MaxRuntimeEnabled">Limit Websites test duration</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
     <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeDuration">Tiempo de ejecución máximo de una prueba completa de páginas web</string>
     <string name="Settings_Websites_MaxRuntimeDuration_Unit">Introducir el número de segundos</string>
@@ -185,12 +173,7 @@
     <string name="Settings_Storage_Clear">Borrar</string>
     <string name="Settings_Legacy_Storage">Eliminar archivos de la versión anterior</string>
     <string name="Settings_WarmVPNInUse_Label">Avisar cuando la VPN está en uso</string>
-    <string name="Settings_DisableVpnInstructions">Go to Settings &gt; General &gt; VPN and disconnect from your VPN.</string>
     <string name="Settings_Logs">Registros</string>
-    <string name="Settings_ShareLogs">Share Logs</string>
-    <string name="Settings_ShareLogs_Error">Error sharing logs</string>
-    <string name="Settings_FilterLogs">Filter Logs</string>
-    <string name="Settings_Sharing_UploadResults_Description">Results are automatically uploaded to OONI explorer</string>
     <string name="Settings_Websites_Categories_Selection_None">Deseleccionar Todo</string>
     <string name="Settings_Websites_Categories_Selection_All">Seleccionar todos</string>
     <string name="Settings_Websites_CustomURL_Title">Elige sitios web a probar</string>
@@ -264,8 +247,6 @@
     <string name="CategoryCode_CTRL_Description">Contenido benigno o inocuo usado para control</string>
     <string name="CategoryCode_IGO_Description">Organizaciones intergubernamentales, incluyendo las Naciones Unidas</string>
     <string name="CategoryCode_MISC_Description">Sitios que no han sido aún categorizados</string>
-    <string name="Onboarding_QuizAnswer_Correct">Correct answer</string>
-    <string name="Onboarding_QuizAnswer_Incorrect">Incorrect answer</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Lo tengo</string>
     <string name="Onboarding_ThingsToKnow_Title">¡Atención!</string>
     <string name="Onboarding_ThingsToKnow_Button">Entiendo</string>
@@ -296,11 +277,7 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Vamos</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Cambiar ajustes</string>
     <string name="AddDescriptor_Settings">Probar configuración</string>
-    <string name="AddDescriptor_Title">Install New Link</string>
-    <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
     <string name="AddDescriptor_AutoRun">Ejecutar pruebas automáticamente</string>
-    <string name="AddDescriptor_Toasts_Installed">Link installed</string>
-    <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
     <string name="LoadingScreen_Runv2_Message">Cargando Enlace</string>
     <string name="DescriptorUpdate_Updates">ACTUALIZACIONES</string>
     <!-- Only used for the desktop version of the app for now -->
@@ -373,7 +350,6 @@
     <string name="Common_Week">Semana</string>
     <string name="Common_Month">Mes</string>
     <string name="Common_Total">Total</string>
-    <string name="Common_Ago">%1$s ago</string>
     <plurals name="Common_Seconds">
         <item quantity="one">%1$d segundo</item>
         <item quantity="many">%1$d de segundos</item>
@@ -409,7 +385,5 @@
     <string name="Common_Months_October">Octubre</string>
     <string name="Common_Months_November">Noviembre</string>
     <string name="Common_Months_December">Diciembre</string>
-    <string name="TaskOrigin_Manual">Manual Run</string>
-    <string name="TaskOrigin_AutoRun">Auto Run</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
