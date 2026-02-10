@@ -440,6 +440,9 @@
     <string name="Tray_Notification_Checking_Updates">Recherche de mises à jour…</string>
 
     <string name="Modal_Hide">Cacher</string>
+    <string name="Modal_Quite_Prompt">Fermer OONI Probe \?</string>
+    <string name="Modal_Quite_Description">Si vous fermez l’appli, elle ne pourra pas exécuter des tests automatisés en arrière-plan. Choisissez Fermer pour la fermer ou Cacher pour continuer à l’exécuter en arrière-plan.</string>
+
     <string name="OONIRun_Run">Lancer</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Test</string>
