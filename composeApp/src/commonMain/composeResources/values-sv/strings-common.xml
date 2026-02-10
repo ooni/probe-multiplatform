@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Dashboard</string>
     <string name="Dashboard_Overview_Estimated">Beräknat:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Välj webbsidor</string>
@@ -10,8 +10,6 @@
     <string name="Dashboard_Runv2_Overview_Description">Skapades av %1$s den %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ångra</string>
     <string name="Dashboard_Update_Restart">Starta om</string>
-
-
     <string name="Tests_Title">Tester</string>
     <string name="Test_Websites_Fullname">Webbsidor</string>
     <string name="Test_InstantMessaging_Fullname">Direkt meddelanden</string>
@@ -52,8 +50,6 @@
     <string name="Measurements_Failed">Misslyckade</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">Ladda upp</string>
-
-
     <string name="Settings_Title">Inställningar</string>
     <string name="Settings_Sharing_UploadResults">Publisera resultat automatiskt</string>
     <string name="Settings_Websites_Categories_Label">Webside-kategorier att testa</string>
@@ -105,8 +101,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Nätverksinformation (inklusive Autonomt systemnummer)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Tid och datum för test</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Ändra standard</string>
-
-
     <string name="AddDescriptor_Settings">Testa inställningar</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Sök efter uppdateringar</string>
@@ -118,7 +112,7 @@
     <string name="Modal_Retry">Försök igen</string>
     <string name="Modal_Cancel">Avbryt</string>
     <string name="Modal_OK">OK</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Will du radera alla testresultat</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Will du radera alla testresultat?</string>
     <string name="Modal_Delete">Radera</string>
     <string name="Modal_ReRun_Title">Kör test igen</string>
     <string name="Modal_ReRun_Websites_Run">Kör</string>
@@ -162,6 +156,5 @@
     <string name="Common_Months_October">Oktober</string>
     <string name="Common_Months_November">November</string>
     <string name="Common_Months_December">December</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
