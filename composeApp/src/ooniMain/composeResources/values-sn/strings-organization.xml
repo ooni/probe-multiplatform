@@ -1,10 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Chii chinonzi OONI Probe?</string>
     <string name="Onboarding_PopQuiz_1_Question">Kana pane ari kuwongorora zvauri kuita pamasaisai, anowona kuti uri kushandisa OONI Probe.</string>
     <string name="Dashboard_Websites_Card_Description">Ongorora kuvharwa kwema websites</string>
-    <string name="Dashboard_Websites_Overview_Paragraph">Tarisa kana mawebsites akavhara achishandisa OONI\'s [Web Connectivity test](https://ooni.org/nettest/web-connectivity/).\n\nNguva dzese dzaucha dzvanya Shandisa, uchaongorora mawebsites akasiyana kubva ku Citizen Lab\'s [global](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) ne [country-specific](https://github.com/citizenlab/test-lists/tree/master/lists)\n\nKuti uongorore masites aunoda, dzvanya sarudza mawebsites kana kuti sarudza chikamu chema sites nekuma settings. \n\nThis test measures whether websites are blocked by means of DNS tampering, TCP/IP blocking or by a transparent HTTP proxy.\n\nYour results will be published on [OONI Explorer](https://explorer.ooni.org/world/) and [OONI API](https://api.ooni.io/).</string>
     <string name="Settings_About_Label">Nezve OONI</string>
     <string name="Settings_About_Content_LearnMore">Ziva zvizere</string>
     </resources>
