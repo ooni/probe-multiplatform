@@ -8,6 +8,8 @@
     <string name="Dashboard_Running_Stopping_Title">Arrêt du test…</string>
     <string name="Dashboard_Running_Stopping_Notice">Achèvement des tests en attente, patientez…</string>
     <string name="Dashboard_Running_ProxyInUse">Le mandataire est en fonction</string>
+    <string name="Dashboard_LastResults">Derniers résultats</string>
+    <string name="Dashboard_LastResults_SeeResults">Voir les résultats</string>
     <string name="Dashboard_TestsMoved_Title">Tests</string>
     <string name="Dashboard_RunTests_Title">Exécuter les tests</string>
     <string name="Dashboard_RunTests_Description">Choisissez les tests à exécuter</string>
