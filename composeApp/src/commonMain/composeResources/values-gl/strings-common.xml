@@ -1,13 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Overview_Estimated">Estimado:</string>
-    <string name="Dashboard_Running_Running">Executando</string>
+    <string name="Dashboard_Running_Running">Executando:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Tempo restante estimado:</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Desfacer</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Revisión</string>
     <string name="Dashboard_Update_Restart">Reiniciar</string>
-
-
     <string name="Test_Websites_Fullname">Sitios web</string>
     <string name="Test_InstantMessaging_Fullname">Mensaxería Instantánea</string>
     <string name="Test_Performance_Fullname">Rendemento</string>
@@ -31,8 +29,6 @@
     <string name="Measurements_Failed">Fracasou</string>
     <string name="Measurements_Ok">Aceptar</string>
     <string name="Measurement_Raw_Upload">Cargar</string>
-
-
     <string name="Settings_Title">Axustes</string>
     <string name="Settings_Privacy_Label">Privacidade</string>
     <string name="Settings_Privacy_SendCrashReports">Enviar informe de erro</string>
@@ -40,7 +36,7 @@
     <string name="Settings_Proxy_None">Nada</string>
     <string name="Settings_Proxy_Custom_Hostname">Nome do servidor</string>
     <string name="Settings_Proxy_Custom_Port">Porto</string>
-    <string name="Settings_Proxy_Custom_Testing">A probar...</string>
+    <string name="Settings_Proxy_Custom_Testing">A probar</string>
     <string name="Settings_Proxy_Custom_Available">Dispoñible</string>
     <string name="Settings_Language_Label">Lingua</string>
     <string name="Settings_Advanced_Label">Avanzados</string>
@@ -85,7 +81,7 @@
     <string name="Onboarding_Crash_Button_No">Non</string>
     <string name="Onboarding_Notifications_Ok">Aceptar</string>
     <string name="Onboarding_DefaultSettings_Title">Axustes por defecto</string>
-    <string name="AddDescriptor_Settings">Test Settings</string>
+    <string name="AddDescriptor_Settings"></string>
     <string name="Snackbar_ResultsNotUploaded_Text">Non cargado</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Todo cargado</string>
     <string name="Modal_UploadFailed_Title">Fallou a subida</string>
@@ -96,14 +92,14 @@
     <string name="Modal_Delete">Eliminar</string>
     <string name="Modal_ReRun_Title">Re-executar o test</string>
     <string name="Modal_ReRun_Websites_Run">Executar</string>
-    <string name="Modal_Error_CantDownloadURLs">Imposible descargar a lista de URL. Por favor inténteo de novo</string>
+    <string name="Modal_Error_CantDownloadURLs">Imposible descargar a lista de URL. Por favor inténteo de novo.</string>
     <string name="Modal_Error_NoInternet">Sen conexión a internet</string>
     <string name="Modal_CustomURL_Title_NotSaved">Estás seguro?</string>
     <string name="Desktop_Quit">Abandoar</string>
     <string name="Modal_Hide">Agochar</string>
     <string name="OONIRun_Run">Executar</string>
     <!-- Android notification channel name. -->
-    <string name="Notification_ChannelName">A probar...</string>
+    <string name="Notification_ChannelName">A probar</string>
     <string name="Common_Back">Anterior</string>
     <string name="Common_Close">Pechar</string>
     <string name="Common_Refresh">Actualizar</string>
