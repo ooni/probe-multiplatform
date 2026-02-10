@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Onboarding_WhatIsOONIProbe_Title">Que é OONI Probe?</string>
     <string name="Onboarding_PopQuiz_1_Question">Se alguén está monitoreando a miña actividade na Internet, verá que estou a executar OONI Probe</string>
