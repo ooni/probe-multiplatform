@@ -98,6 +98,15 @@ void winsparkle_set_dll_root(const char* root_utf8) {
     memcpy(g_dll_root, root_utf8, len);
     g_dll_root[len] = '\0';
     winsparkle_log(WINSPARKLE_LOG_INFO, "dll_root", "Set DLL root to: %s", g_dll_root);
+
+    // Add the DLL root directory to the DLL search path to ensure dependencies like
+    // libwinpthread-1.dll can be found when loading WinSparkle.dll
+    if (SetDllDirectoryA(g_dll_root)) {
+        winsparkle_log(WINSPARKLE_LOG_INFO, "dll_root", "Successfully added DLL directory to search path");
+    } else {
+        DWORD error = GetLastError();
+        winsparkle_log(WINSPARKLE_LOG_WARN, "dll_root", "Failed to set DLL directory (error %lu)", error);
+    }
 }
 
 static int load_winsparkle_dll() {
