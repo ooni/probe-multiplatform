@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">什麼是 OONI Probe？</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">評量網路審查的應用工具\n\n網站與社交媒體應用是否受到封鎖？網路連線是否不正常地變慢？\n\n執行 ONNI Probe 找出原因！ </string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI 會公開發佈數據會其中也包括用戶的網路資訊</string>
@@ -17,22 +17,19 @@
     <string name="Dashboard_Performance_Card_Description">測試網路速度和效能</string>
     <string name="Dashboard_Performance_Overview_Paragraph">利用 [NDT](https://ooni.org/nettest/ndt/) 測試來衡量網路速度和效能。\n\n用 [DASH](https://ooni.org/nettest/dash/) 測試來了解影片串流的表現。\n\n這些測試會因所在網路速度而消耗數據\n\n測試結果會發佈在 [OONI Explorer](https://explorer.ooni.org/world/) 和 [OONI API](https://api.ooni.io/).\n\n免責聲明: 這些測試是透過第三方伺服器，故我們無法保證你的 IP 地址不被他人收集。</string>
     <string name="Dashboard_Middleboxes_Card_Description">偵測你的網路環境是否有中間盒</string>
-    <string name="Dashboard_Middleboxes_Overview_Paragraph">因各種情況（如為了緩存），網路連線服務商經常會使用一些網路用具 (如中間盒) 。但有時候，中間盒被會用作網路審查與監控。\n\n使用 OONI\'s [HTTP  無效請求列](https://ooni.org/nettest/http-invalid-request-line/) 和 [HTTP 表頭欄位操控](https://ooni.org/nettest/http-header-field-manipulation/) 測試來找出網路是否有中間盒。\n\n測試結果會發佈在 [OONI Explorer](https://explorer.ooni.org/world/) 和 [OONI API](https://api.ooni.io/).</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph">因各種情況（如為了緩存），網路連線服務商經常會使用一些網路用具 (如中間盒) 。但有時候，中間盒被會用作網路審查與監控。\n\n使用 OONI\\'s [HTTP 無效請求列](https://ooni.org/nettest/http-invalid-request-line/) 和 [HTTP 表頭欄位操控](https://ooni.org/nettest/http-header-field-manipulation/) 測試來找出網路是否有中間盒。\n\n測試結果會發佈在 [OONI Explorer](https://explorer.ooni.org/world/) 和 [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_InstantMessaging_Card_Description">測試遭封鎖的即時通訊應用</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">檢查 [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) 以及 [Signal](https://ooni.org/nettest/signal) 是否已被封鎖。\n\n其結果會發佈在  [OONI Explorer](https://explorer.ooni.org/world/) 與 [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Circumvention_Card_Description">测試翻墙工具屏蔽狀況</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">测试 [赛风](https://ooni.io/nettest/psiphon/) 和 [Tor](https://ooni.io/nettest/tor/) 是否被屏蔽。\n\n你的测试结果将会发布在 [OONI Explorer](https://explorer.ooni.org/) 和 [OONI API](https://api.ooni.io/)。</string>
     <string name="Dashboard_Experimental_Card_Description">執行新試驗測試</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">執行下方 OONI 團隊所開發的新實驗測試\n%1$s\n\n其結果會發佈於 [OONI Explorer](https://explorer.ooni.org/) 與 [OONI API](https://api.ooni.io/).</string>
-
     <string name="Settings_About_Label">關於 OONI</string>
     <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) 是Tor 計畫底下的一個自由軟體專案，旨在增加全球各地網路審查的透明度。\n\n自 2012 起 OONI 全球社群對 200多個國家進行網路測量。這些網路測量一部份成為網路審查的證據。 </string>
-
     <string name="Settings_About_Content_LearnMore">瞭解更多</string>
     <string name="Settings_About_Content_Blog">部落格</string>
     <string name="Settings_About_Content_Reports">回報</string>
     <string name="Settings_About_Content_DataPolicy">OONI 數據資料規範</string>
-
     <string name="Settings_Donate_Title">捐獻</string>
     <string name="Settings_Donate_Action">捐獻</string>
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">此後您只能透過建立者傳送的原始連結再次安裝此連結。連結中的測量結果將被刪除，但可在 Explorer 中讀取。</string>

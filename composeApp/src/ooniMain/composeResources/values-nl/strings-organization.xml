@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Wat is OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Uw app voor het meten van internetcensuur.\n\nWorden websites en sociale media-apps geblokkeerd? Is uw internetverbinding ongewoon traag?\n\nVoer OONI Probe uit om erachter te komen!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI-gegevens worden openlijk gepubliceerd en bevatten uw netwerkinformatie.</string>
@@ -17,22 +17,19 @@
     <string name="Dashboard_Performance_Card_Description">Test uw netwerksnelheid en prestaties</string>
     <string name="Dashboard_Performance_Overview_Paragraph">Meet de snelheid en prestaties van uw netwerk met behulp van de [NDT](https://ooni.org/nettest/ndt/) test.\n\nMeet de prestaties van videostreaming met behulp van de [DASH](https://ooni.org/nettest/dash/)-test.\n\nDeze tests verbruiken gegevens, afhankelijk van uw netwerksnelheid.\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/world/) en [OONI API](https://api.ooni.io/).\n\nDisclaimer: deze tests zijn afhankelijk van servers van derden. We kunnen daarom niet garanderen dat uw IP-adres niet wordt verzameld.</string>
     <string name="Dashboard_Middleboxes_Card_Description">Detecteer middleboxen in uw netwerk</string>
-    <string name="Dashboard_Middleboxes_Overview_Paragraph">Internet Service Providers gebruiken netwerkapparatuur (middleboxen) vaak voor verschillende netwerkdoeleinden (zoals caching). Soms worden deze middleboxen gebruikt om internetcensuur en/of surveillance door te voeren.\n\nVind middleboxen in uw netwerk met behulp van OONI\'s [HTTP Invalid Request Line](https://ooni.org/nettest/http-invalid-request-line/) en [HTTP Header Field Manipulation](https://ooni.org/nettest/http-header-field-manipulation/) testen.\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/world/) en [OONI API](https://api.ooni.io/).</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph">Internet Service Providers gebruiken netwerkapparatuur (middleboxen) vaak voor verschillende netwerkdoeleinden (zoals caching). Soms worden deze middleboxen gebruikt om internetcensuur en/of surveillance door te voeren.\n\nVind middleboxen in uw netwerk met behulp van OONI\\'s [HTTP Invalid Request Line](https://ooni.org/nettest/http-invalid-request-line/) en [HTTP Header Field Manipulation](https://ooni.org/nettest/http-header-field-manipulation/) testen.\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/world/) en [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_InstantMessaging_Card_Description">Test het blokkeren van instant messaging-apps</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">Controleer of [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni .org/nettest/telegram/) en [Signal](https://ooni.org/nettest/signal) worden geblokkeerd.\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/world/) en [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Circumvention_Card_Description">Test de blokkering van tools voor het omzeilen van censuur</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">Controleer of [Psiphon](https://ooni.org/nettest/psiphon/) of [Tor](https://ooni.org/nettest/tor/) zijn geblokkeerd.\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/) en [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Experimental_Card_Description">Nieuwe experimentele tests uitvoeren</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">Voer de volgende nieuwe experimentele tests uit die zijn ontwikkeld door het OONI-team:\n%1$s\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/) en [OONI API](https://api.ooni.io/).</string>
-
     <string name="Settings_About_Label">Over OONI</string>
     <string name="Settings_About_Content_Paragraph">The Open Observatory of Network Interference (OONI) is een gratis softwareproject onder The Tor Project dat tot doel heeft de transparantie van internetcensuur over de hele wereld te vergroten.\n\nSinds 2012 meet de wereldwijde gemeenschap van OONI netwerken in meer dan 200 landen. Sommige van deze metingen dienen als bewijs van internetcensuur.</string>
-
     <string name="Settings_About_Content_LearnMore">Meer info</string>
     <string name="Settings_About_Content_Blog">Blog</string>
     <string name="Settings_About_Content_Reports">Inzendingen</string>
     <string name="Settings_About_Content_DataPolicy">OONI-gegevensbeleid</string>
-
     <string name="Settings_Donate_Title">Doneer</string>
     <string name="Settings_Donate_Action">Doneer</string>
-    </resources>
+</resources>

@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Dashboard</string>
     <string name="Dashboard_Overview_Estimated">Tempo stimato:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Scegli i siti</string>
@@ -10,12 +10,10 @@
     <string name="Dashboard_Running_ProxyInUse">Proxy in uso</string>
     <string name="Dashboard_TestsMoved_Title">Test</string>
     <string name="Dashboard_Articles_Report">Segnalazione</string>
-    <string name="Dashboard_Runv2_Overview_Description">Creata da %1$s il {%time}</string>
+    <string name="Dashboard_Runv2_Overview_Description">Creata da %1$s il %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Annulla</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Rivedi</string>
     <string name="Dashboard_Update_Restart">Riavvia</string>
-
-
     <string name="Tests_Title">Test</string>
     <string name="Test_Websites_Fullname">Siti web</string>
     <string name="Test_InstantMessaging_Fullname">Messaggistica istantanea</string>
@@ -33,8 +31,6 @@
     <string name="Test_Psiphon_Fullname">Test Psiphon</string>
     <string name="Test_Tor_Fullname">Test Tor</string>
     <string name="Test_Signal_Fullname">Test di Signal</string>
-
-
     <string name="TestResults">Risultati</string>
     <string name="TestResults_Overview_Hero_Networks">Reti</string>
     <string name="TestResults_Overview_Hero_DataUsage">Utilizzo dati</string>
@@ -67,8 +63,6 @@
     <string name="Measurements_Failed">Fallito</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">Carica</string>
-
-
     <string name="Settings_Title">Impostazioni</string>
     <string name="Settings_TestOptions_Label">Opzioni dei test</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Esegui test automaticamente</string>
@@ -174,7 +168,6 @@
     <string name="CategoryCode_CTRL_Description">Siti web benigni o innocui, usati come controllo</string>
     <string name="CategoryCode_IGO_Description">Organizzazioni intergovernative, incluse le Nazioni Unite</string>
     <string name="CategoryCode_MISC_Description">Siti web non ancora classificati</string>
-
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Ho capito</string>
     <string name="Onboarding_ThingsToKnow_Title">Sappiatelo!</string>
     <string name="Onboarding_ThingsToKnow_Button">Ho capito</string>
@@ -201,8 +194,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Data e ora del test</string>
     <string name="Onboarding_DefaultSettings_Paragraph">Facciamo del nostro meglio per evitare di pubblicare il tuo indirizzo IP o altre informazioni personali.\n\nPer maggiori informazioni vedi la [Data Policy di OONI](https://ooni.org/about/data-policy/)</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Cambia i default</string>
-
-
     <string name="AddDescriptor_Settings">Fai un test delle impostazioni</string>
     <string name="AddDescriptor_AutoRun">Esegui test automaticamente</string>
     <!-- Only used for the desktop version of the app for now -->
@@ -233,7 +224,6 @@
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Verifica in corso</string>
     <string name="Notification_StopTest">Ferma il test</string>
-
     <string name="Common_Back">Indietro</string>
     <string name="Common_Close">Chiudi</string>
     <string name="Common_Refresh">Aggiorna</string>
@@ -265,6 +255,5 @@
     <string name="Common_Months_October">Ottobre</string>
     <string name="Common_Months_November">Novembre</string>
     <string name="Common_Months_December">Dicembre</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
