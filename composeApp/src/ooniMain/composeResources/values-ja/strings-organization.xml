@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe とは?</string>
     <string name="Dashboard_Websites_Card_Description">ウェブサイトのブロックのテスト</string>
     <string name="Dashboard_InstantMessaging_Card_Description">インスタントメッセージングアプリのブロックのテスト</string>
