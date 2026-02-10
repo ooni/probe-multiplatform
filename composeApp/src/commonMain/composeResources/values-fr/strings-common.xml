@@ -10,7 +10,11 @@
     <string name="Dashboard_Running_ProxyInUse">Le mandataire est en fonction</string>
     <string name="Dashboard_LastResults">Derniers résultats</string>
     <string name="Dashboard_LastResults_SeeResults">Voir les résultats</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[L’exécution automatique est <i>activée</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[L’exécution automatique est <i>désactivée</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">Tests</string>
+    <string name="Dashboard_TestsMoved_Description">Vos tests ont été déplacés vers un nouvel onglet. La barre de navigation ci-dessous vous permet d’y accéder.</string>
+    <string name="Dashboard_TestsMoved_Action">Afficher les tests</string>
     <string name="Dashboard_RunTests_Title">Exécuter les tests</string>
     <string name="Dashboard_RunTests_Description">Choisissez les tests à exécuter</string>
     <string name="Dashboard_RunTests_SelectAll">Sélectionner tous les tests</string>
@@ -19,6 +23,12 @@
         <item quantity="one">Exécuter %1$d test</item>
         <item quantity="many">Exécuter %1$d de tests</item>
         <item quantity="other">Exécuter %1$d tests</item>
+    </plurals>
+    <string name="Dashboard_Stats_Title">Vos mesures</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Réseau</item>
+        <item quantity="many">Réseaux</item>
+        <item quantity="other">Réseaux</item>
     </plurals>
     <string name="Dashboard_Articles_Report">Signalement</string>
     <string name="Dashboard_Articles_ReadMore">En savoir plus</string>
