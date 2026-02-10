@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OONI Probe</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">O que é o OONI Probe?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">A sua aplicação para medir a censura ao acesso a internet.\n\nExistem páginas da internet ou redes sociais bloqueadas? A sua internet está anormalmente lenta?\n\nUtilize  o OONI Sondagens e descubra!</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">Os dados no OONI  públicos e incluem informação do seu provedor. </string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">Qualquer entidade que esteja a monitorar a sua actividade na internet (ex. o governo ou o seu provedor) verá que está a usar o OONI Sondagens. </string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">Você pode testar páginas de internet banidas ( mas pode escolher que páginas testar). </string>
+    <string name="Settings_About_Content_LearnMore">Saiba mais</string>
+    </resources>
