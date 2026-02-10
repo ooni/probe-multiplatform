@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Mikä on OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Sovelluksesi internetin sensuurin mittaamiseen.\n\nOnko verkkosivut ja sosiaalisen median sovellukset estetty? Onko verkkosi normaalia hitaampi?\n\nSelvitä se käyttämällä OONI Probea!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI-tietoaineisto on avoimesti julkaistu ja tulee sisältämään verkkotietojasi.</string>

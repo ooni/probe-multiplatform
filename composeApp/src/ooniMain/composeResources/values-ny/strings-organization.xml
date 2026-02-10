@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Oprobe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Kodi OONI Probe nichani?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Pulogilamu yanu yo pimilamo kalesedwe ka intaneti.\n\nKodi mawebusaiti ndi mapulogilamu ochezera a pa intaneti ana validwa? Nanga Intaneti yanu isebenza pang\'ono pang\'ono?\n\nSebenzesani OONI Probe kuti muzibe!</string>
     </resources>

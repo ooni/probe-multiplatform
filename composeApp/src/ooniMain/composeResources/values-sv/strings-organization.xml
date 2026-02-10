@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Vad är OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Din app för att mäta internetcensur.\n\nÄr webbsidor och sociala medier appar blockerade? Är din internetanslutning ovanligt långsam?\n\nKör OONI Probe för att få reda på det!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI data publiceras öppet och kommer att innehålla din nätverksinformation.</string>
@@ -19,7 +19,6 @@
     <string name="Settings_About_Content_Blog">Blogg</string>
     <string name="Settings_About_Content_Reports">Rapporter</string>
     <string name="Settings_About_Content_DataPolicy">OONI Data-policy</string>
-
     <string name="Settings_Donate_Title">Donera</string>
     <string name="Settings_Donate_Action">Donera</string>
     </resources>

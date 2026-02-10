@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Uyini OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Le app lena yeku kala kuvimbeleka ne kugcindzetela kusebentisa kwemubane wetekuchuma.\n\nngabe likhasi lemoya lelinemininingwane kanye netekuchumana emoyeni tivinjiwe yini? ngabe umbane wemoya uhamba kancane ngendlela lecakile yini? \n\n Vula OONI Probe kutokwati kabanti!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Imininingwane ya OONI isakateka ngalokusebaleni futsi itofaka ekhatsi imininingwane yakho yetekuchumana emoyeni.</string>

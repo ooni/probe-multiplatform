@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">OONI คืออะไร</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">เเอปเพื่อตรวจหาการปิดกั้นอินเทอร์เน็ต\n\nเว็บไซต์และสื่อสังคมถูกปิดกั้นหรือไม่? การเชื่อมต่ออินเทอร์เน็ตของคุณช้ากว่าปกติรึเปล่า?\n\nให้ OONI Probe ทำงานเพื่อหาคำตอบ!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">ข้อมูล OONI นั้นถูกเผยแพร่อย่างเปิดเผยและจะมีข้อมูลเกี่ยวกับเครือข่ายของคุณด้วย</string>
@@ -10,29 +10,22 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">ถ้ามีใครกำลังจับตากิจกรรมอินเทอร์เน็ตของฉัน พวกเขาจะเห็นได้ว่าฉันกำลังใช้ OONI Probe</string>
     <string name="Onboarding_PopQuiz_2_Question">ทุกครั้งที่ฉันเรียกใช้ OONI Probe ข้อมูลเครือข่ายที่ฉันเก็บรวบรวมจะถูกเผยแพร่โดยอัตโนมัติ</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">เพื่อเพิ่มความโปร่งใสของการปิดกั้นอินเทอร์เน็ต ข้อมูลเครือข่ายของผู้ใช้ OONI Probe ทุกรายจะถูกเผยแพร่โดยอัตโนมัติ (เว้นเสียแต่ว่าพวกเขาได้เลือก ไม่เข้าร่วม ในการตั้งค่า)</string>
-    <string name="Onboarding_AutomatedTesting_Paragraph">ถ้าอยากให้ตรวจวัดการปิดกั้นอินเทอร์เน็ตทุกวัน กรุณาเปิดใช้การทดสอบอัตโนมัติ เพื่อให้ OONI Probe ทำงานได้ตามรอบเวลา\n\nเราระวังเกี่ยวกับการใช้แบต ดังนั้นไม่ต้องห่วง\n\nคุณสามารถปิดช้การทดสอบอัตโนมัติจากการตั้งค่าได้ทุกเมื่อ</string>
     <string name="Onboarding_Crash_Paragraph">เพื่อปรับปรุง OONI Probe เราอยากรวบรวมรายงานการพังของแอป เมื่อแอปไม่ทำงานตามปกติ\n\nคุณอยากสมัครใจส่งรายงานการพังของแอปให้กับทีมพัฒนาของ OONI หรือไม่?</string>
     <string name="Dashboard_Websites_Card_Description">ทดสอบการปิดกั้นเว็บไซต์</string>
-    <string name="Dashboard_Websites_Overview_Paragraph">ตรวจสอบว่าเว็บไซต์ถูกปิดกั้นหรือไม่ ด้วย[การทดสอบการเชื่อมต่อเว็บ](https://ooni.io/nettest/web-connectivity/) ของ OONI\n\nทุกครั้งที่คุณแตะปุ่ม ทดสอบ คุณจะทดสอบเว็บไซต์ที่ต่างกันไปจากรายการทดสอบ[ทั่วโลก](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv)และ[เจาะจงประเทศ](https://github.com/citizenlab/test-lists/tree/master/lists) ที่จัดทำโดย Citizen Lab\n\nหากต้องการทดสอบเว็บไซต์ที่คุณกำหนดเอง ให้แตะปุ่ม เลือกเว็บไซต์ หรือเลือกหมวดเว็บไซต์ จากการตั้งค่านี้\n\nการทดสอบนี้จะตรวจวัดว่าเว็บไซต์ถูกปิดกั้นหรือไม่ จากวิธีการปลอมแปลง DNS การปิดกั้น TCP/IP หรือการใช้พร็อกซี HTTP แบบล่องหน\n\nผลทดสอบของคุณจะถูกเผยแพร่บน [OONI Explorer](https://explorer.ooni.org/) และ [OONI API](https://api.ooni.io/)</string>
     <string name="Dashboard_Performance_Card_Description">ทดสอบความเร็วเเละประสิทธิภาพเครือข่ายของคุณ</string>
     <string name="Dashboard_Performance_Overview_Paragraph">ตรวจวัดความเร็วและประสิทธิภาพของเครือข่ายของคุณ ด้วยการทดสอบ [NDT](https://ooni.io/nettest/ndt/)\n\nตรวจวัดประสิทธิภาพในการสตรีมวิดีโอ ด้วยการทดสอบ [DASH](https://ooni.io/nettest/dash/)\n\nการทดสอบเหล่านี้กินจำนวนการใช้ข้อมูล ขึ้นกับความเร็วเครือข่ายของคุณ\n\nผลทดสอบของคุณจะถูกเผยแพร่บน [OONI Explorer](https://explorer.ooni.org/) และ [OONI API](https://api.ooni.io/)\n\nคำปฏิเสธความรับผิด: การทดสอบเหล่านี้พึ่งพาเซิร์ฟเวอร์ของบุคคลที่สาม ดังนั้นเราจึงไม่สามารถประกันได้ว่าที่อยู่ไอพีของคุณจะไม่ถูกจัดเก็บ</string>
     <string name="Dashboard_Middleboxes_Card_Description">ตรวจพบการโจมตีระหว่างกลางในเครือข่ายของคุณ</string>
-    <string name="Dashboard_Middleboxes_Overview_Paragraph">ผู้ให้บริการอินเทอร์เน็ตมักใช้อุปกรณ์เครือข่าย (middlebox หรือ \"กล่องระหว่างกลาง\") เพื่อประโยชน์ทางเครือข่ายต่าง ๆ (เช่น ให้บริการแคชพักข้อมูล) ในบางครั้ง กล่องระหว่างกลางเหล่านี้ถูกใช้เพื่อปิดกั้นอินเทอร์เน็ตและ/หรือสอดส่องข้อมูล\n\nค้นหากล่องระหว่างกลางในเครือข่ายของคุณด้วยการทดสอบ [HTTP Invalid Request Line](https://ooni.io/nettest/http-invalid-request-line/) และ [HTTP Header Field Manipulation](https://ooni.io/nettest/http-header-field-manipulation/) ของ OONI\n\nผลทดสอบของคุณจะถูกเผยแพร่บน [OONI Explorer](https://explorer.ooni.org/) และ [OONI API](https://api.ooni.io/)</string>
     <string name="Dashboard_InstantMessaging_Card_Description">ทดสอบการปิดกั้นแอปสนทนา</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">ตรวจสอบว่า [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), และ [Signal](https://ooni.org/nettest/signal) ถูกปิดกั้นหรือไม่\n\nผลทดสอบของคุณจะถูกเผยแพร่บน [OONI Explorer](https://explorer.ooni.io/world/) และ [OONI API](https://api.ooni.io/)</string>
     <string name="Dashboard_Circumvention_Card_Description">ทดสอบการปิดกั้นเครื่องมือหลบเลี่ยง</string>
     <string name="Dashboard_Circumvention_Overview_Paragraph">ตรวจสอบว่า [Psiphon](https://ooni.io/nettest/psiphon/) และ [Tor](https://ooni.io/nettest/tor/) ถูกปิดกั้นหรือไม่\n\nผลลัพธ์ของคุณจะถูกเผยแพร่บน [OONI Explorer](https://explorer.ooni.org/) และ [OONI API](https://api.ooni.io/)</string>
     <string name="Dashboard_Experimental_Card_Description">เริ่มการทดสอบขั้นทดลองตัวใหม่</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">ดำเนินการทดสอบชุดใหม่ ซึ่งยังอยู่ในขั้นทดลองโดยทีมงาน OONI ดังนี้:\n%1$s\n\nผลทดสอบของคุณจะถูกเผยแพร่บน [OONI Explorer](https://explorer.ooni.org/) และ [OONI API](https://api.ooni.io/)</string>
-
     <string name="Settings_About_Label">เกี่ยวกับ OONI</string>
-    <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) เป็นโครงการซอฟต์แวร์เสรีภายใต้ Tor Project ที่มีเป้าหมายเพิ่มความโปร่งใสเกี่ยวกับการปิดกั้นอินเทอร์เน็ตทั่วโลก\n\nนับตั้งแต่ปี 2012 ชุมชนระดับโลกของ OONI ได้ตรวจวัดเครือข่ายในมากกว่า 200 ประเทศ การตรวจวัดบางส่วนจากจำนวนนี้ได้กลายเป็นหลักฐานที่บ่งชี้ถึงการปิดกั้นอินเทอร์เน็ต</string>
-
     <string name="Settings_About_Content_LearnMore">เรียนรู้เพิ่มเติม</string>
     <string name="Settings_About_Content_Blog">บล็อก</string>
     <string name="Settings_About_Content_Reports">รายงาน</string>
     <string name="Settings_About_Content_DataPolicy">นโยบายข้อมูลของ OONI</string>
-
     <string name="Settings_Donate_Title">บริจาค</string>
     <string name="Settings_Donate_Action">บริจาค</string>
     </resources>

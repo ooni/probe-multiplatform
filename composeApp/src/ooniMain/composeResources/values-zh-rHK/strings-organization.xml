@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Settings_About_Content_LearnMore">更多</string>
+    <string name="Settings_About_Content_Blog">博客</string>
+    <string name="Settings_About_Content_Reports">報告</string>
+    <string name="Settings_Donate_Title">捐助</string>
+    <string name="Settings_Donate_Action">捐助</string>
+    </resources>

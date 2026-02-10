@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OONI Probe</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe ਕੀ ਹੈ?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">ਤੁਹਾਡੀ ਐਪ ਇੰਟਰਨੈੱਟ ਪਾਬੰਦੀਆਂ ਦਾ ਪਤਾ ਲਗਾਉਂਦੀ ਹੈ। \n\nਕੀ ਵੈੱਬਸਾਈਟ ਤੇ ਸ਼ੋਸ਼ਲ ਮੀਡੀਆ ਐਪਾਂ ਉੱਤੇ ਪਾਬੰਦੀ ਲੱਗੀ ਹੈ? ਕੀ ਤੁਹਾਡਾ ਇੰਟਰਨੈੱਟ ਕਨੈਕਸ਼ਨ ਅਚਾਨਕ ਹੌਲੀ ਹੋ ਗਿਆ?\n\nਇਹ ਲੱਭਣ ਲਈ OONI Probe ਚਲਾਓ!</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">OONI ਡਾਟਾ ਖੁੱਲ੍ਹੇ ਰੂਪ ਵਿੱਚ ਪ੍ਰਕਾਸ਼ਿਤ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਦੀ ਜਾਣਕਾਰੀ ਇਸ ਵਿੱਚ ਹੋਵੇਗੀ।</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">ਤੁਹਾਡੇ ਇੰਟਰਨੈੱਟ ਸਰਗਰਮੀ ਉੱਤੇ ਨਿਗ੍ਹਾ ਰੱਖਣ ਵਾਲਾ ਕੋਈ ਵੀ (ਜਿਵੇਂ ਸਰਕਾਰ ਜਾਂ ਇੰਟਰਨੈੱਟ ਵਾਲੀ ਕੰਪਨੀ) ਵੇਖ ਸਕਦਾ ਹੈ ਕਿ ਤੁਸੀਂ OONI Probe ਚਲਾ ਰਹੇ ਹੋ।</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">ਤੁਸੀਂ ਪਾਬੰਦੀ ਲਾਈਆਂ ਵੈੱਬਸਾਈਟਾਂ ਟੈਸਟ ਕਰਦੇ ਹੋ ਸਕਦੇ ਹੋ (ਹਾਲਾਂਕਿ ਤੁਸੀਂ ਚੁਣ ਸਕਦੇ ਹੋ ਕਿ ਕਿਹੜੀਆਂ ਸਾਈਟਾਂ ਟੈਸਟ ਕਰਨੀਆਂ ਹਨ)।</string>
+    <string name="Onboarding_PopQuiz_1_Question">ਜੇ ਕੋਈ ਮੇਰੀ ਇੰਟਰਨੈੱਟ ਸਰਗਰਮੀ ਦੀ ਨਿਗਰਾਨੀ ਕਰਦਾ ਹੈ ਤਾਂ ਉਹ ਵੇਖ ਸਕਦਾ ਕਿ ਮੈਂ OONI Probe ਚਲਾ ਰਿਹਾ/ਰਹੀ ਹਾਂ।</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe ਕੋਈ ਪਰਦੇਦਾਰੀ ਟੂਲ ਨਹੀਂ ਹੈ। ਤੁਹਾਡੀ ਇੰਟਰਨੈੱਟ ਸਰਗਰਮ ਦੀ ਨਿਗਰਾਨੀ ਕਰਨ ਵਾਲਾ ਵੇਖ ਸਕਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਕਿਹੜਾ ਸਾਫਟਵੇਅਰ ਚਲਾ ਰਹੇ ਹੋ।</string>
+    <string name="Onboarding_PopQuiz_2_Question">ਜਦੋਂ ਵੀ OONI Probe ਚਲਾਉਂਦਾ/ਚਲਾਉਂਦੀ ਹਾਂ ਤਾਂ ਮੇਰੇ ਵਲੋਂ ਇਕੱਤਰ ਕੀਤਾ ਨੈੱਟਵਰਕ ਡਾਟਾ ਆਪਣੇ-ਆਪ ਪ੍ਰਕਾਸ਼ਿਤ ਹੋ ਜਾਂਦਾ ਹੈ।</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">ਇੰਟਰਨੈੱਟ ਪਾਬੰਦੀਆਂ (ਸੈਂਸਰਸ਼ਿਪ) ਲਈ ਪਾਰਦਰਸ਼ਤਾ ਵਧਾਉਣ ਲਈ, ਸਾਰੇ OONI Probe ਵਰਤੋਂਕਾਰਾਂ ਦੇ ਨੈੱਟਵਰਕ ਡਾਟੇ ਨੂੰ ਆਪਣੇ-ਆਪ ਪ੍ਰਕਾਸ਼ਿਤ ਕੀਤਾ ਜਾਂਦਾ ਹੈ (ਜਦੋਂ ਤੱਕ ਕਿ ਉਹ ਸੈਟਿੰਗਾਂ ਵਿੱਚੋਂ ਇਸ ਨੂੰ ਬੰਦ ਨਹੀਂ ਕਰਦੇ)।</string>
+    <string name="Settings_About_Content_LearnMore">ਹੋਰ ਸਿੱਖੋ</string>
+    </resources>

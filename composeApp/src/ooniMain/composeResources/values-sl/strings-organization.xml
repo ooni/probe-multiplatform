@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Onboarding_WhatIsOONIProbe_Title">Kaj je OONI Probe?</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Podatki OONI so javno objavljeni in bodo vključujevali podatke o vašem omrežju.</string>
