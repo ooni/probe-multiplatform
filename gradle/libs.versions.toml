@@ -132,7 +132,7 @@ auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.7.0" }
 directories = { module = "dev.dirs:directories", version = "26" }
 pratanumandal-unique = { module = "tk.pratanumandal:unique4j", version = "1.4" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version = "1.10.2" }
-desktop-oonimkall = { module = "org.ooni:oonimkall", version = "3.28.0-desktop" }
+desktop-oonimkall = { module = "org.ooni:oonimkall", version = "3.29.0-desktop" }
 
 [bundles]
 

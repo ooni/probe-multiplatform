@@ -1,12 +1,12 @@
 PODS:
   - composeApp (1.0.0):
     - Sentry (= 8.57.3)
-  - libcrypto (2025.11.19-113902)
-  - libevent (2025.11.19-113902)
-  - libssl (2025.11.19-113902)
-  - libtor (2025.11.19-113902)
-  - libz (2025.11.19-113902)
-  - oonimkall (2025.11.19-113902)
+  - libcrypto (2026.02.10-082936)
+  - libevent (2026.02.10-082936)
+  - libssl (2026.02.10-082936)
+  - libtor (2026.02.10-082936)
+  - libz (2026.02.10-082936)
+  - oonimkall (2026.02.10-082936)
   - Sentry (8.57.3):
     - Sentry/Core (= 8.57.3)
   - Sentry/Core (8.57.3)
@@ -17,12 +17,12 @@ PODS:
 
 DEPENDENCIES:
   - composeApp (from `../composeApp`)
-  - libcrypto (from `https://github.com/ooni/probe-cli/releases/download/v3.28.0/libcrypto.podspec`)
-  - libevent (from `https://github.com/ooni/probe-cli/releases/download/v3.28.0/libevent.podspec`)
-  - libssl (from `https://github.com/ooni/probe-cli/releases/download/v3.28.0/libssl.podspec`)
-  - libtor (from `https://github.com/ooni/probe-cli/releases/download/v3.28.0/libtor.podspec`)
-  - libz (from `https://github.com/ooni/probe-cli/releases/download/v3.28.0/libz.podspec`)
-  - oonimkall (from `https://github.com/ooni/probe-cli/releases/download/v3.28.0/oonimkall.podspec`)
+  - libcrypto (from `https://github.com/ooni/probe-cli/releases/download/v3.29.0/libcrypto.podspec`)
+  - libevent (from `https://github.com/ooni/probe-cli/releases/download/v3.29.0/libevent.podspec`)
+  - libssl (from `https://github.com/ooni/probe-cli/releases/download/v3.29.0/libssl.podspec`)
+  - libtor (from `https://github.com/ooni/probe-cli/releases/download/v3.29.0/libtor.podspec`)
+  - libz (from `https://github.com/ooni/probe-cli/releases/download/v3.29.0/libz.podspec`)
+  - oonimkall (from `https://github.com/ooni/probe-cli/releases/download/v3.29.0/oonimkall.podspec`)
   - Siren
   - sqlite3 (~> 3.42.0)
 
@@ -36,30 +36,30 @@ EXTERNAL SOURCES:
   composeApp:
     :path: "../composeApp"
   libcrypto:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.28.0/libcrypto.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.29.0/libcrypto.podspec
   libevent:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.28.0/libevent.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.29.0/libevent.podspec
   libssl:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.28.0/libssl.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.29.0/libssl.podspec
   libtor:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.28.0/libtor.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.29.0/libtor.podspec
   libz:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.28.0/libz.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.29.0/libz.podspec
   oonimkall:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.28.0/oonimkall.podspec
+    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.29.0/oonimkall.podspec
 
 SPEC CHECKSUMS:
   composeApp: 3d04e7b0630769af6dc0c75d0568e58f942df7a1
-  libcrypto: 2de3fbdf904df86b118205f87b8532d5f34ac0b0
-  libevent: efbece867a0ed0e42514f5d18defb92bf4143eee
-  libssl: 7daf30bb8c693000c28034fe362243f7a69e7c3f
-  libtor: 76587bdde0951e9b4675ac86806cc9bb1dbe4cb5
-  libz: 82070aaaae595f41996c6fd9f478e36a5041a53b
-  oonimkall: 3323cdd95dfd9ecabc3fe79824ab8d4c5d2edc65
+  libcrypto: 287b5391b2ec32c33c3053eec7b33fde6fcbab43
+  libevent: ccad97e33d5956e8b57621c5fa520b95692ddde6
+  libssl: 91269567fbebc43bb2b43196a3f27e587622a72a
+  libtor: ce7e143496611debe8a4cee1870e53268a1422af
+  libz: f1ac80ba90c0e0bd265a17d04e650825f805d119
+  oonimkall: 601e345bfdf99dd017deaf85be7de79ddd1afbf6
   Sentry: c643eb180df401dd8c734c5036ddd9dd9218daa6
   Siren: c0f6012f61196b73455202db07730f6454a4beb0
   sqlite3: f163dbbb7aa3339ad8fc622782c2d9d7b72f7e9c
 
-PODFILE CHECKSUM: f14989edad3277f169e4462523368488d1f63129
+PODFILE CHECKSUM: ac4292ccadf0db772735f38970ae7a39427905af
 
 COCOAPODS: 1.16.2
