@@ -6,7 +6,7 @@
     <string name="Dashboard_Running_Running">Executando:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Tempo restante estimado:</string>
     <string name="Dashboard_Running_Stopping_Title">Parando o teste…</string>
-    <string name="Dashboard_Running_Stopping_Notice">Concluindo os testes atualmente pendentes, por favor aguarde...</string>
+    <string name="Dashboard_Running_Stopping_Notice">Concluindo os testes atualmente pendentes, por favor aguarde…</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy em uso</string>
     <string name="Dashboard_LastResults">Últimos Resultados</string>
     <string name="Dashboard_LastResults_SeeResults">Ver resultados</string>
@@ -234,7 +234,7 @@
     <string name="Settings_Results_DeleteOldResultsThreshold">Excluir resultados mais antigos que</string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
         <item quantity="one">%1$d meses</item>
-        <item quantity="many">%1$d meses</item>
+        <item quantity="many">%1$d de meses</item>
         <item quantity="other">%1$d meses</item>
     </plurals>
     <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Digite o número de meses</string>
