@@ -238,6 +238,7 @@ fun main(args: Array<String>) {
                         appScope.launch {
                             isWindowVisible = false
                         }
+                        response.cancelQuit()
                     }
                 }
             }.onFailure {
