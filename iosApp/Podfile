@@ -2,7 +2,7 @@ platform :ios, '14.0'
 use_frameworks!
 
 def shared_pods
-    ooni_version = "v3.28.0"
+    ooni_version = "v3.29.0"
     ooni_pods_location = "https://github.com/ooni/probe-cli/releases/download/#{ooni_version}"
 
     pod 'composeApp', :path => '../composeApp'
