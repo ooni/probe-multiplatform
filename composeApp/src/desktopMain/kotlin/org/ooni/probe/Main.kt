@@ -1,29 +1,35 @@
 package org.ooni.probe
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ApplicationScope
+import androidx.compose.ui.window.DialogWindow
 import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberDialogState
 import androidx.compose.ui.window.rememberWindowState
 import co.touchlab.kermit.Logger
 import io.github.kdroidfilter.platformtools.darkmodedetector.isSystemInDarkMode
 import io.github.kdroidfilter.platformtools.darkmodedetector.windows.setWindowsAdaptiveTitleBar
 import io.github.vinceglb.autolaunch.AutoLaunch
-import java.awt.Desktop
-import java.awt.desktop.AppReopenedListener
-import java.awt.desktop.QuitEvent
-import java.awt.desktop.QuitResponse
-import java.awt.Dimension
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -33,6 +39,10 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
 import ooniprobe.composeapp.generated.resources.Desktop_OpenApp
 import ooniprobe.composeapp.generated.resources.Desktop_Quit
+import ooniprobe.composeapp.generated.resources.Modal_Cancel
+import ooniprobe.composeapp.generated.resources.Modal_Hide
+import ooniprobe.composeapp.generated.resources.Modal_Quite_Description
+import ooniprobe.composeapp.generated.resources.Modal_Quite_Prompt
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Results_UploadingMissing
 import ooniprobe.composeapp.generated.resources.app_name
@@ -54,24 +64,18 @@ import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.DesktopOS
-import org.ooni.probe.shared.createUpdateManager
 import org.ooni.probe.shared.InstanceManager
 import org.ooni.probe.shared.MacDockVisibility
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateState
-import org.ooni.probe.update.DesktopUpdateController
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
-import androidx.compose.ui.Modifier
-import ooniprobe.composeapp.generated.resources.Modal_Cancel
-import ooniprobe.composeapp.generated.resources.Modal_Hide
-import ooniprobe.composeapp.generated.resources.Modal_Quite_Description
-import ooniprobe.composeapp.generated.resources.Modal_Quite_Prompt
+import org.ooni.probe.shared.createUpdateManager
 import org.ooni.probe.ui.theme.AppTheme
+import org.ooni.probe.update.DesktopUpdateController
+import java.awt.Desktop
+import java.awt.Dimension
+import java.awt.desktop.AppReopenedListener
+import java.awt.desktop.QuitEvent
+import java.awt.desktop.QuitResponse
 
 const val APP_ID = "org.ooni.probe"
 
@@ -161,24 +165,31 @@ fun main(args: Array<String>) {
                         }
                     },
                 )
+            }
 
-                if (showQuitPrompt) {
-                    AppTheme {
-                        QuitPromptDialog(
-                            onQuit = {
-                                showQuitPrompt = false
-                                onQuitApplicationClicked(updateController, instanceManager).invoke()
-                            },
-                            onHide = {
-                                showQuitPrompt = false
-                                isWindowVisible = false
-                                MacDockVisibility.hideDockIcon()
-                            },
-                            onDismiss = {
-                                showQuitPrompt = false
-                            },
-                        )
-                    }
+            if (showQuitPrompt) {
+                DialogWindow(
+                    onCloseRequest = { showQuitPrompt = false },
+                    undecorated = true,
+                    transparent = true,
+                    resizable = false,
+                    alwaysOnTop = true,
+                    state = rememberDialogState(position = WindowPosition(Alignment.Center)),
+                ) {
+                    QuitPromptDialog(
+                        onQuit = {
+                            showQuitPrompt = false
+                            onQuitApplicationClicked(updateController, instanceManager).invoke()
+                        },
+                        onHide = {
+                            showQuitPrompt = false
+                            isWindowVisible = false
+                            MacDockVisibility.hideDockIcon()
+                        },
+                        onDismiss = {
+                            showQuitPrompt = false
+                        },
+                    )
                 }
             }
         }
