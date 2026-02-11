@@ -381,6 +381,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Yüklenmemiş</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Bazıları yüklenmemiş</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Tümünü yükle</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">%1$s yükleniyor …</string>
     <string name="Toast_ResultsUploaded">Yüklendi</string>
     <string name="Modal_UploadFailed_Title">Yüklenemedi</string>
     <string name="Modal_UploadFailed_Paragraph">%1$s/%2$s ölçüm yüklenemedi. Sorun ile ilgili günlük kayıtları OONI geliştiricileri ile paylaşıldı.</string>
@@ -418,7 +419,12 @@
     <string name="Desktop_Quit">Çık</string>
     <string name="Tray_Notification_Check_Updates">Güncellemeleri denetle</string>
     <string name="Tray_Notification_Updates_Available">Güncelleme yayınlanmış!</string>
+    <string name="Tray_Notification_Checking_Updates">Güncellemeler denetleniyor…</string>
+
     <string name="Modal_Hide">Gizle</string>
+    <string name="Modal_Quite_Prompt">OONI Probe uygulamasından çıkılsın mı\?</string>
+    <string name="Modal_Quite_Description">Uygulamadan çıkarsanız, otomatik arka plan sınamaları çalıştırılamaz. Çıkmak için Çık üzerine basın. Arka planda çalışmasını sürdürmek için Gizle üzerine basın.</string>
+
     <string name="OONIRun_Run">Çalıştır</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Sınanıyor</string>
@@ -439,7 +445,7 @@
     <string name="Common_Previous">Önceki</string>
     <string name="Common_Share">Paylaş</string>
     <string name="Common_Dismiss">Yok say</string>
-    <string name="Common_Search">Arama</string>
+    <string name="Common_Search">Ara</string>
     <string name="Common_Today">Bugün</string>
     <string name="Common_Yesterday">Dün</string>
     <string name="Common_Week">Hafta</string>
