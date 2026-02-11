@@ -27,7 +27,7 @@ val organization: String? by project
 val config = Organization.fromKey(organization).config
 
 val javaFxParts = listOf("base", "graphics", "controls", "media", "web", "swing")
-val javaFxVersion = "17"
+val javaFxVersion = "25.0.2"
 
 kotlin {
     androidTarget {

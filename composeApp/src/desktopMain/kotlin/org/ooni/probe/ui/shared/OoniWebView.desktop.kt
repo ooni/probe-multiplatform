@@ -3,6 +3,7 @@ package org.ooni.probe.ui.shared
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.SwingPanel
+import co.touchlab.kermit.Logger
 import javafx.application.Platform
 import javafx.concurrent.Worker
 import javafx.embed.swing.JFXPanel
@@ -69,12 +70,15 @@ actual fun OoniWebView(
                                 }
 
                                 if (!allowed) {
-                                    engine.history.go(-1) // go back
-                                    // engine.load("about:blank")
                                     onDisallowedUrl(newLocation)
+                                    // Go back to the initial URL
+                                    engine.history.entries
+                                        .firstOrNull()
+                                        ?.let { engine.load(it.url) }
+                                        ?: engine.load("about:blank")
                                 }
                             } catch (e: Exception) {
-                                // Invalid URL, ignore
+                                Logger.w("Invalid URL $newLocation, ignoring", e)
                             }
                             controller.canGoBack = engine.history.currentIndex > 0
                         }
