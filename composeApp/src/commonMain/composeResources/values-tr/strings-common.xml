@@ -8,7 +8,13 @@
     <string name="Dashboard_Running_Stopping_Title">Sınama durduruluyor…</string>
     <string name="Dashboard_Running_Stopping_Notice">Bekleyen sınamalar tamamlanıyor. Lütfen bekleyin…</string>
     <string name="Dashboard_Running_ProxyInUse">Kullanılan vekil sunucu</string>
+    <string name="Dashboard_LastResults">Son sonuçlar</string>
+    <string name="Dashboard_LastResults_SeeResults">Sonuçları görüntüle</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Otomatik çalıştırma <i>açık</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Otomatik çalıştırma <i>kapalı</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">Sınamalar</string>
+    <string name="Dashboard_TestsMoved_Description">Sınamalarınız yeni bir sekmeye taşındı. Aşağıdaki gezinme çubuğundan erişebilirsiniz.</string>
+    <string name="Dashboard_TestsMoved_Action">Sınamaları görüntüle</string>
     <string name="Dashboard_RunTests_Title">Sınamaları çalıştır</string>
     <string name="Dashboard_RunTests_Description">Çalıştırılacak sınamaları seçin</string>
     <string name="Dashboard_RunTests_SelectAll">Tüm sınamaları seç</string>
@@ -17,7 +23,21 @@
         <item quantity="one">%1$d sınamayı çalıştır</item>
         <item quantity="other">%1$d sınamayı çalıştır</item>
     </plurals>
-    <string name="Dashboard_Articles_Report">İhbar</string>
+    <string name="Dashboard_Stats_Title">Ölçümleriniz</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Ağ</item>
+        <item quantity="other">Ağlar</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">Ülke</item>
+        <item quantity="other">Ülkeler</item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty">İstatistiklerinizi görmek için sınamalar çalıştırmaya başlayın.</string>
+
+    <string name="Dashboard_Articles_Title">OONI haberleri</string>
+    <string name="Dashboard_Articles_Blog">Günlük yazısı</string>
+    <string name="Dashboard_Articles_Finding">Bulgu</string>
+    <string name="Dashboard_Articles_Report">Bildirim</string>
     <string name="Dashboard_Articles_ReadMore">Ayrıntılı bilgi</string>
     <string name="Dashboard_Articles_Recent">Geçmiş</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI sınamaları</string>
@@ -51,6 +71,7 @@
 
 
     <string name="Tests_Title">Sınamalar</string>
+    <string name="Tests_Search">Sınama ara</string>
     <string name="Test_Websites_Fullname">Siteler</string>
     <string name="Test_InstantMessaging_Fullname">Anlık ileti</string>
     <string name="Test_Performance_Fullname">Başarım</string>
@@ -339,6 +360,8 @@
     <string name="Onboarding_DefaultSettings_Button_Change">Varsayılanları değiştir</string>
 
 
+    <string name="AddDescriptor_EnterURL">OONI Run bağlantısı adresini yazın</string>
+    <string name="AddDescriptor_URLInvalid">Adres geçerli bir OONI Run bağlantısı değil</string>
     <string name="AddDescriptor_Settings">Ayarları sına</string>
     <string name="AddDescriptor_Title">Yeni bağlantı kur</string>
     <string name="AddDescriptor_AutoUpdate">Güncellemeler otomatik olarak kurulsun</string>
@@ -348,6 +371,7 @@
     <string name="AddDescriptor_InstallAndRun">Kur ve çalıştır</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Adres desteklenmiyor</string>
     <string name="LoadingScreen_Runv2_Message">Bağlantı yükleniyor</string>
+    <string name="LoadingScreen_Runv2_Failure">Bağlantı yüklenirken sorun çıktı</string>
     <string name="DescriptorUpdate_Updates">GÜNCELLEMELER</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Güncelleme denetimi</string>
