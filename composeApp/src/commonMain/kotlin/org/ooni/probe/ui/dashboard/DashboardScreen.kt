@@ -67,7 +67,7 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Stats_Title
 import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Action
 import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Description
 import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Title
-import ooniprobe.composeapp.generated.resources.Measurements_Count
+import ooniprobe.composeapp.generated.resources.Measurements_Failed_Count
 import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
 import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Res
@@ -316,7 +316,7 @@ private fun LastRun(
 
                 ResultChip(
                     text = pluralStringResource(
-                        Res.plurals.Measurements_Count,
+                        Res.plurals.Measurements_Failed_Count,
                         run.measurementCounts.failed.toInt(),
                         run.measurementCounts.failed,
                     ),
