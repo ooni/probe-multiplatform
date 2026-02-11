@@ -60,7 +60,7 @@ compose-material3 = { module = "org.jetbrains.compose.material3:material3", vers
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.9.6" }
 lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version = "2.9.6" }
 navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version = "2.9.1" }
-navigation-event = { module = "org.jetbrains.androidx.navigationevent:navigationevent-compose", version = "1.0.0" }
+navigation-event = { module = "org.jetbrains.androidx.navigationevent:navigationevent-compose", version = "1.0.1" }
 window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version = "1.9.0" }
 back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-plugin" }
 dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.7.5" }
