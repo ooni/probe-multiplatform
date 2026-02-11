@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.SettingsKey
 
@@ -162,7 +162,7 @@ class PreferenceRepository(
     }
 
     fun isNetTestEnabled(
-        descriptor: Descriptor,
+        descriptor: DescriptorItem,
         netTest: NetTest,
         isAutoRun: Boolean,
     ): Flow<Boolean> =
@@ -173,9 +173,9 @@ class PreferenceRepository(
             }.distinctUntilChanged()
 
     fun areNetTestsEnabled(
-        list: List<Pair<Descriptor, NetTest>>,
+        list: List<Pair<DescriptorItem, NetTest>>,
         isAutoRun: Boolean,
-    ): Flow<Map<Pair<Descriptor, NetTest>, Boolean>> =
+    ): Flow<Map<Pair<DescriptorItem, NetTest>, Boolean>> =
         dataStore.data
             .map {
                 list.associate { (descriptor, netTest) ->
@@ -187,7 +187,7 @@ class PreferenceRepository(
             }.distinctUntilChanged()
 
     suspend fun setAreNetTestsEnabled(
-        list: List<Pair<Descriptor, NetTest>>,
+        list: List<Pair<DescriptorItem, NetTest>>,
         isAutoRun: Boolean,
         isEnabled: Boolean,
     ) {
@@ -199,7 +199,7 @@ class PreferenceRepository(
     }
 
     suspend fun setAreNetTestsEnabled(
-        list: List<Pair<Descriptor, NetTest>>,
+        list: List<Pair<DescriptorItem, NetTest>>,
         isAutoRun: Boolean,
     ) {
         dataStore.edit {
@@ -211,19 +211,16 @@ class PreferenceRepository(
     }
 
     private fun getNetTestKey(
-        descriptor: Descriptor,
+        descriptor: DescriptorItem,
         netTest: NetTest,
         isAutoRun: Boolean,
     ) = getPreferenceKey(
         name = netTest.test.preferenceKey,
-        prefix = (descriptor.source as? Descriptor.Source.Installed)
-            ?.value
-            ?.id
-            ?.value,
+        prefix = descriptor.settingsPrefix,
         autoRun = isAutoRun,
     )
 
-    suspend fun removeDescriptorPreferences(descriptor: Descriptor) {
+    suspend fun removeDescriptorPreferences(descriptor: DescriptorItem) {
         descriptor.netTests.forEach { netTest ->
             dataStore.edit {
                 it.remove(

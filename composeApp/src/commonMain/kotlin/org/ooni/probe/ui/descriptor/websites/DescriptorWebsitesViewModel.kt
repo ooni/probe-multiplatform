@@ -13,12 +13,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.Descriptor
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.DescriptorItem
 
 class DescriptorWebsitesViewModel(
-    descriptorId: InstalledTestDescriptorModel.Id,
+    descriptorId: Descriptor.Id,
     onBack: () -> Unit,
-    getTestDescriptor: (String) -> Flow<Descriptor?>,
+    getTestDescriptor: (Descriptor.Id) -> Flow<DescriptorItem?>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -26,7 +26,7 @@ class DescriptorWebsitesViewModel(
     val state = _state.asStateFlow()
 
     init {
-        getTestDescriptor(descriptorId.value)
+        getTestDescriptor(descriptorId)
             .onEach { descriptor ->
                 val websites = descriptor
                     ?.allTests

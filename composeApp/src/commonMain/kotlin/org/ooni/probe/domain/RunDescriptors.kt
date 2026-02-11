@@ -12,7 +12,7 @@ import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
@@ -25,7 +25,7 @@ import org.ooni.probe.shared.monitoring.Instrumentation
 import kotlin.time.Duration
 
 class RunDescriptors(
-    private val getTestDescriptorsBySpec: suspend (RunSpecification.Full) -> List<Descriptor>,
+    private val getTestDescriptorsBySpec: suspend (RunSpecification.Full) -> List<DescriptorItem>,
     private val downloadUrls: suspend (TaskOrigin) -> Result<List<UrlModel>, MkException>,
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
     private val markResultAsDone: suspend (ResultModel.Id) -> Unit,
@@ -84,7 +84,7 @@ class RunDescriptors(
     }
 
     private suspend fun runDescriptorsCancellable(
-        descriptors: List<Descriptor>,
+        descriptors: List<DescriptorItem>,
         spec: RunSpecification.Full,
     ) {
         val cancelListenerCallback = addRunCancelListener {
@@ -97,26 +97,35 @@ class RunDescriptors(
         val runId = RunModel.Id.generateNew()
         descriptors.forEachIndexed { index, descriptor ->
             if (isRunStopped()) return@forEachIndexed
-            runDescriptor(runId, descriptor, index, spec.taskOrigin, spec.isRerun, noInternetWatcher)
+            runDescriptor(
+                runId,
+                descriptor,
+                index,
+                spec.taskOrigin,
+                spec.isRerun,
+                noInternetWatcher,
+            )
         }
 
         cancelListenerCallback.dismiss()
     }
 
-    private suspend fun List<Descriptor>.prepareInputs(taskOrigin: TaskOrigin) =
+    private suspend fun List<DescriptorItem>.prepareInputs(taskOrigin: TaskOrigin): List<DescriptorItem> =
         map { descriptor ->
             descriptor.copy(
-                netTests = descriptor.netTests.downloadUrlsIfNeeded(taskOrigin, descriptor),
-                longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(
-                    taskOrigin,
-                    descriptor,
+                descriptor = descriptor.descriptor.copy(
+                    netTests = descriptor.netTests.downloadUrlsIfNeeded(taskOrigin, descriptor),
+                    longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(
+                        taskOrigin,
+                        descriptor,
+                    ),
                 ),
             )
         }.filterNot { it.allTests.isEmpty() }
 
     private suspend fun List<NetTest>.downloadUrlsIfNeeded(
         taskOrigin: TaskOrigin,
-        descriptor: Descriptor,
+        descriptor: DescriptorItem,
     ): List<NetTest> =
         map { test ->
             val urls = test.inputsOrDownloadUrls(taskOrigin, descriptor)
@@ -125,7 +134,7 @@ class RunDescriptors(
 
     private suspend fun NetTest.inputsOrDownloadUrls(
         taskOrigin: TaskOrigin,
-        descriptor: Descriptor,
+        descriptor: DescriptorItem,
     ): List<String>? {
         if (!inputs.isNullOrEmpty() || test !is TestType.WebConnectivity) return inputs
 
@@ -150,7 +159,7 @@ class RunDescriptors(
         return urls
     }
 
-    private suspend fun List<Descriptor>.getEstimatedRuntime(): List<Duration> {
+    private suspend fun List<DescriptorItem>.getEstimatedRuntime(): List<Duration> {
         val maxRuntime = getEnginePreferences().maxRuntime
         return map { descriptor ->
             descriptor.estimatedDuration.coerceAtMost(maxRuntime ?: Duration.INFINITE)
@@ -159,7 +168,7 @@ class RunDescriptors(
 
     private suspend fun runDescriptor(
         runId: RunModel.Id,
-        descriptor: Descriptor,
+        descriptorItem: DescriptorItem,
         index: Int,
         taskOrigin: TaskOrigin,
         isRerun: Boolean,
@@ -167,24 +176,24 @@ class RunDescriptors(
     ) {
         val result = ResultModel(
             runId = runId,
-            descriptorName = descriptor.name,
-            descriptorKey = (descriptor.source as? Descriptor.Source.Installed)?.value?.key,
+            descriptorName = if (descriptorItem.isDefault()) descriptorItem.key else null,
+            descriptorKey = descriptorItem.descriptor.key,
             taskOrigin = taskOrigin,
         )
         val resultId = storeResult(result)
 
-        descriptor.allTests.forEachIndexed { testIndex, netTest ->
+        descriptorItem.allTests.forEachIndexed { testIndex, netTest ->
             if (isRunStopped()) return@forEachIndexed
             runNetTest(
                 RunNetTest.Specification(
-                    descriptor = descriptor,
+                    descriptor = descriptorItem,
                     descriptorIndex = index,
                     netTest = netTest,
                     taskOrigin = taskOrigin,
                     isRerun = isRerun,
                     resultId = resultId,
                     testIndex = testIndex,
-                    testTotal = descriptor.allTests.size,
+                    testTotal = descriptorItem.allTests.size,
                 ),
             )
 

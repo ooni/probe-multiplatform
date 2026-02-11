@@ -1,13 +1,13 @@
 package org.ooni.probe.domain.descriptors
 
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorsUpdateState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
 
 class AcceptDescriptorUpdate(
-    private val saveTestDescriptors: suspend (List<InstalledTestDescriptorModel>, SaveTestDescriptors.Mode) -> Unit,
+    private val saveTestDescriptors: suspend (List<Descriptor>, SaveTestDescriptors.Mode) -> Unit,
     private val updateState: ((DescriptorsUpdateState) -> DescriptorsUpdateState) -> Unit,
 ) {
-    suspend operator fun invoke(newDescriptor: InstalledTestDescriptorModel) {
+    suspend operator fun invoke(newDescriptor: Descriptor) {
         saveTestDescriptors(
             listOf(newDescriptor),
             SaveTestDescriptors.Mode.CreateOrUpdate,

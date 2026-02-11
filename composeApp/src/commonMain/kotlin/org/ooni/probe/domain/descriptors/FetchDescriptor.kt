@@ -9,13 +9,13 @@ import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.toModel
 import org.ooni.probe.config.OrganizationConfig
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 
 class FetchDescriptor(
     private val engineHttpDo: suspend (method: String, url: String, taskOrigin: TaskOrigin) -> Result<String?, MkException>,
     private val json: Json,
 ) {
-    suspend operator fun invoke(descriptorId: String): Result<InstalledTestDescriptorModel?, MkException> =
+    suspend operator fun invoke(descriptorId: String): Result<Descriptor?, MkException> =
         engineHttpDo(
             "GET",
             "${OrganizationConfig.ooniApiBaseUrl}/api/v2/oonirun/links/$descriptorId",

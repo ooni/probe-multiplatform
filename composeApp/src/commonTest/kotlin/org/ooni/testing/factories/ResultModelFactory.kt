@@ -4,12 +4,12 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.atTime
 import org.ooni.engine.models.TaskOrigin
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.MeasurementCounts
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.data.models.RunModel
 import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
+import org.ooni.probe.data.models.RunModel
 import org.ooni.probe.shared.now
 import org.ooni.probe.shared.today
 import kotlin.random.Random
@@ -17,7 +17,6 @@ import kotlin.random.Random
 object ResultModelFactory {
     fun build(
         id: ResultModel.Id? = ResultModel.Id(Random.nextLong()),
-        descriptorName: String? = "websites",
         startTime: LocalDateTime = LocalDateTime.nowWithoutNanoseconds(),
         isViewed: Boolean = false,
         isDone: Boolean = false,
@@ -26,7 +25,8 @@ object ResultModelFactory {
         failureMessage: String? = null,
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
         networkId: NetworkModel.Id? = null,
-        descriptorKey: InstalledTestDescriptorModel.Key? = null,
+        descriptorName: String? = null,
+        descriptorKey: Descriptor.Key? = null,
         runId: RunModel.Id? = null,
     ) = ResultModel(
         id = id,

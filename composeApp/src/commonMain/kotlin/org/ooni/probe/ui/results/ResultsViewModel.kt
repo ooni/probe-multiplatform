@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.LocalDate
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultListItem
@@ -27,7 +27,7 @@ class ResultsViewModel(
     goToUpload: () -> Unit,
     getResults: (ResultFilter) -> Flow<List<ResultListItem>>,
     getResultsStats: (ResultFilter) -> Flow<ResultsStats>,
-    getDescriptors: () -> Flow<List<Descriptor>>,
+    getDescriptors: () -> Flow<List<DescriptorItem>>,
     getNetworks: () -> Flow<List<NetworkModel>>,
     deleteResultsByFilter: suspend (ResultFilter) -> Unit,
     markAsViewed: suspend (ResultFilter) -> Unit,
@@ -153,7 +153,7 @@ class ResultsViewModel(
 
     data class State(
         val filter: ResultFilter = ResultFilter(),
-        val descriptors: List<Descriptor> = emptyList(),
+        val descriptors: List<DescriptorItem> = emptyList(),
         val networks: List<NetworkModel> = emptyList(),
         val results: Map<LocalDate, List<RunListItem>> = emptyMap(),
         val stats: ResultsStats? = null,

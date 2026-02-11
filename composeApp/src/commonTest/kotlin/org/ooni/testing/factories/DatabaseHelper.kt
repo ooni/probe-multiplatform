@@ -4,7 +4,7 @@ import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.di.Dependencies
@@ -56,8 +56,8 @@ class DatabaseHelper private constructor(
                 ResultModelFactory.build(
                     id = null,
                     networkId = networkId,
-                    descriptorKey = InstalledTestDescriptorModel.Key(
-                        id = InstalledTestDescriptorModel.Id("10004"),
+                    descriptorKey = Descriptor.Key(
+                        id = Descriptor.Id("10004"),
                         revision = 2,
                     ),
                     isViewed = true,
@@ -71,8 +71,8 @@ class DatabaseHelper private constructor(
                 ResultModelFactory.build(
                     id = null,
                     networkId = networkId,
-                    descriptorKey = InstalledTestDescriptorModel.Key(
-                        id = InstalledTestDescriptorModel.Id("10005"),
+                    descriptorKey = Descriptor.Key(
+                        id = Descriptor.Id("10005"),
                         revision = 4,
                     ),
                     isViewed = true,
@@ -86,8 +86,8 @@ class DatabaseHelper private constructor(
                 ResultModelFactory.build(
                     id = null,
                     networkId = networkId,
-                    descriptorKey = InstalledTestDescriptorModel.Key(
-                        id = InstalledTestDescriptorModel.Id("10006"),
+                    descriptorKey = Descriptor.Key(
+                        id = Descriptor.Id("10006"),
                         revision = 5,
                     ),
                     isViewed = true,

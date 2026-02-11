@@ -6,7 +6,7 @@ sealed interface UpdateStatus {
     data object NoNewUpdate : UpdateStatus
 
     data class Updatable(
-        val updatedDescriptor: InstalledTestDescriptorModel,
+        val updatedDescriptor: Descriptor,
     ) : UpdateStatus
 
     data object AutoUpdated : UpdateStatus

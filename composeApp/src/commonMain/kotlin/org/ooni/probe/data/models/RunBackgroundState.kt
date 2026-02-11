@@ -13,7 +13,7 @@ sealed interface RunBackgroundState {
     ) : RunBackgroundState
 
     data class RunningTests(
-        val descriptor: Descriptor? = null,
+        val descriptor: DescriptorItem? = null,
         private val descriptorIndex: Int = 0,
         val testType: TestType? = null,
         private val estimatedRuntimeOfDescriptors: List<Duration>? = null,
