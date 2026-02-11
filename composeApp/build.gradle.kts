@@ -391,7 +391,7 @@ compose.desktop {
             val appId = "org.ooni.probe-desktop"
 
             macOS {
-                minimumSystemVersion = "12.0.0"
+                minimumSystemVersion = "14.8.3"
                 bundleID = appId
                 entitlementsFile.set(project.file("OONIProbe.entitlements"))
                 infoPlist {
