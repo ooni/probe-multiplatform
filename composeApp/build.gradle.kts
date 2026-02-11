@@ -1,4 +1,5 @@
 import com.android.build.api.variant.FilterConfiguration
+import org.gradle.api.GradleException
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.compose.desktop.application.tasks.AbstractJPackageTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -503,6 +504,59 @@ compose.desktop {
 tasks.withType<AbstractJPackageTask>().all {
     if (targetFormat == TargetFormat.Dmg) {
         freeArgs.addAll("--icon", rootProject.file("icons/app.icns").absolutePath)
+    }
+}
+
+// Convert DMG to use LZMA compression (UDBZ) after jpackage creates it
+tasks.withType<AbstractJPackageTask>().all {
+    if (targetFormat == TargetFormat.Dmg) {
+        doLast {
+            val dmgFile = File(destinationDir.get().asFile, "${packageName.get()}-${packageVersion.get()}.dmg")
+            if (dmgFile.exists()) {
+                logger.lifecycle("Converting DMG to LZMA compression (UDBZ format)...")
+                val tempDmg = File(destinationDir.get().asFile, "temp-${packageName.get()}-${packageVersion.get()}.dmg")
+
+                try {
+                    project.providers
+                        .exec {
+                            commandLine(
+                                "hdiutil",
+                                "convert",
+                                dmgFile.absolutePath,
+                                "-format",
+                                "UDBZ",
+                                "-o",
+                                tempDmg.absolutePath,
+                            )
+                        }.result
+                        .get()
+                        .assertNormalExitValue()
+
+                    if (!tempDmg.exists()) {
+                        throw GradleException("DMG conversion succeeded but output file not found: ${tempDmg.absolutePath}")
+                    }
+
+                    if (!dmgFile.delete()) {
+                        throw GradleException("Failed to delete original DMG file: ${dmgFile.absolutePath}")
+                    }
+
+                    if (!tempDmg.renameTo(dmgFile)) {
+                        throw GradleException("Failed to rename converted DMG from ${tempDmg.absolutePath} to ${dmgFile.absolutePath}")
+                    }
+
+                    logger.lifecycle("Successfully converted DMG to LZMA compression (UDBZ format)")
+                } catch (e: Exception) {
+                    // Clean up temporary file if it exists
+                    if (tempDmg.exists()) {
+                        tempDmg.delete()
+                    }
+                    throw GradleException("Failed to convert DMG to UDBZ format: ${e.message}", e)
+                }
+            } else {
+                logger.error("DMG file not found: ${dmgFile.absolutePath}")
+                throw GradleException("Expected DMG file not found: ${dmgFile.absolutePath}")
+            }
+        }
     }
 }
 
