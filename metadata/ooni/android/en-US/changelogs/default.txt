@@ -1,3 +1,6 @@
-* Measurement engine updated to OONI Probe CLI v3.28.0
-* Usability improvements for OONI Run Links
+* Measurement engine updated to OONI Probe CLI v3.29.0
+* New dashboard with statistics and news from OONI
+* New tests screen with search
+* View results aggregated by runs
+* Geolocation IP database now auto-updates
 * Various minor bug fixes and enhancements
