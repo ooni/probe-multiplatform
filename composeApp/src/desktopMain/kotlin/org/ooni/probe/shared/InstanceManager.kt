@@ -17,6 +17,7 @@ class InstanceManager(
 ) {
     private var unique: Unique4j? = null
     private val urls = MutableSharedFlow<String>(extraBufferCapacity = 1)
+    private val activations = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
     fun initialize(args: Array<String>) {
         // MacOS already only allows for one app instance
@@ -31,6 +32,7 @@ class InstanceManager(
         try {
             unique = object : Unique4j(APP_ID) {
                 override fun receiveMessage(message: String) {
+                    activations.tryEmit(Unit)
                     handleArgs(message.split(" ").toTypedArray())
                 }
 
@@ -74,6 +76,8 @@ class InstanceManager(
     }
 
     fun observeUrls() = urls.asSharedFlow()
+
+    fun observeActivation() = activations.asSharedFlow()
 
     private fun handleArgs(args: Array<String>) {
         findUrlInArgs(args)?.let {
