@@ -19,6 +19,7 @@
     <string name="Dashboard_Performance_Card_Description">测试您的网速和性能</string>
     <string name="Dashboard_Performance_Overview_Paragraph">使用 [NDT](https://ooni.org/nettest/ndt/) 测试测量您的网络速度和性能。\n\n使用 [DASH](https://ooni.org/nettest/dash/) 测试测量视频流性能。\n\n这些测试消耗的数据取决于您的网络速度。\n\n您的结果将被发布在 [OONI Explorer](https://explorer.ooni.org/world/)和[OONI API](https://api.ooni.io/)。\n\n免责声明：这些测试依赖于第三方服务器。因此，我们不能保证您的 IP 地址不会被收集。</string>
     <string name="Dashboard_Middleboxes_Card_Description">检测您网络中的 Middlebox</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph">互联网服务提供商常将网络设备(middleboxes) 用于各种网络目的 (比如缓存)。有时这些 middleboxes 用于实施互联网审查和或监视。\n\n用 OONI 的 [HTTP Invalid Request Line](https://ooni.org/nettest/http-invalid-request-line/) 和 [HTTP标头字段操纵](https://ooni.org/nettest/http-header-field-manipulation/) 测试发现网络中的 middleboxes。\n\n测试结果会公布在 [OONI Explorer](https://explorer.ooni.org/world/) 和 [OONI API](https://api.ooni.io/)。</string>
     <string name="Dashboard_InstantMessaging_Card_Description">测试即时通讯应用的屏蔽情况</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">检测 [WhatsApp](https://ooni.org/nettest/whatsapp/)、[Facebook Messenger](https://ooni.org/nettest/facebook-messenger/)、[Telegram](https://ooni.org/nettest/telegram/)和 [Signal](https://ooni.org/nettest/signal) 是否被屏蔽。\n\n您的结果将公布在 [OONI Explorer](https://explorer.ooni.org/world/) 和[OONI API](https://api.ooni.io/)。</string>
     <string name="Dashboard_Circumvention_Card_Description">测试翻墙工具的屏蔽情况</string>
