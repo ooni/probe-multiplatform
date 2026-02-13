@@ -39,7 +39,7 @@
     <string name="Settings_Donate_Support_Item_OpenSource">Des logiciels gratuits et libres de détection de la censure sur Internet</string>
     <string name="Settings_Donate_Support_Item_Analysis">Analyse en temps réel de la censure d’Internet à l’échelle planétaire</string>
     <string name="Settings_Donate_Support_Item_OpenData">Des données ouvertes sur la censure d’Internet, pour des recherches et de la sensibilisation à l’échelle planétaire</string>
-    <string name="Settings_Donate_Support_Item_Research">La recherche sur les événements de censure dans le monde entier. </string>
+    <string name="Settings_Donate_Support_Item_Research">La recherche sur les événements de censure dans le monde entier</string>
     <string name="Settings_Donate_Action">Faire un don</string>
     <string name="Settings_Donate_Action_Warning_ExternalBrowser">Une fenêtre de navigateur externe sera ouverte</string>
     <string name="Settings_Donate_Action_Error">Erreur d’ouverture de la page de don. Rendez-vous sur %1$s</string>
