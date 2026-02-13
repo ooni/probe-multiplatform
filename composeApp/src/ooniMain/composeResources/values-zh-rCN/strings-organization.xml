@@ -27,6 +27,7 @@
     <string name="Dashboard_Experimental_Card_Description">运行新的实验性测试</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">运行由 OONI 团队开发的以下新的实验性测试：\n%1$s\n\n您的结果将在 [OONI Explorer](https://explorer.ooni.org/)和 [OONI API](https://api.ooni.io/)上公布。</string>
     <string name="Settings_About_Label">关于 OONI</string>
+    <string name="Settings_About_Content_Paragraph">OONI (网络干预开放观察台) 为 Tor Project 下的自由软件项目，旨在提升全球范围内互联网审查的透明度。\n\n2012 年以来，OONI 的全球社区始终在逾 200 个国家/地区持续测量网络。 一些测量的结果提供了互联网审查的证据。</string>
     <string name="Settings_About_Content_LearnMore">了解更多</string>
     <string name="Settings_About_Content_Blog">博客</string>
     <string name="Settings_About_Content_Reports">报告</string>
