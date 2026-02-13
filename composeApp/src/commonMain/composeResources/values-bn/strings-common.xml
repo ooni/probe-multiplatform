@@ -1,11 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">ড্যাশবোর্ড</string>
     <string name="Dashboard_Overview_Estimated">আনুমানিক:</string>
     <string name="Dashboard_Overview_ChooseWebsites">ওয়েবসাইট নির্বাচন করুন</string>
     <string name="Dashboard_Running_Running">চলছে:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">আনুমানিক সময় বাকি:</string>
-    <string name="Dashboard_Running_Stopping_Title">পরীক্ষা বন্ধ করা হচ্ছে...</string>
+    <string name="Dashboard_Running_Stopping_Title">পরীক্ষা বন্ধ করা হচ্ছে…</string>
     <string name="Dashboard_Running_Stopping_Notice">অপেক্ষমান পরীক্ষাগুলো সম্পন্ন করা হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন…</string>
     <string name="Dashboard_Running_ProxyInUse">প্রক্সি ব্যবহার করা হচ্ছে</string>
     <string name="Dashboard_TestsMoved_Title">পরীক্ষাসমূহ</string>
@@ -36,8 +36,6 @@
     <string name="Dashboard_ReviewDescriptor_Reject">আপডেট প্রত্যাখান করুন</string>
     <string name="Dashboard_Update_Ready">অ্যাপ আপডেটটি সবেমাত্র ডাউনলোড করা হয়েছে</string>
     <string name="Dashboard_Update_Restart">পুনরায় চালু করুন</string>
-
-
     <string name="Tests_Title">পরীক্ষাসমূহ</string>
     <string name="Test_Websites_Fullname">ওয়েবসাইট গুলো</string>
     <string name="Test_InstantMessaging_Fullname">তাৎক্ষনিক বার্তাপ্রদান</string>
@@ -72,8 +70,6 @@
     <string name="Measurements_Failed">ব্যর্থ হয়েছে</string>
     <string name="Measurements_Ok">ঠিক আছে</string>
     <string name="Measurement_Raw_Upload">আপলোড</string>
-
-
     <string name="Settings_Title">সেটিংস</string>
     <string name="Settings_Privacy_Label">গোপনীয়তা</string>
     <string name="Settings_Proxy">প্রক্সি</string>
@@ -122,8 +118,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">নেটওয়ার্ক তথ্য (অজ্ঞাত সিস্টেম নম্বর সহ)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">পরীক্ষার সময় এবং তারিখ</string>
     <string name="Onboarding_DefaultSettings_Button_Change">ডিফল্ট পরিবর্তন করুন</string>
-
-
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="Modal_Retry">পূনরায় চেষ্টা করুন</string>
     <string name="Modal_Cancel">বাতিল</string>

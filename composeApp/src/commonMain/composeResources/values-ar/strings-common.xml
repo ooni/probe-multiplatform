@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">لوحة التحكم</string>
     <string name="Dashboard_Overview_Estimated">التقدير:</string>
     <string name="Dashboard_Overview_ChooseWebsites">اختر المواقع</string>
     <string name="Dashboard_Running_Running">جار التنفيذ:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">تقدير الوقت الباقي:</string>
-    <string name="Dashboard_Running_Stopping_Title">إيقاف الاختبار جار ... </string>
-    <string name="Dashboard_Running_Stopping_Notice">يرجى الانتظار حتى الانتهاء من الاختبارات الجارية حاليّاً</string>
+    <string name="Dashboard_Running_Stopping_Title">إيقاف الاختبار جار …</string>
+    <string name="Dashboard_Running_Stopping_Notice">يرجى الانتظار حتى الانتهاء من الاختبارات الجارية حاليّاً…</string>
     <string name="Dashboard_Running_ProxyInUse">الوسيط يعمل</string>
     <string name="Dashboard_TestsMoved_Title">اختبارات</string>
     <string name="Dashboard_RunTests_Title">Run tests</string>
@@ -34,8 +34,6 @@
     <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE AND FINISH (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
     <string name="Dashboard_Update_Restart">أعد التشغيل</string>
-
-
     <string name="Tests_Title">اختبارات</string>
     <string name="Test_Websites_Fullname">المواقع</string>
     <string name="Test_InstantMessaging_Fullname">المراسلة الفورية</string>
@@ -53,8 +51,6 @@
     <string name="Test_Psiphon_Fullname">اختبار Psiphon</string>
     <string name="Test_Tor_Fullname">اختبار تور</string>
     <string name="Test_Signal_Fullname">اختبار Signal </string>
-
-
     <string name="TestResults">النتائج</string>
     <string name="TestResults_Overview_Hero_Networks">الشبكات</string>
     <string name="TestResults_Overview_Hero_DataUsage">إستخدام البيانات</string>
@@ -91,8 +87,6 @@
     <string name="Measurements_Ok">موافق</string>
     <string name="Measurements_Anomaly">شذوذ</string>
     <string name="Measurement_Raw_Upload">رفع</string>
-
-
     <string name="Settings_Title">الإعدادات</string>
     <string name="Settings_TestOptions_Label">اختيارات الاختبار</string>
     <string name="Settings_TestOptions_LongRunningTest">اشتغال الاختبار الطويل</string>
@@ -206,7 +200,6 @@
     <string name="CategoryCode_CTRL_Description">محتوى حميد أو غير ضار يستخدم للتحكّم</string>
     <string name="CategoryCode_IGO_Description">منظّّمات بين حكوميّة دوليّة بما في ذلك الأمم المتحدة</string>
     <string name="CategoryCode_MISC_Description">مواقع لم يتم تصنيفها</string>
-
     <string name="Onboarding_QuizAnswer_Correct">Correct answer</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Incorrect answer</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">فهمت</string>
@@ -236,8 +229,6 @@
     <string name="Onboarding_DefaultSettings_Paragraph">نعمل ما في وسعنا لعدم نشر عنوان بروتوكل الانترنت (IP) أو أي بيانات أخرى قد تساعد  في تحديد هويّتك الشّخصيّة. \n\nتعلّم أكثر عبر [سياسة البيانات في OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Go">فلننطلق!</string>
     <string name="Onboarding_DefaultSettings_Button_Change">تغيير الافتراضي</string>
-
-
     <string name="AddDescriptor_Settings">فحص الإعدادات</string>
     <string name="AddDescriptor_Title">Install New Link</string>
     <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
@@ -278,7 +269,6 @@
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">جاري التجريب</string>
     <string name="Notification_StopTest">إيقاف الاختبار</string>
-
     <string name="Common_Back">الرجوع</string>
     <string name="Common_Close">إغلاق</string>
     <string name="Common_Refresh">refresh</string>
@@ -314,7 +304,6 @@
     <string name="Common_Months_October">أكتوبر</string>
     <string name="Common_Months_November">نوفمبر</string>
     <string name="Common_Months_December">ديسمبر</string>
-
     <string name="TaskOrigin_Manual">Manual Run</string>
     <string name="TaskOrigin_AutoRun">Auto Run</string>
     <string name="NetworkType_Vpn">الشبكة الافتراضية الخاصة</string>
