@@ -15,6 +15,7 @@
     <string name="Onboarding_CleanUp_Title">清理</string>
     <string name="Onboarding_CleanUp_Paragraph">我们检测到先前安装的残留文件。继续安装前请清理这些资源。</string>
     <string name="Dashboard_Websites_Card_Description">测试网站的屏蔽情况</string>
+    <string name="Dashboard_Websites_Overview_Paragraph">用 OONI’s [Web 连接性测试](https://ooni.org/nettest/web-connectivity/) 检查网站是否被禁止访问。\n\n每次轻按“运行”来测试来自 Citizen Lab 的 [全球](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) 和 [特定国家/地区](https://github.com/citizenlab/test-lists/tree/master/lists) 测试列表的不同网站。\n\n要测试所选站点，轻按“选择网站”按钮”或通过此卡片的设置选择网站类别。\n\n这个测试测量网站是否通过域名解析服务篡改、TCP/IP 拦截或透明 HTTP 代理被封禁。\n\n测试结果会公布在 [OONI Explorer](https://explorer.ooni.org/world/) 和 [OONI API](https://api.ooni.io/)。</string>
     <string name="Dashboard_Performance_Card_Description">测试您的网速和性能</string>
     <string name="Dashboard_Performance_Overview_Paragraph">使用 [NDT](https://ooni.org/nettest/ndt/) 测试测量您的网络速度和性能。\n\n使用 [DASH](https://ooni.org/nettest/dash/) 测试测量视频流性能。\n\n这些测试消耗的数据取决于您的网络速度。\n\n您的结果将被发布在 [OONI Explorer](https://explorer.ooni.org/world/)和[OONI API](https://api.ooni.io/)。\n\n免责声明：这些测试依赖于第三方服务器。因此，我们不能保证您的 IP 地址不会被收集。</string>
     <string name="Dashboard_Middleboxes_Card_Description">检测您网络中的 Middlebox</string>
