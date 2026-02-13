@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="Dashboard_Tab_Label">Paneli kryesor</string>
+    <string name="Dashboard_Tab_Label">Pult</string>
     <string name="Dashboard_Overview_Estimated">Përllogaritur:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Zgjidhni faqet</string>
     <string name="Dashboard_Running_Running">Duke përdorur:</string>
@@ -10,8 +10,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Zhbëje</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Shqyrtoni</string>
     <string name="Dashboard_Update_Restart">Rihap</string>
-
-
     <string name="Tests_Title">Testet</string>
     <string name="Test_Websites_Fullname">Faqe</string>
     <string name="Test_InstantMessaging_Fullname">Mesazhe</string>
@@ -57,8 +55,6 @@
     <string name="Measurements_Failed">Të dështuar</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">Ngarkoje</string>
-
-
     <string name="Settings_Title">Rregullime</string>
     <string name="Settings_TestOptions_Label">Mundësitë e testimit</string>
     <string name="Settings_Sharing_UploadResults">Publiko rezultatet automatikisht</string>
@@ -152,7 +148,6 @@
     <string name="CategoryCode_CTRL_Description">Përmbajtje e mirë ose e padëmshme e përdorur për kontroll</string>
     <string name="CategoryCode_IGO_Description">Organizata ndërqeveritare përfshirë edhe Organizatën e Kombëve të Bashkuara</string>
     <string name="CategoryCode_MISC_Description">Faqe që nuk janë kategorizuar ende</string>
-
     <string name="Onboarding_WhatIsOONIProbe_GotIt">E kuptova</string>
     <string name="Onboarding_ThingsToKnow_Title">Kujdes!</string>
     <string name="Onboarding_ThingsToKnow_Button">Kuptoj</string>
@@ -176,8 +171,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Informacion mbi rrjetin (përfshirë numrin autonom të sistemit)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Ora dhe data e testimit</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Ndysho të parazgjedhurat</string>
-
-
     <string name="AddDescriptor_Settings">Provoni Konfigurimin</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Kontrollo për Përditësime</string>
@@ -235,5 +228,4 @@
     <string name="Common_Months_October">Tetor</string>
     <string name="Common_Months_November">Nëntor</string>
     <string name="Common_Months_December">Dhjetor</string>
-
-    </resources>
+</resources>
