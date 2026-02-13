@@ -10,6 +10,7 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe 不是隐私工具。任何监控您的网络活动的实体都能知道您在运行何种软件。</string>
     <string name="Onboarding_PopQuiz_2_Question">每当我运行 OONI Probe，我收集的网络数据都将会被自动发布。</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">为提升网络审查的透明度，所有 OONI Probe 用户的网络数据都将自动发布（除非在设置中选择退出）。</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">为了每天测量互联网审查，请开启自动测试，这样 OONI 探测便可定期运行测试。\n\n别担心，我们会注意电量消耗。\n\n可以随时从设置禁用自动测试。</string>
     <string name="Onboarding_Crash_Paragraph">为了改进 OONI Probe，我们希望在应用程序无法正常工作时收集匿名的崩溃报告。\n\n您愿意选择向 OONI 开发团队提交崩溃报告吗?</string>
     <string name="Onboarding_CleanUp_Title">清理</string>
     <string name="Onboarding_CleanUp_Paragraph">我们检测到先前安装的残留文件。继续安装前请清理这些资源。</string>
