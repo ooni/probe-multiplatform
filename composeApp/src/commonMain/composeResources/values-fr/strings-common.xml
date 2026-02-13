@@ -54,7 +54,7 @@
     <string name="Tests_Title">Tests</string>
     <string name="Test_Websites_Fullname">Sites Web</string>
     <string name="Test_InstantMessaging_Fullname">Messagerie instantanée</string>
-    <string name="Test_Performance_Fullname">Réduire le nombre de requêtes récurrentes sur Quad9, économiser de la bande passante et offrir une expérience plus rapide à l\'utilisateur final lorsque ses requêtes sont déjà dans le cache des forwarders.</string>
+    <string name="Test_Performance_Fullname"></string>
     <string name="Test_Circumvention_Fullname">Contournement</string>
     <string name="Test_Experimental_Fullname">Expérimental</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Test HTTP ligne de requête invalide</string>
