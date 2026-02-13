@@ -54,7 +54,6 @@
     <string name="Tests_Title">Tests</string>
     <string name="Test_Websites_Fullname">Sites Web</string>
     <string name="Test_InstantMessaging_Fullname">Messagerie instantanée</string>
-    <string name="Test_Performance_Fullname"></string>
     <string name="Test_Circumvention_Fullname">Contournement</string>
     <string name="Test_Experimental_Fullname">Expérimental</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Test HTTP ligne de requête invalide</string>

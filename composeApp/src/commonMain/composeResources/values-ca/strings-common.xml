@@ -26,7 +26,6 @@
     <string name="Test_FacebookMessenger_Fullname">Prova de Facebook Messenger</string>
     <string name="Test_Psiphon_Fullname">Prova del Psiphon</string>
     <string name="Test_Tor_Fullname">Prova del Tor</string>
-    <string name="TestResults"></string>
     <string name="TestResults_Overview_Hero_Networks">Xarxes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Ús de dades</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Encara no s\'han executat proves. Proveu a executar una!</string>
