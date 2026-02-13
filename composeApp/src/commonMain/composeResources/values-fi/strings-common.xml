@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Kojelauta</string>
     <string name="Dashboard_Overview_Estimated">Arvioitu:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Valitse verkkosivut</string>
     <string name="Dashboard_Running_Running">Suoritetaan:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Arvioitu jäljellä oleva aika:</string>
-    <string name="Dashboard_Running_Stopping_Title">Pysäytetään testiä...</string>
-    <string name="Dashboard_Running_Stopping_Notice">Lopetetaan keskeneräisiä testejä, odota...</string>
+    <string name="Dashboard_Running_Stopping_Title">Pysäytetään testiä…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Lopetetaan keskeneräisiä testejä, odota…</string>
     <string name="Dashboard_Running_ProxyInUse">Välityspalvelin käytössä</string>
     <string name="Dashboard_TestsMoved_Title">Testit</string>
     <string name="Dashboard_Articles_Report">ilmoitus</string>
@@ -14,8 +14,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Kumoa</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Tarkista</string>
     <string name="Dashboard_Update_Restart">Käynnistä uudelleen</string>
-
-
     <string name="Tests_Title">Testit</string>
     <string name="Test_Websites_Fullname">Verkkosivustot</string>
     <string name="Test_InstantMessaging_Fullname">Pikaviestintä</string>
@@ -31,8 +29,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon-testi</string>
     <string name="Test_Tor_Fullname">Tor-testi</string>
     <string name="Test_Signal_Fullname">Signal-testi</string>
-
-
     <string name="TestResults_Overview_Hero_Networks">Verkot</string>
     <string name="TestResults_Overview_Hero_DataUsage">Datankäyttö</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Ei vielä suoritettuja testejä. Kokeile suorittamista!</string>
@@ -63,8 +59,6 @@
     <string name="Measurements_Failed">Epäonnistunut</string>
     <string name="Measurements_Ok">Valmis</string>
     <string name="Measurement_Raw_Upload">Kopioi palvelimelle</string>
-
-
     <string name="Settings_Title">Asetukset</string>
     <string name="Settings_TestOptions_Label">Testausvalinnat</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Suorita testit automaattisesti</string>
@@ -158,8 +152,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Verkkotiedot (mukaan lukien autonomisen järjestelmän numerotunnus)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Testaamisen aika ja päivämäärä</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Muuta oletuksia</string>
-
-
     <string name="AddDescriptor_Settings">Testausasetukset</string>
     <string name="AddDescriptor_AutoRun">Suorita testit automaattisesti</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Ei lähetetty</string>
@@ -187,7 +179,6 @@
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testataan</string>
     <string name="Notification_StopTest">Pysäytä testi</string>
-
     <string name="Common_Back">Takaisin</string>
     <string name="Common_Close">Sulje</string>
     <string name="Common_Refresh">Päivitä</string>
@@ -216,6 +207,5 @@
     <string name="Common_Months_October">Lokakuu</string>
     <string name="Common_Months_November">Marraskuu</string>
     <string name="Common_Months_December">Joulukuu</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

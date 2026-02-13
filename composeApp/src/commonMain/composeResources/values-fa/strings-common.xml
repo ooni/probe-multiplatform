@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">پنل</string>
     <string name="Dashboard_Overview_Estimated">تخمین:</string>
     <string name="Dashboard_Overview_ChooseWebsites">انتخاب وبسایت‌ها</string>
     <string name="Dashboard_Running_Running">در حال اجرا:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">زمان تخمینی باقی‌مانده:</string>
-    <string name="Dashboard_Running_Stopping_Title">در حال توقف تست...</string>
-    <string name="Dashboard_Running_Stopping_Notice">در حال اتمام تست‌های در حال انتظار. لطفا صبر کنید...</string>
+    <string name="Dashboard_Running_Stopping_Title">در حال توقف تست…</string>
+    <string name="Dashboard_Running_Stopping_Notice">در حال اتمام تست‌های در حال انتظار. لطفا صبر کنید…</string>
     <string name="Dashboard_Running_ProxyInUse">پروکسی در حال استفاده</string>
     <string name="Dashboard_TestsMoved_Title">تست‌‌ها</string>
     <string name="Dashboard_Articles_Report">گزارش</string>
@@ -16,8 +16,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">واگرد</string>
     <string name="Dashboard_Progress_ReviewLink_Action">مرور کنید.</string>
     <string name="Dashboard_Update_Restart">شروع دوباره</string>
-
-
     <string name="Tests_Title">تست‌‌ها</string>
     <string name="Test_Websites_Fullname">وب‌سایت</string>
     <string name="Test_InstantMessaging_Fullname">پیام‌رسان</string>
@@ -35,8 +33,6 @@
     <string name="Test_Psiphon_Fullname">تست سایفون</string>
     <string name="Test_Tor_Fullname">تست تور</string>
     <string name="Test_Signal_Fullname">تست سیگنال</string>
-
-
     <string name="TestResults">نتایج</string>
     <string name="TestResults_Overview_Hero_Networks">شبکه ها</string>
     <string name="TestResults_Overview_Hero_DataUsage">مصرف داده</string>
@@ -70,8 +66,6 @@
     <string name="Measurements_Ok">قابل قبول</string>
     <string name="Measurements_Anomaly">ناهنجاری</string>
     <string name="Measurement_Raw_Upload">آپلود</string>
-
-
     <string name="Settings_Title">تنظیمات</string>
     <string name="Settings_TestOptions_Label">گزینه‌های آزمون</string>
     <string name="Settings_TestOptions_LongRunningTest">آزمون طولانی مدت</string>
@@ -180,7 +174,6 @@
     <string name="CategoryCode_CTRL_Description">محتوای بی‌ضرر برای مدیریت</string>
     <string name="CategoryCode_IGO_Description">سازمان‌های بین دولتی شامل سازمان ملل</string>
     <string name="CategoryCode_MISC_Description">سایت‌‌هایی که هنوز دسته بندی نشده‌اند</string>
-
     <string name="Onboarding_WhatIsOONIProbe_GotIt">متوجه شدم</string>
     <string name="Onboarding_ThingsToKnow_Title">توجه توجه!</string>
     <string name="Onboarding_ThingsToKnow_Button">می‌فهمم</string>
@@ -207,8 +200,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">زمان و تاریخ تست</string>
     <string name="Onboarding_DefaultSettings_Paragraph">ما همه‌ی تلاش خود را می‌‌کنیم تا آدرس IP ی شما یا هر اطلاعات قابل شناسایی شخصی بالقوه‌ی دیگر را منتشر نکنیم.\n\nدر [سیاست‌ داده‌ی OONI](https://ooni.org/about/data-policy/) بیشتر بخوانید.</string>
     <string name="Onboarding_DefaultSettings_Button_Change">تغییر پیشفرض‌ها</string>
-
-
     <string name="AddDescriptor_Settings">تنظیمات آزمودن  </string>
     <string name="AddDescriptor_AutoRun">اجرای خودکار آزمایش‌ها</string>
     <!-- Only used for the desktop version of the app for now -->
@@ -243,7 +234,6 @@
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">در حال تست</string>
     <string name="Notification_StopTest">توفق آزمون</string>
-
     <string name="Common_Back">برگشت</string>
     <string name="Common_Close">ببندید</string>
     <string name="Common_Refresh">تازه‌سازی</string>
@@ -279,6 +269,5 @@
     <string name="Common_Months_October">اکتبر</string>
     <string name="Common_Months_November">نوامبر</string>
     <string name="Common_Months_December">دسامبر</string>
-
     <string name="NetworkType_Vpn">وی‌پی‌ان</string>
 </resources>

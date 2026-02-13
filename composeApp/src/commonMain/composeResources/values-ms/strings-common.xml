@@ -1,11 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Overview_Estimated">Anggaran:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Pilih tapak web:</string>
     <string name="Dashboard_Running_Running">Sedang dijalankan:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Anggaran baki masa:</string>
-    <string name="Dashboard_Running_Stopping_Title">Menghentikan ujian...</string>
-    <string name="Dashboard_Running_Stopping_Notice">Menghabiskan ujian yang sedang dijalankan, sila tunggu...</string>
+    <string name="Dashboard_Running_Stopping_Title">Menghentikan ujian…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Menghabiskan ujian yang sedang dijalankan, sila tunggu…</string>
     <string name="Dashboard_TestsMoved_Title">Ujian-ujian</string>
     <string name="Tests_Title">Ujian-ujian</string>
     <string name="Test_Websites_Fullname">Tapak-tapak web</string>
@@ -31,8 +31,6 @@
     <string name="Measurements_Failed">Gagal</string>
     <string name="Measurements_Ok">Baiklah</string>
     <string name="Measurement_Raw_Upload">Muat naik</string>
-
-
     <string name="Settings_Title">Aturan</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Semasa menggunakan WiFi sahaja</string>
     <string name="Settings_Privacy_Label">Privasi</string>
@@ -82,8 +80,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">Kod negara (cth. IT bagi Itali)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Masa &amp; tarikh ujian</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Tukar pengesetan asal</string>
-
-
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="Toast_ResultsUploaded">Muat naik berjaya</string>
     <string name="Modal_UploadFailed_Title">Muat naik gagal</string>

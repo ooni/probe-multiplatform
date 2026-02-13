@@ -5,8 +5,8 @@
     <string name="Dashboard_Overview_ChooseWebsites">ជ្រើសរើសវែបសាយ</string>
     <string name="Dashboard_Running_Running">កំពុងដំណើរការ៖</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">ពេលវេលាប៉ាន់ស្មាននៅសល់៖</string>
-    <string name="Dashboard_Running_Stopping_Title">បញ្ចប់ការធ្វើតេស្ត</string>
-    <string name="Dashboard_Running_Stopping_Notice">បញ្ចប់ការសាកល្បងមិនដំណើរការ។ សូមរង់ចាំ</string>
+    <string name="Dashboard_Running_Stopping_Title">បញ្ចប់ការធ្វើតេស្ត…</string>
+    <string name="Dashboard_Running_Stopping_Notice">បញ្ចប់ការសាកល្បងមិនដំណើរការ។ សូមរង់ចាំ…</string>
     <string name="Dashboard_Running_ProxyInUse">Proxyកំពុងដំណើរការ</string>
     <string name="Dashboard_TestsMoved_Title">តេស្ត</string>
     <string name="Dashboard_RunTests_Title">ដំណើរការតេស្ត</string>

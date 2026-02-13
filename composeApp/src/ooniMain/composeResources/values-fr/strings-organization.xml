@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Qu’est-ce qu’OONI Probe ?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Votre appli pour mesurer la censure d’Internet. \n\nLes sites Web et les applis de médias sociaux sont-ils bloqués? Votre connexion Internet est-elle anormalement lente?\n\nLancez OONI Probe pour le savoir !</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Les données de l’OONI sont publiées ouvertement et comprendront les renseignements relatifs à votre réseau.</string>
@@ -14,7 +14,6 @@
     <string name="Onboarding_Crash_Paragraph">Afin d’améliorer OONI Probe, nous souhaitons recueillir des relevés anonymes de plantage quand l’appli ne fonctionne pas correctement. Acceptez-vous d’envoyer des rapports de plantage à l’équipe de développement d’OONI?</string>
     <string name="Onboarding_CleanUp_Title">Nettoyage</string>
     <string name="Onboarding_CleanUp_Paragraph">Nous avons détecté des fichiers résiduels provenant de l’installation précédente. Veuillez effacer ces ressources avant de procéder à l’installation.</string>
-
     <string name="Dashboard_Websites_Card_Description">Testez le blocage de sites Web</string>
     <string name="Dashboard_Websites_Overview_Paragraph">Vérifiez le blocage des sites Web grâce au [Test de connectivité Web](https://ooni.org/nettest/web-connectivity/) de l’OONI (page en anglais).\n\nChaque fois que vous touchez Lancer, vous testez différents sites Web provenant des listes de tests [mondiale](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) et [propre à un pays](https://github.com/citizenlab/test-lists/tree/master/lists) du « Citizen Lab » (site en anglais).\n\nPour tester les sites de votre choix, touchez le bouton « Choisir des sites Web » ou sélectionnez des catégories de sites dans les paramètres de cette carte. \n\nCe test mesure si les sites Web sont bloqués par une manipulation DNS, par un blocage TCP/IP ou par un mandataire HTTP transparent.\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/world/) et l’[API d’OONI](https://api.ooni.io/) (site en anglais).</string>
     <string name="Dashboard_Performance_Card_Description">Testez la vitesse et les performances de votre réseau</string>
@@ -27,26 +26,22 @@
     <string name="Dashboard_Circumvention_Overview_Paragraph">Vérifiez si [Psiphon](https://ooni.org/nettest/psiphon/) et [Tor](https://ooni.org/nettest/tor/) sont bloqués (pages en anglais).\n\nVos résultats seront publiés dans l’[explorateur OONI](https://explorer.ooni.org/) et l’[API OONI](https://api.ooni.io/) (pages en anglais).</string>
     <string name="Dashboard_Experimental_Card_Description">Effectuer les nouveaux tests expérimentaux</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">Effectuer les nouveaux tests expérimentaux suivants conçus par l’équipe d’OONI :\n%1$s\n\nVos résultats seront publiés dans l’[Explorateur OONI](https://explorer.ooni.org/) et l’[API d’OONI](https://api.ooni.io/) (site en anglais).</string>
-
     <string name="Settings_About_Label">À propos de l’OONI</string>
     <string name="Settings_About_Content_Paragraph">L’observatoire ouvert des interférences réseau (« Open Observatory of Network Interference » OONI) est un projet de logiciel libre, dans le cadre du projet Tor, qui vise à accroître la transparence de la censure d’Internet dans le monde entier.\n\nDepuis 2012, la communauté internationale de l’OONI prend des mesures des réseaux dans plus de 200 pays. Certaines de ces mesures servent de preuve de censure d’Internet.</string>
-
     <string name="Settings_About_Content_LearnMore">En apprendre davantage</string>
     <string name="Settings_About_Content_Blog">Blogue</string>
     <string name="Settings_About_Content_Reports">Relevés</string>
     <string name="Settings_About_Content_DataPolicy">OONI Politique sur les données</string>
-
     <string name="Settings_Donate_Title">Faire un don</string>
     <string name="Settings_Donate_Heading">Faites un don maintenant et soutenez la liberté sur Internet.</string>
     <string name="Settings_Donate_SubHeading">En tant qu’organisme sans but lucratif, nous dépendons des dons de personnes comme vous pour défendre un Internet libre et ouvert pour tous.</string>
     <string name="Settings_Donate_Support_Title">En faisant un don à l’OONI, vous soutenez financièrement :</string>
-    <string name="Settings_Donate_Support_Item_OpenSource">Des logiciels gratuits et libres de détection de la censure sur Internet ;</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">Des logiciels gratuits et libres de détection de la censure sur Internet</string>
     <string name="Settings_Donate_Support_Item_Analysis">Analyse en temps réel de la censure d’Internet à l’échelle planétaire</string>
-    <string name="Settings_Donate_Support_Item_OpenData">Des données ouvertes sur la censure d’Internet, pour des recherches et de la sensibilisation à l’échelle planétaire ;</string>
+    <string name="Settings_Donate_Support_Item_OpenData">Des données ouvertes sur la censure d’Internet, pour des recherches et de la sensibilisation à l’échelle planétaire</string>
     <string name="Settings_Donate_Support_Item_Research">La recherche sur les événements de censure dans le monde entier. </string>
     <string name="Settings_Donate_Action">Faire un don</string>
     <string name="Settings_Donate_Action_Warning_ExternalBrowser">Une fenêtre de navigateur externe sera ouverte</string>
     <string name="Settings_Donate_Action_Error">Erreur d’ouverture de la page de don. Rendez-vous sur %1$s</string>
-
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Vous ne pourrez réinstaller ce lien qu’à partir du lien original envoyé par la personne qui l’a créé. Les mesures de ce lien seront supprimées, mais seront accessibles dans l\'explorateur.</string>
 </resources>
