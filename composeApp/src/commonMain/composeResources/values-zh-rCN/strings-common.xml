@@ -345,6 +345,7 @@
 
 
     <string name="AddDescriptor_EnterURL">输入 OONI Run 链接 URL</string>
+    <string name="AddDescriptor_URLInvalid">此 URL 不是有效的 OONI Run 链接</string>
     <string name="AddDescriptor_Settings">测试代理设置</string>
     <string name="AddDescriptor_Title">安装新链接</string>
     <string name="AddDescriptor_AutoUpdate">自动安装更新</string>
@@ -354,6 +355,7 @@
     <string name="AddDescriptor_InstallAndRun">安装并运行</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">不支持的 URL</string>
     <string name="LoadingScreen_Runv2_Message">链接加载</string>
+    <string name="LoadingScreen_Runv2_Failure">加载链接出错</string>
     <string name="DescriptorUpdate_Updates">更新</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">检查更新</string>
@@ -363,6 +365,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">未上传</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">部分未上传</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">全部上传</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">正在上传 %1$s…</string>
     <string name="Toast_ResultsUploaded">上传成功</string>
     <string name="Modal_UploadFailed_Title">上传失败</string>
     <string name="Modal_UploadFailed_Paragraph">%1$s/%2$s 测量结果上传失败。日志已经分享给 OONI 开发者。</string>
@@ -398,7 +401,10 @@
     <string name="Desktop_Quit">退出</string>
     <string name="Tray_Notification_Check_Updates">检查更新</string>
     <string name="Tray_Notification_Updates_Available">有更新可用！</string>
+    <string name="Tray_Notification_Checking_Updates">检查更新中...</string>
+
     <string name="Modal_Hide">隐藏</string>
+    <string name="Modal_Quite_Prompt">退出 OONI 探测？</string>
     <string name="Modal_Quite_Description">如退出，应用将无法在后台运行自动测试。选择“退出”来退出应用或选择“隐藏”保持应用在后台运行。</string>
 
     <string name="OONIRun_Run">运行</string>
@@ -420,6 +426,7 @@
     <string name="Common_Next">下一页</string>
     <string name="Common_Previous">上一步</string>
     <string name="Common_Share">分享</string>
+    <string name="Common_Dismiss">不退出</string>
     <string name="Common_Search">搜索</string>
     <string name="Common_Today">今天</string>
     <string name="Common_Yesterday">昨天</string>
