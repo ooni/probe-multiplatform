@@ -8,7 +8,13 @@
     <string name="Dashboard_Running_Stopping_Title">正在停止测试…</string>
     <string name="Dashboard_Running_Stopping_Notice">正在结束当前待处理的测试，请稍候...</string>
     <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
+    <string name="Dashboard_LastResults">上个结果</string>
+    <string name="Dashboard_LastResults_SeeResults">查看结果</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[自动运行已 <i>开启</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[自动运行已 <i>停用</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">测试</string>
+    <string name="Dashboard_TestsMoved_Description">你的测试移动到了新标签页，可通过下方导航栏到达</string>
+    <string name="Dashboard_TestsMoved_Action">查看测试</string>
     <string name="Dashboard_RunTests_Title">运行测试</string>
     <string name="Dashboard_RunTests_Description">选择要运行的测试</string>
     <string name="Dashboard_RunTests_SelectAll">选择所有测试</string>
@@ -16,8 +22,21 @@
     <plurals name="Dashboard_RunTests_RunButton_Label">
         <item quantity="other">运行 %1$d 个测试</item>
     </plurals>
+    <string name="Dashboard_Stats_Title">你的测量</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="other">网络</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="other">国家/地区</item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty">开始运行测试以在此处查看统计数据</string>
+
+    <string name="Dashboard_Articles_Title">OONI 新闻</string>
+    <string name="Dashboard_Articles_Blog">博文</string>
+    <string name="Dashboard_Articles_Finding">研究成果</string>
     <string name="Dashboard_Articles_Report">报告</string>
     <string name="Dashboard_Articles_ReadMore">详细了解</string>
+    <string name="Dashboard_Articles_Recent">近期</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI 测试</string>
     <string name="Dashboard_RunV2_Title">OONI 运行链接</string>
     <string name="Dashboard_Runv2_Overview_Description">由 %1$s 于 %2$s 创建</string>
@@ -48,6 +67,7 @@
 
 
     <string name="Tests_Title">测试</string>
+    <string name="Tests_Search">搜索测试</string>
     <string name="Test_Websites_Fullname">网站</string>
     <string name="Test_InstantMessaging_Fullname">即时通讯</string>
     <string name="Test_Performance_Fullname">性能</string>
@@ -324,6 +344,7 @@
     <string name="Onboarding_DefaultSettings_Button_Change">更改默认值</string>
 
 
+    <string name="AddDescriptor_EnterURL">输入 OONI Run 链接 URL</string>
     <string name="AddDescriptor_Settings">测试代理设置</string>
     <string name="AddDescriptor_Title">安装新链接</string>
     <string name="AddDescriptor_AutoUpdate">自动安装更新</string>
@@ -378,6 +399,8 @@
     <string name="Tray_Notification_Check_Updates">检查更新</string>
     <string name="Tray_Notification_Updates_Available">有更新可用！</string>
     <string name="Modal_Hide">隐藏</string>
+    <string name="Modal_Quite_Description">如退出，应用将无法在后台运行自动测试。选择“退出”来退出应用或选择“隐藏”保持应用在后台运行。</string>
+
     <string name="OONIRun_Run">运行</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">测试中</string>
