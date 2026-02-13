@@ -5,8 +5,8 @@
     <string name="Dashboard_Overview_ChooseWebsites">選擇網站</string>
     <string name="Dashboard_Running_Running">執行:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">預估剩餘時間:</string>
-    <string name="Dashboard_Running_Stopping_Title">停止測試...</string>
-    <string name="Dashboard_Running_Stopping_Notice">完成當前該處理的測試，請稍等....</string>
+    <string name="Dashboard_Running_Stopping_Title">停止測試…</string>
+    <string name="Dashboard_Running_Stopping_Notice">完成當前該處理的測試，請稍等…</string>
     <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
     <string name="Dashboard_TestsMoved_Title">測試</string>
     <string name="Dashboard_RunTests_Title">執行測試</string>

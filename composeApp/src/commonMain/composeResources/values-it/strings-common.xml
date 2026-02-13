@@ -192,7 +192,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">Il codice del paese (es. IT per l\'Italia)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">Informazioni sulla tua rete (incluso l\'Autonomous System Number)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Data e ora del test</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">Facciamo del nostro meglio per evitare di pubblicare il tuo indirizzo IP o altre informazioni personali.\n\nPer maggiori informazioni vedi la [Data Policy di OONI](https://ooni.org/about/data-policy/)</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">Facciamo del nostro meglio per evitare di pubblicare il tuo indirizzo IP o altre informazioni personali.\n\nPer maggiori informazioni vedi la [Data Policy di OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Cambia i default</string>
     <string name="AddDescriptor_Settings">Fai un test delle impostazioni</string>
     <string name="AddDescriptor_AutoRun">Esegui test automaticamente</string>

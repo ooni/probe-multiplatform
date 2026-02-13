@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Tauler</string>
     <string name="Dashboard_Overview_Estimated">Estimat:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Trieu llocs web</string>
@@ -11,8 +11,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Desfés</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Revisa</string>
     <string name="Dashboard_Update_Restart">Reinicia</string>
-
-
     <string name="Tests_Title">Proves</string>
     <string name="Test_Websites_Fullname">Llocs web</string>
     <string name="Test_InstantMessaging_Fullname">Missatgeria instantània</string>
@@ -28,7 +26,6 @@
     <string name="Test_FacebookMessenger_Fullname">Prova de Facebook Messenger</string>
     <string name="Test_Psiphon_Fullname">Prova del Psiphon</string>
     <string name="Test_Tor_Fullname">Prova del Tor</string>
-    <string name="TestResults">Results</string>
     <string name="TestResults_Overview_Hero_Networks">Xarxes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Ús de dades</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Encara no s\'han executat proves. Proveu a executar una!</string>
@@ -60,8 +57,6 @@
     <string name="Measurements_Failed">Error</string>
     <string name="Measurements_Ok">Correcte</string>
     <string name="Measurement_Raw_Upload">Pujada</string>
-
-
     <string name="Settings_Title">Configuració</string>
     <string name="Settings_TestOptions_Label">Opcions de la prova</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Executa proves automàticament</string>
@@ -126,7 +121,7 @@
     <string name="CategoryCode_ALDR_Description">Ús i venda de drogues i alcohol</string>
     <string name="CategoryCode_REL_Description">Temes religiosos, tant solidaris com crítics</string>
     <string name="CategoryCode_PORN_Description">Pornografia dura i tova</string>
-    <string name="CategoryCode_PROV_Description">Vestimenta provocativa i representació de dones amb roba mínima.</string>
+    <string name="CategoryCode_PROV_Description">Vestimenta provocativa i representació de dones amb roba mínima</string>
     <string name="CategoryCode_POLR_Description">Punts de vista polítics crítics</string>
     <string name="CategoryCode_HUMR_Description">Qüestions de drets humans</string>
     <string name="CategoryCode_ENV_Description">Discussions sobre temes ambientals</string>
@@ -154,7 +149,6 @@
     <string name="CategoryCode_CTRL_Description">Contingut benigne o innocu utilitzat per al control</string>
     <string name="CategoryCode_IGO_Description">Organitzacions intergovernamentals, incloses les Nacions Unides</string>
     <string name="CategoryCode_MISC_Description">Llocs que encara no s\'han classificat</string>
-
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Entesos</string>
     <string name="Onboarding_ThingsToKnow_Title">Alerta!</string>
     <string name="Onboarding_ThingsToKnow_Button">Entesos</string>
@@ -179,8 +173,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Informació de la xarxa (inclòs el número del sistema autònom)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Hora i data de la prova</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Canvia valors</string>
-
-
     <string name="AddDescriptor_Settings">Test de configuració</string>
     <string name="AddDescriptor_AutoRun">Executa proves automàticament</string>
     <!-- Only used for the desktop version of the app for now -->
@@ -240,6 +232,5 @@
     <string name="Common_Months_October">octubre</string>
     <string name="Common_Months_November">novembre</string>
     <string name="Common_Months_December">desembre</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
