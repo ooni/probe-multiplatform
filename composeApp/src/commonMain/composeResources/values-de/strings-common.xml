@@ -422,6 +422,9 @@
     <string name="Tray_Notification_Checking_Updates">Prüfe auf Updates…</string>
 
     <string name="Modal_Hide">Verstecken</string>
+    <string name="Modal_Quite_Prompt">OONI Probe beenden\?</string>
+    <string name="Modal_Quite_Description">Wenn du die App beendest, kann sie keine automatisierten Tests im Hintergrund ausführen. Wähle „Beenden“, um die App zu schließen, oder „Verstecken“, um sie im Hintergrund weiterlaufen zu lassen.</string>
+
     <string name="OONIRun_Run">Ausführen</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testvorgang</string>
