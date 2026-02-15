@@ -8,7 +8,13 @@
     <string name="Dashboard_Running_Stopping_Title">Test wird gestoppt …</string>
     <string name="Dashboard_Running_Stopping_Notice">Fertigstellung der aktuell ausstehenden Tests, bitte warten ...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in Verwendung</string>
+    <string name="Dashboard_LastResults">Letzte Ergebnisse</string>
+    <string name="Dashboard_LastResults_SeeResults">Ergebnisse anzeigen</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Automatischer Start ist <i>aktiviert</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Automatischer Start  ist <i>deaktiviert</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">Tests</string>
+    <string name="Dashboard_TestsMoved_Description">Deine Tests wurden in einen neuen Tab verschoben. Du kannst sie über die Navigationsleiste unten aufrufen.</string>
+    <string name="Dashboard_TestsMoved_Action">Tests anzeigen</string>
     <string name="Dashboard_RunTests_Title">Führe Tests aus</string>
     <string name="Dashboard_RunTests_Description">Wähle den auszuführenden Test</string>
     <string name="Dashboard_RunTests_SelectAll">Alle Tests auswählen</string>
@@ -17,6 +23,18 @@
         <item quantity="one">Führe %1$d Test aus</item>
         <item quantity="other">Führe %1$d Tests aus</item>
     </plurals>
+    <string name="Dashboard_Stats_Title">Deine Messungen</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Netzwerk</item>
+        <item quantity="other">Netzwerke</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">Land</item>
+        <item quantity="other">Länder</item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty">Starte Tests, um deine Statistiken hier anzuzeigen.</string>
+
+    <string name="Dashboard_Articles_Title">OONI Nachrichten</string>
     <string name="Dashboard_Articles_Report">Bericht</string>
     <string name="Dashboard_Articles_ReadMore">Mehr lesen</string>
     <string name="Dashboard_Articles_Recent">Kürzlich</string>
