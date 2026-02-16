@@ -6,19 +6,19 @@ OONI Probe yakagadzirwa neveOpen Observatory of Network Interference (OONI), pas
 
 Kubva gore ra2012, vanoshanda neOONI pasirose vawunganidza mamiriyoni ezviwongororo zvemasaisai kubva kunyika dzinodarika 200, vachibuditsa pachena kuvhiringidzwa kwemasaisai.
 
-▶ Collect evidence of internet censorship
+
 Unokwanisa kutarisa kuti mawebsite nezvekutumira mameseji kuti zvakavharwa here uye sei. Zvaunowana zvinozoshanda sehumbowo hwekuvharwa kwemasaisai.
 
-▶ Detect systems responsible for censorship and surveillance
-OONI Probe tests are also designed to uncover the presence of systems (middleboxes) that could be responsible for censorship and surveillance.
 
-▶ Measure the speed and performance of your network
+
+
+
 Unokwanisa kupimha kukasira kasira nemashandiro emasaisai ako nekushandisa OONI's Network Disgnostic Test (NDT). Unokwanisa futi kupimha mashandiro ekuwona mavhidhiyo pamasaisai uchishandisa Dynamic Adaptive Streaming over HTTP (DASH) test.
 
-▶ Open data
-OONI publishes network measurement data because open data allows third parties to verify OONI findings, conduct independent studies, and answer other research questions. Openly publishing OONI data also helps increase transparency of internet censorship around the world. You can explore and download OONI data here: https://ooni.io/data/
 
-▶ Free software
-All OONI Probe tests (including our NDT and DASH implementations), are based on free and open source software. You can find OONI software projects on GitHub: https://github.com/ooni. Curious to learn how OONI Probe tests work? Learn more: https://ooni.io/nettest/
+
+
+
+
 
 Kuti uwane zvisiviso kubva ku OONI- verse, vatevere paTwitter uchishanisa https://twitter.com/OpenObservatory
