@@ -8,18 +8,50 @@
     <string name="Dashboard_Running_Stopping_Title">Stöðva prófun…</string>
     <string name="Dashboard_Running_Stopping_Notice">Lýk þeim prófunum sem eru í gangi, bíddu aðeins…</string>
     <string name="Dashboard_Running_ProxyInUse">Milliþjónn í notkun</string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Title">Prófanir</string>
+    <string name="Dashboard_TestsMoved_Description"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
     <string name="Dashboard_RunTests_Title">Run tests</string>
     <string name="Dashboard_RunTests_Description">Select the tests to run</string>
     <string name="Dashboard_RunTests_SelectAll">Select all tests</string>
     <string name="Dashboard_RunTests_SelectNone">Deselect all tests</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Title"></string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty"></string>
+
+    <string name="Dashboard_Articles_Title"></string>
+    <string name="Dashboard_Articles_Blog"></string>
+    <string name="Dashboard_Articles_Finding"></string>
+    <string name="Dashboard_Articles_Report"></string>
     <string name="Dashboard_Articles_ReadMore">Kanna nánar</string>
+    <string name="Dashboard_Articles_Recent"></string>
+    <string name="Dashboard_Articles_OpenExternal"></string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
+    <!-- This only applies when there are more than 10 websites to show. -->
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">UPPFÆRSLA</string>
@@ -40,6 +72,7 @@
 
 
     <string name="Tests_Title">Prófanir</string>
+    <string name="Tests_Search"></string>
     <string name="Test_Websites_Fullname">Vefsvæði</string>
     <string name="Test_InstantMessaging_Fullname">Snarskilaboð</string>
     <string name="Test_Performance_Fullname">Afköst</string>
@@ -61,6 +94,14 @@
     <string name="TestResults">Útkoma</string>
     <string name="TestResults_Overview_Hero_Networks">Netkerfi</string>
     <string name="TestResults_Overview_Hero_DataUsage">Gagnanotkun</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Engar prófanir hafa verið keyrðar ennþá. Prófaðu að keyra eina!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Dagsetning og tími</string>
     <string name="TestResults_Summary_Hero_Network">Netkerfi</string>
@@ -69,7 +110,21 @@
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Farsímagögn</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet"></string>
+    <string name="TestResults_Summary_Hero_Usb"></string>
     <string name="TestResults_Summary_Hero_NoInternet">Engin internettenging</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Senda inn</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Sækja</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Myndskeið</string>
@@ -81,18 +136,56 @@
     <string name="TestResults_ms">msek</string>
     <string name="TestResults_UnknownASN">Óþekkt</string>
     <string name="TestResults_NotAvailable">Ekki tiltækt</string>
+    <string name="TestResults_Filters_Title"></string>
+    <string name="TestResults_Filters_Short"></string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Prófanir</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Networks">Netkerfi</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="TestResults_Filter_Source"></string>
     <string name="TestResults_Filter_Date">Dagsetning</string>
+    <string name="TestResults_Filter_Date_Any"></string>
     <string name="TestResults_Filter_Date_Today">Í dag</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo"></string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo"></string>
     <string name="TestResults_Filter_Date_Custom">Sérsniðið</string>
+    <string name="TestResults_Filter_Date_Custom_Filled"></string>
+    <string name="TestResults_Filter_Date_Picker"></string>
+    <string name="TestResults_Filter_NoTestsFound"></string>
+    <string name="TestResults_Filter_DeleteConfirmation"></string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
+    <string name="Results_MarkAllAsViewed"></string>
+    <string name="Results_MarkAllAsViewed_Confirmation"></string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation"></string>
+
+
     <string name="Measurement_Title">Measurement</string>
     <string name="Measurement_LoadingFailed">Mistókst að hlaða inn upplýsingum um mælingar</string>
     <string name="Measurements_Failed">Mistókst</string>
     <string name="Measurements_Ok">Í lagi</string>
     <string name="Measurements_Anomaly">Frávik</string>
+    <plurals name="Measurements_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning"></string>
+    <string name="Measurement_Raw_Share"></string>
     <string name="Measurement_Raw_Upload">Senda inn</string>
 
 
@@ -108,6 +201,9 @@
     <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeEnabled">Limit Websites test duration</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeDuration"></string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit"></string>
     <string name="Settings_Websites_Categories_Label">Flokkar vefsvæða sem á að prófa</string>
     <string name="Settings_Websites_Categories_Description">%1$s flokkar virkir</string>
     <string name="Settings_Privacy_Label">Friðhelgi</string>
@@ -116,21 +212,41 @@
     <string name="Settings_Proxy">Milliþjónn</string>
     <string name="Settings_Proxy_None">Engin</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Add"></string>
     <string name="Settings_Proxy_Custom_Protocol">Sésniðinn samskiptamáti milliþjóns</string>
     <string name="Settings_Proxy_Custom_Hostname">Vélarheiti</string>
     <string name="Settings_Proxy_Custom_Port">Gátt</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid"></string>
+    <string name="Settings_Proxy_Custom_PortInvalid"></string>
     <string name="Settings_Proxy_Custom_Testing">Prófun</string>
+    <string name="Settings_Proxy_Custom_Available"></string>
     <string name="Settings_Proxy_Custom_Unavailable">Ófáanlegt</string>
+    <string name="Settings_Proxy_Delete_Confirmation"></string>
     <string name="Settings_Language_Label">Tungumál</string>
     <string name="Settings_Advanced_Label">Ítarlegra</string>
     <string name="Settings_Advanced_DebugLogs">Villuskrár</string>
     <string name="Settings_Advanced_RecentLogs">Skoða nýlegar atvikaskrár</string>
+    <string name="Settings_Results_DeleteOldResults"></string>
+    <string name="Settings_Results_DeleteOldResultsThreshold"></string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit"></string>
     <string name="Settings_Support_Label">Aðstoð</string>
     <string name="Settings_Support_SendEmail">Senda tölvupóst til að fá aðstoð</string>
     <string name="Settings_Support_Message">Lýstu hvaða vandamál þú átt við að eiga:</string>
+    <string name="Settings_Support_Message_Hint"></string>
+    <string name="Settings_Support_IncludeLogs"></string>
+    <string name="Settings_Support_Action"></string>
+    <string name="Settings_ShareApp"></string>
+    <string name="Settings_ShareApp_Description"></string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
+    <string name="Settings_ShareApp_ShareMessage"></string>
     <string name="Settings_Storage_Label">Notkun á geymsluplássi</string>
     <string name="Settings_Storage_Delete">Eyða</string>
     <string name="Settings_Storage_Clear">Hreinsa</string>
+    <string name="Settings_Legacy_Storage"></string>
     <string name="Settings_WarmVPNInUse_Label">Aðvara þegar VPN er í notkun</string>
     <string name="Settings_DisableVpnInstructions">Go to Settings &gt; General &gt; VPN and disconnect from your VPN.</string>
     <string name="Settings_Logs">Logs</string>
@@ -144,6 +260,11 @@
     <string name="Settings_Websites_CustomURL_URL">Slóð</string>
     <string name="Settings_Websites_CustomURL_Run">Keyra</string>
     <string name="Settings_Websites_CustomURL_Add">Bæta við vefsvæði</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+
     <string name="CategoryCode_ALDR_Name">Áfengi og lyf</string>
     <string name="CategoryCode_REL_Name">Trúarbrögð</string>
     <string name="CategoryCode_PORN_Name">Klám</string>
@@ -226,6 +347,8 @@
     <string name="Onboarding_Crash_Title">Hrunskýrslur</string>
     <string name="Onboarding_Crash_Button_Yes">Já</string>
     <string name="Onboarding_Crash_Button_No">Nei</string>
+    <string name="Onboarding_Notifications_Title"></string>
+    <string name="Onboarding_Notifications_Paragraph"></string>
     <string name="Onboarding_Notifications_Ok">Í lagi</string>
     <string name="Onboarding_Notifications_Skip">Sleppa</string>
     <string name="Onboarding_DefaultSettings_Title">Sjálfgefnar stillingar</string>
@@ -238,19 +361,28 @@
     <string name="Onboarding_DefaultSettings_Button_Change">Breyta sjálfgefnum gildum</string>
 
 
+    <string name="AddDescriptor_EnterURL"></string>
+    <string name="AddDescriptor_URLInvalid"></string>
     <string name="AddDescriptor_Settings">Prófa stillingar</string>
     <string name="AddDescriptor_Title">Install New Link</string>
     <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
     <string name="AddDescriptor_AutoRun">Keyra prófanir sjálfvirkt</string>
     <string name="AddDescriptor_Toasts_Installed">Link installed</string>
+    <string name="AddDescriptor_InstallForLater"></string>
+    <string name="AddDescriptor_InstallAndRun"></string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
     <string name="LoadingScreen_Runv2_Message">Link Loading</string>
+    <string name="LoadingScreen_Runv2_Failure"></string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Athuga með uppfærslur</string>
+    <string name="AddDescriptor_AutoRunDisabled"></string>
+    <string name="Descriptor_LastTestResult"></string>
+
     <string name="Snackbar_ResultsNotUploaded_Text">Ekki sent inn</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Sumt var ekki sent inn</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Senda inn allt</string>
+    <string name="Modal_ResultsNotUploaded_Uploading"></string>
     <string name="Toast_ResultsUploaded">Innsending tókst</string>
     <string name="Modal_UploadFailed_Title">Innsending mistókst</string>
     <string name="Modal_UploadFailed_Paragraph">Ekki tókst að senda inn %1$s/%2$s mælingar. Atvikaskránni með því sem brást hefur verið deilt til forritara OONI.</string>
@@ -258,6 +390,15 @@
     <string name="Modal_Cancel">Hætta við</string>
     <string name="Modal_OK">Í lagi</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Viltu eyða öllum niðurstöðum prófana?</string>
+    <string name="Modal_Clear_Legacy_Directories"></string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Modal_Delete">Eyða</string>
     <string name="Modal_ReRun_Title">Keyra prófun aftur</string>
     <string name="Modal_ReRun_Websites_Title">Þú ert við það að endurprófa %1$s vefsvæði.</string>
@@ -269,14 +410,27 @@
     <string name="Modal_AlwaysRun">Alltaf keyra</string>
     <string name="Modal_Error_CantDownloadURLs">Get ekki sótt lista yfir slóðir. Reyndu aftur.</string>
     <string name="Modal_Error_NoInternet">Engin internettenging</string>
+    <string name="Modal_Error_ProxyUnavailable"></string>
     <string name="Modal_CustomURL_Title_NotSaved">Ertu viss?</string>
     <string name="Modal_CustomURL_NotSaved">Slóðirnar þínar verða ekki vistaðar þegar þú ferð af þessum skjá. Ertu viss um að þú viljir fara af skjánum?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding"></string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder"></string>
+
+    <string name="Desktop_OpenApp"></string>
     <string name="Desktop_Quit">Hætta</string>
     <string name="Tray_Notification_Check_Updates">Athuga með uppfærslur</string>
+    <string name="Tray_Notification_Updates_Available"></string>
+    <string name="Tray_Notification_Checking_Updates"></string>
+
     <string name="Modal_Hide">Fela</string>
+    <string name="Modal_Quite_Prompt"></string>
+    <string name="Modal_Quite_Description"></string>
+
     <string name="OONIRun_Run">Keyra</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testing</string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
+    <string name="Notification_UpdateChannelName"></string>
     <string name="Notification_StopTest">Stöðva prófun</string>
 
     <string name="Common_Back">Til baka</string>
@@ -294,10 +448,19 @@
     <string name="Common_Dismiss">Hafna</string>
     <string name="Common_Search">Leita</string>
     <string name="Common_Today">Í dag</string>
+    <string name="Common_Yesterday"></string>
     <string name="Common_Week">Vika</string>
     <string name="Common_Month">Mánuður</string>
     <string name="Common_Total">Samtals</string>
     <string name="Common_Ago">%1$s ago</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <plurals name="Common_Hours">
         <item quantity="one">%1$d klukkustund</item>
         <item quantity="other">%1$d klukkustundir</item>
