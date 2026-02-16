@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Dashboard</string>
     <string name="Dashboard_Overview_Estimated">Geschat:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Kies websites</string>
     <string name="Dashboard_Running_Running">Wordt uitgevoerd</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Schatting resterende tijd:</string>
     <string name="Dashboard_Running_Stopping_Title">Stoppen met testen…</string>
-    <string name="Dashboard_Running_Stopping_Notice">De momenteel lopende tests worden voltooid, een ogenblik geduld...</string>
+    <string name="Dashboard_Running_Stopping_Notice">De momenteel lopende tests worden voltooid, een ogenblik geduld…</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in gebruik</string>
     <string name="Dashboard_TestsMoved_Title">Testen</string>
     <string name="Dashboard_Articles_Report">Inzending</string>
@@ -15,8 +15,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ongedaan maken</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Beoordeling</string>
     <string name="Dashboard_Update_Restart">Herstarten</string>
-
-
     <string name="Tests_Title">Testen</string>
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Chatprogramma’s</string>
@@ -34,8 +32,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon-test</string>
     <string name="Test_Tor_Fullname">Tor-test</string>
     <string name="Test_Signal_Fullname">Signal-test</string>
-
-
     <string name="TestResults">Resultaten</string>
     <string name="TestResults_Overview_Hero_Networks">Netwerken</string>
     <string name="TestResults_Overview_Hero_DataUsage">Gegevensgebruik</string>
@@ -68,8 +64,6 @@
     <string name="Measurements_Failed">Mislukt</string>
     <string name="Measurements_Ok">Oke</string>
     <string name="Measurement_Raw_Upload">Uploaden</string>
-
-
     <string name="Settings_Title">Instellingen</string>
     <string name="Settings_TestOptions_Label">Testopties</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Tests automatisch uitvoeren</string>
@@ -176,7 +170,6 @@
     <string name="CategoryCode_CTRL_Description">Goedaardige of onschadelijke inhoud gebruikt voor controle</string>
     <string name="CategoryCode_IGO_Description">Intergouvernementele organisaties, waaronder de Verenigde Naties</string>
     <string name="CategoryCode_MISC_Description">Sites die nog niet zijn gecategoriseerd</string>
-
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Begrepen</string>
     <string name="Onboarding_ThingsToKnow_Title">Let op!</string>
     <string name="Onboarding_ThingsToKnow_Button">Ik begrijp het</string>
@@ -203,8 +196,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Tijd en datum van testen</string>
     <string name="Onboarding_DefaultSettings_Paragraph">We doen ons best om uw IP-adres of andere mogelijk persoonlijk identificeerbare informatie niet te publiceren.\n\nLees meer via [OONI\'s gegevensbeleid](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Standaard-inst. wijzigen</string>
-
-
     <string name="AddDescriptor_Settings">Testen van de instellingen</string>
     <string name="AddDescriptor_AutoRun">Tests automatisch uitvoeren</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Niet geüpload</string>
@@ -237,7 +228,6 @@
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testen </string>
     <string name="Notification_StopTest">Stop de test</string>
-
     <string name="Common_Back">Terug</string>
     <string name="Common_Close">Sluiten</string>
     <string name="Common_Refresh">Vernieuwen</string>
@@ -269,6 +259,5 @@
     <string name="Common_Months_October">oktober</string>
     <string name="Common_Months_November">november</string>
     <string name="Common_Months_December">december</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

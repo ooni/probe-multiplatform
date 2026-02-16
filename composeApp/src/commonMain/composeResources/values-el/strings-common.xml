@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Ταμπλό</string>
     <string name="Dashboard_Overview_Estimated">Εκτίμηση:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Επέλεξε ιστοσελίδες</string>
     <string name="Dashboard_Running_Running">Εκτελείται:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Εκτιμώμενος χρόνος που απομένει:</string>
-    <string name="Dashboard_Running_Stopping_Title">Η δοκιμή σταματάει...</string>
-    <string name="Dashboard_Running_Stopping_Notice">Τελειώνουμε τις δοκιμές που εκκρεμούν, παρακαλώ περίμενε...</string>
+    <string name="Dashboard_Running_Stopping_Title">Η δοκιμή σταματάει…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Τελειώνουμε τις δοκιμές που εκκρεμούν, παρακαλώ περίμενε…</string>
     <string name="Dashboard_Running_ProxyInUse">Χρησιμοποιείται proxy</string>
     <string name="Dashboard_TestsMoved_Title">Δοκιμές</string>
     <string name="Dashboard_Articles_Report">Αναφορά</string>
@@ -15,8 +15,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ακύρωση</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Ανασκόπηση</string>
     <string name="Dashboard_Update_Restart">Επανεκκίνηση </string>
-
-
     <string name="Tests_Title">Δοκιμές</string>
     <string name="Test_Websites_Fullname">Ιστοσελίδες</string>
     <string name="Test_InstantMessaging_Fullname">Εφαρμογές συνομιλιών</string>
@@ -34,8 +32,6 @@
     <string name="Test_Psiphon_Fullname">Δοκιμή Psiphon</string>
     <string name="Test_Tor_Fullname">Δοκιμή Tor</string>
     <string name="Test_Signal_Fullname">Δοκιμή Signal</string>
-
-
     <string name="TestResults">Αποτελέσματα</string>
     <string name="TestResults_Overview_Hero_Networks">Δίκτυα</string>
     <string name="TestResults_Overview_Hero_DataUsage">Χρήση δεδομένων</string>
@@ -68,8 +64,6 @@
     <string name="Measurements_Failed">Απέτυχε</string>
     <string name="Measurements_Ok">ΟΚ</string>
     <string name="Measurement_Raw_Upload">Ανέβασμα</string>
-
-
     <string name="Settings_Title">Ρυθμίσεις</string>
     <string name="Settings_TestOptions_Label">Επιλογές δοκιμής</string>
     <string name="Settings_TestOptions_LongRunningTest">Δοκιμή μεγάλης διάρκειας</string>
@@ -177,7 +171,6 @@
     <string name="CategoryCode_CTRL_Description">Καλοήθες ή αβλαβές περιεχόμενο που χρησιμοποιείται ως ομάδα ελέγχου</string>
     <string name="CategoryCode_IGO_Description">Διακυβερνητικές οργανώσεις, όπως τα Ηνωμένα Έθνη</string>
     <string name="CategoryCode_MISC_Description">Ιστοσελίδες που δεν έχουν κατηγοριοποιηθεί ακόμα</string>
-
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Συνέχεια</string>
     <string name="Onboarding_ThingsToKnow_Title">Έχε υπόψιν σου ότι...</string>
     <string name="Onboarding_ThingsToKnow_Button">Κατάλαβα</string>
@@ -204,8 +197,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Ώρα και ημερομηνὶα εκτέλεσης δοκιμών</string>
     <string name="Onboarding_DefaultSettings_Paragraph">Κάνουμε ό,τι μπορούμε ώστε να μη δημοσιευτεί η διεύθυνση IP ή άλλα δεδομένα που δυνητικά μπορεί να σε ταυτοποιήσουν.\n\nΜάθε περισσότερα διαβάζοντας την [Πολιτική Δεδομένων του OONI](https://ooni.io/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Αλλαγή ρυθμίσεων</string>
-
-
     <string name="AddDescriptor_Settings">Έλεγχος ρυθμίσεων</string>
     <string name="AddDescriptor_AutoRun">Αυτόματη εκτελή δοκιμών</string>
     <!-- Only used for the desktop version of the app for now -->
@@ -239,7 +230,6 @@
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Δοκιμάζει</string>
     <string name="Notification_StopTest">Τερματισμός δοκιμής</string>
-
     <string name="Common_Back">Πίσω</string>
     <string name="Common_Close">Κλείσιμο</string>
     <string name="Common_Refresh">Ανανέωση</string>
@@ -270,6 +260,5 @@
     <string name="Common_Months_October">Οκτώβριος</string>
     <string name="Common_Months_November">Νοέμβριος</string>
     <string name="Common_Months_December">Δεκέμβριος</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

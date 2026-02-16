@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Dasbor</string>
     <string name="Dashboard_Overview_Estimated">Estimasi:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Pilih situs web</string>
     <string name="Dashboard_Running_Running">Menjalankan:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Estimasi waktu tersisa:</string>
-    <string name="Dashboard_Running_Stopping_Title">Menghentikan tes...</string>
-    <string name="Dashboard_Running_Stopping_Notice">Menyelesaikan tes yang saat ini tertunda, silakan tunggu...</string>
+    <string name="Dashboard_Running_Stopping_Title">Menghentikan tes…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Menyelesaikan tes yang saat ini tertunda, silakan tunggu…</string>
     <string name="Dashboard_Running_ProxyInUse">Proksi yang digunakan</string>
     <string name="Dashboard_TestsMoved_Title">Tes</string>
     <string name="Dashboard_RunTests_Title">Jalankan tes</string>
@@ -31,8 +31,6 @@
     <string name="Dashboard_ReviewDescriptor_Button_Last">PERBARUI DAN SELESAI (%1$s dari %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">PERBARUI (%1$s dari %2$s)</string>
     <string name="Dashboard_Update_Restart">Mulai ulang</string>
-
-
     <string name="Tests_Title">Tes</string>
     <string name="Test_Websites_Fullname">Situs web</string>
     <string name="Test_InstantMessaging_Fullname">Perpesanan Instan</string>
@@ -50,8 +48,6 @@
     <string name="Test_Psiphon_Fullname">Tes Psiphon</string>
     <string name="Test_Tor_Fullname">Tes Tor</string>
     <string name="Test_Signal_Fullname">Tes Signal</string>
-
-
     <string name="TestResults">Hasil</string>
     <string name="TestResults_Overview_Hero_Networks">Jaringan</string>
     <string name="TestResults_Overview_Hero_DataUsage">Penggunaan Data</string>
@@ -85,8 +81,6 @@
     <string name="Measurements_Ok">Oke</string>
     <string name="Measurements_Anomaly">Anomali</string>
     <string name="Measurement_Raw_Upload">Unggah</string>
-
-
     <string name="Settings_Title">Setelan</string>
     <string name="Settings_TestOptions_Label">Opsi tes</string>
     <string name="Settings_TestOptions_LongRunningTest">Tes jangka panjang</string>
@@ -193,7 +187,6 @@
     <string name="CategoryCode_CTRL_Description">Konten tidak berbahaya atau menyinggung yang digunakan untuk mengontrol</string>
     <string name="CategoryCode_IGO_Description">Organisasi antarpemerintah seperti Persatuan Bangsa-Bangsa</string>
     <string name="CategoryCode_MISC_Description">Situs yang belum dikategorikan</string>
-
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Mengerti</string>
     <string name="Onboarding_ThingsToKnow_Title">Perhatian!</string>
     <string name="Onboarding_ThingsToKnow_Button">Saya mengerti</string>
@@ -220,8 +213,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Waktu &amp; tanggal pengetesan</string>
     <string name="Onboarding_DefaultSettings_Paragraph">Kami melakukan yang terbaik untuk tidak memublikasikan alamat IP atau hal lain yang berpotensi sebagai informasi identitas pribadi Anda.\n\nPelajari lebih lanjut melalui [Kebijakan Data OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Ubah bawaan</string>
-
-
     <string name="AddDescriptor_Settings">Pengaturan Tes</string>
     <string name="AddDescriptor_Title">Pasang Tautan Baru</string>
     <string name="AddDescriptor_AutoUpdate">Pasang pembaruan secara otomatis</string>
@@ -261,7 +252,6 @@
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Menguji</string>
     <string name="Notification_StopTest">Hentikan tes</string>
-
     <string name="Common_Back">Kembali</string>
     <string name="Common_Close">Tutup</string>
     <string name="Common_Refresh">Perbarui</string>
@@ -292,6 +282,5 @@
     <string name="Common_Months_October">Oktober</string>
     <string name="Common_Months_November">November</string>
     <string name="Common_Months_December">Desember</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

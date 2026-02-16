@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Übersicht</string>
     <string name="Dashboard_Overview_Estimated">Voraussichtlich:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Wähle Webseiten</string>
     <string name="Dashboard_Running_Running">Laufend:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Voraussichtliche Restzeit:</string>
     <string name="Dashboard_Running_Stopping_Title">Test wird gestoppt …</string>
-    <string name="Dashboard_Running_Stopping_Notice">Fertigstellung der aktuell ausstehenden Tests, bitte warten ...</string>
+    <string name="Dashboard_Running_Stopping_Notice">Fertigstellung der aktuell ausstehenden Tests, bitte warten …</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in Verwendung</string>
     <string name="Dashboard_LastResults">Letzte Ergebnisse</string>
     <string name="Dashboard_LastResults_SeeResults">Ergebnisse anzeigen</string>
@@ -69,8 +69,6 @@
     <string name="Dashboard_ReviewDescriptor_Reject">Aktualisierung ablehnen</string>
     <string name="Dashboard_Update_Ready">Die Aktualisierung der App wurde soeben heruntergeladen</string>
     <string name="Dashboard_Update_Restart">Neustart</string>
-
-
     <string name="Tests_Title">Tests</string>
     <string name="Tests_Search">Suche Tests</string>
     <string name="Test_Websites_Fullname">Webseiten</string>
@@ -89,8 +87,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon Test</string>
     <string name="Test_Tor_Fullname">Tor Test</string>
     <string name="Test_Signal_Fullname">Signal-Test</string>
-
-
     <string name="TestResults">Ergebnisse</string>
     <string name="TestResults_Overview_Hero_Networks">Netzwerke</string>
     <string name="TestResults_Overview_Hero_DataUsage">Datennutzung</string>
@@ -169,8 +165,6 @@
     <string name="Results_MarkAllAsViewed">Alle als gesehen markieren</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Möchtest du alle Ergebnisse als angesehen markieren?</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Möchtest du alle Ergebnisse für die aktuellen Filter als angesehen markieren?</string>
-
-
     <string name="Measurement_Title">Messung</string>
     <string name="Measurement_LoadingFailed">Messinformationen konnten nicht geladen werden</string>
     <string name="Measurements_Failed">Fehlgeschlagen</string>
@@ -187,8 +181,6 @@
     <string name="Measurement_Raw_NotUploadedReasoning">Diese Messung wurde nicht im OONI Explorer veröffentlicht. Lade sie hoch, um die Analyse zu sehen.</string>
     <string name="Measurement_Raw_Share">Messdaten teilen</string>
     <string name="Measurement_Raw_Upload">Upload</string>
-
-
     <string name="Settings_Title">Einstellungen</string>
     <string name="Settings_TestOptions_Label">Testoptionen</string>
     <string name="Settings_TestOptions_LongRunningTest">Langzeittest</string>
@@ -196,7 +188,7 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Nur bei WLAN</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Nur während des Ladevorgangs</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Wenn du das automatische Testen aktivierst, werden die OONI Probe-Tests automatisch mehrmals am Tag ausgeführt. Deine Testergebnisse werden automatisch im OONI Explorer veröffentlicht: https://explorer.ooni.org/ \n\nWichtig: Wenn du ein VPN aktiviert hast, wird OONI Probe die Tests nicht automatisch ausführen. Bitte schalte dein VPN für automatische OONI Probe-Tests aus. Mehr dazu: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Description">Die Tests laufen jede Stunde im Hintergrund.</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description">Die Tests laufen jede Stunde im Hintergrund</string>
     <string name="Settings_Sharing_UploadResults">Ergebnisse automatisch veröffentlichen</string>
     <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeEnabled">Testdauer der Websites begrenzen</string>
@@ -264,7 +256,6 @@
         <item quantity="one">Teste %1$d URL</item>
         <item quantity="other">Teste %1$d URLs</item>
     </plurals>
-
     <string name="CategoryCode_ALDR_Name">Drogen &amp; Alkohol</string>
     <string name="CategoryCode_REL_Name">Religion</string>
     <string name="CategoryCode_PORN_Name">Pornografie</string>
@@ -312,7 +303,7 @@
     <string name="CategoryCode_ANON_Description">Anonymisierung, Zensurumgehung und Verschlüsselung</string>
     <string name="CategoryCode_DATE_Description">Online-Dating-Seiten</string>
     <string name="CategoryCode_GRP_Description">Online-Tools für soziale Netzwerke und Plattformen</string>
-    <string name="CategoryCode_LGBT_Description">LGBTQ+ Communities, die verwandte Themen diskutieren (außer Pornografie).</string>
+    <string name="CategoryCode_LGBT_Description">LGBTQ+ Communities, die verwandte Themen diskutieren (außer Pornografie)</string>
     <string name="CategoryCode_FILE_Description">Datentausch inklusive Cloud-basierter Dateispeicherung, Torrents und P2P</string>
     <string name="CategoryCode_HACK_Description">Tools und Neuigkeiten im Bezug auf Computersicherheit </string>
     <string name="CategoryCode_COMT_Description">Kommunikationswerkzeuge für Einzelpersonen und Gruppen, inklusive VoIP, Messaging und Webmail</string>
@@ -327,7 +318,6 @@
     <string name="CategoryCode_CTRL_Description">Gutartiger oder harmloser Inhalt, der als Kontrolle verwendet wird</string>
     <string name="CategoryCode_IGO_Description">Zwischenstaatliche Organisationen einschließlich der Vereinten Nationen</string>
     <string name="CategoryCode_MISC_Description">Bisher unkategorisierte Webseiten</string>
-
     <string name="Onboarding_QuizAnswer_Correct">Richtige Antwort</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Falsche Antwort</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Verstanden</string>
@@ -378,7 +368,6 @@
     <string name="DescriptorUpdate_CheckUpdates">Auf Aktualisierungen prüfen</string>
     <string name="AddDescriptor_AutoRunDisabled">Die automatische Ausführung ist deaktiviert. Bitte aktivieren Sie sie, um Tests automatisch auszuführen.</string>
     <string name="Descriptor_LastTestResult">Letztes Testresultat</string>
-
     <string name="Snackbar_ResultsNotUploaded_Text">Nicht hochgeladen</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Manche nicht hochgeladen</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Alle hochladen</string>
@@ -410,12 +399,11 @@
     <string name="Modal_AlwaysRun">Immer gestartet</string>
     <string name="Modal_Error_CantDownloadURLs">URL-Liste kann nicht heruntergeladen werden. Bitte versuche es erneut.</string>
     <string name="Modal_Error_NoInternet">Keine Internetverbindung</string>
-    <string name="Modal_Error_ProxyUnavailable">Der ausgewählte Proxy ist möglicherweise nicht verfügbar.</string>
+    <string name="Modal_Error_ProxyUnavailable">Der ausgewählte Proxy ist möglicherweise nicht verfügbar</string>
     <string name="Modal_CustomURL_Title_NotSaved">Bist du sicher?</string>
     <string name="Modal_CustomURL_NotSaved">Deine URLs werden nicht gespeichert, wenn du diesen Bildschirm verlässt. Möchtest du diesen Bildschirm wirklich verlassen?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Die Anwendung kann keine automatischen Tests ohne Hintergrundgenehmigung durchführen. Möchtest du es noch einmal versuchen?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Die Anwendung benötigt die Erlaubnis, Tests automatisch im Hintergrund durchzuführen.</string>
-
     <string name="Desktop_OpenApp">App starten</string>
     <string name="Desktop_Quit">Beenden</string>
     <string name="Tray_Notification_Check_Updates">Auf Aktualisierungen prüfen</string>
@@ -432,7 +420,6 @@
     <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
     <string name="Notification_UpdateChannelName">Link Aktualisierungen</string>
     <string name="Notification_StopTest">Test anhalten</string>
-
     <string name="Common_Back">Zurück</string>
     <string name="Common_Close">Schließen</string>
     <string name="Common_Refresh">Aktualisieren</string>
@@ -484,7 +471,6 @@
     <string name="Common_Months_October">Oktober</string>
     <string name="Common_Months_November">November</string>
     <string name="Common_Months_December">Dezember</string>
-
     <string name="TaskOrigin_Manual">Manuelle Ausführung</string>
     <string name="TaskOrigin_AutoRun">Automatischer Start</string>
     <string name="NetworkType_Vpn">VPN</string>

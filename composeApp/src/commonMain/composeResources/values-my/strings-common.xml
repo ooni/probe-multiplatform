@@ -1,19 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">ဒက်ရှ်ဘုတ်</string>
     <string name="Dashboard_Overview_Estimated">ခန့်မှန်းထားသည် -</string>
     <string name="Dashboard_Overview_ChooseWebsites">ဝဘ်ဆိုဒ်များ ရွေးချယ်ရန်</string>
     <string name="Dashboard_Running_Running">စမ်းသပ်နေသည် - </string>
     <string name="Dashboard_Running_EstimatedTimeLeft">ခန့်မှန်း ကျန်ရှိချိန် -</string>
-    <string name="Dashboard_Running_Stopping_Title">စမ်းသပ်မှုကို ရပ်နေသည်...</string>
-    <string name="Dashboard_Running_Stopping_Notice">လက်ရှိ စောင့်ဆိုင်းနေသော စမ်းသပ်မှုများကို အပြီးသတ်နေသည်၊ ကျေးဇူးပြု၍ စောင့်ပါ...</string>
+    <string name="Dashboard_Running_Stopping_Title">စမ်းသပ်မှုကို ရပ်နေသည်…</string>
+    <string name="Dashboard_Running_Stopping_Notice">လက်ရှိ စောင့်ဆိုင်းနေသော စမ်းသပ်မှုများကို အပြီးသတ်နေသည်၊ ကျေးဇူးပြု၍ စောင့်ပါ…</string>
     <string name="Dashboard_Running_ProxyInUse">အသုံးပြုနေသော ပရောက်စီ</string>
     <string name="Dashboard_TestsMoved_Title">စမ်းသပ်မှုများ</string>
     <string name="Dashboard_Articles_Recent">လတ်တလော</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">ပြန်ပြင်ရန်</string>
     <string name="Dashboard_Update_Restart">စက်ပြန်ဖွင့်ရန်</string>
-
-
     <string name="Tests_Title">စမ်းသပ်မှုများ</string>
     <string name="Test_Websites_Fullname">ဝဘ်ဆိုဒ်များ</string>
     <string name="Test_InstantMessaging_Fullname">ချက်ခြင်း စာတိုပေးပို့ခြင်း</string>
@@ -31,8 +29,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon စမ်းသပ်မှု</string>
     <string name="Test_Tor_Fullname">Tor စမ်းသပ်မှု</string>
     <string name="Test_Signal_Fullname">Signal စမ်းသပ်မှု</string>
-
-
     <string name="TestResults">ရလဒ်များ</string>
     <string name="TestResults_Overview_Hero_Networks">ကွန်ရက်များ</string>
     <string name="TestResults_Overview_Hero_DataUsage">ဒေတာအသုံးပြုမှု</string>
@@ -66,8 +62,6 @@
     <string name="Measurements_Ok">အိုကေ</string>
     <string name="Measurements_Anomaly">မူမမှန်ချက်</string>
     <string name="Measurement_Raw_Upload">အပ်လုဒ်</string>
-
-
     <string name="Settings_Title">ဆက်တင်များ</string>
     <string name="Settings_TestOptions_Label">စမ်းသပ်ရွေးချယ်မှုများ</string>
     <string name="Settings_TestOptions_LongRunningTest">တာရှည်စမ်းသပ်မှု</string>
@@ -170,7 +164,6 @@
     <string name="CategoryCode_CTRL_Description">ထိန်းချုပ်ရန် အသုံးပြုသည့် နူးညံ့သိမ်မွေ့သော သို့မဟုတ် အပြစ်ကင်းသော အကြောင်းအရာ</string>
     <string name="CategoryCode_IGO_Description">ကုလသမဂ္ဂ အပါအဝင် အစိုးရ အဖွဲ့အစည်းများ</string>
     <string name="CategoryCode_MISC_Description">အမျိုးအစား မခွဲခြားရသေးသော ဆိုဒ်များ</string>
-
     <string name="Onboarding_WhatIsOONIProbe_GotIt">ရပြီ</string>
     <string name="Onboarding_ThingsToKnow_Title">ကြိုတင်အသိပေးသည်။</string>
     <string name="Onboarding_ThingsToKnow_Button">နားလည်သည်</string>
@@ -198,8 +191,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">စမ်းသပ်ချိန်နှင့် ရက်စွဲ</string>
     <string name="Onboarding_DefaultSettings_Paragraph">သင်၏ IP လိပ်စာ သို့မဟုတ် အခြားသော ပုဂ္ဂိုလ်ရေးအရ ခွဲခြား သိမြင်နိုင်သော အချက်အလက်များကို ထုတ်ဝေခြင်းမပြုရန် ကျွန်ုပ်တို့ အကောင်းဆုံး လုပ်ဆောင်ပါသည်။ [OONI ၏ ဒေတာမူဝါဒ](https://ooni.org/about/data-policy/) တွင် ပိုမိုလေ့လာပါ။</string>
     <string name="Onboarding_DefaultSettings_Button_Change">နဂိုမူလများကို ပြောင်းမည်</string>
-
-
     <string name="AddDescriptor_Settings">စစ်ဆေးမှု ချိန်ညှိချက်များ</string>
     <string name="AddDescriptor_AutoRun">စမ်းသပ်မှုများကို အလိုအလျောက် လုပ်ဆောင်ပါ</string>
     <!-- Only used for the desktop version of the app for now -->
@@ -232,7 +223,6 @@
     <string name="Modal_Hide">ဝှက်ထားရန်</string>
     <string name="OONIRun_Run">စမ်းမည်</string>
     <string name="Notification_StopTest">စမ်းသပ်မှုကို ရပ်ပါ</string>
-
     <string name="Common_Back">နောက်သို့</string>
     <string name="Common_Close">ပိတ်မည်</string>
     <string name="Common_Refresh">ရီဖရက်ရှ်လုပ်ရန်</string>

@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">面板</string>
     <string name="Dashboard_Overview_Estimated">预计：</string>
     <string name="Dashboard_Overview_ChooseWebsites">选择网站</string>
     <string name="Dashboard_Running_Running">正在运行：</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">预计剩余时间：</string>
     <string name="Dashboard_Running_Stopping_Title">正在停止测试…</string>
-    <string name="Dashboard_Running_Stopping_Notice">正在结束当前待处理的测试，请稍候...</string>
+    <string name="Dashboard_Running_Stopping_Notice">正在结束当前待处理的测试，请稍候…</string>
     <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
     <string name="Dashboard_LastResults">上个结果</string>
     <string name="Dashboard_LastResults_SeeResults">查看结果</string>
@@ -65,8 +65,6 @@
     <string name="Dashboard_ReviewDescriptor_Reject">拒绝更新</string>
     <string name="Dashboard_Update_Ready">刚下载了应用更新</string>
     <string name="Dashboard_Update_Restart">重新启动</string>
-
-
     <string name="Tests_Title">测试</string>
     <string name="Tests_Search">搜索测试</string>
     <string name="Test_Websites_Fullname">网站</string>
@@ -85,8 +83,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon 测试</string>
     <string name="Test_Tor_Fullname">Tor 测试</string>
     <string name="Test_Signal_Fullname">Signal 测试</string>
-
-
     <string name="TestResults">结果</string>
     <string name="TestResults_Overview_Hero_Networks">网络</string>
     <string name="TestResults_Overview_Hero_DataUsage">数据使用量</string>
@@ -157,8 +153,6 @@
     <string name="Results_MarkAllAsViewed">将所有内容标记为已查看</string>
     <string name="Results_MarkAllAsViewed_Confirmation">是否要将所有结果标记为已查看？</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">是否要将当前筛选器的所有结果标记为已查看？</string>
-
-
     <string name="Measurement_Title">测量</string>
     <string name="Measurement_LoadingFailed">加载测量信息失败</string>
     <string name="Measurements_Failed">失败</string>
@@ -173,8 +167,6 @@
     <string name="Measurement_Raw_NotUploadedReasoning">此测量未在 OONI Explorer 上发布。请将其上传以查看分析。</string>
     <string name="Measurement_Raw_Share">分享测量数据</string>
     <string name="Measurement_Raw_Upload">上传</string>
-
-
     <string name="Settings_Title">设置</string>
     <string name="Settings_TestOptions_Label">测试选项</string>
     <string name="Settings_TestOptions_LongRunningTest">长时间运行测试</string>
@@ -248,7 +240,6 @@
     <plurals name="CustomWebsites_Fab_Text">
         <item quantity="other">测试 %1$d 个 URL</item>
     </plurals>
-
     <string name="CategoryCode_ALDR_Name">毒品和酒精</string>
     <string name="CategoryCode_REL_Name">宗教</string>
     <string name="CategoryCode_PORN_Name">色情</string>
@@ -311,7 +302,6 @@
     <string name="CategoryCode_CTRL_Description">用于品质控制的良性或无害内容</string>
     <string name="CategoryCode_IGO_Description">政府间组织，例如联合国</string>
     <string name="CategoryCode_MISC_Description">尚未分类的网站</string>
-
     <string name="Onboarding_QuizAnswer_Correct">正确答案</string>
     <string name="Onboarding_QuizAnswer_Incorrect">不正确答案</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">知道了</string>
@@ -362,7 +352,6 @@
     <string name="DescriptorUpdate_CheckUpdates">检查更新</string>
     <string name="AddDescriptor_AutoRunDisabled">自动运行被停用。请启用它来自动运行测试。</string>
     <string name="Descriptor_LastTestResult">上次测试结果</string>
-
     <string name="Snackbar_ResultsNotUploaded_Text">未上传</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">部分未上传</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">全部上传</string>
@@ -397,7 +386,6 @@
     <string name="Modal_CustomURL_NotSaved">离开此屏幕将不会保存您的 URL。确定离开吗？</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">没有后台权限，本应用无法自动运行测试。是否要重试？</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">应用需要权限以在后台自动运行测试</string>
-
     <string name="Desktop_OpenApp">打开应用</string>
     <string name="Desktop_Quit">退出</string>
     <string name="Tray_Notification_Check_Updates">检查更新</string>
@@ -414,7 +402,6 @@
     <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
     <string name="Notification_UpdateChannelName">链接更新</string>
     <string name="Notification_StopTest">停止测试</string>
-
     <string name="Common_Back">返回</string>
     <string name="Common_Close">关闭</string>
     <string name="Common_Refresh">刷新</string>
@@ -462,7 +449,6 @@
     <string name="Common_Months_October">十月</string>
     <string name="Common_Months_November">十一月</string>
     <string name="Common_Months_December">十二月</string>
-
     <string name="TaskOrigin_Manual">手动运行</string>
     <string name="TaskOrigin_AutoRun">自动运行</string>
     <string name="NetworkType_Vpn">VPN</string>

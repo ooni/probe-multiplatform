@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Главное меню</string>
     <string name="Dashboard_Overview_Estimated">Примерно:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Выберите сайты</string>
     <string name="Dashboard_Running_Running">Процесс:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Осталось примерно:</string>
-    <string name="Dashboard_Running_Stopping_Title">Останавливаем тест...</string>
-    <string name="Dashboard_Running_Stopping_Notice">Заканчиваем текущее тесты, пожалуйста подождите....</string>
+    <string name="Dashboard_Running_Stopping_Title">Останавливаем тест…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Заканчиваем текущее тесты, пожалуйста подождите…</string>
     <string name="Dashboard_Running_ProxyInUse">Используется прокси</string>
     <string name="Dashboard_TestsMoved_Title">Тесты</string>
     <string name="Dashboard_RunTests_Title">Протестировать</string>
@@ -51,8 +51,6 @@
     <string name="Dashboard_ReviewDescriptor_Reject">Отменить обновление</string>
     <string name="Dashboard_Update_Ready">Скачано обновление для приложения</string>
     <string name="Dashboard_Update_Restart">Перезапуск</string>
-
-
     <string name="Tests_Title">Тесты</string>
     <string name="Test_Websites_Fullname">Сайты</string>
     <string name="Test_InstantMessaging_Fullname">Мессенджеры</string>
@@ -70,8 +68,6 @@
     <string name="Test_Psiphon_Fullname">Тест Psiphon</string>
     <string name="Test_Tor_Fullname">Тест Tor</string>
     <string name="Test_Signal_Fullname">Тест Signal </string>
-
-
     <string name="TestResults">Результаты</string>
     <string name="TestResults_Overview_Hero_Networks">Сети</string>
     <string name="TestResults_Overview_Hero_DataUsage">Трафик</string>
@@ -142,8 +138,6 @@
     <string name="Results_MarkAllAsViewed">Отметить все как просмотренные</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Хотите отметить все результаты тестов как просмотренные?</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Вы хотите отметить все отфильтрованные результаты как просмотренные? </string>
-
-
     <string name="Measurement_Title">Измерение</string>
     <string name="Measurement_LoadingFailed">Не получилось загрузить информацию об измерении</string>
     <string name="Measurements_Failed">Ошибка</string>
@@ -152,8 +146,6 @@
     <string name="Measurement_Raw_NotUploadedReasoning">Это измерение не было опубликовано в базе OONI Explorer. Загрузите его, чтобы увидеть результаты анализа. </string>
     <string name="Measurement_Raw_Share">Поделиться данными измерения</string>
     <string name="Measurement_Raw_Upload">Загрузить</string>
-
-
     <string name="Settings_Title">Настройки</string>
     <string name="Settings_TestOptions_Label">Варианты тестирования</string>
     <string name="Settings_TestOptions_LongRunningTest">Долгий тест</string>
@@ -217,7 +209,6 @@
         <item quantity="many">Протестировать %1$d ссылок</item>
         <item quantity="other">Протестировать %1$d ссылок</item>
     </plurals>
-
     <string name="CategoryCode_ALDR_Name">Наркотики и алкоголь</string>
     <string name="CategoryCode_REL_Name">Религия</string>
     <string name="CategoryCode_PORN_Name">Порнография</string>
@@ -280,7 +271,6 @@
     <string name="CategoryCode_CTRL_Description">Безвредный контент, используемый для контроля</string>
     <string name="CategoryCode_IGO_Description">Межправительственные организации, включая ООН</string>
     <string name="CategoryCode_MISC_Description">Сайты, не вошедшие ни в одну категорию</string>
-
     <string name="Onboarding_QuizAnswer_Correct">Правильный ответ</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Неправильный ответ</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">ОК</string>
@@ -312,8 +302,6 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Мы всегда работаем над тем, чтобы ваш IP-адрес или другие персональные данные не были опубликованы.\n\nУзнайте подробнее в [политике по обработке данных OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Go">Начнем</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Изменить настройки</string>
-
-
     <string name="AddDescriptor_Settings">Проверить настройки</string>
     <string name="AddDescriptor_Title">Установить новую ссылку</string>
     <string name="AddDescriptor_AutoUpdate">Устанавливать обновления автоматически</string>
@@ -326,7 +314,6 @@
     <string name="DescriptorUpdate_CheckUpdates">Проверить наличие обновлений</string>
     <string name="AddDescriptor_AutoRunDisabled">Автоматическое тестирование отключено. Пожалуйста, включите его, чтобы проводить тесты автоматически.</string>
     <string name="Descriptor_LastTestResult">Результат последнего теста</string>
-
     <string name="Snackbar_ResultsNotUploaded_Text">Не загружено</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Загружено частично</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Загрузить все</string>
@@ -365,7 +352,6 @@
     <string name="Modal_CustomURL_NotSaved">Если вы закроете этот экран, адреса не сохранятся. Вы уверены, что хотите его закрыть?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Приложение не может запускать тесты в фоновом режиме без специального разрешения. Хотите попробовать снова? </string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">Приложению нужно разрешение, чтобы запускать тесты автоматически в фоновом режиме. </string>
-
     <string name="Desktop_OpenApp">Открыть приложение</string>
     <string name="Desktop_Quit">Выход</string>
     <string name="Tray_Notification_Check_Updates">Проверить наличие обновлений</string>
@@ -377,7 +363,6 @@
     <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
     <string name="Notification_UpdateChannelName">Обновление ссылок</string>
     <string name="Notification_StopTest">Прекратить тест </string>
-
     <string name="Common_Back">вернуться и отредактировать</string>
     <string name="Common_Close">Закрыть</string>
     <string name="Common_Refresh">Обновить</string>
@@ -436,7 +421,6 @@
     <string name="Common_Months_October">Октябрь</string>
     <string name="Common_Months_November">Ноябрь</string>
     <string name="Common_Months_December">Декабрь</string>
-
     <string name="TaskOrigin_Manual">Ручное тестирование</string>
     <string name="TaskOrigin_AutoRun">Автоматическое тестирование</string>
     <string name="NetworkType_Vpn">VPN</string>
