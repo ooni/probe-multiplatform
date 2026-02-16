@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name"></string>
     <string name="Onboarding_WhatIsOONIProbe_Title">Iyini i-OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">uHlelo lokusebenza elibala incedezelo yokuxhumana\n\nNgabe izindawo zama-Webu nama amakhasi okuxhumana evalewe yeni na?\n\nIngabe ukuxhuma kwe-internet kusebenza kancane kunoku jwayelekele? Sebenziza u-OONI Probe ukwazi</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Imininigwane yakho eku-OONI Probe ishicilelwe kanye nemininingwane yakho yenethiwekhi.</string>
@@ -9,7 +10,38 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">i-OONI Probe akulona ithuluzi lemfihlo. Noma ubani ogade umsebenzi we-intanethi yakho uzobona ukuthi iyiphi i-sofware oyisebenzisayo.</string>
     <string name="Onboarding_PopQuiz_2_Question">Ngaso sonke iskhathi ngisebenzisa i-OONI Probe, imininingwane ye-intanethi engiyiqoqayo izoshicilikeka ngokuzenzakalelayo.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Ukukhuphula ukungafihli kwengcindezelo ye-intanethi, umsebenzi wenethiwekhi yabo bonke abasebenzisi ba-OONI Probe iyashicileka ngokuzenzakalelayo (ngaphandle uma bephuma kwama-settings)</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph"></string>
     <string name="Onboarding_Crash_Paragraph">Ukuthuthukisa i-Ooni Probe singathanda ukuqoqoqa ukusaphazeka kwemibiko engaziwa uma i-App ingasebenzi kahle\n\nUngathanda ukuthumela imibiko yokusaphazeka eqembini lika Ooni?</string>
+    <string name="Onboarding_CleanUp_Title"></string>
+    <string name="Onboarding_CleanUp_Paragraph"></string>
     <string name="Dashboard_Websites_Card_Description">Hlola ukuvalwa kwama-website </string>
+    <string name="Dashboard_Websites_Overview_Paragraph"></string>
+    <string name="Dashboard_Performance_Card_Description"></string>
+    <string name="Dashboard_Performance_Overview_Paragraph"></string>
+    <string name="Dashboard_Middleboxes_Card_Description"></string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph"></string>
+    <string name="Dashboard_InstantMessaging_Card_Description"></string>
+    <string name="Dashboard_InstantMessaging_Overview_Paragraph"></string>
+    <string name="Dashboard_Circumvention_Card_Description"></string>
+    <string name="Dashboard_Circumvention_Overview_Paragraph"></string>
+    <string name="Dashboard_Experimental_Card_Description"></string>
+    <string name="Dashboard_Experimental_Overview_Paragraph"></string>
+    <string name="Settings_About_Label"></string>
+    <string name="Settings_About_Content_Paragraph"></string>
     <string name="Settings_About_Content_LearnMore">Funda okunye</string>
-    </resources>
+    <string name="Settings_About_Content_Blog"></string>
+    <string name="Settings_About_Content_Reports"></string>
+    <string name="Settings_About_Content_DataPolicy"></string>
+    <string name="Settings_Donate_Title"></string>
+    <string name="Settings_Donate_Heading"></string>
+    <string name="Settings_Donate_SubHeading"></string>
+    <string name="Settings_Donate_Support_Title"></string>
+    <string name="Settings_Donate_Support_Item_OpenSource"></string>
+    <string name="Settings_Donate_Support_Item_Analysis"></string>
+    <string name="Settings_Donate_Support_Item_OpenData"></string>
+    <string name="Settings_Donate_Support_Item_Research"></string>
+    <string name="Settings_Donate_Action"></string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser"></string>
+    <string name="Settings_Donate_Action_Error"></string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt"></string>
+</resources>
