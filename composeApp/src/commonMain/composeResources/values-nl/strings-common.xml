@@ -10,6 +10,7 @@
     <string name="Dashboard_Running_ProxyInUse">Proxy in gebruik</string>
     <string name="Dashboard_TestsMoved_Title">Testen</string>
     <string name="Dashboard_Articles_Report">Inzending</string>
+    <string name="Dashboard_Articles_OpenExternal">Openen in browser</string>
     <string name="Dashboard_Runv2_Overview_Description">Gemaakt door %1$s op %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ongedaan maken</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Beoordeling</string>
