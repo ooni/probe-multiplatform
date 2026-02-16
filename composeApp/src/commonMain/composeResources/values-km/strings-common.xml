@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="Dashboard_Tab_Label">ក្ដារព័ត៌មាន</string>
     <string name="Dashboard_Overview_Estimated">ប៉ាន់ស្មាន៖</string>
     <string name="Dashboard_Overview_ChooseWebsites">ជ្រើសរើសវែបសាយ</string>
@@ -32,6 +32,8 @@
     <string name="Dashboard_ReviewDescriptor_Button_Last">បច្ចុប្បន្នភាព និងបញ្ចប់ (%1$s នៃ %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">បច្ចុប្បន្នភាព (%1$s នៃ %2$s)</string>
     <string name="Dashboard_Update_Restart">ផ្ដើមឡើងវិញ</string>
+
+
     <string name="Tests_Title">តេស្ត</string>
     <string name="Test_Websites_Fullname">វេបសាយ</string>
     <string name="Test_InstantMessaging_Fullname">សាររហ័ស</string>
@@ -49,6 +51,8 @@
     <string name="Test_Psiphon_Fullname">តេស្ត Psiphon</string>
     <string name="Test_Tor_Fullname">តេស្ត Tor</string>
     <string name="Test_Signal_Fullname">តេស្ត Signal</string>
+
+
     <string name="TestResults">លទ្ធផល</string>
     <string name="TestResults_Overview_Hero_Networks">បណ្តាញជាច្រើន</string>
     <string name="TestResults_Overview_Hero_DataUsage">ទិន្នន័យប្រើប្រាស់</string>
@@ -81,6 +85,8 @@
     <string name="Measurements_Ok">យល់ព្រម</string>
     <string name="Measurements_Anomaly">ខុសប្រក្រតី</string>
     <string name="Measurement_Raw_Upload">បញ្ជូល</string>
+
+
     <string name="Settings_Title">ការកំណត់</string>
     <string name="Settings_TestOptions_Label">ជម្រើសតេស្ត</string>
     <string name="Settings_TestOptions_LongRunningTest">ដំណើរការតេស្តវែង</string>
@@ -183,6 +189,7 @@
     <string name="CategoryCode_CTRL_Description">មាតិការស្មោះត្រង់ ត្រូវបានគេគ្រប់គ្រង</string>
     <string name="CategoryCode_IGO_Description">ស្ថាប័នអន្តររដ្ឋាភិបាលរាប់ទាំងអង្គការសហប្រជាជាតិ</string>
     <string name="CategoryCode_MISC_Description">វែបសាយដែលមិនទាន់ដាក់ជាក្រុម</string>
+
     <string name="Onboarding_WhatIsOONIProbe_GotIt">យល់</string>
     <string name="Onboarding_ThingsToKnow_Title">ប្រុងប្រយត្ន័!</string>
     <string name="Onboarding_ThingsToKnow_Button">ខ្ញុំ​យល់</string>
@@ -209,6 +216,8 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">ពេលវេលា និង​កាលបរិច្ឆេទនៃការ​សាកល្បង</string>
     <string name="Onboarding_DefaultSettings_Paragraph">ពួកយើងប្រឹងប្រែងអស់ពីលទ្ធភាពក្នុងការមិនបង្ហាញអាសយដ្ឋាន IP របស់អ្នក ឬព័ត៌មានដទៃទៀតដែលអាចឱ្យគេកំណត់អត្តសញ្ញាណរបស់អ្នកបាន។\n\nស្វែងយល់បន្ថែមតាមរយៈ [គោលនយោបាយទិន្នន័យរបស់ OONI] (https://ooni.org/about/data-policy/)</string>
     <string name="Onboarding_DefaultSettings_Button_Change">ផ្លាស់ប្តូរលំនាំដើម</string>
+
+
     <string name="AddDescriptor_Settings">តេស្ត​ការ​កំណត់នានា</string>
     <string name="AddDescriptor_Title">ដំឡើងតំណរភ្ជាប់ថ្មី</string>
     <string name="AddDescriptor_AutoUpdate">ដំឡើងបច្ចុប្បន្នភាពស្វ័យប្រវត្តិ</string>
@@ -221,14 +230,14 @@
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">បញ្ជូលទាំងអស់</string>
     <string name="Toast_ResultsUploaded">បញ្ជូលបានជោគជ័យ</string>
     <string name="Modal_UploadFailed_Title">បញ្ជូលបានបរាជ័យ</string>
-    <string name="Modal_UploadFailed_Paragraph">ពួកយើងបានបរាជ័យក្នុងការបញ្ជូលការវាស់វែង %1$s/%2$s។ កំណត់ហេតុបរាជ័យត្រូវបានចែករំលែកជាមួយអ្នកអភិវឌ្ឍរបស់ OONI ។</string>
+    <string name="Modal_UploadFailed_Paragraph">ពួកយើងបានបរាជ័យក្នុងការបញ្ជូលការវាស់វែង {ចំនួនដែលបរាជ័យ}/{ចំននួសរុបការបញ្ជូល}។ កំណត់ហេតុបរាជ័យត្រូវបានចែករំលែកជាមួយអ្នកអភិវឌ្ឍរបស់ OONI ។</string>
     <string name="Modal_Retry">សាកម្តងទៀត</string>
     <string name="Modal_Cancel">បោះបង់</string>
     <string name="Modal_OK">យល់ព្រម</string>
     <string name="Modal_DoYouWantToDeleteAllTests">តើអ្នកចង់លុបលទ្ធផលតេស្តទាំងអស់មែនទេ?</string>
     <string name="Modal_Delete">លុប</string>
     <string name="Modal_ReRun_Title">ដំណើរការតេស្តម្តងទៀត</string>
-    <string name="Modal_ReRun_Websites_Title">អ្នកនឹងតេស្តវែបសាយ %1$s ម្តងទៀត។</string>
+    <string name="Modal_ReRun_Websites_Title">អ្នកនឹងតេស្តវែបសាយ {ចំនួនវែបសាយ} ម្តងទៀត។</string>
     <string name="Modal_ReRun_Websites_Run">ដំណើរការ</string>
     <string name="Modal_DisableVPN_Title">សូមបិទ VPN របស់អ្នក</string>
     <string name="Modal_DisableVPN_Message">ប្រសិនបើអ្នកដំណើរការ​OONI Probe និង VPN ពេលជាមួយគ្នា នោះលទ្ធផលនឹងបង្ហាញពីប្រទេសផ្សេង។ ដូច្នេះសូមបិទ VPN។</string>
@@ -242,6 +251,7 @@
     <string name="Modal_Hide">លាក់</string>
     <string name="OONIRun_Run">ដំណើរការ</string>
     <string name="Notification_StopTest">បញ្ឈប់តេស្ត</string>
+
     <string name="Common_Back">ត្រឡប់ក្រោយ</string>
     <string name="Common_Close">បិទ</string>
     <string name="Common_Refresh">ផ្ទុកឡើងវិញ</string>
