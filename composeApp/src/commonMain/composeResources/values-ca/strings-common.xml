@@ -5,19 +5,79 @@
     <string name="Dashboard_Overview_ChooseWebsites">Trieu llocs web</string>
     <string name="Dashboard_Running_Running">S\'està executant:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Temps restant estimat:</string>
+    <string name="Dashboard_Running_Stopping_Title"></string>
+    <string name="Dashboard_Running_Stopping_Notice"></string>
+    <string name="Dashboard_Running_ProxyInUse"></string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Title">Proves</string>
+    <string name="Dashboard_TestsMoved_Description"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
+    <string name="Dashboard_RunTests_Title"></string>
+    <string name="Dashboard_RunTests_Description"></string>
+    <string name="Dashboard_RunTests_SelectAll"></string>
+    <string name="Dashboard_RunTests_SelectNone"></string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Title"></string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty"></string>
+
+    <string name="Dashboard_Articles_Title"></string>
+    <string name="Dashboard_Articles_Blog"></string>
+    <string name="Dashboard_Articles_Finding"></string>
     <string name="Dashboard_Articles_Report">Informe</string>
+    <string name="Dashboard_Articles_ReadMore"></string>
+    <string name="Dashboard_Articles_Recent"></string>
+    <string name="Dashboard_Articles_OpenExternal"></string>
+    <string name="Dashboard_RunV2_Ooni_Title"></string>
+    <string name="Dashboard_RunV2_Title"></string>
     <string name="Dashboard_Runv2_Overview_Description">Creat per %1$s a les %2$s</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink"></string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions"></string>
+    <string name="Dashboard_Runv2_Overview_SeeMore"></string>
+    <!-- This only applies when there are more than 10 websites to show. -->
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_RunV2_ExpiredTag"></string>
+    <string name="Dashboard_RunV2_UpdatedTag"></string>
+    <string name="Dashboard_RunV2_UpdateTag"></string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated"></string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate"></string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Desfés</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates"></string>
+    <string name="Dashboard_Progress_UpdateLink_Label"></string>
+    <string name="Dashboard_Progress_ReviewLink_Label"></string>
     <string name="Dashboard_Progress_ReviewLink_Action">Revisa</string>
+    <string name="Dashboard_ReviewDescriptor_Label"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default"></string>
+    <!-- Button to reject a link update during review -->
+    <string name="Dashboard_ReviewDescriptor_Reject"></string>
+    <string name="Dashboard_Update_Ready"></string>
     <string name="Dashboard_Update_Restart">Reinicia</string>
 
 
     <string name="Tests_Title">Proves</string>
+    <string name="Tests_Search"></string>
     <string name="Test_Websites_Fullname">Llocs web</string>
     <string name="Test_InstantMessaging_Fullname">Missatgeria instantània</string>
     <string name="Test_Performance_Fullname">Rendiment</string>
     <string name="Test_Circumvention_Fullname">Elusió</string>
+    <string name="Test_Experimental_Fullname"></string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Prova «HTTP Invalid Request Line Test»</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Prova «HTTP Header Field Manipulation»</string>
     <string name="Test_WebConnectivity_Fullname">Prova de connectivitat web</string>
@@ -28,9 +88,20 @@
     <string name="Test_FacebookMessenger_Fullname">Prova de Facebook Messenger</string>
     <string name="Test_Psiphon_Fullname">Prova del Psiphon</string>
     <string name="Test_Tor_Fullname">Prova del Tor</string>
+    <string name="Test_Signal_Fullname"></string>
+
+
     <string name="TestResults">Results</string>
     <string name="TestResults_Overview_Hero_Networks">Xarxes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Ús de dades</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Encara no s\'han executat proves. Proveu a executar una!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Data i hora</string>
     <string name="TestResults_Summary_Hero_Network">Xarxa</string>
@@ -39,7 +110,21 @@
     <string name="TestResults_Summary_Hero_WiFi">Wi-Fi</string>
     <string name="TestResults_Summary_Hero_Mobile">Dades mòbils</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet"></string>
+    <string name="TestResults_Summary_Hero_Usb"></string>
     <string name="TestResults_Summary_Hero_NoInternet">Sense Internet</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Pujada</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Baixada</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Vídeo</string>
@@ -51,47 +136,135 @@
     <string name="TestResults_ms">ms</string>
     <string name="TestResults_UnknownASN">Desconegut</string>
     <string name="TestResults_NotAvailable">N/D</string>
+    <string name="TestResults_Filters_Title"></string>
+    <string name="TestResults_Filters_Short"></string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Proves</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Networks">Xarxes</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Source">Font</string>
     <string name="TestResults_Filter_Date">Data</string>
+    <string name="TestResults_Filter_Date_Any"></string>
     <string name="TestResults_Filter_Date_Today">Avui</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo"></string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo"></string>
     <string name="TestResults_Filter_Date_Custom">Personalitza</string>
+    <string name="TestResults_Filter_Date_Custom_Filled"></string>
+    <string name="TestResults_Filter_Date_Picker"></string>
+    <string name="TestResults_Filter_NoTestsFound"></string>
+    <string name="TestResults_Filter_DeleteConfirmation"></string>
+    <string name="Results_LimitedNotice"></string>
+    <string name="Results_UploadingMissing"></string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
+    <string name="Results_MarkAllAsViewed"></string>
+    <string name="Results_MarkAllAsViewed_Confirmation"></string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation"></string>
+
+
+    <string name="Measurement_Title"></string>
+    <string name="Measurement_LoadingFailed"></string>
     <string name="Measurements_Failed">Error</string>
     <string name="Measurements_Ok">Correcte</string>
+    <string name="Measurements_Anomaly"></string>
+    <plurals name="Measurements_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning"></string>
+    <string name="Measurement_Raw_Share"></string>
     <string name="Measurement_Raw_Upload">Pujada</string>
 
 
     <string name="Settings_Title">Configuració</string>
     <string name="Settings_TestOptions_Label">Opcions de la prova</string>
+    <string name="Settings_TestOptions_LongRunningTest"></string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Executa proves automàticament</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description"></string>
     <string name="Settings_Sharing_UploadResults">Publica automàticament els resultats</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeEnabled"></string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description"></string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeDuration"></string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit"></string>
     <string name="Settings_Websites_Categories_Label">Categories de lloc web per provar</string>
     <string name="Settings_Websites_Categories_Description">%1$s categories activades</string>
     <string name="Settings_Privacy_Label">Privadesa</string>
     <string name="Settings_Privacy_SendCrashReports">Envia informes d\'errors</string>
+    <string name="Settings_Proxy_Label"></string>
     <string name="Settings_Proxy">Servidor intermediari</string>
     <string name="Settings_Proxy_None">Cap</string>
+    <string name="Settings_Proxy_Psiphon"></string>
+    <string name="Settings_Proxy_Custom_Add"></string>
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
     <string name="Settings_Proxy_Custom_Hostname">Domini</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid"></string>
+    <string name="Settings_Proxy_Custom_PortInvalid"></string>
     <string name="Settings_Proxy_Custom_Testing">Provant</string>
     <string name="Settings_Proxy_Custom_Available">Disponible</string>
     <string name="Settings_Proxy_Custom_Unavailable">No Disponible</string>
+    <string name="Settings_Proxy_Delete_Confirmation"></string>
     <string name="Settings_Language_Label">Llengua</string>
     <string name="Settings_Advanced_Label">Avançat</string>
     <string name="Settings_Advanced_DebugLogs">Registres de depuració</string>
+    <string name="Settings_Advanced_RecentLogs"></string>
+    <string name="Settings_Results_DeleteOldResults"></string>
+    <string name="Settings_Results_DeleteOldResultsThreshold"></string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit"></string>
     <string name="Settings_Support_Label">Assistència</string>
     <string name="Settings_Support_SendEmail">Envia un correu per donar suport</string>
+    <string name="Settings_Support_Message"></string>
+    <string name="Settings_Support_Message_Hint"></string>
+    <string name="Settings_Support_IncludeLogs"></string>
+    <string name="Settings_Support_Action"></string>
+    <string name="Settings_ShareApp"></string>
+    <string name="Settings_ShareApp_Description"></string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
+    <string name="Settings_ShareApp_ShareMessage"></string>
+    <string name="Settings_Storage_Label"></string>
     <string name="Settings_Storage_Delete">Suprimeix</string>
     <string name="Settings_Storage_Clear">Netejar</string>
+    <string name="Settings_Legacy_Storage"></string>
+    <string name="Settings_WarmVPNInUse_Label"></string>
+    <string name="Settings_DisableVpnInstructions"></string>
     <string name="Settings_Logs">Registres</string>
+    <string name="Settings_ShareLogs"></string>
+    <string name="Settings_ShareLogs_Error"></string>
+    <string name="Settings_FilterLogs"></string>
+    <string name="Settings_Sharing_UploadResults_Description"></string>
     <string name="Settings_Websites_Categories_Selection_None">Anul·la la selecció</string>
     <string name="Settings_Websites_Categories_Selection_All">Selecciona-ho tot</string>
     <string name="Settings_Websites_CustomURL_Title">Trieu llocs web per provar</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Inicia</string>
     <string name="Settings_Websites_CustomURL_Add">Afegeix lloc web</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+
     <string name="CategoryCode_ALDR_Name">Drogues i alcohol</string>
     <string name="CategoryCode_REL_Name">Religió</string>
     <string name="CategoryCode_PORN_Name">Pornografia</string>
@@ -155,6 +328,8 @@
     <string name="CategoryCode_IGO_Description">Organitzacions intergovernamentals, incloses les Nacions Unides</string>
     <string name="CategoryCode_MISC_Description">Llocs que encara no s\'han classificat</string>
 
+    <string name="Onboarding_QuizAnswer_Correct"></string>
+    <string name="Onboarding_QuizAnswer_Incorrect"></string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Entesos</string>
     <string name="Onboarding_ThingsToKnow_Title">Alerta!</string>
     <string name="Onboarding_ThingsToKnow_Button">Entesos</string>
@@ -169,8 +344,11 @@
     <string name="Onboarding_PopQuiz_2_Title">Pregunta 2/2</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Title">Avís</string>
     <string name="Onboarding_AutomatedTesting_Title">Prova automatitzada</string>
+    <string name="Onboarding_Crash_Title"></string>
     <string name="Onboarding_Crash_Button_Yes">Sí</string>
     <string name="Onboarding_Crash_Button_No">No</string>
+    <string name="Onboarding_Notifications_Title"></string>
+    <string name="Onboarding_Notifications_Paragraph"></string>
     <string name="Onboarding_Notifications_Ok">Correcte</string>
     <string name="Onboarding_Notifications_Skip">Omet</string>
     <string name="Onboarding_DefaultSettings_Title">Configuració per defecte</string>
@@ -178,16 +356,33 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">Codi del país (p. ex. IT per a Itàlia)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">Informació de la xarxa (inclòs el número del sistema autònom)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Hora i data de la prova</string>
+    <string name="Onboarding_DefaultSettings_Paragraph"></string>
+    <string name="Onboarding_DefaultSettings_Button_Go"></string>
     <string name="Onboarding_DefaultSettings_Button_Change">Canvia valors</string>
 
 
+    <string name="AddDescriptor_EnterURL"></string>
+    <string name="AddDescriptor_URLInvalid"></string>
     <string name="AddDescriptor_Settings">Test de configuració</string>
+    <string name="AddDescriptor_Title"></string>
+    <string name="AddDescriptor_AutoUpdate"></string>
     <string name="AddDescriptor_AutoRun">Executa proves automàticament</string>
+    <string name="AddDescriptor_Toasts_Installed"></string>
+    <string name="AddDescriptor_InstallForLater"></string>
+    <string name="AddDescriptor_InstallAndRun"></string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url"></string>
+    <string name="LoadingScreen_Runv2_Message"></string>
+    <string name="LoadingScreen_Runv2_Failure"></string>
+    <string name="DescriptorUpdate_Updates"></string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Comprovar si hi ha actualitzacions</string>
+    <string name="AddDescriptor_AutoRunDisabled"></string>
+    <string name="Descriptor_LastTestResult"></string>
+
     <string name="Snackbar_ResultsNotUploaded_Text">No s\'ha pujat</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Alguns no s\'han pujat</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Puja-ho tot</string>
+    <string name="Modal_ResultsNotUploaded_Uploading"></string>
     <string name="Toast_ResultsUploaded">S\'ha pujat amb èxit</string>
     <string name="Modal_UploadFailed_Title">Ha fallat la pujada</string>
     <string name="Modal_UploadFailed_Paragraph">No hem pogut penjar %1$s/%2$s mesures. El registre d\'errors s\'ha compartit amb els desenvolupadors de l\'OONI.</string>
@@ -195,21 +390,49 @@
     <string name="Modal_Cancel">Cancel·la</string>
     <string name="Modal_OK">Correcte</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Voleu eliminar tots els resultats de la prova?</string>
+    <string name="Modal_Clear_Legacy_Directories"></string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Modal_Delete">Suprimeix</string>
     <string name="Modal_ReRun_Title">Torna a executar la prova</string>
     <string name="Modal_ReRun_Websites_Title">Esteu a punt de tornar a provar %1$s llocs web.</string>
     <string name="Modal_ReRun_Websites_Run">Inicia</string>
+    <string name="Modal_DisableVPN_Title"></string>
+    <string name="Modal_DisableVPN_Message"></string>
+    <string name="Modal_DisableVPN"></string>
+    <string name="Modal_RunAnyway"></string>
+    <string name="Modal_AlwaysRun"></string>
     <string name="Modal_Error_CantDownloadURLs">No s\'ha pogut baixar la llista d\'URL. Torneu-ho a provar.</string>
     <string name="Modal_Error_NoInternet">No hi ha connexió a Internet</string>
+    <string name="Modal_Error_ProxyUnavailable"></string>
     <string name="Modal_CustomURL_Title_NotSaved">N’estàs segur?</string>
     <string name="Modal_CustomURL_NotSaved">Les vostres URL no es desaran quan surti d’aquesta pantalla. Esteu segur de voler sortir d’aquesta pantalla?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding"></string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder"></string>
+
+    <string name="Desktop_OpenApp"></string>
     <string name="Desktop_Quit">Abandona</string>
     <string name="Tray_Notification_Check_Updates">Comprovar si hi ha actualitzacions</string>
     <string name="Tray_Notification_Updates_Available">Hi ha una actualització disponible!</string>
+    <string name="Tray_Notification_Checking_Updates"></string>
+
     <string name="Modal_Hide">Oculta</string>
+    <string name="Modal_Quite_Prompt"></string>
+    <string name="Modal_Quite_Description"></string>
+
     <string name="OONIRun_Run">Inicia</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Provant</string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
+    <string name="Notification_UpdateChannelName"></string>
+    <string name="Notification_StopTest"></string>
+
     <string name="Common_Back">Enrera</string>
     <string name="Common_Close">Tanca</string>
     <string name="Common_Refresh">Actualitza</string>
@@ -226,8 +449,29 @@
     <string name="Common_Search">Cerca</string>
     <string name="Common_Today">Avui</string>
     <string name="Common_Yesterday">Ahir</string>
+    <string name="Common_Week"></string>
+    <string name="Common_Month"></string>
     <string name="Common_Total">Total</string>
     <string name="Common_Ago">fa %1$s</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Common_Hours_Abbreviated"></string>
+    <string name="Common_Minutes_Abbreviated"></string>
+    <string name="Common_Seconds_Abbreviated"></string>
     <string name="Common_Months_January">gener</string>
     <string name="Common_Months_February">febrer</string>
     <string name="Common_Months_March">març</string>
@@ -241,5 +485,7 @@
     <string name="Common_Months_November">novembre</string>
     <string name="Common_Months_December">desembre</string>
 
+    <string name="TaskOrigin_Manual"></string>
+    <string name="TaskOrigin_AutoRun"></string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
