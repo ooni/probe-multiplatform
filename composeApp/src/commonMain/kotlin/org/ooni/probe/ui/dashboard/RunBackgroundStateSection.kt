@@ -157,13 +157,14 @@ private fun RunningTests(
             Text(
                 text = stringResource(Res.string.Dashboard_Running_Running),
                 style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(end = 4.dp),
             )
             state.testName()?.let { testName ->
                 state.testIcon()?.let { testIcon ->
                     Icon(
                         painterResource(testIcon),
                         contentDescription = null,
-                        modifier = Modifier.padding(horizontal = 4.dp).size(24.dp),
+                        modifier = Modifier.padding(end = 4.dp).size(24.dp),
                     )
                 }
                 Text(

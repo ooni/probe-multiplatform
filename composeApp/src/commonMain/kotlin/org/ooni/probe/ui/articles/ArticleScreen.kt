@@ -26,6 +26,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Common_Refresh
+import ooniprobe.composeapp.generated.resources.Common_Share
+import ooniprobe.composeapp.generated.resources.Dashboard_Articles_OpenExternal
 import ooniprobe.composeapp.generated.resources.Dashboard_Articles_Title
 import ooniprobe.composeapp.generated.resources.Measurement_LoadingFailed
 import ooniprobe.composeapp.generated.resources.Res
@@ -63,13 +65,13 @@ fun ArticleScreen(
                     IconButton(onClick = { onEvent(ArticleViewModel.Event.OpenExternal) }) {
                         Icon(
                             painterResource(Res.drawable.ic_open_external),
-                            contentDescription = null,
+                            contentDescription = stringResource(Res.string.Dashboard_Articles_OpenExternal),
                         )
                     }
                     IconButton(onClick = { onEvent(ArticleViewModel.Event.ShareUrl) }) {
                         Icon(
                             painter = painterResource(Res.drawable.ic_share),
-                            contentDescription = null,
+                            contentDescription = stringResource(Res.string.Common_Share),
                         )
                     }
                     if (controller.state is OoniWebViewController.State.Loading) {
