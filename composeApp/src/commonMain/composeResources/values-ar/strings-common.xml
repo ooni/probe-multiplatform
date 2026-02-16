@@ -8,23 +8,71 @@
     <string name="Dashboard_Running_Stopping_Title">إيقاف الاختبار جار ... </string>
     <string name="Dashboard_Running_Stopping_Notice">يرجى الانتظار حتى الانتهاء من الاختبارات الجارية حاليّاً</string>
     <string name="Dashboard_Running_ProxyInUse">الوسيط يعمل</string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Title">اختبارات</string>
+    <string name="Dashboard_TestsMoved_Description"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
     <string name="Dashboard_RunTests_Title">Run tests</string>
     <string name="Dashboard_RunTests_Description">Select the tests to run</string>
     <string name="Dashboard_RunTests_SelectAll">Select all tests</string>
     <string name="Dashboard_RunTests_SelectNone">Deselect all tests</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Title"></string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty"></string>
+
+    <string name="Dashboard_Articles_Title"></string>
+    <string name="Dashboard_Articles_Blog"></string>
+    <string name="Dashboard_Articles_Finding"></string>
     <string name="Dashboard_Articles_Report">بلاغ</string>
+    <string name="Dashboard_Articles_ReadMore"></string>
     <string name="Dashboard_Articles_Recent">الأحدث</string>
+    <string name="Dashboard_Articles_OpenExternal"></string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">المراجعات السابقة</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
+    <!-- This only applies when there are more than 10 websites to show. -->
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">منتهي الصلاحية</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">تحديث</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate"></string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">تراجع</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Review Updates</string>
     <string name="Dashboard_Progress_UpdateLink_Label">Link updates loading</string>
@@ -33,10 +81,14 @@
     <string name="Dashboard_ReviewDescriptor_Label">Link Update (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE AND FINISH (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
+    <!-- Button to reject a link update during review -->
+    <string name="Dashboard_ReviewDescriptor_Reject"></string>
+    <string name="Dashboard_Update_Ready"></string>
     <string name="Dashboard_Update_Restart">أعد التشغيل</string>
 
 
     <string name="Tests_Title">اختبارات</string>
+    <string name="Tests_Search"></string>
     <string name="Test_Websites_Fullname">المواقع</string>
     <string name="Test_InstantMessaging_Fullname">المراسلة الفورية</string>
     <string name="Test_Performance_Fullname">الأداء</string>
@@ -58,6 +110,22 @@
     <string name="TestResults">النتائج</string>
     <string name="TestResults_Overview_Hero_Networks">الشبكات</string>
     <string name="TestResults_Overview_Hero_DataUsage">إستخدام البيانات</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">لم تجر أي اختبار حتى الآن. قم بتجربة أحد الاختبارات!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">التاريخ والوقت</string>
     <string name="TestResults_Summary_Hero_Network">الشبكة</string>
@@ -66,7 +134,33 @@
     <string name="TestResults_Summary_Hero_WiFi">وايفاي</string>
     <string name="TestResults_Summary_Hero_Mobile">بيانات الخلوي</string>
     <string name="TestResults_Summary_Hero_Bluetooth">بلوتوث</string>
+    <string name="TestResults_Summary_Hero_Ethernet"></string>
+    <string name="TestResults_Summary_Hero_Usb"></string>
     <string name="TestResults_Summary_Hero_NoInternet">لا إنترنت</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">رفع</string>
     <string name="TestResults_Summary_Performance_Hero_Download">تحميل</string>
     <string name="TestResults_Summary_Performance_Hero_Video">الفيديو</string>
@@ -78,18 +172,76 @@
     <string name="TestResults_ms">ms</string>
     <string name="TestResults_UnknownASN">غير معروف</string>
     <string name="TestResults_NotAvailable">‮غير متاح</string>
+    <string name="TestResults_Filters_Title"></string>
+    <string name="TestResults_Filters_Short"></string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Tests">اختبارات</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Networks">الشبكات</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Source">المصدر</string>
     <string name="TestResults_Filter_Date">تاريخ</string>
+    <string name="TestResults_Filter_Date_Any"></string>
     <string name="TestResults_Filter_Date_Today">اليوم</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo"></string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo"></string>
     <string name="TestResults_Filter_Date_Custom">مخصص</string>
+    <string name="TestResults_Filter_Date_Custom_Filled"></string>
+    <string name="TestResults_Filter_Date_Picker"></string>
+    <string name="TestResults_Filter_NoTestsFound"></string>
+    <string name="TestResults_Filter_DeleteConfirmation"></string>
     <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
     <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
+    <string name="Results_MarkAllAsViewed"></string>
+    <string name="Results_MarkAllAsViewed_Confirmation"></string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation"></string>
+
+
     <string name="Measurement_Title">Measurement</string>
+    <string name="Measurement_LoadingFailed"></string>
     <string name="Measurements_Failed">فشل</string>
     <string name="Measurements_Ok">موافق</string>
     <string name="Measurements_Anomaly">شذوذ</string>
+    <plurals name="Measurements_Count">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning"></string>
+    <string name="Measurement_Raw_Share"></string>
     <string name="Measurement_Raw_Upload">رفع</string>
 
 
@@ -105,6 +257,9 @@
     <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeEnabled">Limit Websites test duration</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeDuration"></string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit"></string>
     <string name="Settings_Websites_Categories_Label">أقسام المواقع للاختبار</string>
     <string name="Settings_Websites_Categories_Description">%1$s قسمًا مفعل</string>
     <string name="Settings_Privacy_Label">الخصوصية</string>
@@ -113,24 +268,45 @@
     <string name="Settings_Proxy">بروكسي</string>
     <string name="Settings_Proxy_None">لا شيء</string>
     <string name="Settings_Proxy_Psiphon">سايفون </string>
+    <string name="Settings_Proxy_Custom_Add"></string>
     <string name="Settings_Proxy_Custom_Protocol">بروتوكل بروكسي مخصص </string>
     <string name="Settings_Proxy_Custom_Hostname">اسم المُضيف</string>
     <string name="Settings_Proxy_Custom_Port">منفذ</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid"></string>
+    <string name="Settings_Proxy_Custom_PortInvalid"></string>
     <string name="Settings_Proxy_Custom_Testing">جاري التجريب</string>
     <string name="Settings_Proxy_Custom_Available">متاح</string>
     <string name="Settings_Proxy_Custom_Unavailable">غير متاح</string>
+    <string name="Settings_Proxy_Delete_Confirmation"></string>
     <string name="Settings_Language_Label">اللغة</string>
     <string name="Settings_Advanced_Label">متقدم</string>
     <string name="Settings_Advanced_DebugLogs">أظهر سجلات التصحيح</string>
     <string name="Settings_Advanced_RecentLogs">الاطلاع على السجلات الأخيرة</string>
+    <string name="Settings_Results_DeleteOldResults"></string>
+    <string name="Settings_Results_DeleteOldResultsThreshold"></string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit"></string>
     <string name="Settings_Support_Label">الدعم</string>
     <string name="Settings_Support_SendEmail">إرسال إيميل لفريق الدعم </string>
     <string name="Settings_Support_Message">يرجى وصف المشكلة التي تواجهونها: </string>
+    <string name="Settings_Support_Message_Hint"></string>
+    <string name="Settings_Support_IncludeLogs"></string>
     <string name="Settings_Support_Action">إرسال البريد الإلكتروني</string>
     <string name="Settings_ShareApp">مشاركة التطبيق</string>
+    <string name="Settings_ShareApp_Description"></string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
+    <string name="Settings_ShareApp_ShareMessage"></string>
     <string name="Settings_Storage_Label">استخدام سعة التخزين </string>
     <string name="Settings_Storage_Delete">حذف</string>
     <string name="Settings_Storage_Clear">Clear</string>
+    <string name="Settings_Legacy_Storage"></string>
     <string name="Settings_WarmVPNInUse_Label">نبِّه عند استخدام VPN</string>
     <string name="Settings_DisableVpnInstructions">Go to Settings &gt; General &gt; VPN and disconnect from your VPN.</string>
     <string name="Settings_Logs">السجلات</string>
@@ -144,6 +320,15 @@
     <string name="Settings_Websites_CustomURL_URL">الرابط</string>
     <string name="Settings_Websites_CustomURL_Run">ابدأ</string>
     <string name="Settings_Websites_CustomURL_Add">أضف موقعًا</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+
     <string name="CategoryCode_ALDR_Name">المخدرات والكحول</string>
     <string name="CategoryCode_REL_Name">الدين</string>
     <string name="CategoryCode_PORN_Name">المواد الإباحية</string>
@@ -226,6 +411,8 @@
     <string name="Onboarding_Crash_Title">التبليغ عن التعطيلات </string>
     <string name="Onboarding_Crash_Button_Yes">‮نعم</string>
     <string name="Onboarding_Crash_Button_No">‮لا</string>
+    <string name="Onboarding_Notifications_Title"></string>
+    <string name="Onboarding_Notifications_Paragraph"></string>
     <string name="Onboarding_Notifications_Ok">موافق</string>
     <string name="Onboarding_Notifications_Skip">تخطي</string>
     <string name="Onboarding_DefaultSettings_Title">الإعدادات الإفتراضية</string>
@@ -238,19 +425,28 @@
     <string name="Onboarding_DefaultSettings_Button_Change">تغيير الافتراضي</string>
 
 
+    <string name="AddDescriptor_EnterURL"></string>
+    <string name="AddDescriptor_URLInvalid"></string>
     <string name="AddDescriptor_Settings">فحص الإعدادات</string>
     <string name="AddDescriptor_Title">Install New Link</string>
     <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
     <string name="AddDescriptor_AutoRun">إجراء الاختبارات تلقائيا </string>
     <string name="AddDescriptor_Toasts_Installed">Link installed</string>
+    <string name="AddDescriptor_InstallForLater"></string>
+    <string name="AddDescriptor_InstallAndRun"></string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
     <string name="LoadingScreen_Runv2_Message">Link Loading</string>
+    <string name="LoadingScreen_Runv2_Failure"></string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">بحث عن الترقية</string>
+    <string name="AddDescriptor_AutoRunDisabled"></string>
+    <string name="Descriptor_LastTestResult"></string>
+
     <string name="Snackbar_ResultsNotUploaded_Text">لم يتمّ الرفع</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">لم يتمّ رفع البعض</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">رفع الجميع</string>
+    <string name="Modal_ResultsNotUploaded_Uploading"></string>
     <string name="Toast_ResultsUploaded">تم التحميل بنجاح</string>
     <string name="Modal_UploadFailed_Title">فَشِلتْ عملية الرفع</string>
     <string name="Modal_UploadFailed_Paragraph">أخفقنا في رفع %1$s من %2$s قياسا. تم مشاركة سجل الإخفاق مع مطوري OONI.</string>
@@ -258,6 +454,23 @@
     <string name="Modal_Cancel">إلغاء</string>
     <string name="Modal_OK">موافق</string>
     <string name="Modal_DoYouWantToDeleteAllTests">هل تريد حذف جميع نتائج الإختبارات؟</string>
+    <string name="Modal_Clear_Legacy_Directories"></string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Modal_Delete">حذف</string>
     <string name="Modal_ReRun_Title">إعادة إجراء الاختبار</string>
     <string name="Modal_ReRun_Websites_Title">أنت على وشك إعادة اختبار %1$s موقعا.</string>
@@ -269,14 +482,27 @@
     <string name="Modal_AlwaysRun">شغِّل دائما</string>
     <string name="Modal_Error_CantDownloadURLs">التطبيق غير قادر على تحميل قائمة المواقع. من فضلك حاول مرة أخرى.</string>
     <string name="Modal_Error_NoInternet">لا اتصال بالانترنت </string>
+    <string name="Modal_Error_ProxyUnavailable"></string>
     <string name="Modal_CustomURL_Title_NotSaved">هل أنت متأكد؟</string>
     <string name="Modal_CustomURL_NotSaved">المواقع لن تسجل اذا تركت هذه الواجهة. هل تريد ترك الواجهة؟</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding"></string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder"></string>
+
+    <string name="Desktop_OpenApp"></string>
     <string name="Desktop_Quit">خروج</string>
     <string name="Tray_Notification_Check_Updates">بحث عن الترقية</string>
+    <string name="Tray_Notification_Updates_Available"></string>
+    <string name="Tray_Notification_Checking_Updates"></string>
+
     <string name="Modal_Hide">إخفاء</string>
+    <string name="Modal_Quite_Prompt"></string>
+    <string name="Modal_Quite_Description"></string>
+
     <string name="OONIRun_Run">ابدأ</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">جاري التجريب</string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
+    <string name="Notification_UpdateChannelName"></string>
     <string name="Notification_StopTest">إيقاف الاختبار</string>
 
     <string name="Common_Back">الرجوع</string>
@@ -299,6 +525,38 @@
     <string name="Common_Month">الشهر</string>
     <string name="Common_Total">المجموع الكلي</string>
     <string name="Common_Ago">%1$s ago</string>
+    <plurals name="Common_Seconds">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Common_Hours_Abbreviated">%1$d h</string>
     <string name="Common_Minutes_Abbreviated">%1$d m</string>
     <string name="Common_Seconds_Abbreviated">%1$d s</string>
