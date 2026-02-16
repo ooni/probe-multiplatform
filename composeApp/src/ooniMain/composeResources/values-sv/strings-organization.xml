@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Vad är OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Din app för att mäta internetcensur.\n\nÄr webbsidor och sociala medier appar blockerade? Är din internetanslutning ovanligt långsam?\n\nKör OONI Probe för att få reda på det!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI data publiceras öppet och kommer att innehålla din nätverksinformation.</string>
@@ -10,16 +10,38 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe är inte ett integritetsverktyg. Om någon bevakar din internetanvändning kommer de se vilken mjukvara du kör.</string>
     <string name="Onboarding_PopQuiz_2_Question">Varje gång jag kör OONI Probe, kommer nätverksinformation jag samlar att automatiskt publiceras.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">För att öka transparensen av internetcensur, kommer nätverksinformation från samtliga OONI Probe användare att automatiskt publiceras (om de inte stänger av det i inställningar).</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph"></string>
+    <string name="Onboarding_Crash_Paragraph"></string>
+    <string name="Onboarding_CleanUp_Title"></string>
+    <string name="Onboarding_CleanUp_Paragraph"></string>
     <string name="Dashboard_Websites_Card_Description">Testa blockerade webbsidor</string>
+    <string name="Dashboard_Websites_Overview_Paragraph"></string>
     <string name="Dashboard_Performance_Card_Description">Testa din nätverkshastighet och prestanda</string>
+    <string name="Dashboard_Performance_Overview_Paragraph"></string>
     <string name="Dashboard_Middleboxes_Card_Description">Upptäck \"middleboxes\" i ditt nätverk</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph"></string>
     <string name="Dashboard_InstantMessaging_Card_Description">Testa om \"instant messaging\"-appar är blockerade</string>
+    <string name="Dashboard_InstantMessaging_Overview_Paragraph"></string>
+    <string name="Dashboard_Circumvention_Card_Description"></string>
+    <string name="Dashboard_Circumvention_Overview_Paragraph"></string>
+    <string name="Dashboard_Experimental_Card_Description"></string>
+    <string name="Dashboard_Experimental_Overview_Paragraph"></string>
     <string name="Settings_About_Label">Om OONI</string>
+    <string name="Settings_About_Content_Paragraph"></string>
     <string name="Settings_About_Content_LearnMore">Läs mer</string>
     <string name="Settings_About_Content_Blog">Blogg</string>
     <string name="Settings_About_Content_Reports">Rapporter</string>
     <string name="Settings_About_Content_DataPolicy">OONI Data-policy</string>
-
     <string name="Settings_Donate_Title">Donera</string>
+    <string name="Settings_Donate_Heading"></string>
+    <string name="Settings_Donate_SubHeading"></string>
+    <string name="Settings_Donate_Support_Title"></string>
+    <string name="Settings_Donate_Support_Item_OpenSource"></string>
+    <string name="Settings_Donate_Support_Item_Analysis"></string>
+    <string name="Settings_Donate_Support_Item_OpenData"></string>
+    <string name="Settings_Donate_Support_Item_Research"></string>
     <string name="Settings_Donate_Action">Donera</string>
-    </resources>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser"></string>
+    <string name="Settings_Donate_Action_Error"></string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt"></string>
+</resources>
