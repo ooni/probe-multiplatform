@@ -14,6 +14,7 @@
     <string name="Dashboard_RunTests_SelectAll">Pilih semua tes</string>
     <string name="Dashboard_RunTests_SelectNone">Batal pilih semua tes</string>
     <string name="Dashboard_Articles_Report">Laporan</string>
+    <string name="Dashboard_Articles_OpenExternal">Buka di browser</string>
     <string name="Dashboard_RunV2_Ooni_Title">Tes OONI</string>
     <string name="Dashboard_RunV2_Title">Tautan OONI Run</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Copot Tautan</string>
