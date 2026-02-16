@@ -490,4 +490,5 @@
     <string name="TaskOrigin_Manual">Execução Manual</string>
     <string name="TaskOrigin_AutoRun">Execução Automática</string>
     <string name="NetworkType_Vpn">VPN</string>
+    <string name="Dashboard_Articles_OpenExternal">Abrir no navegador</string>
 </resources>

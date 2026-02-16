@@ -177,7 +177,7 @@
     <string name="CategoryCode_HACK_Description">Alat dan berita keamanan komputer</string>
     <string name="CategoryCode_COMT_Description">Alat komunikasi individu dan kelompok termasuk VoIP, perpesanan, dan webmail</string>
     <string name="CategoryCode_MMED_Description">Pembagian video, audio dan foto</string>
-    <string name="CategoryCode_HOST_Description">Pengehosan web, blogging, dan publikasi daring lain.</string>
+    <string name="CategoryCode_HOST_Description">Pengehosan web, blogging, dan publikasi daring lain</string>
     <string name="CategoryCode_SRCH_Description">Mesin pencari dan portal</string>
     <string name="CategoryCode_GAME_Description">Permainan daring dan platform permainan (tidak termasuk situs perjudian)</string>
     <string name="CategoryCode_CULTR_Description">Hiburan termasuk sejarah, sastra, musik, film, satir dan humor</string>

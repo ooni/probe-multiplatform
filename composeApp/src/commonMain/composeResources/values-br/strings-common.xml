@@ -1,10 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Runv2_Overview_Description">Kroueet gant %1$s war %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Dizober</string>
     <string name="Dashboard_Update_Restart">Adstagañ ganti</string>
-
-
     <string name="TestResults">Disoc\'hoù</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
@@ -17,8 +15,6 @@
     <string name="Measurements_Failed">C\'hwitet</string>
     <string name="Measurements_Ok">MAT EO</string>
     <string name="Measurement_Raw_Upload">Uskargañ</string>
-
-
     <string name="Settings_Title">Arventennoù</string>
     <string name="Settings_Proxy">Proksi</string>
     <string name="Settings_Proxy_None">Hini ebet</string>
@@ -42,7 +38,7 @@
     <string name="Onboarding_Notifications_Ok">MAT EO</string>
     <string name="Onboarding_Notifications_Skip">Tremen</string>
     <string name="Onboarding_DefaultSettings_Title">Arventennoù dre ziouer</string>
-    <string name="AddDescriptor_Settings">Test Settings</string>
+    <string name="AddDescriptor_Settings"></string>
     <string name="Modal_Retry">Adklask</string>
     <string name="Modal_Cancel">Nullañ</string>
     <string name="Modal_OK">MAT EO</string>
@@ -53,7 +49,7 @@
     <string name="Notification_ChannelName">O testiñ</string>
     <string name="Common_Back">Kent</string>
     <string name="Common_Close">Serriñ</string>
-    <string name="Common_Refresh">Refresh</string>
+    <string name="Common_Refresh"></string>
     <string name="Common_Enable">Enaouiñ</string>
     <string name="Common_Yes">Ya</string>
     <string name="Common_Save">Enrollañ</string>

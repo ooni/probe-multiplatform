@@ -259,7 +259,7 @@
     <string name="CategoryCode_LGBT_Description">ЛГБТ+сообщества, обсуждающие смежные проблемы (исключая порнографию) </string>
     <string name="CategoryCode_FILE_Description">Обмен файлами, включая облачные хранилища, торренты и P2P</string>
     <string name="CategoryCode_HACK_Description">Инструменты и новости по теме цифровой безопасности</string>
-    <string name="CategoryCode_COMT_Description">Индивидуальные и групповые коммуникации: VoIP, мессенджеры, веб-почта и др.</string>
+    <string name="CategoryCode_COMT_Description">Индивидуальные и групповые коммуникации: VoIP, мессенджеры, веб-почта и др</string>
     <string name="CategoryCode_MMED_Description">Обмен видео-, аудио- и фотоматериалами</string>
     <string name="CategoryCode_HOST_Description">Веб-хостинг, ведение блогов и другие инструменты для публикаций</string>
     <string name="CategoryCode_SRCH_Description">Поисковые системы и порталы</string>

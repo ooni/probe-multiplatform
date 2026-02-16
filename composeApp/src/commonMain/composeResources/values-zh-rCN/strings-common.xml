@@ -30,7 +30,6 @@
         <item quantity="other">国家/地区</item>
     </plurals>
     <string name="Dashboard_Stats_Empty">开始运行测试以在此处查看统计数据</string>
-
     <string name="Dashboard_Articles_Title">OONI 新闻</string>
     <string name="Dashboard_Articles_Blog">博文</string>
     <string name="Dashboard_Articles_Finding">研究成果</string>
@@ -333,8 +332,6 @@
     <string name="Onboarding_DefaultSettings_Paragraph">我们尽最大努力不发布您的 IP 地址或任何其他潜在的个人身份信息。通过 [OONI 的数据政策] 了解更多信息(https://ooni.org/about/data-policy/)。</string>
     <string name="Onboarding_DefaultSettings_Button_Go">开始吧</string>
     <string name="Onboarding_DefaultSettings_Button_Change">更改默认值</string>
-
-
     <string name="AddDescriptor_EnterURL">输入 OONI Run 链接 URL</string>
     <string name="AddDescriptor_URLInvalid">此 URL 不是有效的 OONI Run 链接</string>
     <string name="AddDescriptor_Settings">测试代理设置</string>
@@ -390,12 +387,10 @@
     <string name="Desktop_Quit">退出</string>
     <string name="Tray_Notification_Check_Updates">检查更新</string>
     <string name="Tray_Notification_Updates_Available">有更新可用！</string>
-    <string name="Tray_Notification_Checking_Updates">检查更新中...</string>
-
+    <string name="Tray_Notification_Checking_Updates">检查更新中…</string>
     <string name="Modal_Hide">隐藏</string>
     <string name="Modal_Quite_Prompt">退出 OONI 探测？</string>
     <string name="Modal_Quite_Description">如退出，应用将无法在后台运行自动测试。选择“退出”来退出应用或选择“隐藏”保持应用在后台运行。</string>
-
     <string name="OONIRun_Run">运行</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">测试中</string>

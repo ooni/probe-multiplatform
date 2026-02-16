@@ -36,7 +36,6 @@
         <item quantity="other">Pays</item>
     </plurals>
     <string name="Dashboard_Stats_Empty">Commencez à effectuer des tests pour consulter vos statistiques ici.</string>
-
     <string name="Dashboard_Articles_Title">Nouvelles d’OONI</string>
     <string name="Dashboard_Articles_Blog">Article de blogue</string>
     <string name="Dashboard_Articles_Finding">Conclusion</string>
@@ -131,7 +130,7 @@
     </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Téléversement</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Télécharger</string>
-    <string name="TestResults_Summary_Performance_Hero_Video">Sur Tella FOSS, les PDF doivent être exportés pour être ouverts.</string>
+    <string name="TestResults_Summary_Performance_Hero_Video">Vidéo</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Qualité</string>
     <string name="TestResults_Summary_Performance_Hero_Ping">Ping</string>
     <string name="TestResults_Gbps">Gbit/s</string>
@@ -364,8 +363,6 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Nous faisons de notre mieux pour ne publier ni votre adresse IP ni aucun autre renseignement qui pourrait vous identifier.\n\nApprenez-en davantage dans la [Politique sur les données de l’OONI](https://ooni.org/about/data-policy/) (page en anglais).</string>
     <string name="Onboarding_DefaultSettings_Button_Go">Allons-y</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Modifier les paramètres</string>
-
-
     <string name="AddDescriptor_EnterURL">Saisir l’URL d’un lien OONI Run</string>
     <string name="AddDescriptor_URLInvalid">L’URL n’est pas un lien OONI Run valide</string>
     <string name="AddDescriptor_Settings">Tester les paramètres</string>
@@ -426,11 +423,9 @@
     <string name="Tray_Notification_Check_Updates">Chercher des mises à jour</string>
     <string name="Tray_Notification_Updates_Available">Une mise à jour est proposée</string>
     <string name="Tray_Notification_Checking_Updates">Recherche de mises à jour…</string>
-
     <string name="Modal_Hide">Cacher</string>
     <string name="Modal_Quite_Prompt">Fermer OONI Probe \?</string>
     <string name="Modal_Quite_Description">Si vous fermez l’appli, elle ne pourra pas exécuter des tests automatisés en arrière-plan. Choisissez Fermer pour la fermer ou Cacher pour continuer à l’exécuter en arrière-plan.</string>
-
     <string name="OONIRun_Run">Lancer</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Test</string>

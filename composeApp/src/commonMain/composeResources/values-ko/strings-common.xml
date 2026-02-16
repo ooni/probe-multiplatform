@@ -1,11 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">대시보드</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">실행 취소</string>
     <string name="Dashboard_Progress_ReviewLink_Action">리뷰</string>
     <string name="Dashboard_Update_Restart">재시작</string>
-
-
     <string name="Test_Websites_Fullname">웹사이트</string>
     <string name="Test_Performance_Fullname">성능</string>
     <string name="Test_Circumvention_Fullname">우회</string>
@@ -28,8 +26,6 @@
     <string name="Measurements_Failed">실패</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">올리기</string>
-
-
     <string name="Settings_Title">설정</string>
     <string name="Settings_Privacy_Label">개인정보</string>
     <string name="Settings_Proxy">프록시</string>
@@ -50,7 +46,7 @@
     <string name="Settings_Websites_Categories_Selection_All">모두 고르기</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="CategoryCode_SRCH_Name">검색 엔진</string>
-    <string name="Onboarding_ThingsToKnow_Button">이해했습니다.</string>
+    <string name="Onboarding_ThingsToKnow_Button">이해했습니다</string>
     <string name="Onboarding_ThingsToKnow_LearnMore">더 알아보기</string>
     <string name="Onboarding_PopQuiz_True">참된</string>
     <string name="Onboarding_PopQuiz_False">그릇된</string>
@@ -107,6 +103,5 @@
     <string name="Common_Months_October">10월</string>
     <string name="Common_Months_November">11월</string>
     <string name="Common_Months_December">12월</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

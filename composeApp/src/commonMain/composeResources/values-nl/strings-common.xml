@@ -3,7 +3,7 @@
     <string name="Dashboard_Tab_Label">Dashboard</string>
     <string name="Dashboard_Overview_Estimated">Geschat:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Kies websites</string>
-    <string name="Dashboard_Running_Running">Wordt uitgevoerd</string>
+    <string name="Dashboard_Running_Running">Wordt uitgevoerd:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Schatting resterende tijd:</string>
     <string name="Dashboard_Running_Stopping_Title">Stoppen met testen…</string>
     <string name="Dashboard_Running_Stopping_Notice">De momenteel lopende tests worden voltooid, een ogenblik geduld…</string>
