@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Running_EstimatedTimeLeft">Pozostało czasu: </string>
     <string name="Dashboard_Articles_Report">Wysłanie</string>
     <string name="Dashboard_Articles_OpenExternal">Otwórz w przeglądarce</string>
@@ -7,8 +7,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Cofnij</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Przegląd</string>
     <string name="Dashboard_Update_Restart">Restart</string>
-
-
     <string name="Test_Websites_Fullname">Strony</string>
     <string name="Test_Performance_Fullname">Wydajność</string>
     <string name="Test_Circumvention_Fullname">Omijanie blokad</string>
@@ -32,8 +30,6 @@
     <string name="Measurements_Failed">Nieudane</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">Wyślij</string>
-
-
     <string name="Settings_Title">Ustawienia</string>
     <string name="Settings_Privacy_Label">Prywatność</string>
     <string name="Settings_Proxy">Proxy</string>
@@ -77,7 +73,7 @@
     <string name="AddDescriptor_Settings">Testuj ustawienia</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Sprawdź aktualizacje</string>
-    <string name="Modal_UploadFailed_Title">Wysyłanie nieudane.</string>
+    <string name="Modal_UploadFailed_Title">Wysyłanie nieudane</string>
     <string name="Modal_Retry">Ponów</string>
     <string name="Modal_Cancel">Anuluj</string>
     <string name="Modal_OK">OK</string>
@@ -121,6 +117,5 @@
     <string name="Common_Months_October">październik</string>
     <string name="Common_Months_November">listopad</string>
     <string name="Common_Months_December">grudzień</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

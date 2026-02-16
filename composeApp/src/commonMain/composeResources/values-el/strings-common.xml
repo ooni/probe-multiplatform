@@ -172,7 +172,7 @@
     <string name="CategoryCode_IGO_Description">Διακυβερνητικές οργανώσεις, όπως τα Ηνωμένα Έθνη</string>
     <string name="CategoryCode_MISC_Description">Ιστοσελίδες που δεν έχουν κατηγοριοποιηθεί ακόμα</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Συνέχεια</string>
-    <string name="Onboarding_ThingsToKnow_Title">Έχε υπόψιν σου ότι...</string>
+    <string name="Onboarding_ThingsToKnow_Title">Έχε υπόψιν σου ότι!</string>
     <string name="Onboarding_ThingsToKnow_Button">Κατάλαβα</string>
     <string name="Onboarding_ThingsToKnow_LearnMore">Μάθετε περισσότερα</string>
     <string name="Onboarding_PopQuiz_Title">Κουίζ</string>

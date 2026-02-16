@@ -11,7 +11,7 @@
     <string name="Dashboard_LastResults">Letzte Ergebnisse</string>
     <string name="Dashboard_LastResults_SeeResults">Ergebnisse anzeigen</string>
     <string name="Dashboard_AutoRun_Enabled"><![CDATA[Automatischer Start ist <i>aktiviert</i>]]></string>
-    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Automatischer Start  ist <i>deaktiviert</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Automatischer Start ist <i>deaktiviert</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">Tests</string>
     <string name="Dashboard_TestsMoved_Description">Deine Tests wurden in einen neuen Tab verschoben. Du kannst sie über die Navigationsleiste unten aufrufen.</string>
     <string name="Dashboard_TestsMoved_Action">Tests anzeigen</string>
@@ -33,7 +33,6 @@
         <item quantity="other">Länder</item>
     </plurals>
     <string name="Dashboard_Stats_Empty">Starte Tests, um deine Statistiken hier anzuzeigen.</string>
-
     <string name="Dashboard_Articles_Title">OONI Nachrichten</string>
     <string name="Dashboard_Articles_Blog">Blogeintrag</string>
     <string name="Dashboard_Articles_Finding">Gefunden</string>
@@ -349,9 +348,7 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Wir tun unser Bestes, um deine IP-Adresse oder andere potentiell persönlich identifizierbare Informationen nicht zu veröffentlichen.\n\nErfahre mehr über [OONI\'s Daten-Richtlinie](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Go">Los geht\'s</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Defaults ändern</string>
-
-
-    <string name="AddDescriptor_EnterURL">Gib eine OONI Run Link-URL ein.</string>
+    <string name="AddDescriptor_EnterURL">Gib eine OONI Run Link-URL ein</string>
     <string name="AddDescriptor_URLInvalid">Die URL ist kein gültiger OONI Run-Link</string>
     <string name="AddDescriptor_Settings">Einstellungen testen</string>
     <string name="AddDescriptor_Title">Installiere neuen Link</string>
@@ -409,11 +406,9 @@
     <string name="Tray_Notification_Check_Updates">Auf Aktualisierungen prüfen</string>
     <string name="Tray_Notification_Updates_Available">Aktualisierung verfügbar!</string>
     <string name="Tray_Notification_Checking_Updates">Prüfe auf Updates…</string>
-
     <string name="Modal_Hide">Verstecken</string>
     <string name="Modal_Quite_Prompt">OONI Probe beenden\?</string>
     <string name="Modal_Quite_Description">Wenn du die App beendest, kann sie keine automatisierten Tests im Hintergrund ausführen. Wähle „Beenden“, um die App zu schließen, oder „Verstecken“, um sie im Hintergrund weiterlaufen zu lassen.</string>
-
     <string name="OONIRun_Run">Ausführen</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testvorgang</string>
