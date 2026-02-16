@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="Dashboard_Tab_Label">Painel Comando</string>
     <string name="Dashboard_Overview_Estimated">Estimado:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Escolha sites</string>
     <string name="Dashboard_Running_Running">Executando:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Tempo restante estimado:</string>
     <string name="Dashboard_Running_Stopping_Title">Parando o teste…</string>
-    <string name="Dashboard_Running_Stopping_Notice">Concluindo os testes atualmente pendentes, por favor aguarde…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Concluindo os testes atualmente pendentes, por favor aguarde...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy em uso</string>
     <string name="Dashboard_LastResults">Últimos Resultados</string>
     <string name="Dashboard_LastResults_SeeResults">Ver resultados</string>
@@ -36,12 +36,14 @@
         <item quantity="other">Países</item>
     </plurals>
     <string name="Dashboard_Stats_Empty">Comece a executar testes para ver as suas estatísticas aqui.</string>
+
     <string name="Dashboard_Articles_Title">Notícias OONI</string>
     <string name="Dashboard_Articles_Blog">Artigo</string>
     <string name="Dashboard_Articles_Finding">Descoberta</string>
     <string name="Dashboard_Articles_Report">Relatório</string>
     <string name="Dashboard_Articles_ReadMore">Leia Mais</string>
     <string name="Dashboard_Articles_Recent">Recente</string>
+    <string name="Dashboard_Articles_OpenExternal"></string>
     <string name="Dashboard_RunV2_Ooni_Title">Testes OONI</string>
     <string name="Dashboard_RunV2_Title">Links de execução OONI</string>
     <string name="Dashboard_Runv2_Overview_Description">Criado por %1$s em %2$s</string>
@@ -71,6 +73,8 @@
     <string name="Dashboard_ReviewDescriptor_Reject">Rejeitar Atualização</string>
     <string name="Dashboard_Update_Ready">A atualização do aplicativo acabou de ser baixada</string>
     <string name="Dashboard_Update_Restart">Reiniciar</string>
+
+
     <string name="Tests_Title">Testes</string>
     <string name="Tests_Search">Procurar testes</string>
     <string name="Test_Websites_Fullname">Websites</string>
@@ -89,6 +93,8 @@
     <string name="Test_Psiphon_Fullname">Teste do Psiphon</string>
     <string name="Test_Tor_Fullname">Teste do Tor</string>
     <string name="Test_Signal_Fullname">Teste do Signal</string>
+
+
     <string name="TestResults">Resultados</string>
     <string name="TestResults_Overview_Hero_Networks">Redes</string>
     <string name="TestResults_Overview_Hero_DataUsage">Uso de dados</string>
@@ -175,6 +181,8 @@
     <string name="Results_MarkAllAsViewed">Marcar todos como vistos</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Deseja marcar todos os resultados como vistos?</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Deseja marcar todos os resultados como vistos para os filtros atuais?</string>
+
+
     <string name="Measurement_Title">Medição</string>
     <string name="Measurement_LoadingFailed">Falha ao carregar a informação da medição</string>
     <string name="Measurements_Failed">Falhou</string>
@@ -193,6 +201,8 @@
     <string name="Measurement_Raw_NotUploadedReasoning">Esta medição não foi publicada no explorador do OONI. Carregue para visualizar a análise.</string>
     <string name="Measurement_Raw_Share">Compartilhar dados de medição</string>
     <string name="Measurement_Raw_Upload">Carregar</string>
+
+
     <string name="Settings_Title">Configurações</string>
     <string name="Settings_TestOptions_Label">Opções de teste</string>
     <string name="Settings_TestOptions_LongRunningTest">Teste de longa duração</string>
@@ -234,7 +244,7 @@
     <string name="Settings_Results_DeleteOldResultsThreshold">Excluir resultados mais antigos que</string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
         <item quantity="one">%1$d meses</item>
-        <item quantity="many">%1$d de meses</item>
+        <item quantity="many">%1$d meses</item>
         <item quantity="other">%1$d meses</item>
     </plurals>
     <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Digite o número de meses</string>
@@ -253,7 +263,7 @@
     <string name="Settings_Storage_Clear">Limpar</string>
     <string name="Settings_Legacy_Storage">Limpar ficheiros de versão anterior</string>
     <string name="Settings_WarmVPNInUse_Label">Avise quando a VPN estiver em uso</string>
-    <string name="Settings_DisableVpnInstructions">Vá para Configurações &gt; Geral &gt; VPN e desconecte da sua VPN.</string>
+    <string name="Settings_DisableVpnInstructions">Vá para Configurações > Geral > VPN e desconecte da sua VPN.</string>
     <string name="Settings_Logs">Logs</string>
     <string name="Settings_ShareLogs">Compartilhar Logs</string>
     <string name="Settings_ShareLogs_Error">Erro ao compartilhar logs</string>
@@ -270,6 +280,7 @@
         <item quantity="many">Teste %1$d de URLs</item>
         <item quantity="other">Teste %1$d URLs</item>
     </plurals>
+
     <string name="CategoryCode_ALDR_Name">Drogas e Álcool</string>
     <string name="CategoryCode_REL_Name">Religião</string>
     <string name="CategoryCode_PORN_Name">Pornografia</string>
@@ -332,6 +343,7 @@
     <string name="CategoryCode_CTRL_Description">Conteúdo benigno ou inócuo usado para controle</string>
     <string name="CategoryCode_IGO_Description">Organizações intergovernamentais, incluindo as Nações Unidas</string>
     <string name="CategoryCode_MISC_Description">Sites que ainda não foram categorizados</string>
+
     <string name="Onboarding_QuizAnswer_Correct">Resposta correta</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Resposta incorreta</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Entendi</string>
@@ -363,6 +375,8 @@
     <string name="Onboarding_DefaultSettings_Paragraph">Fazemos o possível para não publicar seu endereço IP ou qualquer outra informação que identifique você pessoalmente.\n\nAprenda mais através da [política de dados do OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Go">Vamos lá</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Alterar padrões</string>
+
+
     <string name="AddDescriptor_EnterURL">Inserir o URL de um Link de execução OONI</string>
     <string name="AddDescriptor_URLInvalid">O URL não é de um Link de execução OONI válido</string>
     <string name="AddDescriptor_Settings">Configurações de Testes</string>
@@ -380,6 +394,7 @@
     <string name="DescriptorUpdate_CheckUpdates">Verificar Atualizações</string>
     <string name="AddDescriptor_AutoRunDisabled">Auto-execução desligada. Por favor, habilite-a para executar testes automaticamente.</string>
     <string name="Descriptor_LastTestResult">Último Resultado do Teste</string>
+
     <string name="Snackbar_ResultsNotUploaded_Text">Não carregado</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Alguns items não carregaram</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Carregar Todos</string>
@@ -418,21 +433,25 @@
     <string name="Modal_CustomURL_NotSaved">Suas URLs não serão salvas quando você sair desta tela. Tem certeza de que deseja sair desta tela?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">O aplicativo não pode executar os testes automaticamente sem permissão de segundo plano. Você quer tentar novamente?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">O aplicativo precisa de permissão para executar os testes automaticamente em segundo plano.</string>
+
     <string name="Desktop_OpenApp">Abrir Aplicativo</string>
     <string name="Desktop_Quit">Fechar</string>
     <string name="Tray_Notification_Check_Updates">Verificar Atualizações</string>
     <string name="Tray_Notification_Updates_Available">Atualização Disponível!</string>
     <string name="Tray_Notification_Checking_Updates">Procurando por atualizações…</string>
+
     <string name="Modal_Hide">Esconder</string>
     <string name="Modal_Quite_Prompt">Sair do OONI Probe?</string>
     <string name="Modal_Quite_Description">Se sair do aplicativo não irá poder executar testes automaticamente em segundo plano. Escolha Sair para terminar ou Esconder para continuar a correr em segundo plano.</string>
+
     <string name="OONIRun_Run">Executar</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testando</string>
     <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
     <string name="Notification_UpdateChannelName">Atualizações de Links</string>
     <string name="Notification_StopTest">Parar teste</string>
-    <string name="Common_Back">Voltar</string>
+
+    <string name="Common_Back">Voltar </string>
     <string name="Common_Close">Fechar</string>
     <string name="Common_Refresh">Atualizar</string>
     <string name="Common_Collapse">Colapsar</string>
@@ -487,6 +506,7 @@
     <string name="Common_Months_October">Outubro</string>
     <string name="Common_Months_November">Novembro</string>
     <string name="Common_Months_December">Dezembro</string>
+
     <string name="TaskOrigin_Manual">Execução Manual</string>
     <string name="TaskOrigin_AutoRun">Execução Automática</string>
     <string name="NetworkType_Vpn">VPN</string>
