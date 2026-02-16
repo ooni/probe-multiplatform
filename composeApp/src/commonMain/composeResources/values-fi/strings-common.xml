@@ -8,20 +8,78 @@
     <string name="Dashboard_Running_Stopping_Title">Pysäytetään testiä...</string>
     <string name="Dashboard_Running_Stopping_Notice">Lopetetaan keskeneräisiä testejä, odota...</string>
     <string name="Dashboard_Running_ProxyInUse">Välityspalvelin käytössä</string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Title">Testit</string>
+    <string name="Dashboard_TestsMoved_Description"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
+    <string name="Dashboard_RunTests_Title"></string>
+    <string name="Dashboard_RunTests_Description"></string>
+    <string name="Dashboard_RunTests_SelectAll"></string>
+    <string name="Dashboard_RunTests_SelectNone"></string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Title"></string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty"></string>
+
+    <string name="Dashboard_Articles_Title"></string>
+    <string name="Dashboard_Articles_Blog"></string>
+    <string name="Dashboard_Articles_Finding"></string>
     <string name="Dashboard_Articles_Report">ilmoitus</string>
+    <string name="Dashboard_Articles_ReadMore"></string>
+    <string name="Dashboard_Articles_Recent"></string>
+    <string name="Dashboard_Articles_OpenExternal">Avaa selaimessa</string>
+    <string name="Dashboard_RunV2_Ooni_Title"></string>
+    <string name="Dashboard_RunV2_Title"></string>
     <string name="Dashboard_Runv2_Overview_Description">Käyttäjä: %1$s luotu %2$s</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink"></string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions"></string>
+    <string name="Dashboard_Runv2_Overview_SeeMore"></string>
+    <!-- This only applies when there are more than 10 websites to show. -->
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_RunV2_ExpiredTag"></string>
+    <string name="Dashboard_RunV2_UpdatedTag"></string>
+    <string name="Dashboard_RunV2_UpdateTag"></string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated"></string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate"></string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Kumoa</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates"></string>
+    <string name="Dashboard_Progress_UpdateLink_Label"></string>
+    <string name="Dashboard_Progress_ReviewLink_Label"></string>
     <string name="Dashboard_Progress_ReviewLink_Action">Tarkista</string>
+    <string name="Dashboard_ReviewDescriptor_Label"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default"></string>
+    <!-- Button to reject a link update during review -->
+    <string name="Dashboard_ReviewDescriptor_Reject"></string>
+    <string name="Dashboard_Update_Ready"></string>
     <string name="Dashboard_Update_Restart">Käynnistä uudelleen</string>
 
 
     <string name="Tests_Title">Testit</string>
+    <string name="Tests_Search"></string>
     <string name="Test_Websites_Fullname">Verkkosivustot</string>
     <string name="Test_InstantMessaging_Fullname">Pikaviestintä</string>
     <string name="Test_Performance_Fullname">Suorituskyky</string>
     <string name="Test_Circumvention_Fullname">Kiertäminen</string>
     <string name="Test_Experimental_Fullname">Kokeellinen</string>
+    <string name="Test_HTTPInvalidRequestLine_Fullname"></string>
+    <string name="Test_HTTPHeaderFieldManipulation_Fullname"></string>
     <string name="Test_WebConnectivity_Fullname">Verkkoyhteystesti</string>
     <string name="Test_NDT_Fullname">NDT-nopeustesti</string>
     <string name="Test_Dash_Fullname">DASH-striimaustesti</string>
@@ -33,8 +91,17 @@
     <string name="Test_Signal_Fullname">Signal-testi</string>
 
 
+    <string name="TestResults"></string>
     <string name="TestResults_Overview_Hero_Networks">Verkot</string>
     <string name="TestResults_Overview_Hero_DataUsage">Datankäyttö</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Ei vielä suoritettuja testejä. Kokeile suorittamista!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Päivä ja aika</string>
     <string name="TestResults_Summary_Hero_Network">Verkko</string>
@@ -43,7 +110,21 @@
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobiilidata</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet"></string>
+    <string name="TestResults_Summary_Hero_Usb"></string>
     <string name="TestResults_Summary_Hero_NoInternet">Ei internetiä</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Kopioi palvelimelle</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Lataa</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
@@ -55,53 +136,135 @@
     <string name="TestResults_ms">ms</string>
     <string name="TestResults_UnknownASN">Tuntematon</string>
     <string name="TestResults_NotAvailable">N/A</string>
+    <string name="TestResults_Filters_Title"></string>
+    <string name="TestResults_Filters_Short"></string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Testit</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Networks">Verkot</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Source">Lähde</string>
     <string name="TestResults_Filter_Date">Päivämäärä</string>
+    <string name="TestResults_Filter_Date_Any"></string>
+    <string name="TestResults_Filter_Date_Today"></string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo"></string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo"></string>
     <string name="TestResults_Filter_Date_Custom">Mukautettu</string>
+    <string name="TestResults_Filter_Date_Custom_Filled"></string>
+    <string name="TestResults_Filter_Date_Picker"></string>
+    <string name="TestResults_Filter_NoTestsFound"></string>
+    <string name="TestResults_Filter_DeleteConfirmation"></string>
+    <string name="Results_LimitedNotice"></string>
+    <string name="Results_UploadingMissing"></string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
+    <string name="Results_MarkAllAsViewed"></string>
+    <string name="Results_MarkAllAsViewed_Confirmation"></string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation"></string>
+
+
+    <string name="Measurement_Title"></string>
+    <string name="Measurement_LoadingFailed"></string>
     <string name="Measurements_Failed">Epäonnistunut</string>
     <string name="Measurements_Ok">Valmis</string>
+    <string name="Measurements_Anomaly"></string>
+    <plurals name="Measurements_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning"></string>
+    <string name="Measurement_Raw_Share"></string>
     <string name="Measurement_Raw_Upload">Kopioi palvelimelle</string>
 
 
     <string name="Settings_Title">Asetukset</string>
     <string name="Settings_TestOptions_Label">Testausvalinnat</string>
+    <string name="Settings_TestOptions_LongRunningTest"></string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Suorita testit automaattisesti</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Vain WiFi:ssä</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Vain latauksessa</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description"></string>
     <string name="Settings_Sharing_UploadResults">Julkaise tulokset automaattisesti</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeEnabled"></string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description"></string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeDuration"></string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit"></string>
     <string name="Settings_Websites_Categories_Label">Testattavat verkkosivujen kategoriat</string>
     <string name="Settings_Websites_Categories_Description">%1$s kategoriaa valittu</string>
     <string name="Settings_Privacy_Label">Yksityisyys</string>
     <string name="Settings_Privacy_SendCrashReports">Lähetä kaatumisraportit</string>
+    <string name="Settings_Proxy_Label"></string>
     <string name="Settings_Proxy">Välityspalvelin</string>
     <string name="Settings_Proxy_None">Ei mitään</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Add"></string>
     <string name="Settings_Proxy_Custom_Protocol">Yhteyskäytäntö</string>
     <string name="Settings_Proxy_Custom_Hostname">Tietokoneen nimi</string>
     <string name="Settings_Proxy_Custom_Port">Portti</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid"></string>
+    <string name="Settings_Proxy_Custom_PortInvalid"></string>
     <string name="Settings_Proxy_Custom_Testing">Testataan</string>
     <string name="Settings_Proxy_Custom_Available">Tavoitettavissa</string>
     <string name="Settings_Proxy_Custom_Unavailable">Ei ole tavoitettavissa</string>
+    <string name="Settings_Proxy_Delete_Confirmation"></string>
     <string name="Settings_Language_Label">Kieli</string>
     <string name="Settings_Advanced_Label">Lisätiedot</string>
     <string name="Settings_Advanced_DebugLogs">Vianjäljityslokit</string>
+    <string name="Settings_Advanced_RecentLogs"></string>
+    <string name="Settings_Results_DeleteOldResults"></string>
+    <string name="Settings_Results_DeleteOldResultsThreshold"></string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit"></string>
     <string name="Settings_Support_Label">Tuki</string>
     <string name="Settings_Support_SendEmail">Lähetä sähköposti tukeen</string>
     <string name="Settings_Support_Message">Kuvaile kohtaamaasi ongelmaa:</string>
+    <string name="Settings_Support_Message_Hint"></string>
+    <string name="Settings_Support_IncludeLogs"></string>
     <string name="Settings_Support_Action">Lähetä sähköposti</string>
     <string name="Settings_ShareApp">Jaa sovellus</string>
+    <string name="Settings_ShareApp_Description"></string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
+    <string name="Settings_ShareApp_ShareMessage"></string>
     <string name="Settings_Storage_Label">Tallennustilan käyttö</string>
     <string name="Settings_Storage_Delete">Poista</string>
     <string name="Settings_Storage_Clear">Nollaa</string>
+    <string name="Settings_Legacy_Storage"></string>
+    <string name="Settings_WarmVPNInUse_Label"></string>
+    <string name="Settings_DisableVpnInstructions"></string>
     <string name="Settings_Logs">Logit</string>
+    <string name="Settings_ShareLogs"></string>
+    <string name="Settings_ShareLogs_Error"></string>
+    <string name="Settings_FilterLogs"></string>
+    <string name="Settings_Sharing_UploadResults_Description"></string>
     <string name="Settings_Websites_Categories_Selection_None">Poista valinta kaikista</string>
     <string name="Settings_Websites_Categories_Selection_All">Valitse kaikki</string>
     <string name="Settings_Websites_CustomURL_Title">Valitse testattava verkkosivu</string>
     <string name="Settings_Websites_CustomURL_URL">Verkko-osoite</string>
     <string name="Settings_Websites_CustomURL_Run">Suorita</string>
     <string name="Settings_Websites_CustomURL_Add">Lisää verkkosivu</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+
     <string name="CategoryCode_ALDR_Name">Huumeet ja alkoholi</string>
     <string name="CategoryCode_REL_Name">Uskonto</string>
     <string name="CategoryCode_PORN_Name">Pornografia</string>
@@ -115,29 +278,63 @@
     <string name="CategoryCode_XED_Name">Seksuaalikasvatus</string>
     <string name="CategoryCode_PUBH_Name">Kansanterveys</string>
     <string name="CategoryCode_GMB_Name">Uhkapelaaminen</string>
+    <string name="CategoryCode_ANON_Name"></string>
     <string name="CategoryCode_DATE_Name">Verkkodeittailu</string>
     <string name="CategoryCode_GRP_Name">Sosiaalinen verkostoituminen</string>
     <string name="CategoryCode_LGBT_Name">LGBTQ+</string>
     <string name="CategoryCode_FILE_Name">Tiedostojen jakaminen</string>
     <string name="CategoryCode_HACK_Name">Hakkerointityökalut</string>
     <string name="CategoryCode_COMT_Name">Kommunikaatiotyökalut</string>
+    <string name="CategoryCode_MMED_Name"></string>
+    <string name="CategoryCode_HOST_Name"></string>
     <string name="CategoryCode_SRCH_Name">Hakukoneet</string>
     <string name="CategoryCode_GAME_Name">Pelaaminen</string>
     <string name="CategoryCode_CULTR_Name">Kulttuuri</string>
     <string name="CategoryCode_ECON_Name">Talous</string>
     <string name="CategoryCode_GOVT_Name">Hallinto</string>
     <string name="CategoryCode_COMM_Name">Verkko-ostokset</string>
+    <string name="CategoryCode_CTRL_Name"></string>
+    <string name="CategoryCode_IGO_Name"></string>
+    <string name="CategoryCode_MISC_Name"></string>
     <string name="CategoryCode_ALDR_Description">Huumeiden ja alkoholin käyttö ja myynti</string>
     <string name="CategoryCode_REL_Description">Uskonnolliset kysymykset, sekä tukevat että kriittiset</string>
+    <string name="CategoryCode_PORN_Description"></string>
     <string name="CategoryCode_PROV_Description">Provokatiivinen vaatetus ja vähäpukeisten naisten esittäminen</string>
     <string name="CategoryCode_POLR_Description">Kriittiset poliittiset näkökulmat</string>
     <string name="CategoryCode_HUMR_Description">Ihmisoikeuskysymykset</string>
     <string name="CategoryCode_ENV_Description">Keskustelut ympäristökysymyksistä</string>
     <string name="CategoryCode_MILX_Description">Terrorismi, väkivaltainen militantti tai separatistinen liikehdintä</string>
     <string name="CategoryCode_HATE_Description">Tiettyjen ryhmien halveksunta rodun, sukupuolen, seksuaalisuuden suuntautuneisuuden tai muun ominaisuuden perusteella</string>
+    <string name="CategoryCode_NEWS_Description"></string>
+    <string name="CategoryCode_XED_Description"></string>
+    <string name="CategoryCode_PUBH_Description"></string>
+    <string name="CategoryCode_GMB_Description"></string>
+    <string name="CategoryCode_ANON_Description"></string>
+    <string name="CategoryCode_DATE_Description"></string>
+    <string name="CategoryCode_GRP_Description"></string>
+    <string name="CategoryCode_LGBT_Description"></string>
+    <string name="CategoryCode_FILE_Description"></string>
+    <string name="CategoryCode_HACK_Description"></string>
+    <string name="CategoryCode_COMT_Description"></string>
+    <string name="CategoryCode_MMED_Description"></string>
+    <string name="CategoryCode_HOST_Description"></string>
+    <string name="CategoryCode_SRCH_Description"></string>
+    <string name="CategoryCode_GAME_Description"></string>
+    <string name="CategoryCode_CULTR_Description"></string>
+    <string name="CategoryCode_ECON_Description"></string>
+    <string name="CategoryCode_GOVT_Description"></string>
+    <string name="CategoryCode_COMM_Description"></string>
+    <string name="CategoryCode_CTRL_Description"></string>
+    <string name="CategoryCode_IGO_Description"></string>
+    <string name="CategoryCode_MISC_Description"></string>
+
+    <string name="Onboarding_QuizAnswer_Correct"></string>
+    <string name="Onboarding_QuizAnswer_Incorrect"></string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Selvä</string>
+    <string name="Onboarding_ThingsToKnow_Title"></string>
     <string name="Onboarding_ThingsToKnow_Button">Ymmärrän</string>
     <string name="Onboarding_ThingsToKnow_LearnMore">Lue lisää</string>
+    <string name="Onboarding_PopQuiz_Title"></string>
     <string name="Onboarding_PopQuiz_True">Tosi</string>
     <string name="Onboarding_PopQuiz_False">Epätosi</string>
     <string name="Onboarding_PopQuiz_Wrong_Button_Back">Mene takaisin</string>
@@ -150,6 +347,8 @@
     <string name="Onboarding_Crash_Title">Kaatumisilmoitukset</string>
     <string name="Onboarding_Crash_Button_Yes">Kyllä</string>
     <string name="Onboarding_Crash_Button_No">Ei</string>
+    <string name="Onboarding_Notifications_Title"></string>
+    <string name="Onboarding_Notifications_Paragraph"></string>
     <string name="Onboarding_Notifications_Ok">Valmis</string>
     <string name="Onboarding_Notifications_Skip">Ohita</string>
     <string name="Onboarding_DefaultSettings_Title">Oletusasetukset</string>
@@ -157,14 +356,33 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">Maatunnus (esim. IT tarkoittaa Italiaa)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">Verkkotiedot (mukaan lukien autonomisen järjestelmän numerotunnus)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Testaamisen aika ja päivämäärä</string>
+    <string name="Onboarding_DefaultSettings_Paragraph"></string>
+    <string name="Onboarding_DefaultSettings_Button_Go"></string>
     <string name="Onboarding_DefaultSettings_Button_Change">Muuta oletuksia</string>
 
 
+    <string name="AddDescriptor_EnterURL"></string>
+    <string name="AddDescriptor_URLInvalid"></string>
     <string name="AddDescriptor_Settings">Testausasetukset</string>
+    <string name="AddDescriptor_Title"></string>
+    <string name="AddDescriptor_AutoUpdate"></string>
     <string name="AddDescriptor_AutoRun">Suorita testit automaattisesti</string>
+    <string name="AddDescriptor_Toasts_Installed"></string>
+    <string name="AddDescriptor_InstallForLater"></string>
+    <string name="AddDescriptor_InstallAndRun"></string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url"></string>
+    <string name="LoadingScreen_Runv2_Message"></string>
+    <string name="LoadingScreen_Runv2_Failure"></string>
+    <string name="DescriptorUpdate_Updates"></string>
+    <!-- Only used for the desktop version of the app for now -->
+    <string name="DescriptorUpdate_CheckUpdates"></string>
+    <string name="AddDescriptor_AutoRunDisabled"></string>
+    <string name="Descriptor_LastTestResult"></string>
+
     <string name="Snackbar_ResultsNotUploaded_Text">Ei lähetetty</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Joitakin ei lähetetty</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Lähetä kaikki</string>
+    <string name="Modal_ResultsNotUploaded_Uploading"></string>
     <string name="Toast_ResultsUploaded">Lähetys onnistui</string>
     <string name="Modal_UploadFailed_Title">Lähetys epäonnistui</string>
     <string name="Modal_UploadFailed_Paragraph">Epäonnistuimme %1$s/%2$s mittauksen lähetyksessä. Vikaantumisloki on jaettu OONI-kehittäjien kanssa.</string>
@@ -172,20 +390,47 @@
     <string name="Modal_Cancel">&amp;Peruuta</string>
     <string name="Modal_OK">Valmis</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Haluatko poistaa kaikki testitulokset?</string>
+    <string name="Modal_Clear_Legacy_Directories"></string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Modal_Delete">Poista</string>
     <string name="Modal_ReRun_Title">Suorita testi uudelleen</string>
     <string name="Modal_ReRun_Websites_Title">Olet aikeissa testata %1$s verkkosivua uudelleen.</string>
     <string name="Modal_ReRun_Websites_Run">Suorita</string>
     <string name="Modal_DisableVPN_Title">Kytke VPN pois päältä.</string>
     <string name="Modal_DisableVPN_Message">Jos suoritat OONI Probea VPN päällä, testitulokset saattavat näyttää tulevan väärästä maasta. Laita VPN pois päältä.</string>
+    <string name="Modal_DisableVPN"></string>
+    <string name="Modal_RunAnyway"></string>
+    <string name="Modal_AlwaysRun"></string>
     <string name="Modal_Error_CantDownloadURLs">URL-listaa ei voitu ladata. Yritä uudelleen.</string>
+    <string name="Modal_Error_NoInternet"></string>
+    <string name="Modal_Error_ProxyUnavailable"></string>
     <string name="Modal_CustomURL_Title_NotSaved">Oletko varma?</string>
     <string name="Modal_CustomURL_NotSaved">URL-osoitteesi eivät tallennu, kun suljet tämän näkymän. Oletko varma, että haluat sulkea tämän näkymän?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding"></string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder"></string>
+
+    <string name="Desktop_OpenApp"></string>
     <string name="Desktop_Quit">Poistu</string>
+    <string name="Tray_Notification_Check_Updates"></string>
+    <string name="Tray_Notification_Updates_Available"></string>
+    <string name="Tray_Notification_Checking_Updates"></string>
+
     <string name="Modal_Hide">Piilota</string>
+    <string name="Modal_Quite_Prompt"></string>
+    <string name="Modal_Quite_Description"></string>
+
     <string name="OONIRun_Run">Suorita</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testataan</string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
+    <string name="Notification_UpdateChannelName"></string>
     <string name="Notification_StopTest">Pysäytä testi</string>
 
     <string name="Common_Back">Takaisin</string>
@@ -202,8 +447,31 @@
     <string name="Common_Share">Jaa</string>
     <string name="Common_Dismiss">Hylkää</string>
     <string name="Common_Search">Etsi</string>
+    <string name="Common_Today"></string>
+    <string name="Common_Yesterday"></string>
+    <string name="Common_Week"></string>
+    <string name="Common_Month"></string>
     <string name="Common_Total">Yhteensä</string>
     <string name="Common_Ago">%1$s sitten</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Common_Hours_Abbreviated"></string>
+    <string name="Common_Minutes_Abbreviated"></string>
+    <string name="Common_Seconds_Abbreviated"></string>
     <string name="Common_Months_January">Tammikuu</string>
     <string name="Common_Months_February">Helmikuu</string>
     <string name="Common_Months_March">Maaliskuu</string>
@@ -217,5 +485,7 @@
     <string name="Common_Months_November">Marraskuu</string>
     <string name="Common_Months_December">Joulukuu</string>
 
+    <string name="TaskOrigin_Manual"></string>
+    <string name="TaskOrigin_AutoRun"></string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
