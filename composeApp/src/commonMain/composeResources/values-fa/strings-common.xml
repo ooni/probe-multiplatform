@@ -8,17 +8,71 @@
     <string name="Dashboard_Running_Stopping_Title">در حال توقف تست...</string>
     <string name="Dashboard_Running_Stopping_Notice">در حال اتمام تست‌های در حال انتظار. لطفا صبر کنید...</string>
     <string name="Dashboard_Running_ProxyInUse">پروکسی در حال استفاده</string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Title">تست‌‌ها</string>
+    <string name="Dashboard_TestsMoved_Description"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
+    <string name="Dashboard_RunTests_Title"></string>
+    <string name="Dashboard_RunTests_Description"></string>
+    <string name="Dashboard_RunTests_SelectAll"></string>
+    <string name="Dashboard_RunTests_SelectNone"></string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Title"></string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty"></string>
+
+    <string name="Dashboard_Articles_Title"></string>
+    <string name="Dashboard_Articles_Blog"></string>
+    <string name="Dashboard_Articles_Finding"></string>
     <string name="Dashboard_Articles_Report">گزارش</string>
+    <string name="Dashboard_Articles_ReadMore"></string>
     <string name="Dashboard_Articles_Recent">موارد اخیر</string>
+    <string name="Dashboard_Articles_OpenExternal"></string>
+    <string name="Dashboard_RunV2_Ooni_Title"></string>
+    <string name="Dashboard_RunV2_Title"></string>
+    <string name="Dashboard_Runv2_Overview_Description"></string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink"></string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">بازنگری‌های قبلی</string>
+    <string name="Dashboard_Runv2_Overview_SeeMore"></string>
+    <!-- This only applies when there are more than 10 websites to show. -->
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">منقضی شد</string>
+    <string name="Dashboard_RunV2_UpdatedTag"></string>
+    <string name="Dashboard_RunV2_UpdateTag"></string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated"></string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate"></string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">واگرد</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates"></string>
+    <string name="Dashboard_Progress_UpdateLink_Label"></string>
+    <string name="Dashboard_Progress_ReviewLink_Label"></string>
     <string name="Dashboard_Progress_ReviewLink_Action">مرور کنید.</string>
+    <string name="Dashboard_ReviewDescriptor_Label"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default"></string>
+    <!-- Button to reject a link update during review -->
+    <string name="Dashboard_ReviewDescriptor_Reject"></string>
+    <string name="Dashboard_Update_Ready"></string>
     <string name="Dashboard_Update_Restart">شروع دوباره</string>
 
 
     <string name="Tests_Title">تست‌‌ها</string>
+    <string name="Tests_Search"></string>
     <string name="Test_Websites_Fullname">وب‌سایت</string>
     <string name="Test_InstantMessaging_Fullname">پیام‌رسان</string>
     <string name="Test_Performance_Fullname">کارایی</string>
@@ -40,6 +94,14 @@
     <string name="TestResults">نتایج</string>
     <string name="TestResults_Overview_Hero_Networks">شبکه ها</string>
     <string name="TestResults_Overview_Hero_DataUsage">مصرف داده</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">تستی هنوز اجرا نشده. یکی را امتحان کنید!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">تاریخ و زمان</string>
     <string name="TestResults_Summary_Hero_Network">شبکه</string>
@@ -48,7 +110,21 @@
     <string name="TestResults_Summary_Hero_WiFi">وای فای</string>
     <string name="TestResults_Summary_Hero_Mobile">داده موبایل</string>
     <string name="TestResults_Summary_Hero_Bluetooth">بلوتوث</string>
+    <string name="TestResults_Summary_Hero_Ethernet"></string>
+    <string name="TestResults_Summary_Hero_Usb"></string>
     <string name="TestResults_Summary_Hero_NoInternet">بدون اینترنت</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">آپلود</string>
     <string name="TestResults_Summary_Performance_Hero_Download">دانلود</string>
     <string name="TestResults_Summary_Performance_Hero_Video">ویدیو</string>
@@ -60,15 +136,56 @@
     <string name="TestResults_ms">ms</string>
     <string name="TestResults_UnknownASN">نمی‌دانم</string>
     <string name="TestResults_NotAvailable">N/A</string>
+    <string name="TestResults_Filters_Title"></string>
+    <string name="TestResults_Filters_Short"></string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Tests">تست‌‌ها</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Networks">شبکه ها</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Source">منبع</string>
     <string name="TestResults_Filter_Date">تاریخ</string>
+    <string name="TestResults_Filter_Date_Any"></string>
     <string name="TestResults_Filter_Date_Today">امروز</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo"></string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo"></string>
     <string name="TestResults_Filter_Date_Custom">تنظیم خاص</string>
+    <string name="TestResults_Filter_Date_Custom_Filled"></string>
+    <string name="TestResults_Filter_Date_Picker"></string>
+    <string name="TestResults_Filter_NoTestsFound"></string>
+    <string name="TestResults_Filter_DeleteConfirmation"></string>
+    <string name="Results_LimitedNotice"></string>
+    <string name="Results_UploadingMissing"></string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
+    <string name="Results_MarkAllAsViewed"></string>
+    <string name="Results_MarkAllAsViewed_Confirmation"></string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation"></string>
+
+
+    <string name="Measurement_Title"></string>
+    <string name="Measurement_LoadingFailed"></string>
     <string name="Measurements_Failed">ناموفق بود</string>
     <string name="Measurements_Ok">قابل قبول</string>
     <string name="Measurements_Anomaly">ناهنجاری</string>
+    <plurals name="Measurements_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning"></string>
+    <string name="Measurement_Raw_Share"></string>
     <string name="Measurement_Raw_Upload">آپلود</string>
 
 
@@ -79,7 +196,14 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">تنها از طریق WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">تنها در هنگام شارژ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">با فعالسازی تست خودکار، تست‌های OONI Probe به طور خودکار چند بار در روز اجرا خواهند شد. نتایج تست شما به صورت خودکار در OONI Explorer منتشر خواهند شد: https://explorer.ooni.org/\n\nمهم: اگر VPN شما متصل باشد، OONI Probe تست‌ها را به صورت خودکار اجرا نخواهد کرد. لطفا برای اجرای تست‌های خودکار OONI Probe، اتصال VPN خود را خاموش کنید. اطلاعات بیشتر: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description"></string>
     <string name="Settings_Sharing_UploadResults">انتشار خودکار نتایج</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeEnabled"></string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description"></string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeDuration"></string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit"></string>
     <string name="Settings_Websites_Categories_Label">دسته‌بندی‌های وبسایت برای تست</string>
     <string name="Settings_Websites_Categories_Description">%1$s دسته بندی فعال است</string>
     <string name="Settings_Privacy_Label">حریم خصوصی</string>
@@ -88,36 +212,59 @@
     <string name="Settings_Proxy">پروکسی</string>
     <string name="Settings_Proxy_None">هیچ</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Add"></string>
     <string name="Settings_Proxy_Custom_Protocol">پروتکل</string>
     <string name="Settings_Proxy_Custom_Hostname">نام سرور</string>
     <string name="Settings_Proxy_Custom_Port">پورت</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid"></string>
+    <string name="Settings_Proxy_Custom_PortInvalid"></string>
     <string name="Settings_Proxy_Custom_Testing">در حال تست</string>
     <string name="Settings_Proxy_Custom_Available">در دسترس</string>
     <string name="Settings_Proxy_Custom_Unavailable">در دسترس نیست</string>
+    <string name="Settings_Proxy_Delete_Confirmation"></string>
     <string name="Settings_Language_Label">زبان</string>
     <string name="Settings_Advanced_Label">پیشرفته </string>
     <string name="Settings_Advanced_DebugLogs">ثبت اشکال زدایی‌ها</string>
     <string name="Settings_Advanced_RecentLogs">مشاهده گزارش‌های اخیر</string>
+    <string name="Settings_Results_DeleteOldResults"></string>
+    <string name="Settings_Results_DeleteOldResultsThreshold"></string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
         <item quantity="one">%1$d ماه</item>
         <item quantity="other">%1$d ماه</item>
     </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit"></string>
     <string name="Settings_Support_Label">پشتیبانی</string>
     <string name="Settings_Support_SendEmail">ارسال ایمیل به پشتیبانی</string>
     <string name="Settings_Support_Message">لطفا مشکل خود را توضیح دهید:</string>
+    <string name="Settings_Support_Message_Hint"></string>
+    <string name="Settings_Support_IncludeLogs"></string>
     <string name="Settings_Support_Action">ارسال ایمیل</string>
     <string name="Settings_ShareApp">هم‌رسانی اپلیکیشن</string>
+    <string name="Settings_ShareApp_Description"></string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
+    <string name="Settings_ShareApp_ShareMessage"></string>
     <string name="Settings_Storage_Label">استفاده از حافظه</string>
     <string name="Settings_Storage_Delete">حذف کنید</string>
     <string name="Settings_Storage_Clear">پاک</string>
+    <string name="Settings_Legacy_Storage"></string>
     <string name="Settings_WarmVPNInUse_Label">هشدار هنگام استفاده از VPN</string>
+    <string name="Settings_DisableVpnInstructions"></string>
     <string name="Settings_Logs">گزارش‌ها</string>
+    <string name="Settings_ShareLogs"></string>
+    <string name="Settings_ShareLogs_Error"></string>
+    <string name="Settings_FilterLogs"></string>
+    <string name="Settings_Sharing_UploadResults_Description"></string>
     <string name="Settings_Websites_Categories_Selection_None">لغو انتخاب همه</string>
     <string name="Settings_Websites_Categories_Selection_All">انتخاب همه</string>
     <string name="Settings_Websites_CustomURL_Title">انتخاب وبسایت‌ها برای تست</string>
     <string name="Settings_Websites_CustomURL_URL">آدرس اینترنتی</string>
     <string name="Settings_Websites_CustomURL_Run">اجرا</string>
     <string name="Settings_Websites_CustomURL_Add">افزودن وبسایت</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+
     <string name="CategoryCode_ALDR_Name">الکل و مواد مخدر</string>
     <string name="CategoryCode_REL_Name">دین</string>
     <string name="CategoryCode_PORN_Name">پورنوگرافی</string>
@@ -181,6 +328,8 @@
     <string name="CategoryCode_IGO_Description">سازمان‌های بین دولتی شامل سازمان ملل</string>
     <string name="CategoryCode_MISC_Description">سایت‌‌هایی که هنوز دسته بندی نشده‌اند</string>
 
+    <string name="Onboarding_QuizAnswer_Correct"></string>
+    <string name="Onboarding_QuizAnswer_Incorrect"></string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">متوجه شدم</string>
     <string name="Onboarding_ThingsToKnow_Title">توجه توجه!</string>
     <string name="Onboarding_ThingsToKnow_Button">می‌فهمم</string>
@@ -198,6 +347,8 @@
     <string name="Onboarding_Crash_Title">گزارش خرابی</string>
     <string name="Onboarding_Crash_Button_Yes">بله</string>
     <string name="Onboarding_Crash_Button_No">خیر</string>
+    <string name="Onboarding_Notifications_Title"></string>
+    <string name="Onboarding_Notifications_Paragraph"></string>
     <string name="Onboarding_Notifications_Ok">قابل قبول</string>
     <string name="Onboarding_Notifications_Skip">از قلم بینداز</string>
     <string name="Onboarding_DefaultSettings_Title">تنظیمات پیش فرض</string>
@@ -206,16 +357,32 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">اطلاعات شبکه (شامل شماره سیستم مستقل ASN)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">زمان و تاریخ تست</string>
     <string name="Onboarding_DefaultSettings_Paragraph">ما همه‌ی تلاش خود را می‌‌کنیم تا آدرس IP ی شما یا هر اطلاعات قابل شناسایی شخصی بالقوه‌ی دیگر را منتشر نکنیم.\n\nدر [سیاست‌ داده‌ی OONI](https://ooni.org/about/data-policy/) بیشتر بخوانید.</string>
+    <string name="Onboarding_DefaultSettings_Button_Go"></string>
     <string name="Onboarding_DefaultSettings_Button_Change">تغییر پیشفرض‌ها</string>
 
 
+    <string name="AddDescriptor_EnterURL"></string>
+    <string name="AddDescriptor_URLInvalid"></string>
     <string name="AddDescriptor_Settings">تنظیمات آزمودن  </string>
+    <string name="AddDescriptor_Title"></string>
+    <string name="AddDescriptor_AutoUpdate"></string>
     <string name="AddDescriptor_AutoRun">اجرای خودکار آزمایش‌ها</string>
+    <string name="AddDescriptor_Toasts_Installed"></string>
+    <string name="AddDescriptor_InstallForLater"></string>
+    <string name="AddDescriptor_InstallAndRun"></string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url"></string>
+    <string name="LoadingScreen_Runv2_Message"></string>
+    <string name="LoadingScreen_Runv2_Failure"></string>
+    <string name="DescriptorUpdate_Updates"></string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">به‌روز رسانی‌ها را بررسی کنید</string>
+    <string name="AddDescriptor_AutoRunDisabled"></string>
+    <string name="Descriptor_LastTestResult"></string>
+
     <string name="Snackbar_ResultsNotUploaded_Text">بارگذاری نشدند</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">برخی بارگذاری نشدند</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">بارگذاری همه</string>
+    <string name="Modal_ResultsNotUploaded_Uploading"></string>
     <string name="Toast_ResultsUploaded">بارگذاری با موفقیت انجام شد.</string>
     <string name="Modal_UploadFailed_Title">آپلود ناموفق بود</string>
     <string name="Modal_UploadFailed_Paragraph">ما در بارگذاری %1$s/%2$s اندازه‌گیری ناکام بودیم. گزارش این ناکامی با توسعه دهندگان OONI به اشتراک گذاشته شد.</string>
@@ -223,6 +390,15 @@
     <string name="Modal_Cancel">لغو کنید</string>
     <string name="Modal_OK">قابل قبول</string>
     <string name="Modal_DoYouWantToDeleteAllTests">آیا مایلید که تمام آزمایش‌های قبلی را پاک کنید؟</string>
+    <string name="Modal_Clear_Legacy_Directories"></string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Modal_Delete">حذف کنید</string>
     <string name="Modal_ReRun_Title">اجرای دوباره تست</string>
     <string name="Modal_ReRun_Websites_Title">شما در آستانه‌ی آزمایش دوباره‌ی %1$s وبسایت هستید.</string>
@@ -234,14 +410,27 @@
     <string name="Modal_AlwaysRun">همیشه اجرا کن</string>
     <string name="Modal_Error_CantDownloadURLs">بارگیری لیست آدرس اینترنتی امکان‌پذیر نبود. لطفا  دوباره تلاش کنید.</string>
     <string name="Modal_Error_NoInternet">ارتباط با اینترنت برقرار نیست</string>
+    <string name="Modal_Error_ProxyUnavailable"></string>
     <string name="Modal_CustomURL_Title_NotSaved">آیا مطمئن هستید؟</string>
     <string name="Modal_CustomURL_NotSaved">آدرس‌های شما با ترک این صفحه، ذخیره نخواهند شد. آیا مطمئنید که می‌خواهید این صفحه را ترک کنید؟</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding"></string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder"></string>
+
+    <string name="Desktop_OpenApp"></string>
     <string name="Desktop_Quit">خروج</string>
     <string name="Tray_Notification_Check_Updates">به‌روز رسانی‌ها را بررسی کنید</string>
+    <string name="Tray_Notification_Updates_Available"></string>
+    <string name="Tray_Notification_Checking_Updates"></string>
+
     <string name="Modal_Hide">پنهان کردن</string>
+    <string name="Modal_Quite_Prompt"></string>
+    <string name="Modal_Quite_Description"></string>
+
     <string name="OONIRun_Run">اجرا</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">در حال تست</string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
+    <string name="Notification_UpdateChannelName"></string>
     <string name="Notification_StopTest">توفق آزمون</string>
 
     <string name="Common_Back">برگشت</string>
@@ -260,13 +449,29 @@
     <string name="Common_Search">جستجو</string>
     <string name="Common_Today">امروز</string>
     <string name="Common_Yesterday">دیروز</string>
+    <string name="Common_Week"></string>
     <string name="Common_Month">ماه</string>
     <string name="Common_Total">مجموع</string>
     <string name="Common_Ago">%1$s پیش</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <plurals name="Common_Days">
         <item quantity="one">%1$d روز</item>
         <item quantity="other">%1$d روز</item>
     </plurals>
+    <string name="Common_Hours_Abbreviated"></string>
+    <string name="Common_Minutes_Abbreviated"></string>
+    <string name="Common_Seconds_Abbreviated"></string>
     <string name="Common_Months_January">ژانویه</string>
     <string name="Common_Months_February">فوریه</string>
     <string name="Common_Months_March">مارچ</string>
@@ -280,5 +485,7 @@
     <string name="Common_Months_November">نوامبر</string>
     <string name="Common_Months_December">دسامبر</string>
 
+    <string name="TaskOrigin_Manual"></string>
+    <string name="TaskOrigin_AutoRun"></string>
     <string name="NetworkType_Vpn">وی‌پی‌ان</string>
 </resources>
