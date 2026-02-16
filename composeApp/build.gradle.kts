@@ -112,6 +112,8 @@ kotlin {
                 javaFxParts.forEach {
                     implementation("org.openjfx:javafx-$it:$javaFxVersion:$fxSuffix")
                 }
+
+                implementation("org.ooni:oonimkall:c52ce3b5-${oonimkallVersionSuffix()}")
             }
         }
         // Testing
