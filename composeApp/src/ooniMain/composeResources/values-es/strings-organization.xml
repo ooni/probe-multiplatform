@@ -10,13 +10,16 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe no es una herramienta de privacidad. Cualquiera monitoreando tu actividad de Internet verá qué software estás ejecutando.</string>
     <string name="Onboarding_PopQuiz_2_Question">Cada vez que ejecute OONI Probe, los datos de red que recopile serán automáticamente publicados.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Para incrementar la transparencia de la censura en Internet, los datos de red de todos los usuarios de OONI Probe son automáticamente publicados (a menos que opten por no hacerlo en las configuraciones).</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph"></string>
     <string name="Onboarding_Crash_Paragraph">Para mejorar OONI Probe nos gustaría recolectar informes de error anónimos cuando la aplicación no funcione apropiadamente.\n\n¿Te gustaría optar por enviar informes de error al equipo de desarrollo de OONI?</string>
     <string name="Onboarding_CleanUp_Title">Limpiar</string>
     <string name="Onboarding_CleanUp_Paragraph">Hemos detectado algunos archivos residuales de una instalación anterior. Por favor elimínalos antes de proceder con la instalación.</string>
     <string name="Dashboard_Websites_Card_Description">Probar el bloqueo de sitios web</string>
+    <string name="Dashboard_Websites_Overview_Paragraph"></string>
     <string name="Dashboard_Performance_Card_Description">Mide la velocidad y rendimiento de tu red</string>
     <string name="Dashboard_Performance_Overview_Paragraph">Mide la velocidad y rendimiento de tu red usando la prueba [NDT](https://ooni.org/nettest/ndt/).\n\nMide el rendimiento del streaming de vídeo usando la prueba [DASH](https://ooni.org/nettest/dash/).\n\nEstas pruebas consumen datos dependiendo de la velocidad de tu red.\n\nTus resultados serán publicados en el [Explorador OONI](https://explorer.ooni.org/world/) y la [API OONI](https://api.ooni.io/).\n\nDescargo: Estas pruebas dependen de servidores de terceros. Por lo tanto, no podemos garantizar que tu dirección IP no será recopilada.</string>
     <string name="Dashboard_Middleboxes_Card_Description">Detecta middleboxes en tu red</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph"></string>
     <string name="Dashboard_InstantMessaging_Card_Description">Prueba el bloqueo de aplicaciones de mensajería instantánea.</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">Comprueba si [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) y [Signal](https://ooni.org/nettest/signal) están bloqueados.\n\nTus resultados serán publicados en el [Explorador OONI](https://explorer.ooni.org/world/) y la [API OONI](https://api.ooni.io/).</string>
     <string name="Dashboard_Circumvention_Card_Description">Probar el bloqueo de herramientas de elusión de censura</string>
@@ -24,6 +27,7 @@
     <string name="Dashboard_Experimental_Card_Description">Ejecutar nuevas pruebas experimentales</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">Ejecutar las siguientes nuevas pruebas experimentales desarrolladas por el equipo OONI:\n%1$s\n\nTus resultados serán publicados en el [Explorador OONI](https://explorer.ooni.org/) y el [API OONI](https://api.ooni.io/).</string>
     <string name="Settings_About_Label">Acerca de OONI</string>
+    <string name="Settings_About_Content_Paragraph"></string>
     <string name="Settings_About_Content_LearnMore">Conocer más</string>
     <string name="Settings_About_Content_Blog">Blog</string>
     <string name="Settings_About_Content_Reports">Reportes</string>
