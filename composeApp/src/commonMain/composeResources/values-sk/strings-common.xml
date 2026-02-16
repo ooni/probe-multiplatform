@@ -5,19 +5,87 @@
     <string name="Dashboard_Overview_ChooseWebsites">Vybrať webové stránky</string>
     <string name="Dashboard_Running_Running">Prebieha:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Odhadovaný zostávajúci čas:</string>
+    <string name="Dashboard_Running_Stopping_Title"></string>
+    <string name="Dashboard_Running_Stopping_Notice"></string>
+    <string name="Dashboard_Running_ProxyInUse"></string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Title">Testy</string>
+    <string name="Dashboard_TestsMoved_Description"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
+    <string name="Dashboard_RunTests_Title"></string>
+    <string name="Dashboard_RunTests_Description"></string>
+    <string name="Dashboard_RunTests_SelectAll"></string>
+    <string name="Dashboard_RunTests_SelectNone"></string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Title"></string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty"></string>
+
+    <string name="Dashboard_Articles_Title"></string>
+    <string name="Dashboard_Articles_Blog"></string>
+    <string name="Dashboard_Articles_Finding"></string>
     <string name="Dashboard_Articles_Report">Nahlásiť</string>
+    <string name="Dashboard_Articles_ReadMore"></string>
+    <string name="Dashboard_Articles_Recent"></string>
+    <string name="Dashboard_Articles_OpenExternal"></string>
+    <string name="Dashboard_RunV2_Ooni_Title"></string>
+    <string name="Dashboard_RunV2_Title"></string>
     <string name="Dashboard_Runv2_Overview_Description">Vytvorený používateľom %1$s, %2$s</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink"></string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions"></string>
+    <string name="Dashboard_Runv2_Overview_SeeMore"></string>
+    <!-- This only applies when there are more than 10 websites to show. -->
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_RunV2_ExpiredTag"></string>
+    <string name="Dashboard_RunV2_UpdatedTag"></string>
+    <string name="Dashboard_RunV2_UpdateTag"></string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated"></string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate"></string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Späť</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates"></string>
+    <string name="Dashboard_Progress_UpdateLink_Label"></string>
+    <string name="Dashboard_Progress_ReviewLink_Label"></string>
     <string name="Dashboard_Progress_ReviewLink_Action">Preveriť</string>
+    <string name="Dashboard_ReviewDescriptor_Label"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default"></string>
+    <!-- Button to reject a link update during review -->
+    <string name="Dashboard_ReviewDescriptor_Reject"></string>
+    <string name="Dashboard_Update_Ready"></string>
     <string name="Dashboard_Update_Restart">Reštartovať</string>
 
 
     <string name="Tests_Title">Testy</string>
+    <string name="Tests_Search"></string>
     <string name="Test_Websites_Fullname">Webové stránky</string>
     <string name="Test_InstantMessaging_Fullname">Výmena okamžitých správ</string>
     <string name="Test_Performance_Fullname">Výkon</string>
     <string name="Test_Circumvention_Fullname">Obchádzanie</string>
+    <string name="Test_Experimental_Fullname"></string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP Invalid Request Line Test</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">HTTP Header Field Manipulation Test</string>
     <string name="Test_WebConnectivity_Fullname">Web Connectivity Test</string>
@@ -28,8 +96,24 @@
     <string name="Test_FacebookMessenger_Fullname">Test Facebook Messengera</string>
     <string name="Test_Psiphon_Fullname">Psiphon Test</string>
     <string name="Test_Tor_Fullname">Test siete Tor</string>
+    <string name="Test_Signal_Fullname"></string>
+
+
+    <string name="TestResults"></string>
     <string name="TestResults_Overview_Hero_Networks">Siete</string>
     <string name="TestResults_Overview_Hero_DataUsage">Využitie dát</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Zatiaľ neboli spustené žiadne testy. Skús jeden spustiť!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Dátum a čas</string>
     <string name="TestResults_Summary_Hero_Network">Sieť</string>
@@ -38,7 +122,27 @@
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobilné dáta</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet"></string>
+    <string name="TestResults_Summary_Hero_Usb"></string>
     <string name="TestResults_Summary_Hero_NoInternet">Žiadny internet</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Nahrať</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Stiahnuť</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
@@ -50,44 +154,149 @@
     <string name="TestResults_ms">ms</string>
     <string name="TestResults_UnknownASN">Neznámy</string>
     <string name="TestResults_NotAvailable">Nie je k dispozícii</string>
+    <string name="TestResults_Filters_Title"></string>
+    <string name="TestResults_Filters_Short"></string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Testy</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Networks">Siete</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Source">Zdroj</string>
     <string name="TestResults_Filter_Date">Dátum</string>
+    <string name="TestResults_Filter_Date_Any"></string>
     <string name="TestResults_Filter_Date_Today">Dnes</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo"></string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo"></string>
     <string name="TestResults_Filter_Date_Custom">Vlastné</string>
+    <string name="TestResults_Filter_Date_Custom_Filled"></string>
+    <string name="TestResults_Filter_Date_Picker"></string>
+    <string name="TestResults_Filter_NoTestsFound"></string>
+    <string name="TestResults_Filter_DeleteConfirmation"></string>
+    <string name="Results_LimitedNotice"></string>
+    <string name="Results_UploadingMissing"></string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
+    <string name="Results_MarkAllAsViewed"></string>
+    <string name="Results_MarkAllAsViewed_Confirmation"></string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation"></string>
+
+
+    <string name="Measurement_Title"></string>
+    <string name="Measurement_LoadingFailed"></string>
     <string name="Measurements_Failed">Zlyhalo</string>
     <string name="Measurements_Ok">OK</string>
+    <string name="Measurements_Anomaly"></string>
+    <plurals name="Measurements_Count">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning"></string>
+    <string name="Measurement_Raw_Share"></string>
     <string name="Measurement_Raw_Upload">Nahrať</string>
 
 
     <string name="Settings_Title">Nastavenia</string>
     <string name="Settings_TestOptions_Label">Možnosti testu</string>
+    <string name="Settings_TestOptions_LongRunningTest"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description"></string>
     <string name="Settings_Sharing_UploadResults">Automaticky uverejniť výsledky</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeEnabled"></string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description"></string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeDuration"></string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit"></string>
     <string name="Settings_Websites_Categories_Label">Kategórie webových stránok na testovanie</string>
     <string name="Settings_Websites_Categories_Description">%1$s povolených kategórií</string>
     <string name="Settings_Privacy_Label">Súkromie</string>
     <string name="Settings_Privacy_SendCrashReports">Odosielať správy o zlyhaní</string>
+    <string name="Settings_Proxy_Label"></string>
     <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Žiadny</string>
+    <string name="Settings_Proxy_Psiphon"></string>
+    <string name="Settings_Proxy_Custom_Add"></string>
     <string name="Settings_Proxy_Custom_Protocol">Protokol</string>
     <string name="Settings_Proxy_Custom_Hostname">Hostiteľské meno</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid"></string>
+    <string name="Settings_Proxy_Custom_PortInvalid"></string>
+    <string name="Settings_Proxy_Custom_Testing"></string>
     <string name="Settings_Proxy_Custom_Available">K dispozícii</string>
     <string name="Settings_Proxy_Custom_Unavailable">Nedostupný</string>
+    <string name="Settings_Proxy_Delete_Confirmation"></string>
     <string name="Settings_Language_Label">Jazyk</string>
     <string name="Settings_Advanced_Label">Rozšírené</string>
     <string name="Settings_Advanced_DebugLogs">Denníky ladenia</string>
+    <string name="Settings_Advanced_RecentLogs"></string>
+    <string name="Settings_Results_DeleteOldResults"></string>
+    <string name="Settings_Results_DeleteOldResultsThreshold"></string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit"></string>
     <string name="Settings_Support_Label">Podpora</string>
     <string name="Settings_Support_SendEmail">Poslať e-mail na podporu</string>
+    <string name="Settings_Support_Message"></string>
+    <string name="Settings_Support_Message_Hint"></string>
+    <string name="Settings_Support_IncludeLogs"></string>
+    <string name="Settings_Support_Action"></string>
+    <string name="Settings_ShareApp"></string>
+    <string name="Settings_ShareApp_Description"></string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
+    <string name="Settings_ShareApp_ShareMessage"></string>
+    <string name="Settings_Storage_Label"></string>
     <string name="Settings_Storage_Delete">Odstrániť</string>
     <string name="Settings_Storage_Clear">Clear</string>
+    <string name="Settings_Legacy_Storage"></string>
+    <string name="Settings_WarmVPNInUse_Label"></string>
+    <string name="Settings_DisableVpnInstructions"></string>
     <string name="Settings_Logs">Záznamy</string>
+    <string name="Settings_ShareLogs"></string>
+    <string name="Settings_ShareLogs_Error"></string>
+    <string name="Settings_FilterLogs"></string>
+    <string name="Settings_Sharing_UploadResults_Description"></string>
+    <string name="Settings_Websites_Categories_Selection_None"></string>
     <string name="Settings_Websites_Categories_Selection_All">Označiť všetko</string>
     <string name="Settings_Websites_CustomURL_Title">Vyber webové stránky na testovanie</string>
     <string name="Settings_Websites_CustomURL_URL">URL adresa</string>
     <string name="Settings_Websites_CustomURL_Run">Spustiť</string>
     <string name="Settings_Websites_CustomURL_Add">Pridať webovú stránku</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+
     <string name="CategoryCode_ALDR_Name">Drogy a alkohol</string>
     <string name="CategoryCode_REL_Name">Náboženstvo</string>
     <string name="CategoryCode_PORN_Name">Pornografia</string>
@@ -130,6 +339,7 @@
     <string name="CategoryCode_HATE_Description">Znevažovanie určitých skupín na základe rasy, pohlavia, sexuálnej orientácie a iných vlastností</string>
     <string name="CategoryCode_NEWS_Description">Veľké spravodajské portály, regionálne spravodajské médiá a nezávislé médiá</string>
     <string name="CategoryCode_XED_Description">Otázky sexuálneho zdravia vrátane antikoncepcie, sexuálne prenosných chorôb, prevencie znásilnení a potratov</string>
+    <string name="CategoryCode_PUBH_Description"></string>
     <string name="CategoryCode_GMB_Description">Online gambling a podávanie stávok</string>
     <string name="CategoryCode_ANON_Description">Anonymizácia, obchádzanie cenzúry a šifrovanie</string>
     <string name="CategoryCode_DATE_Description">Online zoznamovacie služby</string>
@@ -150,6 +360,8 @@
     <string name="CategoryCode_IGO_Description">Medzivládne organizácie vrátane Spojených národov</string>
     <string name="CategoryCode_MISC_Description">Stránky, ktoré zatiaľ neboli kategorizované</string>
 
+    <string name="Onboarding_QuizAnswer_Correct"></string>
+    <string name="Onboarding_QuizAnswer_Incorrect"></string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Rozumiem</string>
     <string name="Onboarding_ThingsToKnow_Title">Upozornenie!</string>
     <string name="Onboarding_ThingsToKnow_Button">Rozumiem</string>
@@ -163,8 +375,12 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Title">Varovanie</string>
     <string name="Onboarding_PopQuiz_2_Title">Otázka 2/2</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Title">Varovanie</string>
+    <string name="Onboarding_AutomatedTesting_Title"></string>
+    <string name="Onboarding_Crash_Title"></string>
     <string name="Onboarding_Crash_Button_Yes">Áno</string>
     <string name="Onboarding_Crash_Button_No">Nie</string>
+    <string name="Onboarding_Notifications_Title"></string>
+    <string name="Onboarding_Notifications_Paragraph"></string>
     <string name="Onboarding_Notifications_Ok">OK</string>
     <string name="Onboarding_Notifications_Skip">Preskočiť</string>
     <string name="Onboarding_DefaultSettings_Title">Predvolené nastavenia</string>
@@ -172,13 +388,33 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">Kód krajiny (napr. IT pre Taliansko)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">Informácie o sieti (vrátane čísla autonómneho systému)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Čas a dátum testu</string>
+    <string name="Onboarding_DefaultSettings_Paragraph"></string>
+    <string name="Onboarding_DefaultSettings_Button_Go"></string>
     <string name="Onboarding_DefaultSettings_Button_Change">Zmeniť predvolené</string>
 
 
+    <string name="AddDescriptor_EnterURL"></string>
+    <string name="AddDescriptor_URLInvalid"></string>
     <string name="AddDescriptor_Settings">Skontrolovať nastavenia</string>
+    <string name="AddDescriptor_Title"></string>
+    <string name="AddDescriptor_AutoUpdate"></string>
+    <string name="AddDescriptor_AutoRun"></string>
+    <string name="AddDescriptor_Toasts_Installed"></string>
+    <string name="AddDescriptor_InstallForLater"></string>
+    <string name="AddDescriptor_InstallAndRun"></string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url"></string>
+    <string name="LoadingScreen_Runv2_Message"></string>
+    <string name="LoadingScreen_Runv2_Failure"></string>
+    <string name="DescriptorUpdate_Updates"></string>
+    <!-- Only used for the desktop version of the app for now -->
+    <string name="DescriptorUpdate_CheckUpdates"></string>
+    <string name="AddDescriptor_AutoRunDisabled"></string>
+    <string name="Descriptor_LastTestResult"></string>
+
     <string name="Snackbar_ResultsNotUploaded_Text">Nenahrané</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Niektoré nenahrané</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Nahrať všetky</string>
+    <string name="Modal_ResultsNotUploaded_Uploading"></string>
     <string name="Toast_ResultsUploaded">Nahrávanie prebehlo úspešne</string>
     <string name="Modal_UploadFailed_Title">Nahrávanie zlyhalo</string>
     <string name="Modal_UploadFailed_Paragraph">Nepodarilo sa nám nahrať %1$s/%2$s meraní. Denník zlyhaní sa zdieľa s vývojarmi OONI.</string>
@@ -186,17 +422,53 @@
     <string name="Modal_Cancel">Zrušiť</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Chceš odstrániť všetky výsledky testov?</string>
+    <string name="Modal_Clear_Legacy_Directories"></string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Modal_Delete">Odstrániť</string>
     <string name="Modal_ReRun_Title">Znova spustiť test</string>
     <string name="Modal_ReRun_Websites_Title">Chystáš sa znova otestovať %1$s webových stránok.</string>
     <string name="Modal_ReRun_Websites_Run">Spustiť</string>
+    <string name="Modal_DisableVPN_Title"></string>
+    <string name="Modal_DisableVPN_Message"></string>
+    <string name="Modal_DisableVPN"></string>
+    <string name="Modal_RunAnyway"></string>
+    <string name="Modal_AlwaysRun"></string>
     <string name="Modal_Error_CantDownloadURLs">Nepodarilo sa stiahnuť zoznam URL adries. Skús to znova.</string>
     <string name="Modal_Error_NoInternet">Žiadne internetové pripojenie</string>
+    <string name="Modal_Error_ProxyUnavailable"></string>
     <string name="Modal_CustomURL_Title_NotSaved">Ste si istý?</string>
     <string name="Modal_CustomURL_NotSaved">Ak opustíš túto obrazovku, tvoje URL adresy sa neuložia. Si si istý/istá, že chceš opustiť túto obrazovku?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding"></string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder"></string>
+
+    <string name="Desktop_OpenApp"></string>
     <string name="Desktop_Quit">Ukončiť</string>
+    <string name="Tray_Notification_Check_Updates"></string>
+    <string name="Tray_Notification_Updates_Available"></string>
+    <string name="Tray_Notification_Checking_Updates"></string>
+
     <string name="Modal_Hide">Skryť</string>
+    <string name="Modal_Quite_Prompt"></string>
+    <string name="Modal_Quite_Description"></string>
+
     <string name="OONIRun_Run">Spustiť</string>
+    <!-- Android notification channel name. -->
+    <string name="Notification_ChannelName"></string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
+    <string name="Notification_UpdateChannelName"></string>
+    <string name="Notification_StopTest"></string>
+
     <string name="Common_Back">Späť</string>
     <string name="Common_Close">Zatvoriť</string>
     <string name="Common_Refresh">Obnoviť</string>
@@ -213,8 +485,51 @@
     <string name="Common_Search">Hľadať</string>
     <string name="Common_Today">Dnes</string>
     <string name="Common_Yesterday">Včera</string>
+    <string name="Common_Week"></string>
+    <string name="Common_Month"></string>
     <string name="Common_Total">Spolu</string>
+    <string name="Common_Ago"></string>
+    <plurals name="Common_Seconds">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Common_Hours_Abbreviated"></string>
+    <string name="Common_Minutes_Abbreviated"></string>
+    <string name="Common_Seconds_Abbreviated"></string>
     <string name="Common_Months_January">Január</string>
     <string name="Common_Months_February">Február</string>
+    <string name="Common_Months_March"></string>
+    <string name="Common_Months_April"></string>
+    <string name="Common_Months_May"></string>
+    <string name="Common_Months_June"></string>
+    <string name="Common_Months_July"></string>
+    <string name="Common_Months_August"></string>
+    <string name="Common_Months_September"></string>
+    <string name="Common_Months_October"></string>
+    <string name="Common_Months_November"></string>
+    <string name="Common_Months_December"></string>
+
+    <string name="TaskOrigin_Manual"></string>
+    <string name="TaskOrigin_AutoRun"></string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
