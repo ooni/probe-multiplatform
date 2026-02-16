@@ -1,7 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name"></string>
+    <string name="Onboarding_WhatIsOONIProbe_Title"></string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph"></string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1"></string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2"></string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3"></string>
+    <string name="Onboarding_PopQuiz_1_Question"></string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph"></string>
+    <string name="Onboarding_PopQuiz_2_Question"></string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph"></string>
+    <string name="Onboarding_AutomatedTesting_Paragraph"></string>
+    <string name="Onboarding_Crash_Paragraph"></string>
+    <string name="Onboarding_CleanUp_Title"></string>
+    <string name="Onboarding_CleanUp_Paragraph"></string>
+    <string name="Dashboard_Websites_Card_Description"></string>
+    <string name="Dashboard_Websites_Overview_Paragraph"></string>
+    <string name="Dashboard_Performance_Card_Description"></string>
+    <string name="Dashboard_Performance_Overview_Paragraph"></string>
+    <string name="Dashboard_Middleboxes_Card_Description"></string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph"></string>
+    <string name="Dashboard_InstantMessaging_Card_Description"></string>
+    <string name="Dashboard_InstantMessaging_Overview_Paragraph"></string>
+    <string name="Dashboard_Circumvention_Card_Description"></string>
+    <string name="Dashboard_Circumvention_Overview_Paragraph"></string>
+    <string name="Dashboard_Experimental_Card_Description"></string>
+    <string name="Dashboard_Experimental_Overview_Paragraph"></string>
+    <string name="Settings_About_Label"></string>
+    <string name="Settings_About_Content_Paragraph"></string>
     <string name="Settings_About_Content_LearnMore">Научете повеќе</string>
     <string name="Settings_About_Content_Blog">Блог</string>
     <string name="Settings_About_Content_Reports">Извештаи</string>
+    <string name="Settings_About_Content_DataPolicy"></string>
     <string name="Settings_Donate_Title">Донирај</string>
+    <string name="Settings_Donate_Heading"></string>
+    <string name="Settings_Donate_SubHeading"></string>
+    <string name="Settings_Donate_Support_Title"></string>
+    <string name="Settings_Donate_Support_Item_OpenSource"></string>
+    <string name="Settings_Donate_Support_Item_Analysis"></string>
+    <string name="Settings_Donate_Support_Item_OpenData"></string>
+    <string name="Settings_Donate_Support_Item_Research"></string>
     <string name="Settings_Donate_Action">Донирај</string>
-    </resources>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser"></string>
+    <string name="Settings_Donate_Action_Error"></string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt"></string>
+</resources>
