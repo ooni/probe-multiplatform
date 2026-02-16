@@ -10,11 +10,16 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe non è uno strumento per la privacy. Chiunque stia monitorando la tua attività internet può sapere che software stai usando.</string>
     <string name="Onboarding_PopQuiz_2_Question">Ogni volta che eseguo OONI Probe, le misure di rete che raccolgo saranno pubblicate automaticamente.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Per aumentare la trasparenza sulla censura di internet, le misure di rete di OONI Probe sono pubblicate automaticamente (a meno che non sia disabilitato nelle impostazioni).</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph"></string>
     <string name="Onboarding_Crash_Paragraph">Per migliorare OONI Probe vorremo raccogliere segnalazioni di crash anonimi quando l’app non funziona correttamente.\n\nVuoi inviare le segnalazioni di crash al team di sviluppo di OONI?</string>
+    <string name="Onboarding_CleanUp_Title"></string>
+    <string name="Onboarding_CleanUp_Paragraph"></string>
     <string name="Dashboard_Websites_Card_Description">Verifica il blocco di siti web</string>
+    <string name="Dashboard_Websites_Overview_Paragraph"></string>
     <string name="Dashboard_Performance_Card_Description">Misura la velocità e le prestazioni della tua rete</string>
     <string name="Dashboard_Performance_Overview_Paragraph">Misura la velocità e le prestazioni della tua rete con il test [NDT](https://ooni.org/nettest/ndt/).\n\nMisura le prestazioni dello streaming video con il test [DASH](https://ooni.org/nettest/dash/).\n\nQuesti test consumano traffico dati in base alla velocità della tua rete.\n\nI risultati dei tuoi test saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).\n\nAttenzione: questi test usano server di terze parti. Non possiamo quindi garantire che il vostro indirizzo IP non sarà raccolto.</string>
     <string name="Dashboard_Middleboxes_Card_Description">Rileva middlebox nella tua rete</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph"></string>
     <string name="Dashboard_InstantMessaging_Card_Description">Verifica il blocco di app di messaggistica</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">Controlla se [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/) o [Telegram](https://ooni.org/nettest/telegram/) sono bloccati.\n\nI risultati dei tuoi test saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Circumvention_Card_Description">Testa il blocco degli strumenti d’elusione della censura</string>
@@ -22,10 +27,21 @@
     <string name="Dashboard_Experimental_Card_Description">Esegui nuovi test sperimentali</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">Esegui i seguenti nuovi test sperimentali sviluppati dal team di OONI:\n%1$s\n\nI risultati saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/) e [OONI API](https://api.ooni.io/).</string>
     <string name="Settings_About_Label">Informazioni su OONI</string>
+    <string name="Settings_About_Content_Paragraph"></string>
     <string name="Settings_About_Content_LearnMore">Per saperne di più</string>
     <string name="Settings_About_Content_Blog">Blog</string>
     <string name="Settings_About_Content_Reports">Segnalazioni</string>
     <string name="Settings_About_Content_DataPolicy">La Policy sui dati di OONI</string>
     <string name="Settings_Donate_Title">Donazioni</string>
+    <string name="Settings_Donate_Heading"></string>
+    <string name="Settings_Donate_SubHeading"></string>
+    <string name="Settings_Donate_Support_Title"></string>
+    <string name="Settings_Donate_Support_Item_OpenSource"></string>
+    <string name="Settings_Donate_Support_Item_Analysis"></string>
+    <string name="Settings_Donate_Support_Item_OpenData"></string>
+    <string name="Settings_Donate_Support_Item_Research"></string>
     <string name="Settings_Donate_Action">Donazioni</string>
-    </resources>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser"></string>
+    <string name="Settings_Donate_Action_Error"></string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt"></string>
+</resources>
