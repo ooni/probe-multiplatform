@@ -2,6 +2,7 @@
 
     <string name="Dashboard_Running_EstimatedTimeLeft">Pozostało czasu: </string>
     <string name="Dashboard_Articles_Report">Wysłanie</string>
+    <string name="Dashboard_Articles_OpenExternal">Otwórz w przeglądarce</string>
     <string name="Dashboard_Runv2_Overview_Description">Utworzone przez %1$s, %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Cofnij</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Przegląd</string>

@@ -10,6 +10,7 @@
     <string name="Dashboard_Running_ProxyInUse">Välityspalvelin käytössä</string>
     <string name="Dashboard_TestsMoved_Title">Testit</string>
     <string name="Dashboard_Articles_Report">ilmoitus</string>
+    <string name="Dashboard_Articles_OpenExternal">Avaa selaimessa</string>
     <string name="Dashboard_Runv2_Overview_Description">Käyttäjä: %1$s luotu %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Kumoa</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Tarkista</string>

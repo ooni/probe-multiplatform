@@ -10,6 +10,7 @@
     <string name="Dashboard_Running_ProxyInUse">Χρησιμοποιείται proxy</string>
     <string name="Dashboard_TestsMoved_Title">Δοκιμές</string>
     <string name="Dashboard_Articles_Report">Αναφορά</string>
+    <string name="Dashboard_Articles_OpenExternal">Άνοιγμα στον περιηγητή</string>
     <string name="Dashboard_Runv2_Overview_Description">Δημιουργήθηκε από %1$s στις %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ακύρωση</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Ανασκόπηση</string>
