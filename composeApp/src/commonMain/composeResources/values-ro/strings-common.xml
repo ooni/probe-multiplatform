@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="Dashboard_Tab_Label">Tablou bord</string>
     <string name="Dashboard_Overview_Estimated">Estimare:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Alegeți site-urile web</string>
@@ -7,10 +7,13 @@
     <string name="Dashboard_Running_EstimatedTimeLeft">Timp estimat rămas:</string>
     <string name="Dashboard_TestsMoved_Title">Teste</string>
     <string name="Dashboard_Articles_Report">Sesizare</string>
+    <string name="Dashboard_Articles_OpenExternal">Deschide în navigator</string>
     <string name="Dashboard_Runv2_Overview_Description">Creat de %1$s la %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Anulează</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Revizuire</string>
     <string name="Dashboard_Update_Restart">Restart</string>
+
+
     <string name="Tests_Title">Teste</string>
     <string name="Test_Websites_Fullname">Site-uri</string>
     <string name="Test_InstantMessaging_Fullname">Mesagerie instant</string>
@@ -58,6 +61,8 @@
     <string name="Measurements_Failed">Acţiunea a eşuat</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">Încărcați</string>
+
+
     <string name="Settings_Title">Setări</string>
     <string name="Settings_TestOptions_Label">Opțiuni de testare</string>
     <string name="Settings_Sharing_UploadResults">Publicare automată a rezultatelor</string>
@@ -154,6 +159,7 @@
     <string name="CategoryCode_CTRL_Description">Conținut benign sau inofensiv utilizat pentru control</string>
     <string name="CategoryCode_IGO_Description">Organizații interguvernamentale, inclusiv Națiunile Unite</string>
     <string name="CategoryCode_MISC_Description">Site-uri care nu au fost încă clasificate</string>
+
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Am înțeles</string>
     <string name="Onboarding_ThingsToKnow_Title">Atenție!</string>
     <string name="Onboarding_ThingsToKnow_Button">Înțeleg</string>
@@ -177,6 +183,8 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Informații despre rețea (inclusiv numărul de sistem autonom - ASN)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Ora și data testării</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Modific valori implicite</string>
+
+
     <string name="AddDescriptor_Settings">Setările pentru testări</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Verificați pentru actualizări</string>
@@ -192,7 +200,7 @@
     <string name="Modal_DoYouWantToDeleteAllTests">Doriți să ștergeți toate rezultatele testelor?</string>
     <string name="Modal_Delete">Ștergeți</string>
     <string name="Modal_ReRun_Title">Reexecutați testul</string>
-    <string name="Modal_ReRun_Websites_Title">Sunteți pe cale să testați site-urile %1$s.</string>
+    <string name="Modal_ReRun_Websites_Title">Sunteți pe cale să testați site-urile {websNumber}.</string>
     <string name="Modal_ReRun_Websites_Run">Executare</string>
     <string name="Modal_Error_CantDownloadURLs">Imposibil de descărcat lista URL. Vă rugăm să încercați din nou.</string>
     <string name="Modal_Error_NoInternet">Nu este conexiune la internet</string>
@@ -233,5 +241,6 @@
     <string name="Common_Months_October">Octombrie</string>
     <string name="Common_Months_November">Noiembrie</string>
     <string name="Common_Months_December">Decembrie</string>
+
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
