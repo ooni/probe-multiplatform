@@ -10,11 +10,16 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe bukanlah alat privasi. Siapa saja yang memantau aktivitas internet anda akan melihat perangkat lunak apa yang sedang anda jalankan.</string>
     <string name="Onboarding_PopQuiz_2_Question">Setiap kali Saya menjalankan OONI Probe, data jaringan yang saya kumpulkan akan dipublikasikan secara otomatis.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Untuk meningkatkan transparansi dalam sensor internet, data jaringan semua pengguna OONI Probe akan dipublikasikan secara otomatis (kecuali ia tidak diikutsertakan di pengaturan).</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph"></string>
     <string name="Onboarding_Crash_Paragraph">Untuk meningkatkan OONI Probe, kami ingin mengumpulkan laporan kerusakan secara anonim ketika aplikasi tidak berfungsi dengan baik. \n\nApakah Anda ingin ikut serta dalam mengirimkan laporan kerusakan ke tim pengembangan OONI?</string>
+    <string name="Onboarding_CleanUp_Title"></string>
+    <string name="Onboarding_CleanUp_Paragraph"></string>
     <string name="Dashboard_Websites_Card_Description">Tes situs-situs web yang diblokir</string>
+    <string name="Dashboard_Websites_Overview_Paragraph"></string>
     <string name="Dashboard_Performance_Card_Description">Tes kecepatan dan kinerja jaringan Anda.</string>
     <string name="Dashboard_Performance_Overview_Paragraph">Ukur kecepatan dan kinerja jaringan Anda menggunakan tes [NDT](https://ooni.org/nettest/ndt/).\n\nUkur kinerja aliran video menggunakan tes [DASH](https://ooni.org/nettest/dash/).\n\nPengetesan ini menggunakan data tergantung pada kecepatan jaringan Anda.\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/world/) dan [OONI API](https://api.ooni.io/).\n\nPenafian: Pengetesan ini bergantung pada peladen pihak ketiga. Oleh karena itu, kami tidak dapat menjamin bahwa alamat IP Anda tidak akan dikumpulkan.</string>
     <string name="Dashboard_Middleboxes_Card_Description">Deteksi middlebox di jaringan Anda.</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph"></string>
     <string name="Dashboard_InstantMessaging_Card_Description">Tes pemblokiran aplikasi perpesanan instan</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">Periksa apakah [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), dan [Signal](https://ooni.org/nettest/signal) diblokir.\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/world/) dan [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Circumvention_Card_Description">Tes pemblokiran alat penghindaran sensor</string>
@@ -22,10 +27,21 @@
     <string name="Dashboard_Experimental_Card_Description">Jalankan tes eksperimental baru</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">Jalankan tes eksperimental baru berikut yang dikembangkan oleh tim OONI:\n%1$s\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/) dan [OONI API](https://api.ooni.io/).</string>
     <string name="Settings_About_Label">Tentang OONI</string>
+    <string name="Settings_About_Content_Paragraph"></string>
     <string name="Settings_About_Content_LearnMore">Pelajari lebih lanjut</string>
     <string name="Settings_About_Content_Blog">Blog</string>
     <string name="Settings_About_Content_Reports">Laporan</string>
     <string name="Settings_About_Content_DataPolicy">Kebijakan Data OONI</string>
     <string name="Settings_Donate_Title">Donasi</string>
+    <string name="Settings_Donate_Heading"></string>
+    <string name="Settings_Donate_SubHeading"></string>
+    <string name="Settings_Donate_Support_Title"></string>
+    <string name="Settings_Donate_Support_Item_OpenSource"></string>
+    <string name="Settings_Donate_Support_Item_Analysis"></string>
+    <string name="Settings_Donate_Support_Item_OpenData"></string>
+    <string name="Settings_Donate_Support_Item_Research"></string>
     <string name="Settings_Donate_Action">Donasi</string>
-    </resources>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser"></string>
+    <string name="Settings_Donate_Action_Error"></string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt"></string>
+</resources>
