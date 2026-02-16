@@ -10,11 +10,16 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe er ekki tól fyrir netleynd. Hver sá sem fylgist með netumferðinni þinni getur séð hvaða hugbúnað þú ert að keyra.</string>
     <string name="Onboarding_PopQuiz_2_Question">Í hvert skipti sem ég keyri OONI Probe, verða þau gögn um netkerfið sem ég safna birt sjálfvirkt.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Til að auka gegnsæi upplýsinga um ritskoðun internetsins, eru netkerfisgögn allra notenda OONI Probe birtar opinberlega (nema að þeir biðji sérstaklega um annað í stillingum sínum).</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph"></string>
     <string name="Onboarding_Crash_Paragraph">Til að bæta OONI Probe myndum við vilja safna nafnlausum hrunskýrslum þegar forritið virkar ekki sem skyldi.\n\nVilt þú bjóðast til að senda hrunskýrslur til OONI-þróunarteymisins?</string>
+    <string name="Onboarding_CleanUp_Title"></string>
+    <string name="Onboarding_CleanUp_Paragraph"></string>
     <string name="Dashboard_Websites_Card_Description">Prófa hindranir fyrir vefsíður</string>
+    <string name="Dashboard_Websites_Overview_Paragraph"></string>
     <string name="Dashboard_Performance_Card_Description">Prófa hraða og afköst netsins þíns</string>
     <string name="Dashboard_Performance_Overview_Paragraph">Mældu hraða og afköst netkerfisins þíns með [NDT](https://ooni.org/nettest/ndt/) prófun.\n\nMældu afköst myndstreymis með [DASH](https://ooni.org/nettest/dash/) prófun.\n\nÞessar prófanir nota gagnamagn í samræmi við hraða netkerfisins.\n\nNiðurstöðurnar þínar verða birtar í [OONI Explorer](https://explorer.ooni.org/world/) og [OONI API](https://api.ooni.io/).\n\nFyrirvari: Þessar prófanir reiða sig á vefþjóna utanaðkomandi aðila. Við getum því ekki ábyrgst að IP-vistföngum sé ekki safnað.</string>
     <string name="Dashboard_Middleboxes_Card_Description">Leita að millitölvum á netinu þínu</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph"></string>
     <string name="Dashboard_InstantMessaging_Card_Description">Prófa hindranir fyrir skilaboðaforrit</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">Athugaðu hvort [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), og [Signal](https://ooni.org/nettest/signal) verði fyrir hindrunum.\n\nNiðurstöðurnar þínar verða birtar í [OONI Explorer](https://explorer.ooni.org/world/) og [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Circumvention_Card_Description">Prófa hindranir fyrir leiðir framhjá ritskoðun</string>
@@ -22,10 +27,21 @@
     <string name="Dashboard_Experimental_Card_Description">Keyra nýjar prófanir á tilraunastigi</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">Keyrðu eftirfarandi tilraunaprófanir sem þróaðar hafa verið af OONI-teyminu:\n%1$s\n\nNiðurstöðurnar þínar verða birtar í [OONI Explorer](https://explorer.ooni.org/) og [OONI API](https://api.ooni.io/).</string>
     <string name="Settings_About_Label">Um OONI</string>
+    <string name="Settings_About_Content_Paragraph"></string>
     <string name="Settings_About_Content_LearnMore">Fræðast frekar</string>
     <string name="Settings_About_Content_Blog">Blogg</string>
     <string name="Settings_About_Content_Reports">Skýrslur</string>
     <string name="Settings_About_Content_DataPolicy">Gagnaleyndarstefna OONI</string>
     <string name="Settings_Donate_Title">Styrkja</string>
+    <string name="Settings_Donate_Heading"></string>
+    <string name="Settings_Donate_SubHeading"></string>
+    <string name="Settings_Donate_Support_Title"></string>
+    <string name="Settings_Donate_Support_Item_OpenSource"></string>
+    <string name="Settings_Donate_Support_Item_Analysis"></string>
+    <string name="Settings_Donate_Support_Item_OpenData"></string>
+    <string name="Settings_Donate_Support_Item_Research"></string>
     <string name="Settings_Donate_Action">Styrkja</string>
-    </resources>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser"></string>
+    <string name="Settings_Donate_Action_Error"></string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt"></string>
+</resources>
