@@ -1,17 +1,82 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="Dashboard_Tab_Label">Tablou bord</string>
     <string name="Dashboard_Overview_Estimated">Estimare:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Alegeți site-urile web</string>
     <string name="Dashboard_Running_Running">Se execută:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Timp estimat rămas:</string>
+    <string name="Dashboard_Running_Stopping_Title"></string>
+    <string name="Dashboard_Running_Stopping_Notice"></string>
+    <string name="Dashboard_Running_ProxyInUse"></string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Title">Teste</string>
+    <string name="Dashboard_TestsMoved_Description"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
+    <string name="Dashboard_RunTests_Title"></string>
+    <string name="Dashboard_RunTests_Description"></string>
+    <string name="Dashboard_RunTests_SelectAll"></string>
+    <string name="Dashboard_RunTests_SelectNone"></string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Title"></string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty"></string>
+
+    <string name="Dashboard_Articles_Title"></string>
+    <string name="Dashboard_Articles_Blog"></string>
+    <string name="Dashboard_Articles_Finding"></string>
     <string name="Dashboard_Articles_Report">Sesizare</string>
+    <string name="Dashboard_Articles_ReadMore"></string>
+    <string name="Dashboard_Articles_Recent"></string>
+    <string name="Dashboard_Articles_OpenExternal">Deschide în navigator</string>
+    <string name="Dashboard_RunV2_Ooni_Title"></string>
+    <string name="Dashboard_RunV2_Title"></string>
     <string name="Dashboard_Runv2_Overview_Description">Creat de %1$s la %2$s</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink"></string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions"></string>
+    <string name="Dashboard_Runv2_Overview_SeeMore"></string>
+    <!-- This only applies when there are more than 10 websites to show. -->
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_RunV2_ExpiredTag"></string>
+    <string name="Dashboard_RunV2_UpdatedTag"></string>
+    <string name="Dashboard_RunV2_UpdateTag"></string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated"></string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate"></string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Anulează</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates"></string>
+    <string name="Dashboard_Progress_UpdateLink_Label"></string>
+    <string name="Dashboard_Progress_ReviewLink_Label"></string>
     <string name="Dashboard_Progress_ReviewLink_Action">Revizuire</string>
+    <string name="Dashboard_ReviewDescriptor_Label"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default"></string>
+    <!-- Button to reject a link update during review -->
+    <string name="Dashboard_ReviewDescriptor_Reject"></string>
+    <string name="Dashboard_Update_Ready"></string>
     <string name="Dashboard_Update_Restart">Restart</string>
+
+
     <string name="Tests_Title">Teste</string>
+    <string name="Tests_Search"></string>
     <string name="Test_Websites_Fullname">Site-uri</string>
     <string name="Test_InstantMessaging_Fullname">Mesagerie instant</string>
     <string name="Test_Performance_Fullname">Performanță</string>
@@ -27,9 +92,22 @@
     <string name="Test_FacebookMessenger_Fullname">Test Facebook Messenger</string>
     <string name="Test_Psiphon_Fullname">Test Psiphon</string>
     <string name="Test_Tor_Fullname">Test Tor</string>
+    <string name="Test_Signal_Fullname"></string>
+
+
     <string name="TestResults">Rezultate</string>
     <string name="TestResults_Overview_Hero_Networks">Rețele</string>
     <string name="TestResults_Overview_Hero_DataUsage">Utilizarea de date</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Nu s-au efectuat încă teste. Încercați să rulați unul!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Data și ora</string>
     <string name="TestResults_Summary_Hero_Network">Reţea</string>
@@ -38,7 +116,24 @@
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Date mobile</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet"></string>
+    <string name="TestResults_Summary_Hero_Usb"></string>
     <string name="TestResults_Summary_Hero_NoInternet">Fără Internet</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Încărcați</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Descărcă</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
@@ -50,49 +145,142 @@
     <string name="TestResults_ms">ms</string>
     <string name="TestResults_UnknownASN">Necunoscut</string>
     <string name="TestResults_NotAvailable">N/A</string>
+    <string name="TestResults_Filters_Title"></string>
+    <string name="TestResults_Filters_Short"></string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Teste</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Networks">Rețele</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Source">Sursă</string>
     <string name="TestResults_Filter_Date">Dată</string>
+    <string name="TestResults_Filter_Date_Any"></string>
+    <string name="TestResults_Filter_Date_Today"></string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo"></string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo"></string>
     <string name="TestResults_Filter_Date_Custom">Personalizat</string>
+    <string name="TestResults_Filter_Date_Custom_Filled"></string>
+    <string name="TestResults_Filter_Date_Picker"></string>
+    <string name="TestResults_Filter_NoTestsFound"></string>
+    <string name="TestResults_Filter_DeleteConfirmation"></string>
+    <string name="Results_LimitedNotice"></string>
+    <string name="Results_UploadingMissing"></string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
+    <string name="Results_MarkAllAsViewed"></string>
+    <string name="Results_MarkAllAsViewed_Confirmation"></string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation"></string>
+
+
+    <string name="Measurement_Title"></string>
+    <string name="Measurement_LoadingFailed"></string>
     <string name="Measurements_Failed">Acţiunea a eşuat</string>
     <string name="Measurements_Ok">OK</string>
+    <string name="Measurements_Anomaly"></string>
+    <plurals name="Measurements_Count">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning"></string>
+    <string name="Measurement_Raw_Share"></string>
     <string name="Measurement_Raw_Upload">Încărcați</string>
+
+
     <string name="Settings_Title">Setări</string>
     <string name="Settings_TestOptions_Label">Opțiuni de testare</string>
+    <string name="Settings_TestOptions_LongRunningTest"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description"></string>
     <string name="Settings_Sharing_UploadResults">Publicare automată a rezultatelor</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeEnabled"></string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description"></string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeDuration"></string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit"></string>
     <string name="Settings_Websites_Categories_Label">Categorii de site-uri web de testat</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorii activate</string>
     <string name="Settings_Privacy_Label">Confidențialitate</string>
     <string name="Settings_Privacy_SendCrashReports">Trimitere rapoarte de avarie</string>
+    <string name="Settings_Proxy_Label"></string>
     <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Nici unul</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Add"></string>
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
     <string name="Settings_Proxy_Custom_Hostname">Nume server </string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid"></string>
+    <string name="Settings_Proxy_Custom_PortInvalid"></string>
     <string name="Settings_Proxy_Custom_Testing">Testare</string>
     <string name="Settings_Proxy_Custom_Available">Disponibil</string>
     <string name="Settings_Proxy_Custom_Unavailable">Indisponibil</string>
+    <string name="Settings_Proxy_Delete_Confirmation"></string>
     <string name="Settings_Language_Label">Limbă</string>
     <string name="Settings_Advanced_Label">Avansat</string>
     <string name="Settings_Advanced_DebugLogs">Jurnale de depanare</string>
+    <string name="Settings_Advanced_RecentLogs"></string>
+    <string name="Settings_Results_DeleteOldResults"></string>
+    <string name="Settings_Results_DeleteOldResultsThreshold"></string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
         <item quantity="one">%1$d luna </item>
         <item quantity="few">%1$d luni</item>
         <item quantity="other">%1$d luni</item>
     </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit"></string>
     <string name="Settings_Support_Label">Asistență</string>
     <string name="Settings_Support_SendEmail">Trimitere e-mail pentru asistență</string>
+    <string name="Settings_Support_Message"></string>
+    <string name="Settings_Support_Message_Hint"></string>
+    <string name="Settings_Support_IncludeLogs"></string>
     <string name="Settings_Support_Action">Trimite email</string>
+    <string name="Settings_ShareApp"></string>
+    <string name="Settings_ShareApp_Description"></string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
+    <string name="Settings_ShareApp_ShareMessage"></string>
+    <string name="Settings_Storage_Label"></string>
     <string name="Settings_Storage_Delete">Ștergeți</string>
     <string name="Settings_Storage_Clear">Clear</string>
+    <string name="Settings_Legacy_Storage"></string>
+    <string name="Settings_WarmVPNInUse_Label"></string>
+    <string name="Settings_DisableVpnInstructions"></string>
     <string name="Settings_Logs">Jurnale</string>
+    <string name="Settings_ShareLogs"></string>
+    <string name="Settings_ShareLogs_Error"></string>
+    <string name="Settings_FilterLogs"></string>
+    <string name="Settings_Sharing_UploadResults_Description"></string>
+    <string name="Settings_Websites_Categories_Selection_None"></string>
     <string name="Settings_Websites_Categories_Selection_All">Selectare totală</string>
     <string name="Settings_Websites_CustomURL_Title">Alegeți site-uri web de testat</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Executare</string>
     <string name="Settings_Websites_CustomURL_Add">Adăugare website</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+
     <string name="CategoryCode_ALDR_Name">Droguri și alcool</string>
     <string name="CategoryCode_REL_Name">Religie</string>
     <string name="CategoryCode_PORN_Name">Pornografie</string>
@@ -135,6 +323,7 @@
     <string name="CategoryCode_HATE_Description">Dispersarea unor grupuri particulare bazate pe rasă, sex, sexualitate sau alte caracteristici</string>
     <string name="CategoryCode_NEWS_Description">Principalele site-uri de știri, puncte de știri regionale și mass-media independente</string>
     <string name="CategoryCode_XED_Description">Probleme de sănătate sexuală, inclusiv contracepție, BTS, prevenirea violului și avort</string>
+    <string name="CategoryCode_PUBH_Description"></string>
     <string name="CategoryCode_GMB_Description">Jocuri de noroc și pariuri online</string>
     <string name="CategoryCode_ANON_Description">Anonimizare, eludarea cenzurii și criptare</string>
     <string name="CategoryCode_DATE_Description">Site-uri de întâlniri online</string>
@@ -154,6 +343,9 @@
     <string name="CategoryCode_CTRL_Description">Conținut benign sau inofensiv utilizat pentru control</string>
     <string name="CategoryCode_IGO_Description">Organizații interguvernamentale, inclusiv Națiunile Unite</string>
     <string name="CategoryCode_MISC_Description">Site-uri care nu au fost încă clasificate</string>
+
+    <string name="Onboarding_QuizAnswer_Correct"></string>
+    <string name="Onboarding_QuizAnswer_Incorrect"></string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Am înțeles</string>
     <string name="Onboarding_ThingsToKnow_Title">Atenție!</string>
     <string name="Onboarding_ThingsToKnow_Button">Înțeleg</string>
@@ -167,8 +359,12 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Title">Avertizare</string>
     <string name="Onboarding_PopQuiz_2_Title">Întrebarea 2/2</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Title">Avertizare</string>
+    <string name="Onboarding_AutomatedTesting_Title"></string>
+    <string name="Onboarding_Crash_Title"></string>
     <string name="Onboarding_Crash_Button_Yes">Da</string>
     <string name="Onboarding_Crash_Button_No">Nu</string>
+    <string name="Onboarding_Notifications_Title"></string>
+    <string name="Onboarding_Notifications_Paragraph"></string>
     <string name="Onboarding_Notifications_Ok">OK</string>
     <string name="Onboarding_Notifications_Skip">Sari</string>
     <string name="Onboarding_DefaultSettings_Title">Setări implicite</string>
@@ -176,13 +372,33 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">Codul țării (de exemplu IT pentru Italia)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">Informații despre rețea (inclusiv numărul de sistem autonom - ASN)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Ora și data testării</string>
+    <string name="Onboarding_DefaultSettings_Paragraph"></string>
+    <string name="Onboarding_DefaultSettings_Button_Go"></string>
     <string name="Onboarding_DefaultSettings_Button_Change">Modific valori implicite</string>
+
+
+    <string name="AddDescriptor_EnterURL"></string>
+    <string name="AddDescriptor_URLInvalid"></string>
     <string name="AddDescriptor_Settings">Setările pentru testări</string>
+    <string name="AddDescriptor_Title"></string>
+    <string name="AddDescriptor_AutoUpdate"></string>
+    <string name="AddDescriptor_AutoRun"></string>
+    <string name="AddDescriptor_Toasts_Installed"></string>
+    <string name="AddDescriptor_InstallForLater"></string>
+    <string name="AddDescriptor_InstallAndRun"></string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url"></string>
+    <string name="LoadingScreen_Runv2_Message"></string>
+    <string name="LoadingScreen_Runv2_Failure"></string>
+    <string name="DescriptorUpdate_Updates"></string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Verificați pentru actualizări</string>
+    <string name="AddDescriptor_AutoRunDisabled"></string>
+    <string name="Descriptor_LastTestResult"></string>
+
     <string name="Snackbar_ResultsNotUploaded_Text">Nu s-a încărcat</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Unele nu s-au încărcat</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Încărcarei toate</string>
+    <string name="Modal_ResultsNotUploaded_Uploading"></string>
     <string name="Toast_ResultsUploaded">Încărcare realizată cu succes</string>
     <string name="Modal_UploadFailed_Title">Incărcare eșuată</string>
     <string name="Modal_UploadFailed_Paragraph">Nu am reușit să încărcăm măsurările %1$s / %2$s. Jurnalul de erori a fost partajat cu dezvoltatorii OONI.</string>
@@ -190,20 +406,51 @@
     <string name="Modal_Cancel">Anulați</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Doriți să ștergeți toate rezultatele testelor?</string>
+    <string name="Modal_Clear_Legacy_Directories"></string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Modal_Delete">Ștergeți</string>
     <string name="Modal_ReRun_Title">Reexecutați testul</string>
-    <string name="Modal_ReRun_Websites_Title">Sunteți pe cale să testați site-urile %1$s.</string>
+    <string name="Modal_ReRun_Websites_Title">Sunteți pe cale să testați site-urile {websNumber}.</string>
     <string name="Modal_ReRun_Websites_Run">Executare</string>
+    <string name="Modal_DisableVPN_Title"></string>
+    <string name="Modal_DisableVPN_Message"></string>
+    <string name="Modal_DisableVPN"></string>
+    <string name="Modal_RunAnyway"></string>
+    <string name="Modal_AlwaysRun"></string>
     <string name="Modal_Error_CantDownloadURLs">Imposibil de descărcat lista URL. Vă rugăm să încercați din nou.</string>
     <string name="Modal_Error_NoInternet">Nu este conexiune la internet</string>
+    <string name="Modal_Error_ProxyUnavailable"></string>
     <string name="Modal_CustomURL_Title_NotSaved">Ești sigur(ă)?</string>
     <string name="Modal_CustomURL_NotSaved">URL-urile dvs. nu vor fi salvate când părăsiți acest ecran. Sigur doriți să părăsiți acest ecran?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding"></string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder"></string>
+
+    <string name="Desktop_OpenApp"></string>
     <string name="Desktop_Quit">Quit</string>
     <string name="Tray_Notification_Check_Updates">Verificați pentru actualizări</string>
+    <string name="Tray_Notification_Updates_Available"></string>
+    <string name="Tray_Notification_Checking_Updates"></string>
+
     <string name="Modal_Hide">Ascunde</string>
+    <string name="Modal_Quite_Prompt"></string>
+    <string name="Modal_Quite_Description"></string>
+
     <string name="OONIRun_Run">Executare</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testare</string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
+    <string name="Notification_UpdateChannelName"></string>
+    <string name="Notification_StopTest"></string>
+
     <string name="Common_Back">Înapoi</string>
     <string name="Common_Close">Închide</string>
     <string name="Common_Refresh">Actualizează</string>
@@ -218,9 +465,35 @@
     <string name="Common_Share">Partajează</string>
     <string name="Common_Dismiss">Renunță</string>
     <string name="Common_Search">Căutare</string>
+    <string name="Common_Today"></string>
+    <string name="Common_Yesterday"></string>
+    <string name="Common_Week"></string>
     <string name="Common_Month">Lună</string>
     <string name="Common_Total">Total</string>
     <string name="Common_Ago">%1$s în urmă</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Common_Hours_Abbreviated"></string>
+    <string name="Common_Minutes_Abbreviated"></string>
+    <string name="Common_Seconds_Abbreviated"></string>
     <string name="Common_Months_January">Ianuarie</string>
     <string name="Common_Months_February">Februarie</string>
     <string name="Common_Months_March">Martie</string>
@@ -233,5 +506,8 @@
     <string name="Common_Months_October">Octombrie</string>
     <string name="Common_Months_November">Noiembrie</string>
     <string name="Common_Months_December">Decembrie</string>
+
+    <string name="TaskOrigin_Manual"></string>
+    <string name="TaskOrigin_AutoRun"></string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
