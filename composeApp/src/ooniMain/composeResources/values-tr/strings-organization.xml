@@ -10,13 +10,16 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe bir kişisel gizlilik sağlama aracı değildir. İnternet işlemlerinizi izleyenler çalıştırdığınız uygulamaları görebilir.</string>
     <string name="Onboarding_PopQuiz_2_Question">OONI Probe uygulamasını çalıştırdığımda topladığım veriler herkese açık olarak yayınlanır.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">İnternet sansürü şeffaflığını sağlamak için tüm OONI Probe kullanıcılarının ağ verileri otomatik olarak yayınlanır (ayarlardan kapatılmadıkça).</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph"></string>
     <string name="Onboarding_Crash_Paragraph">OONI Probe uygulamasını iyileştirmek için, sorun çıktığında kişisel veri içermeyen anonim çökme bildirimleri almak istiyoruz.\n\nÇökme bildirimlerinin OONI geliştirme ekibine gönderilmesini ister misiniz?</string>
     <string name="Onboarding_CleanUp_Title">Temizle</string>
     <string name="Onboarding_CleanUp_Paragraph">Önceki kurulumdan kalmış bazı dosyalar bulduk. Kurulumu sürdürmeden önce lütfen bu dosyaları temizleyin.</string>
     <string name="Dashboard_Websites_Card_Description">Site engellemelerini sınayın</string>
+    <string name="Dashboard_Websites_Overview_Paragraph"></string>
     <string name="Dashboard_Performance_Card_Description">Ağınızın hızını ve başarımını ölçün</string>
     <string name="Dashboard_Performance_Overview_Paragraph">[NDT](https://ooni.org/nettest/ndt/) sınaması ile ağınızın hızını ve başarımını ölçebilirsiniz.\n\n[DASH](https://ooni.org/nettest/dash/) sınaması ile görüntü akış başarımını ölçebilirsiniz.\n\nBu sınamalar sırasında ağınızın hızına göre belirlenen miktarda çeşitli veriler aktarılır.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.\n\nBildirim: Bu sınamalar üçüncü tarafların sunucuları üzerinden yapılır. Bu nedenle IP adresinizin kaydedilmeyeceğini garanti edemeyiz.</string>
     <string name="Dashboard_Middleboxes_Card_Description">Ağınızdaki ara kutuları bulun</string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph"></string>
     <string name="Dashboard_InstantMessaging_Card_Description">Anlık ileti uygulamalarının engellenip engellenmediğini anlayın</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">[WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) ve [Signal](https://ooni.org/nettest/signal) uygulamalarının engellenip engellenmediğini kontrol edebilirsiniz.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
     <string name="Dashboard_Circumvention_Card_Description">Sansürü aşma araçları engellemesini sınayın</string>
@@ -24,6 +27,7 @@
     <string name="Dashboard_Experimental_Card_Description">Yeni deneysel sınamaları çalıştır</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">OONI ekibi tarafından geliştirilmiş yeni deneysel sınamaları çalıştırın:\n%1$s\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.</string>
     <string name="Settings_About_Label">OONI hakkında</string>
+    <string name="Settings_About_Content_Paragraph"></string>
     <string name="Settings_About_Content_LearnMore">Ayrıntılı bilgi alın</string>
     <string name="Settings_About_Content_Blog">Günlük</string>
     <string name="Settings_About_Content_Reports">Raporlar</string>
