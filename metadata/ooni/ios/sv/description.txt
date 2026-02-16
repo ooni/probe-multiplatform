@@ -6,19 +6,19 @@ OONI Probe är utvecklat av Open Observatory of Network Interference (OONI), ett
 
 Sedan 2012 har OONI:s globala gemenskap samlat in miljontals nätverksmätningar från fler än 200 länder, vilket belyser flera fall av nätverksstörningar.
 
-▶ Collect evidence of internet censorship
+
 Du kan kontrollera om- och hur webbplatser och snabbmeddelandeappar blockeras. Den uppmätta nätverksdatan du samlar in kan fungera som bevis på internetcensur.
 
-▶ Detect systems responsible for censorship and surveillance
+
 OONI Probe's tester är också utformade för att avslöja förekomsten av system (mellanhänder) som kan ansvara för censur och övervakning.
 
-▶ Measure the speed and performance of your network
+
 Du kan mäta nätverkets hastighet- och prestanda, genom att köra OONI:s implementering av NDT (Network Diagnostic Test). Du kan också mäta videostreamingprestanda med testet Dynamic Adaptive Streaming over HTTP (DASH).
 
-▶ Open data
+
 OONI publicerar nätverksmätningsdata eftersom öppna data gör det möjligt för tredje part att verifiera OONI-resultaten, genomföra oberoende studier, samt svara på andra forskningsfrågor. Att öppet publicera OONI data bidrar också till att öka insynen i internetcensur runt om i världen. Du kan utforska och ladda ner OONI-data här: https://ooni.io/data/
 
-▶ Free software
+
 Alla OONI Probe-tester (inklusive våra NDT- och DASH-implementeringar) baseras på programvara för fri- och öppen källkod. Du hittar OONI's-programprojekt på GitHub: https://github.com/ooni. Ar du nyfiken på att lära dig hur OONI Probe's tester fungerar? Läs mer: https://ooni.io/nettest/
 
 För att få uppdateringar från OONI-versum, följ oss på Twitter: https://twitter.com/OpenObservatory
