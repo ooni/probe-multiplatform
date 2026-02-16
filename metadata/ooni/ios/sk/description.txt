@@ -6,19 +6,19 @@ OONI Probe vyvíja Open Observatory of Network Interference (OONI), projekt slob
 
 Globálna komunita OONI zhromaždila od roku 2012 milióny sieťových meraní z viac ako 200 krajín, vrhajúc tak svetlo na početné prípady zásahov do sietí.
 
-▶ Collect evidence of internet censorship
+
 Môžeš skontrolovať, či a ako sú webové stránky a aplikácie na výmenu okamžitých správ blokované. Údaje sieťových meraní, ktoré zhromaždíš, môžu slúžiť ako dôkazy cenzúry internetu.
 
-▶ Detect systems responsible for censorship and surveillance
+
 Testy OONI Probe sú tiež navrhnuté na odhaľovanie prítomnosti systémov (middleboxy), ktoré môžu byť zodpovedné za cenzúru a sledovanie.
 
-▶ Measure the speed and performance of your network
+
 Spustením implementácie diagnostického testu siete OONI (NDT) môžeš zmerať rýchlosť a výkon svojej siete. Môžeš tiež zmerať výkon streamovania videa pomocou testu dynamického adaptívneho streamovania cez protokol HTTP (DASH).
 
-▶ Open data
+
 OONI zverejňuje údaje sieťových meraní, pretože otvorené dáta umožňujú tretím stranám overovať zistenia OONI, viesť nezávislé štúdie a zodpovedať ďalšie výskumné otázky. Otvorené zverejňovanie dát OONI tiež pomáha zvyšovať transparentnosť cenzúry internetu vo svete. Dáta OONI môžeš preskúmať a stiahnuť si tu: https://ooni.io/data/
 
-▶ Free software
+
 Všetky testy OONI Probe (vrátane našich implementácií testov NDT a DASH) sú založené na slobodnom softvéri s otvoreným zdrojovým kódom. Softvérové projekty OONI môžeš nájsť na GitHube: https://github.com/ooni. Chcel/a by si sa dozvedieť, ako fungujú testy OONI Probe? Zisti viac: https://ooni.io/nettest/
 
 Pre novinky zo sveta OONI sleduj náš Twitter: https://twitter.com/OpenObservatory
