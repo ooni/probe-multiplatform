@@ -13,12 +13,12 @@ OONI Probe は、世界中のインターネット検閲を明らかにするた
 OONI Probe 検査は、検閲と監視に関与するシステム (ミドルボックス) の存在を明らかにするためにも設計されています。
 
 ネットワークの速度とパフォーマンスを測定します
-You can measure the speed and performance of your network by running OONI's implementation of the Network Diagnostic Test (NDT). You can also measure video streaming performance with the Dynamic Adaptive Streaming over HTTP (DASH) test.
+
 
 オープンデータ
-OONI publishes network measurement data because open data allows third parties to verify OONI findings, conduct independent studies, and answer other research questions. Openly publishing OONI data also helps increase transparency of internet censorship around the world. You can explore and download OONI data here: https://ooni.io/data/
+
 
 フリーソフトウェア
-All OONI Probe tests (including our NDT and DASH implementations), are based on free and open source software. You can find OONI software projects on GitHub: https://github.com/ooni. Curious to learn how OONI Probe tests work? Learn more: https://ooni.io/nettest/
 
-To receive updates from the OONI-verse, follow us on Twitter: https://twitter.com/OpenObservatory
+
+
