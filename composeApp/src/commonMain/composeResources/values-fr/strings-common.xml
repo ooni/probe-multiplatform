@@ -43,6 +43,7 @@
     <string name="Dashboard_Articles_Report">Signalement</string>
     <string name="Dashboard_Articles_ReadMore">En savoir plus</string>
     <string name="Dashboard_Articles_Recent">Récents</string>
+    <string name="Dashboard_Articles_OpenExternal">Ouvrir dans le navigateur</string>
     <string name="Dashboard_RunV2_Ooni_Title">Tests OONI</string>
     <string name="Dashboard_RunV2_Title">Liens OONI Run</string>
     <string name="Dashboard_Runv2_Overview_Description">Créé par %1$s à %2$s</string>
