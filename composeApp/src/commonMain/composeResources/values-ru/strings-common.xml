@@ -8,7 +8,13 @@
     <string name="Dashboard_Running_Stopping_Title">Останавливаем тест...</string>
     <string name="Dashboard_Running_Stopping_Notice">Заканчиваем текущее тесты, пожалуйста подождите....</string>
     <string name="Dashboard_Running_ProxyInUse">Используется прокси</string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Title">Тесты</string>
+    <string name="Dashboard_TestsMoved_Description"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
     <string name="Dashboard_RunTests_Title">Протестировать</string>
     <string name="Dashboard_RunTests_Description">Выберите тесты, которые вы хотите запустить</string>
     <string name="Dashboard_RunTests_SelectAll">Выбрать все тесты</string>
@@ -19,8 +25,28 @@
         <item quantity="many">Провести %1$d тестов</item>
         <item quantity="other">Провести %1$d тестов</item>
     </plurals>
+    <string name="Dashboard_Stats_Title"></string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty"></string>
+
+    <string name="Dashboard_Articles_Title"></string>
+    <string name="Dashboard_Articles_Blog"></string>
+    <string name="Dashboard_Articles_Finding"></string>
     <string name="Dashboard_Articles_Report">Отчет</string>
     <string name="Dashboard_Articles_ReadMore">Узнать больше</string>
+    <string name="Dashboard_Articles_Recent"></string>
+    <string name="Dashboard_Articles_OpenExternal"></string>
     <string name="Dashboard_RunV2_Ooni_Title">Тесты OONI</string>
     <string name="Dashboard_RunV2_Title">Ссылки OONI Run </string>
     <string name="Dashboard_Runv2_Overview_Description">Создал(а) %1$s в %2$s</string>
@@ -29,10 +55,10 @@
     <string name="Dashboard_Runv2_Overview_SeeMore">Узнать больше</string>
     <!-- This only applies when there are more than 10 websites to show. -->
     <plurals name="Dashboard_Runv2_Websites_SeeAll">
-        <item quantity="one">Посмотреть сайт %1$d</item>
-        <item quantity="few">Посмотреть сайты %1$d</item>
-        <item quantity="many">Посмотреть сайты %1$d</item>
-        <item quantity="other">Посмотреть сайты %1$d</item>
+        <item quantity="one">Посмотреть сайт</item>
+        <item quantity="few">Посмотреть сайты</item>
+        <item quantity="many">Посмотреть сайты</item>
+        <item quantity="other">Посмотреть сайты</item>
     </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">УСТАРЕЛА</string>
     <string name="Dashboard_RunV2_UpdatedTag">ОБНОВЛЕНА</string>
@@ -54,6 +80,7 @@
 
 
     <string name="Tests_Title">Тесты</string>
+    <string name="Tests_Search"></string>
     <string name="Test_Websites_Fullname">Сайты</string>
     <string name="Test_InstantMessaging_Fullname">Мессенджеры</string>
     <string name="Test_Performance_Fullname">Производительность</string>
@@ -81,6 +108,12 @@
         <item quantity="many">%1$s заблокированы</item>
         <item quantity="other">%1$s заблокированы</item>
     </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Тесты еще не проводились. Попробуйте запустить первый!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Дата и время</string>
     <string name="TestResults_Summary_Hero_Network">Сеть</string>
@@ -92,6 +125,24 @@
     <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
     <string name="TestResults_Summary_Hero_Usb">USB</string>
     <string name="TestResults_Summary_Hero_NoInternet">Нет связи с интернетом</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Загрузить</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Скачать</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Видео</string>
@@ -149,6 +200,18 @@
     <string name="Measurements_Failed">Ошибка</string>
     <string name="Measurements_Ok">ОК</string>
     <string name="Measurements_Anomaly">Аномалия</string>
+    <plurals name="Measurements_Count">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Measurement_Raw_NotUploadedReasoning">Это измерение не было опубликовано в базе OONI Explorer. Загрузите его, чтобы увидеть результаты анализа. </string>
     <string name="Measurement_Raw_Share">Поделиться данными измерения</string>
     <string name="Measurement_Raw_Upload">Загрузить</string>
@@ -177,16 +240,29 @@
     <string name="Settings_Proxy">Прокси</string>
     <string name="Settings_Proxy_None">Нет</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Add"></string>
     <string name="Settings_Proxy_Custom_Protocol">Протокол</string>
     <string name="Settings_Proxy_Custom_Hostname">Имя хоста</string>
     <string name="Settings_Proxy_Custom_Port">Порт</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid"></string>
+    <string name="Settings_Proxy_Custom_PortInvalid"></string>
     <string name="Settings_Proxy_Custom_Testing">Проверка</string>
     <string name="Settings_Proxy_Custom_Available">Доступен</string>
     <string name="Settings_Proxy_Custom_Unavailable">Недоступно</string>
+    <string name="Settings_Proxy_Delete_Confirmation"></string>
     <string name="Settings_Language_Label">Язык</string>
     <string name="Settings_Advanced_Label">Дополнительно</string>
     <string name="Settings_Advanced_DebugLogs">Журналы отладки</string>
     <string name="Settings_Advanced_RecentLogs">Посмотреть последние логи</string>
+    <string name="Settings_Results_DeleteOldResults"></string>
+    <string name="Settings_Results_DeleteOldResultsThreshold"></string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit"></string>
     <string name="Settings_Support_Label">Поддержка</string>
     <string name="Settings_Support_SendEmail">Отправить письмо поддержке</string>
     <string name="Settings_Support_Message">Пожалуйста, опишите проблему: </string>
@@ -194,6 +270,9 @@
     <string name="Settings_Support_IncludeLogs">Включить логи приложения</string>
     <string name="Settings_Support_Action">Отправить письмо</string>
     <string name="Settings_ShareApp">Поделиться приложением</string>
+    <string name="Settings_ShareApp_Description"></string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
+    <string name="Settings_ShareApp_ShareMessage"></string>
     <string name="Settings_Storage_Label">Использование хранилища</string>
     <string name="Settings_Storage_Delete">Удалить</string>
     <string name="Settings_Storage_Clear">Очистить</string>
@@ -314,13 +393,18 @@
     <string name="Onboarding_DefaultSettings_Button_Change">Изменить настройки</string>
 
 
+    <string name="AddDescriptor_EnterURL"></string>
+    <string name="AddDescriptor_URLInvalid"></string>
     <string name="AddDescriptor_Settings">Проверить настройки</string>
     <string name="AddDescriptor_Title">Установить новую ссылку</string>
     <string name="AddDescriptor_AutoUpdate">Устанавливать обновления автоматически</string>
     <string name="AddDescriptor_AutoRun">Запускать тесты автоматически</string>
     <string name="AddDescriptor_Toasts_Installed">Ссылка установлена</string>
+    <string name="AddDescriptor_InstallForLater"></string>
+    <string name="AddDescriptor_InstallAndRun"></string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Неподдерживаемый URL</string>
     <string name="LoadingScreen_Runv2_Message">Ссылка загружается</string>
+    <string name="LoadingScreen_Runv2_Failure"></string>
     <string name="DescriptorUpdate_Updates">ОБНОВЛЕНИЯ</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Проверить наличие обновлений</string>
@@ -330,6 +414,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Не загружено</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Загружено частично</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Загрузить все</string>
+    <string name="Modal_ResultsNotUploaded_Uploading"></string>
     <string name="Toast_ResultsUploaded">Загрузка успешно завершена</string>
     <string name="Modal_UploadFailed_Title">Не удалось загрузить</string>
     <string name="Modal_UploadFailed_Paragraph">Нам не удалось загрузить измерения %1$s/%2$s. Журнал сбоев был передан разработчикам OONI.</string>
@@ -361,6 +446,7 @@
     <string name="Modal_AlwaysRun">Всегда тестировать</string>
     <string name="Modal_Error_CantDownloadURLs">Ошибка скачивания списка адресов. Пожалуйста, попробуйте снова.</string>
     <string name="Modal_Error_NoInternet">Подключение к интернету отсутствует</string>
+    <string name="Modal_Error_ProxyUnavailable"></string>
     <string name="Modal_CustomURL_Title_NotSaved">Вы уверены?</string>
     <string name="Modal_CustomURL_NotSaved">Если вы закроете этот экран, адреса не сохранятся. Вы уверены, что хотите его закрыть?</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">Приложение не может запускать тесты в фоновом режиме без специального разрешения. Хотите попробовать снова? </string>
@@ -370,7 +456,12 @@
     <string name="Desktop_Quit">Выход</string>
     <string name="Tray_Notification_Check_Updates">Проверить наличие обновлений</string>
     <string name="Tray_Notification_Updates_Available">Доступно обновление!</string>
+    <string name="Tray_Notification_Checking_Updates"></string>
+
     <string name="Modal_Hide">Скрыть</string>
+    <string name="Modal_Quite_Prompt"></string>
+    <string name="Modal_Quite_Description"></string>
+
     <string name="OONIRun_Run">Запустить</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Проверка</string>
@@ -396,6 +487,7 @@
     <string name="Common_Yesterday">Вчера</string>
     <string name="Common_Week">Неделя</string>
     <string name="Common_Month">Месяц</string>
+    <string name="Common_Total"></string>
     <string name="Common_Ago">%1$s назад</string>
     <plurals name="Common_Seconds">
         <item quantity="one">%1$d секунда</item>
