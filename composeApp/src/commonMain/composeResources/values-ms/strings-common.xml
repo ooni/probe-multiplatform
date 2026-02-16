@@ -1,63 +1,319 @@
 <resources>
 
+    <string name="Dashboard_Tab_Label"></string>
     <string name="Dashboard_Overview_Estimated">Anggaran:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Pilih tapak web:</string>
     <string name="Dashboard_Running_Running">Sedang dijalankan:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Anggaran baki masa:</string>
     <string name="Dashboard_Running_Stopping_Title">Menghentikan ujian...</string>
     <string name="Dashboard_Running_Stopping_Notice">Menghabiskan ujian yang sedang dijalankan, sila tunggu...</string>
+    <string name="Dashboard_Running_ProxyInUse"></string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Title">Ujian-ujian</string>
+    <string name="Dashboard_TestsMoved_Description"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
+    <string name="Dashboard_RunTests_Title"></string>
+    <string name="Dashboard_RunTests_Description"></string>
+    <string name="Dashboard_RunTests_SelectAll"></string>
+    <string name="Dashboard_RunTests_SelectNone"></string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Title"></string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty"></string>
+
+    <string name="Dashboard_Articles_Title"></string>
+    <string name="Dashboard_Articles_Blog"></string>
+    <string name="Dashboard_Articles_Finding"></string>
+    <string name="Dashboard_Articles_Report"></string>
+    <string name="Dashboard_Articles_ReadMore"></string>
+    <string name="Dashboard_Articles_Recent"></string>
+    <string name="Dashboard_Articles_OpenExternal"></string>
+    <string name="Dashboard_RunV2_Ooni_Title"></string>
+    <string name="Dashboard_RunV2_Title"></string>
+    <string name="Dashboard_Runv2_Overview_Description"></string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink"></string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions"></string>
+    <string name="Dashboard_Runv2_Overview_SeeMore"></string>
+    <!-- This only applies when there are more than 10 websites to show. -->
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_RunV2_ExpiredTag"></string>
+    <string name="Dashboard_RunV2_UpdatedTag"></string>
+    <string name="Dashboard_RunV2_UpdateTag"></string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated"></string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate"></string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate"></string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates"></string>
+    <string name="Dashboard_Progress_UpdateLink_Label"></string>
+    <string name="Dashboard_Progress_ReviewLink_Label"></string>
+    <string name="Dashboard_Progress_ReviewLink_Action"></string>
+    <string name="Dashboard_ReviewDescriptor_Label"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default"></string>
+    <!-- Button to reject a link update during review -->
+    <string name="Dashboard_ReviewDescriptor_Reject"></string>
+    <string name="Dashboard_Update_Ready"></string>
+    <string name="Dashboard_Update_Restart"></string>
+
+
     <string name="Tests_Title">Ujian-ujian</string>
+    <string name="Tests_Search"></string>
     <string name="Test_Websites_Fullname">Tapak-tapak web</string>
     <string name="Test_InstantMessaging_Fullname">Pemesejan Segera</string>
     <string name="Test_Performance_Fullname">Prestasi</string>
+    <string name="Test_Circumvention_Fullname"></string>
     <string name="Test_Experimental_Fullname">Eksperimen</string>
+    <string name="Test_HTTPInvalidRequestLine_Fullname"></string>
+    <string name="Test_HTTPHeaderFieldManipulation_Fullname"></string>
+    <string name="Test_WebConnectivity_Fullname"></string>
+    <string name="Test_NDT_Fullname"></string>
+    <string name="Test_Dash_Fullname"></string>
+    <string name="Test_WhatsApp_Fullname"></string>
+    <string name="Test_Telegram_Fullname"></string>
+    <string name="Test_FacebookMessenger_Fullname"></string>
+    <string name="Test_Psiphon_Fullname"></string>
+    <string name="Test_Tor_Fullname"></string>
+    <string name="Test_Signal_Fullname"></string>
+
+
+    <string name="TestResults"></string>
     <string name="TestResults_Overview_Hero_Networks">Rangkaian-rangkaian</string>
     <string name="TestResults_Overview_Hero_DataUsage">Data yang telah digunakan</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun"></string>
     <string name="TestResults_Summary_Hero_DateAndTime">Tarikh &amp; Masa</string>
     <string name="TestResults_Summary_Hero_Network">Rangkaian</string>
     <string name="TestResults_Summary_Hero_Country">Negara</string>
+    <string name="TestResults_Summary_Hero_Runtime"></string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_Mobile"></string>
+    <string name="TestResults_Summary_Hero_Bluetooth"></string>
+    <string name="TestResults_Summary_Hero_Ethernet"></string>
+    <string name="TestResults_Summary_Hero_Usb"></string>
     <string name="TestResults_Summary_Hero_NoInternet">Tiada internet</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Muat naik</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Muat turun</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
     <string name="TestResults_Summary_Performance_Hero_Video_Quality">Qualiti</string>
+    <string name="TestResults_Summary_Performance_Hero_Ping"></string>
+    <string name="TestResults_Gbps"></string>
+    <string name="TestResults_Mbps"></string>
+    <string name="TestResults_Kbps"></string>
+    <string name="TestResults_ms"></string>
     <string name="TestResults_UnknownASN">Tidak diketahui</string>
+    <string name="TestResults_NotAvailable"></string>
+    <string name="TestResults_Filters_Title"></string>
+    <string name="TestResults_Filters_Short"></string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Ujian-ujian</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Networks">Rangkaian-rangkaian</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="TestResults_Filter_Source"></string>
     <string name="TestResults_Filter_Date">Tarikh</string>
+    <string name="TestResults_Filter_Date_Any"></string>
+    <string name="TestResults_Filter_Date_Today"></string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo"></string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo"></string>
     <string name="TestResults_Filter_Date_Custom">Tersuai</string>
+    <string name="TestResults_Filter_Date_Custom_Filled"></string>
+    <string name="TestResults_Filter_Date_Picker"></string>
+    <string name="TestResults_Filter_NoTestsFound"></string>
+    <string name="TestResults_Filter_DeleteConfirmation"></string>
+    <string name="Results_LimitedNotice"></string>
+    <string name="Results_UploadingMissing"></string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
+    <string name="Results_MarkAllAsViewed"></string>
+    <string name="Results_MarkAllAsViewed_Confirmation"></string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation"></string>
+
+
+    <string name="Measurement_Title"></string>
+    <string name="Measurement_LoadingFailed"></string>
     <string name="Measurements_Failed">Gagal</string>
     <string name="Measurements_Ok">Baiklah</string>
+    <string name="Measurements_Anomaly"></string>
+    <plurals name="Measurements_Count">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning"></string>
+    <string name="Measurement_Raw_Share"></string>
     <string name="Measurement_Raw_Upload">Muat naik</string>
 
 
     <string name="Settings_Title">Aturan</string>
+    <string name="Settings_TestOptions_Label"></string>
+    <string name="Settings_TestOptions_LongRunningTest"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically"></string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Semasa menggunakan WiFi sahaja</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description"></string>
+    <string name="Settings_Sharing_UploadResults"></string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeEnabled"></string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description"></string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeDuration"></string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit"></string>
+    <string name="Settings_Websites_Categories_Label"></string>
+    <string name="Settings_Websites_Categories_Description"></string>
     <string name="Settings_Privacy_Label">Privasi</string>
     <string name="Settings_Privacy_SendCrashReports">Hantar laporan ranap sistem</string>
+    <string name="Settings_Proxy_Label"></string>
+    <string name="Settings_Proxy"></string>
     <string name="Settings_Proxy_None">Tiada</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Add"></string>
+    <string name="Settings_Proxy_Custom_Protocol"></string>
     <string name="Settings_Proxy_Custom_Hostname">Nama hos</string>
     <string name="Settings_Proxy_Custom_Port">Port proksi tersuai</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid"></string>
+    <string name="Settings_Proxy_Custom_PortInvalid"></string>
+    <string name="Settings_Proxy_Custom_Testing"></string>
     <string name="Settings_Proxy_Custom_Available">Tersedia</string>
+    <string name="Settings_Proxy_Custom_Unavailable"></string>
+    <string name="Settings_Proxy_Delete_Confirmation"></string>
     <string name="Settings_Language_Label">Bahasa</string>
     <string name="Settings_Advanced_Label">Lanjutan</string>
+    <string name="Settings_Advanced_DebugLogs"></string>
+    <string name="Settings_Advanced_RecentLogs"></string>
+    <string name="Settings_Results_DeleteOldResults"></string>
+    <string name="Settings_Results_DeleteOldResultsThreshold"></string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit"></string>
+    <string name="Settings_Support_Label"></string>
+    <string name="Settings_Support_SendEmail"></string>
+    <string name="Settings_Support_Message"></string>
+    <string name="Settings_Support_Message_Hint"></string>
+    <string name="Settings_Support_IncludeLogs"></string>
+    <string name="Settings_Support_Action"></string>
+    <string name="Settings_ShareApp"></string>
+    <string name="Settings_ShareApp_Description"></string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
+    <string name="Settings_ShareApp_ShareMessage"></string>
+    <string name="Settings_Storage_Label"></string>
     <string name="Settings_Storage_Delete">Padam</string>
+    <string name="Settings_Storage_Clear"></string>
+    <string name="Settings_Legacy_Storage"></string>
+    <string name="Settings_WarmVPNInUse_Label"></string>
+    <string name="Settings_DisableVpnInstructions"></string>
     <string name="Settings_Logs">Log</string>
+    <string name="Settings_ShareLogs"></string>
+    <string name="Settings_ShareLogs_Error"></string>
+    <string name="Settings_FilterLogs"></string>
+    <string name="Settings_Sharing_UploadResults_Description"></string>
+    <string name="Settings_Websites_Categories_Selection_None"></string>
     <string name="Settings_Websites_Categories_Selection_All">Pilih semua</string>
+    <string name="Settings_Websites_CustomURL_Title"></string>
+    <string name="Settings_Websites_CustomURL_URL"></string>
     <string name="Settings_Websites_CustomURL_Run">Mula</string>
     <string name="Settings_Websites_CustomURL_Add">Tambah tapak web</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="other"></item>
+    </plurals>
+
+    <string name="CategoryCode_ALDR_Name"></string>
     <string name="CategoryCode_REL_Name">Agama</string>
     <string name="CategoryCode_PORN_Name">Pornografi</string>
+    <string name="CategoryCode_PROV_Name"></string>
+    <string name="CategoryCode_POLR_Name"></string>
     <string name="CategoryCode_HUMR_Name">Isu-isu Hak Manusia</string>
+    <string name="CategoryCode_ENV_Name"></string>
+    <string name="CategoryCode_MILX_Name"></string>
+    <string name="CategoryCode_HATE_Name"></string>
     <string name="CategoryCode_NEWS_Name">Berita Media</string>
+    <string name="CategoryCode_XED_Name"></string>
     <string name="CategoryCode_PUBH_Name">Kesihatan Awam</string>
+    <string name="CategoryCode_GMB_Name"></string>
+    <string name="CategoryCode_ANON_Name"></string>
+    <string name="CategoryCode_DATE_Name"></string>
+    <string name="CategoryCode_GRP_Name"></string>
     <string name="CategoryCode_LGBT_Name">LGBTQ+</string>
+    <string name="CategoryCode_FILE_Name"></string>
+    <string name="CategoryCode_HACK_Name"></string>
     <string name="CategoryCode_COMT_Name">Alat Komunikasi</string>
+    <string name="CategoryCode_MMED_Name"></string>
+    <string name="CategoryCode_HOST_Name"></string>
+    <string name="CategoryCode_SRCH_Name"></string>
+    <string name="CategoryCode_GAME_Name"></string>
     <string name="CategoryCode_CULTR_Name">Budaya</string>
+    <string name="CategoryCode_ECON_Name"></string>
     <string name="CategoryCode_GOVT_Name">Kerajaan</string>
+    <string name="CategoryCode_COMM_Name"></string>
+    <string name="CategoryCode_CTRL_Name"></string>
+    <string name="CategoryCode_IGO_Name"></string>
+    <string name="CategoryCode_MISC_Name"></string>
+    <string name="CategoryCode_ALDR_Description"></string>
+    <string name="CategoryCode_REL_Description"></string>
+    <string name="CategoryCode_PORN_Description"></string>
+    <string name="CategoryCode_PROV_Description"></string>
+    <string name="CategoryCode_POLR_Description"></string>
+    <string name="CategoryCode_HUMR_Description"></string>
+    <string name="CategoryCode_ENV_Description"></string>
+    <string name="CategoryCode_MILX_Description"></string>
+    <string name="CategoryCode_HATE_Description"></string>
+    <string name="CategoryCode_NEWS_Description"></string>
+    <string name="CategoryCode_XED_Description"></string>
+    <string name="CategoryCode_PUBH_Description"></string>
+    <string name="CategoryCode_GMB_Description"></string>
+    <string name="CategoryCode_ANON_Description"></string>
+    <string name="CategoryCode_DATE_Description"></string>
+    <string name="CategoryCode_GRP_Description"></string>
+    <string name="CategoryCode_LGBT_Description"></string>
+    <string name="CategoryCode_FILE_Description"></string>
+    <string name="CategoryCode_HACK_Description"></string>
+    <string name="CategoryCode_COMT_Description"></string>
+    <string name="CategoryCode_MMED_Description"></string>
+    <string name="CategoryCode_HOST_Description"></string>
+    <string name="CategoryCode_SRCH_Description"></string>
+    <string name="CategoryCode_GAME_Description"></string>
+    <string name="CategoryCode_CULTR_Description"></string>
+    <string name="CategoryCode_ECON_Description"></string>
+    <string name="CategoryCode_GOVT_Description"></string>
+    <string name="CategoryCode_COMM_Description"></string>
+    <string name="CategoryCode_CTRL_Description"></string>
+    <string name="CategoryCode_IGO_Description"></string>
+    <string name="CategoryCode_MISC_Description"></string>
+
+    <string name="Onboarding_QuizAnswer_Correct"></string>
+    <string name="Onboarding_QuizAnswer_Incorrect"></string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Saya faham</string>
     <string name="Onboarding_ThingsToKnow_Title">Peringatan!</string>
     <string name="Onboarding_ThingsToKnow_Button">Saya faham</string>
@@ -75,30 +331,90 @@
     <string name="Onboarding_Crash_Title">Pelaporan Ranap</string>
     <string name="Onboarding_Crash_Button_Yes">Ya</string>
     <string name="Onboarding_Crash_Button_No">Tidak</string>
+    <string name="Onboarding_Notifications_Title"></string>
+    <string name="Onboarding_Notifications_Paragraph"></string>
     <string name="Onboarding_Notifications_Ok">Baiklah</string>
     <string name="Onboarding_Notifications_Skip">Langkau</string>
     <string name="Onboarding_DefaultSettings_Title">Pengesetan Asal</string>
     <string name="Onboarding_DefaultSettings_Header">Kami mengumpul and menerbit:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Kod negara (cth. IT bagi Itali)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2"></string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Masa &amp; tarikh ujian</string>
+    <string name="Onboarding_DefaultSettings_Paragraph"></string>
+    <string name="Onboarding_DefaultSettings_Button_Go"></string>
     <string name="Onboarding_DefaultSettings_Button_Change">Tukar pengesetan asal</string>
 
 
+    <string name="AddDescriptor_EnterURL"></string>
+    <string name="AddDescriptor_URLInvalid"></string>
     <string name="AddDescriptor_Settings">Test Settings</string>
+    <string name="AddDescriptor_Title"></string>
+    <string name="AddDescriptor_AutoUpdate"></string>
+    <string name="AddDescriptor_AutoRun"></string>
+    <string name="AddDescriptor_Toasts_Installed"></string>
+    <string name="AddDescriptor_InstallForLater"></string>
+    <string name="AddDescriptor_InstallAndRun"></string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url"></string>
+    <string name="LoadingScreen_Runv2_Message"></string>
+    <string name="LoadingScreen_Runv2_Failure"></string>
+    <string name="DescriptorUpdate_Updates"></string>
+    <!-- Only used for the desktop version of the app for now -->
+    <string name="DescriptorUpdate_CheckUpdates"></string>
+    <string name="AddDescriptor_AutoRunDisabled"></string>
+    <string name="Descriptor_LastTestResult"></string>
+
+    <string name="Snackbar_ResultsNotUploaded_Text"></string>
+    <string name="Snackbar_ResultsSomeNotUploaded_Text"></string>
+    <string name="Snackbar_ResultsSomeNotUploaded_UploadAll"></string>
+    <string name="Modal_ResultsNotUploaded_Uploading"></string>
     <string name="Toast_ResultsUploaded">Muat naik berjaya</string>
     <string name="Modal_UploadFailed_Title">Muat naik gagal</string>
+    <string name="Modal_UploadFailed_Paragraph"></string>
     <string name="Modal_Retry">Cuba sekali</string>
     <string name="Modal_Cancel">Batal</string>
     <string name="Modal_OK">Baiklah</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Adakah anda ingin memadamkan kesemua hasil ujian ini?</string>
+    <string name="Modal_Clear_Legacy_Directories"></string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="other"></item>
+    </plurals>
     <string name="Modal_Delete">Padam</string>
+    <string name="Modal_ReRun_Title"></string>
+    <string name="Modal_ReRun_Websites_Title"></string>
     <string name="Modal_ReRun_Websites_Run">Mula</string>
+    <string name="Modal_DisableVPN_Title"></string>
+    <string name="Modal_DisableVPN_Message"></string>
+    <string name="Modal_DisableVPN"></string>
+    <string name="Modal_RunAnyway"></string>
     <string name="Modal_AlwaysRun">Sentiasa berjalan</string>
+    <string name="Modal_Error_CantDownloadURLs"></string>
+    <string name="Modal_Error_NoInternet"></string>
+    <string name="Modal_Error_ProxyUnavailable"></string>
     <string name="Modal_CustomURL_Title_NotSaved">Adakah anda pasti?</string>
+    <string name="Modal_CustomURL_NotSaved"></string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding"></string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder"></string>
+
+    <string name="Desktop_OpenApp"></string>
     <string name="Desktop_Quit">Keluar</string>
+    <string name="Tray_Notification_Check_Updates"></string>
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
+    <string name="Tray_Notification_Checking_Updates"></string>
+
     <string name="Modal_Hide">Sembunyikan</string>
+    <string name="Modal_Quite_Prompt"></string>
+    <string name="Modal_Quite_Description"></string>
+
     <string name="OONIRun_Run">Mula</string>
+    <!-- Android notification channel name. -->
+    <string name="Notification_ChannelName"></string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
+    <string name="Notification_UpdateChannelName"></string>
+    <string name="Notification_StopTest"></string>
+
     <string name="Common_Back">Kembali</string>
     <string name="Common_Close">Balas</string>
     <string name="Common_Refresh">Segar semula</string>
@@ -107,9 +423,47 @@
     <string name="Common_Enable">Membenarkan</string>
     <string name="Common_Yes">Ya</string>
     <string name="Common_Save">Simpan</string>
+    <string name="Common_Clear"></string>
     <string name="Common_Next">Seterusnya</string>
     <string name="Common_Previous">Sebelumnya</string>
+    <string name="Common_Share"></string>
     <string name="Common_Dismiss">Tolak</string>
     <string name="Common_Search">Cari</string>
+    <string name="Common_Today"></string>
+    <string name="Common_Yesterday"></string>
+    <string name="Common_Week"></string>
+    <string name="Common_Month"></string>
+    <string name="Common_Total"></string>
+    <string name="Common_Ago"></string>
+    <plurals name="Common_Seconds">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Common_Hours_Abbreviated"></string>
+    <string name="Common_Minutes_Abbreviated"></string>
+    <string name="Common_Seconds_Abbreviated"></string>
+    <string name="Common_Months_January"></string>
+    <string name="Common_Months_February"></string>
+    <string name="Common_Months_March"></string>
+    <string name="Common_Months_April"></string>
+    <string name="Common_Months_May"></string>
+    <string name="Common_Months_June"></string>
+    <string name="Common_Months_July"></string>
+    <string name="Common_Months_August"></string>
+    <string name="Common_Months_September"></string>
+    <string name="Common_Months_October"></string>
+    <string name="Common_Months_November"></string>
+    <string name="Common_Months_December"></string>
+
+    <string name="TaskOrigin_Manual"></string>
+    <string name="TaskOrigin_AutoRun"></string>
     <string name="NetworkType_Vpn">Apps</string>
 </resources>
