@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Uyini OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Le app lena yeku kala kuvimbeleka ne kugcindzetela kusebentisa kwemubane wetekuchuma.\n\nngabe likhasi lemoya lelinemininingwane kanye netekuchumana emoyeni tivinjiwe yini? ngabe umbane wemoya uhamba kancane ngendlela lecakile yini? \n\n Vula OONI Probe kutokwati kabanti!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Imininingwane ya OONI isakateka ngalokusebaleni futsi itofaka ekhatsi imininingwane yakho yetekuchumana emoyeni.</string>
@@ -9,5 +9,39 @@
     <string name="Onboarding_PopQuiz_1_Question">Uma ngabe ukhona lolandzelela kusebenta kwembane wami wetekuchumana, utawubona kutsi ngisebentisa OONI Probe.</string>
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe akasilo lithulusi langansense noma leliyimfihlo. Noma ngubani lolandzelela kusebenta kwetindlela takho tekuchumana emoyeni utawukhona kubona kutsi usebentisa luphi luhlobo lwetebucwephesha</string>
     <string name="Onboarding_PopQuiz_2_Question">Ngaso sonkhe sikhatsi uma ngisebentisa OONI Probe, imininingwane yetekuchumana lengiyikolekako itawuvele isakateke ngephandle kwekuvuma nome kuphika kwami.</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph"></string>
+    <string name="Onboarding_AutomatedTesting_Paragraph"></string>
+    <string name="Onboarding_Crash_Paragraph"></string>
+    <string name="Onboarding_CleanUp_Title"></string>
+    <string name="Onboarding_CleanUp_Paragraph"></string>
+    <string name="Dashboard_Websites_Card_Description"></string>
+    <string name="Dashboard_Websites_Overview_Paragraph"></string>
+    <string name="Dashboard_Performance_Card_Description"></string>
+    <string name="Dashboard_Performance_Overview_Paragraph"></string>
+    <string name="Dashboard_Middleboxes_Card_Description"></string>
+    <string name="Dashboard_Middleboxes_Overview_Paragraph"></string>
+    <string name="Dashboard_InstantMessaging_Card_Description"></string>
+    <string name="Dashboard_InstantMessaging_Overview_Paragraph"></string>
+    <string name="Dashboard_Circumvention_Card_Description"></string>
+    <string name="Dashboard_Circumvention_Overview_Paragraph"></string>
+    <string name="Dashboard_Experimental_Card_Description"></string>
+    <string name="Dashboard_Experimental_Overview_Paragraph"></string>
+    <string name="Settings_About_Label"></string>
+    <string name="Settings_About_Content_Paragraph"></string>
     <string name="Settings_About_Content_LearnMore">Fundza kabanti</string>
-    </resources>
+    <string name="Settings_About_Content_Blog"></string>
+    <string name="Settings_About_Content_Reports"></string>
+    <string name="Settings_About_Content_DataPolicy"></string>
+    <string name="Settings_Donate_Title"></string>
+    <string name="Settings_Donate_Heading"></string>
+    <string name="Settings_Donate_SubHeading"></string>
+    <string name="Settings_Donate_Support_Title"></string>
+    <string name="Settings_Donate_Support_Item_OpenSource"></string>
+    <string name="Settings_Donate_Support_Item_Analysis"></string>
+    <string name="Settings_Donate_Support_Item_OpenData"></string>
+    <string name="Settings_Donate_Support_Item_Research"></string>
+    <string name="Settings_Donate_Action"></string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser"></string>
+    <string name="Settings_Donate_Action_Error"></string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt"></string>
+</resources>
