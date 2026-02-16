@@ -8,15 +8,69 @@
     <string name="Dashboard_Running_Stopping_Title">စမ်းသပ်မှုကို ရပ်နေသည်...</string>
     <string name="Dashboard_Running_Stopping_Notice">လက်ရှိ စောင့်ဆိုင်းနေသော စမ်းသပ်မှုများကို အပြီးသတ်နေသည်၊ ကျေးဇူးပြု၍ စောင့်ပါ...</string>
     <string name="Dashboard_Running_ProxyInUse">အသုံးပြုနေသော ပရောက်စီ</string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Title">စမ်းသပ်မှုများ</string>
+    <string name="Dashboard_TestsMoved_Description"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
+    <string name="Dashboard_RunTests_Title"></string>
+    <string name="Dashboard_RunTests_Description"></string>
+    <string name="Dashboard_RunTests_SelectAll"></string>
+    <string name="Dashboard_RunTests_SelectNone"></string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Title"></string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty"></string>
+
+    <string name="Dashboard_Articles_Title"></string>
+    <string name="Dashboard_Articles_Blog"></string>
+    <string name="Dashboard_Articles_Finding"></string>
+    <string name="Dashboard_Articles_Report"></string>
+    <string name="Dashboard_Articles_ReadMore"></string>
     <string name="Dashboard_Articles_Recent">လတ်တလော</string>
+    <string name="Dashboard_Articles_OpenExternal"></string>
+    <string name="Dashboard_RunV2_Ooni_Title"></string>
+    <string name="Dashboard_RunV2_Title"></string>
+    <string name="Dashboard_Runv2_Overview_Description"></string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink"></string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions"></string>
+    <string name="Dashboard_Runv2_Overview_SeeMore"></string>
+    <!-- This only applies when there are more than 10 websites to show. -->
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_RunV2_ExpiredTag"></string>
+    <string name="Dashboard_RunV2_UpdatedTag"></string>
+    <string name="Dashboard_RunV2_UpdateTag"></string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated"></string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate"></string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">ပြန်ပြင်ရန်</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates"></string>
+    <string name="Dashboard_Progress_UpdateLink_Label"></string>
+    <string name="Dashboard_Progress_ReviewLink_Label"></string>
+    <string name="Dashboard_Progress_ReviewLink_Action"></string>
+    <string name="Dashboard_ReviewDescriptor_Label"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default"></string>
+    <!-- Button to reject a link update during review -->
+    <string name="Dashboard_ReviewDescriptor_Reject"></string>
+    <string name="Dashboard_Update_Ready"></string>
     <string name="Dashboard_Update_Restart">စက်ပြန်ဖွင့်ရန်</string>
 
 
     <string name="Tests_Title">စမ်းသပ်မှုများ</string>
+    <string name="Tests_Search"></string>
     <string name="Test_Websites_Fullname">ဝဘ်ဆိုဒ်များ</string>
-    <string name="Test_InstantMessaging_Fullname">ချက်ခြင်း စာတိုပေးပို့ခြင်း</string>
+    <string name="Test_InstantMessaging_Fullname">ချက်ခြင်း စာတိုပေးပို့ခြင်း\n</string>
     <string name="Test_Performance_Fullname">စွမ်းဆောင်ရည်</string>
     <string name="Test_Circumvention_Fullname">ရှောင်တိမ်းခြင်း</string>
     <string name="Test_Experimental_Fullname">စမ်းသပ် လေ့လာနေဆဲ</string>
@@ -36,6 +90,12 @@
     <string name="TestResults">ရလဒ်များ</string>
     <string name="TestResults_Overview_Hero_Networks">ကွန်ရက်များ</string>
     <string name="TestResults_Overview_Hero_DataUsage">ဒေတာအသုံးပြုမှု</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">စမ်းသပ်မှု မရှိသေးပါ။ စမ်းသပ်မှုတစ်ခုကို လုပ်ဆောင် ကြည့်လိုက်ပါ။</string>
     <string name="TestResults_Summary_Hero_DateAndTime">နေ့စွဲ နှင့် အချိန်</string>
     <string name="TestResults_Summary_Hero_Network">ကွန်ရက်</string>
@@ -44,7 +104,18 @@
     <string name="TestResults_Summary_Hero_WiFi">ဝိုင်ဖိုင်</string>
     <string name="TestResults_Summary_Hero_Mobile">မိုဘိုင်းဒေတာ</string>
     <string name="TestResults_Summary_Hero_Bluetooth">ဘလူးတုသ်</string>
+    <string name="TestResults_Summary_Hero_Ethernet"></string>
+    <string name="TestResults_Summary_Hero_Usb"></string>
     <string name="TestResults_Summary_Hero_NoInternet">အင်တာနက်မရှိပါ</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">အပ်လုဒ်</string>
     <string name="TestResults_Summary_Performance_Hero_Download">ဒေါင်းလုဒ်လုပ်ရန်</string>
     <string name="TestResults_Summary_Performance_Hero_Video">ယခုချိန်တွင် Apple App Store ရှိ ကန့်သတ်ချက်များကြောင့် Tella Android တွင် ရရှိနိုင်သည့် အသွင်ပြောင်းထားသော အင်္ဂါရပ်များကို  iOS အတွက် ပံ့ပိုးမထားပါ။</string>
@@ -56,15 +127,51 @@
     <string name="TestResults_ms">မီလီစက္ကန့်</string>
     <string name="TestResults_UnknownASN">မသိ</string>
     <string name="TestResults_NotAvailable">မရရှိနိုင်ပါ</string>
+    <string name="TestResults_Filters_Title"></string>
+    <string name="TestResults_Filters_Short"></string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Tests">စမ်းသပ်မှုများ</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Networks">ကွန်ရက်များ</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Source">အရင်းအမြစ်</string>
     <string name="TestResults_Filter_Date">နေ့စွဲ</string>
+    <string name="TestResults_Filter_Date_Any"></string>
     <string name="TestResults_Filter_Date_Today">ယနေ့</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo"></string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo"></string>
     <string name="TestResults_Filter_Date_Custom">စိတ်ကြိုက် </string>
+    <string name="TestResults_Filter_Date_Custom_Filled"></string>
+    <string name="TestResults_Filter_Date_Picker"></string>
+    <string name="TestResults_Filter_NoTestsFound"></string>
+    <string name="TestResults_Filter_DeleteConfirmation"></string>
+    <string name="Results_LimitedNotice"></string>
+    <string name="Results_UploadingMissing"></string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
+    <string name="Results_MarkAllAsViewed"></string>
+    <string name="Results_MarkAllAsViewed_Confirmation"></string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation"></string>
+
+
+    <string name="Measurement_Title"></string>
+    <string name="Measurement_LoadingFailed"></string>
     <string name="Measurements_Failed">မအောင်မြင်ပါ</string>
     <string name="Measurements_Ok">အိုကေ</string>
     <string name="Measurements_Anomaly">မူမမှန်ချက်</string>
+    <plurals name="Measurements_Count">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning"></string>
+    <string name="Measurement_Raw_Share"></string>
     <string name="Measurement_Raw_Upload">အပ်လုဒ်</string>
 
 
@@ -75,7 +182,14 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">WiFi နှင့် သာ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">အားသွင်းနေစဉ်သာ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">အလိုအလျောက် စမ်းသပ်ခြင်းကို ဖွင့်ထားခြင်းဖြင့် OONI Probe စမ်းသပ်မှုများသည် တစ်နေ့လျှင် အကြိမ်များစွာ အလိုအလျောက် လုပ်ဆောင်မည် ဖြစ်သည်။ သင်၏ စမ်းသပ်မှုရလဒ်များကို OONI Explorer တွင် အလိုအလျောက် ထုတ်ပြန်လိမ့်မည် - https://explorer.ooni.org/ \n\nအရေးကြီးသည် - သင့်စက်တွင် VPN ဖွင့်ထားပါက OONI Probe သည် စမ်းသပ်မှုများကို အလိုအလျောက် လုပ်ဆောင်မည် မဟုတ်ပါ။ အလိုအလျောက် OONI Probe စမ်းသပ်မှုအတွက် သင့်စက် VPN ကို ပိတ်ပါ။ ပိုမိုလေ့လာရန် - https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn သို့ သွားပါ</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description"></string>
     <string name="Settings_Sharing_UploadResults">အလိုအလျောက် ထုတ်ပြန်သော ရလဒ်များ</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeEnabled"></string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description"></string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeDuration"></string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit"></string>
     <string name="Settings_Websites_Categories_Label">စမ်းသပ်ရန် ဝဘ်ဆိုဒ် အမျိုးအစားများ</string>
     <string name="Settings_Websites_Categories_Description">အမျိုးအစား %1$s ခု ကို ဖွင့်ထားသည်</string>
     <string name="Settings_Privacy_Label">ကိုယ်ရေးလုံခြုံမှု</string>
@@ -84,30 +198,57 @@
     <string name="Settings_Proxy">ကြားခံ အင်တာနက်စနစ်</string>
     <string name="Settings_Proxy_None">မရှိ</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Add"></string>
     <string name="Settings_Proxy_Custom_Protocol">လုပ်ထုံးလုပ်နည်း</string>
     <string name="Settings_Proxy_Custom_Hostname">အထိုင်နေရာ အမည်</string>
     <string name="Settings_Proxy_Custom_Port">ပေါ့တ်</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid"></string>
+    <string name="Settings_Proxy_Custom_PortInvalid"></string>
+    <string name="Settings_Proxy_Custom_Testing"></string>
     <string name="Settings_Proxy_Custom_Available">ရရှိနိုင်သော</string>
     <string name="Settings_Proxy_Custom_Unavailable">မရရှိနိုင်ပါ။</string>
+    <string name="Settings_Proxy_Delete_Confirmation"></string>
     <string name="Settings_Language_Label">ဘာသာစကား</string>
     <string name="Settings_Advanced_Label">အဆင့်မြင့်</string>
-    <string name="Settings_Advanced_DebugLogs">အမှားပြင်ဆင်မှု မှတ်တမ်းများ</string>
+    <string name="Settings_Advanced_DebugLogs">အမှားပြင်ဆင်မှု မှတ်တမ်းများ\n</string>
     <string name="Settings_Advanced_RecentLogs">လတ်တလော မှတ်တမ်းများကို ကြည့်ပါ</string>
+    <string name="Settings_Results_DeleteOldResults"></string>
+    <string name="Settings_Results_DeleteOldResultsThreshold"></string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit"></string>
     <string name="Settings_Support_Label">အထောက်အကူ</string>
     <string name="Settings_Support_SendEmail">ပံ့ပိုးကူညီရန် အီးမေးလ် ပို့ပါ</string>
     <string name="Settings_Support_Message">သင်ကြုံတွေ့နေရသော ပြဿနာကို ကျေးဇူးပြု၍ ဖော်ပြပါ -</string>
+    <string name="Settings_Support_Message_Hint"></string>
+    <string name="Settings_Support_IncludeLogs"></string>
     <string name="Settings_Support_Action">အီးမေးလ်ပို့ရန်</string>
+    <string name="Settings_ShareApp"></string>
+    <string name="Settings_ShareApp_Description"></string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
+    <string name="Settings_ShareApp_ShareMessage"></string>
     <string name="Settings_Storage_Label">သိုလှောင်မှုအား အသုံးပြုမှု</string>
     <string name="Settings_Storage_Delete">ဖျက်မည်</string>
     <string name="Settings_Storage_Clear">ရှင်းမည်</string>
+    <string name="Settings_Legacy_Storage"></string>
     <string name="Settings_WarmVPNInUse_Label">VPN အသုံးပြုနေချိန်တွင် သတိပေးပါ</string>
+    <string name="Settings_DisableVpnInstructions"></string>
     <string name="Settings_Logs">မှတ်တမ်းများ</string>
-    <string name="Settings_Websites_Categories_Selection_None">အားလုံးကို မရွေးချယ်ရန်</string>
-    <string name="Settings_Websites_Categories_Selection_All">အားလုံးကို ရွေးချယ်မည်</string>
+    <string name="Settings_ShareLogs"></string>
+    <string name="Settings_ShareLogs_Error"></string>
+    <string name="Settings_FilterLogs"></string>
+    <string name="Settings_Sharing_UploadResults_Description"></string>
+    <string name="Settings_Websites_Categories_Selection_None">အားလုံးကို မရွေးချယ်ရန်\n</string>
+    <string name="Settings_Websites_Categories_Selection_All">အားလုံးကို ရွေးချယ်မည်\n</string>
     <string name="Settings_Websites_CustomURL_Title">စမ်းသပ်မည့် ဝဘ်ဆိုဒ်များ ရွေးချယ်ရန်</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">စမ်းမည်</string>
     <string name="Settings_Websites_CustomURL_Add">ဝဘ်ဆိုဒ်ထည့်ရန်</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="other"></item>
+    </plurals>
+
     <string name="CategoryCode_ALDR_Name">မူးယစ်ဆေးဝါးနှင့် အရက်</string>
     <string name="CategoryCode_REL_Name">ဘာသာတရား</string>
     <string name="CategoryCode_PORN_Name">ညစ်ညမ်းရုပ်ပုံ</string>
@@ -156,14 +297,14 @@
     <string name="CategoryCode_DATE_Description">အွန်လိုင်းချိန်းတွေ့ ဆိုဒ်များ</string>
     <string name="CategoryCode_GRP_Description">အွန်လိုင်း လူမှုကွန်ရက် ကိရိယာများနှင့် ပလက်ဖောင်းများ</string>
     <string name="CategoryCode_LGBT_Description">(ညစ်ညမ်းရုပ်ပုံစာပေ မပါဝင်ဘဲ) သက်ဆိုင်ရာ ကိစ္စများကို ဆွေးနွေးသည့် LGBTQ+ အသိုင်းအဝိုင်း</string>
-    <string name="CategoryCode_FILE_Description">cloud-based ဖိုင်သိုလှောင်မှု၊ torrents နှင့် P2P အပါအဝင် ဖိုင်မျှဝေခြင်း</string>
+    <string name="CategoryCode_FILE_Description">cloud-based ဖိုင်သိုလှောင်မှု၊ torrents နှင့် P2P အပါအဝင် ဖိုင်မျှဝေခြင်း\n</string>
     <string name="CategoryCode_HACK_Description">ကွန်ပျူတာ လုံခြုံရေး ကိရိယာများနှင့် သတင်းများ</string>
     <string name="CategoryCode_COMT_Description">VoIP၊ စာတို ပေးပို့ခြင်းနှင့် ဝဘ်မေးလ် အပါအဝင် တစ်ဦးချင်းနှင့် အဖွဲ့လိုက် ဆက်သွယ်ရေး ကိရိယာများ</string>
     <string name="CategoryCode_MMED_Description">ဗီဒီယို၊ အသံနှင့် ဓာတ်ပုံ မျှဝေခြင်း</string>
     <string name="CategoryCode_HOST_Description">ဝဘ်ဆိုဒ် အထိုင်နေရာ၊ ဘလော့ဂ်ရေးသားခြင်း နှင့် အခြား အွန်လိုင်းထုတ်ဝေမှု</string>
     <string name="CategoryCode_SRCH_Description">ရှာဖွေရေးအင်ဂျင်များနှင့် ပေါ်တယ်လ်များ</string>
-    <string name="CategoryCode_GAME_Description">အွန်လိုင်း ဂိမ်းများနှင့် ဂိမ်းပလက်ဖောင်းများ (လောင်းကစားဆိုဒ်များ မပါ)</string>
-    <string name="CategoryCode_CULTR_Description">သမိုင်း၊ စာပေ၊ ဂီတ၊ ရုပ်ရှင်၊ သရော်စာနှင့် ဟာသများ အပါအဝင် ဖျော်ဖြေမှု</string>
+    <string name="CategoryCode_GAME_Description">အွန်လိုင်း ဂိမ်းများနှင့် ဂိမ်းပလက်ဖောင်းများ (လောင်းကစားဆိုဒ်များ မပါ)\n</string>
+    <string name="CategoryCode_CULTR_Description">သမိုင်း၊ စာပေ၊ ဂီတ၊ ရုပ်ရှင်၊ သရော်စာနှင့် ဟာသများ အပါအဝင် ဖျော်ဖြေမှု\n</string>
     <string name="CategoryCode_ECON_Description">အထွေထွေ စီးပွားရေးဖွံ့ဖြိုးတိုးတက်မှုနှင့် ဆင်းရဲမွဲတေမှု</string>
     <string name="CategoryCode_GOVT_Description">စစ်တပ်အပါအဝင် အစိုးရပိုင် ဝက်ဘ်ဆိုက်များ</string>
     <string name="CategoryCode_COMM_Description">စီးပွားဖြစ် ဝန်ဆောင်မှုများနှင့် ထုတ်ကုန်များ</string>
@@ -171,6 +312,8 @@
     <string name="CategoryCode_IGO_Description">ကုလသမဂ္ဂ အပါအဝင် အစိုးရ အဖွဲ့အစည်းများ</string>
     <string name="CategoryCode_MISC_Description">အမျိုးအစား မခွဲခြားရသေးသော ဆိုဒ်များ</string>
 
+    <string name="Onboarding_QuizAnswer_Correct"></string>
+    <string name="Onboarding_QuizAnswer_Incorrect"></string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">ရပြီ</string>
     <string name="Onboarding_ThingsToKnow_Title">ကြိုတင်အသိပေးသည်။</string>
     <string name="Onboarding_ThingsToKnow_Button">နားလည်သည်</string>
@@ -189,6 +332,7 @@
     <string name="Onboarding_Crash_Button_Yes">ပါဝင်သည်</string>
     <string name="Onboarding_Crash_Button_No">အဆင့်သတ်မှတ်ချက်</string>
     <string name="Onboarding_Notifications_Title">အသိပေးချက်များ ဖွင့်မယ်</string>
+    <string name="Onboarding_Notifications_Paragraph"></string>
     <string name="Onboarding_Notifications_Ok">အိုကေ</string>
     <string name="Onboarding_Notifications_Skip">ကျော်မည်</string>
     <string name="Onboarding_DefaultSettings_Title">နဂိုမူလ ဆက်တင်များ</string>
@@ -197,16 +341,32 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">ကွန်ရက် သတင်းအချက်အလက် (အလိုအလျောက်စနစ် နံပတ်အပါအဝင်)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">စမ်းသပ်ချိန်နှင့် ရက်စွဲ</string>
     <string name="Onboarding_DefaultSettings_Paragraph">သင်၏ IP လိပ်စာ သို့မဟုတ် အခြားသော ပုဂ္ဂိုလ်ရေးအရ ခွဲခြား သိမြင်နိုင်သော အချက်အလက်များကို ထုတ်ဝေခြင်းမပြုရန် ကျွန်ုပ်တို့ အကောင်းဆုံး လုပ်ဆောင်ပါသည်။ [OONI ၏ ဒေတာမူဝါဒ](https://ooni.org/about/data-policy/) တွင် ပိုမိုလေ့လာပါ။</string>
+    <string name="Onboarding_DefaultSettings_Button_Go"></string>
     <string name="Onboarding_DefaultSettings_Button_Change">နဂိုမူလများကို ပြောင်းမည်</string>
 
 
+    <string name="AddDescriptor_EnterURL"></string>
+    <string name="AddDescriptor_URLInvalid"></string>
     <string name="AddDescriptor_Settings">စစ်ဆေးမှု ချိန်ညှိချက်များ</string>
+    <string name="AddDescriptor_Title"></string>
+    <string name="AddDescriptor_AutoUpdate"></string>
     <string name="AddDescriptor_AutoRun">စမ်းသပ်မှုများကို အလိုအလျောက် လုပ်ဆောင်ပါ</string>
+    <string name="AddDescriptor_Toasts_Installed"></string>
+    <string name="AddDescriptor_InstallForLater"></string>
+    <string name="AddDescriptor_InstallAndRun"></string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url"></string>
+    <string name="LoadingScreen_Runv2_Message"></string>
+    <string name="LoadingScreen_Runv2_Failure"></string>
+    <string name="DescriptorUpdate_Updates"></string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">အပ်ဒိတ် ရပြီလားကြည့်ပါ။</string>
+    <string name="AddDescriptor_AutoRunDisabled"></string>
+    <string name="Descriptor_LastTestResult"></string>
+
     <string name="Snackbar_ResultsNotUploaded_Text">အပ်လုဒ် မလုပ်ပါ</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">အချို့ကို အပ်လုဒ်မလုပ်ခဲ့ပါ</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">အားလုံးကို အပ်လုဒ်လုပ်ပါ</string>
+    <string name="Modal_ResultsNotUploaded_Uploading"></string>
     <string name="Toast_ResultsUploaded">အပ်လုဒ်လုပ်ခြင်း အောင်မြင်သည်</string>
     <string name="Modal_UploadFailed_Title">အပ်လုဒ်လုပ်ခြင်း မအောင်မြင်ပါ</string>
     <string name="Modal_UploadFailed_Paragraph">ကျွန်ုပ်တို့သည် အတိုင်းအတာများကို %1$s/%2$s အပ်လုဒ်လုပ်၍ မရပါ။ မအောင်မြင်ခြင်း မှတ်တမ်းကို OONI developer များနှင့် မျှဝေထားပါသည်။</string>
@@ -214,6 +374,13 @@
     <string name="Modal_Cancel">ပယ်ဖျက်မည်</string>
     <string name="Modal_OK">အိုကေ</string>
     <string name="Modal_DoYouWantToDeleteAllTests">စမ်းသပ်မှုရလဒ်အားလုံးကို ဖျက်လိုပါသလား။</string>
+    <string name="Modal_Clear_Legacy_Directories"></string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="other"></item>
+    </plurals>
     <string name="Modal_Delete">ဖျက်မည်</string>
     <string name="Modal_ReRun_Title">စမ်းသပ်မှု ပြန်လုပ်ပါ</string>
     <string name="Modal_ReRun_Websites_Title">သင်သည် ဝဘ်ဆိုဒ် %1$s ကို ပြန်လည် စမ်းသပ် တော့မည်။</string>
@@ -225,12 +392,27 @@
     <string name="Modal_AlwaysRun">အမြဲတမ်း စမ်းမည်</string>
     <string name="Modal_Error_CantDownloadURLs">URL စာရင်းကို ဒေါင်းလုဒ်လုပ်၍ မရပါ။ ထပ်စမ်းကြည့်ပါ။</string>
     <string name="Modal_Error_NoInternet">အင်တာနက်ချိတ်ဆက်မှု မရှိ</string>
+    <string name="Modal_Error_ProxyUnavailable"></string>
     <string name="Modal_CustomURL_Title_NotSaved">သေချာပါသလား။</string>
     <string name="Modal_CustomURL_NotSaved">ဤဝဘ်စာမျက်နှာမှ ထွက်သည့်အခါ သင့် URL များကို သိမ်းဆည်းမည် မဟုတ်ပါ။ ဤစာမျက်နှာမှ ထွက်လိုသည်မှာ သေချာပါသလား။ </string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding"></string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder"></string>
+
+    <string name="Desktop_OpenApp"></string>
     <string name="Desktop_Quit">ထွက်မည်</string>
     <string name="Tray_Notification_Check_Updates">အပ်ဒိတ် ရပြီလားကြည့်ပါ။</string>
+    <string name="Tray_Notification_Updates_Available"></string>
+    <string name="Tray_Notification_Checking_Updates"></string>
+
     <string name="Modal_Hide">ဝှက်ထားရန်</string>
+    <string name="Modal_Quite_Prompt"></string>
+    <string name="Modal_Quite_Description"></string>
+
     <string name="OONIRun_Run">စမ်းမည်</string>
+    <!-- Android notification channel name. -->
+    <string name="Notification_ChannelName"></string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
+    <string name="Notification_UpdateChannelName"></string>
     <string name="Notification_StopTest">စမ်းသပ်မှုကို ရပ်ပါ</string>
 
     <string name="Common_Back">နောက်သို့</string>
@@ -251,8 +433,37 @@
     <string name="Common_Yesterday">ယမန်နေ့</string>
     <string name="Common_Week">ရက်သတ္တပတ်</string>
     <string name="Common_Month">လ</string>
+    <string name="Common_Total"></string>
+    <string name="Common_Ago"></string>
+    <plurals name="Common_Seconds">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="other"></item>
+    </plurals>
     <plurals name="Common_Days">
         <item quantity="other">%1$d ရက်</item>
     </plurals>
+    <string name="Common_Hours_Abbreviated"></string>
+    <string name="Common_Minutes_Abbreviated"></string>
+    <string name="Common_Seconds_Abbreviated"></string>
+    <string name="Common_Months_January"></string>
+    <string name="Common_Months_February"></string>
+    <string name="Common_Months_March"></string>
+    <string name="Common_Months_April"></string>
+    <string name="Common_Months_May"></string>
+    <string name="Common_Months_June"></string>
+    <string name="Common_Months_July"></string>
+    <string name="Common_Months_August"></string>
+    <string name="Common_Months_September"></string>
+    <string name="Common_Months_October"></string>
+    <string name="Common_Months_November"></string>
+    <string name="Common_Months_December"></string>
+
+    <string name="TaskOrigin_Manual"></string>
+    <string name="TaskOrigin_AutoRun"></string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
