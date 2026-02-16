@@ -8,15 +8,71 @@
     <string name="Dashboard_Running_Stopping_Title">Stoppen met testen…</string>
     <string name="Dashboard_Running_Stopping_Notice">De momenteel lopende tests worden voltooid, een ogenblik geduld...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in gebruik</string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Title">Testen</string>
+    <string name="Dashboard_TestsMoved_Description"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
+    <string name="Dashboard_RunTests_Title"></string>
+    <string name="Dashboard_RunTests_Description"></string>
+    <string name="Dashboard_RunTests_SelectAll"></string>
+    <string name="Dashboard_RunTests_SelectNone"></string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Title"></string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty"></string>
+
+    <string name="Dashboard_Articles_Title"></string>
+    <string name="Dashboard_Articles_Blog"></string>
+    <string name="Dashboard_Articles_Finding"></string>
     <string name="Dashboard_Articles_Report">Inzending</string>
+    <string name="Dashboard_Articles_ReadMore"></string>
+    <string name="Dashboard_Articles_Recent"></string>
+    <string name="Dashboard_Articles_OpenExternal">Openen in browser</string>
+    <string name="Dashboard_RunV2_Ooni_Title"></string>
+    <string name="Dashboard_RunV2_Title"></string>
     <string name="Dashboard_Runv2_Overview_Description">Gemaakt door %1$s op %2$s</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink"></string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions"></string>
+    <string name="Dashboard_Runv2_Overview_SeeMore"></string>
+    <!-- This only applies when there are more than 10 websites to show. -->
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_RunV2_ExpiredTag"></string>
+    <string name="Dashboard_RunV2_UpdatedTag"></string>
+    <string name="Dashboard_RunV2_UpdateTag"></string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated"></string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate"></string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ongedaan maken</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates"></string>
+    <string name="Dashboard_Progress_UpdateLink_Label"></string>
+    <string name="Dashboard_Progress_ReviewLink_Label"></string>
     <string name="Dashboard_Progress_ReviewLink_Action">Beoordeling</string>
+    <string name="Dashboard_ReviewDescriptor_Label"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default"></string>
+    <!-- Button to reject a link update during review -->
+    <string name="Dashboard_ReviewDescriptor_Reject"></string>
+    <string name="Dashboard_Update_Ready"></string>
     <string name="Dashboard_Update_Restart">Herstarten</string>
 
 
     <string name="Tests_Title">Testen</string>
+    <string name="Tests_Search"></string>
     <string name="Test_Websites_Fullname">Websites</string>
     <string name="Test_InstantMessaging_Fullname">Chatprogramma’s</string>
     <string name="Test_Performance_Fullname">Prestaties</string>
@@ -38,6 +94,14 @@
     <string name="TestResults">Resultaten</string>
     <string name="TestResults_Overview_Hero_Networks">Netwerken</string>
     <string name="TestResults_Overview_Hero_DataUsage">Gegevensgebruik</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Er zijn nog geen tests uitgevoerd. Probeer er een te draaien!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Datum en Tijd</string>
     <string name="TestResults_Summary_Hero_Network">Netwerk</string>
@@ -46,7 +110,21 @@
     <string name="TestResults_Summary_Hero_WiFi">wifi</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobiele Data</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet"></string>
+    <string name="TestResults_Summary_Hero_Usb"></string>
     <string name="TestResults_Summary_Hero_NoInternet">Geen internet</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Uploaden</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Download</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
@@ -58,24 +136,74 @@
     <string name="TestResults_ms">ms</string>
     <string name="TestResults_UnknownASN">Onbekend</string>
     <string name="TestResults_NotAvailable">n.v.t.</string>
+    <string name="TestResults_Filters_Title"></string>
+    <string name="TestResults_Filters_Short"></string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Testen</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Networks">Netwerken</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Source">Bron</string>
     <string name="TestResults_Filter_Date">Datum</string>
+    <string name="TestResults_Filter_Date_Any"></string>
     <string name="TestResults_Filter_Date_Today">Vandaag</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo"></string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo"></string>
     <string name="TestResults_Filter_Date_Custom">Aangepast</string>
+    <string name="TestResults_Filter_Date_Custom_Filled"></string>
+    <string name="TestResults_Filter_Date_Picker"></string>
+    <string name="TestResults_Filter_NoTestsFound"></string>
+    <string name="TestResults_Filter_DeleteConfirmation"></string>
+    <string name="Results_LimitedNotice"></string>
+    <string name="Results_UploadingMissing"></string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
+    <string name="Results_MarkAllAsViewed"></string>
+    <string name="Results_MarkAllAsViewed_Confirmation"></string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation"></string>
+
+
+    <string name="Measurement_Title"></string>
+    <string name="Measurement_LoadingFailed"></string>
     <string name="Measurements_Failed">Mislukt</string>
     <string name="Measurements_Ok">Oke</string>
+    <string name="Measurements_Anomaly"></string>
+    <plurals name="Measurements_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning"></string>
+    <string name="Measurement_Raw_Share"></string>
     <string name="Measurement_Raw_Upload">Uploaden</string>
 
 
     <string name="Settings_Title">Instellingen</string>
     <string name="Settings_TestOptions_Label">Testopties</string>
+    <string name="Settings_TestOptions_LongRunningTest"></string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Tests automatisch uitvoeren</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Alleen op WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Alleen tijdens het opladen</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Door automatisch testen in te schakelen, worden OONI Probe-tests automatisch meerdere keren per dag uitgevoerd. Uw testresultaten worden automatisch gepubliceerd in OONI Explorer: https://explorer.ooni.org/\n\nBelangrijk: als je een VPN hebt ingeschakeld, voert OONI Probe niet automatisch tests uit. Schakel uw VPN uit voor geautomatiseerde OONI Probe-tests. Meer informatie: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description"></string>
     <string name="Settings_Sharing_UploadResults">Resultaten Automatisch Publiceren</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeEnabled"></string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description"></string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeDuration"></string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit"></string>
     <string name="Settings_Websites_Categories_Label">Website categorieën om te testen</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorieën ingeschakeld</string>
     <string name="Settings_Privacy_Label">Privacy</string>
@@ -84,35 +212,59 @@
     <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Geen</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Add"></string>
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
     <string name="Settings_Proxy_Custom_Hostname">Hostnaam</string>
     <string name="Settings_Proxy_Custom_Port">Poort</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid"></string>
+    <string name="Settings_Proxy_Custom_PortInvalid"></string>
     <string name="Settings_Proxy_Custom_Testing">Testen </string>
     <string name="Settings_Proxy_Custom_Available">Beschikbaar</string>
     <string name="Settings_Proxy_Custom_Unavailable">Niet beschikbaar</string>
+    <string name="Settings_Proxy_Delete_Confirmation"></string>
     <string name="Settings_Language_Label">Taal</string>
     <string name="Settings_Advanced_Label">Geavanceerd</string>
     <string name="Settings_Advanced_DebugLogs">Debug-logs</string>
+    <string name="Settings_Advanced_RecentLogs"></string>
+    <string name="Settings_Results_DeleteOldResults"></string>
+    <string name="Settings_Results_DeleteOldResultsThreshold"></string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
         <item quantity="one">1 maand</item>
         <item quantity="other">%1$d maand</item>
     </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit"></string>
     <string name="Settings_Support_Label">Support</string>
     <string name="Settings_Support_SendEmail">Stuur een e-mail naar ondersteuning</string>
     <string name="Settings_Support_Message">Beschrijf het probleem dat u ondervindt:</string>
+    <string name="Settings_Support_Message_Hint"></string>
+    <string name="Settings_Support_IncludeLogs"></string>
     <string name="Settings_Support_Action">Verstuur email</string>
     <string name="Settings_ShareApp">App delen</string>
+    <string name="Settings_ShareApp_Description"></string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
+    <string name="Settings_ShareApp_ShareMessage"></string>
     <string name="Settings_Storage_Label">Opslaggebruik</string>
     <string name="Settings_Storage_Delete">Verwijderen</string>
     <string name="Settings_Storage_Clear">Wissen</string>
+    <string name="Settings_Legacy_Storage"></string>
     <string name="Settings_WarmVPNInUse_Label">Waarschuwen wanneer VPN in gebruik is</string>
+    <string name="Settings_DisableVpnInstructions"></string>
     <string name="Settings_Logs">Logboeken</string>
+    <string name="Settings_ShareLogs"></string>
+    <string name="Settings_ShareLogs_Error"></string>
+    <string name="Settings_FilterLogs"></string>
+    <string name="Settings_Sharing_UploadResults_Description"></string>
     <string name="Settings_Websites_Categories_Selection_None">Deselecteer Alles</string>
     <string name="Settings_Websites_Categories_Selection_All">Alles selecteren</string>
     <string name="Settings_Websites_CustomURL_Title">Kies websites om te testen</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Voer uit</string>
     <string name="Settings_Websites_CustomURL_Add">Website toevoegen</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+
     <string name="CategoryCode_ALDR_Name">Drugs &amp; Alcohol</string>
     <string name="CategoryCode_REL_Name">Religie</string>
     <string name="CategoryCode_PORN_Name">Pornografie</string>
@@ -176,6 +328,8 @@
     <string name="CategoryCode_IGO_Description">Intergouvernementele organisaties, waaronder de Verenigde Naties</string>
     <string name="CategoryCode_MISC_Description">Sites die nog niet zijn gecategoriseerd</string>
 
+    <string name="Onboarding_QuizAnswer_Correct"></string>
+    <string name="Onboarding_QuizAnswer_Incorrect"></string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Begrepen</string>
     <string name="Onboarding_ThingsToKnow_Title">Let op!</string>
     <string name="Onboarding_ThingsToKnow_Button">Ik begrijp het</string>
@@ -193,6 +347,8 @@
     <string name="Onboarding_Crash_Title">Crashrapportage</string>
     <string name="Onboarding_Crash_Button_Yes">Ja</string>
     <string name="Onboarding_Crash_Button_No">Nee</string>
+    <string name="Onboarding_Notifications_Title"></string>
+    <string name="Onboarding_Notifications_Paragraph"></string>
     <string name="Onboarding_Notifications_Ok">Oke</string>
     <string name="Onboarding_Notifications_Skip">Overslaan</string>
     <string name="Onboarding_DefaultSettings_Title">Standaardinstellingen</string>
@@ -201,14 +357,32 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Netwerkinformatie (inclusief Autonoom Systeemnummer)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Tijd en datum van testen</string>
     <string name="Onboarding_DefaultSettings_Paragraph">We doen ons best om uw IP-adres of andere mogelijk persoonlijk identificeerbare informatie niet te publiceren.\n\nLees meer via [OONI\'s gegevensbeleid](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Button_Go"></string>
     <string name="Onboarding_DefaultSettings_Button_Change">Standaard-inst. wijzigen</string>
 
 
+    <string name="AddDescriptor_EnterURL"></string>
+    <string name="AddDescriptor_URLInvalid"></string>
     <string name="AddDescriptor_Settings">Testen van de instellingen</string>
+    <string name="AddDescriptor_Title"></string>
+    <string name="AddDescriptor_AutoUpdate"></string>
     <string name="AddDescriptor_AutoRun">Tests automatisch uitvoeren</string>
+    <string name="AddDescriptor_Toasts_Installed"></string>
+    <string name="AddDescriptor_InstallForLater"></string>
+    <string name="AddDescriptor_InstallAndRun"></string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url"></string>
+    <string name="LoadingScreen_Runv2_Message"></string>
+    <string name="LoadingScreen_Runv2_Failure"></string>
+    <string name="DescriptorUpdate_Updates"></string>
+    <!-- Only used for the desktop version of the app for now -->
+    <string name="DescriptorUpdate_CheckUpdates"></string>
+    <string name="AddDescriptor_AutoRunDisabled"></string>
+    <string name="Descriptor_LastTestResult"></string>
+
     <string name="Snackbar_ResultsNotUploaded_Text">Niet geüpload</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Sommige zijn niet geüpload</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Alles Uploaden</string>
+    <string name="Modal_ResultsNotUploaded_Uploading"></string>
     <string name="Toast_ResultsUploaded">Succesvol geupload</string>
     <string name="Modal_UploadFailed_Title">Uploaden mislukt</string>
     <string name="Modal_UploadFailed_Paragraph">Het is ons niet gelukt om %1$s/%2$s metingen te uploaden. Het storingslogboek is gedeeld met OONI-ontwikkelaars.</string>
@@ -216,6 +390,15 @@
     <string name="Modal_Cancel">Annuleren</string>
     <string name="Modal_OK">Oke</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Wilt u alle testresultaten verwijderen?</string>
+    <string name="Modal_Clear_Legacy_Directories"></string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Modal_Delete">Verwijderen</string>
     <string name="Modal_ReRun_Title">Test opnieuw uitvoeren</string>
     <string name="Modal_ReRun_Websites_Title">U staat op het punt %1$s websites opnieuw te testen.</string>
@@ -227,14 +410,27 @@
     <string name="Modal_AlwaysRun">Voer het Altijd uit</string>
     <string name="Modal_Error_CantDownloadURLs">Kan de URL-lijst niet downloaden. Probeer het opnieuw.</string>
     <string name="Modal_Error_NoInternet">Geen internetverbinding</string>
+    <string name="Modal_Error_ProxyUnavailable"></string>
     <string name="Modal_CustomURL_Title_NotSaved">Weet je het zeker?</string>
     <string name="Modal_CustomURL_NotSaved">Uw URL’s worden niet opgeslagen wanneer u dit scherm verlaat. Weet je zeker dat je dit scherm wilt verlaten?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding"></string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder"></string>
+
+    <string name="Desktop_OpenApp"></string>
     <string name="Desktop_Quit">Stoppen</string>
+    <string name="Tray_Notification_Check_Updates"></string>
     <string name="Tray_Notification_Updates_Available">Update Available!</string>
+    <string name="Tray_Notification_Checking_Updates"></string>
+
     <string name="Modal_Hide">Verberg</string>
+    <string name="Modal_Quite_Prompt"></string>
+    <string name="Modal_Quite_Description"></string>
+
     <string name="OONIRun_Run">Voer uit</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testen </string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
+    <string name="Notification_UpdateChannelName"></string>
     <string name="Notification_StopTest">Stop de test</string>
 
     <string name="Common_Back">Terug</string>
@@ -253,9 +449,29 @@
     <string name="Common_Search">Zoeken</string>
     <string name="Common_Today">Vandaag</string>
     <string name="Common_Yesterday">Gisteren</string>
+    <string name="Common_Week"></string>
     <string name="Common_Month">maand</string>
     <string name="Common_Total">Totaal</string>
     <string name="Common_Ago">%1$s geleden</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Common_Hours_Abbreviated"></string>
+    <string name="Common_Minutes_Abbreviated"></string>
+    <string name="Common_Seconds_Abbreviated"></string>
     <string name="Common_Months_January">januari</string>
     <string name="Common_Months_February">februari</string>
     <string name="Common_Months_March">maart</string>
@@ -269,5 +485,7 @@
     <string name="Common_Months_November">november</string>
     <string name="Common_Months_December">december</string>
 
+    <string name="TaskOrigin_Manual"></string>
+    <string name="TaskOrigin_AutoRun"></string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
