@@ -29,10 +29,10 @@
     <string name="Dashboard_Runv2_Overview_SeeMore">Узнать больше</string>
     <!-- This only applies when there are more than 10 websites to show. -->
     <plurals name="Dashboard_Runv2_Websites_SeeAll">
-        <item quantity="one">Посмотреть сайт %1$d</item>
-        <item quantity="few">Посмотреть сайты %1$d</item>
-        <item quantity="many">Посмотреть сайты %1$d</item>
-        <item quantity="other">Посмотреть сайты %1$d</item>
+        <item quantity="one">Посмотреть сайт</item>
+        <item quantity="few">Посмотреть сайты</item>
+        <item quantity="many">Посмотреть сайты</item>
+        <item quantity="other">Посмотреть сайты</item>
     </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">УСТАРЕЛА</string>
     <string name="Dashboard_RunV2_UpdatedTag">ОБНОВЛЕНА</string>
