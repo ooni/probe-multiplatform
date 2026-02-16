@@ -38,7 +38,6 @@
     <string name="Onboarding_Notifications_Ok">MAT EO</string>
     <string name="Onboarding_Notifications_Skip">Tremen</string>
     <string name="Onboarding_DefaultSettings_Title">Arventennoù dre ziouer</string>
-    <string name="AddDescriptor_Settings"></string>
     <string name="Modal_Retry">Adklask</string>
     <string name="Modal_Cancel">Nullañ</string>
     <string name="Modal_OK">MAT EO</string>
@@ -49,7 +48,6 @@
     <string name="Notification_ChannelName">O testiñ</string>
     <string name="Common_Back">Kent</string>
     <string name="Common_Close">Serriñ</string>
-    <string name="Common_Refresh"></string>
     <string name="Common_Enable">Enaouiñ</string>
     <string name="Common_Yes">Ya</string>
     <string name="Common_Save">Enrollañ</string>
