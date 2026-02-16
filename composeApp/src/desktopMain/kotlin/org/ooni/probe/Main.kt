@@ -14,13 +14,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ApplicationScope
+import androidx.compose.ui.window.DialogWindow
 import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberDialogState
 import androidx.compose.ui.window.rememberWindowState
 import co.touchlab.kermit.Logger
 import io.github.kdroidfilter.platformtools.darkmodedetector.isSystemInDarkMode
@@ -183,19 +187,28 @@ fun main(args: Array<String>) {
 
             if (showQuitPrompt) {
                 AppTheme {
-                    QuitPromptDialog(
-                        onQuit = {
-                            showQuitPrompt = false
-                            onQuitApplicationClicked(updateController, instanceManager).invoke()
-                        },
-                        onHide = {
-                            showQuitPrompt = false
-                            hideWindow()
-                        },
-                        onDismiss = {
-                            showQuitPrompt = false
-                        },
-                    )
+                    DialogWindow(
+                        onCloseRequest = { showQuitPrompt = false },
+                        undecorated = true,
+                        transparent = true,
+                        resizable = false,
+                        alwaysOnTop = true,
+                        state = rememberDialogState(position = WindowPosition(Alignment.Center)),
+                    ) {
+                        QuitPromptDialog(
+                            onQuit = {
+                                showQuitPrompt = false
+                                onQuitApplicationClicked(updateController, instanceManager).invoke()
+                            },
+                            onHide = {
+                                showQuitPrompt = false
+                                hideWindow()
+                            },
+                            onDismiss = {
+                                showQuitPrompt = false
+                            },
+                        )
+                    }
                 }
             }
         }
