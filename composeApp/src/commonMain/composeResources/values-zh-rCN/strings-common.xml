@@ -37,6 +37,7 @@
     <string name="Dashboard_Articles_Report">报告</string>
     <string name="Dashboard_Articles_ReadMore">详细了解</string>
     <string name="Dashboard_Articles_Recent">近期</string>
+    <string name="Dashboard_Articles_OpenExternal">在浏览器中打开</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI 测试</string>
     <string name="Dashboard_RunV2_Title">OONI 运行链接</string>
     <string name="Dashboard_Runv2_Overview_Description">由 %1$s 于 %2$s 创建</string>
