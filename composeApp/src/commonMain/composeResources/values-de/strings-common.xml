@@ -40,6 +40,7 @@
     <string name="Dashboard_Articles_Report">Bericht</string>
     <string name="Dashboard_Articles_ReadMore">Mehr lesen</string>
     <string name="Dashboard_Articles_Recent">Kürzlich</string>
+    <string name="Dashboard_Articles_OpenExternal">Im Browser öffnen</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <string name="Dashboard_Runv2_Overview_Description">Erstellt von %1$s um %2$s</string>
