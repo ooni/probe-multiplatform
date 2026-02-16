@@ -8,7 +8,13 @@
     <string name="Dashboard_Running_Stopping_Title">Test wird gestoppt …</string>
     <string name="Dashboard_Running_Stopping_Notice">Fertigstellung der aktuell ausstehenden Tests, bitte warten ...</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in Verwendung</string>
+    <string name="Dashboard_LastResults">Letzte Ergebnisse</string>
+    <string name="Dashboard_LastResults_SeeResults">Ergebnisse anzeigen</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Automatischer Start ist <i>aktiviert</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Automatischer Start  ist <i>deaktiviert</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">Tests</string>
+    <string name="Dashboard_TestsMoved_Description">Deine Tests wurden in einen neuen Tab verschoben. Du kannst sie über die Navigationsleiste unten aufrufen.</string>
+    <string name="Dashboard_TestsMoved_Action">Tests anzeigen</string>
     <string name="Dashboard_RunTests_Title">Führe Tests aus</string>
     <string name="Dashboard_RunTests_Description">Wähle den auszuführenden Test</string>
     <string name="Dashboard_RunTests_SelectAll">Alle Tests auswählen</string>
@@ -17,9 +23,24 @@
         <item quantity="one">Führe %1$d Test aus</item>
         <item quantity="other">Führe %1$d Tests aus</item>
     </plurals>
+    <string name="Dashboard_Stats_Title">Deine Messungen</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Netzwerk</item>
+        <item quantity="other">Netzwerke</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">Land</item>
+        <item quantity="other">Länder</item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty">Starte Tests, um deine Statistiken hier anzuzeigen.</string>
+
+    <string name="Dashboard_Articles_Title">OONI Nachrichten</string>
+    <string name="Dashboard_Articles_Blog">Blogeintrag</string>
+    <string name="Dashboard_Articles_Finding">Gefunden</string>
     <string name="Dashboard_Articles_Report">Bericht</string>
     <string name="Dashboard_Articles_ReadMore">Mehr lesen</string>
     <string name="Dashboard_Articles_Recent">Kürzlich</string>
+    <string name="Dashboard_Articles_OpenExternal">Im Browser öffnen</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <string name="Dashboard_Runv2_Overview_Description">Erstellt von %1$s um %2$s</string>
@@ -51,6 +72,7 @@
 
 
     <string name="Tests_Title">Tests</string>
+    <string name="Tests_Search">Suche Tests</string>
     <string name="Test_Websites_Fullname">Webseiten</string>
     <string name="Test_InstantMessaging_Fullname">Instant Messaging</string>
     <string name="Test_Performance_Fullname">Leistung</string>
@@ -339,6 +361,8 @@
     <string name="Onboarding_DefaultSettings_Button_Change">Defaults ändern</string>
 
 
+    <string name="AddDescriptor_EnterURL">Gib eine OONI Run Link-URL ein.</string>
+    <string name="AddDescriptor_URLInvalid">Die URL ist kein gültiger OONI Run-Link</string>
     <string name="AddDescriptor_Settings">Einstellungen testen</string>
     <string name="AddDescriptor_Title">Installiere neuen Link</string>
     <string name="AddDescriptor_AutoUpdate">Installiere Aktualisierungen automatisch</string>
@@ -348,6 +372,7 @@
     <string name="AddDescriptor_InstallAndRun">Installieren &amp; Ausführen</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Nicht unterstützte URL</string>
     <string name="LoadingScreen_Runv2_Message">Lade Link</string>
+    <string name="LoadingScreen_Runv2_Failure">Fehler beim Laden des Links</string>
     <string name="DescriptorUpdate_Updates">AKTUALISIERUNGEN</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Auf Aktualisierungen prüfen</string>
@@ -357,6 +382,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">Nicht hochgeladen</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Manche nicht hochgeladen</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Alle hochladen</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Lade %1$s hoch…</string>
     <string name="Toast_ResultsUploaded">Hochladen war erfolgreich</string>
     <string name="Modal_UploadFailed_Title">Hochladen fehlgeschlagen</string>
     <string name="Modal_UploadFailed_Paragraph">Wir haben es nicht geschafft, %1$s/%2$s Messungen hochzuladen. Das Fehlerprotokoll wurde den OONI-Entwicklern zur Verfügung gestellt.</string>
@@ -394,7 +420,12 @@
     <string name="Desktop_Quit">Beenden</string>
     <string name="Tray_Notification_Check_Updates">Auf Aktualisierungen prüfen</string>
     <string name="Tray_Notification_Updates_Available">Aktualisierung verfügbar!</string>
+    <string name="Tray_Notification_Checking_Updates">Prüfe auf Updates…</string>
+
     <string name="Modal_Hide">Verstecken</string>
+    <string name="Modal_Quite_Prompt">OONI Probe beenden\?</string>
+    <string name="Modal_Quite_Description">Wenn du die App beendest, kann sie keine automatisierten Tests im Hintergrund ausführen. Wähle „Beenden“, um die App zu schließen, oder „Verstecken“, um sie im Hintergrund weiterlaufen zu lassen.</string>
+
     <string name="OONIRun_Run">Ausführen</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testvorgang</string>
