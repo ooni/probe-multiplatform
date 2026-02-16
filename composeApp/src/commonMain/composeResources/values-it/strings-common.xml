@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="Dashboard_Tab_Label">Dashboard</string>
     <string name="Dashboard_Overview_Estimated">Tempo stimato:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Scegli i siti</string>
@@ -8,13 +8,75 @@
     <string name="Dashboard_Running_Stopping_Title">Interrompendo il test…</string>
     <string name="Dashboard_Running_Stopping_Notice">Finendo di eseguire i test in corso, attendere prego…</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in uso</string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Title">Test</string>
+    <string name="Dashboard_TestsMoved_Description"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
+    <string name="Dashboard_RunTests_Title"></string>
+    <string name="Dashboard_RunTests_Description"></string>
+    <string name="Dashboard_RunTests_SelectAll"></string>
+    <string name="Dashboard_RunTests_SelectNone"></string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Title"></string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty"></string>
+
+    <string name="Dashboard_Articles_Title"></string>
+    <string name="Dashboard_Articles_Blog"></string>
+    <string name="Dashboard_Articles_Finding"></string>
     <string name="Dashboard_Articles_Report">Segnalazione</string>
-    <string name="Dashboard_Runv2_Overview_Description">Creata da %1$s il %2$s</string>
+    <string name="Dashboard_Articles_ReadMore"></string>
+    <string name="Dashboard_Articles_Recent"></string>
+    <string name="Dashboard_Articles_OpenExternal">Apri nel browser</string>
+    <string name="Dashboard_RunV2_Ooni_Title"></string>
+    <string name="Dashboard_RunV2_Title"></string>
+    <string name="Dashboard_Runv2_Overview_Description">Creata da %1$s il {%time}</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink"></string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions"></string>
+    <string name="Dashboard_Runv2_Overview_SeeMore"></string>
+    <!-- This only applies when there are more than 10 websites to show. -->
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Dashboard_RunV2_ExpiredTag"></string>
+    <string name="Dashboard_RunV2_UpdatedTag"></string>
+    <string name="Dashboard_RunV2_UpdateTag"></string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated"></string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate"></string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Annulla</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates"></string>
+    <string name="Dashboard_Progress_UpdateLink_Label"></string>
+    <string name="Dashboard_Progress_ReviewLink_Label"></string>
     <string name="Dashboard_Progress_ReviewLink_Action">Rivedi</string>
+    <string name="Dashboard_ReviewDescriptor_Label"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last"></string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default"></string>
+    <!-- Button to reject a link update during review -->
+    <string name="Dashboard_ReviewDescriptor_Reject"></string>
+    <string name="Dashboard_Update_Ready"></string>
     <string name="Dashboard_Update_Restart">Riavvia</string>
+
+
     <string name="Tests_Title">Test</string>
+    <string name="Tests_Search"></string>
     <string name="Test_Websites_Fullname">Siti web</string>
     <string name="Test_InstantMessaging_Fullname">Messaggistica istantanea</string>
     <string name="Test_Performance_Fullname">Prestazioni</string>
@@ -31,9 +93,21 @@
     <string name="Test_Psiphon_Fullname">Test Psiphon</string>
     <string name="Test_Tor_Fullname">Test Tor</string>
     <string name="Test_Signal_Fullname">Test di Signal</string>
+
+
     <string name="TestResults">Risultati</string>
     <string name="TestResults_Overview_Hero_Networks">Reti</string>
     <string name="TestResults_Overview_Hero_DataUsage">Utilizzo dati</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">Nessun test è stato eseguito. Prova ad eseguirne uno!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Data e Ora</string>
     <string name="TestResults_Summary_Hero_Network">Rete</string>
@@ -42,7 +116,24 @@
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
     <string name="TestResults_Summary_Hero_Mobile">Traffico Dati Mobile</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
+    <string name="TestResults_Summary_Hero_Ethernet"></string>
+    <string name="TestResults_Summary_Hero_Usb"></string>
     <string name="TestResults_Summary_Hero_NoInternet">Internet assente</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Summary_Performance_Hero_Upload">Carica</string>
     <string name="TestResults_Summary_Performance_Hero_Download">Scarica</string>
     <string name="TestResults_Summary_Performance_Hero_Video">Video</string>
@@ -54,21 +145,79 @@
     <string name="TestResults_ms">ms</string>
     <string name="TestResults_UnknownASN">Sconosciuto</string>
     <string name="TestResults_NotAvailable">Non valido</string>
+    <string name="TestResults_Filters_Title"></string>
+    <string name="TestResults_Filters_Short"></string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Tests">Test</string>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Networks">Reti</string>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="TestResults_Filter_Source">Sorgente</string>
     <string name="TestResults_Filter_Date">Data</string>
+    <string name="TestResults_Filter_Date_Any"></string>
     <string name="TestResults_Filter_Date_Today">Oggi</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo"></string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo"></string>
     <string name="TestResults_Filter_Date_Custom">Personalizzata</string>
+    <string name="TestResults_Filter_Date_Custom_Filled"></string>
+    <string name="TestResults_Filter_Date_Picker"></string>
+    <string name="TestResults_Filter_NoTestsFound"></string>
+    <string name="TestResults_Filter_DeleteConfirmation"></string>
+    <string name="Results_LimitedNotice"></string>
+    <string name="Results_UploadingMissing"></string>
+    <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
+    <string name="Results_MarkAllAsViewed"></string>
+    <string name="Results_MarkAllAsViewed_Confirmation"></string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation"></string>
+
+
+    <string name="Measurement_Title"></string>
+    <string name="Measurement_LoadingFailed"></string>
     <string name="Measurements_Failed">Fallito</string>
     <string name="Measurements_Ok">OK</string>
+    <string name="Measurements_Anomaly"></string>
+    <plurals name="Measurements_Count">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning"></string>
+    <string name="Measurement_Raw_Share"></string>
     <string name="Measurement_Raw_Upload">Carica</string>
+
+
     <string name="Settings_Title">Impostazioni</string>
     <string name="Settings_TestOptions_Label">Opzioni dei test</string>
+    <string name="Settings_TestOptions_LongRunningTest"></string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Esegui test automaticamente</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Solo su WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Solo durante il caricamento</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer"></string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description"></string>
     <string name="Settings_Sharing_UploadResults">Risultati Pubblicati Automaticamente</string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeEnabled"></string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description"></string>
+    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
+    <string name="Settings_Websites_MaxRuntimeDuration"></string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit"></string>
     <string name="Settings_Websites_Categories_Label">Categorie di siti web da misurare</string>
     <string name="Settings_Websites_Categories_Description">%1$s categorie abilitate</string>
     <string name="Settings_Privacy_Label">Privacy</string>
@@ -77,35 +226,61 @@
     <string name="Settings_Proxy">Proxy</string>
     <string name="Settings_Proxy_None">Nessuno</string>
     <string name="Settings_Proxy_Psiphon">Psiphon</string>
+    <string name="Settings_Proxy_Custom_Add"></string>
     <string name="Settings_Proxy_Custom_Protocol">Protocollo</string>
     <string name="Settings_Proxy_Custom_Hostname">Nome host</string>
     <string name="Settings_Proxy_Custom_Port">Porta</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid"></string>
+    <string name="Settings_Proxy_Custom_PortInvalid"></string>
     <string name="Settings_Proxy_Custom_Testing">Verifica in corso</string>
     <string name="Settings_Proxy_Custom_Available">Disponibile</string>
     <string name="Settings_Proxy_Custom_Unavailable">Non disponibile</string>
+    <string name="Settings_Proxy_Delete_Confirmation"></string>
     <string name="Settings_Language_Label">Lingua</string>
     <string name="Settings_Advanced_Label">Avanzate</string>
     <string name="Settings_Advanced_DebugLogs">Log di debug</string>
+    <string name="Settings_Advanced_RecentLogs"></string>
+    <string name="Settings_Results_DeleteOldResults"></string>
+    <string name="Settings_Results_DeleteOldResultsThreshold"></string>
     <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
         <item quantity="one">%1$d mese</item>
         <item quantity="many">%1$d mesi</item>
         <item quantity="other">%1$d mesi</item>
     </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit"></string>
     <string name="Settings_Support_Label">Supporto</string>
     <string name="Settings_Support_SendEmail">Invia email a supporto</string>
     <string name="Settings_Support_Message">Per favore descrivi il problema:</string>
+    <string name="Settings_Support_Message_Hint"></string>
+    <string name="Settings_Support_IncludeLogs"></string>
     <string name="Settings_Support_Action">Invia email</string>
     <string name="Settings_ShareApp">Condividi App</string>
+    <string name="Settings_ShareApp_Description"></string>
+    <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
+    <string name="Settings_ShareApp_ShareMessage"></string>
     <string name="Settings_Storage_Label">Utilizzo spazio di archiviazione</string>
     <string name="Settings_Storage_Delete">Rimuovi</string>
     <string name="Settings_Storage_Clear">Elimina</string>
+    <string name="Settings_Legacy_Storage"></string>
+    <string name="Settings_WarmVPNInUse_Label"></string>
+    <string name="Settings_DisableVpnInstructions"></string>
     <string name="Settings_Logs">Log</string>
+    <string name="Settings_ShareLogs"></string>
+    <string name="Settings_ShareLogs_Error"></string>
+    <string name="Settings_FilterLogs"></string>
+    <string name="Settings_Sharing_UploadResults_Description"></string>
     <string name="Settings_Websites_Categories_Selection_None">Deseleziona tutto</string>
     <string name="Settings_Websites_Categories_Selection_All">Seleziona tutto</string>
     <string name="Settings_Websites_CustomURL_Title">Scegli i siti da testare</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Esegui</string>
     <string name="Settings_Websites_CustomURL_Add">Aggiungi sito web</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+
     <string name="CategoryCode_ALDR_Name">Droghe e Alcool</string>
     <string name="CategoryCode_REL_Name">Religione</string>
     <string name="CategoryCode_PORN_Name">Pornografia</string>
@@ -168,6 +343,9 @@
     <string name="CategoryCode_CTRL_Description">Siti web benigni o innocui, usati come controllo</string>
     <string name="CategoryCode_IGO_Description">Organizzazioni intergovernative, incluse le Nazioni Unite</string>
     <string name="CategoryCode_MISC_Description">Siti web non ancora classificati</string>
+
+    <string name="Onboarding_QuizAnswer_Correct"></string>
+    <string name="Onboarding_QuizAnswer_Incorrect"></string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Ho capito</string>
     <string name="Onboarding_ThingsToKnow_Title">Sappiatelo!</string>
     <string name="Onboarding_ThingsToKnow_Button">Ho capito</string>
@@ -185,6 +363,8 @@
     <string name="Onboarding_Crash_Title">Segnalazione crash</string>
     <string name="Onboarding_Crash_Button_Yes">Sì</string>
     <string name="Onboarding_Crash_Button_No">No</string>
+    <string name="Onboarding_Notifications_Title"></string>
+    <string name="Onboarding_Notifications_Paragraph"></string>
     <string name="Onboarding_Notifications_Ok">OK</string>
     <string name="Onboarding_Notifications_Skip">Salta</string>
     <string name="Onboarding_DefaultSettings_Title">Impostazioni predefinite</string>
@@ -193,14 +373,32 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">Informazioni sulla tua rete (incluso l\'Autonomous System Number)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Data e ora del test</string>
     <string name="Onboarding_DefaultSettings_Paragraph">Facciamo del nostro meglio per evitare di pubblicare il tuo indirizzo IP o altre informazioni personali.\n\nPer maggiori informazioni vedi la [Data Policy di OONI](https://ooni.org/about/data-policy/)</string>
+    <string name="Onboarding_DefaultSettings_Button_Go"></string>
     <string name="Onboarding_DefaultSettings_Button_Change">Cambia i default</string>
+
+
+    <string name="AddDescriptor_EnterURL"></string>
+    <string name="AddDescriptor_URLInvalid"></string>
     <string name="AddDescriptor_Settings">Fai un test delle impostazioni</string>
+    <string name="AddDescriptor_Title"></string>
+    <string name="AddDescriptor_AutoUpdate"></string>
     <string name="AddDescriptor_AutoRun">Esegui test automaticamente</string>
+    <string name="AddDescriptor_Toasts_Installed"></string>
+    <string name="AddDescriptor_InstallForLater"></string>
+    <string name="AddDescriptor_InstallAndRun"></string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url"></string>
+    <string name="LoadingScreen_Runv2_Message"></string>
+    <string name="LoadingScreen_Runv2_Failure"></string>
+    <string name="DescriptorUpdate_Updates"></string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Cerca aggiornamenti</string>
+    <string name="AddDescriptor_AutoRunDisabled"></string>
+    <string name="Descriptor_LastTestResult"></string>
+
     <string name="Snackbar_ResultsNotUploaded_Text">Non caricati</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Alcuni non caricati</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">Carica tutti</string>
+    <string name="Modal_ResultsNotUploaded_Uploading"></string>
     <string name="Toast_ResultsUploaded">Caricamento riuscito</string>
     <string name="Modal_UploadFailed_Title">Invio fallito</string>
     <string name="Modal_UploadFailed_Paragraph">Non siamo riusciti a caricare %1$s/%2$s misurazioni. Il log degli errori è stato condiviso con gli sviluppatori di OONI.</string>
@@ -208,22 +406,51 @@
     <string name="Modal_Cancel">Annulla</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Vuoi cancellare tutti i risultati dei test?</string>
+    <string name="Modal_Clear_Legacy_Directories"></string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
     <string name="Modal_Delete">Rimuovi</string>
     <string name="Modal_ReRun_Title">Ri-esegui il test</string>
     <string name="Modal_ReRun_Websites_Title">Stai per ri-testare %1$s siti.</string>
     <string name="Modal_ReRun_Websites_Run">Esegui</string>
+    <string name="Modal_DisableVPN_Title"></string>
+    <string name="Modal_DisableVPN_Message"></string>
+    <string name="Modal_DisableVPN"></string>
+    <string name="Modal_RunAnyway"></string>
+    <string name="Modal_AlwaysRun"></string>
     <string name="Modal_Error_CantDownloadURLs">Non è stato possibile scaricare la lista di URL. Riprova.</string>
     <string name="Modal_Error_NoInternet">Nessuna connessione internet</string>
+    <string name="Modal_Error_ProxyUnavailable"></string>
     <string name="Modal_CustomURL_Title_NotSaved">Sei sicuro?</string>
     <string name="Modal_CustomURL_NotSaved">Gli URL non saranno salvati quando lasci questa pagina. Sei sicuro di voler lasciare questa pagina?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding"></string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder"></string>
+
+    <string name="Desktop_OpenApp"></string>
     <string name="Desktop_Quit">Esci</string>
     <string name="Tray_Notification_Check_Updates">Cerca aggiornamenti</string>
     <string name="Tray_Notification_Updates_Available">Aggiornamento Disponibile!</string>
+    <string name="Tray_Notification_Checking_Updates"></string>
+
     <string name="Modal_Hide">Nascosto</string>
+    <string name="Modal_Quite_Prompt"></string>
+    <string name="Modal_Quite_Description"></string>
+
     <string name="OONIRun_Run">Esegui</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Verifica in corso</string>
+    <!--  Android notification channel name. It refers to checking for multiple Link Updates. -->
+    <string name="Notification_UpdateChannelName"></string>
     <string name="Notification_StopTest">Ferma il test</string>
+
     <string name="Common_Back">Indietro</string>
     <string name="Common_Close">Chiudi</string>
     <string name="Common_Refresh">Aggiorna</string>
@@ -240,9 +467,33 @@
     <string name="Common_Search">Cerca</string>
     <string name="Common_Today">Oggi</string>
     <string name="Common_Yesterday">Ieri</string>
+    <string name="Common_Week"></string>
     <string name="Common_Month">Mese</string>
     <string name="Common_Total">Totale</string>
     <string name="Common_Ago">%1$s fa</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="Common_Hours_Abbreviated"></string>
+    <string name="Common_Minutes_Abbreviated"></string>
+    <string name="Common_Seconds_Abbreviated"></string>
     <string name="Common_Months_January">Gennaio</string>
     <string name="Common_Months_February">Febbraio</string>
     <string name="Common_Months_March">Marzo</string>
@@ -255,5 +506,8 @@
     <string name="Common_Months_October">Ottobre</string>
     <string name="Common_Months_November">Novembre</string>
     <string name="Common_Months_December">Dicembre</string>
+
+    <string name="TaskOrigin_Manual"></string>
+    <string name="TaskOrigin_AutoRun"></string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>
