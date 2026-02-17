@@ -227,7 +227,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">معلومات الشبكة (متضمنا رقم ASN)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">وقت وتاريخ الاختبار</string>
     <string name="Onboarding_DefaultSettings_Paragraph">نعمل ما في وسعنا لعدم نشر عنوان بروتوكل الانترنت (IP) أو أي بيانات أخرى قد تساعد  في تحديد هويّتك الشّخصيّة. \n\nتعلّم أكثر عبر [سياسة البيانات في OONI](https://ooni.org/about/data-policy/).</string>
-    <string name="Onboarding_DefaultSettings_Button_Go">فلننطلق!</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">فلننطلق</string>
     <string name="Onboarding_DefaultSettings_Button_Change">تغيير الافتراضي</string>
     <string name="AddDescriptor_Settings">فحص الإعدادات</string>
     <string name="AddDescriptor_Title">Install New Link</string>

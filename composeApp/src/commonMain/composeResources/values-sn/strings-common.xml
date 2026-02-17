@@ -2,7 +2,7 @@
 <resources>
     <string name="Dashboard_Overview_Estimated">Yafungidzirwa:</string>
     <string name="Dashboard_Overview_ChooseWebsites">Sarudza mawebsites</string>
-    <string name="Dashboard_Running_Running">Irikushanda</string>
+    <string name="Dashboard_Running_Running">Irikushanda:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Nguva inofungidzirwa kuti yasara:</string>
     <string name="Dashboard_Running_Stopping_Title">Mira ongororo…</string>
     <string name="Dashboard_Running_Stopping_Notice">Kupedzisa ongororo iripo yanga isati yapera, mirira…</string>

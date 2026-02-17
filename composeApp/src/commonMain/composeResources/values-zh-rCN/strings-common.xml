@@ -329,7 +329,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">国家/地区代码（例如，IT 指代意大利）</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">网络信息（包含 ASN）</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">测试的日期和时间</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">我们尽最大努力不发布您的 IP 地址或任何其他潜在的个人身份信息。通过 [OONI 的数据政策] 了解更多信息(https://ooni.org/about/data-policy/)。</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">我们尽最大努力不发布您的 IP 地址或任何其他潜在的个人身份信息。\n\n通过 [OONI 的数据政策] 了解更多信息(https://ooni.org/about/data-policy/)。</string>
     <string name="Onboarding_DefaultSettings_Button_Go">开始吧</string>
     <string name="Onboarding_DefaultSettings_Button_Change">更改默认值</string>
     <string name="AddDescriptor_EnterURL">输入 OONI Run 链接 URL</string>

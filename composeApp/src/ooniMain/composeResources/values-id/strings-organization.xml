@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Apa itu OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Aplikasi Anda untuk mengukur sensor internet.\n\nApakah situs web dan aplikasi media sosial diblokir? Apakah koneksi internetmu menjadi lambat tidak seperti biasanya?\n\n Jalankan OONI Probe untuk mencari tahu!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Data OONI dipublikasikan secara terbuka dan akan menyertakan informasi jaringan Anda.</string>
@@ -14,9 +14,9 @@
     <string name="Onboarding_Crash_Paragraph">Untuk meningkatkan OONI Probe, kami ingin mengumpulkan laporan kerusakan secara anonim ketika aplikasi tidak berfungsi dengan baik. \n\nApakah Anda ingin ikut serta dalam mengirimkan laporan kerusakan ke tim pengembangan OONI?</string>
     <string name="Dashboard_Websites_Card_Description">Tes situs-situs web yang diblokir</string>
     <string name="Dashboard_Websites_Overview_Paragraph">Periksa apakah suatu situs web diblokir dengan [Tes Konektivitas Web](https://ooni.org/nettest/web-connectivity/) OONI.\n\nSetiap kali Anda mengetuk Jalankan, Anda mengetes situs web berbeda dari daftar tes [global](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) dan [khusus-negara](https://github.com/citizenlab/test-lists/tree/master/lists) Citizen Lab.\n\nUntuk mengetes situs pilihan Anda, ketuk tombol Pilih situs web atau pilih kategori situs melalui pengaturan kartu ini. \n\nTes ini mengukur apakah situs web diblokir melalui perusakan DNS, pemblokiran TCP/IP, atau proksi HTTP transparan.\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/world/) dan [OONI API](https://api.ooni.io/).</string>
-    <string name="Dashboard_Performance_Card_Description">Tes kecepatan dan kinerja jaringan Anda.</string>
+    <string name="Dashboard_Performance_Card_Description">Tes kecepatan dan kinerja jaringan Anda</string>
     <string name="Dashboard_Performance_Overview_Paragraph">Ukur kecepatan dan kinerja jaringan Anda menggunakan tes [NDT](https://ooni.org/nettest/ndt/).\n\nUkur kinerja aliran video menggunakan tes [DASH](https://ooni.org/nettest/dash/).\n\nPengetesan ini menggunakan data tergantung pada kecepatan jaringan Anda.\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/world/) dan [OONI API](https://api.ooni.io/).\n\nPenafian: Pengetesan ini bergantung pada peladen pihak ketiga. Oleh karena itu, kami tidak dapat menjamin bahwa alamat IP Anda tidak akan dikumpulkan.</string>
-    <string name="Dashboard_Middleboxes_Card_Description">Deteksi middlebox di jaringan Anda.</string>
+    <string name="Dashboard_Middleboxes_Card_Description">Deteksi middlebox di jaringan Anda</string>
     <string name="Dashboard_Middleboxes_Overview_Paragraph">Penyedia Jasa Internet seringkali menggunakan peralatan jaringan (middlebox) untuk berbagai keperluan jaringan (seperti caching). Terkadang middlebox ini digunakan untuk menerapkan sensor dan/atau pengawasan internet.\n\nTemukan middlebox di jaringan Anda menggunakan tes [Jalur Permintaan HTTP Tidak Valid](https://ooni.org/nettest/http-invalid-request-line/) dan [Manipulasi Bidang Tajuk HTTP](https://ooni.org/nettest/http-header-field-manipulation/) dari OONI.\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/world/) dan [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_InstantMessaging_Card_Description">Tes pemblokiran aplikasi perpesanan instan</string>
     <string name="Dashboard_InstantMessaging_Overview_Paragraph">Periksa apakah [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), dan [Signal](https://ooni.org/nettest/signal) diblokir.\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/world/) dan [OONI API](https://api.ooni.io/).</string>
@@ -24,15 +24,12 @@
     <string name="Dashboard_Circumvention_Overview_Paragraph">Periksa apakah [Psiphon](https://ooni.org/nettest/psiphon/) atau [Tor](https://ooni.org/nettest/tor/) diblokir.\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/) dan [OONI API](https://api.ooni.io/).</string>
     <string name="Dashboard_Experimental_Card_Description">Jalankan tes eksperimental baru</string>
     <string name="Dashboard_Experimental_Overview_Paragraph">Jalankan tes eksperimental baru berikut yang dikembangkan oleh tim OONI:\n%1$s\n\nHasil Anda akan dipublikasikan di [OONI Explorer](https://explorer.ooni.org/) dan [OONI API](https://api.ooni.io/).</string>
-
     <string name="Settings_About_Label">Tentang OONI</string>
     <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) adalah proyek perangkat lunak gratis di bawah Tor Project yang bertujuan untuk meningkatkan transparansi sensor internet di seluruh dunia.\n\nSejak 2012, komunitas global OONI telah mengukur jaringan di lebih dari 200 negara. Beberapa pengukuran ini berfungsi sebagai bukti sensor internet.</string>
-
     <string name="Settings_About_Content_LearnMore">Pelajari lebih lanjut</string>
     <string name="Settings_About_Content_Blog">Blog</string>
     <string name="Settings_About_Content_Reports">Laporan</string>
     <string name="Settings_About_Content_DataPolicy">Kebijakan Data OONI</string>
-
     <string name="Settings_Donate_Title">Donasi</string>
     <string name="Settings_Donate_Action">Donasi</string>
-    </resources>
+</resources>

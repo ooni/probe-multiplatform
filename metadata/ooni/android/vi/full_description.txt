@@ -21,5 +21,4 @@ OONI công bố dữ liệu đo lường mạng vì dữ liệu mở cho phép c
 Phần mềm miễn phí
 Tất cả các bài kiểm tra của phần mềm OONI Probe (bao gồm kiểm tra NDT và DASH ) đều dựa trên phần mềm mã nguồn mở và miễn phí. Bạn có thể xem các dự án phần mềm OONI trên GitHub: https://github.com/ooni. Để biết thêm về cách thức hoạt động của các bài kiểm tra OONI Probe, vui lòng xem thêm tại: https://ooni.io/nettest/
 
-Để nhận được những thông tin cập nhật từ ONNI, hãy theo dõi chúng tôi trên Twitter:
-https://twitter.com/OpenObservatory
+Để nhận được những thông tin cập nhật từ ONNI, hãy theo dõi chúng tôi trên Twitter: https://twitter.com/OpenObservatory

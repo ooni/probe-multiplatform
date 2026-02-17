@@ -124,7 +124,7 @@
     <string name="Modal_OK">ঠিক আছে</string>
     <string name="Modal_Delete">মুছে ফেলুন</string>
     <string name="Modal_ReRun_Websites_Run">চালনা</string>
-    <string name="Modal_Error_NoInternet">ইন্টারনেট সংযোগ নেই!</string>
+    <string name="Modal_Error_NoInternet">ইন্টারনেট সংযোগ নেই</string>
     <string name="Modal_CustomURL_Title_NotSaved">আপনি কি নিশ্চিত?</string>
     <string name="Desktop_Quit">বন্ধ</string>
     <string name="Modal_Hide">লুকান</string>
