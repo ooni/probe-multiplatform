@@ -14,7 +14,7 @@
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">بازنگری‌های قبلی</string>
     <string name="Dashboard_RunV2_ExpiredTag">منقضی شد</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">واگرد</string>
-    <string name="Dashboard_Progress_ReviewLink_Action">مرور کنید.</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">مرور کنید</string>
     <string name="Dashboard_Update_Restart">شروع دوباره</string>
     <string name="Tests_Title">تست‌‌ها</string>
     <string name="Test_Websites_Fullname">وب‌سایت</string>
@@ -159,7 +159,7 @@
     <string name="CategoryCode_ANON_Description">گمنام‌سازی، دور زدن سانسور و رمزگذاری</string>
     <string name="CategoryCode_DATE_Description">سایت‌‌های دوستیابی آنلاین</string>
     <string name="CategoryCode_GRP_Description">ابزارها و پلتفرم‌های شبکه‌های اجتماعی آنلاین</string>
-    <string name="CategoryCode_LGBT_Description">انجمن‌های دگرباشان در مورد مسائل مربوطه (به غیر از پورنوگرافی) گفتگو میکنند.</string>
+    <string name="CategoryCode_LGBT_Description">انجمن‌های دگرباشان در مورد مسائل مربوطه (به غیر از پورنوگرافی) گفتگو میکنند</string>
     <string name="CategoryCode_FILE_Description">اشتراک فایل شامل ذخیره‌‌ی ابری فایل، تورنت و P2P</string>
     <string name="CategoryCode_HACK_Description">ابزارها و اخبار امنیت رایانه</string>
     <string name="CategoryCode_COMT_Description">ابزارهای ارتباط فردی و جمعی شامل VoIP، پیام‌رسانی و ایمیل</string>
@@ -207,7 +207,7 @@
     <string name="Snackbar_ResultsNotUploaded_Text">بارگذاری نشدند</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">برخی بارگذاری نشدند</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">بارگذاری همه</string>
-    <string name="Toast_ResultsUploaded">بارگذاری با موفقیت انجام شد.</string>
+    <string name="Toast_ResultsUploaded">بارگذاری با موفقیت انجام شد</string>
     <string name="Modal_UploadFailed_Title">آپلود ناموفق بود</string>
     <string name="Modal_UploadFailed_Paragraph">ما در بارگذاری %1$s/%2$s اندازه‌گیری ناکام بودیم. گزارش این ناکامی با توسعه دهندگان OONI به اشتراک گذاشته شد.</string>
     <string name="Modal_Retry">تلاش دوباره</string>

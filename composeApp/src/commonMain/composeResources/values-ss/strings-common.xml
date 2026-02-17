@@ -1,8 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Ideshibhodi</string>
-    <string name="Dashboard_Overview_Estimated">Lokulinganisiwe</string>
-    <string name="Dashboard_Running_EstimatedTimeLeft">Silinganiso sesikhathi lesisele</string>
+    <string name="Dashboard_Overview_Estimated">Lokulinganisiwe:</string>
+    <string name="Dashboard_Running_EstimatedTimeLeft">Silinganiso sesikhathi lesisele:</string>
     <string name="Settings_Websites_CustomURL_Run">Gijima</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Sewukutfolile </string>
     <string name="Onboarding_ThingsToKnow_Title">qaphela!</string>
@@ -21,10 +21,10 @@
     <string name="Onboarding_Crash_Button_Yes">Yebo</string>
     <string name="Onboarding_Crash_Button_No">Cha</string>
     <string name="Onboarding_DefaultSettings_Title">Kulungiswa lokutentakalelako</string>
-    <string name="Onboarding_DefaultSettings_Header">Siyakweleka siphindze sisakate</string>
+    <string name="Onboarding_DefaultSettings_Header">Siyakweleka siphindze sisakate:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">IKhodi yelive (kubekisa, Swaziland ngu SZ)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Sikhatsi nelusuku lweluhlolo</string>
     <string name="Modal_ReRun_Websites_Run">Gijima</string>
     <string name="OONIRun_Run">Gijima</string>
     <string name="Common_Yes">Yebo</string>
-    </resources>
+</resources>

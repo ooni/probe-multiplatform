@@ -21,4 +21,4 @@ OONI داده‌های سنجش شبکه را منتشر می‌کند زیرا 
 ▶ Free software
 تمامی تست‌های کاوشگر OONI (شامل NDT و DASH) بر اساس نرم افزار رایگان و متن باز بنا شده‌اند. شما می‌توانید پروژه‌ی نرم افزار OONI را در GitHub پیدا کنید: https://github.com/ooni. آیا کنجکاوید که در خصوص نحوه‌ی کار تست‌های کاوشگر OONI یاد بگیرید؟ بیشتر بخوانید: https://ooni.io/nettest/
 
-برای دریافت بروز رسانی‌ از OONI، ما  را در توییتر دنبال  کنید: https://twitter.com/OpenObservatory
+برای دریافت بروز رسانی‌ از OONI، ما را در توییتر دنبال کنید: https://twitter.com/OpenObservatory

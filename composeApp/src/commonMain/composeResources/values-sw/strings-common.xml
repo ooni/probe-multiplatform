@@ -84,7 +84,7 @@
     <string name="Settings_AutomatedTesting_RunAutomatically">Endesha vipimo kiatomati</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Kwenye WiFi tu</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Wakati wa kuchaji tu</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Kwa kuwezesha upimaji wa kiotomatiki, vipimo vya OONI Probe vitaendesha moja kwa moja mara nyingi kwa siku. Matokeo yako ya jaribio yatachapishwa kiotomatiki kwenye OONI Explorer: https://explorer.ooni.org/. Muhimu: Ikiwa umewezeshwa na VPN, OONI Probe haitaendesha vipimo kiotomatiki. Tafadhali zima VPN yako kwa upimaji wa kiotomatiki wa OONI Probe. Jifunze zaidi: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Kwa kuwezesha upimaji wa kiotomatiki, vipimo vya OONI Probe vitaendesha moja kwa moja mara nyingi kwa siku. Matokeo yako ya jaribio yatachapishwa kiotomatiki kwenye OONI Explorer: https://explorer.ooni.org/.\n\nMuhimu: Ikiwa umewezeshwa na VPN, OONI Probe haitaendesha vipimo kiotomatiki. Tafadhali zima VPN yako kwa upimaji wa kiotomatiki wa OONI Probe. Jifunze zaidi: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">Chapisha Matokeo Moja kwa Moja</string>
     <string name="Settings_Websites_Categories_Label">Vikundi vya wavuti kujaribu</string>
     <string name="Settings_Websites_Categories_Description">Aina %1$s zimewezeshwa</string>

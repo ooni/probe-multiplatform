@@ -189,7 +189,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">နိုင်ငံကုဒ် (ဥပမာ - အီတလီအတွက် IT)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">ကွန်ရက် သတင်းအချက်အလက် (အလိုအလျောက်စနစ် နံပတ်အပါအဝင်)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">စမ်းသပ်ချိန်နှင့် ရက်စွဲ</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">သင်၏ IP လိပ်စာ သို့မဟုတ် အခြားသော ပုဂ္ဂိုလ်ရေးအရ ခွဲခြား သိမြင်နိုင်သော အချက်အလက်များကို ထုတ်ဝေခြင်းမပြုရန် ကျွန်ုပ်တို့ အကောင်းဆုံး လုပ်ဆောင်ပါသည်။ [OONI ၏ ဒေတာမူဝါဒ](https://ooni.org/about/data-policy/) တွင် ပိုမိုလေ့လာပါ။</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">သင်၏ IP လိပ်စာ သို့မဟုတ် အခြားသော ပုဂ္ဂိုလ်ရေးအရ ခွဲခြား သိမြင်နိုင်သော အချက်အလက်များကို ထုတ်ဝေခြင်းမပြုရန် ကျွန်ုပ်တို့ အကောင်းဆုံး လုပ်ဆောင်ပါသည်။\n\n[OONI ၏ ဒေတာမူဝါဒ](https://ooni.org/about/data-policy/) တွင် ပိုမိုလေ့လာပါ။</string>
     <string name="Onboarding_DefaultSettings_Button_Change">နဂိုမူလများကို ပြောင်းမည်</string>
     <string name="AddDescriptor_Settings">စစ်ဆေးမှု ချိန်ညှိချက်များ</string>
     <string name="AddDescriptor_AutoRun">စမ်းသပ်မှုများကို အလိုအလျောက် လုပ်ဆောင်ပါ</string>

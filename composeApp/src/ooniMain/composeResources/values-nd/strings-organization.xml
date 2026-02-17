@@ -1,9 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Kuyini iOONI Probe?</string>
-    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Iapp yakho yokuhlola okungabe kuvaliwe kuinternet.\n\nAmawebsite lama app awesocial media avaliwe na? Ingabe ukusebenza kweinternet kuhamba kancane okusolisayo na? \n\nVula iOONI Probe ukuze uthole ulwazi.</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Iapp yakho yokuhlola okungabe kuvaliwe kuinternet.\n\nAmawebsite lama app awesocial media avaliwe na? Ingabe ukusebenza kweinternet kuhamba kancane okusolisayo na? \n\nVula iOONI Probe ukuze uthole ulwazi!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Impumela ozayithola ngemva kokusebenzisa iOONI iyavezwa kumphakathi lokuthi usebenzisa inetwork yiphi njalo ukuliphi ilizwe. </string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Nxa bekhona abakhangele okwenzayo kuinternet (abafana loHulumende kumbe inkampani yenetwork oyisebenzisayo) bayenelisa ukubona ukuthi usebenzisa iOONI.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">Sungahlola amawebsite angavunyelwayo elizweni lakho (kodwa ungazikhethela amawebsite okuhlola).</string>
-    </resources>
+</resources>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Onboarding_WhatIsOONIProbe_Title">Iyini i-OONI Probe?</string>
-    <string name="Onboarding_WhatIsOONIProbe_Paragraph">uHlelo lokusebenza elibala incedezelo yokuxhumana\n\nNgabe izindawo zama-Webu nama amakhasi okuxhumana evalewe yeni na?\n\nIngabe ukuxhuma kwe-internet kusebenza kancane kunoku jwayelekele? Sebenziza u-OONI Probe ukwazi</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">uHlelo lokusebenza elibala incedezelo yokuxhumana.\n\nNgabe izindawo zama-Webu nama amakhasi okuxhumana evalewe yeni na?\n\nIngabe ukuxhuma kwe-internet kusebenza kancane kunoku jwayelekele? Sebenziza u-OONI Probe ukwazi!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Imininigwane yakho eku-OONI Probe ishicilelwe kanye nemininingwane yakho yenethiwekhi.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Noma ubana ogade ukusebenzisa kwakho kwe-Internet (umzekelo. uhulumeni noma ISP) uyabona ukuthi usebenzisa i-OONI Probe .</string>
-    <string name="Onboarding_ThingsToKnow_Bullet_3">Kungenzeka  uhlole ama-Website angavumelikile (kodwa uyakwazi ukukhetha amakhasi ofuna ukuwahlola)</string>
-    <string name="Onboarding_PopQuiz_1_Question">Uma kukhona umuntu ogade umsebenzi we-intanethi yami, uzobona ukuthi ngisebenzisa i-OONI Probe</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">Kungenzeka uhlole ama-Website angavumelikile (kodwa uyakwazi ukukhetha amakhasi ofuna ukuwahlola).</string>
+    <string name="Onboarding_PopQuiz_1_Question">Uma kukhona umuntu ogade umsebenzi we-intanethi yami, uzobona ukuthi ngisebenzisa i-OONI Probe.</string>
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">i-OONI Probe akulona ithuluzi lemfihlo. Noma ubani ogade umsebenzi we-intanethi yakho uzobona ukuthi iyiphi i-sofware oyisebenzisayo.</string>
     <string name="Onboarding_PopQuiz_2_Question">Ngaso sonke iskhathi ngisebenzisa i-OONI Probe, imininingwane ye-intanethi engiyiqoqayo izoshicilikeka ngokuzenzakalelayo.</string>
-    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Ukukhuphula ukungafihli kwengcindezelo ye-intanethi, umsebenzi wenethiwekhi yabo bonke abasebenzisi ba-OONI Probe iyashicileka ngokuzenzakalelayo (ngaphandle uma bephuma kwama-settings)</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Ukukhuphula ukungafihli kwengcindezelo ye-intanethi, umsebenzi wenethiwekhi yabo bonke abasebenzisi ba-OONI Probe iyashicileka ngokuzenzakalelayo (ngaphandle uma bephuma kwama-settings).</string>
     <string name="Onboarding_Crash_Paragraph">Ukuthuthukisa i-Ooni Probe singathanda ukuqoqoqa ukusaphazeka kwemibiko engaziwa uma i-App ingasebenzi kahle\n\nUngathanda ukuthumela imibiko yokusaphazeka eqembini lika Ooni?</string>
     <string name="Dashboard_Websites_Card_Description">Hlola ukuvalwa kwama-website </string>
     <string name="Settings_About_Content_LearnMore">Funda okunye</string>

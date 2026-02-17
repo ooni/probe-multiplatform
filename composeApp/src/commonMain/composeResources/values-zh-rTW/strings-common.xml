@@ -182,11 +182,11 @@
     <string name="CategoryCode_CTRL_Description">控制用的良性或無害內容</string>
     <string name="CategoryCode_IGO_Description">跨國政府組織，如聯合國</string>
     <string name="CategoryCode_MISC_Description">尚未被分類的網站</string>
-    <string name="Onboarding_WhatIsOONIProbe_GotIt">了解！</string>
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">了解</string>
     <string name="Onboarding_ThingsToKnow_Title">當心！</string>
     <string name="Onboarding_ThingsToKnow_Button">我了解</string>
     <string name="Onboarding_ThingsToKnow_LearnMore">瞭解更多</string>
-    <string name="Onboarding_PopQuiz_Title">突擊測驗！</string>
+    <string name="Onboarding_PopQuiz_Title">突擊測驗</string>
     <string name="Onboarding_PopQuiz_True">是</string>
     <string name="Onboarding_PopQuiz_False">否</string>
     <string name="Onboarding_PopQuiz_Wrong_Button_Back">返回</string>
