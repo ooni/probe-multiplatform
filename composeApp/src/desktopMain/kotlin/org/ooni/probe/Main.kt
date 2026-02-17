@@ -83,6 +83,7 @@ fun main(args: Array<String>) {
     val autoLaunch = AutoLaunch(appPackageName = APP_ID)
     val instanceManager = InstanceManager(dependencies.platformInfo)
     val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
+    val activationFlow = MutableSharedFlow<Unit?>(extraBufferCapacity = 1)
 
     // Create update manager and controller
     val updateManager = createUpdateManager(dependencies.platformInfo.platform)
@@ -91,6 +92,12 @@ fun main(args: Array<String>) {
     CoroutineScope(Dispatchers.IO).launch {
         instanceManager.observeUrls().collectLatest {
             deepLinkFlow.tryEmit(DeepLinkParser(it))
+        }
+    }
+
+    CoroutineScope(Dispatchers.IO).launch {
+        instanceManager.observeActivation().collectLatest {
+            activationFlow.tryEmit(Unit)
         }
     }
 
@@ -118,6 +125,7 @@ fun main(args: Array<String>) {
         MacDockVisibility.setDockIconVisible(isWindowVisible)
         val trayIcon = trayIcon()
         val deepLink by deepLinkFlow.collectAsState(null)
+        val activationEvent by activationFlow.collectAsState(null)
         val runBackgroundState by dependencies.runBackgroundStateManager
             .observeState()
             .collectAsState(RunBackgroundState.Idle)
@@ -138,11 +146,21 @@ fun main(args: Array<String>) {
             }
         }
 
+        fun hideWindow() {
+            isWindowVisible = false
+            MacDockVisibility.hideDockIcon()
+        }
+
+        // Show window when activation event occurs (e.g., clicking desktop icon while app is in tray)
+        LaunchedEffect(activationEvent) {
+            activationEvent?.let {
+                showWindow()
+                activationFlow.tryEmit(null) // Reset the event
+            }
+        }
+
         Window(
-            onCloseRequest = {
-                isWindowVisible = false
-                MacDockVisibility.hideDockIcon()
-            },
+            onCloseRequest = { hideWindow() },
             visible = isWindowVisible,
             icon = painterResource(Res.drawable.ooni_colored_logo),
             title = stringResource(Res.string.app_name),
@@ -168,28 +186,29 @@ fun main(args: Array<String>) {
             }
 
             if (showQuitPrompt) {
-                DialogWindow(
-                    onCloseRequest = { showQuitPrompt = false },
-                    undecorated = true,
-                    transparent = true,
-                    resizable = false,
-                    alwaysOnTop = true,
-                    state = rememberDialogState(position = WindowPosition(Alignment.Center)),
-                ) {
-                    QuitPromptDialog(
-                        onQuit = {
-                            showQuitPrompt = false
-                            onQuitApplicationClicked(updateController, instanceManager).invoke()
-                        },
-                        onHide = {
-                            showQuitPrompt = false
-                            isWindowVisible = false
-                            MacDockVisibility.hideDockIcon()
-                        },
-                        onDismiss = {
-                            showQuitPrompt = false
-                        },
-                    )
+                AppTheme {
+                    DialogWindow(
+                        onCloseRequest = { showQuitPrompt = false },
+                        undecorated = true,
+                        transparent = true,
+                        resizable = false,
+                        alwaysOnTop = true,
+                        state = rememberDialogState(position = WindowPosition(Alignment.Center)),
+                    ) {
+                        QuitPromptDialog(
+                            onQuit = {
+                                showQuitPrompt = false
+                                onQuitApplicationClicked(updateController, instanceManager).invoke()
+                            },
+                            onHide = {
+                                showQuitPrompt = false
+                                hideWindow()
+                            },
+                            onDismiss = {
+                                showQuitPrompt = false
+                            },
+                        )
+                    }
                 }
             }
         }
@@ -227,8 +246,8 @@ fun main(args: Array<String>) {
                 Item(
                     stringResource(Res.string.Desktop_Quit),
                     onClick = {
-                        showQuitPrompt = true
                         showWindow()
+                        showQuitPrompt = true
                     },
                 )
             },
@@ -247,7 +266,7 @@ fun main(args: Array<String>) {
                 if (desktop.isSupported(Desktop.Action.APP_QUIT_HANDLER)) {
                     desktop.setQuitHandler { _: QuitEvent?, response: QuitResponse ->
                         appScope.launch {
-                            isWindowVisible = false
+                            hideWindow()
                         }
                         response.cancelQuit()
                     }
