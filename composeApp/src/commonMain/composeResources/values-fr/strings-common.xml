@@ -393,9 +393,9 @@
     <string name="Modal_DoYouWantToDeleteAllTests">Voulez-vous supprimer tous les résultats de test ?</string>
     <string name="Modal_Clear_Legacy_Directories">Voulez-vous supprimer les dossiers hérités ?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
-        <item quantity="one">Voulez-vous supprimer %1$s résultat de test \?</item>
-        <item quantity="many">Voulez-vous supprimer %1$sde résultats de test \?</item>
-        <item quantity="other">Voulez-vous supprimer %1$s résultats de test?</item>
+        <item quantity="one">Voulez-vous supprimer %1$s résultat de test ?</item>
+        <item quantity="many">Voulez-vous supprimer %1$s de résultats de test ?</item>
+        <item quantity="other">Voulez-vous supprimer %1$s résultats de test ?</item>
     </plurals>
     <plurals name="Modal_Selected">
         <item quantity="one">%1$d élément choisi</item>
