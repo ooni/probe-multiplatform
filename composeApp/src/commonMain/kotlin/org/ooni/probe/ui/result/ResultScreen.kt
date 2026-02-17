@@ -46,6 +46,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Common_Next
@@ -342,6 +343,7 @@ private fun SummaryStats(item: ResultItem) {
                     Res.plurals.TestResults_Summary_Websites_Hero_Tested,
                     item.measurementCounts.total.toInt(),
                 ),
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
@@ -363,6 +365,7 @@ private fun SummaryStats(item: ResultItem) {
                     Res.plurals.TestResults_Summary_Websites_Hero_Blocked,
                     item.measurementCounts.anomaly.toInt(),
                 ),
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
@@ -384,6 +387,7 @@ private fun SummaryStats(item: ResultItem) {
                     Res.plurals.TestResults_Summary_Websites_Hero_Reachable,
                     item.measurementCounts.succeeded.toInt(),
                 ),
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(bottom = 8.dp),
             )

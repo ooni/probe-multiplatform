@@ -2,10 +2,8 @@ package org.ooni.probe.ui.dashboard
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -18,25 +16,18 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.AnnotatedString
@@ -47,59 +38,33 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import ooniprobe.composeapp.generated.resources.Common_Dismiss
-import ooniprobe.composeapp.generated.resources.Common_Month
-import ooniprobe.composeapp.generated.resources.Common_Today
-import ooniprobe.composeapp.generated.resources.Common_Total
-import ooniprobe.composeapp.generated.resources.Common_Week
 import ooniprobe.composeapp.generated.resources.Dashboard_Articles_ReadMore
 import ooniprobe.composeapp.generated.resources.Dashboard_Articles_Title
 import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Disabled
 import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Enabled
-import ooniprobe.composeapp.generated.resources.Dashboard_LastResults
-import ooniprobe.composeapp.generated.resources.Dashboard_LastResults_SeeResults
-import ooniprobe.composeapp.generated.resources.Dashboard_Stats_Countries
-import ooniprobe.composeapp.generated.resources.Dashboard_Stats_Empty
-import ooniprobe.composeapp.generated.resources.Dashboard_Stats_Networks
-import ooniprobe.composeapp.generated.resources.Dashboard_Stats_Title
 import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Action
 import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Description
 import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Title
-import ooniprobe.composeapp.generated.resources.Measurements_Failed_Count
 import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
-import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested
 import ooniprobe.composeapp.generated.resources.app_name
 import ooniprobe.composeapp.generated.resources.dashboard_arc
 import ooniprobe.composeapp.generated.resources.ic_auto_run
-import ooniprobe.composeapp.generated.resources.ic_heart
-import ooniprobe.composeapp.generated.resources.ic_history
-import ooniprobe.composeapp.generated.resources.ic_measurement_anomaly
-import ooniprobe.composeapp.generated.resources.ic_measurement_failed
 import ooniprobe.composeapp.generated.resources.ic_tests
 import ooniprobe.composeapp.generated.resources.ic_warning
-import ooniprobe.composeapp.generated.resources.ic_world
 import ooniprobe.composeapp.generated.resources.logo_probe
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.ArticleModel
-import org.ooni.probe.data.models.MeasurementStats
 import org.ooni.probe.data.models.RunBackgroundState
-import org.ooni.probe.data.models.RunSummary
-import org.ooni.probe.shared.largeNumberShort
 import org.ooni.probe.ui.articles.ArticleCard
 import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.TestRunErrorMessages
 import org.ooni.probe.ui.shared.VerticalScrollbar
 import org.ooni.probe.ui.shared.isHeightCompact
-import org.ooni.probe.ui.shared.relativeDateTime
 import org.ooni.probe.ui.theme.AppTheme
 import org.ooni.probe.ui.theme.LocalCustomColors
 import org.ooni.probe.ui.theme.cardTitle
@@ -171,7 +136,7 @@ fun DashboardScreen(
                 }
 
                 if (state.runBackgroundState is RunBackgroundState.Idle && state.lastRun != null) {
-                    LastRun(state.lastRun, onEvent)
+                    LastRunCard(state.lastRun, onEvent)
                 }
 
                 if (state.showTestsMovedNotice) {
@@ -275,104 +240,6 @@ private fun VpnWarning() {
 }
 
 @Composable
-private fun LastRun(
-    run: RunSummary,
-    onEvent: (DashboardViewModel.Event) -> Unit,
-) {
-    DashboardCard(
-        title = {
-            Text(
-                stringResource(Res.string.Dashboard_LastResults),
-                style = MaterialTheme.typography.cardTitle,
-            )
-            Text(
-                run.run.startTime.relativeDateTime(),
-                style = MaterialTheme.typography.labelMedium,
-                modifier = Modifier.padding(start = 8.dp, bottom = 2.dp),
-            )
-        },
-        content = {
-            FlowRow {
-                ResultChip(
-                    text = pluralStringResource(
-                        Res.plurals.TestResults_Overview_Websites_Tested,
-                        run.measurementCounts.done.toInt(),
-                        run.measurementCounts.done,
-                    ),
-                    icon = Res.drawable.ic_world,
-                    modifier = Modifier.padding(end = 2.dp),
-                )
-
-                ResultChip(
-                    text = pluralStringResource(
-                        Res.plurals.TestResults_Overview_Websites_Blocked,
-                        run.measurementCounts.anomaly.toInt(),
-                        run.measurementCounts.anomaly,
-                    ),
-                    icon = Res.drawable.ic_measurement_anomaly,
-                    iconTint = LocalCustomColors.current.logWarn,
-                    modifier = Modifier.padding(end = 2.dp),
-                )
-
-                ResultChip(
-                    text = pluralStringResource(
-                        Res.plurals.Measurements_Failed_Count,
-                        run.measurementCounts.failed.toInt(),
-                        run.measurementCounts.failed,
-                    ),
-                    icon = Res.drawable.ic_measurement_failed,
-                    iconTint = MaterialTheme.colorScheme.error,
-                    modifier = Modifier,
-                )
-            }
-        },
-        startActions = {
-            TextButton(onClick = { onEvent(DashboardViewModel.Event.DismissResultsClicked) }) {
-                Text(
-                    stringResource(Res.string.Common_Dismiss),
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.66f),
-                )
-            }
-        },
-        endActions = {
-            TextButton(onClick = { onEvent(DashboardViewModel.Event.SeeResultsClicked) }) {
-                Text(stringResource(Res.string.Dashboard_LastResults_SeeResults))
-            }
-        },
-        icon = painterResource(Res.drawable.ic_history),
-    )
-}
-
-@Composable
-fun ResultChip(
-    text: String,
-    icon: DrawableResource,
-    modifier: Modifier = Modifier,
-    iconTint: Color? = null,
-) {
-    AssistChip(
-        onClick = {},
-        enabled = false,
-        label = { Text(text = text) },
-        leadingIcon = {
-            Icon(
-                painterResource(icon),
-                contentDescription = null,
-                tint = iconTint ?: LocalContentColor.current,
-                modifier = Modifier.size(AssistChipDefaults.IconSize),
-            )
-        },
-        colors = AssistChipDefaults.assistChipColors(
-            disabledContainerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
-            disabledLabelColor = LocalContentColor.current,
-            disabledLeadingIconContentColor = LocalContentColor.current,
-        ),
-        border = AssistChipDefaults.assistChipBorder(true),
-        modifier = modifier,
-    )
-}
-
-@Composable
 private fun TestsMoved(onEvent: (DashboardViewModel.Event) -> Unit) {
     DashboardCard(
         title = {
@@ -399,111 +266,6 @@ private fun TestsMoved(onEvent: (DashboardViewModel.Event) -> Unit) {
         },
         icon = painterResource(Res.drawable.ic_tests),
     )
-}
-
-@Composable
-private fun StatsSection(stats: MeasurementStats?) {
-    var showCountriesDialog by remember { mutableStateOf(false) }
-    val countriesCount = stats?.countries?.size ?: 0
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp)
-            .padding(horizontal = 16.dp),
-    ) {
-        Text(
-            stringResource(Res.string.Dashboard_Stats_Title),
-            style = MaterialTheme.typography.dashboardSectionTitle,
-        )
-        Icon(
-            painterResource(Res.drawable.ic_heart),
-            contentDescription = null,
-            modifier = Modifier.padding(start = 8.dp).size(16.dp),
-        )
-    }
-
-    @Composable
-    fun StatsEntry(
-        key: String,
-        value: Number?,
-        modifier: Modifier = Modifier,
-    ) {
-        Row(
-            verticalAlignment = Alignment.Bottom,
-            modifier = modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-        ) {
-            Text(
-                value?.largeNumberShort().orEmpty(),
-                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 24.sp),
-            )
-            Text(
-                key.uppercase(),
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.padding(start = 4.dp, bottom = 2.dp),
-            )
-        }
-    }
-
-    FlowRow(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
-    ) {
-        if (stats?.measurementsTotal == 0L) {
-            Text(stringResource(Res.string.Dashboard_Stats_Empty))
-        } else {
-            StatsEntry(stringResource(Res.string.Common_Today), stats?.measurementsToday)
-            StatsEntry(stringResource(Res.string.Common_Week), stats?.measurementsWeek)
-            StatsEntry(stringResource(Res.string.Common_Month), stats?.measurementsMonth)
-            StatsEntry(stringResource(Res.string.Common_Total), stats?.measurementsTotal)
-            StatsEntry(
-                pluralStringResource(
-                    Res.plurals.Dashboard_Stats_Networks,
-                    stats?.networks?.toInt() ?: 0,
-                ),
-                stats?.networks,
-            )
-
-            StatsEntry(
-                pluralStringResource(
-                    Res.plurals.Dashboard_Stats_Countries,
-                    countriesCount,
-                ),
-                countriesCount,
-                modifier = Modifier.run {
-                    if (countriesCount > 0) {
-                        clickable { showCountriesDialog = true }
-                    } else {
-                        this
-                    }
-                },
-            )
-        }
-    }
-
-    if (showCountriesDialog) {
-        AlertDialog(
-            onDismissRequest = { showCountriesDialog = false },
-            title = {
-                Text(
-                    pluralStringResource(
-                        Res.plurals.Dashboard_Stats_Countries,
-                        stats?.countries?.size ?: 0,
-                    ),
-                )
-            },
-            text = {
-                Text(
-                    stats?.countries.orEmpty().joinToString(", "),
-                )
-            },
-            confirmButton = {
-                TextButton(onClick = { showCountriesDialog = false }) {
-                    Text(stringResource(Res.string.Modal_OK))
-                }
-            },
-        )
-    }
 }
 
 @Composable

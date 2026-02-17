@@ -460,6 +460,7 @@ private fun Stats(stats: ResultsStats?) {
                 Text(
                     stringResource(Res.string.TestResults),
                     style = MaterialTheme.typography.labelLarge,
+                    textAlign = TextAlign.Center,
                     modifier = Modifier.padding(bottom = 4.dp),
                 )
                 Text(
@@ -477,6 +478,7 @@ private fun Stats(stats: ResultsStats?) {
                 Text(
                     stringResource(Res.string.TestResults_Overview_Hero_Networks),
                     style = MaterialTheme.typography.labelLarge,
+                    textAlign = TextAlign.Center,
                     modifier = Modifier.padding(bottom = 4.dp),
                 )
                 Text(
@@ -493,6 +495,7 @@ private fun Stats(stats: ResultsStats?) {
             ) {
                 Text(
                     stringResource(Res.string.TestResults_Overview_Hero_DataUsage),
+                    textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.labelLarge,
                 )
                 Row(
