@@ -281,7 +281,7 @@ fun DescriptorScreen(
         if (state.isRefreshing) {
             UpdateProgressStatus(
                 modifier = Modifier
-                    .align(Alignment.TopCenter)
+                    .align(Alignment.BottomCenter)
                     .padding(WindowInsets.statusBars.asPaddingValues()),
                 contentModifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
                 type = state.updateOperationState,
