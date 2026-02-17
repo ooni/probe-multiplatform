@@ -168,13 +168,13 @@
     <string name="TestResults_Filter_Date_Custom_Filled">Personnalisé : %1$s</string>
     <string name="TestResults_Filter_Date_Picker">Choisir une plage de dates</string>
     <string name="TestResults_Filter_NoTestsFound">Aucun résultat de test n’a été trouvé pour ces filtres.</string>
-    <string name="TestResults_Filter_DeleteConfirmation">Voulez-vous supprimer tous les résultats des tests pour les filtres actuels?</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Voulez-vous supprimer tous les résultats des tests pour les filtres actuels ?</string>
     <string name="Results_LimitedNotice">Seuls les %1$d derniers résultats sont affichés</string>
     <string name="Results_UploadingMissing">Téléversements des résultats manquants %1$s</string>
     <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
     <string name="Results_MarkAllAsViewed">Tout marquer comme lu</string>
-    <string name="Results_MarkAllAsViewed_Confirmation">Voulez-vous marquer tous les résultats comme lus?</string>
-    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Voulez-vous marquer tous les résultats comme lus pour les filtres actuels?</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Voulez-vous marquer tous les résultats comme lus ?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Voulez-vous marquer tous les résultats comme lus pour les filtres actuels ?</string>
     <string name="Measurement_Title">Mesure</string>
     <string name="Measurement_LoadingFailed">Échec de chargement des renseignements relatifs aux mesures</string>
     <string name="Measurements_Failed">Échec</string>
@@ -225,7 +225,7 @@
     <string name="Settings_Proxy_Custom_Testing">Test</string>
     <string name="Settings_Proxy_Custom_Available">Accessible</string>
     <string name="Settings_Proxy_Custom_Unavailable">Inaccessible</string>
-    <string name="Settings_Proxy_Delete_Confirmation">Voulez-vous supprimer le mandataire %1$s \?</string>
+    <string name="Settings_Proxy_Delete_Confirmation">Voulez-vous supprimer le proxy mandataire %1$s ?</string>
     <string name="Settings_Language_Label">Langue</string>
     <string name="Settings_Advanced_Label">Avancés</string>
     <string name="Settings_Advanced_DebugLogs">Journaux de débogage</string>
@@ -390,8 +390,8 @@
     <string name="Modal_Retry">Ressayer</string>
     <string name="Modal_Cancel">Annuler</string>
     <string name="Modal_OK">Valider</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Voulez-vous supprimer tous les résultats de test?</string>
-    <string name="Modal_Clear_Legacy_Directories">Voulez-vous supprimer les dossiers hérités?</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Voulez-vous supprimer tous les résultats de test ?</string>
+    <string name="Modal_Clear_Legacy_Directories">Voulez-vous supprimer les dossiers hérités ?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
         <item quantity="one">Voulez-vous supprimer %1$s résultat de test \?</item>
         <item quantity="many">Voulez-vous supprimer %1$sde résultats de test \?</item>
@@ -414,17 +414,17 @@
     <string name="Modal_Error_CantDownloadURLs">Impossible de télécharger la liste des URL. Réessayez.</string>
     <string name="Modal_Error_NoInternet">Aucune connexion à Internet</string>
     <string name="Modal_Error_ProxyUnavailable">Le mandataire choisi est peut-être inaccessible</string>
-    <string name="Modal_CustomURL_Title_NotSaved">Confirmez-vous?</string>
-    <string name="Modal_CustomURL_NotSaved">Vos URL ne seront pas enregistrées si vous quittez cet écran. Voulez-vous vraiment le quitter?</string>
-    <string name="Modal_Autorun_BatteryOptimization_Onboarding">L’application ne peut pas effectuer des tests automatiquement sans l’autorisation de fonctionner en arrière-plan. Voulez-vous réessayer?</string>
+    <string name="Modal_CustomURL_Title_NotSaved">Confirmez-vous ?</string>
+    <string name="Modal_CustomURL_NotSaved">Vos URL ne seront pas enregistrées si vous quittez cet écran. Voulez-vous vraiment le quitter ?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">L’application ne peut pas effectuer des tests automatiquement sans l’autorisation de fonctionner en arrière-plan. Voulez-vous réessayer ?</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">L’application doit être autorisée à effectuer des tests automatiquement en arrière-plan.</string>
     <string name="Desktop_OpenApp">Ouvrir l’appli</string>
     <string name="Desktop_Quit">Fermer</string>
     <string name="Tray_Notification_Check_Updates">Chercher des mises à jour</string>
-    <string name="Tray_Notification_Updates_Available">Une mise à jour est proposée!</string>
+    <string name="Tray_Notification_Updates_Available">Une mise à jour est proposée !</string>
     <string name="Tray_Notification_Checking_Updates">Recherche de mises à jour…</string>
     <string name="Modal_Hide">Cacher</string>
-    <string name="Modal_Quite_Prompt">Fermer OONI Probe \?</string>
+    <string name="Modal_Quite_Prompt">Fermer OONI Probe ?</string>
     <string name="Modal_Quite_Description">Si vous fermez l’appli, elle ne pourra pas exécuter des tests automatisés en arrière-plan. Choisissez Fermer pour la fermer ou Cacher pour continuer à l’exécuter en arrière-plan.</string>
     <string name="OONIRun_Run">Lancer</string>
     <!-- Android notification channel name. -->
