@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">OONI Probe</string>
     <string name="Onboarding_WhatIsOONIProbe_Title">Qu’est-ce qu’OONI Probe ?</string>
-    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Votre appli pour mesurer la censure d’Internet. \n\nLes sites Web et les applis de médias sociaux sont-ils bloqués? Votre connexion Internet est-elle anormalement lente?\n\nLancez OONI Probe pour le savoir !</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Votre appli pour mesurer la censure d’Internet. \n\nLes sites Web et les applis de médias sociaux sont-ils bloqués ? Votre connexion Internet est-elle anormalement lente ?\n\nLancez OONI Probe pour le savoir !</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Les données de l’OONI sont publiées ouvertement et comprendront les renseignements relatifs à votre réseau.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">Quiconque surveille votre activité sur Internet (p. ex. un gouvernement ou un FAI) verra que vous utilisez OONI Probe.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">Vous pourriez tester des sites Web interdits (mais vous pouvez choisir quels sites tester).</string>
@@ -11,7 +11,7 @@
     <string name="Onboarding_PopQuiz_2_Question">Chaque fois que j’exécute OONI Probe, les données réseau que je recueille seront publiées automatiquement.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Afin d’accroître la transparence de la censure d’Internet, les données réseau de tous les utilisateurs d’OONI Probe sont publiées automatiquement (à moins qu’ils ne décident de ne pas y participer dans les paramètres).</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">Pour mesurer la censure d’Internet tous les jours, activez les tests automatisés afin qu’OONI Probe puisse effectuer des tests régulièrement.\n\nNe vous inquiétez pas, nous ferons attention à l’utilisation de la batterie.\n\nVous pouvez désactiver les tests automatisés n’importe quand dans les paramètres.</string>
-    <string name="Onboarding_Crash_Paragraph">Afin d’améliorer OONI Probe, nous souhaitons recueillir des relevés anonymes de plantage quand l’appli ne fonctionne pas correctement.\n\nAcceptez-vous d’envoyer des rapports de plantage à l’équipe de développement d’OONI?</string>
+    <string name="Onboarding_Crash_Paragraph">Afin d’améliorer OONI Probe, nous souhaitons recueillir des relevés anonymes de plantage quand l’appli ne fonctionne pas correctement.\n\nAcceptez-vous d’envoyer des rapports de plantage à l’équipe de développement d’OONI ?</string>
     <string name="Onboarding_CleanUp_Title">Nettoyage</string>
     <string name="Onboarding_CleanUp_Paragraph">Nous avons détecté des fichiers résiduels provenant de l’installation précédente. Veuillez effacer ces ressources avant de procéder à l’installation.</string>
     <string name="Dashboard_Websites_Card_Description">Testez le blocage de sites Web</string>
