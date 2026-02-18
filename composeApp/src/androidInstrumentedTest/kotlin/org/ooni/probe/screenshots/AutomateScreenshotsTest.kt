@@ -38,8 +38,6 @@ import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Lab
 import ooniprobe.composeapp.generated.resources.Settings_Websites_CustomURL_Title
 import ooniprobe.composeapp.generated.resources.TestResults
 import ooniprobe.composeapp.generated.resources.Test_Dash_Fullname
-import ooniprobe.composeapp.generated.resources.Test_Performance_Fullname
-import ooniprobe.composeapp.generated.resources.Test_Websites_Fullname
 import ooniprobe.composeapp.generated.resources.Tests_Title
 import ooniprobe.composeapp.generated.resources.app_name
 import org.junit.AfterClass
@@ -48,6 +46,7 @@ import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.getCurrent
 import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
@@ -56,6 +55,7 @@ import org.ooni.probe.uitesting.helpers.clickOnTag
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.defaultSettings
 import org.ooni.probe.uitesting.helpers.dependencies
+import org.ooni.probe.uitesting.helpers.getOoniDescriptor
 import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
 import org.ooni.probe.uitesting.helpers.onNodeWithContentDescription
@@ -174,7 +174,7 @@ class AutomateScreenshotsTest {
                 clickOnText(Res.string.Tests_Title)
 
                 wait {
-                    onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed()
+                    onNodeWithText(getOoniDescriptor(OoniTest.Websites).title()).isDisplayed()
                 }
                 Screengrab.screenshot("2_" + locale())
                 Screengrab.screenshot("22-tests")
@@ -321,19 +321,20 @@ class AutomateScreenshotsTest {
             skipOnboarding()
             DatabaseHelper.setup()
             start()
+            val websitesTitle = getOoniDescriptor(OoniTest.Websites).title()
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
 
                 clickOnText(Res.string.TestResults)
 
-                wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
+                wait { onNodeWithText(websitesTitle).isDisplayed() }
 
                 Screengrab.screenshot("17-results")
 
                 Thread.sleep(3000)
                 Screengrab.screenshot("3_" + locale())
 
-                clickOnText(Res.string.Test_Websites_Fullname)
+                clickOnText(websitesTitle)
 
                 wait(10.seconds) { onNodeWithText("https://z-lib.org/").isDisplayed() }
 
@@ -349,10 +350,10 @@ class AutomateScreenshotsTest {
                 Screengrab.screenshot("4_" + locale())
 
                 clickOnContentDescription(Res.string.Common_Back)
-                wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
+                wait { onNodeWithText(websitesTitle).isDisplayed() }
                 clickOnContentDescription(Res.string.Common_Back)
-                wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
-                clickOnText(Res.string.Test_Performance_Fullname)
+                wait { onNodeWithText(websitesTitle).isDisplayed() }
+                clickOnText(websitesTitle)
                 wait { onNodeWithText(Res.string.Test_Dash_Fullname).isDisplayed() }
                 clickOnText(Res.string.Test_Dash_Fullname)
 
@@ -371,6 +372,7 @@ class AutomateScreenshotsTest {
             if (!isOoni) return@runTest
             skipOnboarding()
             start()
+            val websitesTitle = getOoniDescriptor(OoniTest.Websites).title()
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
 
@@ -380,8 +382,8 @@ class AutomateScreenshotsTest {
                 }
 
                 clickOnText(Res.string.Tests_Title)
-                clickOnText(Res.string.Test_Websites_Fullname)
-                wait { onNodeWithText(Res.string.Test_Websites_Fullname).isDisplayed() }
+                clickOnText(websitesTitle)
+                wait { onNodeWithText(websitesTitle).isDisplayed() }
                 clickOnText(Res.string.Dashboard_Overview_ChooseWebsites)
                 wait { onNodeWithText(Res.string.Settings_Websites_CustomURL_Title).isDisplayed() }
                 Screengrab.screenshot("21-choose-websites")
@@ -415,7 +417,7 @@ class AutomateScreenshotsTest {
                 Screengrab.screenshot("1_${locale()}")
 
                 clickOnText(Res.string.Tests_Title)
-                wait { onNodeWithContentDescription(Res.string.Test_Websites_Fullname).isDisplayed() }
+                wait { onNodeWithText(trustedName).isDisplayed() }
                 Screengrab.screenshot("2_${locale()}")
 
                 clickOnText(Res.string.Settings_Title)

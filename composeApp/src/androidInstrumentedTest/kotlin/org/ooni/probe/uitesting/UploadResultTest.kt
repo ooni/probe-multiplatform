@@ -22,11 +22,12 @@ import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.uitesting.helpers.TestNames
 import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.disableRefreshArticles
+import org.ooni.probe.uitesting.helpers.getOoniDescriptor
 import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
 import org.ooni.probe.uitesting.helpers.onNodeWithText
@@ -65,7 +66,7 @@ class UploadResultTest {
 
                 clickOnText(Res.string.Dashboard_LastResults_SeeResults, timeout = TEST_WAIT_TIMEOUT)
 
-                clickOnText(TestNames.INSTANT_MESSAGING)
+                clickOnText(getOoniDescriptor(OoniTest.InstantMessaging).title())
                 clickOnText(Res.string.Snackbar_ResultsSomeNotUploaded_UploadAll)
 
                 val onUploading =

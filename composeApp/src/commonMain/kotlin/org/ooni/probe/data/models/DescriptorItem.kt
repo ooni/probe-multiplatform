@@ -37,11 +37,11 @@ data class DescriptorItem(
 ) {
     val name: String
         get() = descriptor.name
-    val title: @Composable () -> String
+    val title: () -> String
         get() = { descriptor.nameIntl?.getCurrent() ?: descriptor.name }
-    val shortDescription: @Composable () -> String?
+    val shortDescription: () -> String?
         get() = { descriptor.shortDescriptionIntl?.getCurrent() ?: descriptor.shortDescription }
-    val description: @Composable () -> String?
+    val description: () -> String?
         get() = { descriptor.descriptionIntl?.getCurrent() ?: descriptor.description }
     val metadata: @Composable () -> String? = {
         val monthNames = stringMonthArrayResource()
