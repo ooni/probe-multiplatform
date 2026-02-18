@@ -381,4 +381,31 @@
     <string name="Common_Months_November">Noviembre</string>
     <string name="Common_Months_December">Diciembre</string>
     <string name="NetworkType_Vpn">VPN</string>
+    <string name="Dashboard_LastResults">Últimos Resultados</string>
+    <string name="Dashboard_LastResults_SeeResults">Ver resultados</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Ejecución automática está <i>activada</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Ejecución automática está <i>desactivada</i>]]></string>
+    <string name="Dashboard_TestsMoved_Action">Ver pruebas</string>
+    <string name="Dashboard_Stats_Title">Tus Medidas</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Red</item>
+        <item quantity="many">Redes</item>
+        <item quantity="other">Redes</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">País</item>
+        <item quantity="many">Países</item>
+        <item quantity="other">Países</item>
+    </plurals>
+    <string name="Dashboard_Articles_Title">Noticias OONI</string>
+    <string name="Dashboard_Articles_Blog">Entrada de Blog</string>
+    <string name="Dashboard_Articles_Finding">Hallazgo</string>
+    <string name="Dashboard_Articles_OpenExternal">Abrir en el navegador</string>
+    <string name="Tests_Search">Buscar pruebas</string>
+    <string name="Measurement_Title">Medida</string>
+    <string name="Onboarding_QuizAnswer_Correct">Respuesta correcta</string>
+    <string name="Onboarding_QuizAnswer_Incorrect">Respuesta incorrecta</string>
+    <string name="Common_Ago">Hace %1$s</string>
+    <string name="TaskOrigin_Manual">Ejecución Manual</string>
+    <string name="TaskOrigin_AutoRun">Ejecución Automática</string>
 </resources>
