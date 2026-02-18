@@ -43,6 +43,7 @@
     <string name="Dashboard_Articles_OpenExternal">Open in browser</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
+    <!-- Example: Created by John Smith on January 1st, 2020 -->
     <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
@@ -55,6 +56,7 @@
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">UPDATE</string>
+    <!-- Example: Last updated January 1st, 2020 -->
     <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Rejected update</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Undo</string>
@@ -62,6 +64,7 @@
     <string name="Dashboard_Progress_UpdateLink_Label">Link updates loading</string>
     <string name="Dashboard_Progress_ReviewLink_Label">Link updates ready</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Review</string>
+    <!-- Link Update (1 of 3)-->
     <string name="Dashboard_ReviewDescriptor_Label">Link Update (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE AND FINISH (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
@@ -73,10 +76,6 @@
 
     <string name="Tests_Title">Tests</string>
     <string name="Tests_Search">Search tests</string>
-    <string name="Test_Websites_Fullname">Websites</string>
-    <string name="Test_InstantMessaging_Fullname">Instant Messaging</string>
-    <string name="Test_Performance_Fullname">Performance</string>
-    <string name="Test_Circumvention_Fullname">Circumvention</string>
     <string name="Test_Experimental_Fullname">Experimental</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP Invalid Request Line Test</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">HTTP Header Field Manipulation Test</string>
@@ -159,6 +158,7 @@
     <string name="TestResults_Filter_Date_FromSevenDaysAgo">From 7 days ago</string>
     <string name="TestResults_Filter_Date_FromOneMonthAgo">From 1 month ago</string>
     <string name="TestResults_Filter_Date_Custom">Custom</string>
+    <!-- Custom date filter picked by user. Example: "Custom: 2025-01-01 - 2025-12-31" -->
     <string name="TestResults_Filter_Date_Custom_Filled">Custom: %1$s</string>
     <string name="TestResults_Filter_Date_Picker">Pick a date range</string>
     <string name="TestResults_Filter_NoTestsFound">No test results found for those filters.</string>
@@ -239,6 +239,7 @@
     <string name="Settings_Support_IncludeLogs">Include application logs</string>
     <string name="Settings_Support_Action">Send email</string>
     <string name="Settings_ShareApp">Share App</string>
+    <!-- Variable is the app name (OONI Probe for example) -->
     <string name="Settings_ShareApp_Description">Share the %1$s app with someone else</string>
     <!-- The text to be shared with others for sharing the app. Variables: 1 - App Name 2 - URL with details on how to install English example: "Install OONI Probe at https://ooni.org/install/mobile" -->
     <string name="Settings_ShareApp_ShareMessage">Install %1$s at %2$s</string>

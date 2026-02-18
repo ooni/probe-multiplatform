@@ -37,7 +37,6 @@ import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
 import ooniprobe.composeapp.generated.resources.Settings_Websites_CustomURL_Title
 import ooniprobe.composeapp.generated.resources.TestResults
-import ooniprobe.composeapp.generated.resources.TestResults_Overview_Tab_Label
 import ooniprobe.composeapp.generated.resources.Test_Dash_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Performance_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Websites_Fullname
@@ -430,7 +429,7 @@ class AutomateScreenshotsTest {
 
                 clickOnContentDescription(Res.string.Common_Back)
 
-                clickOnText(Res.string.TestResults_Overview_Tab_Label)
+                clickOnText(Res.string.TestResults)
 
                 wait { onNodeWithText(trustedName).isDisplayed() }
 

@@ -127,9 +127,7 @@ fun Descriptor.toDescriptorItem(updateStatus: UpdateStatus = UpdateStatus.Unknow
     )
 
 fun Descriptor.getDataUsage(): StringResource =
-    when (
-        OoniTest.fromId(this.id.value)
-    ) {
+    when (OoniTest.fromId(this.id.value)) {
         OoniTest.Websites -> Res.string.websites_datausage
         OoniTest.InstantMessaging -> Res.string.small_datausage
         OoniTest.Circumvention -> Res.string.small_datausage

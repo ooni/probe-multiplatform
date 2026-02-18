@@ -14,10 +14,6 @@ import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectNone
 import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.Test_Circumvention_Fullname
-import ooniprobe.composeapp.generated.resources.Test_Experimental_Fullname
-import ooniprobe.composeapp.generated.resources.Test_InstantMessaging_Fullname
-import ooniprobe.composeapp.generated.resources.Test_Performance_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Psiphon_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Signal_Fullname
 import org.jetbrains.compose.resources.getPluralString
@@ -28,6 +24,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.uitesting.helpers.TestNames
 import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
 import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnContentDescription
@@ -64,13 +61,13 @@ class RunningTestsTest {
                 clickOnText(Res.string.OONIRun_Run)
 
                 clickOnText(Res.string.Dashboard_RunTests_SelectNone)
-                clickOnContentDescription(getString(Res.string.Common_Expand) + " " + getString(Res.string.Test_InstantMessaging_Fullname))
+                clickOnContentDescription(getString(Res.string.Common_Expand) + " " + TestNames.INSTANT_MESSAGING)
                 clickOnText(Res.string.Test_Signal_Fullname)
                 clickOnRunButton(1)
 
                 clickOnText(Res.string.Dashboard_LastResults_SeeResults, timeout = TEST_WAIT_TIMEOUT)
 
-                clickOnText(Res.string.Test_InstantMessaging_Fullname)
+                clickOnText(TestNames.INSTANT_MESSAGING)
                 clickOnText(Res.string.Test_Signal_Fullname)
                 wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
                 checkSummaryInsideWebView("Signal")
@@ -85,13 +82,13 @@ class RunningTestsTest {
                 clickOnText(Res.string.OONIRun_Run)
 
                 clickOnText(Res.string.Dashboard_RunTests_SelectNone)
-                clickOnContentDescription(getString(Res.string.Common_Expand) + " " + getString(Res.string.Test_Circumvention_Fullname))
+                clickOnContentDescription(getString(Res.string.Common_Expand) + " " + TestNames.CIRCUMVENTION)
                 clickOnText(Res.string.Test_Psiphon_Fullname)
                 clickOnRunButton(1)
 
                 clickOnText(Res.string.Dashboard_LastResults_SeeResults, timeout = TEST_WAIT_TIMEOUT)
 
-                clickOnText(Res.string.Test_Circumvention_Fullname)
+                clickOnText(TestNames.CIRCUMVENTION)
                 clickOnText(Res.string.Test_Psiphon_Fullname)
                 wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
                 checkSummaryInsideWebView("Psiphon")
@@ -106,13 +103,13 @@ class RunningTestsTest {
                 clickOnText(Res.string.OONIRun_Run)
 
                 clickOnText(Res.string.Dashboard_RunTests_SelectNone)
-                clickOnContentDescription(getString(Res.string.Common_Expand) + " " + getString(Res.string.Test_Performance_Fullname))
+                clickOnContentDescription(getString(Res.string.Common_Expand) + " " + TestNames.PERFORMANCE)
                 clickOnText("HTTP Header", substring = true)
                 clickOnRunButton(1)
 
                 clickOnText(Res.string.Dashboard_LastResults_SeeResults, timeout = TEST_WAIT_TIMEOUT)
 
-                clickOnText(Res.string.Test_Performance_Fullname)
+                clickOnText(TestNames.PERFORMANCE)
                 clickOnText("HTTP Header", substring = true)
                 wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
                 checkSummaryInsideWebView("middleboxes")
@@ -127,13 +124,13 @@ class RunningTestsTest {
                 clickOnText(Res.string.OONIRun_Run)
 
                 clickOnText(Res.string.Dashboard_RunTests_SelectNone)
-                clickOnContentDescription(getString(Res.string.Common_Expand) + " " + getString(Res.string.Test_Experimental_Fullname))
+                clickOnContentDescription(getString(Res.string.Common_Expand) + " " + TestNames.EXPERIMENTAL)
                 clickOnText("stunreachability", substring = true)
                 clickOnRunButton(1)
 
                 clickOnText(Res.string.Dashboard_LastResults_SeeResults, timeout = TEST_WAIT_TIMEOUT)
 
-                clickOnText(Res.string.Test_Experimental_Fullname)
+                clickOnText(TestNames.EXPERIMENTAL)
                 compose.onAllNodesWithText("stunreachability")[0].performClick()
                 wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
                 checkTextAnywhereInsideWebView("stunreachability")
