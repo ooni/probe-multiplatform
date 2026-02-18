@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Čo je OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Tvoja aplikácia na meranie cenzúry internetu. \n\nSú webové stránky a aplikácie sociálnych médií blokované? Je tvoje internetové pripojenie nezvyčajne pomalé?\n\nSpusti OONI Probe a zistíš!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Údaje OONI sa otvorene zverejňujú a budú zahŕňať informácie o tvojej sieti.</string>
@@ -10,20 +10,12 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe nie je nástroj na ochranu súkromia. Ktokoľvek monitoruje tvoju aktivitu na internete, uvidí, aký softvér máš spustený.</string>
     <string name="Onboarding_PopQuiz_2_Question">Kedykoľvek mám spustenú aplikáciu OONI Probe, sieťové údaje, ktoré zhromažďujem, sa automaticky uverejnia.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Pre zvýšenie transparentnosti cenzúry internetu sa sieťové údaje všetkých používateľov OONI Probe automaticky uverejňujú (pokiaľ sa neodhlásia v nastaveniach).</string>
-    <string name="Dashboard_Websites_Card_Description">Otestuj blokovanie webových stránok</string>
-    <string name="Dashboard_Performance_Card_Description">Otestuj rýchlosť a výkon svojej siete</string>
-    <string name="Dashboard_Middleboxes_Card_Description">Odhaľ prítomnosť middleboxu v tvojej sieti</string>
-    <string name="Dashboard_InstantMessaging_Card_Description">Otestuj blokovanie aplikácií na výmenu okamžitých správ</string>
-    <string name="Dashboard_Circumvention_Card_Description">Otestovať blokovanie nástrojov obchádzania cenzúry</string>
-    <string name="Dashboard_Circumvention_Overview_Paragraph">Skontrolujte, či sú [Psiphon](https://ooni.io/nettest/psiphon/) a sieť [Tor](https://ooni.io/nettest/tor/) blokované.\n\nVaše výsledky sa uverejnia v [Prieskumníku OONI](https://explorer.ooni.org/) a [OONI API](https://api.ooni.io/).</string>
     <string name="Settings_About_Label">O projekte OONI</string>
     <string name="Settings_About_Content_Paragraph">The Open Observatory of Network Interference (OONI) je projekt slobodného softvéru spadajúci pod The Tor Project, ktorého cieľom je zvýšiť transparentnosť cenzúry internetu vo svete.\n\nGlobálna komunita OONI meria siete od roku 2012 vo viac ako 200 krajinách. Niektoré z týchto meraní slúžia ako dôkazy cenzúry internetu.</string>
-
     <string name="Settings_About_Content_LearnMore">Zisti viac</string>
     <string name="Settings_About_Content_Blog">Blog</string>
     <string name="Settings_About_Content_Reports">Podania</string>
     <string name="Settings_About_Content_DataPolicy">Dátová politika OONI</string>
-
     <string name="Settings_Donate_Title">Darovať</string>
     <string name="Settings_Donate_Action">Darovať</string>
-    </resources>
+</resources>

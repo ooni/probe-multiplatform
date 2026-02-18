@@ -33,10 +33,6 @@
     <string name="Dashboard_ReviewDescriptor_Button_Default">បច្ចុប្បន្នភាព (%1$s នៃ %2$s)</string>
     <string name="Dashboard_Update_Restart">ផ្ដើមឡើងវិញ</string>
     <string name="Tests_Title">តេស្ត</string>
-    <string name="Test_Websites_Fullname">វេបសាយ</string>
-    <string name="Test_InstantMessaging_Fullname">សាររហ័ស</string>
-    <string name="Test_Performance_Fullname">គុណភាព</string>
-    <string name="Test_Circumvention_Fullname">ការបញ្ចៀស</string>
     <string name="Test_Experimental_Fullname">ពិសោធន៍</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">តេស្តបណ្ដាញស្នើរ HTTP​ ដែលមិនត្រឹមត្រូវ</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">តេស្តរកកន្លែងការរៀបចំក្បាល HTTP</string>
@@ -83,7 +79,6 @@
     <string name="Measurement_Raw_Upload">បញ្ជូល</string>
     <string name="Settings_Title">ការកំណត់</string>
     <string name="Settings_TestOptions_Label">ជម្រើសតេស្ត</string>
-    <string name="Settings_TestOptions_LongRunningTest">ដំណើរការតេស្តវែង</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">ដំណើរការតេស្តដោយស្វ័យប្រវត្តិ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">ពេលមាន Wifi ប៉ុណ្ណោះ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">ពេលកំពុងសាកថ្មប៉ុណ្ណោះ</string>

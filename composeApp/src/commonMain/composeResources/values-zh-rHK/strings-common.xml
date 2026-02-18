@@ -1,13 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">仪表板</string>
     <string name="Dashboard_Articles_Report">报告</string>
     <string name="Dashboard_RunV2_UpdateTag">更新</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">復原</string>
     <string name="Dashboard_Update_Restart">重新啟動</string>
-
-
-    <string name="Test_Websites_Fullname">網站</string>
     <string name="TestResults_Summary_Hero_Network">网络</string>
     <string name="TestResults_Summary_Hero_Country">國家／地區</string>
     <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
@@ -22,8 +19,6 @@
     <string name="Measurements_Failed">失敗</string>
     <string name="Measurements_Ok">確定</string>
     <string name="Measurement_Raw_Upload">上傳</string>
-
-
     <string name="Settings_Title">設置</string>
     <string name="Settings_Privacy_Label">隱私政策</string>
     <string name="Settings_Proxy">代理伺服器</string>

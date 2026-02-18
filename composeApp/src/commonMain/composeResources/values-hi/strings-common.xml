@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">डैशबोर्ड</string>
     <string name="Dashboard_Overview_Estimated">अनुमानित:</string>
     <string name="Dashboard_Overview_ChooseWebsites">वेबसाइट चुनें</string>
@@ -11,13 +11,7 @@
     <string name="Dashboard_TestsMoved_Title">टेस्ट</string>
     <string name="Dashboard_Runv2_Overview_Description">%1$sके द्वारा बनाई गई %2$sपर </string>
     <string name="Dashboard_Update_Restart">पुनः आरंभ करें</string>
-
-
     <string name="Tests_Title">टेस्ट</string>
-    <string name="Test_Websites_Fullname">वेबसाइटें</string>
-    <string name="Test_InstantMessaging_Fullname">तात्कालिक संदेशन</string>
-    <string name="Test_Performance_Fullname">प्रदर्शन</string>
-    <string name="Test_Circumvention_Fullname">तरक़ीब</string>
     <string name="Test_Experimental_Fullname">प्रायोगिक</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP अवैध अनुरोध लाइन परीक्षण</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">HTTP हैडर फील्ड मैनिपुलेशन टेस्ट</string>
@@ -30,8 +24,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon परीक्षा</string>
     <string name="Test_Tor_Fullname">Tor परीक्षा</string>
     <string name="Test_Signal_Fullname">Signal परीक्षण</string>
-
-
     <string name="TestResults">परिणाम</string>
     <string name="TestResults_Overview_Hero_Networks">नेटवर्क</string>
     <string name="TestResults_Overview_Hero_DataUsage">डेटा उपयोग</string>
@@ -62,8 +54,6 @@
     <string name="Measurements_Failed">विफ़ल</string>
     <string name="Measurements_Ok">ठीक है </string>
     <string name="Measurement_Raw_Upload">अपलोड करें</string>
-
-
     <string name="Settings_Title">सेटिंग्स</string>
     <string name="Settings_TestOptions_Label">परीक्षण के विकल्प</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">परीक्षण स्वचालित रूप से चलाएँ</string>
@@ -160,7 +150,6 @@
     <string name="CategoryCode_CTRL_Description">नियंत्रण के लिए प्रयुक्त सौम्य या अहानिकर सामग्री</string>
     <string name="CategoryCode_IGO_Description">संयुक्त राष्ट्र सहित अंतर सरकारी संगठन</string>
     <string name="CategoryCode_MISC_Description">वे साइटें जिन्हें अभी तक वर्गीकृत नहीं किया गया है</string>
-
     <string name="Onboarding_WhatIsOONIProbe_GotIt">समझ गया</string>
     <string name="Onboarding_ThingsToKnow_Title">सचेत!</string>
     <string name="Onboarding_ThingsToKnow_Button">मैं समझता हूं</string>
@@ -187,8 +176,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">परीक्षण का समय और तिथि</string>
     <string name="Onboarding_DefaultSettings_Paragraph">हम आपके आईपी पते या किसी अन्य जानकारी को प्रकाशित न करने की पूरी कोशिश करते हैं जिससे संभावित रूप से आपकी व्यक्तिगत पहचान हो सके।\n\n[OONI की डेटा नीति](https://ooni.org/about/data-policy/) के माध्यम से और जानें।</string>
     <string name="Onboarding_DefaultSettings_Button_Change">डिफ़ॉल्ट बदलें</string>
-
-
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="AddDescriptor_AutoRun">परीक्षण स्वचालित रूप से चलाएँ</string>
     <string name="Snackbar_ResultsNotUploaded_Text">अपलोड नहीं किया गया</string>
@@ -217,7 +204,6 @@
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">परिक्षण</string>
     <string name="Notification_StopTest">परीक्षण बंद करें</string>
-
     <string name="Common_Back">पिछला</string>
     <string name="Common_Close">बंद  करें </string>
     <string name="Common_Refresh">रीफ़्रेश करें</string>

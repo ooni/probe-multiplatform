@@ -1,16 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">ダッシュボード</string>
     <string name="Dashboard_Articles_Report">報告</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">戻す</string>
     <string name="Dashboard_Progress_ReviewLink_Action">レビュー</string>
     <string name="Dashboard_Update_Restart">再起動</string>
-
-
-    <string name="Test_Websites_Fullname">ウェブサイト</string>
-    <string name="Test_InstantMessaging_Fullname">インスタント メッセージング</string>
-    <string name="Test_Performance_Fullname">パフォーマンス</string>
-    <string name="Test_Circumvention_Fullname">検問を回避</string>
     <string name="Test_Experimental_Fullname">実験的</string>
     <string name="Test_NDT_Fullname">NDT スピードテスト</string>
     <string name="Test_Dash_Fullname">DASH ストリーミングテスト</string>
@@ -33,8 +27,6 @@
     <string name="Measurements_Failed">失敗しました</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">アップロード</string>
-
-
     <string name="Settings_Title">設定</string>
     <string name="Settings_Privacy_Label">プライバシー</string>
     <string name="Settings_Privacy_SendCrashReports">クラッシュレポートを送信</string>
@@ -117,6 +109,5 @@
     <string name="Common_Months_October">10 月</string>
     <string name="Common_Months_November">11 月</string>
     <string name="Common_Months_December">12 月</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

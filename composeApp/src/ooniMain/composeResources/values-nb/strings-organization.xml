@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Hva er OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Appen din for måling av sensur på internett.\n\nBlokkeres nettsteder og sosiale medier-apper? Er internettforbindelsen din uvanlig treg?\n\nKjør OONI Probe for å finne ut av det!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">OONI data publiseres åpent og vil inneholde nettverksinformasjonen din.</string>
@@ -9,13 +9,10 @@
     <string name="Onboarding_PopQuiz_1_Question">Hvis noen overvåker internettaktiviteten min, vil de se at jeg kjører OONI Probe.</string>
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe er ikke et personvernverktøy. Alle som overvåker internettaktiviteten din vil se hvilken programvare du kjører.</string>
     <string name="Onboarding_PopQuiz_2_Question">Hver gang jeg kjører OONI Probe, blir nettverksdataene jeg samler automatisk publisert.</string>
-    <string name="Dashboard_Websites_Card_Description">Test blokkering av nettsteder</string>
-    <string name="Dashboard_Performance_Card_Description">Test nettverkshastigheten din og ytelsen</string>
-    <string name="Dashboard_InstantMessaging_Card_Description">Test blokkeringen av direktemeldingsprogrammer</string>
     <string name="Settings_About_Label">Om OONI</string>
     <string name="Settings_About_Content_LearnMore">Lær mer</string>
     <string name="Settings_About_Content_Blog">Blogg</string>
     <string name="Settings_About_Content_Reports">Rapporter</string>
     <string name="Settings_Donate_Title">Doner</string>
     <string name="Settings_Donate_Action">Doner</string>
-    </resources>
+</resources>

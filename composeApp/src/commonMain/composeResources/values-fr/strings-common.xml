@@ -74,9 +74,6 @@
     <string name="Dashboard_Update_Restart">Redémarrer</string>
     <string name="Tests_Title">Tests</string>
     <string name="Tests_Search">Chercher dans les tests</string>
-    <string name="Test_Websites_Fullname">Sites Web</string>
-    <string name="Test_InstantMessaging_Fullname">Messagerie instantanée</string>
-    <string name="Test_Circumvention_Fullname">Contournement</string>
     <string name="Test_Experimental_Fullname">Expérimental</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Test HTTP ligne de requête invalide</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Test HTTP Manipulation champ d’en-tête</string>
@@ -195,7 +192,6 @@
     <string name="Measurement_Raw_Upload">Téléverser</string>
     <string name="Settings_Title">Paramètres</string>
     <string name="Settings_TestOptions_Label">Options de test</string>
-    <string name="Settings_TestOptions_LongRunningTest">Test long</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Lancer les tests automatiquement</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Seulement par Wi-Fi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Seulement pendant la charge</string>

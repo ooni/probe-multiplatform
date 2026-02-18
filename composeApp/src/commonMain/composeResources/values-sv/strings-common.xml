@@ -11,10 +11,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ångra</string>
     <string name="Dashboard_Update_Restart">Starta om</string>
     <string name="Tests_Title">Tester</string>
-    <string name="Test_Websites_Fullname">Webbsidor</string>
-    <string name="Test_InstantMessaging_Fullname">Direkt meddelanden</string>
-    <string name="Test_Performance_Fullname">Prestanda</string>
-    <string name="Test_Circumvention_Fullname">Kringgående</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP test av Request-sträng</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">HTTP test av Header-manupilation </string>
     <string name="Test_WebConnectivity_Fullname">Web test av anslutning</string>

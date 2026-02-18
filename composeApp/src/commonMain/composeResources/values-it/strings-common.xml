@@ -15,10 +15,6 @@
     <string name="Dashboard_Progress_ReviewLink_Action">Rivedi</string>
     <string name="Dashboard_Update_Restart">Riavvia</string>
     <string name="Tests_Title">Test</string>
-    <string name="Test_Websites_Fullname">Siti web</string>
-    <string name="Test_InstantMessaging_Fullname">Messaggistica istantanea</string>
-    <string name="Test_Performance_Fullname">Prestazioni</string>
-    <string name="Test_Circumvention_Fullname">Elusione</string>
     <string name="Test_Experimental_Fullname">Sperimentale</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Test HTTP Invalid Request Line</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Test HTTP Header Field Manipulation</string>

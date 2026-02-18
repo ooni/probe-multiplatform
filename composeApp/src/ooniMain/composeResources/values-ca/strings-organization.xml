@@ -10,12 +10,6 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">L\'OONI Probe no és una eina de privadesa. Qualsevol que supervisi la vostra activitat a Internet veurà quin programari esteu executant.</string>
     <string name="Onboarding_PopQuiz_2_Question">Cada vegada que executo OONI Probe, les dades de la xarxa que recopilo es publicaran automàticament.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Per augmentar la transparència de la censura a Internet, les dades de la xarxa de tots els usuaris d\'OONI Probe es publiquen automàticament (llevat que es rebutgi en la configuració).</string>
-    <string name="Dashboard_Websites_Card_Description">Prova el blocatge de llocs web</string>
-    <string name="Dashboard_Performance_Card_Description">Proveu la velocitat i el rendiment de la xarxa</string>
-    <string name="Dashboard_Middleboxes_Card_Description">Detecta «middleboxes» de la vostra xarxa</string>
-    <string name="Dashboard_InstantMessaging_Card_Description">Prova el blocatge de les aplicacions de missatgeria instantània</string>
-    <string name="Dashboard_Circumvention_Card_Description">Prova el blocatge d\'eines d\'elusió de la censura</string>
-    <string name="Dashboard_Circumvention_Overview_Paragraph">Comproveu si [Psiphon](https://ooni.io/nettest/psiphon/) i [Tor](https://ooni.io/nettest/tor/) estan blocats.\n\nEls vostres resultats es publicaran a l\'[OONI Explorer](https://explorer.ooni.org/) i a l\'[API d\'OONI](https://api.ooni.io/).</string>
     <string name="Settings_About_Label">Quant a l\'OONI</string>
     <string name="Settings_About_Content_Paragraph">L\\'Open Observatory of Network Interference (OONI) és un projecte de programari lliure en el marc del Projecte Tor que té com a objectiu augmentar la transparència de la censura d\\'Internet a tot el món.\n\nDes de 2012, la comunitat global d\\'OONI ha estat mesurant xarxes en més de 200 països. Algunes d\\'aquestes mesures serveixen com a evidència de la censura d\\'Internet.</string>
     <string name="Settings_About_Content_LearnMore">Apreneu-ne més</string>

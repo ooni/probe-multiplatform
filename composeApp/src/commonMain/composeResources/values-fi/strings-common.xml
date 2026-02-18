@@ -16,10 +16,6 @@
     <string name="Dashboard_Progress_ReviewLink_Action">Tarkista</string>
     <string name="Dashboard_Update_Restart">Käynnistä uudelleen</string>
     <string name="Tests_Title">Testit</string>
-    <string name="Test_Websites_Fullname">Verkkosivustot</string>
-    <string name="Test_InstantMessaging_Fullname">Pikaviestintä</string>
-    <string name="Test_Performance_Fullname">Suorituskyky</string>
-    <string name="Test_Circumvention_Fullname">Kiertäminen</string>
     <string name="Test_Experimental_Fullname">Kokeellinen</string>
     <string name="Test_WebConnectivity_Fullname">Verkkoyhteystesti</string>
     <string name="Test_NDT_Fullname">NDT-nopeustesti</string>

@@ -39,10 +39,6 @@
     <string name="Dashboard_Update_Ready">La actualización de la aplicación acaba de descargarse</string>
     <string name="Dashboard_Update_Restart">Reiniciar</string>
     <string name="Tests_Title">Pruebas</string>
-    <string name="Test_Websites_Fullname">Sitios web</string>
-    <string name="Test_InstantMessaging_Fullname">Mensajería instantánea</string>
-    <string name="Test_Performance_Fullname">Rendimiento</string>
-    <string name="Test_Circumvention_Fullname">Evasión</string>
     <string name="Test_Experimental_Fullname">Experimental</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Prueba HTTP Invalid Request Line</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Prueba HTTP Header Field Manipulation</string>
@@ -128,7 +124,6 @@
     <string name="Measurement_Raw_Upload">Subida </string>
     <string name="Settings_Title">Configuración</string>
     <string name="Settings_TestOptions_Label">Opciones de la prueba</string>
-    <string name="Settings_TestOptions_LongRunningTest">Prueba de larga duración</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Ejecutar pruebas automáticamente</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Sólo sobre WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Sólo cuando se está cargando</string>
@@ -386,4 +381,31 @@
     <string name="Common_Months_November">Noviembre</string>
     <string name="Common_Months_December">Diciembre</string>
     <string name="NetworkType_Vpn">VPN</string>
+    <string name="Dashboard_LastResults">Últimos Resultados</string>
+    <string name="Dashboard_LastResults_SeeResults">Ver resultados</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Ejecución automática está <i>activada</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Ejecución automática está <i>desactivada</i>]]></string>
+    <string name="Dashboard_TestsMoved_Action">Ver pruebas</string>
+    <string name="Dashboard_Stats_Title">Tus Medidas</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Red</item>
+        <item quantity="many">Redes</item>
+        <item quantity="other">Redes</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">País</item>
+        <item quantity="many">Países</item>
+        <item quantity="other">Países</item>
+    </plurals>
+    <string name="Dashboard_Articles_Title">Noticias OONI</string>
+    <string name="Dashboard_Articles_Blog">Entrada de Blog</string>
+    <string name="Dashboard_Articles_Finding">Hallazgo</string>
+    <string name="Dashboard_Articles_OpenExternal">Abrir en el navegador</string>
+    <string name="Tests_Search">Buscar pruebas</string>
+    <string name="Measurement_Title">Medida</string>
+    <string name="Onboarding_QuizAnswer_Correct">Respuesta correcta</string>
+    <string name="Onboarding_QuizAnswer_Incorrect">Respuesta incorrecta</string>
+    <string name="Common_Ago">Hace %1$s</string>
+    <string name="TaskOrigin_Manual">Ejecución Manual</string>
+    <string name="TaskOrigin_AutoRun">Ejecución Automática</string>
 </resources>

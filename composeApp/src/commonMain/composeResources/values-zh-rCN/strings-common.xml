@@ -66,10 +66,6 @@
     <string name="Dashboard_Update_Restart">重新启动</string>
     <string name="Tests_Title">测试</string>
     <string name="Tests_Search">搜索测试</string>
-    <string name="Test_Websites_Fullname">网站</string>
-    <string name="Test_InstantMessaging_Fullname">即时通讯</string>
-    <string name="Test_Performance_Fullname">性能</string>
-    <string name="Test_Circumvention_Fullname">翻墙</string>
     <string name="Test_Experimental_Fullname">实验性</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP 无效请求行测试</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">HTTP 头字段操控测试</string>
@@ -168,7 +164,6 @@
     <string name="Measurement_Raw_Upload">上传</string>
     <string name="Settings_Title">设置</string>
     <string name="Settings_TestOptions_Label">测试选项</string>
-    <string name="Settings_TestOptions_LongRunningTest">长时间运行测试</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">自动运行测试</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">仅在连接至 WIFI 时</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">仅在充电时</string>

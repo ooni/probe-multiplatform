@@ -1,10 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_RunV2_UpdateTag">ACTUALIZAR</string>
     <string name="Dashboard_Update_Restart">Reiniciar</string>
-
-
-    <string name="Test_Websites_Fullname">Websites</string>
     <string name="Settings_Title">Definições</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Add">Adicionar sítio Web</string>

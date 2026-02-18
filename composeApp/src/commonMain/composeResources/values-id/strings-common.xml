@@ -32,10 +32,6 @@
     <string name="Dashboard_ReviewDescriptor_Button_Default">PERBARUI (%1$s dari %2$s)</string>
     <string name="Dashboard_Update_Restart">Mulai ulang</string>
     <string name="Tests_Title">Tes</string>
-    <string name="Test_Websites_Fullname">Situs web</string>
-    <string name="Test_InstantMessaging_Fullname">Perpesanan Instan</string>
-    <string name="Test_Performance_Fullname">Kinerja</string>
-    <string name="Test_Circumvention_Fullname">Penghindaran</string>
     <string name="Test_Experimental_Fullname">Eksperimental</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Tes Jalur Permintaan HTTP Tidak Valid</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Tes Manipulasi Bidang Header HTTP</string>
@@ -83,7 +79,6 @@
     <string name="Measurement_Raw_Upload">Unggah</string>
     <string name="Settings_Title">Setelan</string>
     <string name="Settings_TestOptions_Label">Opsi tes</string>
-    <string name="Settings_TestOptions_LongRunningTest">Tes jangka panjang</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Jalankan tes secara otomatis</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Hanya melalui WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Hanya ketika mengisi daya</string>

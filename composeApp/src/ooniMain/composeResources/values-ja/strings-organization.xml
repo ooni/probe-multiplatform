@@ -1,13 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe とは?</string>
-    <string name="Dashboard_Websites_Card_Description">ウェブサイトのブロックのテスト</string>
-    <string name="Dashboard_InstantMessaging_Card_Description">インスタントメッセージングアプリのブロックのテスト</string>
     <string name="Settings_About_Label">OONI について</string>
     <string name="Settings_About_Content_LearnMore">さらに知る</string>
     <string name="Settings_About_Content_Blog">ブログ</string>
     <string name="Settings_About_Content_Reports">報告書</string>
     <string name="Settings_Donate_Title">寄付</string>
     <string name="Settings_Donate_Action">寄付</string>
-    </resources>
+</resources>
