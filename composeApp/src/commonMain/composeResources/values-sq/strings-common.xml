@@ -12,11 +12,6 @@
     <string name="Dashboard_Progress_ReviewLink_Action">Shqyrtojeni</string>
     <string name="Dashboard_Update_Restart">Rinise</string>
     <string name="Tests_Title">Teste</string>
-    <string name="Test_Websites_Fullname">Sajte</string>
-    <string name="Test_InstantMessaging_Fullname">Shkëmbim Mesazhesh të Atypëratyshëm</string>
-    <string name="Test_Performance_Fullname">Funksionim</string>
-    <string name="Test_Circumvention_Fullname">Anashkalim</string>
-    <string name="Test_HTTPInvalidRequestLine_Fullname"></string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Test Manipulimi Fushash Kryesh HTTP</string>
     <string name="Test_WebConnectivity_Fullname">Test Aftësie Lidhjeje Në Web</string>
     <string name="Test_NDT_Fullname">Test NDT Shpejtësie</string>
@@ -153,7 +148,6 @@
     <string name="Onboarding_ThingsToKnow_Title">Hapni sytë!</string>
     <string name="Onboarding_ThingsToKnow_Button">E kuptoj</string>
     <string name="Onboarding_ThingsToKnow_LearnMore">Mësoni më tepër</string>
-    <string name="Onboarding_PopQuiz_Title"></string>
     <string name="Onboarding_PopQuiz_True">E vërtetë</string>
     <string name="Onboarding_PopQuiz_False">E rremë</string>
     <string name="Onboarding_PopQuiz_Wrong_Button_Back">Kthehu mbrapsht</string>

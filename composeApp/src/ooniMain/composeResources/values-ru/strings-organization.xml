@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-
     <string name="Onboarding_WhatIsOONIProbe_Title">Что такое OONI Probe?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Приложение для анализа интернет-цензуры. \n\nЗаблокированы сайты или приложения соцсети? Интернет тормозит больше обычного?\n\nУзнай почему с помощью OONI Probe!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Данные OONI публикуются в открытом доступе и будут включать информацию о вашей сети.</string>
@@ -14,28 +14,12 @@
     <string name="Onboarding_Crash_Paragraph">Для улучшения OONI Probe мы хотим собирать анонимные отчеты об ошибках, когда приложение не работает должным образом\n\nХотите подключить функцию отправления отчета об ошибках команде OONI? </string>
     <string name="Onboarding_CleanUp_Title">Очистить</string>
     <string name="Onboarding_CleanUp_Paragraph">Мы обнаружили старые файлы, оставшиеся от предыдущей установки приложения. Пожалуйста, удалите эти файлы перед установкой.</string>
-
-    <string name="Dashboard_Websites_Card_Description">Проверить блокировки сайтов</string>
-    <string name="Dashboard_Websites_Overview_Paragraph">Проверьте блокировки сайтов используя OONI [Web Connectivity тест](https://ooni.org/nettest/web-connectivity/).\n\nКаждый раз нажимая \"Старт\", вы проверяете набор сайтов из списков тестирования Citizen Lab [глобально](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) и [по конкретным странам](https://github.com/citizenlab/test-lists/tree/master/lists).\n\nЧтобы протестировать выбранные сайты, нажмите кнопку «Выбрать» или выберите нужные категории сайтов через настройки на этой карточке.\n\nЭтот тест проверяет заблокирован ли сайт через вмешательство в DNS, блокировки TCP/IP или через прозрачный HTTP-прокси.\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.org/world/) и [OONI API](https://api.ooni.io/).</string>
-    <string name="Dashboard_Performance_Card_Description">Измерить скорость и производительность сети</string>
-    <string name="Dashboard_Performance_Overview_Paragraph">Скорость и производительность сети можно измерить с помощью [NDT](https://ooni.io/nettest/ndt/).\n\nСкорость видеопотока — с помощью [DASH](https://ooni.io/nettest/dash/).\n\nЭти тесты обрабатывают данные и зависят от скорости вашей сети.\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.io/world/) и [OONI API](https://api.ooni.io/).\n\nВнимание: в этих тестах используются серверы третьих сторон. Мы не можем гарантировать конфиденциальность вашего IP-адреса.</string>
-    <string name="Dashboard_Middleboxes_Card_Description">Определение устройства middlebox в вашей сети</string>
-    <string name="Dashboard_Middleboxes_Overview_Paragraph">Интернет-провайдеры часто используют сетевые устройства (middlebox) в решении различных сетевых задач (например, для кеширования). Бывает, что middleboxes применяются для интернет-цензуры и/или слежки.\n\nПроверьте, присутствуют ли middleboxes в вашей сети используя OONI тесты [HTTP Invalid Request Line](https://ooni.org/nettest/http-invalid-request-line/) и [HTTP Header Field Manipulation](https://ooni.io/nettest/http-header-field-manipulation/).\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.io/world/) и [OONI API](https://api.ooni.io/).</string>
-    <string name="Dashboard_InstantMessaging_Card_Description">Протестировать блокировку мессенджеров</string>
-    <string name="Dashboard_InstantMessaging_Overview_Paragraph">Проверить заблокированы ли [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), и [Signal](https://ooni.org/nettest/signal).\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.org/world/) и [OONI API](https://api.ooni.io/).</string>
-    <string name="Dashboard_Circumvention_Card_Description">Протестировать блокировку инструментов обхода цензуры</string>
-    <string name="Dashboard_Circumvention_Overview_Paragraph">Узнайте, заблокированы ли [Psiphon](https://ooni.io/nettest/psiphon/) и [Tor](https://ooni.io/nettest/tor/).\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.org/) и [OONI API](https://api.ooni.io/).</string>
-    <string name="Dashboard_Experimental_Card_Description">Запустить новые экспериментальные тесты</string>
-    <string name="Dashboard_Experimental_Overview_Paragraph">Попробуйте запустить новые экспериментальные тесты созданные командой OONI:\n%1$s\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.org/) и [OONI API](https://api.ooni.io/).</string>
-
     <string name="Settings_About_Label">Об OONI</string>
     <string name="Settings_About_Content_Paragraph">The Open Observatory of Network Interference (OONI) — проект бесплатного программного обеспечения в рамках The Tor Project. Задача проекта — повысить прозрачность интернет-цензуры по всему миру.\n\nС 2012 года глобальное сообщество OONI проводит исследования сетевой активности в более 200 странах мира. Некоторые из этих измерений служат доказательством цензуры в интернете.</string>
-
     <string name="Settings_About_Content_LearnMore">Узнать больше</string>
     <string name="Settings_About_Content_Blog">Блог</string>
     <string name="Settings_About_Content_Reports">Отчеты</string>
     <string name="Settings_About_Content_DataPolicy">Политика данных OONI</string>
-
     <string name="Settings_Donate_Title">Сделать пожертвование</string>
     <string name="Settings_Donate_Heading">Поддержите нас и свободный интернет</string>
     <string name="Settings_Donate_SubHeading">Как некоммерческая организация, мы полагаемся на поддержку людей, чтобы защищать свободный и независимый интернет.</string>
@@ -47,6 +31,5 @@
     <string name="Settings_Donate_Action">Сделать пожертвование</string>
     <string name="Settings_Donate_Action_Warning_ExternalBrowser">При нажатии на эту кнопку откроется страница во внешнем браузере</string>
     <string name="Settings_Donate_Action_Error">Ошибка при открытии фандрайзинговой страницы. Пожалуйста, перейдите по ссылке: %1$s</string>
-
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Вы сможете установить эту ссылку снова только с помощью оригинальной ссылки, отправленной ее создателем. Измерения, собранные с помощью этой ссылки будут удалены, но останутся доступными в OONI Explorer. </string>
 </resources>

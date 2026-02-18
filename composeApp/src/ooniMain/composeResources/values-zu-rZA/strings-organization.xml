@@ -10,6 +10,5 @@
     <string name="Onboarding_PopQuiz_2_Question">Ngaso sonke iskhathi ngisebenzisa i-OONI Probe, imininingwane ye-intanethi engiyiqoqayo izoshicilikeka ngokuzenzakalelayo.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Ukukhuphula ukungafihli kwengcindezelo ye-intanethi, umsebenzi wenethiwekhi yabo bonke abasebenzisi ba-OONI Probe iyashicileka ngokuzenzakalelayo (ngaphandle uma bephuma kwama-settings).</string>
     <string name="Onboarding_Crash_Paragraph">Ukuthuthukisa i-Ooni Probe singathanda ukuqoqoqa ukusaphazeka kwemibiko engaziwa uma i-App ingasebenzi kahle\n\nUngathanda ukuthumela imibiko yokusaphazeka eqembini lika Ooni?</string>
-    <string name="Dashboard_Websites_Card_Description">Hlola ukuvalwa kwama-website </string>
     <string name="Settings_About_Content_LearnMore">Funda okunye</string>
 </resources>

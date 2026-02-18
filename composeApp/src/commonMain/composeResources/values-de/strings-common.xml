@@ -70,10 +70,6 @@
     <string name="Dashboard_Update_Restart">Neustart</string>
     <string name="Tests_Title">Tests</string>
     <string name="Tests_Search">Suche Tests</string>
-    <string name="Test_Websites_Fullname">Webseiten</string>
-    <string name="Test_InstantMessaging_Fullname">Instant Messaging</string>
-    <string name="Test_Performance_Fullname">Leistung</string>
-    <string name="Test_Circumvention_Fullname">Umgehung</string>
     <string name="Test_Experimental_Fullname">Experimentell</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP Invalid Request Line Test</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">HTTP Header Field Manipulation Test</string>
@@ -182,7 +178,6 @@
     <string name="Measurement_Raw_Upload">Upload</string>
     <string name="Settings_Title">Einstellungen</string>
     <string name="Settings_TestOptions_Label">Testoptionen</string>
-    <string name="Settings_TestOptions_LongRunningTest">Langzeittest</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Tests automatisch ausführen</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Nur bei WLAN</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Nur während des Ladevorgangs</string>

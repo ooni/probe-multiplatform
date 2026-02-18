@@ -37,10 +37,6 @@
     <string name="Dashboard_Update_Ready">অ্যাপ আপডেটটি সবেমাত্র ডাউনলোড করা হয়েছে</string>
     <string name="Dashboard_Update_Restart">পুনরায় চালু করুন</string>
     <string name="Tests_Title">পরীক্ষাসমূহ</string>
-    <string name="Test_Websites_Fullname">ওয়েবসাইট গুলো</string>
-    <string name="Test_InstantMessaging_Fullname">তাৎক্ষনিক বার্তাপ্রদান</string>
-    <string name="Test_Performance_Fullname">কর্মক্ষমতা</string>
-    <string name="Test_Circumvention_Fullname">ঘুরপথে চলা</string>
     <string name="TestResults">Results</string>
     <string name="TestResults_Overview_Hero_Networks">নেটওয়ার্ক</string>
     <string name="TestResults_Overview_Hero_DataUsage">ব্যবহৃত ডাটা</string>

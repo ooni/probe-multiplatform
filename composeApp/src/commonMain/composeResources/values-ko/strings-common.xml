@@ -4,9 +4,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">실행 취소</string>
     <string name="Dashboard_Progress_ReviewLink_Action">리뷰</string>
     <string name="Dashboard_Update_Restart">재시작</string>
-    <string name="Test_Websites_Fullname">웹사이트</string>
-    <string name="Test_Performance_Fullname">성능</string>
-    <string name="Test_Circumvention_Fullname">우회</string>
     <string name="Test_Experimental_Fullname">실험적</string>
     <string name="TestResults_Overview_Hero_Networks">네트워크</string>
     <string name="TestResults_Summary_Hero_Network">네트워크</string>

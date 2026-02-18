@@ -16,10 +16,6 @@
     <string name="Dashboard_Progress_ReviewLink_Action">Ανασκόπηση</string>
     <string name="Dashboard_Update_Restart">Επανεκκίνηση </string>
     <string name="Tests_Title">Δοκιμές</string>
-    <string name="Test_Websites_Fullname">Ιστοσελίδες</string>
-    <string name="Test_InstantMessaging_Fullname">Εφαρμογές συνομιλιών</string>
-    <string name="Test_Performance_Fullname">Απόδοση δικτύου</string>
-    <string name="Test_Circumvention_Fullname">Παράκαμψη λογοκρισίας</string>
     <string name="Test_Experimental_Fullname">Πειραματικό</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Δοκιμή HTTP Invalid Request Line</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Δοκιμή HTTP Header Field Manipulation</string>
@@ -66,7 +62,6 @@
     <string name="Measurement_Raw_Upload">Ανέβασμα</string>
     <string name="Settings_Title">Ρυθμίσεις</string>
     <string name="Settings_TestOptions_Label">Επιλογές δοκιμής</string>
-    <string name="Settings_TestOptions_LongRunningTest">Δοκιμή μεγάλης διάρκειας</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Αυτόματη εκτελή δοκιμών</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Μόνο μέσω WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Μόνο όταν φορτίζει</string>

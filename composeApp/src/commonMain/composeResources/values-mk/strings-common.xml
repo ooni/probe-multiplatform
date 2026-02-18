@@ -1,11 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Врати назад</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Прегледај</string>
     <string name="Dashboard_Update_Restart">Повторно стартувај</string>
-
-
-    <string name="Test_Circumvention_Fullname">Заобиколување</string>
     <string name="TestResults_Overview_Hero_Networks">Мрежи</string>
     <string name="TestResults_Summary_Hero_Network">Мрежа</string>
     <string name="TestResults_Summary_Hero_Country">Земја</string>
@@ -22,8 +19,6 @@
     <string name="Measurements_Failed">Не успеа</string>
     <string name="Measurements_Ok">ОК</string>
     <string name="Measurement_Raw_Upload">Прикачи</string>
-
-
     <string name="Settings_Title">Поставки</string>
     <string name="Settings_Privacy_Label">Приватност</string>
     <string name="Settings_Proxy">Прокси</string>
@@ -91,5 +86,4 @@
     <string name="Common_Months_October">Октомври</string>
     <string name="Common_Months_November">Ноември</string>
     <string name="Common_Months_December">Декември</string>
-
-    </resources>
+</resources>

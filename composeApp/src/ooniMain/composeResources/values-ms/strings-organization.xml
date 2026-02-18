@@ -12,12 +12,6 @@
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Untuk meningkatkan ketelusan penapisan internet, data rangkaian kesemua pengguna OONI Probe akan diterbitkan secara automatik (kecuali pengguna yang telah pilih keluar dalam pengesetan).</string>
     <string name="Onboarding_AutomatedTesting_Paragraph">Bagi mengukur penapisan internet setiap hari, sila membolehkan ujian berautomasi supaya OONI Probe boleh menjalankan ujian secara berkala. \n\nJangan risau, kami akan berhati-hati dalam penggunaan bateri.\n\nAnda boleh melumpuhkan ujian berautomasi dalam pengesetan bila-bila masa.</string>
     <string name="Onboarding_Crash_Paragraph">Untuk memperbaik OONI Probe, kami ingin mengumpul laporan ranap secara tanpa nama apabila aplikasi ini tidak berfungsi dengan betul.\n\nAdakah anda memilih untuk menghantar laporan ranap kepada pasukan pembangunan OONI?</string>
-    <string name="Dashboard_Websites_Card_Description">Periksa sekatan tapak web</string>
-    <string name="Dashboard_Performance_Card_Description">Uji kelajuan dan prestasi rangkaian anda</string>
-    <string name="Dashboard_Middleboxes_Card_Description">Mengesan middleboxes dalam rangkaian anda</string>
-    <string name="Dashboard_InstantMessaging_Card_Description">Periksa sekatan aplikasi pemesejan segera</string>
-    <string name="Dashboard_Circumvention_Card_Description">Periksa sekatan alat memintas penapisan</string>
-    <string name="Dashboard_Experimental_Card_Description">Jalankan ujian eksperimen baru</string>
     <string name="Settings_About_Label">Mengenai OONI</string>
     <string name="Settings_About_Content_LearnMore">Ketahui lebih lanjut</string>
     <string name="Settings_About_Content_Blog">Blog</string>

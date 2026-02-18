@@ -30,10 +30,6 @@
     <string name="Dashboard_ReviewDescriptor_Button_Default">SASISHA (%1$sya %2$s)</string>
     <string name="Dashboard_Update_Restart">Anzisha tena</string>
     <string name="Tests_Title">Vipimo</string>
-    <string name="Test_Websites_Fullname">Tovuti</string>
-    <string name="Test_InstantMessaging_Fullname">Ujumbe wa papo kwa papo</string>
-    <string name="Test_Performance_Fullname">Utendaji</string>
-    <string name="Test_Circumvention_Fullname">Kukwepa</string>
     <string name="Test_Experimental_Fullname">Majaribio</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Kipimo cha ombi la HTTP iliyokosewa</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Kipimo cha kubadilisha maelezo ya eneo la HTTP </string>
@@ -80,7 +76,6 @@
     <string name="Measurement_Raw_Upload">Pakia</string>
     <string name="Settings_Title">Mipangilio</string>
     <string name="Settings_TestOptions_Label">Chaguzi za mtihani </string>
-    <string name="Settings_TestOptions_LongRunningTest">Majaribio ya muda mrefu</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Endesha vipimo kiatomati</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Kwenye WiFi tu</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Wakati wa kuchaji tu</string>

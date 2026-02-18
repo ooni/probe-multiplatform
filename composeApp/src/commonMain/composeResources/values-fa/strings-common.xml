@@ -17,10 +17,6 @@
     <string name="Dashboard_Progress_ReviewLink_Action">مرور کنید</string>
     <string name="Dashboard_Update_Restart">شروع دوباره</string>
     <string name="Tests_Title">تست‌‌ها</string>
-    <string name="Test_Websites_Fullname">وب‌سایت</string>
-    <string name="Test_InstantMessaging_Fullname">پیام‌رسان</string>
-    <string name="Test_Performance_Fullname">کارایی</string>
-    <string name="Test_Circumvention_Fullname">دور زدن سانسور</string>
     <string name="Test_Experimental_Fullname">آزمایشی</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">تست خط درخواست نامعتبر HTTP</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">تست دستکاری فیلد هدر HTTP</string>
@@ -68,7 +64,6 @@
     <string name="Measurement_Raw_Upload">آپلود</string>
     <string name="Settings_Title">تنظیمات</string>
     <string name="Settings_TestOptions_Label">گزینه‌های آزمون</string>
-    <string name="Settings_TestOptions_LongRunningTest">آزمون طولانی مدت</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">اجرای خودکار آزمایش‌ها</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">تنها از طریق WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">تنها در هنگام شارژ</string>

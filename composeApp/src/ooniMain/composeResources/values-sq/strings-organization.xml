@@ -10,10 +10,6 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe nuk është mjet privatësie. Çdokush që monitoron aktivitetin tuaj në internet do të kuptojë së çfarë programi po përdorni.</string>
     <string name="Onboarding_PopQuiz_2_Question">Çdo herë që përdor OONI Probe, të dhënat për rrjetin që mbledh do të publikohen automatikisht.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Për të rritur transparencën mbi censurimin në internet, të dhënat e rrjetit e të gjithë përdoruesve të OONI Probe publikohen automatikisht (përveç rasteve që ato e kanë përjashtuar si opsion tek rregjistrimet).</string>
-    <string name="Dashboard_Websites_Card_Description">Testo faqet e bllokuara</string>
-    <string name="Dashboard_Performance_Card_Description">Testo shpejtësinë dhe performancën e rrjetit</string>
-    <string name="Dashboard_Middleboxes_Card_Description">Zbuloni middleboxes në rrjetin tuaj</string>
-    <string name="Dashboard_InstantMessaging_Card_Description">Testoni bllokimin e aplikacioneve të mesazheve</string>
     <string name="Settings_About_Label">Rreth OONI</string>
     <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) është një projekt free software i The Tor Project që synon të rrisi transparencen e censurimit të internetit në mbarë botën.\n\nQë nga viti 2012, komuniteti global i OONI mat rrjetin në më shumë se 20 shtete. Disa nga këto majtet shërbejnë edhe si evidencë për censurimin e internetit.</string>
     <string name="Settings_About_Content_LearnMore">Mëso më tepër</string>

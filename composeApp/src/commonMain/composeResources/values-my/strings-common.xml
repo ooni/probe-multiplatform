@@ -13,10 +13,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">ပြန်ပြင်ရန်</string>
     <string name="Dashboard_Update_Restart">စက်ပြန်ဖွင့်ရန်</string>
     <string name="Tests_Title">စမ်းသပ်မှုများ</string>
-    <string name="Test_Websites_Fullname">ဝဘ်ဆိုဒ်များ</string>
-    <string name="Test_InstantMessaging_Fullname">ချက်ခြင်း စာတိုပေးပို့ခြင်း</string>
-    <string name="Test_Performance_Fullname">စွမ်းဆောင်ရည်</string>
-    <string name="Test_Circumvention_Fullname">ရှောင်တိမ်းခြင်း</string>
     <string name="Test_Experimental_Fullname">စမ်းသပ် လေ့လာနေဆဲ</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP မဆီလျော်သော တောင်းဆိုမှုလိုင်း စမ်းသပ်မှု</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">HTTP Header Field Manipulation စမ်းသပ်မှု</string>
@@ -64,7 +60,6 @@
     <string name="Measurement_Raw_Upload">အပ်လုဒ်</string>
     <string name="Settings_Title">ဆက်တင်များ</string>
     <string name="Settings_TestOptions_Label">စမ်းသပ်ရွေးချယ်မှုများ</string>
-    <string name="Settings_TestOptions_LongRunningTest">တာရှည်စမ်းသပ်မှု</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">စမ်းသပ်မှုများကို အလိုအလျောက် လုပ်ဆောင်ပါ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">WiFi နှင့် သာ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">အားသွင်းနေစဉ်သာ</string>

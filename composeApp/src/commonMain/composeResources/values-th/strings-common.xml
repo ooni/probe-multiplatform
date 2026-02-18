@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">หน้าปัด</string>
     <string name="Dashboard_Overview_Estimated">ประมาณ:</string>
     <string name="Dashboard_Overview_ChooseWebsites">เลือกเว็บไซต์</string>
@@ -12,13 +12,7 @@
     <string name="Dashboard_Articles_Report">รายงาน</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">เลิกทำ</string>
     <string name="Dashboard_Update_Restart">เริ่มทำงานใหม่</string>
-
-
     <string name="Tests_Title">การทดสอบ</string>
-    <string name="Test_Websites_Fullname">เว็บไซต์</string>
-    <string name="Test_InstantMessaging_Fullname">แอปแชต</string>
-    <string name="Test_Performance_Fullname">ประสิทธิภาพ</string>
-    <string name="Test_Circumvention_Fullname">การหลบเลี่ยง</string>
     <string name="Test_Experimental_Fullname">ของทดลอง</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">ทดสอบบรรทัดร้องขอ HTTP ที่ผิดรูปแบบ</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">ทดสอบการปรับเปลี่ยนข้อมูลหัว HTTP</string>
@@ -31,8 +25,6 @@
     <string name="Test_Psiphon_Fullname">ทดสอบ Psiphon</string>
     <string name="Test_Tor_Fullname">ทดสอบ Tor</string>
     <string name="Test_Signal_Fullname">ทดสอบ Signal</string>
-
-
     <string name="TestResults">ผลลัพธ์</string>
     <string name="TestResults_Overview_Hero_Networks">เครือข่าย</string>
     <string name="TestResults_Overview_Hero_DataUsage">การใช้ข้อมูล</string>
@@ -66,11 +58,8 @@
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">ผิดปกติ</string>
     <string name="Measurement_Raw_Upload">อัปโหลด</string>
-
-
     <string name="Settings_Title">การตั้งค่า</string>
     <string name="Settings_TestOptions_Label">ตัวเลือกการทดสอบ</string>
-    <string name="Settings_TestOptions_LongRunningTest">การทดสอบที่ทำงานนาน</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">เริ่มทดสอบอัตโนมัติ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">เฉพาะบนไวไฟ</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">เฉพาะเมื่อชาร์จอยู่</string>
@@ -169,7 +158,6 @@
     <string name="CategoryCode_CTRL_Description">เนื้อหาที่ไม่มีอันตราย ใช้เพื่อเป็นตัวควบคุมในการทดสอบ</string>
     <string name="CategoryCode_IGO_Description">องค์การระหว่างรัฐบาล รวมถึงสหประชาชาติ</string>
     <string name="CategoryCode_MISC_Description">เว็บไซต์ยังไม่ถูกจัดหมวดหมู่</string>
-
     <string name="Onboarding_WhatIsOONIProbe_GotIt">รับทราบ!</string>
     <string name="Onboarding_ThingsToKnow_Title">ดูให้ดี!</string>
     <string name="Onboarding_ThingsToKnow_Button">ฉันเข้าใจเเล้ว</string>
@@ -196,8 +184,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">วันเเละเวลาของการทดสอบ</string>
     <string name="Onboarding_DefaultSettings_Paragraph">เราทำดีที่สุดเพื่อจะไม่เผยแพร่ที่อยู่ไอพีหรือข้อมูลอื่นใดของคุณ ที่อาจใช้ระบุบุคคลได้\n\nเรียนรู้เพิ่มเติมใน [นโยบายข้อมูลของ OONI](https://ooni.org/about/data-policy/)</string>
     <string name="Onboarding_DefaultSettings_Button_Change">เปลี่ยนค่าเริ่มต้น</string>
-
-
     <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="AddDescriptor_AutoRun">เริ่มทดสอบอัตโนมัติ</string>
     <string name="Snackbar_ResultsNotUploaded_Text">ไม่ถูกอัปโหลด</string>
@@ -227,7 +213,6 @@
     <string name="Modal_Hide">ซ่อน</string>
     <string name="OONIRun_Run">เริ่มทดสอบ</string>
     <string name="Notification_StopTest">หยุดทดสอบ</string>
-
     <string name="Common_Back">ย้อนกลับ</string>
     <string name="Common_Close">ปิด</string>
     <string name="Common_Refresh">เรียกใหม่</string>

@@ -6,9 +6,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Desfacer</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Revisión</string>
     <string name="Dashboard_Update_Restart">Reiniciar</string>
-    <string name="Test_Websites_Fullname">Sitios web</string>
-    <string name="Test_InstantMessaging_Fullname">Mensaxería Instantánea</string>
-    <string name="Test_Performance_Fullname">Rendemento</string>
     <string name="TestResults_Overview_Hero_Networks">Redes</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Data &amp; Tempo</string>
     <string name="TestResults_Summary_Hero_Network">Rede</string>

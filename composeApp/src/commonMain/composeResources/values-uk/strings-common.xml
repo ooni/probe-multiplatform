@@ -6,9 +6,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Скасувати</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Огляд</string>
     <string name="Dashboard_Update_Restart">Перезавантажити</string>
-    <string name="Test_Websites_Fullname">Вебсайти</string>
-    <string name="Test_Performance_Fullname">Продуктивність</string>
-    <string name="Test_Circumvention_Fullname">Обхід блокування</string>
     <string name="TestResults_Overview_Hero_Networks">Мережі</string>
     <string name="TestResults_Overview_Hero_DataUsage">Використання даних</string>
     <string name="TestResults_Summary_Hero_Network">Мережа</string>

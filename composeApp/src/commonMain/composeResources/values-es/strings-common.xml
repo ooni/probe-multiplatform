@@ -39,10 +39,6 @@
     <string name="Dashboard_Update_Ready">La actualización de la aplicación acaba de descargarse</string>
     <string name="Dashboard_Update_Restart">Reiniciar</string>
     <string name="Tests_Title">Pruebas</string>
-    <string name="Test_Websites_Fullname">Sitios web</string>
-    <string name="Test_InstantMessaging_Fullname">Mensajería instantánea</string>
-    <string name="Test_Performance_Fullname">Rendimiento</string>
-    <string name="Test_Circumvention_Fullname">Evasión</string>
     <string name="Test_Experimental_Fullname">Experimental</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Prueba HTTP Invalid Request Line</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Prueba HTTP Header Field Manipulation</string>
@@ -128,7 +124,6 @@
     <string name="Measurement_Raw_Upload">Subida </string>
     <string name="Settings_Title">Configuración</string>
     <string name="Settings_TestOptions_Label">Opciones de la prueba</string>
-    <string name="Settings_TestOptions_LongRunningTest">Prueba de larga duración</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Ejecutar pruebas automáticamente</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Sólo sobre WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Sólo cuando se está cargando</string>

@@ -10,12 +10,6 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe nu este un instrument de confidențialitate. Oricine vă monitorizează activitatea pe internet va vedea ce software executați.</string>
     <string name="Onboarding_PopQuiz_2_Question">De fiecare dată când rulez OONI Probe, datele rețelei pe care le colectez vor fi publicate automat.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Pentru a crește transparența cenzurii pe internet, datele din rețea ale tuturor utilizatorilor OONI Probe sunt publicate automat (cu excepția cazului în care acestea sunt dezactivate în setări).</string>
-    <string name="Dashboard_Websites_Card_Description">Testarea blocării site-urilor web</string>
-    <string name="Dashboard_Performance_Card_Description">Testarea vitezei și performanței rețelei</string>
-    <string name="Dashboard_Middleboxes_Card_Description">Detectează middleboxes din rețeaua dvs</string>
-    <string name="Dashboard_InstantMessaging_Card_Description">Testarea blocării aplicațiilor de mesagerie instantanee</string>
-    <string name="Dashboard_Circumvention_Card_Description">Testarea blocării instrumentelor de eludare a cenzurii</string>
-    <string name="Dashboard_Circumvention_Overview_Paragraph">Verificați dacă [Psiphon](https://ooni.io/nettest/psiphon/) și [Tor](https://ooni.io/nettest/tor/) sunt blocate.\n\nRezultatele dvs. vor fi publicate pe [OONI Explorer](https://explorer.ooni.org/) și [OONI API](https://api.ooni.io/).</string>
     <string name="Settings_About_Label">Despre OONI</string>
     <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) este un program gratuit este un proiect de software gratuit din Tor Project care are drept scop creșterea transparenței cenzurii pe internetul din întreaga lume.\n\nDin 2012, comunitatea globală OONI a măsurat rețelele din peste 200 de țări. Unele dintre aceste măsurători servesc drept dovadă a cenzurii pe internet.</string>
     <string name="Settings_About_Content_LearnMore">Află mai mult</string>

@@ -69,10 +69,6 @@
     <string name="Dashboard_Update_Restart">Yeniden başlat</string>
     <string name="Tests_Title">Sınamalar</string>
     <string name="Tests_Search">Sınama ara</string>
-    <string name="Test_Websites_Fullname">Siteler</string>
-    <string name="Test_InstantMessaging_Fullname">Anlık ileti</string>
-    <string name="Test_Performance_Fullname">Başarım</string>
-    <string name="Test_Circumvention_Fullname">Sansürü aşma</string>
     <string name="Test_Experimental_Fullname">Deneysel</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP geçersiz istek satırı sınaması</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">HTTP üst bilgi değişikliği sınaması</string>
@@ -181,7 +177,6 @@
     <string name="Measurement_Raw_Upload">Yükle</string>
     <string name="Settings_Title">Ayarlar</string>
     <string name="Settings_TestOptions_Label">Sınama seçenekleri</string>
-    <string name="Settings_TestOptions_LongRunningTest">Uzun süreli sınama</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Sınamalar otomatik olarak çalıştırılsın</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Yalnızca Wi-Fi kullanılırken</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Yalnızca şarj edilirken</string>

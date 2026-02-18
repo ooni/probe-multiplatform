@@ -12,10 +12,6 @@
     <string name="Dashboard_Progress_ReviewLink_Action">Revizuire</string>
     <string name="Dashboard_Update_Restart">Restart</string>
     <string name="Tests_Title">Teste</string>
-    <string name="Test_Websites_Fullname">Site-uri</string>
-    <string name="Test_InstantMessaging_Fullname">Mesagerie instant</string>
-    <string name="Test_Performance_Fullname">Performanță</string>
-    <string name="Test_Circumvention_Fullname">Eludare</string>
     <string name="Test_Experimental_Fullname">Experimental</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Test HTTP Invalid Request Line</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Test HTTP Header Field Manipulation</string>

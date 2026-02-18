@@ -35,10 +35,6 @@
     <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
     <string name="Dashboard_Update_Restart">أعد التشغيل</string>
     <string name="Tests_Title">اختبارات</string>
-    <string name="Test_Websites_Fullname">المواقع</string>
-    <string name="Test_InstantMessaging_Fullname">المراسلة الفورية</string>
-    <string name="Test_Performance_Fullname">الأداء</string>
-    <string name="Test_Circumvention_Fullname">تجاوز الحجب</string>
     <string name="Test_Experimental_Fullname">تجريبي</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">اختبار عدم صلاحية طلب الHTTP</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">اختبار التلاعب بخانة رأس صفحة الHTTP</string>
@@ -89,7 +85,6 @@
     <string name="Measurement_Raw_Upload">رفع</string>
     <string name="Settings_Title">الإعدادات</string>
     <string name="Settings_TestOptions_Label">اختيارات الاختبار</string>
-    <string name="Settings_TestOptions_LongRunningTest">اشتغال الاختبار الطويل</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">إجراء الاختبارات تلقائيا </string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">فقط عند الاتصال عبر الواي الفاي </string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">فقط عند الشحن </string>

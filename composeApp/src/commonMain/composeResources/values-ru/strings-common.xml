@@ -52,10 +52,6 @@
     <string name="Dashboard_Update_Ready">Скачано обновление для приложения</string>
     <string name="Dashboard_Update_Restart">Перезапуск</string>
     <string name="Tests_Title">Тесты</string>
-    <string name="Test_Websites_Fullname">Сайты</string>
-    <string name="Test_InstantMessaging_Fullname">Мессенджеры</string>
-    <string name="Test_Performance_Fullname">Производительность</string>
-    <string name="Test_Circumvention_Fullname">Обход блокировки</string>
     <string name="Test_Experimental_Fullname">Экспериментальный режим </string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Тест HTTP Invalid Request Line</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Тест HTTP Header Field Manipulation</string>
@@ -148,7 +144,6 @@
     <string name="Measurement_Raw_Upload">Загрузить</string>
     <string name="Settings_Title">Настройки</string>
     <string name="Settings_TestOptions_Label">Варианты тестирования</string>
-    <string name="Settings_TestOptions_LongRunningTest">Долгий тест</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Запускать тесты автоматически</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Только на Wi-Fi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Только во время зарядки</string>

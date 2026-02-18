@@ -16,10 +16,6 @@
     <string name="Dashboard_Progress_ReviewLink_Action">Beoordeling</string>
     <string name="Dashboard_Update_Restart">Herstarten</string>
     <string name="Tests_Title">Testen</string>
-    <string name="Test_Websites_Fullname">Websites</string>
-    <string name="Test_InstantMessaging_Fullname">Chatprogramma’s</string>
-    <string name="Test_Performance_Fullname">Prestaties</string>
-    <string name="Test_Circumvention_Fullname">Omzeiling</string>
     <string name="Test_Experimental_Fullname">Experimenteel</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP Ongeldige Aanvraagregeltest</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Test Voor Veldmanipulatie Van HTTP-header</string>

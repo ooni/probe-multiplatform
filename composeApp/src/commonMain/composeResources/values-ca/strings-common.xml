@@ -12,10 +12,6 @@
     <string name="Dashboard_Progress_ReviewLink_Action">Revisa</string>
     <string name="Dashboard_Update_Restart">Reinicia</string>
     <string name="Tests_Title">Proves</string>
-    <string name="Test_Websites_Fullname">Llocs web</string>
-    <string name="Test_InstantMessaging_Fullname">Missatgeria instantània</string>
-    <string name="Test_Performance_Fullname">Rendiment</string>
-    <string name="Test_Circumvention_Fullname">Elusió</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">Prova «HTTP Invalid Request Line Test»</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">Prova «HTTP Header Field Manipulation»</string>
     <string name="Test_WebConnectivity_Fullname">Prova de connectivitat web</string>

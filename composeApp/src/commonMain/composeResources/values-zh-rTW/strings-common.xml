@@ -30,10 +30,6 @@
     <string name="Dashboard_Progress_ReviewLink_Action">複檢</string>
     <string name="Dashboard_Update_Restart">重新啟動</string>
     <string name="Tests_Title">測試</string>
-    <string name="Test_Websites_Fullname">網站</string>
-    <string name="Test_InstantMessaging_Fullname">即時通訊</string>
-    <string name="Test_Performance_Fullname">效能</string>
-    <string name="Test_Circumvention_Fullname">規避</string>
     <string name="Test_Experimental_Fullname">試驗性</string>
     <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP 無效請求行測試</string>
     <string name="Test_HTTPHeaderFieldManipulation_Fullname">HTTP 表頭欄位操控測試</string>
@@ -80,7 +76,6 @@
     <string name="Measurement_Raw_Upload">上傳</string>
     <string name="Settings_Title">設定</string>
     <string name="Settings_TestOptions_Label">測試選項</string>
-    <string name="Settings_TestOptions_LongRunningTest">長時間運行測試</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">自動進行測試</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">僅在 WiFi 執行</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">僅在充電時執行</string>

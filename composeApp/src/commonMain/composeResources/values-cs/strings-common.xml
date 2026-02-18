@@ -1,16 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="Dashboard_Tab_Label">Přehled</string>
     <string name="Dashboard_Articles_Report">Oznámení</string>
     <string name="Dashboard_Runv2_Overview_Description">Vytvořeno uživatelem %1$s v %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Zpět</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Náhled</string>
     <string name="Dashboard_Update_Restart">Restart</string>
-
-
-    <string name="Test_Websites_Fullname">Webové stránky</string>
-    <string name="Test_Performance_Fullname">Výkon</string>
-    <string name="Test_Circumvention_Fullname">Obcházení</string>
     <string name="Test_Experimental_Fullname">Pokusné</string>
     <string name="TestResults">Výsledky</string>
     <string name="TestResults_Overview_Hero_Networks">Sítě</string>
@@ -30,8 +25,6 @@
     <string name="Measurements_Failed">Selhalo</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurement_Raw_Upload">Nahrát</string>
-
-
     <string name="Settings_Title">Nastavení</string>
     <string name="Settings_Privacy_Label">Soukromí</string>
     <string name="Settings_Proxy">Proxy</string>
@@ -108,6 +101,5 @@
     <string name="Common_Months_October">Říjen</string>
     <string name="Common_Months_November">Listopad</string>
     <string name="Common_Months_December">Prosinec</string>
-
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

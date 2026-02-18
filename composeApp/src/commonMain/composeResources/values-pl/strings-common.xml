@@ -7,9 +7,6 @@
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Cofnij</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Przegląd</string>
     <string name="Dashboard_Update_Restart">Restart</string>
-    <string name="Test_Websites_Fullname">Strony</string>
-    <string name="Test_Performance_Fullname">Wydajność</string>
-    <string name="Test_Circumvention_Fullname">Omijanie blokad</string>
     <string name="Test_Experimental_Fullname">Eksperymentalny</string>
     <string name="TestResults">Wyniki</string>
     <string name="TestResults_Overview_Hero_Networks">Sieci</string>
