@@ -7,7 +7,7 @@ import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.shared.today
 
 data class ResultFilter(
-    val descriptors: List<Descriptor> = emptyList(),
+    val descriptors: List<DescriptorItem> = emptyList(),
     val networks: List<NetworkModel> = emptyList(),
     val taskOrigin: TaskOrigin? = null,
     val dates: Date = Date.AnyDate,

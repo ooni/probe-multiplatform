@@ -28,7 +28,7 @@ data class TestKeysWithResultId(
     val testKeys: TestKeys?,
     val resultId: ResultModel.Id,
     val descriptorName: String?,
-    val descriptorRunId: InstalledTestDescriptorModel.Id?,
+    val descriptorRunId: Descriptor.Id?,
 )
 
 fun List<TestKeysWithResultId>.videoQuality() =

@@ -191,7 +191,6 @@
 
     <string name="Settings_Title">Settings</string>
     <string name="Settings_TestOptions_Label">Test options</string>
-    <string name="Settings_TestOptions_LongRunningTest">Long running test</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Run tests automatically</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Only on WiFi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Only while charging</string>

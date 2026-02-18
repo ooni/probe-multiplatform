@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.selection.triStateToggleable
@@ -62,8 +63,9 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.UpdateStatus
 import org.ooni.probe.ui.results.ResultCell
 import org.ooni.probe.ui.results.RunCell
@@ -143,13 +145,16 @@ fun DescriptorScreen(
 
                 DescriptorDetails(state, onEvent)
 
-                descriptor.metadata()?.let {
-                    Text(
-                        it,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp),
-                    )
+                if (!state.descriptor.isDefault()) {
+                    descriptor.metadata()?.let {
+                        Text(
+                            it,
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp),
+                        )
+                    }
                 }
+
                 MarkdownViewer(
                     markdown = descriptor.description().orEmpty(),
                     modifier = Modifier
@@ -182,9 +187,7 @@ fun DescriptorScreen(
                     HorizontalDivider(Modifier.padding(bottom = 16.dp), thickness = Dp.Hairline)
                 }
 
-                if (descriptor.source is Descriptor.Source.Installed) {
-                    ConfigureUpdates(onEvent, descriptor.source.value.autoUpdate)
-                }
+                ConfigureUpdates(onEvent, descriptor.descriptor.autoUpdate)
 
                 Text(
                     stringResource(Res.string.AddDescriptor_Settings),
@@ -242,7 +245,7 @@ fun DescriptorScreen(
 
                 when (OrganizationConfig.testDisplayMode) {
                     TestDisplayMode.Regular -> {
-                        if (descriptor.source is Descriptor.Source.Default || !state.tests.isSingleWebConnectivityTest()) {
+                        if (!state.tests.isSingleWebConnectivityTest() || descriptor.isDefault()) {
                             TestItems(
                                 descriptor,
                                 state.tests,
@@ -267,19 +270,19 @@ fun DescriptorScreen(
                     )
                 }
 
-                if (descriptor.source is Descriptor.Source.Installed) {
-                    InstalledDescriptorActionsView(
-                        descriptor = descriptor.source.value,
-                        showCheckUpdatesButton = !state.canPullToRefresh,
-                        onEvent = onEvent,
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                    )
-                }
+                InstalledDescriptorActionsView(
+                    descriptor = descriptor.descriptor,
+                    showCheckUpdatesButton = !state.canPullToRefresh,
+                    onEvent = onEvent,
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                )
             }
         }
         if (state.isRefreshing) {
             UpdateProgressStatus(
-                modifier = Modifier.align(Alignment.BottomCenter),
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(WindowInsets.statusBars.asPaddingValues()),
                 contentModifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
                 type = state.updateOperationState,
             )
@@ -373,7 +376,7 @@ private fun DescriptorDetails(
                         .align(Alignment.CenterHorizontally)
                         .padding(top = 8.dp),
                 ) {
-                    if (descriptor.name == "websites") {
+                    if (descriptor.key == OoniTest.Websites.key) {
                         OutlinedButton(
                             onClick = { onEvent(DescriptorViewModel.Event.ChooseWebsitesClicked) },
                             border = ButtonDefaults
@@ -429,7 +432,7 @@ private fun DescriptorDetails(
 
 @Composable
 private fun TestItems(
-    descriptor: Descriptor,
+    descriptor: DescriptorItem,
     tests: List<SelectableItem<NetTest>>,
     enabled: Boolean,
     onEvent: (DescriptorViewModel.Event) -> Unit,

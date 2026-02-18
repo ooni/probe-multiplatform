@@ -102,10 +102,18 @@ class FetchGeoIpDbUpdates(
                 preferencesRepository.getValueByKey(SettingsKey.MMDB_VERSION).first()
                     ?: GEOIP_DB_VERSION_DEFAULT
             ) as String
+        val latestTag = normalize(latestVersion) ?: run {
+            Logger.w("Unknown format for latest version $latestVersion")
+            return true to latestVersion
+        }
+        val currentTag = normalize(currentGeoIpDbVersion) ?: run {
+            Logger.w("Unknown format for current version $currentGeoIpDbVersion")
+            return true to latestVersion
+        }
 
         return Pair(
-            normalize(currentGeoIpDbVersion) >= normalize(latestVersion),
-            latestVersion,
+            latestTag >= currentTag,
+            latestTag.toString(),
         )
     }
 
@@ -130,7 +138,7 @@ class FetchGeoIpDbUpdates(
     private fun buildGeoIpDbUrl(version: String): String =
         "https://github.com/${GEOIP_DB_REPO}/releases/download/$version/$version-ip2country_as.mmdb"
 
-    private fun normalize(tag: String): Int = tag.removePrefix("v").trim().toInt()
+    private fun normalize(tag: String): Int? = tag.removePrefix("v").trim().toIntOrNull()
 
     /**
      * Delete all .mmdb files in the cache directory except for the specified version.

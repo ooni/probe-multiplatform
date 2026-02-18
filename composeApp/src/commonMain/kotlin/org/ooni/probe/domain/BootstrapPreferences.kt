@@ -2,14 +2,14 @@ package org.ooni.probe.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.domain.results.DeleteOldResults
 
 class BootstrapPreferences(
     private val preferencesRepository: PreferenceRepository,
-    private val getLatestTestDescriptors: () -> Flow<List<Descriptor>>,
+    private val getLatestTestDescriptors: () -> Flow<List<DescriptorItem>>,
 ) {
     suspend operator fun invoke() {
         if (preferencesRepository.getValueByKey(SettingsKey.FIRST_RUN).first() != null) return

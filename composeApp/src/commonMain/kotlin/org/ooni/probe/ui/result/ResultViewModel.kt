@@ -163,7 +163,7 @@ class ResultViewModel(
         return RunSpecification.Full(
             tests = listOf(
                 RunSpecification.Test(
-                    source = RunSpecification.Test.Source.fromDescriptor(item.descriptor),
+                    descriptorId = item.descriptor.descriptor.id,
                     netTests = listOf(
                         NetTest(
                             test = TestType.WebConnectivity,

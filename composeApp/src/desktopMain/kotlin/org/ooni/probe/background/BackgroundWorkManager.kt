@@ -8,7 +8,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.ooni.probe.data.models.AutoRunParameters
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.domain.descriptors.FetchDescriptorsUpdates
 import kotlin.coroutines.CoroutineContext
@@ -29,7 +29,7 @@ class BackgroundWorkManager(
         }
     }
 
-    fun startDescriptorsUpdate(descriptors: List<InstalledTestDescriptorModel>?) {
+    fun startDescriptorsUpdate(descriptors: List<Descriptor>?) {
         CoroutineScope(coroutineContext).launch {
             getDescriptorUpdateProvider()(descriptors.orEmpty())
         }

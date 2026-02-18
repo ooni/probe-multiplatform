@@ -73,7 +73,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TaskOrigin
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.shared.toEpochInUTC
@@ -188,7 +188,7 @@ fun ResultFiltersRow(
 @Composable
 fun ResultFiltersDialog(
     initialFilter: ResultFilter,
-    descriptors: List<Descriptor>,
+    descriptors: List<DescriptorItem>,
     networks: List<NetworkModel>,
     onSave: (ResultFilter) -> Unit,
     onDismiss: () -> Unit,
@@ -251,7 +251,7 @@ fun ResultFiltersDialog(
 private fun ResultsFiltersDialogContent(
     filter: ResultFilter,
     updateFilter: (ResultFilter) -> Unit,
-    descriptors: List<Descriptor>,
+    descriptors: List<DescriptorItem>,
     networks: List<NetworkModel>,
 ) {
     Column(
@@ -275,7 +275,7 @@ private fun ResultsFiltersDialogContent(
 private fun TestsFilter(
     filter: ResultFilter,
     updateFilter: (ResultFilter) -> Unit,
-    descriptors: List<Descriptor>,
+    descriptors: List<DescriptorItem>,
 ) {
     FilterTitle(
         stringResource(Res.string.TestResults_Filter_Tests),

@@ -69,7 +69,7 @@ sealed interface Screen {
 
     @Serializable
     data class Descriptor(
-        val descriptorKey: String,
+        val descriptorId: String,
     ) : Screen
 
     @Serializable

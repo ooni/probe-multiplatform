@@ -58,7 +58,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.dashboard.TestDescriptorTypeTitle
@@ -236,7 +236,7 @@ fun RunScreen(
 }
 
 private fun LazyListScope.regularTestItems(
-    descriptor: Descriptor,
+    descriptor: DescriptorItem,
     testItems: List<SelectableItem<NetTest>>,
     onEvent: (RunViewModel.Event) -> Unit,
 ) {
@@ -263,7 +263,7 @@ private fun List<SelectableItem<NetTest>>.isSingleWebConnectivityTest() = size =
 
 @Composable
 private fun DescriptorItem(
-    descriptorItem: ParentSelectableItem<Descriptor>,
+    descriptorItem: ParentSelectableItem<DescriptorItem>,
     isExpandable: Boolean,
     onDropdownToggled: () -> Unit,
     onChecked: (Boolean) -> Unit,

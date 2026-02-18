@@ -39,7 +39,6 @@ val dependencies = Dependencies(
     oonimkallBridge = DesktopOonimkallBridge(),
     baseFileDir = projectDirectories.dataDir.also { File(it).mkdirs() },
     cacheDir = projectDirectories.cacheDir.also { File(it).mkdirs() },
-    readAssetFile = ::readAssetFile,
     databaseDriverFactory = { buildDatabaseDriver(projectDirectories.dataDir) },
     networkTypeFinder = DesktopNetworkTypeFinder(),
     buildDataStore = ::buildDataStore,
@@ -77,11 +76,6 @@ private fun buildPlatformInfo(): PlatformInfo {
         canPullToRefresh = false,
         sentryDsn = "https://e33da707dc40ab9508198b62de9bc269@o155150.ingest.sentry.io/4509084408610816",
     )
-}
-
-private fun readAssetFile(path: String): String {
-    // Read asset is only needed for NewsMediaScan Android and iOS, not for Desktop
-    throw NotImplementedError()
 }
 
 private fun buildDataStore() =

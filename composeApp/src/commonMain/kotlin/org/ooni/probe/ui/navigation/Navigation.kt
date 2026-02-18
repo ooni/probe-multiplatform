@@ -16,7 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
 import org.ooni.probe.data.models.ArticleModel
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementsFilter
 import org.ooni.probe.data.models.PlatformAction
@@ -103,8 +103,8 @@ fun Navigation(
         composable<Screen.Descriptors> {
             val viewModel = viewModel {
                 dependencies.descriptorsViewModel(
-                    goToDescriptor = { descriptorKey ->
-                        navController.safeNavigate(Screen.Descriptor(descriptorKey))
+                    goToDescriptor = { descriptorId ->
+                        navController.safeNavigate(Screen.Descriptor(descriptorId.value))
                     },
                     goToReviewDescriptorUpdates = { list ->
                         navController.safeNavigate(Screen.ReviewUpdates(list?.map { it.value }))
@@ -278,7 +278,7 @@ fun Navigation(
             AddProxyScreen(state, viewModel::onEvent)
         }
 
-        composable<Screen.RunTests> { entry ->
+        composable<Screen.RunTests> {
             val viewModel = viewModel {
                 dependencies.runViewModel(onBack = { navController.goBack() })
             }
@@ -298,7 +298,7 @@ fun Navigation(
             AddDescriptorScreen(state, viewModel::onEvent)
         }
 
-        dialog<Screen.AddDescriptorUrl> { entry ->
+        dialog<Screen.AddDescriptorUrl> {
             val viewModel = viewModel {
                 dependencies.addDescriptorUrlViewModel(
                     onClose = { navController.goBack() },
@@ -349,7 +349,7 @@ fun Navigation(
         composable<Screen.Descriptor> { entry ->
             val viewModel = viewModel {
                 dependencies.descriptorViewModel(
-                    descriptorKey = entry.toRoute<Screen.Descriptor>().descriptorKey,
+                    descriptorId = Descriptor.Id(entry.toRoute<Screen.Descriptor>().descriptorId),
                     onBack = { navController.goBack() },
                     goToReviewDescriptorUpdates = { list ->
                         navController.safeNavigate(Screen.ReviewUpdates(list?.map { it.value }))
@@ -368,7 +368,7 @@ fun Navigation(
         composable<Screen.DescriptorWebsites> { entry ->
             val viewModel = viewModel {
                 dependencies.descriptorWebsitesViewModel(
-                    descriptorId = InstalledTestDescriptorModel.Id(
+                    descriptorId = Descriptor.Id(
                         entry.toRoute<Screen.DescriptorWebsites>().descriptorId,
                     ),
                     onBack = { navController.goBack() },
@@ -384,7 +384,7 @@ fun Navigation(
                     descriptorIds = entry
                         .toRoute<Screen.ReviewUpdates>()
                         .descriptorIds
-                        ?.map(InstalledTestDescriptorModel::Id),
+                        ?.map(Descriptor::Id),
                     onBack = { navController.goBack() },
                 )
             }
@@ -406,7 +406,7 @@ fun Navigation(
             ChooseWebsitesScreen(state, viewModel::onEvent)
         }
 
-        composable<Screen.Articles> { entry ->
+        composable<Screen.Articles> {
             val viewModel = viewModel {
                 dependencies.articlesViewModel(
                     onBack = { navController.goBack() },

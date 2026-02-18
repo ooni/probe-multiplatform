@@ -13,19 +13,20 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
-import org.ooni.probe.data.models.InstalledTestDescriptorModel
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.data.models.toDescriptorItem
 
 class DescriptorsViewModel(
-    goToDescriptor: (String) -> Unit,
-    goToReviewDescriptorUpdates: (List<InstalledTestDescriptorModel.Id>?) -> Unit,
+    goToDescriptor: (Descriptor.Id) -> Unit,
+    goToReviewDescriptorUpdates: (List<Descriptor.Id>?) -> Unit,
     goToAddDescriptorUrl: () -> Unit,
-    getTestDescriptors: () -> Flow<List<Descriptor>>,
+    getTestDescriptors: () -> Flow<List<DescriptorItem>>,
     observeDescriptorUpdateState: () -> Flow<DescriptorsUpdateState>,
-    startDescriptorsUpdates: suspend (List<InstalledTestDescriptorModel>?) -> Unit,
+    startDescriptorsUpdates: suspend (List<Descriptor>?) -> Unit,
     dismissDescriptorsUpdateNotice: () -> Unit,
     canPullToRefresh: Boolean,
     private val getPreference: (SettingsKey) -> Flow<Any?>,
@@ -39,9 +40,9 @@ class DescriptorsViewModel(
     init {
         observeDescriptorUpdateState()
             .onEach { updates ->
-                _state.update {
-                    it.copy(
-                        availableUpdates = updates.availableUpdates.toList(),
+                _state.update { state ->
+                    state.copy(
+                        availableUpdates = updates.availableUpdates.map { it.toDescriptorItem() },
                         descriptorsUpdateOperationState = updates.operationState,
                     )
                 }
@@ -57,7 +58,7 @@ class DescriptorsViewModel(
 
         events
             .filterIsInstance<Event.DescriptorClicked>()
-            .onEach { event -> goToDescriptor(event.descriptor.key) }
+            .onEach { event -> goToDescriptor(event.descriptor.descriptor.id) }
             .launchIn(viewModelScope)
 
         events
@@ -81,12 +82,7 @@ class DescriptorsViewModel(
             .filterIsInstance<Event.UpdateDescriptorClicked>()
             .onEach {
                 dismissDescriptorsUpdateNotice()
-                goToReviewDescriptorUpdates(
-                    listOf(
-                        (it.descriptor.source as? Descriptor.Source.Installed)?.value?.id
-                            ?: return@onEach,
-                    ),
-                )
+                goToReviewDescriptorUpdates(listOf(it.descriptor.descriptor.id))
             }.launchIn(viewModelScope)
 
         events
@@ -134,16 +130,16 @@ class DescriptorsViewModel(
         )
     }
 
-    private fun List<Descriptor>.groupByType(collapsedSections: List<DescriptorType>) =
+    private fun List<DescriptorItem>.groupByType(collapsedSections: List<DescriptorType>) =
         listOf(
             DescriptorSection(
                 type = DescriptorType.Installed,
-                descriptors = filter { it.source is Descriptor.Source.Installed },
+                descriptors = filter { !it.isDefault() },
                 isCollapsed = collapsedSections.contains(DescriptorType.Installed),
             ),
             DescriptorSection(
                 type = DescriptorType.Default,
-                descriptors = filter { it.source is Descriptor.Source.Default },
+                descriptors = filter { it.isDefault() },
                 isCollapsed = collapsedSections.contains(DescriptorType.Default),
             ),
         )
@@ -154,7 +150,7 @@ class DescriptorsViewModel(
 
     data class State(
         val sections: List<DescriptorSection> = emptyList(),
-        val availableUpdates: List<InstalledTestDescriptorModel> = emptyList(),
+        val availableUpdates: List<DescriptorItem> = emptyList(),
         val descriptorsUpdateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
         val canPullToRefresh: Boolean = true,
         val filterText: String? = null,
@@ -162,18 +158,12 @@ class DescriptorsViewModel(
         val isRefreshing: Boolean
             get() = descriptorsUpdateOperationState == DescriptorUpdateOperationState.FetchingUpdates
 
-        val isRefreshEnabled: Boolean
-            get() = sections
-                .firstOrNull { it.type == DescriptorType.Installed }
-                ?.descriptors
-                ?.any() == true
-
         val isFiltering get() = filterText != null
     }
 
     sealed interface Event {
         data class DescriptorClicked(
-            val descriptor: Descriptor,
+            val descriptor: DescriptorItem,
         ) : Event
 
         data class ToggleSection(
@@ -181,7 +171,7 @@ class DescriptorsViewModel(
         ) : Event
 
         data class UpdateDescriptorClicked(
-            val descriptor: Descriptor,
+            val descriptor: DescriptorItem,
         ) : Event
 
         data object FetchUpdatedDescriptors : Event
@@ -203,7 +193,7 @@ class DescriptorsViewModel(
 
     data class DescriptorSection(
         val type: DescriptorType,
-        val descriptors: List<Descriptor>,
+        val descriptors: List<DescriptorItem>,
         val isCollapsed: Boolean = false,
     )
 }

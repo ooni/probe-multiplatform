@@ -2,7 +2,8 @@ package org.ooni.probe.domain.results
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
+import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
@@ -11,8 +12,8 @@ import org.ooni.probe.data.models.TestKeysWithResultId
 
 class GetResults(
     private val getResults: (ResultFilter) -> Flow<List<ResultWithNetworkAndAggregates>>,
-    private val getDescriptors: () -> Flow<List<Descriptor>>,
-    private val getTestKeys: (List<Descriptor>) -> Flow<List<TestKeysWithResultId>>,
+    private val getDescriptors: () -> Flow<List<DescriptorItem>>,
+    private val getTestKeys: (List<DescriptorItem>) -> Flow<List<TestKeysWithResultId>>,
 ) {
     operator fun invoke(filter: ResultFilter): Flow<List<ResultListItem>> =
         combine(
@@ -34,14 +35,11 @@ class GetResults(
         }
 }
 
-fun List<Descriptor>.forResult(result: ResultModel): Descriptor? =
-    result.descriptorKey
-        ?.let { key ->
-            firstOrNull {
-                it.source is Descriptor.Source.Installed && it.source.value.key == key
-            }
-        }
-        ?: firstOrNull { it.name == result.descriptorName }
+fun List<DescriptorItem>.forResult(result: ResultModel?): DescriptorItem? =
+    result
+        ?.descriptorKey
+        ?.let { descriptorKey -> firstOrNull { descriptorKey == it.descriptor.key } }
+        ?: firstOrNull { OoniTest.fromId(it.descriptor.id.value)?.key == result?.descriptorName }
 
 fun List<TestKeysWithResultId>.forResult(result: ResultModel): List<TestKeysWithResultId>? =
     result.id
