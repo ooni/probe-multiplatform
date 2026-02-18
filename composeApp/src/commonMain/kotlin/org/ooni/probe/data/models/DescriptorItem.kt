@@ -69,9 +69,20 @@ data class DescriptorItem(
 
     val netTests: List<NetTest>
         get() = descriptor.netTests
+
     val longRunningTests: List<NetTest>
         get() = descriptor.longRunningTests
-    val summaryType: SummaryType = SummaryType.Anomaly
+
+    val summaryType: SummaryType
+        get() = when (OoniTest.fromId(descriptor.id.value)) {
+            OoniTest.Performance -> SummaryType.Performance
+            OoniTest.Experimental -> SummaryType.Simple
+            OoniTest.Circumvention,
+            OoniTest.InstantMessaging,
+            OoniTest.Websites,
+            null,
+            -> SummaryType.Anomaly
+        }
 
     val isExpired
         get() = descriptor.expirationDate != null && descriptor.expirationDate < LocalDateTime.now()
@@ -88,6 +99,7 @@ data class DescriptorItem(
                 descriptorId
             }
         }
+
     val allTests: List<NetTest>
         get() = netTests + longRunningTests
 
