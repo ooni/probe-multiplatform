@@ -76,11 +76,11 @@ class MeasurementViewModel(
         val m = measurement
         val input = url?.url
         return if (m.uid != null) {
-            "${OrganizationConfig.explorerUrl}/m/${m.uid.value}?webview=true&language=${Locale.current.language}"
+            "${OrganizationConfig.explorerUrl}/m/${m.uid.value}?webview=true&language=${Locale.current.language}-${Locale.current.region}"
         } else if (m.reportId != null) {
             val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
             val separator = if (inputSuffix.isEmpty()) "?" else "&"
-            "${OrganizationConfig.explorerUrl}/measurement/${m.reportId.value}$inputSuffix${separator}webview=true&language=${Locale.current.language}"
+            "${OrganizationConfig.explorerUrl}/measurement/${m.reportId.value}$inputSuffix${separator}webview=true&language=${Locale.current.language}-${Locale.current.region}"
         } else {
             null
         }
