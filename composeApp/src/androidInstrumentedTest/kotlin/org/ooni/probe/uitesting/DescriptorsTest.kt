@@ -25,6 +25,7 @@ import ooniprobe.composeapp.generated.resources.Dashboard_ReviewDescriptor_Butto
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_UninstallLink
 import ooniprobe.composeapp.generated.resources.AddDescriptor_InstallForLater
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Test_WebConnectivity_Fullname
 import ooniprobe.composeapp.generated.resources.Tests_Title
 import org.jetbrains.compose.resources.getString
 import org.junit.Assert.assertEquals
@@ -79,7 +80,7 @@ class DescriptorsTest {
 
                 onNodeWithText("Testing").assertIsDisplayed()
                 onNodeWithText("Android instrumented tests").assertIsDisplayed()
-                onNodeWithText("Web Connectivity Test").assertIsDisplayed()
+                onNodeWithText(Res.string.Test_WebConnectivity_Fullname).assertIsDisplayed()
 
                 clickOnText(Res.string.AddDescriptor_InstallForLater)
 

@@ -6,15 +6,14 @@ import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.test.runTest
+import ooniprobe.composeapp.generated.resources.Dashboard_LastResults_SeeResults
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_RunButton_Label
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectNone
-import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_RunFinished
 import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.Modal_ResultsNotUploaded_Uploading
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_UploadAll
-import ooniprobe.composeapp.generated.resources.Test_InstantMessaging_Fullname
 import ooniprobe.composeapp.generated.resources.Test_Signal_Fullname
 import org.jetbrains.compose.resources.getPluralString
 import org.jetbrains.compose.resources.getString
@@ -23,10 +22,12 @@ import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.disableRefreshArticles
+import org.ooni.probe.uitesting.helpers.getOoniDescriptor
 import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
 import org.ooni.probe.uitesting.helpers.onNodeWithText
@@ -63,9 +64,9 @@ class UploadResultTest {
                 clickOnText(Res.string.Test_Signal_Fullname)
                 clickOnText(getPluralString(Res.plurals.Dashboard_RunTests_RunButton_Label, 1, 1))
 
-                clickOnText(Res.string.Dashboard_RunV2_RunFinished, timeout = TEST_WAIT_TIMEOUT)
+                clickOnText(Res.string.Dashboard_LastResults_SeeResults, timeout = TEST_WAIT_TIMEOUT)
 
-                clickOnText(Res.string.Test_InstantMessaging_Fullname)
+                clickOnText(getOoniDescriptor(OoniTest.InstantMessaging).title())
                 clickOnText(Res.string.Snackbar_ResultsSomeNotUploaded_UploadAll)
 
                 val onUploading =
@@ -94,7 +95,7 @@ class UploadResultTest {
                 clickOnText("Trusted International Media")
                 clickOnText(getPluralString(Res.plurals.Dashboard_RunTests_RunButton_Label, 1, 1))
 
-                clickOnText(Res.string.Dashboard_RunV2_RunFinished, timeout = TEST_WAIT_TIMEOUT)
+                clickOnText(Res.string.Dashboard_LastResults_SeeResults, timeout = TEST_WAIT_TIMEOUT)
 
                 clickOnText("Trusted International Media")
                 clickOnText(Res.string.Snackbar_ResultsSomeNotUploaded_UploadAll)

@@ -1,6 +1,5 @@
 package org.ooni.probe.ui.descriptor.websites
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -60,7 +59,7 @@ class DescriptorWebsitesViewModel(
         data object Loading : State
 
         data class Show(
-            val title: @Composable () -> String,
+            val title: () -> String,
             val color: Color?,
             val websites: List<String>,
         ) : State

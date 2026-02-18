@@ -16,4 +16,8 @@
     <string name="r2160p_ext" translatable="false">2160p (4k)</string>
 
     <string name="twoParam" translatable="false">%1$s %2$s</string>
+
+    <string name="websites_datausage" translatable="false">~ 8 MB</string>
+    <string name="small_datausage" translatable="false">&lt; 1 MB</string>
+    <string name="performance_datausage" translatable="false">5 - 200 MB</string>
 </resources>

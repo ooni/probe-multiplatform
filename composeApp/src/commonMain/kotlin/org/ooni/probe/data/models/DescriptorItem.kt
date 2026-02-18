@@ -37,11 +37,11 @@ data class DescriptorItem(
 ) {
     val name: String
         get() = descriptor.name
-    val title: @Composable () -> String
+    val title: () -> String
         get() = { descriptor.nameIntl?.getCurrent() ?: descriptor.name }
-    val shortDescription: @Composable () -> String?
+    val shortDescription: () -> String?
         get() = { descriptor.shortDescriptionIntl?.getCurrent() ?: descriptor.shortDescription }
-    val description: @Composable () -> String?
+    val description: () -> String?
         get() = { descriptor.descriptionIntl?.getCurrent() ?: descriptor.description }
     val metadata: @Composable () -> String? = {
         val monthNames = stringMonthArrayResource()
@@ -139,9 +139,7 @@ fun Descriptor.toDescriptorItem(updateStatus: UpdateStatus = UpdateStatus.Unknow
     )
 
 fun Descriptor.getDataUsage(): StringResource =
-    when (
-        OoniTest.fromId(this.id.value)
-    ) {
+    when (OoniTest.fromId(this.id.value)) {
         OoniTest.Websites -> Res.string.websites_datausage
         OoniTest.InstantMessaging -> Res.string.small_datausage
         OoniTest.Circumvention -> Res.string.small_datausage

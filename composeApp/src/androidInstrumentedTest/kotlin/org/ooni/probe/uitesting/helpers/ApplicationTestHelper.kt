@@ -5,9 +5,13 @@ import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import org.ooni.probe.AndroidApplication
 import org.ooni.probe.MainActivity
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.OoniTest
+import org.ooni.probe.data.models.toDescriptorItem
 
 val context: Context get() = InstrumentationRegistry.getInstrumentation().targetContext
 
@@ -35,3 +39,10 @@ val isNewsMediaScan
 
 val isCrashReportingEnabled
     get() = dependencies.flavorConfig.isCrashReportingEnabled
+
+suspend fun getOoniDescriptor(test: OoniTest) =
+    dependencies.testDescriptorRepository
+        .listLatestByRunIds(listOf(Descriptor.Id(test.id)))
+        .first()
+        .first()
+        .toDescriptorItem()
