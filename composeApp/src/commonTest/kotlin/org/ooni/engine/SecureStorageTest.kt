@@ -14,7 +14,6 @@ import kotlin.test.assertTrue
  * Contract test for [SecureStorage].
  */
 class SecureStorageTest {
-
     private lateinit var storage: SecureStorage
 
     @BeforeTest

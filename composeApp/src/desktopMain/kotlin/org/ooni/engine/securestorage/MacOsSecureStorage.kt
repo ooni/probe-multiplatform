@@ -1,13 +1,14 @@
-package org.ooni.engine
+package org.ooni.engine.securestorage
 
 import com.sun.jna.Library
 import com.sun.jna.Native
 import com.sun.jna.Pointer
 import com.sun.jna.ptr.IntByReference
 import com.sun.jna.ptr.PointerByReference
+import org.ooni.engine.SecureStorage
 
 /**
- * macOS implementation of [SecureStorage] using the Keychain Services API.
+ * macOS implementation of [org.ooni.engine.SecureStorage] using the Keychain Services API.
  *
  * Stores credentials as generic passwords with service = [SERVICE_NAME]
  * and account = key. Uses the legacy Keychain API (SecKeychainAddGenericPassword,
@@ -20,6 +21,7 @@ class MacOsSecureStorage : SecureStorage {
     companion object {
         private const val SERVICE_NAME = "org.ooni.probe"
         private const val KEY_INDEX_KEY = "__ooni_key_index__"
+
         // Use newline as separator — null bytes are truncated by C string APIs
         private const val KEY_INDEX_SEPARATOR = "\n"
 
@@ -96,11 +98,11 @@ class MacOsSecureStorage : SecureStorage {
 
         if (status != ERR_SEC_SUCCESS) return null
 
-        val data = passwordData.value
+        val data = passwordData.value ?: return null
         val length = passwordLength.value
-        if (data == null || length == 0) return null
 
         try {
+            if (length == 0) return ""
             val bytes = data.getByteArray(0, length)
             return String(bytes, Charsets.UTF_8)
         } finally {

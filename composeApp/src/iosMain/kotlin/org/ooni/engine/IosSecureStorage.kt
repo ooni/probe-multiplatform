@@ -1,5 +1,6 @@
 package org.ooni.engine
 
+import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.memScoped
@@ -36,9 +37,8 @@ import platform.Security.kSecMatchLimitOne
 import platform.Security.kSecReturnAttributes
 import platform.Security.kSecReturnData
 import platform.Security.kSecValueData
-import kotlin.jvm.JvmInline
 
-@OptIn(ExperimentalForeignApi::class)
+@OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 class IosSecureStorage(
     private val service: String = "org.ooni.probe",
 ) : SecureStorage {
@@ -54,7 +54,10 @@ class IosSecureStorage(
                 CFBridgingRelease(query)
                 if (status == errSecSuccess) {
                     val data = CFBridgingRelease(result.value) as? platform.Foundation.NSData
-                    data?.let { NSString.create(it, NSUTF8StringEncoding) as? String }
+                    data?.let {
+                        val nsString = NSString.create(it, NSUTF8StringEncoding)
+                        nsString?.toString()
+                    }
                 } else {
                     null
                 }
@@ -66,8 +69,8 @@ class IosSecureStorage(
         value: String,
     ): Boolean =
         withContext(Dispatchers.IO) {
-            val valueData =
-                (value as NSString).dataUsingEncoding(NSUTF8StringEncoding) ?: return@withContext false
+            val nsString = NSString.create(string = value)
+            val valueData = nsString.dataUsingEncoding(NSUTF8StringEncoding) ?: return@withContext false
             val valueDataRef = CFBridgingRetain(valueData)
 
             // Try update first; if the item doesn't exist, add it.
@@ -138,15 +141,15 @@ class IosSecureStorage(
     ): CFDictionaryRef =
         buildCFDictionary {
             addEntry(kSecClass, kSecClassGenericPassword)
-            addEntry(kSecAttrService, CFBridgingRetain(service as NSString))
-            addEntry(kSecAttrAccount, CFBridgingRetain(key as NSString))
+            addEntry(kSecAttrService, CFBridgingRetain(NSString.create(string = service)))
+            addEntry(kSecAttrAccount, CFBridgingRetain(NSString.create(string = key)))
             block()
         }
 
     private inline fun buildServiceQuery(block: CFMutableDictionaryScope.() -> Unit = {}): CFDictionaryRef =
         buildCFDictionary {
             addEntry(kSecClass, kSecClassGenericPassword)
-            addEntry(kSecAttrService, CFBridgingRetain(service as NSString))
+            addEntry(kSecAttrService, CFBridgingRetain(NSString.create(string = service)))
             block()
         }
 
@@ -161,7 +164,7 @@ class IosSecureStorage(
     ) {
         fun addEntry(
             key: CFStringRef?,
-            value: Any?,
+            value: platform.CoreFoundation.CFTypeRef?,
         ) {
             platform.CoreFoundation.CFDictionaryAddValue(dict, key, value)
         }

@@ -1,4 +1,4 @@
-package org.ooni.engine
+package org.ooni.engine.securestorage
 
 import com.sun.jna.LastErrorException
 import com.sun.jna.Memory
@@ -8,9 +8,10 @@ import com.sun.jna.Structure
 import com.sun.jna.platform.win32.WinBase
 import com.sun.jna.win32.StdCallLibrary
 import com.sun.jna.win32.W32APIOptions
+import org.ooni.engine.SecureStorage
 
 /**
- * Windows implementation of [SecureStorage] using the Credential Manager API.
+ * Windows implementation of [org.ooni.engine.SecureStorage] using the Credential Manager API.
  *
  * Stores credentials via advapi32.dll (CredWriteW, CredReadW, CredDeleteW,
  * CredEnumerateW, CredFree). All target names are prefixed with [TARGET_PREFIX]
@@ -37,18 +38,30 @@ class WindowsSecureStorage : SecureStorage {
         "TargetAlias",
         "UserName",
     )
+    @Suppress("ktlint:standard:property-naming")
     class CREDENTIAL : Structure() {
         @JvmField var Flags: Int = 0
+
         @JvmField var Type: Int = 0
+
         @JvmField var TargetName: String? = null
+
         @JvmField var Comment: String? = null
+
         @JvmField var LastWritten: WinBase.FILETIME = WinBase.FILETIME()
+
         @JvmField var CredentialBlobSize: Int = 0
+
         @JvmField var CredentialBlob: Pointer? = null
+
         @JvmField var Persist: Int = 0
+
         @JvmField var AttributeCount: Int = 0
+
         @JvmField var Attributes: Pointer? = null
+
         @JvmField var TargetAlias: String? = null
+
         @JvmField var UserName: String? = null
     }
 
@@ -99,7 +112,8 @@ class WindowsSecureStorage : SecureStorage {
         try {
             val cred = Structure.newInstance(CREDENTIAL::class.java, pCredential[0]!!)
             cred.read()
-            if (cred.CredentialBlob == null || cred.CredentialBlobSize == 0) return null
+            if (cred.CredentialBlob == null) return null
+            if (cred.CredentialBlobSize == 0) return ""
             val bytes = cred.CredentialBlob!!.getByteArray(0, cred.CredentialBlobSize)
             return String(bytes, Charsets.UTF_16LE)
         } finally {

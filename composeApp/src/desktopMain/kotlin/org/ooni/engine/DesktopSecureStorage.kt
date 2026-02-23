@@ -1,12 +1,16 @@
 package org.ooni.engine
 
+import org.ooni.engine.securestorage.LinuxSecureStorage
+import org.ooni.engine.securestorage.MacOsSecureStorage
+import org.ooni.engine.securestorage.WindowsSecureStorage
+
 /**
  * Desktop implementation of [SecureStorage] that delegates to a platform-specific
  * backend based on the detected operating system:
  *
- * - **Linux**: [LinuxSecureStorage] — libsecret (GNOME Keyring / KDE Wallet)
- * - **Windows**: [WindowsSecureStorage] — Credential Manager (advapi32.dll)
- * - **macOS**: [MacOsSecureStorage] — Keychain (Security framework)
+ * - **Linux**: [org.ooni.engine.securestorage.LinuxSecureStorage] — libsecret (GNOME Keyring / KDE Wallet)
+ * - **Windows**: [org.ooni.engine.securestorage.WindowsSecureStorage] — Credential Manager (advapi32.dll)
+ * - **macOS**: [org.ooni.engine.securestorage.MacOsSecureStorage] — Keychain (Security framework)
  */
 class DesktopSecureStorage : SecureStorage {
     private val delegate: SecureStorage by lazy {

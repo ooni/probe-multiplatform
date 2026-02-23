@@ -1,11 +1,12 @@
-package org.ooni.engine
+package org.ooni.engine.securestorage
 
 import com.sun.jna.Library
 import com.sun.jna.Native
 import com.sun.jna.Pointer
+import org.ooni.engine.SecureStorage
 
 /**
- * Linux implementation of [SecureStorage] using libsecret (Secret Service API).
+ * Linux implementation of [org.ooni.engine.SecureStorage] using libsecret (Secret Service API).
  *
  * Stores credentials in GNOME Keyring / KDE Wallet via the freedesktop.org
  * Secret Service D-Bus interface, accessed through libsecret-1.
@@ -18,6 +19,7 @@ class LinuxSecureStorage : SecureStorage {
         private const val SERVICE_NAME = "org.ooni.probe"
         private const val SCHEMA_NAME = "org.ooni.probe.credentials"
         private const val KEY_INDEX_KEY = "__ooni_key_index__"
+
         // Use newline as separator — null bytes are truncated by C string APIs
         private const val KEY_INDEX_SEPARATOR = "\n"
     }

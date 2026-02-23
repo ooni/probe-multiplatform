@@ -4,6 +4,7 @@ import android.content.Context
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
+import androidx.core.content.edit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.security.KeyStore
@@ -28,7 +29,6 @@ class AndroidSecureStorage(
         appContext.getSharedPreferences(prefsName, Context.MODE_PRIVATE)
     }
 
-
     private fun getOrCreateKey(): SecretKey {
         val keyStore = KeyStore.getInstance(KEYSTORE_PROVIDER).apply { load(null) }
         keyStore.getKey(keyAlias, null)?.let { return it as SecretKey }
@@ -47,7 +47,6 @@ class AndroidSecureStorage(
         )
         return keyGen.generateKey()
     }
-
 
     private fun encrypt(plaintext: String): String {
         val cipher = Cipher.getInstance(TRANSFORMATION)
@@ -72,7 +71,6 @@ class AndroidSecureStorage(
         return cipher.doFinal(ciphertext).toString(Charsets.UTF_8)
     }
 
-
     override suspend fun read(key: String): String? =
         withContext(Dispatchers.IO) {
             prefs.getString(key, null)?.let { runCatching { decrypt(it) }.getOrNull() }
@@ -84,7 +82,8 @@ class AndroidSecureStorage(
     ): Boolean =
         withContext(Dispatchers.IO) {
             runCatching {
-                prefs.edit().putString(key, encrypt(value)).commit()
+                prefs.edit(commit = true) { putString(key, encrypt(value)) }
+                true
             }.getOrDefault(false)
         }
 
@@ -95,7 +94,10 @@ class AndroidSecureStorage(
 
     override suspend fun delete(key: String): Boolean =
         withContext(Dispatchers.IO) {
-            prefs.edit().remove(key).commit()
+            runCatching {
+                prefs.edit(commit = true) { remove(key) }
+                true
+            }.getOrDefault(false)
         }
 
     override suspend fun list(): List<String> =
@@ -105,7 +107,10 @@ class AndroidSecureStorage(
 
     override suspend fun deleteAll(): Boolean =
         withContext(Dispatchers.IO) {
-            prefs.edit().clear().commit()
+            runCatching {
+                prefs.edit(commit = true) { clear() }
+                true
+            }.getOrDefault(false)
         }
 
     private companion object {
