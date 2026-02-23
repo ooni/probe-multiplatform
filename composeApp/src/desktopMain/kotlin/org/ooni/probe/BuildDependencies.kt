@@ -12,6 +12,7 @@ import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.createDesktopSecureStorage
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.engine.DesktopOonimkallBridge
+import org.ooni.passport.DesktopPassportBridge
 import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.DesktopLegacyDirectoryManager
@@ -86,6 +87,7 @@ internal fun buildDependencies(
     Dependencies(
         platformInfo = platformInfo,
         oonimkallBridge = oonimkallBridge,
+        passportBridge = DesktopPassportBridge(),
         baseFileDir = dataDir,
         cacheDir = cacheDir,
         databaseDriverFactory = { buildDatabaseDriver(dataDir) },
