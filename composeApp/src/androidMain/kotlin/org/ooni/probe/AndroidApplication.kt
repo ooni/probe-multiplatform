@@ -29,6 +29,7 @@ import okio.Path.Companion.toPath
 import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
 import org.ooni.engine.AndroidSecureStorage
+import org.ooni.passport.AndroidPassportBridge
 import org.ooni.probe.background.AppWorkerManager
 import org.ooni.probe.config.AndroidBatteryOptimization
 import org.ooni.probe.config.FlavorConfig
@@ -50,6 +51,7 @@ class AndroidApplication : Application() {
         Dependencies(
             platformInfo = platformInfo,
             oonimkallBridge = AndroidOonimkallBridge(),
+            passportBridge = AndroidPassportBridge(),
             baseFileDir = filesDir.absolutePath,
             cacheDir = cacheDir.absolutePath,
             databaseDriverFactory = ::buildDatabaseDriver,

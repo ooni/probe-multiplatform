@@ -25,6 +25,10 @@
 		79FBD00F2C5A70AF004E041C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		79FBD0132C5A70AF004E041C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		79FBD0142C5A70AF004E041C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
+		935409942F4CCC280055415F /* IosPassportBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935409922F4CCC280055415F /* IosPassportBridge.swift */; };
+		935409952F4CCC280055415F /* IosPassportBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935409922F4CCC280055415F /* IosPassportBridge.swift */; };
+		9364F5372F4DC08600A4D08C /* ooniprobe-passport.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9364F5362F4DC08500A4D08C /* ooniprobe-passport.xcframework */; };
+		9364F5382F4DC08600A4D08C /* ooniprobe-passport.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9364F5362F4DC08500A4D08C /* ooniprobe-passport.xcframework */; };
 		93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */; };
 		A0BFEE644239A9C4B4F518F9 /* Pods_NewsMediaScan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D64CB7120DD6292730C16110 /* Pods_NewsMediaScan.framework */; };
 		A63D4DAB2DEF80E322CD2A82 /* Pods_OONIProbe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD59ED7E2702C84FF0455021 /* Pods_OONIProbe.framework */; };
@@ -95,6 +99,8 @@
 		79FBD01A2C5A70AF004E041C /* News Media Scan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "News Media Scan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8918F4B39DEEFE89FDF20821 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		9155D307318D3F295444355A /* Pods-NewsMediaScanUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsMediaScanUITests.debug.xcconfig"; path = "Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		935409922F4CCC280055415F /* IosPassportBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosPassportBridge.swift; sourceTree = "<group>"; };
+		9364F5362F4DC08500A4D08C /* ooniprobe-passport.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = "ooniprobe-passport.xcframework"; sourceTree = "<group>"; };
 		93D3BF5B2C6B684800E9A9B7 /* descriptors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = descriptors.json; sourceTree = "<group>"; };
 		93D3BF602C6B70AD00E9A9B7 /* descriptors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = descriptors.json; sourceTree = "<group>"; };
 		93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosOonimkallBridge.swift; sourceTree = "<group>"; };
@@ -149,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0BFEE644239A9C4B4F518F9 /* Pods_NewsMediaScan.framework in Frameworks */,
+				9364F5382F4DC08600A4D08C /* ooniprobe-passport.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A63D4DAB2DEF80E322CD2A82 /* Pods_OONIProbe.framework in Frameworks */,
+				9364F5372F4DC08600A4D08C /* ooniprobe-passport.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +186,7 @@
 				DD59ED7E2702C84FF0455021 /* Pods_OONIProbe.framework */,
 				B4B28F104580A82EDFEDC452 /* Pods_NewsMediaScanUITests.framework */,
 				2D66F034741194372DDA4078 /* Pods_OONIProbeUITests.framework */,
+				9364F5362F4DC08500A4D08C /* ooniprobe-passport.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -237,6 +246,7 @@
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 				93E977722C4FCCF7009CCABC /* engine */,
+				935409932F4CCC280055415F /* passport */,
 				793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */,
 			);
 			path = iosApp;
@@ -250,6 +260,14 @@
 				795E377C2CD5053900086360 /* Info.plist */,
 			);
 			path = share;
+			sourceTree = "<group>";
+		};
+		935409932F4CCC280055415F /* passport */ = {
+			isa = PBXGroup;
+			children = (
+				935409922F4CCC280055415F /* IosPassportBridge.swift */,
+			);
+			path = passport;
 			sourceTree = "<group>";
 		};
 		93D3BF5C2C6B684800E9A9B7 /* assets */ = {
@@ -853,6 +871,7 @@
 				79B9D19A2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */,
+				935409952F4CCC280055415F /* IosPassportBridge.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -887,6 +906,7 @@
 				79B9D19B2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */,
 				79FBD00D2C5A70AF004E041C /* iOSApp.swift in Sources */,
 				79FBD00E2C5A70AF004E041C /* IosOonimkallBridge.swift in Sources */,
+				935409942F4CCC280055415F /* IosPassportBridge.swift in Sources */,
 				79FBD00F2C5A70AF004E041C /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
