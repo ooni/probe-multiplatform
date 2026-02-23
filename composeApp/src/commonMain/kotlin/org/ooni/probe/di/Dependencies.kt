@@ -18,6 +18,7 @@ import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.SecureStorage
 import org.ooni.engine.TaskEventMapper
+import org.ooni.passport.PassportBridge
 import org.ooni.probe.Database
 import org.ooni.probe.background.RunBackgroundTask
 import org.ooni.probe.config.BatteryOptimization
@@ -137,6 +138,7 @@ import kotlin.coroutines.CoroutineContext
 class Dependencies(
     val platformInfo: PlatformInfo,
     private val oonimkallBridge: OonimkallBridge,
+    val passportBridge: PassportBridge? = null,
     private val baseFileDir: String,
     val cacheDir: String,
     private val databaseDriverFactory: () -> SqlDriver,
