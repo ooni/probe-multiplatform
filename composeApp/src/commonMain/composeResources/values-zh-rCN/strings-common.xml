@@ -13,7 +13,7 @@
     <string name="Dashboard_AutoRun_Enabled"><![CDATA[自动运行已 <i>开启</i>]]></string>
     <string name="Dashboard_AutoRun_Disabled"><![CDATA[自动运行已 <i>停用</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">测试</string>
-    <string name="Dashboard_TestsMoved_Description">你的测试移动到了新标签页，可通过下方导航栏到达</string>
+    <string name="Dashboard_TestsMoved_Description">你的测试移动到了新标签页，可通过下方导航栏到达。</string>
     <string name="Dashboard_TestsMoved_Action">查看测试</string>
     <string name="Dashboard_RunTests_Title">运行测试</string>
     <string name="Dashboard_RunTests_Description">选择要运行的测试</string>
@@ -29,7 +29,7 @@
     <plurals name="Dashboard_Stats_Countries">
         <item quantity="other">国家/地区</item>
     </plurals>
-    <string name="Dashboard_Stats_Empty">开始运行测试以在此处查看统计数据</string>
+    <string name="Dashboard_Stats_Empty">开始运行测试以在此处查看统计数据。</string>
     <string name="Dashboard_Articles_Title">OONI 新闻</string>
     <string name="Dashboard_Articles_Blog">博文</string>
     <string name="Dashboard_Articles_Finding">研究成果</string>
@@ -140,7 +140,7 @@
     <string name="TestResults_Filter_Date_Custom">自定义</string>
     <string name="TestResults_Filter_Date_Custom_Filled">自定义：%1$s</string>
     <string name="TestResults_Filter_Date_Picker">选择日期范围</string>
-    <string name="TestResults_Filter_NoTestsFound">没有找到这些筛选器的测试结果</string>
+    <string name="TestResults_Filter_NoTestsFound">没有找到这些筛选器的测试结果。</string>
     <string name="TestResults_Filter_DeleteConfirmation">是否要删除当前筛选器的所有测试结果？</string>
     <string name="Results_LimitedNotice">只显示最后 %1$d 个结果</string>
     <string name="Results_UploadingMissing">上传缺失的结果 %1$s</string>
@@ -219,7 +219,7 @@
     <string name="Settings_Storage_Clear">清除键</string>
     <string name="Settings_Legacy_Storage">删除来自之前版本的文件</string>
     <string name="Settings_WarmVPNInUse_Label">在使用VPN时发出警告</string>
-    <string name="Settings_DisableVpnInstructions">转到设置 &gt; 常规  &gt; VPN 并断开 VPN 连接</string>
+    <string name="Settings_DisableVpnInstructions">转到设置 &gt; 常规 &gt; VPN 并断开 VPN 连接。</string>
     <string name="Settings_Logs">日志</string>
     <string name="Settings_ShareLogs">分享日志</string>
     <string name="Settings_ShareLogs_Error">分享日志出错</string>
@@ -272,7 +272,7 @@
     <string name="CategoryCode_POLR_Description">政治批评观点</string>
     <string name="CategoryCode_HUMR_Description">人权问题</string>
     <string name="CategoryCode_ENV_Description">环境问题讨论</string>
-    <string name="CategoryCode_MILX_Description">恐怖主义、暴力激进分子以及分离主义运动。</string>
+    <string name="CategoryCode_MILX_Description">恐怖主义、暴力激进分子以及分离主义运动</string>
     <string name="CategoryCode_HATE_Description">根据种族、性别、性取向或其他特征对特定群体诋毁</string>
     <string name="CategoryCode_NEWS_Description">主流新闻网站、地区性媒体以及独立媒体</string>
     <string name="CategoryCode_XED_Description">性卫生问题，包括避孕、性病、预防强奸和堕胎</string>
@@ -316,7 +316,7 @@
     <string name="Onboarding_Crash_Button_Yes">是</string>
     <string name="Onboarding_Crash_Button_No">否</string>
     <string name="Onboarding_Notifications_Title">启用通知</string>
-    <string name="Onboarding_Notifications_Paragraph">开始运行测试后，你可以关闭应用，测试会继续在后台运行。开启通知这样你可以知道哪些测试正在运行，或停止它们，无需打开应用</string>
+    <string name="Onboarding_Notifications_Paragraph">开始运行测试后，你可以关闭应用，测试会继续在后台运行。开启通知这样你可以知道哪些测试正在运行，或停止它们，无需打开应用。</string>
     <string name="Onboarding_Notifications_Ok">正常</string>
     <string name="Onboarding_Notifications_Skip">跳过</string>
     <string name="Onboarding_DefaultSettings_Title">默认设置</string>
@@ -377,7 +377,7 @@
     <string name="Modal_CustomURL_Title_NotSaved">是否确定？</string>
     <string name="Modal_CustomURL_NotSaved">离开此屏幕将不会保存您的 URL。确定离开吗？</string>
     <string name="Modal_Autorun_BatteryOptimization_Onboarding">没有后台权限，本应用无法自动运行测试。是否要重试？</string>
-    <string name="Modal_Autorun_BatteryOptimization_Reminder">应用需要权限以在后台自动运行测试</string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder">应用需要权限以在后台自动运行测试。</string>
     <string name="Desktop_OpenApp">打开应用</string>
     <string name="Desktop_Quit">退出</string>
     <string name="Tray_Notification_Check_Updates">检查更新</string>
