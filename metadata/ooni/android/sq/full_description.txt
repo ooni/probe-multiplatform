@@ -1,24 +1,24 @@
-A janë bllokuar aplikacionet e rrjeteve sociale? A është interneti juaj më i ngadaltë se zakonisht? Përdor OONI Probe për të mësuar më shumë.
+A bllokohen sajte dhe aplikacione mediash shoqërore? A është rrjeti juaj i ngadaltë në mënyrë të pazakontë? Vini në punë OONI Probe që ta mësoni!
 
-Me këtë aplikacion, ju kontrolloni bllokimin e faqeve online dhe aplikacioneve për shkëmbim mesazhesh, mat shpejtësinë dhe performancën e internetit dhe shiko nëse sistemet mund të jenë përgjegjëse për censurimin dhe mbikëqyrjen në rrjetin tënd.
+Me këtë aplikacion do të ekzaminoni bllokimin e sajteve dhe aplikacioneve të shkëmbimit të atypëratyshëm të mesazheve, do të matni shpejtësinë e funksionimin e rrjetit tuaj dhe do të shihni nëse sisteme që mund të ishin përgjegjës për censurimin dhe survejimin gjenden në rrjetin tuaj apo jo.
 
-OONI Probe zhvillohet nga Open Observatory of Network Interference (OONI), një projekt i lirë (nën The Tor Project) me qëllim të nxjerri në pahë censurimin e internetit kudo në botë.
+OONI Probe zhvillohet nga Observatori i Hapur i Interferencave Në Rrjete (OONI), një projekt <em>software</em> i lirë (në Projektin Tor) që synon nxjerrë zbuluar censurimin e internetit nëpër botë.
 
-Që në vitin 2012, komuniteti global i OONI ka mbledhur miliona rezultate të matjeve të rrjetit nga më shumë se 200 vende, duke zbardhur shumë raste të ndërhyrjeve në rrjet.
+Që prej 2012-s, bashkësia mbarëbotërore e OONI-t ka grumbulluar miliona matje rrjeti nga më shumë se 200 vende, duke hedhur dritë mbi raste të shumta interference në rrjete.
 
-Mblidh prova të censurimit të internetit
-Ju mund të kontrolloni nëse edhe si faqet online dhe aplikacionet e mesazheve janë bllokuar. Të dhënat e matjeve te rrjetit tuaj mund të shërbejnë si prova për çensurën në internet. 
+Grumbulloni prova censurimi interneti
+Mund të kontrolloni nëse bllokohen dhe në ç’mënyrë, sajte dhe aplikacione shkëmbimi të atypëratyshëm mesazhesh. Të dhënat e matjeve në rrjet që grumbulloni mund të shërbejnë si provë për censurimin e internetit.
 
-Dallon sistemet përgjegjëse për censurim dhe përgjime
-Testimet e OONI Probe janë dizajnuar të zbulojnë praninë e sistemeve (middleboxes) që mund të jenë përgjegjëse për përgjime dhe censurime.
+Pikasni sisteme përgjegjës për censurim dhe survejim
+Testet nga OONI Probe janë hartuar gjithashtu për të zbuluar praninë e sistemeve (<em>middleboxes</em>) që mund të jenë përgjegjës për censurim dhe survejim.
 
-Mat shpejtësinë dhe performancën e rrjetit tënd
-Ju mund të masni shpejtësinë dhe performancën e rrjetit tuaj duke përdorur implementimin e NDT (testi i diagnostikimit të rrjetit). Ju gjithashtu mund të kontrolloni performancën e shikimit të videove me testin DASH ( Dynamic Adaptive Streaming over HTTP ).
+Matni shpejtësinë dhe funksionimin e rrjetit tuaj
+Mund të matni shpejtësinë dhe funksionimin e rrjetit tuaj, duke xhiruar sendërtimin nga OONI të Testit të Diagnostikimit të Rrjeteve (NDT). Mundeni edhe të matni funksionimin e transmetimeve video, me testin Transmetim Adaptiv Dinamik përmes HTTP-je (DASH).
 
-Të dhëna të hapura
-OONI bën publike të dhënat e matjeve të rrjetit sepse të dhënat e hapura lejojnë palët e treta të verifkojnë gjetjet e OONI, të kryejnë studime të pavarura dhe t'u përgjigjen pyetjeve kërkimore. Duke publikuar të dhënat e OONI ndihmon në rritjen e transparencës të censurimit të internetit në botë. Ju mund të shihni këto të dhëna në: https://ooni.io/data/
+Të dhëna të hapëta 
+OONI i boton të dhënat nga matje rrjetesh, ngaqë të dhënat e hapëta u lejojnë palëve të treta të verifikojnë gjetjet e OONI-t, të kryejnë studime të pavarura dhe t’u përgjigjen pyetjeve të tjera nga kërkimi. Botimi haptazi i të dhënave të OONI-t ndihmon gjithashtu të shtohet transparenca rreth censurimit të internetit nëpër botë. Të dhëna nga OONI mund të eksploroni dhe të shkarkoni nga këtu: https://ooni.io/data/
 
-Program pa pagesë
-Të gjitha testimet e OONI Probe (përfshirë implementimin e NDT dhe DASH), bazohen në softuer me kod-burim të hapur dhe të lirë. Ju mund të gjeni projektet e OONI në GitHub: https://github.com/ooni. Kuriozë të shihni si funksionojnë testet e OONI Probe? Mëso më shumë: https://ooni.io/nettest/
+Software i lirë
+Krejt testet OONI Probe (përfshi sendërtimet tona të NDT-së dhe DASH-it) bazohen në <em>software</em> të lirë dhe me burim të hapët. Projektet <em>software</em> OONI mund t’i gjeni në GitHub: https://github.com/ooni. Kureshtar të mësoni se si funksionojnë testet OONI Probe? Mësoni më tepër: https://ooni.io/nettest/
 
-Për të marrë përditësime nga OONI-vers, na ndiqni në Twitter: https://twitter.com/OpenObservatory
+Që të merrni përditësime nga OONI-versi, na ndiqni në Twitter: https://twitter.com/OpenObservatory

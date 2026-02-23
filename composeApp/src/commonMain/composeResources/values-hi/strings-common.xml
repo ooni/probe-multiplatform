@@ -83,7 +83,7 @@
     <string name="Settings_Storage_Clear">साफ़ करें</string>
     <string name="Settings_Logs">लॉग्स</string>
     <string name="Settings_Websites_Categories_Selection_None">सबको अचयनित करें</string>
-    <string name="Settings_Websites_Categories_Selection_All">सब कुछ चुने। </string>
+    <string name="Settings_Websites_Categories_Selection_All">सब कुछ चुने</string>
     <string name="Settings_Websites_CustomURL_Title">परीक्षण करने के लिए वेबसाइटों का चयन करें</string>
     <string name="Settings_Websites_CustomURL_URL">यूआरएल</string>
     <string name="Settings_Websites_CustomURL_Run">चलाना</string>
@@ -181,8 +181,8 @@
     <string name="Snackbar_ResultsNotUploaded_Text">अपलोड नहीं किया गया</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">कुछ अपलोड नहीं किए गए</string>
     <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">सभी अपलोड करें</string>
-    <string name="Toast_ResultsUploaded">अपलोड सफल रहा।</string>
-    <string name="Modal_UploadFailed_Title">अपलोड विफ़ल रहा।</string>
+    <string name="Toast_ResultsUploaded">अपलोड सफल रहा</string>
+    <string name="Modal_UploadFailed_Title">अपलोड विफ़ल रहा</string>
     <string name="Modal_UploadFailed_Paragraph">हम %1$s / %2$s माप अपलोड करने में विफल रहे हैं। विफलता लॉग OONI डेवलपर्स के साथ साझा किया गया है।</string>
     <string name="Modal_Retry">पुन: प्रयास करें</string>
     <string name="Modal_Cancel">रद्द करें</string>

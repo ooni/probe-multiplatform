@@ -222,8 +222,8 @@
     <string name="Modal_ReRun_Title">重新執行測試</string>
     <string name="Modal_ReRun_Websites_Title">您即將重新測試 %1$s。</string>
     <string name="Modal_ReRun_Websites_Run">執行</string>
-    <string name="Modal_DisableVPN_Title">請關閉 VPN 連接</string>
-    <string name="Modal_DisableVPN_Message">若在 VPN 下執行 OONI Probe 則測試結果可能會來自錯誤的國家，故請先關閉 VPN 連接</string>
+    <string name="Modal_DisableVPN_Title">請關閉 VPN 連接。</string>
+    <string name="Modal_DisableVPN_Message">若在 VPN 下執行 OONI Probe 則測試結果可能會來自錯誤的國家，故請先關閉 VPN 連接。</string>
     <string name="Modal_DisableVPN">關閉 VPN</string>
     <string name="Modal_RunAnyway">無論如何都要執行</string>
     <string name="Modal_AlwaysRun">終始執行</string>

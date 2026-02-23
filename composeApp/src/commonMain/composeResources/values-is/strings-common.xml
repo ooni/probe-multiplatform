@@ -9,29 +9,15 @@
     <string name="Dashboard_Running_Stopping_Notice">Lýk þeim prófunum sem eru í gangi, bíddu aðeins…</string>
     <string name="Dashboard_Running_ProxyInUse">Milliþjónn í notkun</string>
     <string name="Dashboard_TestsMoved_Title">Prófanir</string>
-    <string name="Dashboard_RunTests_Title">Run tests</string>
-    <string name="Dashboard_RunTests_Description">Select the tests to run</string>
-    <string name="Dashboard_RunTests_SelectAll">Select all tests</string>
-    <string name="Dashboard_RunTests_SelectNone">Deselect all tests</string>
     <string name="Dashboard_Articles_ReadMore">Kanna nánar</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
-    <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
-    <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
-    <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
-    <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">UPPFÆRSLA</string>
-    <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Hafnaði uppfærslu</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Afturkalla</string>
-    <string name="Dashboard_Runv2_Overview_ReviewUpdates">Review Updates</string>
-    <string name="Dashboard_Progress_UpdateLink_Label">Link updates loading</string>
-    <string name="Dashboard_Progress_ReviewLink_Label">Link updates ready</string>
-    <string name="Dashboard_Progress_ReviewLink_Action">Review</string>
     <string name="Dashboard_ReviewDescriptor_Label">Link Update (%1$s of %2$s)</string>
-    <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE AND FINISH (%1$s of %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s of %2$s)</string>
     <!-- Button to reject a link update during review -->
     <string name="Dashboard_ReviewDescriptor_Reject">Hafna uppfærslu</string>
@@ -78,9 +64,6 @@
     <string name="TestResults_Filter_Date">Dagsetning</string>
     <string name="TestResults_Filter_Date_Today">Í dag</string>
     <string name="TestResults_Filter_Date_Custom">Sérsniðið</string>
-    <string name="Results_LimitedNotice">Only the last %1$d results are shown</string>
-    <string name="Results_UploadingMissing">Uploading missing results %1$s</string>
-    <string name="Measurement_Title">Measurement</string>
     <string name="Measurement_LoadingFailed">Mistókst að hlaða inn upplýsingum um mælingar</string>
     <string name="Measurements_Failed">Mistókst</string>
     <string name="Measurements_Ok">Í lagi</string>
@@ -94,9 +77,6 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Þegar sjálfvirkar prófanir eru virkjaðar, munu OONI Probe prófanir keyra sjálfkrafa nokkrum sinnum á dag. Prófunarniðurstöður þínar verða birtar á OONI Explorer https://explorer.ooni.org/\n\nMikilvægt: Ef þú hefur virkjað VPN, verða OONI Probe prófanir ekki keyra sjálfkrafa. Slökktu á VPN til að keyra sjálfvirkar OONI Probe prófanir. Kannaðu nánar: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run in the background</string>
     <string name="Settings_Sharing_UploadResults">Sjálfvirk birting niðurstaðna</string>
-    <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
-    <string name="Settings_Websites_MaxRuntimeEnabled">Limit Websites test duration</string>
-    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Only for manual runs</string>
     <string name="Settings_Websites_Categories_Label">Flokkar vefsvæða sem á að prófa</string>
     <string name="Settings_Websites_Categories_Description">%1$s flokkar virkir</string>
     <string name="Settings_Privacy_Label">Friðhelgi</string>
@@ -121,12 +101,7 @@
     <string name="Settings_Storage_Delete">Eyða</string>
     <string name="Settings_Storage_Clear">Hreinsa</string>
     <string name="Settings_WarmVPNInUse_Label">Aðvara þegar VPN er í notkun</string>
-    <string name="Settings_DisableVpnInstructions">Go to Settings &gt; General &gt; VPN and disconnect from your VPN.</string>
     <string name="Settings_Logs">Logs</string>
-    <string name="Settings_ShareLogs">Share Logs</string>
-    <string name="Settings_ShareLogs_Error">Error sharing logs</string>
-    <string name="Settings_FilterLogs">Filter Logs</string>
-    <string name="Settings_Sharing_UploadResults_Description">Results are automatically uploaded to OONI explorer</string>
     <string name="Settings_Websites_Categories_Selection_None">Afvelja allt</string>
     <string name="Settings_Websites_Categories_Selection_All">Velja allt</string>
     <string name="Settings_Websites_CustomURL_Title">Veldu vefsvæði til að prófa</string>
@@ -195,8 +170,6 @@
     <string name="CategoryCode_CTRL_Description">Góðkennt eða saklaust efni sem notað er til stýringar</string>
     <string name="CategoryCode_IGO_Description">Milliríkjastofnanir að Sameinuðu Þjóðunum meðtöldum</string>
     <string name="CategoryCode_MISC_Description">Vefsvæði sem ekki hafa enn verið flokkuð</string>
-    <string name="Onboarding_QuizAnswer_Correct">Correct answer</string>
-    <string name="Onboarding_QuizAnswer_Incorrect">Incorrect answer</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Náði því</string>
     <string name="Onboarding_ThingsToKnow_Title">Taktu eftir!</string>
     <string name="Onboarding_ThingsToKnow_Button">Ég skil</string>
@@ -225,12 +198,7 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Hefjumst handa</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Breyta sjálfgefnum gildum</string>
     <string name="AddDescriptor_Settings">Prófa stillingar</string>
-    <string name="AddDescriptor_Title">Install New Link</string>
-    <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
     <string name="AddDescriptor_AutoRun">Keyra prófanir sjálfvirkt</string>
-    <string name="AddDescriptor_Toasts_Installed">Link installed</string>
-    <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
-    <string name="LoadingScreen_Runv2_Message">Link Loading</string>
     <string name="DescriptorUpdate_Updates">UPDATES</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Athuga með uppfærslur</string>
@@ -261,14 +229,10 @@
     <string name="Tray_Notification_Check_Updates">Athuga með uppfærslur</string>
     <string name="Modal_Hide">Fela</string>
     <string name="OONIRun_Run">Keyra</string>
-    <!-- Android notification channel name. -->
-    <string name="Notification_ChannelName">Testing</string>
     <string name="Notification_StopTest">Stöðva prófun</string>
     <string name="Common_Back">Til baka</string>
     <string name="Common_Close">Loka</string>
     <string name="Common_Refresh">refresh</string>
-    <string name="Common_Collapse">Collapse</string>
-    <string name="Common_Expand">Expand</string>
     <string name="Common_Enable">Virkja</string>
     <string name="Common_Yes">Já</string>
     <string name="Common_Save">Vista</string>
@@ -282,7 +246,6 @@
     <string name="Common_Week">Vika</string>
     <string name="Common_Month">Mánuður</string>
     <string name="Common_Total">Samtals</string>
-    <string name="Common_Ago">%1$s ago</string>
     <plurals name="Common_Hours">
         <item quantity="one">%1$d klukkustund</item>
         <item quantity="other">%1$d klukkustundir</item>
@@ -306,7 +269,5 @@
     <string name="Common_Months_October">október</string>
     <string name="Common_Months_November">nóvember</string>
     <string name="Common_Months_December">desember</string>
-    <string name="TaskOrigin_Manual">Manual Run</string>
-    <string name="TaskOrigin_AutoRun">Auto Run</string>
     <string name="NetworkType_Vpn">VPN</string>
 </resources>

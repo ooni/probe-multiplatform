@@ -116,13 +116,13 @@
     <string name="CategoryCode_MISC_Name">Lëndë e ndryshme</string>
     <string name="CategoryCode_ALDR_Description">Përdorim dhe shitje drogash dhe alkooli</string>
     <string name="CategoryCode_REL_Description">Çështje fetare, si në mbështetje, ashtu edhe ato kritike</string>
-    <string name="CategoryCode_PORN_Description">Pornografi të rëndë dhe të lehtë</string>
+    <string name="CategoryCode_PORN_Description">Pornografi hard dhe soft</string>
     <string name="CategoryCode_PROV_Description">Qëndrim provokativ dhe portretizim fermash që veshin veshje minimale</string>
     <string name="CategoryCode_POLR_Description">Pikëvështrime politike kritike</string>
     <string name="CategoryCode_HUMR_Description">Çështje të drejtash të njeriut</string>
     <string name="CategoryCode_ENV_Description">Diskutime në çështje mjedisore</string>
     <string name="CategoryCode_MILX_Description">Terrorizëm, militant i dhunshëm, ose lëvizje separatiste</string>
-    <string name="CategoryCode_HATE_Description">Diskriminim i grupimeve të caktuara bazuar mbi gjininë, seksualitetin ose karakteristika të tjera</string>
+    <string name="CategoryCode_HATE_Description">Përçmim grupesh të veçantë, bazuar në racë, gjini, seksualitet apo karakteristika të tjera</string>
     <string name="CategoryCode_NEWS_Description">Sajte të mëdhenj lajmesh, agjenci rajonale lajmesh dhe media e pavarur</string>
     <string name="CategoryCode_XED_Description">Çështje të shëndetit seksual, përfshi parandalim barre, STS, parandalim përdhunimesh dhe abort</string>
     <string name="CategoryCode_GMB_Description">Kumar dhe baste në internet</string>
@@ -130,7 +130,7 @@
     <string name="CategoryCode_DATE_Description">Faqe lidhjesh në internet</string>
     <string name="CategoryCode_GRP_Description">Mjete dhe platforma internetore rrjetesh shoqërorë</string>
     <string name="CategoryCode_LGBT_Description">Bashkësi LGBTQ+ që diskutojnë çështje të lidhura me to (hiq pornografinë)</string>
-    <string name="CategoryCode_FILE_Description">Ndarje skedarësh përfshirë ruajtje skedarësh të bazuara në shërbimin cloud, torrente dhe P2P</string>
+    <string name="CategoryCode_FILE_Description">Shkëmbim kartelash, përfshi depozitim kartelash me bazë në re, rrëke dhe P2P</string>
     <string name="CategoryCode_HACK_Description">Mjete dhe lajme sigurie kompjuteri</string>
     <string name="CategoryCode_COMT_Description">Mjete komunikimi persona dhe në grup, përfshi VoIP, shkëmbim mesazhesh dhe <em>webmail</em></string>
     <string name="CategoryCode_MMED_Description">Ndarje me të tjerë videosh, audiosh dhe fotosh</string>
@@ -139,7 +139,7 @@
     <string name="CategoryCode_GAME_Description">Lojëra dhe platforma lojërash në internet (hiq sajte kumari)</string>
     <string name="CategoryCode_CULTR_Description">Dëfrim, përfshi histori, letërsi, muzikë, filma, satirë dhe humor</string>
     <string name="CategoryCode_ECON_Description">Zhvillim i përgjithshëm ekonomik dhe varfëri</string>
-    <string name="CategoryCode_GOVT_Description">Sajte të mbajtur në punë nga qeveri, përfshi ata ushtaralë</string>
+    <string name="CategoryCode_GOVT_Description">Sajte të mbajtur në punë nga qeveri, përfshi ata ushtarakë</string>
     <string name="CategoryCode_COMM_Description">Shërbime dhe produkte komerciale</string>
     <string name="CategoryCode_CTRL_Description">Përmbajtje e mirë ose e padëmshme e përdorur për kontroll</string>
     <string name="CategoryCode_IGO_Description">Ente ndërqeveritare, përfshi Organizatën e Kombeve të Bashkuara</string>
@@ -353,4 +353,106 @@
         <item quantity="one">Doni të fshihet %1$s përfundim testi?</item>
         <item quantity="other">Doni të fshihet %1$s përfundime testi?</item>
     </plurals>
+    <string name="Dashboard_LastResults">Përfundimet e Fundit</string>
+    <string name="Dashboard_RunV2_UpdatedTag">U PËRDITËSUA</string>
+    <string name="Dashboard_RunV2_UpdateTag">PËRDITËSOJE</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last">PËRDITËSOJE DHE PËRFUNDOJE (%1$s nga %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default">PËRDITËSOJE (%1$s nga %2$s)</string>
+    <string name="Results_LimitedNotice">Janë shfaqur vetëm %1$d përfundimet e fundit</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Doni t’u vihet shenjë si të para krejt përfundimeve për filtrat e tanishëm?</string>
+    <string name="Measurement_Raw_NotUploadedReasoning">Kjo matje s’u botua te OONI Explorer. Që të shihni analizën, ngarkojeni.</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Duke aktivizuar testimin e automatizuar, testet OONI Probe do të zhvillohen automatikisht disa herë në ditë. Përfundimet e testeve tuaj do të botohet automatikisht në OONI Explorer: https://explorer.ooni.org/ \n\nE rëndësishme: Nëse keni të aktivizuar një VPN, OONI Probe s’do të kryejë testet automatikisht. Për testim të automatizuar nga OONI Probe, ju lutemi, çaktivizoni VPN-në tuaj. Mësoni më tepër: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">Kohëzgjatje maksimum e një kryerje të plotë testesh Sajti</string>
+    <string name="Settings_ShareApp_Description">Ndajeni aplikacionin %1$s me dikë tjetër</string>
+    <string name="Onboarding_Notifications_Paragraph">Pasi filloni të kryeni testet, mund ta mbyllni aplikacionin dhe do të vazhdojnë të bëhen në prapaskenë. Aktivizoni njoftimet, që të mund të ndiqni se cilët testet po kryhen, të mund t’i ndalni, pa u dashur të hapni aplikacionin.</string>
+    <string name="DescriptorUpdate_Updates">PËRDITËSIME</string>
+    <string name="AddDescriptor_AutoRunDisabled">Kryerja e automatizuar është e çaktivizuar. Ju lutemi, që të kryhen testet automatikisht, ju lutemi, aktivizojeni.</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Zhvillimi i automatizuar është <i>i aktivizuar</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Zhvillimi i automatizuar është <i>i çaktivizuar</i>]]></string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Kryej %1$d test</item>
+        <item quantity="other">Kryej %1$d teste</item>
+    </plurals>
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one">Shihni %1$d sajt</item>
+        <item quantity="other">Shihni %1$d sajte</item>
+    </plurals>
+    <string name="Dashboard_Progress_UpdateLink_Label">Po ngarkohen përditësime lidhjesh</string>
+    <string name="Dashboard_Progress_ReviewLink_Label">Përditësimet e lidhjeve janë gati</string>
+    <string name="Dashboard_ReviewDescriptor_Label">Përditësim Lidhjeje (%1$s nga %2$s)</string>
+    <string name="Test_HTTPInvalidRequestLine_Fullname">Test “HTTP Invalid Request Line”</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s i bllokuar</item>
+        <item quantity="other">%1$s të bllokuar</item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one">%1$s i testuar</item>
+        <item quantity="other">%1$s të testuar</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one">I testuar</item>
+        <item quantity="other">Të testuar</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one">I bllokuar</item>
+        <item quantity="other">Të bllokuar</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one">I përdorshëm</item>
+        <item quantity="other">Të përdorshëm</item>
+    </plurals>
+    <string name="TestResults_Filters_Title">Filtroni Përfundime Testi</string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one">%1$d filtër</item>
+        <item quantity="other">%1$d filtra</item>
+    </plurals>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one">%1$d test</item>
+        <item quantity="other">%1$d teste</item>
+    </plurals>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one">%1$d rrjet</item>
+        <item quantity="other">%1$d rrjete</item>
+    </plurals>
+    <string name="TestResults_Filter_Date_Custom_Filled">Vetjak: %1$s</string>
+    <plurals name="Measurements_Count">
+        <item quantity="one">%1$d i matur</item>
+        <item quantity="other">%1$d të matur</item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one">%1$d i dështuar</item>
+        <item quantity="other">%1$d të dështuar</item>
+    </plurals>
+    <string name="Settings_Proxy_Label">Ndërmjetës i pjesës së pasme të OONI-t</string>
+    <string name="Settings_ShareApp_ShareMessage">Instaloni %1$s që nga %2$s</string>
+    <string name="Settings_FilterLogs">Filtroni Regjistra</string>
+    <string name="Settings_Sharing_UploadResults_Description">Përfundimet ngarkohen automatikisht te OONI Explorer</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one">Testo %1$d URL</item>
+        <item quantity="other">Testo %1$d URL-ra</item>
+    </plurals>
+    <string name="AddDescriptor_EnterURL">Jepni një URL Lidhjeje OONI Run</string>
+    <string name="AddDescriptor_Title">Instaloni Lidhje të Re</string>
+    <string name="AddDescriptor_Toasts_Installed">Lidhja u instalua</string>
+    <plurals name="Modal_Selected">
+        <item quantity="one">%1$d objekt i përzgjedhur</item>
+        <item quantity="other">%1$d objekte të përzgjedhur</item>
+    </plurals>
+    <string name="Notification_UpdateChannelName">Përditësime Lidhjesh</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one">%1$d sekondë</item>
+        <item quantity="other">%1$d sekonda</item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="one">%1$d minutë</item>
+        <item quantity="other">%1$d minuta</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d orë</item>
+        <item quantity="other">%1$d orë</item>
+    </plurals>
+    <string name="Dashboard_RunV2_Title">Lidhje OONI Run</string>
+    <string name="Settings_ShareApp">Ndajeni Aplikacionin Me të Tjerë</string>
+    <string name="Settings_ShareLogs">Ndani Regjistra Me të Tjerë</string>
+    <string name="Descriptor_LastTestResult">Përfundime Testi të Fundit</string>
 </resources>
