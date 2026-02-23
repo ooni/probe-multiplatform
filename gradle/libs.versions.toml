@@ -91,7 +91,7 @@ sqldelight-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "
 okio = { module = "com.squareup.okio:okio", version = "3.16.4" }
 
 # Lottie animations
-kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.2" }
+kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.0.3" }
 
 # Permissions
 moko-permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "mokoPermissions" }
