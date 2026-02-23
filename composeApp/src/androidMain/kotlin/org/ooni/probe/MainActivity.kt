@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.core.net.toUri
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.ooni.probe.config.AndroidUpdateMonitoring
@@ -19,7 +20,6 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.UpdateMonitoring
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.ui.shared.showAppReview
-import androidx.core.net.toUri
 
 class MainActivity : ComponentActivity() {
     private val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)

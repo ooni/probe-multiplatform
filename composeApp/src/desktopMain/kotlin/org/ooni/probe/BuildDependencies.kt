@@ -6,6 +6,7 @@ import dev.dirs.ProjectDirectories
 import okio.Path.Companion.toPath
 import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.engine.DesktopOonimkallBridge
+import org.ooni.passport.DesktopPassportBridge
 import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.DesktopLegacyDirectoryManager
@@ -37,6 +38,7 @@ private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager
 val dependencies = Dependencies(
     platformInfo = buildPlatformInfo(),
     oonimkallBridge = DesktopOonimkallBridge(),
+    passportBridge = DesktopPassportBridge(),
     baseFileDir = projectDirectories.dataDir.also { File(it).mkdirs() },
     cacheDir = projectDirectories.cacheDir.also { File(it).mkdirs() },
     databaseDriverFactory = { buildDatabaseDriver(projectDirectories.dataDir) },
