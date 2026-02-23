@@ -15,6 +15,7 @@ mokoPermissions = "0.20.1"
 ktor = "3.4.0"
 compose-ui = "1.10.3" # Checkout https://developer.android.com/jetpack/androidx/releases/compose-ui
 coil = "3.4.0"
+jna = "5.18.1"
 
 [plugins]
 
@@ -127,6 +128,10 @@ androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-a
 androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.7.0" }
 fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" }
 
+# JNA
+jna = { module = "net.java.dev.jna:jna", version.ref = "jna" }
+jna-platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
+
 # Desktop
 auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.7.0" }
 directories = { module = "dev.dirs:directories", version = "26" }
@@ -186,6 +191,8 @@ desktop = [
     "auto-launch",
     "pratanumandal-unique",
     "ktor-client-jvm",
+    "jna",
+    "jna-platform",
 ]
 full = [
     "sentry",

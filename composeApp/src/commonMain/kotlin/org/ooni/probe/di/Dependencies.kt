@@ -16,6 +16,7 @@ import okio.SYSTEM
 import org.ooni.engine.Engine
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
+import org.ooni.engine.SecureStorage
 import org.ooni.engine.TaskEventMapper
 import org.ooni.probe.Database
 import org.ooni.probe.background.RunBackgroundTask
@@ -138,6 +139,7 @@ class Dependencies(
     val cacheDir: String,
     private val databaseDriverFactory: () -> SqlDriver,
     private val networkTypeFinder: NetworkTypeFinder,
+    val secureStorage: SecureStorage,
     @get:VisibleForTesting
     val buildDataStore: () -> DataStore<Preferences>,
     private val getBatteryState: () -> BatteryState,

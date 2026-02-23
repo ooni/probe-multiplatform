@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import org.ooni.engine.IosSecureStorage
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.probe.background.BackgroundRunner
@@ -83,6 +84,7 @@ class SetupDependencies(
         cacheDir = NSTemporaryDirectory(),
         databaseDriverFactory = ::buildDatabaseDriver,
         networkTypeFinder = networkTypeFinder,
+        secureStorage = IosSecureStorage(),
         buildDataStore = ::buildDataStore,
         getBatteryState = ::getBatteryState,
         startSingleRunInner = ::startSingleRun,
