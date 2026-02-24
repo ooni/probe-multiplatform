@@ -12,13 +12,16 @@ import org.ooni.engine.securestorage.WindowsSecureStorage
  * - **Windows**: [org.ooni.engine.securestorage.WindowsSecureStorage] — Credential Manager (advapi32.dll)
  * - **macOS**: [org.ooni.engine.securestorage.MacOsSecureStorage] — Keychain (Security framework)
  */
-class DesktopSecureStorage : SecureStorage {
+class DesktopSecureStorage(
+    private val appId: String,
+    private val baseSoftwareName: String,
+) : SecureStorage {
     private val delegate: SecureStorage by lazy {
         val osName = System.getProperty("os.name").lowercase()
         when {
-            osName.contains("linux") -> LinuxSecureStorage()
-            osName.contains("win") -> WindowsSecureStorage()
-            osName.contains("mac") || osName.contains("darwin") -> MacOsSecureStorage()
+            osName.contains("linux") -> LinuxSecureStorage(appId, baseSoftwareName)
+            osName.contains("win") -> WindowsSecureStorage(baseSoftwareName)
+            osName.contains("mac") || osName.contains("darwin") -> MacOsSecureStorage(appId, baseSoftwareName)
             else -> throw UnsupportedOperationException(
                 "Secure storage is not supported on this platform: $osName",
             )

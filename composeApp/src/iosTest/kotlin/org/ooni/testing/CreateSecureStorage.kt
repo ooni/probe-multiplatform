@@ -3,4 +3,4 @@ package org.ooni.testing
 import org.ooni.engine.IosSecureStorage
 import org.ooni.engine.SecureStorage
 
-internal actual fun createTestSecureStorage(): SecureStorage = IosSecureStorage()
+internal actual fun createTestSecureStorage(): SecureStorage = IosSecureStorage("org.ooni.probe")

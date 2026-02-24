@@ -10,18 +10,20 @@ import org.ooni.engine.SecureStorage
 /**
  * macOS implementation of [org.ooni.engine.SecureStorage] using the Keychain Services API.
  *
- * Stores credentials as generic passwords with service = [SERVICE_NAME]
+ * Stores credentials as generic passwords with service = [appId]
  * and account = key. Uses the legacy Keychain API (SecKeychainAddGenericPassword,
  * etc.) which is simpler to call via JNA than the modern SecItem* API.
  *
  * Since the legacy Keychain API lacks a simple enumerate-by-service function,
  * a key index entry is maintained to support [list] and [deleteAll].
  */
-class MacOsSecureStorage : SecureStorage {
-    companion object {
-        private const val SERVICE_NAME = "org.ooni.probe"
-        private const val KEY_INDEX_KEY = "__ooni_key_index__"
+class MacOsSecureStorage(
+    private val appId: String,
+    baseSoftwareName: String,
+) : SecureStorage {
+    private val keyIndexKey = "__${baseSoftwareName}_key_index__"
 
+    companion object {
         // Use newline as separator — null bytes are truncated by C string APIs
         private const val KEY_INDEX_SEPARATOR = "\n"
 
@@ -81,14 +83,14 @@ class MacOsSecureStorage : SecureStorage {
     private fun rawRead(key: String): String? {
         val passwordLength = IntByReference()
         val passwordData = PointerByReference()
-        val serviceBytes = SERVICE_NAME.toByteArray(Charsets.UTF_8)
+        val serviceBytes = appId.toByteArray(Charsets.UTF_8)
         val accountBytes = key.toByteArray(Charsets.UTF_8)
 
         val status =
             lib.SecKeychainFindGenericPassword(
                 null,
                 serviceBytes.size,
-                SERVICE_NAME,
+                appId,
                 accountBytes.size,
                 key,
                 passwordLength,
@@ -115,7 +117,7 @@ class MacOsSecureStorage : SecureStorage {
         value: String,
     ): Boolean {
         val passwordBytes = value.toByteArray(Charsets.UTF_8)
-        val serviceBytes = SERVICE_NAME.toByteArray(Charsets.UTF_8)
+        val serviceBytes = appId.toByteArray(Charsets.UTF_8)
         val accountBytes = key.toByteArray(Charsets.UTF_8)
 
         val itemRef = PointerByReference()
@@ -123,7 +125,7 @@ class MacOsSecureStorage : SecureStorage {
             lib.SecKeychainAddGenericPassword(
                 null,
                 serviceBytes.size,
-                SERVICE_NAME,
+                appId,
                 accountBytes.size,
                 key,
                 passwordBytes.size,
@@ -142,7 +144,7 @@ class MacOsSecureStorage : SecureStorage {
                 lib.SecKeychainFindGenericPassword(
                     null,
                     serviceBytes.size,
-                    SERVICE_NAME,
+                    appId,
                     accountBytes.size,
                     key,
                     null,
@@ -166,7 +168,7 @@ class MacOsSecureStorage : SecureStorage {
     }
 
     private fun rawDelete(key: String): Boolean {
-        val serviceBytes = SERVICE_NAME.toByteArray(Charsets.UTF_8)
+        val serviceBytes = appId.toByteArray(Charsets.UTF_8)
         val accountBytes = key.toByteArray(Charsets.UTF_8)
         val itemRef = PointerByReference()
 
@@ -174,7 +176,7 @@ class MacOsSecureStorage : SecureStorage {
             lib.SecKeychainFindGenericPassword(
                 null,
                 serviceBytes.size,
-                SERVICE_NAME,
+                appId,
                 accountBytes.size,
                 key,
                 null,
@@ -192,12 +194,12 @@ class MacOsSecureStorage : SecureStorage {
     }
 
     private fun readIndex(): Set<String> {
-        val indexValue = rawRead(KEY_INDEX_KEY) ?: return emptySet()
+        val indexValue = rawRead(keyIndexKey) ?: return emptySet()
         return indexValue.split(KEY_INDEX_SEPARATOR).filter { it.isNotEmpty() }.toSet()
     }
 
     private fun writeIndex(keys: Set<String>) {
-        rawWrite(KEY_INDEX_KEY, keys.joinToString(KEY_INDEX_SEPARATOR))
+        rawWrite(keyIndexKey, keys.joinToString(KEY_INDEX_SEPARATOR))
     }
 
     override suspend fun read(key: String): String? = rawRead(key)
@@ -216,13 +218,13 @@ class MacOsSecureStorage : SecureStorage {
     }
 
     override suspend fun exists(key: String): Boolean {
-        val serviceBytes = SERVICE_NAME.toByteArray(Charsets.UTF_8)
+        val serviceBytes = appId.toByteArray(Charsets.UTF_8)
         val accountBytes = key.toByteArray(Charsets.UTF_8)
 
         return lib.SecKeychainFindGenericPassword(
             null,
             serviceBytes.size,
-            SERVICE_NAME,
+            appId,
             accountBytes.size,
             key,
             null,
@@ -246,7 +248,7 @@ class MacOsSecureStorage : SecureStorage {
         for (key in keys) {
             rawDelete(key)
         }
-        rawDelete(KEY_INDEX_KEY)
+        rawDelete(keyIndexKey)
         return true
     }
 }

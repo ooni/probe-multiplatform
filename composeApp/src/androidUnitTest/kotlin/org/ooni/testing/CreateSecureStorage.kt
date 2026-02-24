@@ -7,5 +7,5 @@ import org.ooni.engine.SecureStorage
 
 internal actual fun createTestSecureStorage(): SecureStorage {
     val app = ApplicationProvider.getApplicationContext<Application>()
-    return AndroidSecureStorage(app)
+    return AndroidSecureStorage(app, "ooniprobe")
 }

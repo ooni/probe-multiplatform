@@ -40,7 +40,7 @@ import platform.Security.kSecValueData
 
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 class IosSecureStorage(
-    private val service: String = "org.ooni.probe",
+    private val appId: String,
 ) : SecureStorage {
     override suspend fun read(key: String): String? =
         withContext(Dispatchers.IO) {
@@ -141,7 +141,7 @@ class IosSecureStorage(
     ): CFDictionaryRef =
         buildCFDictionary {
             addEntry(kSecClass, kSecClassGenericPassword)
-            addEntry(kSecAttrService, CFBridgingRetain(NSString.create(string = service)))
+            addEntry(kSecAttrService, CFBridgingRetain(NSString.create(string = appId)))
             addEntry(kSecAttrAccount, CFBridgingRetain(NSString.create(string = key)))
             block()
         }
@@ -149,7 +149,7 @@ class IosSecureStorage(
     private inline fun buildServiceQuery(block: CFMutableDictionaryScope.() -> Unit = {}): CFDictionaryRef =
         buildCFDictionary {
             addEntry(kSecClass, kSecClassGenericPassword)
-            addEntry(kSecAttrService, CFBridgingRetain(NSString.create(string = service)))
+            addEntry(kSecAttrService, CFBridgingRetain(NSString.create(string = appId)))
             block()
         }
 

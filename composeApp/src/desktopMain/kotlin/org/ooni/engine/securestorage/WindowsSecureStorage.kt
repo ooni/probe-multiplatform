@@ -14,12 +14,15 @@ import org.ooni.engine.SecureStorage
  * Windows implementation of [org.ooni.engine.SecureStorage] using the Credential Manager API.
  *
  * Stores credentials via advapi32.dll (CredWriteW, CredReadW, CredDeleteW,
- * CredEnumerateW, CredFree). All target names are prefixed with [TARGET_PREFIX]
+ * CredEnumerateW, CredFree). All target names are prefixed with [targetPrefix]
  * to namespace entries.
  */
-class WindowsSecureStorage : SecureStorage {
+class WindowsSecureStorage(
+    baseSoftwareName: String,
+) : SecureStorage {
+    private val targetPrefix = "$baseSoftwareName/"
+
     companion object {
-        private const val TARGET_PREFIX = "ooni-probe/"
         private const val CRED_TYPE_GENERIC = 1
         private const val CRED_PERSIST_LOCAL_MACHINE = 2
     }
@@ -102,7 +105,7 @@ class WindowsSecureStorage : SecureStorage {
 
     private val lib = Advapi32.INSTANCE
 
-    private fun targetName(key: String): String = "$TARGET_PREFIX$key"
+    private fun targetName(key: String): String = "$targetPrefix$key"
 
     override suspend fun read(key: String): String? {
         val pCredential = arrayOfNulls<Pointer>(1)
@@ -159,7 +162,7 @@ class WindowsSecureStorage : SecureStorage {
     override suspend fun list(): List<String> {
         val count = intArrayOf(0)
         val pCredentials = arrayOfNulls<Pointer>(1)
-        val filter = "$TARGET_PREFIX*"
+        val filter = "$targetPrefix*"
 
         val success = lib.CredEnumerateW(filter, 0, count, pCredentials)
         if (!success || pCredentials[0] == null || count[0] == 0) return emptyList()
@@ -169,7 +172,7 @@ class WindowsSecureStorage : SecureStorage {
             return credPointers.mapNotNull { ptr ->
                 val cred = Structure.newInstance(CREDENTIAL::class.java, ptr)
                 cred.read()
-                cred.TargetName?.removePrefix(TARGET_PREFIX)
+                cred.TargetName?.removePrefix(targetPrefix)
             }
         } finally {
             lib.CredFree(pCredentials[0])

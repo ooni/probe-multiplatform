@@ -21,10 +21,11 @@ import javax.crypto.spec.GCMParameterSpec
  */
 class AndroidSecureStorage(
     context: Context,
-    private val prefsName: String = "ooni_secure_prefs",
-    private val keyAlias: String = "ooni_secure_storage_key",
+    baseSoftwareName: String,
 ) : SecureStorage {
     private val appContext = context.applicationContext
+    private val prefsName = "${baseSoftwareName}_secure_prefs"
+    private val keyAlias = "${baseSoftwareName}_secure_storage_key"
     private val prefs by lazy {
         appContext.getSharedPreferences(prefsName, Context.MODE_PRIVATE)
     }

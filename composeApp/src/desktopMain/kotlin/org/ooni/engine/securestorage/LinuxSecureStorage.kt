@@ -14,12 +14,14 @@ import org.ooni.engine.SecureStorage
  * Since libsecret does not provide a simple "list all passwords" function,
  * a key index entry is maintained to support [list] and [deleteAll].
  */
-class LinuxSecureStorage : SecureStorage {
-    companion object {
-        private const val SERVICE_NAME = "org.ooni.probe"
-        private const val SCHEMA_NAME = "org.ooni.probe.credentials"
-        private const val KEY_INDEX_KEY = "__ooni_key_index__"
+class LinuxSecureStorage(
+    private val appId: String,
+    baseSoftwareName: String,
+) : SecureStorage {
+    private val schemaName = "$appId.credentials"
+    private val keyIndexKey = "__${baseSoftwareName}_key_index__"
 
+    companion object {
         // Use newline as separator — null bytes are truncated by C string APIs
         private const val KEY_INDEX_SEPARATOR = "\n"
     }
@@ -81,7 +83,7 @@ class LinuxSecureStorage : SecureStorage {
 
     private fun createSchema(): Pointer =
         lib.secret_schema_new(
-            SCHEMA_NAME,
+            schemaName,
             LibSecret.SECRET_SCHEMA_NONE,
             "key",
             LibSecret.SECRET_SCHEMA_ATTRIBUTE_STRING,
@@ -118,7 +120,7 @@ class LinuxSecureStorage : SecureStorage {
             return lib.secret_password_store_sync(
                 schema,
                 null,
-                "$SERVICE_NAME: $key",
+                "$appId: $key",
                 value,
                 null,
                 null,
@@ -148,12 +150,12 @@ class LinuxSecureStorage : SecureStorage {
     }
 
     private fun readIndex(): Set<String> {
-        val indexValue = rawRead(KEY_INDEX_KEY) ?: return emptySet()
+        val indexValue = rawRead(keyIndexKey) ?: return emptySet()
         return indexValue.split(KEY_INDEX_SEPARATOR).filter { it.isNotEmpty() }.toSet()
     }
 
     private fun writeIndex(keys: Set<String>) {
-        rawWrite(KEY_INDEX_KEY, keys.joinToString(KEY_INDEX_SEPARATOR))
+        rawWrite(keyIndexKey, keys.joinToString(KEY_INDEX_SEPARATOR))
     }
 
     override suspend fun read(key: String): String? = rawRead(key)
@@ -188,7 +190,7 @@ class LinuxSecureStorage : SecureStorage {
         for (key in keys) {
             rawDelete(key)
         }
-        rawDelete(KEY_INDEX_KEY)
+        rawDelete(keyIndexKey)
         return true
     }
 }

@@ -84,7 +84,7 @@ class SetupDependencies(
         cacheDir = NSTemporaryDirectory(),
         databaseDriverFactory = ::buildDatabaseDriver,
         networkTypeFinder = networkTypeFinder,
-        secureStorage = IosSecureStorage(),
+        secureStorage = IosSecureStorage(OrganizationConfig.appId),
         buildDataStore = ::buildDataStore,
         getBatteryState = ::getBatteryState,
         startSingleRunInner = ::startSingleRun,
