@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
+import org.ooni.passport.IosPassportBridge
+import org.ooni.passport.NativePassportBridge
 import org.ooni.probe.background.BackgroundRunner
 import org.ooni.probe.background.OperationsManager
 import org.ooni.probe.config.BatteryOptimization
@@ -68,7 +70,8 @@ import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
 
 class SetupDependencies(
-    bridge: OonimkallBridge,
+    oonimkallBridge: OonimkallBridge,
+    nativePassportBridge: NativePassportBridge,
     networkTypeFinder: NetworkTypeFinder,
     val backgroundRunner: BackgroundRunner,
 ) {
@@ -78,7 +81,8 @@ class SetupDependencies(
      */
     val dependencies: Dependencies = Dependencies(
         platformInfo = buildPlatformInfo(),
-        oonimkallBridge = bridge,
+        oonimkallBridge = oonimkallBridge,
+        passportBridge = IosPassportBridge(nativePassportBridge),
         baseFileDir = baseFileDir(),
         cacheDir = NSTemporaryDirectory(),
         databaseDriverFactory = ::buildDatabaseDriver,

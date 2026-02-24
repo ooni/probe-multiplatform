@@ -36,7 +36,8 @@ struct iOSApp: App {
     @Environment(\.scenePhase)var scenePhase
 
     let appDependencies = SetupDependencies(
-        bridge: IosOonimkallBridge(),
+        oonimkallBridge: IosOonimkallBridge(),
+        nativePassportBridge: IosNativePassportBridge(),
         networkTypeFinder: IosNetworkTypeFinder(),
         backgroundRunner: IosBackgroundRunner()
     )
