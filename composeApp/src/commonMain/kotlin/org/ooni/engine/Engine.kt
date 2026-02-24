@@ -87,7 +87,7 @@ class Engine(
             .onCompletion { context.close() }
     }
 
-    suspend fun submitMeasurements(
+    suspend fun submitMeasurement(
         measurement: String,
         taskOrigin: TaskOrigin = TaskOrigin.OoniRun,
     ): Result<SubmitMeasurementResults, MkException> =
@@ -139,13 +139,8 @@ class Engine(
             }
             val sessionConfig = buildSessionConfig(taskOrigin, enginePreferences)
             session(sessionConfig).use {
-                it
-                    .httpDo(
-                        OonimkallBridge.HTTPRequest(
-                            method = method,
-                            url = url,
-                        ),
-                    ).body
+                val request = OonimkallBridge.HTTPRequest(method = method, url = url)
+                it.httpDo(request).body
             }
         }.mapError {
             MkException(it)
@@ -173,7 +168,7 @@ class Engine(
         assetsDir = "$baseFilePath/assets",
         geoIpDB = preferences.geoipDbPath,
         options = TaskSettings.Options(
-            noCollector = !preferences.uploadResults,
+            noCollector = true, // We upload the measurements ourselves
             softwareName = buildSoftwareName(taskOrigin),
             softwareVersion = platformInfo.buildName,
             maxRuntime = maxRuntime(taskOrigin, netTest, preferences),
