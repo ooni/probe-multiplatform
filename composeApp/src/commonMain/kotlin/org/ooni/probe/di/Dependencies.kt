@@ -74,6 +74,7 @@ import org.ooni.probe.domain.RunNetTest
 import org.ooni.probe.domain.SendSupportEmail
 import org.ooni.probe.domain.ShareLogFile
 import org.ooni.probe.domain.ShouldShowVpnWarning
+import org.ooni.probe.domain.SubmitMeasurement
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.domain.appreview.MarkAppReviewAsShown
 import org.ooni.probe.domain.appreview.ShouldShowAppReview
@@ -556,17 +557,25 @@ class Dependencies(
             writeFile = writeFile,
             deleteFiles = deleteFiles,
             json = json,
+            getPreferenceValueByKey = preferenceRepository::getValueByKey,
+            submitMeasurement = submitMeasurement::invoke,
             spec = spec,
         )
 
-    private val uploadMissingMeasurements by lazy {
-        UploadMissingMeasurements(
-            getMeasurementsNotUploaded = getMeasurementsNotUploaded::invoke,
-            submitMeasurement = engine::submitMeasurements,
+    private val submitMeasurement by lazy {
+        SubmitMeasurement(
+            engineSubmit = engine::submitMeasurement,
             readFile = readFile,
             deleteFiles = deleteFiles,
             updateMeasurement = measurementRepository::createOrUpdate,
             deleteMeasurementById = measurementRepository::deleteById,
+        )
+    }
+
+    private val uploadMissingMeasurements by lazy {
+        UploadMissingMeasurements(
+            getMeasurementsNotUploaded = getMeasurementsNotUploaded::invoke,
+            submitMeasurement = submitMeasurement::invoke,
         )
     }
     private val testProxy by lazy {
@@ -589,7 +598,6 @@ class Dependencies(
             addRunCancelListener = runBackgroundStateManager::addCancelListener,
             setRunBackgroundState = runBackgroundStateManager::updateState,
             getRunBackgroundState = runBackgroundStateManager::observeState,
-            getLatestResult = resultRepository::getLatest,
         )
     }
 

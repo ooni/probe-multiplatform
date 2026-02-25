@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
 import org.ooni.probe.data.models.MeasurementsFilter
-import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
@@ -33,7 +32,6 @@ class RunBackgroundTask(
     private val setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
     private val getRunBackgroundState: () -> Flow<RunBackgroundState>,
     private val addRunCancelListener: (() -> Unit) -> CancelListenerCallback,
-    private val getLatestResult: () -> Flow<ResultWithNetworkAndAggregates?>,
 ) {
     operator fun invoke(spec: RunSpecification?): Flow<RunBackgroundState> =
         channelFlow {
@@ -65,14 +63,6 @@ class RunBackgroundTask(
                 }
 
                 runTests(spec as? RunSpecification.Full)
-
-                // When a test is cancelled, sometimes the last measurement isn't uploaded
-
-                getLatestResult().first()?.result?.id?.let { latestResultId ->
-                    val idleState = getRunBackgroundState().first()
-                    uploadMissingResults(MeasurementsFilter.Result(latestResultId))
-                    updateState(idleState)
-                }
             }
         }
 
@@ -101,7 +91,7 @@ class RunBackgroundTask(
 
             try {
                 uploadJob.await()
-            } catch (e: CancellationException) {
+            } catch (_: CancellationException) {
                 Logger.i("Upload Missing Results (filter=$filter): cancelled")
             }
         }
