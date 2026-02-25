@@ -3,35 +3,34 @@ package org.ooni.passport
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
-import org.ooni.passport.models.CredentialResult
+import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import uniffi.ooniprobe.HttpResponse
-import uniffi.ooniprobe.KeyValue
 import uniffi.ooniprobe.OoniException
 
 class AndroidPassportBridge : PassportBridge {
-    override suspend fun clientGet(
+    override fun get(
         url: String,
-        headers: List<Map.Entry<String, String>>,
-        query: List<Map.Entry<String, String>>,
+        headers: List<PassportBridge.KeyValue>,
+        query: List<PassportBridge.KeyValue>,
     ): Result<PassportHttpResponse, PassportException> =
         try {
             val response = uniffi.ooniprobe.clientGet(
                 url = url,
-                headers = headers.map { KeyValue(it.key, it.value) },
-                query = query.map { KeyValue(it.key, it.value) },
+                headers = headers.map { uniffi.ooniprobe.KeyValue(it.key, it.value) },
+                query = query.map { uniffi.ooniprobe.KeyValue(it.key, it.value) },
             )
             Success(response.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
         }
 
-    override suspend fun userAuthRegister(
+    override fun userAuthRegister(
         url: String,
         publicParams: String,
         manifestVersion: String,
-    ): Result<CredentialResult, PassportException> =
+    ): Result<CredentialResponse, PassportException> =
         try {
             val result = uniffi.ooniprobe.userauthRegister(url, publicParams, manifestVersion)
             Success(result.toPassport())
@@ -39,7 +38,7 @@ class AndroidPassportBridge : PassportBridge {
             Failure(e.toPassport())
         }
 
-    override suspend fun userAuthSubmit(
+    override fun userAuthSubmit(
         url: String,
         credential: String,
         publicParams: String,
@@ -47,7 +46,7 @@ class AndroidPassportBridge : PassportBridge {
         probeCc: String,
         probeAsn: String,
         manifestVersion: String,
-    ): Result<CredentialResult, PassportException> =
+    ): Result<CredentialResponse, PassportException> =
         try {
             val result = uniffi.ooniprobe.userauthSubmit(
                 url = url,
@@ -73,7 +72,7 @@ private fun HttpResponse.toPassport() =
     )
 
 private fun uniffi.ooniprobe.CredentialResult.toPassport() =
-    CredentialResult(
+    CredentialResponse(
         response = response.toPassport(),
         credential = credential,
     )

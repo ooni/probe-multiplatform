@@ -1,37 +1,57 @@
 import composeApp
 
-class IosNativePassportBridge: NativePassportBridge {
-    func nativeClientGet(url: String, headers: [KeyValuePair], query: [KeyValuePair]) -> NativeHttpResult {
+class IosPassportBridge: PassportBridge {
+    func get(
+        url: String,
+        headers: [PassportBridgeKeyValue],
+        query: [PassportBridgeKeyValue]
+    ) -> Result<PassportHttpResponse, PassportException> {
         do {
             let response = try clientGet(
                 url: url,
                 headers: headers.map { KeyValue(key: $0.key, value: $0.value) },
                 query: query.map { KeyValue(key: $0.key, value: $0.value) }
             )
-            return NativeHttpResult.Success(response: response.toNative())
+            return IosPassportBridgeHelpersKt.SuccessPassportHttpResponse(value: response.toPassport())
         } catch let error as OoniError {
-            return NativeHttpResult.Error(exception: error.toPassport())
+            return IosPassportBridgeHelpersKt.FailureHttpPassportException(reason: error.toPassport())
         } catch {
-            return NativeHttpResult.Error(exception: PassportException.Other(message: error.localizedDescription))
+            return IosPassportBridgeHelpersKt.FailureHttpPassportException(
+                reason: PassportException.Other(message: error.localizedDescription)
+            )
         }
     }
 
-    func nativeUserAuthRegister(url: String, publicParams: String, manifestVersion: String) -> NativeCredentialHttpResult {
+    func userAuthRegister(
+        url: String,
+        publicParams: String,
+        manifestVersion: String
+    ) -> Result<CredentialResponse, PassportException> {
         do {
             let response = try userauthRegister(
                 url: url,
                 publicParams: publicParams,
                 manifestVersion: manifestVersion
             )
-            return NativeCredentialHttpResult.Success(result: response.toNative())
+            return IosPassportBridgeHelpersKt.SuccessCredentialResponse(value: response.toPassport())
         } catch let error as OoniError {
-            return NativeCredentialHttpResult.Error(exception: error.toPassport())
+            return IosPassportBridgeHelpersKt.FailureCredentialPassportException(reason: error.toPassport())
         } catch {
-            return NativeCredentialHttpResult.Error(exception: PassportException.Other(message: error.localizedDescription))
+            return IosPassportBridgeHelpersKt.FailureCredentialPassportException(
+                reason: PassportException.Other(message: error.localizedDescription)
+            )
         }
     }
 
-    func nativeUserAuthSubmit(url: String, credential: String, publicParams: String, content: String, probeCc: String, probeAsn: String, manifestVersion: String) -> NativeCredentialHttpResult {
+    func userAuthSubmit(
+        url: String,
+        credential: String,
+        publicParams: String,
+        content: String,
+        probeCc: String,
+        probeAsn: String,
+        manifestVersion: String
+    ) -> Result<CredentialResponse, PassportException> {
         do {
             let response = try userauthSubmit(
                 url: url,
@@ -42,18 +62,20 @@ class IosNativePassportBridge: NativePassportBridge {
                 probeAsn: probeAsn,
                 manifestVersion: manifestVersion
             )
-            return NativeCredentialHttpResult.Success(result: response.toNative())
+            return IosPassportBridgeHelpersKt.SuccessCredentialResponse(value: response.toPassport())
         } catch let error as OoniError {
-            return NativeCredentialHttpResult.Error(exception: error.toPassport())
+            return IosPassportBridgeHelpersKt.FailureCredentialPassportException(reason: error.toPassport())
         } catch {
-            return NativeCredentialHttpResult.Error(exception: PassportException.Other(message: error.localizedDescription))
+            return IosPassportBridgeHelpersKt.FailureCredentialPassportException(
+                reason: PassportException.Other(message: error.localizedDescription)
+            )
         }
     }
 }
 
 extension HttpResponse {
-    func toNative() -> NativeHttpResponse {
-        return NativeHttpResponse(
+    func toPassport() -> PassportHttpResponse {
+        return PassportHttpResponse(
             statusCode: statusCode,
             version: version,
             headersListText: headersListText,
@@ -63,9 +85,9 @@ extension HttpResponse {
 }
 
 extension CredentialResult {
-    func toNative() -> NativeCredentialResult {
-        return NativeCredentialResult(
-            response: response.toNative(),
+    func toPassport() -> CredentialResponse {
+        return CredentialResponse(
+            response: response.toPassport(),
             credential: credential
         )
     }

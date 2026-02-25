@@ -161,7 +161,7 @@ fun App(
     LaunchedEffect(Unit) {
         Logger.i("Manifest")
         dependencies.passportBridge
-            .clientGet(
+            .get(
                 url = "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/manifest",
             ).map {
                 Logger.i(it.toString())

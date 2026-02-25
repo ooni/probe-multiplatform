@@ -37,7 +37,7 @@ struct iOSApp: App {
 
     let appDependencies = SetupDependencies(
         oonimkallBridge: IosOonimkallBridge(),
-        nativePassportBridge: IosNativePassportBridge(),
+        passportBridge: IosPassportBridge(),
         networkTypeFinder: IosNetworkTypeFinder(),
         backgroundRunner: IosBackgroundRunner()
     )
