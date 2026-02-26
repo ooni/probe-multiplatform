@@ -4,6 +4,7 @@ import org.jetbrains.compose.resources.DrawableResource
 
 interface OrganizationConfigInterface {
     val baseSoftwareName: String
+    val appId: String
     val testDisplayMode: TestDisplayMode
     val autorunTaskId: String
     val onboardingImages: OnboardingImages

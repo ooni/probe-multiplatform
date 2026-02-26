@@ -5,6 +5,8 @@ import co.touchlab.kermit.Logger
 import dev.dirs.ProjectDirectories
 import okio.Path.Companion.toPath
 import org.ooni.engine.DesktopNetworkTypeFinder
+import org.ooni.engine.createDesktopSecureStorage
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
@@ -41,6 +43,7 @@ val dependencies = Dependencies(
     cacheDir = projectDirectories.cacheDir.also { File(it).mkdirs() },
     databaseDriverFactory = { buildDatabaseDriver(projectDirectories.dataDir) },
     networkTypeFinder = DesktopNetworkTypeFinder(),
+    secureStorage = createDesktopSecureStorage(platform.os, OrganizationConfig.appId, OrganizationConfig.baseSoftwareName),
     buildDataStore = ::buildDataStore,
     getBatteryState = { BatteryState.Unknown },
     startSingleRunInner = backgroundWorkManager::startSingleRun,
