@@ -67,13 +67,13 @@ class IosSecureStorage(
     override suspend fun write(
         key: String,
         value: String,
-    ): Boolean =
+    ): WriteResult =
         withContext(Dispatchers.IO) {
             val nsString = NSString.create(string = value)
-            val valueData = nsString.dataUsingEncoding(NSUTF8StringEncoding) ?: return@withContext false
+            val valueData = nsString.dataUsingEncoding(NSUTF8StringEncoding) ?: return@withContext WriteResult.Error(key, "encode failed")
             val valueDataRef = CFBridgingRetain(valueData)
 
-            // Try update first; if the item doesn't exist, add it.
+            // Use SecItemUpdate and SecItemAdd paths but update index only on success
             val searchQuery = buildQuery(key)
             val attributes = buildCFDictionary { addEntry(kSecValueData, valueDataRef) }
             var status = SecItemUpdate(searchQuery, attributes)
@@ -84,9 +84,20 @@ class IosSecureStorage(
                 val addQuery = buildQuery(key) { addEntry(kSecValueData, valueDataRef) }
                 status = SecItemAdd(addQuery, null)
                 CFBridgingRelease(addQuery)
+                CFBridgingRelease(valueDataRef)
+                return@withContext if (status == errSecSuccess) {
+                    WriteResult.Created(key)
+                } else {
+                    WriteResult.Error(key, "osstatus=$status")
+                }
             }
+
             CFBridgingRelease(valueDataRef)
-            status == errSecSuccess
+            return@withContext if (status == errSecSuccess) {
+                WriteResult.Updated(key)
+            } else {
+                WriteResult.Error(key, "osstatus=$status")
+            }
         }
 
     override suspend fun exists(key: String): Boolean =
@@ -99,12 +110,16 @@ class IosSecureStorage(
             status == errSecSuccess
         }
 
-    override suspend fun delete(key: String): Boolean =
+    override suspend fun delete(key: String): DeleteResult =
         withContext(Dispatchers.IO) {
             val query = buildQuery(key)
             val status = SecItemDelete(query)
             CFBridgingRelease(query)
-            status == errSecSuccess || status == errSecItemNotFound
+            when (status) {
+                errSecSuccess -> DeleteResult.Deleted(key)
+                errSecItemNotFound -> DeleteResult.NotFound(key)
+                else -> DeleteResult.Error(key, "osstatus=$status")
+            }
         }
 
     override suspend fun list(): List<String> =
@@ -127,12 +142,36 @@ class IosSecureStorage(
             }
         }
 
-    override suspend fun deleteAll(): Boolean =
+    override suspend fun deleteAll(): DeleteAllResult =
         withContext(Dispatchers.IO) {
-            val query = buildServiceQuery()
-            val status = SecItemDelete(query)
-            CFBridgingRelease(query)
-            status == errSecSuccess || status == errSecItemNotFound
+            val itemsQuery = buildServiceQuery {
+                addEntry(kSecReturnAttributes, kCFBooleanTrue)
+                addEntry(kSecMatchLimit, kSecMatchLimitAll)
+            }
+            memScoped {
+                val result = alloc<CFTypeRefVar>()
+                val status = SecItemCopyMatching(itemsQuery, result.ptr)
+                CFBridgingRelease(itemsQuery)
+                if (status != errSecSuccess) {
+                    // if nothing found treat as zero deleted
+                    if (status == errSecItemNotFound) return@withContext DeleteAllResult.DeletedCount(0)
+                    return@withContext DeleteAllResult.Error("enumeration failed: osstatus=$status")
+                }
+
+                @Suppress("UNCHECKED_CAST")
+                val items = CFBridgingRelease(result.value) as? List<Map<Any?, *>>
+                val keys = items?.mapNotNull { it[kSecAttrAccount as Any] as? String } ?: emptyList()
+
+                // Attempt delete; if SecItemDelete returns notfound or success treat accordingly
+                val serviceQuery = buildServiceQuery()
+                val delStatus = SecItemDelete(serviceQuery)
+                CFBridgingRelease(serviceQuery)
+                if (delStatus == errSecSuccess || delStatus == errSecItemNotFound) {
+                    DeleteAllResult.DeletedCount(keys.size)
+                } else {
+                    DeleteAllResult.Error("deleteAll failed: osstatus=$delStatus")
+                }
+            }
         }
 
     private inline fun buildQuery(

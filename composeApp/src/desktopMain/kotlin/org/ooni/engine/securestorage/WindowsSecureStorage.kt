@@ -1,5 +1,10 @@
 package org.ooni.engine.securestorage
 
+import co.touchlab.kermit.Logger
+import org.ooni.engine.DeleteAllResult
+import org.ooni.engine.DeleteResult
+import org.ooni.engine.WriteResult
+
 import com.sun.jna.LastErrorException
 import com.sun.jna.Memory
 import com.sun.jna.Native
@@ -127,7 +132,7 @@ class WindowsSecureStorage(
     override suspend fun write(
         key: String,
         value: String,
-    ): Boolean {
+    ): WriteResult {
         val bytes = value.toByteArray(Charsets.UTF_16LE)
         val blobMemory = Memory(bytes.size.toLong())
         blobMemory.write(0, bytes, 0, bytes.size)
@@ -142,22 +147,26 @@ class WindowsSecureStorage(
         cred.UserName = null
 
         return try {
-            lib.CredWriteW(cred, 0)
-        } catch (_: LastErrorException) {
-            false
+            val existed = exists(key)
+            val ok = lib.CredWriteW(cred, 0)
+            if (!ok) return WriteResult.Error(key, "write failed")
+            if (existed) WriteResult.Updated(key) else WriteResult.Created(key)
+        } catch (e: LastErrorException) {
+            Logger.w(e) { "SecureStorage: failed to write key '$key'" }
+            WriteResult.Error(key, "write failed")
         }
     }
 
     override suspend fun exists(key: String): Boolean = read(key) != null
 
-    override suspend fun delete(key: String): Boolean {
+    override suspend fun delete(key: String): DeleteResult =
         try {
-            lib.CredDeleteW(targetName(key), CRED_TYPE_GENERIC, 0)
-        } catch (_: LastErrorException) {
-            // Deleting a non-existent key is not an error
+            val ok = lib.CredDeleteW(targetName(key), CRED_TYPE_GENERIC, 0)
+            if (ok) DeleteResult.Deleted(key) else DeleteResult.NotFound(key)
+        } catch (e: LastErrorException) {
+            Logger.w(e) { "SecureStorage: failed to delete key '$key'" }
+            DeleteResult.NotFound(key)
         }
-        return true
-    }
 
     override suspend fun list(): List<String> {
         val count = intArrayOf(0)
@@ -179,14 +188,13 @@ class WindowsSecureStorage(
         }
     }
 
-    override suspend fun deleteAll(): Boolean {
+    override suspend fun deleteAll(): DeleteAllResult {
         val keys = list()
-        var allDeleted = true
+        var hadError = false
         for (key in keys) {
-            if (!delete(key)) {
-                allDeleted = false
-            }
+            val dr = delete(key)
+            if (dr is DeleteResult.Error) hadError = true
         }
-        return allDeleted
+        return if (hadError) DeleteAllResult.Error("one or more deletions failed") else DeleteAllResult.DeletedCount(keys.size)
     }
 }

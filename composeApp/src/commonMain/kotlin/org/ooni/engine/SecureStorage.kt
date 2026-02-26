@@ -6,13 +6,13 @@ interface SecureStorage {
     suspend fun write(
         key: String,
         value: String,
-    ): Boolean
+    ): WriteResult
 
     suspend fun exists(key: String): Boolean
 
-    suspend fun delete(key: String): Boolean
+    suspend fun delete(key: String): DeleteResult
 
     suspend fun list(): List<String>
 
-    suspend fun deleteAll(): Boolean
+    suspend fun deleteAll(): DeleteAllResult
 }

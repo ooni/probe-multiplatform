@@ -5,6 +5,7 @@ import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
 import androidx.core.content.edit
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.security.KeyStore
@@ -12,6 +13,7 @@ import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Secure storage backed by the Android Keystore and plain SharedPreferences.
@@ -22,6 +24,7 @@ import javax.crypto.spec.GCMParameterSpec
 class AndroidSecureStorage(
     context: Context,
     baseSoftwareName: String,
+    private val ioDispatcher: CoroutineContext = Dispatchers.IO,
 ) : SecureStorage {
     private val appContext = context.applicationContext
     private val prefsName = "${baseSoftwareName}_secure_prefs"
@@ -73,45 +76,62 @@ class AndroidSecureStorage(
     }
 
     override suspend fun read(key: String): String? =
-        withContext(Dispatchers.IO) {
-            prefs.getString(key, null)?.let { runCatching { decrypt(it) }.getOrNull() }
+        withContext(ioDispatcher) {
+            try {
+                prefs.getString(key, null)?.let { decrypt(it) }
+            } catch (e: Exception) {
+                Logger.w(e) { "SecureStorage: failed to read key '$key'" }
+                null
+            }
         }
 
     override suspend fun write(
         key: String,
         value: String,
-    ): Boolean =
-        withContext(Dispatchers.IO) {
-            runCatching {
+    ): WriteResult =
+        withContext(ioDispatcher) {
+            try {
+                val existed = prefs.contains(key)
                 prefs.edit(commit = true) { putString(key, encrypt(value)) }
-                true
-            }.getOrDefault(false)
+                if (existed) WriteResult.Updated(key) else WriteResult.Created(key)
+            } catch (e: Exception) {
+                Logger.w(e) { "SecureStorage: failed to write key '$key'" }
+                WriteResult.Error(key, e.message, e)
+            }
         }
 
     override suspend fun exists(key: String): Boolean =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             prefs.contains(key)
         }
 
-    override suspend fun delete(key: String): Boolean =
-        withContext(Dispatchers.IO) {
-            runCatching {
+    override suspend fun delete(key: String): DeleteResult =
+        withContext(ioDispatcher) {
+            try {
+                val existed = prefs.contains(key)
                 prefs.edit(commit = true) { remove(key) }
-                true
-            }.getOrDefault(false)
+                if (existed) DeleteResult.Deleted(key) else DeleteResult.NotFound(key)
+            } catch (e: Exception) {
+                Logger.w(e) { "SecureStorage: failed to delete key '$key'" }
+                DeleteResult.Error(key, e.message, e)
+            }
         }
 
     override suspend fun list(): List<String> =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             prefs.all.keys.toList()
         }
 
-    override suspend fun deleteAll(): Boolean =
-        withContext(Dispatchers.IO) {
-            runCatching {
+    override suspend fun deleteAll(): DeleteAllResult =
+        withContext(ioDispatcher) {
+            try {
+                val count = prefs.all.keys.size
                 prefs.edit(commit = true) { clear() }
-                true
-            }.getOrDefault(false)
+                DeleteAllResult.DeletedCount(count)
+            } catch (e: Exception) {
+                Logger.w(e) { "SecureStorage: failed to deleteAll" }
+                DeleteAllResult.Error(e.message, e)
+            }
         }
 
     private companion object {

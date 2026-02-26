@@ -1,5 +1,9 @@
 package org.ooni.engine.securestorage
 
+import org.ooni.engine.DeleteAllResult
+import org.ooni.engine.DeleteResult
+import org.ooni.engine.WriteResult
+
 import com.sun.jna.Library
 import com.sun.jna.Native
 import com.sun.jna.Pointer
@@ -90,19 +94,11 @@ class LinuxSecureStorage(
             null,
         )
 
-    private fun rawRead(key: String): String? {
+    override suspend fun read(key: String): String? {
         val schema = createSchema()
         try {
-            val result =
-                lib.secret_password_lookup_sync(
-                    schema,
-                    null,
-                    null,
-                    "key",
-                    key,
-                    null,
-                )
-            if (result == null) return null
+            val result = lib.secret_password_lookup_sync(schema, null, null, "key", key, null)
+                ?: return null
             val value = result.getString(0)
             lib.secret_password_free(result)
             return value
@@ -111,13 +107,15 @@ class LinuxSecureStorage(
         }
     }
 
-    private fun rawWrite(
+    override suspend fun write(
         key: String,
         value: String,
-    ): Boolean {
+    ): WriteResult {
+        val existed = read(key) != null
         val schema = createSchema()
+        val success: Boolean
         try {
-            return lib.secret_password_store_sync(
+            success = lib.secret_password_store_sync(
                 schema,
                 null,
                 "$appId: $key",
@@ -131,17 +129,81 @@ class LinuxSecureStorage(
         } finally {
             lib.secret_schema_unref(schema)
         }
+        return if (success) {
+            updateIndex { add(key) }
+            if (existed) WriteResult.Updated(key) else WriteResult.Created(key)
+        } else {
+            WriteResult.Error(key, "write failed")
+        }
     }
 
-    private fun rawDelete(key: String): Boolean {
+    override suspend fun exists(key: String): Boolean = read(key) != null
+
+    override suspend fun delete(key: String): DeleteResult {
+        // libsecret's clear_sync does not distinguish "not found" from "found+deleted",
+        // so we do a lookup first to determine presence.
+        val exists = read(key) != null
+        if (!exists) {
+            updateIndex { remove(key) }
+            return DeleteResult.NotFound(key)
+        }
+
+        val schema = createSchema()
+        val cleared: Boolean
+        try {
+            cleared = lib.secret_password_clear_sync(schema, null, null, "key", key, null)
+        } finally {
+            lib.secret_schema_unref(schema)
+        }
+
+        return if (cleared) {
+            updateIndex { remove(key) }
+            DeleteResult.Deleted(key)
+        } else {
+            DeleteResult.Error(key, "delete failed")
+        }
+    }
+
+    override suspend fun list(): List<String> = readIndex().toList()
+
+    override suspend fun deleteAll(): DeleteAllResult {
+        val keys = readIndex()
+        var hadError = false
+        for (key in keys) {
+            val dr = delete(key)
+            if (dr is DeleteResult.Error) hadError = true
+        }
+        // Remove index entry itself
+        val indexSchema = createSchema()
+        try {
+            lib.secret_password_clear_sync(indexSchema, null, null, "key", keyIndexKey, null)
+        } finally {
+            lib.secret_schema_unref(indexSchema)
+        }
+        return if (hadError) {
+            DeleteAllResult.Error("one or more deletions failed")
+        } else {
+            DeleteAllResult.DeletedCount(keys.size)
+        }
+    }
+
+    private suspend fun readIndex(): Set<String> {
+        val indexValue = read(keyIndexKey) ?: return emptySet()
+        return indexValue.split(KEY_INDEX_SEPARATOR).filter { it.isNotEmpty() }.toSet()
+    }
+
+    private suspend fun writeIndex(keys: Set<String>) {
         val schema = createSchema()
         try {
-            return lib.secret_password_clear_sync(
+            lib.secret_password_store_sync(
                 schema,
+                null,
+                "$appId: $keyIndexKey",
+                keys.joinToString(KEY_INDEX_SEPARATOR),
                 null,
                 null,
                 "key",
-                key,
+                keyIndexKey,
                 null,
             )
         } finally {
@@ -149,48 +211,10 @@ class LinuxSecureStorage(
         }
     }
 
-    private fun readIndex(): Set<String> {
-        val indexValue = rawRead(keyIndexKey) ?: return emptySet()
-        return indexValue.split(KEY_INDEX_SEPARATOR).filter { it.isNotEmpty() }.toSet()
-    }
-
-    private fun writeIndex(keys: Set<String>) {
-        rawWrite(keyIndexKey, keys.joinToString(KEY_INDEX_SEPARATOR))
-    }
-
-    override suspend fun read(key: String): String? = rawRead(key)
-
-    override suspend fun write(
-        key: String,
-        value: String,
-    ): Boolean {
-        val success = rawWrite(key, value)
-        if (success) {
-            val keys = readIndex().toMutableSet()
-            keys.add(key)
-            writeIndex(keys)
-        }
-        return success
-    }
-
-    override suspend fun exists(key: String): Boolean = rawRead(key) != null
-
-    override suspend fun delete(key: String): Boolean {
-        rawDelete(key)
+    /** Reads the index, applies [block] to a mutable copy, and writes it back. */
+    private suspend fun updateIndex(block: MutableSet<String>.() -> Unit) {
         val keys = readIndex().toMutableSet()
-        keys.remove(key)
+        keys.block()
         writeIndex(keys)
-        return true
-    }
-
-    override suspend fun list(): List<String> = readIndex().toList()
-
-    override suspend fun deleteAll(): Boolean {
-        val keys = readIndex()
-        for (key in keys) {
-            rawDelete(key)
-        }
-        rawDelete(keyIndexKey)
-        return true
     }
 }
