@@ -76,6 +76,7 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.bundles.android)
             implementation(libs.bundles.mobile)
+            implementation("net.java.dev.jna:jna:5.18.1@aar")
         }
         commonMain {
             dependencies {
