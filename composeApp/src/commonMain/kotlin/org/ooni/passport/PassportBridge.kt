@@ -1,24 +1,24 @@
 package org.ooni.passport
 
 import org.ooni.engine.models.Result
-import org.ooni.passport.models.CredentialResult
+import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 
 interface PassportBridge {
-    suspend fun clientGet(
+    fun get(
         url: String,
-        headers: List<Map.Entry<String, String>> = emptyList(),
-        query: List<Map.Entry<String, String>> = emptyList(),
+        headers: List<KeyValue> = emptyList(),
+        query: List<KeyValue> = emptyList(),
     ): Result<PassportHttpResponse, PassportException>
 
-    suspend fun userAuthRegister(
+    fun userAuthRegister(
         url: String,
         publicParams: String,
         manifestVersion: String,
-    ): Result<CredentialResult, PassportException>
+    ): Result<CredentialResponse, PassportException>
 
-    suspend fun userAuthSubmit(
+    fun userAuthSubmit(
         url: String,
         credential: String,
         publicParams: String,
@@ -26,5 +26,10 @@ interface PassportBridge {
         probeCc: String,
         probeAsn: String,
         manifestVersion: String,
-    ): Result<CredentialResult, PassportException>
+    ): Result<CredentialResponse, PassportException>
+
+    data class KeyValue(
+        val key: String,
+        val value: String,
+    )
 }
