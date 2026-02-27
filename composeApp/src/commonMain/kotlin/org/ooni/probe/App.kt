@@ -160,12 +160,14 @@ fun App(
     // TODO: remove me, just for testing
     LaunchedEffect(Unit) {
         Logger.i("Manifest")
-        Logger.i(
-            dependencies.passportBridge
-                ?.clientGet(
-                    url = "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/manifest",
-                ).toString(),
-        )
+        dependencies.passportBridge
+            .get(
+                url = "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/manifest",
+            ).map {
+                Logger.i(it.toString())
+            }.mapError {
+                Logger.i(it.toString())
+            }
     }
 }
 

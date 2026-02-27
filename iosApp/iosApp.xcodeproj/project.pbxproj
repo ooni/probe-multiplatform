@@ -13,6 +13,8 @@
 		4B3EB11158BEF8E313184F03 /* Pods_OONIProbeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D66F034741194372DDA4078 /* Pods_OONIProbeUITests.framework */; };
 		53D3BE26559E9626379058CC /* Pods_NewsMediaScanUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4B28F104580A82EDFEDC452 /* Pods_NewsMediaScanUITests.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		770AEF952F4DF53A00A73343 /* ooniprobe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770AEF942F4DF53A00A73343 /* ooniprobe.swift */; };
+		770AEF962F4DF53A00A73343 /* ooniprobe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770AEF942F4DF53A00A73343 /* ooniprobe.swift */; };
 		793F99462CE646DE0094FAFC /* IosBackgroundRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */; };
 		793F99472CE646DE0094FAFC /* IosBackgroundRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */; };
 		795E37782CD5053900086360 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E37772CD5053900086360 /* ShareViewController.swift */; };
@@ -85,6 +87,7 @@
 		7555FF7B242A565900829871 /* OONI Probe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OONI Probe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		770AEF942F4DF53A00A73343 /* ooniprobe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ooniprobe.swift; sourceTree = "<group>"; };
 		7746A3DC2D7D895200C007B6 /* OONIProbeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OONIProbeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7746A4752D80383D00C007B6 /* NewsMediaScanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsMediaScanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IosBackgroundRunner.swift; path = background/IosBackgroundRunner.swift; sourceTree = "<group>"; };
@@ -266,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				935409922F4CCC280055415F /* IosPassportBridge.swift */,
+				770AEF942F4DF53A00A73343 /* ooniprobe.swift */,
 			);
 			path = passport;
 			sourceTree = "<group>";
@@ -873,6 +877,7 @@
 				93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */,
 				935409952F4CCC280055415F /* IosPassportBridge.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				770AEF952F4DF53A00A73343 /* ooniprobe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -908,6 +913,7 @@
 				79FBD00E2C5A70AF004E041C /* IosOonimkallBridge.swift in Sources */,
 				935409942F4CCC280055415F /* IosPassportBridge.swift in Sources */,
 				79FBD00F2C5A70AF004E041C /* ContentView.swift in Sources */,
+				770AEF962F4DF53A00A73343 /* ooniprobe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

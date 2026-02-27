@@ -135,7 +135,7 @@ import kotlin.coroutines.CoroutineContext
 class Dependencies(
     val platformInfo: PlatformInfo,
     private val oonimkallBridge: OonimkallBridge,
-    val passportBridge: PassportBridge? = null,
+    val passportBridge: PassportBridge,
     private val baseFileDir: String,
     val cacheDir: String,
     private val databaseDriverFactory: () -> SqlDriver,
