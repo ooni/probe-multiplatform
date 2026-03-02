@@ -25,7 +25,6 @@ import androidx.navigation.compose.rememberNavController
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Unsupported_Url
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
-import org.ooni.probe.config.BuildTypeDefaults
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.ui.navigation.BottomBarViewModel
@@ -108,6 +107,9 @@ fun App(
         dependencies.observeAndConfigureAutoUpdate()
     }
     LaunchedEffect(Unit) {
+        dependencies.retrieveManifest()
+    }
+    LaunchedEffect(Unit) {
         dependencies.refreshArticles()
     }
 
@@ -130,19 +132,6 @@ fun App(
 
             null -> Unit
         }
-    }
-
-    // TODO: remove me, just for testing
-    LaunchedEffect(Unit) {
-        Logger.i("Manifest")
-        dependencies.passportBridge
-            .get(
-                url = "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/manifest",
-            ).map {
-                Logger.i(it.toString())
-            }.mapError {
-                Logger.i(it.toString())
-            }
     }
 }
 

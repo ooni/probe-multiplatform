@@ -76,6 +76,7 @@ kotlin {
             implementation(libs.bundles.android)
             implementation(libs.bundles.mobile)
             implementation("net.java.dev.jna:jna:5.18.1@aar")
+            implementation("org.ooni:passport-android:e56538fd:@aar")
         }
         commonMain {
             dependencies {
