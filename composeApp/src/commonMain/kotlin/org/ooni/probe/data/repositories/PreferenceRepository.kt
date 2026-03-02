@@ -91,6 +91,7 @@ class PreferenceRepository(
             SettingsKey.PROXY_SELECTED,
             SettingsKey.LANGUAGE_SETTING,
             SettingsKey.LAST_RUN_DISMISSED,
+            SettingsKey.MANIFEST,
             -> PreferenceKey.StringKey(stringPreferencesKey(preferenceKey))
 
             SettingsKey.CHOSEN_WEBSITES,

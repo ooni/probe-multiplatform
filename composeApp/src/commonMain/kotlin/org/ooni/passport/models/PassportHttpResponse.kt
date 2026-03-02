@@ -5,4 +5,6 @@ data class PassportHttpResponse(
     val version: String,
     val headersListText: List<List<String>>,
     val bodyText: String?,
-)
+) {
+    val isSuccessful get() = statusCode in 200..299
+}
