@@ -27,6 +27,8 @@ import kotlinx.coroutines.Dispatchers
 import okio.Path
 import okio.Path.Companion.toPath
 import org.ooni.engine.AndroidNetworkTypeFinder
+import org.ooni.engine.AndroidSecureStorage
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.engine.AndroidOonimkallBridge
 import org.ooni.probe.background.AppWorkerManager
 import org.ooni.probe.config.AndroidBatteryOptimization
@@ -52,6 +54,7 @@ class AndroidApplication : Application() {
             cacheDir = cacheDir.absolutePath,
             databaseDriverFactory = ::buildDatabaseDriver,
             networkTypeFinder = AndroidNetworkTypeFinder(connectivityManager),
+            secureStorage = AndroidSecureStorage(this, OrganizationConfig.baseSoftwareName),
             buildDataStore = ::buildDataStore,
             getBatteryState = ::getBatteryState,
             startSingleRunInner = appWorkerManager::startSingleRun,

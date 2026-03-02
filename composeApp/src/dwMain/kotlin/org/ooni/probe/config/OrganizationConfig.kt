@@ -5,6 +5,7 @@ import ooniprobe.composeapp.generated.resources.onboarding
 
 object OrganizationConfig : OrganizationConfigInterface {
     override val baseSoftwareName = "news-media-scan"
+    override val appId = "com.dw.ooniprobe"
     override val testDisplayMode = TestDisplayMode.WebsitesOnly
     override val autorunTaskId = "org.dw.probe.autorun-task"
     override val updateDescriptorTaskId = "org.dw.probe.update-descriptor-task"

@@ -7,6 +7,7 @@ import ooniprobe.composeapp.generated.resources.onboarding3
 
 object OrganizationConfig : OrganizationConfigInterface {
     override val baseSoftwareName = "ooniprobe"
+    override val appId = "org.openobservatory.ooniprobe"
     override val testDisplayMode = TestDisplayMode.Regular
     override val autorunTaskId = "org.ooni.probe.autorun-task"
     override val updateDescriptorTaskId = "org.ooni.probe.update-descriptor-task"
