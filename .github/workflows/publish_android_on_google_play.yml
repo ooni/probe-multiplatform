@@ -51,6 +51,7 @@ jobs:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.OONI_ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_PASSWORD: ${{ secrets.OONI_ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.OONI_ANDROID_KEY_ALIAS }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: bundle exec fastlane android publish track:$TRACK organization:ooni json_key:key.json
 
   publishNewsMediaScan:
@@ -70,4 +71,5 @@ jobs:
         env:
           TRACK: ${{ inputs.track }}
           VERSION_CODE: ${{ inputs.versionCode }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: bundle exec fastlane android publish track:$TRACK version_code:$VERSION_CODE organization:dw json_key:key.json
