@@ -119,32 +119,6 @@ fun ResultCell(
                         }
                     }
                 }
-                if (!item.allMeasurementsUploaded) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Icon(
-                            painterResource(Res.drawable.ic_cloud_off),
-                            contentDescription = null,
-                            tint = if (item.anyMeasurementUploadFailed) {
-                                MaterialTheme.colorScheme.error
-                            } else {
-                                LocalContentColor.current
-                            },
-                            modifier = Modifier.size(20.dp).padding(end = 4.dp),
-                        )
-                        Text(
-                            stringResource(
-                                if (item.anyMeasurementUploadFailed) {
-                                    Res.string.Modal_UploadFailed_Title
-                                } else {
-                                    Res.string.Snackbar_ResultsNotUploaded_Text
-                                },
-                            ).lowercase(),
-                            style = MaterialTheme.typography.labelLarge,
-                        )
-                    }
-                }
             }
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.Start),
@@ -230,6 +204,19 @@ private fun ResultCounts(item: ResultListItem) {
                 },
             )
         }
+    }
+
+    if (!item.allMeasurementsUploaded) {
+        ResultCountItem(
+            icon = Res.drawable.ic_cloud_off,
+            text = stringResource(
+                if (item.anyMeasurementUploadFailed) {
+                    Res.string.Modal_UploadFailed_Title
+                } else {
+                    Res.string.Snackbar_ResultsNotUploaded_Text
+                },
+            ).lowercase(),
+        )
     }
 }
 

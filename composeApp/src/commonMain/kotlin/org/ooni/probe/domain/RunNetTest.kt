@@ -3,6 +3,7 @@ package org.ooni.probe.domain
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskEventResult
@@ -16,6 +17,7 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
+import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.toLocalDateTime
@@ -30,6 +32,8 @@ class RunNetTest(
     private val writeFile: WriteFile,
     private val deleteFiles: DeleteFiles,
     private val json: Json,
+    private val getPreferenceValueByKey: (SettingsKey) -> Flow<Any?>,
+    private val submitMeasurement: suspend (MeasurementModel) -> MeasurementModel?,
     private val spec: Specification,
 ) {
     data class Specification(
@@ -68,7 +72,8 @@ class RunNetTest(
                 )
             }
             // Ensure descriptor id is not available for ooni descriptors
-            val installedDescriptorId = if (spec.descriptor.isDefault()) null else spec.descriptor.descriptor.id
+            val installedDescriptorId =
+                if (spec.descriptor.isDefault()) null else spec.descriptor.descriptor.id
 
             try {
                 startTest(
@@ -83,6 +88,7 @@ class RunNetTest(
     }
 
     private suspend fun onEvent(event: TaskEvent) {
+        Logger.i("Event: $event")
         when (event) {
             TaskEvent.Started -> {
                 // We already update the initial state before starting the task
@@ -179,7 +185,7 @@ class RunNetTest(
                         }
 
                         // Introduced to capture the URL for measurements (`echcheck`) which did not
-                        // emmit the URL in the measurement start event.
+                        // emit the URL in the measurement start event.
                         // see https://github.com/ooni/probe-multiplatform/issues/435
                         if (event.result.input != null && measurement.urlId == null) {
                             measurement = measurement.copy(
@@ -255,6 +261,7 @@ class RunNetTest(
             }
 
             is TaskEvent.MeasurementDone -> {
+                submitMeasurement(event.index)
                 updateMeasurement(event.index) {
                     it.copy(isDone = true)
                 }
@@ -332,6 +339,20 @@ class RunNetTest(
         val updatedMeasurement = update(measurement)
         measurements[index] = updatedMeasurement
         storeMeasurement(updatedMeasurement)
+    }
+
+    private suspend fun submitMeasurement(index: Int) {
+        if (getPreferenceValueByKey(SettingsKey.UPLOAD_RESULTS).first() != true) return
+
+        val measurement = measurements[index] ?: return
+        if (!measurement.isUploaded) {
+            val newMeasurement = submitMeasurement(measurement)
+            if (newMeasurement != null) {
+                measurements[index] = newMeasurement
+            } else {
+                measurements.remove(index)
+            }
+        }
     }
 
     private suspend fun writeToReportFile(

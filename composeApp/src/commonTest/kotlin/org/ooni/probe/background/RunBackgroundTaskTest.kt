@@ -64,6 +64,5 @@ class RunBackgroundTaskTest {
         setRunBackgroundState = setRunBackgroundState,
         getRunBackgroundState = getRunBackgroundState,
         addRunCancelListener = addRunCancelListener,
-        getLatestResult = getLatestResult,
     )
 }
