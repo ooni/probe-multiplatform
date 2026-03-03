@@ -86,6 +86,7 @@ import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
 import org.ooni.probe.domain.credentials.GetCredentials
 import org.ooni.probe.domain.credentials.GetManifest
+import org.ooni.probe.domain.credentials.GetOrRetrieveManifest
 import org.ooni.probe.domain.credentials.RegisterUser
 import org.ooni.probe.domain.credentials.RegisterUserWithManifest
 import org.ooni.probe.domain.credentials.RetrieveManifest
@@ -402,10 +403,15 @@ class Dependencies(
             backgroundContext = backgroundContext,
         )
     }
+    val getOrRetrieveManifest by lazy {
+        GetOrRetrieveManifest(
+            getManifest = getManifest,
+            retrieveManifest = retrieveManifest,
+        )
+    }
     val registerUserWithManifest by lazy {
         RegisterUserWithManifest(
-            retrieveManifest = retrieveManifest::invoke,
-            getManifest = suspend { getManifest().first() },
+            getOrRetrieveManifest = getOrRetrieveManifest::invoke,
             getCredentials = suspend { getCredentials().first() },
             registerUser = registerUser::invoke,
             backgroundContext = backgroundContext,

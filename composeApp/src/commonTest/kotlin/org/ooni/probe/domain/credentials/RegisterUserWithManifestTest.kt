@@ -1,5 +1,6 @@
 package org.ooni.probe.domain.credentials
 
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.testing.factories.ManifestFactory
 import kotlin.test.Test
@@ -12,14 +13,14 @@ class RegisterUserWithManifestTest {
         runTest {
             val testManifest = ManifestFactory.build()
             val expectedCredential = "test_credential_from_manifest"
-            var retrieveManifestCalled = false
+            var getOrRetrieveManifestCalled = false
             var registerUserParams: Pair<String, String>? = null
 
             val registerUserWithManifest = RegisterUserWithManifest(
-                retrieveManifest = {
-                    retrieveManifestCalled = true
+                getOrRetrieveManifest = {
+                    getOrRetrieveManifestCalled = true
+                    flowOf(testManifest)
                 },
-                getManifest = { testManifest },
                 getCredentials = { null }, // No existing credentials
                 registerUser = { publicParams, manifestVersion ->
                     registerUserParams = publicParams to manifestVersion
@@ -31,7 +32,7 @@ class RegisterUserWithManifestTest {
             val result = registerUserWithManifest()
 
             assertEquals(expectedCredential, result)
-            assertEquals(true, retrieveManifestCalled)
+            assertEquals(true, getOrRetrieveManifestCalled)
             assertEquals(testManifest.manifest.publicParameters to testManifest.meta.version, registerUserParams)
         }
 
@@ -39,14 +40,14 @@ class RegisterUserWithManifestTest {
     fun returnsExistingCredentials() =
         runTest {
             val existingCredential = "existing_credential_123"
-            var retrieveManifestCalled = false
+            var getOrRetrieveManifestCalled = false
             var registerUserCalled = false
 
             val registerUserWithManifest = RegisterUserWithManifest(
-                retrieveManifest = {
-                    retrieveManifestCalled = true
+                getOrRetrieveManifest = {
+                    getOrRetrieveManifestCalled = true
+                    flowOf(ManifestFactory.build())
                 },
-                getManifest = { ManifestFactory.build() },
                 getCredentials = { existingCredential }, // Has existing credentials
                 registerUser = { _, _ ->
                     registerUserCalled = true
@@ -58,7 +59,7 @@ class RegisterUserWithManifestTest {
             val result = registerUserWithManifest()
 
             assertEquals(existingCredential, result)
-            assertEquals(false, retrieveManifestCalled) // Should skip manifest retrieval
+            assertEquals(false, getOrRetrieveManifestCalled) // Should skip manifest retrieval
             assertEquals(false, registerUserCalled) // Should skip registration
         }
 
@@ -66,8 +67,7 @@ class RegisterUserWithManifestTest {
     fun noManifestAvailable() =
         runTest {
             val registerUserWithManifest = RegisterUserWithManifest(
-                retrieveManifest = { },
-                getManifest = { null },
+                getOrRetrieveManifest = { flowOf(null) },
                 getCredentials = { null }, // No existing credentials
                 registerUser = { _, _ -> "should_not_be_called" },
                 backgroundContext = coroutineContext,
@@ -81,13 +81,14 @@ class RegisterUserWithManifestTest {
     @Test
     fun emptyPublicParameters() =
         runTest {
-            val manifestWithEmptyParams = ManifestFactory.build().copy(
-                manifest = ManifestFactory.build().manifest.copy(publicParameters = ""),
+            val manifestWithEmptyParams = flowOf(
+                ManifestFactory.build().copy(
+                    manifest = ManifestFactory.build().manifest.copy(publicParameters = ""),
+                ),
             )
 
             val registerUserWithManifest = RegisterUserWithManifest(
-                retrieveManifest = { },
-                getManifest = { manifestWithEmptyParams },
+                getOrRetrieveManifest = { manifestWithEmptyParams },
                 getCredentials = { null }, // No existing credentials
                 registerUser = { _, _ -> "should_not_be_called" },
                 backgroundContext = coroutineContext,
@@ -101,13 +102,14 @@ class RegisterUserWithManifestTest {
     @Test
     fun emptyManifestVersion() =
         runTest {
-            val manifestWithEmptyVersion = ManifestFactory.build().copy(
-                meta = ManifestFactory.build().meta.copy(version = ""),
+            val manifestWithEmptyVersion = flowOf(
+                ManifestFactory.build().copy(
+                    meta = ManifestFactory.build().meta.copy(version = ""),
+                ),
             )
 
             val registerUserWithManifest = RegisterUserWithManifest(
-                retrieveManifest = { },
-                getManifest = { manifestWithEmptyVersion },
+                getOrRetrieveManifest = { manifestWithEmptyVersion },
                 getCredentials = { null }, // No existing credentials
                 registerUser = { _, _ -> "should_not_be_called" },
                 backgroundContext = coroutineContext,
@@ -121,11 +123,10 @@ class RegisterUserWithManifestTest {
     @Test
     fun registerUserFails() =
         runTest {
-            val testManifest = ManifestFactory.build()
+            val testManifest = flowOf(ManifestFactory.build())
 
             val registerUserWithManifest = RegisterUserWithManifest(
-                retrieveManifest = { },
-                getManifest = { testManifest },
+                getOrRetrieveManifest = { testManifest },
                 getCredentials = { null }, // No existing credentials
                 registerUser = { _, _ -> null }, // Registration fails
                 backgroundContext = coroutineContext,
@@ -137,30 +138,11 @@ class RegisterUserWithManifestTest {
         }
 
     @Test
-    fun retrieveManifestThrowsException() =
+    fun getOrRetrieveManifestThrowsException() =
         runTest {
             val registerUserWithManifest = RegisterUserWithManifest(
-                retrieveManifest = {
+                getOrRetrieveManifest = {
                     throw RuntimeException("Network error retrieving manifest")
-                },
-                getManifest = { ManifestFactory.build() },
-                getCredentials = { null }, // No existing credentials
-                registerUser = { _, _ -> "should_not_be_called" },
-                backgroundContext = coroutineContext,
-            )
-
-            val result = registerUserWithManifest()
-
-            assertNull(result)
-        }
-
-    @Test
-    fun getManifestThrowsException() =
-        runTest {
-            val registerUserWithManifest = RegisterUserWithManifest(
-                retrieveManifest = { },
-                getManifest = {
-                    throw RuntimeException("Error reading manifest from storage")
                 },
                 getCredentials = { null }, // No existing credentials
                 registerUser = { _, _ -> "should_not_be_called" },
@@ -176,8 +158,7 @@ class RegisterUserWithManifestTest {
     fun getCredentialsThrowsException() =
         runTest {
             val registerUserWithManifest = RegisterUserWithManifest(
-                retrieveManifest = { },
-                getManifest = { ManifestFactory.build() },
+                getOrRetrieveManifest = { flowOf(ManifestFactory.build()) },
                 getCredentials = {
                     throw RuntimeException("Error reading credentials from storage")
                 },
