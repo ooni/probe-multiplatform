@@ -83,6 +83,8 @@ import org.ooni.probe.domain.appreview.ShouldShowAppReview
 import org.ooni.probe.domain.articles.GetFindings
 import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
+import org.ooni.probe.domain.credentials.GetManifest
+import org.ooni.probe.domain.credentials.RetrieveManifest
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
 import org.ooni.probe.domain.descriptors.BootstrapTestDescriptors
 import org.ooni.probe.domain.descriptors.DeleteTestDescriptor
@@ -378,6 +380,12 @@ class Dependencies(
             getPreference = preferenceRepository::getValueByKey,
         )
     }
+    private val getManifest by lazy {
+        GetManifest(
+            getPreference = preferenceRepository::getValueByKey,
+            json = json,
+        )
+    }
     private val getResults by lazy {
         GetResults(
             resultRepository::list,
@@ -475,6 +483,15 @@ class Dependencies(
         RejectDescriptorUpdate(
             updateDescriptorRejectedRevision = testDescriptorRepository::updateRejectedRevision,
             updateState = descriptorUpdateStateManager::update,
+        )
+    }
+    val retrieveManifest by lazy {
+        RetrieveManifest(
+            getManifest = getManifest::invoke,
+            passportGet = passportBridge::get,
+            setPreference = preferenceRepository::setValueByKey,
+            json = json,
+            backgroundContext = backgroundContext,
         )
     }
     private val runDescriptors by lazy {
