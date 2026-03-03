@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -83,7 +84,10 @@ import org.ooni.probe.domain.appreview.ShouldShowAppReview
 import org.ooni.probe.domain.articles.GetFindings
 import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
+import org.ooni.probe.domain.credentials.GetCredentials
 import org.ooni.probe.domain.credentials.GetManifest
+import org.ooni.probe.domain.credentials.RegisterUser
+import org.ooni.probe.domain.credentials.RegisterUserWithManifest
 import org.ooni.probe.domain.credentials.RetrieveManifest
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
 import org.ooni.probe.domain.descriptors.BootstrapTestDescriptors
@@ -384,6 +388,27 @@ class Dependencies(
         GetManifest(
             getPreference = preferenceRepository::getValueByKey,
             json = json,
+        )
+    }
+    private val getCredentials by lazy {
+        GetCredentials(
+            readCredentials = secureStorage::read,
+        )
+    }
+    private val registerUser by lazy {
+        RegisterUser(
+            userAuthRegister = passportBridge::userAuthRegister,
+            saveCredential = secureStorage::write,
+            backgroundContext = backgroundContext,
+        )
+    }
+    val registerUserWithManifest by lazy {
+        RegisterUserWithManifest(
+            getManifest = getManifest,
+            retrieveManifest = retrieveManifest,
+            getCredentials = suspend { getCredentials().first() },
+            registerUser = registerUser::invoke,
+            backgroundContext = backgroundContext,
         )
     }
     private val getResults by lazy {
