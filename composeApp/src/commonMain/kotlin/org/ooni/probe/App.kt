@@ -108,7 +108,7 @@ fun App(
         dependencies.observeAndConfigureAutoUpdate()
     }
     LaunchedEffect(Unit) {
-        dependencies.retrieveManifest()
+        dependencies.registerUserWithManifest()
     }
     LaunchedEffect(Unit) {
         dependencies.refreshArticles()

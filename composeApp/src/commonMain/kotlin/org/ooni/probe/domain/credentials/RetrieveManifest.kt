@@ -46,6 +46,17 @@ class RetrieveManifest(
 
                 try {
                     val manifest = json.decodeFromString<Manifest>(it.bodyText)
+
+                    if (manifest.manifest.publicParameters.isBlank()) {
+                        Logger.w("Manifest has empty publicParameters")
+                        return@withContext
+                    }
+
+                    if (manifest.meta.version.isBlank()) {
+                        Logger.w("Manifest has empty version")
+                        return@withContext
+                    }
+
                     Logger.i("Manifest updated to version ${manifest.meta.version}")
                 } catch (e: Exception) {
                     Logger.w("Failed to parse retrieved manifest", e)
