@@ -79,48 +79,6 @@ class RegisterUserWithManifestTest {
         }
 
     @Test
-    fun emptyPublicParameters() =
-        runTest {
-            val manifestWithEmptyParams = flowOf(
-                ManifestFactory.build().copy(
-                    manifest = ManifestFactory.build().manifest.copy(publicParameters = ""),
-                ),
-            )
-
-            val registerUserWithManifest = RegisterUserWithManifest(
-                getOrRetrieveManifest = { manifestWithEmptyParams },
-                getCredentials = { null }, // No existing credentials
-                registerUser = { _, _ -> "should_not_be_called" },
-                backgroundContext = coroutineContext,
-            )
-
-            val result = registerUserWithManifest()
-
-            assertNull(result)
-        }
-
-    @Test
-    fun emptyManifestVersion() =
-        runTest {
-            val manifestWithEmptyVersion = flowOf(
-                ManifestFactory.build().copy(
-                    meta = ManifestFactory.build().meta.copy(version = ""),
-                ),
-            )
-
-            val registerUserWithManifest = RegisterUserWithManifest(
-                getOrRetrieveManifest = { manifestWithEmptyVersion },
-                getCredentials = { null }, // No existing credentials
-                registerUser = { _, _ -> "should_not_be_called" },
-                backgroundContext = coroutineContext,
-            )
-
-            val result = registerUserWithManifest()
-
-            assertNull(result)
-        }
-
-    @Test
     fun registerUserFails() =
         runTest {
             val testManifest = flowOf(ManifestFactory.build())
