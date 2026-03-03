@@ -116,7 +116,7 @@ fun App(
     LaunchedEffect(Unit) {
         dependencies.bootstrapTestDescriptors()
         dependencies.bootstrapPreferences()
-        dependencies.retrieveManifest()
+        dependencies.registerUserWithManifest()
         dependencies.fetchGeoIpDbUpdates()
     }
     LaunchedEffect(Unit) {
