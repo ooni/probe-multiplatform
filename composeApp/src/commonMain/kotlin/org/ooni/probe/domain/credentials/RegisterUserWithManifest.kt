@@ -8,7 +8,8 @@ import org.ooni.probe.data.models.Manifest
 import kotlin.coroutines.CoroutineContext
 
 class RegisterUserWithManifest(
-    private val getOrRetrieveManifest: suspend () -> Flow<Manifest?>,
+    private val getManifest: GetManifest,
+    private val retrieveManifest: RetrieveManifest,
     private val getCredentials: suspend () -> String?,
     private val registerUser: suspend (String, String) -> String?,
     private val backgroundContext: CoroutineContext,
@@ -41,5 +42,10 @@ class RegisterUserWithManifest(
                 null
             }
         }
+    }
+
+    private suspend fun getOrRetrieveManifest(): Flow<Manifest?> {
+        retrieveManifest()
+        return getManifest()
     }
 }
