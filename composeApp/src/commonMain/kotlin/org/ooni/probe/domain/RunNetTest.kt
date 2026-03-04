@@ -88,7 +88,6 @@ class RunNetTest(
     }
 
     private suspend fun onEvent(event: TaskEvent) {
-        Logger.i("Event: $event")
         when (event) {
             TaskEvent.Started -> {
                 // We already update the initial state before starting the task
