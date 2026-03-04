@@ -10,20 +10,20 @@ import kotlin.coroutines.CoroutineContext
 class RegisterUserWithManifest(
     private val getManifest: GetManifest,
     private val retrieveManifest: RetrieveManifest,
-    private val getCredentials: suspend () -> String?,
+    private val getCredential: suspend () -> String?,
     private val registerUser: suspend (String, String) -> String?,
     private val backgroundContext: CoroutineContext,
 ) {
     suspend operator fun invoke(): String? {
         return withContext(backgroundContext) {
             try {
-                val existingCredentials = getCredentials()
-                if (existingCredentials != null) {
-                    Logger.i("User already has credentials, skipping registration")
-                    return@withContext existingCredentials
+                val existingCredential = getCredential()
+                if (existingCredential != null) {
+                    Logger.i("User already has credential, skipping registration")
+                    return@withContext existingCredential
                 }
 
-                Logger.i("No existing credentials found, proceeding with registration")
+                Logger.i("No existing credential found, proceeding with registration")
 
                 val manifest = getOrRetrieveManifest().first()
                 if (manifest == null) {
