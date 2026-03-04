@@ -22,6 +22,12 @@ sealed class Result<out S, out F> {
             is Failure -> Failure(reason)
         }
 
+    inline infix fun <F2> flatMapError(mapper: (F) -> Result<@UnsafeVariance S, F2>): Result<S, F2> =
+        when (this) {
+            is Success -> Success(value)
+            is Failure -> mapper(reason)
+        }
+
     inline infix fun onSuccess(action: (S) -> Unit): Result<S, F> {
         if (this is Success) {
             action(value)
