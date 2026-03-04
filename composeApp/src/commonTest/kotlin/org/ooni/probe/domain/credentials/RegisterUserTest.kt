@@ -1,7 +1,6 @@
 package org.ooni.probe.domain.credentials
 
 import kotlinx.coroutines.test.runTest
-import org.ooni.engine.WriteResult
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Success
 import org.ooni.passport.models.CredentialResponse
@@ -21,12 +20,11 @@ class RegisterUserTest {
     @Test
     fun successful() =
         runTest {
-            var storedCredentialKey: String? = null
-            var storedCredentialValue: String? = null
+            var setCredentialValue: String? = null
             val expectedCredential = "base64_encoded_credential_string"
 
             val registerUser = RegisterUser(
-                userAuthRegister = { _, _, _ ->
+                passportAuthRegister = { _, _, _ ->
                     Success(
                         CredentialResponse(
                             response = PassportHttpResponse(
@@ -39,10 +37,9 @@ class RegisterUserTest {
                         ),
                     )
                 },
-                saveCredential = { key, value ->
-                    storedCredentialKey = key
-                    storedCredentialValue = value
-                    WriteResult.Created(key)
+                setCredential = {
+                    setCredentialValue = it
+                    true
                 },
                 backgroundContext = coroutineContext,
             )
@@ -53,15 +50,14 @@ class RegisterUserTest {
             )
 
             assertEquals(expectedCredential, result)
-            assertEquals(CredentialsConstants.CREDENTIALS_KEY, storedCredentialKey)
-            assertEquals(expectedCredential, storedCredentialValue)
+            assertEquals(expectedCredential, setCredentialValue)
         }
 
     @Test
     fun httpError() =
         runTest {
             val registerUser = RegisterUser(
-                userAuthRegister = { _, _, _ ->
+                passportAuthRegister = { _, _, _ ->
                     Success(
                         CredentialResponse(
                             response = PassportHttpResponse(
@@ -74,7 +70,7 @@ class RegisterUserTest {
                         ),
                     )
                 },
-                saveCredential = { _, _ -> WriteResult.Created("") },
+                setCredential = { true },
                 backgroundContext = coroutineContext,
             )
 
@@ -90,7 +86,7 @@ class RegisterUserTest {
     fun emptyCredential() =
         runTest {
             val registerUser = RegisterUser(
-                userAuthRegister = { _, _, _ ->
+                passportAuthRegister = { _, _, _ ->
                     Success(
                         CredentialResponse(
                             response = PassportHttpResponse(
@@ -103,7 +99,7 @@ class RegisterUserTest {
                         ),
                     )
                 },
-                saveCredential = { _, _ -> WriteResult.Created("") },
+                setCredential = { true },
                 backgroundContext = coroutineContext,
             )
 
@@ -119,10 +115,10 @@ class RegisterUserTest {
     fun networkError() =
         runTest {
             val registerUser = RegisterUser(
-                userAuthRegister = { _, _, _ ->
+                passportAuthRegister = { _, _, _ ->
                     Failure(PassportException.Other("Network error"))
                 },
-                saveCredential = { _, _ -> WriteResult.Created("") },
+                setCredential = { true },
                 backgroundContext = coroutineContext,
             )
 
@@ -138,7 +134,7 @@ class RegisterUserTest {
     fun storageError() =
         runTest {
             val registerUser = RegisterUser(
-                userAuthRegister = { _, _, _ ->
+                passportAuthRegister = { _, _, _ ->
                     Success(
                         CredentialResponse(
                             response = PassportHttpResponse(
@@ -151,9 +147,7 @@ class RegisterUserTest {
                         ),
                     )
                 },
-                saveCredential = { _, _ ->
-                    throw RuntimeException("Storage failed")
-                },
+                setCredential = { false },
                 backgroundContext = coroutineContext,
             )
 

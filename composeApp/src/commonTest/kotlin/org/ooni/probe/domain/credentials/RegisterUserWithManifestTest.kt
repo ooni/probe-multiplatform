@@ -64,7 +64,7 @@ class RegisterUserWithManifestTest {
             val registerUserWithManifest = RegisterUserWithManifest(
                 getManifest = mockGetManifest,
                 retrieveManifest = mockRetrieveManifest,
-                getCredentials = { null }, // No existing credentials
+                getCredential = { null }, // No existing credentials
                 registerUser = { publicParams, manifestVersion ->
                     registerUserParams = publicParams to manifestVersion
                     expectedCredential
@@ -105,7 +105,7 @@ class RegisterUserWithManifestTest {
             val registerUserWithManifest = RegisterUserWithManifest(
                 getManifest = mockGetManifest,
                 retrieveManifest = mockRetrieveManifest,
-                getCredentials = { existingCredential }, // Has existing credentials
+                getCredential = { existingCredential }, // Has existing credentials
                 registerUser = { _, _ ->
                     registerUserCalled = true
                     "should_not_be_called"
@@ -148,7 +148,7 @@ class RegisterUserWithManifestTest {
             val registerUserWithManifest = RegisterUserWithManifest(
                 getManifest = mockGetManifest,
                 retrieveManifest = mockRetrieveManifest,
-                getCredentials = { null }, // No existing credentials
+                getCredential = { null }, // No existing credentials
                 registerUser = { _, _ -> "should_not_be_called" },
                 backgroundContext = coroutineContext,
             )
@@ -204,7 +204,7 @@ class RegisterUserWithManifestTest {
             val registerUserWithManifest = RegisterUserWithManifest(
                 getManifest = mockGetManifest,
                 retrieveManifest = mockRetrieveManifest,
-                getCredentials = { null }, // No existing credentials
+                getCredential = { null }, // No existing credentials
                 registerUser = { _, _ -> null }, // Registration fails
                 backgroundContext = coroutineContext,
             )
@@ -235,7 +235,7 @@ class RegisterUserWithManifestTest {
             val registerUserWithManifest = RegisterUserWithManifest(
                 getManifest = mockGetManifest,
                 retrieveManifest = mockRetrieveManifest,
-                getCredentials = { null }, // No existing credentials
+                getCredential = { null }, // No existing credentials
                 registerUser = { _, _ -> "should_not_be_called" },
                 backgroundContext = coroutineContext,
             )
@@ -264,7 +264,7 @@ class RegisterUserWithManifestTest {
             val registerUserWithManifest = RegisterUserWithManifest(
                 getManifest = mockGetManifest,
                 retrieveManifest = mockRetrieveManifest,
-                getCredentials = {
+                getCredential = {
                     throw RuntimeException("Error reading credentials from storage")
                 },
                 registerUser = { _, _ -> "should_not_be_called" },

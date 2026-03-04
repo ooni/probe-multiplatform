@@ -1,5 +1,5 @@
 package org.ooni.probe.domain.credentials
 
 object CredentialsConstants {
-    const val CREDENTIALS_KEY = "credentials"
+    const val STORAGE_KEY = "credential"
 }
