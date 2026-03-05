@@ -19,8 +19,24 @@ class DesktopPassportBridge : PassportBridge {
         try {
             val response = uniffi.ooniprobe.clientGet(
                 url = url,
-                headers = headers.map { uniffi.ooniprobe.KeyValue(it.key, it.value) },
-                query = query.map { uniffi.ooniprobe.KeyValue(it.key, it.value) },
+                headers = headers.map { KeyValue(it.key, it.value) },
+                query = query.map { KeyValue(it.key, it.value) },
+            )
+            Success(response.toPassport())
+        } catch (e: OoniException) {
+            Failure(e.toPassport())
+        }
+
+    override fun post(
+        url: String,
+        headers: List<PassportBridge.KeyValue>,
+        payload: String,
+    ): Result<PassportHttpResponse, PassportException> =
+        try {
+            val response = uniffi.ooniprobe.clientPost(
+                url = url,
+                headers = headers.map { KeyValue(it.key, it.value) },
+                payload = payload,
             )
             Success(response.toPassport())
         } catch (e: OoniException) {
