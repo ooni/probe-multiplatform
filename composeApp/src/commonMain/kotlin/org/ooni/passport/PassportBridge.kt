@@ -12,6 +12,12 @@ interface PassportBridge {
         query: List<KeyValue> = emptyList(),
     ): Result<PassportHttpResponse, PassportException>
 
+    fun post(
+        url: String,
+        headers: List<KeyValue> = emptyList(),
+        payload: String,
+    ): Result<PassportHttpResponse, PassportException>
+
     fun userAuthRegister(
         url: String,
         publicParams: String,

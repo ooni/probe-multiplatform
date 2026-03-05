@@ -273,7 +273,7 @@ RustBuffer uniffi_uniffi_ooniprobe_fn_func_userauth_register(RustBuffer url, Rus
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_UNIFFI_OONIPROBE_FN_FUNC_USERAUTH_SUBMIT
 #define UNIFFI_FFIDEF_UNIFFI_UNIFFI_OONIPROBE_FN_FUNC_USERAUTH_SUBMIT
-RustBuffer uniffi_uniffi_ooniprobe_fn_func_userauth_submit(RustBuffer url, RustBuffer credential, RustBuffer public_params, RustBuffer content, RustBuffer probe_cc, RustBuffer probe_asn, RustBuffer manifest_version, RustCallStatus *_Nonnull out_status
+RustBuffer uniffi_uniffi_ooniprobe_fn_func_userauth_submit(RustBuffer url, RustBuffer credential, RustBuffer public_params, RustBuffer content, RustBuffer probe_cc, RustBuffer probe_asn, RustBuffer manifest_version, uint32_t age, RustCallStatus *_Nonnull out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_FFI_UNIFFI_OONIPROBE_RUSTBUFFER_ALLOC
