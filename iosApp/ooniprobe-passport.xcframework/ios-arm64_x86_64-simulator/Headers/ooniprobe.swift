@@ -398,6 +398,22 @@ private class UniffiHandleMap<T> {
 #if swift(>=5.8)
     @_documentation(visibility: private)
 #endif
+private struct FfiConverterUInt32: FfiConverterPrimitive {
+    typealias FfiType = UInt32
+    typealias SwiftType = UInt32
+
+    static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> UInt32 {
+        return try lift(readInt(&buf))
+    }
+
+    static func write(_ value: SwiftType, into buf: inout [UInt8]) {
+        writeInt(&buf, lower(value))
+    }
+}
+
+#if swift(>=5.8)
+    @_documentation(visibility: private)
+#endif
 private struct FfiConverterInt32: FfiConverterPrimitive {
     typealias FfiType = Int32
     typealias SwiftType = Int32
@@ -952,7 +968,7 @@ public func userauthRegister(url: String, publicParams: String, manifestVersion:
     })
 }
 
-public func userauthSubmit(url: String, credential: String, publicParams: String, content: String, probeCc: String, probeAsn: String, manifestVersion: String) throws -> CredentialResult {
+public func userauthSubmit(url: String, credential: String, publicParams: String, content: String, probeCc: String, probeAsn: String, manifestVersion: String, age: UInt32) throws -> CredentialResult {
     return try FfiConverterTypeCredentialResult.lift(rustCallWithError(FfiConverterTypeOoniError.lift) {
         uniffi_uniffi_ooniprobe_fn_func_userauth_submit(
             FfiConverterString.lower(url),
@@ -961,7 +977,8 @@ public func userauthSubmit(url: String, credential: String, publicParams: String
             FfiConverterString.lower(content),
             FfiConverterString.lower(probeCc),
             FfiConverterString.lower(probeAsn),
-            FfiConverterString.lower(manifestVersion), $0
+            FfiConverterString.lower(manifestVersion),
+            FfiConverterUInt32.lower(age), $0
         )
     })
 }
@@ -994,7 +1011,7 @@ private var initializationResult: InitializationResult = {
     if uniffi_uniffi_ooniprobe_checksum_func_userauth_register() != 39441 {
         return InitializationResult.apiChecksumMismatch
     }
-    if uniffi_uniffi_ooniprobe_checksum_func_userauth_submit() != 46789 {
+    if uniffi_uniffi_ooniprobe_checksum_func_userauth_submit() != 59453 {
         return InitializationResult.apiChecksumMismatch
     }
 
