@@ -9,7 +9,6 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -84,11 +83,13 @@ import org.ooni.probe.domain.appreview.ShouldShowAppReview
 import org.ooni.probe.domain.articles.GetFindings
 import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
-import org.ooni.probe.domain.credentials.GetCredentials
+import org.ooni.probe.domain.credentials.GetCredential
 import org.ooni.probe.domain.credentials.GetManifest
 import org.ooni.probe.domain.credentials.RegisterUser
 import org.ooni.probe.domain.credentials.RegisterUserWithManifest
 import org.ooni.probe.domain.credentials.RetrieveManifest
+import org.ooni.probe.domain.credentials.SetCredential
+import org.ooni.probe.domain.credentials.SubmitMeasurementWithUser
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
 import org.ooni.probe.domain.descriptors.BootstrapTestDescriptors
 import org.ooni.probe.domain.descriptors.DeleteTestDescriptor
@@ -390,15 +391,15 @@ class Dependencies(
             json = json,
         )
     }
-    private val getCredentials by lazy {
-        GetCredentials(
-            readCredentials = secureStorage::read,
+    private val getCredential by lazy {
+        GetCredential(
+            readSecureStorage = secureStorage::read,
         )
     }
     private val registerUser by lazy {
         RegisterUser(
-            userAuthRegister = passportBridge::userAuthRegister,
-            saveCredential = secureStorage::write,
+            passportAuthRegister = passportBridge::userAuthRegister,
+            setCredential = setCredential::invoke,
             backgroundContext = backgroundContext,
         )
     }
@@ -406,7 +407,7 @@ class Dependencies(
         RegisterUserWithManifest(
             getManifest = getManifest,
             retrieveManifest = retrieveManifest,
-            getCredentials = suspend { getCredentials().first() },
+            getCredential = getCredential::invoke,
             registerUser = registerUser::invoke,
             backgroundContext = backgroundContext,
         )
@@ -551,6 +552,11 @@ class Dependencies(
             getAppLoggerFile = appLogger::getLogFilePath,
         )
     }
+    val setCredential by lazy {
+        SetCredential(
+            writeSecureStorage = secureStorage::write,
+        )
+    }
     private val shareLogFile by lazy { ShareLogFile(launchAction, appLogger::getLogFilePath) }
     val shouldShowAppReview by lazy {
         ShouldShowAppReview(
@@ -610,6 +616,7 @@ class Dependencies(
 
     private val submitMeasurement by lazy {
         SubmitMeasurement(
+            submitMeasurementWithUser = submitMeasurementWithUser::invoke,
             engineSubmit = engine::submitMeasurement,
             readFile = readFile,
             deleteFiles = deleteFiles,
@@ -617,7 +624,15 @@ class Dependencies(
             deleteMeasurementById = measurementRepository::deleteById,
         )
     }
-
+    private val submitMeasurementWithUser by lazy {
+        SubmitMeasurementWithUser(
+            getManifest = getManifest::invoke,
+            getCredential = getCredential::invoke,
+            setCredential = setCredential::invoke,
+            passportAuthSubmit = passportBridge::userAuthSubmit,
+            json = json,
+        )
+    }
     private val uploadMissingMeasurements by lazy {
         UploadMissingMeasurements(
             getMeasurementsNotUploaded = getMeasurementsNotUploaded::invoke,
