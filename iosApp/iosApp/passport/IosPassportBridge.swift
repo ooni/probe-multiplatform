@@ -21,6 +21,25 @@ class IosPassportBridge: PassportBridge {
             )
         }
     }
+    
+    func post(url: String, headers: [PassportBridgeKeyValue], payload: String) -> Result<PassportHttpResponse, PassportException> {
+        do {
+            let response = try clientPost(
+                url: url,
+                headers: headers.map { KeyValue(key: $0.key, value: $0.value) },
+                payload: payload,
+                
+            )
+            return IosPassportBridgeHelpersKt.SuccessPassportHttpResponse(value: response.toPassport())
+        } catch let error as OoniError {
+            return IosPassportBridgeHelpersKt.FailureHttpPassportException(reason: error.toPassport())
+        } catch {
+            return IosPassportBridgeHelpersKt.FailureHttpPassportException(
+                reason: PassportException.Other(message: error.localizedDescription)
+            )
+        }
+    }
+    
 
     func userAuthRegister(
         url: String,
@@ -60,7 +79,8 @@ class IosPassportBridge: PassportBridge {
                 content: content,
                 probeCc: probeCc,
                 probeAsn: probeAsn,
-                manifestVersion: manifestVersion
+                manifestVersion: manifestVersion,
+                age: 32
             )
             return IosPassportBridgeHelpersKt.SuccessCredentialResponse(value: response.toPassport())
         } catch let error as OoniError {

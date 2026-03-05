@@ -26,6 +26,22 @@ class AndroidPassportBridge : PassportBridge {
             Failure(e.toPassport())
         }
 
+    override fun post(
+        url: String,
+        headers: List<PassportBridge.KeyValue>,
+        payload: String,
+    ): Result<PassportHttpResponse, PassportException> =
+        try {
+            val response = uniffi.ooniprobe.clientPost(
+                url = url,
+                headers = headers.map { uniffi.ooniprobe.KeyValue(it.key, it.value) },
+                payload = payload,
+            )
+            Success(response.toPassport())
+        } catch (e: OoniException) {
+            Failure(e.toPassport())
+        }
+
     override fun userAuthRegister(
         url: String,
         publicParams: String,
