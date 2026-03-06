@@ -2,14 +2,16 @@ package org.ooni.probe.domain.credentials
 
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 import org.ooni.passport.PassportAuthRegister
 import org.ooni.probe.config.BuildTypeDefaults
 import kotlin.coroutines.CoroutineContext
 
 class RegisterUser(
     private val passportAuthRegister: PassportAuthRegister,
-    private val setCredential: suspend (String) -> Boolean,
+    private val setCredential: suspend (String, UInt) -> Boolean,
     private val backgroundContext: CoroutineContext,
+    private val json: Json,
 ) {
     suspend operator fun invoke(
         publicParams: String,
@@ -32,7 +34,13 @@ class RegisterUser(
                         return@withContext null
                     }
 
-                    return@withContext if (setCredential(credential)) {
+                    val rawCredential = credentialResponse.decodeCredential(json)
+                    if (rawCredential == null) {
+                        Logger.w("Failed to parse retrieved manifest")
+                        return@withContext null
+                    }
+
+                    return@withContext if (setCredential(credential, rawCredential.emissionDay)) {
                         credential
                     } else {
                         null
