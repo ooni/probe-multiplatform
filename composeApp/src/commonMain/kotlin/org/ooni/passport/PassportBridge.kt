@@ -37,6 +37,7 @@ interface PassportBridge :
         probeCc: String,
         probeAsn: String,
         manifestVersion: String,
+        age: UInt,
     ): Result<CredentialResponse, PassportException>
 
     data class KeyValue(
@@ -78,5 +79,6 @@ fun interface PassportAuthSubmit {
         probeCc: String,
         probeAsn: String,
         manifestVersion: String,
+        age: UInt,
     ): Result<CredentialResponse, PassportException>
 }

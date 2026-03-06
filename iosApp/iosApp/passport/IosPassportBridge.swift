@@ -69,7 +69,8 @@ class IosPassportBridge: PassportBridge {
         content: String,
         probeCc: String,
         probeAsn: String,
-        manifestVersion: String
+        manifestVersion: String,
+        age: UInt32
     ) -> Result<CredentialResponse, PassportException> {
         do {
             let response = try userauthSubmit(
@@ -80,7 +81,7 @@ class IosPassportBridge: PassportBridge {
                 probeCc: probeCc,
                 probeAsn: probeAsn,
                 manifestVersion: manifestVersion,
-                age: 32
+                age: age
             )
             return IosPassportBridgeHelpersKt.SuccessCredentialResponse(value: response.toPassport())
         } catch let error as OoniError {
