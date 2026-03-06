@@ -63,6 +63,7 @@ class DesktopPassportBridge : PassportBridge {
         probeCc: String,
         probeAsn: String,
         manifestVersion: String,
+        age: UInt,
     ): Result<CredentialResponse, PassportException> =
         try {
             val result = uniffi.ooniprobe.userauthSubmit(
@@ -73,6 +74,7 @@ class DesktopPassportBridge : PassportBridge {
                 probeCc = probeCc,
                 probeAsn = probeAsn,
                 manifestVersion = manifestVersion,
+                age = age,
             )
             Success(result.toPassport())
         } catch (e: OoniException) {
