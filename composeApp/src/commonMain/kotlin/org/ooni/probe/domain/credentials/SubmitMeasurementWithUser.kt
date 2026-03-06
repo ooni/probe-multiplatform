@@ -11,14 +11,15 @@ import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
 import org.ooni.passport.PassportAuthSubmit
 import org.ooni.probe.config.BuildTypeDefaults
+import org.ooni.probe.data.models.Credential
 import org.ooni.probe.data.models.Manifest
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.domain.SubmitMeasurement
 
 class SubmitMeasurementWithUser(
     private val getManifest: () -> Flow<Manifest?>,
-    private val getCredential: suspend () -> String?,
-    private val setCredential: suspend (String) -> Boolean,
+    private val getCredential: suspend () -> Credential?,
+    private val setCredential: suspend (String, UInt) -> Boolean,
     private val passportAuthSubmit: PassportAuthSubmit,
     private val json: Json,
 ) {
@@ -33,16 +34,23 @@ class SubmitMeasurementWithUser(
         passportAuthSubmit
             .userAuthSubmit(
                 url = "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/submit_measurement/$reportId",
-                credential = credential,
+                credential = credential.credential,
                 publicParams = manifest.manifest.publicParameters,
                 content = measurementData,
                 probeCc = data.probeCc,
                 probeAsn = data.probeAsn,
                 manifestVersion = manifest.meta.version,
+                age = credential.emissionDay,
             ).onSuccess { result ->
                 if (result.response.isSuccessful) {
                     val response = result.response.bodyText?.let(this::parseResponse)
-                    result.credential?.let { setCredential(it) }
+                    val rawCredential = result.decodeCredential(json)
+                    if (rawCredential == null) {
+                        Logger.w("Failed to parse retrieved manifest")
+                        return@onSuccess
+                    }
+
+                    result.credential?.let { setCredential(it, rawCredential.emissionDay) }
                     return Success(
                         SubmitMeasurement.ResponseData(
                             uid = response?.measurementUid?.let(MeasurementModel::Uid),
