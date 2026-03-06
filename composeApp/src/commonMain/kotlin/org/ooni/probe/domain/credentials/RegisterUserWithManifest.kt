@@ -4,13 +4,14 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
+import org.ooni.probe.data.models.Credential
 import org.ooni.probe.data.models.Manifest
 import kotlin.coroutines.CoroutineContext
 
 class RegisterUserWithManifest(
     private val getManifest: GetManifest,
     private val retrieveManifest: RetrieveManifest,
-    private val getCredential: suspend () -> String?,
+    private val getCredential: suspend () -> Credential?,
     private val registerUser: suspend (String, String) -> String?,
     private val backgroundContext: CoroutineContext,
 ) {
@@ -20,7 +21,7 @@ class RegisterUserWithManifest(
                 val existingCredential = getCredential()
                 if (existingCredential != null) {
                     Logger.i("User already has credential, skipping registration")
-                    return@withContext existingCredential
+                    return@withContext existingCredential.credential
                 }
 
                 Logger.i("No existing credential found, proceeding with registration")
