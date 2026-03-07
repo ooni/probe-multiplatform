@@ -1,4 +1,0 @@
-module ooniprobeFFI {
-    header "ooniprobeFFI.h"
-    export *
-}
