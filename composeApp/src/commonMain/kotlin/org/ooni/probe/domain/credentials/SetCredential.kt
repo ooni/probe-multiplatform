@@ -14,7 +14,7 @@ class SetCredential(
     ): Boolean =
         try {
             writeSecureStorage(CredentialsConstants.STORAGE_KEY, credential)
-            setPreference(SettingsKey.EMISSION_DAY, emissionDay)
+            setPreference(SettingsKey.EMISSION_DAY, emissionDay.toInt())
             Logger.i("User registered successfully, credentials stored")
             true
         } catch (e: Exception) {
