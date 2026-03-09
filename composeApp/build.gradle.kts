@@ -586,7 +586,7 @@ sentry {
     autoUploadProguardMapping = true
     uploadNativeSymbols = true
     autoUploadNativeSymbols = true
-    includeSourceContext = true
+    includeSourceContext = false
     autoInstallation {
         enabled = false
     }
