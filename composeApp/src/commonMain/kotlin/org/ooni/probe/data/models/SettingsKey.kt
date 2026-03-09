@@ -77,4 +77,6 @@ enum class SettingsKey(
     ROUTE("route"),
 
     CLEAR_LEGACY_DIRECTORIES("clear_legacy_directories"),
+
+    EMISSION_DAY("emission_day"),
 }
