@@ -576,7 +576,9 @@ dependencies {
 }
 
 // Remove Sentry
+/*
 configurations.all {
     exclude(group = "io.sentry", module = "sentry-android-ndk")
     exclude(group = "io.sentry", module = "sentry-android-replay")
 }
+*/
