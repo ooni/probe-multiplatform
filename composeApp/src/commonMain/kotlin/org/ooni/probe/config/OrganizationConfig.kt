@@ -13,6 +13,8 @@ interface OrganizationConfigInterface {
     val installUrl: String?
     val hasOoniNews: Boolean
     val canInstallDescriptors: Boolean
+    val shouldFetchGeoIpDbUpdates: Boolean
+        get() = false
 
     val ooniApiBaseUrl get() = BuildTypeDefaults.ooniApiBaseUrl
     val ooniRunDomain get() = BuildTypeDefaults.ooniRunDomain

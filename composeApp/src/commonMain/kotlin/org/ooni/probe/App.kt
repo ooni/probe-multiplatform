@@ -107,6 +107,11 @@ fun App(
         dependencies.observeAndConfigureAutoUpdate()
     }
     LaunchedEffect(Unit) {
+        if (dependencies.flavorConfig.isCrashReportingEnabled) {
+            dependencies.crashMonitoring.setup()
+        }
+    }
+    LaunchedEffect(Unit) {
         dependencies.refreshArticles()
     }
 
