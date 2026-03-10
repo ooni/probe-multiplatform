@@ -75,6 +75,7 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.bundles.android)
             implementation(libs.bundles.mobile)
+            implementation("net.java.dev.jna:jna:5.18.1@aar")
         }
         commonMain {
             dependencies {
@@ -114,6 +115,7 @@ kotlin {
                 }
 
                 implementation("org.ooni:oonimkall:c52ce3b5-${oonimkallVersionSuffix()}")
+                implementation(files("libs/passport-${passportDependencySuffix()}.jar"))
             }
         }
         // Testing
@@ -321,6 +323,7 @@ android {
         "fullImplementation"("org.ooni:oonimkall:3.29.0-android:@aar")
         "fdroidImplementation"("org.ooni:oonimkall:3.29.0-android:@aar")
         "xperimentalImplementation"(files("libs/android-oonimkall.aar"))
+        implementation(files("libs/passport-android.aar"))
         androidTestUtil(libs.android.orchestrator)
     }
     dependenciesInfo {

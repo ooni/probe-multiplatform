@@ -72,6 +72,7 @@ enum class SettingsKey(
     LAST_RUN_DISMISSED("last_run_dismissed"),
     TESTS_MOVED_NOTICE("tests_moved_notice"),
     LAST_ARTICLES_REFRESH("last_articles_refresh"),
+    MANIFEST("manifest"),
 
     ROUTE("route"),
 

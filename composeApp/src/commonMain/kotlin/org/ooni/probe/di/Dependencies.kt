@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -18,6 +19,7 @@ import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.SecureStorage
 import org.ooni.engine.TaskEventMapper
+import org.ooni.passport.PassportBridge
 import org.ooni.probe.Database
 import org.ooni.probe.background.RunBackgroundTask
 import org.ooni.probe.config.BatteryOptimization
@@ -82,6 +84,11 @@ import org.ooni.probe.domain.appreview.ShouldShowAppReview
 import org.ooni.probe.domain.articles.GetFindings
 import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
+import org.ooni.probe.domain.credentials.GetCredentials
+import org.ooni.probe.domain.credentials.GetManifest
+import org.ooni.probe.domain.credentials.RegisterUser
+import org.ooni.probe.domain.credentials.RegisterUserWithManifest
+import org.ooni.probe.domain.credentials.RetrieveManifest
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
 import org.ooni.probe.domain.descriptors.BootstrapTestDescriptors
 import org.ooni.probe.domain.descriptors.DeleteTestDescriptor
@@ -136,6 +143,7 @@ import kotlin.coroutines.CoroutineContext
 class Dependencies(
     val platformInfo: PlatformInfo,
     private val oonimkallBridge: OonimkallBridge,
+    val passportBridge: PassportBridge,
     private val baseFileDir: String,
     val cacheDir: String,
     private val databaseDriverFactory: () -> SqlDriver,
@@ -376,6 +384,33 @@ class Dependencies(
             getPreference = preferenceRepository::getValueByKey,
         )
     }
+    private val getManifest by lazy {
+        GetManifest(
+            getPreference = preferenceRepository::getValueByKey,
+            json = json,
+        )
+    }
+    private val getCredentials by lazy {
+        GetCredentials(
+            readCredentials = secureStorage::read,
+        )
+    }
+    private val registerUser by lazy {
+        RegisterUser(
+            userAuthRegister = passportBridge::userAuthRegister,
+            saveCredential = secureStorage::write,
+            backgroundContext = backgroundContext,
+        )
+    }
+    val registerUserWithManifest by lazy {
+        RegisterUserWithManifest(
+            getManifest = getManifest,
+            retrieveManifest = retrieveManifest,
+            getCredentials = suspend { getCredentials().first() },
+            registerUser = registerUser::invoke,
+            backgroundContext = backgroundContext,
+        )
+    }
     private val getResults by lazy {
         GetResults(
             resultRepository::list,
@@ -473,6 +508,15 @@ class Dependencies(
         RejectDescriptorUpdate(
             updateDescriptorRejectedRevision = testDescriptorRepository::updateRejectedRevision,
             updateState = descriptorUpdateStateManager::update,
+        )
+    }
+    val retrieveManifest by lazy {
+        RetrieveManifest(
+            getManifest = getManifest::invoke,
+            passportGet = passportBridge::get,
+            setPreference = preferenceRepository::setValueByKey,
+            json = json,
+            backgroundContext = backgroundContext,
         )
     }
     private val runDescriptors by lazy {

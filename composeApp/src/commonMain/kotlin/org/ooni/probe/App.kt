@@ -116,20 +116,16 @@ fun App(
     LaunchedEffect(Unit) {
         dependencies.bootstrapTestDescriptors()
         dependencies.bootstrapPreferences()
-        // Disabling starting a RunWorker at app start to check if it fixes the
-        // ForegroundServiceDidNotStartInTimeException some users are getting
-        // dependencies.startSingleRunInner(RunSpecification.OnlyUploadMissingResults)
-    }
-    LaunchedEffect(Unit) {
+        dependencies.registerUserWithManifest()
         dependencies.fetchGeoIpDbUpdates()
-    }
-    LaunchedEffect(Unit) {
-        dependencies.observeAndConfigureAutoUpdate()
     }
     LaunchedEffect(Unit) {
         dependencies.finishInProgressData()
         dependencies.deleteOldResults()
         dependencies.refreshArticles()
+    }
+    LaunchedEffect(Unit) {
+        dependencies.observeAndConfigureAutoUpdate()
     }
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoRun()
