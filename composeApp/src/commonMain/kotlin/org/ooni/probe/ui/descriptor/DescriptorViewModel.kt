@@ -162,7 +162,7 @@ class DescriptorViewModel(
             .onEach {
                 launchAction(
                     PlatformAction.OpenUrl(
-                        "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorId?revision=${it.revision}",
+                        "${OrganizationConfig.ooniRunDashboardUrl}/revisions/${descriptorId.value}?revision=${it.revision}",
                     ),
                 )
             }.launchIn(viewModelScope)
@@ -172,7 +172,7 @@ class DescriptorViewModel(
             .onEach {
                 launchAction(
                     PlatformAction.OpenUrl(
-                        "${OrganizationConfig.ooniRunDashboardUrl}/revisions/$descriptorId",
+                        "${OrganizationConfig.ooniRunDashboardUrl}/revisions/${descriptorId.value}",
                     ),
                 )
             }.launchIn(viewModelScope)
