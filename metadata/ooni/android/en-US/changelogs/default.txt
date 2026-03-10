@@ -1,2 +1,2 @@
 * Measurement engine is OONI Probe CLI v3.29.0
-* Revert some changes to improve auto-run measurements
+* Fix auto-run issue preventing OONI tests from running
