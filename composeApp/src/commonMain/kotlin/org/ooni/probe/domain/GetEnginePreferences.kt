@@ -6,6 +6,7 @@ import okio.Path.Companion.toPath
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.TaskLogLevel
 import org.ooni.engine.models.WebConnectivityCategory
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -31,7 +32,7 @@ class GetEnginePreferences(
                 null
             },
             proxy = getProxyOption().first().value,
-            geoipDbPath = (getValueForKey(SettingsKey.MMDB_VERSION) as? String)?.let { cacheDir.toPath().resolve("$it.mmdb").toString() },
+            geoipDbPath = getGeoIpDbPath(),
         )
 
     private suspend fun getEnabledCategories(): List<String> {
@@ -44,4 +45,10 @@ class GetEnginePreferences(
     }
 
     private suspend fun getValueForKey(settingsKey: SettingsKey) = preferencesRepository.getValueByKey(settingsKey).first()
+
+    private suspend fun getGeoIpDbPath(): String? {
+        if (!OrganizationConfig.shouldFetchGeoIpDbUpdates) return null
+        val version = getValueForKey(SettingsKey.MMDB_VERSION) as? String ?: return null
+        return cacheDir.toPath().resolve("$version.mmdb").toString()
+    }
 }
