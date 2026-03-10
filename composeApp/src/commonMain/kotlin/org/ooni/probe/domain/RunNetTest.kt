@@ -54,10 +54,13 @@ class RunNetTest(
 
     suspend operator fun invoke() {
         Instrumentation.withTransaction(
-            operation = this::class.simpleName.orEmpty(),
+            operation = "RunNetTest",
             data = mapOf(
                 "test" to spec.netTest.test.name,
                 "inputsCount" to (spec.netTest.inputs?.size ?: 0),
+                "isRerun" to spec.isRerun,
+                "taskOrigin" to spec.taskOrigin.value,
+                "descriptorId" to spec.descriptor.descriptor.id.value,
             ),
         ) {
             setCurrentTestState {

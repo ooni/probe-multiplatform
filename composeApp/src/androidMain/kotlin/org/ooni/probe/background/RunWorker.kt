@@ -81,7 +81,7 @@ class RunWorker(
         try {
             registerReceiver()
             work()
-        } catch (e: CancellationException) {
+        } catch (_: CancellationException) {
             if (isStopped) {
                 Logger.w(
                     "Run Worker: early stop",

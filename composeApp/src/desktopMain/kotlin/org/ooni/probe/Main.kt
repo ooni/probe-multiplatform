@@ -80,6 +80,7 @@ import java.awt.desktop.QuitResponse
 const val APP_ID = "org.ooni.probe"
 
 fun main(args: Array<String>) {
+    initialization(dependencies)
     val autoLaunch = AutoLaunch(appPackageName = APP_ID)
     val instanceManager = InstanceManager(dependencies.platformInfo)
     val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)

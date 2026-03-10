@@ -6,9 +6,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.sample
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -60,7 +61,8 @@ class AppLogger(
                     if (log.value.isEmpty()) {
                         log.value = readFile(FILE_PATH).orEmpty().lines()
                     }
-                }.debounce(5.seconds)
+                }.sample(5.seconds)
+                .distinctUntilChanged()
                 .collectLatest { lines ->
                     writeFile(FILE_PATH, lines.joinToString("\n"), append = false)
                 }

@@ -101,6 +101,8 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build release Android APK
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: ./gradlew copyBrandingToCommonResources assembleFullRelease -Porganization=${{ matrix.organization }}
 
       - name: Upload APK artifacts

@@ -22,14 +22,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import co.touchlab.kermit.Logger
-import co.touchlab.kermit.Severity
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Unsupported_Url
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.di.Dependencies
-import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.ui.navigation.BottomBarViewModel
 import org.ooni.probe.ui.navigation.BottomNavigationBar
 import org.ooni.probe.ui.navigation.Navigation
@@ -101,38 +98,16 @@ fun App(
         }
     }
 
+    // On App Open
+
     LaunchedEffect(Unit) {
-        Logger.setMinSeverity(Severity.Verbose)
-        Logger.addLogWriter(dependencies.crashMonitoring.logWriter)
-        Logger.addLogWriter(dependencies.appLogger.logWriter)
-        logAppStart(dependencies.platformInfo)
-        dependencies.appLogger.writeLogsToFile()
-    }
-    LaunchedEffect(Unit) {
-        if (dependencies.flavorConfig.isCrashReportingEnabled) {
-            dependencies.crashMonitoring.setup()
-        }
-    }
-    LaunchedEffect(Unit) {
-        dependencies.bootstrapTestDescriptors()
-        dependencies.bootstrapPreferences()
-        // Disabling starting a RunWorker at app start to check if it fixes the
-        // ForegroundServiceDidNotStartInTimeException some users are getting
-        // dependencies.startSingleRunInner(RunSpecification.OnlyUploadMissingResults)
-    }
-    LaunchedEffect(Unit) {
-        dependencies.fetchGeoIpDbUpdates()
+        dependencies.observeAndConfigureAutoRun()
     }
     LaunchedEffect(Unit) {
         dependencies.observeAndConfigureAutoUpdate()
     }
     LaunchedEffect(Unit) {
-        dependencies.finishInProgressData()
-        dependencies.deleteOldResults()
         dependencies.refreshArticles()
-    }
-    LaunchedEffect(Unit) {
-        dependencies.observeAndConfigureAutoRun()
     }
 
     LaunchedEffect(deepLink) {
@@ -154,19 +129,6 @@ fun App(
 
             null -> Unit
         }
-    }
-}
-
-private fun logAppStart(platformInfo: PlatformInfo) {
-    with(platformInfo) {
-        Logger.v(
-            """
-            ---APP START---
-            Platform: $platform ($osVersion)"
-            Version: $version
-            Model: $model
-            """.trimIndent(),
-        )
     }
 }
 

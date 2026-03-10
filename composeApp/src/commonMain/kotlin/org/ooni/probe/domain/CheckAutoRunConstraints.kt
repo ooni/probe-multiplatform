@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.first
 import org.ooni.engine.models.NetworkType
 import org.ooni.probe.data.models.AutoRunParameters
 import org.ooni.probe.data.models.BatteryState
+import org.ooni.probe.shared.monitoring.Instrumentation
+import org.ooni.probe.shared.monitoring.reportTransaction
 
 class CheckAutoRunConstraints(
     private val getAutoRunSettings: suspend () -> Flow<AutoRunParameters>,
@@ -21,11 +23,19 @@ class CheckAutoRunConstraints(
 
         if (autoRunParameters !is AutoRunParameters.Enabled) {
             Logger.i("Not starting auto-run because auto-run is not enabled")
+            Instrumentation.reportTransaction(
+                "CheckAutoRunConstraints.Failed",
+                data = mapOf("reason" to "auto-run is not enabled"),
+            )
             return false
         }
 
         if (getNetworkType() == NetworkType.VPN) {
             Logger.i("Not starting auto-run because VPN is enabled")
+            Instrumentation.reportTransaction(
+                "CheckAutoRunConstraints.Failed",
+                data = mapOf("reason" to "VPN is enabled"),
+            )
             return false
         }
 
@@ -34,6 +44,10 @@ class CheckAutoRunConstraints(
             getNetworkType() != NetworkType.Wifi
         ) {
             Logger.i("Not starting auto-run because of Wi-Fi constraint")
+            Instrumentation.reportTransaction(
+                "CheckAutoRunConstraints.Failed",
+                data = mapOf("reason" to "Wi-Fi constraint"),
+            )
             return false
         }
 
@@ -42,6 +56,10 @@ class CheckAutoRunConstraints(
             getBatteryState() == BatteryState.NotCharging
         ) {
             Logger.i("Not starting auto-run because of battery charging constraint")
+            Instrumentation.reportTransaction(
+                "CheckAutoRunConstraints.Failed",
+                data = mapOf("reason" to "battery charging constraint"),
+            )
             return false
         }
 
@@ -50,6 +68,10 @@ class CheckAutoRunConstraints(
             Logger.w(
                 "Skipping auto-run due to not uploaded limit",
                 SkipAutoRunException("Results missing upload: $count (limit=$NOT_UPLOADED_LIMIT)"),
+            )
+            Instrumentation.reportTransaction(
+                "CheckAutoRunConstraints.Failed",
+                data = mapOf("reason" to "not uploaded limit"),
             )
             return false
         }

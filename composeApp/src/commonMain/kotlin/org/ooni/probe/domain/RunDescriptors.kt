@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
-import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.Result
@@ -22,11 +21,12 @@ import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.domain.proxy.TestProxy
 import org.ooni.probe.shared.monitoring.Instrumentation
+import org.ooni.probe.shared.monitoring.reportTransaction
 import kotlin.time.Duration
 
 class RunDescriptors(
     private val getTestDescriptorsBySpec: suspend (RunSpecification.Full) -> List<DescriptorItem>,
-    private val downloadUrls: suspend (TaskOrigin) -> Result<List<UrlModel>, MkException>,
+    private val downloadUrls: suspend (TaskOrigin) -> Result<List<UrlModel>, DownloadUrls.Failure>,
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
     private val markResultAsDone: suspend (ResultModel.Id) -> Unit,
     private val getRunBackgroundState: Flow<RunBackgroundState>,
@@ -42,7 +42,7 @@ class RunDescriptors(
 ) {
     suspend operator fun invoke(spec: RunSpecification.Full) {
         Instrumentation.withTransaction(
-            operation = this::class.simpleName.orEmpty(),
+            operation = "RunDescriptors",
             data = mapOf(
                 "taskOrigin" to spec.taskOrigin.value,
                 "isRerun" to spec.isRerun,
@@ -60,6 +60,8 @@ class RunDescriptors(
             }
 
             if (networkTypeFinder() == NetworkType.NoInternet) {
+                Instrumentation.reportTransaction("RunDescriptors.NoInternet")
+                Logger.i("No Internet available at the start of test run")
                 reportTestRunError(TestRunError.NoInternet)
             } else {
                 // Test the proxy asynchronously so that tests don't wait for it

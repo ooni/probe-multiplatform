@@ -16,8 +16,8 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
-
     alias(libs.plugins.javafx)
+    alias(libs.plugins.sentry)
 
     id("ooni.common")
 }
@@ -175,8 +175,8 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 260 // Always increment by 10. See fdroid flavor below
-        versionName = "6.0.0"
+        versionCode = 270 // Always increment by 10. See fdroid flavor below
+        versionName = "6.0.1"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
         resValue(
@@ -575,7 +575,27 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling.preview)
 }
 
-// Remove Sentry
+// Sentry
+
+sentry {
+    debug = false
+    org = "ooni"
+    projectName = "probe-multiplatform-android"
+    authToken = System.getenv("SENTRY_AUTH_TOKEN")
+    includeProguardMapping = true
+    autoUploadProguardMapping = true
+    uploadNativeSymbols = true
+    autoUploadNativeSymbols = true
+    includeSourceContext = false
+    autoInstallation {
+        enabled = false
+    }
+    telemetry = false
+    ignoredBuildTypes = listOf("debug")
+    ignoredFlavors = listOf("fdroid", "xperimental")
+}
+
+// Remove certain Sentry components
 configurations.all {
     exclude(group = "io.sentry", module = "sentry-android-ndk")
     exclude(group = "io.sentry", module = "sentry-android-replay")
