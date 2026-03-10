@@ -11,12 +11,12 @@ class DownloadUrls(
     private val engineCheckIn: suspend (TaskOrigin) -> Result<OonimkallBridge.CheckInResults, Engine.MkException>,
     private val storeUrlsByUrl: suspend (List<UrlModel>) -> List<UrlModel>,
 ) {
-    suspend operator fun invoke(taskOrigin: TaskOrigin): Result<List<UrlModel>, Engine.MkException> =
+    suspend operator fun invoke(taskOrigin: TaskOrigin): Result<List<UrlModel>, Failure> =
         engineCheckIn(taskOrigin)
             .map { results ->
                 val urls = results.urls.map { it.toModel() }
                 storeUrlsByUrl(urls)
-            }
+            }.mapError { Failure(it) }
 
     private fun OonimkallBridge.UrlInfo.toModel() =
         UrlModel(
@@ -24,4 +24,8 @@ class DownloadUrls(
             countryCode = countryCode,
             category = WebConnectivityCategory.fromCode(categoryCode),
         )
+
+    class Failure(
+        cause: Engine.MkException,
+    ) : Exception(cause)
 }

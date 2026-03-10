@@ -20,9 +20,11 @@ import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.data.models.instrumentationType
 import org.ooni.probe.domain.CancelListenerCallback
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.monitoring.Instrumentation
+import org.ooni.probe.shared.monitoring.reportTransaction
 
 class RunBackgroundTask(
     private val getPreferenceValueByKey: (SettingsKey) -> Flow<Any?>,
@@ -41,16 +43,13 @@ class RunBackgroundTask(
                 name = "Run",
                 operation = "RunBackgroundTask",
                 data = mapOf(
-                    "specType" to when (spec) {
-                        is RunSpecification.OnlyUploadMissingResults -> "OnlyUploadMissingResults"
-                        is RunSpecification.Full -> "Full"
-                        null -> "null"
-                    },
+                    "specType" to spec.instrumentationType,
                 ),
             ) {
                 val initialState = getRunBackgroundState().first()
                 if (initialState !is RunBackgroundState.Idle) {
                     Logger.i("Background task is already running, so we won't start another one")
+                    Instrumentation.reportTransaction("RunBackgroundTask.AlreadyRunning")
                     return@withTransaction
                 }
 

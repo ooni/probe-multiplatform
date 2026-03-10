@@ -27,6 +27,7 @@ class UploadMissingMeasurements(
             Instrumentation.withTransaction(
                 operation = "UploadMissingMeasurements",
                 data = mapOf(
+                    "all" to (filter is MeasurementsFilter.All),
                     "resultId" to
                         (filter as? MeasurementsFilter.Result)?.resultId?.value.toString(),
                     "measurementId" to
