@@ -68,3 +68,10 @@ sealed interface RunSpecification {
         )
     }
 }
+
+val RunSpecification?.instrumentationType
+    get() = when (this) {
+        is RunSpecification.OnlyUploadMissingResults -> "OnlyUploadMissingResults"
+        is RunSpecification.Full -> "Full"
+        null -> "null"
+    }
