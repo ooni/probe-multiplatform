@@ -234,10 +234,6 @@ android {
             }
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
-            )
         }
     }
     buildFeatures {
@@ -575,8 +571,3 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling.preview)
 }
 
-// Remove Sentry
-configurations.all {
-    exclude(group = "io.sentry", module = "sentry-android-ndk")
-    exclude(group = "io.sentry", module = "sentry-android-replay")
-}
