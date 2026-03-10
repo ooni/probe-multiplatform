@@ -3,6 +3,7 @@ package org.ooni.probe.domain
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.TestRunError
@@ -14,7 +15,7 @@ class RunBackgroundStateManager {
 
     // State
 
-    fun observeState() = state.asSharedFlow()
+    fun observeState() = state.asStateFlow()
 
     fun updateState(update: (RunBackgroundState) -> RunBackgroundState) {
         state.update(update)
