@@ -25,7 +25,7 @@ class UploadMissingMeasurements(
     operator fun invoke(filter: MeasurementsFilter): Flow<State> =
         channelFlow {
             Instrumentation.withTransaction(
-                operation = this@UploadMissingMeasurements::class.simpleName.orEmpty(),
+                operation = "UploadMissingMeasurements",
                 data = mapOf(
                     "resultId" to
                         (filter as? MeasurementsFilter.Result)?.resultId?.value.toString(),

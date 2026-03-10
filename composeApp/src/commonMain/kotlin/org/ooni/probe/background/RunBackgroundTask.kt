@@ -39,9 +39,13 @@ class RunBackgroundTask(
         channelFlow {
             Instrumentation.withTransaction(
                 name = "Run",
-                operation = this@RunBackgroundTask::class.simpleName.orEmpty(),
+                operation = "RunBackgroundTask",
                 data = mapOf(
-                    "specType" to spec?.let { it::class.simpleName }.toString(),
+                    "specType" to when (spec) {
+                        is RunSpecification.OnlyUploadMissingResults -> "OnlyUploadMissingResults"
+                        is RunSpecification.Full -> "Full"
+                        null -> "null"
+                    },
                 ),
             ) {
                 val initialState = getRunBackgroundState().first()
