@@ -80,6 +80,7 @@ class AndroidApplication : Application() {
             )
         }
         registerActivityLifecycleCallbacks(mainActivityLifecycleCallbacks)
+        initialization(dependencies)
     }
 
     private val platformInfo by lazy {

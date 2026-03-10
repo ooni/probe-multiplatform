@@ -43,9 +43,9 @@ struct iOSApp: App {
 
     let deepLinkFlow: Kotlinx_coroutines_coreMutableSharedFlow
     init() {
+        InitializationKt.initialization(dependencies: appDependencies.dependencies)
         appDependencies.registerTaskHandlers()
         deepLinkFlow = appDependencies.initializeDeeplink()
-
 
         let launchArguments = ProcessInfo.processInfo.arguments
 
@@ -56,9 +56,7 @@ struct iOSApp: App {
             Task { [self] in
                 await self.initDatabase()
             }
-
         }
-
     }
 
     func initDatabase() async {
