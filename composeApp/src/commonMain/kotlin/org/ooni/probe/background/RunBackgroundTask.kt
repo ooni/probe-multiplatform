@@ -21,6 +21,7 @@ import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.instrumentationType
 import org.ooni.probe.domain.CancelListenerCallback
+import org.ooni.probe.domain.GetRerunSpecification
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.monitoring.reportTransaction
@@ -30,6 +31,7 @@ class RunBackgroundTask(
     private val uploadMissingMeasurements: (MeasurementsFilter) -> Flow<UploadMissingMeasurements.State>,
     private val checkAutoRunConstraints: suspend () -> Boolean,
     private val getAutoRunSpecification: suspend () -> RunSpecification.Full,
+    private val getRerunSpecification: suspend (RunSpecification.Rerun) -> RunSpecification.Full,
     private val runDescriptors: suspend (RunSpecification.Full) -> Unit,
     private val setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
     private val getRunBackgroundState: () -> Flow<RunBackgroundState>,
@@ -65,7 +67,9 @@ class RunBackgroundTask(
                     return@withTransaction
                 }
 
-                runTests(spec as? RunSpecification.Full)
+                val fullSpec = getFullSpecification(spec) ?: return@withTransaction
+
+                runTests(fullSpec)
             }
         }
 
@@ -109,10 +113,14 @@ class RunBackgroundTask(
         return false
     }
 
-    private suspend fun ProducerScope<RunBackgroundState>.runTests(spec: RunSpecification.Full?) {
+    private suspend fun getFullSpecification(spec: RunSpecification?) {
+
+    }
+
+    private suspend fun ProducerScope<RunBackgroundState>.runTests(spec: RunSpecification.Full) {
         coroutineScope {
             val runJob = async {
-                runDescriptors(spec ?: getAutoRunSpecification())
+                runDescriptors(spec)
             }
 
             var testStarted = false

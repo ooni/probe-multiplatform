@@ -159,22 +159,8 @@ class ResultViewModel(
         )
 
     private fun getRerunSpecification(): RunSpecification? {
-        val item = _state.value.result ?: return null
-        return RunSpecification.Full(
-            tests = listOf(
-                RunSpecification.Test(
-                    descriptorId = item.descriptor.descriptor.id,
-                    netTests = listOf(
-                        NetTest(
-                            test = TestType.WebConnectivity,
-                            inputs = item.measurements.mapNotNull { it.url?.url },
-                        ),
-                    ),
-                ),
-            ),
-            taskOrigin = TaskOrigin.OoniRun,
-            isRerun = true,
-        )
+        val resultId = _state.value.result?.result?.id ?: return null
+        return RunSpecification.Rerun(resultId = resultId)
     }
 
     data class State(

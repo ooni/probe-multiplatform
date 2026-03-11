@@ -10,6 +10,11 @@ sealed interface RunSpecification {
     data object OnlyUploadMissingResults : RunSpecification
 
     @Serializable
+    data class Rerun(
+        val resultId: ResultModel.Id,
+    ) : RunSpecification
+
+    @Serializable
     data class Full(
         val tests: List<Test>,
         val taskOrigin: TaskOrigin,
@@ -24,14 +29,16 @@ sealed interface RunSpecification {
 
     /*
      * Remove the URL inputs from the spec if we already have them in our database,
-     * because the spec might be to big to pass to a background worker.
+     * because the spec might be too big to pass to a background worker.
      * We will fetch the inputs later in GetTestDescriptorsBySpec.
      * The only case we keep the list of inputs is when the user provides the list in the
      * CustomWebsites screen.
      */
     fun stripInstalledInputs(): RunSpecification =
         when (this) {
-            is OnlyUploadMissingResults -> this
+            is OnlyUploadMissingResults,
+            is Rerun -> this
+
             is Full ->
                 copy(
                     tests = tests.map { test ->
@@ -72,6 +79,7 @@ sealed interface RunSpecification {
 val RunSpecification?.instrumentationType
     get() = when (this) {
         is RunSpecification.OnlyUploadMissingResults -> "OnlyUploadMissingResults"
+        is RunSpecification.Rerun -> "Rerun"
         is RunSpecification.Full -> "Full"
         null -> "null"
     }

@@ -132,7 +132,7 @@ class ChooseWebsitesViewModel(
                 val urls = items.map { it.url }.distinct()
                 setPreference(SettingsKey.CHOSEN_WEBSITES, urls.toSet())
                 startBackgroundRun(
-                    RunSpecification.Full(
+                    RunSpecification.Full.Regular(
                         tests = listOf(
                             RunSpecification.Test(
                                 descriptorId = Descriptor.Id(OoniTest.Websites.id),
@@ -145,7 +145,6 @@ class ChooseWebsitesViewModel(
                             ),
                         ),
                         taskOrigin = TaskOrigin.OoniRun,
-                        isRerun = false,
                     ),
                 )
                 goToDashboard()
