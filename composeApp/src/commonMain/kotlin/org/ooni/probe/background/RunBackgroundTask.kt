@@ -30,6 +30,7 @@ class RunBackgroundTask(
     private val uploadMissingMeasurements: (MeasurementsFilter) -> Flow<UploadMissingMeasurements.State>,
     private val checkAutoRunConstraints: suspend () -> Boolean,
     private val getAutoRunSpecification: suspend () -> RunSpecification.Full,
+    private val getRerunSpecification: suspend (RunSpecification.Rerun) -> RunSpecification.Full?,
     private val runDescriptors: suspend (RunSpecification.Full) -> Unit,
     private val setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
     private val getRunBackgroundState: () -> Flow<RunBackgroundState>,
@@ -65,7 +66,9 @@ class RunBackgroundTask(
                     return@withTransaction
                 }
 
-                runTests(spec as? RunSpecification.Full)
+                val fullSpec = getFullSpecification(spec) ?: return@withTransaction
+
+                runTests(fullSpec)
             }
         }
 
@@ -109,11 +112,17 @@ class RunBackgroundTask(
         return false
     }
 
-    private suspend fun ProducerScope<RunBackgroundState>.runTests(spec: RunSpecification.Full?) {
+    private suspend fun getFullSpecification(spec: RunSpecification?) =
+        when (spec) {
+            is RunSpecification.OnlyUploadMissingResults -> null
+            is RunSpecification.Rerun -> getRerunSpecification(spec)
+            is RunSpecification.Full -> spec
+            null -> getAutoRunSpecification()
+        }
+
+    private suspend fun ProducerScope<RunBackgroundState>.runTests(spec: RunSpecification.Full) {
         coroutineScope {
-            val runJob = async {
-                runDescriptors(spec ?: getAutoRunSpecification())
-            }
+            val runJob = async { runDescriptors(spec) }
 
             var testStarted = false
             getRunBackgroundState()

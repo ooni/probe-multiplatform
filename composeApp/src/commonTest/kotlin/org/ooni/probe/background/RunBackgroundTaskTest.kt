@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.MeasurementsFilter
-import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.data.models.SettingsKey
@@ -50,16 +49,17 @@ class RunBackgroundTaskTest {
                 isRerun = false,
             )
         },
+        getRerunSpecification: suspend (RunSpecification.Rerun) -> RunSpecification.Full? = { null },
         runDescriptors: suspend (RunSpecification) -> Unit = {},
         setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit = {},
         getRunBackgroundState: () -> Flow<RunBackgroundState> = { flowOf(RunBackgroundState.Idle) },
         addRunCancelListener: (() -> Unit) -> CancelListenerCallback = { CancelListenerCallback {} },
-        getLatestResult: () -> Flow<ResultWithNetworkAndAggregates?> = { flowOf(null) },
     ) = RunBackgroundTask(
         getPreferenceValueByKey = getPreferenceValueByKey,
         uploadMissingMeasurements = uploadMissingMeasurements,
         checkAutoRunConstraints = checkAutoRunConstraints,
         getAutoRunSpecification = getAutoRunSpecification,
+        getRerunSpecification = getRerunSpecification,
         runDescriptors = runDescriptors,
         setRunBackgroundState = setRunBackgroundState,
         getRunBackgroundState = getRunBackgroundState,

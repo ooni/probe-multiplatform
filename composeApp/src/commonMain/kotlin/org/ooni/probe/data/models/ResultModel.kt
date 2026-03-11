@@ -1,6 +1,7 @@
 package org.ooni.probe.data.models
 
 import kotlinx.datetime.LocalDateTime
+import kotlinx.serialization.Serializable
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.shared.now
 
@@ -18,6 +19,7 @@ data class ResultModel(
     val descriptorKey: Descriptor.Key?,
     val runId: RunModel.Id?,
 ) {
+    @Serializable
     data class Id(
         val value: Long,
     )

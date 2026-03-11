@@ -15,11 +15,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
-import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
-import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
@@ -159,22 +157,10 @@ class ResultViewModel(
         )
 
     private fun getRerunSpecification(): RunSpecification? {
-        val item = _state.value.result ?: return null
-        return RunSpecification.Full(
-            tests = listOf(
-                RunSpecification.Test(
-                    descriptorId = item.descriptor.descriptor.id,
-                    netTests = listOf(
-                        NetTest(
-                            test = TestType.WebConnectivity,
-                            inputs = item.measurements.mapNotNull { it.url?.url },
-                        ),
-                    ),
-                ),
-            ),
-            taskOrigin = TaskOrigin.OoniRun,
-            isRerun = true,
-        )
+        val resultId = _state.value.result
+            ?.result
+            ?.id ?: return null
+        return RunSpecification.Rerun(resultId = resultId)
     }
 
     data class State(
