@@ -257,4 +257,34 @@
     <string name="Common_Month">ខែ</string>
     <string name="Common_Months_May">ឧសភា​</string>
     <string name="NetworkType_Vpn">VPN</string>
+    <string name="Dashboard_LastResults">លទ្ធផលចុងក្រោយ</string>
+    <string name="Dashboard_LastResults_SeeResults">ពិនិត្យមើលលទ្ធផល</string>
+    <string name="Dashboard_AutoRun_Enabled">បានបើកដំណើរការ</string>
+    <string name="Dashboard_AutoRun_Disabled">បានបិទដំណើរការ</string>
+    <string name="Dashboard_TestsMoved_Description">តេស្តរបស់អ្នកត្រូវបានផ្លាស់ទីទៅផ្ទាំងថ្មី។ អ្នកអាចចូលទៅកាន់វាបានតាមរយៈរបាររុករកខាងក្រោម។</string>
+    <string name="Dashboard_TestsMoved_Action">មើលតេស្ត</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="other">ដំណើរការ %1$d​ តេស្ត</item>
+    </plurals>
+    <string name="Dashboard_Stats_Title">ការវាស់វែងរបស់អ្នក</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="other">បណ្តាញ</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="other">ប្រទេស</item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty">ចាប់ផ្តើមដំណើរការតេស្ត ដើម្បីមើលស្ថិតិរបស់អ្នកនៅទីនេះ។</string>
+    <string name="Dashboard_Articles_Title">ព័ត៌មាន អំពី OONI</string>
+    <string name="Dashboard_Articles_Blog">ប្លុក</string>
+    <string name="Dashboard_Articles_Finding">រកឃើញ</string>
+    <string name="Dashboard_Articles_Recent">ថ្មីៗ</string>
+    <string name="Dashboard_Articles_OpenExternal">បើកនៅលើកម្មវិធីរុករក</string>
+    <string name="Dashboard_Runv2_Overview_Description">បង្កើតឡើងដោយ%1$s នៅ %2$s</string>
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="other">មើល %1$d គេហទំព័រ</item>
+    </plurals>
+    <string name="Dashboard_Runv2_Overview_LastUpdated">ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ%1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">បដិសេធការធ្វើបច្ចុប្បន្នភាព</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">បដិសេធការធ្វើបច្ចុប្បន្នភាព</string>
+    <string name="Dashboard_Update_Ready">ការធ្វើបច្ចុប្បន្នភាពកម្មវិធីទើបតែត្រូវបានទាញយក</string>
 </resources>

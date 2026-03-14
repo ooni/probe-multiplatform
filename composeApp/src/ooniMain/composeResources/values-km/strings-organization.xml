@@ -10,7 +10,7 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe មិនមែនជាឧបករណ៍ឯកជនភាពទេ។ អ្នកដែលតាមដានសកម្មភាពអ៉ីនធឺណិតរបស់អ្នក នឹងឃើញកម្មវិធីដែលអ្នកកំពុងដំណើរការ។</string>
     <string name="Onboarding_PopQuiz_2_Question">រាល់ពេលដែលខ្ញុំដំណើរការ OONI Probe ទិន្នន័យបណ្តាញដែលខ្ញុំប្រមូលនឹងផ្សព្វផ្សាយដោយស្វ័យប្រវត្តិ។</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">ដើម្បីបង្កើនតម្លាភាពលើការ​រឹត​ត្បិតអ៉ីនធឺណិត ទិន្នន័យបណ្តាញរបស់អ្នកប្រើប្រាស់ OONI Probe ត្រូវបានបង្ហាញស្វ័យប្រវត្តិ (ប្រសិនបើមិនបានផ្លាស់ប្តូរនៅក្នុងការកំណត់)។</string>
-    <string name="Onboarding_AutomatedTesting_Paragraph">ដើម្បីវាស់វែងការរាំងខ្ទប់អ៉ីនធឺណែតរៀងរាល់ថ្ងៃ សូមផ្តល់ការអនុញ្ញាតដល់ការតេស្តដោយស្វ័យប្រវត្តិដើម្បីឱ្យ OONI Probe អាចដំណើរការតេស្តដោយទៀងទាត់។\n\nកុំបារម្ភអី! ពួកយើងនឹងគិតគូរពីការប្រើប្រាស់ថ្មឧបករណ៍អ្នក។\n\nអ្នកអាចផ្អាកការតេស្តស្វ័យប្រវត្តិនៅក្នុងការកំណត់នាពេលណាក៏បាន។</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">ដើម្បីវាស់វែងការរាំងខ្ទប់អ៉ីនធឺណែតរៀងរាល់ថ្ងៃ សូមបើកដំណើរការតេស្តដោយស្វ័យប្រវត្តិ ដើម្បីឱ្យ OONI Probe អាចដំណើរការតេស្តជាទៀងទាត់។\n\nកុំបារម្ភអី! ពួកយើងនឹងគិតគូរពីការប្រើប្រាស់ថ្មឧបករណ៍អ្នក។\n\nអ្នកអាចបិទការតេស្តស្វ័យប្រវត្តិនៅក្នុងការកំណត់ពេលណាក៏បាន។</string>
     <string name="Onboarding_Crash_Paragraph">ដើម្បីធ្វើឱ្យ OONI Probe ល្អប្រសើរឡើង ពួកយើងសូមប្រមូលរបាយការណ៍អនាមិកនៃការគាំងនៅពេលដែលកម្មវិធីដំណើរការមិនត្រឹមត្រូវ។\n\nតើអ្នកយល់ព្រមចូលរួមផ្ញើររបាយការណ៍ពេលគាំងទៅកាន់ក្រុមអ្នកបង្កើតកម្មវិធី OONI ឬទេ?</string>
     <string name="Settings_About_Label">អំពី OONI</string>
     <string name="Settings_About_Content_Paragraph">The Open Observatory of Network Interference (OONI) គឺជាគម្រោងសុវែរមិនគិតថ្លៃរបស់ The Tor Project ដែលមានគោលដៅបង្កើនតម្លាភាពនៃការរឹតត្បឹតអុីនធឺណិតនៅជុំវិញពិភពលោក។\n\nចាប់ពីឆ្នាំ 2012 មកសហគមន៍របស់ OONI បានវាស់វែងបណ្ដាញនានានៅក្នុងជាង 200 ប្រទេស។ ការវាស់វែងមួយចំនួនត្រូវបានប្រើជាភស្តុតាងអំពីការរឹតត្បិតអុីនធឺណិត។</string>
@@ -20,4 +20,15 @@
     <string name="Settings_About_Content_DataPolicy">គោលការណ៍ទិន្នន័យ OONI</string>
     <string name="Settings_Donate_Title">បរិច្ចាគ</string>
     <string name="Settings_Donate_Action">បរិច្ចាគ</string>
+    <string name="Onboarding_CleanUp_Title">សម្អាត</string>
+    <string name="Onboarding_CleanUp_Paragraph">យើងបានរកឃើញឯកសារដែលនៅសល់មួយចំនួនពីការដំឡើងពីមុន។ សូមលុបឯកសារទាំងនោះមុនពេលបន្តការដំឡើង។</string>
+    <string name="Settings_Donate_Heading">រិច្ចាគឥឡូវនេះដើម្បីគាំទ្រសេរីភាពអ៊ីនធឺណិត</string>
+    <string name="Settings_Donate_SubHeading">ក្នុងនាមជាអង្គការមិនរកប្រាក់ចំណេញ យើងពឹងផ្អែកលើការបរិច្ចាគពីមនុស្សគ្រប់គ្នាដូចជាអ្នក ដើម្បីជួយការពារអ៊ីនធឺណិតឱ្យសេរី និងបើកចំហសម្រាប់ទាំងអស់គ្នា។</string>
+    <string name="Settings_Donate_Support_Title">ដោយបរិច្ចាគដល់ OONI អ្នកឧបត្ថម្ភ:</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">កម្មវិធីប្រភពបើកចំហ និងឥតគិតថ្លៃសម្រាប់ការត្រួតពិនិត្យការរឹតត្បិតតាមអ៊ីនធឺណិត</string>
+    <string name="Settings_Donate_Support_Item_Analysis">ការវិភាគពេលវេលាជាក់ស្តែងនៃការត្រួតពិនិត្យការឃ្លាំមើលតាមអ៊ីនធឺណិតនៅជុំវិញពិភពលោក</string>
+    <string name="Settings_Donate_Support_Item_OpenData">ទិន្នន័យបើកចំហស្តីពីការឃ្លាំមើលតាមអ៊ីនធឺណិត - គាំទ្រដល់កិច្ចខិតខំប្រឹងប្រែងស្រាវជ្រាវ និងការតស៊ូមតិជាសកល</string>
+    <string name="Settings_Donate_Support_Item_Research">ការស្រាវជ្រាវអំពីព្រឹត្តិការណ៍នៃការចាប់ពិរុទ្ធនៅទូទាំងពិភពលោក</string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">នេះនឹងបើកនៅលើកម្មុវិធីរុកផ្សេងទៀត</string>
+    <string name="Settings_Donate_Action_Error">កំហុសក្នុងការបើកទំព័របរិច្ចាគ។ សូមចូលទៅកាន់ %1$s</string>
 </resources>
