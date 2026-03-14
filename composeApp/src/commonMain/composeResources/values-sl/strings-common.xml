@@ -4,10 +4,10 @@
     <string name="Dashboard_Overview_ChooseWebsites">Izberite spletna mesta</string>
     <string name="Dashboard_Running_Running">V teku:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Ocena časa do konca:</string>
-    <string name="Dashboard_TestsMoved_Title">Testov</string>
+    <string name="Dashboard_TestsMoved_Title">Testi</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Razveljavi</string>
     <string name="Dashboard_Update_Restart">Znova zaženi</string>
-    <string name="Tests_Title">Testov</string>
+    <string name="Tests_Title">Testi</string>
     <string name="TestResults">Rezultati</string>
     <string name="TestResults_Overview_Hero_Networks">Omrežja</string>
     <string name="TestResults_Overview_Hero_DataUsage">Prenešeno</string>
@@ -27,7 +27,7 @@
     <string name="TestResults_ms">ms</string>
     <string name="TestResults_UnknownASN">Neznano</string>
     <string name="TestResults_NotAvailable">Ni omogočeno/na voljo</string>
-    <string name="TestResults_Filter_Tests">Testov</string>
+    <string name="TestResults_Filter_Tests">Testi</string>
     <string name="TestResults_Filter_Networks">Omrežja</string>
     <string name="TestResults_Filter_Source">Vir</string>
     <string name="TestResults_Filter_Date">Date</string>
@@ -119,4 +119,26 @@
     <string name="Common_Month">Mesec</string>
     <string name="Common_Total">Skupno</string>
     <string name="NetworkType_Vpn">VPN</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Omrežje</item>
+        <item quantity="two">Omrežji</item>
+        <item quantity="few">Omrežja</item>
+        <item quantity="other">Omrežij</item>
+    </plurals>
+    <string name="Dashboard_Tab_Label">Pregled</string>
+    <string name="Dashboard_Articles_Title">OONI Novice</string>
+    <string name="Dashboard_Stats_Title">Vaše meritve</string>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">Država</item>
+        <item quantity="two">Državi</item>
+        <item quantity="few">Države</item>
+        <item quantity="other">Držav</item>
+    </plurals>
+    <string name="TestResults_Filter_Date_Today">Danes</string>
+    <string name="Common_Today">Danes</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Samodejen zagon je <i>omogočen</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Samodejen zagon je <i>onemogočen</i>]]></string>
+    <string name="Dashboard_LastResults">Zadnji rezultati</string>
+    <string name="Dashboard_LastResults_SeeResults">Ogled rezultatov</string>
+    <string name="Results_LimitedNotice">Prikazanih je le zadnjih %1$d rezultatov</string>
 </resources>
