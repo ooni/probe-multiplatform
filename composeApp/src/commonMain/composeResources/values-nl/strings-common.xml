@@ -36,7 +36,7 @@
     <string name="TestResults_Summary_Hero_Network">Netwerk</string>
     <string name="TestResults_Summary_Hero_Country">Land</string>
     <string name="TestResults_Summary_Hero_Runtime">Totaal Uitvoertijd</string>
-    <string name="TestResults_Summary_Hero_WiFi">wifi</string>
+    <string name="TestResults_Summary_Hero_WiFi">Wifi</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobiele Data</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Geen internet</string>
@@ -104,7 +104,7 @@
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Voer uit</string>
     <string name="Settings_Websites_CustomURL_Add">Website toevoegen</string>
-    <string name="CategoryCode_ALDR_Name">Drugs &amp; Alcohol</string>
+    <string name="CategoryCode_ALDR_Name">Drugs en alcohol</string>
     <string name="CategoryCode_REL_Name">Religie</string>
     <string name="CategoryCode_PORN_Name">Pornografie</string>
     <string name="CategoryCode_PROV_Name">Provocerende Kleding</string>
@@ -118,7 +118,7 @@
     <string name="CategoryCode_PUBH_Name">Volksgezondheid</string>
     <string name="CategoryCode_GMB_Name">Gokken</string>
     <string name="CategoryCode_ANON_Name">Omzeilingshulpmiddelen</string>
-    <string name="CategoryCode_DATE_Name">Online Dating</string>
+    <string name="CategoryCode_DATE_Name">Online daten</string>
     <string name="CategoryCode_GRP_Name">Sociaal Netwerken</string>
     <string name="CategoryCode_LGBT_Name">LGBTQ+</string>
     <string name="CategoryCode_FILE_Name">Bestand-deling</string>
@@ -133,7 +133,7 @@
     <string name="CategoryCode_GOVT_Name">Regering</string>
     <string name="CategoryCode_COMM_Name">E-commerce</string>
     <string name="CategoryCode_CTRL_Name">Inhoud beheren</string>
-    <string name="CategoryCode_IGO_Name">Intergouvernementele Organisaties</string>
+    <string name="CategoryCode_IGO_Name">Intergouvernementele Orgs.</string>
     <string name="CategoryCode_MISC_Name">Diverse inhoud</string>
     <string name="CategoryCode_ALDR_Description">Gebruik en verkoop van drugs en alcohol</string>
     <string name="CategoryCode_REL_Description">Religieuze kwesties, zowel ondersteunend als kritisch</string>
@@ -145,7 +145,7 @@
     <string name="CategoryCode_MILX_Description">Terrorisme, gewelddadige militante of separatistische bewegingen</string>
     <string name="CategoryCode_HATE_Description">Het kleineren van bepaalde groepen op basis van ras, geslacht, seksualiteit of andere kenmerken</string>
     <string name="CategoryCode_NEWS_Description">Grote nieuwswebsites, regionale nieuwszenders en onafhankelijke media</string>
-    <string name="CategoryCode_XED_Description">Seksuele gezondheidsproblemen, waaronder anticonceptie, SOA\'s, preventie van verkrachting en abortus</string>
+    <string name="CategoryCode_XED_Description">Kwesties op het gebied van seksuele gezondheid, waaronder anticonceptie, soa’s, preventie van verkrachting en abortus</string>
     <string name="CategoryCode_PUBH_Description">Volksgezondheidsproblemen, zoals COVID-19, HIV/AIDS, Ebola</string>
     <string name="CategoryCode_GMB_Description">Online gokken en wedden</string>
     <string name="CategoryCode_ANON_Description">Anonimisering, omzeiling van censuur en encryptie</string>
@@ -155,7 +155,7 @@
     <string name="CategoryCode_FILE_Description">Bestandsdeling inclusief cloudgebaseerde bestandsopslag, torrents en P2P</string>
     <string name="CategoryCode_HACK_Description">Computerbeveiligingstools en nieuws</string>
     <string name="CategoryCode_COMT_Description">Individuele en groepscommunicatietools, waaronder VoIP, messaging en webmail</string>
-    <string name="CategoryCode_MMED_Description">Video, audio en foto\'s delen</string>
+    <string name="CategoryCode_MMED_Description">Video's, audiobestanden en foto's delen</string>
     <string name="CategoryCode_HOST_Description">Webhosting, bloggen en andere online publicaties</string>
     <string name="CategoryCode_SRCH_Description">Zoekmachines en portals</string>
     <string name="CategoryCode_GAME_Description">Online games en spelplatforms (exclusief goksites)</string>
@@ -165,12 +165,12 @@
     <string name="CategoryCode_COMM_Description">Commerciële diensten en producten</string>
     <string name="CategoryCode_CTRL_Description">Goedaardige of onschadelijke inhoud gebruikt voor controle</string>
     <string name="CategoryCode_IGO_Description">Intergouvernementele organisaties, waaronder de Verenigde Naties</string>
-    <string name="CategoryCode_MISC_Description">Sites die nog niet zijn gecategoriseerd</string>
+    <string name="CategoryCode_MISC_Description">Websites die nog niet zijn gecategoriseerd</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Begrepen</string>
     <string name="Onboarding_ThingsToKnow_Title">Let op!</string>
     <string name="Onboarding_ThingsToKnow_Button">Ik begrijp het</string>
     <string name="Onboarding_ThingsToKnow_LearnMore">Meer info</string>
-    <string name="Onboarding_PopQuiz_Title">Pop Quiz</string>
+    <string name="Onboarding_PopQuiz_Title">Popquiz</string>
     <string name="Onboarding_PopQuiz_True">Waar</string>
     <string name="Onboarding_PopQuiz_False">Niet waar</string>
     <string name="Onboarding_PopQuiz_Wrong_Button_Back">Ga terug</string>
@@ -190,7 +190,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">Landcode (bvb. IT voor Italië)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">Netwerkinformatie (inclusief Autonoom Systeemnummer)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Tijd en datum van testen</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">We doen ons best om uw IP-adres of andere mogelijk persoonlijk identificeerbare informatie niet te publiceren.\n\nLees meer via [OONI\'s gegevensbeleid](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">We doen ons best om je IP-adres of andere mogelijk persoonlijk identificeerbare gegevens niet openbaar te maken.\n\nLees meer in het [gegevensbeleid van OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Standaard-inst. wijzigen</string>
     <string name="AddDescriptor_Settings">Testen van de instellingen</string>
     <string name="AddDescriptor_AutoRun">Tests automatisch uitvoeren</string>
@@ -218,7 +218,7 @@
     <string name="Modal_CustomURL_Title_NotSaved">Weet je het zeker?</string>
     <string name="Modal_CustomURL_NotSaved">Uw URL’s worden niet opgeslagen wanneer u dit scherm verlaat. Weet je zeker dat je dit scherm wilt verlaten?</string>
     <string name="Desktop_Quit">Stoppen</string>
-    <string name="Tray_Notification_Updates_Available">Update Available!</string>
+    <string name="Tray_Notification_Updates_Available">Update beschikbaar!</string>
     <string name="Modal_Hide">Verberg</string>
     <string name="OONIRun_Run">Voer uit</string>
     <!-- Android notification channel name. -->
@@ -240,20 +240,220 @@
     <string name="Common_Search">Zoeken</string>
     <string name="Common_Today">Vandaag</string>
     <string name="Common_Yesterday">Gisteren</string>
-    <string name="Common_Month">maand</string>
+    <string name="Common_Month">Maand</string>
     <string name="Common_Total">Totaal</string>
     <string name="Common_Ago">%1$s geleden</string>
-    <string name="Common_Months_January">januari</string>
-    <string name="Common_Months_February">februari</string>
-    <string name="Common_Months_March">maart</string>
-    <string name="Common_Months_April">april</string>
-    <string name="Common_Months_May">mei</string>
-    <string name="Common_Months_June">juni</string>
-    <string name="Common_Months_July">juli</string>
-    <string name="Common_Months_August">augustus</string>
-    <string name="Common_Months_September">september</string>
-    <string name="Common_Months_October">oktober</string>
-    <string name="Common_Months_November">november</string>
-    <string name="Common_Months_December">december</string>
+    <string name="Common_Months_January">Januari</string>
+    <string name="Common_Months_February">Februari</string>
+    <string name="Common_Months_March">Maart</string>
+    <string name="Common_Months_April">April</string>
+    <string name="Common_Months_May">Mei</string>
+    <string name="Common_Months_June">Juni</string>
+    <string name="Common_Months_July">Juli</string>
+    <string name="Common_Months_August">Augustus</string>
+    <string name="Common_Months_September">September</string>
+    <string name="Common_Months_October">Oktober</string>
+    <string name="Common_Months_November">November</string>
+    <string name="Common_Months_December">December</string>
     <string name="NetworkType_Vpn">VPN</string>
+    <string name="Dashboard_LastResults">Laatste resultaten</string>
+    <string name="Dashboard_LastResults_SeeResults">Bekijk de resultaten</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>ingeschakeld</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Auto-run is <i>disabled</i>]]></string>
+    <string name="Dashboard_TestsMoved_Description">Je toetsen zijn naar een nieuw tabblad verplaatst. Je kunt ze openen via de navigatiebalk hieronder.</string>
+    <string name="Dashboard_TestsMoved_Action">Zie de tests</string>
+    <string name="Dashboard_RunTests_Title">Tests uitvoeren</string>
+    <string name="Dashboard_RunTests_Description">Selecteer de tests die u wilt uitvoeren</string>
+    <string name="Dashboard_RunTests_SelectAll">Selecteer alle tests</string>
+    <string name="Dashboard_RunTests_SelectNone">Alle tests deselecteren</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Voer test %1$d uit</item>
+        <item quantity="other">Voer %1$d tests uit</item>
+    </plurals>
+    <string name="Dashboard_Stats_Title">Uw maten</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Netwerk</item>
+        <item quantity="other">Netwerken</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">Land</item>
+        <item quantity="other">Landen</item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty">Start hier de tests om je statistieken te bekijken.</string>
+    <string name="Dashboard_Articles_Title">OONI Nieuws</string>
+    <string name="Dashboard_Articles_Blog">Blog</string>
+    <string name="Dashboard_Articles_Finding">Bevinding</string>
+    <string name="Dashboard_Articles_ReadMore">Lees verder</string>
+    <string name="Dashboard_Articles_Recent">Recent</string>
+    <string name="Dashboard_RunV2_Ooni_Title">OONI-tests</string>
+    <string name="Dashboard_RunV2_Title">OONI Run-links</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink">Link voor verwijderen</string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions">Eerdere revisies</string>
+    <string name="Dashboard_Runv2_Overview_SeeMore">Bekijk meer</string>
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one">Zie %1$d website</item>
+        <item quantity="other">Bekijk alle %1$d websites</item>
+    </plurals>
+    <string name="Dashboard_RunV2_ExpiredTag">VERLOPEN</string>
+    <string name="Dashboard_RunV2_UpdatedTag">BIJGEWERKT</string>
+    <string name="Dashboard_RunV2_UpdateTag">UPDATEN</string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated">Laatst bijgewerkt %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">Update afgewezen</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates">Updates van recensies</string>
+    <string name="Dashboard_Progress_UpdateLink_Label">Linkupdates worden geladen</string>
+    <string name="Dashboard_Progress_ReviewLink_Label">Linkupdates klaar</string>
+    <string name="Dashboard_ReviewDescriptor_Label">Link bijwerken (%1$s van %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last">UPDATE EN AFWERKING (%1$s van %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default">UPDATE (%1$s van %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">Update weigeren</string>
+    <string name="Dashboard_Update_Ready">De app-update is zojuist gedownload</string>
+    <string name="Tests_Search">Zoektests</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s geblokkeerd</item>
+        <item quantity="other">%1$s geblokkeerd</item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one">%1$s getest</item>
+        <item quantity="other">%1$s getest</item>
+    </plurals>
+    <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one">Getest</item>
+        <item quantity="other">Getest</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one">Geblokkeerd</item>
+        <item quantity="other">Geblokkeerd</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one">Beschikbaar</item>
+        <item quantity="other">Beschikbaar</item>
+    </plurals>
+    <string name="TestResults_Filters_Title">Filter testresultaten</string>
+    <string name="TestResults_Filters_Short">Filters:</string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one">%1$d filter</item>
+        <item quantity="other">%1$d filters</item>
+    </plurals>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one">%1$d test</item>
+        <item quantity="other">%1$d tests</item>
+    </plurals>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one">%1$d netwerk</item>
+        <item quantity="other">%1$d netwerken</item>
+    </plurals>
+    <string name="TestResults_Filter_Date_Any">Een datum</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">Vanaf 7 dagen geleden</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">Vanaf 1 maand geleden</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Aangepast: %1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Kies een datumbereik</string>
+    <string name="TestResults_Filter_NoTestsFound">Er zijn geen testresultaten gevonden voor die filters.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Wilt u alle testresultaten voor de huidige filters verwijderen?</string>
+    <string name="Results_LimitedNotice">Er worden alleen de laatste %1$d resultaten weergegeven</string>
+    <string name="Results_UploadingMissing">Ontbrekende resultaten uploaden %1$s</string>
+    <string name="Results_MarkAllAsViewed">Alles als gelezen markeren</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Wilt u alle resultaten als bekeken markeren?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Wilt u alle resultaten voor de huidige filters als bekeken markeren?</string>
+    <string name="Measurement_Title">Afmeting</string>
+    <string name="Measurement_LoadingFailed">Het laden van de meetgegevens is mislukt</string>
+    <string name="Measurements_Anomaly">Anomalie</string>
+    <plurals name="Measurements_Count">
+        <item quantity="one">%1$d gemeten</item>
+        <item quantity="other">%1$d gemeten</item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one">%1$d mislukt</item>
+        <item quantity="other">%1$d mislukt</item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning">Deze meting is niet gepubliceerd op OONI Explorer. Upload deze om de analyse te bekijken.</string>
+    <string name="Measurement_Raw_Share">Meetgegevens delen</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description">De tests worden elk uur op de achtergrond uitgevoerd</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">De testduur van websites beperken</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Alleen voor handmatige uitvoeringen</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">Maximale duur van een volledige testrun van de website</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">Voer het aantal seconden in</string>
+    <string name="Settings_Proxy_Custom_Add">Aangepaste proxy toevoegen</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid">De hostnaam is ongeldig</string>
+    <string name="Settings_Proxy_Custom_PortInvalid">De poort is ongeldig</string>
+    <string name="Settings_Proxy_Delete_Confirmation">Weet u zeker dat u de %1$s-proxy wilt verwijderen?</string>
+    <string name="Settings_Advanced_RecentLogs">Bekijk recente logboeken</string>
+    <string name="Settings_Results_DeleteOldResults">Oude resultaten verwijderen</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold">Resultaten verwijderen die ouder zijn dan</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Voer het aantal maanden in</string>
+    <string name="Settings_Support_Message_Hint">Bericht aan het ondersteuningsteam</string>
+    <string name="Settings_Support_IncludeLogs">Voeg applicatielogboeken toe</string>
+    <string name="Settings_ShareApp_Description">Deel de %1$s-app met iemand anders</string>
+    <string name="Settings_ShareApp_ShareMessage">Installeer %1$s op %2$s</string>
+    <string name="Settings_Legacy_Storage">Bestanden uit de vorige versie verwijderen</string>
+    <string name="Settings_DisableVpnInstructions">Ga naar Instellingen &gt; Algemeen &gt; VPN en verbreek de verbinding met je VPN.</string>
+    <string name="Settings_ShareLogs">Logs delen</string>
+    <string name="Settings_ShareLogs_Error">Logs met foutmeldingen</string>
+    <string name="Settings_FilterLogs">Logbestanden filteren</string>
+    <string name="Settings_Sharing_UploadResults_Description">De resultaten worden automatisch geüpload naar OONI Explorer</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one">Test %1$d URL</item>
+        <item quantity="other">Test %1$d URL's</item>
+    </plurals>
+    <string name="Onboarding_QuizAnswer_Correct">Juiste antwoord</string>
+    <string name="Onboarding_QuizAnswer_Incorrect">Fout antwoord</string>
+    <string name="Onboarding_Notifications_Title">Meldingen Inschakelen</string>
+    <string name="Onboarding_Notifications_Paragraph">Zodra je de tests hebt gestart, kun je de app sluiten; ze blijven dan op de achtergrond doorlopen. Schakel meldingen in, zodat je kunt zien welke tests er worden uitgevoerd, of ze kunt stoppen, zonder dat je de app hoeft te openen.</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">Kom op</string>
+    <string name="AddDescriptor_EnterURL">Voer een OONI Run Link-URL in</string>
+    <string name="AddDescriptor_URLInvalid">De URL is geen geldige OONI Run-link</string>
+    <string name="AddDescriptor_Title">Nieuwe link toevoegen</string>
+    <string name="AddDescriptor_AutoUpdate">Updates automatisch installeren</string>
+    <string name="AddDescriptor_Toasts_Installed">Link geïnstalleerd</string>
+    <string name="AddDescriptor_InstallForLater">Nu installeren voor later</string>
+    <string name="AddDescriptor_InstallAndRun">Installeren &amp; Uitvoeren</string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url">Ongeldige URL</string>
+    <string name="LoadingScreen_Runv2_Message">Link wordt geladen</string>
+    <string name="LoadingScreen_Runv2_Failure">Fout bij het laden van de link</string>
+    <string name="DescriptorUpdate_Updates">NIEUWS</string>
+    <string name="DescriptorUpdate_CheckUpdates">Controleer voor updates</string>
+    <string name="AddDescriptor_AutoRunDisabled">Automatisch uitvoeren is uitgeschakeld. Schakel deze functie in om tests automatisch uit te voeren.</string>
+    <string name="Descriptor_LastTestResult">Laatste testresultaat</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Bezig met uploaden %1$s …</string>
+    <string name="Modal_Clear_Legacy_Directories">Wilt u oude mappen verwijderen?</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">Wilt u %1$s testresultaat verwijderen?</item>
+        <item quantity="other">Wilt u %1$s testresultaten verwijderen?</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one">%1$d item geselecteerd</item>
+        <item quantity="other">%1$d items geselecteerd</item>
+    </plurals>
+    <string name="Modal_Error_ProxyUnavailable">De geselecteerde proxy is mogelijk niet beschikbaar</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">De app kan geen tests automatisch uitvoeren zonder toestemming voor achtergrondgebruik. Wilt u het opnieuw proberen?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder">De app heeft toestemming nodig om automatisch tests op de achtergrond uit te voeren.</string>
+    <string name="Desktop_OpenApp">App openen</string>
+    <string name="Tray_Notification_Check_Updates">Controleer voor updates</string>
+    <string name="Tray_Notification_Checking_Updates">Controleren op updates…</string>
+    <string name="Modal_Quite_Prompt">OONI Probe afsluiten?</string>
+    <string name="Modal_Quite_Description">Als je de app afsluit, kan deze geen geautomatiseerde tests meer op de achtergrond uitvoeren. Kies ‘Afsluiten’ om de app te sluiten of ‘Verbergen’ om de app op de achtergrond te laten draaien.</string>
+    <string name="Notification_UpdateChannelName">Linkupdates</string>
+    <string name="Common_Week">Week</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one">%1$d seconde</item>
+        <item quantity="other">%1$d seconden</item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="one">%1$d minuut</item>
+        <item quantity="other">%1$d minuten</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d uur</item>
+        <item quantity="other">%1$d uren</item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dagen</item>
+    </plurals>
+    <string name="Common_Hours_Abbreviated">%1$dh</string>
+    <string name="Common_Minutes_Abbreviated">%1$dm</string>
+    <string name="Common_Seconds_Abbreviated">%1$ds</string>
+    <string name="TaskOrigin_Manual">Handmatige uitvoering</string>
+    <string name="TaskOrigin_AutoRun">Automatisch starten</string>
 </resources>
