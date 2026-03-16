@@ -2,6 +2,8 @@ package org.ooni.probe.config
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.view.WindowManager
+import co.touchlab.kermit.Logger
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.appupdate.AppUpdateOptions
@@ -74,13 +76,18 @@ class AndroidUpdateMonitoring : UpdateMonitoring {
     // Update is downloaded but not installed, we need to ask the user to complete the update
     private fun AppUpdateManager.showInstallDownloadedUpdateMessage(activity: Activity) {
         CoroutineScope(Dispatchers.Main).launch {
-            AlertDialog
-                .Builder(activity)
-                .setMessage(getString(Res.string.Dashboard_Update_Ready))
-                .setPositiveButton(
-                    getString(Res.string.Dashboard_Update_Restart),
-                ) { _, _ -> completeUpdate() }
-                .show()
+            if (activity.isFinishing || activity.isDestroyed) return@launch
+            try {
+                AlertDialog
+                    .Builder(activity)
+                    .setMessage(getString(Res.string.Dashboard_Update_Ready))
+                    .setPositiveButton(
+                        getString(Res.string.Dashboard_Update_Restart),
+                    ) { _, _ -> completeUpdate() }
+                    .show()
+            } catch (e: WindowManager.BadTokenException) {
+                Logger.e("Failed to show update dialog", e)
+            }
         }
     }
 
