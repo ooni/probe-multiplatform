@@ -165,7 +165,7 @@
     <string name="Settings_Title">设置</string>
     <string name="Settings_TestOptions_Label">测试选项</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">自动运行测试</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">仅在连接至 WIFI 时</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">仅在使用 WIFI 时</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">仅在充电时</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">通过启用自动测试， OONI Probe 测试将每天自动运行多次。您的测试结果将自动在 OONI Explorer 上公布：https://explorer.ooni.org/\n\n重要提示：如果您启用了VPN， OONI Probe 将不会自动运行测试。请关闭您的 VPN ，以便进行 OONI Probe 自动测试。了解更多：https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">每小时在后台运行测试</string>
