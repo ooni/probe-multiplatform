@@ -143,4 +143,5 @@
     <string name="Results_LimitedNotice">Prikazanih je le zadnjih %1$d rezultatov</string>
     <string name="Settings_Proxy_Custom_Available">Razpoložljivo</string>
     <string name="Modal_Hide">Skrij</string>
+    <string name="Settings_Websites_Categories_Selection_None">Odznači vse</string>
 </resources>
