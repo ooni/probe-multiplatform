@@ -14,6 +14,13 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Create .sentryclirc
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          echo "[auth]" > ~/.sentryclirc
+          echo "token=$SENTRY_AUTH_TOKEN" >> ~/.sentryclirc
+
       - name: Decode Android keystore
         run: echo "${{ secrets.OONI_ANDROID_KEY_STOREFILE }}" | base64 --decode > composeApp/upload-keystore.jks
 

@@ -28,6 +28,13 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
+      - name: Create .sentryclirc
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          echo "[auth]" > ~/.sentryclirc
+          echo "token=$SENTRY_AUTH_TOKEN" >> ~/.sentryclirc
+
       - name: Build APKs
         run: ./gradlew copyBrandingToCommonResources assemble${{ matrix.license }}Debug assemble${{ matrix.license }}DebugAndroidTest -Porganization=${{ matrix.organization }}
 
