@@ -76,7 +76,6 @@ class PreferenceRepository(
     ): PreferenceKey<*> {
         val preferenceKey = getPreferenceKey(name = key.value, prefix = prefix, autoRun = autoRun)
         return when (key) {
-            SettingsKey.EMISSION_DAY,
             SettingsKey.MAX_RUNTIME,
             SettingsKey.LEGACY_PROXY_PORT,
             SettingsKey.DELETE_OLD_RESULTS_THRESHOLD,
