@@ -43,10 +43,8 @@ class AppLogger(
         }
 
     suspend fun clear() {
-        withContext(backgroundContext) {
-            log.value = emptyList()
-            deleteFiles(FILE_PATH)
-        }
+        log.value = emptyList()
+        deleteFiles(FILE_PATH)
     }
 
     suspend fun getLogFilePath() =

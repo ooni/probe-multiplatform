@@ -196,7 +196,13 @@ class Dependencies(
 
     private val readFile: ReadFile by lazy { ReadFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val writeFile: WriteFile by lazy { WriteFileOkio(FileSystem.SYSTEM, baseFileDir) }
-    private val deleteFiles: DeleteFiles by lazy { DeleteFilesOkio(FileSystem.SYSTEM, baseFileDir) }
+    private val deleteFiles: DeleteFiles by lazy {
+        DeleteFilesOkio(
+            fileSystem = FileSystem.SYSTEM,
+            baseFilesDir = baseFileDir,
+            backgroundContext = backgroundContext,
+        )
+    }
 
     private val getStorageUsed by lazy {
         GetStorageUsed(
