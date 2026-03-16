@@ -15,6 +15,7 @@ sealed class Organization(val key: String, val config: AppConfig) {
             supportsOoniRun = true,
             supportedLanguages = listOf(
                 "ar",
+                "bs",
                 "ca",
                 "de",
                 "el",
