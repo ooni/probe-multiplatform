@@ -106,7 +106,7 @@
     <string name="TestResults_Summary_Hero_Network">Network</string>
     <string name="TestResults_Summary_Hero_Country">Country</string>
     <string name="TestResults_Summary_Hero_Runtime">Total Runtime</string>
-    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_WiFi">Wi-Fi</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobile Data</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
@@ -192,7 +192,7 @@
     <string name="Settings_Title">Settings</string>
     <string name="Settings_TestOptions_Label">Test options</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Run tests automatically</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Only on WiFi</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Only on Wi-Fi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Only while charging</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">By enabling automatic testing, OONI Probe tests will run automatically multiple times per day. Your test results will automatically get published on OONI Explorer: https://explorer.ooni.org/ \n\nImportant: If you have a VPN enabled, OONI Probe will not run tests automatically. Please turn off your VPN for automated OONI Probe testing. Learn more: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run every hour in the background</string>
