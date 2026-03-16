@@ -216,7 +216,7 @@
     <string name="Settings_ShareApp_ShareMessage">在 %2$s 安装 %1$s</string>
     <string name="Settings_Storage_Label">存储用量</string>
     <string name="Settings_Storage_Delete">删除</string>
-    <string name="Settings_Storage_Clear">清除键</string>
+    <string name="Settings_Storage_Clear">清除</string>
     <string name="Settings_Legacy_Storage">删除来自之前版本的文件</string>
     <string name="Settings_WarmVPNInUse_Label">在使用VPN时发出警告</string>
     <string name="Settings_DisableVpnInstructions">转到设置 &gt; 常规 &gt; VPN 并断开 VPN 连接。</string>
@@ -226,7 +226,7 @@
     <string name="Settings_FilterLogs">过滤日志</string>
     <string name="Settings_Sharing_UploadResults_Description">结果自动上传到 OONI explorer</string>
     <string name="Settings_Websites_Categories_Selection_None">取消全选</string>
-    <string name="Settings_Websites_Categories_Selection_All">选择全部</string>
+    <string name="Settings_Websites_Categories_Selection_All">全选</string>
     <string name="Settings_Websites_CustomURL_Title">选择要测试的网站</string>
     <string name="Settings_Websites_CustomURL_URL">网址</string>
     <string name="Settings_Websites_CustomURL_Run">运行</string>
@@ -324,7 +324,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">国家/地区代码（例如，IT 指代意大利）</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">网络信息（包含 ASN）</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">测试的日期和时间</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">我们尽最大努力不发布您的 IP 地址或任何其他潜在的个人身份信息。\n\n通过 [OONI 的数据政策] 了解更多信息(https://ooni.org/about/data-policy/)。</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">我们尽最大努力不发布您的 IP 地址或任何其他潜在的个人身份信息。\n\n如需了解更多信息，请参阅 [OONI 的数据政策](https://ooni.org/about/data-policy/)。</string>
     <string name="Onboarding_DefaultSettings_Button_Go">开始吧</string>
     <string name="Onboarding_DefaultSettings_Button_Change">更改默认值</string>
     <string name="AddDescriptor_EnterURL">输入 OONI Run 链接 URL</string>
@@ -367,7 +367,7 @@
     <string name="Modal_ReRun_Websites_Title">您即将重新测试 %1$s 个网站。</string>
     <string name="Modal_ReRun_Websites_Run">运行</string>
     <string name="Modal_DisableVPN_Title">请关闭您的 VPN 连接。</string>
-    <string name="Modal_DisableVPN_Message">如果您在启用 VPN 的情况下运行 OONI，测试结果将可能显示来自错误的国家/地区。请关闭您的 VPN 连接。</string>
+    <string name="Modal_DisableVPN_Message">如果您在启用 VPN 的情况下运行 OONI Probe，测试结果将可能显示来自错误的国家/地区。请关闭您的 VPN 连接。</string>
     <string name="Modal_DisableVPN">禁用VPN</string>
     <string name="Modal_RunAnyway">无论如何都要运行</string>
     <string name="Modal_AlwaysRun">始终运行</string>
@@ -384,7 +384,7 @@
     <string name="Tray_Notification_Updates_Available">有更新可用！</string>
     <string name="Tray_Notification_Checking_Updates">检查更新中…</string>
     <string name="Modal_Hide">隐藏</string>
-    <string name="Modal_Quite_Prompt">退出 OONI 探测？</string>
+    <string name="Modal_Quite_Prompt">退出 OONI Probe？</string>
     <string name="Modal_Quite_Description">如退出，应用将无法在后台运行自动测试。选择“退出”来退出应用或选择“隐藏”保持应用在后台运行。</string>
     <string name="OONIRun_Run">运行</string>
     <!-- Android notification channel name. -->
@@ -395,16 +395,16 @@
     <string name="Common_Back">返回</string>
     <string name="Common_Close">关闭</string>
     <string name="Common_Refresh">刷新</string>
-    <string name="Common_Collapse">折叠</string>
+    <string name="Common_Collapse">收起</string>
     <string name="Common_Expand">展开</string>
     <string name="Common_Enable">启用</string>
     <string name="Common_Yes">是</string>
     <string name="Common_Save">保存</string>
-    <string name="Common_Clear">清除键</string>
-    <string name="Common_Next">下一页</string>
+    <string name="Common_Clear">清除</string>
+    <string name="Common_Next">下一步</string>
     <string name="Common_Previous">上一步</string>
     <string name="Common_Share">分享</string>
-    <string name="Common_Dismiss">不退出</string>
+    <string name="Common_Dismiss">关闭</string>
     <string name="Common_Search">搜索</string>
     <string name="Common_Today">今天</string>
     <string name="Common_Yesterday">昨天</string>
