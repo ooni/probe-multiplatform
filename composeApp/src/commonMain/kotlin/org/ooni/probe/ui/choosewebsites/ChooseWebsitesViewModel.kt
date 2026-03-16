@@ -145,7 +145,6 @@ class ChooseWebsitesViewModel(
                             ),
                         ),
                         taskOrigin = TaskOrigin.OoniRun,
-                        isRerun = false,
                     ),
                 )
                 goToDashboard()

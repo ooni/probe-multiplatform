@@ -64,6 +64,7 @@ import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetFirstRun
 import org.ooni.probe.domain.GetLastResultOfDescriptor
 import org.ooni.probe.domain.GetMeasurementsNotUploaded
+import org.ooni.probe.domain.GetRerunSpecification
 import org.ooni.probe.domain.GetSettings
 import org.ooni.probe.domain.GetStats
 import org.ooni.probe.domain.GetStorageUsed
@@ -382,6 +383,9 @@ class Dependencies(
             getPreference = preferenceRepository::getValueByKey,
         )
     }
+    private val getRerunSpecification by lazy {
+        GetRerunSpecification(getResult::invoke)
+    }
     private val getResults by lazy {
         GetResults(
             resultRepository::list,
@@ -602,6 +606,7 @@ class Dependencies(
             uploadMissingMeasurements = uploadMissingMeasurements::invoke,
             checkAutoRunConstraints = checkAutoRunConstraints::invoke,
             getAutoRunSpecification = getAutoRunSpecification::invoke,
+            getRerunSpecification = getRerunSpecification::invoke,
             runDescriptors = runDescriptors::invoke,
             addRunCancelListener = runBackgroundStateManager::addCancelListener,
             setRunBackgroundState = runBackgroundStateManager::updateState,
