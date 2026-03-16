@@ -312,4 +312,28 @@
     <string name="Dashboard_TestsMoved_Action">Δείτε δοκιμές</string>
     <string name="Dashboard_Stats_Empty">Ξεκινήστε να εκτελείτε δοκιμές για να δείτε τα στατιστικά σας εδώ.</string>
     <string name="Dashboard_Articles_Title">Τα νέα του OONI</string>
+    <string name="Dashboard_RunV2_ExpiredTag">ΕΛΗΞΕ</string>
+    <string name="Dashboard_RunV2_UpdatedTag">ΕΝΗΜΕΡΩΜΕΝΟ</string>
+    <string name="Dashboard_RunV2_UpdateTag">ΕΝΗΜΕΡΩΣΗ</string>
+    <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
+    <string name="TestResults_Filters_Short">Φίλτρα:</string>
+    <string name="Measurement_Title">Μέτρηση</string>
+    <string name="Measurements_Anomaly">Ανωμαλία</string>
+    <string name="DescriptorUpdate_Updates">ΕΝΗΜΕΡΩΣΕΙΣ</string>
+    <string name="Common_Yesterday">Εχθές</string>
+    <string name="Common_Hours_Abbreviated">%1$dω</string>
+    <string name="Common_Minutes_Abbreviated">%1$dλ</string>
+    <string name="Common_Seconds_Abbreviated">%1$dδ</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink">Σύνδεσμος απεγκατάστασης</string>
+    <string name="Dashboard_Runv2_Overview_SeeMore">Δείτε περισσότερα</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">Απόρριψη ενημέρωσης</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one">Αποκλεισμένο</item>
+        <item quantity="other">Αποκλεισμένα</item>
+    </plurals>
+    <string name="Settings_FilterLogs">Φίλτρο καταγραφών</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">Ας ξεκινήσουμε</string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url">Μη υποστηριζόμενο URL</string>
+    <string name="TaskOrigin_AutoRun">Αυτόματη εκκίνηση</string>
 </resources>
