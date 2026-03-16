@@ -321,11 +321,10 @@ android {
         debugImplementation(libs.androidx.ui.tooling.preview)
         "fullImplementation"(libs.bundles.full.android)
         "fullImplementation"("org.ooni:oonimkall:3.29.0-android:@aar")
-        "fullImplementation"("org.ooni:passport-android:e56538fd")
+        "fullImplementation"("org.ooni:passport-android:e56538fd:@aar")
         "fdroidImplementation"("org.ooni:oonimkall:3.29.0-android:@aar")
-        "fdroidImplementation"("org.ooni:passport-android:e56538fd")
+        "fdroidImplementation"("org.ooni:passport-android:e56538fd:@aar")
         "xperimentalImplementation"(files("libs/android-oonimkall.aar"))
-        implementation(files("libs/passport-android.aar"))
         androidTestUtil(libs.android.orchestrator)
     }
     dependenciesInfo {
