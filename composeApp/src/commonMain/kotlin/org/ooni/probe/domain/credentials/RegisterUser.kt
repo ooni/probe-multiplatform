@@ -5,11 +5,12 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import org.ooni.passport.PassportAuthRegister
 import org.ooni.probe.config.BuildTypeDefaults
+import org.ooni.probe.data.models.Credential
 import kotlin.coroutines.CoroutineContext
 
 class RegisterUser(
     private val passportAuthRegister: PassportAuthRegister,
-    private val setCredential: suspend (String, UInt) -> Boolean,
+    private val setCredential: suspend (Credential) -> Boolean,
     private val backgroundContext: CoroutineContext,
     private val json: Json,
 ) {
@@ -28,20 +29,14 @@ class RegisterUser(
                         return@withContext null
                     }
 
-                    val credential = credentialResponse.credential
-                    if (credential.isNullOrEmpty()) {
-                        Logger.w("Failed to register user (empty credential)")
+                    val credential = credentialResponse.decodeCredential(json)
+                    if (credential == null) {
+                        Logger.w("Failed to register user (could not decode credential)")
                         return@withContext null
                     }
 
-                    val rawCredential = credentialResponse.decodeCredential(json)
-                    if (rawCredential == null) {
-                        Logger.w("Failed to parse retrieved manifest")
-                        return@withContext null
-                    }
-
-                    return@withContext if (setCredential(credential, rawCredential.emissionDay)) {
-                        credential
+                    return@withContext if (setCredential(credential)) {
+                        credential.credential
                     } else {
                         null
                     }
