@@ -19,7 +19,7 @@ import org.ooni.probe.domain.SubmitMeasurement
 class SubmitMeasurementWithUser(
     private val getManifest: () -> Flow<Manifest?>,
     private val getCredential: suspend () -> Credential?,
-    private val setCredential: suspend (String, UInt) -> Boolean,
+    private val setCredential: SetCredential,
     private val passportAuthSubmit: PassportAuthSubmit,
     private val json: Json,
 ) {
@@ -44,13 +44,8 @@ class SubmitMeasurementWithUser(
             ).onSuccess { result ->
                 if (result.response.isSuccessful) {
                     val response = result.response.bodyText?.let(this::parseResponse)
-                    val rawCredential = result.decodeCredential(json)
-                    if (rawCredential == null) {
-                        Logger.w("Failed to parse retrieved manifest")
-                        return@onSuccess
-                    }
 
-                    result.credential?.let { setCredential(it, rawCredential.emissionDay) }
+                    result.decodeCredential(json)?.let { setCredential(it) }
                     return Success(
                         SubmitMeasurement.ResponseData(
                             uid = response?.measurementUid?.let(MeasurementModel::Uid),
