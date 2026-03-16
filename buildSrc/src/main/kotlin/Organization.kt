@@ -19,6 +19,7 @@ sealed class Organization(val key: String, val config: AppConfig) {
                 "ca",
                 "de",
                 "el",
+                "en",
                 "es",
                 "fa",
                 "fi",
@@ -54,7 +55,7 @@ sealed class Organization(val key: String, val config: AppConfig) {
             folder = "dwMain",
             supportsOoniRun = false,
             supportedLanguages = listOf(
-                "de", "es", "fr", "pt-rBR", "ru", "tr"
+                "de", "en", "es", "fr", "pt-rBR", "ru", "tr"
             ),
         )
     )
