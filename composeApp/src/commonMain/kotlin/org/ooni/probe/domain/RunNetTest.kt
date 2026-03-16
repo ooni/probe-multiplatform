@@ -91,7 +91,6 @@ class RunNetTest(
     }
 
     private suspend fun onEvent(event: TaskEvent) {
-        Logger.i("Event: $event")
         when (event) {
             TaskEvent.Started -> {
                 // We already update the initial state before starting the task
@@ -374,18 +373,7 @@ class RunNetTest(
      * Here we group them under a single exception class for crash reporting.
      */
     private fun TaskEvent.Log.getKnownException() =
-        if (
-            message.startsWith("cannot submit measurement") &&
-            listOf(
-                "interrupted",
-                "generic_timeout_error",
-                "connection_aborted",
-                "connection_reset",
-                "eof_error",
-            ).none { message.contains(it) }
-        ) {
-            CannotSubmitMeasurement()
-        } else if (message.startsWith("statsManager") && message.contains("not found:")) {
+        if (message.startsWith("statsManager") && message.contains("not found:")) {
             StatsManagerNotFoundError()
         } else {
             null
@@ -409,8 +397,6 @@ class RunNetTest(
     inner class BugJsonDump(
         value: TaskEventResult.Value?,
     ) : Failure(null, value)
-
-    inner class CannotSubmitMeasurement : Failure(null, null)
 
     inner class StatsManagerNotFoundError : Failure(null, null)
 }

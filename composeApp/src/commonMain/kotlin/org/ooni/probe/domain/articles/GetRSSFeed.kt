@@ -28,14 +28,14 @@ class GetRSSFeed(
 ) : RefreshArticles.Source {
     override suspend operator fun invoke(): Result<List<ArticleModel>, Exception> {
         return httpDo("GET", url, TaskOrigin.OoniRun)
-            .mapError { Exception("Failed to get blog posts", it) }
+            .mapError { it as Exception }
             .flatMap { response ->
                 if (response.isNullOrBlank()) return@flatMap Failure(Exception("Empty response"))
 
                 val rss = try {
                     Xml.decodeFromString<Rss>(response)
                 } catch (e: Exception) {
-                    return@flatMap Failure(Exception("Could not parse RSS feed", e))
+                    return@flatMap Failure(e)
                 }
 
                 Success(

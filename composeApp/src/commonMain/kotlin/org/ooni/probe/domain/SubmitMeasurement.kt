@@ -18,9 +18,7 @@ class SubmitMeasurement(
     private val deleteMeasurementById: suspend (MeasurementModel.Id) -> Unit,
 ) {
     suspend operator fun invoke(measurement: MeasurementModel): MeasurementModel? {
-        Logger.i("Event: submit")
         val reportFilePath = measurement.reportFilePath ?: return measurement
-        Logger.i("Event: submit next")
 
         val report = readFile(reportFilePath)
         if (report.isNullOrBlank()) {

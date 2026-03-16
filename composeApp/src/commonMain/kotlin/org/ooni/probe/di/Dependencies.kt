@@ -546,6 +546,7 @@ class Dependencies(
                 ),
                 GetFindings(engine::httpDo, json),
             ),
+            networkTypeFinder = networkTypeFinder::invoke,
             refreshArticlesInDatabase = articleRepository::refresh,
             getPreference = preferenceRepository::getValueByKey,
             setPreference = preferenceRepository::setValueByKey,

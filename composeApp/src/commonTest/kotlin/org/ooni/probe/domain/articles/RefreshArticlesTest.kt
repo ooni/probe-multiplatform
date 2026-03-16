@@ -3,16 +3,38 @@ package org.ooni.probe.domain.articles
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.Failure
+import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.Success
 import org.ooni.probe.data.models.ArticleModel
 import org.ooni.testing.factories.ArticleModelFactory
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.time.Clock
 
 class RefreshArticlesTest {
+    @Test
+    fun doNotRefreshWithNoInternet() =
+        runTest {
+            var dbCalled = false
+            var setPreferenceValue: Any? = null
+            val subject = RefreshArticles(
+                hasOoniNews = true,
+                sources = listOf(RefreshArticles.Source { Failure(Exception()) }),
+                networkTypeFinder = { NetworkType.NoInternet },
+                refreshArticlesInDatabase = { dbCalled = true },
+                getPreference = { flowOf(null) },
+                setPreference = { _, value -> setPreferenceValue = value },
+            )
+
+            subject()
+
+            assertFalse(dbCalled)
+            assertNull(setPreferenceValue)
+        }
+
     @Test
     fun doNotRefreshOnFailure() =
         runTest {
@@ -21,6 +43,7 @@ class RefreshArticlesTest {
             val subject = RefreshArticles(
                 hasOoniNews = true,
                 sources = listOf(RefreshArticles.Source { Failure(Exception()) }),
+                networkTypeFinder = { NetworkType.Wifi },
                 refreshArticlesInDatabase = { dbCalled = true },
                 getPreference = { flowOf(null) },
                 setPreference = { _, value -> setPreferenceValue = value },
@@ -44,6 +67,7 @@ class RefreshArticlesTest {
                         Failure(Exception())
                     },
                 ),
+                networkTypeFinder = { NetworkType.Wifi },
                 refreshArticlesInDatabase = { },
                 getPreference = { flowOf(Clock.System.now().epochSeconds) },
                 setPreference = { _, _ -> },
@@ -66,6 +90,7 @@ class RefreshArticlesTest {
                         Failure(Exception())
                     },
                 ),
+                networkTypeFinder = { NetworkType.Wifi },
                 refreshArticlesInDatabase = { },
                 getPreference = { flowOf(Clock.System.now().epochSeconds) },
                 setPreference = { _, _ -> },
@@ -85,6 +110,7 @@ class RefreshArticlesTest {
             val subject = RefreshArticles(
                 hasOoniNews = true,
                 sources = listOf(RefreshArticles.Source { Success(articles) }),
+                networkTypeFinder = { NetworkType.Wifi },
                 refreshArticlesInDatabase = { refreshDbValue = it },
                 getPreference = { flowOf(null) },
                 setPreference = { _, value -> setPreferenceValue = value },

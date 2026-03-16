@@ -6,6 +6,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
 import org.ooni.probe.data.models.ArticleModel
@@ -17,6 +18,7 @@ import kotlin.time.Instant
 class RefreshArticles(
     val hasOoniNews: Boolean,
     val sources: List<Source>,
+    val networkTypeFinder: () -> NetworkType,
     val refreshArticlesInDatabase: suspend (List<ArticleModel>) -> Unit,
     val getPreference: (SettingsKey) -> Flow<Any?>,
     val setPreference: suspend (SettingsKey, Any) -> Unit,
@@ -26,7 +28,7 @@ class RefreshArticles(
     }
 
     suspend operator fun invoke(skipIntervalCheck: Boolean = false) {
-        if (!hasOoniNews) return
+        if (!hasOoniNews || networkTypeFinder() == NetworkType.NoInternet) return
 
         val lastCheck = (getPreference(SettingsKey.LAST_ARTICLES_REFRESH).first() as? Long)
             ?.let { Instant.fromEpochSeconds(it) }
@@ -45,7 +47,7 @@ class RefreshArticles(
 
         responses.forEach { response ->
             response.onFailure {
-                Logger.w("Failed to get article source", it)
+                Logger.w("Failed to get article source", SourceFailure(it))
             }
         }
 
@@ -57,6 +59,10 @@ class RefreshArticles(
 
         setPreference(SettingsKey.LAST_ARTICLES_REFRESH, Clock.System.now().epochSeconds)
     }
+
+    class SourceFailure(
+        cause: Throwable,
+    ) : Exception(cause)
 
     companion object {
         private val MIN_INTERVAL = 1.days
