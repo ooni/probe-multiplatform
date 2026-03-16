@@ -1,30 +1,37 @@
 package org.ooni.probe.domain.credentials
 
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.json.Json
+import org.ooni.probe.data.models.Credential
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class GetCredentialTest {
+    private val json = Json { ignoreUnknownKeys = true }
+
     @Test
     fun successful() =
         runTest {
-            // Using realistic credential value from Rust test example
-            val expectedCredential = "ASAAAAAAAAAAaBoSmSenkROffQvFETMO6MDD5LwxxxD7hfvFrlPv7XIBIAAAAAAAAAAWEktR78DA11bL4SgGPQV3VxeMqbcgE6oXF1CSL4A/JQMAAAAAAAAAIAAAAAAAAACap5+DGII+KNQB7vWB8Cttav7ADisKeRdktfYjXISeSiAAAAAAAAAAhBEiHB7s8COTd4hnoNx1Ouhzu8NFMzA5lS8Lp7wKIiggAAAAAAAAAMJnquClIeYM+Vm7uPq5vVAmkzQOVfG7OoeUFB7QjMtV"
+            val storedJson = """{"credential_sign_response":"test_credential","emission_day":42}"""
 
             val getCredential = GetCredential(
                 readSecureStorage = { key ->
                     if (key == CredentialsConstants.STORAGE_KEY) {
-                        expectedCredential
+                        storedJson
                     } else {
                         null
                     }
                 },
+                json = json,
             )
 
             val result = getCredential()
 
-            assertEquals(expectedCredential, result)
+            assertEquals(
+                Credential(credential = "test_credential", emissionDay = 42u),
+                result,
+            )
         }
 
     @Test
@@ -32,6 +39,20 @@ class GetCredentialTest {
         runTest {
             val getCredential = GetCredential(
                 readSecureStorage = { null },
+                json = json,
+            )
+
+            val result = getCredential()
+
+            assertNull(result)
+        }
+
+    @Test
+    fun invalidJson() =
+        runTest {
+            val getCredential = GetCredential(
+                readSecureStorage = { "not valid json" },
+                json = json,
             )
 
             val result = getCredential()
@@ -46,6 +67,7 @@ class GetCredentialTest {
                 readSecureStorage = {
                     throw RuntimeException("Secure storage error")
                 },
+                json = json,
             )
 
             val result = getCredential()
