@@ -5,6 +5,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.Success
 import org.ooni.passport.models.PassportHttpResponse
+import org.ooni.probe.data.models.Credential
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.testing.factories.ManifestFactory
 import kotlin.test.Test
@@ -82,7 +83,10 @@ class RegisterUserWithManifestTest {
     @Test
     fun returnsExistingCredentials() =
         runTest {
-            val existingCredential = "existing_credential_123"
+            val existingCredential = Credential(
+                credential = "existing_credential_123",
+                emissionDay = 42u,
+            )
             var retrieveManifestCalled = false
             var registerUserCalled = false
 
@@ -115,7 +119,7 @@ class RegisterUserWithManifestTest {
 
             val result = registerUserWithManifest()
 
-            assertEquals(existingCredential, result)
+            assertEquals(existingCredential.credential, result)
             assertEquals(false, retrieveManifestCalled) // Should skip manifest retrieval
             assertEquals(false, registerUserCalled) // Should skip registration
         }

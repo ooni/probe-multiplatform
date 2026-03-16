@@ -1,5 +1,6 @@
 package org.ooni.passport.models
 
+import co.touchlab.kermit.Logger
 import kotlinx.serialization.json.Json
 import org.ooni.probe.data.models.Credential
 
@@ -12,6 +13,7 @@ data class CredentialResponse(
             try {
                 json.decodeFromString<Credential>(it)
             } catch (e: Exception) {
+                Logger.w("Failed to decode credential response", e)
                 null
             }
         }

@@ -410,7 +410,7 @@ class Dependencies(
     private val getCredential by lazy {
         GetCredential(
             readSecureStorage = secureStorage::read,
-            getPreference = preferenceRepository::getValueByKey,
+            json = json,
         )
     }
     private val registerUser by lazy {
@@ -586,8 +586,8 @@ class Dependencies(
     val setCredential by lazy {
         SetCredential(
             writeSecureStorage = secureStorage::write,
-            setPreference = preferenceRepository::setValueByKey,
-            )
+            json = json,
+        )
     }
     private val shareLogFile by lazy { ShareLogFile(launchAction, appLogger::getLogFilePath) }
     val shouldShowAppReview by lazy {
@@ -661,7 +661,7 @@ class Dependencies(
         SubmitMeasurementWithUser(
             getManifest = getManifest::invoke,
             getCredential = getCredential::invoke,
-            setCredential = setCredential::invoke,
+            setCredential = setCredential,
             passportAuthSubmit = passportBridge::userAuthSubmit,
             json = json,
         )
