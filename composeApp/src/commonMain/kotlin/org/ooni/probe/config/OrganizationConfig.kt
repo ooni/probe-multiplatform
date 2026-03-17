@@ -14,6 +14,7 @@ interface OrganizationConfigInterface {
     val installUrl: String?
     val hasOoniNews: Boolean
     val canInstallDescriptors: Boolean
+    val supportedLanguageCodes: Set<String>
 
     val ooniApiBaseUrl get() = BuildTypeDefaults.ooniApiBaseUrl
     val ooniRunDomain get() = BuildTypeDefaults.ooniRunDomain

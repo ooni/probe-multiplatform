@@ -19,4 +19,14 @@ object OrganizationConfig : OrganizationConfigInterface {
     override val installUrl = null
     override val hasOoniNews = false
     override val canInstallDescriptors = false
+    override val supportedLanguageCodes =
+        setOf(
+            "de",
+            "en",
+            "es",
+            "fr",
+            "pt",
+            "ru",
+            "tr",
+        )
 }
