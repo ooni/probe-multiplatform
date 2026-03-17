@@ -41,6 +41,8 @@ import platform.Foundation.NSError
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSLocale
 import platform.Foundation.NSLocaleLanguageDirectionRightToLeft
+import platform.Foundation.NSUserDefaults
+import platform.Foundation.preferredLanguages
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSTemporaryDirectory
 import platform.Foundation.NSURL
@@ -73,6 +75,37 @@ class SetupDependencies(
     networkTypeFinder: NetworkTypeFinder,
     val backgroundRunner: BackgroundRunner,
 ) {
+    init {
+        ensureSupportedLocale()
+    }
+
+    /**
+     * If the device's primary language is not in supportedLanguageCodes,
+     * override AppleLanguages to the first supported language from the user's
+     * preferred languages, or English as a last resort.
+     * This must run before any Compose code so that Locale.current and
+     * Compose Resources resoalve to a supported language.
+     */
+    private fun ensureSupportedLocale() {
+        val preferred = NSLocale.preferredLanguages.mapNotNull { it as? String }
+        val supported = OrganizationConfig.supportedLanguageCodes
+        val primaryCode = preferred
+            .firstOrNull()
+            ?.split("-", "_")
+            ?.firstOrNull()
+        if (primaryCode != null && primaryCode !in supported) {
+            val effectiveLang = preferred.firstNotNullOfOrNull { lang ->
+                val code = lang.split("-", "_").first()
+                if (code in supported) lang else null
+            } ?: "en"
+            NSUserDefaults.standardUserDefaults.setObject(
+                listOf(effectiveLang),
+                forKey = "AppleLanguages",
+            )
+            NSUserDefaults.standardUserDefaults.synchronize()
+        }
+    }
+
     /**
      * See link for `baseFileDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L54
      * See link for `cacheDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L66

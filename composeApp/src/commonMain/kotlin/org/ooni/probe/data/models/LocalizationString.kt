@@ -1,6 +1,7 @@
 package org.ooni.probe.data.models
 
 import androidx.compose.ui.text.intl.Locale
+import org.ooni.probe.config.OrganizationConfig
 
 typealias LocalizationString = Map<String, String>
 
@@ -9,8 +10,16 @@ typealias LocalizationString = Map<String, String>
  - pt_BR only matches pt_BR
  - pt only matches pt
  - pt also matches pt_BR
+
+ If the OS language is not in supportedLanguageCodes, falls back to English
+ to avoid showing content in an unsupported language.
  */
-fun LocalizationString.getCurrent() =
-    get(Locale.current.language + "_" + Locale.current.region)
-        ?: entries.firstOrNull { it.key == Locale.current.language }?.value
-        ?: entries.firstOrNull { it.key.startsWith(Locale.current.language) }?.value
+fun LocalizationString.getCurrent(): String? {
+    val osLanguage = Locale.current.language
+    val language =
+        if (osLanguage in OrganizationConfig.supportedLanguageCodes) osLanguage else "en"
+    val region = if (language == osLanguage) Locale.current.region else ""
+    return get(language + "_" + region)
+        ?: entries.firstOrNull { it.key == language }?.value
+        ?: entries.firstOrNull { it.key.startsWith(language) }?.value
+}
