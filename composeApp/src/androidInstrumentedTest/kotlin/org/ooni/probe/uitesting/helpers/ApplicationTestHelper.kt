@@ -42,7 +42,7 @@ val isCrashReportingEnabled
 
 suspend fun getOoniDescriptor(test: OoniTest) =
     dependencies.testDescriptorRepository
-        .listLatestByRunIds(listOf(Descriptor.Id(test.id)))
+        .listLatestByIds(listOf(Descriptor.Id(test.id)))
         .first()
         .first()
         .toDescriptorItem()

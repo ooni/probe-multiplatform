@@ -26,7 +26,7 @@ sealed interface Screen {
 
     @Serializable
     data class AddDescriptor(
-        val runId: String,
+        val descriptorId: String,
     ) : Screen
 
     @Serializable

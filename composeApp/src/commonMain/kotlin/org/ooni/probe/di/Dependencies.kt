@@ -629,12 +629,16 @@ class Dependencies(
         )
 
     fun addDescriptorViewModel(
-        descriptorId: String,
         onBack: () -> Unit,
+        goToDescriptor: (Descriptor.Id) -> Unit,
+        descriptorId: Descriptor.Id,
     ) = AddDescriptorViewModel(
         onBack = onBack,
+        goToDescriptor = goToDescriptor,
+        descriptorId = descriptorId,
+        listDescriptorsByIds = testDescriptorRepository::listLatestByIds,
+        fetchDescriptor = fetchDescriptor::invoke,
         saveTestDescriptors = saveTestDescriptors::invoke,
-        fetchDescriptor = { fetchDescriptor(descriptorId) },
         preferenceRepository = preferenceRepository,
         startBackgroundRun = startSingleRunInner,
     )

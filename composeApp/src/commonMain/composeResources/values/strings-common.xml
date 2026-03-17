@@ -368,6 +368,7 @@
     <string name="AddDescriptor_AutoUpdate">Install updates automatically</string>
     <string name="AddDescriptor_AutoRun">Run tests automatically</string>
     <string name="AddDescriptor_Toasts_Installed">Link installed</string>
+    <string name="AddDescriptor_Toasts_AlreadyInstalled">Link already installed</string>
     <string name="AddDescriptor_InstallForLater">Install for later</string>
     <string name="AddDescriptor_InstallAndRun">Install &amp; Run</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Unsupported URL</string>
