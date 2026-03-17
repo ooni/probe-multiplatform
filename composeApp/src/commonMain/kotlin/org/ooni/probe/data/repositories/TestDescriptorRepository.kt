@@ -41,7 +41,7 @@ class TestDescriptorRepository(
             .mapToList(backgroundContext)
             .map { list -> list.map { it.toModel() } }
 
-    fun listLatestByRunIds(ids: List<Descriptor.Id>) =
+    fun listLatestByIds(ids: List<Descriptor.Id>) =
         database.testDescriptorQueries
             .selectLatestByRunIds(ids.map { it.value })
             .asFlow()

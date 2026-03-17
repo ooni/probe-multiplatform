@@ -287,10 +287,11 @@ fun Navigation(
         }
 
         composable<Screen.AddDescriptor> { entry ->
-            val descriptorId = entry.toRoute<Screen.AddDescriptor>().runId
+            val descriptorId = Descriptor.Id(entry.toRoute<Screen.AddDescriptor>().descriptorId)
             val viewModel = viewModel {
                 dependencies.addDescriptorViewModel(
                     onBack = { navController.goBack() },
+                    goToDescriptor = { navController.safeNavigate(Screen.Descriptor(it.value)) },
                     descriptorId = descriptorId,
                 )
             }

@@ -15,20 +15,20 @@ class FetchDescriptor(
     private val engineHttpDo: suspend (method: String, url: String, taskOrigin: TaskOrigin) -> Result<String?, MkException>,
     private val json: Json,
 ) {
-    suspend operator fun invoke(descriptorId: String): Result<Descriptor?, MkException> =
+    suspend operator fun invoke(descriptorId: Descriptor.Id): Result<Descriptor?, MkException> =
         engineHttpDo(
             "GET",
-            "${OrganizationConfig.ooniApiBaseUrl}/api/v2/oonirun/links/$descriptorId",
+            "${OrganizationConfig.ooniApiBaseUrl}/api/v2/oonirun/links/${descriptorId.value}",
             TaskOrigin.OoniRun,
         ).map { result ->
             result?.let {
                 try {
                     json.decodeFromString<OONIRunDescriptor>(it).toModel()
                 } catch (e: SerializationException) {
-                    Logger.e(e) { "Failed to decode descriptor $descriptorId" }
+                    Logger.e(e) { "Failed to decode descriptor ${descriptorId.value}" }
                     null
                 } catch (e: IllegalArgumentException) {
-                    Logger.e(e) { "Failed to decode descriptor $descriptorId" }
+                    Logger.e(e) { "Failed to decode descriptor ${descriptorId.value}" }
                     null
                 }
             } ?: throw MkException(Throwable("Failed to fetch descriptor"))

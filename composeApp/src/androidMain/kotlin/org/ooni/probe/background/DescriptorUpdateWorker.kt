@@ -89,9 +89,8 @@ class DescriptorUpdateWorker(
         val descriptorsJson = inputData.getString(DATA_KEY_DESCRIPTORS)
         if (descriptorsJson != null) {
             try {
-                val ids =
-                    json.decodeFromString<List<Descriptor.Id>>(descriptorsJson)
-                return testDescriptorRepository.listLatestByRunIds(ids).first()
+                val ids = json.decodeFromString<List<Descriptor.Id>>(descriptorsJson)
+                return testDescriptorRepository.listLatestByIds(ids).first()
             } catch (e: SerializationException) {
                 Logger.w("Could not start update worker: invalid configuration", e)
                 return null

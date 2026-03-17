@@ -14,7 +14,7 @@ import org.ooni.probe.data.models.Descriptor
 
 class FetchDescriptorsUpdates(
     private val getLatestTestDescriptors: () -> Flow<List<Descriptor>>,
-    private val fetchDescriptor: suspend (descriptorId: String) -> Result<Descriptor?, Engine.MkException>,
+    private val fetchDescriptor: suspend (Descriptor.Id) -> Result<Descriptor?, Engine.MkException>,
     private val saveTestDescriptors: suspend (List<Descriptor>, SaveTestDescriptors.Mode) -> Unit,
     private val updateState: ((DescriptorsUpdateState) -> DescriptorsUpdateState) -> Unit,
 ) {
@@ -33,7 +33,7 @@ class FetchDescriptorsUpdates(
                 .flatMap { descriptorsBatch ->
                     descriptorsBatch
                         .map { descriptor ->
-                            async { descriptor to fetchDescriptor(descriptor.id.value) }
+                            async { descriptor to fetchDescriptor(descriptor.id) }
                         }.awaitAll()
                 }
         }

@@ -3,6 +3,7 @@ package org.ooni.probe.ui.descriptor.add
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_AlreadyInstalled
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Installed
 import ooniprobe.composeapp.generated.resources.LoadingScreen_Runv2_Failure
 import ooniprobe.composeapp.generated.resources.Res
@@ -25,6 +26,9 @@ fun AddDescriptorMessage(
 
                     AddDescriptorViewModel.Message.FailedToFetch ->
                         Res.string.LoadingScreen_Runv2_Failure
+
+                    AddDescriptorViewModel.Message.AlreadyInstalled ->
+                        Res.string.AddDescriptor_Toasts_AlreadyInstalled
                 },
             ),
         )

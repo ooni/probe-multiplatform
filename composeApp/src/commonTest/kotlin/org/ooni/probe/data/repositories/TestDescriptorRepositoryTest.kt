@@ -127,7 +127,7 @@ class TestDescriptorRepositoryTest {
         }
 
     @Test
-    fun listLatestByRunIds() =
+    fun listLatestByIds() =
         runTest {
             val modelA1 = DescriptorFactory.buildInstalledModel(
                 id = Descriptor.Id("A"),
@@ -146,7 +146,7 @@ class TestDescriptorRepositoryTest {
             )
             subject.createOrIgnore(listOf(modelA1, modelA2, modelB1))
 
-            val latest = subject.listLatestByRunIds(listOf(modelA1.id)).first()
+            val latest = subject.listLatestByIds(listOf(modelA1.id)).first()
             assertEquals(1, latest.size)
             assertContains(latest, modelA2)
         }
