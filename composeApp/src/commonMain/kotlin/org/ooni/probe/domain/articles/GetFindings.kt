@@ -24,14 +24,14 @@ class GetFindings(
             "GET",
             "${OrganizationConfig.ooniApiBaseUrl}/api/v1/incidents/search",
             TaskOrigin.OoniRun,
-        ).mapError { Exception("Failed to get findings", it) }
+        ).mapError { it as Exception }
             .flatMap { response ->
                 if (response.isNullOrBlank()) return@flatMap Failure(Exception("Empty response"))
 
                 val wrapper = try {
                     json.decodeFromString<Wrapper>(response)
                 } catch (e: Exception) {
-                    return@flatMap Failure(Exception("Could not parse incidents API response", e))
+                    return@flatMap Failure(e)
                 }
 
                 Success(wrapper.incidents?.mapNotNull { it.toArticle() }.orEmpty())
