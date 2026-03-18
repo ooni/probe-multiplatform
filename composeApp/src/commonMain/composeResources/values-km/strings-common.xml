@@ -285,4 +285,5 @@
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">បដិសេធការធ្វើបច្ចុប្បន្នភាព</string>
     <string name="Dashboard_ReviewDescriptor_Reject">បដិសេធការធ្វើបច្ចុប្បន្នភាព</string>
     <string name="Dashboard_Update_Ready">ការធ្វើបច្ចុប្បន្នភាពកម្មវិធីទើបតែត្រូវបានទាញយក</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>បានបើកណើរការ</i>]]></string>
 </resources>
