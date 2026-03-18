@@ -27,6 +27,7 @@ import org.ooni.probe.shared.monitoring.reportTransaction
 
 class RunBackgroundTask(
     private val getPreferenceValueByKey: (SettingsKey) -> Flow<Any?>,
+    private val prepareAnonymousCredentials: suspend () -> Unit,
     private val uploadMissingMeasurements: (MeasurementsFilter) -> Flow<UploadMissingMeasurements.State>,
     private val checkAutoRunConstraints: suspend () -> Boolean,
     private val getAutoRunSpecification: suspend () -> RunSpecification.Full,
@@ -55,6 +56,10 @@ class RunBackgroundTask(
                 val isAutoRun = spec == null
 
                 if (isAutoRun && !checkAutoRunConstraints()) return@withTransaction
+
+                setRunBackgroundState { RunBackgroundState.Preparing }
+
+                prepareAnonymousCredentials()
 
                 if (isAutoRun || spec is RunSpecification.OnlyUploadMissingResults) {
                     val uploadCancelled = uploadMissingResults(MeasurementsFilter.All)
@@ -126,12 +131,8 @@ class RunBackgroundTask(
 
             var testStarted = false
             getRunBackgroundState()
-                .takeWhile { state ->
-                    state is RunBackgroundState.RunningTests ||
-                        state is RunBackgroundState.UploadingMissingResults ||
-                        state is RunBackgroundState.Stopping ||
-                        (state is RunBackgroundState.Idle && !testStarted)
-                }.onEach { state ->
+                .takeWhile { state -> !testStarted || state !is RunBackgroundState.Idle }
+                .onEach { state ->
                     if (state is RunBackgroundState.Idle) return@onEach
                     testStarted = true
                     send(state)

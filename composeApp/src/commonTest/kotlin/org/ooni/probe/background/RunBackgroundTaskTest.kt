@@ -56,6 +56,7 @@ class RunBackgroundTaskTest {
         addRunCancelListener: (() -> Unit) -> CancelListenerCallback = { CancelListenerCallback {} },
     ) = RunBackgroundTask(
         getPreferenceValueByKey = getPreferenceValueByKey,
+        prepareAnonymousCredentials = {},
         uploadMissingMeasurements = uploadMissingMeasurements,
         checkAutoRunConstraints = checkAutoRunConstraints,
         getAutoRunSpecification = getAutoRunSpecification,
