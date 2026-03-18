@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:function-naming")
+
 package org.ooni.engine
 
 import kotlinx.coroutines.test.runTest
@@ -12,6 +14,10 @@ import kotlin.test.assertTrue
 
 /**
  * Contract test for [SecureStorage].
+ *
+ * Uses camelCase test names instead of backtick names with spaces because
+ * D8 does not support spaces in class names prior to DEX version 040 (API 30),
+ * and the app's minSdk is 24.
  */
 class SecureStorageTest {
     private lateinit var storage: SecureStorage
@@ -28,7 +34,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `first write returns Created with correct key`() =
+    fun firstWriteReturnsCreatedWithCorrectKey() =
         runTest {
             val result = storage.write("k", "v")
             assertTrue(result is WriteResult.Created)
@@ -36,7 +42,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `write and read back a value`() =
+    fun writeAndReadBackAValue() =
         runTest {
             val w = storage.write("key", "value")
             assertTrue(w !is WriteResult.Error)
@@ -44,13 +50,13 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `read returns null for absent key`() =
+    fun readReturnsNullForAbsentKey() =
         runTest {
             assertNull(storage.read("missing"))
         }
 
     @Test
-    fun `write overwrites existing value and returns Updated with correct key`() =
+    fun writeOverwritesExistingValueAndReturnsUpdatedWithCorrectKey() =
         runTest {
             storage.write("key", "first")
             val w2 = storage.write("key", "second")
@@ -60,7 +66,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `overwriting a key does not duplicate it in list`() =
+    fun overwritingAKeyDoesNotDuplicateItInList() =
         runTest {
             storage.write("dup", "v1")
             storage.write("dup", "v2")
@@ -72,7 +78,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `write and read value with special characters`() =
+    fun writeAndReadValueWithSpecialCharacters() =
         runTest {
             val specialValue = "hello\nworld\t!@#\$%^&*()_+{}[]|\\:;\"'<>,.?/~`"
             storage.write("special", specialValue)
@@ -80,7 +86,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `write and read empty string value`() =
+    fun writeAndReadEmptyStringValue() =
         runTest {
             val w = storage.write("empty", "")
             assertTrue(w is WriteResult.Created)
@@ -88,7 +94,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `write and read unicode value`() =
+    fun writeAndReadUnicodeValue() =
         runTest {
             val unicode = "مرحبا 你好 こんにちは"
             storage.write("unicode", unicode)
@@ -96,7 +102,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `multiple keys are stored independently`() =
+    fun multipleKeysAreStoredIndependently() =
         runTest {
             storage.write("a", "alpha")
             storage.write("b", "beta")
@@ -108,7 +114,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `large value is stored and retrieved correctly`() =
+    fun largeValueIsStoredAndRetrievedCorrectly() =
         runTest {
             val largeValue = "x".repeat(10_000)
             storage.write("big", largeValue)
@@ -116,14 +122,14 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `key with spaces is handled`() =
+    fun keyWithSpacesIsHandled() =
         runTest {
             storage.write("key with spaces", "spaced value")
             assertEquals("spaced value", storage.read("key with spaces"))
         }
 
     @Test
-    fun `key containing newline is handled`() =
+    fun keyContainingNewlineIsHandled() =
         runTest {
             // newline is used as the index separator on Mac/Linux — must not corrupt the index
             storage.write("line1\nline2", "value")
@@ -131,20 +137,20 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `exists returns true after write`() =
+    fun existsReturnsTrueAfterWrite() =
         runTest {
             storage.write("present", "yes")
             assertTrue(storage.exists("present"))
         }
 
     @Test
-    fun `exists returns false for absent key`() =
+    fun existsReturnsFalseForAbsentKey() =
         runTest {
             assertFalse(storage.exists("absent"))
         }
 
     @Test
-    fun `exists reflects latest value after overwrite`() =
+    fun existsReflectsLatestValueAfterOverwrite() =
         runTest {
             storage.write("k", "v1")
             storage.write("k", "v2")
@@ -152,7 +158,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `exists returns false after delete`() =
+    fun existsReturnsFalseAfterDelete() =
         runTest {
             storage.write("gone", "value")
             val dr = storage.delete("gone")
@@ -161,7 +167,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `exists returns false after deleteAll`() =
+    fun existsReturnsFalseAfterDeleteAll() =
         runTest {
             storage.write("a", "1")
             storage.write("b", "2")
@@ -171,7 +177,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `delete removes an existing key and returns Deleted with correct key`() =
+    fun deleteRemovesExistingKeyAndReturnsDeletedWithCorrectKey() =
         runTest {
             storage.write("toDelete", "value")
             val dr = storage.delete("toDelete")
@@ -181,7 +187,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `delete on absent key returns NotFound with correct key`() =
+    fun deleteOnAbsentKeyReturnsNotFoundWithCorrectKey() =
         runTest {
             val dr = storage.delete("neverExisted")
             assertTrue(dr is DeleteResult.NotFound)
@@ -189,7 +195,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `delete twice on same key returns NotFound on second call`() =
+    fun deleteTwiceOnSameKeyReturnsNotFoundOnSecondCall() =
         runTest {
             storage.write("once", "v")
             val first = storage.delete("once")
@@ -199,7 +205,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `delete only removes the targeted key`() =
+    fun deleteOnlyRemovesTheTargetedKey() =
         runTest {
             storage.write("keep", "safe")
             storage.write("remove", "gone")
@@ -210,13 +216,13 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `list returns empty when storage is empty`() =
+    fun listReturnsEmptyWhenStorageIsEmpty() =
         runTest {
             assertEquals(emptyList(), storage.list())
         }
 
     @Test
-    fun `list returns all stored keys`() =
+    fun listReturnsAllStoredKeys() =
         runTest {
             storage.write("x", "1")
             storage.write("y", "2")
@@ -230,7 +236,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `list does not include deleted keys`() =
+    fun listDoesNotIncludeDeletedKeys() =
         runTest {
             storage.write("keep", "value")
             storage.write("remove", "value")
@@ -242,7 +248,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `list is empty after deleteAll`() =
+    fun listIsEmptyAfterDeleteAll() =
         runTest {
             storage.write("a", "1")
             storage.write("b", "2")
@@ -251,7 +257,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `list contains key written after deleteAll`() =
+    fun listContainsKeyWrittenAfterDeleteAll() =
         runTest {
             storage.write("old", "v")
             storage.deleteAll()
@@ -264,7 +270,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `deleteAll removes all entries`() =
+    fun deleteAllRemovesAllEntries() =
         runTest {
             storage.write("a", "1")
             storage.write("b", "2")
@@ -279,7 +285,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `deleteAll on empty storage returns zero count`() =
+    fun deleteAllOnEmptyStorageReturnsZeroCount() =
         runTest {
             val res = storage.deleteAll()
             assertTrue(res is DeleteAllResult.DeletedCount)
@@ -287,7 +293,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `deleteAll count equals number of distinct keys written`() =
+    fun deleteAllCountEqualsNumberOfDistinctKeysWritten() =
         runTest {
             storage.write("k1", "v1")
             storage.write("k2", "v2")
@@ -299,7 +305,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `deleteAll is idempotent — second call returns zero`() =
+    fun deleteAllIsIdempotentSecondCallReturnsZero() =
         runTest {
             storage.write("x", "v")
             storage.deleteAll()
@@ -310,7 +316,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `write after deleteAll succeeds`() =
+    fun writeAfterDeleteAllSucceeds() =
         runTest {
             storage.write("before", "value")
             storage.deleteAll()
@@ -321,7 +327,7 @@ class SecureStorageTest {
         }
 
     @Test
-    fun `read returns null for every key after deleteAll`() =
+    fun readReturnsNullForEveryKeyAfterDeleteAll() =
         runTest {
             val keys = listOf("a", "b", "c")
             keys.forEach { storage.write(it, "v") }

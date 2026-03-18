@@ -100,14 +100,14 @@ class RunWorker(
     }
 
     private suspend fun work() {
-        try {
+        val spec = try {
             getSpecification()
         } catch (e: Exception) {
-            Logger.w("Could not start RunService: invalid spec", e)
+            Logger.w("Could not start RunService: invalid spec $inputData", e)
             return
         }
 
-        runBackgroundTask(getSpecification())
+        runBackgroundTask(spec)
             .sample(500.milliseconds) // Avoid too many notification updates
             .collectLatest { state ->
                 val notification = when (state) {
