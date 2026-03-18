@@ -54,7 +54,7 @@ class RegisterUserTest {
                 manifestVersion = TEST_MANIFEST_VERSION,
             )
 
-            assertEquals(expectedCredential, result)
+            assertEquals(expectedCredential, result?.credential)
             assertEquals(
                 Credential(credential = expectedCredential, emissionDay = 42u),
                 storedCredential,

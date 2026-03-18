@@ -19,8 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_EstimatedTimeLeft
+import ooniprobe.composeapp.generated.resources.Dashboard_Running_Preparing_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
@@ -30,7 +32,6 @@ import ooniprobe.composeapp.generated.resources.Results_UploadingMissing
 import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
@@ -43,7 +44,8 @@ fun RunBackgroundStateSection(
     onEvent: (DashboardViewModel.Event) -> Unit,
 ) {
     when (state) {
-        is RunBackgroundState.Idle -> Idle(state, onEvent)
+        is RunBackgroundState.Idle -> Idle(onEvent)
+        RunBackgroundState.Preparing -> Preparing()
         is RunBackgroundState.UploadingMissingResults -> UploadingMissingResults(state)
         is RunBackgroundState.RunningTests -> RunningTests(state, onEvent)
         RunBackgroundState.Stopping -> Stopping()
@@ -51,10 +53,7 @@ fun RunBackgroundStateSection(
 }
 
 @Composable
-private fun Idle(
-    state: RunBackgroundState.Idle,
-    onEvent: (DashboardViewModel.Event) -> Unit,
-) {
+private fun Idle(onEvent: (DashboardViewModel.Event) -> Unit) {
     OutlinedButton(
         onClick = { onEvent(DashboardViewModel.Event.RunTestsClicked) },
         colors = ButtonDefaults.outlinedButtonColors(
@@ -118,6 +117,21 @@ private fun UploadingMissingResults(state: RunBackgroundState.UploadingMissingRe
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun Preparing() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 32.dp, bottom = 8.dp),
+    ) {
+        Text(
+            text = stringResource(Res.string.Dashboard_Running_Preparing_Notice),
+            textAlign = TextAlign.Center,
+        )
     }
 }
 
@@ -228,10 +242,7 @@ private fun RunBackgroundState.RunningTests.testIcon() =
 @Composable
 fun RunBackgroundIdlePreview() {
     AppTheme {
-        Idle(
-            state = RunBackgroundState.Idle,
-            onEvent = {},
-        )
+        Idle(onEvent = {})
     }
 }
 
@@ -261,6 +272,14 @@ fun RunBackgroundRunningTestsPreview() {
             ),
             onEvent = {},
         )
+    }
+}
+
+@Preview
+@Composable
+fun RunBackgroundPreparingPreview() {
+    AppTheme {
+        Preparing()
     }
 }
 
