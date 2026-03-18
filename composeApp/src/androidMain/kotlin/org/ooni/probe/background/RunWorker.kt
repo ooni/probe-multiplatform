@@ -21,6 +21,7 @@ import androidx.work.workDataOf
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.sample
+import ooniprobe.composeapp.generated.resources.Dashboard_Running_Preparing_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
@@ -112,6 +113,7 @@ class RunWorker(
             .collectLatest { state ->
                 val notification = when (state) {
                     is RunBackgroundState.Idle -> null
+                    is RunBackgroundState.Preparing -> buildPreparingNotification()
                     is RunBackgroundState.UploadingMissingResults -> buildNotification(state.state)
                     is RunBackgroundState.RunningTests -> buildNotification(state)
                     is RunBackgroundState.Stopping -> buildStoppingNotification()
@@ -168,6 +170,12 @@ class RunWorker(
                 NOTIFICATION_ID,
                 notification,
             )
+        }
+
+    private suspend fun buildPreparingNotification() =
+        buildNotification {
+            setContentText(getString(Res.string.Dashboard_Running_Preparing_Notice))
+                .setProgress(1, 0, true)
         }
 
     private suspend fun buildNotification(state: UploadMissingMeasurements.State) =

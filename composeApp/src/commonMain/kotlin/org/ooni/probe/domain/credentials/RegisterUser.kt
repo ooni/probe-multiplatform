@@ -17,7 +17,7 @@ class RegisterUser(
     suspend operator fun invoke(
         publicParams: String,
         manifestVersion: String,
-    ): String? {
+    ): Credential? {
         return withContext(backgroundContext) {
             val url = "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/sign_credential"
 
@@ -36,7 +36,7 @@ class RegisterUser(
                     }
 
                     return@withContext if (setCredential(credential)) {
-                        credential.credential
+                        credential
                     } else {
                         null
                     }
