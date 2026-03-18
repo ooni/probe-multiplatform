@@ -87,7 +87,7 @@ import org.ooni.probe.domain.articles.RefreshArticles
 import org.ooni.probe.domain.credentials.GetCredential
 import org.ooni.probe.domain.credentials.GetManifest
 import org.ooni.probe.domain.credentials.RegisterUser
-import org.ooni.probe.domain.credentials.RegisterUserWithManifest
+import org.ooni.probe.domain.credentials.PrepareAnonymousCredentials
 import org.ooni.probe.domain.credentials.RetrieveManifest
 import org.ooni.probe.domain.credentials.SetCredential
 import org.ooni.probe.domain.credentials.SubmitMeasurementWithUser
@@ -415,10 +415,10 @@ class Dependencies(
             json = json,
         )
     }
-    val registerUserWithManifest by lazy {
-        RegisterUserWithManifest(
-            getManifest = getManifest,
-            retrieveManifest = retrieveManifest,
+    val prepareAnonymousCredentials by lazy {
+        PrepareAnonymousCredentials(
+            getManifest = getManifest::invoke,
+            retrieveManifest = retrieveManifest::invoke,
             getCredential = getCredential::invoke,
             registerUser = registerUser::invoke,
             backgroundContext = backgroundContext,
@@ -523,9 +523,8 @@ class Dependencies(
             updateState = descriptorUpdateStateManager::update,
         )
     }
-    val retrieveManifest by lazy {
+    private val retrieveManifest by lazy {
         RetrieveManifest(
-            getManifest = getManifest::invoke,
             passportGet = passportBridge::get,
             setPreference = preferenceRepository::setValueByKey,
             json = json,
@@ -666,6 +665,7 @@ class Dependencies(
     val runBackgroundTask by lazy {
         RunBackgroundTask(
             getPreferenceValueByKey = preferenceRepository::getValueByKey,
+            prepareAnonymousCredentials = prepareAnonymousCredentials::invoke,
             uploadMissingMeasurements = uploadMissingMeasurements::invoke,
             checkAutoRunConstraints = checkAutoRunConstraints::invoke,
             getAutoRunSpecification = getAutoRunSpecification::invoke,
