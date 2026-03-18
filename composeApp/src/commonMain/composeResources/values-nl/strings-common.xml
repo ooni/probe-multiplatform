@@ -36,7 +36,7 @@
     <string name="TestResults_Summary_Hero_Network">Netwerk</string>
     <string name="TestResults_Summary_Hero_Country">Land</string>
     <string name="TestResults_Summary_Hero_Runtime">Totaal Uitvoertijd</string>
-    <string name="TestResults_Summary_Hero_WiFi">Wifi</string>
+    <string name="TestResults_Summary_Hero_WiFi">Wi-Fi</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobiele Data</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Geen internet</string>
@@ -63,7 +63,7 @@
     <string name="Settings_Title">Instellingen</string>
     <string name="Settings_TestOptions_Label">Testopties</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Tests automatisch uitvoeren</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Alleen op WiFi</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Alleen op Wi-Fi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Alleen tijdens het opladen</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Door automatisch testen in te schakelen, worden OONI Probe-tests automatisch meerdere keren per dag uitgevoerd. Uw testresultaten worden automatisch gepubliceerd in OONI Explorer: https://explorer.ooni.org/\n\nBelangrijk: als je een VPN hebt ingeschakeld, voert OONI Probe niet automatisch tests uit. Schakel uw VPN uit voor geautomatiseerde OONI Probe-tests. Meer informatie: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">Resultaten Automatisch Publiceren</string>

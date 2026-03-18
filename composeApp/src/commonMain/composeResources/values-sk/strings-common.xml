@@ -12,15 +12,15 @@
     <string name="Dashboard_Progress_ReviewLink_Action">Preveriť</string>
     <string name="Dashboard_Update_Restart">Reštartovať</string>
     <string name="Tests_Title">Testy</string>
-    <string name="Test_HTTPInvalidRequestLine_Fullname">HTTP Invalid Request Line Test</string>
-    <string name="Test_HTTPHeaderFieldManipulation_Fullname">HTTP Header Field Manipulation Test</string>
-    <string name="Test_WebConnectivity_Fullname">Web Connectivity Test</string>
+    <string name="Test_HTTPInvalidRequestLine_Fullname"></string>
+    <string name="Test_HTTPHeaderFieldManipulation_Fullname"></string>
+    <string name="Test_WebConnectivity_Fullname"></string>
     <string name="Test_NDT_Fullname">Test rýchlosti NDT</string>
     <string name="Test_Dash_Fullname">Test streamovania DASH</string>
     <string name="Test_WhatsApp_Fullname">Test WhatsAppu</string>
     <string name="Test_Telegram_Fullname">Test Telegramu</string>
     <string name="Test_FacebookMessenger_Fullname">Test Facebook Messengera</string>
-    <string name="Test_Psiphon_Fullname">Psiphon Test</string>
+    <string name="Test_Psiphon_Fullname"></string>
     <string name="Test_Tor_Fullname">Test siete Tor</string>
     <string name="TestResults_Overview_Hero_Networks">Siete</string>
     <string name="TestResults_Overview_Hero_DataUsage">Využitie dát</string>
@@ -73,7 +73,7 @@
     <string name="Settings_Support_Label">Podpora</string>
     <string name="Settings_Support_SendEmail">Poslať e-mail na podporu</string>
     <string name="Settings_Storage_Delete">Odstrániť</string>
-    <string name="Settings_Storage_Clear">Clear</string>
+    <string name="Settings_Storage_Clear"></string>
     <string name="Settings_Logs">Záznamy</string>
     <string name="Settings_Websites_Categories_Selection_All">Označiť všetko</string>
     <string name="Settings_Websites_CustomURL_Title">Vyber webové stránky na testovanie</string>
@@ -92,7 +92,7 @@
     <string name="CategoryCode_NEWS_Name">Spravodajské médiá</string>
     <string name="CategoryCode_XED_Name">Sexuálne vzdelávanie</string>
     <string name="CategoryCode_PUBH_Name">Verejné zdravie</string>
-    <string name="CategoryCode_GMB_Name">Gambling</string>
+    <string name="CategoryCode_GMB_Name"></string>
     <string name="CategoryCode_ANON_Name">Nástroje na obchádzanie</string>
     <string name="CategoryCode_DATE_Name">Randenie cez internet</string>
     <string name="CategoryCode_GRP_Name">Sociálne siete</string>
@@ -103,7 +103,7 @@
     <string name="CategoryCode_MMED_Name">Zdieľanie médií</string>
     <string name="CategoryCode_HOST_Name">Hosting a blogovanie</string>
     <string name="CategoryCode_SRCH_Name">Vyhľadávače</string>
-    <string name="CategoryCode_GAME_Name">Gaming</string>
+    <string name="CategoryCode_GAME_Name"></string>
     <string name="CategoryCode_CULTR_Name">Kultúra</string>
     <string name="CategoryCode_ECON_Name">Ekonomika</string>
     <string name="CategoryCode_GOVT_Name">Vláda</string>
@@ -194,7 +194,7 @@
     <string name="Common_Enable">Povoliť</string>
     <string name="Common_Yes">Áno</string>
     <string name="Common_Save">Uložiť</string>
-    <string name="Common_Clear">Clear</string>
+    <string name="Common_Clear"></string>
     <string name="Common_Next">Ďalej</string>
     <string name="Common_Previous">Predchádzajúce</string>
     <string name="Common_Share">Zdieľať</string>

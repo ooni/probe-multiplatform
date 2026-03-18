@@ -259,8 +259,8 @@
     <string name="NetworkType_Vpn">VPN</string>
     <string name="Dashboard_LastResults">លទ្ធផលចុងក្រោយ</string>
     <string name="Dashboard_LastResults_SeeResults">ពិនិត្យមើលលទ្ធផល</string>
-    <string name="Dashboard_AutoRun_Enabled">បានបើកដំណើរការ</string>
-    <string name="Dashboard_AutoRun_Disabled">បានបិទដំណើរការ</string>
+    <string name="Dashboard_AutoRun_Enabled"></string>
+    <string name="Dashboard_AutoRun_Disabled"></string>
     <string name="Dashboard_TestsMoved_Description">តេស្តរបស់អ្នកត្រូវបានផ្លាស់ទីទៅផ្ទាំងថ្មី។ អ្នកអាចចូលទៅកាន់វាបានតាមរយៈរបាររុករកខាងក្រោម។</string>
     <string name="Dashboard_TestsMoved_Action">មើលតេស្ត</string>
     <plurals name="Dashboard_RunTests_RunButton_Label">
