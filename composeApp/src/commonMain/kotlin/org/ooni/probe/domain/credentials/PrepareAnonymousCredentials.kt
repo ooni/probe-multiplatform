@@ -8,25 +8,25 @@ import org.ooni.probe.data.models.Credential
 import org.ooni.probe.data.models.Manifest
 import kotlin.coroutines.CoroutineContext
 
-class RegisterUserWithManifest(
-    private val getManifest: GetManifest,
-    private val retrieveManifest: RetrieveManifest,
+class PrepareAnonymousCredentials(
+    private val getManifest: () -> Flow<Manifest?>,
+    private val retrieveManifest: suspend () -> Manifest?,
     private val getCredential: suspend () -> Credential?,
-    private val registerUser: suspend (String, String) -> String?,
+    private val registerUser: suspend (String, String) -> Credential?,
     private val backgroundContext: CoroutineContext,
 ) {
-    suspend operator fun invoke(): String? {
-        return withContext(backgroundContext) {
+    suspend operator fun invoke(): Credential? =
+        withContext(backgroundContext) {
             try {
                 val existingCredential = getCredential()
                 if (existingCredential != null) {
                     Logger.i("User already has credential, skipping registration")
-                    return@withContext existingCredential.credential
+                    return@withContext existingCredential
                 }
 
                 Logger.i("No existing credential found, proceeding with registration")
 
-                val manifest = getOrRetrieveManifest().first()
+                val manifest = getOrRetrieveManifest()
                 if (manifest == null) {
                     Logger.w("No manifest available for user registration")
                     return@withContext null
@@ -43,10 +43,6 @@ class RegisterUserWithManifest(
                 null
             }
         }
-    }
 
-    private suspend fun getOrRetrieveManifest(): Flow<Manifest?> {
-        retrieveManifest()
-        return getManifest()
-    }
+    private suspend fun getOrRetrieveManifest() = getManifest().first() ?: retrieveManifest()
 }

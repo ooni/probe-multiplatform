@@ -5,6 +5,7 @@
     <string name="Dashboard_Overview_ChooseWebsites">Choose websites</string>
     <string name="Dashboard_Running_Running">Running:</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">Estimated time left:</string>
+    <string name="Dashboard_Running_Preparing_Notice">Preparing background run…</string>
     <string name="Dashboard_Running_Stopping_Title">Stopping test…</string>
     <string name="Dashboard_Running_Stopping_Notice">Finishing the currently pending tests, please wait…</string>
     <string name="Dashboard_Running_ProxyInUse">Proxy in use</string>
