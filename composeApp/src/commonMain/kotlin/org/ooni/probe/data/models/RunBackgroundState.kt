@@ -8,6 +8,8 @@ import kotlin.time.Duration.Companion.seconds
 sealed interface RunBackgroundState {
     data object Idle : RunBackgroundState
 
+    data object Preparing : RunBackgroundState
+
     data class UploadingMissingResults(
         val state: UploadMissingMeasurements.State,
     ) : RunBackgroundState

@@ -35,6 +35,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ooniprobe.composeapp.generated.resources.Dashboard_Running_Preparing_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
 import ooniprobe.composeapp.generated.resources.Desktop_OpenApp
@@ -316,17 +317,20 @@ private fun trayIcon(): DrawableResource {
 @Composable
 private fun RunBackgroundState.text(): String =
     when (this) {
-        is RunBackgroundState.RunningTests ->
-            stringResource(Res.string.Dashboard_Running_Running) + " " + testType?.displayName
-
-        RunBackgroundState.Stopping ->
-            stringResource(Res.string.Dashboard_Running_Stopping_Title)
+        RunBackgroundState.Preparing ->
+            stringResource(Res.string.Dashboard_Running_Preparing_Notice)
 
         is RunBackgroundState.UploadingMissingResults ->
             stringResource(
                 Res.string.Results_UploadingMissing,
                 (this.state as? UploadMissingMeasurements.State.Uploading)?.progressText.orEmpty(),
             )
+
+        is RunBackgroundState.RunningTests ->
+            stringResource(Res.string.Dashboard_Running_Running) + " " + testType?.displayName
+
+        RunBackgroundState.Stopping ->
+            stringResource(Res.string.Dashboard_Running_Stopping_Title)
 
         else ->
             ""
