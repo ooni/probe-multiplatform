@@ -259,8 +259,6 @@
     <string name="NetworkType_Vpn">VPN</string>
     <string name="Dashboard_LastResults">លទ្ធផលចុងក្រោយ</string>
     <string name="Dashboard_LastResults_SeeResults">ពិនិត្យមើលលទ្ធផល</string>
-    <string name="Dashboard_AutoRun_Enabled">បានបើកដំណើរការ</string>
-    <string name="Dashboard_AutoRun_Disabled">បានបិទដំណើរការ</string>
     <string name="Dashboard_TestsMoved_Description">តេស្តរបស់អ្នកត្រូវបានផ្លាស់ទីទៅផ្ទាំងថ្មី។ អ្នកអាចចូលទៅកាន់វាបានតាមរយៈរបាររុករកខាងក្រោម។</string>
     <string name="Dashboard_TestsMoved_Action">មើលតេស្ត</string>
     <plurals name="Dashboard_RunTests_RunButton_Label">
@@ -287,4 +285,5 @@
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">បដិសេធការធ្វើបច្ចុប្បន្នភាព</string>
     <string name="Dashboard_ReviewDescriptor_Reject">បដិសេធការធ្វើបច្ចុប្បន្នភាព</string>
     <string name="Dashboard_Update_Ready">ការធ្វើបច្ចុប្បន្នភាពកម្មវិធីទើបតែត្រូវបានទាញយក</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>បានបើកណើរការ</i>]]></string>
 </resources>

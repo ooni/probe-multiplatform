@@ -98,7 +98,7 @@
     <string name="TestResults_Summary_Hero_Network">Netzwerk</string>
     <string name="TestResults_Summary_Hero_Country">Land</string>
     <string name="TestResults_Summary_Hero_Runtime">Gesamtlaufzeit</string>
-    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_WiFi">Wi-Fi</string>
     <string name="TestResults_Summary_Hero_Mobile">Mobile Daten</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
@@ -179,7 +179,7 @@
     <string name="Settings_Title">Einstellungen</string>
     <string name="Settings_TestOptions_Label">Testoptionen</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Tests automatisch ausführen</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Nur bei WiFi</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Nur bei Wi-Fi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Nur während des Ladevorgangs</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Wenn du das automatische Testen aktivierst, werden die OONI Probe-Tests automatisch mehrmals am Tag ausgeführt. Deine Testergebnisse werden automatisch im OONI Explorer veröffentlicht: https://explorer.ooni.org/ \n\nWichtig: Wenn du ein VPN aktiviert hast, wird OONI Probe die Tests nicht automatisch ausführen. Bitte schalte dein VPN für automatische OONI Probe-Tests aus. Mehr dazu: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Die Tests laufen jede Stunde im Hintergrund</string>
