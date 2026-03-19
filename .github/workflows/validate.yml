@@ -130,26 +130,14 @@ jobs:
           path: composeApp/build/outputs/apk/full/release/composeApp-full-universal-release.apk
           retention-days: 7
 
-      - name: Comment on PR about missing secrets
-        if: steps.secrets-check.outputs.has_sentry_token == 'false' && github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const body = `⚠️ **Build completed without Sentry integration**\n\nThis PR was built without Sentry symbol/mapping uploads because \`SENTRY_AUTH_TOKEN\` is not available to external contributors. This is expected and does not affect the build validity.\n\nA maintainer merge to \`main\` will trigger a full build with Sentry uploads.`;
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            });
-            const existing = comments.find(c => c.body.includes('Build completed without Sentry integration'));
-            if (!existing) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body,
-              });
-            }
+      - name: Warn about missing Sentry token
+        if: steps.secrets-check.outputs.has_sentry_token == 'false'
+        run: |
+          echo "⚠️ **Build completed without Sentry integration**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "This PR was built without Sentry symbol/mapping uploads because \`SENTRY_AUTH_TOKEN\` is not available to external contributors. This is expected and does not affect the build validity." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "A maintainer merge to \`main\` will trigger a full build with Sentry uploads." >> $GITHUB_STEP_SUMMARY
 
   build-ios:
     name: Build iOS
