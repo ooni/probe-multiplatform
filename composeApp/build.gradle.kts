@@ -578,14 +578,15 @@ dependencies {
 // Sentry
 
 sentry {
+    val hasSentryToken = !System.getenv("SENTRY_AUTH_TOKEN").isNullOrEmpty()
     debug = false
     org = "ooni"
     projectName = "probe-multiplatform-android"
     authToken = System.getenv("SENTRY_AUTH_TOKEN")
-    includeProguardMapping = true
-    autoUploadProguardMapping = true
-    uploadNativeSymbols = true
-    autoUploadNativeSymbols = true
+    includeProguardMapping = hasSentryToken
+    autoUploadProguardMapping = hasSentryToken
+    uploadNativeSymbols = hasSentryToken
+    autoUploadNativeSymbols = hasSentryToken
     includeSourceContext = false
     autoInstallation {
         enabled = false
