@@ -10,8 +10,8 @@
     <string name="Dashboard_Running_ProxyInUse">Milliþjónn í notkun</string>
     <string name="Dashboard_TestsMoved_Title">Prófanir</string>
     <string name="Dashboard_Articles_ReadMore">Kanna nánar</string>
-    <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
-    <string name="Dashboard_RunV2_Title">OONI Run Links</string>
+    <string name="Dashboard_RunV2_Ooni_Title">OONI prófanir</string>
+    <string name="Dashboard_RunV2_Title">OONI Run tenglar</string>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">UPPFÆRSLA</string>
@@ -44,7 +44,7 @@
     <string name="TestResults_Summary_Hero_Network">Netkerfi</string>
     <string name="TestResults_Summary_Hero_Country">Land</string>
     <string name="TestResults_Summary_Hero_Runtime">Heildarkeyrslutími</string>
-    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_WiFi">Wi-Fi</string>
     <string name="TestResults_Summary_Hero_Mobile">Farsímagögn</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Engin internettenging</string>
@@ -72,7 +72,7 @@
     <string name="Settings_Title">Stillingar</string>
     <string name="Settings_TestOptions_Label">Valkostir prófunar</string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Keyra prófanir sjálfvirkt</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Aðeins á WiFi</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Aðeins á Wi-Fi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Aðeins þegar verið er í hleðslu</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Þegar sjálfvirkar prófanir eru virkjaðar, munu OONI Probe prófanir keyra sjálfkrafa nokkrum sinnum á dag. Prófunarniðurstöður þínar verða birtar á OONI Explorer https://explorer.ooni.org/\n\nMikilvægt: Ef þú hefur virkjað VPN, verða OONI Probe prófanir ekki keyra sjálfkrafa. Slökktu á VPN til að keyra sjálfvirkar OONI Probe prófanir. Kannaðu nánar: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run in the background</string>
@@ -271,13 +271,26 @@
     <string name="Common_Months_December">desember</string>
     <string name="NetworkType_Vpn">VPN</string>
     <plurals name="Dashboard_Stats_Networks">
-        <item quantity="one"></item>
+        <item quantity="one">Netkerfi</item>
         <item quantity="other">Netkerfi</item>
     </plurals>
     <plurals name="TestResults_Summary_Websites_Hero_Reachable">
-        <item quantity="one"></item>
+        <item quantity="one">Aðgengilegt</item>
         <item quantity="other">Aðgengilegt</item>
     </plurals>
     <string name="Measurement_Title">Mælingar</string>
     <string name="Notification_ChannelName">Prófun</string>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">Land</item>
+        <item quantity="other">Lönd</item>
+    </plurals>
+    <string name="Dashboard_Articles_Finding">Uppgötvun</string>
+    <string name="Dashboard_Articles_Report">Skýrsla</string>
+    <string name="TestResults_Filters_Short">Síur:</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">Viltu eyða %1$s niðurstöðu prófana?</item>
+        <item quantity="other">Viltu eyða %1$s niðurstöðum prófana?</item>
+    </plurals>
+    <string name="Common_Collapse">Fella saman</string>
+    <string name="Common_Expand">Fletta út</string>
 </resources>
