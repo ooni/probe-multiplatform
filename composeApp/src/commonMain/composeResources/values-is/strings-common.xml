@@ -270,4 +270,14 @@
     <string name="Common_Months_November">nóvember</string>
     <string name="Common_Months_December">desember</string>
     <string name="NetworkType_Vpn">VPN</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one"></item>
+        <item quantity="other">Netkerfi</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one"></item>
+        <item quantity="other">Aðgengilegt</item>
+    </plurals>
+    <string name="Measurement_Title">Mælingar</string>
+    <string name="Notification_ChannelName">Prófun</string>
 </resources>

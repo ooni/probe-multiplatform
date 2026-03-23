@@ -292,7 +292,7 @@
     </plurals>
     <plurals name="Dashboard_Stats_Countries">
         <item quantity="one">Χώρα</item>
-        <item quantity="other">Χώρες</item>
+        <item quantity="other"></item>
     </plurals>
     <string name="Dashboard_Articles_Recent">Πρόσφατα</string>
     <plurals name="Dashboard_Runv2_Websites_SeeAll">
