@@ -4,5 +4,5 @@ object BuildTypeDefaults : BuildTypeDefaultsInterface {
     override val ooniApiBaseUrl = "https://api.dev.ooni.io"
     override val ooniRunDomain = "run.test.ooni.org"
     override val ooniRunDashboardUrl = "https://run.test.ooni.org"
-    override val explorerUrl = "https://explorer.ooni.org"
+    override val explorerUrl = "https://explorer.dev.ooni.org"
 }

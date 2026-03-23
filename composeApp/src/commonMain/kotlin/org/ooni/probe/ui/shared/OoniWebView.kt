@@ -12,7 +12,7 @@ import androidx.compose.ui.text.intl.Locale
 expect fun OoniWebView(
     controller: OoniWebViewController,
     modifier: Modifier = Modifier,
-    allowedDomains: List<String> = listOf("ooni.org"),
+    allowedDomains: List<String> = listOf("ooni.org", "ooni.io"),
     onDisallowedUrl: (String) -> Unit = {},
 )
 
