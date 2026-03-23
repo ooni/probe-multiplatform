@@ -29,8 +29,6 @@
 		79FBD0142C5A70AF004E041C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		935409942F4CCC280055415F /* IosPassportBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935409922F4CCC280055415F /* IosPassportBridge.swift */; };
 		935409952F4CCC280055415F /* IosPassportBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935409922F4CCC280055415F /* IosPassportBridge.swift */; };
-		9364F5372F4DC08600A4D08C /* ooniprobe-passport.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9364F5362F4DC08500A4D08C /* ooniprobe-passport.xcframework */; };
-		9364F5382F4DC08600A4D08C /* ooniprobe-passport.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9364F5362F4DC08500A4D08C /* ooniprobe-passport.xcframework */; };
 		93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */; };
 		A0BFEE644239A9C4B4F518F9 /* Pods_NewsMediaScan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D64CB7120DD6292730C16110 /* Pods_NewsMediaScan.framework */; };
 		A63D4DAB2DEF80E322CD2A82 /* Pods_OONIProbe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD59ED7E2702C84FF0455021 /* Pods_OONIProbe.framework */; };
@@ -87,6 +85,7 @@
 		7555FF7B242A565900829871 /* OONI Probe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OONI Probe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7701B0FB2F71AD4B00DE9258 /* passport.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = passport.xcframework; path = Pods/passport/passport.xcframework; sourceTree = "<group>"; };
 		770AEF942F4DF53A00A73343 /* ooniprobe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ooniprobe.swift; sourceTree = "<group>"; };
 		7746A3DC2D7D895200C007B6 /* OONIProbeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OONIProbeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7746A4752D80383D00C007B6 /* NewsMediaScanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsMediaScanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,17 +115,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		7746A3DD2D7D895200C007B6 /* iosAppUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = iosAppUITests;
-			sourceTree = "<group>";
-		};
+		7746A3DD2D7D895200C007B6 /* iosAppUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = iosAppUITests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,7 +147,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0BFEE644239A9C4B4F518F9 /* Pods_NewsMediaScan.framework in Frameworks */,
-				9364F5382F4DC08600A4D08C /* ooniprobe-passport.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +155,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A63D4DAB2DEF80E322CD2A82 /* Pods_OONIProbe.framework in Frameworks */,
-				9364F5372F4DC08600A4D08C /* ooniprobe-passport.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +172,7 @@
 		143866E27495AC21766E05A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7701B0FB2F71AD4B00DE9258 /* passport.xcframework */,
 				D64CB7120DD6292730C16110 /* Pods_NewsMediaScan.framework */,
 				DD59ED7E2702C84FF0455021 /* Pods_OONIProbe.framework */,
 				B4B28F104580A82EDFEDC452 /* Pods_NewsMediaScanUITests.framework */,
@@ -540,9 +528,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -557,9 +549,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -618,9 +614,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -657,9 +657,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -674,9 +678,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScan/Pods-NewsMediaScan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -691,9 +699,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -781,9 +793,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OONIProbeUITests/Pods-OONIProbeUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -833,9 +849,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OONIProbe/Pods-OONIProbe-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
