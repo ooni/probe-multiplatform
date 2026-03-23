@@ -11,6 +11,10 @@ import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.models.MeasurementModel
 
 class SubmitMeasurement(
+    private val submitMeasurementWithUser: suspend (
+        String,
+        MeasurementModel.ReportId,
+    ) -> Result<ResponseData, Throwable?>,
     private val engineSubmit: suspend (String) -> Result<SubmitMeasurementResults, MkException>,
     private val readFile: ReadFile,
     private val deleteFiles: DeleteFiles,
@@ -27,14 +31,22 @@ class SubmitMeasurement(
             return null
         }
 
-        return when (val result = engineSubmit(report)) {
+        val result = (
+            if (measurement.reportId != null) {
+                submitMeasurementWithUser(report, measurement.reportId)
+            } else {
+                Failure(null)
+            }
+        ).flatMapError { submitLegacy(report) }
+
+        return when (result) {
             is Success -> {
                 val newMeasurement = measurement.copy(
                     isUploaded = true,
                     isUploadFailed = false,
                     uploadFailureMessage = null,
-                    reportId = MeasurementModel.ReportId(result.value.updatedReportId),
-                    uid = result.value.measurementUid?.let(MeasurementModel::Uid),
+                    reportId = result.value.reportId,
+                    uid = result.value.uid,
                 )
                 updateMeasurement(newMeasurement)
                 deleteFiles(reportFilePath)
@@ -44,7 +56,7 @@ class SubmitMeasurement(
             is Failure -> {
                 val newMeasurement = measurement.copy(
                     isUploadFailed = true,
-                    uploadFailureMessage = result.reason.cause?.message,
+                    uploadFailureMessage = result.reason?.message,
                 )
                 updateMeasurement(newMeasurement)
                 Logger.w("Failed to submit measurement", SubmitFailed(result.reason))
@@ -53,7 +65,21 @@ class SubmitMeasurement(
         }
     }
 
+    private suspend fun submitLegacy(measurementData: String): Result<ResponseData, Throwable?> =
+        engineSubmit(measurementData)
+            .map {
+                ResponseData(
+                    reportId = MeasurementModel.ReportId(it.updatedReportId),
+                    uid = it.measurementUid?.let(MeasurementModel::Uid),
+                )
+            }.mapError { it.cause }
+
     class SubmitFailed(
-        cause: Exception,
+        cause: Throwable?,
     ) : Exception(cause)
+
+    data class ResponseData(
+        val uid: MeasurementModel.Uid?,
+        val reportId: MeasurementModel.ReportId? = null,
+    )
 }
