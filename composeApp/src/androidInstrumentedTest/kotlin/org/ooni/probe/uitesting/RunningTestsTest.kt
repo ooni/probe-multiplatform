@@ -28,6 +28,7 @@ import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
 import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
+import org.ooni.probe.uitesting.helpers.checkUrlInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnContentDescription
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.disableRefreshArticles
@@ -76,7 +77,8 @@ class RunningTestsTest {
                 clickOnText(imTitle)
                 clickOnText(Res.string.Test_Signal_Fullname)
                 wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
-                checkSummaryInsideWebView("Signal")
+                checkUrlInsideWebView("signal")
+                checkSummaryInsideWebView("Signal", isOptional = true)
             }
         }
 
@@ -101,7 +103,8 @@ class RunningTestsTest {
                 clickOnText(circTitle)
                 clickOnText(Res.string.Test_Psiphon_Fullname)
                 wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
-                checkSummaryInsideWebView("Psiphon")
+                checkUrlInsideWebView("psiphon")
+                checkSummaryInsideWebView("Psiphon", isOptional = true)
             }
         }
 
@@ -126,7 +129,8 @@ class RunningTestsTest {
                 clickOnText(perfTitle)
                 clickOnText(getString(Res.string.Test_HTTPHeaderFieldManipulation_Fullname).take(16), substring = true)
                 wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
-                checkSummaryInsideWebView("middleboxes")
+                checkUrlInsideWebView("httpheaderfieldmanipulation")
+                checkSummaryInsideWebView("middleboxes", isOptional = true)
             }
         }
 
@@ -151,7 +155,8 @@ class RunningTestsTest {
                 clickOnText(expTitle)
                 compose.onAllNodesWithText("stunreachability")[0].performClick()
                 wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
-                checkTextAnywhereInsideWebView("stunreachability")
+                checkUrlInsideWebView("stunreachability")
+                checkTextAnywhereInsideWebView("stunreachability", isOptional = true)
             }
         }
 

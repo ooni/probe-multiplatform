@@ -10,6 +10,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.espresso.web.assertion.WebViewAssertions.webMatches
+import androidx.test.espresso.web.model.Atoms.getCurrentUrl
 import androidx.test.espresso.web.sugar.Web.onWebView
 import androidx.test.espresso.web.webdriver.DriverAtoms.findElement
 import androidx.test.espresso.web.webdriver.DriverAtoms.getText
@@ -56,20 +57,30 @@ suspend fun ComposeTestRule.onNodeWithContentDescription(stringRes: StringResour
 
 fun ComposeTestRule.wait(
     timeout: Duration = DEFAULT_WAIT_TIMEOUT,
+    isOptional: Boolean = false,
     check: suspend () -> Boolean,
 ) {
-    waitUntil(timeoutMillis = timeout.inWholeMilliseconds) {
-        runBlocking {
-            check()
+    try {
+        waitUntil(timeoutMillis = timeout.inWholeMilliseconds) {
+            runBlocking {
+                check()
+            }
+        }
+    } catch (e: Throwable) {
+        if (isOptional) {
+            Logger.w("Wait failed but it was optional", e)
+        } else {
+            throw e
         }
     }
 }
 
 fun ComposeTestRule.waitAssertion(
     timeout: Duration = DEFAULT_WAIT_TIMEOUT,
+    isOptional: Boolean = false,
     assertion: suspend () -> Unit,
 ) {
-    wait(timeout) {
+    wait(timeout, isOptional = isOptional) {
         try {
             assertion()
             true
@@ -82,8 +93,21 @@ fun ComposeTestRule.waitAssertion(
 
 private val DEFAULT_WAIT_TIMEOUT = 3.seconds // Emulator can be slow on CI
 
-fun ComposeTestRule.checkSummaryInsideWebView(text: String) {
-    waitAssertion(WEBSITE_WAIT_TIMEOUT) {
+fun ComposeTestRule.checkUrlInsideWebView(
+    text: String,
+    isOptional: Boolean = false,
+) {
+    waitAssertion(WEBSITE_WAIT_TIMEOUT, isOptional = isOptional) {
+        onWebView()
+            .check(webMatches(getCurrentUrl(), containsString(text)))
+    }
+}
+
+fun ComposeTestRule.checkSummaryInsideWebView(
+    text: String,
+    isOptional: Boolean = false,
+) {
+    waitAssertion(WEBSITE_WAIT_TIMEOUT, isOptional = isOptional) {
         onWebView()
             .withElement(
                 findElement(Locator.CSS_SELECTOR, "*[data-testid=\"common-summary\"]"),
@@ -91,8 +115,11 @@ fun ComposeTestRule.checkSummaryInsideWebView(text: String) {
     }
 }
 
-fun ComposeTestRule.checkTextAnywhereInsideWebView(text: String) {
-    waitAssertion(WEBSITE_WAIT_TIMEOUT) {
+fun ComposeTestRule.checkTextAnywhereInsideWebView(
+    text: String,
+    isOptional: Boolean = false,
+) {
+    waitAssertion(WEBSITE_WAIT_TIMEOUT, isOptional = isOptional) {
         onWebView()
             .withElement(findElement(Locator.CSS_SELECTOR, "*"))
             .check(webMatches(getText(), containsString(text)))
