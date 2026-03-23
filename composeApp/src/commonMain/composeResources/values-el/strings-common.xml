@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Dashboard_Tab_Label">Ταμπλό</string>
+    <string name="Dashboard_Tab_Label">Πίνακας ελέγχου</string>
     <string name="Dashboard_Overview_Estimated">Εκτίμηση:</string>
-    <string name="Dashboard_Overview_ChooseWebsites">Επέλεξε ιστοσελίδες</string>
+    <string name="Dashboard_Overview_ChooseWebsites">Επιλογή ιστοσελίδων</string>
     <string name="Dashboard_Running_Running">Εκτελείται:</string>
-    <string name="Dashboard_Running_EstimatedTimeLeft">Εκτιμώμενος χρόνος που απομένει:</string>
-    <string name="Dashboard_Running_Stopping_Title">Η δοκιμή σταματάει…</string>
-    <string name="Dashboard_Running_Stopping_Notice">Τελειώνουμε τις δοκιμές που εκκρεμούν, παρακαλώ περίμενε…</string>
+    <string name="Dashboard_Running_EstimatedTimeLeft">Απομένουν:</string>
+    <string name="Dashboard_Running_Stopping_Title">Τερματισμός ελέγχου…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Ολοκλήρωση ελέγχων που εκκρεμούν, παρακαλώ περίμενε…</string>
     <string name="Dashboard_Running_ProxyInUse">Χρησιμοποιείται proxy</string>
-    <string name="Dashboard_TestsMoved_Title">Δοκιμές</string>
+    <string name="Dashboard_TestsMoved_Title">Έλεγχοι</string>
     <string name="Dashboard_Articles_Report">Αναφορά</string>
     <string name="Dashboard_Articles_OpenExternal">Άνοιγμα στον περιηγητή</string>
     <string name="Dashboard_Runv2_Overview_Description">Δημιουργήθηκε από %1$s στις %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Ακύρωση</string>
-    <string name="Dashboard_Progress_ReviewLink_Action">Ανασκόπηση</string>
+    <string name="Dashboard_Progress_ReviewLink_Action">Επισκόπηση</string>
     <string name="Dashboard_Update_Restart">Επανεκκίνηση </string>
-    <string name="Tests_Title">Δοκιμές</string>
+    <string name="Tests_Title">Έλεγχοι</string>
     <string name="Test_Experimental_Fullname">Πειραματικό</string>
-    <string name="Test_HTTPInvalidRequestLine_Fullname">Δοκιμή HTTP Invalid Request Line</string>
-    <string name="Test_HTTPHeaderFieldManipulation_Fullname">Δοκιμή HTTP Header Field Manipulation</string>
-    <string name="Test_WebConnectivity_Fullname">Δοκιμή Web Connectivity</string>
-    <string name="Test_NDT_Fullname">Δοκιμή ταχύτητας NDT</string>
-    <string name="Test_Dash_Fullname">Δοκιμή DASH Streaming</string>
-    <string name="Test_WhatsApp_Fullname">Δοκιμή WhatsApp</string>
-    <string name="Test_Telegram_Fullname">Δοκιμή Telegram</string>
-    <string name="Test_FacebookMessenger_Fullname">Δοκιμή Facebook Messenger</string>
-    <string name="Test_Psiphon_Fullname">Δοκιμή Psiphon</string>
-    <string name="Test_Tor_Fullname">Δοκιμή Tor</string>
-    <string name="Test_Signal_Fullname">Δοκιμή Signal</string>
+    <string name="Test_HTTPInvalidRequestLine_Fullname">Έλεγχος μη έγκυρου αιτήματος HTTP</string>
+    <string name="Test_HTTPHeaderFieldManipulation_Fullname">Έλεγχος χειρισμού πεδίου κεφαλίδας HTTP</string>
+    <string name="Test_WebConnectivity_Fullname">Έλεγχος συνδεσιμότητας ιστού</string>
+    <string name="Test_NDT_Fullname">Έλεγχος ταχύτητας NDT</string>
+    <string name="Test_Dash_Fullname">Έλεγχος DASH Streaming</string>
+    <string name="Test_WhatsApp_Fullname">Έλεγχος WhatsApp</string>
+    <string name="Test_Telegram_Fullname">Έλεγχος Telegram</string>
+    <string name="Test_FacebookMessenger_Fullname">Έλεγχος Facebook Messenger</string>
+    <string name="Test_Psiphon_Fullname">Έλεγχος Psiphon</string>
+    <string name="Test_Tor_Fullname">Έλεγχος Tor</string>
+    <string name="Test_Signal_Fullname">Έλεγχος Signal</string>
     <string name="TestResults">Αποτελέσματα</string>
     <string name="TestResults_Overview_Hero_Networks">Δίκτυα</string>
     <string name="TestResults_Overview_Hero_DataUsage">Χρήση δεδομένων</string>
-    <string name="TestResults_Overview_NoTestsHaveBeenRun">Δεν έχουν εκτελεστεί ακόμα δοκιμές. Τρέξε μια!</string>
+    <string name="TestResults_Overview_NoTestsHaveBeenRun">Δεν έχουν εκτελεστεί ακόμα έλεγχοι. Εκτελέστε έναν!</string>
     <string name="TestResults_Summary_Hero_DateAndTime">Ημερομηνία και ώρα</string>
     <string name="TestResults_Summary_Hero_Network">Δίκτυο</string>
     <string name="TestResults_Summary_Hero_Country">Χώρα</string>
     <string name="TestResults_Summary_Hero_Runtime">Χρόνος εκτέλεσης</string>
-    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_WiFi">Wi-Fi</string>
     <string name="TestResults_Summary_Hero_Mobile">Δεδομένα κινητού</string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Χωρίς σύνδεση</string>
@@ -51,7 +51,7 @@
     <string name="TestResults_ms">ms</string>
     <string name="TestResults_UnknownASN">Άγνωστο </string>
     <string name="TestResults_NotAvailable">Μη διαθέσιμο</string>
-    <string name="TestResults_Filter_Tests">Δοκιμές</string>
+    <string name="TestResults_Filter_Tests">Έλεγχοι</string>
     <string name="TestResults_Filter_Networks">Δίκτυα</string>
     <string name="TestResults_Filter_Source">Πηγή</string>
     <string name="TestResults_Filter_Date">Ημερομηνία</string>
@@ -61,13 +61,13 @@
     <string name="Measurements_Ok">ΟΚ</string>
     <string name="Measurement_Raw_Upload">Ανέβασμα</string>
     <string name="Settings_Title">Ρυθμίσεις</string>
-    <string name="Settings_TestOptions_Label">Επιλογές δοκιμής</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically">Αυτόματη εκτελή δοκιμών</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Μόνο μέσω WiFi</string>
+    <string name="Settings_TestOptions_Label">Επιλογές ελέγχου</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically">Αυτόματη εκτέλεση ελέγχων</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Μόνο μέσω Wi-Fi</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Μόνο όταν φορτίζει</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Ενεργοποιώντας τις αυτόματες δοκιμές, οι δοκιμές του OONI Probe θα εκτελούνται αυτόματα πολλαπλές φορές ανά ημέρα. Τα αποτελέσματα των δοκιμών θα δημοσιεύονται αυτόματα στο OONI Explorer: https://explorer.ooni.org/ \n\nΣημαντικό: Αν έχεις ενεργοποιημένο κάποιο VPN, τότε το OONI Probe δεν θα εκτελεί τις δοκιμές αυτόματα. Παρακαλούμε απενεργοποίησε το VPN για αυτοματοποιημένες δοκιμές του OONI Probe. Μάθε περισσότερα: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Ενεργοποιώντας τους αυτόματους ελέγχους του OONI Probe θα εκτελούνται αυτόματα πολλές φορές την ημέρα. Τα αποτελέσματα των ελέγχων θα δημοσιεύονται αυτόματα στο OONI Explorer: https://explorer.ooni.org/\n\nΣημαντικό: Αν έχεις ενεργοποιημένο κάποιο VPN, τότε το OONI Probe δε θα εκτελεί τους ελέγχους αυτόματα. Παρακαλούμε απενεργοποίησε το VPN για αυτοματοποιημένους ελέγχους του OONI Probe. Μάθε περισσότερα στο: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">Αυτόματη δημοσίευση αποτελεσμάτων</string>
-    <string name="Settings_Websites_Categories_Label">Κατηγορίες ιστοσελιδών για δοκιμή</string>
+    <string name="Settings_Websites_Categories_Label">Κατηγορίες ιστοσελιδών για έλεγχο</string>
     <string name="Settings_Websites_Categories_Description">%1$s ενεργοποιημένες κατηγορίες</string>
     <string name="Settings_Privacy_Label">Απόρρητο</string>
     <string name="Settings_Privacy_SendCrashReports">Αποστολή αναφορών σφαλμάτων</string>
@@ -78,7 +78,7 @@
     <string name="Settings_Proxy_Custom_Protocol">Πρωτόκολλο </string>
     <string name="Settings_Proxy_Custom_Hostname">Hostname</string>
     <string name="Settings_Proxy_Custom_Port">Θύρα</string>
-    <string name="Settings_Proxy_Custom_Testing">Δοκιμάζει</string>
+    <string name="Settings_Proxy_Custom_Testing">Έλεγχος</string>
     <string name="Settings_Proxy_Custom_Available">Διαθέσιμος/η</string>
     <string name="Settings_Proxy_Custom_Unavailable">Μη διαθέσιμος/η</string>
     <string name="Settings_Language_Label">Γλώσσα</string>
@@ -100,7 +100,7 @@
     <string name="Settings_Logs">Αρχεία καταγραφής</string>
     <string name="Settings_Websites_Categories_Selection_None">Αποεπιλογή όλων</string>
     <string name="Settings_Websites_Categories_Selection_All">Επιλογή όλων</string>
-    <string name="Settings_Websites_CustomURL_Title">Επέλεξε ιστοσελίδες για δοκιμή</string>
+    <string name="Settings_Websites_CustomURL_Title">Επέλεξε ιστοσελίδες για έλεγχο</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
     <string name="Settings_Websites_CustomURL_Run">Εκτέλεση</string>
     <string name="Settings_Websites_CustomURL_Add">Προσθήκη ιστοσελίδας</string>
@@ -145,7 +145,7 @@
     <string name="CategoryCode_MILX_Description">Τρομοκρατία, βίαια μαχητικά ή αυτονομιστικά κινήματα</string>
     <string name="CategoryCode_HATE_Description">Υποτίμηση συγκεκριμένων κοινωνικών ομάδων με βάση τη φυλή, το φύλο, τη σεξουαλικότητα ή άλλα χαρακτηριστικά</string>
     <string name="CategoryCode_NEWS_Description">Μεγάλες ιστοσελίδες ειδήσεων, περιφερειακά πρακτορεία ειδήσεων και ανεξάρτητα μέσα ενημέρωσης</string>
-    <string name="CategoryCode_XED_Description">Θέματα σεξουαλικής υγείας, όπως αντισύλληψη, σεξουαλικώς μεταδιδόμενα νοσήματα, πρόληψη βιασμού και έκτρωση</string>
+    <string name="CategoryCode_XED_Description">Θέματα σεξουαλικής υγείας, όπως αντισύλληψη, STD\\'s, πρόληψη βιασμού και έκτρωση</string>
     <string name="CategoryCode_PUBH_Description">Θέματα δημόσιας υγείας, όπως COVID-19, HIV/AIDS, Ebola</string>
     <string name="CategoryCode_GMB_Description">Τυχερά παιχνίδια και στοιχήματα</string>
     <string name="CategoryCode_ANON_Description">Ανωνυμοποίηση, παράκαμψη λογοκρισίας και κρυπτογράφηση</string>
@@ -165,7 +165,7 @@
     <string name="CategoryCode_COMM_Description">Εμπορικές υπηρεσίες και προϊόντα</string>
     <string name="CategoryCode_CTRL_Description">Καλοήθες ή αβλαβές περιεχόμενο που χρησιμοποιείται ως ομάδα ελέγχου</string>
     <string name="CategoryCode_IGO_Description">Διακυβερνητικές οργανώσεις, όπως τα Ηνωμένα Έθνη</string>
-    <string name="CategoryCode_MISC_Description">Ιστοσελίδες που δεν έχουν κατηγοριοποιηθεί ακόμα</string>
+    <string name="CategoryCode_MISC_Description">Ιστοσελίδες που δε\\ν έχουν κατηγοριοποιηθεί ακόμα</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Το κατάλαβα</string>
     <string name="Onboarding_ThingsToKnow_Title">Προσοχή!</string>
     <string name="Onboarding_ThingsToKnow_Button">Κατάλαβα</string>
@@ -179,7 +179,7 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Title">Προσοχή</string>
     <string name="Onboarding_PopQuiz_2_Title">Ερώτηση 2/2</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Title">Προσοχή</string>
-    <string name="Onboarding_AutomatedTesting_Title">Αυτοματοποιημένες δοκιμές</string>
+    <string name="Onboarding_AutomatedTesting_Title">Αυτοματοποιημένοι έλεγχοι</string>
     <string name="Onboarding_Crash_Title">Αναφορά σφαλμάτων</string>
     <string name="Onboarding_Crash_Button_Yes">Ναι</string>
     <string name="Onboarding_Crash_Button_No">Όχι</string>
@@ -188,12 +188,12 @@
     <string name="Onboarding_DefaultSettings_Title">Προεπιλεγμένες ρυθμίσεις</string>
     <string name="Onboarding_DefaultSettings_Header">Συλλέγουμε και δημοσιεύουμε:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">Κωδικό χώρας (π.χ. GR για την Ελλάδα)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_2">Πληροφορίες δικτύου (όπως ASN, για τον εντοπισμό πάροχου δικτύου)</string>
-    <string name="Onboarding_DefaultSettings_Bullet_3">Ώρα και ημερομηνὶα εκτέλεσης δοκιμών</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">Κάνουμε ό,τι μπορούμε ώστε να μη δημοσιευτεί η διεύθυνση IP ή άλλα δεδομένα που δυνητικά μπορεί να σε ταυτοποιήσουν.\n\nΜάθε περισσότερα διαβάζοντας την [Πολιτική Δεδομένων του OONI](https://ooni.io/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Bullet_2">Πληροφορίες δικτύου (συμπεριλαμβανομένου του Αριθμού Αυτόνομου Συστήματος)</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">Ώρα και ημερομηνία εκτέλεσης ελέγχων</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">Κάνουμε ό,τι μπορούμε ώστε να μη δημοσιευτεί η διεύθυνση IP ή άλλα δεδομένα που δυνητικά μπορεί να σας ταυτοποιήσουν.\n\nΜάθε περισσότερα διαβάζοντας την [Πολιτική Δεδομένων του OONI\\](https://ooni.io/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Αλλαγή ρυθμίσεων</string>
     <string name="AddDescriptor_Settings">Έλεγχος ρυθμίσεων</string>
-    <string name="AddDescriptor_AutoRun">Αυτόματη εκτελή δοκιμών</string>
+    <string name="AddDescriptor_AutoRun">Αυτόματη εκτέλεση ελέγχων</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Έλεγχος για ενημερώσεις</string>
     <string name="Snackbar_ResultsNotUploaded_Text">Δεν ανέβηκαν</string>
@@ -205,13 +205,13 @@
     <string name="Modal_Retry">Προσπάθησε πάλι</string>
     <string name="Modal_Cancel">Ακύρωση</string>
     <string name="Modal_OK">ΟΚ</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">Θέλεις να διαγράψεις όλα τα αποτελέσματα των δοκιμών σου;</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">Θέλετε να διαγράψετε όλα τα αποτελέσματα των ελέγχων;</string>
     <string name="Modal_Delete">Διαγραφή</string>
-    <string name="Modal_ReRun_Title">Επανεκτέλεση δοκιμής</string>
-    <string name="Modal_ReRun_Websites_Title">Πρόκειται να ξαναδοκιμάσετε %1$s ιστοσελίδες.</string>
+    <string name="Modal_ReRun_Title">Επανεκτέλεση ελέγχου</string>
+    <string name="Modal_ReRun_Websites_Title">Θα γίνει ξανά έλεγχος %1$s ιστοσελίδων.</string>
     <string name="Modal_ReRun_Websites_Run">Εκτέλεση</string>
     <string name="Modal_DisableVPN_Title">Παρακαλούμε απενεργοποίησε τη σύνδεση στο VPN.</string>
-    <string name="Modal_DisableVPN_Message">Αν εκτελείς το OONI Probe με ενεργοποιημένο VPN, τότε τα αποτελέσματα των δοκιμών θα φαίνεται σαν να προέρχονται από λάθος χώρα. Παρακαλούμε απενεργοποίησε τη σύνδεση στο VPN.</string>
+    <string name="Modal_DisableVPN_Message">Αν εκτελείτε το OONI Probe με ενεργό VPN, τότε τα αποτελέσματα των ελέγχων θα φαίνεται σαν να προέρχονται από λάθος χώρα. Παρακαλούμε απενεργοποιήστε τη σύνδεση VPN.</string>
     <string name="Modal_DisableVPN">Απενεργοποίηση VPN</string>
     <string name="Modal_RunAnyway">Να εκτελείται πάντα</string>
     <string name="Modal_AlwaysRun">Να εκτελείται πάντα</string>
@@ -223,8 +223,8 @@
     <string name="Modal_Hide">Απόκρυψη</string>
     <string name="OONIRun_Run">Εκτέλεση</string>
     <!-- Android notification channel name. -->
-    <string name="Notification_ChannelName">Δοκιμάζει</string>
-    <string name="Notification_StopTest">Τερματισμός δοκιμής</string>
+    <string name="Notification_ChannelName">Έλεγχος</string>
+    <string name="Notification_StopTest">Τερματισμός ελέγχου</string>
     <string name="Common_Back">Πίσω</string>
     <string name="Common_Close">Κλείσιμο</string>
     <string name="Common_Refresh">Ανανέωση</string>
@@ -269,7 +269,7 @@
         <item quantity="one">%1$d λεπτό</item>
         <item quantity="other">%1$d λεπτά</item>
     </plurals>
-    <string name="Onboarding_Notifications_Paragraph">Αφού ξεκινήσετε την εκτέλεση δοκιμών, μπορείτε να κλείσετε την εφαρμογή και αυτές θα συνεχίσουν να εκτελούνται στο παρασκήνιο. Ενεργοποιήστε τις ειδοποιήσεις, ώστε να μπορείτε να παρακολουθείτε ποιες δοκιμές εκτελούνται ή να τις διακόπτετε, χωρίς να χρειάζεται να ανοίξετε την εφαρμογή.</string>
+    <string name="Onboarding_Notifications_Paragraph">Αφού ξεκινήσετε την εκτέλεση ελέγχων, μπορείτε να κλείσετε την εφαρμογή και αυτές θα συνεχίσουν να εκτελούνται στο παρασκήνιο. Ενεργοποιήστε τις ειδοποιήσεις, ώστε να μπορείτε να παρακολουθείτε ποιοι έλεγχοι εκτελούνται ή να τις διακόπτετε, χωρίς να χρειάζεται να ανοίξετε την εφαρμογή.</string>
     <string name="Onboarding_QuizAnswer_Correct">Σωστή απάντηση</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Λανθασμένη απάντηση</string>
     <string name="Onboarding_Notifications_Title">Ενεργοποίηση Ειδοποιήσεων</string>
@@ -282,9 +282,9 @@
     <string name="Tray_Notification_Checking_Updates">Έλεγχος για ενημερώσεις…</string>
     <string name="Tray_Notification_Updates_Available">Διαθέσιμη Ενημέρωση!</string>
     <string name="Dashboard_LastResults">Τελευταία Αποτελέσματα</string>
-    <string name="Dashboard_LastResults_SeeResults">Δείτε τα αποτελέσματα</string>
-    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Η αυτόματη εκτέλεση είναι <i>ενεργοποιημένη</i>]]></string>
-    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Η αυτόματη εκτέλεση είναι <i>απενεργοποιημένη</i>]]></string>
+    <string name="Dashboard_LastResults_SeeResults">Προβολή αποτελεσμάτων</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>ενεργοποιημένο</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Auto-run is <i>απενεργοποιημένο</i>]]></string>
     <string name="Dashboard_Articles_ReadMore">Διαβάστε Περισσότερα</string>
     <plurals name="Dashboard_Stats_Networks">
         <item quantity="one">Δίκτυο</item>
@@ -292,25 +292,25 @@
     </plurals>
     <plurals name="Dashboard_Stats_Countries">
         <item quantity="one">Χώρα</item>
-        <item quantity="other"></item>
+        <item quantity="other">Χώρες</item>
     </plurals>
     <string name="Dashboard_Articles_Recent">Πρόσφατα</string>
     <plurals name="Dashboard_Runv2_Websites_SeeAll">
         <item quantity="one">Δείτε %1$d ιστότοπο</item>
         <item quantity="other">Δείτε όλους τους %1$d ιστότοπους</item>
     </plurals>
-    <string name="Dashboard_TestsMoved_Description">Οι δοκιμές σας μετακινήθηκαν σε νέα καρτέλα. Μπορείτε να τις δείτε μέσω της γραμμής πλοήγησης παρακάτω.</string>
-    <string name="Dashboard_RunTests_Title">Εκτελέστε δοκιμές</string>
-    <string name="Dashboard_RunTests_Description">Επιλέξτε τις δοκιμές για εκτέλεση</string>
-    <string name="Dashboard_RunTests_SelectAll">Επιλογή όλων των δοκιμών</string>
-    <string name="Dashboard_RunTests_SelectNone">Αποεπιλογή όλων των δοκιμών</string>
+    <string name="Dashboard_TestsMoved_Description">Οι έλεγχοί σας μετακινήθηκαν σε νέα καρτέλα. Μπορείτε να τους δείτε μέσω της γραμμής πλοήγησης.</string>
+    <string name="Dashboard_RunTests_Title">Εκτέλεση ελέγχων</string>
+    <string name="Dashboard_RunTests_Description">Επιλογή ελέγχων για εκτέλεση</string>
+    <string name="Dashboard_RunTests_SelectAll">Επιλογή όλων των ελέγχων</string>
+    <string name="Dashboard_RunTests_SelectNone">Αποεπιλογή όλων των ελέγχων</string>
     <plurals name="Dashboard_RunTests_RunButton_Label">
-        <item quantity="one">Εκτέλεση %1$d δοκιμής</item>
-        <item quantity="other">Εκτέλεση %1$d δοκιμών</item>
+        <item quantity="one">Εκτέλεση %1$d ελέγχου</item>
+        <item quantity="other">Εκτέλεση %1$d ελέγχων</item>
     </plurals>
     <string name="Dashboard_Stats_Title">Οι Μετρήσεις σας</string>
-    <string name="Dashboard_TestsMoved_Action">Δείτε δοκιμές</string>
-    <string name="Dashboard_Stats_Empty">Ξεκινήστε να εκτελείτε δοκιμές για να δείτε τα στατιστικά σας εδώ.</string>
+    <string name="Dashboard_TestsMoved_Action">Προβολή ελέγχων</string>
+    <string name="Dashboard_Stats_Empty">Εκτελέστε ελέγχους για να δείτε τα στατιστικά σας εδώ.</string>
     <string name="Dashboard_Articles_Title">Τα νέα του OONI</string>
     <string name="Dashboard_RunV2_ExpiredTag">ΕΛΗΞΕ</string>
     <string name="Dashboard_RunV2_UpdatedTag">ΕΝΗΜΕΡΩΜΕΝΟ</string>
@@ -336,4 +336,126 @@
     <string name="Onboarding_DefaultSettings_Button_Go">Ας ξεκινήσουμε</string>
     <string name="AddDescriptor_Toasts_Unsupported_Url">Μη υποστηριζόμενο URL</string>
     <string name="TaskOrigin_AutoRun">Αυτόματη εκκίνηση</string>
+    <string name="Dashboard_Articles_Blog">Άρθρο ιστολογίου</string>
+    <string name="Dashboard_Articles_Finding">Αναζήτηση</string>
+    <string name="Dashboard_RunV2_Ooni_Title">Έλεγχοι OONI</string>
+    <string name="Dashboard_RunV2_Title">Εκτέλεση συνδέσμων OONI</string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated">Τελευταία ενημέρωση στις %1$s</string>
+    <string name="Dashboard_Runv2_Overview_ReviewUpdates">Προεπισκόπηση ενημερώσεων</string>
+    <string name="Dashboard_Progress_UpdateLink_Label">Φόρτωση συνδέσμου ενημερώσεων</string>
+    <string name="Dashboard_Progress_ReviewLink_Label">Ο σύνδεσμος ενημερώσεων είναι έτοιμος</string>
+    <string name="Dashboard_ReviewDescriptor_Label">Σύνδεσμος ενημέρωσης (%1$s από %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last">ΕΝΗΜΕΡΩΣΗ ΚΑΙ ΟΛΟΚΛΗΡΩΣΗ (%1$s από %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default">ΕΝΗΜΕΡΩΣΗ (%1$s από %2$s)</string>
+    <string name="Dashboard_Update_Ready">Η ενημέρωση της εφαρμογής έχει ληφθεί</string>
+    <string name="Tests_Search">Αναζήτηση ελέγχων</string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions">Προηγούμενες αναθεωρήσεις</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">Η ενημέρωση απορρίφθηκε</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s μπλοκαρισμένο</item>
+        <item quantity="other">%1$s μπλοκαρισμένα</item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one">%1$s Ελέγχθηκε</item>
+        <item quantity="other">%1$s Ελέχθηκαν</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one">Ελεγμένο</item>
+        <item quantity="other">Ελεγμένα</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one">Προσβάσιμο</item>
+        <item quantity="other">Προσβάσιμα</item>
+    </plurals>
+    <string name="TestResults_Filters_Title">Αποτελέσματα σύμφωνα με τα φίλτρα</string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one">%1$d φίλτρο</item>
+        <item quantity="other">%1$d φίλτρα</item>
+    </plurals>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one">%1$d έλεγχος</item>
+        <item quantity="other">%1$d έλεγχοι</item>
+    </plurals>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one">%1$d δίκτυο</item>
+        <item quantity="other">%1$d δίκτυα</item>
+    </plurals>
+    <string name="TestResults_Filter_Date_Any">Όλες οι ημέρες</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">Πριν από 7 ημέρες</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">Πριν από 1 μήνα</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Προσαρμοσμένη: %1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Επιλέξτε εύρος ημερομηνιών</string>
+    <string name="TestResults_Filter_NoTestsFound">Δε βρέθηκαν αποτελέσματα ελέγχων για αυτά τα φίλτρα.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Θέλετε να διαγράψετε όλα τα αποτελέσματα ελέγχων για τα τρέχοντα φίλτρα;</string>
+    <string name="Results_LimitedNotice">Εμφανίζονται μόνο τα τελευταία %1$d αποτελέσματα</string>
+    <string name="Results_UploadingMissing">Μεταφόρτωση %1$s αποτελεσμάτων που απουσιάζουν</string>
+    <string name="Results_MarkAllAsViewed">Επισήμανση όλων ως αναγνωσμένων</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Θέλετε να επισημάνετε όλα τα αποτελέσματα ως αναγνωσμένα;</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Θέλετε να επισημάνετε όλα τα αποτελέσματα ως αναγνωσμένα για τα τρέχοντα φίλτρα;</string>
+    <string name="Measurement_LoadingFailed">Αποτυχία φόρτωσης πληροφοριών μέτρησης</string>
+    <plurals name="Measurements_Count">
+        <item quantity="one">%1$d Μέτρηση</item>
+        <item quantity="other">%1$d Μετρήσεις</item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one">%1$d απέτυχε</item>
+        <item quantity="other">%1$d απέτυχαν</item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning">Αυτή η μέτρηση δε δημοσιεύτηκε στον OONI Explorer. Ανεβάστε τη για να δείτε την ανάλυση.</string>
+    <string name="Measurement_Raw_Share">Κοινή χρήση δεδομένων μέτρησης</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description">Οι έλεγχοι θα εκτελούνται κάθε ώρα στο παρασκήνιο</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Περιορισμός διάρκειας ελέγχου</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Μόνο για χειροκίνητες λειτουργίες</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">Μέγιστη διάρκεια ενός πλήρους ελέγχου</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">Ορισμός δευτερολέπτων</string>
+    <string name="Settings_Proxy_Custom_Add">Προσθήκη προσαρμοσμένου proxy</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid">Το όνομα host δεν είναι έγκυρο</string>
+    <string name="Settings_Proxy_Custom_PortInvalid">Μη έγκυρη θύρα</string>
+    <string name="Settings_Proxy_Delete_Confirmation">Είστε βέβαιοι ότι θέλετε να διαγράψετε τον proxy %1$s;</string>
+    <string name="Settings_Results_DeleteOldResults">Διαγραφή παλιών αποτελεσμάτων</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold">Διαγραφή αποτελεσμάτων παλαιότερων από</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Εισαγάγετε τον αριθμό των μηνών</string>
+    <string name="Settings_Support_Message_Hint">Μήνυμα προς την ομάδα υποστήριξης</string>
+    <string name="Settings_Support_IncludeLogs">Συμπερίληψη αρχείων καταγραφής</string>
+    <string name="Settings_ShareApp">Κοινή χρήση εφαρμογής</string>
+    <string name="Settings_ShareApp_Description">Κοινή χρήση της εφαρμογής %1$s</string>
+    <string name="Settings_ShareApp_ShareMessage">Εγκατάσταση %1$s σε %2$s</string>
+    <string name="Settings_Legacy_Storage">Διαγραφή αρχείων από προηγούμενη έκδοση</string>
+    <string name="Settings_DisableVpnInstructions">Μεταβείτε Ρυθμίσεις &gt; Γενικά &gt; VPN και αποσυνδεθείτε από το VPN σας.</string>
+    <string name="Settings_ShareLogs">Κοινή χρήση αρχείων καταγραφής</string>
+    <string name="Settings_ShareLogs_Error">Σφάλμα στην κοινή χρήση αρχείων καταγραφής</string>
+    <string name="Settings_Sharing_UploadResults_Description">Τα αποτελέσματα μεταφορτώνονται αυτόματα στον εξερευνητή OONI</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one">Έλεγχος %1$d URL</item>
+        <item quantity="other">Έλεγχος %1$d URL</item>
+    </plurals>
+    <string name="AddDescriptor_EnterURL">Εισαγάγετε URL εκτέλεσης συνδέσμου OONI</string>
+    <string name="AddDescriptor_URLInvalid">Η διεύθυνση URL δεν είναι έγκυρος σύνδεσμος εκτέλεσης OONI</string>
+    <string name="AddDescriptor_Title">Εγκατάσταση νέου συνδέσμου</string>
+    <string name="AddDescriptor_AutoUpdate">Αυτόματη εγκατάσταση ενημερώσεων</string>
+    <string name="AddDescriptor_Toasts_Installed">Ο σύνδεσμος εγκαταστάθηκε</string>
+    <string name="AddDescriptor_Toasts_AlreadyInstalled">Ο σύνδεσμος έχει ήδη εγκατασταθεί</string>
+    <string name="AddDescriptor_InstallForLater">Εγκατάσταση για αργότερα</string>
+    <string name="LoadingScreen_Runv2_Message">Φόρτωση συνδέσμου</string>
+    <string name="LoadingScreen_Runv2_Failure">Σφάλμα φόρτωσης συνδέσμου</string>
+    <string name="AddDescriptor_AutoRunDisabled">Η αυτόματη εκτέλεση είναι απενεργοποιημένη. Ενεργοποιήστε για αυτόματη εκτέλεση ελέγχων.</string>
+    <string name="Descriptor_LastTestResult">Τελευταίο αποτέλεσμα ελέγχου</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Μεταφόρτωση %1$s …</string>
+    <string name="Modal_Clear_Legacy_Directories">Θέλετε να διαγράψετε τους παλαιούς φακέλους;</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">Θέλετε να διαγράψετε το αποτέλεσμα του ελέγχου %1$s;</item>
+        <item quantity="other">Θέλετε να διαγράψετε τα αποτέλεσμα του ελέγχου %1$s;</item>
+    </plurals>
+    <string name="Modal_Error_ProxyUnavailable">Ο επιλεγμένος διακομιστής μεσολάβησης ενδέχεται να μην είναι διαθέσιμος</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">Η εφαρμογή δεν μπορεί να εκτελέσει αυτόματα ελέγχους χωρίς άδεια παρασκηνίου. Θέλετε να προσπαθήσετε ξανά;</string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder">Η εφαρμογή χρειάζεται άδεια για να εκτελεί αυτόματα ελέγχους στο παρασκήνιο.</string>
+    <string name="Desktop_OpenApp">Άνοιγμα εφαρμογής</string>
+    <string name="Modal_Quite_Prompt">Τερματισμός OONI Probe;</string>
+    <string name="Modal_Quite_Description">Εάν τερματίσετε την εφαρμογή, δε θα είναι δυνατή η εκτέλεση αυτοματοποιημένων ελέγχων στο παρασκήνιο. Επιλέξτε Έξοδος ή Απόκρυψη για να συνεχιστεί η εκτέλεση στο παρασκήνιο.</string>
+    <string name="Notification_UpdateChannelName">Ενημερώσεις συνδέσμων</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one">%1$d δευτερόλεπτο</item>
+        <item quantity="other">%1$d δευτερόλεπτα</item>
+    </plurals>
+    <string name="TaskOrigin_Manual">Χειροκίνητη εκτέλεση</string>
 </resources>
