@@ -10,7 +10,7 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">Το OONI Probe δεν προστατεύει την ιδιωτικότητά σου. Όποιος παρακολουθεί τη δραστηριότητά σου στο διαδίκτυο μπορεί να δει ποιο λογισμικό τρέχεις.</string>
     <string name="Onboarding_PopQuiz_2_Question">Κάθε φορά που τρέχω το OONI Probe, τα δικτυακά δεδομένα που συλλέγω δημοσιεύονται.</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Για να αυξηθεί η διαφάνεια της λογοκρισίας στο Διαδίκτυο, τα δεδομένα δικτύου όλων των χρηστών του OONI Probe δημοσιεύονται αυτόματα (εκτός αν απενεργοποιήθουν οι σχετικές ρυθμίσεις).</string>
-    <string name="Onboarding_AutomatedTesting_Paragraph">Για καθημερινές μετρήσεις λογοκρισίας στο διαδίκτυο, παρακαλούμε ενεργοποίησε τις αυτοματοποιημένες δοκιμές, ώστε το OONI Probe να μπορεί να εκτελεί περιοδικά τις δοκιμές.\n\nΜην ανησυχείς, υπάρχει πρόνοια για τη κατανάλωση μπαταρίας. \n\nΜπορείς να απενεργοποιήσεις τις αυτόματες δοκιμές ανά πάσα στιγμή μέσω των ρυθμίσεων.</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">Για καθημερινούς ελέγχους λογοκρισίας στο διαδίκτυο, παρακαλούμε ενεργοποίησε τους αυτοματοποιημένους ελέγχους, ώστε το OONI Probe να μπορεί να εκτελείται περιοδικά.\n\nΜην ανησυχείτε, υπάρχει πρόνοια για την κατανάλωση μπαταρίας. \n\nΜπορείτε να απενεργοποιήσετε τους αυτόματους ελέγχους ανά πάσα στιγμή από τις ρυθμίσεις.</string>
     <string name="Onboarding_Crash_Paragraph">Για να βελτιώσουμε το OONI Probe, θα θέλαμε να συλλέγουμε ανώνυμες αναφορές σφαλμάτων και κρασαρίσματος όταν η εφαρμογή δεν λειτουργεί σωστά.\n\nΕπιθυμείς να υποβάλλεις αναφορές σφαλμάτων στην ομάδα ανάπτυξης του OONI;</string>
     <string name="Settings_About_Label">Σχετικά με το OONI</string>
     <string name="Settings_About_Content_Paragraph">Το OONI (Open Observatory of Network Interference) είναι ένα έργο ελεύθερου λογισμικού του οργανισμού The Tor Project, με στόχο την αύξηση της διαφάνειας για τη λογοκρισία στο διαδίκτυο, παγκοσμίως.\n\nΑπό το 2012, η παγκόσμια κοινότητα του OONI παίρνει μετρησεις σε δίκτυα σε περισσότερες από 200 χώρες. Κάποια από τα συλλεγόμενα στοιχεία αποτελούν απόδειξη της ύπαρξης λογοκρισίας στο διαδίκτυο.</string>
@@ -21,4 +21,15 @@
     <string name="Settings_Donate_Title">Κάντε δωρεά</string>
     <string name="Settings_Donate_Action">Κάντε δωρεά</string>
     <string name="Onboarding_CleanUp_Title">Εκκαθάριση</string>
+    <string name="Onboarding_CleanUp_Paragraph">Εντοπίσαμε αρχεία που έχουν απομείνει από την προηγούμενη εγκατάσταση. Παρακαλούμε διαγράψτε αυτά τα στοιχεία πριν προχωρήσετε στην εγκατάσταση.</string>
+    <string name="Settings_Donate_Heading">Κάντε δωρεά τώρα για να υποστηρίξετε την ελευθερία του διαδικτύου</string>
+    <string name="Settings_Donate_SubHeading">Ως μη κερδοσκοπικός οργανισμός, βασιζόμαστε σε δωρεές από ανθρώπους σαν εσάς για να υπερασπιστούμε ένα ελεύθερο και ανοιχτό διαδίκτυο για όλους.</string>
+    <string name="Settings_Donate_Support_Title">Κάνοντας δωρεά στο OONI, υποστηρίζετε:</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">Δωρεάν και ανοιχτού κώδικα λογισμικό για την ανίχνευση λογοκρισίας στο διαδίκτυο</string>
+    <string name="Settings_Donate_Support_Item_Analysis">Ανάλυση σε πραγματικό χρόνο της λογοκρισίας στο διαδίκτυο σε όλο τον κόσμο</string>
+    <string name="Settings_Donate_Support_Item_OpenData">Ανοιχτά δεδομένα σχετικά με τη λογοκρισία στο διαδίκτυο — υποστήριξη παγκόσμιων ερευνητικών και υπερασπιστικών προσπαθειών</string>
+    <string name="Settings_Donate_Support_Item_Research">Έρευνα για τα γεγονότα λογοκρισίας παγκοσμίως</string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">Θα ανοίξει ένα εξωτερικό παράθυρο προγράμματος περιήγησης</string>
+    <string name="Settings_Donate_Action_Error">Σφάλμα κατά το άνοιγμα της σελίδας δωρεάς. Παρακαλούμε μεταβείτε στο %1$s</string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Θα μπορείτε να εγκαταστήσετε ξανά αυτόν τον σύνδεσμο μόνο από τον αρχικό σύνδεσμο που έστειλε ο δημιουργός. Οι έλεγχοι από αυτόν τον σύνδεσμο θα διαγραφούν, αλλά θα είναι προσβάσιμοι από την εξερεύνηση.</string>
 </resources>

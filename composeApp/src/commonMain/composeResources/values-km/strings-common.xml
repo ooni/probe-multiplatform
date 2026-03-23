@@ -53,7 +53,7 @@
     <string name="TestResults_Summary_Hero_Network">បណ្តាញ</string>
     <string name="TestResults_Summary_Hero_Country">ប្រទេស</string>
     <string name="TestResults_Summary_Hero_Runtime">ម៉ោងដំណើរការសរុប</string>
-    <string name="TestResults_Summary_Hero_WiFi">WIFI</string>
+    <string name="TestResults_Summary_Hero_WiFi">​Wifi</string>
     <string name="TestResults_Summary_Hero_Mobile">ទិន្នន័យចល័ត</string>
     <string name="TestResults_Summary_Hero_NoInternet">មិនមានអុីនធឺណិត</string>
     <string name="TestResults_Summary_Performance_Hero_Upload">បញ្ជូល</string>

@@ -13,7 +13,7 @@
     <string name="Dashboard_AutoRun_Enabled"><![CDATA[自动运行已 <i>开启</i>]]></string>
     <string name="Dashboard_AutoRun_Disabled"><![CDATA[自动运行已 <i>停用</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">测试</string>
-    <string name="Dashboard_TestsMoved_Description">你的测试移动到了新标签页，可通过下方导航栏到达。</string>
+    <string name="Dashboard_TestsMoved_Description">您的测试已移至新标签页，可通过下方导航栏访问。</string>
     <string name="Dashboard_TestsMoved_Action">查看测试</string>
     <string name="Dashboard_RunTests_Title">运行测试</string>
     <string name="Dashboard_RunTests_Description">选择要运行的测试</string>
@@ -22,7 +22,7 @@
     <plurals name="Dashboard_RunTests_RunButton_Label">
         <item quantity="other">运行 %1$d 个测试</item>
     </plurals>
-    <string name="Dashboard_Stats_Title">你的测量</string>
+    <string name="Dashboard_Stats_Title">您的测量</string>
     <plurals name="Dashboard_Stats_Networks">
         <item quantity="other">网络</item>
     </plurals>
@@ -38,7 +38,7 @@
     <string name="Dashboard_Articles_Recent">近期</string>
     <string name="Dashboard_Articles_OpenExternal">在浏览器中打开</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI 测试</string>
-    <string name="Dashboard_RunV2_Title">OONI 运行链接</string>
+    <string name="Dashboard_RunV2_Title">OONI Run 链接</string>
     <string name="Dashboard_Runv2_Overview_Description">由 %1$s 于 %2$s 创建</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">卸载链接</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">上次修改</string>
@@ -141,13 +141,13 @@
     <string name="TestResults_Filter_Date_Custom_Filled">自定义：%1$s</string>
     <string name="TestResults_Filter_Date_Picker">选择日期范围</string>
     <string name="TestResults_Filter_NoTestsFound">没有找到这些筛选器的测试结果。</string>
-    <string name="TestResults_Filter_DeleteConfirmation">是否要删除当前筛选器的所有测试结果？</string>
+    <string name="TestResults_Filter_DeleteConfirmation">要删除当前筛选器的所有测试结果吗？</string>
     <string name="Results_LimitedNotice">只显示最后 %1$d 个结果</string>
     <string name="Results_UploadingMissing">上传缺失的结果 %1$s</string>
     <!-- This refers to "test results". It's an "alt" text for accessibility purposes. -->
     <string name="Results_MarkAllAsViewed">将所有内容标记为已查看</string>
-    <string name="Results_MarkAllAsViewed_Confirmation">是否要将所有结果标记为已查看？</string>
-    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">是否要将当前筛选器的所有结果标记为已查看？</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">要将所有结果标记为已查看吗？</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">要将当前筛选器的所有结果标记为已查看吗？</string>
     <string name="Measurement_Title">测量</string>
     <string name="Measurement_LoadingFailed">加载测量信息失败</string>
     <string name="Measurements_Failed">失败</string>
@@ -232,7 +232,7 @@
     <string name="Settings_Websites_CustomURL_Run">运行</string>
     <string name="Settings_Websites_CustomURL_Add">添加网站</string>
     <plurals name="CustomWebsites_Fab_Text">
-        <item quantity="other">测试 %1$d 个 URL</item>
+        <item quantity="other">测试 %1$d 个网址</item>
     </plurals>
     <string name="CategoryCode_ALDR_Name">毒品和酒精</string>
     <string name="CategoryCode_REL_Name">宗教</string>
@@ -316,7 +316,7 @@
     <string name="Onboarding_Crash_Button_Yes">是</string>
     <string name="Onboarding_Crash_Button_No">否</string>
     <string name="Onboarding_Notifications_Title">启用通知</string>
-    <string name="Onboarding_Notifications_Paragraph">开始运行测试后，你可以关闭应用，测试会继续在后台运行。开启通知这样你可以知道哪些测试正在运行，或停止它们，无需打开应用。</string>
+    <string name="Onboarding_Notifications_Paragraph">开始运行测试后，您可以关闭应用，测试会继续在后台运行。开启通知即可了解哪些测试正在运行，或停止测试，无需打开应用。</string>
     <string name="Onboarding_Notifications_Ok">正常</string>
     <string name="Onboarding_Notifications_Skip">跳过</string>
     <string name="Onboarding_DefaultSettings_Title">默认设置</string>
@@ -327,8 +327,8 @@
     <string name="Onboarding_DefaultSettings_Paragraph">我们尽最大努力不发布您的 IP 地址或任何其他潜在的个人身份信息。\n\n如需了解更多信息，请参阅 [OONI 的数据政策](https://ooni.org/about/data-policy/)。</string>
     <string name="Onboarding_DefaultSettings_Button_Go">开始吧</string>
     <string name="Onboarding_DefaultSettings_Button_Change">更改默认值</string>
-    <string name="AddDescriptor_EnterURL">输入 OONI Run 链接 URL</string>
-    <string name="AddDescriptor_URLInvalid">此 URL 不是有效的 OONI Run 链接</string>
+    <string name="AddDescriptor_EnterURL">输入 OONI Run 链接网址</string>
+    <string name="AddDescriptor_URLInvalid">此网址不是有效的 OONI Run 链接</string>
     <string name="AddDescriptor_Settings">测试代理设置</string>
     <string name="AddDescriptor_Title">安装新链接</string>
     <string name="AddDescriptor_AutoUpdate">自动安装更新</string>
@@ -336,7 +336,7 @@
     <string name="AddDescriptor_Toasts_Installed">链接已安装</string>
     <string name="AddDescriptor_InstallForLater">稍后安装</string>
     <string name="AddDescriptor_InstallAndRun">安装并运行</string>
-    <string name="AddDescriptor_Toasts_Unsupported_Url">不支持的 URL</string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url">不支持的网址</string>
     <string name="LoadingScreen_Runv2_Message">链接加载</string>
     <string name="LoadingScreen_Runv2_Failure">加载链接出错</string>
     <string name="DescriptorUpdate_Updates">更新</string>
@@ -354,10 +354,10 @@
     <string name="Modal_Retry">重试</string>
     <string name="Modal_Cancel">取消</string>
     <string name="Modal_OK">正常</string>
-    <string name="Modal_DoYouWantToDeleteAllTests">是否要删除所有测试结果？</string>
+    <string name="Modal_DoYouWantToDeleteAllTests">要删除所有测试结果吗？</string>
     <string name="Modal_Clear_Legacy_Directories">要删除旧文件夹吗？</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
-        <item quantity="other">是否要删除 %1$s 个测试结果？</item>
+        <item quantity="other">要删除 %1$s 个测试结果吗？</item>
     </plurals>
     <plurals name="Modal_Selected">
         <item quantity="other">已选择 %1$d 项</item>
@@ -368,15 +368,15 @@
     <string name="Modal_ReRun_Websites_Run">运行</string>
     <string name="Modal_DisableVPN_Title">请关闭您的 VPN 连接。</string>
     <string name="Modal_DisableVPN_Message">如果您在启用 VPN 的情况下运行 OONI Probe，测试结果将可能显示来自错误的国家/地区。请关闭您的 VPN 连接。</string>
-    <string name="Modal_DisableVPN">禁用VPN</string>
-    <string name="Modal_RunAnyway">无论如何都要运行</string>
+    <string name="Modal_DisableVPN">禁用 VPN</string>
+    <string name="Modal_RunAnyway">仍要运行</string>
     <string name="Modal_AlwaysRun">始终运行</string>
-    <string name="Modal_Error_CantDownloadURLs">无法下载 URL 列表。请重试。</string>
+    <string name="Modal_Error_CantDownloadURLs">无法下载网址列表。请重试。</string>
     <string name="Modal_Error_NoInternet">没有互联网连接</string>
     <string name="Modal_Error_ProxyUnavailable">所选代理可能不可用</string>
-    <string name="Modal_CustomURL_Title_NotSaved">是否确定？</string>
-    <string name="Modal_CustomURL_NotSaved">离开此屏幕将不会保存您的 URL。确定离开吗？</string>
-    <string name="Modal_Autorun_BatteryOptimization_Onboarding">没有后台权限，本应用无法自动运行测试。是否要重试？</string>
+    <string name="Modal_CustomURL_Title_NotSaved">您确定吗？</string>
+    <string name="Modal_CustomURL_NotSaved">离开此屏幕将不会保存您的网址。确定要离开吗？</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">没有后台权限，本应用无法自动运行测试。要重试吗？</string>
     <string name="Modal_Autorun_BatteryOptimization_Reminder">应用需要权限以在后台自动运行测试。</string>
     <string name="Desktop_OpenApp">打开应用</string>
     <string name="Desktop_Quit">退出</string>
@@ -442,4 +442,5 @@
     <string name="TaskOrigin_Manual">手动运行</string>
     <string name="TaskOrigin_AutoRun">自动运行</string>
     <string name="NetworkType_Vpn">VPN</string>
+    <string name="AddDescriptor_Toasts_AlreadyInstalled">链接已经安装</string>
 </resources>
