@@ -77,7 +77,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">Kod negara (cth. IT bagi Itali)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Masa &amp; tarikh ujian</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Tukar pengesetan asal</string>
-    <string name="AddDescriptor_Settings"></string>
     <string name="Toast_ResultsUploaded">Muat naik berjaya</string>
     <string name="Modal_UploadFailed_Title">Muat naik gagal</string>
     <string name="Modal_Retry">Cuba sekali</string>
@@ -89,7 +88,6 @@
     <string name="Modal_AlwaysRun">Sentiasa berjalan</string>
     <string name="Modal_CustomURL_Title_NotSaved">Adakah anda pasti?</string>
     <string name="Desktop_Quit">Keluar</string>
-    <string name="Tray_Notification_Updates_Available"></string>
     <string name="Modal_Hide">Sembunyikan</string>
     <string name="OONIRun_Run">Mula</string>
     <string name="Common_Back">Kembali</string>

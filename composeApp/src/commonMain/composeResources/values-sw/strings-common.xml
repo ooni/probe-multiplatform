@@ -152,7 +152,6 @@
     <string name="CategoryCode_HUMR_Description">Maswala ya haki za binadamu</string>
     <string name="CategoryCode_ENV_Description">Maswala ya haki za binadamu  </string>
     <string name="CategoryCode_MILX_Description">Ugaidi, vurugu za kijeshi au harakati za kujitenga </string>
-    <string name="CategoryCode_HATE_Description"></string>
     <string name="CategoryCode_NEWS_Description">Tovuti kuu za habari, vituo vya habari vya mkoa na media huru</string>
     <string name="CategoryCode_XED_Description">Maswala ya afya ya kijinsia pamoja na uzazi wa mpango, magonjwa ya zinaa, kuzuia ubakaji na utoaji mimba</string>
     <string name="CategoryCode_PUBH_Description">Maswala ya afya ya umma, kama vile COVID-19, VVU / UKIMWI, Ebola</string>
@@ -200,7 +199,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">Muda na tarehe ya majaribio</string>
     <string name="Onboarding_DefaultSettings_Paragraph">Tunafanya bidii kutokuchapisha anwani yako ya IP au habari zingine zozote zinayoweza kujitambulisha kibinafsi.\n\nJifunze zaidi kupitia [Sera ya Takwimu ya OONI](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Badilisha chaguo-msingi</string>
-    <string name="AddDescriptor_Settings"></string>
     <string name="AddDescriptor_Title">Sakinisha Kiungo Kipya</string>
     <string name="AddDescriptor_AutoUpdate">Sakinisha masasisho kiotomatiki</string>
     <string name="AddDescriptor_AutoRun">Endesha vipimo kiatomati</string>

@@ -22,7 +22,6 @@
     <string name="Dashboard_Runv2_Overview_SeeMore">Lihat Lebih Lanjut</string>
     <string name="Dashboard_RunV2_ExpiredTag">KEDALUWARSA</string>
     <string name="Dashboard_RunV2_UpdatedTag">DIPERBARUI</string>
-    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate"></string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Tinjau Pembaruan</string>
     <string name="Dashboard_Progress_UpdateLink_Label">Memuat pembaruan tautan</string>
     <string name="Dashboard_Progress_ReviewLink_Label">Pembaruan tautan sudah siap</string>

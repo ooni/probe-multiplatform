@@ -176,7 +176,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">परीक्षण का समय और तिथि</string>
     <string name="Onboarding_DefaultSettings_Paragraph">हम आपके आईपी पते या किसी अन्य जानकारी को प्रकाशित न करने की पूरी कोशिश करते हैं जिससे संभावित रूप से आपकी व्यक्तिगत पहचान हो सके।\n\n[OONI की डेटा नीति](https://ooni.org/about/data-policy/) के माध्यम से और जानें।</string>
     <string name="Onboarding_DefaultSettings_Button_Change">डिफ़ॉल्ट बदलें</string>
-    <string name="AddDescriptor_Settings"></string>
     <string name="AddDescriptor_AutoRun">परीक्षण स्वचालित रूप से चलाएँ</string>
     <string name="Snackbar_ResultsNotUploaded_Text">अपलोड नहीं किया गया</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">कुछ अपलोड नहीं किए गए</string>

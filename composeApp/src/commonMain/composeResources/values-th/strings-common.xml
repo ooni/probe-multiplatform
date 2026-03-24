@@ -184,7 +184,6 @@
     <string name="Onboarding_DefaultSettings_Bullet_3">วันเเละเวลาของการทดสอบ</string>
     <string name="Onboarding_DefaultSettings_Paragraph">เราทำดีที่สุดเพื่อจะไม่เผยแพร่ที่อยู่ไอพีหรือข้อมูลอื่นใดของคุณ ที่อาจใช้ระบุบุคคลได้\n\nเรียนรู้เพิ่มเติมใน [นโยบายข้อมูลของ OONI](https://ooni.org/about/data-policy/)</string>
     <string name="Onboarding_DefaultSettings_Button_Change">เปลี่ยนค่าเริ่มต้น</string>
-    <string name="AddDescriptor_Settings"></string>
     <string name="AddDescriptor_AutoRun">เริ่มทดสอบอัตโนมัติ</string>
     <string name="Snackbar_ResultsNotUploaded_Text">ไม่ถูกอัปโหลด</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">บางส่วนไม่ได้ถูกอัปโหลด</string>

@@ -43,7 +43,6 @@
     <string name="Settings_Support_Label">サポート</string>
     <string name="Settings_ShareApp">アプリを共有</string>
     <string name="Settings_Storage_Delete">削除</string>
-    <string name="Settings_Storage_Clear"></string>
     <string name="Settings_Logs">ログ</string>
     <string name="Settings_Websites_Categories_Selection_All">すべて選択</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
@@ -89,7 +88,6 @@
     <string name="Common_Enable">有効</string>
     <string name="Common_Yes">はい</string>
     <string name="Common_Save">保存</string>
-    <string name="Common_Clear"></string>
     <string name="Common_Next">次へ</string>
     <string name="Common_Previous">前へ</string>
     <string name="Common_Share">共有</string>

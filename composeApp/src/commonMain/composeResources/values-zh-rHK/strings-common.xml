@@ -32,7 +32,6 @@
     <string name="Settings_Advanced_Label">高级</string>
     <string name="Settings_Support_Label">支援</string>
     <string name="Settings_Storage_Delete">刪除</string>
-    <string name="Settings_Storage_Clear"></string>
     <string name="Settings_Websites_Categories_Selection_None">取消全選</string>
     <string name="Settings_Websites_Categories_Selection_All">選擇全部</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
@@ -67,7 +66,6 @@
     <string name="Common_Enable">啟用</string>
     <string name="Common_Yes">是</string>
     <string name="Common_Save">儲存</string>
-    <string name="Common_Clear"></string>
     <string name="Common_Next">下一步</string>
     <string name="Common_Previous">上一頁</string>
     <string name="Common_Share">分享</string>
