@@ -46,7 +46,6 @@
     <string name="Onboarding_Crash_Button_No">نہیں</string>
     <string name="Onboarding_Notifications_Ok">ٹھیک ہے</string>
     <string name="Onboarding_Notifications_Skip">چھوڑیں</string>
-    <string name="AddDescriptor_Settings">Test Settings</string>
     <string name="Modal_Retry">دوباره  کوشش کیجیے</string>
     <string name="Modal_Cancel">منسوخ کریں</string>
     <string name="Modal_OK">ٹھیک ہے</string>

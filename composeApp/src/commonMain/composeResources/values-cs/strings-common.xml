@@ -40,7 +40,6 @@
     <string name="Settings_Advanced_Label">Rozšířené</string>
     <string name="Settings_Support_Label">Podpořit</string>
     <string name="Settings_Storage_Delete">Smazat</string>
-    <string name="Settings_Storage_Clear">Clear</string>
     <string name="Settings_Logs">Záznamy</string>
     <string name="Settings_Websites_Categories_Selection_All">Označit vše</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
@@ -61,7 +60,6 @@
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Zkontrolovat aktualizace</string>
     <string name="Modal_UploadFailed_Title">Nahrávání selhalo</string>
-    <string name="Modal_Retry">Retry</string>
     <string name="Modal_Cancel">Zrušit</string>
     <string name="Modal_OK">OK</string>
     <string name="Modal_Delete">Smazat</string>
@@ -81,7 +79,6 @@
     <string name="Common_Enable">Zapnout</string>
     <string name="Common_Yes">Ano</string>
     <string name="Common_Save">Uložit</string>
-    <string name="Common_Clear">Clear</string>
     <string name="Common_Next">Další</string>
     <string name="Common_Previous">Předchozí</string>
     <string name="Common_Share">Sdílet</string>

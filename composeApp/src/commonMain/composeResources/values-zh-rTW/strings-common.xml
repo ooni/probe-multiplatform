@@ -42,7 +42,6 @@
     <string name="Test_Psiphon_Fullname">Psiphon 測試</string>
     <string name="Test_Tor_Fullname">Tor 測試</string>
     <string name="Test_Signal_Fullname">Signal 測試</string>
-    <string name="TestResults">Results</string>
     <string name="TestResults_Overview_Hero_Networks">網路</string>
     <string name="TestResults_Overview_Hero_DataUsage">流量數據使用</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">尚未進行任何測試，請試試執行一次！</string>
