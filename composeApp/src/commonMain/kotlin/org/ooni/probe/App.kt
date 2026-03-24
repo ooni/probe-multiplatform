@@ -134,5 +134,5 @@ fun App(
 
 val LocalSnackbarHostState = compositionLocalOf<SnackbarHostState?> { null }
 
-val MAIN_NAVIGATION_SCREENS =
+val MAIN_NAVIGATION_SCREENS: List<Screen> =
     listOf(Screen.Dashboard, Screen.Descriptors, Screen.Results, Screen.Settings)

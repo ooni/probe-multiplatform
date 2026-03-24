@@ -51,7 +51,6 @@ fun BottomNavigationBar(
     ) {
         MAIN_NAVIGATION_SCREENS.forEach { screen ->
             val isCurrentScreen = entry?.destination?.hasRoute(screen::class) == true
-            val screen = screen as Screen
             NavigationBarItem(
                 icon = {
                     NavigationBadgeBox(

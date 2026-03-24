@@ -284,7 +284,6 @@ class RunNetTest(
                 val message = when (event) {
                     is TaskEvent.StartupFailure -> event.message
                     is TaskEvent.ResolverLookupFailure -> event.message
-                    else -> null
                 }
 
                 if (message != null) {
@@ -308,8 +307,6 @@ class RunNetTest(
 
                     is TaskEvent.ResolverLookupFailure ->
                         Logger.i("", ResolverLookupFailure(message, event.value))
-
-                    else -> Unit
                 }
             }
 
