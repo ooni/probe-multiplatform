@@ -184,9 +184,7 @@ class SetupDependencies(
 
     fun buildDataStore(): DataStore<Preferences> =
         Dependencies.getDataStore(
-            producePath = {
-                filesDir() + "/${Dependencies.Companion.DATA_STORE_FILE_NAME}"
-            },
+            producePath = { filesDir() + "/${Dependencies.DATA_STORE_FILE_NAME}" },
             migrations = listOf(PreferenceMigration),
         )
 
