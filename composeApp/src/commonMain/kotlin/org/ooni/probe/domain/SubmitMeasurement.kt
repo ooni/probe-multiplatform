@@ -9,6 +9,7 @@ import org.ooni.engine.models.Success
 import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.shared.monitoring.Instrumentation
 
 class SubmitMeasurement(
     private val submitMeasurementWithUser: suspend (
@@ -21,7 +22,20 @@ class SubmitMeasurement(
     private val updateMeasurement: suspend (MeasurementModel) -> Unit,
     private val deleteMeasurementById: suspend (MeasurementModel.Id) -> Unit,
 ) {
-    suspend operator fun invoke(measurement: MeasurementModel): MeasurementModel? {
+    suspend operator fun invoke(measurement: MeasurementModel): MeasurementModel? =
+        Instrumentation.withTransaction(
+            operation = "SubmitMeasurement",
+            data = mapOf(
+                "measurementTest" to measurement.test.name,
+                "isFailed" to measurement.isFailed,
+                "isUploadFailed" to measurement.isUploadFailed,
+                "runtime" to measurement.runtime.toString(),
+            ),
+        ) {
+            invokeInstrumented(measurement)
+        }
+
+    suspend fun invokeInstrumented(measurement: MeasurementModel): MeasurementModel? {
         val reportFilePath = measurement.reportFilePath ?: return measurement
 
         val report = readFile(reportFilePath)
