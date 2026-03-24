@@ -486,4 +486,5 @@
     <string name="TaskOrigin_AutoRun">Execução Automática</string>
     <string name="NetworkType_Vpn">VPN</string>
     <string name="Dashboard_Articles_OpenExternal">Abrir no navegador</string>
+    <string name="AddDescriptor_Toasts_AlreadyInstalled">Link já instalado</string>
 </resources>

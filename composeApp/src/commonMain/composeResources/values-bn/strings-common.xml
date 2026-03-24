@@ -37,7 +37,7 @@
     <string name="Dashboard_Update_Ready">অ্যাপ আপডেটটি সবেমাত্র ডাউনলোড করা হয়েছে</string>
     <string name="Dashboard_Update_Restart">পুনরায় চালু করুন</string>
     <string name="Tests_Title">পরীক্ষাসমূহ</string>
-    <string name="TestResults">Results</string>
+    <string name="TestResults"></string>
     <string name="TestResults_Overview_Hero_Networks">নেটওয়ার্ক</string>
     <string name="TestResults_Overview_Hero_DataUsage">ব্যবহৃত ডাটা</string>
     <string name="TestResults_Overview_NoTestsHaveBeenRun">কোন পরীক্ষা এখনো চালানো হয়নি। একটি চালানোর চেষ্টা করুন!</string>
@@ -114,7 +114,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_2">নেটওয়ার্ক তথ্য (অজ্ঞাত সিস্টেম নম্বর সহ)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">পরীক্ষার সময় এবং তারিখ</string>
     <string name="Onboarding_DefaultSettings_Button_Change">ডিফল্ট পরিবর্তন করুন</string>
-    <string name="AddDescriptor_Settings">Test Settings</string>
+    <string name="AddDescriptor_Settings"></string>
     <string name="Modal_Retry">পূনরায় চেষ্টা করুন</string>
     <string name="Modal_Cancel">বাতিল</string>
     <string name="Modal_OK">ঠিক আছে</string>

@@ -38,7 +38,7 @@
     <string name="Onboarding_Crash_Button_No">Не</string>
     <string name="Onboarding_Notifications_Ok">OK</string>
     <string name="Onboarding_Notifications_Skip">Прапусціць</string>
-    <string name="AddDescriptor_Settings">Test Settings</string>
+    <string name="AddDescriptor_Settings"></string>
     <string name="Modal_Retry">Паспрабуйце яшчэ раз</string>
     <string name="Modal_Cancel">Скасаваць</string>
     <string name="Modal_OK">OK</string>

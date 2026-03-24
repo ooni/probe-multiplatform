@@ -11,8 +11,8 @@
     <string name="Dashboard_TestsMoved_Title">اختبارات</string>
     <string name="Dashboard_Articles_Report">بلاغ</string>
     <string name="Dashboard_Articles_Recent">الأحدث</string>
-    <string name="Dashboard_RunV2_Ooni_Title">OONI Tests</string>
-    <string name="Dashboard_RunV2_Title">OONI Run Links</string>
+    <string name="Dashboard_RunV2_Ooni_Title"></string>
+    <string name="Dashboard_RunV2_Title"></string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">المراجعات السابقة</string>
     <string name="Dashboard_RunV2_ExpiredTag">منتهي الصلاحية</string>
     <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>

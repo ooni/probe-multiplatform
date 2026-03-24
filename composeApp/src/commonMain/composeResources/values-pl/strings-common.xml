@@ -79,7 +79,7 @@
     <string name="Modal_CustomURL_Title_NotSaved">Jesteś pewien?</string>
     <string name="Desktop_Quit">Zamknij</string>
     <string name="Tray_Notification_Check_Updates">Sprawdź aktualizacje</string>
-    <string name="Tray_Notification_Updates_Available">Update Available!</string>
+    <string name="Tray_Notification_Updates_Available"></string>
     <string name="Modal_Hide">Ukryj</string>
     <!-- Android notification channel name. -->
     <string name="Notification_ChannelName">Testuję</string>
