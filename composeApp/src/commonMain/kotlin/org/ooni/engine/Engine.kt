@@ -26,6 +26,7 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.domain.CancelListenerCallback
 import org.ooni.probe.shared.PlatformInfo
+import org.ooni.probe.shared.monitoring.Instrumentation
 import kotlin.coroutines.CoroutineContext
 
 const val MAX_RUNTIME_DISABLED = -1
@@ -106,23 +107,31 @@ class Engine(
         resultOf(backgroundContext) {
             val preferences = getEnginePreferences()
             val sessionConfig = buildSessionConfig(taskOrigin, preferences)
-            session(sessionConfig).use {
-                val networkType = networkTypeFinder()
-                it.checkIn(
-                    OonimkallBridge.CheckInConfig(
-                        charging = isBatteryCharging(),
-                        onWiFi = if (networkType !is NetworkType.Unknown) {
-                            networkType == NetworkType.Wifi
-                        } else {
-                            null
-                        },
-                        platform = platformInfo.platform.engineName,
-                        runType = taskOrigin.runType,
-                        softwareName = sessionConfig.softwareName,
-                        softwareVersion = sessionConfig.softwareVersion,
-                        webConnectivityCategories = preferences.enabledWebCategories,
-                    ),
-                )
+            val networkType = networkTypeFinder()
+            val config = OonimkallBridge.CheckInConfig(
+                charging = isBatteryCharging(),
+                onWiFi = if (networkType !is NetworkType.Unknown) {
+                    networkType == NetworkType.Wifi
+                } else {
+                    null
+                },
+                platform = platformInfo.platform.engineName,
+                runType = taskOrigin.runType,
+                softwareName = sessionConfig.softwareName,
+                softwareVersion = sessionConfig.softwareVersion,
+                webConnectivityCategories = preferences.enabledWebCategories,
+            )
+            Instrumentation.withTransaction(
+                operation = "CheckIn",
+                data = mapOf(
+                    "charging" to config.charging,
+                    "networkType" to networkType.value,
+                    "taskOrigin" to taskOrigin.value,
+                    "categoriesCount" to config.webConnectivityCategories.size,
+                    "maxRuntime" to preferences.maxRuntime?.inWholeSeconds.toString(),
+                ),
+            ) {
+                session(sessionConfig).use { it.checkIn(config) }
             }
         }.mapError { MkException(it) }
 

@@ -27,12 +27,12 @@ import kotlinx.coroutines.Dispatchers
 import okio.Path
 import okio.Path.Companion.toPath
 import org.ooni.engine.AndroidNetworkTypeFinder
-import org.ooni.engine.AndroidSecureStorage
-import org.ooni.probe.config.OrganizationConfig
 import org.ooni.engine.AndroidOonimkallBridge
+import org.ooni.engine.AndroidSecureStorage
 import org.ooni.probe.background.AppWorkerManager
 import org.ooni.probe.config.AndroidBatteryOptimization
 import org.ooni.probe.config.FlavorConfig
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
@@ -120,9 +120,17 @@ class AndroidApplication : Application() {
         // From https://developer.android.com/training/monitoring-device-state/battery-monitoring#DetermineChargeState
         val batteryStatus = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         val status = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
-        val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-            status == BatteryManager.BATTERY_STATUS_FULL
-        return if (isCharging) BatteryState.Charging else BatteryState.NotCharging
+        return when (status) {
+            BatteryManager.BATTERY_STATUS_CHARGING,
+            BatteryManager.BATTERY_STATUS_FULL,
+            -> BatteryState.Charging
+
+            BatteryManager.BATTERY_STATUS_NOT_CHARGING,
+            BatteryManager.BATTERY_STATUS_DISCHARGING,
+            -> BatteryState.NotCharging
+
+            else -> BatteryState.Unknown
+        }
     }
 
     private fun launchAction(action: PlatformAction): Boolean =
