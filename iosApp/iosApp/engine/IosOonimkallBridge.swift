@@ -64,40 +64,6 @@ class IosOonimkallBridge: OonimkallBridge {
                 self.session = session
             }
 
-            func checkIn(config: OonimkallBridgeCheckInConfig) throws -> OonimkallBridgeCheckInResults {
-                guard let context = session.newContext(withTimeout: CONTEXT_TIMEOUT) else {
-                    throw error("Unable to create context")
-                }
-                do {
-                    let info = try session.check(in: context, config: config.toMk())
-
-                    var responseUrls = [OonimkallBridgeUrlInfo]()
-
-                    let size = info.webConnectivity?.size() ?? 0
-
-                    for i in 0..<size {
-
-                        if info.webConnectivity?.at(i) != nil {
-                            let urlInfo: OonimkallURLInfo = (info.webConnectivity?.at(i))!
-                            responseUrls.append(
-                                OonimkallBridgeUrlInfo(
-                                    url: urlInfo.url,
-                                    categoryCode: urlInfo.categoryCode,
-                                    countryCode: urlInfo.countryCode
-                                )
-                            )
-                        }
-                    }
-
-                    return OonimkallBridgeCheckInResults(
-                        reportId: info.webConnectivity?.reportID,
-                        urls: responseUrls
-                    )
-                } catch {
-                    throw error
-                }
-            }
-
             func httpDo(request: OonimkallBridgeHTTPRequest) throws -> OonimkallBridgeHTTPResponse {
                 guard let context = session.newContext(withTimeout: CONTEXT_TIMEOUT) else {
                     throw error("Unable to create context")
@@ -161,25 +127,6 @@ extension OonimkallBridgeSessionConfig {
             config.logger = IosLogger(logger: logger)
         }
         config.verbose = verbose
-        return config
-    }
-}
-
-extension OonimkallBridgeCheckInConfig {
-    func toMk() -> OonimkallCheckInConfig {
-        let config = OonimkallCheckInConfig()
-        config.charging = charging
-        if onWiFi != nil {
-            config.onWiFi = onWiFi == true
-        }
-        config.platform = platform
-        config.runType = runType
-        config.softwareName = softwareName
-        config.softwareVersion = softwareVersion
-        config.webConnectivity = OonimkallCheckInConfigWebConnectivity()
-        webConnectivityCategories.forEach { category in
-            config.webConnectivity?.addCategory(category)
-        }
         return config
     }
 }
