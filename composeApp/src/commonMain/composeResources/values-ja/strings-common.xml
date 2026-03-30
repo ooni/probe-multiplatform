@@ -269,4 +269,7 @@
     <string name="Settings_Support_Message_Hint">サポートチームへのメッセージ</string>
     <string name="Settings_Support_IncludeLogs">アプリケーションログを含める</string>
     <string name="Settings_Support_Action">メールを送信</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="other">ネットワーク</item>
+    </plurals>
 </resources>
