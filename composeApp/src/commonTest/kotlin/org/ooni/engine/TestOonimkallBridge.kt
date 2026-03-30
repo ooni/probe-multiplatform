@@ -19,7 +19,6 @@ class TestOonimkallBridge : OonimkallBridge {
         private set
 
     var submitMeasurementMock: ((String) -> OonimkallBridge.SubmitMeasurementResults)? = null
-    var checkInMock: ((OonimkallBridge.CheckInConfig) -> OonimkallBridge.CheckInResults)? = null
     var httpDoMock: ((OonimkallBridge.HTTPRequest) -> OonimkallBridge.HTTPResponse)? = null
 
     // Base implementation
@@ -42,8 +41,6 @@ class TestOonimkallBridge : OonimkallBridge {
 
     inner class Session : OonimkallBridge.Session {
         override fun submitMeasurement(measurement: String): OonimkallBridge.SubmitMeasurementResults = submitMeasurementMock!!(measurement)
-
-        override fun checkIn(config: OonimkallBridge.CheckInConfig): OonimkallBridge.CheckInResults = checkInMock!!(config)
 
         override fun httpDo(request: OonimkallBridge.HTTPRequest): OonimkallBridge.HTTPResponse = httpDoMock!!(request)
 
