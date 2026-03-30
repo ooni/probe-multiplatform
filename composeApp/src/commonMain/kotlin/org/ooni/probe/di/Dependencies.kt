@@ -51,11 +51,12 @@ import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapPreferences
+import org.ooni.probe.domain.BuildCheckInRequest
 import org.ooni.probe.domain.CheckAutoRunConstraints
+import org.ooni.probe.domain.CheckIn
 import org.ooni.probe.domain.ClearStorage
 import org.ooni.probe.domain.DeleteMeasurementsWithoutResult
 import org.ooni.probe.domain.DownloadFile
-import org.ooni.probe.domain.CheckIn
 import org.ooni.probe.domain.FetchGeoIpDbUpdates
 import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
@@ -86,8 +87,8 @@ import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
 import org.ooni.probe.domain.credentials.GetCredential
 import org.ooni.probe.domain.credentials.GetManifest
-import org.ooni.probe.domain.credentials.RegisterUser
 import org.ooni.probe.domain.credentials.PrepareAnonymousCredentials
+import org.ooni.probe.domain.credentials.RegisterUser
 import org.ooni.probe.domain.credentials.RetrieveManifest
 import org.ooni.probe.domain.credentials.SetCredential
 import org.ooni.probe.domain.credentials.SubmitMeasurementWithUser
@@ -265,7 +266,6 @@ class Dependencies(
             cacheDir = cacheDir,
             taskEventMapper = taskEventMapper,
             networkTypeFinder = networkTypeFinder,
-            getBatteryState = getBatteryState,
             platformInfo = platformInfo,
             getEnginePreferences = getEnginePreferences::invoke,
             addRunCancelListener = runBackgroundStateManager::addCancelListener,
@@ -290,11 +290,22 @@ class Dependencies(
             saveTestDescriptors = saveTestDescriptors::invoke,
         )
     }
+    val buildCheckInRequest by lazy {
+        BuildCheckInRequest(
+            getEnginePreferences = getEnginePreferences::invoke,
+            platformInfo = platformInfo,
+            getBatteryState = getBatteryState::invoke,
+            networkTypeFinder = networkTypeFinder,
+        )
+    }
     val cancelCurrentTest get() = runBackgroundStateManager::cancel
     private val checkIn by lazy {
         CheckIn(
-            engine::checkIn,
-            urlRepository::createOrUpdateByUrl,
+            passportPost = passportBridge::post,
+            storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
+            buildCheckInRequest = buildCheckInRequest::invoke,
+            json = json,
+            setPreferenceByKey = preferenceRepository::setValueByKey,
         )
     }
     private val checkAutoRunConstraints by lazy {
@@ -485,6 +496,7 @@ class Dependencies(
             listLatestInstalledTestDescriptors = testDescriptorRepository::listLatest,
             observeDescriptorsUpdateState = descriptorUpdateStateManager::observe,
             getPreferenceValues = preferenceRepository::allSettings,
+            getPreferenceByKey = preferenceRepository::getValueByKey,
         )
     }
     private val getTestDescriptorsBySpec by lazy {
