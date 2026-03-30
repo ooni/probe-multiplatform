@@ -11,6 +11,7 @@ import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
+import org.ooni.passport.models.CheckInResponse
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.ResultModel
@@ -26,7 +27,7 @@ import kotlin.time.Duration
 
 class RunDescriptors(
     private val getTestDescriptorsBySpec: suspend (RunSpecification.Full) -> List<DescriptorItem>,
-    private val checkIn: suspend (TaskOrigin) -> Result<List<UrlModel>, CheckIn.Failure>,
+    private val checkIn: suspend (TaskOrigin) -> Result<CheckInResponse, CheckIn.Unsuccessful>,
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
     private val markResultAsDone: suspend (ResultModel.Id) -> Unit,
     private val getRunBackgroundState: Flow<RunBackgroundState>,
@@ -53,8 +54,8 @@ class RunDescriptors(
             setRunBackgroundState { RunBackgroundState.RunningTests() }
 
             val descriptors = getTestDescriptorsBySpec(spec)
-            val checkInUrls = checkIn(spec.taskOrigin).get()
-            val descriptorsWithFinalInputs = descriptors.prepareInputs(checkInUrls)
+            val checkInResponse = checkIn(spec.taskOrigin).get()
+            val descriptorsWithFinalInputs = descriptors.prepareInputs(checkInResponse?.urls)
             val estimatedRuntime = descriptorsWithFinalInputs.getEstimatedRuntime()
 
             setRunBackgroundState {
@@ -134,7 +135,7 @@ class RunDescriptors(
             } else {
                 test.inputs
             }
-            test.copy(inputs = inputs, callCheckIn = test.inputs != inputs)
+            test.copy(inputs = inputs)
         }.filterNot { it.test is TestType.WebConnectivity && it.inputs?.any() != true }
 
     private suspend fun List<DescriptorItem>.getEstimatedRuntime(): List<Duration> {

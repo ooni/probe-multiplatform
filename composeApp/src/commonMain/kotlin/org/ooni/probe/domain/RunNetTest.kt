@@ -23,7 +23,7 @@ import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.toLocalDateTime
 
 class RunNetTest(
-    private val startTest: (NetTest, TaskOrigin, Descriptor.Id?) -> Flow<TaskEvent>,
+    private val startTest: (NetTest, TaskOrigin, Descriptor.Id) -> Flow<TaskEvent>,
     private val getOrCreateUrl: suspend (String) -> UrlModel,
     private val storeMeasurement: suspend (MeasurementModel) -> MeasurementModel.Id,
     private val storeNetwork: suspend (NetworkModel) -> NetworkModel.Id,
@@ -74,15 +74,12 @@ class RunNetTest(
                     testTotal = spec.testTotal,
                 )
             }
-            // Ensure descriptor id is not available for ooni descriptors
-            val installedDescriptorId =
-                if (spec.descriptor.isDefault()) null else spec.descriptor.descriptor.id
 
             try {
                 startTest(
                     spec.netTest,
                     spec.taskOrigin,
-                    installedDescriptorId,
+                    spec.descriptor.descriptor.id,
                 ).collect(::onEvent)
             } catch (_: Exception) {
                 // Exceptions were logged in the Engine

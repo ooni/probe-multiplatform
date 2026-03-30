@@ -97,6 +97,7 @@ class PreferenceRepository(
             SettingsKey.CHOSEN_WEBSITES,
             SettingsKey.PROXIES_CUSTOM,
             SettingsKey.DESCRIPTOR_SECTIONS_COLLAPSED,
+            SettingsKey.DISABLED_TESTS,
             -> PreferenceKey.StringSetKey(stringSetPreferencesKey(preferenceKey))
 
             else -> PreferenceKey.BooleanKey(booleanPreferencesKey(preferenceKey))
@@ -147,7 +148,8 @@ class PreferenceRepository(
                         it[preferenceKey.preferenceKey] = value as String
 
                     is PreferenceKey.StringSetKey ->
-                        it[preferenceKey.preferenceKey] = value as Set<String>
+                        it[preferenceKey.preferenceKey] =
+                            (value as? List<String>)?.toSet() ?: (value as Set<String>)
 
                     is PreferenceKey.BooleanKey ->
                         it[preferenceKey.preferenceKey] = value as Boolean

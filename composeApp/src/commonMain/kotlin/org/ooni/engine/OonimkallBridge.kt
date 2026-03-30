@@ -44,9 +44,6 @@ interface OonimkallBridge {
         fun submitMeasurement(measurement: String): SubmitMeasurementResults
 
         @Throws(Exception::class)
-        fun checkIn(config: CheckInConfig): CheckInResults
-
-        @Throws(Exception::class)
         fun httpDo(request: HTTPRequest): HTTPResponse
 
         override fun close()
@@ -56,23 +53,6 @@ interface OonimkallBridge {
         val updatedMeasurement: String?,
         val updatedReportId: String,
         val measurementUid: String?,
-    )
-
-    data class CheckInConfig(
-        val charging: Boolean,
-        val onWiFi: Boolean?,
-        // "android" or "ios"
-        val platform: String,
-        // "timed"
-        val runType: String,
-        val softwareName: String,
-        val softwareVersion: String,
-        val webConnectivityCategories: List<String>,
-    )
-
-    data class CheckInResults(
-        val reportId: String?,
-        val urls: List<UrlInfo>,
     )
 
     data class UrlInfo(
