@@ -1,5 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Settings_About_Content_Blog">Blog</string>
     <string name="Settings_Donate_Title">Donasyon</string>
     <string name="Settings_Donate_Action">Donasyon</string>
-    </resources>
+    <string name="Onboarding_CleanUp_Title">Bereinigen</string>
+    <string name="Settings_About_Label">Über OONI</string>
+    <string name="Settings_About_Content_LearnMore"></string>
+    <string name="Settings_About_Content_Reports"></string>
+</resources>

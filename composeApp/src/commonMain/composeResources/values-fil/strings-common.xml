@@ -34,4 +34,16 @@
     <string name="Common_Next">Susunod</string>
     <string name="Common_Search">Maghanap</string>
     <string name="Common_Total">Total</string>
+    <string name="Dashboard_Overview_Estimated"></string>
+    <string name="Dashboard_Running_Running"></string>
+    <string name="Dashboard_Running_EstimatedTimeLeft"></string>
+    <string name="Dashboard_Running_Stopping_Title"></string>
+    <string name="Dashboard_Running_ProxyInUse"></string>
+    <string name="Dashboard_LastResults"></string>
+    <string name="Dashboard_LastResults_SeeResults"></string>
+    <string name="Dashboard_TestsMoved_Title"></string>
+    <string name="Dashboard_TestsMoved_Action"></string>
+    <string name="Dashboard_RunTests_Title"></string>
+    <string name="Dashboard_RunTests_SelectAll"></string>
+    <string name="Dashboard_RunTests_SelectNone"></string>
 </resources>
