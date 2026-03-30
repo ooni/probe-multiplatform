@@ -54,7 +54,7 @@ import org.ooni.probe.domain.CheckAutoRunConstraints
 import org.ooni.probe.domain.ClearStorage
 import org.ooni.probe.domain.DeleteMeasurementsWithoutResult
 import org.ooni.probe.domain.DownloadFile
-import org.ooni.probe.domain.DownloadUrls
+import org.ooni.probe.domain.CheckIn
 import org.ooni.probe.domain.FetchGeoIpDbUpdates
 import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
@@ -282,8 +282,8 @@ class Dependencies(
         )
     }
     val cancelCurrentTest get() = runBackgroundStateManager::cancel
-    private val downloadUrls by lazy {
-        DownloadUrls(
+    private val checkIn by lazy {
+        CheckIn(
             engine::checkIn,
             urlRepository::createOrUpdateByUrl,
         )
@@ -488,7 +488,7 @@ class Dependencies(
     private val runDescriptors by lazy {
         RunDescriptors(
             getTestDescriptorsBySpec = getTestDescriptorsBySpec::invoke,
-            downloadUrls = downloadUrls::invoke,
+            checkIn = checkIn::invoke,
             storeResult = resultRepository::createOrUpdate,
             markResultAsDone = resultRepository::markAsDone,
             getRunBackgroundState = runBackgroundStateManager.observeState(),

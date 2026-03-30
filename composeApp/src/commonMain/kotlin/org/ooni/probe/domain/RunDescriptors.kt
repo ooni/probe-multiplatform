@@ -26,7 +26,7 @@ import kotlin.time.Duration
 
 class RunDescriptors(
     private val getTestDescriptorsBySpec: suspend (RunSpecification.Full) -> List<DescriptorItem>,
-    private val downloadUrls: suspend (TaskOrigin) -> Result<List<UrlModel>, DownloadUrls.Failure>,
+    private val checkIn: suspend (TaskOrigin) -> Result<List<UrlModel>, CheckIn.Failure>,
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
     private val markResultAsDone: suspend (ResultModel.Id) -> Unit,
     private val getRunBackgroundState: Flow<RunBackgroundState>,
@@ -49,10 +49,12 @@ class RunDescriptors(
                 "testsCount" to spec.tests.size,
             ),
         ) {
+            // TODO: Change to Preparing when merged with Anonymous Credentials branch
             setRunBackgroundState { RunBackgroundState.RunningTests() }
 
             val descriptors = getTestDescriptorsBySpec(spec)
-            val descriptorsWithFinalInputs = descriptors.prepareInputs(spec.taskOrigin)
+            val checkInUrls = checkIn(spec.taskOrigin).get()
+            val descriptorsWithFinalInputs = descriptors.prepareInputs(checkInUrls)
             val estimatedRuntime = descriptorsWithFinalInputs.getEstimatedRuntime()
 
             setRunBackgroundState {
@@ -112,54 +114,28 @@ class RunDescriptors(
         cancelListenerCallback.dismiss()
     }
 
-    private suspend fun List<DescriptorItem>.prepareInputs(taskOrigin: TaskOrigin): List<DescriptorItem> =
+    private fun List<DescriptorItem>.prepareInputs(checkInUrls: List<UrlModel>?): List<DescriptorItem> =
         map { descriptor ->
             descriptor.copy(
                 descriptor = descriptor.descriptor.copy(
-                    netTests = descriptor.netTests.downloadUrlsIfNeeded(taskOrigin, descriptor),
-                    longRunningTests = descriptor.longRunningTests.downloadUrlsIfNeeded(
-                        taskOrigin,
-                        descriptor,
-                    ),
+                    netTests = descriptor.netTests.addUrlsIfNeeded(checkInUrls),
+                    longRunningTests = descriptor.longRunningTests.addUrlsIfNeeded(checkInUrls),
                 ),
             )
         }.filterNot { it.allTests.isEmpty() }
 
-    private suspend fun List<NetTest>.downloadUrlsIfNeeded(
-        taskOrigin: TaskOrigin,
-        descriptor: DescriptorItem,
-    ): List<NetTest> =
+    private fun List<NetTest>.addUrlsIfNeeded(checkInUrls: List<UrlModel>?): List<NetTest> =
         map { test ->
-            val urls = test.inputsOrDownloadUrls(taskOrigin, descriptor)
-            test.copy(inputs = urls, callCheckIn = test.inputs != urls)
+            val inputs = if (test.inputs.isNullOrEmpty() && test.test is TestType.WebConnectivity) {
+                if (checkInUrls.isNullOrEmpty()) {
+                    reportTestRunError(TestRunError.DownloadUrlsFailed)
+                }
+                checkInUrls.orEmpty().map { it.url }
+            } else {
+                test.inputs
+            }
+            test.copy(inputs = inputs, callCheckIn = test.inputs != inputs)
         }.filterNot { it.test is TestType.WebConnectivity && it.inputs?.any() != true }
-
-    private suspend fun NetTest.inputsOrDownloadUrls(
-        taskOrigin: TaskOrigin,
-        descriptor: DescriptorItem,
-    ): List<String>? {
-        if (!inputs.isNullOrEmpty() || test !is TestType.WebConnectivity) return inputs
-
-        // NOTE: General assumption here is that web_connectivity tests will run first.
-        setRunBackgroundState {
-            if (it !is RunBackgroundState.RunningTests) return@setRunBackgroundState it
-            it.copy(
-                descriptor = descriptor,
-                testType = test,
-            )
-        }
-        val urls = downloadUrls(taskOrigin)
-            .onFailure { Logger.w("Could not download urls", it) }
-            .get()
-            ?.map { it.url }
-            ?: emptyList()
-
-        if (urls.isEmpty()) {
-            reportTestRunError(TestRunError.DownloadUrlsFailed)
-        }
-
-        return urls
-    }
 
     private suspend fun List<DescriptorItem>.getEstimatedRuntime(): List<Duration> {
         val maxRuntime = getEnginePreferences().maxRuntime
