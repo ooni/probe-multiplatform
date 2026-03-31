@@ -18,6 +18,7 @@ import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.SecureStorage
 import org.ooni.engine.TaskEventMapper
+import org.ooni.passport.PassportBridge
 import org.ooni.probe.Database
 import org.ooni.probe.background.RunBackgroundTask
 import org.ooni.probe.config.BatteryOptimization
@@ -50,11 +51,12 @@ import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapPreferences
+import org.ooni.probe.domain.BuildCheckInRequest
 import org.ooni.probe.domain.CheckAutoRunConstraints
+import org.ooni.probe.domain.CheckIn
 import org.ooni.probe.domain.ClearStorage
 import org.ooni.probe.domain.DeleteMeasurementsWithoutResult
 import org.ooni.probe.domain.DownloadFile
-import org.ooni.probe.domain.CheckIn
 import org.ooni.probe.domain.FetchGeoIpDbUpdates
 import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
@@ -83,6 +85,13 @@ import org.ooni.probe.domain.appreview.ShouldShowAppReview
 import org.ooni.probe.domain.articles.GetFindings
 import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
+import org.ooni.probe.domain.credentials.GetCredential
+import org.ooni.probe.domain.credentials.GetManifest
+import org.ooni.probe.domain.credentials.PrepareAnonymousCredentials
+import org.ooni.probe.domain.credentials.RegisterUser
+import org.ooni.probe.domain.credentials.RetrieveManifest
+import org.ooni.probe.domain.credentials.SetCredential
+import org.ooni.probe.domain.credentials.SubmitMeasurementWithUser
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
 import org.ooni.probe.domain.descriptors.BootstrapTestDescriptors
 import org.ooni.probe.domain.descriptors.DeleteTestDescriptor
@@ -137,6 +146,7 @@ import kotlin.coroutines.CoroutineContext
 class Dependencies(
     val platformInfo: PlatformInfo,
     private val oonimkallBridge: OonimkallBridge,
+    val passportBridge: PassportBridge,
     private val baseFileDir: String,
     val cacheDir: String,
     private val databaseDriverFactory: () -> SqlDriver,
@@ -256,7 +266,6 @@ class Dependencies(
             cacheDir = cacheDir,
             taskEventMapper = taskEventMapper,
             networkTypeFinder = networkTypeFinder,
-            getBatteryState = getBatteryState,
             platformInfo = platformInfo,
             getEnginePreferences = getEnginePreferences::invoke,
             addRunCancelListener = runBackgroundStateManager::addCancelListener,
@@ -281,11 +290,22 @@ class Dependencies(
             saveTestDescriptors = saveTestDescriptors::invoke,
         )
     }
+    val buildCheckInRequest by lazy {
+        BuildCheckInRequest(
+            getEnginePreferences = getEnginePreferences::invoke,
+            platformInfo = platformInfo,
+            getBatteryState = getBatteryState::invoke,
+            networkTypeFinder = networkTypeFinder,
+        )
+    }
     val cancelCurrentTest get() = runBackgroundStateManager::cancel
     private val checkIn by lazy {
         CheckIn(
-            engine::checkIn,
-            urlRepository::createOrUpdateByUrl,
+            passportPost = passportBridge::post,
+            storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
+            buildCheckInRequest = buildCheckInRequest::invoke,
+            json = json,
+            setPreferenceByKey = preferenceRepository::setValueByKey,
         )
     }
     private val checkAutoRunConstraints by lazy {
@@ -386,6 +406,35 @@ class Dependencies(
     private val getRerunSpecification by lazy {
         GetRerunSpecification(getResult::invoke)
     }
+    private val getManifest by lazy {
+        GetManifest(
+            getPreference = preferenceRepository::getValueByKey,
+            json = json,
+        )
+    }
+    private val getCredential by lazy {
+        GetCredential(
+            readSecureStorage = secureStorage::read,
+            json = json,
+        )
+    }
+    private val registerUser by lazy {
+        RegisterUser(
+            passportAuthRegister = passportBridge::userAuthRegister,
+            setCredential = setCredential::invoke,
+            backgroundContext = backgroundContext,
+            json = json,
+        )
+    }
+    val prepareAnonymousCredentials by lazy {
+        PrepareAnonymousCredentials(
+            getManifest = getManifest::invoke,
+            retrieveManifest = retrieveManifest::invoke,
+            getCredential = getCredential::invoke,
+            registerUser = registerUser::invoke,
+            backgroundContext = backgroundContext,
+        )
+    }
     private val getResults by lazy {
         GetResults(
             resultRepository::list,
@@ -447,6 +496,7 @@ class Dependencies(
             listLatestInstalledTestDescriptors = testDescriptorRepository::listLatest,
             observeDescriptorsUpdateState = descriptorUpdateStateManager::observe,
             getPreferenceValues = preferenceRepository::allSettings,
+            getPreferenceByKey = preferenceRepository::getValueByKey,
         )
     }
     private val getTestDescriptorsBySpec by lazy {
@@ -485,6 +535,14 @@ class Dependencies(
             updateState = descriptorUpdateStateManager::update,
         )
     }
+    private val retrieveManifest by lazy {
+        RetrieveManifest(
+            passportGet = passportBridge::get,
+            setPreference = preferenceRepository::setValueByKey,
+            json = json,
+            backgroundContext = backgroundContext,
+        )
+    }
     private val runDescriptors by lazy {
         RunDescriptors(
             getTestDescriptorsBySpec = getTestDescriptorsBySpec::invoke,
@@ -515,6 +573,12 @@ class Dependencies(
             platformInfo = platformInfo,
             launchAction = launchAction,
             getAppLoggerFile = appLogger::getLogFilePath,
+        )
+    }
+    val setCredential by lazy {
+        SetCredential(
+            writeSecureStorage = secureStorage::write,
+            json = json,
         )
     }
     private val shareLogFile by lazy { ShareLogFile(launchAction, appLogger::getLogFilePath) }
@@ -577,6 +641,7 @@ class Dependencies(
 
     private val submitMeasurement by lazy {
         SubmitMeasurement(
+            submitMeasurementWithUser = submitMeasurementWithUser::invoke,
             engineSubmit = engine::submitMeasurement,
             readFile = readFile,
             deleteFiles = deleteFiles,
@@ -584,7 +649,15 @@ class Dependencies(
             deleteMeasurementById = measurementRepository::deleteById,
         )
     }
-
+    private val submitMeasurementWithUser by lazy {
+        SubmitMeasurementWithUser(
+            getManifest = getManifest::invoke,
+            getCredential = getCredential::invoke,
+            setCredential = setCredential,
+            passportAuthSubmit = passportBridge::userAuthSubmit,
+            json = json,
+        )
+    }
     private val uploadMissingMeasurements by lazy {
         UploadMissingMeasurements(
             getMeasurementsNotUploaded = getMeasurementsNotUploaded::invoke,
@@ -604,6 +677,7 @@ class Dependencies(
     val runBackgroundTask by lazy {
         RunBackgroundTask(
             getPreferenceValueByKey = preferenceRepository::getValueByKey,
+            prepareAnonymousCredentials = prepareAnonymousCredentials::invoke,
             uploadMissingMeasurements = uploadMissingMeasurements::invoke,
             checkAutoRunConstraints = checkAutoRunConstraints::invoke,
             getAutoRunSpecification = getAutoRunSpecification::invoke,

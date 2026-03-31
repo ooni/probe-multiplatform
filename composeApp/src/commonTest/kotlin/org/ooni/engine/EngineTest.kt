@@ -11,8 +11,9 @@ import org.ooni.engine.models.TaskLogLevel
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
 import org.ooni.engine.models.TestType
-import org.ooni.probe.data.models.BatteryState
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.domain.CancelListenerCallback
 import org.ooni.probe.shared.Platform
@@ -39,7 +40,7 @@ class EngineTest {
                         inputs = listOf("https://ooni.org"),
                     ),
                     taskOrigin = TaskOrigin.OoniRun,
-                    descriptorId = null,
+                    descriptorId = Descriptor.Id(OoniTest.Websites.id),
                 ).toList()
 
             assertEquals(1, events.size)
@@ -74,7 +75,6 @@ class EngineTest {
             cacheDir = "",
             taskEventMapper = TaskEventMapper(networkTypeFinder, json),
             networkTypeFinder = networkTypeFinder,
-            getBatteryState = { BatteryState.Charging },
             platformInfo = PlatformInfo(
                 buildName = "1",
                 buildNumber = "1",
