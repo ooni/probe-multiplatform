@@ -27,7 +27,7 @@ class BuildCheckInRequest(
                 null
             },
             // The back-end does its own geoIP DB lookup
-            probeCc = "ZZ",
+            probeCc = "XX",
             probeAsn = "AS0",
             softwareName = platformInfo.buildSoftwareName(taskOrigin),
             softwareVersion = platformInfo.buildName,
