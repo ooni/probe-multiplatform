@@ -63,6 +63,7 @@ import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.GetAutoRunSpecification
 import org.ooni.probe.domain.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
+import org.ooni.probe.domain.GetFallbackUrls
 import org.ooni.probe.domain.GetFirstRun
 import org.ooni.probe.domain.GetLastResultOfDescriptor
 import org.ooni.probe.domain.GetMeasurementsNotUploaded
@@ -435,6 +436,12 @@ class Dependencies(
             backgroundContext = backgroundContext,
         )
     }
+    private val getFallbackUrls by lazy {
+        GetFallbackUrls(
+            getMeasurementsWithUrl = measurementRepository::listWithUrl,
+            getBatteryState = getBatteryState,
+        )
+    }
     private val getResults by lazy {
         GetResults(
             resultRepository::list,
@@ -547,6 +554,7 @@ class Dependencies(
         RunDescriptors(
             getTestDescriptorsBySpec = getTestDescriptorsBySpec::invoke,
             checkIn = checkIn::invoke,
+            getFallbackUrls = getFallbackUrls::invoke,
             storeResult = resultRepository::createOrUpdate,
             markResultAsDone = resultRepository::markAsDone,
             getRunBackgroundState = runBackgroundStateManager.observeState(),
