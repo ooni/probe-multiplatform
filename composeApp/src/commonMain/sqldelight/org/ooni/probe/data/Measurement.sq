@@ -49,13 +49,6 @@ INSERT OR REPLACE INTO Measurement (
 deleteAll:
 DELETE FROM Measurement;
 
-deleteByResultRunId:
-DELETE FROM Measurement
-WHERE Measurement.result_id IN (
-    SELECT Result.id FROM Result
-    WHERE Result.descriptor_runId = ?
-);
-
 deleteByIds:
 DELETE FROM Measurement WHERE Measurement.id IN ?;
 
@@ -92,6 +85,11 @@ WHERE Measurement.id IN (
     LEFT JOIN Result ON Measurement.result_id = Result.id
     WHERE Result.id IS NULL
 );
+
+selectWithUrl:
+SELECT * FROM Measurement
+LEFT JOIN Url ON Measurement.url_id = Url.id
+WHERE Url.id IS NOT NULL;
 
 selectTestKeysByDescriptorKey:
 SELECT
