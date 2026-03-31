@@ -73,6 +73,7 @@ enum class SettingsKey(
     TESTS_MOVED_NOTICE("tests_moved_notice"),
     LAST_ARTICLES_REFRESH("last_articles_refresh"),
     MANIFEST("manifest"),
+    DISABLED_TESTS("disabled_tests"),
 
     ROUTE("route"),
 
