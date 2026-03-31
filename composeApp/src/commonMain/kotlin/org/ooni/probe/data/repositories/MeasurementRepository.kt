@@ -17,6 +17,7 @@ import org.ooni.probe.data.Measurement
 import org.ooni.probe.data.SelectByResultIdWithUrl
 import org.ooni.probe.data.SelectTestKeysByDescriptorKey
 import org.ooni.probe.data.SelectTestKeysByResultId
+import org.ooni.probe.data.SelectWithUrl
 import org.ooni.probe.data.Url
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorItem
@@ -67,6 +68,13 @@ class MeasurementRepository(
     fun listWithoutResult() =
         database.measurementQueries
             .selectWithoutResult()
+            .asFlow()
+            .mapToList(backgroundContext)
+            .map { list -> list.mapNotNull { it.toModel() } }
+
+    fun listWithUrl() =
+        database.measurementQueries
+            .selectWithUrl()
             .asFlow()
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
@@ -130,12 +138,6 @@ class MeasurementRepository(
                 )
             }
         }
-
-    suspend fun deleteByResultRunId(descriptorId: Descriptor.Id) {
-        withContext(backgroundContext) {
-            database.measurementQueries.deleteByResultRunId(descriptorId.value)
-        }
-    }
 
     suspend fun deleteById(measurementId: MeasurementModel.Id) = deleteByIds(listOf(measurementId))
 
@@ -239,6 +241,37 @@ class MeasurementRepository(
                     category_code = category_code,
                 ).toModel()
             },
+        )
+    }
+
+    private fun SelectWithUrl.toModel(): MeasurementWithUrl? {
+        return MeasurementWithUrl(
+            measurement = Measurement(
+                id = id,
+                test_name = test_name,
+                start_time = start_time,
+                runtime = runtime,
+                is_done = is_done,
+                is_uploaded = is_uploaded,
+                is_failed = is_failed,
+                failure_msg = failure_msg,
+                is_upload_failed = is_upload_failed,
+                upload_failure_msg = upload_failure_msg,
+                is_rerun = is_rerun,
+                is_anomaly = is_anomaly,
+                report_id = report_id,
+                uid = uid,
+                test_keys = test_keys,
+                rerun_network = rerun_network,
+                url_id = url_id,
+                result_id = result_id,
+            ).toModel() ?: return null,
+            url = Url(
+                id = url_id ?: return null,
+                url = url,
+                country_code = country_code,
+                category_code = category_code,
+            ).toModel(),
         )
     }
 
