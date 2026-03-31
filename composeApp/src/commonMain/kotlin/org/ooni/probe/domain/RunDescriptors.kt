@@ -28,6 +28,7 @@ import kotlin.time.Duration
 class RunDescriptors(
     private val getTestDescriptorsBySpec: suspend (RunSpecification.Full) -> List<DescriptorItem>,
     private val checkIn: suspend (TaskOrigin) -> Result<CheckInResponse, CheckIn.Unsuccessful>,
+    private val getFallbackUrls: suspend (TaskOrigin) -> List<UrlModel>,
     private val storeResult: suspend (ResultModel) -> ResultModel.Id,
     private val markResultAsDone: suspend (ResultModel.Id) -> Unit,
     private val getRunBackgroundState: Flow<RunBackgroundState>,
@@ -55,7 +56,8 @@ class RunDescriptors(
 
             val descriptors = getTestDescriptorsBySpec(spec)
             val checkInResponse = checkIn(spec.taskOrigin).get()
-            val descriptorsWithFinalInputs = descriptors.prepareInputs(checkInResponse?.urls)
+            val descriptorsWithFinalInputs =
+                descriptors.prepareInputs(spec.taskOrigin, checkInResponse?.urls)
             val estimatedRuntime = descriptorsWithFinalInputs.getEstimatedRuntime()
 
             setRunBackgroundState {
@@ -115,26 +117,40 @@ class RunDescriptors(
         cancelListenerCallback.dismiss()
     }
 
-    private fun List<DescriptorItem>.prepareInputs(checkInUrls: List<UrlModel>?): List<DescriptorItem> =
+    private suspend fun List<DescriptorItem>.prepareInputs(
+        taskOrigin: TaskOrigin,
+        checkInUrls: List<UrlModel>?,
+    ): List<DescriptorItem> =
         map { descriptor ->
             descriptor.copy(
                 descriptor = descriptor.descriptor.copy(
-                    netTests = descriptor.netTests.addUrlsIfNeeded(checkInUrls),
-                    longRunningTests = descriptor.longRunningTests.addUrlsIfNeeded(checkInUrls),
+                    netTests = descriptor.netTests
+                        .addUrlsIfNeeded(taskOrigin, checkInUrls),
+                    longRunningTests = descriptor.longRunningTests
+                        .addUrlsIfNeeded(taskOrigin, checkInUrls),
                 ),
             )
         }.filterNot { it.allTests.isEmpty() }
 
-    private fun List<NetTest>.addUrlsIfNeeded(checkInUrls: List<UrlModel>?): List<NetTest> =
+    private suspend fun List<NetTest>.addUrlsIfNeeded(
+        taskOrigin: TaskOrigin,
+        checkInUrls: List<UrlModel>?,
+    ): List<NetTest> =
         map { test ->
-            val inputs = if (test.inputs.isNullOrEmpty() && test.test is TestType.WebConnectivity) {
-                if (checkInUrls.isNullOrEmpty()) {
-                    reportTestRunError(TestRunError.DownloadUrlsFailed)
+            val inputs =
+                if (test.test !is TestType.WebConnectivity || test.inputs?.isNotEmpty() == true) {
+                    test.inputs
+                } else if (!checkInUrls.isNullOrEmpty()) {
+                    checkInUrls.map { it.url }
+                } else {
+                    val fallbackUrls = getFallbackUrls(taskOrigin)
+                    if (fallbackUrls.isEmpty()) {
+                        reportTestRunError(TestRunError.DownloadUrlsFailed)
+                    } else {
+                        Logger.i("Could not check-in, falling back to ${fallbackUrls.size} local URLs")
+                    }
+                    fallbackUrls.map { it.url }
                 }
-                checkInUrls.orEmpty().map { it.url }
-            } else {
-                test.inputs
-            }
             test.copy(inputs = inputs)
         }.filterNot { it.test is TestType.WebConnectivity && it.inputs?.any() != true }
 
