@@ -24,6 +24,9 @@ class CrashMonitoring(
                         it.dsn = platformInfo.sentryDsn
                         it.release = platformInfo.version
                         it.tracesSampleRate = 1.0
+                        if (platformInfo.sentryExtraTags.isNotEmpty()) {
+                            it.environment = platformInfo.sentryExtraTags["environment"]
+                        }
                     }
                     if (platformInfo.sentryExtraTags.isNotEmpty()) {
                         Sentry.configureScope { scope ->

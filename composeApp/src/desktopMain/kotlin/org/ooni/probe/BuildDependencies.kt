@@ -64,8 +64,8 @@ private fun buildPlatformInfo(): PlatformInfo {
     val osVersion = System.getProperty("os.version")
     val buildName = System.getProperty("app.version.name")?.ifBlank { null } ?: "1.0.0"
     val buildNumber = System.getProperty("app.version.code")?.ifBlank { null } ?: "0"
-    val runtime = Runtime.getRuntime()
-    val appDir = File(projectDirectories.dataDir)
+    val isDebug = System.getProperty("app.debug")?.toBoolean() ?: false
+    val environment = if (isDebug) "development" else "production"
 
     return PlatformInfo(
         buildName = buildName,
@@ -85,9 +85,7 @@ private fun buildPlatformInfo(): PlatformInfo {
             put("os.version", osVersion)
             put("os.arch", System.getProperty("os.arch"))
             put("locale", Locale.getDefault().toString())
-            put("memory_size", formatBytes(runtime.maxMemory()))
-            put("free_memory", formatBytes(runtime.freeMemory()))
-            put("free_storage", formatBytes(appDir.freeSpace))
+            put("environment", environment)
         },
     )
 }
