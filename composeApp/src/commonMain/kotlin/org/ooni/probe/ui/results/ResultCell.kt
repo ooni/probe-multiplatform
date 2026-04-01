@@ -28,6 +28,7 @@ import ooniprobe.composeapp.generated.resources.Measurements_Count
 import ooniprobe.composeapp.generated.resources.Measurements_Failed_Count
 import ooniprobe.composeapp.generated.resources.Modal_UploadFailed_Title
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Result_Error
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Blocked
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_Websites_Tested
@@ -80,10 +81,12 @@ fun ResultCell(
                 .fillMaxWidth()
                 .combinedClickable(
                     onClick = {
-                        if (isSelected) {
-                            onSelectChange?.invoke(false)
-                        } else {
-                            onResultClick()
+                        if (!hasError) {
+                            if (isSelected) {
+                                onSelectChange?.invoke(false)
+                            } else {
+                                onResultClick()
+                            }
                         }
                     },
                     onLongClick = onLongClick,
@@ -125,7 +128,13 @@ fun ResultCell(
                 verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.Top),
                 modifier = Modifier.weight(0.4f).padding(end = 4.dp),
             ) {
-                if (!hasError) {
+                if (hasError) {
+                    ResultCountItem(
+                        icon = Res.drawable.ic_measurement_anomaly,
+                        text = stringResource(Res.string.Result_Error),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                    )
+                } else {
                     ResultCounts(item)
                 }
             }

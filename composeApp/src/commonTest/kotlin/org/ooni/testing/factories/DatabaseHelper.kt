@@ -37,7 +37,7 @@ class DatabaseHelper private constructor(
 
             val networkId = shared.dependency.networkRepository.createIfNew(
                 NetworkModel(
-                    networkName = "Vodafone Italia",
+                    name = "Vodafone Italia",
                     asn = "AS12345",
                     countryCode = "IT",
                     networkType = NetworkType.Wifi,
