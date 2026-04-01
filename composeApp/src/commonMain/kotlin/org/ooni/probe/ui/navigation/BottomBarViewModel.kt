@@ -24,7 +24,7 @@ class BottomBarViewModel(
     init {
         countAllNotViewedFlow()
             .onEach { count ->
-                _state.update { it.copy(notViewedCount = count) }
+                _state.update { it.copy(showNotViewedBadge = count > 0) }
             }.launchIn(viewModelScope)
 
         runBackgroundStateFlow()
@@ -44,7 +44,7 @@ class BottomBarViewModel(
     }
 
     data class State(
-        val notViewedCount: Long = 0L,
+        val showNotViewedBadge: Boolean = false,
         val areTestsRunning: Boolean = false,
         val isDescriptorsReviewNecessary: Boolean = false,
     )
