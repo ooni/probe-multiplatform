@@ -169,6 +169,7 @@
     <string name="Results_MarkAllAsViewed">Mark all as viewed</string>
     <string name="Results_MarkAllAsViewed_Confirmation">Do you want to mark all results as viewed?</string>
     <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Do you want to mark all results as viewed for the current filters?</string>
+    <string name="Result_Error">test error</string>
 
 
     <string name="Measurement_Title">Measurement</string>

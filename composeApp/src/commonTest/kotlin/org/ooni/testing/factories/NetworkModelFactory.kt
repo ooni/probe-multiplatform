@@ -2,7 +2,6 @@ package org.ooni.testing.factories
 
 import org.ooni.engine.models.NetworkType
 import org.ooni.probe.data.models.NetworkModel
-import org.ooni.probe.data.models.UrlModel.Id
 
 object NetworkModelFactory {
     fun build(
@@ -13,7 +12,7 @@ object NetworkModelFactory {
         networkType: NetworkType? = null,
     ) = NetworkModel(
         id = id,
-        networkName = networkName,
+        name = networkName,
         asn = asn,
         countryCode = countryCode,
         networkType = networkType,

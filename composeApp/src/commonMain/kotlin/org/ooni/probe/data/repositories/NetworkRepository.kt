@@ -5,7 +5,6 @@ import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.withContext
 import org.ooni.engine.models.NetworkType
 import org.ooni.probe.Database
@@ -28,7 +27,7 @@ class NetworkRepository(
                 if (model.id == null) {
                     database.networkQueries
                         .selectByValues(
-                            network_name = model.networkName,
+                            network_name = model.name,
                             asn = model.asn,
                             country_code = model.countryCode,
                             network_type = model.networkType?.value,
@@ -38,7 +37,7 @@ class NetworkRepository(
 
                 database.networkQueries.insertOrReplace(
                     id = model.id?.value,
-                    network_name = model.networkName,
+                    network_name = model.name,
                     asn = model.asn,
                     country_code = model.countryCode,
                     network_type = model.networkType?.value,
@@ -80,7 +79,7 @@ class NetworkRepository(
 fun Network.toModel(): NetworkModel =
     NetworkModel(
         id = NetworkModel.Id(id),
-        networkName = network_name,
+        name = network_name,
         asn = asn,
         countryCode = country_code,
         networkType = network_type?.let(NetworkType::fromValue),

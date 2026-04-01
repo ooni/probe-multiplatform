@@ -627,7 +627,7 @@ private fun SummaryNetwork(item: ResultItem) {
                         else -> network.asn.orEmpty()
                     }
                     """
-                    ${network.networkName.orEmpty()}
+                    ${network.name.orEmpty()}
                     $asn (${network.networkType?.label().orEmpty()})
                     """.trimIndent()
                 } ?: stringResource(Res.string.TestResults_NotAvailable),
