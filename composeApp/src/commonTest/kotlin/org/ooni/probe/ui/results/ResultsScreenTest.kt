@@ -42,7 +42,7 @@ class ResultsScreenTest {
 
             onNodeWithText("1 January 2024").assertExists()
             onNodeWithText(title!!).assertExists()
-            onNodeWithText(result.network!!.networkName!!, substring = true).assertExists()
+            onNodeWithText(result.network!!.name!!, substring = true).assertExists()
         }
 
     @Test

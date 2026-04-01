@@ -33,12 +33,13 @@ fun RunCell(item: RunListItem) {
             .padding(top = 8.dp),
     ) {
         Column(modifier = Modifier.weight(1f)) {
-            val asn = if (network?.isValid() == false) {
-                stringResource(Res.string.TestResults_NotAvailable)
+            val networkText = if (network == null || !network.isValid()) {
+                stringResource(Res.string.TestResults_UnknownASN)
             } else {
-                network?.asn ?: stringResource(Res.string.TestResults_UnknownASN)
+                val name = network.name ?: stringResource(Res.string.TestResults_NotAvailable)
+                val asn = network.asn ?: stringResource(Res.string.TestResults_NotAvailable)
+                "$name ($asn)"
             }
-            val networkText = network?.networkName?.let { "$it " } + "($asn)"
             Text(
                 networkText,
                 style = MaterialTheme.typography.titleMedium.copy(fontSize = 16.sp),

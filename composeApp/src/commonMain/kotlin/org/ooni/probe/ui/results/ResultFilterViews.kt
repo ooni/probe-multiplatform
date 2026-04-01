@@ -500,7 +500,7 @@ private fun NetworksFilter(
 
 @Composable
 private fun NetworkModel.name(): String {
-    val name = networkName?.ellipsize(20)
+    val name = name?.ellipsize(20)
         ?: asn
         ?: stringResource(Res.string.TestResults_UnknownASN)
     return name + countryCode?.let { " ($it)" }
