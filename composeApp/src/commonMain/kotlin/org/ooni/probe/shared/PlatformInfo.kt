@@ -13,6 +13,7 @@ data class PlatformInfo(
     val hasDonations: Boolean = true,
     val canPullToRefresh: Boolean = false,
     val sentryDsn: String,
+    val sentryExtraTags: Map<String, String> = emptyMap(),
 ) {
     val version get() = "$buildName ($buildNumber)"
 }

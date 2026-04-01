@@ -64,6 +64,8 @@ private fun buildPlatformInfo(): PlatformInfo {
     val osVersion = System.getProperty("os.version")
     val buildName = System.getProperty("app.version.name")?.ifBlank { null } ?: "1.0.0"
     val buildNumber = System.getProperty("app.version.code")?.ifBlank { null } ?: "0"
+    val runtime = Runtime.getRuntime()
+    val appDir = File(projectDirectories.dataDir)
 
     return PlatformInfo(
         buildName = buildName,
@@ -78,7 +80,21 @@ private fun buildPlatformInfo(): PlatformInfo {
         hasDonations = true,
         canPullToRefresh = false,
         sentryDsn = "https://e33da707dc40ab9508198b62de9bc269@o155150.ingest.sentry.io/4509084408610816",
+        sentryExtraTags = buildMap {
+            put("os.name", osName)
+            put("os.version", osVersion)
+            put("os.arch", System.getProperty("os.arch"))
+            put("locale", Locale.getDefault().toString())
+            put("memory_size", formatBytes(runtime.maxMemory()))
+            put("free_memory", formatBytes(runtime.freeMemory()))
+            put("free_storage", formatBytes(appDir.freeSpace))
+        },
     )
+}
+
+private fun formatBytes(bytes: Long): String {
+    val gib = bytes.toDouble() / (1024 * 1024 * 1024)
+    return "%.1f GiB".format(gib)
 }
 
 private fun buildDataStore() =
