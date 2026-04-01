@@ -25,6 +25,13 @@ class CrashMonitoring(
                         it.release = platformInfo.version
                         it.tracesSampleRate = 1.0
                     }
+                    if (platformInfo.sentryExtraTags.isNotEmpty()) {
+                        Sentry.configureScope { scope ->
+                            platformInfo.sentryExtraTags.forEach { (key, value) ->
+                                scope.setTag(key, value)
+                            }
+                        }
+                    }
                 } else {
                     Sentry.close()
                 }
