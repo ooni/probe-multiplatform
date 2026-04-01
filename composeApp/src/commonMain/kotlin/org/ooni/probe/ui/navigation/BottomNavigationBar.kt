@@ -98,11 +98,10 @@ private fun NavigationBadgeBox(
 ) {
     BadgedBox(
         badge = {
-            if (screen == Screen.Results && state.notViewedCount > 0) {
-                val badgeText =
-                    if (state.notViewedCount > 9) "9+" else state.notViewedCount.toString()
-                Badge { Text(badgeText) }
-            } else if (screen == Screen.Descriptors && state.isDescriptorsReviewNecessary) {
+            if (
+                (screen == Screen.Results && state.showNotViewedBadge) ||
+                (screen == Screen.Descriptors && state.isDescriptorsReviewNecessary)
+            ) {
                 Badge()
             }
         },
