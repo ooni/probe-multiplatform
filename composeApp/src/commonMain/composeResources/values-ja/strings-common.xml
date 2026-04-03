@@ -363,4 +363,5 @@
     <string name="Onboarding_DefaultSettings_Header">私たちは以下のデータを収集・公開します:</string>
     <string name="Onboarding_DefaultSettings_Bullet_1">国コード (例: 日本の場合は JP)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">ネットワーク情報 (自律システム番号を含む)</string>
+    <string name="Settings_Storage_Clear">消去</string>
 </resources>
