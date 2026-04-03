@@ -435,4 +435,5 @@
     <string name="Common_Seconds_Abbreviated">%1$d 秒</string>
     <string name="TaskOrigin_Manual">手動実行</string>
     <string name="TaskOrigin_AutoRun">自動実行</string>
+    <string name="Common_Clear">消去</string>
 </resources>
