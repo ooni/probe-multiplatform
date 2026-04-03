@@ -3,6 +3,7 @@ package org.ooni.probe
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import co.touchlab.kermit.Logger
 import dev.dirs.ProjectDirectories
+import kotlinx.coroutines.Dispatchers
 import okio.Path.Companion.toPath
 import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.engine.createDesktopSecureStorage
@@ -58,6 +59,7 @@ val dependencies = Dependencies(
     flavorConfig = DesktopFlavorConfig(),
     proxyConfig = ProxyConfig(isPsiphonSupported = false),
     getCountryNameByCode = ::getCountryNameByCode,
+    databaseContext = Dispatchers.IO.limitedParallelism(1),
 )
 
 private fun buildPlatformInfo(): PlatformInfo {
