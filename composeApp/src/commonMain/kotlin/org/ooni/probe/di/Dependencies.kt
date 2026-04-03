@@ -158,6 +158,8 @@ class Dependencies(
     val flavorConfig: FlavorConfigInterface,
     val proxyConfig: ProxyConfig,
     val getCountryNameByCode: (String) -> String,
+    @get:VisibleForTesting
+    var databaseContext: CoroutineContext = Dispatchers.IO,
 ) {
     // Common
 
@@ -172,28 +174,28 @@ class Dependencies(
     private val appReviewRepository by lazy { AppReviewRepository(dataStore) }
 
     @VisibleForTesting
-    val articleRepository by lazy { ArticleRepository(database, backgroundContext) }
+    val articleRepository by lazy { ArticleRepository(database, databaseContext) }
 
     @VisibleForTesting
     val measurementRepository by lazy {
-        MeasurementRepository(database, json, backgroundContext)
+        MeasurementRepository(database, json, databaseContext)
     }
 
     @VisibleForTesting
-    val networkRepository by lazy { NetworkRepository(database, backgroundContext) }
+    val networkRepository by lazy { NetworkRepository(database, databaseContext) }
 
     @VisibleForTesting
     val preferenceRepository by lazy { PreferenceRepository(buildDataStore()) }
 
     @VisibleForTesting
-    val resultRepository by lazy { ResultRepository(database, backgroundContext) }
+    val resultRepository by lazy { ResultRepository(database, databaseContext) }
 
     val testDescriptorRepository by lazy {
-        TestDescriptorRepository(database, json, backgroundContext)
+        TestDescriptorRepository(database, json, databaseContext)
     }
 
     @VisibleForTesting
-    val urlRepository by lazy { UrlRepository(database, backgroundContext) }
+    val urlRepository by lazy { UrlRepository(database, databaseContext) }
 
     private val readFile: ReadFile by lazy { ReadFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val writeFile: WriteFile by lazy { WriteFileOkio(FileSystem.SYSTEM, baseFileDir) }
