@@ -155,7 +155,7 @@ jobs:
 
       - name: Set Xcode version
         run: |
-          sudo xcode-select -switch /Applications/Xcode_26.0.1.app
+          sudo xcode-select -switch /Applications/Xcode_26.2.0.app
 
       - name: Xcode Cache
         uses: irgaly/xcode-cache@v1
