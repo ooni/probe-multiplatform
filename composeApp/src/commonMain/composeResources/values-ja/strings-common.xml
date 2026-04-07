@@ -364,4 +364,75 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">国コード (例: 日本の場合は JP)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">ネットワーク情報 (自律システム番号を含む)</string>
     <string name="Settings_Storage_Clear">消去</string>
+    <string name="Onboarding_DefaultSettings_Bullet_3">テストの日時</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">私たちは、あなたの IP アドレスやその他個人を特定できる可能性のある情報を公開しないよう最善を尽くしています。\n\n詳細につきましては、[OONI のデータポリシー](https://ooni.org/about/data-policy/)をご覧ください。</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">了解しました</string>
+    <string name="Onboarding_DefaultSettings_Button_Change">デフォルト設定を変更する</string>
+    <string name="AddDescriptor_EnterURL">OONI Run リンク URL を入力してください</string>
+    <string name="AddDescriptor_URLInvalid">この URL は有効な OONI Run リンクではありません</string>
+    <string name="AddDescriptor_Title">新しいリンクの追加</string>
+    <string name="AddDescriptor_AutoUpdate">アップデートを自動的に適用する</string>
+    <string name="AddDescriptor_AutoRun">テストを自動的に実行する</string>
+    <string name="AddDescriptor_Toasts_Installed">リンクが追加されました</string>
+    <string name="AddDescriptor_Toasts_AlreadyInstalled">リンクはすでに追加されています</string>
+    <string name="AddDescriptor_InstallForLater">後で追加</string>
+    <string name="AddDescriptor_InstallAndRun">追加して実行</string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url">サポートされていない URL</string>
+    <string name="LoadingScreen_Runv2_Message">リンクを読み込み中</string>
+    <string name="LoadingScreen_Runv2_Failure">リンクの読み込みに失敗しました</string>
+    <string name="DescriptorUpdate_Updates">アップデート</string>
+    <string name="AddDescriptor_AutoRunDisabled">自動実行は無効になっています。テストを自動的に実行するには有効にしてください。</string>
+    <string name="Descriptor_LastTestResult">前回のテスト結果</string>
+    <string name="Snackbar_ResultsNotUploaded_Text">アップロードされていません</string>
+    <string name="Snackbar_ResultsSomeNotUploaded_Text">一部アップロードされていません</string>
+    <string name="Snackbar_ResultsSomeNotUploaded_UploadAll">すべてアップロード</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">%1$s をアップロード中…</string>
+    <string name="Toast_ResultsUploaded">アップロードに成功しました</string>
+    <string name="Modal_UploadFailed_Paragraph">%1$s/%2$s の計測データをアップロードできませんでした。エラーログは OONI デベロッパーと共有されました。</string>
+    <string name="Modal_Clear_Legacy_Directories">古いフォルダーを削除しますか？</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="other">%1$s 件のテスト結果を削除しますか？</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="other">%1$d 件選択済み</item>
+    </plurals>
+    <string name="Modal_ReRun_Title">テストの再実行</string>
+    <string name="Modal_ReRun_Websites_Title">%1$s 件のウェブサイトを再テストします。</string>
+    <string name="Modal_DisableVPN_Title">VPN 接続を無効にしてください。</string>
+    <string name="Modal_DisableVPN_Message">VPN を有効にした状態で OONI Probe を実行すると、テスト結果の国が正しく表示されない場合があります。VPN 接続を無効にしてください。</string>
+    <string name="Modal_DisableVPN">VPN を無効にする</string>
+    <string name="Modal_RunAnyway">とにかく実行する</string>
+    <string name="Modal_AlwaysRun">常に実行</string>
+    <string name="Modal_Error_CantDownloadURLs">URL リストをダウンロードできませんでした。もう一度お試しください。</string>
+    <string name="Modal_Error_ProxyUnavailable">選択したプロキシが利用できない可能性があります</string>
+    <string name="Modal_CustomURL_NotSaved">この画面を閉じると、URL は保存されません。本当にこの画面を閉じますか？</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">バックグラウンド実行の許可がないと、このアプリはテストを自動的に実行できません。もう一度試しますか？</string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder">このアプリは、バックグラウンドで自動的にテストを実行するための権限が必要です。</string>
+    <string name="Desktop_OpenApp">アプリを開く</string>
+    <string name="Tray_Notification_Checking_Updates">更新を確認中…</string>
+    <string name="Modal_Quite_Prompt">OONI Probe を終了しますか？</string>
+    <string name="Modal_Quite_Description">アプリを終了すると、バックグラウンドでの自動テストの実行ができなくなります。終了するには「終了」を、バックグラウンドで実行し続けるには「非表示」を選択します。</string>
+    <string name="Notification_UpdateChannelName">リンクの更新</string>
+    <string name="Notification_StopTest">テストを停止</string>
+    <string name="Common_Today">今日</string>
+    <string name="Common_Yesterday">昨日</string>
+    <string name="Common_Week">週</string>
+    <string name="Common_Month">月</string>
+    <plurals name="Common_Seconds">
+        <item quantity="other">%1$d 秒</item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="other">%1$d 分</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="other">%1$d 時間</item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="other">%1$d 日</item>
+    </plurals>
+    <string name="Common_Hours_Abbreviated">%1$d 時間</string>
+    <string name="Common_Minutes_Abbreviated">%1$d 分</string>
+    <string name="Common_Seconds_Abbreviated">%1$d 秒</string>
+    <string name="TaskOrigin_Manual">手動実行</string>
+    <string name="TaskOrigin_AutoRun">自動実行</string>
 </resources>

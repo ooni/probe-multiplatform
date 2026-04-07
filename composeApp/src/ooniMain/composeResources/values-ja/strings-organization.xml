@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OONI Probe</string>
-    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe とは?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">OONI Probe とは？</string>
     <string name="Settings_About_Label">OONI について</string>
     <string name="Settings_About_Content_LearnMore">詳細情報</string>
     <string name="Settings_About_Content_Blog">ブログ</string>
-    <string name="Settings_About_Content_Reports">報告書</string>
+    <string name="Settings_About_Content_Reports">レポート</string>
     <string name="Settings_Donate_Title">寄付</string>
-    <string name="Settings_Donate_Action">寄付</string>
+    <string name="Settings_Donate_Action">寄付する</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">インターネット検閲を計測するためのアプリ。 \n\nウェブサイトや SNS アプリがブロックされていますか？ネットワークが異常に遅いですか？\n\nOONI Probe を実行して調べましょう！</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">OONI のデータは公開され、そこにはユーザーのネットワーク情報も含まれます。</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">あなたのインターネットアクティビティを監視している人物 (政府や ISP など) は、あなたが OONI Probe を実行していることを知ることができます。</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">禁止されているウェブサイトをテストすることもあります (ただし、テストするサイトは選択できます) 。</string>
+    <string name="Onboarding_PopQuiz_1_Question">インターネットアクティビティを監視している人物は、OONI Probe を実行していることを知ることができる。</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe はプライバシーツールではありません。あなたのインターネットアクティビティを監視している人物は、あなたが実行しているソフトウェアを知ることができます。</string>
+    <string name="Onboarding_PopQuiz_2_Question">OONI Probe を実行するたびに、収集したネットワークデータは自動的に公開される。</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">インターネット検閲の実態を明らかにするため、すべての OONI Probe ユーザーのネットワークデータは自動的に公開されます (設定で無効にすることもできます) 。</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">インターネット検閲を毎日測定するには、自動テストを有効にして、OONI Probe が定期的にテストを実行できるようにしてください。\n\nバッテリーの使用量には十分配慮しておりますのでご安心ください。 \n\n自動テストは設定からいつでも無効にできます。</string>
+    <string name="Onboarding_Crash_Paragraph">OONI Probe の改善のため、アプリが正常に動作しない場合に、匿名化されたクラッシュレポートを収集できれば幸いです。\n\nOONI 開発チームへのクラッシュレポートの送信にオプトインしますか？</string>
+    <string name="Onboarding_CleanUp_Title">クリーンアップ</string>
+    <string name="Onboarding_CleanUp_Paragraph">以前のインストール時に残ったファイルがいくつか検出されました。インストールを続行する前に、これらのリソースを削除してください。</string>
+    <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) は、Tor Project 傘下のフリーソフトウェアプロジェクトで、世界中のインターネット検閲の実態を明らかにすることを目的としています。\n\n2012 年以来、OONI のグローバルコミュニティは 200 カ国以上のネットワークの計測を行ってきました。これらの計測結果の一部は、インターネット検閲の証拠として活用されています。</string>
+    <string name="Settings_About_Content_DataPolicy">OONI データポリシー</string>
+    <string name="Settings_Donate_Heading">インターネットの自由を守るために寄付をお願いします</string>
+    <string name="Settings_Donate_SubHeading">私たちは非営利団体として、自由で門戸が開かれた、すべての人々のためのインターネットを守るために、皆様からの寄付に支えられています。</string>
+    <string name="Settings_Donate_Support_Title">OONI に寄付して、以下の活動にご協力ください:</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">インターネット検閲を検出するためのフリー・オープンソースソフトウェア</string>
+    <string name="Settings_Donate_Support_Item_Analysis">世界中のインターネット検閲のリアルタイム分析</string>
+    <string name="Settings_Donate_Support_Item_OpenData">世界的な研究と権利擁護活動を支える、インターネット検閲に関するオープンデータ</string>
+    <string name="Settings_Donate_Support_Item_Research">世界中の検閲に関する調査</string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">外部のブラウザーウィンドウが開きます</string>
+    <string name="Settings_Donate_Action_Error">寄付ページを開く際にエラーが発生しました。%1$s にアクセスしてください</string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">このリンクは、作成者から送信された元のリンクからのみ再インストールできます。このリンクからの計測データは削除されますが、Explorer からは引き続きアクセスできます。</string>
 </resources>
