@@ -6,9 +6,14 @@ import org.ooni.engine.models.Success
 import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
+import uniffi.ooniprobe.CredentialResult
 import uniffi.ooniprobe.HttpResponse
 import uniffi.ooniprobe.KeyValue
 import uniffi.ooniprobe.OoniException
+import uniffi.ooniprobe.clientGet
+import uniffi.ooniprobe.clientPost
+import uniffi.ooniprobe.userauthRegister
+import uniffi.ooniprobe.userauthSubmit
 
 class DesktopPassportBridge : PassportBridge {
     override fun get(
@@ -17,7 +22,7 @@ class DesktopPassportBridge : PassportBridge {
         query: List<PassportBridge.KeyValue>,
     ): Result<PassportHttpResponse, PassportException> =
         try {
-            val response = uniffi.ooniprobe.clientGet(
+            val response = clientGet(
                 url = url,
                 headers = headers.map { KeyValue(it.key, it.value) },
                 query = query.map { KeyValue(it.key, it.value) },
@@ -33,7 +38,7 @@ class DesktopPassportBridge : PassportBridge {
         payload: String,
     ): Result<PassportHttpResponse, PassportException> =
         try {
-            val response = uniffi.ooniprobe.clientPost(
+            val response = clientPost(
                 url = url,
                 headers = headers.map { KeyValue(it.key, it.value) },
                 payload = payload,
@@ -49,7 +54,7 @@ class DesktopPassportBridge : PassportBridge {
         manifestVersion: String,
     ): Result<CredentialResponse, PassportException> =
         try {
-            val result = uniffi.ooniprobe.userauthRegister(url, publicParams, manifestVersion)
+            val result = userauthRegister(url, publicParams, manifestVersion)
             Success(result.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
@@ -66,7 +71,7 @@ class DesktopPassportBridge : PassportBridge {
         age: UInt,
     ): Result<CredentialResponse, PassportException> =
         try {
-            val result = uniffi.ooniprobe.userauthSubmit(
+            val result = userauthSubmit(
                 url = url,
                 credential = credential,
                 publicParams = publicParams,
@@ -74,7 +79,7 @@ class DesktopPassportBridge : PassportBridge {
                 probeCc = probeCc,
                 probeAsn = probeAsn,
                 manifestVersion = manifestVersion,
-                age = age,
+                emissionDay = age,
             )
             Success(result.toPassport())
         } catch (e: OoniException) {
@@ -90,7 +95,7 @@ private fun HttpResponse.toPassport() =
         bodyText = bodyText,
     )
 
-private fun uniffi.ooniprobe.CredentialResult.toPassport() =
+private fun CredentialResult.toPassport() =
     CredentialResponse(
         response = response.toPassport(),
         credential = credential,
