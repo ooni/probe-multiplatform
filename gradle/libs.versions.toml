@@ -104,7 +104,7 @@ moko-permissions-notifications = { module = "dev.icerock.moko:permissions-notifi
 sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.25.0" }
 
 # Markdown
-markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.39.2" }
+markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.40.2" }
 
 # WebView
 android-webkit = { module = "androidx.webkit:webkit", version = "1.15.0" }
