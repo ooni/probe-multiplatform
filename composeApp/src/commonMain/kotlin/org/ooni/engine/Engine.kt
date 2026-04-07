@@ -12,7 +12,6 @@ import kotlinx.serialization.json.Json
 import okio.use
 import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
 import org.ooni.engine.models.EnginePreferences
-import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskEventResult
@@ -20,26 +19,24 @@ import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
 import org.ooni.engine.models.resultOf
 import org.ooni.probe.config.OrganizationConfig
-import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.domain.CancelListenerCallback
 import org.ooni.probe.shared.PlatformInfo
-import org.ooni.probe.shared.monitoring.Instrumentation
 import kotlin.coroutines.CoroutineContext
 
 const val MAX_RUNTIME_DISABLED = -1
 
 class Engine(
-    @VisibleForTesting
+    @get:VisibleForTesting
     var bridge: OonimkallBridge,
     private val json: Json,
     private val baseFilePath: String,
     private val cacheDir: String,
     private val taskEventMapper: TaskEventMapper,
     private val networkTypeFinder: NetworkTypeFinder,
-    private val getBatteryState: () -> BatteryState,
     private val platformInfo: PlatformInfo,
     private val getEnginePreferences: suspend () -> EnginePreferences,
     private val addRunCancelListener: (() -> Unit) -> CancelListenerCallback,
@@ -48,7 +45,7 @@ class Engine(
     fun startTask(
         netTest: NetTest,
         taskOrigin: TaskOrigin,
-        descriptorId: Descriptor.Id?,
+        descriptorId: Descriptor.Id,
     ): Flow<TaskEvent> {
         val context = newSingleThreadContext("engine-start-task")
         return channelFlow {
@@ -103,38 +100,6 @@ class Engine(
             results
         }.mapError { MkException(it) }
 
-    suspend fun checkIn(taskOrigin: TaskOrigin): Result<OonimkallBridge.CheckInResults, MkException> =
-        resultOf(backgroundContext) {
-            val preferences = getEnginePreferences()
-            val sessionConfig = buildSessionConfig(taskOrigin, preferences)
-            val networkType = networkTypeFinder()
-            val config = OonimkallBridge.CheckInConfig(
-                charging = isBatteryCharging(),
-                onWiFi = if (networkType !is NetworkType.Unknown) {
-                    networkType == NetworkType.Wifi
-                } else {
-                    null
-                },
-                platform = platformInfo.platform.engineName,
-                runType = taskOrigin.runType,
-                softwareName = sessionConfig.softwareName,
-                softwareVersion = sessionConfig.softwareVersion,
-                webConnectivityCategories = preferences.enabledWebCategories,
-            )
-            Instrumentation.withTransaction(
-                operation = "CheckIn",
-                data = mapOf(
-                    "charging" to config.charging,
-                    "networkType" to networkType.value,
-                    "taskOrigin" to taskOrigin.value,
-                    "categoriesCount" to config.webConnectivityCategories.size,
-                    "maxRuntime" to preferences.maxRuntime?.inWholeSeconds.toString(),
-                ),
-            ) {
-                session(sessionConfig).use { it.checkIn(config) }
-            }
-        }.mapError { MkException(it) }
-
     suspend fun httpDo(
         method: String,
         url: String,
@@ -161,7 +126,7 @@ class Engine(
         netTest: NetTest,
         taskOrigin: TaskOrigin,
         preferences: EnginePreferences,
-        descriptorId: Descriptor.Id?,
+        descriptorId: Descriptor.Id,
     ) = TaskSettings(
         name = netTest.test.name,
         inputs = netTest.inputs.orEmpty(),
@@ -178,27 +143,25 @@ class Engine(
         geoIpDB = preferences.geoipDbPath,
         options = TaskSettings.Options(
             noCollector = true, // We upload the measurements ourselves
-            softwareName = buildSoftwareName(taskOrigin),
+            softwareName = platformInfo.buildSoftwareName(taskOrigin),
             softwareVersion = platformInfo.buildName,
-            maxRuntime = maxRuntime(taskOrigin, netTest, preferences),
+            maxRuntime = maxRuntime(taskOrigin, descriptorId, preferences),
         ),
         annotations = TaskSettings.Annotations(
             networkType = networkTypeFinder(),
-            flavor = buildSoftwareName(taskOrigin),
+            flavor = platformInfo.buildSoftwareName(taskOrigin),
             origin = taskOrigin,
             osVersion = platformInfo.osVersion,
-            ooniRunLinkId = descriptorId?.value ?: "",
+            ooniRunLinkId = descriptorId.value,
         ),
         proxy = preferences.proxy,
     )
 
     private fun maxRuntime(
         taskOrigin: TaskOrigin,
-        netTest: NetTest,
+        descriptorId: Descriptor.Id,
         preferences: EnginePreferences,
-    ) = if (taskOrigin == TaskOrigin.AutoRun) {
-        MAX_RUNTIME_DISABLED
-    } else if (netTest.callCheckIn) {
+    ) = if (taskOrigin == TaskOrigin.OoniRun && descriptorId.value == OoniTest.Websites.id) {
         preferences.maxRuntime?.inWholeSeconds?.toInt()?.let { maxRuntimePreference ->
             if (maxRuntimePreference > 0) 30 + maxRuntimePreference else MAX_RUNTIME_DISABLED
         } ?: MAX_RUNTIME_DISABLED
@@ -210,7 +173,7 @@ class Engine(
         taskOrigin: TaskOrigin,
         preferences: EnginePreferences,
     ) = OonimkallBridge.SessionConfig(
-        softwareName = buildSoftwareName(taskOrigin),
+        softwareName = platformInfo.buildSoftwareName(taskOrigin),
         softwareVersion = platformInfo.buildName,
         proxy = preferences.proxy,
         probeServicesURL = OrganizationConfig.ooniApiBaseUrl,
@@ -222,20 +185,6 @@ class Engine(
         logger = oonimkallLogger,
         verbose = false,
     )
-
-    private fun buildSoftwareName(taskOrigin: TaskOrigin) =
-        OrganizationConfig.baseSoftwareName +
-            "-" +
-            platformInfo.platform.engineName +
-            (if (taskOrigin == TaskOrigin.AutoRun) "-" + "unattended" else "")
-
-    private fun isBatteryCharging(): Boolean =
-        when (getBatteryState()) {
-            BatteryState.NotCharging -> false
-            BatteryState.Charging,
-            BatteryState.Unknown,
-            -> true
-        }
 
     private val oonimkallLogger by lazy {
         object : OonimkallBridge.Logger {
@@ -253,12 +202,6 @@ class Engine(
         }
     }
 
-    private val TaskOrigin.runType
-        get() = when (this) {
-            TaskOrigin.AutoRun -> "timed"
-            TaskOrigin.OoniRun -> "manual"
-        }
-
     class SubmissionFailed(
         cause: String,
     ) : Exception(cause)
@@ -267,3 +210,9 @@ class Engine(
         t: Throwable,
     ) : Exception(t)
 }
+
+fun PlatformInfo.buildSoftwareName(taskOrigin: TaskOrigin) =
+    OrganizationConfig.baseSoftwareName +
+        "-" +
+        platform.engineName +
+        (if (taskOrigin == TaskOrigin.AutoRun) "-" + "unattended" else "")

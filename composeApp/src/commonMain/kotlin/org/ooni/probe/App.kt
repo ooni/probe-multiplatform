@@ -107,6 +107,9 @@ fun App(
         dependencies.observeAndConfigureAutoUpdate()
     }
     LaunchedEffect(Unit) {
+        dependencies.prepareAnonymousCredentials()
+    }
+    LaunchedEffect(Unit) {
         dependencies.refreshArticles()
     }
 

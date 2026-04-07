@@ -21,7 +21,7 @@ class GetTestDescriptorsBySpec(
                 val specDescriptor = descriptor.copy(
                     descriptor = descriptor.descriptor.copy(
                         netTests = netTestsWithInputs,
-                        // long running are already inside netTests
+                        // long-running are already inside netTests
                         longRunningTests = emptyList(),
                     ),
                 )

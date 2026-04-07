@@ -1,8 +1,5 @@
 package org.ooni.engine
 
-import oonimkall.CheckInConfig
-import oonimkall.CheckInConfigWebConnectivity
-import oonimkall.CheckInInfoWebConnectivity
 import oonimkall.HTTPRequest
 import oonimkall.Logger
 import oonimkall.Oonimkall
@@ -32,17 +29,7 @@ class DesktopOonimkallBridge : OonimkallBridge {
                 return OonimkallBridge.SubmitMeasurementResults(
                     updatedMeasurement = results.updatedMeasurement,
                     updatedReportId = results.updatedReportID,
-                    // TODO: Missing measurementUID until we get the new engine
-                    measurementUid = "",
-                )
-            }
-
-            override fun checkIn(config: OonimkallBridge.CheckInConfig): OonimkallBridge.CheckInResults {
-                val context = session.newContextWithTimeout(CONTEXT_TIMEOUT)
-                val info = session.checkIn(context, config.toMk())
-                return OonimkallBridge.CheckInResults(
-                    reportId = info.webConnectivity?.reportID,
-                    urls = info.webConnectivity.getUrlInfos(),
+                    measurementUid = results.measurementUID,
                 )
             }
 
@@ -87,43 +74,11 @@ class DesktopOonimkallBridge : OonimkallBridge {
             it.verbose = verbose
         }
 
-    private fun OonimkallBridge.CheckInConfig.toMk() =
-        CheckInConfig().also {
-            it.charging = charging
-            if (onWiFi != null) it.onWiFi = onWiFi
-            it.platform = platform
-            it.runType = runType
-            it.softwareName = softwareName
-            it.softwareVersion = softwareVersion
-            it.webConnectivity =
-                CheckInConfigWebConnectivity().also {
-                    webConnectivityCategories.forEach { category ->
-                        it.addCategory(category)
-                    }
-                }
-        }
-
     private fun OonimkallBridge.HTTPRequest.toMk() =
         HTTPRequest().also {
             it.method = method
             it.url = url
         }
-
-    private fun CheckInInfoWebConnectivity?.getUrlInfos(): List<OonimkallBridge.UrlInfo> {
-        if (this == null) return emptyList()
-
-        return (0 until size()).mapNotNull { index ->
-            at(index).let { urlInfo ->
-                if (urlInfo.url == null) return@mapNotNull null
-
-                OonimkallBridge.UrlInfo(
-                    url = urlInfo.url,
-                    categoryCode = urlInfo.categoryCode,
-                    countryCode = urlInfo.countryCode,
-                )
-            }
-        }
-    }
 
     companion object {
         private const val CONTEXT_TIMEOUT = -1L
