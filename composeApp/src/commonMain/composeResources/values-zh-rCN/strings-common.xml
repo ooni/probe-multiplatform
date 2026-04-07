@@ -443,4 +443,5 @@
     <string name="TaskOrigin_AutoRun">自动运行</string>
     <string name="NetworkType_Vpn">VPN</string>
     <string name="AddDescriptor_Toasts_AlreadyInstalled">链接已经安装</string>
+    <string name="Result_Error">测试错误</string>
 </resources>
