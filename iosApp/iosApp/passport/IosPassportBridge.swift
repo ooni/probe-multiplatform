@@ -81,7 +81,7 @@ class IosPassportBridge: PassportBridge {
                 probeCc: probeCc,
                 probeAsn: probeAsn,
                 manifestVersion: manifestVersion,
-                age: age
+                emissionDay: age
             )
             return IosPassportBridgeHelpersKt.SuccessCredentialResponse(value: response.toPassport())
         } catch let error as OoniError {

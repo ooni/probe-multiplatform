@@ -471,12 +471,14 @@ private struct FfiConverterString: FfiConverter {
 public struct CredentialResult {
     public var response: HttpResponse
     public var credential: String?
+    public var emissionDay: UInt32?
 
     /// Default memberwise initializers are never public by default, so we
     /// declare one manually.
-    public init(response: HttpResponse, credential: String?) {
+    public init(response: HttpResponse, credential: String?, emissionDay: UInt32?) {
         self.response = response
         self.credential = credential
+        self.emissionDay = emissionDay
     }
 }
 
@@ -488,12 +490,16 @@ extension CredentialResult: Equatable, Hashable {
         if lhs.credential != rhs.credential {
             return false
         }
+        if lhs.emissionDay != rhs.emissionDay {
+            return false
+        }
         return true
     }
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(response)
         hasher.combine(credential)
+        hasher.combine(emissionDay)
     }
 }
 
@@ -505,13 +511,15 @@ public struct FfiConverterTypeCredentialResult: FfiConverterRustBuffer {
         return
             try CredentialResult(
                 response: FfiConverterTypeHttpResponse.read(from: &buf),
-                credential: FfiConverterOptionString.read(from: &buf)
+                credential: FfiConverterOptionString.read(from: &buf),
+                emissionDay: FfiConverterOptionUInt32.read(from: &buf)
             )
     }
 
     public static func write(_ value: CredentialResult, into buf: inout [UInt8]) {
         FfiConverterTypeHttpResponse.write(value.response, into: &buf)
         FfiConverterOptionString.write(value.credential, into: &buf)
+        FfiConverterOptionUInt32.write(value.emissionDay, into: &buf)
     }
 }
 
@@ -832,6 +840,30 @@ extension OoniError: Foundation.LocalizedError {
 #if swift(>=5.8)
     @_documentation(visibility: private)
 #endif
+private struct FfiConverterOptionUInt32: FfiConverterRustBuffer {
+    typealias SwiftType = UInt32?
+
+    static func write(_ value: SwiftType, into buf: inout [UInt8]) {
+        guard let value = value else {
+            writeInt(&buf, Int8(0))
+            return
+        }
+        writeInt(&buf, Int8(1))
+        FfiConverterUInt32.write(value, into: &buf)
+    }
+
+    static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> SwiftType {
+        switch try readInt(&buf) as Int8 {
+        case 0: return nil
+        case 1: return try FfiConverterUInt32.read(from: &buf)
+        default: throw UniffiInternalError.unexpectedOptionalTag
+        }
+    }
+}
+
+#if swift(>=5.8)
+    @_documentation(visibility: private)
+#endif
 private struct FfiConverterOptionString: FfiConverterRustBuffer {
     typealias SwiftType = String?
 
@@ -968,7 +1000,7 @@ public func userauthRegister(url: String, publicParams: String, manifestVersion:
     })
 }
 
-public func userauthSubmit(url: String, credential: String, publicParams: String, content: String, probeCc: String, probeAsn: String, manifestVersion: String, age: UInt32) throws -> CredentialResult {
+public func userauthSubmit(url: String, credential: String, publicParams: String, content: String, probeCc: String, probeAsn: String, manifestVersion: String, emissionDay: UInt32) throws -> CredentialResult {
     return try FfiConverterTypeCredentialResult.lift(rustCallWithError(FfiConverterTypeOoniError.lift) {
         uniffi_uniffi_ooniprobe_fn_func_userauth_submit(
             FfiConverterString.lower(url),
@@ -978,7 +1010,7 @@ public func userauthSubmit(url: String, credential: String, publicParams: String
             FfiConverterString.lower(probeCc),
             FfiConverterString.lower(probeAsn),
             FfiConverterString.lower(manifestVersion),
-            FfiConverterUInt32.lower(age), $0
+            FfiConverterUInt32.lower(emissionDay), $0
         )
     })
 }
@@ -1011,7 +1043,7 @@ private var initializationResult: InitializationResult = {
     if uniffi_uniffi_ooniprobe_checksum_func_userauth_register() != 39441 {
         return InitializationResult.apiChecksumMismatch
     }
-    if uniffi_uniffi_ooniprobe_checksum_func_userauth_submit() != 59453 {
+    if uniffi_uniffi_ooniprobe_checksum_func_userauth_submit() != 28860 {
         return InitializationResult.apiChecksumMismatch
     }
 
