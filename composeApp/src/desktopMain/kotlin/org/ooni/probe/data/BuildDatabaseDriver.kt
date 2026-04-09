@@ -8,12 +8,23 @@ import co.touchlab.kermit.Logger
 import okio.Path
 import okio.Path.Companion.toPath
 import org.ooni.probe.Database
+import java.util.Properties
 
 private const val DATABASE_FILE_NAME = "probe.db"
 
 fun buildDatabaseDriver(folder: String): SqlDriver {
     val databasePath = folder.toPath().resolve(DATABASE_FILE_NAME)
-    val driver = JdbcSqliteDriver("jdbc:sqlite:$databasePath")
+    val properties = Properties().apply {
+        put("journal_mode", "wal")
+        put("busy_timeout", "5000")
+        put("foreign_keys", "on")
+    }
+    val driver = JdbcSqliteDriver("jdbc:sqlite:$databasePath", properties)
+
+    // Ensure PRAGMAs are active regardless of sqlite-jdbc Properties support
+    driver.execute(null, "PRAGMA journal_mode=WAL;", 0, null)
+    driver.execute(null, "PRAGMA busy_timeout=5000;", 0, null)
+
     val dbVersion = driver.getDatabaseVersion()
     val schemaVersion = Database.Schema.version
 

@@ -19,7 +19,7 @@ object MacDockVisibility {
      */
     fun showDockIcon() {
         if (!isMacOS()) {
-            Logger.d("MacDockVisibility: Not on macOS, skipping dock icon show")
+            Logger.v("MacDockVisibility: Not on macOS, skipping dock icon show")
             return
         }
 
@@ -30,7 +30,7 @@ object MacDockVisibility {
 
         try {
             showInDockNative()
-            Logger.d("MacDockVisibility: Successfully showed dock icon via JNI")
+            Logger.v("MacDockVisibility: Successfully showed dock icon via JNI")
         } catch (e: Exception) {
             Logger.w("MacDockVisibility: Failed to show dock icon via JNI", e)
         }
@@ -42,7 +42,7 @@ object MacDockVisibility {
      */
     fun hideDockIcon() {
         if (!isMacOS()) {
-            Logger.d("MacDockVisibility: Not on macOS, skipping dock icon hide")
+            Logger.v("MacDockVisibility: Not on macOS, skipping dock icon hide")
             return
         }
 
@@ -53,7 +53,7 @@ object MacDockVisibility {
 
         try {
             removeFromDockNative()
-            Logger.d("MacDockVisibility: Successfully hid dock icon via JNI")
+            Logger.v("MacDockVisibility: Successfully hid dock icon via JNI")
         } catch (e: Exception) {
             Logger.w("MacDockVisibility: Failed to hide dock icon via JNI", e)
         }
