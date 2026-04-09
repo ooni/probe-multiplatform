@@ -73,7 +73,7 @@ class AndroidPassportBridge : PassportBridge {
                 probeCc = probeCc,
                 probeAsn = probeAsn,
                 manifestVersion = manifestVersion,
-                age = age,
+                emissionDay = age,
             )
             Success(result.toPassport())
         } catch (e: OoniException) {
