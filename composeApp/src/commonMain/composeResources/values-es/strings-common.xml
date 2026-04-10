@@ -441,4 +441,26 @@
         <item quantity="many">%1$d de fallidas</item>
         <item quantity="other">%1$d fallidas</item>
     </plurals>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions">Revisiones anteriores</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last">ACTUALIZAR Y TERMINAR (%1$s de %2$s)</string>
+    <string name="Results_UploadingMissing">Enviando resultados pendientes %1$s</string>
+    <string name="Result_Error">error de prueba</string>
+    <string name="Settings_Proxy_Custom_Add">Agregar proxy personalizado</string>
+    <string name="Settings_Results_DeleteOldResults">Eliminar resultados antiguos</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold">Excluir resultados mais antigos que</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Introduzca el número de meses</string>
+    <string name="Settings_ShareApp_ShareMessage">Instalar %1$s en %2$s</string>
+    <string name="Settings_ShareLogs">Compartir Registros</string>
+    <string name="Settings_ShareLogs_Error">Error al compartir registros</string>
+    <string name="Settings_FilterLogs">Filtrar Registros</string>
+    <string name="AddDescriptor_AutoUpdate">Instalar actualizaciones automáticamente</string>
+    <string name="AddDescriptor_Toasts_Installed">Enlace instalado</string>
+    <string name="AddDescriptor_Toasts_AlreadyInstalled">Enlace ya instalado</string>
+    <string name="AddDescriptor_InstallForLater">Instalar para más tarde</string>
+    <string name="AddDescriptor_InstallAndRun">Instalar y Ejecutar</string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url">URL no compatible</string>
+    <string name="LoadingScreen_Runv2_Failure">Error al cargar el enlace</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Subiendo %1$s…</string>
+    <string name="Tray_Notification_Checking_Updates">Buscando actualizaciones…</string>
+    <string name="Modal_Quite_Prompt">¿Abandonar lo OONI Probe?</string>
 </resources>

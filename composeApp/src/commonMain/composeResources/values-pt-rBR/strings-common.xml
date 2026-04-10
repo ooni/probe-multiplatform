@@ -487,4 +487,5 @@
     <string name="NetworkType_Vpn">VPN</string>
     <string name="Dashboard_Articles_OpenExternal">Abrir no navegador</string>
     <string name="AddDescriptor_Toasts_AlreadyInstalled">Link já instalado</string>
+    <string name="Result_Error">erro de teste</string>
 </resources>
