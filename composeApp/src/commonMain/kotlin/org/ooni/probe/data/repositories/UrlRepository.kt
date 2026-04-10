@@ -16,23 +16,24 @@ class UrlRepository(
     private val database: Database,
     private val backgroundContext: CoroutineContext,
 ) {
-    suspend fun createOrUpdate(model: UrlModel): UrlModel.Id =
+    suspend fun createOrUpdate(model: UrlModel): UrlModel =
         withContext(backgroundContext) {
             database.transactionWithResult {
                 createOrUpdateWithoutTransaction(model)
             }
         }
 
-    private fun createOrUpdateWithoutTransaction(model: UrlModel): UrlModel.Id {
+    private fun createOrUpdateWithoutTransaction(model: UrlModel): UrlModel {
         database.urlQueries.insertOrReplace(
             id = model.id?.value,
             url = model.url,
             country_code = model.countryCode,
             category_code = model.category.code,
         )
-
-        return model.id ?: UrlModel.Id(
-            database.urlQueries.selectLastInsertedRowId().executeAsOne(),
+        return model.copy(
+            id = model.id ?: UrlModel.Id(
+                database.urlQueries.selectLastInsertedRowId().executeAsOne(),
+            ),
         )
     }
 
@@ -48,22 +49,24 @@ class UrlRepository(
                         }.flatMap { list -> list.mapNotNull { it.toModel() } }
 
                 models.map { model ->
+                    // Already has ID, let's update
                     if (model.id != null) {
                         createOrUpdateWithoutTransaction(model)
-                        model
-                    } else {
-                        val existingModel = existingModels.firstOrNull { it.url == model.url }
+                        return@map model
+                    }
 
-                        if (existingModel != null) {
-                            val modelWithId = model.copy(id = existingModel.id)
-                            if (model != existingModel) {
-                                createOrUpdateWithoutTransaction(modelWithId)
-                            }
-                            modelWithId
-                        } else {
-                            val modelId = createOrUpdateWithoutTransaction(model)
-                            model.copy(id = modelId)
-                        }
+                    val existingModel = existingModels.firstOrNull { it.url == model.url }
+                    if (existingModel == null) {
+                        // New URL, let's insert
+                        return@map createOrUpdateWithoutTransaction(model)
+                    }
+
+                    // Existing URL, let's update if something changed
+                    val modelWithId = model.copy(id = existingModel.id)
+                    if (modelWithId != existingModel) {
+                        createOrUpdateWithoutTransaction(modelWithId)
+                    } else {
+                        existingModel
                     }
                 }
             }
@@ -79,7 +82,7 @@ class UrlRepository(
                     category = WebConnectivityCategory.MISC,
                     countryCode = null,
                 )
-                newModel.copy(id = createOrUpdate(newModel))
+                createOrUpdate(newModel)
             }
 
     fun list(): Flow<List<UrlModel>> =

@@ -3,6 +3,7 @@ package org.ooni.probe.data.repositories
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.ooni.probe.Database
@@ -18,8 +19,12 @@ class ArticleRepository(
 ) {
     suspend fun refresh(models: List<ArticleModel>) {
         withContext(backgroundContext) {
+            val existing = list().first().toSet()
+            val newOrChanged = models - existing
+            val removedUrls = existing.map { it.url.value } - models.map { it.url.value }.toSet()
+
             database.transaction {
-                models.forEach { model ->
+                newOrChanged.forEach { model ->
                     database.articleQueries.insertOrReplace(
                         url = model.url.value,
                         title = model.title,
@@ -29,7 +34,7 @@ class ArticleRepository(
                         time = model.time.toEpoch(),
                     )
                 }
-                database.articleQueries.deleteExceptUrls(models.map { it.url.value })
+                database.articleQueries.deleteByUrl(removedUrls)
             }
         }
     }
