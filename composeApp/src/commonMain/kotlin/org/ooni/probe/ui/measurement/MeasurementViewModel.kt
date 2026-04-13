@@ -75,7 +75,7 @@ class MeasurementViewModel(
     private fun MeasurementWithUrl.getWebViewUrl(): String? {
         val m = measurement
         val input = url?.url
-        return if (m.uid != null) {
+        return if (m.uid != null && m.uid.value.isNotBlank()) {
             "${OrganizationConfig.explorerUrl}/m/${m.uid.value}?webview=true&language=${Locale.current.language}-${Locale.current.region}"
         } else if (m.reportId != null) {
             val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
