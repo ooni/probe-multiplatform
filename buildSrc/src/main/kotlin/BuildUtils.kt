@@ -17,13 +17,15 @@ fun Project.isFdroidTaskRequested(): Boolean =
 fun Project.isDebugTaskRequested(): Boolean {
     val isTaskDebug = gradle.startParameter.taskRequests
         .flatMap { it.args }
-        .any { it.contains("Debug") }
+        .any { it.contains("Debug") || it.contains("Run") }
+    logger.info("isTaskDebug=$isTaskDebug")
+
     if (isTaskDebug) return true
 
     return try {
         val properties = Properties()
         properties.load(project.rootProject.file("local.properties").inputStream())
-        println("forceDebug=${properties["forceDebug"]}")
+        logger.info("forceDebug=${properties["forceDebug"]}")
         properties["forceDebug"] == true || properties["forceDebug"] == "true"
     } catch (e: Exception) {
         e.printStackTrace()

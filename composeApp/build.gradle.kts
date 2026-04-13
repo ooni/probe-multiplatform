@@ -498,6 +498,8 @@ compose.desktop {
         jvmArgs += listOf(
             "-Dapp.version.name=${android.defaultConfig.versionName}",
             "-Dapp.version.code=${android.defaultConfig.versionCode}",
+            "-Dapp.version.code=${android.defaultConfig.versionCode}",
+            "-Dapp.debug=${isDebugTaskRequested()}",
         )
     }
 }

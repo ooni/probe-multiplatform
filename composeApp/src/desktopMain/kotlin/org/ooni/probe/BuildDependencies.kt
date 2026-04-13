@@ -66,7 +66,7 @@ private fun buildPlatformInfo(): PlatformInfo {
     val osVersion = System.getProperty("os.version")
     val buildName = System.getProperty("app.version.name")?.ifBlank { null } ?: "1.0.0"
     val buildNumber = System.getProperty("app.version.code")?.ifBlank { null } ?: "0"
-    val isDebug = System.getProperty("app.debug")?.toBoolean() ?: false
+    val isDebug = System.getProperty("app.debug")?.toBoolean() ?: true
     val environment = if (isDebug) "development" else "production"
 
     return PlatformInfo(

@@ -307,12 +307,6 @@ private fun Project.configureTaskDependencies() {
         tasks.findByName("packageDmg")?.dependsOn(ooniDistributableTask)
         tasks.findByName("packageDistributionForCurrentOS")?.dependsOn(ooniDistributableTask)
         tasks.findByName("runDistributable")?.dependsOn(ooniDistributableTask)
-
-        // Mark run* tasks as debug builds.
-        // Packaged distributions (DMG, MSI, etc.) won't have this, so app.debug defaults to null (= release).
-        tasks.matching { it.name.startsWith("run") && it is JavaExec }.configureEach {
-            (this as JavaExec).jvmArgs("-Dapp.debug=true")
-        }
     }
 }
 
