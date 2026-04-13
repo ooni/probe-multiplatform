@@ -464,4 +464,6 @@
     <string name="TaskOrigin_Manual">Manuelle Ausführung</string>
     <string name="TaskOrigin_AutoRun">Automatischer Start</string>
     <string name="NetworkType_Vpn">VPN</string>
+    <string name="Result_Error">test fehler</string>
+    <string name="AddDescriptor_Toasts_AlreadyInstalled">Link bereits installiert</string>
 </resources>
