@@ -17,7 +17,10 @@ fun Project.isFdroidTaskRequested(): Boolean =
 fun Project.isDebugTaskRequested(): Boolean {
     val isTaskDebug = gradle.startParameter.taskRequests
         .flatMap { it.args }
-        .any { it.contains("Debug") || it.contains("Run") }
+        .any {
+            it.contains("Debug") ||
+                (it.contains("run", ignoreCase = true) && !it.contains("Release", ignoreCase = true))
+        }
     logger.info("isTaskDebug=$isTaskDebug")
 
     if (isTaskDebug) return true
