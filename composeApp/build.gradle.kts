@@ -493,14 +493,6 @@ compose.desktop {
                 iconFile.set(rootProject.file("icons/app.png"))
             }
         }
-
-        // Pass properties to the JVM when running from Gradle
-        jvmArgs += listOf(
-            "-Dapp.version.name=${android.defaultConfig.versionName}",
-            "-Dapp.version.code=${android.defaultConfig.versionCode}",
-            "-Dapp.version.code=${android.defaultConfig.versionCode}",
-            "-Dapp.debug=${isDebugTaskRequested()}",
-        )
     }
 }
 
@@ -571,6 +563,14 @@ compose.resources {
 }
 
 version = android.defaultConfig.versionName ?: ""
+
+registerDesktopBuildConfigTask(
+    versionName = android.defaultConfig.versionName ?: "1.0.0",
+    versionCode = android.defaultConfig.versionCode ?: 0,
+)
+kotlin.sourceSets.getByName("desktopMain") {
+    kotlin.srcDir(tasks.named("generateDesktopBuildConfig"))
+}
 
 dependencies {
     debugImplementation(libs.compose.ui.tooling)
