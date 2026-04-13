@@ -12,7 +12,7 @@ object ArticleModelFactory {
         url: ArticleModel.Url = ArticleModel.Url("https://example.org/${Random.nextInt()}"),
         title: String = "Title",
         time: LocalDateTime = LocalDate.today().atTime(0, 0),
-        description: String? = null,
+        description: String? = Random.nextBytes(1024).toString(),
         imageUrl: String? = null,
         source: ArticleModel.Source = ArticleModel.Source.Blog,
     ) = ArticleModel(

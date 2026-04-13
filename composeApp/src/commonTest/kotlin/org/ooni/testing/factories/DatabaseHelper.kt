@@ -102,9 +102,10 @@ class DatabaseHelper private constructor(
                 MeasurementModelFactory.build(
                     resultId = trustedId,
                     test = TestType.WebConnectivity,
-                    urlId = shared.dependency.urlRepository.createOrUpdate(
-                        UrlModelFactory.build(url = "https://www.dw.com"),
-                    ),
+                    urlId = shared.dependency.urlRepository
+                        .createOrUpdate(
+                            UrlModelFactory.build(url = "https://www.dw.com"),
+                        ).id,
                     reportId = MeasurementModel.ReportId("20250205T153106Z_webconnectivity_DE_3209_n1_iB2GPLBoLLpSlEYf"),
                     isDone = true,
                     isUploaded = true,
@@ -130,9 +131,10 @@ class DatabaseHelper private constructor(
                     MeasurementModelFactory.build(
                         resultId = trustedId,
                         test = TestType.WebConnectivity,
-                        urlId = shared.dependency.urlRepository.createOrUpdate(
-                            UrlModelFactory.build(url = url),
-                        ),
+                        urlId = shared.dependency.urlRepository
+                            .createOrUpdate(
+                                UrlModelFactory.build(url = url),
+                            ).id,
                         reportId = MeasurementModel.ReportId("12345"),
                         isDone = true,
                         isUploaded = true,
@@ -145,9 +147,10 @@ class DatabaseHelper private constructor(
                     MeasurementModelFactory.build(
                         resultId = selectedId,
                         test = TestType.WebConnectivity,
-                        urlId = shared.dependency.urlRepository.createOrUpdate(
-                            UrlModelFactory.build(url = "https://example.org"),
-                        ),
+                        urlId = shared.dependency.urlRepository
+                            .createOrUpdate(
+                                UrlModelFactory.build(url = "https://example.org"),
+                            ).id,
                         reportId = MeasurementModel.ReportId("12345"),
                         isDone = true,
                         isUploaded = true,
@@ -160,9 +163,10 @@ class DatabaseHelper private constructor(
                     MeasurementModelFactory.build(
                         resultId = globalId,
                         test = TestType.WebConnectivity,
-                        urlId = shared.dependency.urlRepository.createOrUpdate(
-                            UrlModelFactory.build(url = "https://example.org"),
-                        ),
+                        urlId = shared.dependency.urlRepository
+                            .createOrUpdate(
+                                UrlModelFactory.build(url = "https://example.org"),
+                            ).id,
                         reportId = MeasurementModel.ReportId("12345"),
                         isDone = true,
                         isUploaded = true,
@@ -188,9 +192,10 @@ class DatabaseHelper private constructor(
                 MeasurementModelFactory.build(
                     resultId = websitesResultId,
                     test = TestType.WebConnectivity,
-                    urlId = shared.dependency.urlRepository.createOrUpdate(
-                        UrlModelFactory.build(url = "https://z-lib.org/"),
-                    ),
+                    urlId = shared.dependency.urlRepository
+                        .createOrUpdate(
+                            UrlModelFactory.build(url = "https://z-lib.org/"),
+                        ).id,
                     reportId = MeasurementModel.ReportId("20250210T113750Z_webconnectivity_IT_12874_n1_qx1LFyoqM4orUsor"),
                     isDone = true,
                     isUploaded = true,
@@ -223,9 +228,10 @@ class DatabaseHelper private constructor(
                 shared.dependency.measurementRepository.createOrUpdate(
                     MeasurementModelFactory.build(
                         resultId = websitesResultId,
-                        urlId = shared.dependency.urlRepository.createOrUpdate(
-                            UrlModelFactory.build(url = url),
-                        ),
+                        urlId = shared.dependency.urlRepository
+                            .createOrUpdate(
+                                UrlModelFactory.build(url = url),
+                            ).id,
                         isDone = true,
                         isUploaded = true,
                         isAnomaly = false,
@@ -245,9 +251,10 @@ class DatabaseHelper private constructor(
                     MeasurementModelFactory.build(
                         resultId = websitesResultId,
                         test = TestType.WebConnectivity,
-                        urlId = shared.dependency.urlRepository.createOrUpdate(
-                            UrlModelFactory.build(url = url),
-                        ),
+                        urlId = shared.dependency.urlRepository
+                            .createOrUpdate(
+                                UrlModelFactory.build(url = url),
+                            ).id,
                         isDone = true,
                         isUploaded = true,
                         isAnomaly = true,

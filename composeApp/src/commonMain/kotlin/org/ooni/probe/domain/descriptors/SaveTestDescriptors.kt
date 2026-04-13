@@ -15,7 +15,7 @@ class SaveTestDescriptors(
         mode: Mode,
     ) {
         val webConnectivityUrls = models
-            .flatMap { it.netTests.orEmpty() }
+            .flatMap { it.netTests }
             .filter { it.test == TestType.WebConnectivity }
             .flatMap { it.inputs.orEmpty() }
             .map { url ->

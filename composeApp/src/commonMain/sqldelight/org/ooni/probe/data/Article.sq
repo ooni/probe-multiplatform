@@ -20,6 +20,6 @@ INSERT OR REPLACE INTO Article (
 selectAll:
 SELECT * FROM Article ORDER BY time DESC;
 
-deleteExceptUrls:
-DELETE FROM Article WHERE Article.url NOT IN ?;
+deleteByUrl:
+DELETE FROM Article WHERE Article.url IN ?;
 

@@ -49,11 +49,11 @@ class UrlRepositoryTest {
         runTest {
             val model = UrlModelFactory.build(id = UrlModel.Id(Random.nextLong().absoluteValue))
 
-            val modelId = subject.createOrUpdate(model)
-            val result = subject.list().first().first()
+            val updateModel = subject.createOrUpdate(model)
+            val listModel = subject.list().first().first()
 
-            assertEquals(model.id, modelId)
-            assertEquals(model, result)
+            assertEquals(model, updateModel)
+            assertEquals(model, listModel)
         }
 
     @Test
@@ -105,11 +105,12 @@ class UrlRepositoryTest {
             val url = "htts://example.org"
             val model = UrlModelFactory.build(url = url)
 
-            val id = subject.createOrUpdate(model)
+            val createModel = subject.createOrUpdate(model)
             val result = subject.getOrCreateByUrl(url)
 
             assertNotNull(result)
+            assertNotNull(createModel.id)
             assertEquals(url, result.url)
-            assertEquals(id, result.id)
+            assertEquals(createModel.id, result.id)
         }
 }
