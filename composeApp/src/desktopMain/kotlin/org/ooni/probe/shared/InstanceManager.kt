@@ -86,19 +86,21 @@ class InstanceManager(
     }
 
     private fun findUrlInArgs(args: Array<String>): String? {
-        args.forEach { arg ->
-            val sanitizedArg =
-                // Windows can sometimes add extra slashes
-                arg
-                    .replace(":////", "://")
-                    .replace(":/\\", "://")
+        args
+            .filter { it.isNotBlank() }
+            .forEach { arg ->
+                val sanitizedArg =
+                    // Windows can sometimes add extra slashes
+                    arg
+                        .replace(":////", "://")
+                        .replace(":/\\", "://")
 
-            try {
-                URI.create(sanitizedArg) // parse URL
-                return sanitizedArg
-            } catch (_: Exception) {
+                try {
+                    URI.create(sanitizedArg) // parse URL
+                    return sanitizedArg
+                } catch (_: Exception) {
+                }
             }
-        }
 
         // Windows can sometimes pass URLs with the protocol separated
         if (args.size >= 2 && args.first().endsWith(":")) {
