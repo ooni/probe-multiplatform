@@ -34,7 +34,9 @@ class SubmitMeasurement(
                     isUploadFailed = false,
                     uploadFailureMessage = null,
                     reportId = MeasurementModel.ReportId(result.value.updatedReportId),
-                    uid = result.value.measurementUid?.let(MeasurementModel::Uid),
+                    uid = result.value.measurementUid
+                        ?.ifBlank { null }
+                        ?.let(MeasurementModel::Uid),
                 )
                 updateMeasurement(newMeasurement)
                 deleteFiles(reportFilePath)
