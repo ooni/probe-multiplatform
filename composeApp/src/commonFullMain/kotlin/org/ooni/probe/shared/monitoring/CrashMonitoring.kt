@@ -105,6 +105,8 @@ class CrashMonitoring(
         private val MESSAGES_TO_SKIP_REPORT = listOf(
             "Picking from default OpenVPN endpoints",
             "sessionresolver: LookupHost failed",
+            "We disabled the",
+            "experiment not enabled by check-in API",
         )
     }
 }
