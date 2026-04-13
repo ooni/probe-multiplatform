@@ -43,6 +43,47 @@ private fun Project.registerAndroidTasks(config: AppConfig) {
     }
 }
 
+/**
+ * Registers a task that generates DesktopBuildConfig.kt with version info
+ * baked into compiled code (replacing System.getProperty which requires JVM args).
+ *
+ * Must be called from the build script where Android extension values are available.
+ * The caller is also responsible for wiring the output to the desktopMain source set:
+ * ```
+ * kotlin.sourceSets.getByName("desktopMain") {
+ *     kotlin.srcDir(tasks.named("generateDesktopBuildConfig"))
+ * }
+ * ```
+ */
+fun Project.registerDesktopBuildConfigTask(
+    versionName: String,
+    versionCode: Int,
+) {
+    val isDebug = isDebugTaskRequested()
+    tasks.register("generateDesktopBuildConfig") {
+        val outputDir = layout.buildDirectory.dir("generated/desktopBuildConfig/kotlin")
+        inputs.property("versionName", versionName)
+        inputs.property("versionCode", versionCode)
+        inputs.property("isDebug", isDebug)
+        outputs.dir(outputDir)
+        doLast {
+            val dir = outputDir.get().asFile.resolve("org/ooni/probe")
+            dir.mkdirs()
+            dir.resolve("DesktopBuildConfig.kt").writeText(
+                """
+                |package org.ooni.probe
+                |
+                |object DesktopBuildConfig {
+                |    const val VERSION_NAME = "$versionName"
+                |    const val VERSION_CODE = $versionCode
+                |    const val IS_DEBUG = $isDebug
+                |}
+                """.trimMargin(),
+            )
+        }
+    }
+}
+
 private fun Project.registerDesktopTasks() {
     tasks.register("makeLibrary", Exec::class) {
         group = "ooni"
@@ -307,12 +348,6 @@ private fun Project.configureTaskDependencies() {
         tasks.findByName("packageDmg")?.dependsOn(ooniDistributableTask)
         tasks.findByName("packageDistributionForCurrentOS")?.dependsOn(ooniDistributableTask)
         tasks.findByName("runDistributable")?.dependsOn(ooniDistributableTask)
-
-        // Mark run* tasks as debug builds.
-        // Packaged distributions (DMG, MSI, etc.) won't have this, so app.debug defaults to null (= release).
-        tasks.matching { it.name.startsWith("run") && it is JavaExec }.configureEach {
-            (this as JavaExec).jvmArgs("-Dapp.debug=true")
-        }
     }
 }
 

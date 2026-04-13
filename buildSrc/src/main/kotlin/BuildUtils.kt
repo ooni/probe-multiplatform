@@ -1,6 +1,7 @@
 import org.gradle.api.Project
 import org.gradle.internal.os.OperatingSystem
 import java.io.File
+import java.util.Properties
 
 /**
  * Check if F-Droid build task is requested.
@@ -13,10 +14,28 @@ fun Project.isFdroidTaskRequested(): Boolean =
 /**
  * Check if Debug build task is requested.
  */
-fun Project.isDebugTaskRequested(): Boolean =
-    gradle.startParameter.taskRequests
+fun Project.isDebugTaskRequested(): Boolean {
+    val isTaskDebug = gradle.startParameter.taskRequests
         .flatMap { it.args }
-        .any { it.contains("Debug") }
+        .any {
+            it.contains("Debug") ||
+                it.contains("test", ignoreCase = true) ||
+                (it.contains("run", ignoreCase = true) && !it.contains("Release", ignoreCase = true))
+        }
+    logger.info("isTaskDebug=$isTaskDebug")
+
+    if (isTaskDebug) return true
+
+    return try {
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+        logger.info("forceDebug=${properties["forceDebug"]}")
+        properties["forceDebug"] == true || properties["forceDebug"] == "true"
+    } catch (e: Exception) {
+        e.printStackTrace()
+        false
+    }
+}
 
 /**
  * Get the appropriate JavaFX suffix for the current OS and architecture.
