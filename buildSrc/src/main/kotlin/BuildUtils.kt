@@ -19,6 +19,7 @@ fun Project.isDebugTaskRequested(): Boolean {
         .flatMap { it.args }
         .any {
             it.contains("Debug") ||
+                it.contains("test", ignoreCase = true) ||
                 (it.contains("run", ignoreCase = true) && !it.contains("Release", ignoreCase = true))
         }
     logger.info("isTaskDebug=$isTaskDebug")
