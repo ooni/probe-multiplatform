@@ -88,6 +88,28 @@ windows:
 	@echo "MacDockVisibility not supported on Windows"
 
 
+# Build only desktop bridge libraries (no Sparkle/WinSparkle dependency)
+# Used for app store distribution where the store handles updates
+desktop-only:
+ifeq ($(UNAME_S),Darwin)
+	@echo "Compiling DesktopBridge for macOS (app store, no Sparkle)..."
+	@mkdir -p $(RESOURCES_BASE_DIR)/macos
+	$(COMPILER) -dynamiclib -o $(RESOURCES_BASE_DIR)/macos/$(DESKTOP_BRIDGE_LIBRARY_FILE_MAC) $(DESKTOP_BRIDGE_FILES_MAC) -framework Foundation -framework SystemConfiguration -framework CoreFoundation -framework Network -framework CFNetwork -framework Cocoa -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin
+	@echo "DesktopBridge library created at $(RESOURCES_BASE_DIR)/macos/$(DESKTOP_BRIDGE_LIBRARY_FILE_MAC)"
+	@echo "UpdateBridge skipped (app store distribution)"
+else ifeq ($(UNAME_S),Linux)
+	@echo "Compiling DesktopBridge for Linux..."
+	@mkdir -p $(RESOURCES_BASE_DIR)/linux
+	$(COMPILER) -shared -fPIC -o $(RESOURCES_BASE_DIR)/linux/$(DESKTOP_BRIDGE_LIBRARY_FILE_LINUX) $(DESKTOP_BRIDGE_FILES_LINUX) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
+	@echo "DesktopBridge library created at $(RESOURCES_BASE_DIR)/linux/lib$(DESKTOP_BRIDGE_LIBRARY_NAME).so"
+else ifeq ($(OS),Windows_NT)
+	@echo "Compiling DesktopBridge for Windows (app store, no WinSparkle)..."
+	@mkdir -p $(RESOURCES_BASE_DIR)/windows
+	$(COMPILER) -shared -m64 -o $(RESOURCES_BASE_DIR)/windows/$(DESKTOP_BRIDGE_LIBRARY_FILE_WIN) $(DESKTOP_BRIDGE_FILES_WIN) '-I$(JAVA_HOME)\include' '-I$(JAVA_HOME)\include\win32' -lws2_32 -liphlpapi
+	@echo "DesktopBridge library created at $(RESOURCES_BASE_DIR)/windows/$(DESKTOP_BRIDGE_LIBRARY_NAME).dll"
+	@echo "UpdateBridge skipped (app store distribution)"
+endif
+
 # Install the library to system path
 install: all
 	@echo "Installing libraries to system path..."
@@ -136,4 +158,4 @@ help:
 	@echo "  make all      # Compile the libraries for your platform"
 	@echo "  make install  # Install the libraries for your platform"
 
-.PHONY: all macos linux windows install clean help
+.PHONY: all macos linux windows desktop-only install clean help

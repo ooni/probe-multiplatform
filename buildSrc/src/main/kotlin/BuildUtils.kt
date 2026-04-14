@@ -4,6 +4,13 @@ import java.io.File
 import java.util.Properties
 
 /**
+ * Check if the build targets app store distribution (no Sparkle/WinSparkle).
+ * Usage: ./gradlew packagePkg -PdesktopDistribution=appstore
+ */
+fun Project.isAppStoreDistribution(): Boolean =
+    findProperty("desktopDistribution")?.toString()?.equals("appstore", ignoreCase = true) == true
+
+/**
  * Check if F-Droid build task is requested.
  */
 fun Project.isFdroidTaskRequested(): Boolean =

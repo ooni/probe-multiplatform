@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.app-sandbox</key>
+    <true/>
+	<!-- Network -->
+	<key>com.apple.security.network.server</key>
+	<true/>
+	<key>com.apple.security.network.client</key>
+	<true/>
+
+	<!-- File Access -->
+	<key>com.apple.security.files.user-selected.read-write</key>
+	<true/>
+	<key>com.apple.security.files.downloads.read-write</key>
+	<true/>
+
+	<!-- XPC Services - Lookup (Connect to Services) -->
+	<key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+	<array>
+		<!-- WebKit Services -->
+		<string>com.apple.WebKit.WebContent</string>
+		<string>com.apple.WebKit.GPU</string>
+		<string>com.apple.WebKit.Networking</string>
+	</array>
+
+	<key>com.apple.security.automation.apple-events</key>
+	<true/>
+
+	<!-- XPC Services - Register (Create Services) -->
+	<key>com.apple.security.temporary-exception.mach-register.global-name</key>
+	<array>
+		<!-- WebKit Services -->
+		<string>com.apple.WebKit.WebContent</string>
+		<string>com.apple.WebKit.GPU</string>
+		<string>com.apple.WebKit.Networking</string>
+	</array>
+
+	<!-- Shared Preferences -->
+	<key>com.apple.security.temporary-exception.shared-preference.read-write</key>
+	<array>
+		<string>org.ooni.probe-desktop</string>
+	</array>
+
+	<!-- Code Signing Exceptions (required for JVM) -->
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+</dict>
+</plist>

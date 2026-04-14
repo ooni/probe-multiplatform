@@ -369,12 +369,18 @@ ktlint {
 
 // Desktop
 
+val isAppStore = isAppStoreDistribution()
+
 compose.desktop {
     application {
         mainClass = "org.ooni.probe.MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe, TargetFormat.Deb)
+            if (isAppStore) {
+                targetFormats(TargetFormat.Pkg)
+            } else {
+                targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe, TargetFormat.Deb)
+            }
             packageName = "OONI Probe"
             packageVersion = android.defaultConfig.versionName
             description =
@@ -395,9 +401,66 @@ compose.desktop {
             macOS {
                 minimumSystemVersion = "14.8.3"
                 bundleID = appId
-                entitlementsFile.set(project.file("OONIProbe.entitlements"))
+                entitlementsFile.set(
+                    project.file(
+                        if (isAppStore) {
+                            "OONIProbe-appstore.entitlements"
+                        } else {
+                            "OONIProbe.entitlements"
+                        },
+                    ),
+                )
                 infoPlist {
-                    extraKeysRawXml = """
+                    extraKeysRawXml = if (isAppStore) {
+                        """
+                        <key>CFBundleURLTypes</key>
+                        <array>
+                            <dict>
+                                <key>CFBundleURLName</key>
+                                <string>ooni</string>
+                                <key>CFBundleURLSchemes</key>
+                                <array>
+                                    <string>ooni</string>
+                                </array>
+                            </dict>
+                        </array>
+                        <key>com.apple.security.app-sandbox</key>
+                        <true/>
+                        <key>com.apple.security.cs.allow-jit</key>
+                        <true/>
+                        <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+                        <true/>
+                        <key>com.apple.security.cs.disable-library-validation</key>
+                        <true/>
+                        <key>com.apple.security.network.server</key>
+                        <true/>
+                        <key>com.apple.security.network.client</key>
+                        <true/>
+                        <key>com.apple.security.files.user-selected.read-write</key>
+                        <true/>
+                        <key>com.apple.security.files.downloads.read-write</key>
+                        <true/>
+                        <key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+                        <array>
+                            <string>com.apple.WebKit.WebContent</string>
+                            <string>com.apple.WebKit.GPU</string>
+                            <string>com.apple.WebKit.Networking</string>
+                        </array>
+                        <key>com.apple.security.temporary-exception.mach-register.global-name</key>
+                        <array>
+                            <string>com.apple.WebKit.WebContent</string>
+                            <string>com.apple.WebKit.GPU</string>
+                            <string>com.apple.WebKit.Networking</string>
+                        </array>
+                        <key>com.apple.security.temporary-exception.shared-preference.read-write</key>
+                        <array>
+                            <string>$appId</string>
+                        </array>
+                        <key>com.apple.runningboard.assertions.webkit</key>
+                        <true/>
+                        """.trimIndent()
+                    } else {
+                        """
                         <key>CFBundleURLTypes</key>
                         <array>
                             <dict>
@@ -477,7 +540,8 @@ compose.desktop {
                         <true/>
                         <key>com.apple.runningboard.assertions.webkit</key>
                         <true/>
-                    """.trimIndent()
+                        """.trimIndent()
+                    }
                 }
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
                 jvmArgs("-Dapple.awt.application.appearance=system") // adaptive title bar
