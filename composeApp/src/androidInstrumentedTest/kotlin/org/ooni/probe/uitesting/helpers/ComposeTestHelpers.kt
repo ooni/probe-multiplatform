@@ -84,7 +84,7 @@ fun ComposeTestRule.waitAssertion(
         try {
             assertion()
             true
-        } catch (e: RuntimeException) {
+        } catch (e: Throwable) {
             Logger.w("waitAssertion failure", e)
             false
         }

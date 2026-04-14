@@ -19,11 +19,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.AddDescriptor_AutoUpdate
+import ooniprobe.composeapp.generated.resources.AddDescriptor_InstallForLater
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Title
 import ooniprobe.composeapp.generated.resources.Dashboard_Progress_ReviewLink_Action
 import ooniprobe.composeapp.generated.resources.Dashboard_ReviewDescriptor_Button_Last
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_UninstallLink
-import ooniprobe.composeapp.generated.resources.AddDescriptor_InstallForLater
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Test_WebConnectivity_Fullname
 import ooniprobe.composeapp.generated.resources.Tests_Title
@@ -48,6 +48,7 @@ import org.ooni.probe.uitesting.helpers.preferences
 import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
 import org.ooni.probe.uitesting.helpers.wait
+import org.ooni.probe.uitesting.helpers.waitAssertion
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
@@ -105,12 +106,13 @@ class DescriptorsTest {
                 onNodeWithText(getString(Res.string.Dashboard_Runv2_Overview_UninstallLink))
                     .performScrollTo()
                 clickOnText(Res.string.Dashboard_Runv2_Overview_UninstallLink)
-
                 onAllNodesWithText(Res.string.Dashboard_Runv2_Overview_UninstallLink)
                     .onLast()
                     .performClick()
 
-                onNodeWithText("Testing").assertIsNotDisplayed()
+                waitAssertion {
+                    onNodeWithText("Testing").assertIsNotDisplayed()
+                }
             }
         }
     }
