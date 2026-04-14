@@ -60,11 +60,13 @@ fun Project.registerDesktopBuildConfigTask(
     versionCode: Int,
 ) {
     val isDebug = isDebugTaskRequested()
+    val isAppStore = isAppStoreDistribution()
     tasks.register("generateDesktopBuildConfig") {
         val outputDir = layout.buildDirectory.dir("generated/desktopBuildConfig/kotlin")
         inputs.property("versionName", versionName)
         inputs.property("versionCode", versionCode)
         inputs.property("isDebug", isDebug)
+        inputs.property("isAppStore", isAppStore)
         outputs.dir(outputDir)
         doLast {
             val dir = outputDir.get().asFile.resolve("org/ooni/probe")
@@ -77,6 +79,7 @@ fun Project.registerDesktopBuildConfigTask(
                 |    const val VERSION_NAME = "$versionName"
                 |    const val VERSION_CODE = $versionCode
                 |    const val IS_DEBUG = $isDebug
+                |    const val IS_APP_STORE = $isAppStore
                 |}
                 """.trimMargin(),
             )
@@ -85,12 +88,20 @@ fun Project.registerDesktopBuildConfigTask(
 }
 
 private fun Project.registerDesktopTasks() {
+    val isAppStore = isAppStoreDistribution()
+
     tasks.register("makeLibrary", Exec::class) {
         group = "ooni"
         description = "Build native libraries (NetworkTypeFinder and UpdateBridge)"
-        dependsOn("setupSparkle")
+        if (!isAppStore) {
+            dependsOn("setupSparkle")
+        }
         workingDir = file("src/desktopMain")
-        commandLine = listOf("make", "all")
+        commandLine = if (isAppStore) {
+            listOf("make", "desktop-only")
+        } else {
+            listOf("make", "all")
+        }
 
         inputs.files(fileTree("src/desktopMain/c") {
             include("*.m", "*.c")
@@ -110,7 +121,7 @@ private fun Project.registerSparkleTask() {
         group = "setup"
         description =
             "Downloads Sparkle and extracts Sparkle.framework to the destination directory"
-        onlyIf { isMac() }
+        onlyIf { isMac() && !isAppStoreDistribution() }
         sparkleVersion.set(providers.gradleProperty("sparkleVersion").orElse("2.8.0"))
         destDir.set(
             providers.gradleProperty("sparkleExtractDir")
@@ -123,6 +134,10 @@ private fun Project.registerSparkleTask() {
         group = "setup"
         description = "Generates Sparkle appcast using the specified DMG file."
         onlyIf {
+            if (isAppStoreDistribution()) {
+                logger.info("Skipping generateSparkleAppCast: App store distribution")
+                return@onlyIf false
+            }
             val privateKeyFile = rootProject.file("certificates/sparkle_eddsa_private.pem")
             if (!isMac()) {
                 logger.info("Skipping generateSparkleAppCast: Not running on macOS")
@@ -134,7 +149,9 @@ private fun Project.registerSparkleTask() {
             }
             true
         }
-        dependsOn("setupSparkle")
+        if (!isAppStoreDistribution()) {
+            dependsOn("setupSparkle")
+        }
 
         sparkleVersion.set(providers.gradleProperty("sparkleVersion").orElse("2.8.0"))
         edKeyFile.set(rootProject.file("certificates/sparkle_eddsa_private.pem"))
@@ -149,7 +166,7 @@ private fun Project.registerWinSparkleTask() {
         group = "setup"
         description =
             "Downloads WinSparkle and extracts WinSparkle.dll to the destination directory"
-        onlyIf { System.getProperty("os.name").lowercase().contains("win") }
+        onlyIf { System.getProperty("os.name").lowercase().contains("win") && !isAppStoreDistribution() }
         winSparkleVersion.set(providers.gradleProperty("winSparkleVersion").orElse("0.9.1"))
         destDir.set(
             providers.gradleProperty("winSparkleExtractDir")
@@ -211,41 +228,45 @@ private fun Project.registerOONIDistributableTask() {
                 return@doLast
             }
 
-            val sparkleFramework =
-                layout.buildDirectory.dir("tmp/desktop/main/macos/Sparkle.framework").get().asFile
-            val appSparkleLocation = appDirs.first().resolve("Contents/app/resources")
+            if (!isAppStoreDistribution()) {
+                val sparkleFramework =
+                    layout.buildDirectory.dir("tmp/desktop/main/macos/Sparkle.framework").get().asFile
+                val appSparkleLocation = appDirs.first().resolve("Contents/app/resources")
 
-            project.logger.lifecycle("Sparkle.framework location: ${sparkleFramework.absolutePath}")
-            project.logger.lifecycle("Desired Sparkle.framework location: ${appSparkleLocation.absolutePath}")
+                project.logger.lifecycle("Sparkle.framework location: ${sparkleFramework.absolutePath}")
+                project.logger.lifecycle("Desired Sparkle.framework location: ${appSparkleLocation.absolutePath}")
 
-            // Sign the Sparkle framework
-            fun signSparkle(path: String) {
-                macOsCodeSign(sparkleFramework.resolve(path).absolutePath)
+                // Sign the Sparkle framework
+                fun signSparkle(path: String) {
+                    macOsCodeSign(sparkleFramework.resolve(path).absolutePath)
+                }
+                signSparkle("Versions/B/XPCServices/Installer.xpc")
+                signSparkle("Versions/B/XPCServices/Downloader.xpc")
+                signSparkle("Versions/B/Autoupdate")
+                signSparkle("Versions/B/Updater.app")
+                signSparkle("") // root folder
+
+                // Remove existing Sparkle.framework in destination
+                project.providers.exec {
+                    commandLine(
+                        "rm",
+                        "-R",
+                        appSparkleLocation.resolve("Sparkle.framework").absolutePath
+                    )
+                    isIgnoreExitValue = true // We don't care if the folder is not there
+                }.result.get()
+                // Copy to destination
+                project.providers.exec {
+                    commandLine(
+                        "cp",
+                        "-a",
+                        sparkleFramework.absolutePath,
+                        appSparkleLocation.absolutePath
+                    )
+                }.result.get()
+            } else {
+                project.logger.lifecycle("App store distribution: skipping Sparkle.framework bundling")
             }
-            signSparkle("Versions/B/XPCServices/Installer.xpc")
-            signSparkle("Versions/B/XPCServices/Downloader.xpc")
-            signSparkle("Versions/B/Autoupdate")
-            signSparkle("Versions/B/Updater.app")
-            signSparkle("") // root folder
-
-            // Remove existing Sparkle.framework in destination
-            project.providers.exec {
-                commandLine(
-                    "rm",
-                    "-R",
-                    appSparkleLocation.resolve("Sparkle.framework").absolutePath
-                )
-                isIgnoreExitValue = true // We don't care if the folder is not there
-            }.result.get()
-            // Copy to destination
-            project.providers.exec {
-                commandLine(
-                    "cp",
-                    "-a",
-                    sparkleFramework.absolutePath,
-                    appSparkleLocation.absolutePath
-                )
-            }.result.get()
 
             // Sign the .app file
             macOsCodeSign(appDirs.first().absolutePath)
@@ -320,32 +341,35 @@ private fun Project.configureTaskDependencies() {
         tasks.findByName("clean")
             ?.dependsOn("copyBrandingToCommonResources", "cleanCopiedCommonResourcesToFlavor")
 
-        // Ensure Sparkle.framework is prepared before packaging desktop apps
-        val sparkleConsumers = setOf(
-            "runDistributable",
-            "createDistributable",
-            "packageDistributionForCurrentOS",
-            "packageDmg",
-            "desktopJar"
-        )
-        tasks.matching { it.name in sparkleConsumers }.configureEach {
-            dependsOn("setupSparkle")
-        }
-
-        // Prefer running setupSparkle after desktop resource processing to avoid overwrites
-        tasks.findByName("setupSparkle")?.let { setup ->
-            val desktopRes = tasks.matching {
-                it.name.contains(
-                    "processResources",
-                    ignoreCase = true
-                ) && it.name.contains("desktop", ignoreCase = true)
+        if (!isAppStoreDistribution()) {
+            // Ensure Sparkle.framework is prepared before packaging desktop apps
+            val sparkleConsumers = setOf(
+                "runDistributable",
+                "createDistributable",
+                "packageDistributionForCurrentOS",
+                "packageDmg",
+                "desktopJar"
+            )
+            tasks.matching { it.name in sparkleConsumers }.configureEach {
+                dependsOn("setupSparkle")
             }
-            setup.mustRunAfter(desktopRes)
+
+            // Prefer running setupSparkle after desktop resource processing to avoid overwrites
+            tasks.findByName("setupSparkle")?.let { setup ->
+                val desktopRes = tasks.matching {
+                    it.name.contains(
+                        "processResources",
+                        ignoreCase = true
+                    ) && it.name.contains("desktop", ignoreCase = true)
+                }
+                setup.mustRunAfter(desktopRes)
+            }
         }
 
         // Ensure createOONIDistributable runs after createDistributable and before any other task that depends on it
         val ooniDistributableTask = tasks.named("createOONIDistributable")
         tasks.findByName("packageDmg")?.dependsOn(ooniDistributableTask)
+        tasks.findByName("packagePkg")?.dependsOn(ooniDistributableTask)
         tasks.findByName("packageDistributionForCurrentOS")?.dependsOn(ooniDistributableTask)
         tasks.findByName("runDistributable")?.dependsOn(ooniDistributableTask)
     }

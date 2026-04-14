@@ -15,13 +15,13 @@ import org.jetbrains.compose.resources.StringResource
 import org.ooni.probe.config.UpdateConfig
 import org.ooni.probe.dependencies
 import org.ooni.probe.shared.DesktopOS
+import org.ooni.probe.shared.NoOpUpdateManager
 import org.ooni.probe.shared.Platform
+import org.ooni.probe.shared.SparkleUpdateManager
 import org.ooni.probe.shared.UpdateError
 import org.ooni.probe.shared.UpdateManager
 import org.ooni.probe.shared.UpdateState
-import org.ooni.probe.shared.SparkleUpdateManager
 import org.ooni.probe.shared.WinSparkleUpdateManager
-import kotlin.collections.contains
 
 /**
  * DesktopUpdateController encapsulates update logic for desktop targets.
@@ -140,6 +140,7 @@ class DesktopUpdateController(
     }
 
     fun supportsUpdates(): Boolean =
-        (dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Mac, DesktopOS.Windows) &&
+        updateManager !is NoOpUpdateManager &&
+            (dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Mac, DesktopOS.Windows) &&
             updateManager.isHealthy()
 }
