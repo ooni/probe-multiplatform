@@ -1,0 +1,79 @@
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleURLName</key>
+        <string>ooni</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>ooni</string>
+        </array>
+    </dict>
+</array>
+<key>com.apple.security.app-sandbox</key>
+<false/>
+<key>com.apple.security.cs.allow-jit</key>
+<true/>
+<key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+<true/>
+<key>com.apple.security.cs.disable-library-validation</key>
+<true/>
+<key>com.apple.security.cs.allow-dyld-environment-variables</key>
+<true/>
+<key>com.apple.security.cs.debugger</key>
+<true/>
+<key>com.apple.security.network.server</key>
+<true/>
+<key>com.apple.security.network.client</key>
+<true/>
+<key>com.apple.security.files.user-selected.read-write</key>
+<true/>
+<key>com.apple.security.files.downloads.read-write</key>
+<true/>
+<key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+<array>
+    <string>APP_ID-spks</string>
+    <string>APP_ID-spki</string>
+    <string>org.sparkle-project.InstallerLauncher</string>
+    <string>org.sparkle-project.InstallerConnection</string>
+    <string>org.sparkle-project.InstallerStatus</string>
+    <string>org.sparkle-project.Downloader</string>
+    <string>com.apple.WebKit.WebContent</string>
+    <string>com.apple.WebKit.GPU</string>
+    <string>com.apple.WebKit.Networking</string>
+    <string>com.apple.installer.installer</string>
+    <string>com.apple.installer.installer.helper</string>
+</array>
+<key>com.apple.security.temporary-exception.mach-register.global-name</key>
+<array>
+    <string>APP_ID-spks</string>
+    <string>APP_ID-spki</string>
+    <string>org.sparkle-project.InstallerLauncher</string>
+    <string>org.sparkle-project.InstallerConnection</string>
+    <string>org.sparkle-project.InstallerStatus</string>
+    <string>org.sparkle-project.Downloader</string>
+    <string>com.apple.WebKit.WebContent</string>
+    <string>com.apple.WebKit.GPU</string>
+    <string>com.apple.WebKit.Networking</string>
+    <string>com.apple.installer.installer</string>
+    <string>com.apple.installer.installer.helper</string>
+</array>
+<key>com.apple.security.temporary-exception.shared-preference.read-write</key>
+<array>
+    <string>APP_ID</string>
+</array>
+<key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+<true/>
+<key>com.apple.security.cs.disable-library-validation</key>
+<true/>
+<key>SUPublicEDKey</key>
+<string>p1lTWmqHCTBhhCEtLT7sf/5pwS21mV3ZrvUudGnECLo=</string>
+<key>SUEnableAutomaticChecks</key>
+<false/>
+<key>SUScheduledCheckInterval</key>
+<integer>0</integer>
+<key>SUAllowsAutomaticUpdates</key>
+<false/>
+<key>SUEnableInstallerLauncherService</key>
+<true/>
+<key>com.apple.runningboard.assertions.webkit</key>
+<true/>
