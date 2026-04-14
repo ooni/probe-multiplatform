@@ -47,7 +47,7 @@ fun ArticlesScreen(
                 enabled = state.canPullToRefresh,
             ).background(MaterialTheme.colorScheme.background),
     ) {
-        Column(Modifier.background(MaterialTheme.colorScheme.background)) {
+        Column {
             TopBar(
                 title = { Text(stringResource(Res.string.Dashboard_Articles_Title)) },
                 navigationIcon = {
