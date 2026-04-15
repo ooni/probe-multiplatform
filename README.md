@@ -3,20 +3,14 @@
 [![OONI Probe Android](https://github.com/ooni/probe/blob/master/images/OONIProbeLogo.png?raw=true)](https://ooni.org)
 
 <p align="center">
-  <a href="https://slack.openobservatory.org/">
-    <img src="https://slack.openobservatory.org/badge.svg" alt="chat on Slack">
-  </a>
-
-  <a href="https://github.com/ooni/probe-multiplatform/issues">
-    <img src="https://img.shields.io/github/issues/ooni/probe-multiplatform" alt="open issues">
-  </a>
-
-  <a href="https://twitter.com/intent/follow?screen_name=OpenObservatory">
-    <img src="https://img.shields.io/twitter/follow/OpenObservatory?style=social&logo=twitter" alt="follow on Twitter">
-  </a>
+  <a href="https://slack.openobservatory.org/"><img alt="slack" src="https://slack.openobservatory.org/badge.svg"/></a>
+  <a href="https://github.com/ooni/probe-multiplatform/issues"><img alt="open issues" src="https://img.shields.io/github/issues/ooni/probe-multiplatform"/></a>
+  <a href="https://mastodon.social/@ooni"><img alt="Mastodon Follow" src="https://img.shields.io/mastodon/follow/1106799?domain=mastodon.social&style=flat&label=mastodon"/></a>
+  <a href="https://x.com/OpenObservatory"><img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/openobservatory?style=flat&label=X%20(formerly%20Twitter)"/></a>
+  <a href="https://bsky.app/profile/ooni.org"><img alt="Bluesky followers" src="https://img.shields.io/bluesky/followers/ooni.org?style=flat&label=bluesky"/></a>
 </p>
 
-Multiplatform (Android and iOS currently) version of the Probe app.
+Multiplatform (Android, iOS and Desktop) version of the Probe app.
 
 **Releases**
 
@@ -38,6 +32,7 @@ Multiplatform (Android and iOS currently) version of the Probe app.
   - `commonMain` is for code that’s common for all targets.
   - `androidMain` Android-specific code
   - `iosMain` iOS-specific code written in Kotlin
+  - `desktopMain` Desktop-specific code
   - `dwMain` News Media Scan specific Branding and customization
   - `ooniMain` OONI Probe specific Branding and customization
 
@@ -108,23 +103,25 @@ the official testing library.
 
 ## Translations
 
-The app is translated by the community through [Transifex](https://www.transifex.com/otf/ooniprobe/)
+[![Translation status](https://localizationlab.weblate.cloud/widget/ooni/app-strings-common-xml/287x66-grey.png)](https://localizationlab.weblate.cloud/engage/ooni/)
+
+The app is translated by the community through [Localization Lab's Weblate](https://localizationlab.weblate.cloud/projects/ooni/probe/)
 ([Guidelines](https://github.com/ooni/translations/blob/master/Guidelines%20for%20OONI%20Probe.md)).
 
 **Important Note:** Any Pull Request that introduces new strings into the app should be
 reviewed by @agrabeli. The Pull Request should include screenshots showing the strings in context.
 
 New or updated strings on the default version of the `strings-common.xml` and
-`strings-organization.xml` files are automatically uploaded to Transifex when a Pull Request is
+`strings-organization.xml` files are automatically uploaded to Weblate when a Pull Request is
 merged into the `main` branch.
 
-Transifex automatically creates Pull Requests with the latest translation changes to keep the app
+Weblate automatically creates Pull Requests with the latest translation changes to keep the app
 up-to-date.
 
 ### Metadata
 
 Metadata such as Store Listing copy and screenshots are located in the `metadata` root folder.
-Transifex also maintains those translations automatically.
+Weblate also maintains those translations automatically.
 
 Inside `fastlane/metadata` are only symbolic links mapping the locales supported by Google Play or
-Apple App Store to the Transifex locales. Changes should only be made to the root `metadata` folder.
+Apple App Store to the Weblate locales. Changes should only be made to the root `metadata` folder.
