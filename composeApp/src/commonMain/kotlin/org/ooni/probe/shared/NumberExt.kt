@@ -1,8 +1,8 @@
 package org.ooni.probe.shared
 
-import kotlin.math.abs
 import kotlin.math.log10
 import kotlin.math.pow
+import kotlin.math.roundToInt
 
 fun Long.formatDataUsage(): String {
     if (this <= 0) return "0"
@@ -12,9 +12,14 @@ fun Long.formatDataUsage(): String {
 }
 
 fun Double.format(decimalChars: Int = 2): String {
-    val absoluteValue = abs(this).toInt()
-    val decimalValue = abs((this - absoluteValue) * 10.0.pow(decimalChars)).toInt()
-    return if (decimalValue == 0) absoluteValue.toString() else "$absoluteValue.$decimalValue"
+    val order = 10.0.pow(decimalChars).toInt()
+    val roundedValue = (this * order).roundToInt()
+    val absoluteValue = roundedValue / order
+    val decimalValue = roundedValue % order
+    if (decimalValue == 0) return absoluteValue.toString()
+    val zeroPadding = (decimalChars - log10(decimalValue.toDouble()).toInt()).coerceAtLeast(0)
+    val decimalString = decimalValue.toString().padStart(zeroPadding, '0')
+    return "$absoluteValue.$decimalString"
 }
 
 fun Number.largeNumberShort(): String {

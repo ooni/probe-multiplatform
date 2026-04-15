@@ -10,6 +10,4 @@ sealed interface UpdateStatus {
     ) : UpdateStatus
 
     data object AutoUpdated : UpdateStatus
-
-    data object NotApplicable : UpdateStatus
 }
