@@ -321,8 +321,8 @@ def locales_or_default(options)
        options[:locales].split(',')
    else
        case options[:organization]
-       when "ooni" then ['ar', 'en-US', 'hi-IN', 'pt-BR', 'sk', 'zh-CN', 'ca', 'es-ES', 'id', 'ro', 'sq', 'zh-TW', 'de-DE', 'fa', 'is-IS', 'ru-RU', 'th', 'el-GR', 'fr-FR', 'it-IT', 'tr-TR']
-       when "dw" then ['en-US', 'de-DE', 'es-ES', 'fr-FR', 'pt-BR', 'ru', 'tr-TR']
+       when "ooni" then ['ar', 'ca', 'de-DE', 'el-GR', 'en-US', 'es-ES', 'fa', 'fr-FR', 'hi-IN', 'id', 'it-IT', 'is-IS', 'ja', 'pt-BR', 'ro', 'ru-RU', 'sk', 'sq', 'th', 'tr-TR', 'zh-CN', 'zh-TW']
+       when "dw" then ['de-DE', 'en-US', 'es-ES', 'fr-FR', 'pt-BR', 'ru', 'tr-TR']
        end
    end
 end

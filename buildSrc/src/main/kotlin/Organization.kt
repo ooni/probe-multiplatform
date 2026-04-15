@@ -28,6 +28,7 @@ sealed class Organization(val key: String, val config: AppConfig) {
                 "id",
                 "is",
                 "it",
+                "ja",
                 "km",
                 "my",
                 "nl",
