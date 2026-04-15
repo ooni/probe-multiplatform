@@ -31,7 +31,7 @@ class GetStorageUsed(
             val usedStorage = allFiles.sumOf {
                 val metadata = try {
                     fileSystem.metadata(it)
-                } catch (e: FileNotFoundException) {
+                } catch (_: FileNotFoundException) {
                     return@sumOf 0L
                 }
                 if (metadata.isRegularFile) metadata.size ?: 0 else 0

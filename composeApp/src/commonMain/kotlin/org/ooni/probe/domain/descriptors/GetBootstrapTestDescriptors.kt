@@ -1,4 +1,4 @@
-package org.ooni.probe.domain
+package org.ooni.probe.domain.descriptors
 
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.withContext
@@ -20,7 +20,7 @@ class GetBootstrapTestDescriptors(
                 try {
                     json.decodeFromString<List<OONIRunDescriptor>>(descriptorsJson)
                 } catch (e: Exception) {
-                    Logger.e("Could not deserialized bootstrap test descriptors", e)
+                    Logger.Companion.e("Could not deserialized bootstrap test descriptors", e)
                     return@withContext emptyList()
                 }
             descriptors.map { it.toModel() }

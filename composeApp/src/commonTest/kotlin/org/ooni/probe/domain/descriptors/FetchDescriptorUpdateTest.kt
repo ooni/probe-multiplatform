@@ -1,4 +1,4 @@
-package org.ooni.probe.domain
+package org.ooni.probe.domain.descriptors
 
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.test.runTest
@@ -7,7 +7,6 @@ import org.ooni.engine.models.Success
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
-import org.ooni.probe.domain.descriptors.FetchDescriptorsUpdates
 import org.ooni.probe.shared.now
 import org.ooni.probe.shared.toLocalDateTime
 import org.ooni.testing.factories.DescriptorFactory
@@ -50,7 +49,7 @@ class FetchDescriptorUpdateTest {
             )
             val newDescriptor = oldDescriptor.copy(
                 revision = 2,
-                dateUpdated = LocalDateTime.now(),
+                dateUpdated = LocalDateTime.Companion.now(),
             )
             var saveDescriptors: List<Descriptor>? = null
             var state: DescriptorsUpdateState? = null
@@ -79,7 +78,7 @@ class FetchDescriptorUpdateTest {
                     .toLocalDateTime(),
             )
             val newDescriptor = oldDescriptor.copy(
-                dateUpdated = LocalDateTime.now(),
+                dateUpdated = LocalDateTime.Companion.now(),
             )
             var saveDescriptors: List<Descriptor>? = null
             var state: DescriptorsUpdateState? = null

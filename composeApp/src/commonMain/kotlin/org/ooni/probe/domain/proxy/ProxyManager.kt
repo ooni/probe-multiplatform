@@ -18,32 +18,30 @@ class ProxyManager(
     private val proxyConfig: ProxyConfig,
 ) {
     fun all(): Flow<List<SelectableItem<ProxyOption>>> =
-        flow {
-            migrateLegacyPreferencesIfNeeded()
-            emit(Unit)
-        }.flatMapLatest {
-            combine(
-                getPreference(SettingsKey.PROXIES_CUSTOM),
-                getPreference(SettingsKey.PROXY_SELECTED),
-                ::Pair,
-            )
-        }.map { (customList, selectedValue) ->
-            val customProxies = customList
-                .castCustomProxiesValue()
-                .map { ProxyOption.Custom(it) }
-            val proxies = listOfNotNull(
-                ProxyOption.None,
-                if (proxyConfig.isPsiphonSupported) ProxyOption.Psiphon else null,
-            ) + customProxies
-            val selected = proxies.firstOrNull { it.value == selectedValue } ?: ProxyOption.None
-
-            proxies.map {
-                SelectableItem(
-                    item = it,
-                    isSelected = it == selected,
+        flow { emit(migrateLegacyPreferencesIfNeeded()) }
+            .flatMapLatest {
+                combine(
+                    getPreference(SettingsKey.PROXIES_CUSTOM),
+                    getPreference(SettingsKey.PROXY_SELECTED),
+                    ::Pair,
                 )
+            }.map { (customList, selectedValue) ->
+                val customProxies = customList
+                    .castCustomProxiesValue()
+                    .map { ProxyOption.Custom(it) }
+                val proxies = listOfNotNull(
+                    ProxyOption.None,
+                    if (proxyConfig.isPsiphonSupported) ProxyOption.Psiphon else null,
+                ) + customProxies
+                val selected = proxies.firstOrNull { it.value == selectedValue } ?: ProxyOption.None
+
+                proxies.map {
+                    SelectableItem(
+                        item = it,
+                        isSelected = it == selected,
+                    )
+                }
             }
-        }
 
     fun selected(): Flow<ProxyOption> = all().map { list -> list.first { it.isSelected }.item }
 
@@ -78,8 +76,8 @@ class ProxyManager(
     }
 
     private suspend fun migrateLegacyPreferencesIfNeeded() {
-        val oldProtocol = getPreference(SettingsKey.LEGACY_PROXY_PROTOCOL).first() as? String
-        if (oldProtocol == null) return
+        val oldProtocol =
+            getPreference(SettingsKey.LEGACY_PROXY_PROTOCOL).first() as? String ?: return
 
         if (
             oldProtocol.equals("http", ignoreCase = true) ||
