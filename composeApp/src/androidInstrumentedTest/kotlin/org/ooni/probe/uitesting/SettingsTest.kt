@@ -6,7 +6,6 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
@@ -50,6 +49,7 @@ import org.ooni.probe.uitesting.helpers.preferences
 import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
 import org.ooni.probe.uitesting.helpers.wait
+import org.ooni.probe.uitesting.helpers.waitAssertion
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
@@ -210,12 +210,17 @@ class SettingsTest {
                 wait { preferences.getValueByKey(SettingsKey.WARN_VPN_IN_USE).first() == true }
 
                 clickOnText(Res.string.Settings_Results_DeleteOldResults)
+                wait { preferences.getValueByKey(SettingsKey.DELETE_OLD_RESULTS).first() == false }
+                clickOnText(Res.string.Settings_Results_DeleteOldResults)
                 wait { preferences.getValueByKey(SettingsKey.DELETE_OLD_RESULTS).first() == true }
 
                 clickOnText(Res.string.Settings_Results_DeleteOldResultsThreshold)
-                onNodeWithTag("NumberPickerField").performTextInput("8")
+                waitAssertion { onNodeWithTag("NumberPickerField").assertIsDisplayed() }
+                onNodeWithTag("NumberPickerField").performTextReplacement("8")
                 clickOnText(Res.string.Modal_OK)
-                wait { preferences.getValueByKey(SettingsKey.DELETE_OLD_RESULTS_THRESHOLD).first() == 8 }
+                wait {
+                    preferences.getValueByKey(SettingsKey.DELETE_OLD_RESULTS_THRESHOLD).first() == 8
+                }
             }
         }
 }

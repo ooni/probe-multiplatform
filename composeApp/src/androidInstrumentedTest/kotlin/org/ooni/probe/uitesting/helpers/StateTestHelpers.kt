@@ -1,10 +1,25 @@
 package org.ooni.probe.uitesting.helpers
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.domain.organizationPreferenceDefaults
 import kotlin.time.Clock
+import kotlin.time.Duration.Companion.seconds
+
+suspend fun waitForBootstrap() {
+    withContext(Dispatchers.Default.limitedParallelism(1)) {
+        withTimeout(3.seconds) {
+            preferences.getValueByKey(SettingsKey.FIRST_RUN).filter { it != null }.first()
+        }
+    }
+}
 
 suspend fun skipOnboarding() {
+    waitForBootstrap()
     preferences.setValuesByKey(
         listOf(
             SettingsKey.FIRST_RUN to false,
