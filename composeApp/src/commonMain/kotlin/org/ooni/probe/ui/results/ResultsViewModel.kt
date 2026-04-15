@@ -164,7 +164,7 @@ class ResultsViewModel(
         private val allRuns get() = results.values.flatten()
         private val allResultItems get() = allRuns.flatMap { it.results }
         val areResultsLimited get() = allResultItems.size >= ResultFilter.LIMIT
-        val anyMissingUpload get() = allResultItems.any { it.item.anyMeasurementUploadFailed }
+        val anyMissingUpload get() = allResultItems.any { !it.item.allMeasurementsUploaded }
         val areAllSelected get() = allResultItems.all { it.isSelected }
         val isAnySelected get() = allResultItems.any { it.isSelected }
         val selectedResultsCount get() = allResultItems.count { it.isSelected }

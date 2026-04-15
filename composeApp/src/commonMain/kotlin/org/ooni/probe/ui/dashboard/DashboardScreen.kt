@@ -114,7 +114,7 @@ fun DashboardScreen(
             ) {
                 RunBackgroundStateSection(state.runBackgroundState, onEvent)
 
-                if (state.runBackgroundState is RunBackgroundState.Idle) {
+                if (state.runBackgroundState is RunBackgroundState.Idle && !isHeightCompact()) {
                     AutoRunButton(isAutoRunEnabled = state.isAutoRunEnabled, onEvent)
                 }
             }
