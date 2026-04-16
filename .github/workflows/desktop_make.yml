@@ -79,7 +79,6 @@ jobs:
           ./gradlew copyBrandingToCommonResources notarizeDmg -Porganization=${{ env.ORGANIZATION }} \
             -Pcompose.desktop.mac.sign=true \
             -Pcompose.desktop.mac.signing.identity="Open Observatory of Network Interference (OONI) ETS" \
-            -Pcompose.desktop.mac.signing.keychain=$RUNNER_TEMP/app-signing.keychain-db \
             -Pcompose.desktop.mac.notarization.appleID=${{ secrets.APPLE_ID }} \
             -Pcompose.desktop.mac.notarization.password=${{ secrets.APPLE_ASP }} \
             -Pcompose.desktop.mac.notarization.teamID=${{ secrets.APPLE_TEAM_ID }}
