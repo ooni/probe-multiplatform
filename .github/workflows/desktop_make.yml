@@ -1,5 +1,6 @@
 name: Desktop package apps
 on:
+  push:
   workflow_dispatch:
     inputs:
       macOS:
@@ -161,7 +162,7 @@ jobs:
 
   package-macos-appstore:
     name: Package macOS App Store PKG
-    if: ${{ inputs.macOS_appstore }}
+    # if: ${{ inputs.macOS_appstore }}
     runs-on: macos-latest
     env:
       ORGANIZATION: ooni

@@ -264,12 +264,12 @@ private fun Project.registerOONIDistributableTask() {
                         appSparkleLocation.absolutePath
                     )
                 }.result.get()
-            } else {
-                project.logger.lifecycle("App store distribution: skipping Sparkle.framework bundling")
-            }
 
-            // Sign the .app file
-            macOsCodeSign(appDirs.first().absolutePath)
+                // Sign the .app file (needed after Sparkle injection invalidates signature)
+                macOsCodeSign(appDirs.first().absolutePath)
+            } else {
+                project.logger.lifecycle("App store distribution: Compose plugin handles signing with sandbox entitlements")
+            }
 
             project.logger.lifecycle("Distributable output directory: ${outputDir.absolutePath}")
         }

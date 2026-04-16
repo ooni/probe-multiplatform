@@ -43,3 +43,5 @@
 </array>
 <key>com.apple.runningboard.assertions.webkit</key>
 <true/>
+<key>LSApplicationCategoryType</key>
+<string>public.app-category.productivity</string>

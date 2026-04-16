@@ -401,10 +401,20 @@ compose.desktop {
             macOS {
                 minimumSystemVersion = "14.8.3"
                 bundleID = appId
+                appStore = isAppStore
                 entitlementsFile.set(
                     project.file(
                         if (isAppStore) {
                             "OONIProbe-appstore.entitlements"
+                        } else {
+                            "OONIProbe.entitlements"
+                        },
+                    ),
+                )
+                runtimeEntitlementsFile.set(
+                    project.file(
+                        if (isAppStore) {
+                            "OONIProbe-runtime-appstore.entitlements"
                         } else {
                             "OONIProbe.entitlements"
                         },
@@ -489,6 +499,186 @@ tasks.withType<AbstractJPackageTask>().all {
             } else {
                 logger.error("DMG file not found: ${dmgFile.absolutePath}")
                 throw GradleException("Expected DMG file not found: ${dmgFile.absolutePath}")
+            }
+        }
+    }
+}
+
+// Post-process PKG for App Store compliance:
+// 1. Strip install scripts that jpackage embeds (Apple rejects with error 409)
+// 2. Re-sign executables with sandbox entitlements (jpackage's signing during PKG
+//    creation only applies --mac-entitlements to the main binary, not to runtime
+//    components like jspawnhelper — Apple rejects with ITMS-90296)
+if (isAppStore) {
+    tasks.withType<AbstractJPackageTask>().all {
+        if (targetFormat == TargetFormat.Pkg) {
+            doLast {
+                val pkgFile = File(
+                    destinationDir.get().asFile,
+                    "${packageName.get()}-${packageVersion.get()}.pkg",
+                )
+                if (!pkgFile.exists()) {
+                    throw GradleException("PKG file not found: ${pkgFile.absolutePath}")
+                }
+
+                logger.lifecycle("Post-processing PKG for App Store compliance...")
+                val expandedDir = File(destinationDir.get().asFile, "expanded-pkg")
+                val strippedPkg = File(destinationDir.get().asFile, "stripped-${pkgFile.name}")
+
+                try {
+                    // Expand the flat PKG with full payload extraction so we can
+                    // access and re-sign the executables inside.
+                    project.providers
+                        .exec {
+                            commandLine(
+                                "pkgutil", "--expand-full",
+                                pkgFile.absolutePath,
+                                expandedDir.absolutePath,
+                            )
+                        }.result
+                        .get()
+                        .assertNormalExitValue()
+
+                    // Remove Scripts directories added by jpackage
+                    expandedDir.walkTopDown()
+                        .filter { it.isDirectory && it.name == "Scripts" }
+                        .forEach { scriptsDir ->
+                            logger.lifecycle("Removing: ${scriptsDir.relativeTo(expandedDir)}")
+                            scriptsDir.deleteRecursively()
+                        }
+
+                    // Remove <scripts> elements from PackageInfo files
+                    expandedDir.walkTopDown()
+                        .filter { it.isFile && it.name == "PackageInfo" }
+                        .forEach { packageInfo ->
+                            val content = packageInfo.readText()
+                            val cleaned = content.replace(
+                                Regex("""<scripts>.*?</scripts>\s*""", RegexOption.DOT_MATCHES_ALL),
+                                "",
+                            )
+                            if (content != cleaned) {
+                                packageInfo.writeText(cleaned)
+                                logger.lifecycle("Cleaned PackageInfo: ${packageInfo.relativeTo(expandedDir)}")
+                            }
+                        }
+
+                    // Re-sign executables with proper sandbox entitlements.
+                    // jpackage's internal signing applies --mac-entitlements only to
+                    // the main app binary. Runtime components (jspawnhelper, dylibs)
+                    // get signed without com.apple.security.app-sandbox, which Apple
+                    // requires on ALL executables for App Store submission.
+                    val signingIdentity =
+                        project.findProperty("compose.desktop.mac.signing.identity")?.toString()
+                    if (signingIdentity != null) {
+                        val appIdentity = when {
+                            signingIdentity.startsWith("3rd Party Mac Developer Application:") -> signingIdentity
+                            signingIdentity.startsWith("Developer ID Application:") -> signingIdentity
+                            else -> "3rd Party Mac Developer Application: $signingIdentity"
+                        }
+                        val keychainArg = project.findProperty("compose.desktop.mac.signing.keychain")
+                            ?.let { listOf("--keychain", it.toString()) }
+                            ?: emptyList()
+                        val runtimeEntitlements = project.file("OONIProbe-runtime-appstore.entitlements")
+                        val appEntitlements = project.file("OONIProbe-appstore.entitlements")
+
+                        fun codesign(target: File, entitlements: File) {
+                            logger.lifecycle("Signing: ${target.relativeTo(expandedDir)}")
+                            project.providers
+                                .exec {
+                                    commandLine(
+                                        listOf(
+                                            "codesign", "-f",
+                                            "-s", appIdentity,
+                                            "-o", "runtime",
+                                            "--timestamp",
+                                            "--entitlements", entitlements.absolutePath,
+                                        ) + keychainArg + listOf(target.absolutePath),
+                                    )
+                                }.result
+                                .get()
+                                .assertNormalExitValue()
+                        }
+
+                        // Find .app bundles inside the expanded Payload directories
+                        expandedDir.walkTopDown()
+                            .filter { it.isDirectory && it.name == "Payload" }
+                            .forEach { payloadDir ->
+                                payloadDir.walkTopDown()
+                                    .filter { it.isDirectory && it.name.endsWith(".app") }
+                                    .forEach { appDir ->
+                                        val runtimeDir = appDir.resolve("Contents/runtime")
+                                        if (runtimeDir.exists()) {
+                                            // Sign all executables and dylibs in the runtime
+                                            // (innermost first, as Apple recommends)
+                                            runtimeDir.walkTopDown()
+                                                .filter {
+                                                    it.isFile && (it.canExecute() || it.name.endsWith(".dylib"))
+                                                }
+                                                .forEach { file ->
+                                                    codesign(file, runtimeEntitlements)
+                                                }
+                                            codesign(runtimeDir, runtimeEntitlements)
+                                        }
+                                        // Sign the main binary
+                                        val mainBinary = appDir.resolve("Contents/MacOS/${packageName.get()}")
+                                        if (mainBinary.exists()) {
+                                            codesign(mainBinary, appEntitlements)
+                                        }
+                                        // Sign the .app bundle
+                                        codesign(appDir, appEntitlements)
+                                    }
+                            }
+                    }
+
+                    // Flatten back to a flat PKG
+                    project.providers
+                        .exec {
+                            commandLine(
+                                "pkgutil", "--flatten",
+                                expandedDir.absolutePath,
+                                strippedPkg.absolutePath,
+                            )
+                        }.result
+                        .get()
+                        .assertNormalExitValue()
+
+                    // Re-sign the PKG with the installer identity
+                    if (signingIdentity != null) {
+                        pkgFile.delete()
+                        val installerIdentity =
+                            "3rd Party Mac Developer Installer: $signingIdentity"
+                        val signCmd = mutableListOf(
+                            "productsign", "--sign", installerIdentity,
+                        )
+                        project.findProperty("compose.desktop.mac.signing.keychain")?.let {
+                            signCmd.addAll(listOf("--keychain", it.toString()))
+                        }
+                        signCmd.addAll(listOf(strippedPkg.absolutePath, pkgFile.absolutePath))
+
+                        project.providers
+                            .exec { commandLine(signCmd) }
+                            .result
+                            .get()
+                            .assertNormalExitValue()
+
+                        strippedPkg.delete()
+                    } else {
+                        pkgFile.delete()
+                        if (!strippedPkg.renameTo(pkgFile)) {
+                            throw GradleException("Failed to rename stripped PKG")
+                        }
+                    }
+
+                    expandedDir.deleteRecursively()
+                    logger.lifecycle("Successfully created App Store compliant PKG: ${pkgFile.absolutePath}")
+                } catch (e: Exception) {
+                    if (expandedDir.exists()) expandedDir.deleteRecursively()
+                    if (strippedPkg.exists()) strippedPkg.delete()
+                    throw GradleException(
+                        "Failed to post-process PKG: ${e.message}",
+                        e,
+                    )
+                }
             }
         }
     }
