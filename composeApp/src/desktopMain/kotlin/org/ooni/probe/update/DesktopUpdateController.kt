@@ -15,6 +15,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.ooni.probe.config.UpdateConfig
 import org.ooni.probe.dependencies
 import org.ooni.probe.shared.DesktopOS
+import org.ooni.probe.shared.Distribution
 import org.ooni.probe.shared.NoOpUpdateManager
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.SparkleUpdateManager
@@ -140,7 +141,8 @@ class DesktopUpdateController(
     }
 
     fun supportsUpdates(): Boolean =
-        updateManager !is NoOpUpdateManager &&
+        Distribution.current.supportsSelfUpdate &&
+            updateManager !is NoOpUpdateManager &&
             (dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Mac, DesktopOS.Windows) &&
             updateManager.isHealthy()
 }

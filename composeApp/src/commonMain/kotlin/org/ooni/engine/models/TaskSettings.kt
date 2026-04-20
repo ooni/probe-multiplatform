@@ -42,5 +42,6 @@ data class TaskSettings(
         @SerialName("ooni_run_link_id") var ooniRunLinkId: String? = null,
         // system version (Android API version and iOS OS Version)
         @SerialName("os_version") val osVersion: String,
+        @SerialName("installer_store") val installerStore: String? = null,
     )
 }

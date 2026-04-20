@@ -8,7 +8,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 APP_PATH="$PROJECT_DIR/composeApp/build/compose/binaries/main/app/OONI Probe.app"
-ENTITLEMENTS="$PROJECT_DIR/composeApp/OONIProbe.entitlements"
+ENTITLEMENTS="$PROJECT_DIR/composeApp/macos/direct/entitlements.plist"
 
 if [ ! -d "$APP_PATH" ]; then
     echo "❌ App not found at: $APP_PATH"

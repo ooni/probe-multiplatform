@@ -188,6 +188,7 @@ class Engine(
             origin = taskOrigin,
             osVersion = platformInfo.osVersion,
             ooniRunLinkId = descriptorId?.value ?: "",
+            installerStore = platformInfo.installerStore,
         ),
         proxy = preferences.proxy,
     )
