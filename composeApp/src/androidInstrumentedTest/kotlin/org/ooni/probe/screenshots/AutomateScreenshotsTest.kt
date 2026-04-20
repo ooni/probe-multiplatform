@@ -11,13 +11,12 @@ import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Common_Back
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsites
 import ooniprobe.composeapp.generated.resources.Dashboard_Progress_UpdateLink_Label
+import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_Description
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
-import ooniprobe.composeapp.generated.resources.Dashboard_Tab_Label
 import ooniprobe.composeapp.generated.resources.Notification_StopTest
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Onboarding_AutomatedTesting_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_Crash_Title
-import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Button_Go
 import ooniprobe.composeapp.generated.resources.Onboarding_DefaultSettings_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_Notifications_Title
 import ooniprobe.composeapp.generated.resources.Onboarding_PopQuiz_True
@@ -55,6 +54,7 @@ import org.ooni.probe.uitesting.helpers.clickOnTag
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.defaultSettings
 import org.ooni.probe.uitesting.helpers.dependencies
+import org.ooni.probe.uitesting.helpers.disableRefreshArticles
 import org.ooni.probe.uitesting.helpers.getOoniDescriptor
 import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
@@ -100,6 +100,7 @@ class AutomateScreenshotsTest {
     fun setUp() =
         runTest {
             preferences.setValueByKey(SettingsKey.SEND_CRASH, false)
+            disableRefreshArticles()
         }
 
     @Test
@@ -107,7 +108,6 @@ class AutomateScreenshotsTest {
         runTest {
             if (!isOoni) return@runTest
             preferences.setValueByKey(SettingsKey.FIRST_RUN, true)
-            preferences.setValueByKey(SettingsKey.TESTS_MOVED_NOTICE, true)
             start()
 
             with(compose) {
@@ -148,10 +148,23 @@ class AutomateScreenshotsTest {
 
                 wait { onNodeWithText(Res.string.Onboarding_DefaultSettings_Title).isDisplayed() }
                 Screengrab.screenshot("05-default-settings")
-                clickOnText(Res.string.Onboarding_DefaultSettings_Button_Go)
+            }
+        }
 
+    @Test
+    fun dashboard() =
+        runTest {
+            if (!isOoni) return@runTest
+            skipOnboarding()
+            defaultSettings()
+            DatabaseHelper.setup()
+            start()
+
+            with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
+
                 Screengrab.screenshot("1_" + locale())
+                Screengrab.screenshot("06-dashboard")
             }
         }
 
@@ -165,18 +178,16 @@ class AutomateScreenshotsTest {
 
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
+                clickOnText(Res.string.Tests_Title)
 
                 wait(timeout = 30.seconds) {
-                    onNodeWithText(Res.string.Dashboard_Progress_UpdateLink_Label)
-                        .isNotDisplayed()
+                    onNodeWithText(Res.string.Dashboard_Progress_UpdateLink_Label).isNotDisplayed()
                 }
-
-                clickOnText(Res.string.Tests_Title)
 
                 wait {
                     onNodeWithText(getOoniDescriptor(OoniTest.Websites).title()).isDisplayed()
                 }
-                Screengrab.screenshot("2_" + locale())
+                Screengrab.screenshot("6_" + locale())
                 Screengrab.screenshot("22-tests")
             }
         }
@@ -191,52 +202,20 @@ class AutomateScreenshotsTest {
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
 
-                wait(timeout = 30.seconds) {
-                    onNodeWithText(Res.string.Dashboard_Progress_UpdateLink_Label)
-                        .isNotDisplayed()
-                }
-
-                if (onNodeWithText(Res.string.Dashboard_Running_Running).isDisplayed()) {
-                    Screengrab.screenshot("06-dashboard-running")
-
-                    clickOnText(Res.string.Dashboard_Running_Running)
-                    wait(timeout = 30.seconds) {
-                        onNodeWithText(Res.string.Notification_StopTest)
-                            .isDisplayed()
-                    }
-
-                    Screengrab.screenshot("06-running-running")
-
-                    clickOnText(Res.string.Notification_StopTest)
-
-                    wait(timeout = 30.seconds) {
-                        onNodeWithText(Res.string.Dashboard_Tab_Label)
-                            .isDisplayed()
-                    }
-
-                    clickOnText(Res.string.Dashboard_Tab_Label)
-
-                    Thread.sleep(300)
-
-                    Screengrab.screenshot("1_" + locale())
-
-                    Screengrab.screenshot("06-dashboard")
-                } else {
-                    Screengrab.screenshot("1_" + locale())
-
-                    Screengrab.screenshot("06-dashboard")
-                }
-
-                wait(timeout = 30.seconds) {
-                    onNodeWithText(Res.string.OONIRun_Run)
-                        .isDisplayed()
-                }
-
                 clickOnText(Res.string.OONIRun_Run)
+                wait { onNodeWithText(Res.string.Dashboard_RunTests_Description).isDisplayed() }
+                Screengrab.screenshot("06-run-tests")
+
                 clickOnTag("Run-Button")
 
-                Thread.sleep(3000)
-                Screengrab.screenshot("07-run-tests")
+                clickOnText(Res.string.Dashboard_Running_Running)
+                wait(timeout = 10.seconds) {
+                    onNodeWithText(Res.string.Notification_StopTest).isDisplayed()
+                }
+                Thread.sleep(5000)
+                Screengrab.screenshot("07-running-running")
+
+                clickOnText(Res.string.Notification_StopTest)
             }
         }
 
@@ -322,6 +301,7 @@ class AutomateScreenshotsTest {
             DatabaseHelper.setup()
             start()
             val websitesTitle = getOoniDescriptor(OoniTest.Websites).title()
+            val performanceTitle = getOoniDescriptor(OoniTest.Performance).title()
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
 
@@ -332,37 +312,35 @@ class AutomateScreenshotsTest {
                 Screengrab.screenshot("17-results")
 
                 Thread.sleep(3000)
-                Screengrab.screenshot("3_" + locale())
+                Screengrab.screenshot("2_" + locale())
 
                 clickOnText(websitesTitle)
 
-                wait(10.seconds) { onNodeWithText("https://z-lib.org/").isDisplayed() }
+                wait(10.seconds) { onNodeWithText("https://youtube.com/").isDisplayed() }
 
                 // Screenshot was coming up empty, so we need to explicitly sleep here
                 Thread.sleep(3000)
                 Screengrab.screenshot("18-websites-results")
 
-                clickOnText("https://z-lib.org/")
+                clickOnText("https://www.youtube.com/")
 
-                checkTextAnywhereInsideWebView("https://z-lib.org/")
+                checkTextAnywhereInsideWebView("https://www.youtube.com/")
 
                 Screengrab.screenshot("19-website-measurement-anomaly")
-                Screengrab.screenshot("4_" + locale())
+                Screengrab.screenshot("3_" + locale())
 
                 clickOnContentDescription(Res.string.Common_Back)
                 wait { onNodeWithText(websitesTitle).isDisplayed() }
                 clickOnContentDescription(Res.string.Common_Back)
-                wait { onNodeWithText(websitesTitle).isDisplayed() }
-                clickOnText(websitesTitle)
+                wait { onNodeWithText(performanceTitle).isDisplayed() }
+                clickOnText(performanceTitle)
                 wait { onNodeWithText(Res.string.Test_Dash_Fullname).isDisplayed() }
                 clickOnText(Res.string.Test_Dash_Fullname)
 
                 checkTextAnywhereInsideWebView("2160p (4k)")
 
                 Screengrab.screenshot("20-dash-measurement")
-
-                Thread.sleep(3000)
-                Screengrab.screenshot("5_" + locale())
+                Screengrab.screenshot("4_" + locale())
             }
         }
 
@@ -376,18 +354,13 @@ class AutomateScreenshotsTest {
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
 
-                wait(timeout = 30.seconds) {
-                    onNodeWithText(Res.string.Dashboard_Progress_UpdateLink_Label)
-                        .isNotDisplayed()
-                }
-
                 clickOnText(Res.string.Tests_Title)
                 clickOnText(websitesTitle)
                 wait { onNodeWithText(websitesTitle).isDisplayed() }
                 clickOnText(Res.string.Dashboard_Overview_ChooseWebsites)
                 wait { onNodeWithText(Res.string.Settings_Websites_CustomURL_Title).isDisplayed() }
                 Screengrab.screenshot("21-choose-websites")
-                Screengrab.screenshot("6_" + locale())
+                Screengrab.screenshot("5_" + locale())
             }
         }
 
@@ -408,11 +381,6 @@ class AutomateScreenshotsTest {
             start()
             with(compose) {
                 wait { onNodeWithContentDescription(Res.string.app_name).isDisplayed() }
-
-                // Wait for description updates to finish
-                Thread.sleep(2000)
-                wait { onNodeWithContentDescription(Res.string.Dashboard_Progress_UpdateLink_Label).isNotDisplayed() }
-                Thread.sleep(2000)
 
                 Screengrab.screenshot("1_${locale()}")
 

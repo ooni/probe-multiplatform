@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
+import org.ooni.probe.config.AndroidBatteryOptimization
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.domain.organizationPreferenceDefaults
 import kotlin.time.Clock
@@ -26,6 +27,7 @@ suspend fun skipOnboarding() {
             SettingsKey.TESTS_MOVED_NOTICE to true,
         ),
     )
+    AndroidBatteryOptimization.isSupported = false
 }
 
 suspend fun disableRefreshArticles() {

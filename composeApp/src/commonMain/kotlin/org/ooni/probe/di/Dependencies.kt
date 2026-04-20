@@ -154,7 +154,8 @@ class Dependencies(
     private val isWebViewAvailable: () -> Boolean,
     val launchAction: (PlatformAction) -> Boolean,
     private val legacyDirectoryManager: LegacyDirectoryManager = object : LegacyDirectoryManager {},
-    private val batteryOptimization: BatteryOptimization,
+    @get:VisibleForTesting
+    val batteryOptimization: BatteryOptimization,
     val flavorConfig: FlavorConfigInterface,
     val proxyConfig: ProxyConfig,
     val getCountryNameByCode: (String) -> String,
