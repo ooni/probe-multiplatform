@@ -133,12 +133,12 @@ jobs:
         if: matrix.distribution == 'direct'
         run: ./gradlew generateSparkleAppCast -Porganization=${{ env.ORGANIZATION }}
 
-      # packagePkg finalizes with verifyStoreBundle, which audits the produced
+      # notarizePkg finalizes with verifyStoreBundle, which audits the produced
       # .pkg for Sparkle/WinSparkle/updatebridge residue and fails the build if found.
       - name: Package PKG for Mac App Store
         if: matrix.distribution == 'mac-appstore'
         run: |
-          ./gradlew copyBrandingToCommonResources packagePkg \
+          ./gradlew copyBrandingToCommonResources notarizePkg \
             -Porganization=${{ env.ORGANIZATION }} \
             -PdesktopDistribution=mac-appstore \
             -Pcompose.desktop.mac.sign=true \
