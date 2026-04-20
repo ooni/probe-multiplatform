@@ -63,9 +63,9 @@ jobs:
           else
             # push/pull_request on buildSrc/** — validate direct builds only
             mac_direct="true"
-            mac_store="false"
+            mac_store="true"
             win_direct="true"
-            win_store="false"
+            win_store="true"
             linux="true"
           fi
 
