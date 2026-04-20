@@ -4,11 +4,92 @@ import java.io.File
 import java.util.Properties
 
 /**
- * Check if the build targets app store distribution (no Sparkle/WinSparkle).
- * Usage: ./gradlew packagePkg -PdesktopDistribution=appstore
+ * Describes the desktop distribution channel. Replaces the old boolean
+ * "is this an app store build" with a typed value so capability checks can
+ * live on the enum and new channels can slot in without more booleans.
+ *
+ * Selected at configuration time via `-PdesktopDistribution=<cliValue>`.
  */
-fun Project.isAppStoreDistribution(): Boolean =
-    findProperty("desktopDistribution")?.toString()?.equals("appstore", ignoreCase = true) == true
+enum class Distribution(val cliValue: String) {
+    Direct("direct"),
+    MacAppStore("mac-appstore"),
+    MicrosoftStore("ms-store"),
+    ;
+
+    val supportsSelfUpdate: Boolean get() = this == Direct
+    val requiresSandbox: Boolean get() = this == MacAppStore
+    val bundlesSparkle: Boolean get() = this == Direct
+    val bundlesWinSparkle: Boolean get() = this == Direct
+    val isAppStore: Boolean get() = this != Direct
+}
+
+/**
+ * Resolve the active distribution from the `-PdesktopDistribution` property.
+ *
+ * Defaults to [Distribution.Direct]. Accepts the legacy value `appstore`
+ * as a deprecated alias: it resolves to [Distribution.MacAppStore] on macOS
+ * hosts and [Distribution.MicrosoftStore] on Windows hosts, mirroring how
+ * Compose Desktop picks the current-OS package format.
+ */
+fun Project.distribution(): Distribution {
+    val raw = findProperty("desktopDistribution")?.toString()?.trim()?.lowercase()
+        ?: return Distribution.Direct
+
+    Distribution.values().firstOrNull { it.cliValue == raw }?.let { return it }
+
+    if (raw == "appstore") {
+        val os = OperatingSystem.current()
+        logger.warn(
+            "-PdesktopDistribution=appstore is deprecated. Use 'mac-appstore' or 'ms-store'.",
+        )
+        return when {
+            os.isMacOsX -> Distribution.MacAppStore
+            os.isWindows -> Distribution.MicrosoftStore
+            else -> error(
+                "-PdesktopDistribution=appstore is ambiguous on this host; " +
+                    "pass mac-appstore or ms-store explicitly.",
+            )
+        }
+    }
+
+    error(
+        "Unknown desktopDistribution=$raw; expected one of " +
+            Distribution.values().joinToString { it.cliValue } + " (or legacy 'appstore').",
+    )
+}
+
+/**
+ * Relative glob patterns for every desktop resource bundled solely to drive
+ * self-updates (Sparkle/WinSparkle and the `updatebridge` JNI glue). Paths
+ * are relative to `composeApp/src/desktopMain/resources/`.
+ *
+ * The same list is consumed twice: once by the resource-prep Sync to exclude
+ * these files from store builds, and once by the `verifyStoreBundle` task to
+ * confirm nothing matching them ended up inside a produced `.pkg` / `.exe`.
+ * Adding a new update-related resource only requires extending this list.
+ */
+val desktopUpdateResourcePatterns: List<String> = listOf(
+    "windows/WinSparkle.*",
+    "windows/libwinpthread-1.dll",
+    "windows/updatebridge.*",
+    "windows/include/**",
+    "macos/libupdatebridge.dylib",
+)
+
+/**
+ * Filename fragments that must not appear in a store-distributed bundle.
+ * Matched case-insensitively by [verifyStoreBundle] against the list of
+ * files inside `.pkg` / `.exe` payloads. Kept separate from
+ * [desktopUpdateResourcePatterns] because those are build-time glob paths
+ * while these are substring markers we expect inside packaged archives
+ * (framework dirs, signed helper tools, etc.).
+ */
+val forbiddenStoreBundleMarkers: List<String> = listOf(
+    "Sparkle",
+    "WinSparkle",
+    "updatebridge",
+    "libwinpthread",
+)
 
 /**
  * Check if F-Droid build task is requested.

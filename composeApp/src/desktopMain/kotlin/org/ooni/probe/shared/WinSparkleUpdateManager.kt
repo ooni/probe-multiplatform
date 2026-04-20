@@ -3,12 +3,21 @@ package org.ooni.probe.shared
 import org.ooni.shared.loadNativeLibrary
 
 class WinSparkleUpdateManager : UpdateManager {
+    init {
+        // Trigger the native library load only when an instance is actually
+        // constructed. Prevents class references (reflection, type checks,
+        // DI lookups) from attempting to load `updatebridge` in store builds
+        // where the library isn't bundled.
+        @Suppress("UNUSED_EXPRESSION")
+        libraryLoaded
+    }
+
     fun setDllRoot(path: String) {
         nativeSetDllRoot(path)
     }
 
     companion object {
-        private val isLibraryLoaded = loadNativeLibrary("updatebridge")
+        private val libraryLoaded: Boolean by lazy { loadNativeLibrary("updatebridge") }
     }
 
     private external fun nativeInit(appcastUrl: String): Int

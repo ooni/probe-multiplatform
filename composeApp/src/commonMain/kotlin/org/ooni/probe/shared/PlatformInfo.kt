@@ -14,6 +14,7 @@ data class PlatformInfo(
     val canPullToRefresh: Boolean = false,
     val sentryDsn: String,
     val sentryExtraTags: Map<String, String> = emptyMap(),
+    val installerStore: String? = null,
 ) {
     val version get() = "$buildName ($buildNumber)"
 }
