@@ -1,14 +1,25 @@
 package org.ooni.testing.factories
 
+import kotlinx.coroutines.flow.first
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.ArticleModel
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.NetworkModel
+import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.shared.now
+import org.ooni.probe.shared.toDateTime
+import org.ooni.probe.shared.toLocalDateTime
 import kotlin.concurrent.Volatile
+import kotlin.random.Random
+import kotlin.time.Clock
+import kotlin.time.Duration.Companion.days
 
 class DatabaseHelper private constructor(
     private val dependency: Dependencies,
@@ -35,21 +46,35 @@ class DatabaseHelper private constructor(
         suspend fun setup() {
             shared.dependency.resultRepository.deleteAll()
 
-            val networkId = shared.dependency.networkRepository.createIfNew(
-                NetworkModel(
-                    name = "Vodafone Italia",
-                    asn = "AS12345",
-                    countryCode = "IT",
-                    networkType = NetworkType.Wifi,
-                ),
-            )
+            val networkId = setupNetworks().last()
 
             if (OrganizationConfig.baseSoftwareName.contains("ooni")) {
-                setupOoni(networkId)
+                setupOoniResults(networkId)
+                setupOoniNews()
             } else {
                 setupDw(networkId)
             }
+
+            val lastRun = shared.dependency.resultRepository
+                .getLastRunResults()
+                .first()
+                .first()
+                .result.runId
+                ?.value
+            shared.dependency.preferenceRepository.setValueByKey(SettingsKey.LAST_RUN_DISMISSED, lastRun)
         }
+
+        private suspend fun setupNetworks() =
+            (1..3).map {
+                shared.dependency.networkRepository.createIfNew(
+                    NetworkModel(
+                        name = "Vodafone Italia",
+                        asn = "AS1234$it",
+                        countryCode = "IT",
+                        networkType = NetworkType.Wifi,
+                    ),
+                )
+            }
 
         private suspend fun setupDw(networkId: NetworkModel.Id) {
             val trustedId = shared.dependency.resultRepository.createOrUpdate(
@@ -109,6 +134,7 @@ class DatabaseHelper private constructor(
                     reportId = MeasurementModel.ReportId("20250205T153106Z_webconnectivity_DE_3209_n1_iB2GPLBoLLpSlEYf"),
                     isDone = true,
                     isUploaded = true,
+                    startTime = measurementStartTime(),
                 ),
             )
             listOf(
@@ -138,6 +164,7 @@ class DatabaseHelper private constructor(
                         reportId = MeasurementModel.ReportId("12345"),
                         isDone = true,
                         isUploaded = true,
+                        startTime = measurementStartTime(),
                     ),
                 )
             }
@@ -154,6 +181,7 @@ class DatabaseHelper private constructor(
                         reportId = MeasurementModel.ReportId("12345"),
                         isDone = true,
                         isUploaded = true,
+                        startTime = measurementStartTime(),
                     ),
                 )
             }
@@ -170,12 +198,13 @@ class DatabaseHelper private constructor(
                         reportId = MeasurementModel.ReportId("12345"),
                         isDone = true,
                         isUploaded = true,
+                        startTime = measurementStartTime(),
                     ),
                 )
             }
         }
 
-        private suspend fun setupOoni(networkId: NetworkModel.Id) {
+        private suspend fun setupOoniResults(networkId: NetworkModel.Id) {
             val websitesResultId = shared.dependency.resultRepository.createOrUpdate(
                 ResultModelFactory.build(
                     id = null,
@@ -194,12 +223,14 @@ class DatabaseHelper private constructor(
                     test = TestType.WebConnectivity,
                     urlId = shared.dependency.urlRepository
                         .createOrUpdate(
-                            UrlModelFactory.build(url = "https://z-lib.org/"),
+                            UrlModelFactory.build(url = "https://www.youtube.com/"),
                         ).id,
-                    reportId = MeasurementModel.ReportId("20250210T113750Z_webconnectivity_IT_12874_n1_qx1LFyoqM4orUsor"),
+                    reportId = MeasurementModel.ReportId("20260420T120159Z_webconnectivity_PT_12353_n3_cCj7MI9fn2qAkddW"),
+                    uid = MeasurementModel.Uid("20260421120343.029379_PT_webconnectivity_ef4879ff6cfb93bc"),
                     isDone = true,
                     isUploaded = true,
                     isAnomaly = true,
+                    startTime = measurementStartTime(),
                 ),
             )
             listOf(
@@ -236,6 +267,7 @@ class DatabaseHelper private constructor(
                         isUploaded = true,
                         isAnomaly = false,
                         reportId = MeasurementModel.ReportId("1234"),
+                        startTime = measurementStartTime(),
                     ),
                 )
             }
@@ -259,6 +291,7 @@ class DatabaseHelper private constructor(
                         isUploaded = true,
                         isAnomaly = true,
                         reportId = MeasurementModel.ReportId("1234"),
+                        startTime = measurementStartTime(),
                     ),
                 )
             }
@@ -288,6 +321,7 @@ class DatabaseHelper private constructor(
                         isDone = true,
                         isUploaded = true,
                         reportId = MeasurementModel.ReportId("1234"),
+                        startTime = measurementStartTime(),
                     ),
                 )
             }
@@ -317,6 +351,7 @@ class DatabaseHelper private constructor(
                         isDone = true,
                         isUploaded = true,
                         reportId = MeasurementModel.ReportId("1234"),
+                        startTime = measurementStartTime(),
                     ),
                 )
             }
@@ -341,18 +376,50 @@ class DatabaseHelper private constructor(
                     isUploaded = true,
                     testKeys = """{"summary":{"upload":6058.420633995402,"download":554105.6493846333,"ping":28}}""",
                     reportId = MeasurementModel.ReportId("1234"),
+                    startTime = measurementStartTime(),
                 ),
             )
             shared.dependency.measurementRepository.createOrUpdate(
                 MeasurementModelFactory.build(
                     resultId = performanceResultId,
                     test = TestType.Dash,
-                    reportId = MeasurementModel.ReportId("20250210T143842Z_dash_IT_1267_n1_1hoAk1rFwFsAoyXH"),
+                    reportId = MeasurementModel.ReportId("20260421T121842Z_dash_PT_12353_n3_ToopjE5IdP25IZBA"),
+                    uid = MeasurementModel.Uid("20260421121842.831998_PT_dash_1669230bece3f8bd"),
                     isDone = true,
                     isUploaded = true,
                     testKeys = """{"simple":{"median_bitrate":230936,"upload":1000,"download":2000}}""",
+                    startTime = measurementStartTime(),
                 ),
             )
         }
+
+        private suspend fun setupOoniNews() {
+            shared.dependency.articleRepository.refresh(
+                listOf(
+                    ArticleModelFactory.build(
+                        title = "Russia blocked Telegram",
+                        time = LocalDate.parse("2026-03-30").toDateTime(),
+                        source = ArticleModel.Source.Finding,
+                    ),
+                    ArticleModelFactory.build(
+                        title = "Gabon blocked social media",
+                        time = LocalDate.parse("2026-02-19").toDateTime(),
+                        source = ArticleModel.Source.Finding,
+                    ),
+                    ArticleModelFactory.build(
+                        title = "Announcing OONI's New Anonymous Credential System",
+                        time = LocalDate.parse("2026-01-30").toDateTime(),
+                        source = ArticleModel.Source.Blog,
+                    ),
+                ),
+            )
+        }
+
+        private fun measurementStartTime() =
+            if (Random.nextBoolean()) {
+                LocalDateTime.now()
+            } else {
+                (Clock.System.now() - (Random.nextLong(1, 60)).days).toLocalDateTime()
+            }
     }
 }

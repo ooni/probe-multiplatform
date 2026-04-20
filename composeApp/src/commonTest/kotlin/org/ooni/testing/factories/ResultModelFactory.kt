@@ -13,6 +13,7 @@ import org.ooni.probe.data.models.RunModel
 import org.ooni.probe.shared.now
 import org.ooni.probe.shared.today
 import kotlin.random.Random
+import kotlin.uuid.Uuid
 
 object ResultModelFactory {
     fun build(
@@ -27,7 +28,7 @@ object ResultModelFactory {
         networkId: NetworkModel.Id? = null,
         descriptorName: String? = null,
         descriptorKey: Descriptor.Key? = null,
-        runId: RunModel.Id? = null,
+        runId: RunModel.Id? = RunModel.Id(Uuid.generateV4().toString()),
     ) = ResultModel(
         id = id,
         descriptorName = descriptorName,
