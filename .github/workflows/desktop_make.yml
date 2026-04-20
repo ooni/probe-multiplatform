@@ -168,6 +168,19 @@ jobs:
             composeApp/build/compose/binaries/main/pkg/OONI Probe-*.pkg
           retention-days: 7
 
+      - name: Upload failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failure-logs-macos-${{ matrix.distribution }}-${{ github.run_id }}
+          path: |
+            composeApp/build/compose/logs/**
+            composeApp/build/compose/tmp/**
+            composeApp/build/reports/problems/**
+            build/reports/problems/**
+          if-no-files-found: ignore
+          retention-days: 7
+
   package-windows:
     name: Package Windows app (${{ matrix.distribution }})
     needs: plan
@@ -219,6 +232,19 @@ jobs:
             composeApp/build/compose/binaries/main/exe/OONI Probe-*.exe
           retention-days: 7
 
+      - name: Upload failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failure-logs-windows-${{ matrix.distribution }}-${{ github.run_id }}
+          path: |
+            composeApp/build/compose/logs/**
+            composeApp/build/compose/tmp/**
+            composeApp/build/reports/problems/**
+            build/reports/problems/**
+          if-no-files-found: ignore
+          retention-days: 7
+
   package-linux:
     name: Package Linux app
     needs: plan
@@ -254,4 +280,17 @@ jobs:
           path: |
             composeApp/build/compose/binaries/main/deb/ooni-probe_*_amd64.deb
             composeApp/build/compose/binaries/main/appimage-workspace/OONI-Probe-*-x86_64.AppImage
+          retention-days: 7
+
+      - name: Upload failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failure-logs-linux-${{ github.run_id }}
+          path: |
+            composeApp/build/compose/logs/**
+            composeApp/build/compose/tmp/**
+            composeApp/build/reports/problems/**
+            build/reports/problems/**
+          if-no-files-found: ignore
           retention-days: 7
