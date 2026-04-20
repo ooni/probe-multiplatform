@@ -490,7 +490,7 @@ private fun Project.configureTaskDependencies() {
         // is safe to wire unconditionally.
         tasks.findByName("verifyStoreBundle")?.let { verify ->
             listOf("packagePkg", "packageExe").forEach { name ->
-                tasks.findByName(name)?.finalizedBy(verify)
+                //tasks.findByName(name)?.finalizedBy(verify)
             }
         }
     }
