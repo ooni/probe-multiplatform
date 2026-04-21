@@ -1,6 +1,5 @@
 package org.ooni.probe.ui.measurement
 
-import androidx.compose.ui.text.intl.Locale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
@@ -12,8 +11,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import org.intellij.markdown.html.urlEncode
-import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
 
@@ -33,7 +30,7 @@ class MeasurementViewModel(
     init {
         viewModelScope.launch {
             val measurement = getMeasurement(measurementId).first()
-            val url = measurement?.getWebViewUrl() ?: run {
+            val url = measurement?.webViewUrl ?: run {
                 onBack()
                 return@launch
             }
@@ -70,20 +67,6 @@ class MeasurementViewModel(
 
     fun onEvent(event: Event) {
         events.tryEmit(event)
-    }
-
-    private fun MeasurementWithUrl.getWebViewUrl(): String? {
-        val m = measurement
-        val input = url?.url
-        return if (m.uid != null && m.uid.value.isNotBlank()) {
-            "${OrganizationConfig.explorerUrl}/m/${m.uid.value}?webview=true&language=${Locale.current.language}-${Locale.current.region}"
-        } else if (m.reportId != null) {
-            val inputSuffix = input?.let { "?input=${urlEncode(it)}" } ?: ""
-            val separator = if (inputSuffix.isEmpty()) "?" else "&"
-            "${OrganizationConfig.explorerUrl}/measurement/${m.reportId.value}$inputSuffix${separator}webview=true&language=${Locale.current.language}-${Locale.current.region}"
-        } else {
-            null
-        }
     }
 
     sealed interface State {
