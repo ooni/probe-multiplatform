@@ -24,6 +24,7 @@ fun Project.registerTasks(config: AppConfig) {
     registerSparkleTask()
     registerWinSparkleTask()
     registerOONIDistributableTask()
+    registerRemoveQuarantineTask()
     registerAppImageTask()
     registerVerifyStoreBundleTask()
     configureTaskDependencies()
@@ -388,6 +389,50 @@ private fun Project.registerOONIDistributableTask() {
     }
 }
 
+private fun Project.registerRemoveQuarantineTask() {
+    tasks.register("removeProvisionProfileQuarantine") {
+        group = "ooni"
+        description = "Strips com.apple.quarantine xattr from embedded provision " +
+            "profiles inside the packaged .app so App Store / TestFlight uploads " +
+            "aren't rejected with error 91109."
+        onlyIf { isMac() }
+        doLast {
+            val candidates = listOf(
+                layout.buildDirectory.dir("compose/binaries/main/app"),
+                layout.buildDirectory.dir("compose/binaries/main-release/app"),
+            )
+            val relativeTargets = listOf(
+                "Contents/embedded.provisionprofile",
+                "Contents/runtime/Contents/embedded.provisionprofile",
+            )
+            val appDirs = candidates.mapNotNull { it.orNull?.asFile }
+                .flatMap { root ->
+                    root.listFiles { f -> f.isDirectory && f.name.endsWith(".app") }
+                        ?.toList() ?: emptyList()
+                }
+            if (appDirs.isEmpty()) {
+                logger.info("removeProvisionProfileQuarantine: no .app bundle found; skipping")
+                return@doLast
+            }
+            appDirs.forEach { app ->
+                relativeTargets.forEach { rel ->
+                    val file = app.resolve(rel)
+                    if (!file.exists()) {
+                        logger.info("removeProvisionProfileQuarantine: ${file.absolutePath} not found; skipping")
+                        return@forEach
+                    }
+                    logger.lifecycle("removeProvisionProfileQuarantine: stripping xattr on ${file.absolutePath}")
+                    providers.exec {
+                        //commandLine("xattr", "-d", "com.apple.quarantine", file.absolutePath)
+                        commandLine("xattr", "-cr", file.absolutePath)
+                        isIgnoreExitValue = true
+                    }.result.get()
+                }
+            }
+        }
+    }
+}
+
 private fun Project.macOsCodeSign(path: String) {
     val sign = project.findProperty("compose.desktop.mac.sign")
     if (sign != true && sign != "true") return
@@ -491,6 +536,12 @@ private fun Project.configureTaskDependencies() {
         tasks.findByName("verifyStoreBundle")?.let { verify ->
             listOf("packagePkg", "packageExe").forEach { name ->
                 tasks.findByName(name)?.finalizedBy(verify)
+            }
+        }
+
+        tasks.findByName("removeProvisionProfileQuarantine")?.let { strip ->
+            listOf("createDistributable", "createReleaseDistributable").forEach { name ->
+                tasks.findByName(name)?.finalizedBy(strip)
             }
         }
     }

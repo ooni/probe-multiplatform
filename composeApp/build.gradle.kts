@@ -421,15 +421,28 @@ compose.desktop {
                 bundleID = appId
                 val macDir = if (dist.requiresSandbox) "macos/appstore" else "macos/direct"
                 entitlementsFile.set(project.file("$macDir/entitlements.plist"))
+                runtimeEntitlementsFile.set(project.file("$macDir/runtime-entitlements.plist"))
                 infoPlist {
                     extraKeysRawXml = project
                         .file("$macDir/Info.plist")
                         .readText()
                         .replace("APP_ID", appId)
                 }
+                packageBuildVersion = android.defaultConfig.versionCode.toString()
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
                 jvmArgs("-Dapple.awt.application.appearance=system") // adaptive title bar
                 iconFile.set(rootProject.file("icons/app.icns"))
+                appStore = dist.isAppStore
+                if (dist.isAppStore) {
+                    signing {
+                        sign.set(true)
+                        identity.set("Open Observatory of Network Interference (OONI) ETS")
+                    }
+                    provisioningProfile.set(project.file("$macDir/embedded.provisionprofile"))
+                    runtimeProvisioningProfile.set(project.file("$macDir/runtime.provisionprofile"))
+                    entitlementsFile.set(project.file("$macDir/entitlements.plist"))
+                    runtimeEntitlementsFile.set(project.file("$macDir/runtime-entitlements.plist"))
+                }
             }
             windows {
                 iconFile.set(rootProject.file("icons/app.ico"))

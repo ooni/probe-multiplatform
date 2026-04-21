@@ -4,6 +4,21 @@
 <dict>
     <key>com.apple.security.app-sandbox</key>
     <true/>
+
+    <!-- Code Signing Exceptions (required for JVM) -->
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+    <true/>
+    <key>com.apple.security.cs.debugger</key>
+    <true/>
+    <key>com.apple.security.device.audio-input</key>
+    <true/>
+
 	<!-- Network -->
 	<key>com.apple.security.network.server</key>
 	<true/>
@@ -43,12 +58,8 @@
 		<string>org.ooni.probe-desktop</string>
 	</array>
 
-	<!-- Code Signing Exceptions (required for JVM) -->
-    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
-    <true/>
-    <key>com.apple.security.cs.disable-library-validation</key>
-    <true/>
-    <key>com.apple.security.cs.allow-jit</key>
-    <true/>
+
+    <key>com.apple.application-identifier</key><string>TT53HD8N84.org.ooni.probe-desktop</string>
+    <key>com.apple.developer.team-identifier</key><string>TT53HD8N84</string>
 </dict>
 </plist>
