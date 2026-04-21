@@ -6,8 +6,17 @@ import org.ooni.shared.loadNativeLibrary
 import java.util.Base64
 
 class SparkleUpdateManager : UpdateManager {
+    init {
+        // Trigger the native library load only when an instance is actually
+        // constructed. Prevents class references (reflection, type checks,
+        // DI lookups) from attempting to load `updatebridge` in store builds
+        // where the library isn't bundled.
+        @Suppress("UNUSED_EXPRESSION")
+        libraryLoaded
+    }
+
     companion object {
-        private val isLibraryLoaded = loadNativeLibrary("updatebridge")
+        private val libraryLoaded: Boolean by lazy { loadNativeLibrary("updatebridge") }
 
         /**
          * Validates that a public key is properly formatted for Sparkle EdDSA verification

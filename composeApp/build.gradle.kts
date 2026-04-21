@@ -1,5 +1,6 @@
 import com.android.build.api.variant.FilterConfiguration
 import org.gradle.api.GradleException
+import org.gradle.api.tasks.Sync
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.compose.desktop.application.tasks.AbstractJPackageTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
@@ -369,17 +370,35 @@ ktlint {
 
 // Desktop
 
-val isAppStore = isAppStoreDistribution()
+val dist = distribution()
+
+val desktopResourcesDir = project.layout.projectDirectory.dir("src/desktopMain/resources/")
+val preparedResourcesDir = layout.buildDirectory.dir("tmp/desktop-resources-${dist.name.lowercase()}")
+
+// Copy desktopMain resources into a per-distribution staging dir, stripping
+// updater binaries (Sparkle/WinSparkle/updatebridge/libwinpthread) whenever
+// the active distribution doesn't bundle an auto-updater. The same pattern
+// list is used by the `verifyStoreBundle` task to audit produced packages.
+val prepareDesktopResources = tasks.register<Sync>("prepareDesktopResources") {
+    from(desktopResourcesDir)
+    into(preparedResourcesDir)
+    if (!dist.bundlesSparkle || !dist.bundlesWinSparkle) {
+        desktopUpdateResourcePatterns.forEach { exclude(it) }
+    }
+}
 
 compose.desktop {
     application {
         mainClass = "org.ooni.probe.MainKt"
 
         nativeDistributions {
-            if (isAppStore) {
-                targetFormats(TargetFormat.Pkg)
+            if (dist.isAppStore) {
+                // Pkg ships the macOS App Store build. Exe is the Windows
+                // appstore-channel installer. Compose Desktop picks the format
+                // that matches the current OS, so both can coexist here.
+                targetFormats(TargetFormat.Pkg, TargetFormat.Exe)
             } else {
-                targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe, TargetFormat.Deb)
+                targetFormats(TargetFormat.Dmg, TargetFormat.Exe, TargetFormat.Deb)
             }
             packageName = "OONI Probe"
             packageVersion = android.defaultConfig.versionName
@@ -394,32 +413,36 @@ compose.desktop {
             // Include native libraries
             includeAllModules = true
 
-            val appResource = project.layout.projectDirectory.dir("src/desktopMain/resources/")
-            appResourcesRootDir.set(appResource)
+            appResourcesRootDir.fileProvider(prepareDesktopResources.map { it.destinationDir })
             val appId = "org.ooni.probe-desktop"
 
             macOS {
                 minimumSystemVersion = "14.8.3"
                 bundleID = appId
-                entitlementsFile.set(
-                    project.file(
-                        if (isAppStore) {
-                            "OONIProbe-appstore.entitlements"
-                        } else {
-                            "OONIProbe.entitlements"
-                        },
-                    ),
-                )
+                val macDir = if (dist.requiresSandbox) "macos/appstore" else "macos/direct"
+                entitlementsFile.set(project.file("$macDir/entitlements.plist"))
+                runtimeEntitlementsFile.set(project.file("$macDir/runtime-entitlements.plist"))
                 infoPlist {
-                    val plistFile = if (isAppStore) "InfoPlist-appstore.xml" else "InfoPlist-direct.xml"
                     extraKeysRawXml = project
-                        .file(plistFile)
+                        .file("$macDir/Info.plist")
                         .readText()
                         .replace("APP_ID", appId)
                 }
+                packageBuildVersion = android.defaultConfig.versionCode.toString()
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
                 jvmArgs("-Dapple.awt.application.appearance=system") // adaptive title bar
                 iconFile.set(rootProject.file("icons/app.icns"))
+                appStore = dist.isAppStore
+                if (dist.isAppStore) {
+                    signing {
+                        sign.set(true)
+                        identity.set("Open Observatory of Network Interference (OONI) ETS")
+                    }
+                    provisioningProfile.set(project.file("$macDir/embedded.provisionprofile"))
+                    runtimeProvisioningProfile.set(project.file("$macDir/runtime.provisionprofile"))
+                    entitlementsFile.set(project.file("$macDir/entitlements.plist"))
+                    runtimeEntitlementsFile.set(project.file("$macDir/runtime-entitlements.plist"))
+                }
             }
             windows {
                 iconFile.set(rootProject.file("icons/app.ico"))

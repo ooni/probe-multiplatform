@@ -2,6 +2,7 @@ import ooni.appimage.PackageAppImageTask
 import ooni.sparkle.GenerateSparkleAppCastTask
 import ooni.sparkle.SetupSparkleTask
 import ooni.sparkle.WinSparkleSetupTask
+import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.JavaExec
@@ -23,7 +24,9 @@ fun Project.registerTasks(config: AppConfig) {
     registerSparkleTask()
     registerWinSparkleTask()
     registerOONIDistributableTask()
+    registerRemoveQuarantineTask()
     registerAppImageTask()
+    registerVerifyStoreBundleTask()
     configureTaskDependencies()
 }
 
@@ -60,13 +63,13 @@ fun Project.registerDesktopBuildConfigTask(
     versionCode: Int,
 ) {
     val isDebug = isDebugTaskRequested()
-    val isAppStore = isAppStoreDistribution()
+    val dist = distribution()
     tasks.register("generateDesktopBuildConfig") {
         val outputDir = layout.buildDirectory.dir("generated/desktopBuildConfig/kotlin")
         inputs.property("versionName", versionName)
         inputs.property("versionCode", versionCode)
         inputs.property("isDebug", isDebug)
-        inputs.property("isAppStore", isAppStore)
+        inputs.property("distribution", dist.name)
         outputs.dir(outputDir)
         doLast {
             val dir = outputDir.get().asFile.resolve("org/ooni/probe")
@@ -79,7 +82,7 @@ fun Project.registerDesktopBuildConfigTask(
                 |    const val VERSION_NAME = "$versionName"
                 |    const val VERSION_CODE = $versionCode
                 |    const val IS_DEBUG = $isDebug
-                |    const val IS_APP_STORE = $isAppStore
+                |    const val DISTRIBUTION = "${dist.name}"
                 |}
                 """.trimMargin(),
             )
@@ -88,19 +91,19 @@ fun Project.registerDesktopBuildConfigTask(
 }
 
 private fun Project.registerDesktopTasks() {
-    val isAppStore = isAppStoreDistribution()
+    val bundlesUpdater = distribution().bundlesSparkle || distribution().bundlesWinSparkle
 
     tasks.register("makeLibrary", Exec::class) {
         group = "ooni"
         description = "Build native libraries (NetworkTypeFinder and UpdateBridge)"
-        if (!isAppStore) {
+        if (bundlesUpdater) {
             dependsOn("setupSparkle")
         }
         workingDir = file("src/desktopMain")
-        commandLine = if (isAppStore) {
-            listOf("make", "desktop-only")
-        } else {
+        commandLine = if (bundlesUpdater) {
             listOf("make", "all")
+        } else {
+            listOf("make", "desktop-only")
         }
 
         inputs.files(fileTree("src/desktopMain/c") {
@@ -121,7 +124,7 @@ private fun Project.registerSparkleTask() {
         group = "setup"
         description =
             "Downloads Sparkle and extracts Sparkle.framework to the destination directory"
-        onlyIf { isMac() && !isAppStoreDistribution() }
+        onlyIf { isMac() && distribution().bundlesSparkle }
         sparkleVersion.set(providers.gradleProperty("sparkleVersion").orElse("2.8.0"))
         destDir.set(
             providers.gradleProperty("sparkleExtractDir")
@@ -134,8 +137,8 @@ private fun Project.registerSparkleTask() {
         group = "setup"
         description = "Generates Sparkle appcast using the specified DMG file."
         onlyIf {
-            if (isAppStoreDistribution()) {
-                logger.info("Skipping generateSparkleAppCast: App store distribution")
+            if (!distribution().bundlesSparkle) {
+                logger.info("Skipping generateSparkleAppCast: distribution=${distribution().name}")
                 return@onlyIf false
             }
             val privateKeyFile = rootProject.file("certificates/sparkle_eddsa_private.pem")
@@ -149,7 +152,7 @@ private fun Project.registerSparkleTask() {
             }
             true
         }
-        if (!isAppStoreDistribution()) {
+        if (distribution().bundlesSparkle) {
             dependsOn("setupSparkle")
         }
 
@@ -166,13 +169,123 @@ private fun Project.registerWinSparkleTask() {
         group = "setup"
         description =
             "Downloads WinSparkle and extracts WinSparkle.dll to the destination directory"
-        onlyIf { System.getProperty("os.name").lowercase().contains("win") && !isAppStoreDistribution() }
+        onlyIf {
+            System.getProperty("os.name").lowercase().contains("win") &&
+                distribution().bundlesWinSparkle
+        }
         winSparkleVersion.set(providers.gradleProperty("winSparkleVersion").orElse("0.9.1"))
         destDir.set(
             providers.gradleProperty("winSparkleExtractDir")
                 .map { layout.projectDirectory.dir(it) }
                 .orElse(layout.projectDirectory.dir("src/desktopMain/resources/windows/")),
         )
+    }
+}
+
+private fun Project.registerVerifyStoreBundleTask() {
+    tasks.register("verifyStoreBundle") {
+        group = "verification"
+        description = "Asserts store-distributed .pkg/.exe bundles contain no self-updater artifacts."
+        onlyIf {
+            if (!distribution().isAppStore) {
+                logger.info("Skipping verifyStoreBundle: distribution=${distribution().name}")
+                return@onlyIf false
+            }
+            true
+        }
+        val markers = forbiddenStoreBundleMarkers
+        val pkgDir = layout.buildDirectory.dir("compose/binaries/main/pkg")
+        val exeDir = layout.buildDirectory.dir("compose/binaries/main/exe")
+        doLast {
+            val violations = mutableListOf<String>()
+            var verifiedCount = 0
+
+            pkgDir.orNull?.asFile?.listFiles { _, n -> n.endsWith(".pkg") }?.forEach { pkg ->
+                verifiedCount++
+                val entries = listPkgPayloadFiles(pkg)
+                markers.forEach { marker ->
+                    entries.filter { it.contains(marker, ignoreCase = true) }.forEach { entry ->
+                        violations += "${pkg.name}: payload '$entry' matches forbidden marker '$marker'"
+                    }
+                }
+            }
+
+            exeDir.orNull?.asFile?.listFiles { _, n -> n.endsWith(".exe") }?.forEach { exe ->
+                verifiedCount++
+                val entries = listExeEntries(exe)
+                markers.forEach { marker ->
+                    entries.filter { it.contains(marker, ignoreCase = true) }.forEach { entry ->
+                        violations += "${exe.name}: entry '$entry' matches forbidden marker '$marker'"
+                    }
+                }
+            }
+
+            if (verifiedCount == 0) {
+                throw GradleException(
+                    "verifyStoreBundle: no .pkg or .exe artifact found under " +
+                        "${pkgDir.get().asFile} or ${exeDir.get().asFile}. " +
+                        "Run packagePkg or packageExe first.",
+                )
+            }
+
+            if (violations.isNotEmpty()) {
+                throw GradleException(
+                    "verifyStoreBundle failed (distribution=${distribution().name}):\n  - " +
+                        violations.joinToString("\n  - "),
+                )
+            }
+            logger.lifecycle("verifyStoreBundle: $verifiedCount artifact(s) clean (distribution=${distribution().name})")
+        }
+    }
+}
+
+/**
+ * Lists payload file paths inside a macOS `.pkg` using `pkgutil`.
+ * `pkgutil --payload-files` is a standard macOS tool.
+ */
+private fun Project.listPkgPayloadFiles(pkg: File): List<String> {
+    val execOutput = providers.exec {
+        commandLine("pkgutil", "--payload-files", pkg.absolutePath)
+        isIgnoreExitValue = true
+    }
+    val exit = execOutput.result.get().exitValue
+    val stdout = execOutput.standardOutput.asText.get()
+    val stderr = execOutput.standardError.asText.get()
+    if (exit != 0) {
+        throw GradleException(
+            "pkgutil --payload-files failed for ${pkg.name} (exit $exit). " +
+                "Ensure the command is available (it ships with macOS).\n$stderr",
+        )
+    }
+    return stdout.split("\n").filter { it.isNotBlank() }
+}
+
+/**
+ * Lists archive entries inside a Windows `.exe` installer via 7-Zip's
+ * `7z l -ba`. jpackage produces a WiX Burn bundle .exe; 7-Zip reads its
+ * embedded payload so the caller can grep for forbidden markers.
+ * 7-Zip is pre-installed on GitHub's windows-latest and ubuntu-latest runners.
+ */
+private fun Project.listExeEntries(exe: File): List<String> {
+    val execOutput = providers.exec {
+        commandLine("7z", "l", "-ba", exe.absolutePath)
+        isIgnoreExitValue = true
+    }
+    val exit = execOutput.result.get().exitValue
+    val stdout = execOutput.standardOutput.asText.get()
+    val stderr = execOutput.standardError.asText.get()
+    if (exit != 0) {
+        throw GradleException(
+            "7z l failed for ${exe.name} (exit $exit). " +
+                "Install 7-Zip and ensure `7z` is on PATH.\n$stderr",
+        )
+    }
+    // `7z l -ba` output: "DATE TIME ATTR SIZE COMPRESSED NAME"
+    // Split on whitespace with a limit so the name field (which may contain spaces)
+    // is kept intact.
+    return stdout.split("\n").mapNotNull { line ->
+        val parts = line.trim().split(Regex("\\s+"), limit = 6)
+        parts.getOrNull(5)?.takeIf { it.isNotBlank() }
     }
 }
 
@@ -228,7 +341,7 @@ private fun Project.registerOONIDistributableTask() {
                 return@doLast
             }
 
-            if (!isAppStoreDistribution()) {
+            if (distribution().bundlesSparkle) {
                 val sparkleFramework =
                     layout.buildDirectory.dir("tmp/desktop/main/macos/Sparkle.framework").get().asFile
                 val appSparkleLocation = appDirs.first().resolve("Contents/app/resources")
@@ -265,13 +378,57 @@ private fun Project.registerOONIDistributableTask() {
                     )
                 }.result.get()
             } else {
-                project.logger.lifecycle("App store distribution: skipping Sparkle.framework bundling")
+                project.logger.lifecycle("distribution=${distribution().name}: skipping Sparkle.framework bundling")
             }
 
             // Sign the .app file
             macOsCodeSign(appDirs.first().absolutePath)
 
             project.logger.lifecycle("Distributable output directory: ${outputDir.absolutePath}")
+        }
+    }
+}
+
+private fun Project.registerRemoveQuarantineTask() {
+    tasks.register("removeProvisionProfileQuarantine") {
+        group = "ooni"
+        description = "Strips com.apple.quarantine xattr from embedded provision " +
+            "profiles inside the packaged .app so App Store / TestFlight uploads " +
+            "aren't rejected with error 91109."
+        onlyIf { isMac() }
+        doLast {
+            val candidates = listOf(
+                layout.buildDirectory.dir("compose/binaries/main/app"),
+                layout.buildDirectory.dir("compose/binaries/main-release/app"),
+            )
+            val relativeTargets = listOf(
+                "Contents/embedded.provisionprofile",
+                "Contents/runtime/Contents/embedded.provisionprofile",
+            )
+            val appDirs = candidates.mapNotNull { it.orNull?.asFile }
+                .flatMap { root ->
+                    root.listFiles { f -> f.isDirectory && f.name.endsWith(".app") }
+                        ?.toList() ?: emptyList()
+                }
+            if (appDirs.isEmpty()) {
+                logger.info("removeProvisionProfileQuarantine: no .app bundle found; skipping")
+                return@doLast
+            }
+            appDirs.forEach { app ->
+                relativeTargets.forEach { rel ->
+                    val file = app.resolve(rel)
+                    if (!file.exists()) {
+                        logger.info("removeProvisionProfileQuarantine: ${file.absolutePath} not found; skipping")
+                        return@forEach
+                    }
+                    logger.lifecycle("removeProvisionProfileQuarantine: stripping xattr on ${file.absolutePath}")
+                    providers.exec {
+                        //commandLine("xattr", "-d", "com.apple.quarantine", file.absolutePath)
+                        commandLine("xattr", "-cr", file.absolutePath)
+                        isIgnoreExitValue = true
+                    }.result.get()
+                }
+            }
         }
     }
 }
@@ -341,7 +498,7 @@ private fun Project.configureTaskDependencies() {
         tasks.findByName("clean")
             ?.dependsOn("copyBrandingToCommonResources", "cleanCopiedCommonResourcesToFlavor")
 
-        if (!isAppStoreDistribution()) {
+        if (distribution().bundlesSparkle) {
             // Ensure Sparkle.framework is prepared before packaging desktop apps
             val sparkleConsumers = setOf(
                 "runDistributable",
@@ -372,6 +529,21 @@ private fun Project.configureTaskDependencies() {
         tasks.findByName("packagePkg")?.dependsOn(ooniDistributableTask)
         tasks.findByName("packageDistributionForCurrentOS")?.dependsOn(ooniDistributableTask)
         tasks.findByName("runDistributable")?.dependsOn(ooniDistributableTask)
+
+        // Finalize store-build packaging with an automatic audit of the produced
+        // artifact. The verifier short-circuits on Direct distributions, so this
+        // is safe to wire unconditionally.
+        tasks.findByName("verifyStoreBundle")?.let { verify ->
+            listOf("packagePkg", "packageExe").forEach { name ->
+                tasks.findByName(name)?.finalizedBy(verify)
+            }
+        }
+
+        tasks.findByName("removeProvisionProfileQuarantine")?.let { strip ->
+            listOf("createDistributable", "createReleaseDistributable").forEach { name ->
+                tasks.findByName(name)?.finalizedBy(strip)
+            }
+        }
     }
 }
 

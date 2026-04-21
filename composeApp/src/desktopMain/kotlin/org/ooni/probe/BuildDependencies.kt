@@ -19,6 +19,7 @@ import org.ooni.probe.data.buildDatabaseDriver
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.shared.Distribution
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import java.awt.Desktop
@@ -88,7 +89,9 @@ private fun buildPlatformInfo(): PlatformInfo {
             put("os.arch", System.getProperty("os.arch"))
             put("locale", Locale.getDefault().toString())
             put("environment", environment)
+            put("installerStore", Distribution.current.name)
         },
+        installerStore = Distribution.current.name,
     )
 }
 
