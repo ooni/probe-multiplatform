@@ -463,4 +463,23 @@
     <string name="Modal_ResultsNotUploaded_Uploading">Subiendo %1$s…</string>
     <string name="Tray_Notification_Checking_Updates">Buscando actualizaciones…</string>
     <string name="Modal_Quite_Prompt">¿Abandonar lo OONI Probe?</string>
+    <string name="Dashboard_RunV2_Title">Enlaces de OONI Run</string>
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one">Ver %1$d sitios</item>
+        <item quantity="many">Ver los %1$d de sitios</item>
+        <item quantity="other">Ver los %1$d sitios</item>
+    </plurals>
+    <string name="Dashboard_Progress_ReviewLink_Label">Actualizaciones de enlaces listas</string>
+    <string name="Results_LimitedNotice">Solo se muestran los últimos %1$d resultados</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Limitar la duración de la prueba de Sitios web</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Solo para ejecuciones manuales</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid">El nombre de host no es válido</string>
+    <string name="Settings_Proxy_Custom_PortInvalid">El puerto no es válido</string>
+    <string name="Settings_Proxy_Delete_Confirmation">¿Estás seguro de que quieres eliminar el proxy “%1$s”?</string>
+    <string name="Settings_ShareApp_Description">Comparte la aplicación %1$s con otra persona</string>
+    <string name="Settings_Sharing_UploadResults_Description">Los resultados se cargan automáticamente en el explorador OONI</string>
+    <string name="AddDescriptor_EnterURL">Introduzca una URL de enlace de OONI Run</string>
+    <string name="AddDescriptor_URLInvalid">La URL no es un enlace de OONI Run válido</string>
+    <string name="AddDescriptor_Title">Instalar un nuevo Enlace</string>
+    <string name="Modal_Error_ProxyUnavailable">Es posible que el servidor proxy seleccionado no esté disponible</string>
 </resources>
