@@ -4,7 +4,7 @@
     <string name="Onboarding_WhatIsOONIProbe_Title">Je, OONI Probe ni nini?</string>
     <string name="Onboarding_WhatIsOONIProbe_Paragraph">Programu yako ya kupima udhibiti wa mtandao.\n\nJe, tovuti na mitandao ya kijamii zimezuiwa? Je, muunganisho wako wa mtandao uko polepole sana?\n\nFungua uchunguzi wa OONI kujua!</string>
     <string name="Onboarding_ThingsToKnow_Bullet_1">Takwimu za OONI zimechapishwa kwa uwazi na zitajumuisha habari ya mtandao wako.</string>
-    <string name="Onboarding_ThingsToKnow_Bullet_2">Mtu yeyote anayefuatilia shughuli zako za mtandao (kwa mfano serikali au ISP) ataona kwamba unatumia OONI Probe</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">Mtu yeyote anayefuatilia shughuli zako za mtandao (kwa mfano serikali au ISP) ataona kwamba unatumia OONI Probe.</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">Unaweza kujaribu tovuti zilizopigwa marufuku (lakini unaweza kuchagua tovuti gani za kujaribu).</string>
     <string name="Onboarding_PopQuiz_1_Question">Ikiwa mtu anafuatilia shughuli zangu za kimtandao, ataona kuwa ninaendesha OONI Probe.</string>
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe sio zana ya faragha. Mtu yeyote anayefuatilia shughuli zako za kimtandao ataona ni programu ipi unayoendesha.</string>
@@ -14,10 +14,22 @@
     <string name="Onboarding_Crash_Paragraph">Ili kuboresha OONI Probe tungependa kukusanya ripoti zisizojulikana za marekebisho wakati programu haifanyi kazi vizuri.\n\nJe! Ungependa kuchagua kutuma ripoti za ajali kwa timu ya maendeleo ya OONI?</string>
     <string name="Settings_About_Label">Kuhusu OONI</string>
     <string name="Settings_About_Content_Paragraph">Uchunguzi wa Wazi wa Uingiliano wa Mtandao (OONI) ni mradi wa programu ya bure chini ya Mradi wa Tor ambao unakusudia kuongeza uwazi wa udhibiti wa mtandao kote ulimwenguni.\n\nTangu 2012, jamii ya kimataifa ya OONI imekuwa ikipima mitandao katika nchi zaidi ya 200. Baadhi ya vipimo hivi hutumika kama ushahidi wa udhibiti wa mtandao.</string>
-    <string name="Settings_About_Content_LearnMore">jifunze zaidi.</string>
+    <string name="Settings_About_Content_LearnMore">jifunze zaidi</string>
     <string name="Settings_About_Content_Blog">Blogi</string>
     <string name="Settings_About_Content_Reports">Ripoti</string>
     <string name="Settings_About_Content_DataPolicy">Sera ya Takwimu ya OONI</string>
     <string name="Settings_Donate_Title">Changia</string>
     <string name="Settings_Donate_Action">Changia</string>
+    <string name="Onboarding_CleanUp_Title">Safisha</string>
+    <string name="Onboarding_CleanUp_Paragraph">Tumegundua baadhi faili zilizobaki baada ya usanikishaji wa awali. Tafadhali futa hizo vitukabla ya kuendelea kusanikisha.</string>
+    <string name="Settings_Donate_Heading">Changia sasa kusapoti uhuru wa intanet</string>
+    <string name="Settings_Donate_SubHeading">Kama asasi isiyo ya faida, tunategemea michango kutoka kwa watu kama wewe ili kulinda intanet huru kwa wote.</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">Chanzo cha program huru ya uwazi ya kutambua udhibiti wa mtandao</string>
+    <string name="Settings_Donate_Support_Item_Analysis">Uchambuzi wa hapo hapowa udhibiti wa mtandao ulimwenguni kote</string>
+    <string name="Settings_Donate_Support_Item_OpenData">Data za wazi za udhibiti wa mtandao-kusaidia juhudi za utafiti na utetezi ulimwenguni</string>
+    <string name="Settings_Donate_Support_Item_Research">Utafiti kuhusu matukio ya udhibiti ulimwenguni kote</string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">Hii itafungua dirisha jipya la kivinjari cha nje</string>
+    <string name="Settings_Donate_Action_Error">Hitilafu wakati wa kufungua ukurasa wa kuchangia. Tafadhali nenda kwa %1$s</string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Utaweza kusanikisha hiki kiungo tena kupitia kiungo cha asili pekee kilichotumwa na mtayarishaji. Vipimo kutoka kwenye hiki kiungo zitafutwa, lakini zitapatikana kupitia explorer.</string>
+    <string name="Settings_Donate_Support_Title">Kwa kuchangia OONI, msaada wako:</string>
 </resources>

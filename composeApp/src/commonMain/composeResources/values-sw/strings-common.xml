@@ -16,7 +16,7 @@
     <string name="Dashboard_Articles_ReadMore">Soma Zaidi</string>
     <string name="Dashboard_RunV2_Ooni_Title">Uchunguzi wa OONI</string>
     <string name="Dashboard_RunV2_Title">Viungo vya OONI Run</string>
-    <string name="Dashboard_Runv2_Overview_UninstallLink">Sanidua Kiungo</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink">Ondoa Kiungo</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Marekebisho ya awali</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Tazama Zaidi</string>
     <string name="Dashboard_RunV2_ExpiredTag">IMEISHA MUDA</string>
@@ -50,7 +50,7 @@
     <string name="TestResults_Summary_Hero_Network">Mtandao</string>
     <string name="TestResults_Summary_Hero_Country">Nchi</string>
     <string name="TestResults_Summary_Hero_Runtime">Jumla ya Muda wa Mbio</string>
-    <string name="TestResults_Summary_Hero_WiFi">WiFi</string>
+    <string name="TestResults_Summary_Hero_WiFi">Wi-Fi</string>
     <string name="TestResults_Summary_Hero_Mobile">Takwimu za simu </string>
     <string name="TestResults_Summary_Hero_Bluetooth">Bluetooth</string>
     <string name="TestResults_Summary_Hero_NoInternet">Hakuna mtandao</string>
@@ -77,7 +77,7 @@
     <string name="Settings_Title">Mipangilio</string>
     <string name="Settings_TestOptions_Label">Chaguzi za mtihani </string>
     <string name="Settings_AutomatedTesting_RunAutomatically">Endesha vipimo kiatomati</string>
-    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Kwenye WiFi tu</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_WiFiOnly">Kwenye Wi-Fi tu</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Wakati wa kuchaji tu</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">Kwa kuwezesha upimaji wa kiotomatiki, vipimo vya OONI Probe vitaendesha moja kwa moja mara nyingi kwa siku. Matokeo yako ya jaribio yatachapishwa kiotomatiki kwenye OONI Explorer: https://explorer.ooni.org/.\n\nMuhimu: Ikiwa umewezeshwa na VPN, OONI Probe haitaendesha vipimo kiotomatiki. Tafadhali zima VPN yako kwa upimaji wa kiotomatiki wa OONI Probe. Jifunze zaidi: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_Sharing_UploadResults">Chapisha Matokeo Moja kwa Moja</string>
@@ -153,7 +153,7 @@
     <string name="CategoryCode_ENV_Description">Maswala ya haki za binadamu  </string>
     <string name="CategoryCode_MILX_Description">Ugaidi, vurugu za kijeshi au harakati za kujitenga </string>
     <string name="CategoryCode_NEWS_Description">Tovuti kuu za habari, vituo vya habari vya mkoa na media huru</string>
-    <string name="CategoryCode_XED_Description">Maswala ya afya ya kijinsia pamoja na uzazi wa mpango, magonjwa ya zinaa, kuzuia ubakaji na utoaji mimba</string>
+    <string name="CategoryCode_XED_Description">Maswala ya afya ya kijinsia pamoja na uzazi wa mpango, magonjwa ya zinaa\\, kuzuia ubakaji na utoaji mimba</string>
     <string name="CategoryCode_PUBH_Description">Maswala ya afya ya umma, kama vile COVID-19, VVU / UKIMWI, Ebola</string>
     <string name="CategoryCode_GMB_Description">Kamari mkondoni na kubashiri</string>
     <string name="CategoryCode_ANON_Description">Kutambulisha, kuzuia uzuiaji na usimbuaji fiche</string>
@@ -172,7 +172,7 @@
     <string name="CategoryCode_COMM_Description">Huduma za kibiashara na bidhaa</string>
     <string name="CategoryCode_CTRL_Description">Maudhui ya Benign au isiyo na hatia yanayotumiwa kuthibiti</string>
     <string name="CategoryCode_IGO_Description">Mashirika ya serikali pamoja na Umoja wa Mataifa</string>
-    <string name="CategoryCode_MISC_Description">Tovuti ambazo hazijawekwa kwenye kategori bado</string>
+    <string name="CategoryCode_MISC_Description">Tovuti ambazo hazijawekwa kwenye makundi</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Nimekupata</string>
     <string name="Onboarding_ThingsToKnow_Title">Tahadhari!</string>
     <string name="Onboarding_ThingsToKnow_Button">Ninaelewa</string>
@@ -197,7 +197,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">Msimbo wa nchi (k.m. IT ya Italia)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">Maelezo ya mtandao (pamoja na Nambari ya Mfumo wa Kujiendesha)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Muda na tarehe ya majaribio</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">Tunafanya bidii kutokuchapisha anwani yako ya IP au habari zingine zozote zinayoweza kujitambulisha kibinafsi.\n\nJifunze zaidi kupitia [Sera ya Takwimu ya OONI](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">Tunafanya bidii kutokuchapisha anwani yako ya IP au habari zingine zozote zinayoweza kujitambulisha kibinafsi.\n\nJifunze zaidi kupitia [ OONI\\'s Sera ya data](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Badilisha chaguo-msingi</string>
     <string name="AddDescriptor_Title">Sakinisha Kiungo Kipya</string>
     <string name="AddDescriptor_AutoUpdate">Sakinisha masasisho kiotomatiki</string>
@@ -251,4 +251,210 @@
     <string name="Common_Week">Juma</string>
     <string name="Common_Month">Mwezi</string>
     <string name="NetworkType_Vpn">VPN</string>
+    <string name="Dashboard_LastResults">Matokeo ya mwisho</string>
+    <string name="Dashboard_LastResults_SeeResults">Angalia matokeo</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>imewashwa </i>]]></string>
+    <string name="Dashboard_Stats_Title">vipimo vyako</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Umoja</item>
+        <item quantity="other">Wingi</item>
+    </plurals>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Auto-run is <i>imezimwa</i>]]></string>
+    <string name="Dashboard_TestsMoved_Description">Vipimo vyako vimesogea kwenye ukuransa mpya. Unaweza zifikia kupitia upau wa urambazaji.</string>
+    <string name="Dashboard_TestsMoved_Action">Angalia majaribio</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Endesha %1$d jaribio</item>
+        <item quantity="other">Endesha %1$d majaribio</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">nchi</item>
+        <item quantity="other">nchi</item>
+    </plurals>
+    <string name="Dashboard_Stats_Empty">Anza kuendesha majaribio kuona takwimu zako hapa.</string>
+    <string name="Dashboard_Articles_Title">Habari za OONI</string>
+    <string name="Dashboard_Articles_Blog">chapisho la blogu</string>
+    <string name="Dashboard_Articles_Finding">Matokeo</string>
+    <string name="Dashboard_Articles_Report">Ripoti</string>
+    <string name="Dashboard_Articles_Recent">Hivi punde</string>
+    <string name="Dashboard_Articles_OpenExternal">Fungua kwenye kivinjari</string>
+    <string name="Dashboard_Runv2_Overview_Description">Mfano: Iliundwa na John Smith tarehe 1 Januari, 2020</string>
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one">hii inatumika zaidi kukiwa na zaidi ya tovuti10 vya kuonyesha</item>
+        <item quantity="other">angalia zote%1$d tovuti</item>
+    </plurals>
+    <string name="Dashboard_RunV2_UpdateTag">SASISHA</string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated">usasishaji wa mwisho %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">usasishaji uliokataliwa</string>
+    <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Batilisha</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">Kataa sasisho</string>
+    <string name="Dashboard_Update_Ready">Sasisho la programu limemaliza kupakuliwa</string>
+    <string name="Tests_Search">Tafuta majaribio</string>
+    <plurals name="TestResults_Overview_Websites_Blocked">
+        <item quantity="one">%1$s imefungwa</item>
+        <item quantity="other">%1$s zimefungwa</item>
+    </plurals>
+    <plurals name="TestResults_Overview_Websites_Tested">
+        <item quantity="one">%1$s iliyopimwa</item>
+        <item quantity="other">%1$s zilizopimwa</item>
+    </plurals>
+    <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
+    <string name="TestResults_Summary_Hero_Usb">USB</string>
+    <plurals name="TestResults_Summary_Websites_Hero_Tested">
+        <item quantity="one">Iliyopimwa</item>
+        <item quantity="other">zilizopimwa</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Blocked">
+        <item quantity="one">Iliyozuiliwa</item>
+        <item quantity="other">Zilizozuiliwa</item>
+    </plurals>
+    <plurals name="TestResults_Summary_Websites_Hero_Reachable">
+        <item quantity="one">Inafikika</item>
+        <item quantity="other">Zinafikika</item>
+    </plurals>
+    <string name="TestResults_Filters_Title">Chuja matokeo ya jaribio</string>
+    <string name="TestResults_Filters_Short">kuchuja</string>
+    <plurals name="TestResults_Filters_Count">
+        <item quantity="one">%1$d kichujio</item>
+        <item quantity="other">%1$d vichujio</item>
+    </plurals>
+    <plurals name="TestResults_Filter_Tests_Count">
+        <item quantity="one">%1$d jaribio</item>
+        <item quantity="other">%1$d majaribio</item>
+    </plurals>
+    <plurals name="TestResults_Filter_Networks_Count">
+        <item quantity="one">%1$d mtandao</item>
+        <item quantity="other">%1$d mitandao</item>
+    </plurals>
+    <string name="TestResults_Filter_Source">Chanzo</string>
+    <string name="TestResults_Filter_Date_Any">Tarehe yeyote</string>
+    <string name="TestResults_Filter_Date_FromSevenDaysAgo">Kuanzia siku 7 zilizopita</string>
+    <string name="TestResults_Filter_Date_FromOneMonthAgo">Kuanzia mwezi 1 uliopita</string>
+    <string name="TestResults_Filter_Date_Custom_Filled">Maalum:%1$s</string>
+    <string name="TestResults_Filter_Date_Picker">Chagua masafa ya tarehe</string>
+    <string name="TestResults_Filter_NoTestsFound">Hakuna matokeo yaliyopatikana kwa vichujio hivyo.</string>
+    <string name="TestResults_Filter_DeleteConfirmation">Unataka kufuta matokeo yote kwa matokeo ya vichujio vya sasa?</string>
+    <string name="Results_LimitedNotice">Matokeo ya mwisho pekee %1$d ndio yanayoonyeshwa</string>
+    <string name="Results_UploadingMissing">Inapakia matokeo yaliyokosekana %1$s</string>
+    <string name="Results_MarkAllAsViewed">weka alama zote kama zilivyooneka</string>
+    <string name="Results_MarkAllAsViewed_Confirmation">Unataka kuweka alama matokeo zote kuwa zimeonekana?</string>
+    <string name="Results_MarkAllAsViewed_Filtered_Confirmation">Unataka kuweka alama matokeo yote kama yalivyoonekana kwa vichujio vya sasa?</string>
+    <string name="Result_Error">hitilafu ya jaribio</string>
+    <string name="Measurement_Title">vipimo</string>
+    <string name="Measurement_LoadingFailed">Imeshindwa kupakia taarifa za vipimo</string>
+    <plurals name="Measurements_Count">
+        <item quantity="one">%1$d iliyopimwa</item>
+        <item quantity="other">%1$d vilivyopimwa</item>
+    </plurals>
+    <plurals name="Measurements_Failed_Count">
+        <item quantity="one">%1$d imeshindwa</item>
+        <item quantity="other">%1$d zimeshindwa</item>
+    </plurals>
+    <string name="Measurement_Raw_NotUploadedReasoning">Hiki kipimo hakikuchapishwa kwenye OONI Explorer. Pakia ili uone uchambuzi.</string>
+    <string name="Measurement_Raw_Share">Shiriki kipimo cha data</string>
+    <string name="Settings_AutomatedTesting_RunAutomatically_Description">Majaribio yatafanyika kila saa kwa nyuma</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">Weka kikomo cha muda wakati wa majaribio ya Tovuti</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled_Description">Kwa uendeshaji wa muongozo pekee</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">Kiwango cha juu ya majaribio ya Tovuti kamii</string>
+    <string name="Settings_Websites_MaxRuntimeDuration_Unit">Ingiza namba ya sekunde</string>
+    <string name="Settings_Proxy_Custom_Add">Ongeza proksi maalum</string>
+    <string name="Settings_Proxy_Custom_HostnameInvalid">Jina la mwenyeji sio sahihi</string>
+    <string name="Settings_Proxy_Custom_PortInvalid">Porti sio sahihi</string>
+    <string name="Settings_Proxy_Custom_Testing">Upimaji</string>
+    <string name="Settings_Proxy_Delete_Confirmation">una uhakika unataka kufuta %1$s proksi?</string>
+    <string name="Settings_Results_DeleteOldResults">Futa matokeo yote ya zamani</string>
+    <string name="Settings_Results_DeleteOldResultsThreshold">Futa matokeo ya zamani zaidi</string>
+    <plurals name="Settings_Results_DeleteOldResultsThreshold_Description">
+        <item quantity="one">%1$d mwezi</item>
+        <item quantity="other">%1$d miezi</item>
+    </plurals>
+    <string name="Settings_Results_DeleteOldResultsThreshold_Unit">Ingiza namba ya miezi</string>
+    <string name="Settings_Support_Message_Hint">Ujumbe kwa timu ya usaidizi</string>
+    <string name="Settings_Support_IncludeLogs">Jumuisha kumbukumbu za programu</string>
+    <string name="Settings_ShareApp">Shiriki program</string>
+    <string name="Settings_ShareApp_Description">Shiriki %1$s programu na mtu yeyote</string>
+    <string name="Settings_ShareApp_ShareMessage">Sakinisha %1$s kwa %2$s</string>
+    <string name="Settings_Legacy_Storage">Futa faili zote za toleo lililopita</string>
+    <string name="Settings_DisableVpnInstructions">Nenda kwenye mpangilio &gt;jumla&gt;na ujiondoe kwenye VPN yako.</string>
+    <string name="Settings_ShareLogs">Shiriki kumbukumbu</string>
+    <string name="Settings_ShareLogs_Error">Hitilafu wakati wa kushiriki kumbukumbu</string>
+    <string name="Settings_FilterLogs">Chuja kumbukumbu</string>
+    <string name="Settings_Sharing_UploadResults_Description">Matokeo yamepakiwa moja kwa moja kwenye OONI explorer</string>
+    <plurals name="CustomWebsites_Fab_Text">
+        <item quantity="one">kipimo %1$d URL</item>
+        <item quantity="other">Vipimo %1$d URLs</item>
+    </plurals>
+    <string name="CategoryCode_HATE_Description">Kudhalilisha makundi flani kuingana na rangi, jinsia, kijinsia na sifa zingine</string>
+    <string name="CategoryCode_FILE_Description">Ushiriki wa faili ikijumuisha hifadhi ya faili, torrents na P2P</string>
+    <string name="Onboarding_QuizAnswer_Correct">Jibu sahihi</string>
+    <string name="Onboarding_QuizAnswer_Incorrect">Jibu sio sahihi</string>
+    <string name="Onboarding_Notifications_Title">Ruhusu taarifa</string>
+    <string name="Onboarding_Notifications_Paragraph">Baada ya kufanya vipimo, unaweza kufunga programu na zitaendelea kufanya kazi nyuma ya mfumo. Washa taarifa ili uweze kufuatilia majaribio yanayoendelea, au kusimamisha bila uhitaji wa kufungua programu.</string>
+    <string name="Onboarding_DefaultSettings_Button_Go">Tuanze</string>
+    <string name="AddDescriptor_EnterURL">Ingiza URL ya kiungo cha OONI Run</string>
+    <string name="AddDescriptor_URLInvalid">Hio URL sio kiungo sahihi cha OONI Run</string>
+    <string name="AddDescriptor_Settings">Mpangilio wa jaribio</string>
+    <string name="AddDescriptor_Toasts_AlreadyInstalled">Kiungo tayari kimesanikishwa</string>
+    <string name="AddDescriptor_InstallForLater">Sanikisha kwa baadae</string>
+    <string name="AddDescriptor_InstallAndRun">Sanikisha na uendeshe</string>
+    <string name="AddDescriptor_Toasts_Unsupported_Url">URL isiotumika</string>
+    <string name="LoadingScreen_Runv2_Failure">Hitilafu wakati wa kupakia kiungo</string>
+    <string name="DescriptorUpdate_CheckUpdates">Angalia masasisho</string>
+    <string name="AddDescriptor_AutoRunDisabled">Uendeshaji wa kiautomatiki umezimwa. Tafadhali washa ili ijiendeshe kiautomatiki.</string>
+    <string name="Descriptor_LastTestResult">Matokeo ya mwisho ya jaribio</string>
+    <string name="Modal_ResultsNotUploaded_Uploading">Inapakia %1$s…</string>
+    <string name="Modal_Clear_Legacy_Directories">Je unataka kufuta folda ya zamani?</string>
+    <plurals name="Modal_DoYouWantToDeleteSomeTests">
+        <item quantity="one">Unataka kufuta%1$s matokeo ya jaribio?</item>
+        <item quantity="other">Unataka kufuta %1$s matokeo ya majaribio?</item>
+    </plurals>
+    <plurals name="Modal_Selected">
+        <item quantity="one">%1$d kitu kimechaguliwa</item>
+        <item quantity="other">%1$d vitu vimechaguliwa</item>
+    </plurals>
+    <string name="Modal_Error_ProxyUnavailable">proksi uliochagua inaweza isipatikane</string>
+    <string name="Modal_Autorun_BatteryOptimization_Onboarding">Programu haiwezi kuendesha majaribio kiautomatiki bila ruhusa ya mfumo wa nyuma. Unataka kujaribu tena?</string>
+    <string name="Modal_Autorun_BatteryOptimization_Reminder">Programu inahitaji ruhusa ya kuendesha majaribio kiautomatiki nyuma ya mfumo.</string>
+    <string name="Desktop_OpenApp">Fungua Programu</string>
+    <string name="Tray_Notification_Check_Updates">Angalia masasisho</string>
+    <string name="Tray_Notification_Updates_Available">Sasisho inapatikana!</string>
+    <string name="Tray_Notification_Checking_Updates">Angalia masasisho…</string>
+    <string name="Modal_Quite_Prompt">Funga OONI Probe?</string>
+    <string name="Modal_Quite_Description">Ukifunga program haitaweza kuendesha majaribio kwa nyuma ya mfumo. Chagua kufunga na kuondoa au zuia ili iendelee kujiendesha nyuma ya mfumo.</string>
+    <string name="Notification_ChannelName">Jaribio</string>
+    <string name="Notification_UpdateChannelName">Sasisho la kiungo</string>
+    <string name="Common_Total">Jumla</string>
+    <string name="Common_Ago">%1$s iliopita</string>
+    <plurals name="Common_Seconds">
+        <item quantity="one">%1$d sekunde</item>
+        <item quantity="other">%1$d Sekunde</item>
+    </plurals>
+    <plurals name="Common_Minutes">
+        <item quantity="one">%1$d dakika</item>
+        <item quantity="other">%1$d madakika</item>
+    </plurals>
+    <plurals name="Common_Hours">
+        <item quantity="one">%1$d lisaa</item>
+        <item quantity="other">%1$d masaa</item>
+    </plurals>
+    <plurals name="Common_Days">
+        <item quantity="one">%1$d siku</item>
+        <item quantity="other">%1$d masiku</item>
+    </plurals>
+    <string name="Common_Hours_Abbreviated">%1$dh</string>
+    <string name="Common_Minutes_Abbreviated">%1$dm</string>
+    <string name="Common_Seconds_Abbreviated">%1$ds</string>
+    <string name="Common_Months_January">Januari</string>
+    <string name="Common_Months_February">Februari</string>
+    <string name="Common_Months_March">Machi</string>
+    <string name="Common_Months_April">Aprili</string>
+    <string name="Common_Months_May">Mei</string>
+    <string name="Common_Months_June">Juni</string>
+    <string name="Common_Months_July">Julai</string>
+    <string name="Common_Months_August">Agosti</string>
+    <string name="Common_Months_September">Septemba</string>
+    <string name="Common_Months_October">Octoba</string>
+    <string name="Common_Months_November">Novemba</string>
+    <string name="Common_Months_December">Disemba</string>
+    <string name="TaskOrigin_Manual">Uendeshaji wa muongozo</string>
+    <string name="TaskOrigin_AutoRun">Uendeshaji wa kiautomatiki</string>
 </resources>
