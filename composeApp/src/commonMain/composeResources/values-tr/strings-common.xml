@@ -310,7 +310,7 @@
     <string name="CategoryCode_COMM_Description">Ticari hizmet ve ürünler</string>
     <string name="CategoryCode_CTRL_Description">Denetim için kullanılan iyi niyetli ya da bilinçsiz içerik</string>
     <string name="CategoryCode_IGO_Description">Birleşmiş Milletler gibi hükümetlerarası kuruluşlar</string>
-    <string name="CategoryCode_MISC_Description">Henüz kategorize edilmemiş siteler</string>
+    <string name="CategoryCode_MISC_Description">Henüz sınıflandırılmamış siteler</string>
     <string name="Onboarding_QuizAnswer_Correct">Doğru yanıt</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Yanlış yanıt</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Anladım</string>
@@ -463,4 +463,7 @@
     <string name="TaskOrigin_Manual">El ile çalıştırma</string>
     <string name="TaskOrigin_AutoRun">Otomatik çalıştırma</string>
     <string name="NetworkType_Vpn">VPN</string>
+    <string name="Dashboard_Articles_OpenExternal">Tarayıcıda aç</string>
+    <string name="Result_Error">sınama sorunu</string>
+    <string name="AddDescriptor_Toasts_AlreadyInstalled">Bağlantı zaten kurulmuş</string>
 </resources>

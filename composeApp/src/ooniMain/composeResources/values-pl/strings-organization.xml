@@ -1,7 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Settings_About_Content_LearnMore">Dowiedz się więcej</string>
     <string name="Settings_About_Content_Blog">Blog</string>
     <string name="Settings_About_Content_Reports">Raporty</string>
     <string name="Settings_Donate_Title">Darowizna</string>
-    <string name="Settings_Donate_Action">Darowizna</string>
-    </resources>
+    <string name="Settings_Donate_Action">Wesprzyj</string>
+    <string name="app_name">OONI Probe</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Czym jest OONI Probe?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Twoja aplikacja do badania cenzury internetu. \n\nCzy strony i aplikacje społecznościowe są blokowane, a internet działa wolniej niż zwykle?\n\nUruchom OONI Probe i sprawdź!</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">Dane OONI są publicznie dostępne i będą zawierać informacje o Twojej sieci.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">Każdy, kto monitoruje Twoją aktywność w internecie (np. rząd lub dostawca usług internetowych), zobaczy, że korzystasz z OONI Probe.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">Możesz sprawdzić zablokowane strony (lub wybrać własne strony do testów).</string>
+    <string name="Onboarding_PopQuiz_1_Question">Jeśli ktoś monitoruje moją aktywność w internecie, zobaczy, że korzystam z OONI Probe.</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe nie zapewnia prywatności. Każdy, kto monitoruje Twoją aktywność w internecie, zobaczy, z jakiego oprogramowania korzystasz.</string>
+    <string name="Onboarding_PopQuiz_2_Question">Za każdym razem, gdy uruchamiam OONI Probe, gromadzone przeze mnie dane sieciowe są automatycznie publikowane.</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Aby zwiększyć jawność cenzury internetu, dane sieciowe wszystkich użytkowników OONI Probe są automatycznie publikowane (chyba że wyłączą tę opcję w ustawieniach).</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">Aby badać cenzurę internetu każdego dnia, włącz automatyczne testowanie. Dzięki temu OONI Probe będzie w stanie okresowo przeprowadzać testy.\n\nNie martw się – zadbamy o minimalne zużycie baterii. \n\nW każdej chwili możesz wyłączyć automatyczne testowanie w ustawieniach.</string>
+    <string name="Onboarding_Crash_Paragraph">Aby ulepszyć OONI Probe, chcielibyśmy gromadzić anonimowe raporty o awariach, gdy aplikacja nie działa prawidłowo.\n\nCzy chcesz włączyć wysyłanie raportów o awariach do zespołu programistów OONI?</string>
+    <string name="Onboarding_CleanUp_Paragraph">Wykryto pliki pozostałe po poprzedniej instalacji. Przed kontynuowaniem należy je usunąć.</string>
+    <string name="Settings_About_Label">O projekcie OONI</string>
+    <string name="Onboarding_CleanUp_Title">Wyczyść</string>
+    <string name="Settings_About_Content_DataPolicy">Polityka danych OONI</string>
+    <string name="Settings_About_Content_Paragraph">The Open Observatory of Network Interference (OONI) to projekt wolnego oprogramowania realizowany w ramach The Tor Project, którego celem jest zwiększanie jawności cenzury internetu na całym świecie.\n\nOd 2012 roku globalna społeczność OONI bada sieci w ponad 200 krajach. Niektóre z tych pomiarów stanowią dowód cenzury internetu.</string>
+    <string name="Settings_Donate_Heading">Przekaż darowiznę, aby wesprzeć wolność internetu</string>
+    <string name="Settings_Donate_SubHeading">Jako organizacja non-profit polegamy na darowiznach od osób takich jak Ty, aby bronić wolnego i otwartego internetu dla wszystkich.</string>
+    <string name="Settings_Donate_Support_Title">Przekazując darowiznę na rzecz OONI, wspierasz:</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">wolne i otwarte oprogramowanie do wykrywania cenzury internetu;</string>
+    <string name="Settings_Donate_Support_Item_Analysis">analizę cenzury internetu na całym świecie w czasie rzeczywistym;</string>
+    <string name="Settings_Donate_Support_Item_OpenData">otwarte dane o cenzurze internetu wspomagające globalne badania i działania rzecznicze;</string>
+    <string name="Settings_Donate_Support_Item_Research">badania nad przypadkami cenzury dookoła świata.</string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">Spowoduje to otwarcie strony w przeglądarce</string>
+    <string name="Settings_Donate_Action_Error">Nie udało się otworzyć strony do przekazania darowizny. Przejdź tutaj: %1$s</string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Ten pakiet testów można przywrócić tylko z oryginalnego linku twórcy. Wyniki uzyskane za pomocą tego linku zostaną usunięte, ale nadal będą dostępne w explorerze.</string>
+</resources>

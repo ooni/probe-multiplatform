@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Dashboard_Running_EstimatedTimeLeft">Pozostało czasu: </string>
-    <string name="Dashboard_Articles_Report">Wysłanie</string>
+    <string name="Dashboard_Running_EstimatedTimeLeft">Pozostały czas:</string>
+    <string name="Dashboard_Articles_Report">Raport</string>
     <string name="Dashboard_Articles_OpenExternal">Otwórz w przeglądarce</string>
     <string name="Dashboard_Runv2_Overview_Description">Utworzone przez %1$s, %2$s</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Cofnij</string>
@@ -114,4 +114,60 @@
     <string name="Common_Months_November">listopad</string>
     <string name="Common_Months_December">grudzień</string>
     <string name="NetworkType_Vpn">VPN</string>
+    <string name="Dashboard_Tab_Label">Pulpit</string>
+    <string name="Dashboard_Overview_Estimated">Szacowane:</string>
+    <string name="Dashboard_Overview_ChooseWebsites">Wybierz strony</string>
+    <string name="Dashboard_Running_Running">Trwa:</string>
+    <string name="Dashboard_LastResults">Ostatnie wyniki</string>
+    <string name="Dashboard_LastResults_SeeResults">Zobacz wyniki</string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>włączone</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Auto-run is <i>wyłączone</i>]]></string>
+    <string name="Dashboard_TestsMoved_Title">Testy</string>
+    <string name="Dashboard_TestsMoved_Description">Twoje testy zostały przeniesione do nowej karty. Znajdziesz je na poniższym pasku nawigacyjnym.</string>
+    <string name="Dashboard_TestsMoved_Action">Zobacz testy</string>
+    <string name="Dashboard_Running_Stopping_Title">Zatrzymywanie testu…</string>
+    <string name="Dashboard_Running_Stopping_Notice">Kończenie pozostałych testów, proszę czekać…</string>
+    <string name="Dashboard_Running_ProxyInUse">Używany jest serwer proxy</string>
+    <string name="Dashboard_RunTests_Title">Uruchom testy</string>
+    <string name="Dashboard_RunTests_Description">Wybierz testy do uruchomienia</string>
+    <string name="Dashboard_RunTests_SelectAll">Zaznacz wszystkie</string>
+    <string name="Dashboard_RunTests_SelectNone">Odznacz wszystkie</string>
+    <plurals name="Dashboard_RunTests_RunButton_Label">
+        <item quantity="one">Uruchom %1$d test</item>
+        <item quantity="few">Uruchom %1$d testy</item>
+        <item quantity="many">Uruchom %1$d testów</item>
+        <item quantity="other">Uruchom %1$d testów</item>
+    </plurals>
+    <string name="Dashboard_Stats_Title">Twoje statystyki</string>
+    <plurals name="Dashboard_Stats_Networks">
+        <item quantity="one">Sieć</item>
+        <item quantity="few">Sieci</item>
+        <item quantity="many">Sieci</item>
+        <item quantity="other">Sieci</item>
+    </plurals>
+    <plurals name="Dashboard_Stats_Countries">
+        <item quantity="one">Kraj</item>
+        <item quantity="few">Kraje</item>
+        <item quantity="many">Krajów</item>
+        <item quantity="other">Krajów</item>
+    </plurals>
+    <string name="Dashboard_Articles_Title">Aktualności OONI</string>
+    <string name="Dashboard_Articles_Recent">Najnowsze</string>
+    <string name="Dashboard_Articles_ReadMore">Czytaj więcej</string>
+    <string name="Dashboard_RunV2_Ooni_Title">Testy OONI</string>
+    <string name="Dashboard_Stats_Empty">Uruchom testy, aby zobaczyć tutaj swoje statystyki.</string>
+    <string name="Dashboard_Articles_Blog">Blog</string>
+    <string name="Dashboard_Runv2_Overview_SeeMore">Zobacz więcej</string>
+    <plurals name="Dashboard_Runv2_Websites_SeeAll">
+        <item quantity="one">Zobacz %1$d stronę internetową</item>
+        <item quantity="few">Zobacz wszystkie %1$d strony internetowe</item>
+        <item quantity="many">Zobacz wszystkie %1$d stron internetowych</item>
+        <item quantity="other">Zobacz wszystkie %1$d stron internetowych</item>
+    </plurals>
+    <string name="Dashboard_Articles_Finding">Incydent</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink">Odinstaluj link</string>
+    <string name="Dashboard_Runv2_Overview_PreviousRevisions">Poprzednie wersje</string>
+    <string name="Dashboard_ReviewDescriptor_Reject">Odrzuć aktualizację</string>
+    <string name="Dashboard_Runv2_Overview_LastUpdated">Ostatnia aktualizacja: %1$s</string>
+    <string name="Dashboard_Runv2_Overview_RejectedUpdate">Odrzucona aktualizacja</string>
 </resources>
