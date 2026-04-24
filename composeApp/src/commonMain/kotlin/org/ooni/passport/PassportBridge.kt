@@ -3,6 +3,7 @@ package org.ooni.passport
 import org.ooni.engine.models.Result
 import org.ooni.passport.PassportBridge.KeyValue
 import org.ooni.passport.models.CredentialResponse
+import org.ooni.passport.models.SubmitCredentialConfig
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 
@@ -10,6 +11,7 @@ interface PassportBridge :
     PassportGet,
     PassportAuthRegister,
     PassportAuthSubmit,
+    PassportGetProbeId,
     PassportPost {
     override fun get(
         url: String,
@@ -31,14 +33,17 @@ interface PassportBridge :
 
     override fun userAuthSubmit(
         url: String,
-        credential: String,
-        publicParams: String,
         content: String,
         probeCc: String,
         probeAsn: String,
-        manifestVersion: String,
-        age: UInt,
+        credentialConfig: SubmitCredentialConfig?,
     ): Result<CredentialResponse, PassportException>
+
+    override fun getProbeId(
+        credentialB64: String,
+        probeAsn: String,
+        probeCc: String,
+    ): Result<String, PassportException>
 
     data class KeyValue(
         val key: String,
@@ -73,12 +78,17 @@ fun interface PassportAuthRegister {
 fun interface PassportAuthSubmit {
     fun userAuthSubmit(
         url: String,
-        credential: String,
-        publicParams: String,
         content: String,
         probeCc: String,
         probeAsn: String,
-        manifestVersion: String,
-        age: UInt,
+        credentialConfig: SubmitCredentialConfig?,
     ): Result<CredentialResponse, PassportException>
+}
+
+fun interface PassportGetProbeId {
+    fun getProbeId(
+        credentialB64: String,
+        probeAsn: String,
+        probeCc: String,
+    ): Result<String, PassportException>
 }

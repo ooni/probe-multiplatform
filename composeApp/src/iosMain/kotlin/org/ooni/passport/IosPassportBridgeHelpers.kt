@@ -18,3 +18,9 @@ fun SuccessCredentialResponse(value: CredentialResponse) = Success(value) as Res
 
 @Suppress("ktlint:standard:function-naming")
 fun FailureCredentialPassportException(reason: PassportException) = Failure(reason) as Result<CredentialResponse, PassportException>
+
+@Suppress("ktlint:standard:function-naming")
+fun SuccessProbeId(value: String) = Success(value) as Result<String, PassportException>
+
+@Suppress("ktlint:standard:function-naming")
+fun FailureProbeIdPassportException(reason: PassportException) = Failure(reason) as Result<String, PassportException>

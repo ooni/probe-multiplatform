@@ -10,7 +10,7 @@ suspend fun skipOnboarding() {
             SettingsKey.FIRST_RUN to false,
             SettingsKey.TESTS_MOVED_NOTICE to true,
             SettingsKey.MANIFEST to
-                "{\"manifest\":{\"nym_scope\":\"ooni.org/{probe_cc}/{probe_asn}\",\"submission_policy\":{},\"public_parameters\":\"PARAMS\"},\"meta\":{\"version\":\"1.0.0\",\"last_modification_date\":\"2026-03-02T18:28:59.841Z\",\"manifest_url\":\"https://example.org\"}}",
+                "{\"manifest\":{\"nym_scope\":\"ooni.org/{probe_cc}/{probe_asn}\",\"submission_policy\":[],\"public_parameters\":\"PARAMS\"},\"meta\":{\"version\":\"1.0.0\",\"last_modification_date\":\"2026-03-02T18:28:59.841Z\",\"manifest_url\":\"https://example.org\"}}",
         ),
     )
 }
