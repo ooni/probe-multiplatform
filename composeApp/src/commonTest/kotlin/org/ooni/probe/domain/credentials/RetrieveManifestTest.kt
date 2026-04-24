@@ -36,7 +36,7 @@ class RetrieveManifestTest {
             {
               "manifest": {
                 "nym_scope": "ooni.org/{probe_cc}/{probe_asn}",
-                "submission_policy": {},
+                "submission_policy": [],
                 "public_parameters": "PARAMS"
               },
               "meta": {

@@ -21,14 +21,13 @@ class IosPassportBridge: PassportBridge {
             )
         }
     }
-    
+
     func post(url: String, headers: [PassportBridgeKeyValue], payload: String) -> Result<PassportHttpResponse, PassportException> {
         do {
             let response = try clientPost(
                 url: url,
                 headers: headers.map { KeyValue(key: $0.key, value: $0.value) },
-                payload: payload,
-                
+                payload: payload
             )
             return IosPassportBridgeHelpersKt.SuccessPassportHttpResponse(value: response.toPassport())
         } catch let error as OoniError {
@@ -39,7 +38,6 @@ class IosPassportBridge: PassportBridge {
             )
         }
     }
-    
 
     func userAuthRegister(
         url: String,
@@ -64,24 +62,18 @@ class IosPassportBridge: PassportBridge {
 
     func userAuthSubmit(
         url: String,
-        credential: String,
-        publicParams: String,
         content: String,
         probeCc: String,
         probeAsn: String,
-        manifestVersion: String,
-        age: UInt32
+        credentialConfig: SubmitCredentialConfig?
     ) -> Result<CredentialResponse, PassportException> {
         do {
             let response = try userauthSubmit(
                 url: url,
-                credential: credential,
-                publicParams: publicParams,
                 content: content,
                 probeCc: probeCc,
                 probeAsn: probeAsn,
-                manifestVersion: manifestVersion,
-                emissionDay: age
+                credentialConfig: credentialConfig?.toUniffi()
             )
             return IosPassportBridgeHelpersKt.SuccessCredentialResponse(value: response.toPassport())
         } catch let error as OoniError {
@@ -92,6 +84,39 @@ class IosPassportBridge: PassportBridge {
             )
         }
     }
+
+    func getProbeId(
+        credentialB64: String,
+        probeAsn: String,
+        probeCc: String
+    ) -> Result<NSString, PassportException> {
+        do {
+            let result = try passportGetProbeId(
+                credentialB64: credentialB64,
+                probeAsn: probeAsn,
+                probeCc: probeCc
+            )
+            return IosPassportBridgeHelpersKt.SuccessProbeId(value: result.probeId)
+        } catch let error as OoniError {
+            return IosPassportBridgeHelpersKt.FailureProbeIdPassportException(reason: error.toPassport())
+        } catch {
+            return IosPassportBridgeHelpersKt.FailureProbeIdPassportException(
+                reason: PassportException.Other(message: error.localizedDescription)
+            )
+        }
+    }
+}
+
+private func passportGetProbeId(
+    credentialB64: String,
+    probeAsn: String,
+    probeCc: String
+) throws -> ProbeIdResult {
+    return try getProbeId(
+        credentialB64: credentialB64,
+        probeAsn: probeAsn,
+        probeCc: probeCc
+    )
 }
 
 extension HttpResponse {
@@ -110,6 +135,24 @@ extension CredentialResult {
         return CredentialResponse(
             response: response.toPassport(),
             credential: credential
+        )
+    }
+}
+
+extension SubmitCredentialConfig {
+    func toUniffi() -> CredentialConfig {
+        return CredentialConfig(
+            credential: credential,
+            publicParams: publicParams,
+            manifestVersion: manifestVersion,
+            ageRange: ParamRange(
+                min: ageRange.min,
+                max: ageRange.max
+            ),
+            measurementCountRange: ParamRange(
+                min: measurementCountRange.min,
+                max: measurementCountRange.max
+            )
         )
     }
 }
