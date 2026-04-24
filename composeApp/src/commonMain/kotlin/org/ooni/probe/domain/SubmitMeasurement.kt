@@ -6,6 +6,8 @@ import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
+import org.ooni.passport.models.SubmitError
+import org.ooni.passport.models.VerificationStatus
 import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.models.MeasurementModel
@@ -21,6 +23,7 @@ class SubmitMeasurement(
     private val deleteFiles: DeleteFiles,
     private val updateMeasurement: suspend (MeasurementModel) -> Unit,
     private val deleteMeasurementById: suspend (MeasurementModel.Id) -> Unit,
+    private val handleSubmitOutcome: suspend (VerificationStatus, SubmitError?) -> Unit = { _, _ -> },
 ) {
     suspend operator fun invoke(measurement: MeasurementModel): MeasurementModel? =
         Instrumentation.withTransaction(
@@ -55,6 +58,7 @@ class SubmitMeasurement(
 
         return when (result) {
             is Success -> {
+                handleSubmitOutcome(result.value.verificationStatus, result.value.submitError)
                 val newMeasurement = measurement.copy(
                     isUploaded = true,
                     isUploadFailed = false,
@@ -95,5 +99,7 @@ class SubmitMeasurement(
     data class ResponseData(
         val uid: MeasurementModel.Uid?,
         val reportId: MeasurementModel.ReportId? = null,
+        val verificationStatus: VerificationStatus = VerificationStatus.Unknown,
+        val submitError: SubmitError? = null,
     )
 }

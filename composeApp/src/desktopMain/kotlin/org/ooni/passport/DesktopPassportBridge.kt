@@ -4,6 +4,7 @@ import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
 import org.ooni.passport.models.CredentialResponse
+import org.ooni.passport.models.SubmitCredentialConfig
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import uniffi.ooniprobe.CredentialResult
@@ -62,26 +63,32 @@ class DesktopPassportBridge : PassportBridge {
 
     override fun userAuthSubmit(
         url: String,
-        credential: String,
-        publicParams: String,
         content: String,
         probeCc: String,
         probeAsn: String,
-        manifestVersion: String,
-        age: UInt,
+        credentialConfig: SubmitCredentialConfig?,
     ): Result<CredentialResponse, PassportException> =
         try {
             val result = userauthSubmit(
                 url = url,
-                credential = credential,
-                publicParams = publicParams,
                 content = content,
                 probeCc = probeCc,
                 probeAsn = probeAsn,
-                manifestVersion = manifestVersion,
-                emissionDay = age,
+                credentialConfig = credentialConfig?.toUniffi(),
             )
             Success(result.toPassport())
+        } catch (e: OoniException) {
+            Failure(e.toPassport())
+        }
+
+    override fun getProbeId(
+        credentialB64: String,
+        probeAsn: String,
+        probeCc: String,
+    ): Result<String, PassportException> =
+        try {
+            val result = uniffi.ooniprobe.getProbeId(credentialB64, probeAsn, probeCc)
+            Success(result.probeId)
         } catch (e: OoniException) {
             Failure(e.toPassport())
         }
@@ -99,6 +106,18 @@ private fun CredentialResult.toPassport() =
     CredentialResponse(
         response = response.toPassport(),
         credential = credential,
+    )
+
+private fun SubmitCredentialConfig.toUniffi() =
+    uniffi.ooniprobe.CredentialConfig(
+        credential = credential,
+        publicParams = publicParams,
+        manifestVersion = manifestVersion,
+        ageRange = uniffi.ooniprobe.ParamRange(min = ageRange.min, max = ageRange.max),
+        measurementCountRange = uniffi.ooniprobe.ParamRange(
+            min = measurementCountRange.min,
+            max = measurementCountRange.max,
+        ),
     )
 
 private fun OoniException.toPassport() =
