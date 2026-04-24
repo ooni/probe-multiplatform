@@ -92,6 +92,10 @@ import org.ooni.probe.domain.credentials.PrepareAnonymousCredentials
 import org.ooni.probe.domain.credentials.RegisterUser
 import org.ooni.probe.domain.credentials.RetrieveManifest
 import org.ooni.probe.domain.credentials.SetCredential
+import org.ooni.probe.domain.credentials.ClearCredential
+import org.ooni.probe.domain.credentials.HandleSubmitOutcome
+import org.ooni.probe.domain.credentials.ResolveSubmissionPolicy
+import org.ooni.probe.domain.credentials.StampMeasurement
 import org.ooni.probe.domain.credentials.SubmitMeasurementWithUser
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
 import org.ooni.probe.domain.descriptors.BootstrapTestDescriptors
@@ -655,6 +659,17 @@ class Dependencies(
             deleteFiles = deleteFiles,
             updateMeasurement = measurementRepository::createOrUpdate,
             deleteMeasurementById = measurementRepository::deleteById,
+            handleSubmitOutcome = handleSubmitOutcome::invoke,
+        )
+    }
+    private val clearCredential by lazy {
+        ClearCredential(deleteSecureStorage = secureStorage::delete)
+    }
+    private val handleSubmitOutcome by lazy {
+        HandleSubmitOutcome(
+            retrieveManifest = { retrieveManifest() },
+            clearCredential = clearCredential,
+            signalUpdateRequired = {},
         )
     }
     private val submitMeasurementWithUser by lazy {
@@ -662,7 +677,17 @@ class Dependencies(
             getManifest = getManifest::invoke,
             getCredential = getCredential::invoke,
             setCredential = setCredential,
+            stampMeasurement = stampMeasurement,
+            resolveSubmissionPolicy = resolveSubmissionPolicy,
             passportAuthSubmit = passportBridge::userAuthSubmit,
+            json = json,
+        )
+    }
+    private val resolveSubmissionPolicy by lazy { ResolveSubmissionPolicy() }
+    private val stampMeasurement by lazy {
+        StampMeasurement(
+            passportGetProbeId = passportBridge::getProbeId,
+            getCredential = getCredential::invoke,
             json = json,
         )
     }
