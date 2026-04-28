@@ -32,7 +32,7 @@ enum class Distribution {
     companion object {
         val current: Distribution by lazy {
             runCatching { valueOf(DesktopBuildConfig.DISTRIBUTION) }
-                .getOrDefault(Direct)
+                .getOrDefault(MacAppStore)
         }
     }
 }

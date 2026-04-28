@@ -381,8 +381,11 @@ private fun Project.registerOONIDistributableTask() {
                 project.logger.lifecycle("distribution=${distribution().name}: skipping Sparkle.framework bundling")
             }
 
+            signBundledMacOsNativeLibraries(appDirs.first())
+
             // Sign the .app file
             macOsCodeSign(appDirs.first().absolutePath)
+            reSignAppBundleForAppStore(appDirs.first())
 
             project.logger.lifecycle("Distributable output directory: ${outputDir.absolutePath}")
         }
@@ -423,14 +426,126 @@ private fun Project.registerRemoveQuarantineTask() {
                     }
                     logger.lifecycle("removeProvisionProfileQuarantine: stripping xattr on ${file.absolutePath}")
                     providers.exec {
-                        //commandLine("xattr", "-d", "com.apple.quarantine", file.absolutePath)
+                        commandLine("xattr", "-d", "com.apple.quarantine", app)
                         commandLine("xattr", "-cr", file.absolutePath)
                         isIgnoreExitValue = true
                     }.result.get()
                 }
+                signBundledMacOsNativeLibraries(app)
+                macOsCodeSign(app.absolutePath)
+                reSignAppBundleForAppStore(app)
             }
         }
     }
+}
+
+/**
+ * jpackage's `codesign --deep` pass misses arbitrary dylibs under
+ * `Contents/app/resources/`, so the native libraries bundled by
+ * `prepareDesktopResources` (JNA dispatcher, sqlite-jdbc, gojni) arrive
+ * either unsigned or signed by upstream rather than our Team ID. This
+ * helper re-signs each copy with the app's identity so App Store Connect
+ * validation and the sandbox library-validation pass accept them. Call
+ * before the root `.app` is (re-)signed.
+ */
+private fun Project.signBundledMacOsNativeLibraries(appDir: File) {
+    val resourcesRoot = appDir.resolve("Contents/app/resources")
+    if (!resourcesRoot.isDirectory) return
+    val libRoots = listOf("jna", "sqlite", "gojni").map { resourcesRoot.resolve(it) }
+        .filter { it.isDirectory }
+    if (libRoots.isEmpty()) return
+    val libraries = libRoots.flatMap { root ->
+        root.walkTopDown()
+            .filter { it.isFile && (it.name.endsWith(".dylib") || it.name.endsWith(".jnilib")) }
+            .toList()
+    }
+    if (libraries.isEmpty()) return
+    val identity = resolveMacSigningIdentity() ?: run {
+        logger.warn(
+            "signBundledMacOsNativeLibraries: no mac signing identity available " +
+                "(distribution=${distribution().name}); skipping ${libraries.size} libraries",
+        )
+        return
+    }
+    libraries.forEach { library ->
+        logger.lifecycle("Signing bundled native library: ${library.absolutePath}")
+        providers.exec {
+            commandLine(
+                "codesign",
+                "-f",
+                "-s",
+                identity,
+                "-o",
+                "runtime",
+                "--timestamp",
+                library.absolutePath,
+            )
+        }.result.get().assertNormalExitValue()
+    }
+}
+
+/**
+ * Resolves the macOS codesign identity for the active distribution. App
+ * Store builds configure the identity through the Compose Desktop DSL, so
+ * `findProperty("compose.desktop.mac.signing.identity")` is null for them
+ * — fall back to the distribution-specific constant. Direct builds still
+ * use the project property so CI can inject an ad-hoc identity.
+ */
+private fun Project.resolveMacSigningIdentity(): String? {
+    (project.findProperty("compose.desktop.mac.signing.identity") as? String)
+        ?.takeIf { it.isNotBlank() }
+        ?.let { return it }
+    return distribution().macSigningIdentity
+}
+
+/**
+ * Re-signs the outer `.app` with the App Store entitlements after nested
+ * binaries (JNA dispatchers) have been re-signed. Necessary because:
+ *
+ * 1. jpackage signed the bundle, then we replaced the dispatchers' inner
+ *    signatures, invalidating the bundle's resource hash tree.
+ * 2. `macOsCodeSign` is a no-op for App Store builds (their identity comes
+ *    from the Compose DSL, not from `compose.desktop.mac.*` properties),
+ *    so App Store Connect sees a stale envelope that fails validation —
+ *    the symptom is Apple reporting `app-sandbox` as missing from the
+ *    main binary even though the plist has it.
+ *
+ * No `--deep` here: dispatchers and the nested JDK runtime are already
+ * correctly signed, we only need to refresh the outer bundle binary.
+ */
+private fun Project.reSignAppBundleForAppStore(appDir: File) {
+    val dist = distribution()
+    if (!dist.requiresSandbox) return
+    val identity = resolveMacSigningIdentity() ?: run {
+        logger.warn(
+            "reSignAppBundleForAppStore: no signing identity resolved for " +
+                "distribution=${dist.name}; skipping ${appDir.name}",
+        )
+        return
+    }
+    val entitlements = project.file("macos/appstore/entitlements.plist")
+    if (!entitlements.isFile) {
+        logger.warn(
+            "reSignAppBundleForAppStore: entitlements file missing at " +
+                "${entitlements.absolutePath}; skipping re-sign",
+        )
+        return
+    }
+    logger.lifecycle("Re-signing App Store bundle with entitlements: ${appDir.absolutePath}")
+    providers.exec {
+        commandLine(
+            "codesign",
+            "-f",
+            "-s",
+            identity,
+            "-o",
+            "runtime",
+            "--timestamp",
+            "--entitlements",
+            entitlements.absolutePath,
+            appDir.absolutePath,
+        )
+    }.result.get().assertNormalExitValue()
 }
 
 private fun Project.macOsCodeSign(path: String) {

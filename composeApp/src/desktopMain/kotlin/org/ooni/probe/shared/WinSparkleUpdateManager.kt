@@ -10,6 +10,9 @@ class WinSparkleUpdateManager : UpdateManager {
         // where the library isn't bundled.
         @Suppress("UNUSED_EXPRESSION")
         libraryLoaded
+        if (!libraryLoaded) {
+            logErrorAndUpdateState(-998, "Native library 'updatebridge' failed to load", "init")
+        }
     }
 
     fun setDllRoot(path: String) {

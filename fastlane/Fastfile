@@ -292,6 +292,84 @@ platform :ios do
 end
 
 
+platform :mac do
+    desc "Build the macOS DMG (direct distribution) and generate the Sparkle appcast"
+    desc "Signing and notarization are optional: each is enabled only when its credentials are passed (or available via env)."
+    desc "#### Example:"
+    desc "```\nfastlane mac dmg organization:ooni\nfastlane mac dmg organization:ooni signing_identity:'Developer ID Application: Acme'\nfastlane mac dmg organization:ooni apple_id:you@example.com apple_asp:abcd-efgh-ijkl-mnop apple_team_id:XXXXXXXXXX\n```"
+    desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
+    desc " * **`signing_identity`**: Developer ID Application identity (optional; falls back to `MAC_SIGNING_IDENTITY` env). When unset, the build is unsigned."
+    desc " * **`signing_keychain`**: Path to the keychain holding the signing certificate (optional; falls back to `MAC_SIGNING_KEYCHAIN` env)."
+    desc " * **`apple_id`**: Apple ID used for notarization (optional; falls back to `APPLE_ID` env)."
+    desc " * **`apple_asp`**: App-specific password for the Apple ID (optional; falls back to `APPLE_ASP` env)."
+    desc " * **`apple_team_id`**: Apple Developer Team ID (optional; falls back to `APPLE_TEAM_ID` env)."
+    desc ""
+    lane :dmg do |options|
+        setup_ci if ENV['CI']
+        organization = organization!(options)
+
+        gradle(task: mac_gradle_task("Dmg", organization, options))
+        gradle(task: "generateSparkleAppCast -Porganization=#{organization}")
+    end
+
+    desc "Build the macOS PKG for Mac App Store distribution"
+    desc "Signing and notarization are optional: each is enabled only when its credentials are passed (or available via env)."
+    desc "#### Example:"
+    desc "```\nfastlane mac pkg organization:ooni\nfastlane mac pkg organization:ooni signing_identity:'Developer ID Application: Acme'\nfastlane mac pkg organization:ooni apple_id:you@example.com apple_asp:abcd-efgh-ijkl-mnop apple_team_id:XXXXXXXXXX\n```"
+    desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
+    desc " * **`signing_identity`**: Developer ID Application identity (optional; falls back to `MAC_SIGNING_IDENTITY` env). When unset, the build is unsigned."
+    desc " * **`signing_keychain`**: Path to the keychain holding the signing certificate (optional; falls back to `MAC_SIGNING_KEYCHAIN` env)."
+    desc " * **`apple_id`**: Apple ID used for notarization (optional; falls back to `APPLE_ID` env)."
+    desc " * **`apple_asp`**: App-specific password for the Apple ID (optional; falls back to `APPLE_ASP` env)."
+    desc " * **`apple_team_id`**: Apple Developer Team ID (optional; falls back to `APPLE_TEAM_ID` env)."
+    desc ""
+    lane :pkg do |options|
+        setup_ci if ENV['CI']
+        organization = organization!(options)
+
+        gradle(task: mac_gradle_task("Pkg", organization, options, distribution: "mac-appstore"))
+    end
+end
+
+# Builds the Gradle task line for `packageDmg`/`packagePkg` (or their `notarize*` variants).
+# Signing and notarization are each enabled only when the relevant credentials are resolvable
+# from options or environment variables.
+def mac_gradle_task(target, organization, options, distribution: nil)
+    identity = options[:signing_identity] || ENV['MAC_SIGNING_IDENTITY']
+    keychain = options[:signing_keychain] || ENV['MAC_SIGNING_KEYCHAIN']
+    apple_id = options[:apple_id] || ENV['APPLE_ID']
+    apple_asp = options[:apple_asp] || ENV['APPLE_ASP']
+    apple_team_id = options[:apple_team_id] || ENV['APPLE_TEAM_ID']
+
+    sign = !blank?(identity)
+    notarize = sign && !blank?(apple_id) && !blank?(apple_asp) && !blank?(apple_team_id)
+
+    task = (notarize ? "notarize" : "package") + target
+    parts = [
+        "copyBrandingToCommonResources",
+        task,
+        "-Porganization=#{organization}",
+    ]
+    parts << "-PdesktopDistribution=#{distribution}" if distribution
+    if sign
+        parts << "-Pcompose.desktop.mac.sign=true"
+        parts << "-Pcompose.desktop.mac.signing.identity=\"#{identity}\""
+        parts << "-Pcompose.desktop.mac.signing.keychain=#{keychain}" unless blank?(keychain)
+    end
+    if notarize
+        parts << "-Pcompose.desktop.mac.notarization.appleID=#{apple_id}"
+        parts << "-Pcompose.desktop.mac.notarization.password=#{apple_asp}"
+        parts << "-Pcompose.desktop.mac.notarization.teamID=#{apple_team_id}"
+    end
+    parts.join(" ")
+end
+
+def blank?(value)
+    value.nil? || value.to_s.empty?
+end
+
 def organization!(options)
     organization = options[:organization]
     raise "Invalid organization '#{organization}'" unless %w(ooni dw).include?(organization)

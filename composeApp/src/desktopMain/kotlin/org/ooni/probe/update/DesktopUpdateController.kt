@@ -41,12 +41,12 @@ class DesktopUpdateController(
      * Initialize update manager and set callbacks. Safe to call multiple times.
      */
     fun initialize(scope: CoroutineScope) {
-        if (updateManager is WinSparkleUpdateManager) {
-            updateManager.setDllRoot(System.getProperty("compose.application.resources.dir") ?: "")
-        }
-
         scope.launch(Dispatchers.Default) {
             try {
+                if (updateManager is WinSparkleUpdateManager) {
+                    updateManager.setDllRoot(System.getProperty("compose.application.resources.dir") ?: "")
+                }
+
                 updateManager.setErrorCallback { error ->
                     Logger.e("Update system error: ${error.message} (code: ${error.code})")
                     _error.value = error
@@ -83,7 +83,7 @@ class DesktopUpdateController(
                 updateManager.initialize(UpdateConfig.URL, UpdateConfig.PUBLIC_KEY)
                 updateManager.setAutomaticUpdatesEnabled(true)
                 updateManager.setUpdateCheckInterval(24)
-            } catch (e: Exception) {
+            } catch (e: Throwable) {
                 Logger.e("Failed to initialize update system: $e")
                 _error.value = UpdateError(-999, "Setup failed: ${e.message}", "setup")
                 _state.value = UpdateState.ERROR

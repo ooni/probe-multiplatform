@@ -73,8 +73,12 @@ class MacOsSecureStorage(
         fun CFRelease(cf: Pointer)
 
         companion object {
-            val INSTANCE: Security =
-                Native.load("Security", Security::class.java)
+            /**
+             * The JNA instance of the Apple Security framework library.
+             */
+            val INSTANCE: Security? by lazy {
+                runCatching { Native.load("Security", Security::class.java) }.getOrNull()
+            }
 
             const val ERR_SEC_SUCCESS = 0
             const val ERR_SEC_ITEM_NOT_FOUND = -25300
@@ -85,6 +89,8 @@ class MacOsSecureStorage(
     private val lib = Security.INSTANCE
 
     override suspend fun read(key: String): String? {
+        val lib = lib ?: return null
+
         val passwordLength = IntByReference()
         val passwordData = PointerByReference()
         val serviceBytes = appId.toByteArray(Charsets.UTF_8)
@@ -120,6 +126,8 @@ class MacOsSecureStorage(
         key: String,
         value: String,
     ): WriteResult {
+        val lib = lib ?: return WriteResult.Error(key, "Security library not available")
+
         val passwordBytes = value.toByteArray(Charsets.UTF_8)
         val serviceBytes = appId.toByteArray(Charsets.UTF_8)
         val accountBytes = key.toByteArray(Charsets.UTF_8)
@@ -181,6 +189,8 @@ class MacOsSecureStorage(
     }
 
     override suspend fun exists(key: String): Boolean {
+        val lib = lib ?: return false
+
         val serviceBytes = appId.toByteArray(Charsets.UTF_8)
         val accountBytes = key.toByteArray(Charsets.UTF_8)
 
@@ -197,6 +207,8 @@ class MacOsSecureStorage(
     }
 
     override suspend fun delete(key: String): DeleteResult {
+        val lib = lib ?: return DeleteResult.Error(key, "Security library not available")
+
         val serviceBytes = appId.toByteArray(Charsets.UTF_8)
         val accountBytes = key.toByteArray(Charsets.UTF_8)
         val itemRef = PointerByReference()
@@ -255,6 +267,8 @@ class MacOsSecureStorage(
     }
 
     private suspend fun writeIndex(keys: Set<String>) {
+        val lib = lib ?: return
+
         val value = keys.joinToString(KEY_INDEX_SEPARATOR)
         val passwordBytes = value.toByteArray(Charsets.UTF_8)
         val serviceBytes = appId.toByteArray(Charsets.UTF_8)

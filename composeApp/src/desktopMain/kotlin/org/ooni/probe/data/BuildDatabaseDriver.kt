@@ -13,6 +13,11 @@ import java.util.Properties
 private const val DATABASE_FILE_NAME = "probe.db"
 
 fun buildDatabaseDriver(folder: String): SqlDriver {
+    // sqlite-jdbc is a non-modular JAR; under jpackage + Mac App Store sandbox
+    // the SPI lookup in DriverManager doesn't find META-INF/services/java.sql.Driver,
+    // so force the driver class to load and self-register.
+    Class.forName("org.sqlite.JDBC")
+
     val databasePath = folder.toPath().resolve(DATABASE_FILE_NAME)
     val properties = Properties().apply {
         put("journal_mode", "wal")
