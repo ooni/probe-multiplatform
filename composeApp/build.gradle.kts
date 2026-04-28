@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import java.time.LocalDate
+import java.util.zip.ZipFile
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -176,7 +177,7 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 270 // Always increment by 10. See fdroid flavor below
+        versionCode = 286 // Always increment by 10. See fdroid flavor below
         versionName = "6.0.1"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
@@ -374,6 +375,94 @@ val dist = distribution()
 
 val desktopResourcesDir = project.layout.projectDirectory.dir("src/desktopMain/resources/")
 val preparedResourcesDir = layout.buildDirectory.dir("tmp/desktop-resources-${dist.name.lowercase()}")
+val macosNativeLibrariesDir = layout.buildDirectory.dir("tmp/macos-native-libs")
+
+// Extract bundled native libraries (JNA dispatcher, sqlite-jdbc, gojni) from
+// their runtime jars so they can be staged inside the macOS .app and signed
+// with our Team ID. Mac App Store builds run with the app sandbox + hardened
+// runtime, which enforces library validation even when
+// `com.apple.security.cs.disable-library-validation` is set — so the default
+// behaviour of these libraries (unpacking dylibs into ~/Library/Caches/... at
+// first use) is rejected by Gatekeeper with "Apple could not verify ... is
+// free of malware". Bundling pre-signed copies inside Contents/app/resources/
+// avoids the on-disk extraction entirely.
+val extractMacOsNativeLibraries = tasks.register("extractMacOsNativeLibraries") {
+    val runtimeClasspath = configurations.named("desktopRuntimeClasspath")
+    val outDirProvider = macosNativeLibrariesDir
+    inputs.files(runtimeClasspath)
+    outputs.dir(outDirProvider)
+    doLast {
+        val out = outDirProvider.get().asFile
+        out.deleteRecursively()
+        out.mkdirs()
+
+        // (jarNamePattern, listOf((entryInJar, outRelativePath)), required)
+        val plans: List<Triple<Regex, List<Pair<String, String>>, Boolean>> = listOf(
+            // JNA dispatcher — required on macOS for the JNA-based platform
+            // helpers (autolaunch, dark mode detector, etc).
+            Triple(
+                Regex("""^jna-\d.*\.jar$"""),
+                listOf(
+                    "com/sun/jna/darwin-aarch64/libjnidispatch.jnilib" to "jna/darwin-aarch64/libjnidispatch.jnilib",
+                    "com/sun/jna/darwin-x86-64/libjnidispatch.jnilib" to "jna/darwin-x86-64/libjnidispatch.jnilib",
+                    "com/sun/jna/darwin/libjnidispatch.jnilib" to "jna/darwin/libjnidispatch.jnilib",
+                ),
+                true,
+            ),
+            // sqlite-jdbc native — required for the SQLDelight desktop driver.
+            Triple(
+                Regex("""^sqlite-jdbc-.*\.jar$"""),
+                listOf(
+                    "org/sqlite/native/Mac/aarch64/libsqlitejdbc.dylib" to "sqlite/darwin-aarch64/libsqlitejdbc.dylib",
+                    "org/sqlite/native/Mac/x86_64/libsqlitejdbc.dylib" to "sqlite/darwin-x86-64/libsqlitejdbc.dylib",
+                ),
+                true,
+            ),
+            // oonimkall (gojni) — only present on the macOS classifier of
+            // oonimkall, so this jar is only on the classpath for desktop
+            // macOS builds. Skip silently if not found (e.g. when this task
+            // is invoked from a non-macOS host).
+            Triple(
+                Regex("""^oonimkall-.*-darwin\.jar$"""),
+                listOf(
+                    "jniLibs/arm64/libgojni.dylib" to "gojni/darwin-aarch64/libgojni.dylib",
+                    "jniLibs/amd64/libgojni.dylib" to "gojni/darwin-x86-64/libgojni.dylib",
+                ),
+                false,
+            ),
+        )
+
+        val classpathFiles = runtimeClasspath.get().files
+        plans.forEach { (jarPattern, entries, required) ->
+            val jar = classpathFiles.firstOrNull { jarPattern.matches(it.name) }
+            if (jar == null) {
+                if (required) {
+                    throw GradleException(
+                        "extractMacOsNativeLibraries: could not find jar matching ${jarPattern.pattern} on desktopRuntimeClasspath",
+                    )
+                }
+                logger.lifecycle("extractMacOsNativeLibraries: optional jar ${jarPattern.pattern} not on classpath; skipping")
+                return@forEach
+            }
+            var extracted = 0
+            ZipFile(jar).use { zip ->
+                entries.forEach { (entry, relativeOut) ->
+                    val ze = zip.getEntry(entry) ?: return@forEach
+                    val dst = File(out, relativeOut).apply { parentFile.mkdirs() }
+                    zip.getInputStream(ze).use { input ->
+                        dst.outputStream().use { output -> input.copyTo(output) }
+                    }
+                    extracted++
+                }
+            }
+            if (required && extracted == 0) {
+                throw GradleException(
+                    "extractMacOsNativeLibraries: no expected darwin entries found in ${jar.name}",
+                )
+            }
+        }
+    }
+}
 
 // Copy desktopMain resources into a per-distribution staging dir, stripping
 // updater binaries (Sparkle/WinSparkle/updatebridge/libwinpthread) whenever
@@ -381,6 +470,12 @@ val preparedResourcesDir = layout.buildDirectory.dir("tmp/desktop-resources-${di
 // list is used by the `verifyStoreBundle` task to audit produced packages.
 val prepareDesktopResources = tasks.register<Sync>("prepareDesktopResources") {
     from(desktopResourcesDir)
+    // Stage extracted native libs under macos/<lib>/<arch>/ so the Compose
+    // Desktop plugin (which strips the `macos/` prefix on darwin) places them
+    // at <Contents/app/resources>/<lib>/<arch>/ inside the .app.
+    from(extractMacOsNativeLibraries.map { it.outputs.files.singleFile }) {
+        into("macos")
+    }
     into(preparedResourcesDir)
     if (!dist.bundlesSparkle || !dist.bundlesWinSparkle) {
         desktopUpdateResourcePatterns.forEach { exclude(it) }
@@ -390,6 +485,19 @@ val prepareDesktopResources = tasks.register<Sync>("prepareDesktopResources") {
 compose.desktop {
     application {
         mainClass = "org.ooni.probe.MainKt"
+
+        // Compose Desktop runs ProGuard on the release distribution by default.
+        // It mangles okio (`Okio__OkioKt.buffer$…` VerifyError), strips reflectively
+        // referenced classes such as `org.sqlite.Function`, and renames JNI native
+        // method names so the bundled `libsqlitejdbc.dylib` symbol `_open_utf8` no
+        // longer matches — all observed at first launch of the Mac App Store build.
+        // The proguard-rules.pro in this module is Android-only; we have no desktop
+        // keep rules, and the binary-size win is marginal next to the ~250 MB
+        // bundled JRE, so disable ProGuard for desktop until proper keep rules
+        // exist for okio, sqlite-jdbc, JNA, and gojni.
+        buildTypes.release.proguard {
+            isEnabled.set(false)
+        }
 
         nativeDistributions {
             if (dist.isAppStore) {
@@ -431,12 +539,19 @@ compose.desktop {
                 packageBuildVersion = android.defaultConfig.versionCode.toString()
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
                 jvmArgs("-Dapple.awt.application.appearance=system") // adaptive title bar
+                // gojni loading no longer goes through `java.library.path`:
+                // `go.Seq.<clinit>` on macOS calls
+                // `go.NativeUtils.loadLibraryFromJar` (not `System.loadLibrary`),
+                // and our `composeApp/src/desktopMain/kotlin/go/NativeUtils.kt`
+                // shadow class reads `ooni.gojni.boot.library.path` (set by
+                // `configureBundledNativeLibraries`) and `System.load`s the
+                // bundled, codesigned dylib directly.
                 iconFile.set(rootProject.file("icons/app.icns"))
                 appStore = dist.isAppStore
                 if (dist.isAppStore) {
                     signing {
                         sign.set(true)
-                        identity.set("Open Observatory of Network Interference (OONI) ETS")
+                        dist.macSigningIdentity?.let { identity.set(it) }
                     }
                     provisioningProfile.set(project.file("$macDir/embedded.provisionprofile"))
                     runtimeProvisioningProfile.set(project.file("$macDir/runtime.provisionprofile"))

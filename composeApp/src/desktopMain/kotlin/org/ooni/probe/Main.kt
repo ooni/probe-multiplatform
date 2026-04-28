@@ -68,6 +68,7 @@ import org.ooni.probe.shared.InstanceManager
 import org.ooni.probe.shared.MacDockVisibility
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateState
+import org.ooni.probe.shared.configureBundledNativeLibraries
 import org.ooni.probe.shared.createUpdateManager
 import org.ooni.probe.ui.theme.AppTheme
 import org.ooni.probe.update.DesktopUpdateController
@@ -80,6 +81,7 @@ import java.awt.desktop.QuitResponse
 const val APP_ID = "org.ooni.probe"
 
 fun main(args: Array<String>) {
+    configureBundledNativeLibraries()
     initialization(dependencies)
     val autoLaunch = AutoLaunch(appPackageName = APP_ID)
     val instanceManager = InstanceManager(dependencies.platformInfo)

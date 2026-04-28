@@ -82,6 +82,9 @@ androidx-datastore-preferences-core = { group = "androidx.datastore", name = "da
 
 # Logging
 kermit = { module = "co.touchlab:kermit", version = "2.1.0" }
+# kotlinx-coroutines-slf4j (transitive on desktop) requires an SLF4J binding;
+# slf4j-nop swallows the output so kermit remains the only sink.
+slf4j-nop = { module = "org.slf4j:slf4j-nop", version = "2.0.17" }
 
 # Data
 sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
@@ -194,6 +197,7 @@ desktop = [
     "ktor-client-jvm",
     "jna",
     "jna-platform",
+    "slf4j-nop",
 ]
 full = [
     "sentry",

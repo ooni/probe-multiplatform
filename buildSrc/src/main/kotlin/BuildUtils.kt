@@ -21,6 +21,20 @@ enum class Distribution(val cliValue: String) {
     val bundlesSparkle: Boolean get() = this == Direct
     val bundlesWinSparkle: Boolean get() = this == Direct
     val isAppStore: Boolean get() = this != Direct
+
+    /**
+     * Codesign identity used for distributions whose signing is driven by
+     * the Compose Desktop DSL (not by the `compose.desktop.mac.signing.*`
+     * project properties). Returned as the Common Name portion of the
+     * certificate so `codesign -s <identity>` resolves it against the
+     * keychain. `null` for distributions whose identity comes from project
+     * properties or isn't code-signed at all.
+     */
+    val macSigningIdentity: String?
+        get() = when (this) {
+            MacAppStore -> "Open Observatory of Network Interference (OONI) ETS"
+            else -> null
+        }
 }
 
 /**
