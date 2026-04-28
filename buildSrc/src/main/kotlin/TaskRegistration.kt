@@ -426,7 +426,10 @@ private fun Project.registerRemoveQuarantineTask() {
                     }
                     logger.lifecycle("removeProvisionProfileQuarantine: stripping xattr on ${file.absolutePath}")
                     providers.exec {
-                        commandLine("xattr", "-d", "com.apple.quarantine", app)
+                        commandLine("xattr", "-d", "com.apple.quarantine", app.absolutePath)
+                        isIgnoreExitValue = true
+                    }.result.get()
+                    providers.exec {
                         commandLine("xattr", "-cr", file.absolutePath)
                         isIgnoreExitValue = true
                     }.result.get()

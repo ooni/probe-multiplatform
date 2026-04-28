@@ -49,7 +49,7 @@ fun Project.distribution(): Distribution {
     val raw = findProperty("desktopDistribution")?.toString()?.trim()?.lowercase()
         ?: return Distribution.Direct
 
-    Distribution.values().firstOrNull { it.cliValue == raw }?.let { return it }
+    Distribution.entries.firstOrNull { it.cliValue == raw }?.let { return it }
 
     if (raw == "appstore") {
         val os = OperatingSystem.current()
@@ -68,7 +68,7 @@ fun Project.distribution(): Distribution {
 
     error(
         "Unknown desktopDistribution=$raw; expected one of " +
-            Distribution.values().joinToString { it.cliValue } + " (or legacy 'appstore').",
+            Distribution.entries.joinToString { it.cliValue } + " (or legacy 'appstore').",
     )
 }
 

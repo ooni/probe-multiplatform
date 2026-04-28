@@ -555,8 +555,6 @@ compose.desktop {
                     }
                     provisioningProfile.set(project.file("$macDir/embedded.provisionprofile"))
                     runtimeProvisioningProfile.set(project.file("$macDir/runtime.provisionprofile"))
-                    entitlementsFile.set(project.file("$macDir/entitlements.plist"))
-                    runtimeEntitlementsFile.set(project.file("$macDir/runtime-entitlements.plist"))
                 }
             }
             windows {
