@@ -117,6 +117,7 @@ jobs:
         with:
           apple_certificate: ${{ secrets.APPLE_CERTIFICATE }}
           apple_certificate_password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          apple_distribution_certificate: ${{ secrets.APP_DISTRIBUTION_CERTIFICATE }}
 
       - name: Package & notarize DMG (direct)
         if: matrix.distribution == 'direct'
@@ -133,20 +134,17 @@ jobs:
         if: matrix.distribution == 'direct'
         run: ./gradlew generateSparkleAppCast -Porganization=${{ env.ORGANIZATION }}
 
-      # notarizePkg finalizes with verifyStoreBundle, which audits the produced
+      # packageReleasePkg finalizes with verifyStoreBundle, which audits the produced
       # .pkg for Sparkle/WinSparkle/updatebridge residue and fails the build if found.
       - name: Package PKG for Mac App Store
         if: matrix.distribution == 'mac-appstore'
         run: |
-          ./gradlew copyBrandingToCommonResources notarizePkg \
+          ./gradlew copyBrandingToCommonResources packageReleasePkg \
             -Porganization=${{ env.ORGANIZATION }} \
             -PdesktopDistribution=mac-appstore \
             -Pcompose.desktop.mac.sign=true \
             -Pcompose.desktop.mac.signing.identity="Open Observatory of Network Interference (OONI) ETS" \
-            -Pcompose.desktop.mac.signing.keychain=${{ steps.apple-signing.outputs.keychain_path }} \
-            -Pcompose.desktop.mac.notarization.appleID=${{ secrets.APPLE_ID }} \
-            -Pcompose.desktop.mac.notarization.password=${{ secrets.APPLE_ASP }} \
-            -Pcompose.desktop.mac.notarization.teamID=${{ secrets.APPLE_TEAM_ID }}
+            -Pcompose.desktop.mac.signing.keychain=${{ steps.apple-signing.outputs.keychain_path }}
 
       - name: Upload direct artifacts
         if: matrix.distribution == 'direct'
@@ -165,7 +163,7 @@ jobs:
         with:
           name: desktopApps-macos-appstore-${{ github.run_id }}
           path: |
-            composeApp/build/compose/binaries/main/pkg/OONI Probe-*.pkg
+            composeApp/build/compose/binaries/main-release/pkg/OONI Probe-*.pkg
           retention-days: 7
 
       - name: Upload failure diagnostics
