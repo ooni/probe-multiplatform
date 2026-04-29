@@ -27,10 +27,7 @@ class SubmitMeasurementWithUser(
     private val passportAuthSubmit: PassportAuthSubmit,
     private val json: Json,
 ) {
-    suspend operator fun invoke(
-        measurementData: String,
-        reportId: MeasurementModel.ReportId,
-    ): Result<SubmitMeasurement.ResponseData, Throwable?> {
+    suspend operator fun invoke(measurementData: String): Result<SubmitMeasurement.ResponseData, Throwable?> {
         val manifest = getManifest().first() ?: return Failure(null)
         val credential = getCredential()
         val stamped = stampMeasurement(measurementData)
@@ -40,7 +37,7 @@ class SubmitMeasurementWithUser(
 
         passportAuthSubmit
             .userAuthSubmit(
-                url = "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/submit_measurement/$reportId",
+                url = "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/submit_measurement",
                 content = stamped,
                 probeCc = data.probeCc,
                 probeAsn = data.probeAsn,
