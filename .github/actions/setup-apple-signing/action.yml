@@ -8,8 +8,11 @@ inputs:
   apple_certificate_password:
     description: 'Password for the .p12 certificate'
     required: true
-  apple_distribution_certificate:
-    description: 'Base64-encoded .p7b certificate bundle'
+  mac_app_distribution_certificate:
+    description: 'Base64-encoded Mac App Distribution certificate'
+    required: true
+  mac_installer_distribution_certificate:
+    description: 'Base64-encoded Mac Installer Distribution certificate'
     required: true
 
 outputs:
@@ -25,23 +28,27 @@ runs:
       shell: bash
       env:
         APPLE_CERTIFICATE: ${{ inputs.apple_certificate }}
-        APPLE_DISTRIBUTION_CERTIFICATE: ${{ inputs.apple_distribution_certificate }}
+        MAC_APP_DISTRIBUTION_CERTIFICATE: ${{ inputs.mac_app_distribution_certificate }}
+        MAC_INSTALLER_DISTRIBUTION_CERTIFICATE: ${{ inputs.mac_installer_distribution_certificate }}
         P12_PASSWORD: ${{ inputs.apple_certificate_password }}
       run: |
         set -euo pipefail
         CERTIFICATE_PATH="$RUNNER_TEMP/build_certificate.p12"
-        DISTRIBUTION_CERTIFICATE_PATH="$RUNNER_TEMP/distribution_certificate.p7b"
+        MAC_APP_DISTRIBUTION_CERTIFICATE_PATH="$RUNNER_TEMP/mac_app_distribution_certificate.cer"
+        MAC_INSTALLER_DISTRIBUTION_CERTIFICATE_PATH="$RUNNER_TEMP/mac_installer_distribution_certificate.cer"
         KEYCHAIN_PATH="$RUNNER_TEMP/app-signing.keychain-db"
         KEYCHAIN_PASSWORD=temporary  # single-use keychain, password is not sensitive
 
         echo -n "$APPLE_CERTIFICATE" | base64 --decode -o "$CERTIFICATE_PATH"
-        echo -n "$APPLE_DISTRIBUTION_CERTIFICATE" | base64 --decode -o "$DISTRIBUTION_CERTIFICATE_PATH"
+        echo -n "$MAC_APP_DISTRIBUTION_CERTIFICATE" | base64 --decode -o "$MAC_APP_DISTRIBUTION_CERTIFICATE_PATH"
+        echo -n "$MAC_INSTALLER_DISTRIBUTION_CERTIFICATE" | base64 --decode -o "$MAC_INSTALLER_DISTRIBUTION_CERTIFICATE_PATH"
 
         security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
         security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
         security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
         security import "$CERTIFICATE_PATH" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
-        security import "$DISTRIBUTION_CERTIFICATE_PATH" -A -t cert -f pkcs7 -k "$KEYCHAIN_PATH"
+        security import "$MAC_APP_DISTRIBUTION_CERTIFICATE_PATH" -A -k "$KEYCHAIN_PATH"
+        security import "$MAC_INSTALLER_DISTRIBUTION_CERTIFICATE_PATH" -A -k "$KEYCHAIN_PATH"
         security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
         security list-keychain -d user -s "$KEYCHAIN_PATH"
 

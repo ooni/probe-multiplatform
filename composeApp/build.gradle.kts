@@ -177,7 +177,7 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 286 // Always increment by 10. See fdroid flavor below
+        versionCode = 288 // Always increment by 10. See fdroid flavor below
         versionName = "6.0.1"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
@@ -539,13 +539,7 @@ compose.desktop {
                 packageBuildVersion = android.defaultConfig.versionCode.toString()
                 jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
                 jvmArgs("-Dapple.awt.application.appearance=system") // adaptive title bar
-                // gojni loading no longer goes through `java.library.path`:
-                // `go.Seq.<clinit>` on macOS calls
-                // `go.NativeUtils.loadLibraryFromJar` (not `System.loadLibrary`),
-                // and our `composeApp/src/desktopMain/kotlin/go/NativeUtils.kt`
-                // shadow class reads `ooni.gojni.boot.library.path` (set by
-                // `configureBundledNativeLibraries`) and `System.load`s the
-                // bundled, codesigned dylib directly.
+
                 iconFile.set(rootProject.file("icons/app.icns"))
                 appStore = dist.isAppStore
                 if (dist.isAppStore) {
