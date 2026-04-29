@@ -9,6 +9,7 @@ import tk.pratanumandal.unique4j.exception.Unique4jException
 import java.awt.Desktop
 import java.net.URI
 import java.util.Date
+import java.util.concurrent.atomic.AtomicBoolean
 
 // Ensures only one app instance is running
 // and relays the URLs (deep links) it receives from the system
@@ -16,6 +17,7 @@ class InstanceManager(
     private val platformInfo: PlatformInfo,
 ) {
     private var unique: Unique4j? = null
+    private val released = AtomicBoolean(false)
     private val urls = MutableSharedFlow<String>(extraBufferCapacity = 1)
     private val activations = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
@@ -37,8 +39,7 @@ class InstanceManager(
                 }
 
                 override fun sendMessage(): String {
-                    // Check for deep links in arguments
-                    Logger.d("Application launched without deep link at ${Date()}")
+                    Logger.d("Subsequent instance forwarding args to primary at ${Date()}")
                     return args.joinToString(" ")
                 }
 
@@ -57,13 +58,13 @@ class InstanceManager(
                 Logger.d("Application instance started successfully")
                 handleArgs(args)
             } else {
-                Logger.d("Could not acquire lock - this should not happen")
+                Logger.d("Another instance is already running; args forwarded to primary")
             }
 
             // Register shutdown hook to free the lock when application exits
             Runtime.getRuntime().addShutdownHook(
                 Thread {
-                    unique?.freeLock()
+                    releaseLock()
                 },
             )
         } catch (e: Unique4jException) {
@@ -72,7 +73,16 @@ class InstanceManager(
     }
 
     fun shutdown() {
-        unique?.freeLock()
+        releaseLock()
+    }
+
+    private fun releaseLock() {
+        if (!released.compareAndSet(false, true)) return
+        try {
+            unique?.freeLock()
+        } catch (e: Unique4jException) {
+            Logger.w("Failed to free Unique4j lock", e)
+        }
     }
 
     fun observeUrls() = urls.asSharedFlow()
