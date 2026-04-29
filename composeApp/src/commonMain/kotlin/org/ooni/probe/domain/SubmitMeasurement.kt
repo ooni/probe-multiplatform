@@ -16,7 +16,6 @@ import org.ooni.probe.shared.monitoring.Instrumentation
 class SubmitMeasurement(
     private val submitMeasurementWithUser: suspend (
         String,
-        MeasurementModel.ReportId,
     ) -> Result<ResponseData, Throwable?>,
     private val engineSubmit: suspend (String) -> Result<SubmitMeasurementResults, MkException>,
     private val readFile: ReadFile,
@@ -49,11 +48,7 @@ class SubmitMeasurement(
         }
 
         val result = (
-            if (measurement.reportId != null) {
-                submitMeasurementWithUser(report, measurement.reportId)
-            } else {
-                Failure(null)
-            }
+            submitMeasurementWithUser(report)
         ).flatMapError { submitLegacy(report) }
 
         return when (result) {
