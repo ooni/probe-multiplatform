@@ -1,4 +1,8 @@
 import ooni.appimage.PackageAppImageTask
+import ooni.desktop.configureDmgUdbzConversion
+import ooni.desktop.configureDmgVolumeIcon
+import ooni.desktop.registerPrepareDesktopResourcesTask
+import ooni.jna.ExtractMacOsNativeLibrariesTask
 import ooni.sparkle.GenerateSparkleAppCastTask
 import ooni.sparkle.SetupSparkleTask
 import ooni.sparkle.WinSparkleSetupTask
@@ -27,6 +31,10 @@ fun Project.registerTasks(config: AppConfig) {
     registerRemoveQuarantineTask()
     registerAppImageTask()
     registerVerifyStoreBundleTask()
+    registerExtractMacOsNativeLibrariesTask()
+    registerPrepareDesktopResourcesTask()
+    configureDmgVolumeIcon(rootProject.file("icons/app.icns").absolutePath)
+    configureDmgUdbzConversion()
     configureTaskDependencies()
 }
 
@@ -179,6 +187,15 @@ private fun Project.registerWinSparkleTask() {
                 .map { layout.projectDirectory.dir(it) }
                 .orElse(layout.projectDirectory.dir("src/desktopMain/resources/windows/")),
         )
+    }
+}
+
+private fun Project.registerExtractMacOsNativeLibrariesTask() {
+    tasks.register("extractMacOsNativeLibraries", ExtractMacOsNativeLibrariesTask::class) {
+        group = "ooni"
+        description = "Extracts darwin native libs (JNA, sqlite-jdbc, gojni) from runtime jars."
+        runtimeClasspath.from(configurations.named("desktopRuntimeClasspath"))
+        outputDir.set(layout.buildDirectory.dir("tmp/macos-native-libs"))
     }
 }
 

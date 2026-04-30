@@ -1,13 +1,10 @@
 import com.android.build.api.variant.FilterConfiguration
-import org.gradle.api.GradleException
 import org.gradle.api.tasks.Sync
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.compose.desktop.application.tasks.AbstractJPackageTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import java.time.LocalDate
-import java.util.zip.ZipFile
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -177,7 +174,7 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 288 // Always increment by 10. See fdroid flavor below
+        versionCode = 289 // Always increment by 10. See fdroid flavor below
         versionName = "6.0.1"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
@@ -373,114 +370,11 @@ ktlint {
 
 val dist = distribution()
 
-val desktopResourcesDir = project.layout.projectDirectory.dir("src/desktopMain/resources/")
-val preparedResourcesDir = layout.buildDirectory.dir("tmp/desktop-resources-${dist.name.lowercase()}")
-val macosNativeLibrariesDir = layout.buildDirectory.dir("tmp/macos-native-libs")
-
-// Extract bundled native libraries (JNA dispatcher, sqlite-jdbc, gojni) from
-// their runtime jars so they can be staged inside the macOS .app and signed
-// with our Team ID. Mac App Store builds run with the app sandbox + hardened
-// runtime, which enforces library validation even when
-// `com.apple.security.cs.disable-library-validation` is set — so the default
-// behaviour of these libraries (unpacking dylibs into ~/Library/Caches/... at
-// first use) is rejected by Gatekeeper with "Apple could not verify ... is
-// free of malware". Bundling pre-signed copies inside Contents/app/resources/
-// avoids the on-disk extraction entirely.
-val extractMacOsNativeLibraries = tasks.register("extractMacOsNativeLibraries") {
-    val runtimeClasspath = configurations.named("desktopRuntimeClasspath")
-    val outDirProvider = macosNativeLibrariesDir
-    inputs.files(runtimeClasspath)
-    outputs.dir(outDirProvider)
-    doLast {
-        val out = outDirProvider.get().asFile
-        out.deleteRecursively()
-        out.mkdirs()
-
-        // (jarNamePattern, listOf((entryInJar, outRelativePath)), required)
-        val plans: List<Triple<Regex, List<Pair<String, String>>, Boolean>> = listOf(
-            // JNA dispatcher — required on macOS for the JNA-based platform
-            // helpers (autolaunch, dark mode detector, etc).
-            Triple(
-                Regex("""^jna-\d.*\.jar$"""),
-                listOf(
-                    "com/sun/jna/darwin-aarch64/libjnidispatch.jnilib" to "jna/darwin-aarch64/libjnidispatch.jnilib",
-                    "com/sun/jna/darwin-x86-64/libjnidispatch.jnilib" to "jna/darwin-x86-64/libjnidispatch.jnilib",
-                    "com/sun/jna/darwin/libjnidispatch.jnilib" to "jna/darwin/libjnidispatch.jnilib",
-                ),
-                true,
-            ),
-            // sqlite-jdbc native — required for the SQLDelight desktop driver.
-            Triple(
-                Regex("""^sqlite-jdbc-.*\.jar$"""),
-                listOf(
-                    "org/sqlite/native/Mac/aarch64/libsqlitejdbc.dylib" to "sqlite/darwin-aarch64/libsqlitejdbc.dylib",
-                    "org/sqlite/native/Mac/x86_64/libsqlitejdbc.dylib" to "sqlite/darwin-x86-64/libsqlitejdbc.dylib",
-                ),
-                true,
-            ),
-            // oonimkall (gojni) — only present on the macOS classifier of
-            // oonimkall, so this jar is only on the classpath for desktop
-            // macOS builds. Skip silently if not found (e.g. when this task
-            // is invoked from a non-macOS host).
-            Triple(
-                Regex("""^oonimkall-.*-darwin\.jar$"""),
-                listOf(
-                    "jniLibs/arm64/libgojni.dylib" to "gojni/darwin-aarch64/libgojni.dylib",
-                    "jniLibs/amd64/libgojni.dylib" to "gojni/darwin-x86-64/libgojni.dylib",
-                ),
-                false,
-            ),
-        )
-
-        val classpathFiles = runtimeClasspath.get().files
-        plans.forEach { (jarPattern, entries, required) ->
-            val jar = classpathFiles.firstOrNull { jarPattern.matches(it.name) }
-            if (jar == null) {
-                if (required) {
-                    throw GradleException(
-                        "extractMacOsNativeLibraries: could not find jar matching ${jarPattern.pattern} on desktopRuntimeClasspath",
-                    )
-                }
-                logger.lifecycle("extractMacOsNativeLibraries: optional jar ${jarPattern.pattern} not on classpath; skipping")
-                return@forEach
-            }
-            var extracted = 0
-            ZipFile(jar).use { zip ->
-                entries.forEach { (entry, relativeOut) ->
-                    val ze = zip.getEntry(entry) ?: return@forEach
-                    val dst = File(out, relativeOut).apply { parentFile.mkdirs() }
-                    zip.getInputStream(ze).use { input ->
-                        dst.outputStream().use { output -> input.copyTo(output) }
-                    }
-                    extracted++
-                }
-            }
-            if (required && extracted == 0) {
-                throw GradleException(
-                    "extractMacOsNativeLibraries: no expected darwin entries found in ${jar.name}",
-                )
-            }
-        }
-    }
-}
-
-// Copy desktopMain resources into a per-distribution staging dir, stripping
-// updater binaries (Sparkle/WinSparkle/updatebridge/libwinpthread) whenever
-// the active distribution doesn't bundle an auto-updater. The same pattern
-// list is used by the `verifyStoreBundle` task to audit produced packages.
-val prepareDesktopResources = tasks.register<Sync>("prepareDesktopResources") {
-    from(desktopResourcesDir)
-    // Stage extracted native libs under macos/<lib>/<arch>/ so the Compose
-    // Desktop plugin (which strips the `macos/` prefix on darwin) places them
-    // at <Contents/app/resources>/<lib>/<arch>/ inside the .app.
-    from(extractMacOsNativeLibraries.map { it.outputs.files.singleFile }) {
-        into("macos")
-    }
-    into(preparedResourcesDir)
-    if (!dist.bundlesSparkle || !dist.bundlesWinSparkle) {
-        desktopUpdateResourcePatterns.forEach { exclude(it) }
-    }
-}
+// `prepareDesktopResources` (Sync) and the DMG post-processing hooks live in
+// buildSrc — see ooni.desktop.PrepareDesktopResourcesTask /
+// DmgVolumeIconConfig / DmgUdbzConversion. They are wired via
+// `id("ooni.common")` -> ConfigurationPlugin.
+val prepareDesktopResources = tasks.named<Sync>("prepareDesktopResources")
 
 compose.desktop {
     application {
@@ -559,66 +453,6 @@ compose.desktop {
             }
             linux {
                 iconFile.set(rootProject.file("icons/app.png"))
-            }
-        }
-    }
-}
-
-// Set macOS DMG volume icon
-tasks.withType<AbstractJPackageTask>().all {
-    if (targetFormat == TargetFormat.Dmg) {
-        freeArgs.addAll("--icon", rootProject.file("icons/app.icns").absolutePath)
-    }
-}
-
-// Convert DMG to use LZMA compression (UDBZ) after jpackage creates it
-tasks.withType<AbstractJPackageTask>().all {
-    if (targetFormat == TargetFormat.Dmg) {
-        doLast {
-            val dmgFile = File(destinationDir.get().asFile, "${packageName.get()}-${packageVersion.get()}.dmg")
-            if (dmgFile.exists()) {
-                logger.lifecycle("Converting DMG to LZMA compression (UDBZ format)...")
-                val tempDmg = File(destinationDir.get().asFile, "temp-${packageName.get()}-${packageVersion.get()}.dmg")
-
-                try {
-                    project.providers
-                        .exec {
-                            commandLine(
-                                "hdiutil",
-                                "convert",
-                                dmgFile.absolutePath,
-                                "-format",
-                                "UDBZ",
-                                "-o",
-                                tempDmg.absolutePath,
-                            )
-                        }.result
-                        .get()
-                        .assertNormalExitValue()
-
-                    if (!tempDmg.exists()) {
-                        throw GradleException("DMG conversion succeeded but output file not found: ${tempDmg.absolutePath}")
-                    }
-
-                    if (!dmgFile.delete()) {
-                        throw GradleException("Failed to delete original DMG file: ${dmgFile.absolutePath}")
-                    }
-
-                    if (!tempDmg.renameTo(dmgFile)) {
-                        throw GradleException("Failed to rename converted DMG from ${tempDmg.absolutePath} to ${dmgFile.absolutePath}")
-                    }
-
-                    logger.lifecycle("Successfully converted DMG to LZMA compression (UDBZ format)")
-                } catch (e: Exception) {
-                    // Clean up temporary file if it exists
-                    if (tempDmg.exists()) {
-                        tempDmg.delete()
-                    }
-                    throw GradleException("Failed to convert DMG to UDBZ format: ${e.message}", e)
-                }
-            } else {
-                logger.error("DMG file not found: ${dmgFile.absolutePath}")
-                throw GradleException("Expected DMG file not found: ${dmgFile.absolutePath}")
             }
         }
     }
