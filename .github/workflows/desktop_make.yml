@@ -117,8 +117,8 @@ jobs:
         with:
           apple_certificate: ${{ secrets.APPLE_CERTIFICATE }}
           apple_certificate_password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-          mac_app_distribution_certificate: ${{ secrets.MAC_APP_DISTRIBUTION_CERTIFICATE }}
-          mac_installer_distribution_certificate: ${{ secrets.MAC_INSTALLER_DISTRIBUTION_CERTIFICATE }}
+          apple_distribution_certificate: ${{ secrets.MAC_APP_DISTRIBUTION_CERTIFICATE_BUNDLE }}
+          apple_distribution_certificate_password: ${{ secrets.MAC_APP_DISTRIBUTION_CERTIFICATE_BUNDLE_PASSWORD }}
 
       - name: Package & notarize DMG (direct)
         if: matrix.distribution == 'direct'
