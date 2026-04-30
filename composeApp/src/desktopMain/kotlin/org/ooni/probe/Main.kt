@@ -7,7 +7,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
@@ -16,15 +15,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import java.awt.AWTEvent
-import java.awt.Toolkit
-import java.awt.event.AWTEventListener
-import java.awt.event.InputEvent
-import java.awt.event.KeyEvent
-import java.awt.event.MouseEvent
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ApplicationScope
@@ -80,6 +72,7 @@ import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.UpdateState
 import org.ooni.probe.shared.configureBundledNativeLibraries
 import org.ooni.probe.shared.createUpdateManager
+import org.ooni.probe.shared.rememberAltPressedState
 import org.ooni.probe.ui.theme.AppTheme
 import org.ooni.probe.update.DesktopUpdateController
 import java.awt.Desktop
@@ -264,14 +257,15 @@ fun main(args: Array<String>) {
                             onQuitApplicationClicked(updateController, instanceManager).invoke()
                         },
                     )
+                } else {
+                    Item(
+                        stringResource(Res.string.Desktop_Quit),
+                        onClick = {
+                            showWindow()
+                            showQuitPrompt = true
+                        },
+                    )
                 }
-                Item(
-                    stringResource(Res.string.Desktop_Quit),
-                    onClick = {
-                        showWindow()
-                        showQuitPrompt = true
-                    },
-                )
             },
         )
 
@@ -312,40 +306,6 @@ private fun ApplicationScope.onQuitApplicationClicked(
             instanceManager.shutdown()
         }
     }
-
-@Composable
-private fun rememberAltPressedState(): State<Boolean> {
-    val state = remember { mutableStateOf(false) }
-    DisposableEffect(Unit) {
-        val toolkit = Toolkit.getDefaultToolkit()
-        val listener = AWTEventListener { event ->
-            val pressed = when (event) {
-                is KeyEvent -> {
-                    if (event.keyCode != KeyEvent.VK_ALT &&
-                        event.keyCode != KeyEvent.VK_ALT_GRAPH
-                    ) {
-                        return@AWTEventListener
-                    }
-                    event.id == KeyEvent.KEY_PRESSED
-                }
-                // Mouse events carry the live modifier mask, so any subsequent
-                // mouse interaction recovers from key-up events that were swallowed
-                // by a native popup menu (e.g. macOS NSMenu).
-                is MouseEvent -> (event.modifiersEx and InputEvent.ALT_DOWN_MASK) != 0
-                else -> return@AWTEventListener
-            }
-            if (state.value != pressed) {
-                Snapshot.withMutableSnapshot { state.value = pressed }
-            }
-        }
-        toolkit.addAWTEventListener(
-            listener,
-            AWTEvent.KEY_EVENT_MASK or AWTEvent.MOUSE_EVENT_MASK,
-        )
-        onDispose { toolkit.removeAWTEventListener(listener) }
-    }
-    return state
-}
 
 @Composable
 private fun trayIcon(): DrawableResource {
