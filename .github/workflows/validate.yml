@@ -20,7 +20,7 @@ jobs:
         variant: [ fdroid, full ]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -33,7 +33,7 @@ jobs:
           }
 
       - name: Uploads test reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: android-lint-${{ matrix.variant }}-report
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -54,7 +54,7 @@ jobs:
         run: ./gradlew copyBrandingToCommonResources ktlintCheck
 
       - name: Uploads test reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: kotlin-lint-report
@@ -70,7 +70,7 @@ jobs:
         organization: [ ooni, dw ]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -79,7 +79,7 @@ jobs:
         run: ./gradlew copyBrandingToCommonResources :composeApp:desktopTest -Porganization=${{ matrix.organization }}
 
       - name: Uploads test reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: common-tests-report-${{ matrix.organization }}
@@ -95,7 +95,7 @@ jobs:
         organization: [ ooni, dw ]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -124,7 +124,7 @@ jobs:
         run: ./gradlew copyBrandingToCommonResources assembleFullRelease -Porganization=${{ matrix.organization }}
 
       - name: Upload APK artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.organization }}-release-APK
           path: composeApp/build/outputs/apk/full/release/composeApp-full-universal-release.apk
@@ -148,7 +148,7 @@ jobs:
         organization: [ ooni, dw ]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -189,7 +189,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -198,10 +198,23 @@ jobs:
         run: ./gradlew copyBrandingToCommonResources packageDistributionForCurrentOS
 
       - name: Uploads artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: DesktopApp
           path: composeApp/build/compose/binaries/**/**/*
+          retention-days: 7
+
+      - name: Upload failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: failure-logs-macos-${{ matrix.distribution }}-${{ github.run_id }}
+          path: |
+            composeApp/build/compose/logs/**
+            composeApp/build/compose/tmp/**
+            composeApp/build/reports/problems/**
+            build/reports/problems/**
+          if-no-files-found: ignore
           retention-days: 7
 
   distribute:
@@ -213,13 +226,13 @@ jobs:
       matrix:
         organization: [ ooni, dw ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup
         uses: ./.github/actions/setup
 
       - name: Download APK artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: ${{ matrix.organization }}-release-APK
           path: composeApp/build/outputs/apk/full/release/
