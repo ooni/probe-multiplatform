@@ -26,13 +26,13 @@ val organization: String? by project
 val config = Organization.fromKey(organization).config
 
 val javaFxParts = listOf("base", "graphics", "controls", "media", "web", "swing")
-val javaFxVersion = "25.0.2"
+val javaFxVersion = "26.0.1"
 
 kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+            jvmTarget.set(JvmTarget.JVM_25)
         }
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         instrumentedTestVariant {
@@ -244,8 +244,8 @@ android {
         compose = true
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
         isCoreLibraryDesugaringEnabled = true
     }
     sourceSets["main"].resources.setSrcDirs(

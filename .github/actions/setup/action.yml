@@ -4,7 +4,7 @@ description: 'Setup Java, checkout and setup gradle'
 inputs:
   java_version:
     required: false
-    default: '17'
+    default: '25'
 
 runs:
   using: "composite"
