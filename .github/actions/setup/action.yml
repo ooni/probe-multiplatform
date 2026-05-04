@@ -13,7 +13,7 @@ runs:
       uses: actions/setup-java@v5
       with:
         java-version: ${{ inputs.java_version }}
-        distribution: 'temurin'
+        distribution: 'corretto'
 
     - name: Gradle cache
       uses: gradle/actions/setup-gradle@v3
