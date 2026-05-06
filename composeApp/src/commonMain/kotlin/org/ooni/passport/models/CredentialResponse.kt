@@ -5,6 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.ooni.probe.data.models.Credential
+import org.ooni.probe.data.models.CredentialBody
 
 data class CredentialResponse(
     val response: PassportHttpResponse,
@@ -13,7 +14,11 @@ data class CredentialResponse(
     fun decodeCredential(json: Json): Credential? =
         response.bodyText?.let {
             try {
-                json.decodeFromString<Credential>(it)
+                val credentialBody = json.decodeFromString<CredentialBody>(it)
+                return@let Credential(
+                    credential = this.credential!!,
+                    emissionDay = credentialBody.emissionDay,
+                )
             } catch (e: Exception) {
                 Logger.w("Failed to decode credential response", e)
                 null

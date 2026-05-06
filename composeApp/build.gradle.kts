@@ -77,7 +77,7 @@ kotlin {
             implementation(libs.bundles.android)
             implementation(libs.bundles.mobile)
             implementation("net.java.dev.jna:jna:5.18.1@aar")
-            implementation("org.ooni:passport-android:3dc2cd98:@aar")
+            implementation("org.ooni:passport-android:a13e362a:@aar")
         }
         commonMain {
             dependencies {
@@ -323,9 +323,9 @@ android {
         debugImplementation(libs.androidx.ui.tooling.preview)
         "fullImplementation"(libs.bundles.full.android)
         "fullImplementation"("org.ooni:oonimkall:3.29.0-android:@aar")
-        "fullImplementation"("org.ooni:passport-android:3dc2cd98:@aar")
+        "fullImplementation"("org.ooni:passport-android:a13e362a:@aar")
         "fdroidImplementation"("org.ooni:oonimkall:3.29.0-android:@aar")
-        "fdroidImplementation"("org.ooni:passport-android:3dc2cd98:@aar")
+        "fdroidImplementation"("org.ooni:passport-android:a13e362a:@aar")
         "xperimentalImplementation"(files("libs/android-oonimkall.aar"))
         androidTestUtil(libs.android.orchestrator)
     }
