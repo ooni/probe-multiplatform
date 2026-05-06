@@ -52,7 +52,13 @@ class SubmitMeasurementWithUser(
                 val submitBody = result.response.bodyText?.let(this::parseResponse)
 
                 if (outcome.verificationStatus == VerificationStatus.Verified) {
-                    result.decodeCredential(json)?.let { setCredential(it) }
+                    if (credential is Credential && result.credential is String) {
+                        setCredential(
+                            credential.copy(
+                                credential = result.credential,
+                            ),
+                        )
+                    }
                 }
 
                 return Success(
