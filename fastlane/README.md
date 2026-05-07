@@ -334,6 +334,106 @@ fastlane sentry_upload_debug_symbols auth_token:... org_slug:ooni project_slug:p
 
 ----
 
+
+## desktop
+
+### desktop capture_screens
+
+```sh
+[bundle exec] fastlane desktop capture_screens
+```
+
+Capture Compose Desktop screenshots seeded with the same data as fastlane android capture_screens
+
+#### Example:
+
+```
+fastlane desktop capture_screens organization:ooni locales:en-US,de-DE
+```
+
+#### Options
+
+ * **`organization`**: ooni, dw
+
+ * **`locales`**: comma-separated list of locales (optional, defaults to en-US)
+
+
+
+----
+
+
+## Mac
+
+### mac dmg
+
+```sh
+[bundle exec] fastlane mac dmg
+```
+
+Build the macOS DMG (direct distribution) and generate the Sparkle appcast
+
+Signing and notarization are optional: each is enabled only when its credentials are passed (or available via env).
+
+#### Example:
+
+```
+fastlane mac dmg organization:ooni
+fastlane mac dmg organization:ooni signing_identity:'Developer ID Application: Acme'
+fastlane mac dmg organization:ooni apple_id:you@example.com apple_asp:abcd-efgh-ijkl-mnop apple_team_id:XXXXXXXXXX
+```
+
+#### Options
+
+ * **`organization`**: ooni, dw
+
+ * **`signing_identity`**: Developer ID Application identity (optional; falls back to `MAC_SIGNING_IDENTITY` env). When unset, the build is unsigned.
+
+ * **`signing_keychain`**: Path to the keychain holding the signing certificate (optional; falls back to `MAC_SIGNING_KEYCHAIN` env).
+
+ * **`apple_id`**: Apple ID used for notarization (optional; falls back to `APPLE_ID` env).
+
+ * **`apple_asp`**: App-specific password for the Apple ID (optional; falls back to `APPLE_ASP` env).
+
+ * **`apple_team_id`**: Apple Developer Team ID (optional; falls back to `APPLE_TEAM_ID` env).
+
+
+
+### mac pkg
+
+```sh
+[bundle exec] fastlane mac pkg
+```
+
+Build the macOS PKG for Mac App Store distribution
+
+Signing and notarization are optional: each is enabled only when its credentials are passed (or available via env).
+
+#### Example:
+
+```
+fastlane mac pkg organization:ooni
+fastlane mac pkg organization:ooni signing_identity:'Developer ID Application: Acme'
+fastlane mac pkg organization:ooni apple_id:you@example.com apple_asp:abcd-efgh-ijkl-mnop apple_team_id:XXXXXXXXXX
+```
+
+#### Options
+
+ * **`organization`**: ooni, dw
+
+ * **`signing_identity`**: Developer ID Application identity (optional; falls back to `MAC_SIGNING_IDENTITY` env). When unset, the build is unsigned.
+
+ * **`signing_keychain`**: Path to the keychain holding the signing certificate (optional; falls back to `MAC_SIGNING_KEYCHAIN` env).
+
+ * **`apple_id`**: Apple ID used for notarization (optional; falls back to `APPLE_ID` env).
+
+ * **`apple_asp`**: App-specific password for the Apple ID (optional; falls back to `APPLE_ASP` env).
+
+ * **`apple_team_id`**: Apple Developer Team ID (optional; falls back to `APPLE_TEAM_ID` env).
+
+
+
+----
+
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
 
 More information about _fastlane_ can be found on [fastlane.tools](https://fastlane.tools).

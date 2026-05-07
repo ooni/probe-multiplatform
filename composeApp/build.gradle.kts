@@ -468,6 +468,35 @@ compose.resources {
 
 version = android.defaultConfig.versionName ?: ""
 
+// Captures Compose Desktop screenshots into fastlane/metadata/<organization>/desktop/<locale>/.
+// Reuses the same DatabaseHelper-based seed data that fastlane android capture_screens uses.
+tasks.register<Test>("desktopCaptureScreens") {
+    group = "verification"
+    description = "Capture Compose Desktop screenshots seeded with the fastlane Android dataset."
+
+    dependsOn(tasks.named("desktopTestClasses"))
+
+    val desktopTest = tasks.named<Test>("desktopTest").get()
+    testClassesDirs = desktopTest.testClassesDirs
+    classpath = desktopTest.classpath
+    javaLauncher.set(desktopTest.javaLauncher)
+
+    useJUnit()
+    filter {
+        includeTestsMatching("org.ooni.probe.screenshots.DesktopScreenshotsTest")
+    }
+
+    val outputDir = layout.projectDirectory
+        .dir("../fastlane/metadata/${organization ?: "ooni"}/desktop")
+        .asFile
+    systemProperty("ooni.screenshots.outputDir", outputDir.absolutePath)
+    (project.findProperty("locales") as String?)?.let {
+        systemProperty("ooni.screenshots.locales", it)
+    }
+
+    outputs.upToDateWhen { false }
+}
+
 registerDesktopBuildConfigTask(
     versionName = android.defaultConfig.versionName ?: "1.0.0",
     versionCode = android.defaultConfig.versionCode ?: 0,
