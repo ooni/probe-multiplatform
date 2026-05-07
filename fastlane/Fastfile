@@ -292,6 +292,22 @@ platform :ios do
 end
 
 
+platform :desktop do
+    desc "Capture Compose Desktop screenshots seeded with the same data as fastlane android capture_screens"
+    desc "#### Example:"
+    desc "```\nfastlane desktop capture_screens organization:ooni locales:en-US,de-DE\n```"
+    desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
+    desc " * **`locales`**: comma-separated list of locales (optional, defaults to en-US)"
+    desc ""
+    lane :capture_screens do |options|
+        organization = organization!(options)
+        locales = locales_or_default(options)
+
+        gradle(task: "copyBrandingToCommonResources :composeApp:desktopCaptureScreens -Porganization=#{organization} -Plocales=#{locales.join(',')}")
+    end
+end
+
 platform :mac do
     desc "Build the macOS DMG (direct distribution) and generate the Sparkle appcast"
     desc "Signing and notarization are optional: each is enabled only when its credentials are passed (or available via env)."
@@ -399,7 +415,7 @@ def locales_or_default(options)
        options[:locales].split(',')
    else
        case options[:organization]
-       when "ooni" then ['ar', 'ca', 'de-DE', 'el-GR', 'en-US', 'es-ES', 'fa', 'fr-FR', 'hi-IN', 'id', 'it-IT', 'is-IS', 'ja-JP', 'pt-BR', 'ro', 'ru-RU', 'sk', 'sq', 'th', 'tr-TR', 'zh-CN', 'zh-TW']
+       when "ooni" then ['ar', 'bs-BA', 'ca', 'de-DE', 'el-GR', 'en-US', 'es-ES', 'fa', 'fi-FI', 'fr-FR', 'hi-IN', 'id', 'it-IT', 'is-IS', 'ja-JP', 'km-KH', 'my-MM', 'nl-NL', 'pt-BR', 'pt-PT', 'ro', 'ru-RU', 'sk', 'sq', 'sw', 'th', 'tr-TR', 'vi', 'zh-CN', 'zh-TW']
        when "dw" then ['de-DE', 'en-US', 'es-ES', 'fr-FR', 'pt-BR', 'ru', 'tr-TR']
        end
    end
