@@ -110,7 +110,7 @@ sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.25.0" 
 markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.40.2" }
 
 # WebView
-android-webkit = { module = "androidx.webkit:webkit", version = "1.15.0" }
+android-webkit = { module = "androidx.webkit:webkit", version = "1.16.0" }
 web-view = { module = "io.github.kevinnzou:compose-webview-multiplatform", version = "2.0.3" }
 
 # In-App Updates
