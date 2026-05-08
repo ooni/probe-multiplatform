@@ -458,4 +458,6 @@
         <item quantity="other">%1$d δευτερόλεπτα</item>
     </plurals>
     <string name="TaskOrigin_Manual">Χειροκίνητη εκτέλεση</string>
+    <string name="Desktop_ForceQuit">Αναγκαστικός Τερματισμός</string>
+    <string name="Result_Error">σφάλμα δοκιμής</string>
 </resources>
