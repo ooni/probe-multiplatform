@@ -1,6 +1,7 @@
 import ooni.appimage.PackageAppImageTask
 import ooni.desktop.configureDmgUdbzConversion
 import ooni.desktop.configureDmgVolumeIcon
+import ooni.desktop.registerDesktopCaptureScreensTask
 import ooni.desktop.registerPrepareDesktopResourcesTask
 import ooni.jna.ExtractMacOsNativeLibrariesTask
 import ooni.sparkle.GenerateSparkleAppCastTask
@@ -33,6 +34,7 @@ fun Project.registerTasks(config: AppConfig) {
     registerVerifyStoreBundleTask()
     registerExtractMacOsNativeLibrariesTask()
     registerPrepareDesktopResourcesTask()
+    registerDesktopCaptureScreensTask()
     configureDmgVolumeIcon(rootProject.file("icons/app.icns").absolutePath)
     configureDmgUdbzConversion()
     configureTaskDependencies()
