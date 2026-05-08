@@ -437,4 +437,5 @@
     <string name="TaskOrigin_AutoRun">自動実行</string>
     <string name="Common_Clear">消去</string>
     <string name="Result_Error">テストエラー</string>
+    <string name="Desktop_ForceQuit">強制終了</string>
 </resources>
