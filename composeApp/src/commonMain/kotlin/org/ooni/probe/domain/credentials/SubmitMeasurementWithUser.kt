@@ -17,6 +17,8 @@ import org.ooni.probe.data.models.Credential
 import org.ooni.probe.data.models.Manifest
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.domain.SubmitMeasurement
+import org.ooni.probe.shared.monitoring.Instrumentation
+import org.ooni.probe.shared.monitoring.reportTransaction
 
 class SubmitMeasurementWithUser(
     private val getManifest: () -> Flow<Manifest?>,
@@ -76,14 +78,24 @@ class SubmitMeasurementWithUser(
         return Failure(null)
     }
 
-    private fun buildCredentialConfig(
+    private suspend fun buildCredentialConfig(
         manifest: Manifest,
         credential: Credential?,
         data: MeasurementData,
     ): SubmitCredentialConfig? {
         if (credential == null) return null
         val ranges = resolveSubmissionPolicy(manifest, data.probeCc, data.probeAsn) ?: run {
+            // We have a credential but the manifest has no submission_policy entry for this
+            // cc/asn, so we can't derive sanctioned param ranges and submit unauthenticated.
+            // Report it so the policy-coverage gap is visible in aggregate.
             Logger.w("No submission_policy entry for cc=${data.probeCc} asn=${data.probeAsn}")
+            Instrumentation.reportTransaction(
+                operation = "SubmitMissingPolicy",
+                data = mapOf(
+                    "probe_cc" to data.probeCc,
+                    "probe_asn" to data.probeAsn,
+                ),
+            )
             return null
         }
         return SubmitCredentialConfig(

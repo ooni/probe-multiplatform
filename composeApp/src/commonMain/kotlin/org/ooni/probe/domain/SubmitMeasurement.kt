@@ -22,7 +22,7 @@ class SubmitMeasurement(
     private val deleteFiles: DeleteFiles,
     private val updateMeasurement: suspend (MeasurementModel) -> Unit,
     private val deleteMeasurementById: suspend (MeasurementModel.Id) -> Unit,
-    private val handleSubmitOutcome: suspend (VerificationStatus, SubmitError?) -> Unit = { _, _ -> },
+    private val handleSubmitOutcome: suspend (VerificationStatus, SubmitError?) -> Unit,
 ) {
     suspend operator fun invoke(measurement: MeasurementModel): MeasurementModel? =
         Instrumentation.withTransaction(
@@ -54,6 +54,8 @@ class SubmitMeasurement(
         return when (result) {
             is Success -> {
                 handleSubmitOutcome(result.value.verificationStatus, result.value.submitError)
+                // TODO: persist result.value.verificationStatus on the measurement so it can be
+                //  surfaced in the UI later (follow-up issue to be filed).
                 val newMeasurement = measurement.copy(
                     isUploaded = true,
                     isUploadFailed = false,

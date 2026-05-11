@@ -31,8 +31,8 @@ data class CredentialResponse(
         return try {
             val envelope = json.decodeFromString<Envelope>(body)
             SubmitOutcome(
-                verificationStatus = VerificationStatus.fromWire(envelope.verificationStatus),
-                error = SubmitError.fromWire(envelope.error),
+                verificationStatus = VerificationStatus.fromPassport(envelope.verificationStatus),
+                error = SubmitError.fromPassport(envelope.error),
             )
         } catch (e: Exception) {
             Logger.w("Failed to decode submit outcome", e)

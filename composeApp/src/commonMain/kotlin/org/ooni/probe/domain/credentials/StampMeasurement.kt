@@ -16,7 +16,7 @@ class StampMeasurement(
     suspend operator fun invoke(content: String): String {
         val credential = getCredential() ?: return content
         val parsed = try {
-            json.parseToJsonElement(content) as? JsonObject
+            json.parseToJsonElement(content) as JsonObject
         } catch (e: Exception) {
             Logger.w("StampMeasurement: cannot parse measurement JSON", e)
             null
