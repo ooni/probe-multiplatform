@@ -22,7 +22,7 @@ sealed class SubmitError(
     ) : SubmitError(raw)
 
     companion object {
-        fun fromWire(value: String?): SubmitError? =
+        fun fromPassport(value: String?): SubmitError? =
             when (value) {
                 null, "" -> null
                 "manifest_not_found" -> ManifestNotFound

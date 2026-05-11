@@ -8,7 +8,7 @@ enum class VerificationStatus {
     ;
 
     companion object {
-        fun fromWire(value: String?): VerificationStatus =
+        fun fromPassport(value: String?): VerificationStatus =
             when (value) {
                 "verified" -> Verified
                 "failed" -> Failed
