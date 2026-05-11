@@ -15,8 +15,8 @@ class ResolveSubmissionPolicy {
         probeAsn: String,
     ): Ranges? {
         for (entry in manifest.manifest.submissionPolicy) {
-            val ccOk = entry.match.probeCc == WILDCARD || entry.match.probeCc == probeCc
-            val asnOk = entry.match.probeAsn == WILDCARD || entry.match.probeAsn == probeAsn
+            val ccOk = entry.match.probeCc == WILDCARD || entry.match.probeCc.equals(probeCc, ignoreCase = true)
+            val asnOk = entry.match.probeAsn == WILDCARD || entry.match.probeAsn.equals(probeAsn, ignoreCase = true)
             if (ccOk && asnOk) {
                 val age = entry.policy.age.toRange() ?: continue
                 val count = entry.policy.measurementCount.toRange() ?: continue

@@ -688,6 +688,8 @@ class Dependencies(
         HandleSubmitOutcome(
             retrieveManifest = { retrieveManifest() },
             clearCredential = clearCredential,
+            // TODO: surface an "update required" prompt to the user when the passport server
+            //  reports a too-old/incompatible protocol version (follow-up issue to be filed).
             signalUpdateRequired = {},
         )
     }
