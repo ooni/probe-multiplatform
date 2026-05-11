@@ -68,6 +68,22 @@ class ResolveSubmissionPolicyTest {
     }
 
     @Test
+    fun `cc and asn match case-insensitively`() {
+        val ranges = resolve(
+            manifest = ManifestFactory.build(
+                submissionPolicy = listOf(
+                    entry("it", "as456", age = 1u to 2u, count = 10u to 20u),
+                    entry("*", "*", age = 0u to 99u, count = 0u to 99u),
+                ),
+            ),
+            probeCc = "IT",
+            probeAsn = "AS456",
+        )
+        assertEquals(ParamRange(1u, 2u), ranges?.ageRange)
+        assertEquals(ParamRange(10u, 20u), ranges?.measurementCountRange)
+    }
+
+    @Test
     fun `returns null when no entry matches`() {
         val ranges = resolve(
             manifest = ManifestFactory.build(
