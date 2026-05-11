@@ -160,6 +160,8 @@ based on the new tag.
 
 **2.8.3** Upload all the desktop files downloaded during step *2.7.1*, and swapping the windows `.exe` files for their signed versions (step *2.7.2*).
 
+> It's important the file names are `OONI-Probe-VERSION.dmg` and `OONI-Probe-VERSION.exe` so the OONI website can link them automatically correctly.
+
 **2.8.4** Publish release
 
 The new Github release post an internal Slack message warning of the new incoming release.
