@@ -14,6 +14,11 @@ Each *flavor* is available for Android and iOS devices, through different platfo
 - [News Media Scan Android on Google Play](https://play.google.com/store/apps/details?id=com.dw.ooniprobe)
 - [News Media Scan iOS on Apple App Store](https://apps.apple.com/us/app/news-media-scan/id6738992797)
 
+Additionally, the OONI Probe Desktop app is distributed both as direct downloads (DMG/EXE, self-updating via Sparkle/WinSparkle) and through the desktop app stores:
+
+- OONI Probe Desktop on the Mac App Store
+- OONI Probe Desktop on the Microsoft Store
+
 ## Continuous Deployment
 
 Pull-requests merged into the `main` branch trigger a new OONI Probe Android and News Media Scan
@@ -137,32 +142,64 @@ value.
 Both steps are done at [Promote Android on Google Play](https://github.com/ooni/probe-multiplatform/actions/workflows/promote_android_on_google_play.yml) like on the previous step, but with the
 Organization as `ooni`.
 
-#### 2.7 Publish OONI Probe Desktop
+#### 2.7 Publish OONI Probe Desktop (direct downloads)
 
 ##### 2.7.1 Generate apps
 
 Go to [Desktop package apps](https://github.com/ooni/probe-multiplatform/actions/workflows/desktop_make.yml),
-press *Run Workflow*, use workflow from the new tag, and press *Run Workflow*. Confirm the action ran
-successfully and download the generated apps (zipped artifact).
+press *Run Workflow*, use workflow from the new tag, tick *MacOS* and *Windows*, and press
+*Run Workflow*. Confirm the action ran successfully and download the generated apps (zipped artifacts).
 
 ##### 2.7.2 Sign windows app
 
 - We need to sign the windows `.exe` file using our Extended Validation certificate. Follow the steps on our internal process to do so.
 - Generate the WinSparkle appcast for the signed `.exe` file.
 
-#### 2.8 Create Release
+#### 2.8 Publish OONI Probe Desktop (app stores)
 
-**2.8.1** Create a new [Github release](https://github.com/ooni/probe-multiplatform/releases)
+The app store builds are produced from the same workflow but with different distribution targets
+(`-PdesktopDistribution=mac-appstore` / `-PdesktopDistribution=ms-store`). These builds are
+sandboxed and have the Sparkle/WinSparkle self-updaters stripped out, since updates are handled by
+the stores.
+
+##### 2.8.1 Generate the store apps
+
+Go to [Desktop package apps](https://github.com/ooni/probe-multiplatform/actions/workflows/desktop_make.yml),
+press *Run Workflow*, use workflow from the new tag, tick *macOS App Store (PKG)* and
+*Windows Store (EXE)*, and press *Run Workflow*. Confirm the action ran successfully and download the
+`desktopApps-macos-appstore-*` (`.pkg`) and `desktopApps-windows-appstore-*` (`.exe`) artifacts.
+
+##### 2.8.2 Publish to the Mac App Store
+> Build and upload locally for now. CI not set up properly
+
+- Upload the signed `.pkg` to App Store Connect (via Transporter, or `xcrun altool`/`xcrun notarytool`
+  per our internal process) using the Mac App distribution certificate/provisioning profile.
+- In **App Store Connect > My Apps > OONI Probe (macOS) > Distribution**, create a new release entry
+  for the uploaded build, add the changelog and required metadata, and submit for App Store review.
+- Monitor the review status; App Store approval is required before the macOS build goes public.
+
+##### 2.8.3 Publish to the Microsoft Store
+
+- Sign in to [Partner Center](https://partner.microsoft.com/dashboard) and open the OONI Probe Desktop app submission.
+- Upload the Microsoft Store `.exe` package to an s3 bucket and link the release, update the changelog and required metadata, and submit for certification.
+- Monitor the certification status; Microsoft Store approval is required before the Windows build goes public.
+
+#### 2.9 Create Release
+
+**2.9.1** Create a new [Github release](https://github.com/ooni/probe-multiplatform/releases)
 based on the new tag.
 
-**2.8.2** Write our manual release notes and add at the bottom the automatic changelog using the
+**2.9.2** Write our manual release notes and add at the bottom the automatic changelog using the
 `Generate release notes` button.
 
-**2.8.3** Upload all the desktop files downloaded during step *2.7.1*, and swapping the windows `.exe` files for their signed versions (step *2.7.2*).
+**2.9.3** Upload all the desktop files downloaded during step *2.7.1*, and swapping the windows `.exe` files for their signed versions (step *2.7.2*).
 
 > It's important the file names are `OONI-Probe-VERSION.dmg` and `OONI-Probe-VERSION.exe` so the OONI website can link them automatically correctly.
+>
+> The app store packages (`.pkg`/store `.exe` from step *2.8*) are **not** uploaded to the Github
+> release — they are delivered through the Mac App Store and Microsoft Store only.
 
-**2.8.4** Publish release
+**2.9.4** Publish release
 
 The new Github release post an internal Slack message warning of the new incoming release.
 
