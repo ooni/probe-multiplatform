@@ -13,7 +13,7 @@ class GetCredentialTest {
     @Test
     fun successful() =
         runTest {
-            val storedJson = """{"credential_sign_response":"test_credential","emission_day":42}"""
+            val storedJson = """{"credential":"test_credential","emission_day":42}"""
 
             val getCredential = GetCredential(
                 readSecureStorage = { key ->
