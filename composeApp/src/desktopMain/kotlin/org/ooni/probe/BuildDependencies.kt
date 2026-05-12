@@ -6,6 +6,8 @@ import dev.dirs.ProjectDirectories
 import kotlinx.coroutines.Dispatchers
 import okio.Path.Companion.toPath
 import org.ooni.engine.DesktopNetworkTypeFinder
+import org.ooni.engine.NetworkTypeFinder
+import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.createDesktopSecureStorage
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.engine.DesktopOonimkallBridge
@@ -13,6 +15,7 @@ import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.DesktopLegacyDirectoryManager
 import org.ooni.probe.config.FlavorConfigInterface
+import org.ooni.probe.config.LegacyDirectoryManager
 import org.ooni.probe.config.OptionalFeature
 import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.buildDatabaseDriver
@@ -29,7 +32,7 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Locale
 
-private val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
+internal val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
 private val osName = System.getProperty("os.name")
 val platform = Platform.Desktop(osName)
 
@@ -38,32 +41,53 @@ private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager
     getDescriptorUpdateProvider = { dependencies.fetchDescriptorsUpdates },
 )
 
-val dependencies = Dependencies(
-    platformInfo = buildPlatformInfo(),
-    oonimkallBridge = DesktopOonimkallBridge(),
-    baseFileDir = projectDirectories.dataDir.also { File(it).mkdirs() },
-    cacheDir = projectDirectories.cacheDir.also { File(it).mkdirs() },
-    databaseDriverFactory = { buildDatabaseDriver(projectDirectories.dataDir) },
-    networkTypeFinder = DesktopNetworkTypeFinder(),
-    secureStorage = createDesktopSecureStorage(platform.os, OrganizationConfig.appId, OrganizationConfig.baseSoftwareName),
-    buildDataStore = ::buildDataStore,
-    getBatteryState = { BatteryState.Unknown },
-    startSingleRunInner = backgroundWorkManager::startSingleRun,
-    configureAutoRun = backgroundWorkManager::configureAutoRun,
-    configureDescriptorAutoUpdate = backgroundWorkManager::configureDescriptorAutoUpdate,
-    cancelDescriptorAutoUpdate = backgroundWorkManager::cancelDescriptorAutoUpdate,
-    startDescriptorsUpdate = backgroundWorkManager::startDescriptorsUpdate,
-    launchAction = ::launchAction,
-    batteryOptimization = object : BatteryOptimization {},
-    isWebViewAvailable = { true },
-    legacyDirectoryManager = DesktopLegacyDirectoryManager(platform.os),
-    flavorConfig = DesktopFlavorConfig(),
-    proxyConfig = ProxyConfig(isPsiphonSupported = false),
-    getCountryNameByCode = ::getCountryNameByCode,
-    databaseContext = Dispatchers.IO.limitedParallelism(1),
-)
+val dependencies = buildDependencies(backgroundWorkManager = backgroundWorkManager)
 
-private fun buildPlatformInfo(): PlatformInfo {
+/**
+ * Builds the [Dependencies] graph for the desktop app. Defaults match the production flavor; callers
+ * (e.g. UI/screenshot tests) override only the pieces that need to differ.
+ */
+internal fun buildDependencies(
+    dataDir: String = projectDirectories.dataDir.also { File(it).mkdirs() },
+    cacheDir: String = projectDirectories.cacheDir.also { File(it).mkdirs() },
+    platformInfo: PlatformInfo = buildPlatformInfo(),
+    oonimkallBridge: OonimkallBridge = DesktopOonimkallBridge(),
+    networkTypeFinder: NetworkTypeFinder = DesktopNetworkTypeFinder(),
+    secureStorageAppId: String = OrganizationConfig.appId,
+    dataStoreFile: File = File(dataDir).resolve("probe.preferences_pb"),
+    batteryState: BatteryState = BatteryState.Unknown,
+    backgroundWorkManager: BackgroundWorkManager? = null,
+    isWebViewAvailable: () -> Boolean = { true },
+    launchAction: (PlatformAction) -> Boolean = ::launchAction,
+    legacyDirectoryManager: LegacyDirectoryManager = DesktopLegacyDirectoryManager(platform.os),
+    flavorConfig: FlavorConfigInterface = DesktopFlavorConfig(),
+): Dependencies =
+    Dependencies(
+        platformInfo = platformInfo,
+        oonimkallBridge = oonimkallBridge,
+        baseFileDir = dataDir,
+        cacheDir = cacheDir,
+        databaseDriverFactory = { buildDatabaseDriver(dataDir) },
+        networkTypeFinder = networkTypeFinder,
+        secureStorage = createDesktopSecureStorage(platform.os, secureStorageAppId, OrganizationConfig.baseSoftwareName),
+        buildDataStore = { PreferenceDataStoreFactory.create { dataStoreFile } },
+        getBatteryState = { batteryState },
+        startSingleRunInner = { backgroundWorkManager?.startSingleRun(it) },
+        configureAutoRun = { backgroundWorkManager?.configureAutoRun(it) },
+        configureDescriptorAutoUpdate = { backgroundWorkManager?.configureDescriptorAutoUpdate() ?: false },
+        cancelDescriptorAutoUpdate = { backgroundWorkManager?.cancelDescriptorAutoUpdate() ?: false },
+        startDescriptorsUpdate = { backgroundWorkManager?.startDescriptorsUpdate(it) },
+        launchAction = launchAction,
+        batteryOptimization = object : BatteryOptimization {},
+        isWebViewAvailable = isWebViewAvailable,
+        legacyDirectoryManager = legacyDirectoryManager,
+        flavorConfig = flavorConfig,
+        proxyConfig = ProxyConfig(isPsiphonSupported = false),
+        getCountryNameByCode = ::getCountryNameByCode,
+        databaseContext = Dispatchers.IO.limitedParallelism(1),
+    )
+
+internal fun buildPlatformInfo(): PlatformInfo {
     val osVersion = System.getProperty("os.version")
     val buildName = DesktopBuildConfig.VERSION_NAME
     val buildNumber = DesktopBuildConfig.VERSION_CODE.toString()
@@ -100,15 +124,7 @@ private fun formatBytes(bytes: Long): String {
     return "%.1f GiB".format(gib)
 }
 
-private fun buildDataStore() =
-    PreferenceDataStoreFactory.create {
-        projectDirectories.dataDir
-            .toPath()
-            .resolve("probe.preferences_pb")
-            .toFile()
-    }
-
-private fun launchAction(action: PlatformAction): Boolean =
+internal fun launchAction(action: PlatformAction): Boolean =
     when (action) {
         is PlatformAction.FileSharing -> shareFile(action)
         is PlatformAction.Mail -> sendMail(action)
@@ -186,6 +202,6 @@ private fun buildMailUri(action: PlatformAction.Mail): URI {
     return URI("mailto:${action.to}?subject=$subject&body=$body")
 }
 
-private class DesktopFlavorConfig : FlavorConfigInterface {
+internal class DesktopFlavorConfig : FlavorConfigInterface {
     override val optionalFeatures = setOf(OptionalFeature.CrashReporting)
 }
