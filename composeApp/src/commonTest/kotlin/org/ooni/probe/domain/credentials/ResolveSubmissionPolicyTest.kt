@@ -11,7 +11,7 @@ class ResolveSubmissionPolicyTest {
     private val resolve = ResolveSubmissionPolicy()
 
     @Test
-    fun `wildcard default matches any probe`() {
+    fun wildcardDefaultMatchesAnyProbe() {
         val ranges = resolve(
             manifest = ManifestFactory.build(),
             probeCc = "US",
@@ -22,7 +22,7 @@ class ResolveSubmissionPolicyTest {
     }
 
     @Test
-    fun `first match in list wins`() {
+    fun firstMatchInListWins() {
         val ranges = resolve(
             manifest = ManifestFactory.build(
                 submissionPolicy = listOf(
@@ -38,7 +38,7 @@ class ResolveSubmissionPolicyTest {
     }
 
     @Test
-    fun `specific cc and asn match precisely`() {
+    fun specificCcAndAsnMatchPrecisely() {
         val ranges = resolve(
             manifest = ManifestFactory.build(
                 submissionPolicy = listOf(
@@ -53,7 +53,7 @@ class ResolveSubmissionPolicyTest {
     }
 
     @Test
-    fun `falls back to wildcard when specific does not match`() {
+    fun fallsBackToWildcardWhenSpecificDoesNotMatch() {
         val ranges = resolve(
             manifest = ManifestFactory.build(
                 submissionPolicy = listOf(
@@ -68,7 +68,7 @@ class ResolveSubmissionPolicyTest {
     }
 
     @Test
-    fun `cc and asn match case-insensitively`() {
+    fun ccAndAsnMatchCaseInsensitively() {
         val ranges = resolve(
             manifest = ManifestFactory.build(
                 submissionPolicy = listOf(
@@ -84,7 +84,7 @@ class ResolveSubmissionPolicyTest {
     }
 
     @Test
-    fun `returns null when no entry matches`() {
+    fun returnsNullWhenNoEntryMatches() {
         val ranges = resolve(
             manifest = ManifestFactory.build(
                 submissionPolicy = listOf(
@@ -98,7 +98,7 @@ class ResolveSubmissionPolicyTest {
     }
 
     @Test
-    fun `returns null when policy is empty`() {
+    fun returnsNullWhenPolicyIsEmpty() {
         val ranges = resolve(
             manifest = ManifestFactory.build(submissionPolicy = emptyList()),
             probeCc = "US",
