@@ -190,6 +190,16 @@ if (dist.bundlesJavaFx) {
     }
 }
 
+tasks.withType<Test>().configureEach {
+    filter {
+        // Only treat *Test classes as tests; skip commonTest/desktopTest helpers
+        // (factories, Kotlin file-facade *Kt classes, $Companion, etc.) which JUnit 4's
+        // class-file scanner would otherwise try to run and report as InvalidTestClassError.
+        includeTestsMatching("*Test")
+        isFailOnNoMatchingTests = false
+    }
+}
+
 android {
     namespace = "org.ooni.probe"
     compileSdk = libs.versions.android.compileSdk
