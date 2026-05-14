@@ -41,7 +41,9 @@ kotlin {
         }
     }
 
-    iosX64()
+    // iosX64 is no longer supported by Compose Multiplatform
+    // https://github.com/JetBrains/compose-multiplatform/pull/5514
+    // iosX64()
     iosArm64()
     iosSimulatorArm64()
 
