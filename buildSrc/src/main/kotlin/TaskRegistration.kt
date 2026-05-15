@@ -1,6 +1,7 @@
 import ooni.appimage.PackageAppImageTask
 import ooni.desktop.configureDmgUdbzConversion
 import ooni.desktop.configureDmgVolumeIcon
+import ooni.desktop.registerDesktopCaptureMacAppStoreTask
 import ooni.desktop.registerDesktopCaptureScreensTask
 import ooni.desktop.registerPrepareDesktopResourcesTask
 import ooni.jna.ExtractMacOsNativeLibrariesTask
@@ -35,6 +36,7 @@ fun Project.registerTasks(config: AppConfig) {
     registerExtractMacOsNativeLibrariesTask()
     registerPrepareDesktopResourcesTask()
     registerDesktopCaptureScreensTask()
+    registerDesktopCaptureMacAppStoreTask()
     configureDmgVolumeIcon(rootProject.file("icons/app.icns").absolutePath)
     configureDmgUdbzConversion()
     configureTaskDependencies()

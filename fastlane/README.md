@@ -359,6 +359,28 @@ fastlane desktop capture_screens organization:ooni locales:en-US,de-DE
 
 
 
+### desktop capture_screens_mac_appstore
+
+```sh
+[bundle exec] fastlane desktop capture_screens_mac_appstore
+```
+
+Capture Compose Desktop screenshots seeded with the same data as fastlane android capture_screens
+
+#### Example:
+
+```
+fastlane desktop capture_screens_mac_appstore organization:ooni locales:en-US,de-DE
+```
+
+#### Options
+
+ * **`organization`**: ooni, dw
+
+ * **`locales`**: comma-separated list of locales (optional, defaults to en-US)
+
+
+
 ----
 
 
