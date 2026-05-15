@@ -308,6 +308,23 @@ platform :desktop do
     end
 end
 
+
+platform :desktop do
+    desc "Capture Compose Desktop screenshots seeded with the same data as fastlane android capture_screens"
+    desc "#### Example:"
+    desc "```\nfastlane desktop capture_screens_mac_appstore organization:ooni locales:en-US,de-DE\n```"
+    desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
+    desc " * **`locales`**: comma-separated list of locales (optional, defaults to en-US)"
+    desc ""
+    lane :capture_screens_mac_appstore do |options|
+        organization = organization!(options)
+        locales = locales_or_default(options)
+
+        gradle(task: "copyBrandingToCommonResources :composeApp:desktopCaptureScreensMacAppStore -Porganization=#{organization} -Plocales=#{locales.join(',')}")
+    end
+end
+
 platform :mac do
     desc "Build the macOS DMG (direct distribution) and generate the Sparkle appcast"
     desc "Signing and notarization are optional: each is enabled only when its credentials are passed (or available via env)."

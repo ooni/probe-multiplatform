@@ -189,6 +189,24 @@ bundle exec fastlane android capture_screens organization:ooni
 
 Only the screenshots 1-5 are committed to git, since those are the ones we submit to Google Play.
 
+### Capture Mac App Store desktop screenshots
+
+`desktopCaptureScreensMacAppStore` renders the same flows as `desktopCaptureScreens` but
+at a logical 1280×800 viewport with 2x density, producing **2560×1600** PNGs that App
+Store Connect accepts as the retina Mac App Store screenshot size (no downscale needed):
+
+```
+./gradlew :composeApp:desktopCaptureScreensMacAppStore \
+  -Porganization=ooni \
+  -Plocales=en-US
+```
+
+Output: `fastlane/metadata/<organization>/desktop/mac-app-store/<locale>/*.png`.
+
+The smaller `desktopCaptureScreens` task (480×800 portrait, for parity with the Android
+fastlane dataset) continues to write to `fastlane/metadata/<organization>/desktop/<locale>/`
+unchanged.
+
 ### Update Google Play listings
 
 To update the screenshots or the metadata (title, short and full description) of the OONI Probe

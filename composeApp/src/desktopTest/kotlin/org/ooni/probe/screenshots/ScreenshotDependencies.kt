@@ -32,7 +32,10 @@ internal fun buildScreenshotDependencies(workingDir: Path): Dependencies {
         dataStoreFile = workingDir.resolve("probe.preferences_pb").toFile(),
         batteryState = BatteryState.NotCharging,
         backgroundWorkManager = null,
-        isWebViewAvailable = { false },
+        // Screenshot tests render a Compose-native facsimile of the explorer page in place of
+        // the JavaFX WebView (see ScreenshotOoniWebView.kt). Flipping this true lets
+        // MeasurementViewModel enter ShowMeasurement so MeasurementScreen actually composes.
+        isWebViewAvailable = { true },
         launchAction = { false },
         legacyDirectoryManager = object : LegacyDirectoryManager {},
         // flavorConfig keeps the default DesktopFlavorConfig: it mirrors the production

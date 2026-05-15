@@ -13,6 +13,19 @@ import javafx.scene.web.WebView
 import java.net.URI
 import kotlin.io.encoding.Base64
 
+/**
+ * Test-only seam: screenshot tests can install a Compose-native stand-in so [OoniWebView]
+ * never spins up the JavaFX runtime / native SwingPanel. Always null in production builds.
+ */
+internal var ooniWebViewOverride: (
+    @Composable (
+        controller: OoniWebViewController,
+        modifier: Modifier,
+        allowedDomains: List<String>,
+        onDisallowedUrl: (String) -> Unit,
+    ) -> Unit
+)? = null
+
 @Composable
 actual fun OoniWebView(
     controller: OoniWebViewController,
@@ -20,6 +33,11 @@ actual fun OoniWebView(
     allowedDomains: List<String>,
     onDisallowedUrl: (String) -> Unit,
 ) {
+    ooniWebViewOverride?.let { override ->
+        override(controller, modifier, allowedDomains, onDisallowedUrl)
+        return
+    }
+
     val event = controller.rememberNextEvent()
 
     SwingPanel(

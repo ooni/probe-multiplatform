@@ -2,11 +2,13 @@ package org.ooni.probe.screenshots
 
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.toAwtImage
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.runDesktopComposeUiTest
+import androidx.compose.ui.unit.Density
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import kotlinx.coroutines.flow.first
@@ -34,6 +36,7 @@ import ooniprobe.composeapp.generated.resources.Settings_Title
 import ooniprobe.composeapp.generated.resources.Settings_Websites_Categories_Label
 import ooniprobe.composeapp.generated.resources.Settings_Websites_CustomURL_Title
 import ooniprobe.composeapp.generated.resources.TestResults
+import ooniprobe.composeapp.generated.resources.Test_Dash_Fullname
 import ooniprobe.composeapp.generated.resources.Tests_Title
 import ooniprobe.composeapp.generated.resources.app_name
 import org.ooni.probe.App
@@ -172,6 +175,67 @@ class DesktopScreenshotsTest {
     }
 
     @Test
+    fun websiteMeasurementAnomaly() {
+        if (!isOoni) return
+        perLocale { locale ->
+            preloadMeasurementSnapshot(YOUTUBE_MEASUREMENT_UID, YOUTUBE_URL)
+            renderApp()
+            waitForContentDescription(string(Res.string.app_name))
+            clickText(string(Res.string.TestResults))
+            clickText(websitesTitle(), timeout = LONG_WAIT)
+            clickText(YOUTUBE_URL, timeout = LONG_WAIT)
+            waitForTag(EXPLORER_SNAPSHOT_TAG, timeout = LONG_WAIT)
+            capture(locale, "19-website-measurement-anomaly")
+        }
+    }
+
+    @Test
+    fun dashMeasurement() {
+        if (!isOoni) return
+        perLocale { locale ->
+            preloadMeasurementSnapshot(DASH_MEASUREMENT_UID, DASH_MARKER)
+            renderApp()
+            waitForContentDescription(string(Res.string.app_name))
+            clickText(string(Res.string.TestResults))
+            clickText(performanceTitle(), timeout = LONG_WAIT)
+            clickText(string(Res.string.Test_Dash_Fullname), timeout = LONG_WAIT)
+            waitForTag(EXPLORER_SNAPSHOT_TAG, timeout = LONG_WAIT)
+            capture(locale, "20-dash-measurement")
+        }
+    }
+
+    private fun preloadMeasurementSnapshot(
+        uid: String,
+        expectedDomText: String,
+    ) {
+        val (_, _, density) = screenshotViewport()
+        // Snapshot at the production app's actual window dp (Main.kt → 480×800), scaled by the
+        // active density. This matches what real users see — explorer.ooni.org adapts to that
+        // viewport — and stays crisp when the Mac App Store retina pipeline downscales it to fit
+        // the framed window inside `MacScreenshotFrame`.
+        val widthPx = (APP_WINDOW_DP_WIDTH * density).toInt()
+        val heightPx = ((APP_WINDOW_DP_HEIGHT - MEASUREMENT_TOP_BAR_DP) * density).toInt()
+        val url = explorerMeasurementUrl(uid)
+        runBlocking {
+            preloadExplorerSnapshot(
+                url = url,
+                widthPx = widthPx,
+                heightPx = heightPx,
+                expectedDomText = expectedDomText,
+            )
+        }
+    }
+
+    private fun explorerMeasurementUrl(uid: String): String {
+        val locale = Locale.getDefault()
+        val languageRegion = buildString {
+            append(locale.language.ifEmpty { "en" })
+            if (locale.country.isNotEmpty()) append('-').append(locale.country)
+        }
+        return "${OrganizationConfig.explorerUrl}/m/$uid?webview=true&language=$languageRegion"
+    }
+
+    @Test
     fun chooseWebsites() {
         if (!isOoni) return
         perLocale { locale ->
@@ -268,13 +332,14 @@ class DesktopScreenshotsTest {
 
     private fun perLocale(block: ComposeUiTest.(locale: String) -> Unit) {
         val previousLocale = Locale.getDefault()
+        val (width, height, _) = screenshotViewport()
         try {
             for (tag in screenshotLocales()) {
                 Locale.setDefault(Locale.forLanguageTag(tag))
-                // Match Main.kt's minimum window size (Dimension(320, 560)) so screenshots
-                // reflect the smallest supported app layout rather than the runComposeUiTest
-                // default (1024x768).
-                runDesktopComposeUiTest(width = WINDOW_WIDTH, height = WINDOW_HEIGHT) {
+                // Viewport sized via ooni.screenshots.{width,height,density} (defaults
+                // 480x800@1x to mirror Main.kt's minimum window). desktopCaptureScreensMacAppStore
+                // overrides to 2560x1600@2x for retina Mac App Store assets.
+                runDesktopComposeUiTest(width = width, height = height) {
                     block(tag)
                 }
             }
@@ -284,14 +349,30 @@ class DesktopScreenshotsTest {
     }
 
     private fun ComposeUiTest.renderApp() {
+        val (_, _, density) = screenshotViewport()
+        val chrome = System.getProperty(CHROME_PROPERTY).orEmpty()
         setContent {
             CompositionLocalProvider(
+                LocalDensity provides Density(density = density, fontScale = 1f),
                 LocalLifecycleOwner provides TestLifecycleOwner(Lifecycle.State.RESUMED),
             ) {
-                App(dependencies = dependencies, deepLink = null)
+                if (chrome == CHROME_MAC) {
+                    MacScreenshotFrame {
+                        App(dependencies = dependencies, deepLink = null)
+                    }
+                } else {
+                    App(dependencies = dependencies, deepLink = null)
+                }
             }
         }
         waitForIdle()
+    }
+
+    private fun screenshotViewport(): Triple<Int, Int, Float> {
+        val width = System.getProperty(WIDTH_PROPERTY)?.toIntOrNull() ?: DEFAULT_WIDTH
+        val height = System.getProperty(HEIGHT_PROPERTY)?.toIntOrNull() ?: DEFAULT_HEIGHT
+        val density = System.getProperty(DENSITY_PROPERTY)?.toFloatOrNull() ?: DEFAULT_DENSITY
+        return Triple(width, height, density)
     }
 
     private fun ComposeUiTest.capture(
@@ -307,16 +388,23 @@ class DesktopScreenshotsTest {
     private val isOoni: Boolean
         get() = OrganizationConfig.baseSoftwareName.contains("ooni")
 
-    private fun websitesTitle(): String =
+    private fun websitesTitle(): String = descriptorTitle(OoniTest.Websites.id, fallback = "Websites")
+
+    private fun performanceTitle(): String = descriptorTitle(OoniTest.Performance.id, fallback = "Performance")
+
+    private fun descriptorTitle(
+        id: String,
+        fallback: String,
+    ): String =
         runBlocking {
             dependencies.testDescriptorRepository
-                .listLatestByIds(listOf(Descriptor.Id(OoniTest.Websites.id)))
+                .listLatestByIds(listOf(Descriptor.Id(id)))
                 .first()
                 .firstOrNull()
                 ?.toDescriptorItem()
                 ?.title
                 ?.invoke()
-                ?: "Websites"
+                ?: fallback
         }
 
     private fun outputRoot(): File {
@@ -337,13 +425,38 @@ class DesktopScreenshotsTest {
     }
 
     companion object {
+        private const val YOUTUBE_URL = "https://www.youtube.com/"
+        private const val DASH_MARKER = "2160p"
+        private const val EXPLORER_SNAPSHOT_TAG = TAG
+
+        // Must stay in sync with `DatabaseHelper.setupOoniResults` seeded measurement UIDs.
+        private const val YOUTUBE_MEASUREMENT_UID =
+            "20260421120343.029379_PT_webconnectivity_ef4879ff6cfb93bc"
+        private const val DASH_MEASUREMENT_UID =
+            "20260421121842.831998_PT_dash_1669230bece3f8bd"
+
+        // Material3 TopBar default height (dp); used to compute the WebView snapshot region.
+        private const val MEASUREMENT_TOP_BAR_DP = 64f
+
+        // Production desktop window size (Main.kt's DpSize default). The screenshot WebView is
+        // rendered at this logical size — scaled by density — so explorer.ooni.org sees the same
+        // viewport real users see.
+        private const val APP_WINDOW_DP_WIDTH = 480f
+        private const val APP_WINDOW_DP_HEIGHT = 800f
+
         private const val OUTPUT_DIR_PROPERTY = "ooni.screenshots.outputDir"
         private const val LOCALES_PROPERTY = "ooni.screenshots.locales"
+        private const val WIDTH_PROPERTY = "ooni.screenshots.width"
+        private const val HEIGHT_PROPERTY = "ooni.screenshots.height"
+        private const val DENSITY_PROPERTY = "ooni.screenshots.density"
+        private const val CHROME_PROPERTY = "ooni.screenshots.chrome"
+        private const val CHROME_MAC = "mac"
         private const val DEFAULT_LOCALE = "en-US"
 
-        // Mirror the minimum window size enforced by Main.kt (Dimension(320, 560)).
-        private const val WINDOW_WIDTH = 480
-        private const val WINDOW_HEIGHT = 800
+        // Default mirrors Main.kt's minimum window (Dimension(320, 560)).
+        private const val DEFAULT_WIDTH = 480
+        private const val DEFAULT_HEIGHT = 800
+        private const val DEFAULT_DENSITY = 1f
 
         // Shared per JVM: a single tempDir + Dependencies survives every @Test method.
         // DatabaseHelper.initialize() ignores subsequent calls (singleton), so we only
@@ -357,6 +470,8 @@ class DesktopScreenshotsTest {
 
         private val dependencies: Dependencies =
             buildScreenshotDependencies(workingDir).also { deps ->
+                // Compose-native facsimile replaces JavaFX WebView; see ScreenshotOoniWebView.kt.
+                installScreenshotWebViewOverride()
                 DatabaseHelper.initialize(deps)
                 runBlocking {
                     deps.bootstrapTestDescriptors()
