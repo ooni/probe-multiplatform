@@ -35,8 +35,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.engine.OonimkallBridge
-import org.ooni.engine.TestOonimkallBridge
 import org.ooni.probe.MainActivity
+import org.ooni.probe.uitesting.helpers.TestFixtures
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.context
 import org.ooni.probe.uitesting.helpers.dependencies
@@ -45,6 +45,7 @@ import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.onAllNodesWithText
 import org.ooni.probe.uitesting.helpers.onNodeWithText
 import org.ooni.probe.uitesting.helpers.preferences
+import org.ooni.probe.uitesting.helpers.setupMockedEngine
 import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
 import org.ooni.probe.uitesting.helpers.wait
@@ -56,12 +57,47 @@ class DescriptorsTest {
     @get:Rule
     val compose = createEmptyComposeRule()
 
+    private var descriptorUpdatePublished = false
+
     @Before
     fun setUp() =
         runTest {
             skipOnboarding()
             disableRefreshArticles()
+            installDescriptorEngine()
         }
+
+    /**
+     * Serves the OONI Run descriptor offline. Before [publishDescriptorUpdate]
+     * the link returns revision 1 ("Testing"); afterwards revision 2
+     * ("Testing 2"), driving the auto-update flow without any network.
+     */
+    private fun installDescriptorEngine() {
+        descriptorUpdatePublished = false
+        setupMockedEngine {
+            httpDo = { request ->
+                val body = when {
+                    request.url.endsWith(TestFixtures.DESCRIPTOR_REVISIONS_PATH) ->
+                        TestFixtures.DESCRIPTOR_REVISIONS_JSON
+
+                    request.url.endsWith(TestFixtures.DESCRIPTOR_LINK_PATH) ->
+                        if (descriptorUpdatePublished) {
+                            TestFixtures.UPDATED_DESCRIPTOR_JSON
+                        } else {
+                            TestFixtures.ORIGINAL_DESCRIPTOR_JSON
+                        }
+
+                    else ->
+                        throw IllegalStateException("Response not mocked for ${request.url}")
+                }
+                OonimkallBridge.HTTPResponse(body = body)
+            }
+        }
+    }
+
+    private fun publishDescriptorUpdate() {
+        descriptorUpdatePublished = true
+    }
 
     @Test
     fun installAndUninstall() {
@@ -85,7 +121,9 @@ class DescriptorsTest {
 
                 clickOnText(Res.string.AddDescriptor_InstallForLater)
 
-                Thread.sleep(2000)
+                waitAssertion {
+                    onNodeWithText(Res.string.AddDescriptor_Title).assertIsNotDisplayed()
+                }
 
                 clickOnText(Res.string.Tests_Title)
                 wait { onNodeWithTag("Descriptors-List").isDisplayed() }
@@ -135,9 +173,12 @@ class DescriptorsTest {
                 clickOnText(Res.string.AddDescriptor_AutoUpdate)
                 clickOnText(Res.string.AddDescriptor_InstallForLater)
 
-                Thread.sleep(2000)
+                waitAssertion {
+                    onNodeWithText(Res.string.AddDescriptor_Title).assertIsNotDisplayed()
+                }
 
-                setupTestEngine()
+                // Publish revision 2 so the pull-to-refresh below finds an update.
+                publishDescriptorUpdate()
 
                 clickOnText(Res.string.Tests_Title)
                 wait { onNodeWithTag("Descriptors-List").isDisplayed() }
@@ -159,62 +200,8 @@ class DescriptorsTest {
             }
         }
 
-    private fun setupTestEngine() {
-        val testBridge = TestOonimkallBridge()
-        dependencies.engine.bridge = testBridge
-        testBridge.httpDoMock = {
-            OonimkallBridge.HTTPResponse(
-                body = when (it.url) {
-                    "https://api.dev.ooni.io/api/v2/oonirun/links/10460" ->
-                        UPDATED_DESCRIPTOR_JSON
-
-                    "https://api.dev.ooni.io/api/v2/oonirun/links/10460/revisions" ->
-                        DESCRIPTOR_REVISIONS_JSON
-
-                    else ->
-                        throw IllegalStateException("Response not mocked for ${it.url}")
-                },
-            )
-        }
-    }
-
     companion object {
         private val DESCRIPTOR_DOWNLOAD_WAIT_TIMEOUT = 10.seconds
-        private const val DESCRIPTOR_URL = "https://run.test.ooni.org/v2/10460"
-        private val UPDATED_DESCRIPTOR_JSON = """
-            {
-               "name":"Testing 2",
-               "short_description":"Android instrumented tests",
-               "description":"This is OONI Run Link for the Android instrumented tests",
-               "author":"sergio@bloco.io",
-               "nettests":[
-                  {
-                     "test_name":"web_connectivity",
-                     "inputs":[
-                        "https://example.org"
-                     ],
-                     "options":{},
-                     "backend_options":{},
-                     "is_background_run_enabled_default":false,
-                     "is_manual_run_enabled_default":false
-                  }
-               ],
-               "name_intl":{},
-               "short_description_intl":{},
-               "description_intl":{},
-               "icon":"FaCube",
-               "color":"#73d8ff",
-               "expiration_date":"2100-12-31T00:00:00.000000Z",
-               "oonirun_link_id":"10460",
-               "date_created":"2024-10-09T10:53:52.000000Z",
-               "date_updated":"2024-10-09T17:00:00.000000Z",
-               "revision":"2",
-               "is_mine":false,
-               "is_expired":false
-            }
-        """.trimIndent()
-        private val DESCRIPTOR_REVISIONS_JSON = """
-            {"revisions":["1"]}
-        """.trimIndent()
+        private val DESCRIPTOR_URL = TestFixtures.DESCRIPTOR_URL
     }
 }

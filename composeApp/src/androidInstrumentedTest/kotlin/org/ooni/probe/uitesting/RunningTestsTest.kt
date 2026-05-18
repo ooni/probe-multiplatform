@@ -37,10 +37,11 @@ import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
 import org.ooni.probe.uitesting.helpers.onNodeWithText
 import org.ooni.probe.uitesting.helpers.preferences
+import org.ooni.probe.uitesting.helpers.setupMockedEngine
 import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
 import org.ooni.probe.uitesting.helpers.wait
-import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 class RunningTestsTest {
@@ -52,6 +53,7 @@ class RunningTestsTest {
         runTest {
             skipOnboarding()
             disableRefreshArticles()
+            setupMockedEngine()
             preferences.setValueByKey(SettingsKey.UPLOAD_RESULTS, true)
             start()
         }
@@ -161,7 +163,7 @@ class RunningTestsTest {
         }
 
     @Test
-    @Ignore("Too long to run on Firebase Test Lab")
+    @Ignore("News-media-scan (dw) flow asserts real OONI Explorer DOM; not offline-mockable")
     fun trustedInternationalMedia() =
         runTest(timeout = TEST_WAIT_TIMEOUT) {
             if (!isNewsMediaScan) return@runTest
@@ -195,6 +197,7 @@ class RunningTestsTest {
     }
 
     companion object {
-        private val TEST_WAIT_TIMEOUT = 3.minutes
+        // Engine is mocked offline; a measurement run completes near-instantly.
+        private val TEST_WAIT_TIMEOUT = 30.seconds
     }
 }

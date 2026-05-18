@@ -91,7 +91,9 @@ fun ComposeTestRule.waitAssertion(
     }
 }
 
-private val DEFAULT_WAIT_TIMEOUT = 3.seconds // Emulator can be slow on CI
+// Network is mocked offline, so the only remaining variance is emulator UI
+// rendering on CI — 5s absorbs that jitter without masking real failures.
+private val DEFAULT_WAIT_TIMEOUT = 5.seconds
 
 fun ComposeTestRule.checkUrlInsideWebView(
     text: String,

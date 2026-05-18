@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - instrumentation/*
   workflow_dispatch:
 
 concurrency:
@@ -59,7 +60,7 @@ jobs:
           --app composeApp/build/outputs/apk/${{ matrix.license }}/debug/composeApp-${{ matrix.license }}-universal-debug.apk
           --test composeApp/build/outputs/apk/androidTest/${{ matrix.license }}/debug/composeApp-${{ matrix.license }}-debug-androidTest.apk
           --device model=MediumPhone.arm,version=29,locale=en,orientation=portrait
-          --timeout 180s
+          --timeout 120s
           --num-flaky-test-attempts=2
           --client-details matrixLabel="$LABEL"
           --use-orchestrator
