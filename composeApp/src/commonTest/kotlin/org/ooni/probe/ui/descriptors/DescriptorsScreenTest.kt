@@ -5,9 +5,9 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
+import androidx.navigationevent.compose.rememberNavigationEventDispatcherOwner
 import org.ooni.probe.data.models.DescriptorType
-import org.ooni.probe.ui.descriptors.DescriptorsScreen
-import org.ooni.probe.ui.descriptors.DescriptorsViewModel
 import org.ooni.testing.TestLifecycleOwner
 import org.ooni.testing.factories.DescriptorFactory
 import kotlin.test.Test
@@ -20,7 +20,10 @@ class DescriptorsScreenTest {
             lateinit var title: String
 
             setContent {
-                CompositionLocalProvider(LocalLifecycleOwner provides TestLifecycleOwner(Lifecycle.State.RESUMED)) {
+                CompositionLocalProvider(
+                    LocalLifecycleOwner provides TestLifecycleOwner(Lifecycle.State.RESUMED),
+                    LocalNavigationEventDispatcherOwner provides rememberNavigationEventDispatcherOwner(parent = null),
+                ) {
                     DescriptorsScreen(
                         state =
                             DescriptorsViewModel.State(
