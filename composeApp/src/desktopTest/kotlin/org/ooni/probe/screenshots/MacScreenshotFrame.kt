@@ -38,7 +38,6 @@ fun MacScreenshotFrame(content: @Composable () -> Unit) {
             .fillMaxSize()
             .background(DESKTOP_BG),
     ) {
-        MacSystemMenuBar()
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center,
@@ -60,24 +59,6 @@ fun MacScreenshotFrame(content: @Composable () -> Unit) {
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun MacSystemMenuBar() {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(MENU_BAR_HEIGHT_DP)
-                .background(MENU_BAR_BG),
-        )
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(MENU_BAR_HAIRLINE_DP)
-                .background(MENU_BAR_BORDER),
-        )
     }
 }
 
@@ -126,8 +107,4 @@ private val WINDOW_TOP_MARGIN_DP: Dp = 8.dp
 private val WINDOW_BOTTOM_MARGIN_DP: Dp = 16.dp
 private val WINDOW_CORNER_RADIUS_DP: Dp = 10.dp
 private val TITLE_BAR_HEIGHT_DP: Dp = 28.dp
-private val MENU_BAR_HEIGHT_DP: Dp = 24.dp
-private val MENU_BAR_HAIRLINE_DP: Dp = 1.dp
-private val DESKTOP_BG = Color.White
-private val MENU_BAR_BG = Color(0xFFF6F6F6)
-private val MENU_BAR_BORDER = Color(0x14000000)
+private val DESKTOP_BG = Color(0xff0588cb)
