@@ -54,12 +54,11 @@ class DesktopUpdateController(
 
                     when (error.code) {
                         -3, -4 -> {
+                            Logger.i("Current key: ${UpdateConfig.PUBLIC_KEY.take(20)}...")
                             Logger.e("EdDSA key validation failed. Please check SPARKLE_PUBLIC_KEY configuration.")
-                            Logger.e("Current key: ${UpdateConfig.PUBLIC_KEY.take(20)}...")
                         }
                         -1 -> {
                             Logger.w("Network or URL error. Update check will be retried automatically.")
-                            Logger.w("Appcast URL: ${UpdateConfig.URL}")
                         }
                         -999 -> {
                             Logger.e("Update system setup or validation error: ${error.message}")
