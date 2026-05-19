@@ -197,7 +197,7 @@ private fun Project.registerWinSparkleTask() {
 private fun Project.registerExtractMacOsNativeLibrariesTask() {
     tasks.register("extractMacOsNativeLibraries", ExtractMacOsNativeLibrariesTask::class) {
         group = "ooni"
-        description = "Extracts darwin native libs (JNA, sqlite-jdbc, gojni) from runtime jars."
+        description = "Extracts darwin native libs (JNA, sqlite-jdbc, gojni, JavaFX) from runtime jars."
         runtimeClasspath.from(configurations.named("desktopRuntimeClasspath"))
         outputDir.set(layout.buildDirectory.dir("tmp/macos-native-libs"))
     }
@@ -475,7 +475,7 @@ private fun Project.registerRemoveQuarantineTask() {
 private fun Project.signBundledMacOsNativeLibraries(appDir: File) {
     val resourcesRoot = appDir.resolve("Contents/app/resources")
     if (!resourcesRoot.isDirectory) return
-    val libRoots = listOf("jna", "sqlite", "gojni").map { resourcesRoot.resolve(it) }
+    val libRoots = listOf("jna", "sqlite", "gojni", "javafx").map { resourcesRoot.resolve(it) }
         .filter { it.isDirectory }
     if (libRoots.isEmpty()) return
     val libraries = libRoots.flatMap { root ->

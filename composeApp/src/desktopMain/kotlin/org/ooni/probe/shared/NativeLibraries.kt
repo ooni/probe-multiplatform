@@ -9,9 +9,12 @@ import java.io.File
  * letting its JAR extract an unsigned copy at runtime.
  *
  * @property dirName Sub-directory under `compose.application.resources.dir`.
- * @property fileName Expected file inside the resolved arch directory; the
- * entry is skipped if the file is absent (lets non-macOS or partial builds
+ * @property fileName Sentinel file inside the resolved arch directory; the
+ * entry is skipped if it is absent (lets non-macOS or partial builds
  * silently no-op).
+ * @property additionalFiles Other files expected alongside [fileName] in the
+ * same arch directory. A missing one is logged as a warning but does not skip
+ * the entry — it just means that JavaFX module wasn't on the build classpath.
  * @property staticProperties System properties applied verbatim before
  * [onResolved] runs (e.g. JNA's `jna.nounpack` / `jna.nosys` toggles).
  * @property onResolved Library-specific hook invoked with the resolved
@@ -21,6 +24,7 @@ import java.io.File
 private data class BundledNativeLibrary(
     val dirName: String,
     val fileName: String,
+    val additionalFiles: List<String> = emptyList(),
     val staticProperties: Map<String, String> = emptyMap(),
     val onResolved: (dir: File, file: File) -> Unit,
 )
@@ -83,7 +87,54 @@ private val goJniLibrary = BundledNativeLibrary(
     },
 )
 
-private val bundledNativeLibraries = listOf(jnaLibrary, sqliteLibrary, goJniLibrary)
+/**
+ * JavaFX's `com.sun.glass.utils.NativeLibLoader` tries `System.loadLibrary`
+ * first and only unpacks an UNSIGNED copy from the jar (into `javafx.cachedir`,
+ * rejected by the App Store hardened runtime with *"Apple could not verify
+ * libprism_es2.dylib …"*) if that fails. The packaged app sets
+ * `-Djava.library.path` via jpackage `jvmArgs`, which is the authoritative fix
+ * since it precedes JVM start. This hook is defence-in-depth for dev/IDE runs:
+ * it pins `javafx.cachedir` to the signed dir and prepends it to
+ * `java.library.path` before any JavaFX class loads (lazily, inside
+ * `OoniWebView.desktop.kt`). The sentinel file is present iff the extraction
+ * plan staged the natives.
+ */
+private val javafxLibrary = BundledNativeLibrary(
+    dirName = "javafx",
+    fileName = "libprism_es2.dylib",
+    // The complete darwin native set staged by extractMacOsNativeLibraries
+    // from javafx-graphics / javafx-media / javafx-web. Enumerated so this
+    // file declares exactly what ships and so a missing one is flagged at
+    // startup instead of surfacing later as a JavaFX extraction attempt.
+    additionalFiles = listOf(
+        // javafx-graphics
+        "libdecora_sse.dylib",
+        "libglass.dylib",
+        "libjavafx_font.dylib",
+        "libjavafx_iio.dylib",
+        "libprism_common.dylib",
+        "libprism_mtl.dylib",
+        "libprism_sw.dylib",
+        // javafx-media
+        "libfxplugins.dylib",
+        "libglib-lite.dylib",
+        "libgstreamer-lite.dylib",
+        "libjfxmedia.dylib",
+        "libjfxmedia_avf.dylib",
+        // javafx-web
+        "libjfxwebkit.dylib",
+    ),
+    onResolved = { dir, _ ->
+        System.setProperty("javafx.cachedir", dir.absolutePath)
+        val sep = File.pathSeparator
+        val existing = System.getProperty("java.library.path").orEmpty()
+        if (dir.absolutePath !in existing.split(sep)) {
+            System.setProperty("java.library.path", dir.absolutePath + sep + existing)
+        }
+    },
+)
+
+private val bundledNativeLibraries = listOf(jnaLibrary, sqliteLibrary, goJniLibrary, javafxLibrary)
 
 /**
  * Points each native-library loader at its bundled, codesigned copy so the
@@ -110,6 +161,10 @@ internal fun configureBundledNativeLibraries() {
     val applied = bundledNativeLibraries.mapNotNull { lib ->
         val dir = macOsBundledLibraryDir(lib.dirName) ?: return@mapNotNull null
         val file = File(dir, lib.fileName).takeIf { it.isFile } ?: return@mapNotNull null
+        val missing = lib.additionalFiles.filterNot { File(dir, it).isFile }
+        if (missing.isNotEmpty()) {
+            Logger.w("configureBundledNativeLibraries: ${lib.dirName} missing $missing in $dir")
+        }
         lib.staticProperties.forEach { (key, value) -> System.setProperty(key, value) }
         lib.onResolved(dir, file)
         lib.dirName

@@ -63,6 +63,24 @@ abstract class ExtractMacOsNativeLibrariesTask : DefaultTask() {
                     }
                     extracted++
                 }
+                plan.entryGlob?.let { glob ->
+                    val archDir = darwinArchForJar(jar.name)
+                    val zipEntries = zip.entries()
+                    while (zipEntries.hasMoreElements()) {
+                        val ze = zipEntries.nextElement()
+                        // Root-level entries only — JavaFX stores its darwin
+                        // dylibs as bare libXXX.dylib at the jar root, with the
+                        // arch encoded in the jar classifier, not the path.
+                        if (ze.isDirectory || ze.name.contains('/')) continue
+                        if (!glob.matches(ze.name)) continue
+                        val dst = File(out, "${plan.outSubdir}/$archDir/${ze.name}")
+                            .apply { parentFile.mkdirs() }
+                        zip.getInputStream(ze).use { input ->
+                            dst.outputStream().use { output -> input.copyTo(output) }
+                        }
+                        extracted++
+                    }
+                }
             }
             if (plan.required && extracted == 0) {
                 throw GradleException(
@@ -76,9 +94,30 @@ abstract class ExtractMacOsNativeLibrariesTask : DefaultTask() {
         logger.lifecycle("extractMacOsNativeLibraries: done — $totalExtracted file(s) staged")
     }
 
+    /**
+     * Maps a darwin JavaFX jar classifier to the runtime arch subdir
+     * convention used by `NativeLibraries.macOsArchSubdir`.
+     */
+    private fun darwinArchForJar(jarName: String): String = when {
+        jarName.endsWith("-mac-aarch64.jar") -> "darwin-aarch64"
+        jarName.endsWith("-mac.jar") -> "darwin-x86-64"
+        else -> "darwin"
+    }
+
+    /**
+     * @property entries Exact `jarEntry -> relativeOut` pairs (used by
+     * JNA/sqlite/gojni whose natives live at known package paths).
+     * @property entryGlob When set, every root-level jar entry whose name
+     * matches is extracted into `outSubdir/<darwin-arch>/<name>`. Used for
+     * JavaFX, which stores bare `libXXX.dylib` files at the jar root and
+     * version-suffixes some of them (e.g. `libavplugin-*`), so an exact
+     * list would silently drift across `javaFxVersion` bumps.
+     */
     private data class Plan(
         val jarPattern: Regex,
-        val entries: List<Pair<String, String>>,
+        val entries: List<Pair<String, String>> = emptyList(),
+        val entryGlob: Regex? = null,
+        val outSubdir: String = "",
         val required: Boolean,
     )
 
@@ -113,6 +152,34 @@ abstract class ExtractMacOsNativeLibrariesTask : DefaultTask() {
                     "jniLibs/arm64/libgojni.dylib" to "gojni/darwin-aarch64/libgojni.dylib",
                     "jniLibs/amd64/libgojni.dylib" to "gojni/darwin-x86-64/libgojni.dylib",
                 ),
+                required = false,
+            ),
+            // JavaFX (OpenJFX) darwin natives — Prism (incl. libprism_es2),
+            // Glass, fonts, iio, media and WebKit. Like gojni these jars are
+            // only on the classpath for the host macOS classifier
+            // (org.openjfx:javafx-<part>:<ver>:<mac|mac-aarch64>), so they're
+            // optional and skip silently on other platforms. The natives are
+            // bare libXXX.dylib at the jar root; the arch comes from the jar
+            // classifier and they're staged under javafx/<darwin-arch>/.
+            // Without this, JavaFX's NativeLibLoader unpacks an UNSIGNED copy
+            // into ~/.openjfx/cache and Gatekeeper rejects it with
+            // "Apple could not verify libprism_es2.dylib ...".
+            Plan(
+                jarPattern = Regex("""^javafx-graphics-\d.*-mac(-aarch64)?\.jar$"""),
+                entryGlob = Regex("""^lib.*\.dylib$"""),
+                outSubdir = "javafx",
+                required = false,
+            ),
+            Plan(
+                jarPattern = Regex("""^javafx-media-\d.*-mac(-aarch64)?\.jar$"""),
+                entryGlob = Regex("""^lib.*\.dylib$"""),
+                outSubdir = "javafx",
+                required = false,
+            ),
+            Plan(
+                jarPattern = Regex("""^javafx-web-\d.*-mac(-aarch64)?\.jar$"""),
+                entryGlob = Regex("""^lib.*\.dylib$"""),
+                outSubdir = "javafx",
                 required = false,
             ),
         )
