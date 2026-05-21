@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Dashboard_Tab_Label">ក្ដារព័ត៌មាន</string>
-    <string name="Dashboard_Overview_Estimated">ប៉ាន់ស្មាន៖</string>
+    <string name="Dashboard_Overview_Estimated">បានប៉ាន់ស្មាន៖</string>
     <string name="Dashboard_Overview_ChooseWebsites">ជ្រើសរើសវែបសាយ</string>
     <string name="Dashboard_Running_Running">កំពុងដំណើរការ៖</string>
     <string name="Dashboard_Running_EstimatedTimeLeft">ពេលវេលាប៉ាន់ស្មាននៅសល់៖</string>
