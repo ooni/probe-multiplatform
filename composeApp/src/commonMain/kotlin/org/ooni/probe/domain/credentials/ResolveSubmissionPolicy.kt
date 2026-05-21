@@ -19,7 +19,7 @@ class ResolveSubmissionPolicy {
             val asnOk = entry.match.probeAsn == WILDCARD || entry.match.probeAsn.equals(probeAsn, ignoreCase = true)
             if (ccOk && asnOk) {
                 val age = entry.policy.age.toRange() ?: continue
-                val count = entry.policy.measurementCount.toRange() ?: continue
+                val count = entry.policy.minMeasurementCount.toRange()
                 return Ranges(age, count)
             }
         }
@@ -27,6 +27,8 @@ class ResolveSubmissionPolicy {
     }
 
     private fun List<UInt>.toRange(): ParamRange? = if (size >= 2) ParamRange(min = this[0], max = this[1]) else null
+
+    private fun UInt.toRange(): ParamRange = ParamRange(min = this, max = Int.MAX_VALUE.toUInt())
 
     companion object {
         private const val WILDCARD = "*"

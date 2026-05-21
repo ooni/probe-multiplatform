@@ -18,7 +18,7 @@ class ResolveSubmissionPolicyTest {
             probeAsn = "AS1",
         )
         assertEquals(ParamRange(0u, 1_000_000u), ranges?.ageRange)
-        assertEquals(ParamRange(0u, 10_000_000u), ranges?.measurementCountRange)
+        assertEquals(ParamRange(0u, Int.MAX_VALUE.toUInt()), ranges?.measurementCountRange)
     }
 
     @Test
@@ -34,7 +34,7 @@ class ResolveSubmissionPolicyTest {
             probeAsn = "AS456",
         )
         assertEquals(ParamRange(1u, 2u), ranges?.ageRange)
-        assertEquals(ParamRange(10u, 20u), ranges?.measurementCountRange)
+        assertEquals(ParamRange(10u, Int.MAX_VALUE.toUInt()), ranges?.measurementCountRange)
     }
 
     @Test
@@ -80,7 +80,7 @@ class ResolveSubmissionPolicyTest {
             probeAsn = "AS456",
         )
         assertEquals(ParamRange(1u, 2u), ranges?.ageRange)
-        assertEquals(ParamRange(10u, 20u), ranges?.measurementCountRange)
+        assertEquals(ParamRange(10u, Int.MAX_VALUE.toUInt()), ranges?.measurementCountRange)
     }
 
     @Test
@@ -116,7 +116,7 @@ class ResolveSubmissionPolicyTest {
         match = Manifest.SubmissionPolicyEntry.Match(probeCc = cc, probeAsn = asn),
         policy = Manifest.SubmissionPolicyEntry.Policy(
             age = listOf(age.first, age.second),
-            measurementCount = listOf(count.first, count.second),
+            minMeasurementCount = count.first,
         ),
     )
 }
