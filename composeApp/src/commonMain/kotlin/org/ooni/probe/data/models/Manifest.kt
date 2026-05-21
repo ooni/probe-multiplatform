@@ -38,7 +38,7 @@ data class Manifest(
         @Serializable
         data class Policy(
             @SerialName("age") val age: List<UInt>,
-            @SerialName("measurement_count") val measurementCount: List<UInt>,
+            @SerialName("min_measurement_count") val minMeasurementCount: UInt,
         )
     }
 }

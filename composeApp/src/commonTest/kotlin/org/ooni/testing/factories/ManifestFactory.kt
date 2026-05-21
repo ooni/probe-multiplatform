@@ -22,7 +22,7 @@ object ManifestFactory {
             match = Manifest.SubmissionPolicyEntry.Match(probeCc = "*", probeAsn = "*"),
             policy = Manifest.SubmissionPolicyEntry.Policy(
                 age = listOf(0u, 1_000_000u),
-                measurementCount = listOf(0u, 10_000_000u),
+                minMeasurementCount = 0u,
             ),
         )
 }
