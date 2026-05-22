@@ -33,6 +33,14 @@ import java.nio.charset.StandardCharsets
 import java.util.Locale
 
 internal val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
+
+// Debug builds keep their data/cache under composeApp/build/ so they never touch a production
+// install and are wiped by `gradle clean`. Release builds use the OS-standard user directories.
+// Everything (DataStore, database, shared files) derives from these.
+internal val baseDataDir: String =
+    if (DesktopBuildConfig.IS_DEBUG) File(DesktopBuildConfig.BUILD_DIR, "debug-data").path else projectDirectories.dataDir
+internal val baseCacheDir: String =
+    if (DesktopBuildConfig.IS_DEBUG) File(DesktopBuildConfig.BUILD_DIR, "debug-cache").path else projectDirectories.cacheDir
 private val osName = System.getProperty("os.name")
 val platform = Platform.Desktop(osName)
 
@@ -48,8 +56,8 @@ val dependencies = buildDependencies(backgroundWorkManager = backgroundWorkManag
  * (e.g. UI/screenshot tests) override only the pieces that need to differ.
  */
 internal fun buildDependencies(
-    dataDir: String = projectDirectories.dataDir.also { File(it).mkdirs() },
-    cacheDir: String = projectDirectories.cacheDir.also { File(it).mkdirs() },
+    dataDir: String = baseDataDir.also { File(it).mkdirs() },
+    cacheDir: String = baseCacheDir.also { File(it).mkdirs() },
     platformInfo: PlatformInfo = buildPlatformInfo(),
     oonimkallBridge: OonimkallBridge = DesktopOonimkallBridge(),
     networkTypeFinder: NetworkTypeFinder = DesktopNetworkTypeFinder(),
@@ -143,7 +151,7 @@ fun shareFile(action: PlatformAction.FileSharing): Boolean {
                 .getDesktop()
                 .isSupported(Desktop.Action.APP_OPEN_FILE)
         ) {
-            val file = projectDirectories.dataDir
+            val file = baseDataDir
                 .toPath()
                 .resolve(action.filePath)
                 .toFile()

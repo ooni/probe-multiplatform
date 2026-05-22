@@ -76,16 +76,20 @@ fun Project.registerDesktopBuildConfigTask(
 ) {
     val isDebug = isDebugTaskRequested()
     val dist = distribution()
+    val buildDirPath = layout.buildDirectory.get().asFile.absolutePath
     tasks.register("generateDesktopBuildConfig") {
         val outputDir = layout.buildDirectory.dir("generated/desktopBuildConfig/kotlin")
         inputs.property("versionName", versionName)
         inputs.property("versionCode", versionCode)
         inputs.property("isDebug", isDebug)
         inputs.property("distribution", dist.name)
+        inputs.property("buildDir", buildDirPath)
         outputs.dir(outputDir)
         doLast {
             val dir = outputDir.get().asFile.resolve("org/ooni/probe")
             dir.mkdirs()
+            // BUILD_DIR is an absolute path baked in at build time; only consumed by debug builds
+            // to place data/cache under composeApp/build/. Triple-quoted to survive Windows backslashes.
             dir.resolve("DesktopBuildConfig.kt").writeText(
                 """
                 |package org.ooni.probe
@@ -95,6 +99,7 @@ fun Project.registerDesktopBuildConfigTask(
                 |    const val VERSION_CODE = $versionCode
                 |    const val IS_DEBUG = $isDebug
                 |    const val DISTRIBUTION = "${dist.name}"
+                |    const val BUILD_DIR = ${"\"\"\""}$buildDirPath${"\"\"\""}
                 |}
                 """.trimMargin(),
             )
