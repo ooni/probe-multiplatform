@@ -244,6 +244,32 @@ The smaller `desktopCaptureScreens` task (480×800 portrait, for parity with the
 fastlane dataset) continues to write to `fastlane/metadata/<organization>/desktop/<locale>/`
 unchanged.
 
+### Capture Microsoft Store desktop screenshots
+
+`desktopCaptureScreensMicrosoftStore` renders the same flows as `desktopCaptureScreens` but
+dresses the window in a Windows 11 title bar (app icon + title on the left, minimize /
+maximize / close buttons on the right). It targets one of the pixel sizes the Microsoft Store
+(Partner Center) accepts — 1366×768, 1920×1080, or 3840×2160 — selected with
+`-PmicrosoftStoreSize=WxH` (default **1920×1080**; density is set automatically, 2x for
+3840×2160):
+
+```
+./gradlew :composeApp:desktopCaptureScreensMicrosoftStore \
+  -Porganization=ooni \
+  -Plocales=en-US
+```
+
+Output: `fastlane/metadata/<organization>/microsoft-store/<locale>/*.png`.
+
+All three desktop capture tasks (`desktopCaptureScreens`, `desktopCaptureScreensMacAppStore`,
+`desktopCaptureScreensMicrosoftStore`) accept `-Ptheme=light` or `-Ptheme=dark` to force the
+app's theme; when omitted the captured app follows the system theme. The fastlane lanes expose
+the same option as `theme:light` / `theme:dark`, e.g.:
+
+```
+fastlane desktop capture_screens_microsoft_store organization:ooni locales:en-US theme:light
+```
+
 ### Update Google Play listings
 
 To update the screenshots or the metadata (title, short and full description) of the OONI Probe

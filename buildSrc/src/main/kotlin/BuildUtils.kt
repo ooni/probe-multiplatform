@@ -115,6 +115,10 @@ fun Project.isFdroidTaskRequested(): Boolean =
 
 /**
  * Check if Debug build task is requested.
+ *
+ * Also treats the desktop screenshot capture tasks (`desktopCaptureScreens*`) as debug: they
+ * reuse the `desktopTest` source set/classpath and seeded fixture, so they need the same debug
+ * configuration as the tests they piggyback on.
  */
 fun Project.isDebugTaskRequested(): Boolean {
     val isTaskDebug = gradle.startParameter.taskRequests
@@ -122,6 +126,7 @@ fun Project.isDebugTaskRequested(): Boolean {
         .any {
             it.contains("Debug") ||
                 it.contains("test", ignoreCase = true) ||
+                it.contains("CaptureScreens", ignoreCase = true) ||
                 (it.contains("run", ignoreCase = true) && !it.contains("Release", ignoreCase = true))
         }
     logger.info("isTaskDebug=$isTaskDebug")

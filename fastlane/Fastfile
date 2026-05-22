@@ -299,12 +299,13 @@ platform :desktop do
     desc "#### Options"
     desc " * **`organization`**: ooni, dw"
     desc " * **`locales`**: comma-separated list of locales (optional, defaults to en-US)"
+    desc " * **`theme`**: light or dark (optional, defaults to the system theme)"
     desc ""
     lane :capture_screens do |options|
         organization = organization!(options)
         locales = locales_or_default(options)
 
-        gradle(task: "copyBrandingToCommonResources :composeApp:desktopCaptureScreens -Porganization=#{organization} -Plocales=#{locales.join(',')}")
+        gradle(task: "copyBrandingToCommonResources :composeApp:desktopCaptureScreens -Porganization=#{organization} -Plocales=#{locales.join(',')}#{theme_gradle_arg(options)}")
     end
 end
 
@@ -316,12 +317,31 @@ platform :desktop do
     desc "#### Options"
     desc " * **`organization`**: ooni, dw"
     desc " * **`locales`**: comma-separated list of locales (optional, defaults to en-US)"
+    desc " * **`theme`**: light or dark (optional, defaults to the system theme)"
     desc ""
     lane :capture_screens_mac_appstore do |options|
         organization = organization!(options)
         locales = locales_or_default(options)
 
-        gradle(task: "copyBrandingToCommonResources :composeApp:desktopCaptureScreensMacAppStore -Porganization=#{organization} -Plocales=#{locales.join(',')}")
+        gradle(task: "copyBrandingToCommonResources :composeApp:desktopCaptureScreensMacAppStore -Porganization=#{organization} -Plocales=#{locales.join(',')}#{theme_gradle_arg(options)}")
+    end
+end
+
+
+platform :desktop do
+    desc "Capture Compose Desktop screenshots seeded with the same data as fastlane android capture_screens"
+    desc "#### Example:"
+    desc "```\nfastlane desktop capture_screens_microsoft_store organization:ooni locales:en-US,de-DE\n```"
+    desc "#### Options"
+    desc " * **`organization`**: ooni, dw"
+    desc " * **`locales`**: comma-separated list of locales (optional, defaults to en-US)"
+    desc " * **`theme`**: light or dark (optional, defaults to the system theme)"
+    desc ""
+    lane :capture_screens_microsoft_store do |options|
+        organization = organization!(options)
+        locales = locales_or_default(options)
+
+        gradle(task: "copyBrandingToCommonResources :composeApp:desktopCaptureScreensMicrosoftStore -Porganization=#{organization} -Plocales=#{locales.join(',')}#{theme_gradle_arg(options)}")
     end
 end
 
@@ -436,4 +456,15 @@ def locales_or_default(options)
        when "dw" then ['de-DE', 'en-US', 'es-ES', 'fr-FR', 'pt-BR', 'ru', 'tr-TR']
        end
    end
+end
+
+# Optional `-Ptheme=light|dark` Gradle arg for the desktop screenshot lanes; returns "" when unset
+# so the captured app follows the system theme.
+def theme_gradle_arg(options)
+   theme = options[:theme]
+   return "" if theme.nil? || theme.empty?
+   unless ["light", "dark"].include?(theme)
+       UI.user_error!("Invalid theme:#{theme}. Allowed: light, dark")
+   end
+   " -Ptheme=#{theme}"
 end

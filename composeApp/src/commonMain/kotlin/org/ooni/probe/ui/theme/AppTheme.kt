@@ -8,16 +8,18 @@ import org.ooni.probe.ui.shared.LightStatusBars
 
 @Composable
 fun AppTheme(
-    useDarkTheme: Boolean = isSystemInDarkMode(),
+    useDarkTheme: Boolean? = null,
     content: @Composable () -> Unit,
 ) {
     LightStatusBars(false)
 
+    val darkTheme = useDarkTheme ?: isSystemInDarkMode()
+
     CompositionLocalProvider(
-        LocalCustomColors provides if (useDarkTheme) customColorsDark else customColorsLight,
+        LocalCustomColors provides if (darkTheme) customColorsDark else customColorsLight,
     ) {
         MaterialTheme(
-            colorScheme = if (useDarkTheme) darkScheme else lightScheme,
+            colorScheme = if (darkTheme) darkScheme else lightScheme,
             typography = AppTypography(),
             content = content,
         )

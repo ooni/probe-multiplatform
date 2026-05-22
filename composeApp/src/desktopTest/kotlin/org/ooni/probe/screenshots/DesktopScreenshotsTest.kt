@@ -356,17 +356,36 @@ class DesktopScreenshotsTest {
                 LocalDensity provides Density(density = density, fontScale = 1f),
                 LocalLifecycleOwner provides TestLifecycleOwner(Lifecycle.State.RESUMED),
             ) {
-                if (chrome == CHROME_MAC) {
-                    MacScreenshotFrame {
-                        App(dependencies = dependencies, deepLink = null)
-                    }
-                } else {
-                    App(dependencies = dependencies, deepLink = null)
+                when (chrome) {
+                    CHROME_MAC ->
+                        MacScreenshotFrame {
+                            App(dependencies = dependencies, deepLink = null, useDarkTheme = forcedDarkTheme())
+                        }
+
+                    CHROME_WINDOWS ->
+                        WindowsScreenshotFrame {
+                            App(dependencies = dependencies, deepLink = null, useDarkTheme = forcedDarkTheme())
+                        }
+
+                    else ->
+                        App(dependencies = dependencies, deepLink = null, useDarkTheme = forcedDarkTheme())
                 }
             }
         }
         waitForIdle()
     }
+
+    /**
+     * Forced theme from the `ooni.screenshots.theme` system property: "light" → false,
+     * "dark" → true, anything else (incl. unset) → null, which lets the app follow the
+     * system setting as in production.
+     */
+    private fun forcedDarkTheme(): Boolean =
+        when (System.getProperty(THEME_PROPERTY)?.lowercase()) {
+            THEME_LIGHT -> false
+            THEME_DARK -> true
+            else -> false
+        }
 
     private fun screenshotViewport(): Triple<Int, Int, Float> {
         val width = System.getProperty(WIDTH_PROPERTY)?.toIntOrNull() ?: DEFAULT_WIDTH
@@ -451,6 +470,10 @@ class DesktopScreenshotsTest {
         private const val DENSITY_PROPERTY = "ooni.screenshots.density"
         private const val CHROME_PROPERTY = "ooni.screenshots.chrome"
         private const val CHROME_MAC = "mac"
+        private const val CHROME_WINDOWS = "windows"
+        private const val THEME_PROPERTY = "ooni.screenshots.theme"
+        private const val THEME_LIGHT = "light"
+        private const val THEME_DARK = "dark"
         private const val DEFAULT_LOCALE = "en-US"
 
         // Default mirrors Main.kt's minimum window (Dimension(320, 560)).
