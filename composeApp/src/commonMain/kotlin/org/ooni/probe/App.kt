@@ -40,6 +40,7 @@ fun App(
     dependencies: Dependencies,
     deepLink: DeepLink?,
     onDeeplinkHandled: () -> Unit = {},
+    useDarkTheme: Boolean? = null,
 ) {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -57,7 +58,7 @@ fun App(
             dependencies.localeDirection?.invoke()?.let { LocalLayoutDirection provides it },
         ).toTypedArray(),
     ) {
-        AppTheme {
+        AppTheme(useDarkTheme = useDarkTheme) {
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background,

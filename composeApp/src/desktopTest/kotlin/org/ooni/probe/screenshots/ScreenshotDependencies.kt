@@ -1,6 +1,5 @@
 package org.ooni.probe.screenshots
 
-import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.TestOonimkallBridge
 import org.ooni.engine.models.NetworkType
 import org.ooni.probe.buildDependencies
@@ -20,14 +19,15 @@ internal fun buildScreenshotDependencies(workingDir: Path): Dependencies {
         .createDirectories(workingDir.resolve("cache"))
         .toAbsolutePath()
         .toString()
-    val osName = System.getProperty("os.name") ?: "Mac"
+
+    val (osName, osVersion) = screenshotDesktopOs()
 
     return buildDependencies(
         dataDir = baseFileDir,
         cacheDir = cacheDir,
-        platformInfo = screenshotPlatformInfo(osName),
+        platformInfo = screenshotPlatformInfo(osName, osVersion),
         oonimkallBridge = TestOonimkallBridge(),
-        networkTypeFinder = NetworkTypeFinder { NetworkType.Wifi },
+        networkTypeFinder = { NetworkType.Wifi },
         secureStorageAppId = "${OrganizationConfig.appId}.screenshots",
         dataStoreFile = workingDir.resolve("probe.preferences_pb").toFile(),
         batteryState = BatteryState.NotCharging,
@@ -43,11 +43,13 @@ internal fun buildScreenshotDependencies(workingDir: Path): Dependencies {
     )
 }
 
-private fun screenshotPlatformInfo(osName: String): PlatformInfo {
-    val osVersion = System.getProperty("os.version") ?: ""
-    return PlatformInfo(
+private fun screenshotPlatformInfo(
+    osName: String,
+    osVersion: String,
+): PlatformInfo =
+    PlatformInfo(
         buildName = "screenshots",
-        buildNumber = "0",
+        buildNumber = "1.0.0",
         platform = Platform.Desktop(osName),
         osVersion = "$osName $osVersion".trim(),
         model = "",
@@ -61,4 +63,16 @@ private fun screenshotPlatformInfo(osName: String): PlatformInfo {
         sentryExtraTags = emptyMap(),
         installerStore = Distribution.current.name,
     )
-}
+
+/**
+ * Resolves the desktop OS to portray in screenshots from the `ooni.screenshots.chrome` system
+ * property the capture tasks set: "windows" → Windows 11, "mac" → macOS. Falls back to the host
+ * machine's OS for the plain `desktopCaptureScreens` task (no chrome). The returned name must
+ * satisfy `Platform.Desktop.os` prefix matching ("Windows" / "Mac").
+ */
+private fun screenshotDesktopOs(): Pair<String, String> =
+    when (System.getProperty("ooni.screenshots.chrome")) {
+        "windows" -> "Windows" to "11"
+        "mac" -> "Mac OS X" to (System.getProperty("os.version") ?: "")
+        else -> (System.getProperty("os.name") ?: "Mac") to (System.getProperty("os.version") ?: "")
+    }

@@ -357,6 +357,8 @@ fastlane desktop capture_screens organization:ooni locales:en-US,de-DE
 
  * **`locales`**: comma-separated list of locales (optional, defaults to en-US)
 
+ * **`theme`**: light or dark (optional, defaults to the system theme)
+
 
 
 ### desktop capture_screens_mac_appstore
@@ -378,6 +380,32 @@ fastlane desktop capture_screens_mac_appstore organization:ooni locales:en-US,de
  * **`organization`**: ooni, dw
 
  * **`locales`**: comma-separated list of locales (optional, defaults to en-US)
+
+ * **`theme`**: light or dark (optional, defaults to the system theme)
+
+
+
+### desktop capture_screens_microsoft_store
+
+```sh
+[bundle exec] fastlane desktop capture_screens_microsoft_store
+```
+
+Capture Compose Desktop screenshots seeded with the same data as fastlane android capture_screens
+
+#### Example:
+
+```
+fastlane desktop capture_screens_microsoft_store organization:ooni locales:en-US,de-DE
+```
+
+#### Options
+
+ * **`organization`**: ooni, dw
+
+ * **`locales`**: comma-separated list of locales (optional, defaults to en-US)
+
+ * **`theme`**: light or dark (optional, defaults to the system theme)
 
 
 
