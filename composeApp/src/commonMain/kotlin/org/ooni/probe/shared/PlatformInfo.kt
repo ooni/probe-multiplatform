@@ -12,6 +12,7 @@ data class PlatformInfo(
     val supportsInAppLanguage: Boolean = false,
     val hasDonations: Boolean = true,
     val canPullToRefresh: Boolean = false,
+    val supportsRunAtStartup: Boolean = false,
     val sentryDsn: String,
     val sentryExtraTags: Map<String, String> = emptyMap(),
     val installerStore: String? = null,
