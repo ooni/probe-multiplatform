@@ -197,6 +197,8 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_ChargingOnly">Only while charging</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Footer">By enabling automatic testing, OONI Probe tests will run automatically multiple times per day. Your test results will automatically get published on OONI Explorer: https://explorer.ooni.org/ \n\nImportant: If you have a VPN enabled, OONI Probe will not run tests automatically. Please turn off your VPN for automated OONI Probe testing. Learn more: https://ooni.org/support/faq/#can-i-run-ooni-probe-over-a-vpn</string>
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">Tests will run every hour in the background</string>
+    <string name="Settings_RunAtStartup">Run at startup</string>
+    <string name="Settings_RunAtStartup_Description">Launch OONI Probe automatically when you sign in to your computer</string>
     <string name="Settings_Sharing_UploadResults">Automatically Publish Results</string>
     <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
     <string name="Settings_Websites_MaxRuntimeEnabled">Limit Websites test duration</string>

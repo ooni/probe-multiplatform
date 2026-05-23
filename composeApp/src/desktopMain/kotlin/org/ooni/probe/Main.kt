@@ -113,9 +113,9 @@ fun main(args: Array<String>) {
     // https://github.com/JetBrains/compose-multiplatform-core/pull/915
     System.setProperty("compose.interop.blending", "true")
 
-    CoroutineScope(Dispatchers.Default).launch {
-        autoLaunch.enable()
-    }
+    // Keep the OS "run at startup" login item in sync with the user's preference,
+    // and enable it automatically when automated testing is turned on.
+    dependencies.observeAndConfigureRunAtStartup()
 
     // Initialize update controller
     updateController.initialize(CoroutineScope(Dispatchers.Default))

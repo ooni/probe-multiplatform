@@ -38,6 +38,8 @@ import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResult
 import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResultsThreshold
 import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResultsThreshold_Description
 import ooniprobe.composeapp.generated.resources.Settings_Results_DeleteOldResultsThreshold_Unit
+import ooniprobe.composeapp.generated.resources.Settings_RunAtStartup
+import ooniprobe.composeapp.generated.resources.Settings_RunAtStartup_Description
 import ooniprobe.composeapp.generated.resources.Settings_ShareApp
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_Description
@@ -85,6 +87,7 @@ class GetSettings(
     private val knownNetworkType: Boolean,
     private val knownBatteryState: Boolean,
     private val supportsInAppLanguage: Boolean,
+    private val supportsRunAtStartup: Boolean,
     private val hasDonations: Boolean,
     private val isCleanUpRequired: () -> Flow<Boolean>,
     private val cleanupLegacyDirectories: (suspend () -> Boolean),
@@ -288,6 +291,25 @@ class GetSettings(
                         key = SettingsKey.DEBUG_LOGS,
                         type = PreferenceItemType.SWITCH,
                     ),
+                    if (supportsRunAtStartup) {
+                        SettingsItem(
+                            title = Res.string.Settings_RunAtStartup,
+                            key = SettingsKey.RUN_AT_STARTUP,
+                            type = PreferenceItemType.SWITCH,
+                            // While automated testing is enabled it forces run at startup on,
+                            // so the control is locked. We only disable the UI here; the
+                            // automated testing preferences are never modified by this feature.
+                            enabled = !autoRunEnabled,
+                            supportingContent = {
+                                Text(
+                                    stringResource(Res.string.Settings_RunAtStartup_Description),
+                                    style = MaterialTheme.typography.labelLarge,
+                                )
+                            },
+                        )
+                    } else {
+                        null
+                    },
                     SettingsItem(
                         title = Res.string.Settings_Storage_Label,
                         key = SettingsKey.STORAGE_SIZE,

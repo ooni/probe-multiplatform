@@ -7,6 +7,7 @@ enum class SettingsKey(
     AUTOMATED_TESTING_ENABLED("automated_testing_enabled"),
     AUTOMATED_TESTING_WIFIONLY("automated_testing_wifionly"),
     AUTOMATED_TESTING_CHARGING("automated_testing_charging"),
+    RUN_AT_STARTUP("run_at_startup"),
     MAX_RUNTIME_ENABLED("max_runtime_enabled"),
     MAX_RUNTIME("max_runtime"),
     DELETE_OLD_RESULTS("delete_old_results"),

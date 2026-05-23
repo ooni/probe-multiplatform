@@ -59,6 +59,7 @@ import org.ooni.probe.domain.FetchGeoIpDbUpdates
 import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.GetAutoRunSpecification
+import org.ooni.probe.domain.GetRunAtStartupSettings
 import org.ooni.probe.domain.descriptors.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetFirstRun
@@ -70,6 +71,7 @@ import org.ooni.probe.domain.GetStats
 import org.ooni.probe.domain.GetStorageUsed
 import org.ooni.probe.domain.ObserveAndConfigureAutoRun
 import org.ooni.probe.domain.ObserveAndConfigureAutoUpdate
+import org.ooni.probe.domain.ObserveAndConfigureRunAtStartup
 import org.ooni.probe.domain.RunBackgroundStateManager
 import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
@@ -150,6 +152,7 @@ class Dependencies(
     val configureDescriptorAutoUpdate: suspend () -> Boolean,
     val cancelDescriptorAutoUpdate: suspend () -> Boolean,
     val startDescriptorsUpdate: suspend (List<Descriptor>?) -> Unit,
+    private val setRunAtStartup: suspend (Boolean) -> Unit = {},
     val localeDirection: (() -> LayoutDirection)? = null,
     private val isWebViewAvailable: () -> Boolean,
     val launchAction: (PlatformAction) -> Boolean,
@@ -429,6 +432,7 @@ class Dependencies(
             knownNetworkType = platformInfo.knownNetworkType,
             knownBatteryState = platformInfo.knownBatteryState,
             supportsInAppLanguage = platformInfo.supportsInAppLanguage,
+            supportsRunAtStartup = platformInfo.supportsRunAtStartup,
             hasDonations = platformInfo.hasDonations,
             isCleanUpRequired = legacyDirectoryManager::isCleanUpRequired,
             cleanupLegacyDirectories = legacyDirectoryManager::cleanUp,
@@ -463,6 +467,18 @@ class Dependencies(
             backgroundContext = backgroundContext,
             configureAutoRun = configureAutoRun,
             getAutoRunSettings = getAutoRunSettings::invoke,
+        )
+    }
+    private val getRunAtStartupSettings by lazy {
+        GetRunAtStartupSettings(preferenceRepository::getValueByKey)
+    }
+    val observeAndConfigureRunAtStartup by lazy {
+        ObserveAndConfigureRunAtStartup(
+            backgroundContext = backgroundContext,
+            getRunAtStartupSettings = getRunAtStartupSettings::invoke,
+            getAutoRunSettings = getAutoRunSettings::invoke,
+            setPreference = preferenceRepository::setValueByKey,
+            configureRunAtStartup = setRunAtStartup,
         )
     }
     val observeAndConfigureAutoUpdate by lazy {

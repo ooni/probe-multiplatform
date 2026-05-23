@@ -3,6 +3,7 @@ package org.ooni.probe
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import co.touchlab.kermit.Logger
 import dev.dirs.ProjectDirectories
+import io.github.vinceglb.autolaunch.AutoLaunch
 import kotlinx.coroutines.Dispatchers
 import okio.Path.Companion.toPath
 import org.ooni.engine.DesktopNetworkTypeFinder
@@ -36,6 +37,17 @@ internal val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe"
 private val osName = System.getProperty("os.name")
 val platform = Platform.Desktop(osName)
 
+private val autoLaunch by lazy { AutoLaunch(appPackageName = APP_ID) }
+
+/**
+ * Registers or deregisters the OS "run at startup" login item, backed by the
+ * cross-platform AutoLaunch library (macOS LaunchAgent, Windows Run key, Linux
+ * autostart entry).
+ */
+internal suspend fun setRunAtStartup(enabled: Boolean) {
+    if (enabled) autoLaunch.enable() else autoLaunch.disable()
+}
+
 private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager(
     runBackgroundTaskProvider = { dependencies.runBackgroundTask },
     getDescriptorUpdateProvider = { dependencies.fetchDescriptorsUpdates },
@@ -61,6 +73,7 @@ internal fun buildDependencies(
     launchAction: (PlatformAction) -> Boolean = ::launchAction,
     legacyDirectoryManager: LegacyDirectoryManager = DesktopLegacyDirectoryManager(platform.os),
     flavorConfig: FlavorConfigInterface = DesktopFlavorConfig(),
+    setRunAtStartup: suspend (Boolean) -> Unit = ::setRunAtStartup,
 ): Dependencies =
     Dependencies(
         platformInfo = platformInfo,
@@ -77,6 +90,7 @@ internal fun buildDependencies(
         configureDescriptorAutoUpdate = { backgroundWorkManager?.configureDescriptorAutoUpdate() ?: false },
         cancelDescriptorAutoUpdate = { backgroundWorkManager?.cancelDescriptorAutoUpdate() ?: false },
         startDescriptorsUpdate = { backgroundWorkManager?.startDescriptorsUpdate(it) },
+        setRunAtStartup = setRunAtStartup,
         launchAction = launchAction,
         batteryOptimization = object : BatteryOptimization {},
         isWebViewAvailable = isWebViewAvailable,
@@ -106,6 +120,7 @@ internal fun buildPlatformInfo(): PlatformInfo {
         supportsInAppLanguage = false,
         hasDonations = true,
         canPullToRefresh = false,
+        supportsRunAtStartup = true,
         sentryDsn = "https://e33da707dc40ab9508198b62de9bc269@o155150.ingest.sentry.io/4509084408610816",
         sentryExtraTags = buildMap {
             put("os.name", osName)
