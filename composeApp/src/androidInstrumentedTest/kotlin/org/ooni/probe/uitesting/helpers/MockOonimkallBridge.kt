@@ -1,11 +1,11 @@
 package org.ooni.probe.uitesting.helpers
 
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonObjectBuilder
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import org.ooni.engine.OonimkallBridge
+import org.ooni.engine.models.TaskSettings
 
 /**
  * A fully offline, deterministic [OonimkallBridge] for instrumented tests.
@@ -47,12 +47,11 @@ class MockOonimkallBridge : OonimkallBridge {
 
     override fun startTask(settingsSerialized: String): OonimkallBridge.Task {
         lastStartTaskSettingsSerialized = settingsSerialized
-        val testName = runCatching {
-            (json.parseToJsonElement(settingsSerialized) as JsonObject)["name"]
-                ?.toString()?.trim('"')
-        }.getOrNull() ?: "web_connectivity"
+        val taskSettings = json.decodeFromString<TaskSettings>(settingsSerialized)
+        val testName = taskSettings.name
         val slug = testName.replace("_", "")
         val measurementUid = "$slug-mock-uid"
+        val inputs = taskSettings.inputs.ifEmpty { listOf("") }
 
         val measurementJson = buildJsonObject {
             put("report_id", REPORT_ID)
@@ -71,24 +70,32 @@ class MockOonimkallBridge : OonimkallBridge {
                     put("geoip_db", "")
                 },
                 event("status.report_create") { put("report_id", REPORT_ID) },
-                event("status.measurement_start") {
-                    put("idx", 0)
-                    put("input", "")
-                },
-                event("measurement") {
-                    put("idx", 0)
-                    put("json_str", measurementJson)
-                },
-                event("status.measurement_submission") {
-                    put("idx", 0)
-                    put("measurement_uid", measurementUid)
-                },
-                event("status.measurement_done") { put("idx", 0) },
-                event("status.end") {
-                    put("downloaded_kb", 1.0)
-                    put("uploaded_kb", 1.0)
-                },
             ),
+        )
+        events.addAll(
+            inputs.flatMapIndexed { index, input ->
+                listOf(
+                    event("status.measurement_start") {
+                        put("idx", index)
+                        put("input", input)
+                    },
+                    event("measurement") {
+                        put("idx", index)
+                        put("json_str", measurementJson)
+                    },
+                    event("status.measurement_submission") {
+                        put("idx", index)
+                        put("measurement_uid", measurementUid)
+                    },
+                    event("status.measurement_done") { put("idx", index) },
+                )
+            },
+        )
+        events.add(
+            event("status.end") {
+                put("downloaded_kb", 1.0)
+                put("uploaded_kb", 1.0)
+            },
         )
 
         return object : OonimkallBridge.Task {
