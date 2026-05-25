@@ -38,6 +38,7 @@ object OrganizationConfig : OrganizationConfigInterface {
             "is",
             "it",
             "km",
+            "ko",
             "my",
             "nl",
             "pt",
