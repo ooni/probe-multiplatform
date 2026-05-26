@@ -7,6 +7,7 @@ import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.gradle.internal.os.OperatingSystem
 import org.gradle.process.ExecOperations
 import javax.inject.Inject
 
@@ -48,6 +49,10 @@ abstract class PackageAppImageTask : DefaultTask() {
 
     @TaskAction
     fun createAppImage() {
+        if (!OperatingSystem.current().isLinux) {
+            logger.lifecycle("packageAppImage: skipping on non-Linux host")
+            return
+        }
         val script = scriptFile.get().asFile
 
         if (!script.exists()) {
