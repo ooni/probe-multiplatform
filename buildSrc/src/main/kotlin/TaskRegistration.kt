@@ -12,13 +12,10 @@ import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.JavaExec
+import org.gradle.internal.os.OperatingSystem
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
 import java.io.File
-
-private fun isMac() = System.getProperty("os.name").lowercase().contains("mac")
-
-private fun isLinux() = System.getProperty("os.name").lowercase().contains("linux")
 
 /**
  * Registers all custom tasks for the project
@@ -136,7 +133,7 @@ private fun Project.registerSparkleTask() {
         group = "setup"
         description =
             "Downloads Sparkle and extracts Sparkle.framework to the destination directory"
-        onlyIf { isMac() && distribution().bundlesSparkle }
+        onlyIf { distribution().bundlesSparkle }
         sparkleVersion.set(providers.gradleProperty("sparkleVersion").orElse("2.8.0"))
         destDir.set(
             providers.gradleProperty("sparkleExtractDir")
@@ -154,10 +151,6 @@ private fun Project.registerSparkleTask() {
                 return@onlyIf false
             }
             val privateKeyFile = rootProject.file("certificates/sparkle_eddsa_private.pem")
-            if (!isMac()) {
-                logger.info("Skipping generateSparkleAppCast: Not running on macOS")
-                return@onlyIf false
-            }
             if (!privateKeyFile.exists()) {
                 logger.error("Cannot generate Sparkle appcast: Private key file not found at ${privateKeyFile.absolutePath}")
                 return@onlyIf false
@@ -181,10 +174,6 @@ private fun Project.registerWinSparkleTask() {
         group = "setup"
         description =
             "Downloads WinSparkle and extracts WinSparkle.dll to the destination directory"
-        onlyIf {
-            System.getProperty("os.name").lowercase().contains("win") &&
-                distribution().bundlesWinSparkle
-        }
         winSparkleVersion.set(providers.gradleProperty("winSparkleVersion").orElse("0.9.1"))
         destDir.set(
             providers.gradleProperty("winSparkleExtractDir")
@@ -314,9 +303,8 @@ private fun Project.registerAppImageTask() {
     tasks.register("packageAppImage", PackageAppImageTask::class) {
         group = "distribution"
         description = "Creates an AppImage for OONI Probe desktop application on Linux"
-        onlyIf { isLinux() }
 
-        // Depend on createDistributable to ensure the app is built first
+        // Depend on createDistributable
         dependsOn("createDistributable")
 
 
@@ -340,9 +328,8 @@ private fun Project.registerOONIDistributableTask() {
         group = "build"
         description = "Processes the createDistributable output (e.g., zip it or sign it)"
         dependsOn("createDistributable")
-        onlyIf { isMac() }
+        onlyIf { OperatingSystem.current().isMacOsX }
         doLast {
-            // Get the task reference
             val distributableTask = tasks.named("createDistributable").get()
 
 
@@ -419,7 +406,7 @@ private fun Project.registerRemoveQuarantineTask() {
         description = "Strips com.apple.quarantine xattr from embedded provision " +
             "profiles inside the packaged .app so App Store / TestFlight uploads " +
             "aren't rejected with error 91109."
-        onlyIf { isMac() }
+        onlyIf { OperatingSystem.current().isMacOsX }
         doLast {
             val candidates = listOf(
                 layout.buildDirectory.dir("compose/binaries/main/app"),
@@ -660,6 +647,26 @@ private fun Project.configureTaskDependencies() {
                 }
                 setup.mustRunAfter(desktopRes)
             }
+        }
+
+        if (distribution().bundlesWinSparkle) {
+            // Ensure WinSparkle.dll is prepared before packaging desktop apps
+            val winSparkleConsumers = setOf(
+                "runDistributable",
+                "createDistributable",
+                "packageDistributionForCurrentOS",
+                "packageExe",
+                "desktopJar"
+            )
+            tasks.matching { it.name in winSparkleConsumers }.configureEach {
+                dependsOn("setupWinSparkle")
+            }
+
+            // WinSparkle extracts to src/desktopMain/resources/windows/ which is
+            // consumed by desktopProcessResources and prepareDesktopResources -
+            // declare explicit dependencies to satisfy Gradle's task validation
+            tasks.findByName("desktopProcessResources")?.dependsOn("setupWinSparkle")
+            tasks.findByName("prepareDesktopResources")?.dependsOn("setupWinSparkle")
         }
 
         // Ensure createOONIDistributable runs after createDistributable and before any other task that depends on it

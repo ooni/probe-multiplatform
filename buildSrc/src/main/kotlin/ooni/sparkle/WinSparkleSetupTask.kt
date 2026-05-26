@@ -7,6 +7,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.gradle.internal.os.OperatingSystem
 import java.io.File
 import java.net.URI
 import java.net.URL
@@ -24,6 +25,10 @@ abstract class WinSparkleSetupTask : DefaultTask() {
     @TaskAction
     @Suppress("NewApi")
     fun run() {
+        if (!OperatingSystem.current().isWindows) {
+            logger.lifecycle("setupWinSparkle: skipping on non-Windows host")
+            return
+        }
         val versionStr = winSparkleVersion.get()
         val url = "https://github.com/vslavik/winsparkle/releases/download/v$versionStr/WinSparkle-$versionStr.zip"
         val dest = destDir.get().asFile

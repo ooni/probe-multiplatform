@@ -6,6 +6,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.TaskAction
+import org.gradle.internal.os.OperatingSystem
 import org.gradle.process.ExecOperations
 import javax.inject.Inject
 
@@ -27,6 +28,10 @@ abstract class GenerateSparkleAppCastTask : DefaultTask() {
 
     @TaskAction
     fun run() {
+        if (!OperatingSystem.current().isMacOsX) {
+            logger.lifecycle("generateSparkleAppCast: skipping on non-macOS host")
+            return
+        }
         val sparkleTool = sparkleVersion
             .map { project.layout.buildDirectory.file("sparkle/extracted-$it/bin/generate_appcast") }
             .get()

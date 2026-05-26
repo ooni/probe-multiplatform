@@ -7,6 +7,7 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.gradle.internal.os.OperatingSystem
 import java.io.File
 import java.util.zip.ZipFile
 
@@ -31,6 +32,10 @@ abstract class ExtractMacOsNativeLibrariesTask : DefaultTask() {
 
     @TaskAction
     fun extract() {
+        if (!OperatingSystem.current().isMacOsX) {
+            logger.lifecycle("extractMacOsNativeLibraries: skipping on non-macOS host")
+            return
+        }
         val out = outputDir.get().asFile
         logger.lifecycle("extractMacOsNativeLibraries: staging darwin native libs into ${out.absolutePath}")
         out.deleteRecursively()

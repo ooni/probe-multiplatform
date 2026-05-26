@@ -7,6 +7,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.gradle.internal.os.OperatingSystem
 import org.gradle.process.ExecOperations
 import java.io.File
 import java.net.URI
@@ -24,6 +25,10 @@ abstract class SetupSparkleTask : DefaultTask() {
 
     @TaskAction
     fun run() {
+        if (!OperatingSystem.current().isMacOsX) {
+            logger.lifecycle("setupSparkle: skipping on non-macOS host")
+            return
+        }
         val versionStr = sparkleVersion.get()
         val url =
             "https://github.com/sparkle-project/Sparkle/releases/download/$versionStr/Sparkle-$versionStr.tar.xz"
