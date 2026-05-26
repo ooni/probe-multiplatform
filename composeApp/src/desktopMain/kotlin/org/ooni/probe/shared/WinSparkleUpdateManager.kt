@@ -1,5 +1,6 @@
 package org.ooni.probe.shared
 
+import org.ooni.probe.DesktopBuildConfig
 import org.ooni.shared.loadNativeLibrary
 
 class WinSparkleUpdateManager : UpdateManager {
@@ -111,7 +112,7 @@ class WinSparkleUpdateManager : UpdateManager {
 
         // Set app details from build config first
         val appDetailsResult =
-            nativeSetAppDetails("OONI", "OONI Probe", System.getProperty("app.version.name")?.ifBlank { null } ?: "1.0.0")
+            nativeSetAppDetails("OONI", "OONI Probe", DesktopBuildConfig.VERSION_NAME)
         if (appDetailsResult != 0) {
             when (appDetailsResult) {
                 -1 -> logErrorAndUpdateState(appDetailsResult, "WinSparkle not initialized for app details", "setAppDetails")

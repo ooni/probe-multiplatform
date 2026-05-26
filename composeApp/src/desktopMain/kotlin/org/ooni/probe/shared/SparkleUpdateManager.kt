@@ -1,6 +1,7 @@
 package org.ooni.probe.shared
 
 import co.touchlab.kermit.Logger
+import org.ooni.probe.DesktopBuildConfig
 import org.ooni.probe.platform
 import org.ooni.shared.loadNativeLibrary
 import java.util.Base64
@@ -149,7 +150,7 @@ class SparkleUpdateManager : UpdateManager {
         when (platform.os) {
             DesktopOS.Windows -> {
                 // Windows-specific initialization: Set app details first
-                val appDetailsResult = nativeSetAppDetails("OONI", "OONI Probe", "5.1.0")
+                val appDetailsResult = nativeSetAppDetails("OONI", "OONI Probe", DesktopBuildConfig.VERSION_NAME)
                 if (appDetailsResult != 0) {
                     when (appDetailsResult) {
                         -1 -> logErrorAndUpdateState(appDetailsResult, "WinSparkle not initialized for app details", "setAppDetails")
