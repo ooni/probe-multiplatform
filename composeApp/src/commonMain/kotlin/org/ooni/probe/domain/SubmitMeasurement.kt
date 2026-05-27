@@ -64,7 +64,7 @@ class SubmitMeasurement(
                     uid = result.value.uid,
                 )
                 updateMeasurement(newMeasurement)
-                Logger.w { "Measurement Submission successful: ${newMeasurement.uid}" }
+                Logger.i { "Measurement Submission successful: ${newMeasurement.uid}" }
                 deleteFiles(reportFilePath)
                 newMeasurement
             }
