@@ -54,6 +54,7 @@ import ooniprobe.composeapp.generated.resources.ic_add
 import ooniprobe.composeapp.generated.resources.ic_close
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_down
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_up
+import ooniprobe.composeapp.generated.resources.ic_refresh
 import ooniprobe.composeapp.generated.resources.ic_search
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -147,6 +148,21 @@ fun DescriptorsScreen(
                                 Icon(
                                     painter = painterResource(Res.drawable.ic_add),
                                     contentDescription = stringResource(Res.string.AddDescriptor_Title),
+                                )
+                            }
+                        }
+                        if (!state.canPullToRefresh) {
+                            IconButton(
+                                onClick = {
+                                    onEvent(DescriptorsViewModel.Event.FetchUpdatedDescriptors)
+                                },
+                                enabled = !state.isRefreshing,
+                            ) {
+                                Icon(
+                                    painter = painterResource(Res.drawable.ic_refresh),
+                                    contentDescription = stringResource(
+                                        Res.string.DescriptorUpdate_CheckUpdates,
+                                    ),
                                 )
                             }
                         }
