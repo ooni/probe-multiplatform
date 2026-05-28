@@ -10,7 +10,7 @@ import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.createDesktopSecureStorage
-import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.config.DesktopOrganizationConfig
 import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.probe.background.BackgroundWorkManager
 import org.ooni.probe.config.BatteryOptimization
@@ -73,7 +73,7 @@ internal fun buildDependencies(
     platformInfo: PlatformInfo = buildPlatformInfo(),
     oonimkallBridge: OonimkallBridge = DesktopOonimkallBridge(),
     networkTypeFinder: NetworkTypeFinder = DesktopNetworkTypeFinder(),
-    secureStorageAppId: String = OrganizationConfig.appId,
+    secureStorageAppId: String = DesktopOrganizationConfig.appId,
     dataStoreFile: File = File(dataDir).resolve("probe.preferences_pb"),
     batteryState: BatteryState = BatteryState.Unknown,
     backgroundWorkManager: BackgroundWorkManager? = null,
@@ -90,7 +90,7 @@ internal fun buildDependencies(
         cacheDir = cacheDir,
         databaseDriverFactory = { buildDatabaseDriver(dataDir) },
         networkTypeFinder = networkTypeFinder,
-        secureStorage = createDesktopSecureStorage(platform.os, secureStorageAppId, OrganizationConfig.baseSoftwareName),
+        secureStorage = createDesktopSecureStorage(platform.os, secureStorageAppId, DesktopOrganizationConfig.baseSoftwareName),
         buildDataStore = { PreferenceDataStoreFactory.create { dataStoreFile } },
         getBatteryState = { batteryState },
         startSingleRunInner = { backgroundWorkManager?.startSingleRun(it) },
