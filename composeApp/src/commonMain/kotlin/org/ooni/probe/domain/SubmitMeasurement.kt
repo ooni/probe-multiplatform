@@ -60,7 +60,7 @@ class SubmitMeasurement(
                     isUploaded = true,
                     isUploadFailed = false,
                     uploadFailureMessage = null,
-                    reportId = result.value.reportId,
+                    reportId = result.value.reportId ?: measurement.reportId,
                     uid = result.value.uid,
                 )
                 updateMeasurement(newMeasurement)
