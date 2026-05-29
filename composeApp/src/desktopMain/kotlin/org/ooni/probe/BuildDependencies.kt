@@ -4,7 +4,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import co.touchlab.kermit.Logger
 import dev.dirs.ProjectDirectories
 import io.github.vinceglb.autolaunch.AutoLaunch
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.asCoroutineDispatcher
 import okio.Path.Companion.toPath
 import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.engine.NetworkTypeFinder
@@ -32,6 +32,7 @@ import java.net.URI
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Locale
+import java.util.concurrent.Executors
 
 internal val projectDirectories = ProjectDirectories.from("org", "OONI", "Probe")
 
@@ -46,6 +47,18 @@ private val osName = System.getProperty("os.name")
 val platform = Platform.Desktop(osName)
 
 private val autoLaunch by lazy { AutoLaunch(appPackageName = APP_ID) }
+
+// Pin all SQLite access to a single dedicated thread. SQLDelight's JdbcSqliteDriver
+// uses a per-thread `ThreadLocal<Connection>`; under `Dispatchers.IO.limitedParallelism(1)`
+// the underlying physical IO thread can rotate, causing the driver to open a new SQLite
+// connection per thread. That triggered intermittent "Results screen does not refresh"
+// reports on Desktop where new test results were present in the DB but the Flow-backed UI
+// kept showing a stale snapshot until app restart.
+private val databaseDispatcher by lazy {
+    Executors.newSingleThreadExecutor { runnable ->
+        Thread(runnable, "ooni-database").apply { isDaemon = true }
+    }.asCoroutineDispatcher()
+}
 
 /**
  * Registers or deregisters the OS "run at startup" login item, backed by the
@@ -106,7 +119,7 @@ internal fun buildDependencies(
         flavorConfig = flavorConfig,
         proxyConfig = ProxyConfig(isPsiphonSupported = false),
         getCountryNameByCode = ::getCountryNameByCode,
-        databaseContext = Dispatchers.IO.limitedParallelism(1),
+        databaseContext = databaseDispatcher,
     )
 
 internal fun buildPlatformInfo(): PlatformInfo {
