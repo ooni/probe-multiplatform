@@ -23,6 +23,17 @@ enum class Distribution(val cliValue: String) {
     val isAppStore: Boolean get() = this != Direct
 
     /**
+     * Whether this distribution ships the embedded JavaFX [WebView]. The Mac
+     * App Store enforces hardened-runtime library validation that JavaFX's
+     * native libraries can't satisfy (they're unpacked unsigned at runtime,
+     * and even pre-signing them is rejected), so [MacAppStore] builds drop
+     * JavaFX entirely and open in-app links in the system browser instead.
+     * Direct and Microsoft Store builds keep the embedded WebView — Windows
+     * has no equivalent library-validation gate.
+     */
+    val bundlesJavaFx: Boolean get() = this != MacAppStore
+
+    /**
      * Codesign identity used for distributions whose signing is driven by
      * the Compose Desktop DSL (not by the `compose.desktop.mac.signing.*`
      * project properties). Returned as the Common Name portion of the
@@ -103,6 +114,24 @@ val forbiddenStoreBundleMarkers: List<String> = listOf(
     "WinSparkle",
     "updatebridge",
     "libwinpthread",
+)
+
+/**
+ * Substring markers that must not appear inside a Mac App Store bundle once
+ * JavaFX is dropped from that channel (see [Distribution.bundlesJavaFx]).
+ * Matched case-insensitively by `verifyStoreBundle`, in addition to
+ * [forbiddenStoreBundleMarkers], only when the active distribution is
+ * [Distribution.MacAppStore] — the Microsoft Store `.exe` still bundles
+ * JavaFX, so these can't live in the shared list. Catches both the module
+ * jars (`javafx-*.jar`) and the staged darwin natives
+ * (`libprism_*`, `libglass`, `libjfxwebkit`, …).
+ */
+val forbiddenMacAppStoreJavaFxMarkers: List<String> = listOf(
+    "javafx",
+    "libprism",
+    "libglass",
+    "libjfxwebkit",
+    "libjfxmedia",
 )
 
 /**

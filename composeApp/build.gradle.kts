@@ -15,7 +15,7 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
-    alias(libs.plugins.javafx)
+   alias(libs.plugins.javafx) apply false
     alias(libs.plugins.sentry)
 
     id("ooni.common")
@@ -25,8 +25,17 @@ val organization: String? by project
 
 val config = Organization.fromKey(organization).config
 
+// Active desktop distribution channel (resolved from -PdesktopDistribution).
+// Drives whether JavaFX is on the classpath and which OoniWebView actual is
+// compiled. Reused by the `compose.desktop` block below.
+val dist = distribution()
+
 val javaFxParts = listOf("base", "graphics", "controls", "media", "web", "swing")
 val javaFxVersion = "26.0.1"
+
+if (dist.bundlesJavaFx) {
+    apply(plugin = libs.plugins.javafx.get().pluginId)
+}
 
 kotlin {
     androidTarget {
@@ -104,14 +113,24 @@ kotlin {
             implementation(libs.bundles.ios)
         }
         val desktopMain by getting {
+            // The OoniWebView desktop actual is distribution-specific: JavaFX
+            // builds get the embedded WebView, the Mac App Store build gets an
+            // external-browser fallback that references no javafx.* symbols.
+            if (dist.bundlesJavaFx) {
+                kotlin.srcDir("src/desktopJavaFxMain/kotlin")
+            } else {
+                kotlin.srcDir("src/desktopNoJavaFxMain/kotlin")
+            }
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
 
-                // As JavaFX have platform-specific dependencies, we need to add them manually
-                val fxSuffix = getJavaFxSuffix()
-                javaFxParts.forEach {
-                    implementation("org.openjfx:javafx-$it:$javaFxVersion:$fxSuffix")
+                if (dist.bundlesJavaFx) {
+                    // As JavaFX have platform-specific dependencies, we need to add them manually
+                    val fxSuffix = getJavaFxSuffix()
+                    javaFxParts.forEach {
+                        implementation("org.openjfx:javafx-$it:$javaFxVersion:$fxSuffix")
+                    }
                 }
 
                 implementation("org.ooni:oonimkall:c52ce3b5-${oonimkallVersionSuffix()}")
@@ -157,9 +176,11 @@ kotlin {
     }
 }
 
-javafx {
-    version = javaFxVersion
-    modules = javaFxParts.map { "javafx.$it" }
+if (dist.bundlesJavaFx) {
+    configure<org.openjfx.gradle.JavaFXOptions> {
+        version = javaFxVersion
+        modules = javaFxParts.map { "javafx.$it" }
+    }
 }
 
 android {
@@ -176,7 +197,7 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 300 // Always increment by 10. See fdroid flavor below
+        versionCode = 302 // Always increment by 10. See fdroid flavor below
         versionName = "6.0.2"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
@@ -369,8 +390,6 @@ ktlint {
 }
 
 // Desktop
-
-val dist = distribution()
 
 // `prepareDesktopResources` (Sync) and the DMG post-processing hooks live in
 // buildSrc — see ooni.desktop.PrepareDesktopResourcesTask /
