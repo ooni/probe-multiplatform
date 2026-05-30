@@ -203,7 +203,8 @@ private fun Project.registerVerifyStoreBundleTask() {
             }
             true
         }
-        val markers = forbiddenStoreBundleMarkers
+        val markers = forbiddenStoreBundleMarkers +
+            if (distribution() == Distribution.MacAppStore) forbiddenMacAppStoreJavaFxMarkers else emptyList()
         val pkgDir = layout.buildDirectory.dir("compose/binaries/main/pkg")
         val exeDir = layout.buildDirectory.dir("compose/binaries/main/exe")
         doLast {
