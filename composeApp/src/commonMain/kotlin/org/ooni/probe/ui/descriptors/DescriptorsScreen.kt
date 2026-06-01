@@ -144,25 +144,25 @@ fun DescriptorsScreen(
                                     contentDescription = stringResource(Res.string.Common_Search),
                                 )
                             }
+                            if (!state.canPullToRefresh) {
+                                IconButton(
+                                    onClick = {
+                                        onEvent(DescriptorsViewModel.Event.FetchUpdatedDescriptors)
+                                    },
+                                    enabled = !state.isRefreshing,
+                                ) {
+                                    Icon(
+                                        painter = painterResource(Res.drawable.ic_refresh),
+                                        contentDescription = stringResource(
+                                            Res.string.DescriptorUpdate_CheckUpdates,
+                                        ),
+                                    )
+                                }
+                            }
                             IconButton(onClick = { onEvent(DescriptorsViewModel.Event.AddClicked) }) {
                                 Icon(
                                     painter = painterResource(Res.drawable.ic_add),
                                     contentDescription = stringResource(Res.string.AddDescriptor_Title),
-                                )
-                            }
-                        }
-                        if (!state.canPullToRefresh) {
-                            IconButton(
-                                onClick = {
-                                    onEvent(DescriptorsViewModel.Event.FetchUpdatedDescriptors)
-                                },
-                                enabled = !state.isRefreshing,
-                            ) {
-                                Icon(
-                                    painter = painterResource(Res.drawable.ic_refresh),
-                                    contentDescription = stringResource(
-                                        Res.string.DescriptorUpdate_CheckUpdates,
-                                    ),
                                 )
                             }
                         }

@@ -29,7 +29,6 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_SeeMore
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_UndoRejectedUpdate
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_UninstallLink
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_Uninstall_Prompt
-import ooniprobe.composeapp.generated.resources.DescriptorUpdate_CheckUpdates
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_CustomURL_Title_NotSaved
 import ooniprobe.composeapp.generated.resources.Res
@@ -39,7 +38,6 @@ import org.ooni.probe.data.models.Descriptor
 @Composable
 fun InstalledDescriptorActionsView(
     descriptor: Descriptor,
-    showCheckUpdatesButton: Boolean,
     onEvent: (DescriptorViewModel.Event) -> Unit,
     modifier: Modifier,
 ) {
@@ -129,14 +127,6 @@ fun InstalledDescriptorActionsView(
         }
 
         Row {
-            if (showCheckUpdatesButton) {
-                OutlinedButton(
-                    onClick = { onEvent(DescriptorViewModel.Event.FetchUpdatedDescriptor) },
-                    modifier = Modifier.padding(end = 16.dp),
-                ) {
-                    Text(stringResource(Res.string.DescriptorUpdate_CheckUpdates))
-                }
-            }
             if (descriptor.isOoniDescriptor.not()) {
                 Button(
                     onClick = { showDialog = true },
