@@ -117,8 +117,8 @@
     <string name="Dashboard_Running_ProxyInUse">使用中のプロキシ</string>
     <string name="Dashboard_LastResults">最新の結果</string>
     <string name="Dashboard_LastResults_SeeResults">結果を見る</string>
-    <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>有効です</i>]]></string>
-    <string name="Dashboard_AutoRun_Disabled"><![CDATA[Auto-run is <i>無効です</i>]]></string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[自動実行は <i>有効です</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[自動実行は <i>無効です</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">テスト</string>
     <string name="Dashboard_TestsMoved_Description">テストは新しいタブに移動しました。下のナビゲーションバーからアクセスできます。</string>
     <string name="Dashboard_TestsMoved_Action">テストを表示する</string>
@@ -438,4 +438,6 @@
     <string name="Common_Clear">消去</string>
     <string name="Result_Error">テストエラー</string>
     <string name="Desktop_ForceQuit">強制終了</string>
+    <string name="Settings_RunAtStartup">起動時に実行する</string>
+    <string name="Settings_RunAtStartup_Description">コンピューターの再起動時にアプリを自動的に起動します。これは、自動実行が有効になっている場合に必要です。</string>
 </resources>
