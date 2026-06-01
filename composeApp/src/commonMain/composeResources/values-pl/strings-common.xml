@@ -170,4 +170,7 @@
     <string name="Dashboard_ReviewDescriptor_Reject">Odrzuć aktualizację</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">Ostatnia aktualizacja: %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Odrzucona aktualizacja</string>
+    <string name="Settings_RunAtStartup_Description">Uruchamiaj aplikację automatycznie przy restarcie komputera. Jest to wymagane, jeśli masz włączone automatyczne uruchamianie.</string>
+    <string name="Settings_Sharing_UploadResults">Automatycznie publikuj wyniki</string>
+    <string name="Settings_RunAtStartup">Uruchamianie przy starcie</string>
 </resources>
