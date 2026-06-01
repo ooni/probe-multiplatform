@@ -60,7 +60,6 @@ class SubmitMeasurement(
                     isUploaded = true,
                     isUploadFailed = false,
                     uploadFailureMessage = null,
-                    reportId = result.value.reportId ?: measurement.reportId,
                     uid = result.value.uid,
                 )
                 updateMeasurement(newMeasurement)
@@ -85,7 +84,6 @@ class SubmitMeasurement(
         engineSubmit(measurementData)
             .map {
                 ResponseData(
-                    reportId = MeasurementModel.ReportId(it.updatedReportId),
                     uid = it.measurementUid?.ifBlank { null }?.let(MeasurementModel::Uid),
                 )
             }.mapError { it.cause }
@@ -96,7 +94,6 @@ class SubmitMeasurement(
 
     data class ResponseData(
         val uid: MeasurementModel.Uid?,
-        val reportId: MeasurementModel.ReportId? = null,
         val verificationStatus: VerificationStatus = VerificationStatus.Unknown,
         val submitError: SubmitError? = null,
     )

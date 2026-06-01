@@ -144,6 +144,39 @@ class ResultRepositoryTest {
                 ),
             )
             assertEquals(0, subject.countMissingUpload().first())
+
+            // Upload state alone determines whether a measurement still needs uploading:
+            // an uploaded measurement with no report_id must not be re-queued.
+            measurementRepository.createOrUpdate(
+                measurement.copy(
+                    isUploaded = true,
+                    reportId = null,
+                ),
+            )
+            assertEquals(0, subject.countMissingUpload().first())
+        }
+
+    @Test
+    fun aggregatesUploadedWithoutReportId() =
+        runTest {
+            val result = ResultModelFactory.build()
+            subject.createOrUpdate(result)
+
+            // An uploaded measurement with no report_id must not be reported as missing
+            // upload by the ResultWithNetworkAndAggregates view.
+            measurementRepository.createOrUpdate(
+                MeasurementModelFactory.build(
+                    id = MeasurementModel.Id(1),
+                    resultId = result.id!!,
+                    isDone = true,
+                    isUploaded = true,
+                    reportId = null,
+                ),
+            )
+
+            val item = subject.list().first().first()
+            assertTrue(item.allMeasurementsUploaded)
+            assertEquals(false, item.anyMeasurementUploadFailed)
         }
 
     @Test

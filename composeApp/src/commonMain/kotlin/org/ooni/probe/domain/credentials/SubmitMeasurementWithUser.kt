@@ -66,7 +66,6 @@ class SubmitMeasurementWithUser(
                 return Success(
                     SubmitMeasurement.ResponseData(
                         uid = submitBody?.measurementUid?.ifBlank { null }?.let(MeasurementModel::Uid),
-                        reportId = submitBody?.reportId?.ifBlank { null }?.let(MeasurementModel::ReportId),
                         verificationStatus = outcome.verificationStatus,
                         submitError = outcome.error,
                     ),
@@ -133,6 +132,5 @@ class SubmitMeasurementWithUser(
     @Serializable
     private data class SubmitResponse(
         @SerialName("measurement_uid") val measurementUid: String? = null,
-        @SerialName("report_id") val reportId: String? = null,
     )
 }

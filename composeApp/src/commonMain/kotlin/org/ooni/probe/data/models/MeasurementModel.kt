@@ -47,7 +47,7 @@ data class MeasurementModel(
         get() = id?.let { "Measurement/${id.value}_${test.name}.json".toPath() }
 
     val isMissingUpload
-        get() = !isUploaded || reportId == null
+        get() = !isUploaded
 
     val isDoneAndMissingUpload
         get() = isDone && isMissingUpload
