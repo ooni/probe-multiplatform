@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
@@ -26,7 +25,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.pullToRefresh
@@ -279,34 +277,6 @@ private fun TestDescriptorSectionTitle(
             modifier = Modifier
                 .padding(horizontal = 8.dp)
                 .size(16.dp),
-        )
-        Spacer(Modifier.weight(1f))
-        if (type == DescriptorType.Installed && !state.canPullToRefresh) {
-            CheckUpdatesButton(
-                enabled = !state.isRefreshing,
-                onEvent = onEvent,
-            )
-        }
-    }
-}
-
-@Composable
-private fun CheckUpdatesButton(
-    enabled: Boolean,
-    onEvent: (DescriptorsViewModel.Event) -> Unit,
-) {
-    TextButton(
-        onClick = { onEvent(DescriptorsViewModel.Event.FetchUpdatedDescriptors) },
-        enabled = enabled,
-        contentPadding = PaddingValues(
-            horizontal = 8.dp,
-            vertical = 4.dp,
-        ),
-        modifier = Modifier.defaultMinSize(minHeight = 32.dp),
-    ) {
-        Text(
-            stringResource(Res.string.DescriptorUpdate_CheckUpdates),
-            style = MaterialTheme.typography.labelMedium,
         )
     }
 }
