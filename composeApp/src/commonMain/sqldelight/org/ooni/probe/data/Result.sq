@@ -47,13 +47,13 @@ FROM (
         COUNT(Measurement.id) AS measurementsCount,
         SUM(
             CASE WHEN Measurement.is_done = 1
-                    AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
+                    AND Measurement.is_uploaded = 0
                     AND Measurement.is_upload_failed = 1
                     THEN 1 ELSE 0 END
         ) AS uploadFailCount,
         SUM(
             CASE WHEN Measurement.is_done = 1
-                      AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
+                      AND Measurement.is_uploaded = 0
                     THEN 1 ELSE 0 END
         ) AS notUploadedMeasurements,
         SUM(CASE WHEN Measurement.is_done = 1 THEN 1 ELSE 0 END) AS doneMeasurementsCount,
@@ -180,7 +180,7 @@ FROM (
     FROM Result
     LEFT JOIN Measurement ON Measurement.result_id = Result.id
     WHERE Measurement.is_done = 1
-    AND (Measurement.is_uploaded = 0 OR Measurement.report_id IS NULL)
+    AND Measurement.is_uploaded = 0
     AND Measurement.result_id = Result.id
     GROUP BY Result.id
 );
