@@ -7,7 +7,6 @@ import org.ooni.probe.data.models.Descriptor
 @Composable
 fun InstalledDescriptorActionsView(
     descriptor: Descriptor,
-    showCheckUpdatesButton: Boolean,
     onEvent: (DescriptorViewModel.Event) -> Unit,
     modifier: Modifier,
 ) {

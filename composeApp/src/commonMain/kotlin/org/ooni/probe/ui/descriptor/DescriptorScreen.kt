@@ -52,8 +52,10 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_ReviewUpdates
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Websites_SeeAll
 import ooniprobe.composeapp.generated.resources.Descriptor_LastTestResult
+import ooniprobe.composeapp.generated.resources.DescriptorUpdate_CheckUpdates
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.ic_refresh
 import ooniprobe.composeapp.generated.resources.ic_share
 import ooniprobe.composeapp.generated.resources.ic_timer
 import ooniprobe.composeapp.generated.resources.ooni_empty_state
@@ -114,6 +116,19 @@ fun DescriptorScreen(
                     NavigationBackButton({ onEvent(DescriptorViewModel.Event.BackClicked) })
                 },
                 actions = {
+                    if (!state.canPullToRefresh) {
+                        IconButton(
+                            onClick = { onEvent(DescriptorViewModel.Event.FetchUpdatedDescriptor) },
+                            enabled = state.isRefreshEnabled && !state.isRefreshing,
+                        ) {
+                            Icon(
+                                painterResource(Res.drawable.ic_refresh),
+                                contentDescription = stringResource(
+                                    Res.string.DescriptorUpdate_CheckUpdates,
+                                ),
+                            )
+                        }
+                    }
                     if (state.descriptor?.runLink != null) {
                         IconButton(
                             onClick = { onEvent(DescriptorViewModel.Event.ShareClicked) },
@@ -272,7 +287,6 @@ fun DescriptorScreen(
 
                 InstalledDescriptorActionsView(
                     descriptor = descriptor.descriptor,
-                    showCheckUpdatesButton = !state.canPullToRefresh,
                     onEvent = onEvent,
                     modifier = Modifier.padding(horizontal = 16.dp),
                 )
