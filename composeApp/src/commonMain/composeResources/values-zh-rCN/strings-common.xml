@@ -445,4 +445,6 @@
     <string name="AddDescriptor_Toasts_AlreadyInstalled">链接已经安装</string>
     <string name="Result_Error">测试错误</string>
     <string name="Desktop_ForceQuit">强制退出</string>
+    <string name="Settings_RunAtStartup">开机时运行</string>
+    <string name="Settings_RunAtStartup_Description">计算机重启时自动启动程序。如果启动了自动运行这是必需的。</string>
 </resources>
