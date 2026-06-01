@@ -55,9 +55,10 @@ private val autoLaunch by lazy { AutoLaunch(appPackageName = APP_ID) }
 // reports on Desktop where new test results were present in the DB but the Flow-backed UI
 // kept showing a stale snapshot until app restart.
 private val databaseDispatcher by lazy {
-    Executors.newSingleThreadExecutor { runnable ->
-        Thread(runnable, "ooni-database").apply { isDaemon = true }
-    }.asCoroutineDispatcher()
+    Executors
+        .newSingleThreadExecutor { runnable ->
+            Thread(runnable, "ooni-database").apply { isDaemon = true }
+        }.asCoroutineDispatcher()
 }
 
 /**
