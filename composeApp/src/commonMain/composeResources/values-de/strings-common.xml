@@ -467,4 +467,6 @@
     <string name="Result_Error">test fehler</string>
     <string name="AddDescriptor_Toasts_AlreadyInstalled">Link bereits installiert</string>
     <string name="Desktop_ForceQuit">Beenden erzwingen</string>
+    <string name="Settings_RunAtStartup">Beim Start ausführen</string>
+    <string name="Settings_RunAtStartup_Description">Die App beim Neustart des Computers automatisch starten. Dies ist erforderlich, wenn die automatische Ausführung aktiviert ist.</string>
 </resources>
