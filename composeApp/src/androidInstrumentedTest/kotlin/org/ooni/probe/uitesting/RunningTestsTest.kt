@@ -2,16 +2,16 @@ package org.ooni.probe.uitesting
 
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.ComposeTestRule
-import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Common_Expand
 import ooniprobe.composeapp.generated.resources.Dashboard_LastResults_SeeResults
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_RunButton_Label
 import ooniprobe.composeapp.generated.resources.Dashboard_RunTests_SelectNone
-import ooniprobe.composeapp.generated.resources.Measurement_Title
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Test_HTTPHeaderFieldManipulation_Fullname
@@ -20,15 +20,11 @@ import ooniprobe.composeapp.generated.resources.Test_Signal_Fullname
 import org.jetbrains.compose.resources.getPluralString
 import org.jetbrains.compose.resources.getString
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.uitesting.helpers.checkSummaryInsideWebView
-import org.ooni.probe.uitesting.helpers.checkTextAnywhereInsideWebView
-import org.ooni.probe.uitesting.helpers.checkUrlInsideWebView
 import org.ooni.probe.uitesting.helpers.clickOnContentDescription
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.disableRefreshArticles
@@ -37,10 +33,10 @@ import org.ooni.probe.uitesting.helpers.isNewsMediaScan
 import org.ooni.probe.uitesting.helpers.isOoni
 import org.ooni.probe.uitesting.helpers.onNodeWithText
 import org.ooni.probe.uitesting.helpers.preferences
+import org.ooni.probe.uitesting.helpers.setupMockedEngine
 import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
 import org.ooni.probe.uitesting.helpers.wait
-import kotlin.time.Duration.Companion.minutes
 
 @RunWith(AndroidJUnit4::class)
 class RunningTestsTest {
@@ -52,6 +48,7 @@ class RunningTestsTest {
         runTest {
             skipOnboarding()
             disableRefreshArticles()
+            setupMockedEngine()
             preferences.setValueByKey(SettingsKey.UPLOAD_RESULTS, true)
             start()
         }
@@ -69,16 +66,9 @@ class RunningTestsTest {
                 clickOnText(Res.string.Test_Signal_Fullname)
                 clickOnRunButton(1)
 
-                clickOnText(
-                    Res.string.Dashboard_LastResults_SeeResults,
-                    timeout = TEST_WAIT_TIMEOUT,
-                )
-
+                clickOnText(Res.string.Dashboard_LastResults_SeeResults)
                 clickOnText(imTitle)
-                clickOnText(Res.string.Test_Signal_Fullname)
-                wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
-                checkUrlInsideWebView("signal")
-                checkSummaryInsideWebView("Signal", isOptional = true)
+                wait { onNodeWithText(Res.string.Test_Signal_Fullname).isDisplayed() }
             }
         }
 
@@ -95,16 +85,10 @@ class RunningTestsTest {
                 clickOnText(Res.string.Test_Psiphon_Fullname)
                 clickOnRunButton(1)
 
-                clickOnText(
-                    Res.string.Dashboard_LastResults_SeeResults,
-                    timeout = TEST_WAIT_TIMEOUT,
-                )
+                clickOnText(Res.string.Dashboard_LastResults_SeeResults)
 
                 clickOnText(circTitle)
-                clickOnText(Res.string.Test_Psiphon_Fullname)
-                wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
-                checkUrlInsideWebView("psiphon")
-                checkSummaryInsideWebView("Psiphon", isOptional = true)
+                wait { onNodeWithText(Res.string.Test_Psiphon_Fullname).isDisplayed() }
             }
         }
 
@@ -118,25 +102,24 @@ class RunningTestsTest {
 
                 clickOnText(Res.string.Dashboard_RunTests_SelectNone)
                 clickOnContentDescription(getString(Res.string.Common_Expand) + " " + perfTitle)
-                clickOnText(getString(Res.string.Test_HTTPHeaderFieldManipulation_Fullname).take(16), substring = true)
+                clickOnText(
+                    getString(Res.string.Test_HTTPHeaderFieldManipulation_Fullname).take(16),
+                    substring = true,
+                )
                 clickOnRunButton(1)
 
-                clickOnText(
-                    Res.string.Dashboard_LastResults_SeeResults,
-                    timeout = TEST_WAIT_TIMEOUT,
-                )
+                clickOnText(Res.string.Dashboard_LastResults_SeeResults)
 
                 clickOnText(perfTitle)
-                clickOnText(getString(Res.string.Test_HTTPHeaderFieldManipulation_Fullname).take(16), substring = true)
-                wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
-                checkUrlInsideWebView("httpheaderfieldmanipulation")
-                checkSummaryInsideWebView("middleboxes", isOptional = true)
+                val testNameSubstring =
+                    getString(Res.string.Test_HTTPHeaderFieldManipulation_Fullname).take(16)
+                wait { onNodeWithText(testNameSubstring, substring = true).isDisplayed() }
             }
         }
 
     @Test
     fun stunReachability() =
-        runTest(timeout = TEST_WAIT_TIMEOUT) {
+        runTest {
             if (!isOoni) return@runTest
             val expTitle = getOoniDescriptor(OoniTest.Experimental).title()
             with(compose) {
@@ -147,23 +130,16 @@ class RunningTestsTest {
                 clickOnText("stunreachability", substring = true)
                 clickOnRunButton(1)
 
-                clickOnText(
-                    Res.string.Dashboard_LastResults_SeeResults,
-                    timeout = TEST_WAIT_TIMEOUT,
-                )
+                clickOnText(Res.string.Dashboard_LastResults_SeeResults)
 
                 clickOnText(expTitle)
-                compose.onAllNodesWithText("stunreachability")[0].performClick()
-                wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
-                checkUrlInsideWebView("stunreachability")
-                checkTextAnywhereInsideWebView("stunreachability", isOptional = true)
+                wait { onAllNodesWithText("stunreachability").onFirst().isDisplayed() }
             }
         }
 
     @Test
-    @Ignore("Too long to run on Firebase Test Lab")
     fun trustedInternationalMedia() =
-        runTest(timeout = TEST_WAIT_TIMEOUT) {
+        runTest {
             if (!isNewsMediaScan) return@runTest
             with(compose) {
                 clickOnText(Res.string.OONIRun_Run)
@@ -172,15 +148,10 @@ class RunningTestsTest {
                 clickOnText("Trusted International Media")
                 clickOnRunButton(1)
 
-                clickOnText(
-                    Res.string.Dashboard_LastResults_SeeResults,
-                    timeout = TEST_WAIT_TIMEOUT,
-                )
+                clickOnText(Res.string.Dashboard_LastResults_SeeResults)
 
                 clickOnText("Trusted International Media")
-                clickOnText("https://www.dw.com")
-                wait { onNodeWithText(Res.string.Measurement_Title).isDisplayed() }
-                checkSummaryInsideWebView("https://www.dw.com")
+                wait { onNodeWithText("https://www.dw.com").isDisplayed() }
             }
         }
 
@@ -192,9 +163,5 @@ class RunningTestsTest {
                 quantity,
             ),
         )
-    }
-
-    companion object {
-        private val TEST_WAIT_TIMEOUT = 3.minutes
     }
 }

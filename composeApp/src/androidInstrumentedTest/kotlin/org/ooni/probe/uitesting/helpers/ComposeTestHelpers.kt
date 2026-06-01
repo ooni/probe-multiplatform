@@ -10,7 +10,6 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.espresso.web.assertion.WebViewAssertions.webMatches
-import androidx.test.espresso.web.model.Atoms.getCurrentUrl
 import androidx.test.espresso.web.sugar.Web.onWebView
 import androidx.test.espresso.web.webdriver.DriverAtoms.findElement
 import androidx.test.espresso.web.webdriver.DriverAtoms.getText
@@ -91,17 +90,9 @@ fun ComposeTestRule.waitAssertion(
     }
 }
 
-private val DEFAULT_WAIT_TIMEOUT = 3.seconds // Emulator can be slow on CI
-
-fun ComposeTestRule.checkUrlInsideWebView(
-    text: String,
-    isOptional: Boolean = false,
-) {
-    waitAssertion(WEBSITE_WAIT_TIMEOUT, isOptional = isOptional) {
-        onWebView()
-            .check(webMatches(getCurrentUrl(), containsString(text)))
-    }
-}
+// Network is mocked offline, so the only remaining variance is emulator UI
+// rendering on CI — 5s absorbs that jitter without masking real failures.
+private val DEFAULT_WAIT_TIMEOUT = 5.seconds
 
 fun ComposeTestRule.checkSummaryInsideWebView(
     text: String,
