@@ -16,7 +16,7 @@ OONI Probe 测试还被设计用来发现可能用于审查和监控的系统（
 您可以通过运行 OONI 的网络诊断测试（NDT）来测量您的网速和性能。您还可以使用基于 HTTP 的动态自适应流媒体（DASH）测试来测量视频流性能。
 
 开放数据
-OONI 发布网络测量数据，是因为开放数据允许第三方验证 OONI 发现、开展独立研究和解答其它研究问题。公开发不的 OONI 数据还可以帮助增加全球网络审查的透明度。您可以在这里探索和下载 OONI 数据：https://ooni.io/data/
+OONI 发布网络测量数据，是因为开放数据允许第三方验证 OONI 研究成果、开展独立研究和解答其它研究问题。公开发不的 OONI 数据还可以帮助增加全球网络审查的透明度。您可以在这里探索和下载 OONI 数据：https://ooni.io/data/
 
 自由软件
 所有 OONI Probe 网络诊断（包括 NDT 和 DASH 实现）都基于自由和开源软件。您可以在 GitHub 上找到 OONI 软件项目：https://github.com/ooni 。想知道 OONI Probe 测试是如何工作的吗？详情请看：https://ooni.io/nettest/

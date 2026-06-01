@@ -10,8 +10,8 @@
     <string name="Dashboard_Running_ProxyInUse">使用中的代理</string>
     <string name="Dashboard_LastResults">上个结果</string>
     <string name="Dashboard_LastResults_SeeResults">查看结果</string>
-    <string name="Dashboard_AutoRun_Enabled"><![CDATA[自动运行已 <i>开启</i>]]></string>
-    <string name="Dashboard_AutoRun_Disabled"><![CDATA[自动运行已 <i>停用</i>]]></string>
+    <string name="Dashboard_AutoRun_Enabled"><![CDATA[自动运行 <i>已启用</i>]]></string>
+    <string name="Dashboard_AutoRun_Disabled"><![CDATA[自动运行 <i>已停用</i>]]></string>
     <string name="Dashboard_TestsMoved_Title">测试</string>
     <string name="Dashboard_TestsMoved_Description">您的测试已移至新标签页，可通过下方导航栏访问。</string>
     <string name="Dashboard_TestsMoved_Action">查看测试</string>
@@ -31,10 +31,10 @@
     </plurals>
     <string name="Dashboard_Stats_Empty">开始运行测试以在此处查看统计数据。</string>
     <string name="Dashboard_Articles_Title">OONI 新闻</string>
-    <string name="Dashboard_Articles_Blog">博文</string>
+    <string name="Dashboard_Articles_Blog">博客文章</string>
     <string name="Dashboard_Articles_Finding">研究成果</string>
     <string name="Dashboard_Articles_Report">报告</string>
-    <string name="Dashboard_Articles_ReadMore">详细了解</string>
+    <string name="Dashboard_Articles_ReadMore">阅读更多</string>
     <string name="Dashboard_Articles_Recent">近期</string>
     <string name="Dashboard_Articles_OpenExternal">在浏览器中打开</string>
     <string name="Dashboard_RunV2_Ooni_Title">OONI 测试</string>
@@ -171,13 +171,13 @@
     <string name="Settings_AutomatedTesting_RunAutomatically_Description">每小时在后台运行测试</string>
     <string name="Settings_Sharing_UploadResults">自动发布结果</string>
     <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
-    <string name="Settings_Websites_MaxRuntimeEnabled">限制网站测试持续时间</string>
+    <string name="Settings_Websites_MaxRuntimeEnabled">限制网站测试时长</string>
     <string name="Settings_Websites_MaxRuntimeEnabled_Description">仅手动运行</string>
     <!-- "Websites" here is capitalized because it refers to the Websites test. The translation should match the one used for the key "Test_Websites_Fullname". -->
-    <string name="Settings_Websites_MaxRuntimeDuration">完整网站测试运行的最长持续时间</string>
+    <string name="Settings_Websites_MaxRuntimeDuration">完整网站测试运行的最长时长</string>
     <string name="Settings_Websites_MaxRuntimeDuration_Unit">输入秒数</string>
     <string name="Settings_Websites_Categories_Label">要测试的网站类别</string>
-    <string name="Settings_Websites_Categories_Description">已启用 %1$s 个分类</string>
+    <string name="Settings_Websites_Categories_Description">%1$s 个类别已启用</string>
     <string name="Settings_Privacy_Label">隐私</string>
     <string name="Settings_Privacy_SendCrashReports">发送崩溃报告</string>
     <string name="Settings_Proxy_Label">OONI 后端代理</string>
@@ -342,7 +342,7 @@
     <string name="DescriptorUpdate_Updates">更新</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">检查更新</string>
-    <string name="AddDescriptor_AutoRunDisabled">自动运行被停用。请启用它来自动运行测试。</string>
+    <string name="AddDescriptor_AutoRunDisabled">自动运行已停用。请启用它来自动运行测试。</string>
     <string name="Descriptor_LastTestResult">上次测试结果</string>
     <string name="Snackbar_ResultsNotUploaded_Text">未上传</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">部分未上传</string>
@@ -366,9 +366,9 @@
     <string name="Modal_ReRun_Title">重新运行测试</string>
     <string name="Modal_ReRun_Websites_Title">您即将重新测试 %1$s 个网站。</string>
     <string name="Modal_ReRun_Websites_Run">运行</string>
-    <string name="Modal_DisableVPN_Title">请关闭您的 VPN 连接。</string>
-    <string name="Modal_DisableVPN_Message">如果您在启用 VPN 的情况下运行 OONI Probe，测试结果将可能显示来自错误的国家/地区。请关闭您的 VPN 连接。</string>
-    <string name="Modal_DisableVPN">禁用 VPN</string>
+    <string name="Modal_DisableVPN_Title">请停用您的 VPN 连接。</string>
+    <string name="Modal_DisableVPN_Message">如果您在启用 VPN 的情况下运行 OONI Probe，测试结果将可能显示来自错误的国家/地区。请停用您的 VPN 连接。</string>
+    <string name="Modal_DisableVPN">停用 VPN</string>
     <string name="Modal_RunAnyway">仍要运行</string>
     <string name="Modal_AlwaysRun">始终运行</string>
     <string name="Modal_Error_CantDownloadURLs">无法下载网址列表。请重试。</string>
@@ -446,5 +446,5 @@
     <string name="Result_Error">测试错误</string>
     <string name="Desktop_ForceQuit">强制退出</string>
     <string name="Settings_RunAtStartup">开机时运行</string>
-    <string name="Settings_RunAtStartup_Description">计算机重启时自动启动程序。如果启动了自动运行这是必需的。</string>
+    <string name="Settings_RunAtStartup_Description">计算机重启时自动启动应用。如果已启用自动运行，则这是必需的。</string>
 </resources>
