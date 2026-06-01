@@ -13,7 +13,7 @@
     <string name="Onboarding_AutomatedTesting_Paragraph">為測量網際網路每日的審查狀況，請開啟自動測試以便讓 OONI Probe 可定期測試。\n\n別憺心，我們會小心注意電池用量。\n\n您也可以隨時關閉自動測試。</string>
     <string name="Onboarding_Crash_Paragraph">為改善 OONI Probe，假若應用程式無法正常運作，我們需要收集匿名的崩潰報告。\n\n您願意向 OONI 開發團隊提供崩潰報告嗎？</string>
     <string name="Settings_About_Label">關於 OONI</string>
-    <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) 是Tor 計畫底下的一個自由軟體專案，旨在增加全球各地網路審查的透明度。\n\n自 2012 起 OONI 全球社群對 200多個國家進行網路測量。這些網路測量一部份成為網路審查的證據。 </string>
+    <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) 是Tor 計畫底下的一個自由軟體專案，旨在增加全球各地網路審查的透明度。\n\n自 2012 起 OONI 全球社群對 200多個國家進行網路測量。這些網路測量一部份成為網路審查的證據。</string>
     <string name="Settings_About_Content_LearnMore">瞭解更多</string>
     <string name="Settings_About_Content_Blog">部落格</string>
     <string name="Settings_About_Content_Reports">回報</string>
