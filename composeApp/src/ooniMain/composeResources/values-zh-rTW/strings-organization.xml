@@ -10,10 +10,10 @@
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe 不是隱私工具，若有人監控你的網路行為，就會察知正在使用哪些軟體。</string>
     <string name="Onboarding_PopQuiz_2_Question">每次執行 OONI Probe，所收集的網路數據會自動地發佈。</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">為提高網路審查的透明度，所有 ONNI Probe 用戶的網路數據會自動公開(除非用戶刻意關閉此設定)</string>
-    <string name="Onboarding_AutomatedTesting_Paragraph">為測量網際網路每日的審查狀況，請開啟自動測試以便讓 OONI Probe 可定期測試。\n\n別憺心，我們會小心注意電池用量。\n\n您也可以隨時關閉自動測試。</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">為了測量每天的網路審查狀況，請啟用自動測試，讓 OONI Probe 可以定期執行測試。\n\n別擔心，我們會留意電池用量。\n\n您隨時可以在設定中關閉自動測試。</string>
     <string name="Onboarding_Crash_Paragraph">為改善 OONI Probe，假若應用程式無法正常運作，我們需要收集匿名的崩潰報告。\n\n您願意向 OONI 開發團隊提供崩潰報告嗎？</string>
     <string name="Settings_About_Label">關於 OONI</string>
-    <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) 是Tor 計畫底下的一個自由軟體專案，旨在增加全球各地網路審查的透明度。\n\n自 2012 起 OONI 全球社群對 200多個國家進行網路測量。這些網路測量一部份成為網路審查的證據。</string>
+    <string name="Settings_About_Content_Paragraph">The Open Observatory of Network Interference (OONI) 是 The Tor Project 旗下的自由軟體專案，旨在提升全球網路審查的透明度。\n\n自 2012 年起，OONI 的全球社群已在超過 200 個國家進行網路測量。其中部分測量成為網路審查的證據。</string>
     <string name="Settings_About_Content_LearnMore">瞭解更多</string>
     <string name="Settings_About_Content_Blog">部落格</string>
     <string name="Settings_About_Content_Reports">回報</string>
@@ -21,4 +21,15 @@
     <string name="Settings_Donate_Title">捐獻</string>
     <string name="Settings_Donate_Action">捐獻</string>
     <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">此後您只能透過建立者傳送的原始連結再次安裝此連結。連結中的測量結果將被刪除，但可在 Explorer 中讀取。</string>
+    <string name="Onboarding_CleanUp_Title">清理</string>
+    <string name="Onboarding_CleanUp_Paragraph">我們偵測到先前安裝殘留的一些檔案。請先清除這些資源再繼續安裝。</string>
+    <string name="Settings_Donate_Heading">立即捐款支持網路自由</string>
+    <string name="Settings_Donate_SubHeading">身為非營利組織，我們仰賴像您這樣的人捐款，為所有人捍衛自由開放的網路。</string>
+    <string name="Settings_Donate_Support_Title">捐款給 OONI，您將支持：</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">用於偵測網路審查的自由及開放原始碼軟體</string>
+    <string name="Settings_Donate_Support_Item_Analysis">對全球網路審查的即時分析</string>
+    <string name="Settings_Donate_Support_Item_OpenData">公開的網路審查資料：支援全球研究與倡議行動</string>
+    <string name="Settings_Donate_Support_Item_Research">對全球審查事件的研究</string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">這將開啟外部瀏覽器視窗</string>
+    <string name="Settings_Donate_Action_Error">開啟捐款頁面時發生錯誤。請前往 %1$s</string>
 </resources>
