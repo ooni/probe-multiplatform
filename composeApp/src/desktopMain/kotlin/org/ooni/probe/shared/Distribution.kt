@@ -21,6 +21,7 @@ enum class Distribution {
     val supportsSelfUpdate: Boolean get() = this == Direct
     val requiresSandbox: Boolean get() = this == MacAppStore
     val isAppStore: Boolean get() = this != Direct
+    val embedsWebView: Boolean get() = this != MacAppStore
 
     val storeLandingUrl: String?
         get() = when (this) {

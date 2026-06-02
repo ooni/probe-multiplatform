@@ -15,7 +15,7 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
-   alias(libs.plugins.javafx) apply false
+    alias(libs.plugins.javafx) apply false
     alias(libs.plugins.sentry)
 
     id("ooni.common")
@@ -34,7 +34,11 @@ val javaFxParts = listOf("base", "graphics", "controls", "media", "web", "swing"
 val javaFxVersion = "26.0.1"
 
 if (dist.bundlesJavaFx) {
-    apply(plugin = libs.plugins.javafx.get().pluginId)
+    apply(
+        plugin = libs.plugins.javafx
+            .get()
+            .pluginId,
+    )
 }
 
 kotlin {
@@ -197,7 +201,7 @@ android {
         targetSdk = libs.versions.android.targetSdk
             .get()
             .toInt()
-        versionCode = 302 // Always increment by 10. See fdroid flavor below
+        versionCode = 310 // Always increment by 10. See fdroid flavor below
         versionName = "6.0.2"
         resValue("string", "app_name", config.appName)
         resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
