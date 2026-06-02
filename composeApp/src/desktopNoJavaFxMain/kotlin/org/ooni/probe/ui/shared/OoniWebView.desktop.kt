@@ -1,31 +1,9 @@
 package org.ooni.probe.ui.shared
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
-import ooniprobe.composeapp.generated.resources.Dashboard_Articles_OpenExternal
-import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.Settings_Donate_Action_Warning_ExternalBrowser
-import org.jetbrains.compose.resources.stringResource
-import org.ooni.probe.data.models.PlatformAction
-import org.ooni.probe.openUrl
-import java.net.URI
-
 internal var ooniWebViewOverride: (
     @Composable (
         controller: OoniWebViewController,
@@ -35,20 +13,6 @@ internal var ooniWebViewOverride: (
     ) -> Unit
 )? = null
 
-/**
- * Mac App Store desktop build of [OoniWebView].
- *
- * The App Store channel ships without JavaFX (its WebView native libraries
- * can't satisfy the hardened-runtime library validation the store enforces),
- * so there is no embedded browser to render. Instead, an [OoniWebViewController.Event.Load]
- * opens the (allow-listed) URL in the user's system browser via the same
- * [openUrl] path used elsewhere on desktop, and the screen shows a short
- * notice with a button to re-open the link.
- *
- * This file references no `javafx.*` symbols, so the App Store classpath
- * never loads a JavaFX class — avoiding `NoClassDefFoundError` even though the
- * JavaFX jars are absent.
- */
 @Composable
 actual fun OoniWebView(
     controller: OoniWebViewController,

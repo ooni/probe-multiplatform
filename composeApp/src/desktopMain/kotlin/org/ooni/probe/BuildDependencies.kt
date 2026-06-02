@@ -57,7 +57,7 @@ internal fun buildDependencies(
     dataStoreFile: File = File(dataDir).resolve("probe.preferences_pb"),
     batteryState: BatteryState = BatteryState.Unknown,
     backgroundWorkManager: BackgroundWorkManager? = null,
-    isWebViewAvailable: () -> Boolean = { true },
+    isWebViewAvailable: () -> Boolean = { Distribution.current.embedsWebView },
     launchAction: (PlatformAction) -> Boolean = ::launchAction,
     legacyDirectoryManager: LegacyDirectoryManager = DesktopLegacyDirectoryManager(platform.os),
     flavorConfig: FlavorConfigInterface = DesktopFlavorConfig(),
