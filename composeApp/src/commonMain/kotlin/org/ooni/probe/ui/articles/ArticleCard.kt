@@ -34,7 +34,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImagePainter
+import coil3.compose.LocalPlatformContext
 import coil3.compose.rememberAsyncImagePainter
+import coil3.compose.rememberConstraintsSizeResolver
+import coil3.request.ImageRequest
 import kotlinx.datetime.LocalDate
 import ooniprobe.composeapp.generated.resources.Dashboard_Articles_Blog
 import ooniprobe.composeapp.generated.resources.Dashboard_Articles_Finding
@@ -110,7 +113,14 @@ fun ArticleCard(
                 )
             }
             article.imageUrl?.let { imageUrl ->
-                val painter = rememberAsyncImagePainter(imageUrl)
+                val sizeResolver = rememberConstraintsSizeResolver()
+                val painter = rememberAsyncImagePainter(
+                    model = ImageRequest
+                        .Builder(LocalPlatformContext.current)
+                        .data(imageUrl)
+                        .size(sizeResolver)
+                        .build(),
+                )
                 val state by painter.state.collectAsStateWithLifecycle()
                 Box(
                     contentAlignment = Alignment.Center,
@@ -129,7 +139,9 @@ fun ArticleCard(
                         painter = painter,
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.matchParentSize(),
+                        modifier = Modifier
+                            .matchParentSize()
+                            .then(sizeResolver),
                     )
                     if (state is AsyncImagePainter.State.Loading) {
                         CircularProgressIndicator(
