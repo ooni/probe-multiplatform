@@ -16,6 +16,9 @@
     <string name="Dashboard_TestsMoved_Title">Tests</string>
     <string name="Dashboard_TestsMoved_Description">Your tests moved to a new tab. You can reach them through the navigation bar below.</string>
     <string name="Dashboard_TestsMoved_Action">See tests</string>
+    <string name="Dashboard_UpdatePrompt_Title">Update required</string>
+    <string name="Dashboard_UpdatePrompt_Description">A newer version of the app is required to keep submitting measurements. Please update to continue.</string>
+    <string name="Dashboard_UpdatePrompt_Action">Update</string>
     <string name="Dashboard_RunTests_Title">Run tests</string>
     <string name="Dashboard_RunTests_Description">Select the tests to run</string>
     <string name="Dashboard_RunTests_SelectAll">Select all tests</string>
@@ -178,6 +181,9 @@
     <string name="Measurements_Failed">Failed</string>
     <string name="Measurements_Ok">OK</string>
     <string name="Measurements_Anomaly">Anomaly</string>
+    <string name="Measurements_Verification_Verified">Probe authenticated</string>
+    <string name="Measurements_Verification_Failed">Probe authentication failed</string>
+    <string name="Measurements_Verification_Unverified">Probe not authenticated</string>
     <plurals name="Measurements_Count">
         <item quantity="one">%1$d measured</item>
         <item quantity="other">%1$d measured</item>

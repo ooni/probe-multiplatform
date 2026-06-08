@@ -47,6 +47,9 @@ import ooniprobe.composeapp.generated.resources.Dashboard_AutoRun_Enabled
 import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Action
 import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Description
 import ooniprobe.composeapp.generated.resources.Dashboard_TestsMoved_Title
+import ooniprobe.composeapp.generated.resources.Dashboard_UpdatePrompt_Action
+import ooniprobe.composeapp.generated.resources.Dashboard_UpdatePrompt_Description
+import ooniprobe.composeapp.generated.resources.Dashboard_UpdatePrompt_Title
 import ooniprobe.composeapp.generated.resources.Modal_DisableVPN_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.app_name
@@ -131,6 +134,10 @@ fun DashboardScreen(
                     .padding(bottom = 16.dp)
                     .fillMaxSize(),
             ) {
+                if (state.updateRequired) {
+                    UpdateRequiredBanner(onEvent)
+                }
+
                 if (state.showVpnWarning) {
                     VpnWarning()
                 }
@@ -265,6 +272,35 @@ private fun TestsMoved(onEvent: (DashboardViewModel.Event) -> Unit) {
             }
         },
         icon = painterResource(Res.drawable.ic_tests),
+    )
+}
+
+@Composable
+private fun UpdateRequiredBanner(onEvent: (DashboardViewModel.Event) -> Unit) {
+    DashboardCard(
+        title = {
+            Text(
+                stringResource(Res.string.Dashboard_UpdatePrompt_Title),
+                style = MaterialTheme.typography.cardTitle,
+            )
+        },
+        content = {
+            Text(stringResource(Res.string.Dashboard_UpdatePrompt_Description))
+        },
+        startActions = {
+            TextButton(onClick = { onEvent(DashboardViewModel.Event.UpdateDismissed) }) {
+                Text(
+                    stringResource(Res.string.Common_Dismiss),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.66f),
+                )
+            }
+        },
+        endActions = {
+            TextButton(onClick = { onEvent(DashboardViewModel.Event.UpdateClicked) }) {
+                Text(stringResource(Res.string.Dashboard_UpdatePrompt_Action))
+            }
+        },
+        icon = painterResource(Res.drawable.ic_warning),
     )
 }
 

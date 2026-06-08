@@ -76,6 +76,7 @@ import org.ooni.probe.domain.ObserveAndConfigureAutoRun
 import org.ooni.probe.domain.ObserveAndConfigureAutoUpdate
 import org.ooni.probe.domain.ObserveAndConfigureRunAtStartup
 import org.ooni.probe.domain.RunBackgroundStateManager
+import org.ooni.probe.domain.UpdateRequiredStateManager
 import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
 import org.ooni.probe.domain.SendSupportEmail
@@ -648,6 +649,7 @@ class Dependencies(
         )
     }
     val runBackgroundStateManager by lazy { RunBackgroundStateManager() }
+    val updateRequiredStateManager by lazy { UpdateRequiredStateManager() }
     private val undoRejectedDescriptorUpdate by lazy {
         UndoRejectedDescriptorUpdate(
             updateDescriptorRejectedRevision = testDescriptorRepository::updateRejectedRevision,
@@ -688,9 +690,7 @@ class Dependencies(
         HandleSubmitOutcome(
             retrieveManifest = { retrieveManifest() },
             clearCredential = clearCredential,
-            // TODO: surface an "update required" prompt to the user when the passport server
-            //  reports a too-old/incompatible protocol version (follow-up issue to be filed).
-            signalUpdateRequired = {},
+            signalUpdateRequired = updateRequiredStateManager::signalUpdateRequired,
         )
     }
     private val submitMeasurementWithUser by lazy {
@@ -744,6 +744,8 @@ class Dependencies(
     }
 
     // ViewModels
+
+    fun launchUpdateAction(): Boolean = OrganizationConfig.installUrl?.let { launchAction(PlatformAction.OpenUrl(it)) } ?: false
 
     fun aboutViewModel(onBack: () -> Unit) =
         AboutViewModel(onBack = onBack, launchUrl = {
@@ -834,6 +836,9 @@ class Dependencies(
         getFirstRun = getFirstRun::invoke,
         observeRunBackgroundState = runBackgroundStateManager::observeState,
         observeTestRunErrors = runBackgroundStateManager::observeErrors,
+        observeUpdateRequired = updateRequiredStateManager::observeUpdateRequired,
+        onUpdateClicked = ::launchUpdateAction,
+        dismissUpdateRequired = updateRequiredStateManager::dismiss,
         shouldShowVpnWarning = shouldShowVpnWarning::invoke,
         getAutoRunSettings = getAutoRunSettings::invoke,
         getLastRun = getLastRun::invoke,

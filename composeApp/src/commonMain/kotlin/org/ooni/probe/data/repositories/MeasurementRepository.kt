@@ -11,6 +11,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.TestKeys
 import org.ooni.engine.models.TestType
+import org.ooni.passport.models.VerificationStatus
 import org.ooni.probe.Database
 import org.ooni.probe.data.GetById
 import org.ooni.probe.data.Measurement
@@ -131,6 +132,7 @@ class MeasurementRepository(
                     rerun_network = model.rerunNetwork,
                     url_id = model.urlId?.value,
                     result_id = model.resultId.value,
+                    verification_status = model.verificationStatus?.name,
                 )
 
                 model.id ?: MeasurementModel.Id(
@@ -173,6 +175,7 @@ class MeasurementRepository(
             uid = uid?.let(MeasurementModel::Uid),
             testKeys = test_keys,
             rerunNetwork = rerun_network,
+            verificationStatus = verification_status?.let(::decodeVerificationStatus),
             urlId = url_id?.let(UrlModel::Id),
             resultId = result_id?.let(ResultModel::Id) ?: return null,
         )
@@ -199,6 +202,7 @@ class MeasurementRepository(
                 rerun_network = rerun_network,
                 url_id = url_id,
                 result_id = result_id,
+                verification_status = verification_status,
             ).toModel() ?: return null,
             url = id_?.let { urlId ->
                 Url(
@@ -232,6 +236,7 @@ class MeasurementRepository(
                 rerun_network = rerun_network,
                 url_id = url_id,
                 result_id = result_id,
+                verification_status = verification_status,
             ).toModel() ?: return null,
             url = id_?.let { urlId ->
                 Url(
@@ -265,6 +270,7 @@ class MeasurementRepository(
                 rerun_network = rerun_network,
                 url_id = url_id,
                 result_id = result_id,
+                verification_status = verification_status,
             ).toModel() ?: return null,
             url = Url(
                 id = url_id ?: return null,
@@ -296,6 +302,8 @@ class MeasurementRepository(
             descriptorRunId = descriptor_runId?.let(Descriptor::Id),
         )
     }
+
+    private fun decodeVerificationStatus(value: String): VerificationStatus? = runCatching { VerificationStatus.valueOf(value) }.getOrNull()
 
     private fun decodeTestKeys(value: String): TestKeys? {
         if (value == "null") return null // Due to a past bug
