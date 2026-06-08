@@ -4,6 +4,7 @@ import kotlinx.datetime.LocalDateTime
 import okio.Path
 import okio.Path.Companion.toPath
 import org.ooni.engine.models.TestType
+import org.ooni.passport.models.VerificationStatus
 import org.ooni.probe.shared.now
 
 data class MeasurementModel(
@@ -23,6 +24,7 @@ data class MeasurementModel(
     val uid: Uid? = null,
     val testKeys: String? = null,
     val rerunNetwork: String? = null,
+    val verificationStatus: VerificationStatus? = null,
     val urlId: UrlModel.Id?,
     val resultId: ResultModel.Id,
 ) {

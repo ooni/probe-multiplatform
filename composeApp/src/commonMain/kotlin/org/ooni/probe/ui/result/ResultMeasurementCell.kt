@@ -24,6 +24,9 @@ import ooniprobe.composeapp.generated.resources.Common_Expand
 import ooniprobe.composeapp.generated.resources.Measurements_Anomaly
 import ooniprobe.composeapp.generated.resources.Measurements_Failed
 import ooniprobe.composeapp.generated.resources.Measurements_Ok
+import ooniprobe.composeapp.generated.resources.Measurements_Verification_Failed
+import ooniprobe.composeapp.generated.resources.Measurements_Verification_Unverified
+import ooniprobe.composeapp.generated.resources.Measurements_Verification_Verified
 import ooniprobe.composeapp.generated.resources.Modal_UploadFailed_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Snackbar_ResultsNotUploaded_Text
@@ -33,10 +36,15 @@ import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_up
 import ooniprobe.composeapp.generated.resources.ic_measurement_anomaly
 import ooniprobe.composeapp.generated.resources.ic_measurement_failed
 import ooniprobe.composeapp.generated.resources.ic_measurement_ok
+import ooniprobe.composeapp.generated.resources.ic_shield
+import ooniprobe.composeapp.generated.resources.ic_shield_check
+import ooniprobe.composeapp.generated.resources.ic_shield_warning
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
+import org.ooni.passport.models.VerificationStatus
 import org.ooni.probe.data.models.MeasurementWithUrl
+import org.ooni.probe.ui.theme.LocalCustomColors
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
 
 @Composable
@@ -75,6 +83,31 @@ fun ResultMeasurementCell(
                     MaterialTheme.colorScheme.error
                 } else {
                     LocalContentColor.current
+                },
+                modifier = Modifier.padding(end = 16.dp).size(24.dp),
+            )
+        }
+        val verificationStatus = measurement.verificationStatus
+        if (verificationStatus != null && verificationStatus != VerificationStatus.Unknown) {
+            Icon(
+                painterResource(
+                    when (verificationStatus) {
+                        VerificationStatus.Verified -> Res.drawable.ic_shield_check
+                        VerificationStatus.Failed -> Res.drawable.ic_shield_warning
+                        else -> Res.drawable.ic_shield
+                    },
+                ),
+                contentDescription = stringResource(
+                    when (verificationStatus) {
+                        VerificationStatus.Verified -> Res.string.Measurements_Verification_Verified
+                        VerificationStatus.Failed -> Res.string.Measurements_Verification_Failed
+                        else -> Res.string.Measurements_Verification_Unverified
+                    },
+                ),
+                tint = when (verificationStatus) {
+                    VerificationStatus.Verified -> LocalCustomColors.current.success
+                    VerificationStatus.Failed -> MaterialTheme.colorScheme.error
+                    else -> MaterialTheme.colorScheme.onSurfaceVariant
                 },
                 modifier = Modifier.padding(end = 16.dp).size(24.dp),
             )

@@ -3,6 +3,7 @@ package org.ooni.probe.data.repositories
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.ooni.passport.models.VerificationStatus
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.di.Dependencies
@@ -93,6 +94,19 @@ class MeasurementRepositoryTest {
             subject.deleteById(modelId)
 
             assertEquals(0, subject.list().first().size)
+        }
+
+    @Test
+    fun verificationStatus_roundTrips() =
+        runTest {
+            val model = MeasurementModelFactory
+                .build(id = MeasurementModel.Id(Random.nextLong().absoluteValue))
+                .copy(verificationStatus = VerificationStatus.Verified)
+
+            subject.createOrUpdate(model)
+            val stored = subject.list().first().first()
+
+            assertEquals(VerificationStatus.Verified, stored.verificationStatus)
         }
 
     @Test

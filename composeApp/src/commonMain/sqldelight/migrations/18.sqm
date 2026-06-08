@@ -1,0 +1,1 @@
+ALTER TABLE Measurement ADD COLUMN verification_status TEXT;

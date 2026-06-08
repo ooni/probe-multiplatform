@@ -37,6 +37,9 @@ class DashboardViewModel(
     getFirstRun: () -> Flow<Boolean>,
     observeRunBackgroundState: () -> Flow<RunBackgroundState>,
     observeTestRunErrors: () -> Flow<TestRunError>,
+    observeUpdateRequired: () -> Flow<Boolean>,
+    onUpdateClicked: () -> Unit,
+    dismissUpdateRequired: () -> Unit,
     shouldShowVpnWarning: suspend () -> Boolean,
     getAutoRunSettings: () -> Flow<AutoRunParameters>,
     getLastRun: () -> Flow<RunSummary?>,
@@ -87,6 +90,21 @@ class DashboardViewModel(
             .onEach { error ->
                 _state.update { it.copy(testRunErrors = it.testRunErrors + error) }
             }.launchIn(viewModelScope)
+
+        observeUpdateRequired()
+            .onEach { updateRequired ->
+                _state.update { it.copy(updateRequired = updateRequired) }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.UpdateClicked>()
+            .onEach { onUpdateClicked() }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.UpdateDismissed>()
+            .onEach { dismissUpdateRequired() }
+            .launchIn(viewModelScope)
 
         getLastRun()
             .onEach { run ->
@@ -207,6 +225,7 @@ class DashboardViewModel(
         val lastRun: RunSummary? = null,
         val showIgnoreBatteryOptimizationNotice: Boolean = false,
         val showTestsMovedNotice: Boolean = false,
+        val updateRequired: Boolean = false,
     )
 
     sealed interface Event {
@@ -241,6 +260,10 @@ class DashboardViewModel(
         data object IgnoreBatteryOptimizationAccepted : Event
 
         data object IgnoreBatteryOptimizationDismissed : Event
+
+        data object UpdateClicked : Event
+
+        data object UpdateDismissed : Event
     }
 
     companion object {
