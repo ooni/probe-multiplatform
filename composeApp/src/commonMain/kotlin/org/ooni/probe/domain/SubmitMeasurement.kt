@@ -54,13 +54,13 @@ class SubmitMeasurement(
         return when (result) {
             is Success -> {
                 handleSubmitOutcome(result.value.verificationStatus, result.value.submitError)
-                // TODO: persist result.value.verificationStatus on the measurement so it can be
-                //  surfaced in the UI later (follow-up issue to be filed).
                 val newMeasurement = measurement.copy(
                     isUploaded = true,
                     isUploadFailed = false,
                     uploadFailureMessage = null,
                     uid = result.value.uid,
+                    verificationStatus = result.value.verificationStatus
+                        .takeIf { it != VerificationStatus.Unknown },
                 )
                 updateMeasurement(newMeasurement)
                 Logger.i { "Measurement Submission successful: ${newMeasurement.uid}" }

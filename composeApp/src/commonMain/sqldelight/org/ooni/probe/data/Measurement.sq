@@ -17,6 +17,7 @@ CREATE TABLE Measurement(
     url_id INTEGER,
     result_id INTEGER,
     rerun_network TEXT,
+    verification_status TEXT,
     FOREIGN KEY(`url_id`) REFERENCES Url(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION,
     FOREIGN KEY(`result_id`) REFERENCES Result(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
@@ -43,8 +44,9 @@ INSERT OR REPLACE INTO Measurement (
     test_keys,
     url_id,
     result_id,
-    rerun_network
-) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+    rerun_network,
+    verification_status
+) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 deleteAll:
 DELETE FROM Measurement;
