@@ -14,7 +14,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -33,6 +35,7 @@ import org.ooni.probe.ui.navigation.Navigation
 import org.ooni.probe.ui.navigation.Screen
 import org.ooni.probe.ui.shared.ClipboardActions
 import org.ooni.probe.ui.shared.LocalClipboardActions
+import org.ooni.probe.ui.shared.UpdateRequiredDialog
 import org.ooni.probe.ui.theme.AppTheme
 
 @Composable
@@ -95,6 +98,20 @@ fun App(
                         )
                     }
                 }
+            }
+
+            val updateRequired by dependencies.updateRequiredStateManager
+                .observeUpdateRequired()
+                .collectAsState()
+            var updateDialogShown by remember { mutableStateOf(false) }
+            if (updateRequired && !updateDialogShown) {
+                UpdateRequiredDialog(
+                    onUpdate = {
+                        updateDialogShown = true
+                        dependencies.launchUpdateAction()
+                    },
+                    onDismiss = { updateDialogShown = true },
+                )
             }
         }
     }
