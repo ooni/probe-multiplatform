@@ -33,7 +33,7 @@ class GetRSSFeed(
                 if (response.isNullOrBlank()) return@flatMap Failure(Exception("Empty response"))
 
                 val rss = try {
-                    Xml.decodeFromString<Rss>(response)
+                    xml().decodeFromString<Rss>(response)
                 } catch (e: Exception) {
                     return@flatMap Failure(e)
                 }
@@ -76,13 +76,12 @@ class GetRSSFeed(
             ).toLocalDateTime()
 
     companion object Companion {
-        private val Xml by lazy {
+        private fun xml() =
             XML {
                 defaultPolicy {
                     ignoreUnknownChildren()
                 }
             }
-        }
     }
 
     @Serializable
