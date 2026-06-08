@@ -31,7 +31,6 @@ class SubmitMeasurementTest {
             val subject = buildSubject(
                 responseData = SubmitMeasurement.ResponseData(
                     uid = MeasurementModel.Uid("uid"),
-                    reportId = MeasurementModel.ReportId("rid"),
                     verificationStatus = VerificationStatus.Verified,
                 ),
                 onUpdate = { updated = it },
@@ -50,7 +49,6 @@ class SubmitMeasurementTest {
             val subject = buildSubject(
                 responseData = SubmitMeasurement.ResponseData(
                     uid = MeasurementModel.Uid("uid"),
-                    reportId = MeasurementModel.ReportId("rid"),
                     verificationStatus = VerificationStatus.Unknown,
                 ),
                 onUpdate = { updated = it },
