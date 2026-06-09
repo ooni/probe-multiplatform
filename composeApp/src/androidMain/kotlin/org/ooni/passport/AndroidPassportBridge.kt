@@ -25,6 +25,8 @@ class AndroidPassportBridge : PassportBridge {
             Success(response.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
+        } catch (e: Throwable) {
+            Failure(PassportException.Other(e.message))
         }
 
     override fun post(
@@ -41,6 +43,8 @@ class AndroidPassportBridge : PassportBridge {
             Success(response.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
+        } catch (e: Throwable) {
+            Failure(PassportException.Other(e.message))
         }
 
     override fun userAuthRegister(
@@ -53,6 +57,8 @@ class AndroidPassportBridge : PassportBridge {
             Success(result.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
+        } catch (e: Throwable) {
+            Failure(PassportException.Other(e.message))
         }
 
     override fun userAuthSubmit(
@@ -73,6 +79,8 @@ class AndroidPassportBridge : PassportBridge {
             Success(result.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
+        } catch (e: Throwable) {
+            Failure(PassportException.Other(e.message))
         }
 
     override fun getProbeId(
@@ -85,6 +93,8 @@ class AndroidPassportBridge : PassportBridge {
             Success(result.probeId)
         } catch (e: OoniException) {
             Failure(e.toPassport())
+        } catch (e: Throwable) {
+            Failure(PassportException.Other(e.message))
         }
 }
 

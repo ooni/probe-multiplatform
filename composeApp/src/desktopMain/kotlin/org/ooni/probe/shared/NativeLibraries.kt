@@ -134,7 +134,31 @@ private val javafxLibrary = BundledNativeLibrary(
     },
 )
 
-private val bundledNativeLibraries = listOf(jnaLibrary, sqliteLibrary, goJniLibrary, javafxLibrary)
+/**
+ * UniFFI-generated Kotlin in `passport-macos` calls
+ * `Native.load("uniffi_ooniprobe", …)` on its `UniffiLib` class-init, which
+ * normally extracts `libuniffi_ooniprobe.dylib` from the jar at first use.
+ * The `jna.nounpack=true` toggle set by [jnaLibrary] disables that
+ * extraction, so the load fails with a dlopen "no such file" trace unless
+ * the dylib is on `jna.library.path`. We prepend the bundled, codesigned
+ * dir; JNA honours `jna.library.path` even with `nounpack=true`.
+ */
+private val passportLibrary = BundledNativeLibrary(
+    dirName = "passport",
+    fileName = "libuniffi_ooniprobe.dylib",
+    onResolved = { dir, _ ->
+        val sep = File.pathSeparator
+        val existing = System.getProperty("jna.library.path").orEmpty()
+        if (dir.absolutePath !in existing.split(sep)) {
+            System.setProperty(
+                "jna.library.path",
+                if (existing.isEmpty()) dir.absolutePath else "${dir.absolutePath}$sep$existing",
+            )
+        }
+    },
+)
+
+private val bundledNativeLibraries = listOf(jnaLibrary, sqliteLibrary, goJniLibrary, javafxLibrary, passportLibrary)
 
 /**
  * Points each native-library loader at its bundled, codesigned copy so the
