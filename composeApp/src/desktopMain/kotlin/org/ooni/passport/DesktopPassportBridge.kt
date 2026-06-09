@@ -31,6 +31,8 @@ class DesktopPassportBridge : PassportBridge {
             Success(response.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
+        } catch (e: Throwable) {
+            Failure(PassportException.Other(e.message))
         }
 
     override fun post(
@@ -47,6 +49,8 @@ class DesktopPassportBridge : PassportBridge {
             Success(response.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
+        } catch (e: Throwable) {
+            Failure(PassportException.Other(e.message))
         }
 
     override fun userAuthRegister(
@@ -59,6 +63,8 @@ class DesktopPassportBridge : PassportBridge {
             Success(result.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
+        } catch (e: Throwable) {
+            Failure(PassportException.Other(e.message))
         }
 
     override fun userAuthSubmit(
@@ -79,6 +85,8 @@ class DesktopPassportBridge : PassportBridge {
             Success(result.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
+        } catch (e: Throwable) {
+            Failure(PassportException.Other(e.message))
         }
 
     override fun getProbeId(
@@ -91,6 +99,8 @@ class DesktopPassportBridge : PassportBridge {
             Success(result.probeId)
         } catch (e: OoniException) {
             Failure(e.toPassport())
+        } catch (e: Throwable) {
+            Failure(PassportException.Other(e.message))
         }
 }
 
