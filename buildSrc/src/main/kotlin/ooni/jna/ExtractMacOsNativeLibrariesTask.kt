@@ -159,6 +159,22 @@ abstract class ExtractMacOsNativeLibrariesTask : DefaultTask() {
                 ),
                 required = false,
             ),
+            // passport (UniFFI) — UniFFI-generated Kotlin calls
+            // `Native.load("uniffi_ooniprobe", …)`, which normally extracts
+            // the dylib from the jar at first use. The `jna.nounpack=true`
+            // toggle set for App Store signing disables that extraction, so
+            // the dylib must be staged into the bundle and surfaced via
+            // `jna.library.path`. As of 0.1.1 only an aarch64 dylib ships;
+            // the x86_64 entry is left in place so it stages automatically
+            // once the upstream jar adds it.
+            Plan(
+                jarPattern = Regex("""^passport-macos-.*\.jar$"""),
+                entries = listOf(
+                    "darwin-aarch64/libuniffi_ooniprobe.dylib" to "passport/darwin-aarch64/libuniffi_ooniprobe.dylib",
+                    "darwin-x86-64/libuniffi_ooniprobe.dylib" to "passport/darwin-x86-64/libuniffi_ooniprobe.dylib",
+                ),
+                required = false,
+            ),
             // JavaFX (OpenJFX) darwin natives — Prism (incl. libprism_es2),
             // Glass, fonts, iio, media and WebKit. Like gojni these jars are
             // only on the classpath for the host macOS classifier
