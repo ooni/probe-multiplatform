@@ -140,7 +140,7 @@ kotlin {
                 }
 
                 implementation("org.ooni:oonimkall:c52ce3b5-${oonimkallVersionSuffix()}")
-                implementation("org.ooni:passport-${passportDependencySuffix()}:0.1.1")
+                implementation("org.ooni:passport-${passportDependencySuffix()}:bbb01b4e")
             }
         }
         // Testing
@@ -459,7 +459,7 @@ compose.desktop {
             val appId = "org.ooni.probe-desktop"
 
             macOS {
-                minimumSystemVersion = "14.8.3"
+                minimumSystemVersion = "12.0.0"
                 bundleID = appId
                 val macDir = if (dist.requiresSandbox) "macos/appstore" else "macos/direct"
                 entitlementsFile.set(project.file("$macDir/entitlements.plist"))
