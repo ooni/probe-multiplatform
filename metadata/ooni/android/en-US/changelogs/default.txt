@@ -1,4 +1,3 @@
 * Measurement engine is OONI Probe CLI v3.29.0
-* Cleaner UI for results with errors
-* Updated translations (Japanese, Greek, Portuguese, German, Chinese)
+* Add support for anonymous credentials
 * Bug fixes and improvements
