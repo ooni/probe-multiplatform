@@ -20,14 +20,10 @@ import org.ooni.engine.models.TaskSettings
  * underscores removed) so the measurement-detail Explorer URL contains the
  * test name, satisfying `checkUrlInsideWebView(...)` without any network.
  *
- * `checkIn`, `httpDo` and `submitMeasurement` are backed by overridable
+ * `httpDo` and `submitMeasurement` are backed by overridable
  * lambdas with safe, network-free defaults.
  */
 class MockOonimkallBridge : OonimkallBridge {
-    var checkIn: (OonimkallBridge.CheckInConfig) -> OonimkallBridge.CheckInResults = {
-        OonimkallBridge.CheckInResults(reportId = null, urls = emptyList())
-    }
-
     var httpDo: (OonimkallBridge.HTTPRequest) -> OonimkallBridge.HTTPResponse = {
         // Inert default; tests that exercise descriptor fetch override this
         // via setupMockedEngine { httpDo = ... }.
@@ -116,8 +112,6 @@ class MockOonimkallBridge : OonimkallBridge {
 
     inner class Session : OonimkallBridge.Session {
         override fun submitMeasurement(measurement: String) = this@MockOonimkallBridge.submitMeasurement(measurement)
-
-        override fun checkIn(config: OonimkallBridge.CheckInConfig) = this@MockOonimkallBridge.checkIn(config)
 
         override fun httpDo(request: OonimkallBridge.HTTPRequest) = this@MockOonimkallBridge.httpDo(request)
 

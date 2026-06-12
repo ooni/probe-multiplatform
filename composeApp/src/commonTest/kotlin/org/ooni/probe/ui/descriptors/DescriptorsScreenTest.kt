@@ -2,7 +2,7 @@ package org.ooni.probe.ui.descriptors
 
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.runComposeUiTest
+import androidx.compose.ui.test.v2.runComposeUiTest
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner

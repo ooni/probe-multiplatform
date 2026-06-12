@@ -6,12 +6,12 @@ package org.ooni.probe.uitesting.helpers
  *
  * Call this from a test's `@Before` (after `skipOnboarding()`, before
  * `start()`/triggering a run). It is scoped per-test on purpose: only the
- * tests that exercise `checkIn`/measurement runs install the mock, so other
+ * tests that exercise measurement runs install the mock, so other
  * instrumented tests keep the real engine and their normal behaviour
  * (articles, GeoIP, screenshots).
  *
- * `checkIn` and `startTask` are mocked here because those are the slow,
- * network-bound paths triggered when a measurement run starts (via
+ * `startTask` is mocked here because it is the slow,
+ * network-bound path triggered when a measurement run starts (via
  * `RunDescriptors`, inside the test body — never during bootstrap).
  *
  * Usage:
