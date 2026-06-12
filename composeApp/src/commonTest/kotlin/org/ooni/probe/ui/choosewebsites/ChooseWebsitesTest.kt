@@ -12,7 +12,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTextReplacement
-import androidx.compose.ui.test.runComposeUiTest
+import androidx.compose.ui.test.v2.runComposeUiTest
 import kotlinx.coroutines.flow.flowOf
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType

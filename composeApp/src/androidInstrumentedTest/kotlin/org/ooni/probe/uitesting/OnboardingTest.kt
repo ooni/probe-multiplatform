@@ -1,7 +1,7 @@
 package org.ooni.probe.uitesting
 
 import androidx.compose.ui.test.isDisplayed
-import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

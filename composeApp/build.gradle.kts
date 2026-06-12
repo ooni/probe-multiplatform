@@ -89,7 +89,7 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.bundles.android)
             implementation(libs.bundles.mobile)
-            implementation("net.java.dev.jna:jna:5.19.0@aar")
+            implementation("net.java.dev.jna:jna:5.18.1@aar")
             implementation("org.ooni:passport-android:0.1.1:@aar")
         }
         commonMain {
@@ -178,8 +178,6 @@ kotlin {
     compilerOptions {
         // Common compiler options applied to all Kotlin source sets
         freeCompilerArgs.add("-Xexpect-actual-classes")
-        // Switch to future default rule: https://youtrack.jetbrains.com/issue/KT-73255
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
     }
 }
 

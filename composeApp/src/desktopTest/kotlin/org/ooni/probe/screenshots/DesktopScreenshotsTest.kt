@@ -7,7 +7,7 @@ import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.onRoot
-import androidx.compose.ui.test.runDesktopComposeUiTest
+import androidx.compose.ui.test.v2.runDesktopComposeUiTest
 import androidx.compose.ui.unit.Density
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
