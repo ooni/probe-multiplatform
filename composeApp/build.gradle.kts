@@ -140,7 +140,7 @@ kotlin {
                 }
 
                 implementation("org.ooni:oonimkall:c52ce3b5-${oonimkallVersionSuffix()}")
-                implementation("org.ooni:passport-${passportDependencySuffix()}:0.1.1")
+                implementation("org.ooni:passport-${passportDependencySuffix()}:0.1.2")
             }
         }
         // Testing
