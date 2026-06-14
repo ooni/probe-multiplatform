@@ -446,4 +446,5 @@
     <string name="Measurements_Verification_Verified">Probe は認証されています</string>
     <string name="Measurements_Verification_Failed">Probe の認証に失敗しました</string>
     <string name="Measurements_Verification_Unverified">Probe は認証されていません</string>
+    <string name="Dashboard_UpdatePrompt_Action">更新</string>
 </resources>
