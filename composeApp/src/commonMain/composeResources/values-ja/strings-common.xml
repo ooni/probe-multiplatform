@@ -440,4 +440,10 @@
     <string name="Desktop_ForceQuit">強制終了</string>
     <string name="Settings_RunAtStartup">起動時に実行する</string>
     <string name="Settings_RunAtStartup_Description">コンピューターの再起動時にアプリを自動的に起動します。これは、自動実行が有効になっている場合に必要です。</string>
+    <string name="Dashboard_Running_Preparing_Notice">バックグラウンド実行の準備中…</string>
+    <string name="Dashboard_UpdatePrompt_Title">更新が必要です</string>
+    <string name="Dashboard_UpdatePrompt_Description">計測データを送信するには、アプリの新しいバージョンが必要です。引き続きご利用いただくには、アップデートしてください。</string>
+    <string name="Measurements_Verification_Verified">Probe は認証されています</string>
+    <string name="Measurements_Verification_Failed">Probe の認証に失敗しました</string>
+    <string name="Measurements_Verification_Unverified">Probe は認証されていません</string>
 </resources>
