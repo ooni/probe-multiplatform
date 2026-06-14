@@ -6,7 +6,7 @@
     <string name="Onboarding_ThingsToKnow_Bullet_1">包含您的网络信息的 OONI 数据将被公开发布。</string>
     <string name="Onboarding_ThingsToKnow_Bullet_2">监控您的网络活动的实体（例如政府或运营商）都会知道您在运行 OONI Probe。</string>
     <string name="Onboarding_ThingsToKnow_Bullet_3">您可能想测试被禁止的网站（由您决定测试哪些网站）。</string>
-    <string name="Onboarding_PopQuiz_1_Question">如果有人在监控我的网络活动，他们将会知道我在运行 OONI Probe。</string>
+    <string name="Onboarding_PopQuiz_1_Question">如果有人在监控我的互联网活动，他们将会知道我在运行 OONI Probe。</string>
     <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe 不是隐私工具。任何监控您的网络活动的实体都能知道您在运行何种软件。</string>
     <string name="Onboarding_PopQuiz_2_Question">每当我运行 OONI Probe，我收集的网络数据都将会被自动发布。</string>
     <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">为提升网络审查的透明度，所有 OONI Probe 用户的网络数据都将自动发布（除非在设置中选择退出）。</string>
@@ -26,7 +26,7 @@
     <string name="Settings_Donate_Support_Title">通过向 OONI 捐款，您支持：</string>
     <string name="Settings_Donate_Support_Item_OpenSource">用于检测互联网审查的自由及开放源代码软件</string>
     <string name="Settings_Donate_Support_Item_Analysis">世界各地互联网审查的实时分析</string>
-    <string name="Settings_Donate_Support_Item_OpenData">开放互联网审查数据——支持全球研究和倡导工作</string>
+    <string name="Settings_Donate_Support_Item_OpenData">关于互联网审查的开放数据——支持全球研究和倡导工作</string>
     <string name="Settings_Donate_Support_Item_Research">对全球审查事件的研究</string>
     <string name="Settings_Donate_Action">捐款</string>
     <string name="Settings_Donate_Action_Warning_ExternalBrowser">这将打开外部浏览器窗口</string>
