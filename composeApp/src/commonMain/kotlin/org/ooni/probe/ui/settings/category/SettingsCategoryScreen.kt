@@ -53,6 +53,7 @@ import org.ooni.probe.ui.shared.IgnoreBatteryOptimizationDialog
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
+import org.ooni.probe.ui.shared.applyIf
 
 @Composable
 fun SettingsCategoryScreen(
@@ -259,13 +260,7 @@ fun NumberPickerItem(
         supportingContent = supportingContent,
         modifier = Modifier
             .alpha(if (enabled) 1f else 0.5f)
-            .run {
-                if (enabled) {
-                    clickable { showDialog = true }
-                } else {
-                    this
-                }
-            },
+            .applyIf(enabled) { clickable { showDialog = true } },
     )
 
     if (showDialog) {

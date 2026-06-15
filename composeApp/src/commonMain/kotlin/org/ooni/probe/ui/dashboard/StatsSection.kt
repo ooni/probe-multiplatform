@@ -39,6 +39,7 @@ import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.MeasurementStats
 import org.ooni.probe.shared.largeNumberShort
+import org.ooni.probe.ui.shared.applyIf
 import org.ooni.probe.ui.theme.AppTheme
 import org.ooni.probe.ui.theme.dashboardSectionTitle
 
@@ -111,12 +112,8 @@ fun ColumnScope.StatsSection(stats: MeasurementStats?) {
                     countriesCount,
                 ),
                 countriesCount,
-                modifier = Modifier.run {
-                    if (countriesCount > 0) {
-                        clickable { showCountriesDialog = true }
-                    } else {
-                        this
-                    }
+                modifier = Modifier.applyIf(countriesCount > 0) {
+                    clickable { showCountriesDialog = true }
                 },
             )
         }

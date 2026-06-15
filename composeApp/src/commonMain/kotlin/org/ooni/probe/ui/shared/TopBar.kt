@@ -18,8 +18,7 @@ fun TopBar(
 ) {
     TopAppBar(
         title = title,
-        modifier = modifier
-            .run { if (isHeightCompact()) heightIn(max = 72.dp) else this },
+        modifier = modifier.applyIf(isHeightCompact()) { heightIn(max = 72.dp) },
         navigationIcon = navigationIcon,
         actions = actions,
         colors = colors,
