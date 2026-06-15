@@ -93,6 +93,7 @@ import org.ooni.probe.ui.shared.Permission
 import org.ooni.probe.ui.shared.PermissionDeniedAlwaysException
 import org.ooni.probe.ui.shared.PermissionDeniedException
 import org.ooni.probe.ui.shared.PermissionRequestCanceledException
+import org.ooni.probe.ui.shared.applyIf
 import org.ooni.probe.ui.shared.buildPermissionsController
 import org.ooni.probe.ui.shared.isHeightCompact
 import org.ooni.probe.ui.shared.isWidthCompact
@@ -272,7 +273,9 @@ fun ColumnScope.AutomatedTestingStep(
         }
 
         Row(
-            modifier = Modifier.padding(horizontal = 8.dp).align(alignment = Alignment.BottomCenter),
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .align(alignment = Alignment.BottomCenter),
         ) {
             OnboardingMainOutlineButton(
                 text = Res.string.Onboarding_Crash_Button_No,
@@ -335,7 +338,9 @@ fun ColumnScope.CrashReportingStep(onEvent: (OnboardingViewModel.Event) -> Unit)
         }
 
         Row(
-            modifier = Modifier.padding(horizontal = 8.dp).align(alignment = Alignment.BottomCenter),
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .align(alignment = Alignment.BottomCenter),
         ) {
             OnboardingMainOutlineButton(
                 text = Res.string.Onboarding_Crash_Button_No,
@@ -372,7 +377,9 @@ fun ColumnScope.RequestPermissionStep(onEvent: (OnboardingViewModel.Event) -> Un
         }
 
         Row(
-            modifier = Modifier.padding(horizontal = 8.dp).align(alignment = Alignment.BottomCenter),
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .align(alignment = Alignment.BottomCenter),
         ) {
             OnboardingMainOutlineButton(
                 text = Res.string.Onboarding_Notifications_Skip,
@@ -470,9 +477,7 @@ fun OnboardingImage(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(WindowInsets.statusBars.asPaddingValues())
-                .run {
-                    if (!isWidthCompact()) sizeIn(maxHeight = 400.dp) else this
-                },
+                .applyIf(!isWidthCompact()) { sizeIn(maxHeight = 400.dp) },
         )
     }
 }

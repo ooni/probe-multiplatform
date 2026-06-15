@@ -3,9 +3,11 @@ package org.ooni.probe.ui.result
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -43,9 +45,11 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
 import org.ooni.passport.models.VerificationStatus
+import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
-import org.ooni.probe.ui.theme.LocalCustomColors
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
+import org.ooni.probe.ui.shared.applyIf
+import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
 fun ResultMeasurementCell(
@@ -59,84 +63,115 @@ fun ResultMeasurementCell(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .let {
-                if (measurement.isDone && !measurement.isMissingUpload) {
-                    it.clickable { onClick(item) }
-                } else {
-                    it
-                }
+            .applyIf(measurement.isDone && !measurement.isMissingUpload) {
+                clickable { onClick(item) }
             }.alpha(if (measurement.isDone && !measurement.isMissingUpload) 1f else 0.66f)
             .padding(16.dp),
     ) {
         TestName(test, item, modifier = Modifier.weight(1f))
         if (isResultDone && measurement.isDoneAndMissingUpload) {
-            Icon(
-                painterResource(Res.drawable.ic_cloud_off),
-                contentDescription = stringResource(
-                    if (measurement.isUploadFailed) {
-                        Res.string.Modal_UploadFailed_Title
-                    } else {
-                        Res.string.Snackbar_ResultsNotUploaded_Text
-                    },
-                ),
-                tint = if (measurement.isUploadFailed) {
-                    MaterialTheme.colorScheme.error
-                } else {
-                    LocalContentColor.current
-                },
-                modifier = Modifier.padding(end = 16.dp).size(24.dp),
-            )
-        }
-        val verificationStatus = measurement.verificationStatus
-        if (verificationStatus != null && verificationStatus != VerificationStatus.Unknown) {
-            Icon(
-                painterResource(
-                    when (verificationStatus) {
-                        VerificationStatus.Verified -> Res.drawable.ic_shield_check
-                        VerificationStatus.Failed -> Res.drawable.ic_shield_warning
-                        else -> Res.drawable.ic_shield
-                    },
-                ),
-                contentDescription = stringResource(
-                    when (verificationStatus) {
-                        VerificationStatus.Verified -> Res.string.Measurements_Verification_Verified
-                        VerificationStatus.Failed -> Res.string.Measurements_Verification_Failed
-                        else -> Res.string.Measurements_Verification_Unverified
-                    },
-                ),
-                tint = when (verificationStatus) {
-                    VerificationStatus.Verified -> LocalCustomColors.current.success
-                    VerificationStatus.Failed -> MaterialTheme.colorScheme.error
-                    else -> MaterialTheme.colorScheme.onSurfaceVariant
-                },
-                modifier = Modifier.padding(end = 16.dp).size(24.dp),
+            MissingUploadIcon(
+                measurement = measurement,
+                modifier = Modifier.padding(end = 16.dp),
             )
         }
         if (measurement.isDone || isResultDone) {
-            val isFailed = measurement.isFailed || (isResultDone && !measurement.isDone)
-            Icon(
-                painterResource(
-                    when {
-                        isFailed -> Res.drawable.ic_measurement_failed
-                        measurement.isAnomaly -> Res.drawable.ic_measurement_anomaly
-                        else -> Res.drawable.ic_measurement_ok
-                    },
-                ),
-                contentDescription = stringResource(
-                    when {
-                        isFailed -> Res.string.Measurements_Failed
-                        measurement.isAnomaly -> Res.string.Measurements_Anomaly
-                        else -> Res.string.Measurements_Ok
-                    },
-                ),
-                tint = Color.Unspecified,
-                modifier = Modifier.padding(end = 16.dp).size(24.dp),
+            MeasurementStatusIcon(
+                measurement = measurement,
+                isResultDone = isResultDone,
             )
+            VerificationStatusIcon(
+                measurement = measurement,
+                modifier = Modifier.padding(start = 4.dp),
+            )
+            Spacer(Modifier.width(16.dp))
         } else if (!isResultDone) {
             CircularProgressIndicator(
-                modifier = Modifier.padding(end = 16.dp).size(24.dp),
+                modifier = Modifier.padding(horizontal = 16.dp).size(24.dp),
             )
         }
+    }
+}
+
+@Composable
+private fun MissingUploadIcon(
+    measurement: MeasurementModel,
+    modifier: Modifier = Modifier,
+) {
+    Icon(
+        painterResource(Res.drawable.ic_cloud_off),
+        contentDescription = stringResource(
+            if (measurement.isUploadFailed) {
+                Res.string.Modal_UploadFailed_Title
+            } else {
+                Res.string.Snackbar_ResultsNotUploaded_Text
+            },
+        ),
+        tint = if (measurement.isUploadFailed) {
+            MaterialTheme.colorScheme.error
+        } else {
+            LocalContentColor.current
+        },
+        modifier = modifier.size(24.dp),
+    )
+}
+
+@Composable
+private fun MeasurementStatusIcon(
+    measurement: MeasurementModel,
+    isResultDone: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    val isFailed = measurement.isFailed || (isResultDone && !measurement.isDone)
+    Icon(
+        painterResource(
+            when {
+                isFailed -> Res.drawable.ic_measurement_failed
+                measurement.isAnomaly -> Res.drawable.ic_measurement_anomaly
+                else -> Res.drawable.ic_measurement_ok
+            },
+        ),
+        contentDescription = stringResource(
+            when {
+                isFailed -> Res.string.Measurements_Failed
+                measurement.isAnomaly -> Res.string.Measurements_Anomaly
+                else -> Res.string.Measurements_Ok
+            },
+        ),
+        tint = Color.Unspecified,
+        modifier = modifier.size(24.dp),
+    )
+}
+
+@Composable
+private fun VerificationStatusIcon(
+    measurement: MeasurementModel,
+    modifier: Modifier = Modifier,
+) {
+    val verificationStatus = measurement.verificationStatus
+    if (verificationStatus != null && verificationStatus != VerificationStatus.Unknown) {
+        Icon(
+            painterResource(
+                when (verificationStatus) {
+                    VerificationStatus.Verified -> Res.drawable.ic_shield_check
+                    VerificationStatus.Failed -> Res.drawable.ic_shield_warning
+                    else -> Res.drawable.ic_shield
+                },
+            ),
+            contentDescription = stringResource(
+                when (verificationStatus) {
+                    VerificationStatus.Verified -> Res.string.Measurements_Verification_Verified
+                    VerificationStatus.Failed -> Res.string.Measurements_Verification_Failed
+                    else -> Res.string.Measurements_Verification_Unverified
+                },
+            ),
+            tint = when (verificationStatus) {
+                VerificationStatus.Verified -> LocalCustomColors.current.success
+                VerificationStatus.Failed -> MaterialTheme.colorScheme.error
+                else -> MaterialTheme.colorScheme.onSurfaceVariant
+            },
+            modifier = modifier.size(16.dp),
+        )
     }
 }
 

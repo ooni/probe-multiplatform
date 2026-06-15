@@ -34,6 +34,7 @@ import ooniprobe.composeapp.generated.resources.ic_tests
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.MAIN_NAVIGATION_SCREENS
+import org.ooni.probe.ui.shared.applyIf
 import org.ooni.probe.ui.shared.isHeightCompact
 
 @Composable
@@ -44,7 +45,7 @@ fun BottomNavigationBar(
     val entry by navController.currentBackStackEntryAsState()
 
     val customMinHeightModifier =
-        Modifier.run { if (isHeightCompact()) defaultMinSize(minHeight = 64.dp) else this }
+        Modifier.applyIf(isHeightCompact()) { defaultMinSize(minHeight = 64.dp) }
 
     NavigationBar(
         modifier = customMinHeightModifier,

@@ -36,6 +36,7 @@ import org.ooni.probe.ui.navigation.Screen
 import org.ooni.probe.ui.shared.ClipboardActions
 import org.ooni.probe.ui.shared.LocalClipboardActions
 import org.ooni.probe.ui.shared.UpdateRequiredDialog
+import org.ooni.probe.ui.shared.applyIf
 import org.ooni.probe.ui.theme.AppTheme
 
 @Composable
@@ -83,14 +84,9 @@ fun App(
                     },
                 ) { paddingValues ->
                     Box(
-                        modifier = Modifier
-                            .run {
-                                if (isMainScreen) {
-                                    padding(bottom = paddingValues.calculateBottomPadding())
-                                } else {
-                                    this
-                                }
-                            },
+                        modifier = Modifier.applyIf(isMainScreen) {
+                            padding(bottom = paddingValues.calculateBottomPadding())
+                        },
                     ) {
                         Navigation(
                             navController = navController,
