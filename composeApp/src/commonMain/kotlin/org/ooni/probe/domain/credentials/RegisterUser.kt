@@ -38,10 +38,11 @@ class RegisterUser(
                     return@withContext if (setCredential(credential)) {
                         credential
                     } else {
+                        Logger.w("Failed to register user: could not store credential in secure storage")
                         null
                     }
                 }.onFailure { exception ->
-                    Logger.w("Failed to register user", exception)
+                    Logger.e("Failed to register user", exception)
                 }
 
             null
