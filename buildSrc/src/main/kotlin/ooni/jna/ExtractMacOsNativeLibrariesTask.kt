@@ -164,12 +164,12 @@ abstract class ExtractMacOsNativeLibrariesTask : DefaultTask() {
             // the dylib from the jar at first use. The `jna.nounpack=true`
             // toggle set for App Store signing disables that extraction, so
             // the dylib must be staged into the bundle and surfaced via
-            // `jna.library.path`. As of 0.1.1 only an aarch64 dylib ships;
-            // the x86_64 entry is left in place so it stages automatically
-            // once the upstream jar adds it.
+            // `jna.library.path`.
             Plan(
                 jarPattern = Regex("""^passport-macos-.*\.jar$"""),
                 entries = listOf(
+                    "darwin-universal/libuniffi_ooniprobe.dylib" to "passport/darwin-aarch64/libuniffi_ooniprobe.dylib",
+                    "darwin-universal/libuniffi_ooniprobe.dylib" to "passport/darwin-x86-64/libuniffi_ooniprobe.dylib",
                     "darwin-aarch64/libuniffi_ooniprobe.dylib" to "passport/darwin-aarch64/libuniffi_ooniprobe.dylib",
                     "darwin-x86-64/libuniffi_ooniprobe.dylib" to "passport/darwin-x86-64/libuniffi_ooniprobe.dylib",
                 ),
