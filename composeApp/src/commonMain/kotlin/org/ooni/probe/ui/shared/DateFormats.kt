@@ -98,7 +98,7 @@ fun Duration.format(abbreviated: Boolean = true): String =
             } else {
                 null
             },
-            if (seconds > 0) {
+            if (seconds > 0 || inWholeSeconds == 0L) {
                 if (abbreviated) {
                     stringResource(Res.string.Common_Seconds_Abbreviated, seconds)
                 } else {
