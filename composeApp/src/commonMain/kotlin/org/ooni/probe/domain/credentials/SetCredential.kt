@@ -12,9 +12,16 @@ class SetCredential(
     suspend operator fun invoke(credential: Credential): Boolean =
         try {
             val bodyText = json.encodeToString(Credential.serializer(), credential)
-            writeSecureStorage(CredentialsConstants.STORAGE_KEY, bodyText)
-            Logger.i("User registered successfully, credentials stored")
-            true
+            when (val result = writeSecureStorage(CredentialsConstants.STORAGE_KEY, bodyText)) {
+                is WriteResult.Created, is WriteResult.Updated -> {
+                    Logger.i("User registered successfully, credentials stored")
+                    true
+                }
+                is WriteResult.Error -> {
+                    Logger.w("Failed to store credentials in secure storage: ${result.message}", result.cause)
+                    false
+                }
+            }
         } catch (e: Exception) {
             Logger.w("Failed to store credentials", e)
             false

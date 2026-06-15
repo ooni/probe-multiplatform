@@ -37,12 +37,32 @@ class PrepareAnonymousCredentials(
 
                 Logger.i("Registering user with manifest version: $manifestVersion")
 
-                registerUser(publicParameters, manifestVersion)
+                val credential = registerUser(publicParameters, manifestVersion)
+                if (credential == null) {
+                    Logger.w("User registration failed: registerUser returned null credential")
+                } else {
+                    Logger.i("User registered successfully: credential obtained")
+                }
+                credential
             } catch (e: Exception) {
-                Logger.w("Failed to register user with manifest", e)
+                Logger.e("Failed to register user with manifest", e)
                 null
             }
         }
 
-    private suspend fun getOrRetrieveManifest() = getManifest().first() ?: retrieveManifest()
+    private suspend fun getOrRetrieveManifest(): Manifest? {
+        val cached = getManifest().first()
+        if (cached != null) {
+            Logger.d("Using cached manifest")
+            return cached
+        }
+        Logger.i("No cached manifest found, retrieving manifest from API")
+        val retrieved = retrieveManifest()
+        if (retrieved == null) {
+            Logger.w("Failed to retrieve manifest from API")
+        } else {
+            Logger.i("Successfully retrieved manifest from API")
+        }
+        return retrieved
+    }
 }
