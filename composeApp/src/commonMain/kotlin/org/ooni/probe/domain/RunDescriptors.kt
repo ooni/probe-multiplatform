@@ -51,8 +51,7 @@ class RunDescriptors(
                 "testsCount" to spec.tests.size,
             ),
         ) {
-            // TODO: Change to Preparing when merged with Anonymous Credentials branch
-            setRunBackgroundState { RunBackgroundState.RunningTests() }
+            setRunBackgroundState { RunBackgroundState.Preparing }
 
             val descriptors = getTestDescriptorsBySpec(spec)
             val checkInResponse = checkIn(spec.taskOrigin).get()
