@@ -489,4 +489,13 @@
     <string name="AddDescriptor_Toasts_AlreadyInstalled">Link já instalado</string>
     <string name="Result_Error">erro de teste</string>
     <string name="Desktop_ForceQuit">Forçar Saída</string>
+    <string name="Dashboard_Running_Preparing_Notice">Preparando execução em segundo plano…</string>
+    <string name="Dashboard_UpdatePrompt_Title">Necessária atualização</string>
+    <string name="Dashboard_UpdatePrompt_Description">Uma nova versão do aplicativo é necessária para continuar a submeter medições. Por favor atualize para continuar.</string>
+    <string name="Dashboard_UpdatePrompt_Action">Atualizar</string>
+    <string name="Measurements_Verification_Verified">Probe autenticada</string>
+    <string name="Measurements_Verification_Failed">Autenticação da Probe falhada</string>
+    <string name="Measurements_Verification_Unverified">Probe não autenticada</string>
+    <string name="Settings_RunAtStartup">Executar ao reiniciar</string>
+    <string name="Settings_RunAtStartup_Description">Abrir o aplicativo automaticamente no reinício do computador. Obrigatório se a execução automática estiver ligada.</string>
 </resources>
