@@ -497,16 +497,15 @@ private fun SummaryPerformance(item: ResultItem) {
                 maxLines = 1,
             )
 
-            item.testKeys?.downloadSpeed()?.let { (downloadSpeed, unit) ->
-
+            item.testKeys?.downloadSpeed()?.let {
                 Text(
-                    downloadSpeed,
+                    it.scaledValue,
                     style = MaterialTheme.typography.headlineSmall,
                     maxLines = 1,
                 )
 
                 Text(
-                    stringResource(unit),
+                    stringResource(it.unitStringId),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 8.dp),
                     maxLines = 1,
@@ -539,16 +538,15 @@ private fun SummaryPerformance(item: ResultItem) {
                 modifier = Modifier.padding(bottom = 8.dp),
                 maxLines = 1,
             )
-            item.testKeys?.uploadSpeed()?.let { (uploadSpeed, unit) ->
-
+            item.testKeys?.uploadSpeed()?.let {
                 Text(
-                    uploadSpeed,
+                    it.scaledValue,
                     style = MaterialTheme.typography.headlineMedium,
                     maxLines = 1,
                 )
 
                 Text(
-                    stringResource(unit),
+                    stringResource(it.unitStringId),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 8.dp),
                     maxLines = 1,

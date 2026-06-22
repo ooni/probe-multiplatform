@@ -194,16 +194,24 @@ private fun ResultCounts(item: ResultListItem) {
         }
 
         SummaryType.Performance -> {
-            item.testKeys?.downloadSpeed()?.let { (download, unit) ->
+            item.testKeys?.downloadSpeed()?.let {
                 PerformanceMetric(
                     icon = Res.drawable.ic_download,
-                    text = stringResource(Res.string.twoParam, download, stringResource(unit)),
+                    text = stringResource(
+                        Res.string.twoParam,
+                        it.scaledValue,
+                        stringResource(it.unitStringId),
+                    ),
                 )
             }
-            item.testKeys?.uploadSpeed()?.let { (upload, unit) ->
+            item.testKeys?.uploadSpeed()?.let {
                 PerformanceMetric(
                     icon = Res.drawable.ic_upload,
-                    text = stringResource(Res.string.twoParam, upload, stringResource(unit)),
+                    text = stringResource(
+                        Res.string.twoParam,
+                        it.scaledValue,
+                        stringResource(it.unitStringId),
+                    ),
                 )
             }
             PerformanceMetric(
