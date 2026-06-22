@@ -473,4 +473,7 @@
     <string name="Dashboard_UpdatePrompt_Title">Aktualisierung erforderlich</string>
     <string name="Dashboard_UpdatePrompt_Description">Um weiterhin Messwerte zu übermitteln, ist eine neuere Version der App erforderlich. Bitte führe ein Update durch, um fortzufahren.</string>
     <string name="Measurements_Verification_Unverified">Messung nicht authentifiziert</string>
+    <string name="Dashboard_UpdatePrompt_Action">Aktualisieren</string>
+    <string name="Measurements_Verification_Verified">Messung authentifiziert</string>
+    <string name="Measurements_Verification_Failed">Authentifizierung der Messung fehlgeschlagen</string>
 </resources>
