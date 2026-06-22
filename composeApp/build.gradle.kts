@@ -280,6 +280,7 @@ android {
     buildFeatures {
         buildConfig = true
         compose = true
+        resValues = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_25
