@@ -84,7 +84,7 @@ INSERT OR REPLACE INTO Result (
 ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 markAsViewed:
-UPDATE Result SET is_viewed = 1 WHERE id = ?;
+UPDATE Result SET is_viewed = 1 WHERE id = ? AND is_viewed = 0;
 
 markAllAsViewed:
 UPDATE Result SET is_viewed = 1
@@ -97,7 +97,7 @@ WHERE (
     :filterByTaskOrigin = 0 OR Result.task_origin = :taskOrigin
 ) AND (
     Result.start_time >= :startFrom AND Result.start_time <= :startUntil
-);
+) AND Result.is_viewed = 0;
 
 countAllNotViewed:
 SELECT COUNT(DISTINCT Result.id)
@@ -106,11 +106,12 @@ LEFT JOIN Measurement ON Measurement.result_id = Result.id
 WHERE Result.is_done = 1
   AND Result.is_viewed = 0
   AND Measurement.id IS NOT NULL AND Measurement.is_done = 1;
+
 markAsDone:
-UPDATE Result SET is_done = 1 WHERE id = ?;
+UPDATE Result SET is_done = 1 WHERE id = ? AND is_done = 0;
 
 markAllAsDone:
-UPDATE Result SET is_done = 1;
+UPDATE Result SET is_done = 1 WHERE is_done = 0;
 
 deleteAll:
 DELETE FROM Result;
