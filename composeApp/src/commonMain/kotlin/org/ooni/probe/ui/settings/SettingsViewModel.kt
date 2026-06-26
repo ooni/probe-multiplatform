@@ -16,6 +16,7 @@ open class SettingsViewModel(
     goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
     openAppLanguageSettings: suspend () -> Unit,
     getSettings: () -> Flow<List<SettingsCategoryItem>>,
+    managesLanguageInApp: Boolean = false,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -31,7 +32,13 @@ open class SettingsViewModel(
             .filterIsInstance<Event.SettingsCategoryClick>()
             .onEach {
                 when (it.category) {
-                    PreferenceCategoryKey.LANGUAGE -> openAppLanguageSettings()
+                    PreferenceCategoryKey.LANGUAGE ->
+                        if (managesLanguageInApp) {
+                            goToSettingsForCategory(it.category)
+                        } else {
+                            openAppLanguageSettings()
+                        }
+
                     else -> goToSettingsForCategory(it.category)
                 }
             }.launchIn(viewModelScope)

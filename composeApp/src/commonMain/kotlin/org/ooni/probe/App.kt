@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -45,8 +46,8 @@ fun App(
     deepLink: DeepLink?,
     onDeeplinkHandled: () -> Unit = {},
     useDarkTheme: Boolean? = null,
+    navController: NavHostController = rememberNavController(),
 ) {
-    val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
     val clipboard = LocalClipboard.current
 

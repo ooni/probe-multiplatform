@@ -11,6 +11,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -27,6 +28,7 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberDialogState
 import androidx.compose.ui.window.rememberWindowState
+import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
 import io.github.kdroidfilter.platformtools.darkmodedetector.isSystemInDarkMode
 import io.github.kdroidfilter.platformtools.darkmodedetector.windows.setWindowsAdaptiveTitleBar
@@ -65,6 +67,7 @@ import org.ooni.probe.background.registerWindowsUrlScheme
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
+import org.ooni.probe.locale.DesktopLocaleController
 import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.InstanceManager
@@ -85,6 +88,13 @@ import java.awt.desktop.QuitResponse
 fun main(args: Array<String>) {
     configureBundledNativeLibraries()
     initialization(dependencies)
+
+    val localeController = DesktopLocaleController(
+        getValueByKey = dependencies.preferenceRepository::getValueByKey,
+        systemDefaultLocale = systemDefaultLocale,
+    )
+    localeController.applyInitialLocale()
+
     val autoLaunch = AutoLaunch(appPackageName = APP_ID)
     val instanceManager = InstanceManager(dependencies.platformInfo)
     val deepLinkFlow = MutableSharedFlow<DeepLink?>(extraBufferCapacity = 1)
@@ -177,18 +187,23 @@ fun main(args: Array<String>) {
             window.setWindowsAdaptiveTitleBar()
             window.minimumSize = Dimension(320, 560)
             window.maximumSize = Dimension(1024, 1024)
+            val targetLocale = localeController.currentLocale()
 
-            AppTheme {
-                App(
-                    dependencies = dependencies,
-                    deepLink = deepLink,
-                    onDeeplinkHandled = {
-                        showWindow()
-                        deepLink?.let {
-                            deepLinkFlow.tryEmit(null)
-                        }
-                    },
-                )
+            val navController = rememberNavController()
+            key(targetLocale.toLanguageTag()) {
+                AppTheme {
+                    App(
+                        dependencies = dependencies,
+                        deepLink = deepLink,
+                        onDeeplinkHandled = {
+                            showWindow()
+                            deepLink?.let {
+                                deepLinkFlow.tryEmit(null)
+                            }
+                        },
+                        navController = navController,
+                    )
+                }
             }
 
             if (showQuitPrompt) {
