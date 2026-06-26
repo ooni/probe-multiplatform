@@ -3,14 +3,14 @@ name: Build Native Libraries
 on:
   push:
     paths:
-      - 'composeApp/src/desktopMain/c/**'
+      - 'desktopApp/src/main/c/**'
       - '.github/workflows/build_native_libraries.yml'
-      - 'composeApp/src/desktopMain/Makefile'
+      - 'desktopApp/src/main/Makefile'
   pull_request:
     paths:
-      - 'composeApp/src/desktopMain/c/**'
+      - 'desktopApp/src/main/c/**'
       - '.github/workflows/build_native_libraries.yml'
-      - 'composeApp/src/desktopMain/Makefile'
+      - 'desktopApp/src/main/Makefile'
 
 jobs:
   build:
@@ -42,10 +42,10 @@ jobs:
         run: choco install llvm make
 
       - name: Build Native Libraries
-        run: ./gradlew makeLibrary
+        run: ./gradlew :desktopApp:makeLibrary
 
       - name: Upload built library
         uses: actions/upload-artifact@v7
         with:
           name: networktypefinder-${{ matrix.os }}
-          path: composeApp/src/desktopMain/resources/
+          path: desktopApp/src/main/resources/

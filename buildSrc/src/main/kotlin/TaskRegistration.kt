@@ -44,10 +44,11 @@ fun Project.registerTasks(config: AppConfig) {
  * packaging post-processing operates on.
  */
 fun Project.registerDesktopAppTasks() {
-    // Desktop sources, native bridges, resources and screenshot tests live in
-    // :desktopApp now (src/main, src/test), so the tasks that operate on them
-    // run here too.
     registerDesktopBuildConfigTask()
+    excludeScreenshotTestsFromDesktopTest()
+
+    if (path != ":desktopApp") return
+
     registerDesktopTasks()
     registerWinSparkleTask()
     registerExtractMacOsNativeLibrariesTask()
@@ -55,7 +56,6 @@ fun Project.registerDesktopAppTasks() {
     registerDesktopCaptureScreensTask()
     registerDesktopCaptureMacAppStoreTask()
     registerDesktopCaptureMicrosoftStoreTask()
-    excludeScreenshotTestsFromDesktopTest()
 
     registerSparkleTask()
     registerOONIDistributableTask()
@@ -167,6 +167,9 @@ fun Project.registerDesktopBuildConfigTask() {
 }
 
 private fun Project.registerDesktopTasks() {
+
+    if (!file("src/main/Makefile").exists()) return
+
     val bundlesUpdater = distribution().bundlesSparkle || distribution().bundlesWinSparkle
 
     tasks.register("makeLibrary", Exec::class) {
@@ -254,7 +257,8 @@ private fun Project.registerExtractMacOsNativeLibrariesTask() {
     tasks.register("extractMacOsNativeLibraries", ExtractMacOsNativeLibrariesTask::class) {
         group = "ooni"
         description = "Extracts darwin native libs (JNA, sqlite-jdbc, gojni, JavaFX) from runtime jars."
-        runtimeClasspath.from(configurations.named("runtimeClasspath"))
+
+        configurations.findByName("runtimeClasspath")?.let { runtimeClasspath.from(it) }
         outputDir.set(layout.buildDirectory.dir("tmp/macos-native-libs"))
     }
 }
