@@ -24,6 +24,7 @@ CREATE TABLE Measurement(
 
 CREATE INDEX idx_measure_result_id ON Measurement (result_id);
 CREATE INDEX idx_measure_start_time ON Measurement (start_time);
+CREATE INDEX idx_measure_done_start_time ON Measurement (is_done);
 
 insertOrReplace:
 INSERT OR REPLACE INTO Measurement (
