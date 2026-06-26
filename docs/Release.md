@@ -150,7 +150,20 @@ Go to [Desktop package apps](https://github.com/ooni/probe-multiplatform/actions
 press *Run Workflow*, use workflow from the new tag, tick *MacOS* and *Windows*, and press
 *Run Workflow*. Confirm the action ran successfully and download the generated apps (zipped artifacts).
 
-##### 2.7.2 Sign windows app
+##### 2.7.2 Generate macOS Sparkle appcast
+
+Generate the Sparkle appcast feed for the signed macOS `.dmg`, pointing the
+download URL prefix at the GitHub release assets for this version:
+
+```
+./composeApp/build/sparkle/extracted-2.8.0/bin/generate_appcast \
+  -o feed-mac.rss \
+  --ed-key-file ./certificates/sparkle_eddsa_private.pem \
+  --download-url-prefix https://github.com/ooni/probe-multiplatform/releases/download/v[x.y.z]/ \
+  <path-to-folder-containing-dmg>
+```
+
+##### 2.7.3 Sign windows app
 
 - We need to sign the windows `.exe` file using our Extended Validation certificate. Follow the steps on our internal process to do so.
 - Generate the WinSparkle appcast for the signed `.exe` file.
@@ -192,7 +205,7 @@ based on the new tag.
 **2.9.2** Write our manual release notes and add at the bottom the automatic changelog using the
 `Generate release notes` button.
 
-**2.9.3** Upload all the desktop files downloaded during step *2.7.1*, and swapping the windows `.exe` files for their signed versions (step *2.7.2*).
+**2.9.3** Upload all the desktop files downloaded during step *2.7.1*, and swapping the windows `.exe` files for their signed versions (step *2.7.3*).
 
 > It's important the file names are `OONI-Probe-VERSION.dmg` and `OONI-Probe-VERSION.exe` so the OONI website can link them automatically correctly.
 >
