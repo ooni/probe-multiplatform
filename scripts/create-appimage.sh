@@ -55,7 +55,7 @@ log.highlight() {
 APP_NAME="OONI Probe"
 APP_ID="org.ooni.probe-desktop"
 DESKTOP_FILE_NAME="ooniprobe"
-BUILD_DIR="${PROJECT_ROOT}/composeApp/build/compose/binaries/main/app"
+BUILD_DIR="${PROJECT_ROOT}/desktopApp/build/compose/binaries/main/app"
 DIST_DIR="${BUILD_DIR}/${APP_NAME}"
 APPDIR_NAME="OONIProbe.AppDir"
 APPIMAGE_TOOL_URL="https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
@@ -100,7 +100,7 @@ fi
 log.success "✓ Distributable found"
 
 # Create workspace
-WORKSPACE="${PROJECT_ROOT}/composeApp/build/compose/binaries/main/appimage-workspace"
+WORKSPACE="${PROJECT_ROOT}/desktopApp/build/compose/binaries/main/appimage-workspace"
 mkdir -p "${WORKSPACE}"
 cd "${WORKSPACE}"
 
@@ -183,7 +183,7 @@ log.success "✓ AppDir created"
 OUTPUT_NAME="OONI-Probe-${VERSION}-x86_64.AppImage"
 log.lifecycle "Building AppImage: ${OUTPUT_NAME}"
 
-ARCH=x86_64 "./${APPIMAGETOOL}" --no-appstream "${APPDIR_NAME}" "${OUTPUT_NAME}"
+ARCH=x86_64 APPIMAGE_EXTRACT_AND_RUN=1 "./${APPIMAGETOOL}" --no-appstream "${APPDIR_NAME}" "${OUTPUT_NAME}"
 
 if [ $? -eq 0 ] && [ -f "${OUTPUT_NAME}" ]; then
     echo ""
