@@ -1090,7 +1090,7 @@ class Dependencies(
         fun buildDatabase(driverFactory: () -> SqlDriver): Database = Database(driverFactory())
 
         private lateinit var dataStore: DataStore<Preferences>
-        internal const val DATA_STORE_FILE_NAME = "probe.preferences_pb"
+        const val DATA_STORE_FILE_NAME = "probe.preferences_pb"
 
         /**
          * Gets the singleton DataStore instance, creating it if necessary.

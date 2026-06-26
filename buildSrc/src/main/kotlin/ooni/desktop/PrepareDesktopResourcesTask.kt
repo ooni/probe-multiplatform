@@ -23,7 +23,7 @@ import org.gradle.kotlin.dsl.register
  */
 fun Project.registerPrepareDesktopResourcesTask(): TaskProvider<Sync> {
     val dist = distribution()
-    val sourceDir = layout.projectDirectory.dir("src/desktopMain/resources/")
+    val sourceDir = layout.projectDirectory.dir("src/main/resources/")
     val outputDir = layout.buildDirectory.dir("tmp/desktop-resources-${dist.name.lowercase()}")
     val stripUpdaters = !dist.bundlesSparkle || !dist.bundlesWinSparkle
 

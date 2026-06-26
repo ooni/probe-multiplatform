@@ -14,8 +14,11 @@ class ConfigurationPlugin : Plugin<Project> {
             val organization = project.findProperty("organization") as? String
             val config = Organization.fromKey(organization).config
 
+            // The desktop packaging shell (:desktopApp) owns compose.desktop and the
+            // packaging post-processing; everything else (shared library + desktop
+            // resources/native/branding) is configured on :composeApp.
+            registerDesktopAppTasks()
             registerTasks(config)
-
             configureTasks()
         }
     }

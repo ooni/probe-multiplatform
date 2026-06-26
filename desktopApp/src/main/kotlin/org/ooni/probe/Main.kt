@@ -82,8 +82,6 @@ import java.awt.desktop.AppReopenedListener
 import java.awt.desktop.QuitEvent
 import java.awt.desktop.QuitResponse
 
-const val APP_ID = "org.ooni.probe"
-
 fun main(args: Array<String>) {
     configureBundledNativeLibraries()
     initialization(dependencies)

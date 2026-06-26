@@ -32,7 +32,7 @@ import ooniprobe.composeapp.generated.resources.Results_UploadingMissing
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.AndroidApplication
 import org.ooni.probe.MainActivity
-import org.ooni.probe.R
+import org.ooni.probe.shared.R
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies

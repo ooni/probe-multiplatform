@@ -12,42 +12,97 @@ import ooni.sparkle.SetupSparkleTask
 import ooni.sparkle.WinSparkleSetupTask
 import org.gradle.api.GradleException
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.JavaExec
 import org.gradle.internal.os.OperatingSystem
+import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
 import java.io.File
 
 /**
- * Registers all custom tasks for the project
+ * Registers the shared-library / desktop-resource tasks on :composeApp.
+ *
+ * The desktop *packaging* (compose.desktop) and its post-processing live on
+ * :desktopApp — see [registerDesktopAppTasks]. The tasks here either operate on
+ * :composeApp's own sources/resources (native libs, branding, WinSparkle staged
+ * into composeApp resources, screenshot capture reusing desktopTest) or feed the
+ * packaging via [registerPrepareDesktopResourcesTask], whose output :desktopApp
+ * consumes as its appResourcesRootDir.
  */
 fun Project.registerTasks(config: AppConfig) {
     registerAndroidTasks(config)
-    registerDesktopTasks()
     registerResourceTasks(config)
-    registerSparkleTask()
+    configureLibraryTaskDependencies()
+}
+
+/**
+ * Registers the desktop packaging tasks on :desktopApp, which hosts
+ * compose.desktop.application. Sparkle is set up here too so its downloaded
+ * framework lands in :desktopApp's build dir alongside the compose binaries the
+ * packaging post-processing operates on.
+ */
+fun Project.registerDesktopAppTasks() {
+    // Desktop sources, native bridges, resources and screenshot tests live in
+    // :desktopApp now (src/main, src/test), so the tasks that operate on them
+    // run here too.
+    registerDesktopBuildConfigTask()
+    registerDesktopTasks()
     registerWinSparkleTask()
-    registerOONIDistributableTask()
-    registerRemoveQuarantineTask()
-    registerAppImageTask()
-    registerVerifyStoreBundleTask()
     registerExtractMacOsNativeLibrariesTask()
     registerPrepareDesktopResourcesTask()
     registerDesktopCaptureScreensTask()
     registerDesktopCaptureMacAppStoreTask()
     registerDesktopCaptureMicrosoftStoreTask()
     excludeScreenshotTestsFromDesktopTest()
+
+    registerSparkleTask()
+    registerOONIDistributableTask()
+    registerRemoveQuarantineTask()
+    registerAppImageTask()
+    registerVerifyStoreBundleTask()
     configureDmgVolumeIcon(rootProject.file("icons/app.icns").absolutePath)
     configureDmgUdbzConversion()
-    configureTaskDependencies()
+    configureDesktopAppTaskDependencies()
+    configureDesktopAppJavaExecTasks()
+}
+
+/**
+ * The `run` task (compose.desktop) is a JavaExec on :desktopApp, and the desktop
+ * native libraries (gojni, sqlite-jdbc, JNA, JavaFX) now live in this module's own
+ * resources (src/main/resources). Point java.library.path at them so
+ * `./gradlew :desktopApp:run` resolves them in dev. The packaged app gets the same
+ * libraries via appResourcesRootDir.
+ */
+private fun Project.configureDesktopAppJavaExecTasks() {
+    tasks.withType<JavaExec>().configureEach {
+        systemProperty(
+            "java.library.path",
+            layout.buildDirectory.dir("resources/main/macos").get().asFile.absolutePath +
+                File.pathSeparator +
+                layout.buildDirectory.dir("tmp/desktop/main/macos").get().asFile.absolutePath +
+                File.pathSeparator +
+                "$projectDir/src/main/resources/windows" +
+                File.pathSeparator +
+                "$projectDir/src/main/resources/macos" +
+                File.pathSeparator +
+                "$projectDir/src/main/resources/linux" +
+                File.pathSeparator +
+                System.getProperty("java.library.path"),
+        )
+
+        project.findProperty("desktopUpdatesPublicKey")?.let { key ->
+            systemProperty("desktopUpdatesPublicKey", key)
+        }
+    }
 }
 
 private fun Project.registerAndroidTasks(config: AppConfig) {
     tasks.register("runDebug", Exec::class) {
         group = "ooni"
         description = "Clean, install and run the debug variant"
-        dependsOn("clean", "installFullDebug")
+        dependsOn("clean", ":androidApp:installFullDebug")
         commandLine(
             "adb",
             "shell",
@@ -63,18 +118,21 @@ private fun Project.registerAndroidTasks(config: AppConfig) {
  * Registers a task that generates DesktopBuildConfig.kt with version info
  * baked into compiled code (replacing System.getProperty which requires JVM args).
  *
- * Must be called from the build script where Android extension values are available.
- * The caller is also responsible for wiring the output to the desktopMain source set:
+ * Reads the app version straight from the `libs` version catalog, so it can be wired
+ * in [registerDesktopAppTasks]. The caller is still responsible for adding the output
+ * to the consuming source set. It is wired into :composeApp's `commonMain` so the
+ * generated `DesktopBuildConfig` compiles into the desktop jvm artifact and is resolvable
+ * from both :composeApp's desktop code and :desktopApp (via its project dependency):
  * ```
- * kotlin.sourceSets.getByName("desktopMain") {
+ * kotlin.sourceSets.commonMain {
  *     kotlin.srcDir(tasks.named("generateDesktopBuildConfig"))
  * }
  * ```
  */
-fun Project.registerDesktopBuildConfigTask(
-    versionName: String,
-    versionCode: Int,
-) {
+fun Project.registerDesktopBuildConfigTask() {
+    val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+    val versionName = libs.findVersion("app-versionName").get().requiredVersion
+    val versionCode = libs.findVersion("app-versionCode").get().requiredVersion.toInt()
     val isDebug = isDebugTaskRequested()
     val dist = distribution()
     val buildDirPath = layout.buildDirectory.get().asFile.absolutePath
@@ -117,14 +175,14 @@ private fun Project.registerDesktopTasks() {
         if (bundlesUpdater) {
             dependsOn("setupSparkle")
         }
-        workingDir = file("src/desktopMain")
+        workingDir = file("src/main")
         commandLine = if (bundlesUpdater) {
             listOf("make", "all")
         } else {
             listOf("make", "desktop-only")
         }
 
-        inputs.files(fileTree("src/desktopMain/c") {
+        inputs.files(fileTree("src/main/c") {
             include("*.m", "*.c")
         })
     }
@@ -132,7 +190,7 @@ private fun Project.registerDesktopTasks() {
     tasks.register("cleanLibrary", Exec::class) {
         group = "ooni"
         description = "Clean native library build artifacts"
-        workingDir = file("src/desktopMain")
+        workingDir = file("src/main")
         commandLine = listOf("make", "clean")
     }
 }
@@ -187,7 +245,7 @@ private fun Project.registerWinSparkleTask() {
         destDir.set(
             providers.gradleProperty("winSparkleExtractDir")
                 .map { layout.projectDirectory.dir(it) }
-                .orElse(layout.projectDirectory.dir("src/desktopMain/resources/windows/")),
+                .orElse(layout.projectDirectory.dir("src/main/resources/windows/")),
         )
     }
 }
@@ -196,7 +254,7 @@ private fun Project.registerExtractMacOsNativeLibrariesTask() {
     tasks.register("extractMacOsNativeLibraries", ExtractMacOsNativeLibrariesTask::class) {
         group = "ooni"
         description = "Extracts darwin native libs (JNA, sqlite-jdbc, gojni, JavaFX) from runtime jars."
-        runtimeClasspath.from(configurations.named("desktopRuntimeClasspath"))
+        runtimeClasspath.from(configurations.named("runtimeClasspath"))
         outputDir.set(layout.buildDirectory.dir("tmp/macos-native-libs"))
     }
 }
@@ -624,59 +682,58 @@ private fun Project.registerResourceTasks(config: AppConfig) {
     }
 }
 
-private fun Project.configureTaskDependencies() {
-    // Configure existing tasks with dependencies after evaluation
+private fun Project.configureLibraryTaskDependencies() {
     afterEvaluate {
-        // tasks.findByName("compileKotlinDesktop")?.dependsOn?.add("makeLibrary")
-
         tasks.findByName("preBuild")?.dependsOn("copyBrandingToCommonResources")
+
+        // AGP 9 split this into a KMP library, which has no `preBuild` task. Hook the
+        // branding copy ahead of the Android pre-build and the Compose/JVM resource
+        // tasks so src/commonMain/res and src/commonMain/composeResources are populated
+        // (with the active organization's branding) before anything consumes them.
+        tasks.matching { task ->
+            task.name == "androidPreBuild" ||
+                task.name.contains("ComposeResources") ||
+                task.name.startsWith("generateResourceAccessorsFor") ||
+                task.name.startsWith("generateComposeResClass") ||
+                (task.name.startsWith("merge") && task.name.endsWith("Resources")) ||
+                task.name.endsWith("ProcessResources")
+        }.configureEach {
+            dependsOn("copyBrandingToCommonResources")
+        }
 
         tasks.findByName("clean")
             ?.dependsOn("copyBrandingToCommonResources", "cleanCopiedCommonResourcesToFlavor")
+    }
+}
+
+private fun Project.configureDesktopAppTaskDependencies() {
+    // Wires compose.desktop packaging tasks (all created on :desktopApp) to Sparkle
+    // setup and the OONI post-processing tasks. Everything referenced here lives on
+    // :desktopApp, so no cross-project task wiring is needed; the only cross-project
+    // link is appResourcesRootDir <- :composeApp:prepareDesktopResources, declared in
+    // desktopApp/build.gradle.kts.
+    afterEvaluate {
+        if (distribution().bundlesWinSparkle) {
+            // WinSparkle extracts to src/main/resources/windows/, consumed by
+            // processResources and prepareDesktopResources (both on :desktopApp).
+            tasks.findByName("processResources")?.dependsOn("setupWinSparkle")
+            tasks.findByName("prepareDesktopResources")?.dependsOn("setupWinSparkle")
+        }
 
         if (distribution().bundlesSparkle) {
-            // Ensure Sparkle.framework is prepared before packaging desktop apps
             val sparkleConsumers = setOf(
                 "runDistributable",
                 "createDistributable",
                 "packageDistributionForCurrentOS",
                 "packageDmg",
-                "desktopJar"
             )
             tasks.matching { it.name in sparkleConsumers }.configureEach {
                 dependsOn("setupSparkle")
             }
 
-            // Prefer running setupSparkle after desktop resource processing to avoid overwrites
             tasks.findByName("setupSparkle")?.let { setup ->
-                val desktopRes = tasks.matching {
-                    it.name.contains(
-                        "processResources",
-                        ignoreCase = true
-                    ) && it.name.contains("desktop", ignoreCase = true)
-                }
-                setup.mustRunAfter(desktopRes)
+                setup.mustRunAfter(tasks.matching { it.name == "processResources" })
             }
-        }
-
-        if (distribution().bundlesWinSparkle) {
-            // Ensure WinSparkle.dll is prepared before packaging desktop apps
-            val winSparkleConsumers = setOf(
-                "runDistributable",
-                "createDistributable",
-                "packageDistributionForCurrentOS",
-                "packageExe",
-                "desktopJar"
-            )
-            tasks.matching { it.name in winSparkleConsumers }.configureEach {
-                dependsOn("setupWinSparkle")
-            }
-
-            // WinSparkle extracts to src/desktopMain/resources/windows/ which is
-            // consumed by desktopProcessResources and prepareDesktopResources -
-            // declare explicit dependencies to satisfy Gradle's task validation
-            tasks.findByName("desktopProcessResources")?.dependsOn("setupWinSparkle")
-            tasks.findByName("prepareDesktopResources")?.dependsOn("setupWinSparkle")
         }
 
         // Ensure createOONIDistributable runs after createDistributable and before any other task that depends on it

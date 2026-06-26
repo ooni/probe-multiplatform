@@ -1,14 +1,9 @@
-import com.android.build.api.variant.FilterConfiguration
-import org.gradle.api.tasks.Sync
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
-import java.time.LocalDate
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.jetbrainsComposeCompiler)
     alias(libs.plugins.cocoapods)
@@ -16,7 +11,8 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.javafx) apply false
-    alias(libs.plugins.sentry)
+    // The Sentry Android Gradle plugin instruments the Android application and
+    // uploads ProGuard mappings, so it lives in the :androidApp module now.
 
     id("ooni.common")
 }
@@ -25,9 +21,19 @@ val organization: String? by project
 
 val config = Organization.fromKey(organization).config
 
+// App version, single source of truth in the version catalog. Shared by the
+// androidApp module (Android versionName/versionCode) and the desktop
+// distribution below, which previously read android.defaultConfig.* — no
+// longer available here now that the android {} block lives in :androidApp.
+val appVersionName = libs.versions.app.versionName
+    .get()
+val appVersionCode = libs.versions.app.versionCode
+    .get()
+    .toInt()
+
 // Active desktop distribution channel (resolved from -PdesktopDistribution).
 // Drives whether JavaFX is on the classpath and which OoniWebView actual is
-// compiled. Reused by the `compose.desktop` block below.
+// compiled. The desktop packaging itself (compose.desktop) lives in :desktopApp.
 val dist = distribution()
 
 val javaFxParts = listOf("base", "graphics", "controls", "media", "web", "swing")
@@ -42,16 +48,32 @@ if (dist.bundlesJavaFx) {
 }
 
 kotlin {
-    androidTarget {
+    android {
+        namespace = "org.ooni.probe.shared"
+        compileSdk = libs.versions.android.compileSdk
+            .get()
+            .toInt()
+        minSdk = libs.versions.android.minSdk
+            .get()
+            .toInt()
+
+        // Launcher icons, notification_icon and provider_paths live in
+        // commonMain/res (and per-org res copied there by the branding task);
+        // merge them into the library's Android resources so the :androidApp
+        // manifest can reference them.
+        androidResources {
+            enable = true
+        }
+
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_25)
         }
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        instrumentedTestVariant {
-            // This makes instrumented tests depend on commonTest and androidUnitTest sources
-            sourceSetTree.set(KotlinSourceSetTree.test)
-        }
+
+        // No Android host/device tests here: the Android entry points and the
+        // instrumented UI tests that exercise them live in :androidApp now, and
+        // shared (commonTest) logic is covered by :composeApp:desktopTest (JVM)
+        // and the iOS test target.
     }
 
     // iosX64 is no longer supported by Compose Multiplatform
@@ -85,12 +107,34 @@ kotlin {
     }
 
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.bundles.android)
-            implementation(libs.bundles.mobile)
-            implementation("net.java.dev.jna:jna:5.19.1@aar")
-            implementation("org.ooni:passport-android:0.1.1:@aar")
+        androidMain {
+            // The flavor-specific Android code that STAYS here (the `Instrumentation`
+            // expect/actual, plus FlavorConfig / AndroidUpdateMonitoring / AppReview
+            // consumed by the moved entry points) is selected by task name, mirroring
+            // the commonFullMain/commonFdroidMain selection. (Entry points, workers and
+            // platform bridges now live in :androidApp.)
+            kotlin.srcDir("src/${selectedAndroidFlavorDir()}/kotlin")
+            dependencies {
+                implementation(libs.compose.ui.tooling.preview)
+                implementation(libs.bundles.android)
+                implementation(libs.bundles.mobile)
+                implementation("net.java.dev.jna:jna:5.19.1@aar")
+                implementation("org.ooni:passport-android:0.1.1:@aar")
+                // The Android engine bridge + flavor code live here (platform
+                // implementations). fdroid/xperimental swap the oonimkall artifact;
+                // full additionally pulls Play app-update/review for
+                // AndroidUpdateMonitoring/AppReview.
+                when {
+                    isFdroidTaskRequested() ->
+                        implementation("org.ooni:oonimkall:3.29.0-android:@aar")
+                    isXperimentalTaskRequested() ->
+                        implementation(files("libs/android-oonimkall.aar"))
+                    else -> { // full
+                        implementation(libs.bundles.full.android)
+                        implementation("org.ooni:oonimkall:3.29.0-android:@aar")
+                    }
+                }
+            }
         }
         commonMain {
             dependencies {
@@ -112,6 +156,10 @@ kotlin {
             }
             kotlin.srcDir(if (isDebugTaskRequested()) "src/commonMain/debug/kotlin" else "src/commonMain/release/kotlin")
             kotlin.srcDir("src/${config.folder}/kotlin")
+            // DesktopBuildConfig is generated here (not in :desktopApp) so it compiles into
+            // the desktop jvm artifact and is resolvable from both :composeApp's desktop code
+            // (Distribution.kt, desktopTest fixtures) and :desktopApp via its project dependency.
+            kotlin.srcDir(tasks.named("generateDesktopBuildConfig"))
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native)
@@ -130,17 +178,17 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
+                implementation("org.ooni:oonimkall:c52ce3b5-${oonimkallVersionSuffix()}")
+                implementation("org.ooni:passport-${passportDependencySuffix()}:0.1.2")
 
                 if (dist.bundlesJavaFx) {
-                    // As JavaFX have platform-specific dependencies, we need to add them manually
+                    // The embedded WebView actual needs JavaFX. As JavaFX has
+                    // platform-specific dependencies, we add them manually.
                     val fxSuffix = getJavaFxSuffix()
                     javaFxParts.forEach {
                         implementation("org.openjfx:javafx-$it:$javaFxVersion:$fxSuffix")
                     }
                 }
-
-                implementation("org.ooni:oonimkall:c52ce3b5-${oonimkallVersionSuffix()}")
-                implementation("org.ooni:passport-${passportDependencySuffix()}:0.1.2")
             }
         }
         // Testing
@@ -148,12 +196,16 @@ kotlin {
             implementation(kotlin("test"))
             implementation(libs.compose.ui.test)
         }
-        androidUnitTest.dependencies {
-            implementation(kotlin("test-junit"))
-            implementation(libs.bundles.android.test)
-        }
-        androidInstrumentedTest.dependencies {
-            implementation(libs.bundles.android.instrumented.test)
+        val desktopTest by getting {
+            // The desktop target keeps only the commonTest expect/actual fixture
+            // actuals (in-memory DB / DataStore / SecureStorage); these need the
+            // JVM SQLDelight + DataStore drivers on the test classpath.
+            dependencies {
+                implementation(libs.sqldelight.jvm)
+                implementation(libs.androidx.datastore.preferences.core)
+                implementation(libs.androidx.datastore.core.okio)
+                implementation(libs.kotlinx.coroutines.test)
+            }
         }
         all {
             languageSettings {
@@ -198,192 +250,14 @@ tasks.withType<Test>().configureEach {
     }
 }
 
-android {
-    namespace = "org.ooni.probe"
-    compileSdk = libs.versions.android.compileSdk
-        .get()
-        .toInt()
-
-    defaultConfig {
-        applicationId = config.appId
-        minSdk = libs.versions.android.minSdk
-            .get()
-            .toInt()
-        targetSdk = libs.versions.android.targetSdk
-            .get()
-            .toInt()
-        versionCode = 330 // Always increment by 10. See fdroid flavor below
-        versionName = "6.1.0"
-        resValue("string", "app_name", config.appName)
-        resValue("string", "ooni_run_enabled", config.supportsOoniRun.toString())
-        resValue(
-            "string",
-            "supported_languages",
-            config.supportedLanguages.joinToString(separator = ","),
-        )
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunnerArguments["clearPackageData"] = "true"
+// The KMP library Android variant only reads src/androidMain/res by default.
+// The launcher icons / notification_icon land in src/commonMain/res (copied
+// there from src/<org>/res by copyBrandingToCommonResources), so add that
+// directory to the Android resources for every variant.
+androidComponents {
+    onVariants { variant ->
+        variant.sources.res?.addStaticSourceDirectory("src/commonMain/res")
     }
-    androidResources {
-        localeFilters += config.supportedLanguages
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-        // Unable to strip the following libraries, packaging them as they are:
-        jniLibs.keepDebugSymbols.addAll(
-            listOf(
-                "**/libandroidx.graphics.path.so",
-                "**/libdatastore_shared_counter.so",
-                "**/libgojni.so",
-            ),
-        )
-    }
-
-    signingConfigs {
-        create("release") {
-            if (System.getenv("ANDROID_KEYSTORE_FILE") != null &&
-                System.getenv("ANDROID_KEYSTORE_PASSWORD") != null &&
-                System.getenv("ANDROID_KEY_ALIAS") != null &&
-                System.getenv("ANDROID_KEY_PASSWORD") != null
-            ) {
-                storeFile = file(System.getenv("ANDROID_KEYSTORE_FILE"))
-                storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
-                keyAlias = System.getenv("ANDROID_KEY_ALIAS")
-                keyPassword = System.getenv("ANDROID_KEY_PASSWORD")
-            }
-        }
-    }
-
-    buildTypes {
-        getByName("debug") {
-            applicationIdSuffix = ".dev"
-            resValue("string", "run_v2_domain", "run.test.ooni.org")
-            sourceSets["debug"].manifest.srcFile("src/androidDebug/AndroidManifest.xml")
-        }
-        getByName("release") {
-            resValue("string", "run_v2_domain", "run.ooni.org")
-            signingConfig = if (System.getenv("ANDROID_KEYSTORE_FILE") != null) {
-                signingConfigs.getByName("release")
-            } else {
-                signingConfigs.getByName("debug")
-            }
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
-            )
-        }
-    }
-    buildFeatures {
-        buildConfig = true
-        compose = true
-        resValues = true
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_25
-        targetCompatibility = JavaVersion.VERSION_25
-        isCoreLibraryDesugaringEnabled = true
-    }
-    sourceSets["main"].resources.setSrcDirs(
-        listOf(
-            "src/androidMain/resources",
-            "src/commonMain/resources",
-        ),
-    )
-    sourceSets["main"].res.setSrcDirs(
-        listOf(
-            "src/androidMain/res",
-            "src/commonMain/res",
-        ),
-    )
-    productFlavors {
-        create("full") {
-            dimension = "license"
-        }
-        create("xperimental") {
-            dimension = "license"
-        }
-        create("fdroid") {
-            dimension = "license"
-            // Our APK is too large and F-Droid asked for a split by ABI
-            splits {
-                abi {
-                    // Detect app bundle and conditionally disable split abis
-                    // This is needed due to a "Sequence contains more than one matching element" error
-                    // present since AGP 8.9.0, for more info see:
-                    // https://issuetracker.google.com/issues/402800800
-
-                    // AppBundle tasks usually contain "bundle" in their name
-                    val isBuildingBundle = gradle.startParameter.taskNames.any { it.lowercase().contains("bundle") }
-
-                    // Disable split abis when building appBundle
-                    isEnable = !isBuildingBundle
-
-                    reset()
-                    // Specifies a list of ABIs supported by probe-engine.
-                    include("x86", "x86_64", "armeabi-v7a", "arm64-v8a")
-                    // Specifies that you don't want to also generate a universal APK that includes all ABIs.
-                    isUniversalApk = true
-                }
-            }
-
-            // Map for the version code that gives each ABI a value.
-            val abiCodes =
-                mapOf("armeabi-v7a" to 1, "arm64-v8a" to 2, "x86" to 3, "x86_64" to 4)
-
-            androidComponents {
-                onVariants { variant ->
-                    variant.outputs.forEach { output ->
-                        val name = output.filters.find { it.filterType == FilterConfiguration.FilterType.ABI }?.identifier
-
-                        val baseAbiCode = abiCodes[name]
-
-                        if (baseAbiCode != null) {
-                            output.versionCode.set(
-                                baseAbiCode + (output.versionCode.get() ?: 0),
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
-    dependencies {
-        coreLibraryDesugaring(libs.android.desugar.jdk)
-        debugImplementation(libs.compose.ui.tooling)
-        debugImplementation(libs.androidx.ui.tooling.preview)
-        "fullImplementation"(libs.bundles.full.android)
-        "fullImplementation"("org.ooni:oonimkall:3.29.0-android:@aar")
-        "fullImplementation"("org.ooni:passport-android:0.1.1:@aar")
-        "fdroidImplementation"("org.ooni:oonimkall:3.29.0-android:@aar")
-        "fdroidImplementation"("org.ooni:passport-android:0.1.1:@aar")
-        "xperimentalImplementation"(files("libs/android-oonimkall.aar"))
-        androidTestUtil(libs.android.orchestrator)
-    }
-    dependenciesInfo {
-        // Disables dependency metadata when building APKs.
-        includeInApk = false
-        // Keeps dependency metadata when building Android App Bundles.
-        includeInBundle = true
-    }
-    testOptions {
-        execution = "ANDROIDX_TEST_ORCHESTRATOR"
-    }
-    lint {
-        warningsAsErrors = true
-        disable += listOf(
-            "AndroidGradlePluginVersion",
-            "NullSafeMutableLiveData",
-            "ObsoleteLintCustomCheck",
-            "Aligned16KB",
-            "UseTomlInstead", // We are using this until the classifier issue is resolved in https://github.com/ooni/probe-cli/issues/1739
-        )
-        lintConfig = file("lint.xml")
-    }
-    flavorDimensions += "license"
 }
 
 sqldelight {
@@ -407,139 +281,20 @@ ktlint {
     additionalEditorconfig.put("ktlint_function_naming_ignore_when_annotated_with", "Composable")
 }
 
-// Desktop
-
-// `prepareDesktopResources` (Sync) and the DMG post-processing hooks live in
-// buildSrc — see ooni.desktop.PrepareDesktopResourcesTask /
-// DmgVolumeIconConfig / DmgUdbzConversion. They are wired via
-// `id("ooni.common")` -> ConfigurationPlugin.
-val prepareDesktopResources = tasks.named<Sync>("prepareDesktopResources")
-
-compose.desktop {
-    application {
-        mainClass = "org.ooni.probe.MainKt"
-
-        // Compose Desktop runs ProGuard on the release distribution by default.
-        // It mangles okio (`Okio__OkioKt.buffer$…` VerifyError), strips reflectively
-        // referenced classes such as `org.sqlite.Function`, and renames JNI native
-        // method names so the bundled `libsqlitejdbc.dylib` symbol `_open_utf8` no
-        // longer matches — all observed at first launch of the Mac App Store build.
-        // The proguard-rules.pro in this module is Android-only; we have no desktop
-        // keep rules, and the binary-size win is marginal next to the ~250 MB
-        // bundled JRE, so disable ProGuard for desktop until proper keep rules
-        // exist for okio, sqlite-jdbc, JNA, and gojni.
-        buildTypes.release.proguard {
-            isEnabled.set(false)
-        }
-
-        nativeDistributions {
-            if (dist.isAppStore) {
-                // Pkg ships the macOS App Store build. Exe is the Windows
-                // appstore-channel installer. Compose Desktop picks the format
-                // that matches the current OS, so both can coexist here.
-                targetFormats(TargetFormat.Pkg, TargetFormat.Exe)
-            } else {
-                targetFormats(TargetFormat.Dmg, TargetFormat.Exe, TargetFormat.Deb)
-            }
-            packageName = "OONI Probe"
-            packageVersion = android.defaultConfig.versionName
-            description =
-                "OONI Probe is a free and open source software designed to measure internet censorship and other forms of network interference."
-            copyright = "© ${LocalDate.now().year} OONI. All rights reserved."
-            vendor = "Open Observatory of Network Interference (OONI)"
-            licenseFile = rootProject.file("LICENSE")
-
-            modules("java.sql", "jdk.unsupported")
-
-            // Include native libraries
-            includeAllModules = true
-
-            appResourcesRootDir.fileProvider(prepareDesktopResources.map { it.destinationDir })
-            val appId = "org.ooni.probe-desktop"
-
-            macOS {
-                minimumSystemVersion = "14.8.3"
-                bundleID = appId
-                val macDir = if (dist.requiresSandbox) "macos/appstore" else "macos/direct"
-                entitlementsFile.set(project.file("$macDir/entitlements.plist"))
-                runtimeEntitlementsFile.set(project.file("$macDir/runtime-entitlements.plist"))
-                infoPlist {
-                    extraKeysRawXml = project
-                        .file("$macDir/Info.plist")
-                        .readText()
-                        .replace("APP_ID", appId)
-                }
-                packageBuildVersion = android.defaultConfig.versionCode.toString()
-                jvmArgs("-Dapple.awt.enableTemplateImages=true") // tray template icon
-                jvmArgs("-Dapple.awt.application.appearance=system") // adaptive title bar
-
-                iconFile.set(rootProject.file("icons/app.icns"))
-                appStore = dist.isAppStore
-                if (dist.isAppStore) {
-                    signing {
-                        sign.set(true)
-                        dist.macSigningIdentity?.let { identity.set(it) }
-                    }
-                    provisioningProfile.set(project.file("$macDir/embedded.provisionprofile"))
-                    runtimeProvisioningProfile.set(project.file("$macDir/runtime.provisionprofile"))
-                }
-            }
-            windows {
-                iconFile.set(rootProject.file("icons/app.ico"))
-                dirChooser = true
-                shortcut = true
-                menu = true
-            }
-            linux {
-                iconFile.set(rootProject.file("icons/app.png"))
-            }
-        }
-    }
-}
-
 compose.resources {
     publicResClass = true
     packageOfResClass = "ooniprobe.composeapp.generated.resources"
     generateResClass = always
 }
 
-version = android.defaultConfig.versionName ?: ""
-
-registerDesktopBuildConfigTask(
-    versionName = android.defaultConfig.versionName ?: "1.0.0",
-    versionCode = android.defaultConfig.versionCode ?: 0,
-)
-kotlin.sourceSets.getByName("desktopMain") {
-    kotlin.srcDir(tasks.named("generateDesktopBuildConfig"))
-}
-
-dependencies {
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(libs.androidx.ui.tooling.preview)
-}
+version = appVersionName
 
 // Sentry
 
-sentry {
-    val hasSentryToken = !System.getenv("SENTRY_AUTH_TOKEN").isNullOrEmpty()
-    debug = false
-    org = "ooni"
-    projectName = "probe-multiplatform-android"
-    authToken = System.getenv("SENTRY_AUTH_TOKEN")
-    includeProguardMapping = hasSentryToken
-    autoUploadProguardMapping = hasSentryToken
-    uploadNativeSymbols = hasSentryToken
-    autoUploadNativeSymbols = hasSentryToken
-    includeSourceContext = false
-    autoInstallation {
-        enabled = false
-    }
-    telemetry = false
-    ignoredBuildTypes = listOf("debug")
-    ignoredFlavors = listOf("fdroid", "xperimental")
-}
-
-// Remove certain Sentry components
+// The Sentry Gradle plugin and its `sentry { }` configuration live in the
+// :androidApp module now (they instrument the Android application and upload
+// ProGuard mappings). These exclusions still apply here because they act on the
+// Sentry Kotlin Multiplatform SDK's Android artifact, resolved via commonFullMain.
 configurations.all {
     exclude(group = "io.sentry", module = "sentry-android-ndk")
     exclude(group = "io.sentry", module = "sentry-android-replay")

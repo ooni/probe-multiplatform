@@ -10,8 +10,8 @@ object UpdateConfig {
     private const val WINDOWS_URL =
         "https://github.com/ooni/probe-multiplatform/releases/latest/download/feed-windows.rss"
 
-    val URL = when (dependencies.platformInfo.platform) {
-        is Platform.Desktop -> when (dependencies.platformInfo.platform.os) {
+    val URL = when (val platform = dependencies.platformInfo.platform) {
+        is Platform.Desktop -> when (platform.os) {
             DesktopOS.Mac -> MAC_URL
             DesktopOS.Windows -> WINDOWS_URL
             else -> ""
