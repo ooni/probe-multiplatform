@@ -143,6 +143,7 @@ import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.run.RunViewModel
 import org.ooni.probe.ui.running.RunningViewModel
 import org.ooni.probe.ui.settings.SettingsViewModel
+import org.ooni.probe.ui.settings.language.LanguageViewModel
 import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
 import org.ooni.probe.ui.settings.proxy.AddProxyViewModel
@@ -178,6 +179,7 @@ class Dependencies(
     val flavorConfig: FlavorConfigInterface,
     val proxyConfig: ProxyConfig,
     val getCountryNameByCode: (String) -> String,
+    val getLanguageNameByCode: (String) -> String = { it },
     @get:VisibleForTesting
     var databaseContext: CoroutineContext = Dispatchers.IO,
 ) {
@@ -1053,6 +1055,16 @@ class Dependencies(
             goToSettingsForCategory = goToSettingsForCategory,
             openAppLanguageSettings = { launchAction(PlatformAction.LanguageSettings) },
             getSettings = getSettings::invoke,
+            managesLanguageInApp = platformInfo.managesLanguageInApp,
+        )
+
+    fun languageViewModel(onBack: () -> Unit) =
+        LanguageViewModel(
+            onBack = onBack,
+            supportedLanguages = OrganizationConfig.supportedLanguageCodes.toList(),
+            getLanguageName = getLanguageNameByCode,
+            getPreference = preferenceRepository::getValueByKey,
+            setPreference = preferenceRepository::setValueByKey,
         )
 
     fun uploadMeasurementsViewModel(

@@ -25,6 +25,10 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.ui)
     implementation(libs.compose.components)
+    // Main.kt hoists rememberNavController() above the locale `key()` block so navigation
+    // state survives an in-app language switch; navigation-compose reaches this module only
+    // transitively (implementation) via :composeApp, so depend on it directly.
+    implementation(libs.navigation)
     implementation(libs.kermit)
     implementation(libs.dark.mode.detector)
     implementation(libs.bundles.desktop)

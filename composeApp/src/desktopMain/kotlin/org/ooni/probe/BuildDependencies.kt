@@ -1,5 +1,6 @@
 package org.ooni.probe
 
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import co.touchlab.kermit.Logger
 import dev.dirs.ProjectDirectories
@@ -27,6 +28,7 @@ import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Distribution
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
+import java.awt.ComponentOrientation
 import java.awt.Desktop
 import java.io.File
 import java.net.URI
@@ -46,6 +48,10 @@ internal val baseCacheDir: String =
     if (DesktopBuildConfig.IS_DEBUG) File(DesktopBuildConfig.BUILD_DIR, "debug-cache").path else projectDirectories.cacheDir
 private val osName = System.getProperty("os.name")
 val platform = Platform.Desktop(osName)
+
+// Public (not internal) so :desktopApp's Main.kt can pass it to DesktopLocaleController.
+// Captured at class-init, before applyInitialLocale() overrides the JVM default locale.
+val systemDefaultLocale: Locale = Locale.getDefault()
 
 private val autoLaunch by lazy { AutoLaunch(appPackageName = APP_ID) }
 
@@ -122,8 +128,17 @@ internal fun buildDependencies(
         flavorConfig = flavorConfig,
         proxyConfig = ProxyConfig(isPsiphonSupported = false),
         getCountryNameByCode = ::getCountryNameByCode,
+        getLanguageNameByCode = ::languageDisplayName,
+        localeDirection = ::localeDirection,
         databaseContext = databaseDispatcher,
     )
+
+internal fun localeDirection(): LayoutDirection =
+    if (ComponentOrientation.getOrientation(Locale.getDefault()).isLeftToRight) {
+        LayoutDirection.Ltr
+    } else {
+        LayoutDirection.Rtl
+    }
 
 internal fun buildPlatformInfo(): PlatformInfo {
     val osVersion = System.getProperty("os.version")
@@ -141,7 +156,8 @@ internal fun buildPlatformInfo(): PlatformInfo {
         requestNotificationsPermission = false,
         knownBatteryState = false,
         knownNetworkType = false,
-        supportsInAppLanguage = false,
+        supportsInAppLanguage = true,
+        managesLanguageInApp = true,
         hasDonations = true,
         canPullToRefresh = false,
         supportsRunAtStartup = true,
@@ -231,6 +247,18 @@ private fun getCountryNameByCode(countryCode: String) =
         .build()
         .displayCountry
         .ifEmpty { countryCode }
+
+/**
+ * Native name of a language (autonym), e.g. "de" -> "Deutsch", "ja" -> "日本語".
+ * Falls back to the raw code if the JVM can't resolve a display name.
+ */
+internal fun languageDisplayName(code: String): String =
+    Locale.forLanguageTag(code).let { locale ->
+        locale
+            .getDisplayLanguage(locale)
+            .replaceFirstChar { it.uppercase(locale) }
+            .ifEmpty { code }
+    }
 
 private fun buildMailUri(action: PlatformAction.Mail): URI {
     val subject = URLEncoder.encode(action.subject, StandardCharsets.UTF_8).replace("+", "%20")

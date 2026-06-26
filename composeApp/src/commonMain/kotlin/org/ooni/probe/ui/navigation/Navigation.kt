@@ -42,6 +42,7 @@ import org.ooni.probe.ui.results.ResultsScreen
 import org.ooni.probe.ui.run.RunScreen
 import org.ooni.probe.ui.running.RunningScreen
 import org.ooni.probe.ui.settings.SettingsScreen
+import org.ooni.probe.ui.settings.language.LanguageScreen
 import org.ooni.probe.ui.settings.about.AboutScreen
 import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
 import org.ooni.probe.ui.settings.donate.DonateScreen
@@ -252,6 +253,14 @@ fun Navigation(
                     }
                     val state by viewModel.state.collectAsState()
                     LogScreen(state, viewModel::onEvent)
+                }
+
+                PreferenceCategoryKey.LANGUAGE -> {
+                    val viewModel = viewModel {
+                        dependencies.languageViewModel(onBack = { navController.goBack() })
+                    }
+                    val state by viewModel.state.collectAsState()
+                    LanguageScreen(state, viewModel::onEvent)
                 }
 
                 else -> {
