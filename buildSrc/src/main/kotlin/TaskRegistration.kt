@@ -389,7 +389,7 @@ private fun Project.registerAppImageTask() {
         // Set default output location - the actual version will be determined at execution time
         outputDir.set(
             rootProject.layout.projectDirectory.dir(
-                "composeApp/build/compose/binaries/main/appimage-workspace/"
+                "desktopApp/build/compose/binaries/main/appimage-workspace/"
             )
         )
     }
