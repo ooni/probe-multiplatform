@@ -143,6 +143,30 @@ fun Project.isFdroidTaskRequested(): Boolean =
         .any { it.contains("Fdroid") }
 
 /**
+ * Check if the Xperimental build task is requested.
+ */
+fun Project.isXperimentalTaskRequested(): Boolean =
+    gradle.startParameter.taskRequests
+        .flatMap { it.args }
+        .any { it.contains("Xperimental") }
+
+/**
+ * The Android flavor-specific source directory selected for the current
+ * invocation. The new `com.android.kotlin.multiplatform.library` DSL doesn't
+ * support Android product flavors, so the flavor-specific Android code (which
+ * includes the `Instrumentation` expect/actual) lives in the KMP library and
+ * is selected by task name — mirroring the existing `commonFullMain` /
+ * `commonFdroidMain` selection. Only one license flavor may be assembled per
+ * Gradle invocation.
+ */
+fun Project.selectedAndroidFlavorDir(): String =
+    when {
+        isFdroidTaskRequested() -> "androidFdroid"
+        isXperimentalTaskRequested() -> "androidXperimental"
+        else -> "androidFull"
+    }
+
+/**
  * Check if Debug build task is requested.
  *
  * Also treats the desktop screenshot capture tasks (`desktopCaptureScreens*`) as debug: they

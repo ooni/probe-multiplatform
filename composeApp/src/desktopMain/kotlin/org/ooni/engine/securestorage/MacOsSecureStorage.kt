@@ -12,7 +12,7 @@ import com.sun.jna.ptr.PointerByReference
 import org.ooni.engine.SecureStorage
 
 /**
- * macOS implementation of [org.ooni.engine.SecureStorage] using the Keychain Services API.
+ * macOS implementation of [SecureStorage] using the Keychain Services API.
  *
  * Stores credentials as generic passwords with service = [appId]
  * and account = key. Uses the legacy Keychain API (SecKeychainAddGenericPassword,

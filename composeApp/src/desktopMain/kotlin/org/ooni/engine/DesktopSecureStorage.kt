@@ -6,7 +6,7 @@ import org.ooni.engine.securestorage.WindowsSecureStorage
 import org.ooni.probe.shared.DesktopOS
 
 /**
- * Creates a [SecureStorage] instance appropriate for the given desktop OS:
+ * Creates a [org.ooni.engine.SecureStorage] instance appropriate for the given desktop OS:
  *
  * - **Linux**: [LinuxSecureStorage] — libsecret (GNOME Keyring / KDE Wallet)
  * - **Windows**: [WindowsSecureStorage] — Credential Manager (advapi32.dll)

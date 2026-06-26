@@ -16,7 +16,7 @@ import com.sun.jna.win32.W32APIOptions
 import org.ooni.engine.SecureStorage
 
 /**
- * Windows implementation of [org.ooni.engine.SecureStorage] using the Credential Manager API.
+ * Windows implementation of [SecureStorage] using the Credential Manager API.
  *
  * Stores credentials via advapi32.dll (CredWriteW, CredReadW, CredDeleteW,
  * CredEnumerateW, CredFree). All target names are prefixed with [targetPrefix]

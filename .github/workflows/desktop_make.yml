@@ -151,8 +151,8 @@ jobs:
         with:
           name: desktopApps-macos-${{ github.run_id }}
           path: |
-            composeApp/build/compose/binaries/main/dmg/OONI Probe-*.dmg
-            composeApp/build/compose/binaries/main/app/OONI Probe.app
+            desktopApp/build/compose/binaries/main/dmg/OONI Probe-*.dmg
+            desktopApp/build/compose/binaries/main/app/OONI Probe.app
             composeApp/macos-appcast.xml
           retention-days: 7
 
@@ -162,7 +162,7 @@ jobs:
         with:
           name: desktopApps-macos-appstore-${{ github.run_id }}
           path: |
-            composeApp/build/compose/binaries/main-release/pkg/OONI Probe-*.pkg
+            desktopApp/build/compose/binaries/main-release/pkg/OONI Probe-*.pkg
           retention-days: 7
 
       - name: Upload failure diagnostics
@@ -171,9 +171,9 @@ jobs:
         with:
           name: failure-logs-macos-${{ matrix.distribution }}-${{ github.run_id }}
           path: |
-            composeApp/build/compose/logs/**
-            composeApp/build/compose/tmp/**
-            composeApp/build/reports/problems/**
+            desktopApp/build/compose/logs/**
+            desktopApp/build/compose/tmp/**
+            desktopApp/build/reports/problems/**
             build/reports/problems/**
           if-no-files-found: ignore
           retention-days: 7
@@ -215,7 +215,7 @@ jobs:
         with:
           name: desktopApps-windows-${{ github.run_id }}
           path: |
-            composeApp/build/compose/binaries/main/exe/OONI Probe-*.exe
+            desktopApp/build/compose/binaries/main/exe/OONI Probe-*.exe
           retention-days: 7
 
       - name: Upload Microsoft Store artifact
@@ -224,7 +224,7 @@ jobs:
         with:
           name: desktopApps-windows-appstore-${{ github.run_id }}
           path: |
-            composeApp/build/compose/binaries/main/exe/OONI Probe-*.exe
+            desktopApp/build/compose/binaries/main/exe/OONI Probe-*.exe
           retention-days: 7
 
       - name: Upload failure diagnostics
@@ -233,9 +233,9 @@ jobs:
         with:
           name: failure-logs-windows-${{ matrix.distribution }}-${{ github.run_id }}
           path: |
-            composeApp/build/compose/logs/**
-            composeApp/build/compose/tmp/**
-            composeApp/build/reports/problems/**
+            desktopApp/build/compose/logs/**
+            desktopApp/build/compose/tmp/**
+            desktopApp/build/reports/problems/**
             build/reports/problems/**
           if-no-files-found: ignore
           retention-days: 7
@@ -271,8 +271,8 @@ jobs:
         with:
           name: desktopApps-linux-${{ github.run_id }}
           path: |
-            composeApp/build/compose/binaries/main/deb/ooni-probe_*_amd64.deb
-            composeApp/build/compose/binaries/main/appimage-workspace/OONI-Probe-*-x86_64.AppImage
+            desktopApp/build/compose/binaries/main/deb/ooni-probe_*_amd64.deb
+            desktopApp/build/compose/binaries/main/appimage-workspace/OONI-Probe-*-x86_64.AppImage
           retention-days: 7
 
       - name: Upload failure diagnostics
@@ -281,9 +281,9 @@ jobs:
         with:
           name: failure-logs-linux-${{ github.run_id }}
           path: |
-            composeApp/build/compose/logs/**
-            composeApp/build/compose/tmp/**
-            composeApp/build/reports/problems/**
+            desktopApp/build/compose/logs/**
+            desktopApp/build/compose/tmp/**
+            desktopApp/build/reports/problems/**
             build/reports/problems/**
           if-no-files-found: ignore
           retention-days: 7

@@ -188,7 +188,7 @@ fun Project.registerDesktopCaptureMicrosoftStoreTask() {
  */
 fun Project.excludeScreenshotTestsFromDesktopTest() {
     tasks.withType<Test>().configureEach {
-        if (name == "desktopTest") {
+        if (name == "test") {
             filter { excludeTestsMatching("org.ooni.probe.screenshots.*") }
         }
     }
@@ -196,9 +196,9 @@ fun Project.excludeScreenshotTestsFromDesktopTest() {
 
 private fun Test.wireDesktopScreenshotTest() {
     val project = project
-    dependsOn(project.tasks.named("desktopTestClasses"))
+    dependsOn(project.tasks.named("testClasses"))
 
-    val desktopTest = project.tasks.named<Test>("desktopTest").get()
+    val desktopTest = project.tasks.named<Test>("test").get()
     testClassesDirs = desktopTest.testClassesDirs
     classpath = desktopTest.classpath
     javaLauncher.set(desktopTest.javaLauncher)

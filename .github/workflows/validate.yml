@@ -37,7 +37,7 @@ jobs:
         if: always()
         with:
           name: android-lint-${{ matrix.variant }}-report
-          path: composeApp/build/reports/
+          path: androidApp/build/reports/
           retention-days: 7
 
   kotlin-lint:
@@ -127,7 +127,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.organization }}-release-APK
-          path: composeApp/build/outputs/apk/full/release/composeApp-full-universal-release.apk
+          path: androidApp/build/outputs/apk/full/release/androidApp-full-universal-release.apk
           retention-days: 7
 
       - name: Warn about missing Sentry token
@@ -201,7 +201,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: DesktopApp
-          path: composeApp/build/compose/binaries/**/**/*
+          path: desktopApp/build/compose/binaries/**/**/*
           retention-days: 7
 
       - name: Upload failure diagnostics
@@ -210,9 +210,9 @@ jobs:
         with:
           name: failure-logs-macos-${{ matrix.distribution }}-${{ github.run_id }}
           path: |
-            composeApp/build/compose/logs/**
-            composeApp/build/compose/tmp/**
-            composeApp/build/reports/problems/**
+            desktopApp/build/compose/logs/**
+            desktopApp/build/compose/tmp/**
+            desktopApp/build/reports/problems/**
             build/reports/problems/**
           if-no-files-found: ignore
           retention-days: 7
@@ -235,7 +235,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: ${{ matrix.organization }}-release-APK
-          path: composeApp/build/outputs/apk/full/release/
+          path: androidApp/build/outputs/apk/full/release/
 
       - name: Firebase App Distribution
         id: uploadArtifact
@@ -244,7 +244,7 @@ jobs:
           INPUT_SERVICE_CREDENTIALS_FILE_CONTENT: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           GOOGLE_APPLICATION_CREDENTIALS: service_credentials_content.json
           INPUT_GROUPS: testers
-          INPUT_FILE: composeApp/build/outputs/apk/full/release/composeApp-full-universal-release.apk
+          INPUT_FILE: androidApp/build/outputs/apk/full/release/androidApp-full-universal-release.apk
         run: |
           cat <<< "${INPUT_SERVICE_CREDENTIALS_FILE_CONTENT}" > service_credentials_content.json
           sudo npm install -g firebase-tools

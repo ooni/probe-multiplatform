@@ -180,8 +180,10 @@ private val bundledNativeLibraries = listOf(jnaLibrary, sqliteLibrary, goJniLibr
  * triggers our shadowed `go.NativeUtils.loadLibraryFromJar`.
  *
  * No-op on non-macOS hosts or when the bundled files are absent.
+ *
+ * Public so the desktop entry point (:desktopApp Main.kt) can call it.
  */
-internal fun configureBundledNativeLibraries() {
+fun configureBundledNativeLibraries() {
     val applied = bundledNativeLibraries.mapNotNull { lib ->
         val dir = macOsBundledLibraryDir(lib.dirName) ?: return@mapNotNull null
         val file = File(dir, lib.fileName).takeIf { it.isFile } ?: return@mapNotNull null

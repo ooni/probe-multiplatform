@@ -21,7 +21,7 @@ import ooniprobe.composeapp.generated.resources.Notification_UpdateChannelName
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.AndroidApplication
-import org.ooni.probe.R
+import org.ooni.probe.shared.R
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.di.Dependencies
 

@@ -6,6 +6,10 @@ android-compileSdk = "37"
 android-minSdk = "24"
 android-targetSdk = "37"
 
+# App version, single source of truth shared by androidApp (android) and composeApp (desktop)
+app-versionName = "6.1.0"
+app-versionCode = "330" # Always increment by 10. See fdroid ABI offsets in androidApp
+
 compose-plugin = "1.11.1"
 kotlin = "2.4.0"
 sqldelight = "2.3.2"
@@ -24,6 +28,7 @@ androidLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref 
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 jetbrainsComposeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "14.2.0" }
@@ -141,6 +146,7 @@ auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.8.0" }
 directories = { module = "dev.dirs:directories", version = "26" }
 pratanumandal-unique = { module = "tk.pratanumandal:unique4j", version = "1.4" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version = "1.11.0" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version = "1.11.0" }
 
 [bundles]
 

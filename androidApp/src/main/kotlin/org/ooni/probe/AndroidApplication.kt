@@ -14,6 +14,7 @@ import android.os.Build
 import android.os.LocaleList
 import android.os.PowerManager
 import androidx.core.content.FileProvider
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.net.toUri
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.SharedPreferencesMigration
@@ -75,13 +76,17 @@ class AndroidApplication : Application() {
 
     private val mainActivityLifecycleCallbacks = MainActivityLifecycleCallbacks()
 
+    private val packageInfo by lazy { packageManager.getPackageInfo(packageName, 0) }
+
     override fun onCreate() {
         super.onCreate()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             val localeManager = applicationContext
                 .getSystemService(LocaleManager::class.java)
             localeManager.overrideLocaleConfig = LocaleConfig(
-                LocaleList.forLanguageTags(getString(R.string.supported_languages)),
+                LocaleList.forLanguageTags(
+                    OrganizationConfig.supportedLanguageCodes.joinToString(","),
+                ),
             )
         }
         registerActivityLifecycleCallbacks(mainActivityLifecycleCallbacks)
@@ -90,8 +95,8 @@ class AndroidApplication : Application() {
 
     private val platformInfo by lazy {
         PlatformInfo(
-            buildName = BuildConfig.VERSION_NAME,
-            buildNumber = BuildConfig.VERSION_CODE.toString(),
+            buildName = packageInfo.versionName.orEmpty(),
+            buildNumber = PackageInfoCompat.getLongVersionCode(packageInfo).toString(),
             platform = Platform.Android,
             osVersion = Build.VERSION.SDK_INT.toString(),
             model = "${Build.MANUFACTURER} ${Build.MODEL}",
@@ -254,7 +259,7 @@ class AndroidApplication : Application() {
         }
 
         return try {
-            FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", file)
+            FileProvider.getUriForFile(this, "$packageName.provider", file)
         } catch (e: IllegalArgumentException) {
             Logger.w("Could not generate file uri to share", e)
             null
