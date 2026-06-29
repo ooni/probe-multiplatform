@@ -102,7 +102,7 @@ class AndroidApplication : Application() {
             osVersion = Build.VERSION.SDK_INT.toString(),
             model = "${Build.MANUFACTURER} ${Build.MODEL}",
             requestNotificationsPermission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU,
-            languageSupport = if (Build.VERSION.SDK_INT >= 33) {
+            languageSupport = if (Build.VERSION.SDK_INT < 33) {
                 LanguageSupport.SYSTEM_SETTINGS
             } else {
                 LanguageSupport.NONE
