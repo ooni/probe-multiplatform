@@ -180,6 +180,7 @@ class Dependencies(
     val proxyConfig: ProxyConfig,
     val getCountryNameByCode: (String) -> String,
     val getLanguageNameByCode: (String) -> String = { it },
+    val supportedLanguageTags: List<String> = OrganizationConfig.supportedLanguageCodes.toList(),
     @get:VisibleForTesting
     var databaseContext: CoroutineContext = Dispatchers.IO,
 ) {
@@ -494,7 +495,7 @@ class Dependencies(
             supportsCrashReporting = flavorConfig.isCrashReportingEnabled,
             knownNetworkType = platformInfo.knownNetworkType,
             knownBatteryState = platformInfo.knownBatteryState,
-            supportsInAppLanguage = platformInfo.supportsInAppLanguage,
+            languageSupport = platformInfo.languageSupport,
             supportsRunAtStartup = platformInfo.supportsRunAtStartup,
             hasDonations = platformInfo.hasDonations,
             isCleanUpRequired = legacyDirectoryManager::isCleanUpRequired,
@@ -1055,13 +1056,13 @@ class Dependencies(
             goToSettingsForCategory = goToSettingsForCategory,
             openAppLanguageSettings = { launchAction(PlatformAction.LanguageSettings) },
             getSettings = getSettings::invoke,
-            managesLanguageInApp = platformInfo.managesLanguageInApp,
+            languageSupport = platformInfo.languageSupport,
         )
 
     fun languageViewModel(onBack: () -> Unit) =
         LanguageViewModel(
             onBack = onBack,
-            supportedLanguages = OrganizationConfig.supportedLanguageCodes.toList(),
+            supportedLanguages = supportedLanguageTags,
             getLanguageName = getLanguageNameByCode,
             getPreference = preferenceRepository::getValueByKey,
             setPreference = preferenceRepository::setValueByKey,

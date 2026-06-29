@@ -37,6 +37,7 @@ object OrganizationConfig : OrganizationConfigInterface {
             "id",
             "is",
             "it",
+            "ja",
             "km",
             "my",
             "nl",

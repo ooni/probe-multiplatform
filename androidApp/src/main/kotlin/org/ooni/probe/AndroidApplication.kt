@@ -39,6 +39,7 @@ import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.shared.LanguageSupport
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import java.util.Locale
@@ -101,7 +102,11 @@ class AndroidApplication : Application() {
             osVersion = Build.VERSION.SDK_INT.toString(),
             model = "${Build.MANUFACTURER} ${Build.MODEL}",
             requestNotificationsPermission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU,
-            supportsInAppLanguage = Build.VERSION.SDK_INT >= 33,
+            languageSupport = if (Build.VERSION.SDK_INT >= 33) {
+                LanguageSupport.SYSTEM_SETTINGS
+            } else {
+                LanguageSupport.NONE
+            },
             hasDonations = true,
             canPullToRefresh = true,
             sentryDsn =

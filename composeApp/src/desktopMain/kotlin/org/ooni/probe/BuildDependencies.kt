@@ -26,6 +26,7 @@ import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Distribution
+import org.ooni.probe.shared.LanguageSupport
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import java.awt.ComponentOrientation
@@ -129,6 +130,7 @@ internal fun buildDependencies(
         proxyConfig = ProxyConfig(isPsiphonSupported = false),
         getCountryNameByCode = ::getCountryNameByCode,
         getLanguageNameByCode = ::languageDisplayName,
+        supportedLanguageTags = DesktopBuildConfig.SUPPORTED_LANGUAGES,
         localeDirection = ::localeDirection,
         databaseContext = databaseDispatcher,
     )
@@ -156,8 +158,7 @@ internal fun buildPlatformInfo(): PlatformInfo {
         requestNotificationsPermission = false,
         knownBatteryState = false,
         knownNetworkType = false,
-        supportsInAppLanguage = true,
-        managesLanguageInApp = true,
+        languageSupport = LanguageSupport.IN_APP,
         hasDonations = true,
         canPullToRefresh = false,
         supportsRunAtStartup = true,
@@ -250,14 +251,18 @@ private fun getCountryNameByCode(countryCode: String) =
 
 /**
  * Native name of a language (autonym), e.g. "de" -> "Deutsch", "ja" -> "日本語".
+ * Region-qualified tags include the country so variants are distinguishable, e.g.
+ * "pt-BR" -> "Português (Brasil)", "zh-TW" -> "中文 (台灣)".
  * Falls back to the raw code if the JVM can't resolve a display name.
  */
 internal fun languageDisplayName(code: String): String =
     Locale.forLanguageTag(code).let { locale ->
-        locale
+        val language = locale
             .getDisplayLanguage(locale)
             .replaceFirstChar { it.uppercase(locale) }
             .ifEmpty { code }
+        val country = locale.getDisplayCountry(locale)
+        if (country.isNotEmpty()) "$language ($country)" else language
     }
 
 private fun buildMailUri(action: PlatformAction.Mail): URI {

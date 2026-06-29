@@ -17,7 +17,7 @@ class ConfigurationPlugin : Plugin<Project> {
             // The desktop packaging shell (:desktopApp) owns compose.desktop and the
             // packaging post-processing; everything else (shared library + desktop
             // resources/native/branding) is configured on :composeApp.
-            registerDesktopAppTasks()
+            registerDesktopAppTasks(config)
             registerTasks(config)
             configureTasks()
         }

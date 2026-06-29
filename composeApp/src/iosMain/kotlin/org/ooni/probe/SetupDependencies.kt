@@ -29,6 +29,7 @@ import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.domain.PreferenceMigration
+import org.ooni.probe.shared.LanguageSupport
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import platform.BackgroundTasks.BGProcessingTask
@@ -166,7 +167,7 @@ class SetupDependencies(
             osVersion = with(UIDevice.currentDevice) { systemVersion },
             model = UIDevice.currentDevice.model,
             requestNotificationsPermission = false,
-            supportsInAppLanguage = true,
+            languageSupport = LanguageSupport.SYSTEM_SETTINGS,
             hasDonations = false,
             canPullToRefresh = true,
             sentryDsn = "https://a19b2c03b50acdad7d5635559a8e2cad@o155150.ingest.sentry.io/4508325650235392",

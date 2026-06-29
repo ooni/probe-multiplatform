@@ -73,6 +73,7 @@ import org.ooni.probe.data.models.SettingsItem
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.domain.results.DeleteOldResults
+import org.ooni.probe.shared.LanguageSupport
 import org.ooni.probe.shared.formatDataUsage
 import org.ooni.probe.ui.settings.category.SettingsDescription
 import org.ooni.probe.ui.settings.donate.DONATE_SETTINGS_ITEM
@@ -86,7 +87,7 @@ class GetSettings(
     private val supportsCrashReporting: Boolean,
     private val knownNetworkType: Boolean,
     private val knownBatteryState: Boolean,
-    private val supportsInAppLanguage: Boolean,
+    private val languageSupport: LanguageSupport,
     private val supportsRunAtStartup: Boolean,
     private val hasDonations: Boolean,
     private val isCleanUpRequired: () -> Flow<Boolean>,
@@ -268,7 +269,7 @@ class GetSettings(
                 title = Res.string.Settings_Proxy_Label,
                 route = PreferenceCategoryKey.PROXY,
             ),
-            if (supportsInAppLanguage) {
+            if (languageSupport != LanguageSupport.NONE) {
                 SettingsCategoryItem(
                     icon = Res.drawable.ic_language,
                     title = Res.string.Settings_Language_Label,
