@@ -248,6 +248,10 @@ tasks.withType<Test>().configureEach {
         includeTestsMatching("*Test")
         isFailOnNoMatchingTests = false
     }
+    testLogging {
+        // Surface test stdout (e.g. the CountNotViewedBenchmarkTest timing table) on the console.
+        showStandardStreams = true
+    }
 }
 
 // The KMP library Android variant only reads src/androidMain/res by default.
