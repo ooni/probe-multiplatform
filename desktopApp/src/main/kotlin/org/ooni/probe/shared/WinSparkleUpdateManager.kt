@@ -9,9 +9,8 @@ class WinSparkleUpdateManager : UpdateManager {
         // constructed. Prevents class references (reflection, type checks,
         // DI lookups) from attempting to load `updatebridge` in store builds
         // where the library isn't bundled.
-        val loaded = libraryLoaded
-        if (!loaded) {
-            logErrorAndUpdateState(-998, "Native library 'updatebridge' failed to load", "init")
+        if (!libraryLoaded) {
+            throw IllegalStateException("Native library 'updatebridge' failed to load")
         }
     }
 
