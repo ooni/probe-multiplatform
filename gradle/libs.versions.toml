@@ -7,8 +7,8 @@ android-minSdk = "24"
 android-targetSdk = "37"
 
 # App version, single source of truth shared by androidApp (android) and composeApp (desktop)
-app-versionName = "6.1.0"
-app-versionCode = "330" # Always increment by 10. See fdroid ABI offsets in androidApp
+app-versionName = "6.1.1"
+app-versionCode = "340" # Always increment by 10. See fdroid ABI offsets in androidApp
 
 compose-plugin = "1.11.1"
 kotlin = "2.4.0"
