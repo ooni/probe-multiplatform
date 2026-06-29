@@ -91,15 +91,19 @@ class DesktopUpdateController(
     }
 
     fun registerShutdownHandler(appScope: ApplicationScope) {
-        when (updateManager) {
-            is WinSparkleUpdateManager -> updateManager.setShutdownCallback {
-                Logger.i("WinSparkle requested application shutdown for update installation")
-                appScope.exitApplication()
+        try {
+            when (updateManager) {
+                is WinSparkleUpdateManager -> updateManager.setShutdownCallback {
+                    Logger.i("WinSparkle requested application shutdown for update installation")
+                    appScope.exitApplication()
+                }
+                is SparkleUpdateManager -> updateManager.setShutdownCallback {
+                    Logger.i("Sparkle requested application shutdown for update installation")
+                    appScope.exitApplication()
+                }
             }
-            is SparkleUpdateManager -> updateManager.setShutdownCallback {
-                Logger.i("Sparkle requested application shutdown for update installation")
-                appScope.exitApplication()
-            }
+        } catch (e: Throwable) {
+            Logger.w("Failed to register update shutdown handler, updates disabled", e)
         }
     }
 
