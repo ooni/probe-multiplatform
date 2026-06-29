@@ -466,4 +466,5 @@
     <string name="Dashboard_Articles_OpenExternal">Tarayıcıda aç</string>
     <string name="Result_Error">sınama sorunu</string>
     <string name="AddDescriptor_Toasts_AlreadyInstalled">Bağlantı zaten kurulmuş</string>
+    <string name="Dashboard_UpdatePrompt_Action">Güncelle</string>
 </resources>
