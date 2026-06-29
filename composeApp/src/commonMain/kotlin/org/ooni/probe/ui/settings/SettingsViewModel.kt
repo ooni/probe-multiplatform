@@ -11,12 +11,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.SettingsCategoryItem
+import org.ooni.probe.shared.LanguageSupport
 
 open class SettingsViewModel(
     goToSettingsForCategory: (PreferenceCategoryKey) -> Unit,
     openAppLanguageSettings: suspend () -> Unit,
     getSettings: () -> Flow<List<SettingsCategoryItem>>,
-    managesLanguageInApp: Boolean = false,
+    languageSupport: LanguageSupport = LanguageSupport.NONE,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -33,7 +34,7 @@ open class SettingsViewModel(
             .onEach {
                 when (it.category) {
                     PreferenceCategoryKey.LANGUAGE ->
-                        if (managesLanguageInApp) {
+                        if (languageSupport == LanguageSupport.IN_APP) {
                             goToSettingsForCategory(it.category)
                         } else {
                             openAppLanguageSettings()

@@ -43,8 +43,8 @@ fun Project.registerTasks(config: AppConfig) {
  * framework lands in :desktopApp's build dir alongside the compose binaries the
  * packaging post-processing operates on.
  */
-fun Project.registerDesktopAppTasks() {
-    registerDesktopBuildConfigTask()
+fun Project.registerDesktopAppTasks(config: AppConfig) {
+    registerDesktopBuildConfigTask(config.supportedLanguages)
     excludeScreenshotTestsFromDesktopTest()
 
     if (path != ":desktopApp") return
@@ -129,13 +129,14 @@ private fun Project.registerAndroidTasks(config: AppConfig) {
  * }
  * ```
  */
-fun Project.registerDesktopBuildConfigTask() {
+fun Project.registerDesktopBuildConfigTask(supportedLanguages: List<String>) {
     val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
     val versionName = libs.findVersion("app-versionName").get().requiredVersion
     val versionCode = libs.findVersion("app-versionCode").get().requiredVersion.toInt()
     val isDebug = isDebugTaskRequested()
     val dist = distribution()
     val buildDirPath = layout.buildDirectory.get().asFile.absolutePath
+    val languageTags = supportedLanguages.map { it.replace(Regex("-r([A-Z]{2})"), "-$1") }
     tasks.register("generateDesktopBuildConfig") {
         val outputDir = layout.buildDirectory.dir("generated/desktopBuildConfig/kotlin")
         inputs.property("versionName", versionName)
@@ -143,10 +144,12 @@ fun Project.registerDesktopBuildConfigTask() {
         inputs.property("isDebug", isDebug)
         inputs.property("distribution", dist.name)
         inputs.property("buildDir", buildDirPath)
+        inputs.property("supportedLanguages", languageTags)
         outputs.dir(outputDir)
         doLast {
             val dir = outputDir.get().asFile.resolve("org/ooni/probe")
             dir.mkdirs()
+            val supportedLanguagesLiteral = languageTags.joinToString(", ") { "\"$it\"" }
             // BUILD_DIR is an absolute path baked in at build time; only consumed by debug builds
             // to place data/cache under composeApp/build/. Triple-quoted to survive Windows backslashes.
             dir.resolve("DesktopBuildConfig.kt").writeText(
@@ -159,6 +162,7 @@ fun Project.registerDesktopBuildConfigTask() {
                 |    const val IS_DEBUG = $isDebug
                 |    const val DISTRIBUTION = "${dist.name}"
                 |    const val BUILD_DIR = ${"\"\"\""}$buildDirPath${"\"\"\""}
+                |    val SUPPORTED_LANGUAGES = listOf($supportedLanguagesLiteral)
                 |}
                 """.trimMargin(),
             )

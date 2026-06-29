@@ -8,6 +8,7 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.shared.Distribution
+import org.ooni.probe.shared.LanguageSupport
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
 import java.nio.file.Files
@@ -56,7 +57,7 @@ private fun screenshotPlatformInfo(
         requestNotificationsPermission = false,
         knownBatteryState = false,
         knownNetworkType = false,
-        supportsInAppLanguage = false,
+        languageSupport = LanguageSupport.NONE,
         hasDonations = true,
         canPullToRefresh = false,
         sentryDsn = "",

@@ -9,8 +9,7 @@ data class PlatformInfo(
     val requestNotificationsPermission: Boolean,
     val knownBatteryState: Boolean = true,
     val knownNetworkType: Boolean = true,
-    val supportsInAppLanguage: Boolean = false,
-    val managesLanguageInApp: Boolean = false,
+    val languageSupport: LanguageSupport = LanguageSupport.NONE,
     val hasDonations: Boolean = true,
     val canPullToRefresh: Boolean = false,
     val supportsRunAtStartup: Boolean = false,
@@ -57,4 +56,16 @@ enum class DesktopOS {
     Mac,
     Linux,
     Other,
+}
+
+/** How the app exposes language selection on a given platform. */
+enum class LanguageSupport {
+    /** No Language entry in Settings (e.g. Android below 13). */
+    NONE,
+
+    /** Language entry opens the OS language settings (Android 13+, iOS). */
+    SYSTEM_SETTINGS,
+
+    /** Language entry opens the in-app language picker (Desktop). */
+    IN_APP,
 }
