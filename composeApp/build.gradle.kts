@@ -119,7 +119,7 @@ kotlin {
                 implementation(libs.bundles.android)
                 implementation(libs.bundles.mobile)
                 implementation("net.java.dev.jna:jna:5.19.1@aar")
-                implementation("org.ooni:passport-android:0.1.1:@aar")
+                implementation("org.ooni:passport-android:0.1.3:@aar")
                 // The Android engine bridge + flavor code live here (platform
                 // implementations). fdroid/xperimental swap the oonimkall artifact;
                 // full additionally pulls Play app-update/review for
@@ -179,7 +179,7 @@ kotlin {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
                 implementation("org.ooni:oonimkall:c52ce3b5-${oonimkallVersionSuffix()}")
-                implementation("org.ooni:passport-${passportDependencySuffix()}:0.1.2")
+                implementation("org.ooni:passport-${passportDependencySuffix()}:0.1.3")
 
                 if (dist.bundlesJavaFx) {
                     // The embedded WebView actual needs JavaFX. As JavaFX has
