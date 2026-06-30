@@ -15,6 +15,31 @@ kotlin {
     }
 }
 
+// The instrumented tests (src/androidTest) and the shared org.ooni.testing fixtures symlinked from
+// :composeApp's commonTest rely on the experimental APIs that :composeApp opts into module-wide via
+// languageSettings. This plain Android module has no languageSettings block, so opt in here —
+// scoped to the androidTest compilation, since some markers (e.g. Compose ui-test) are only on that
+// classpath. (Omits the iOS-only kotlinx.cinterop.ExperimentalForeignApi and the unused
+// material3 window-size-class marker.)
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    if (name.contains("AndroidTest")) {
+        compilerOptions.optIn.addAll(
+            "kotlin.ExperimentalStdlibApi",
+            "kotlin.io.encoding.ExperimentalEncodingApi",
+            "kotlin.time.ExperimentalTime",
+            "kotlin.uuid.ExperimentalUuidApi",
+            "kotlinx.coroutines.DelicateCoroutinesApi",
+            "kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "kotlinx.coroutines.FlowPreview",
+            "org.jetbrains.compose.resources.ExperimentalResourceApi",
+            "androidx.compose.foundation.ExperimentalFoundationApi",
+            "androidx.compose.material3.ExperimentalMaterial3Api",
+            "androidx.compose.ui.test.ExperimentalTestApi",
+            "androidx.compose.ui.ExperimentalComposeUiApi",
+        )
+    }
+}
+
 val organization: String? by project
 
 val config = Organization.fromKey(organization).config
@@ -78,7 +103,7 @@ android {
         getByName("debug") {
             applicationIdSuffix = ".dev"
             resValue("string", "run_v2_domain", "run.test.ooni.org")
-            //sourceSets["debug"].manifest.srcFile("src/debug/AndroidManifest.xml")
+            sourceSets["debug"].manifest.srcFile("src/debug/AndroidManifest.xml")
         }
         getByName("release") {
             resValue("string", "run_v2_domain", "run.ooni.org")
@@ -202,6 +227,16 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.2.1")
 
     coreLibraryDesugaring(libs.android.desugar.jdk)
+
+    // Instrumented UI tests (src/androidTest, run on Firebase Test Lab). The runner
+    // (androidx.test:runner) lives in the android-instrumented-test bundle — without it the
+    // testInstrumentationRunner above is missing at runtime (NO_TEST_RUNNER_CLASS).
+    androidTestImplementation(libs.bundles.android.test)
+    androidTestImplementation(libs.bundles.android.instrumented.test)
+    androidTestImplementation(libs.kotlinx.coroutines.test) // runTest {} — not in either bundle
+    // The shared org.ooni.testing fixtures (symlinked from :composeApp commonTest) use
+    // kotlinx-datetime directly; :composeApp pulls it as implementation so it isn't on our classpath.
+    androidTestImplementation(libs.kotlin.datetime)
     androidTestUtil(libs.android.orchestrator)
 }
 
