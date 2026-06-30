@@ -39,26 +39,27 @@ jobs:
       - name: Build APKs
         run: ./gradlew copyBrandingToCommonResources assemble${{ matrix.license }}Debug assemble${{ matrix.license }}DebugAndroidTest -Porganization=${{ matrix.organization }}
 
+      - name: Setup and authenticate with GCP
+        env:
+          SERVICE_CREDS: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+        run: |
+          printf '%s' "$SERVICE_CREDS" > service_credentials_content.json
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v3
         with:
           version: '>= 495.0.0'
-
-      - name: GCloud authentication
-        env:
-          INPUT_SERVICE_CREDENTIALS_FILE_CONTENT: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-          GOOGLE_APPLICATION_CREDENTIALS: service_credentials_content.json
-        run: |
-          cat <<< "${INPUT_SERVICE_CREDENTIALS_FILE_CONTENT}" > service_credentials_content.json
-          gcloud auth activate-service-account --key-file=service_credentials_content.json
 
       - name: Firebase Test Lab
         run: >-
           LABEL=$(git show -s --format='%H')
           gcloud firebase test android run
           --type instrumentation
-          --app composeApp/build/outputs/apk/${{ matrix.license }}/debug/composeApp-${{ matrix.license }}-universal-debug.apk
-          --test composeApp/build/outputs/apk/androidTest/${{ matrix.license }}/debug/composeApp-${{ matrix.license }}-debug-androidTest.apk
+          --app androidApp/build/outputs/apk/${{ matrix.license }}/debug/androidApp-${{ matrix.license }}-universal-debug.apk
+          --test androidApp/build/outputs/apk/androidTest/${{ matrix.license }}/debug/androidApp-${{ matrix.license }}-debug-androidTest.apk
           --device model=MediumPhone.arm,version=29,locale=en,orientation=portrait
           --timeout 120s
           --num-flaky-test-attempts=2
