@@ -46,7 +46,7 @@ jobs:
           echo "token=$SENTRY_AUTH_TOKEN" >> ~/.sentryclirc
 
       - name: Decode Android keystore
-        run: echo "${{ secrets.OONI_ANDROID_KEY_STOREFILE }}" | base64 --decode > composeApp/upload-keystore.jks
+        run: echo "${{ secrets.OONI_ANDROID_KEY_STOREFILE }}" | base64 --decode > androidApp/upload-keystore.jks
 
       - name: Decode Service Account file
         run: echo "${{ secrets.OONI_ANDROID_SERVICE_ACCOUNT }}" | base64 --decode > key.json
