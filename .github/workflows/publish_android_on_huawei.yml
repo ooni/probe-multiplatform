@@ -22,7 +22,7 @@ jobs:
           echo "token=$SENTRY_AUTH_TOKEN" >> ~/.sentryclirc
 
       - name: Decode Android keystore
-        run: echo "${{ secrets.OONI_ANDROID_KEY_STOREFILE }}" | base64 --decode > composeApp/upload-keystore.jks
+        run: echo "${{ secrets.OONI_ANDROID_KEY_STOREFILE }}" | base64 --decode > androidApp/upload-keystore.jks
 
       - name: Publish to Huawei AppGallery
         env:
