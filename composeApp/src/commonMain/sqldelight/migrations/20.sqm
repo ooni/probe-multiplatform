@@ -1,0 +1,4 @@
+CREATE INDEX idx_result_is_done_is_viewed ON Result (is_done, is_viewed);
+
+DROP INDEX IF EXISTS idx_measure_result_id;
+CREATE INDEX idx_measure_result_id_is_done ON Measurement (result_id, is_done);
