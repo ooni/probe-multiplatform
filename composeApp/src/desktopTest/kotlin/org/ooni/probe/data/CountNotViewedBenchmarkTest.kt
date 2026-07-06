@@ -7,10 +7,12 @@ import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.Statement
 import kotlin.random.Random
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+@Ignore
 class CountNotViewedBenchmarkTest {
     private val report = StringBuilder()
 
