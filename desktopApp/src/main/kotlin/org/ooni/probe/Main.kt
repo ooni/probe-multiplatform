@@ -8,7 +8,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -41,9 +40,9 @@ import kotlinx.coroutines.launch
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Preparing_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
+import ooniprobe.composeapp.generated.resources.Desktop_ForceQuit
 import ooniprobe.composeapp.generated.resources.Desktop_OpenApp
 import ooniprobe.composeapp.generated.resources.Desktop_Quit
-import ooniprobe.composeapp.generated.resources.Desktop_ForceQuit
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_Hide
 import ooniprobe.composeapp.generated.resources.Modal_Quite_Description

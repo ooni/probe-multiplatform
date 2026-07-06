@@ -10,15 +10,20 @@ typealias LocalizationString = Map<String, String>
  - pt_BR matches pt_BR, fallbacks to pt
  - pt also matches pt_BR
 
- If the OS language is not in supportedLanguageCodes, falls back to English
+ If the OS language is not in descriptorLanguageCodes, falls back to English
  to avoid showing content in an unsupported language.
  */
 fun LocalizationString.getCurrent(
     currentLanguage: String = Locale.current.language,
     currentRegion: String = Locale.current.region,
 ): String? {
-    val language =
-        if (currentLanguage in OrganizationConfig.supportedLanguageCodes) currentLanguage else "en"
+    val language = if (
+        OrganizationConfig.descriptorLanguageCodes.any { it.startsWith(currentLanguage) }
+    ) {
+        currentLanguage
+    } else {
+        "en"
+    }
     val region = if (language == currentLanguage) currentRegion else ""
     return get(language + "_" + region)
         ?: entries.firstOrNull { it.key == language }?.value
