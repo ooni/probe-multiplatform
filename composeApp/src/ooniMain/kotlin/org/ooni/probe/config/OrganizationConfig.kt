@@ -21,35 +21,32 @@ object OrganizationConfig : OrganizationConfigInterface {
     override val installUrl: String? = "https://ooni.org/install/mobile"
     override val hasOoniNews = true
     override val canInstallDescriptors = true
-    override val supportedLanguageCodes =
+    override val descriptorLanguageCodes =
         setOf(
             "ar",
-            "bs",
             "ca",
             "de",
             "el",
-            "en",
             "es",
             "fa",
-            "fi",
             "fr",
             "hi",
             "id",
             "is",
             "it",
-            "ja",
-            "km",
-            "my",
             "nl",
-            "pt",
+            "pt_BR",
             "ro",
             "ru",
+            "sw",
             "sk",
             "sq",
-            "sw",
             "th",
             "tr",
+            "zh_CN",
+            "zh_TW",
+            "my",
             "vi",
-            "zh",
+            "km",
         )
 }

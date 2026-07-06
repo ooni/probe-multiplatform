@@ -72,6 +72,7 @@ class AndroidApplication : Application() {
             flavorConfig = FlavorConfig(),
             proxyConfig = ProxyConfig(isPsiphonSupported = false),
             getCountryNameByCode = ::getCountryNameByCode,
+            getLanguageNameByCode = ::getLanguageNameByCode,
         )
     }
 
@@ -85,9 +86,7 @@ class AndroidApplication : Application() {
             val localeManager = applicationContext
                 .getSystemService(LocaleManager::class.java)
             localeManager.overrideLocaleConfig = LocaleConfig(
-                LocaleList.forLanguageTags(
-                    OrganizationConfig.supportedLanguageCodes.joinToString(","),
-                ),
+                LocaleList.forLanguageTags(DesktopBuildConfig.SUPPORTED_LANGUAGES.joinToString(",")),
             )
         }
         registerActivityLifecycleCallbacks(mainActivityLifecycleCallbacks)
@@ -103,9 +102,9 @@ class AndroidApplication : Application() {
             model = "${Build.MANUFACTURER} ${Build.MODEL}",
             requestNotificationsPermission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU,
             languageSupport = if (Build.VERSION.SDK_INT < 33) {
-                LanguageSupport.SYSTEM_SETTINGS
+                LanguageSupport.IN_APP
             } else {
-                LanguageSupport.NONE
+                LanguageSupport.SYSTEM_SETTINGS
             },
             hasDonations = true,
             canPullToRefresh = true,
@@ -116,7 +115,8 @@ class AndroidApplication : Application() {
 
     private val connectivityManager get() = getSystemService(ConnectivityManager::class.java)
 
-    private fun buildDatabaseDriver(): SqlDriver = AndroidSqliteDriver(Database.Schema, this, "v2.db")
+    private fun buildDatabaseDriver(): SqlDriver =
+        AndroidSqliteDriver(Database.Schema, this, "v2.db")
 
     private fun buildDataStore(): DataStore<Preferences> =
         Dependencies.getDataStore(
@@ -135,11 +135,11 @@ class AndroidApplication : Application() {
         return when (status) {
             BatteryManager.BATTERY_STATUS_CHARGING,
             BatteryManager.BATTERY_STATUS_FULL,
-            -> BatteryState.Charging
+                -> BatteryState.Charging
 
             BatteryManager.BATTERY_STATUS_NOT_CHARGING,
             BatteryManager.BATTERY_STATUS_DISCHARGING,
-            -> BatteryState.NotCharging
+                -> BatteryState.NotCharging
 
             else -> BatteryState.Unknown
         }
@@ -307,4 +307,10 @@ class AndroidApplication : Application() {
             .build()
             .displayCountry
             .ifEmpty { countryCode }
+
+    private fun getLanguageNameByCode(languageCode: String): String {
+        val locale = Locale.forLanguageTag(languageCode)
+        return locale.getDisplayLanguage(locale) +
+            (locale.getDisplayCountry(locale).ifEmpty { null }?.let { " ($it)" } ?: "")
+    }
 }

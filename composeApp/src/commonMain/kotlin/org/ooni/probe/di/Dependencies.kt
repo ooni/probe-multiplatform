@@ -20,6 +20,7 @@ import org.ooni.engine.SecureStorage
 import org.ooni.engine.TaskEventMapper
 import org.ooni.passport.PassportBridge
 import org.ooni.probe.Database
+import org.ooni.probe.DesktopBuildConfig
 import org.ooni.probe.background.RunBackgroundTask
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.FlavorConfigInterface
@@ -180,7 +181,7 @@ class Dependencies(
     val proxyConfig: ProxyConfig,
     val getCountryNameByCode: (String) -> String,
     val getLanguageNameByCode: (String) -> String = { it },
-    val supportedLanguageTags: List<String> = OrganizationConfig.supportedLanguageCodes.toList(),
+    val supportedLanguageTags: List<String> = DesktopBuildConfig.SUPPORTED_LANGUAGES,
     @get:VisibleForTesting
     var databaseContext: CoroutineContext = Dispatchers.IO,
 ) {
