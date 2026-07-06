@@ -10,6 +10,7 @@ import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
 import org.ooni.passport.PassportAuthSubmit
+import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.SubmitCredentialConfig
 import org.ooni.passport.models.VerificationStatus
 import org.ooni.probe.config.BuildTypeDefaults
@@ -45,12 +46,29 @@ class SubmitMeasurementWithUser(
                 probeAsn = data.probeAsn,
                 credentialConfig = credentialConfig,
             ).onSuccess { result ->
+                val outcome = result.decodeSubmitOutcome(json)
+
                 if (!result.response.isSuccessful) {
-                    Logger.w("Submit returned non-2XX: ${result.response.statusCode}")
-                    return Failure(null)
+                    val exception = PassportException.HttpClientError(
+                        buildString {
+                            append("Submit returned HTTP ").append(result.response.statusCode)
+                            outcome.error?.let { append(" [").append(it.code).append(']') }
+                            result.response.bodyText
+                                ?.takeIf { it.isNotBlank() }
+                                ?.let { append(": ").append(it.take(MAX_ERROR_BODY_LENGTH)) }
+                        },
+                    )
+                    Logger.w("Submit returned non-2XX", exception)
+                    Instrumentation.reportTransaction(
+                        operation = "SubmitHttpError",
+                        data = mapOf(
+                            "status_code" to result.response.statusCode,
+                            "error" to (outcome.error?.code ?: "unknown"),
+                        ),
+                    )
+                    return Failure(exception)
                 }
 
-                val outcome = result.decodeSubmitOutcome(json)
                 val submitBody = result.response.bodyText?.let(this::parseResponse)
 
                 if (outcome.verificationStatus == VerificationStatus.Verified) {
@@ -133,4 +151,8 @@ class SubmitMeasurementWithUser(
     private data class SubmitResponse(
         @SerialName("measurement_uid") val measurementUid: String? = null,
     )
+
+    companion object {
+        private const val MAX_ERROR_BODY_LENGTH = 500
+    }
 }
