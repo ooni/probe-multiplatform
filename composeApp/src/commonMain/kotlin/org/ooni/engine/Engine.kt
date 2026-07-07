@@ -18,6 +18,7 @@ import org.ooni.engine.models.TaskEventResult
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
 import org.ooni.engine.models.resultOf
+import org.ooni.probe.SharedBuildConfig
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
@@ -154,6 +155,7 @@ class Engine(
             osVersion = platformInfo.osVersion,
             ooniRunLinkId = descriptorId.value,
             installerStore = platformInfo.installerStore,
+            passportVersion = SharedBuildConfig.PASSPORT_VERSION,
         ),
         proxy = preferences.proxy,
     )

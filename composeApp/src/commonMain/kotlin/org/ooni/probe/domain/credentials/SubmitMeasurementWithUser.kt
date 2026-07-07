@@ -16,6 +16,7 @@ import org.ooni.probe.config.BuildTypeDefaults
 import org.ooni.probe.data.models.Credential
 import org.ooni.probe.data.models.Manifest
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.domain.SubmitMeasurement
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.monitoring.reportTransaction
@@ -27,6 +28,7 @@ class SubmitMeasurementWithUser(
     private val stampMeasurement: StampMeasurement,
     private val resolveSubmissionPolicy: ResolveSubmissionPolicy,
     private val passportAuthSubmit: PassportAuthSubmit,
+    private val getProxyOption: () -> Flow<ProxyOption>,
     private val json: Json,
 ) {
     suspend operator fun invoke(measurementData: String): Result<SubmitMeasurement.ResponseData, Throwable?> {
@@ -36,6 +38,7 @@ class SubmitMeasurementWithUser(
         val data = parseMeasurementData(stamped) ?: return Failure(null)
 
         val credentialConfig = buildCredentialConfig(manifest, credential, data)
+        val proxy = getProxyOption().first().value.takeIf { it.isNotEmpty() }
 
         passportAuthSubmit
             .userAuthSubmit(
@@ -43,6 +46,8 @@ class SubmitMeasurementWithUser(
                 content = stamped,
                 probeCc = data.probeCc,
                 probeAsn = data.probeAsn,
+                proxy = proxy,
+                timeout = CredentialsConstants.HTTP_TIMEOUT_SECONDS,
                 credentialConfig = credentialConfig,
             ).onSuccess { result ->
                 if (!result.response.isSuccessful) {

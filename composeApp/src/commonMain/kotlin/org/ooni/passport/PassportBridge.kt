@@ -17,18 +17,24 @@ interface PassportBridge :
         url: String,
         headers: List<KeyValue>,
         query: List<KeyValue>,
+        proxy: String?,
+        timeout: Float?,
     ): Result<PassportHttpResponse, PassportException>
 
     override fun post(
         url: String,
         headers: List<KeyValue>,
         payload: String,
+        proxy: String?,
+        timeout: Float?,
     ): Result<PassportHttpResponse, PassportException>
 
     override fun userAuthRegister(
         url: String,
         publicParams: String,
         manifestVersion: String,
+        proxy: String?,
+        timeout: Float?,
     ): Result<CredentialResponse, PassportException>
 
     override fun userAuthSubmit(
@@ -36,6 +42,8 @@ interface PassportBridge :
         content: String,
         probeCc: String,
         probeAsn: String,
+        proxy: String?,
+        timeout: Float?,
         credentialConfig: SubmitCredentialConfig?,
     ): Result<CredentialResponse, PassportException>
 
@@ -56,6 +64,8 @@ fun interface PassportGet {
         url: String,
         headers: List<KeyValue>,
         query: List<KeyValue>,
+        proxy: String?,
+        timeout: Float?,
     ): Result<PassportHttpResponse, PassportException>
 }
 
@@ -64,6 +74,8 @@ fun interface PassportPost {
         url: String,
         headers: List<KeyValue>,
         payload: String,
+        proxy: String?,
+        timeout: Float?,
     ): Result<PassportHttpResponse, PassportException>
 }
 
@@ -72,6 +84,8 @@ fun interface PassportAuthRegister {
         url: String,
         publicParams: String,
         manifestVersion: String,
+        proxy: String?,
+        timeout: Float?,
     ): Result<CredentialResponse, PassportException>
 }
 
@@ -81,6 +95,8 @@ fun interface PassportAuthSubmit {
         content: String,
         probeCc: String,
         probeAsn: String,
+        proxy: String?,
+        timeout: Float?,
         credentialConfig: SubmitCredentialConfig?,
     ): Result<CredentialResponse, PassportException>
 }

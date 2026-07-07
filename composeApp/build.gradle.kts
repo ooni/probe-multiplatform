@@ -119,7 +119,7 @@ kotlin {
                 implementation(libs.bundles.android)
                 implementation(libs.bundles.mobile)
                 implementation("net.java.dev.jna:jna:5.19.1@aar")
-                implementation("org.ooni:passport-android:0.1.3:@aar")
+                implementation("org.ooni:passport-android:${libs.versions.passport.get()}:@aar")
                 // The Android engine bridge + flavor code live here (platform
                 // implementations). fdroid/xperimental swap the oonimkall artifact;
                 // full additionally pulls Play app-update/review for
@@ -156,10 +156,9 @@ kotlin {
             }
             kotlin.srcDir(if (isDebugTaskRequested()) "src/commonMain/debug/kotlin" else "src/commonMain/release/kotlin")
             kotlin.srcDir("src/${config.folder}/kotlin")
-            // DesktopBuildConfig is generated here (not in :desktopApp) so it compiles into
-            // the desktop jvm artifact and is resolvable from both :composeApp's desktop code
-            // (Distribution.kt, desktopTest fixtures) and :desktopApp via its project dependency.
-            kotlin.srcDir(tasks.named("generateDesktopBuildConfig"))
+            // SharedBuildConfig holds values needed by common (all-platform) code, so it is
+            // generated into commonMain and compiles into every target (Android, iOS, desktop).
+            kotlin.srcDir(tasks.named("generateSharedBuildConfig"))
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native)
@@ -175,11 +174,14 @@ kotlin {
             } else {
                 kotlin.srcDir("src/desktopNoJavaFxMain/kotlin")
             }
+            // DesktopBuildConfig is desktop-only, so it is generated into desktopMain (not
+            // commonMain); :desktopApp reaches it through implementation(project(":composeApp")).
+            kotlin.srcDir(tasks.named("generateDesktopBuildConfig"))
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
                 implementation("org.ooni:oonimkall:c52ce3b5-${oonimkallVersionSuffix()}")
-                implementation("org.ooni:passport-${passportDependencySuffix()}:0.1.3")
+                implementation("org.ooni:passport-${passportDependencySuffix()}:${libs.versions.passport.get()}")
 
                 if (dist.bundlesJavaFx) {
                     // The embedded WebView actual needs JavaFX. As JavaFX has

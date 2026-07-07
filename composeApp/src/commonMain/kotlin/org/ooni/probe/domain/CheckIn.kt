@@ -1,6 +1,8 @@
 package org.ooni.probe.domain
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
@@ -10,12 +12,15 @@ import org.ooni.passport.PassportPost
 import org.ooni.passport.models.CheckInRequest
 import org.ooni.passport.models.CheckInResponse
 import org.ooni.probe.config.BuildTypeDefaults
+import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.UrlModel
+import org.ooni.probe.domain.credentials.CredentialsConstants
 import org.ooni.probe.shared.monitoring.Instrumentation
 
 class CheckIn(
     private val passportPost: PassportPost,
+    private val getProxyOption: () -> Flow<ProxyOption>,
     private val buildCheckInRequest: suspend (TaskOrigin) -> CheckInRequest,
     private val json: Json,
     private val setPreferenceByKey: suspend (SettingsKey, Any?) -> Unit,
@@ -23,6 +28,7 @@ class CheckIn(
 ) {
     suspend operator fun invoke(taskOrigin: TaskOrigin): Result<CheckInResponse, Unsuccessful> {
         val request = buildCheckInRequest(taskOrigin)
+        val proxy = getProxyOption().first().value.takeIf { it.isNotEmpty() }
 
         return Instrumentation.withTransaction(
             operation = "CheckIn",
@@ -38,6 +44,8 @@ class CheckIn(
                     url = "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/check-in",
                     headers = emptyList(),
                     payload = json.encodeToString(request),
+                    proxy = proxy,
+                    timeout = CredentialsConstants.HTTP_TIMEOUT_SECONDS,
                 ).mapError { Unsuccessful(it) }
                 .onFailure { Logger.w("Could not check-in", it) }
                 .flatMap { result ->

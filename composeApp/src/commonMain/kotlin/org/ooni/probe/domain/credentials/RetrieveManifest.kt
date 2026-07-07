@@ -1,11 +1,14 @@
 package org.ooni.probe.domain.credentials
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import org.ooni.passport.PassportGet
 import org.ooni.probe.config.BuildTypeDefaults
 import org.ooni.probe.data.models.Manifest
+import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.data.models.SettingsKey
 import kotlin.coroutines.CoroutineContext
 
@@ -13,15 +16,19 @@ class RetrieveManifest(
     private val passportGet: PassportGet,
     private val json: Json,
     private val setPreference: suspend (SettingsKey, Any?) -> Unit,
+    private val getProxyOption: () -> Flow<ProxyOption>,
     private val backgroundContext: CoroutineContext,
 ) {
     suspend operator fun invoke(): Manifest? =
         withContext(backgroundContext) {
+            val proxy = getProxyOption().first().value.takeIf { it.isNotEmpty() }
             passportGet
                 .get(
                     "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/manifest",
                     emptyList(),
                     emptyList(),
+                    proxy,
+                    CredentialsConstants.HTTP_TIMEOUT_SECONDS,
                 ).onSuccess {
                     if (!it.isSuccessful) {
                         Logger.w("Failed to retrieve manifest (status=${it.statusCode})")

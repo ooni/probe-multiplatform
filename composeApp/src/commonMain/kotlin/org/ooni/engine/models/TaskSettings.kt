@@ -43,5 +43,7 @@ data class TaskSettings(
         // system version (Android API version and iOS OS Version)
         @SerialName("os_version") val osVersion: String,
         @SerialName("installer_store") val installerStore: String? = null,
+        // version of the bundled passport (uniffi.ooniprobe) native library
+        @SerialName("passport_version") val passportVersion: String? = null,
     )
 }

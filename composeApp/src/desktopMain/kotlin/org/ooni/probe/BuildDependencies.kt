@@ -130,7 +130,7 @@ internal fun buildDependencies(
         proxyConfig = ProxyConfig(isPsiphonSupported = false),
         getCountryNameByCode = ::getCountryNameByCode,
         getLanguageNameByCode = ::languageDisplayName,
-        supportedLanguageTags = DesktopBuildConfig.SUPPORTED_LANGUAGES,
+        supportedLanguageTags = SharedBuildConfig.SUPPORTED_LANGUAGES,
         localeDirection = ::localeDirection,
         databaseContext = databaseDispatcher,
     )
@@ -144,8 +144,8 @@ internal fun localeDirection(): LayoutDirection =
 
 internal fun buildPlatformInfo(): PlatformInfo {
     val osVersion = System.getProperty("os.version")
-    val buildName = DesktopBuildConfig.VERSION_NAME
-    val buildNumber = DesktopBuildConfig.VERSION_CODE.toString()
+    val buildName = SharedBuildConfig.VERSION_NAME
+    val buildNumber = SharedBuildConfig.VERSION_CODE.toString()
     val isDebug = DesktopBuildConfig.IS_DEBUG
     val environment = if (isDebug) "development" else "production"
 

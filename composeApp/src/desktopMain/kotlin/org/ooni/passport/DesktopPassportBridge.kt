@@ -21,12 +21,16 @@ class DesktopPassportBridge : PassportBridge {
         url: String,
         headers: List<PassportBridge.KeyValue>,
         query: List<PassportBridge.KeyValue>,
+        proxy: String?,
+        timeout: Float?,
     ): Result<PassportHttpResponse, PassportException> =
         try {
             val response = clientGet(
                 url = url,
                 headers = headers.map { KeyValue(it.key, it.value) },
                 query = query.map { KeyValue(it.key, it.value) },
+                proxy = proxy,
+                timeout = timeout,
             )
             Success(response.toPassport())
         } catch (e: OoniException) {
@@ -39,12 +43,16 @@ class DesktopPassportBridge : PassportBridge {
         url: String,
         headers: List<PassportBridge.KeyValue>,
         payload: String,
+        proxy: String?,
+        timeout: Float?,
     ): Result<PassportHttpResponse, PassportException> =
         try {
             val response = clientPost(
                 url = url,
                 headers = headers.map { KeyValue(it.key, it.value) },
                 payload = payload,
+                proxy = proxy,
+                timeout = timeout,
             )
             Success(response.toPassport())
         } catch (e: OoniException) {
@@ -57,9 +65,11 @@ class DesktopPassportBridge : PassportBridge {
         url: String,
         publicParams: String,
         manifestVersion: String,
+        proxy: String?,
+        timeout: Float?,
     ): Result<CredentialResponse, PassportException> =
         try {
-            val result = userauthRegister(url, publicParams, manifestVersion)
+            val result = userauthRegister(url, publicParams, manifestVersion, proxy, timeout)
             Success(result.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
@@ -72,6 +82,8 @@ class DesktopPassportBridge : PassportBridge {
         content: String,
         probeCc: String,
         probeAsn: String,
+        proxy: String?,
+        timeout: Float?,
         credentialConfig: SubmitCredentialConfig?,
     ): Result<CredentialResponse, PassportException> =
         try {
@@ -80,6 +92,8 @@ class DesktopPassportBridge : PassportBridge {
                 content = content,
                 probeCc = probeCc,
                 probeAsn = probeAsn,
+                proxy = proxy,
+                timeout = timeout,
                 credentialConfig = credentialConfig?.toUniffi(),
             )
             Success(result.toPassport())
@@ -136,6 +150,10 @@ private fun OoniException.toPassport() =
         is OoniException.BinaryDecodeException -> PassportException.BinaryDecodeError(message)
         is OoniException.CryptoException -> PassportException.CryptoError(message)
         is OoniException.HttpClientException -> PassportException.HttpClientError(message)
+        is OoniException.ConnectionException -> PassportException.HttpClientError(message)
+        is OoniException.RequestException -> PassportException.HttpClientError(message)
+        is OoniException.ResponseException -> PassportException.HttpClientError(message)
+        is OoniException.TimeoutException -> PassportException.HttpClientError(message)
         is OoniException.InvalidCredential -> PassportException.InvalidCredential(message)
         is OoniException.NullOrInvalidInput -> PassportException.NullOrInvalidInput(message)
         is OoniException.Other -> PassportException.Other(message)

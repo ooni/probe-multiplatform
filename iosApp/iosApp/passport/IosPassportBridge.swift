@@ -4,13 +4,17 @@ class IosPassportBridge: PassportBridge {
     func get(
         url: String,
         headers: [PassportBridgeKeyValue],
-        query: [PassportBridgeKeyValue]
+        query: [PassportBridgeKeyValue],
+        proxy: String?,
+        timeout: KotlinFloat?
     ) -> Result<PassportHttpResponse, PassportException> {
         do {
             let response = try clientGet(
                 url: url,
                 headers: headers.map { KeyValue(key: $0.key, value: $0.value) },
-                query: query.map { KeyValue(key: $0.key, value: $0.value) }
+                query: query.map { KeyValue(key: $0.key, value: $0.value) },
+                proxy: proxy,
+                timeout: timeout?.floatValue
             )
             return IosPassportBridgeHelpersKt.SuccessPassportHttpResponse(value: response.toPassport())
         } catch let error as OoniError {
@@ -22,12 +26,14 @@ class IosPassportBridge: PassportBridge {
         }
     }
 
-    func post(url: String, headers: [PassportBridgeKeyValue], payload: String) -> Result<PassportHttpResponse, PassportException> {
+    func post(url: String, headers: [PassportBridgeKeyValue], payload: String, proxy: String?, timeout: KotlinFloat?) -> Result<PassportHttpResponse, PassportException> {
         do {
             let response = try clientPost(
                 url: url,
                 headers: headers.map { KeyValue(key: $0.key, value: $0.value) },
-                payload: payload
+                payload: payload,
+                proxy: proxy,
+                timeout: timeout?.floatValue
             )
             return IosPassportBridgeHelpersKt.SuccessPassportHttpResponse(value: response.toPassport())
         } catch let error as OoniError {
@@ -42,13 +48,17 @@ class IosPassportBridge: PassportBridge {
     func userAuthRegister(
         url: String,
         publicParams: String,
-        manifestVersion: String
+        manifestVersion: String,
+        proxy: String?,
+        timeout: KotlinFloat?
     ) -> Result<CredentialResponse, PassportException> {
         do {
             let response = try userauthRegister(
                 url: url,
                 publicParams: publicParams,
-                manifestVersion: manifestVersion
+                manifestVersion: manifestVersion,
+                proxy: proxy,
+                timeout: timeout?.floatValue
             )
             return IosPassportBridgeHelpersKt.SuccessCredentialResponse(value: response.toPassport())
         } catch let error as OoniError {
@@ -65,6 +75,8 @@ class IosPassportBridge: PassportBridge {
         content: String,
         probeCc: String,
         probeAsn: String,
+        proxy: String?,
+        timeout: KotlinFloat?,
         credentialConfig: SubmitCredentialConfig?
     ) -> Result<CredentialResponse, PassportException> {
         do {
@@ -73,6 +85,8 @@ class IosPassportBridge: PassportBridge {
                 content: content,
                 probeCc: probeCc,
                 probeAsn: probeAsn,
+                proxy: proxy,
+                timeout: timeout?.floatValue,
                 credentialConfig: credentialConfig?.toUniffi()
             )
             return IosPassportBridgeHelpersKt.SuccessCredentialResponse(value: response.toPassport())
@@ -167,6 +181,14 @@ extension OoniError {
         case .BinaryDecodeError(let message):
             return PassportException.BinaryDecodeError(message: message)
         case .HttpClientError(let message):
+            return PassportException.HttpClientError(message: message)
+        case .ConnectionError(let message):
+            return PassportException.HttpClientError(message: message)
+        case .RequestError(let message):
+            return PassportException.HttpClientError(message: message)
+        case .ResponseError(let message):
+            return PassportException.HttpClientError(message: message)
+        case .TimeoutError(let message):
             return PassportException.HttpClientError(message: message)
         case .CryptoError(let message):
             return PassportException.CryptoError(message: message)
