@@ -454,4 +454,5 @@
     <string name="Measurements_Verification_Verified">Probe 已通过身份验证</string>
     <string name="Measurements_Verification_Failed">Probe 身份验证失败</string>
     <string name="Measurements_Verification_Unverified">Probe 未通过身份验证</string>
+    <string name="Settings_Language_SystemDefault">系统默认</string>
 </resources>
