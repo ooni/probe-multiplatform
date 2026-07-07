@@ -498,4 +498,5 @@
     <string name="Measurements_Verification_Unverified">Probe não autenticada</string>
     <string name="Settings_RunAtStartup">Executar ao reiniciar</string>
     <string name="Settings_RunAtStartup_Description">Abrir o aplicativo automaticamente no reinício do computador. Obrigatório se a execução automática estiver ligada.</string>
+    <string name="Settings_Language_SystemDefault">Padrão do sistema</string>
 </resources>
