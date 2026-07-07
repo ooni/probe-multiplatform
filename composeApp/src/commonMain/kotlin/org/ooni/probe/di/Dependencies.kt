@@ -326,6 +326,7 @@ class Dependencies(
     private val checkIn by lazy {
         CheckIn(
             passportPost = passportBridge::post,
+            getProxyOption = proxyManager::selected,
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
             buildCheckInRequest = buildCheckInRequest::invoke,
             json = json,
@@ -446,6 +447,7 @@ class Dependencies(
         RegisterUser(
             passportAuthRegister = passportBridge::userAuthRegister,
             setCredential = setCredential::invoke,
+            getProxyOption = proxyManager::selected,
             backgroundContext = backgroundContext,
             json = json,
         )
@@ -582,6 +584,7 @@ class Dependencies(
         RetrieveManifest(
             passportGet = passportBridge::get,
             setPreference = preferenceRepository::setValueByKey,
+            getProxyOption = proxyManager::selected,
             json = json,
             backgroundContext = backgroundContext,
         )
@@ -713,6 +716,7 @@ class Dependencies(
             stampMeasurement = stampMeasurement,
             resolveSubmissionPolicy = resolveSubmissionPolicy,
             passportAuthSubmit = passportBridge::userAuthSubmit,
+            getProxyOption = proxyManager::selected,
             json = json,
         )
     }

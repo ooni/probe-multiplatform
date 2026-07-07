@@ -44,7 +44,7 @@ fun Project.registerTasks(config: AppConfig) {
  * packaging post-processing operates on.
  */
 fun Project.registerDesktopAppTasks(config: AppConfig) {
-    registerDesktopBuildConfigTask(config.supportedLanguages)
+    registerBuildConfigTasks(config.supportedLanguages)
     excludeScreenshotTestsFromDesktopTest()
 
     if (path != ":desktopApp") return
@@ -115,41 +115,70 @@ private fun Project.registerAndroidTasks(config: AppConfig) {
 }
 
 /**
- * Registers a task that generates DesktopBuildConfig.kt with version info
- * baked into compiled code (replacing System.getProperty which requires JVM args).
+ * Registers the build-config generation tasks that bake build/version info into compiled
+ * code (replacing System.getProperty which requires JVM args). Both read straight from the
+ * `libs` version catalog; the caller wires each output into the right source set:
  *
- * Reads the app version straight from the `libs` version catalog, so it can be wired
- * in [registerDesktopAppTasks]. The caller is still responsible for adding the output
- * to the consuming source set. It is wired into :composeApp's `commonMain` so the
- * generated `DesktopBuildConfig` compiles into the desktop jvm artifact and is resolvable
- * from both :composeApp's desktop code and :desktopApp (via its project dependency):
- * ```
- * kotlin.sourceSets.commonMain {
- *     kotlin.srcDir(tasks.named("generateDesktopBuildConfig"))
- * }
- * ```
+ * - `generateSharedBuildConfig` -> `SharedBuildConfig`: values needed by common
+ *   (all-platform) code. Wired into :composeApp's `commonMain` so Android, iOS and desktop
+ *   all compile it:
+ *   ```
+ *   kotlin.sourceSets.commonMain { kotlin.srcDir(tasks.named("generateSharedBuildConfig")) }
+ *   ```
+ * - `generateDesktopBuildConfig` -> `DesktopBuildConfig`: desktop-only values. Wired into
+ *   `desktopMain` so it is NOT compiled into the Android/iOS artifacts; :desktopApp reaches
+ *   it through `implementation(project(":composeApp"))` (the desktop jvm jar):
+ *   ```
+ *   kotlin.sourceSets.desktopMain { kotlin.srcDir(tasks.named("generateDesktopBuildConfig")) }
+ *   ```
  */
-fun Project.registerDesktopBuildConfigTask(supportedLanguages: List<String>) {
+fun Project.registerBuildConfigTasks(supportedLanguages: List<String>) {
     val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
     val versionName = libs.findVersion("app-versionName").get().requiredVersion
     val versionCode = libs.findVersion("app-versionCode").get().requiredVersion.toInt()
+    val passportVersion = libs.findVersion("passport").get().requiredVersion
     val isDebug = isDebugTaskRequested()
     val dist = distribution()
     val buildDirPath = layout.buildDirectory.get().asFile.absolutePath
     val languageTags = supportedLanguages.map { it.replace(Regex("-r([A-Z]{2})"), "-$1") }
-    tasks.register("generateDesktopBuildConfig") {
-        val outputDir = layout.buildDirectory.dir("generated/desktopBuildConfig/kotlin")
+
+    // Shared across all platforms -> commonMain.
+    tasks.register("generateSharedBuildConfig") {
+        val outputDir = layout.buildDirectory.dir("generated/sharedBuildConfig/kotlin")
         inputs.property("versionName", versionName)
         inputs.property("versionCode", versionCode)
-        inputs.property("isDebug", isDebug)
-        inputs.property("distribution", dist.name)
-        inputs.property("buildDir", buildDirPath)
+        inputs.property("passportVersion", passportVersion)
         inputs.property("supportedLanguages", languageTags)
         outputs.dir(outputDir)
         doLast {
             val dir = outputDir.get().asFile.resolve("org/ooni/probe")
             dir.mkdirs()
             val supportedLanguagesLiteral = languageTags.joinToString(", ") { "\"$it\"" }
+            dir.resolve("SharedBuildConfig.kt").writeText(
+                """
+                |package org.ooni.probe
+                |
+                |object SharedBuildConfig {
+                |    const val VERSION_NAME = "$versionName"
+                |    const val VERSION_CODE = $versionCode
+                |    const val PASSPORT_VERSION = "$passportVersion"
+                |    val SUPPORTED_LANGUAGES = listOf($supportedLanguagesLiteral)
+                |}
+                """.trimMargin(),
+            )
+        }
+    }
+
+    // Desktop-only -> desktopMain.
+    tasks.register("generateDesktopBuildConfig") {
+        val outputDir = layout.buildDirectory.dir("generated/desktopBuildConfig/kotlin")
+        inputs.property("isDebug", isDebug)
+        inputs.property("distribution", dist.name)
+        inputs.property("buildDir", buildDirPath)
+        outputs.dir(outputDir)
+        doLast {
+            val dir = outputDir.get().asFile.resolve("org/ooni/probe")
+            dir.mkdirs()
             // BUILD_DIR is an absolute path baked in at build time; only consumed by debug builds
             // to place data/cache under composeApp/build/. Triple-quoted to survive Windows backslashes.
             dir.resolve("DesktopBuildConfig.kt").writeText(
@@ -157,12 +186,9 @@ fun Project.registerDesktopBuildConfigTask(supportedLanguages: List<String>) {
                 |package org.ooni.probe
                 |
                 |object DesktopBuildConfig {
-                |    const val VERSION_NAME = "$versionName"
-                |    const val VERSION_CODE = $versionCode
                 |    const val IS_DEBUG = $isDebug
                 |    const val DISTRIBUTION = "${dist.name}"
                 |    const val BUILD_DIR = ${"\"\"\""}$buildDirPath${"\"\"\""}
-                |    val SUPPORTED_LANGUAGES = listOf($supportedLanguagesLiteral)
                 |}
                 """.trimMargin(),
             )
