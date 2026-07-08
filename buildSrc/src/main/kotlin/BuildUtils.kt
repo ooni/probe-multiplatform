@@ -212,32 +212,6 @@ fun getJavaFxSuffix(): String {
 }
 
 /**
- * Get the appropriate oonimkall suffix for the current OS.
- */
-fun oonimkallVersionSuffix(): String {
-    val os = OperatingSystem.current()
-    return when {
-        os.isMacOsX -> "darwin"
-        os.isWindows -> "windows"
-        os.isLinux -> "linux"
-        else -> throw IllegalStateException("Unknown OS: $os")
-    }
-}
-
-/**
- * Get the appropriate passport suffix for the current desktop OS.
- */
-fun passportDependencySuffix(): String {
-    val os = OperatingSystem.current()
-    return when {
-        os.isMacOsX -> "macos"
-        os.isWindows -> "windows"
-        os.isLinux -> "linux"
-        else -> throw IllegalStateException("Unknown OS: $os")
-    }
-}
-
-/**
  * Add a line to .gitignore if it doesn't already exist.
  */
 fun ignoreCopiedFileIfNotIgnored(

@@ -92,7 +92,7 @@ class SetupDependencies(
      */
     private fun ensureSupportedLocale() {
         val preferred = NSLocale.preferredLanguages.mapNotNull { it as? String }
-        val supported = DesktopBuildConfig.SUPPORTED_LANGUAGES.map { it.split("-", "_").first() }
+        val supported = SharedBuildConfig.SUPPORTED_LANGUAGES.map { it.split("-", "_").first() }
         val primaryCode = preferred
             .firstOrNull()
             ?.split("-", "_")

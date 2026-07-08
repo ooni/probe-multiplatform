@@ -1,3 +1,4 @@
+import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -118,20 +119,20 @@ kotlin {
                 implementation(libs.compose.ui.tooling.preview)
                 implementation(libs.bundles.android)
                 implementation(libs.bundles.mobile)
-                implementation("net.java.dev.jna:jna:5.19.1@aar")
-                implementation("org.ooni:passport-android:${libs.versions.passport.get()}:@aar")
+                implementation("${libs.jna.asProvider().get()}@aar")
+                implementation("${libs.passport.android.get()}:@aar")
                 // The Android engine bridge + flavor code live here (platform
                 // implementations). fdroid/xperimental swap the oonimkall artifact;
                 // full additionally pulls Play app-update/review for
                 // AndroidUpdateMonitoring/AppReview.
                 when {
                     isFdroidTaskRequested() ->
-                        implementation("org.ooni:oonimkall:3.29.0-android:@aar")
+                        implementation("${libs.oonimkall.android.get()}:@aar")
                     isXperimentalTaskRequested() ->
                         implementation(files("libs/android-oonimkall.aar"))
                     else -> { // full
                         implementation(libs.bundles.full.android)
-                        implementation("org.ooni:oonimkall:3.29.0-android:@aar")
+                        implementation("${libs.oonimkall.android.get()}:@aar")
                     }
                 }
             }
@@ -180,8 +181,28 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
-                implementation("org.ooni:oonimkall:c52ce3b5-${oonimkallVersionSuffix()}")
-                implementation("org.ooni:passport-${passportDependencySuffix()}:${libs.versions.passport.get()}")
+                implementation(
+                    // Desktop oonimkall is a per-OS artifact (version carries the OS).
+                    OperatingSystem.current().let { os ->
+                        when {
+                            os.isMacOsX -> libs.oonimkall.desktop.macos
+                            os.isWindows -> libs.oonimkall.desktop.windows
+                            os.isLinux -> libs.oonimkall.desktop.linux
+                            else -> error("Unsupported OS for oonimkall desktop: $os")
+                        }
+                    },
+                )
+                implementation(
+                    // Desktop passport is a per-OS artifact (module name carries the OS).
+                    OperatingSystem.current().let { os ->
+                        when {
+                            os.isMacOsX -> libs.passport.macos
+                            os.isWindows -> libs.passport.windows
+                            os.isLinux -> libs.passport.linux
+                            else -> error("Unsupported OS for passport desktop: $os")
+                        }
+                    },
+                )
 
                 if (dist.bundlesJavaFx) {
                     // The embedded WebView actual needs JavaFX. As JavaFX has
