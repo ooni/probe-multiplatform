@@ -1,6 +1,8 @@
 import composeApp
 
 class IosPassportBridge: PassportBridge {
+    private let userAgent = IosPassportBridgeHelpersKt.iosPassportUserAgent()
+
     func get(
         url: String,
         headers: [PassportBridgeKeyValue],
@@ -14,7 +16,8 @@ class IosPassportBridge: PassportBridge {
                 headers: headers.map { KeyValue(key: $0.key, value: $0.value) },
                 query: query.map { KeyValue(key: $0.key, value: $0.value) },
                 proxy: proxy,
-                timeout: timeout?.floatValue
+                timeout: timeout?.floatValue,
+                userAgent: userAgent
             )
             return IosPassportBridgeHelpersKt.SuccessPassportHttpResponse(value: response.toPassport())
         } catch let error as OoniError {
@@ -33,7 +36,8 @@ class IosPassportBridge: PassportBridge {
                 headers: headers.map { KeyValue(key: $0.key, value: $0.value) },
                 payload: payload,
                 proxy: proxy,
-                timeout: timeout?.floatValue
+                timeout: timeout?.floatValue,
+                userAgent: userAgent
             )
             return IosPassportBridgeHelpersKt.SuccessPassportHttpResponse(value: response.toPassport())
         } catch let error as OoniError {
@@ -58,7 +62,8 @@ class IosPassportBridge: PassportBridge {
                 publicParams: publicParams,
                 manifestVersion: manifestVersion,
                 proxy: proxy,
-                timeout: timeout?.floatValue
+                timeout: timeout?.floatValue,
+                userAgent: userAgent
             )
             return IosPassportBridgeHelpersKt.SuccessCredentialResponse(value: response.toPassport())
         } catch let error as OoniError {
@@ -87,6 +92,7 @@ class IosPassportBridge: PassportBridge {
                 probeAsn: probeAsn,
                 proxy: proxy,
                 timeout: timeout?.floatValue,
+                userAgent: userAgent,
                 credentialConfig: credentialConfig?.toUniffi()
             )
             return IosPassportBridgeHelpersKt.SuccessCredentialResponse(value: response.toPassport())

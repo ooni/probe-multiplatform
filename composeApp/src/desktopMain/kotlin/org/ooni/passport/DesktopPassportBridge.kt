@@ -7,6 +7,8 @@ import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.SubmitCredentialConfig
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
+import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.shared.Platform
 import uniffi.ooniprobe.CredentialResult
 import uniffi.ooniprobe.HttpResponse
 import uniffi.ooniprobe.KeyValue
@@ -16,7 +18,11 @@ import uniffi.ooniprobe.clientPost
 import uniffi.ooniprobe.userauthRegister
 import uniffi.ooniprobe.userauthSubmit
 
-class DesktopPassportBridge : PassportBridge {
+class DesktopPassportBridge(
+    platform: Platform,
+) : PassportBridge {
+    private val userAgent = passportUserAgent(platform, OrganizationConfig.baseSoftwareName)
+
     override fun get(
         url: String,
         headers: List<PassportBridge.KeyValue>,
@@ -31,6 +37,7 @@ class DesktopPassportBridge : PassportBridge {
                 query = query.map { KeyValue(it.key, it.value) },
                 proxy = proxy,
                 timeout = timeout,
+                userAgent = userAgent,
             )
             Success(response.toPassport())
         } catch (e: OoniException) {
@@ -53,6 +60,7 @@ class DesktopPassportBridge : PassportBridge {
                 payload = payload,
                 proxy = proxy,
                 timeout = timeout,
+                userAgent = userAgent,
             )
             Success(response.toPassport())
         } catch (e: OoniException) {
@@ -69,7 +77,7 @@ class DesktopPassportBridge : PassportBridge {
         timeout: Float?,
     ): Result<CredentialResponse, PassportException> =
         try {
-            val result = userauthRegister(url, publicParams, manifestVersion, proxy, timeout)
+            val result = userauthRegister(url, publicParams, manifestVersion, proxy, timeout, userAgent)
             Success(result.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
@@ -94,6 +102,7 @@ class DesktopPassportBridge : PassportBridge {
                 probeAsn = probeAsn,
                 proxy = proxy,
                 timeout = timeout,
+                userAgent = userAgent,
                 credentialConfig = credentialConfig?.toUniffi(),
             )
             Success(result.toPassport())

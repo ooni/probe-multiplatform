@@ -6,6 +6,10 @@ import org.ooni.engine.models.Success
 import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
+import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.shared.Platform
+
+fun iosPassportUserAgent(): String = passportUserAgent(Platform.Ios, OrganizationConfig.baseSoftwareName)
 
 @Suppress("ktlint:standard:function-naming")
 fun SuccessPassportHttpResponse(value: PassportHttpResponse) = Success(value) as Result<PassportHttpResponse, PassportException>
