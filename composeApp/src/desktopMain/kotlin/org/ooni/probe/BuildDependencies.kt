@@ -104,7 +104,7 @@ internal fun buildDependencies(
     Dependencies(
         platformInfo = platformInfo,
         oonimkallBridge = oonimkallBridge,
-        passportBridge = DesktopPassportBridge(),
+        passportBridge = DesktopPassportBridge(platformInfo.platform),
         baseFileDir = dataDir,
         cacheDir = cacheDir,
         databaseDriverFactory = { buildDatabaseDriver(dataDir) },

@@ -7,10 +7,14 @@ import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.SubmitCredentialConfig
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
+import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.shared.Platform
 import uniffi.ooniprobe.HttpResponse
 import uniffi.ooniprobe.OoniException
 
 class AndroidPassportBridge : PassportBridge {
+    private val userAgent = passportUserAgent(Platform.Android, OrganizationConfig.baseSoftwareName)
+
     override fun get(
         url: String,
         headers: List<PassportBridge.KeyValue>,
@@ -25,6 +29,7 @@ class AndroidPassportBridge : PassportBridge {
                 query = query.map { uniffi.ooniprobe.KeyValue(it.key, it.value) },
                 proxy = proxy,
                 timeout = timeout,
+                userAgent = userAgent,
             )
             Success(response.toPassport())
         } catch (e: OoniException) {
@@ -47,6 +52,7 @@ class AndroidPassportBridge : PassportBridge {
                 payload = payload,
                 proxy = proxy,
                 timeout = timeout,
+                userAgent = userAgent,
             )
             Success(response.toPassport())
         } catch (e: OoniException) {
@@ -63,7 +69,7 @@ class AndroidPassportBridge : PassportBridge {
         timeout: Float?,
     ): Result<CredentialResponse, PassportException> =
         try {
-            val result = uniffi.ooniprobe.userauthRegister(url, publicParams, manifestVersion, proxy, timeout)
+            val result = uniffi.ooniprobe.userauthRegister(url, publicParams, manifestVersion, proxy, timeout, userAgent)
             Success(result.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
@@ -88,6 +94,7 @@ class AndroidPassportBridge : PassportBridge {
                 probeAsn = probeAsn,
                 proxy = proxy,
                 timeout = timeout,
+                userAgent = userAgent,
                 credentialConfig = credentialConfig?.toUniffi(),
             )
             Success(result.toPassport())
