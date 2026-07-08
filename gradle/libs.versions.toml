@@ -21,6 +21,11 @@ ktor = "3.5.1"
 compose-ui = "1.11.4" # Checkout https://developer.android.com/jetpack/androidx/releases/compose-ui
 coil = "3.5.0"
 jna = "5.19.1"
+oonimkall-android = "3.29.0-android"
+# Desktop oonimkall is published as a per-OS artifact whose version carries the OS suffix.
+oonimkall-desktop-macos = "c52ce3b5-darwin"
+oonimkall-desktop-windows = "c52ce3b5-windows"
+oonimkall-desktop-linux = "c52ce3b5-linux"
 
 [plugins]
 
@@ -141,6 +146,23 @@ fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" 
 # JNA
 jna = { module = "net.java.dev.jna:jna", version.ref = "jna" }
 jna-platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
+
+# Passport
+passport-android = { module = "org.ooni:passport-android", version.ref = "passport" }
+# Desktop passport is published as a per-OS artifact (module name carries the OS);
+# the correct one is selected in composeApp via OperatingSystem.current().
+passport-macos = { module = "org.ooni:passport-macos", version.ref = "passport" }
+passport-windows = { module = "org.ooni:passport-windows", version.ref = "passport" }
+passport-linux = { module = "org.ooni:passport-linux", version.ref = "passport" }
+
+# oonimkall
+# Android uses a fixed version; desktop is the same module published as a per-OS
+# artifact whose version carries the OS suffix. The correct desktop variant is
+# selected in composeApp via OperatingSystem.current().
+oonimkall-android = { module = "org.ooni:oonimkall", version.ref = "oonimkall-android" }
+oonimkall-desktop-macos = { module = "org.ooni:oonimkall", version.ref = "oonimkall-desktop-macos" }
+oonimkall-desktop-windows = { module = "org.ooni:oonimkall", version.ref = "oonimkall-desktop-windows" }
+oonimkall-desktop-linux = { module = "org.ooni:oonimkall", version.ref = "oonimkall-desktop-linux" }
 
 # Desktop
 auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.8.0" }
