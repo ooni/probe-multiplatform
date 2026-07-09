@@ -34,7 +34,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.ooni.engine.OonimkallBridge
+import org.ooni.engine.models.Success
+import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.MainActivity
 import org.ooni.probe.uitesting.helpers.TestFixtures
 import org.ooni.probe.uitesting.helpers.clickOnText
@@ -64,34 +65,35 @@ class DescriptorsTest {
         runTest {
             skipOnboarding()
             disableRefreshArticles()
-            installDescriptorEngine()
+            installDescriptorFixtures()
         }
 
     /**
-     * Serves the OONI Run descriptor offline. Before [publishDescriptorUpdate]
-     * the link returns revision 1 ("Testing"); afterwards revision 2
-     * ("Testing 2"), driving the auto-update flow without any network.
+     * Serves the OONI Run descriptor offline through the Passport bridge (which
+     * [org.ooni.probe.domain.descriptors.FetchDescriptor] now uses). Before
+     * [publishDescriptorUpdate] the link returns revision 1 ("Testing");
+     * afterwards revision 2 ("Testing 2"), driving the auto-update flow without
+     * any network.
      */
-    private fun installDescriptorEngine() {
+    private fun installDescriptorFixtures() {
         descriptorUpdatePublished = false
-        setupMockedEngine {
-            httpDo = { request ->
-                val body = when {
-                    request.url.endsWith(TestFixtures.DESCRIPTOR_REVISIONS_PATH) ->
-                        TestFixtures.DESCRIPTOR_REVISIONS_JSON
+        setupMockedEngine()
+        dependencies.passportGet = { url, _, _, _, _ ->
+            val body = when {
+                url.endsWith(TestFixtures.DESCRIPTOR_REVISIONS_PATH) ->
+                    TestFixtures.DESCRIPTOR_REVISIONS_JSON
 
-                    request.url.endsWith(TestFixtures.DESCRIPTOR_LINK_PATH) ->
-                        if (descriptorUpdatePublished) {
-                            TestFixtures.UPDATED_DESCRIPTOR_JSON
-                        } else {
-                            TestFixtures.ORIGINAL_DESCRIPTOR_JSON
-                        }
+                url.endsWith(TestFixtures.DESCRIPTOR_LINK_PATH) ->
+                    if (descriptorUpdatePublished) {
+                        TestFixtures.UPDATED_DESCRIPTOR_JSON
+                    } else {
+                        TestFixtures.ORIGINAL_DESCRIPTOR_JSON
+                    }
 
-                    else ->
-                        throw IllegalStateException("Response not mocked for ${request.url}")
-                }
-                OonimkallBridge.HTTPResponse(body = body)
+                else ->
+                    throw IllegalStateException("Response not mocked for $url")
             }
+            Success(PassportHttpResponse(200, "HTTP/1.1", emptyList(), body))
         }
     }
 
