@@ -18,9 +18,12 @@ import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.SecureStorage
 import org.ooni.engine.TaskEventMapper
+import org.ooni.engine.models.Result
 import org.ooni.passport.PassportBridge
+import org.ooni.passport.models.PassportException
+import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.Database
-import org.ooni.probe.DesktopBuildConfig
+import org.ooni.probe.SharedBuildConfig
 import org.ooni.probe.background.RunBackgroundTask
 import org.ooni.probe.config.BatteryOptimization
 import org.ooni.probe.config.FlavorConfigInterface
@@ -182,7 +185,7 @@ class Dependencies(
     val proxyConfig: ProxyConfig,
     val getCountryNameByCode: (String) -> String,
     val getLanguageNameByCode: (String) -> String = { it },
-    val supportedLanguageTags: List<String> = DesktopBuildConfig.SUPPORTED_LANGUAGES,
+    val supportedLanguageTags: List<String> = SharedBuildConfig.SUPPORTED_LANGUAGES,
     @get:VisibleForTesting
     var databaseContext: CoroutineContext = Dispatchers.IO,
 ) {
@@ -190,6 +193,19 @@ class Dependencies(
 
     @VisibleForTesting
     var backgroundContext: CoroutineContext = Dispatchers.IO
+
+    // Passport
+    // The HTTP GET function the migrated fetch use cases call (descriptor links,
+    // articles, GeoIP release checks, proxy health). Exposed as a swappable var so
+    // instrumented tests can stub it directly without a fake PassportBridge.
+    @VisibleForTesting
+    var passportGet: (
+        url: String,
+        headers: List<PassportBridge.KeyValue>,
+        query: List<PassportBridge.KeyValue>,
+        proxy: String?,
+        timeout: Float?,
+    ) -> Result<PassportHttpResponse, PassportException> = passportBridge::get
 
     // Data
 
@@ -273,7 +289,8 @@ class Dependencies(
         FetchGeoIpDbUpdates(
             downloadFile = downloader::invoke,
             cacheDir = cacheDir,
-            engineHttpDo = engine::httpDo,
+            passportGet = passportGet,
+            getProxyOption = proxyManager::selected,
             json = json,
             preferencesRepository = preferenceRepository,
             fileSystem = FileSystem.SYSTEM,
@@ -387,7 +404,8 @@ class Dependencies(
     }
     private val fetchDescriptor by lazy {
         FetchDescriptor(
-            engineHttpDo = engine::httpDo,
+            passportGet = passportGet,
+            getProxyOption = proxyManager::selected,
             json = json,
         )
     }
@@ -646,16 +664,18 @@ class Dependencies(
             hasOoniNews = OrganizationConfig.hasOoniNews,
             sources = listOf(
                 GetRSSFeed(
-                    engine::httpDo,
+                    passportGet,
+                    proxyManager::selected,
                     "https://ooni.org/blog/index.xml",
                     ArticleModel.Source.Blog,
                 ),
                 GetRSSFeed(
-                    engine::httpDo,
+                    passportGet,
+                    proxyManager::selected,
                     "https://ooni.org/reports/index.xml",
                     ArticleModel.Source.Report,
                 ),
-                GetFindings(engine::httpDo, json),
+                GetFindings(passportGet, proxyManager::selected, json),
             ),
             networkTypeFinder = networkTypeFinder::invoke,
             refreshArticlesInDatabase = articleRepository::refresh,
@@ -736,7 +756,7 @@ class Dependencies(
     }
     private val testProxy by lazy {
         TestProxy(
-            httpDo = engine::httpDo,
+            passportGet = passportGet,
             getProxyOption = proxyManager::selected,
             backgroundContext = backgroundContext,
         )

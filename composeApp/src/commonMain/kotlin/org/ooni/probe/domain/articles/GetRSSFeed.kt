@@ -1,5 +1,7 @@
 package org.ooni.probe.domain.articles
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.format.DateTimeComponents
 import kotlinx.datetime.format.DayOfWeekNames
@@ -12,28 +14,42 @@ import kotlinx.serialization.decodeFromString
 import nl.adaptivity.xmlutil.serialization.XML
 import nl.adaptivity.xmlutil.serialization.XmlElement
 import nl.adaptivity.xmlutil.serialization.XmlSerialName
-import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
-import org.ooni.engine.models.TaskOrigin
+import org.ooni.passport.PassportBridge.KeyValue
+import org.ooni.passport.models.PassportException
+import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.data.models.ArticleModel
+import org.ooni.probe.data.models.ProxyOption
+import org.ooni.probe.domain.credentials.CredentialsConstants
 import org.ooni.probe.shared.toLocalDateTime
 import kotlin.time.Instant
 
 class GetRSSFeed(
-    val httpDo: suspend (String, String, TaskOrigin) -> Result<String?, MkException>,
+    val passportGet: (
+        url: String,
+        headers: List<KeyValue>,
+        query: List<KeyValue>,
+        proxy: String?,
+        timeout: Float?,
+    ) -> Result<PassportHttpResponse, PassportException>,
+    val getProxyOption: () -> Flow<ProxyOption>,
     val url: String,
     val source: ArticleModel.Source,
 ) : RefreshArticles.Source {
     override suspend operator fun invoke(): Result<List<ArticleModel>, Exception> {
-        return httpDo("GET", url, TaskOrigin.OoniRun)
+        val proxy = getProxyOption().first().value.takeIf { it.isNotEmpty() }
+        return passportGet(url, emptyList(), emptyList(), proxy, CredentialsConstants.HTTP_TIMEOUT_SECONDS)
             .mapError { it as Exception }
             .flatMap { response ->
-                if (response.isNullOrBlank()) return@flatMap Failure(Exception("Empty response"))
+                if (!response.isSuccessful) {
+                    return@flatMap Failure(Exception("Unsuccessful response (status=${response.statusCode})"))
+                }
+                if (response.bodyText.isNullOrBlank()) return@flatMap Failure(Exception("Empty response"))
 
                 val rss = try {
-                    xml().decodeFromString<Rss>(response)
+                    xml().decodeFromString<Rss>(response.bodyText)
                 } catch (e: Exception) {
                     return@flatMap Failure(e)
                 }

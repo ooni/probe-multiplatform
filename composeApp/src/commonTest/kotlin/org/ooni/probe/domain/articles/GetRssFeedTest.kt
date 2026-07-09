@@ -1,8 +1,11 @@
 package org.ooni.probe.domain.articles
 
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.Success
+import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.data.models.ArticleModel
+import org.ooni.probe.data.models.ProxyOption
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -11,7 +14,10 @@ class GetRssFeedTest {
     fun invoke() =
         runTest {
             val subject = GetRSSFeed(
-                httpDo = { _, _, _ -> Success(RSS_FEED) },
+                passportGet = { _, _, _, _, _ ->
+                    Success(PassportHttpResponse(200, "HTTP/1.1", emptyList(), RSS_FEED))
+                },
+                getProxyOption = { flowOf(ProxyOption.None) },
                 url = "https://example.org",
                 source = ArticleModel.Source.Blog,
             )

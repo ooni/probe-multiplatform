@@ -1,6 +1,7 @@
 package org.ooni.probe.domain
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerialName
@@ -10,15 +11,18 @@ import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toPath
-import org.ooni.engine.Engine
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
-import org.ooni.engine.models.TaskOrigin
+import org.ooni.passport.PassportBridge.KeyValue
+import org.ooni.passport.models.PassportException
+import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.data.models.GetBytesException
+import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
+import org.ooni.probe.domain.credentials.CredentialsConstants
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
@@ -27,7 +31,14 @@ import kotlin.time.Instant
 class FetchGeoIpDbUpdates(
     private val downloadFile: suspend (url: String, absoluteTargetPath: String) -> Result<Path, GetBytesException>,
     private val cacheDir: String,
-    private val engineHttpDo: suspend (method: String, url: String, taskOrigin: TaskOrigin) -> Result<String?, Engine.MkException>,
+    private val passportGet: (
+        url: String,
+        headers: List<KeyValue>,
+        query: List<KeyValue>,
+        proxy: String?,
+        timeout: Float?,
+    ) -> Result<PassportHttpResponse, PassportException>,
+    private val getProxyOption: () -> Flow<ProxyOption>,
     private val preferencesRepository: PreferenceRepository,
     private val json: Json,
     private val fileSystem: FileSystem,
@@ -119,20 +130,23 @@ class FetchGeoIpDbUpdates(
 
     private suspend fun getLatestEngineVersion(): Result<String?, MkException> {
         val url = "https://api.github.com/repos/${GEOIP_DB_REPO}/releases/latest"
+        val proxy = getProxyOption().first().value.takeIf { it.isNotEmpty() }
 
-        return engineHttpDo("GET", url, TaskOrigin.OoniRun).map { payload ->
-            payload?.let {
-                try {
-                    json.decodeFromString<GhRelease>(payload).tag
-                } catch (e: SerializationException) {
-                    Logger.e(e) { "Failed to decode release info" }
-                    null
-                } catch (e: IllegalArgumentException) {
-                    Logger.e(e) { "Failed to decode  release info" }
-                    null
+        return passportGet(url, emptyList(), emptyList(), proxy, CredentialsConstants.HTTP_TIMEOUT_SECONDS)
+            .mapError { MkException(it) }
+            .map { response ->
+                response.bodyText?.takeIf { response.isSuccessful }?.let { payload ->
+                    try {
+                        json.decodeFromString<GhRelease>(payload).tag
+                    } catch (e: SerializationException) {
+                        Logger.e(e) { "Failed to decode release info" }
+                        null
+                    } catch (e: IllegalArgumentException) {
+                        Logger.e(e) { "Failed to decode  release info" }
+                        null
+                    }
                 }
             }
-        }
     }
 
     private fun buildGeoIpDbUrl(version: String): String =
