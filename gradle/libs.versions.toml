@@ -46,7 +46,7 @@ sentry = { id = "io.sentry.android.gradle", version = "6.14.0" }
 
 # Kotlin
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.11.0" }
-kotlin-serialization-xml = { module = "io.github.pdvrieze.xmlutil:serialization", version = "1.0.0" }
+kotlin-serialization-xml = { module = "io.github.pdvrieze.xmlutil:serialization", version = "1.0.1" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.8.0" }
 
 # Java
