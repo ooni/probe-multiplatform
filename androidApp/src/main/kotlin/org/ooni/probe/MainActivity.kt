@@ -12,7 +12,9 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.core.net.toUri
+import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.ooni.probe.config.AndroidUpdateMonitoring
@@ -31,16 +33,21 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val deepLink by deepLinkFlow.collectAsState(null)
+            val languageTag = app.dependencies.localeController.currentLanguageTag()
 
-            App(
-                dependencies = app.dependencies,
-                deepLink = deepLink,
-                onDeeplinkHandled = {
-                    deepLink?.let {
-                        deepLinkFlow.tryEmit(null)
-                    }
-                },
-            )
+            val navController = rememberNavController()
+            key(languageTag) {
+                App(
+                    dependencies = app.dependencies,
+                    deepLink = deepLink,
+                    onDeeplinkHandled = {
+                        deepLink?.let {
+                            deepLinkFlow.tryEmit(null)
+                        }
+                    },
+                    navController = navController,
+                )
+            }
 
             LaunchedEffect(Unit) {
                 if (app.dependencies.shouldShowAppReview()) {

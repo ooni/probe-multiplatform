@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.ooni.engine.IosSecureStorage
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
@@ -83,15 +84,15 @@ class SetupDependencies(
     }
 
     /**
-     * If the device's primary language is not in supportedLanguageCodes,
+     * If the device's primary language is not one we ship strings for,
      * override AppleLanguages to the first supported language from the user's
      * preferred languages, or English as a last resort.
      * This must run before any Compose code so that Locale.current and
-     * Compose Resources resoalve to a supported language.
+     * Compose Resources resolve to a supported language.
      */
     private fun ensureSupportedLocale() {
         val preferred = NSLocale.preferredLanguages.mapNotNull { it as? String }
-        val supported = OrganizationConfig.supportedLanguageCodes
+        val supported = DesktopBuildConfig.SUPPORTED_LANGUAGES.map { it.split("-", "_").first() }
         val primaryCode = preferred
             .firstOrNull()
             ?.split("-", "_")
@@ -137,6 +138,12 @@ class SetupDependencies(
         proxyConfig = ProxyConfig(isPsiphonSupported = false),
         getCountryNameByCode = ::getCountryNameByCode,
     )
+
+    init {
+        // After ensureSupportedLocale above, and before the Compose content is created, so the
+        // first frame already resolves its strings against the right language.
+        runBlocking { dependencies.localeController.applyInitialLocale() }
+    }
 
     private val operationsManager = OperationsManager(dependencies, backgroundRunner)
 
