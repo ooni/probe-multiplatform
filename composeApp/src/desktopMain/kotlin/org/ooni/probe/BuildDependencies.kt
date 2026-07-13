@@ -50,10 +50,6 @@ internal val baseCacheDir: String =
 private val osName = System.getProperty("os.name")
 val platform = Platform.Desktop(osName)
 
-// Public (not internal) so :desktopApp's Main.kt can pass it to DesktopLocaleController.
-// Captured at class-init, before applyInitialLocale() overrides the JVM default locale.
-val systemDefaultLocale: Locale = Locale.getDefault()
-
 private val autoLaunch by lazy { AutoLaunch(appPackageName = APP_ID) }
 
 // Pin all SQLite access to a single dedicated thread. SQLDelight's JdbcSqliteDriver

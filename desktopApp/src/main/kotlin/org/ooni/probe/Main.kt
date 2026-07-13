@@ -37,6 +37,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Preparing_Notice
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Running
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Stopping_Title
@@ -66,7 +67,6 @@ import org.ooni.probe.background.registerWindowsUrlScheme
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
-import org.ooni.probe.locale.DesktopLocaleController
 import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.InstanceManager
@@ -88,11 +88,7 @@ fun main(args: Array<String>) {
     configureBundledNativeLibraries()
     initialization(dependencies)
 
-    val localeController = DesktopLocaleController(
-        getValueByKey = dependencies.preferenceRepository::getValueByKey,
-        systemDefaultLocale = systemDefaultLocale,
-    )
-    localeController.applyInitialLocale()
+    runBlocking { dependencies.localeController.applyInitialLocale() }
 
     val autoLaunch = AutoLaunch(appPackageName = APP_ID)
     val instanceManager = InstanceManager(dependencies.platformInfo)
@@ -186,10 +182,10 @@ fun main(args: Array<String>) {
             window.setWindowsAdaptiveTitleBar()
             window.minimumSize = Dimension(320, 560)
             window.maximumSize = Dimension(1024, 1024)
-            val targetLocale = localeController.currentLocale()
+            val languageTag = dependencies.localeController.currentLanguageTag()
 
             val navController = rememberNavController()
-            key(targetLocale.toLanguageTag()) {
+            key(languageTag) {
                 AppTheme {
                     App(
                         dependencies = dependencies,

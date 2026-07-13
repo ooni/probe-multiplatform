@@ -218,6 +218,7 @@ dependencies {
     implementation(libs.compose.components)
     implementation(libs.compose.ui.tooling.preview)
     implementation("androidx.activity:activity-compose:1.13.0")
+    implementation(libs.navigation)
 
     // Android libraries used by the moved entry points / workers
     implementation(libs.bundles.android) // activity, fragment, webkit, work, sqldelight-android, appcompat, ktor-android

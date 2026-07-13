@@ -13,6 +13,9 @@ import android.os.BatteryManager
 import android.os.Build
 import android.os.LocaleList
 import android.os.PowerManager
+import android.text.TextUtils
+import android.view.View
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.core.content.FileProvider
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.net.toUri
@@ -25,6 +28,7 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import okio.Path
 import okio.Path.Companion.toPath
 import org.ooni.engine.AndroidNetworkTypeFinder
@@ -73,6 +77,7 @@ class AndroidApplication : Application() {
             proxyConfig = ProxyConfig(isPsiphonSupported = false),
             getCountryNameByCode = ::getCountryNameByCode,
             getLanguageNameByCode = ::getLanguageNameByCode,
+            localeDirection = ::localeDirection,
         )
     }
 
@@ -89,9 +94,18 @@ class AndroidApplication : Application() {
                 LocaleList.forLanguageTags(DesktopBuildConfig.SUPPORTED_LANGUAGES.joinToString(",")),
             )
         }
+
+        runBlocking { dependencies.localeController.applyInitialLocale() }
         registerActivityLifecycleCallbacks(mainActivityLifecycleCallbacks)
         initialization(dependencies)
     }
+
+    private fun localeDirection(): LayoutDirection =
+        if (TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL) {
+            LayoutDirection.Rtl
+        } else {
+            LayoutDirection.Ltr
+        }
 
     private val platformInfo by lazy {
         PlatformInfo(

@@ -121,6 +121,7 @@ import org.ooni.probe.domain.results.DismissLastRun
 import org.ooni.probe.domain.results.GetLastRun
 import org.ooni.probe.domain.results.GetResult
 import org.ooni.probe.domain.results.GetResults
+import org.ooni.probe.locale.LocaleController
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.shared.monitoring.AppLogger
 import org.ooni.probe.shared.monitoring.CrashMonitoring
@@ -210,6 +211,13 @@ class Dependencies(
 
     @VisibleForTesting
     val preferenceRepository by lazy { PreferenceRepository(buildDataStore()) }
+
+    val localeController by lazy {
+        LocaleController(
+            getValueByKey = preferenceRepository::getValueByKey,
+            languageSupport = platformInfo.languageSupport,
+        )
+    }
 
     @VisibleForTesting
     val resultRepository by lazy { ResultRepository(database, databaseContext) }
