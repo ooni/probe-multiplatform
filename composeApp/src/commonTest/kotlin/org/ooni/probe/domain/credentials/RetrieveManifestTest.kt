@@ -1,10 +1,8 @@
 package org.ooni.probe.domain.credentials
 
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.Success
 import org.ooni.passport.models.PassportHttpResponse
-import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.di.Dependencies
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -15,7 +13,7 @@ class RetrieveManifestTest {
         runTest {
             var preferenceSet: Any? = null
             RetrieveManifest(
-                passportGet = { _, _, _, _, _ ->
+                passportGet = { _ ->
                     Success(
                         PassportHttpResponse(
                             statusCode = 200,
@@ -27,7 +25,6 @@ class RetrieveManifestTest {
                 },
                 json = Dependencies.buildJson(),
                 setPreference = { _, value -> preferenceSet = value },
-                getProxyOption = { flowOf(ProxyOption.None) },
                 backgroundContext = coroutineContext,
             )()
 

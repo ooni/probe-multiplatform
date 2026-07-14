@@ -1,10 +1,8 @@
 package org.ooni.probe.domain.articles
 
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.Success
 import org.ooni.passport.models.PassportHttpResponse
-import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.di.Dependencies
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -15,10 +13,9 @@ class GetFindingsTest {
     fun invoke() =
         runTest {
             val subject = GetFindings(
-                passportGet = { _, _, _, _, _ ->
+                passportGet = { _ ->
                     Success(PassportHttpResponse(200, "HTTP/1.1", emptyList(), API_RESPONSE))
                 },
-                getProxyOption = { flowOf(ProxyOption.None) },
                 json = Dependencies.buildJson(),
             )
 

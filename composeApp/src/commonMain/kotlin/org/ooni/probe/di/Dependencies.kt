@@ -18,10 +18,8 @@ import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.SecureStorage
 import org.ooni.engine.TaskEventMapper
-import org.ooni.engine.models.Result
 import org.ooni.passport.PassportBridge
-import org.ooni.passport.models.PassportException
-import org.ooni.passport.models.PassportHttpResponse
+import org.ooni.passport.PassportHttpClient
 import org.ooni.probe.Database
 import org.ooni.probe.SharedBuildConfig
 import org.ooni.probe.background.RunBackgroundTask
@@ -65,14 +63,13 @@ import org.ooni.probe.domain.FetchGeoIpDbUpdates
 import org.ooni.probe.domain.FinishInProgressData
 import org.ooni.probe.domain.GetAutoRunSettings
 import org.ooni.probe.domain.GetAutoRunSpecification
-import org.ooni.probe.domain.GetRunAtStartupSettings
-import org.ooni.probe.domain.descriptors.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.GetEnginePreferences
 import org.ooni.probe.domain.GetFallbackUrls
 import org.ooni.probe.domain.GetFirstRun
 import org.ooni.probe.domain.GetLastResultOfDescriptor
 import org.ooni.probe.domain.GetMeasurementsNotUploaded
 import org.ooni.probe.domain.GetRerunSpecification
+import org.ooni.probe.domain.GetRunAtStartupSettings
 import org.ooni.probe.domain.GetSettings
 import org.ooni.probe.domain.GetStats
 import org.ooni.probe.domain.GetStorageUsed
@@ -80,28 +77,28 @@ import org.ooni.probe.domain.ObserveAndConfigureAutoRun
 import org.ooni.probe.domain.ObserveAndConfigureAutoUpdate
 import org.ooni.probe.domain.ObserveAndConfigureRunAtStartup
 import org.ooni.probe.domain.RunBackgroundStateManager
-import org.ooni.probe.domain.UpdateRequiredStateManager
 import org.ooni.probe.domain.RunDescriptors
 import org.ooni.probe.domain.RunNetTest
 import org.ooni.probe.domain.SendSupportEmail
 import org.ooni.probe.domain.ShareLogFile
 import org.ooni.probe.domain.ShouldShowVpnWarning
 import org.ooni.probe.domain.SubmitMeasurement
+import org.ooni.probe.domain.UpdateRequiredStateManager
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.domain.appreview.MarkAppReviewAsShown
 import org.ooni.probe.domain.appreview.ShouldShowAppReview
 import org.ooni.probe.domain.articles.GetFindings
 import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
+import org.ooni.probe.domain.credentials.ClearCredential
 import org.ooni.probe.domain.credentials.GetCredential
 import org.ooni.probe.domain.credentials.GetManifest
+import org.ooni.probe.domain.credentials.HandleSubmitOutcome
 import org.ooni.probe.domain.credentials.PrepareAnonymousCredentials
 import org.ooni.probe.domain.credentials.RegisterUser
+import org.ooni.probe.domain.credentials.ResolveSubmissionPolicy
 import org.ooni.probe.domain.credentials.RetrieveManifest
 import org.ooni.probe.domain.credentials.SetCredential
-import org.ooni.probe.domain.credentials.ClearCredential
-import org.ooni.probe.domain.credentials.HandleSubmitOutcome
-import org.ooni.probe.domain.credentials.ResolveSubmissionPolicy
 import org.ooni.probe.domain.credentials.StampMeasurement
 import org.ooni.probe.domain.credentials.SubmitMeasurementWithUser
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
@@ -111,6 +108,7 @@ import org.ooni.probe.domain.descriptors.DescriptorUpdateStateManager
 import org.ooni.probe.domain.descriptors.DismissDescriptorReviewNotice
 import org.ooni.probe.domain.descriptors.FetchDescriptor
 import org.ooni.probe.domain.descriptors.FetchDescriptorsUpdates
+import org.ooni.probe.domain.descriptors.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.descriptors.GetTestDescriptors
 import org.ooni.probe.domain.descriptors.GetTestDescriptorsBySpec
 import org.ooni.probe.domain.descriptors.RejectDescriptorUpdate
@@ -148,9 +146,9 @@ import org.ooni.probe.ui.results.ResultsViewModel
 import org.ooni.probe.ui.run.RunViewModel
 import org.ooni.probe.ui.running.RunningViewModel
 import org.ooni.probe.ui.settings.SettingsViewModel
-import org.ooni.probe.ui.settings.language.LanguageViewModel
 import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
+import org.ooni.probe.ui.settings.language.LanguageViewModel
 import org.ooni.probe.ui.settings.proxy.AddProxyViewModel
 import org.ooni.probe.ui.settings.proxy.ProxyViewModel
 import org.ooni.probe.ui.settings.webcategories.WebCategoriesViewModel
@@ -193,19 +191,6 @@ class Dependencies(
 
     @VisibleForTesting
     var backgroundContext: CoroutineContext = Dispatchers.IO
-
-    // Passport
-    // The HTTP GET function the migrated fetch use cases call (descriptor links,
-    // articles, GeoIP release checks, proxy health). Exposed as a swappable var so
-    // instrumented tests can stub it directly without a fake PassportBridge.
-    @VisibleForTesting
-    var passportGet: (
-        url: String,
-        headers: List<PassportBridge.KeyValue>,
-        query: List<PassportBridge.KeyValue>,
-        proxy: String?,
-        timeout: Float?,
-    ) -> Result<PassportHttpResponse, PassportException> = passportBridge::get
 
     // Data
 
@@ -289,8 +274,7 @@ class Dependencies(
         FetchGeoIpDbUpdates(
             downloadFile = downloader::invoke,
             cacheDir = cacheDir,
-            passportGet = passportGet,
-            getProxyOption = proxyManager::selected,
+            passportGet = { url -> passportHttpClient.get(url) },
             json = json,
             preferencesRepository = preferenceRepository,
             fileSystem = FileSystem.SYSTEM,
@@ -342,8 +326,7 @@ class Dependencies(
     val cancelCurrentTest get() = runBackgroundStateManager::cancel
     private val checkIn by lazy {
         CheckIn(
-            passportPost = passportBridge::post,
-            getProxyOption = proxyManager::selected,
+            passportPost = passportHttpClient::post,
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
             buildCheckInRequest = buildCheckInRequest::invoke,
             json = json,
@@ -404,8 +387,7 @@ class Dependencies(
     }
     private val fetchDescriptor by lazy {
         FetchDescriptor(
-            passportGet = passportGet,
-            getProxyOption = proxyManager::selected,
+            passportGet = { url -> passportHttpClient.get(url) },
             json = json,
         )
     }
@@ -463,9 +445,8 @@ class Dependencies(
     }
     private val registerUser by lazy {
         RegisterUser(
-            passportAuthRegister = passportBridge::userAuthRegister,
+            userAuthRegister = passportHttpClient::userAuthRegister,
             setCredential = setCredential::invoke,
-            getProxyOption = proxyManager::selected,
             backgroundContext = backgroundContext,
             json = json,
         )
@@ -592,6 +573,17 @@ class Dependencies(
             proxyConfig = proxyConfig,
         )
     }
+
+    private val passportHttpClient by lazy {
+        PassportHttpClient(
+            passportGet = passportBridge::get,
+            passportPost = passportBridge::post,
+            passportAuthRegister = passportBridge::userAuthRegister,
+            passportAuthSubmit = passportBridge::userAuthSubmit,
+            getProxyOption = proxyManager::selected,
+        )
+    }
+
     private val rejectDescriptorUpdate by lazy {
         RejectDescriptorUpdate(
             updateDescriptorRejectedRevision = testDescriptorRepository::updateRejectedRevision,
@@ -600,9 +592,8 @@ class Dependencies(
     }
     private val retrieveManifest by lazy {
         RetrieveManifest(
-            passportGet = passportBridge::get,
+            passportGet = { url -> passportHttpClient.get(url) },
             setPreference = preferenceRepository::setValueByKey,
-            getProxyOption = proxyManager::selected,
             json = json,
             backgroundContext = backgroundContext,
         )
@@ -664,18 +655,16 @@ class Dependencies(
             hasOoniNews = OrganizationConfig.hasOoniNews,
             sources = listOf(
                 GetRSSFeed(
-                    passportGet,
-                    proxyManager::selected,
+                    passportGet = { url -> passportHttpClient.get(url) },
                     "https://ooni.org/blog/index.xml",
                     ArticleModel.Source.Blog,
                 ),
                 GetRSSFeed(
-                    passportGet,
-                    proxyManager::selected,
+                    passportGet = { url -> passportHttpClient.get(url) },
                     "https://ooni.org/reports/index.xml",
                     ArticleModel.Source.Report,
                 ),
-                GetFindings(passportGet, proxyManager::selected, json),
+                GetFindings(passportGet = { url -> passportHttpClient.get(url) }, json),
             ),
             networkTypeFinder = networkTypeFinder::invoke,
             refreshArticlesInDatabase = articleRepository::refresh,
@@ -735,8 +724,7 @@ class Dependencies(
             setCredential = setCredential,
             stampMeasurement = stampMeasurement,
             resolveSubmissionPolicy = resolveSubmissionPolicy,
-            passportAuthSubmit = passportBridge::userAuthSubmit,
-            getProxyOption = proxyManager::selected,
+            userAuthSubmit = passportHttpClient::userAuthSubmit,
             json = json,
         )
     }
@@ -756,8 +744,7 @@ class Dependencies(
     }
     private val testProxy by lazy {
         TestProxy(
-            passportGet = passportGet,
-            getProxyOption = proxyManager::selected,
+            passportGet = { url, proxy -> passportHttpClient.get(url, proxy) },
             backgroundContext = backgroundContext,
         )
     }

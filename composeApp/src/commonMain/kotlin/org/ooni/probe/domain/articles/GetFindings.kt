@@ -1,7 +1,5 @@
 package org.ooni.probe.domain.articles
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.format.FormatStringsInDatetimeFormats
 import kotlinx.serialization.SerialName
@@ -10,35 +8,20 @@ import kotlinx.serialization.json.Json
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
-import org.ooni.passport.PassportBridge.KeyValue
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.ArticleModel
-import org.ooni.probe.data.models.ProxyOption
-import org.ooni.probe.domain.credentials.CredentialsConstants
 import org.ooni.probe.shared.toLocalDateTime
 import kotlin.time.Instant
 
 class GetFindings(
-    val passportGet: (
-        url: String,
-        headers: List<KeyValue>,
-        query: List<KeyValue>,
-        proxy: String?,
-        timeout: Float?,
-    ) -> Result<PassportHttpResponse, PassportException>,
-    val getProxyOption: () -> Flow<ProxyOption>,
+    val passportGet: suspend (url: String) -> Result<PassportHttpResponse, PassportException>,
     val json: Json,
 ) : RefreshArticles.Source {
     override suspend operator fun invoke(): Result<List<ArticleModel>, Exception> {
-        val proxy = getProxyOption().first().value.takeIf { it.isNotEmpty() }
         return passportGet(
             "${OrganizationConfig.ooniApiBaseUrl}/api/v1/incidents/search",
-            emptyList(),
-            emptyList(),
-            proxy,
-            CredentialsConstants.HTTP_TIMEOUT_SECONDS,
         ).mapError { it as Exception }
             .flatMap { response ->
                 if (!response.isSuccessful) {
