@@ -1,6 +1,5 @@
 package org.ooni.probe.domain.credentials
 
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.Failure
@@ -9,7 +8,6 @@ import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.data.models.Credential
-import org.ooni.probe.data.models.ProxyOption
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -30,7 +28,7 @@ class RegisterUserTest {
             val expectedCredential = "base64_encoded_credential_string"
 
             val registerUser = RegisterUser(
-                passportAuthRegister = { _, _, _, _, _ ->
+                userAuthRegister = { _, _, _ ->
                     Success(
                         CredentialResponse(
                             response = PassportHttpResponse(
@@ -47,7 +45,6 @@ class RegisterUserTest {
                     storedCredential = it
                     true
                 },
-                getProxyOption = { flowOf(ProxyOption.None) },
                 backgroundContext = coroutineContext,
                 json = json,
             )
@@ -68,7 +65,7 @@ class RegisterUserTest {
     fun httpError() =
         runTest {
             val registerUser = RegisterUser(
-                passportAuthRegister = { _, _, _, _, _ ->
+                userAuthRegister = { _, _, _ ->
                     Success(
                         CredentialResponse(
                             response = PassportHttpResponse(
@@ -82,7 +79,6 @@ class RegisterUserTest {
                     )
                 },
                 setCredential = { true },
-                getProxyOption = { flowOf(ProxyOption.None) },
                 backgroundContext = coroutineContext,
                 json = json,
             )
@@ -99,7 +95,7 @@ class RegisterUserTest {
     fun invalidBody() =
         runTest {
             val registerUser = RegisterUser(
-                passportAuthRegister = { _, _, _, _, _ ->
+                userAuthRegister = { _, _, _ ->
                     Success(
                         CredentialResponse(
                             response = PassportHttpResponse(
@@ -113,7 +109,6 @@ class RegisterUserTest {
                     )
                 },
                 setCredential = { true },
-                getProxyOption = { flowOf(ProxyOption.None) },
                 backgroundContext = coroutineContext,
                 json = json,
             )
@@ -130,7 +125,7 @@ class RegisterUserTest {
     fun emptyBody() =
         runTest {
             val registerUser = RegisterUser(
-                passportAuthRegister = { _, _, _, _, _ ->
+                userAuthRegister = { _, _, _ ->
                     Success(
                         CredentialResponse(
                             response = PassportHttpResponse(
@@ -144,7 +139,6 @@ class RegisterUserTest {
                     )
                 },
                 setCredential = { true },
-                getProxyOption = { flowOf(ProxyOption.None) },
                 backgroundContext = coroutineContext,
                 json = json,
             )
@@ -161,11 +155,10 @@ class RegisterUserTest {
     fun networkError() =
         runTest {
             val registerUser = RegisterUser(
-                passportAuthRegister = { _, _, _, _, _ ->
+                userAuthRegister = { _, _, _ ->
                     Failure(PassportException.Other("Network error"))
                 },
                 setCredential = { true },
-                getProxyOption = { flowOf(ProxyOption.None) },
                 backgroundContext = coroutineContext,
                 json = json,
             )
@@ -182,7 +175,7 @@ class RegisterUserTest {
     fun storageError() =
         runTest {
             val registerUser = RegisterUser(
-                passportAuthRegister = { _, _, _, _, _ ->
+                userAuthRegister = { _, _, _ ->
                     Success(
                         CredentialResponse(
                             response = PassportHttpResponse(
@@ -196,7 +189,6 @@ class RegisterUserTest {
                     )
                 },
                 setCredential = { false },
-                getProxyOption = { flowOf(ProxyOption.None) },
                 backgroundContext = coroutineContext,
                 json = json,
             )

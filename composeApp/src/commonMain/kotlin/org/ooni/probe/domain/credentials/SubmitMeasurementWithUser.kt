@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
-import org.ooni.passport.PassportAuthSubmit
+import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.SubmitCredentialConfig
 import org.ooni.passport.models.VerificationStatus
@@ -17,7 +17,6 @@ import org.ooni.probe.config.BuildTypeDefaults
 import org.ooni.probe.data.models.Credential
 import org.ooni.probe.data.models.Manifest
 import org.ooni.probe.data.models.MeasurementModel
-import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.domain.SubmitMeasurement
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.monitoring.reportTransaction
@@ -28,8 +27,13 @@ class SubmitMeasurementWithUser(
     private val setCredential: SetCredential,
     private val stampMeasurement: StampMeasurement,
     private val resolveSubmissionPolicy: ResolveSubmissionPolicy,
-    private val passportAuthSubmit: PassportAuthSubmit,
-    private val getProxyOption: () -> Flow<ProxyOption>,
+    private val userAuthSubmit: suspend (
+        url: String,
+        content: String,
+        probeCc: String,
+        probeAsn: String,
+        credentialConfig: SubmitCredentialConfig?,
+    ) -> Result<CredentialResponse, PassportException>,
     private val json: Json,
 ) {
     suspend operator fun invoke(measurementData: String): Result<SubmitMeasurement.ResponseData, Throwable?> {
@@ -39,64 +43,60 @@ class SubmitMeasurementWithUser(
         val data = parseMeasurementData(stamped) ?: return Failure(null)
 
         val credentialConfig = buildCredentialConfig(manifest, credential, data)
-        val proxy = getProxyOption().first().value.takeIf { it.isNotEmpty() }
 
-        passportAuthSubmit
-            .userAuthSubmit(
-                url = "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/submit_measurement",
-                content = stamped,
-                probeCc = data.probeCc,
-                probeAsn = data.probeAsn,
-                proxy = proxy,
-                timeout = CredentialsConstants.HTTP_TIMEOUT_SECONDS,
-                credentialConfig = credentialConfig,
-            ).onSuccess { result ->
-                val outcome = result.decodeSubmitOutcome(json)
+        userAuthSubmit(
+            "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/submit_measurement",
+            stamped,
+            data.probeCc,
+            data.probeAsn,
+            credentialConfig,
+        ).onSuccess { result ->
+            val outcome = result.decodeSubmitOutcome(json)
 
-                if (!result.response.isSuccessful) {
-                    val exception = PassportException.HttpClientError(
-                        buildString {
-                            append("Submit returned HTTP ").append(result.response.statusCode)
-                            outcome.error?.let { append(" [").append(it.code).append(']') }
-                            result.response.bodyText
-                                ?.takeIf { it.isNotBlank() }
-                                ?.let { append(": ").append(it.take(MAX_ERROR_BODY_LENGTH)) }
-                        },
-                    )
-                    Logger.w("Submit returned non-2XX", exception)
-                    Instrumentation.reportTransaction(
-                        operation = "SubmitHttpError",
-                        data = mapOf(
-                            "status_code" to result.response.statusCode,
-                            "error" to (outcome.error?.code ?: "unknown"),
-                        ),
-                    )
-                    return Failure(exception)
-                }
-
-                val submitBody = result.response.bodyText?.let(this::parseResponse)
-
-                if (outcome.verificationStatus == VerificationStatus.Verified) {
-                    if (credential is Credential && result.credential is String) {
-                        setCredential(
-                            credential.copy(
-                                credential = result.credential,
-                            ),
-                        )
-                    }
-                }
-
-                return Success(
-                    SubmitMeasurement.ResponseData(
-                        uid = submitBody?.measurementUid?.ifBlank { null }?.let(MeasurementModel::Uid),
-                        verificationStatus = outcome.verificationStatus,
-                        submitError = outcome.error,
+            if (!result.response.isSuccessful) {
+                val exception = PassportException.HttpClientError(
+                    buildString {
+                        append("Submit returned HTTP ").append(result.response.statusCode)
+                        outcome.error?.let { append(" [").append(it.code).append(']') }
+                        result.response.bodyText
+                            ?.takeIf { it.isNotBlank() }
+                            ?.let { append(": ").append(it.take(MAX_ERROR_BODY_LENGTH)) }
+                    },
+                )
+                Logger.w("Submit returned non-2XX", exception)
+                Instrumentation.reportTransaction(
+                    operation = "SubmitHttpError",
+                    data = mapOf(
+                        "status_code" to result.response.statusCode,
+                        "error" to (outcome.error?.code ?: "unknown"),
                     ),
                 )
-            }.onFailure {
-                Logger.w("Failed to submit measurement with user", it)
-                return Failure(it)
+                return Failure(exception)
             }
+
+            val submitBody = result.response.bodyText?.let(this::parseResponse)
+
+            if (outcome.verificationStatus == VerificationStatus.Verified) {
+                if (credential is Credential && result.credential is String) {
+                    setCredential(
+                        credential.copy(
+                            credential = result.credential,
+                        ),
+                    )
+                }
+            }
+
+            return Success(
+                SubmitMeasurement.ResponseData(
+                    uid = submitBody?.measurementUid?.ifBlank { null }?.let(MeasurementModel::Uid),
+                    verificationStatus = outcome.verificationStatus,
+                    submitError = outcome.error,
+                ),
+            )
+        }.onFailure {
+            Logger.w("Failed to submit measurement with user", it)
+            return Failure(it)
+        }
 
         return Failure(null)
     }

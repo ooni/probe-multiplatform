@@ -1,7 +1,6 @@
 package org.ooni.probe.domain
 
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerialName
@@ -15,14 +14,11 @@ import org.ooni.engine.Engine.MkException
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
-import org.ooni.passport.PassportBridge.KeyValue
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.data.models.GetBytesException
-import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
-import org.ooni.probe.domain.credentials.CredentialsConstants
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
@@ -31,14 +27,7 @@ import kotlin.time.Instant
 class FetchGeoIpDbUpdates(
     private val downloadFile: suspend (url: String, absoluteTargetPath: String) -> Result<Path, GetBytesException>,
     private val cacheDir: String,
-    private val passportGet: (
-        url: String,
-        headers: List<KeyValue>,
-        query: List<KeyValue>,
-        proxy: String?,
-        timeout: Float?,
-    ) -> Result<PassportHttpResponse, PassportException>,
-    private val getProxyOption: () -> Flow<ProxyOption>,
+    private val passportGet: suspend (url: String) -> Result<PassportHttpResponse, PassportException>,
     private val preferencesRepository: PreferenceRepository,
     private val json: Json,
     private val fileSystem: FileSystem,
@@ -130,9 +119,8 @@ class FetchGeoIpDbUpdates(
 
     private suspend fun getLatestEngineVersion(): Result<String?, MkException> {
         val url = "https://api.github.com/repos/${GEOIP_DB_REPO}/releases/latest"
-        val proxy = getProxyOption().first().value.takeIf { it.isNotEmpty() }
 
-        return passportGet(url, emptyList(), emptyList(), proxy, CredentialsConstants.HTTP_TIMEOUT_SECONDS)
+        return passportGet(url)
             .mapError { MkException(it) }
             .map { response ->
                 response.bodyText?.takeIf { response.isSuccessful }?.let { payload ->

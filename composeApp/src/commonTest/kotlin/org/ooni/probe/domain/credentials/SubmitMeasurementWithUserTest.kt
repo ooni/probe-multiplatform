@@ -8,7 +8,6 @@ import org.ooni.engine.models.Success
 import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
-import org.ooni.probe.data.models.ProxyOption
 import org.ooni.testing.factories.ManifestFactory
 import kotlin.test.Test
 import kotlin.test.assertIs
@@ -33,8 +32,7 @@ class SubmitMeasurementWithUserTest {
                 json = json,
             ),
             resolveSubmissionPolicy = ResolveSubmissionPolicy(),
-            passportAuthSubmit = { _, _, _, _, _, _, _ -> Success(response) },
-            getProxyOption = { flowOf(ProxyOption.None) },
+            userAuthSubmit = { _, _, _, _, _ -> Success(response) },
             json = json,
         )
 
