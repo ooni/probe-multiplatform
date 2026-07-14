@@ -91,7 +91,7 @@ class AndroidApplication : Application() {
             val localeManager = applicationContext
                 .getSystemService(LocaleManager::class.java)
             localeManager.overrideLocaleConfig = LocaleConfig(
-                LocaleList.forLanguageTags(DesktopBuildConfig.SUPPORTED_LANGUAGES.joinToString(",")),
+                LocaleList.forLanguageTags(SharedBuildConfig.SUPPORTED_LANGUAGES.joinToString(",")),
             )
         }
 
