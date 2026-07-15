@@ -21,11 +21,11 @@ ktor = "3.5.1"
 compose-ui = "1.11.4" # Checkout https://developer.android.com/jetpack/androidx/releases/compose-ui
 coil = "3.5.0"
 jna = "5.19.1"
-oonimkall-android = "3.29.0-android"
+oonimkall-android = "3.29.0-desktop"
 # Desktop oonimkall is published as a per-OS artifact whose version carries the OS suffix.
-oonimkall-desktop-macos = "c52ce3b5-darwin"
-oonimkall-desktop-windows = "c52ce3b5-windows"
-oonimkall-desktop-linux = "c52ce3b5-linux"
+oonimkall-desktop-macos = "3.29.0-desktop"
+oonimkall-desktop-windows = "3.29.0-desktop"
+oonimkall-desktop-linux = "3.29.0-desktop"
 
 [plugins]
 
