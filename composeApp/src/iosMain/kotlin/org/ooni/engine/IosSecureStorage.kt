@@ -25,6 +25,7 @@ import platform.Security.SecItemAdd
 import platform.Security.SecItemCopyMatching
 import platform.Security.SecItemDelete
 import platform.Security.SecItemUpdate
+import platform.Security.errSecDuplicateItem
 import platform.Security.errSecItemNotFound
 import platform.Security.errSecSuccess
 import platform.Security.kSecAttrAccount
@@ -73,31 +74,32 @@ class IosSecureStorage(
             val valueData = nsString.dataUsingEncoding(NSUTF8StringEncoding) ?: return@withContext WriteResult.Error(key, "encode failed")
             val valueDataRef = CFBridgingRetain(valueData)
 
-            // Use SecItemUpdate and SecItemAdd paths but update index only on success
-            val searchQuery = buildQuery(key)
-            val attributes = buildCFDictionary { addEntry(kSecValueData, valueDataRef) }
-            var status = SecItemUpdate(searchQuery, attributes)
-            CFBridgingRelease(searchQuery)
-            CFBridgingRelease(attributes)
+            val addQuery = buildQuery(key) { addEntry(kSecValueData, valueDataRef) }
+            val addStatus = SecItemAdd(addQuery, null)
+            val wasCreated = addStatus == errSecSuccess
 
-            if (status == errSecItemNotFound) {
-                val addQuery = buildQuery(key) { addEntry(kSecValueData, valueDataRef) }
-                status = SecItemAdd(addQuery, null)
+            if (!wasCreated) {
                 CFBridgingRelease(addQuery)
-                CFBridgingRelease(valueDataRef)
-                return@withContext if (status == errSecSuccess) {
-                    WriteResult.Created(key)
-                } else {
-                    WriteResult.Error(key, "osstatus=$status")
+                if (addStatus == errSecDuplicateItem) {
+                    val updateQuery = buildQuery(key)
+                    val attributes = buildCFDictionary { addEntry(kSecValueData, valueDataRef) }
+                    val updateStatus = SecItemUpdate(updateQuery, attributes)
+                    CFBridgingRelease(updateQuery)
+                    CFBridgingRelease(attributes)
+                    CFBridgingRelease(valueDataRef)
+                    return@withContext if (updateStatus == errSecSuccess) {
+                        WriteResult.Updated(key)
+                    } else {
+                        WriteResult.Error(key, "osstatus=$updateStatus")
+                    }
                 }
+                CFBridgingRelease(valueDataRef)
+                return@withContext WriteResult.Error(key, "osstatus=$addStatus")
             }
 
+            CFBridgingRelease(addQuery)
             CFBridgingRelease(valueDataRef)
-            return@withContext if (status == errSecSuccess) {
-                WriteResult.Updated(key)
-            } else {
-                WriteResult.Error(key, "osstatus=$status")
-            }
+            WriteResult.Created(key)
         }
 
     override suspend fun exists(key: String): Boolean =

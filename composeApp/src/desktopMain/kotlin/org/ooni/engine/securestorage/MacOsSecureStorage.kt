@@ -164,25 +164,44 @@ class MacOsSecureStorage(
                     null,
                     existingRef,
                 )
-            if (findStatus != Security.ERR_SEC_SUCCESS || existingRef.value == null) {
-                return WriteResult.Error(key, "osstatus=$findStatus")
+            if (findStatus == Security.ERR_SEC_SUCCESS && existingRef.value != null) {
+                try {
+                    val updateStatus = lib.SecKeychainItemModifyAttributesAndData(
+                        existingRef.value,
+                        null,
+                        passwordBytes.size,
+                        passwordBytes,
+                    )
+                    if (updateStatus == Security.ERR_SEC_SUCCESS) {
+                        updateIndex { add(key) }
+                        return WriteResult.Updated(key)
+                    }
+                } finally {
+                    lib.CFRelease(existingRef.value)
+                }
             }
-            try {
-                val updateStatus = lib.SecKeychainItemModifyAttributesAndData(
-                    existingRef.value,
+            val deleteStatus = delete(key)
+            if (deleteStatus is DeleteResult.Error) {
+                return WriteResult.Error(key, "osstatus=delete_failed")
+            }
+            val retryRef = PointerByReference()
+            val retryStatus =
+                lib.SecKeychainAddGenericPassword(
                     null,
+                    serviceBytes.size,
+                    appId,
+                    accountBytes.size,
+                    key,
                     passwordBytes.size,
                     passwordBytes,
+                    retryRef,
                 )
-                return if (updateStatus == Security.ERR_SEC_SUCCESS) {
-                    updateIndex { add(key) }
-                    WriteResult.Updated(key)
-                } else {
-                    WriteResult.Error(key, "osstatus=$updateStatus")
-                }
-            } finally {
-                lib.CFRelease(existingRef.value)
+            if (retryRef.value != null) lib.CFRelease(retryRef.value)
+            if (retryStatus == Security.ERR_SEC_SUCCESS) {
+                updateIndex { add(key) }
+                return WriteResult.Updated(key)
             }
+            return WriteResult.Error(key, "osstatus=$retryStatus")
         }
 
         return WriteResult.Error(key, "osstatus=$addStatus")
