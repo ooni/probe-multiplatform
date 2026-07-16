@@ -30,3 +30,6 @@ composeApp/macos-appcast.xml
 *.mmdb
 
 certificates/*.pem
+
+*.dmg
+*.rss

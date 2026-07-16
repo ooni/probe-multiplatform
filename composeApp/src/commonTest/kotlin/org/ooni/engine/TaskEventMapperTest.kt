@@ -9,6 +9,7 @@ import org.ooni.engine.models.TaskEventResult
 import org.ooni.probe.di.Dependencies
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class TaskEventMapperTest {
     private val json = Dependencies.buildJson()
@@ -127,6 +128,25 @@ class TaskEventMapperTest {
                 assertEquals(31, second)
             }
             assertEquals("https://www.reddit.com/", event.result.input)
+        }
+    }
+
+    @Test
+    fun measurementWithInvalidJsonStr() {
+        // Outer envelope is valid, but the inner json_str is truncated (engine-side invalid JSON).
+        val result =
+            json.decodeFromString<TaskEventResult>(
+                """{"key":"measurement","value":{"idx":7,"json_str":"{\"probe_cc\":"}}""",
+            )
+
+        val event = subject(result)!!
+
+        assertEquals(TaskEvent.Measurement::class, event::class)
+        with(event as TaskEvent.Measurement) {
+            assertEquals(7, index)
+            // Decode failed, but the raw string is preserved verbatim for the submit-gate safety net.
+            assertNull(event.result)
+            assertEquals("{\"probe_cc\":", event.json)
         }
     }
 

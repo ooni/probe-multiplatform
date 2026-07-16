@@ -714,6 +714,7 @@ class Dependencies(
             updateMeasurement = measurementRepository::createOrUpdate,
             deleteMeasurementById = measurementRepository::deleteById,
             handleSubmitOutcome = handleSubmitOutcome::invoke,
+            json = json,
         )
     }
     private val clearCredential by lazy {
