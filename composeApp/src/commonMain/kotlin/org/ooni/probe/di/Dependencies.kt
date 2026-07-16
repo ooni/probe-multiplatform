@@ -415,7 +415,7 @@ class Dependencies(
             cacheDir = cacheDir,
         )
     }
-    private val getFirstRun by lazy { GetFirstRun(preferenceRepository) }
+    val getFirstRun by lazy { GetFirstRun(preferenceRepository) }
     private val getLastResultOfDescriptor by lazy {
         GetLastResultOfDescriptor(
             getLastResultDoneByDescriptor = resultRepository::getLastDoneByDescriptor,
@@ -848,7 +848,6 @@ class Dependencies(
     )
 
     fun dashboardViewModel(
-        goToOnboarding: () -> Unit,
         goToResults: () -> Unit,
         goToRunningTest: () -> Unit,
         goToRunTests: () -> Unit,
@@ -857,7 +856,6 @@ class Dependencies(
         goToArticles: () -> Unit,
         goToArticle: (ArticleModel.Url) -> Unit,
     ) = DashboardViewModel(
-        goToOnboarding = goToOnboarding,
         goToResults = goToResults,
         goToRunningTest = goToRunningTest,
         goToRunTests = goToRunTests,
@@ -865,7 +863,6 @@ class Dependencies(
         goToTestSettings = goToTestSettings,
         goToArticles = goToArticles,
         goToArticle = goToArticle,
-        getFirstRun = getFirstRun::invoke,
         observeRunBackgroundState = runBackgroundStateManager::observeState,
         observeTestRunErrors = runBackgroundStateManager::observeErrors,
         observeUpdateRequired = updateRequiredStateManager::observeUpdateRequired,

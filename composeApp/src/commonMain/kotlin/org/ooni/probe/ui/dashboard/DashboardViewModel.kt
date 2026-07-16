@@ -26,7 +26,6 @@ import org.ooni.probe.shared.tickerFlow
 import kotlin.time.Duration.Companion.seconds
 
 class DashboardViewModel(
-    goToOnboarding: () -> Unit,
     goToResults: () -> Unit,
     goToRunningTest: () -> Unit,
     goToRunTests: () -> Unit,
@@ -34,7 +33,6 @@ class DashboardViewModel(
     goToTestSettings: () -> Unit,
     goToArticles: () -> Unit,
     goToArticle: (ArticleModel.Url) -> Unit,
-    getFirstRun: () -> Flow<Boolean>,
     observeRunBackgroundState: () -> Flow<RunBackgroundState>,
     observeTestRunErrors: () -> Flow<TestRunError>,
     observeUpdateRequired: () -> Flow<Boolean>,
@@ -56,11 +54,6 @@ class DashboardViewModel(
     val state = _state.asStateFlow()
 
     init {
-        getFirstRun()
-            .take(1)
-            .onEach { firstRun -> if (firstRun) goToOnboarding() }
-            .launchIn(viewModelScope)
-
         getAutoRunSettings()
             .onEach { autoRunParameters ->
                 _state.update {
