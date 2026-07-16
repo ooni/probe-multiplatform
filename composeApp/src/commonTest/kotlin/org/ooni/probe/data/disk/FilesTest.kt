@@ -3,11 +3,15 @@ package org.ooni.probe.data.disk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.runTest
 import okio.FileSystem
+import okio.ForwardingFileSystem
+import okio.IOException
+import okio.Path
 import okio.Path.Companion.toPath
 import okio.SYSTEM
 import kotlin.test.AfterTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class FilesTest {
     private val fileSystem = FileSystem.SYSTEM
@@ -41,6 +45,31 @@ class FilesTest {
         }
 
     @Test
+    fun overwriteIsAtomicAndLeavesNoTempFile() =
+        runTest {
+            val path = "report.json".toPath()
+            writeFile(path, "first", append = false)
+            writeFile(path, "second", append = false)
+            assertEquals("second", readFile(path))
+            // The atomic (temp + rename) write must not leave its scratch file behind.
+            assertNull(readFile("report.json.tmp".toPath()))
+        }
+
+    @Test
+    fun fallbackWriteSucceedsWhenAtomicMoveFails() =
+        runTest {
+            val fs = FailingAtomicMoveFileSystem(fileSystem, baseFilesDir)
+            val write = WriteFileOkio(fs, baseFilesDir)
+            val read = ReadFileOkio(fs, baseFilesDir)
+            val path = "fallback.json".toPath()
+
+            write(path, "content", append = false)
+            assertEquals("content", read(path))
+            // The scratch temp file must be cleaned up even when atomicMove fails.
+            assertNull(fs.findTempFile(path))
+        }
+
+    @Test
     fun deleteNonExistent() =
         runTest {
             deleteFiles("test.txt".toPath())
@@ -54,4 +83,23 @@ class FilesTest {
             deleteFiles(path)
             assertEquals(null, readFile(path))
         }
+
+    /**
+     * A [ForwardingFileSystem] that throws on [atomicMove] so the write path falls back to direct
+     * sink writing. Lets us verify the fallback behaviour without depending on OS-level failures.
+     */
+    private class FailingAtomicMoveFileSystem(
+        delegate: FileSystem,
+        private val baseFilesDir: String,
+    ) : ForwardingFileSystem(delegate) {
+        override fun atomicMove(
+            source: Path,
+            target: Path,
+        ): Unit = throw IOException("Simulated atomicMove failure")
+
+        fun findTempFile(finalPath: Path): String? {
+            val dir = baseFilesDir.toPath().resolve(finalPath).parent ?: return null
+            return delegate.list(dir).firstOrNull { it.name.endsWith(".tmp") }?.name
+        }
+    }
 }

@@ -54,7 +54,18 @@ data class MeasurementModel(
     val isDoneAndMissingUpload
         get() = isDone && isMissingUpload
 
+    /**
+     * Derived (not persisted): the report file could not be parsed and can never be submitted.
+     * Reuses the already-persisted [uploadFailureMessage] as a durable marker so this survives a
+     * DB round-trip without a schema change. Only [org.ooni.probe.domain.SubmitMeasurement] writes
+     * that field, and transient network/HTTP messages never start with [REPORT_UNPARSEABLE_PREFIX].
+     */
+    val isUploadFailedPermanently: Boolean
+        get() = isUploadFailed && uploadFailureMessage?.startsWith(REPORT_UNPARSEABLE_PREFIX) == true
+
     companion object {
+        const val REPORT_UNPARSEABLE_PREFIX = "Report unparseable:"
+
         fun logFilePath(
             resultId: ResultModel.Id,
             test: TestType,
