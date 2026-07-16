@@ -6,7 +6,7 @@ import org.ooni.probe.shared.Platform
 
 /**
  * User-Agent sent with Passport HTTP requests, e.g.
- * `ooni-passport-0.1.4-beta; ooniprobe-6.1.1; android`.
+ * `ooni-passport-x.y.z; ooniprobe-x.y.z; android`.
  *
  * [softwareName] is the flavor's base software name (e.g. `ooniprobe`), passed in because it lives in
  * a flavor source set and is not visible from commonMain.
