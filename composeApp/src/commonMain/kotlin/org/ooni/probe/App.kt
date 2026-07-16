@@ -56,6 +56,18 @@ fun App(
         currentNavEntry?.destination?.hasRoute(it::class) == true
     }
 
+    /**
+     * Decide the start destination before composing the navigation graph so a fresh
+     * installation lands directly on Onboarding instead of briefly flashing the Dashboard.
+     */
+    val firstRun by remember(dependencies) { dependencies.getFirstRun() }
+        .collectAsState(initial = null)
+    val startScreen: Screen? = when (firstRun) {
+        true -> Screen.Onboarding
+        false -> Screen.Dashboard
+        null -> null // still loading — render neither
+    }
+
     CompositionLocalProvider(
         values = listOfNotNull(
             LocalSnackbarHostState provides snackbarHostState,
@@ -89,10 +101,13 @@ fun App(
                             padding(bottom = paddingValues.calculateBottomPadding())
                         },
                     ) {
-                        Navigation(
-                            navController = navController,
-                            dependencies = dependencies,
-                        )
+                        if (startScreen != null) {
+                            Navigation(
+                                navController = navController,
+                                dependencies = dependencies,
+                                startDestination = startScreen,
+                            )
+                        }
                     }
                 }
             }

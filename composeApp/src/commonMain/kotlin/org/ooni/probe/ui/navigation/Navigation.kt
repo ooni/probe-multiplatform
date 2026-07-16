@@ -59,10 +59,11 @@ private val START_SCREEN = Screen.Dashboard
 fun Navigation(
     navController: NavHostController,
     dependencies: Dependencies,
+    startDestination: Screen = START_SCREEN,
 ) {
     NavHost(
         navController = navController,
-        startDestination = START_SCREEN,
+        startDestination = startDestination,
         modifier = Modifier.fillMaxSize(),
     ) {
         composable<Screen.Onboarding> {
@@ -83,7 +84,6 @@ fun Navigation(
         composable<Screen.Dashboard> {
             val viewModel = viewModel {
                 dependencies.dashboardViewModel(
-                    goToOnboarding = { navController.goBackAndNavigate(Screen.Onboarding) },
                     goToResults = { navController.navigateToMainScreen(Screen.Results) },
                     goToRunningTest = { navController.safeNavigate(Screen.RunningTest) },
                     goToRunTests = { navController.safeNavigate(Screen.RunTests) },
