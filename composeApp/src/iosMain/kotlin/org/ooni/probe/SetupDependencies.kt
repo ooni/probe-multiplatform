@@ -72,6 +72,7 @@ import platform.UIKit.UI_USER_INTERFACE_IDIOM
 import platform.UIKit.popoverPresentationController
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
+import kotlin.experimental.ExperimentalNativeApi
 
 class SetupDependencies(
     oonimkallBridge: OonimkallBridge,
@@ -164,6 +165,7 @@ class SetupDependencies(
 
     fun ooniRunDomain() = OrganizationConfig.ooniRunDomain
 
+    @OptIn(ExperimentalNativeApi::class)
     private fun buildPlatformInfo() =
         PlatformInfo(
             buildName = NSBundle.mainBundle.infoDictionary?.get("CFBundleShortVersionString") as? String
@@ -178,6 +180,12 @@ class SetupDependencies(
             hasDonations = false,
             canPullToRefresh = true,
             sentryDsn = "https://a19b2c03b50acdad7d5635559a8e2cad@o155150.ingest.sentry.io/4508325650235392",
+            sentryExtraTags = mapOf(
+                // Xcode builds run `syncFramework`, so the Gradle-side isDebugTaskRequested() never
+                // sees the Xcode configuration; the framework's own build type is the signal here.
+                "environment" to
+                    if (kotlin.native.Platform.isDebugBinary) "development" else "production",
+            ),
         )
 
     private fun buildDatabaseDriver() = NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")
