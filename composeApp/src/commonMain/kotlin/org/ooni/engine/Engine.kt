@@ -214,8 +214,8 @@ class Engine(
     ) : Exception(t)
 }
 
+val PlatformInfo.softwareName
+    get() = OrganizationConfig.baseSoftwareName + "-" + platform.engineName
+
 fun PlatformInfo.buildSoftwareName(taskOrigin: TaskOrigin) =
-    OrganizationConfig.baseSoftwareName +
-        "-" +
-        platform.engineName +
-        (if (taskOrigin == TaskOrigin.AutoRun) "-" + "unattended" else "")
+    softwareName + (if (taskOrigin == TaskOrigin.AutoRun) "-" + "unattended" else "")

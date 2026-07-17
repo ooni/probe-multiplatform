@@ -7,6 +7,8 @@ import io.sentry.kotlin.multiplatform.SentryLevel
 import io.sentry.kotlin.multiplatform.protocol.Breadcrumb
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
+import org.ooni.engine.softwareName
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.shared.PlatformInfo
@@ -15,6 +17,15 @@ class CrashMonitoring(
     private val preferencesRepository: PreferenceRepository,
     private val platformInfo: PlatformInfo,
 ) {
+    /**
+     * Sentry's canonical release format. Both organizations report to the same project per
+     * platform, and share a version, so the package is the only thing separating them: Sentry
+     * parses it out of this format, which is what makes per-organization release health work.
+     * Not [PlatformInfo.version], which is user-facing.
+     */
+    private val release
+        get() = "${OrganizationConfig.appId}@${platformInfo.buildName}+${platformInfo.buildNumber}"
+
     suspend fun setup() {
         preferencesRepository
             .getValueByKey(SettingsKey.SEND_CRASH)
@@ -22,17 +33,16 @@ class CrashMonitoring(
                 if (sendCrash == true) {
                     Sentry.init {
                         it.dsn = platformInfo.sentryDsn
-                        it.release = platformInfo.version
+                        it.release = release
                         it.tracesSampleRate = 1.0
-                        if (platformInfo.sentryExtraTags.isNotEmpty()) {
-                            it.environment = platformInfo.sentryExtraTags["environment"]
+                        platformInfo.sentryExtraTags["environment"]?.let { environment ->
+                            it.environment = environment
                         }
                     }
-                    if (platformInfo.sentryExtraTags.isNotEmpty()) {
-                        Sentry.configureScope { scope ->
-                            platformInfo.sentryExtraTags.forEach { (key, value) ->
-                                scope.setTag(key, value)
-                            }
+                    Sentry.configureScope { scope ->
+                        scope.setTag("software_name", platformInfo.softwareName)
+                        platformInfo.sentryExtraTags.forEach { (key, value) ->
+                            scope.setTag(key, value)
                         }
                     }
                 } else {

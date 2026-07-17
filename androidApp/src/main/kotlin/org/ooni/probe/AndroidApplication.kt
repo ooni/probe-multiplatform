@@ -124,6 +124,11 @@ class AndroidApplication : Application() {
             canPullToRefresh = true,
             sentryDsn =
                 "https://7a49ffedcb48b9b69705d1ac2c032c69@o155150.ingest.sentry.io/4508325642764288",
+            sentryExtraTags = mapOf(
+                // `xperimental` reports to the same project as `full`, without ProGuard mappings
+                "build_flavor" to BuildConfig.FLAVOR,
+                "environment" to if (BuildConfig.DEBUG) "development" else "production",
+            ),
         )
     }
 
