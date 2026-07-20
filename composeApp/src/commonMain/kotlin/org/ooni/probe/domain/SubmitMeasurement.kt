@@ -42,9 +42,6 @@ class SubmitMeasurement(
         }
 
     suspend fun invokeInstrumented(measurement: MeasurementModel): MeasurementModel? {
-        // Already known to be unrecoverable: skip re-read/re-parse/re-submit and don't re-report it.
-        if (measurement.isUploadFailedPermanently) return measurement
-
         val reportFilePath = measurement.reportFilePath ?: return measurement
 
         val report = readFile(reportFilePath)
@@ -55,27 +52,27 @@ class SubmitMeasurement(
         }
 
         reportStructuralError(report)?.let { parseError ->
-            // The report can never be parsed, so it can never be submitted. Mark it (via the
-            // existing upload_failure_msg column) so the upload sweep skips it instead of retrying
-            // it forever, keep the row and file, and report it once for diagnosis.
+            // The report can never be parsed, so it can never be submitted. Mark it not-done so the
+            // upload sweep (which requires is_done = 1) skips it instead of retrying it forever, and
+            // so the UI shows it as failed; keep the row and file, and report it once for diagnosis.
             val errorType = categorizeParseError(parseError)
             Logger.w(
                 "Measurement report unparseable; skipping upload (type=$errorType)",
-                ReportUnparseable("type=$errorType, $parseError"),
+                ReportUnparseable("type=$errorType"),
             )
             Instrumentation.reportTransaction(
                 operation = "SubmitReportUnparseable",
                 data = mapOf(
                     "test" to measurement.test.name,
                     "length" to report.length,
-                    "error" to parseError,
                     "corruption_source" to "disk",
                     "parse_error_type" to errorType,
                 ),
             )
             val marked = measurement.copy(
-                isUploadFailed = true,
-                uploadFailureMessage = "${MeasurementModel.REPORT_UNPARSEABLE_PREFIX} $parseError",
+                isDone = false,
+                isFailed = true,
+                failureMessage = "Report unparseable: $errorType",
             )
             updateMeasurement(marked)
             return marked
@@ -123,15 +120,15 @@ class SubmitMeasurement(
             }.mapError { it.cause }
 
     /**
-     * Structural JSON validity of the report. Returns null when valid, or a bounded parser message
-     * (no raw content — it may contain IPs/network names) when not. Structural-only on purpose: a
-     * valid-but-fieldless report may still submit via the legacy path, so we must not abandon it.
+     * Structural JSON validity of the report. Returns null when valid, or a parser message used
+     * only to derive a coarse diagnostic category. Structural-only on purpose: a valid-but-fieldless
+     * report may still submit via the legacy path, so we must not abandon it.
      */
     private fun reportStructuralError(report: String): String? =
         try {
             if (json.parseToJsonElement(report) is JsonObject) null else "root is not a JSON object"
         } catch (e: Exception) {
-            e.message?.take(MAX_PARSE_ERROR_LENGTH) ?: "unparseable"
+            e.message ?: "unparseable"
         }
 
     class SubmitFailed(
@@ -149,8 +146,6 @@ class SubmitMeasurement(
     )
 
     companion object {
-        private const val MAX_PARSE_ERROR_LENGTH = 200
-
         /**
          * Categorizes JSON parse errors into coarse buckets for Sentry grouping and operational
          * triage. The categories mirror the three corrupt-measurement-report symptoms:

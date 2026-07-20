@@ -7,15 +7,12 @@ import okio.Path
 import okio.Path.Companion.toPath
 import okio.buffer
 import okio.use
-import org.ooni.probe.shared.monitoring.Instrumentation
-import org.ooni.probe.shared.monitoring.reportTransaction
 import kotlin.uuid.Uuid
 
 fun interface WriteFile {
     suspend operator fun invoke(
         path: Path,
         contents: String,
-        append: Boolean,
     )
 }
 
@@ -23,10 +20,11 @@ class WriteFileOkio(
     private val fileSystem: FileSystem,
     private val baseFileDir: String,
 ) : WriteFile {
+    private var atomicMoveUnsupportedLogged = false
+
     override suspend fun invoke(
         path: Path,
         contents: String,
-        append: Boolean,
     ) {
         val absolutePath = baseFileDir.toPath().resolve(path)
         val parent = absolutePath.parent
@@ -39,13 +37,6 @@ class WriteFileOkio(
         }
 
         try {
-            if (append) {
-                fileSystem.appendingSink(absolutePath).use { sink ->
-                    sink.buffer().use { it.writeUtf8(contents) }
-                }
-                return
-            }
-
             // Atomic replace: write to a sibling temp file in the SAME directory, then rename it
             // onto the final path. A process killed mid-write can only leave a stale `.tmp`, never a
             // truncated `absolutePath`. (See the corrupt-measurement-report investigation.)
@@ -59,27 +50,25 @@ class WriteFileOkio(
                             fileSystem.delete(sibling, mustExist = false)
                         }
                     }
-                }
+                }.onFailure { Logger.v("Could not clean up stale temp files in $dir", it) }
             }
 
-            var usedAtomic = true
             try {
                 fileSystem.write(tmp) { writeUtf8(contents) }
                 fileSystem.atomicMove(tmp, absolutePath)
             } catch (e: IOException) {
                 // Never regress to "cannot write at all" if a filesystem can't do an atomic move.
-                Logger.w("Atomic write failed for $path, falling back to direct write", e)
-                usedAtomic = false
+                // Log only once: on a filesystem that never supports it this would otherwise spam
+                // on every write (reports and the ~5s log rewrite).
+                if (!atomicMoveUnsupportedLogged) {
+                    atomicMoveUnsupportedLogged = true
+                    Logger.w("Atomic write unsupported; using direct write from now on", e)
+                }
                 runCatching { fileSystem.delete(tmp, mustExist = false) }
                 fileSystem.sink(absolutePath).use { sink ->
                     sink.buffer().use { it.writeUtf8(contents) }
                 }
             }
-
-            Instrumentation.reportTransaction(
-                operation = "WriteFile",
-                data = mapOf("strategy" to if (usedAtomic) "atomic" else "fallback"),
-            )
         } catch (e: Exception) {
             Logger.e("Could not update file $path", e)
         }

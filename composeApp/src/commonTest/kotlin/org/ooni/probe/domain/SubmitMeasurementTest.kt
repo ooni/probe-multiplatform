@@ -96,49 +96,40 @@ class SubmitMeasurementTest {
                 )
 
                 val result =
-                    subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))
+                    subject.invokeInstrumented(
+                        MeasurementModelFactory.build(id = MeasurementModel.Id(1L), isDone = true),
+                    )
 
-                val markerMessage = updated?.uploadFailureMessage
-                assertTrue(updated?.isUploadFailed == true, "isUploadFailed for <$corruptReport>")
+                // Marked not-done so the upload sweep (is_done = 1) skips it and the UI shows failed.
+                assertFalse(updated?.isDone == true, "marked not-done for <$corruptReport>")
+                assertTrue(updated?.isFailed == true, "marked failed for <$corruptReport>")
                 assertTrue(
-                    markerMessage?.startsWith(MeasurementModel.REPORT_UNPARSEABLE_PREFIX) == true,
-                    "marker message for <$corruptReport>",
-                )
-                assertTrue(
-                    updated?.isUploadFailedPermanently == true,
-                    "derived permanent flag for <$corruptReport>",
+                    updated?.failureMessage?.startsWith("Report unparseable:") == true,
+                    "failure message for <$corruptReport>",
                 )
                 assertFalse(updated?.isUploaded == true, "not uploaded for <$corruptReport>")
                 assertFalse(submitted, "network submit skipped for <$corruptReport>")
                 assertFalse(fileDeleted, "report file kept for <$corruptReport>")
                 assertFalse(rowDeleted, "row kept for <$corruptReport>")
-                assertTrue(result?.isUploadFailedPermanently == true, "returns marked for <$corruptReport>")
+                assertFalse(result?.isDone == true, "returns marked not-done for <$corruptReport>")
             }
         }
 
     @Test
-    fun alreadyPermanentIsNoOp() =
+    fun corruptReportDoesNotPersistItsContentsInFailureMessage() =
         runTest {
-            var read = false
-            var submitted = false
-            var updated = false
+            var updated: MeasurementModel? = null
+            val report = "{\"sensitive_url\":\"https://private.example/path"
             val subject = buildSubject(
-                onRead = { read = true },
-                onSubmit = { submitted = true },
-                onUpdate = { updated = true },
+                report = report,
+                onUpdate = { updated = it },
             )
 
-            val alreadyMarked = MeasurementModelFactory.build(
-                id = MeasurementModel.Id(1L),
-                isUploadFailed = true,
-                uploadFailureMessage = "${MeasurementModel.REPORT_UNPARSEABLE_PREFIX} Unexpected EOF",
+            subject.invokeInstrumented(
+                MeasurementModelFactory.build(id = MeasurementModel.Id(1L), isDone = true),
             )
-            val result = subject.invokeInstrumented(alreadyMarked)
 
-            assertEquals(alreadyMarked, result)
-            assertFalse(read, "file not re-read")
-            assertFalse(submitted, "not re-submitted")
-            assertFalse(updated, "not re-written")
+            assertFalse(updated?.failureMessage?.contains("private.example") == true)
         }
 
     @Test
@@ -152,10 +143,12 @@ class SubmitMeasurementTest {
                 onUpdate = { updated = it },
             )
 
-            subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))
+            subject.invokeInstrumented(
+                MeasurementModelFactory.build(id = MeasurementModel.Id(1L), isDone = true),
+            )
 
             assertTrue(submitted, "valid report is submitted")
             assertTrue(updated?.isUploaded == true)
-            assertFalse(updated?.isUploadFailedPermanently == true)
+            assertTrue(updated?.isDone == true)
         }
 }

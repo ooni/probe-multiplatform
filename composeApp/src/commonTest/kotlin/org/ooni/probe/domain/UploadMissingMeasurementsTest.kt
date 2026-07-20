@@ -55,24 +55,20 @@ class UploadMissingMeasurementsTest {
         runTest {
             // 5 unparseable reports (the abort threshold) at the front, one healthy row behind them.
             val corrupt = (1..5).map {
-                MeasurementModelFactory.build(
-                    id = MeasurementModel.Id(it.toLong()),
-                    isUploadFailed = true,
-                    uploadFailureMessage =
-                        "${MeasurementModel.REPORT_UNPARSEABLE_PREFIX} Unexpected EOF",
-                )
+                MeasurementModelFactory.build(id = MeasurementModel.Id(it.toLong()), isDone = true)
             }
-            val healthy = MeasurementModelFactory.build(id = MeasurementModel.Id(6L))
+            val healthy = MeasurementModelFactory.build(id = MeasurementModel.Id(6L), isDone = true)
 
             var healthyUploaded = false
             val subject = UploadMissingMeasurements(
                 getMeasurementsNotUploaded = { flowOf(corrupt + healthy) },
                 submitMeasurement = { measurement ->
-                    if (measurement.isUploadFailedPermanently) {
-                        measurement // skipped by the sweep, stays permanently failed
-                    } else {
+                    if (measurement.id == healthy.id) {
                         healthyUploaded = true
                         measurement.copy(isUploaded = true)
+                    } else {
+                        // SubmitMeasurement marks an unparseable report not-done.
+                        measurement.copy(isDone = false)
                     }
                 },
             )

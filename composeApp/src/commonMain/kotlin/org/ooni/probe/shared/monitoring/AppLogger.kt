@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDateTime
 import okio.Path.Companion.toPath
+import org.ooni.probe.data.disk.AppendFile
 import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.disk.WriteFile
@@ -26,6 +27,7 @@ import kotlin.time.Duration.Companion.seconds
 class AppLogger(
     private val readFile: ReadFile,
     private val writeFile: WriteFile,
+    private val appendFile: AppendFile,
     private val deleteFiles: DeleteFiles,
     private val backgroundContext: CoroutineContext,
 ) {
@@ -49,7 +51,7 @@ class AppLogger(
 
     suspend fun getLogFilePath() =
         FILE_PATH
-            .also { writeFile(it, "", append = true) } // Ensure file exists
+            .also { appendFile(it, "") } // Ensure file exists
 
     // Persist the log into the log file after a certain period without changes
     suspend fun writeLogsToFile() {
@@ -62,7 +64,7 @@ class AppLogger(
                 }.sample(5.seconds)
                 .distinctUntilChanged()
                 .collectLatest { lines ->
-                    writeFile(FILE_PATH, lines.joinToString("\n"), append = false)
+                    writeFile(FILE_PATH, lines.joinToString("\n"))
                 }
         }
     }
