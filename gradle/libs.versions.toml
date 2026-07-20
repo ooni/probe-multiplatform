@@ -11,7 +11,7 @@ app-versionName = "6.1.1"
 app-versionCode = "350" # Always increment by 10. See fdroid ABI offsets in androidApp
 
 compose-plugin = "1.11.1"
-kotlin = "2.4.0"
+kotlin = "2.4.10"
 passport = "0.1.4-beta"
 sqldelight = "2.3.2"
 dataStoreVersion = "1.2.1"
