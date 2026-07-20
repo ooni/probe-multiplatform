@@ -493,4 +493,10 @@
     <string name="Dashboard_UpdatePrompt_Title">Atualização necessária</string>
     <string name="Dashboard_UpdatePrompt_Description">Uma nova versão da aplicação é necessária para continuar a submeter medições. Por favor, atualize para continuar.</string>
     <string name="Settings_RunAtStartup_Description">Abrir a aplicação automaticamente no reinício do computador. Obrigatório se a execução automática estiver ligada.</string>
+    <string name="Dashboard_UpdatePrompt_Action">Atualizar</string>
+    <string name="Measurements_Verification_Verified">Probe autenticada</string>
+    <string name="Measurements_Verification_Failed">Autenticação da Probe falhada</string>
+    <string name="Measurements_Verification_Unverified">Probe não autenticada</string>
+    <string name="Settings_RunAtStartup">Executar ao reiniciar</string>
+    <string name="Settings_Language_SystemDefault">Predefinição do sistema</string>
 </resources>

@@ -447,4 +447,5 @@
     <string name="Measurements_Verification_Failed">Probe の認証に失敗しました</string>
     <string name="Measurements_Verification_Unverified">Probe は認証されていません</string>
     <string name="Dashboard_UpdatePrompt_Action">更新</string>
+    <string name="Settings_Language_SystemDefault">システム標準</string>
 </resources>
