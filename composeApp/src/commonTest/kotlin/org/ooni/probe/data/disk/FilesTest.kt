@@ -18,6 +18,7 @@ class FilesTest {
     private val baseFilesDir = FileSystem.SYSTEM_TEMPORARY_DIRECTORY.resolve("ooni").toString()
     private val readFile = ReadFileOkio(fileSystem, baseFilesDir)
     private val writeFile = WriteFileOkio(fileSystem, baseFilesDir)
+    private val appendFile = AppendFileOkio(fileSystem, baseFilesDir)
     private val deleteFiles = DeleteFilesOkio(fileSystem, baseFilesDir, Dispatchers.Default)
 
     @AfterTest
@@ -30,11 +31,18 @@ class FilesTest {
     fun writeAndRead() =
         runTest {
             val path = "test.txt".toPath()
-            writeFile(path, "hello", append = false)
+            writeFile(path, "hello")
             assertEquals("hello", readFile(path))
-            writeFile(path, "hello", append = false)
+            writeFile(path, "hello")
             assertEquals("hello", readFile(path))
-            writeFile(path, " world", append = true)
+        }
+
+    @Test
+    fun appendAndRead() =
+        runTest {
+            val path = "test.txt".toPath()
+            writeFile(path, "hello")
+            appendFile(path, " world")
             assertEquals("hello world", readFile(path))
         }
 
@@ -48,8 +56,8 @@ class FilesTest {
     fun overwriteIsAtomicAndLeavesNoTempFile() =
         runTest {
             val path = "report.json".toPath()
-            writeFile(path, "first", append = false)
-            writeFile(path, "second", append = false)
+            writeFile(path, "first")
+            writeFile(path, "second")
             assertEquals("second", readFile(path))
             // The atomic (temp + rename) write must not leave its scratch file behind.
             assertNull(readFile("report.json.tmp".toPath()))
@@ -63,7 +71,7 @@ class FilesTest {
             val read = ReadFileOkio(fs, baseFilesDir)
             val path = "fallback.json".toPath()
 
-            write(path, "content", append = false)
+            write(path, "content")
             assertEquals("content", read(path))
             // The scratch temp file must be cleaned up even when atomicMove fails.
             assertNull(fs.findTempFile(path))
@@ -79,7 +87,7 @@ class FilesTest {
     fun delete() =
         runTest {
             val path = "test.txt".toPath()
-            writeFile(path, "hello", append = false)
+            writeFile(path, "hello")
             deleteFiles(path)
             assertEquals(null, readFile(path))
         }

@@ -260,10 +260,12 @@ class RunNetTest(
             }
 
             is TaskEvent.MeasurementDone -> {
-                submitMeasurement(event.index)
+                // Mark done before submitting: an unparseable report is marked not-done by
+                // submitMeasurement, and doing this first avoids clobbering that back to done.
                 updateMeasurement(event.index) {
                     it.copy(isDone = true)
                 }
+                submitMeasurement(event.index)
             }
 
             is TaskEvent.End -> {
@@ -358,7 +360,6 @@ class RunNetTest(
         writeFile(
             path = measurement.reportFilePath ?: return,
             contents = text,
-            append = false,
         )
     }
 
