@@ -1,5 +1,6 @@
 package org.ooni.passport
 
+import androidx.annotation.VisibleForTesting
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import org.ooni.engine.models.Result
@@ -20,7 +21,8 @@ import org.ooni.probe.domain.credentials.CredentialsConstants
  * - Pass the timeout constant
  */
 class PassportHttpClient(
-    private val passportGet: PassportGet,
+    @get:VisibleForTesting
+    var passportGet: PassportGet,
     private val passportPost: PassportPost,
     private val passportAuthRegister: PassportAuthRegister,
     private val passportAuthSubmit: PassportAuthSubmit,

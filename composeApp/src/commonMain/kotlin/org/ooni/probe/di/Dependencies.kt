@@ -19,6 +19,7 @@ import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.SecureStorage
 import org.ooni.engine.TaskEventMapper
 import org.ooni.passport.PassportBridge
+import org.ooni.passport.PassportGet
 import org.ooni.passport.PassportHttpClient
 import org.ooni.probe.Database
 import org.ooni.probe.SharedBuildConfig
@@ -574,7 +575,8 @@ class Dependencies(
         )
     }
 
-    private val passportHttpClient by lazy {
+    @get:VisibleForTesting
+    val passportHttpClient by lazy {
         PassportHttpClient(
             passportGet = passportBridge::get,
             passportPost = passportBridge::post,
@@ -583,6 +585,13 @@ class Dependencies(
             getProxyOption = proxyManager::selected,
         )
     }
+
+    @VisibleForTesting
+    var passportGet: PassportGet
+        get() = passportHttpClient.passportGet
+        set(value) {
+            passportHttpClient.passportGet = value
+        }
 
     private val rejectDescriptorUpdate by lazy {
         RejectDescriptorUpdate(
