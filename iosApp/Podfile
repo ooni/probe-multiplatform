@@ -7,6 +7,8 @@ def shared_pods
     ooni_version = "v3.29.0"
     passport_version = "0.1.4-beta"
     ooni_pods_location = "https://github.com/ooni/probe-cli/releases/download/#{ooni_version}"
+    # TODO: change oonimkall pods location to maven, waiting for changes on companion libraries like libcrypto,libevent, libssl.
+    # ooni_pods_location = "https://repo1.maven.org/maven2/org/ooni/oonimkall-ios/#{ooni_version}/oonimkall-ios-#{ooni_version}.pom"
     passport_pods_location = "https://repo1.maven.org/maven2/org/ooni/passport-ios/#{passport_version}/passport-ios-#{passport_version}.podspec"
 
     pod 'composeApp', :path => '../composeApp'
