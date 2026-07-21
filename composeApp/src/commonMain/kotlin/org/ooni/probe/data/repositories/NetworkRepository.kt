@@ -57,6 +57,14 @@ class NetworkRepository(
             .mapToList(backgroundContext)
             .map { list -> list.map { it.toModel() } }
 
+    suspend fun latest(): NetworkModel? =
+        withContext(backgroundContext) {
+            database.networkQueries
+                .selectLatest()
+                .executeAsOneOrNull()
+                ?.toModel()
+        }
+
     fun countAsns(): Flow<Long> =
         database.networkQueries
             .countAsns()

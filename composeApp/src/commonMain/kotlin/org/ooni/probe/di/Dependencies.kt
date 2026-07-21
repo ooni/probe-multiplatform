@@ -92,6 +92,7 @@ import org.ooni.probe.domain.articles.GetFindings
 import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
 import org.ooni.probe.domain.credentials.ClearCredential
+import org.ooni.probe.domain.credentials.GetAnonymousCredentialsHealth
 import org.ooni.probe.domain.credentials.GetCredential
 import org.ooni.probe.domain.credentials.GetManifest
 import org.ooni.probe.domain.credentials.HandleSubmitOutcome
@@ -149,6 +150,7 @@ import org.ooni.probe.ui.running.RunningViewModel
 import org.ooni.probe.ui.settings.SettingsViewModel
 import org.ooni.probe.ui.settings.about.AboutViewModel
 import org.ooni.probe.ui.settings.category.SettingsCategoryViewModel
+import org.ooni.probe.ui.settings.credentials.AnonymousCredentialsViewModel
 import org.ooni.probe.ui.settings.language.LanguageViewModel
 import org.ooni.probe.ui.settings.proxy.AddProxyViewModel
 import org.ooni.probe.ui.settings.proxy.ProxyViewModel
@@ -719,6 +721,13 @@ class Dependencies(
     private val clearCredential by lazy {
         ClearCredential(deleteSecureStorage = secureStorage::delete)
     }
+    private val getAnonymousCredentialsHealth by lazy {
+        GetAnonymousCredentialsHealth(
+            getCredential = getCredential::invoke,
+            getLatestNetwork = networkRepository::latest,
+            passportGetProbeId = passportBridge::getProbeId,
+        )
+    }
     private val handleSubmitOutcome by lazy {
         HandleSubmitOutcome(
             retrieveManifest = { retrieveManifest() },
@@ -1083,6 +1092,13 @@ class Dependencies(
             openAppLanguageSettings = { launchAction(PlatformAction.LanguageSettings) },
             getSettings = getSettings::invoke,
             languageSupport = platformInfo.languageSupport,
+        )
+
+    fun anonymousCredentialsViewModel(onBack: () -> Unit) =
+        AnonymousCredentialsViewModel(
+            onBack = onBack,
+            getHealth = getAnonymousCredentialsHealth::invoke,
+            clearCredential = clearCredential::invoke,
         )
 
     fun languageViewModel(onBack: () -> Unit) =
