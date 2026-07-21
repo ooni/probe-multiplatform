@@ -50,7 +50,7 @@ class WriteFileOkio(
                             fileSystem.delete(sibling, mustExist = false)
                         }
                     }
-                }.onFailure { Logger.v("Could not clean up stale temp files in $dir", it) }
+                }.onFailure { Logger.e("Could not clean up stale temp files in $dir", it) }
             }
 
             try {
@@ -65,6 +65,7 @@ class WriteFileOkio(
                     Logger.w("Atomic write unsupported; using direct write from now on", e)
                 }
                 runCatching { fileSystem.delete(tmp, mustExist = false) }
+                    .onFailure { Logger.e("Could not clean up temporary file $tmp", it) }
                 fileSystem.sink(absolutePath).use { sink ->
                     sink.buffer().use { it.writeUtf8(contents) }
                 }
