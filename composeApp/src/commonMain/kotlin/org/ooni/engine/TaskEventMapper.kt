@@ -9,6 +9,10 @@ class TaskEventMapper(
     private val networkTypeFinder: NetworkTypeFinder,
     private val json: Json,
 ) {
+    class EngineMeasurementJsonInvalid(
+        message: String,
+    ) : Exception(message)
+
     operator fun invoke(
         result: TaskEventResult,
         isCancelled: Boolean = false,
@@ -75,7 +79,13 @@ class TaskEventMapper(
                             try {
                                 json.decodeFromString(jsonString)
                             } catch (e: Exception) {
-                                Logger.d("Could not deserialize $key 'jsonStr'", throwable = e)
+                                Logger.w(
+                                    "Engine emitted invalid measurement JSON " +
+                                        "(idx=${value.idx}, len=${jsonString.length})",
+                                    throwable = EngineMeasurementJsonInvalid(
+                                        "idx=${value.idx}, len=${jsonString.length}, error=${e.message}",
+                                    ),
+                                )
                                 null
                             },
                     )

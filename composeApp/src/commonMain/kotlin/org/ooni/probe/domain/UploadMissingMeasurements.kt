@@ -50,12 +50,21 @@ class UploadMissingMeasurements(
 
                     val newMeasurement = submitMeasurement(measurement)
 
-                    if (newMeasurement?.isUploaded == true) {
-                        uploaded++
-                        subsequentFailures = 0
-                    } else {
-                        failedToUpload++
-                        subsequentFailures++
+                    when {
+                        newMeasurement?.isUploaded == true -> {
+                            uploaded++
+                            subsequentFailures = 0
+                        }
+                        // Report can never be parsed/submitted (marked not-done): count it as failed
+                        // but not toward the subsequent-failure abort, so healthy measurements behind
+                        // it still run. Such rows are also excluded from future sweeps (is_done = 0).
+                        newMeasurement != null && !newMeasurement.isDone -> {
+                            failedToUpload++
+                        }
+                        else -> {
+                            failedToUpload++
+                            subsequentFailures++
+                        }
                     }
                 }
 

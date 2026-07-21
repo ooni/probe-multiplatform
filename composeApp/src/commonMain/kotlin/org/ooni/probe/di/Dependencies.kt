@@ -29,6 +29,8 @@ import org.ooni.probe.config.FlavorConfigInterface
 import org.ooni.probe.config.LegacyDirectoryManager
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.ProxyConfig
+import org.ooni.probe.data.disk.AppendFile
+import org.ooni.probe.data.disk.AppendFileOkio
 import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.DeleteFilesOkio
 import org.ooni.probe.data.disk.ReadFile
@@ -233,6 +235,7 @@ class Dependencies(
 
     private val readFile: ReadFile by lazy { ReadFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val writeFile: WriteFile by lazy { WriteFileOkio(FileSystem.SYSTEM, baseFileDir) }
+    private val appendFile: AppendFile by lazy { AppendFileOkio(FileSystem.SYSTEM, baseFileDir) }
     private val deleteFiles: DeleteFiles by lazy {
         DeleteFilesOkio(
             fileSystem = FileSystem.SYSTEM,
@@ -257,6 +260,7 @@ class Dependencies(
         AppLogger(
             readFile = readFile,
             writeFile = writeFile,
+            appendFile = appendFile,
             deleteFiles = deleteFiles,
             backgroundContext = backgroundContext,
         )
@@ -714,6 +718,7 @@ class Dependencies(
             updateMeasurement = measurementRepository::createOrUpdate,
             deleteMeasurementById = measurementRepository::deleteById,
             handleSubmitOutcome = handleSubmitOutcome::invoke,
+            json = json,
         )
     }
     private val clearCredential by lazy {
