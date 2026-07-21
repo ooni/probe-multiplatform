@@ -28,6 +28,7 @@ import ooniprobe.composeapp.generated.resources.Onboarding_WhatIsOONIProbe_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_About_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
+import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_Description
@@ -293,6 +294,17 @@ class DesktopScreenshotsTest {
             clickText(string(Res.string.Settings_Privacy_Label))
             waitForText(string(Res.string.Settings_Privacy_Label))
             capture(locale, "13-privacy")
+        }
+
+    @Test
+    fun settingsAnonymousCredentials() =
+        perLocale { locale ->
+            renderApp()
+            waitForContentDescription(string(Res.string.app_name))
+            clickText(string(Res.string.Settings_Title))
+            clickText(string(Res.string.Settings_AnonymousCredentials_Label))
+            waitForTag("AnonymousCredentialsScreen")
+            capture(locale, "13a-anonymous-credentials")
         }
 
     @Test

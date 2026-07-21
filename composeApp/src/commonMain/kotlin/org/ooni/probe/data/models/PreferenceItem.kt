@@ -70,6 +70,7 @@ enum class PreferenceCategoryKey(
     DONATE("donate"),
     ABOUT_OONI("about_ooni"),
     SHARE("share"),
+    ANONYMOUS_CREDENTIALS("anonymous_credentials"),
 
     WEBSITES_CATEGORIES("websites_categories"),
     SEE_RECENT_LOGS("see_recent_logs"),

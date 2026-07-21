@@ -31,6 +31,11 @@ SELECT last_insert_rowid();
 selectAll:
 SELECT * FROM Network;
 
+selectLatest:
+SELECT * FROM Network
+ORDER BY id DESC
+LIMIT 1;
+
 selectByValues:
 SELECT * FROM Network
 WHERE network_name = ? AND asn = ? AND country_code = ? AND network_type = ?
