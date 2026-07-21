@@ -21,6 +21,7 @@ import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Modal_DoYouWantToDeleteAllTests
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_About_Label
+import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_DebugLogs
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_RecentLogs
@@ -58,6 +59,7 @@ import ooniprobe.composeapp.generated.resources.advanced
 import ooniprobe.composeapp.generated.resources.ic_language
 import ooniprobe.composeapp.generated.resources.ic_settings
 import ooniprobe.composeapp.generated.resources.ic_share
+import ooniprobe.composeapp.generated.resources.ic_shield_check
 import ooniprobe.composeapp.generated.resources.ic_support
 import ooniprobe.composeapp.generated.resources.outline_info
 import ooniprobe.composeapp.generated.resources.privacy
@@ -264,6 +266,11 @@ class GetSettings(
             } else {
                 null
             },
+            SettingsCategoryItem(
+                icon = Res.drawable.ic_shield_check,
+                title = Res.string.Settings_AnonymousCredentials_Label,
+                route = PreferenceCategoryKey.ANONYMOUS_CREDENTIALS,
+            ),
             SettingsCategoryItem(
                 icon = Res.drawable.proxy,
                 title = Res.string.Settings_Proxy_Label,

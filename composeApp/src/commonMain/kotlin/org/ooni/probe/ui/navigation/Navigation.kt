@@ -42,6 +42,7 @@ import org.ooni.probe.ui.results.ResultsScreen
 import org.ooni.probe.ui.run.RunScreen
 import org.ooni.probe.ui.running.RunningScreen
 import org.ooni.probe.ui.settings.SettingsScreen
+import org.ooni.probe.ui.settings.credentials.AnonymousCredentialsScreen
 import org.ooni.probe.ui.settings.language.LanguageScreen
 import org.ooni.probe.ui.settings.about.AboutScreen
 import org.ooni.probe.ui.settings.category.SettingsCategoryScreen
@@ -245,6 +246,14 @@ fun Navigation(
                     }
                     val state by viewModel.state.collectAsState()
                     ProxyScreen(state, viewModel::onEvent)
+                }
+
+                PreferenceCategoryKey.ANONYMOUS_CREDENTIALS -> {
+                    val viewModel = viewModel {
+                        dependencies.anonymousCredentialsViewModel(onBack = { navController.goBack() })
+                    }
+                    val state by viewModel.state.collectAsState()
+                    AnonymousCredentialsScreen(state, viewModel::onEvent)
                 }
 
                 PreferenceCategoryKey.SEE_RECENT_LOGS -> {
