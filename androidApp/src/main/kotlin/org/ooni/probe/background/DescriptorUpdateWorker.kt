@@ -24,6 +24,7 @@ import org.ooni.probe.AndroidApplication
 import org.ooni.probe.shared.R
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.domain.descriptors.DescriptorUpdateOutcome
 
 class DescriptorUpdateWorker(
     appContext: Context,
@@ -68,7 +69,17 @@ class DescriptorUpdateWorker(
 
         return try {
             val descriptors = getDescriptors() ?: return Result.failure()
-            dependencies.fetchDescriptorsUpdates(descriptors)
+            val outcome = dependencies.fetchDescriptorsUpdates(descriptors)
+
+            if (outcome.shouldRetry(runAttemptCount)) {
+                Logger.i(
+                    "DescriptorUpdateWorker: all ${outcome.attempted} updates failed for lack of " +
+                        "a network, retrying (attempt ${runAttemptCount + 1} of " +
+                        "${DescriptorUpdateOutcome.MAX_NETWORK_RETRY_ATTEMPTS})",
+                )
+                return Result.retry()
+            }
+
             Result.success(buildWorkData(descriptors.map { it.id }))
         } catch (e: CancellationException) {
             if (isStopped) {

@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import org.ooni.engine.Engine
 import org.ooni.engine.models.Result
+import org.ooni.passport.models.isOfflineFailure
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.Descriptor
@@ -18,7 +19,7 @@ class FetchDescriptorsUpdates(
     private val saveTestDescriptors: suspend (List<Descriptor>, SaveTestDescriptors.Mode) -> Unit,
     private val updateState: ((DescriptorsUpdateState) -> DescriptorsUpdateState) -> Unit,
 ) {
-    suspend operator fun invoke(descriptorsProvided: List<Descriptor>) {
+    suspend operator fun invoke(descriptorsProvided: List<Descriptor>): DescriptorUpdateOutcome {
         val descriptors = descriptorsProvided.ifEmpty { getLatestTestDescriptors().first() }
 
         updateState {
@@ -42,6 +43,10 @@ class FetchDescriptorsUpdates(
         val updatesToReview = mutableListOf<Descriptor>()
         val autoUpdates = mutableListOf<Descriptor>()
 
+        var successes = 0
+        var networkFailures = 0
+        var otherFailures = 0
+
         fetchResults.forEach { (descriptor, fetchResult) ->
             val newDescriptor = fetchResult
                 .get()
@@ -50,9 +55,20 @@ class FetchDescriptorsUpdates(
                     dateInstalled = descriptor.dateInstalled,
                 )
                 ?: run {
-                    Logger.w("Failed to fetch update", fetchResult.getError())
+                    val error = fetchResult.getError()
+                    if (error.isOfflineFailure()) {
+                        networkFailures++
+                        // Expected while offline: no throwable, or every launch without a network
+                        // fills the log with stack traces that look like crashes.
+                        Logger.i("Skipping descriptor update ${descriptor.id.value}: no active network")
+                    } else {
+                        otherFailures++
+                        Logger.w("Failed to fetch update", error)
+                    }
                     return@forEach
                 }
+
+            successes++
 
             val newUpdate = newDescriptor.dateUpdated != null &&
                 (
@@ -87,6 +103,13 @@ class FetchDescriptorsUpdates(
                 },
             )
         }
+
+        return DescriptorUpdateOutcome(
+            attempted = descriptors.size,
+            successes = successes,
+            networkFailures = networkFailures,
+            otherFailures = otherFailures,
+        )
     }
 
     companion object {
