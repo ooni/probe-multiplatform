@@ -73,6 +73,10 @@ enum class SettingsKey(
     LAST_RUN_DISMISSED("last_run_dismissed"),
     TESTS_MOVED_NOTICE("tests_moved_notice"),
     LAST_ARTICLES_REFRESH("last_articles_refresh"),
+
+    // Stamped when a refresh *fails*, so a failed attempt backs off for minutes instead of
+    // borrowing the 24h success interval and suppressing retries for a whole day.
+    LAST_ARTICLES_REFRESH_ATTEMPT("last_articles_refresh_attempt"),
     MANIFEST("manifest"),
     DISABLED_TESTS("disabled_tests"),
 

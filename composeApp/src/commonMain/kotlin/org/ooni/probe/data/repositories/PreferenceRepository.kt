@@ -83,6 +83,7 @@ class PreferenceRepository(
 
             SettingsKey.MMDB_LAST_CHECK,
             SettingsKey.LAST_ARTICLES_REFRESH,
+            SettingsKey.LAST_ARTICLES_REFRESH_ATTEMPT,
             -> PreferenceKey.LongKey(longPreferencesKey(preferenceKey))
 
             SettingsKey.MMDB_VERSION,

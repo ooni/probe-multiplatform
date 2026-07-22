@@ -1,5 +1,6 @@
 package org.ooni.probe.background
 
+import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -9,6 +10,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.ooni.probe.data.models.AutoRunParameters
@@ -93,6 +95,18 @@ class AppWorkerManager(
                                     it.map { descriptor -> descriptor.id },
                                 )
                             } ?: Data.EMPTY,
+                        ) // Matches the periodic update: don't burn a run when there is no network.
+                        .setConstraints(
+                            Constraints
+                                .Builder()
+                                .setRequiredNetworkType(NetworkType.CONNECTED)
+                                .build(),
+                        ) // WorkManager's default backoff is exponential from 30s, which is what
+                        // we want for the bounded network-only retries in DescriptorUpdateWorker.
+                        .setBackoffCriteria(
+                            BackoffPolicy.EXPONENTIAL,
+                            WorkRequest.MIN_BACKOFF_MILLIS,
+                            TimeUnit.MILLISECONDS,
                         ).setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
                         .build(),
                 )

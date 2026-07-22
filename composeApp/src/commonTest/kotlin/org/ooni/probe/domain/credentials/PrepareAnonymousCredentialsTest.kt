@@ -1,11 +1,14 @@
 package org.ooni.probe.domain.credentials
 
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.probe.data.models.Credential
 import org.ooni.testing.factories.ManifestFactory
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
 class PrepareAnonymousCredentialsTest {
@@ -93,5 +96,41 @@ class PrepareAnonymousCredentialsTest {
             val result = subject()
 
             assertNull(result)
+        }
+
+    /**
+     * The reconnect collector in App.kt and the background run task can both ask for credentials
+     * at once. Registering twice would burn a second anonymous credential for nothing.
+     */
+    @Test
+    fun concurrentCallsRegisterOnlyOnce() =
+        runTest {
+            val release = CompletableDeferred<Unit>()
+            var registrations = 0
+            var stored: Credential? = null
+            val subject = PrepareAnonymousCredentials(
+                getManifest = { flowOf(ManifestFactory.build()) },
+                retrieveManifest = { null },
+                getCredential = { stored },
+                registerUser = { _, _ ->
+                    registrations++
+                    release.await()
+                    Credential(credential = "registered_once", emissionDay = 42u)
+                        .also { stored = it }
+                },
+                backgroundContext = coroutineContext,
+            )
+
+            val first = async { subject() }
+            val second = async { subject() }
+            release.complete(Unit)
+
+            val firstResult = first.await()
+            val secondResult = second.await()
+
+            assertEquals(1, registrations)
+            assertNotNull(firstResult)
+            // The second caller waits its turn, then finds the stored credential - not a null.
+            assertEquals(firstResult, secondResult)
         }
 }

@@ -10,6 +10,7 @@ import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
 import org.ooni.passport.models.SubmitError
 import org.ooni.passport.models.VerificationStatus
+import org.ooni.passport.models.isOfflineFailure
 import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.models.MeasurementModel
@@ -78,9 +79,13 @@ class SubmitMeasurement(
             return marked
         }
 
-        val result = (
-            submitMeasurementWithUser(report)
-        ).flatMapError { submitLegacy(report) }
+        val result = submitMeasurementWithUser(report)
+            .flatMapError { reason ->
+                // The legacy engine upload is a separate HTTP stack, so the Passport gate does not
+                // cover it. Falling back while offline would just block on a socket that cannot
+                // connect.
+                if (reason.isOfflineFailure()) Failure(reason) else submitLegacy(report)
+            }
 
         return when (result) {
             is Success -> {

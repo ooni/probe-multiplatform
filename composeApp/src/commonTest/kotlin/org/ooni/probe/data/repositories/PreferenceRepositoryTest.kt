@@ -68,6 +68,30 @@ class PreferenceRepositoryTest {
             assertEquals(value, preferenceRepository.getValueByKey(key = SettingsKey.LANGUAGE_SETTING).first())
         }
 
+    /**
+     * Timestamp keys must be mapped to LongKey explicitly. Anything not listed falls through to
+     * the `else -> BooleanKey` branch, and writing a Long to it throws ClassCastException at
+     * runtime - a crash no test using a fake preference map would ever catch.
+     */
+    @Test
+    fun timestampKeysRoundTripAsLongs() =
+        runTest {
+            val timestampKeys = listOf(
+                SettingsKey.LAST_ARTICLES_REFRESH,
+                SettingsKey.LAST_ARTICLES_REFRESH_ATTEMPT,
+                SettingsKey.MMDB_LAST_CHECK,
+            )
+
+            timestampKeys.forEach { key ->
+                preferenceRepository.setValueByKey(key, 1_700_000_000L)
+                assertEquals(
+                    1_700_000_000L,
+                    preferenceRepository.getValueByKey(key).first(),
+                    "$key must store a Long",
+                )
+            }
+        }
+
     @Test
     fun testSetValueByKey() =
         runTest {
