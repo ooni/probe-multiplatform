@@ -25,6 +25,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.flow.filter
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Unsupported_Url
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
@@ -137,10 +138,13 @@ fun App(
         dependencies.observeAndConfigureAutoUpdate()
     }
     LaunchedEffect(Unit) {
-        dependencies.prepareAnonymousCredentials()
-    }
-    LaunchedEffect(Unit) {
-        dependencies.refreshArticles()
+        dependencies.connectivityMonitor
+            .observeIsOnline()
+            .filter { isOnline -> isOnline }
+            .collect {
+                dependencies.prepareAnonymousCredentials()
+                dependencies.refreshArticles()
+            }
     }
 
     LaunchedEffect(deepLink) {

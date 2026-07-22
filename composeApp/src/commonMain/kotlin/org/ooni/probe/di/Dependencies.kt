@@ -21,6 +21,7 @@ import org.ooni.engine.TaskEventMapper
 import org.ooni.passport.PassportBridge
 import org.ooni.passport.PassportGet
 import org.ooni.passport.PassportHttpClient
+import org.ooni.passport.PassportTimeouts
 import org.ooni.probe.Database
 import org.ooni.probe.SharedBuildConfig
 import org.ooni.probe.background.RunBackgroundTask
@@ -88,6 +89,7 @@ import org.ooni.probe.domain.UpdateRequiredStateManager
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.domain.appreview.MarkAppReviewAsShown
 import org.ooni.probe.domain.appreview.ShouldShowAppReview
+import org.ooni.probe.domain.articles.ArticlesRefreshStateManager
 import org.ooni.probe.domain.articles.GetFindings
 import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
@@ -124,6 +126,7 @@ import org.ooni.probe.domain.results.GetLastRun
 import org.ooni.probe.domain.results.GetResult
 import org.ooni.probe.domain.results.GetResults
 import org.ooni.probe.locale.LocaleController
+import org.ooni.probe.shared.ConnectivityMonitor
 import org.ooni.probe.shared.PlatformInfo
 import org.ooni.probe.shared.monitoring.AppLogger
 import org.ooni.probe.shared.monitoring.CrashMonitoring
@@ -262,12 +265,17 @@ class Dependencies(
         )
     }
 
+    // Connectivity
+
+    val connectivityMonitor by lazy { ConnectivityMonitor(networkTypeFinder) }
+
     // Engine
     private val taskEventMapper by lazy { TaskEventMapper(networkTypeFinder, json) }
 
     private val downloader by lazy {
         DownloadFile(
             fileSystem = FileSystem.SYSTEM,
+            isOnline = connectivityMonitor::isOnline,
         )
     }
 
@@ -275,7 +283,10 @@ class Dependencies(
         FetchGeoIpDbUpdates(
             downloadFile = downloader::invoke,
             cacheDir = cacheDir,
-            passportGet = { url -> passportHttpClient.get(url) },
+            // Opportunistic: nothing in the UI waits for a GeoIP release lookup.
+            passportGet = { url ->
+                passportHttpClient.get(url, timeout = PassportTimeouts.PREFETCH_SECONDS)
+            },
             json = json,
             preferencesRepository = preferenceRepository,
             fileSystem = FileSystem.SYSTEM,
@@ -327,7 +338,12 @@ class Dependencies(
     val cancelCurrentTest get() = runBackgroundStateManager::cancel
     private val checkIn by lazy {
         CheckIn(
-            passportPost = passportHttpClient::post,
+            // The user is waiting on a run start, and check-in decides which URLs get measured,
+            // so it gets the full timeout. Failing (including offline) falls back to local URLs
+            // in RunDescriptors and never prevents the tests themselves from running.
+            passportPost = { url, payload ->
+                passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS)
+            },
             storeUrlsByUrl = urlRepository::createOrUpdateByUrl,
             buildCheckInRequest = buildCheckInRequest::invoke,
             json = json,
@@ -388,7 +404,12 @@ class Dependencies(
     }
     private val fetchDescriptor by lazy {
         FetchDescriptor(
-            passportGet = { url -> passportHttpClient.get(url) },
+            // Shared by the background update worker and manual "add descriptor". The background
+            // case dominates and must not stall, and the manual screen already shows a loading
+            // state, so the shorter timeout is the right default for both.
+            passportGet = { url ->
+                passportHttpClient.get(url, timeout = PassportTimeouts.PREFETCH_SECONDS)
+            },
             json = json,
         )
     }
@@ -446,7 +467,15 @@ class Dependencies(
     }
     private val registerUser by lazy {
         RegisterUser(
-            userAuthRegister = passportHttpClient::userAuthRegister,
+            // Registration blocks credential availability: full timeout.
+            userAuthRegister = { url, publicParams, manifestVersion ->
+                passportHttpClient.userAuthRegister(
+                    url = url,
+                    publicParams = publicParams,
+                    manifestVersion = manifestVersion,
+                    timeout = PassportTimeouts.DEFAULT_SECONDS,
+                )
+            },
             setCredential = setCredential::invoke,
             backgroundContext = backgroundContext,
             json = json,
@@ -583,6 +612,8 @@ class Dependencies(
             passportAuthRegister = passportBridge::userAuthRegister,
             passportAuthSubmit = passportBridge::userAuthSubmit,
             getProxyOption = proxyManager::selected,
+            backgroundContext = backgroundContext,
+            isOnline = connectivityMonitor::isOnline,
         )
     }
 
@@ -601,7 +632,10 @@ class Dependencies(
     }
     private val retrieveManifest by lazy {
         RetrieveManifest(
-            passportGet = { url -> passportHttpClient.get(url) },
+            // Credential path: registration cannot proceed without it, so use the full timeout.
+            passportGet = { url ->
+                passportHttpClient.get(url, timeout = PassportTimeouts.DEFAULT_SECONDS)
+            },
             setPreference = preferenceRepository::setValueByKey,
             json = json,
             backgroundContext = backgroundContext,
@@ -662,25 +696,31 @@ class Dependencies(
     val refreshArticles by lazy {
         RefreshArticles(
             hasOoniNews = OrganizationConfig.hasOoniNews,
+            // Articles are opportunistic content: a slow feed must never hold up app start.
             sources = listOf(
                 GetRSSFeed(
-                    passportGet = { url -> passportHttpClient.get(url) },
+                    passportGet = { url -> passportHttpClient.get(url, timeout = ARTICLES_TIMEOUT) },
                     "https://ooni.org/blog/index.xml",
                     ArticleModel.Source.Blog,
                 ),
                 GetRSSFeed(
-                    passportGet = { url -> passportHttpClient.get(url) },
+                    passportGet = { url -> passportHttpClient.get(url, timeout = ARTICLES_TIMEOUT) },
                     "https://ooni.org/reports/index.xml",
                     ArticleModel.Source.Report,
                 ),
-                GetFindings(passportGet = { url -> passportHttpClient.get(url) }, json),
+                GetFindings(
+                    passportGet = { url -> passportHttpClient.get(url, timeout = ARTICLES_TIMEOUT) },
+                    json,
+                ),
             ),
-            networkTypeFinder = networkTypeFinder::invoke,
+            isOnline = connectivityMonitor::isOnline,
             refreshArticlesInDatabase = articleRepository::refresh,
             getPreference = preferenceRepository::getValueByKey,
             setPreference = preferenceRepository::setValueByKey,
+            updateState = articlesRefreshStateManager::update,
         )
     }
+    val articlesRefreshStateManager by lazy { ArticlesRefreshStateManager() }
     val runBackgroundStateManager by lazy { RunBackgroundStateManager() }
     val updateRequiredStateManager by lazy { UpdateRequiredStateManager() }
     private val undoRejectedDescriptorUpdate by lazy {
@@ -733,7 +773,19 @@ class Dependencies(
             setCredential = setCredential,
             stampMeasurement = stampMeasurement,
             resolveSubmissionPolicy = resolveSubmissionPolicy,
-            userAuthSubmit = passportHttpClient::userAuthSubmit,
+            // Uploading a measurement the user already produced: full timeout, and offline is
+            // handled by the gate returning Offline so nothing is lost - the measurement stays
+            // not-uploaded and UploadMissingMeasurements retries it later.
+            userAuthSubmit = { url, content, probeCc, probeAsn, credentialConfig ->
+                passportHttpClient.userAuthSubmit(
+                    url = url,
+                    content = content,
+                    probeCc = probeCc,
+                    probeAsn = probeAsn,
+                    credentialConfig = credentialConfig,
+                    timeout = PassportTimeouts.DEFAULT_SECONDS,
+                )
+            },
             json = json,
         )
     }
@@ -753,7 +805,10 @@ class Dependencies(
     }
     private val testProxy by lazy {
         TestProxy(
-            passportGet = { url, proxy -> passportHttpClient.get(url, proxy) },
+            // Health check runs alongside a test run; it must not outlive its usefulness.
+            passportGet = { url, proxy ->
+                passportHttpClient.get(url, proxy, timeout = PassportTimeouts.PREFETCH_SECONDS)
+            },
             backgroundContext = backgroundContext,
         )
     }
@@ -1118,6 +1173,8 @@ class Dependencies(
         )
 
     companion object {
+        private const val ARTICLES_TIMEOUT = PassportTimeouts.PREFETCH_SECONDS
+
         fun buildJson() =
             Json {
                 encodeDefaults = true

@@ -13,6 +13,12 @@ class AndroidNetworkTypeFinder(
         val capabilities = connectivityManager.getNetworkCapabilities(network)
             ?: return NetworkType.NoInternet
 
+        // Deliberately lenient: we require the network to *claim* internet access, but not
+        // NET_CAPABILITY_VALIDATED.
+        if (!capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+            return NetworkType.NoInternet
+        }
+
         return when {
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> NetworkType.VPN
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> NetworkType.Wifi
