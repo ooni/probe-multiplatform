@@ -9,7 +9,7 @@ end
 
 def shared_pods
     ooni_version = "3.30.0-alpha"
-    passport_version = "0.1.4"
+    passport_version = "0.1.5"
 
     pod 'composeApp', :path => '../composeApp'
 
