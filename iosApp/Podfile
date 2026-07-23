@@ -3,25 +3,25 @@ source 'https://cdn.cocoapods.org'
 platform :ios, '14.0'
 use_frameworks!
 
+def ooni_podspec(name, version)
+    "https://repo1.maven.org/maven2/org/ooni/#{name}-ios/#{version}/#{name}-ios-#{version}.podspec"
+end
+
 def shared_pods
-    ooni_version = "v3.29.0"
+    ooni_version = "0.0.0-51fd60f6"
     passport_version = "0.1.4-beta"
-    ooni_pods_location = "https://github.com/ooni/probe-cli/releases/download/#{ooni_version}"
-    # TODO: change oonimkall pods location to maven, waiting for changes on companion libraries like libcrypto,libevent, libssl.
-    # ooni_pods_location = "https://repo1.maven.org/maven2/org/ooni/oonimkall-ios/#{ooni_version}/oonimkall-ios-#{ooni_version}.pom"
-    passport_pods_location = "https://repo1.maven.org/maven2/org/ooni/passport-ios/#{passport_version}/passport-ios-#{passport_version}.podspec"
 
     pod 'composeApp', :path => '../composeApp'
 
     pod 'sqlite3', '~> 3.42.0'
 
-    pod "libcrypto", :podspec => "#{ooni_pods_location}/libcrypto.podspec"
-    pod "libevent", :podspec => "#{ooni_pods_location}/libevent.podspec"
-    pod "libssl", :podspec => "#{ooni_pods_location}/libssl.podspec"
-    pod "libtor", :podspec => "#{ooni_pods_location}/libtor.podspec"
-    pod "libz", :podspec => "#{ooni_pods_location}/libz.podspec"
-    pod "oonimkall", :podspec => "#{ooni_pods_location}/oonimkall.podspec"
-    pod "passport", :podspec => "#{passport_pods_location}"
+    pod "libcrypto", :podspec => ooni_podspec("libcrypto", ooni_version)
+    pod "libevent", :podspec => ooni_podspec("libevent", ooni_version)
+    pod "libssl", :podspec => ooni_podspec("libssl", ooni_version)
+    pod "libtor", :podspec => ooni_podspec("libtor", ooni_version)
+    pod "libz", :podspec => ooni_podspec("libz", ooni_version)
+    pod "oonimkall", :podspec => ooni_podspec("oonimkall", ooni_version)
+    pod "passport", :podspec => ooni_podspec("passport", passport_version)
     pod "Siren"
 end
 

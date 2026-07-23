@@ -1,12 +1,12 @@
 PODS:
   - composeApp (1.0.0):
     - Sentry (= 8.58.2)
-  - libcrypto (2026.02.10-082936)
-  - libevent (2026.02.10-082936)
-  - libssl (2026.02.10-082936)
-  - libtor (2026.02.10-082936)
-  - libz (2026.02.10-082936)
-  - oonimkall (2026.02.10-082936)
+  - libcrypto (0.0.0-51fd60f6)
+  - libevent (0.0.0-51fd60f6)
+  - libssl (0.0.0-51fd60f6)
+  - libtor (0.0.0-51fd60f6)
+  - libz (0.0.0-51fd60f6)
+  - oonimkall (0.0.0-51fd60f6)
   - passport (0.1.4-beta)
   - Sentry (8.58.2):
     - Sentry/Core (= 8.58.2)
@@ -18,12 +18,12 @@ PODS:
 
 DEPENDENCIES:
   - composeApp (from `../composeApp`)
-  - libcrypto (from `https://github.com/ooni/probe-cli/releases/download/v3.29.0/libcrypto.podspec`)
-  - libevent (from `https://github.com/ooni/probe-cli/releases/download/v3.29.0/libevent.podspec`)
-  - libssl (from `https://github.com/ooni/probe-cli/releases/download/v3.29.0/libssl.podspec`)
-  - libtor (from `https://github.com/ooni/probe-cli/releases/download/v3.29.0/libtor.podspec`)
-  - libz (from `https://github.com/ooni/probe-cli/releases/download/v3.29.0/libz.podspec`)
-  - oonimkall (from `https://github.com/ooni/probe-cli/releases/download/v3.29.0/oonimkall.podspec`)
+  - libcrypto (from `https://repo1.maven.org/maven2/org/ooni/libcrypto-ios/0.0.0-51fd60f6/libcrypto-ios-0.0.0-51fd60f6.podspec`)
+  - libevent (from `https://repo1.maven.org/maven2/org/ooni/libevent-ios/0.0.0-51fd60f6/libevent-ios-0.0.0-51fd60f6.podspec`)
+  - libssl (from `https://repo1.maven.org/maven2/org/ooni/libssl-ios/0.0.0-51fd60f6/libssl-ios-0.0.0-51fd60f6.podspec`)
+  - libtor (from `https://repo1.maven.org/maven2/org/ooni/libtor-ios/0.0.0-51fd60f6/libtor-ios-0.0.0-51fd60f6.podspec`)
+  - libz (from `https://repo1.maven.org/maven2/org/ooni/libz-ios/0.0.0-51fd60f6/libz-ios-0.0.0-51fd60f6.podspec`)
+  - oonimkall (from `https://repo1.maven.org/maven2/org/ooni/oonimkall-ios/0.0.0-51fd60f6/oonimkall-ios-0.0.0-51fd60f6.podspec`)
   - passport (from `https://repo1.maven.org/maven2/org/ooni/passport-ios/0.1.4-beta/passport-ios-0.1.4-beta.podspec`)
   - Siren
   - sqlite3 (~> 3.42.0)
@@ -38,33 +38,33 @@ EXTERNAL SOURCES:
   composeApp:
     :path: "../composeApp"
   libcrypto:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.29.0/libcrypto.podspec
+    :podspec: https://repo1.maven.org/maven2/org/ooni/libcrypto-ios/0.0.0-51fd60f6/libcrypto-ios-0.0.0-51fd60f6.podspec
   libevent:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.29.0/libevent.podspec
+    :podspec: https://repo1.maven.org/maven2/org/ooni/libevent-ios/0.0.0-51fd60f6/libevent-ios-0.0.0-51fd60f6.podspec
   libssl:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.29.0/libssl.podspec
+    :podspec: https://repo1.maven.org/maven2/org/ooni/libssl-ios/0.0.0-51fd60f6/libssl-ios-0.0.0-51fd60f6.podspec
   libtor:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.29.0/libtor.podspec
+    :podspec: https://repo1.maven.org/maven2/org/ooni/libtor-ios/0.0.0-51fd60f6/libtor-ios-0.0.0-51fd60f6.podspec
   libz:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.29.0/libz.podspec
+    :podspec: https://repo1.maven.org/maven2/org/ooni/libz-ios/0.0.0-51fd60f6/libz-ios-0.0.0-51fd60f6.podspec
   oonimkall:
-    :podspec: https://github.com/ooni/probe-cli/releases/download/v3.29.0/oonimkall.podspec
+    :podspec: https://repo1.maven.org/maven2/org/ooni/oonimkall-ios/0.0.0-51fd60f6/oonimkall-ios-0.0.0-51fd60f6.podspec
   passport:
     :podspec: https://repo1.maven.org/maven2/org/ooni/passport-ios/0.1.4-beta/passport-ios-0.1.4-beta.podspec
 
 SPEC CHECKSUMS:
   composeApp: 3b8aa02a2a6d734e8d3db9c5859ca7d67c5dc921
-  libcrypto: 287b5391b2ec32c33c3053eec7b33fde6fcbab43
-  libevent: ccad97e33d5956e8b57621c5fa520b95692ddde6
-  libssl: 91269567fbebc43bb2b43196a3f27e587622a72a
-  libtor: ce7e143496611debe8a4cee1870e53268a1422af
-  libz: f1ac80ba90c0e0bd265a17d04e650825f805d119
-  oonimkall: 601e345bfdf99dd017deaf85be7de79ddd1afbf6
+  libcrypto: 81386fc0e4ad9bb3f337182c6bb970ac7bb2ba52
+  libevent: e0828c93ce367085bf2f090e364cb72792fb78a6
+  libssl: 5088ba0178b03f861c7543016af86055f03ef1c4
+  libtor: 9f1efba03ca0cfe04dec12f193f5c3a975b155d1
+  libz: 7c7972e29f52b411041609ab24778f790b241d47
+  oonimkall: 41964f408a39372d2e2ae45b682fa8cbac031c60
   passport: 1d45aa4b6ded38d937a2d1660a0b5b8c0857a516
   Sentry: de29b881e83bd91cf99a927f82f1fd86bfb39db2
   Siren: c0f6012f61196b73455202db07730f6454a4beb0
   sqlite3: f163dbbb7aa3339ad8fc622782c2d9d7b72f7e9c
 
-PODFILE CHECKSUM: 658730acb67bb2754374a8a12222ed97f8f892a3
+PODFILE CHECKSUM: a51d23d1c00075e21e5eaaf612b18263fcfe4e29
 
 COCOAPODS: 1.16.2
