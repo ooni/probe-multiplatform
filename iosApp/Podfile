@@ -8,7 +8,7 @@ def ooni_podspec(name, version)
 end
 
 def shared_pods
-    ooni_version = "3.30.0-alpha"
+    ooni_version = "3.30.0"
     passport_version = "0.1.5"
 
     pod 'composeApp', :path => '../composeApp'
