@@ -1,5 +1,6 @@
 package org.ooni.probe.ui.settings.credentials
 
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -7,6 +8,8 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.v2.runComposeUiTest
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Measurements_Verification_Verified
+import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset_Failed
+import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset_InProgress
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset_Title
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Status_Ready
 import org.jetbrains.compose.resources.getString
@@ -43,5 +46,42 @@ class AnonymousCredentialsScreenTest {
             onNodeWithTag("AnonymousCredentials-ConfirmReset").performClick()
 
             assertEquals(AnonymousCredentialsViewModel.Event.ResetConfirmed, events.last())
+        }
+
+    @Test
+    fun showsProgressWhileResetting() =
+        runComposeUiTest {
+            setContent {
+                AnonymousCredentialsScreen(
+                    state = AnonymousCredentialsViewModel.State(
+                        health = AnonymousCredentialsHealth.NoCredential,
+                        isLoading = false,
+                        isResetting = true,
+                    ),
+                    onEvent = {},
+                )
+            }
+
+            onNodeWithText(getString(Res.string.Settings_AnonymousCredentials_Reset_InProgress))
+                .assertExists()
+            onNodeWithTag("AnonymousCredentials-Reset").assertIsNotEnabled()
+        }
+
+    @Test
+    fun showsFailureMessageWhenRegistrationFails() =
+        runComposeUiTest {
+            setContent {
+                AnonymousCredentialsScreen(
+                    state = AnonymousCredentialsViewModel.State(
+                        health = AnonymousCredentialsHealth.NoCredential,
+                        isLoading = false,
+                        resetOutcome = AnonymousCredentialsViewModel.ResetOutcome.Failure,
+                    ),
+                    onEvent = {},
+                )
+            }
+
+            onNodeWithText(getString(Res.string.Settings_AnonymousCredentials_Reset_Failed))
+                .assertExists()
         }
 }

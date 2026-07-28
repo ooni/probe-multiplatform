@@ -1099,6 +1099,7 @@ class Dependencies(
             onBack = onBack,
             getHealth = getAnonymousCredentialsHealth::invoke,
             clearCredential = clearCredential::invoke,
+            registerCredential = { prepareAnonymousCredentials() != null },
         )
 
     fun languageViewModel(onBack: () -> Unit) =

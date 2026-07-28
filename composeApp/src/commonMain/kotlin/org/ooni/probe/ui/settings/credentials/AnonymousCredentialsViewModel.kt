@@ -16,6 +16,7 @@ class AnonymousCredentialsViewModel(
     onBack: () -> Unit,
     private val getHealth: suspend () -> AnonymousCredentialsHealth,
     private val clearCredential: suspend () -> Unit,
+    private val registerCredential: suspend () -> Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -33,9 +34,15 @@ class AnonymousCredentialsViewModel(
         events
             .filterIsInstance<Event.ResetConfirmed>()
             .onEach {
-                _state.update { state -> state.copy(isResetting = true) }
+                _state.update { state -> state.copy(isResetting = true, resetOutcome = null) }
                 clearCredential()
-                _state.update { state -> state.copy(isResetting = false) }
+                val registered = registerCredential()
+                _state.update { state ->
+                    state.copy(
+                        isResetting = false,
+                        resetOutcome = if (registered) ResetOutcome.Success else ResetOutcome.Failure,
+                    )
+                }
                 refresh()
             }.launchIn(viewModelScope)
     }
@@ -55,7 +62,13 @@ class AnonymousCredentialsViewModel(
         val health: AnonymousCredentialsHealth? = null,
         val isLoading: Boolean = true,
         val isResetting: Boolean = false,
+        val resetOutcome: ResetOutcome? = null,
     )
+
+    enum class ResetOutcome {
+        Success,
+        Failure,
+    }
 
     sealed interface Event {
         data object BackClicked : Event
