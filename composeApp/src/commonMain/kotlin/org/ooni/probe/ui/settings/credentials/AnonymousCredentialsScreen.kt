@@ -3,10 +3,12 @@ package org.ooni.probe.ui.settings.credentials
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -46,6 +48,10 @@ import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Pr
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_ProbeIdUnavailable
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset_Confirmation
+import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset_Description
+import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset_Failed
+import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset_InProgress
+import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset_Success
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset_Title
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Status_CredentialNeedsReset
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Status_Loading
@@ -110,6 +116,14 @@ fun AnonymousCredentialsScreen(
 
             VerificationStatesSection()
 
+            HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
+
+            Text(
+                stringResource(Res.string.Settings_AnonymousCredentials_Reset_Description),
+                style = MaterialTheme.typography.bodySmall.copy(lineHeight = 20.sp),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+
             Button(
                 onClick = { showResetConfirmation = true },
                 enabled = !state.isResetting,
@@ -119,7 +133,7 @@ fun AnonymousCredentialsScreen(
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 24.dp, bottom = 24.dp)
+                    .padding(top = 16.dp)
                     .testTag("AnonymousCredentials-Reset"),
             ) {
                 if (state.isResetting) {
@@ -131,8 +145,20 @@ fun AnonymousCredentialsScreen(
                             .size(18.dp),
                     )
                 }
-                Text(stringResource(Res.string.Settings_AnonymousCredentials_Reset))
+                Text(
+                    stringResource(
+                        if (state.isResetting) {
+                            Res.string.Settings_AnonymousCredentials_Reset_InProgress
+                        } else {
+                            Res.string.Settings_AnonymousCredentials_Reset
+                        },
+                    ),
+                )
             }
+
+            ResetOutcomeMessage(state.resetOutcome)
+
+            Spacer(Modifier.height(24.dp))
         }
     }
 
@@ -156,6 +182,47 @@ fun AnonymousCredentialsScreen(
                 TextButton(onClick = { showResetConfirmation = false }) {
                     Text(stringResource(Res.string.Modal_Cancel))
                 }
+            },
+        )
+    }
+}
+
+@Composable
+private fun ResetOutcomeMessage(outcome: AnonymousCredentialsViewModel.ResetOutcome?) {
+    if (outcome == null) return
+
+    val isSuccess = outcome == AnonymousCredentialsViewModel.ResetOutcome.Success
+    Row(
+        verticalAlignment = Alignment.Top,
+        modifier = Modifier
+            .padding(top = 12.dp)
+            .testTag("AnonymousCredentials-ResetOutcome"),
+    ) {
+        Icon(
+            painter = painterResource(
+                if (isSuccess) Res.drawable.ic_shield_check else Res.drawable.ic_shield_warning,
+            ),
+            contentDescription = null,
+            tint = if (isSuccess) {
+                LocalCustomColors.current.success
+            } else {
+                MaterialTheme.colorScheme.error
+            },
+            modifier = Modifier.padding(end = 8.dp).size(16.dp),
+        )
+        Text(
+            stringResource(
+                if (isSuccess) {
+                    Res.string.Settings_AnonymousCredentials_Reset_Success
+                } else {
+                    Res.string.Settings_AnonymousCredentials_Reset_Failed
+                },
+            ),
+            style = MaterialTheme.typography.bodySmall.copy(lineHeight = 20.sp),
+            color = if (isSuccess) {
+                LocalCustomColors.current.success
+            } else {
+                MaterialTheme.colorScheme.error
             },
         )
     }
