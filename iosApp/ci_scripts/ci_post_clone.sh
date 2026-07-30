@@ -3,8 +3,9 @@
 # Fail this script if any subcommand fails.
 set -e
 
-# Install CocoaPods using Homebrew.
 HOMEBREW_NO_AUTO_UPDATE=1 # disable homebrew's automatic updates.
+
+# Install CocoaPods using Homebrew.
 brew install cocoapods
 
 brew install ruby@3.3
@@ -14,6 +15,8 @@ brew install getsentry/tools/sentry-cli
 echo 'export PATH="/usr/local/opt/ruby@3.3/bin:$PATH"' >> ~/.zshrc
 
 source ~/.zshrc
+
+export PATH="/usr/local/opt/ruby@3.3/bin:$PATH"
 
 ### Start fastlane setup
 cd $CI_PRIMARY_REPOSITORY_PATH # change working directory to the root of your cloned repo.
@@ -25,7 +28,15 @@ export PATH="$GEM_HOME/bin:$PATH"
 
 gem install bundler --install-dir $GEM_HOME
 
-bundle install
+ruby_arch_flag=$(ruby -e 'c = RbConfig::CONFIG; f = c["ARCH_FLAG"].to_s.strip; f = "-arch #{c["host_cpu"]}" if f.empty? && c["host_cpu"] != "universal"; print f')
+export CONFIGURE_ARGS="--with-arch-flag='${ruby_arch_flag}'"
+echo "Building native gems with ARCH_FLAG=${ruby_arch_flag} for $(ruby -v)"
+
+if ! bundle install; then
+    echo "\nbundle install failed - dumping native extension build logs"
+    find "$GEM_HOME" -name mkmf.log -exec sh -c 'echo "\n----- $1"; cat "$1"' _ {} \;
+    exit 1
+fi
 
 ### End fastlane setup
 

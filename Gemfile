@@ -2,7 +2,6 @@ source "https://rubygems.org"
 
 gem "cocoapods", "~> 1.16.2"
 gem "fastlane", "~> 2.233.0"
-gem "openssl", "~> 3.2.2"
 gem 'abbrev'
 gem 'logger'
 gem 'mutex_m'
