@@ -1,3 +1,4 @@
-* Measurement engine is OONI Probe CLI v3.29.0
-* Add in-app language support for desktop
+* Measurement engine is OONI Probe CLI v3.30.0
+* Added in-app language picker for Android
+* Enhanced offline handling and retry mechanisms
 * Bug fixes and improvements
