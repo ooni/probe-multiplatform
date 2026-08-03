@@ -85,11 +85,6 @@ private fun UploadingMissingResults(state: RunBackgroundState.UploadingMissingRe
             .padding(horizontal = 16.dp)
             .padding(top = 32.dp, bottom = 8.dp),
     ) {
-        val progressColor = MaterialTheme.colorScheme.primary
-        val progressTrackColor = MaterialTheme.colorScheme.onBackground
-        val progressModifier =
-            Modifier.fillMaxWidth().padding(vertical = 4.dp).height(8.dp)
-
         when (val uploadState = state.state) {
             is UploadMissingMeasurements.State.Uploading -> {
                 Text(
@@ -100,21 +95,13 @@ private fun UploadingMissingResults(state: RunBackgroundState.UploadingMissingRe
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
                 )
-                LinearProgressIndicator(
-                    color = progressColor,
-                    trackColor = progressTrackColor,
-                    modifier = progressModifier,
-                )
+                IndeterminateProgressIndicator()
             }
 
             UploadMissingMeasurements.State.Starting,
             is UploadMissingMeasurements.State.Finished,
-            -> {
-                LinearProgressIndicator(
-                    color = progressColor,
-                    trackColor = progressTrackColor,
-                    modifier = progressModifier,
-                )
+                -> {
+                IndeterminateProgressIndicator()
             }
         }
     }
@@ -132,6 +119,7 @@ private fun Preparing() {
             text = stringResource(Res.string.Dashboard_Running_Preparing_Notice),
             textAlign = TextAlign.Center,
         )
+        IndeterminateProgressIndicator()
     }
 }
 
@@ -196,11 +184,7 @@ private fun RunningTests(
                 Modifier.fillMaxWidth().padding(vertical = 4.dp).height(8.dp)
 
             if (progress == 0.0) {
-                LinearProgressIndicator(
-                    color = color,
-                    trackColor = trackColor,
-                    modifier = modifier,
-                )
+                IndeterminateProgressIndicator()
             } else {
                 LinearProgressIndicator(
                     progress = { progress.toFloat() },
@@ -223,6 +207,15 @@ private fun RunningTests(
             }
         }
     }
+}
+
+@Composable
+private fun IndeterminateProgressIndicator() {
+    LinearProgressIndicator(
+        color = MaterialTheme.colorScheme.primary,
+        trackColor = MaterialTheme.colorScheme.onBackground,
+        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp).height(8.dp),
+    )
 }
 
 @Composable
