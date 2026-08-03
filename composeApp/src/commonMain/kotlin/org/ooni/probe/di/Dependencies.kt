@@ -819,6 +819,7 @@ class Dependencies(
     }
     private val testProxy by lazy {
         TestProxy(
+            getProxyOption = proxyManager::selected,
             // Health check runs alongside a test run; it must not outlive its usefulness.
             passportGet = { url, proxy ->
                 passportHttpClient.get(url, proxy, timeout = PassportTimeouts.PREFETCH_SECONDS)
