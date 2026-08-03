@@ -30,17 +30,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Measurements_Verification_Failed
 import ooniprobe.composeapp.generated.resources.Measurements_Verification_Unverified
 import ooniprobe.composeapp.generated.resources.Measurements_Verification_Verified
+import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Description
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Label
@@ -175,7 +175,10 @@ fun AnonymousCredentialsScreen(
                     },
                     modifier = Modifier.testTag("AnonymousCredentials-ConfirmReset"),
                 ) {
-                    Text(stringResource(Res.string.Settings_AnonymousCredentials_Reset))
+                    Text(
+                        text = stringResource(Res.string.Settings_AnonymousCredentials_Reset),
+                        color = MaterialTheme.colorScheme.error,
+                    )
                 }
             },
             dismissButton = {
@@ -235,10 +238,13 @@ private fun CredentialHealthSection(state: AnonymousCredentialsViewModel.State) 
         null -> stringResource(Res.string.Settings_AnonymousCredentials_Status_Loading)
         AnonymousCredentialsHealth.NoCredential ->
             stringResource(Res.string.Settings_AnonymousCredentials_Status_NoCredential)
+
         AnonymousCredentialsHealth.StoredCredentialWithoutNetwork ->
             stringResource(Res.string.Settings_AnonymousCredentials_Status_StoredWithoutNetwork)
+
         AnonymousCredentialsHealth.CredentialNeedsReset ->
             stringResource(Res.string.Settings_AnonymousCredentials_Status_CredentialNeedsReset)
+
         is AnonymousCredentialsHealth.Ready ->
             stringResource(Res.string.Settings_AnonymousCredentials_Status_Ready)
     }

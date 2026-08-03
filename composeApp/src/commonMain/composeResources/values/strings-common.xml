@@ -233,7 +233,7 @@
     <string name="Settings_AnonymousCredentials_Verification_Failed">Failed: Authentication was attempted but did not succeed. OONI Probe will recover automatically when possible.</string>
     <string name="Settings_AnonymousCredentials_Verification_Unknown">Unknown: No verification result was returned for that measurement.</string>
     <string name="Settings_AnonymousCredentials_Reset">Reset credentials</string>
-    <string name="Settings_AnonymousCredentials_Reset_Description">Resetting replaces the credential stored on this device with a new one. Nothing is deleted: your measurements, results, and settings remain unchanged. Reset if the status above indicates a problem, or if you don\'t want your future measurements to be linkable to your past measurements.</string>
+    <string name="Settings_AnonymousCredentials_Reset_Description">Resetting replaces the credential stored on this device with a new one. Nothing is deleted: your measurements, results, and settings remain unchanged. Reset if the status above indicates a problem, or if you don’t want your future measurements to be linkable to your past measurements.</string>
     <string name="Settings_AnonymousCredentials_Reset_Title">Reset anonymous credentials?</string>
     <string name="Settings_AnonymousCredentials_Reset_Confirmation">No data is lost: your measurements, results and settings stay on this device, and measurements you already published are unchanged.\n\nOONI Probe will get a new anonymous credential right away, so measurements you publish from now on will be associated with a new Probe ID and cannot be linked to your previous ones.\n\nAn internet connection is required.</string>
     <string name="Settings_AnonymousCredentials_Reset_InProgress">Getting a new credential…</string>
@@ -339,7 +339,7 @@
     <string name="CategoryCode_MILX_Description">Terrorism, violent militant or separatist movements</string>
     <string name="CategoryCode_HATE_Description">Disparaging of particular groups based on race, sex, sexuality or other characteristics</string>
     <string name="CategoryCode_NEWS_Description">Major news websites, regional news outlets and independent media</string>
-    <string name="CategoryCode_XED_Description">Sexual health issues including contraception, STD\'s, rape prevention and abortion</string>
+    <string name="CategoryCode_XED_Description">Sexual health issues including contraception, STD’s, rape prevention and abortion</string>
     <string name="CategoryCode_PUBH_Description">Public health issues, such as COVID-19, HIV/AIDS, Ebola</string>
     <string name="CategoryCode_GMB_Description">Online gambling and betting</string>
     <string name="CategoryCode_ANON_Description">Anonymization, censorship circumvention and encryption</string>
@@ -359,7 +359,7 @@
     <string name="CategoryCode_COMM_Description">Commercial services and products</string>
     <string name="CategoryCode_CTRL_Description">Benign or innocuous content used for control</string>
     <string name="CategoryCode_IGO_Description">Intergovernmental organizations including The United Nations</string>
-    <string name="CategoryCode_MISC_Description">Sites that haven\'t been categorized yet</string>
+    <string name="CategoryCode_MISC_Description">Sites that haven’t been categorized yet</string>
 
     <string name="Onboarding_QuizAnswer_Correct">Correct answer</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Incorrect answer</string>
@@ -389,7 +389,7 @@
     <string name="Onboarding_DefaultSettings_Bullet_1">Country code (e.g. IT for Italy)</string>
     <string name="Onboarding_DefaultSettings_Bullet_2">Network information (including Autonomous System Number)</string>
     <string name="Onboarding_DefaultSettings_Bullet_3">Time &amp; date of testing</string>
-    <string name="Onboarding_DefaultSettings_Paragraph">We do our best not to publish your IP address or any other potentially personally identifiable information.\n\nLearn more through [OONI\'s Data Policy](https://ooni.org/about/data-policy/).</string>
+    <string name="Onboarding_DefaultSettings_Paragraph">We do our best not to publish your IP address or any other potentially personally identifiable information.\n\nLearn more through [OONI’s Data Policy](https://ooni.org/about/data-policy/).</string>
     <string name="Onboarding_DefaultSettings_Button_Go">Let’s go</string>
     <string name="Onboarding_DefaultSettings_Button_Change">Change defaults</string>
 
