@@ -1,7 +1,8 @@
 package org.ooni.probe.domain
 
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.last
@@ -69,11 +70,9 @@ class RunDescriptors(
                 reportTestRunError(TestRunError.NoInternet)
             } else {
                 // Test the proxy asynchronously so that tests don't wait for it
-                coroutineScope {
-                    launch {
-                        if (testProxy().last() == TestProxy.State.Unavailable) {
-                            reportTestRunError(TestRunError.ProxyUnavailable)
-                        }
+                CoroutineScope(currentCoroutineContext()).launch {
+                    if (testProxy().last() == TestProxy.State.Unavailable) {
+                        reportTestRunError(TestRunError.ProxyUnavailable)
                     }
                 }
             }
