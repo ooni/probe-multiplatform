@@ -100,7 +100,7 @@ private fun UploadingMissingResults(state: RunBackgroundState.UploadingMissingRe
 
             UploadMissingMeasurements.State.Starting,
             is UploadMissingMeasurements.State.Finished,
-                -> {
+            -> {
                 IndeterminateProgressIndicator()
             }
         }
