@@ -477,4 +477,26 @@
     <string name="Measurements_Verification_Verified">Messung authentifiziert</string>
     <string name="Measurements_Verification_Failed">Authentifizierung der Messung fehlgeschlagen</string>
     <string name="Settings_Language_SystemDefault">Standardeinstellung des Systems</string>
+    <string name="Settings_AnonymousCredentials_Label">Anonyme Anmeldedaten</string>
+    <string name="Settings_AnonymousCredentials_Description">Anonyme Anmeldedaten ermöglichen es OONI, veröffentlichte Messwerte zu authentifizieren, ohne dass du ein Konto erstellen oder deine Identität preisgeben musst.</string>
+    <string name="Settings_AnonymousCredentials_Status_Loading">Anmeldedaten werden überprüft…</string>
+    <string name="Settings_AnonymousCredentials_Status_Ready">Bereit zur Verifizierung der Messwerte</string>
+    <string name="Settings_AnonymousCredentials_Status_NoCredential">Es sind noch keine Anmeldedaten gespeichert</string>
+    <string name="Settings_AnonymousCredentials_Status_StoredWithoutNetwork">Anmeldedaten wurden gespeichert. Führe einen Test durch, um die Überprüfung abzuschließen!</string>
+    <string name="Settings_AnonymousCredentials_Status_CredentialNeedsReset">Die Anmeldedaten müssen zurückgesetzt werden</string>
+    <string name="Settings_AnonymousCredentials_ProbeId">Probe ID</string>
+    <string name="Settings_AnonymousCredentials_ProbeIdUnavailable">Verfügbar, sobald OONI Probe die Daten für ein getestetes Netzwerk ermittelt hat.</string>
+    <string name="Settings_AnonymousCredentials_Verification_Title">Was unter Messwertüberprüfung zu verstehen ist</string>
+    <string name="Settings_AnonymousCredentials_Verification_Description">Einzelne veröffentlichte Messwerte können einen der folgenden Status haben:</string>
+    <string name="Settings_AnonymousCredentials_Verification_Verified">Verifiziert: OONI hat die Messung anhand deiner anonymen Zugangsdaten authentifiziert.</string>
+    <string name="Settings_AnonymousCredentials_Verification_Unverified">Nicht verifiziert: Die Messung wurde ohne Authentifizierung anhand anonymer Zugangsdaten veröffentlicht.</string>
+    <string name="Settings_AnonymousCredentials_Verification_Failed">Fehlgeschlagen: Es wurde versucht, die Authentifizierung durchzuführen, diese war jedoch nicht erfolgreich. OONI Probe wird den Vorgang automatisch wieder aufnehmen, sobald dies möglich ist.</string>
+    <string name="Settings_AnonymousCredentials_Verification_Unknown">Unbekannt: Für diese Messung wurde kein Überprüfungsergebnis zurückgegeben.</string>
+    <string name="Settings_AnonymousCredentials_Reset">Anmeldedaten zurücksetzen</string>
+    <string name="Settings_AnonymousCredentials_Reset_Description">Durch das Zurücksetzen werden die auf diesem Gerät gespeicherten Anmeldedaten durch neue ersetzt. Es wird nichts gelöscht: Deine Messungen, Ergebnisse und Einstellungen bleiben unverändert. Führe ein Reset durch, wenn der oben angezeigte Status auf ein Problem hindeutet oder wenn du nicht möchtest, dass deine zukünftigen Messungen mit deinen bisherigen Messungen verknüpft werden können.</string>
+    <string name="Settings_AnonymousCredentials_Reset_Title">Anonyme Anmeldedaten zurücksetzen?</string>
+    <string name="Settings_AnonymousCredentials_Reset_Confirmation">Es gehen keine Daten verloren: Deine Messungen, Ergebnisse und Einstellungen bleiben auf diesem Gerät gespeichert, und bereits veröffentlichte Messungen bleiben unverändert.\n\nDie OONI Probe erhält umgehend neue anonyme Zugangsdaten, sodass die von dir ab sofort veröffentlichten Messungen einer neuen Probe-ID zugeordnet werden und nicht mehr mit deinen bisherigen Messungen in Verbindung gebracht werden können.\n\nEine Internetverbindung ist erforderlich.</string>
+    <string name="Settings_AnonymousCredentials_Reset_InProgress">Neue Anmeldedaten erhalten…</string>
+    <string name="Settings_AnonymousCredentials_Reset_Success">Es wurden neue anonyme Anmeldedaten erstellt. Ihre zukünftigen Messungen werden einer neuen Probe-ID zugeordnet.</string>
+    <string name="Settings_AnonymousCredentials_Reset_Failed">Die alten Anmeldedaten wurden entfernt, es konnten jedoch keine neuen abgerufen werden. Überprüfe deine Internetverbindung und versuche es erneut. OONI Probe wird es außerdem beim nächsten Test automatisch erneut versuchen.</string>
 </resources>
