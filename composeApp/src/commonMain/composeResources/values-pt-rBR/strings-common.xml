@@ -499,4 +499,26 @@
     <string name="Settings_RunAtStartup">Executar ao reiniciar</string>
     <string name="Settings_RunAtStartup_Description">Abrir o aplicativo automaticamente no reinício do computador. Obrigatório se a execução automática estiver ligada.</string>
     <string name="Settings_Language_SystemDefault">Padrão do sistema</string>
+    <string name="Settings_AnonymousCredentials_Label">Credenciais anônimas</string>
+    <string name="Settings_AnonymousCredentials_Description">Credenciais anônimas ajudam o OONI a autenticar as medições publicadas sem necessidade de criar uma conta ou revelar quem você é.</string>
+    <string name="Settings_AnonymousCredentials_Status_Loading">Verificando estado das credenciais…</string>
+    <string name="Settings_AnonymousCredentials_Status_Ready">Pronto para autenticar medições</string>
+    <string name="Settings_AnonymousCredentials_Status_NoCredential">Nenhuma credencial guardada ainda</string>
+    <string name="Settings_AnonymousCredentials_Status_StoredWithoutNetwork">Credencial guardada. Execute um teste para terminar a verificação!</string>
+    <string name="Settings_AnonymousCredentials_Status_CredentialNeedsReset">A credencial necessita de ser reinicializada</string>
+    <string name="Settings_AnonymousCredentials_ProbeId">ID da Probe</string>
+    <string name="Settings_AnonymousCredentials_ProbeIdUnavailable">Disponível quando a OONI Probe a determinar a partir de uma rede testada.</string>
+    <string name="Settings_AnonymousCredentials_Verification_Title">O que significa verificar uma medição</string>
+    <string name="Settings_AnonymousCredentials_Verification_Description">Medições publicadas individuais podem ter um dos seguintes estados:</string>
+    <string name="Settings_AnonymousCredentials_Verification_Verified">Verificado: O OONI autenticou a medição com a sua credencial anônima.</string>
+    <string name="Settings_AnonymousCredentials_Verification_Unverified">Não verificado: A medição foi publicada sem autenticação de credencial anônima.</string>
+    <string name="Settings_AnonymousCredentials_Verification_Failed">Falhado: Foi feita uma tentativa de autenticação mas não foi bem sucedida. A OONI Probe irá recuperar assim que possível.</string>
+    <string name="Settings_AnonymousCredentials_Verification_Unknown">Desconhecido: Não há resultado de verificação para essa medição.</string>
+    <string name="Settings_AnonymousCredentials_Reset">Reiniciar credenciais</string>
+    <string name="Settings_AnonymousCredentials_Reset_Description">Reiniciar substitui a credencial guardada neste dispositivo por uma nova. Nada é apagado: as suas medições, resultados, e configurações irão permanecer inalterados. Reinicie se o estado acima indicar um problema, ou se não deseja que as suas medições futuras sejam relacionáveis com as suas medições passadas.</string>
+    <string name="Settings_AnonymousCredentials_Reset_Title">Reiniciar credenciais anônimas?</string>
+    <string name="Settings_AnonymousCredentials_Reset_Confirmation">Nenhuns dados serão perdidos: as suas medições, resultados e configurações ficam neste dispositivo, e as medições que já publicou não serão alteradas.\n\nA OONI Probe irá obter uma nova credencial anônima imediatamente, e portanto as medições que publicar no futuro serão associadas ao novo ID da Probe e não poderão ser relacionadas com medições anteriores.\n\nÉ necessária ligação à Internet.</string>
+    <string name="Settings_AnonymousCredentials_Reset_InProgress">Obtendo uma nova credencial…</string>
+    <string name="Settings_AnonymousCredentials_Reset_Success">Nova credencial anônima criada. As suas medições futuras serão associadas à nova ID da Probe.</string>
+    <string name="Settings_AnonymousCredentials_Reset_Failed">A credencial antiga foi removida, mas não foi possível obter uma nova. Verifique a sua ligação à Internet e tente novamente. A OONI Probe também irá tentar novamente na próxima vez que executar um teste.</string>
 </resources>
