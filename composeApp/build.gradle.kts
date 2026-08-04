@@ -124,15 +124,13 @@ kotlin {
                 // implementations). fdroid/xperimental swap the oonimkall artifact;
                 // full additionally pulls Play app-update/review for
                 // AndroidUpdateMonitoring/AppReview.
-                when {
-                    isFdroidTaskRequested() ->
-                        implementation("org.ooni:oonimkall:3.29.0-android:@aar")
-                    isXperimentalTaskRequested() ->
-                        implementation(files("libs/android-oonimkall.aar"))
-                    else -> { // full
+                when (selectedAndroidFlavorDir()) {
+                    "androidFull" -> {
                         implementation(libs.bundles.full.android)
                         implementation("org.ooni:oonimkall:3.29.0-android:@aar")
                     }
+                    "androidXperimental" -> implementation(files("libs/android-oonimkall.aar"))
+                    else -> implementation("org.ooni:oonimkall:3.29.0-android:@aar")
                 }
             }
         }
