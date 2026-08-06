@@ -16,9 +16,9 @@ import org.ooni.probe.shared.toLocalDateTime
 data class OONIRunDescriptor(
     @SerialName("oonirun_link_id") val oonirunLinkId: String,
     @SerialName("name") val name: String,
-    @SerialName("short_description") val shortDescription: String,
-    @SerialName("description") val description: String,
-    @SerialName("author") val author: String,
+    @SerialName("short_description") val shortDescription: String? = null,
+    @SerialName("description") val description: String? = null,
+    @SerialName("author") val author: String? = null,
     @SerialName("nettests") val netTests: List<OONINetTest>,
     @SerialName("name_intl") val nameIntl: Map<String, String>?,
     @SerialName("short_description_intl") val shortDescriptionIntl: Map<String, String>?,
