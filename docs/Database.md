@@ -4,7 +4,7 @@ Both the Android and iOS platforms use a SQLite database for storing data.
 
 Minimum SQLite version:
 - Android 24 - V3.9.2
-- iOS 14.0 - V3.32.3
+- iOS 15.0 - V3.32.3
 
 ## Schema
 
