@@ -20,6 +20,7 @@ class TestProxyTest {
                 getProxyOption = { flowOf(ProxyOption.None) },
                 passportGet = suspend { _, _ -> Success(PassportHttpResponseFactory.successful()) },
                 backgroundContext = Dispatchers.Default,
+                ooniApiBaseUrl = "https://api.ooni.io",
             )
 
             assertEquals(
@@ -35,6 +36,7 @@ class TestProxyTest {
                 getProxyOption = { flowOf(ProxyOption.None) },
                 passportGet = suspend { _, _ -> Success(PassportHttpResponseFactory.error()) },
                 backgroundContext = Dispatchers.Default,
+                ooniApiBaseUrl = "https://api.ooni.io",
             )
 
             assertEquals(
@@ -50,6 +52,7 @@ class TestProxyTest {
                 getProxyOption = { flowOf(ProxyOption.None) },
                 passportGet = suspend { _, _ -> fail("Should not test with a None proxy option") },
                 backgroundContext = Dispatchers.Default,
+                ooniApiBaseUrl = "https://api.ooni.io",
             )
 
             assertEquals(
@@ -69,6 +72,7 @@ class TestProxyTest {
                     Success(PassportHttpResponseFactory.successful())
                 },
                 backgroundContext = Dispatchers.Default,
+                ooniApiBaseUrl = "https://api.ooni.io",
             )
 
             assertEquals(

@@ -1,5 +1,13 @@
 package org.ooni.probe.ui.descriptor
 
+import org.ooni.probe.data.models.color
+import org.ooni.probe.data.models.dataUsage
+import org.ooni.probe.data.models.description
+import org.ooni.probe.data.models.icon
+import org.ooni.probe.data.models.metadata
+import org.ooni.probe.data.models.runLink
+import org.ooni.probe.data.models.title
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -63,6 +71,8 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
+import org.ooni.engine.models.iconRes
+import org.ooni.engine.models.labelRes
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.DescriptorItem

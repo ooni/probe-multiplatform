@@ -8,12 +8,13 @@ import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.ResultWithNetworkAndAggregates
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.TestKeysWithResultId
 
 class GetResults(
     private val getResults: (ResultFilter) -> Flow<List<ResultWithNetworkAndAggregates>>,
     private val getDescriptors: () -> Flow<List<DescriptorItem>>,
-    private val getTestKeys: (List<DescriptorItem>) -> Flow<List<TestKeysWithResultId>>,
+    private val getTestKeys: (List<Descriptor>) -> Flow<List<TestKeysWithResultId>>,
 ) {
     operator fun invoke(filter: ResultFilter): Flow<List<ResultListItem>> =
         combine(

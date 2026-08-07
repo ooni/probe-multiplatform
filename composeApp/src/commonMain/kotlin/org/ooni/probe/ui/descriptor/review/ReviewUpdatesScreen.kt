@@ -1,5 +1,7 @@
 package org.ooni.probe.ui.descriptor.review
 
+import org.ooni.probe.data.models.shortDescription
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,6 +35,7 @@ import ooniprobe.composeapp.generated.resources.ic_close
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
+import org.ooni.engine.models.labelRes
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.shared.TopBar

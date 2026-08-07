@@ -46,6 +46,7 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.data.models.title
 import org.ooni.probe.data.models.toDescriptorItem
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.domain.credentials.AnonymousCredentialsHealth

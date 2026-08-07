@@ -18,6 +18,7 @@ val appVersionCode = libs.versions.app.versionCode
 val dist = distribution()
 
 dependencies {
+    implementation(project(":probeCore"))
     implementation(project(":composeApp"))
     implementation(compose.desktop.currentOs)
     implementation(libs.compose.runtime)

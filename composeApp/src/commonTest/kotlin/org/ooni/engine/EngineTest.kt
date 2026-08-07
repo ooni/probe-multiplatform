@@ -16,6 +16,7 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.config.CoreConfig
 import org.ooni.probe.domain.CancelListenerCallback
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -90,6 +91,11 @@ class EngineTest {
                 model = "test",
                 requestNotificationsPermission = false,
                 sentryDsn = "",
+            ),
+            coreConfig = CoreConfig(
+                baseSoftwareName = "ooniprobe",
+                ooniApiBaseUrl = "https://api.ooni.io",
+                passportVersion = "test",
             ),
             getEnginePreferences = {
                 EnginePreferences(

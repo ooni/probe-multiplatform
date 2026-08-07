@@ -1,5 +1,8 @@
 package org.ooni.probe.ui.descriptors
 
+import org.ooni.probe.data.models.shortDescription
+import org.ooni.probe.data.models.title
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -60,6 +63,7 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
+import org.ooni.probe.data.models.titleRes
 import org.ooni.probe.ui.shared.ColorDefaults
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
@@ -273,7 +277,7 @@ private fun TestDescriptorSectionTitle(
                 } else {
                     Res.string.Common_Collapse
                 },
-            ) + " " + stringResource(type.title),
+            ) + " " + stringResource(type.titleRes),
             modifier = Modifier
                 .padding(horizontal = 8.dp)
                 .size(16.dp),
