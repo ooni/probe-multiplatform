@@ -1,5 +1,7 @@
 package org.ooni.probe.ui.results
 
+import org.ooni.probe.data.models.title
+
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick

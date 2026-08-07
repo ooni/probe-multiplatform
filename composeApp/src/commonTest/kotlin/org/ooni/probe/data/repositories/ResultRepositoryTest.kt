@@ -185,11 +185,12 @@ class ResultRepositoryTest {
             val model = ResultModelFactory.build(isViewed = false)
             subject.createOrUpdate(model)
 
-            subject.markAsViewed(model.id!!)
+            val modelId = model.id!!
+            subject.markAsViewed(modelId)
 
             assertTrue(
                 subject
-                    .getById(model.id)
+                    .getById(modelId)
                     .first()!!
                     .first.isViewed,
             )

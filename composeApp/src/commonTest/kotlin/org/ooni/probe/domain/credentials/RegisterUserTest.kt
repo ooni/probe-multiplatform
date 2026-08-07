@@ -47,6 +47,7 @@ class RegisterUserTest {
                 },
                 backgroundContext = coroutineContext,
                 json = json,
+                ooniApiBaseUrl = "https://api.ooni.io",
             )
 
             val result = registerUser(
@@ -81,6 +82,7 @@ class RegisterUserTest {
                 setCredential = { true },
                 backgroundContext = coroutineContext,
                 json = json,
+                ooniApiBaseUrl = "https://api.ooni.io",
             )
 
             val result = registerUser(
@@ -111,6 +113,7 @@ class RegisterUserTest {
                 setCredential = { true },
                 backgroundContext = coroutineContext,
                 json = json,
+                ooniApiBaseUrl = "https://api.ooni.io",
             )
 
             val result = registerUser(
@@ -141,6 +144,7 @@ class RegisterUserTest {
                 setCredential = { true },
                 backgroundContext = coroutineContext,
                 json = json,
+                ooniApiBaseUrl = "https://api.ooni.io",
             )
 
             val result = registerUser(
@@ -161,6 +165,7 @@ class RegisterUserTest {
                 setCredential = { true },
                 backgroundContext = coroutineContext,
                 json = json,
+                ooniApiBaseUrl = "https://api.ooni.io",
             )
 
             val result = registerUser(
@@ -191,6 +196,7 @@ class RegisterUserTest {
                 setCredential = { false },
                 backgroundContext = coroutineContext,
                 json = json,
+                ooniApiBaseUrl = "https://api.ooni.io",
             )
 
             val result = registerUser(

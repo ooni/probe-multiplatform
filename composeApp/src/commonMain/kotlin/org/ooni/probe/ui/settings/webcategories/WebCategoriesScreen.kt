@@ -26,6 +26,9 @@ import ooniprobe.composeapp.generated.resources.ic_deselect
 import ooniprobe.composeapp.generated.resources.ic_select_all
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.engine.models.descriptionRes
+import org.ooni.engine.models.iconRes
+import org.ooni.engine.models.titleRes
 import org.ooni.probe.ui.settings.category.SwitchSettingsView
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
@@ -79,12 +82,12 @@ fun WebCategoriesScreen(
             ) {
                 items(state.items, key = { it.item.settingsKey!! }) { item ->
                     SwitchSettingsView(
-                        icon = item.item.icon,
-                        title = item.item.title,
+                        icon = item.item.iconRes,
+                        title = item.item.titleRes,
                         key = item.item.settingsKey!!,
                         checked = item.isSelected,
                         enabled = true,
-                        supportingContent = { Text(stringResource(item.item.description)) },
+                        supportingContent = { Text(stringResource(item.item.descriptionRes)) },
                         onCheckedChange = { _, value ->
                             onEvent(WebCategoriesViewModel.Event.PreferenceChanged(item.item, value))
                         },

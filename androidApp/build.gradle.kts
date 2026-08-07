@@ -208,6 +208,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":probeCore"))
     implementation(project(":composeApp"))
 
     // Compose — MainActivity hosts setContent { App() }
