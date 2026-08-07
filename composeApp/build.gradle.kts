@@ -86,7 +86,7 @@ kotlin {
     jvm("desktop")
 
     cocoapods {
-        ios.deploymentTarget = "14.0"
+        ios.deploymentTarget = "15.0"
 
         version = "1.0.0"
         summary = "Compose App"
