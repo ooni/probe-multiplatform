@@ -149,7 +149,7 @@ class MeasurementRepositoryTest {
             val modelId1 = subject.createOrUpdate(model1)
             subject.createOrUpdate(model2)
 
-            val output = subject.selectTestKeys(listOf(descriptor)).first()
+            val output = subject.selectTestKeys(listOf(installedDescriptor)).first()
 
             assertEquals(1, output.size)
             with(output.first()) {

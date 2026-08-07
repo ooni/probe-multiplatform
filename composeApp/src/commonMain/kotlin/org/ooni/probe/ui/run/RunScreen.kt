@@ -1,5 +1,7 @@
 package org.ooni.probe.ui.run
 
+import org.ooni.probe.data.models.title
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -56,6 +58,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
+import org.ooni.engine.models.labelRes
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.DescriptorItem

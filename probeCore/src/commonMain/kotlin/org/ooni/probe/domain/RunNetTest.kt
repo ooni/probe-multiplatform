@@ -1,0 +1,404 @@
+package org.ooni.probe.domain
+
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.Severity
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.serialization.json.Json
+import org.ooni.engine.models.TaskEvent
+import org.ooni.engine.models.TaskEventResult
+import org.ooni.engine.models.TaskOrigin
+import org.ooni.probe.data.disk.DeleteFiles
+import org.ooni.probe.data.disk.WriteFile
+import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
+import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.NetworkModel
+import org.ooni.probe.data.models.ResultModel
+import org.ooni.probe.data.models.RunBackgroundState
+import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.data.models.UrlModel
+import org.ooni.probe.shared.monitoring.Instrumentation
+import org.ooni.probe.shared.toLocalDateTime
+
+class RunNetTest(
+    private val startTest: (NetTest, TaskOrigin, Descriptor.Id) -> Flow<TaskEvent>,
+    private val getOrCreateUrl: suspend (String) -> UrlModel,
+    private val storeMeasurement: suspend (MeasurementModel) -> MeasurementModel.Id,
+    private val storeNetwork: suspend (NetworkModel) -> NetworkModel.Id,
+    private val getResultByIdAndUpdate: suspend (ResultModel.Id, (ResultModel) -> ResultModel) -> Unit,
+    private val setCurrentTestState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
+    private val writeFile: WriteFile,
+    private val deleteFiles: DeleteFiles,
+    private val json: Json,
+    private val getPreferenceValueByKey: (SettingsKey) -> Flow<Any?>,
+    private val submitMeasurement: suspend (MeasurementModel) -> MeasurementModel?,
+    private val spec: Specification,
+) {
+    data class Specification(
+        val descriptor: DescriptorItem,
+        val descriptorIndex: Int,
+        val netTest: NetTest,
+        val taskOrigin: TaskOrigin,
+        val isRerun: Boolean,
+        val resultId: ResultModel.Id,
+        val testIndex: Int,
+        val testTotal: Int,
+    )
+
+    private var reportId: String? = null
+    private var lastNetwork: NetworkModel? = null
+    private val measurements = mutableMapOf<Int, MeasurementModel>()
+    private val progressStep = 1.0 / spec.descriptor.netTests.size
+
+    suspend operator fun invoke() {
+        Instrumentation.withTransaction(
+            operation = "RunNetTest",
+            data = mapOf(
+                "test" to spec.netTest.test.name,
+                "inputsCount" to (spec.netTest.inputs?.size ?: 0),
+                "isRerun" to spec.isRerun,
+                "taskOrigin" to spec.taskOrigin.value,
+                "descriptorId" to spec.descriptor.descriptor.id.value,
+            ),
+        ) {
+            setCurrentTestState {
+                if (it !is RunBackgroundState.RunningTests) return@setCurrentTestState it
+                it.copy(
+                    descriptor = spec.descriptor,
+                    descriptorIndex = spec.descriptorIndex,
+                    testType = spec.netTest.test,
+                    testProgress = spec.testIndex * progressStep,
+                    testIndex = spec.testIndex,
+                    testTotal = spec.testTotal,
+                )
+            }
+
+            try {
+                startTest(
+                    spec.netTest,
+                    spec.taskOrigin,
+                    spec.descriptor.descriptor.id,
+                ).collect(::onEvent)
+            } catch (_: Exception) {
+                // Exceptions were logged in the Engine
+            }
+        }
+    }
+
+    private suspend fun onEvent(event: TaskEvent) {
+        when (event) {
+            TaskEvent.Started -> {
+                // We already update the initial state before starting the task
+            }
+
+            is TaskEvent.GeoIpLookup -> {
+                val network = NetworkModel(
+                    name = event.networkName,
+                    asn = event.asn,
+                    countryCode = event.countryCode,
+                    networkType = event.networkType,
+                )
+                val networkId = storeNetwork(network)
+                lastNetwork = network.copy(id = networkId)
+                updateResult { it.copy(networkId = networkId) }
+            }
+
+            is TaskEvent.ReportCreate -> {
+                reportId = event.reportId
+            }
+
+            is TaskEvent.MeasurementStart -> {
+                createMeasurement(
+                    event.index,
+                    MeasurementModel(
+                        test = spec.netTest.test,
+                        reportId = reportId?.let(MeasurementModel::ReportId),
+                        resultId = spec.resultId,
+                        urlId = if (event.url.isNullOrEmpty()) {
+                            null
+                        } else {
+                            val eventUrl = event.url!!
+                            getOrCreateUrl(eventUrl).id
+                        },
+                    ),
+                )
+            }
+
+            is TaskEvent.Log -> {
+                val knownException = event.getKnownException()
+                if (knownException != null) {
+                    Logger.w(event.message, knownException)
+                } else {
+                    Logger.log(
+                        severity = when (event.level) {
+                            "WARNING" -> Severity.Warn
+                            "DEBUG" -> Severity.Debug
+                            else -> Severity.Info
+                        },
+                        message = event.message,
+                        throwable = null,
+                        tag = Logger.tag,
+                    )
+                }
+
+                setCurrentTestState {
+                    if (it !is RunBackgroundState.RunningTests) return@setCurrentTestState it
+                    it.copy(log = event.message)
+                }
+            }
+
+            is TaskEvent.Progress -> {
+                setCurrentTestState {
+                    if (it !is RunBackgroundState.RunningTests) return@setCurrentTestState it
+                    it.copy(
+                        testProgress = (spec.testIndex + event.progress) * progressStep,
+                        log = event.message,
+                    )
+                }
+            }
+
+            is TaskEvent.Measurement -> {
+                updateMeasurement(event.index) { initialMeasurement ->
+                    var measurement = initialMeasurement
+
+                    val eventResult = event.result
+                    if (eventResult == null) {
+                        measurement = measurement.copy(isFailed = true)
+                    } else {
+                        val testStartTime = eventResult.testStartTime
+                        if (testStartTime != null) {
+                            updateResult {
+                                it.copy(
+                                    startTime = testStartTime.toLocalDateTime(),
+                                )
+                            }
+                        }
+                        val measurementStartTime = eventResult.measurementStartTime
+                        if (measurementStartTime != null) {
+                            measurement = measurement.copy(
+                                startTime = measurementStartTime.toLocalDateTime(),
+                            )
+                        }
+                        val testRuntime = eventResult.testRuntime
+                        if (testRuntime != null) {
+                            measurement = measurement.copy(
+                                runtime = testRuntime,
+                            )
+                        }
+
+                        // Introduced to capture the URL for measurements (`echcheck`) which did not
+                        // emit the URL in the measurement start event.
+                        // see https://github.com/ooni/probe-multiplatform/issues/435
+                        val resultInput = eventResult.input
+                        if (resultInput != null && measurement.urlId == null) {
+                            measurement = measurement.copy(
+                                urlId = getOrCreateUrl(resultInput).id,
+                            )
+                        }
+
+                        eventResult.testKeys?.let {
+                            val testKeys = extractTestKeysPropertiesToJson(it)
+                            measurement = measurement.copy(
+                                testKeys = if (testKeys.isEmpty()) {
+                                    null
+                                } else {
+                                    json.encodeToString(testKeys)
+                                },
+                            )
+                        }
+
+                        val evaluation =
+                            evaluateMeasurementKeys(spec.netTest.test, eventResult.testKeys)
+                        measurement = measurement.copy(
+                            isFailed = evaluation.isFailed,
+                            isAnomaly = evaluation.isAnomaly,
+                        )
+                    }
+
+                    if (spec.isRerun && lastNetwork != null) {
+                        measurement = measurement.copy(
+                            rerunNetwork = json.encodeToString(lastNetwork),
+                        )
+                    }
+
+                    writeToReportFile(measurement, event.json)
+
+                    measurement
+                }
+            }
+
+            is TaskEvent.MeasurementSubmissionSuccessful -> {
+                updateMeasurement(event.index) { measurement ->
+                    return@updateMeasurement if (lastNetwork?.isValid() != true) {
+                        measurement.copy(
+                            isFailed = true,
+                            failureMessage = "Network is not valid",
+                        )
+                    } else if (event.measurementUid == null) {
+                        measurement.copy(
+                            isFailed = true,
+                            failureMessage = "Submission failed: missing measurement UID",
+                        )
+                    } else {
+                        val measurementUid = event.measurementUid!!
+                        measurement.reportFilePath?.let { deleteFiles(it) }
+                        measurement.copy(
+                            isUploaded = true,
+                            uid = MeasurementModel.Uid(measurementUid),
+                        )
+                    }
+                }
+            }
+
+            is TaskEvent.MeasurementSubmissionFailure -> {
+                updateMeasurement(event.index) {
+                    var measurement = it.copy(
+                        isUploaded = false,
+                        reportId = null,
+                        isUploadFailed = true,
+                    )
+                    event.message?.let {
+                        measurement = measurement.copy(failureMessage = it)
+                    }
+                    measurement
+                }
+            }
+
+            is TaskEvent.MeasurementDone -> {
+                // Mark done before submitting: an unparseable report is marked not-done by
+                // submitMeasurement, and doing this first avoids clobbering that back to done.
+                updateMeasurement(event.index) {
+                    it.copy(isDone = true)
+                }
+                submitMeasurement(event.index)
+            }
+
+            is TaskEvent.End -> {
+                updateResult {
+                    it.copy(
+                        dataUsageDown = it.dataUsageDown + event.downloadedKb,
+                        dataUsageUp = it.dataUsageUp + event.uploadedKb,
+                    )
+                }
+            }
+
+            is TaskEvent.StartupFailure,
+            is TaskEvent.ResolverLookupFailure,
+            -> {
+                val message = when (event) {
+                    is TaskEvent.StartupFailure -> event.message
+                    is TaskEvent.ResolverLookupFailure -> event.message
+                }
+
+                if (message != null) {
+                    updateResult {
+                        it.copy(
+                            failureMessage =
+                                if (it.failureMessage != null) {
+                                    "${it.failureMessage}\n$message"
+                                } else {
+                                    message
+                                },
+                        )
+                    }
+                }
+
+                if (event.isCancelled() == true) return
+
+                when (event) {
+                    is TaskEvent.StartupFailure ->
+                        Logger.w("", StartupFailure(message, event.value))
+
+                    is TaskEvent.ResolverLookupFailure ->
+                        Logger.i("", ResolverLookupFailure(message, event.value))
+                }
+            }
+
+            is TaskEvent.BugJsonDump -> {
+                Logger.w("", BugJsonDump(event.value))
+            }
+
+            is TaskEvent.TaskTerminated -> Unit
+        }
+    }
+
+    private suspend fun updateResult(update: (ResultModel) -> ResultModel) {
+        getResultByIdAndUpdate(spec.resultId, update)
+    }
+
+    private suspend fun createMeasurement(
+        index: Int,
+        measurement: MeasurementModel,
+    ) {
+        measurements[index] =
+            measurement.copy(id = storeMeasurement(measurement))
+    }
+
+    private suspend fun updateMeasurement(
+        index: Int,
+        update: suspend (MeasurementModel) -> MeasurementModel,
+    ) {
+        val measurement = measurements[index] ?: return
+        val updatedMeasurement = update(measurement)
+        measurements[index] = updatedMeasurement
+        storeMeasurement(updatedMeasurement)
+    }
+
+    private suspend fun submitMeasurement(index: Int) {
+        if (getPreferenceValueByKey(SettingsKey.UPLOAD_RESULTS).first() != true) return
+
+        val measurement = measurements[index] ?: return
+        if (!measurement.isUploaded) {
+            val newMeasurement = submitMeasurement(measurement)
+            if (newMeasurement != null) {
+                measurements[index] = newMeasurement
+            } else {
+                measurements.remove(index)
+            }
+        }
+    }
+
+    private suspend fun writeToReportFile(
+        measurement: MeasurementModel,
+        text: String,
+    ) {
+        writeFile(
+            path = measurement.reportFilePath ?: return,
+            contents = text,
+        )
+    }
+
+    /**
+     * Some log warnings are known, but come with a different warning message for each instance.
+     * Here we group them under a single exception class for crash reporting.
+     */
+    private fun TaskEvent.Log.getKnownException() =
+        if (message.startsWith("statsManager") && message.contains("not found:")) {
+            StatsManagerNotFoundError()
+        } else {
+            null
+        }
+
+    open inner class Failure(
+        message: String?,
+        value: TaskEventResult.Value?,
+    ) : Exception(message ?: value?.let(json::encodeToString))
+
+    inner class StartupFailure(
+        message: String?,
+        value: TaskEventResult.Value?,
+    ) : Failure(message, value)
+
+    inner class ResolverLookupFailure(
+        message: String?,
+        value: TaskEventResult.Value?,
+    ) : Failure(message, value)
+
+    inner class BugJsonDump(
+        value: TaskEventResult.Value?,
+    ) : Failure(null, value)
+
+    inner class StatsManagerNotFoundError : Failure(null, null)
+}

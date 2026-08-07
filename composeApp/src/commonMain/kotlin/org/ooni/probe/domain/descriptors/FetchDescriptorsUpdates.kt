@@ -70,9 +70,11 @@ class FetchDescriptorsUpdates(
 
             successes++
 
-            val newUpdate = newDescriptor.dateUpdated != null &&
+            val newDescriptorDateUpdated = newDescriptor.dateUpdated
+            val descriptorDateUpdated = descriptor.dateUpdated
+            val newUpdate = newDescriptorDateUpdated != null &&
                 (
-                    descriptor.dateUpdated == null || descriptor.dateUpdated < newDescriptor.dateUpdated
+                    descriptorDateUpdated == null || descriptorDateUpdated < newDescriptorDateUpdated
                 )
             if (!newUpdate) return@forEach
 
