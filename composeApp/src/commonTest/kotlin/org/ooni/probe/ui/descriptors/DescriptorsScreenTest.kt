@@ -1,5 +1,7 @@
 package org.ooni.probe.ui.descriptors
 
+import org.ooni.probe.data.models.title
+
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.v2.runComposeUiTest

@@ -1,5 +1,7 @@
 package org.ooni.probe.screenshots
 
+import org.ooni.probe.data.models.title
+
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.toAwtImage
 import androidx.compose.ui.platform.LocalDensity

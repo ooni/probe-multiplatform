@@ -36,6 +36,15 @@ Multiplatform (Android, iOS and Desktop) version of the Probe app.
   - `dwMain` News Media Scan specific Branding and customization
   - `ooniMain` OONI Probe specific Branding and customization
 
+* `probeCore` is a UI-free Kotlin Multiplatform library holding the engine, passport, storage, and
+  run/upload orchestration shared by the apps and the CLI. It carries no Compose/UI/navigation
+  dependencies, so the command-line front-end can reuse it.
+
+* `cliApp` is the `ooniprobe` JVM command-line application (Clikt). It depends **only** on `probeCore`
+  (never `composeApp`). See `cliApp/README.md`.
+
+* `androidApp` and `desktopApp` are the Android and desktop application shells around `composeApp`.
+
 * `iosApp` contains the iOS application configuration and the engine integration written in Swift
 
 * `.github` contains the Continuous Integration configuration for Github
@@ -100,6 +109,12 @@ Common tests (tests inside `commonTest`) only run on the iOS Simulator.
 Choosing the option `android (local)` won't work. This is a current
 [issue](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html#f03e048) with
 the official testing library.
+
+The UI-free `probeCore` and `cliApp` tests run on the JVM without a device or simulator:
+
+```
+./gradlew :cliApp:test :probeCore:desktopTest
+```
 
 ## Translations
 

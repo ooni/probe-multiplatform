@@ -53,9 +53,9 @@ class RunViewModel(
             allNetTests.value = all
 
             val preferences = preferenceRepository
-                .areNetTestsEnabled(all, isAutoRun = false)
+                .areNetTestsEnabled(all.map { it.first.descriptor to it.second }, isAutoRun = false)
                 .first()
-            selectedTests.value = all.filter { preferences[it] == true }
+            selectedTests.value = all.filter { preferences[it.first.descriptor to it.second] == true }
         }
 
         combine(
@@ -197,7 +197,7 @@ class RunViewModel(
         isEnabled: Boolean,
     ) {
         preferenceRepository.setAreNetTestsEnabled(
-            list = list,
+            list = list.map { it.first.descriptor to it.second },
             isAutoRun = false,
             isEnabled = isEnabled,
         )

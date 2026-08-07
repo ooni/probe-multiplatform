@@ -26,6 +26,7 @@ class RetrieveManifestTest {
                 json = Dependencies.buildJson(),
                 setPreference = { _, value -> preferenceSet = value },
                 backgroundContext = coroutineContext,
+                ooniApiBaseUrl = "https://api.ooni.io",
             )()
 
             assertEquals(JSON_RESPONSE, preferenceSet)

@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.DescriptorType
+import org.ooni.probe.data.models.titleRes
 
 @Composable
 fun TestDescriptorTypeTitle(
@@ -13,7 +14,7 @@ fun TestDescriptorTypeTitle(
     modifier: Modifier = Modifier,
 ) {
     Text(
-        stringResource(type.title).uppercase(),
+        stringResource(type.titleRes).uppercase(),
         style = MaterialTheme.typography.labelLarge,
         modifier = modifier,
     )
