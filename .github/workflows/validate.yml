@@ -86,6 +86,57 @@ jobs:
           path: composeApp/build/reports/tests/desktopTest/
           retention-days: 7
 
+  cli-tests:
+    name: CLI Tests & Packaging
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: CLI + core unit tests
+        run: ./gradlew :cliApp:test :probeCore:desktopTest
+
+      - name: Dependency boundary checks
+        run: |
+          fail=0
+          if grep -REn "org\.ooni\.probe\.ui\.|androidx\.compose|org\.jetbrains\.compose\.resources|androidx\.navigation|ooniprobe\.composeapp\.generated\.resources" probeCore/src; then
+            echo "::error::probeCore/src contains forbidden UI/Compose/navigation imports"; fail=1
+          fi
+          if find probeCore/src -path '*composeResources*' -print -quit | grep -q .; then
+            echo "::error::probeCore/src contains a composeResources directory"; fail=1
+          fi
+          if grep -REn "androidx\.compose|org\.jetbrains\.compose|navigation-compose|composeResources|ooniprobe\.composeapp\.generated\.resources" cliApp/src cliApp/build.gradle.kts; then
+            echo "::error::cliApp contains forbidden Compose references"; fail=1
+          fi
+          if grep -REn "project\(\":composeApp\"\)" cliApp/build.gradle.kts probeCore/build.gradle.kts; then
+            echo "::error::cliApp/probeCore must not depend on :composeApp"; fail=1
+          fi
+          exit $fail
+
+      - name: Install CLI distribution
+        run: ./gradlew :cliApp:installDist
+
+      - name: Installed-script smoke (temp home, no network)
+        run: |
+          set -e
+          BIN=cliApp/build/install/ooniprobe/bin/ooniprobe
+          "$BIN" version
+          "$BIN" help
+          HOME_DIR=$(mktemp -d)
+          OONI_HOME="$HOME_DIR" "$BIN" list --json
+          OONI_HOME="$HOME_DIR" "$BIN" internal descriptor-load --json
+
+      - name: Uploads test reports
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: cli-tests-report
+          path: cliApp/build/reports/tests/
+          retention-days: 7
+
   build-android:
     name: Build Android
     runs-on: ubuntu-latest
