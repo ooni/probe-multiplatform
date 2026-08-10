@@ -42,7 +42,7 @@ class PrepareAnonymousCredentials(
 
             val manifest = getOrRetrieveManifest()
             if (manifest == null) {
-                Logger.w("No manifest available for user registration")
+                Logger.i("No manifest available for user registration")
                 return null
             }
 
@@ -73,7 +73,7 @@ class PrepareAnonymousCredentials(
         Logger.i("No cached manifest found, retrieving manifest from API")
         val retrieved = retrieveManifest()
         if (retrieved == null) {
-            Logger.w("Failed to retrieve manifest from API")
+            Logger.i("Failed to retrieve manifest from API")
         } else {
             Logger.i("Successfully retrieved manifest from API")
         }
