@@ -44,6 +44,6 @@ class BootstrapPreferences(
         getLatestTestDescriptors()
             .first()
             .flatMap { descriptor ->
-                descriptor.netTests.map { test -> descriptor to test }
+                descriptor.netTests.map { test -> descriptor.descriptor to test }
             }
 }

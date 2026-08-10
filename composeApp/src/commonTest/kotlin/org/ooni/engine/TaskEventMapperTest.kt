@@ -112,13 +112,14 @@ class TaskEventMapperTest {
         assertEquals(TaskEvent.Measurement::class, event::class)
         with(event as TaskEvent.Measurement) {
             assertEquals(99, index)
-            with(event.result!!) {
+            val eventResult = event.result!!
+            with(eventResult) {
                 assertEquals("127.0.0.1", probeIp)
                 assertEquals("AS12345", probeAsn)
                 assertEquals("PT", probeCountryCode)
                 assertEquals("", reportId)
             }
-            with(event.result.measurementStartTime?.toLocalDateTime(TimeZone.UTC)!!) {
+            with(eventResult.measurementStartTime?.toLocalDateTime(TimeZone.UTC)!!) {
                 // 2024-08-05 13:22:31
                 assertEquals(2024, year)
                 assertEquals(Month.AUGUST, month)
@@ -127,7 +128,7 @@ class TaskEventMapperTest {
                 assertEquals(22, minute)
                 assertEquals(31, second)
             }
-            assertEquals("https://www.reddit.com/", event.result.input)
+            assertEquals("https://www.reddit.com/", eventResult.input)
         }
     }
 

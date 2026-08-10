@@ -76,6 +76,7 @@ import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultFilter
+import org.ooni.probe.data.models.title
 import org.ooni.probe.shared.toEpochInUTC
 import org.ooni.probe.shared.toLocalDateFromUtc
 import org.ooni.probe.ui.shared.NavigationCloseButton
@@ -164,11 +165,12 @@ fun ResultFiltersRow(
                 )
             }
 
-            if (filter.taskOrigin != null) {
+            val taskOrigin = filter.taskOrigin
+            if (taskOrigin != null) {
                 InputChip(
                     selected = true,
                     onClick = onOpen,
-                    label = { Text(filter.taskOrigin.name()) },
+                    label = { Text(taskOrigin.name()) },
                     modifier = Modifier.padding(start = 8.dp),
                 )
             }
@@ -285,17 +287,18 @@ private fun TestsFilter(
     FlowRow(
         modifier = Modifier.padding(start = 16.dp, end = 8.dp),
     ) {
-        descriptors.forEach { descriptor ->
-            val isSelected = filter.descriptors.contains(descriptor)
+        descriptors.forEach { descriptorItem ->
+            val innerDescriptor = descriptorItem.descriptor
+            val isSelected = filter.descriptors.contains(innerDescriptor)
             ResultFilterChip(
-                text = descriptor.title().ellipsize(20),
+                text = innerDescriptor.title().ellipsize(20),
                 isSelected = isSelected,
                 onClick = {
                     updateFilter(
                         if (isSelected) {
-                            filter.copy(descriptors = filter.descriptors - descriptor)
+                            filter.copy(descriptors = filter.descriptors - innerDescriptor)
                         } else {
-                            filter.copy(descriptors = filter.descriptors + descriptor)
+                            filter.copy(descriptors = filter.descriptors + innerDescriptor)
                         },
                     )
                 },

@@ -20,6 +20,7 @@ mokoPermissions = "0.20.1"
 ktor = "3.5.2"
 compose-ui = "1.11.4" # Checkout https://developer.android.com/jetpack/androidx/releases/compose-ui
 coil = "3.5.0"
+clikt = "5.1.0"
 jna = "5.19.1"
 oonimkall = "3.30.0"
 
@@ -44,6 +45,7 @@ sentry = { id = "io.sentry.android.gradle", version = "6.17.0" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.11.0" }
 kotlin-serialization-xml = { module = "io.github.pdvrieze.xmlutil:serialization", version = "1.0.1" }
 kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.8.0" }
+clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
 
 # Java
 android-desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.5" }
@@ -164,6 +166,7 @@ oonimkall-desktop-linux = { module = "org.ooni:oonimkall-linux", version.ref = "
 auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.8.0" }
 directories = { module = "dev.dirs:directories", version = "26" }
 pratanumandal-unique = { module = "tk.pratanumandal:unique4j", version = "1.4" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.11.0" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version = "1.11.0" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version = "1.11.0" }
 

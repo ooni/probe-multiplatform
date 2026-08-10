@@ -1,5 +1,7 @@
 package org.ooni.probe.ui.descriptor.add
 
+import org.ooni.probe.data.models.shortDescription
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
