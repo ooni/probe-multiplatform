@@ -275,7 +275,7 @@
     <string name="CategoryCode_MILX_Description">恐怖主义、暴力激进分子以及分离主义运动</string>
     <string name="CategoryCode_HATE_Description">根据种族、性别、性取向或其他特征对特定群体诋毁</string>
     <string name="CategoryCode_NEWS_Description">主流新闻网站、地区性媒体以及独立媒体</string>
-    <string name="CategoryCode_XED_Description">性卫生问题，包括避孕、性病、预防强奸和堕胎</string>
+    <string name="CategoryCode_XED_Description">性健康问题，包括避孕、性传播疾病、预防强奸和堕胎</string>
     <string name="CategoryCode_PUBH_Description">公共卫生问题，如 COVID-19、艾滋病或埃博拉</string>
     <string name="CategoryCode_GMB_Description">在线赌博和投注</string>
     <string name="CategoryCode_ANON_Description">匿名、翻墙和加密</string>
