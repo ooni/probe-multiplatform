@@ -55,7 +55,7 @@ interface CliCoreGatewayDependencies : CliCoreGateway {
     }
 }
 
-interface CoreDependencies {
+interface CliGatewayFactory {
     fun createCliGateway(): CliCoreGateway
 
     /** Builds the CLI run/upload orchestration gateway for the given engine config. */

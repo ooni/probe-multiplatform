@@ -14,10 +14,8 @@ import kotlin.time.times
 @Serializable(with = TestTypeSerializer::class)
 sealed class TestType {
     abstract val name: String
-    abstract val labelResKey: String
     open val isManualRunEnabled: Boolean = true
     open val isBackgroundRunEnabled: Boolean = true
-    open val iconResKey: String? = null
     open val url: String? = null
 
     abstract fun runtime(inputs: List<String>?): Duration
@@ -27,7 +25,6 @@ sealed class TestType {
 
     data object Dash : TestType() {
         override val name: String = "dash"
-        override val labelResKey: String = "Test_Dash_Fullname"
         override val isBackgroundRunEnabled: Boolean = false
         override val url: String = "https://ooni.org/nettest/dash"
 
@@ -41,16 +38,11 @@ sealed class TestType {
         override val isBackgroundRunEnabled: Boolean = false,
         override val isManualRunEnabled: Boolean = true,
     ) : TestType() {
-        override val labelResKey: String = "Test_Experimental_Fullname"
-        override val iconResKey: String = "test_experimental"
-
         override fun runtime(inputs: List<String>?) = 30.seconds
     }
 
     data object FacebookMessenger : TestType() {
         override val name: String = "facebook_messenger"
-        override val labelResKey: String = "Test_FacebookMessenger_Fullname"
-        override val iconResKey: String = "test_facebook_messenger"
         override val url: String = "https://ooni.org/nettest/facebook-messenger"
 
         override val preferenceKey: String = "test_facebook_messenger"
@@ -60,7 +52,6 @@ sealed class TestType {
 
     data object HttpHeaderFieldManipulation : TestType() {
         override val name: String = "http_header_field_manipulation"
-        override val labelResKey: String = "Test_HTTPHeaderFieldManipulation_Fullname"
         override val url: String = "https://ooni.org/nettest/http-header-field-manipulation"
 
         override val preferenceKey: String = "run_http_header_field_manipulation"
@@ -70,7 +61,6 @@ sealed class TestType {
 
     data object HttpInvalidRequestLine : TestType() {
         override val name: String = "http_invalid_request_line"
-        override val labelResKey: String = "Test_HTTPInvalidRequestLine_Fullname"
         override val url: String = "https://ooni.org/nettest/http-invalid-request-line"
 
         override val preferenceKey: String = "run_http_invalid_request_line"
@@ -80,7 +70,6 @@ sealed class TestType {
 
     data object Ndt : TestType() {
         override val name: String = "ndt"
-        override val labelResKey: String = "Test_NDT_Fullname"
         override val isBackgroundRunEnabled: Boolean = false
         override val url: String = "https://ooni.org/nettest/ndt"
 
@@ -91,8 +80,6 @@ sealed class TestType {
 
     data object Psiphon : TestType() {
         override val name: String = "psiphon"
-        override val labelResKey: String = "Test_Psiphon_Fullname"
-        override val iconResKey: String = "test_psiphon"
         override val url: String = "https://ooni.org/nettest/psiphon"
 
         override val preferenceKey: String = "test_psiphon"
@@ -102,8 +89,6 @@ sealed class TestType {
 
     data object Signal : TestType() {
         override val name: String = "signal"
-        override val labelResKey: String = "Test_Signal_Fullname"
-        override val iconResKey: String = "test_signal"
         override val url: String = "https://ooni.org/nettest/signal"
 
         override val preferenceKey: String = "test_signal"
@@ -113,8 +98,6 @@ sealed class TestType {
 
     data object Telegram : TestType() {
         override val name: String = "telegram"
-        override val labelResKey: String = "Test_Telegram_Fullname"
-        override val iconResKey: String = "test_telegram"
         override val url: String = "https://ooni.org/nettest/telegram"
 
         override val preferenceKey: String = "test_telegram"
@@ -124,8 +107,6 @@ sealed class TestType {
 
     data object Tor : TestType() {
         override val name: String = "tor"
-        override val labelResKey: String = "Test_Tor_Fullname"
-        override val iconResKey: String = "test_tor"
         override val url: String = "https://ooni.org/nettest/tor"
 
         override val preferenceKey: String = "test_tor"
@@ -135,8 +116,6 @@ sealed class TestType {
 
     data object WebConnectivity : TestType() {
         override val name: String = "web_connectivity"
-        override val labelResKey: String = "Test_WebConnectivity_Fullname"
-        override val iconResKey: String = "test_websites"
         override val url: String = "https://ooni.org/nettest/web-connectivity"
 
         override val preferenceKey: String = "web_connectivity"
@@ -146,8 +125,6 @@ sealed class TestType {
 
     data object Whatsapp : TestType() {
         override val name: String = "whatsapp"
-        override val labelResKey: String = "Test_WhatsApp_Fullname"
-        override val iconResKey: String = "test_whatsapp"
         override val url: String = "https://ooni.org/nettest/whatsapp"
 
         override val preferenceKey: String = "test_whatsapp"

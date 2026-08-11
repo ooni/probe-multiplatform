@@ -28,33 +28,36 @@ import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 
 val TestType.labelRes: StringResource
-    get() = when (labelResKey) {
-        "Test_Dash_Fullname" -> Res.string.Test_Dash_Fullname
-        "Test_Experimental_Fullname" -> Res.string.Test_Experimental_Fullname
-        "Test_FacebookMessenger_Fullname" -> Res.string.Test_FacebookMessenger_Fullname
-        "Test_HTTPHeaderFieldManipulation_Fullname" -> Res.string.Test_HTTPHeaderFieldManipulation_Fullname
-        "Test_HTTPInvalidRequestLine_Fullname" -> Res.string.Test_HTTPInvalidRequestLine_Fullname
-        "Test_NDT_Fullname" -> Res.string.Test_NDT_Fullname
-        "Test_Psiphon_Fullname" -> Res.string.Test_Psiphon_Fullname
-        "Test_Signal_Fullname" -> Res.string.Test_Signal_Fullname
-        "Test_Telegram_Fullname" -> Res.string.Test_Telegram_Fullname
-        "Test_Tor_Fullname" -> Res.string.Test_Tor_Fullname
-        "Test_WebConnectivity_Fullname" -> Res.string.Test_WebConnectivity_Fullname
-        "Test_WhatsApp_Fullname" -> Res.string.Test_WhatsApp_Fullname
-        else -> Res.string.Test_Experimental_Fullname
+    get() = when (this) {
+        is TestType.Dash -> Res.string.Test_Dash_Fullname
+        is TestType.Experimental -> Res.string.Test_Experimental_Fullname
+        is TestType.FacebookMessenger -> Res.string.Test_FacebookMessenger_Fullname
+        is TestType.HttpHeaderFieldManipulation -> Res.string.Test_HTTPHeaderFieldManipulation_Fullname
+        is TestType.HttpInvalidRequestLine -> Res.string.Test_HTTPInvalidRequestLine_Fullname
+        is TestType.Ndt -> Res.string.Test_NDT_Fullname
+        is TestType.Psiphon -> Res.string.Test_Psiphon_Fullname
+        is TestType.Signal -> Res.string.Test_Signal_Fullname
+        is TestType.Telegram -> Res.string.Test_Telegram_Fullname
+        is TestType.Tor -> Res.string.Test_Tor_Fullname
+        is TestType.WebConnectivity -> Res.string.Test_WebConnectivity_Fullname
+        is TestType.Whatsapp -> Res.string.Test_WhatsApp_Fullname
     }
 
 val TestType.iconRes: DrawableResource?
-    get() = when (iconResKey) {
-        "test_experimental" -> Res.drawable.test_experimental
-        "test_facebook_messenger" -> Res.drawable.test_facebook_messenger
-        "test_psiphon" -> Res.drawable.test_psiphon
-        "test_signal" -> Res.drawable.test_signal
-        "test_telegram" -> Res.drawable.test_telegram
-        "test_tor" -> Res.drawable.test_tor
-        "test_websites" -> Res.drawable.test_websites
-        "test_whatsapp" -> Res.drawable.test_whatsapp
-        else -> null
+    get() = when (this) {
+        is TestType.Experimental -> Res.drawable.test_experimental
+        is TestType.FacebookMessenger -> Res.drawable.test_facebook_messenger
+        is TestType.Psiphon -> Res.drawable.test_psiphon
+        is TestType.Signal -> Res.drawable.test_signal
+        is TestType.Telegram -> Res.drawable.test_telegram
+        is TestType.Tor -> Res.drawable.test_tor
+        is TestType.WebConnectivity -> Res.drawable.test_websites
+        is TestType.Whatsapp -> Res.drawable.test_whatsapp
+        is TestType.Dash,
+        is TestType.HttpHeaderFieldManipulation,
+        is TestType.HttpInvalidRequestLine,
+        is TestType.Ndt,
+        -> null
     }
 
 val TestType.displayName: String

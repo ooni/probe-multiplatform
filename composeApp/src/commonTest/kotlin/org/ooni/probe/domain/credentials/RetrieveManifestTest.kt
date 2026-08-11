@@ -3,7 +3,7 @@ package org.ooni.probe.domain.credentials
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.Success
 import org.ooni.passport.models.PassportHttpResponse
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -23,7 +23,7 @@ class RetrieveManifestTest {
                         ),
                     )
                 },
-                json = Dependencies.buildJson(),
+                json = CoreDependencies.buildJson(),
                 setPreference = { _, value -> preferenceSet = value },
                 backgroundContext = coroutineContext,
                 ooniApiBaseUrl = "https://api.ooni.io",
