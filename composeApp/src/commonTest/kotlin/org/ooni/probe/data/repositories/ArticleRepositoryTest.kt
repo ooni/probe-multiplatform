@@ -3,7 +3,7 @@ package org.ooni.probe.data.repositories
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.testing.createTestDatabaseDriver
 import org.ooni.testing.factories.ArticleModelFactory
 import kotlin.test.BeforeTest
@@ -18,7 +18,7 @@ class ArticleRepositoryTest {
     @BeforeTest
     fun before() {
         subject = ArticleRepository(
-            database = Dependencies.buildDatabase(::createTestDatabaseDriver),
+            database = CoreDependencies.buildDatabase(::createTestDatabaseDriver),
             backgroundContext = Dispatchers.Default,
         )
     }

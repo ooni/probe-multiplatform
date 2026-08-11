@@ -144,13 +144,13 @@ class Engine(
         geoIpDB = preferences.geoipDbPath,
         options = TaskSettings.Options(
             noCollector = true, // We upload the measurements ourselves
-            softwareName = buildSoftwareName(taskOrigin),
+            softwareName = buildSoftwareName(coreConfig.baseSoftwareName, platformInfo.platform, taskOrigin, coreConfig.engineName),
             softwareVersion = platformInfo.buildName,
             maxRuntime = maxRuntime(taskOrigin, descriptorId, preferences),
         ),
         annotations = TaskSettings.Annotations(
             networkType = networkTypeFinder(),
-            flavor = buildSoftwareName(taskOrigin),
+            flavor = buildSoftwareName(coreConfig.baseSoftwareName, platformInfo.platform, taskOrigin, coreConfig.engineName),
             origin = taskOrigin,
             osVersion = platformInfo.osVersion,
             ooniRunLinkId = descriptorId.value,
@@ -172,16 +172,11 @@ class Engine(
         MAX_RUNTIME_DISABLED
     }
 
-    private fun buildSoftwareName(taskOrigin: TaskOrigin): String {
-        val base = coreConfig.baseSoftwareName + "-" + (coreConfig.engineName ?: platformInfo.platform.engineName)
-        return base + if (taskOrigin == TaskOrigin.AutoRun) "-unattended" else ""
-    }
-
     private fun buildSessionConfig(
         taskOrigin: TaskOrigin,
         preferences: EnginePreferences,
     ) = OonimkallBridge.SessionConfig(
-        softwareName = buildSoftwareName(taskOrigin),
+        softwareName = buildSoftwareName(coreConfig.baseSoftwareName, platformInfo.platform, taskOrigin, coreConfig.engineName),
         softwareVersion = platformInfo.buildName,
         proxy = preferences.proxy,
         probeServicesURL = coreConfig.ooniApiBaseUrl,

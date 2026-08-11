@@ -12,7 +12,7 @@ import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.SettingsKey
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.ComposeDependencies
 import org.ooni.probe.shared.now
 import org.ooni.probe.shared.toDateTime
 import org.ooni.probe.shared.toLocalDateTime
@@ -22,13 +22,13 @@ import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
 
 class DatabaseHelper private constructor(
-    private val dependency: Dependencies,
+    private val dependency: ComposeDependencies,
 ) {
     companion object {
         @Volatile
         private var instance: DatabaseHelper? = null
 
-        fun initialize(dependency: Dependencies): DatabaseHelper {
+        fun initialize(dependency: ComposeDependencies): DatabaseHelper {
             if (instance == null) {
                 instance = DatabaseHelper(dependency)
             }

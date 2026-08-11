@@ -24,7 +24,7 @@ import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.buildDatabaseDriver
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.ComposeDependencies
 import org.ooni.probe.shared.Distribution
 import org.ooni.probe.shared.LanguageSupport
 import org.ooni.probe.shared.Platform
@@ -82,7 +82,7 @@ private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager
 val dependencies = buildDependencies(backgroundWorkManager = backgroundWorkManager)
 
 /**
- * Builds the [Dependencies] graph for the desktop app. Defaults match the production flavor; callers
+ * Builds the [ComposeDependencies] graph for the desktop app. Defaults match the production flavor; callers
  * (e.g. UI/screenshot tests) override only the pieces that need to differ.
  */
 internal fun buildDependencies(
@@ -100,8 +100,8 @@ internal fun buildDependencies(
     legacyDirectoryManager: LegacyDirectoryManager = DesktopLegacyDirectoryManager(platform.os),
     flavorConfig: FlavorConfigInterface = DesktopFlavorConfig(),
     setRunAtStartup: suspend (Boolean) -> Unit = ::setRunAtStartup,
-): Dependencies =
-    Dependencies(
+): ComposeDependencies =
+    ComposeDependencies(
         platformInfo = platformInfo,
         oonimkallBridge = oonimkallBridge,
         passportBridge = DesktopPassportBridge(platformInfo.platform),

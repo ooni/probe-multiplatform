@@ -6,7 +6,7 @@ import kotlinx.coroutines.test.runTest
 import org.ooni.passport.models.VerificationStatus
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.testing.createTestDatabaseDriver
 import org.ooni.testing.factories.DescriptorFactory
 import org.ooni.testing.factories.MeasurementModelFactory
@@ -21,11 +21,11 @@ import kotlin.test.assertNotNull
 class MeasurementRepositoryTest {
     private lateinit var subject: MeasurementRepository
     private lateinit var resultRepository: ResultRepository
-    private val json = Dependencies.buildJson()
+    private val json = CoreDependencies.buildJson()
 
     @BeforeTest
     fun before() {
-        val database = Dependencies.buildDatabase(::createTestDatabaseDriver)
+        val database = CoreDependencies.buildDatabase(::createTestDatabaseDriver)
         subject = MeasurementRepository(
             database = database,
             backgroundContext = Dispatchers.Default,

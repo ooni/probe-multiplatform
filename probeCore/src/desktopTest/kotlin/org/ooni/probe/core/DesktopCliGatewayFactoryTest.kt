@@ -7,7 +7,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class DesktopCoreDependenciesTest {
+class DesktopCliGatewayFactoryTest {
     // Production-classpath smoke: uses the default constructor + classloader, i.e. the exact
     // path the packaged CLI distribution runs. This reads assets/descriptors/*.json from
     // probeCore's desktopMain resources (packaged into the jar), NOT test-only fixtures.
@@ -38,13 +38,13 @@ class DesktopCoreDependenciesTest {
                 )
             }
 
-            val gateway = DesktopCoreDependencies.createCliGateway() as CliCoreGatewayDependencies
+            val gateway = DesktopCliGatewayFactory.createCliGateway() as CliCoreGatewayDependencies
             assertEquals(DescriptorAssetSet.Ooni, gateway.defaultDescriptorAssetSet)
         }
 
     @Test
     fun cliGatewayExposesNativeBootstrapAndClasspathShadow() {
-        val gateway = DesktopCoreDependencies.createCliGateway() as CliCoreGatewayDependencies
+        val gateway = DesktopCliGatewayFactory.createCliGateway() as CliCoreGatewayDependencies
 
         assertTrue(gateway.nativeRuntimeBootstrap is DesktopNativeRuntimeBootstrap)
         assertEquals(
@@ -58,7 +58,7 @@ class DesktopCoreDependenciesTest {
         // Building the reset gateway and closing it without clearing must not resolve the platform
         // SecureStorage (it is lazy). Using an unsupported OS makes the point: resolving the store
         // would throw, so a clean construct+close proves nothing native was touched.
-        val gateway = DesktopCoreDependencies.createCliResetGateway(
+        val gateway = DesktopCliGatewayFactory.createCliResetGateway(
             CliEngineConfig(
                 databaseDir = "unused",
                 baseFileDir = "unused",
