@@ -23,7 +23,7 @@ import org.jetbrains.compose.resources.getString
 import org.ooni.probe.AndroidApplication
 import org.ooni.probe.shared.R
 import org.ooni.probe.data.models.Descriptor
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.probe.domain.descriptors.DescriptorUpdateOutcome
 
 class DescriptorUpdateWorker(
@@ -143,7 +143,7 @@ class DescriptorUpdateWorker(
     companion object {
         fun buildWorkData(descriptors: List<Descriptor.Id>): Data =
             workDataOf(
-                DATA_KEY_DESCRIPTORS to Dependencies.buildJson().encodeToString(descriptors),
+                DATA_KEY_DESCRIPTORS to CoreDependencies.buildJson().encodeToString(descriptors),
             )
 
         private const val NOTIFICATION_CHANNEL_ID = "UPDATES"

@@ -6,13 +6,13 @@ import kotlinx.datetime.toLocalDateTime
 import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskEventResult
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class TaskEventMapperTest {
-    private val json = Dependencies.buildJson()
+    private val json = CoreDependencies.buildJson()
     private val subject =
         TaskEventMapper(
             json = json,

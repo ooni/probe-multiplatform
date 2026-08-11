@@ -14,7 +14,7 @@ import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.OoniTest
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.probe.config.CoreConfig
 import org.ooni.probe.domain.CancelListenerCallback
 import org.ooni.probe.shared.Platform
@@ -24,7 +24,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class EngineTest {
-    private val json = Dependencies.buildJson()
+    private val json = CoreDependencies.buildJson()
     private val networkTypeFinder = NetworkTypeFinder { NetworkType.NoInternet }
 
     @Test

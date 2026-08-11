@@ -27,13 +27,6 @@ data class ScaledValue(
                 Unit.GB
             }
 
-    val unitStringKey: String
-        get() = when (unit) {
-            Unit.KB -> "TestResults_Kbps"
-            Unit.MB -> "TestResults_Mbps"
-            Unit.GB -> "TestResults_Gbps"
-        }
-
     enum class Unit {
         KB,
         MB,

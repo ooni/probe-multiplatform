@@ -42,7 +42,8 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.ProxyConfig
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.ComposeDependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.probe.shared.LanguageSupport
 import org.ooni.probe.shared.Platform
 import org.ooni.probe.shared.PlatformInfo
@@ -54,7 +55,7 @@ import java.util.Locale
  */
 class AndroidApplication : Application() {
     val dependencies by lazy {
-        Dependencies(
+        ComposeDependencies(
             platformInfo = platformInfo,
             oonimkallBridge = AndroidOonimkallBridge(),
             passportBridge = AndroidPassportBridge(),
@@ -138,9 +139,9 @@ class AndroidApplication : Application() {
         AndroidSqliteDriver(Database.Schema, this, "v2.db")
 
     private fun buildDataStore(): DataStore<Preferences> =
-        Dependencies.getDataStore(
+        CoreDependencies.getDataStore(
             producePath = {
-                filesDir.resolve(Dependencies.DATA_STORE_FILE_NAME).absolutePath
+                filesDir.resolve(CoreDependencies.DATA_STORE_FILE_NAME).absolutePath
             },
             migrations = listOf(
                 SharedPreferencesMigration(this, "${packageName}_preferences"),
