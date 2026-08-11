@@ -11,7 +11,7 @@ import org.ooni.engine.models.TaskOrigin
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.probe.shared.today
 import org.ooni.testing.createTestDatabaseDriver
 import org.ooni.testing.factories.MeasurementModelFactory
@@ -27,11 +27,11 @@ import kotlin.test.assertTrue
 class ResultRepositoryTest {
     private lateinit var subject: ResultRepository
     private lateinit var measurementRepository: MeasurementRepository
-    private val json = Dependencies.buildJson()
+    private val json = CoreDependencies.buildJson()
 
     @BeforeTest
     fun before() {
-        val database = Dependencies.buildDatabase(::createTestDatabaseDriver)
+        val database = CoreDependencies.buildDatabase(::createTestDatabaseDriver)
         subject = ResultRepository(database, Dispatchers.Default)
         measurementRepository = MeasurementRepository(
             database = database,

@@ -28,7 +28,8 @@ import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.RunSpecification
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.ComposeDependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.probe.domain.PreferenceMigration
 import org.ooni.probe.shared.LanguageSupport
 import org.ooni.probe.shared.Platform
@@ -115,7 +116,7 @@ class SetupDependencies(
      * See link for `baseFileDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L54
      * See link for `cacheDir` https://github.com/ooni/probe-ios/blob/2145bbd5eda6e696be216e3bce97e8d5fb33dcea/ooniprobe/Engine/Engine.m#L66
      */
-    val dependencies: Dependencies = Dependencies(
+    val dependencies: ComposeDependencies = ComposeDependencies(
         platformInfo = buildPlatformInfo(),
         oonimkallBridge = oonimkallBridge,
         passportBridge = passportBridge,
@@ -202,8 +203,8 @@ class SetupDependencies(
     }
 
     fun buildDataStore(): DataStore<Preferences> =
-        Dependencies.getDataStore(
-            producePath = { filesDir() + "/${Dependencies.DATA_STORE_FILE_NAME}" },
+        CoreDependencies.getDataStore(
+            producePath = { filesDir() + "/${CoreDependencies.DATA_STORE_FILE_NAME}" },
             migrations = listOf(PreferenceMigration),
         )
 

@@ -3,7 +3,7 @@ package org.ooni.probe.domain.articles
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.Success
 import org.ooni.passport.models.PassportHttpResponse
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -16,7 +16,7 @@ class GetFindingsTest {
                 passportGet = { _ ->
                     Success(PassportHttpResponse(200, "HTTP/1.1", emptyList(), API_RESPONSE))
                 },
-                json = Dependencies.buildJson(),
+                json = CoreDependencies.buildJson(),
             )
 
             val articles = subject().get()!!
