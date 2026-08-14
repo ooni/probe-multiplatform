@@ -8,6 +8,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskLogLevel
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -105,7 +106,7 @@ class CliRuntimeTest {
                     proxy = "http://127.0.0.1:8080",
                     verbose = true,
                 ),
-            )
+            ).copy(networkTypeFinder = { NetworkType.Unknown("unknown") })
 
             val mapping = runtime.taskSettingsMapping()
             assertEquals(TaskLogLevel.Debug, mapping.logLevel)

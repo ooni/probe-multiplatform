@@ -4,7 +4,8 @@ import java.net.URI
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.absolute
-import org.ooni.engine.models.NetworkType
+import org.ooni.engine.DesktopNetworkTypeFinder
+import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.models.TaskLogLevel
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TaskSettings
@@ -140,6 +141,7 @@ data class CliRuntime(
     val verbose: Boolean = false,
     val logHandler: CliLogHandler = CliLogHandler.Cli,
     val jsonOutput: Boolean = false,
+    val networkTypeFinder: NetworkTypeFinder = DesktopNetworkTypeFinder(),
 ) {
     val ooniHome: String get() = paths.ooniHome.toString()
     val tempDir: String get() = paths.tempDir.toString()
@@ -154,7 +156,7 @@ data class CliRuntime(
             maxRuntime = MAX_RUNTIME_DISABLED,
         ),
         annotations = TaskSettings.Annotations(
-            networkType = NetworkType.Unknown("unknown"),
+            networkType = networkTypeFinder(),
             flavor = softwareName,
             origin = TaskOrigin.OoniRun,
             osVersion = System.getProperty("os.version"),

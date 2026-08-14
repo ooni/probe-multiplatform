@@ -43,14 +43,20 @@ kotlin {
 
 dependencies {
     implementation(project(":probeCore"))
+    // DesktopNetworkTypeFinder (real network type detection instead of an "unknown" stub).
+    implementation(project(":desktopShared"))
     implementation(libs.clikt)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlin.datetime)
+    // The Cli*Gateway desktop implementations (moved from probeCore) construct SqlDriver/Database,
+    // DataStore preferences, Json, and okio.FileSystem directly.
+    implementation(libs.sqldelight.jvm)
+    implementation(libs.androidx.datastore.preferences.core)
+    implementation(libs.kotlin.serialization.json)
+    implementation(libs.okio)
 
     testImplementation(kotlin("test-junit"))
-    testImplementation(libs.androidx.datastore.preferences.core)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.kotlin.serialization.json)
 }
 
 application {

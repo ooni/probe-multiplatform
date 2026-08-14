@@ -13,6 +13,7 @@ import kotlinx.coroutines.runBlocking
 import org.ooni.probe.core.CliEngineConfig
 import org.ooni.probe.core.CliUploadGateway
 import org.ooni.probe.core.CliUploadProgress
+import org.ooni.probe.core.DesktopNativeRuntimeBootstrap
 import org.ooni.probe.core.buildDesktopCliUploadGateway
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementsFilter
@@ -26,6 +27,9 @@ fun interface CliUploadGatewayFactory {
 internal object ProductionCliUploadGatewayFactory : CliUploadGatewayFactory {
     override fun create(runtime: CliRuntime): CliUploadGateway {
         Files.createDirectories(runtime.paths.dataDir)
+        Files.createDirectories(runtime.paths.cacheDir)
+        // Stage bundled natives (passport, gojni, ...) before any engine/passport call dlopens them.
+        DesktopNativeRuntimeBootstrap.configure()
         return buildDesktopCliUploadGateway(
             CliEngineConfig(
                 databaseDir = runtime.paths.dataDir.toString(),

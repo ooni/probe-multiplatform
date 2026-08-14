@@ -12,7 +12,7 @@ import com.github.ajalt.clikt.parameters.groups.*
 import com.github.ajalt.clikt.parameters.options.eagerOption
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.path
-import org.ooni.probe.core.DesktopCoreDependencies
+import org.ooni.probe.core.DesktopCliGatewayFactory
 
 typealias CliCoreGateway = org.ooni.probe.core.CliCoreGateway
 
@@ -96,7 +96,7 @@ fun interface CliCoreGatewayFactory {
 }
 
 internal object ProductionCliCoreGatewayFactory : CliCoreGatewayFactory {
-    override fun create(runtime: CliRuntime): CliCoreGateway = DesktopCoreDependencies.createCliGateway()
+    override fun create(runtime: CliRuntime): CliCoreGateway = DesktopCliGatewayFactory.createCliGateway()
 }
 
 internal class CliOutput(

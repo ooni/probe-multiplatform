@@ -17,7 +17,7 @@ import org.ooni.probe.core.CliResetGateway
 import org.ooni.probe.core.CliStorageConfig
 import org.ooni.probe.core.CliStorageGateway
 import org.ooni.probe.core.DescriptorAssetSet
-import org.ooni.probe.core.DesktopCoreDependencies
+import org.ooni.probe.core.DesktopCliGatewayFactory
 import org.ooni.probe.core.buildDesktopCliStorageGateway
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
@@ -157,10 +157,10 @@ internal object ProductionCliResetGatewayFactory : CliResetGatewayFactory {
     private const val OONI_API_BASE_URL = "https://api.ooni.io"
 
     override fun create(runtime: CliRuntime): CliResetGateway =
-        // Wire through CoreDependencies so the CLI never constructs a platform SecureStorage itself.
+        // Wire through DesktopCliGatewayFactory so the CLI never constructs a platform SecureStorage itself.
         // Only osName/baseSoftwareName drive secure-storage scoping; the remaining fields mirror the
         // other engine gateways' config for consistency.
-        DesktopCoreDependencies.createCliResetGateway(
+        DesktopCliGatewayFactory.createCliResetGateway(
             CliEngineConfig(
                 databaseDir = runtime.paths.dataDir.toString(),
                 baseFileDir = runtime.paths.dataDir.toString(),

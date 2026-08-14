@@ -20,6 +20,7 @@ val dist = distribution()
 dependencies {
     implementation(project(":probeCore"))
     implementation(project(":composeApp"))
+    implementation(project(":desktopShared"))
     implementation(compose.desktop.currentOs)
     implementation(libs.compose.runtime)
     implementation(libs.compose.foundation)

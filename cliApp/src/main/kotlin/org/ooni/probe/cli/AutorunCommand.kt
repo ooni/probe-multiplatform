@@ -11,7 +11,7 @@ import kotlinx.coroutines.runBlocking
 import org.ooni.probe.core.CliAutoRunGateway
 import org.ooni.probe.core.CliAutoRunStatus
 import org.ooni.probe.core.CliStorageConfig
-import org.ooni.probe.core.DesktopCoreDependencies
+import org.ooni.probe.core.DesktopCliGatewayFactory
 import java.io.RandomAccessFile
 import java.nio.file.Files
 import java.nio.file.Path
@@ -25,8 +25,8 @@ fun interface CliAutoRunGatewayFactory {
 internal object ProductionCliAutoRunGatewayFactory : CliAutoRunGatewayFactory {
     override fun create(runtime: CliRuntime): CliAutoRunGateway {
         Files.createDirectories(runtime.paths.dataDir)
-        // Wire through CoreDependencies so the CLI never constructs the storage/DataStore stack itself.
-        return DesktopCoreDependencies.createCliAutoRunGateway(
+        // Wire through DesktopCliGatewayFactory so the CLI never constructs the storage/DataStore stack itself.
+        return DesktopCliGatewayFactory.createCliAutoRunGateway(
             CliStorageConfig(
                 databaseDir = runtime.paths.dataDir.toString(),
                 preferencesFile = runtime.paths.preferenceDataStoreFile.toString(),

@@ -17,6 +17,7 @@ import org.ooni.probe.core.CliEngineConfig
 import org.ooni.probe.core.CliRunGateway
 import org.ooni.probe.core.CliRunOptions
 import org.ooni.probe.core.CliRunProgress
+import org.ooni.probe.core.DesktopNativeRuntimeBootstrap
 import org.ooni.probe.core.buildDesktopCliRunGateway
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
@@ -33,6 +34,9 @@ fun interface CliRunGatewayFactory {
 internal object ProductionCliRunGatewayFactory : CliRunGatewayFactory {
     override fun create(runtime: CliRuntime): CliRunGateway {
         Files.createDirectories(runtime.paths.dataDir)
+        Files.createDirectories(runtime.paths.cacheDir)
+        // Stage bundled natives (passport, gojni, ...) before any engine/passport call dlopens them.
+        DesktopNativeRuntimeBootstrap.configure()
         return buildDesktopCliRunGateway(
             CliEngineConfig(
                 databaseDir = runtime.paths.dataDir.toString(),

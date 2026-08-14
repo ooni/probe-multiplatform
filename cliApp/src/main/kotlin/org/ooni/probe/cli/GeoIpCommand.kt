@@ -7,6 +7,7 @@ import kotlinx.coroutines.runBlocking
 import org.ooni.probe.core.CliEngineConfig
 import org.ooni.probe.core.CliGeoIp
 import org.ooni.probe.core.CliGeoIpGateway
+import org.ooni.probe.core.DesktopNativeRuntimeBootstrap
 import org.ooni.probe.core.buildDesktopCliGeoIpGateway
 import java.nio.file.Files
 
@@ -17,6 +18,9 @@ fun interface CliGeoIpGatewayFactory {
 internal object ProductionCliGeoIpGatewayFactory : CliGeoIpGatewayFactory {
     override fun create(runtime: CliRuntime): CliGeoIpGateway {
         Files.createDirectories(runtime.paths.dataDir)
+        Files.createDirectories(runtime.paths.cacheDir)
+        // Stage bundled natives (passport, gojni, ...) before any engine/passport call dlopens them.
+        DesktopNativeRuntimeBootstrap.configure()
         return buildDesktopCliGeoIpGateway(
             CliEngineConfig(
                 databaseDir = runtime.paths.dataDir.toString(),

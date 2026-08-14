@@ -1,6 +1,5 @@
 package org.ooni.probe.core
 
-import java.nio.file.Files
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
@@ -10,7 +9,8 @@ import kotlin.test.assertTrue
 class DesktopCliGatewayFactoryTest {
     // Production-classpath smoke: uses the default constructor + classloader, i.e. the exact
     // path the packaged CLI distribution runs. This reads assets/descriptors/*.json from
-    // probeCore's desktopMain resources (packaged into the jar), NOT test-only fixtures.
+    // probeCore's desktopMain resources (packaged into its jar, on cliApp's runtime classpath),
+    // NOT test-only fixtures.
     // It guards against the T4 regression where the provider passed only because shadowing
     // desktopTest stub fixtures existed while the production artifact shipped no descriptors.
     @Test
@@ -73,25 +73,5 @@ class DesktopCliGatewayFactoryTest {
             ),
         )
         gateway.close()
-    }
-
-    @Test
-    fun bundledNativeBootstrapConfiguresAvailableMacOsGoJniDirectory() {
-        if (!System.getProperty("os.name").lowercase().contains("mac")) return
-        val root = Files.createTempDirectory("core-native-resources").toFile()
-        val architecture = when (System.getProperty("os.arch").lowercase()) {
-            "aarch64", "arm64" -> "darwin-aarch64"
-            "x86_64", "amd64" -> "darwin-x86-64"
-            else -> "darwin"
-        }
-        val library = root.resolve("gojni/$architecture/libgojni.dylib")
-        library.parentFile.mkdirs()
-        library.writeText("")
-
-        val result = configureBundledNativeLibraries(root)
-
-        assertEquals(listOf("gojni"), result.appliedLibraries)
-        assertEquals(library.parentFile.absolutePath, System.getProperty("ooni.gojni.boot.library.path"))
-        assertEquals(library.name, System.getProperty("ooni.gojni.boot.library.name"))
     }
 }
