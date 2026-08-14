@@ -13,14 +13,13 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.Json
 import okio.FileSystem
+import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.engine.Engine
-import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.TaskEventMapper
 import org.ooni.engine.createDesktopSecureStorage
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.Failure
-import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskLogLevel
 import org.ooni.passport.CliDesktopPassportBridge
 import org.ooni.passport.PassportBridge
@@ -99,7 +98,7 @@ private class DesktopCliRunGateway(
     @Volatile
     private var currentOptions = CliRunOptions()
 
-    private val networkTypeFinder = NetworkTypeFinder { NetworkType.Unknown("unknown") }
+    private val networkTypeFinder = DesktopNetworkTypeFinder()
 
     private val resultRepository = ResultRepository(database, backgroundContext)
     private val measurementRepository = MeasurementRepository(database, json, backgroundContext)

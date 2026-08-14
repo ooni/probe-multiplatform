@@ -32,5 +32,7 @@ class ClasspathDescriptorAssetProvider(
 }
 
 object DesktopNativeRuntimeBootstrap : NativeRuntimeBootstrap {
-    override fun configure(): NativeRuntimeBootstrapResult = configureBundledNativeLibraries()
+    private val result by lazy { configureBundledNativeLibraries() }
+
+    override fun configure(): NativeRuntimeBootstrapResult = result
 }

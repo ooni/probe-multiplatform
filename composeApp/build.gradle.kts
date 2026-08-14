@@ -186,6 +186,8 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.bundles.desktop)
+                // DesktopNetworkTypeFinder / native bridge loading, shared with :cliApp.
+                implementation(project(":desktopShared"))
                 implementation(
                     // Desktop oonimkall is a per-OS artifact (version carries the OS).
                     OperatingSystem.current().let { os ->
