@@ -51,13 +51,10 @@ class SubmitMeasurementWithUser(
             data.probeAsn,
             credentialConfig,
         ).onSuccess { result ->
-            val outcome = result.decodeSubmitOutcome(json)
-
             if (!result.response.isSuccessful) {
                 val exception = PassportException.HttpClientError(
                     buildString {
                         append("Submit returned HTTP ").append(result.response.statusCode)
-                        outcome.error?.let { append(" [").append(it.code).append(']') }
                         result.response.bodyText
                             ?.takeIf { it.isNotBlank() }
                             ?.let { append(": ").append(it.take(MAX_ERROR_BODY_LENGTH)) }
@@ -68,12 +65,13 @@ class SubmitMeasurementWithUser(
                     operation = "SubmitHttpError",
                     data = mapOf(
                         "status_code" to result.response.statusCode,
-                        "error" to (outcome.error?.code ?: "unknown"),
+                        "error" to (result.response.bodyText?.take(10) ?: "unknown"),
                     ),
                 )
                 return Failure(exception)
             }
 
+            val outcome = result.decodeSubmitOutcome(json)
             val submitBody = result.response.bodyText?.let(this::parseResponse)
 
             if (outcome.verificationStatus == VerificationStatus.Verified) {
