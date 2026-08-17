@@ -83,4 +83,35 @@ class SubmitMeasurementWithUserTest {
             assertTrue("503" in message, "message should contain the status code: $message")
             assertTrue("upstream unavailable" in message, "message should retain the raw body: $message")
         }
+
+    @Test
+    fun badGatewayDoesNotDecodeSubmitErrorEnvelope() =
+        runTest {
+            val retainedBody = "{\"error\":\"protocol_error\",\"padding\":\""
+            val omittedBody = "x".repeat(501)
+            val subject = buildSubject(
+                CredentialResponse(
+                    response = PassportHttpResponse(
+                        statusCode = 502,
+                        version = "HTTP/1.1",
+                        headersListText = emptyList(),
+                        bodyText = retainedBody + omittedBody + "\"}",
+                    ),
+                    credential = null,
+                ),
+            )
+
+            val result = subject(measurementData)
+
+            val failure = assertIs<Failure<*>>(result)
+            val reason = assertIs<PassportException.HttpClientError>(failure.reason)
+            val message = reason.message.orEmpty()
+            assertTrue("502" in message, "message should contain the status code: $message")
+            assertTrue(retainedBody in message, "message should retain the response prefix: $message")
+            assertTrue(omittedBody !in message, "message should bound the response body: $message")
+            assertTrue(
+                "[protocol_error]" !in message,
+                "message should not decode a submit error for an HTTP failure: $message",
+            )
+        }
 }
