@@ -21,6 +21,11 @@ class SetCredential(
                     Logger.w("Failed to store credentials in secure storage: ${result.message}", result.cause)
                     false
                 }
+                is WriteResult.TemporarilyUnavailable -> {
+                    // Device locked (pre-first-unlock background run);
+                    Logger.i("Secure storage temporarily unavailable, deferring credential storage")
+                    false
+                }
             }
         } catch (e: Exception) {
             Logger.w("Failed to store credentials", e)

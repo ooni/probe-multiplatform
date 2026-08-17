@@ -30,6 +30,14 @@ sealed interface WriteResult {
         val message: String?,
         val cause: Throwable? = null,
     ) : WriteResult
+
+    /**
+     * Indicates storage is temporarily inaccessible (e.g., iOS keychain locked after reboot).
+     * Callers should defer the operation instead of treating it as a failure.
+     */
+    data class TemporarilyUnavailable(
+        val key: String,
+    ) : WriteResult
 }
 
 sealed interface DeleteAllResult {
