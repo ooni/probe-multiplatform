@@ -53,7 +53,7 @@ class PrepareAnonymousCredentials(
 
             val credential = registerUser(publicParameters, manifestVersion)
             if (credential == null) {
-                Logger.w("User registration failed: registerUser returned null credential")
+                Logger.i("User registration failed: registerUser returned null credential")
             } else {
                 Logger.i("User registered successfully: credential obtained")
             }

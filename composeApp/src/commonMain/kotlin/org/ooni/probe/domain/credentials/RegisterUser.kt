@@ -36,14 +36,14 @@ class RegisterUser(
 
                     val credential = credentialResponse.decodeCredential(json)
                     if (credential == null) {
-                        Logger.w("Failed to register user (could not decode credential)")
+                        Logger.i("Failed to register user (could not decode credential)")
                         return@withContext null
                     }
 
                     return@withContext if (setCredential(credential)) {
                         credential
                     } else {
-                        Logger.w("Failed to register user: could not store credential in secure storage")
+                        Logger.i("Failed to register user: could not store credential in secure storage")
                         null
                     }
                 }.onFailure { exception ->
