@@ -384,7 +384,7 @@ private fun DateFilter(
 
     if (showDatePicker) {
         val initialRange = (filter.dates as? ResultFilter.Date.Custom)?.customRange
-        val selectableRange = ResultFilter.Date.AnyDate.range
+        val selectableRange = ResultFilter.Date.AnyDate.range()
         val selectableYearRange = selectableRange.let { it.start.year..it.endInclusive.year }
 
         val dateRangePickerState = rememberDateRangePickerState(

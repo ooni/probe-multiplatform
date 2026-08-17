@@ -310,21 +310,23 @@ class ResultRepository(
         val limit: Long,
     ) {
         companion object {
-            fun build(filter: ResultFilter) =
-                FilterParams(
+            fun build(filter: ResultFilter): FilterParams {
+                val range = filter.dates.range()
+                return FilterParams(
                     filterByDescriptors = if (filter.descriptors.any()) 1 else 0,
                     descriptorsKeys = filter.descriptors.map { it.key },
                     filterByNetworks = if (filter.networks.any()) 1 else 0,
                     networkIds = filter.networks.mapNotNull { it.id?.value },
                     filterByTaskOrigin = if (filter.taskOrigin != null) 1 else 0,
                     taskOrigin = filter.taskOrigin?.value,
-                    startFrom = filter.dates.range.start
+                    startFrom = range.start
                         .toEpoch(),
-                    startUntil = filter.dates.range.endInclusive
+                    startUntil = range.endInclusive
                         .atTime(23, 59, 59)
                         .toEpoch(),
                     limit = filter.limit,
                 )
+            }
         }
     }
 }
