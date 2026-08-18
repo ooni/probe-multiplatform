@@ -33,6 +33,7 @@ import okio.Path
 import okio.Path.Companion.toPath
 import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
+import org.ooni.engine.AndroidResolverTypeFinder
 import org.ooni.engine.AndroidSecureStorage
 import org.ooni.passport.AndroidPassportBridge
 import org.ooni.probe.background.AppWorkerManager
@@ -62,6 +63,7 @@ class AndroidApplication : Application() {
             cacheDir = cacheDir.absolutePath,
             databaseDriverFactory = ::buildDatabaseDriver,
             networkTypeFinder = AndroidNetworkTypeFinder(connectivityManager),
+            resolverTypeFinder = AndroidResolverTypeFinder(connectivityManager),
             secureStorage = AndroidSecureStorage(this, OrganizationConfig.baseSoftwareName),
             buildDataStore = ::buildDataStore,
             getBatteryState = ::getBatteryState,
