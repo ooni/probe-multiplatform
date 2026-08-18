@@ -137,6 +137,20 @@ class PassportHttpClientTest {
         }
 
     @Test
+    fun postDeclaresJsonPayload() =
+        runTest {
+            val bridge = RecordingBridge()
+            val subject = subject(bridge, isOnline = true)
+
+            subject.post("https://api.ooni.org/api/v1/check-in", "{}")
+
+            assertEquals(
+                listOf(PassportBridge.KeyValue("Content-Type", "application/json")),
+                bridge.lastHeaders,
+            )
+        }
+
+    @Test
     fun selectedProxyIsUsedUnlessOverridden() =
         runTest {
             val bridge = RecordingBridge()
@@ -200,6 +214,8 @@ class PassportHttpClientTest {
             private set
         var lastProxy: String? = null
             private set
+        var lastHeaders: List<PassportBridge.KeyValue> = emptyList()
+            private set
 
         private fun record(
             proxy: String?,
@@ -218,6 +234,7 @@ class PassportHttpClientTest {
             timeout: Float?,
         ): Result<PassportHttpResponse, PassportException> {
             record(proxy, timeout)
+            lastHeaders = headers
             return Success(response())
         }
 
@@ -229,6 +246,7 @@ class PassportHttpClientTest {
             timeout: Float?,
         ): Result<PassportHttpResponse, PassportException> {
             record(proxy, timeout)
+            lastHeaders = headers
             return Success(response())
         }
 
