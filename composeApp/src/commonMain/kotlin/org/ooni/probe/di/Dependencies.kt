@@ -13,9 +13,11 @@ import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import okio.SYSTEM
+import org.ooni.engine.DefaultResolverTypeFinder
 import org.ooni.engine.Engine
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
+import org.ooni.engine.ResolverTypeFinder
 import org.ooni.engine.SecureStorage
 import org.ooni.engine.TaskEventMapper
 import org.ooni.passport.PassportBridge
@@ -171,6 +173,7 @@ class Dependencies(
     val cacheDir: String,
     private val databaseDriverFactory: () -> SqlDriver,
     private val networkTypeFinder: NetworkTypeFinder,
+    private val resolverTypeFinder: ResolverTypeFinder = DefaultResolverTypeFinder(networkTypeFinder),
     val secureStorage: SecureStorage,
     @get:VisibleForTesting
     val buildDataStore: () -> DataStore<Preferences>,
@@ -309,6 +312,7 @@ class Dependencies(
             cacheDir = cacheDir,
             taskEventMapper = taskEventMapper,
             networkTypeFinder = networkTypeFinder,
+            resolverTypeFinder = resolverTypeFinder,
             platformInfo = platformInfo,
             getEnginePreferences = getEnginePreferences::invoke,
             addRunCancelListener = runBackgroundStateManager::addCancelListener,
