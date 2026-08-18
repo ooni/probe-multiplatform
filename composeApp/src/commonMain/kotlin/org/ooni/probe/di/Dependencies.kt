@@ -485,6 +485,7 @@ class Dependencies(
             setCredential = setCredential::invoke,
             backgroundContext = backgroundContext,
             json = json,
+            retrieveManifest = retrieveManifest::invoke,
         )
     }
     val prepareAnonymousCredentials by lazy {

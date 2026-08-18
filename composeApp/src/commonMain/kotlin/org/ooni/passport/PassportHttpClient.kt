@@ -15,13 +15,12 @@ import kotlin.collections.emptyList
 import kotlin.coroutines.CoroutineContext
 
 /**
- * A wrapper around PassportBridge that handles proxy resolution, timeout, and empty headers/query
- * by default.
+ * A wrapper around PassportBridge that handles proxy resolution, timeout, and request defaults.
  *
  * Domain classes depend on this wrapper instead of raw PassportGet/PassportPost/etc. interfaces.
  * This eliminates the need for each domain class to:
  * - Resolve proxy from getProxyOption
- * - Pass empty headers/query
+ * - Pass JSON content type for POST requests and empty headers/query for GET requests
  * - Pass the timeout constant
  */
 class PassportHttpClient(
@@ -65,7 +64,7 @@ class PassportHttpClient(
         dispatch(url) { proxy ->
             passportPost.post(
                 url = url,
-                headers = commonHeaders(),
+                headers = commonHeaders() + PassportBridge.KeyValue("Content-Type", "application/json"),
                 payload = payload,
                 proxy = proxy,
                 timeout = timeout,

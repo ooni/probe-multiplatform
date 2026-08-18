@@ -19,6 +19,16 @@ sealed class PassportException(
         message: String?,
     ) : PassportException(message)
 
+    class HttpStatus(
+        val statusCode: Int,
+        responseBody: String?,
+    ) : PassportException(
+            buildString {
+                append("HTTP ").append(statusCode)
+                responseBody?.takeIf { it.isNotBlank() }?.let { append(": ").append(it) }
+            },
+        )
+
     /**
      * The call was never dispatched because the device reported no usable network.
      *

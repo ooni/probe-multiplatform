@@ -8,6 +8,7 @@ import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.data.models.Credential
+import org.ooni.testing.factories.ManifestFactory
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -199,5 +200,59 @@ class RegisterUserTest {
             )
 
             assertNull(result)
+        }
+
+    @Test
+    fun staleManifestIsRefreshedAndRetriedOnce() =
+        runTest {
+            val refreshedManifest = ManifestFactory.build().let { manifest ->
+                manifest.copy(meta = manifest.meta.copy(version = "fresh-manifest"))
+            }
+            val registrations = mutableListOf<Pair<String, String>>()
+            val registerUser = RegisterUser(
+                userAuthRegister = { _, publicParams, manifestVersion ->
+                    registrations += publicParams to manifestVersion
+                    if (manifestVersion == TEST_MANIFEST_VERSION) {
+                        Success(
+                            CredentialResponse(
+                                response = PassportHttpResponse(
+                                    statusCode = 404,
+                                    version = "",
+                                    headersListText = emptyList(),
+                                    bodyText = "manifest not found",
+                                ),
+                                credential = null,
+                            ),
+                        )
+                    } else {
+                        Success(
+                            CredentialResponse(
+                                response = PassportHttpResponse(
+                                    statusCode = 200,
+                                    version = "",
+                                    headersListText = emptyList(),
+                                    bodyText = TEST_BODY_TEXT,
+                                ),
+                                credential = "fresh_credential",
+                            ),
+                        )
+                    }
+                },
+                setCredential = { true },
+                backgroundContext = coroutineContext,
+                json = json,
+                retrieveManifest = { refreshedManifest },
+            )
+
+            val result = registerUser(TEST_PUBLIC_PARAMS, TEST_MANIFEST_VERSION)
+
+            assertEquals("fresh_credential", result?.credential)
+            assertEquals(
+                listOf(
+                    TEST_PUBLIC_PARAMS to TEST_MANIFEST_VERSION,
+                    refreshedManifest.manifest.publicParameters to refreshedManifest.meta.version,
+                ),
+                registrations,
+            )
         }
 }
