@@ -197,7 +197,7 @@ class SubmitMeasurementTest {
             var legacySubmits = 0
             val subject = SubmitMeasurement(
                 submitMeasurementWithUser = {
-                    Failure(PassportException.HttpClientError("Submit returned HTTP 500"))
+                    Failure(PassportException.HttpStatus(500, "upstream unavailable"))
                 },
                 engineSubmit = {
                     legacySubmits++
@@ -220,5 +220,65 @@ class SubmitMeasurementTest {
             subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))
 
             assertEquals(1, legacySubmits, "a server error must still try the legacy upload")
+        }
+
+    @Test
+    fun clientErrorsSkipTheLegacyUpload() =
+        runTest {
+            listOf(400, 401, 403, 404, 422).forEach { statusCode ->
+                var legacySubmits = 0
+                val subject = SubmitMeasurement(
+                    submitMeasurementWithUser = {
+                        Failure(PassportException.HttpStatus(statusCode, "request rejected"))
+                    },
+                    engineSubmit = {
+                        legacySubmits++
+                        error("legacy submit must not run for HTTP $statusCode")
+                    },
+                    readFile = { "{}" },
+                    deleteFiles = { },
+                    updateMeasurement = { },
+                    deleteMeasurementById = { },
+                    handleSubmitOutcome = { _, _ -> },
+                    json = Dependencies.buildJson(),
+                )
+
+                subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))
+
+                assertEquals(0, legacySubmits, "HTTP $statusCode must not use the legacy upload")
+            }
+        }
+
+    @Test
+    fun requestTimeoutAndRateLimitFallBackToTheLegacyUpload() =
+        runTest {
+            listOf(408, 429).forEach { statusCode ->
+                var legacySubmits = 0
+                val subject = SubmitMeasurement(
+                    submitMeasurementWithUser = {
+                        Failure(PassportException.HttpStatus(statusCode, "retry later"))
+                    },
+                    engineSubmit = {
+                        legacySubmits++
+                        Success(
+                            OonimkallBridge.SubmitMeasurementResults(
+                                updatedMeasurement = "{}",
+                                updatedReportId = "report-id",
+                                measurementUid = "uid",
+                            ),
+                        )
+                    },
+                    readFile = { "{}" },
+                    deleteFiles = { },
+                    updateMeasurement = { },
+                    deleteMeasurementById = { },
+                    handleSubmitOutcome = { _, _ -> },
+                    json = Dependencies.buildJson(),
+                )
+
+                subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))
+
+                assertEquals(1, legacySubmits, "HTTP $statusCode must use the legacy upload")
+            }
         }
 }
