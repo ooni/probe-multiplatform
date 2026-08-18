@@ -5,6 +5,8 @@ import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.Platform
 
 object UpdateConfig {
+    const val CHECK_INTERVAL_HOURS = 6
+
     private const val MAC_URL =
         "https://github.com/ooni/probe-multiplatform/releases/latest/download/feed-mac.rss"
     private const val WINDOWS_URL =

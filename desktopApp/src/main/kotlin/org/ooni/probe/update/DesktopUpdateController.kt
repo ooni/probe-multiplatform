@@ -75,13 +75,17 @@ class DesktopUpdateController(
                     _error.value = updateManager.getLastError()
                 }
 
+                updateManager.setLogCallback { message ->
+                    Logger.d("Update system ${message.operation}: ${message.message}")
+                }
+
                 Logger.i("Initializing update system...")
                 Logger.i("Appcast URL: ${UpdateConfig.URL}")
                 Logger.i("Public key configured: ${UpdateConfig.PUBLIC_KEY.isNotEmpty()}")
 
                 updateManager.initialize(UpdateConfig.URL, UpdateConfig.PUBLIC_KEY)
                 updateManager.setAutomaticUpdatesEnabled(true)
-                updateManager.setUpdateCheckInterval(24)
+                updateManager.setUpdateCheckInterval(UpdateConfig.CHECK_INTERVAL_HOURS)
             } catch (e: Throwable) {
                 Logger.e("Failed to initialize update system: $e")
                 _error.value = UpdateError(-999, "Setup failed: ${e.message}", "setup")

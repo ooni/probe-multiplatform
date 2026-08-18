@@ -28,6 +28,8 @@ typedef void (*SparkleLogCallback)(SparkleLogLevel level, const char* operation,
  * Called when Sparkle needs the application to shut down for update installation
  */
 typedef void (*SparkleShutdownCallback)(void);
+typedef void (*SparkleUpdateCallback)(const char* version, const char* description);
+typedef void (*SparkleNoUpdateCallback)(void);
 
 /**
  * Set log callback for receiving log messages
@@ -40,6 +42,8 @@ void sparkle_set_log_callback(SparkleLogCallback callback);
  * @param callback Function pointer to shutdown callback, or NULL to disable
  */
 void sparkle_set_shutdown_callback(SparkleShutdownCallback callback);
+void sparkle_set_update_callback(SparkleUpdateCallback callback);
+void sparkle_set_no_update_callback(SparkleNoUpdateCallback callback);
 
 /**
  * Initialize Sparkle updater with appcast URL and optional public key

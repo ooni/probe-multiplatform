@@ -223,7 +223,6 @@ class SparkleUpdateManager : UpdateManager {
         when (result) {
             0 -> {
                 logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "checkForUpdates", "Update check completed successfully"))
-                updateState(UpdateState.NO_UPDATE_AVAILABLE) // Will be updated by delegate if update is found
             }
             -1 -> logErrorAndUpdateState(result, "Updater not initialized", "checkForUpdates")
             -2 -> logErrorAndUpdateState(result, "Exception occurred during update check", "checkForUpdates")
