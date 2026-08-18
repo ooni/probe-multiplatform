@@ -34,6 +34,7 @@ data class TaskSettings(
     @Serializable
     data class Annotations(
         @SerialName("network_type") val networkType: NetworkType,
+        @SerialName("resolver_type") val resolverType: ResolverType,
         // OONI or DW
         @SerialName("flavor") val flavor: String,
         // "autorun" or "ooni-run"
