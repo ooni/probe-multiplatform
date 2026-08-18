@@ -166,7 +166,9 @@ download URL prefix at the GitHub release assets for this version:
 ##### 2.7.3 Sign windows app
 
 - We need to sign the windows `.exe` file using our Extended Validation certificate. Follow the steps on our internal process to do so.
-- Generate the WinSparkle appcast for the signed `.exe` file.
+- Generate the WinSparkle appcast for the signed `.exe` file. Sign its enclosure with the
+  Sparkle EdDSA private key and publish the resulting `sparkle:edSignature` and byte length in
+  `feed-windows.rss`; direct Windows builds reject an unsigned or incorrectly signed update.
 
 #### 2.8 Publish OONI Probe Desktop (app stores)
 

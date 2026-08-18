@@ -34,6 +34,8 @@ typedef void (*WinSparkleLogCallback)(WinSparkleLogLevel level, const char* oper
  * Called when WinSparkle needs the application to shut down for update installation
  */
 typedef void (*WinSparkleShutdownCallback)(void);
+typedef void (*WinSparkleUpdateCallback)(const char* version, const char* description);
+typedef void (*WinSparkleNoUpdateCallback)(void);
 
 /**
  * Set log callback for receiving log messages
@@ -46,13 +48,22 @@ void winsparkle_set_log_callback(WinSparkleLogCallback callback);
  * @param callback Function pointer to shutdown callback, or NULL to disable
  */
 void winsparkle_set_shutdown_callback(WinSparkleShutdownCallback callback);
+void winsparkle_set_update_callback(WinSparkleUpdateCallback callback);
+void winsparkle_set_no_update_callback(WinSparkleNoUpdateCallback callback);
 
 /**
- * Initialize WinSparkle updater with appcast URL
+ * Initialize WinSparkle after applying its update configuration.
  * @param appcast_url The URL to the appcast feed (UTF-8 encoded)
  * @return 0 on success, non-zero on error
  */
-int winsparkle_init(const char* appcast_url);
+int winsparkle_init(
+    const char* appcast_url,
+    const char* public_key,
+    const char* company_name,
+    const char* app_name,
+    const char* app_version,
+    int check_interval_hours
+);
 
 /**
  * Check for updates

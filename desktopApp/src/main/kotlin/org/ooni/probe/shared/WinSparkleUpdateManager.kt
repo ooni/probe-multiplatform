@@ -1,6 +1,7 @@
 package org.ooni.probe.shared
 
 import org.ooni.probe.SharedBuildConfig
+import org.ooni.probe.config.UpdateConfig
 import org.ooni.shared.loadNativeLibrary
 
 class WinSparkleUpdateManager : UpdateManager {
@@ -22,7 +23,12 @@ class WinSparkleUpdateManager : UpdateManager {
         private val libraryLoaded: Boolean by lazy { loadNativeLibrary("updatebridge") }
     }
 
-    private external fun nativeInit(appcastUrl: String): Int
+    private external fun nativeInit(
+        appcastUrl: String,
+        publicKey: String?,
+        appVersion: String,
+        checkIntervalHours: Int,
+    ): Int
 
     private external fun nativeCheckForUpdates(showUI: Boolean): Int
 
@@ -63,6 +69,21 @@ class WinSparkleUpdateManager : UpdateManager {
         shutdownCallback?.invoke()
     }
 
+    @Suppress("unused")
+    fun onUpdateFound(
+        version: String,
+        description: String,
+    ) {
+        logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "updateCheck", "Update found: $version"))
+        updateState(UpdateState.UPDATE_AVAILABLE)
+    }
+
+    @Suppress("unused")
+    fun onUpdateNotFound() {
+        logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "updateCheck", "No updates available"))
+        updateState(UpdateState.NO_UPDATE_AVAILABLE)
+    }
+
     // State management
     private var lastError: UpdateError? = null
     private var currentState: UpdateState = UpdateState.IDLE
@@ -98,7 +119,12 @@ class WinSparkleUpdateManager : UpdateManager {
         lastAppcastUrl = appcastUrl
         lastOperation = { initialize(appcastUrl, publicKey) }
 
-        val result = nativeInit(appcastUrl)
+        val result = nativeInit(
+            appcastUrl = appcastUrl,
+            publicKey = publicKey,
+            appVersion = SharedBuildConfig.VERSION_NAME,
+            checkIntervalHours = UpdateConfig.CHECK_INTERVAL_HOURS,
+        )
         when (result) {
             0 -> {
                 logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "initialize", "WinSparkle updater initialized successfully"))
@@ -106,21 +132,8 @@ class WinSparkleUpdateManager : UpdateManager {
             }
             -1 -> logErrorAndUpdateState(result, "Failed to load WinSparkle.dll", "initialize")
             -2 -> logErrorAndUpdateState(result, "Failed to load required WinSparkle functions", "initialize")
+            -3 -> logErrorAndUpdateState(result, "Invalid WinSparkle EdDSA public key", "initialize")
             else -> logErrorAndUpdateState(result, "Unknown error occurred", "initialize")
-        }
-
-        // Set app details from build config first
-        val appDetailsResult =
-            nativeSetAppDetails("OONI", "OONI Probe", SharedBuildConfig.VERSION_NAME)
-        if (appDetailsResult != 0) {
-            when (appDetailsResult) {
-                -1 -> logErrorAndUpdateState(appDetailsResult, "WinSparkle not initialized for app details", "setAppDetails")
-                -2 -> logErrorAndUpdateState(appDetailsResult, "Exception occurred while setting app details", "setAppDetails")
-                -3 -> logErrorAndUpdateState(appDetailsResult, "win_sparkle_set_app_details function not available", "setAppDetails")
-                -4 -> logErrorAndUpdateState(appDetailsResult, "Failed to convert strings to wide characters", "setAppDetails")
-                else -> logErrorAndUpdateState(appDetailsResult, "Unknown error setting app details", "setAppDetails")
-            }
-            return
         }
     }
 
@@ -139,7 +152,6 @@ class WinSparkleUpdateManager : UpdateManager {
         when (result) {
             0 -> {
                 logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "checkForUpdates", "Update check completed successfully"))
-                updateState(UpdateState.NO_UPDATE_AVAILABLE)
             }
             -1 -> logErrorAndUpdateState(result, "WinSparkle not initialized", "checkForUpdates")
             -2 -> logErrorAndUpdateState(result, "Exception occurred during update check", "checkForUpdates")

@@ -5,20 +5,25 @@
 #include "WinSparkleBridge.h"
 
 // WinSparkle function pointers
-typedef void (__stdcall *win_sparkle_init_func)(void);
-typedef void (__stdcall *win_sparkle_cleanup_func)(void);
-typedef void (__stdcall *win_sparkle_set_appcast_url_func)(const char* url);
-typedef void (__stdcall *win_sparkle_check_update_with_ui_func)(void);
-typedef void (__stdcall *win_sparkle_check_update_without_ui_func)(void);
-typedef void (__stdcall *win_sparkle_set_automatic_check_for_updates_func)(int state);
-typedef void (__stdcall *win_sparkle_set_update_check_interval_func)(int interval);
-typedef void (__stdcall *win_sparkle_set_app_details_func)(const wchar_t* company_name, const wchar_t* app_name, const wchar_t* app_version);
-typedef void (__stdcall *win_sparkle_set_can_shutdown_callback_func)(int (__stdcall *)(void));
-typedef void (__stdcall *win_sparkle_set_shutdown_request_callback_func)(void (__stdcall *)(void));
+typedef void (__cdecl *win_sparkle_init_func)(void);
+typedef void (__cdecl *win_sparkle_cleanup_func)(void);
+typedef void (__cdecl *win_sparkle_set_appcast_url_func)(const char* url);
+typedef void (__cdecl *win_sparkle_check_update_with_ui_func)(void);
+typedef void (__cdecl *win_sparkle_check_update_without_ui_func)(void);
+typedef void (__cdecl *win_sparkle_set_automatic_check_for_updates_func)(int state);
+typedef void (__cdecl *win_sparkle_set_update_check_interval_func)(int interval);
+typedef void (__cdecl *win_sparkle_set_app_details_func)(const wchar_t* company_name, const wchar_t* app_name, const wchar_t* app_version);
+typedef int (__cdecl *win_sparkle_set_eddsa_public_key_func)(const char* public_key);
+typedef void (__cdecl *win_sparkle_set_can_shutdown_callback_func)(int (__cdecl *)(void));
+typedef void (__cdecl *win_sparkle_set_shutdown_request_callback_func)(void (__cdecl *)(void));
+typedef void (__cdecl *win_sparkle_set_did_find_update_callback_func)(void (__cdecl *)(void));
+typedef void (__cdecl *win_sparkle_set_did_not_find_update_callback_func)(void (__cdecl *)(void));
 
 static HMODULE winsparkle_dll = NULL;
 static WinSparkleLogCallback logCallback = NULL;
 static WinSparkleShutdownCallback shutdownCallback = NULL;
+static WinSparkleUpdateCallback updateCallback = NULL;
+static WinSparkleNoUpdateCallback noUpdateCallback = NULL;
 static char g_dll_root[MAX_PATH] = {0};
 
 // Function pointers
@@ -30,8 +35,11 @@ static win_sparkle_check_update_without_ui_func ws_check_update_without_ui = NUL
 static win_sparkle_set_automatic_check_for_updates_func ws_set_automatic_check = NULL;
 static win_sparkle_set_update_check_interval_func ws_set_update_interval = NULL;
 static win_sparkle_set_app_details_func ws_set_app_details = NULL;
+static win_sparkle_set_eddsa_public_key_func ws_set_eddsa_public_key = NULL;
 static win_sparkle_set_can_shutdown_callback_func ws_set_can_shutdown_callback = NULL;
 static win_sparkle_set_shutdown_request_callback_func ws_set_shutdown_request_callback = NULL;
+static win_sparkle_set_did_find_update_callback_func ws_set_did_find_update_callback = NULL;
+static win_sparkle_set_did_not_find_update_callback_func ws_set_did_not_find_update_callback = NULL;
 
 // Internal logging function that handles both printf and callback
 static void winsparkle_log(WinSparkleLogLevel level, const char* operation, const char* format, ...) {
@@ -62,17 +70,31 @@ static void winsparkle_log(WinSparkleLogLevel level, const char* operation, cons
 }
 
 // Callbacks for WinSparkle state tracking
-static int __stdcall can_shutdown_callback(void) {
+static int __cdecl can_shutdown_callback(void) {
     winsparkle_log(WINSPARKLE_LOG_INFO, "update_lifecycle", "Application can shutdown for update installation");
     return 1; // Allow shutdown
 }
 
-static void __stdcall shutdown_request_callback(void) {
+static void __cdecl shutdown_request_callback(void) {
     winsparkle_log(WINSPARKLE_LOG_INFO, "update_lifecycle", "Shutdown requested for update installation");
     // Call the shutdown callback if set
     if (shutdownCallback != NULL) {
         winsparkle_log(WINSPARKLE_LOG_INFO, "update_lifecycle", "Calling application shutdown callback");
         shutdownCallback();
+    }
+}
+
+static void __cdecl did_find_update_callback(void) {
+    winsparkle_log(WINSPARKLE_LOG_INFO, "update_lifecycle", "Found an update");
+    if (updateCallback != NULL) {
+        updateCallback("", "");
+    }
+}
+
+static void __cdecl did_not_find_update_callback(void) {
+    winsparkle_log(WINSPARKLE_LOG_INFO, "update_lifecycle", "No update found");
+    if (noUpdateCallback != NULL) {
+        noUpdateCallback();
     }
 }
 
@@ -84,6 +106,14 @@ void winsparkle_set_log_callback(WinSparkleLogCallback callback) {
 void winsparkle_set_shutdown_callback(WinSparkleShutdownCallback callback) {
     shutdownCallback = callback;
     winsparkle_log(WINSPARKLE_LOG_INFO, "callback", "Shutdown callback %s", callback ? "enabled" : "disabled");
+}
+
+void winsparkle_set_update_callback(WinSparkleUpdateCallback callback) {
+    updateCallback = callback;
+}
+
+void winsparkle_set_no_update_callback(WinSparkleNoUpdateCallback callback) {
+    noUpdateCallback = callback;
 }
 
 void winsparkle_set_dll_root(const char* root_utf8) {
@@ -177,12 +207,16 @@ static int load_winsparkle_dll() {
     ws_set_automatic_check = (win_sparkle_set_automatic_check_for_updates_func)GetProcAddress(winsparkle_dll, "win_sparkle_set_automatic_check_for_updates");
     ws_set_update_interval = (win_sparkle_set_update_check_interval_func)GetProcAddress(winsparkle_dll, "win_sparkle_set_update_check_interval");
     ws_set_app_details = (win_sparkle_set_app_details_func)GetProcAddress(winsparkle_dll, "win_sparkle_set_app_details");
+    ws_set_eddsa_public_key = (win_sparkle_set_eddsa_public_key_func)GetProcAddress(winsparkle_dll, "win_sparkle_set_eddsa_public_key");
     ws_set_can_shutdown_callback = (win_sparkle_set_can_shutdown_callback_func)GetProcAddress(winsparkle_dll, "win_sparkle_set_can_shutdown_callback");
     ws_set_shutdown_request_callback = (win_sparkle_set_shutdown_request_callback_func)GetProcAddress(winsparkle_dll, "win_sparkle_set_shutdown_request_callback");
+    ws_set_did_find_update_callback = (win_sparkle_set_did_find_update_callback_func)GetProcAddress(winsparkle_dll, "win_sparkle_set_did_find_update_callback");
+    ws_set_did_not_find_update_callback = (win_sparkle_set_did_not_find_update_callback_func)GetProcAddress(winsparkle_dll, "win_sparkle_set_did_not_find_update_callback");
 
     if (!ws_init || !ws_cleanup || !ws_set_appcast_url ||
         !ws_check_update_with_ui || !ws_check_update_without_ui ||
-        !ws_set_automatic_check || !ws_set_update_interval) {
+        !ws_set_automatic_check || !ws_set_update_interval || !ws_set_app_details ||
+        !ws_set_eddsa_public_key || !ws_set_did_find_update_callback || !ws_set_did_not_find_update_callback) {
         winsparkle_log(WINSPARKLE_LOG_ERROR, "dll_load", "Failed to load required functions from WinSparkle.dll");
         FreeLibrary(winsparkle_dll);
         winsparkle_dll = NULL;
@@ -193,7 +227,8 @@ static int load_winsparkle_dll() {
     return 0;
 }
 
-int winsparkle_init(const char* appcast_url) {
+int winsparkle_init(const char* appcast_url, const char* public_key, const char* company_name,
+                    const char* app_name, const char* app_version, int check_interval_hours) {
     winsparkle_log(WINSPARKLE_LOG_INFO, "init", "Starting WinSparkle initialization");
 
     if (load_winsparkle_dll() != 0) {
@@ -207,6 +242,25 @@ int winsparkle_init(const char* appcast_url) {
         ws_set_appcast_url(appcast_url);
         winsparkle_log(WINSPARKLE_LOG_DEBUG, "init", "Set appcast URL successfully");
 
+        wchar_t company_wide[256];
+        wchar_t app_wide[256];
+        wchar_t version_wide[256];
+        if (MultiByteToWideChar(CP_UTF8, 0, company_name, -1, company_wide, 256) == 0 ||
+            MultiByteToWideChar(CP_UTF8, 0, app_name, -1, app_wide, 256) == 0 ||
+            MultiByteToWideChar(CP_UTF8, 0, app_version, -1, version_wide, 256) == 0) {
+            winsparkle_log(WINSPARKLE_LOG_ERROR, "init", "Failed to convert app details to wide strings");
+            return -4;
+        }
+        ws_set_app_details(company_wide, app_wide, version_wide);
+
+        if (public_key == NULL || ws_set_eddsa_public_key(public_key) == 0) {
+            winsparkle_log(WINSPARKLE_LOG_ERROR, "init", "Invalid EdDSA public key");
+            return -3;
+        }
+
+        ws_set_automatic_check(1);
+        ws_set_update_interval(check_interval_hours * 3600);
+
         // Set up callbacks for state tracking
         if (ws_set_can_shutdown_callback && ws_set_shutdown_request_callback) {
             ws_set_can_shutdown_callback(can_shutdown_callback);
@@ -215,6 +269,8 @@ int winsparkle_init(const char* appcast_url) {
         } else {
             winsparkle_log(WINSPARKLE_LOG_WARN, "init", "Lifecycle callbacks not available in this WinSparkle version");
         }
+        ws_set_did_find_update_callback(did_find_update_callback);
+        ws_set_did_not_find_update_callback(did_not_find_update_callback);
 
         ws_init();
         winsparkle_log(WINSPARKLE_LOG_INFO, "init", "Successfully initialized WinSparkle");
