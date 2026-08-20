@@ -188,7 +188,7 @@ fun Project.registerDesktopCaptureMicrosoftStoreTask() {
  */
 fun Project.excludeScreenshotTestsFromDesktopTest() {
     tasks.withType<Test>().configureEach {
-        if (name == "test") {
+        if (name == "test" || name == "desktopTest") {
             filter { excludeTestsMatching("org.ooni.probe.screenshots.*") }
         }
     }
