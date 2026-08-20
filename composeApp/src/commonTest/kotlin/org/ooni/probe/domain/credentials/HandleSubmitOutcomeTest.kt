@@ -8,6 +8,8 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Instant
 
 class HandleSubmitOutcomeTest {
     private var clearedKey: String? = null
@@ -24,6 +26,19 @@ class HandleSubmitOutcomeTest {
                 },
             ),
             signalUpdateRequired = { updateSignalled = true },
+        )
+
+    private fun subjectWithClock(now: () -> Instant) =
+        HandleSubmitOutcome(
+            retrieveManifest = { manifestRefetched = true },
+            clearCredential = ClearCredential(
+                deleteSecureStorage = { key ->
+                    clearedKey = key
+                    DeleteResult.Deleted(key)
+                },
+            ),
+            signalUpdateRequired = { updateSignalled = true },
+            now = now,
         )
 
     @Test
@@ -75,5 +90,75 @@ class HandleSubmitOutcomeTest {
             assertFalse(updateSignalled)
             assertEquals(null, clearedKey)
             assertFalse(manifestRefetched)
+        }
+
+    @Test
+    fun doesNothingForIncompleteAnoncFields() =
+        runTest {
+            subject()(VerificationStatus.Failed, SubmitError.IncompleteAnoncFields)
+
+            assertFalse(updateSignalled)
+            assertEquals(null, clearedKey)
+            assertFalse(manifestRefetched)
+        }
+
+    @Test
+    fun doesNothingForInvalidProtocolVersion() =
+        runTest {
+            subject()(VerificationStatus.Failed, SubmitError.InvalidProtocolVersion)
+
+            assertFalse(updateSignalled)
+            assertEquals(null, clearedKey)
+            assertFalse(manifestRefetched)
+        }
+
+    @Test
+    fun doesNothingForUnknownError() =
+        runTest {
+            subject()(VerificationStatus.Failed, SubmitError.Unknown("unexpected_error"))
+
+            assertFalse(updateSignalled)
+            assertEquals(null, clearedKey)
+            assertFalse(manifestRefetched)
+        }
+
+    @Test
+    fun doesNothingForUnverifiedWithoutError() =
+        runTest {
+            subject()(VerificationStatus.Unverified, null)
+
+            assertFalse(updateSignalled)
+            assertEquals(null, clearedKey)
+            assertFalse(manifestRefetched)
+        }
+
+    @Test
+    fun throttlesManifestRefetchWithinCooldown() =
+        runTest {
+            var currentTime = Instant.fromEpochSeconds(1_000_000)
+            val outcome = subjectWithClock { currentTime }
+
+            outcome(VerificationStatus.Unverified, SubmitError.ManifestNotFound)
+            assertTrue(manifestRefetched)
+            manifestRefetched = false
+
+            currentTime += 5.minutes
+            outcome(VerificationStatus.Unverified, SubmitError.ManifestNotFound)
+            assertFalse(manifestRefetched)
+        }
+
+    @Test
+    fun refetchesManifestAgainAfterCooldown() =
+        runTest {
+            var currentTime = Instant.fromEpochSeconds(1_000_000)
+            val outcome = subjectWithClock { currentTime }
+
+            outcome(VerificationStatus.Unverified, SubmitError.ManifestNotFound)
+            assertTrue(manifestRefetched)
+            manifestRefetched = false
+
+            currentTime += 10.minutes
+            outcome(VerificationStatus.Unverified, SubmitError.ManifestNotFound)
+            assertTrue(manifestRefetched)
         }
 }

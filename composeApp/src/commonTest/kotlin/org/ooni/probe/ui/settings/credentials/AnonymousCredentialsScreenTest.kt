@@ -8,9 +8,11 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.v2.runComposeUiTest
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Measurements_Verification_Verified
+import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_ProbeIdUnavailable
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset_Failed
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset_InProgress
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Reset_Title
+import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Status_CredentialNeedsReset
 import ooniprobe.composeapp.generated.resources.Settings_AnonymousCredentials_Status_Ready
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.domain.credentials.AnonymousCredentialsHealth
@@ -82,6 +84,26 @@ class AnonymousCredentialsScreenTest {
             }
 
             onNodeWithText(getString(Res.string.Settings_AnonymousCredentials_Reset_Failed))
+                .assertExists()
+        }
+
+    @Test
+    fun showsCredentialNeedsResetWhenCredentialError() =
+        runComposeUiTest {
+            setContent {
+                AnonymousCredentialsScreen(
+                    state = AnonymousCredentialsViewModel.State(
+                        health = AnonymousCredentialsHealth.CredentialNeedsReset,
+                        isLoading = false,
+                    ),
+                    onEvent = {},
+                )
+            }
+
+            onNodeWithText(
+                getString(Res.string.Settings_AnonymousCredentials_Status_CredentialNeedsReset),
+            ).assertExists()
+            onNodeWithText(getString(Res.string.Settings_AnonymousCredentials_ProbeIdUnavailable))
                 .assertExists()
         }
 }
