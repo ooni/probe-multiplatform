@@ -15,7 +15,6 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class PassportHttpClientTest {
@@ -70,6 +69,7 @@ class PassportHttpClientTest {
                     proxyResolved = true
                     flowOf(ProxyOption.None)
                 },
+                getProtocolVersion = { flowOf(null) },
                 backgroundContext = RecordingDispatcher(),
                 isOnline = { false },
             )
@@ -150,20 +150,35 @@ class PassportHttpClientTest {
         }
 
     @Test
-    fun emptyProxyOptionResolvesToNoProxy() =
+    fun protocolVersionHeaderIsAddedWhenAvailable() =
         runTest {
             val bridge = RecordingBridge()
-            val subject = subject(bridge, isOnline = true, proxy = ProxyOption.None)
+            val subject = subject(bridge, isOnline = true, protocolVersion = "1.2.3")
 
             subject.get("https://example.org")
 
-            assertNull(bridge.lastProxy)
+            assertEquals(
+                listOf(PassportBridge.KeyValue("X-Protocol-Version", "1.2.3")),
+                bridge.lastHeaders,
+            )
+        }
+
+    @Test
+    fun protocolVersionHeaderIsMissingWhenNotAvailable() =
+        runTest {
+            val bridge = RecordingBridge()
+            val subject = subject(bridge, isOnline = true, protocolVersion = null)
+
+            subject.get("https://example.org")
+
+            assertEquals(emptyList(), bridge.lastHeaders)
         }
 
     private fun subject(
         bridge: RecordingBridge,
         isOnline: Boolean,
         proxy: ProxyOption = ProxyOption.None,
+        protocolVersion: String? = null,
         backgroundContext: CoroutineContext = RecordingDispatcher(),
     ) = PassportHttpClient(
         passportGet = bridge,
@@ -171,6 +186,7 @@ class PassportHttpClientTest {
         passportAuthRegister = bridge,
         passportAuthSubmit = bridge,
         getProxyOption = { flowOf(proxy) },
+        getProtocolVersion = { flowOf(protocolVersion) },
         backgroundContext = backgroundContext,
         isOnline = { isOnline },
     )
@@ -200,12 +216,16 @@ class PassportHttpClientTest {
             private set
         var lastProxy: String? = null
             private set
+        var lastHeaders: List<PassportBridge.KeyValue>? = null
+            private set
 
         private fun record(
+            headers: List<PassportBridge.KeyValue>,
             proxy: String?,
             timeout: Float?,
         ) {
             callCount++
+            lastHeaders = headers
             lastProxy = proxy
             lastTimeout = timeout
         }
@@ -217,7 +237,7 @@ class PassportHttpClientTest {
             proxy: String?,
             timeout: Float?,
         ): Result<PassportHttpResponse, PassportException> {
-            record(proxy, timeout)
+            record(headers, proxy, timeout)
             return Success(response())
         }
 
@@ -228,7 +248,7 @@ class PassportHttpClientTest {
             proxy: String?,
             timeout: Float?,
         ): Result<PassportHttpResponse, PassportException> {
-            record(proxy, timeout)
+            record(headers, proxy, timeout)
             return Success(response())
         }
 
@@ -239,7 +259,7 @@ class PassportHttpClientTest {
             proxy: String?,
             timeout: Float?,
         ): Result<CredentialResponse, PassportException> {
-            record(proxy, timeout)
+            record(emptyList(), proxy, timeout)
             return Failure(PassportException.Other("not exercised"))
         }
 
@@ -252,7 +272,7 @@ class PassportHttpClientTest {
             timeout: Float?,
             credentialConfig: SubmitCredentialConfig?,
         ): Result<CredentialResponse, PassportException> {
-            record(proxy, timeout)
+            record(emptyList(), proxy, timeout)
             return Failure(PassportException.Other("not exercised"))
         }
 

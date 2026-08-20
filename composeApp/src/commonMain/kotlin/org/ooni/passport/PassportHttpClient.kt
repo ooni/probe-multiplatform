@@ -30,10 +30,16 @@ class PassportHttpClient(
     private val passportAuthRegister: PassportAuthRegister,
     private val passportAuthSubmit: PassportAuthSubmit,
     private val getProxyOption: () -> Flow<ProxyOption>,
+    private val getProtocolVersion: () -> Flow<String?>,
     private val backgroundContext: CoroutineContext,
     private val isOnline: () -> Boolean,
 ) {
     private suspend fun resolveProxy(): String? = getProxyOption().first().value.takeIf { it.isNotEmpty() }
+
+    private suspend fun commonHeaders(): List<PassportBridge.KeyValue> {
+        val protocolVersion = getProtocolVersion().first() ?: return emptyList()
+        return listOf(PassportBridge.KeyValue("X-Protocol-Version", protocolVersion))
+    }
 
     suspend fun get(
         url: String,
@@ -43,7 +49,7 @@ class PassportHttpClient(
         dispatch(url, proxyOverride) { proxy ->
             passportGet.get(
                 url = url,
-                headers = emptyList(),
+                headers = commonHeaders(),
                 query = emptyList(),
                 proxy = proxy,
                 timeout = timeout,
@@ -58,7 +64,7 @@ class PassportHttpClient(
         dispatch(url) { proxy ->
             passportPost.post(
                 url = url,
-                headers = emptyList(),
+                headers = commonHeaders(),
                 payload = payload,
                 proxy = proxy,
                 timeout = timeout,
@@ -108,7 +114,7 @@ class PassportHttpClient(
     private suspend fun <T> dispatch(
         url: String,
         proxyOverride: String? = null,
-        call: (proxy: String?) -> Result<T, PassportException>,
+        call: suspend (proxy: String?) -> Result<T, PassportException>,
     ): Result<T, PassportException> {
         if (!isOnline()) {
             return Failure(PassportException.Offline("No active network, skipped $url"))
