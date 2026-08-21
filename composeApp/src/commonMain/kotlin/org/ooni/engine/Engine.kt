@@ -38,6 +38,7 @@ class Engine(
     private val cacheDir: String,
     private val taskEventMapper: TaskEventMapper,
     private val networkTypeFinder: NetworkTypeFinder,
+    private val resolverTypeFinder: ResolverTypeFinder,
     private val platformInfo: PlatformInfo,
     private val getEnginePreferences: suspend () -> EnginePreferences,
     private val addRunCancelListener: (() -> Unit) -> CancelListenerCallback,
@@ -128,37 +129,39 @@ class Engine(
         taskOrigin: TaskOrigin,
         preferences: EnginePreferences,
         descriptorId: Descriptor.Id,
-    ) = TaskSettings(
-        name = netTest.test.name,
-        inputs = netTest.inputs.orEmpty(),
-        disabledEvents = listOf(
-            "status.queued",
-            "status.update.websites",
-            "failure.report_close",
-        ),
-        logLevel = preferences.taskLogLevel,
-        stateDir = "$baseFilePath/state",
-        tunnelDir = "$baseFilePath/tunnel",
-        tempDir = cacheDir,
-        assetsDir = "$baseFilePath/assets",
-        geoIpDB = preferences.geoipDbPath,
-        options = TaskSettings.Options(
-            noCollector = true, // We upload the measurements ourselves
-            softwareName = platformInfo.buildSoftwareName(taskOrigin),
-            softwareVersion = platformInfo.buildName,
-            maxRuntime = maxRuntime(taskOrigin, descriptorId, preferences),
-        ),
-        annotations = TaskSettings.Annotations(
-            networkType = networkTypeFinder(),
-            flavor = platformInfo.buildSoftwareName(taskOrigin),
-            origin = taskOrigin,
-            osVersion = platformInfo.osVersion,
-            ooniRunLinkId = descriptorId.value,
-            installerStore = platformInfo.installerStore,
-            passportVersion = SharedBuildConfig.PASSPORT_VERSION,
-        ),
-        proxy = preferences.proxy,
-    )
+    ): TaskSettings =
+        TaskSettings(
+            name = netTest.test.name,
+            inputs = netTest.inputs.orEmpty(),
+            disabledEvents = listOf(
+                "status.queued",
+                "status.update.websites",
+                "failure.report_close",
+            ),
+            logLevel = preferences.taskLogLevel,
+            stateDir = "$baseFilePath/state",
+            tunnelDir = "$baseFilePath/tunnel",
+            tempDir = cacheDir,
+            assetsDir = "$baseFilePath/assets",
+            geoIpDB = preferences.geoipDbPath,
+            options = TaskSettings.Options(
+                noCollector = true, // We upload the measurements ourselves
+                softwareName = platformInfo.buildSoftwareName(taskOrigin),
+                softwareVersion = platformInfo.buildName,
+                maxRuntime = maxRuntime(taskOrigin, descriptorId, preferences),
+            ),
+            annotations = TaskSettings.Annotations(
+                networkType = networkTypeFinder(),
+                resolverType = resolverTypeFinder(),
+                flavor = platformInfo.buildSoftwareName(taskOrigin),
+                origin = taskOrigin,
+                osVersion = platformInfo.osVersion,
+                ooniRunLinkId = descriptorId.value,
+                installerStore = platformInfo.installerStore,
+                passportVersion = SharedBuildConfig.PASSPORT_VERSION,
+            ),
+            proxy = preferences.proxy,
+        )
 
     private fun maxRuntime(
         taskOrigin: TaskOrigin,
