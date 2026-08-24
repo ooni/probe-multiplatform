@@ -69,7 +69,7 @@ class PassportHttpClientTest {
                     proxyResolved = true
                     flowOf(ProxyOption.None)
                 },
-                getProtocolVersion = { flowOf(null) },
+                getProtocolVersion = { "" },
                 backgroundContext = RecordingDispatcher(),
                 isOnline = { false },
             )
@@ -167,7 +167,7 @@ class PassportHttpClientTest {
     fun protocolVersionHeaderIsMissingWhenNotAvailable() =
         runTest {
             val bridge = RecordingBridge()
-            val subject = subject(bridge, isOnline = true, protocolVersion = null)
+            val subject = subject(bridge, isOnline = true, protocolVersion = "")
 
             subject.get("https://example.org")
 
@@ -178,7 +178,7 @@ class PassportHttpClientTest {
         bridge: RecordingBridge,
         isOnline: Boolean,
         proxy: ProxyOption = ProxyOption.None,
-        protocolVersion: String? = null,
+        protocolVersion: String = "",
         backgroundContext: CoroutineContext = RecordingDispatcher(),
     ) = PassportHttpClient(
         passportGet = bridge,
@@ -186,7 +186,7 @@ class PassportHttpClientTest {
         passportAuthRegister = bridge,
         passportAuthSubmit = bridge,
         getProxyOption = { flowOf(proxy) },
-        getProtocolVersion = { flowOf(protocolVersion) },
+        getProtocolVersion = { protocolVersion },
         backgroundContext = backgroundContext,
         isOnline = { isOnline },
     )

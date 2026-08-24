@@ -12,6 +12,7 @@ interface PassportBridge :
     PassportAuthRegister,
     PassportAuthSubmit,
     PassportGetProbeId,
+    PassportGetProtocolVersion,
     PassportPost {
     override fun get(
         url: String,
@@ -52,6 +53,8 @@ interface PassportBridge :
         probeAsn: String,
         probeCc: String,
     ): Result<String, PassportException>
+
+    override fun getProtocolVersion(): String
 
     data class KeyValue(
         val key: String,
@@ -107,4 +110,8 @@ fun interface PassportGetProbeId {
         probeAsn: String,
         probeCc: String,
     ): Result<String, PassportException>
+}
+
+fun interface PassportGetProtocolVersion {
+    fun getProtocolVersion(): String
 }
