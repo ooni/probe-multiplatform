@@ -161,7 +161,7 @@ oonimkall-desktop-windows = { module = "org.ooni:oonimkall-windows", version.ref
 oonimkall-desktop-linux = { module = "org.ooni:oonimkall-linux", version.ref = "oonimkall" }
 
 # Desktop
-auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.8.0" }
+auto-launch = { module = "io.github.vinceglb:auto-launch", version = "0.9.0" }
 directories = { module = "dev.dirs:directories", version = "26" }
 pratanumandal-unique = { module = "tk.pratanumandal:unique4j", version = "1.4" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version = "1.11.0" }
