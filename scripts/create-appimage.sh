@@ -112,8 +112,8 @@ mkdir -p "${APPDIR_NAME}/usr"
 
 # Copy application files
 log.info "Copying application files..."
-cp -r "${DIST_DIR}/bin" "${APPDIR_NAME}/usr/"
-cp -r "${DIST_DIR}/lib" "${APPDIR_NAME}/usr/"
+cp -a "${DIST_DIR}/bin" "${APPDIR_NAME}/usr/"
+cp -a "${DIST_DIR}/lib" "${APPDIR_NAME}/usr/"
 
 # Create AppRun script
 log.info "Creating AppRun script..."
@@ -135,6 +135,7 @@ export PATH="${JAVA_HOME}/bin:${PATH}"
 # Launch OONI Probe
 exec "${HERE}/usr/bin/OONI Probe" "$@"
 EOF
+chmod +x "${APPDIR_NAME}/AppRun" "${APPDIR_NAME}/usr/bin/${APP_NAME}"
 
 # Create desktop entry
 log.info "Creating desktop entry..."
@@ -144,7 +145,7 @@ Type=Application
 Name=OONI Probe
 GenericName=Network Measurement Tool
 Comment=Measure internet censorship and network interference
-Exec=OONI Probe %u
+Exec="OONI Probe" %u
 Icon=${DESKTOP_FILE_NAME}
 Categories=Network;Utility;
 Terminal=false
