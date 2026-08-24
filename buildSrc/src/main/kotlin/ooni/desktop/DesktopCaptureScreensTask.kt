@@ -196,9 +196,10 @@ fun Project.excludeScreenshotTestsFromDesktopTest() {
 
 private fun Test.wireDesktopScreenshotTest() {
     val project = project
-    dependsOn(project.tasks.named("testClasses"))
+    // Screenshot tests live in the KMP jvm `desktopTest` source set (test task `desktopTest`).
+    dependsOn(project.tasks.named("desktopTestClasses"))
 
-    val desktopTest = project.tasks.named<Test>("test").get()
+    val desktopTest = project.tasks.named<Test>("desktopTest").get()
     testClassesDirs = desktopTest.testClassesDirs
     classpath = desktopTest.classpath
     javaLauncher.set(desktopTest.javaLauncher)
