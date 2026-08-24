@@ -448,4 +448,26 @@
     <string name="Measurements_Verification_Unverified">Probe は認証されていません</string>
     <string name="Dashboard_UpdatePrompt_Action">更新</string>
     <string name="Settings_Language_SystemDefault">システム標準</string>
+    <string name="Settings_AnonymousCredentials_Label">匿名クレデンシャル</string>
+    <string name="Settings_AnonymousCredentials_Description">匿名クレデンシャルにより、OONI はアカウントを作成したりユーザーの身元を明かしたりすることなく、公開された計測結果を認証できます。</string>
+    <string name="Settings_AnonymousCredentials_Status_Loading">クレデンシャルを確認しています…</string>
+    <string name="Settings_AnonymousCredentials_Status_Ready">測定データを認証する準備ができました</string>
+    <string name="Settings_AnonymousCredentials_Status_NoCredential">まだクレデンシャルはありません</string>
+    <string name="Settings_AnonymousCredentials_Status_StoredWithoutNetwork">クレデンシャルが有効です。テストを実行して確認しましょう！</string>
+    <string name="Settings_AnonymousCredentials_Status_CredentialNeedsReset">クレデンシャルをリセットする必要があります</string>
+    <string name="Settings_AnonymousCredentials_ProbeId">Probe ID</string>
+    <string name="Settings_AnonymousCredentials_ProbeIdUnavailable">テストするネットワークで OONI Probe が生成することで有効になります。</string>
+    <string name="Settings_AnonymousCredentials_Verification_Title">測定データの認証とは</string>
+    <string name="Settings_AnonymousCredentials_Verification_Description">公開された個々の計測データには、以下のいずれかのステータスが付与されます:</string>
+    <string name="Settings_AnonymousCredentials_Verification_Verified">認証済み: OONI は匿名クレデンシャルで計測データを認証しました。</string>
+    <string name="Settings_AnonymousCredentials_Verification_Unverified">未検証: 計測データは匿名クレデンシャルなしで公開されました。</string>
+    <string name="Settings_AnonymousCredentials_Verification_Failed">失敗: 認証しようとしましたが失敗しました。可能な場合、OONI Probe は自動的に再試行します。</string>
+    <string name="Settings_AnonymousCredentials_Verification_Unknown">不明: 計測データに対して認証結果が取得できませんでした。</string>
+    <string name="Settings_AnonymousCredentials_Reset">クレデンシャルをリセット</string>
+    <string name="Settings_AnonymousCredentials_Reset_Description">リセットすると、このデバイスに保存されているクレデンシャルが新しいものに置き換えられます。何も削除されることはなく、計測データや結果、設定はすべてそのままです。上記のステータスに問題がある場合、または今後の計測データを過去の計測データと紐付けられたくない場合は、リセットしてください。</string>
+    <string name="Settings_AnonymousCredentials_Reset_Title">匿名クレデンシャルをリセットしますか？</string>
+    <string name="Settings_AnonymousCredentials_Reset_Confirmation">データは一切失われません。計測データや結果、設定はこのデバイスに残り、すでに公開された計測データも変更されません。\n\nOONI Probe はすぐに新しい匿名クレデンシャルを取得するため、今後公開される計測データは新しい Probe ID に結びつけられ、以前の計測データと紐付けられることはありません。\n\nインターネット接続が必要です。</string>
+    <string name="Settings_AnonymousCredentials_Reset_InProgress">新しい匿名クレデンシャルを取得しています…</string>
+    <string name="Settings_AnonymousCredentials_Reset_Success">新しい匿名クレデンシャルが作成されました。今後の計測結果は新しい Probe ID に紐付けられます。</string>
+    <string name="Settings_AnonymousCredentials_Reset_Failed">古いクレデンシャルは削除されましたが、新しいクレデンシャルを取得できませんでした。インターネット接続を確認して、もう一度お試しください。OONI Probe は次回テストを実行する際にも自動的に再試行します。</string>
 </resources>
