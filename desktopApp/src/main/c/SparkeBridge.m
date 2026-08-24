@@ -5,6 +5,8 @@
 static SPUStandardUpdaterController* updaterController = nil;
 static SparkleLogCallback logCallback = NULL;
 static SparkleShutdownCallback shutdownCallback = NULL;
+static SparkleUpdateCallback updateCallback = NULL;
+static SparkleNoUpdateCallback noUpdateCallback = NULL;
 
 // Internal logging function that handles both NSLog and callback
 static void sparkle_log(SparkleLogLevel level, const char* operation, const char* format, ...) {
@@ -62,10 +64,16 @@ static void sparkle_log(SparkleLogLevel level, const char* operation, const char
     sparkle_log(SPARKLE_LOG_INFO, "update_lifecycle", "Found valid update: %s (current: %s)",
             [item.displayVersionString UTF8String],
             [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] UTF8String]);
+    if (updateCallback != NULL) {
+        updateCallback([item.displayVersionString UTF8String], "");
+    }
 }
 
 - (void)updaterDidNotFindUpdate:(SPUUpdater *)updater {
     sparkle_log(SPARKLE_LOG_INFO, "update_lifecycle", "No update found - application is up to date");
+    if (noUpdateCallback != NULL) {
+        noUpdateCallback();
+    }
 }
 
 - (void)updater:(SPUUpdater *)updater willInstallUpdateOnQuit:(SUAppcastItem *)item immediateInstallationInvoked:(BOOL)immediateInstallation {
@@ -96,6 +104,14 @@ void sparkle_set_log_callback(SparkleLogCallback callback) {
 void sparkle_set_shutdown_callback(SparkleShutdownCallback callback) {
     shutdownCallback = callback;
     sparkle_log(SPARKLE_LOG_INFO, "callback", "Shutdown callback %s", callback ? "enabled" : "disabled");
+}
+
+void sparkle_set_update_callback(SparkleUpdateCallback callback) {
+    updateCallback = callback;
+}
+
+void sparkle_set_no_update_callback(SparkleNoUpdateCallback callback) {
+    noUpdateCallback = callback;
 }
 
 int sparkle_init(const char* appcast_url, const char* public_key) {
