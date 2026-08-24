@@ -9,7 +9,6 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -619,7 +618,7 @@ class Dependencies(
             passportAuthRegister = passportBridge::userAuthRegister,
             passportAuthSubmit = passportBridge::userAuthSubmit,
             getProxyOption = proxyManager::selected,
-            getProtocolVersion = { getManifest().map { it?.meta?.protocolVersion } },
+            getProtocolVersion = passportBridge::getProtocolVersion,
             backgroundContext = backgroundContext,
             isOnline = connectivityMonitor::isOnline,
         )

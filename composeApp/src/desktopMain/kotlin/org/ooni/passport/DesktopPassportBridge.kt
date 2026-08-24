@@ -125,6 +125,8 @@ class DesktopPassportBridge(
         } catch (e: Throwable) {
             Failure(PassportException.Other(e.message))
         }
+
+    override fun getProtocolVersion(): String = uniffi.ooniprobe.protocolVersion()
 }
 
 private fun HttpResponse.toPassport() =

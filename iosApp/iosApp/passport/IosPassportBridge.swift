@@ -125,6 +125,10 @@ class IosPassportBridge: PassportBridge {
             )
         }
     }
+
+    func getProtocolVersion() -> String {
+        return protocolVersion()
+    }
 }
 
 private func passportGetProbeId(
