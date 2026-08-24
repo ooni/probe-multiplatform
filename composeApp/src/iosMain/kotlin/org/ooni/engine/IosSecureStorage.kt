@@ -26,8 +26,11 @@ import platform.Security.SecItemCopyMatching
 import platform.Security.SecItemDelete
 import platform.Security.SecItemUpdate
 import platform.Security.errSecDuplicateItem
+import platform.Security.errSecInteractionNotAllowed
 import platform.Security.errSecItemNotFound
 import platform.Security.errSecSuccess
+import platform.Security.kSecAttrAccessible
+import platform.Security.kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
 import platform.Security.kSecAttrAccount
 import platform.Security.kSecAttrService
 import platform.Security.kSecClass
@@ -74,7 +77,10 @@ class IosSecureStorage(
             val valueData = nsString.dataUsingEncoding(NSUTF8StringEncoding) ?: return@withContext WriteResult.Error(key, "encode failed")
             val valueDataRef = CFBridgingRetain(valueData)
 
-            val addQuery = buildQuery(key) { addEntry(kSecValueData, valueDataRef) }
+            val addQuery = buildQuery(key) {
+                addEntry(kSecValueData, valueDataRef)
+                addEntry(kSecAttrAccessible, kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly)
+            }
             val addStatus = SecItemAdd(addQuery, null)
             val wasCreated = addStatus == errSecSuccess
 
@@ -82,19 +88,26 @@ class IosSecureStorage(
                 CFBridgingRelease(addQuery)
                 if (addStatus == errSecDuplicateItem) {
                     val updateQuery = buildQuery(key)
-                    val attributes = buildCFDictionary { addEntry(kSecValueData, valueDataRef) }
+                    val attributes = buildCFDictionary {
+                        addEntry(kSecValueData, valueDataRef)
+                        addEntry(kSecAttrAccessible, kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly)
+                    }
                     val updateStatus = SecItemUpdate(updateQuery, attributes)
                     CFBridgingRelease(updateQuery)
                     CFBridgingRelease(attributes)
                     CFBridgingRelease(valueDataRef)
-                    return@withContext if (updateStatus == errSecSuccess) {
-                        WriteResult.Updated(key)
-                    } else {
-                        WriteResult.Error(key, "osstatus=$updateStatus")
+                    return@withContext when (updateStatus) {
+                        errSecSuccess -> WriteResult.Updated(key)
+                        errSecInteractionNotAllowed -> WriteResult.TemporarilyUnavailable(key)
+                        else -> WriteResult.Error(key, "osstatus=$updateStatus")
                     }
                 }
                 CFBridgingRelease(valueDataRef)
-                return@withContext WriteResult.Error(key, "osstatus=$addStatus")
+                return@withContext if (addStatus == errSecInteractionNotAllowed) {
+                    WriteResult.TemporarilyUnavailable(key)
+                } else {
+                    WriteResult.Error(key, "osstatus=$addStatus")
+                }
             }
 
             CFBridgingRelease(addQuery)
