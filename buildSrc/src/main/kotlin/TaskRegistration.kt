@@ -47,15 +47,18 @@ fun Project.registerDesktopAppTasks(config: AppConfig) {
     registerBuildConfigTasks(config.supportedLanguages)
     excludeScreenshotTestsFromDesktopTest()
 
+    if (path == ":composeApp") {
+        registerDesktopCaptureScreensTask()
+        registerDesktopCaptureMacAppStoreTask()
+        registerDesktopCaptureMicrosoftStoreTask()
+    }
+
     if (path != ":desktopApp") return
 
     registerDesktopTasks()
     registerWinSparkleTask()
     registerExtractMacOsNativeLibrariesTask()
     registerPrepareDesktopResourcesTask()
-    registerDesktopCaptureScreensTask()
-    registerDesktopCaptureMacAppStoreTask()
-    registerDesktopCaptureMicrosoftStoreTask()
 
     registerSparkleTask()
     registerOONIDistributableTask()

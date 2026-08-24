@@ -352,7 +352,7 @@ class DesktopScreenshotsTest {
     @Test
     fun submitOutcomeDashboardUpdateRequired() =
         perLocale { locale ->
-            renderSubmitOutcome {
+            renderApp {
                 DashboardScreen(
                     state = DashboardViewModel.State(updateRequired = true),
                     onEvent = {},
@@ -364,7 +364,7 @@ class DesktopScreenshotsTest {
     @Test
     fun submitOutcomeCredentialsCredentialNeedsReset() =
         perLocale { locale ->
-            renderSubmitOutcome {
+            renderApp {
                 AnonymousCredentialsScreen(
                     state =
                         AnonymousCredentialsViewModel.State(
@@ -380,7 +380,7 @@ class DesktopScreenshotsTest {
     @Test
     fun submitOutcomeCredentialsReady() =
         perLocale { locale ->
-            renderSubmitOutcome {
+            renderApp {
                 AnonymousCredentialsScreen(
                     state =
                         AnonymousCredentialsViewModel.State(
@@ -401,7 +401,7 @@ class DesktopScreenshotsTest {
     @Test
     fun submitOutcomeCredentialsNoCredential() =
         perLocale { locale ->
-            renderSubmitOutcome {
+            renderApp {
                 AnonymousCredentialsScreen(
                     state =
                         AnonymousCredentialsViewModel.State(
@@ -413,21 +413,6 @@ class DesktopScreenshotsTest {
             }
             capture(locale, "26-submit-outcome-credential-no-credential")
         }
-
-    private fun ComposeUiTest.renderSubmitOutcome(content: @Composable () -> Unit) {
-        val (_, _, density) = screenshotViewport()
-        setContent {
-            CompositionLocalProvider(
-                LocalDensity provides Density(density = density, fontScale = 1f),
-                LocalLifecycleOwner provides TestLifecycleOwner(Lifecycle.State.RESUMED),
-            ) {
-                AppTheme(useDarkTheme = false) {
-                    content()
-                }
-            }
-        }
-        waitForIdle()
-    }
 
     private fun perLocale(block: ComposeUiTest.(locale: String) -> Unit) {
         val previousLocale = Locale.getDefault()
@@ -447,9 +432,20 @@ class DesktopScreenshotsTest {
         }
     }
 
-    private fun ComposeUiTest.renderApp() {
+    private fun ComposeUiTest.renderApp(content: (@Composable () -> Unit)? = null) {
         val (_, _, density) = screenshotViewport()
         val chrome = System.getProperty(CHROME_PROPERTY).orEmpty()
+
+        @Composable
+        fun renderContent() {
+            if (content == null) {
+                App(dependencies = dependencies, deepLink = null, useDarkTheme = forcedDarkTheme())
+            } else {
+                AppTheme(useDarkTheme = forcedDarkTheme()) {
+                    content()
+                }
+            }
+        }
         setContent {
             CompositionLocalProvider(
                 LocalDensity provides Density(density = density, fontScale = 1f),
@@ -457,17 +453,12 @@ class DesktopScreenshotsTest {
             ) {
                 when (chrome) {
                     CHROME_MAC ->
-                        MacScreenshotFrame {
-                            App(dependencies = dependencies, deepLink = null, useDarkTheme = forcedDarkTheme())
-                        }
+                        MacScreenshotFrame { renderContent() }
 
                     CHROME_WINDOWS ->
-                        WindowsScreenshotFrame {
-                            App(dependencies = dependencies, deepLink = null, useDarkTheme = forcedDarkTheme())
-                        }
+                        WindowsScreenshotFrame { renderContent() }
 
-                    else ->
-                        App(dependencies = dependencies, deepLink = null, useDarkTheme = forcedDarkTheme())
+                    else -> renderContent()
                 }
             }
         }
