@@ -29,7 +29,7 @@ class OfflineFailureTest {
     @Test
     fun submitHttpErrorsAreNotOfflineFailures() {
         listOf(400, 404, 500).forEach { status ->
-            val exception = PassportException.HttpClientError("Submit returned HTTP $status")
+            val exception = PassportException.HttpStatus(status, null)
             assertFalse(
                 exception.isOfflineFailure(),
                 "HTTP $status must not be classified as an offline failure",

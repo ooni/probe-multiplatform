@@ -8,6 +8,7 @@ import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
+import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.SubmitError
 import org.ooni.passport.models.VerificationStatus
 import org.ooni.passport.models.isOfflineFailure
@@ -81,10 +82,7 @@ class SubmitMeasurement(
 
         val result = submitMeasurementWithUser(report)
             .flatMapError { reason ->
-                // The legacy engine upload is a separate HTTP stack, so the Passport gate does not
-                // cover it. Falling back while offline would just block on a socket that cannot
-                // connect.
-                if (reason.isOfflineFailure()) Failure(reason) else submitLegacy(report)
+                if (shouldFallbackToLegacy(reason)) submitLegacy(report) else Failure(reason)
             }
 
         return when (result) {
@@ -125,6 +123,24 @@ class SubmitMeasurement(
             }.mapError { it.cause }
 
     /**
+     * The OONI submission contract guarantees that a `2xx` response stored the measurement and
+     * that `4xx` and `5xx` responses did not. Client errors therefore stop the legacy fallback,
+     * except for the transient [408](https://www.rfc-editor.org/rfc/rfc9110#section-15.5.9) and
+     * [429](https://www.rfc-editor.org/rfc/rfc6585#section-4) responses.
+     *
+     * See <https://github.com/ooni/backend/blob/e5aa51a275622dec67aea763c41f7eded33cbcbd/ooniapi/services/ooniprobe/src/ooniprobe/routers/v1/probe_services.py#L908-L910>.
+     */
+    private fun shouldFallbackToLegacy(reason: Throwable?): Boolean =
+        when (reason) {
+            is PassportException.HttpStatus ->
+                reason.statusCode == HTTP_REQUEST_TIMEOUT ||
+                    reason.statusCode == HTTP_TOO_MANY_REQUESTS ||
+                    reason.statusCode in HTTP_SERVER_ERROR_RANGE
+
+            else -> !reason.isOfflineFailure()
+        }
+
+    /**
      * Structural JSON validity of the report. Returns null when valid, or a parser message used
      * only to derive a coarse diagnostic category. Structural-only on purpose: a valid-but-fieldless
      * report may still submit via the legacy path, so we must not abandon it.
@@ -151,6 +167,15 @@ class SubmitMeasurement(
     )
 
     companion object {
+        /** [408 Request Timeout](https://www.rfc-editor.org/rfc/rfc9110#section-15.5.9). */
+        private const val HTTP_REQUEST_TIMEOUT = 408
+
+        /** [429 Too Many Requests](https://www.rfc-editor.org/rfc/rfc6585#section-4). */
+        private const val HTTP_TOO_MANY_REQUESTS = 429
+
+        /** OONI documents `5xx` submission responses as not stored and safe for fallback. */
+        private val HTTP_SERVER_ERROR_RANGE = 500..599
+
         /**
          * Categorizes JSON parse errors into coarse buckets for Sentry grouping and operational
          * triage. The categories mirror the three corrupt-measurement-report symptoms:

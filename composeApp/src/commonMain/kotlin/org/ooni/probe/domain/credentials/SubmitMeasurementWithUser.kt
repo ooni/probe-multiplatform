@@ -52,13 +52,9 @@ class SubmitMeasurementWithUser(
             credentialConfig,
         ).onSuccess { result ->
             if (!result.response.isSuccessful) {
-                val exception = PassportException.HttpClientError(
-                    buildString {
-                        append("Submit returned HTTP ").append(result.response.statusCode)
-                        result.response.bodyText
-                            ?.takeIf { it.isNotBlank() }
-                            ?.let { append(": ").append(it.take(MAX_ERROR_BODY_LENGTH)) }
-                    },
+                val exception = PassportException.HttpStatus(
+                    statusCode = result.response.statusCode,
+                    responseBody = result.response.bodyText?.take(MAX_ERROR_BODY_LENGTH),
                 )
                 Logger.w("Submit returned non-2XX", exception)
                 Instrumentation.reportTransaction(
