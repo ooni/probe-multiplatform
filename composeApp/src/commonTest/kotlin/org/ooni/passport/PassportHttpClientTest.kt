@@ -1,6 +1,7 @@
 package org.ooni.passport
 
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.Failure
@@ -254,17 +255,19 @@ class PassportHttpClientTest {
 
         override fun userAuthRegister(
             url: String,
+            headers: List<PassportBridge.KeyValue>,
             publicParams: String,
             manifestVersion: String,
             proxy: String?,
             timeout: Float?,
         ): Result<CredentialResponse, PassportException> {
-            record(emptyList(), proxy, timeout)
+            record(headers, proxy, timeout)
             return Failure(PassportException.Other("not exercised"))
         }
 
         override fun userAuthSubmit(
             url: String,
+            headers: List<PassportBridge.KeyValue>,
             content: String,
             probeCc: String,
             probeAsn: String,
@@ -272,7 +275,7 @@ class PassportHttpClientTest {
             timeout: Float?,
             credentialConfig: SubmitCredentialConfig?,
         ): Result<CredentialResponse, PassportException> {
-            record(emptyList(), proxy, timeout)
+            record(headers, proxy, timeout)
             return Failure(PassportException.Other("not exercised"))
         }
 
