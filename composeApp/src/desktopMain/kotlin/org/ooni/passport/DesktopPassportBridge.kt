@@ -71,13 +71,22 @@ class DesktopPassportBridge(
 
     override fun userAuthRegister(
         url: String,
+        headers: List<PassportBridge.KeyValue>,
         publicParams: String,
         manifestVersion: String,
         proxy: String?,
         timeout: Float?,
     ): Result<CredentialResponse, PassportException> =
         try {
-            val result = userauthRegister(url, publicParams, manifestVersion, proxy, timeout, userAgent)
+            val result = userauthRegister(
+                url = url,
+                publicParams = publicParams,
+                manifestVersion = manifestVersion,
+                headers = headers.map { KeyValue(it.key, it.value) },
+                proxy = proxy,
+                timeout = timeout,
+                userAgent = userAgent,
+            )
             Success(result.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
@@ -87,6 +96,7 @@ class DesktopPassportBridge(
 
     override fun userAuthSubmit(
         url: String,
+        headers: List<PassportBridge.KeyValue>,
         content: String,
         probeCc: String,
         probeAsn: String,
@@ -97,6 +107,7 @@ class DesktopPassportBridge(
         try {
             val result = userauthSubmit(
                 url = url,
+                headers = headers.map { KeyValue(it.key, it.value) },
                 content = content,
                 probeCc = probeCc,
                 probeAsn = probeAsn,

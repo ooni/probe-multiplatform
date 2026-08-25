@@ -81,6 +81,7 @@ class PassportHttpClient(
         dispatch(url) { proxy ->
             passportAuthRegister.userAuthRegister(
                 url = url,
+                headers = commonHeaders(),
                 publicParams = publicParams,
                 manifestVersion = manifestVersion,
                 proxy = proxy,
@@ -99,6 +100,7 @@ class PassportHttpClient(
         dispatch(url) { proxy ->
             passportAuthSubmit.userAuthSubmit(
                 url = url,
+                headers = commonHeaders(),
                 content = content,
                 probeCc = probeCc,
                 probeAsn = probeAsn,
