@@ -17,7 +17,10 @@ sealed interface TaskEvent {
         val countryCode: String?,
         val geoIpdb: String?,
         val networkType: NetworkType,
-    ) : TaskEvent
+        val shouldAbort: Boolean = false,
+    ) : TaskEvent {
+        override fun shouldAbort(): Boolean = shouldAbort
+    }
 
     data class Log(
         val level: String?,
@@ -75,6 +78,8 @@ sealed interface TaskEvent {
     data class TaskTerminated(
         val index: Int,
     ) : TaskEvent
+
+    fun shouldAbort(): Boolean = false
 
     fun isCancelled() =
         when (this) {

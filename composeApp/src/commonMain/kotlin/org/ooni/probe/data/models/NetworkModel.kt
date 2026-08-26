@@ -18,7 +18,9 @@ data class NetworkModel(
     )
 
     fun isValid() =
-        asn != "AS0" &&
+        !asn.isAsnZero() &&
             !countryCode.equals("ZZ", ignoreCase = true) &&
             !countryCode.equals("XX", ignoreCase = true)
 }
+
+fun String?.isAsnZero() = this == "AS0" || this == "0"
