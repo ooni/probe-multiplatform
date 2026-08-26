@@ -71,7 +71,14 @@ class Engine(
                 while (!task.isDone() && isActive) {
                     val eventJson = task.waitForNextEvent()
                     val taskEventResult = json.decodeFromString<TaskEventResult>(eventJson)
-                    taskEventMapper(taskEventResult, isCancelled)?.let { send(it) }
+                    val event = taskEventMapper(taskEventResult, isCancelled)
+                    if (event != null) {
+                        send(event)
+                        if (event.shouldAbort()) {
+                            isCancelled = true
+                            task.interrupt()
+                        }
+                    }
                 }
             } catch (e: Exception) {
                 Logger.d("Error while running task", e)

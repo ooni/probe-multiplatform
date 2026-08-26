@@ -3,6 +3,8 @@ package org.ooni.probe.domain
 import co.touchlab.kermit.Logger
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.jsonPrimitive
 import org.ooni.engine.Engine.MkException
 import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
 import org.ooni.engine.models.Failure
@@ -14,6 +16,7 @@ import org.ooni.passport.models.isOfflineFailure
 import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.ReadFile
 import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.isAsnZero
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.monitoring.reportTransaction
 
@@ -79,6 +82,22 @@ class SubmitMeasurement(
             return marked
         }
 
+        if (reportProbeAsn(report).isAsnZero()) {
+            return Instrumentation.withTransaction(
+                operation = "SubmitReportAsnZero",
+                data = mapOf("test" to measurement.test.name),
+            ) {
+                Logger.w("Measurement ASN is 0; skipping upload")
+                val marked = measurement.copy(
+                    isDone = false,
+                    isFailed = true,
+                    failureMessage = "ASN is 0",
+                )
+                updateMeasurement(marked)
+                marked
+            }
+        }
+
         val result = submitMeasurementWithUser(report)
             .flatMapError { reason ->
                 // The legacy engine upload is a separate HTTP stack, so the Passport gate does not
@@ -134,6 +153,16 @@ class SubmitMeasurement(
             if (json.parseToJsonElement(report) is JsonObject) null else "root is not a JSON object"
         } catch (e: Exception) {
             e.message ?: "unparseable"
+        }
+
+    private fun reportProbeAsn(report: String): String? =
+        try {
+            (json.parseToJsonElement(report) as? JsonObject)
+                ?.get("probe_asn")
+                ?.jsonPrimitive
+                ?.contentOrNull
+        } catch (_: Exception) {
+            null
         }
 
     class SubmitFailed(

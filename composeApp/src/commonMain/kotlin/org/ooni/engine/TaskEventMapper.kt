@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskEventResult
+import org.ooni.probe.data.models.isAsnZero
 
 class TaskEventMapper(
     private val networkTypeFinder: NetworkTypeFinder,
@@ -108,6 +109,7 @@ class TaskEventMapper(
                     countryCode = value?.probeCc,
                     geoIpdb = value?.geoIpdb,
                     networkType = networkTypeFinder(),
+                    shouldAbort = value?.probeAsn.isAsnZero(),
                 )
 
             "status.resolver_lookup" -> value?.geoIpdb?.let {

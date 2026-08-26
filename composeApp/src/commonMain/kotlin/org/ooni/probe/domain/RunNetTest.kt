@@ -12,6 +12,7 @@ import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorItem
+import org.ooni.probe.data.models.isAsnZero
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.NetworkModel
@@ -20,6 +21,7 @@ import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.monitoring.Instrumentation
+import org.ooni.probe.shared.monitoring.reportTransaction
 import org.ooni.probe.shared.toLocalDateTime
 
 class RunNetTest(
@@ -103,6 +105,11 @@ class RunNetTest(
                 val networkId = storeNetwork(network)
                 lastNetwork = network.copy(id = networkId)
                 updateResult { it.copy(networkId = networkId) }
+
+                if (event.asn.isAsnZero()) {
+                    Instrumentation.reportTransaction("RunNetTest.AsnZero")
+                    updateResult { it.copy(failureMessage = "ASN is 0") }
+                }
             }
 
             is TaskEvent.ReportCreate -> {
