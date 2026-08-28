@@ -1,6 +1,5 @@
 package org.ooni.probe.core
 
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,9 +53,7 @@ private class DesktopCliAutoRunGateway(
         isLenient = true
     }
     private val resultRepository = ResultRepository(database, backgroundContext)
-    private val preferenceRepository = PreferenceRepository(
-        PreferenceDataStoreFactory.create(scope = scope) { File(config.preferencesFile) },
-    )
+    private val preferenceRepository = PreferenceRepository(JsonFilePreferencesDataStore(File(config.preferencesFile)))
     private val descriptorAssets: DescriptorAssetProvider = ClasspathDescriptorAssetProvider()
 
     private val getAutoRunSettings = GetAutoRunSettings(preferenceRepository::allSettings)

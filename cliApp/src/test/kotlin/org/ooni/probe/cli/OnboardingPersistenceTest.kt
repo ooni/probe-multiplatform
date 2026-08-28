@@ -1,14 +1,9 @@
 package org.ooni.probe.cli
 
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.ooni.probe.core.CliStorageConfig
+import org.ooni.probe.core.JsonFilePreferencesDataStore
 import org.ooni.probe.core.buildDesktopCliStorageGateway
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
@@ -109,29 +104,15 @@ class OnboardingPersistenceTest {
     }
 
     // getValueByKey returns Flow<Any?>; FIRST_RUN is a boolean preference (false == not-first-run).
-    private suspend fun readFirstRun(paths: CliPathLayout): Any? {
-        val store = preferenceStore(paths.preferenceDataStoreFile)
-        return try {
-            store.repository.getValueByKey(SettingsKey.FIRST_RUN).first()
-        } finally {
-            store.close()
-        }
-    }
+    private suspend fun readFirstRun(paths: CliPathLayout): Any? =
+        preferenceRepository(paths.preferenceDataStoreFile).getValueByKey(SettingsKey.FIRST_RUN).first()
 
-    private suspend fun firstRunKeyExists(paths: CliPathLayout): Boolean {
-        val store = preferenceStore(paths.preferenceDataStoreFile)
-        return try {
-            store.repository.contains(SettingsKey.FIRST_RUN)
-        } finally {
-            store.close()
-        }
-    }
+    private suspend fun firstRunKeyExists(paths: CliPathLayout): Boolean =
+        preferenceRepository(paths.preferenceDataStoreFile).contains(SettingsKey.FIRST_RUN)
 
-    private fun preferenceStore(path: Path): PreferenceStore {
+    private fun preferenceRepository(path: Path): PreferenceRepository {
         Files.createDirectories(path.parent)
-        val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        val dataStore = PreferenceDataStoreFactory.create(scope = scope) { path.toFile() }
-        return PreferenceStore(PreferenceRepository(dataStore), scope)
+        return PreferenceRepository(JsonFilePreferencesDataStore(path.toFile()))
     }
 
     private fun withTempHome(block: (Path) -> Unit) {
@@ -148,14 +129,4 @@ class OnboardingPersistenceTest {
         val stdout: List<String>,
         val stderr: List<String>,
     )
-
-    private class PreferenceStore(
-        val repository: PreferenceRepository,
-        private val scope: CoroutineScope,
-    ) {
-        fun close() {
-            scope.cancel()
-            scope.coroutineContext[Job]?.cancel()
-        }
-    }
 }

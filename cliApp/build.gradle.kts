@@ -2,6 +2,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinJvm)
+    alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.graalvmNative)
     application
     id("ooni.common")
 }
@@ -31,6 +33,7 @@ val generateCliBuildConfig = tasks.register("generateCliBuildConfig") {
 }
 
 kotlin {
+    jvmToolchain(25)
     compilerOptions {
         jvmTarget.set(JvmTarget.JVM_25)
     }
@@ -62,6 +65,26 @@ dependencies {
 application {
     mainClass = "org.ooni.probe.cli.MainKt"
     applicationName = "ooniprobe"
+}
+
+graalvmNative {
+    binaries {
+        named("main") {
+            imageName.set("ooniprobe")
+            mainClass.set("org.ooni.probe.cli.MainKt")
+            buildArgs.add("--no-fallback")
+            // Enable JNI and other features
+            buildArgs.add("-H:+ReportExceptionStackTraces")
+            buildArgs.add("--initialize-at-build-time=co.touchlab.kermit")
+            buildArgs.add("--initialize-at-build-time=androidx.datastore.preferences.protobuf")
+        }
+    }
+    metadataRepository {
+        enabled.set(true)
+    }
+    agent {
+        enabled.set(true)
+    }
 }
 
 version = appVersionName

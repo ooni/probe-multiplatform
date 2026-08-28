@@ -63,6 +63,10 @@ OONI home resolution: the `OONI_HOME` environment variable, else `${user.home}/.
 `--config <file>` selects the config file only; it does not redirect the home. Data lives under
 `<ooniHome>/data`, logs under `<ooniHome>/logs`.
 
+Onboarding and autorun preferences persist to `<ooniHome>/data/probe.preferences.json` via
+`JsonFilePreferencesDataStore` (`org.ooni.probe.core`), not Android DataStore's protobuf format —
+see [issue #1546](https://github.com/ooni/probe-multiplatform/issues/1546) for why.
+
 ## Build, run, test
 
 ```bash
@@ -79,6 +83,51 @@ OONI_HOME=$(mktemp -d) "$BIN" onboard --yes
 ```
 
 Tests never touch the real `~/.ooniprobe`; they inject a temporary `OONI_HOME` and temp paths.
+
+## Native image (GraalVM)
+
+`:cliApp` also builds as a single native executable via the
+[GraalVM Native Build Tools](https://graalvm.github.io/native-build-tools/) plugin:
+
+```bash
+./gradlew :cliApp:nativeCompile
+BIN=cliApp/build/native/nativeCompile/ooniprobe
+"$BIN" version
+```
+
+Requires a GraalVM JDK matching the module's `jvmTarget` (currently 25) — mismatched JDK versions
+between the toolchain and `native-image` fail the build. `.github/workflows/cli-native-build.yml`
+builds and uploads the binary for macOS, Linux, and Windows on every push/PR touching `cliApp`,
+`probeCore`, or `desktopShared`.
+
+Reachability metadata (reflection/JNI/resources needed by the closed-world native build) lives
+under `src/main/resources/META-INF/native-image/org.ooni.probe.cli/`, split across two files:
+
+- `reachability-metadata.json` — the unified modern format: reflection/JNI (`oonimkall`/gomobile Go
+  bridge, the `uniffi.ooniprobe`/passport bridge, JNA, sqlite-jdbc) plus exact bundled-native-library
+  resource paths, hand-curated and agent-captured together.
+- `resource-config.json` — kept separate on purpose: its regex `pattern` resource includes (bundling
+  `linux/*`/`macos/*`/`windows/*`/`jniLibs/*`/`org/sqlite/native/*`/`assets/descriptors/*.json`/etc.
+  for all platforms/architectures) are silently ignored if moved into `reachability-metadata.json`'s
+  `resources` array, which only honors exact `glob` entries, not `pattern` regexes.
+
+To regenerate or extend the reflection/JNI side after touching a code path with new reflection/JNI
+usage, run each affected subcommand through GraalVM's native-image tracing agent, then merge its
+output in:
+
+```bash
+./gradlew -Pagent :cliApp:run --args="<subcommand> ..."
+./gradlew :cliApp:metadataCopy --task run --dir=src/main/resources/META-INF/native-image/org.ooni.probe.cli
+./gradlew :cliApp:nativeCompile   # rebuild and manually smoke-test the affected subcommand(s)
+```
+
+GraalVM's tracing agent only observes Java-level reflection — it can't see native code (the
+Go/gomobile bridge, or JNA `Structure` subclasses like `uniffi.ooniprobe.*`) calling back into the
+JVM. Gaps there only show up as a crash in the compiled binary, not in the agent's trace or in
+`:cliApp:run`; diagnose from the exception (`JNIFunctions$Support.getMethodID` NPE,
+`Structure.getFieldOrder()` mismatch, or a "Cannot reflectively access the proxy class" error, which
+GraalVM prints the exact fix for) and register the missing class in `reachability-metadata.json` by
+hand.
 
 ## Exit codes
 

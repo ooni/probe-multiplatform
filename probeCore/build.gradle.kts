@@ -21,6 +21,8 @@ val appVersionCode = libs.versions.app.versionCode
     .toInt()
 
 kotlin {
+    jvmToolchain(25)
+
     android {
         namespace = "org.ooni.probe.core"
         compileSdk = libs.versions.android.compileSdk

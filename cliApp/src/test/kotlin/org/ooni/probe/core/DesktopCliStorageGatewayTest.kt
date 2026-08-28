@@ -24,7 +24,7 @@ class DesktopCliStorageGatewayTest {
     fun listShowRemoveAndOnboardingAgainstTempDatabase() =
         runTest {
             val dataDir = Files.createTempDirectory("cli-storage-test")
-            val prefsFile = dataDir.resolve("probe.preferences_pb")
+            val prefsFile = dataDir.resolve("probe.preferences.json")
             try {
                 // Seed a result + measurement via a separate driver, then close it so the gateway
                 // reads the committed on-disk database (WAL), exactly as the CLI would.
