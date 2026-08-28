@@ -152,12 +152,12 @@ abstract class ExtractMacOsNativeLibrariesTask : DefaultTask() {
             // oonimkall, so this jar is only on the classpath for desktop
             // macOS builds. Skip silently if not found.
             Plan(
-                jarPattern = Regex("""^oonimkall-.*-darwin\.jar$"""),
+                jarPattern = Regex("""^oonimkall-.*\.jar$"""),
                 entries = listOf(
                     "jniLibs/arm64/libgojni.dylib" to "gojni/darwin-aarch64/libgojni.dylib",
                     "jniLibs/amd64/libgojni.dylib" to "gojni/darwin-x86-64/libgojni.dylib",
                 ),
-                required = false,
+                required = true,
             ),
             // passport (UniFFI) — UniFFI-generated Kotlin calls
             // `Native.load("uniffi_ooniprobe", …)`, which normally extracts

@@ -155,7 +155,7 @@ internal fun buildPlatformInfo(): PlatformInfo {
         knownBatteryState = false,
         knownNetworkType = false,
         languageSupport = LanguageSupport.IN_APP,
-        hasDonations = true,
+        hasDonations = Distribution.current.hasDonations,
         canPullToRefresh = false,
         supportsRunAtStartup = true,
         sentryDsn = "https://e33da707dc40ab9508198b62de9bc269@o155150.ingest.sentry.io/4509084408610816",
