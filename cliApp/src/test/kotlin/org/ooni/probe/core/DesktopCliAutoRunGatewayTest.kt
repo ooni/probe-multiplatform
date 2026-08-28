@@ -15,7 +15,7 @@ class DesktopCliAutoRunGatewayTest {
             // real gateway (no engine/native library) reading real bundled descriptors + real
             // (default) preferences + an empty results database.
             val dataDir = Files.createTempDirectory("cli-autorun-test")
-            val prefsFile = dataDir.resolve("probe.preferences_pb")
+            val prefsFile = dataDir.resolve("probe.preferences.json")
             val gateway = buildDesktopCliAutoRunGateway(
                 CliStorageConfig(databaseDir = dataDir.toString(), preferencesFile = prefsFile.toString()),
             )
@@ -42,7 +42,7 @@ class DesktopCliAutoRunGatewayTest {
     fun statusIsRepeatableAcrossCalls() =
         runTest {
             val dataDir = Files.createTempDirectory("cli-autorun-repeat")
-            val prefsFile = dataDir.resolve("probe.preferences_pb")
+            val prefsFile = dataDir.resolve("probe.preferences.json")
             val gateway = buildDesktopCliAutoRunGateway(
                 CliStorageConfig(databaseDir = dataDir.toString(), preferencesFile = prefsFile.toString()),
             )

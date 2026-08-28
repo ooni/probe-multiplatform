@@ -1,0 +1,33 @@
+{
+  "resources": {
+    "includes": [
+      {
+        "pattern": "assets/descriptors/.*\\.json"
+      },
+      {
+        "pattern": "linux/.*"
+      },
+      {
+        "pattern": "macos/.*"
+      },
+      {
+        "pattern": "windows/.*"
+      },
+      {
+        "pattern": "jniLibs/.*"
+      },
+      {
+        "pattern": "com/sun/jna/.*"
+      },
+      {
+        "pattern": "org/sqlite/native/.*"
+      },
+      {
+        "pattern": "darwin-universal/.*"
+      },
+      {
+        "pattern": ".*\\.mmdb"
+      }
+    ]
+  }
+}

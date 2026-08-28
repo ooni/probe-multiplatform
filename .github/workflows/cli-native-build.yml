@@ -1,0 +1,67 @@
+name: CLI Native Build
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'cliApp/**'
+      - 'probeCore/**'
+      - 'desktopShared/**'
+      - '.github/workflows/cli-native-build.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'cliApp/**'
+      - 'probeCore/**'
+      - 'desktopShared/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '25'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build with Gradle
+        run: ./gradlew :cliApp:nativeCompile
+
+      - name: Rename binary (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          mv cliApp/build/native/nativeCompile/ooniprobe.exe cliApp/build/native/nativeCompile/ooniprobe-${{ matrix.os }}.exe
+
+      - name: Rename binary (Linux/macOS)
+        if: matrix.os != 'windows-latest'
+        run: |
+          mv cliApp/build/native/nativeCompile/ooniprobe cliApp/build/native/nativeCompile/ooniprobe-${{ matrix.os }}
+
+      - name: Upload Binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: ooniprobe-${{ matrix.os }}
+          path: |
+            cliApp/build/native/nativeCompile/ooniprobe-${{ matrix.os }}*

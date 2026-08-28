@@ -1,6 +1,5 @@
 package org.ooni.probe.core
 
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -105,9 +104,7 @@ private class DesktopCliRunGateway(
     private val urlRepository = UrlRepository(database, backgroundContext)
     private val networkRepository = NetworkRepository(database, backgroundContext)
     private val testDescriptorRepository = TestDescriptorRepository(database, json, backgroundContext)
-    private val preferenceRepository = PreferenceRepository(
-        PreferenceDataStoreFactory.create(scope = scope) { File(config.preferencesFile()) },
-    )
+    private val preferenceRepository = PreferenceRepository(JsonFilePreferencesDataStore(File(config.preferencesFile())))
 
     private val platformInfo = PlatformInfo(
         buildName = config.softwareVersion,
@@ -397,4 +394,4 @@ private class DesktopCliRunGateway(
 
 // The upload gateway's CliEngineConfig has no preferences path (it never touches DataStore); the run
 // gateway derives one next to the database so onboarding/upload preferences persist per CLI home.
-private fun CliEngineConfig.preferencesFile(): String = File(databaseDir, "probe.preferences_pb").path
+private fun CliEngineConfig.preferencesFile(): String = File(databaseDir, "probe.preferences.json").path

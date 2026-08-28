@@ -68,7 +68,7 @@ data class CliPathLayout(
 ) {
     val dataDir: Path = ooniHome.resolve("data")
     val databaseFile: Path = dataDir.resolve("probe.db")
-    val preferenceDataStoreFile: Path = dataDir.resolve("probe.preferences_pb")
+    val preferenceDataStoreFile: Path = dataDir.resolve("probe.preferences.json")
     val stateDir: Path = dataDir.resolve("state")
     val cacheDir: Path = ooniHome.resolve("cache")
     val logsDir: Path = ooniHome.resolve("logs")

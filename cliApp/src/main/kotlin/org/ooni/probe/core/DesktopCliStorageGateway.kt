@@ -1,6 +1,5 @@
 package org.ooni.probe.core
 
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,9 +36,7 @@ private class DesktopCliStorageGateway(
     }
     private val resultRepository = ResultRepository(database, backgroundContext)
     private val measurementRepository = MeasurementRepository(database, json, backgroundContext)
-    private val preferenceRepository = PreferenceRepository(
-        PreferenceDataStoreFactory.create(scope = scope) { File(config.preferencesFile) },
-    )
+    private val preferenceRepository = PreferenceRepository(JsonFilePreferencesDataStore(File(config.preferencesFile)))
 
     override suspend fun listResults(): List<ResultWithNetworkAndAggregates> = resultRepository.list().first()
 

@@ -1,15 +1,10 @@
 package org.ooni.probe.cli
 
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskLogLevel
+import org.ooni.probe.core.JsonFilePreferencesDataStore
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
 import java.nio.file.Files
@@ -191,9 +186,7 @@ class CliRuntimeTest {
 
     private fun preferenceStore(path: Path): PreferenceStore {
         Files.createDirectories(path.parent)
-        val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        val dataStore = PreferenceDataStoreFactory.create(scope = scope) { path.toFile() }
-        return PreferenceStore(PreferenceRepository(dataStore), scope)
+        return PreferenceStore(PreferenceRepository(JsonFilePreferencesDataStore(path.toFile())))
     }
 
     private suspend fun withTempDirectory(block: suspend (Path) -> Unit) {
@@ -207,11 +200,7 @@ class CliRuntimeTest {
 
     private class PreferenceStore(
         val repository: PreferenceRepository,
-        private val scope: CoroutineScope,
     ) {
-        fun close() {
-            scope.cancel()
-            scope.coroutineContext[Job]?.cancel()
-        }
+        fun close() = Unit
     }
 }
