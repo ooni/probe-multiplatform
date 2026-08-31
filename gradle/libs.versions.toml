@@ -10,7 +10,7 @@ android-targetSdk = "37"
 app-versionName = "6.2.0"
 app-versionCode = "360" # Always increment by 10. See fdroid ABI offsets in androidApp
 
-compose-plugin = "1.11.1"
+compose-plugin = "1.12.0"
 kotlin = "2.4.10"
 passport = "0.1.6"
 sqldelight = "2.3.2"
