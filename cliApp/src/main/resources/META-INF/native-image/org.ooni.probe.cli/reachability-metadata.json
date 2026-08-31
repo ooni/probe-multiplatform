@@ -1,6 +1,24 @@
 {
   "reflection": [
     {
+      "type": "com.sun.jna.ptr.IntByReference",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.jna.ptr.PointerByReference",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "boolean[]",
       "jniAccessible": true
     },
@@ -1808,6 +1826,15 @@
     },
     {
       "glob": "darwin-universal/libuniffi_ooniprobe.dylib"
+    },
+    {
+      "glob": "linux-x86-64/libuniffi_ooniprobe.so"
+    },
+    {
+      "glob": "linux-aarch64/libuniffi_ooniprobe.so"
+    },
+    {
+      "glob": "win32-x86-64/uniffi_ooniprobe.dll"
     },
     {
       "glob": "jniLibs/arm64/libgojni.dylib"

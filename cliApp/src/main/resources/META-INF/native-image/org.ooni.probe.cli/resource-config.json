@@ -26,6 +26,15 @@
         "pattern": "darwin-universal/.*"
       },
       {
+        "pattern": "linux-x86-64/.*"
+      },
+      {
+        "pattern": "linux-aarch64/.*"
+      },
+      {
+        "pattern": "win32-x86-64/.*"
+      },
+      {
         "pattern": ".*\\.mmdb"
       }
     ]
