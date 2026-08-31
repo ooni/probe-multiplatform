@@ -1770,6 +1770,27 @@
           "uniffi.ooniprobe.UniffiLib"
         ]
       }
+    },
+    {
+      "type": {
+        "proxy": [
+          "org.ooni.engine.securestorage.LinuxSecureStorage$LibSecret"
+        ]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
+          "org.ooni.engine.securestorage.WindowsSecureStorage$Advapi32"
+        ]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
+          "org.ooni.engine.securestorage.MacOsSecureStorage$Security"
+        ]
+      }
     }
   ],
   "resources": [

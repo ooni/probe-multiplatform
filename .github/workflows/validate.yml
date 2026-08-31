@@ -93,8 +93,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Setup
-        uses: ./.github/actions/setup
+      - name: Set up GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '25'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
 
       - name: CLI + core unit tests
         run: ./gradlew :cliApp:test :probeCore:desktopTest
