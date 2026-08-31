@@ -19,7 +19,7 @@ junitKtx = "1.3.0"
 mokoPermissions = "0.20.1"
 ktor = "3.5.2"
 compose-ui = "1.11.4" # Checkout https://developer.android.com/jetpack/androidx/releases/compose-ui
-coil = "3.5.0"
+coil = "3.6.0"
 jna = "5.19.1"
 oonimkall = "3.30.0"
 
