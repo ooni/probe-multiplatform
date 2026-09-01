@@ -10,7 +10,6 @@ plugins {
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ktlint)
-    alias(libs.plugins.sqldelight)
     alias(libs.plugins.javafx) apply false
     // The Sentry Android Gradle plugin instruments the Android application and
     // uploads ProGuard mappings, so it lives in the :androidApp module now.
@@ -96,6 +95,10 @@ kotlin {
             baseName = "composeApp"
             isStatic = true
             binaryOption("bundleId", "composeApp")
+            // Export :probeCore (passport bridge/models, engine, domain types moved out of
+            // composeApp) into the framework header. Without export they resolve for Kotlin but are
+            // invisible to Swift in iosApp.
+            export(project(":probeCore"))
         }
 
         // See https://github.com/getsentry/sentry-kotlin-multiplatform?tab=readme-ov-file#cocoa-sdk-version-compatibility-table
@@ -139,6 +142,9 @@ kotlin {
         }
         commonMain {
             dependencies {
+                // `api` (not `implementation`) so the framework can `export(project(":probeCore"))`
+                // and expose probeCore's public API (passport/engine/domain types) to Swift.
+                api(project(":probeCore"))
                 implementation(libs.compose.runtime)
                 implementation(libs.compose.foundation)
                 implementation(libs.compose.material3)
@@ -162,7 +168,6 @@ kotlin {
             kotlin.srcDir(tasks.named("generateSharedBuildConfig"))
         }
         iosMain.dependencies {
-            implementation(libs.sqldelight.native)
             implementation(libs.bundles.mobile)
             implementation(libs.bundles.ios)
         }
@@ -224,7 +229,6 @@ kotlin {
             // actuals (in-memory DB / DataStore / SecureStorage); these need the
             // JVM SQLDelight + DataStore drivers on the test classpath.
             dependencies {
-                implementation(libs.sqldelight.jvm)
                 implementation(libs.androidx.datastore.preferences.core)
                 implementation(libs.androidx.datastore.core.okio)
                 implementation(libs.kotlinx.coroutines.test)
@@ -284,16 +288,6 @@ tasks.withType<Test>().configureEach {
 androidComponents {
     onVariants { variant ->
         variant.sources.res?.addStaticSourceDirectory("src/commonMain/res")
-    }
-}
-
-sqldelight {
-    databases {
-        create("Database") {
-            packageName = "org.ooni.probe"
-            schemaOutputDirectory = file("src/commonMain/sqldelight/databases")
-            verifyMigrations = true
-        }
     }
 }
 

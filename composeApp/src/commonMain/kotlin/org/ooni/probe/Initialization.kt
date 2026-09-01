@@ -5,14 +5,14 @@ import co.touchlab.kermit.Severity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.ComposeDependencies
 import org.ooni.probe.shared.PlatformInfo
 
 // On App Start
-fun initialization(dependencies: Dependencies) = initialization(dependencies, CoroutineScope(Dispatchers.Default))
+fun initialization(dependencies: ComposeDependencies) = initialization(dependencies, CoroutineScope(Dispatchers.Default))
 
 fun initialization(
-    dependencies: Dependencies,
+    dependencies: ComposeDependencies,
     coroutineScope: CoroutineScope,
 ) {
     coroutineScope.launch {

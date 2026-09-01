@@ -6,7 +6,7 @@ import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.probe.shared.toLocalDateTime
 import org.ooni.testing.createTestDatabaseDriver
 import org.ooni.testing.factories.DescriptorFactory
@@ -24,8 +24,8 @@ class TestDescriptorRepositoryTest {
     @BeforeTest
     fun before() {
         subject = TestDescriptorRepository(
-            database = Dependencies.buildDatabase(::createTestDatabaseDriver),
-            json = Dependencies.buildJson(),
+            database = CoreDependencies.buildDatabase(::createTestDatabaseDriver),
+            json = CoreDependencies.buildJson(),
             backgroundContext = Dispatchers.Default,
         )
     }

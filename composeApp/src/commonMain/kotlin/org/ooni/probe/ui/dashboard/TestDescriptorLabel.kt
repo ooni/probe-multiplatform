@@ -1,5 +1,9 @@
 package org.ooni.probe.ui.dashboard
 
+import org.ooni.probe.data.models.color
+import org.ooni.probe.data.models.icon
+import org.ooni.probe.data.models.title
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding

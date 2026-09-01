@@ -20,7 +20,6 @@ import org.ooni.engine.models.Result
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.RunSpecification
-import org.ooni.probe.data.models.toDescriptorItem
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.domain.descriptors.SaveTestDescriptors
 import org.ooni.probe.shared.now
@@ -123,7 +122,7 @@ class AddDescriptorViewModel(
                 val installedDescriptor = state.value.descriptor ?: return@onEach
                 installDescriptorAndSavePreferences()
                 startBackgroundRun(
-                    RunSpecification.buildForDescriptor(installedDescriptor.toDescriptorItem()),
+                    RunSpecification.buildForDescriptor(installedDescriptor),
                 )
                 _state.update {
                     it.copy(messages = it.messages + Message.AddDescriptorSuccess)
@@ -158,7 +157,7 @@ class AddDescriptorViewModel(
             .filter { it.isSelected }
             .map { it.item }
         preferenceRepository.setAreNetTestsEnabled(
-            selectedTests.map { test -> descriptor.toDescriptorItem() to test },
+            selectedTests.map { test -> descriptor to test },
             isAutoRun = true,
             isEnabled = true,
         )

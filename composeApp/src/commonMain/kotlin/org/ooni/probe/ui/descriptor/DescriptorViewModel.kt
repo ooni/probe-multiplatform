@@ -1,5 +1,7 @@
 package org.ooni.probe.ui.descriptor
 
+import org.ooni.probe.data.models.runLink
+
 import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -78,7 +80,7 @@ class DescriptorViewModel(
             .flatMapLatest { descriptor ->
                 combine(
                     preferenceRepository.areNetTestsEnabled(
-                        list = descriptor.allTests.map { descriptor to it },
+                        list = descriptor.allTests.map { descriptor.descriptor to it },
                         isAutoRun = true,
                     ),
                     getMaxRuntime(),
@@ -92,7 +94,7 @@ class DescriptorViewModel(
                             tests = descriptor.allTests.map { test ->
                                 SelectableItem(
                                     item = test,
-                                    isSelected = preferences[descriptor to test] == true,
+                                    isSelected = preferences[descriptor.descriptor to test] == true,
                                 )
                             },
                         )
@@ -134,7 +136,7 @@ class DescriptorViewModel(
                 val descriptor = state.value.descriptor ?: return@onEach
                 val allTestsSelected = state.value.tests.all { it.isSelected }
                 preferenceRepository.setAreNetTestsEnabled(
-                    list = descriptor.allTests.map { descriptor to it },
+                    list = descriptor.allTests.map { descriptor.descriptor to it },
                     isAutoRun = true,
                     isEnabled = !allTestsSelected,
                 )
@@ -145,7 +147,7 @@ class DescriptorViewModel(
             .onEach {
                 val descriptor = state.value.descriptor ?: return@onEach
                 preferenceRepository.setAreNetTestsEnabled(
-                    list = listOf(descriptor to it.test),
+                    list = listOf(descriptor.descriptor to it.test),
                     isAutoRun = true,
                     isEnabled = it.isChecked,
                 )
@@ -323,7 +325,7 @@ class DescriptorViewModel(
 
     private fun startTest() {
         val descriptor = state.value.descriptor ?: return
-        startBackgroundRun(RunSpecification.buildForDescriptor(descriptor))
+        startBackgroundRun(RunSpecification.buildForDescriptor(descriptor.descriptor))
         onBack()
     }
 
