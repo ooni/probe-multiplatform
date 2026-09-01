@@ -60,18 +60,18 @@ DIST_DIR="${BUILD_DIR}/${APP_NAME}"
 APPDIR_NAME="OONIProbe.AppDir"
 APPIMAGE_TOOL_URL="https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
 
-# Get version from gradle.properties or use parameter
+# Get version from parameter or libs.versions.toml
 if [ -n "$1" ]; then
     VERSION="$1"
 else
-    VERSION_FILE="${PROJECT_ROOT}/composeApp/build.gradle.kts"
+    VERSION_FILE="${PROJECT_ROOT}/gradle/libs.versions.toml"
 
     VERSION=""
 
-    # Try to extract versionName from composeApp/build.gradle.kts (supports single/double quotes)
+    # Try to extract app-versionName from gradle/libs.versions.toml (supports single/double quotes)
     if [ -f "$VERSION_FILE" ]; then
-        # Use grep -Po to extract the versionName value (handles single or double quotes)
-        VERSION=$(grep -Po "versionName\s*=\s*['\"]\K[^'\"]+" "$VERSION_FILE" | head -n1 || true)
+        # Use grep -Po to extract the app-versionName value (handles single or double quotes)
+        VERSION=$(grep -Po "app-versionName\s*=\s*['\"]\K[^'\"]+" "$VERSION_FILE" | head -n1 || true)
     fi
 
     # Final fallback
