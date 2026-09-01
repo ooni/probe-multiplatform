@@ -51,6 +51,7 @@ class IosPassportBridge: PassportBridge {
 
     func userAuthRegister(
         url: String,
+        headers: [PassportBridgeKeyValue],
         publicParams: String,
         manifestVersion: String,
         proxy: String?,
@@ -61,6 +62,7 @@ class IosPassportBridge: PassportBridge {
                 url: url,
                 publicParams: publicParams,
                 manifestVersion: manifestVersion,
+                headers: headers.map { KeyValue(key: $0.key, value: $0.value) },
                 proxy: proxy,
                 timeout: timeout?.floatValue,
                 userAgent: userAgent
@@ -77,6 +79,7 @@ class IosPassportBridge: PassportBridge {
 
     func userAuthSubmit(
         url: String,
+        headers: [PassportBridgeKeyValue],
         content: String,
         probeCc: String,
         probeAsn: String,
@@ -90,6 +93,7 @@ class IosPassportBridge: PassportBridge {
                 content: content,
                 probeCc: probeCc,
                 probeAsn: probeAsn,
+                headers: headers.map { KeyValue(key: $0.key, value: $0.value) },
                 proxy: proxy,
                 timeout: timeout?.floatValue,
                 userAgent: userAgent,
@@ -124,6 +128,10 @@ class IosPassportBridge: PassportBridge {
                 reason: PassportException.Other(message: error.localizedDescription)
             )
         }
+    }
+
+    func getProtocolVersion() -> String {
+        return protocolVersion()
     }
 }
 

@@ -618,6 +618,7 @@ class Dependencies(
             passportAuthRegister = passportBridge::userAuthRegister,
             passportAuthSubmit = passportBridge::userAuthSubmit,
             getProxyOption = proxyManager::selected,
+            getProtocolVersion = passportBridge::getProtocolVersion,
             backgroundContext = backgroundContext,
             isOnline = connectivityMonitor::isOnline,
         )

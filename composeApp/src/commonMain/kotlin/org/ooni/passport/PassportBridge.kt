@@ -12,6 +12,7 @@ interface PassportBridge :
     PassportAuthRegister,
     PassportAuthSubmit,
     PassportGetProbeId,
+    PassportGetProtocolVersion,
     PassportPost {
     override fun get(
         url: String,
@@ -31,6 +32,7 @@ interface PassportBridge :
 
     override fun userAuthRegister(
         url: String,
+        headers: List<KeyValue>,
         publicParams: String,
         manifestVersion: String,
         proxy: String?,
@@ -39,6 +41,7 @@ interface PassportBridge :
 
     override fun userAuthSubmit(
         url: String,
+        headers: List<KeyValue>,
         content: String,
         probeCc: String,
         probeAsn: String,
@@ -52,6 +55,8 @@ interface PassportBridge :
         probeAsn: String,
         probeCc: String,
     ): Result<String, PassportException>
+
+    override fun getProtocolVersion(): String
 
     data class KeyValue(
         val key: String,
@@ -82,6 +87,7 @@ fun interface PassportPost {
 fun interface PassportAuthRegister {
     fun userAuthRegister(
         url: String,
+        headers: List<KeyValue>,
         publicParams: String,
         manifestVersion: String,
         proxy: String?,
@@ -92,6 +98,7 @@ fun interface PassportAuthRegister {
 fun interface PassportAuthSubmit {
     fun userAuthSubmit(
         url: String,
+        headers: List<KeyValue>,
         content: String,
         probeCc: String,
         probeAsn: String,
@@ -107,4 +114,8 @@ fun interface PassportGetProbeId {
         probeAsn: String,
         probeCc: String,
     ): Result<String, PassportException>
+}
+
+fun interface PassportGetProtocolVersion {
+    fun getProtocolVersion(): String
 }

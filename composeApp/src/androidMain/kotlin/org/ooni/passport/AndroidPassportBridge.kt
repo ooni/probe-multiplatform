@@ -63,13 +63,22 @@ class AndroidPassportBridge : PassportBridge {
 
     override fun userAuthRegister(
         url: String,
+        headers: List<PassportBridge.KeyValue>,
         publicParams: String,
         manifestVersion: String,
         proxy: String?,
         timeout: Float?,
     ): Result<CredentialResponse, PassportException> =
         try {
-            val result = uniffi.ooniprobe.userauthRegister(url, publicParams, manifestVersion, proxy, timeout, userAgent)
+            val result = uniffi.ooniprobe.userauthRegister(
+                url = url,
+                publicParams = publicParams,
+                manifestVersion = manifestVersion,
+                headers = headers.map { uniffi.ooniprobe.KeyValue(it.key, it.value) },
+                proxy = proxy,
+                timeout = timeout,
+                userAgent = userAgent,
+            )
             Success(result.toPassport())
         } catch (e: OoniException) {
             Failure(e.toPassport())
@@ -79,6 +88,7 @@ class AndroidPassportBridge : PassportBridge {
 
     override fun userAuthSubmit(
         url: String,
+        headers: List<PassportBridge.KeyValue>,
         content: String,
         probeCc: String,
         probeAsn: String,
@@ -89,6 +99,7 @@ class AndroidPassportBridge : PassportBridge {
         try {
             val result = uniffi.ooniprobe.userauthSubmit(
                 url = url,
+                headers = headers.map { uniffi.ooniprobe.KeyValue(it.key, it.value) },
                 content = content,
                 probeCc = probeCc,
                 probeAsn = probeAsn,
@@ -117,6 +128,8 @@ class AndroidPassportBridge : PassportBridge {
         } catch (e: Throwable) {
             Failure(PassportException.Other(e.message))
         }
+
+    override fun getProtocolVersion(): String = uniffi.ooniprobe.protocolVersion()
 }
 
 private fun HttpResponse.toPassport() =
