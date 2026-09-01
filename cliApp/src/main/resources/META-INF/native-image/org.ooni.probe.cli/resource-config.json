@@ -1,0 +1,42 @@
+{
+  "resources": {
+    "includes": [
+      {
+        "pattern": "assets/descriptors/.*\\.json"
+      },
+      {
+        "pattern": "linux/.*"
+      },
+      {
+        "pattern": "macos/.*"
+      },
+      {
+        "pattern": "windows/.*"
+      },
+      {
+        "pattern": "jniLibs/.*"
+      },
+      {
+        "pattern": "com/sun/jna/.*"
+      },
+      {
+        "pattern": "org/sqlite/native/.*"
+      },
+      {
+        "pattern": "darwin-universal/.*"
+      },
+      {
+        "pattern": "linux-x86-64/.*"
+      },
+      {
+        "pattern": "linux-aarch64/.*"
+      },
+      {
+        "pattern": "win32-x86-64/.*"
+      },
+      {
+        "pattern": ".*\\.mmdb"
+      }
+    ]
+  }
+}

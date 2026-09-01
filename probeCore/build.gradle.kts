@@ -21,6 +21,8 @@ val appVersionCode = libs.versions.app.versionCode
     .toInt()
 
 kotlin {
+    jvmToolchain(25)
+
     android {
         namespace = "org.ooni.probe.core"
         compileSdk = libs.versions.android.compileSdk
@@ -66,7 +68,9 @@ kotlin {
                 implementation(libs.androidx.datastore.core.okio)
                 implementation(libs.jna)
                 implementation(libs.jna.platform)
-                implementation(
+                // api: cliApp's DesktopCliGeoIpGateway/CliDesktopPassportBridge call these native
+                // bindings directly, so they must be visible on cliApp's compile classpath too.
+                api(
                     OperatingSystem.current().let { os ->
                         when {
                             os.isMacOsX -> libs.oonimkall.desktop.macos
@@ -76,7 +80,7 @@ kotlin {
                         }
                     },
                 )
-                implementation(
+                api(
                     OperatingSystem.current().let { os ->
                         when {
                             os.isMacOsX -> libs.passport.macos
