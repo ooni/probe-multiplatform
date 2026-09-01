@@ -217,7 +217,7 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.components)
     implementation(libs.compose.ui.tooling.preview)
-    implementation("androidx.activity:activity-compose:1.13.0")
+    implementation(libs.androidx.activity.compose)
     implementation(libs.navigation)
 
     // Android libraries used by the moved entry points / workers
@@ -225,7 +225,6 @@ dependencies {
     implementation(libs.kermit)
     implementation(libs.kotlin.serialization.json)
     implementation(libs.androidx.datastore.preferences.core)
-    implementation("androidx.datastore:datastore-preferences:1.2.1")
 
     coreLibraryDesugaring(libs.android.desugar.jdk)
 
