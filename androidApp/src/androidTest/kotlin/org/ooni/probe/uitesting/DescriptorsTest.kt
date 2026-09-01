@@ -79,21 +79,37 @@ class DescriptorsTest {
         descriptorUpdatePublished = false
         setupMockedEngine()
         dependencies.passportGet = { url, _, _, _, _ ->
-            val body = when {
+            when {
                 url.endsWith(TestFixtures.DESCRIPTOR_REVISIONS_PATH) ->
-                    TestFixtures.DESCRIPTOR_REVISIONS_JSON
+                    Success(
+                        PassportHttpResponse(
+                            200,
+                            "HTTP/1.1",
+                            emptyList(),
+                            TestFixtures.DESCRIPTOR_REVISIONS_JSON,
+                        ),
+                    )
 
                 url.endsWith(TestFixtures.DESCRIPTOR_LINK_PATH) ->
-                    if (descriptorUpdatePublished) {
-                        TestFixtures.UPDATED_DESCRIPTOR_JSON
-                    } else {
-                        TestFixtures.ORIGINAL_DESCRIPTOR_JSON
-                    }
+                    Success(
+                        PassportHttpResponse(
+                            200,
+                            "HTTP/1.1",
+                            emptyList(),
+                            if (descriptorUpdatePublished) {
+                                TestFixtures.UPDATED_DESCRIPTOR_JSON
+                            } else {
+                                TestFixtures.ORIGINAL_DESCRIPTOR_JSON
+                            },
+                        ),
+                    )
+
+                url.contains("/api/v2/oonirun/links/") ->
+                    Success(PassportHttpResponse(404, "HTTP/1.1", emptyList(), null))
 
                 else ->
                     throw IllegalStateException("Response not mocked for $url")
             }
-            Success(PassportHttpResponse(200, "HTTP/1.1", emptyList(), body))
         }
     }
 
