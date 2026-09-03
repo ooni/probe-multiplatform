@@ -70,9 +70,12 @@ private val databaseDispatcher by lazy {
  * cross-platform AutoLaunch library (macOS LaunchAgent, Windows Run key, Linux
  * autostart entry).
  */
-internal suspend fun setRunAtStartup(enabled: Boolean) {
-    if (enabled) autoLaunch.enable() else autoLaunch.disable()
-}
+internal suspend fun setRunAtStartup(enabled: Boolean) =
+    try {
+        if (enabled) autoLaunch.enable() else autoLaunch.disable()
+    } catch (e: Exception) {
+        Logger.e(e) { "Failed to set run at startup" }
+    }
 
 private val backgroundWorkManager: BackgroundWorkManager = BackgroundWorkManager(
     runBackgroundTaskProvider = { dependencies.runBackgroundTask },
