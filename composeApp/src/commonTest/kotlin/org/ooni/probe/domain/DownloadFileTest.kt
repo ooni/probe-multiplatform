@@ -1,5 +1,7 @@
 package org.ooni.probe.domain
 
+import io.ktor.client.HttpClient
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.test.runTest
 import okio.FileSystem
 import org.ooni.passport.models.PassportException
@@ -10,6 +12,22 @@ import kotlin.test.assertIs
 import kotlin.test.assertTrue
 
 class DownloadFileTest {
+    @Test
+    fun failedDownloadKeepsTheReusableHttpClientOpen() =
+        runTest {
+            val client = HttpClient()
+            val subject = DownloadFile(
+                fileSystem = FileSystem.SYSTEM,
+                isOnline = { true },
+                httpClientFactory = { client },
+            )
+
+            subject.fetchBytes("not a URL")
+
+            assertTrue(client.coroutineContext.isActive)
+            client.close()
+        }
+
     @Test
     fun offlineNeverBuildsAnHttpClient() =
         runTest {

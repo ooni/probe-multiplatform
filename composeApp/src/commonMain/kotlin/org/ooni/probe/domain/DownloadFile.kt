@@ -27,6 +27,8 @@ class DownloadFile(
     private val isOnline: () -> Boolean,
     private val httpClientFactory: () -> HttpClient = ::defaultHttpClient,
 ) {
+    private val httpClient by lazy(httpClientFactory)
+
     suspend operator fun invoke(
         url: String,
         absoluteTargetPath: String,
@@ -53,10 +55,8 @@ class DownloadFile(
             )
         }
 
-        val client = httpClientFactory()
-
         return try {
-            val response = client.get(url)
+            val response = httpClient.get(url)
             val bytes = response.bodyAsBytes()
 
             if (response.status.isSuccess()) {
@@ -70,8 +70,6 @@ class DownloadFile(
             }
         } catch (e: Throwable) {
             Failure(GetBytesException(e))
-        } finally {
-            client.close()
         }
     }
 }
