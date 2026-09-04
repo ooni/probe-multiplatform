@@ -155,6 +155,29 @@ class SubmitMeasurementTest {
             assertTrue(updated?.isDone == true)
         }
 
+    @Test
+    fun asnZeroReportIsMarkedFailedAndNotSubmitted() =
+        listOf("AS0", "0").forEach { asn ->
+            runTest {
+                var submitted = false
+                var updated: MeasurementModel? = null
+                val subject = buildSubject(
+                    report = "{\"probe_cc\":\"IT\",\"probe_asn\":\"$asn\"}",
+                    onSubmit = { submitted = true },
+                    onUpdate = { updated = it },
+                )
+
+                subject.invokeInstrumented(
+                    MeasurementModelFactory.build(id = MeasurementModel.Id(1L), isDone = true),
+                )
+
+                assertFalse(submitted, "ASN $asn report is NOT submitted")
+                assertFalse(updated?.isUploaded == true)
+                assertTrue(updated?.isFailed == true)
+                assertEquals("ASN is 0", updated?.failureMessage)
+            }
+        }
+
     /**
      * The legacy engine upload is a separate HTTP stack that the Passport offline gate does not
      * cover, so it has to be skipped explicitly - otherwise "fail fast offline" still ends up
