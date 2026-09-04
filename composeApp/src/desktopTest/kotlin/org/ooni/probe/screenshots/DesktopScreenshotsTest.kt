@@ -1,5 +1,6 @@
 package org.ooni.probe.screenshots
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.toAwtImage
 import androidx.compose.ui.platform.LocalDensity
@@ -47,6 +48,12 @@ import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.toDescriptorItem
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.domain.credentials.AnonymousCredentialsHealth
+import org.ooni.probe.ui.dashboard.DashboardScreen
+import org.ooni.probe.ui.dashboard.DashboardViewModel
+import org.ooni.probe.ui.settings.credentials.AnonymousCredentialsScreen
+import org.ooni.probe.ui.settings.credentials.AnonymousCredentialsViewModel
+import org.ooni.probe.ui.theme.AppTheme
 import org.ooni.testing.TestLifecycleOwner
 import org.ooni.testing.defaultSettings
 import org.ooni.testing.disableRefreshArticles
@@ -342,6 +349,71 @@ class DesktopScreenshotsTest {
             capture(locale, "16-about")
         }
 
+    @Test
+    fun submitOutcomeDashboardUpdateRequired() =
+        perLocale { locale ->
+            renderApp {
+                DashboardScreen(
+                    state = DashboardViewModel.State(updateRequired = true),
+                    onEvent = {},
+                )
+            }
+            capture(locale, "23-submit-outcome-update-required")
+        }
+
+    @Test
+    fun submitOutcomeCredentialsCredentialNeedsReset() =
+        perLocale { locale ->
+            renderApp {
+                AnonymousCredentialsScreen(
+                    state =
+                        AnonymousCredentialsViewModel.State(
+                            health = AnonymousCredentialsHealth.CredentialNeedsReset,
+                            isLoading = false,
+                        ),
+                    onEvent = {},
+                )
+            }
+            capture(locale, "24-submit-outcome-credential-needs-reset")
+        }
+
+    @Test
+    fun submitOutcomeCredentialsReady() =
+        perLocale { locale ->
+            renderApp {
+                AnonymousCredentialsScreen(
+                    state =
+                        AnonymousCredentialsViewModel.State(
+                            health =
+                                AnonymousCredentialsHealth.Ready(
+                                    probeId = "P0123456789ABCDEF",
+                                    probeAsn = "AS30722",
+                                    probeCc = "CM",
+                                ),
+                            isLoading = false,
+                        ),
+                    onEvent = {},
+                )
+            }
+            capture(locale, "25-submit-outcome-credential-ready")
+        }
+
+    @Test
+    fun submitOutcomeCredentialsNoCredential() =
+        perLocale { locale ->
+            renderApp {
+                AnonymousCredentialsScreen(
+                    state =
+                        AnonymousCredentialsViewModel.State(
+                            health = AnonymousCredentialsHealth.NoCredential,
+                            isLoading = false,
+                        ),
+                    onEvent = {},
+                )
+            }
+            capture(locale, "26-submit-outcome-credential-no-credential")
+        }
+
     private fun perLocale(block: ComposeUiTest.(locale: String) -> Unit) {
         val previousLocale = Locale.getDefault()
         val (width, height, _) = screenshotViewport()
@@ -360,9 +432,20 @@ class DesktopScreenshotsTest {
         }
     }
 
-    private fun ComposeUiTest.renderApp() {
+    private fun ComposeUiTest.renderApp(content: (@Composable () -> Unit)? = null) {
         val (_, _, density) = screenshotViewport()
         val chrome = System.getProperty(CHROME_PROPERTY).orEmpty()
+
+        @Composable
+        fun renderContent() {
+            if (content == null) {
+                App(dependencies = dependencies, deepLink = null, useDarkTheme = forcedDarkTheme())
+            } else {
+                AppTheme(useDarkTheme = forcedDarkTheme()) {
+                    content()
+                }
+            }
+        }
         setContent {
             CompositionLocalProvider(
                 LocalDensity provides Density(density = density, fontScale = 1f),
@@ -370,17 +453,12 @@ class DesktopScreenshotsTest {
             ) {
                 when (chrome) {
                     CHROME_MAC ->
-                        MacScreenshotFrame {
-                            App(dependencies = dependencies, deepLink = null, useDarkTheme = forcedDarkTheme())
-                        }
+                        MacScreenshotFrame { renderContent() }
 
                     CHROME_WINDOWS ->
-                        WindowsScreenshotFrame {
-                            App(dependencies = dependencies, deepLink = null, useDarkTheme = forcedDarkTheme())
-                        }
+                        WindowsScreenshotFrame { renderContent() }
 
-                    else ->
-                        App(dependencies = dependencies, deepLink = null, useDarkTheme = forcedDarkTheme())
+                    else -> renderContent()
                 }
             }
         }
