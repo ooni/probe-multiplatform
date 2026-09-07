@@ -51,6 +51,13 @@ log.highlight() {
     fi
 }
 
+# Check platform
+OS="$(uname -s)"
+if [ "${OS}" != "Linux" ]; then
+    log.error "packageAppImage is only supported on Linux. Current OS: ${OS}"
+    exit 1
+fi
+
 # Configuration
 APP_NAME="OONI Probe"
 APP_ID="org.ooni.probe-desktop"
