@@ -1,6 +1,7 @@
 package ooni.appimage
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.GradleException
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.InputDirectory
@@ -50,8 +51,7 @@ abstract class PackageAppImageTask : DefaultTask() {
     @TaskAction
     fun createAppImage() {
         if (!OperatingSystem.current().isLinux) {
-            logger.lifecycle("packageAppImage: skipping on non-Linux host")
-            return
+            throw GradleException("packageAppImage is only supported on Linux. Current OS: ${OperatingSystem.current().name}")
         }
         val script = scriptFile.get().asFile
 
