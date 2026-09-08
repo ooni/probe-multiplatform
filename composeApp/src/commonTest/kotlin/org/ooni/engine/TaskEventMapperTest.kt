@@ -80,6 +80,21 @@ class TaskEventMapperTest {
             assertEquals("1.2.3.4", ip)
             assertEquals("Vodafone", networkName)
             assertEquals(NetworkType.NoInternet, networkType)
+            assertEquals(false, shouldAbort())
+        }
+    }
+
+    @Test
+    fun geoIpLookupWithAsnZeroShouldAbort() {
+        listOf("AS0", "0").forEach { asn ->
+            val result =
+                json.decodeFromString<TaskEventResult>(
+                    """{"key":"status.geoip_lookup","value":{"probe_asn":"$asn"}}""",
+                )
+
+            val event = subject(result) as TaskEvent.GeoIpLookup
+
+            assertEquals(true, event.shouldAbort())
         }
     }
 

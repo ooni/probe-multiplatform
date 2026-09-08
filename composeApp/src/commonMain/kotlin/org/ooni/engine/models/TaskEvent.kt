@@ -1,5 +1,7 @@
 package org.ooni.engine.models
 
+import org.ooni.probe.data.models.isAsnZero
+
 sealed interface TaskEvent {
     data class BugJsonDump(
         val value: TaskEventResult.Value,
@@ -17,9 +19,8 @@ sealed interface TaskEvent {
         val countryCode: String?,
         val geoIpdb: String?,
         val networkType: NetworkType,
-        val shouldAbort: Boolean = false,
     ) : TaskEvent {
-        override fun shouldAbort(): Boolean = shouldAbort
+        override fun shouldAbort(): Boolean = asn.isAsnZero()
     }
 
     data class Log(
