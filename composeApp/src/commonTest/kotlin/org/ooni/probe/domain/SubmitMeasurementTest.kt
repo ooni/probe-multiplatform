@@ -156,6 +156,20 @@ class SubmitMeasurementTest {
         }
 
     @Test
+    fun validReportWithoutProbeAsnStillSubmits() =
+        runTest {
+            var submitted = false
+            val subject = buildSubject(
+                report = "{\"probe_cc\":\"IT\"}",
+                onSubmit = { submitted = true },
+            )
+
+            subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))
+
+            assertTrue(submitted)
+        }
+
+    @Test
     fun asnZeroReportIsMarkedFailedAndNotSubmitted() =
         listOf("AS0", "0").forEach { asn ->
             runTest {

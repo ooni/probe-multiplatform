@@ -55,34 +55,37 @@ class SubmitMeasurement(
             return null
         }
 
-        reportStructuralError(report)?.let { parseError ->
-            // The report can never be parsed, so it can never be submitted. Mark it not-done so the
-            // upload sweep (which requires is_done = 1) skips it instead of retrying it forever, and
-            // so the UI shows it as failed; keep the row and file, and report it once for diagnosis.
-            val errorType = categorizeParseError(parseError)
-            Logger.w(
-                "Measurement report unparseable; skipping upload (type=$errorType)",
-                ReportUnparseable("type=$errorType"),
-            )
-            Instrumentation.reportTransaction(
-                operation = "SubmitReportUnparseable",
-                data = mapOf(
-                    "test" to measurement.test.name,
-                    "length" to report.length,
-                    "corruption_source" to "disk",
-                    "parse_error_type" to errorType,
-                ),
-            )
-            val marked = measurement.copy(
-                isDone = false,
-                isFailed = true,
-                failureMessage = "Report unparseable: $errorType",
-            )
-            updateMeasurement(marked)
-            return marked
+        val reportObject = when (val parsed = parseReport(report)) {
+            is ParsedReport.Valid -> parsed.value
+            is ParsedReport.Invalid -> {
+                // The report can never be parsed, so it can never be submitted. Mark it not-done so the
+                // upload sweep (which requires is_done = 1) skips it instead of retrying it forever, and
+                // so the UI shows it as failed; keep the row and file, and report it once for diagnosis.
+                val errorType = categorizeParseError(parsed.error)
+                Logger.w(
+                    "Measurement report unparseable; skipping upload (type=$errorType)",
+                    ReportUnparseable("type=$errorType"),
+                )
+                Instrumentation.reportTransaction(
+                    operation = "SubmitReportUnparseable",
+                    data = mapOf(
+                        "test" to measurement.test.name,
+                        "length" to report.length,
+                        "corruption_source" to "disk",
+                        "parse_error_type" to errorType,
+                    ),
+                )
+                val marked = measurement.copy(
+                    isDone = false,
+                    isFailed = true,
+                    failureMessage = "Report unparseable: $errorType",
+                )
+                updateMeasurement(marked)
+                return marked
+            }
         }
 
-        if (reportProbeAsn(report).isAsnZero()) {
+        if (reportProbeAsn(reportObject).isAsnZero()) {
             return Instrumentation.withTransaction(
                 operation = "SubmitReportAsnZero",
                 data = mapOf("test" to measurement.test.name),
@@ -143,27 +146,34 @@ class SubmitMeasurement(
                 )
             }.mapError { it.cause }
 
-    /**
-     * Structural JSON validity of the report. Returns null when valid, or a parser message used
-     * only to derive a coarse diagnostic category. Structural-only on purpose: a valid-but-fieldless
-     * report may still submit via the legacy path, so we must not abandon it.
-     */
-    private fun reportStructuralError(report: String): String? =
+    private fun parseReport(report: String): ParsedReport =
         try {
-            if (json.parseToJsonElement(report) is JsonObject) null else "root is not a JSON object"
+            when (val element = json.parseToJsonElement(report)) {
+                is JsonObject -> ParsedReport.Valid(element)
+                else -> ParsedReport.Invalid("root is not a JSON object")
+            }
         } catch (e: Exception) {
-            e.message ?: "unparseable"
+            ParsedReport.Invalid(e.message ?: "unparseable")
         }
 
-    private fun reportProbeAsn(report: String): String? =
+    private fun reportProbeAsn(report: JsonObject): String? =
         try {
-            (json.parseToJsonElement(report) as? JsonObject)
-                ?.get("probe_asn")
+            report["probe_asn"]
                 ?.jsonPrimitive
                 ?.contentOrNull
         } catch (_: Exception) {
             null
         }
+
+    private sealed interface ParsedReport {
+        data class Valid(
+            val value: JsonObject,
+        ) : ParsedReport
+
+        data class Invalid(
+            val error: String,
+        ) : ParsedReport
+    }
 
     class SubmitFailed(
         cause: Throwable?,
