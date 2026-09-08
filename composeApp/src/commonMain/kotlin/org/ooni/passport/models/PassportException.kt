@@ -19,7 +19,7 @@ sealed class PassportException(
         message: String?,
     ) : PassportException(message)
 
-    class HttpStatus(
+    class HttpRequestUnsuccessful(
         val statusCode: Int,
         responseBody: String?,
     ) : PassportException(

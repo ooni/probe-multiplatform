@@ -1,6 +1,7 @@
 package org.ooni.probe.domain
 
 import kotlinx.coroutines.test.runTest
+import org.ooni.engine.Engine.MkException
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Success
@@ -234,7 +235,7 @@ class SubmitMeasurementTest {
             var legacySubmits = 0
             val subject = SubmitMeasurement(
                 submitMeasurementWithUser = {
-                    Failure(PassportException.HttpStatus(500, "upstream unavailable"))
+                    Failure(PassportException.HttpRequestUnsuccessful(500, "upstream unavailable"))
                 },
                 engineSubmit = {
                     legacySubmits++
@@ -260,40 +261,13 @@ class SubmitMeasurementTest {
         }
 
     @Test
-    fun clientErrorsSkipTheLegacyUpload() =
+    fun clientErrorsFallBackToTheLegacyUpload() =
         runTest {
-            listOf(400, 401, 403, 404, 422).forEach { statusCode ->
+            listOf(400, 401, 403, 404, 408, 422, 429, 500, 503).forEach { statusCode ->
                 var legacySubmits = 0
                 val subject = SubmitMeasurement(
                     submitMeasurementWithUser = {
-                        Failure(PassportException.HttpStatus(statusCode, "request rejected"))
-                    },
-                    engineSubmit = {
-                        legacySubmits++
-                        error("legacy submit must not run for HTTP $statusCode")
-                    },
-                    readFile = { "{}" },
-                    deleteFiles = { },
-                    updateMeasurement = { },
-                    deleteMeasurementById = { },
-                    handleSubmitOutcome = { _, _ -> },
-                    json = Dependencies.buildJson(),
-                )
-
-                subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))
-
-                assertEquals(0, legacySubmits, "HTTP $statusCode must not use the legacy upload")
-            }
-        }
-
-    @Test
-    fun requestTimeoutAndRateLimitFallBackToTheLegacyUpload() =
-        runTest {
-            listOf(408, 429).forEach { statusCode ->
-                var legacySubmits = 0
-                val subject = SubmitMeasurement(
-                    submitMeasurementWithUser = {
-                        Failure(PassportException.HttpStatus(statusCode, "retry later"))
+                        Failure(PassportException.HttpRequestUnsuccessful(statusCode, "request rejected"))
                     },
                     engineSubmit = {
                         legacySubmits++
@@ -315,7 +289,33 @@ class SubmitMeasurementTest {
 
                 subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))
 
-                assertEquals(1, legacySubmits, "HTTP $statusCode must use the legacy upload")
+                assertEquals(1, legacySubmits, "HTTP $statusCode must use the legacy escape hatch")
             }
+        }
+
+    @Test
+    fun failedLegacyFallbackPreservesBothSubmissionErrors() =
+        runTest {
+            var updated: MeasurementModel? = null
+            val subject = SubmitMeasurement(
+                submitMeasurementWithUser = {
+                    Failure(PassportException.HttpRequestUnsuccessful(401, "credential rejected"))
+                },
+                engineSubmit = {
+                    Failure(MkException(IllegalStateException("legacy unavailable")))
+                },
+                readFile = { "{}" },
+                deleteFiles = { },
+                updateMeasurement = { updated = it },
+                deleteMeasurementById = { },
+                handleSubmitOutcome = { _, _ -> },
+                json = Dependencies.buildJson(),
+            )
+
+            subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))
+
+            val failure = updated?.uploadFailureMessage.orEmpty()
+            assertTrue("credential rejected" in failure)
+            assertTrue("legacy unavailable" in failure)
         }
 }

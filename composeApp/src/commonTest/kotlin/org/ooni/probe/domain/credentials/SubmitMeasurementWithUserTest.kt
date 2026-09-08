@@ -8,6 +8,7 @@ import org.ooni.engine.models.Success
 import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
+import org.ooni.passport.models.SubmitError
 import org.ooni.testing.factories.ManifestFactory
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -19,23 +20,26 @@ class SubmitMeasurementWithUserTest {
 
     private val measurementData = """{"probe_cc":"US","probe_asn":"AS100"}"""
 
-    private fun buildSubject(response: CredentialResponse) =
-        SubmitMeasurementWithUser(
-            getManifest = { flowOf(ManifestFactory.build()) },
-            getCredential = { null },
-            setCredential = SetCredential(
-                writeSecureStorage = { _, _ -> error("setCredential should not be used") },
-                json = json,
-            ),
-            stampMeasurement = StampMeasurement(
-                passportGetProbeId = { _, _, _ -> error("getProbeId should not be used") },
-                getCredential = { null },
-                json = json,
-            ),
-            resolveSubmissionPolicy = ResolveSubmissionPolicy(),
-            userAuthSubmit = { _, _, _, _, _ -> Success(response) },
+    private fun buildSubject(
+        response: CredentialResponse,
+        onSubmitOutcome: (SubmitError?) -> Unit = {},
+    ) = SubmitMeasurementWithUser(
+        getManifest = { flowOf(ManifestFactory.build()) },
+        getCredential = { null },
+        setCredential = SetCredential(
+            writeSecureStorage = { _, _ -> error("setCredential should not be used") },
             json = json,
-        )
+        ),
+        stampMeasurement = StampMeasurement(
+            passportGetProbeId = { _, _, _ -> error("getProbeId should not be used") },
+            getCredential = { null },
+            json = json,
+        ),
+        resolveSubmissionPolicy = ResolveSubmissionPolicy(),
+        userAuthSubmit = { _, _, _, _, _ -> Success(response) },
+        json = json,
+        handleSubmitOutcome = { _, error -> onSubmitOutcome(error) },
+    )
 
     @Test
     fun nonSuccessfulResponseSurfacesStatusAndDecodedError() =
@@ -55,7 +59,7 @@ class SubmitMeasurementWithUserTest {
             val result = subject(measurementData)
 
             val failure = assertIs<Failure<*>>(result)
-            val reason = assertIs<PassportException.HttpStatus>(failure.reason)
+            val reason = assertIs<PassportException.HttpRequestUnsuccessful>(failure.reason)
             val message = reason.message.orEmpty()
             assertEquals(500, reason.statusCode)
             assertTrue("500" in message, "message should contain the status code: $message")
@@ -80,7 +84,7 @@ class SubmitMeasurementWithUserTest {
             val result = subject(measurementData)
 
             val failure = assertIs<Failure<*>>(result)
-            val reason = assertIs<PassportException.HttpStatus>(failure.reason)
+            val reason = assertIs<PassportException.HttpRequestUnsuccessful>(failure.reason)
             val message = reason.message.orEmpty()
             assertTrue("503" in message, "message should contain the status code: $message")
             assertTrue("upstream unavailable" in message, "message should retain the raw body: $message")
@@ -106,7 +110,7 @@ class SubmitMeasurementWithUserTest {
             val result = subject(measurementData)
 
             val failure = assertIs<Failure<*>>(result)
-            val reason = assertIs<PassportException.HttpStatus>(failure.reason)
+            val reason = assertIs<PassportException.HttpRequestUnsuccessful>(failure.reason)
             val message = reason.message.orEmpty()
             assertTrue("502" in message, "message should contain the status code: $message")
             assertTrue(retainedBody in message, "message should retain the response prefix: $message")
@@ -115,5 +119,31 @@ class SubmitMeasurementWithUserTest {
                 "[protocol_error]" !in message,
                 "message should not decode a submit error for an HTTP failure: $message",
             )
+        }
+
+    @Test
+    fun credentialAndManifestHttpErrorsTriggerRecoverySignals() =
+        runTest {
+            val recoveryErrors = mutableListOf<SubmitError?>()
+            listOf(
+                401 to SubmitError.CredentialError,
+                403 to SubmitError.CredentialError,
+                404 to SubmitError.ManifestNotFound,
+            ).forEach { (statusCode, expectedError) ->
+                buildSubject(
+                    CredentialResponse(
+                        response = PassportHttpResponse(
+                            statusCode = statusCode,
+                            version = "HTTP/1.1",
+                            headersListText = emptyList(),
+                            bodyText = null,
+                        ),
+                        credential = null,
+                    ),
+                    onSubmitOutcome = { recoveryErrors += it },
+                )(measurementData)
+
+                assertEquals(expectedError, recoveryErrors.last())
+            }
         }
 }
