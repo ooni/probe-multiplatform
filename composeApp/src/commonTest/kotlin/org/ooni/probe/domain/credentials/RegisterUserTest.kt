@@ -255,4 +255,30 @@ class RegisterUserTest {
                 registrations,
             )
         }
+
+    @Test
+    fun manifestRefreshFailureDoesNotEscapeRegistration() =
+        runTest {
+            val registerUser = RegisterUser(
+                userAuthRegister = { _, _, _ ->
+                    Success(
+                        CredentialResponse(
+                            response = PassportHttpResponse(
+                                statusCode = 404,
+                                version = "",
+                                headersListText = emptyList(),
+                                bodyText = "manifest not found",
+                            ),
+                            credential = null,
+                        ),
+                    )
+                },
+                setCredential = { true },
+                backgroundContext = coroutineContext,
+                json = json,
+                retrieveManifest = { error("manifest refresh unavailable") },
+            )
+
+            assertNull(registerUser(TEST_PUBLIC_PARAMS, TEST_MANIFEST_VERSION))
+        }
 }

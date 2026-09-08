@@ -22,14 +22,14 @@ class OfflineFailureTest {
     }
 
     /**
-     * The submit path builds an `HttpClientError` for every non-2XX response. Classifying those as
+     * The submit path builds an `HttpRequestUnsuccessful` for every non-2XX response. Classifying those as
      * offline would silence real server errors and make the descriptor worker retry requests the
      * server already rejected.
      */
     @Test
     fun submitHttpErrorsAreNotOfflineFailures() {
         listOf(400, 404, 500).forEach { status ->
-            val exception = PassportException.HttpStatus(status, null)
+            val exception = PassportException.HttpRequestUnsuccessful(status, null)
             assertFalse(
                 exception.isOfflineFailure(),
                 "HTTP $status must not be classified as an offline failure",

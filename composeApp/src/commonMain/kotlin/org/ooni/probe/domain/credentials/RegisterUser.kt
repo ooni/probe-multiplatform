@@ -41,7 +41,12 @@ class RegisterUser(
                 val credentialResponse = result.value
                 if (!credentialResponse.response.isSuccessful) {
                     if (credentialResponse.response.statusCode == HTTP_NOT_FOUND && canRefreshManifest) {
-                        val manifest = retrieveManifest()
+                        val manifest = try {
+                            retrieveManifest()
+                        } catch (e: Exception) {
+                            Logger.w("Failed to refresh manifest during registration", e)
+                            null
+                        }
                         if (manifest != null && manifest.meta.version != manifestVersion) {
                             return register(
                                 publicParams = manifest.manifest.publicParameters,

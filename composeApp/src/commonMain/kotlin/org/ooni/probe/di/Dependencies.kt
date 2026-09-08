@@ -803,6 +803,7 @@ class Dependencies(
                 )
             },
             json = json,
+            handleSubmitOutcome = handleSubmitOutcome::invoke,
         )
     }
     private val resolveSubmissionPolicy by lazy { ResolveSubmissionPolicy() }
