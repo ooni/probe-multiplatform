@@ -69,6 +69,7 @@ import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.shared.DeepLinkParser
 import org.ooni.probe.shared.DesktopOS
+import org.ooni.probe.shared.Distribution
 import org.ooni.probe.shared.InstanceManager
 import org.ooni.probe.shared.MacDockVisibility
 import org.ooni.probe.shared.Platform
@@ -157,9 +158,18 @@ fun main(args: Array<String>) {
             }
         }
 
-        fun hideWindow() {
-            isWindowVisible = false
-            MacDockVisibility.hideDockIcon()
+        fun promptQuit() {
+            showWindow()
+            showQuitPrompt = true
+        }
+
+        fun hideWindow(force: Boolean = false) {
+            if (!force && Distribution.current == Distribution.MacAppStore) {
+                promptQuit()
+            } else {
+                isWindowVisible = false
+                MacDockVisibility.hideDockIcon()
+            }
         }
 
         // Show window when activation event occurs (e.g., clicking desktop icon while app is in tray)
@@ -218,7 +228,7 @@ fun main(args: Array<String>) {
                             },
                             onHide = {
                                 showQuitPrompt = false
-                                hideWindow()
+                                hideWindow(force = true)
                             },
                             onDismiss = {
                                 showQuitPrompt = false
@@ -269,10 +279,7 @@ fun main(args: Array<String>) {
                 } else {
                     Item(
                         stringResource(Res.string.Desktop_Quit),
-                        onClick = {
-                            showWindow()
-                            showQuitPrompt = true
-                        },
+                        onClick = { promptQuit() },
                     )
                 }
             },
