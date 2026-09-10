@@ -24,6 +24,7 @@ class DescriptorsViewModel(
     goToDescriptor: (Descriptor.Id) -> Unit,
     goToReviewDescriptorUpdates: (List<Descriptor.Id>?) -> Unit,
     goToAddDescriptorUrl: () -> Unit,
+    goToCreateDescriptor: () -> Unit,
     getTestDescriptors: () -> Flow<List<DescriptorItem>>,
     observeDescriptorUpdateState: () -> Flow<DescriptorsUpdateState>,
     startDescriptorsUpdates: suspend (List<Descriptor>?) -> Unit,
@@ -93,6 +94,11 @@ class DescriptorsViewModel(
         events
             .filterIsInstance<Event.AddClicked>()
             .onEach { goToAddDescriptorUrl() }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.CreateClicked>()
+            .onEach { goToCreateDescriptor() }
             .launchIn(viewModelScope)
 
         events
@@ -181,6 +187,8 @@ class DescriptorsViewModel(
         data object CancelUpdatesClicked : Event
 
         data object AddClicked : Event
+
+        data object CreateClicked : Event
 
         data object FilterClicked : Event
 

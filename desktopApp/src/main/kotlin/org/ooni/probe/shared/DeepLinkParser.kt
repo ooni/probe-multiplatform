@@ -24,6 +24,17 @@ object DeepLinkParser {
                 Logger.w("Invalid deep link: $uri")
                 DeepLink.Error
             }
+        } else if (uri.scheme == "ooni" && uri.host == "login") {
+            uri.query
+                ?.split("&")
+                ?.firstOrNull { it.startsWith("token=") }
+                ?.substringAfter("token=")
+                ?.takeIf { it.isNotBlank() }
+                ?.let { token -> DeepLink.Login(token) }
+                ?: run {
+                    Logger.w("Login deep link without a token: $uri")
+                    DeepLink.Error
+                }
         } else if (uri.scheme == "http" || uri.scheme == "https") {
             DeepLink.RunUrls(url)
         } else {

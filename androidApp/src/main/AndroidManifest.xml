@@ -62,6 +62,9 @@
                 <data
                     android:host="runv2"
                     android:scheme="ooni" />
+                <data
+                    android:host="login"
+                    android:scheme="ooni" />
             </intent-filter>
         </activity-alias>
         <activity-alias
