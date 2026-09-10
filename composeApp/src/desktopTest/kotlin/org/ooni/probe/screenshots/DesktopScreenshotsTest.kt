@@ -43,6 +43,7 @@ import ooniprobe.composeapp.generated.resources.Tests_Title
 import ooniprobe.composeapp.generated.resources.app_name
 import org.ooni.probe.App
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.SettingsKey
@@ -51,6 +52,8 @@ import org.ooni.probe.di.Dependencies
 import org.ooni.probe.domain.credentials.AnonymousCredentialsHealth
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.dashboard.DashboardViewModel
+import org.ooni.probe.ui.descriptor.create.CreateDescriptorScreen
+import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel
 import org.ooni.probe.ui.settings.credentials.AnonymousCredentialsScreen
 import org.ooni.probe.ui.settings.credentials.AnonymousCredentialsViewModel
 import org.ooni.probe.ui.theme.AppTheme
@@ -66,6 +69,7 @@ import java.util.Locale
 import javax.imageio.ImageIO
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.time.Instant
 
 /**
  * Captures Compose Desktop screenshots driven by the same `DatabaseHelper.setup()`
@@ -412,6 +416,56 @@ class DesktopScreenshotsTest {
                 )
             }
             capture(locale, "26-submit-outcome-credential-no-credential")
+        }
+
+    @Test
+    fun createLinkLogin() =
+        perLocale { locale ->
+            renderApp {
+                CreateDescriptorScreen(
+                    state = CreateDescriptorViewModel.State.LoggedOut(),
+                    onEvent = {},
+                )
+            }
+            capture(locale, "27-create-link-login")
+        }
+
+    @Test
+    fun createLinkAwaitingToken() =
+        perLocale { locale ->
+            renderApp {
+                CreateDescriptorScreen(
+                    state = CreateDescriptorViewModel.State.AwaitingToken(emailAddress = "screenshot@example.org"),
+                    onEvent = {},
+                )
+            }
+            capture(locale, "28-create-link-awaiting-token")
+        }
+
+    @Test
+    fun createLinkForm() =
+        perLocale { locale ->
+            renderApp {
+                CreateDescriptorScreen(
+                    state = CreateDescriptorViewModel.State.LoggedIn(
+                        session = AuthSession(
+                            sessionToken = "jwt-screenshot",
+                            emailAddress = "screenshot@example.org",
+                            role = "user",
+                            loginTime = Instant.parse("2025-01-01T00:00:00Z"),
+                        ),
+                        name = "Custom censorship watchlist",
+                        shortDescription = "Websites I want to keep an eye on",
+                        description = "A short list of websites relevant to my local context.",
+                        urls = listOf(
+                            CreateDescriptorViewModel.UrlItem(url = "https://ooni.org"),
+                            CreateDescriptorViewModel.UrlItem(url = "https://example.com"),
+                        ),
+                    ),
+                    onEvent = {},
+                )
+            }
+            capture(locale, "29-create-link-form")
         }
 
     private fun perLocale(block: ComposeUiTest.(locale: String) -> Unit) {

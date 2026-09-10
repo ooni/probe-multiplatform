@@ -96,6 +96,16 @@ class MainActivity : ComponentActivity() {
                 deepLinkFlow.tryEmit(DeepLink.AddDescriptor(id))
             }
 
+            "login" -> {
+                val token = uri.getQueryParameter("token")
+                if (token.isNullOrBlank()) {
+                    deepLinkFlow.tryEmit(DeepLink.Error)
+                    Logger.e { "Login deep link without a token: $uri" }
+                } else {
+                    deepLinkFlow.tryEmit(DeepLink.Login(token))
+                }
+            }
+
             else -> {
                 deepLinkFlow.tryEmit(DeepLink.Error)
                 Logger.e { "Unknown deep link: $uri" }
