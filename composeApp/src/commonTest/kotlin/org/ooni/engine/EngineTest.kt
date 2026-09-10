@@ -3,6 +3,12 @@ package org.ooni.engine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.boolean
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.put
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.NetworkType
@@ -51,6 +57,34 @@ class EngineTest {
             assertEquals("web_connectivity", settings.name)
             assertEquals(listOf("https://ooni.org"), settings.inputs)
             assertEquals(NetworkType.NoInternet, settings.annotations.networkType)
+        }
+
+    @Test
+    fun mergesNetTestOptionsIntoTaskSettingsWithoutOverridingBuiltInOnes() =
+        runTest {
+            val bridge = TestOonimkallBridge()
+            bridge.addNextEvents("""{"key":"status.started","value":{}}""")
+            val engine = buildEngine(bridge)
+
+            engine
+                .startTask(
+                    NetTest(
+                        test = TestType.WebConnectivity,
+                        inputs = listOf("https://ooni.org"),
+                        options = buildJsonObject {
+                            put("SomeExperimentOption", "value")
+                            // Attempt to smuggle in an override of a built-in, security-relevant option.
+                            put("no_collector", false)
+                        },
+                    ),
+                    taskOrigin = TaskOrigin.OoniRun,
+                    descriptorId = Descriptor.Id(OoniTest.Websites.id),
+                ).toList()
+
+            val settingsJson = json.parseToJsonElement(bridge.lastStartTaskSettingsSerialized!!).jsonObject
+            val options = settingsJson["options"]!!.jsonObject
+            assertEquals(JsonPrimitive("value"), options["SomeExperimentOption"])
+            assertEquals(true, options["no_collector"]!!.jsonPrimitive.boolean)
         }
 
     @Test

@@ -30,6 +30,7 @@ import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.descriptor.DescriptorScreen
 import org.ooni.probe.ui.descriptor.add.AddDescriptorScreen
 import org.ooni.probe.ui.descriptor.add.AddDescriptorUrlDialog
+import org.ooni.probe.ui.descriptor.create.CreateDescriptorScreen
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesScreen
 import org.ooni.probe.ui.descriptor.websites.DescriptorWebsitesViewModel
 import org.ooni.probe.ui.descriptors.DescriptorsScreen
@@ -112,6 +113,7 @@ fun Navigation(
                         navController.safeNavigate(Screen.ReviewUpdates(list?.map { it.value }))
                     },
                     goToAddDescriptorUrl = { navController.safeNavigate(Screen.AddDescriptorUrl) },
+                    goToCreateDescriptor = { navController.safeNavigate(Screen.CreateDescriptor) },
                 )
             }
             val state by viewModel.state.collectAsState()
@@ -326,6 +328,16 @@ fun Navigation(
             }
             val state by viewModel.state.collectAsState()
             AddDescriptorUrlDialog(state, viewModel::onEvent)
+        }
+
+        composable<Screen.CreateDescriptor> {
+            val viewModel = viewModel {
+                dependencies.createDescriptorViewModel(
+                    onBack = { navController.goBack() },
+                )
+            }
+            val state by viewModel.state.collectAsState()
+            CreateDescriptorScreen(state, viewModel::onEvent)
         }
 
         composable<Screen.RunningTest> {

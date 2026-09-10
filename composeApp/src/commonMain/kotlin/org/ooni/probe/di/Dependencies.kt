@@ -21,6 +21,7 @@ import org.ooni.engine.TaskEventMapper
 import org.ooni.passport.PassportBridge
 import org.ooni.passport.PassportGet
 import org.ooni.passport.PassportHttpClient
+import org.ooni.passport.PassportPost
 import org.ooni.passport.PassportTimeouts
 import org.ooni.probe.Database
 import org.ooni.probe.SharedBuildConfig
@@ -95,6 +96,12 @@ import org.ooni.probe.domain.articles.ArticlesRefreshStateManager
 import org.ooni.probe.domain.articles.GetFindings
 import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
+import org.ooni.probe.domain.auth.ClearSession
+import org.ooni.probe.domain.auth.ExchangeLoginToken
+import org.ooni.probe.domain.auth.GetStoredSession
+import org.ooni.probe.domain.auth.RefreshSession
+import org.ooni.probe.domain.auth.RequestLogin
+import org.ooni.probe.domain.auth.StoreSession
 import org.ooni.probe.domain.credentials.ClearCredential
 import org.ooni.probe.domain.credentials.GetAnonymousCredentialsHealth
 import org.ooni.probe.domain.credentials.GetCredential
@@ -109,6 +116,7 @@ import org.ooni.probe.domain.credentials.StampMeasurement
 import org.ooni.probe.domain.credentials.SubmitMeasurementWithUser
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
 import org.ooni.probe.domain.descriptors.BootstrapTestDescriptors
+import org.ooni.probe.domain.descriptors.CreateDescriptor
 import org.ooni.probe.domain.descriptors.DeleteTestDescriptor
 import org.ooni.probe.domain.descriptors.DescriptorUpdateStateManager
 import org.ooni.probe.domain.descriptors.DismissDescriptorReviewNotice
@@ -140,6 +148,7 @@ import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorUrlViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
+import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
 import org.ooni.probe.ui.descriptor.websites.DescriptorWebsitesViewModel
 import org.ooni.probe.ui.descriptors.DescriptorsViewModel
@@ -419,6 +428,15 @@ class Dependencies(
             json = json,
         )
     }
+    val createDescriptor by lazy {
+        CreateDescriptor(
+            passportPostWithAuth = { url, payload, extraHeaders ->
+                passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
+            },
+            getStoredSession = getStoredSession::invoke,
+            json = json,
+        )
+    }
     val finishInProgressData by lazy { FinishInProgressData(resultRepository::markAllAsDone) }
     val fetchDescriptorsUpdates by lazy {
         FetchDescriptorsUpdates(
@@ -468,6 +486,52 @@ class Dependencies(
     private val getCredential by lazy {
         GetCredential(
             readSecureStorage = secureStorage::read,
+            json = json,
+        )
+    }
+
+    // Auth (used to author OONI Run v2 links)
+
+    val getStoredSession by lazy {
+        GetStoredSession(
+            readSecureStorage = secureStorage::read,
+            json = json,
+        )
+    }
+    private val storeSession by lazy {
+        StoreSession(
+            writeSecureStorage = secureStorage::write,
+            json = json,
+        )
+    }
+    val clearSession by lazy {
+        ClearSession(deleteSecureStorage = secureStorage::delete)
+    }
+    val requestLogin by lazy {
+        RequestLogin(
+            passportPost = { url, payload ->
+                passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS)
+            },
+            json = json,
+        )
+    }
+    val exchangeLoginToken by lazy {
+        ExchangeLoginToken(
+            passportPost = { url, payload ->
+                passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS)
+            },
+            storeSession = storeSession::invoke,
+            json = json,
+        )
+    }
+    val refreshSession by lazy {
+        RefreshSession(
+            passportPostWithAuth = { url, payload, extraHeaders ->
+                passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
+            },
+            getStoredSession = getStoredSession::invoke,
+            storeSession = storeSession::invoke,
+            clearSession = clearSession::invoke,
             json = json,
         )
     }
@@ -630,6 +694,13 @@ class Dependencies(
         get() = passportHttpClient.passportGet
         set(value) {
             passportHttpClient.passportGet = value
+        }
+
+    @VisibleForTesting
+    var passportPost: PassportPost
+        get() = passportHttpClient.passportPost
+        set(value) {
+            passportHttpClient.passportPost = value
         }
 
     private val rejectDescriptorUpdate by lazy {
@@ -886,6 +957,17 @@ class Dependencies(
         goToAddDescriptor = goToAddDescriptor,
     )
 
+    fun createDescriptorViewModel(onBack: () -> Unit) =
+        CreateDescriptorViewModel(
+            onBack = onBack,
+            getStoredSession = getStoredSession::invoke,
+            requestLogin = requestLogin::invoke,
+            exchangeLoginToken = exchangeLoginToken::invoke,
+            clearSession = clearSession::invoke,
+            createDescriptor = createDescriptor::invoke,
+            json = json,
+        )
+
     fun articleViewModel(
         url: ArticleModel.Url,
         onBack: () -> Unit,
@@ -956,10 +1038,12 @@ class Dependencies(
         goToDescriptor: (Descriptor.Id) -> Unit,
         goToReviewDescriptorUpdates: (List<Descriptor.Id>?) -> Unit,
         goToAddDescriptorUrl: () -> Unit,
+        goToCreateDescriptor: () -> Unit,
     ) = DescriptorsViewModel(
         goToDescriptor = goToDescriptor,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         goToAddDescriptorUrl = goToAddDescriptorUrl,
+        goToCreateDescriptor = goToCreateDescriptor,
         getTestDescriptors = getTestDescriptors::latest,
         startDescriptorsUpdates = startDescriptorsUpdate,
         dismissDescriptorsUpdateNotice = dismissDescriptorReviewNotice::invoke,

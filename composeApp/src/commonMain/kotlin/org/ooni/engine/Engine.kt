@@ -9,6 +9,10 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.encodeToJsonElement
+import kotlinx.serialization.json.jsonObject
 import okio.use
 import org.ooni.engine.OonimkallBridge.SubmitMeasurementResults
 import org.ooni.engine.models.EnginePreferences
@@ -53,7 +57,10 @@ class Engine(
             val preferences = getEnginePreferences()
             val taskSettings =
                 buildTaskSettings(netTest, taskOrigin, preferences, descriptorId)
-            val settingsSerialized = json.encodeToString(taskSettings)
+            val settingsSerialized = json.encodeToString(
+                JsonElement.serializer(),
+                mergeNetTestOptions(taskSettings, netTest.options),
+            )
 
             var task: OonimkallBridge.Task? = null
             var cancelListener: CancelListenerCallback? = null
@@ -166,6 +173,22 @@ class Engine(
         ),
         proxy = preferences.proxy,
     )
+
+    /**
+     * Flattens a nettest's descriptor-supplied `options` (e.g. from an OONI Run link) into the
+     * task's `options` object, so per-nettest tuning reaches oonimkall. Built-in keys always win
+     * on collision, so a descriptor can't override operational settings like `no_collector`.
+     */
+    private fun mergeNetTestOptions(
+        taskSettings: TaskSettings,
+        netTestOptions: JsonObject?,
+    ): JsonElement {
+        val settingsJson = json.encodeToJsonElement(TaskSettings.serializer(), taskSettings).jsonObject
+        if (netTestOptions.isNullOrEmpty()) return settingsJson
+        val builtInOptions = settingsJson["options"]?.jsonObject ?: JsonObject(emptyMap())
+        val mergedOptions = JsonObject(netTestOptions + builtInOptions)
+        return JsonObject(settingsJson + ("options" to mergedOptions))
+    }
 
     private fun maxRuntime(
         taskOrigin: TaskOrigin,
