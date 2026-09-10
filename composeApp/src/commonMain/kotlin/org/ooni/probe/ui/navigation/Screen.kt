@@ -33,6 +33,11 @@ sealed interface Screen {
     data object AddDescriptorUrl : Screen
 
     @Serializable
+    data class CreateDescriptor(
+        val loginToken: String? = null,
+    ) : Screen
+
+    @Serializable
     data class Measurement(
         val measurementId: Long,
     ) : Screen
