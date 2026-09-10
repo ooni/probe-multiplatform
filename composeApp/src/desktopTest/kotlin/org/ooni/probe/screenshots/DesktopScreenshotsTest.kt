@@ -41,8 +41,10 @@ import ooniprobe.composeapp.generated.resources.TestResults
 import ooniprobe.composeapp.generated.resources.Test_Dash_Fullname
 import ooniprobe.composeapp.generated.resources.Tests_Title
 import ooniprobe.composeapp.generated.resources.app_name
+import org.ooni.engine.models.TestType
 import org.ooni.probe.App
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.SettingsKey
@@ -51,6 +53,8 @@ import org.ooni.probe.di.Dependencies
 import org.ooni.probe.domain.credentials.AnonymousCredentialsHealth
 import org.ooni.probe.ui.dashboard.DashboardScreen
 import org.ooni.probe.ui.dashboard.DashboardViewModel
+import org.ooni.probe.ui.descriptor.create.CreateDescriptorScreen
+import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel
 import org.ooni.probe.ui.settings.credentials.AnonymousCredentialsScreen
 import org.ooni.probe.ui.settings.credentials.AnonymousCredentialsViewModel
 import org.ooni.probe.ui.theme.AppTheme
@@ -66,6 +70,7 @@ import java.util.Locale
 import javax.imageio.ImageIO
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.time.Instant
 
 /**
  * Captures Compose Desktop screenshots driven by the same `DatabaseHelper.setup()`
@@ -412,6 +417,75 @@ class DesktopScreenshotsTest {
                 )
             }
             capture(locale, "26-submit-outcome-credential-no-credential")
+        }
+
+    @Test
+    fun createLinkLogin() =
+        perLocale { locale ->
+            renderApp {
+                CreateDescriptorScreen(
+                    state = CreateDescriptorViewModel.State(phase = CreateDescriptorViewModel.Phase.LoggedOut),
+                    onEvent = {},
+                )
+            }
+            capture(locale, "27-create-link-login")
+        }
+
+    @Test
+    fun createLinkAwaitingToken() =
+        perLocale { locale ->
+            renderApp {
+                CreateDescriptorScreen(
+                    state = CreateDescriptorViewModel.State(phase = CreateDescriptorViewModel.Phase.AwaitingToken),
+                    onEvent = {},
+                )
+            }
+            capture(locale, "28-create-link-awaiting-token")
+        }
+
+    @Test
+    fun createLinkForm() =
+        perLocale { locale ->
+            renderApp {
+                CreateDescriptorScreen(
+                    state = CreateDescriptorViewModel.State(
+                        phase = CreateDescriptorViewModel.Phase.LoggedIn,
+                        session = AuthSession(
+                            sessionToken = "jwt-screenshot",
+                            emailAddress = "screenshot@example.org",
+                            role = "user",
+                            loginTime = Instant.parse("2025-01-01T00:00:00Z"),
+                        ),
+                        name = "Custom censorship watchlist",
+                        shortDescription = "Websites I want to keep an eye on",
+                        description = "A short list of websites relevant to my local context.",
+                        netTests = listOf(
+                            CreateDescriptorViewModel.NetTestForm(
+                                test = TestType.WebConnectivity,
+                                inputs = "https://ooni.org\nhttps://example.com",
+                            ),
+                        ),
+                    ),
+                    onEvent = {},
+                )
+            }
+            capture(locale, "29-create-link-form")
+        }
+
+    @Test
+    fun createLinkSuccess() =
+        perLocale { locale ->
+            renderApp {
+                CreateDescriptorScreen(
+                    state = CreateDescriptorViewModel.State(
+                        phase = CreateDescriptorViewModel.Phase.Success,
+                        runLink = "https://run.ooni.org/v2/1234",
+                        deepLink = "ooni://runv2/1234",
+                    ),
+                    onEvent = {},
+                )
+            }
+            capture(locale, "30-create-link-success")
         }
 
     private fun perLocale(block: ComposeUiTest.(locale: String) -> Unit) {

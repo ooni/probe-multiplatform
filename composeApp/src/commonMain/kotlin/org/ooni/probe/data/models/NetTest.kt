@@ -1,6 +1,7 @@
 package org.ooni.probe.data.models
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 import org.ooni.engine.models.OONINetTest
 import org.ooni.engine.models.TestType
 
@@ -8,10 +9,21 @@ import org.ooni.engine.models.TestType
 data class NetTest(
     val test: TestType,
     val inputs: List<String>? = emptyList(),
+    val options: JsonObject? = null,
 ) {
-    fun toOONI() = OONINetTest(test.name, inputs)
+    fun toOONI() =
+        OONINetTest(
+            name = test.name,
+            inputs = inputs,
+            options = options,
+        )
 
     companion object {
-        fun fromOONI(netTest: OONINetTest) = NetTest(TestType.fromName(netTest.name), netTest.inputs)
+        fun fromOONI(netTest: OONINetTest) =
+            NetTest(
+                test = TestType.fromName(netTest.name),
+                inputs = netTest.inputs,
+                options = netTest.options,
+            )
     }
 }
