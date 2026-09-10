@@ -13,15 +13,15 @@ class DefaultResolverTypeFinderTest {
     }
 
     @Test
-    fun returnsSystemWhenNetworkTypeIsWifiMobileOrEthernet() {
+    fun returnsUnknownWhenNetworkTypeIsWifiMobileOrEthernet() {
         val finderWifi = DefaultResolverTypeFinder { NetworkType.Wifi }
-        assertEquals(ResolverType.System, finderWifi())
+        assertEquals(ResolverType.Unknown, finderWifi())
 
         val finderMobile = DefaultResolverTypeFinder { NetworkType.Mobile }
-        assertEquals(ResolverType.System, finderMobile())
+        assertEquals(ResolverType.Unknown, finderMobile())
 
         val finderEthernet = DefaultResolverTypeFinder { NetworkType.Ethernet }
-        assertEquals(ResolverType.System, finderEthernet())
+        assertEquals(ResolverType.Unknown, finderEthernet())
     }
 
     @Test
