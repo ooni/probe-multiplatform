@@ -1,5 +1,9 @@
 # Distributing
 
+> For the full rationale behind the app-store sandboxing/self-update
+> trade-offs and a side-by-side comparison of every build variant, see
+> [`Distribution.md`](Distribution.md).
+
 This app is built as 2 different *flavors*:
 
 - **OONI Probe:** the general official probe used for collecting mobile data
