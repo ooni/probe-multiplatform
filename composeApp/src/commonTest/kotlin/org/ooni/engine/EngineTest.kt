@@ -6,6 +6,7 @@ import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.NetworkType
+import org.ooni.engine.models.ResolverType
 import org.ooni.engine.models.TaskEvent
 import org.ooni.engine.models.TaskLogLevel
 import org.ooni.engine.models.TaskOrigin
@@ -25,6 +26,7 @@ import kotlin.test.assertTrue
 class EngineTest {
     private val json = Dependencies.buildJson()
     private val networkTypeFinder = NetworkTypeFinder { NetworkType.NoInternet }
+    private val resolverTypeFinder = ResolverTypeFinder { ResolverType.PrivateDns }
 
     @Test
     fun startTaskAndGetEvents() =
@@ -51,6 +53,10 @@ class EngineTest {
             assertEquals("web_connectivity", settings.name)
             assertEquals(listOf("https://ooni.org"), settings.inputs)
             assertEquals(NetworkType.NoInternet, settings.annotations.networkType)
+            assertEquals(ResolverType.PrivateDns, settings.annotations.resolverType)
+            assertTrue(
+                bridge.lastStartTaskSettingsSerialized!!.contains("\"resolver_type\":\"private_dns\""),
+            )
         }
 
     @Test
@@ -75,6 +81,7 @@ class EngineTest {
             cacheDir = "",
             taskEventMapper = TaskEventMapper(networkTypeFinder, json),
             networkTypeFinder = networkTypeFinder,
+            resolverTypeFinder = resolverTypeFinder,
             platformInfo = PlatformInfo(
                 buildName = "1",
                 buildNumber = "1",
