@@ -184,6 +184,25 @@ jobs:
         run: bundle exec fastlane ios build organization:${{ matrix.organization }}
         continue-on-error: false
 
+
+  compile-desktop-variants:
+    name: Build Desktop (${{ matrix.distribution }})
+    runs-on: macos-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        distribution: [ direct, mac-appstore ]
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Package Desktop app
+        run: ./gradlew copyBrandingToCommonResources compileKotlinDesktop -PdesktopDistribution=${{ matrix.distribution }}
+
   build-desktop:
     name: Build Desktop
     runs-on: macos-latest
