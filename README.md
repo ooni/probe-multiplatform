@@ -36,6 +36,10 @@ Multiplatform (Android, iOS and Desktop) version of the Probe app.
   - `dwMain` News Media Scan specific Branding and customization
   - `ooniMain` OONI Probe specific Branding and customization
 
+  See [`docs/Distribution.md`](docs/Distribution.md) for a full comparison of
+  the `ooni`/`dw` organizations, the desktop distribution channels, and the
+  Apple App Store-specific restrictions.
+
 * `iosApp` contains the iOS application configuration and the engine integration written in Swift
 
 * `.github` contains the Continuous Integration configuration for Github
