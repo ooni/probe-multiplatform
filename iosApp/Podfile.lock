@@ -1,6 +1,6 @@
 PODS:
   - composeApp (1.0.0):
-    - Sentry (= 8.58.2)
+    - Sentry (~> 8.58.2)
   - libcrypto (3.30.0)
   - libevent (3.30.0)
   - libssl (3.30.0)
@@ -8,9 +8,9 @@ PODS:
   - libz (3.30.0)
   - oonimkall (3.30.0)
   - passport (0.1.7)
-  - Sentry (8.58.2):
-    - Sentry/Core (= 8.58.2)
-  - Sentry/Core (8.58.2)
+  - Sentry (8.58.4):
+    - Sentry/Core (= 8.58.4)
+  - Sentry/Core (8.58.4)
   - Siren (6.1.3)
   - sqlite3 (3.42.0):
     - sqlite3/common (= 3.42.0)
@@ -53,7 +53,7 @@ EXTERNAL SOURCES:
     :podspec: https://repo1.maven.org/maven2/org/ooni/passport-ios/0.1.7/passport-ios-0.1.7.podspec
 
 SPEC CHECKSUMS:
-  composeApp: 19e73976f01d25027b832c68d189332a26bca106
+  composeApp: 2ef50010f51d2d77ca467edc615d0daf13f809e7
   libcrypto: e259bfc755d066d3a630726f5843a6dd2aee342e
   libevent: f75b818fedaae7d37207e8f6bb7460405216ea82
   libssl: 623a7115f53f2c0d5cb46dd69e54200ece1642cf
@@ -61,7 +61,7 @@ SPEC CHECKSUMS:
   libz: 59b89109ce443cc30733a23a27543c813a554393
   oonimkall: bb7392f9908d3b616682520ac74a73c361349386
   passport: a26a43077c7e0ce94b3ddf23906bf2625beac9ab
-  Sentry: de29b881e83bd91cf99a927f82f1fd86bfb39db2
+  Sentry: 5321d74bdd28d6f6f8beaa1ca06f1fdc746bff49
   Siren: c0f6012f61196b73455202db07730f6454a4beb0
   sqlite3: f163dbbb7aa3339ad8fc622782c2d9d7b72f7e9c
 

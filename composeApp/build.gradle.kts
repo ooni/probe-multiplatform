@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.javafx) apply false
     // The Sentry Android Gradle plugin instruments the Android application and
     // uploads ProGuard mappings, so it lives in the :androidApp module now.
+    alias(libs.plugins.sentryKmp)
 
     id("ooni.common")
 }
@@ -97,13 +98,6 @@ kotlin {
             isStatic = true
             binaryOption("bundleId", "composeApp")
         }
-
-        // See https://github.com/getsentry/sentry-kotlin-multiplatform?tab=readme-ov-file#cocoa-sdk-version-compatibility-table
-        pod("Sentry") {
-            version = "8.58.2"
-            extraOpts += listOf("-compiler-option", "-fmodules")
-        }
-
         podfile = project.file("../iosApp/Podfile")
     }
 
@@ -148,8 +142,8 @@ kotlin {
                 implementation(libs.bundles.kotlin)
                 implementation(libs.bundles.ui)
                 implementation(libs.bundles.tooling)
+
                 if (!isFdroidTaskRequested()) {
-                    implementation(libs.bundles.full)
                     kotlin.srcDir("src/commonFullMain/kotlin")
                 } else {
                     kotlin.srcDir("src/commonFdroidMain/kotlin")
@@ -325,4 +319,14 @@ version = appVersionName
 configurations.all {
     exclude(group = "io.sentry", module = "sentry-android-ndk")
     exclude(group = "io.sentry", module = "sentry-android-replay")
+}
+
+sentryKmp {
+    autoInstall {
+        // fdroid ships no crash reporting; only auto-install the KMP SDK dependency
+        // into commonMain for full/xperimental builds.
+        commonMain {
+            enabled.set(!isFdroidTaskRequested())
+        }
+    }
 }

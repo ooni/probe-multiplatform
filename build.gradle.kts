@@ -10,5 +10,6 @@ plugins {
     alias(libs.plugins.cocoapods) apply false
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.javafx) apply false
-    alias(libs.plugins.sentry) apply false
+    alias(libs.plugins.sentryAndroid) apply false
+    alias(libs.plugins.sentryKmp) apply false
 }

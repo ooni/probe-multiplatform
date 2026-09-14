@@ -36,7 +36,10 @@ cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotli
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "14.2.0" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 javafx = { id = "org.openjfx.javafxplugin", version = "0.1.0" }
-sentry = { id = "io.sentry.android.gradle", version = "6.22.0" }
+# Crash Reporting
+sentryAndroid = { id = "io.sentry.android.gradle", version = "6.22.0" }
+sentryKmp = { id = "io.sentry.kotlin.multiplatform.gradle", version = "0.27.0" }
+
 
 [libraries]
 
@@ -109,10 +112,6 @@ kottie = { module = "io.github.alexzhirkevich:compottie", version = "2.3.1" }
 # Permissions
 moko-permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "mokoPermissions" }
 moko-permissions-notifications = { module = "dev.icerock.moko:permissions-notifications", version.ref = "mokoPermissions" }
-
-# Crash Reporting
-# See https://github.com/getsentry/sentry-kotlin-multiplatform?tab=readme-ov-file#cocoa-sdk-version-compatibility-table
-sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.27.0" }
 
 # Markdown
 markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.45.0" }
@@ -225,9 +224,7 @@ desktop = [
     "jna-platform",
     "slf4j-nop",
 ]
-full = [
-    "sentry",
-]
+
 full-android = [
     "android-app-update",
     "android-app-review"
