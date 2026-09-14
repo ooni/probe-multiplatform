@@ -64,6 +64,7 @@ class ResultViewModel(
             _state.update {
                 it.copy(
                     rerunEnabled = resultItem?.canBeRerun == true && testState is RunBackgroundState.Idle,
+                    isTesting = testState !is RunBackgroundState.Idle,
                 )
             }
         }.launchIn(viewModelScope)
@@ -167,6 +168,7 @@ class ResultViewModel(
         val result: ResultItem?,
         val groupedMeasurements: List<MeasurementGroupItem>,
         val rerunEnabled: Boolean = false,
+        val isTesting: Boolean = false,
     )
 
     sealed interface Event {

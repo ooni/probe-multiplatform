@@ -223,7 +223,7 @@ private fun ResultCounts(item: ResultListItem) {
         }
     }
 
-    if (!item.allMeasurementsUploaded) {
+    if (item.result.isDone && !item.allMeasurementsUploaded) {
         ResultCountItem(
             icon = Res.drawable.ic_cloud_off,
             text = stringResource(
