@@ -24,9 +24,9 @@ platform :android do
             client_secret: options[:client_secret],
             app_id: options[:app_id],
             apk_path: options[:apk_path],
-            delay_before_submit_for_review: 60,
+            delay_before_submit_for_review: 120,
             is_aab: true,
-            submit_for_review: true,
+            submit_for_review: false,
         )
     end
 
