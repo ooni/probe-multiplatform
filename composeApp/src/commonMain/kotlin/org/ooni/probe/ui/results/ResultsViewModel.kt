@@ -21,6 +21,7 @@ import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.ResultsStats
+import org.ooni.probe.data.models.RunBackgroundState
 
 class ResultsViewModel(
     goToResult: (ResultModel.Id) -> Unit,
@@ -32,6 +33,7 @@ class ResultsViewModel(
     deleteResultsByFilter: suspend (ResultFilter) -> Unit,
     markAsViewed: suspend (ResultFilter) -> Unit,
     deleteResults: suspend (List<ResultModel.Id>) -> Unit = {},
+    observeRunBackgroundState: () -> Flow<RunBackgroundState>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -70,6 +72,11 @@ class ResultsViewModel(
         getNetworks()
             .onEach { networks -> _state.update { it.copy(networks = networks) } }
             .launchIn(viewModelScope)
+
+        observeRunBackgroundState()
+            .onEach { runState ->
+                _state.update { it.copy(isTesting = runState !is RunBackgroundState.Idle) }
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ResultClick>()
@@ -160,11 +167,14 @@ class ResultsViewModel(
         val isLoading: Boolean = true,
         val markAllAsViewedEnabled: Boolean = false,
         val selectionEnabled: Boolean = false,
+        val isTesting: Boolean = false,
     ) {
         private val allRuns get() = results.values.flatten()
         private val allResultItems get() = allRuns.flatMap { it.results }
         val areResultsLimited get() = allResultItems.size >= ResultFilter.LIMIT
-        val anyMissingUpload get() = allResultItems.any { !it.item.allMeasurementsUploaded }
+        val anyMissingUpload get() = allResultItems.any {
+            it.item.result.isDone && !it.item.allMeasurementsUploaded
+        }
         val areAllSelected get() = allResultItems.all { it.isSelected }
         val isAnySelected get() = allResultItems.any { it.isSelected }
         val selectedResultsCount get() = allResultItems.count { it.isSelected }

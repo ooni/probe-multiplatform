@@ -9,6 +9,7 @@ import kotlinx.datetime.LocalDate
 import ooniprobe.composeapp.generated.resources.Modal_Delete
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.TestResults_Overview_NoTestsHaveBeenRun
+import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.data.models.MeasurementCounts
 import org.ooni.probe.data.models.ResultListItem
@@ -114,23 +115,80 @@ class ResultsScreenTest {
             }
         }
 
-    private fun buildItem() =
-        RunListItem
-            .aggregateResults(
-                listOf(
-                    ResultListItem(
-                        result = ResultModelFactory.build(),
-                        descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
-                        network = NetworkModelFactory.build(),
-                        measurementCounts = MeasurementCounts(
-                            done = 4,
-                            failed = 0,
-                            anomaly = 0,
-                        ),
-                        allMeasurementsUploaded = true,
-                        anyMeasurementUploadFailed = false,
-                        testKeys = emptyList(),
+    @Test
+    fun uploadOptionIsHiddenWhileTestsAreRunning() =
+        runComposeUiTest {
+            setContent {
+                ResultsScreen(
+                    state = stateWithMissingUpload(isTesting = true),
+                    onEvent = {},
+                )
+            }
+
+            onNodeWithText(getString(Res.string.Snackbar_ResultsSomeNotUploaded_Text))
+                .assertDoesNotExist()
+        }
+
+    @Test
+    fun uploadOptionIsShownForCompletedResultsWithMissingUpload() =
+        runComposeUiTest {
+            setContent {
+                ResultsScreen(
+                    state = stateWithMissingUpload(),
+                    onEvent = {},
+                )
+            }
+
+            onNodeWithText(getString(Res.string.Snackbar_ResultsSomeNotUploaded_Text))
+                .assertExists()
+        }
+
+    @Test
+    fun uploadOptionIsHiddenForIncompleteResults() =
+        runComposeUiTest {
+            setContent {
+                ResultsScreen(
+                    state = stateWithMissingUpload(isDone = false),
+                    onEvent = {},
+                )
+            }
+
+            onNodeWithText(getString(Res.string.Snackbar_ResultsSomeNotUploaded_Text))
+                .assertDoesNotExist()
+        }
+
+    private fun stateWithMissingUpload(
+        isDone: Boolean = true,
+        isTesting: Boolean = false,
+    ) = ResultsViewModel.State(
+        results = mapOf(
+            LocalDate(2024, 1, 1) to listOf(
+                buildItem(isDone = isDone, allMeasurementsUploaded = false),
+            ),
+        ),
+        isLoading = false,
+        isTesting = isTesting,
+    )
+
+    private fun buildItem(
+        isDone: Boolean = false,
+        allMeasurementsUploaded: Boolean = true,
+    ) = RunListItem
+        .aggregateResults(
+            listOf(
+                ResultListItem(
+                    result = ResultModelFactory.build(isDone = isDone),
+                    descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
+                    network = NetworkModelFactory.build(),
+                    measurementCounts = MeasurementCounts(
+                        done = 4,
+                        failed = 0,
+                        anomaly = 0,
                     ),
+                    allMeasurementsUploaded = allMeasurementsUploaded,
+                    anyMeasurementUploadFailed = false,
+                    testKeys = emptyList(),
                 ),
-            ).first()
+            ),
+        ).first()
 }

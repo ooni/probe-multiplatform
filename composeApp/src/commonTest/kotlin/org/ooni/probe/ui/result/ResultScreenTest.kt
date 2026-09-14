@@ -8,6 +8,7 @@ import kotlinx.coroutines.test.runTest
 import ooniprobe.composeapp.generated.resources.Modal_ReRun_Title
 import ooniprobe.composeapp.generated.resources.Modal_ReRun_Websites_Run
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.Snackbar_ResultsSomeNotUploaded_Text
 import org.jetbrains.compose.resources.getString
 import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.MeasurementModel
@@ -110,4 +111,52 @@ class ResultScreenTest {
             assertEquals(1, events.size)
             assertEquals(ResultViewModel.Event.BackClicked, events.first())
         }
+
+    @Test
+    fun uploadOptionIsHiddenWhileTestsAreRunning() =
+        runComposeUiTest {
+            setContent {
+                ResultScreen(
+                    state = ResultViewModel.State(
+                        result = buildResultItem(),
+                        groupedMeasurements = emptyList(),
+                        isTesting = true,
+                    ),
+                    onEvent = {},
+                )
+            }
+
+            onNodeWithText(getString(Res.string.Snackbar_ResultsSomeNotUploaded_Text))
+                .assertDoesNotExist()
+        }
+
+    @Test
+    fun uploadOptionIsShownForCompletedResultWithMissingUpload() =
+        runComposeUiTest {
+            setContent {
+                ResultScreen(
+                    state = ResultViewModel.State(
+                        result = buildResultItem(),
+                        groupedMeasurements = emptyList(),
+                    ),
+                    onEvent = {},
+                )
+            }
+
+            onNodeWithText(getString(Res.string.Snackbar_ResultsSomeNotUploaded_Text))
+                .assertExists()
+        }
+
+    private fun buildResultItem() =
+        ResultItem(
+            result = ResultModelFactory.build(isDone = true),
+            network = null,
+            descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
+            measurements = listOf(
+                MeasurementModelFactory.buildWithUrl(
+                    measurement = MeasurementModelFactory.build(isDone = true),
+                ),
+            ),
+            testKeys = emptyList(),
+        )
 }

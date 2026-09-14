@@ -172,7 +172,7 @@ fun ResultScreen(
                     }
                 }
 
-                if (state.result.anyMeasurementMissingUpload) {
+                if (!state.isTesting && state.result.anyMeasurementMissingUpload) {
                     stickyHeader("upload_results") {
                         UploadResults(onUploadClick = { onEvent(ResultViewModel.Event.UploadClicked) })
                     }

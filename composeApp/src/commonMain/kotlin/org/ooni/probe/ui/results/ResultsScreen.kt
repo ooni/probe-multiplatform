@@ -359,7 +359,7 @@ private fun Results(
         Stats(state.stats)
     }
 
-    if (state.anyMissingUpload && state.filter.isAll && !state.selectionEnabled) {
+    if (!state.isTesting && state.anyMissingUpload && state.filter.isAll && !state.selectionEnabled) {
         UploadResults(onUploadClick = { onEvent(ResultsViewModel.Event.UploadClick) })
     }
 

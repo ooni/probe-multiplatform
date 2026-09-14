@@ -1055,6 +1055,7 @@ class Dependencies(
         deleteResultsByFilter = deleteResults::byFilter,
         deleteResults = deleteResults::byIds,
         markAsViewed = resultRepository::markAllAsViewed,
+        observeRunBackgroundState = runBackgroundStateManager::observeState,
     )
 
     fun runningViewModel(
