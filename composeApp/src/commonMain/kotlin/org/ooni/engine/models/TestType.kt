@@ -205,7 +205,7 @@ sealed class TestType {
             )
         }
 
-        fun fromName(name: String) = ALL_NAMED.firstOrNull { it.name == name } ?: Experimental(name)
+        fun fromName(name: String) = ALL_NAMED.firstOrNull { it.name == name.split("@").first() } ?: Experimental(name)
     }
 }
 
