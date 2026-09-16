@@ -6,7 +6,7 @@
         "author": "contact@openobservatory.org",
         "nettests": [
             {
-                "test_name": "web_connectivity",
+                "test_name": "web_connectivity@v0.5",
                 "inputs": [],
                 "options": {},
                 "is_background_run_enabled_default": false,
@@ -102,7 +102,7 @@
         "oonirun_link_id": "00104",
         "date_created": "2024-11-06T14:58:41.000000Z",
         "date_updated": "2024-11-06T14:58:41.000000Z",
-        "revision": "1",
+        "revision": "5",
         "is_mine": false,
         "is_expired": false
     },
