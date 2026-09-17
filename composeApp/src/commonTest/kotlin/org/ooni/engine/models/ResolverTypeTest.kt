@@ -1,11 +1,11 @@
 package org.ooni.engine.models
 
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ResolverTypeTest {
-    private val json = Dependencies.buildJson()
+    private val json = CoreDependencies.buildJson()
 
     @Test
     fun fromReturnsPrivateDnsWhenPrivateDnsIsActive() {

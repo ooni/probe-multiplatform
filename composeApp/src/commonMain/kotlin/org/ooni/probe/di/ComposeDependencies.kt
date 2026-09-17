@@ -7,8 +7,10 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import org.ooni.engine.DefaultResolverTypeFinder
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
+import org.ooni.engine.ResolverTypeFinder
 import org.ooni.engine.SecureStorage
 import org.ooni.passport.PassportBridge
 import org.ooni.probe.SharedBuildConfig
@@ -74,6 +76,7 @@ class ComposeDependencies(
     cacheDir: String,
     databaseDriverFactory: () -> SqlDriver,
     networkTypeFinder: NetworkTypeFinder,
+    resolverTypeFinder: ResolverTypeFinder = DefaultResolverTypeFinder(networkTypeFinder),
     secureStorage: SecureStorage,
     buildDataStore: () -> DataStore<Preferences>,
     getBatteryState: () -> BatteryState,
@@ -104,6 +107,7 @@ class ComposeDependencies(
         cacheDir = cacheDir,
         databaseDriverFactory = databaseDriverFactory,
         networkTypeFinder = networkTypeFinder,
+        resolverTypeFinder = resolverTypeFinder,
         secureStorage = secureStorage,
         buildDataStore = buildDataStore,
         getBatteryState = getBatteryState,
@@ -333,6 +337,7 @@ class ComposeDependencies(
         deleteResultsByFilter = deleteResults::byFilter,
         deleteResults = deleteResults::byIds,
         markAsViewed = resultRepository::markAllAsViewed,
+        observeRunBackgroundState = runBackgroundStateManager::observeState,
     )
 
     fun runningViewModel(

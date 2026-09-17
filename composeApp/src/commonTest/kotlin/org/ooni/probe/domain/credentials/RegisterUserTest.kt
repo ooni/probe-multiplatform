@@ -247,6 +247,7 @@ class RegisterUserTest {
                 setCredential = { true },
                 backgroundContext = coroutineContext,
                 json = json,
+                ooniApiBaseUrl = "https://api.ooni.io",
                 retrieveManifest = { refreshedManifest },
             )
 
@@ -282,6 +283,7 @@ class RegisterUserTest {
                 setCredential = { true },
                 backgroundContext = coroutineContext,
                 json = json,
+                ooniApiBaseUrl = "https://api.ooni.io",
                 retrieveManifest = { error("manifest refresh unavailable") },
             )
 

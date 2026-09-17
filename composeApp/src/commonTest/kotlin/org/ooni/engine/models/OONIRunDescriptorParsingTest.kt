@@ -46,9 +46,9 @@ class OONIRunDescriptorParsingTest {
         val netTest = parsed.netTests[0]
         assertEquals("web_connectivity", netTest.name)
         assertEquals(listOf("https://example.com/"), netTest.inputs)
-        assertNotNull(netTest.inputsExtra)
-        assertEquals(1, netTest.inputsExtra.size)
-        assertEquals("HUMR", netTest.inputsExtra.first()["category_code"])
+        val inputsExtra = assertNotNull(netTest.inputsExtra)
+        assertEquals(1, inputsExtra.size)
+        assertEquals("HUMR", inputsExtra.first()["category_code"])
         assertEquals("websites_list_prioritized", netTest.targetsName)
         assertTrue(netTest.isBackgroundRunEnabled)
         assertTrue(netTest.isManualRunEnabled)

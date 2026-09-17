@@ -284,7 +284,7 @@ class SubmitMeasurementTest {
                     updateMeasurement = { },
                     deleteMeasurementById = { },
                     handleSubmitOutcome = { _, _ -> },
-                    json = Dependencies.buildJson(),
+                    json = CoreDependencies.buildJson(),
                 )
 
                 subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))
@@ -309,7 +309,7 @@ class SubmitMeasurementTest {
                 updateMeasurement = { updated = it },
                 deleteMeasurementById = { },
                 handleSubmitOutcome = { _, _ -> },
-                json = Dependencies.buildJson(),
+                json = CoreDependencies.buildJson(),
             )
 
             subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))
