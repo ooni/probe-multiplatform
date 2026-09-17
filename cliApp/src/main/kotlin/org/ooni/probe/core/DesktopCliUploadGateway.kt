@@ -10,13 +10,12 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import okio.FileSystem
+import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.engine.Engine
-import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.TaskEventMapper
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.Failure
-import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskLogLevel
 import org.ooni.probe.Database
 import org.ooni.probe.config.CoreConfig
@@ -51,7 +50,7 @@ private class DesktopCliUploadGateway(
         isLenient = true
     }
     private val fileSystem = FileSystem.SYSTEM
-    private val networkTypeFinder = NetworkTypeFinder { NetworkType.Unknown("unknown") }
+    private val networkTypeFinder = DesktopNetworkTypeFinder()
 
     private val measurementRepository = MeasurementRepository(database, json, backgroundContext)
 
