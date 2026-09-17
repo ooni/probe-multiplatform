@@ -122,7 +122,7 @@ compose.desktop {
             val appId = "org.ooni.probe-desktop"
 
             macOS {
-                minimumSystemVersion = "14.8.3"
+                minimumSystemVersion = "12.0.0"
                 bundleID = appId
                 val macDir = if (dist.requiresSandbox) "macos/appstore" else "macos/direct"
                 entitlementsFile.set(project.file("$macDir/entitlements.plist"))
