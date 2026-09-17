@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
@@ -45,7 +46,9 @@ import ooniprobe.composeapp.generated.resources.Common_Collapse
 import ooniprobe.composeapp.generated.resources.Common_Expand
 import ooniprobe.composeapp.generated.resources.Common_Search
 import ooniprobe.composeapp.generated.resources.DescriptorUpdate_CheckUpdates
+import ooniprobe.composeapp.generated.resources.Descriptors_CreateFab
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.fa_pen_nib
 import ooniprobe.composeapp.generated.resources.Tests_Search
 import ooniprobe.composeapp.generated.resources.Tests_Title
 import ooniprobe.composeapp.generated.resources.ic_add
@@ -232,6 +235,23 @@ fun DescriptorsScreen(
             isRefreshing = state.isRefreshing,
             state = pullRefreshState,
         )
+
+        if (OrganizationConfig.canInstallDescriptors && !state.isFiltering) {
+            ExtendedFloatingActionButton(
+                onClick = { onEvent(DescriptorsViewModel.Event.CreateClicked) },
+                icon = {
+                    Icon(
+                        painter = painterResource(Res.drawable.fa_pen_nib),
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp),
+                    )
+                },
+                text = { Text(stringResource(Res.string.Descriptors_CreateFab)) },
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp),
+            )
+        }
     }
 
     NavigationBackHandler(
