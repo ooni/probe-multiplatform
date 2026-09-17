@@ -8,7 +8,7 @@ import org.ooni.engine.models.Success
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.VerificationStatus
 import org.ooni.probe.data.models.MeasurementModel
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.testing.factories.MeasurementModelFactory
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -40,7 +40,7 @@ class SubmitMeasurementTest {
         updateMeasurement = { onUpdate(it) },
         deleteMeasurementById = { onDeleteById() },
         handleSubmitOutcome = { _, _ -> },
-        json = Dependencies.buildJson(),
+        json = CoreDependencies.buildJson(),
     )
 
     @Test
@@ -216,7 +216,7 @@ class SubmitMeasurementTest {
                 updateMeasurement = { updated = it },
                 deleteMeasurementById = { },
                 handleSubmitOutcome = { _, _ -> },
-                json = Dependencies.buildJson(),
+                json = CoreDependencies.buildJson(),
             )
 
             subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))
@@ -252,7 +252,7 @@ class SubmitMeasurementTest {
                 updateMeasurement = { },
                 deleteMeasurementById = { },
                 handleSubmitOutcome = { _, _ -> },
-                json = Dependencies.buildJson(),
+                json = CoreDependencies.buildJson(),
             )
 
             subject.invokeInstrumented(MeasurementModelFactory.build(id = MeasurementModel.Id(1L)))

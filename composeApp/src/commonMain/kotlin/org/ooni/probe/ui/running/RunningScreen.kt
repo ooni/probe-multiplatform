@@ -1,5 +1,10 @@
 package org.ooni.probe.ui.running
 
+import org.ooni.probe.data.models.animation
+import org.ooni.probe.data.models.color
+import org.ooni.probe.data.models.icon
+import org.ooni.probe.data.models.title
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -42,6 +47,7 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import ooniprobe.composeapp.generated.resources.test_circumvention
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.engine.models.displayName
 import org.ooni.probe.data.models.Animation
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.ui.shared.LottieAnimation

@@ -1,5 +1,8 @@
 package org.ooni.probe.ui.descriptor.websites
 
+import org.ooni.probe.data.models.color
+import org.ooni.probe.data.models.title
+
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

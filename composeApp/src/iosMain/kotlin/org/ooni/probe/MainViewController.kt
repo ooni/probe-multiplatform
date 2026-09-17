@@ -9,13 +9,13 @@ import androidx.compose.ui.window.ComposeUIViewController
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.ooni.probe.data.models.DeepLink
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.ComposeDependencies
 import org.ooni.probe.ui.shared.requestAppReview
 import platform.UIKit.UIViewController
 
 @OptIn(ExperimentalComposeApi::class)
 fun mainViewController(
-    dependencies: Dependencies,
+    dependencies: ComposeDependencies,
     deepLinkFlow: MutableSharedFlow<DeepLink?>,
 ): UIViewController =
     ComposeUIViewController {

@@ -12,7 +12,7 @@ import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.data.models.GetBytesException
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.repositories.PreferenceRepository
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.testing.createPreferenceDataStore
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -111,7 +111,7 @@ class FetchGeoIpDbUpdatesTest {
         cacheDir = "/tmp/ooni-test-cache",
         passportGet = passportGet,
         preferencesRepository = preferences,
-        json = Dependencies.buildJson(),
+        json = CoreDependencies.buildJson(),
         fileSystem = FileSystem.SYSTEM,
         backgroundContext = Dispatchers.Unconfined,
     )
