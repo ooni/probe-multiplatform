@@ -86,6 +86,7 @@ class DesktopUpdateController(
                 updateManager.initialize(UpdateConfig.URL, UpdateConfig.PUBLIC_KEY)
                 updateManager.setAutomaticUpdatesEnabled(true)
                 updateManager.setUpdateCheckInterval(UpdateConfig.CHECK_INTERVAL_HOURS)
+                checkOnForeground()
             } catch (e: Throwable) {
                 Logger.e("Failed to initialize update system: $e")
                 _error.value = UpdateError(-999, "Setup failed: ${e.message}", "setup")
@@ -129,6 +130,16 @@ class DesktopUpdateController(
 
     fun retryLastOperation() {
         updateManager.retryLastOperation()
+    }
+
+    /**
+     * Silent update check for automatic triggers (app launch, window foregrounded).
+     * Unlike [checkNow], this never shows native update UI/dialogs.
+     */
+    fun checkOnForeground() {
+        if (!supportsUpdates()) return
+        if (_state.value == UpdateState.CHECKING_FOR_UPDATES) return
+        updateManager.checkForUpdates(showUI = false)
     }
 
     fun getMenuText(): StringResource =
