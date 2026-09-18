@@ -54,12 +54,16 @@ import ooniprobe.composeapp.generated.resources.app_name
 import ooniprobe.composeapp.generated.resources.ooni_colored_logo
 import ooniprobe.composeapp.generated.resources.tray_icon_dark
 import ooniprobe.composeapp.generated.resources.tray_icon_dark_running
+import ooniprobe.composeapp.generated.resources.tray_icon_dark_update
 import ooniprobe.composeapp.generated.resources.tray_icon_light
 import ooniprobe.composeapp.generated.resources.tray_icon_light_running
+import ooniprobe.composeapp.generated.resources.tray_icon_light_update
 import ooniprobe.composeapp.generated.resources.tray_icon_windows_dark
 import ooniprobe.composeapp.generated.resources.tray_icon_windows_dark_running
+import ooniprobe.composeapp.generated.resources.tray_icon_windows_dark_update
 import ooniprobe.composeapp.generated.resources.tray_icon_windows_light
 import ooniprobe.composeapp.generated.resources.tray_icon_windows_light_running
+import ooniprobe.composeapp.generated.resources.tray_icon_windows_light_update
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -135,7 +139,6 @@ fun main(args: Array<String>) {
 
         // Set initial dock visibility based on window visibility
         MacDockVisibility.setDockIconVisible(isWindowVisible)
-        val trayIcon = trayIcon()
         val deepLink by deepLinkFlow.collectAsState(null)
         val activationEvent by activationFlow.collectAsState(null)
         val runBackgroundState by dependencies.runBackgroundStateManager
@@ -145,6 +148,7 @@ fun main(args: Array<String>) {
         // Observe update state for UI
         val updateState by updateController.state.collectAsState(UpdateState.IDLE)
         val updateError by updateController.error.collectAsState(null)
+        val trayIcon = trayIcon(updateState)
 
         fun showWindow() {
             isWindowVisible = true
@@ -156,6 +160,7 @@ fun main(args: Array<String>) {
             ) {
                 Desktop.getDesktop().requestForeground(true)
             }
+            updateController.checkOnForeground()
         }
 
         fun promptQuit() {
@@ -324,7 +329,7 @@ private fun ApplicationScope.onQuitApplicationClicked(
     }
 
 @Composable
-private fun trayIcon(): DrawableResource {
+private fun trayIcon(updateState: UpdateState): DrawableResource {
     val isDarkTheme = isSystemInDarkMode()
     val isWindows =
         (dependencies.platformInfo.platform as? Platform.Desktop)?.os == DesktopOS.Windows
@@ -332,15 +337,37 @@ private fun trayIcon(): DrawableResource {
         .observeState()
         .collectAsState(RunBackgroundState.Idle)
     val isRunning = runBackgroundState !is RunBackgroundState.Idle
+    val isUpdateAvailable = updateState == UpdateState.UPDATE_AVAILABLE
+    val (plain, running, update) = when {
+        isWindows && isDarkTheme ->
+            Triple(
+                Res.drawable.tray_icon_windows_dark,
+                Res.drawable.tray_icon_windows_dark_running,
+                Res.drawable.tray_icon_windows_dark_update,
+            )
+        isWindows && !isDarkTheme ->
+            Triple(
+                Res.drawable.tray_icon_windows_light,
+                Res.drawable.tray_icon_windows_light_running,
+                Res.drawable.tray_icon_windows_light_update,
+            )
+        !isWindows && isDarkTheme ->
+            Triple(
+                Res.drawable.tray_icon_dark,
+                Res.drawable.tray_icon_dark_running,
+                Res.drawable.tray_icon_dark_update,
+            )
+        else ->
+            Triple(
+                Res.drawable.tray_icon_light,
+                Res.drawable.tray_icon_light_running,
+                Res.drawable.tray_icon_light_update,
+            )
+    }
     return when {
-        isDarkTheme && isWindows && isRunning -> Res.drawable.tray_icon_windows_dark_running
-        !isDarkTheme && isWindows && isRunning -> Res.drawable.tray_icon_windows_light_running
-        isDarkTheme && !isWindows && isRunning -> Res.drawable.tray_icon_dark_running
-        !isDarkTheme && !isWindows && isRunning -> Res.drawable.tray_icon_light_running
-        isDarkTheme && isWindows && !isRunning -> Res.drawable.tray_icon_windows_dark
-        !isDarkTheme && isWindows && !isRunning -> Res.drawable.tray_icon_windows_light
-        isDarkTheme && !isWindows && !isRunning -> Res.drawable.tray_icon_dark
-        else -> Res.drawable.tray_icon_light
+        isUpdateAvailable -> update
+        isRunning -> running
+        else -> plain
     }
 }
 
