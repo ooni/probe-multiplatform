@@ -1,4 +1,4 @@
-* Measurement engine is OONI Probe CLI v3.30.0
-* Added in-app language picker for Android
-* Enhanced offline handling and retry mechanisms
+* Measurement engine (`org.ooni:oonimkall*`) v3.30.0
+* `org.ooni:passport*` 0.1.7
+* Add support for `resolver_type`.
 * Bug fixes and improvements
