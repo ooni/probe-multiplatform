@@ -63,6 +63,7 @@ import ooniprobe.composeapp.generated.resources.tray_icon_windows_light_running
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.engine.models.displayName
 import org.ooni.probe.background.registerWindowsUrlScheme
 import org.ooni.probe.data.models.DeepLink
 import org.ooni.probe.data.models.RunBackgroundState

@@ -11,7 +11,7 @@ import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunModel
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.testing.factories.DescriptorFactory
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -65,7 +65,7 @@ class RunNetTestTest {
                 setCurrentTestState = {},
                 writeFile = { _, _ -> },
                 deleteFiles = { },
-                json = Dependencies.buildJson(),
+                json = CoreDependencies.buildJson(),
                 getPreferenceValueByKey = { flowOf(true) },
                 submitMeasurement = { null },
                 spec = spec,

@@ -30,7 +30,7 @@ import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Unsupported
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.ooni.probe.data.models.DeepLink
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.ComposeDependencies
 import org.ooni.probe.ui.navigation.BottomBarViewModel
 import org.ooni.probe.ui.navigation.BottomNavigationBar
 import org.ooni.probe.ui.navigation.Navigation
@@ -43,7 +43,7 @@ import org.ooni.probe.ui.theme.AppTheme
 
 @Composable
 fun App(
-    dependencies: Dependencies,
+    dependencies: ComposeDependencies,
     deepLink: DeepLink?,
     onDeeplinkHandled: () -> Unit = {},
     useDarkTheme: Boolean? = null,

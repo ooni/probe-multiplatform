@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.ooni.engine.models.WebConnectivityCategory
 import org.ooni.probe.data.models.UrlModel
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.testing.createTestDatabaseDriver
 import org.ooni.testing.factories.UrlModelFactory
 import kotlin.math.absoluteValue
@@ -21,7 +21,7 @@ class UrlRepositoryTest {
     @BeforeTest
     fun before() {
         subject = UrlRepository(
-            database = Dependencies.buildDatabase(::createTestDatabaseDriver),
+            database = CoreDependencies.buildDatabase(::createTestDatabaseDriver),
             backgroundContext = Dispatchers.Default,
         )
     }

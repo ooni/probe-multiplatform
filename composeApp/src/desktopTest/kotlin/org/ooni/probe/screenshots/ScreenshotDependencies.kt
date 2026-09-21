@@ -6,7 +6,7 @@ import org.ooni.probe.buildDependencies
 import org.ooni.probe.config.LegacyDirectoryManager
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.BatteryState
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.ComposeDependencies
 import org.ooni.probe.shared.Distribution
 import org.ooni.probe.shared.LanguageSupport
 import org.ooni.probe.shared.Platform
@@ -14,7 +14,7 @@ import org.ooni.probe.shared.PlatformInfo
 import java.nio.file.Files
 import java.nio.file.Path
 
-internal fun buildScreenshotDependencies(workingDir: Path): Dependencies {
+internal fun buildScreenshotDependencies(workingDir: Path): ComposeDependencies {
     val baseFileDir = workingDir.toAbsolutePath().toString()
     val cacheDir = Files
         .createDirectories(workingDir.resolve("cache"))

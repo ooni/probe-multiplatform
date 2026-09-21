@@ -4,7 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.ooni.probe.data.models.NetworkModel
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import org.ooni.testing.createTestDatabaseDriver
 import org.ooni.testing.factories.NetworkModelFactory
 import org.ooni.testing.factories.ResultModelFactory
@@ -20,7 +20,7 @@ class NetworkRepositoryTest {
 
     @BeforeTest
     fun before() {
-        val database = Dependencies.buildDatabase(::createTestDatabaseDriver)
+        val database = CoreDependencies.buildDatabase(::createTestDatabaseDriver)
         subject = NetworkRepository(
             database = database,
             backgroundContext = Dispatchers.Default,

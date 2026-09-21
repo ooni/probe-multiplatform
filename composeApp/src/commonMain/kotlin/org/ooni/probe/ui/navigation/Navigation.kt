@@ -22,7 +22,7 @@ import org.ooni.probe.data.models.MeasurementsFilter
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.PreferenceCategoryKey
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.ComposeDependencies
 import org.ooni.probe.ui.articles.ArticleScreen
 import org.ooni.probe.ui.articles.ArticlesScreen
 import org.ooni.probe.ui.choosewebsites.ChooseWebsitesScreen
@@ -59,7 +59,7 @@ private val START_SCREEN = Screen.Dashboard
 @Composable
 fun Navigation(
     navController: NavHostController,
-    dependencies: Dependencies,
+    dependencies: ComposeDependencies,
     startDestination: Screen = START_SCREEN,
 ) {
     NavHost(

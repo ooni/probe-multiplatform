@@ -44,6 +44,9 @@ import ooniprobe.composeapp.generated.resources.ic_shield_warning
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
+import org.ooni.engine.models.iconRes
+import org.ooni.engine.models.labelRes
+import org.ooni.engine.models.titleRes
 import org.ooni.passport.models.VerificationStatus
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
@@ -181,14 +184,15 @@ private fun TestName(
     item: MeasurementWithUrl,
     modifier: Modifier = Modifier,
 ) {
+    val url = item.url
     val iconResource = when {
-        test == TestType.WebConnectivity && item.url != null -> item.url.category.icon
+        test == TestType.WebConnectivity && url != null -> url.category.iconRes
         else -> test.iconRes
     }
 
-    val contentDescription = item.url
+    val contentDescription = url
         ?.category
-        ?.title
+        ?.titleRes
         ?.let { stringResource(it) } ?: ""
     iconResource?.let { resource ->
         Icon(
@@ -198,8 +202,8 @@ private fun TestName(
         )
     }
     Text(
-        text = if (test == TestType.WebConnectivity && item.url != null) {
-            item.url.url
+        text = if (test == TestType.WebConnectivity && url != null) {
+            url.url
         } else if (test is TestType.Experimental) {
             test.name
         } else {

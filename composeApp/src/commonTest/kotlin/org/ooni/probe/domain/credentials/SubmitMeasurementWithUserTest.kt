@@ -38,6 +38,7 @@ class SubmitMeasurementWithUserTest {
         resolveSubmissionPolicy = ResolveSubmissionPolicy(),
         userAuthSubmit = { _, _, _, _, _ -> Success(response) },
         json = json,
+        ooniApiBaseUrl = "https://api.ooni.io",
         handleSubmitOutcome = { _, error -> onSubmitOutcome(error) },
     )
 
