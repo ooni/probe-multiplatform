@@ -5,9 +5,11 @@ import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextReplacement
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.test.runTest
+import ooniprobe.composeapp.generated.resources.AddDescriptor_Settings
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Title
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Tests_Title
@@ -22,6 +24,7 @@ import org.ooni.probe.uitesting.helpers.clickOnTag
 import org.ooni.probe.uitesting.helpers.clickOnText
 import org.ooni.probe.uitesting.helpers.dependencies
 import org.ooni.probe.uitesting.helpers.disableRefreshArticles
+import org.ooni.probe.uitesting.helpers.onNodeWithText
 import org.ooni.probe.uitesting.helpers.setupMockedEngine
 import org.ooni.probe.uitesting.helpers.skipOnboarding
 import org.ooni.probe.uitesting.helpers.start
@@ -71,7 +74,7 @@ class CreateDescriptorTest {
 
             with(compose) {
                 clickOnText(Res.string.Tests_Title)
-                clickOnContentDescription(Res.string.CreateDescriptor_Title)
+                clickOnTag("CreateDescriptor-FAB")
 
                 wait { onNodeWithTag("CreateDescriptor-Email").isDisplayed() }
                 onNodeWithTag("CreateDescriptor-Email").performTextReplacement(EMAIL_ADDRESS)
@@ -86,15 +89,14 @@ class CreateDescriptorTest {
                 onNodeWithTag("CreateDescriptor-Name").performTextReplacement("My censorship watchlist")
                 onNodeWithTag("CreateDescriptor-ShortDescription").performTextReplacement("Websites to keep an eye on")
                 onNodeWithTag("CreateDescriptor-Description").performTextReplacement("A short description of the link.")
-                onNodeWithTag("CreateDescriptor-Inputs-0").performTextReplacement("https://ooni.org")
+                onNodeWithTag("CreateDescriptor-Url-0")
+                    .performScrollTo()
+                    .performTextReplacement("https://ooni.org")
 
                 clickOnTag("CreateDescriptor-Submit")
 
-                wait(SUBMIT_WAIT_TIMEOUT) { onNodeWithTag("CreateDescriptor-RunLink").isDisplayed() }
-                // The dashboard domain differs between build types (e.g. run.test.ooni.org in
-                // debug) - match on the link id instead of hardcoding the full URL.
-                onNodeWithText("/v2/$CREATED_LINK_ID", substring = true).assertIsDisplayed()
-                onNodeWithText("ooni://runv2/$CREATED_LINK_ID").assertIsDisplayed()
+                wait(SUBMIT_WAIT_TIMEOUT) { onNodeWithText(Res.string.AddDescriptor_Settings).isDisplayed() }
+                onNodeWithText("My censorship watchlist").assertIsDisplayed()
             }
         }
 
