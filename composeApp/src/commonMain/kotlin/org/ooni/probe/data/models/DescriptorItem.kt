@@ -8,6 +8,7 @@ import kotlinx.datetime.format
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_Description
+import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_Description_Compact
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_LastUpdated
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.TestResults_NotAvailable
@@ -45,16 +46,34 @@ data class DescriptorItem(
         get() = { descriptor.descriptionIntl?.getCurrent() ?: descriptor.description }
     val metadata: @Composable () -> String? = {
         val monthNames = stringMonthArrayResource()
-        val formattedDate = { date: LocalDateTime? -> date?.format(dateTimeFormat(monthNames)) }
+        val dateFormat = dateTimeFormat(monthNames)
+        val formattedDate = { date: LocalDateTime? -> date?.format(dateFormat) }
+
         formattedDate(descriptor.dateCreated)?.let { formattedDateCreated ->
-            stringResource(
-                Res.string.Dashboard_Runv2_Overview_Description,
-                descriptor.author.orEmpty(),
-                formattedDateCreated,
-            ) + ". " +
-                formattedDate(descriptor.dateUpdated)?.let {
-                    stringResource(Res.string.Dashboard_Runv2_Overview_LastUpdated, it)
-                }
+            val author = descriptor.author?.trim()?.takeIf {
+                it.isNotBlank() && !it.equals("[private email]", ignoreCase = true)
+            }
+            val createdText = if (author != null) {
+                stringResource(
+                    Res.string.Dashboard_Runv2_Overview_Description,
+                    author,
+                    formattedDateCreated,
+                )
+            } else {
+                stringResource(
+                    Res.string.Dashboard_Runv2_Overview_Description_Compact,
+                    formattedDateCreated,
+                )
+            }
+
+            val updatedText = formattedDate(descriptor.dateUpdated)?.let { formattedDateUpdated ->
+                stringResource(
+                    Res.string.Dashboard_Runv2_Overview_LastUpdated,
+                    formattedDateUpdated,
+                )
+            }
+
+            listOfNotNull(createdText, updatedText).joinToString(". ")
         }
     }
     val icon: DrawableResource?

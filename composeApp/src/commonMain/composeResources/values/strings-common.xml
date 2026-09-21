@@ -49,6 +49,7 @@
     <string name="Dashboard_RunV2_Title">OONI Run Links</string>
     <!-- Example: Created by John Smith on January 1st, 2020 -->
     <string name="Dashboard_Runv2_Overview_Description">Created by %1$s on %2$s</string>
+    <string name="Dashboard_Runv2_Overview_Description_Compact">Created on %1$s</string>
     <string name="Dashboard_Runv2_Overview_UninstallLink">Uninstall Link</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Previous revisions</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">See More</string>
