@@ -1,9 +1,11 @@
 package org.ooni.probe.ui.descriptor.create
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,30 +26,39 @@ internal fun TokenSection(
     state: State.AwaitingToken,
     onEvent: (Event) -> Unit,
 ) {
-    Text(
-        stringResource(Res.string.CreateDescriptor_Login_CheckEmail),
-        modifier = Modifier.padding(bottom = 16.dp),
-    )
-
-    OutlinedTextField(
-        value = state.tokenInput,
-        onValueChange = { onEvent(Event.TokenChanged(it)) },
-        label = { Text(stringResource(Res.string.CreateDescriptor_Login_Token)) },
-        isError = state.errorMessage != null,
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Uri),
-        modifier = Modifier
-            .fillMaxWidth()
-            .testTag("CreateDescriptor-Token"),
-    )
-    ErrorText(state.errorMessage)
-
-    Button(
-        onClick = { onEvent(Event.VerifyClicked) },
-        enabled = !state.isBusy,
-        modifier = Modifier
-            .padding(top = 16.dp)
-            .testTag("CreateDescriptor-Verify"),
+    Column(
+        modifier = Modifier.padding(all = 16.dp),
     ) {
-        Text(stringResource(Res.string.CreateDescriptor_Login_Verify))
+        Text(
+            stringResource(Res.string.CreateDescriptor_Login_CheckEmail),
+            modifier = Modifier.padding(bottom = 16.dp),
+        )
+
+        OutlinedTextField(
+            value = state.tokenInput,
+            onValueChange = { onEvent(Event.TokenChanged(it)) },
+            label = { Text(stringResource(Res.string.CreateDescriptor_Login_Token)) },
+            isError = state.errorMessage != null,
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Uri),
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag("CreateDescriptor-Token"),
+        )
+
+        ErrorText(state.errorMessage)
+
+        Button(
+            onClick = { onEvent(Event.VerifyClicked) },
+            enabled = !state.isBusy,
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .fillMaxWidth()
+                .testTag("CreateDescriptor-Verify"),
+        ) {
+            Text(
+                text = stringResource(Res.string.CreateDescriptor_Login_Verify),
+                style = MaterialTheme.typography.titleMedium,
+            )
+        }
     }
 }
