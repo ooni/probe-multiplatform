@@ -1,6 +1,5 @@
 package org.ooni.probe.core
 
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -13,14 +12,13 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.Json
 import okio.FileSystem
+import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.engine.DesktopOonimkallBridge
 import org.ooni.engine.Engine
-import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.TaskEventMapper
 import org.ooni.engine.createDesktopSecureStorage
 import org.ooni.engine.models.EnginePreferences
 import org.ooni.engine.models.Failure
-import org.ooni.engine.models.NetworkType
 import org.ooni.engine.models.TaskLogLevel
 import org.ooni.passport.CliDesktopPassportBridge
 import org.ooni.passport.PassportBridge
@@ -99,16 +97,14 @@ private class DesktopCliRunGateway(
     @Volatile
     private var currentOptions = CliRunOptions()
 
-    private val networkTypeFinder = NetworkTypeFinder { NetworkType.Unknown("unknown") }
+    private val networkTypeFinder = DesktopNetworkTypeFinder()
 
     private val resultRepository = ResultRepository(database, backgroundContext)
     private val measurementRepository = MeasurementRepository(database, json, backgroundContext)
     private val urlRepository = UrlRepository(database, backgroundContext)
     private val networkRepository = NetworkRepository(database, backgroundContext)
     private val testDescriptorRepository = TestDescriptorRepository(database, json, backgroundContext)
-    private val preferenceRepository = PreferenceRepository(
-        PreferenceDataStoreFactory.create(scope = scope) { File(config.preferencesFile()) },
-    )
+    private val preferenceRepository = PreferenceRepository(JsonFilePreferencesDataStore(File(config.preferencesFile())))
 
     private val platformInfo = PlatformInfo(
         buildName = config.softwareVersion,
@@ -398,4 +394,4 @@ private class DesktopCliRunGateway(
 
 // The upload gateway's CliEngineConfig has no preferences path (it never touches DataStore); the run
 // gateway derives one next to the database so onboarding/upload preferences persist per CLI home.
-private fun CliEngineConfig.preferencesFile(): String = File(databaseDir, "probe.preferences_pb").path
+private fun CliEngineConfig.preferencesFile(): String = File(databaseDir, "probe.preferences.json").path

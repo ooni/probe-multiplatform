@@ -1,12 +1,15 @@
 package org.ooni.shared
 
 import co.touchlab.kermit.Logger
-import org.ooni.probe.platform
 import org.ooni.probe.shared.DesktopOS
+import org.ooni.probe.shared.Platform
 import java.io.File
+import java.nio.file.Files
 
 // Windows DLL directory setup flag
 private var windowsDllDirectorySet = false
+
+private val desktopOs get() = Platform.Desktop(System.getProperty("os.name")).os
 
 fun loadNativeLibrary(libraryName: String): Boolean {
     val resourcesPath = System.getProperty("compose.application.resources.dir")
@@ -27,7 +30,7 @@ fun loadNativeLibrary(libraryName: String): Boolean {
         }
         // On Windows, we need to ensure the DLL search path includes the resources directory
         // This must be done before loading any DLL that depends on libwinpthread-1.dll
-        if (platform.os == DesktopOS.Windows && !windowsDllDirectorySet) {
+        if (desktopOs == DesktopOS.Windows && !windowsDllDirectorySet) {
             setWindowsDllSearchPath(resourcesPath)
             windowsDllDirectorySet = true
         }
@@ -40,8 +43,46 @@ fun loadNativeLibrary(libraryName: String): Boolean {
         System.loadLibrary(libraryName)
         return true
     } catch (e: UnsatisfiedLinkError) {
-        Logger.w("Failed to load native library $libraryName", e)
-        return false
+        Logger.w("Failed to load native library $libraryName, trying classpath resources", e)
+    }
+
+    // Last resort: the library bundled as a classpath resource (e.g. inside the desktopShared
+    // jar on the CLI distribution, where no resources dir or library path is set up).
+    return loadBundledNativeLibrary(libraryName)
+}
+
+// Extracts `<os>/<lib>` from the jar into a temp directory and loads it from there.
+private fun loadBundledNativeLibrary(libraryName: String): Boolean {
+    val osDir = when (desktopOs) {
+        DesktopOS.Mac -> "macos"
+        DesktopOS.Windows -> "windows"
+        DesktopOS.Linux -> "linux"
+        DesktopOS.Other -> return false
+    }
+    val fileName = getLibraryFileForOs(libraryName)
+    val input = object {}.javaClass.getResourceAsStream("/$osDir/$fileName") ?: return false
+
+    val tempDir = Files.createTempDirectory("ooni-native").apply { toFile().deleteOnExit() }
+    // Windows DLLs may depend on sibling DLLs (e.g. libwinpthread-1.dll); extract them too and
+    // put the temp directory on the DLL search path before loading.
+    if (desktopOs == DesktopOS.Windows) {
+        object {}.javaClass.getResourceAsStream("/$osDir/libwinpthread-1.dll")?.use { dep ->
+            val depFile = tempDir.resolve("libwinpthread-1.dll").apply { toFile().deleteOnExit() }
+            Files.copy(dep, depFile)
+        }
+        setWindowsDllSearchPath(tempDir.toAbsolutePath().toString())
+    }
+    val output = tempDir.resolve(fileName).apply { toFile().deleteOnExit() }
+    input.use { Files.copy(it, output) }
+
+    return try {
+        @Suppress("UnsafeDynamicallyLoadedCode")
+        System.load(output.toAbsolutePath().toString())
+        Logger.d("Successfully loaded $libraryName library from classpath resource: /$osDir/$fileName")
+        true
+    } catch (e: UnsatisfiedLinkError) {
+        Logger.w("Failed to load native library $libraryName from classpath resource", e)
+        false
     }
 }
 
@@ -76,7 +117,7 @@ private fun setWindowsDllSearchPath(resourcesPath: String) {
 }
 
 private fun getLibraryFileForOs(name: String) =
-    when (platform.os) {
+    when (desktopOs) {
         DesktopOS.Windows -> "$name.dll"
         DesktopOS.Mac -> "lib$name.dylib"
         else -> "lib$name.so"
