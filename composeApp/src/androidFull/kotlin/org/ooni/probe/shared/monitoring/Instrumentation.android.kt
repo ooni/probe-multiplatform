@@ -3,8 +3,10 @@ package org.ooni.probe.shared.monitoring
 import io.sentry.Sentry
 import io.sentry.TransactionOptions
 
-actual object Instrumentation {
-    actual suspend fun <T> withTransaction(
+actual fun createInstrumentationDelegate(): InstrumentationDelegate = SentryInstrumentationDelegate
+
+object SentryInstrumentationDelegate : InstrumentationDelegate {
+    override suspend fun <T> withTransaction(
         operation: String,
         name: String?,
         data: Map<String, Any>,

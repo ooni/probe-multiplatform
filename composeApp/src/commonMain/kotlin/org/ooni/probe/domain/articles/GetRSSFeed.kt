@@ -33,10 +33,11 @@ class GetRSSFeed(
                 if (!response.isSuccessful) {
                     return@flatMap Failure(Exception("Unsuccessful response (status=${response.statusCode})"))
                 }
-                if (response.bodyText.isNullOrBlank()) return@flatMap Failure(Exception("Empty response"))
+                val bodyText = response.bodyText
+                if (bodyText.isNullOrBlank()) return@flatMap Failure(Exception("Empty response"))
 
                 val rss = try {
-                    xml().decodeFromString<Rss>(response.bodyText)
+                    xml().decodeFromString<Rss>(bodyText)
                 } catch (e: Exception) {
                     return@flatMap Failure(e)
                 }

@@ -7,7 +7,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.RunSpecification
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.ComposeDependencies
 import platform.BackgroundTasks.BGProcessingTask
 import platform.Foundation.NSDate
 import platform.Foundation.NSOperationQueue
@@ -15,7 +15,7 @@ import platform.Foundation.timeIntervalSinceDate
 import platform.UIKit.UIApplication
 
 class OperationsManager(
-    private val dependencies: Dependencies,
+    private val dependencies: ComposeDependencies,
     private val backgroundRunner: BackgroundRunner,
 ) {
     // https://developer.apple.com/documentation/foundation/nsdate/1410206-timeintervalsince

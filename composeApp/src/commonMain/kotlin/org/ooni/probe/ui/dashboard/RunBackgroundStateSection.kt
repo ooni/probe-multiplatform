@@ -1,5 +1,8 @@
 package org.ooni.probe.ui.dashboard
 
+import org.ooni.probe.data.models.icon
+import org.ooni.probe.data.models.title
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,6 +36,8 @@ import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.TestType
+import org.ooni.engine.models.displayName
+import org.ooni.engine.models.iconRes
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.domain.UploadMissingMeasurements
 import org.ooni.probe.ui.shared.format
@@ -219,16 +224,18 @@ private fun IndeterminateProgressIndicator() {
 }
 
 @Composable
-private fun RunBackgroundState.RunningTests.testName() =
-    if (descriptor?.isWebConnectivityOnly == true) {
+private fun RunBackgroundState.RunningTests.testName(): String? {
+    val descriptor = descriptor
+    return if (descriptor?.isWebConnectivityOnly == true) {
         descriptor.title()
     } else {
         testType?.displayName
     }
+}
 
 @Composable
 private fun RunBackgroundState.RunningTests.testIcon() =
-    (if (descriptor?.isWebConnectivityOnly == true) descriptor.icon else null)
+    descriptor?.let { if (it.isWebConnectivityOnly) it.icon else null }
         ?: testType?.iconRes
 
 @Preview

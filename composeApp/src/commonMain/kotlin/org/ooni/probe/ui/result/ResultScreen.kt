@@ -1,5 +1,8 @@
 package org.ooni.probe.ui.result
 
+import org.ooni.probe.data.models.color
+import org.ooni.probe.data.models.title
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -49,6 +52,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import org.ooni.probe.data.models.unitStringRes
 import ooniprobe.composeapp.generated.resources.Common_Next
 import ooniprobe.composeapp.generated.resources.Common_Previous
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
@@ -505,7 +509,7 @@ private fun SummaryPerformance(item: ResultItem) {
                 )
 
                 Text(
-                    stringResource(it.unitStringId),
+                    stringResource(it.unitStringRes),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 8.dp),
                     maxLines = 1,
@@ -546,7 +550,7 @@ private fun SummaryPerformance(item: ResultItem) {
                 )
 
                 Text(
-                    stringResource(it.unitStringId),
+                    stringResource(it.unitStringRes),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(bottom = 8.dp),
                     maxLines = 1,

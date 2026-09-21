@@ -2,12 +2,12 @@ package org.ooni.probe.data.models
 
 import org.ooni.engine.models.TaskOrigin
 import org.ooni.engine.models.TestType
-import org.ooni.probe.di.Dependencies
+import org.ooni.probe.di.CoreDependencies
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class RunSpecificationTest {
-    private val json = Dependencies.buildJson()
+    private val json = CoreDependencies.buildJson()
 
     @Test
     fun serializationFull() {
