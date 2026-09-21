@@ -184,7 +184,6 @@ internal fun CreateDescriptorForm(
                 )
             }
         }
-
         Text(
             stringResource(Res.string.CreateDescriptor_Urls),
             fontWeight = FontWeight.Bold,
