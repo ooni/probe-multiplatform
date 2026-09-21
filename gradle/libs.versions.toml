@@ -13,13 +13,13 @@ app-versionCode = "364" # Always increment by 10. See fdroid ABI offsets in andr
 compose-plugin = "1.12.0"
 kotlin = "2.4.20"
 passport = "0.1.7"
-sqldelight = "2.3.2"
+sqldelight = "2.4.0"
 dataStoreVersion = "1.2.1"
 junitKtx = "1.3.0"
 mokoPermissions = "0.20.1"
 ktor = "3.6.0"
 compose-ui = "1.12.0" # Checkout https://developer.android.com/jetpack/androidx/releases/compose-ui
-coil = "3.6.2"
+coil = "3.6.3"
 jna = "5.19.1"
 oonimkall = "3.30.0"
 
