@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,9 +22,9 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SelectableDates
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
@@ -38,15 +39,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.LocalDate
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_AddUrl
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Description
-import ooniprobe.composeapp.generated.resources.CreateDescriptor_Expiration
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_ExpiresOn
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Icon
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Icon_Choose
-import ooniprobe.composeapp.generated.resources.CreateDescriptor_LoggedInAs
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_LogOut
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_LoggedInAs
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Name
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_RemoveUrl
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_ShortDescription
@@ -62,6 +64,7 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.shared.InstalledDescriptorIcons
 import org.ooni.probe.shared.toEpochInUTC
 import org.ooni.probe.shared.toLocalDateFromUtc
@@ -69,123 +72,140 @@ import org.ooni.probe.shared.today
 import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel.Event
 import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel.State
 import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel.UrlItem
+import org.ooni.probe.ui.shared.rememberClickableInteractionSource
+import org.ooni.probe.ui.theme.AppTheme
+import kotlin.time.Clock
 
 @Composable
-internal fun CreateForm(
+internal fun CreateDescriptorForm(
     state: State.LoggedIn,
     onEvent: (Event) -> Unit,
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(bottom = 8.dp),
-    ) {
-        Text(
-            stringResource(Res.string.CreateDescriptor_LoggedInAs, state.session.emailAddress),
-            style = MaterialTheme.typography.bodyMedium,
-        )
-        TextButton(
-            onClick = { onEvent(Event.LogOutClicked) },
-            modifier = Modifier
-                .padding(start = 4.dp)
-                .testTag("CreateDescriptor-LogOut"),
+    Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(start = 16.dp, end = 8.dp),
         ) {
             Text(
-                stringResource(Res.string.CreateDescriptor_LogOut),
-                style = MaterialTheme.typography.bodyMedium,
+                stringResource(Res.string.CreateDescriptor_LoggedInAs, state.session.emailAddress),
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.weight(1f),
             )
+            TextButton(
+                onClick = { onEvent(Event.LogOutClicked) },
+                modifier = Modifier.testTag("CreateDescriptor-LogOut"),
+            ) {
+                Text(
+                    stringResource(Res.string.CreateDescriptor_LogOut),
+                    style = MaterialTheme.typography.labelLarge,
+                )
+            }
         }
     }
 
-    OutlinedTextField(
-        value = state.name,
-        onValueChange = { onEvent(Event.NameChanged(it)) },
-        label = { Text(stringResource(Res.string.CreateDescriptor_Name)) },
-        singleLine = true,
+    Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .testTag("CreateDescriptor-Name"),
-    )
-    OutlinedTextField(
-        value = state.shortDescription,
-        onValueChange = { onEvent(Event.ShortDescriptionChanged(it)) },
-        label = { Text(stringResource(Res.string.CreateDescriptor_ShortDescription)) },
-        singleLine = true,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp)
-            .testTag("CreateDescriptor-ShortDescription"),
-    )
-    OutlinedTextField(
-        value = state.description,
-        onValueChange = { onEvent(Event.DescriptionChanged(it)) },
-        label = { Text(stringResource(Res.string.CreateDescriptor_Description)) },
-        minLines = 3,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp)
-            .testTag("CreateDescriptor-Description"),
-    )
-
-    IconField(
-        selectedIcon = state.icon,
-        onEvent = onEvent,
-    )
-
-    ExpirationDateField(
-        expirationDate = state.expirationDate,
-        onEvent = onEvent,
-    )
-
-    Text(
-        stringResource(Res.string.CreateDescriptor_Urls),
-        fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(top = 24.dp),
-    )
-
-    state.urls.forEachIndexed { index, item ->
-        UrlField(
-            index = index,
-            item = item,
-            canRemove = state.canRemoveUrls,
-            onEvent = onEvent,
-        )
-    }
-
-    TextButton(
-        onClick = { onEvent(Event.AddUrlClicked) },
-        enabled = state.canAddUrls,
-        modifier = Modifier
-            .padding(top = 8.dp)
-            .testTag("CreateDescriptor-AddUrl"),
+            .padding(horizontal = 16.dp)
+            .padding(top = 16.dp, bottom = 32.dp),
     ) {
-        Icon(
-            painter = painterResource(Res.drawable.ic_add),
-            contentDescription = null,
+        OutlinedTextField(
+            value = state.name,
+            onValueChange = { onEvent(Event.NameChanged(it)) },
+            label = { Text(stringResource(Res.string.CreateDescriptor_Name)) },
+            singleLine = true,
             modifier = Modifier
-                .padding(end = 8.dp)
-                .size(18.dp),
+                .fillMaxWidth()
+                .testTag("CreateDescriptor-Name"),
         )
-        Text(stringResource(Res.string.CreateDescriptor_AddUrl))
-    }
+        OutlinedTextField(
+            value = state.shortDescription,
+            onValueChange = { onEvent(Event.ShortDescriptionChanged(it)) },
+            label = { Text(stringResource(Res.string.CreateDescriptor_ShortDescription)) },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp)
+                .testTag("CreateDescriptor-ShortDescription"),
+        )
+        OutlinedTextField(
+            value = state.description,
+            onValueChange = { onEvent(Event.DescriptionChanged(it)) },
+            label = { Text(stringResource(Res.string.CreateDescriptor_Description)) },
+            minLines = 3,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp)
+                .testTag("CreateDescriptor-Description"),
+        )
 
-    ErrorText(state.errorMessage)
+        Row {
+            IconField(
+                selectedIcon = state.icon,
+                onEvent = onEvent,
+                modifier = Modifier.padding(end = 8.dp),
+            )
+            ExpirationDateField(
+                expirationDate = state.expirationDate,
+                onEvent = onEvent,
+                modifier = Modifier.weight(1f),
+            )
+        }
 
-    Button(
-        onClick = { onEvent(Event.SubmitClicked) },
-        enabled = !state.isSubmitting,
-        modifier = Modifier
-            .padding(top = 24.dp)
-            .testTag("CreateDescriptor-Submit"),
-    ) {
-        if (state.isSubmitting) {
-            CircularProgressIndicator(
-                color = MaterialTheme.colorScheme.onPrimary,
+        Text(
+            stringResource(Res.string.CreateDescriptor_Urls),
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 24.dp),
+        )
+
+        state.urls.forEachIndexed { index, item ->
+            UrlField(
+                index = index,
+                item = item,
+                canRemove = state.canRemoveUrls,
+                onEvent = onEvent,
+            )
+        }
+
+        TextButton(
+            onClick = { onEvent(Event.AddUrlClicked) },
+            enabled = state.canAddUrls,
+            modifier = Modifier
+                .padding(top = 8.dp)
+                .testTag("CreateDescriptor-AddUrl"),
+        ) {
+            Icon(
+                painter = painterResource(Res.drawable.ic_add),
+                contentDescription = null,
                 modifier = Modifier
                     .padding(end = 8.dp)
                     .size(18.dp),
             )
+            Text(stringResource(Res.string.CreateDescriptor_AddUrl))
         }
-        Text(stringResource(Res.string.CreateDescriptor_Submit))
+
+        ErrorText(state.errorMessage)
+
+        Button(
+            onClick = { onEvent(Event.SubmitClicked) },
+            enabled = !state.isSubmitting,
+            modifier = Modifier
+                .padding(top = 24.dp)
+                .fillMaxWidth()
+                .testTag("CreateDescriptor-Submit"),
+        ) {
+            if (state.isSubmitting) {
+                CircularProgressIndicator(
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .size(18.dp),
+                )
+            }
+            Text(
+                text = stringResource(Res.string.CreateDescriptor_Submit),
+                style = MaterialTheme.typography.titleMedium,
+            )
+        }
     }
 }
 
@@ -224,28 +244,34 @@ private fun UrlField(
 private fun IconField(
     selectedIcon: String?,
     onEvent: (Event) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var showIconPicker by remember { mutableStateOf(false) }
 
-    OutlinedButton(
-        onClick = { showIconPicker = true },
-        modifier = Modifier
-            .fillMaxWidth()
+    OutlinedTextField(
+        value = " ",
+        onValueChange = {},
+        leadingIcon = {
+            Icon(
+                painter = painterResource(
+                    selectedIcon?.let { InstalledDescriptorIcons.getIconFromValue(it) }
+                        ?: Res.drawable.ooni_empty_state,
+                ),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(start = 12.dp)
+                    .size(20.dp),
+            )
+        },
+        label = { Text(stringResource(Res.string.CreateDescriptor_Icon)) },
+        singleLine = true,
+        readOnly = true,
+        interactionSource = rememberClickableInteractionSource { showIconPicker = true },
+        modifier = modifier
+            .width(64.dp)
             .padding(top = 8.dp)
             .testTag("CreateDescriptor-Icon"),
-    ) {
-        Icon(
-            painter = painterResource(
-                selectedIcon?.let { InstalledDescriptorIcons.getIconFromValue(it) }
-                    ?: Res.drawable.ooni_empty_state,
-            ),
-            contentDescription = null,
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .size(20.dp),
-        )
-        Text(stringResource(Res.string.CreateDescriptor_Icon))
-    }
+    )
 
     if (!showIconPicker) return
 
@@ -333,18 +359,21 @@ private fun IconOption(
 private fun ExpirationDateField(
     expirationDate: LocalDate,
     onEvent: (Event) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var showDatePicker by remember { mutableStateOf(false) }
 
-    OutlinedButton(
-        onClick = { showDatePicker = true },
-        modifier = Modifier
-            .fillMaxWidth()
+    OutlinedTextField(
+        value = expirationDate.toString(),
+        onValueChange = {},
+        label = { Text(stringResource(Res.string.CreateDescriptor_ExpiresOn)) },
+        singleLine = true,
+        readOnly = true,
+        interactionSource = rememberClickableInteractionSource { showDatePicker = true },
+        modifier = modifier
             .padding(top = 8.dp)
             .testTag("CreateDescriptor-Expiration"),
-    ) {
-        Text(stringResource(Res.string.CreateDescriptor_Expiration, expirationDate.toString()))
-    }
+    )
 
     if (!showDatePicker) return
 
@@ -379,5 +408,23 @@ private fun ExpirationDateField(
         },
     ) {
         DatePicker(state = datePickerState, showModeToggle = false)
+    }
+}
+
+@Preview
+@Composable
+private fun CreateDescriptorFormPreview() {
+    AppTheme {
+        CreateDescriptorForm(
+            state = State.LoggedIn(
+                session = AuthSession(
+                    sessionToken = "",
+                    emailAddress = "user@example.org",
+                    role = "",
+                    loginTime = Clock.System.now(),
+                ),
+            ),
+            onEvent = {},
+        )
     }
 }

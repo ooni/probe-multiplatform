@@ -410,13 +410,12 @@
     <string name="DescriptorUpdate_Updates">UPDATES</string>
     <!-- Only used for the desktop version of the app for now -->
     <string name="DescriptorUpdate_CheckUpdates">Check for Updates</string>
-    <string name="Descriptors_CreateFab">Create web test</string>
     <string name="AddDescriptor_AutoRunDisabled">Auto-run is disabled. Please enable it to run tests automatically.</string>
     <string name="Descriptor_LastTestResult">Last Test Result</string>
 
-    <string name="CreateDescriptor_Title">Create New Link</string>
+    <string name="CreateDescriptor_Title">Create Web Test</string>
     <string name="CreateDescriptor_Login_Email">Email address</string>
-    <string name="CreateDescriptor_Login_Explanation">Logging in is only needed to create and manage OONI Run links. Your email address isn\'t used for anything else in the app.</string>
+    <string name="CreateDescriptor_Login_Explanation">Logging in is only needed to create and manage OONI Run links. Your email address isn’t used for anything else in the app.</string>
     <string name="CreateDescriptor_Login_SendLink">Send login link</string>
     <string name="CreateDescriptor_Login_CheckEmail">Check your email, then paste the login link, or the token in it, below.</string>
     <string name="CreateDescriptor_Login_Token">Login link or token</string>
@@ -428,12 +427,12 @@
     <string name="CreateDescriptor_Description">Description</string>
     <string name="CreateDescriptor_Icon">Icon</string>
     <string name="CreateDescriptor_Icon_Choose">Choose an icon</string>
-    <string name="CreateDescriptor_Expiration">Expires on %1$s</string>
+    <string name="CreateDescriptor_ExpiresOn">Expires on</string>
     <string name="CreateDescriptor_Urls">Websites to test</string>
     <string name="CreateDescriptor_Urls_Placeholder">https://example.org</string>
     <string name="CreateDescriptor_AddUrl">Add website</string>
     <string name="CreateDescriptor_RemoveUrl">Remove website</string>
-    <string name="CreateDescriptor_Submit">Create link</string>
+    <string name="CreateDescriptor_Submit">Create</string>
     <string name="CreateDescriptor_Error_EmailInvalid">Enter a valid email address</string>
     <string name="CreateDescriptor_Error_TokenEmpty">Paste the login link or token first</string>
     <string name="CreateDescriptor_Error_LoginFailed">Login failed, check the address or token</string>
