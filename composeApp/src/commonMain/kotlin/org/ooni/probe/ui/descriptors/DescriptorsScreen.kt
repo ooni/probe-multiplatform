@@ -252,6 +252,7 @@ fun DescriptorsScreen(
                 },
                 text = { Text(stringResource(Res.string.CreateDescriptor_Title)) },
                 modifier = Modifier
+                    .testTag("CreateDescriptor-FAB")
                     .align(Alignment.BottomEnd)
                     .padding(16.dp),
             )
