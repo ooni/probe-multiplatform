@@ -3,9 +3,12 @@ package org.ooni.probe.ui.descriptor.create
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
@@ -68,17 +71,22 @@ fun CreateDescriptorScreen(
                 modifier = Modifier
                     .verticalScroll(scrollState)
                     .imePadding()
-                    .padding(horizontal = 16.dp)
-                    .padding(top = 16.dp, bottom = 36.dp)
-                    .testTag("CreateDescriptor-Content"),
+                    .padding(
+                        bottom = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding(),
+                    ).testTag("CreateDescriptor-Content"),
             ) {
                 when (state) {
                     State.Loading ->
                         CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally))
 
-                    is State.LoggedOut -> LoginSection(state, onEvent)
-                    is State.AwaitingToken -> TokenSection(state, onEvent)
-                    is State.LoggedIn -> CreateForm(state, onEvent)
+                    is State.LoggedOut ->
+                        LoginSection(state, onEvent)
+
+                    is State.AwaitingToken ->
+                        TokenSection(state, onEvent)
+
+                    is State.LoggedIn ->
+                        CreateDescriptorForm(state, onEvent)
                 }
             }
             VerticalScrollbar(
