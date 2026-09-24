@@ -47,10 +47,10 @@
 
                 <action android:name="${applicationId}.nettest" />
 
-                <data
-                    android:host="@string/run_v2_domain"
-                    android:pathPrefix="/v2"
-                    android:scheme="https" />
+                <data android:scheme="https" />
+                <data android:host="@string/run_v2_domain" />
+                <data android:pathPrefix="/v2" />
+                <data android:pathPrefix="/login" />
             </intent-filter>
 
             <intent-filter>
@@ -59,12 +59,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:host="runv2"
-                    android:scheme="ooni" />
-                <data
-                    android:host="login"
-                    android:scheme="ooni" />
+                <data android:scheme="ooni" />
+                <data android:host="runv2" />
+                <data android:host="login" />
             </intent-filter>
         </activity-alias>
         <activity-alias
