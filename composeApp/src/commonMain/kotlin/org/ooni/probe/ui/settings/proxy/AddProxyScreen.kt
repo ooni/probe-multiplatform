@@ -22,15 +22,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Common_Save
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Add
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Authentication
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Hostname
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_HostnameInvalid
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Password
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_PasswordInvalid
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Port
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_PortInvalid
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Protocol
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Username
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_UsernameInvalid
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.CustomProxyProtocol
 import org.ooni.probe.ui.shared.NavigationBackButton
@@ -74,7 +80,7 @@ fun AddProxyScreen(
         ) {
             Text(
                 stringResource(Res.string.Settings_Proxy_Custom_Protocol),
-                style = MaterialTheme.typography.labelLarge,
+                style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.padding(horizontal = 16.dp),
             )
 
@@ -117,6 +123,7 @@ fun AddProxyScreen(
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Uri,
                 ),
+                maxLines = 1,
                 isError = state.showHostAsInvalid,
                 supportingText = {
                     if (state.showHostAsInvalid) {
@@ -125,7 +132,6 @@ fun AddProxyScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 8.dp)
                     .testTag("AddProxy-HostField"),
             )
 
@@ -136,6 +142,7 @@ fun AddProxyScreen(
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number,
                 ),
+                maxLines = 1,
                 isError = state.showPortAsInvalid,
                 supportingText = {
                     if (state.showPortAsInvalid) {
@@ -145,6 +152,51 @@ fun AddProxyScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag("AddProxy-PortField"),
+            )
+
+            Text(
+                text = stringResource(Res.string.Settings_Proxy_Custom_Authentication),
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier.padding(top = 24.dp, bottom = 8.dp),
+            )
+
+            OutlinedTextField(
+                value = state.username,
+                onValueChange = { onEvent(AddProxyViewModel.Event.UsernameChanged(it)) },
+                label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Username)) },
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Text,
+                ),
+                maxLines = 1,
+                isError = state.showUsernameAsInvalid,
+                supportingText = {
+                    if (state.showUsernameAsInvalid) {
+                        Text(stringResource(Res.string.Settings_Proxy_Custom_UsernameInvalid))
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("AddProxy-UsernameField"),
+            )
+
+            OutlinedTextField(
+                value = state.password,
+                onValueChange = { onEvent(AddProxyViewModel.Event.PasswordChanged(it)) },
+                label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Password)) },
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Password,
+                ),
+                visualTransformation = PasswordVisualTransformation(),
+                maxLines = 1,
+                isError = state.showPasswordAsInvalid,
+                supportingText = {
+                    if (state.showPasswordAsInvalid) {
+                        Text(stringResource(Res.string.Settings_Proxy_Custom_PasswordInvalid))
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("AddProxy-PasswordField"),
             )
         }
     }

@@ -15,17 +15,22 @@ sealed class ProxyOption(
                 protocol: String,
                 hostname: String,
                 port: String,
+                username: String? = null,
+                password: String? = null,
             ): Custom {
                 val customProtocol = CustomProxyProtocol.entries
                     .firstOrNull { it.value.equals(protocol, ignoreCase = true) }
                     ?: CustomProxyProtocol.HTTP
-
-                val formattedHost = if (hostname.matches(IPV6_ADDRESS_REGEX.toRegex())) {
-                    "[$hostname]"
-                } else {
-                    hostname
+                val formattedHost = when {
+                    hostname.matches(IPV6_ADDRESS_REGEX.toRegex()) -> "[$hostname]"
+                    else -> hostname
                 }
-                return Custom("${customProtocol.value}://$formattedHost:$port/")
+                val authPart = when {
+                    username != null && password != null -> "$username:$password@"
+                    username != null -> "$username@"
+                    else -> ""
+                }
+                return Custom("${customProtocol.value}://$authPart$formattedHost:$port/")
             }
         }
     }
@@ -71,3 +76,9 @@ private const val IPV6_ADDRESS_REGEX =
         "[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))"
 
 private const val DOMAIN_NAME_REGEX = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}"
+
+fun validateUsername(username: String): Boolean = username.isBlank() || username.matches(AUTH_REGEX)
+
+fun validatePassword(password: String): Boolean = password.isBlank() || password.matches(AUTH_REGEX)
+
+private val AUTH_REGEX = "[\\w\\.\\-\\+%!\\$&'\\(\\)*\\+,;=]+".toRegex()

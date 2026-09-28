@@ -33,4 +33,16 @@ class ProxyOptionTest {
         )
         assertEquals("http://example.org:80/", option.value)
     }
+
+    @Test
+    fun buildWithUsernameAndPassword() {
+        val option = ProxyOption.Custom.build(
+            protocol = "socks5",
+            hostname = "example.org",
+            port = "80",
+            username = "username",
+            password = "password",
+        )
+        assertEquals("socks5://username:password@example.org:80/", option.value)
+    }
 }

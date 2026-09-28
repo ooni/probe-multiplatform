@@ -85,9 +85,10 @@ class ProxyManager(
             oldProtocol.equals("socks5", ignoreCase = true)
         ) {
             val option = ProxyOption.Custom.build(
-                oldProtocol,
-                getPreference(SettingsKey.LEGACY_PROXY_HOSTNAME).first() as? String ?: "127.0.0.1",
-                (getPreference(SettingsKey.LEGACY_PROXY_PORT).first() as? Int)?.toString()
+                protocol = oldProtocol,
+                hostname = getPreference(SettingsKey.LEGACY_PROXY_HOSTNAME).first() as? String
+                    ?: "127.0.0.1",
+                port = (getPreference(SettingsKey.LEGACY_PROXY_PORT).first() as? Int)?.toString()
                     ?: "1080",
             )
             addCustom(option)
