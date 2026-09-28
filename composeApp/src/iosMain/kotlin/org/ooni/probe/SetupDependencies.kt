@@ -15,6 +15,7 @@ import kotlinx.coroutines.runBlocking
 import org.ooni.engine.IosSecureStorage
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.OonimkallBridge
+import org.ooni.engine.ResolverTypeFinder
 import org.ooni.passport.PassportBridge
 import org.ooni.probe.background.BackgroundRunner
 import org.ooni.probe.background.OperationsManager
@@ -78,6 +79,7 @@ class SetupDependencies(
     oonimkallBridge: OonimkallBridge,
     passportBridge: PassportBridge,
     networkTypeFinder: NetworkTypeFinder,
+    resolverTypeFinder: ResolverTypeFinder,
     val backgroundRunner: BackgroundRunner,
 ) {
     init {
@@ -123,6 +125,7 @@ class SetupDependencies(
         cacheDir = NSTemporaryDirectory(),
         databaseDriverFactory = ::buildDatabaseDriver,
         networkTypeFinder = networkTypeFinder,
+        resolverTypeFinder = resolverTypeFinder,
         secureStorage = IosSecureStorage(OrganizationConfig.appId),
         buildDataStore = ::buildDataStore,
         getBatteryState = ::getBatteryState,
