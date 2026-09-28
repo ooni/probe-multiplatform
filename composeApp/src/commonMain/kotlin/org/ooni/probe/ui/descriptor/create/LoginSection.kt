@@ -28,12 +28,11 @@ internal fun LoginSection(
     onEvent: (Event) -> Unit,
 ) {
     Column(
-        modifier = Modifier.padding(all = 16.dp),
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 32.dp),
     ) {
         Text(
             stringResource(Res.string.CreateDescriptor_Login_Explanation),
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(vertical = 16.dp),
+            modifier = Modifier.padding(bottom = 16.dp),
         )
 
         OutlinedTextField(

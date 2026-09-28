@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -14,6 +15,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Login_CheckEmail
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_Login_CheckEmailAlternative
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Login_Token
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Login_Verify
 import ooniprobe.composeapp.generated.resources.Res
@@ -27,10 +29,14 @@ internal fun TokenSection(
     onEvent: (Event) -> Unit,
 ) {
     Column(
-        modifier = Modifier.padding(all = 16.dp),
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 32.dp),
     ) {
+        Text(stringResource(Res.string.CreateDescriptor_Login_CheckEmail))
+
+        HorizontalDivider(Modifier.padding(horizontal = 64.dp, vertical = 32.dp))
+
         Text(
-            stringResource(Res.string.CreateDescriptor_Login_CheckEmail),
+            stringResource(Res.string.CreateDescriptor_Login_CheckEmailAlternative),
             modifier = Modifier.padding(bottom = 16.dp),
         )
 
