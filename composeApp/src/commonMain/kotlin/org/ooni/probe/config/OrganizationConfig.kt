@@ -21,6 +21,13 @@ interface OrganizationConfigInterface {
     val ooniRunDomain get() = BuildTypeDefaults.ooniRunDomain
     val ooniRunDashboardUrl get() = BuildTypeDefaults.ooniRunDashboardUrl
     val explorerUrl get() = BuildTypeDefaults.explorerUrl
+
+    /**
+     * Hostname looked up through the system resolver on Apple platforms to infer the resolver
+     * type from the observed DNS transport. It must resolve and accept TCP on port 443.
+     * Null disables the lookup.
+     */
+    val resolverProbeDomain: String? get() = "ooni.org"
 }
 
 interface BuildTypeDefaultsInterface {
