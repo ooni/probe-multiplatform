@@ -6,7 +6,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Build docs
         run: make docs
@@ -16,7 +16,7 @@ jobs:
         run: echo "COMMIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Checkout ooni/docs
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: "ooni/docs"
           ssh-key: ${{ secrets.OONI_DOCS_DEPLOYKEY }}

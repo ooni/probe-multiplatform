@@ -3,6 +3,7 @@ description: 'Setup Java, checkout and setup gradle'
 
 inputs:
   java_version:
+    description: 'JDK version'
     required: false
     default: '25'
 
@@ -10,7 +11,7 @@ runs:
   using: "composite"
   steps:
     - name: Set up JDK
-      uses: actions/setup-java@v5
+      uses: actions/setup-java@v6
       with:
         java-version: ${{ inputs.java_version }}
         distribution: 'corretto'
