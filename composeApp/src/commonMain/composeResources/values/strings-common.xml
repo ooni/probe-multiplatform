@@ -417,7 +417,8 @@
     <string name="CreateDescriptor_Login_Email">Email address</string>
     <string name="CreateDescriptor_Login_Explanation">Logging in is only needed to create and manage OONI Run links. Your email address isn’t used for anything else in the app.</string>
     <string name="CreateDescriptor_Login_SendLink">Send login link</string>
-    <string name="CreateDescriptor_Login_CheckEmail">Check your email, then paste the login link, or the token in it, below.</string>
+    <string name="CreateDescriptor_Login_CheckEmail">Check your email for an OONI Account activation email. Then click the login link inside the email and chose to open in the OONI Probe app.</string>
+    <string name="CreateDescriptor_Login_CheckEmailAlternative">Or paste the email login link below.</string>
     <string name="CreateDescriptor_Login_Token">Login link or token</string>
     <string name="CreateDescriptor_Login_Verify">Verify</string>
     <string name="CreateDescriptor_LoggedInAs">Logged in as %1$s</string>
