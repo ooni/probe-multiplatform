@@ -223,9 +223,7 @@ fun ignoreCopiedFileIfNotIgnored(
         file.createNewFile()
     }
 
-    val fileContents = file.readText()
-
-    if (!fileContents.contains(lineToAdd)) {
+    if (file.readLines().none { it == lineToAdd }) {
         file.appendText("\n$lineToAdd")
     }
 }
@@ -244,7 +242,8 @@ fun copyRecursive(
         println("Source directory does not exist: $from")
         return
     }
-    from.listFiles()?.forEach { file ->
+    // Sorted so the generated .gitignore files have a stable order across filesystems.
+    from.listFiles()?.sortedBy { it.name }?.forEach { file ->
         if (file.name != ".DS_Store") {
             if (file.isDirectory) {
                 val newDir = File(to, file.name)
