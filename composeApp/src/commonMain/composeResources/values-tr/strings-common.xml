@@ -42,7 +42,7 @@
     <string name="Dashboard_RunV2_Ooni_Title">OONI sınamaları</string>
     <string name="Dashboard_RunV2_Title">OONI çalıştırma bağlantıları</string>
     <string name="Dashboard_Runv2_Overview_Description">%2$s tarihinde %1$s tarafından oluşturuldu</string>
-    <string name="Dashboard_Runv2_Overview_UninstallLink">Kaldırma bağlantısı</string>
+    <string name="Dashboard_Runv2_Overview_UninstallLink">Kaldırma Bağlantısı</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Önceki sürümler</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Ayrıntıları görüntüle</string>
     <!-- This only applies when there are more than 10 websites to show. -->
@@ -499,4 +499,5 @@
     <string name="Settings_AnonymousCredentials_Reset_Failed">Eski kimlik bilgileri kaldırıldı, ancak yeni bir kimlik bilgisi alınamadı. İnternet bağlantınızı kontrol edin ve tekrar deneyin. OONI Probe, bir sonraki testinizde de otomatik olarak yeniden deneyecektir.</string>
     <string name="Settings_Language_SystemDefault">Sistem varsayılanı</string>
     <string name="Desktop_ForceQuit">Zorla Çık</string>
+    <string name="Dashboard_Runv2_Overview_Description_Compact">%1$s tarihinde oluşturuldu</string>
 </resources>
