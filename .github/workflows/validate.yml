@@ -139,6 +139,25 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "A maintainer merge to \`main\` will trigger a full build with Sentry uploads." >> $GITHUB_STEP_SUMMARY
 
+  build-android-instrumented-tests:
+    name: Build Android Instrumented Tests (${{ matrix.license }} - ${{ matrix.organization }})
+    runs-on: macos-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        license: [ full, fdroid ]
+        organization: [ ooni, dw ]
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build Android Test APK
+        run: ./gradlew copyBrandingToCommonResources assemble${{ matrix.license }}DebugAndroidTest -Porganization=${{ matrix.organization }}
+
   build-ios:
     name: Build iOS
     runs-on: macos-26
