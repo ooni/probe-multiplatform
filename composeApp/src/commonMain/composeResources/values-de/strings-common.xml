@@ -499,4 +499,5 @@
     <string name="Settings_AnonymousCredentials_Reset_InProgress">Neue Anmeldedaten erhalten…</string>
     <string name="Settings_AnonymousCredentials_Reset_Success">Es wurden neue anonyme Anmeldedaten erstellt. Ihre zukünftigen Messungen werden einer neuen Probe-ID zugeordnet.</string>
     <string name="Settings_AnonymousCredentials_Reset_Failed">Die alten Anmeldedaten wurden entfernt, es konnten jedoch keine neuen abgerufen werden. Überprüfe deine Internetverbindung und versuche es erneut. OONI Probe wird es außerdem beim nächsten Test automatisch erneut versuchen.</string>
+    <string name="Dashboard_Runv2_Overview_Description_Compact">Erstellt am %1$s</string>
 </resources>
