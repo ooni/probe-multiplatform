@@ -20,7 +20,7 @@
     <string name="Onboarding_Crash_Paragraph">OONI Probe の改善のため、アプリが正常に動作しない場合に、匿名化されたクラッシュレポートを収集できれば幸いです。\n\nOONI 開発チームへのクラッシュレポートの送信にオプトインしますか？</string>
     <string name="Onboarding_CleanUp_Title">クリーンアップ</string>
     <string name="Onboarding_CleanUp_Paragraph">以前のインストール時に残ったファイルがいくつか検出されました。インストールを続行する前に、これらのリソースを削除してください。</string>
-    <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) は、Tor Project 傘下のフリーソフトウェアプロジェクトで、世界中のインターネット検閲の実態を明らかにすることを目的としています。\n\n2012 年以来、OONI のグローバルコミュニティは 200 カ国以上のネットワークの計測を行ってきました。これらの計測結果の一部は、インターネット検閲の証拠として活用されています。</string>
+    <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) は、Tor Project 傘下のフリーソフトウェアプロジェクトで、世界中のインターネット検閲の実態を明らかにすることを目的としています。\n\n2012 年以来、OONI のグローバルコミュニティは 200 か国以上のネットワークの計測を行ってきました。これらの計測結果の一部は、インターネット検閲の証拠として活用されています。</string>
     <string name="Settings_About_Content_DataPolicy">OONI データポリシー</string>
     <string name="Settings_Donate_Heading">インターネットの自由を守るために寄付をお願いします</string>
     <string name="Settings_Donate_SubHeading">私たちは非営利団体として、自由で門戸が開かれた、すべての人々のためのインターネットを守るために、皆様からの寄付に支えられています。</string>
