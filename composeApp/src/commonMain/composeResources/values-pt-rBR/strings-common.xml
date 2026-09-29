@@ -521,4 +521,5 @@
     <string name="Settings_AnonymousCredentials_Reset_InProgress">Obtendo uma nova credencial…</string>
     <string name="Settings_AnonymousCredentials_Reset_Success">Nova credencial anônima criada. As suas medições futuras serão associadas à nova ID da Probe.</string>
     <string name="Settings_AnonymousCredentials_Reset_Failed">A credencial antiga foi removida, mas não foi possível obter uma nova. Verifique a sua ligação à Internet e tente novamente. A OONI Probe também irá tentar novamente na próxima vez que executar um teste.</string>
+    <string name="Dashboard_Runv2_Overview_Description_Compact">Criado em %1$s</string>
 </resources>
