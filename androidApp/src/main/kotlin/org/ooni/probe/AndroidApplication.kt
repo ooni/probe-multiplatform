@@ -35,6 +35,8 @@ import org.ooni.engine.AndroidNetworkTypeFinder
 import org.ooni.engine.AndroidOonimkallBridge
 import org.ooni.engine.AndroidResolverTypeFinder
 import org.ooni.engine.AndroidSecureStorage
+import org.ooni.engine.NetworkTypeFinder
+import org.ooni.engine.ResolverTypeMapper
 import org.ooni.passport.AndroidPassportBridge
 import org.ooni.probe.background.AppWorkerManager
 import org.ooni.probe.config.AndroidBatteryOptimization
@@ -63,7 +65,7 @@ class AndroidApplication : Application() {
             cacheDir = cacheDir.absolutePath,
             databaseDriverFactory = ::buildDatabaseDriver,
             networkTypeFinder = AndroidNetworkTypeFinder(connectivityManager),
-            resolverTypeFinder = AndroidResolverTypeFinder(connectivityManager),
+            buildResolverTypeFinder = ::buildResolverTypeFinder,
             secureStorage = AndroidSecureStorage(this, OrganizationConfig.baseSoftwareName),
             buildDataStore = ::buildDataStore,
             getBatteryState = ::getBatteryState,
@@ -148,6 +150,10 @@ class AndroidApplication : Application() {
                 SharedPreferencesMigration(this, "${packageName}_preferences"),
             ),
         )
+
+    private fun buildResolverTypeFinder(
+        networkTypeFinder: NetworkTypeFinder, resolverTypeMapper: ResolverTypeMapper
+    ) = AndroidResolverTypeFinder(connectivityManager=connectivityManager, networkTypeFinder = networkTypeFinder)
 
     private fun getBatteryState(): BatteryState {
         // From https://developer.android.com/training/monitoring-device-state/battery-monitoring#DetermineChargeState
