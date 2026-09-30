@@ -81,7 +81,7 @@ class AddProxyViewModel(
                 val state = _state.value
                 val isHostValid = validateHost(state.host)
                 val isPortValid = validatePort(state.port)
-                val isUsernameValid = validateUsername(state.username)
+                val isUsernameValid = validateUsername(state.username, state.password)
                 val isPasswordValid = validatePassword(state.password)
 
                 if (isHostValid && isPortValid && isUsernameValid && isPasswordValid) {
