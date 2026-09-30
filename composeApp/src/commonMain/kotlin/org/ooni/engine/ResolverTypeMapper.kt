@@ -8,7 +8,7 @@ import org.ooni.engine.models.ResolverType
  *
  * Holds one instance per [ResolverTypeFinder] so the last fresh verdict is scoped to that finder.
  */
-class ResolverTypeDetector {
+class ResolverTypeMapper {
     /** Last fresh (non-cache) Private DNS verdict, reused for cache hits. */
     private var lastIsPrivateDnsActive: Boolean? = null
 

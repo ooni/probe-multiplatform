@@ -7,15 +7,16 @@ import org.ooni.shared.DesktopBridgeLoader
 
 /**
  * Resolves the active network's [ResolverType] on macOS. Probes DNS transports for
- * [probeDomain] via Network.framework and maps them with the shared [ResolverTypeDetector].
+ * [probeDomain] via Network.framework and maps them with the shared [ResolverTypeMapper].
  */
 class DesktopResolverTypeFinder(
     private val networkTypeFinder: NetworkTypeFinder,
     private val probeDomain: String?,
     private val timeoutMillis: Long = 3000,
     private val probeDnsProtocols: ((host: String, timeoutMillis: Long) -> List<String>?)? = null,
+    private val mapper: ResolverTypeMapper,
 ) : ResolverTypeFinder {
-    private val detector = ResolverTypeDetector()
+    private val logger = Logger.withTag("DesktopResolverTypeFinder")
 
     /** Native probe returning observed DNS protocols, or null on failure/timeout. */
     private external fun nativeProbeDnsProtocols(
@@ -26,21 +27,21 @@ class DesktopResolverTypeFinder(
 
     override fun invoke(): ResolverType {
         val networkType = networkTypeFinder()
-        Logger.d("[DesktopResolverTypeFinder] networkType: ${networkType::class.simpleName}")
+        logger.d("networkType: ${networkType::class.simpleName}")
 
         if (networkType is NetworkType.NoInternet) {
-            Logger.d("[DesktopResolverTypeFinder] No internet connection; skipping Private DNS probe")
-            return detector.resolverType(networkType, null)
+            logger.d("No internet connection; skipping Private DNS probe")
+            return mapper.resolverType(networkType, null)
         }
 
         return try {
             val dnsProtocols = readDnsProtocols()
-            val resolverType = detector.resolverType(networkType, dnsProtocols)
-            Logger.d("[DesktopResolverTypeFinder] dnsProtocols: $dnsProtocols -> resolverType: ${resolverType.value}")
+            val resolverType = mapper.resolverType(networkType, dnsProtocols)
+            logger.d("dnsProtocols: $dnsProtocols -> resolverType: ${resolverType.value}")
             resolverType
         } catch (e: Throwable) {
-            Logger.w("Error reading resolver type: ${e.message}")
-            detector.resolverType(networkType, null)
+            logger.w("Error reading resolver type: ${e.message}")
+            mapper.resolverType(networkType, null)
         }
     }
 
@@ -48,15 +49,15 @@ class DesktopResolverTypeFinder(
     private fun readDnsProtocols(): List<String>? {
         val domain = probeDomain
         if (domain == null) {
-            Logger.d("[DesktopResolverTypeFinder] No probe domain configured; cannot determine Private DNS state")
+            logger.d("No probe domain configured; cannot determine Private DNS state")
             return null
         }
-        Logger.d("[DesktopResolverTypeFinder] Probing Private DNS using domain: $domain")
+        logger.d("Probing Private DNS using domain: $domain")
         return (probeDnsProtocols ?: ::loadAndProbeDnsProtocols)(domain, timeoutMillis)
     }
 
     private fun loadAndProbeDnsProtocols(
         host: String,
         timeoutMillis: Long,
-    ): List<String>? = if (DesktopBridgeLoader.ensureLoaded()) nativeProbeDnsProtocols(host, timeoutMillis, Logger::d)?.toList() else null
+    ): List<String>? = if (DesktopBridgeLoader.ensureLoaded()) nativeProbeDnsProtocols(host, timeoutMillis, logger::d)?.toList() else null
 }

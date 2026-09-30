@@ -10,6 +10,7 @@ import okio.Path.Companion.toPath
 import org.ooni.engine.DefaultResolverTypeFinder
 import org.ooni.engine.DesktopNetworkTypeFinder
 import org.ooni.engine.DesktopResolverTypeFinder
+import org.ooni.engine.ResolverTypeMapper
 import org.ooni.engine.NetworkTypeFinder
 import org.ooni.engine.ResolverTypeFinder
 import org.ooni.engine.OonimkallBridge
@@ -98,7 +99,7 @@ internal fun buildDependencies(
     platformInfo: PlatformInfo = buildPlatformInfo(),
     oonimkallBridge: OonimkallBridge = DesktopOonimkallBridge(),
     networkTypeFinder: NetworkTypeFinder = DesktopNetworkTypeFinder(),
-    resolverTypeFinder: ResolverTypeFinder = buildResolverTypeFinder(networkTypeFinder),
+    buildResolverTypeFinder: (NetworkTypeFinder, ResolverTypeMapper) -> ResolverTypeFinder = ::buildResolverTypeFinder,
     secureStorageAppId: String = DesktopOrganizationConfig.appId,
     dataStoreFile: File = File(dataDir).resolve("probe.preferences_pb"),
     batteryState: BatteryState = BatteryState.Unknown,
@@ -117,7 +118,7 @@ internal fun buildDependencies(
         cacheDir = cacheDir,
         databaseDriverFactory = { buildDatabaseDriver(dataDir) },
         networkTypeFinder = networkTypeFinder,
-        resolverTypeFinder = resolverTypeFinder,
+        buildResolverTypeFinder = buildResolverTypeFinder,
         secureStorage = createDesktopSecureStorage(platform.os, secureStorageAppId, DesktopOrganizationConfig.baseSoftwareName),
         buildDataStore = { PreferenceDataStoreFactory.create { dataStoreFile } },
         getBatteryState = { batteryState },
@@ -184,11 +185,15 @@ internal fun buildPlatformInfo(): PlatformInfo {
  * On macOS Private DNS is detected from the DNS transport observed by Network.framework.
  * Other desktop platforms fall back to [DefaultResolverTypeFinder].
  */
-private fun buildResolverTypeFinder(networkTypeFinder: NetworkTypeFinder): ResolverTypeFinder =
+private fun buildResolverTypeFinder(
+    networkTypeFinder: NetworkTypeFinder,
+    resolverTypeMapper: ResolverTypeMapper,
+): ResolverTypeFinder =
     if (platform.os == DesktopOS.Mac) {
         DesktopResolverTypeFinder(
             networkTypeFinder = networkTypeFinder,
             probeDomain = DesktopOrganizationConfig.resolverProbeDomain,
+            mapper = resolverTypeMapper,
         )
     } else {
         DefaultResolverTypeFinder(networkTypeFinder)

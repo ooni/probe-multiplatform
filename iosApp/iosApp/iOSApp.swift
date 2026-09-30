@@ -41,10 +41,13 @@ struct iOSApp: App {
             oonimkallBridge: IosOonimkallBridge(),
             passportBridge: IosPassportBridge(),
             networkTypeFinder: networkTypeFinder,
-            resolverTypeFinder: IosResolverTypeFinder(
-                networkTypeFinder: networkTypeFinder,
-                probeDomain: OrganizationConfig.shared.resolverProbeDomain
-            ),
+            buildResolverTypeFinder: { mapper in
+                IosResolverTypeFinder(
+                    networkTypeFinder: networkTypeFinder,
+                    probeDomain: OrganizationConfig.shared.resolverProbeDomain,
+                    mapper: mapper
+                )
+            },
             backgroundRunner: IosBackgroundRunner()
         )
     }()

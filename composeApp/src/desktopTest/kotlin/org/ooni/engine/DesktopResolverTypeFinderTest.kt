@@ -37,6 +37,7 @@ class DesktopResolverTypeFinderTest {
             networkTypeFinder = { NetworkType.Wifi },
             probeDomain = "probe.example.org",
             probeDnsProtocols = { _, _ -> throw IllegalStateException("boom") },
+            mapper = ResolverTypeMapper(),
         )
         assertEquals(ResolverType.Unknown, finder())
     }
@@ -48,8 +49,14 @@ class DesktopResolverTypeFinderTest {
             probes++
             listOf("udp")
         }
-        val noInternet = DesktopResolverTypeFinder({ NetworkType.NoInternet }, "probe.example.org", probeDnsProtocols = probe)
-        val noDomain = DesktopResolverTypeFinder({ NetworkType.Wifi }, null, probeDnsProtocols = probe)
+        val noInternet =
+            DesktopResolverTypeFinder(
+                { NetworkType.NoInternet },
+                "probe.example.org",
+                probeDnsProtocols = probe,
+                mapper = ResolverTypeMapper(),
+            )
+        val noDomain = DesktopResolverTypeFinder({ NetworkType.Wifi }, null, probeDnsProtocols = probe, mapper = ResolverTypeMapper())
 
         assertEquals(ResolverType.Unknown, noInternet())
         assertEquals(ResolverType.Unknown, noDomain())
@@ -66,6 +73,7 @@ class DesktopResolverTypeFinderTest {
                 hosts += host
                 listOf("udp")
             },
+            mapper = ResolverTypeMapper(),
         )
         finder()
 
@@ -79,6 +87,7 @@ class DesktopResolverTypeFinderTest {
             networkTypeFinder = { NetworkType.Wifi },
             probeDomain = "ooni.org",
             probeDnsProtocols = { _, _ -> protocols },
+            mapper = ResolverTypeMapper(),
         )
         assertEquals(ResolverType.PrivateDns, finder())
 
@@ -91,12 +100,26 @@ class DesktopResolverTypeFinderTest {
         assertEquals(ResolverType.System, buildFinder(protocols = listOf("cache"))())
     }
 
+    @Test
+    fun delegatesToCustomMapper() {
+        val customMapper = ResolverTypeMapper()
+        val finder = DesktopResolverTypeFinder(
+            networkTypeFinder = { NetworkType.Wifi },
+            probeDomain = "ooni.org",
+            probeDnsProtocols = { _, _ -> listOf("https") },
+            mapper = customMapper,
+        )
+        assertEquals(ResolverType.PrivateDns, finder())
+    }
+
     private fun buildFinder(
         networkType: NetworkType = NetworkType.Wifi,
         protocols: List<String>?,
+        mapper: ResolverTypeMapper = ResolverTypeMapper(),
     ) = DesktopResolverTypeFinder(
         networkTypeFinder = { networkType },
         probeDomain = "probe.example.org",
         probeDnsProtocols = { _, _ -> protocols },
+        mapper = mapper,
     )
 }

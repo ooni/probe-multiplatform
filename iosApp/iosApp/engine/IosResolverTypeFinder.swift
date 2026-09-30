@@ -3,13 +3,13 @@ import Foundation
 import Network
 
 /// Resolves the active network's `ResolverType` on iOS. Probes DNS transports for
-/// `probeDomain` via Network.framework and maps them with the shared `ResolverTypeDetector`.
+/// `probeDomain` via Network.framework and maps them with the shared `ResolverTypeMapper`.
 class IosResolverTypeFinder : ResolverTypeFinder {
     private let networkTypeFinder: NetworkTypeFinder
     private let probeDomain: String?
     private let timeout: DispatchTimeInterval
     private let queue = DispatchQueue(label: "org.ooni.probe.resolver-type-finder", qos: .utility)
-    private let detector = ResolverTypeDetector()
+    private let mapper: ResolverTypeMapper
     private let log: (String) -> Void
 
     private let reportTimeout: DispatchTimeInterval
@@ -19,12 +19,14 @@ class IosResolverTypeFinder : ResolverTypeFinder {
         probeDomain: String?,
         timeout: DispatchTimeInterval = .seconds(3),
         reportTimeout: DispatchTimeInterval = .seconds(1),
+        mapper: ResolverTypeMapper,
         log: @escaping (String) -> Void = { IosEngineLogger.shared.debug(message: $0) }
     ) {
         self.networkTypeFinder = networkTypeFinder
         self.probeDomain = probeDomain
         self.timeout = timeout
         self.reportTimeout = reportTimeout
+        self.mapper = mapper
         self.log = log
     }
 
@@ -35,11 +37,11 @@ class IosResolverTypeFinder : ResolverTypeFinder {
 
         if networkType is NetworkTypeNoInternet {
             self.log("[IosResolverTypeFinder] No internet connection; skipping Private DNS probe")
-            return detector.resolverType(networkType: networkType, dnsProtocols: nil)
+            return mapper.resolverType(networkType: networkType, dnsProtocols: nil)
         }
 
         let dnsProtocols = readDnsProtocols()
-        let resolverType = detector.resolverType(networkType: networkType, dnsProtocols: dnsProtocols)
+        let resolverType = mapper.resolverType(networkType: networkType, dnsProtocols: dnsProtocols)
         self.log("[IosResolverTypeFinder] dnsProtocols: \(String(describing: dnsProtocols)) -> resolverType: \(resolverType.value)")
         return resolverType
     }
