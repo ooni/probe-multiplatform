@@ -77,7 +77,13 @@ private const val IPV6_ADDRESS_REGEX =
 
 private const val DOMAIN_NAME_REGEX = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}"
 
-fun validateUsername(username: String): Boolean = username.isBlank() || username.matches(AUTH_REGEX)
+fun validateUsername(
+    username: String,
+    password: String = "",
+): Boolean {
+    if (password.isNotBlank() && username.isBlank()) return false
+    return username.isBlank() || username.matches(AUTH_REGEX)
+}
 
 fun validatePassword(password: String): Boolean = password.isBlank() || password.matches(AUTH_REGEX)
 

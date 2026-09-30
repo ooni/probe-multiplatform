@@ -45,4 +45,13 @@ class ProxyOptionTest {
         )
         assertEquals("socks5://username:password@example.org:80/", option.value)
     }
+
+    @Test
+    fun validateUsernameRequiresUsernameWhenPasswordIsPresent() {
+        kotlin.test.assertFalse(validateUsername(username = "", password = "password"))
+        kotlin.test.assertFalse(validateUsername(username = "   ", password = "password"))
+        kotlin.test.assertTrue(validateUsername(username = "username", password = "password"))
+        kotlin.test.assertTrue(validateUsername(username = "username", password = ""))
+        kotlin.test.assertTrue(validateUsername(username = "", password = ""))
+    }
 }
