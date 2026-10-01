@@ -255,6 +255,8 @@
     <string name="Settings_Proxy_Custom_PortInvalid">Port is invalid</string>
     <string name="Settings_Proxy_Custom_UsernameInvalid">Username is invalid</string>
     <string name="Settings_Proxy_Custom_PasswordInvalid">Password is invalid</string>
+    <string name="Settings_Proxy_Custom_ShowPassword">Show password</string>
+    <string name="Settings_Proxy_Custom_HidePassword">Hide password</string>
     <string name="Settings_Proxy_Custom_Testing">Testing</string>
     <string name="Settings_Proxy_Custom_Available">Available</string>
     <string name="Settings_Proxy_Custom_Unavailable">Unavailable</string>

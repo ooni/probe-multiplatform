@@ -11,6 +11,8 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -23,11 +25,13 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Common_Save
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Add
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Authentication
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_HidePassword
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Hostname
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_HostnameInvalid
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Password
@@ -35,8 +39,12 @@ import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_PasswordIn
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Port
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_PortInvalid
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Protocol
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_ShowPassword
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_Username
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Custom_UsernameInvalid
+import ooniprobe.composeapp.generated.resources.ic_visibility
+import ooniprobe.composeapp.generated.resources.ic_visibility_off
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.CustomProxyProtocol
 import org.ooni.probe.ui.shared.NavigationBackButton
@@ -186,7 +194,34 @@ fun AddProxyScreen(
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Password,
                 ),
-                visualTransformation = PasswordVisualTransformation(),
+                visualTransformation = if (state.isPasswordVisible) {
+                    VisualTransformation.None
+                } else {
+                    PasswordVisualTransformation()
+                },
+                trailingIcon = {
+                    IconButton(
+                        onClick = { onEvent(AddProxyViewModel.Event.TogglePasswordVisibility) },
+                        modifier = Modifier.testTag("AddProxy-TogglePasswordVisibility"),
+                    ) {
+                        Icon(
+                            painter = painterResource(
+                                if (state.isPasswordVisible) {
+                                    Res.drawable.ic_visibility_off
+                                } else {
+                                    Res.drawable.ic_visibility
+                                },
+                            ),
+                            contentDescription = stringResource(
+                                if (state.isPasswordVisible) {
+                                    Res.string.Settings_Proxy_Custom_HidePassword
+                                } else {
+                                    Res.string.Settings_Proxy_Custom_ShowPassword
+                                },
+                            ),
+                        )
+                    }
+                },
                 maxLines = 1,
                 isError = state.showPasswordAsInvalid,
                 supportingText = {
