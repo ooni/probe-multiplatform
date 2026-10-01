@@ -135,7 +135,7 @@ android-test-runner = { module = "androidx.test:runner", version = "1.7.0" }
 android-test-rules = { module = "androidx.test:rules", version = "1.7.0" }
 androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test", version.ref = "compose-ui" }
 androidx-compose-test-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "compose-ui" }
-androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.6.1" }
+androidx-espresso-web = { module = "androidx.test.espresso:espresso-web", version = "3.7.0" }
 fastlane-screengrab = { module = "tools.fastlane:screengrab", version = "2.1.1" }
 
 # JNA
