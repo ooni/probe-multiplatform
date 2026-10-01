@@ -1,5 +1,7 @@
 package org.ooni.probe.data.models
 
+import io.ktor.http.URLBuilder
+
 sealed class ProxyOption(
     val value: String,
 ) {
@@ -10,6 +12,16 @@ sealed class ProxyOption(
     data class Custom(
         val customValue: String,
     ) : ProxyOption(customValue) {
+        val displayValue: String
+            get() = runCatching {
+                URLBuilder(customValue)
+                    .apply {
+                        if (!encodedPassword.isNullOrEmpty()) {
+                            encodedPassword = "***"
+                        }
+                    }.buildString()
+            }.getOrDefault(customValue)
+
         companion object {
             fun build(
                 protocol: String,
