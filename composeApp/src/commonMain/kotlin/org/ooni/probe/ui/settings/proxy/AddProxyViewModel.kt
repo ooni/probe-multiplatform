@@ -106,6 +106,14 @@ class AddProxyViewModel(
             }.launchIn(viewModelScope)
 
         events
+            .filterIsInstance<Event.TogglePasswordVisibility>()
+            .onEach {
+                _state.update { state ->
+                    state.copy(isPasswordVisible = !state.isPasswordVisible)
+                }
+            }.launchIn(viewModelScope)
+
+        events
             .filterIsInstance<Event.BackClicked>()
             .onEach { onBack() }
             .launchIn(viewModelScope)
@@ -125,6 +133,7 @@ class AddProxyViewModel(
         val showUsernameAsInvalid: Boolean = false,
         val password: String = "",
         val showPasswordAsInvalid: Boolean = false,
+        val isPasswordVisible: Boolean = false,
     )
 
     sealed interface Event {
@@ -149,6 +158,8 @@ class AddProxyViewModel(
         data class PasswordChanged(
             val password: String,
         ) : Event
+
+        data object TogglePasswordVisibility : Event
 
         data object SaveClicked : Event
     }
