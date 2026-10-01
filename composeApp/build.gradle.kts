@@ -111,6 +111,7 @@ kotlin {
             kotlin.srcDir("src/${selectedAndroidFlavorDir()}/kotlin")
             dependencies {
                 implementation(libs.compose.ui.tooling.preview)
+                implementation(libs.compose.ui.tooling)
                 implementation(libs.bundles.android)
                 implementation(libs.bundles.mobile)
                 implementation("${libs.jna.asProvider().get()}@aar")
