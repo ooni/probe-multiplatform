@@ -30,15 +30,17 @@ class MeasurementViewModel(
     init {
         viewModelScope.launch {
             val measurement = getMeasurement(measurementId).first()
-            val url = measurement?.webViewUrl ?: run {
+            val webViewUrl = measurement?.webViewUrl
+            val explorerUrl = measurement?.explorerUrl
+            if (webViewUrl == null || explorerUrl == null) {
                 onBack()
                 return@launch
             }
 
             if (isWebViewAvailable()) {
-                _state.value = State.ShowMeasurement(url)
+                _state.value = State.ShowMeasurement(webViewUrl = webViewUrl, explorerUrl = explorerUrl)
             } else {
-                openUrl(url)
+                openUrl(webViewUrl)
                 onBack()
             }
         }
@@ -52,8 +54,8 @@ class MeasurementViewModel(
             .filterIsInstance<Event.ShareUrl>()
             .onEach {
                 val state = _state.value as? State.ShowMeasurement ?: return@onEach
-                if (!shareUrl(state.url)) {
-                    _state.value = state.copy(copyMessageToClipboard = state.url)
+                if (!shareUrl(state.explorerUrl)) {
+                    _state.value = state.copy(copyMessageToClipboard = state.explorerUrl)
                 }
             }.launchIn(viewModelScope)
 
@@ -73,7 +75,8 @@ class MeasurementViewModel(
         data object CheckingWebViewAvailability : State
 
         data class ShowMeasurement(
-            val url: String,
+            val webViewUrl: String,
+            val explorerUrl: String,
             val copyMessageToClipboard: String? = null,
         ) : State
     }
