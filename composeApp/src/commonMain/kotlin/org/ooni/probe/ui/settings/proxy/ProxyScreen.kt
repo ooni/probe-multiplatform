@@ -108,7 +108,7 @@ fun ProxyScreen(
                                 text = when (item.option) {
                                     ProxyOption.None -> stringResource(Res.string.Settings_Proxy_None)
                                     ProxyOption.Psiphon -> stringResource(Res.string.Settings_Proxy_Psiphon)
-                                    is ProxyOption.Custom -> item.option.value
+                                    is ProxyOption.Custom -> item.option.displayValue
                                 },
                                 style = MaterialTheme.typography.bodyLarge,
                             )
@@ -228,7 +228,7 @@ private fun DeleteConfirmationDialog(
             Text(
                 stringResource(
                     Res.string.Settings_Proxy_Delete_Confirmation,
-                    option.value,
+                    option.displayValue,
                 ),
             )
         },
