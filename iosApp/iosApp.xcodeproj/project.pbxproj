@@ -21,7 +21,9 @@
 		795E377B2CD5053900086360 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 795E377A2CD5053900086360 /* Base */; };
 		795E377F2CD5053900086360 /* share.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 795E37752CD5053900086360 /* share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		79B9D19A2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */; };
+		A1D5E0022E8F000000C0FFEE /* IosResolverTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D5E0012E8F000000C0FFEE /* IosResolverTypeFinder.swift */; };
 		79B9D19B2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */; };
+		A1D5E0032E8F000000C0FFEE /* IosResolverTypeFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D5E0012E8F000000C0FFEE /* IosResolverTypeFinder.swift */; };
 		79FBD00D2C5A70AF004E041C /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		79FBD00E2C5A70AF004E041C /* IosOonimkallBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */; };
 		79FBD00F2C5A70AF004E041C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
@@ -96,6 +98,7 @@
 		795E377C2CD5053900086360 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79A29BC42C9045A80052C9D0 /* OONIProbe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OONIProbe.entitlements; sourceTree = "<group>"; };
 		79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosNetworkTypeFinder.swift; sourceTree = "<group>"; };
+		A1D5E0012E8F000000C0FFEE /* IosResolverTypeFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosResolverTypeFinder.swift; sourceTree = "<group>"; };
 		79C8D8D4BE12EB4A29D8332D /* Pods-NewsMediaScanUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsMediaScanUITests.release.xcconfig"; path = "Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests.release.xcconfig"; sourceTree = "<group>"; };
 		79D0E9392D0360A500F7DE42 /* OONIProbeRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OONIProbeRelease.entitlements; sourceTree = "<group>"; };
 		79FBD01A2C5A70AF004E041C /* News Media Scan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "News Media Scan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -311,6 +314,7 @@
 			children = (
 				93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */,
 				79B9D1992C6552DE004DCEE6 /* IosNetworkTypeFinder.swift */,
+				A1D5E0012E8F000000C0FFEE /* IosResolverTypeFinder.swift */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -871,6 +875,7 @@
 			files = (
 				793F99462CE646DE0094FAFC /* IosBackgroundRunner.swift in Sources */,
 				79B9D19A2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */,
+				A1D5E0022E8F000000C0FFEE /* IosResolverTypeFinder.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */,
 				935409952F4CCC280055415F /* IosPassportBridge.swift in Sources */,
@@ -907,6 +912,7 @@
 			files = (
 				793F99472CE646DE0094FAFC /* IosBackgroundRunner.swift in Sources */,
 				79B9D19B2C6552DE004DCEE6 /* IosNetworkTypeFinder.swift in Sources */,
+				A1D5E0032E8F000000C0FFEE /* IosResolverTypeFinder.swift in Sources */,
 				79FBD00D2C5A70AF004E041C /* iOSApp.swift in Sources */,
 				79FBD00E2C5A70AF004E041C /* IosOonimkallBridge.swift in Sources */,
 				935409942F4CCC280055415F /* IosPassportBridge.swift in Sources */,

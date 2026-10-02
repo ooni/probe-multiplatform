@@ -3,7 +3,7 @@
 # Variables
 COMPILER = clang
 # Shared source files for the unified DesktopBridge library
-DESKTOP_BRIDGE_FILES_MAC = c/NetworkTypeFinder.m c/MacDockVisibility.m
+DESKTOP_BRIDGE_FILES_MAC = c/NetworkTypeFinder.m c/MacDockVisibility.m c/ResolverTypeFinder.m
 DESKTOP_BRIDGE_FILES_LINUX = c/NetworkTypeFinder.m
 DESKTOP_BRIDGE_FILES_WIN = c/NetworkTypeFinder.m
 UPDATE_FILES_MAC = c/UpdateBridge.c c/SparkeBridge.m

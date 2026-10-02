@@ -12,7 +12,7 @@ import org.ooni.engine.models.ResolverType
  */
 class AndroidResolverTypeFinder(
     private val connectivityManager: ConnectivityManager?,
-    private val networkTypeFinder: NetworkTypeFinder = AndroidNetworkTypeFinder(connectivityManager),
+    private val networkTypeFinder: NetworkTypeFinder,
 ) : ResolverTypeFinder {
     override fun invoke(): ResolverType {
         val networkType = networkTypeFinder()

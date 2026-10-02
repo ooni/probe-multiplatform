@@ -35,12 +35,22 @@ struct iOSApp: App {
 
     @Environment(\.scenePhase)var scenePhase
 
-    let appDependencies = SetupDependencies(
-        oonimkallBridge: IosOonimkallBridge(),
-        passportBridge: IosPassportBridge(),
-        networkTypeFinder: IosNetworkTypeFinder(),
-        backgroundRunner: IosBackgroundRunner()
-    )
+    let appDependencies: SetupDependencies = {
+        let networkTypeFinder = IosNetworkTypeFinder()
+        return SetupDependencies(
+            oonimkallBridge: IosOonimkallBridge(),
+            passportBridge: IosPassportBridge(),
+            networkTypeFinder: networkTypeFinder,
+            buildResolverTypeFinder: { mapper in
+                IosResolverTypeFinder(
+                    networkTypeFinder: networkTypeFinder,
+                    probeDomain: OrganizationConfig.shared.resolverProbeDomain,
+                    mapper: mapper
+                )
+            },
+            backgroundRunner: IosBackgroundRunner()
+        )
+    }()
 
     let deepLinkFlow: Kotlinx_coroutines_coreMutableSharedFlow
     init() {

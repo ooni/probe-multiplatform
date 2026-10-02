@@ -7,8 +7,12 @@ import dev.dirs.ProjectDirectories
 import io.github.vinceglb.autolaunch.AutoLaunch
 import kotlinx.coroutines.asCoroutineDispatcher
 import okio.Path.Companion.toPath
+import org.ooni.engine.DefaultResolverTypeFinder
 import org.ooni.engine.DesktopNetworkTypeFinder
+import org.ooni.engine.DesktopResolverTypeFinder
+import org.ooni.engine.ResolverTypeMapper
 import org.ooni.engine.NetworkTypeFinder
+import org.ooni.engine.ResolverTypeFinder
 import org.ooni.engine.OonimkallBridge
 import org.ooni.engine.createDesktopSecureStorage
 import org.ooni.probe.config.DesktopOrganizationConfig
@@ -25,6 +29,7 @@ import org.ooni.probe.data.buildDatabaseDriver
 import org.ooni.probe.data.models.BatteryState
 import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.Distribution
 import org.ooni.probe.shared.LanguageSupport
 import org.ooni.probe.shared.Platform
@@ -94,6 +99,7 @@ internal fun buildDependencies(
     platformInfo: PlatformInfo = buildPlatformInfo(),
     oonimkallBridge: OonimkallBridge = DesktopOonimkallBridge(),
     networkTypeFinder: NetworkTypeFinder = DesktopNetworkTypeFinder(),
+    buildResolverTypeFinder: (NetworkTypeFinder, ResolverTypeMapper) -> ResolverTypeFinder = ::buildResolverTypeFinder,
     secureStorageAppId: String = DesktopOrganizationConfig.appId,
     dataStoreFile: File = File(dataDir).resolve("probe.preferences_pb"),
     batteryState: BatteryState = BatteryState.Unknown,
@@ -112,6 +118,7 @@ internal fun buildDependencies(
         cacheDir = cacheDir,
         databaseDriverFactory = { buildDatabaseDriver(dataDir) },
         networkTypeFinder = networkTypeFinder,
+        buildResolverTypeFinder = buildResolverTypeFinder,
         secureStorage = createDesktopSecureStorage(platform.os, secureStorageAppId, DesktopOrganizationConfig.baseSoftwareName),
         buildDataStore = { PreferenceDataStoreFactory.create { dataStoreFile } },
         getBatteryState = { batteryState },
@@ -173,6 +180,24 @@ internal fun buildPlatformInfo(): PlatformInfo {
         installerStore = Distribution.current.name,
     )
 }
+
+/**
+ * On macOS Private DNS is detected from the DNS transport observed by Network.framework.
+ * Other desktop platforms fall back to [DefaultResolverTypeFinder].
+ */
+private fun buildResolverTypeFinder(
+    networkTypeFinder: NetworkTypeFinder,
+    resolverTypeMapper: ResolverTypeMapper,
+): ResolverTypeFinder =
+    if (platform.os == DesktopOS.Mac) {
+        DesktopResolverTypeFinder(
+            networkTypeFinder = networkTypeFinder,
+            probeDomain = DesktopOrganizationConfig.resolverProbeDomain,
+            mapper = resolverTypeMapper,
+        )
+    } else {
+        DefaultResolverTypeFinder(networkTypeFinder)
+    }
 
 private fun formatBytes(bytes: Long): String {
     val gib = bytes.toDouble() / (1024 * 1024 * 1024)
